@@ -35,7 +35,8 @@ public sealed class AdrsConfig
     private static readonly Regex CodeRe = new Regex("^[A-Z]{2,4}(-[A-Z]{2,4})?$", RegexOptions.Compiled);
     private static readonly Regex KindRe = new Regex("^[A-Z]{2,4}$", RegexOptions.Compiled);
 
-    // The record kinds when adrs.yml declares none: the one shared kind ADR (ADR-REPO-ADRCODE-PATHOFSEGMENTS).
+    // The record kinds when adrs.yml declares none: the one shared kind ADR
+    // ([ADR-REPO-ADRCODE-PATHOFSEGMENTS](/docs/adr/repository/adr-code-language.md#rule-adr-repo-adrcode-pathofsegments)).
     public const string DefaultKind = "ADR";
 
     // The rows of the value-chain stack, top to bottom ([ADR-DSGN-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainstack)).
@@ -51,7 +52,8 @@ public sealed class AdrsConfig
     public IReadOnlyList<string> Kinds { get; }
     public IReadOnlyList<string> SharedKinds { get; }
 
-    // The code grammar over these kinds, which every parser of a code reads (ADR-REPO-ADRCODE-PATHOFSEGMENTS).
+    // The code grammar over these kinds, which every parser of a code reads
+    // ([ADR-REPO-ADRCODE-PATHOFSEGMENTS](/docs/adr/repository/adr-code-language.md#rule-adr-repo-adrcode-pathofsegments)).
     public AdrCodeForm CodeForm { get; }
     private readonly Dictionary<string, string> kindNames = new Dictionary<string, string>(StringComparer.Ordinal);
 
@@ -151,7 +153,8 @@ public sealed class AdrsConfig
 
             CheckKeys(d, AllowedDomainKeys, string.Format("domain '{0}'", name), errors);
 
-            // A shared kind's domains each add a code; a kind one domain owns stands for it, with no code (ADR-REPO-ADRCODE-DOMAINSEGMENT).
+            // A shared kind's domains each add a code; a kind one domain owns stands for it, with no code
+            // ([ADR-REPO-ADRCODE-DOMAINSEGMENT](/docs/adr/repository/adr-code-language.md#rule-adr-repo-adrcode-domainsegment)).
             string domainKind = d.Contains("kind") && d["kind"] != null ? d["kind"].ToString() : DefaultKind;
             bool shared = sharedKinds.Contains(domainKind);
             if (!kinds.Contains(domainKind))

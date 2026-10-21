@@ -1,36 +1,36 @@
 # ADR: DORA — Customer feedback
 
-## Rules: ADR-DORA-FEEDBACK
+## Rules: RDR-DORA-FEEDBACK
 
-### Rule ADR-DORA-FEEDBACK-FEEDBACKBEFOREFEATURES
+### Rule RDR-DORA-FEEDBACK-FEEDBACKBEFOREFEATURES
 
 Gather feedback from the customer before defining any candidate feature, and use it to validate that the problem is real before a solution
 is designed for it. A feature justified by an assumption about the customer, not by evidence from the customer, has not cleared the bar.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-FEEDBACK-ITERATETOWARDSOLUTION
+### Rule RDR-DORA-FEEDBACK-ITERATETOWARDSOLUTION
 
 Once a real problem is confirmed, iterate toward a solution that solves that problem and nothing more, and check its business viability
 before committing further work to it. Scope grows from validated need, not from the size of the idea.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-FEEDBACK-OUTCOMEMETRICS
+### Rule RDR-DORA-FEEDBACK-OUTCOMEMETRICS
 
 Judge success by outcome metrics — for example acquisition, activation, retention, referral, and revenue (AARRR) — never by whether a
 feature shipped. Shipping is an input to the outcome, not the outcome itself.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-FEEDBACK-REGULARSATISFACTION
+### Rule RDR-DORA-FEEDBACK-REGULARSATISFACTION
 
 Collect customer satisfaction metrics on a regular cadence, and keep them updated and broadcast rather than gathered once and filed away. A
 metric nobody sees cannot inform a design decision.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-FEEDBACK-ACTONFEEDBACK
+### Rule RDR-DORA-FEEDBACK-ACTONFEEDBACK
 
 Act on feedback even when it is inconvenient, and never structure a team so that it is blocked from acting on what it learns. Feedback that
 cannot change a decision is a ritual, not a capability.

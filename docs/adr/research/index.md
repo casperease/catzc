@@ -41,49 +41,49 @@ its summary article and rule domain.
 
 ### AI
 
-- [AI-accessible internal data](ai-accessible-internal-data.md) — `ADR-DORA-AIDATA`
-- [Clear and communicated AI stance](clear-and-communicated-ai-stance.md) — `ADR-DORA-AISTANCE`
-- [Healthy data ecosystems](healthy-data-ecosystems.md) — `ADR-DORA-DATAECO`
-- [Platform engineering](platform-engineering.md) — `ADR-DORA-PLATFORM`
-- [User-centric focus](user-centric-focus.md) — `ADR-DORA-USERFOCUS`
+- [AI-accessible internal data](ai-accessible-internal-data.md) — `RDR-DORA-AIDATA`
+- [Clear and communicated AI stance](clear-and-communicated-ai-stance.md) — `RDR-DORA-AISTANCE`
+- [Healthy data ecosystems](healthy-data-ecosystems.md) — `RDR-DORA-DATAECO`
+- [Platform engineering](platform-engineering.md) — `RDR-DORA-PLATFORM`
+- [User-centric focus](user-centric-focus.md) — `RDR-DORA-USERFOCUS`
 
 ### Climate for learning
 
-- [Code maintainability](code-maintainability.md) — `ADR-DORA-MAINTAIN`
-- [Documentation quality](documentation-quality.md) — `ADR-DORA-DOCS`
-- [Empowering teams to choose tools](teams-empowered-to-choose-tools.md) — `ADR-DORA-TOOLCHOICE`
-- [Generative organizational culture](generative-organizational-culture.md) — `ADR-DORA-CULTURE`
-- [Job satisfaction](job-satisfaction.md) — `ADR-DORA-JOBSAT`
-- [Learning culture](learning-culture.md) — `ADR-DORA-LEARNING`
-- [Team experimentation](team-experimentation.md) — `ADR-DORA-EXPERIMENT`
-- [Transformational leadership](transformational-leadership.md) — `ADR-DORA-LEADERSHIP`
-- [Well-being](well-being.md) — `ADR-DORA-WELLBEING`
+- [Code maintainability](code-maintainability.md) — `RDR-DORA-MAINTAIN`
+- [Documentation quality](documentation-quality.md) — `RDR-DORA-DOCS`
+- [Empowering teams to choose tools](teams-empowered-to-choose-tools.md) — `RDR-DORA-TOOLCHOICE`
+- [Generative organizational culture](generative-organizational-culture.md) — `RDR-DORA-CULTURE`
+- [Job satisfaction](job-satisfaction.md) — `RDR-DORA-JOBSAT`
+- [Learning culture](learning-culture.md) — `RDR-DORA-LEARNING`
+- [Team experimentation](team-experimentation.md) — `RDR-DORA-EXPERIMENT`
+- [Transformational leadership](transformational-leadership.md) — `RDR-DORA-LEADERSHIP`
+- [Well-being](well-being.md) — `RDR-DORA-WELLBEING`
 
 ### Fast flow
 
-- [Continuous delivery](continuous-delivery.md) — `ADR-DORA-CD`
-- [Database change management](database-change-management.md) — `ADR-DORA-DBCHANGE`
-- [Deployment automation](deployment-automation.md) — `ADR-DORA-DEPLOY`
-- [Flexible infrastructure](flexible-infrastructure.md) — `ADR-DORA-FLEXINFRA`
-- [Loosely coupled teams](loosely-coupled-teams.md) — `ADR-DORA-LOOSETEAMS`
-- [Streamlining change approval](streamlining-change-approval.md) — `ADR-DORA-APPROVAL`
-- [Trunk-based development](trunk-based-development.md) — `ADR-DORA-TRUNK`
-- [Version control](version-control.md) — `ADR-DORA-VCS`
-- [Visual management](visual-management.md) — `ADR-DORA-VISUAL`
-- [Work in process limits](wip-limits.md) — `ADR-DORA-WIP`
-- [Working in small batches](working-in-small-batches.md) — `ADR-DORA-SMALLBATCH`
+- [Continuous delivery](continuous-delivery.md) — `RDR-DORA-CD`
+- [Database change management](database-change-management.md) — `RDR-DORA-DBCHANGE`
+- [Deployment automation](deployment-automation.md) — `RDR-DORA-DEPLOY`
+- [Flexible infrastructure](flexible-infrastructure.md) — `RDR-DORA-FLEXINFRA`
+- [Loosely coupled teams](loosely-coupled-teams.md) — `RDR-DORA-LOOSETEAMS`
+- [Streamlining change approval](streamlining-change-approval.md) — `RDR-DORA-APPROVAL`
+- [Trunk-based development](trunk-based-development.md) — `RDR-DORA-TRUNK`
+- [Version control](version-control.md) — `RDR-DORA-VCS`
+- [Visual management](visual-management.md) — `RDR-DORA-VISUAL`
+- [Work in process limits](wip-limits.md) — `RDR-DORA-WIP`
+- [Working in small batches](working-in-small-batches.md) — `RDR-DORA-SMALLBATCH`
 
 ### Fast feedback
 
-- [Continuous integration](continuous-integration.md) — `ADR-DORA-CI`
-- [Customer feedback](customer-feedback.md) — `ADR-DORA-FEEDBACK`
-- [Monitoring and observability](monitoring-and-observability.md) — `ADR-DORA-OBSERV`
-- [Monitoring systems to inform business decisions](monitoring-systems.md) — `ADR-DORA-MONITOR`
-- [Pervasive security](pervasive-security.md) — `ADR-DORA-SECURITY`
-- [Proactive failure notification](proactive-failure-notification.md) — `ADR-DORA-FAILALERT`
-- [Test automation](test-automation.md) — `ADR-DORA-TESTAUTO`
-- [Test data management](test-data-management.md) — `ADR-DORA-TESTDATA`
-- [Visibility of work in the value stream](work-visibility-in-value-stream.md) — `ADR-DORA-WORKVIS`
+- [Continuous integration](continuous-integration.md) — `RDR-DORA-CI`
+- [Customer feedback](customer-feedback.md) — `RDR-DORA-FEEDBACK`
+- [Monitoring and observability](monitoring-and-observability.md) — `RDR-DORA-OBSERV`
+- [Monitoring systems to inform business decisions](monitoring-systems.md) — `RDR-DORA-MONITOR`
+- [Pervasive security](pervasive-security.md) — `RDR-DORA-SECURITY`
+- [Proactive failure notification](proactive-failure-notification.md) — `RDR-DORA-FAILALERT`
+- [Test automation](test-automation.md) — `RDR-DORA-TESTAUTO`
+- [Test data management](test-data-management.md) — `RDR-DORA-TESTDATA`
+- [Visibility of work in the value stream](work-visibility-in-value-stream.md) — `RDR-DORA-WORKVIS`
 
 The Core Model's fast-feedback group also names [reliability engineering](../../references/dora/capabilities.md#reliability-engineering),
 which has no capability page on dora.dev and therefore no summary article here.

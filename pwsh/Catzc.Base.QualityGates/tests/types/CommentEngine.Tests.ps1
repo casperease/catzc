@@ -2,23 +2,23 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "222cb1015e42"
+    with_body_sha: c404bd142b37
   edges:
     code: pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs
     cites:
       - ADR-AUTO-IDEM-CHECKBEFOREACTING
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
-      - ADR-PRIN-ONELIVE-ONEVERSION
       - ADR-REPO-CODEMETA-COMMENTSLEAVEHEAD
       - ADR-REPO-COMMENTS-ONELINEOFINSIGHT
       - ADR-REPO-COMMENTS-MOVELOSESNOTHING
       - ADR-REPO-COMMENTS-COMMENTPAGEPLACE
       - ADR-REPO-COMMENTS-INLINEVIEWGENERATED
       - ADR-REPO-COMMENTS-MOVEDBYTOOL
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - PDR-ONELIVE-ONEVERSION
 ---
 #>
 
-# Rests on [ADR-PRIN-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive-oneversion).
+# Rests on [PDR-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-pdr-onelive-oneversion).
 # cspell:ignore nwidgets npublic nvar nwidget ngadget gadgt wdgt -- escape-sequence artifacts in the "`n…" fixture strings, and the deliberate misspelling a kept cspell directive covers
 Describe 'CommentEngine' -Tag 'L0', 'logic' {
     BeforeAll {
@@ -41,7 +41,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         ) -join "`n"
     }
 
-    It 'finds the line runs with enough prose, not the kept heads, short ones, or trailing comments' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+    It 'finds the line runs with enough prose, not the kept heads, short ones, or trailing comments' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         $blocks = [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($source, '.ps1', 'powershell', $config)
         $blocks.Count | Should -Be 1
         $blocks[0].Kind | Should -Be ([Catzc.Base.QualityGates.CommentBlockKind]::LineRun)
@@ -238,7 +238,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml', [Catzc.Base.QualityGates.CommentsConfig]::new(@{})).Count | Should -Be 1
     }
 
-    It 'keeps a block whose head the language keeps, and moves nothing below min_lines' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+    It 'keeps a block whose head the language keeps, and moves nothing below min_lines' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         $kept = [Catzc.Base.QualityGates.CommentsConfig]::new(@{ keep = @{ yaml = @('# widget-schema:') }; min_lines = 3 })
         $yaml = "# widget-schema: gadget`n# second line`n# third line`nwidget: 1`n# two lines`n# only`ngadget: 2`n"
         [Catzc.Base.QualityGates.CommentEngine]::FindBlocks($yaml, '.yml', 'yaml', $kept).Count | Should -Be 0

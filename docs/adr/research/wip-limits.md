@@ -1,36 +1,36 @@
 # ADR: DORA — Work in process limits
 
-## Rules: ADR-DORA-WIP
+## Rules: RDR-DORA-WIP
 
-### Rule ADR-DORA-WIP-WIPLIMIT
+### Rule RDR-DORA-WIP-WIPLIMIT
 
 A work in process (WIP) limit caps how much work is simultaneously assigned to a team member or sits in a workflow stage at once, so effort
 concentrates on finishing a small number of high-priority items rather than spreading across many concurrent ones.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-WIP-VISUALIZEFIRST
+### Rule RDR-DORA-WIP-VISUALIZEFIRST
 
 Visualize the work before limiting it. A board with a column per workflow stage — analysis, development, testing, operations — is the
 precondition a WIP limit needs, because a limit on invisible work cannot be enforced or checked.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-WIP-SIZETOCAPACITY
+### Rule RDR-DORA-WIP-SIZETOCAPACITY
 
 Size each column's limit to the real capacity of the people who work it, not to an aspirational or round number — for example, four pairs of
 developers implies a development-column limit of four, not more.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-WIP-HOLDTHELIMIT
+### Rule RDR-DORA-WIP-HOLDTHELIMIT
 
 Hold the limit once set, including through the idle time it sometimes produces. Idle time is a signal to fix the process causing the delay,
 never a reason to raise the limit back up.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-WIP-IMPOSEDNOTMEASURED
+### Rule RDR-DORA-WIP-IMPOSEDNOTMEASURED
 
 Treat the limit itself as something imposed, not measured. What gets measured is its effect — mean lead time and its variability, whether
 flow is increasing, whether obstacles surface, and whether the resulting actions target the real constraint.

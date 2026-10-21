@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "06df3f309c14"
+    with_body_sha: "78565f5701d8"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestRuleTags.Tests.ps1
     docs: "[Get-TestRuleTags.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestRuleTags.ps1.md)"
@@ -27,10 +27,11 @@ function Get-TestRuleTags {
         $block = $block.Parent
     }
 
+    $form = (Get-Config -Config adrs).CodeForm
     $ids = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($levelTags in $levels) {
         foreach ($tag in $levelTags) {
-            if ($tag -cmatch '^ADR(?:-[A-Z][A-Z0-9]*){3,}$') {
+            if ($form.IsRule($tag)) {
                 [void]$ids.Add($tag)
             }
         }

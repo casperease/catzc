@@ -68,7 +68,7 @@ engine that formats its files, or states in `no_formatter:` why it has none. `Fo
 vendored code, contract assets (`catzc-contract`, whose bytes a contract check compares and a released version freezes,
 [ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](api-contracts.md#rule-adr-repo-contract-releasedimmutable)), and the files `.gitattributes` marks
 `binary`, such as the generated output under `pwsh/.compiled`, which git stores as bytes, not text; `Test-Formatting` checks the same
-entries — there is no formatting command per language and no list of formatters in a check (ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG). An
+entries — there is no formatting command per language and no list of formatters in a check (PDR-CONFIG-VARYINGBEHAVIOURISCONFIG). An
 engine's entry also lists its `settings:`, and those entries are its whole cache stamp: its own settings files and the `tools.yml` keys of
 the tools it runs, nothing else, so another tool's pin edit leaves its results warm
 ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)). The registry lists,

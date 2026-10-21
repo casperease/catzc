@@ -6,10 +6,10 @@
 #     docs: "[comments.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/comments.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-#       - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
-#       - ADR-PRIN-ONELIVE-ONEVERSION
 #       - ADR-REPO-CODEMETA-COMMENTSLEAVEHEAD
 #       - ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION
+#       - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
+#       - PDR-ONELIVE-ONEVERSION
 # ---
 
 languages: [powershell, yaml, pipeline-yaml, bcl, bicep]

@@ -20,7 +20,7 @@ member throws, naming it. The group name and the timeout default on the config t
 [Apply the prod-tier approvals](../../../how-to/automation/apply-environment-approvals.md).
 
 The approvals are Azure DevOps configuration, an adjacent store
-([ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../../../adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord)):
+([TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../../../adr/thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)):
 this apply drives them one way from the repository, and nobody edits them beside the trunk.
 
 ### parameter `Project`

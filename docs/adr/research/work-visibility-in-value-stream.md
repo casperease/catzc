@@ -1,8 +1,8 @@
 # ADR: DORA — Visibility of work in the value stream
 
-## Rules: ADR-DORA-WORKVIS
+## Rules: RDR-DORA-WORKVIS
 
-### Rule ADR-DORA-WORKVIS-ENDTOENDFLOW
+### Rule RDR-DORA-WORKVIS-ENDTOENDFLOW
 
 Make the flow of work visible end to end, from business intent through to the customer, not only at the station a team happens to own.
 Visibility of work means understanding how work moves through the whole value stream and having visibility into that flow, including product
@@ -10,14 +10,14 @@ and feature status.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-WORKVIS-SHAREDDISPLAY
+### Rule RDR-DORA-WORKVIS-SHAREDDISPLAY
 
 Keep the current state of work on a shared, visual display or dashboard that anyone can read, rather than reconstructing it from memory, a
 status meeting, or a chat thread. Information about the flow of product development work stays readily available, not gathered on request.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-WORKVIS-MAPWITHSTAKEHOLDERS
+### Rule RDR-DORA-WORKVIS-MAPWITHSTAKEHOLDERS
 
 Map the value stream with the cross-functional stakeholders who actually do the work, covering the whole stream end to end rather than one
 team's segment of it, and record lead time, process time, and percent complete and accurate at each step. Re-run the mapping exercise
@@ -25,14 +25,14 @@ periodically rather than treating one map as permanent.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-WORKVIS-DRIVESPERFORMANCE
+### Rule RDR-DORA-WORKVIS-DRIVESPERFORMANCE
 
 Treat visibility of work as a driver of organizational performance as well as delivery performance — profitability, market share, and
 productivity — not merely a delivery-team convenience.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-WORKVIS-TARGETBOTTLENECK
+### Rule RDR-DORA-WORKVIS-TARGETBOTTLENECK
 
 Direct improvement effort at the bottleneck the value-stream map actually shows, and grant the team the authority to change it, rather than
 assuming the organization already understands its own stream or polishing the step that is easiest to see.

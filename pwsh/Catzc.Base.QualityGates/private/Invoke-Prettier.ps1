@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-Prettier.Tests.ps1
     docs: "[Invoke-Prettier.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-Prettier.ps1.md)"
     cites:
-      - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
+      - PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE
 ---
 #>
 

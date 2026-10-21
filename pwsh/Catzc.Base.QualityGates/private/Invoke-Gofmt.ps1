@@ -8,7 +8,7 @@ catzc:
     docs: "[Invoke-Gofmt.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-Gofmt.ps1.md)"
     cites:
       - ADR-AUTO-GO
-      - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
+      - PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE
 ---
 #>
 

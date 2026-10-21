@@ -2,15 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c4057abf4f5f
+    with_body_sha: "9e042e0df8aa"
   edges:
     docs: "[LinksConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/types/LinksConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/types/LinksConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
       - ADR-REPO-LINK-ONECITATIONSPELLING
       - ADR-REPO-LINK-ALIGNEDBYTOOL
+      - PDR-CONFIG-EXCEPTIONISCONFIGENTRY
 ---
 #>
 
@@ -24,7 +24,7 @@ Describe 'LinksConfig' -Tag 'L0', 'logic' {
         $config.string_citations.exempt.Count | Should -Be 0
     }
 
-    It 'maps the string-citation check''s mode and exempt globs' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING', 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+    It 'maps the string-citation check''s mode and exempt globs' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING', 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
         $config = [Catzc.Base.QualityGates.LinksConfig]::new(@{
                 string_citations = [ordered]@{ mode = 'report'; exempt = [ordered]@{ 'src/widget.Tests.ps1' = 'its fixtures' } }
             })

@@ -10,7 +10,7 @@ catzc:
 
 ## Eyebrow
 
-Principle 6 of 6 · ADR-PRIN-ONELIVE
+Principle 6 of 6 · PDR-ONELIVE
 
 ## Body
 

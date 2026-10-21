@@ -8,7 +8,7 @@ catzc:
     docs: "[New-RepositorySnapshot.ps1.md](docs/references/pwsh/catzc-base-git/New-RepositorySnapshot.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
-      - ADR-THES-ONETRUTH
+      - TDR-ONETRUTH
 ---
 #>
 

@@ -8,7 +8,7 @@ catzc:
     docs: "[Test-AdrRegistry.ps1.md](docs/references/pwsh/catzc-base-docs/Test-AdrRegistry.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
 ---
 #>
 

@@ -60,5 +60,5 @@ Above `$configured = @(`, written with `#`.
 
 ```text
 The configured checks: one mode setting each, the same handling for both
-([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)).
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
 ```

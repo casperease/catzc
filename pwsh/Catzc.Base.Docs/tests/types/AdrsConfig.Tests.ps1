@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "64a88f698b8f"
+    with_body_sha: b4b9d323b7e8
   edges:
     docs: "[AdrsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/types/AdrsConfig.cs

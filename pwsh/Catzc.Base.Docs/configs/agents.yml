@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: a3ca2193bf69
+#     with_body_sha: "5503b58dc492"
 #   edges:
 #     docs: "[agents.yml.md](docs/references/pwsh/catzc-base-docs/configs/agents.yml.md)"
 #     cites:
@@ -10,19 +10,8 @@
 #       - ADR-AUTO-TEST-MEASUREFIRST
 #       - ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS
 #       - ADR-AUTO-TEST-QUALITYGATE
-#       - ADR-DORA-VISUAL-DISPLAYPROCESSSTATE
-#       - ADR-DORA-VISUAL-CHOSENWITHTEAM
 #       - ADR-DSGN-VISUAL-LEFTTORIGHTISTIME
 #       - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-#       - ADR-PRIN-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS
-#       - ADR-PRIN-NOWASTE-SEVENWASTES
-#       - ADR-PRIN-ONELIVE-ONEVERSION
-#       - ADR-PRIN-ONELIVE-HISTORYINGIT
-#       - ADR-PRIN-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT
-#       - ADR-PROC-BUILTIN-GATESAREPARTOFWORK
-#       - ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE
-#       - ADR-PROC-PULLWORK-PULLNOTPUSH
-#       - ADR-PROC-PULLWORK-LIMITWORKINPROGRESS
 #       - ADR-REPO-AGENTS
 #       - ADR-REPO-AI
 #       - ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY
@@ -38,6 +27,17 @@
 #       - ADR-REPO-SLIDES-DECLARATION
 #       - ADR-REPO-SLIDES-TWODIRECTIONS
 #       - ADR-REPO-VOCAB-DEFINEDTERM
+#       - PDR-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS
+#       - PDR-NOWASTE-SEVENWASTES
+#       - PDR-ONELIVE-ONEVERSION
+#       - PDR-ONELIVE-HISTORYINGIT
+#       - PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT
+#       - RDR-DORA-VISUAL-DISPLAYPROCESSSTATE
+#       - RDR-DORA-VISUAL-CHOSENWITHTEAM
+#       - WDR-BUILTIN-GATESAREPARTOFWORK
+#       - WDR-KAIZEN-ADAPTFROMEVIDENCE
+#       - WDR-PULLWORK-PULLNOTPUSH
+#       - WDR-PULLWORK-LIMITWORKINPROGRESS
 # ---
 
 standard: catzc-worker
@@ -51,7 +51,7 @@ agents:
   # The standard agent: one task from a coordinator's brief, each file verified with the gates before the next.
   - name: catzc-worker
     model_reason: writes code, tests and docs that must pass the analyzer and the gates on the first run, across several files of one brief
-    supported_by: [ADR-REPO-AGENTS-STANDARDWORKER, ADR-PRIN-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT, ADR-PROC-BUILTIN-GATESAREPARTOFWORK]
+    supported_by: [ADR-REPO-AGENTS-STANDARDWORKER, PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT, WDR-BUILTIN-GATESAREPARTOFWORK]
     checks:
       - Invoke-TestFile
       - Test-ScriptAnalyzer
@@ -78,7 +78,7 @@ agents:
 
   # Shows the diagram review state on one shared page; it publishes from out/ and runs no catzc check.
   - name: print-artifacts
-    supported_by: [ADR-DORA-VISUAL-DISPLAYPROCESSSTATE, ADR-DORA-VISUAL-CHOSENWITHTEAM]
+    supported_by: [RDR-DORA-VISUAL-DISPLAYPROCESSSTATE, RDR-DORA-VISUAL-CHOSENWITHTEAM]
     checks: []
 
   # Builds the inspiration module to the inspiration policy.
@@ -89,23 +89,23 @@ agents:
 
   # Measures what a session cost and why, and proposes the changes; it writes only to out/ and runs no catzc check.
   - name: session-cost-audit
-    supported_by: [ADR-PRIN-NOWASTE-SEVENWASTES, ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+    supported_by: [PDR-NOWASTE-SEVENWASTES, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
     checks: []
 
   # Cleans the plans in .claude/plans to the plan rules, one verdict and one file at a time; sonnet because it judges across files.
   - name: plan-clear
-    supported_by: [ADR-REPO-PLANS-DONEPLANDELETED, ADR-PRIN-ONELIVE-ONEVERSION, ADR-PRIN-NOWASTE-SEVENWASTES]
+    supported_by: [ADR-REPO-PLANS-DONEPLANDELETED, PDR-ONELIVE-ONEVERSION, PDR-NOWASTE-SEVENWASTES]
     checks: [Test-Links, Test-Plans]
     model_reason: judging whether a plan's data is in the tree reads several files against each other
 
   # Lands a pasted continuation prompt in the plans, nothing discarded, every done claim checked against the tree.
   - name: plan-intake
-    supported_by: [ADR-PRIN-ONELIVE-HISTORYINGIT, ADR-PRIN-NOWASTE-SEVENWASTES]
+    supported_by: [PDR-ONELIVE-HISTORYINGIT, PDR-NOWASTE-SEVENWASTES]
     checks: [Test-Links]
 
   # Runs a decision round over the plans' open questions: recommendation first, every answer recorded with its outcome.
   - name: plan-decide
-    supported_by: [ADR-PRIN-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS, ADR-PRIN-NOWASTE-SEVENWASTES]
+    supported_by: [PDR-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS, PDR-NOWASTE-SEVENWASTES]
     checks: [Test-Links]
 
   # Runs one gate or test file in the background and brings its verdict back verbatim.
@@ -120,7 +120,7 @@ agents:
 
   # Read-only review of a file set against the rules that govern it, each finding with its rule code.
   - name: adr-reviewer
-    supported_by: [ADR-PROC-BUILTIN-GATESAREPARTOFWORK, ADR-REPO-LINK-ONECITATIONSPELLING]
+    supported_by: [WDR-BUILTIN-GATESAREPARTOFWORK, ADR-REPO-LINK-ONECITATIONSPELLING]
     checks: []
     model_reason: weighs a rule's prose against code across several ADRs and files
 
@@ -138,10 +138,10 @@ agents:
     persona: Jack
     supported_by:
       [
-        ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE,
-        ADR-PRIN-NOWASTE-SEVENWASTES,
+        WDR-KAIZEN-ADAPTFROMEVIDENCE,
+        PDR-NOWASTE-SEVENWASTES,
         ADR-REPO-AI-TRUSTTHETREE,
-        ADR-PRIN-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS,
+        PDR-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS,
       ]
     checks: []
     model_reason:
@@ -151,20 +151,20 @@ agents:
   # Turns the hindsight log's gaps into planned debt reductions, the .claude weight first; edits plans only, never the code they plan for.
   - name: its-a-chore-but-i-will-do-better
     persona: Susan from HR
-    supported_by: [ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE, ADR-PRIN-NOWASTE-SEVENWASTES, ADR-REPO-PLANS-ONETOPICONEFILE, ADR-REPO-PLANS-OPENSTEP]
+    supported_by: [WDR-KAIZEN-ADAPTFROMEVIDENCE, PDR-NOWASTE-SEVENWASTES, ADR-REPO-PLANS-ONETOPICONEFILE, ADR-REPO-PLANS-OPENSTEP]
     checks: [Test-Plans, Format-Code, Test-Links]
     model_reason: groups hindsight lines into debt items across the plans and chooses each item's owning plan and cheapest change
 
   # Makes the test suite faster under the timeouts.yml roofs without losing any test or assertion, one measured file at a time.
   - name: test-optimization
-    supported_by: [ADR-AUTO-TEST-MEASUREFIRST, ADR-AUTO-TEST-SETUPONCE, ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS, ADR-PRIN-NOWASTE-SEVENWASTES]
+    supported_by: [ADR-AUTO-TEST-MEASUREFIRST, ADR-AUTO-TEST-SETUPONCE, ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS, PDR-NOWASTE-SEVENWASTES]
     checks: [Invoke-TestFile, Test-ScriptAnalyzer]
     model_reason: diagnoses where a test's time goes and changes production code without changing what it proves
 
   # Drives the master plan's open chunks through the sessions the user started, by message; implements nothing, spawns nothing.
   - name: implementation-orchestrator
     supported_by:
-      [ADR-REPO-PLANS-MASTERANDTASKS, ADR-PROC-PULLWORK-PULLNOTPUSH, ADR-PROC-PULLWORK-LIMITWORKINPROGRESS, ADR-REPO-AI-NEVERDECIDEFORUSER]
+      [ADR-REPO-PLANS-MASTERANDTASKS, WDR-PULLWORK-PULLNOTPUSH, WDR-PULLWORK-LIMITWORKINPROGRESS, ADR-REPO-AI-NEVERDECIDEFORUSER]
     checks: [Test-Plans]
     model_reason:
       maps every session's free-text reply to a task file and chooses the next chunk against the master's order and the files live sessions
@@ -172,7 +172,7 @@ agents:
 
   # The listen mode's processor: turns the editor's notes into repository-wide plans, never asking whether the editor is right.
   - name: listen-very-carefully-to-doc-changes
-    supported_by: [ADR-REPO-AI-EDITORISFACT, ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-DECISIONSBECOMERULES]
+    supported_by: [ADR-REPO-AI-EDITORISFACT, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-DECISIONSBECOMERULES]
     checks: [Test-Plans, Format-Code]
     model_reason: infers why the editor made an edit and generalises it across doc types into plans the orchestrator runs as fact
 

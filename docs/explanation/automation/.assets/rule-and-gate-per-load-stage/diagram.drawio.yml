@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d54c5dcbb76b
+#     with_body_sha: "53b20df25be9"
 # ---
 
 description:
@@ -13,7 +13,7 @@ about:
     - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
     - ADR-AUTO-BUNDLE-BUNDLEISSESSION
     - ADR-PWSH-ERROR-STOPONERROR
-    - ADR-PRIN-ONELIVE-ONEVERSION
+    - PDR-ONELIVE-ONEVERSION
     - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
     - ADR-REPO-ROOTCFG-FULLYMANAGED
     - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
@@ -79,7 +79,7 @@ content:
       rule: ADR-REPO-ROOTCFG-FULLYMANAGED
     - at: g-shim
       kind: rule
-      rule: ADR-PRIN-ONELIVE-ONEVERSION
+      rule: PDR-ONELIVE-ONEVERSION
     - at: g-session
       kind: rule
       rule: ADR-PWSH-ERROR-STOPONERROR
@@ -110,7 +110,7 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: .claude/.claude/plans
         by:
           - .claude/plans/plan-agent-shortcuts.md
@@ -119,7 +119,7 @@ content:
           - .claude/plans/task-user-runs-and-commits.md
           - .claude/plans/value-of-plan.md
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
       - cell: ado-pipelines/pipelines/.
         by:
@@ -129,7 +129,7 @@ content:
           - ADR-AUTO-BUNDLE-TWOROOTS
           - ADR-BCL-TYPES-JANITORSBYCALLER
           - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
           - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
           - ADR-REPO-ROOTCFG-FULLYMANAGED
@@ -234,7 +234,7 @@ content:
           - ADR-AUTO-BUNDLE-TWOROOTS
           - ADR-BCL-TYPES-JANITORSBYCALLER
           - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
           - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
           - ADR-REPO-ROOTCFG-FULLYMANAGED
@@ -242,7 +242,7 @@ content:
       - cell: pwsh/Catzc.Base.CodeMeta/types
         by:
           - pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Docs/.
         by:
           - pwsh/Catzc.Base.Docs/Get-AdrCitationMap.ps1
@@ -258,7 +258,7 @@ content:
           - ADR-AUTO-BUNDLE-TWOROOTS
           - ADR-BCL-TYPES-JANITORSBYCALLER
           - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
           - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
           - ADR-REPO-ROOTCFG-FULLYMANAGED
@@ -266,14 +266,14 @@ content:
       - cell: pwsh/Catzc.Base.Docs/tests/types
         by:
           - pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrCitationMap.cs
           - pwsh/Catzc.Base.Docs/types/AdrRuleSet.cs
           - pwsh/Catzc.Base.Docs/types/CheckModes.cs
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
       - cell: pwsh/Catzc.Base.Exporter/configs
         by:
@@ -299,7 +299,7 @@ content:
           - pwsh/Catzc.Base.Files/Get-CodeCaller.ps1
           - pwsh/Catzc.Base.Files/Get-InputStamp.ps1
           - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Git/.
         by:
           - pwsh/Catzc.Base.Git/New-GitIgnore.ps1
@@ -351,12 +351,12 @@ content:
           - pwsh/Catzc.Base.QualityGates/Export-Comments.ps1
           - pwsh/Catzc.Base.QualityGates/Get-AdrUsage.ps1
           - pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/comments.yml
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1
@@ -366,17 +366,17 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Test-Comments.Tests.ps1
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.QualityGates/tests/types
         by:
           - pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.QualityGates/types
         by:
           - pwsh/Catzc.Base.QualityGates/types/CommentBlockKind.cs
           - pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs
           - pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Repository/.
         by:
           - pwsh/Catzc.Base.Repository/Assert-SourceTree.ps1
@@ -474,7 +474,7 @@ content:
           - .claude/plans/task-user-runs-and-commits.md
           - .claude/plans/value-of-plan.md
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
       - cell: ado-pipelines/pipeline-yaml
         by:
@@ -484,7 +484,7 @@ content:
           - ADR-AUTO-BUNDLE-TWOROOTS
           - ADR-BCL-TYPES-JANITORSBYCALLER
           - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
           - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
           - ADR-REPO-ROOTCFG-FULLYMANAGED
@@ -587,7 +587,7 @@ content:
           - ADR-AUTO-BUNDLE-TWOROOTS
           - ADR-BCL-TYPES-JANITORSBYCALLER
           - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
           - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
           - ADR-REPO-ROOTCFG-FULLYMANAGED
@@ -622,7 +622,7 @@ content:
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOROOTS
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
           - ADR-REPO-ROOTCFG-FULLYMANAGED
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
@@ -682,7 +682,7 @@ content:
           - ADR-AUTO-BUNDLE-TWOROOTS
           - ADR-BCL-TYPES-JANITORSBYCALLER
           - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
           - ADR-REPO-ROOTCFG-FULLYMANAGED
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
@@ -705,7 +705,7 @@ content:
           - ADR-AUTO-BUNDLE-TWOROOTS
           - ADR-BCL-TYPES-JANITORSBYCALLER
           - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
           - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
           - ADR-REPO-ROOTCFG-FULLYMANAGED
@@ -729,7 +729,7 @@ content:
           - ADR-DSGN-RUNMODE-NEVERCOEXIST
       - cell: DSGN/release
         by:
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: AUTO/build
         by:
           - ADR-AUTO-BUNDLE-BUNDLEISSESSION

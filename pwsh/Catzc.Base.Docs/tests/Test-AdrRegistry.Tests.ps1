@@ -2,18 +2,18 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a1f08adcea2d
+    with_body_sha: "35530bd22c5a"
   edges:
     docs: "[Test-AdrRegistry.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Test-AdrRegistry.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Test-AdrRegistry.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
       - ADR-REPO-ADRCODE-PATHOFSEGMENTS
       - ADR-REPO-ADRCODE-DOMAINSEGMENT
       - ADR-REPO-ADRCODE-NAMEDNOTNUMBERED
       - ADR-REPO-ADRCODE-ONESTRINGONEFACT
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
 ---
 #>
 
@@ -107,7 +107,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         }
     }
 
-    Context 'the configured checks' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+    Context 'the configured checks' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         BeforeEach {
             Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-LEAN`n`nA widget leans on ADR-GA-ONE-APPLY.`n"
         }

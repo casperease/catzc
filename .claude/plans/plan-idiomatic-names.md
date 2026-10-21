@@ -43,7 +43,7 @@ Every decision is a rule of [idiomatic-names](../../docs/adr/automation/idiomati
 - A test folder is its module's normal form in its language's folder case (ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM).
 - Contracts in `0.0.0` use the normal form for the command file name, the module folder, parameters, sets and types; `cats` takes the POSIX
   rendering, kebab (ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE, -NOPLACEMENTFACTS, -CHECKERPERLANGUAGE, -ONEREADER, ADR-REPO-CONTRACT-LAYOUT). No
-  `catzc` version is released, so the draft changes in place with every caller (ADR-PRIN-ONELIVE).
+  `catzc` version is released, so the draft changes in place with every caller (PDR-ONELIVE).
 
 ## Open steps
 

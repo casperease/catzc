@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "86e8c8f2f1d9"
+    with_body_sha: "29e08d3e55d7"
   edges:
     docs: "[Get-ValueChainMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Maps/Get-ValueChainMap.ps1
@@ -11,7 +11,7 @@ catzc:
       - ADR-DSGN-TRACK-VALUECHAINSTACK
       - ADR-DSGN-TRACK-VALUECHAINCONCERN
       - ADR-DSGN-TRACK-VALUECHAINMAP
-      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+      - TDR-ONETRUTH-TRUTHISQUERYABLE
 ---
 #>
 
@@ -42,7 +42,7 @@ Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
         @($map.Cells | Where-Object AdrCount -GT 0).Count | Should -Be 2
     }
 
-    It 'emits JSON with -AsJson' -Tag 'ADR-THES-ONETRUTH-TRUTHISQUERYABLE' {
+    It 'emits JSON with -AsJson' -Tag 'TDR-ONETRUTH-TRUTHISQUERYABLE' {
         $data = Get-ValueChainMap -AsJson | ConvertFrom-Json
         $data.stacks | Should -Be $script:stacks
         @($data.cells).Count | Should -Be ($script:stacks.Count * $script:concerns.Count)

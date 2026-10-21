@@ -2,7 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5364a03dcac8"
+    with_body_sha: "354a9a20b1d0"
+  edges:
+    cites:
+      - ADR-AUTO
 ---
 #>
 
@@ -19,9 +22,14 @@ function Get-ListenCitedRule {
         [string] $Text
     )
 
+    # Every cited ADR or rule: a domain's own prefix (ADR-AUTO) names no record.
+    $adrs = Get-Config -Config adrs
+    $prefixes = [System.Collections.Generic.HashSet[string]]::new([string[]] @($adrs.Domains.Prefix), [System.StringComparer]::Ordinal)
     $codes = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
-    foreach ($match in [regex]::Matches($Text, '\bADR(?:-[A-Z][A-Z0-9]*){2,}\b')) {
-        [void] $codes.Add($match.Value)
+    foreach ($match in [regex]::Matches($Text, "\b$($adrs.CodeForm.Cited)\b")) {
+        if (-not $prefixes.Contains($match.Value)) {
+            [void] $codes.Add($match.Value)
+        }
     }
     [string[]] @($codes)
 }

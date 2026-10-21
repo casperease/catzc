@@ -173,7 +173,7 @@ Routine operations are automation, not documents: building, deploying, and valid
 `Assert-BicepTemplate` functions, run the same way on a devbox and in a pipeline. A scheduled routine is a CRON pipeline invoking an
 idempotent function ([ADR-FLOW-CD-TYPE-CRONISSCHEDULER](../../flow/pipeline-types.md#rule-adr-flow-cd-type-cronisscheduler)). Operational
 state and runbooks never live outside version control
-([ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../../principles/everything-as-code.md#rule-adr-prin-eac-nostateoutsideversioncontrol)), and
+([PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../../principles/everything-as-code.md#rule-pdr-eac-nostateoutsideversioncontrol)), and
 the task guides under `docs/how-to/` — adding a deployable-unit, adding an infrastructure template — are the written procedures for the
 changes that recur.
 
@@ -299,7 +299,7 @@ change; the code is scanned for misconfiguration and secrets; and manual steps a
 #### What OE:05 means here
 
 Everything the infrastructure needs lives in version control
-([ADR-PRIN-EAC-EVERYTHINGINVERSIONCONTROL](../../principles/everything-as-code.md#rule-adr-prin-eac-everythinginversioncontrol)):
+([PDR-EAC-EVERYTHINGINVERSIONCONTROL](../../principles/everything-as-code.md#rule-pdr-eac-everythinginversioncontrol)):
 declarative Bicep under `infrastructure/`, shared modules under `infrastructure/modules/`, and one config per slot under each template's
 `configuration/` ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)). One template
 serves every environment; only its config varies, and a value that another config owns is read by config address, never copied

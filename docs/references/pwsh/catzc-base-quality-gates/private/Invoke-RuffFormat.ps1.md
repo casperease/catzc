@@ -12,7 +12,7 @@ The ruff formatter engine: formats the given Python files with the pinned ruff a
 ### description
 
 One Format-Code engine adapter
-([ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)).
+([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)).
 ruff is pinned in python.yml and runs from the Python test workspace's environment with the workspace's settings (the 140-column line, the
 pinned Python) for every file, wherever it lives (Invoke-PythonWorkspaceTool;
 [ADR-AUTO-PY-EVERYFILELINTED](../../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfilelinted)).

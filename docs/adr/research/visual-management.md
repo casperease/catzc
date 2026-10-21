@@ -1,36 +1,36 @@
 # ADR: DORA — Visual management
 
-## Rules: ADR-DORA-VISUAL
+## Rules: RDR-DORA-VISUAL
 
-### Rule ADR-DORA-VISUAL-DISPLAYPROCESSSTATE
+### Rule RDR-DORA-VISUAL-DISPLAYPROCESSSTATE
 
 Display key information about the team's process — in-progress work, build status, deployment pipeline state, production telemetry — in a
 shared space every team member can reach, rather than leaving it in a private tool, a personal notebook, or someone's head.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-VISUAL-PARTOFCOMBINATION
+### Rule RDR-DORA-VISUAL-PARTOFCOMBINATION
 
 Treat visual management as one leg of a combination, not a standalone practice: a display raises delivery performance when it is paired with
 WIP limits and with feeding production telemetry back into business decisions, not when it stands alone as a dashboard nobody acts on.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-VISUAL-CHOSENWITHTEAM
+### Rule RDR-DORA-VISUAL-CHOSENWITHTEAM
 
 Choose what a display shows together with the team that reads it, and keep each display simple and actionable. A complex display, or one the
 team was never consulted on, does not get read and does not get acted on.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-VISUAL-DISPLAYISMEANS
+### Rule RDR-DORA-VISUAL-DISPLAYISMEANS
 
 Treat the display as a means, never the goal. A team that keeps a dashboard current but does not change its behaviour from what the
 dashboard shows has confused maintaining the display with solving the problem the display exists to surface.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-VISUAL-REVIEWEDONCADENCE
+### Rule RDR-DORA-VISUAL-REVIEWEDONCADENCE
 
 Review every display on a cadence — in a retrospective, ask whether it still gives people the information they need, whether it is up to
 date, and whether anyone is acting on it — and adjust, replace, or retire it as the team's context changes.

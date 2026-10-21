@@ -8,8 +8,8 @@ catzc:
     docs: "[FileCarriersConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/FileCarriersConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
       - ADR-REPO-FILEMETA-HEADPOLICY
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
 ---
 */
 

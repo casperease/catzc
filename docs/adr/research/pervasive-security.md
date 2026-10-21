@@ -1,35 +1,35 @@
 # ADR: DORA — Pervasive security
 
-## Rules: ADR-DORA-SECURITY
+## Rules: RDR-DORA-SECURITY
 
-### Rule ADR-DORA-SECURITY-EVERYONEOWNSSECURITY
+### Rule RDR-DORA-SECURITY-EVERYONEOWNSSECURITY
 
 Treat security as a property everyone building the system owns, not a gate a separate team enforces at the end — security quality is built
 in throughout the lifecycle, the same way test quality is, not inspected in afterward.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-SECURITY-SHIFTLEFT
+### Rule RDR-DORA-SECURITY-SHIFTLEFT
 
 Shift security left: raise a security concern at design time, when it costs a conversation, rather than at release time, when it costs an
 architectural change.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-SECURITY-SECUREPATHAUTOMATED
+### Rule RDR-DORA-SECURITY-SECUREPATHAUTOMATED
 
 Make the secure path the automated path — preapproved libraries and toolchains, and security tests embedded in continuous integration — so
 verification scales without a manual review on every change.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-SECURITY-WHOLELIFECYCLE
+### Rule RDR-DORA-SECURITY-WHOLELIFECYCLE
 
 Keep InfoSec engaged across the whole lifecycle — design, demos, code review, test, and release — not at a single checkpoint near delivery.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-SECURITY-MEASUREDLIKEDELIVERY
+### Rule RDR-DORA-SECURITY-MEASUREDLIKEDELIVERY
 
 Measure security integration the same way delivery performance is measured — review coverage, lifecycle involvement, automated test
 coverage, and approved-tool adoption — rather than treating a passed audit as proof the capability exists.

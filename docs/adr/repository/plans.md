@@ -90,7 +90,7 @@ folder to the shape this ADR states.
 A plan that narrates what happened grows without bound and is wrong a week later. A plan that holds the delta is short by construction: when
 a step lands, it is deleted and the plan keeps only what is still open; when the last step lands, the plan goes. The record of what happened
 is `git log` on the plan and on the files it changed
-([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-historyingit)).
+([one-living-version](../principles/one-living-version.md#rule-pdr-onelive-historyingit)).
 
 ### One head, one overlay
 
@@ -109,7 +109,7 @@ sub-agent can take one step cold. Carried text, a draft or a paste kept verbatim
 ### Done is deleted
 
 Keeping a finished plan "for the record" is the habit this repository does not have
-([one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-nodeadcode)). The one line in `value-of-plan.md` says what
+([one-living-version](../principles/one-living-version.md#rule-pdr-onelive-nodeadcode)). The one line in `value-of-plan.md` says what
 was deleted and why, so a reader who misses a plan finds the reason in one place and the text in git.
 
 ### In-use files

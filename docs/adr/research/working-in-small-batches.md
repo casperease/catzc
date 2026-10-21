@@ -1,43 +1,43 @@
 # ADR: DORA — Working in small batches
 
-## Rules: ADR-DORA-SMALLBATCH
+## Rules: RDR-DORA-SMALLBATCH
 
-### Rule ADR-DORA-SMALLBATCH-SMALLESTINDEPENDENTUNIT
+### Rule RDR-DORA-SMALLBATCH-SMALLESTINDEPENDENTUNIT
 
 Break work into the smallest unit that is independent, negotiable, valuable, estimable, small, and testable (INVEST) — a slice that can be
 deployed and validated on its own rather than a fragment that only makes sense bundled with other work.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-SMALLBATCH-WEEKISTOOLARGE
+### Rule RDR-DORA-SMALLBATCH-WEEKISTOOLARGE
 
 Treat a unit of work that takes longer than a week to complete as too large. Split it further; do not let a large pull request —
 AI-generated or hand-written — stand in for decomposition that was skipped.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-SMALLBATCH-DAILYCHECKIN
+### Rule RDR-DORA-SMALLBATCH-DAILYCHECKIN
 
 Check releasable changes into trunk at least daily. Small batches only shorten the feedback loop when they are integrated continuously, not
 accumulated on a branch and merged in one motion.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-SMALLBATCH-TOGGLESFORINCOMPLETEWORK
+### Rule RDR-DORA-SMALLBATCH-TOGGLESFORINCOMPLETEWORK
 
 Use dark launching or feature toggles to merge incomplete work safely. Code completion and user-facing release are separate events; a batch
 can integrate today and activate later.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-SMALLBATCH-RELEASEEACHBATCH
+### Rule RDR-DORA-SMALLBATCH-RELEASEEACHBATCH
 
 Release and validate each batch as it completes. Never regroup several small batches into one larger release before testing or shipping —
 that delays exactly the defect and user-validation feedback small batching exists to speed up.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-SMALLBATCH-HOLDBATCHSIZEWITHAI
+### Rule RDR-DORA-SMALLBATCH-HOLDBATCHSIZEWITHAI
 
 Hold batch size down deliberately when AI assistance raises throughput. Small batches are the safety net that keeps faster, machine-assisted
 change from turning into delivery instability.

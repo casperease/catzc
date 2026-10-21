@@ -12,11 +12,11 @@ Comment-page settings for Export-Comments / Build-CommentView / Test-Comments.
 
 A file carries no long comment — the prose lives in the file's comment page under docs/references, and the file's
 head names the page, so each comment has exactly one living copy
-([ADR-PRIN-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive-oneversion)). Every key is optional:
+([PDR-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-pdr-onelive-oneversion)). Every key is optional:
 an omitted key takes the sensible default declared once on Catzc.Base.QualityGates.CommentsConfig
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). The comment syntax of
 each language is CommentLexer's, the one place that knows it; this file decides what moves and where it goes
-([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)).
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
 ```
 
 ## comment:2

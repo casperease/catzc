@@ -42,7 +42,7 @@ is committed as two version folders: the draft `0.0.0`, the one that is checked 
 
 A released provided contract is kept while a consumer pins that version of its unit. This is the one sanctioned backwards-compatibility in
 the repository: external consumers genuinely exist at this boundary and cannot change in lockstep
-([ADR-PRIN-ONELIVE-PINNEDVERSIONNOTLEGACY](../principles/one-living-version.md#rule-adr-prin-onelive-pinnedversionnotlegacy)), and a
+([PDR-ONELIVE-PINNEDVERSIONNOTLEGACY](../principles/one-living-version.md#rule-pdr-onelive-pinnedversionnotlegacy)), and a
 released version folder is retired only when no consumer pins it — a deliberate, contract-driven deprecation, not a hedge. A depended-on
 contract follows its outside platform instead: a platform change is a new draft in its unit's `0.0.0`, never an old version kept beside the
 new one.

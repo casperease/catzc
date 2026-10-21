@@ -2,10 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f7ed723118f2
+    with_body_sha: "3883a06f7ef6"
   edges:
     cites:
-      - ADR-PRIN-ONELIVE-ONEVERSION
+      - PDR-ONELIVE-ONEVERSION
 ---
 */
 
@@ -13,7 +13,7 @@ catzc:
 
 namespace Catzc.Base.QualityGates;
 
-// Rests on [ADR-PRIN-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive-oneversion).
+// Rests on [PDR-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-pdr-onelive-oneversion).
 public enum CommentBlockKind
 {
     LineRun,

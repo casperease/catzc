@@ -2,16 +2,16 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7f20e3ce8bc9"
+    with_body_sha: "45b02cc5624c"
   edges:
     code: pwsh/Catzc.Base.Flow/types/TruthStoresConfig.cs
     cites:
-      - ADR-THES-STORES-THREEKINDS
+      - TDR-STORES-THREEKINDS
 ---
 #>
 
 Describe 'TruthStoresConfig' -Tag 'L0', 'logic' {
-    It 'defaults to the repository with the Azure DevOps configuration as its projection, and Azure DevOps runtime as a fact source' -Tag 'ADR-THES-STORES-THREEKINDS' {
+    It 'defaults to the repository with the Azure DevOps configuration as its projection, and Azure DevOps runtime as a fact source' -Tag 'TDR-STORES-THREEKINDS' {
         $config = [Catzc.Base.Flow.TruthStoresConfig]::new(@{})
         @($config.stores.name) | Should -Be @('repository', 'azure-devops', 'azure-devops-runtime')
         @($config.stores.kind) | Should -Be @('version-controlled-repository', 'state-machine', 'fact-source')

@@ -25,7 +25,7 @@ The ADR codes, each optionally narrowed to one rule (#n or :n). An unknown code 
 ### parameter `AsJson`
 
 Return the highlight as JSON (the request and the lit cells with their ADRs) instead of the object
-([ADR-THES-ONETRUTH-TRUTHISQUERYABLE](../../../adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-truthisqueryable)).
+([TDR-ONETRUTH-TRUTHISQUERYABLE](../../../adr/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)).
 
 ### outputs
 

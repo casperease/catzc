@@ -1,8 +1,8 @@
-# ADR-PRIN-CATS: cats and catzc
+# PDR-CATS: cats and catzc
 
-## Rules: ADR-PRIN-CATS
+## Rules: PDR-CATS
 
-### Rule ADR-PRIN-CATS-CATZCISSOURCENAME
+### Rule PDR-CATS-CATZCISSOURCENAME
 
 **catzc** is the source-level name of the system: the `Catzc.*` module prefix, the C# `Catzc.*` namespaces, the `Catzc.` type-accelerator
 prefix, and the literal product token in code, configuration keys, contract paths and precise references. Code and the facts the tooling
@@ -11,7 +11,7 @@ writes say catzc.
 - [Two names, two audiences](#two-names-two-audiences)
 - [The inner namespace](#the-inner-namespace)
 
-### Rule ADR-PRIN-CATS-CATSISPERSONNAME
+### Rule PDR-CATS-CATSISPERSONNAME
 
 **cats** is the product's name to a person: the executor outside pwsh, the word in prose, docs and conversation ("ask cats"), the
 human-friendly form of the whole system. Where a sentence addresses a person rather than a compiler, it says cats.
@@ -19,7 +19,7 @@ human-friendly form of the whole system. Where a sentence addresses a person rat
 - [Two names, two audiences](#two-names-two-audiences)
 - [The friendly form](#the-friendly-form)
 
-### Rule ADR-PRIN-CATS-OUTSIDEMODULESUSECATS
+### Rule PDR-CATS-OUTSIDEMODULESUSECATS
 
 A module sourced from outside this repository, by a consumer or another team, is named in the cats form; the `Catzc.*` prefix stays the
 inner namespace of the modules this repository ships. The two forms tell a reader at a glance which side of the repository boundary a module
@@ -28,7 +28,7 @@ comes from.
 - [The inner namespace](#the-inner-namespace)
 - [Across the boundary](#across-the-boundary)
 
-### Rule ADR-PRIN-CATS-EITHERNAMEFORMIXEDAUDIENCE
+### Rule PDR-CATS-EITHERNAMEFORMIXEDAUDIENCE
 
 Either name may stand in for the other where the audience is mixed: a pwsh entry point may say cats, a sentence to a person may name a
 `Catzc.*` module when it means that module. Neither replaces the other in its own home: no `Cats.*` module, no catzc in a user-facing
@@ -36,10 +36,10 @@ sentence that has a cats form.
 
 - [Used across each other on purpose](#used-across-each-other-on-purpose)
 
-### Rule ADR-PRIN-CATS-FOLDERSUSECATZC
+### Rule PDR-CATS-FOLDERSUSECATZC
 
 The folder names follow the source-level name: the consumer overlay root and this repository's own config-fragment root are `.catzc/`.
-`.cats/` is never written and never read; there is one folder name, with no alias (ADR-PRIN-ONELIVE-NOCOMPATIBILITYSHIMS).
+`.cats/` is never written and never read; there is one folder name, with no alias (PDR-ONELIVE-NOCOMPATIBILITYSHIMS).
 
 - [The folders](#the-folders)
 - [How this is enforced](#how-this-is-enforced)
@@ -98,7 +98,7 @@ source-level name only. The glossary carries both terms, defined by the rules ab
 
 ## Consequences
 
-- The CLAUDE.md terminology section cites ADR-PRIN-CATS-CATZCISSOURCENAME and ADR-PRIN-CATS-CATSISPERSONNAME for its two entries.
+- The CLAUDE.md terminology section cites PDR-CATS-CATZCISSOURCENAME and PDR-CATS-CATSISPERSONNAME for its two entries.
 - The config-defaults work takes `.catzc/` as the one fragment and overlay root, with no alias to read or test.
 - The layers vocabulary leaves cats and catzc to this ADR; pwsh and automation are ruled there.
 

@@ -1,36 +1,36 @@
 # ADR: DORA — Continuous integration
 
-## Rules: ADR-DORA-CI
+## Rules: RDR-DORA-CI
 
-### Rule ADR-DORA-CI-EVERYCOMMITBUILDS
+### Rule RDR-DORA-CI-EVERYCOMMITBUILDS
 
 Every commit to the mainline triggers an automated build and an automated test suite, and both report back within minutes — the developer
 who made the change learns the outcome before moving on to something else, not hours or a day later.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-CI-DAILYINTEGRATION
+### Rule RDR-DORA-CI-DAILYINTEGRATION
 
 Developers integrate their work into the mainline at least daily, in small increments. A large, infrequent merge is not continuous
 integration behind a slow gate; it is batching, and the gate is not the part to fix.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-CI-FIXBROKENBUILDFIRST
+### Rule RDR-DORA-CI-FIXBROKENBUILDFIRST
 
 A broken build is fixed before other work continues. Treat a red mainline as the team's top priority, not a queued item, because every
 commit layered on a broken build compounds on unverified ground.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-CI-BUILDISSCRIPT
+### Rule RDR-DORA-CI-BUILDISSCRIPT
 
 The automated build is itself a script, checked into version control and repeatable on demand — never a manual, undocumented sequence of
 steps that a person remembers to run in a particular order.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-CI-FASTGATE
+### Rule RDR-DORA-CI-FASTGATE
 
 Keep the per-commit gate fast: the build-and-test cycle that runs on every check-in stays inside a small number of minutes. Slower
 verification — exhaustive suites, system-level checks — runs somewhere else, never inside that gate.

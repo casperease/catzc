@@ -38,7 +38,7 @@ counts as working only after one live run of it; green tests alone never vouch f
 
 ### Rule ADR-REPO-AI-ONEFILEATATIME
 
-**One file at a time; read it back.** No script sweeps, no batch replace. (ADR-PRIN-ONELIVE)
+**One file at a time; read it back.** No script sweeps, no batch replace. (PDR-ONELIVE)
 
 ### Rule ADR-REPO-AI-EDITONLYBRIEF
 
@@ -54,7 +54,7 @@ counts as working only after one live run of it; green tests alone never vouch f
 
 ### Rule ADR-REPO-AI-DOMAINWORDS
 
-**Use the domain's words.** Domain rules, never "house rules"; cats the product, catzc the inner namespace. (ADR-PRIN-CATS)
+**Use the domain's words.** Domain rules, never "house rules"; cats the product, catzc the inner namespace. (PDR-CATS)
 
 ### Rule ADR-REPO-AI-OUTISOUTPUT
 
@@ -73,7 +73,7 @@ Agents start cold on small models. Test runs are the largest cost of a session, 
 the user. The time safeguard bounds every call; this contract bounds what a call is spent on.
 
 A robot's front matter is a closed key set (ADR-REPO-AGENTS-ROBOTBODYLIMIT), and a value identical on every file is a constant, declared
-once (ADR-PRIN-CONFIG, ADR-PRIN-REDUCEVAR). So the contract every robot and capability reads first is not a per-file key: it is named in the
+once (PDR-CONFIG, PDR-REDUCEVAR). So the contract every robot and capability reads first is not a per-file key: it is named in the
 `contracts` entry of agents.yml, which Test-AgentDefinitions reads, and in the CLAUDE.md session-start line.
 
 In every mode but one, the truth is the whole repository at one commit, committed files only. The listen mode is the exception: the user, as

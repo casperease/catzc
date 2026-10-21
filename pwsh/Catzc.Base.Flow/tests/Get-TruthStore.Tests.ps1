@@ -2,11 +2,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c4332f3626dc
+    with_body_sha: d783ae52deaa
   edges:
     code: pwsh/Catzc.Base.Flow/Get-TruthStore.ps1
     cites:
-      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+      - TDR-ONETRUTH-TRUTHISQUERYABLE
 ---
 #>
 
@@ -22,7 +22,7 @@ Describe 'Get-TruthStore' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'emits every store in declared order' -Tag 'ADR-THES-ONETRUTH-TRUTHISQUERYABLE' {
+    It 'emits every store in declared order' -Tag 'TDR-ONETRUTH-TRUTHISQUERYABLE' {
         (Get-TruthStore).name | Should -Be @('widget-repository', 'widget-itsm', 'widget-runtime')
     }
 

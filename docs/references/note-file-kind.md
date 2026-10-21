@@ -35,4 +35,4 @@ the decision: the role registry has no such kind, and this page keeps its meanin
   glossary.
 - A file under `.unordered/` takes the kind its own name and language give it, as it will after sorting.
 
-When ADR-REPO-FILEMETA or ADR-DSGN-TRACK absorbs this account, this page is deleted (ADR-PRIN-ONELIVE).
+When ADR-REPO-FILEMETA or ADR-DSGN-TRACK absorbs this account, this page is deleted (PDR-ONELIVE).

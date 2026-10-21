@@ -1,36 +1,36 @@
 # ADR: DORA — Trunk-based development
 
-## Rules: ADR-DORA-TRUNK
+## Rules: RDR-DORA-TRUNK
 
-### Rule ADR-DORA-TRUNK-SHORTLIVEDBRANCHES
+### Rule RDR-DORA-TRUNK-SHORTLIVEDBRANCHES
 
 Keep branches short-lived: merge individual work into trunk at least once a day, and ideally several times a day. A branch that lives more
 than a few hours is an exception to explain, not the normal unit of work.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-TRUNK-FEWACTIVEBRANCHES
+### Rule RDR-DORA-TRUNK-FEWACTIVEBRANCHES
 
 Cap active branches at three or fewer, and treat a code freeze or a dedicated stabilization/integration phase as a signal that trunk-based
 development is not actually being followed — never as an accepted part of a normal release cadence.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-TRUNK-SMALLBATCHSKILL
+### Rule RDR-DORA-TRUNK-SMALLBATCHSKILL
 
 Treat small-batch decomposition as a skill every developer owns, and hold whoever merges to trunk responsible for keeping the build green
 afterward — that responsibility never moves to a separate downstream team or a later gate.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-TRUNK-SYNCHRONOUSREVIEW
+### Rule RDR-DORA-TRUNK-SYNCHRONOUSREVIEW
 
 Review code synchronously — live review or pairing — at the moment a change is ready to merge. A heavyweight, multi-approval, asynchronous
 review queue pushes developers toward larger batches and stalls the exact flow trunk-based development depends on.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-TRUNK-TESTBEFORETRUNK
+### Rule RDR-DORA-TRUNK-TESTBEFORETRUNK
 
 Run comprehensive automated tests against every change before it commits to trunk, and keep the build fast — a few minutes, not longer — so
 that testing discipline never becomes the excuse to batch changes together.

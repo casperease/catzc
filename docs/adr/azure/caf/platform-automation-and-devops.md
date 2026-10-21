@@ -269,8 +269,8 @@ to weigh and design recommendations; the landing zone that a subscription receiv
 
 The platform automation and DevOps design area applies DevOps to the landing zone itself: it is provisioned, changed, and operated as code,
 through version control, review, and pipelines, by a team with a deliberate toolchain. This is where the repository is strongest, because
-its delivery machinery exists for its own reasons: everything as code ([ADR-PRIN-EAC](../../principles/everything-as-code.md)), one living
-version on one trunk ([ADR-PRIN-ONELIVE](../../principles/one-living-version.md)), the CI discipline and promotion flow
+its delivery machinery exists for its own reasons: everything as code ([PDR-EAC](../../principles/everything-as-code.md)), one living
+version on one trunk ([PDR-ONELIVE](../../principles/one-living-version.md)), the CI discipline and promotion flow
 ([ADR-FLOW-CD](../../flow/cd-discipline-and-promotion-flow.md)), the six pipeline types ([ADR-FLOW-CD-TYPE](../../flow/pipeline-types.md)),
 the runner ([ADR-FLOW-CD-RUNNER](../../flow/pipeline-runner-pattern.md)), deployable units as globsets
 ([ADR-FLOW-CD-GLOBS](../../flow/durable-sha-globs.md)), pipeline layout ([ADR-ADO-NAME](../../ado/pipeline-naming-and-placement.md),
@@ -320,7 +320,7 @@ Summary (ours): Treat the platform, its documentation, its deployment, and its t
 
 #### What 1 means here
 
-This is [ADR-PRIN-EAC-EVERYTHINGINVERSIONCONTROL](../../principles/everything-as-code.md#rule-adr-prin-eac-everythinginversioncontrol):
+This is [PDR-EAC-EVERYTHINGINVERSIONCONTROL](../../principles/everything-as-code.md#rule-pdr-eac-everythinginversioncontrol):
 every artifact needed to build, test, deploy, or operate the system lives in version control. The templates under
 `infrastructure/templates/`, the shared modules under `infrastructure/modules/`, the configs under each template's `configuration/`, the
 repository-wide settings in `azure.yml`, `network.yml`, and `customer.yml`, the ado pipelines under `.ado/pipelines/`, the automation under
@@ -329,7 +329,7 @@ repository-wide settings in `azure.yml`, `network.yml`, and `customer.yml`, the 
 
 What stays outside is Azure DevOps state the pipelines depend on: the service connections (`sc-shared-nonprod`, `sc-apex-prod`, …), the
 environments the deployment jobs name, and any check or approval on either. They are created in the Azure DevOps portal, which
-[ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../../principles/everything-as-code.md#rule-adr-prin-eac-nostateoutsideversioncontrol) counts as
+[PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../../principles/everything-as-code.md#rule-pdr-eac-nostateoutsideversioncontrol) counts as
 configuration outside version control. The break-glass SQL password is outside on purpose: it is a secret, and the repository holds only its
 Key Vault reference ([ADR-AZ-LZ-SQLENTRAADMINS](../landing-zones.md#rule-adr-az-lz-sqlentraadmins)).
 
@@ -361,9 +361,9 @@ Summary (ours): Put infrastructure, policy, configuration, deployment, and docum
 #### What 2 means here
 
 Every one of those kinds is in the one Git repository
-([ADR-PRIN-EAC-DIFFABLEBELONGSINVERSIONCONTROL](../../principles/everything-as-code.md#rule-adr-prin-eac-diffablebelongsinversioncontrol)),
+([PDR-EAC-DIFFABLEBELONGSINVERSIONCONTROL](../../principles/everything-as-code.md#rule-pdr-eac-diffablebelongsinversioncontrol)),
 and the history of each lives in Git, not in retained copies
-([ADR-PRIN-ONELIVE-HISTORYINGIT](../../principles/one-living-version.md#rule-adr-prin-onelive-historyingit)). Version control here is also
+([PDR-ONELIVE-HISTORYINGIT](../../principles/one-living-version.md#rule-pdr-onelive-historyingit)). Version control here is also
 the DORA capability [version-control](../../research/version-control.md). The recommendation bears on no single template: all three are
 versioned the same way.
 
@@ -930,7 +930,7 @@ Summary (ours): Use trunk-based development: everyone integrates into one branch
 
 Trunk-based development is a rule here, not a preference: work integrates continuously into `main`, branches are short-lived, and there is
 no long-lived release or version branch
-([ADR-PRIN-ONELIVE-TRUNKBASED](../../principles/one-living-version.md#rule-adr-prin-onelive-trunkbased),
+([PDR-ONELIVE-TRUNKBASED](../../principles/one-living-version.md#rule-pdr-onelive-trunkbased),
 [ADR-FLOW-CD-DISCIPLINEBEFOREPIPELINE](../../flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-disciplinebeforepipeline)). It is
 also the DORA capability [trunk-based-development](../../research/trunk-based-development.md). Every pipeline triggers on `main` only.
 
@@ -1339,7 +1339,7 @@ Summary (ours): Roll back by Git's undo operations: revert, discard, or reset.
 
 On the shared trunk the undo is a revert: a new commit that the same CI and CD pipelines build and deploy, so a rollback is tested like any
 change. Resetting `main` is not used, because history lives in Git and the trunk is never rewritten
-([ADR-PRIN-ONELIVE-HISTORYINGIT](../../principles/one-living-version.md#rule-adr-prin-onelive-historyingit)). The flow model's faster path
+([PDR-ONELIVE-HISTORYINGIT](../../principles/one-living-version.md#rule-pdr-onelive-historyingit)). The flow model's faster path
 is to deploy the artifact of the commit before
 ([ADR-FLOW-CD-TYPE-DEPLOYISPINNED](../../flow/pipeline-types.md#rule-adr-flow-cd-type-deployispinned)), which needs the DEPLOY pipeline the
 repository does not have. And a revert that removes a resource from a template leaves it in Azure, because deploys are incremental

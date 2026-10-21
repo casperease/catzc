@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e99a38f58094
+    with_body_sha: f46f48b197c2
     warning: "Do Not Edit, this file is generated"
     role: glossary
     track: docs
@@ -34,7 +34,7 @@ phrasings to avoid. `Test-Glossary` checks the sources.
 A fact found by synchronising truth stores that is verifiable, naming the store, address, and moment it was read, and names the one change
 or report it calls for.
 
-- **Defined by:** [ADR-THES-STORES-RECONCILEFACTS](thesis/truth-stores.md#rule-adr-thes-stores-reconcilefacts)
+- **Defined by:** [TDR-STORES-RECONCILEFACTS](thesis/truth-stores.md#rule-tdr-stores-reconcilefacts)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -44,7 +44,7 @@ The one legitimate second store — a repository or service, such as a GitOps or
 SaaS, with its own history, driven one way from the trunk's pipelines and never edited beside it.
 
 - **Defined by:**
-  [ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord)
+  [TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -58,7 +58,7 @@ SaaS, with its own history, driven one way from the trunk's pipelines and never 
 The shape in which the repository can verify any code — verifiable within its enabling constraints and uncontested by its formatters, tests,
 and asserts.
 
-- **Defined by:** [ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM](thesis/eac-normal-form.md#rule-adr-thes-normalform-anycodehasnormalform)
+- **Defined by:** [TDR-NORMALFORM-ANYCODEHASNORMALFORM](thesis/eac-normal-form.md#rule-tdr-normalform-anycodehasnormalform)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -73,7 +73,7 @@ and asserts.
 
 What a repository declares about itself — the sensible defaults, the catzc bundle, and the local configs — and nothing else.
 
-- **Defined by:** [ADR-THES-NORMALFORM-ENABLINGCONSTRAINTS](thesis/eac-normal-form.md#rule-adr-thes-normalform-enablingconstraints)
+- **Defined by:** [TDR-NORMALFORM-ENABLINGCONSTRAINTS](thesis/eac-normal-form.md#rule-tdr-normalform-enablingconstraints)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -82,7 +82,7 @@ What a repository declares about itself — the sensible defaults, the catzc bun
 A state store — a database with a reachable live URL holding state about delivery outside the repository, such as the Azure DevOps runtime
 state — whose state catzc reads only.
 
-- **Defined by:** [ADR-THES-STORES-FACTSOURCEREADONLY](thesis/truth-stores.md#rule-adr-thes-stores-factsourcereadonly)
+- **Defined by:** [TDR-STORES-FACTSOURCEREADONLY](thesis/truth-stores.md#rule-tdr-stores-factsourcereadonly)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -95,7 +95,7 @@ state — whose state catzc reads only.
 
 Bringing an unordered code fragment into eac normal form through the one change process.
 
-- **Defined by:** [ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM](thesis/eac-normal-form.md#rule-adr-thes-normalform-migrationreachestheform)
+- **Defined by:** [TDR-NORMALFORM-MIGRATIONREACHESTHEFORM](thesis/eac-normal-form.md#rule-tdr-normalform-migrationreachestheform)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -104,7 +104,7 @@ Bringing an unordered code fragment into eac normal form through the one change 
 An explicit version, controlled by the consumer, of a dependency that crosses the repository boundary inward, stitched into an immutable
 artifact at build time.
 
-- **Defined by:** [ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-productmonorepository)
+- **Defined by:** [TDR-ONETRUTH-PRODUCTMONOREPOSITORY](thesis/one-source-of-truth.md#rule-tdr-onetruth-productmonorepository)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -116,7 +116,7 @@ artifact at build time.
 
 One repository that several teams contribute to for one product, bounded into tracks and deployable-units by path filters; catzc is one.
 
-- **Defined by:** [ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-productmonorepository)
+- **Defined by:** [TDR-ONETRUTH-PRODUCTMONOREPOSITORY](thesis/one-source-of-truth.md#rule-tdr-onetruth-productmonorepository)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -128,7 +128,7 @@ One repository that several teams contribute to for one product, bounded into tr
 The tooling's Get-* cmdlets, each of which also emits its answer as data (JSON), through which every question about the system's state is
 answered.
 
-- **Defined by:** [ADR-THES-ONETRUTH-TRUTHISQUERYABLE](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-truthisqueryable)
+- **Defined by:** [TDR-ONETRUTH-TRUTHISQUERYABLE](thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -137,7 +137,7 @@ answered.
 The organisation, team, product, or person that one repository is the responsibility boundary for, set by where git's hard security controls
 stop.
 
-- **Defined by:** [ADR-THES-STORES-RESPONSIBILITYDOMAIN](thesis/truth-stores.md#rule-adr-thes-stores-responsibilitydomain)
+- **Defined by:** [TDR-STORES-RESPONSIBILITYDOMAIN](thesis/truth-stores.md#rule-tdr-stores-responsibilitydomain)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -147,7 +147,7 @@ stop.
 
 The one store whose content decides what is true about the delivered system — for catzc, the repository, changed through one change process.
 
-- **Defined by:** [ADR-THES-ONETRUTH-ONESTOREDECIDES](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-onestoredecides)
+- **Defined by:** [TDR-ONETRUTH-ONESTOREDECIDES](thesis/one-source-of-truth.md#rule-tdr-onetruth-onestoredecides)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -162,7 +162,7 @@ The one store whose content decides what is true about the delivered system — 
 
 An application that owns fact sources and changes their state by its own rules, met by catzc only at a junction, inbound or outbound.
 
-- **Defined by:** [ADR-THES-STORES-STATEMACHINE](thesis/truth-stores.md#rule-adr-thes-stores-statemachine)
+- **Defined by:** [TDR-STORES-STATEMACHINE](thesis/truth-stores.md#rule-tdr-stores-statemachine)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -174,7 +174,7 @@ An application that owns fact sources and changes their state by its own rules, 
 The one mainline of a product mono-repository, where everything is at HEAD — no internal versions, and a shared change lands in one commit
 with all its consumers.
 
-- **Defined by:** [ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY](thesis/one-source-of-truth.md#rule-adr-thes-onetruth-productmonorepository)
+- **Defined by:** [TDR-ONETRUTH-PRODUCTMONOREPOSITORY](thesis/one-source-of-truth.md#rule-tdr-onetruth-productmonorepository)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -186,7 +186,7 @@ with all its consumers.
 
 Any store that holds part of the truth about a delivered system — a version-controlled repository, a fact source, or a state machine.
 
-- **Defined by:** [ADR-THES-STORES-THREEKINDS](thesis/truth-stores.md#rule-adr-thes-stores-threekinds)
+- **Defined by:** [TDR-STORES-THREEKINDS](thesis/truth-stores.md#rule-tdr-stores-threekinds)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -197,7 +197,7 @@ Any store that holds part of the truth about a delivered system — a version-co
 
 Of code, left unchanged by every formatter and failed by no test or assert of the repository; the fixed point of its checks.
 
-- **Defined by:** [ADR-THES-NORMALFORM-UNCONTESTED](thesis/eac-normal-form.md#rule-adr-thes-normalform-uncontested)
+- **Defined by:** [TDR-NORMALFORM-UNCONTESTED](thesis/eac-normal-form.md#rule-tdr-normalform-uncontested)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -205,7 +205,7 @@ Of code, left unchanged by every formatter and failed by no test or assert of th
 
 Code from outside the trunk, in whatever shape its origin left it, that is not yet in eac normal form and decides nothing.
 
-- **Defined by:** [ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM](thesis/eac-normal-form.md#rule-adr-thes-normalform-anycodehasnormalform)
+- **Defined by:** [TDR-NORMALFORM-ANYCODEHASNORMALFORM](thesis/eac-normal-form.md#rule-tdr-normalform-anycodehasnormalform)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -213,7 +213,7 @@ Code from outside the trunk, in whatever shape its origin left it, that is not y
 
 The kind of truth store whose content is a versioned history of reviewed changes; a git repository is one subgroup of it.
 
-- **Defined by:** [ADR-THES-STORES-VERSIONCONTROLLEDREPOSITORY](thesis/truth-stores.md#rule-adr-thes-stores-versioncontrolledrepository)
+- **Defined by:** [TDR-STORES-VERSIONCONTROLLEDREPOSITORY](thesis/truth-stores.md#rule-tdr-stores-versioncontrolledrepository)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -223,7 +223,7 @@ The kind of truth store whose content is a versioned history of reviewed changes
 
 The product's name to a person — the executor outside pwsh, and the word in prose, docs and conversation.
 
-- **Defined by:** [ADR-PRIN-CATS-CATSISPERSONNAME](principles/cats-and-catzc.md#rule-adr-prin-cats-catsispersonname)
+- **Defined by:** [PDR-CATS-CATSISPERSONNAME](principles/cats-and-catzc.md#rule-pdr-cats-catsispersonname)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -234,7 +234,7 @@ The product's name to a person — the executor outside pwsh, and the word in pr
 The source-level name of the system — the Catzc.* module prefix, the C# namespaces, the type-accelerator prefix, and the product token in
 code and precise references.
 
-- **Defined by:** [ADR-PRIN-CATS-CATZCISSOURCENAME](principles/cats-and-catzc.md#rule-adr-prin-cats-catzcissourcename)
+- **Defined by:** [PDR-CATS-CATZCISSOURCENAME](principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**

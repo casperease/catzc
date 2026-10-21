@@ -22,7 +22,7 @@ tests         the test files that cover the changed files by convention (Get-Cha
               the test file of a changed function, the test file of a changed C# type), run as one test run through
               Invoke-TestFile — never a bare Invoke-Pester; each failed test is one issue;
 checks        the quality gates each changed file's language names in languages.yml (`checks`, Get-ChangeCheckPlan) —
-              configuration, not code ([ADR-PRIN-CONFIG](/docs/adr/principles/configure-not-program.md)). A gate
+              configuration, not code ([PDR-CONFIG](/docs/adr/principles/configure-not-program.md)). A gate
               with a [string[]] -Path is given the changed files and every issue it finds counts; any other gate
               runs whole and an issue counts only when it names a changed file (the rest are counted as
               unattributed, not reported). A gate that throws (a tool missing) is one issue.

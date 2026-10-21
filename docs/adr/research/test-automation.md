@@ -1,15 +1,15 @@
 # ADR: DORA — Test automation
 
-## Rules: ADR-DORA-TESTAUTO
+## Rules: RDR-DORA-TESTAUTO
 
-### Rule ADR-DORA-TESTAUTO-CONTINUOUSTESTING
+### Rule RDR-DORA-TESTAUTO-CONTINUOUSTESTING
 
 Automated tests run continuously across the whole delivery lifecycle, not as a separate late-stage phase, and the suite returns a result in
 minutes — the developer who made a change learns the outcome before moving on to something else, not hours or days later.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-TESTAUTO-DEVELOPERSOWNTESTS
+### Rule RDR-DORA-TESTAUTO-DEVELOPERSOWNTESTS
 
 Developers write and own the automated suite — practicing test-driven development and authoring the acceptance tests that gate a change —
 while testers shift their effort toward continuous exploratory and usability testing and toward curating the suite, not toward manually
@@ -17,21 +17,21 @@ re-verifying every change by hand.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-TESTAUTO-TESTPYRAMID
+### Rule RDR-DORA-TESTAUTO-TESTPYRAMID
 
 Follow the test pyramid: most defects are caught by fast, isolated unit tests, and a pipeline runs them before the slower acceptance and
 nonfunctional tests that follow. A suite inverted toward slow, broad tests catches the same defects later and at higher cost.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-TESTAUTO-SUITEINPIPELINE
+### Rule RDR-DORA-TESTAUTO-SUITEINPIPELINE
 
 Integrate the suite into the deployment pipeline so every change triggers a build, the unit tests, then acceptance and nonfunctional tests
 against the running software — a change does not pass until all of them do, and the result is visible to the whole team.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-TESTAUTO-FAILINGTESTISDEFECT
+### Rule RDR-DORA-TESTAUTO-FAILINGTESTISDEFECT
 
 Treat a failing test as evidence of a real defect, never as noise. Eliminate flaky tests and keep the whole suite fast enough to run locally
 and in CI — bloated, over-mocked, or slow suites get curated down, not tolerated, because a suite nobody trusts stops giving signal.

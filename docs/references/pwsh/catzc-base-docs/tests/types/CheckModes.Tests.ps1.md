@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'CheckModes' -Tag 'L0', 'logic', 'ADR-PRIN-ONELIVE-ONEVERSION' {`, written with `#`.
+Above `Describe 'CheckModes' -Tag 'L0', 'logic', 'PDR-ONELIVE-ONEVERSION' {`, written with `#`.
 
 ```text
 CheckModes — the one parser of a check's mode setting, shared by every check config: an omitted mode is the default declared

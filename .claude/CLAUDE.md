@@ -6,10 +6,10 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 
 - **catzc** — the reserved, source-code-level name of the system: the `Catzc.*` module prefix, the C# `Catzc.*` namespaces, the `Catzc.`
   type-accelerator prefix, and the literal product token. Use it in code and in precise references
-  ([ADR-PRIN-CATS-CATZCISSOURCENAME](../docs/adr/principles/cats-and-catzc.md#rule-adr-prin-cats-catzcissourcename)).
+  ([PDR-CATS-CATZCISSOURCENAME](../docs/adr/principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename)).
 - **cats** (plural) — the conversational cover term for the catzc system as a whole: the human-friendly name used in prose and docs and when
   talking to or about the system ("ask cats"). It stands in for the complicated, code-level catzc
-  ([ADR-PRIN-CATS-CATSISPERSONNAME](../docs/adr/principles/cats-and-catzc.md#rule-adr-prin-cats-catsispersonname)).
+  ([PDR-CATS-CATSISPERSONNAME](../docs/adr/principles/cats-and-catzc.md#rule-pdr-cats-catsispersonname)).
 - **"domain rules" / "ADR rules"** — the sanctioned terms for this repository's conventions and decision records. Never say "house rules";
   it is not a domain-sanctioned term.
 
@@ -58,7 +58,7 @@ Which catzc ADR decides each aspect you might take an idea for:
   [ADR-AUTO-UVPY](../docs/adr/automation/uv-python-handler.md).
 - **Go itself:** [ADR-AUTO-GO](../docs/adr/automation/go/go-test-artifacts.md): Go in catzc is test artifacts only. A Go idea from eac
   beyond that scope opens a question for the user. It is never a precedent.
-- **Copying anything across:** [ADR-PRIN-ONELIVE](../docs/adr/principles/one-living-version.md). Catzc carries one living version of each
+- **Copying anything across:** [PDR-ONELIVE](../docs/adr/principles/one-living-version.md). Catzc carries one living version of each
   behaviour, so an idea is rebuilt here to catzc's rules, never ported alongside.
 
 ## Sub-agents
@@ -143,7 +143,7 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/adr/repository/ai-agent
   Use placeholders and describe patterns, not instances.
 - **No mutating git operations**: Never run git add, commit, push, reset, checkout, rebase, merge, or other state-changing git commands
   unless the user explicitly asks. Read-only commands (status, log, diff, blame) are fine.
-- **One living version — never back-compat or legacy** (`ADR-PRIN-ONELIVE`,
+- **One living version — never back-compat or legacy** (`PDR-ONELIVE`,
   [one-living-version](../docs/adr/principles/one-living-version.md)): the repo carries exactly one version of every behaviour. Never add
   backwards-compatibility shims, deprecated-alias fields, or migration fallbacks (e.g. when changing `azure.yml`, the data model,
   `options.yml`, or the `Get-Azure*`/`Get-Bicep*` resolvers); change the contract and every in-tree caller in the same change, and delete

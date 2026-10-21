@@ -24,7 +24,7 @@ behind them: they hold only as ADR rules.
 ## Walkthrough
 
 1. **No phantom unit.** A deployable-unit that is neither composed nor pipeline-bound is phantom state, and one living version
-   (`ADR-PRIN-ONELIVE`) forbids it. No code checks it; all five units in `globs.yml` today are composed or bound.
+   (`PDR-ONELIVE`) forbids it. No code checks it; all five units in `globs.yml` today are composed or bound.
 2. **deployable-unit sets.** No two units select a common file on their own contribution, with `compose` ignored, so a configured unit may
    contain the base it composes while the layer stays disjoint.
 3. **`Independence gate`.** `Test-GlobSetIndependence` is a quality gate. It checks every layer but `loose-fileset`, and the integrity test

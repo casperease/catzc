@@ -12,7 +12,7 @@ The files Format-Code formats: the repository's tracked files, or the given path
 ### description
 
 One scope for every formatter engine
-([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)):
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../../adr/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)):
 without -Path, every file git tracks (Get-GitTrackedPath); with -Path, each given file as it is (tracked or not, inside the repository or
 not — a build output manifest is formatted the same way), and each given folder's tracked files. Fixture files are formatted like any other
 file. Third-party code that .gitattributes marks `linguist-vendored` is never formatted: it stays as its publisher shipped it. Nor is a
@@ -22,7 +22,7 @@ contract version stays byte-frozen
 ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)), so a
 formatter upgrade must never rewrite one. Nor is a file .gitattributes marks `binary`, such as the generated output under pwsh/.compiled:
 git stores its bytes as they are, so no text formatter rewrites them. The classes are declared once, in the .gitattributes source
-([ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-exceptionisconfigentry)).
+([PDR-CONFIG-EXCEPTIONISCONFIGENTRY](../../../../adr/principles/configure-not-program.md#rule-pdr-config-exceptionisconfigentry)).
 A tracked file deleted from the working tree is left out.
 
 ### parameter `RepositoryRoot`

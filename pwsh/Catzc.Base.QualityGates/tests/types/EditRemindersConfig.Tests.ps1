@@ -2,15 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fb3e13006e6f
+    with_body_sha: "8e747314c430"
   edges:
     code: pwsh/Catzc.Base.QualityGates/types/EditRemindersConfig.cs
     cites:
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
 ---
 #>
 
-Describe 'EditRemindersConfig' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+Describe 'EditRemindersConfig' -Tag 'L0', 'logic', 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
     BeforeAll {
         $script:config = [Catzc.Base.QualityGates.EditRemindersConfig]::new(@{
                 reminders = @(

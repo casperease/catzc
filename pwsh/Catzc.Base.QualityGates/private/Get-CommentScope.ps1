@@ -6,7 +6,7 @@ catzc:
   edges:
     docs: "[Get-CommentScope.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-CommentScope.ps1.md)"
     cites:
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
 ---
 #>
 

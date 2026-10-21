@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.Config/tests/Get-ConfigOverlayRoot.Tests.ps1
     docs: "[Get-ConfigOverlayRoot.ps1.md](docs/references/pwsh/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md)"
     cites:
-      - ADR-PRIN-CATS-FOLDERSUSECATZC
       - ADR-PWSH-CACHE
+      - PDR-CATS-FOLDERSUSECATZC
 ---
 #>
 

@@ -9,5 +9,5 @@ Above `using System;`, written with `//`.
 
 ```text
 The reminders an agent session is shown after it edits a file: one map from repository path patterns to the checks that file's edit owes,
-read by the Show-EditReminder hook (ADR-PRIN-POKAYOKE) and declared as config, one mechanism with an entry per kind of file (ADR-PRIN-CONFIG).
+read by the Show-EditReminder hook (PDR-POKAYOKE) and declared as config, one mechanism with an entry per kind of file (PDR-CONFIG).
 ```

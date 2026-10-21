@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "194d6232b6f4"
+#     with_body_sha: "9cf967bcd7ce"
 # ---
 
 description:
@@ -9,7 +9,7 @@ description:
   it starts flow from the rule to the docs to the code."
 about:
   adrs:
-    - ADR-THES-ONETRUTH
+    - TDR-ONETRUTH
     - ADR-REPO-AI-EDITORISFACT
     - ADR-REPO-PLANS-DECISIONSBECOMERULES
   lens: meta
@@ -81,19 +81,19 @@ content:
     axis:
       - cell: DSGN/build
         by:
-          - ADR-THES-ONETRUTH
+          - TDR-ONETRUTH
       - cell: DSGN/quality-control
         by:
-          - ADR-THES-ONETRUTH
+          - TDR-ONETRUTH
       - cell: DSGN/release
         by:
-          - ADR-THES-ONETRUTH
+          - TDR-ONETRUTH
       - cell: DSGN/deploy
         by:
-          - ADR-THES-ONETRUTH
+          - TDR-ONETRUTH
       - cell: DSGN/access
         by:
-          - ADR-THES-ONETRUTH
+          - TDR-ONETRUTH
       - cell: AUTO/*
         by:
           - ADR-REPO-AI-EDITORISFACT
@@ -115,7 +115,7 @@ content:
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - ADR-REPO-AI-EDITORISFACT
           - ADR-REPO-PLANS-DECISIONSBECOMERULES
-          - ADR-THES-ONETRUTH
+          - TDR-ONETRUTH
       - cell: release-uat
         by:
           - .ado/pipelines/ci-pwsh.yaml
@@ -132,7 +132,7 @@ content:
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - ADR-REPO-AI-EDITORISFACT
           - ADR-REPO-PLANS-DECISIONSBECOMERULES
-          - ADR-THES-ONETRUTH
+          - TDR-ONETRUTH
       - cell: pre-prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
@@ -149,7 +149,7 @@ content:
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - ADR-REPO-AI-EDITORISFACT
           - ADR-REPO-PLANS-DECISIONSBECOMERULES
-          - ADR-THES-ONETRUTH
+          - TDR-ONETRUTH
       - cell: prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
@@ -166,7 +166,7 @@ content:
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - ADR-REPO-AI-EDITORISFACT
           - ADR-REPO-PLANS-DECISIONSBECOMERULES
-          - ADR-THES-ONETRUTH
+          - TDR-ONETRUTH
     layer-stack:
       - cell: automation
         by:
@@ -240,7 +240,7 @@ content:
           - pwsh/Catzc.Tooling.Listen/tests/types/WriteLedger.Tests.ps1
           - ADR-REPO-AI-EDITORISFACT
           - ADR-REPO-PLANS-DECISIONSBECOMERULES
-          - ADR-THES-ONETRUTH
+          - TDR-ONETRUTH
 layout:
   s-repo:
     x: 60

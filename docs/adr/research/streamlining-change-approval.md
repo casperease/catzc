@@ -1,8 +1,8 @@
 # ADR: DORA — Streamlining change approval
 
-## Rules: ADR-DORA-APPROVAL
+## Rules: RDR-DORA-APPROVAL
 
-### Rule ADR-DORA-APPROVAL-PEERREVIEW
+### Rule RDR-DORA-APPROVAL-PEERREVIEW
 
 Approve changes through peer review captured in the development platform during development, not through a centralized Change Approval Board
 (CAB) that reviews after the fact. The review and its approval live where the change was made, as part of making it, not as a separate
@@ -10,7 +10,7 @@ downstream ceremony.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-APPROVAL-AUTOMATIONREPLACESREVIEW
+### Rule RDR-DORA-APPROVAL-AUTOMATIONREPLACESREVIEW
 
 Automation — continuous testing, continuous integration, and comprehensive monitoring — is the mechanism that catches a bad change early;
 approval is not the last line of defense against defects. A gate a human reads late is a weaker check than one a pipeline runs continuously
@@ -18,21 +18,21 @@ from the first commit.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-APPROVAL-RISKBASEDWEIGHT
+### Rule RDR-DORA-APPROVAL-RISKBASEDWEIGHT
 
 Approval weight scales with a change's risk profile; low-risk changes carry lightweight, mostly automated approval, and only genuinely
 high-risk changes draw heavier scrutiny. Treating every change as equally risky wastes review capacity on the changes that need it least.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-APPROVAL-CENTRALBODYCOORDINATES
+### Rule RDR-DORA-APPROVAL-CENTRALBODYCOORDINATES
 
 A centralized review body's role is cross-team coordination, process improvement, and business-level trade-off decisions — never detailed
 code-level gatekeeping. A distant reviewer without the change's context is a poor substitute for the peer who wrote and reviewed it.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-APPROVAL-ONEPROCESSFOREMERGENCIES
+### Rule RDR-DORA-APPROVAL-ONEPROCESSFOREMERGENCIES
 
 Regular change management is made fast and reliable enough to also serve emergency changes, rather than keeping a separate, less-controlled
 fast path that bypasses approval under pressure. One well-built path beats two paths of different quality.

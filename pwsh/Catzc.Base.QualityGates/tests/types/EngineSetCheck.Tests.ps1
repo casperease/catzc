@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "10e4a72203cc"
+    with_body_sha: c8e1cea08fb9
   edges:
     docs: "[EngineSetCheck.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/types/EngineSetCheck.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/types/EngineSetCheck.cs
@@ -10,7 +10,7 @@ catzc:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-ENGINE-THREEENGINES
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
+      - PDR-CONFIG-EXCEPTIONISCONFIGENTRY
 ---
 #>
 
@@ -48,7 +48,7 @@ Describe 'EngineSetCheck' -Tag 'L0', 'logic' {
         $found[0].Item2 | Should -BeLike '*(gadget, sprocket)*'
     }
 
-    It 'rejects a phrase without its placeholder, a malformed pattern, and a phrase list that is not a list' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+    It 'rejects a phrase without its placeholder, a malformed pattern, and a phrase list that is not a list' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
         { [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{ count_phrases = @('engines') }) } | Should -Throw '*no {count} placeholder*'
         { [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{ name_phrases = @('({name}') }) } | Should -Throw '*not a valid regular expression*'
         { [Catzc.Base.QualityGates.EngineSetCheck]::new([ordered]@{ name_phrases = '{name}' }) } | Should -Throw '*must be a list*'

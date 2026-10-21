@@ -6,7 +6,7 @@ ADRs themselves; this file carries only their DORA rationale.
 
 ## One source of truth
 
-[ADR-THES-ONETRUTH](one-source-of-truth.md)
+[TDR-ONETRUTH](one-source-of-truth.md)
 
 > DORA identifies comprehensive version control and trunk-based development as predictors of delivery performance, and finds that
 > heavyweight change approval slows delivery without making it safer. One source of truth, changed through one process, puts every artifact
@@ -21,7 +21,7 @@ ADRs themselves; this file carries only their DORA rationale.
 
 ## Truth stores
 
-[ADR-THES-STORES](truth-stores.md)
+[TDR-STORES](truth-stores.md)
 
 > DORA finds that teams perform better when their data is accessible, trustworthy, and connected across the systems that hold it, and when
 > monitoring and change approval rest on evidence rather than on parallel records. Classifying every truth store, reading fact sources
@@ -38,7 +38,7 @@ ADRs themselves; this file carries only their DORA rationale.
 
 ## Eac normal form
 
-[ADR-THES-NORMALFORM](eac-normal-form.md)
+[TDR-NORMALFORM](eac-normal-form.md)
 
 > DORA finds that comprehensive version control, test automation, and code maintainability predict delivery performance, and that they pay
 > off only when everything needed to reproduce a system is checked the same way. One eac normal form, verified within the repository's own

@@ -10,7 +10,7 @@ Above `using System;`, written with `//`.
 ```text
 One entry of comment-pages.yml's `pages:` list: which docs folder holds the comment pages of the files under a source
 folder. A comment page is the one living copy of a file's long comments
-([ADR-PRIN-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive-oneversion)); the pages live under
+([PDR-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-pdr-onelive-oneversion)); the pages live under
 docs/references like every other authored source
 ([ADR-REPO-README-AUTHOREDSOURCES](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme-authoredsources)).
   source — a repository-relative folder (`pipelines`), or `<prefix>/*` for each immediate, non-dot-prefixed

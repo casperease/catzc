@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "120c45907a2e"
+#     with_body_sha: "0cd77196edf8"
 # ---
 
 # cspell:ignore mxfile minimaps pnginfo XMLMATCH
@@ -40,6 +40,7 @@ import xml.etree.ElementTree as ET
 import zlib
 from pathlib import Path
 
+import minimaps
 from drawio_png import DEFAULTS, THEMES, decode, encode, mxfile_chunk, paint, plain, render
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
@@ -58,8 +59,8 @@ FORWARD = (
 )
 KIT = Path(__file__).resolve().parent
 REPO = KIT.parents[1]
-ADR_CODE = re.compile(r"(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+(?![\w-])")
-NUMBERED = re.compile(r"(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+(?:[#:]\d|#\{)")
+ADR_CODE = re.compile(r"(?<![\w-])" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+(?![\w-])")
+NUMBERED = re.compile(r"(?<![\w-])" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+(?:[#:]\d|#\{)")
 SLIDE = "diagram.drawio.png"  # a diagram folder's render, put from the diagram.drawio.yml beside it
 ROLES = ("slide", "legend")  # the closed set of diagram-folder roles drawio.yml may name
 
@@ -166,7 +167,7 @@ def known_adrs():
     """The ADR codes the index's code tables list; a code quoted in its prose is no entry."""
     return set(
         re.findall(
-            r"(?m)^\|\s*`(ADR(?:-[A-Z][A-Z0-9]*)+)`",
+            r"(?m)^\|\s*`(" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+)`",
             (REPO / "docs" / "adr" / "index.md").read_text(encoding="utf-8"),
         )
     )

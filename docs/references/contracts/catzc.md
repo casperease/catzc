@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bdc0693d8832
+    with_body_sha: bf7d3d0f83f2
     warning: "Do Not Edit, this file is generated"
     role: reference
     track: docs
@@ -254,13 +254,13 @@ Notes:
 - `catzc.base.docs/test_glossary.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
   Test-Glossary, the quality gate that checks the controlled vocabulary against the repository and returns its result under -PassThru.
 - `catzc.base.flow/actionable-fact.schema.json`: Provided schema of one actionable fact, validated against the sample beside it
-  (ADR-THES-STORES-RECONCILEFACTS, ADR-REPO-CONTRACT-CONTRACTASSET): verifiable, because its origin names the truth store, the address read
-  and the moment of reading, so anyone can read it again; actionable, because it names the one change or the one report it calls for.
+  (TDR-STORES-RECONCILEFACTS, ADR-REPO-CONTRACT-CONTRACTASSET): verifiable, because its origin names the truth store, the address read and
+  the moment of reading, so anyone can read it again; actionable, because it names the one change or the one report it calls for.
 - `catzc.base.flow/junction-inbound.schema.json`: Provided schema of one inbound junction call, validated against the sample beside it
-  (ADR-THES-STORES-STATEMACHINE, ADR-REPO-CONTRACT-CONTRACTASSET): a state machine calls catzc's outer boundary at a point it defines, such
-  as an approval check, and catzc answers with a verdict and the actionable facts it rests on.
+  (TDR-STORES-STATEMACHINE, ADR-REPO-CONTRACT-CONTRACTASSET): a state machine calls catzc's outer boundary at a point it defines, such as an
+  approval check, and catzc answers with a verdict and the actionable facts it rests on.
 - `catzc.base.flow/junction-outbound.schema.json`: Provided schema of one outbound junction message, validated against the sample beside it
-  (ADR-THES-STORES-STATEMACHINE, ADR-REPO-CONTRACT-CONTRACTASSET): catzc messages a state machine to report facts proactively, such as a
+  (TDR-STORES-STATEMACHINE, ADR-REPO-CONTRACT-CONTRACTASSET): catzc messages a state machine to report facts proactively, such as a
   deployment it has made or evidence a gate has produced; every fact carries its origin.
 - `catzc.base.globs/clear_glob_set_protection.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Clear-GlobSetProtection, which drops every recorded glob protection so the next run of every protected scan scans in full; it

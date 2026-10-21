@@ -33,7 +33,7 @@ until the importer runs again
 ### parameter `AsJson`
 
 Return the map as JSON (axes, cells and per-file placements) instead of the object, so a tool reads it without PowerShell
-([ADR-THES-ONETRUTH-TRUTHISQUERYABLE](../../../adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-truthisqueryable)).
+([TDR-ONETRUTH-TRUTHISQUERYABLE](../../../adr/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)).
 
 ### outputs
 

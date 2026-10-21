@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "66ae1ec4f967"
+#     with_body_sha: fffc8effb192
 #   edges:
 #     docs: "[capabilities.yml.md](docs/references/pwsh/catzc-base-docs/configs/capabilities.yml.md)"
 #     cites:
@@ -13,18 +13,8 @@
 #       - ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS
 #       - ADR-AUTO-TEST-QUALITYGATE
 #       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-#       - ADR-DORA-VISUAL-DISPLAYPROCESSSTATE
-#       - ADR-DORA-VISUAL-CHOSENWITHTEAM
 #       - ADR-DSGN-VISUAL-LEFTTORIGHTISTIME
 #       - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-#       - ADR-PRIN-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS
-#       - ADR-PRIN-NOWASTE-SEVENWASTES
-#       - ADR-PRIN-ONELIVE-ONEVERSION
-#       - ADR-PRIN-ONELIVE-HISTORYINGIT
-#       - ADR-PROC-BUILTIN-GATESAREPARTOFWORK
-#       - ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE
-#       - ADR-PROC-PULLWORK-PULLNOTPUSH
-#       - ADR-PROC-PULLWORK-LIMITWORKINPROGRESS
 #       - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
 #       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
 #       - ADR-REPO-AGENTS-STANDARDWORKER
@@ -42,6 +32,16 @@
 #       - ADR-REPO-SLIDES-TWODIRECTIONS
 #       - ADR-REPO-SLIDES-CONFLICTNEEDSAPICK
 #       - ADR-REPO-SLIDES-THEMESELECTOR
+#       - PDR-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS
+#       - PDR-NOWASTE-SEVENWASTES
+#       - PDR-ONELIVE-ONEVERSION
+#       - PDR-ONELIVE-HISTORYINGIT
+#       - RDR-DORA-VISUAL-DISPLAYPROCESSSTATE
+#       - RDR-DORA-VISUAL-CHOSENWITHTEAM
+#       - WDR-BUILTIN-GATESAREPARTOFWORK
+#       - WDR-KAIZEN-ADAPTFROMEVIDENCE
+#       - WDR-PULLWORK-PULLNOTPUSH
+#       - WDR-PULLWORK-LIMITWORKINPROGRESS
 # ---
 
 capabilities:
@@ -52,7 +52,7 @@ capabilities:
 
   # One gate or test file per run, its verdict forwarded verbatim.
   - name: catzc-check
-    supported_by: [ADR-AUTO-TEST-QUALITYGATE, ADR-PROC-BUILTIN-GATESAREPARTOFWORK]
+    supported_by: [ADR-AUTO-TEST-QUALITYGATE, WDR-BUILTIN-GATESAREPARTOFWORK]
     checks: [Invoke-TestFile, Test-Links, Test-AgentDefinitions]
 
   # How a cats module is built to the domain rules, one file at a time with its tests.
@@ -74,7 +74,7 @@ capabilities:
 
   # The per-file and end-of-task checks of a delegated change, and the shared files it never edits.
   - name: catzc-verify
-    supported_by: [ADR-PROC-BUILTIN-GATESAREPARTOFWORK, ADR-AUTO-TEST-QUALITYGATE, ADR-REPO-AGENTS-STANDARDWORKER]
+    supported_by: [WDR-BUILTIN-GATESAREPARTOFWORK, ADR-AUTO-TEST-QUALITYGATE, ADR-REPO-AGENTS-STANDARDWORKER]
     checks:
       [
         Invoke-TestFile,
@@ -102,7 +102,7 @@ capabilities:
 
   # Git as a read-only probe; no state-changing command.
   - name: git-readonly
-    supported_by: [ADR-PROC-BUILTIN-GATESAREPARTOFWORK]
+    supported_by: [WDR-BUILTIN-GATESAREPARTOFWORK]
     checks: []
 
   # Check and repair the links of one markdown file, one link at a time.
@@ -112,7 +112,7 @@ capabilities:
 
   # Republishing the Diagram Waves Review page from the catalogue on disk, its answers kept.
   - name: artifact-publish
-    supported_by: [ADR-DORA-VISUAL-DISPLAYPROCESSSTATE, ADR-DORA-VISUAL-CHOSENWITHTEAM]
+    supported_by: [RDR-DORA-VISUAL-DISPLAYPROCESSSTATE, RDR-DORA-VISUAL-CHOSENWITHTEAM]
     checks: []
 
   # Put, get, sync, theme and stale-rebuild of a diagram folder from its yml declaration.
@@ -138,37 +138,37 @@ capabilities:
 
   # The verdict rules for one plan file.
   - name: plan-shape
-    supported_by: [ADR-PRIN-ONELIVE-ONEVERSION, ADR-PRIN-NOWASTE-SEVENWASTES]
+    supported_by: [PDR-ONELIVE-ONEVERSION, PDR-NOWASTE-SEVENWASTES]
     checks: []
 
   # Landing a pasted continuation prompt in the plans, nothing discarded.
   - name: plan-intake
-    supported_by: [ADR-PRIN-ONELIVE-HISTORYINGIT, ADR-PRIN-NOWASTE-SEVENWASTES]
+    supported_by: [PDR-ONELIVE-HISTORYINGIT, PDR-NOWASTE-SEVENWASTES]
     checks: []
 
   # A decision round over the plans' open questions.
   - name: plan-decide
-    supported_by: [ADR-PRIN-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS, ADR-PRIN-NOWASTE-SEVENWASTES]
+    supported_by: [PDR-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS, PDR-NOWASTE-SEVENWASTES]
     checks: []
 
   # Ranking a plan by value and by the docs and tests it needs.
   - name: plan-value
-    supported_by: [ADR-PRIN-NOWASTE-SEVENWASTES, ADR-PROC-PULLWORK-PULLNOTPUSH]
+    supported_by: [PDR-NOWASTE-SEVENWASTES, WDR-PULLWORK-PULLNOTPUSH]
     checks: []
 
   # The hindsight log and its validity rule: every smug line backed by what the tree holds or lacks.
   - name: hindsight-log
-    supported_by: [ADR-REPO-AI-TRUSTTHETREE, ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE, ADR-PRIN-NOWASTE-SEVENWASTES]
+    supported_by: [ADR-REPO-AI-TRUSTTHETREE, WDR-KAIZEN-ADAPTFROMEVIDENCE, PDR-NOWASTE-SEVENWASTES]
     checks: []
 
   # The shape of one planned debt reduction from a hindsight line, and the .claude weight measure.
   - name: debt-reduce
-    supported_by: [ADR-PRIN-NOWASTE-SEVENWASTES, ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-OPENSTEP]
+    supported_by: [PDR-NOWASTE-SEVENWASTES, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-OPENSTEP]
     checks: [Test-Plans]
 
   # The message protocol between an orchestrator and the live sessions it drives over the master plan.
   - name: plans-orchestrate
-    supported_by: [ADR-PROC-PULLWORK-PULLNOTPUSH, ADR-PROC-PULLWORK-LIMITWORKINPROGRESS, ADR-REPO-AI-NEVERDECIDEFORUSER]
+    supported_by: [WDR-PULLWORK-PULLNOTPUSH, WDR-PULLWORK-LIMITWORKINPROGRESS, ADR-REPO-AI-NEVERDECIDEFORUSER]
     checks: []
 
   # How the listen mode's processor reads the listener's notes and keeps its own ledger.
@@ -183,11 +183,11 @@ capabilities:
 
   # How one note of the editor becomes a pattern and a repository-wide plan.
   - name: listen-insight
-    supported_by: [ADR-REPO-AI-EDITORISFACT, ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-ONETOPICONEFILE]
+    supported_by: [ADR-REPO-AI-EDITORISFACT, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-ONETOPICONEFILE]
     checks: [Test-Plans]
 
   # The checkpoint a user runs to bring a main session to its finalization phase before clearing it.
   - name: session-finalize
     invoked_by: user
-    supported_by: [ADR-REPO-AGENTS-USERSKILL, ADR-REPO-PLANS-OPENSTEP, ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE]
+    supported_by: [ADR-REPO-AGENTS-USERSKILL, ADR-REPO-PLANS-OPENSTEP, WDR-KAIZEN-ADAPTFROMEVIDENCE]
     checks: [Test-Plans]

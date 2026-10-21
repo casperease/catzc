@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "841e9875e259"
+    with_body_sha: "6c1a616c644d"
   edges:
     docs: "[Format-Code.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Format-Code.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Format-Code.ps1
@@ -12,10 +12,10 @@ catzc:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-NOOVERMOCKING
       - ADR-AUTO-TEST-TAGBYOUTERMOSTRING
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
-      - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
-      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE
+      - PDR-CONFIG-EXCEPTIONISCONFIGENTRY
 ---
 #>
 
@@ -50,7 +50,7 @@ Describe 'Format-Code' -Tag 'L0', 'logic' {
         Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Engine -eq 'gofmt' } { , [string[]] @() }
     }
 
-    It 'runs each language''s engine over that language''s files only, and leaves a language without a formatter alone' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+    It 'runs each language''s engine over that language''s files only, and leaves a language without a formatter alone' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         Format-Code
         Should -Invoke Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
             $Engine -eq 'prettier' -and ($File -join '|') -eq "$script:widgetFile|$script:otherWidget" -and -not $DryRun
@@ -255,7 +255,7 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIG
         }
     }
 
-    It 'runs the global step once over every language in scope, then a language''s own step over its files only' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+    It 'runs the global step once over every language in scope, then a language''s own step over its files only' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         $null = Format-Code -DryRun
         $script:stepRuns | Should -Be @('file-meta|a.wdg,a.gdg', 'bcl-namespace|a.wdg')
     }
@@ -343,7 +343,7 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
         }
     }
 
-    It 'every step the shipped languages.yml lists has its adapters' -Tag 'ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE' {
+    It 'every step the shipped languages.yml lists has its adapters' -Tag 'PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE' {
         $config = Get-Config -Config languages
         $listed = @($config.imprint) + @($config.languages | ForEach-Object { $_.imprint })
         $listed | Should -Contain 'file-meta'
@@ -357,7 +357,7 @@ Describe 'Format-Code engines' -Tag 'L0', 'integrity' {
         }
     }
 
-    It 'the shipped languages.yml gives every language a formatter or the reason it has none' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+    It 'the shipped languages.yml gives every language a formatter or the reason it has none' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
         foreach ($language in (Get-Config -Config languages).languages) {
             ([bool] $language.formatter) -xor ([bool] $language.no_formatter) | Should -BeTrue -Because $language.name
         }

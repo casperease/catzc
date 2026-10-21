@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d5d6d31a8bd8
+    with_body_sha: "6916f4e9bb4c"
   edges:
     docs: "[Get-ValueChainHighlight.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainHighlight.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
@@ -10,7 +10,7 @@ catzc:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-DSGN-TRACK-LITCELL
       - ADR-DSGN-TRACK-VALUECHAINMAP
-      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+      - TDR-ONETRUTH-TRUTHISQUERYABLE
 ---
 #>
 
@@ -42,7 +42,7 @@ Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
         @($highlight.Cells | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) | Should -Be @('BOTTOM x beta')
     }
 
-    It 'emits JSON with -AsJson' -Tag 'ADR-THES-ONETRUTH-TRUTHISQUERYABLE' {
+    It 'emits JSON with -AsJson' -Tag 'TDR-ONETRUTH-TRUTHISQUERYABLE' {
         $data = Get-ValueChainHighlight -Adr 'ADR-WIDGET-GADGET', 'ADR-WIDGET-COG' -AsJson | ConvertFrom-Json
         @($data.cells).Count | Should -Be 3
         $data.cells[1].adrs | Should -Be @('ADR-WIDGET-GADGET')

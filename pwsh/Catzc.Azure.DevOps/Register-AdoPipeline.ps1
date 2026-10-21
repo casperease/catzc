@@ -6,7 +6,7 @@ catzc:
   edges:
     docs: "[Register-AdoPipeline.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/Register-AdoPipeline.ps1.md)"
     cites:
-      - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+      - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4bd3dcc41e81"
+    with_body_sha: "9d947cec5eaa"
   edges:
     docs: "[AdrChecksConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AdrChecksConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/types/AdrChecksConfig.cs
@@ -10,7 +10,7 @@ catzc:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
 ---
 #>
 
@@ -36,7 +36,7 @@ Describe 'AdrChecksConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' 
         }
     }
 
-    Context 'a stated config' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+    Context 'a stated config' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         BeforeAll {
             $script:config = [Catzc.Base.Docs.AdrChecksConfig]::new([ordered]@{
                     engine_neutrality = [ordered]@{

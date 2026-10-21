@@ -11,7 +11,7 @@ Formats the repository's files, each with the formatter engine languages.yml nam
 
 ### description
 
-Formatting is configured, not programmed ([ADR-PRIN-CONFIG](../../../adr/principles/configure-not-program.md)): the file-language registry
+Formatting is configured, not programmed ([PDR-CONFIG](../../../adr/principles/configure-not-program.md)): the file-language registry
 (Catzc.Base.Languages configs/languages.yml) names each language's formatter engine — prettier, gofmt, ruff, psscriptanalyzer,
 dotnet-format, bicep — and this one command runs it. Supporting a language on an existing engine is one line in that file; a new engine is
 one adapter (Invoke-FormatterEngine).

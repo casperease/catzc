@@ -27,7 +27,7 @@ idea came from. An idea in an area where catzc has made no decision, such as Go,
 ### Rule ADR-REPO-INSPIRE-REBUILTNOTPORTED
 
 An idea that is taken is rebuilt here to catzc's rules, never ported alongside the catzc shape
-([ADR-PRIN-ONELIVE](../principles/one-living-version.md)): catzc carries one living version of each behaviour.
+([PDR-ONELIVE](../principles/one-living-version.md)): catzc carries one living version of each behaviour.
 
 - [Rebuilt, not ported](#rebuilt-not-ported)
 
@@ -89,7 +89,7 @@ is stated, and an idea that is taken is rebuilt to catzc's rules.
 - **`.claude/CLAUDE.md`** carries this policy in its `## Inspiration` section, so every session reads it before it reads a sibling.
 - **`build-inspiration-module`**, the sub-agent that builds the inspiration module, rests on these rules in the agent registry
   ([agent-definitions](agent-definitions.md)), and `Test-AgentDefinitions` resolves its citations.
-- Copying is caught where any second version is caught: by review against [ADR-PRIN-ONELIVE](../principles/one-living-version.md). No gate
+- Copying is caught where any second version is caught: by review against [PDR-ONELIVE](../principles/one-living-version.md). No gate
   can tell an idea from a copy.
 - **`InspirationConfig`** validates `inspiration.yml` on load, and **`Get-Inspiration`** reports each inspiration's availability.
 

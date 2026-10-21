@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-RelativeEdgesFileMetaFact.Tests.ps1
     docs: "[Get-RelativeEdgesFileMetaFact.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-RelativeEdgesFileMetaFact.ps1.md)"
     cites:
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
       - ADR-REPO-FILEMETA-FEWLINKS
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
 ---
 #>
 

@@ -18,7 +18,7 @@ Cats collapses software and infrastructure delivery into one repository with one
 
 ## Footer
 
-Rests on the thesis record ADR-THES-ONETRUTH and the DORA research
+Rests on the thesis record TDR-ONETRUTH and the DORA research
 
 ## Notes
 

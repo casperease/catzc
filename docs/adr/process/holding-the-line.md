@@ -1,29 +1,29 @@
 # ADR: Holding the line — a gate that fails stops the flow until it is green
 
-## Rules: ADR-PROC-ANDON
+## Rules: WDR-ANDON
 
-### Rule ADR-PROC-ANDON-FAILINGGATESTOPSLINE
+### Rule WDR-ANDON-FAILINGGATESTOPSLINE
 
 A gate that fails stops the line: the failing change goes no further, and restoring green takes priority over starting new work. This is the
 andon cord — anyone, or any gate, can and must halt the flow the moment a defect appears (jidoka).
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-ANDON-NOBROKENBASELINE
+### Rule WDR-ANDON-NOBROKENBASELINE
 
 Never build on a known-broken baseline. A red mainline is fixed or reverted before new work integrates on top of it; stacking work on a
 defect multiplies its blast radius and hides which change was at fault.
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-ANDON-STOPPINGISCHEAP
+### Rule WDR-ANDON-STOPPINGISCHEAP
 
 Stopping the line is cheap and expected, not a failure event. The best stop is the earliest and smallest — a gate on the devbox; the worst
 is a stop discovered in production. Optimise for stopping furthest left, not for never stopping.
 
 - [Why](#why)
 
-### Rule ADR-PROC-ANDON-STOPISAUTOMATIC
+### Rule WDR-ANDON-STOPISAUTOMATIC
 
 The stop is automatic and unambiguous: the gate throws, the commit is coloured red, and there is no "warn and continue" path. A warning that
 does not stop the line is not holding the line.
@@ -32,11 +32,11 @@ does not stop the line is not holding the line.
 
 ## Context
 
-The Toyota Production System ([ADR-PROC-LEAN](lean.md)) gives every worker an andon cord: pull it and the line stops. This sounds expensive
+The Toyota Production System ([WDR-LEAN](lean.md)) gives every worker an andon cord: pull it and the line stops. This sounds expensive
 — a whole line idled by one station — but it is the cheapest policy Toyota found, because a defect allowed to travel down the line is
 multiplied by every station it passes before someone notices. Stopping at the source turns a potential recall into a one-station fix [^1].
 
-Software delivery has the same physics ([ADR-PRIN-NOWASTE](../principles/reduce-waste.md), waste seven: defects grow with distance
+Software delivery has the same physics ([PDR-NOWASTE](../principles/reduce-waste.md), waste seven: defects grow with distance
 travelled). A broken build that is allowed to stand while work piles on top of it does not stay one defect; it becomes a tangle in which
 every new change is suspect and the original fault is buried. The question this article settles is what happens the instant a gate goes red.
 
@@ -50,7 +50,7 @@ When a gate fails, the line stops. Concretely:
 - No new work builds on the broken baseline. The fix goes in — or the offending change is reverted — before anything integrates on top.
 
 The mechanism is the same fail-fast jidoka the platform uses everywhere
-([ADR-PRIN-POKAYOKE-FAILFAST](../principles/poka-yoke.md#rule-adr-prin-pokayoke-failfast)): stop the moment a defect is detected, fix it at
+([PDR-POKAYOKE-FAILFAST](../principles/poka-yoke.md#rule-pdr-pokayoke-failfast)): stop the moment a defect is detected, fix it at
 the source, then resume. "Holding the line" is that principle applied to the mainline and the promotion flow rather than to a single
 function call [^2].
 

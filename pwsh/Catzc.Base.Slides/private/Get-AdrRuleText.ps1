@@ -6,8 +6,8 @@ catzc:
   edges:
     docs: "[Get-AdrRuleText.ps1.md](docs/references/pwsh/catzc-base-slides/private/Get-AdrRuleText.ps1.md)"
     cites:
-      - ADR-PRIN-EAC-DIFFABLEBELONGSINVERSIONCONTROL
       - ADR-REPO-SLIDES-CHECKABLECLAIMS
+      - PDR-EAC-DIFFABLEBELONGSINVERSIONCONTROL
 ---
 #>
 

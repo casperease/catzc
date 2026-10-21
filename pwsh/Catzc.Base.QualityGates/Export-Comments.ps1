@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
     docs: "[Export-Comments.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Export-Comments.ps1.md)"
     cites:
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
-      - ADR-PRIN-ONELIVE-ONEVERSION
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - PDR-ONELIVE-ONEVERSION
 ---
 #>
 

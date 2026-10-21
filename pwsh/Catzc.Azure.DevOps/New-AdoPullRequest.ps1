@@ -8,7 +8,7 @@ catzc:
     docs: "[New-AdoPullRequest.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/New-AdoPullRequest.ps1.md)"
     cites:
       - ADR-FLOW-CD-TYPE
-      - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+      - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
 ---
 #>
 

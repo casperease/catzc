@@ -1,29 +1,29 @@
 # ADR: DORA — Well-being
 
-## Rules: ADR-DORA-WELLBEING
+## Rules: RDR-DORA-WELLBEING
 
-### Rule ADR-DORA-WELLBEING-MEASUREDOUTCOME
+### Rule RDR-DORA-WELLBEING-MEASUREDOUTCOME
 
 Well-being is a directly measured outcome — individuals' happiness and job satisfaction — because DORA's research ties it to organizational
 performance and job tenure, not a soft afterthought layered onto delivery metrics after the fact.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-WELLBEING-REDUCEDEPLOYMENTPAIN
+### Rule RDR-DORA-WELLBEING-REDUCEDEPLOYMENTPAIN
 
 Reduce deployment pain — the fear and anxiety of pushing code to production — with the same technical practices that drive continuous
 delivery; a painful release process is a well-being problem with a delivery-practice fix, not a separate morale program.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-WELLBEING-SHRINKREWORK
+### Rule RDR-DORA-WELLBEING-SHRINKREWORK
 
 Track and shrink rework — unplanned, reactive work such as break/fix, emergency patches, and firefighting — because the ratio of new work to
 rework is simultaneously a quality signal and a well-being signal: teams that spend more time firefighting report worse outcomes on both.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-WELLBEING-BURNOUTISENVIRONMENT
+### Rule RDR-DORA-WELLBEING-BURNOUTISENVIRONMENT
 
 Treat burnout as a property of the work environment, never a property of the person — address Maslach's six organizational risk factors
 (overload, lack of control, insufficient reward, breakdown of community, absence of fairness, value conflict) by changing how work is

@@ -12,7 +12,7 @@ The dotnet-format formatter engine: formats the given C# files with `dotnet form
 ### description
 
 One Format-Code engine adapter
-([ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)).
+([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)).
 `dotnet format whitespace --folder` formats by the repository's .editorconfig alone — the same rules the editor's C# extension applies —
 with no project to load, so it takes seconds and needs only the .NET SDK. `--verify-no-changes` with a JSON `--report` names the files that
 differ; without -DryRun, a second run over exactly those rewrites them. Exit codes: 0 = clean, 2 = files differ (expected), anything else is

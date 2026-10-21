@@ -1,8 +1,8 @@
 # ADR: DORA — Flexible infrastructure
 
-## Rules: ADR-DORA-FLEXINFRA
+## Rules: RDR-DORA-FLEXINFRA
 
-### Rule ADR-DORA-FLEXINFRA-FIVECHARACTERISTICS
+### Rule RDR-DORA-FLEXINFRA-FIVECHARACTERISTICS
 
 Flexible infrastructure means five NIST characteristics together — on-demand self-service, broad network access, resource pooling, rapid
 elasticity, and measured service — not any single one of them in isolation; a system that scales but still needs a human to provision it is
@@ -10,28 +10,28 @@ not flexible infrastructure.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-FLEXINFRA-INFRASTRUCTUREASCODE
+### Rule RDR-DORA-FLEXINFRA-INFRASTRUCTUREASCODE
 
 Infrastructure configuration is checked into version control, and provisioning, configuration changes, and deployments happen through an
 automated mechanism — never through console clicks, manual tickets, or an undocumented runbook.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-FLEXINFRA-CROSSFUNCTIONALCHANGE
+### Rule RDR-DORA-FLEXINFRA-CROSSFUNCTIONALCHANGE
 
 Adopting infrastructure as code is a cross-functional change, not a tooling swap — it touches information-security controls and approval
 policy as much as it touches provisioning scripts, so it rolls out through a single, low-risk pilot application before it scales org-wide.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-FLEXINFRA-GUARDRAILNOTGATE
+### Rule RDR-DORA-FLEXINFRA-GUARDRAILNOTGATE
 
 Self-service infrastructure stays a guardrail, never a gate: an Internal Developer Platform that mandates rigid, one-size-fits-all
 infrastructure or requires a manual ticket to reach cloud resources has negated the capability it claims to offer.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-FLEXINFRA-MEASUREPREDICTEDOUTCOMES
+### Rule RDR-DORA-FLEXINFRA-MEASUREPREDICTEDOUTCOMES
 
 Measure the capability by what NIST's characteristics predict — time to provision, self-service adoption rate, elasticity, and cost
 transparency — never by the raw percentage of workloads hosted on cloud servers or by migration volume and speed.

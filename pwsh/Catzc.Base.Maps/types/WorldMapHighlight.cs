@@ -8,7 +8,7 @@ catzc:
     docs: "[WorldMapHighlight.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapHighlight.cs.md)"
     cites:
       - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+      - TDR-ONETRUTH-TRUTHISQUERYABLE
 ---
 */
 

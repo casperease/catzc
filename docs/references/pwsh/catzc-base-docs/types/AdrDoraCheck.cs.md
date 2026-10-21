@@ -15,7 +15,7 @@ and validated by AdrChecksConfig.
   mode   — report | gate; default CheckMode's default, gate
   file   — the DORA file's name inside each domain folder; default DefaultFile
   exempt — a map of domain name to the reason it keeps no DORA file
-           ([ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-exceptionisconfigentry)); default none
+           ([PDR-CONFIG-EXCEPTIONISCONFIGENTRY](/docs/adr/principles/configure-not-program.md#rule-pdr-config-exceptionisconfigentry)); default none
   exempt_folders — a map of folder under docs/adr/ (`azure/caf`) to the reason its ADRs take no section in their domain's DORA
            file: they answer a vendor's checklist, grounded in the vendor's reference, not in DORA; default none
 ```

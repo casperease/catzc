@@ -10,7 +10,7 @@ Every load stage but the unload has an ADR rule and a gate.
 5  Janitors                idempotent, actor-aware; gate Invoke-TypeCacheJanitor.Tests
 6  Unload                  the import-time helpers removed; no rule and no gate
 
-Supports ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-PWSH-ERROR-STOPONERROR, ADR-PRIN-ONELIVE-ONEVERSION, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-DSGN-RUNMODE-NEVERCOEXIST and ADR-BCL-TYPES-JANITORSBYCALLER (governance lens).
+Supports ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-PWSH-ERROR-STOPONERROR, PDR-ONELIVE-ONEVERSION, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-DSGN-RUNMODE-NEVERCOEXIST and ADR-BCL-TYPES-JANITORSBYCALLER (governance lens).
 ```
 
 The cats load sequence runs in six stages, from the generated shim to the final unload of the import-time helpers. Each stage but the last
@@ -24,7 +24,7 @@ Each stage has its own band, and a stage's gate sits in its band beside the rule
 ## Walkthrough
 
 1. **Shim.** `importer.ps1` is fully managed: `New-Importer` renders it from one source of truth, and it carries no load logic of its own
-   (ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-PRIN-ONELIVE-ONEVERSION). `New-Importer.Tests` checks that the shim's parameter set equals
+   (ADR-REPO-ROOTCFG-FULLYMANAGED, PDR-ONELIVE-ONEVERSION). `New-Importer.Tests` checks that the shim's parameter set equals
    `Invoke-Importer`'s and that the committed file equals the generated one.
 2. **Session.** The importer sets `$ErrorActionPreference = 'Stop'` globally (ADR-PWSH-ERROR-STOPONERROR), anchors on the working root and
    the code root (ADR-AUTO-BUNDLE-TWOROOTS), and a bundle sets up the same session as source mode does (ADR-AUTO-BUNDLE-BUNDLEISSESSION).
@@ -51,7 +51,7 @@ build, and code review rejects a bundle loader that forks the importer.
 ## Why it holds
 
 - An opted-in root file is materialised from exactly one source of truth (ADR-REPO-ROOTCFG-FULLYMANAGED), and the code holds one living
-  version of every behaviour (ADR-PRIN-ONELIVE-ONEVERSION).
+  version of every behaviour (PDR-ONELIVE-ONEVERSION).
 - The error preference is `Stop`, set globally by the importer (ADR-PWSH-ERROR-STOPONERROR). Cats anchors on two roots
   (ADR-AUTO-BUNDLE-TWOROOTS), and a bundle is a session, not a passive library (ADR-AUTO-BUNDLE-BUNDLEISSESSION).
 - A bundle loads through the one living importer, so types and accelerators register before any module (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER,

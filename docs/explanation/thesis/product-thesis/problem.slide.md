@@ -4,14 +4,14 @@ catzc:
     pattern: rule
     deck: product-thesis
     order: 2
-    quotes: ADR-THES-ONETRUTH-ONESTOREDECIDES
+    quotes: TDR-ONETRUTH-ONESTOREDECIDES
 ---
 
 # Delivery is slow because the truth is scattered
 
 ## Eyebrow
 
-ADR-THES-ONETRUTH-ONESTOREDECIDES · The thesis
+TDR-ONETRUTH-ONESTOREDECIDES · The thesis
 
 ## Body
 

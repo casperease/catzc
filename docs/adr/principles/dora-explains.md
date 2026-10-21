@@ -6,7 +6,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 ## Everything as code
 
-[ADR-PRIN-EAC](everything-as-code.md)
+[PDR-EAC](everything-as-code.md)
 
 > DORA identifies comprehensive version control as a predictor of continuous delivery. Everything-as-code ensures reproducibility,
 > traceability, and version alignment by storing all artifacts in a single source of truth.
@@ -21,7 +21,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 ## Configure, don't program
 
-[ADR-PRIN-CONFIG](configure-not-program.md)
+[PDR-CONFIG](configure-not-program.md)
 
 > DORA links code maintainability and small, safe changes to delivery performance. Configuring instances through one mechanism keeps the
 > code small and uniform, and turns supporting a new case into a reviewable change of a few configuration lines.
@@ -36,7 +36,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 ## Reduce variability
 
-[ADR-PRIN-REDUCEVAR](reduce-variability.md)
+[PDR-REDUCEVAR](reduce-variability.md)
 
 > DORA's research links reduced variability to faster, more reliable delivery outcomes. Standardizing processes, tooling, and artifact
 > structure makes deviations visible, enabling early detection of defects and predictable performance across environments.
@@ -51,7 +51,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 ## Reduce waste
 
-[ADR-PRIN-NOWASTE](reduce-waste.md)
+[PDR-NOWASTE](reduce-waste.md)
 
 > DORA's research links small batch sizes and streamlined approvals to faster deployment frequency and lower change failure rates. Reducing
 > waste eliminates handoffs, delays, and rework, accelerating the flow from development to production.
@@ -66,7 +66,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 `Poka-yoke — make mistakes impossible`
 
-[ADR-PRIN-POKAYOKE](poka-yoke.md)
+[PDR-POKAYOKE](poka-yoke.md)
 
 > DORA's research identifies code maintainability and platform engineering as drivers of team efficacy and delivery performance. Poka-yoke
 > prevents defects at their origin through structural prevention and immediate detection, reducing the cost and friction of change.
@@ -81,7 +81,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 `One living version — no legacy, no back-compat, history in git`
 
-[ADR-PRIN-ONELIVE](one-living-version.md)
+[PDR-ONELIVE](one-living-version.md)
 
 > DORA identifies version control and trunk-based development as predictors of delivery performance. One living version enforces a single
 > source of truth, eliminating the cognitive load and defects that parallel paths create, enabling fast, atomic change propagation across
@@ -99,7 +99,7 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 
 `cats and catzc — two names, two audiences, used across each other on purpose`
 
-[ADR-PRIN-CATS](cats-and-catzc.md)
+[PDR-CATS](cats-and-catzc.md)
 
 > DORA ties code maintainability and documentation quality to how easily a reader finds and understands what a name means. One name per
 > audience, each with a home and a rule for where they meet, removes a source of variability in how the system is spoken of and written, so

@@ -9,8 +9,8 @@ catzc:
     cites:
       - ADR-AUTO-CACHE
       - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
-      - ADR-PRIN-CONFIG
       - ADR-REPO-FORMAT-BASELINEISFLOOR
+      - PDR-CONFIG
 ---
 #>
 

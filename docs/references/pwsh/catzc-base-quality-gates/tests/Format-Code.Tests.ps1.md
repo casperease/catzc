@@ -37,7 +37,7 @@ Above `Describe 'Format-Code engines' -Tag 'L0', 'integrity' {`, written with `#
 
 ```text
 Integrity: every engine the registry may name has its adapter, and the shipped languages.yml names only those engines
-([ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)).
+([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](/docs/adr/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)).
 ```
 
 ## comment:5

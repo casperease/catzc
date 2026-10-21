@@ -1,29 +1,29 @@
 # ADR: DORA — Test data management
 
-## Rules: ADR-DORA-TESTDATA
+## Rules: RDR-DORA-TESTDATA
 
-### Rule ADR-DORA-TESTDATA-TESTSOWNDATA
+### Rule RDR-DORA-TESTDATA-TESTSOWNDATA
 
 Every automated test owns the data it exercises — a fixture the test (or its harness) creates and controls, never a shared or external data
 set whose shape the test cannot pin down.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-TESTDATA-MINIMIZEFIRST
+### Rule RDR-DORA-TESTDATA-MINIMIZEFIRST
 
 Minimize test data before managing it. A test that needs no external data — an in-memory value, a generated input, a synthetic record —
 beats one that acquires, wires, and maintains a data set, because the acquired set is the ongoing cost.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-TESTDATA-ISOLATEDDATA
+### Rule RDR-DORA-TESTDATA-ISOLATEDDATA
 
 Test data is isolated per test (or per run): no test's data is read, written, or reset by another test, another process, or a shared
 environment. Isolation is a property the test setup guarantees, not a habit of carefulness.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-TESTDATA-EXTERNALDATALASTRESORT
+### Rule RDR-DORA-TESTDATA-EXTERNALDATALASTRESORT
 
 Database-stored or externally-hosted test data is a last resort, chosen only when the thing under test genuinely is the database. An
 in-memory or file-based fixture is preferred by default, because a shared datastore blocks parallel test runs and invites ordering-dependent
@@ -31,7 +31,7 @@ flakiness.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-TESTDATA-NOPRODUCTIONDATA
+### Rule RDR-DORA-TESTDATA-NOPRODUCTIONDATA
 
 Production data never reaches a test fixture verbatim. Data derived from production is masked, hashed, or replaced with synthetic values
 before a test touches it, and a fixture's identity is always distinct from any real environment, customer, or record.

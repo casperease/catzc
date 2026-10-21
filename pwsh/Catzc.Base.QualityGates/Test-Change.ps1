@@ -8,7 +8,7 @@ catzc:
     docs: "[Test-Change.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Change.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-PRIN-CONFIG
+      - PDR-CONFIG
 ---
 #>
 

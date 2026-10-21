@@ -68,7 +68,7 @@ Started 2026-10-21T05:07:31.0383252+02:00.
   says the truth is the whole repository at one commit, committed files only, and :63 (ADR-REPO-AI-EDITORISFACT) makes the listen mode the
   one exception.
 - 2026-10-21 Jack: If only the session had read the thesis instead of rediscovering it: docs/adr/thesis/truth-stores.md:22
-  (ADR-THES-STORES-RESPONSIBILITYDOMAIN) declares one repository per responsibility domain, and the rule, docs, code order exists only as a
+  (TDR-STORES-RESPONSIBILITYDOMAIN) declares one repository per responsibility domain, and the rule, docs, code order exists only as a
   plan-step order in .claude/skills/listen-insight/SKILL.md:38, never as a ranking of truth.
 - 2026-10-21 Jack: If only the session had read its own CLAUDE.md: .claude/CLAUDE.md:41 already says C:\projects\eac is read for inspiration
   only and that catzc ADRs decide, so the lesson cost a session and taught it nothing new.
@@ -123,7 +123,7 @@ Started 2026-10-21T05:07:31.0383252+02:00.
 - 2026-10-21 Jack: If only the session had read the glossary avoid table: docs/adr/glossary.md:60 already tells the eac normal form from the
   sibling eac repository (ADR-REPO-INSPIRE), and :1432 names the sibling an inspiration, so the double meaning was settled before it was
   learned.
-- 2026-10-21 Jack: If only the session had read either entry: docs/adr/glossary.md:46 (eac normal form, ADR-THES-NORMALFORM) and :951
+- 2026-10-21 Jack: If only the session had read either entry: docs/adr/glossary.md:46 (eac normal form, TDR-NORMALFORM) and :951
   (repository normal form, ADR-AUTO-IDIOM-NORMALFORM) already contrast each other in the very words of the learning.
 - 2026-10-21 Jack: If only Add-SessionLearning had looked before it wrote: pwsh/Catzc.Base.Docs/Add-SessionLearning.ps1 appends every line
   it is given and checks no existing line, its only Contains at :113 guarding the list of files written, so a relayed lesson is logged twice

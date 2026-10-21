@@ -7,10 +7,10 @@ catzc:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-FormatScope.Tests.ps1
     docs: "[Get-FormatScope.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-FormatScope.ps1.md)"
     cites:
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
-      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
       - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
       - ADR-REPO-CONTRACT-CONTRACTASSET
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - PDR-CONFIG-EXCEPTIONISCONFIGENTRY
 ---
 #>
 

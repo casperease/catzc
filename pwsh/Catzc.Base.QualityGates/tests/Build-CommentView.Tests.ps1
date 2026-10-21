@@ -8,9 +8,9 @@ catzc:
     code: pwsh/Catzc.Base.QualityGates/Build-CommentView.ps1
     cites:
       - ADR-AUTO-IDEM-CHECKBEFOREACTING
-      - ADR-PRIN-ONELIVE-ONEVERSION
       - ADR-REPO-COMMENTS-INLINEVIEWGENERATED
       - ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION
+      - PDR-ONELIVE-ONEVERSION
 ---
 #>
 

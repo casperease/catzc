@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-ImprintStep.Tests.ps1
     docs: "[Invoke-ImprintStep.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-ImprintStep.ps1.md)"
     cites:
-      - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
+      - PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a300f074d8d2
+    with_body_sha: "68c364cdaa07"
   edges:
     docs: "[ValueChainMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/types/ValueChainMap.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Maps/types/ValueChainMap.cs
@@ -10,7 +10,7 @@ catzc:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-DSGN-TRACK-VALUECHAINCONCERN
       - ADR-DSGN-TRACK-VALUECHAINMAP
-      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+      - TDR-ONETRUTH-TRUTHISQUERYABLE
 ---
 #>
 
@@ -75,7 +75,7 @@ Describe 'ValueChainMap' -Tag 'L0', 'logic' {
         { [Catzc.Base.Maps.ValueChainMap]::Build($script:rows, $script:columns, @('ADR-WIDGET-COG')) } | Should -Throw '*an ADR is not a Catzc.Base.Docs.AdrRuleSet*'
     }
 
-    It 'emits every cell as JSON' -Tag 'ADR-THES-ONETRUTH-TRUTHISQUERYABLE' {
+    It 'emits every cell as JSON' -Tag 'TDR-ONETRUTH-TRUTHISQUERYABLE' {
         $data = $script:map.ToJson() | ConvertFrom-Json
         $data.stacks | Should -Be $script:rows
         $data.concerns | Should -Be $script:columns

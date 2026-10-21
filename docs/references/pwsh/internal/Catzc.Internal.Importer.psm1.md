@@ -13,7 +13,7 @@ Catzc.Internal.Importer — the importer overlay.
 The whole load sequence lives here, in Invoke-Importer, whose parameter block is the importer's public
 switch surface. The root importer.ps1 is a thin, GENERATED shim (New-Importer) that carries the same param
 block and delegates here — one living copy of the load logic (see
-[ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)), which a bundle's entry runs too, in its -Bundle mode
+[PDR-ONELIVE](/docs/adr/principles/one-living-version.md)), which a bundle's entry runs too, in its -Bundle mode
 ([ADR-AUTO-BUNDLE-ONELIVINGIMPORTER](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle-onelivingimporter)).
 It sets the two roots, RepositoryRoot and CatzcModulesRoot, equal in the mono repo
 ([ADR-AUTO-BUNDLE-TWOROOTS](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle-tworoots)), and establishes the

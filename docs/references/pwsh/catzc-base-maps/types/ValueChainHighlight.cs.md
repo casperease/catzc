@@ -15,5 +15,5 @@ ADR-<CODE>#n or ADR-<CODE>:n; a rule sits where its ADR sits, so it lights its A
 requested ADRs that light it, with a ValueChainReason per ADR (its ADR domain's row, the concern, and whether the
 concerns are the ADR's own override or its ADR domain's default). The cells keep the map's order (rows, then
 columns), so the result is deterministic; ToJson is its data form
-([ADR-THES-ONETRUTH-TRUTHISQUERYABLE](/docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-truthisqueryable)).
+([TDR-ONETRUTH-TRUTHISQUERYABLE](/docs/adr/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)).
 ```

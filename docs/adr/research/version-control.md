@@ -1,29 +1,29 @@
 # ADR: DORA — Version control
 
-## Rules: ADR-DORA-VCS
+## Rules: RDR-DORA-VCS
 
-### Rule ADR-DORA-VCS-EVERYTHINGVERSIONED
+### Rule RDR-DORA-VCS-EVERYTHINGVERSIONED
 
 Everything required to reproduce a build, deployment, or environment lives in version control — application code, scripts, configuration,
 infrastructure definitions, and pipeline definitions — not only the application source.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-VCS-REPRODUCIBLEANDTRACEABLE
+### Rule RDR-DORA-VCS-REPRODUCIBLEANDTRACEABLE
 
 Version control exists to serve two properties: reproducibility (any past state can be rebuilt from the recorded history) and traceability
 (every change is attributable to an author, a time, and a reason).
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-VCS-COMPREHENSIVESCOPE
+### Rule RDR-DORA-VCS-COMPREHENSIVESCOPE
 
 Comprehensive versioning is the scope, not partial versioning — a system whose code is tracked but whose configuration or infrastructure is
 not is only partly under version control, and the untracked part is where irreproducible drift accumulates.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-VCS-SMALLFREQUENTCOMMITS
+### Rule RDR-DORA-VCS-SMALLFREQUENTCOMMITS
 
 Inner-loop discipline is part of the capability — frequent, small commits with clear messages are what make the history a usable safety net;
 large, infrequent commits and unmanaged merge conflicts erode it.

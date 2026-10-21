@@ -14,7 +14,7 @@ what make self-service safe in tightly controlled and managed settings, rather t
 ### Rule ADR-DSGN-SELFSERV-REPOSITORYISSOURCEOFTRUTH
 
 The repository is the **single source of truth** for everything the platform manages — automation, configuration, infrastructure, and pinned
-tooling — all represented as code (`ADR-PRIN-EAC`). Self-service means editing that source and letting the platform apply it; it never means
+tooling — all represented as code (`PDR-EAC`). Self-service means editing that source and letting the platform apply it; it never means
 clicking a portal or running an out-of-band command. State that diverges from the repository is **drift**, and drift is reconciled _to_ the
 repository, never blessed after the fact. One authoritative source is the precondition for every downstream guarantee: you cannot audit,
 reproduce, or review what is not written down.
@@ -35,7 +35,7 @@ the Reproducible Builds project on the source-to-binary verification path, and S
 
 Changes reach production through **trunk-based development with automated guardrails**. Work lands on trunk in small batches behind
 short-lived branches that must pass the CI gate and are deleted after merge; there are no long-lived divergent branches and no legacy
-variants of our own code (`ADR-PRIN-ONELIVE`). The guardrails — asserts, the quality gates, the generated-file drift checks, and code review
+variants of our own code (`PDR-ONELIVE`). The guardrails — asserts, the quality gates, the generated-file drift checks, and code review
 — are **automated and mandatory**, so self-service cannot merge a change that skips them. Speed and control are the same mechanism here, not
 a trade-off. (Primary source: trunkbaseddevelopment.com, Paul Hammant.)
 
@@ -60,8 +60,8 @@ is simply not allowed.
 
 The resolution is to make self-service _safe by construction_. catzc rests on four properties that, together, make "anyone can change it
 themselves" and "every change is controlled, reproducible, and auditable" the same statement rather than opposing ones: a **single source of
-truth** (`ADR-PRIN-EAC`), **immutable and reproducibly-built artifacts** with provenance, **trunk-based development** with automated
-guardrails (`ADR-PRIN-ONELIVE`), and the **thin CLI** as the only way to act (`ADR-DSGN-THINPLAT`). Each one is load-bearing; remove any and
+truth** (`PDR-EAC`), **immutable and reproducibly-built artifacts** with provenance, **trunk-based development** with automated
+guardrails (`PDR-ONELIVE`), and the **thin CLI** as the only way to act (`ADR-DSGN-THINPLAT`). Each one is load-bearing; remove any and
 self-service stops being safe.
 
 ### Self-service, not free-for-all
@@ -97,7 +97,7 @@ as "a source-control branching model where developers collaborate on code in a s
 create other long-lived development branches". The practices that matter here are its guardrails: small, frequent commits to trunk;
 short-lived branches used only for review and CI, then deleted; and a mandatory CI gate that a commit must pass. Because those gates are
 automated and stand between every change and trunk, self-service cannot merge something that skips review, fails an assert, or leaves a
-generated file stale. The branching discipline and the no-legacy rule (`ADR-PRIN-ONELIVE`) are two faces of the same commitment: one living
+generated file stale. The branching discipline and the no-legacy rule (`PDR-ONELIVE`) are two faces of the same commitment: one living
 version, on trunk, always releasable.
 
 ### Safe where control matters
@@ -123,9 +123,9 @@ competing ones (ADR-DSGN-SELFSERV-REGULATEDNEEDSREPRODUCIBILITY).
 
 ### How this is enforced
 
-- **Everything-as-code** (`ADR-PRIN-EAC`) keeps the repository the sole authoritative source; there is no supported out-of-band channel.
+- **Everything-as-code** (`PDR-EAC`) keeps the repository the sole authoritative source; there is no supported out-of-band channel.
 - **The globset durable-SHA identities** content-address every shippable unit, giving each deployment a single verifiable identity.
-- **One living version** (`ADR-PRIN-ONELIVE`) forbids long-lived branches and legacy variants, keeping trunk the one source that is always
+- **One living version** (`PDR-ONELIVE`) forbids long-lived branches and legacy variants, keeping trunk the one source that is always
   releasable.
 - **Fail-fast asserts and the quality gates** (the spelling, terminology, and generated-file drift quality gates) are the automated
   guardrails a self-service change must clear before it can merge.

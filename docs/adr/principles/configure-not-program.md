@@ -1,15 +1,15 @@
 # Principle: Configure, don't program — one mechanism per kind, one config entry per instance
 
-## Rules: ADR-PRIN-CONFIG
+## Rules: PDR-CONFIG
 
-### Rule ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+### Rule PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
 
 Behaviour that varies by instance — a language, a tool, a target, an environment, a file class — is a config entry. Code implements one
 mechanism for each kind of thing, never one function for each instance of it.
 
 - [Mechanisms and instances](#mechanisms-and-instances)
 
-### Rule ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
+### Rule PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE
 
 Adding an instance of a kind the repository already handles is a config change. When it takes new code beyond a new engine adapter, the
 mechanism is missing or wrong: fix the mechanism, then add the instance as configuration.
@@ -17,21 +17,21 @@ mechanism is missing or wrong: fix the mechanism, then add the instance as confi
 - [Mechanisms and instances](#mechanisms-and-instances)
 - [Engines are the exception that proves it](#engines-are-the-exception-that-proves-it)
 
-### Rule ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE
+### Rule PDR-CONFIG-DEFAULTDECLAREDONCE
 
 Every setting has a sensible default, declared once on its config type. A config file states only what deviates from the default, so the
 shortest config is the common case and every line in it is a decision someone made.
 
 - [Defaults carry the common case](#defaults-carry-the-common-case)
 
-### Rule ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
+### Rule PDR-CONFIG-EXCEPTIONISCONFIGENTRY
 
 An exception is a declared config entry, next to the instance it concerns, carrying its reason and validated by the config type. It is never
 a branch in code, a hard-coded list inside a command, or a convention known only to its author.
 
 - [Exceptions are entries](#exceptions-are-entries)
 
-### Rule ADR-PRIN-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS
+### Rule PDR-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS
 
 A design question about one instance is answered by the default. Raise a question only about the default itself or about a missing mechanism
 — never ask whether an instance is worth supporting, because supporting it costs one config entry.
@@ -40,7 +40,7 @@ A design question about one instance is answered by the default. Raise a questio
 
 ## Context
 
-Catzc does everything as code (ADR-PRIN-EAC), and most of that code is not programming: it is configuring. The modules are mechanisms — read
+Catzc does everything as code (PDR-EAC), and most of that code is not programming: it is configuring. The modules are mechanisms — read
 a registry, resolve a setting, run an engine over a set of files, render a root file — and the repository's behaviour is what their
 `configs/*.yml` registries say. A new language, tool, timeout, root file or pipeline is meant to arrive as a few lines of YAML, checked by
 the config type that loads it, with the sensible default covering everything the lines leave out.
@@ -96,7 +96,7 @@ configuration as programming, and leaves the repository with uneven coverage dec
 - **A hard-coded list in the consumer** (a `ValidateSet` of formatter names, a switch over languages). The list is a second registry that
   must be kept in step by hand.
 - **Configuration that can program** (script blocks or expressions in YAML). It hides code where it is neither analysed nor tested; a
-  setting that needs logic is a sign the mechanism is missing (ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE).
+  setting that needs logic is a sign the mechanism is missing (PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE).
 
 ## Decision
 

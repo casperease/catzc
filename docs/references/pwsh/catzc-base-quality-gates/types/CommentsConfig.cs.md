@@ -12,9 +12,9 @@ The comment-page settings (configs/comments.yml), and the single declaration of 
 key is optional, and an omitted key — or a fresh checkout with no file — behaves exactly like the default, so no
 function restates a value ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 A file carries no long comment and the prose lives in the file's comment page, so each has one living copy
-([ADR-PRIN-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive-oneversion)); what moves and where it
+([PDR-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-pdr-onelive-oneversion)); what moves and where it
 goes are configured here, not programmed
-([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)).
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
   languages        — the file languages (languages.yml names) whose files carry comment pages; the comment syntax
                      itself is CommentLexer's, the one place that knows it
   min_lines        — a comment block with fewer prose lines than this stays in the file (default 2)

@@ -1,15 +1,15 @@
 # ADR: DORA — Monitoring systems to inform business decisions
 
-## Rules: ADR-DORA-MONITOR
+## Rules: RDR-DORA-MONITOR
 
-### Rule ADR-DORA-MONITOR-INFORMSDECISIONS
+### Rule RDR-DORA-MONITOR-INFORMSDECISIONS
 
 Monitoring exists to inform decisions, not only to detect failure. Collecting data across development, testing, QA, and operations is the
 first half of the capability; turning that data into a decision is the second, and neither half stands in for the other.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-MONITOR-USABLEDATA
+### Rule RDR-DORA-MONITOR-USABLEDATA
 
 Present monitoring data so it is relevant, timely, accurate, and easy to understand for the audience reading it, with enough context to say
 whether a value is high or low, expected, about to change, or a departure from its historical trend — a raw number without that context is
@@ -17,21 +17,21 @@ not yet a decision input.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-MONITOR-SIGNALSUPSTREAM
+### Rule RDR-DORA-MONITOR-SIGNALSUPSTREAM
 
 Let production signals travel upstream. Insight gathered from operations — a deployment error, a customer usage pattern, a performance
 regression — is a learning input for development and product management, not information that stops with the team that first saw it.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-MONITOR-FULLPIPELINE
+### Rule RDR-DORA-MONITOR-FULLPIPELINE
 
 Monitor the full pipeline, not one or two convenient stations, and judge a change by its effect on the whole system rather than by whether
 it improves the one service being watched.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-MONITOR-ALERTONAPPROACH
+### Rule RDR-DORA-MONITOR-ALERTONAPPROACH
 
 Alert on approach to a threshold, not only on failure, and choose what to monitor deliberately — instrumenting everything produces more
 noise than insight and buries the signal the capability exists to surface.

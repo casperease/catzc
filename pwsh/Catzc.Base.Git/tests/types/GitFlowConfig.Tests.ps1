@@ -2,17 +2,17 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a80c0d64fa67
+    with_body_sha: "7f4a0385cc3a"
   edges:
     code: pwsh/Catzc.Base.Git/types/GitFlowConfig.cs
     cites:
       - ADR-FLOW-GIT-USERRUNSGIT
       - ADR-FLOW-GIT-SYNCPOINT
-      - ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE
+      - PDR-CONFIG-DEFAULTDECLAREDONCE
 ---
 #>
 
-Describe 'GitFlowConfig' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE' {
+Describe 'GitFlowConfig' -Tag 'L0', 'logic', 'PDR-CONFIG-DEFAULTDECLAREDONCE' {
     It 'takes the declared defaults for every omitted key' {
         $config = [Catzc.Base.Git.GitFlowConfig]::new(@{})
         $config.remote | Should -BeExactly 'origin'

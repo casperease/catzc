@@ -51,19 +51,19 @@ Backgrounds: `cover` and `rule` sit on `bg`; `pair`, `tiles`, `table` and `stack
 ---
 catzc:
   edges:
-    cites: [ADR-PRIN-EAC-DIFFABLEBELONGSINVERSIONCONTROL]
+    cites: [PDR-EAC-DIFFABLEBELONGSINVERSIONCONTROL]
   config:
     pattern: rule
     deck: product-thesis
     order: 14
-    quotes: ADR-PRIN-EAC-DIFFABLEBELONGSINVERSIONCONTROL
+    quotes: PDR-EAC-DIFFABLEBELONGSINVERSIONCONTROL
 ---
 
 # If it can be diffed, it belongs in version control
 
 ## Eyebrow
 
-ADR-PRIN-EAC-DIFFABLEBELONGSINVERSIONCONTROL · Everything as code
+PDR-EAC-DIFFABLEBELONGSINVERSIONCONTROL · Everything as code
 
 ## Body
 

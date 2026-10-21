@@ -1,29 +1,29 @@
 # ADR: Agile values — the four preferences of the manifesto
 
-## Rules: ADR-PROC-VALUES
+## Rules: WDR-VALUES
 
-### Rule ADR-PROC-VALUES-INDIVIDUALSOVERPROCESSES
+### Rule WDR-VALUES-INDIVIDUALSOVERPROCESSES
 
 Value individuals and interactions over processes and tools — the people doing the work and how they communicate matter more than the
 machinery around them; a process serves the people, never the reverse.
 
 - [The four values](#the-four-values)
 
-### Rule ADR-PROC-VALUES-WORKINGSOFTWAREOVERDOCUMENTATION
+### Rule WDR-VALUES-WORKINGSOFTWAREOVERDOCUMENTATION
 
 Value working software over comprehensive documentation — running, usable software is the primary evidence of progress; documentation is
 kept to what genuinely serves that end.
 
 - [The four values](#the-four-values)
 
-### Rule ADR-PROC-VALUES-COLLABORATIONOVERCONTRACTS
+### Rule WDR-VALUES-COLLABORATIONOVERCONTRACTS
 
 Value customer collaboration over contract negotiation — a continuing working relationship with the customer adapts to what is learned,
 where a fixed contract fixes the wrong answer early.
 
 - [The four values](#the-four-values)
 
-### Rule ADR-PROC-VALUES-RESPONDINGOVERPLANNING
+### Rule WDR-VALUES-RESPONDINGOVERPLANNING
 
 Value responding to change over following a plan — a plan is a starting hypothesis; when reality diverges from it, the response to reality
 wins over adherence to the plan.
@@ -32,8 +32,8 @@ wins over adherence to the plan.
 
 ## Context
 
-The Agile Manifesto ([ADR-PROC-AGILE](agile.md)) opens with four value statements, each of the form "_A_ over _B_". They are the top of the
-definition of agile: the twelve principles ([ADR-PROC-AGILEPRINCIPLES](agile-principles.md)) elaborate them, and every agile framework
+The Agile Manifesto ([WDR-AGILE](agile.md)) opens with four value statements, each of the form "_A_ over _B_". They are the top of the
+definition of agile: the twelve principles ([WDR-AGILEPRINCIPLES](agile-principles.md)) elaborate them, and every agile framework
 claims to serve them. A recurring misreading treats each value as "_A_, not _B_" — as a licence to abandon documentation, plans, or
 contracts — which inverts the manifesto's own words.
 
@@ -51,7 +51,7 @@ The manifesto's authors "came to value" [^1]:
   dispute.
 - **Responding to change over following a plan.** Planning is essential; a plan is not. The plan captures the best current understanding,
   and is expected to be revised as the team and customer learn — the ability to revise it cheaply is the whole point
-  ([ADR-PROC-AGILE](agile.md)).
+  ([WDR-AGILE](agile.md)).
 
 ## Comparative, not absolute
 
@@ -61,7 +61,7 @@ discarded. The value ranks them: when the two pull against each other, the left-
 
 Reading a value as an absolute ("no documentation", "no plan") is the most common way agile is misapplied. The correct reading is a
 tie-break rule: default to the left, keep as much of the right as genuinely serves the outcome, and drop the rest as waste
-([ADR-PRIN-NOWASTE](../principles/reduce-waste.md)).
+([PDR-NOWASTE](../principles/reduce-waste.md)).
 
 ## How to apply
 

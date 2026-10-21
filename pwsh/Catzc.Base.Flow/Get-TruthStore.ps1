@@ -2,12 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ddba8f7b0af6
+    with_body_sha: "1700f60661c8"
   edges:
     test: pwsh/Catzc.Base.Flow/tests/Get-TruthStore.Tests.ps1
     cites:
-      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
-      - ADR-THES-STORES-THREEKINDS
+      - TDR-ONETRUTH-TRUTHISQUERYABLE
+      - TDR-STORES-THREEKINDS
 ---
 #>
 
@@ -18,9 +18,9 @@ function Get-TruthStore {
 
     .DESCRIPTION
         The query a question about where truth lives is answered by
-        ([ADR-THES-ONETRUTH-TRUTHISQUERYABLE](/docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-truthisqueryable)): every store catzc reads, writes
+        ([TDR-ONETRUTH-TRUTHISQUERYABLE](/docs/adr/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)): every store catzc reads, writes
         or reports to is one entry of truth-stores.yml, classified by its kind
-        ([ADR-THES-STORES-THREEKINDS](/docs/adr/thesis/truth-stores.md#rule-adr-thes-stores-threekinds)). With no filter
+        ([TDR-STORES-THREEKINDS](/docs/adr/thesis/truth-stores.md#rule-tdr-stores-threekinds)). With no filter
         it emits every
         store in declared order.
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: adde15099147
+    with_body_sha: be39dc25d48a
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
     docs: "[Test-Automation.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Automation.ps1.md)"
@@ -54,7 +54,7 @@ function Test-Automation {
 
         [switch] $EnforceTimings,
 
-        [ValidatePattern('^ADR(?:-[A-Z][A-Z0-9]*){3,}$')]
+        [ValidateScript({ (Get-Config -Config adrs).CodeForm.IsRule($_) }, ErrorMessage = "'{0}' is not a rule's code of a registered kind")]
         [string[]] $Rule = @(),
 
         [ArgumentCompleter({ (Get-Config -Config globs).Names })]

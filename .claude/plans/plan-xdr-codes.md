@@ -22,10 +22,10 @@ a reader before opening the record whether it is a thesis, an axiom, a way of wo
 
 | Domain     | Today      | Kind                                   | Example                    |
 | ---------- | ---------- | -------------------------------------- | -------------------------- |
-| research   | `ADR-DORA` | `RDR-DORA` (Research Decision Record)  | `RDR-DORA-VCS`             |
-| thesis     | `ADR-THES` | `TDR` (Thesis Decision Record)         | `TDR-ONETRUTH`             |
-| principles | `ADR-PRIN` | `PDR` (Principle Decision Record)      | `PDR-ONELIVE`              |
-| process    | `ADR-PROC` | `WDR` (Way-of-working Decision Record) | `WDR-KAIZEN`               |
+| research   | `RDR-DORA` | `RDR-DORA` (Research Decision Record)  | `RDR-DORA-VCS`             |
+| thesis     | `TDR` | `TDR` (Thesis Decision Record)         | `TDR-ONETRUTH`             |
+| principles | `PDR` | `PDR` (Principle Decision Record)      | `PDR-ONELIVE`              |
+| process    | `WDR` | `WDR` (Way-of-working Decision Record) | `WDR-KAIZEN`               |
 | design     | `ADR-DSGN` | `DDR` (Design Decision Record)         | `DDR-TRACK-UNORDEREDTRACK` |
 | flow       | `ADR-FLOW` | `FDR` (Flow Decision Record)           | `FDR-CD-RUNNER`            |
 | the rest   | `ADR-<D>`  | `ADR` (Architecture Decision Record)   | unchanged                  |
@@ -36,11 +36,7 @@ a reader before opening the record whether it is a thesis, an axiom, a way of wo
 
 ## Open steps
 
-- [ ] The other 30 parsers of the `ADR` marker read the kinds from the registry (`AdrsConfig.Kinds`, a domain's or ruleset's `Prefix`),
-      `AdrCodeForm.cs` first, then one file at a time, split with catzc-05 (delegated, 2026-10-21); `declaration.py` and
-      `Get-DiagramSupportsDrift.ps1` only after catzc-61's minimap-run go (list: `out/xdr-rename/parser-files.txt` plus those two); one
-      widget fixture per new kind (check: each file's tests).
-- [ ] The code map for `Update-AdrCitation`: one `move` row per registered framing code (487) and per domain code (6, `ADR-THES` to `TDR`
+- [ ] The code map for `Update-AdrCitation`: one `move` row per registered framing code (487) and per domain code (6, `TDR` to `TDR`
       and so on), each `new_path` the ADR's own file; the rule map is the header only (check: `out/xdr-rename/dryrun.ps1` with the real map
       matches the proxy-map dry run: 4,587 changes in 826 files, 0 throws, 6 Unhandled numbered test fixtures).
 - [ ] The rewrite, one domain per burst with hold/go, after the orchestrator's go: the ADR pages (titles, `## Rules:`, `### Rule`), every

@@ -2,13 +2,13 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0ab629612b51"
+    with_body_sha: "039bb0c35450"
   edges:
     docs: "[SourceConventionsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/types/SourceConventionsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/types/SourceConventionsConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
+      - PDR-CONFIG-EXCEPTIONISCONFIGENTRY
 ---
 #>
 
@@ -21,7 +21,7 @@ Describe 'SourceConventionsConfig' -Tag 'L0' {
             $config.engine_set.name_phrases.Count | Should -Be 0
         }
 
-        It 'maps each check it is given' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+        It 'maps each check it is given' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
             $config = [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{
                     engine_set    = [ordered]@{ mode = 'report'; name_phrases = @('{name} and {name}') }
                     neutral_codes = [ordered]@{ exempt = [ordered]@{ 'src/**' = 'widget fixtures' } }
@@ -31,7 +31,7 @@ Describe 'SourceConventionsConfig' -Tag 'L0' {
             $config.neutral_codes.IsExempt('src/widget.ps1') | Should -BeTrue
         }
 
-        It 'rejects an unknown key and a check that is not a map' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+        It 'rejects an unknown key and a check that is not a map' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
             { [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{ gadget = 1 }) } | Should -Throw "*unknown key 'gadget'*"
             { [Catzc.Base.QualityGates.SourceConventionsConfig]::new([ordered]@{ neutral_codes = 'report' }) } | Should -Throw '*must be a map*'
         }

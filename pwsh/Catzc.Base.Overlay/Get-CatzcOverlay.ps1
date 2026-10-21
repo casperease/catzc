@@ -8,8 +8,8 @@ catzc:
     docs: "[Get-CatzcOverlay.ps1.md](docs/references/pwsh/catzc-base-overlay/Get-CatzcOverlay.ps1.md)"
     cites:
       - ADR-AUTO-OVERLAY
-      - ADR-PRIN-CATS-FOLDERSUSECATZC
       - ADR-PWSH-ENUM-ALWAYSBOUNDED
+      - PDR-CATS-FOLDERSUSECATZC
 ---
 #>
 

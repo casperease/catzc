@@ -1,8 +1,8 @@
 # Thesis: Truth stores — repositories, fact sources, and state machines, reconciled into actionable facts
 
-## Rules: ADR-THES-STORES
+## Rules: TDR-STORES
 
-### Rule ADR-THES-STORES-THREEKINDS
+### Rule TDR-STORES-THREEKINDS
 
 A **truth store** is any store that holds part of the truth about a delivered system. There are three kinds: a version-controlled
 repository, a fact source, and a state machine. Every store catzc reads, or reports to, is one of the three, and its kind decides how catzc
@@ -10,16 +10,16 @@ treats it.
 
 - [Three kinds of truth store](#three-kinds-of-truth-store)
 
-### Rule ADR-THES-STORES-VERSIONCONTROLLEDREPOSITORY
+### Rule TDR-STORES-VERSIONCONTROLLEDREPOSITORY
 
 A **version-controlled repository** is the high-level kind of truth store whose content is a versioned history of reviewed changes; a git
 repository is one subgroup of it. Inside a responsibility domain, the version-controlled repository is the source of truth
-([ADR-THES-ONETRUTH-ONESTOREDECIDES](one-source-of-truth.md#rule-adr-thes-onetruth-onestoredecides)), read as a whole at one commit and
+([TDR-ONETRUTH-ONESTOREDECIDES](one-source-of-truth.md#rule-tdr-onetruth-onestoredecides)), read as a whole at one commit and
 changed only through the one change process.
 
 - [Version-controlled repositories](#version-controlled-repositories)
 
-### Rule ADR-THES-STORES-RESPONSIBILITYDOMAIN
+### Rule TDR-STORES-RESPONSIBILITYDOMAIN
 
 A **responsibility domain** is the organisation, team, product, or person that one repository is the responsibility boundary for: an
 organisation mono-repository, a team mono-repository, a product mono-repository, or a personal repository. Git's hard security controls stop
@@ -28,18 +28,18 @@ code.
 
 - [Responsibility domains](#responsibility-domains)
 
-### Rule ADR-THES-STORES-FACTSOURCEREADONLY
+### Rule TDR-STORES-FACTSOURCEREADONLY
 
 A **fact source** is a state store: a database with a reachable live URL that holds state about delivery outside the repository, such as
 Azure DevOps runtime state: environment deployments, pipeline runs, security controls, and the outer state of git (refs and pull-request
 history). Catzc reads a fact source's state only and never writes to it. A platform's configuration is not a fact source: Azure DevOps
 approvals, build validations with their branch policies, pipeline definitions, and variables are an adjacent store, driven one way from the
 trunk's pipelines
-([ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord)).
+([TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)).
 
 - [Fact sources](#fact-sources)
 
-### Rule ADR-THES-STORES-STATEMACHINE
+### Rule TDR-STORES-STATEMACHINE
 
 A **state machine** is an application that owns fact sources and changes their state by its own rules, such as an ITSM or CMDB for
 infrastructure, or a QA or QC system for quality. It meets catzc only at a junction: inbound, where the state machine calls catzc's outer
@@ -48,7 +48,7 @@ boundary at a point it defines, or outbound, where catzc messages the state mach
 - [State machines](#state-machines)
 - [Junctions](#junctions)
 
-### Rule ADR-THES-STORES-RECONCILEFACTS
+### Rule TDR-STORES-RECONCILEFACTS
 
 Synchronising truth stores is the core of the problem catzc solves: it reads each store, compares what it reads against the repository at
 one commit, and finds each **actionable fact**. An actionable fact is verifiable, because it names the store, the address, and the moment it
@@ -59,7 +59,7 @@ into another to keep them in parity; a disagreement is acted on through the one 
 
 ## Context
 
-The one-source-of-truth thesis ([ADR-THES-ONETRUTH](one-source-of-truth.md)) collapses delivery's truth into one repository inside the
+The one-source-of-truth thesis ([TDR-ONETRUTH](one-source-of-truth.md)) collapses delivery's truth into one repository inside the
 boundary it can own. That boundary is never the whole world. Even when a responsibility domain runs everything as code, it exists in a
 larger totality of stores it does not own: the platform that runs its pipelines records environments, approvals, and runs; an organisation
 keeps its infrastructure in an ITSM or CMDB and its quality evidence in a QA or QC system. Each holds part of reality about the same

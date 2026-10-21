@@ -1,22 +1,22 @@
 # Principle: Reduce variability
 
-## Rules: ADR-PRIN-REDUCEVAR
+## Rules: PDR-REDUCEVAR
 
-### Rule ADR-PRIN-REDUCEVAR-SAMESTEPSSAMETOOLS
+### Rule PDR-REDUCEVAR-SAMESTEPSSAMETOOLS
 
 Reduce variability in processes, tooling, and artifacts so outcomes are predictable and deviations stand out — build/test/deploy through the
 same steps, the same tools and versions, and a uniform artifact structure.
 
 - [Principle](#principle)
 
-### Rule ADR-PRIN-REDUCEVAR-STANDARDIZEPROCESSNOTDESIGN
+### Rule PDR-REDUCEVAR-STANDARDIZEPROCESSNOTDESIGN
 
 Standardize the process and tooling, not the design space — uniformity in how work is delivered must not constrain architectural or creative
 judgment.
 
 - [Principle](#principle)
 
-### Rule ADR-PRIN-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT
+### Rule PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT
 
 Eliminate accidental differences and make essential ones explicit; prefer convention over configuration, derived behavior over manual
 registration, and one way to do something over many.

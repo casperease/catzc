@@ -2,12 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "82e46e0a6f49"
+    with_body_sha: "238091d6c4a4"
   edges:
     docs: "[Write-ReportModeFinding.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Write-ReportModeFinding.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Write-ReportModeFinding.ps1
     cites:
-      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
+      - PDR-CONFIG-EXCEPTIONISCONFIGENTRY
 ---
 #>
 
@@ -17,7 +17,7 @@ Describe 'Write-ReportModeFinding' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { $script:printed.Add($Message) }
     }
 
-    It 'prints every finding under the check''s name, then the count' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+    It 'prints every finding under the check''s name, then the count' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
         & (Get-Module Catzc.Base.QualityGates) { Write-ReportModeFinding -Check widget_check -Finding 'a.ps1:1: one', 'b.ps1:2: two' }
         $printed | Should -HaveCount 3
         $printed[0] | Should -Be '[widget_check] a.ps1:1: one'
@@ -25,7 +25,7 @@ Describe 'Write-ReportModeFinding' -Tag 'L0', 'logic' {
         $printed[2] | Should -BeLike '2 widget_check finding(s) in report mode*'
     }
 
-    It 'prints nothing for a check that found nothing' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+    It 'prints nothing for a check that found nothing' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
         & (Get-Module Catzc.Base.QualityGates) { Write-ReportModeFinding -Check widget_check -Finding @() }
         $printed | Should -HaveCount 0
     }

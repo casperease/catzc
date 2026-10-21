@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2d44dd17b354"
+    with_body_sha: f986437f5827
   edges:
     docs: "[AgentEntry.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AgentEntry.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/types/AgentEntry.cs
@@ -45,13 +45,13 @@ Describe 'AgentEntry' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-BACKEDBYRULE' {
 
     It 'collects every violation into one ArgumentException' {
         $thrown = { [Catzc.Base.Docs.AgentEntry]::new([ordered]@{
-                    name = 'Widget_Worker'; supported_by = @('ADR-WI-ONE', 'ADR-WIDGET-ONE-TURN', 'ADR-WIDGET-ONE-TURN'); checks = @('widget'); gizmo = 1
+                    name = 'Widget_Worker'; supported_by = @('ADR-WIDGET', 'ADR-WIDGET-ONE-TURN', 'ADR-WIDGET-ONE-TURN'); checks = @('widget'); gizmo = 1
                 }) } | Should -Throw -PassThru
         $thrown.Exception.InnerException | Should -BeOfType ([System.ArgumentException])
         $message = $thrown.Exception.Message
         $message | Should -Match "unknown key 'gizmo'"
         $message | Should -Match "name 'Widget_Worker' must be kebab-case"
-        $message | Should -Match "supported_by entry 'ADR-WI-ONE' must be a rule's code"
+        $message | Should -Match "supported_by entry 'ADR-WIDGET' must be a rule's code"
         $message | Should -Match "supported_by entry 'ADR-WIDGET-ONE-TURN' is repeated"
         $message | Should -Match "checks entry 'widget' must be a Verb-Noun command name"
     }

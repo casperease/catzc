@@ -24,7 +24,7 @@ engine.
 ### Rule ADR-AUTO-ACCOSTED-HARMLESS
 
 A command is **harmless** when a command contract names it and its verb is on the harmless-verb list, declared once in the language's config
-with its default on the config type ([ADR-PRIN-CONFIG](../principles/configure-not-program.md),
+with its default on the config type ([PDR-CONFIG](../principles/configure-not-program.md),
 [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)); the contract language gains no key
 for it. A write confined to the output folder `out/` is harmless: a `Test-*` gate whose output-folder argument lies under `out/` is allowed,
 and any other argument that names a write target is rejected. An accosted file holds harmless commands only.
@@ -34,7 +34,7 @@ and any other argument that names a write target is rejected. An accosted file h
 ### Rule ADR-AUTO-ACCOSTED-RESERVEDNAME
 
 The word accosted is reserved, as the catzc token is
-([ADR-PRIN-CATS-CATZCISSOURCENAME](../principles/cats-and-catzc.md#rule-adr-prin-cats-catzcissourcename)): it names this language and
+([PDR-CATS-CATZCISSOURCENAME](../principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename)): it names this language and
 nothing else, so it appears only in the language's row, its extension, this ADR, its glossary entry, its module types and their tests, and
 the plans and session logs that name it. The places are the scope of the `reserved` terminology category, and a gate fails the word anywhere
 else.

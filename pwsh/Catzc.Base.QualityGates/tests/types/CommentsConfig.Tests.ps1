@@ -2,15 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bd46b10845c0
+    with_body_sha: bd5c34b1774b
   edges:
     docs: "[CommentsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/types/CommentsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-CONF-LOADING-CSHARPCONFIGTYPE
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
       - ADR-REPO-COMMENTS-COMMENTPAGEPLACE
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
 ---
 #>
 
@@ -51,7 +51,7 @@ Describe 'CommentsConfig' -Tag 'L0', 'logic' {
         $config.IsExcluded($null) | Should -BeFalse
     }
 
-    It 'maps every key it is given, replacing a language''s keep list but not the others' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+    It 'maps every key it is given, replacing a language''s keep list but not the others' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         $config = [Catzc.Base.QualityGates.CommentsConfig]::new(@{
                 languages = @('powershell')
                 min_lines = 3

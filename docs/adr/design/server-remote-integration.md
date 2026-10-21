@@ -49,7 +49,7 @@ lets the `git log` audit trail be trusted as complete. Solo `main-direct` is the
 
 ## Context
 
-Trunk-based development ([one-living-version](../principles/one-living-version.md), `ADR-PRIN-ONELIVE-TRUNKBASED`) puts one mainline at the
+Trunk-based development ([one-living-version](../principles/one-living-version.md), `PDR-ONELIVE-TRUNKBASED`) puts one mainline at the
 centre, and [self-service](self-service.md) (`ADR-DSGN-SELFSERV`) rests its whole audit-and-approval story on that mainline living somewhere
 every change is attributed, passes its merge gate, and is recorded. That somewhere is the **server** git remote — the ADO or GitHub
 repository whose branch policy and identity model make those guarantees real. Developer and CI machines are clients that clone and bridge to
@@ -93,7 +93,7 @@ commit, never the raw HEAD.
 `Why verified is stable and the tip is not`
 
 The verified history is monotonic and immutable: a commit that reached the verified point is a durable fact no later event un-makes
-(`ADR-PRIN-ONELIVE`). The dirty tip is the opposite — provisional. It might be fixed forward by a successor, superseded by a newer commit
+(`PDR-ONELIVE`). The dirty tip is the opposite — provisional. It might be fixed forward by a successor, superseded by a newer commit
 that overtakes it; it is never cut back. Whatever happens, the tip is subject to change while the verified point is not. So the choice of
 integration base is a choice between a stable anchor and a moving one. Building on the stable anchor means a later fix to the tip is simply
 the next thing you pull; building on the moving tip means that same fix can rewrite the ground under your work and force a reconciliation
@@ -134,5 +134,5 @@ doorway collapses to a direct commit; the moment there is more than one author, 
 
 ## Related
 
-- [one-living-version](../principles/one-living-version.md) (`ADR-PRIN-ONELIVE`) — trunk-based development and immutable history.
+- [one-living-version](../principles/one-living-version.md) (`PDR-ONELIVE`) — trunk-based development and immutable history.
 - [self-service](self-service.md) (`ADR-DSGN-SELFSERV`) — the audit / change-approval guarantees the server remote and PR ingress make real.

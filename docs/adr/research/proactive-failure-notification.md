@@ -1,36 +1,36 @@
 # ADR: DORA — Proactive failure notification
 
-## Rules: ADR-DORA-FAILALERT
+## Rules: RDR-DORA-FAILALERT
 
-### Rule ADR-DORA-FAILALERT-NOTIFYNEARTHRESHOLD
+### Rule RDR-DORA-FAILALERT-NOTIFYNEARTHRESHOLD
 
 Generate a notification when a monitored value approaches a known failure threshold — not only after the system has already failed or after
 a customer has already reported it.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-FAILALERT-PREDICTIVETHRESHOLDS
+### Rule RDR-DORA-FAILALERT-PREDICTIVETHRESHOLDS
 
 Choose thresholds that predict impact, not thresholds that merely exist to be measured — identify the value level that begins to cause
 user-facing impact, then trigger the alert some percentage before that value is reached, so there is room to act before harm occurs.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-FAILALERT-AUTOMATEFIXEDRESPONSES
+### Rule RDR-DORA-FAILALERT-AUTOMATEFIXEDRESPONSES
 
 Automate the response to any notification whose action is always the same or requires no action at all; reserve a notification that
 interrupts a person for a condition that genuinely needs a person's judgment.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-FAILALERT-REVIEWSFINDINDICATORS
+### Rule RDR-DORA-FAILALERT-REVIEWSFINDINDICATORS
 
 Treat every post-incident review as a search for the leading indicator that could have predicted the incident, and add an alert for that
 indicator when none exists yet.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-FAILALERT-GUARDAGAINSTFATIGUE
+### Rule RDR-DORA-FAILALERT-GUARDAGAINSTFATIGUE
 
 Guard against alert fatigue deliberately — exposing people to a large number of alarms desensitizes them to alarms, producing longer
 response times or missed alarms, so an alert that does not predict actionable impact is a liability, not a safety margin.
@@ -41,7 +41,7 @@ response times or missed alarms, so an alert that does not predict actionable im
 
 Proactive failure notification is the practice of generating a notification when a monitored value approaches a known failure threshold,
 rather than waiting for the system to fail outright or for a customer to notice and report it first. It is the alerting layer built on top
-of monitoring and observability ([ADR-DORA-OBSERV](monitoring-and-observability.md)): the signals that monitoring collects only become
+of monitoring and observability ([RDR-DORA-OBSERV](monitoring-and-observability.md)): the signals that monitoring collects only become
 proactive once they are turned into a notification that fires before impact, not left as a number on a dashboard someone might happen to
 see.
 

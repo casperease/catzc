@@ -100,7 +100,7 @@ constrains, relative to the owning module's target root — the repository root 
 ([ADR-REPO-CONTRACT-NODOTFOLDERS](api-contracts.md#rule-adr-repo-contract-nodotfolders)). There is no repository-wide version folder. Each
 unit's `0.0.0` is its one mutable draft, frozen only when that unit is released; every other version folder is frozen, a self-contained
 snapshot of that unit's contracts at that version — kept for a consumer that pins it, deliberately and equally live (see
-[one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-pinnedversionnotlegacy)), not legacy. The root carries a
+[one-living-version](../principles/one-living-version.md#rule-pdr-onelive-pinnedversionnotlegacy)), not legacy. The root carries a
 checked-in `.gitkeep`, so it stays tracked before any contract exists. What the contracts _are_ — the binding interfaces at the repository
 boundary, in both directions, and their testing discipline — is the [api-contracts](api-contracts.md) ADR (code `ADR-REPO-CONTRACT`).
 
@@ -298,7 +298,7 @@ the module that talks to the outside party and holds the tests. The fourth repea
 asset and the file it constrains are found from each other without a mapping. Provided and depended-on contracts both version with their
 unit. A frozen version folder kept for a consumer that pins it is a separate, live set of contracts, not legacy: this is the one place the
 repo deliberately carries backwards compatibility, because here — unlike the internal code — external consumers genuinely exist (see
-[one-living-version](../principles/one-living-version.md#rule-adr-prin-onelive-pinnedversionnotlegacy)). The root carries a checked-in
+[one-living-version](../principles/one-living-version.md#rule-pdr-onelive-pinnedversionnotlegacy)). The root carries a checked-in
 `.gitkeep`, so it stays tracked before any contract exists.
 
 **`go/`** is the Go root: the repository's Go code, which is black-box tests of the engine and never ships

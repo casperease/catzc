@@ -1,29 +1,29 @@
 # ADR: DORA — Team experimentation
 
-## Rules: ADR-DORA-EXPERIMENT
+## Rules: RDR-DORA-EXPERIMENT
 
-### Rule ADR-DORA-EXPERIMENT-TESTWITHREALUSERS
+### Rule RDR-DORA-EXPERIMENT-TESTWITHREALUSERS
 
 Teams work on new ideas and test solutions with real users to achieve business outcomes without asking permission from outside the team —
 treat that freedom as the capability itself, not a side effect of trust granted for other reasons.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-EXPERIMENT-STORYCARDCONVERSATION
+### Rule RDR-DORA-EXPERIMENT-STORYCARDCONVERSATION
 
 A story card is a reminder of an ongoing conversation between the customer and the team, not a fixed contract; teams write and change
 specifications during development as they learn, rather than executing a specification handed down before work started.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-EXPERIMENT-STAFFAREEXPERTS
+### Rule RDR-DORA-EXPERIMENT-STAFFAREEXPERTS
 
 Treat technical staff as the experts on implementation details. Giving specific direction on how the work is done, rather than what outcome
 it must reach, removes the judgment the capability depends on.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-EXPERIMENT-TIMEANDCONTEXT
+### Rule RDR-DORA-EXPERIMENT-TIMEANDCONTEXT
 
 Provide the information, context, and dedicated time for a team to design and run its own experiments; withholding any of the three
 forecloses the capability even where permission to experiment exists in principle.

@@ -7,8 +7,8 @@ catzc:
     docs: "[CommentPageMap.cs.md](docs/references/pwsh/catzc-base-code-meta/types/CommentPageMap.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-      - ADR-PRIN-ONELIVE-ONEVERSION
       - ADR-REPO-README-AUTHOREDSOURCES
+      - PDR-ONELIVE-ONEVERSION
 ---
 */
 

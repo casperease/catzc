@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "33dbddd3d2b5"
+    with_body_sha: "17035db17155"
   edges:
     docs: "[ValueChainHighlight.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/types/ValueChainHighlight.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Maps/types/ValueChainHighlight.cs
@@ -12,7 +12,7 @@ catzc:
       - ADR-DSGN-TRACK-VALUECHAINSTACK
       - ADR-DSGN-TRACK-VALUECHAINCONCERN
       - ADR-DSGN-TRACK-VALUECHAINMAP
-      - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+      - TDR-ONETRUTH-TRUTHISQUERYABLE
 ---
 #>
 
@@ -73,7 +73,7 @@ Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {
         @($default.ReasonsOf('TOP', 'gamma')).Count | Should -Be 1
     }
 
-    It 'emits the request and the lit cells as JSON' -Tag 'ADR-THES-ONETRUTH-TRUTHISQUERYABLE' {
+    It 'emits the request and the lit cells as JSON' -Tag 'TDR-ONETRUTH-TRUTHISQUERYABLE' {
         $data = [Catzc.Base.Maps.ValueChainHighlight]::ForAdr($script:map, 'ADR-WIDGET-SPROCKET').ToJson() | ConvertFrom-Json
         $data.requested | Should -Be @('ADR-WIDGET-SPROCKET')
         @($data.cells).Count | Should -Be 1

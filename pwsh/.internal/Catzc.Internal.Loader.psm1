@@ -6,7 +6,7 @@ catzc:
   edges:
     docs: "[Catzc.Internal.Loader.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Loader.psm1.md)"
     cites:
-      - ADR-PRIN-ONELIVE
+      - PDR-ONELIVE
 ---
 #>
 

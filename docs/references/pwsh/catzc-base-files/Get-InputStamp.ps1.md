@@ -20,7 +20,7 @@ and a file's content is hashed with its carriage returns removed. A clone, a sna
 stamp the same, so every checkout agrees on a stamp computed from the same inputs (the root-config inputs stamp of Catzc.Base.RootConfig).
 The work is done by the compiled Catzc.Base.Files.InputStamp, which hashes the files in parallel: a few megabytes of text take milliseconds.
 
-It rests on [ADR-PRIN-ONELIVE](../../../adr/principles/one-living-version.md).
+It rests on [PDR-ONELIVE](../../../adr/principles/one-living-version.md).
 
 ### parameter `Path`
 

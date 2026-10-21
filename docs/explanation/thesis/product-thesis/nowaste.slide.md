@@ -10,15 +10,15 @@ catzc:
 
 ## Eyebrow
 
-Principle 4 of 6 · ADR-PRIN-NOWASTE
+Principle 4 of 6 · PDR-NOWASTE
 
 ## Rows
 
 | Rule                                | Says                                                                                                       |
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| ADR-PRIN-NOWASTE-SEVENWASTES        | Eliminate the seven wastes: partial work, extra features, relearning, handoffs, switching, delays, defects |
-| ADR-PRIN-NOWASTE-DROPUNNEEDEDSTEPS  | For any step ask: could I deliver the same outcome without it? If yes, it is waste                         |
-| ADR-PRIN-NOWASTE-PREFERLEANDEFAULTS | Automation over manual steps, self-service over approvals, small batches, fast feedback                    |
+| PDR-NOWASTE-SEVENWASTES        | Eliminate the seven wastes: partial work, extra features, relearning, handoffs, switching, delays, defects |
+| PDR-NOWASTE-DROPUNNEEDEDSTEPS  | For any step ask: could I deliver the same outcome without it? If yes, it is waste                         |
+| PDR-NOWASTE-PREFERLEANDEFAULTS | Automation over manual steps, self-service over approvals, small batches, fast feedback                    |
 
 ## Notes
 

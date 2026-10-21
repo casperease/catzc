@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "26472344cdbf"
+    with_body_sha: "06f351c94e4e"
   edges:
     code: pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs
     cites:
@@ -17,9 +17,9 @@ catzc:
       - ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION
       - ADR-AUTO-MODULE-EXISTSBYLAYOUT
       - ADR-AUTO-MODULE-CHECKSBYLANGUAGE
-      - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
-      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
+      - PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE
+      - PDR-CONFIG-EXCEPTIONISCONFIGENTRY
 ---
 #>
 
@@ -52,7 +52,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
     }
 
     Context 'logic (fixture configs)' -Tag 'logic' {
-        It 'reads languages in declared order: a formatter engine or the reason for none, and adr_folder defaulting to none' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+        It 'reads languages in declared order: a formatter engine or the reason for none, and adr_folder defaulting to none' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
             $config = & $script:make ([ordered]@{ languages = [ordered]@{
                         widget = [ordered]@{ extensions = @('.wdg', '.widget'); formatter = 'prettier'; adr_folder = 'widgets/core' }
                         gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'binary gadgets' }
@@ -184,7 +184,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             }
         }
 
-        It 'throws on a language with neither a formatter nor the reason for none, or with both' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+        It 'throws on a language with neither a formatter nor the reason for none, or with both' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
             { & $script:make ([ordered]@{ languages = [ordered]@{ widget = [ordered]@{ extensions = @('.wdg') } } }) } |
                 Should -Throw '*needs a formatter engine (formatter: one of prettier*or the reason it has none*'
             { & $script:one ([ordered]@{ extensions = @('.wdg'); no_formatter = '  ' }) } | Should -Throw '*needs a formatter engine*'
@@ -216,7 +216,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $config.languages[0].imprint.Count | Should -Be 0
         }
 
-        It 'throws on an unknown step, a duplicate, a step both global and a language''s own, and malformed steps' -Tag 'ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE' {
+        It 'throws on an unknown step, a duplicate, a step both global and a language''s own, and malformed steps' -Tag 'PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE' {
             { & $script:make ([ordered]@{ imprint = @('shine') }) } | Should -Throw "*imprint: unknown imprint step 'shine' (one of: file-meta, bcl-namespace, comments, ps-help)*"
             { & $script:make ([ordered]@{ imprint = @('file-meta', 'file-meta') }) } | Should -Throw "*imprint: duplicate imprint step 'file-meta'*"
             { & $script:make ([ordered]@{ imprint = 'file-meta' }) } | Should -Throw '*imprint must be a list of imprint step names*'

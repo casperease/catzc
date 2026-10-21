@@ -2,13 +2,13 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6249b4c13443"
+    with_body_sha: "0e6dbb422256"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
     cites:
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
-      - ADR-PRIN-ONELIVE-ONEVERSION
       - ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - PDR-ONELIVE-ONEVERSION
 ---
 */
 
@@ -23,7 +23,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
-// Rests on [ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig), [ADR-PRIN-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive-oneversion) and [ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted).
+// Rests on [PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig), [PDR-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-pdr-onelive-oneversion) and [ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted).
 public static class CommentEngine
 {
     static readonly Regex CodeSpanText = new Regex(@"(`+)[^`\r\n]+?\1", RegexOptions.Compiled);

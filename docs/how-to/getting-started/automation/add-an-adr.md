@@ -8,7 +8,7 @@ grammar of [adr-code-language](../../../adr/repository/adr-code-language.md) (AD
 
 1. **Pick the domain and the code.** The domain is the folder whose decisions this one belongs to, as
    `pwsh/Catzc.Base.Docs/configs/adrs.yml` lists them; the code is the domain's prefix plus a segment that names the decision
-   (`ADR-THES-NORMALFORM`), each rule's code that plus one more segment.
+   (`TDR-NORMALFORM`), each rule's code that plus one more segment.
 2. **Write the page** at `docs/adr/<domain-folder>/<kebab-title>.md`: the rule registry first, one normative summary per rule, then the
    prose that justifies each rule. Copy the shape of a neighbouring ADR in the same folder.
 3. **Register it** under its domain's `rulesets:` in `adrs.yml`, keyed by the page's file name: `<kebab-title>: { external: <code> }`.

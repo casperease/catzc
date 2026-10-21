@@ -1,15 +1,15 @@
 # ADR: DORA — Deployment automation
 
-## Rules: ADR-DORA-DEPLOY
+## Rules: RDR-DORA-DEPLOY
 
-### Rule ADR-DORA-DEPLOY-ONECLICKDEPLOY
+### Rule RDR-DORA-DEPLOY-ONECLICKDEPLOY
 
 Deployment automation means deploying to any environment, including production, with the push of a button — from a CI-generated package, the
 deployment scripts and configuration that place it, and environment-specific information, with all three kept in version control.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-DEPLOY-IDENTICALPROCESS
+### Rule RDR-DORA-DEPLOY-IDENTICALPROCESS
 
 The deployment process is identical across every environment, including production. Rehearsing the same automated steps in non-production is
 what makes the production run trustworthy; a distinct "special" production procedure is untested by every non-production deploy that
@@ -17,7 +17,7 @@ preceded it.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-DEPLOY-DEPLOYONDEMAND
+### Rule RDR-DORA-DEPLOY-DEPLOYONDEMAND
 
 Any credentialed person can deploy any artifact version to any environment on demand, fully automated, with no ticket-based or manual
 approval delay built into the mechanism itself. Environment-specific configuration is kept separate from the deployable package so the same
@@ -25,7 +25,7 @@ tested artifact reaches every environment unchanged.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-DEPLOY-SIMPLEUNITS
+### Rule RDR-DORA-DEPLOY-SIMPLEUNITS
 
 Automate deployable units that are themselves simple, idempotent, and order-independent. Automating a fragile, tightly coupled manual
 process produces fragile automation — the target for automation is decoupled, independently deployable services, not a snapshot of today's
@@ -33,7 +33,7 @@ manual orchestration.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-DEPLOY-APIDRIVENSTEPS
+### Rule RDR-DORA-DEPLOY-APIDRIVENSTEPS
 
 Give every deployment step an API- or configuration-driven interface. A step that still requires manual console interaction is a gap in the
 automation, not an acceptable manual exception, and it is where developers and operators drift onto different, inconsistent deployment

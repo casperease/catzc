@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "355e00720041"
+#     with_body_sha: "5178573b10e7"
 # ---
 
 # cspell:ignore minimaps textlength LANCZOS
@@ -58,6 +58,13 @@ def registry(path):
 def tracks():
     """Every track and the folder it lives in (its first place), from variants.yml."""
     return {name: (entry.get("places") or [name])[0] for name, entry in registry("pwsh/Catzc.Base.Variants/configs/variants.yml")["tracks"].items()}
+
+
+@cache
+def kinds():
+    """The record kinds as one regex group, e.g. (?:ADR|TDR), from adrs.yml's kinds; with none declared, the one shared kind ADR."""
+    declared = registry("pwsh/Catzc.Base.Docs/configs/adrs.yml").get("kinds") or {"ADR": {}}
+    return "(?:" + "|".join(declared) + ")"
 
 
 @cache

@@ -2,14 +2,14 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8ab44f3f3217"
+    with_body_sha: "92ebd548a523"
   edges:
     docs: "[Get-AdrDoraCoverageViolations.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-AdrDoraCoverageViolations.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
+      - PDR-CONFIG-EXCEPTIONISCONFIGENTRY
 ---
 #>
 
@@ -106,14 +106,14 @@ Describe 'Get-AdrDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUAL
         $findings | Where-Object { $_ -like '*ADR-WI-ONE*' -or $_ -like '*ADR-GA-TWO*' } | Should -HaveCount 0
     }
 
-    It 'skips an exempt domain and reads the configured file name' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+    It 'skips an exempt domain and reads the configured file name' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
         $exempt = Get-Finding ([ordered]@{ exempt = [ordered]@{ gizmo = 'Gizmo is the reference itself.' } })
         $exempt | Where-Object { $_ -like '*gizmo*' } | Should -HaveCount 0
         $renamed = Get-Finding ([ordered]@{ file = 'gadget-notes.md'; exempt = [ordered]@{ gizmo = 'Gizmo is the reference itself.' } })
         $renamed | Should -Contain 'docs/adr/widget/gadget-notes.md: missing, so no section links ADR-WI-ONE'
     }
 
-    It 'skips a rule set whose ADR lies in an exempt folder, and only that one' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+    It 'skips a rule set whose ADR lies in an exempt folder, and only that one' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
         $exempt = Get-Finding ([ordered]@{ exempt_folders = [ordered]@{ 'widget/sub' = 'Widget sub answers a vendor checklist.' } })
         $exempt | Where-Object { $_ -like '*ADR-WI-TWO*' } | Should -HaveCount 0
         $exempt | Should -HaveCount 2

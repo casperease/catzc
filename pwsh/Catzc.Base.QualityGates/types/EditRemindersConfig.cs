@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.QualityGates/tests/types/EditRemindersConfig.Tests.ps1
     docs: "[EditRemindersConfig.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/EditRemindersConfig.cs.md)"
     cites:
-      - ADR-PRIN-CONFIG
-      - ADR-PRIN-POKAYOKE
+      - PDR-CONFIG
+      - PDR-POKAYOKE
 ---
 */
 

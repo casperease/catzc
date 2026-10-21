@@ -17,10 +17,10 @@ deck's orders is a render failure.
 A **pattern** is one file, `patterns/<name>.html` in the slides kit, the `assets/slides` folder of the `catzc_diagrams` module of the python
 track: one section in the slide format whose placeholders name its fields and say which are required. A slide names its pattern in its head.
 Adding a layout is a new pattern file and one line in the kit's `STYLE.md`, never a change to the renderer
-([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](../principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig),
-[ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)). What
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig),
+[PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)). What
 every pattern shares, the dark tones, the faces, the type scale, the footer and the output folder, is declared once in the kit's
-`slides.yml` ([ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE](../principles/configure-not-program.md#rule-adr-prin-config-defaultdeclaredonce)). A
+`slides.yml` ([PDR-CONFIG-DEFAULTDECLAREDONCE](../principles/configure-not-program.md#rule-pdr-config-defaultdeclaredonce)). A
 pattern is dark; no light background exists.
 
 - [Patterns are configuration](#patterns-are-configuration)
@@ -30,7 +30,7 @@ pattern is dark; no light background exists.
 The render is fail-forward. `Build-SlideDeck` always writes `out/slides/<deck>/`: the deck tree the Slides artifact type reads and
 `<deck>.script.md`, the speaker notes in order. A missing required field, a field the pattern does not know, a pattern that does not exist
 and a field with more items than the pattern holds are each reported with the file and the field; nothing shrinks and nothing is guessed
-([ADR-PRIN-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-adr-prin-pokayoke-detectearliest)). The render never publishes.
+([PDR-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-pdr-pokayoke-detectearliest)). The render never publishes.
 
 - [Render forward, publish by hand](#render-forward-publish-by-hand)
 
@@ -45,9 +45,9 @@ is the gate over these checks, one file at a time.
 ### Rule ADR-REPO-SLIDES-DECKISPROJECTION
 
 The published deck is a projection of the slide files. The files are the deck's one living version
-([ADR-PRIN-ONELIVE-ONEVERSION](../principles/one-living-version.md#rule-adr-prin-onelive-oneversion)), and no state of the deck lives
+([PDR-ONELIVE-ONEVERSION](../principles/one-living-version.md#rule-pdr-onelive-oneversion)), and no state of the deck lives
 outside them
-([ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../principles/everything-as-code.md#rule-adr-prin-eac-nostateoutsideversioncontrol)): the deck
+([PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../principles/everything-as-code.md#rule-pdr-eac-nostateoutsideversioncontrol)): the deck
 is replaced whole on publish, and an edit made in the deck's own editor is carried back into the slide file or discarded. No slide has a
 verify record of its own, because rule 4 derives what such a record would hold.
 
@@ -69,7 +69,7 @@ command repeated over every diagram folder found under `docs/**/.assets/**`, so 
 declaration (or, for a folder without one, the model embedded in its `diagram.drawio.png`) and the repository's maps. The articles and
 slides that embed the png are not inputs: the build finds every one of them, wherever it sits, and holds each one's Supports line against
 the declaration's ADR codes and lens. No step of it asks a session or a model to decide anything
-([ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../principles/everything-as-code.md#rule-adr-prin-eac-nostateoutsideversioncontrol)). A raster
+([PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../principles/everything-as-code.md#rule-pdr-eac-nostateoutsideversioncontrol)). A raster
 is never drawn by hand or by the draw.io CLI: a session edits a model, and the kit renders it.
 
 - [One command renders every diagram](#one-command-renders-every-diagram)
@@ -82,7 +82,7 @@ codes, the lens, the kind, the flow and the one relation its flow edges mean, th
 covers, the groups, which may nest, the glyphs with their kind and holder, the edges, the markers, the chips, the legend and the three
 minimaps. `layout:` says where a named cell sits. Every vocabulary is closed and declared once, in the kit's `drawio.yml` (the lenses,
 kinds, themes, minimap ids and span words) or in its glyph library (the glyph and edge kinds), and a value outside it fails validation with
-the list the author may choose from ([ADR-PRIN-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-adr-prin-pokayoke-detectearliest)).
+the list the author may choose from ([PDR-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-pdr-pokayoke-detectearliest)).
 A cell without a layout entry is placed by the grid; a cell with one keeps it; a cell whose id is not in the content is removed. A diagram
 names no article: articles and slides embed its png, any number of them, and the build finds them by what embeds it.
 

@@ -1,36 +1,36 @@
 # ADR: DORA — Learning culture
 
-## Rules: ADR-DORA-LEARNING
+## Rules: RDR-DORA-LEARNING
 
-### Rule ADR-DORA-LEARNING-STRATEGICINVESTMENT
+### Rule RDR-DORA-LEARNING-STRATEGICINVESTMENT
 
 Treat learning as a strategic investment necessary for growth, not a grudging burden and not something avoided — the organization's stance
 on learning is a deliberate choice, not an accident of how much slack happens to exist.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-LEARNING-FUNDEDLEARNING
+### Rule RDR-DORA-LEARNING-FUNDEDLEARNING
 
 Fund learning concretely: keep a training budget, protect time for informal exploration, and cover the cost of conferences and
 certifications, so the commitment is a resourced practice rather than a stated value with nothing behind it.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-LEARNING-SAFETOFAIL
+### Rule RDR-DORA-LEARNING-SAFETOFAIL
 
 Make it safe to fail. Treat failures as data for improvement — blameless post-mortems, not blame — so people keep taking the reasonable
 risks that learning and experimentation require.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-LEARNING-STANDINGKNOWLEDGESHARING
+### Rule RDR-DORA-LEARNING-STANDINGKNOWLEDGESHARING
 
 Keep knowledge-sharing on a standing cadence — recurring forums such as lightning talks, brown-bag sessions, or lunch-and-learns, and a
 share-back expectation after conferences or training — rather than leaving it to depend on individual initiative.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-LEARNING-MEASURECLIMATE
+### Rule RDR-DORA-LEARNING-MEASURECLIMATE
 
 Measure the climate for learning directly, by asking people whether their organization treats learning as an investment, rather than
 inferring it from a training budget line that nobody actually uses.

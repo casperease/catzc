@@ -2,18 +2,18 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c6b3edacf6d0
+    with_body_sha: "2e198e2b7628"
   edges:
     docs: "[CheckModes.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/CheckModes.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/types/CheckModes.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-      - ADR-PRIN-ONELIVE-ONEVERSION
+      - PDR-ONELIVE-ONEVERSION
 ---
 #>
 
-Describe 'CheckModes' -Tag 'L0', 'logic', 'ADR-PRIN-ONELIVE-ONEVERSION' {
+Describe 'CheckModes' -Tag 'L0', 'logic', 'PDR-ONELIVE-ONEVERSION' {
     It 'returns the default, gate, with no error when the mode is omitted' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         foreach ($raw in @($null, [ordered]@{}, [ordered]@{ mode = $null })) {
             $parseError = 'unset'

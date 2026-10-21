@@ -104,7 +104,7 @@ own context, which a spawned robot starts without. Its registry entry sets `invo
 
 A sub-agent is a prompt with tools that a session hands work to. Its definition steers what the agent does, which files it touches, and
 which checks it runs before it reports. An agent with no reason to exist duplicates another one, drifts from the domain rules, and splits
-delegated work across several ways of doing the same job ([ADR-PRIN-REDUCEVAR](../principles/reduce-variability.md)).
+delegated work across several ways of doing the same job ([PDR-REDUCEVAR](../principles/reduce-variability.md)).
 
 ### One file per agent
 
@@ -136,8 +136,8 @@ that need is exactly what a supporting rule states.
 Every spawn of a sub-agent reads its whole definition cold, so a long definition is paid for on every delegation, and know-how written into
 one agent is written again into the next. A robot keeps its own file to the job and its steps, and loads the know-how it shares with other
 robots from capabilities: one skill file each, injected whole by the harness at spawn through the `skills` list, so a load costs no turn. A
-capability is written once and read by every robot that lists it ([ADR-PRIN-CONFIG](../principles/configure-not-program.md),
-[ADR-PRIN-REDUCEVAR](../principles/reduce-variability.md)). The roofs keep both small enough to be read whole on every spawn, and live in
+capability is written once and read by every robot that lists it ([PDR-CONFIG](../principles/configure-not-program.md),
+[PDR-REDUCEVAR](../principles/reduce-variability.md)). The roofs keep both small enough to be read whole on every spawn, and live in
 the registry as settings, never as literals in the gate.
 
 A skill's own `model` key is a selection the harness honours only when the skill is invoked or forked, never when it is preloaded, so it

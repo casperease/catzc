@@ -1,36 +1,36 @@
 # ADR: DORA — Database change management
 
-## Rules: ADR-DORA-DBCHANGE
+## Rules: RDR-DORA-DBCHANGE
 
-### Rule ADR-DORA-DBCHANGE-VERSIONEDMIGRATIONS
+### Rule RDR-DORA-DBCHANGE-VERSIONEDMIGRATIONS
 
 Database changes are captured as migration scripts in version control and managed the same way as application code changes — not applied ad
 hoc against a live schema outside the tracked history.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-DBCHANGE-SEQUENCEDSCRIPTS
+### Rule RDR-DORA-DBCHANGE-SEQUENCEDSCRIPTS
 
 Every migration is a uniquely sequenced script, and every database instance carries a record of which migrations have already run against
 it, so the current schema state is always derivable and re-applying the set of migrations is safe.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-DBCHANGE-VISIBLEPENDINGCHANGES
+### Rule RDR-DORA-DBCHANGE-VISIBLEPENDINGCHANGES
 
 Pending database changes are visible to, and discussed with, the people who own the production database before the change reaches it —
 coordination happens ahead of the deployment, not as a late-stage escalation.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-DBCHANGE-EXPANDCONTRACT
+### Rule RDR-DORA-DBCHANGE-EXPANDCONTRACT
 
 A schema change that must not incur downtime adds new structures alongside the old ones and cuts traffic over later, rather than modifying
 or deleting a live structure in place; the old and new structures coexist only until the cutover completes.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-DBCHANGE-MEASUREDWORK
+### Rule RDR-DORA-DBCHANGE-MEASUREDWORK
 
 Database change work is measured, not treated as invisible overhead — the failure rate attributable to database issues, the lead time
 database work adds, any scheduled downtime, and the proportion of changes that are fully automated are tracked toward a "push-button"

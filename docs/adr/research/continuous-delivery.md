@@ -1,36 +1,36 @@
 # ADR: DORA — Continuous delivery
 
-## Rules: ADR-DORA-CD
+## Rules: RDR-DORA-CD
 
-### Rule ADR-DORA-CD-RELEASABLEONDEMAND
+### Rule RDR-DORA-CD-RELEASABLEONDEMAND
 
 Continuous delivery means the software stays releasable on demand throughout its lifecycle, not that every change deploys automatically —
 treat "deployable at any time" as the property to sustain and leave the decision to deploy as a separate, later question.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-CD-DEPLOYABILITYFIRST
+### Rule RDR-DORA-CD-DEPLOYABILITYFIRST
 
 Deployability is the default state to protect, not an event to schedule: prioritize fixing whatever makes the system non-deployable over new
 feature work, and keep fast quality feedback available to everyone building toward the release, not only to a release team.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-CD-COMPREHENSIVESCOPE
+### Rule RDR-DORA-CD-COMPREHENSIVESCOPE
 
 Treat continuous delivery as comprehensive in scope — it applies to distributed systems, infrastructure changes, database changes, firmware,
 and mobile releases alike, not only to the application code path that is easiest to automate.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-CD-NOTJUSTMOREOFTEN
+### Rule RDR-DORA-CD-NOTJUSTMOREOFTEN
 
 Never mistake running the existing deployment process more often for continuous delivery. Raising deployment frequency without improving the
 underlying test automation, architecture, and process first raises the failure rate and the team's burnout, not its performance.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-CD-TOOLSARENOTPRACTICES
+### Rule RDR-DORA-CD-TOOLSARENOTPRACTICES
 
 Adopting deployment-pipeline tooling does not substitute for the technical practices and process change it is meant to carry — comprehensive
 test automation, loosely coupled architecture, and trunk-based development are the capabilities that make the pipeline trustworthy.

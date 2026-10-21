@@ -21,7 +21,7 @@ Ids are returned in registry (`:`) form; a caller comparing a citation, which is
 
 A pure function of the files on disk, memoized per resolved index path for the session (re-run the importer to refresh — see
 [ADR-AUTO-CACHE](../../../adr/automation/caching.md)). Built on the two existing ADR parsers rather than re-scanning the tree
-([ADR-PRIN-REDUCEVAR](../../../adr/principles/reduce-variability.md)).
+([PDR-REDUCEVAR](../../../adr/principles/reduce-variability.md)).
 
 ### parameter `IndexPath`
 

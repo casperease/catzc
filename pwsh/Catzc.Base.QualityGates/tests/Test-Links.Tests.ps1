@@ -2,16 +2,16 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a9b7e36d4b18
+    with_body_sha: ad22de6f38de
   edges:
     docs: "[Test-Links.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-Links.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-Links.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
       - ADR-REPO-LINK-ONECITATIONSPELLING
       - ADR-REPO-LINK-ALIGNEDBYTOOL
+      - PDR-CONFIG-EXCEPTIONISCONFIGENTRY
 ---
 #>
 
@@ -92,7 +92,7 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
             & $writeFile $root 'src/Gadget.cs' "class Gadget { const string Why = `"ADR-TST-WIDGET:1`"; const string Heading = `"### Rule ADR-TST-WIDGET-SPIN`"; }`n"
         }
 
-        It 'fails the gate in gate mode, once per numbered citation' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING', 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+        It 'fails the gate in gate mode, once per numbered citation' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING', 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
             & $useLinks ([ordered]@{})
             $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
             $result.IssueCount | Should -Be 2
@@ -101,7 +101,7 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
             $result.Facts['ReportedCount'] | Should -Be 0
         }
 
-        It 'lists the findings and passes in report mode' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING', 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+        It 'lists the findings and passes in report mode' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING', 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
             & $useLinks ([ordered]@{ mode = 'report' })
             { Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase } | Should -Not -Throw
             $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
@@ -110,7 +110,7 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
             $result.Facts['Reported'] | Should -BeLike '*`[StringNumbered`]*'
         }
 
-        It 'leaves out a file its exempt globs match' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING', 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+        It 'leaves out a file its exempt globs match' -Tag 'ADR-REPO-LINK-ONECITATIONSPELLING', 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
             & $useLinks ([ordered]@{ exempt = [ordered]@{ 'src/*.cs' = 'gadget fixtures' } })
             $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
             $result.IssueCount | Should -Be 1

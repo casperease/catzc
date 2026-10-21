@@ -21,8 +21,8 @@ Started 2026-10-21T02:21:00.2535622+02:00.
   pwsh/.internal/assets/Invoke-CatzcCommand.ps1 runs several quality gates in that one call, so no script file is needed.
 - 2026-10-21 Cats: plan-master.md and value-of-plan.md are edited by several sessions at once; a new plan adds one master line and one value
   row without touching other lines.
-- 2026-10-21 Cats: "eac" names both everything as code (ADR-PRIN-EAC, the eac normal form) and the sibling repository C:\projects\eac.
-- 2026-10-21 Cats: "repository normal form" (ADR-AUTO-IDIOM) is a name's spelling, while "eac normal form" (ADR-THES-NORMALFORM) is the
+- 2026-10-21 Cats: "eac" names both everything as code (PDR-EAC, the eac normal form) and the sibling repository C:\projects\eac.
+- 2026-10-21 Cats: "repository normal form" (ADR-AUTO-IDIOM) is a name's spelling, while "eac normal form" (TDR-NORMALFORM) is the
   verifiable shape of a whole piece of code.
 - 2026-10-21 Cats: Token tip: read docs/references/pwsh/index.md and file-kinds.yml before designing a feature; most parts already exist,
   and a design round on a part that exists is the costliest waste.
@@ -53,7 +53,7 @@ Started 2026-10-21T02:21:00.2535622+02:00.
   fail.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: an ADR in one domain may cite only the domains in its adrs.yml depends_on, and
   Get-AdrCitationGraphViolations counts bare codes too, so design and repository ADRs name the thesis by its glossary term, never an
-  ADR-THES code.
+  TDR code.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: an unquoted YAML flow-map value with a comma (glossary.yml avoid: { say: a, b })
   parses as an extra key, and the importer's Build-Glossary janitor then fails every session's import.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: Invoke-TestFile reports a failing test without throwing, so a runner sees the

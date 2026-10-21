@@ -20,7 +20,7 @@ lit file, and every pin, carries its reason (HighlightReason): the basis, the co
 sites with their lines and kinds, so a lit file cited only in passing comments reads as a mention.
 
 The cells keep the map's order (rows, then columns), so the result is deterministic; ToJson is its data form
-([ADR-THES-ONETRUTH-TRUTHISQUERYABLE](/docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-truthisqueryable)).
+([TDR-ONETRUTH-TRUTHISQUERYABLE](/docs/adr/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)).
 ```
 
 ## comment:2

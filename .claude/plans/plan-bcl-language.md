@@ -42,7 +42,7 @@ host (or a reader of a bundle) needs before the types can be reasoned about apar
 
 ## Decided (the user, 2026-10-21, decision round)
 
-- **Host bindings are config entries** (ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY): one row per host-bound file with its reason in a `bcl.yml`
+- **Host bindings are config entries** (PDR-CONFIG-EXCEPTIONISCONFIGENTRY): one row per host-bound file with its reason in a `bcl.yml`
   beside `languages.yml`, and a gate fails a `using System.Management.Automation*` in a file without a row. Twelve types carry the `using`
   (`ContractParameter.cs` and `TypeShape.cs` name SMA only in string literals). The five `PSObject`-unwrapping types (`ContractValue`,
   `ValueChainHighlight`, `ValueChainMap`, `WorldMapBuilder`, `WorldMapHighlight`) unwrap in their pwsh callers instead, so
@@ -73,5 +73,5 @@ Everything else landed on 2026-10-21 and waits for the user's commit: the doc mo
 
 - `docs/adr/automation/BCL/native-csharp-types.md` (`ADR-AUTO-TYPES`) — what the types are.
 - `docs/adr/automation/pwsh/hosting-csharp-types.md` (`ADR-PWSH-TYPES`) — how pwsh hosts them.
-- `docs/adr/principles/one-living-version.md` (`ADR-PRIN-ONELIVE`) — moves and renames change every caller at once.
+- `docs/adr/principles/one-living-version.md` (`PDR-ONELIVE`) — moves and renames change every caller at once.
 - Microsoft's BCL definition: <https://learn.microsoft.com/en-us/dotnet/standard/glossary#bcl>.

@@ -76,7 +76,7 @@ output, not source: it is never committed, never edited, and regenerated from th
 The plan files `out/plan-*.md` are authored working notes, not output: the whitelisted clean (`Reset-GitCleanFxd`,
 `importer.ps1 -cleanClone`) keeps and reports them instead of deleting them. They stay gitignored and uncommitted like the rest of `out/`. A
 **workstream** is one labeled section of such a plan's work breakdown — its own `### W<n>:` heading, order, and gate — that lands as one
-change, never half-landed (ADR-PRIN-ONELIVE).
+change, never half-landed (PDR-ONELIVE).
 
 - [Plan files](#plan-files)
 
@@ -158,7 +158,7 @@ plans, gitignored so it never reaches a commit. Unlike output it cannot be regen
 resets every generated artifact and leaves the plans in place, reported like any other untracked file it refused to touch.
 
 A plan's work breaks into workstreams — `### W<n>: <name>` sections such as W0, W1, W2 — each with its own order and gate. A workstream
-lands whole: it is never committed half-done, and its citation never aliases an older label (ADR-PRIN-ONELIVE).
+lands whole: it is never committed half-done, and its citation never aliases an older label (PDR-ONELIVE).
 
 ### Retention
 
@@ -167,7 +167,7 @@ every file under the output root is a format, and the format's area says how lon
 folders, so a run's report, rows and results go together. A build keeps its newest version, because the build is regenerated from source. A
 cache stays, because its own keys decide when an entry is stale, and age is not staleness. A review artifact and a plan stay until a person
 retires them. A session's scripts, dumps and logs go after a week, and an appended log stays while it is written. The defaults sit once on
-the format type and a format states only what differs, so retention is configured, not programmed (ADR-PRIN-CONFIG). A file no format covers
+the format type and a format states only what differs, so retention is configured, not programmed (PDR-CONFIG). A file no format covers
 is reported and left alone: removing what nobody declared would guess at its owner.
 
 ## Consequences

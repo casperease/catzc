@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c1e6d1ca0d5c
+#     with_body_sha: "740e5e113c00"
 #   edges:
 #     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-docs/configs/glossary.yml.md)"
 #     cites:
@@ -15,8 +15,6 @@
 #       - ADR-DSGN-MODTYPE-MODULETYPEISSORT
 #       - ADR-DSGN-RUNMODE-TWORUNMODES
 #       - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-#       - ADR-PRIN-CATS-CATZCISSOURCENAME
-#       - ADR-PRIN-CATS-CATSISPERSONNAME
 #       - ADR-REPO-AGENTS-ROBOTBODYLIMIT
 #       - ADR-REPO-AGENTS-NAMEDMODEL
 #       - ADR-REPO-AGENTS-CAPABILITYFILE
@@ -35,12 +33,14 @@
 #       - ADR-REPO-LANG-THREEREGISTERS
 #       - ADR-REPO-OUTDIR-PLANNOTES
 #       - ADR-REPO-VOCAB
-#       - ADR-THES-NORMALFORM
-#       - ADR-THES-ONETRUTH-ONESTOREDECIDES
-#       - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
-#       - ADR-THES-ONETRUTH-TRUTHISQUERYABLE
-#       - ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY
-#       - ADR-THES-STORES
+#       - PDR-CATS-CATZCISSOURCENAME
+#       - PDR-CATS-CATSISPERSONNAME
+#       - TDR-NORMALFORM
+#       - TDR-ONETRUTH-ONESTOREDECIDES
+#       - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+#       - TDR-ONETRUTH-TRUTHISQUERYABLE
+#       - TDR-ONETRUTH-PRODUCTMONOREPOSITORY
+#       - TDR-STORES
 # ---
 
 concepts:
@@ -333,7 +333,7 @@ concepts:
   source of truth:
     key: source_of_truth
     domain: thesis
-    defined_by: ADR-THES-ONETRUTH-ONESTOREDECIDES
+    defined_by: TDR-ONETRUTH-ONESTOREDECIDES
     short:
       The one store whose content decides what is true about the delivered system — for catzc, the repository, changed through one change
       process.
@@ -348,7 +348,7 @@ concepts:
   adjacent store:
     key: adjacent_store
     domain: thesis
-    defined_by: ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+    defined_by: TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
     short:
       The one legitimate second store — a repository or service, such as a GitOps or configuration repository, or Azure DevOps Services or
       GitHub SaaS, with its own history, driven one way from the trunk's pipelines and never edited beside it.
@@ -358,20 +358,20 @@ concepts:
   truth store:
     key: truth_store
     domain: thesis
-    defined_by: ADR-THES-STORES-THREEKINDS
+    defined_by: TDR-STORES-THREEKINDS
     short:
       Any store that holds part of the truth about a delivered system — a version-controlled repository, a fact source, or a state machine.
     realized_by: { kind: prose-only }
   version-controlled repository:
     key: version_controlled_repository
     domain: thesis
-    defined_by: ADR-THES-STORES-VERSIONCONTROLLEDREPOSITORY
+    defined_by: TDR-STORES-VERSIONCONTROLLEDREPOSITORY
     short: The kind of truth store whose content is a versioned history of reviewed changes; a git repository is one subgroup of it.
     realized_by: { kind: prose-only }
   responsibility domain:
     key: responsibility_domain
     domain: thesis
-    defined_by: ADR-THES-STORES-RESPONSIBILITYDOMAIN
+    defined_by: TDR-STORES-RESPONSIBILITYDOMAIN
     short:
       The organisation, team, product, or person that one repository is the responsibility boundary for, set by where git's hard security
       controls stop.
@@ -379,7 +379,7 @@ concepts:
   fact source:
     key: fact_source
     domain: thesis
-    defined_by: ADR-THES-STORES-FACTSOURCEREADONLY
+    defined_by: TDR-STORES-FACTSOURCEREADONLY
     short:
       A state store — a database with a reachable live URL holding state about delivery outside the repository, such as the Azure DevOps
       runtime state — whose state catzc reads only.
@@ -389,14 +389,14 @@ concepts:
   state machine:
     key: state_machine
     domain: thesis
-    defined_by: ADR-THES-STORES-STATEMACHINE
+    defined_by: TDR-STORES-STATEMACHINE
     short:
       An application that owns fact sources and changes their state by its own rules, met by catzc only at a junction, inbound or outbound.
     realized_by: { kind: prose-only }
   actionable fact:
     key: actionable_fact
     domain: thesis
-    defined_by: ADR-THES-STORES-RECONCILEFACTS
+    defined_by: TDR-STORES-RECONCILEFACTS
     short:
       A fact found by synchronising truth stores that is verifiable, naming the store, address, and moment it was read, and names the one
       change or report it calls for.
@@ -404,7 +404,7 @@ concepts:
   query surface:
     key: query_surface
     domain: thesis
-    defined_by: ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+    defined_by: TDR-ONETRUTH-TRUTHISQUERYABLE
     short:
       The tooling's Get-* cmdlets, each of which also emits its answer as data (JSON), through which every question about the system's state
       is answered.
@@ -412,7 +412,7 @@ concepts:
   eac normal form:
     key: eac_normal_form
     domain: thesis
-    defined_by: ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
+    defined_by: TDR-NORMALFORM-ANYCODEHASNORMALFORM
     short:
       The shape in which the repository can verify any code — verifiable within its enabling constraints and uncontested by its formatters,
       tests, and asserts.
@@ -426,31 +426,31 @@ concepts:
   unordered code fragment:
     key: unordered_code_fragment
     domain: thesis
-    defined_by: ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
+    defined_by: TDR-NORMALFORM-ANYCODEHASNORMALFORM
     short: Code from outside the trunk, in whatever shape its origin left it, that is not yet in eac normal form and decides nothing.
     realized_by: { kind: prose-only }
   enabling constraints:
     key: enabling_constraints
     domain: thesis
-    defined_by: ADR-THES-NORMALFORM-ENABLINGCONSTRAINTS
+    defined_by: TDR-NORMALFORM-ENABLINGCONSTRAINTS
     short: What a repository declares about itself — the sensible defaults, the catzc bundle, and the local configs — and nothing else.
     realized_by: { kind: prose-only }
   uncontested:
     key: uncontested
     domain: thesis
-    defined_by: ADR-THES-NORMALFORM-UNCONTESTED
+    defined_by: TDR-NORMALFORM-UNCONTESTED
     short: Of code, left unchanged by every formatter and failed by no test or assert of the repository; the fixed point of its checks.
     realized_by: { kind: prose-only }
   fragment migration:
     key: fragment_migration
     domain: thesis
-    defined_by: ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM
+    defined_by: TDR-NORMALFORM-MIGRATIONREACHESTHEFORM
     short: Bringing an unordered code fragment into eac normal form through the one change process.
     realized_by: { kind: prose-only }
   product mono-repository:
     key: product_mono_repository
     domain: thesis
-    defined_by: ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY
+    defined_by: TDR-ONETRUTH-PRODUCTMONOREPOSITORY
     short:
       One repository that several teams contribute to for one product, bounded into tracks and deployable-units by path filters; catzc is
       one.
@@ -462,7 +462,7 @@ concepts:
   trunk:
     key: trunk
     domain: thesis
-    defined_by: ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY
+    defined_by: TDR-ONETRUTH-PRODUCTMONOREPOSITORY
     short:
       The one mainline of a product mono-repository, where everything is at HEAD — no internal versions, and a shared change lands in one
       commit with all its consumers.
@@ -472,7 +472,7 @@ concepts:
   pin:
     key: pin
     domain: thesis
-    defined_by: ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY
+    defined_by: TDR-ONETRUTH-PRODUCTMONOREPOSITORY
     short:
       An explicit version, controlled by the consumer, of a dependency that crosses the repository boundary inward, stitched into an
       immutable artifact at build time.
@@ -622,7 +622,7 @@ concepts:
   catzc:
     key: catzc
     domain: principles
-    defined_by: ADR-PRIN-CATS-CATZCISSOURCENAME
+    defined_by: PDR-CATS-CATZCISSOURCENAME
     short:
       The source-level name of the system — the Catzc.* module prefix, the C# namespaces, the type-accelerator prefix, and the product token
       in code and precise references.
@@ -634,7 +634,7 @@ concepts:
   cats:
     key: cats
     domain: principles
-    defined_by: ADR-PRIN-CATS-CATSISPERSONNAME
+    defined_by: PDR-CATS-CATSISPERSONNAME
     short: The product's name to a person — the executor outside pwsh, and the word in prose, docs and conversation.
     realized_by: { kind: prose-only }
   automation:

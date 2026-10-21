@@ -7,8 +7,8 @@ catzc:
     docs: "[Test-Comments.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-Comments.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
     cites:
-      - ADR-PRIN-ONELIVE-ONEVERSION
       - ADR-REPO-COMMENTS-MOVEDBYTOOL
+      - PDR-ONELIVE-ONEVERSION
 ---
 #>
 

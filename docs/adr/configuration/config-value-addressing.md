@@ -23,7 +23,7 @@ as a property.
 
 ### Rule ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
 
-An address references **only** version-controlled config (ADR-PRIN-EAC): everything reachable by an address lives in a `configs/*.yml` file
+An address references **only** version-controlled config (PDR-EAC): everything reachable by an address lives in a `configs/*.yml` file
 in git, so anything addressable is non-secret by definition. Secrets never have addresses — they travel out-of-band as `[SecureString]`,
 handed to an external consumer through the one sanctioned seam.
 
@@ -110,7 +110,7 @@ config raw.
 
 `Addresses are for committed config only`
 
-An address only ever reaches into a `configs/*.yml` file, which is version-controlled (ADR-PRIN-EAC). It follows that nothing an address can
+An address only ever reaches into a `configs/*.yml` file, which is version-controlled (PDR-EAC). It follows that nothing an address can
 name is a secret: if it were addressable it would be sitting in git. This is deliberate and load-bearing — it is why a consumer can treat an
 address-sourced value as non-secret and loggable, and why the secret channel is a wholly separate mechanism. Secrets have no address; they
 are handed to an external process as `[SecureString]` through `Write-EnvironmentSet` (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS), never

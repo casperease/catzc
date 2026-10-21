@@ -8,8 +8,8 @@ catzc:
     docs: "[Test-Comments.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Comments.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
-      - ADR-PRIN-ONELIVE-ONEVERSION
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - PDR-ONELIVE-ONEVERSION
 ---
 #>
 

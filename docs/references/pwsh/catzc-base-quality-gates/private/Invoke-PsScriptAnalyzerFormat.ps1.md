@@ -13,7 +13,7 @@ The psscriptanalyzer formatter engine: formats the given PowerShell files with t
 ### description
 
 One Format-Code engine adapter
-([ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)).
+([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)).
 Two steps per file, the same two VS Code's Format Document and save apply:
 
 1. Invoke-Formatter with the repository's one analyzer settings file — brace placement, indentation, whitespace, and hashtable alignment

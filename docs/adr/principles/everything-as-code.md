@@ -1,23 +1,23 @@
 # Principle: Everything as code
 
-## Rules: ADR-PRIN-EAC
+## Rules: PDR-EAC
 
-### Rule ADR-PRIN-EAC-EVERYTHINGINVERSIONCONTROL
+### Rule PDR-EAC-EVERYTHINGINVERSIONCONTROL
 
 Every artifact required to build, test, deploy, or operate the system lives in version control — application code, infrastructure,
 pipelines, environment config, schemas/migrations, specs, tests, container/orchestration, networking/DNS, and governing docs. Rules 1–3 are
-the mechanics of ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD.
+the mechanics of TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD.
 
 - [Principle](#principle)
 
-### Rule ADR-PRIN-EAC-DIFFABLEBELONGSINVERSIONCONTROL
+### Rule PDR-EAC-DIFFABLEBELONGSINVERSIONCONTROL
 
 If an artifact can be diffed, reviewed, and rolled back it belongs in version control; prefer tools that store their configuration as files
 over UIs, databases, or proprietary formats.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-PRIN-EAC-NOSTATEOUTSIDEVERSIONCONTROL
+### Rule PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL
 
 Never keep configuration or operational state outside version control (UI-managed settings, variable libraries, shared documents, manual
 runbooks) — it cannot be diffed or reproduced and it drifts silently.
@@ -31,7 +31,7 @@ pipeline definitions, and operational artifacts as second-class citizens — man
 This creates a class of assets that cannot be reproduced, compared, audited, or rolled back.
 
 This principle is the mechanics of
-[ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../thesis/one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord):
+[TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord):
 the repository is the configuration record of everything it delivers, and the rules here say what that requires of each artifact.
 
 ## Principle

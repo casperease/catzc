@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.Flow/tests/types/TruthStoresConfig.Tests.ps1
     docs: "[TruthStoresConfig.cs.md](docs/references/pwsh/catzc-base-flow/types/TruthStoresConfig.cs.md)"
     cites:
-      - ADR-THES-STORES-THREEKINDS
+      - TDR-STORES-THREEKINDS
 ---
 */
 

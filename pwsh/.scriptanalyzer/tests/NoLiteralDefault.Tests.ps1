@@ -2,15 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "31702a4a85bc"
+    with_body_sha: c64a5eeb9e2c
   edges:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE
+      - PDR-CONFIG-DEFAULTDECLAREDONCE
 ---
 #>
 
-Describe 'Measure-NoLiteralDefault' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER', 'ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE' {
+Describe 'Measure-NoLiteralDefault' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER', 'PDR-CONFIG-DEFAULTDECLAREDONCE' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.scriptanalyzer/NoLiteralDefault.psm1') -Force
         # The rule's return type ([DiagnosticRecord]) lives in the PSScriptAnalyzer assembly.

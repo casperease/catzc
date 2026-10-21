@@ -1,36 +1,36 @@
 # ADR: DORA — Loosely coupled teams
 
-## Rules: ADR-DORA-LOOSETEAMS
+## Rules: RDR-DORA-LOOSETEAMS
 
-### Rule ADR-DORA-LOOSETEAMS-CHANGEWITHOUTPERMISSION
+### Rule RDR-DORA-LOOSETEAMS-CHANGEWITHOUTPERMISSION
 
 A team makes large-scale changes to the design of its own system without needing permission from anybody outside the team and without
 depending on another team's schedule to ship — that independence, not the presence of service boundaries, is the capability.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-LOOSETEAMS-INDEPENDENTDEPLOYABILITY
+### Rule RDR-DORA-LOOSETEAMS-INDEPENDENTDEPLOYABILITY
 
 Independent deployability is the test of loose coupling: a service deploys on demand regardless of the state of the services it depends on,
 and its functional tests run against test doubles rather than a shared, fully integrated environment.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-LOOSETEAMS-TOPOLOGYMATCHESARCHITECTURE
+### Rule RDR-DORA-LOOSETEAMS-TOPOLOGYMATCHESARCHITECTURE
 
 Team topology and system architecture reinforce each other on purpose — team boundaries are drawn to match the intended architecture (the
 Inverse Conway Maneuver), and one coherent concern lives behind one clear boundary rather than spilling across several teams.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-LOOSETEAMS-EXPLICITINTERFACES
+### Rule RDR-DORA-LOOSETEAMS-EXPLICITINTERFACES
 
 Interfaces between teams are explicit, versioned, and backward-compatible, so a producer can change its internals and ship on its own
 schedule while every consumer keeps working against the version it already integrated against.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-LOOSETEAMS-NOBIGBANG
+### Rule RDR-DORA-LOOSETEAMS-NOBIGBANG
 
 A "big-bang" deployment — several services released together because their interdependencies leave no other choice — is evidence of tight
 coupling, not an acceptable operating mode; treat the need for simultaneous releases as the defect to remove, not a fact to schedule around.

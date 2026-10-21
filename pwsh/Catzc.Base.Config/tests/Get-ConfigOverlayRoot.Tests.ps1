@@ -2,11 +2,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c3511eb6e80d
+    with_body_sha: a7f9d66d5b79
   edges:
     code: pwsh/Catzc.Base.Config/private/Get-ConfigOverlayRoot.ps1
     cites:
-      - ADR-PRIN-CATS-FOLDERSUSECATZC
+      - PDR-CATS-FOLDERSUSECATZC
 ---
 #>
 
@@ -29,7 +29,7 @@ Describe 'Get-ConfigOverlayRoot' -Tag 'L0', 'logic' {
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'build' }
     }
 
-    Context 'source mode reads this repository''s own config fragments only' -Tag 'ADR-PRIN-CATS-FOLDERSUSECATZC' {
+    Context 'source mode reads this repository''s own config fragments only' -Tag 'PDR-CATS-FOLDERSUSECATZC' {
         BeforeEach {
             Mock Get-CatzcRunMode -ModuleName Catzc.Base.Config -MockWith { 'source' }
             Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.Config -MockWith { Join-Path $env:RepositoryRoot 'widgetry' }

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "17061e68c859"
+    with_body_sha: ab815a0d465d
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-NeutralCodeFinding.Tests.ps1
     docs: "[Get-NeutralCodeFinding.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-NeutralCodeFinding.ps1.md)"
@@ -27,7 +27,9 @@ function Get-NeutralCodeFinding {
     )
 
     $tiers = [Catzc.Base.Timeouts.TestTiers]::Names
-    $codePattern = [regex]::new('(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+')
+    $form = (Get-Config -Config adrs).CodeForm
+    $codePattern = [regex]::new("(?<![\w-])$($form.Cited)")
+    $kindMarker = [regex]::new("$($form.Kind)-")
     $isBlockCommand = {
         param($node)
         $node -is [System.Management.Automation.Language.CommandAst] -and $node.GetCommandName() -in 'Describe', 'Context', 'It'
@@ -110,7 +112,7 @@ function Get-NeutralCodeFinding {
     $findings = [System.Collections.Generic.List[object]]::new()
     foreach ($literal in $Ast.FindAll($isString, $true)) {
         $text = $literal.Extent.Text
-        if (-not $text.Contains('ADR-')) {
+        if (-not $kindMarker.IsMatch($text)) {
             continue
         }
         # A string inside another (a subexpression in an expandable string) is read with its outer string.

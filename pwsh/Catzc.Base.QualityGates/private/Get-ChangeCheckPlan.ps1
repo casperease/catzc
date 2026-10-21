@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-ChangeCheckPlan.Tests.ps1
     docs: "[Get-ChangeCheckPlan.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ChangeCheckPlan.ps1.md)"
     cites:
-      - ADR-PRIN-CONFIG
+      - PDR-CONFIG
 ---
 #>
 

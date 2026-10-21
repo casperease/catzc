@@ -1,78 +1,78 @@
 # ADR: Agile principles — the twelve principles behind the manifesto
 
-## Rules: ADR-PROC-AGILEPRINCIPLES
+## Rules: WDR-AGILEPRINCIPLES
 
-### Rule ADR-PROC-AGILEPRINCIPLES-EARLYCONTINUOUSDELIVERY
+### Rule WDR-AGILEPRINCIPLES-EARLYCONTINUOUSDELIVERY
 
 Satisfy the customer through early and continuous delivery of valuable software — the highest priority, and the reason every other principle
 exists.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PROC-AGILEPRINCIPLES-WELCOMECHANGINGREQUIREMENTS
+### Rule WDR-AGILEPRINCIPLES-WELCOMECHANGINGREQUIREMENTS
 
 Welcome changing requirements, even late — an agile process turns change into the customer's competitive advantage rather than treating it
 as a failure of planning.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PROC-AGILEPRINCIPLES-DELIVERFREQUENTLY
+### Rule WDR-AGILEPRINCIPLES-DELIVERFREQUENTLY
 
 Deliver working software frequently — on a cadence of weeks rather than months, preferring the shorter interval.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PROC-AGILEPRINCIPLES-BUSINESSANDDEVELOPERSDAILY
+### Rule WDR-AGILEPRINCIPLES-BUSINESSANDDEVELOPERSDAILY
 
 Business people and developers work together daily throughout the project — collaboration is continuous, not a hand-off at the boundaries.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PROC-AGILEPRINCIPLES-MOTIVATEDINDIVIDUALS
+### Rule WDR-AGILEPRINCIPLES-MOTIVATEDINDIVIDUALS
 
 Build projects around motivated individuals — give them the environment and support they need, and trust them to get the job done.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PROC-AGILEPRINCIPLES-DIRECTCONVERSATION
+### Rule WDR-AGILEPRINCIPLES-DIRECTCONVERSATION
 
 Favour direct conversation — the most efficient and effective way to convey information to and within a team is face-to-face.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PROC-AGILEPRINCIPLES-WORKINGSOFTWAREMEASURESPROGRESS
+### Rule WDR-AGILEPRINCIPLES-WORKINGSOFTWAREMEASURESPROGRESS
 
 Working software is the primary measure of progress — not documents produced, hours spent, or tasks marked done.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PROC-AGILEPRINCIPLES-SUSTAINABLEPACE
+### Rule WDR-AGILEPRINCIPLES-SUSTAINABLEPACE
 
 Sustain a constant pace indefinitely — sponsors, developers, and users should be able to maintain the pace without burning out; agile is a
 sustainable process, not a sprint to exhaustion.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PROC-AGILEPRINCIPLES-TECHNICALEXCELLENCE
+### Rule WDR-AGILEPRINCIPLES-TECHNICALEXCELLENCE
 
 Attend continuously to technical excellence and good design — quality is what keeps the cost of change low and so enhances agility.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PROC-AGILEPRINCIPLES-SIMPLICITY
+### Rule WDR-AGILEPRINCIPLES-SIMPLICITY
 
 Maximise the work not done — simplicity is essential; the cheapest, most responsive system is the one that does no more than it must.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PROC-AGILEPRINCIPLES-SELFORGANISINGTEAMS
+### Rule WDR-AGILEPRINCIPLES-SELFORGANISINGTEAMS
 
 Let architectures, requirements, and designs emerge from self-organising teams — the best solutions come from the people doing the work, not
 from an authority above them.
 
 - [The twelve principles](#the-twelve-principles)
 
-### Rule ADR-PROC-AGILEPRINCIPLES-REFLECTANDADJUST
+### Rule WDR-AGILEPRINCIPLES-REFLECTANDADJUST
 
 Reflect and adjust at regular intervals — the team periodically tunes its own behaviour to become more effective; continuous improvement is
 built into the process.
@@ -81,7 +81,7 @@ built into the process.
 
 ## Context
 
-Behind the four values ([ADR-PROC-VALUES](agile-values.md)) the Agile Manifesto ([ADR-PROC-AGILE](agile.md)) sets out twelve principles that
+Behind the four values ([WDR-VALUES](agile-values.md)) the Agile Manifesto ([WDR-AGILE](agile.md)) sets out twelve principles that
 make the values operational [^1]. Where a value is a preference, a principle is a working instruction — it says what an agile process
 actually does. The twelve are the bridge between the manifesto's short comparative statements and the concrete process rules elsewhere in
 this repository (flow, promotion, small batches, fast feedback), which are specialisations of these principles for this platform.
@@ -120,7 +120,7 @@ them.
 
 When shaping or judging a process, check it against the twelve: does it deliver working software frequently, welcome late change, keep the
 team sustainable, and reflect to improve? A practice that serves one of the principles has a place; a practice that serves none is ceremony
-and can be dropped ([ADR-PRIN-NOWASTE](../principles/reduce-waste.md)). Where a repository process rule elaborates a principle for this
+and can be dropped ([PDR-NOWASTE](../principles/reduce-waste.md)). Where a repository process rule elaborates a principle for this
 platform, cite the principle it specialises so the lineage stays visible.
 
 ## References

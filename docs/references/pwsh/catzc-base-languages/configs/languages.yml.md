@@ -14,7 +14,7 @@ file languages it declares in variants.yml (`tracks:`); this registry makes that
 belongs to exactly one file language; an extension no entry lists has no file language.
 
 Formatting is configured here, not programmed
-([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)): an entry names the
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)): an entry names the
 formatter engine for its files, and Format-Code (Catzc.Base.QualityGates) runs it; Test-Formatting checks the same
 entries. Supporting a language on an existing engine is one line here. A language with nothing to format says why.
 The editor reads the same entries: the root-config generator sets each language's VS Code default formatter to its

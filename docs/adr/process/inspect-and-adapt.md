@@ -1,29 +1,29 @@
 # ADR: Inspect and adapt — kaizen built into the process
 
-## Rules: ADR-PROC-KAIZEN
+## Rules: WDR-KAIZEN
 
-### Rule ADR-PROC-KAIZEN-CONTINUOUSIMPROVEMENT
+### Rule WDR-KAIZEN-CONTINUOUSIMPROVEMENT
 
 Improvement is continuous and built into the process, not a periodic event bolted on. The team regularly inspects how it works and adapts it
-— kaizen — so getting better is a standing activity ([ADR-PROC-AGILEPRINCIPLES](agile-principles.md), reflect and adjust).
+— kaizen — so getting better is a standing activity ([WDR-AGILEPRINCIPLES](agile-principles.md), reflect and adjust).
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE
+### Rule WDR-KAIZEN-ADAPTFROMEVIDENCE
 
 Adapt from evidence, not opinion. A decision to change the process rests on observed signals — gate results, flow and queue measures,
-incidents — read off the real system ([ADR-PROC-OBSERVEWIP](observe-work.md)), not on assertion or seniority.
+incidents — read off the real system ([WDR-OBSERVEWIP](observe-work.md)), not on assertion or seniority.
 
 - [Decision](#decision)
 
-### Rule ADR-PROC-KAIZEN-AMPLIFYLEARNING
+### Rule WDR-KAIZEN-AMPLIFYLEARNING
 
 Amplify learning: development is a knowledge-creating process. Capture what is learned in the system itself — a convention, a gate, an ADR —
-so the knowledge holds and is not relearned ([ADR-PRIN-NOWASTE](../principles/reduce-waste.md), the relearning waste).
+so the knowledge holds and is not relearned ([PDR-NOWASTE](../principles/reduce-waste.md), the relearning waste).
 
 - [Why](#why)
 
-### Rule ADR-PROC-KAIZEN-COMMITCADENCEFEEDBACK
+### Rule WDR-KAIZEN-COMMITCADENCEFEEDBACK
 
 Feedback loops run continuously, at commit cadence. Every push recomputes the gates and the flow state, so inspect-and-adapt operates on
 every change, not only at a sprint boundary.
@@ -32,14 +32,14 @@ every change, not only at a sprint boundary.
 
 ## Context
 
-Kaizen — continuous, incremental improvement — is the engine of the Toyota Production System ([ADR-PROC-LEAN](lean.md)). The stopped line
-([ADR-PROC-ANDON](holding-the-line.md)) is not just a fix; it is a signal that triggers a small root-cause investigation and a permanent
+Kaizen — continuous, incremental improvement — is the engine of the Toyota Production System ([WDR-LEAN](lean.md)). The stopped line
+([WDR-ANDON](holding-the-line.md)) is not just a fix; it is a signal that triggers a small root-cause investigation and a permanent
 countermeasure, so the same defect cannot recur [^2]. Improvement is not a project that a team schedules; it is a reflex the system builds
 in, one small adjustment at a time, driven by what actually happened.
 
 The Poppendiecks carry this into software as "create knowledge" and "amplify learning" [^1]: development is not manufacturing a known
 design, it is discovering the design, so the process must be a learning loop. Agile says the same in its twelfth principle — reflect at
-regular intervals and tune accordingly ([ADR-PROC-AGILEPRINCIPLES](agile-principles.md)). This article states the rule and ties it to the
+regular intervals and tune accordingly ([WDR-AGILEPRINCIPLES](agile-principles.md)). This article states the rule and ties it to the
 platform's mechanism: the gates that recompute on every push are a learning loop running at commit cadence.
 
 ## Decision
@@ -47,11 +47,11 @@ platform's mechanism: the gates that recompute on every push are a learning loop
 Build improvement into the process as a continuous, evidence-driven loop:
 
 - **Inspect and adapt continuously.** The team routinely examines how it works — where the line stops, where items wait
-  ([ADR-PROC-QUEUECOST](queues-cost-money.md)), what the gates catch — and adjusts. This is a standing reflex, not a quarterly initiative.
-- **Decide from evidence.** Process changes follow observed signals from the real system ([ADR-PROC-OBSERVEWIP](observe-work.md)), not
+  ([WDR-QUEUECOST](queues-cost-money.md)), what the gates catch — and adjusts. This is a standing reflex, not a quarterly initiative.
+- **Decide from evidence.** Process changes follow observed signals from the real system ([WDR-OBSERVEWIP](observe-work.md)), not
   opinion. A recurring failure, a lengthening queue, or a flaky quality gate is data that motivates a specific countermeasure.
 - **Amplify learning by capturing it.** When something is learned, it is encoded where it will hold — a convention that makes the mistake
-  impossible to express ([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md)), a quality gate that catches it, or an ADR that records the
+  impossible to express ([PDR-POKAYOKE](../principles/poka-yoke.md)), a quality gate that catches it, or an ADR that records the
   decision — so the next person inherits the knowledge instead of rediscovering it.
 
 ## Why
@@ -61,7 +61,7 @@ inspect-and-adapt continuous — tied to the stopped line and the per-push gates
 freshest.
 
 **Uncaptured learning is relearned.** Knowledge that lives only in someone's head is lost at every absence and every new joiner
-([ADR-PRIN-NOWASTE](../principles/reduce-waste.md), the relearning waste). Encoding a lesson as a convention, a gate, or an ADR is what
+([PDR-NOWASTE](../principles/reduce-waste.md), the relearning waste). Encoding a lesson as a convention, a gate, or an ADR is what
 turns a one-time insight into a permanent property of the system.
 
 **The countermeasure, not the fix, is the point.** Fixing a defect restores flow; asking why it was possible and removing that possibility
@@ -70,8 +70,8 @@ is what makes the system better. Kaizen is the discipline of always taking the s
 ## How to apply
 
 When the line stops or a gate catches something, do not only fix the instance — ask what made it possible and add the countermeasure that
-prevents the class, then encode it where it holds ([ADR-PRIN-POKAYOKE](../principles/poka-yoke.md)), or in a quality gate. Prefer many small
-adjustments driven by observed signals ([ADR-PROC-OBSERVEWIP](observe-work.md)) over occasional large reorganisations. When you learn
+prevents the class, then encode it where it holds ([PDR-POKAYOKE](../principles/poka-yoke.md)), or in a quality gate. Prefer many small
+adjustments driven by observed signals ([WDR-OBSERVEWIP](observe-work.md)) over occasional large reorganisations. When you learn
 something worth keeping, capture it as a convention, a gate, or an ADR so it is not relearned. Treat the per-push gates as the platform's
 built-in learning loop and let them run on every change, not only at a milestone: the same gates run on the devbox and in the pipeline, and
 every push recomputes the flow state.

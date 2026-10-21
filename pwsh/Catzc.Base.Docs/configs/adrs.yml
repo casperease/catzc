@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "49d239e04e87"
+#     with_body_sha: b53801805bfc
 #   edges:
 #     docs: "[adrs.yml.md](docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md)"
 #     cites:
@@ -78,40 +78,6 @@
 #       - ADR-CONF-ADDRESSING
 #       - ADR-CONF-LOADING
 #       - ADR-CONF-MDCONTRIB
-#       - ADR-DORA-AIDATA
-#       - ADR-DORA-AISTANCE
-#       - ADR-DORA-APPROVAL
-#       - ADR-DORA-CD
-#       - ADR-DORA-CI
-#       - ADR-DORA-CULTURE
-#       - ADR-DORA-DATAECO
-#       - ADR-DORA-DBCHANGE
-#       - ADR-DORA-DEPLOY
-#       - ADR-DORA-DOCS
-#       - ADR-DORA-EXPERIMENT
-#       - ADR-DORA-FAILALERT
-#       - ADR-DORA-FEEDBACK
-#       - ADR-DORA-FLEXINFRA
-#       - ADR-DORA-JOBSAT
-#       - ADR-DORA-LEADERSHIP
-#       - ADR-DORA-LEARNING
-#       - ADR-DORA-LOOSETEAMS
-#       - ADR-DORA-MAINTAIN
-#       - ADR-DORA-MONITOR
-#       - ADR-DORA-OBSERV
-#       - ADR-DORA-PLATFORM
-#       - ADR-DORA-SECURITY
-#       - ADR-DORA-SMALLBATCH
-#       - ADR-DORA-TESTAUTO
-#       - ADR-DORA-TESTDATA
-#       - ADR-DORA-TOOLCHOICE
-#       - ADR-DORA-TRUNK
-#       - ADR-DORA-USERFOCUS
-#       - ADR-DORA-VCS
-#       - ADR-DORA-VISUAL
-#       - ADR-DORA-WELLBEING
-#       - ADR-DORA-WIP
-#       - ADR-DORA-WORKVIS
 #       - ADR-DSGN-ASPECT
 #       - ADR-DSGN-MODTYPE
 #       - ADR-DSGN-REMOTE
@@ -124,24 +90,6 @@
 #       - ADR-FLOW-CD
 #       - ADR-FLOW-GIT
 #       - ADR-GH-RELEASE
-#       - ADR-PRIN-CATS
-#       - ADR-PRIN-CONFIG
-#       - ADR-PRIN-EAC
-#       - ADR-PRIN-NOWASTE
-#       - ADR-PRIN-ONELIVE
-#       - ADR-PRIN-POKAYOKE
-#       - ADR-PRIN-REDUCEVAR
-#       - ADR-PROC-AGILE
-#       - ADR-PROC-AGILEPRINCIPLES
-#       - ADR-PROC-ANDON
-#       - ADR-PROC-BUILTIN
-#       - ADR-PROC-KAIZEN
-#       - ADR-PROC-LEAN
-#       - ADR-PROC-LEANTERMS
-#       - ADR-PROC-OBSERVEWIP
-#       - ADR-PROC-PULLWORK
-#       - ADR-PROC-QUEUECOST
-#       - ADR-PROC-VALUES
 #       - ADR-PWSH-ANNOUNCE
 #       - ADR-PWSH-ASSERT
 #       - ADR-PWSH-AUTOVAR
@@ -193,9 +141,61 @@
 #       - ADR-REPO-SLIDES
 #       - ADR-REPO-VARIANT
 #       - ADR-REPO-VOCAB
-#       - ADR-THES-NORMALFORM
-#       - ADR-THES-ONETRUTH
-#       - ADR-THES-STORES
+#       - PDR-CATS
+#       - PDR-CONFIG
+#       - PDR-EAC
+#       - PDR-NOWASTE
+#       - PDR-ONELIVE
+#       - PDR-POKAYOKE
+#       - PDR-REDUCEVAR
+#       - RDR-DORA-AIDATA
+#       - RDR-DORA-AISTANCE
+#       - RDR-DORA-APPROVAL
+#       - RDR-DORA-CD
+#       - RDR-DORA-CI
+#       - RDR-DORA-CULTURE
+#       - RDR-DORA-DATAECO
+#       - RDR-DORA-DBCHANGE
+#       - RDR-DORA-DEPLOY
+#       - RDR-DORA-DOCS
+#       - RDR-DORA-EXPERIMENT
+#       - RDR-DORA-FAILALERT
+#       - RDR-DORA-FEEDBACK
+#       - RDR-DORA-FLEXINFRA
+#       - RDR-DORA-JOBSAT
+#       - RDR-DORA-LEADERSHIP
+#       - RDR-DORA-LEARNING
+#       - RDR-DORA-LOOSETEAMS
+#       - RDR-DORA-MAINTAIN
+#       - RDR-DORA-MONITOR
+#       - RDR-DORA-OBSERV
+#       - RDR-DORA-PLATFORM
+#       - RDR-DORA-SECURITY
+#       - RDR-DORA-SMALLBATCH
+#       - RDR-DORA-TESTAUTO
+#       - RDR-DORA-TESTDATA
+#       - RDR-DORA-TOOLCHOICE
+#       - RDR-DORA-TRUNK
+#       - RDR-DORA-USERFOCUS
+#       - RDR-DORA-VCS
+#       - RDR-DORA-VISUAL
+#       - RDR-DORA-WELLBEING
+#       - RDR-DORA-WIP
+#       - RDR-DORA-WORKVIS
+#       - TDR-NORMALFORM
+#       - TDR-ONETRUTH
+#       - TDR-STORES
+#       - WDR-AGILE
+#       - WDR-AGILEPRINCIPLES
+#       - WDR-ANDON
+#       - WDR-BUILTIN
+#       - WDR-KAIZEN
+#       - WDR-LEAN
+#       - WDR-LEANTERMS
+#       - WDR-OBSERVEWIP
+#       - WDR-PULLWORK
+#       - WDR-QUEUECOST
+#       - WDR-VALUES
 # ---
 
 kinds:
@@ -209,7 +209,7 @@ kinds:
 
 domains:
   thesis:
-    code: THES # domain default — composes ADR-THES-<NAME>
+    kind: TDR
     role: framing # what catzc is for and how it solves it — the decision every other domain serves
     description: >-
       What catzc is for and how it solves it: delivery is slow because its truth is spread across disjoint stores, so catzc collapses them
@@ -219,59 +219,59 @@ domains:
       synchronised into actionable facts. Any code, unordered fragments included, has an eac normal form: verifiable within the sensible
       defaults, the bundle, and the local configs, and uncontested by the repository's formatters, tests, and asserts. It describes the
       product and rests on the DORA research, the authoritative source, and the principles state its mechanics, so every other domain cites
-      it (`ADR-THES-*`) through them.
+      it (`TDR-*`) through them.
     depends_on: [research]
     stack: PRIN
     concern: [automation, build, quality-control, release, deploy, access] # the thesis spans the whole value chain
     rulesets:
-      one-source-of-truth: { external: ADR-THES-ONETRUTH }
-      truth-stores: { external: ADR-THES-STORES }
-      eac-normal-form: { external: ADR-THES-NORMALFORM }
+      one-source-of-truth: { external: TDR-ONETRUTH }
+      truth-stores: { external: TDR-STORES }
+      eac-normal-form: { external: TDR-NORMALFORM }
 
   principles:
-    code: PRIN # domain default — composes ADR-PRIN-<NAME>
+    kind: PDR
     role: axioms # the non-negotiable design axioms every other domain specialises
     description: >-
       The design axioms every other domain specialises: everything as code, configure don't program, reduce variability, reduce waste,
       poka-yoke, one living version, and the two names of the system, cats and catzc. They specialise the thesis, catzc's product
       description, and rest on the DORA research, the authoritative source; no domain later in the order overrides them, and every other
-      domain cites them (`ADR-PRIN-*`) as the reason for its own decisions.
+      domain cites them (`PDR-*`) as the reason for its own decisions.
     depends_on: [research, thesis]
     stack: PRIN
     concern: [automation, build, quality-control, release, deploy, access] # axioms every concern specialises
     rulesets:
-      everything-as-code: { external: ADR-PRIN-EAC }
-      configure-not-program: { external: ADR-PRIN-CONFIG, concern: [automation] }
-      reduce-variability: { external: ADR-PRIN-REDUCEVAR }
-      reduce-waste: { external: ADR-PRIN-NOWASTE }
-      poka-yoke: { external: ADR-PRIN-POKAYOKE, concern: [quality-control] }
-      one-living-version: { external: ADR-PRIN-ONELIVE, concern: [release] }
-      cats-and-catzc: { external: ADR-PRIN-CATS }
+      everything-as-code: { external: PDR-EAC }
+      configure-not-program: { external: PDR-CONFIG, concern: [automation] }
+      reduce-variability: { external: PDR-REDUCEVAR }
+      reduce-waste: { external: PDR-NOWASTE }
+      poka-yoke: { external: PDR-POKAYOKE, concern: [quality-control] }
+      one-living-version: { external: PDR-ONELIVE, concern: [release] }
+      cats-and-catzc: { external: PDR-CATS }
 
   process:
-    code: PROC
-    # our own continuously-improved way of working ([ADR-PROC-KAIZEN](/docs/adr/process/inspect-and-adapt.md)); Design/Exploration + ASM
+    kind: WDR
+    # our own continuously-improved way of working ([WDR-KAIZEN](/docs/adr/process/inspect-and-adapt.md)); Design/Exploration + ASM
     role: optimisable
     description: >-
       How the team works: the Agile Manifesto's values and principles, lean flow as the Toyota Production System maps to software, and one
-      shared vocabulary of flow terms. Unlike the fixed axioms, the process is itself inspected and improved (`ADR-PROC-KAIZEN`); the
+      shared vocabulary of flow terms. Unlike the fixed axioms, the process is itself inspected and improved (`WDR-KAIZEN`); the
       design, flow, and implementation domains put its practices into effect — stopping the line, building quality in, pulling work, and
       draining queues.
     depends_on: [research, principles]
     stack: PRIN
     concern: [automation, build, quality-control, release, deploy, access] # how the team works, along the whole chain
     rulesets:
-      agile: { external: ADR-PROC-AGILE }
-      agile-values: { external: ADR-PROC-VALUES }
-      agile-principles: { external: ADR-PROC-AGILEPRINCIPLES }
-      process-terms: { external: ADR-PROC-LEANTERMS }
-      lean: { external: ADR-PROC-LEAN }
-      holding-the-line: { external: ADR-PROC-ANDON, concern: [quality-control] }
-      build-quality-in: { external: ADR-PROC-BUILTIN, concern: [quality-control] }
-      observe-work: { external: ADR-PROC-OBSERVEWIP }
-      pull-work: { external: ADR-PROC-PULLWORK }
-      queues-cost-money: { external: ADR-PROC-QUEUECOST }
-      inspect-and-adapt: { external: ADR-PROC-KAIZEN }
+      agile: { external: WDR-AGILE }
+      agile-values: { external: WDR-VALUES }
+      agile-principles: { external: WDR-AGILEPRINCIPLES }
+      process-terms: { external: WDR-LEANTERMS }
+      lean: { external: WDR-LEAN }
+      holding-the-line: { external: WDR-ANDON, concern: [quality-control] }
+      build-quality-in: { external: WDR-BUILTIN, concern: [quality-control] }
+      observe-work: { external: WDR-OBSERVEWIP }
+      pull-work: { external: WDR-PULLWORK }
+      queues-cost-money: { external: WDR-QUEUECOST }
+      inspect-and-adapt: { external: WDR-KAIZEN }
 
   design:
     code: DSGN
@@ -552,7 +552,7 @@ domains:
       repository-kinds: { external: ADR-REPO-REPOKIND }
 
   research:
-    code: DORA # 4-letter domain code; composes ADR-DORA-<NAME> — a concise, precise capability name (no doraXXX body)
+    kind: RDR
     role: reference # trusted external validation points (DORA) — depended-on-by, never a dependency
     description: >-
       The repository's core theoretical construct: the DORA research program, held as one ADR-style record per DORA capability, each with
@@ -563,37 +563,37 @@ domains:
     stack: PRIN
     concern: [automation, build, quality-control, release, deploy, access] # capabilities measured across the whole chain
     rulesets:
-      ai-accessible-internal-data: { external: ADR-DORA-AIDATA, concern: [access] }
-      clear-and-communicated-ai-stance: { external: ADR-DORA-AISTANCE }
-      healthy-data-ecosystems: { external: ADR-DORA-DATAECO }
-      platform-engineering: { external: ADR-DORA-PLATFORM, concern: [automation] }
-      user-centric-focus: { external: ADR-DORA-USERFOCUS }
-      version-control: { external: ADR-DORA-VCS, concern: [automation] }
-      working-in-small-batches: { external: ADR-DORA-SMALLBATCH }
-      code-maintainability: { external: ADR-DORA-MAINTAIN, concern: [automation, build] }
-      continuous-delivery: { external: ADR-DORA-CD, concern: [build, quality-control, release, deploy] }
-      continuous-integration: { external: ADR-DORA-CI, concern: [build, quality-control] }
-      database-change-management: { external: ADR-DORA-DBCHANGE, concern: [deploy] }
-      deployment-automation: { external: ADR-DORA-DEPLOY, concern: [deploy] }
-      documentation-quality: { external: ADR-DORA-DOCS }
-      flexible-infrastructure: { external: ADR-DORA-FLEXINFRA, concern: [deploy] }
-      loosely-coupled-teams: { external: ADR-DORA-LOOSETEAMS }
-      monitoring-and-observability: { external: ADR-DORA-OBSERV, concern: [access] }
-      pervasive-security: { external: ADR-DORA-SECURITY }
-      streamlining-change-approval: { external: ADR-DORA-APPROVAL, concern: [release] }
-      test-automation: { external: ADR-DORA-TESTAUTO, concern: [quality-control] }
-      test-data-management: { external: ADR-DORA-TESTDATA, concern: [quality-control] }
-      trunk-based-development: { external: ADR-DORA-TRUNK, concern: [build] }
-      customer-feedback: { external: ADR-DORA-FEEDBACK, concern: [access] }
-      monitoring-systems: { external: ADR-DORA-MONITOR, concern: [access] }
-      proactive-failure-notification: { external: ADR-DORA-FAILALERT, concern: [access] }
-      work-visibility-in-value-stream: { external: ADR-DORA-WORKVIS }
-      visual-management: { external: ADR-DORA-VISUAL }
-      wip-limits: { external: ADR-DORA-WIP }
-      teams-empowered-to-choose-tools: { external: ADR-DORA-TOOLCHOICE, concern: [automation] }
-      generative-organizational-culture: { external: ADR-DORA-CULTURE }
-      job-satisfaction: { external: ADR-DORA-JOBSAT }
-      learning-culture: { external: ADR-DORA-LEARNING }
-      team-experimentation: { external: ADR-DORA-EXPERIMENT }
-      transformational-leadership: { external: ADR-DORA-LEADERSHIP }
-      well-being: { external: ADR-DORA-WELLBEING }
+      ai-accessible-internal-data: { external: RDR-DORA-AIDATA, concern: [access] }
+      clear-and-communicated-ai-stance: { external: RDR-DORA-AISTANCE }
+      healthy-data-ecosystems: { external: RDR-DORA-DATAECO }
+      platform-engineering: { external: RDR-DORA-PLATFORM, concern: [automation] }
+      user-centric-focus: { external: RDR-DORA-USERFOCUS }
+      version-control: { external: RDR-DORA-VCS, concern: [automation] }
+      working-in-small-batches: { external: RDR-DORA-SMALLBATCH }
+      code-maintainability: { external: RDR-DORA-MAINTAIN, concern: [automation, build] }
+      continuous-delivery: { external: RDR-DORA-CD, concern: [build, quality-control, release, deploy] }
+      continuous-integration: { external: RDR-DORA-CI, concern: [build, quality-control] }
+      database-change-management: { external: RDR-DORA-DBCHANGE, concern: [deploy] }
+      deployment-automation: { external: RDR-DORA-DEPLOY, concern: [deploy] }
+      documentation-quality: { external: RDR-DORA-DOCS }
+      flexible-infrastructure: { external: RDR-DORA-FLEXINFRA, concern: [deploy] }
+      loosely-coupled-teams: { external: RDR-DORA-LOOSETEAMS }
+      monitoring-and-observability: { external: RDR-DORA-OBSERV, concern: [access] }
+      pervasive-security: { external: RDR-DORA-SECURITY }
+      streamlining-change-approval: { external: RDR-DORA-APPROVAL, concern: [release] }
+      test-automation: { external: RDR-DORA-TESTAUTO, concern: [quality-control] }
+      test-data-management: { external: RDR-DORA-TESTDATA, concern: [quality-control] }
+      trunk-based-development: { external: RDR-DORA-TRUNK, concern: [build] }
+      customer-feedback: { external: RDR-DORA-FEEDBACK, concern: [access] }
+      monitoring-systems: { external: RDR-DORA-MONITOR, concern: [access] }
+      proactive-failure-notification: { external: RDR-DORA-FAILALERT, concern: [access] }
+      work-visibility-in-value-stream: { external: RDR-DORA-WORKVIS }
+      visual-management: { external: RDR-DORA-VISUAL }
+      wip-limits: { external: RDR-DORA-WIP }
+      teams-empowered-to-choose-tools: { external: RDR-DORA-TOOLCHOICE, concern: [automation] }
+      generative-organizational-culture: { external: RDR-DORA-CULTURE }
+      job-satisfaction: { external: RDR-DORA-JOBSAT }
+      learning-culture: { external: RDR-DORA-LEARNING }
+      team-experimentation: { external: RDR-DORA-EXPERIMENT }
+      transformational-leadership: { external: RDR-DORA-LEADERSHIP }
+      well-being: { external: RDR-DORA-WELLBEING }

@@ -40,7 +40,7 @@ The world map to light, built once by a caller that lights many subjects in one 
 
 Return the highlight as JSON (the request, and the lit cells with their files and each file's reason: the basis, the covering request and
 the citation sites with their lines and kinds) instead of the object
-([ADR-THES-ONETRUTH-TRUTHISQUERYABLE](../../../adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-truthisqueryable)).
+([TDR-ONETRUTH-TRUTHISQUERYABLE](../../../adr/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)).
 
 ### outputs
 

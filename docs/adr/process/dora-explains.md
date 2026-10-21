@@ -8,7 +8,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Agile — defined by the manifesto, measured by responsiveness`
 
-[ADR-PROC-AGILE](agile.md)
+[WDR-AGILE](agile.md)
 
 > DORA's research frames delivery performance as the capacity to make changes safely and quickly — the same responsiveness the manifesto
 > describes. Agile as defined here is the cultural and process foundation the technical capabilities below make measurable.
@@ -25,7 +25,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Agile values — the four preferences of the manifesto`
 
-[ADR-PROC-VALUES](agile-values.md)
+[WDR-VALUES](agile-values.md)
 
 > DORA's research consistently finds that team capability and culture, not tooling or documentation weight, predict delivery performance —
 > the same ordering the four values assert.
@@ -42,7 +42,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Agile principles — the twelve principles behind the manifesto`
 
-[ADR-PROC-AGILEPRINCIPLES](agile-principles.md)
+[WDR-AGILEPRINCIPLES](agile-principles.md)
 
 > DORA's technical and management capabilities are, in large part, measurable realisations of these principles — frequent delivery, low
 > change-cost, team autonomy, and continuous improvement.
@@ -61,7 +61,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Process terms — the foundational vocabulary of flow`
 
-[ADR-PROC-LEANTERMS](process-terms.md)
+[WDR-LEANTERMS](process-terms.md)
 
 > DORA's delivery metrics are this vocabulary measured: deployment frequency and change lead time are throughput and lead time, and DORA's
 > finding that small batches drive both is Little's Law reading out on real systems.
@@ -80,7 +80,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Lean — the Toyota Production System, mapped to software by the Poppendiecks`
 
-[ADR-PROC-LEAN](lean.md)
+[WDR-LEAN](lean.md)
 
 > DORA's research frames elite delivery as fast, stable flow — short lead times and small batches with quality held constant — which is lean
 > flow discipline measured. The lean principles here are the practices those metrics reward.
@@ -99,7 +99,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Holding the line — a gate that fails stops the flow until it is green`
 
-[ADR-PROC-ANDON](holding-the-line.md)
+[WDR-ANDON](holding-the-line.md)
 
 > DORA finds that keeping the mainline releasable — fixing a broken build as the top priority — is a defining practice of high-performing
 > teams, and that trunk-based development depends on it.
@@ -116,7 +116,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Build quality in — you cannot inspect it in at the end`
 
-[ADR-PROC-BUILTIN](build-quality-in.md)
+[WDR-BUILTIN](build-quality-in.md)
 
 > DORA finds that automated testing and continuous integration — quality produced as part of the work — predict both higher throughput and
 > higher stability, contradicting the assumption that quality trades against speed.
@@ -133,7 +133,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Observe the work — make it visible, and go and see`
 
-[ADR-PROC-OBSERVEWIP](observe-work.md)
+[WDR-OBSERVEWIP](observe-work.md)
 
 > DORA finds that visibility of work across the value stream, visual management, and monitoring are capabilities that distinguish
 > high-performing teams — seeing the work is a precondition for improving its flow.
@@ -150,7 +150,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Pull work through the system — do not push it`
 
-[ADR-PROC-PULLWORK](pull-work.md)
+[WDR-PULLWORK](pull-work.md)
 
 > DORA finds that working in small batches and limiting work in progress are among the strongest predictors of short lead time and stable
 > delivery — the pull discipline measured directly.
@@ -167,7 +167,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `The money is lost in the queues — Little's Law and the cost of delay`
 
-[ADR-PROC-QUEUECOST](queues-cost-money.md)
+[WDR-QUEUECOST](queues-cost-money.md)
 
 > DORA's flow metrics — lead time and deployment frequency — are queue measurements, and the practices that improve them are the ones that
 > drain queues: small batches, low work-in-progress, and elastic infrastructure.
@@ -186,7 +186,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Inspect and adapt — kaizen built into the process`
 
-[ADR-PROC-KAIZEN](inspect-and-adapt.md)
+[WDR-KAIZEN](inspect-and-adapt.md)
 
 > DORA finds that a learning culture and deliberate experimentation are among the strongest cultural predictors of delivery performance —
 > inspect-and-adapt, made continuous, is what those capabilities describe.

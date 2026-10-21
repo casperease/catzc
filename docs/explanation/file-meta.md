@@ -153,7 +153,7 @@ What it is not:
   the one question it needs.
 - **Not a gate.** `Test-FileMeta` and the other gates give the verdict; the file tool only writes.
 - **Not a second engine.** It calls the repository tools on one file, so there is one living version of the imprint
-  ([ADR-PRIN-ONELIVE](../adr/principles/one-living-version.md)).
+  ([PDR-ONELIVE](../adr/principles/one-living-version.md)).
 
 ## Where a head is still read
 

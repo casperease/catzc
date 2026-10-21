@@ -1,32 +1,32 @@
 # Thesis: Eac normal form — any code, verifiable within the repository's enabling constraints
 
-## Rules: ADR-THES-NORMALFORM
+## Rules: TDR-NORMALFORM
 
-### Rule ADR-THES-NORMALFORM-ANYCODEHASNORMALFORM
+### Rule TDR-NORMALFORM-ANYCODEHASNORMALFORM
 
 Everything inside a responsibility domain is code, managed through the one change process
-([ADR-THES-STORES-RESPONSIBILITYDOMAIN](truth-stores.md#rule-adr-thes-stores-responsibilitydomain),
-[ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](one-source-of-truth.md#rule-adr-thes-onetruth-repositoryisconfigurationrecord)). So any
+([TDR-STORES-RESPONSIBILITYDOMAIN](truth-stores.md#rule-tdr-stores-responsibilitydomain),
+[TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)). So any
 code can be brought into an **eac normal form**: the shape in which the repository's automation can verify it. That holds for code written
 in the trunk and for an **unordered code fragment**, code that comes from outside the trunk in whatever shape its origin left it.
 
 - [Any code has a normal form](#any-code-has-a-normal-form)
 
-### Rule ADR-THES-NORMALFORM-ENABLINGCONSTRAINTS
+### Rule TDR-NORMALFORM-ENABLINGCONSTRAINTS
 
 Code is in eac normal form when it can be verified within the repository's **enabling constraints**, and nothing else: the sensible
 defaults, the catzc bundle, and the local configs. Verifying it needs no undeclared tool, no machine state, and no person's knowledge.
 
 - [The enabling constraints](#the-enabling-constraints)
 
-### Rule ADR-THES-NORMALFORM-UNCONTESTED
+### Rule TDR-NORMALFORM-UNCONTESTED
 
 Code in eac normal form is **uncontested**: when the repository's formatters, tests, and asserts run over it, none of them changes it and
 none fails. The form is the fixed point of the repository's own checks, so it is decided by running them, never by judgement.
 
 - [Uncontested](#uncontested)
 
-### Rule ADR-THES-NORMALFORM-MIGRATIONREACHESTHEFORM
+### Rule TDR-NORMALFORM-MIGRATIONREACHESTHEFORM
 
 **Fragment migration** brings an unordered code fragment into eac normal form through the one change process. A fragment that is not yet in
 the form decides nothing about the delivered system; the mechanics of moving it into the form belong to the implementation domains.
@@ -35,8 +35,8 @@ the form decides nothing about the delivered system; the mechanics of moving it 
 
 ## Context
 
-The one-source-of-truth thesis ([ADR-THES-ONETRUTH](one-source-of-truth.md)) makes the repository the configuration record, and the truth
-stores thesis ([ADR-THES-STORES](truth-stores.md)) makes everything inside a responsibility domain code. Neither says when a piece of code
+The one-source-of-truth thesis ([TDR-ONETRUTH](one-source-of-truth.md)) makes the repository the configuration record, and the truth
+stores thesis ([TDR-STORES](truth-stores.md)) makes everything inside a responsibility domain code. Neither says when a piece of code
 is good enough to be part of that record. Code arrives from many places: written in the trunk, imported with its history from another
 repository, copied from a vendor sample, exported from a UI. Without a definition of the form the record accepts, every arrival is judged
 afresh, and the record holds code that only its author can read or check.

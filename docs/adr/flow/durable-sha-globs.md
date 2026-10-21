@@ -83,7 +83,7 @@ module never consumes another module's files, a unit never another unit's — ea
 disjoint from them. `pipeline:` (the 1-1 trigger-role binding) and `verify:` (`modules` + `level`, the test blast-radius scope) are
 **orthogonal** annotations valid on any layer: a CI pipeline binds a loose-fileset track's projection, a CD pipeline a configured
 deployable-unit's, a base unit binds none. A **deployable-unit** that is neither composed nor pipeline-bound is not a unit but phantom
-state, and one living version (`ADR-PRIN-ONELIVE`) forbids it; a loose-fileset without a demonstrated use is likewise forbidden — every
+state, and one living version (`PDR-ONELIVE`) forbids it; a loose-fileset without a demonstrated use is likewise forbidden — every
 globset earns its cost.
 
 - [One configuration point](#one-configuration-point)
@@ -171,7 +171,7 @@ case-sensitive identities.
 | `.ado/pipelines/ci-*.yaml` | `.ado/pipelines/ci-pwsh.yaml`    | `.ado/pipelines/steps/ci-x.yaml` |
 | `**/tests/**/*.ps1`        | `pwsh/M/tests/a.Tests.ps1`       | `pwsh/M/a.ps1`                   |
 
-Hygiene is structural (`ADR-PRIN-POKAYOKE`): separators are `/` only, patterns are repo-relative (no leading `/`), no `.`/`..` segments, and
+Hygiene is structural (`PDR-POKAYOKE`): separators are `/` only, patterns are repo-relative (no leading `/`), no `.`/`..` segments, and
 no backtick — `WildcardPattern` treats the backtick as an escape character, and an escape character in a path pattern signals a mistake, so
 the config loader rejects it.
 

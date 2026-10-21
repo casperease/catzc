@@ -33,5 +33,5 @@ Above `int dash = code.IndexOf('-', 4);`, written with `//`.
 ```text
 Every hyphen-prefix of a code (ADR-AUTO for
 [ADR-PWSH-ERROR](/docs/adr/automation/pwsh/error-handling.md)) names its domain; a domain code or a
-domain wildcard (ADR-PRIN-*) is a valid mention, not an unknown ADR.
+domain wildcard (ADR-AUTO-*) is a valid mention, not an unknown ADR.
 ```

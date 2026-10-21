@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fc5a23e4c961
+    with_body_sha: ec9105a5c1a4
   edges:
     docs: "[Get-DiagramSupportsDrift.ps1.md](docs/references/pwsh/catzc-base-slides/private/Get-DiagramSupportsDrift.ps1.md)"
     cites:
@@ -42,6 +42,7 @@ function Get-DiagramSupportsDrift {
     else {
         'meta'
     }
+    $cited = (Get-Config -Config adrs).CodeForm.Cited
     foreach ($pagePath in $Page) {
         $text = [System.IO.File]::ReadAllText((Join-Path $RepositoryRoot $pagePath))
         $lines = @([regex]::Matches($text, '(?m)^Supports (.+?) \((\w+) lens\)\.?\s*$'))
@@ -49,7 +50,7 @@ function Get-DiagramSupportsDrift {
             continue
         }
         $agrees = @($lines | Where-Object {
-                $said = [string[]] @([regex]::Matches($_.Groups[1].Value, 'ADR(-[A-Z0-9]+)+') | ForEach-Object Value) | Sort-Object -Unique
+                $said = [string[]] @([regex]::Matches($_.Groups[1].Value, $cited) | ForEach-Object Value) | Sort-Object -Unique
                 $_.Groups[2].Value -ceq $lens -and (($said -join ' ') -ceq ($codes -join ' '))
             })
         if ($agrees.Count -eq 0) {

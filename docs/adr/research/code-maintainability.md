@@ -1,15 +1,15 @@
 # ADR: DORA — Code maintainability
 
-## Rules: ADR-DORA-MAINTAIN
+## Rules: RDR-DORA-MAINTAIN
 
-### Rule ADR-DORA-MAINTAIN-REUSABLECODEBASE
+### Rule RDR-DORA-MAINTAIN-REUSABLECODEBASE
 
 Keep the codebase reusable across team boundaries: it is easy for any team to find examples, reuse code another team owns, and propose a
 change to code it does not maintain, without waiting on that team to act first.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-MAINTAIN-TRACEABLEDEPENDENCIES
+### Rule RDR-DORA-MAINTAIN-TRACEABLEDEPENDENCIES
 
 Every dependency, internal or external, is traceable to an exact version and resolves the same way on every machine — traceability (which
 version is in a given build) and reproducibility (the build process is deterministic) are the two properties dependency management exists to
@@ -17,21 +17,21 @@ serve.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-MAINTAIN-ROUTINEUPGRADES
+### Rule RDR-DORA-MAINTAIN-ROUTINEUPGRADES
 
 Treat dependency upgrades as a routine, automated activity, not a rare, manual one: run continuous integration and testing against
 dependency changes, and keep a fast, low-friction path to pull in a new version.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-MAINTAIN-COMPREHENSIVESCOPE
+### Rule RDR-DORA-MAINTAIN-COMPREHENSIVESCOPE
 
 Comprehensive dependency management is the scope, not partial coverage — code that is searchable and reusable but whose dependencies drift
 unpatched and unversioned is only partly maintainable, and the untracked dependency is where the next vulnerability surfaces.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-MAINTAIN-ONEAPPROACH
+### Rule RDR-DORA-MAINTAIN-ONEAPPROACH
 
 Apply one consistent dependency-management approach across the organization rather than leaving it to team-by-team discretion — a uniform,
 declared strategy is what keeps dependencies traceable and upgrades tractable at scale.

@@ -12,7 +12,7 @@ The prettier formatter engine: formats the given files with Prettier and returns
 ### description
 
 One Format-Code engine adapter
-([ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)):
+([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)):
 every file language languages.yml gives `formatter: prettier` is formatted here. Prettier picks its parser from each file's extension and
 applies the root .prettierrc.yml and .editorconfig, so the Markdown and pipeline YAML rules live in those files, not in a command per
 language.

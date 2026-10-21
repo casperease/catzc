@@ -22,8 +22,8 @@ Drive the master plan's open chunks through the sessions that exist; implement n
 2. `ListAgents`: the roster is the sessions the user started; a session not listed is not orchestrated, and none is ever spawned.
 3. Ask every listed session "what are you working on?" and map each answer to a task file (plans-orchestrate); one chunk per session.
 4. A session with nothing in hand gets "continue with this: <task file, step, the files it owns, the check it ends with>", the next open
-   chunk in the master's order whose dependencies are landed and whose files no live session holds (ADR-PROC-PULLWORK-PULLNOTPUSH,
-   ADR-PROC-PULLWORK-LIMITWORKINPROGRESS).
+   chunk in the master's order whose dependencies are landed and whose files no live session holds (WDR-PULLWORK-PULLNOTPUSH,
+   WDR-PULLWORK-LIMITWORKINPROGRESS).
 5. A landed step is ticked in its task file with the verdict line the session gave; a claim without a verdict stays open as "reported,
    unverified" (ADR-REPO-AI-TRUSTTHETREE).
 6. A blocker or a question is recorded in the owning plan as open, the session is told "stop; report as report-fixed", and the user is told;

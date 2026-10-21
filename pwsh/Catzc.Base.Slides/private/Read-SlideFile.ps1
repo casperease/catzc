@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5ac08c53db90"
+    with_body_sha: b3c9dfb5cce4
   edges:
     docs: "[Read-SlideFile.ps1.md](docs/references/pwsh/catzc-base-slides/private/Read-SlideFile.ps1.md)"
     cites:
@@ -37,7 +37,7 @@ function Read-SlideFile {
     }
     # The cites come from the slide's text, the way the adr-codes processor finds them; the head is never read back.
     $cites = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
-    foreach ($found in [regex]::Matches($state.Body, '(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+(?![\w#-]|:\d)')) {
+    foreach ($found in [regex]::Matches($state.Body, "(?<![\w-])$((Get-Config -Config adrs).CodeForm.Cited)(?![\w#-]|:\d)")) {
         [void] $cites.Add($found.Value)
     }
 

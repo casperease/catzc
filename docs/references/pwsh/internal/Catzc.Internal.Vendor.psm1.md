@@ -14,7 +14,7 @@ Loading the vendored modules under pwsh/.vendor/<Name>/<Version>/ happens BEFORE
 exists (the importer loads vendor dependencies first), so the implementation cannot live in a Catzc module.
 It also must be callable AFTER import by the Catzc.Base.Vendor cover functions that delegate to it — the
 single home for what both layers share (see
-[ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)). Like the other
+[PDR-ONELIVE](/docs/adr/principles/one-living-version.md)). Like the other
 .internal shared libraries (Types, the Loader), this module stays in the session; it is NOT removed with
 the transient bootstrap. Loaded on demand through Import-InternalModule Vendor.
 ```

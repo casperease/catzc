@@ -37,7 +37,7 @@ A module's languages are the file languages of its live files, and each must be 
 ([ADR-DSGN-TRACK-STACKVIOLATION](../design/tracks.md#rule-adr-dsgn-track-stackviolation)). Languages are modelled in general, whatever they
 are: a track admits a language by declaring it, and the Go, Python and Bash rules say what each language's track holds beyond its modules.
 The formatter, the checks and the test handler of a file language are declared once per language in `languages.yml`, and a command that
-needs them reads them there ([ADR-PRIN-CONFIG](../principles/configure-not-program.md)).
+needs them reads them there ([PDR-CONFIG](../principles/configure-not-program.md)).
 
 - [Languages](#languages)
 
@@ -66,7 +66,7 @@ never sorts again. A load order is no dependency order, because a module declare
 
 A check and a test of a module are resolved by the file language, from the language registry, and never by a branch on a language in a
 command: a new language adds a registry entry and its handlers ([ADR-AUTO-EXTEND](open-closed-architecture.md),
-[ADR-PRIN-CONFIG](../principles/configure-not-program.md)). The build of a module into a bundle is the bundle's
+[PDR-CONFIG](../principles/configure-not-program.md)). The build of a module into a bundle is the bundle's
 ([ADR-AUTO-BUNDLE-BUNDLEISBUILD](platform-bundle.md#rule-adr-auto-bundle-bundleisbuild)): it is code in the closed builder, not a handler,
 and this rule does not cover it.
 
@@ -117,7 +117,7 @@ resolver owns, so the needs, the closure and the order are functions over module
 
 Whether a place holds internal modules is a declared fact of the place, not a rule read from the tree. A rule such as "a place nested below
 the track's place is internal" makes a track whose places are split or moved change what the resolver returns, with nothing in the data
-saying so. A flag on the place keeps the answer in config ([ADR-PRIN-CONFIG](../principles/configure-not-program.md)), so moving a place
+saying so. A flag on the place keeps the answer in config ([PDR-CONFIG](../principles/configure-not-program.md)), so moving a place
 never turns its modules public or internal by accident.
 
 ### Registration is placement

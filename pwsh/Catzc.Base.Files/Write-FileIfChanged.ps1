@@ -9,7 +9,7 @@ catzc:
     cites:
       - ADR-AUTO-CACHE
       - ADR-AUTO-DRYRUN
-      - ADR-PRIN-ONELIVE
+      - PDR-ONELIVE
 ---
 #>
 

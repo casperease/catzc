@@ -8,7 +8,7 @@ catzc:
     docs: "[CheckModes.cs.md](docs/references/pwsh/catzc-base-docs/types/CheckModes.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-PRIN-ONELIVE-ONEVERSION
+      - PDR-ONELIVE-ONEVERSION
 ---
 */
 

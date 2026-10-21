@@ -8,7 +8,7 @@ catzc:
     docs: "[Invoke-RuffFormat.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-RuffFormat.ps1.md)"
     cites:
       - ADR-AUTO-PY-EVERYFILELINTED
-      - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
+      - PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE
 ---
 #>
 

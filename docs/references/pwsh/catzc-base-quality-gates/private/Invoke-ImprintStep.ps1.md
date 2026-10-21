@@ -14,7 +14,7 @@ Runs one imprint step over the given files and returns what it changed and what 
 A language is never named here: which language runs which step is configuration, not code.
 
 It rests on
-[ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)
+[PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)
 and [ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters).
 
 ### parameter `Step`

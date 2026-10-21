@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8d7e4f74bdf6"
+    with_body_sha: ed65074efa61
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
     docs: "[Get-TestTagViolations.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestTagViolations.ps1.md)"
@@ -20,6 +20,8 @@ function Get-TestTagViolations {
     )
 
     $validRuleIds = $null
+    $form = (Get-Config -Config adrs).CodeForm
+    $citationTag = "^$($form.Kind)-"
 
     $violations = foreach ($test in $Discovery.Tests) {
         $reasons = @()
@@ -48,21 +50,21 @@ function Get-TestTagViolations {
 
         $candidates = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
         foreach ($tag in $test.Tag) {
-            if ($tag -like 'ADR-*') {
+            if ($tag -cmatch $citationTag) {
                 [void]$candidates.Add($tag)
             }
         }
         $block = $test.Block
         while ($block -and -not $block.IsRoot) {
             foreach ($tag in $block.Tag) {
-                if ($tag -like 'ADR-*') {
+                if ($tag -cmatch $citationTag) {
                     [void]$candidates.Add($tag)
                 }
             }
             $block = $block.Parent
         }
         foreach ($tag in $candidates) {
-            if ($tag -cnotmatch '^ADR(?:-[A-Z][A-Z0-9]*){3,}$') {
+            if (-not $form.IsRule($tag)) {
                 $reasons += "malformed ADR citation '$tag' (want a rule's code, e.g. ADR-PWSH-ERROR-THROWNOTWRITEERROR)"
                 continue
             }

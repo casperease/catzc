@@ -7,7 +7,7 @@
 A consumer's **overlay** is the `.catzc/` folder at its `RepositoryRoot`: the only place a consumer changes what a built bundle does. The
 bundle it runs is read-only and never edited. The overlay is optional, and so is every file in it; with none, the bundle runs exactly as
 built. The overlay is the consumer's source — committed and reviewed by the consumer, and never written by catzc. The folder has one name,
-`.catzc/` ([ADR-PRIN-CATS-FOLDERSUSECATZC](../principles/cats-and-catzc.md#rule-adr-prin-cats-foldersusecatzc)), in a consumer and in the
+`.catzc/` ([PDR-CATS-FOLDERSUSECATZC](../principles/cats-and-catzc.md#rule-pdr-cats-foldersusecatzc)), in a consumer and in the
 catzc repository alike, so every bundle loaded against a root reads that root's `.catzc/` as its overlay; a fragment there may name only
 modules each such bundle carries.
 

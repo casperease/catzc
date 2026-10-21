@@ -1,29 +1,29 @@
 # ADR: DORA — Healthy data ecosystems
 
-## Rules: ADR-DORA-DATAECO
+## Rules: RDR-DORA-DATAECO
 
-### Rule ADR-DORA-DATAECO-THREEPROPERTIES
+### Rule RDR-DORA-DATAECO-THREEPROPERTIES
 
 A data ecosystem is healthy along three properties at once — high-quality, easily accessible, and unified — and all three matter together;
 improving one while neglecting the others still leaves the ecosystem unhealthy.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-DATAECO-HEALTHMODERATESAI
+### Rule RDR-DORA-DATAECO-HEALTHMODERATESAI
 
 Data health is a moderator of AI's effect on performance, not an independent contributor: the same AI adoption compounds the strengths of a
 healthy data ecosystem and compounds the dysfunctions of an unhealthy one, so data health decides which direction the amplification runs.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-DATAECO-NAMEDSTEWARD
+### Rule RDR-DORA-DATAECO-NAMEDSTEWARD
 
 Every critical data domain has a named owner or steward accountable for its accuracy, its metadata, and its access policy; data is treated
 as a product with consumers, never as incidental exhaust from the applications that happen to produce it.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-DATAECO-TESTEDLIKECODE
+### Rule RDR-DORA-DATAECO-TESTEDLIKECODE
 
 Data quality is checked the way code is tested — with automated, continuous checks for accuracy, completeness, and timeliness — and every
 critical dataset carries documentation and metadata alongside it, versioned as a code artifact rather than kept in a separate system that
@@ -31,14 +31,14 @@ drifts out of sync.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-DATAECO-GOVERNEDACCESS
+### Rule RDR-DORA-DATAECO-GOVERNEDACCESS
 
 Quality data is discoverable and accessible under governance, never locked away behind a single tool or team; a platform that makes data
 hard to find or reach is indistinguishable, in effect, from data that does not exist.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-DATAECO-STARTWITHPILOT
+### Rule RDR-DORA-DATAECO-STARTWITHPILOT
 
 Data health work starts with a pilot on one high-value dataset or service and expands from a working example, rather than attempting to fix
 an entire data estate at once.

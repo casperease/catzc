@@ -2,13 +2,13 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "46fba5526535"
+    with_body_sha: "409135da5066"
   edges:
     docs: "[SourceCheck.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/types/SourceCheck.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/types/SourceCheck.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
+      - PDR-CONFIG-EXCEPTIONISCONFIGENTRY
 ---
 #>
 
@@ -21,7 +21,7 @@ Describe 'SourceCheck' -Tag 'L0', 'logic' {
         $check.IsExempt('src/widget.ps1') | Should -BeFalse
     }
 
-    It 'maps report mode and matches its exempt globs' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+    It 'maps report mode and matches its exempt globs' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
         $check = [Catzc.Base.QualityGates.SourceCheck]::new('widget_check', [ordered]@{
                 mode   = 'report'
                 exempt = [ordered]@{ 'src/gadgets/**' = 'gadgets carry the old form on purpose' }
@@ -32,7 +32,7 @@ Describe 'SourceCheck' -Tag 'L0', 'logic' {
         $check.IsExempt('src/widget.ps1') | Should -BeFalse
     }
 
-    It 'rejects an unknown key, an unknown mode, an exempt glob with no reason, and a malformed glob' -Tag 'ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY' {
+    It 'rejects an unknown key, an unknown mode, an exempt glob with no reason, and a malformed glob' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {
         $thrown = { [Catzc.Base.QualityGates.SourceCheck]::new('widget_check', [ordered]@{
                     gadget = 1
                     mode   = 'loud'

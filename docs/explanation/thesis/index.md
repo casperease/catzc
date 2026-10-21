@@ -12,6 +12,6 @@ These pages explain the [thesis ADR domain](../../adr/index.md#thesis). The prod
 the [explanation index](../index.md) says how to read the explanations.
 
 - [A file leaves the unordered track only in the normal form](eac-normal-form.md) — the eac normal form and fragment migration
-  ([ADR-THES-NORMALFORM](../../adr/thesis/eac-normal-form.md)).
+  ([TDR-NORMALFORM](../../adr/thesis/eac-normal-form.md)).
 
 ![Truth is one commit; in the listen mode the editor's edit is fact, and its plans run rule, docs, code](.assets/where-truth-comes-from/diagram.drawio.png)

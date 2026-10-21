@@ -16,5 +16,5 @@ left out: the NoTrack row holds the files under no track (the repository root's 
 NoFileLanguage column holds the files no file language names (no extension, or an extension no entry lists). The
 order is deterministic: rows and columns in ordinal order with the bucket last, cells row by row, placements by path.
 WorldMapBuilder builds one; Get-WorldMap returns it, and ToJson is its data form
-([ADR-THES-ONETRUTH-TRUTHISQUERYABLE](/docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-truthisqueryable)).
+([TDR-ONETRUTH-TRUTHISQUERYABLE](/docs/adr/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)).
 ```

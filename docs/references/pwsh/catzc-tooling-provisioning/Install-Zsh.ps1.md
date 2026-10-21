@@ -26,7 +26,7 @@ Install-Git is a prerequisite, asserted and never run from here: without Git's t
 
 Linux: installs the distribution's package that the entry's apt_package names, through Install-Tool (apt-get), when zsh is missing
 ([ADR-AUTO-PKGMGR-PLATFORMNATIVEMANAGERS](../../../adr/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr-platformnativemanagers);
-[ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)).
+[PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../adr/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
 That needs root or passwordless sudo (Test-IsAdministrator), so tools.yml marks the entry linux_admin_only and a non-elevated
 Install-DevBoxTools skips it and says so. Either way it then asserts zsh at the pinned version.
 

@@ -52,7 +52,7 @@ from what the ADR and the type system define; the two are read here, and no rule
 - The ADR's scope is a function's cached derivation of the file set or of the runtime; a reflection table is neither, so the rules about
   invalidation do not reach it (`ADR-AUTO-CACHE-STATICCONFIGREADS`, `#2`, `#6`).
 - A loaded type cannot change inside a process, so a table keyed by that type cannot be stale (`ADR-BCL-TYPES-CHANGEDAFTERLOAD`).
-- One living version of each behaviour: the two copies of "which properties are data" collapse into one table (`ADR-PRIN-ONELIVE`).
+- One living version of each behaviour: the two copies of "which properties are data" collapse into one table (`PDR-ONELIVE`).
 
 ## Where the article and the code differ
 

@@ -20,7 +20,7 @@ cell; the map still records what it cannot place instead of dropping it: Strays 
 an ADR declares that the axes lack, and Unplaced each ADR that sits in no cell. Test-ValueChainMap reports both.
 
 The order is deterministic: rows and columns as given, cells row by row, the ADRs of a cell in the given order. ToJson
-is its data form ([ADR-THES-ONETRUTH-TRUTHISQUERYABLE](/docs/adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-truthisqueryable)).
+is its data form ([TDR-ONETRUTH-TRUTHISQUERYABLE](/docs/adr/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)).
 ```
 
 ## comment:2

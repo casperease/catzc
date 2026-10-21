@@ -1,8 +1,8 @@
 # ADR: DORA — AI-accessible internal data
 
-## Rules: ADR-DORA-AIDATA
+## Rules: RDR-DORA-AIDATA
 
-### Rule ADR-DORA-AIDATA-SECURECONNECTION
+### Rule RDR-DORA-AIDATA-SECURECONNECTION
 
 AI-accessible internal data means securely connecting AI systems to an organization's own proprietary information — codebases, architectural
 diagrams, wikis, documentation, style guides, operational metrics, and logs — so responses are context-aware rather than generic. Treat this
@@ -10,7 +10,7 @@ as context engineering, a discipline in its own right, not as a refinement of pr
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-AIDATA-AMPLIFIESADOPTION
+### Rule RDR-DORA-AIDATA-AMPLIFIESADOPTION
 
 Internal-data access amplifies whatever AI adoption is already doing to individual effectiveness and code quality — for better when the
 underlying data is good, for worse when it is not. The capability is a multiplier on the existing signal, not a source of new signal by
@@ -18,7 +18,7 @@ itself.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-AIDATA-BUILDINPHASES
+### Rule RDR-DORA-AIDATA-BUILDINPHASES
 
 Build the capability in phases: start with manual context engineering and a shared, version-controlled library of reusable context
 templates; pilot automated retrieval (RAG or MCP) on a single high-impact use case before scaling; only then invest in secure internal APIs
@@ -26,14 +26,14 @@ that expose data systematically.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-AIDATA-DATAQUALITYFIRST
+### Rule RDR-DORA-AIDATA-DATAQUALITYFIRST
 
 An AI connected to bad data produces bad answers — treat data quality, curation of gold-standard (not deprecated) examples, and deliberate
 context retrieval as prerequisites, not cleanup work done after the fact.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-AIDATA-NOBLANKETACCESS
+### Rule RDR-DORA-AIDATA-NOBLANKETACCESS
 
 Never grant an AI system blanket or shared-account access to internal data. Access travels through the same least-privilege, per-user
 credentials a human would use, so an AI query can only ever reach what its requester could already see.

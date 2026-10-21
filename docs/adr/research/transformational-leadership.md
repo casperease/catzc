@@ -1,8 +1,8 @@
 # ADR: DORA — Transformational leadership
 
-## Rules: ADR-DORA-LEADERSHIP
+## Rules: RDR-DORA-LEADERSHIP
 
-### Rule ADR-DORA-LEADERSHIP-FIVEBEHAVIOURS
+### Rule RDR-DORA-LEADERSHIP-FIVEBEHAVIOURS
 
 Transformational leadership is five distinct behaviors — vision, inspirational communication, intellectual stimulation, supportive
 leadership, and personal recognition — not a single trait, a job title, or a slogan; treat all five as necessary, not a menu to pick one
@@ -10,14 +10,14 @@ from.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-LEADERSHIP-INDIRECTLEVER
+### Rule RDR-DORA-LEADERSHIP-INDIRECTLEVER
 
 Treat leadership as an indirect lever on delivery performance: its effect runs through the technical and product-management practices it
 enables a team to adopt, not through the leader producing outcomes directly.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-LEADERSHIP-NOTSUFFICIENTALONE
+### Rule RDR-DORA-LEADERSHIP-NOTSUFFICIENTALONE
 
 Never treat strong leadership behaviors as sufficient on their own. Pair them with investment in the practices they are meant to unlock —
 leadership quality alone predicts only part of the variation in delivery performance, and even highly transformational leaders see teams
@@ -25,14 +25,14 @@ with widely varying outcomes when the underlying practices are missing.
 
 - [Common pitfalls](#common-pitfalls)
 
-### Rule ADR-DORA-LEADERSHIP-CLEARGOALS
+### Rule RDR-DORA-LEADERSHIP-CLEARGOALS
 
 Set clear, measurable delivery goals, use intellectual stimulation to help a team question its own assumptions, and recognize good work and
 safe experimentation deliberately — including attempts that fail — and hold to that behavior consistently, especially under stress.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-LEADERSHIP-DISTRIBUTEDLEADERSHIP
+### Rule RDR-DORA-LEADERSHIP-DISTRIBUTEDLEADERSHIP
 
 Distribute leadership rather than concentrating it in one named role. Anyone in a position to set direction, challenge assumptions, or
 recognize good work can and should practice these five behaviors, not only the person with the title.

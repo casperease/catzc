@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "40649c13fc2b"
+    with_body_sha: "9d2c5d1cc495"
 ---
 #>
 
@@ -30,7 +30,7 @@ function Measure-NoLiteralDefault {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoLiteralDefault'
-    $why = 'a configured setting takes its default from its config type, shown in the shipped config file (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER, ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE)'
+    $why = 'a configured setting takes its default from its config type, shown in the shipped config file (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER, PDR-CONFIG-DEFAULTDECLAREDONCE)'
     $add = {
         param($Extent, [string] $What)
         $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{

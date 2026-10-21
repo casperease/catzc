@@ -10,15 +10,15 @@ catzc:
 
 ## Eyebrow
 
-Principle 3 of 6 · ADR-PRIN-REDUCEVAR
+Principle 3 of 6 · PDR-REDUCEVAR
 
 ## Rows
 
 | Rule                                            | Says                                                                           |
 | ----------------------------------------------- | ------------------------------------------------------------------------------ |
-| ADR-PRIN-REDUCEVAR-SAMESTEPSSAMETOOLS           | Same steps, tools, versions and artifact structure, so deviations stand out    |
-| ADR-PRIN-REDUCEVAR-STANDARDIZEPROCESSNOTDESIGN  | Standardise the process and tooling, not the design space                      |
-| ADR-PRIN-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT | Remove accidental differences, make essential ones explicit; one way over many |
+| PDR-REDUCEVAR-SAMESTEPSSAMETOOLS           | Same steps, tools, versions and artifact structure, so deviations stand out    |
+| PDR-REDUCEVAR-STANDARDIZEPROCESSNOTDESIGN  | Standardise the process and tooling, not the design space                      |
+| PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT | Remove accidental differences, make essential ones explicit; one way over many |
 
 ## Body
 

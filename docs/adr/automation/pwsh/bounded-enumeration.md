@@ -40,7 +40,7 @@ A walk lists a link and never enters it.
 
 Enumeration that is hot, repeated, or deep is a compiled C# type (ADR-BCL-TYPES), measured against the PowerShell form. `FolderWalker` is
 that type for folders. Code that needs a different walk extends the one type; it never carries a second copy of the stack walk
-(ADR-PRIN-ONELIVE).
+(PDR-ONELIVE).
 
 - [A compiled type for the hot path](#a-compiled-type-for-the-hot-path)
 

@@ -16,10 +16,10 @@ and Format-Code read it. Property names mirror the YAML keys (snake_case,
 [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Formatting is configured, not programmed
-([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)): an entry names the
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)): an entry names the
 formatter ENGINE that formats its files, one of FormatterEngines below, and Format-Code runs that engine. A language
 with nothing to format states why in 'no_formatter' instead
-([ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-exceptionisconfigentry)), so every language
+([PDR-CONFIG-EXCEPTIONISCONFIGENTRY](/docs/adr/principles/configure-not-program.md#rule-pdr-config-exceptionisconfigentry)), so every language
 carries exactly one of the two and a gap is a visible, reviewed entry.
 
 The sensible defaults are declared here, once
@@ -49,7 +49,7 @@ Above `private static readonly string[] Engines = { "prettier", "gofmt", "ruff",
 ```text
 The formatter engines a language may name: one Format-Code adapter each. A new engine is new mechanism — its
 adapter and its name here land together
-([ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE](/docs/adr/principles/configure-not-program.md#rule-adr-prin-config-newinstanceisconfigchange)).
+([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](/docs/adr/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)).
 ```
 
 ## comment:3

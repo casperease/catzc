@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
     docs: "[Build-CommentView.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Build-CommentView.ps1.md)"
     cites:
-      - ADR-PRIN-ONELIVE-ONEVERSION
       - ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION
+      - PDR-ONELIVE-ONEVERSION
 ---
 #>
 

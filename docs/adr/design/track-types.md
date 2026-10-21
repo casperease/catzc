@@ -109,7 +109,7 @@ is not its vendor.
 
 ### Where the declarations live
 
-A track and a track type are data, not code ([ADR-PRIN-CONFIG](../principles/configure-not-program.md)): a new track is an entry, a new type
+A track and a track type are data, not code ([PDR-CONFIG](../principles/configure-not-program.md)): a new track is an entry, a new type
 is an entry plus the handler its role needs, and neither is a branch in a command. The declaration sits with the variants because a track is
 a repository-wide variant, and the types sit beside it so the closed set and the tracks are validated together at load by the config types.
 

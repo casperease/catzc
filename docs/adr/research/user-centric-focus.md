@@ -1,8 +1,8 @@
 # ADR: DORA — User-centric focus
 
-## Rules: ADR-DORA-USERFOCUS
+## Rules: RDR-DORA-USERFOCUS
 
-### Rule ADR-DORA-USERFOCUS-USEFULTOUSER
+### Rule RDR-DORA-USERFOCUS-USEFULTOUSER
 
 Judge software by its usefulness to the individual at the end of the value chain, not by the volume of code or features produced along the
 way — understanding actual user needs and prioritizing user experience are explicit design goals, not an afterthought left to whoever
@@ -10,21 +10,21 @@ happens to talk to a customer.
 
 - [Summary](#summary)
 
-### Rule ADR-DORA-USERFOCUS-AIAMPLIFIESFOCUS
+### Rule RDR-DORA-USERFOCUS-AIAMPLIFIESFOCUS
 
 Treat AI as an amplifier of whatever focus already exists, not a substitute for it — a team without a user-centric practice that adopts AI
 does not become user-centric by accident; it produces more low-value output, faster.
 
 - [Why it matters](#why-it-matters)
 
-### Rule ADR-DORA-USERFOCUS-FEEDBACKINPLANNING
+### Rule RDR-DORA-USERFOCUS-FEEDBACKINPLANNING
 
 Wire user feedback into planning as a low-latency loop, and let it actually change priorities — a channel that collects feedback but never
 causes work to be reprioritized is a suggestion box, not a feedback loop.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-USERFOCUS-EXPERIENCEMETRICS
+### Rule RDR-DORA-USERFOCUS-EXPERIENCEMETRICS
 
 Put user-experience metrics (satisfaction, adoption, retention, task completion) on the same dashboard as technical delivery metrics, and
 give engineers direct exposure to user research — observing real usage or reading raw feedback — rather than routing everything through a
@@ -32,7 +32,7 @@ distilled summary that loses signal.
 
 - [How to apply](#how-to-apply)
 
-### Rule ADR-DORA-USERFOCUS-OUTCOMESNOTOUTPUT
+### Rule RDR-DORA-USERFOCUS-OUTCOMESNOTOUTPUT
 
 Measure and reward outcomes, not output — features shipped, story points closed, or commit volume are not evidence that value reached a
 user, and treating them as such is the feature-factory failure mode this capability exists to prevent.

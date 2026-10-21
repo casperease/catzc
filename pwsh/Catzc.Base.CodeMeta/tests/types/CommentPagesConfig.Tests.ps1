@@ -2,13 +2,13 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "66427ed29333"
+    with_body_sha: "5ca183b62672"
   edges:
     code: pwsh/Catzc.Base.CodeMeta/types/CommentPagesConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
       - ADR-REPO-COMMENTS-COMMENTPAGEPLACE
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
 ---
 #>
 
@@ -38,7 +38,7 @@ Describe 'CommentPagesConfig' -Tag 'L0', 'logic' {
         $config.PageFor('') | Should -BeNullOrEmpty
     }
 
-    It 'lets the first matching pages entry win and takes a plain folder map as given' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+    It 'lets the first matching pages entry win and takes a plain folder map as given' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         $config = [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{
                 pages = @(
                     [ordered]@{ source = 'widgets/Catzc.Widget.Gadgets'; docs = 'docs/references/gadgets' },
@@ -57,7 +57,7 @@ Describe 'CommentPagesConfig' -Tag 'L0', 'logic' {
         { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @() }) } | Should -Throw '*pages must be a non-empty list*'
     }
 
-    It 'rejects a pages entry that is not a folder map with a docs folder' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+    It 'rejects a pages entry that is not a folder map with a docs folder' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         # A '[' in a -Throw pattern is a wildcard class, so the index brackets are escaped.
         { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @('widget') }) } | Should -Throw '*pages`[0`]*must be a map*'
         { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @(@{ source = 'widget' }) }) } | Should -Throw '*pages`[0`]*docs is required*'

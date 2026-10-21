@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "04988408f842"
+#     with_body_sha: "81c31dd63511"
 # ---
 
 description:
@@ -9,11 +9,11 @@ description:
   rebuilt to this repository's rules as one living version.
 about:
   adrs:
-    - ADR-PRIN-ONELIVE-ONEVERSION
-    - ADR-PRIN-ONELIVE-HISTORYINGIT
+    - PDR-ONELIVE-ONEVERSION
+    - PDR-ONELIVE-HISTORYINGIT
     - ADR-AUTO-GO-MODULESBYLAYOUT
-    - ADR-PRIN-CATS-CATZCISSOURCENAME
-    - ADR-PRIN-CATS-CATSISPERSONNAME
+    - PDR-CATS-CATZCISSOURCENAME
+    - PDR-CATS-CATSISPERSONNAME
     - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
     - ADR-DSGN-TRACK-ONETECHSTACK
     - ADR-DSGN-TRACK-DEPLOYABLEUNIT
@@ -93,10 +93,10 @@ content:
           - .claude/CLAUDE.md
           - ADR-AUTO-GO-MODULESBYLAYOUT
           - ADR-DSGN-TRACK-UNORDEREDTRACK
-          - ADR-PRIN-CATS-CATSISPERSONNAME
-          - ADR-PRIN-CATS-CATZCISSOURCENAME
-          - ADR-PRIN-ONELIVE-HISTORYINGIT
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-CATS-CATSISPERSONNAME
+          - PDR-CATS-CATZCISSOURCENAME
+          - PDR-ONELIVE-HISTORYINGIT
+          - PDR-ONELIVE-ONEVERSION
       - cell: .claude/.claude/plans
         by:
           - .claude/plans/plan-agent-shortcuts.md
@@ -106,8 +106,8 @@ content:
           - .claude/plans/plan-xdr-codes.md
           - .claude/plans/value-of-plan.md
           - ADR-DSGN-TRACK-UNORDEREDTRACK
-          - ADR-PRIN-ONELIVE-HISTORYINGIT
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-HISTORYINGIT
+          - PDR-ONELIVE-ONEVERSION
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
@@ -116,10 +116,10 @@ content:
           - ADR-DSGN-TRACK-ONETECHSTACK
           - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
           - ADR-DSGN-TRACK-UNORDEREDTRACK
-          - ADR-PRIN-CATS-CATSISPERSONNAME
-          - ADR-PRIN-CATS-CATZCISSOURCENAME
-          - ADR-PRIN-ONELIVE-HISTORYINGIT
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-CATS-CATSISPERSONNAME
+          - PDR-CATS-CATZCISSOURCENAME
+          - PDR-ONELIVE-HISTORYINGIT
+          - PDR-ONELIVE-ONEVERSION
       - cell: docs/-/.
         by:
           - docs/adr/automation/dora-explains.md
@@ -184,14 +184,14 @@ content:
           - ADR-DSGN-TRACK-ONETECHSTACK
           - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
           - ADR-DSGN-TRACK-UNORDEREDTRACK
-          - ADR-PRIN-CATS-CATSISPERSONNAME
-          - ADR-PRIN-CATS-CATZCISSOURCENAME
-          - ADR-PRIN-ONELIVE-HISTORYINGIT
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-CATS-CATSISPERSONNAME
+          - PDR-CATS-CATZCISSOURCENAME
+          - PDR-ONELIVE-HISTORYINGIT
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.CodeMeta/types
         by:
           - pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
@@ -203,25 +203,25 @@ content:
           - ADR-DSGN-TRACK-ONETECHSTACK
           - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
           - ADR-DSGN-TRACK-UNORDEREDTRACK
-          - ADR-PRIN-CATS-CATSISPERSONNAME
-          - ADR-PRIN-CATS-CATZCISSOURCENAME
-          - ADR-PRIN-ONELIVE-HISTORYINGIT
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-CATS-CATSISPERSONNAME
+          - PDR-CATS-CATZCISSOURCENAME
+          - PDR-ONELIVE-HISTORYINGIT
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Docs/tests/types
         by:
           - pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/CheckModes.cs
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Files/.
         by:
           - pwsh/Catzc.Base.Files/Get-CodeCaller.ps1
           - pwsh/Catzc.Base.Files/Get-InputStamp.ps1
           - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
-          - ADR-PRIN-ONELIVE-HISTORYINGIT
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-HISTORYINGIT
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Git/.
         by:
           - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
@@ -286,13 +286,13 @@ content:
           - pwsh/Catzc.Base.QualityGates/Build-CommentView.ps1
           - pwsh/Catzc.Base.QualityGates/Export-Comments.ps1
           - pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/comments.yml
           - pwsh/Catzc.Base.QualityGates/configs/source-conventions.yml
           - ADR-DSGN-TRACK-UNORDEREDTRACK
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1
@@ -304,17 +304,17 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Export-Comments.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Test-Comments.Tests.ps1
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.QualityGates/tests/types
         by:
           - pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.QualityGates/types
         by:
           - pwsh/Catzc.Base.QualityGates/types/CommentBlockKind.cs
           - pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs
           - pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Variants/.
         by:
           - pwsh/Catzc.Base.Variants/Get-PathModule.ps1
@@ -366,10 +366,10 @@ content:
           - .claude/plans/value-of-plan.md
           - ADR-AUTO-GO-MODULESBYLAYOUT
           - ADR-DSGN-TRACK-UNORDEREDTRACK
-          - ADR-PRIN-CATS-CATSISPERSONNAME
-          - ADR-PRIN-CATS-CATZCISSOURCENAME
-          - ADR-PRIN-ONELIVE-HISTORYINGIT
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-CATS-CATSISPERSONNAME
+          - PDR-CATS-CATZCISSOURCENAME
+          - PDR-ONELIVE-HISTORYINGIT
+          - PDR-ONELIVE-ONEVERSION
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
@@ -378,10 +378,10 @@ content:
           - ADR-DSGN-TRACK-ONETECHSTACK
           - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
           - ADR-DSGN-TRACK-UNORDEREDTRACK
-          - ADR-PRIN-CATS-CATSISPERSONNAME
-          - ADR-PRIN-CATS-CATZCISSOURCENAME
-          - ADR-PRIN-ONELIVE-HISTORYINGIT
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-CATS-CATSISPERSONNAME
+          - PDR-CATS-CATZCISSOURCENAME
+          - PDR-ONELIVE-HISTORYINGIT
+          - PDR-ONELIVE-ONEVERSION
       - cell: docs/markdown
         by:
           - docs/adr/automation/dora-explains.md
@@ -446,10 +446,10 @@ content:
           - ADR-DSGN-TRACK-ONETECHSTACK
           - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
           - ADR-DSGN-TRACK-UNORDEREDTRACK
-          - ADR-PRIN-CATS-CATSISPERSONNAME
-          - ADR-PRIN-CATS-CATZCISSOURCENAME
-          - ADR-PRIN-ONELIVE-HISTORYINGIT
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-CATS-CATSISPERSONNAME
+          - PDR-CATS-CATZCISSOURCENAME
+          - PDR-ONELIVE-HISTORYINGIT
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs
@@ -472,7 +472,7 @@ content:
           - ADR-DSGN-TRACK-ONETECHSTACK
           - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
           - ADR-DSGN-TRACK-UNORDEREDTRACK
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/powershell
         by:
           - pwsh/Catzc.Base.Docs/tests/types/CheckModes.Tests.ps1
@@ -511,8 +511,8 @@ content:
           - ADR-DSGN-TRACK-ONETECHSTACK
           - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
           - ADR-DSGN-TRACK-UNORDEREDTRACK
-          - ADR-PRIN-ONELIVE-HISTORYINGIT
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-ONELIVE-HISTORYINGIT
+          - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/yaml
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
@@ -531,33 +531,33 @@ content:
           - ADR-DSGN-TRACK-ONETECHSTACK
           - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
           - ADR-DSGN-TRACK-UNORDEREDTRACK
-          - ADR-PRIN-CATS-CATSISPERSONNAME
-          - ADR-PRIN-CATS-CATZCISSOURCENAME
-          - ADR-PRIN-ONELIVE-HISTORYINGIT
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-CATS-CATSISPERSONNAME
+          - PDR-CATS-CATZCISSOURCENAME
+          - PDR-ONELIVE-HISTORYINGIT
+          - PDR-ONELIVE-ONEVERSION
     axis:
       - cell: DSGN/build
         by:
-          - ADR-PRIN-CATS-CATSISPERSONNAME
-          - ADR-PRIN-CATS-CATZCISSOURCENAME
+          - PDR-CATS-CATSISPERSONNAME
+          - PDR-CATS-CATZCISSOURCENAME
       - cell: DSGN/quality-control
         by:
-          - ADR-PRIN-CATS-CATSISPERSONNAME
-          - ADR-PRIN-CATS-CATZCISSOURCENAME
+          - PDR-CATS-CATSISPERSONNAME
+          - PDR-CATS-CATZCISSOURCENAME
       - cell: DSGN/release
         by:
-          - ADR-PRIN-CATS-CATSISPERSONNAME
-          - ADR-PRIN-CATS-CATZCISSOURCENAME
-          - ADR-PRIN-ONELIVE-HISTORYINGIT
-          - ADR-PRIN-ONELIVE-ONEVERSION
+          - PDR-CATS-CATSISPERSONNAME
+          - PDR-CATS-CATZCISSOURCENAME
+          - PDR-ONELIVE-HISTORYINGIT
+          - PDR-ONELIVE-ONEVERSION
       - cell: DSGN/deploy
         by:
-          - ADR-PRIN-CATS-CATSISPERSONNAME
-          - ADR-PRIN-CATS-CATZCISSOURCENAME
+          - PDR-CATS-CATSISPERSONNAME
+          - PDR-CATS-CATZCISSOURCENAME
       - cell: DSGN/access
         by:
-          - ADR-PRIN-CATS-CATSISPERSONNAME
-          - ADR-PRIN-CATS-CATZCISSOURCENAME
+          - PDR-CATS-CATSISPERSONNAME
+          - PDR-CATS-CATZCISSOURCENAME
       - cell: DSGN/*
         by:
           - ADR-DSGN-TRACK-DEPLOYABLEUNIT

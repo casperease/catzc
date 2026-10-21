@@ -31,7 +31,7 @@ vendor wiring. The CLI is the boundary that lets the platform team change the su
 ### Rule ADR-DSGN-THINPLAT-REPRESENTEDASCODE
 
 Everything the platform covers is **represented as code** — the automation itself, the configs, the tooling versions, and the vendor
-bindings (Bicep modules and az invocations) — in exactly one living version (`ADR-PRIN-EAC`, `ADR-PRIN-ONELIVE`). There is no
+bindings (Bicep modules and az invocations) — in exactly one living version (`PDR-EAC`, `PDR-ONELIVE`). There is no
 console-clicked state, no out-of-band tooling, and no drift between "what the docs say" and "what runs": the platform _is_ its repository.
 Full EaC representation is what makes the thin abstraction reproducible and reviewable.
 
@@ -97,7 +97,7 @@ touching a single consumer.
 `Everything the platform covers is code`
 
 A thin abstraction is only trustworthy if it is fully materialized. Everything the platform touches is checked in and versioned as one
-source of truth, a living one (`ADR-PRIN-EAC`, `ADR-PRIN-ONELIVE`): the PowerShell/C# automation, the Bicep infrastructure, the per-target
+source of truth, a living one (`PDR-EAC`, `PDR-ONELIVE`): the PowerShell/C# automation, the Bicep infrastructure, the per-target
 configuration, the pinned tool versions, and the vendored dependencies. Nothing is configured by clicking a console, and nothing is a "we
 usually run this by hand" step. This is what lets the layer stay thin without becoming lossy — the full representation is in the repo, so
 the abstraction can be reproduced, reviewed, and diffed rather than trusted on faith.
@@ -127,7 +127,7 @@ implementation of the EaC and CD principles as a Team-Topologies platform, cover
   model (a platform team develops and manages it as X-as-a-Service).
 - **Hohpe's _Platform Strategy_** supplies the discipline (harmonize, don't reimplement; build abstractions, not illusions) and the
   guardrail (surface the decisions that scale-time cost punishes).
-- **`ADR-PRIN-EAC` / `ADR-PRIN-ONELIVE`** keep the abstraction fully materialized and singular — no drift, no legacy shims behind a layer
+- **`PDR-EAC` / `PDR-ONELIVE`** keep the abstraction fully materialized and singular — no drift, no legacy shims behind a layer
   that is thin.
 - **The Azure CLI binding and the Bicep infrastructure track** are the concrete substrate bindings the CLI delegates to.
 - **Devbox/pipeline parity** keeps the one CLI surface identical on a developer box and in the pipeline, which is what makes it a real

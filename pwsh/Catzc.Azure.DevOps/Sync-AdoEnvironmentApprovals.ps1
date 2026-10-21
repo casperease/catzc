@@ -8,7 +8,7 @@ catzc:
     docs: "[Sync-AdoEnvironmentApprovals.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md)"
     cites:
       - ADR-FLOW-CD
-      - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+      - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
 ---
 #>
 

@@ -7,7 +7,7 @@ catzc:
     docs: "[AdrDoraCheck.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrDoraCheck.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-      - ADR-PRIN-CONFIG-EXCEPTIONISCONFIGENTRY
+      - PDR-CONFIG-EXCEPTIONISCONFIGENTRY
 ---
 */
 

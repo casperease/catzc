@@ -173,7 +173,7 @@ design choices and code from introducing exploitable weaknesses.
 #### What SE:02 means here
 
 The repository treats security as a property of every change
-([ADR-DORA-SECURITY-SECUREPATHAUTOMATED](../../research/pervasive-security.md#rule-adr-dora-security-securepathautomated)), and its build
+([RDR-DORA-SECURITY-SECUREPATHAUTOMATED](../../research/pervasive-security.md#rule-rdr-dora-security-securepathautomated)), and its build
 checks hold part of it. Every parameters file a build renders must satisfy the template's parameter contract, and a `secureString` parameter
 must be a Key Vault reference, never a literal
 ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](../azure-data-model.md#rule-adr-az-datamod-parametercontract)). A config address reaches only

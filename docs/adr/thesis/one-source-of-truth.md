@@ -1,8 +1,8 @@
 # Thesis: One source of truth — delivery collapsed into one repository with one change process
 
-## Rules: ADR-THES-ONETRUTH
+## Rules: TDR-ONETRUTH
 
-### Rule ADR-THES-ONETRUTH-ONESTOREDECIDES
+### Rule TDR-ONETRUTH-ONESTOREDECIDES
 
 A **source of truth** is the one store whose content decides what is true about the delivered system. Delivery is slow because that truth is
 spread across disjoint stores that drift apart: servers, databases, CMDBs, deployment engines, ticket systems, requirement databases.
@@ -12,7 +12,7 @@ synchronisation between stores inside its responsibility domain.
 - [The problem](#the-problem)
 - [One source of truth, one change process](#one-source-of-truth-one-change-process)
 
-### Rule ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+### Rule TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
 
 The repository is the configuration record of everything it delivers. Infrastructure is reproducible from a commit, so no second database is
 kept in parity with it, and nothing about delivery state has its source of truth (for BVT) outside it. An **adjacent store** is the one
@@ -22,7 +22,7 @@ that keeps its own history and is driven one way from the trunk's pipelines, nev
 - [The repository is the configuration record](#the-repository-is-the-configuration-record)
 - [Adjacent stores](#adjacent-stores)
 
-### Rule ADR-THES-ONETRUTH-TRUTHISQUERYABLE
+### Rule TDR-ONETRUTH-TRUTHISQUERYABLE
 
 The source of truth is queryable: every question about the system's state is answered by reading the repository through the tooling. The
 **query surface** is the tooling's `Get-*` cmdlets, each of which also emits its answer as data (JSON), so a service-management tool reads
@@ -30,7 +30,7 @@ the truth without PowerShell.
 
 - [The truth is queryable](#the-truth-is-queryable)
 
-### Rule ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY
+### Rule TDR-ONETRUTH-PRODUCTMONOREPOSITORY
 
 A **product mono-repository** is one repository that several teams contribute to for one product, bounded into tracks and deployable-units
 by path filters; catzc is one. The **trunk** is its one mainline, and inside it everything is at HEAD: modules depend on each other
@@ -41,7 +41,7 @@ dependency that crosses the repository boundary inward, stitched into an immutab
 - [Inside the trunk, only HEAD](#inside-the-trunk-only-head)
 - [Pins at the repository boundary](#pins-at-the-repository-boundary)
 
-### Rule ADR-THES-ONETRUTH-NOREPOSITORYVERSION
+### Rule TDR-ONETRUTH-NOREPOSITORYVERSION
 
 There is no repository-wide version. A version exists only where something crosses the repository boundary, and each unit that crosses it
 versions on its own. Catzc's one provided pin point is the whole bundle: a consumer either pins a released bundle or keeps its own clone of
@@ -50,7 +50,7 @@ catzc, a trunk of its own with its own history, and never consumes catzc implici
 - [Versions only at the boundary](#versions-only-at-the-boundary)
 - [Pin the bundle, or own a clone](#pin-the-bundle-or-own-a-clone)
 
-### Rule ADR-THES-ONETRUTH-PROCESSESFOLLOWDELIVERY
+### Rule TDR-ONETRUTH-PROCESSESFOLLOWDELIVERY
 
 Service-management processes align to the delivery mechanism, never the reverse. Change management, approvals, audit, and higher-level
 release processes read the repository and act through its one change process, instead of keeping a separate model of delivery.
@@ -93,7 +93,7 @@ implements it. The thesis describes the product; the research is the authority i
 the history.
 
 The one source of truth covers the responsibility domain the repository holds. Outside it, the stores catzc does not own are truth stores of
-other kinds ([ADR-THES-STORES](truth-stores.md)).
+other kinds ([TDR-STORES](truth-stores.md)).
 
 ### The repository is the configuration record
 
@@ -153,7 +153,7 @@ A process that keeps its own model of delivery recreates the disjoint store this
 
 - Every other ADR rests on this one: the principles state its mechanics, and the later ADRs specialise them.
 - Delivery state whose source of truth is outside the repository is a defect, unless it is an adjacent store driven one way from the trunk,
-  or a fact source that a state machine owns and catzc only reads ([ADR-THES-STORES](truth-stores.md)).
+  or a fact source that a state machine owns and catzc only reads ([TDR-STORES](truth-stores.md)).
 - A question about the system's state has one place to be answered, and the tooling owes an answer to it, as cmdlets and as data.
 - Versions appear only at the repository boundary: on pins inward, and on the bundle outward.
 - A consumer of catzc pins the bundle or owns a clone; no implicit cross-repository consumption exists to support.

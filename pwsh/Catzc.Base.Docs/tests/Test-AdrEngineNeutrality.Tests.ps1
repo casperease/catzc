@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "346071240b0b"
+    with_body_sha: c8ce5a6b8cad
   edges:
     docs: "[Test-AdrEngineNeutrality.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Test-AdrEngineNeutrality.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
@@ -10,7 +10,7 @@ catzc:
       - ADR-AUTO-ENGINE-THREEENGINES
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
 ---
 #>
 
@@ -101,7 +101,7 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
         $result.Facts['Lines'] | Should -Be 2
     }
 
-    It 'prints the findings and their count in report mode, writes the report, and never throws' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+    It 'prints the findings and their count in report mode, writes the report, and never throws' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         { Test-AdrEngineNeutrality -OutputFolder $out } | Should -Not -Throw
         Test-AdrEngineNeutrality -OutputFolder $out | Should -BeNullOrEmpty
         Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -ParameterFilter { $Message -eq '2 adr-engine-neutrality issue(s).' }
@@ -109,7 +109,7 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
         Get-ChildPath $out -File -Filter 'adr-engine-neutrality.md' -Depth 4 -Exclude @() | Should -Not -BeNullOrEmpty
     }
 
-    It 'throws once listing every finding in gate mode' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+    It 'throws once listing every finding in gate mode' -Tag 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         $script:checks = New-ChecksConfig -Mode 'gate'
         $thrown = { Test-AdrEngineNeutrality -OutputFolder $out } | Should -Throw -PassThru
         $thrown.Exception.Message | Should -BeLike 'Test-AdrEngineNeutrality failed: 2 issue(s)*'

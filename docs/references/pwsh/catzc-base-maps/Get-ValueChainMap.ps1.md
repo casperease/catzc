@@ -21,7 +21,7 @@ the map holds every cell, empty ones included, row by row.
 ### parameter `AsJson`
 
 Return the map as JSON (the rows, the columns, and every cell with its ADRs) instead of the object
-([ADR-THES-ONETRUTH-TRUTHISQUERYABLE](../../../adr/thesis/one-source-of-truth.md#rule-adr-thes-onetruth-truthisqueryable)).
+([TDR-ONETRUTH-TRUTHISQUERYABLE](../../../adr/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)).
 
 ### outputs
 

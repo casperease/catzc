@@ -30,7 +30,7 @@ variant of the globset is a different resource with its own key.
 ### Rule ADR-AUTO-MATERIAL-DECLAREDPERKIND
 
 Materialization is declared per resource kind, in a config entry with one default declared once on its config type
-([ADR-PRIN-CONFIG-DEFAULTDECLAREDONCE](../principles/configure-not-program.md#rule-adr-prin-config-defaultdeclaredonce)). An instance of the
+([PDR-CONFIG-DEFAULTDECLAREDONCE](../principles/configure-not-program.md#rule-pdr-config-defaultdeclaredonce)). An instance of the
 kind changes it only by an explicit value of its own, and a resource that costs milliseconds to compute declares on-demand and never earns a
 commit copy.
 

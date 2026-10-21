@@ -6,8 +6,8 @@
 #     docs: "[file-carriers.yml.md](docs/references/pwsh/catzc-base-languages/configs/file-carriers.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-#       - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
 #       - ADR-REPO-FILEMETA-HEADPOLICY
+#       - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
 # ---
 
 carriers:

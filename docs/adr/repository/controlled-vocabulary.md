@@ -115,7 +115,7 @@ repo-relative, and outside vocabulary arrives through the repository's own refer
 
 Most confusion is between near neighbours, not distant words: a test suite and a test run, a release candidate and a deployable unit. A
 definition read alone rarely settles which is meant. A contrast — one sentence on how this concept differs from a named neighbour — does. It
-is declared once and shown on both entries (ADR-PRIN-ONELIVE), so the two sides cannot drift apart: there is only one sentence to keep.
+is declared once and shown on both entries (PDR-ONELIVE), so the two sides cannot drift apart: there is only one sentence to keep.
 
 ### Avoided phrasings
 

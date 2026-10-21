@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "369c05a9ad77"
+#     with_body_sha: "5bd696ae5006"
 # ---
 
 # cspell:ignore minimaps mxfile pnginfo adronly mapkey
@@ -1456,7 +1456,7 @@ def placement(data):
         lit = []
         for entry in minimap.get("lit") or []:
             reasons = entry.get("reasons") or []
-            files = sorted({r["subject"] for r in reasons if r.get("subject") and not re.fullmatch(r"ADR(-[A-Z0-9]+)+", r["subject"])})
+            files = sorted({r["subject"] for r in reasons if r.get("subject") and not re.fullmatch(minimaps.kinds() + r"(-[A-Z0-9]+)+", r["subject"])})
             rules = sorted({r["requested"] for r in reasons if r.get("requested")})
             lit.append({"cell": "/".join(entry["at"]), "by": files + rules})
         out[view] = lit

@@ -6,7 +6,7 @@ catzc:
   edges:
     docs: "[Invoke-FormatterEngine.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-FormatterEngine.ps1.md)"
     cites:
-      - ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE
+      - PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE
 ---
 #>
 

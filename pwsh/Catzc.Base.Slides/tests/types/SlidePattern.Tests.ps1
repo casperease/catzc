@@ -2,13 +2,13 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7e2571947cc2"
+    with_body_sha: "955f38d9670d"
   edges:
     code: pwsh/Catzc.Base.Slides/types/SlidePattern.cs
     cites:
-      - ADR-PRIN-POKAYOKE-DETECTEARLIEST
       - ADR-REPO-SLIDES-PATTERN
       - ADR-REPO-SLIDES-FAILFORWARDRENDER
+      - PDR-POKAYOKE-DETECTEARLIEST
 ---
 #>
 
@@ -119,7 +119,7 @@ catzc:
         $html | Should -Match '<table><tr><th>Process</th><th>Where</th></tr><tr><td>Change</td><td>The commit</td></tr></table>'
     }
 
-    It 'reports a missing required field, an unknown field, and a kit value the kit does not declare' -Tag 'ADR-PRIN-POKAYOKE-DETECTEARLIEST' {
+    It 'reports a missing required field, an unknown field, and a kit value the kit does not declare' -Tag 'PDR-POKAYOKE-DETECTEARLIEST' {
         $faults = @((& $render "# T`n`n## Eyebrow`n`nE`n`n## Gadget`n`nx").Faults | ForEach-Object ToString)
         $faults | Should -Contain "docs/gadget.slide.md: field 'body': pattern 'widget' requires this field and the slide has none"
         $faults | Should -Contain "docs/gadget.slide.md: field 'gadget': pattern 'widget' does not know this field (it takes: body, cards, rows, eyebrow, title, footer, notes)"

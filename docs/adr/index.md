@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b4cd2a6b9e85
+    with_body_sha: "0a51be8aa2e6"
     warning: "Do Not Edit, this file is generated"
     role: index
     track: docs
@@ -46,56 +46,56 @@ tooling; inside the trunk everything is at HEAD, and versions exist only at the 
 domain a repository holds, the truth stores are fact sources and state machines, read and reported to at junctions and synchronised into
 actionable facts. Any code, unordered fragments included, has an eac normal form: verifiable within the sensible defaults, the bundle, and
 the local configs, and uncontested by the repository's formatters, tests, and asserts. It describes the product and rests on the DORA
-research, the authoritative source, and the principles state its mechanics, so every other domain cites it (`ADR-THES-*`) through them.
+research, the authoritative source, and the principles state its mechanics, so every other domain cites it (`TDR-*`) through them.
 
 **Role:** `framing` — **depends on:** `research`.
 
-| Code                  | ADR                                                  |
-| --------------------- | ---------------------------------------------------- |
-| `ADR-THES-ONETRUTH`   | [one-source-of-truth](thesis/one-source-of-truth.md) |
-| `ADR-THES-STORES`     | [truth-stores](thesis/truth-stores.md)               |
-| `ADR-THES-NORMALFORM` | [eac-normal-form](thesis/eac-normal-form.md)         |
+| Code             | ADR                                                  |
+| ---------------- | ---------------------------------------------------- |
+| `TDR-ONETRUTH`   | [one-source-of-truth](thesis/one-source-of-truth.md) |
+| `TDR-STORES`     | [truth-stores](thesis/truth-stores.md)               |
+| `TDR-NORMALFORM` | [eac-normal-form](thesis/eac-normal-form.md)         |
 
 ### principles/
 
 The design axioms every other domain specialises: everything as code, configure don't program, reduce variability, reduce waste, poka-yoke,
 one living version, and the two names of the system, cats and catzc. They specialise the thesis, catzc's product description, and rest on
-the DORA research, the authoritative source; no domain later in the order overrides them, and every other domain cites them (`ADR-PRIN-*`)
-as the reason for its own decisions.
+the DORA research, the authoritative source; no domain later in the order overrides them, and every other domain cites them (`PDR-*`) as the
+reason for its own decisions.
 
 **Role:** `axioms` — **depends on:** `research`, `thesis`.
 
-| Code                 | ADR                                                          |
-| -------------------- | ------------------------------------------------------------ |
-| `ADR-PRIN-EAC`       | [everything-as-code](principles/everything-as-code.md)       |
-| `ADR-PRIN-CONFIG`    | [configure-not-program](principles/configure-not-program.md) |
-| `ADR-PRIN-REDUCEVAR` | [reduce-variability](principles/reduce-variability.md)       |
-| `ADR-PRIN-NOWASTE`   | [reduce-waste](principles/reduce-waste.md)                   |
-| `ADR-PRIN-POKAYOKE`  | [poka-yoke](principles/poka-yoke.md)                         |
-| `ADR-PRIN-ONELIVE`   | [one-living-version](principles/one-living-version.md)       |
-| `ADR-PRIN-CATS`      | [cats-and-catzc](principles/cats-and-catzc.md)               |
+| Code            | ADR                                                          |
+| --------------- | ------------------------------------------------------------ |
+| `PDR-EAC`       | [everything-as-code](principles/everything-as-code.md)       |
+| `PDR-CONFIG`    | [configure-not-program](principles/configure-not-program.md) |
+| `PDR-REDUCEVAR` | [reduce-variability](principles/reduce-variability.md)       |
+| `PDR-NOWASTE`   | [reduce-waste](principles/reduce-waste.md)                   |
+| `PDR-POKAYOKE`  | [poka-yoke](principles/poka-yoke.md)                         |
+| `PDR-ONELIVE`   | [one-living-version](principles/one-living-version.md)       |
+| `PDR-CATS`      | [cats-and-catzc](principles/cats-and-catzc.md)               |
 
 ### process/
 
 How the team works: the Agile Manifesto's values and principles, lean flow as the Toyota Production System maps to software, and one shared
-vocabulary of flow terms. Unlike the fixed axioms, the process is itself inspected and improved (`ADR-PROC-KAIZEN`); the design, flow, and
+vocabulary of flow terms. Unlike the fixed axioms, the process is itself inspected and improved (`WDR-KAIZEN`); the design, flow, and
 implementation domains put its practices into effect — stopping the line, building quality in, pulling work, and draining queues.
 
 **Role:** `optimisable` — **depends on:** `research`, `principles`.
 
-| Code                       | ADR                                               |
-| -------------------------- | ------------------------------------------------- |
-| `ADR-PROC-AGILE`           | [agile](process/agile.md)                         |
-| `ADR-PROC-VALUES`          | [agile-values](process/agile-values.md)           |
-| `ADR-PROC-AGILEPRINCIPLES` | [agile-principles](process/agile-principles.md)   |
-| `ADR-PROC-LEANTERMS`       | [process-terms](process/process-terms.md)         |
-| `ADR-PROC-LEAN`            | [lean](process/lean.md)                           |
-| `ADR-PROC-ANDON`           | [holding-the-line](process/holding-the-line.md)   |
-| `ADR-PROC-BUILTIN`         | [build-quality-in](process/build-quality-in.md)   |
-| `ADR-PROC-OBSERVEWIP`      | [observe-work](process/observe-work.md)           |
-| `ADR-PROC-PULLWORK`        | [pull-work](process/pull-work.md)                 |
-| `ADR-PROC-QUEUECOST`       | [queues-cost-money](process/queues-cost-money.md) |
-| `ADR-PROC-KAIZEN`          | [inspect-and-adapt](process/inspect-and-adapt.md) |
+| Code                  | ADR                                               |
+| --------------------- | ------------------------------------------------- |
+| `WDR-AGILE`           | [agile](process/agile.md)                         |
+| `WDR-VALUES`          | [agile-values](process/agile-values.md)           |
+| `WDR-AGILEPRINCIPLES` | [agile-principles](process/agile-principles.md)   |
+| `WDR-LEANTERMS`       | [process-terms](process/process-terms.md)         |
+| `WDR-LEAN`            | [lean](process/lean.md)                           |
+| `WDR-ANDON`           | [holding-the-line](process/holding-the-line.md)   |
+| `WDR-BUILTIN`         | [build-quality-in](process/build-quality-in.md)   |
+| `WDR-OBSERVEWIP`      | [observe-work](process/observe-work.md)           |
+| `WDR-PULLWORK`        | [pull-work](process/pull-work.md)                 |
+| `WDR-QUEUECOST`       | [queues-cost-money](process/queues-cost-money.md) |
+| `WDR-KAIZEN`          | [inspect-and-adapt](process/inspect-and-adapt.md) |
 
 ### design/
 
@@ -373,40 +373,40 @@ validation — every other domain depends on it and it depends on none; the othe
 
 | Code                  | ADR                                                                                |
 | --------------------- | ---------------------------------------------------------------------------------- |
-| `ADR-DORA-AIDATA`     | [ai-accessible-internal-data](research/ai-accessible-internal-data.md)             |
-| `ADR-DORA-AISTANCE`   | [clear-and-communicated-ai-stance](research/clear-and-communicated-ai-stance.md)   |
-| `ADR-DORA-DATAECO`    | [healthy-data-ecosystems](research/healthy-data-ecosystems.md)                     |
-| `ADR-DORA-PLATFORM`   | [platform-engineering](research/platform-engineering.md)                           |
-| `ADR-DORA-USERFOCUS`  | [user-centric-focus](research/user-centric-focus.md)                               |
-| `ADR-DORA-VCS`        | [version-control](research/version-control.md)                                     |
-| `ADR-DORA-SMALLBATCH` | [working-in-small-batches](research/working-in-small-batches.md)                   |
-| `ADR-DORA-MAINTAIN`   | [code-maintainability](research/code-maintainability.md)                           |
-| `ADR-DORA-CD`         | [continuous-delivery](research/continuous-delivery.md)                             |
-| `ADR-DORA-CI`         | [continuous-integration](research/continuous-integration.md)                       |
-| `ADR-DORA-DBCHANGE`   | [database-change-management](research/database-change-management.md)               |
-| `ADR-DORA-DEPLOY`     | [deployment-automation](research/deployment-automation.md)                         |
-| `ADR-DORA-DOCS`       | [documentation-quality](research/documentation-quality.md)                         |
-| `ADR-DORA-FLEXINFRA`  | [flexible-infrastructure](research/flexible-infrastructure.md)                     |
-| `ADR-DORA-LOOSETEAMS` | [loosely-coupled-teams](research/loosely-coupled-teams.md)                         |
-| `ADR-DORA-OBSERV`     | [monitoring-and-observability](research/monitoring-and-observability.md)           |
-| `ADR-DORA-SECURITY`   | [pervasive-security](research/pervasive-security.md)                               |
-| `ADR-DORA-APPROVAL`   | [streamlining-change-approval](research/streamlining-change-approval.md)           |
-| `ADR-DORA-TESTAUTO`   | [test-automation](research/test-automation.md)                                     |
-| `ADR-DORA-TESTDATA`   | [test-data-management](research/test-data-management.md)                           |
-| `ADR-DORA-TRUNK`      | [trunk-based-development](research/trunk-based-development.md)                     |
-| `ADR-DORA-FEEDBACK`   | [customer-feedback](research/customer-feedback.md)                                 |
-| `ADR-DORA-MONITOR`    | [monitoring-systems](research/monitoring-systems.md)                               |
-| `ADR-DORA-FAILALERT`  | [proactive-failure-notification](research/proactive-failure-notification.md)       |
-| `ADR-DORA-WORKVIS`    | [work-visibility-in-value-stream](research/work-visibility-in-value-stream.md)     |
-| `ADR-DORA-VISUAL`     | [visual-management](research/visual-management.md)                                 |
-| `ADR-DORA-WIP`        | [wip-limits](research/wip-limits.md)                                               |
-| `ADR-DORA-TOOLCHOICE` | [teams-empowered-to-choose-tools](research/teams-empowered-to-choose-tools.md)     |
-| `ADR-DORA-CULTURE`    | [generative-organizational-culture](research/generative-organizational-culture.md) |
-| `ADR-DORA-JOBSAT`     | [job-satisfaction](research/job-satisfaction.md)                                   |
-| `ADR-DORA-LEARNING`   | [learning-culture](research/learning-culture.md)                                   |
-| `ADR-DORA-EXPERIMENT` | [team-experimentation](research/team-experimentation.md)                           |
-| `ADR-DORA-LEADERSHIP` | [transformational-leadership](research/transformational-leadership.md)             |
-| `ADR-DORA-WELLBEING`  | [well-being](research/well-being.md)                                               |
+| `RDR-DORA-AIDATA`     | [ai-accessible-internal-data](research/ai-accessible-internal-data.md)             |
+| `RDR-DORA-AISTANCE`   | [clear-and-communicated-ai-stance](research/clear-and-communicated-ai-stance.md)   |
+| `RDR-DORA-DATAECO`    | [healthy-data-ecosystems](research/healthy-data-ecosystems.md)                     |
+| `RDR-DORA-PLATFORM`   | [platform-engineering](research/platform-engineering.md)                           |
+| `RDR-DORA-USERFOCUS`  | [user-centric-focus](research/user-centric-focus.md)                               |
+| `RDR-DORA-VCS`        | [version-control](research/version-control.md)                                     |
+| `RDR-DORA-SMALLBATCH` | [working-in-small-batches](research/working-in-small-batches.md)                   |
+| `RDR-DORA-MAINTAIN`   | [code-maintainability](research/code-maintainability.md)                           |
+| `RDR-DORA-CD`         | [continuous-delivery](research/continuous-delivery.md)                             |
+| `RDR-DORA-CI`         | [continuous-integration](research/continuous-integration.md)                       |
+| `RDR-DORA-DBCHANGE`   | [database-change-management](research/database-change-management.md)               |
+| `RDR-DORA-DEPLOY`     | [deployment-automation](research/deployment-automation.md)                         |
+| `RDR-DORA-DOCS`       | [documentation-quality](research/documentation-quality.md)                         |
+| `RDR-DORA-FLEXINFRA`  | [flexible-infrastructure](research/flexible-infrastructure.md)                     |
+| `RDR-DORA-LOOSETEAMS` | [loosely-coupled-teams](research/loosely-coupled-teams.md)                         |
+| `RDR-DORA-OBSERV`     | [monitoring-and-observability](research/monitoring-and-observability.md)           |
+| `RDR-DORA-SECURITY`   | [pervasive-security](research/pervasive-security.md)                               |
+| `RDR-DORA-APPROVAL`   | [streamlining-change-approval](research/streamlining-change-approval.md)           |
+| `RDR-DORA-TESTAUTO`   | [test-automation](research/test-automation.md)                                     |
+| `RDR-DORA-TESTDATA`   | [test-data-management](research/test-data-management.md)                           |
+| `RDR-DORA-TRUNK`      | [trunk-based-development](research/trunk-based-development.md)                     |
+| `RDR-DORA-FEEDBACK`   | [customer-feedback](research/customer-feedback.md)                                 |
+| `RDR-DORA-MONITOR`    | [monitoring-systems](research/monitoring-systems.md)                               |
+| `RDR-DORA-FAILALERT`  | [proactive-failure-notification](research/proactive-failure-notification.md)       |
+| `RDR-DORA-WORKVIS`    | [work-visibility-in-value-stream](research/work-visibility-in-value-stream.md)     |
+| `RDR-DORA-VISUAL`     | [visual-management](research/visual-management.md)                                 |
+| `RDR-DORA-WIP`        | [wip-limits](research/wip-limits.md)                                               |
+| `RDR-DORA-TOOLCHOICE` | [teams-empowered-to-choose-tools](research/teams-empowered-to-choose-tools.md)     |
+| `RDR-DORA-CULTURE`    | [generative-organizational-culture](research/generative-organizational-culture.md) |
+| `RDR-DORA-JOBSAT`     | [job-satisfaction](research/job-satisfaction.md)                                   |
+| `RDR-DORA-LEARNING`   | [learning-culture](research/learning-culture.md)                                   |
+| `RDR-DORA-EXPERIMENT` | [team-experimentation](research/team-experimentation.md)                           |
+| `RDR-DORA-LEADERSHIP` | [transformational-leadership](research/transformational-leadership.md)             |
+| `RDR-DORA-WELLBEING`  | [well-being](research/well-being.md)                                               |
 
 ## Authoring conventions
 

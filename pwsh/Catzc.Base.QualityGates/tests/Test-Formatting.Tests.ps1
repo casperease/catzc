@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8abe2d6730fa"
+    with_body_sha: "3230c657c5bd"
   edges:
     docs: "[Test-Formatting.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-Formatting.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1
@@ -10,8 +10,8 @@ catzc:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-TAGBYOUTERMOSTRING
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG
-      - ADR-THES-NORMALFORM-UNCONTESTED
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
+      - TDR-NORMALFORM-UNCONTESTED
 ---
 #>
 
@@ -39,7 +39,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         $script:reportFolder = Join-Path $TestDrive 'formatting'
     }
 
-    It 'passes a tree the formatting leaves unchanged, running every language with a formatter in report-only mode, and no step by name' -Tag 'ADR-AUTO-TEST-QUALITYGATE', 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+    It 'passes a tree the formatting leaves unchanged, running every language with a formatter in report-only mode, and no step by name' -Tag 'ADR-AUTO-TEST-QUALITYGATE', 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         { Test-Formatting -OutputFolder $script:reportFolder } | Should -Not -Throw
         Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
             ($Language -join ',') -eq 'widget,gadget' -and $DryRun -and $PassThru
@@ -65,7 +65,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         )
     }
 
-    It 'proves named files are in the form: it checks only those paths and fails on a file the formatting would change' -Tag 'ADR-THES-NORMALFORM-UNCONTESTED' {
+    It 'proves named files are in the form: it checks only those paths and fails on a file the formatting would change' -Tag 'TDR-NORMALFORM-UNCONTESTED' {
         Mock Format-Code -ModuleName Catzc.Base.QualityGates -ParameterFilter { @($Path) -contains 'docs/widget.wdg' } {
             [Catzc.Base.QualityGates.FormatResult]::new('widget', 'prettier', [string[]] @($script:widgetFile), [string[]] @($script:widgetFile), $true)
         }

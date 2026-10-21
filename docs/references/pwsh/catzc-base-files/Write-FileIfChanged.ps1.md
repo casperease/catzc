@@ -22,7 +22,7 @@ A changed write is delete-then-write, never in-place: writing through a symbolic
 content into the file the link points at, so the write always produces a fresh, independent file.
 
 This is the write tail every generated-artifact builder shares (Build-RootConfig, Build-GitKeep, …) — one living copy of the
-canonicalise/compare/write logic instead of one per builder (see [ADR-PRIN-ONELIVE](../../../adr/principles/one-living-version.md)). It is a
+canonicalise/compare/write logic instead of one per builder (see [PDR-ONELIVE](../../../adr/principles/one-living-version.md)). It is a
 pure primitive: no console output — callers own their reporting.
 
 ### parameter `Path`

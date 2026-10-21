@@ -15,7 +15,7 @@ One gate for every formatter's check
 ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). It keeps no list of formatters of
 its own: Format-Code -DryRun runs every engine the file-language registry (languages.yml) names, over every tracked file of each language,
 and every file an engine would change is one issue naming the file and the command that fixes it
-([ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../adr/principles/configure-not-program.md#rule-adr-prin-config-varyingbehaviourisconfig)).
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../adr/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
 
 The C# file-scoped namespace is a repository content rule rather than a layout engine, so it is checked beside the engines: Format-Types
 -DryRun names every type source whose namespace is missing or wrong, and every block-scoped one, which needs a hand edit. It runs with the
@@ -33,7 +33,7 @@ Check only these file languages (default: every one).
 
 Check only these files or folders (default: every tracked file). A file it passes is in the eac normal form as far as the formatters go:
 uncontested, left unchanged by every formatter
-([ADR-THES-NORMALFORM-UNCONTESTED](../../../adr/thesis/eac-normal-form.md#rule-adr-thes-normalform-uncontested)), which is the check a file
+([TDR-NORMALFORM-UNCONTESTED](../../../adr/thesis/eac-normal-form.md#rule-tdr-normalform-uncontested)), which is the check a file
 passes before it leaves the unordered track
 ([ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT](../../../adr/design/tracks.md#rule-adr-dsgn-track-migrateonefilepercommit)).
 

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "33609f921710"
+#     with_body_sha: dc094c0c0916
 # ---
 
 description:
@@ -9,12 +9,12 @@ description:
   sources band with a store, and a state machines band with two external tools, joined by flow edges."
 about:
   adrs:
-    - ADR-THES-STORES-THREEKINDS
-    - ADR-THES-STORES-RESPONSIBILITYDOMAIN
-    - ADR-THES-STORES-FACTSOURCEREADONLY
-    - ADR-THES-STORES-STATEMACHINE
-    - ADR-THES-STORES-RECONCILEFACTS
-    - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+    - TDR-STORES-THREEKINDS
+    - TDR-STORES-RESPONSIBILITYDOMAIN
+    - TDR-STORES-FACTSOURCEREADONLY
+    - TDR-STORES-STATEMACHINE
+    - TDR-STORES-RECONCILEFACTS
+    - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
   lens: architecture
 content:
   title: Catzc writes its domain, reads fact sources, meets state machines
@@ -90,44 +90,44 @@ content:
     axis:
       - cell: DSGN/build
         by:
-          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
-          - ADR-THES-STORES-FACTSOURCEREADONLY
-          - ADR-THES-STORES-RECONCILEFACTS
-          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
-          - ADR-THES-STORES-STATEMACHINE
-          - ADR-THES-STORES-THREEKINDS
+          - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - TDR-STORES-FACTSOURCEREADONLY
+          - TDR-STORES-RECONCILEFACTS
+          - TDR-STORES-RESPONSIBILITYDOMAIN
+          - TDR-STORES-STATEMACHINE
+          - TDR-STORES-THREEKINDS
       - cell: DSGN/quality-control
         by:
-          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
-          - ADR-THES-STORES-FACTSOURCEREADONLY
-          - ADR-THES-STORES-RECONCILEFACTS
-          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
-          - ADR-THES-STORES-STATEMACHINE
-          - ADR-THES-STORES-THREEKINDS
+          - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - TDR-STORES-FACTSOURCEREADONLY
+          - TDR-STORES-RECONCILEFACTS
+          - TDR-STORES-RESPONSIBILITYDOMAIN
+          - TDR-STORES-STATEMACHINE
+          - TDR-STORES-THREEKINDS
       - cell: DSGN/release
         by:
-          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
-          - ADR-THES-STORES-FACTSOURCEREADONLY
-          - ADR-THES-STORES-RECONCILEFACTS
-          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
-          - ADR-THES-STORES-STATEMACHINE
-          - ADR-THES-STORES-THREEKINDS
+          - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - TDR-STORES-FACTSOURCEREADONLY
+          - TDR-STORES-RECONCILEFACTS
+          - TDR-STORES-RESPONSIBILITYDOMAIN
+          - TDR-STORES-STATEMACHINE
+          - TDR-STORES-THREEKINDS
       - cell: DSGN/deploy
         by:
-          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
-          - ADR-THES-STORES-FACTSOURCEREADONLY
-          - ADR-THES-STORES-RECONCILEFACTS
-          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
-          - ADR-THES-STORES-STATEMACHINE
-          - ADR-THES-STORES-THREEKINDS
+          - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - TDR-STORES-FACTSOURCEREADONLY
+          - TDR-STORES-RECONCILEFACTS
+          - TDR-STORES-RESPONSIBILITYDOMAIN
+          - TDR-STORES-STATEMACHINE
+          - TDR-STORES-THREEKINDS
       - cell: DSGN/access
         by:
-          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
-          - ADR-THES-STORES-FACTSOURCEREADONLY
-          - ADR-THES-STORES-RECONCILEFACTS
-          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
-          - ADR-THES-STORES-STATEMACHINE
-          - ADR-THES-STORES-THREEKINDS
+          - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - TDR-STORES-FACTSOURCEREADONLY
+          - TDR-STORES-RECONCILEFACTS
+          - TDR-STORES-RESPONSIBILITYDOMAIN
+          - TDR-STORES-STATEMACHINE
+          - TDR-STORES-THREEKINDS
     lifecycle-position:
       - cell: main-uat
         by:
@@ -136,12 +136,12 @@ content:
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
-          - ADR-THES-STORES-FACTSOURCEREADONLY
-          - ADR-THES-STORES-RECONCILEFACTS
-          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
-          - ADR-THES-STORES-STATEMACHINE
-          - ADR-THES-STORES-THREEKINDS
+          - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - TDR-STORES-FACTSOURCEREADONLY
+          - TDR-STORES-RECONCILEFACTS
+          - TDR-STORES-RESPONSIBILITYDOMAIN
+          - TDR-STORES-STATEMACHINE
+          - TDR-STORES-THREEKINDS
       - cell: release-uat
         by:
           - .ado/pipelines/ci-pwsh.yaml
@@ -149,12 +149,12 @@ content:
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
-          - ADR-THES-STORES-FACTSOURCEREADONLY
-          - ADR-THES-STORES-RECONCILEFACTS
-          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
-          - ADR-THES-STORES-STATEMACHINE
-          - ADR-THES-STORES-THREEKINDS
+          - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - TDR-STORES-FACTSOURCEREADONLY
+          - TDR-STORES-RECONCILEFACTS
+          - TDR-STORES-RESPONSIBILITYDOMAIN
+          - TDR-STORES-STATEMACHINE
+          - TDR-STORES-THREEKINDS
       - cell: pre-prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
@@ -162,12 +162,12 @@ content:
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
-          - ADR-THES-STORES-FACTSOURCEREADONLY
-          - ADR-THES-STORES-RECONCILEFACTS
-          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
-          - ADR-THES-STORES-STATEMACHINE
-          - ADR-THES-STORES-THREEKINDS
+          - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - TDR-STORES-FACTSOURCEREADONLY
+          - TDR-STORES-RECONCILEFACTS
+          - TDR-STORES-RESPONSIBILITYDOMAIN
+          - TDR-STORES-STATEMACHINE
+          - TDR-STORES-THREEKINDS
       - cell: prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
@@ -175,12 +175,12 @@ content:
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
-          - ADR-THES-STORES-FACTSOURCEREADONLY
-          - ADR-THES-STORES-RECONCILEFACTS
-          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
-          - ADR-THES-STORES-STATEMACHINE
-          - ADR-THES-STORES-THREEKINDS
+          - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - TDR-STORES-FACTSOURCEREADONLY
+          - TDR-STORES-RECONCILEFACTS
+          - TDR-STORES-RESPONSIBILITYDOMAIN
+          - TDR-STORES-STATEMACHINE
+          - TDR-STORES-THREEKINDS
     layer-stack:
       - cell: automation
         by:
@@ -212,12 +212,12 @@ content:
           - pwsh/Catzc.Base.Flow/tests/types/TruthStoresConfig.Tests.ps1
           - pwsh/Catzc.Base.Flow/types/TruthStoresConfig.cs
           - pwsh/Catzc.Base.Git/New-RepositorySnapshot.ps1
-          - ADR-THES-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
-          - ADR-THES-STORES-FACTSOURCEREADONLY
-          - ADR-THES-STORES-RECONCILEFACTS
-          - ADR-THES-STORES-RESPONSIBILITYDOMAIN
-          - ADR-THES-STORES-STATEMACHINE
-          - ADR-THES-STORES-THREEKINDS
+          - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
+          - TDR-STORES-FACTSOURCEREADONLY
+          - TDR-STORES-RECONCILEFACTS
+          - TDR-STORES-RESPONSIBILITYDOMAIN
+          - TDR-STORES-STATEMACHINE
+          - TDR-STORES-THREEKINDS
 layout:
   band-domain:
     x: 20

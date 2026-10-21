@@ -66,7 +66,7 @@ ADRs capture a decision so it can be cited and enforced. They follow a fixed sha
 ("Authoring conventions") in full before writing, and copy the structure of an existing ADR. The essentials:
 
 1. **Pick the domain and a code.** ADRs are grouped into the domains `pwsh/Catzc.Base.Docs/configs/adrs.yml` lists, each in its own folder
-   under `docs/adr/`. The code is the domain's prefix plus a segment that names the decision (e.g. `ADR-THES-NORMALFORM`), as
+   under `docs/adr/`. The code is the domain's prefix plus a segment that names the decision (e.g. `TDR-NORMALFORM`), as
    [adr-code-language](../../../adr/repository/adr-code-language.md) sets out.
 2. **Create `docs/adr/<domain-folder>/<kebab-title>.md`.** Start with the rule registry: a `## Rules: <code>` section followed by one
    `### Rule <code>-<RULENAME>` entry per rule, each a one-paragraph normative summary that links to the prose section justifying it. Other
