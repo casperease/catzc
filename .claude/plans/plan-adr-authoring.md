@@ -40,11 +40,11 @@ an agent's memory or a failing gate into the tree.
        glossary sources, one source file per step, starting with the `eac normal form` / `repository normal form` pair. Check:
        `Invoke-TestFile` on `Build-Glossary.Tests.ps1` and `Get-GlossarySourceViolations.Tests.ps1`, then `Test-Glossary` after each source
        file.
-2. [ ] After plan-agent-shortcuts' gate runner: `docs/how-to/getting-started/automation/add-an-adr.md` (new, beside `add-a-doc-chapter.md`):
-       from a decision to a landed ADR (the page in its domain folder, the `adrs.yml` ruleset entry, the index and glossary builds, the
-       domain's `dora-explains.md` entry, the formatting, the checks through the gate runner). It links the authoring conventions in
-       `docs/adr/index.md` and ADR-REPO-ADRCODE, and never restates their rules. Check: `Test-Links -Path` on it and
-       `Format-Code -Language markdown` on it.
+2. [ ] `docs/how-to/getting-started/automation/add-an-adr.md` (new, beside `add-a-doc-chapter.md`; the gate runner it names,
+       `pwsh/.internal/assets/Invoke-CatzcCommand.ps1`, has landed): from a decision to a landed ADR (the page in its domain folder, the
+       `adrs.yml` ruleset entry, the index and glossary builds, the domain's `dora-explains.md` entry, the formatting, the checks through
+       the gate runner). It links the authoring conventions in `docs/adr/index.md` and ADR-REPO-ADRCODE, and never restates their rules.
+       Check: `Test-Links -Path` on it and `Format-Code -Language markdown` on it.
 3. [ ] After plan-agent-friction's step 4: the ADR-edit entry in the hook's path-to-reminder map. Check: the hook's test file under
        `Invoke-TestFile`, and an edit of `adrs.yml` in a fresh session prints the reminder.
 4. [ ] Delete the memory `adr-citations-follow-domain-deps.md` and its `MEMORY.md` line: `Test-AdrRegistry` already fails a citation outside

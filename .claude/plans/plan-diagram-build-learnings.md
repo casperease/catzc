@@ -64,8 +64,8 @@ blocks a feature.
 
 ### Instructions
 
-- [ ] `.claude/skills/catzc-run/SKILL.md`: one new numbered item carrying both patterns as decided, after plan-agent-shortcuts' step 3 has
-      changed step 2; merge wording until the file stays at most 10 counted lines (check: `Test-AgentDefinitions`).
+- [ ] `.claude/skills/catzc-run/SKILL.md`: one new numbered item carrying both patterns as decided (its step 2 already names the entry
+      script); merge wording until the file stays at most 10 counted lines (check: `Test-AgentDefinitions`).
 
 ### Renderer
 
@@ -93,7 +93,8 @@ blocks a feature.
       `Build-Diagrams -Path` (check: `Test-Diagrams` on the folder, `Test-Links` on the article).
 - [ ] `Build-Diagrams` and `Test-Diagrams`: `-Path` accepts `out/diagrams/dark-sample/`, so a sample is gated and needs no hand put (found
       by catzc-56's two samples, 2026-10-21) (check: `Test-Diagrams -Path out/diagrams/dark-sample/.assets/truth-stores`).
-- [ ] The diagram kit: `read` and `junction` edge kinds, and the thick edge's legend phrase set per diagram rather than fixed to "to a named
-      set" (check: the renderer's tests under `Invoke-PythonTest`, then one sample re-rendered).
+- [ ] `python/catzc_diagrams/declaration.py`, with `assets/glyphs.xml` and `assets/STYLE.md` following: `read` and `junction` edge kinds,
+      and the thick edge's legend phrase set per diagram rather than fixed to "to a named set", with cases in `tests/test_declaration.py`
+      (check: the renderer's tests under `Invoke-PythonTest`, then one sample re-rendered).
 
 ## Refs

@@ -12,6 +12,8 @@ plan:
       pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1,
       docs/how-to,
       docs/explanation,
+      .claude/agents/plan-intake.md,
+      .claude/skills/plan-intake/SKILL.md,
     ]
 ---
 
@@ -75,3 +77,13 @@ then 6.
        "script under `out/`" clause is cut for `Invoke-CatzcCommand.ps1` (the tree contradicts itself today); the same section says in one
        clause that Bash calls use absolute paths (hindsight 226bbf, "the second half"; no line says it, a drifting folder is learned by
        failure), paid for by the cut. Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.
+9. [ ] `docs/adr/repository/plans.md`: ADR-REPO-PLANS-ONESHAPE drops "what is done and why" from the shape, and ADR-REPO-PLANS-OPENSTEP says
+       a landed step is deleted, never ticked and kept, so the user's decision (2026-10-20: a plan holds only planned work, no Done section)
+       becomes the rule (ADR-REPO-PLANS-DECISIONSBECOMERULES). Check: `Test-AdrRegistry` on the page and `Test-Plans` over the folder.
+10. [ ] After step 9: `.claude/agents/plan-intake.md` follows the plans rules it drifted from: step 4 writes no "Done, and why" section (a
+        verified done claim prunes the open step it closes); step 3 starts a new plan with `New-Plan` and adds its value row and master
+        pointer line; step 6 drops "Pastes processed", a section `value-of-plan.md` does not have; a final step runs
+        `Format-Code -Language markdown` and `Test-Plans` on the files it edited. The body stays within 20 lines (ADR-REPO-AGENTS). Check:
+        `Test-AgentDefinitions`.
+11. [ ] With step 10: `.claude/skills/plan-intake/SKILL.md` line 1 says the same as step 10's step 4, within 10 lines. Check:
+        `Test-AgentDefinitions`.

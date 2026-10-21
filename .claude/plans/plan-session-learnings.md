@@ -26,8 +26,9 @@ reach.
 
 ## Open steps
 
-- [ ] `.claude/learnings/learned80b500.md:19`: "catzc gates" reworded to the glossary's term, the fact kept (check: `Test-Glossary` lists
-      nothing on the file).
+- [ ] `.claude/learnings/learned80b500.md:20`: "catzc gates" reworded to the glossary's term, and the fact brought up to date: the entry
+      script `pwsh/.internal/assets/Invoke-CatzcCommand.ps1` runs several commands in one background call, so no script file is needed
+      (check: `Test-Glossary` lists nothing on the file).
 - [ ] `.claude/learnings`: append catzc-49's "What I learned" lines, asked for on 2026-10-21, each rewritten to a current fact first (check:
       `Test-Markdownlint -Path '.claude/**/*.md'`).
 
@@ -58,5 +59,5 @@ reach.
   there.
 - Should a session read the newest learnings file at start, at the cost of up to 50 lines of context? Recommendation: not yet; first let the
   log fill for a week and see which lines get reused.
-- Should one cats command run one check in the background, so a check needs no throwaway `out/*.ps1`? It is the friction most sessions name.
-  Recommendation: yes, as a `catzc-run` capability line backed by one command.
+- Superseded by the tree (the planner, 2026-10-21): "should one cats command run one check in the background" is answered by
+  `pwsh/.internal/assets/Invoke-CatzcCommand.ps1` and catzc-run's step 2, which landed from plan-agent-shortcuts; nothing is left to ask.

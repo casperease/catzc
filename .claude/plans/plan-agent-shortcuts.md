@@ -49,16 +49,16 @@ Both recur in every session that runs a gate or starts a plan.
        `Test-Plans`.
 7. [ ] After plan-agent-friction's hook: trim the format-plans-after-edit memory to what `New-Plan` and plan-agent-friction's hook do not
        carry. Check: a file read.
-8. [ ] One line each, within their roofs: the glossary-keeper capability says to quote a YAML flow value that holds a comma (one such value
-       broke every import on 2026-10-21), and the ADR-citing capability says a domain cites only the domains in its `depends_on`. Check:
+8. [ ] One line each, within their roofs: `.claude/agents/glossary-keeper.md` (no glossary capability exists) says to quote a YAML flow
+       value that holds a comma (one such value broke every import on 2026-10-21), and `.claude/skills/adr-cite/SKILL.md` says a domain
+       cites only the domains in its `depends_on`, so the citer gets it right before `Test-AdrRegistry` fails it. Check:
        `Test-AgentDefinitions`.
 9. [ ] Susan from HR: Hindsight 226bbf "If only the session had read git-readonly": `.claude/skills/git-readonly/SKILL.md` item 3 gains the
        clause "and re-read before relying on it", merged into the line, no new line. Cost today: peers trusted from stale memory, a few
        bytes per spawn. Check: `Test-AgentDefinitions`.
-10. [ ] Susan from HR: Hindsight d7c207 "If only the ceiling were written" and "If only the brief file were a capability": the item of
-        `.claude/skills/drawio-waves/SKILL.md` that bounds its waves (line 18) states the 20-subagent limit and that a fan-out writes its
-        brief once in a file and sends each agent one line naming it, merged into that item and kept within the roof, never a new
-        capability. Cost today: a 41-agent fan-out found the limit at agent 21 and wrote the brief per agent. Check:
-        `Test-AgentDefinitions`.
+10. [ ] Susan from HR: Hindsight d7c207 "If only the ceiling were written" and "If only the brief file were a capability": item 1 of
+        `.claude/skills/drawio-waves/SKILL.md`, which bounds its waves, states the 20-subagent limit and that a fan-out writes its brief
+        once in a file and sends each agent one line naming it, merged into that item and kept within the roof, never a new capability. Cost
+        today: a 41-agent fan-out found the limit at agent 21 and wrote the brief per agent. Check: `Test-AgentDefinitions`.
 
 The capability roof's counting (how `Get-RobotLineCount` counts front matter and body) is plan-session-finalize's step 1.

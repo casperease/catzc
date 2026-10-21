@@ -71,8 +71,8 @@ Every code file in the tree carries a head no reader needs, and the next `Format
       derivation; one mechanism, no upward dependency (the user, 2026-10-21). How (delegated to the orchestrator, 2026-10-21): the `pages`
       map leaves `comments.yml` for a `comment-pages` config of its own, with its type holding `CommentPageMap` and one public
       `Get-CommentPage -Path`, in a module both load; the ten `PageFor` callers in `Catzc.Base.QualityGates` move to it in the same change
-      (ADR-PRIN-ONELIVE). (check: `Invoke-TestFile` on `Format-GeneratedFileHead.Tests.ps1`, the relative-edges processor's tests and each
-      moved caller's tests; a fresh import.)
+      (ADR-PRIN-ONELIVE). Written out step by step in `task-comment-pages.md`, home `Catzc.Base.CodeMeta`. (check: `Invoke-TestFile` on
+      `Format-GeneratedFileHead.Tests.ps1`, the relative-edges processor's tests and each moved caller's tests; a fresh import.)
 - [ ] `pwsh/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1`: a case that an unowned key in the authored `config` part is kept
       as the author's (KINDSCOPE landed without it, 2026-10-21) (check: `Invoke-TestFile` on the file).
 - [ ] Whole tree: `Format-FileMeta`, then every generator through `Sync-GeneratedFile`, then `Format-FileMeta` again. (check: the second run

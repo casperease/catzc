@@ -2,7 +2,7 @@
 plan:
   status: active
   value: high
-  reviewed: 2026-10-20
+  reviewed: 2026-10-21
   class: feature
   targets:
     [
@@ -49,8 +49,8 @@ Every decision is a rule of [idiomatic-names](../../docs/adr/automation/idiomati
 
 ### 1. Wire it in
 
-Turn the gate on, last, when it is green; `Test-IdiomaticNames` reads the git index (ADR-AUTO-TRACKED), so this waits on the user staging
-the moves (task-user-runs-and-commits):
+Turn the gate on, last, when it is green; `Test-IdiomaticNames` reads the git index (ADR-AUTO-TRACKED), and the three folder renames are
+tracked (`python/catzc_diagrams/`, `python/tests/catzc_base_repository/`, `go/tests/catzcbaserepository/`):
 
 - [ ] `pwsh/Catzc.Base.Languages/configs/languages.yml`: add `Test-IdiomaticNames` to the `checks` of `powershell`, `python`, `go` and
       `bash` (check: `Test-IdiomaticNames` reports no issue; `Invoke-TestFile` on `tests/types/LanguagesConfig.Tests.ps1`).
@@ -62,16 +62,17 @@ The word model, in `Catzc.Base.Languages` (ADR-AUTO-IDIOM-CLOSEDCASES, -ROUNDTRI
 - [ ] `docs/adr/automation/idiomatic-names.md`: confirm the landed `camel` rule (CLOSEDCASES) is in the registry (check: `Test-AdrRegistry`
       on the page).
 - [ ] The helpers, each renamed to a verb-noun name with its callers, one file per step: `StripAnsi` (in five test files:
-      Write-TestAutomationVerdict, Write-CmdletParameterSet, Write-Footer, Write-Header, Write-Object), `RunReset`, `RunPublish`,
-      `RunAssert`, `Rec` (`Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1`), `Walk` (`Catzc.Base.Asserts/Assert-YmlNaming.ps1`), `Clone`
-      (`Catzc.Base.Objects/Copy-Object.ps1`) (check: `Invoke-TestFile` on each one's test file).
+      Write-TestAutomationVerdict, Write-CmdletParameterSet, Write-Footer, Write-Header, Write-Object), `RunAssert`
+      (`Catzc.Tooling.Github/tests/Assert-GitHubPurgeReady.Tests.ps1`), `Rec` (`Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1`), `Walk`
+      (`Catzc.Base.Asserts/Assert-YmlNaming.ps1`), `Clone` (`Catzc.Base.Objects/Copy-Object.ps1`) (check: `Invoke-TestFile` on each one's
+      test file).
 - [ ] The 13 acronym commands, renamed to their round-trip spelling (`Set-LocalPsModulePath`, `Invoke-PsScriptAnalyzerFormat`,
       `Import-/Save-PsReadLineKeyHandlerSet`, `Invoke-BuildForVsCode`, `Build-/Install-VsCodeExtension`, `New-VsCodeExtensionFolder`,
       `New-VsCodeExtensions`, `New-VsCodeLaunch`, `New-VsCodePipelineSchema`, `New-VsCodeSettings`, `New-VsCodeTasks`), each with its file,
       callers, tests, contract and docs page, no alias kept, one command per step and a fresh import after each
       (ADR-AUTO-IDIOM-ACRONYMISWORD; the user, 2026-10-21). (check: `Invoke-TestFile` on its tests; after the last, the L1 round trip in
       `ConvertTo-NormalName.Tests.ps1` passes.)
-- [ ] `docs/adr/repository/repository-conventions.md`, the manual test plan: a row each for `ConvertTo-NormalName.Tests.ps1`,
+- [ ] `docs/how-to/pwsh/manual-test-plan/repository-conventions.md`, the manual test plan: a row each for `ConvertTo-NormalName.Tests.ps1`,
       `Get-DefinedName.Tests.ps1`, `Get-GridMinimapData.Tests.ps1` and `Listen.Shipped.Tests.ps1` (check: `Test-ManualTestPlan` lists none).
 
 The gate and the repair (ADR-AUTO-IDIOM-HELDBYGATE):
@@ -101,9 +102,10 @@ From the session's finalizer (catzc-73, 2026-10-21):
       readers (Build-RootConfig's project writers, `Get-LanguageTestFolders`) in the same pass (check: `Test-AgentDefinitions`).
 - [ ] `docs/how-to/automation/rename-a-tooling-folder.md` (new): the prepared, applied-in-one-burst, rolled-back-whole pattern of the two
       renames (check: `Test-Links` on the page).
-- [ ] `CommentPageMap.cs`, `Get-ReadmeMappings.ps1`, `Get-ModuleGlobSet.ps1` and `Get-ModuleProtectionIdentity.ps1` render `{kebab}` by
-      `ToLowerInvariant().Replace('.', '-')`; moving them to `LanguageNaming` renames the `catzc-base-*` reference pages, so it waits on the
-      user's yes (check: the user answers; then `Invoke-TestFile` on each one's tests and `Test-GeneratedFiles`).
+- [ ] `CommentPageMap.cs` (in `Catzc.Base.CodeMeta` once task-comment-pages lands), `Get-ReadmeMappings.ps1`, `Get-ModuleGlobSet.ps1` and
+      `Get-ModuleProtectionIdentity.ps1` render `{kebab}` by `ToLowerInvariant().Replace('.', '-')`; moving them to `LanguageNaming` renames
+      the `catzc-base-*` reference pages, so it waits on the user's yes (check: the user answers; then `Invoke-TestFile` on each one's tests
+      and `Test-GeneratedFiles`).
 
 ## Refs
 

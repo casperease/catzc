@@ -1,6 +1,7 @@
 ---
 plan:
-  status: active
+  status: blocked
+  blocked_on: its three questions for the user, answered in a plan-decide round
   value: medium
   reviewed: 2026-10-21
   class: meta

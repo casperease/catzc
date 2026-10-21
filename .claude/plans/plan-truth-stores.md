@@ -1,6 +1,7 @@
 ---
 plan:
-  status: active
+  status: blocked
+  blocked_on: Q1, how the approved drawing enters the deck
   value: high
   reviewed: 2026-10-21
   class: feature
@@ -39,6 +40,13 @@ with no check behind it, and the ADO writers below contradict it.
   by read arrows; state machines beside them, reached by the inbound and outbound junction arrows; ADO drawn as two stores. On approval it
   is one slide in the product-thesis deck whose caption carries the rule codes (the deck's About rule), and the ADR's Context keeps its
   text.
+
+## Open questions
+
+- **Q1 (the planner, 2026-10-21): How does the approved drawing enter the deck?** No `*.slide.md` pattern carries an image, `deck.md` has no
+  line per slide, and the slides' `order` values run 1 to 21 without gaps, so a new slide renumbers every slide after it, one file each.
+  Recommendation: a new `image` slide pattern in the deck renderer, and the slide takes order 22 before the closing slide's renumber, one
+  file. Alternative: the drawing goes beside `docs/adr/thesis/truth-stores.md` with `Move-Diagram`, and no slide.
 
 ## Open steps
 

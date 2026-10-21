@@ -91,9 +91,10 @@ is already tested.
         file per edit. Cost today: a red sync and a manual delete after every member move. Check: `Invoke-TestFile` on both functions' test
         files.
 14. [ ] Susan from HR: Hindsight "If only someone had parsed it once":
-        `docs/references/pwsh/catzc-base-qualitygates/private/Get-DefinedName.ps1.md` says it strips the `script:`, `global:`, `local:` and
-        `private:` scope qualifier that `FunctionDefinitionAst.Name` keeps, so a name check calls it and never strips by hand. Cost today:
-        each name check strips by hand or not at all. Check: `Test-Links` on the page.
+        `docs/references/pwsh/catzc-base-qualitygates/private/Get-DefinedName.ps1.md` (new; the function has no page yet, and
+        `Move-FunctionHelp` writes it from the help) says it strips the `script:`, `global:`, `local:` and `private:` scope qualifier that
+        `FunctionDefinitionAst.Name` keeps, so a name check calls it and never strips by hand. Cost today: each name check strips by hand or
+        not at all. Check: `Test-Links` on the page.
 15. [ ] Susan from HR: Hindsight "If only the tip had read catzc-run": `pwsh/.internal/assets/Invoke-CatzcCommand.ps1` sets its location to
         the repository root before the first command, so a relative path in a quoted command no longer drifts. Cost today: a path that
         resolves against the caller's folder. Check: run `Get-Location` through the entry script (catzc-run) and read the repository root

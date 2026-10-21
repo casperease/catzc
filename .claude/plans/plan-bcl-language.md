@@ -76,12 +76,17 @@ The doc moves go first.
       configured exception; the host-binding section names the language and its host apart (check: `Test-AdrIndex`, `Test-Links`).
 - [ ] `docs/adr/automation/pwsh/hosting-csharp-types.md`: narrow `ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES` and
       `ADR-PWSH-TYPES-POWERSHELLPRIMITIVES` to "the BCL language, plus SMA for a configured host binding" (check: `Test-AdrIndex`).
-- [ ] `pwsh/Catzc.Base.Languages/configs/bcl.yml` and its config type: one row per host-bound file with its reason; register in
-      `configs.yml` (check: the config type's L0 tests).
-- [ ] The gate over `types/*.cs` that fails an unlisted `System.Management.Automation` reference, with its L0 tests on widget/gadget
-      fixtures (check: its Pester file).
-- [ ] The five `PSObject`-unwrapping types: unwrap in the pwsh caller and drop the `using`, one file at a time (check: each module's Pester
-      files, then a fresh full import).
+- [ ] `pwsh/Catzc.Base.Languages/configs/bcl.yml` and `pwsh/Catzc.Base.Languages/types/BclConfig.cs` (the planner's name, 2026-10-21): one
+      row per host-bound file with its reason; register in `configs.yml`. Today 12 `types/*.cs` files have
+      `using System.Management.Automation`; the seven that stay host-bound after the unwraps below are its rows: `GlossaryProse.cs`,
+      `GlobPattern.cs`, `FunctionCallCollector.cs`, `CommentLexer.cs`, `ParsedScripts.cs`, `SyntaxSearch.cs`, `PipelineWatchdog.cs` (check:
+      `Invoke-TestFile` on `pwsh/Catzc.Base.Languages/tests/types/BclConfig.Tests.ps1`).
+- [ ] `pwsh/Catzc.Base.QualityGates/Test-BclReferences.ps1` (the planner's name, 2026-10-21): fails a `types/*.cs` file that references
+      `System.Management.Automation` and has no `bcl.yml` row, with its L0 tests on widget/gadget fixtures (check: `Invoke-TestFile` on its
+      test file).
+- [ ] The five `PSObject`-unwrapping types, one file per step: the pwsh caller unwraps and the type drops the `using`:
+      `pwsh/Catzc.Base.Contracts/types/ContractValue.cs`, then `pwsh/Catzc.Base.Maps/types/ValueChainHighlight.cs`, `ValueChainMap.cs`,
+      `WorldMapBuilder.cs` and `WorldMapHighlight.cs` (check: the owning module's Pester files after each, then a fresh full import).
 - [ ] `pwsh/Catzc.Base.Docs/configs/adrs.yml` and `docs/adr/index.md`: the `bcl` domain and its table; `automation/`'s description stops
       listing `BCL/` as a language layer (check: `Test-AdrIndex`).
 - [ ] Re-cite `ADR-AUTO-TYPES-*` → `ADR-BCL-TYPES-*` with `Update-AdrCitation`, dry run first (check: `Test-AdrRegistry`, which runs the
