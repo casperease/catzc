@@ -65,9 +65,6 @@ From the session's finalizer (catzc-73, 2026-10-21); its `catzc-verify` line and
 - [ ] `NameCase.IsInCase` takes a dotted name in one call, the way `FromNormal` already does, and its callers that split on `.` first change
       in the same pass (delegated to the orchestrator, 2026-10-21; check: `Invoke-TestFile` on `LanguagesConfig.Tests.ps1`, which holds the
       case tests).
-- [ ] `catzc-verify` skill: step 1's list of import-path readers adds "the contract readers" (the lookup janitor `New-CatsCommandLookup`
-      runs every contract reader), and step 2 says to format before the fresh import, since formatting a C# type file changes the types hash
-      (delegated to the orchestrator, 2026-10-21; check: `Test-AgentDefinitions`).
 
 ## Open questions
 

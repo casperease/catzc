@@ -29,5 +29,7 @@ Each costs one probe or one source read per session that meets it; nothing is bl
 
 ## Open steps
 
-- [ ] Test-FileMeta: a page citing rules for a skipped class is a finding (check: `Invoke-TestFile` on its test with a gadget page).
-- [ ] Test-Terminology: reserved scope globs ignore case (check: `Invoke-TestFile` on its test with a mixed-case path).
+- [ ] The adr-codes select in `file-meta.yml` adds `analyzer-rule` (powershell), `pipeline`, `pipeline-template` and `template`, then one
+      `Format-FileMeta` burst over those classes that also sweeps the tree-wide `[Drift]` findings; only after catzc-8b's record-kind
+      rewrite (plan-xdr-codes) has landed, since it changes the same cites. Until then Test-FileMeta is red on purpose: the new
+      `Get-SkippedClassCitationFinding` reports 29 pages citing rules for those classes (check: `Test-FileMeta` over the tree at 0).

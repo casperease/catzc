@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c086c6cccbef
+    with_body_sha: d496ca5c796d
   edges:
     docs: "[CodeLinkRewriter.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/CodeLinkRewriter.cs.md)"
     cites:
@@ -24,31 +24,34 @@ public sealed class CodeLinkRewriter
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // One reference in a comment. Alternation order matters: an existing link swallows the citation in its text.
-    static readonly Regex Reference = new Regex(
-        @"(?<link>\[(?<text>[^\]\r\n]*)\]\((?<dest>[^)\s]+)\))" +
-        @"|(?<path>(?<![^\s(\[{,;:'""*])(?:\.{1,2}/)*/?docs/adr/[A-Za-z0-9_\-./]+?\.md)(?<frag>#[A-Za-z0-9_\-]+)?(?![\w/])" +
-        @"|(?<numbered>(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+[:#]\d+)" +
-        @"|(?<cite>(?<!\w)(?<!(?:^|\D)-)(?<code>ADR(?:-[A-Z][A-Z0-9]*)+)(?![\w*]|-[A-Z0-9*<]))" +
-        @"|(?<slug>(?<![^\s(\[{,;:'""*])(?<name>[a-z0-9]+(?:-[a-z0-9]+)*)\.md(?![\w/]))",
-        RegexOptions.Compiled);
-
-    // A meta head is derived front matter: its adrs list holds the file's codes as plain codes, never as links.
     static readonly Regex MetaHead = new Regex(@"\A(?:/\*|<#|//|#)?[ \t]*\r?\n?[ \t]*(?://|#)?[ \t]*---[ \t]*\r?\n[ \t]*(?://|#)?[ \t]*catzc:", RegexOptions.Compiled);
-    static readonly Regex CitationOnly = new Regex(@"^(?<code>ADR(?:-[A-Z][A-Z0-9]*)+)$", RegexOptions.Compiled);
-    static readonly Regex AdjacentCitation = new Regex(
-        @"\G(?<sep>[ \t]*[,;:]?[ \t]*\(?(?:[Rr]ule[ \t]+)?|[ \t]+[—–-][ \t]+)(?<code>ADR(?:-[A-Z][A-Z0-9]*)+)(?![\w\-:#])(?<close>\))?",
-        RegexOptions.Compiled);
     static readonly Regex HelpKeyword = new Regex(@"^\s*\.(?<keyword>[A-Za-z]+)\b", RegexOptions.Compiled);
+
+    // One reference in a comment. Alternation order matters: an existing link swallows the citation in its text.
+    readonly Regex Reference;
+    readonly Regex CitationOnly;
+    readonly Regex AdjacentCitation;
 
     readonly AdrCitationMap map;
     readonly Func<string, IReadOnlyCollection<string>> anchorsOf;
 
-    // anchorsOf: repository-relative .md path -> its GitHub anchors (null when the file does not exist).
-    public CodeLinkRewriter(AdrCitationMap map, Func<string, IReadOnlyCollection<string>> anchorsOf)
+    public CodeLinkRewriter(AdrCitationMap map, AdrCodeForm codeForm, Func<string, IReadOnlyCollection<string>> anchorsOf)
     {
         this.map = map ?? throw new ArgumentNullException(nameof(map));
+        if (codeForm == null) { throw new ArgumentNullException(nameof(codeForm)); }
         this.anchorsOf = anchorsOf ?? throw new ArgumentNullException(nameof(anchorsOf));
+        string cited = codeForm.Cited;
+        Reference = new Regex(
+            @"(?<link>\[(?<text>[^\]\r\n]*)\]\((?<dest>[^)\s]+)\))" +
+            @"|(?<path>(?<![^\s(\[{,;:'""*])(?:\.{1,2}/)*/?docs/adr/[A-Za-z0-9_\-./]+?\.md)(?<frag>#[A-Za-z0-9_\-]+)?(?![\w/])" +
+            @"|(?<numbered>(?<![\w-])" + cited + @"[:#]\d+)" +
+            @"|(?<cite>(?<!\w)(?<!(?:^|\D)-)(?<code>" + cited + @")(?![\w*]|-[A-Z0-9*<]))" +
+            @"|(?<slug>(?<![^\s(\[{,;:'""*])(?<name>[a-z0-9]+(?:-[a-z0-9]+)*)\.md(?![\w/]))",
+            RegexOptions.Compiled);
+        CitationOnly = new Regex(@"^(?<code>" + cited + @")$", RegexOptions.Compiled);
+        AdjacentCitation = new Regex(
+            @"\G(?<sep>[ \t]*[,;:]?[ \t]*\(?(?:[Rr]ule[ \t]+)?|[ \t]+[—–-][ \t]+)(?<code>" + cited + @")(?![\w\-:#])(?<close>\))?",
+            RegexOptions.Compiled);
     }
 
     // One finding inside the comment, at a comment-relative offset.

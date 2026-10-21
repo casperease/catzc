@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7ce791954854"
+    with_body_sha: dc9d1af00b8f
   edges:
     test: pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
     docs: "[RungsConfig.cs.md](docs/references/pwsh/catzc-base-flow/types/RungsConfig.cs.md)"
@@ -48,7 +48,7 @@ public sealed class RungsConfig
 
     private static readonly string[] AllowedKeys = { "rungs" };
     private static readonly string[] AllowedRungKeys = { "environment", "gate", "rules" };
-    private static readonly Regex RuleCode = new Regex("^ADR(-[A-Z0-9]+)+$");
+    private static readonly Regex RuleCode = new Regex("^" + Catzc.Base.Docs.AdrCodeForm.AnyKind.Cited + "$");
     private static readonly Regex KebabCase = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 
     // The rungs in climbing order.

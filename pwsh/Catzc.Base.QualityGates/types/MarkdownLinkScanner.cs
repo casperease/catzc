@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "514f8b75ca30"
+    with_body_sha: "73dba1af20f4"
   edges:
     docs: "[MarkdownLinkScanner.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/MarkdownLinkScanner.cs.md)"
     cites:
@@ -28,7 +28,7 @@ public sealed class MarkdownLinkScanner
         RegexOptions.Compiled);
     static readonly Regex ReferenceDefinition = new Regex(@"^ {0,3}\[[^\]]+\]:[ \t]*(?<dest><[^>]*>|\S+)", RegexOptions.Compiled);
     static readonly Regex Autolink = new Regex(@"(?<!\\)<(?<dest>[a-zA-Z][a-zA-Z0-9+.\-]*:[^\s<>]+)>", RegexOptions.Compiled);
-    static readonly Regex NumberedCitation = new Regex(@"(?<![\w\-])ADR(?:-[A-Z][A-Z0-9]*)+[:#]\d+", RegexOptions.Compiled);
+    readonly Regex NumberedCitation;
     static readonly Regex Fence = new Regex(@"^ {0,3}(`{3,}|~{3,})", RegexOptions.Compiled);
     static readonly Regex Scheme = new Regex(@"^[a-zA-Z][a-zA-Z0-9+.\-]*:", RegexOptions.Compiled);
 
@@ -37,10 +37,12 @@ public sealed class MarkdownLinkScanner
     readonly string selfUrlPrefix;
     readonly HashSet<string> tracked;
 
-    public MarkdownLinkScanner(string repositoryRoot, Func<string, IReadOnlyCollection<string>> anchorsOf, string selfUrlPrefix,
-        IEnumerable<string> trackedFiles)
+    public MarkdownLinkScanner(string repositoryRoot, Catzc.Base.Docs.AdrCodeForm codeForm, Func<string, IReadOnlyCollection<string>> anchorsOf,
+        string selfUrlPrefix, IEnumerable<string> trackedFiles)
     {
         root = Path.GetFullPath(repositoryRoot ?? throw new ArgumentNullException(nameof(repositoryRoot)));
+        if (codeForm == null) { throw new ArgumentNullException(nameof(codeForm)); }
+        NumberedCitation = new Regex(@"(?<![\w\-])" + codeForm.Cited + @"[:#]\d+", RegexOptions.Compiled);
         this.anchorsOf = anchorsOf ?? throw new ArgumentNullException(nameof(anchorsOf));
         this.selfUrlPrefix = string.IsNullOrEmpty(selfUrlPrefix) ? null : selfUrlPrefix.TrimEnd('/');
         tracked = trackedFiles == null ? null : TrackedWithFolders(trackedFiles);

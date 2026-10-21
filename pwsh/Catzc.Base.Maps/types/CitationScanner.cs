@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "91b6f7fa2415"
+    with_body_sha: c7707bed7ae1
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/CitationScanner.Tests.ps1
     docs: "[CitationScanner.cs.md](docs/references/pwsh/catzc-base-maps/types/CitationScanner.cs.md)"
@@ -24,11 +24,12 @@ public static class CitationScanner
     // The extensions whose files carry citations; the text of no other file is read.
     public static readonly IReadOnlyList<string> CitingExtensions = new[] { ".cs", ".md", ".ps1", ".yaml", ".yml" };
 
+    // Any kind's shape: a citation counts only when the index, read from the registry, lists its code.
     private static readonly Regex Citation = new Regex(
-        @"(?<![A-Za-z0-9_\-])(?<code>ADR(?:-[A-Z][A-Z0-9]*)+)(?![A-Za-z0-9_\-])",
+        @"(?<![A-Za-z0-9_\-])(?<code>" + Catzc.Base.Docs.AdrCodeForm.AnyKind.Cited + @")(?![A-Za-z0-9_\-])",
         RegexOptions.CultureInvariant);
 
-    private static readonly Regex Reference = new Regex(@"^ADR(?:-[A-Z][A-Z0-9]*)+$", RegexOptions.CultureInvariant);
+    private static readonly Regex Reference = new Regex("^" + Catzc.Base.Docs.AdrCodeForm.AnyKind.Cited + "$", RegexOptions.CultureInvariant);
 
     // True when the file's kind cites ADRs (its extension is one of CitingExtensions, in any case).
     public static bool Cites(string path)

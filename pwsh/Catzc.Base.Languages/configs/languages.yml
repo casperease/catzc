@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "64ef90491146"
+#     with_body_sha: "98a117547fb9"
 #   edges:
 #     docs: "[languages.yml.md](docs/references/pwsh/catzc-base-languages/configs/languages.yml.md)"
 #     cites:

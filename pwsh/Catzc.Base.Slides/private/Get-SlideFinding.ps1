@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a98a8be0af7b
+    with_body_sha: "3f73ec49e584"
   edges:
     docs: "[Get-SlideFinding.ps1.md](docs/references/pwsh/catzc-base-slides/private/Get-SlideFinding.ps1.md)"
     cites:

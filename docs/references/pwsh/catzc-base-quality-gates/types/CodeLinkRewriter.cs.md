@@ -31,7 +31,7 @@ another character — `<root>/docs/adr/index.md` is a placeholder path, not a re
 
 ## comment:3
 
-Above `@"|(?<cite>(?<!\w)(?<!(?:^|\D)-)(?<code>ADR(?:-[A-Z][A-Z0-9]*)+)(?![\w*]|-[A-...`, written with `//`.
+Above `@"|(?<cite>(?<!\w)(?<!(?:^|\D)-)(?<code>" + cited + @")(?![\w*]|-[A-Z0-9*<]))" +`, written with `//`.
 
 ```text
 A citation is not glued to a word; a '-' before it is allowed only after a digit, as a range or date dash is.
@@ -65,4 +65,22 @@ A bracketed link right after a bare citation that names the same ADR or rule —
 the link perhaps on the next line — is the same reference spelled twice. It merges into the citation's one
 canonical link instead of becoming a second copy of it. Returns how many characters it covers (0 when there is
 none, or when the link points elsewhere).
+```
+
+## comment:7
+
+Above `static readonly Regex MetaHead = new Regex(@"\A(?:/\*|<#|//|#)?[ \t]*\r?\n?[...`, written with `//`.
+
+```text
+One reference in a comment. Alternation order matters: an existing link swallows the citation in its text.
+A meta head is derived front matter: its adrs list holds the file's codes as plain codes, never as links.
+```
+
+## comment:8
+
+Above `public CodeLinkRewriter(AdrCitationMap map, AdrCodeForm codeForm,...`, written with `//`.
+
+```text
+codeForm: the code grammar over the registered kinds; anchorsOf: repository-relative .md path -> its GitHub anchors (null when the
+file does not exist).
 ```

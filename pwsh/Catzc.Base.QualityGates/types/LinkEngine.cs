@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "74e886a01698"
+    with_body_sha: "3cf8a52859a5"
   edges:
     docs: "[LinkEngine.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/LinkEngine.cs.md)"
     cites:
@@ -36,8 +36,7 @@ public sealed class LinkEngine
         @"\A[ \t]*(?<m>#|//)[ \t]*---[ \t]*\r?\n(?=[ \t]*\k<m>[ \t]*catzc:)(?:[ \t]*\k<m>[^\r\n]*\r?\n)*?[ \t]*\k<m>[ \t]*---[ \t]*(?:\r?\n|\z)",
         RegexOptions.Compiled);
     // A number written out, or one composed at runtime after the `#` or `:`: an interpolated variable or a format placeholder.
-    static readonly Regex StringNumberedCitation = new Regex(@"(?<![\w\-])ADR(?:-[A-Z][A-Z0-9]*)+[:#](?:\d+|\$|\{(?:\d+\}|[A-Za-z_]))",
-        RegexOptions.Compiled);
+    readonly Regex StringNumberedCitation;
 
     readonly string root;
     readonly AdrCitationMap map;
@@ -50,17 +49,19 @@ public sealed class LinkEngine
     readonly CodeLinkRewriter rewriter;
     readonly MarkdownLinkScanner scanner;
 
-    public LinkEngine(string repositoryRoot, AdrCitationMap map, LinkWrap wrap, IDictionary<string, int> lineLimits, int defaultLineLimit, string selfUrlPrefix,
-        IEnumerable<string> trackedFiles, SourceCheck stringCitations)
+    public LinkEngine(string repositoryRoot, AdrCitationMap map, AdrCodeForm codeForm, LinkWrap wrap, IDictionary<string, int> lineLimits,
+        int defaultLineLimit, string selfUrlPrefix, IEnumerable<string> trackedFiles, SourceCheck stringCitations)
     {
         root = Path.GetFullPath(repositoryRoot ?? throw new ArgumentNullException(nameof(repositoryRoot)));
         this.map = map ?? throw new ArgumentNullException(nameof(map));
+        if (codeForm == null) { throw new ArgumentNullException(nameof(codeForm)); }
+        StringNumberedCitation = new Regex(@"(?<![\w\-])" + codeForm.Cited + @"[:#](?:\d+|\$|\{(?:\d+\}|[A-Za-z_]))", RegexOptions.Compiled);
         this.stringCitations = stringCitations ?? throw new ArgumentNullException(nameof(stringCitations));
         this.wrap = wrap;
         this.lineLimits = new Dictionary<string, int>(lineLimits ?? new Dictionary<string, int>(), StringComparer.OrdinalIgnoreCase);
         this.defaultLineLimit = defaultLineLimit;
-        rewriter = new CodeLinkRewriter(map, AnchorsOf);
-        scanner = new MarkdownLinkScanner(root, AnchorsOf, selfUrlPrefix, trackedFiles);
+        rewriter = new CodeLinkRewriter(map, codeForm, AnchorsOf);
+        scanner = new MarkdownLinkScanner(root, codeForm, AnchorsOf, selfUrlPrefix, trackedFiles);
     }
 
     public LinkEngineResult Run(IEnumerable<string> files, LinkKind kind)

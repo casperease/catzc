@@ -21,9 +21,10 @@ have it. Code links are not checked this way — no hosted renderer follows a co
 
 ## comment:2
 
-Above `public MarkdownLinkScanner(string repositoryRoot, Func<string,...`, written with `//`.
+Above `public MarkdownLinkScanner(string repositoryRoot, Catzc.Base.Docs.AdrCodeForm...`, written with `//`.
 
 ```text
+codeForm: the code grammar over the registered kinds, which the numbered-citation check matches.
 selfUrlPrefix: this repository's web URL (https://github.com/<owner>/<repo>), or null to skip that check.
 trackedFiles: the repository-relative paths git tracks, or null to skip the tracked check (a scratch root that is
 not a git work tree). A folder counts as tracked when any tracked file lies under it.

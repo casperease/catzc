@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d354229fa4cd
+    with_body_sha: "3e23649e4be7"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AgentEntry.Tests.ps1
     docs: "[AgentEntry.cs.md](docs/references/pwsh/catzc-base-docs/types/AgentEntry.cs.md)"
@@ -26,7 +26,7 @@ public sealed class AgentEntry : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] AllowedKeys = { "name", "supported_by", "checks", "model_reason", "persona" };
     private static readonly Regex NameRe = new Regex("^[a-z0-9]+(-[a-z0-9]+)*$", RegexOptions.Compiled);
     private static readonly Regex PersonaRe = new Regex("^[A-Z][a-z]+( [A-Za-z]+){0,3}$", RegexOptions.Compiled);
-    private static readonly Regex CitationRe = new Regex("^ADR(-[A-Z][A-Z0-9]*){3,}$", RegexOptions.Compiled);
+    private static readonly Regex CitationRe = new Regex("^" + AdrCodeForm.AnyKind.Rule + "$", RegexOptions.Compiled);
     private static readonly Regex CommandRe = new Regex("^[A-Z][a-z]+-[A-Za-z0-9]+$", RegexOptions.Compiled);
 
     // The agent's name: the file .claude/agents/<name>.md and its front-matter name.

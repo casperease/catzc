@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1a8cf2fdd5f0"
+    with_body_sha: "3d7b5efea99e"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-AdrCodesFileMetaFact.Tests.ps1
     docs: "[Get-AdrCodesFileMetaFact.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-AdrCodesFileMetaFact.ps1.md)"
@@ -42,7 +42,8 @@ function Get-AdrCodesFileMetaFact {
     $withDomain = [Catzc.Base.QualityGates.FileMetaKind]::InClasses($Kind.ClassSetting('domain_classes'), $fileClass)
     $map = Get-AdrCitationMap -RepositoryRoot $repositoryRoot
     $codes = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
-    foreach ($match in [regex]::Matches($text, '(?<![\w-])ADR(?:-[A-Z][A-Z0-9]*)+(?![\w#-]|:\d)')) {
+    $form = (Get-Config -Config adrs).CodeForm
+    foreach ($match in [regex]::Matches($text, "(?<![\w-])$($form.Cited)(?![\w#-]|:\d)")) {
         [void] $codes.Add($match.Value)
     }
     if (-not $withDomain) {
@@ -57,5 +58,5 @@ function Get-AdrCodesFileMetaFact {
             [void] $codes.Remove($code)
         }
     }
-    [ordered]@{ $Kind.keys[0] = [string[]] @([Catzc.Base.Docs.AdrCodeForm]::Minimize([string[]] @($codes), $map)) }
+    [ordered]@{ $Kind.keys[0] = [string[]] @($form.Minimize([string[]] @($codes), $map)) }
 }

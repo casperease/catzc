@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8a1cab857f04"
+    with_body_sha: acc2c221ce2d
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1
     docs: "[MapsConfig.cs.md](docs/references/pwsh/catzc-base-maps/types/MapsConfig.cs.md)"
@@ -55,7 +55,7 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] HighlightKeys = { "pins", "exceptions", "citation_exclude" };
     private static readonly string[] PinKeys = { "adr", "track", "file_language", "reason" };
     private static readonly Regex Colour = new Regex("^#[0-9A-Fa-f]{6}$");
-    private static readonly Regex AdrCode = new Regex("^ADR(-[A-Z][A-Z0-9]*)+$");
+    private static readonly Regex AdrCode = new Regex("^" + Catzc.Base.Docs.AdrCodeForm.AnyKind.Cited + "$");
     private static readonly Regex TrackName = new Regex("^\\.?[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly Regex LanguageName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c0358c472a8b
+    with_body_sha: cc6d1317ddb3
   edges:
     docs: "[GlossaryConcept.cs.md](docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md)"
     cites:
@@ -40,7 +40,7 @@ public sealed class GlossaryConcept : Catzc.Base.Objects.DictionaryRecord
     // A machine key: snake_case ('test_suite', 'all_tests').
     public static readonly Regex KeyRe = new Regex("^[a-z][a-z0-9]*(_[a-z0-9]+)*$", RegexOptions.Compiled);
 
-    public static readonly Regex CitationRe = new Regex("^ADR(-[A-Z][A-Z0-9]*){3,}$", RegexOptions.Compiled);
+    public static readonly Regex CitationRe = new Regex("^" + AdrCodeForm.AnyKind.Rule + "$", RegexOptions.Compiled);
 
     // One qualifier word in a concept's forms ('quality', 'CI').
     public static readonly Regex FormRe = new Regex("^[A-Za-z0-9]+$", RegexOptions.Compiled);

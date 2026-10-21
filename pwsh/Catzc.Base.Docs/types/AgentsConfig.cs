@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ca892c69ad5e
+    with_body_sha: "853d85132e75"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
     docs: "[AgentsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md)"
@@ -29,7 +29,7 @@ public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] RequiredKeys = { "standard", "agents" };
     private static readonly string[] RoofKeys = { "agent_body_lines", "capability_lines" };
     private static readonly System.Text.RegularExpressions.Regex ContractRe =
-        new System.Text.RegularExpressions.Regex("^ADR(-[A-Z][A-Z0-9]*)+$", System.Text.RegularExpressions.RegexOptions.Compiled);
+        new System.Text.RegularExpressions.Regex("^" + AdrCodeForm.AnyKind.Cited + "$", System.Text.RegularExpressions.RegexOptions.Compiled);
 
     public IReadOnlyList<string> contracts { get; } = new[] { "ADR-REPO-AI" };
 

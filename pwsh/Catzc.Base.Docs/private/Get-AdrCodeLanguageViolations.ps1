@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bdc1e0ebf866
+    with_body_sha: "45c5b2c2d515"
   edges:
     docs: "[Get-AdrCodeLanguageViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-AdrCodeLanguageViolations.ps1.md)"
     cites:
@@ -30,20 +30,25 @@ function Get-AdrCodeLanguageViolations {
         [void]$codes.Add($ruleSet.External)
     }
 
+    $cited = "^$($Adrs.CodeForm.Cited)\z"
+    $numberedRule = "^$($Adrs.CodeForm.Kind)-[A-Z0-9-]+:[0-9]+\z"
     $ret = foreach ($domain in $Adrs.Domains) {
-        # A domain code of several segments is one finding; its ADRs are held to its first segment.
-        $domainSegment = $domain.Code.Split('-')[0]
-        if ($domain.Code -cnotmatch "^$segment\z") {
-            "$($domain.Name): domain code $($domain.Code) is not one segment (ADR-REPO-ADRCODE-DOMAINSEGMENT)"
+        # A domain code of several segments is one finding; its ADRs are held to its first segment. A kind one domain owns has no domain code.
+        $prefix = $domain.Kind
+        if ($domain.Code) {
+            $prefix = "$($domain.Kind)-$($domain.Code.Split('-')[0])"
+            if ($domain.Code -cnotmatch "^$segment\z") {
+                "$($domain.Name): domain code $($domain.Code) is not one segment (ADR-REPO-ADRCODE-DOMAINSEGMENT)"
+            }
         }
         foreach ($ruleSet in $domain.RuleSets) {
             $code = $ruleSet.External
-            if ($code -cnotmatch "^ADR(-$segment)+\z") {
-                "${code} ($($domain.Name)): not a path of upper-case segments after ADR (ADR-REPO-ADRCODE-PATHOFSEGMENTS)"
+            if ($code -cnotmatch $cited) {
+                "${code} ($($domain.Name)): not a path of upper-case segments after a registered kind (ADR-REPO-ADRCODE-PATHOFSEGMENTS)"
                 continue
             }
-            if (-not $code.StartsWith("ADR-$domainSegment-", [System.StringComparison]::Ordinal)) {
-                "${code} ($($domain.Name)): does not start with its domain's segment, ADR-$domainSegment- (ADR-REPO-ADRCODE-DOMAINSEGMENT)"
+            if (-not $code.StartsWith("$prefix-", [System.StringComparison]::Ordinal)) {
+                "${code} ($($domain.Name)): does not start with its domain's prefix, $prefix- (ADR-REPO-ADRCODE-DOMAINSEGMENT)"
             }
             if (-not $Index.FileOf.ContainsKey($code)) {
                 continue
@@ -67,7 +72,7 @@ function Get-AdrCodeLanguageViolations {
                     continue
                 }
                 $rule = $heading.Groups['rule'].Value
-                if ($rule -cmatch '^ADR-[A-Z0-9-]+:[0-9]+\z') {
+                if ($rule -cmatch $numberedRule) {
                     $numbered++
                     continue
                 }

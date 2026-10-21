@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2740d6f9022f"
+    with_body_sha: fce9a126ab46
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1
     docs: "[Get-AdrCitationGraphViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-AdrCitationGraphViolations.ps1.md)"
@@ -25,10 +25,12 @@ function Get-AdrCitationGraphViolations {
         $domainOfCode[$ruleSet.External] = $ruleSet.Domain
     }
     foreach ($ruleSet in $Adrs.RuleSets) {
-        if (-not $domainOfCode.ContainsKey("ADR-$($ruleSet.Code)")) {
-            $domainOfCode["ADR-$($ruleSet.Code)"] = $ruleSet.Domain
+        if (-not $domainOfCode.ContainsKey($ruleSet.Prefix)) {
+            $domainOfCode[$ruleSet.Prefix] = $ruleSet.Domain
         }
     }
+    $ruleHeading = "^###\s+Rule\s+(?<code>$($Adrs.CodeForm.Rule))\s*$"
+    $citation = "(?<![A-Za-z0-9-])$($Adrs.CodeForm.Cited)"
     # A link's domain is the one with the longest folder that holds its target, so a domain folder nested in another keeps its own links.
     $folders = @($Adrs.Domains | Sort-Object -Property { $_.Folder.Length } -Descending)
 
@@ -63,7 +65,7 @@ function Get-AdrCitationGraphViolations {
                     continue
                 }
                 if ($text -match '^#{1,6}\s') {
-                    $rule = if ($text -cmatch '^###\s+Rule\s+(?<code>ADR(?:-[A-Z][A-Z0-9]*){3,})\s*$') {
+                    $rule = if ($text -cmatch $ruleHeading) {
                         $Matches['code']
                     }
                     else {
@@ -77,7 +79,7 @@ function Get-AdrCitationGraphViolations {
                     $ruleSet.External
                 }
                 $references = [System.Collections.Generic.List[object]]::new()
-                foreach ($match in [regex]::Matches($text, '(?<![A-Za-z0-9-])ADR(?:-[A-Z][A-Z0-9]*)+')) {
+                foreach ($match in [regex]::Matches($text, $citation)) {
                     # A rule's code extends its ADR's code, so the longest registered prefix names the domain.
                     $code = $match.Value
                     while ($code.Contains('-') -and -not $domainOfCode.ContainsKey($code)) {

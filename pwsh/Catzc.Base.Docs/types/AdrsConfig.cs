@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "05c0533ea4e9"
+    with_body_sha: "04415ad2a890"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
     docs: "[AdrsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md)"
@@ -50,6 +50,9 @@ public sealed class AdrsConfig
     // The registered record kinds in authored order, each code's first segment, and which of them several domains share.
     public IReadOnlyList<string> Kinds { get; }
     public IReadOnlyList<string> SharedKinds { get; }
+
+    // The code grammar over these kinds, which every parser of a code reads (ADR-REPO-ADRCODE-PATHOFSEGMENTS).
+    public AdrCodeForm CodeForm { get; }
     private readonly Dictionary<string, string> kindNames = new Dictionary<string, string>(StringComparer.Ordinal);
 
     // The long name of a registered kind (Thesis Decision Record), or null for one not registered.
@@ -116,7 +119,9 @@ public sealed class AdrsConfig
         }
         Kinds = kinds.AsReadOnly();
         SharedKinds = sharedKinds.AsReadOnly();
-        Regex externalRe = new Regex("^(" + string.Join("|", kinds) + ")(-[A-Z][A-Z0-9]*)+$", RegexOptions.Compiled);
+        if (kinds.Count == 0) { throw new ArgumentException("adrs.yml is invalid:\n  - " + string.Join("\n  - ", errors)); }
+        CodeForm = new AdrCodeForm(kinds, sharedKinds);
+        Regex externalRe = new Regex("^" + CodeForm.Cited + "$", RegexOptions.Compiled);
         Dictionary<string, string> kindOwner = new Dictionary<string, string>(StringComparer.Ordinal);
 
         IDictionary domainsMap = (raw != null && raw.Contains("domains")) ? raw["domains"] as IDictionary : null;

@@ -25,9 +25,10 @@ It reads files and never writes them: the result carries each changed file's new
 
 ## comment:2
 
-Above `public LinkEngine(string repositoryRoot, AdrCitationMap map, LinkWrap wrap,...`, written with `//`.
+Above `public LinkEngine(string repositoryRoot, AdrCitationMap map, AdrCodeForm...`, written with `//`.
 
 ```text
+codeForm: the code grammar over the registered kinds (AdrsConfig.CodeForm), which the citation checks match.
 lineLimits: extension ('.ps1') -> line limit; an extension not listed takes defaultLineLimit.
 selfUrlPrefix: this repository's web URL, or null to skip the self-URL check.
 trackedFiles: the paths git tracks, so a markdown link to a file GitHub does not have is reported; null to skip.

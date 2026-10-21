@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "89345ece0f71"
+    with_body_sha: "5db189dc778e"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/AnalyzerAdrMapConfig.Tests.ps1
     docs: "[AnalyzerAdrMapConfig.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/AnalyzerAdrMapConfig.cs.md)"
@@ -24,7 +24,7 @@ namespace Catzc.Base.QualityGates;
 public sealed class AnalyzerAdrMapConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "analyzer-adr-map configuration validation failed:\n";
-    private static readonly Regex Citation = new Regex(@"^ADR(?:-[A-Z][A-Z0-9]*){3,}$");
+    private static readonly Regex Citation = new Regex("^" + Catzc.Base.Docs.AdrCodeForm.AnyKind.Rule + "$");
 
     // Analyzer rule name -> the ADR rule ids it enforces (string[], '#' form), in declaration order; read-only.
     public OrderedDictionary analyzers { get; }

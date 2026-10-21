@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: be78879617a1
+    with_body_sha: "21278ddef024"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-CatsAdrRules.Tests.ps1
     docs: "[Get-CatsAdrRules.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-CatsAdrRules.ps1.md)"
@@ -21,9 +21,10 @@ function Get-CatsAdrRules {
 
     Assert-PathExist $AdrPath
 
+    $ruleHeading = "^###\s+Rule\s+(?<id>$((Get-Config -Config adrs).CodeForm.Rule))\s*$"
     $lines = [System.IO.File]::ReadAllLines($AdrPath)
     $ret = for ($i = 0; $i -lt $lines.Count; $i++) {
-        if ($lines[$i] -cnotmatch '^###\s+Rule\s+(?<id>ADR(?:-[A-Z][A-Z0-9]*){3,})\s*$') {
+        if ($lines[$i] -cnotmatch $ruleHeading) {
             continue
         }
         $ruleId = $Matches['id']

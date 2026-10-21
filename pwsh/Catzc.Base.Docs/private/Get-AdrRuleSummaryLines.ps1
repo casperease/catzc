@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b3541755b44e
+    with_body_sha: "7b0fc271cce1"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-AdrRuleSummaryLines.Tests.ps1
     docs: "[Get-AdrRuleSummaryLines.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-AdrRuleSummaryLines.ps1.md)"
@@ -22,6 +22,7 @@ function Get-AdrRuleSummaryLines {
     Assert-PathExist $Path
 
     $lines = [System.IO.File]::ReadAllLines($Path)
+    $ruleHeading = "^###\s+Rule\s+(?<code>$((Get-Config -Config adrs).CodeForm.Rule))\s*$"
     $rule = $null
     $inFence = $false
     $ret = for ($i = 0; $i -lt $lines.Count; $i++) {
@@ -35,7 +36,7 @@ function Get-AdrRuleSummaryLines {
         }
         if ($line -match '^#{1,6}\s') {
             $rule = $null
-            if ($line -cmatch '^###\s+Rule\s+(?<code>ADR(?:-[A-Z][A-Z0-9]*){3,})\s*$') {
+            if ($line -cmatch $ruleHeading) {
                 $rule = $Matches['code']
             }
             continue

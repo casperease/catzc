@@ -49,11 +49,11 @@ The value-chain concerns, in value-chain order, left to right
 
 ## comment:3
 
-Above `string expectedPrefix = "ADR-" + effective;`, written with `//`.
+Above `string expectedPrefix = effective == null ? domainKind : domainKind + "-" +...`, written with `//`.
 
 ```text
-The external's domain segment is the effective code: the external is either the
-domain-root citation 'ADR-<effective>' or a named 'ADR-<effective>-<NAME>'. A compound
+The external starts with its domain's prefix: the kind and the effective code under a shared kind, the kind alone under a kind one
+domain owns. The external is either the domain-root citation '<kind>-<effective>' or a named '<kind>-<effective>-<NAME>'. A compound
 domain code (e.g. FLOW-CD, whose ADRs cite [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md) and
 [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)-<NAME>) is matched
 by this prefix rule without splitting on a specific dash. A one-segment external

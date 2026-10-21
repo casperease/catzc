@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b016f60d2a1b
+    with_body_sha: "6a4033072927"
   edges:
     docs: "[Test-FileMeta.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-FileMeta.ps1.md)"
     cites:
@@ -44,6 +44,8 @@ function Test-FileMeta {
             }
             "$($_.Path):$($_.Line) [$($_.Kind)] expected '$($_.Expected)', found '$($_.Actual)' — $remedy"
         })
+    # A file outside the engine's scope still has a comment page; a page citing rules there lights nothing, so it is a finding too.
+    $issues += @(Get-SkippedClassCitationFinding -RepositoryRoot $RepositoryRoot -Path $Path)
 
     Write-QualityGateReport -Subject file-meta -Title Test-FileMeta -Issues $issues `
         -Facts ([ordered]@{ FileCount = $result.FileCount }) -OutputFolder $OutputFolder -PassThru:$PassThru

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9b0fce172a33"
+    with_body_sha: "8db7777429c3"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-CatsRuleEnforcers.Tests.ps1
     docs: "[Get-CatsRuleEnforcers.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md)"
@@ -46,6 +46,7 @@ function Get-CatsRuleEnforcers {
         }
     }
 
+    $form = (Get-Config -Config adrs).CodeForm
     $isCommand = { param($node) $node -is [System.Management.Automation.Language.CommandAst] }
     $isString = { param($node) $node -is [System.Management.Automation.Language.StringConstantExpressionAst] }
     $modulesRoot = Get-CatzcModulesRoot
@@ -82,7 +83,7 @@ function Get-CatsRuleEnforcers {
                 continue
             }
             foreach ($string in $tagValue.FindAll($isString, $true)) {
-                if ($string.Value -cmatch '^ADR(?:-[A-Z][A-Z0-9]*){3,}$') {
+                if ($form.IsRule($string.Value)) {
                     & $ensure $string.Value
                     [void]$enforcers[$string.Value].Tests.Add($relative)
                 }
