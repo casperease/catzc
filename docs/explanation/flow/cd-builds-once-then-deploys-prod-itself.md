@@ -50,9 +50,9 @@ that apply them in dependency order. In `cd-apex`, each deploy stage reaches the
 
 ## Where the code and the decision record differ
 
-- The ADR keeps CD entirely within non-prod and says CD never touches production; `cd-apex.yaml` and `cd-shared.yaml` deploy `psub`, and
+- The FDR keeps CD entirely within non-prod and says CD never touches production; `cd-apex.yaml` and `cd-shared.yaml` deploy `psub`, and
   `cd-apex.yaml` deploys the expedition to `prod`, from the CD run.
-- The ADR stages the artifact inactive in pre-prod before production; in code no CD pipeline has a pre-prod target, and the prod-tier jobs
+- The FDR stages the artifact inactive in pre-prod before production; in code no CD pipeline has a pre-prod target, and the prod-tier jobs
   run in the same stages as the non-prod ones.
 - No pipeline tags the artifact, and none runs the on-demand L3 environment, main-uat or release-uat by those names, RC, RBC or DEPLOY.
 

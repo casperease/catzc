@@ -46,7 +46,7 @@ CI stage, the deploy stages and the environments they reach, and two failures an
 
 ## Where the code and the decision record differ
 
-- The ADR keeps CD in non-prod and puts a manual gate and DEPLOY before prod, but `cd-apex.yaml` and `cd-shared.yaml` deploy `psub`, and
+- The FDR keeps CD in non-prod and puts a manual gate and DEPLOY before prod, but `cd-apex.yaml` and `cd-shared.yaml` deploy `psub`, and
   `cd-apex.yaml` also deploys the expedition to `prod`, from the CD run.
 - An operator has no entry point in the repository for certifying RC or RBC or for running DEPLOY.
 

@@ -15,7 +15,7 @@ repository      how managed root files and repository variants are kept in shape
 The documentation has four kinds of article. An [ADR](../drs/index.md) records a decision and the rules it sets. A
 [how-to](../how-to/getting-started/automation/index.md) walks through one task. A [reference](../references/pwsh/index.md) describes a
 module's responsibilities. An **explanation** article shows how one part of cats works and why it holds: each one narrates a single diagram,
-step by step, and points back to the ADR rules the diagram supports.
+step by step, and points back to the DRS rules the diagram supports.
 
 Each diagram is drawn five times, through five lenses, so the same idea can be read at the depth a reader needs:
 
@@ -25,7 +25,7 @@ Each diagram is drawn five times, through five lenses, so the same idea can be r
 | **architecture**   | the parts, their boundaries, and who depends on whom                   |
 | **implementation** | the real functions, files and configs, in the order the code runs them |
 | **operations**     | what a person or a pipeline runs, and what they see when it fails      |
-| **governance**     | which ADR rule constrains each step, and which gate checks it          |
+| **governance**     | which DRS rule constrains each step, and which gate checks it          |
 
 ## How to read the diagrams
 
@@ -42,7 +42,7 @@ The sidebar of every diagram places it on three maps, each drawn small as a mini
 - The **world map** is the repository drawn as its tracks crossed with its file languages
   ([DDR-TRACK-WORLDMAP](../drs/design/tracks.md#rule-ddr-track-worldmap)). It shows where the files the diagram concerns are.
 - The **tree** is the repository's files, grouped by folder. It shows the same files in the folders that hold them.
-- The **value-chain map** is the ADRs drawn as the value-chain stack crossed with the value-chain concerns
+- The **value-chain map** is the decision records drawn as the value-chain stack crossed with the value-chain concerns
   ([DDR-TRACK-VALUECHAINMAP](../drs/design/tracks.md#rule-ddr-track-valuechainmap)). It shows where the decision sits in delivery.
 
 On each map, a **lit cell** ([DDR-TRACK-LITCELL](../drs/design/tracks.md#rule-ddr-track-litcell)) is one the diagram's ADR selects; a cell
@@ -52,7 +52,7 @@ for every lit cell.
 
 ## Domains
 
-The articles are grouped by the ADR domain of the decision they explain:
+The articles are grouped by the decision-record domain of the decision they explain:
 
 - [Ado](ado/index.md) — how Azure DevOps calls prove their credentials.
 - [Automation](automation/index.md) — module dependencies, the importer, and the bundle.

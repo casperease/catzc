@@ -16,7 +16,7 @@ Supports FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER, ADR-A
 
 The per-layer independence rule says that peers in a layer never share a file on their own contribution. In cats a quality gate enforces it
 for the `deployable-unit` and `module` layers, config-load validation keeps the `module` layer derived-only, and the `loose-fileset` layer
-is exempt by design. Two prohibitions in the same ADR, the phantom unit and the loose-fileset without a demonstrated use, have no check
+is exempt by design. Two prohibitions in the same FDR, the phantom unit and the loose-fileset without a demonstrated use, have no check
 behind them: they hold only as DRS rules.
 
 ![A gate on overlap for units and modules](.assets/overlap-gated-for-units-and-modules/diagram.drawio.png)
@@ -50,7 +50,7 @@ behind them: they hold only as DRS rules.
 
 ## Where the code and the decision record differ
 
-- The ADR's "How this is enforced" section names the schema check and the gates on the triggers but not `Test-GlobSetIndependence`, which is
+- The FDR's "How this is enforced" section names the schema check and the gates on the triggers but not `Test-GlobSetIndependence`, which is
   the gate that enforces the independence rule.
 - No code checks the phantom-unit or the demonstrated-use prohibition. The declared loose-fileset `templates` binds no pipeline, sets no
   `verify:` scope and has no caller outside tests, so its demonstrated use is not visible in code.

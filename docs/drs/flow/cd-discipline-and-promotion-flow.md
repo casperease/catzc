@@ -514,7 +514,7 @@ the CI run that run named. A unit whose DEPLOY has no prod target has nothing to
 
 ## Related
 
-- [pipeline-types](pipeline-types.md) — the taxonomy this FDR layers on (CRON / CI / CD / CDe / DEPLOY / INPUT).
+- [pipeline-types](pipeline-types.md) — the taxonomy this FDR builds on (CRON / CI / CD / CDe / DEPLOY / INPUT).
 - [pipeline-runner-pattern](pipeline-runner-pattern.md) — how every pipeline kind invokes automation.
 - The L0–L3 test tiers — L3 is the system-level E2E CD runs in its on-demand environment, and the outer CI+ loop (FDR-CD-INNERANDOUTERLOOP).
 - The `git_workspace` variant — the PR-vs-Direct integration mode the value-chain diagrams prefix a flow with.

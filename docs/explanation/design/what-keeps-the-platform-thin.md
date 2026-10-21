@@ -32,7 +32,7 @@ alone.
 3. **Config validation.** The configuration the functions read is checked before they act. The `AzureConfig` type validates `azure.yml` when
    it loads, a template's `options.yml` throws on a bad key, and an az session whose subscription `azure.yml` does not declare throws before
    anything deploys.
-4. **Everything is code.** The ADR requires the automation, configs, tool versions and vendor bindings to live as one living version in the
+4. **Everything is code.** The DDR requires the automation, configs, tool versions and vendor bindings to live as one living version in the
    repository. No dedicated check holds it, and the Thinnest Viable Platform test ("if a wiki page would do, we do not build a function") is
    a review question too.
 5. **Assert-Tool 'az_cli'.** The tooling contract. `Invoke-AzCli`, `Connect-AzCli` and `Assert-AzCliBicep` assert the `az_cli` pin from
@@ -59,7 +59,7 @@ alone.
 
 - The pipeline step template still offers `Mode: azps` (AzurePowerShell@5), and the CI pipeline exercises it, beside ADR-AZ-CLI's az-first
   rule.
-- The ADR says consumers call `Get-Azure*` and `New-*` verbs; the only `New-*` function in the Azure modules is `New-AdoPullRequest`, and
+- The DDR says consumers call `Get-Azure*` and `New-*` verbs; the only `New-*` function in the Azure modules is `New-AdoPullRequest`, and
   the deploy verbs are `Build-Bicep` and `Deploy-Bicep`.
 
 ## See also

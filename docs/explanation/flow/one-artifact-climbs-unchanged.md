@@ -46,7 +46,7 @@ themselves, in the same run.
 
 ## Where the code and the decision record differ
 
-- The ADR keeps CD entirely within non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same
+- The FDR keeps CD entirely within non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same
   run.
 - No pipeline tags the artifact or runs the on-demand environment with system tests.
 

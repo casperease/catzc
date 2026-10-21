@@ -14,7 +14,7 @@ Supports FDR-CD-DETECT-NODIRECTVARIABLECHECK, FDR-CD-DETECT-VISIBLECONTEXTBEHAVI
 
 Five rules govern pipeline detection in cats, and one gate carries most of the weight. The analyzer rule enforces the first, never read the
 variables directly, on every PowerShell file; an L0 test pins the fourth, that the answer is a plain boolean. The other three rules, and the
-one reader outside PowerShell, rest on the ADR alone.
+one reader outside PowerShell, rest on the FDR alone.
 
 ![One gate checks the raw-read rule](.assets/one-gate-checks-the-raw-read-rule/diagram.drawio.png)
 
@@ -36,19 +36,19 @@ one reader outside PowerShell, rest on the ADR alone.
 ## Why it holds
 
 - Never check the detection variables directly; one analyzer rule checks it on every PowerShell file (FDR-CD-DETECT-NODIRECTVARIABLECHECK).
-- Context-dependent behavior must be intentional and visible, through the detector or a parameter; the ADR alone states it
+- Context-dependent behavior must be intentional and visible, through the detector or a parameter; the FDR alone states it
   (FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR).
-- Prefer a parameter over detection; detection is the fallback; the ADR alone states it (FDR-CD-DETECT-PARAMETERSOVERDETECTION).
+- Prefer a parameter over detection; detection is the fallback; the FDR alone states it (FDR-CD-DETECT-PARAMETERSOVERDETECTION).
 - Detection is boolean, not modal; the L0 test proves all three cases (FDR-CD-DETECT-BOOLEANNOTMODAL).
-- The function stays fast, reading two variables and nothing else; the ADR alone states it (FDR-CD-DETECT-FASTDETECTION).
-- A command branches on the seam only where the environments genuinely differ, never to change what it does; the ADR alone states it
+- The function stays fast, reading two variables and nothing else; the FDR alone states it (FDR-CD-DETECT-FASTDETECTION).
+- A command branches on the seam only where the environments genuinely differ, never to change what it does; the FDR alone states it
   (ADR-AUTO-PARITY-ONESEAM).
 
 ## Where the code and the decision record differ
 
-- The ADR forbids every direct read of the variables, and the analyzer enforces that for PowerShell; the C# hook `Assert-BashTimeout` reads
+- The FDR forbids every direct read of the variables, and the analyzer enforces that for PowerShell; the C# hook `Assert-BashTimeout` reads
   both, and no gate reaches it.
-- The ADR says the analyzer rule flags raw reads anywhere outside `Test-IsRunningInPipeline`; the rule also exempts `*.Tests.ps1` files.
+- The FDR says the analyzer rule flags raw reads anywhere outside `Test-IsRunningInPipeline`; the rule also exempts `*.Tests.ps1` files.
 
 ## See also
 

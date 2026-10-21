@@ -3,7 +3,7 @@
 ```text
 Catzc.Base.Globs owns the touched-unit check; it asks the loader which context it runs in and git which paths changed.
 
-1  a unit's pipeline stage     the caller the ADR describes; no pipeline calls the check
+1  a unit's pipeline stage     the caller the FDR describes; no pipeline calls the check
 2  Test-GlobSetAffected        the public check: is the named unit among the globsets the change touches?
 3  globs.yml                   the globset registry the name must be declared in
 4  Get-GlobSetChangeRange      the reference-commit resolver: which two commits, per context

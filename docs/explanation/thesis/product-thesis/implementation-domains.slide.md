@@ -29,4 +29,4 @@ read a config; pipelines and GitHub bind the flow model to two vendors; Azure is
 
 ## Notes
 
-Each of these cites the principles as the reason for its own decisions, and the ADR index names what each depends on.
+Each of these cites the principles as the reason for its own decisions, and the DRS index names what each depends on.

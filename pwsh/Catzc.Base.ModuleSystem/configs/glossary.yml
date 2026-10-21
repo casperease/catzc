@@ -248,11 +248,11 @@ concepts:
     defined_by: DDR-TRACK-CELL
     short:
       One row crossed with one column of a map — the world map's tracked files of one track in one file language, or the value-chain map's
-      ADRs of one row of the value-chain stack in one value-chain concern.
+      decision records of one row of the value-chain stack in one value-chain concern.
     realized_by: { kind: prose-only }
     contrasts:
       value-chain map:
-        The value-chain map is a whole grid; a cell is one intersection of it, holding the ADRs of one row in one value-chain concern.
+        The value-chain map is a whole grid; a cell is one intersection of it, holding the decision records of one row in one value-chain concern.
       stack violation:
         A stack violation is a cell holding a live file outside its track's file languages; a cell is any intersection, allowed or not.
       lit cell: A lit cell is a cell a highlight selects; a cell is any intersection, lit or not.
@@ -261,7 +261,7 @@ concepts:
     domain: design
     defined_by: DDR-TRACK-VALUECHAINSTACK
     short:
-      The ordered rows a decision sits on, from the axioms down to the vendor — PRIN, DSGN, AUTO, PIPE, CLOUD; each ADR domain declares one.
+      The ordered rows a decision sits on, from the axioms down to the vendor — PRIN, DSGN, AUTO, PIPE, CLOUD; each decision-record domain declares one.
     realized_by: { kind: prose-only }
     contrasts:
       value-chain concern:
@@ -274,7 +274,7 @@ concepts:
     domain: design
     defined_by: DDR-TRACK-VALUECHAINCONCERN
     short:
-      Where along delivery an ADR acts — automation, build, quality-control, release, deploy, or access — a default per ADR domain, an
+      Where along delivery an ADR acts — automation, build, quality-control, release, deploy, or access — a default per decision-record domain, an
       override per ADR.
     realized_by: { kind: prose-only }
   value-chain map:
@@ -282,7 +282,7 @@ concepts:
     domain: design
     defined_by: DDR-TRACK-VALUECHAINMAP
     short:
-      The ADRs drawn as the value-chain stack crossed with the value-chain concerns, computed from drs.yml — where a decision sits in the
+      The decision records drawn as the value-chain stack crossed with the value-chain concerns, computed from drs.yml — where a decision sits in the
       value chain.
     realized_by: { kind: prose-only }
   stack violation:
@@ -302,7 +302,7 @@ concepts:
     domain: design
     defined_by: DDR-TRACK-LITCELL
     short:
-      A cell a highlight selects — on the world map the cells of the files an ADR code or a file set names, on the value-chain map the cells
+      A cell a highlight selects — on the world map the cells of the files a rule code or a file set names, on the value-chain map the cells
       an ADR sits in.
     realized_by: { kind: prose-only }
   importer:

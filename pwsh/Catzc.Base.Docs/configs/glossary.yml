@@ -108,11 +108,12 @@ concepts:
     key: domain
     domain: repository
     defined_by: ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY
-    short: A group of ADRs — one docs/drs/ subfolder — that drs.yml declares with its role and the domains it depends on.
+    short: A group of decision records — one docs/drs/ subfolder — that drs.yml declares with its role and the domains it depends on.
     realized_by: { kind: prose-only }
     forms:
       [
         ADR,
+        record,
         thesis,
         principles,
         process,
@@ -136,8 +137,8 @@ concepts:
     avoid:
       - { phrase: problem domain, say: the problem catzc solves }
     contrasts:
-      language zone: A language zone is one of the design, test, and live registers of identities; an ADR domain groups ADRs.
-      responsibility domain: A responsibility domain is what one repository is accountable for; an ADR domain groups ADRs.
+      language zone: A language zone is one of the design, test, and live registers of identities; a decision-record domain groups decision records.
+      responsibility domain: A responsibility domain is what one repository is accountable for; a decision-record domain groups decision records.
   language zone:
     key: language_zone
     domain: repository
@@ -665,7 +666,7 @@ concepts:
     defined_by: ADR-AUTO-LAYERS-AUTOMATIONISABSTRACT
     short:
       The abstract, the commands and behaviours the repository offers and the doctrine that governs them, independent of language, shell and
-      folder; the ADR domain, the value-chain row and the concern carry the name.
+      folder; the decision-record domain, the value-chain row and the concern carry the name.
     realized_by: { kind: prose-only }
     contrasts:
       importer: The importer brings a mix of languages, engines and modules into a session; automation is what the loaded modules offer.

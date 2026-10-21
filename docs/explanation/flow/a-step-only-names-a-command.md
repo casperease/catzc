@@ -26,7 +26,7 @@ That one invariant is what makes every pipeline step reproducible by hand.
 3. **Runner.** The runner is the one bootstrap: it loads the modules once and hands the command over.
 4. **Same command.** The command runs with the same modules, in the same scope as the load.
 5. **Developer.** A developer loads the modules and types the same command, with no pipeline, no task and no runner in between. No gate
-   checks that the two runs match, so this path holds by the ADR alone.
+   checks that the two runs match, so this path holds by the FDR alone.
 
 The expected-failures guardrail pipeline is the one sanctioned exception: it calls the runner directly, without a step template, to prove
 the runner's own failure modes.

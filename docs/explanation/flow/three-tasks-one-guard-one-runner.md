@@ -57,9 +57,9 @@ trap, and no code runs it, so it is not drawn.
 
 ## Where the code and the decision record differ
 
-- The ADR lists four template parameters; the template has seven, adding `AllowWarnings`, `DisplayName` and `StepName`.
-- The ADR's runner listing leaves out the `SYSTEM_DEBUG` verbose switch, the logging and the diagnostics between sanitizing and invoking.
-- The ADR says the step template holds no logic; the inline guard in each task is logic.
+- The FDR lists four template parameters; the template has seven, adding `AllowWarnings`, `DisplayName` and `StepName`.
+- The FDR's runner listing leaves out the `SYSTEM_DEBUG` verbose switch, the logging and the diagnostics between sanitizing and invoking.
+- The FDR says the step template holds no logic; the inline guard in each task is logic.
 
 ## See also
 

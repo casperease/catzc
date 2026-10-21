@@ -15,7 +15,7 @@ Tracks and deployable-units are checked in code; one unit to one pipeline is hel
 Supports DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-DEPLOYABLEUNIT, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-COMPOSESETS, ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL and ADR-REPO-FOLDERS-CLOSEDROOTSET (governance lens).
 ```
 
-The tracks ADR sets rules at three levels: what a track is, how a deployable-unit is composed, and how a pipeline binds a unit. Cats checks
+The tracks DDR sets rules at three levels: what a track is, how a deployable-unit is composed, and how a pipeline binds a unit. Cats checks
 the first two in code, when the configuration loads and in integrity tests. The rule that binds one unit to one pipeline, and the rule that
 a cross-cutting slice is a scope rather than a new track, have no check in code: code review holds them.
 
@@ -56,9 +56,9 @@ a cross-cutting slice is a scope rather than a new track, have no check in code:
 
 ## Where the code and the decision record differ
 
-- The tracks ADR's enforcement list names the folders ADR, the globset registry, the gates on dependencies and code review, but not the
+- The tracks DDR's enforcement list names the folders ADR, the globset registry, the gates on dependencies and code review, but not the
   `tracks` variant, its load-time validation, or the integrity tests that now check rules 1, 2, 3 and 6.
-- The folders ADR names `go/` and `python/` as amendments to the closed root set, but not `bash/`, which the tracks ADR and `variants.yml`
+- The folders ADR names `go/` and `python/` as amendments to the closed root set, but not `bash/`, which the tracks DDR and `variants.yml`
   declare as a track.
 
 ## See also

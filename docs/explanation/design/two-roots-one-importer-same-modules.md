@@ -36,7 +36,7 @@ build is a second run mode of the same modules, and not a second product.
    `Install-Catzc` and `Export-Catzc`, which put a build where it can be loaded. It stands apart from the arrows because it works before any
    load: it writes the package that a later load reads, and never hands a code root to the importer itself.
 5. **`Catzc/<v>`.** The build-mode code root is a versioned package folder. Each module in it is a generated `.psd1` manifest and one merged
-   `<Module>.functions.ps1`. The ADR names three kinds of build root by where the folder lives: temporary, installed and saved.
+   `<Module>.functions.ps1`. The DDR names three kinds of build root by where the folder lives: temporary, installed and saved.
 6. **Catzc.Internal.** The one importer is the same in both modes. Its shared modules evict any catzc module loaded from the other root,
    load the active root, and then assert that nothing from another root is left.
 7. **Catzc.\* modules.** The modules are the same in both modes: the same names, the same public and private functions, the same configs and

@@ -55,7 +55,7 @@ occupant. Reading the occupants tells you what lives where right now, and which 
 
 - No DEPLOY pipeline exists: each CD pipeline deploys straight from its own CI stage, and no environment is named `main-uat` or
   `release-uat`.
-- No pipeline runs the L3 tests, so the on-demand environment and its L3 run exist only in the ADR.
+- No pipeline runs the L3 tests, so the on-demand environment and its L3 run exist only in the FDR.
 - Occupancy is prose only: nothing in the code records which commit an environment holds.
 
 ## See also

@@ -44,9 +44,9 @@ about its history.
 
 ## Where the code and the decision record differ
 
-- The ADR tells every consumer to integrate from the last verified commit, but no function or pipeline in cats resolves that commit, and the
+- The DDR tells every consumer to integrate from the last verified commit, but no function or pipeline in cats resolves that commit, and the
   pipelines trigger on `main`.
-- The ADR closes every door but the pull request, but no code in cats denies a direct push to the protected branch.
+- The DDR closes every door but the pull request, but no code in cats denies a direct push to the protected branch.
 
 ## See also
 

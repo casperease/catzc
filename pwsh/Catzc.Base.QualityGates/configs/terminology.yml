@@ -65,6 +65,7 @@ categories:
       - "docs/references/pwsh/catzc-base-contracts.md"
       - "pwsh/Catzc.Base.Drs/configs/drs.yml"
       - "pwsh/Catzc.Base.Languages/configs/languages.yml"
+      - "docs/references/pwsh/catzc-base-languages/configs/languages.yml.md"
       - "pwsh/Catzc.Base.Languages/configs/file-carriers.yml"
       - "pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1"
       - "pwsh/Catzc.Base.Languages/configs/glossary.yml"

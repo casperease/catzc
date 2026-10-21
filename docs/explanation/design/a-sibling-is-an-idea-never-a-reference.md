@@ -27,10 +27,11 @@ passes before it lands here as a rule.
 2. **The shared model.** The named set in the middle holds what both repositories agree on: a module is a placement with a kind, a default
    is declared once, public is what a contract names per unit, change is keyed by the unit's hash, and one output root holds everything
    unsorted.
-3. **The gate.** An idea leaves eac named where it is used and reaches the owning ADR, which decides whether and how catzc takes it. An idea
-   with no ADR to hold it opens a question for the user.
+3. **The gate.** An idea leaves eac named where it is used and reaches the owning decision record, which decides whether and how catzc takes
+   it. An idea with no decision record to hold it opens a question for the user.
 4. **The result.** What passes is rebuilt to catzc's rules, one living version with nothing ported alongside, and lands in catzc as a rule.
-   At the foot of the right band, what catzc keeps as its own: a rule is an ADR cited by code, and `.unordered` is where an import lands.
+   At the foot of the right band, what catzc keeps as its own: a rule lives in a decision record and is cited by code, and `.unordered` is
+   where an import lands.
 
 ## The family
 
@@ -63,12 +64,12 @@ names for its two CLIs, so a reader of either repository meets the same habit: o
 
 Two differences are decisions, and each side keeps its own.
 
-**Where a rule lives.** Catzc writes a rule once, in an ADR, and lets the gates cite it by code; a plan records a decision only until the
-rule holds it ([ADR-REPO-PLANS-DECISIONSBECOMERULES](../../drs/repository/plans.md#rule-adr-repo-plans-decisionsbecomerules)), and a plan
-with nothing open is deleted ([ADR-REPO-PLANS-DONEPLANDELETED](../../drs/repository/plans.md#rule-adr-repo-plans-doneplandeleted)). Eac
-writes a rule as a specification and keeps its planning notes under `out/` with no gate over them. Catzc chose the ADR form because a rule
-needs a stable code that heads, tests and prose can cite, and because a decision that never becomes a rule is the kind of parked text
-[PDR-ONELIVE-HISTORYINGIT](../../drs/principles/one-living-version.md#rule-pdr-onelive-historyingit) forbids.
+**Where a rule lives.** Catzc writes a rule once, in a decision record, and lets the gates cite it by code; a plan records a decision only
+until the rule holds it ([ADR-REPO-PLANS-DECISIONSBECOMERULES](../../drs/repository/plans.md#rule-adr-repo-plans-decisionsbecomerules)), and
+a plan with nothing open is deleted ([ADR-REPO-PLANS-DONEPLANDELETED](../../drs/repository/plans.md#rule-adr-repo-plans-doneplandeleted)).
+Eac writes a rule as a specification and keeps its planning notes under `out/` with no gate over them. Catzc chose the decision-record form
+because a rule needs a stable code that heads, tests and prose can cite, and because a decision that never becomes a rule is the kind of
+parked text [PDR-ONELIVE-HISTORYINGIT](../../drs/principles/one-living-version.md#rule-pdr-onelive-historyingit) forbids.
 
 **Unordered files.** Eac forbids them: a specification fails the build when a file sits where no module claims it. Catzc keeps one
 [unordered track](../../drs/design/tracks.md#rule-ddr-track-unorderedtrack), `.unordered`, as the place where an import lands, whole and
@@ -84,8 +85,8 @@ An idea from eac enters catzc in three steps, and the same three would carry a c
 2. **It is rebuilt, never ported.** Catzc carries exactly one living version of every behaviour
    ([PDR-ONELIVE-ONEVERSION](../../drs/principles/one-living-version.md#rule-pdr-onelive-oneversion)), so an idea is written again to
    catzc's rules, in catzc's engine, with catzc's tests; nothing from the sibling's tree is copied alongside.
-3. **The owning ADR decides.** Module and command design, contracts, testing, pipelines and tooling each have an ADR that rules on the idea,
-   and an idea with no ADR to hold it opens a question for the user.
+3. **The owning decision record decides.** Module and command design, contracts, testing, pipelines and tooling each have a decision record
+   that rules on the idea, and an idea with no decision record to hold it opens a question for the user.
 
 Three ideas came this way and are now catzc rules: the per-unit contract folder with a version segment, the top level named by stack, and
 the output root as the only place for intermediate files. Ideas that are available the other way, each for eac's own sessions to weigh, are

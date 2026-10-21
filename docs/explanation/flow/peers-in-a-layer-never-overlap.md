@@ -36,7 +36,7 @@ which cuts across the others, is the only exemption, and across layers one file 
 
 ## Where the code and the decision record differ
 
-The ADR describes one module set per folder. The code derives two aspect sets per folder, `-live` and `-tests`, and no whole-module set.
+The FDR describes one module set per folder. The code derives two aspect sets per folder, `-live` and `-tests`, and no whole-module set.
 
 ## See also
 

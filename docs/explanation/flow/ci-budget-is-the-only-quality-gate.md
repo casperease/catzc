@@ -10,7 +10,7 @@ The CI budget is the only promotion rule a quality gate checks.
 5  DEPLOY-Non-Prod  the actuator into the non-prod acceptance environments (#11)
 6  RBC              the human gate at release-uat (#9)
 7  DEPLOY-Prod      stage inactive in pre-prod, then activate live (#12)
-8  reviewer         code review, the only enforcer the ADR names for the whole flow
+8  reviewer         code review, the only enforcer the FDR names for the whole flow
 
 Supports FDR-CD-SHORTINTEGRATIONCYCLE, FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES, FDR-CD-PREPRODRUNG, FDR-CD-TWOENVIRONMENTACTIVATION and FDR-CD-GATEDEFINED, FDR-CD-TYPE-PRECOMMITBUDGET, FDR-CD-TYPE-DEPLOYISCDTAIL, FDR-CD-TYPE-ONEDEPLOYPATH, FDR-CD-TYPE-DEPLOYISPINNED and FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE (governance lens).
 ```
@@ -24,7 +24,7 @@ reads left to right in one row, each kind or gate beside the rule that governs i
 ## Walkthrough
 
 1. **CI inner loop.** Getting a change into main must clear its build-validation within a 5–10 minute integration cycle, on a team basis.
-   The pipeline-types ADR confines pre-commit validation to that budget.
+   The pipeline-types FDR confines pre-commit validation to that budget.
 2. **Quality gate.** `Test-Automation -Level 2 -EnforceTimings` in `ci-pwsh.yaml` fails the run when a passed test exceeds its level's time
    limit (`tests.level_ms` in `timeouts.yml`). It checks per-test limits, not the 5–10 minute cycle: the whole-run budget,
    `tests.run_seconds` (180 seconds by default), is reported and never fails the run. The GitHub mirror runs `Test-Automation -Level 2`
@@ -35,11 +35,11 @@ reads left to right in one row, each kind or gate beside the rule that governs i
 4. **RC.** Release Certification is the manual gate at main-uat, cleared when main-AT is verified. No pipeline or check carries it.
 5. **DEPLOY-Non-Prod.** DEPLOY is the actuator that rolls the artifact on once a gate clears; DEPLOY-Non-Prod drives it into the non-prod
    acceptance environments. There is no DEPLOY pipeline in the repository.
-6. **RBC.** Release Branch Certification is the manual gate at release-uat, cleared when release-AT is verified. Only the ADR states it.
+6. **RBC.** Release Branch Certification is the manual gate at release-uat, cleared when release-AT is verified. Only the FDR states it.
 7. **DEPLOY-Prod.** DEPLOY-Prod stages the artifact inactive in pre-prod, validates the exact bytes, then activates them live in production.
-   Only the ADR states it.
-8. **Reviewer.** Code review is the only enforcer the ADR names for the whole flow. No test or analyzer rule in `pwsh/` checks an FDR-CD
-   rule; the code cites the ADR only in the DRS registry, two glossary entries and comments.
+   Only the FDR states it.
+8. **Reviewer.** Code review is the only enforcer the FDR names for the whole flow. No test or analyzer rule in `pwsh/` checks an FDR-CD
+   rule; the code cites the FDR only in the DRS registry, two glossary entries and comments.
 
 ## Why it holds
 
@@ -55,9 +55,9 @@ reads left to right in one row, each kind or gate beside the rule that governs i
 
 ## Where the code and the decision record differ
 
-- The ADR keeps CD in non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same run, with no
+- The FDR keeps CD in non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same run, with no
   gate.
-- The ADR's budget is the 5–10 minute integration cycle; the quality gate enforces per-test level limits instead, and only in the Azure
+- The FDR's budget is the 5–10 minute integration cycle; the quality gate enforces per-test level limits instead, and only in the Azure
   DevOps pipeline.
 - No pipeline tags the artifact, and no RC, RBC, release-uat, DEPLOY pipeline or pre-prod-first activation exists.
 

@@ -54,9 +54,9 @@ the order shown. The way out has no chain at all: no function returns the last v
 
 ## Where the code and the decision record differ
 
-- The ADR tells consumers to integrate from the last verified commit, but no function in cats returns it, and the pipelines trigger on
+- The DDR tells consumers to integrate from the last verified commit, but no function in cats returns it, and the pipelines trigger on
   `main`.
-- The ADR has the branch policy admit merges only through a pull request, but the code registers only build-validation policies: it sets no
+- The DDR has the branch policy admit merges only through a pull request, but the code registers only build-validation policies: it sets no
   direct-push rule and has nothing for GitHub.
 
 ## See also

@@ -4,15 +4,15 @@ The repository has five kinds of prose, each with a home and a format:
 
 | Kind                | Lives in                              | For                                                                              |
 | ------------------- | ------------------------------------- | -------------------------------------------------------------------------------- |
-| **ADR**             | `docs/drs/<area>/`                    | A durable design decision and its rationale (the _why_)                          |
+| **Decision record** | `docs/drs/<area>/`                    | A durable design decision and its rationale (the _why_)                          |
 | **Getting-started** | `docs/how-to/getting-started/<area>/` | A task-focused guide for onboarding and the common jobs (the _how_, like this)   |
 | **How-to**          | `docs/how-to/<area>/`                 | A standalone how-to article for one task (e.g. the manual test plan)             |
 | **Explanation**     | `docs/explanation/<adr-domain>/`      | How one part works and why, narrating one diagram in `docs/explanation/.assets/` |
 | **Note**            | `docs/notes/**`                       | Freeform working notes, investigations, drafts                                   |
 
-All of `docs/` is **markdown only**, except the `.assets/` folders, which hold one folder per diagram, its `diagram.drawio.yml` source and
-its `diagram.drawio.png` render ([conventional-folders](../../../drs/repository/conventional-folders.md)). Decide which kind you're writing,
-then follow the matching recipe below.
+All of `docs/` is **markdown only**, except the `.assets/` folders, which hold each diagram as two flat files, its `<name>.drawio.yml`
+source and its `<name>.drawio.png` render ([conventional-folders](../../../drs/repository/conventional-folders.md)). Decide which kind
+you're writing, then follow the matching recipe below.
 
 ## Formatting
 
@@ -40,46 +40,46 @@ then follow the matching recipe below.
    `docs/how-to/getting-started/<area>/`; a **standalone how-to** for one specific task (e.g. the manual test plan) goes in
    `docs/how-to/<area>/`.
 2. Write it for a human who wants to _do_ the task: numbered steps first, then a worked example, then the rules and the verify step. Keep it
-   short — link to the ADR for the reasoning rather than re-explaining it.
+   short — link to the decision record for the reasoning rather than re-explaining it.
 3. If it is a getting-started guide, add a row to the task guide table in `docs/how-to/getting-started/<area>/index.md`.
 
-References point **one way**: an article cites the relevant ADR; an ADR never links back to an article (that would couple durable rationale
-to how-to churn).
+References point **one way**: an article cites the relevant decision record; a decision record never links back to an article (that would
+couple durable rationale to how-to churn).
 
 ## Writing an explanation article
 
 An explanation article narrates one diagram: how one part of cats works and why it holds.
 
 1. Create `docs/explanation/<adr-domain>/<kebab-title>.md`, in the folder of the decision-record domain whose decision it explains.
-2. Declare the diagram in `docs/explanation/<adr-domain>/.assets/<kebab-title>/diagram.drawio.yml` (its `description:`, the lens and ADR
-   codes under `about:`, and the `content:` it draws), then put it with `Build-Diagrams -Path <that folder>`. Declare its minimaps' lit
-   cells with `declaration.py minimaps <that folder>`, which writes each cell and what lit it under `content.minimaps`, then read them once
-   against the drawing.
+2. Declare the diagram in `docs/explanation/<adr-domain>/.assets/<kebab-title>.drawio.yml` (its `description:`, the lens and ADR codes under
+   `about:`, and the `content:` it draws), then put it with `Build-Diagrams -Path <that file>`. Declare its minimaps' lit cells with
+   `declaration.py minimaps <that file>`, which writes each cell and what lit it under `content.minimaps`, then read them once against the
+   drawing.
 3. After the title, open with a fenced `text` block that gives the overview: the finding in one line, then one line per numbered point of
    the diagram. Then a short opening paragraph, the image, a Walkthrough that narrates every numbered point in order, the DRS rules that
-   make it hold, and links to the ADR, the asset description and the related articles.
-4. List it in its domain's `index.md`. Cite decision records from the article; an ADR never links back to it.
+   make it hold, and links to the decision record, the asset description and the related articles.
+4. List it in its domain's `index.md`. Cite decision records from the article; a decision record never links back to it.
 
-## Writing an ADR
+## Writing a decision record
 
 Decision records capture a decision so it can be cited and enforced. They follow a fixed shape — read
-[`docs/drs/index.md`](../../../drs/index.md) ("Authoring conventions") in full before writing, and copy the structure of an existing ADR.
-The essentials:
+[`docs/drs/index.md`](../../../drs/index.md) ("Authoring conventions") in full before writing, and copy the structure of an existing
+decision record. The essentials:
 
 1. **Pick the domain and a code.** Decision records are grouped into the domains `pwsh/Catzc.Base.Drs/configs/drs.yml` lists, each in its
    own folder under `docs/drs/`. The code is the domain's prefix plus a segment that names the decision (e.g. `TDR-NORMALFORM`), as
-   [adr-code-language](../../../drs/repository/drs-code-language.md) sets out.
+   [drs-code-language](../../../drs/repository/drs-code-language.md) sets out.
 2. **Create `docs/drs/<domain-folder>/<kebab-title>.md`.** Start with the rule registry: a `## Rules: <code>` section followed by one
    `### Rule <code>-<RULENAME>` entry per rule, each a one-paragraph normative summary that links to the prose section justifying it. Other
    code and docs cite a rule by that full code (e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`); a rule has a name, never a number.
 3. **Then the prose**: `## Context`, `## Decision`, optionally `## How this is enforced`, `## Consequences`.
-4. **Register it.** Add the ruleset to its domain in `drs.yml` (the next import regenerates the code → ADR table in `docs/drs/index.md`),
-   add its entry to the domain's `dora-explains.md`, and add a bullet under the right section of [`docs/index.md`](../../../index.md). The
-   whole sequence, with its builds and checks, is [Add an ADR](add-an-adr.md).
+4. **Register it.** Add the ruleset to its domain in `drs.yml` (the next import regenerates the code → decision-record table in
+   `docs/drs/index.md`), add its entry to the domain's `dora-explains.md`, and add a bullet under the right section of
+   [`docs/index.md`](../../../index.md). The whole sequence, with its builds and checks, is [Add a decision record](add-an-adr.md).
 
-### ADR authoring conventions
+### Decision-record authoring conventions
 
-`ADR authoring conventions (the ones people miss)`
+`Decision-record authoring conventions (the ones people miss)`
 
 - **Decision and rationale, not config values.** Name the enforcing file (`PSScriptAnalyzerSettings.psd1`, `.editorconfig`) as a pointer;
   don't paste rule tables that will drift.

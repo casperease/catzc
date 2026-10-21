@@ -31,7 +31,7 @@ kinds rather than inside them, and it shows the path the CD pipelines in the rep
    them.
 3. **main-uat.** CD's direction through non-prod ends on an always-on environment that tracks the latest main, whatever the organization
    calls it. In the repository it is the `dev` environment, and for the shared platform also `test`, that every merge to main redeploys. The
-   on-demand environment with its L3 system tests, which the ADR places before it, has no pipeline yet.
+   on-demand environment with its L3 system tests, which the FDR places before it, has no pipeline yet.
 4. **RC.** Release Certification is a manual gate at main-uat. It clears when main-AT, the acceptance testing against main-uat, is verified.
    A gate decides whether the artifact may proceed; it is not a pipeline.
 5. **release-uat.** DEPLOY-Non-Prod drives the artifact into the non-prod acceptance environments, here the release-uat environment of a
@@ -59,9 +59,9 @@ kinds rather than inside them, and it shows the path the CD pipelines in the rep
 
 ## Where the code and the decision record differ
 
-- The ADR keeps CD entirely within non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same
+- The FDR keeps CD entirely within non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same
   run, with no DEPLOY pipeline.
-- The ADR gives a solo CI pipeline a tagged artifact as its output, while the pipeline-types ADR says a solo CI produces only a pass/fail
+- The FDR gives a solo CI pipeline a tagged artifact as its output, while the pipeline-types FDR says a solo CI produces only a pass/fail
   signal; the solo CI pipelines in the repository publish no artifact.
 - The artifact carries no tag, and no pipeline runs the on-demand L3 environment, release-uat, RC, RBC or DEPLOY.
 

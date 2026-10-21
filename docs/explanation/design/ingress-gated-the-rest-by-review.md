@@ -51,9 +51,9 @@ rule that governs it: R is DDR-REMOTE, V is ADR-REPO-VARIANT and L is FDR-CD-LIF
 
 ## Where the code and the decision record differ
 
-- The ADR says the server branch policy admits merges only through a pull request, but cats registers only Azure DevOps build-validation
+- The DDR says the server branch policy admits merges only through a pull request, but cats registers only Azure DevOps build-validation
   policies, sets no direct-push rule, and has nothing for GitHub.
-- The ADR tells consumers to integrate from the last verified commit, but nothing in cats resolves that commit.
+- The DDR tells consumers to integrate from the last verified commit, but nothing in cats resolves that commit.
 - The repository ships `git_workspace: main-direct`, so it runs the exception and the local guard is dormant.
 
 ## See also

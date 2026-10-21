@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "21bb34f11f48"
+    with_body_sha: "615d732c3370"
     warning: "Do Not Edit, this file is generated"
     role: glossary
     track: docs
@@ -141,7 +141,7 @@ stop.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [domain](#domain): A responsibility domain is what one repository is accountable for; an ADR domain groups ADRs.
+  - [domain](#domain): A responsibility domain is what one repository is accountable for; a decision-record domain groups decision records.
 
 ### source of truth
 
@@ -248,8 +248,8 @@ code and precise references.
 
 ### cell
 
-One row crossed with one column of a map — the world map's tracked files of one track in one file language, or the value-chain map's ADRs of
-one row of the value-chain stack in one value-chain concern.
+One row crossed with one column of a map — the world map's tracked files of one track in one file language, or the value-chain map's
+decision records of one row of the value-chain stack in one value-chain concern.
 
 - **Defined by:** [DDR-TRACK-CELL](design/tracks.md#rule-ddr-track-cell)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -258,8 +258,8 @@ one row of the value-chain stack in one value-chain concern.
   - [lit cell](#lit-cell): A lit cell is a cell a highlight selects; a cell is any intersection, lit or not.
   - [stack violation](#stack-violation): A stack violation is a cell holding a live file outside its track's file languages; a cell is any
     intersection, allowed or not.
-  - [value-chain map](#value-chain-map): The value-chain map is a whole grid; a cell is one intersection of it, holding the ADRs of one row
-    in one value-chain concern.
+  - [value-chain map](#value-chain-map): The value-chain map is a whole grid; a cell is one intersection of it, holding the decision records
+    of one row in one value-chain concern.
   - [world map](#world-map): A cell is one row crossed with one column; the world map is the whole grid of them, computed from the
     registries and the git index.
 
@@ -347,7 +347,7 @@ The folder `.unordered/<name>` an import lands at, named by a short kebab word u
 
 ### lit cell
 
-A cell a highlight selects — on the world map the cells of the files an ADR code or a file set names, on the value-chain map the cells an
+A cell a highlight selects — on the world map the cells of the files a rule code or a file set names, on the value-chain map the cells an
 ADR sits in.
 
 - **Defined by:** [DDR-TRACK-LITCELL](design/tracks.md#rule-ddr-track-litcell)
@@ -532,8 +532,8 @@ or falls back to it.
 
 ### value-chain concern
 
-Where along delivery an ADR acts — automation, build, quality-control, release, deploy, or access — a default per ADR domain, an override
-per ADR.
+Where along delivery an ADR acts — automation, build, quality-control, release, deploy, or access — a default per decision-record domain, an
+override per ADR.
 
 - **Defined by:** [DDR-TRACK-VALUECHAINCONCERN](design/tracks.md#rule-ddr-track-valuechainconcern)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -546,21 +546,22 @@ per ADR.
 
 ### value-chain map
 
-The ADRs drawn as the value-chain stack crossed with the value-chain concerns, computed from drs.yml — where a decision sits in the value
-chain.
+The decision records drawn as the value-chain stack crossed with the value-chain concerns, computed from drs.yml — where a decision sits in
+the value chain.
 
 - **Defined by:** [DDR-TRACK-VALUECHAINMAP](design/tracks.md#rule-ddr-track-valuechainmap)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [cell](#cell): The value-chain map is a whole grid; a cell is one intersection of it, holding the ADRs of one row in one value-chain
-    concern.
+  - [cell](#cell): The value-chain map is a whole grid; a cell is one intersection of it, holding the decision records of one row in one
+    value-chain concern.
   - [world map](#world-map): The value-chain map says where along delivery a decision acts; the world map crosses tracks with file languages
     and says where its files sit.
 
 ### value-chain stack
 
-The ordered rows a decision sits on, from the axioms down to the vendor — PRIN, DSGN, AUTO, PIPE, CLOUD; each ADR domain declares one.
+The ordered rows a decision sits on, from the axioms down to the vendor — PRIN, DSGN, AUTO, PIPE, CLOUD; each decision-record domain
+declares one.
 
 - **Defined by:** [DDR-TRACK-VALUECHAINSTACK](design/tracks.md#rule-ddr-track-valuechainstack)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -687,7 +688,7 @@ System.Collections.Specialized.OrderedDictionary
 ### automation
 
 The abstract, the commands and behaviours the repository offers and the doctrine that governs them, independent of language, shell and
-folder; the ADR domain, the value-chain row and the concern carry the name.
+folder; the decision-record domain, the value-chain row and the concern carry the name.
 
 - **Defined by:** [ADR-AUTO-LAYERS-AUTOMATIONISABSTRACT](automation/layers.md#rule-adr-auto-layers-automationisabstract)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -1245,7 +1246,7 @@ declared once in its metadata.
 
 ### code link
 
-An ADR citation in a code comment, written as a repository-rooted markdown link whose text is the citation code.
+A rule citation in a code comment, written as a repository-rooted markdown link whose text is the citation code.
 
 - **Defined by:** [ADR-REPO-LINK-KINDBYFILE](repository/markdown-links.md#rule-adr-repo-link-kindbyfile)
 - **Realized by:** function `Format-Links`
@@ -1362,7 +1363,7 @@ platform change is a new draft.
 
 ### diagram declaration
 
-A diagram's one source, `diagram.drawio.yml` beside its `diagram.drawio.png` — a description, what the diagram shows in the kit's closed
+A diagram's one source, `<name>.drawio.yml` beside its `<name>.drawio.png` — a description, what the diagram shows in the kit's closed
 vocabulary, and where a moved cell sits; put renders it into the drawing and get reads the drawing back into it.
 
 - **Defined by:** [ADR-REPO-SLIDES-DECLARATION](repository/slides-as-markdown.md#rule-adr-repo-slides-declaration)
@@ -1374,21 +1375,21 @@ vocabulary, and where a moved cell sits; put renders it into the drawing and get
 
 ### domain
 
-A group of ADRs — one docs/drs/ subfolder — that drs.yml declares with its role and the domains it depends on.
+A group of decision records — one docs/drs/ subfolder — that drs.yml declares with its role and the domains it depends on.
 
 - **Defined by:**
   [ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY](repository/conventional-folders.md#rule-adr-repo-folders-documentationmarkdownonly)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
-- **Forms:** `ADR domain`, `thesis domain`, `principles domain`, `process domain`, `design domain`, `flow domain`, `automation domain`,
-  `bcl domain`, `pwsh domain`, `configuration domain`, `ado domain`, `github domain`, `azure domain`, `repository domain`,
-  `research domain`, `axioms domain`, `architecture domain`, `implementation domain`, `optimisable domain`, `owning domain`, and the bare
-  `domain`
+- **Forms:** `ADR domain`, `record domain`, `thesis domain`, `principles domain`, `process domain`, `design domain`, `flow domain`,
+  `automation domain`, `bcl domain`, `pwsh domain`, `configuration domain`, `ado domain`, `github domain`, `azure domain`,
+  `repository domain`, `research domain`, `axioms domain`, `architecture domain`, `implementation domain`, `optimisable domain`,
+  `owning domain`, and the bare `domain`
 - **Contrasts:**
-  - [language zone](#language-zone): A language zone is one of the design, test, and live registers of identities; an ADR domain groups
-    ADRs.
-  - [responsibility domain](#responsibility-domain): A responsibility domain is what one repository is accountable for; an ADR domain groups
-    ADRs.
+  - [language zone](#language-zone): A language zone is one of the design, test, and live registers of identities; a decision-record domain
+    groups decision records.
+  - [responsibility domain](#responsibility-domain): A responsibility domain is what one repository is accountable for; a decision-record
+    domain groups decision records.
 
 | Avoid            | Say instead              |
 | ---------------- | ------------------------ |
@@ -1486,7 +1487,8 @@ One of the three registers — design, test, live — each with its own terminol
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Forms:** `language zone`, `design zone`, `test zone`, `live zone`, `landing zone`, `dns zone`, `availability zone`, and the bare `zone`
 - **Contrasts:**
-  - [domain](#domain): A language zone is one of the design, test, and live registers of identities; an ADR domain groups ADRs.
+  - [domain](#domain): A language zone is one of the design, test, and live registers of identities; a decision-record domain groups
+    decision records.
   - [file language](#file-language): A file language is the kind of text one file holds, named by its extension; a language zone is a
     register of identities.
 

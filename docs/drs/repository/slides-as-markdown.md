@@ -63,11 +63,11 @@ are, and the kit in `slides-kit` (`python/catzc_diagrams/assets/slides/**`). The
 
 ### Rule ADR-REPO-SLIDES-ONEBUILDCOMMAND
 
-Every draw.io slide renders from the tree by one command on its diagram folder, `Build-Diagrams -Path <folder>`; the whole tree is that
-command repeated over every diagram folder found under `docs/**/.assets/**`, so no setting lists the folders. Its inputs are the folder's
-declaration (or, for a folder without one, the model embedded in its `diagram.drawio.png`) and the repository's maps. The articles and
-slides that embed the png are not inputs: the build finds every one of them, wherever it sits, and holds each one's Supports line against
-the declaration's rule codes and lens. No step of it asks a session or a model to decide anything
+Every draw.io slide renders from the tree by one command on its declaration, `Build-Diagrams -Path <name>.drawio.yml`; the whole tree is
+that command repeated over every `*.drawio.yml` found under `docs/**/.assets/`, so no setting lists the diagrams. Its inputs are the
+diagram's declaration (or, for a render without one, the model embedded in its `<name>.drawio.png`) and the repository's maps. The articles
+and slides that embed the png are not inputs: the build finds every one of them, wherever it sits, and holds each one's Supports line
+against the declaration's rule codes and lens. No step of it asks a session or a model to decide anything
 ([PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../principles/everything-as-code.md#rule-pdr-eac-nostateoutsideversioncontrol)). A raster is never
 drawn by hand or by the draw.io CLI: a session edits a model, and the kit renders it.
 
@@ -75,15 +75,16 @@ drawn by hand or by the draw.io CLI: a session edits a model, and the kit render
 
 ### Rule ADR-REPO-SLIDES-DECLARATION
 
-A diagram folder holds two files: the render `diagram.drawio.png` and its one source, `diagram.drawio.yml`, the **diagram declaration**.
-`description:` says in a sentence or two what the diagram shows. `content:` says it in the kit's closed vocabulary: the title, the ADR
-codes, the lens, the kind, the flow and the one relation its flow edges mean, the theme, the bands, the span bars with the bands each
-covers, the groups, which may nest, the glyphs with their kind and holder, the edges, the markers, the chips, the legend and the three
-minimaps. `layout:` says where a named cell sits. Every vocabulary is closed and declared once, in the kit's `drawio.yml` (the lenses,
-kinds, themes, minimap ids and span words) or in its glyph library (the glyph and edge kinds), and a value outside it fails validation with
-the list the author may choose from ([PDR-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-pdr-pokayoke-detectearliest)). A cell
-without a layout entry is placed by the grid; a cell with one keeps it; a cell whose id is not in the content is removed. A diagram names no
-article: articles and slides embed its png, any number of them, and the build finds them by what embeds it.
+A diagram is two flat files in an `.assets/` folder, named by the diagram: the render `<name>.drawio.png` and its one source,
+`<name>.drawio.yml`, the **diagram declaration**. `description:` says in a sentence or two what the diagram shows. `content:` says it in the
+kit's closed vocabulary: the title, the ADR codes, the lens, the kind, the flow and the one relation its flow edges mean, the theme, the
+bands, the span bars with the bands each covers, the groups, which may nest, the glyphs with their kind and holder, the edges, the markers,
+the chips, the legend and the three minimaps. `layout:` says where a named cell sits. Every vocabulary is closed and declared once, in the
+kit's `drawio.yml` (the lenses, kinds, themes, minimap ids and span words) or in its glyph library (the glyph and edge kinds), and a value
+outside it fails validation with the list the author may choose from
+([PDR-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-pdr-pokayoke-detectearliest)). A cell without a layout entry is placed by the
+grid; a cell with one keeps it; a cell whose id is not in the content is removed. A diagram names no article: articles and slides embed its
+png, any number of them, and the build finds them by what embeds it.
 
 - [The declaration is the source](#the-declaration-is-the-source)
 
@@ -93,7 +94,7 @@ Two directions join the declaration and the drawing, and both are deterministic.
 `.drawio.png` and then the raster from that model, so the file stays editable in the draw.io editor. Get reads the embedded model back into
 the yml, so a hand edit in the editor is folded back before anything else reads it. Put then get returns the same yml, get then put the same
 model, and the kit's tests prove both on a fixture. A hand-moved cell comes back as a `layout:` entry; a cell that sits where the grid would
-put it needs none. The quality gate `Test-Diagrams` fails every folder whose embedded model differs from put of its yml and names the cells
+put it needs none. The quality gate `Test-Diagrams` fails every diagram whose embedded model differs from put of its yml and names the cells
 that differ. A cell the kit derives and get never reads back (a minimap, the legend, the map key, the sidebar) that differs only because a
 registry or the kit changed is stale, reported and not failed, and `Build-Diagrams -Stale` rebuilds it. What a drawing cannot show stays
 with the yml: the kind, the flow, the relation, the band order when the layout places every band, and the band of a laid-out item. Get
@@ -107,7 +108,7 @@ drawing area down for span room never moves the declared layout or waypoints: pu
 The base of a diagram pair is the pair committed at git `HEAD`, read with `git show`. A pair whose yml and png both moved from that base,
 and whose png states other content than its yml under get, is a **conflict**: `Test-Diagrams` fails it and names the diverging drawn cells
 (never a derived one, which is stale at worst), and no bulk run puts or gets it. The author picks the side that wins by running put or get
-on the folder by name; nothing merges. A pair where only one side moved is no conflict, and an untracked pair, which has no base, never is
+on the diagram by name; nothing merges. A pair where only one side moved is no conflict, and an untracked pair, which has no base, never is
 one. The base is read from git, never stamped into the files
 ([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)).
 
@@ -132,8 +133,8 @@ every lit cell carries its reason. The diagram's declaration lists each shown mi
 lit it, under `content.minimaps`, written from the computed data by `declaration.py minimaps`. A drawn minimap lights only the cells its
 declaration lists: `Write-DiagramMinimapData` drops and reports any other lit cell, since a lit cell nobody declared is unverifiable, and
 keeps the whole computed data beside it for that writer. The data is contract JSON ([ADR-REPO-CONTRACT](api-contracts.md)), written to
-`out/minimaps/` by `Build-Diagrams` and `Test-Diagrams`; the kit validates it and only draws it, and no minimap file lives in a diagram
-folder. A diagram whose data is missing does not put.
+`out/minimaps/` by `Build-Diagrams` and `Test-Diagrams`; the kit validates it and only draws it, and no minimap file lives beside a diagram.
+A diagram whose data is missing does not put.
 
 - [The declaration is the source](#the-declaration-is-the-source)
 
@@ -274,11 +275,11 @@ the commit it crosses, and the picture in the editor is the picture in the png.
 - **`Build-SlideDeck`** renders a deck forward into `out/slides/<deck>/` and reports every fault (rule 3).
 - **`Test-Slides`** fails a slide file whose pattern, fields, cited codes or quoted rule text break rules 1, 2 and 4.
 - **`Get-FileKind`** places slide files and the kit by rule 6, and the file-kind reachability test keeps both kinds reachable.
-- **`Build-Diagrams`** rebuilds one diagram folder, or every diagram folder it finds under `docs/**/.assets/**`, through the kit's renderer,
-  one render per folder, and warns for each embedding page whose Supports line disagrees with the declaration (rule 7); with `-FromDrawing`
-  it syncs named folders after an edit, get when the drawing moved since `HEAD`, then put, then `Test-Diagrams`, and stops on a conflict
-  before put (rule 10); with `-Stale` it rebuilds only the folders `Test-Diagrams` reports as carrying stale minimaps (rule 9);
-  **`Move-Diagram`** moves a folder with its links re-pointed.
+- **`Build-Diagrams`** rebuilds one diagram, or every `*.drawio.yml` it finds under `docs/**/.assets/`, through the kit's renderer, one
+  render per diagram, and warns for each embedding page whose Supports line disagrees with the declaration (rule 7); with `-FromDrawing` it
+  syncs named diagrams after an edit, get when the drawing moved since `HEAD`, then put, then `Test-Diagrams`, and stops on a conflict
+  before put (rule 10); with `-Stale` it rebuilds only the diagrams `Test-Diagrams` reports as carrying stale minimaps (rule 9);
+  **`Move-Diagram`** moves a diagram's pair with its links re-pointed.
 - **`declaration.py`** of the kit validates a declaration against the closed vocabularies and runs put and get (rules 8 and 9); its tests
   prove the two round trips, the vocabulary refusals, the nested group and the grid placement. Its check names the cells of a conflicted
   pair against the `HEAD` base (rule 10), and the bulk put skips that pair. Its tests prove that a lane, a row and its skip expand and fold

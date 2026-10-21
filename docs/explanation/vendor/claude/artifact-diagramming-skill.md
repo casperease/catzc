@@ -56,7 +56,7 @@ single page a reader sees once. Our docs lane is a library a reader returns to.
 
 | Robot or capability                           | Lane | Reads                                                                                            |
 | --------------------------------------------- | ---- | ------------------------------------------------------------------------------------------------ |
-| `drawio-diagram-waves`, `drawio-waves`        | docs | STYLE.md, `glyphs.xml`, the source ADRs                                                          |
+| `drawio-diagram-waves`, `drawio-waves`        | docs | STYLE.md, `glyphs.xml`, the source decision records                                              |
 | `drawio-renderer`                             | docs | the diagram's yml, the markdown pages that embed it                                              |
 | `edit-diagram-yml`, `drawio-declaration`      | docs | the diagram's `diagram.drawio.yml`, its vocabularies                                             |
 | `drawio-look`                                 | docs | the PNG, against STYLE.md's vocabulary                                                           |

@@ -24,7 +24,7 @@ check on its own.
 | [Pipelines and globs](manual-test-plan/pipelines-and-globs.md)       | Azure DevOps configs, the pipelines tree, and globset trigger projections                 |
 | [Static analysis](manual-test-plan/static-analysis.md)               | PSScriptAnalyzer, the formatter, and the analyzer-to-ADR map                              |
 | [Spelling and language](manual-test-plan/spelling-and-language.md)   | Spell-checking, terminology, dictionaries, and the glossary                               |
-| [ADR registry](manual-test-plan/adr-registry.md)                     | ADR rule-sets, the domain graph, the ADR index, and rule enforcers                        |
+| [DRS registry](manual-test-plan/adr-registry.md)                     | DRS rule-sets, the domain graph, the DRS index, and rule enforcers                        |
 | [Docs and links](manual-test-plan/docs-and-links.md)                 | Generated READMEs and `.gitkeep` files, Markdown lint and titles, links                   |
 | [Root config and editor](manual-test-plan/root-config-and-editor.md) | Managed root config files, the importer, `.gitignore`, and VS Code registries             |
 | [Test harness](manual-test-plan/test-harness.md)                     | The test runner, vendored Pester, fixture-identity hygiene, and this plan's drift guard   |

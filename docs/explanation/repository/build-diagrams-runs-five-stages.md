@@ -42,7 +42,7 @@ Every lit cell comes from the files and codes tied to ADR-REPO-SLIDES-MINIMAPSFR
 - **Which tracks and languages: `ado-pipelines` × pipeline-yaml.** `.ado/pipelines/ci-pwsh.yaml` is the pipeline whose globset covers the
   Slides module that carries the rule.
 - **`docs` × markdown.** The ADR itself, `docs/drs/repository/slides-as-markdown.md`, and the pages that cite the rule: this article, the
-  ADR index, the domain's `dora-explains.md`, the `Catzc.Base.Slides` and `catzc_diagrams` references, and the `Build-Diagrams` help page.
+  DRS index, the domain's `dora-explains.md`, the `Catzc.Base.Slides` and `catzc_diagrams` references, and the `Build-Diagrams` help page.
 - **`pwsh` × powershell.** `pwsh/Catzc.Base.Slides/Build-Diagrams.ps1` and the grid minimap's test,
   `pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1`, cite the rule.
 - **`pwsh` × yaml.** `pwsh/Catzc.Base.Drs/configs/drs.yml` registers the ruleset.

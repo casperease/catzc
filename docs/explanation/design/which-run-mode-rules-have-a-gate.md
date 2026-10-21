@@ -15,7 +15,7 @@ Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none.
 Supports DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-OWNSCRIPTSCOPE, DDR-RUNMODE-MODEISDERIVED, DDR-RUNMODE-NEVERCOEXIST, DDR-RUNMODE-SAMETESTSBOTHMODES and DDR-RUNMODE-THREEBUILDKINDS (governance lens).
 ```
 
-The run-modes ADR makes seven rules about how cats loads its modules from source and from a built package. Six of them are checked by code:
+The run-modes DDR makes seven rules about how cats loads its modules from source and from a built package. Six of them are checked by code:
 two test runs, two asserts, and the tests behind the mode function. The seventh names three kinds of build root, which the place of the code
 root tells apart, so no gate is needed. A reader who wants to know which run-mode promises are enforced finds the gate for each rule here.
 
@@ -39,7 +39,7 @@ root tells apart, so no gate is needed. A reader who wants to know which run-mod
    such a tool fails fast instead of reading the wrong tree.
 7. **Get-CatzcRunMode.** The mode is derived from the code root: `source` when it is the repository's `pwsh/` folder, `build` anywhere else.
    Its tests run in both runs.
-8. **Three build kinds.** The ADR names three kinds of build root, temporary, installed and saved, told apart by where the code root lives.
+8. **Three build kinds.** The DDR names three kinds of build root, temporary, installed and saved, told apart by where the code root lives.
    The kind is never stored and no function reports it, since nothing needs it, so the rule needs no gate.
 
 ## Why it holds
@@ -57,7 +57,7 @@ root tells apart, so no gate is needed. A reader who wants to know which run-mod
 
 ## Where the code and the decision record differ
 
-- The ADR says switching is tested from source to build, from build to source, each mode twice and in a longer alternation, each time
+- The DDR says switching is tested from source to build, from build to source, each mode twice and in a longer alternation, each time
   asserting the derived mode. The switch test uses two fixture roots instead, and checks eviction and a fresh script scope, but not the
   derived mode.
 - `Measure-NoScriptRootAnchor` cites ADR-PWSH-PWD-MODULELOCATESCONTENT and the internal-asset-dependencies rule

@@ -45,7 +45,7 @@ template or the task.
 
 ## Where the code and the decision record differ
 
-The ADR says the step template holds no logic, but each of its three tasks runs a strict-mode guard that throws on a multiline `RunCommand`
+The FDR says the step template holds no logic, but each of its three tasks runs a strict-mode guard that throws on a multiline `RunCommand`
 without a `DisplayName` before it calls the runner.
 
 ## See also

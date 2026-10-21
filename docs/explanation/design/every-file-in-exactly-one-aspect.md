@@ -28,7 +28,7 @@ identity.
 3. **tests.** The last aspect, the `**` remainder: every file `live` does not claim, which never ships. In the code track a stray or
    unclassified file lands here, so nothing ships by accident. It also takes the module's Go, Python and Bash test folders, which sit
    outside the module folder.
-4. **live lock.** The ADR makes each aspect an immutable sha lock. The live lock re-keys only on a runtime change.
+4. **live lock.** The DDR makes each aspect an immutable sha lock. The live lock re-keys only on a runtime change.
 5. **tests lock.** The tests lock re-keys only on a test change, so a module is two independently versioned artifacts. In the code, each
    aspect is its own derived set, but no lock or marker file exists.
 

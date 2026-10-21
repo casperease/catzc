@@ -1,4 +1,4 @@
-# Three gates check the projection, while generation is held by the ADR alone
+# Three gates check the projection, while generation is held by the FDR alone
 
 ```text
 Three gates check the projection; generation is ADR-only.
@@ -16,7 +16,7 @@ Supports FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-CD
 
 The projection of a globset into vendor path filters is the stage of the globset rules in cats that quality gates cover best: three gates
 check that every bound workflow and pipeline declares its projection and that the Azure DevOps includes cover every member. One thing the
-ADR states around the projection has no code behind it: that the YAML filters are generated rather than written by hand. It is worth knowing
+FDR states around the projection has no code behind it: that the YAML filters are generated rather than written by hand. It is worth knowing
 before relying on it.
 
 ![Three gates check the projection; generation is ADR-only](.assets/drift-is-gated-generation-is-adr-only/diagram.drawio.png)
@@ -27,10 +27,10 @@ before relying on it.
    unknown reference or a cycle when the config loads, a load-time check rather than a quality gate. The last-match-wins evaluation of the
    program (#4) is held by no gate: it is the mechanism every gate relies on.
 2. **GitHub paths.** The program in order with `!` negation (#6), exact by construction. The build-validation policy's `filenamePatterns`
-   also take this list, anchored with `/`, where the ADR names the Azure DevOps lists.
-3. **ADO include and exclude.** Each pattern's last select (#6). The lists lose the order, and the ADR's own safety argument for them is
+   also take this list, anchored with `/`, where the FDR names the Azure DevOps lists.
+3. **ADO include and exclude.** Each pattern's last select (#6). The lists lose the order, and the FDR's own safety argument for them is
    that Azure DevOps keeps a deeper-folder include over a broader exclude.
-4. **Generated YAML filters.** The ADR says the filters are generated from `globs.yml` into the orchestration YAML and never hand-authored,
+4. **Generated YAML filters.** The FDR says the filters are generated from `globs.yml` into the orchestration YAML and never hand-authored,
    and that a set whose Azure DevOps projection cannot reproduce exact membership is caught at generation time. No code in the tree writes a
    `paths:` filter, and `Get-GlobSetTrigger` defers that case to the coverage check.
 5. **Test-GitHubWorkflowTriggerGlob.** A quality gate: it recomputes the ordered GitHub list and compares it element by element with
@@ -56,12 +56,12 @@ requires zero issues, so a drifted filter fails `Test-Automation` locally and in
 
 ## Where the code and the decision record differ
 
-- The ADR says the projected filters are generated from `globs.yml` into the YAML; nothing in the tree writes them, so they are kept by hand
+- The FDR says the projected filters are generated from `globs.yml` into the YAML; nothing in the tree writes them, so they are kept by hand
   and only compared.
-- The ADR says a set whose Azure DevOps projection cannot reproduce exact membership is caught at generation time; `Get-GlobSetTrigger`
+- The FDR says a set whose Azure DevOps projection cannot reproduce exact membership is caught at generation time; `Get-GlobSetTrigger`
   defers it to `Test-GlobSetTriggerCoverage`, which checks includes only, and `cd-shared.yaml` documents a set where Azure DevOps may drop a
   root `.yml`.
-- The ADR says branch-policy `filenamePatterns` use the Azure DevOps projection; `Get-BuildValidationPathFilter` anchors the GitHub list
+- The FDR says branch-policy `filenamePatterns` use the Azure DevOps projection; `Get-BuildValidationPathFilter` anchors the GitHub list
   instead.
 
 ## See also

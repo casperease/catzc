@@ -51,9 +51,9 @@ itself, and it reads the GitHub list rather than the Azure DevOps lists.
 
 ## Where the code and the decision record differ
 
-- The ADR says branch-policy `filenamePatterns` use the order-independent Azure DevOps projection. `Get-BuildValidationPathFilter` uses the
+- The FDR says branch-policy `filenamePatterns` use the order-independent Azure DevOps projection. `Get-BuildValidationPathFilter` uses the
   ordered GitHub list with `!` negation, anchored with `/`.
-- The ADR says the projected filters are generated from `globs.yml` into the orchestration YAML and never hand-authored. No code in the tree
+- The FDR says the projected filters are generated from `globs.yml` into the orchestration YAML and never hand-authored. No code in the tree
   writes `paths:` into a pipeline or a workflow; the files are kept in step by hand and the drift quality gates compare them.
 
 ## See also

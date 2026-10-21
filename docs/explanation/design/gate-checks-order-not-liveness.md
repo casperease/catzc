@@ -16,7 +16,7 @@ Supports DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL and DDR-ASP
 The aspect convention of cats has one real quality gate, and it checks shape, not meaning. When the variants config loads, the config type
 refuses any track whose last aspect is not the bare `**`, or that uses `**` anywhere earlier, so the remainder is always exactly one aspect
 and always last. Which aspect that is, and so whether a stray file ships or not, is each track's declaration, and no gate reads it. The
-partition check that the ADR describes exists in code, but only unit tests on fixture files call it.
+partition check that the DDR describes exists in code, but only unit tests on fixture files call it.
 
 ![The gate checks order, not liveness](.assets/gate-checks-order-not-liveness/diagram.drawio.png)
 
@@ -46,9 +46,9 @@ partition check that the ADR describes exists in code, but only unit tests on fi
 
 ## Where the code and the decision record differ
 
-- The ADR makes the partition invariant an integrity check over `git ls-files`, and the type's reference page (`Aspect.cs.md`) says
+- The DDR makes the partition invariant an integrity check over `git ls-files`, and the type's reference page (`Aspect.cs.md`) says
   `AspectPartition.Validate` re-checks for the integrity tests; no gate runs it on the real tree.
-- The ADR partitions every delivery package at track granularity by the same convention; no code derives a track's delivery packages, and
+- The DDR partitions every delivery package at track granularity by the same convention; no code derives a track's delivery packages, and
   the infrastructure convention only classifies files for the world map.
 - The reference page of the aspect type (`Aspect.cs.md`) says the last aspect is non-live by rule; the infrastructure track declares `live`
   last.

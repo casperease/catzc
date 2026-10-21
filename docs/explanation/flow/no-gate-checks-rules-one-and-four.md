@@ -24,13 +24,13 @@ check something nearby rather than the rule itself.
 ## Walkthrough
 
 1. **Pipeline YAML.** Rule 1 says YAML steps never contain inline PowerShell. It holds today: the only inline scripts under
-   `.ado/pipelines/` are the template's own tasks and the expected-failures pipeline. No gate checks it, so only the ADR keeps it.
+   `.ado/pipelines/` are the template's own tasks and the expected-failures pipeline. No gate checks it, so only the FDR keeps it.
 2. **Step template.** Rule 3 says the template is a thin wrapper with no logic. The code contradicts it: each of the template's three tasks
    runs `Set-StrictMode` and a guard that throws on a multiline `RunCommand` without a `DisplayName`.
 3. **Runner.** Rule 2 says the runner imports the module system once and runs the command in the same scope. `Invoke-AdoScript.ps1` does
    both.
 4. **Same RunCommand.** Rule 4 says whatever string appears in `RunCommand` can be pasted into a local terminal after the importer. No code
-   replays a `RunCommand` outside the runner, so only the ADR keeps it, and no gate stands below it.
+   replays a `RunCommand` outside the runner, so only the FDR keeps it, and no gate stands below it.
 5. **Test-Pipelines.** The pipeline-layout check runs over `.ado/pipelines/` and checks FDR-CD-PIPELINE-TYPEPREFIX,
    ADR-ADO-NAME-FLATPIPELINESFOLDER, ADR-ADO-NAME-TEMPLATEKINDFOLDER, ADR-ADO-NAME-ABSOLUTETEMPLATEPATH and
    FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION. The one that touches this stage is ADR-ADO-NAME-ABSOLUTETEMPLATEPATH, that templates are
@@ -53,7 +53,7 @@ check something nearby rather than the rule itself.
 
 ## Where the code and the decision record differ
 
-- The ADR says the step template holds no logic; each of its three tasks runs a strict-mode guard that throws before the runner starts.
+- The FDR says the step template holds no logic; each of its three tasks runs a strict-mode guard that throws before the runner starts.
 - Step 1b re-implements the template's guard inline, so a change to the template's own guard is not covered by any run.
 - No gate checks rule 1 or rule 4, and rule 2 is exercised only through the expected-failures pipeline, never by a Pester test.
 

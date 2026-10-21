@@ -55,9 +55,9 @@ other read of those two variables into an error.
 
 ## Where the code and the decision record differ
 
-- The ADR's `Get-OutputRoot` listing carries `[CmdletBinding()]`; the function in the tree has none. The logic is identical.
-- The ADR lists the detector's `[OutputType([bool])]` before `[CmdletBinding()]`; the code has the reverse order.
-- The ADR says the rule flags raw reads anywhere outside `Test-IsRunningInPipeline`; the rule also exempts `*.Tests.ps1` files.
+- The FDR's `Get-OutputRoot` listing carries `[CmdletBinding()]`; the function in the tree has none. The logic is identical.
+- The FDR lists the detector's `[OutputType([bool])]` before `[CmdletBinding()]`; the code has the reverse order.
+- The FDR says the rule flags raw reads anywhere outside `Test-IsRunningInPipeline`; the rule also exempts `*.Tests.ps1` files.
 
 ## See also
 

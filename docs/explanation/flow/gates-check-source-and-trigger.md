@@ -54,12 +54,12 @@ worth knowing before relying on either.
 - Every set carries a layer (FDR-CD-GLOBS-EVERYSETHASLAYER), and sets in one layer never overlap on their own contribution
   (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER).
 - A quality gate checks one property of the whole repository, collects every issue and throws once (ADR-AUTO-TEST-QUALITYGATE).
-- The projected filters are generated from `globs.yml`, never hand-authored (FDR-CD-GLOBS-NATIVEPATHFILTER); this part is held by the ADR
+- The projected filters are generated from `globs.yml`, never hand-authored (FDR-CD-GLOBS-NATIVEPATHFILTER); this part is held by the FDR
   alone, since the gates check equality with the projection but nothing writes the YAML.
 
 ## Where the code and the decision record differ
 
-The ADR says the filters are generated into the YAML and that an ADO projection that cannot reproduce exact membership is caught at
+The FDR says the filters are generated into the YAML and that an ADO projection that cannot reproduce exact membership is caught at
 generation time. No generator writes the YAML, `Get-GlobSetTrigger` defers that case to the superset integrity test, and `cd-shared.yaml`
 documents exactly such a case, which `Test-GlobSetTriggerCoverage`, checking ADO includes only, passes.
 

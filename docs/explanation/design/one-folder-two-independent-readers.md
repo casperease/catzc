@@ -37,7 +37,7 @@ sits, so a module author shapes visibility and shipping identity with the same a
    ships.
 7. **&lt;module&gt;-tests.** The last aspect, the `**` remainder: everything the live convention does not claim. It also takes the module's
    Go, Python and Bash test folders, which sit outside the module folder. It never ships.
-8. **Aspect sha locks.** The ADR makes each aspect an immutable sha lock, versioned on its own, and never one lock for the whole module. The
+8. **Aspect sha locks.** The DDR makes each aspect an immutable sha lock, versioned on its own, and never one lock for the whole module. The
    code keeps a separate derived set per aspect but writes no lock or marker file.
 
 ## Why it holds

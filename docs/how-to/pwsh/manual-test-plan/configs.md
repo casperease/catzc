@@ -37,6 +37,7 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 | 28  | L1   | pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1                     | SlidesConfig (shipped slides.yml)                                      | The shipped slides.yml loads through `SlidesConfig` and points at the kit.                                                                                               |
 | 29  | L1   | pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1                        | RungsConfig (shipped rungs.yml)                                        | The shipped rungs.yml loads through `RungsConfig` (FDR-CD-RUNGSREGISTRY).                                                                                                |
 | 30  | L1   | pwsh/Catzc.Base.ModuleSystem/tests/types/ImporterConfig.Tests.ps1             | ImporterConfig (shipped importer.yml)                                  | The shipped importer.yml loads through `ImporterConfig` (ADR-AUTO-IMPORTER-DECIDESMIX).                                                                                  |
+| 31  | L1   | pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1                        | RungsConfig declared ladder                                            | An omitted rungs key takes the declared ladder in climbing order, main-uat to prod, each with its environment, gate and rules (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER).     |
 
 ## Checks
 

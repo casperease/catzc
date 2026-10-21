@@ -50,7 +50,7 @@ time-safeguard hook, repeats the test on its own.
 
 ## Where the code and the decision record differ
 
-The ADR says never to read the variables directly, and the analyzer enforces that for PowerShell. The C# hook `Assert-BashTimeout` reads
+The FDR says never to read the variables directly, and the analyzer enforces that for PowerShell. The C# hook `Assert-BashTimeout` reads
 both variables itself, and no gate reaches C#.
 
 ## See also

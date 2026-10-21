@@ -60,7 +60,7 @@ GitHub paths are ordered.
 
 ## Where the code and the decision record differ
 
-- The ADR says the projected filters are generated from `globs.yml` into the YAML and never hand-authored. No command writes them; the
+- The FDR says the projected filters are generated from `globs.yml` into the YAML and never hand-authored. No command writes them; the
   developer pastes the printed lists into the pipeline file, and the gate catches a mismatch.
 
 ## See also

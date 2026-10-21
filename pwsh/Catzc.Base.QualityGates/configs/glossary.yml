@@ -187,7 +187,7 @@ concepts:
     key: code_link
     domain: repository
     defined_by: ADR-REPO-LINK-KINDBYFILE
-    short: An ADR citation in a code comment, written as a repository-rooted markdown link whose text is the citation code.
+    short: A rule citation in a code comment, written as a repository-rooted markdown link whose text is the citation code.
     realized_by: { kind: function, pattern: Format-Links }
   comment page:
     key: comment_page

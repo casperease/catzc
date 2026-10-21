@@ -15,10 +15,10 @@ Partition integrity runs only in unit tests, and the per-aspect sha lock has no 
 Supports DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ASPECTISAGLOBSET, DDR-ASPECT-PARTITIONISCHECKED, ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE, ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME, ADR-PWSH-MANIFEST-GENERATEDMANIFESTS, ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED, ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (governance lens).
 ```
 
-Every stage of a cats module's folder layout is ruled by an ADR, and most of those rules have a gate: a quality gate, a guard at import, or
-a check when the config loads. Two do not. The partition check of DDR-ASPECT-PARTITIONISCHECKED runs only in unit tests, on fixtures, and
-the per-aspect sha lock of DDR-ASPECT-ASPECTISAGLOBSET has no mechanism at all. Knowing which rules a gate holds, and which only the ADR
-states, tells a reviewer where a mistake would slip through.
+Every stage of a cats module's folder layout is ruled by a decision record, and most of those rules have a gate: a quality gate, a guard at
+import, or a check when the config loads. Two do not. The partition check of DDR-ASPECT-PARTITIONISCHECKED runs only in unit tests, on
+fixtures, and the per-aspect sha lock of DDR-ASPECT-ASPECTISAGLOBSET has no mechanism at all. Knowing which rules a gate holds, and which
+only the DDR states, tells a reviewer where a mistake would slip through.
 
 ![Partition integrity runs only in unit tests](.assets/partition-integrity-runs-only-in-unit-tests/diagram.drawio.png)
 
@@ -31,7 +31,7 @@ states, tells a reviewer where a mistake would slip through.
    half of ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME.
 3. **Test-FolderConventions.** A quality gate. It checks that every module subfolder is a conventional one: `private`, `tests`, `assets`,
    `types` or `configs` (ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS). `assets/` is conventional but not in the live convention, so module assets
-   fall to `tests`; the ADR's Related section calls the bundle payload deliberately broader than `live`.
+   fall to `tests`; the DDR's Related section calls the bundle payload deliberately broader than `live`.
 4. **Assert-UniqueModuleFunctionName.** The import guard, shown shortened as `Assert-Unique…FunctionName`. `Import-AllModules` calls it
    before any module or type loads, and it fails fast on a duplicate exported name or one that shadows an imported command
    (ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME).

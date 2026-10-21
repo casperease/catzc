@@ -39,7 +39,7 @@ the cloud. The invariant is delegation, not reimplementation, and the consequent
 
 ## Where the code and the decision record differ
 
-The ADR's single authentication path, resolved for the consumer, is two logins in the code that meet at the az session: a pipeline signs in
+The DDR's single authentication path, resolved for the consumer, is two logins in the code that meet at the az session: a pipeline signs in
 through its service connection, and a developer runs `Connect-AzCli` and picks how to log in. Nothing chooses for them.
 
 ## See also

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3b02325916e9"
+    with_body_sha: a596e2506741
   edges:
     docs: "[LinkEngine.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/LinkEngine.cs.md)"
     cites:
@@ -37,6 +37,10 @@ public sealed class LinkEngine
     static readonly Regex LineCommentHead = new Regex(
         @"\A[ \t]*(?<m>#|//)[ \t]*---[ \t]*\r?\n(?=[ \t]*\k<m>[ \t]*catzc:)(?:[ \t]*\k<m>[^\r\n]*\r?\n)*?[ \t]*\k<m>[ \t]*---[ \t]*(?:\r?\n|\z)",
         RegexOptions.Compiled);
+    // A head's `---` fence, bare in a block-comment head or behind a line marker, and the head's docs edge, a link the head's own folder resolves.
+    static readonly Regex HeadFence = new Regex(@"^[ \t]*(?:#|//)?[ \t]*---[ \t]*\r?$", RegexOptions.Compiled | RegexOptions.Multiline);
+    static readonly Regex HeadDocsEdge = new Regex(@"^[ \t]*(?:#|//)?[ \t]*docs:[ \t]*""\[[^\]\r\n]*\]\((?<target>[^)\s]+)\)""",
+        RegexOptions.Compiled | RegexOptions.Multiline);
     // A number written out, or one composed at runtime after the `#` or `:`: an interpolated variable or a format placeholder.
     readonly Regex StringNumberedCitation;
 
@@ -133,6 +137,8 @@ public sealed class LinkEngine
             }
         }
 
+        CheckHeadDocsEdge(text, file, hits);
+
         // A string citation's fix replaces one character with one, so every offset below holds for the fixed text.
         text = AlignStringCitations(text, file, extension, hits);
 
@@ -212,6 +218,20 @@ public sealed class LinkEngine
         if (!changed) { return text; }
         output.Append(text, copied, text.Length - copied);
         return output.ToString();
+    }
+
+    // The head's docs edge opens the comment page from the file's own folder, as GitHub and an editor resolve it, so it is checked from there.
+    void CheckHeadDocsEdge(string text, string file, List<CodeLinkRewriter.Hit> hits)
+    {
+        MatchCollection fences = HeadFence.Matches(text);
+        if (fences.Count < 2 || text.Substring(0, fences[0].Index).Split('\n').Length > 3) { return; }
+        Match edge = HeadDocsEdge.Match(text, fences[0].Index);
+        if (!edge.Success || edge.Index > fences[1].Index) { return; }
+        string target = edge.Groups["target"].Value;
+        string folder = Path.GetDirectoryName(Path.Combine(root, file));
+        if (File.Exists(Path.GetFullPath(Path.Combine(folder, target)))) { return; }
+        hits.Add(new CodeLinkRewriter.Hit(edge.Groups["target"].Index, LinkFindingType.Dangling,
+            "the head's docs edge '" + target + "' does not resolve from the file's folder (run Format-FileMeta)", string.Empty));
     }
 
     string AlignStringCitations(string text, string file, string extension, List<CodeLinkRewriter.Hit> hits)

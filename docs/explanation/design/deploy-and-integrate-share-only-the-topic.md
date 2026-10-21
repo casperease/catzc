@@ -24,10 +24,10 @@ the promotion ladder.
 
 1. **Topic commit.** A commit that still lives on a topic branch. It is brown, the development colour, which is never an integrated mainline
    state. Both paths start here: it can land on main, and a workflow can read it to deploy.
-2. **Workflow or pipeline.** The ADR allows a workflow or pipeline to deploy a topic commit directly, for a hotfix or an experiment. No
+2. **Workflow or pipeline.** The FDR allows a workflow or pipeline to deploy a topic commit directly, for a hotfix or an experiment. No
    pipeline or workflow in the repository does this today, so the workflow and both of its edges are ADR-only.
 3. **Environment.** The deploy target. The environment is a neutral container, and the commit inside it is its occupant in its own state
-   colour. After an out-of-band deploy the occupant stays brown: deployed, but not integrated. The ADR names no particular environment for
+   colour. After an out-of-band deploy the occupant stays brown: deployed, but not integrated. The FDR names no particular environment for
    this deploy.
 4. **Main.** Landing on main is the integration. The commit turns grey, and only from here can it climb the ladder.
 5. **BVT.** The BVT takes the landed commit and produces the BVT-verified commit, yellow, with an immutable versioned artifact. A commit

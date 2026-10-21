@@ -46,7 +46,7 @@ rest, so a stray file can never silently ship. The infrastructure track declares
 
 ## Where the code and the decision record differ
 
-- The ADR partitions every delivery package at track granularity by the same convention. In the code, only the module folders of the pwsh
+- The DDR partitions every delivery package at track granularity by the same convention. In the code, only the module folders of the pwsh
   track are compiled into aspect sets; the infrastructure convention is read and classifies files as live or not, but no set is derived from
   it.
 - The reference page of the aspect type (`Aspect.cs.md`) says the last aspect is non-live by rule; the infrastructure track declares `live`

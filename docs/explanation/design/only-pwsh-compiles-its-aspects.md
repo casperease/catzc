@@ -57,11 +57,11 @@ infrastructure convention.
 
 ## Where the code and the decision record differ
 
-- The ADR partitions every delivery package at track granularity by the same convention, and says a track's `-live` and `-tests` packages
+- The DDR partitions every delivery package at track granularity by the same convention, and says a track's `-live` and `-tests` packages
   use it when derived. No code derives them: the compiler runs only for `pwsh/<Module>` roots, and Maps classifies without deriving.
 - The reference page of the aspect type (`Aspect.cs.md`) names `Get-ModuleAspect` as the PowerShell side that builds the sets; that function
   does not exist, and `Get-ModuleGlobSet` builds them.
-- The ADR prefixes every aspect pattern with the unit root; the derived `tests` set also reaches the language test folders outside it.
+- The DDR prefixes every aspect pattern with the unit root; the derived `tests` set also reaches the language test folders outside it.
 
 ## See also
 

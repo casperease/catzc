@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d307584eb705
+    with_body_sha: c5f3f5ef8f30
   edges:
     docs: "[Test-DrsRegistry.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-drs/tests/Test-DrsRegistry.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1

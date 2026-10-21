@@ -2,13 +2,14 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2685ecee65a4"
+    with_body_sha: "7541fe5f1e16"
   edges:
     docs: "[Test-Links.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-Links.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-Links.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-FILEMETA-FEWLINKS
       - ADR-REPO-LINK-ONECITATIONSPELLING
       - ADR-REPO-LINK-ALIGNEDBYTOOL
       - PDR-CONFIG-EXCEPTIONISCONFIGENTRY
@@ -51,6 +52,21 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
         $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
         $result.IssueCount | Should -Be 1
         $result.Issues[0] | Should -Match 'src/gadget.yml:8:'
+    }
+
+    It 'resolves a code head''s docs edge from the file''s folder, and reports one that does not open' -Tag 'ADR-REPO-FILEMETA-FEWLINKS' {
+        $head = { param([string] $Target) "<#`n---`ncatzc:`n  edges:`n    docs: ""[widget.ps1.md]($Target)""`n---`n#>`n`nfunction Get-Widget { }`n" }
+        & $writeFile $root 'docs/references/src/widget.ps1.md' "# src/widget.ps1`n"
+        & $writeFile $root 'src/widget.ps1' (& $head '../docs/references/src/widget.ps1.md')
+        (Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru).IssueCount | Should -Be 0
+
+        & $writeFile $root 'src/widget.ps1' (& $head 'docs/references/src/widget.ps1.md')
+        $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
+        $result.IssueCount | Should -Be 1
+        $result.Issues[0] | Should -Match 'src/widget\.ps1:5:.*\[Dangling\].*docs edge .docs/references/src/widget\.ps1\.md. does not resolve from the file''s folder'
+
+        & $writeFile $root 'src/widget.ps1' (& $head '../docs/references/src/gone.ps1.md')
+        (Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru).IssueCount | Should -Be 1
     }
 
     It 'reads only: the file is unchanged after the gate' -Tag 'ADR-REPO-LINK-ALIGNEDBYTOOL' {

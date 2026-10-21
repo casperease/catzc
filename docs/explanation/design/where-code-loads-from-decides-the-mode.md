@@ -22,7 +22,7 @@ is in. The place the code was loaded from is the answer, so the mode can never d
 
 1. **The repository.** Source mode reads every module in place from the repository, one function per file. This is the form for the people
    who edit the code.
-2. **A built package.** Build mode reads the same modules from a package. The ADR names three kinds of place a package can sit: temporary,
+2. **A built package.** Build mode reads the same modules from a package. The DDR names three kinds of place a package can sit: temporary,
    installed and saved, and code makes all three.
 3. **One importer.** Both modes run the same load sequence: preferences, vendored modules, types and accelerators, then modules.
 4. **Same modules.** Each module is identical in both modes, with the same name, functions, configs and assets, and each keeps its own

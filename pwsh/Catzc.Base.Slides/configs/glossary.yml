@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "1727b848c8e4"
+#     with_body_sha: "92d71fcdea31"
 #   edges:
 #     cites:
 #       - ADR-REPO-SLIDES-SLIDEFILE
@@ -49,6 +49,6 @@ concepts:
     domain: repository
     defined_by: ADR-REPO-SLIDES-DECLARATION
     short:
-      A diagram's one source, `diagram.drawio.yml` beside its `diagram.drawio.png` — a description, what the diagram shows in the kit's
-      closed vocabulary, and where a moved cell sits; put renders it into the drawing and get reads the drawing back into it.
+      A diagram's one source, `<name>.drawio.yml` beside its `<name>.drawio.png` — a description, what the diagram shows in the kit's closed
+      vocabulary, and where a moved cell sits; put renders it into the drawing and get reads the drawing back into it.
     realized_by: { kind: prose-only }

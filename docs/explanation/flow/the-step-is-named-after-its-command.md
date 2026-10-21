@@ -33,7 +33,7 @@ failed step copies the command from the label and runs it after the importer.
 6. **Write-Exception.** A command that throws prints the exception type, its message, the script stack trace and any inner exceptions, and
    the run stops.
 7. **Developer.** To reproduce a step, a developer runs `.\importer.ps1` and pastes the `RunCommand`, copied from the step label or the
-   echoed command. No gate checks this reproduction, so it holds by the ADR alone.
+   echoed command. No gate checks this reproduction, so it holds by the FDR alone.
 
 Set the pipeline variable `System.Debug` to `true` for verbose output and the full `Write-EnvironmentDiagnostic`; otherwise the log carries
 the shorter `Write-AdoEnvironmentDiagnostic`. The `ci-pwsh-expected-failures.yaml` pipeline exercises the trap and a copy of the guard on
@@ -48,8 +48,8 @@ every `pwsh/**` change.
 ## Where the code and the decision record differ
 
 - No gate checks that a pasted `RunCommand` reproduces the step: nothing replays a command outside the runner.
-- The ADR's runner listing leaves out the log lines and diagnostics that the run shows.
-- The ADR says the step template holds no logic; the guard that throws on a multiline command without a display name lives in the template.
+- The FDR's runner listing leaves out the log lines and diagnostics that the run shows.
+- The FDR says the step template holds no logic; the guard that throws on a multiline command without a display name lives in the template.
 
 ## See also
 

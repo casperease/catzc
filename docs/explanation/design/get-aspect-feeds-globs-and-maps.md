@@ -71,7 +71,7 @@ The code that validates the order sits in the config type, before either caller 
 
 - The reference page of the aspect type (`Aspect.cs.md`) names `Get-ModuleAspect` as the PowerShell side that builds the sets;
   `Get-ModuleGlobSet` does it, and no function of that name exists.
-- The ADR prefixes every aspect pattern with the unit root; the derived `tests` set adds the language test folders outside it.
+- The DDR prefixes every aspect pattern with the unit root; the derived `tests` set adds the language test folders outside it.
 - The reference page of the aspect type (`Aspect.cs.md`) says the last aspect is non-live by rule; the infrastructure entry declares `live`
   last.
 

@@ -9,7 +9,7 @@ ADR-AUTO-CACHE governs functions that cache a derivation of the file set; a Type
 4  its life     the process: a loaded type cannot change (ADR-BCL-TYPES-CHANGEDAFTERLOAD), so the key cannot go stale
 5  invalidation none needed; the importer neither reaches it nor needs to
 6  borrowed     read-only values, a session-stable key and lazy fill: the principles carry over, the rules do not apply
-7  review       no ADR line is needed; the type states the rule in its own comment
+7  review       no decision-record line is needed; the type states the rule in its own comment
 ```
 
 This article answers one question that blocks the unboxing change plan: does `ADR-AUTO-CACHE` govern a static, `Type`-keyed reflection table
@@ -42,10 +42,11 @@ from what the ADR and the type system define; the two are read here, and no rule
    held to. A cached value is read-only to its callers (`ADR-AUTO-CACHE-READONLYVALUES`): a `Shape` exposes read-only collections, never an
    array a caller can write. A key is a session-stable value, never a mutable object (`ADR-AUTO-CACHE-KEYEDBYINPUTS`): a `Type` is. The fill
    is lazy (`ADR-AUTO-CACHE-LAZYBYDEFAULT`): `GetOrAdd` on first use, never at import, so the importer budget is untouched.
-7. **Review, not a new rule.** No ADR text speaks about static state in a type. The existing static tables in `types/` are constants:
+7. **Review, not a new rule.** No decision record speaks about static state in a type. The existing static tables in `types/` are constants:
    `SentenceGuid.Map`, `WinAnsi.Typographic`, the defaults of `TimeoutsConfig`, the compiled `Regex` fields of `LinkEngine`. A `Type`-keyed
    table is the first one filled at run time, so its type carries a short comment naming the rule that makes it safe (a loaded type cannot
-   change) and why it is not a session cache. The comment is the whole record; an ADR line for one table would be a rule with one user.
+   change) and why it is not a session cache. The comment is the whole record; a decision-record line for one table would be a rule with one
+   user.
 
 ## Why it holds
 

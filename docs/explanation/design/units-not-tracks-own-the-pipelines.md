@@ -15,8 +15,8 @@ Supports DDR-TRACK-ONETRACKTYPE, DDR-TRACK-ONETECHSTACK, DDR-TRACK-SUBSCRIBABLEN
 
 Cats is one repository made of tracks, the root concerns such as `pwsh` and `infrastructure`. A track does not ship by itself: what ships is
 a deployable-unit, and each pipeline is the delivery machine of what it binds. The four CD pipelines bind deployable-units, and the two CI
-pipelines bind the `pwsh` and `infrastructure` track sets themselves, with no whole-track unit in between; the tracks ADR and the globset
-ADR both say so.
+pipelines bind the `pwsh` and `infrastructure` track sets themselves, with no whole-track unit in between; the tracks DDR and the globset
+FDR both say so.
 
 ![CD binds through units, CI binds the track sets](.assets/units-not-tracks-own-the-pipelines/diagram.drawio.png)
 
@@ -49,7 +49,7 @@ picture. The `templates` loose-fileset binds none either.
 
 ## Where the code and the decision record differ
 
-The tracks ADR says the gates on the dependency graph enforce the one-directional core and adapter dependency; those gates check module
+The tracks DDR says the gates on the dependency graph enforce the one-directional core and adapter dependency; those gates check module
 edges only, and nothing checks the direction between tracks.
 
 ## See also

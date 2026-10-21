@@ -62,7 +62,7 @@ outside the head:
 | `page`, `test`                              | the `relative-edges` path rules and the disk                                                                                                                |
 | comments (a long comment lives on its page) | `comments.yml`, the code and its page ([ADR-REPO-COMMENTS-ONELINEOFINSIGHT](../drs/repository/comments-in-docs.md#rule-adr-repo-comments-onelineofinsight)) |
 
-`Get-DrsUsage` counts the ADR citations and links of the tree through the same processors, so its rows are the same with or without heads.
+`Get-DrsUsage` counts the rule citations and links of the tree through the same processors, so its rows are the same with or without heads.
 
 ## Keys a head does not carry
 
@@ -104,7 +104,7 @@ head are the ones whose head a reader needs:
 | ----------------------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------- |
 | generated files                                             | `required`  | the head says which writer and which source to edit instead, and stamps the composed body |
 | agent and capability definitions, slides                    | `required`  | another tool reads their front matter, so the file does not work without it               |
-| the ADR index and the glossary                              | `required`  | generated pages the engine stamps with `with_body_sha` and marks `locked`                 |
+| the DRS index and the glossary                              | `required`  | generated pages the engine stamps with `with_body_sha` and marks `locked`                 |
 | authored source files: code, config, docs and comment pages | `forbidden` | every fact is derivable, so a head is a second statement of it that can drift             |
 
 Because no command reads an imprinted fact, a policy change is safe in both directions: switching a class to `required` adds heads and
@@ -149,7 +149,7 @@ path and a path outside the repository, and `-DryRun` reports what would change.
 
 What it is not:
 
-- **Not a loop primitive.** It loads the registries and the ADR citation map on every call. A tight loop asks an `Assert-` or `Test-` guard
+- **Not a loop primitive.** It loads the registries and the rule citation map on every call. A tight loop asks an `Assert-` or `Test-` guard
   the one question it needs.
 - **Not a gate.** `Test-FileMeta` and the other gates give the verdict; the file tool only writes.
 - **Not a second engine.** It calls the repository tools on one file, so there is one living version of the imprint

@@ -3,7 +3,7 @@
 ```text
 A stage stops only on $false; $true, a doubt and its message all proceed; an undeclared name throws.
 
-1  a unit's pipeline stage      the caller the ADR describes; no pipeline makes the call
+1  a unit's pipeline stage      the caller the FDR describes; no pipeline makes the call
 2  Test-GlobSetAffected apex    the command, with the unit's globset name
 3  $false, return               confirmed untouched: the stage has nothing to process
 4  $true, proceed               the unit is touched, or the range could not be resolved

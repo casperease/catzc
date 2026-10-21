@@ -49,9 +49,9 @@ Two layers, `deployable-unit` and `loose-fileset`, are declared in `globs.yml`. 
 
 ## Where the code and the decision record differ
 
-- The ADR lists a reserved umbrella among the kinds of declared loose-fileset; the code derives the four umbrellas and rejects them as
+- The FDR lists a reserved umbrella among the kinds of declared loose-fileset; the code derives the four umbrellas and rejects them as
   declared names.
-- The ADR describes one module set per folder (`catzc-base-globs`, include `pwsh/<Module>/**`); the code derives two aspect sets per folder
+- The FDR describes one module set per folder (`catzc-base-globs`, include `pwsh/<Module>/**`); the code derives two aspect sets per folder
   and no whole-module set.
 
 ## See also

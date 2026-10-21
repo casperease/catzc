@@ -45,8 +45,6 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. A chunk without a task file is executed from its plan's open steps directly. The questions raised after the round
 of 2026-10-21 are decided (the second round of that day) and folded into their plans.
 
-- docs-edge-relative-link -> plan-docs-edge-relative-link.md: a `{relpath}` link token, the ADR wording, then one `Sync-FileMeta`
-  re-imprint; agent-takeable.
 - idiomatic-names -> plan-idiomatic-names.md: one step left, the naming gate wired into languages.yml once the user stages the folder moves
   (task-user-runs-and-commits).
 - listen-internal-readers -> plan-listen-internal-readers.md: one step left, the user's `.claude/CLAUDE.md` edit
@@ -56,12 +54,11 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - agent-friction -> plan-agent-friction.md: the user's CLAUDE.md trims only (task-user-runs-and-commits).
 - claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit only (Sub-agents cut, the pwsh index named; task-user-runs-and-commits).
 - session-learnings -> plan-session-learnings.md: one learning reworded and catzc-49's lines appended; its questions are decided.
-- minimap-reasons-gate -> plan-minimap-reasons-gate.md: every diagram's placed minimap data written into its `diagram.drawio.yml` under
-  `content.minimaps`, then the gate in Write-DiagramMinimapData drops an undeclared lit cell.
 - drs-system -> plan-drs-system.md: the Decision Records System (DRS): docs/drs moves to docs/drs, the holder of the XDR record-kind
   domains; its root declared once, then the move after the user's go, the citations, and the Adr* names.
 - diagram-flat-files -> plan-diagram-flat-files.md: Every diagram is two files beside its pages, <name>.drawio.png and <name>.drawio.yml,
   never a folder of its own.
+- debt-empty-path -> plan-debt-empty-path.md: A command handed an empty -Path refuses instead of running over the whole tree.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

@@ -46,9 +46,9 @@ where a guarantee is enforced and where it is only a discipline.
 
 ## Where the code and the decision record differ
 
-- The ADR has every consumer integrate from the last verified commit, but no function or pipeline in cats resolves that commit, and the
+- The DDR has every consumer integrate from the last verified commit, but no function or pipeline in cats resolves that commit, and the
   pipelines trigger on `main`.
-- The ADR has the server branch policy admit merges only through a pull request, but cats registers only build-validation policies on Azure
+- The DDR has the server branch policy admit merges only through a pull request, but cats registers only build-validation policies on Azure
   DevOps, sets no direct-push rule, and has nothing for GitHub.
 
 ## See also
