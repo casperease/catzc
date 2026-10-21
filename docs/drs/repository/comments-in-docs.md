@@ -6,7 +6,7 @@
 
 A comment in a code or configuration file is at most one line of insight: what the code does not say itself — the invariant it keeps, the
 order it depends on, the edge it guards, the reason a branch exists. A comment that needs more than one line of prose moves, verbatim, to
-the file's **comment page** and leaves **nothing** in the file: no marker, no insight line, no link. The comment's ADR citations move with
+the file's **comment page** and leaves **nothing** in the file: no marker, no insight line, no link. The comment's rule citations move with
 the rest of its prose and are found there. The way from a file to its page is the `pages` map of the `comment-pages` config
 ([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](#rule-adr-repo-comments-commentpageplace)), so it is derived from the file's path, never a line of
 code. When the file-heads variant is `minimal` ([ADR-REPO-VARIANT-FILEHEADS](repo-variants.md#rule-adr-repo-variant-fileheads)), the file's

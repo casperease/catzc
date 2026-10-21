@@ -11,7 +11,7 @@ Each sub-agent is defined in one file, `.claude/agents/<name>.md`. Its front mat
 
 ### Rule ADR-REPO-AGENTS-BACKEDBYRULE
 
-Every sub-agent exists because an ADR rule supports it. It is registered in `pwsh/Catzc.Base.Docs/configs/agents.yml` with `supported_by`,
+Every sub-agent exists because a DRS rule supports it. It is registered in `pwsh/Catzc.Base.Docs/configs/agents.yml` with `supported_by`,
 the rule citations (`ADR-<CODE>#<n>`) that justify it, and `checks`, the gate and check functions it runs or guards. An agent that runs and
 guards no catzc check declares `checks: []`, so the absence is stated, never implied.
 

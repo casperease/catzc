@@ -24,7 +24,7 @@ the `param` block, and an example is one fenced `powershell` block. The tooling 
 
 ### Rule ADR-REPO-HELP-CITATIONINSENTENCE
 
-A citation may stand inside a help sentence, where it names the rule the sentence rests on. The ADR codes a function rests on are derived
+A citation may stand inside a help sentence, where it names the rule the sentence rests on. The rule codes a function rests on are derived
 from the file and its page ([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)), so the help never lists them. A
 line of the text made of nothing but a citation is reported.
 

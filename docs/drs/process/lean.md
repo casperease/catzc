@@ -1,4 +1,4 @@
-# ADR: Lean — the Toyota Production System, mapped to software by the Poppendiecks
+# Process: Lean — the Toyota Production System, mapped to software by the Poppendiecks
 
 ## Rules: WDR-LEAN
 
@@ -131,7 +131,7 @@ serves none of the seven principles is waste. When a repository rule specialises
 [^2]:
     Mary and Tom Poppendieck, _Lean Software Development: An Agile Toolkit_ (2003) and _Implementing Lean Software Development: From Concept
     to Cash_ (2006). The canonical mapping of the Toyota Production System to software, including the seven principles and the seven wastes
-    used throughout these ADRs.
+    used throughout these decision records.
 
 [^3]:
     John D. C. Little, "A Proof for the Queuing Formula: L = λW", _Operations Research_ 9 (1961). The relationship holds for any stable

@@ -18,7 +18,7 @@ incidents — read off the real system ([WDR-OBSERVEWIP](observe-work.md)), not 
 
 ### Rule WDR-KAIZEN-AMPLIFYLEARNING
 
-Amplify learning: development is a knowledge-creating process. Capture what is learned in the system itself — a convention, a gate, an ADR —
+Amplify learning: development is a knowledge-creating process. Capture what is learned in the system itself — a convention, a gate, a decision record —
 so the knowledge holds and is not relearned ([PDR-NOWASTE](../principles/reduce-waste.md), the relearning waste).
 
 - [Why](#why)
@@ -51,7 +51,7 @@ Build improvement into the process as a continuous, evidence-driven loop:
 - **Decide from evidence.** Process changes follow observed signals from the real system ([WDR-OBSERVEWIP](observe-work.md)), not opinion. A
   recurring failure, a lengthening queue, or a flaky quality gate is data that motivates a specific countermeasure.
 - **Amplify learning by capturing it.** When something is learned, it is encoded where it will hold — a convention that makes the mistake
-  impossible to express ([PDR-POKAYOKE](../principles/poka-yoke.md)), a quality gate that catches it, or an ADR that records the decision —
+  impossible to express ([PDR-POKAYOKE](../principles/poka-yoke.md)), a quality gate that catches it, or a decision record that names the decision —
   so the next person inherits the knowledge instead of rediscovering it.
 
 ## Why
@@ -61,7 +61,7 @@ inspect-and-adapt continuous — tied to the stopped line and the per-push gates
 freshest.
 
 **Uncaptured learning is relearned.** Knowledge that lives only in someone's head is lost at every absence and every new joiner
-([PDR-NOWASTE](../principles/reduce-waste.md), the relearning waste). Encoding a lesson as a convention, a gate, or an ADR is what turns a
+([PDR-NOWASTE](../principles/reduce-waste.md), the relearning waste). Encoding a lesson as a convention, a gate, or a decision record is what turns a
 one-time insight into a permanent property of the system.
 
 **The countermeasure, not the fix, is the point.** Fixing a defect restores flow; asking why it was possible and removing that possibility
@@ -72,7 +72,7 @@ is what makes the system better. Kaizen is the discipline of always taking the s
 When the line stops or a gate catches something, do not only fix the instance — ask what made it possible and add the countermeasure that
 prevents the class, then encode it where it holds ([PDR-POKAYOKE](../principles/poka-yoke.md)), or in a quality gate. Prefer many small
 adjustments driven by observed signals ([WDR-OBSERVEWIP](observe-work.md)) over occasional large reorganisations. When you learn something
-worth keeping, capture it as a convention, a gate, or an ADR so it is not relearned. Treat the per-push gates as the platform's built-in
+worth keeping, capture it as a convention, a gate, or a decision record so it is not relearned. Treat the per-push gates as the platform's built-in
 learning loop and let them run on every change, not only at a milestone: the same gates run on the devbox and in the pipeline, and every
 push recomputes the flow state.
 
@@ -84,4 +84,4 @@ push recomputes the flow state.
 
 [^2]:
     Taiichi Ohno, _Toyota Production System: Beyond Large-Scale Production_ (1988), on kaizen and the "five whys" — a stopped line triggers
-    root-cause analysis and a permanent countermeasure, so improvement is continuous and built into daily wo
+    root-cause analysis and a permanent countermeasure, so improvement is continuous and built into daily work.

@@ -57,7 +57,9 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
 
     It 'writes the minimap data of every declared folder in one call, one progress line per folder' {
         $declarations = @('docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' | ForEach-Object { Join-Path $script:widgetRoot "$_/diagram.drawio.yml" })
-        Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { foreach ($item in $Folder) { "out/minimaps/$item" } }
+        Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { foreach ($item in $Folder) {
+                "out/minimaps/$item"
+            } }
         try {
             foreach ($declaration in $declarations) {
                 [System.IO.Directory]::CreateDirectory((Split-Path $declaration -Parent)) | Out-Null

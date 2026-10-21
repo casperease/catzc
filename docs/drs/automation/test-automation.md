@@ -213,7 +213,7 @@ A parallel-run flake root-caused to a shared resource is fixed by tagging it ser
 
 ### Rule ADR-AUTO-TEST-PROVENANCETAGS
 
-An **optional third, provenance dimension**: a test MAY carry `ADR-<CODE>#<n>` citation tags naming the ADR rule(s) it enforces — the
+An **optional third, provenance dimension**: a test MAY carry `ADR-<CODE>#<n>` citation tags naming the DRS rule(s) it enforces — the
 `docs/drs/index.md` `#` citation form, so the `ADR-` marker greps to both a rule's prose and its enforcing tests. Absence is never a
 violation. A **present** citation is validated (`Get-TestTagViolations`): it must be well-formed and resolve to a real rule
 (`Get-CatsDrsRuleIds`), or the run fails — so a rule renumber breaks its stale tag loudly. Unlike the single-valued tier and category axes
@@ -246,7 +246,7 @@ run.
 ### Rule ADR-AUTO-TEST-SOURCEONLYTAG
 
 **`source-only`** is the one tag by which a test opts out of the build run. It marks a test whose answer cannot differ between the modes —
-an integrity test that reads only the repository's files (folder conventions, syntax-tree scans, globsets, the ADR registry, managed GUIDs,
+an integrity test that reads only the repository's files (folder conventions, syntax-tree scans, globsets, the DRS registry, managed GUIDs,
 spelling) — or a logic test of a source-tree tool that needs per-function files. It is optional, resolved along the chain of groups like
 `serial`/`greedy`, and validated by `Get-TestTagViolations`; the build run counts and lists every test it excludes this way, so the
 exclusion is visible, never silent. A test that inspects the loaded code — exports resolve, configs validate through `Get-Config`, types and
@@ -498,7 +498,7 @@ provenance citations of the next section, and the `source-only` build-run opt-ou
 
 `The optional provenance axis and rule-enforcement coverage`
 
-A test may also declare **which ADR rule(s) it enforces**, so the tests are traceable both ways: from a test to the rule behind it, and from
+A test may also declare **which DRS rule(s) it enforces**, so the tests are traceable both ways: from a test to the rule behind it, and from
 a rule to the tests that pin it. The citation is a tag in the `docs/drs/index.md` `#` form — `ADR-AUTO-CACHE-READONLYVALUES` — chosen so the
 one reserved `ADR-` marker greps uniformly across a rule's prose, the code that cites it, and its tests. This dimension differs from tier
 and category in two ways. It is **optional**: a test carries a citation only when it meaningfully enforces a specific rule, and absence is
@@ -510,7 +510,7 @@ than taking the nearest like the single-valued axes.
 What keeps the optional axis honest is that a **present** citation is validated. `Get-TestTagViolations` — the same discovery-pass check
 that enforces the mandatory axes — rejects any `ADR-` tag that is malformed or names a rule absent from `Get-CatsDrsRuleIds` (the flat set
 parsed from every ADR's rule registry). So a citation cannot silently rot: renumbering a rule turns its stale tags red. The check is lazy —
-it reads the ADR tree only when a test actually carries a citation — so a test run with none stays hermetic.
+it reads the DRS only when a test actually carries a citation — so a test run with none stays hermetic.
 
 Coverage is the payoff, and it is **reported, never blocking**. `Write-TestAutomationRuleCoverage` writes `rule-coverage.md`/`.csv` beside
 the run report, mapping every rule to its enforcers and listing the genuinely-uncovered. Crucially it counts **two** enforcer kinds, because

@@ -1,4 +1,4 @@
-# ADR: Agile — defined by the manifesto, measured by responsiveness
+# Process: Agile — defined by the manifesto, measured by responsiveness
 
 ## Rules: WDR-AGILE
 

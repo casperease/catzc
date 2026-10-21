@@ -1,4 +1,4 @@
-# ADR: Observe the work — make it visible, and go and see
+# Process: Observe the work — make it visible, and go and see
 
 ## Rules: WDR-OBSERVEWIP
 

@@ -1,4 +1,4 @@
-# ADR: The money is lost in the queues — Little's Law and the cost of delay
+# Process: The money is lost in the queues — Little's Law and the cost of delay
 
 ## Rules: WDR-QUEUECOST
 

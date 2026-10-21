@@ -6,7 +6,7 @@ Every agent and every skill reads this first, at every start and after every cle
 
 ### Rule ADR-REPO-AI-READCONTRACTFIRST
 
-**Read this contract first, every start.** Then the ADR index and only the rules your brief cites, by code.
+**Read this contract first, every start.** Then the DRS index and only the rules your brief cites, by code.
 (ADR-REPO-LINK-ONECITATIONSPELLING)
 
 ### Rule ADR-REPO-AI-TRUSTTHETREE

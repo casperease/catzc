@@ -1,4 +1,4 @@
-# ADR: Holding the line — a gate that fails stops the flow until it is green
+# Process: Holding the line — a gate that fails stops the flow until it is green
 
 ## Rules: WDR-ANDON
 

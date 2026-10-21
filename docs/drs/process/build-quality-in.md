@@ -1,4 +1,4 @@
-# ADR: Build quality in — you cannot inspect it in at the end
+# Process: Build quality in — you cannot inspect it in at the end
 
 ## Rules: WDR-BUILTIN
 

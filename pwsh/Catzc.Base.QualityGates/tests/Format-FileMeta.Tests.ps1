@@ -49,9 +49,9 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         $script:registry = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
                 head_policy = @{ default = 'required' }
                 kinds       = [ordered]@{
-                    'body-sha'  = @{ keys = @('with_body_sha') }
+                    'body-sha'    = @{ keys = @('with_body_sha') }
                     'widget-role' = @{ keys = @('role') }
-                    'drs-codes' = @{ keys = @('cites'); section = 'edges' }
+                    'drs-codes'   = @{ keys = @('cites'); section = 'edges' }
                 }
             })
         # Not named $config: that is Get-Config's own -Config parameter inside the mock.

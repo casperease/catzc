@@ -1,4 +1,4 @@
-# ADR: Agile principles — the twelve principles behind the manifesto
+# Process: Agile principles — the twelve principles behind the manifesto
 
 ## Rules: WDR-AGILEPRINCIPLES
 

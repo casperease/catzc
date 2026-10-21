@@ -14,11 +14,11 @@ Describe 'Get-DefinedName' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'
         $files = [ordered]@{
-            'widgets/Get-Widget.ps1'  = "function Get-Widget {`n    function Inner-Helper { }`n}`nfunction script:New-WidgetFixture { }`nclass WidgetPart { }`n"
-            'widgets/gadget.py'       = "class GadgetPart:`n    def __init__(self):`n        pass`n`nasync def fetch_gadget():`n    pass`n"
-            'widgets/gadget.go'       = "package gadget`n`ntype GadgetPart struct{}`n`nfunc (g GadgetPart) Size() int { return 0 }`n`nfunc requireGadget() {}`n"
-            'widgets/notes.md'        = "def not_code():`n"
-            'widgets/Plain.pln'       = "def plain():`n"
+            'widgets/Get-Widget.ps1' = "function Get-Widget {`n    function Inner-Helper { }`n}`nfunction script:New-WidgetFixture { }`nclass WidgetPart { }`n"
+            'widgets/gadget.py'      = "class GadgetPart:`n    def __init__(self):`n        pass`n`nasync def fetch_gadget():`n    pass`n"
+            'widgets/gadget.go'      = "package gadget`n`ntype GadgetPart struct{}`n`nfunc (g GadgetPart) Size() int { return 0 }`n`nfunc requireGadget() {}`n"
+            'widgets/notes.md'       = "def not_code():`n"
+            'widgets/Plain.pln'      = "def plain():`n"
         }
         foreach ($relative in $files.Keys) {
             $path = Join-Path $script:root $relative

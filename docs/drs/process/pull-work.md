@@ -1,4 +1,4 @@
-# ADR: Pull work through the system — do not push it
+# Process: Pull work through the system — do not push it
 
 ## Rules: WDR-PULLWORK
 

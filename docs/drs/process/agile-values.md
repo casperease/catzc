@@ -1,4 +1,4 @@
-# ADR: Agile values — the four preferences of the manifesto
+# Process: Agile values — the four preferences of the manifesto
 
 ## Rules: WDR-VALUES
 
