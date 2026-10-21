@@ -5,10 +5,10 @@
 ### Rule ADR-REPO-HELP-HELPONCOMMENTPAGE
 
 The help of a PowerShell function file or script is the `## help` section of the file's comment page
-([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](comments-in-docs.md#rule-adr-repo-comments-commentpageplace)), the page `comments.yml` names for the
-file's path. The file itself carries no help: no comment-based help block (no `.SYNOPSIS`, `.DESCRIPTION`, `.PARAMETER`, `.INPUTS`,
-`.OUTPUTS`, `.EXAMPLE` or `.NOTES` section anywhere) and no help in a head. The section comes first after the page's opening line and holds,
-in this order, `### synopsis`, `### description`, one ``### parameter `<Name>` `` for each parameter, its name written as code,
+([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](comments-in-docs.md#rule-adr-repo-comments-commentpageplace)), the page the `comment-pages` config
+names for the file's path. The file itself carries no help: no comment-based help block (no `.SYNOPSIS`, `.DESCRIPTION`, `.PARAMETER`,
+`.INPUTS`, `.OUTPUTS`, `.EXAMPLE` or `.NOTES` section anywhere) and no help in a head. The section comes first after the page's opening line
+and holds, in this order, `### synopsis`, `### description`, one ``### parameter `<Name>` `` for each parameter, its name written as code,
 `### inputs`, `### outputs`, one `### example <n>` for each example, and `### notes`. Every subsection but the synopsis is present only when
 it has text.
 

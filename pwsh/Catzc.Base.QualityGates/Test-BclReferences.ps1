@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "747ea729cafa"
+    with_body_sha: e592892739ab
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-BclReferences.Tests.ps1
 ---
@@ -28,6 +28,7 @@ function Test-BclReferences {
             -not [System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($_))).StartsWith('.')
         })
 
+    $modulesFolder = [System.IO.Path]::GetRelativePath((Get-RepositoryRoot), $ModulesRoot).Replace('\', '/')
     foreach ($source in $sources) {
         $module = [System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($source)))
         $file = "$module/types/$([System.IO.Path]::GetFileName($source))"
@@ -36,7 +37,7 @@ function Test-BclReferences {
         }
         [void]$bound.Add($file)
         if ($null -eq $config.HostBindingOf($file)) {
-            $issues.Add("${file}: uses System.Management.Automation without a host binding in bcl.yml — move the host work to its pwsh caller, or add the row with its reason")
+            $issues.Add("$modulesFolder/${file}: uses System.Management.Automation without a host binding in bcl.yml — move the host work to its pwsh caller, or add the row with its reason")
         }
     }
 

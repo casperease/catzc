@@ -47,7 +47,9 @@ function Format-GeneratedFileHead {
 
         [Catzc.Base.Languages.LanguagesConfig] $Languages = (Get-Config -Config languages),
 
-        [Catzc.Base.Languages.GeneratedHeadConfig] $Head = (Get-Config -Config generated-head)
+        [Catzc.Base.Languages.GeneratedHeadConfig] $Head = (Get-Config -Config generated-head),
+
+        [Catzc.Base.CodeMeta.CommentPagesConfig] $Pages = (Get-Config -Config comment-pages)
     )
 
     $relative = $Path -replace '\\', '/'
@@ -104,16 +106,22 @@ function Format-GeneratedFileHead {
             $facts[$key] = $values[$key]
         }
     }
+    # The relatives only: the comment page when it exists, as the relative-edges processor writes its docs relation.
+    $edges = [ordered]@{}
+    $page = Get-CommentPage -Path $relative -Config $Pages
+    if ($page -and [System.IO.File]::Exists((Join-Path (Get-RepositoryRoot) $page))) {
+        $edges['docs'] = "[$([System.IO.Path]::GetFileName($page))]($page)"
+    }
 
     switch ($entry.carrier) {
         ([Catzc.Base.Languages.CarrierKind]::CommentHead) {
-            Format-CodeMetaHead -Text $Text -Form $entry.Form() -Immutable $facts
+            Format-CodeMetaHead -Text $Text -Form $entry.Form() -Immutable $facts -Edges $edges
         }
         ([Catzc.Base.Languages.CarrierKind]::FrontMatter) {
-            Format-MarkdownMetaBlock -Text $Text -Immutable $facts -Key $entry.key
+            Format-MarkdownMetaBlock -Text $Text -Immutable $facts -Edges $edges -Key $entry.key
         }
         ([Catzc.Base.Languages.CarrierKind]::Property) {
-            Format-PropertyMetaHead -Text $Text -Property $entry.property -Strip $entry.strip -Immutable $facts
+            Format-PropertyMetaHead -Text $Text -Property $entry.property -Strip $entry.strip -Immutable $facts -Edges $edges
         }
         default {
             throw "Format-GeneratedFileHead: '$relative' uses the carrier '$id' of kind $($entry.carrier), and only front matter, a comment head or a property can be written into generated content."

@@ -77,8 +77,9 @@ function Invoke-ImprintStep {
                 return $outcome
             }
             # The help is the ## help section of the file's comment page, so the step only reports what a person must settle and changes no file.
+            $commentPages = Get-Config -Config comment-pages
             foreach ($path in $File) {
-                $page = Get-CommentPage -Path ([System.IO.Path]::GetRelativePath($root, $path) -replace '\\', '/')
+                $page = Get-CommentPage -Path ([System.IO.Path]::GetRelativePath($root, $path) -replace '\\', '/') -Config $commentPages
                 $pageText = if ($page -and [System.IO.File]::Exists((& $absolute $page))) {
                     [System.IO.File]::ReadAllText((& $absolute $page))
                 }

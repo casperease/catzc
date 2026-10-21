@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/types/ValueChainHighlight.cs
-    folder: types
-    name: value-chain-highlight
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "995c650d884f"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
     docs: "[ValueChainHighlight.cs.md](docs/references/pwsh/catzc-base-maps/types/ValueChainHighlight.cs.md)"
@@ -29,7 +18,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Management.Automation;
 using System.Text;
 using System.Text.Json;
 
@@ -168,8 +156,7 @@ public sealed class ValueChainHighlight
         }
         foreach (object item in raw)
         {
-            object value = item is PSObject wrapped ? wrapped.BaseObject : item;
-            string text = Convert.ToString(value, CultureInfo.InvariantCulture);
+            string text = Convert.ToString(item, CultureInfo.InvariantCulture);
             if (!string.IsNullOrEmpty(text)) { items.Add(text); }
         }
         return items;

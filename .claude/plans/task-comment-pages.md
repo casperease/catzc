@@ -52,7 +52,14 @@ only after every caller has moved, so no session's import path breaks in between
 12. `pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs` and `configs/comments.yml`, after every caller has moved: `pages`, `DefaultPages`
     and `PageFor` deleted, and the `pages` cases leave `tests/types/CommentsConfig.Tests.ps1`; `tests/Format-FileMeta.Tests.ps1:71` builds
     `CommentPagesConfig` instead, and `configs/source-conventions.yml:78-79` names `CommentPagesConfig.DefaultPages`. Check: in a fresh
-    `pwsh`, `Invoke-TestFile` on both test files.
+    `pwsh`, `Invoke-TestFile` on both test files. 12a. Layering (the user, 2026-10-21): `Catzc.Base.CodeMeta` reads no config, so
+    `Get-CommentPage` takes a mandatory `-Config [CommentPagesConfig]` and each caller of steps 5 to 11 passes
+    `(Get-Config -Config comment-pages)`; one file per step. Check: `Invoke-TestFile` on each caller's test named in its step, and on
+    `Get-CommentPage.Tests.ps1`. 12b. The comment pages: `comments.yml.md`'s note above `pages:` moves to a new `comment-pages.yml.md`;
+    `CommentsConfig.cs.md:25` loses its `pages` line; `docs/references/pwsh/catzc-base-codemeta.md` gains `Get-CommentPage` in its Division
+    table. Check: `Test-Links` on the three pages. 12c. `docs/adr/repository/comments-in-docs.md:10,31` and
+    `docs/adr/repository/function-help.md:8`: the page map is named as the `comment-pages` config of `Catzc.Base.CodeMeta`, not
+    `comments.yml`'s `pages`; one file per step. Check: `Test-Links` and `Test-AdrRegistry` on each.
 13. `pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1`: the `docs` edge derived with `Get-CommentPage`, written by the same
     `[{leaf}]({path})` template. Check: `Invoke-TestFile` on `pwsh/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1` with a
     case for a generated file that has a page.

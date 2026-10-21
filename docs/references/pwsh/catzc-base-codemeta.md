@@ -9,10 +9,11 @@ registry that names each file class's comment syntax, and the commands that read
 
 ## Responsibilities
 
-| Responsibility   | Area       | Name                                                                   |
-| ---------------- | ---------- | ---------------------------------------------------------------------- |
-| responsibility:1 | reading    | [Reading a text's head](#responsibility1--reading-a-texts-head)        |
-| responsibility:2 | imprinting | [Imprinting derived facts](#responsibility2--imprinting-derived-facts) |
+| Responsibility   | Area       | Name                                                                              |
+| ---------------- | ---------- | --------------------------------------------------------------------------------- |
+| responsibility:1 | reading    | [Reading a text's head](#responsibility1--reading-a-texts-head)                   |
+| responsibility:2 | imprinting | [Imprinting derived facts](#responsibility2--imprinting-derived-facts)            |
+| responsibility:3 | pages      | [Locating a file's comment page](#responsibility3--locating-a-files-comment-page) |
 
 ### responsibility:1 — Reading a text's head
 
@@ -28,6 +29,13 @@ same bytes. The head follows the language's anchor, a blank line separates it fr
 config lines survive a rewrite, and no facts removes the head and its blank line. An old head the form lists to strip is removed with its
 whole comment run before the head is written.
 
+### responsibility:3 — Locating a file's comment page
+
+Which page under docs/ holds a file's long comments, from the ordered source-folder to docs-folder maps of the comment-pages settings; the
+first map that covers the file wins, and a file no map covers has no page. The settings reach it as a parameter, so every head writer and
+every comment gate finds the same page with the same call
+([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](../../adr/repository/comments-in-docs.md#rule-adr-repo-comments-commentpageplace)).
+
 ## What the module does
 
 A code file has no front matter, but it has comments, and the leading comment is where a reader looks first. This module is that comment's
@@ -39,7 +47,9 @@ meta block writes and reads it and a value is quoted only where YAML would read 
 
 Each function belongs to one responsibility.
 
-| Responsibility                              | Function              |
-| ------------------------------------------- | --------------------- |
-| responsibility:1 — Reading a text's head    | `Get-CodeMetaState`   |
-| responsibility:2 — Imprinting derived facts | `Format-CodeMetaHead` |
+| Responsibility                                    | Function              |
+| ------------------------------------------------- | --------------------- |
+| responsibility:1 — Reading a text's head          | `Get-CodeMetaState`   |
+| responsibility:2 — Imprinting derived facts       | `Format-CodeMetaHead` |
+| responsibility:3 — Locating a file's comment page | `Get-CommentPage`     |
+| config                                            | `comment-pages.yml`   |

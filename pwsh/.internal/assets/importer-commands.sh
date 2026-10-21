@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "345215a75e71"
+#     with_body_sha: "90192f54ebc5"
 #     warning: "Do Not Edit, this file is generated"
 #     role: asset
 #     track: pwsh
@@ -192,6 +192,7 @@ Test-FileMetaProcessors	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.Q
 Test-FolderConventions	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.ModuleSystem/Test-FolderConventions.command.yml		
 Test-FolderConventions	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.ModuleSystem/Test-FolderConventions.command.yml		
 Test-Formatting	Language	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Formatting.command.yml		
+Test-Formatting	Path	string	1	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Formatting.command.yml		
 Test-Formatting	OutputFolder	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Formatting.command.yml		
 Test-Formatting	PassThru	switch	0	0	0	contracts/catzc/0.0.0/Catzc.Base.QualityGates/Test-Formatting.command.yml		
 Test-FunctionDependency	ModulesRoot	string	0	0	0	contracts/catzc/0.0.0/Catzc.Base.ModuleSystem/Test-FunctionDependency.command.yml		

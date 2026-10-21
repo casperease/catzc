@@ -50,19 +50,6 @@ A head listed here keeps the whole run of comment lines it opens, which is how t
 
 ## comment:5
 
-Above `pages:`, written with `#`.
-
-```text
-Where a file's comment page lives, first match wins. `source` is a folder, or `<prefix>/*` for each immediate
-subfolder of the prefix (dot-prefixed folders never match, so .vendor is out and .scriptanalyzer and .internal are
-listed by name); `docs` is the
-folder under docs/ the pages go under, and with a `/*` source `{kebab}` is the matched subfolder's leaf name,
-lowercased with dots turned to hyphens. The page keeps the file's name and extension plus `.md`
-(pwsh/Catzc.Base.QualityGates/Format-Code.ps1 -> docs/references/pwsh/catzc-base-qualitygates/Format-Code.ps1.md).
-```
-
-## comment:6
-
 Above `exclude:`, written with `#`.
 
 ```text
@@ -72,7 +59,7 @@ repository would be foreign. A test is not listed, so its prose moves to a comme
 the default map, so only the asset entry is kept.
 ```
 
-## comment:7
+## comment:6
 
 Above `view: out/annotated`, written with `#`.
 

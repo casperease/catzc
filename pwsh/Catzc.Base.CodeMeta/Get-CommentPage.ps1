@@ -28,10 +28,13 @@ function Get-CommentPage {
     param(
         [Parameter(Mandatory, Position = 0)]
         [AllowEmptyString()]
-        [string] $Path
+        [string] $Path,
+
+        [Parameter(Mandatory)]
+        [Catzc.Base.CodeMeta.CommentPagesConfig] $Config
     )
 
-    $page = (Get-Config -Config comment-pages).PageFor($Path)
+    $page = $Config.PageFor($Path)
     if ($page) {
         $page
     }

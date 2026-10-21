@@ -2,20 +2,10 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1
-    folder: tests
-    name: test-links-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: a9b7e36d4b18
   edges:
     docs: "[Test-Links.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-Links.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.QualityGates/Test-Links.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-QUALITYGATE
@@ -52,6 +42,15 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
         & $writeFile $root 'src/widget.ps1' "`$x = 1`n# See ADR-TST-WIDGET-SPIN.`n"
         { Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase } |
             Should -Throw 'Test-Links failed: 1 issue(s)*src/widget.ps1:2:*run Format-Links*'
+    }
+
+    It 'leaves the cites of a line-comment meta head alone, and still checks the comments below it' -Tag 'ADR-REPO-LINK-ALIGNEDBYTOOL' {
+        $head = "# ---`n# catzc:`n#   edges:`n#     cites:`n#       - ADR-TST-WIDGET-SPIN`n# ---`n"
+        & $writeFile $root 'src/widget.yml' ($head + "`nwidget: 1`n")
+        & $writeFile $root 'src/gadget.yml' ($head + "`n# See ADR-TST-WIDGET-SPIN.`ngadget: 1`n")
+        $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
+        $result.IssueCount | Should -Be 1
+        $result.Issues[0] | Should -Match 'src/gadget.yml:8:'
     }
 
     It 'reads only: the file is unchanged after the gate' -Tag 'ADR-REPO-LINK-ALIGNEDBYTOOL' {

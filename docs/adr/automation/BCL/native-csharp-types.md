@@ -168,6 +168,7 @@ one that uses pwsh's `System.Management.Automation`, is a host binding, and a ho
 names the file and its reason. A host-bound type without its row is out of the language.
 
 - [The host binding](#the-host-binding)
+- [How this is enforced](#how-this-is-enforced)
 
 ## Context
 
@@ -440,6 +441,11 @@ as well as its files, so the pair is the language's configuration, apart from th
 - **`BclConfig.Tests.ps1`** (in `Catzc.Base.Languages`) pins the default pair, and its integrity test fails a tracked, non-vendored `.sln`
   or `.csproj` that declares any other configuration or platform (Rule ADR-AUTO-TYPES-DEBUGANYCPU). `Build-AgentHook` and
   `Invoke-BuildForVSCode` build the configuration they read from `bcl.yml`.
+
+- **`Test-BclReferences`** (in `Catzc.Base.QualityGates`, a check of the `csharp` language) fails a type source that uses
+  `System.Management.Automation` without its `bcl.yml` host-binding row, and a row whose source no longer uses it (Rule
+  ADR-AUTO-TYPES-BCLREFERENCESET). A value that only crosses from pwsh is unwrapped by its caller through `ConvertTo-BclValue`, so it never
+  makes a type host-bound.
 
 - **`Import-CSharpTypes.Tests.ps1` and `Get-CombinedTypeHash.Tests.ps1`** (`pwsh/.internal/tests`) — the console cell verifies and defers,
   the first `Initialize-Types` loads, the eager cell loads at import, and the hash memo rehashes exactly the files whose length or last

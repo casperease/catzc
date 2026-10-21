@@ -64,26 +64,12 @@ host (or a reader of a bundle) needs before the types can be reasoned about apar
 
 The doc moves landed (2026-10-21; `docs/how-to/pwsh/manual-test-plan/csharp-types.md` stays, since it tests the pwsh hosting). Their commits
 are the user's, in task-user-runs-and-commits. The ADR rule `ADR-AUTO-TYPES-BCLREFERENCESET` landed with the two narrowed `ADR-PWSH-TYPES`
-rules; its "How this is enforced" line comes with `Test-BclReferences` below.
+rules. The host bindings landed too: seven `bcl.yml` rows, `Test-BclReferences` as a `csharp` check, and `ConvertTo-BclValue` unwrapping for
+the five former `PSObject` types.
 
-- [ ] `pwsh/Catzc.Base.Languages/configs/bcl.yml` and `pwsh/Catzc.Base.Languages/types/BclConfig.cs`, which exist with the build pair: add
-      one row per host-bound file with its reason, beside `configuration` and `platform`. Today 12 `types/*.cs` files have
-      `using System.Management.Automation`; the seven that stay host-bound after the unwraps below are its rows: `GlossaryProse.cs`,
-      `GlobPattern.cs`, `FunctionCallCollector.cs`, `CommentLexer.cs`, `ParsedScripts.cs`, `SyntaxSearch.cs`, `PipelineWatchdog.cs` (check:
-      `Invoke-TestFile` on `pwsh/Catzc.Base.Languages/tests/types/BclConfig.Tests.ps1`).
-- [ ] `pwsh/Catzc.Base.QualityGates/Test-BclReferences.ps1` (the planner's name, 2026-10-21): fails a `types/*.cs` file that references
-      `System.Management.Automation` and has no `bcl.yml` row, with its L0 tests on widget/gadget fixtures (check: `Invoke-TestFile` on its
-      test file).
-- [ ] `pwsh/Catzc.Base.Objects/ConvertTo-BclValue.ps1`: the one deep-unwrap mechanism (decided, delegated by the orchestrator,
-      2026-10-21): it returns a value with every `PSObject` at any depth replaced by its base object, rebuilding lists and dictionaries,
-      since `ContractValue.Unwrap` and the Maps types unwrap nested elements, not only arguments (check: `Invoke-TestFile` on its L0 tests
-      for nested lists, dictionaries and a scalar).
-- [ ] The callers pass their values through `ConvertTo-BclValue`, one file per step: `Get-ContractFragmentFindings.ps1`, then
-      `Get-ContractSchemaFindings.ps1`, then each pwsh caller of the four Maps types (check: the owning module's Pester files after each).
-- [ ] The five types drop the `using System.Management.Automation` and their unwrap, one file per step: `ContractValue.cs` (its `Unwrap`
-      deleted, with the callers in `ContractSchema.cs` and `ContractFragment.cs`), then `ValueChainHighlight.cs`, `ValueChainMap.cs`,
-      `WorldMapBuilder.cs` and `WorldMapHighlight.cs` (check: a fresh full import after each, the owning module's Pester files, and
-      `Test-BclReferences` with 0 issues after the last). Then `Test-BclReferences` joins the `csharp` row's checks in `languages.yml`.
+The `bcl` domain and the re-cite land as one change, after the session holding the comment-page files is clear of the five it shares with
+the re-cite.
+
 - [ ] `pwsh/Catzc.Base.Docs/configs/adrs.yml` and `docs/adr/index.md`: the `bcl` domain and its table; `automation/`'s description stops
       listing `BCL/` as a language layer (check: `Test-AdrRegistry`).
 - [ ] Re-cite `ADR-AUTO-TYPES-*` → `ADR-BCL-TYPES-*` with `Update-AdrCitation`, dry run first; the dry run lists
@@ -92,16 +78,11 @@ rules; its "How this is enforced" line comes with `Test-BclReferences` below.
 - [ ] After plan-minimal-heads lands: `pwsh/Catzc.Base.Languages/configs/languages.yml`: rename the `csharp` row to `bcl` and the
       `csharp-namespace` step to `bcl-namespace`, then every caller in the same change, one file at a time (check: `Catzc.Base.Languages`
       and `Catzc.Base.QualityGates` Pester, then `Test-Formatting -Language bcl`).
-- [ ] `docs/references/BCL/index.md` (after the move): the one page that defines the BCL language (its files, its build pair from `bcl.yml`,
-      its reference set) and its use inside the pwsh host, as the two things the user decided; the reference-set wording leaves
-      `docs/references/pwsh/index.md` and links here instead, so the definition has one living version (`ADR-PRIN-ONELIVE`) (check:
-      `Test-Links` on both pages, `grep -c "System.Management.Automation"` on the pwsh index is 0).
 - [ ] `.claude/CLAUDE.md`, section Project structure: one line saying that the `types/*.cs` files are written in BCL, a subset of .NET, and
       pwsh hosts them, linking the BCL reference index, after the doc moves land (check: `Test-AgentDefinitions`,
       `Test-Links -Path .claude/CLAUDE.md`).
-- [ ] After the `bcl.yml` step: the BCL diagram as one sample folder `out/diagrams/dark-sample/.assets/bcl-language/` (its
-      `diagram.drawio.yml` and png), the host box showing the kinds `bcl.yml` keeps; nothing in `docs/` until approved (check: the user
-      approves the sample).
+- [ ] The user approves the BCL diagram sample `out/diagrams/dark-sample/.assets/bcl-language/` (rendered 2026-10-21, its verify table
+      beside it) (check: the user's verdict).
 - [ ] On approval: the folder moves to `docs/adr/automation/BCL/.assets/bcl-language/` and `docs/references/BCL/index.md` embeds it (check:
       `Test-Diagrams` on the folder, `Test-Links` on the page).
 

@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/types/ValueChainMap.cs
-    folder: types
-    name: value-chain-map
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "7c5cf9872064"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
     docs: "[ValueChainMap.cs.md](docs/references/pwsh/catzc-base-maps/types/ValueChainMap.cs.md)"
@@ -30,7 +19,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Management.Automation;
 using System.Text;
 using System.Text.Json;
 
@@ -103,8 +91,7 @@ public sealed class ValueChainMap
         Dictionary<string, Catzc.Base.Docs.AdrRuleSet> ruleSetByAdr = new Dictionary<string, Catzc.Base.Docs.AdrRuleSet>(StringComparer.Ordinal);
         foreach (object item in ruleSets ?? Array.Empty<object>())
         {
-            object value = item is PSObject wrapped ? wrapped.BaseObject : item;
-            Catzc.Base.Docs.AdrRuleSet ruleSet = value as Catzc.Base.Docs.AdrRuleSet;
+            Catzc.Base.Docs.AdrRuleSet ruleSet = item as Catzc.Base.Docs.AdrRuleSet;
             if (ruleSet == null)
             {
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "value-chain map: an ADR is not a {0}",
@@ -223,8 +210,7 @@ public sealed class ValueChainMap
         HashSet<string> seen = new HashSet<string>(StringComparer.Ordinal);
         foreach (object item in raw ?? Array.Empty<object>())
         {
-            object value = item is PSObject wrapped ? wrapped.BaseObject : item;
-            string name = Convert.ToString(value, CultureInfo.InvariantCulture);
+            string name = Convert.ToString(item, CultureInfo.InvariantCulture);
             if (string.IsNullOrEmpty(name) || !seen.Add(name))
             {
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "value-chain map: the {0} '{1}' is empty or repeated", what, name));

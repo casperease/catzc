@@ -101,7 +101,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
             $function = @('function Get-Gadget {', '    [OutputType([string])]', '    param(', '        [string] $Widget', '    )', '}')
             $script:helpText = ($function -join "`n") + "`n"
             [System.IO.File]::WriteAllText($script:helpFile, $script:helpText)
-            $script:helpPage = Join-Path $script:root (Get-CommentPage -Path "$(Get-CatzcModulesFolder)/Widget/Get-Gadget.ps1")
+            $script:helpPage = Join-Path $script:root (Get-CommentPage -Path "$(Get-CatzcModulesFolder)/Widget/Get-Gadget.ps1" -Config (Get-Config -Config comment-pages))
             $null = New-Item -ItemType Directory -Path (Split-Path $script:helpPage) -Force
             $script:pageText = "# $(Get-CatzcModulesFolder)/Widget/Get-Gadget.ps1`n`n## help`n`n### synopsis`n`nGets a gadget.`n`n### parameter ``Widget```n`nThe widget.`n`n### outputs`n`n``[string]`` The gadget.`n"
             [System.IO.File]::WriteAllText($script:helpPage, $script:pageText)

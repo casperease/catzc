@@ -67,7 +67,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
     }
 
     It 'checks a cached file again when only its comment page changes, and refreshes its head from the page' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
-        Mock Get-Config -ModuleName Catzc.Base.CodeMeta -ParameterFilter { $Config -eq 'comment-pages' } {
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'comment-pages' } {
             [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @(@{ source = 'docs'; docs = 'docs/pages' }) })
         }
         # The cites processor reads the page under the loaded repository root.

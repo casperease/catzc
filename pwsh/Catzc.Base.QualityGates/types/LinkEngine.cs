@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.QualityGates/types/LinkEngine.cs
-    folder: types
-    name: link-engine
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.QualityGates
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "74e886a01698"
   edges:
     docs: "[LinkEngine.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/LinkEngine.cs.md)"
     cites:
@@ -42,6 +31,10 @@ public sealed class LinkEngine
 
     static readonly Regex StringDocPath = new Regex(@"(?<![\w/.\-])docs/adr/[A-Za-z0-9_\-./]+?\.md(?![\w/])", RegexOptions.Compiled);
     static readonly Regex InsertedLink = new Regex(@"\[[^\]\r\n]+\]\(/docs/adr/[^)\s]+\)", RegexOptions.Compiled);
+    // A meta head written as line comments (a YAML or shell head): every comment in it is skipped, as a block-comment head is whole.
+    static readonly Regex LineCommentHead = new Regex(
+        @"\A[ \t]*(?<m>#|//)[ \t]*---[ \t]*\r?\n(?=[ \t]*\k<m>[ \t]*catzc:)(?:[ \t]*\k<m>[^\r\n]*\r?\n)*?[ \t]*\k<m>[ \t]*---[ \t]*(?:\r?\n|\z)",
+        RegexOptions.Compiled);
     // A number written out, or one composed at runtime after the `#` or `:`: an interpolated variable or a format placeholder.
     static readonly Regex StringNumberedCitation = new Regex(@"(?<![\w\-])ADR(?:-[A-Z][A-Z0-9]*)+[:#](?:\d+|\$|\{(?:\d+\}|[A-Za-z_]))",
         RegexOptions.Compiled);
@@ -140,9 +133,12 @@ public sealed class LinkEngine
         var output = new StringBuilder(text.Length + 256);
         int copied = 0;
         bool changed = false;
+        Match lineHead = LineCommentHead.Match(text);
+        int headEnd = lineHead.Success ? lineHead.Length : 0;
         for (int index = 0; index < comments.Count; index++)
         {
             (int start, int length) = comments[index];
+            if (start < headEnd) { continue; }
             string comment = text.Substring(start, length);
             string marker = CommentLexer.LineMarker(comment);
             int lineStart = start == 0 ? 0 : text.LastIndexOf('\n', start - 1) + 1;

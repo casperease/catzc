@@ -22,7 +22,6 @@ goes are configured here, not programmed
                      marker included for a line comment), which stays in place wherever it sits in a run and splits
                      the run around it, or a comment-based help keyword (`.SYNOPSIS`) naming a section whose body
                      stays whole; a language given here replaces its default list
-  pages            — the ordered source-folder -> docs-folder maps (CommentPageMap); the first match wins
   exclude          — repository-relative glob (the durable-sha-globs dialect) -> why its files keep their comments:
                      a test's prose is its own subject, and an asset is copied or published verbatim elsewhere, where a
                      page of this repository would be foreign; a key given here replaces the default map

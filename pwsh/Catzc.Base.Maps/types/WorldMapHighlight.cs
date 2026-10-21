@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/types/WorldMapHighlight.cs
-    folder: types
-    name: world-map-highlight
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: b8e73ce9c777
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1
     docs: "[WorldMapHighlight.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapHighlight.cs.md)"
@@ -28,7 +17,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Management.Automation;
 using System.Text;
 using System.Text.Json;
 
@@ -227,8 +215,7 @@ public sealed class WorldMapHighlight
         if (raw == null) { return pins; }
         foreach (object item in raw)
         {
-            object value = item is PSObject wrapped ? wrapped.BaseObject : item;
-            MapsPin pin = value as MapsPin;
+            MapsPin pin = item as MapsPin;
             if (pin == null)
             {
                 errors.Add(string.Format(CultureInfo.InvariantCulture, "a {0} is not a {1}", what, typeof(MapsPin).FullName));
@@ -261,8 +248,7 @@ public sealed class WorldMapHighlight
         }
         foreach (object item in raw)
         {
-            object value = item is PSObject wrapped ? wrapped.BaseObject : item;
-            string text = Convert.ToString(value, CultureInfo.InvariantCulture);
+            string text = Convert.ToString(item, CultureInfo.InvariantCulture);
             if (!string.IsNullOrEmpty(text)) { items.Add(text); }
         }
         return items;

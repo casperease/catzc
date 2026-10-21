@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/Catzc.Base.Maps/types/WorldMapBuilder.cs
-    folder: types
-    name: world-map-builder
-    filetype: cs
-    role: type
-    language: csharp
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Base.Maps
-    moduletype: pwsh-folder
-    catzc_bundle: azure
+    with_body_sha: "4e00dfee7aa3"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/WorldMapBuilder.Tests.ps1
     docs: "[WorldMapBuilder.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapBuilder.cs.md)"
@@ -31,7 +20,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Management.Automation;
 
 namespace Catzc.Base.Maps;
 
@@ -46,7 +34,7 @@ public static class WorldMapBuilder
         List<Catzc.Base.Globs.GlobPattern> excluded = new List<Catzc.Base.Globs.GlobPattern>();
         foreach (object glob in citationExclude ?? Array.Empty<object>())
         {
-            string pattern = Convert.ToString(Unwrap(glob), CultureInfo.InvariantCulture);
+            string pattern = Convert.ToString(glob, CultureInfo.InvariantCulture);
             if (!string.IsNullOrEmpty(pattern)) { excluded.Add(new Catzc.Base.Globs.GlobPattern(pattern)); }
         }
         List<Catzc.Base.Variants.VariantTrack> trackList = Items<Catzc.Base.Variants.VariantTrack>(tracks, "track");
@@ -81,7 +69,7 @@ public static class WorldMapBuilder
         List<string> pathList = new List<string>();
         foreach (object item in paths ?? Array.Empty<string>())
         {
-            string path = Convert.ToString(Unwrap(item), CultureInfo.InvariantCulture);
+            string path = Convert.ToString(item, CultureInfo.InvariantCulture);
             if (!string.IsNullOrEmpty(path)) { pathList.Add(path.Replace('\\', '/')); }
         }
 
@@ -239,10 +227,10 @@ public static class WorldMapBuilder
         if (aspects == null) { return compiled; }
         foreach (DictionaryEntry entry in aspects)
         {
-            string trackName = Convert.ToString(Unwrap(entry.Key), CultureInfo.InvariantCulture);
+            string trackName = Convert.ToString(entry.Key, CultureInfo.InvariantCulture);
             List<KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]>> list = new List<KeyValuePair<string, Catzc.Base.Globs.GlobPattern[]>>();
             foreach (Catzc.Base.Variants.VariantAspect aspect in
-                Items<Catzc.Base.Variants.VariantAspect>(Unwrap(entry.Value) as IEnumerable, "aspect of track " + trackName))
+                Items<Catzc.Base.Variants.VariantAspect>(entry.Value as IEnumerable, "aspect of track " + trackName))
             {
                 List<Catzc.Base.Globs.GlobPattern> patterns = new List<Catzc.Base.Globs.GlobPattern>();
                 foreach (string pattern in aspect.Patterns ?? Array.Empty<string>()) { patterns.Add(new Catzc.Base.Globs.GlobPattern(pattern)); }
@@ -259,8 +247,8 @@ public static class WorldMapBuilder
         if (raw == null) { return map; }
         foreach (DictionaryEntry entry in raw)
         {
-            string key = Convert.ToString(Unwrap(entry.Key), CultureInfo.InvariantCulture);
-            object value = Unwrap(entry.Value);
+            string key = Convert.ToString(entry.Key, CultureInfo.InvariantCulture);
+            object value = entry.Value;
             if (!string.IsNullOrEmpty(key) && value != null) { map[key.Replace('\\', '/')] = Convert.ToString(value, CultureInfo.InvariantCulture); }
         }
         return map;
@@ -272,7 +260,7 @@ public static class WorldMapBuilder
         if (raw == null || raw is string) { return items; }
         foreach (object item in raw)
         {
-            T typed = Unwrap(item) as T;
+            T typed = item as T;
             if (typed == null)
             {
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "world map: a {0} is not a {1}", what, typeof(T).FullName));
@@ -281,6 +269,4 @@ public static class WorldMapBuilder
         }
         return items;
     }
-
-    private static object Unwrap(object value) => value is PSObject wrapped ? wrapped.BaseObject : value;
 }

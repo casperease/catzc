@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dcdc5efaebaa
+    with_body_sha: "24f19c5c6303"
   edges:
     code: pwsh/Catzc.Base.QualityGates/Test-BclReferences.ps1
 ---
@@ -59,5 +59,14 @@ Describe 'Test-BclReferences' -Tag 'L0', 'logic' {
         $message | Should -BeLike 'Test-BclReferences failed: 2 issue(s)*'
         $message | Should -Match 'Catzc.Base.Sprockets/types/Cog.cs: uses System.Management.Automation without a host binding'
         $message | Should -Match 'bcl.yml Catzc.Base.Widgets/types/Gadget.cs: binds a type source that does not use'
+    }
+}
+
+Describe 'Test-BclReferences — the shipped bcl.yml over the real type sources' -Tag 'L1', 'integrity' {
+    It 'finds every host-bound type source bound, and every row live' {
+        Mock Write-Message -ModuleName Catzc.Base.Reports { }
+        $result = Test-BclReferences -OutputFolder (Join-Path $TestDrive 'out') -PassThru
+        $result.Issues | Should -BeNullOrEmpty
+        $result.Facts['HostBound'] | Should -Be $result.Facts['Rows']
     }
 }

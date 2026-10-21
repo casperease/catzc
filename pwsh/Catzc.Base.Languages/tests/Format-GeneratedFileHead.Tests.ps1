@@ -60,6 +60,19 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
         $many | Should -BeLike "*    role: gadget`n    track: docs`n    generator: widgets/Catzc.Widget/New-Gadget.ps1`n    source:`n      - a/one.yml`n      - a/two.yml`n---*"
     }
 
+    It 'links the comment page as the docs edge when the page exists, and writes no edge when it does not' -Tag 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' {
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.Languages { $TestDrive }
+        $pages = [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @(@{ source = 'widgets/*'; docs = 'docs/{kebab}' }) })
+        $arguments = @{ Path = 'widgets/Catzc.Widget/gen.wdg'; FileKind = $script:role; Carriers = $script:carriers; Languages = $script:languages; Pages = $pages }
+        (Format-GeneratedFileHead -Text "body`n" @arguments) | Should -Not -BeLike '*edges:*'
+        $page = Join-Path $TestDrive 'docs/catzc-widget/gen.wdg.md'
+        [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($page)) | Out-Null
+        [System.IO.File]::WriteAllText($page, "# widgets/Catzc.Widget/gen.wdg`n")
+        $text = Format-GeneratedFileHead -Text "body`n" @arguments
+        $text | Should -BeLike '*#   edges:*'
+        $text.Contains('[gen.wdg.md](docs/catzc-widget/gen.wdg.md)') | Should -BeTrue
+    }
+
     It 'leaves the track out for a root file, which no track holds' {
         $text = Format-GeneratedFileHead -Text "body`n" -Path 'sprocket' -Carrier sprocket -FileKind $script:role -Carriers $script:carriers -Languages $script:languages
         $text | Should -Not -BeLike '*track:*'

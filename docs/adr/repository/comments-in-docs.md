@@ -7,7 +7,7 @@
 A comment in a code or configuration file is at most one line of insight: what the code does not say itself — the invariant it keeps, the
 order it depends on, the edge it guards, the reason a branch exists. A comment that needs more than one line of prose moves, verbatim, to
 the file's **comment page** and leaves **nothing** in the file: no marker, no insight line, no link. The comment's ADR citations move with
-the rest of its prose and are found there. The way from a file to its page is the `pages` map of `comments.yml`
+the rest of its prose and are found there. The way from a file to its page is the `pages` map of the `comment-pages` config
 ([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](#rule-adr-repo-comments-commentpageplace)), so it is derived from the file's path, never a line of
 code. When the file-heads variant is `minimal` ([ADR-REPO-VARIANT-FILEHEADS](repo-variants.md#rule-adr-repo-variant-fileheads)), the file's
 navigation head shows that way as its `docs` edge, a link for a reader
@@ -28,14 +28,14 @@ highest, a number is never reused, and a section a person edits stays as edited.
 
 ### Rule ADR-REPO-COMMENTS-COMMENTPAGEPLACE
 
-A file's comment page lives under `docs/references/`, at the place `comments.yml`'s `pages` map gives its source folder, and keeps the
-file's own name and extension plus `.md`, so a page maps back to exactly one file. What moves — the file languages in scope, the shortest
-comment that moves, the comment heads each language keeps — is configured there too, with its defaults declared once on the config type. A
-kept head keeps only its own line, but a head the configuration lists to keep its run (`keep_run:`) keeps the whole contiguous run it opens,
-and the front matter of a block comment that opens with such a head is kept whole, so the meta head of a code file
-([ADR-REPO-CODEMETA-CODEFILEHEAD](code-file-meta.md#rule-adr-repo-codemeta-codefilehead)) is never moved as prose, while prose directly
-under a kept spell-checker line still is. A delimited block that holds a kept head, such as the comment-based help a script analyzer rule
-carries, stays whole.
+A file's comment page lives under `docs/references/`, at the place the `pages` map of the `comment-pages` config gives its source folder,
+and keeps the file's own name and extension plus `.md`, so a page maps back to exactly one file. What moves — the file languages in scope,
+the shortest comment that moves, the comment heads each language keeps — is configured in `comments.yml`, each config with its defaults
+declared once on its config type. A kept head keeps only its own line, but a head the configuration lists to keep its run (`keep_run:`)
+keeps the whole contiguous run it opens, and the front matter of a block comment that opens with such a head is kept whole, so the meta head
+of a code file ([ADR-REPO-CODEMETA-CODEFILEHEAD](code-file-meta.md#rule-adr-repo-codemeta-codefilehead)) is never moved as prose, while
+prose directly under a kept spell-checker line still is. A delimited block that holds a kept head, such as the comment-based help a script
+analyzer rule carries, stays whole.
 
 - [Where a page lives](#where-a-page-lives)
 

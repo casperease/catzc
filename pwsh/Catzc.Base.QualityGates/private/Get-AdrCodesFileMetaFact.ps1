@@ -46,7 +46,7 @@ function Get-AdrCodesFileMetaFact {
         $State.Rest
     }
     $repositoryRoot = Get-RepositoryRoot
-    $page = Get-CommentPage -Path $Path
+    $page = Get-CommentPage -Path $Path -Config (Get-Config -Config comment-pages)
     if ($page -and (Test-Path -LiteralPath (Join-Path $repositoryRoot $page) -PathType Leaf)) {
         $text += "`n" + (Get-MarkdownMetaState -Text ([System.IO.File]::ReadAllText((Join-Path $repositoryRoot $page)))).Body
     }

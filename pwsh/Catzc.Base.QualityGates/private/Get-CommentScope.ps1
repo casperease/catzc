@@ -33,6 +33,7 @@ function Get-CommentScope {
     )
 
     $config = Get-Config -Config comments
+    $commentPages = Get-Config -Config comment-pages
     $languages = [System.Collections.Generic.HashSet[string]]::new([string[]] @($config.languages), [System.StringComparer]::OrdinalIgnoreCase)
     $candidates = @(Get-LinkScope -RepositoryRoot $RepositoryRoot -Path $Path | Sort-Object)
 
@@ -72,7 +73,7 @@ function Get-CommentScope {
         if ($config.IsExcluded($fileKinds.Resolve($file).Class)) {
             continue
         }
-        $page = Get-CommentPage -Path $file
+        $page = Get-CommentPage -Path $file -Config $commentPages
         if (-not $page) {
             continue
         }
