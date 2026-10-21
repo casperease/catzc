@@ -4,7 +4,29 @@ Started 2026-10-21T02:21:00.2535622+02:00.
 
 - 2026-10-21: One background script in a fresh pwsh both recompiles a C# config type and runs its tests in one bounded call.
 - 2026-10-21: A background Format-Code rewrites the files it formats; edit them only after it finishes.
-- 2026-10-21: A thesis ADR cites only research and other thesis ADRs (Test-AdrRegistry enforces it).
-- 2026-10-21: Test-Links fails on a link to any uncommitted file, even when that is expected.
-- 2026-10-21: Adding an ADR touches seven places, and no how-to lists them yet.
-- 2026-10-21: A separate row or line added to plan-master.md or value-of-plan.md does not disturb peers' edits there.
+- 2026-10-21: The markdown formatter rewraps any list line past 140 columns, so code that reads its own markdown back treats indented
+  continuation lines as part of the item.
+- 2026-10-21: Format-MarkdownParagraph returns its lines as one array object; pipe it through ForEach-Object before joining.
+- 2026-10-21: `[System.IO.File]::ReadLines($f) | Select-Object -First 1` leaves the file open; read the whole file before writing to it.
+- 2026-10-21: markdownlint (MD033) reads a `<word>` outside code spans as inline HTML; escape it as `\<`.
+- 2026-10-21: Session learnings live in .claude/learnings/ as learned\<sha>.md files ordered by their Started line; Add-SessionLearning
+  writes them, 5 files of 50.
+- 2026-10-21: A thesis ADR may cite only research and thesis rules (adrs.yml depends_on), and Test-AdrRegistry fails any other citation, so
+  later-domain ideas appear there as plain words.
+- 2026-10-21: Test-Glossary (G1) requires a contrast written on both terms, in each owning module's glossary.yml, even across modules.
+- 2026-10-21: Test-Links reports a link to an existing but uncommitted file as an error, so a new ADR always shows one finding until it is
+  committed.
+- 2026-10-21: Adding an ADR touches the page, the adrs.yml ruleset and domain description, Build-AdrIndex, glossary.yml with Build-Glossary,
+  the domain's dora-explains.md, and Format-Code; no how-to lists these.
+- 2026-10-21: A background Bash call takes one command after its timeout prefix, so running several catzc gates needs a script file under
+  out/.
+- 2026-10-21: plan-master.md and value-of-plan.md are edited by several sessions at once; a new plan adds one master line and one value row
+  without touching other lines.
+- 2026-10-21: "eac" names both everything as code (ADR-PRIN-EAC, the eac normal form) and the sibling repository C:\projects\eac.
+- 2026-10-21: "repository normal form" (ADR-AUTO-IDIOM) is a name's spelling, while "eac normal form" (ADR-THES-NORMALFORM) is the
+  verifiable shape of a whole piece of code.
+- 2026-10-21: Token tip: read docs/references/pwsh/index.md and file-kinds.yml before designing a feature; most parts already exist, and a
+  design round on a part that exists is the costliest waste.
+- 2026-10-21: Token tip: run every check of a round in one out/ script with one fresh import, not one background call per gate or test file.
+- 2026-10-21: Token tip: read a failed test's cause straight from its results XML (grep the \<failure> message), not by listing artifacts
+  first.

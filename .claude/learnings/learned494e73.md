@@ -6,7 +6,7 @@ Started 2026-10-21T02:20:59.6603823+02:00.
   tree (ADR-REPO-AI-EDITORISFACT).
 - 2026-10-21: The rule, docs, code order sequences plan steps and never ranks truth; one repository is one responsibility domain
   (ADR-THES-STORES-RESPONSIBILITYDOMAIN).
-- 2026-10-21: eac is a sibling repository read for ideas only, catzc's ADRs decide, and "eac" also abbreviates "everything as code".
+- 2026-10-21: eac is a sibling repository read for ideas only, and catzc's ADRs decide.
 - 2026-10-21: Most needs are already met: file kinds (Get-FileKind), TimeLimit, DurableHash, Copy-Directory, Build-AgentHook and
   Install-VSCodeExtension.
 - 2026-10-21: Every wait is bounded, executables too: a long call inside a command gets that command's TimeLimit, never a workaround.
@@ -58,7 +58,6 @@ Started 2026-10-21T02:20:59.6603823+02:00.
 - 2026-10-21: The orchestrator sends a plan's handoffs to the session that owns the plan.
 - 2026-10-21: The glossary is enforced like code: contrasts go both ways, a term is defined only where its rule bolds it, and qualified
   forms are a closed list.
-- 2026-10-21: A glossary contrast is written on both terms, or Test-Glossary fails (G1).
 - 2026-10-21: Check a "never" rule against the tree before writing it.
 - 2026-10-21: A capability's 10-line roof counts unindented lines, front matter included, so wrapping never helps and a new item merges into
   an existing one.
