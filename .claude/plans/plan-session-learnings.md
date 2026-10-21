@@ -57,6 +57,10 @@ reach.
 - Same session: `Test-IsRunningInVSCode` reads only `TERM_PROGRAM`, the mark VS Code sets on every terminal it opens. Should it also read
   the PowerShell extension's host name, in case that console lacks the mark? Recommendation: no, until a session reports the mark missing
   there.
+- From the plan-refinement session (2026-10-21): `Catzc.Base.CodeMeta` is the one module both `Catzc.Base.Languages` and
+  `Catzc.Base.QualityGates` load, which a session needs whenever a head derivation must be shared. Should the `catzc-module` capability name
+  it as the home for a shared head mechanism, merged into an existing line? Recommendation: yes, half a line, once task-comment-pages lands
+  there.
 - Should a session read the newest learnings file at start, at the cost of up to 50 lines of context? Recommendation: not yet; first let the
   log fill for a week and see which lines get reused.
 - Superseded by the tree (the planner, 2026-10-21): "should one cats command run one check in the background" is answered by

@@ -91,3 +91,9 @@ Started 2026-10-21T04:34:42.3401959+02:00.
   function added to it.
 - 2026-10-21 Cats: Token tip: Next time, save tokens by: running the test files and the heads-and-gates script in one background run after
   the last edit, not two.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: Test-Plans -Path resolves a relative path against the process folder, not the
+  repository root, so a call passes an absolute path until plan-agent-friction step 2 lands.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: plan-master.md can omit a plan entirely, and Test-Plans does not catch it until
+  plan-agent-friction step 1 makes the master line a checked part of a plan.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: most plan drift is a master pointer line or value-row state that still lists steps
+  already pruned from the plan, so comparing them with the open steps finds it fastest.
