@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2a59f2cb5f16"
+    with_body_sha: "1ea863bd09f4"
   edges:
     docs: "[AdrRuleSet.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrRuleSet.cs.md)"
     cites:
@@ -24,7 +24,9 @@ public sealed class AdrRuleSet
     public string Role { get; }
     public string Slug { get; }
     public string External { get; }
-    public string Code { get; }        // effective domain code (leaf override or domain default)
+    public string Code { get; }        // effective domain code (leaf override or domain default); null under a kind one domain owns
+    public string Kind => External.Substring(0, External.IndexOf('-') < 0 ? External.Length : External.IndexOf('-'));
+    public string Prefix => Code == null ? Kind : Kind + "-" + Code; // the code every rule of the ruleset starts with
     public string DomainCode { get; }  // the folder-owning domain's default code
     public string Stack { get; }       // the owning domain's row of the value-chain stack
     public IReadOnlyList<string> Concerns { get; }       // effective value-chain concerns (override or domain default)

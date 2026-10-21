@@ -2,10 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a8bac2d3f7d6
+    with_body_sha: c84d867f838b
   edges:
     docs: "[AdrCitationRewriter.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCitationRewriter.cs.md)"
     cites:
+      - ADR-REPO-ADRCODE-PATHOFSEGMENTS
+      - ADR-REPO-ADRCODE-DOMAINSEGMENT
       - ADR-REPO-LINK-MARKDOWNRELATIVE
 ---
 */
@@ -25,14 +27,10 @@ public sealed class AdrCitationRewriter
 
     const string AdrRoot = "docs/adr/";
     const string Segment = @"[\w<>*-]+(?:\.[\w<>*-]+)*";
-    const string AnchorPattern = @"rule-adr(?:-[a-z][a-z0-9]*)+(?![\w-])";
-    const string CodePattern = @"ADR(?>(?:-[A-Z][A-Z0-9]*)+)";
 
     static readonly Regex InlineDestination = new Regex(@"\]\((?<dest><[^>\r\n]*>|[^)\s]+)", RegexOptions.Compiled);
     static readonly Regex ReferenceDestination = new Regex(@"^ {0,3}\[[^\]\r\n]+\]:[ \t]*(?<dest><[^>\r\n]*>|\S+)", RegexOptions.Compiled | RegexOptions.Multiline);
     static readonly Regex Scheme = new Regex(@"^[a-zA-Z][a-zA-Z0-9+.\-]*:", RegexOptions.Compiled);
-    static readonly Regex RuleAnchor = new Regex(@"^rule-(?<code>adr(?:-[a-z][a-z0-9]*)+)$", RegexOptions.Compiled);
-    static readonly Regex Code = new Regex(@"^ADR(?:-[A-Z][A-Z0-9]*)+$", RegexOptions.Compiled);
     static readonly string[] CodeMapColumns = { "old_code", "new_code", "old_path", "new_path", "kind" };
     static readonly string[] RuleMapColumns = { "old_rule", "new_rule", "kind" };
     static readonly HashSet<string> CodeMapKinds = new HashSet<string>(StringComparer.Ordinal) { "move", "path", "new", "folder" };
@@ -49,13 +47,30 @@ public sealed class AdrCitationRewriter
     readonly Dictionary<string, string> oldPathByCode = new Dictionary<string, string>(StringComparer.Ordinal);
     readonly AdrCitationMap citations;
     readonly Regex reference;
+    // The code grammar over the registered record kinds, the markers of a code (ADR-REPO-ADRCODE-PATHOFSEGMENTS).
+    readonly string anchorPattern;
+    readonly string codePattern;
+    readonly Regex ruleAnchor;
+    readonly Regex codeShape;
 
-    // treeFiles are the repository-relative paths of the files under docs/adr in the tree, before or after a folder moves.
-    public AdrCitationRewriter(IEnumerable codeRows, IEnumerable ruleRows, AdrCitationMap citations, IEnumerable<string> treeFiles)
+    public AdrCitationRewriter(IEnumerable codeRows, IEnumerable ruleRows, AdrCitationMap citations, IEnumerable<string> treeFiles, IEnumerable<string> kinds)
     {
         if (codeRows == null) { throw new ArgumentNullException(nameof(codeRows)); }
         if (ruleRows == null) { throw new ArgumentNullException(nameof(ruleRows)); }
         if (treeFiles == null) { throw new ArgumentNullException(nameof(treeFiles)); }
+        if (kinds == null) { throw new ArgumentNullException(nameof(kinds)); }
+        var kindList = new List<string>(kinds);
+        if (kindList.Count == 0 || kindList.Exists(k => k == null || !Regex.IsMatch(k, "^[A-Z]+$")))
+        {
+            throw new ArgumentException("kinds must be one or more upper-case record kinds", nameof(kinds));
+        }
+        string upper = "(?:" + string.Join("|", kindList) + ")";
+        string lower = upper.ToLowerInvariant();
+        anchorPattern = "rule-" + lower + @"(?:-[a-z][a-z0-9]*)+(?![\w-])";
+        codePattern = upper + @"(?>(?:-[A-Z][A-Z0-9]*)+)";
+        ruleAnchor = new Regex(@"^rule-(?<code>" + lower + @"(?:-[a-z][a-z0-9]*)+)$", RegexOptions.Compiled);
+        // A new code may be a bare kind: a framing domain's code becomes its kind (ADR-REPO-ADRCODE-DOMAINSEGMENT).
+        codeShape = new Regex("^" + upper + @"(?:-[A-Z][A-Z0-9]*)*$", RegexOptions.Compiled);
         this.citations = citations;
         foreach (string file in treeFiles)
         {
@@ -85,20 +100,20 @@ public sealed class AdrCitationRewriter
         string path = Segment + "(?:/" + Segment + ")*/?";
         var alternatives = new List<string>
         {
-            @"(?<![\w./-])(?<repo>/?docs/adr/" + path + ")(?:#(?<repoAnchor>" + AnchorPattern + "))?",
-            @"(?<![\w./-])(?<relative>(?:\.\.?/)+" + path + ")(?:#(?<relativeAnchor>" + AnchorPattern + "))?",
+            @"(?<![\w./-])(?<repo>/?docs/adr/" + path + ")(?:#(?<repoAnchor>" + anchorPattern + "))?",
+            @"(?<![\w./-])(?<relative>(?:\.\.?/)+" + path + ")(?:#(?<relativeAnchor>" + anchorPattern + "))?",
         };
         var bare = new List<string>();
         if (literals.Count > 0) { bare.Add("(?:" + string.Join("|", literals.ConvertAll(Regex.Escape)) + ")(?:/" + Segment + ")*/?"); }
         if (folders.Count > 0) { bare.Add("(?:" + string.Join("|", folders.ConvertAll(Regex.Escape)) + ")/(?:" + path + ")?"); }
         if (bare.Count > 0)
         {
-            alternatives.Add(@"(?<![\w./-])(?<bare>" + string.Join("|", bare) + @")(?![\w-])(?:#(?<bareAnchor>" + AnchorPattern + "))?");
+            alternatives.Add(@"(?<![\w./-])(?<bare>" + string.Join("|", bare) + @")(?![\w-])(?:#(?<bareAnchor>" + anchorPattern + "))?");
         }
         // A numbered citation or a group names rules by a number no rule carries: it is reported, never rewritten.
-        alternatives.Add(@"(?<![\w-])(?<numbered>" + CodePattern + @"(?:[#:][0-9]+|#\{[^}\r\n]*\}))");
-        alternatives.Add(@"(?<![\w-])(?<code>" + CodePattern + @")(?![\w-])");
-        alternatives.Add(@"(?<![\w-])(?<anchor>" + AnchorPattern + ")");
+        alternatives.Add(@"(?<![\w-])(?<numbered>" + codePattern + @"(?:[#:][0-9]+|#\{[^}\r\n]*\}))");
+        alternatives.Add(@"(?<![\w-])(?<code>" + codePattern + @")(?![\w-])");
+        alternatives.Add(@"(?<![\w-])(?<anchor>" + anchorPattern + ")");
         reference = new Regex(string.Join("|", alternatives), RegexOptions.Compiled);
     }
 
@@ -209,7 +224,7 @@ public sealed class AdrCitationRewriter
 
     string RewriteAnchor(string anchor)
     {
-        Match match = RuleAnchor.Match(anchor);
+        Match match = ruleAnchor.Match(anchor);
         if (!match.Success) { return null; }
         string oldCode = match.Groups["code"].Value.ToUpperInvariant();
         string code = MapCode(oldCode);
@@ -281,7 +296,7 @@ public sealed class AdrCitationRewriter
     {
         string newPath = MapPath(adrPath);
         if (fragment == null) { return (newPath, null); }
-        Match anchor = RuleAnchor.Match(fragment);
+        Match anchor = ruleAnchor.Match(fragment);
         if (!anchor.Success) { return (newPath, fragment); }
 
         string oldCode = anchor.Groups["code"].Value.ToUpperInvariant();
@@ -360,7 +375,7 @@ public sealed class AdrCitationRewriter
         if (!CodeMapKinds.Contains(kind)) { throw Invalid("code map", "kind '" + kind + "' is not one of move, path, new, folder"); }
         foreach (string code in new[] { oldCode, newCode })
         {
-            if (code != "-" && !Code.IsMatch(code)) { throw Invalid("code map", "'" + code + "' is not an ADR code"); }
+            if (code != "-" && !codeShape.IsMatch(code)) { throw Invalid("code map", "'" + code + "' is not a code of a registered kind"); }
         }
         if (oldCode != "-")
         {
@@ -381,7 +396,7 @@ public sealed class AdrCitationRewriter
     {
         if (!RuleMapKinds.Contains(cells["kind"])) { throw Invalid("rule map", "kind '" + cells["kind"] + "' is not one of move, collapse"); }
         string old = cells["old_rule"], moved = cells["new_rule"];
-        if (!Code.IsMatch(old) || !Code.IsMatch(moved)) { throw Invalid("rule map", "'" + old + "' -> '" + moved + "' is not a rule code -> a rule code"); }
+        if (!codeShape.IsMatch(old) || !codeShape.IsMatch(moved)) { throw Invalid("rule map", "'" + old + "' -> '" + moved + "' is not a rule code -> a rule code"); }
         if (ruleMap.ContainsKey(old)) { throw Invalid("rule map", "'" + old + "' appears twice"); }
         ruleMap[old] = moved;
     }

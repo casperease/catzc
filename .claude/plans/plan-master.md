@@ -59,6 +59,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   `content.minimaps`, then the gate in Write-DiagramMinimapData drops an undeclared lit cell.
 - xdr-codes -> plan-xdr-codes.md: record-kind codes for the framing domains (RDR, TDR, PDR, WDR, DDR, FDR), the registry and parsers first,
   then the rewrite one domain per step; after the minimap run, as one burst.
+- debt-gate-messages -> plan-debt-gate-messages.md: three gates name their own cause (an over-long quoted rule, a page citing for a skipped
+  file class, case-insensitive reserved scope globs).
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

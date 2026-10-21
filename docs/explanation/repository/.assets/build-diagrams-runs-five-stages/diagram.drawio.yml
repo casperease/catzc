@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "535e66ec793f"
+#     with_body_sha: "42ef47611ac6"
 # ---
 
 description:
@@ -77,13 +77,10 @@ content:
           - docs/adr/repository/slides-as-markdown.md
           - docs/references/pwsh/catzc-base-slides.md
           - docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md
-          - docs/references/pwsh/catzc-base-slides/private/Get-DiagramMinimapReason.ps1.md
           - docs/references/python/catzc_diagrams.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1
           - pwsh/Catzc.Base.Slides/Build-Diagrams.ps1
-          - pwsh/Catzc.Base.Slides/private/Get-DiagramMinimapReason.ps1
-          - pwsh/Catzc.Base.Slides/tests/Get-DiagramMinimapReason.Tests.ps1
           - ADR-REPO-SLIDES-MINIMAPSFROMDATA
     grid:
       - cell: .claude/markdown
@@ -101,15 +98,12 @@ content:
           - docs/adr/repository/slides-as-markdown.md
           - docs/references/pwsh/catzc-base-slides.md
           - docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md
-          - docs/references/pwsh/catzc-base-slides/private/Get-DiagramMinimapReason.ps1.md
           - docs/references/python/catzc_diagrams.md
           - ADR-REPO-SLIDES-MINIMAPSFROMDATA
       - cell: pwsh/powershell
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1
           - pwsh/Catzc.Base.Slides/Build-Diagrams.ps1
-          - pwsh/Catzc.Base.Slides/private/Get-DiagramMinimapReason.ps1
-          - pwsh/Catzc.Base.Slides/tests/Get-DiagramMinimapReason.Tests.ps1
           - ADR-REPO-SLIDES-MINIMAPSFROMDATA
       - cell: pwsh/yaml
         by:

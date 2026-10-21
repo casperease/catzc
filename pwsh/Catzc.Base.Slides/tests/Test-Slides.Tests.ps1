@@ -23,9 +23,9 @@ Describe 'Test-Slides' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-CHECKABLECLAIMS' {
         }
         $script:write = $write
         & $write 'docs/adr/index.md' "# ADR index`n`n| Code | ADR |`n| --- | --- |`n| ``ADR-WIDGET-GADGET`` | [gadget](widget/gadget.md) |`n"
-        & $write 'docs/adr/widget/gadget.md' "# ADR: gadget`n`n## Rules: ADR-WIDGET-GADGET`n`n### Rule ADR-WIDGET-GADGET-TURN`n`nA gadget turns.`n"
+        & $write 'docs/adr/widget/gadget.md' "# ADR: gadget`n`n## Rules: ADR-WIDGET-GADGET`n`n### Rule ADR-WIDGET-GADGET-TURN`n`nA gadget turns.`n`n### Rule ADR-WIDGET-GADGET-SPIN`n`nA gadget spins round and round.`n"
         & $write 'kit/slides.yml' "token:`n  bg: '#101010'`nface:`n  display: Georgia, serif`n  text: Arial, sans-serif`n"
-        & $write 'kit/patterns/widget.html' '<section id="{{@id}}" style="background:{{@token.bg}}"><h2>{{title}}</h2><div data-field="body" data-max="1"><p data-item>{{item}}</p></div><p>{{@page}}</p></section>'
+        & $write 'kit/patterns/widget.html' '<section id="{{@id}}" style="background:{{@token.bg}}"><h2>{{title}}</h2><div data-field="body" data-max="1" data-max-words="5"><p data-item>{{item}}</p></div><p>{{@page}}</p></section>'
         $script:slide = {
             param([int] $Order, [string] $Title, [string] $Body, [string] $Pattern = 'widget')
             "---`ncatzc:`n  config:`n    pattern: $Pattern`n    deck: gadget-deck`n    order: $Order`n---`n`n# $Title`n`n## Body`n`n$Body`n"
@@ -33,6 +33,7 @@ Describe 'Test-Slides' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-CHECKABLECLAIMS' {
         & $write 'docs/decks/gadget-deck/one.slide.md' (& $slide 1 'One' 'a.')
         & $write 'docs/decks/gadget-deck/two.slide.md' (& $slide 2 'Two' 'b.')
         & $write 'docs/decks/broken-deck/three.slide.md' (& $slide 1 'Three' "c.`n`nd." 'gadget')
+        & $write 'quotes/four.slide.md' "---`ncatzc:`n  config:`n    pattern: widget`n    deck: quote-deck`n    order: 1`n    quotes: ADR-WIDGET-GADGET-SPIN`n---`n`n# Four`n`n## Body`n`nA gadget spins round and round.`n"
         Mock Assert-SourceTree -ModuleName Catzc.Base.Slides {}
         $script:out = Join-Path $root 'out'
     }
@@ -50,6 +51,11 @@ Describe 'Test-Slides' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-CHECKABLECLAIMS' {
         $report = Test-Slides -Path 'docs/decks/broken-deck' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
         $report.IssueCount | Should -Be 1
         $report.Issues[0] | Should -Be "docs/decks/broken-deck/three.slide.md: field 'pattern': the kit 'kit' holds no pattern 'gadget'; it holds: widget"
+    }
+
+    It 'names the quoted rule as the thing to trim when the rule is longer than the pattern holds' {
+        $report = Test-Slides -Path 'quotes/four.slide.md' -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
+        $report.Issues | Should -Contain "quotes/four.slide.md: field 'quotes': the quoted rule ADR-WIDGET-GADGET-SPIN is 6 words; pattern 'widget' holds at most 5, so the rule itself must be trimmed"
     }
 
     It 'checks every slide file under docs when no path is given' {

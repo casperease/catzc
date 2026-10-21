@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c414f6b7fc15
+    with_body_sha: ff70f05859d3
   edges:
     docs: "[Write-DiagramMinimapData.ps1.md](docs/references/pwsh/catzc-base-slides/private/Write-DiagramMinimapData.ps1.md)"
 ---

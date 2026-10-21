@@ -71,12 +71,12 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
             [pscustomobject]@{ Category = 'reserved'; Path = 'x'; WordCount = 1; Changed = $false; DryRun = $true }
         }
         Mock Get-TerminologyCorpus -ModuleName Catzc.Base.QualityGates { 'gizmo' }
-        foreach ($file in @{ 'widgets/spin.md' = 'The Gizmo language.'; 'gadgets/turn.md' = 'A gizmo here.'; 'gadgets/gizmos.md' = 'gizmos' }.GetEnumerator()) {
+        foreach ($file in @{ 'widgets/spin.md' = 'The Gizmo language.'; 'Widgets/Turn.md' = 'A gizmo in scope, any case.'; 'gadgets/turn.md' = 'A gizmo here.'; 'gadgets/gizmos.md' = 'gizmos' }.GetEnumerator()) {
             $path = Join-Path $TestDrive $file.Key
             $null = New-Item -ItemType File -Path $path -Force
             [System.IO.File]::WriteAllText($path, $file.Value)
         }
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @('widgets/spin.md', 'gadgets/turn.md', 'gadgets/gizmos.md', 'gadgets/gone.md') }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @('widgets/spin.md', 'Widgets/Turn.md', 'gadgets/turn.md', 'gadgets/gizmos.md', 'gadgets/gone.md') }
 
         $r = Test-Terminology -OutputFolder $script:reportBase -PassThru
         $r.IssueCount | Should -Be 1

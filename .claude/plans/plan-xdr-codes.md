@@ -36,20 +36,26 @@ a reader before opening the record whether it is a thesis, an axiom, a way of wo
 
 ## Open steps
 
-- [ ] ADR-REPO-ADRCODE: PATHOFSEGMENTS (the marker is a registered kind), DOMAINSEGMENT (a domain owns a kind or sits under `ADR` with its
-      segment), CODEISSELECTOR (every record is the list of kinds), the index preamble in `adr-index.yml` (check: `Test-Links` on the page
-      and `Test-AdrRegistry`).
-- [ ] `adrs.yml` and `AdrsConfig.cs`: a `kind:` per domain, `code:` only under `ADR` (check: `Invoke-TestFile` on the `AdrsConfig` and
-      `Build-AdrIndex` tests).
-- [ ] The 30 parsers of the `ADR` marker read the kinds from the registry, `AdrCitationRewriter.cs` and `AdrCodeForm.cs` first, then one
-      file at a time (list: `out/xdr-rename/parser-files.txt`); one widget fixture per new kind (check: each file's tests).
-- [ ] The code map and rule map for `Update-AdrCitation`, one row per framing ADR and rule (check: `-DryRun` over the tree reports every
-      code `git grep` finds).
-- [ ] The rewrite, one domain per step, `-DryRun` first: the ADR pages (titles, `## Rules:`, `### Rule`), then every citer; derived heads
-      regenerated with `Format-FileMeta`, `Build-AdrIndex` and `Build-AdrCodeDictionary` (check: `Test-Links`, `Test-AdrRegistry`,
-      `Test-GeneratedFiles`).
+- [ ] The other 30 parsers of the `ADR` marker read the kinds from the registry (`AdrsConfig.Kinds`, a domain's or ruleset's `Prefix`),
+      `AdrCodeForm.cs` first, then one file at a time, split with catzc-05 (delegated, 2026-10-21); `declaration.py` and
+      `Get-DiagramSupportsDrift.ps1` only after catzc-61's minimap-run go (list: `out/xdr-rename/parser-files.txt` plus those two); one
+      widget fixture per new kind (check: each file's tests).
+- [ ] The code map for `Update-AdrCitation`: one `move` row per registered framing code (487) and per domain code (6, `ADR-THES` to `TDR`
+      and so on), each `new_path` the ADR's own file; the rule map is the header only (check: `out/xdr-rename/dryrun.ps1` with the real map
+      matches the proxy-map dry run: 4,587 changes in 826 files, 0 throws, 6 Unhandled numbered test fixtures).
+- [ ] The rewrite, one domain per burst with hold/go, after the orchestrator's go: the ADR pages (titles, `## Rules:`, `### Rule`), every
+      citer, and the domain's flip in `adrs.yml` (`kind:` its own, `code:` dropped) in the same burst; derived heads regenerated with
+      `Format-FileMeta`, `Build-AdrIndex` and `Build-AdrCodeDictionary`. Sizes: THES 224 changes in 73 files, PRIN 581/201, PROC 217/17,
+      DSGN 1,457/326, FLOW 1,683/319, DORA 419/42 (check: `Test-Links`, `Test-AdrRegistry`, `Test-GeneratedFiles`).
 - [ ] Prose wildcards (`ADR-DSGN-*`), diagram `diagram.drawio.yml` subtitles and legends re-rendered, `glossary.yml`, `agents.yml`,
-      `capabilities.yml`, `.claude/CLAUDE.md`, by hand one file at a time (check: no `ADR-(THES|PRIN|PROC|DSGN|FLOW|DORA)` left outside the
-      frozen release).
-- [ ] `contracts/EXTERNAL-azure/0.1.0` keeps its old codes (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE): exempt it from the link check with its
-      reason (check: `Test-Links`).
+      `capabilities.yml`, `.claude/CLAUDE.md`, by hand one file at a time: 22 lines naming a bare domain code in 6 files and 9 wildcards
+      (check: no `ADR-(THES|PRIN|PROC|DSGN|FLOW|DORA)` left; the frozen `contracts/EXTERNAL-azure/0.1.0` cites only REPO rules, so it needs
+      no exemption, delegated 2026-10-21).
+
+## Open questions
+
+- From catzc-8b's finalize (2026-10-21): a partial edit of `AdrCitationRewriter.cs` broke every session's import for minutes. Should the
+  `catzc-verify` skill say that multi-file type work is edited on staged copies under `out/<topic>/staged/` and swapped in by one script
+  with a fresh import and a restore on failure? Recommendation: yes, one clause in its import-path step.
+- Same finalize: `Update-AdrCitation`'s help still describes numbered rules (`ADR-<CODE>:<n>`, `#<n>` lists) though rules are named. Should
+  its page say a rule map row is `old_rule new_rule` of named codes? Recommendation: yes, rewritten with this plan's kind step.

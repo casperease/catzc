@@ -62,7 +62,6 @@ categories:
       - "docs/adr/index.md"
       - "docs/adr/glossary.md"
       - "docs/references/**/*accosted*"
-      - "docs/references/**/*Accosted*"
       - "docs/references/pwsh/catzc-base-contracts.md"
       - "pwsh/Catzc.Base.Docs/configs/adrs.yml"
       - "pwsh/Catzc.Base.Languages/configs/languages.yml"

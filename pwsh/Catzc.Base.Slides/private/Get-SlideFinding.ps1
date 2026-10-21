@@ -75,6 +75,11 @@ function Get-SlideFinding {
             $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'quotes', "the ADR index knows no rule '$($Slide.Quotes)'"))
         }
         else {
+            $bodySpec = $Kit.Patterns[$Slide.Pattern].Field('body')
+            $ruleWords = [Catzc.Base.Slides.SlideSource]::WordCount($registry)
+            if ($bodySpec -and $bodySpec.MaxWords -gt 0 -and $ruleWords -gt $bodySpec.MaxWords) {
+                $faults.Add([Catzc.Base.Slides.SlideFault]::new($relative, 'quotes', "the quoted rule $($Slide.Quotes) is $ruleWords words; pattern '$($Slide.Pattern)' holds at most $($bodySpec.MaxWords), so the rule itself must be trimmed"))
+            }
             $body = if ($Slide.Source.Fields.ContainsKey('body')) {
                 @($Slide.Source.Fields['body'].Items | ForEach-Object Text) -join ' '
             }

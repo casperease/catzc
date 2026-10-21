@@ -4,10 +4,10 @@
 
 ### Rule ADR-REPO-ADRCODE-PATHOFSEGMENTS
 
-A decision record code is a record kind followed by zero or more segments, each `-` plus an upper-case letter and then upper-case letters
-or digits. It reads from the most general part to the most specific: the kind, then the domain where the kind is shared, then the record,
-then the rule. The kind is always the first part and is one of the closed set of kinds registered in `adrs.yml` (`ADR`, `TDR`, `PDR`,
-`WDR`, `DDR`, `FDR`, `RDR`), so the registered kinds are the searchable markers for a decision record reference anywhere in the repository.
+A decision record code is a record kind followed by zero or more segments, each `-` plus an upper-case letter and then upper-case letters or
+digits. It reads from the most general part to the most specific: the kind, then the domain where the kind is shared, then the record, then
+the rule. The kind is always the first part and is one of the closed set of kinds registered in `adrs.yml` (`ADR`, `TDR`, `PDR`, `WDR`,
+`DDR`, `FDR`, `RDR`), so the registered kinds are the searchable markers for a decision record reference anywhere in the repository.
 
 - [One path for every level](#one-path-for-every-level)
 
@@ -45,9 +45,9 @@ Every segment of every registered code and rule heading is a known word to the s
 
 ### Rule ADR-REPO-ADRCODE-CODEISSELECTOR
 
-Every code is also a selector: it selects itself and every code whose segments start with it. A kind selects its records and rules, so
-`ADR` selects the implementation domains and every decision record is the list of all kinds; `ADR-AUTO` selects the automation domain, `DDR`
-the design domain, and `ADR-AUTO-FAILFAST` that ADR and all its rules. A match compares whole segments, so `ADR-AUTO-GO` never selects
+Every code is also a selector: it selects itself and every code whose segments start with it. A kind selects its records and rules, so `ADR`
+selects the implementation domains and every decision record is the list of all kinds; `ADR-AUTO` selects the automation domain, `DDR` the
+design domain, and `ADR-AUTO-FAILFAST` that ADR and all its rules. A match compares whole segments, so `ADR-AUTO-GO` never selects
 `ADR-AUTO-GOLD`.
 
 - [Every string is a selector](#every-string-is-a-selector)
@@ -160,8 +160,9 @@ where there is one), and the rule. Every code is a fact and a selector of everyt
 ### How this is enforced
 
 - **`Test-AdrRegistry`** (in `Catzc.Base.Docs`) runs the `code_language` check: a code outside the segment grammar, a code that does not
-  start with its domain's prefix, a kind that is not registered, a numbered rule heading, and a rule that shares a segment with a sibling ADR are findings. The check's
-  mode is configured in `adr-checks.yml`; in `report` mode its findings are printed in their own report and never fail the run.
+  start with its domain's prefix, a kind that is not registered, a numbered rule heading, and a rule that shares a segment with a sibling
+  ADR are findings. The check's mode is configured in `adr-checks.yml`; in `report` mode its findings are printed in their own report and
+  never fail the run.
 - **`Test-Links`** (in `Catzc.Base.QualityGates`) reports a numbered citation in a markdown file or a code string as a finding; the test
   files whose fixtures carry one on purpose are named, each with its reason, in `links.yml` `string_citations.exempt`.
 - **`Test-GeneratedFiles`** fails when `.cspell/adr-codes.txt` is stale against the registry.

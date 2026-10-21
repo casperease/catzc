@@ -129,8 +129,8 @@ diagram. A token no set declares fails, naming the tokens it may be.
 A diagram shows exactly three minimaps: the ones its declaration names, or its kind's three defaults from the pools `maps.yml` declares,
 each one of the eight minimap ids. A minimap's data is computed, never drawn by hand: `Catzc.Base.Maps` projects the diagram's subject, the
 ADR codes in `about.adrs` and the files that cite them, onto the minimap's axes with the data command `maps.yml` names for its id, and every
-lit cell carries its reason. The folder's verify record judges each lit minimap in one hand-written line, under `## Minimap reasons`:
-`- <minimap>: <reason>`, a minimap named at most once and one that lights no cell not named. The data is contract JSON
+lit cell carries its reason. The diagram's declaration lists each shown minimap's lit cells, each with the files and rule codes that lit it,
+under `content.minimaps`, written from the computed data by `declaration.py minimaps`. The data is contract JSON
 ([ADR-REPO-CONTRACT](api-contracts.md)), written to `out/minimaps/` by `Build-Diagrams` and `Test-Diagrams`; the kit validates it and only
 draws it, and no minimap file lives in a diagram folder. A diagram whose data is missing does not put.
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b0fb00965aba
+    with_body_sha: "64a88f698b8f"
   edges:
     docs: "[AdrsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
@@ -11,6 +11,7 @@ catzc:
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
       - ADR-DSGN-TRACK-VALUECHAINSTACK
       - ADR-DSGN-TRACK-VALUECHAINCONCERN
+      - ADR-REPO-ADRCODE-DOMAINSEGMENT
       - ADR-REPO-LANG
 ---
 #>
@@ -35,6 +36,53 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
                     }
                 }
             }
+        }
+    }
+
+    Context 'record kinds' -Tag 'ADR-REPO-ADRCODE-DOMAINSEGMENT' {
+        It 'registers the one shared kind ADR when the registry declares none' {
+            $config = [Catzc.Base.Docs.AdrsConfig]::new((New-ValidRaw))
+            $config.Kinds | Should -Be @('ADR')
+            $config.SharedKinds | Should -Be @('ADR')
+            $config.Domains[0].Kind | Should -Be 'ADR'
+            $config.Domains[0].Prefix | Should -Be 'ADR-AL'
+            ($config.RuleSets | Where-Object Slug -EQ 'thing-one').Prefix | Should -Be 'ADR-AL'
+        }
+
+        It 'gives a domain that owns its kind no code, so its prefix is the kind' {
+            $raw = New-ValidRaw
+            $raw['kinds'] = [ordered]@{ ADR = [ordered]@{ name = 'Architecture Decision Record'; shared = $true }; GDR = [ordered]@{ name = 'Gadget Decision Record' } }
+            $raw.domains.alpha.Remove('code')
+            $raw.domains.alpha['kind'] = 'GDR'
+            $raw.domains.alpha.rulesets['thing-one'].external = 'GDR-ONE'
+            $raw.domains.beta.rulesets.Remove('thing-three')
+            $config = [Catzc.Base.Docs.AdrsConfig]::new($raw)
+            $config.Kinds | Should -Be @('ADR', 'GDR')
+            $config.KindName('GDR') | Should -Be 'Gadget Decision Record'
+            $alpha = $config.Domains | Where-Object Name -EQ 'alpha'
+            $alpha.Code | Should -BeNullOrEmpty
+            $alpha.Prefix | Should -Be 'GDR'
+            ($config.RuleSets | Where-Object Slug -EQ 'thing-one').Prefix | Should -Be 'GDR'
+        }
+
+        It 'throws on a code under an owned kind, a missing code under a shared one, and an unregistered kind' {
+            $raw = New-ValidRaw
+            $raw['kinds'] = [ordered]@{ ADR = [ordered]@{ name = 'Architecture Decision Record'; shared = $true }; GDR = [ordered]@{ name = 'Gadget Decision Record' } }
+            $raw.domains.alpha['kind'] = 'GDR'
+            $raw.domains.beta.Remove('code')
+            $raw.domains.beta['kind'] = 'XDR'
+            { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*domain 'alpha': has code 'AL', but its kind GDR is its own*"
+            { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*domain 'beta': kind 'XDR' is not a registered kind*"
+        }
+
+        It 'throws when two domains claim a kind that is not shared' {
+            $raw = New-ValidRaw
+            $raw['kinds'] = [ordered]@{ GDR = [ordered]@{ name = 'Gadget Decision Record' } }
+            foreach ($name in 'alpha', 'beta') {
+                $raw.domains[$name].Remove('code')
+                $raw.domains[$name]['kind'] = 'GDR'
+            }
+            { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*domain 'beta': kind 'GDR' is owned by domain 'alpha' and is not shared*"
         }
     }
 
@@ -79,10 +127,10 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw '*2-4 uppercase*'
     }
 
-    It 'throws when the effective code does not match the external domain segment' {
+    It 'throws when the external code does not start with its domain prefix' {
         $raw = New-ValidRaw
         $raw.domains.alpha.rulesets['thing-one'].external = 'ADR-XX-ONE' # domain alpha is AL, not XX
-        { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw '*domain segment*'
+        { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*does not start with its domain's prefix 'ADR-AL'*"
     }
 
     It 'accepts a one-segment external code, which has no domain segment to match' {
@@ -119,7 +167,7 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     It 'rejects an unknown top-level key' {
         $raw = New-ValidRaw
         $raw['widget'] = 1
-        { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: domains)*"
+        { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: kinds, domains)*"
     }
 
     Context 'value-chain stack and concerns' -Tag 'ADR-DSGN-TRACK-VALUECHAINSTACK', 'ADR-DSGN-TRACK-VALUECHAINCONCERN' {

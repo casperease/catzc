@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "30ff6abf005f"
+#     with_body_sha: "49d239e04e87"
 #   edges:
 #     docs: "[adrs.yml.md](docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md)"
 #     cites:
@@ -197,6 +197,15 @@
 #       - ADR-THES-ONETRUTH
 #       - ADR-THES-STORES
 # ---
+
+kinds:
+  ADR: { name: Architecture Decision Record, shared: true }
+  TDR: { name: Thesis Decision Record }
+  PDR: { name: Principle Decision Record }
+  WDR: { name: Way-of-working Decision Record }
+  DDR: { name: Design Decision Record }
+  FDR: { name: Flow Decision Record }
+  RDR: { name: Research Decision Record }
 
 domains:
   thesis:

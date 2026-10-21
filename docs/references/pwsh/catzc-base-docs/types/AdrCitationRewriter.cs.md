@@ -48,3 +48,12 @@ The docs/adr-relative path and fragment a reference points to after the maps: a 
 (to the file of the rule's new ADR when its ADR changes); the path otherwise follows the file and folder map.
 An in-file anchor of a page that is not the rule's ADR (a generated list with its own anchors) stays in-file.
 ```
+
+## comment:5
+
+Above `public AdrCitationRewriter(IEnumerable codeRows, IEnumerable ruleRows,...`, written with `//`.
+
+```text
+treeFiles are the repository-relative paths of the files under docs/adr in the tree, before or after a folder moves;
+kinds are the record kinds the registry declares (AdrsConfig.Kinds), old and new codes alike.
+```

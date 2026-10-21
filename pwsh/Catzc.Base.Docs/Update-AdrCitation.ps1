@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b56f1b8df323
+    with_body_sha: "1c0a206e79a3"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Update-AdrCitation.Tests.ps1
     docs: "[Update-AdrCitation.ps1.md](docs/references/pwsh/catzc-base-docs/Update-AdrCitation.ps1.md)"
@@ -52,7 +52,7 @@ function Update-AdrCitation {
                 [System.IO.Path]::GetRelativePath($root, $adrFile).Replace('\', '/')
             }
         })
-    $rewriter = [Catzc.Base.Docs.AdrCitationRewriter]::new($codeRows, $ruleRows, $citations, $treeFiles)
+    $rewriter = [Catzc.Base.Docs.AdrCitationRewriter]::new($codeRows, $ruleRows, $citations, $treeFiles, (Get-Config -Config adrs).Kinds)
 
     $bytes = [System.IO.File]::ReadAllBytes($file)
     $hasBom = $bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF

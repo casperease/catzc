@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "865e066834aa"
+    with_body_sha: "85ddc00d3379"
   edges:
     docs: "[Update-AdrCitation.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Update-AdrCitation.ps1
@@ -10,6 +10,7 @@ catzc:
       - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
       - ADR-AUTO-IDEM-CHECKBEFOREACTING
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-ADRCODE-PATHOFSEGMENTS
       - ADR-REPO-ADRCODE-NAMEDNOTNUMBERED
       - ADR-REPO-LINK-MARKDOWNRELATIVE
       - ADR-REPO-LINK-CODELINKS
@@ -58,6 +59,18 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
     }
 
     Context 'citations' {
+        It 'moves a code to another registered kind, its rule anchors with it' -Tag 'ADR-REPO-ADRCODE-PATHOFSEGMENTS' {
+            $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
+            $rows = foreach ($pair in @(@('ADR-WIDGET-COG', 'DDR-COG'), @('ADR-WIDGET-COG-SPINS', 'DDR-COG-SPINS'))) {
+                @($pair[0], $pair[1], '-', 'widget/cog-rules.md', 'move') -join "`t"
+            }
+            $codeMap = & $script:writeText 'maps/kind-code-map.tsv' ($header + "`n" + ($rows -join "`n") + "`n")
+            $full = & $script:writeText 'notes/kind.md' "See ADR-WIDGET-COG-SPINS in [cog](../docs/adr/widget/cog-rules.md#rule-adr-widget-cog-spins).`n"
+            Update-AdrCitation -Path $full -CodeMap $codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root -InformationAction SilentlyContinue | Out-Null
+            [System.IO.File]::ReadAllText($full) |
+                Should -BeExactly "See DDR-COG-SPINS in [cog](../docs/adr/widget/cog-rules.md#rule-ddr-cog-spins).`n"
+        }
+
         It 'carries a rule and its heading with its ADR''s code through the code map' {
             & $script:update 'notes/rename.md' "See ADR-WIDGET-GADGET-FOLD.`n### Rule ADR-WIDGET-GADGET-FOLD`n" |
                 Should -BeExactly "See ADR-GIZMO-GADGET-FOLD.`n### Rule ADR-GIZMO-GADGET-FOLD`n"

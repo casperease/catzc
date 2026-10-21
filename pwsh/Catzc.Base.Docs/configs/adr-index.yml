@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3df8c3872645"
+#     with_body_sha: "47d458025b5a"
 #   edges:
 #     docs: "[adr-index.yml.md](docs/references/pwsh/catzc-base-docs/configs/adr-index.yml.md)"
 #     cites:

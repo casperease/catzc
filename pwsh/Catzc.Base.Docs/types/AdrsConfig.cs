@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3e60e06f25a4"
+    with_body_sha: "05c0533ea4e9"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
     docs: "[AdrsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md)"
@@ -15,6 +15,8 @@ catzc:
       - ADR-DSGN-TRACK-VALUECHAINSTACK
       - ADR-DSGN-TRACK-VALUECHAINCONCERN
       - ADR-FLOW-CD
+      - ADR-REPO-ADRCODE-PATHOFSEGMENTS
+      - ADR-REPO-ADRCODE-DOMAINSEGMENT
       - ADR-REPO-AI
 ---
 */
@@ -31,7 +33,10 @@ public sealed class AdrsConfig
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     private static readonly Regex CodeRe = new Regex("^[A-Z]{2,4}(-[A-Z]{2,4})?$", RegexOptions.Compiled);
-    private static readonly Regex ExternalRe = new Regex("^ADR(-[A-Z][A-Z0-9]*)+$", RegexOptions.Compiled);
+    private static readonly Regex KindRe = new Regex("^[A-Z]{2,4}$", RegexOptions.Compiled);
+
+    // The record kinds when adrs.yml declares none: the one shared kind ADR (ADR-REPO-ADRCODE-PATHOFSEGMENTS).
+    public const string DefaultKind = "ADR";
 
     // The rows of the value-chain stack, top to bottom ([ADR-DSGN-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainstack)).
     public static readonly IReadOnlyList<string> Stacks = Array.AsReadOnly(new[] { "PRIN", "DSGN", "AUTO", "PIPE", "CLOUD" });
@@ -42,8 +47,17 @@ public sealed class AdrsConfig
     public IReadOnlyList<AdrRuleSet> RuleSets { get; }
     public IReadOnlyList<AdrDomainEdge> Edges { get; }
 
-    private static readonly string[] AllowedKeys = { "domains" };
-    private static readonly string[] AllowedDomainKeys = { "code", "role", "description", "depends_on", "stack", "concern", "folder", "rulesets" };
+    // The registered record kinds in authored order, each code's first segment, and which of them several domains share.
+    public IReadOnlyList<string> Kinds { get; }
+    public IReadOnlyList<string> SharedKinds { get; }
+    private readonly Dictionary<string, string> kindNames = new Dictionary<string, string>(StringComparer.Ordinal);
+
+    // The long name of a registered kind (Thesis Decision Record), or null for one not registered.
+    public string KindName(string kind) => kind != null && kindNames.TryGetValue(kind, out string name) ? name : null;
+
+    private static readonly string[] AllowedKeys = { "kinds", "domains" };
+    private static readonly string[] AllowedKindKeys = { "name", "shared" };
+    private static readonly string[] AllowedDomainKeys = { "kind", "code", "role", "description", "depends_on", "stack", "concern", "folder", "rulesets" };
     private static readonly Regex FolderRe = new Regex("^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$", RegexOptions.Compiled);
 
     // The folder under docs/adr that holds a domain's ADRs when its entry names none: the domain's own name.
@@ -69,6 +83,41 @@ public sealed class AdrsConfig
                 }
             }
         }
+
+        List<string> kinds = new List<string>();
+        List<string> sharedKinds = new List<string>();
+        IDictionary kindsMap = (raw != null && raw.Contains("kinds")) ? raw["kinds"] as IDictionary : null;
+        if (kindsMap == null)
+        {
+            if (raw != null && raw.Contains("kinds")) { errors.Add("'kinds' must be a map of kind -> { name, shared }"); }
+            kinds.Add(DefaultKind);
+            sharedKinds.Add(DefaultKind);
+            kindNames[DefaultKind] = "Architecture Decision Record";
+        }
+        else
+        {
+            foreach (object kk in kindsMap.Keys)
+            {
+                string kind = kk == null ? null : kk.ToString();
+                IDictionary k = kindsMap[kk] as IDictionary;
+                if (kind == null || !KindRe.IsMatch(kind)) { errors.Add(string.Format("kind '{0}' must be 2-4 uppercase letters", kind)); continue; }
+                if (k == null) { errors.Add(string.Format("kind '{0}': must be a mapping", kind)); continue; }
+                CheckKeys(k, AllowedKindKeys, string.Format("kind '{0}'", kind), errors);
+                string kindName = k.Contains("name") && k["name"] != null ? k["name"].ToString().Trim() : null;
+                if (string.IsNullOrWhiteSpace(kindName)) { errors.Add(string.Format("kind '{0}': missing 'name'", kind)); }
+                kinds.Add(kind);
+                kindNames[kind] = kindName;
+                if (k.Contains("shared") && k["shared"] != null && string.Equals(k["shared"].ToString(), "true", StringComparison.OrdinalIgnoreCase))
+                {
+                    sharedKinds.Add(kind);
+                }
+            }
+            if (kinds.Count == 0) { errors.Add("'kinds' must register one or more kinds"); }
+        }
+        Kinds = kinds.AsReadOnly();
+        SharedKinds = sharedKinds.AsReadOnly();
+        Regex externalRe = new Regex("^(" + string.Join("|", kinds) + ")(-[A-Z][A-Z0-9]*)+$", RegexOptions.Compiled);
+        Dictionary<string, string> kindOwner = new Dictionary<string, string>(StringComparer.Ordinal);
 
         IDictionary domainsMap = (raw != null && raw.Contains("domains")) ? raw["domains"] as IDictionary : null;
         if (domainsMap == null || domainsMap.Count == 0)
@@ -97,10 +146,29 @@ public sealed class AdrsConfig
 
             CheckKeys(d, AllowedDomainKeys, string.Format("domain '{0}'", name), errors);
 
-            string code = d.Contains("code") && d["code"] != null ? d["code"].ToString() : null;
-            if (code == null || !CodeRe.IsMatch(code))
+            // A shared kind's domains each add a code; a kind one domain owns stands for it, with no code (ADR-REPO-ADRCODE-DOMAINSEGMENT).
+            string domainKind = d.Contains("kind") && d["kind"] != null ? d["kind"].ToString() : DefaultKind;
+            bool shared = sharedKinds.Contains(domainKind);
+            if (!kinds.Contains(domainKind))
             {
-                errors.Add(string.Format("domain '{0}': code '{1}' must be 2-4 uppercase letters", name, code));
+                errors.Add(string.Format("domain '{0}': kind '{1}' is not a registered kind (one of: {2})", name, domainKind, string.Join(", ", kinds)));
+            }
+            else if (!shared && kindOwner.ContainsKey(domainKind))
+            {
+                errors.Add(string.Format("domain '{0}': kind '{1}' is owned by domain '{2}' and is not shared", name, domainKind, kindOwner[domainKind]));
+            }
+            else if (!shared)
+            {
+                kindOwner[domainKind] = name;
+            }
+            string code = d.Contains("code") && d["code"] != null ? d["code"].ToString() : null;
+            if (shared && (code == null || !CodeRe.IsMatch(code)))
+            {
+                errors.Add(string.Format("domain '{0}': code '{1}' must be 2-4 uppercase letters under the shared kind {2}", name, code, domainKind));
+            }
+            else if (!shared && code != null)
+            {
+                errors.Add(string.Format("domain '{0}': has code '{1}', but its kind {2} is its own and carries no domain segment", name, code, domainKind));
             }
             string role = d.Contains("role") && d["role"] != null ? d["role"].ToString() : null;
             if (string.IsNullOrWhiteSpace(role))
@@ -182,9 +250,9 @@ public sealed class AdrsConfig
                     CheckKeys(r, AllowedRuleSetKeys, string.Format("ruleset '{0}/{1}'", name, slug), errors);
 
                     string external = r.Contains("external") && r["external"] != null ? r["external"].ToString() : null;
-                    if (external == null || !ExternalRe.IsMatch(external))
+                    if (external == null || !externalRe.IsMatch(external))
                     {
-                        errors.Add(string.Format("ruleset '{0}/{1}': external '{2}' must be ADR-<NAME> or ADR-<DC>-<NAME>, uppercase segments", name, slug, external));
+                        errors.Add(string.Format("ruleset '{0}/{1}': external '{2}' must be a registered kind ({3}) and uppercase segments", name, slug, external, string.Join(", ", kinds)));
                         continue;
                     }
                     if (seenExternals.ContainsKey(external))
@@ -203,14 +271,16 @@ public sealed class AdrsConfig
                     }
                     string effective = leaf != null ? leaf : code;
 
-                    string expectedPrefix = "ADR-" + effective;
-                    bool hasDomainSegment = external.IndexOf('-', 4) >= 0;
-                    bool domainSegmentMatches = !hasDomainSegment
-                        || string.Equals(external, expectedPrefix, StringComparison.Ordinal)
-                        || external.StartsWith(expectedPrefix + "-", StringComparison.Ordinal);
+                    // Under a shared kind the segment after the kind is the effective code; under an owned kind the kind is the prefix.
+                    string expectedPrefix = effective == null ? domainKind : domainKind + "-" + effective;
+                    bool hasDomainSegment = effective == null || external.IndexOf('-', domainKind.Length + 1) >= 0;
+                    bool domainSegmentMatches = external.StartsWith(domainKind + "-", StringComparison.Ordinal)
+                        && (!hasDomainSegment
+                            || string.Equals(external, expectedPrefix, StringComparison.Ordinal)
+                            || external.StartsWith(expectedPrefix + "-", StringComparison.Ordinal));
                     if (!domainSegmentMatches)
                     {
-                        errors.Add(string.Format("ruleset '{0}/{1}': external '{2}' domain segment does not match effective code '{3}'", name, slug, external, effective));
+                        errors.Add(string.Format("ruleset '{0}/{1}': external '{2}' does not start with its domain's prefix '{3}'", name, slug, external, expectedPrefix));
                     }
 
                     // The value-chain concerns: the ruleset's own list when it declares one, else the domain default.
@@ -242,7 +312,7 @@ public sealed class AdrsConfig
                 }
             }
 
-            domains.Add(new AdrDomain(name, code, role, description, deps, stack, domainConcerns, ruleSets, folder));
+            domains.Add(new AdrDomain(name, code, domainKind, role, description, deps, stack, domainConcerns, ruleSets, folder));
         }
 
         // Acyclic domain graph (depth-first cycle detection: 1 = on the current stack, 2 = fully explored).

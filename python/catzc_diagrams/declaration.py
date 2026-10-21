@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: bc809695ee1c
+#     with_body_sha: "369c05a9ad77"
 # ---
 
 # cspell:ignore minimaps mxfile pnginfo adronly mapkey
@@ -1464,11 +1464,13 @@ def placement(data):
 
 
 def declare_minimaps(folder):
-    """Write a folder's computed minimap placement into its source: content.minimaps lists each shown minimap's lit cells."""
-    declaration = load(folder)
-    declaration["content"]["minimaps"] = placement(minimap_data(folder))
+    """Write a folder's computed minimap placement into its source: content.minimaps lists each shown minimap's lit cells. Only that
+    key changes: the source is written back as it was read, never through dump, which leaves out what a row or lane expands to."""
     source = Path(folder) / SOURCE
-    source.write_text(dump(normalise(yaml.safe_load(dump(declaration)), where=str(source))), encoding="utf-8")
+    raw = yaml.safe_load(source.read_text(encoding="utf-8")) or {}
+    raw.setdefault("content", {})["minimaps"] = placement(minimap_data(folder))
+    normalise(raw, where=str(source))
+    source.write_text(yaml.safe_dump(raw, sort_keys=False, allow_unicode=True, width=120), encoding="utf-8")
     return source
 
 

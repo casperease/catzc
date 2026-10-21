@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "0e7a9202af0f"
+#     with_body_sha: "2ec7a977e6dc"
 # ---
 
 # cspell:ignore minimaps widgetese getpixel miny
@@ -713,6 +713,20 @@ def test_a_row_of_a_template_writes_out_its_dots_drops_and_labelled_edges():
     labels = [e.get("label") for e in content["edges"] if e["from"].startswith("row-full-") and e["kind"] == "flow"]
     assert labels == ["PR", "BVT", "ship"]
     assert sum(1 for e in content["edges"] if e["kind"] == "fail" and e["from"].startswith("row-")) == 6
+
+
+def test_declare_minimaps_keeps_the_rows_and_an_edge_between_their_cells(tmp_path, monkeypatch):
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"].update(ROWS)
+    raw["content"]["edges"].append({"from": "row-full-0", "to": "row-short-0", "kind": "adr"})  # both ends are cells the rows write out
+    raw["content"]["minimaps"] = {view: [] for view in WIDGET_CELLS}
+    (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
+    monkeypatch.setattr(declaration, "minimap_data", lambda folder: {view: {"lit": []} for view in WIDGET_CELLS})
+    declaration.declare_minimaps(tmp_path)
+    written = __import__("yaml").safe_load((tmp_path / declaration.SOURCE).read_text(encoding="utf-8"))
+    assert written["content"]["rows"] == ROWS["rows"]
+    assert {"from": "row-full-0", "to": "row-short-0", "kind": "adr"} in written["content"]["edges"]
+    assert {k: v for k, v in written["content"].items() if k != "minimaps"} == {k: v for k, v in raw["content"].items() if k != "minimaps"}
 
 
 def test_a_row_is_written_back_as_a_row_and_a_get_of_its_drawing_keeps_it(tmp_path):

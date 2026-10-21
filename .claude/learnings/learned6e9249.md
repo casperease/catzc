@@ -61,3 +61,38 @@ Started 2026-10-21T20:09:00.4651213+02:00.
 - 2026-10-21 Cats: Token tip: Next time, save tokens by: grepping the tree for each command a hindsight line names before New-Plan, not
   after.
 - 2026-10-21 Cats: Token tip: Next time, save tokens by: reading a background task output only after its notification, once.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: Get-AdrUsage without -Path throws on a file staged in the index but deleted on
+  disk.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: Get-AdrUsage reads head cites and links only; about 40% of the codes a raw git grep
+  finds (prose, messages, regexes, diagrams) are outside it.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: 30 files hard-code the ADR marker (list in out/xdr-rename/parser-files.txt), so a
+  code-grammar change starts with those parsers.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: contracts/EXTERNAL-azure/0.1.0 is frozen and carries ADR codes, so a citation
+  rename never rewrites it.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: about 1,330 code occurrences are neutral test fixtures (ADR-WIDGET and kin), not
+  real domains.
+- 2026-10-21 Cats: Token tip: Next time, save tokens by: a raw git grep inventory into out/ first, and Get-AdrUsage only with -Path.
+- 2026-10-21 Cats: Token tip: Next time, save tokens by: writing a pwsh script with the Write tool, never inside a heredoc in a call the
+  hook may deny.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: a plan missing from .claude/plans usually landed, since done plans are deleted
+  directly, and out/orchestrator-\<date>.log names the session that took it.
+- 2026-10-21 Cats: Token tip: Next time, save tokens by: grepping out/orchestrator-\<date>.log for a missing plan before reporting it lost.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: AdrCitationRewriter validates every code-map row against ^ADR(-SEG)+, so a map to a
+  new record kind cannot load until the rewriter reads the kinds from the registry.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: an edit to any pwsh/*/types/*.cs file is compiled by the next import of every
+  session, so a multi-edit type change must be staged in out/ and swapped in with a fresh import in one script.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: Test-Links exempts string paths only in *.Tests.ps1 files until LinkEngine treats
+  every file in a tests/ folder as a test, which ADR-REPO-LINK-STRINGSAREDATA already says.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: ADR-AUTO-TEST-QUALITYGATE requires a gate to throw once listing every issue, so
+  findings printed once means Write-QualityGateReport prints issue lines only under -PassThru.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: the framing domains are cited 4,587 times in 826 files, and the frozen
+  contracts/EXTERNAL-azure/0.1.0 cites only REPO rules.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: NameCase.Render splits DevOps into dev-ops and VSCode into vs-code, so every
+  {kebab} rendered from a module name changed with it.
+- 2026-10-21 Cats: Token tip: build one AdrCitationRewriter in the module scope and call Rewrite() per file for a tree-wide dry run, instead
+  of Update-AdrCitation per file.
+- 2026-10-21 Cats: Token tip: grep a gate's own exemption code before planning a fix to its findings; the gap is often in the gate.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: declaration.py dump leaves out what a row or lane expands to, including a declared
+  edge between two generated cells, so a tool that changes one key writes the raw yml back, never dump of the normalised form.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: content.minimaps in diagram.drawio.yml maps each shown minimap to its lit cells
+  with what lit them, and declaration.py minimaps \<folder> writes it from out/minimaps.

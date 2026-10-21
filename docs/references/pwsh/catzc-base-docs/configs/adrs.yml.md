@@ -40,3 +40,12 @@ Above `reliability: { external: ADR-AZ-WAF-RE }`, written with `#`.
 Vendor recommendation, one rule per vendor item: the Well-Architected Framework pillars (azure/waf/) and the Cloud Adoption
 Framework landing-zone design areas (azure/caf/), each citing Microsoft's page and summarising it in our words.
 ```
+
+## comment:3
+
+Above `kinds:`, written with `#`.
+
+```text
+The record kinds, each a code's first segment (ADR-REPO-ADRCODE-PATHOFSEGMENTS): a shared kind's domains each add their code, a kind one
+domain owns stands for it (ADR-REPO-ADRCODE-DOMAINSEGMENT).
+```
