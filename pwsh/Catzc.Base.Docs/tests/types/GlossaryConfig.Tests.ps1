@@ -144,12 +144,12 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         (& $script:single $body).concepts[0].defined_by | Should -Be 'ADR-COG-GADGET-WHEEL-SPINS'
     }
 
-    It 'accepts a named rule citation, the domain, the ADR and the rule''s name' -Tag 'ADR-REPO-DRSCODE-NAMEDNOTNUMBERED' {
+    It 'accepts a named rule citation, the domain, the ADR and the rule''s name, and refuses a code shorter than any rule''s' -Tag 'ADR-REPO-DRSCODE-NAMEDNOTNUMBERED' {
         $body = & $script:concept
         $body.defined_by = 'ADR-COG-GADGET-SPINS'
         (& $script:single $body).concepts[0].defined_by | Should -Be 'ADR-COG-GADGET-SPINS'
-        $body.defined_by = 'ADR-COG-GADGET'
-        { & $script:single $body } | Should -Throw "*must be a rule's code*" -Because 'two segments name an ADR, not a rule'
+        $body.defined_by = 'ADR-COG'
+        { & $script:single $body } | Should -Throw "*must be a rule's code*" -Because 'the type checks the shape only; the registry''s segment count is Get-GlossarySourceViolations'' check'
     }
 
     It 'keeps declared forms in order, empty when none, and rejects a non-word or a repeated form' -Tag 'ADR-REPO-VOCAB-FAMILYFORMS' {

@@ -36,6 +36,13 @@ a declared default.
 
 - [Configurable parameters](#configurable-parameters)
 
+### Rule ADR-PWSH-PARAM-CASESENSITIVEPATTERN
+
+A `ValidatePattern` whose pattern depends on case carries `Options = 'None'`: PowerShell matches a `ValidatePattern` ignoring case unless
+its `Options` say otherwise, so `^[A-Z]` alone accepts a lower-case value.
+
+- [Case-sensitive patterns](#case-sensitive-patterns)
+
 ## Context
 
 [sensible-defaults](../sensible-defaults.md) fixes the doctrine: the zero-argument call works, defaults come from configuration, and a
@@ -97,10 +104,29 @@ body: one chosen from several sources in turn, or one that applies only when ano
 is given). The expression runs in the module's scope, so a test isolates it by mocking `Get-Config` (`ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES`)
 — the same seam the function uses.
 
+### Case-sensitive patterns
+
+`ValidatePatternAttribute.Options` defaults to `IgnoreCase`, so a pattern that names a case is silently loosened. Setting `Options = 'None'`
+makes the attribute match exactly what the pattern says; the precedent is the `-Author` parameter of
+[`Add-SessionLearning`](../../../../pwsh/Catzc.Base.Docs/Add-SessionLearning.ps1) (line 57), which requires a capitalised person name:
+
+```powershell
+# GOOD — the capital the pattern names is required
+[ValidatePattern('^[A-Z][a-z]+( [A-Za-z]+){0,3}$', Options = 'None')]
+[string] $Author
+
+# BAD — 'jack' passes, because the match ignores case
+[ValidatePattern('^[A-Z][a-z]+( [A-Za-z]+){0,3}$')]
+[string] $Author
+```
+
+A pattern that names no case (`^\d+$`) needs no `Options`.
+
 ## Decision
 
 The primary argument is positional (`Position = 0`); opt-in behavior is a `[switch]` that is off by default. A configurable parameter
-declares the configured value as its default. Secondary inputs are named parameters.
+declares the configured value as its default. Secondary inputs are named parameters. A case-sensitive `ValidatePattern` carries
+`Options = 'None'`.
 
 ### How this is enforced
 
@@ -110,7 +136,8 @@ declares the configured value as its default. Secondary inputs are named paramet
   one mandatory parameter lacks `Position = 0` (ADR-PWSH-PARAM-POSITIONALPRIMARY), and `Measure-ParameterFillIn` flags a body that fills an
   empty parameter in (ADR-PWSH-PARAM-RESOLUTIONORDER).
 - **The exemplars** — the `Invoke-*` family (`Invoke-Executable`, `Invoke-Poetry`, `Invoke-Python`) is the pattern new functions copy.
-- **Code review** — a `[bool]` where a `[switch]` belongs is rejected against this ADR.
+- **Code review** — a `[bool]` where a `[switch]` belongs, or a case-sensitive `ValidatePattern` without `Options = 'None'`
+  (ADR-PWSH-PARAM-CASESENSITIVEPATTERN), is rejected against this ADR.
 
 ## Consequences
 

@@ -19,7 +19,10 @@ catzc:
 Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'drs' } -MockWith {
-            [pscustomobject]@{ Domains = @([pscustomobject]@{ Name = 'automation' }, [pscustomobject]@{ Name = 'repository' }) }
+            [pscustomobject]@{
+                Domains  = @([pscustomobject]@{ Name = 'automation' }, [pscustomobject]@{ Name = 'repository' })
+                CodeForm = [Catzc.Base.Drs.DrsCodeForm]::new([ordered]@{ ADR = 3 })
+            }
         }
         # A well-formed concept body; a test adds or changes one field.
         $script:concept = {
@@ -70,6 +73,15 @@ Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
         $found = & $script:violations @($first, $second)
         $found.Count | Should -Be 1
         $found[0] | Should -BeLike "widgets/Catzc.Widget/configs/glossary.yml: term 'widget suite' is already defined by widgets/Catzc.Gadget/configs/glossary.yml*"
+    }
+
+    It 'accepts a named rule citation and reports an ADR''s code as defined_by, by the registry''s kinds' -Tag 'ADR-REPO-DRSCODE-NAMEDNOTNUMBERED' {
+        $rule = & $script:source 'Widget' ([ordered]@{ 'widget suite' = (& $script:concept 'widget_suite' @{ defined_by = 'ADR-COG-GADGET-SPINS' }) })
+        & $script:violations @($rule) | Should -BeNullOrEmpty
+        $adr = & $script:source 'Widget' ([ordered]@{ 'widget suite' = (& $script:concept 'widget_suite' @{ defined_by = 'ADR-COG-GADGET' }) })
+        $found = & $script:violations @($adr)
+        $found.Count | Should -Be 1 -Because 'two segments name an ADR, not a rule'
+        $found[0] | Should -BeLike "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': defined_by 'ADR-COG-GADGET' is not a rule's code*"
     }
 
     It 'reports a machine key used by two sources' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {

@@ -1,0 +1,55 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "365d935a51f8"
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-Parsing.Tests.ps1
+    docs: "[Test-Parsing.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-Parsing.ps1.md)"
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+---
+#>
+
+function Test-Parsing {
+    [CmdletBinding()]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
+    param(
+        [Parameter(Mandatory, Position = 0)]
+        [string[]] $Path,
+
+        [string] $OutputFolder,
+
+        [switch] $PassThru
+    )
+
+    $repositoryRoot = Get-RepositoryRoot
+    $issues = [System.Collections.Generic.List[string]]::new()
+    foreach ($file in $Path) {
+        $full = [System.IO.Path]::GetFullPath($file, $repositoryRoot)
+        Assert-PathExist $full -PathType Leaf
+        $extension = [System.IO.Path]::GetExtension($full).ToLowerInvariant()
+        if ($extension -in '.ps1', '.psm1', '.psd1') {
+            $errors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($full, [ref]$null, [ref]$errors)
+            foreach ($parseError in @($errors)) {
+                $issues.Add("${file}:$($parseError.Extent.StartLineNumber): $($parseError.Message)")
+            }
+        }
+        elseif ($extension -in '.yml', '.yaml') {
+            try {
+                $null = ConvertFrom-Yaml ([System.IO.File]::ReadAllText($full))
+            }
+            catch {
+                $reason = $_.Exception.InnerException ? $_.Exception.InnerException.Message : $_.Exception.Message
+                $issues.Add("${file}: $reason")
+            }
+        }
+        else {
+            throw "Test-Parsing: '$file' is not a PowerShell (.ps1, .psm1, .psd1) or YAML (.yml, .yaml) file; it has no parser here."
+        }
+    }
+
+    Write-QualityGateReport -Subject parsing -Title Test-Parsing -Issues $issues.ToArray() `
+        -Facts ([ordered]@{ FileCount = @($Path).Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
+}

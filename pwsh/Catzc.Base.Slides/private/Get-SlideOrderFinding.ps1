@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9f3df76ae327"
+    with_body_sha: c9009abe4214
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Get-SlideOrderFinding.Tests.ps1
     docs: "[Get-SlideOrderFinding.ps1.md](../../../docs/references/pwsh/catzc-base-slides/private/Get-SlideOrderFinding.ps1.md)"
@@ -15,7 +15,7 @@ function Get-SlideOrderFinding {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Slides.SlideFault])]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0)]
         [AllowEmptyCollection()]
         [pscustomobject[]] $Slide,
 

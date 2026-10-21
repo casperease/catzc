@@ -56,14 +56,10 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - session-learnings -> plan-session-learnings.md: two capability lines free (catzc-worker.md, catzc-run, one file each); catzc-49's lines
   wait on catzc-49.
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
-- debt-red-tests -> plan-debt-red-tests.md: two red tests green again, since a red test blocks the user's full run: the analyzer test (73
-  findings) and the glossary rule-code test; three steps, step 3 an import-path burst
-- debt-gate-findings -> plan-debt-gate-findings.md: one step left, the deck order check shared by Build-SlideDeck and Test-Slides (hindsight
-  d7c207)
-- debt-docs -> plan-debt-docs.md: two how-tos for facts found only by whoever knew them, a command contract sample and a hook fed from a
-  payload file (hindsight 031350); two open questions
 - debt-import-path -> plan-debt-import-path.md: an instant parse check before the next import, and importer.sh passing list parameters
   (hindsight 031350); import-path burst
+- debt-python-tests -> plan-debt-python-tests.md: Invoke-PythonTest finds a Python module's own tests/ without -Folder, as its comment says;
+  one step
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

@@ -32,18 +32,16 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-| Value  | Plan                    | Needed docs                                                                                     | Needed tests                                                                                          | State                                            |
-| ------ | ----------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| medium | plan-session-learnings  | the session-finalize skill (the learning definition)                                            | Pester for Add-SessionLearning and LearningsConfig                                                    | decided; one step                                |
-| high   | plan-agent-shortcuts    | the plans ADR names New-Plan                                                                    | Pester for the gate runner and New-Plan, Test-AgentDefinitions                                        | one step left, the user's CLAUDE.md line         |
-| high   | plan-idiomatic-names    | ADR-AUTO-IDIOM (written), the command-contracts and api-contracts rules (written)               | Test-IdiomaticNames, Pester for the naming types, Test-Contracts                                      | folders renamed; wiring and the normal form open |
-| high   | plan-agent-friction     | ADR-REPO-PLANS gains the three-part plan rule; a how-to for a head fact                         | Pester for Test-Plans and Test-Formatting, the hook test, Test-ParameterConsistency                   | the head how-to and drawing, the user's trim     |
-| medium | plan-bcl-language       | the BCL reference-set rule in ADR-AUTO-TYPES, the narrowed ADR-PWSH-TYPES rules, the bcl domain | Test-Links on the moved pages, Pester for the host-binding gate and config, Test-DrsRegistry          | one step left, the user's CLAUDE.md line         |
-| high   | plan-drs-system         | the DRS rule in ADR-REPO-DRSCODE, glossary entries for DRS, decision record and record kind     | Catzc.Base.Docs Pester, Update-DrsCitation dry run, Test-DrsRegistry, Test-Links, Test-GeneratedFiles | one step left, the user's CLAUDE.md edit         |
-| medium | plan-debt-gate-findings | the Build-SlideDeck and Test-Slides pages                                                       | Pester for the shared private, Test-Slides and Build-SlideDeck                                        | one step                                         |
-| medium | plan-debt-docs          | two how-tos; two open questions (a parameter-design rule, a kit edge kind)                      | Test-Links and Test-Markdownlint on the pages                                                         | two steps, two open questions                    |
-| medium | plan-debt-import-path   | the new command's page                                                                          | Pester for the new command and importer.sh, one fresh import                                          | three steps, step 2 an import-path burst         |
-| high   | plan-debt-red-tests     | the `drs` term in terminology.yml                                                               | Test-ScriptAnalyzer.Tests.ps1, GlossaryConfig.Tests.ps1, Test-Glossary                                | three steps, step 3 an import-path burst         |
+| Value  | Plan                   | Needed docs                                                                                     | Needed tests                                                                                          | State                                            |
+| ------ | ---------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| medium | plan-session-learnings | the session-finalize skill (the learning definition)                                            | Pester for Add-SessionLearning and LearningsConfig                                                    | decided; one step                                |
+| high   | plan-agent-shortcuts   | the plans ADR names New-Plan                                                                    | Pester for the gate runner and New-Plan, Test-AgentDefinitions                                        | one step left, the user's CLAUDE.md line         |
+| high   | plan-idiomatic-names   | ADR-AUTO-IDIOM (written), the command-contracts and api-contracts rules (written)               | Test-IdiomaticNames, Pester for the naming types, Test-Contracts                                      | folders renamed; wiring and the normal form open |
+| high   | plan-agent-friction    | ADR-REPO-PLANS gains the three-part plan rule; a how-to for a head fact                         | Pester for Test-Plans and Test-Formatting, the hook test, Test-ParameterConsistency                   | the head how-to and drawing, the user's trim     |
+| medium | plan-bcl-language      | the BCL reference-set rule in ADR-AUTO-TYPES, the narrowed ADR-PWSH-TYPES rules, the bcl domain | Test-Links on the moved pages, Pester for the host-binding gate and config, Test-DrsRegistry          | one step left, the user's CLAUDE.md line         |
+| high   | plan-drs-system        | the DRS rule in ADR-REPO-DRSCODE, glossary entries for DRS, decision record and record kind     | Catzc.Base.Docs Pester, Update-DrsCitation dry run, Test-DrsRegistry, Test-Links, Test-GeneratedFiles | one step left, the user's CLAUDE.md edit         |
+| medium | plan-debt-import-path  | the new command's page                                                                          | Pester for the new command and importer.sh, one fresh import                                          | three steps, step 2 an import-path burst         |
+| medium | plan-debt-python-tests | the Invoke-PythonTest page states the lookup order                                              | Pester for Invoke-PythonTest, one live run                                                            | one step                                         |
 
 ## Pending deletion
 
@@ -82,3 +80,9 @@ Deleted 2026-10-21, every step landed (ADR-REPO-PLANS-DONEPLANDELETED):
 - plan-debt-reference-pages: seven comment pages corrected to their code (contracts.yml, New-CatsCommandLookup,
   Get-GlossarySourceViolations, Invoke-TestFile, Test-Links, Update-DrsCitation, terminology.yml) and the NameCase type test pinning the
   DevOps kebab split.
+- plan-debt-red-tests: the analyzer test green again (the `drs` term, 33 findings fixed file by file) and the glossary rule-code test green
+  through a post-load `defined_by` check in `Get-GlossarySourceViolations` against `(Get-Config drs).CodeForm`.
+- plan-debt-gate-findings: `Get-DrsUsage` skips a deleted indexed path, `Test-Plans` checks stated step counts (with the rule sentence in
+  ADR-REPO-PLANS-THREEPARTS), and `Get-SlideOrderFinding` gives `Test-Slides` and `Build-SlideDeck` one deck order check.
+- plan-debt-docs: two how-tos (adding a command contract, testing an agent hook), ADR-PWSH-PARAM-CASESENSITIVEPATTERN, and the read edge row
+  in the kit template's legend (the edge itself was already in STYLE.md and the renderer).

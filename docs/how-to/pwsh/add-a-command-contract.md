@@ -41,8 +41,8 @@ output: catzc.base.contracts.contract_command[]
 
 ## Check it
 
-1. Run the contracts gate. Its PowerShell checker compares the asset with the command's parameter block and output type, without loading the
-   module
+1. Run the `Test-Contracts` quality gate. Its PowerShell checker compares the asset with the command's parameter block and output type,
+   without loading the module
    ([ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-checkerperlanguage)):
 
    ```powershell

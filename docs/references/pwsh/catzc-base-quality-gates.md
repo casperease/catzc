@@ -139,6 +139,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Test-ManualTestPlan`         |
 |                                                 | `Test-AnalyzerDrsMap`         |
 |                                                 | `Test-ScriptAnalyzer`         |
+|                                                 | `Test-Parsing`                |
 |                                                 | `Test-LogicTestIdentity`      |
 |                                                 | `Test-ConfigIdentityHygiene`  |
 | config                                          | `analyzer-drs-map.yml`        |

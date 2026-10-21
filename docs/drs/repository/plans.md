@@ -21,7 +21,8 @@ one of the ranks `value-of-plan.md` orders by, and that file is the one sorting 
 ### Rule ADR-REPO-PLANS-THREEPARTS
 
 A plan is three parts: its file, its row in `value-of-plan.md` and its chunk line in `plan-master.md`, the line that points at the file
-(`- <chunk> -> plan-<topic>.md: ...`). A plan missing either line is a finding, so no instruction has to say that a new plan needs them.
+(`- <chunk> -> plan-<topic>.md: ...`). A plan missing either line is a finding, so no instruction has to say that a new plan needs them. A
+step count that the chunk line or the row states equals the plan's open steps.
 
 - [One head, one overlay](#one-head-one-overlay)
 

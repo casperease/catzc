@@ -2,11 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7d181a3f8b8b"
+    with_body_sha: "9c1f888627d9"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-GlossarySourceViolations.Tests.ps1
     docs: "[Get-GlossarySourceViolations.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-GlossarySourceViolations.ps1.md)"
     cites:
+      - ADR-REPO-DRSCODE-NAMEDNOTNUMBERED
       - ADR-REPO-VOCAB
 ---
 #>
@@ -20,7 +21,8 @@ function Get-GlossarySourceViolations {
     )
 
     $violations = [System.Collections.Generic.List[string]]::new()
-    $domains = [System.Collections.Generic.HashSet[string]]::new([string[]] @((Get-Config -Config drs).Domains.Name), [System.StringComparer]::Ordinal)
+    $drs = Get-Config -Config drs
+    $domains = [System.Collections.Generic.HashSet[string]]::new([string[]] @($drs.Domains.Name), [System.StringComparer]::Ordinal)
 
     # First pass: who owns each term and key (the first source in order keeps it), plus the per-source facts.
     $termSource = [System.Collections.Generic.Dictionary[string, string]]::new([System.StringComparer]::Ordinal)
@@ -47,6 +49,10 @@ function Get-GlossarySourceViolations {
             }
             if (-not $domains.Contains($concept.domain)) {
                 $violations.Add("$($item.Path): concept '$term': domain '$($concept.domain)' is not an drs.yml domain (ADR-REPO-VOCAB-DEFINEDTERM)")
+            }
+            # The type checks only the shape; the registry decides how many segments a rule's code has after its kind.
+            if (-not $drs.CodeForm.IsRule($concept.defined_by)) {
+                $violations.Add("$($item.Path): concept '$term': defined_by '$($concept.defined_by)' is not a rule's code under the drs.yml kinds; an ADR's code names no rule (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)")
             }
         }
     }

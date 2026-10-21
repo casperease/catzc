@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: abc710d8bf87
+    with_body_sha: d2a6145b8419
   edges:
     code: pwsh/Catzc.Base.QualityGates/Get-DrsUsage.ps1
     cites:
@@ -59,14 +59,22 @@ Describe 'Get-DrsUsage (repository)' -Tag 'L1', 'integrity', 'source-only' {
         $one.Count | Should -BeGreaterThan 0
         @($one.Path | Sort-Object -Unique) | Should -Be @($path)
     }
+}
 
+Describe 'Get-DrsUsage' -Tag 'L0', 'logic' {
     It 'skips a path the index still lists but the working tree has deleted' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
-        $path = 'docs/drs/repository/file-meta.md'
+        $root = Join-Path $TestDrive 'repo'
+        $path = 'docs/widget.md'
+        [void] [System.IO.Directory]::CreateDirectory((Join-Path $root 'docs'))
+        [System.IO.File]::WriteAllText((Join-Path $root $path), "# Widget`n`nThe widget spins, as ADR-GADGET-SPIN says.`n")
+        Mock Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates {
+            [Catzc.Base.Drs.DrsCitationMap]::new(@{ 'ADR-GADGET' = @{ path = 'docs/drs/gadget.md'; rules = [string[]] @('ADR-GADGET-SPIN') } }, @())
+        }
         Mock Get-FileMetaScope -ModuleName Catzc.Base.QualityGates {
             [pscustomobject]@{ Path = 'docs/widget-deleted.md'; Carrier = [pscustomobject]@{ carrier = [Catzc.Base.Languages.CarrierKind]::FrontMatter } }
-            [pscustomobject]@{ Path = 'docs/drs/repository/file-meta.md'; Carrier = [pscustomobject]@{ carrier = [Catzc.Base.Languages.CarrierKind]::FrontMatter } }
+            [pscustomobject]@{ Path = 'docs/widget.md'; Carrier = [pscustomobject]@{ carrier = [Catzc.Base.Languages.CarrierKind]::FrontMatter } }
         }
-        $kept = @(Get-DrsUsage)
+        $kept = @(Get-DrsUsage -RepositoryRoot $root)
         $kept.Count | Should -BeGreaterThan 0
         @($kept.Path | Sort-Object -Unique) | Should -Be @($path)
     }
