@@ -142,7 +142,7 @@ The RC and RBC gates and the acceptance testing that clears them belong to the f
 [FDR-CD-ACCEPTANCETESTINGISNOTUAT](cd-discipline-and-promotion-flow.md#rule-fdr-cd-acceptancetestingisnotuat) separates the acceptance
 testing from the environment it runs in.
 
-![A commit only climbs — it ends discarded, retired or superseded](.assets/commit-promotion-states/diagram.drawio.png)
+![A commit only climbs — it ends discarded, retired or superseded](.assets/commit-promotion-states.drawio.png)
 
 ## Discard
 
@@ -190,7 +190,7 @@ build on recent work without inheriting what the BVT catches. The same commit is
 and the consumers stand on one point rather than two that drift apart. When that commit then fails in `main-UAT`, it becomes the dirty
 HEAD's case: nobody syncs from it any longer, and a fix-forward commit earns the place once the BVT verifies it.
 
-![Upstream consumers sync from the BVT-verified server head, never from a dirty HEAD](.assets/sync-point/diagram.drawio.png)
+![Upstream consumers sync from the BVT-verified server head, never from a dirty HEAD](.assets/sync-point.drawio.png)
 
 ## The dirty HEAD
 

@@ -19,7 +19,7 @@ and re-runs the importer, after which automation refuses to commit straight to m
 `Sync-AdoBuildValidations` to put the blocking build-validation policies on `main`, and lists them afterwards. No command exists for the
 other half of the decision, picking the last verified commit to integrate from.
 
-![Flip git_workspace; sync the ADO policies](.assets/guard-and-policies-by-command/diagram.drawio.png)
+![Flip git_workspace; sync the ADO policies](.assets/guard-and-policies-by-command.drawio.png)
 
 ## Walkthrough
 

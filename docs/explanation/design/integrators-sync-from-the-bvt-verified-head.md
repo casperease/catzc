@@ -19,7 +19,7 @@ BVT-verified server head, not the tip of main. That same commit is the one `main
 rests on occupants, never on HEAD. Keeping "what is newest" apart from "what is safe to build on" is what stops one broken commit from
 spreading. All of this is stated by the decision records; no pipeline in the repository runs it yet.
 
-![Upstream integrators sync from the BVT-verified head, never from the tip of main](.assets/integrators-sync-from-the-bvt-verified-head/diagram.drawio.png)
+![Upstream integrators sync from the BVT-verified head, never from the tip of main](.assets/integrators-sync-from-the-bvt-verified-head.drawio.png)
 
 ## Walkthrough
 

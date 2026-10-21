@@ -17,7 +17,7 @@ address. The file's folder says whose deployment it is, and its name says which 
 in any pipeline, names the subscription: cats resolves it from the path, and it insists that exactly one subscription fits. Because the
 resolution is one-to-one all the way through, listing the `configuration/` tree is the inventory of a template's resource groups.
 
-![A config file's path is a coordinate that resolves to one subscription and one resource group](.assets/config-path-is-a-coordinate/diagram.drawio.png)
+![A config file's path is a coordinate that resolves to one subscription and one resource group](.assets/config-path-is-a-coordinate.drawio.png)
 
 ## Walkthrough
 

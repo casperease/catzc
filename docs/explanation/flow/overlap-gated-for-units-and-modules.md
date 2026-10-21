@@ -19,7 +19,7 @@ for the `deployable-unit` and `module` layers, config-load validation keeps the 
 is exempt by design. Two prohibitions in the same FDR, the phantom unit and the loose-fileset without a demonstrated use, have no check
 behind them: they hold only as DRS rules.
 
-![A gate on overlap for units and modules](.assets/overlap-gated-for-units-and-modules/diagram.drawio.png)
+![A gate on overlap for units and modules](.assets/overlap-gated-for-units-and-modules.drawio.png)
 
 ## Walkthrough
 

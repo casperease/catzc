@@ -18,7 +18,7 @@ alone: no gate or checker in cats tests it, and nothing in the repository runs t
 points the other way, since every `Deploy_*` stage runs only from main. The drawing rules of DDR-VISUAL that colour these commits have no
 checker either, and none is expected.
 
-![FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND is ADR-only and every Deploy stage is main-only](.assets/out-of-band-deploy-is-adr-only/diagram.drawio.png)
+![FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND is ADR-only and every Deploy stage is main-only](.assets/out-of-band-deploy-is-adr-only.drawio.png)
 
 ## Walkthrough
 

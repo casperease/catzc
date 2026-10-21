@@ -19,7 +19,7 @@ A cats module is a folder under `pwsh/`, and nothing else declares what it conta
 other: the loader decides what a module exports, and the globs engine decides which of its files ship. Both decisions come from where a file
 sits, so a module author shapes visibility and shipping identity with the same act, placing a file.
 
-![One folder, two independent readers](.assets/one-folder-two-independent-readers/diagram.drawio.png)
+![One folder, two independent readers](.assets/one-folder-two-independent-readers.drawio.png)
 
 ## Walkthrough
 

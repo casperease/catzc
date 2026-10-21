@@ -17,7 +17,7 @@ Each globset in cats maps an area-of-control onto its tracked files, and every g
 Two layers, `deployable-unit` and `loose-fileset`, are declared in `globs.yml`. The third, `module`, is derived from the folders under
 `pwsh/` and is never declared. Knowing which layer a set sits in tells you where it comes from and whether its peers may overlap it.
 
-![Two layers declared, the third derived](.assets/two-declared-layers-one-derived/diagram.drawio.png)
+![Two layers declared, the third derived](.assets/two-declared-layers-one-derived.drawio.png)
 
 ## Walkthrough
 

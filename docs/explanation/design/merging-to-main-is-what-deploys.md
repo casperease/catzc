@@ -18,7 +18,7 @@ request starts a build that skips every deploy stage, and the `Release` workflow
 pull request into main starts a run that deploys. The out-of-band topic deploy that FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows has no pipeline
 behind it.
 
-![Merging to main is what deploys](.assets/merging-to-main-is-what-deploys/diagram.drawio.png)
+![Merging to main is what deploys](.assets/merging-to-main-is-what-deploys.drawio.png)
 
 ## Walkthrough
 

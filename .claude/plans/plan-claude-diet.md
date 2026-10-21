@@ -37,7 +37,7 @@ It cuts a cost paid by every session and every spawn that loads the project inst
 
 ## Open steps
 
-1. [ ] Susan from HR: `.claude/CLAUDE.md`, section Sub-agents (4797 bytes of a 14407-byte file, 2026-10-21): each bullet cut to the agent
+1. [ ] Susan from HR: `.claude/CLAUDE.md`, section Sub-agents (4788 bytes of a 14355-byte file, 2026-10-21): each bullet cut to the agent
        name and one clause, the full purpose left to the agent's `description` and `agents.yml`; target 2400 bytes, saving about 2400 bytes
        (about 600 tokens) per session. The file is dirty in a peer's tree, so the step waits until no peer has it dirty, and it is the
        user's step in task-user-runs-and-commits.md. Check: `Test-AgentDefinitions` (it still finds every registered name listed, and none

@@ -17,7 +17,7 @@ they hold and in what a change to them reaches, so the infrastructure track name
 the track instead of a path written in code. A template is where the three meet: it pulls its modules into one deployable `main.bicep`, and
 each of its configuration slots deploys that one template into one resource group.
 
-![Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together](.assets/three-kinds-of-infrastructure-code/diagram.drawio.png)
+![Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together](.assets/three-kinds-of-infrastructure-code.drawio.png)
 
 ## Walkthrough
 

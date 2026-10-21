@@ -17,7 +17,7 @@ answer is never read from a hash committed beside the unit. It is computed from 
 so a squash merge or a concurrent merge can never make it stale. And the answer is shaped by what a wrong answer costs: a redundant run is
 safe, a wrong skip is an un-deployed change, so every doubt proceeds.
 
-![Every doubt fails open to proceed](.assets/every-doubt-fails-open-to-proceed/diagram.drawio.png)
+![Every doubt fails open to proceed](.assets/every-doubt-fails-open-to-proceed.drawio.png)
 
 ## Walkthrough
 

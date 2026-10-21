@@ -21,7 +21,7 @@ Supports FDR-CD-DETECT-NODIRECTVARIABLECHECK, FDR-CD-DETECT-BOOLEANNOTMODAL and 
 cares about the pipeline calls it, 24 call sites in all, and a custom PSScriptAnalyzer rule, loaded by the one settings file, turns any
 other read of those two variables into an error.
 
-![Two variables read in one place](.assets/two-variables-read-in-one-place/diagram.drawio.png)
+![Two variables read in one place](.assets/two-variables-read-in-one-place.drawio.png)
 
 ## Walkthrough
 

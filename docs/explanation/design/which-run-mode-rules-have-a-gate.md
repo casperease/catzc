@@ -19,7 +19,7 @@ The run-modes DDR makes seven rules about how cats loads its modules from source
 two test runs, two asserts, and the tests behind the mode function. The seventh names three kinds of build root, which the place of the code
 root tells apart, so no gate is needed. A reader who wants to know which run-mode promises are enforced finds the gate for each rule here.
 
-![Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none](.assets/which-run-mode-rules-have-a-gate/diagram.drawio.png)
+![Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none](.assets/which-run-mode-rules-have-a-gate.drawio.png)
 
 ## Walkthrough
 

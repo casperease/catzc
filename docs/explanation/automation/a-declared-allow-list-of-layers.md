@@ -18,7 +18,7 @@ the other way round. The declaration is the allow-list: it lets each layer depen
 list fails the build. Stripped of every module and function name and of any one vendor, the whole idea is three layers, one last hop to the
 vendor tool and one failure.
 
-![A declared allow-list whose edges point down to the vendor tool](.assets/a-declared-allow-list-of-layers/diagram.drawio.png)
+![A declared allow-list whose edges point down to the vendor tool](.assets/a-declared-allow-list-of-layers.drawio.png)
 
 ## Walkthrough
 

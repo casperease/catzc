@@ -20,7 +20,7 @@ function Get-LifecyclePositionMinimapData {
 
         [Catzc.Base.Maps.WorldMap] $WorldMap,
 
-        [hashtable] $Facts,
+        [System.Collections.IDictionary] $Facts,
 
         [switch] $AsJson
     )

@@ -20,7 +20,7 @@ neighbouring rules need no check at all. The customer comes from the session bec
 resource-group name is built by one function that never sees a subscription. No message or help text contradicts these rules; one help text
 misstates a config path.
 
-![Four gates hold the session rule; the customer and the name hold by construction](.assets/four-gates-hold-the-session-rule/diagram.drawio.png)
+![Four gates hold the session rule; the customer and the name hold by construction](.assets/four-gates-hold-the-session-rule.drawio.png)
 
 ## Walkthrough
 

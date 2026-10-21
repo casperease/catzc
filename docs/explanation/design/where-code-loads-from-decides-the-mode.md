@@ -16,7 +16,7 @@ Run modes are the two ways cats loads its one set of modules: from the repositor
 built package, which ships to other machines. Both ways go through one importer into the same modules. Nothing records which mode a session
 is in. The place the code was loaded from is the answer, so the mode can never disagree with what actually loaded.
 
-![Where the code loads from decides the run mode](.assets/where-code-loads-from-decides-the-mode/diagram.drawio.png)
+![Where the code loads from decides the run mode](.assets/where-code-loads-from-decides-the-mode.drawio.png)
 
 ## Walkthrough
 

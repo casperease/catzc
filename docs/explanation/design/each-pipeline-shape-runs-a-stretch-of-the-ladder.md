@@ -15,7 +15,7 @@ There is one promotion ladder, and cats has more than one way to run it. A shape
 far it climbs. This diagram draws the six shapes side by side, each as a row of steps joined by arrows, so the difference between them is
 which steps they include and where the row ends.
 
-![Six pipeline shapes, each a different stretch of the same promotion ladder](.assets/state-changes/diagram.drawio.png)
+![Six pipeline shapes, each a different stretch of the same promotion ladder](.assets/state-changes.drawio.png)
 
 ## Walkthrough
 

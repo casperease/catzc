@@ -19,7 +19,7 @@ The CI discipline and the promotion flow set a rule for every pipeline kind and 
 has a machine check behind it: the quality gate on test timings in the CI inner loop. Every other rule rests on a human reviewer. The flow
 reads left to right in one row, each kind or gate beside the rule that governs it, and below the row sit the two things that check it.
 
-![The CI budget is the only promotion rule a quality gate checks](.assets/ci-budget-is-the-only-quality-gate/diagram.drawio.png)
+![The CI budget is the only promotion rule a quality gate checks](.assets/ci-budget-is-the-only-quality-gate.drawio.png)
 
 ## Walkthrough
 

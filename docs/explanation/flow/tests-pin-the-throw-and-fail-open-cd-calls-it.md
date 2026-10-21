@@ -20,7 +20,7 @@ name, the fail-open on an unresolved range or a failed diff, and the range chose
 test run. The context detection is pinned by a custom analyzer rule. What the decision asks of the pipeline side, a deep checkout and a
 stage that runs the check first, is wired into the CD pipelines, and no gate checks it.
 
-![Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate](.assets/tests-pin-the-throw-and-fail-open-cd-calls-it/diagram.drawio.png)
+![Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate](.assets/tests-pin-the-throw-and-fail-open-cd-calls-it.drawio.png)
 
 ## Walkthrough
 

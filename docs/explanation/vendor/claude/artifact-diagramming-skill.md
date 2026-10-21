@@ -17,8 +17,8 @@ own terms, and where each lesson meets or stops at the drawio.png practice our r
 
 A diagram in cats lives in exactly one of two lanes, and the lane decides which rules draw it.
 
-- **The docs lane.** A diagram is a folder under an `.assets/` beside its article: the `diagram.drawio.yml` that declares it element by
-  element and the `diagram.drawio.png` put from it, a draw.io model embedded in a PNG, with an article in `docs/explanation/` that narrates
+- **The docs lane.** A diagram is a pair of files in an `.assets/` beside its article: the `<name>.drawio.yml` that declares it element by
+  element and the `<name>.drawio.png` put from it, a draw.io model embedded in a PNG, with an article in `docs/explanation/` that narrates
   it. The kit in `python/catzc_diagrams/assets/STYLE.md` owns its words, glyphs, colours and sidebar; the kit renderer is the one way its
   raster is made, put from the diagram's yml (`drawio-declaration` step 1). The `drawio-*` capabilities and the three diagram robots work
   only in this lane.
@@ -58,7 +58,7 @@ single page a reader sees once. Our docs lane is a library a reader returns to.
 | --------------------------------------------- | ---- | ------------------------------------------------------------------------------------------------ |
 | `drawio-diagram-waves`, `drawio-waves`        | docs | STYLE.md, `glyphs.xml`, the source decision records                                              |
 | `drawio-renderer`                             | docs | the diagram's yml, the markdown pages that embed it                                              |
-| `edit-diagram-yml`, `drawio-declaration`      | docs | the diagram's `diagram.drawio.yml`, its vocabularies                                             |
+| `edit-diagram-yml`, `drawio-declaration`      | docs | the diagram's `<name>.drawio.yml`, its vocabularies                                              |
 | `drawio-look`                                 | docs | the PNG, against STYLE.md's vocabulary                                                           |
 | `print-artifacts`, `artifact-publish`         | page | the saved page file and the catalogue; it draws nothing, so the skill does not apply to it today |
 | a session with `/artifact-diagramming` loaded | page | the skill, for any SVG it hand-authors on a page                                                 |

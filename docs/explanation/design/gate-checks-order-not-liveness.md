@@ -18,7 +18,7 @@ refuses any track whose last aspect is not the bare `**`, or that uses `**` anyw
 and always last. Which aspect that is, and so whether a stray file ships or not, is each track's declaration, and no gate reads it. The
 partition check that the DDR describes exists in code, but only unit tests on fixture files call it.
 
-![The gate checks order, not liveness](.assets/gate-checks-order-not-liveness/diagram.drawio.png)
+![The gate checks order, not liveness](.assets/gate-checks-order-not-liveness.drawio.png)
 
 ## Walkthrough
 

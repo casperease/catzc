@@ -14,4 +14,4 @@ the [explanation index](../index.md) says how to read the explanations.
 - [A file leaves the unordered track only in the normal form](eac-normal-form.md) — the eac normal form and fragment migration
   ([TDR-NORMALFORM](../../drs/thesis/eac-normal-form.md)).
 
-![Truth is one commit; in the listen mode the editor's edit is fact, and its plans run rule, docs, code](.assets/where-truth-comes-from/diagram.drawio.png)
+![Truth is one commit; in the listen mode the editor's edit is fact, and its plans run rule, docs, code](.assets/where-truth-comes-from.drawio.png)

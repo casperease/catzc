@@ -15,7 +15,7 @@ A new deployment of an existing template is a new file and nothing more. Slots a
 changes and no pipeline is edited: the file's place says whose deployment it is and which environment, and cats checks before deploying that
 exactly one subscription serves it.
 
-![A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource group](.assets/add-an-environment-slot/diagram.drawio.png)
+![A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource group](.assets/add-an-environment-slot.drawio.png)
 
 ## Walkthrough
 

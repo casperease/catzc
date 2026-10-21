@@ -20,7 +20,7 @@ There are three outcomes, and a fact belongs to exactly one:
 If the fact can be derived on demand from the registries, git or the disk, derive it and stop: a head holds only what a reader needs to see
 in the file.
 
-![One file, one outcome, and the keys each head holds](.assets/head-outcomes/diagram.drawio.png)
+![One file, one outcome, and the keys each head holds](.assets/head-outcomes.drawio.png)
 
 The sidebar lights one cell. Which layer: automation, because ADR-REPO-FILEMETA and ADR-REPO-CODEMETA name no layer in `drs.yml` and so take
 the declared default. The code-locations and track-placement maps light nothing.

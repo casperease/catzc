@@ -15,7 +15,7 @@ The smallest infrastructure change is an edit to one configuration slot: a setti
 resource group and its folder says whose deployment it is, the change has a known, narrow reach before it is merged: one pipeline runs, and
 one resource group changes.
 
-![Changing one configuration slot runs only its owner's pipeline and reaches only its resource group](.assets/change-one-configuration-slot/diagram.drawio.png)
+![Changing one configuration slot runs only its owner's pipeline and reaches only its resource group](.assets/change-one-configuration-slot.drawio.png)
 
 ## Walkthrough
 

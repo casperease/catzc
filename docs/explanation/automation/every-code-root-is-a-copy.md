@@ -20,7 +20,7 @@ the code anywhere else, so the platform has to be built and then copied. Seen as
 engine writes the build from the source tree, the exporter module drives the engine and owns the integrity guard, and every code root
 outside the repository is a copy of the one verified build.
 
-![One engine builds, every code root is a copy](.assets/every-code-root-is-a-copy/diagram.drawio.png)
+![One engine builds, every code root is a copy](.assets/every-code-root-is-a-copy.drawio.png)
 
 ## Walkthrough
 

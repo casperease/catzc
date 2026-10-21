@@ -18,7 +18,7 @@ An output artifact of cats is stored as one string, `out/template/sample/main.js
 `Resolve-RepoPath` on that string gets the right absolute path for the machine they are on: under `{root}/out` on a devbox, under the
 staging directory in a pipeline job. Nobody edits the string, and nobody writes an absolute path into a record.
 
-![One stored out/ string lands in two places](.assets/one-out-string-two-places/diagram.drawio.png)
+![One stored out/ string lands in two places](.assets/one-out-string-two-places.drawio.png)
 
 ## Walkthrough
 

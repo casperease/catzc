@@ -21,7 +21,7 @@ the whole load to the same `Catzc.Internal.Importer`, so there is one living loa
 only orchestrate the import. They remove themselves when it is done, and what stays in the session is the `.internal` layer that every
 module shares, the vendored modules and the catzc modules.
 
-![Two entries feed one importer, removed after load](.assets/two-entries-feed-one-importer/diagram.drawio.png)
+![Two entries feed one importer, removed after load](.assets/two-entries-feed-one-importer.drawio.png)
 
 ## Walkthrough
 

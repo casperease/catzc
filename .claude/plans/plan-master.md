@@ -54,8 +54,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - agent-friction -> plan-agent-friction.md: the user's CLAUDE.md trims only (task-user-runs-and-commits).
 - claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit only (Sub-agents cut, the pwsh index named; task-user-runs-and-commits).
 - session-learnings -> plan-session-learnings.md: one learning reworded and catzc-49's lines appended; its questions are decided.
-- drs-system -> plan-drs-system.md: the Decision Records System (DRS): docs/drs moves to docs/drs, the holder of the XDR record-kind
-  domains; its root declared once, then the move after the user's go, the citations, and the Adr* names.
+- drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
 - diagram-flat-files -> plan-diagram-flat-files.md: Every diagram is two files beside its pages, <name>.drawio.png and <name>.drawio.yml,
   never a folder of its own.
 - debt-empty-path -> plan-debt-empty-path.md: A command handed an empty -Path refuses instead of running over the whole tree.

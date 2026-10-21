@@ -19,7 +19,7 @@ carries the rules that govern it, set against what checks them. No quality gate 
 grammar, the reader and the walk, and one for the secret hand-off. Two rules rest on convention: that a resolved node is never written
 through, and that nothing an address can reach is a secret.
 
-![Two L0 test files check the address rules](.assets/two-test-files-check-the-address-rules/diagram.drawio.png)
+![Two L0 test files check the address rules](.assets/two-test-files-check-the-address-rules.drawio.png)
 
 In the walkthrough, `A` is ADR-CONF-ADDRESSING and `E` is ADR-AUTO-ENVVAR; the diagram's rule chips are keyed in its legend.
 

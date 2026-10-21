@@ -23,7 +23,7 @@ shell. Either way the call reaches the header function through one wrapper, and 
 Around the header function sit the parts its proofs rest on: the step template that supplies the pipeline token, the az CLI module, and
 `ado.yml`, which every proof is checked against.
 
-![One header function owns the precedence](.assets/one-header-function-owns-precedence/diagram.drawio.png)
+![One header function owns the precedence](.assets/one-header-function-owns-precedence.drawio.png)
 
 ## Walkthrough
 

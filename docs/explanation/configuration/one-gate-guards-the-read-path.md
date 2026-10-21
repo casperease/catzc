@@ -20,7 +20,7 @@ in an integrity test. Each stage of the read path carries the rules that govern 
 `Test-ShippedConfigs`, guards the read path, and it looks only at the typed step; the one-reader rule and the read-only rule rest on
 convention.
 
-![One quality gate guards the config read path](.assets/one-gate-guards-the-read-path/diagram.drawio.png)
+![One quality gate guards the config read path](.assets/one-gate-guards-the-read-path.drawio.png)
 
 In the walkthrough, `L` is ADR-CONF-LOADING, `A` is ADR-CONF-ADDRESSING and `T` is ADR-AUTO-TEST; the diagram's rule chips are keyed in its
 legend.

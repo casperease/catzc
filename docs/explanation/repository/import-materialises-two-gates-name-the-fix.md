@@ -18,7 +18,7 @@ A developer never writes a managed root file. Running `. ./importer.ps1` materia
 on a clean tree nothing is printed and nothing is written. When a source changes, the next import regenerates its target; when something is
 out of step with the registry, one of two quality gates says which file and what to run.
 
-![The import materialises every root file; two gates catch drift and name the fix](.assets/import-materialises-two-gates-name-the-fix/diagram.drawio.png)
+![The import materialises every root file; two gates catch drift and name the fix](.assets/import-materialises-two-gates-name-the-fix.drawio.png)
 
 ## Walkthrough
 

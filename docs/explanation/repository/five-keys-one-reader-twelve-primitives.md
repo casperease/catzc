@@ -21,7 +21,7 @@ Supports ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS, ADR-RE
 fifteen public functions that ask it. A value flows one way, from the file through the loader and the reader to a `Get-` accessor, and from
 the accessor to the `Test-` and `Assert-` guards that answer a question or stop the run.
 
-![Five keys, one private reader, fifteen exported primitives](.assets/five-keys-one-reader-twelve-primitives/diagram.drawio.png)
+![Five keys, one private reader, fifteen exported primitives](.assets/five-keys-one-reader-twelve-primitives.drawio.png)
 
 ## Walkthrough
 

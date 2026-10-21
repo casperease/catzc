@@ -16,7 +16,7 @@ A developer who writes `if ($env:TF_BUILD)` finds out at the next analyzer run, 
 that names the file, the position, the rule and the function to call instead, and then throws. On the agent side the CI pipeline proves the
 seam itself: one step asserts that the detector answers true and prints where the output root landed.
 
-![The analyzer names the raw read](.assets/the-analyzer-names-the-raw-read/diagram.drawio.png)
+![The analyzer names the raw read](.assets/the-analyzer-names-the-raw-read.drawio.png)
 
 ## Walkthrough
 

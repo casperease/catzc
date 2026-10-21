@@ -17,7 +17,7 @@ The layer pins of cats' module graph, the groups and modules each consumer may u
 are checked twice. The load check validates the declaration itself, and the `Test-ModuleDependency` quality gate checks the real code
 against it. One rule, declaring a new edge in the same change as the code, has no gate at all.
 
-![Two gates check the layer pins](.assets/two-gates-check-the-layer-pins/diagram.drawio.png)
+![Two gates check the layer pins](.assets/two-gates-check-the-layer-pins.drawio.png)
 
 ## Walkthrough
 

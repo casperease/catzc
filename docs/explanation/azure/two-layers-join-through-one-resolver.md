@@ -20,7 +20,7 @@ under each template, says which deployments exist. The two never reference each 
 config's coordinate into its subscription, and one shared check that both discovery and the collect-all validator run, so the rule cannot
 drift between its two callers.
 
-![The templating and identity config layers join through one shared check and one resolver](.assets/two-layers-join-through-one-resolver/diagram.drawio.png)
+![The templating and identity config layers join through one shared check and one resolver](.assets/two-layers-join-through-one-resolver.drawio.png)
 
 ## Walkthrough
 

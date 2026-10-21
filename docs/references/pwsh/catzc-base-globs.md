@@ -74,7 +74,7 @@ projection from outside (generated `paths:` registrations).
 The diagram below draws module protection from the source, as the test runner uses it. A module's tests are skipped only when its folded
 globset hash matches the hash recorded after its last green run in this session. The hash is held as pending before the workers run and
 promoted only after a green result. In a pipeline nothing is skipped.
-![Skip a module only if its folded hash matches its last green](.assets/protected-module-skip-by-hash/diagram.drawio.png)
+![Skip a module only if its folded hash matches its last green](.assets/protected-module-skip-by-hash.drawio.png)
 
 ## Division
 

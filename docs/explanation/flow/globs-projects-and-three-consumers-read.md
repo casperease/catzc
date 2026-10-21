@@ -21,7 +21,7 @@ workflows, the Azure DevOps pipelines, and the build-validation policy that `Cat
 The two YAML consumers are kept in step by hand and checked by quality gates; the branch policy is the one consumer the code fills in
 itself, and it reads the GitHub list rather than the Azure DevOps lists.
 
-![Catzc.Base.Globs projects, three consumers read](.assets/globs-projects-and-three-consumers-read/diagram.drawio.png)
+![Catzc.Base.Globs projects, three consumers read](.assets/globs-projects-and-three-consumers-read.drawio.png)
 
 ## Walkthrough
 

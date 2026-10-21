@@ -21,7 +21,7 @@ The two entry scripts of cats, one per run mode, are both thin. Each one only fi
 `Invoke-Importer`, which runs one load sequence in both modes and hands the code root on to every step of it. Because the mode is read back
 from that same code root, the mode a session reports cannot disagree with the code it actually loaded.
 
-![Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it](.assets/shims-set-roots-mode-read-back/diagram.drawio.png)
+![Each entry script sets the code root, and Get-CatzcRunMode reads the mode back from it](.assets/shims-set-roots-mode-read-back.drawio.png)
 
 ## Walkthrough
 

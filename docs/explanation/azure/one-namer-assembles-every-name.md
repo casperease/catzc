@@ -19,7 +19,7 @@ Every Azure resource name in cats comes out of one place. A resolver gathers the
 namer, reading three pure-data registries, assembles and checks the name. A bad component or an over-limit name throws; a name that passes
 is the resource-group name the deploy uses. Because nothing else builds names, a rule changed in the namer reaches every name at once.
 
-![One resolver gathers the components and one namer assembles every Azure name](.assets/one-namer-assembles-every-name/diagram.drawio.png)
+![One resolver gathers the components and one namer assembles every Azure name](.assets/one-namer-assembles-every-name.drawio.png)
 
 ## Walkthrough
 

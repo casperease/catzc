@@ -16,7 +16,7 @@ ADR-ADO-AUTH has six rules and FDR-CD-PIPELINE-NOSTOREDTOKENS adds the seventh, 
 `Get-AdoAuthorizationHeader` cover the pipeline and az CLI proofs, and one CI step checks that the token mapping works. The PAT's binding to
 the org, the empty-token assert, the one-function rule and the no-caching rule have no gate at all.
 
-![Which auth rungs have a gate](.assets/which-auth-rungs-have-a-gate/diagram.drawio.png)
+![Which auth rungs have a gate](.assets/which-auth-rungs-have-a-gate.drawio.png)
 
 ## Walkthrough
 

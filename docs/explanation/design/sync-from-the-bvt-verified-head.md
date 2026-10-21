@@ -15,7 +15,7 @@ the commit to build on is the BVT-verified server head, because the BVT has alre
 commit is the one the always-on non-prod environment takes first, so the commit synced from and the commit `main-UAT` takes are one. When
 the newest commit fails, it becomes the dirty HEAD, and nothing follows it.
 
-![Sync from the BVT-verified head, not from the tip of main](.assets/sync-from-the-bvt-verified-head/diagram.drawio.png)
+![Sync from the BVT-verified head, not from the tip of main](.assets/sync-from-the-bvt-verified-head.drawio.png)
 
 ## Walkthrough
 

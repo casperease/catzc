@@ -5,8 +5,8 @@
 # ---
 
 description:
-  "Build-Diagrams as one pipeline of five stages: it finds the diagram folders in the tree, finds every page that embeds each one, writes
-  the minimap data of every declared folder, renders or syncs each folder, and reports. Rendering is where a full run spends its time."
+  "Build-Diagrams as one pipeline of five stages: it finds the diagrams in the tree, finds every page that embeds each one, writes the
+  minimap data of every declared diagram, renders or syncs each diagram, and reports. Rendering is where a full run spends its time."
 about:
   adrs:
     - ADR-REPO-SLIDES-MINIMAPSFROMDATA
@@ -23,7 +23,7 @@ content:
   glyphs:
     - id: g-folders
       kind: set
-      label: diagram folders
+      label: diagrams
       in: band-pipeline
     - id: g-articles
       kind: file

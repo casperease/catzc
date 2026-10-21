@@ -16,7 +16,7 @@ A single commit is hard to follow when the picture is organised by stage. This d
 commit carries a number in time order, the same number appears in every lane, and the last place a number appears is the verdict on that
 commit. Read together, the ten numbers show every state a commit can hold and every way it can end.
 
-![Ten numbered commits traced through the pipeline, the environments and git](.assets/10-commits-story/diagram.drawio.png)
+![Ten numbered commits traced through the pipeline, the environments and git](.assets/10-commits-story.drawio.png)
 
 ## Walkthrough
 

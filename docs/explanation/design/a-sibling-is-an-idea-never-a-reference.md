@@ -18,7 +18,7 @@ article says what that means in practice: which parts of the two models now agre
 from one to the other without becoming a copy. The diagram draws the crossing: two repositories, the model they share, and the gate an idea
 passes before it lands here as a rule.
 
-![A sibling is an idea, never a reference; the rules stay home](.assets/a-sibling-is-an-idea-never-a-reference/diagram.drawio.png)
+![A sibling is an idea, never a reference; the rules stay home](.assets/a-sibling-is-an-idea-never-a-reference.drawio.png)
 
 ## Walkthrough
 

@@ -18,7 +18,7 @@ environment through a workflow or pipeline without ever reaching main, and that 
 paths have exactly one part in common, the topic commit itself, and nothing on the deploy path feeds main, the BVT or the commit's place on
 the promotion ladder.
 
-![The deploy path and the integration path share only the topic commit](.assets/deploy-and-integrate-share-only-the-topic/diagram.drawio.png)
+![The deploy path and the integration path share only the topic commit](.assets/deploy-and-integrate-share-only-the-topic.drawio.png)
 
 ## Walkthrough
 

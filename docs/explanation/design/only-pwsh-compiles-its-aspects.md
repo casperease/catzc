@@ -20,7 +20,7 @@ pwsh track's convention onto every module folder and derives two globsets per mo
 infrastructure one included, but only to decide whether a file is live for the world map. No part of cats derives a globset from the
 infrastructure convention.
 
-![Only pwsh compiles its aspects](.assets/only-pwsh-compiles-its-aspects/diagram.drawio.png)
+![Only pwsh compiles its aspects](.assets/only-pwsh-compiles-its-aspects.drawio.png)
 
 ## Walkthrough
 

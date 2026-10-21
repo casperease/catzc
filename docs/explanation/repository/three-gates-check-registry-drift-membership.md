@@ -20,7 +20,7 @@ that differs from what the writer would compose fails the drift check; and a tar
 disagrees with the registry fails the integrity check. One clause stands on the ADR alone: that the target-to-source pairing is restated
 nowhere else.
 
-![Three gates check the registry, the drift and the git membership; one rule has no gate](.assets/three-gates-check-registry-drift-membership/diagram.drawio.png)
+![Three gates check the registry, the drift and the git membership; one rule has no gate](.assets/three-gates-check-registry-drift-membership.drawio.png)
 
 ## Walkthrough
 

@@ -17,7 +17,7 @@ output root, slash-separated, with no `.` or `..` segments, so it reads the same
 in binding form: a normalized absolute path that exists only on the line that reads, writes, or hands the path to a tool. Two functions, and
 only two, move a path from one form to the other, so normalization is a guarantee rather than a hope.
 
-![A path has two forms, never a third](.assets/two-forms-never-a-third/diagram.drawio.png)
+![A path has two forms, never a third](.assets/two-forms-never-a-third.drawio.png)
 
 ## Walkthrough
 

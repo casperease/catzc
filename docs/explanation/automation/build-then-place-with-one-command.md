@@ -19,7 +19,7 @@ Building and placing the bundle takes two commands at the prompt. In a source-mo
 own output and prints where the build went, and then one command places it: `Install-Catzc -Scope CurrentUser`, `Export-Catzc -Root <dir>`,
 or `Export-Catzc -To nuget`. A build that fails its integrity check throws with the whole list of what is wrong.
 
-![Build, then place with one command](.assets/build-then-place-with-one-command/diagram.drawio.png)
+![Build, then place with one command](.assets/build-then-place-with-one-command.drawio.png)
 
 ## Walkthrough
 

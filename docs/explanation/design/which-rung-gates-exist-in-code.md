@@ -20,7 +20,7 @@ state each one grants beside it, the gates split cleanly into those a pipeline i
 decision records. Three checks exist in code: PR build validation, the BVT, and the stop that keeps a failed stage from reaching the next
 one. Every gate from L3 up to production is stated by the decision records and enforced by nothing yet.
 
-![Only PR build validation, the BVT and the failure stop are checked in code](.assets/which-rung-gates-exist-in-code/diagram.drawio.png)
+![Only PR build validation, the BVT and the failure stop are checked in code](.assets/which-rung-gates-exist-in-code.drawio.png)
 
 ## Walkthrough
 

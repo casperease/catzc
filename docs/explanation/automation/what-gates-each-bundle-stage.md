@@ -17,7 +17,7 @@ ADR-AUTO-BUNDLE fixes every stage of a bundle, from the module selection to the 
 checks them, and two gates do the checking. `Assert-CatzcBundle` verifies every build and verifies it again before every placement, and the
 build run `Test-CatzcBuild` runs the same tests against a fresh build that the source run runs against the source tree.
 
-![Every stage has a rule, two gates check it](.assets/what-gates-each-bundle-stage/diagram.drawio.png)
+![Every stage has a rule, two gates check it](.assets/what-gates-each-bundle-stage.drawio.png)
 
 ## Walkthrough
 

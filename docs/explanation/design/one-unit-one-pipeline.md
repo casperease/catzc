@@ -16,7 +16,7 @@ Three words carry the delivery side of cats: a track is a concern, a deployable-
 machine. The invariant ties them in a line: units are composed from tracks, each unit binds one pipeline, and a pipeline never reaches a
 track except through the unit that is that track.
 
-![One unit, one pipeline; tracks ship through units](.assets/one-unit-one-pipeline/diagram.drawio.png)
+![One unit, one pipeline; tracks ship through units](.assets/one-unit-one-pipeline.drawio.png)
 
 ## Walkthrough
 

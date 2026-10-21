@@ -22,7 +22,7 @@ of their tests is the whole contract. Converting a path tries the output root be
 path when neither applies; resolving a path re-anchors `out/` on `Get-OutputRoot`, passes a rooted path through and joins everything else
 onto the repository root. Across a stage boundary `ArtifactRef` does the same job against the artifact root.
 
-![The output root is tried first, then the repository root](.assets/output-root-first-then-repo-root/diagram.drawio.png)
+![The output root is tried first, then the repository root](.assets/output-root-first-then-repo-root.drawio.png)
 
 ## Walkthrough
 

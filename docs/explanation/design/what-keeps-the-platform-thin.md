@@ -20,7 +20,7 @@ gate that stops the flow when they break: the function naming, the configuration
 thin in the first place (no reimplementation, everything as code, a swappable substrate) have no code behind them and are held by review
 alone.
 
-![Three gates guard the CLI and az; thinness has none](.assets/what-keeps-the-platform-thin/diagram.drawio.png)
+![Three gates guard the CLI and az; thinness has none](.assets/what-keeps-the-platform-thin.drawio.png)
 
 ## Walkthrough
 

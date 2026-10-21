@@ -19,7 +19,7 @@ The two config commands, `Get-ConfigValue` and `Get-Config`, are how a person or
 into a config, or by the config's name. The answer is the cached object for the session: nothing prints on a cache hit, the first read
 parses and types the file, and every mistake throws at the call that made it, with a message that names the problem.
 
-![Ask for a config by name and get the cached object back](.assets/ask-by-name-get-the-cached-object/diagram.drawio.png)
+![Ask for a config by name and get the cached object back](.assets/ask-by-name-get-the-cached-object.drawio.png)
 
 ## Walkthrough
 

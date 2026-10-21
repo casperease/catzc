@@ -20,7 +20,7 @@ by key or shortcode. Every rule but one is held by a gate: the shared check that
 tests that run the validator over the shipped tree. The one rule without a gate, that the resource-group name is derived and never typed, is
 held by the code that derives it.
 
-![Two ADRs rule the coordinate; one shared check and the integrity tests hold them](.assets/coordinate-rules-and-their-gates/diagram.drawio.png)
+![Two ADRs rule the coordinate; one shared check and the integrity tests hold them](.assets/coordinate-rules-and-their-gates.drawio.png)
 
 ## Walkthrough
 

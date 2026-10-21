@@ -20,7 +20,7 @@ exemption may raise one; ADR-AUTO-DEFAULT-ONERESOLUTIONORDER says in which order
 declared. Two L0 test files and the Bash hook check them, and the checks leave two gaps: an exemption the hook never reads, and one mode
 that no gate bounds.
 
-![Two rules govern every stage, tests and the hook check them, and two gaps remain](.assets/one-rule-per-stage-and-two-gaps/diagram.drawio.png)
+![Two rules govern every stage, tests and the hook check them, and two gaps remain](.assets/one-rule-per-stage-and-two-gaps.drawio.png)
 
 ## Walkthrough
 

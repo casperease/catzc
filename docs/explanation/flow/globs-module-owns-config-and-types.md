@@ -18,7 +18,7 @@ tracked files through named globsets. It owns the `globs.yml` file, the types th
 plays. Everything outside the module only receives a projection, supplies a diff, or asks for an identity, so a change to an area-of-control
 is one config edit in one place.
 
-![Catzc.Base.Globs owns config, types and roles](.assets/globs-module-owns-config-and-types/diagram.drawio.png)
+![Catzc.Base.Globs owns config, types and roles](.assets/globs-module-owns-config-and-types.drawio.png)
 
 ## Walkthrough
 

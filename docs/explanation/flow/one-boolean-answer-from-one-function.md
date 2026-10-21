@@ -16,7 +16,7 @@ places: where output goes, whether a pipeline variable is written, which git ran
 on one question, "am I in a pipeline?", and cats answers it in exactly one function. The function reads the signal the pipeline agent sets,
 answers true or false, and an analyzer rule makes sure nobody reads the signal anywhere else.
 
-![One function answers whether the code is in a pipeline](.assets/one-boolean-answer-from-one-function/diagram.drawio.png)
+![One function answers whether the code is in a pipeline](.assets/one-boolean-answer-from-one-function.drawio.png)
 
 ## Walkthrough
 

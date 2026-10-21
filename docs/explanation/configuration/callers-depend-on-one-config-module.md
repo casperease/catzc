@@ -18,7 +18,7 @@ A config belongs to the module that ships it, but the code that reads it can liv
 every caller depends on one module, `Catzc.Base.Config`, and the owning module only ships a file and a C# type. The owner is discovered from
 where the file lives, never wrapped, and reading a config is global access with no dependency guard.
 
-![Callers in any module read config through one module](.assets/callers-depend-on-one-config-module/diagram.drawio.png)
+![Callers in any module read config through one module](.assets/callers-depend-on-one-config-module.drawio.png)
 
 ## Walkthrough
 

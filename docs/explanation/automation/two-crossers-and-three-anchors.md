@@ -20,7 +20,7 @@ The path contract of cats is built from two functions in `Catzc.Base.Repository`
 crosses a stage boundary, where neither root survives, so its type `ArtifactRef` in `Catzc.Base.Objects` anchors on the artifact root
 instead.
 
-![Two crossers anchor on two roots](.assets/two-crossers-and-three-anchors/diagram.drawio.png)
+![Two crossers anchor on two roots](.assets/two-crossers-and-three-anchors.drawio.png)
 
 ## Walkthrough
 

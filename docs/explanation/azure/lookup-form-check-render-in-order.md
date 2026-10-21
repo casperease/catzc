@@ -22,7 +22,7 @@ type, the order and the pattern, forms the segment values, checks every componen
 bad input along the way, and one length check at the end either throws or returns the name. Knowing the order tells a reader which error a
 given mistake produces.
 
-![The namer looks up, forms, checks and renders a name in that order](.assets/lookup-form-check-render-in-order/diagram.drawio.png)
+![The namer looks up, forms, checks and renders a name in that order](.assets/lookup-form-check-render-in-order.drawio.png)
 
 ## Walkthrough
 

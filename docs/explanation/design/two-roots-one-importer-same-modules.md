@@ -20,7 +20,7 @@ a built `Catzc` package. Each mode has its own entry script and its own code roo
 handed on to one importer, which loads one set of modules, and those modules find their own files through the same code root. That is why a
 build is a second run mode of the same modules, and not a second product.
 
-![Two code roots feed one importer, which loads the same modules](.assets/two-roots-one-importer-same-modules/diagram.drawio.png)
+![Two code roots feed one importer, which loads the same modules](.assets/two-roots-one-importer-same-modules.drawio.png)
 
 ## Walkthrough
 

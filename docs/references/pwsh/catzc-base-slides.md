@@ -35,12 +35,12 @@ fields, which are required and how much each holds. A pattern's placeholders dec
 
 ### responsibility:4 — Diagram render from source
 
-Rebuilding a diagram folder, `<article-folder>/.assets/<name>/`, from what the tree holds: the model embedded in its `diagram.drawio.png`
-and the repository's maps, through the draw.io kit's renderer (`drawio_kit` in `slides.yml`, `python/catzc_diagrams` by default), stage by
-stage. One folder is one call; the whole tree is that call repeated over every diagram folder found under `docs/**/.assets/**`, so no
-session decides anything and a rebuild from a clean checkout gives the same slides. A folder's article is the one page beside its `.assets`
-that embeds the slide: none is an orphan, reported; two stop the run. Moving a diagram moves its folder, with every relative link in it and
-into it re-pointed.
+Rebuilding a diagram, the pair `<article-folder>/.assets/<name>.drawio.yml` and `<name>.drawio.png`, from what the tree holds: its
+declaration, or the model embedded in its png, and the repository's maps, through the draw.io kit's renderer (`drawio_kit` in `slides.yml`,
+`python/catzc_diagrams` by default), stage by stage. One diagram is one call; the whole tree is that call repeated over every diagram found
+under `docs/**/.assets/`, so no session decides anything and a rebuild from a clean checkout gives the same slides. A diagram's article is
+the one page beside its `.assets` that embeds the slide: none is an orphan, reported; two stop the run. Moving a diagram moves its pair,
+with every relative link into it re-pointed.
 
 ## What the module does
 

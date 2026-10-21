@@ -16,7 +16,7 @@ Config reading in cats has exactly one reader and one cache for the whole sessio
 in any module may need one of them, so instead of letting each function open the file it wants, every read goes the same way. The first read
 of a config parses and types the file; every later read gets the same object back from the cache, and only a re-import clears it.
 
-![Every config read goes through one reader and one session cache](.assets/one-reader-one-cache-per-session/diagram.drawio.png)
+![Every config read goes through one reader and one session cache](.assets/one-reader-one-cache-per-session.drawio.png)
 
 ## Walkthrough
 

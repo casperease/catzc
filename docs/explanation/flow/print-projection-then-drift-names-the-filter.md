@@ -20,7 +20,7 @@ command, `Get-GlobSetTrigger -Name <set>`. The Azure DevOps lists it prints go i
 then say whether the registry and the pipelines agree: one names the pipeline and the path filter that drifted, or the file that is missing,
 and the other names any member file an include pattern would miss.
 
-![Print the projection, then drift names the filter](.assets/print-projection-then-drift-names-the-filter/diagram.drawio.png)
+![Print the projection, then drift names the filter](.assets/print-projection-then-drift-names-the-filter.drawio.png)
 
 ## Walkthrough
 

@@ -21,7 +21,7 @@ function Get-LayerStackMinimapData {
 
         [Catzc.Base.Maps.WorldMap] $WorldMap,
 
-        [hashtable] $Facts,
+        [System.Collections.IDictionary] $Facts,
 
         [switch] $AsJson
     )

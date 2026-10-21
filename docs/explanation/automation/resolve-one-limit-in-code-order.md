@@ -20,7 +20,7 @@ loads the limits config as its typed record, asks that record for the limit of a
 exempt, raises the answer to the exemption ceiling. Each consumer in cats asks it from a parameter default, so the caller's explicit value,
 the config, and the default on the type are tried in exactly that order.
 
-![Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling](.assets/resolve-one-limit-in-code-order/diagram.drawio.png)
+![Get-TimeoutSeconds resolves the environment, the config entry, then the exemption ceiling](.assets/resolve-one-limit-in-code-order.drawio.png)
 
 ## Walkthrough
 

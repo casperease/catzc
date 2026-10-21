@@ -89,7 +89,7 @@ module and only this module within the group. Core is the engine; they are the p
 
 The diagram below draws tool invocation from the source. Every tool wrapper asserts the locked version from `tools.yml` before it runs the
 tool. The assertion either probes for the executable or checks the command and reads its version. The query form shares the same pieces.
-![Each Invoke-Tool wrapper asserts the locked version before it runs](.assets/invoke-tool-asserts-locked-version/diagram.drawio.png)
+![Each Invoke-Tool wrapper asserts the locked version before it runs](.assets/invoke-tool-asserts-locked-version.drawio.png)
 
 ## Division
 

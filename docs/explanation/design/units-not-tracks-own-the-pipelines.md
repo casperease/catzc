@@ -18,7 +18,7 @@ a deployable-unit, and each pipeline is the delivery machine of what it binds. T
 pipelines bind the `pwsh` and `infrastructure` track sets themselves, with no whole-track unit in between; the tracks DDR and the globset
 FDR both say so.
 
-![CD binds through units, CI binds the track sets](.assets/units-not-tracks-own-the-pipelines/diagram.drawio.png)
+![CD binds through units, CI binds the track sets](.assets/units-not-tracks-own-the-pipelines.drawio.png)
 
 ## Walkthrough
 

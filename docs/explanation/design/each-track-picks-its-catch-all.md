@@ -17,7 +17,7 @@ ordered first match: a file is tried against the aspects in their declared order
 earlier aspect claimed. Which aspect is that remainder is each track's call. The pwsh track keeps `live` closed and lets `tests` catch the
 rest, so a stray file can never silently ship. The infrastructure track declares the opposite order, because a template deploys whole.
 
-![Each track picks its catch-all](.assets/each-track-picks-its-catch-all/diagram.drawio.png)
+![Each track picks its catch-all](.assets/each-track-picks-its-catch-all.drawio.png)
 
 ## Walkthrough
 

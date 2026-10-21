@@ -19,7 +19,7 @@ local guard in cats and a branch policy on the server. The rule that the server 
 integrate from, are checked by code review alone. Following a commit from a local clone to a consumer, each step carries a rule chip for the
 rule that governs it: R is DDR-REMOTE, V is ADR-REPO-VARIANT and L is FDR-CD-LIFE.
 
-![Gates on ingress, review for the rest](.assets/ingress-gated-the-rest-by-review/diagram.drawio.png)
+![Gates on ingress, review for the rest](.assets/ingress-gated-the-rest-by-review.drawio.png)
 
 ## Walkthrough
 

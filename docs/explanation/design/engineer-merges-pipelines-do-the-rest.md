@@ -19,7 +19,7 @@ A person moves a commit through the first rungs of the cats lifecycle by hand: t
 request once its build validation is green. Azure DevOps pipelines run everything after the merge. When a rung fails, what the person sees
 is a red result: a blocked pull request, a red CI run, or a failed deploy stage.
 
-![An engineer runs the tests and merges; pipelines do the rest](.assets/engineer-merges-pipelines-do-the-rest/diagram.drawio.png)
+![An engineer runs the tests and merges; pipelines do the rest](.assets/engineer-merges-pipelines-do-the-rest.drawio.png)
 
 ## Walkthrough
 

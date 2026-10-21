@@ -17,7 +17,7 @@ The cats load sequence runs in six stages, from the generated shim to the final 
 is constrained by at least one ADR rule, and each of those stages is checked by a gate: a test for four of them, and code review for the
 session set-up. The unload has neither a rule nor a gate.
 
-![Every load stage but the unload has an ADR rule](.assets/rule-and-gate-per-load-stage/diagram.drawio.png)
+![Every load stage but the unload has an ADR rule](.assets/rule-and-gate-per-load-stage.drawio.png)
 
 Each stage has its own band, and a stage's gate sits in its band beside the rules it checks.
 

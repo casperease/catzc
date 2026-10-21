@@ -15,7 +15,7 @@ function Get-MinimapSubject {
 
         [Catzc.Base.Maps.WorldMap] $WorldMap,
 
-        [hashtable] $Facts
+        [System.Collections.IDictionary] $Facts
     )
 
     $map = if ($WorldMap) {

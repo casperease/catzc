@@ -20,7 +20,7 @@ import, or a check when the config loads. Two do not. The partition check of DDR
 fixtures, and the per-aspect sha lock of DDR-ASPECT-ASPECTISAGLOBSET has no mechanism at all. Knowing which rules a gate holds, and which
 only the DDR states, tells a reviewer where a mistake would slip through.
 
-![Partition integrity runs only in unit tests](.assets/partition-integrity-runs-only-in-unit-tests/diagram.drawio.png)
+![Partition integrity runs only in unit tests](.assets/partition-integrity-runs-only-in-unit-tests.drawio.png)
 
 ## Walkthrough
 

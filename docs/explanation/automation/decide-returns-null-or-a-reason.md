@@ -20,7 +20,7 @@ in from `Catzc.Base.Timeouts`. In code order, `Main` loads `timeouts.yml` into a
 call's payload to `BashSafeguard.Decide`, and acts on what comes back: nothing, or a reason. The verdict for a background call is delegated
 once more, to `BoundedCommand.Check`.
 
-![Decide returns null or a reason](.assets/decide-returns-null-or-a-reason/diagram.drawio.png)
+![Decide returns null or a reason](.assets/decide-returns-null-or-a-reason.drawio.png)
 
 ## Walkthrough
 

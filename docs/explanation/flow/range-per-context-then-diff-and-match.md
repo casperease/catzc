@@ -20,7 +20,7 @@ Supports FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT and FDR-CD-DETECT-NODIRECTVARIABLECH
 current context measures a change against, diffs that range, matches the changed paths against the registry, and reports whether the named
 globset is among the matches. Two places in that order can be in doubt, the range and the diff, and both resolve to true.
 
-![Check the name, pick the range per context, then diff git and match the paths](.assets/range-per-context-then-diff-and-match/diagram.drawio.png)
+![Check the name, pick the range per context, then diff git and match the paths](.assets/range-per-context-then-diff-and-match.drawio.png)
 
 ## Walkthrough
 

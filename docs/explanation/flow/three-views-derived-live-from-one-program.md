@@ -16,7 +16,7 @@ A globset in cats names an area-of-control and maps it onto files under version 
 that area reads the same flattened program. The registry is the only thing a person writes; the trigger, the change report and the
 protection identity are read-outs of it, recomputed when asked, so nothing stored per set can go stale.
 
-![One program, three views derived live, none committed](.assets/three-views-derived-live-from-one-program/diagram.drawio.png)
+![One program, three views derived live, none committed](.assets/three-views-derived-live-from-one-program.drawio.png)
 
 ## Walkthrough
 

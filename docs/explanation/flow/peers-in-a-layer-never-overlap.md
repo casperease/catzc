@@ -15,7 +15,7 @@ Every globset in cats belongs to one layer, and a layer is a set of peers that p
 peers share a file on their own contribution, because overlap would mean one boundary consumes another's files. The `loose-fileset` layer,
 which cuts across the others, is the only exemption, and across layers one file may sit in all three.
 
-![Peers in a layer never overlap, except loose-filesets](.assets/peers-in-a-layer-never-overlap/diagram.drawio.png)
+![Peers in a layer never overlap, except loose-filesets](.assets/peers-in-a-layer-never-overlap.drawio.png)
 
 ## Walkthrough
 

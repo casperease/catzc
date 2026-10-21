@@ -20,7 +20,7 @@ trigger. Every globset flows from one registry through a validated load into a f
 the DRS rules constrain each stage. The git reflection and the live identity are held by DRS rules alone: no gate checks them, which is
 worth knowing before relying on either.
 
-![Gates check the source of each globset and the trigger only](.assets/gates-check-source-and-trigger/diagram.drawio.png)
+![Gates check the source of each globset and the trigger only](.assets/gates-check-source-and-trigger.drawio.png)
 
 ## Walkthrough
 

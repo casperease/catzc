@@ -18,7 +18,7 @@ To an operator in Azure DevOps, a customer CD pipeline is one run. A pull reques
 merge goes on to deploy every target the pipeline lists, the prod tier included, with no approval step in the YAML. The run has a trigger, a
 CI stage, the deploy stages and the environments they reach, and two failures an operator can meet on the way.
 
-![A merge to main runs the CD pipeline all the way to prod, with no approval](.assets/a-merge-runs-cd-to-prod/diagram.drawio.png)
+![A merge to main runs the CD pipeline all the way to prod, with no approval](.assets/a-merge-runs-cd-to-prod.drawio.png)
 
 ## Walkthrough
 

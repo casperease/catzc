@@ -18,7 +18,7 @@ Supports ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE, ADR-ADO-AUTH-PROVETARGET, ADR-A
 is a short ladder of four checks and three returns: two guarded early returns, then the az CLI path, which asserts twice before its final
 return. Every check either returns a header, passes control on, or throws; a check that throws never hands over to the next rung.
 
-![Four checks in code order, three returns and three throws](.assets/three-guarded-early-returns/diagram.drawio.png)
+![Four checks in code order, three returns and three throws](.assets/three-guarded-early-returns.drawio.png)
 
 ## Walkthrough
 

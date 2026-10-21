@@ -19,7 +19,7 @@ Supports FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-
 prints what it derived: a projection, a list of touched sets, or a skip line. Knowing what each command prints lets an operator check a
 globset edit before any pipeline runs.
 
-![Edit globs.yml, then read the output](.assets/edit-globs-yml-then-read-the-output/diagram.drawio.png)
+![Edit globs.yml, then read the output](.assets/edit-globs-yml-then-read-the-output.drawio.png)
 
 ## Walkthrough
 

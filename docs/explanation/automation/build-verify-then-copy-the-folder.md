@@ -19,7 +19,7 @@ A bundle, in code, is a short chain of functions in `Catzc.Base.Exporter` and on
 resolves the version, calls `Invoke-ModuleBuild`, and runs `Assert-CatzcBundle` on what the engine wrote. What is left is one folder,
 `out/automation/build/Catzc/6.6.666/` on a devbox, and each target verifies that folder again and then copies or packs it whole.
 
-![Build, verify, then copy the folder](.assets/build-verify-then-copy-the-folder/diagram.drawio.png)
+![Build, verify, then copy the folder](.assets/build-verify-then-copy-the-folder.drawio.png)
 
 ## Walkthrough
 

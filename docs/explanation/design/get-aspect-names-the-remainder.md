@@ -21,7 +21,7 @@ declared order, and the last one is the remainder, so `(Get-Aspect -Track infras
 track's order follows the layout of `languages.yml`. A wrong order does not get far: the config type refuses to load a track whose last
 aspect is not the bare `**`.
 
-![Get-Aspect names the remainder](.assets/get-aspect-names-the-remainder/diagram.drawio.png)
+![Get-Aspect names the remainder](.assets/get-aspect-names-the-remainder.drawio.png)
 
 ## Walkthrough
 

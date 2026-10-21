@@ -20,7 +20,7 @@ Changing a repo-wide decision in cats is an edit and a re-import. The edit is on
 There are two moments an operator sees a variant say no: when the file is loaded with a value it does not accept, and when a guard is asked
 and the repository is not in the state the guard requires.
 
-![An edit to a variant lands at the next import](.assets/an-edit-lands-at-the-next-import/diagram.drawio.png)
+![An edit to a variant lands at the next import](.assets/an-edit-lands-at-the-next-import.drawio.png)
 
 ## Walkthrough
 

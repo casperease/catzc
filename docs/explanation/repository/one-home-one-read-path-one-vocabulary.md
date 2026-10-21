@@ -15,7 +15,7 @@ Some settings belong to the whole repository and hold for a whole run: which Azu
 repository deploys for customers at all, how changes reach main. Cats calls such a setting a variant. A variant has one home, one read path
 and one guard vocabulary, and nothing reads the file it lives in directly.
 
-![A repo-wide switch has one home, one read path and one guard vocabulary](.assets/one-home-one-read-path-one-vocabulary/diagram.drawio.png)
+![A repo-wide switch has one home, one read path and one guard vocabulary](.assets/one-home-one-read-path-one-vocabulary.drawio.png)
 
 ## Walkthrough
 

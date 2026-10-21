@@ -21,7 +21,7 @@ Supports ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-C
 names to files, `configCache` holds the parsed configs, and `configRegistryCache` holds the type registry. Each is built lazily, on first
 use, and lives until the next import. Read in call order, the code shows where each cache is filled and where it is read.
 
-![Three session caches back the one config reader](.assets/three-caches-back-one-reader/diagram.drawio.png)
+![Three session caches back the one config reader](.assets/three-caches-back-one-reader.drawio.png)
 
 ## Walkthrough
 

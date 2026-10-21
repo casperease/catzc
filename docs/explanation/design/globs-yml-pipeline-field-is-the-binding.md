@@ -18,7 +18,7 @@ The link between what ships and the pipeline that ships it is a single key. Each
 `pipeline:`, and that name resolves to the file `.ado/pipelines/<name>.yaml`. The two track sets bind the CI pipelines, the four configured
 deployable-units bind the CD pipelines, and the base unit they compose binds none.
 
-![globs.yml's pipeline: field is the binding](.assets/globs-yml-pipeline-field-is-the-binding/diagram.drawio.png)
+![globs.yml's pipeline: field is the binding](.assets/globs-yml-pipeline-field-is-the-binding.drawio.png)
 
 ## Walkthrough
 

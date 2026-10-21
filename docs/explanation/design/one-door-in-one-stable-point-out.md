@@ -17,7 +17,7 @@ crosses that boundary in two directions, and each direction has one rule: a chan
 reads out only the last verified commit, never the raw tip. Together the two rules keep the mainline trustworthy to build on and honest
 about its history.
 
-![One door in, one stable point out](.assets/one-door-in-one-stable-point-out/diagram.drawio.png)
+![One door in, one stable point out](.assets/one-door-in-one-stable-point-out.drawio.png)
 
 ## Walkthrough
 

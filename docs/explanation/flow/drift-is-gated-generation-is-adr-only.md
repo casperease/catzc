@@ -19,7 +19,7 @@ check that every bound workflow and pipeline declares its projection and that th
 FDR states around the projection has no code behind it: that the YAML filters are generated rather than written by hand. It is worth knowing
 before relying on it.
 
-![Three gates check the projection; generation is ADR-only](.assets/drift-is-gated-generation-is-adr-only/diagram.drawio.png)
+![Three gates check the projection; generation is ADR-only](.assets/drift-is-gated-generation-is-adr-only.drawio.png)
 
 ## Walkthrough
 

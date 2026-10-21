@@ -17,7 +17,7 @@ Supports ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY and ADR-AU
 module graph. A broken declaration stops the run before any edge is checked. Otherwise a report lands in `out/`, and every undeclared edge
 or unknown module becomes one listed line in a single failure. The fix is always the same: declare the edge, or remove the call.
 
-![An undeclared edge fails with one line](.assets/undeclared-edge-fails-with-one-line/diagram.drawio.png)
+![An undeclared edge fails with one line](.assets/undeclared-edge-fails-with-one-line.drawio.png)
 
 ## Walkthrough
 

@@ -17,7 +17,7 @@ The Azure naming standard has eight rules, and cats holds every one of them in c
 discovery, the rest inside the namer, in the order a name is built. The eighth, that the subscription never enters a name, holds by
 construction in the resolver, with no check and no dedicated test. Four comment or message texts still disagree with the ADR.
 
-![Code holds all eight naming rules, seven of them behind a check that throws](.assets/how-each-naming-rule-is-held/diagram.drawio.png)
+![Code holds all eight naming rules, seven of them behind a check that throws](.assets/how-each-naming-rule-is-held.drawio.png)
 
 ## Walkthrough
 

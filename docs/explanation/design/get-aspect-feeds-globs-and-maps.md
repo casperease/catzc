@@ -22,7 +22,7 @@ One function, `Get-Aspect`, is the only way a convention reaches a caller, and t
 program. In `Catzc.Base.Maps`, `Get-WorldMap` reads the convention of every track and the builder answers one question per file: is it live?
 The code that validates the order sits in the config type, before either caller sees a list.
 
-![Get-Aspect feeds Globs and Maps](.assets/get-aspect-feeds-globs-and-maps/diagram.drawio.png)
+![Get-Aspect feeds Globs and Maps](.assets/get-aspect-feeds-globs-and-maps.drawio.png)
 
 ## Walkthrough
 

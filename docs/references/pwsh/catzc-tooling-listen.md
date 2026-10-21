@@ -55,7 +55,7 @@ The module is the deterministic half of the listen mode. The editor's correction
 free to run, and never late because something was thinking. Understanding stays with the processor agent, which reads the notes on its own
 time.
 
-![Every writer leaves a trace; the listener notes all changes, and the processor plans from the editor's alone](.assets/listen-mode-flow/diagram.drawio.png)
+![Every writer leaves a trace; the listener notes all changes, and the processor plans from the editor's alone](.assets/listen-mode-flow.drawio.png)
 
 Detection compares the disk with the session's copies and their indexes, hashing only the files whose length or write time moved; git is
 read once, at the start, to pin the reference, which is the repository at HEAD with committed files only. Every wait is bounded

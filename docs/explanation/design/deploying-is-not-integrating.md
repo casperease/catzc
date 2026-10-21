@@ -16,7 +16,7 @@ Deploying a commit and integrating it are separate events: a commit can reach an
 treats that honestly: an out-of-band deploy puts a topic commit into an environment, but only landing on main puts it on the promotion
 ladder. Keeping the two events apart is what lets a commit's colour stay a true statement about where it stands.
 
-![Deploying is not integrating](.assets/deploying-is-not-integrating/diagram.drawio.png)
+![Deploying is not integrating](.assets/deploying-is-not-integrating.drawio.png)
 
 ## Walkthrough
 

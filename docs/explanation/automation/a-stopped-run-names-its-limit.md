@@ -20,7 +20,7 @@ says how long it ran, what the limit was, and where to change it. The limits are
 for a foreground bash call, so that a call which legitimately needs longer shows up as a blocker to tune rather than a limit raised quietly
 in code.
 
-![A run past its limit stops with a message that names the limit](.assets/a-stopped-run-names-its-limit/diagram.drawio.png)
+![A run past its limit stops with a message that names the limit](.assets/a-stopped-run-names-its-limit.drawio.png)
 
 ## Walkthrough
 

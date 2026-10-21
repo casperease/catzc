@@ -21,7 +21,7 @@ Supports DDR-THINPLAT-DELEGATENOTREIMPLEMENT and DDR-THINPLAT-PLATFORMASCLI (imp
 configuration, builds the template on a devbox, and passes every vendor step to az through `Invoke-AzCli`. Cats contributes the guards and
 the lookup; az and Bicep do the work, which is what keeps the platform thin.
 
-![Deploy-Bicep hands every vendor step to az](.assets/deploy-bicep-delegates-to-az/diagram.drawio.png)
+![Deploy-Bicep hands every vendor step to az](.assets/deploy-bicep-delegates-to-az.drawio.png)
 
 ## Walkthrough
 

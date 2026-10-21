@@ -15,7 +15,7 @@ A reusable module is the one kind of infrastructure code that never deploys on i
 change there is. Every template that references the module builds it in, so one edited file reaches every deployment of every one of those
 templates, for the shared platform and for every customer. An operator changing a module should expect every pipeline to run.
 
-![A change to one module fans out to every template that references it and every pipeline that deploys one](.assets/a-module-change-fans-out-to-its-templates/diagram.drawio.png)
+![A change to one module fans out to every template that references it and every pipeline that deploys one](.assets/a-module-change-fans-out-to-its-templates.drawio.png)
 
 ## Walkthrough
 

@@ -15,7 +15,7 @@ Cats is a thin platform: a single CLI that standardizes how an organization uses
 is a single chain. A consumer binds to the CLI and nothing else, the CLI hands the work to the vendor's own tools, and those tools talk to
 the cloud. The invariant is delegation, not reimplementation, and the consequential choices stay in the consumer's configuration.
 
-![Bind to one CLI; delegate the rest to the vendor](.assets/bind-to-one-cli-delegate-the-rest/diagram.drawio.png)
+![Bind to one CLI; delegate the rest to the vendor](.assets/bind-to-one-cli-delegate-the-rest.drawio.png)
 
 ## Walkthrough
 

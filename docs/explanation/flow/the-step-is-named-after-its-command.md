@@ -18,7 +18,7 @@ What an author writes in a pipeline is what the Azure DevOps run shows. The step
 echoes the command it is about to run, and a failure prints a full exception before the run stops. A developer who wants to reproduce a
 failed step copies the command from the label and runs it after the importer.
 
-![The step is named after its command](.assets/the-step-is-named-after-its-command/diagram.drawio.png)
+![The step is named after its command](.assets/the-step-is-named-after-its-command.drawio.png)
 
 ## Walkthrough
 

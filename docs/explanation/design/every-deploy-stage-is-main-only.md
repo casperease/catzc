@@ -19,7 +19,7 @@ without integrating it, but in the code nothing does. The CD pipelines run on a 
 stage: every `Deploy_*` stage carries a condition that the source branch is `refs/heads/main`. Only the merge to main starts a run that
 deploys.
 
-![Every Deploy stage is main-only](.assets/every-deploy-stage-is-main-only/diagram.drawio.png)
+![Every Deploy stage is main-only](.assets/every-deploy-stage-is-main-only.drawio.png)
 
 ## Walkthrough
 

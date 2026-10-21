@@ -83,7 +83,7 @@ tooling modules read as well.
 The diagram below draws process invocation from the source. It has two paths. The default streamed path runs through the C# runner under the
 executable's time limit from `timeouts.yml`, and kills the process tree when the limit runs out. The direct path, for interactive use, hands
 the command to the console with no time limit.
-![Invoke-Executable: only the streamed path is time-bounded](.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.png)
+![Invoke-Executable: only the streamed path is time-bounded](.assets/invoke-executable-two-paths-one-bounded.drawio.png)
 
 ## Division
 

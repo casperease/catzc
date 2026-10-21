@@ -91,7 +91,7 @@ runs against.
 
 The diagram below draws the two dependency graphs from the source. The declared graph in `dependencies.yml` orders the test run and closes
 each profile. The graph observed from the parsed code is checked against it for cycles and for undeclared edges.
-![Declared graph orders and closes; observed graph is checked](.assets/module-graph-declared-vs-observed/diagram.drawio.png)
+![Declared graph orders and closes; observed graph is checked](.assets/module-graph-declared-vs-observed.drawio.png)
 
 ## Division
 

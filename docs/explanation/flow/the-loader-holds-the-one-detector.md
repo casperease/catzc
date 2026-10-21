@@ -20,7 +20,7 @@ single cats module has loaded. So cats keeps `Test-IsRunningInPipeline` in `Catz
 modes import first and never remove. Everything above the loader calls that function. Only one piece of code outside PowerShell, the
 time-safeguard hook, repeats the test on its own.
 
-![The detector lives in the loader](.assets/the-loader-holds-the-one-detector/diagram.drawio.png)
+![The detector lives in the loader](.assets/the-loader-holds-the-one-detector.drawio.png)
 
 ## Walkthrough
 

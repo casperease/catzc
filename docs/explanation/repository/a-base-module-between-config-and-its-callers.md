@@ -20,7 +20,7 @@ templating layer, in a tooling step, in a build. That argues for a low, widely d
 `Catzc.Base.Variants` is that module. It rests on three foundation modules, and every module layered above the configuration layer may call
 it.
 
-![Catzc.Base.Variants sits in Base, over Config, under every real caller](.assets/a-base-module-between-config-and-its-callers/diagram.drawio.png)
+![Catzc.Base.Variants sits in Base, over Config, under every real caller](.assets/a-base-module-between-config-and-its-callers.drawio.png)
 
 ## Walkthrough
 

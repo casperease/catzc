@@ -17,7 +17,7 @@ A template is the unit that deploys, so adding one is adding a folder: the folde
 for every template. Nothing in the tooling lists the templates; it finds the new folder through the infrastructure track. What does list
 them is the pipelines' path filters, so the last step of adding a template is naming it there.
 
-![A new template is one folder in the templates place, found through the track and named in the pipelines that deploy it](.assets/add-a-template/diagram.drawio.png)
+![A new template is one folder in the templates place, found through the track and named in the pipelines that deploy it](.assets/add-a-template.drawio.png)
 
 ## Walkthrough
 

@@ -21,7 +21,7 @@ names and then turns the folder's `.ps1` files into a manifest. Separately, `Get
 folder and derives a live set and a tests set. Each path runs in call order, left to right, and neither needs a file the author maintains by
 hand.
 
-![Manifest and aspects from one folder](.assets/manifest-and-aspects-from-one-folder/diagram.drawio.png)
+![Manifest and aspects from one folder](.assets/manifest-and-aspects-from-one-folder.drawio.png)
 
 ## Walkthrough
 

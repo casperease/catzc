@@ -20,7 +20,7 @@ thesis gives all of it one target shape, the **eac normal form**: code the repos
 its own formatters, tests and asserts leave unchanged and do not fail. An import lands in the unordered track, and fragment migration moves
 each file into the form before it leaves the track for its home.
 
-![A file leaves the unordered track only in the normal form](.assets/eac-normal-form/diagram.drawio.png)
+![A file leaves the unordered track only in the normal form](.assets/eac-normal-form.drawio.png)
 
 ## Walkthrough
 

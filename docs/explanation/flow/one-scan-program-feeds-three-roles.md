@@ -20,7 +20,7 @@ Supports FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-
 `globs.yml` through the validating load to that method, then to the three role functions and the function that reads each one's output.
 Knowing that one method sits behind all three roles tells a reader where a change to the dialect or to compose lands.
 
-![ScanProgram() feeds three role functions](.assets/one-scan-program-feeds-three-roles/diagram.drawio.png)
+![ScanProgram() feeds three role functions](.assets/one-scan-program-feeds-three-roles.drawio.png)
 
 ## Walkthrough
 

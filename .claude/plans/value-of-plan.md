@@ -48,3 +48,26 @@ stale or superseded item is recorded as such, with the reason.
 A done plan, task file or landed prompt is deleted from disk directly (the user, 2026-10-19: "just delete done plans"); the user commits the
 deletion. A plan holds only planned work that is not yet implemented (the user, 2026-10-20): no Done section, no proof of built work, no
 explanation of how the tool behaves when a team uses it; that belongs in the docs.
+
+Deleted 2026-10-21, every step landed (ADR-REPO-PLANS-DONEPLANDELETED):
+
+- plan-bicepparam: `.bicepparam` slots render, discover and build through one path; the six literal slots migrated.
+- plan-debt-signals: twenty page lines, messages and commands that carry a declared fact to the session.
+- plan-file-meta-cache: the help-page reword, the ADR-code stamp, the caching sentence and the strict-mode fix.
+- plan-minimal-heads: minimal heads tree-wide; the comment-page map moved to `Catzc.Base.CodeMeta`.
+- plan-session-finalize: the roof-count sentence, the gate message and the skill's glossary term.
+- plan-debt-test-snapshot: a held test-run folder falls back to a snapshot that primes, and keeps its cause when it fails.
+- plan-eac-normal-form: the explanation page embedding the approved sample.
+- plan-adr-authoring: the glossary contrast declared once, the add-an-ADR how-to, the ADR-edit reminder.
+- plan-git-topic-commands: `Get-SyncPoint`, `Save-Topic`, `Sync-Topic`, `Push-Topic`, the hook that denies an agent the three.
+- plan-accosted-language: the accosted language, its reserved word, reader, runner and contracts; green under pwsh, bash and zsh.
+- plan-test-signal-proposals: the bridge names a setup error, one spelled-types source, RungsConfig re-tiered.
+- plan-truth-stores: the image slide pattern and the truth-stores slide in the product-thesis deck.
+- plan-diagram-build-learnings: the Build-Diagrams help, the quiet legend, the minimap stage loaded once, the pipeline drawing.
+- plan-debt-diagram-render: the renderer fails on an unresolved token; the glyph library renders through the one build.
+- plan-xdr-codes: record-kind codes (TDR, PDR, WDR, RDR, DDR, FDR) across the tree.
+- plan-debt-gate-messages: three gates name their own cause.
+- plan-debt-run-and-report: the kit-test example, findings printed once, generated heads naming their source, code citing its rules.
+- plan-debt-tooling: the terminology corpus reads `cspell.yml`'s one scope; the `uv.lock` clause in the rename how-to.
+- plan-docs-edge-relative-link: a code head's `docs` edge is file-relative, and `Test-Links` checks it.
+- plan-minimap-reasons-gate: every diagram declares its lit minimap cells in its yml, and the gate draws only those.

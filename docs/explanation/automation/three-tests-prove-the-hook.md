@@ -18,7 +18,7 @@ One rule governs the whole path of an agent's shell call through cats: every wai
 denies a call outside them. A second rule fixes where the defaults live. Three tests, one per tier, prove that the hook keeps to the rule as
 published, not just as written. One route the rule offers, exempting slow work by its budget GUID, has no code behind it for a Bash call.
 
-![Three tests prove the hook](.assets/three-tests-prove-the-hook/diagram.drawio.png)
+![Three tests prove the hook](.assets/three-tests-prove-the-hook.drawio.png)
 
 ## Walkthrough
 

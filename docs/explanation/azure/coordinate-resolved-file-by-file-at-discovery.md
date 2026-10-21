@@ -21,7 +21,7 @@ resolved and checked. For each file, `Get-BicepTemplates` parses the filename, r
 only then builds the slot with the one subscription the resolver returns. The shipped `foundation` template's `apex/nsub.yml` is the
 example: its coordinate is customer `apex`, environment `nsub`, base slot, and it resolves to `apex_nonprod`.
 
-![Discovery resolves every config file's coordinate through one shared check](.assets/coordinate-resolved-file-by-file-at-discovery/diagram.drawio.png)
+![Discovery resolves every config file's coordinate through one shared check](.assets/coordinate-resolved-file-by-file-at-discovery.drawio.png)
 
 ## Walkthrough
 

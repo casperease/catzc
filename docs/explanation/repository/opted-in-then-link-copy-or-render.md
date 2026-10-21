@@ -20,7 +20,7 @@ Supports ADR-REPO-ROOTCFG-REGISTRY, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-R
 validates it; keeps the opted-in entries; and for each one either copies its template under a generated-file head or asks a generator for
 its output and writes the same head over it. One primitive in `Catzc.Base.Files` does every write, and no root file is ever a link.
 
-![The optIn filter, then copy or render, through one write primitive](.assets/opted-in-then-link-copy-or-render/diagram.drawio.png)
+![The optIn filter, then copy or render, through one write primitive](.assets/opted-in-then-link-copy-or-render.drawio.png)
 
 ## Walkthrough
 

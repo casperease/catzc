@@ -19,7 +19,7 @@ surface. The one thing a pipeline must add is `-SubscriptionIdAssertIs`, the sub
 or when it does not match the az session, the run stops before az deploys anything. From there the run ends in one of four ways: a preview,
 a deployment, or one of two failures.
 
-![A developer and a pipeline run the same Deploy-Bicep](.assets/same-deploy-bicep-on-both-sides/diagram.drawio.png)
+![A developer and a pipeline run the same Deploy-Bicep](.assets/same-deploy-bicep-on-both-sides.drawio.png)
 
 ## Walkthrough
 

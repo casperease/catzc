@@ -20,7 +20,7 @@ first, so when it is deployed it is the `main-UAT` occupant. Of the rules that g
 has a gate in cats: the BVT rung, checked by the `ci-pwsh` pipeline. Every rule about occupants, the sync point and the dirty HEAD is
 ADR-only, so "sync from the BVT-verified head" is a convention that no code checks.
 
-![Only BVT has a gate in code; the sync-point rules are ADR-only](.assets/sync-point-rules-are-adr-only/diagram.drawio.png)
+![Only BVT has a gate in code; the sync-point rules are ADR-only](.assets/sync-point-rules-are-adr-only.drawio.png)
 
 ## Walkthrough
 
