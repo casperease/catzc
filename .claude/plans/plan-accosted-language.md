@@ -45,11 +45,8 @@ one notation the contracts already use. Nothing breaks without it, so medium.
   module may carry `accosted/*.accosted.yml` beside its commands, the folder its layout row names.
 - **Reader and runner live in `Catzc.Base.Contracts`** (the planner's choice, 2026-10-21): the language is contract form only, so the module
   that owns the contract reader and the cats lookup owns it.
-
-## Open questions
-
-- Does a `Test-*` gate that writes its report under `out/` (an `output_folder` parameter) count as harmless? The planner's recommendation:
-  yes, a write confined to `out/` (`ADR-REPO-OUTDIR`) is harmless; any other path argument is rejected.
+- **A write confined to `out/` is harmless** (decision round 2026-10-21, Q1): a `Test-*` gate with an `output_folder` argument under `out/`
+  (`ADR-REPO-OUTDIR`) is harmless; the reader rejects any other path argument that names a write target. The ADR's harmless rule says so.
 
 ## Open steps
 

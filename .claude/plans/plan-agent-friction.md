@@ -37,13 +37,8 @@ then 6.
 - **This plan owns the `.claude/CLAUDE.md` time-safeguard trim**: the section keeps the rule and its code
   (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT), the hook, its log `out/time-safeguard.log`, `timeouts.yml`, the denial rule and the fastest-runner
   rule, and points at `catzc-run` for the call shapes.
-
-## Open questions
-
-- **Q1 (session-finalize, 2026-10-21): Does `Test-Plans` fail an open-steps section whose steps carry no checkbox?** Four plans had numbered
-  steps without `[ ]`, `Test-Plans` passed them, and the closing sweep (which counts `- [ ]`) would have listed them as done.
-  Recommendation: yes, a finding in step 1's change to `Test-Plans`, so the sweep's count and ADR-REPO-PLANS-OPENSTEP are held by the gate.
-  Alternative: leave it to the sweep's read of each candidate.
+- **`Test-Plans` fails an open step with no checkbox** (decision round 2026-10-21, Q1): a finding added in step 1's change to `Test-Plans`,
+  so the closing sweep's `- [ ]` count and ADR-REPO-PLANS-OPENSTEP are held by the gate, with a test case for a numbered step without `[ ]`.
 
 ## Open steps
 

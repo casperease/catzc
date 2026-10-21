@@ -1,7 +1,6 @@
 ---
 plan:
-  status: blocked
-  blocked_on: Q1, how the approved drawing enters the deck
+  status: active
   value: high
   reviewed: 2026-10-21
   class: feature
@@ -40,16 +39,14 @@ with no check behind it, and the ADO writers below contradict it.
   by read arrows; state machines beside them, reached by the inbound and outbound junction arrows; ADO drawn as two stores. On approval it
   is one slide in the product-thesis deck whose caption carries the rule codes (the deck's About rule), and the ADR's Context keeps its
   text.
-
-## Open questions
-
-- **Q1 (the planner, 2026-10-21): How does the approved drawing enter the deck?** No `*.slide.md` pattern carries an image, `deck.md` has no
-  line per slide, and the slides' `order` values run 1 to 21 without gaps, so a new slide renumbers every slide after it, one file each.
-  Recommendation: a new `image` slide pattern in the deck renderer, and the slide takes order 22 before the closing slide's renumber, one
-  file. Alternative: the drawing goes beside `docs/adr/thesis/truth-stores.md` with `Move-Diagram`, and no slide.
+- **The drawing enters the deck as a new `image` slide pattern** (decision round 2026-10-21, Q1): the deck renderer gains the pattern, and
+  the slide takes order 22 before the closing slide's renumber, so one slide file changes and no other slide is renumbered.
 
 ## Open steps
 
-8. [ ] The user approved the sample `out/diagrams/dark-sample/.assets/truth-stores/` (2026-10-21): a slide file under
+7. [ ] `pwsh/Catzc.Base.Slides/configs/slides.yml` and the deck renderer (`Build-SlideDeck` and its type in `pwsh/Catzc.Base.Slides/types`),
+       one file per step: an `image` slide pattern that carries one png and its caption. Check:
+       `Invoke-TestFile pwsh/Catzc.Base.Slides/tests/Build-SlideDeck.Tests.ps1` with an `image` case on a widget fixture.
+8. [ ] After step 7, the user approved the sample `out/diagrams/dark-sample/.assets/truth-stores/` (2026-10-21): a slide file under
        `docs/explanation/thesis/product-thesis/`, its caption carrying the rule codes, and its line in `deck.md`. Check: the rendered png
        read, then `Test-Links` on `deck.md`.
