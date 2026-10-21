@@ -1,0 +1,6 @@
+# One run per harmless contracted command of Catzc.Base.Contracts, each proven from every engine (ADR-AUTO-ACCOSTED).
+runs:
+  - - get_command_contract: { version: 0.0.0 }
+  - - get_contract_check_results:
+  - - get_accosted_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml }
+  - - test_contracts: { output_folder: out/test-contracts }

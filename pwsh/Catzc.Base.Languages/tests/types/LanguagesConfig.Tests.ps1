@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cee6858c9a10
+    with_body_sha: "41e6d95540e4"
   edges:
     code: pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs
     cites:
@@ -584,7 +584,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $config.IsLaidOut(@('go')) | Should -BeTrue
             $config.IsLaidOut(@('bash')) | Should -BeTrue
             $config.IsLaidOut(@('markdown', 'asset')) | Should -BeFalse
-            # The editor extension's folder and the accosted run lists are laid out but neither live nor shipped, like the shared tests folder.
+            # The editor extension's folder and the run-list folder are laid out but neither live nor shipped, like the shared tests folder.
             $config.LayoutFolders() | Should -Be @('private', 'extension', 'types', 'configs', 'accosted', 'assets', 'tests')
             $config.ShippedFolders() | Should -Be @('types', 'configs', 'assets')
         }

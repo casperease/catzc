@@ -1,2 +1,8 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "8eb60f63a929"
+# ---
+
 # Every key is optional: an omitted key takes the default declared once on AccostedConfig.
 {}

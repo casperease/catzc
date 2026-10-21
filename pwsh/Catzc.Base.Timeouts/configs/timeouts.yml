@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d4adeb31067c
+#     with_body_sha: b0ac11d5d62b
 #   edges:
 #     docs: "[timeouts.yml.md](docs/references/pwsh/catzc-base-timeouts/configs/timeouts.yml.md)"
 #     cites:
@@ -33,3 +33,4 @@ executables:
   go: 900 # module downloads, go vet and go test runs: the first compile of the Go runtime alone takes over 9 s
 tests:
   engine_start_seconds: 150 # one engine start of a black-box test (import plus one command): two starts and a margin stay under pwsh's 360
+  run_list_seconds: 300 # one run of a run list under one engine: an engine start and its few commands, under pwsh's 360

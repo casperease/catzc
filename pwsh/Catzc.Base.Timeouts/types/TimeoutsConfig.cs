@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ae7a93767034
+    with_body_sha: "63ff5b91a399"
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
     docs: "[TimeoutsConfig.cs.md](docs/references/pwsh/catzc-base-timeouts/types/TimeoutsConfig.cs.md)"
@@ -23,7 +23,7 @@ namespace Catzc.Base.Timeouts;
 public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "limits", "executables", "commands", "tests", "wait" };
-    private static readonly string[] TestKeys = { "level_ms", "run_seconds", "engine_start_seconds" };
+    private static readonly string[] TestKeys = { "level_ms", "run_seconds", "engine_start_seconds", "run_list_seconds" };
 
     // The default Watch-Blocking: one second and one millisecond, one pair for every environment.
     private static readonly string[] WaitKeys = { "seconds", "milliseconds" };
@@ -42,6 +42,8 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     private const int TestRunDefaultSeconds = 180;
     // One engine start of a black-box test: the import plus one command, so two starts and a margin fit under the pwsh limit.
     private const int EngineStartDefaultSeconds = 150;
+    // One run of a run list under one engine: an engine start and its few commands, under the pwsh limit.
+    private const int RunListDefaultSeconds = 300;
     private static readonly string[] Environments = { "devbox", "pipeline" };
     private static readonly string[] Shells = new List<string>(Catzc.Base.Engines.ExecutionEngines.Names).ToArray();
     private static readonly string[] BashKeys = { "foreground", "background" };
@@ -78,6 +80,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     private readonly Dictionary<string, int> testLevelMs = new Dictionary<string, int>(TestLevelDefaults, StringComparer.Ordinal);
     private int testRunSeconds = TestRunDefaultSeconds;
     private int engineStartSeconds = EngineStartDefaultSeconds;
+    private int runListSeconds = RunListDefaultSeconds;
     private int waitSeconds = WaitDefaultSeconds;
     private int waitMilliseconds = WaitDefaultMilliseconds;
 
@@ -212,6 +215,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
             { "level_ms", TestLevelLimitsMs() },
             { "run_seconds", testRunSeconds },
             { "engine_start_seconds", engineStartSeconds },
+            { "run_list_seconds", runListSeconds },
         };
 
         wait = new Hashtable(StringComparer.OrdinalIgnoreCase)
@@ -263,12 +267,18 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         return engineStartSeconds;
     }
 
+    // The most seconds one run of a run list may take under one engine.
+    public int RunListSeconds()
+    {
+        return runListSeconds;
+    }
+
     private void ReadTests(object value, List<string> errors)
     {
         IDictionary map = value as IDictionary;
         if (map == null)
         {
-            errors.Add("invalid tests (must be a map of level_ms, run_seconds, engine_start_seconds)");
+            errors.Add("invalid tests (must be a map of level_ms, run_seconds, engine_start_seconds, run_list_seconds)");
             return;
         }
         CheckKeys(map, TestKeys, "tests.", errors);
@@ -315,6 +325,16 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
                 errors.Add(string.Format("invalid tests.engine_start_seconds '{0}' (must be a positive whole number)", map["engine_start_seconds"]));
             }
             else { engineStartSeconds = seconds.Value; }
+        }
+
+        if (map.Contains("run_list_seconds") && map["run_list_seconds"] != null)
+        {
+            int? seconds = PositiveSeconds(map["run_list_seconds"]);
+            if (seconds == null)
+            {
+                errors.Add(string.Format("invalid tests.run_list_seconds '{0}' (must be a positive whole number)", map["run_list_seconds"]));
+            }
+            else { runListSeconds = seconds.Value; }
         }
     }
 

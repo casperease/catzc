@@ -1,9 +1,21 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: dc681e439760
+  edges:
+    code: pwsh/Catzc.Base.Contracts/types/AccostedConfig.cs
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+---
+#>
+
 Describe 'AccostedConfig' -Tag 'L0', 'logic' {
     It 'takes the declared defaults for an empty or missing config' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         foreach ($raw in @(@{}, $null)) {
             $config = [Catzc.Base.Contracts.AccostedConfig]::new($raw)
             $config.harmless_verbs | Should -Be @('find', 'get', 'measure', 'test')
-            $config.run_timeout | Should -Be 'accosted_run'
+            $config.run_timeout | Should -Be 'run_list_seconds'
         }
     }
 

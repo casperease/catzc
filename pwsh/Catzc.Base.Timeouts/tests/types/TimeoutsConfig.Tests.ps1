@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a6abfb45ec7c
+    with_body_sha: e8d6ca0386dd
   edges:
     code: pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs
     cites:
@@ -134,6 +134,14 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             $config.tests.run_seconds | Should -Be 180
             $config.EngineStartSeconds() | Should -Be 150
             $config.tests.engine_start_seconds | Should -Be 150
+            $config.RunListSeconds() | Should -Be 300
+            $config.tests.run_list_seconds | Should -Be 300
+        }
+
+        It 'overrides the run-list bound alone' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+            $config = New-TimeoutsConfig ([ordered]@{ tests = @{ run_list_seconds = 120 } })
+            $config.RunListSeconds() | Should -Be 120
+            $config.EngineStartSeconds() | Should -Be 150
         }
 
         It 'overrides one test tier and the run budget, keeping the other defaults' {
@@ -157,6 +165,7 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             @{ case = 'a zero tier limit'; data = @{ tests = @{ level_ms = @{ L0 = 0 } } }; expected = "*invalid tests.level_ms.L0 '0'*" }
             @{ case = 'a quoted run budget'; data = @{ tests = @{ run_seconds = '180' } }; expected = "*invalid tests.run_seconds '180'*" }
             @{ case = 'a zero engine start bound'; data = @{ tests = @{ engine_start_seconds = 0 } }; expected = "*invalid tests.engine_start_seconds '0'*" }
+            @{ case = 'a zero run-list bound'; data = @{ tests = @{ run_list_seconds = 0 } }; expected = "*invalid tests.run_list_seconds '0'*" }
         ) {
             { New-TimeoutsConfig $data } | Should -Throw $expected
         }

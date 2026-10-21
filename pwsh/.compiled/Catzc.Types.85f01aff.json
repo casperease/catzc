@@ -1,5 +1,5 @@
 {
-  "hash": "f1501b19",
+  "hash": "85f01aff",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -251,7 +251,27 @@
       "display": []
     },
     {
+      "name": "Catzc.Base.Contracts.AccostedCommand",
+      "aliases": [],
+      "display": []
+    },
+    {
       "name": "Catzc.Base.Contracts.AccostedConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Contracts.AccostedFile",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Contracts.AccostedRun",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Contracts.AccostedRunResult",
       "aliases": [],
       "display": []
     },

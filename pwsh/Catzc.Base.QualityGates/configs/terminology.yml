@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "49268b2d8500"
+#     with_body_sha: f312d4de10e8
 #   edges:
 #     docs: "[terminology.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/terminology.yml.md)"
 #     cites:
@@ -65,6 +65,7 @@ categories:
       - "docs/references/pwsh/catzc-base-contracts.md"
       - "pwsh/Catzc.Base.Docs/configs/adrs.yml"
       - "pwsh/Catzc.Base.Languages/configs/languages.yml"
+      - "pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1"
       - "pwsh/Catzc.Base.Languages/configs/glossary.yml"
       - "pwsh/Catzc.Base.QualityGates/configs/terminology.yml"
       - "pwsh/Catzc.Base.Timeouts/configs/timeouts.yml"
@@ -73,6 +74,8 @@ categories:
       - "pwsh/Catzc.Base.Contracts/**/*Accosted*"
       - "pwsh/Catzc.Base.Contracts/accosted/**"
       - "contracts/catzc/0.0.0/catzc.base.contracts/*accosted*"
+      - "docs/references/contracts/catzc.md"
+      - "pwsh/.internal/assets/importer-commands.sh"
       - ".claude/plans/**"
       - ".claude/learnings/**"
       - ".claude/hindsight/**"

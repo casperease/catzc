@@ -16,7 +16,8 @@ names, `accosted/`, beside its commands.
 A command is written in the contract form: one mapping whose key is a contracted command's name in the repository normal form and whose
 value maps each argument, by its normal-form parameter name, to a literal of the type the command contract gives it
 (`get_file_language: { path: README.md }`). Only the closed types of the contract language occur, so a command line holds nothing a reader
-must evaluate.
+must evaluate. Each argument is one literal, never a list, since `cats` passes one value per parameter and every command runs under every
+engine.
 
 - [The contract form, and nothing else](#the-contract-form-and-nothing-else)
 
@@ -34,8 +35,8 @@ and any other argument that names a write target is rejected. An accosted file h
 
 The word **accosted** is reserved, as the catzc token is
 ([ADR-PRIN-CATS-CATZCISSOURCENAME](../principles/cats-and-catzc.md#rule-adr-prin-cats-catzcissourcename)): it names this language and
-nothing else, so it appears only in the language's row, its extension, this ADR, its glossary entry, its module types and their tests, and the
-plans and session logs that name it. The places are the scope of the `reserved` terminology category, and a gate fails the word anywhere
+nothing else, so it appears only in the language's row, its extension, this ADR, its glossary entry, its module types and their tests, and
+the plans and session logs that name it. The places are the scope of the `reserved` terminology category, and a gate fails the word anywhere
 else.
 
 - [A reserved word](#a-reserved-word)

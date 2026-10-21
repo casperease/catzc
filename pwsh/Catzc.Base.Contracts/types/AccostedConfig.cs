@@ -1,3 +1,15 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: f6f32fd7ae2f
+  edges:
+    test: pwsh/Catzc.Base.Contracts/tests/types/AccostedConfig.Tests.ps1
+    cites:
+      - ADR-AUTO-ACCOSTED
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +24,7 @@ public sealed class AccostedConfig
 {
     public static readonly string[] DefaultHarmlessVerbs = { "get", "test", "find", "measure" };
 
-    public const string DefaultRunTimeout = "accosted_run";
+    public const string DefaultRunTimeout = "run_list_seconds";
 
     private static readonly string[] AllowedKeys = { "harmless_verbs", "run_timeout" };
     private static readonly Regex Word = new Regex("^[a-z][a-z0-9_]*$");
@@ -20,7 +32,7 @@ public sealed class AccostedConfig
     // The verbs a contracted command may start with and still be harmless, in the normal form, sorted and without duplicates.
     public IReadOnlyList<string> harmless_verbs { get; }
 
-    // The key in timeouts.yml whose limit bounds one run.
+    // The key under tests in the timeouts config whose limit bounds one run.
     public string run_timeout { get; }
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

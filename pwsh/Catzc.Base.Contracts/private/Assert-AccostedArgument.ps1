@@ -1,0 +1,52 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: cae35ba8efb0
+---
+#>
+
+function Assert-AccostedArgument {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [Catzc.Base.Contracts.ContractParameter] $Parameter,
+
+        [AllowNull()]
+        [object] $Value,
+
+        [Parameter(Mandatory)]
+        [string] $Where,
+
+        [Parameter(Mandatory)]
+        [string] $Signature
+    )
+
+    $name = $Parameter.Name
+    # cats passes one value per parameter, so a call that must run under every engine gives each parameter one literal.
+    Assert-True ($Value -isnot [array]) -ErrorText "${Where}: '$name' is given a list; cats passes one value per parameter, so give one literal ($Signature)."
+    foreach ($item in @(, $Value)) {
+        $fits = switch ($Parameter.Type) {
+            'string' {
+                $item -is [string]
+            }
+            'int' {
+                $item -is [int] -or $item -is [long]
+            }
+            { $_ -in 'bool', 'switch' } {
+                $item -is [bool]
+            }
+            default {
+                $false
+            }
+        }
+        Assert-True $fits -ErrorText "${Where}: '$name' takes $($Parameter.Spec), and '$item' is not one ($Signature)."
+    }
+
+    # A write confined to out/ is harmless; an output folder anywhere else is a write the language refuses.
+    if ($name -ceq 'output_folder') {
+        $folder = "$Value" -replace '\\', '/'
+        Assert-True ($folder -ceq 'out' -or $folder.StartsWith('out/', [System.StringComparison]::Ordinal)) `
+            -ErrorText "${Where}: '$name' writes to '$Value', outside out/, so the call is not harmless."
+    }
+}

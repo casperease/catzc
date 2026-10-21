@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "0e7ed5644483"
+#     with_body_sha: "52fc87b49424"
 #     warning: "Do Not Edit, this file is generated"
 #     role: asset
 #     track: pwsh
@@ -34,6 +34,8 @@ format_markdown_title	path	string	1	0	0	contracts/catzc/0.0.0/catzc.base.quality
 format_markdown_title	repository_root	string	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/format_markdown_title.command.yml			format-markdown-title	repository-root	Format-MarkdownTitle	RepositoryRoot
 format_markdown_title	dry_run	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/format_markdown_title.command.yml			format-markdown-title	dry-run	Format-MarkdownTitle	DryRun
 format_markdown_title	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/format_markdown_title.command.yml			format-markdown-title	pass-thru	Format-MarkdownTitle	PassThru
+get_accosted_file	path	string	0	1	0	contracts/catzc/0.0.0/catzc.base.contracts/get_accosted_file.command.yml			get-accosted-file	path	Get-AccostedFile	Path
+get_accosted_file	repository_root	string	0	0	0	contracts/catzc/0.0.0/catzc.base.contracts/get_accosted_file.command.yml			get-accosted-file	repository-root	Get-AccostedFile	RepositoryRoot
 get_bicep_parameter_model	template	string	0	1	0	contracts/catzc/0.0.0/catzc.azure.templates/get_bicep_parameter_model.command.yml			get-bicep-parameter-model	template	Get-BicepParameterModel	Template
 get_bicep_template_names			0	0	0	contracts/catzc/0.0.0/catzc.azure.templates/get_bicep_template_names.command.yml			get-bicep-template-names		Get-BicepTemplateNames	
 get_command_contract	name	string	1	0	0	contracts/catzc/0.0.0/catzc.base.contracts/get_command_contract.command.yml			get-command-contract	name	Get-CommandContract	Name
@@ -82,6 +84,9 @@ install_terraform	version	string	0	0	0	contracts/catzc/0.0.0/catzc.tooling.toolc
 install_terraform	force	switch	0	0	0	contracts/catzc/0.0.0/catzc.tooling.toolchain/install_terraform.command.yml			install-terraform	force	Install-Terraform	Force
 install_uv	version	string	0	0	0	contracts/catzc/0.0.0/catzc.tooling.toolchain/install_uv.command.yml			install-uv	version	Install-Uv	Version
 install_uv	force	switch	0	0	0	contracts/catzc/0.0.0/catzc.tooling.toolchain/install_uv.command.yml			install-uv	force	Install-Uv	Force
+invoke_accosted	path	string	0	1	0	contracts/catzc/0.0.0/catzc.base.contracts/invoke_accosted.command.yml			invoke-accosted	path	Invoke-Accosted	Path
+invoke_accosted	engine	string	1	0	0	contracts/catzc/0.0.0/catzc.base.contracts/invoke_accosted.command.yml			invoke-accosted	engine	Invoke-Accosted	Engine
+invoke_accosted	repository_root	string	0	0	0	contracts/catzc/0.0.0/catzc.base.contracts/invoke_accosted.command.yml			invoke-accosted	repository-root	Invoke-Accosted	RepositoryRoot
 invoke_bash_test	module	string	0	1	0	contracts/catzc/0.0.0/catzc.base.languages/invoke_bash_test.command.yml			invoke-bash-test	module	Invoke-BashTest	Module
 invoke_bash_test	entry_script	string	0	0	0	contracts/catzc/0.0.0/catzc.base.languages/invoke_bash_test.command.yml			invoke-bash-test	entry-script	Invoke-BashTest	EntryScript
 invoke_bash_test	engine_executable	string	0	0	0	contracts/catzc/0.0.0/catzc.base.languages/invoke_bash_test.command.yml			invoke-bash-test	engine-executable	Invoke-BashTest	EngineExecutable
