@@ -4,6 +4,8 @@
 //     with_body_sha: "36abad2fc688"
 //   edges:
 //     docs: "[main.bicep.md](docs/references/infrastructure/templates/discovery/main.bicep.md)"
+//     cites:
+//       - ADR-AZ-NETWORK-ONEIPPLAN
 // ---
 
 targetScope = 'subscription'

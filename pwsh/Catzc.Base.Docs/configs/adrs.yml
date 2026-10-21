@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b53801805bfc
+#     with_body_sha: d8a8307216b8
 #   edges:
 #     docs: "[adrs.yml.md](docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md)"
 #     cites:
@@ -78,17 +78,6 @@
 #       - ADR-CONF-ADDRESSING
 #       - ADR-CONF-LOADING
 #       - ADR-CONF-MDCONTRIB
-#       - ADR-DSGN-ASPECT
-#       - ADR-DSGN-MODTYPE
-#       - ADR-DSGN-REMOTE
-#       - ADR-DSGN-RUNMODE
-#       - ADR-DSGN-SELFSERV
-#       - ADR-DSGN-THINPLAT
-#       - ADR-DSGN-TRACK
-#       - ADR-DSGN-TRACKTYPE
-#       - ADR-DSGN-VISUAL
-#       - ADR-FLOW-CD
-#       - ADR-FLOW-GIT
 #       - ADR-GH-RELEASE
 #       - ADR-PWSH-ANNOUNCE
 #       - ADR-PWSH-ASSERT
@@ -141,6 +130,17 @@
 #       - ADR-REPO-SLIDES
 #       - ADR-REPO-VARIANT
 #       - ADR-REPO-VOCAB
+#       - DDR-ASPECT
+#       - DDR-MODTYPE
+#       - DDR-REMOTE
+#       - DDR-RUNMODE
+#       - DDR-SELFSERV
+#       - DDR-THINPLAT
+#       - DDR-TRACK
+#       - DDR-TRACKTYPE
+#       - DDR-VISUAL
+#       - FDR-CD
+#       - FDR-GIT
 #       - PDR-CATS
 #       - PDR-CONFIG
 #       - PDR-EAC
@@ -274,7 +274,7 @@ domains:
       inspect-and-adapt: { external: WDR-KAIZEN }
 
   design:
-    code: DSGN
+    kind: DDR
     role: architecture # how the platform is shaped
     description: >-
       How the platform is shaped: tracks as the repository's root concerns, a thin CLI platform over a vendor substrate, safe self-service,
@@ -284,18 +284,18 @@ domains:
     stack: DSGN
     concern: [automation] # the shape of the platform itself
     rulesets:
-      tracks: { external: ADR-DSGN-TRACK }
-      thin-platforms: { external: ADR-DSGN-THINPLAT, concern: [automation, deploy] }
-      self-service: { external: ADR-DSGN-SELFSERV, concern: [deploy, access] }
-      visual-design: { external: ADR-DSGN-VISUAL, concern: [quality-control, release, deploy] }
-      server-remote-integration: { external: ADR-DSGN-REMOTE, concern: [build, quality-control] }
-      run-modes: { external: ADR-DSGN-RUNMODE, concern: [automation, build] }
-      track-types: { external: ADR-DSGN-TRACKTYPE }
-      module-types: { external: ADR-DSGN-MODTYPE }
-      module-aspects: { external: ADR-DSGN-ASPECT, concern: [automation, build] }
+      tracks: { external: DDR-TRACK }
+      thin-platforms: { external: DDR-THINPLAT, concern: [automation, deploy] }
+      self-service: { external: DDR-SELFSERV, concern: [deploy, access] }
+      visual-design: { external: DDR-VISUAL, concern: [quality-control, release, deploy] }
+      server-remote-integration: { external: DDR-REMOTE, concern: [build, quality-control] }
+      run-modes: { external: DDR-RUNMODE, concern: [automation, build] }
+      track-types: { external: DDR-TRACKTYPE }
+      module-types: { external: DDR-MODTYPE }
+      module-aspects: { external: DDR-ASPECT, concern: [automation, build] }
 
   flow:
-    code: FLOW
+    kind: FDR
     role: architecture # the platform-agnostic flow model that Azure DevOps (ADO) and GitHub (GH) implement
     description: >-
       The vendor-neutral delivery-flow model: what a CI/CD pipeline is, continuous integration as a discipline with a 5–10 minute
@@ -307,14 +307,14 @@ domains:
     stack: DSGN
     concern: [build, quality-control, release, deploy] # the delivery flow from integration to production
     rulesets:
-      cd-discipline-and-promotion-flow: { external: ADR-FLOW-CD }
-      pipeline-runner-pattern: { external: ADR-FLOW-CD-RUNNER, concern: [automation] }
-      pipeline-detection: { external: ADR-FLOW-CD-DETECT, concern: [automation] }
-      pipeline-types: { external: ADR-FLOW-CD-TYPE }
-      durable-sha-globs: { external: ADR-FLOW-CD-GLOBS, concern: [automation] }
-      pipeline-concept: { external: ADR-FLOW-CD-PIPELINE }
-      commit-lifecycle: { external: ADR-FLOW-CD-LIFE, concern: [quality-control, release, deploy] }
-      git-topic-flow: { external: ADR-FLOW-GIT, concern: [build] }
+      cd-discipline-and-promotion-flow: { external: FDR-CD }
+      pipeline-runner-pattern: { external: FDR-CD-RUNNER, concern: [automation] }
+      pipeline-detection: { external: FDR-CD-DETECT, concern: [automation] }
+      pipeline-types: { external: FDR-CD-TYPE }
+      durable-sha-globs: { external: FDR-CD-GLOBS, concern: [automation] }
+      pipeline-concept: { external: FDR-CD-PIPELINE }
+      commit-lifecycle: { external: FDR-CD-LIFE, concern: [quality-control, release, deploy] }
+      git-topic-flow: { external: FDR-GIT, concern: [build] }
 
   automation:
     code: AUTO
@@ -444,7 +444,7 @@ domains:
 
   ado:
     code: ADO
-    role: implementation # minimal ADO extensions over the general flow model (ADR-FLOW-*)
+    role: implementation # minimal ADO extensions over the general flow model (FDR-*)
     description: >-
       The Azure DevOps extensions to the flow model: how ADO REST calls select and prove their credentials, how PowerShell sets ado pipeline
       output variables, how ado pipelines and template folders are named and placed under `.ado/pipelines/`, and when an ADO YAML template
@@ -556,9 +556,9 @@ domains:
     role: reference # trusted external validation points (DORA) — depended-on-by, never a dependency
     description: >-
       The repository's core theoretical construct: the DORA research program, held as one ADR-style record per DORA capability, each with
-      its own `ADR-DORA-<NAME>` rule codes, beside the cross-referenceable research reference in `docs/references/dora/`. It is trusted
+      its own `RDR-DORA-<NAME>` rule codes, beside the cross-referenceable research reference in `docs/references/dora/`. It is trusted
       external validation — every other domain depends on it and it depends on none; the others cite it through their `dora-explains.md`
-      files and `ADR-DORA-*` citations.
+      files and `RDR-DORA-*` citations.
     depends_on: []
     stack: PRIN
     concern: [automation, build, quality-control, release, deploy, access] # capabilities measured across the whole chain

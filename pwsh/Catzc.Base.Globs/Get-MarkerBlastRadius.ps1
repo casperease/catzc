@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.Globs/tests/Get-MarkerBlastRadius.Tests.ps1
     docs: "[Get-MarkerBlastRadius.ps1.md](docs/references/pwsh/catzc-base-globs/Get-MarkerBlastRadius.ps1.md)"
     cites:
-      - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
       - ADR-REPO-PROTGLOB
+      - FDR-CD-GLOBS-NAMEDGLOBSETS
 ---
 #>
 

@@ -7,9 +7,9 @@ catzc:
     test: pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
     docs: "[Get-Track.ps1.md](docs/references/pwsh/catzc-base-variants/Get-Track.ps1.md)"
     cites:
-      - ADR-DSGN-TRACK
-      - ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES
-      - ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS
+      - DDR-TRACK
+      - DDR-TRACKTYPE-CLOSEDSETOFTYPES
+      - DDR-TRACKTYPE-LONGESTPLACEWINS
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7595b3ec8f4d"
+    with_body_sha: "7e44945660a0"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
     docs: "[Get-BicepTemplateConfiguration.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md)"

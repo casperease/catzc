@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "2f22b510eaa9"
+#     with_body_sha: a0fcacefdd82
 # ---
 
 description:
@@ -9,8 +9,8 @@ description:
   so the command runs exactly as a developer runs it after loading the modules, with no gate checking that.
 about:
   adrs:
-    - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-    - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
+    - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+    - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
   lens: meta
 content:
   title: A pipeline step only names a command that a developer can run locally
@@ -78,13 +78,13 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: docs/-/.
         by:
           - docs/adr/flow/dora-explains.md
@@ -97,46 +97,46 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
     grid:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: docs/markdown
         by:
           - docs/adr/flow/dora-explains.md
@@ -149,13 +149,13 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: pwsh/powershell
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -163,18 +163,18 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
       - cell: pwsh/yaml
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
     axis:
       - cell: DSGN/*
         by:
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
 layout:
   band-pipeline:
     x: 20

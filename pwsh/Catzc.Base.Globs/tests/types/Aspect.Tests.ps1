@@ -7,7 +7,7 @@ catzc:
     docs: "[Aspect.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/types/Aspect.cs
     cites:
-      - ADR-DSGN-ASPECT
+      - DDR-ASPECT
 ---
 #>
 

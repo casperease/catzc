@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "641af2e5c376"
+#     with_body_sha: "0faf582b68c1"
 # ---
 
 description:
@@ -17,7 +17,7 @@ about:
     - ADR-AUTO-CACHE-IMPORTERINVALIDATES
     - ADR-PWSH-CACHE-STRICTSAFEPROBE
     - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
-    - ADR-DSGN-RUNMODE
+    - DDR-RUNMODE
   lens: source
 content:
   title: Declared graph orders and closes; observed graph is checked
@@ -159,7 +159,7 @@ content:
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: docs/-/.
@@ -360,7 +360,7 @@ content:
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: pwsh/-/.
@@ -437,7 +437,7 @@ content:
         by:
           - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
       - cell: pwsh/Catzc.Base.Contracts/.
         by:
           - pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
@@ -479,7 +479,7 @@ content:
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: pwsh/Catzc.Base.Docs/private
@@ -492,7 +492,7 @@ content:
           - ADR-AUTO-CACHE-IMPORTERINVALIDATES
           - ADR-AUTO-CACHE-KEYEDBYINPUTS
           - ADR-AUTO-CACHE-READONLYVALUES
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: pwsh/Catzc.Base.Docs/tests
@@ -536,7 +536,7 @@ content:
           - pwsh/Catzc.Base.Globs/Test-GlobSetProtection.ps1
           - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - cell: pwsh/Catzc.Base.Globs/tests
         by:
@@ -585,7 +585,7 @@ content:
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: pwsh/Catzc.Base.ModuleSystem/configs
@@ -641,7 +641,7 @@ content:
           - ADR-AUTO-CACHE-KEYEDBYINPUTS
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
@@ -692,7 +692,7 @@ content:
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
       - cell: pwsh/Catzc.Base.Reports/.
         by:
           - pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
@@ -718,14 +718,14 @@ content:
           - pwsh/Catzc.Base.Repository/Assert-SourceTree.ps1
           - pwsh/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1
           - pwsh/Catzc.Base.Repository/Get-CatzcRunMode.ps1
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
       - cell: pwsh/Catzc.Base.RootConfig/.
         by:
           - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
           - pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
           - pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
       - cell: pwsh/Catzc.Base.RootConfig/tests
         by:
           - pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
@@ -738,7 +738,7 @@ content:
           - pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
           - pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: pwsh/Catzc.Base.TypesSystem/tests
         by:
@@ -755,11 +755,11 @@ content:
         by:
           - pwsh/Catzc.Base.Vendor/Install-VendorModule.ps1
           - pwsh/Catzc.Base.Vendor/Remove-VendorModules.ps1
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
       - cell: pwsh/Catzc.Internal.Assets/.
         by:
           - pwsh/.internal/assets/Import-Catzc.ps1
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
       - cell: pwsh/Catzc.Internal.Tests/.
         by:
           - pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1
@@ -767,7 +767,7 @@ content:
           - pwsh/.internal/tests/Test-FolderConventions.Tests.ps1
           - pwsh/.internal/tests/Write-LoadTime.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: pwsh/Catzc.Tooling.Core/private
@@ -846,7 +846,7 @@ content:
         by:
           - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
       - cell: subject/Catzc.Base.Contracts
         by:
           - pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
@@ -889,7 +889,7 @@ content:
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: subject/Catzc.Base.Execution
@@ -922,7 +922,7 @@ content:
           - pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - cell: subject/Catzc.Base.Maps
         by:
@@ -961,7 +961,7 @@ content:
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: subject/Catzc.Base.Modules
@@ -1043,7 +1043,7 @@ content:
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: subject/Catzc.Base.Reports
@@ -1059,7 +1059,7 @@ content:
           - pwsh/Catzc.Base.Repository/Assert-SourceTree.ps1
           - pwsh/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1
           - pwsh/Catzc.Base.Repository/Get-CatzcRunMode.ps1
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
       - cell: subject/Catzc.Base.RootConfig
         by:
           - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
@@ -1067,7 +1067,7 @@ content:
           - pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
           - pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
       - cell: subject/Catzc.Base.TypesSystem
         by:
           - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
@@ -1077,7 +1077,7 @@ content:
           - pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
           - pwsh/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: subject/Catzc.Base.Variants
         by:
@@ -1090,11 +1090,11 @@ content:
         by:
           - pwsh/Catzc.Base.Vendor/Install-VendorModule.ps1
           - pwsh/Catzc.Base.Vendor/Remove-VendorModules.ps1
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
       - cell: subject/Catzc.Internal.Assets
         by:
           - pwsh/.internal/assets/Import-Catzc.ps1
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
       - cell: subject/Catzc.Internal.Tests
         by:
           - pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1
@@ -1102,7 +1102,7 @@ content:
           - pwsh/.internal/tests/Test-FolderConventions.Tests.ps1
           - pwsh/.internal/tests/Write-LoadTime.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: subject/Catzc.Tooling.Core
@@ -1124,13 +1124,13 @@ content:
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
     axis:
       - cell: DSGN/build
         by:
-          - ADR-DSGN-RUNMODE
+          - DDR-RUNMODE
       - cell: AUTO/quality-control
         by:
           - ADR-AUTO-TEST-QUALITYGATE

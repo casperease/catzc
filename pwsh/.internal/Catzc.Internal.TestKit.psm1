@@ -7,7 +7,7 @@ catzc:
     docs: "[Catzc.Internal.TestKit.psm1.md](docs/references/pwsh/internal/Catzc.Internal.TestKit.psm1.md)"
     cites:
       - ADR-AUTO-CONSOLE-SILENTTRANSIENTCHANGES
-      - ADR-DSGN-RUNMODE-MODEISDERIVED
+      - DDR-RUNMODE-MODEISDERIVED
 ---
 #>
 

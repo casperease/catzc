@@ -10,7 +10,7 @@ A stage stops only on $false; $true, a doubt and its message all proceed; an und
 5  fail-open message            the one line printed when git could not compute the diff
 6  not a declared globset       the throw on a name that is not in globs.yml
 
-Supports ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT (operations lens).
+Supports FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (operations lens).
 ```
 
 A deployable unit's pipeline stage opens with one line: `if (-not (Test-GlobSetAffected -Name apex)) { return }`. Everything the stage can
@@ -39,8 +39,8 @@ positive confirmation that there is nothing to process, and every other outcome,
 ## Why it holds
 
 - The check fails open on any doubt so a wrong skip can never drop a deploy, returns false only when it has positively confirmed the unit is
-  untouched, and throws on an undeclared unit name so a typo never silently skips (ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
-- A pipeline must check out with sufficient depth (`fetchDepth: 0`) so the base ref is reachable (ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+  untouched, and throws on an undeclared unit name so a typo never silently skips (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+- A pipeline must check out with sufficient depth (`fetchDepth: 0`) so the base ref is reachable (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
 
 ## See also
 

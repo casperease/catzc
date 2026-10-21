@@ -15,7 +15,7 @@ Parses every .ps1 file (excluding tests) under the modules root, builds a defini
 CommandAst nodes and cross-references them against the map.
 
 Reads the per-function source files, which exist only in the source tree, so it stops with a named error in build mode (Assert-SourceTree,
-[ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
+[DDR-RUNMODE](../../../adr/design/run-modes.md)).
 
 ### parameter `ModulesRoot`
 

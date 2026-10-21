@@ -18,10 +18,10 @@ Builds the world map (Get-WorldMap) and draws it with Catzc.Base.Maps.WorldMapPd
 ```text
 world-map.grid.pdf   rows are the tracks, columns the file languages, each cell shaded by its file count; the
                      catch-all row holds the root files and the catch-all column the unlisted files
-                     ([ADR-DSGN-TRACK-ROOTFILE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-rootfile),
-                     [ADR-DSGN-TRACK-UNLISTEDFILE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-unlistedfile)), and a cell that
+                     ([DDR-TRACK-ROOTFILE](/docs/adr/design/tracks.md#rule-ddr-track-rootfile),
+                     [DDR-TRACK-UNLISTEDFILE](/docs/adr/design/tracks.md#rule-ddr-track-unlistedfile)), and a cell that
                      breaks its track's tech-stack is marked
-                     ([ADR-DSGN-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-onetechstack));
+                     ([DDR-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-ddr-track-onetechstack));
 world-map.tree.pdf   the tracks as a treemap by file count, each holding its non-empty cells.
 ```
 
@@ -58,7 +58,7 @@ Export-WorldMapPdf
 ### example 2
 
 ```powershell
-Export-WorldMapPdf -View Grid -Adr 'ADR-DSGN-TRACK-ONETECHSTACK'
+Export-WorldMapPdf -View Grid -Adr 'DDR-TRACK-ONETECHSTACK'
 ```
 
 ### example 3

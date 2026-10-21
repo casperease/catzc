@@ -9,8 +9,8 @@ Above `trigger:`, written with `#`.
 
 ```text
 Fires exactly, and only, when the module system changes: the track is its own root folder, with no committed marker to go stale.
-[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
-[ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster) [comment:1](/docs/references/ado/pipelines/ci-pwsh.yaml.md#comment1)
+[FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
+[DDR-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-ddr-track-trackisplacedcluster) [comment:1](/docs/references/ado/pipelines/ci-pwsh.yaml.md#comment1)
 ```
 
 ## comment:2

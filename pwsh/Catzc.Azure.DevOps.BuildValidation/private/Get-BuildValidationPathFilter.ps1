@@ -6,8 +6,8 @@ catzc:
   edges:
     docs: "[Get-BuildValidationPathFilter.ps1.md](docs/references/pwsh/catzc-azure-dev-ops-build-validation/private/Get-BuildValidationPathFilter.ps1.md)"
     cites:
-      - ADR-FLOW-CD-GLOBS
-      - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+      - FDR-CD-GLOBS
+      - FDR-CD-TYPE-PRECOMMITBUDGET
 ---
 #>
 

@@ -4,6 +4,11 @@
 #     with_body_sha: "7c9ab294f9d6"
 #   edges:
 #     docs: "[ci-infrastructure.yaml.md](docs/references/ado/pipelines/ci-infrastructure.yaml.md)"
+#     cites:
+#       - ADR-AUTO-TEST-TESTSUITE
+#       - ADR-AZ-DATAMOD-PARAMETERCONTRACT
+#       - FDR-CD-GLOBS
+#       - FDR-CD-TYPE
 # ---
 
 trigger:

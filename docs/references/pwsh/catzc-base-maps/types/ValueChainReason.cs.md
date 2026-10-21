@@ -9,9 +9,9 @@ Above `using System;`, written with `//`.
 
 ```text
 Why a value-chain highlight lights a cell for one ADR: the requested citation, the ADR code, its ADR domain and that
-domain's row of the value-chain stack ([ADR-DSGN-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainstack)), the
+domain's row of the value-chain stack ([DDR-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-ddr-track-valuechainstack)), the
 value-chain concern of the lit cell, and the ADR's value-chain concerns with the ADR domain's default
-([ADR-DSGN-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainconcern)): Override is true when the ADR declares its
+([DDR-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-ddr-track-valuechainconcern)): Override is true when the ADR declares its
 own concerns instead of the default. A result type, so the properties are PascalCase
 ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

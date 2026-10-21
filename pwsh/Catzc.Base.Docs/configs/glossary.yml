@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "740e5e113c00"
+#     with_body_sha: d6a570d5a865
 #   edges:
 #     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-docs/configs/glossary.yml.md)"
 #     cites:
@@ -12,9 +12,6 @@
 #       - ADR-AUTO-LAYERS-REALISENEVERREDEFINE
 #       - ADR-AUTO-MATERIAL-MATERIALIZATION
 #       - ADR-CONF-MDCONTRIB-CONFIGCONTRIBUTION
-#       - ADR-DSGN-MODTYPE-MODULETYPEISSORT
-#       - ADR-DSGN-RUNMODE-TWORUNMODES
-#       - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
 #       - ADR-REPO-AGENTS-ROBOTBODYLIMIT
 #       - ADR-REPO-AGENTS-NAMEDMODEL
 #       - ADR-REPO-AGENTS-CAPABILITYFILE
@@ -33,6 +30,9 @@
 #       - ADR-REPO-LANG-THREEREGISTERS
 #       - ADR-REPO-OUTDIR-PLANNOTES
 #       - ADR-REPO-VOCAB
+#       - DDR-MODTYPE-MODULETYPEISSORT
+#       - DDR-RUNMODE-TWORUNMODES
+#       - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
 #       - PDR-CATS-CATZCISSOURCENAME
 #       - PDR-CATS-CATSISPERSONNAME
 #       - TDR-NORMALFORM
@@ -582,14 +582,14 @@ concepts:
   staging slot:
     key: staging_slot
     domain: design
-    defined_by: ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+    defined_by: FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
     short:
       The pre-prod rung: a slot inside the production subscription, inactive until it is activated, never a separate subscription.
     realized_by: { kind: prose-only }
   module type:
     key: module_type
     domain: design
-    defined_by: ADR-DSGN-MODTYPE-MODULETYPEISSORT
+    defined_by: DDR-MODTYPE-MODULETYPEISSORT
     short:
       The sort of module, named by the module-types registry, which says where modules of each type are found and how a path in that place
       names its module.
@@ -710,7 +710,7 @@ concepts:
   run mode:
     key: run_mode
     domain: design
-    defined_by: ADR-DSGN-RUNMODE-TWORUNMODES
+    defined_by: DDR-RUNMODE-TWORUNMODES
     short: How the toolset is loaded, source mode from a repository root or build mode from a built package; exactly two exist.
     realized_by: { kind: prose-only }
     contrasts:

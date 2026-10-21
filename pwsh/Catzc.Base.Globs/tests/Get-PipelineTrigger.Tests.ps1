@@ -7,7 +7,7 @@ catzc:
     docs: "[Get-PipelineTrigger.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-PipelineTrigger.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
     cites:
-      - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+      - FDR-CD-GLOBS-NAMEDGLOBSETS
 ---
 #>
 

@@ -1,10 +1,10 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: fee5cbba57ac
+#     with_body_sha: "16e9184c721e"
 #   edges:
 #     cites:
-#       - ADR-DSGN-TRACK-UNORDEREDTRACK
+#       - DDR-TRACK-UNORDEREDTRACK
 # ---
 
 track_types:
@@ -45,7 +45,7 @@ track_types:
       attributes: [catzc-unordered]
       why:
         files under the unordered track are imports not yet sorted, held to no domain rule until they move — the content tools (links,
-        Markdown titles, source conventions) leave them as they landed (ADR-DSGN-TRACK-UNORDEREDTRACK).
+        Markdown titles, source conventions) leave them as they landed (DDR-TRACK-UNORDEREDTRACK).
 
 vendors:
   azure:

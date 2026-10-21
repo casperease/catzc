@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8407f4b1e6f9"
+#     with_body_sha: "0ce52dedf8f6"
 # ---
 
 description:
@@ -9,18 +9,18 @@ description:
   budget) set apart from the rules only a code reviewer enforces, drawn dashed.
 about:
   adrs:
-    - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-    - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-    - ADR-FLOW-CD-CDSTAYSINNONPROD
-    - ADR-FLOW-CD-TWORELEASEGATES
-    - ADR-FLOW-CD-PREPRODRUNG
-    - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-    - ADR-FLOW-CD-GATEDEFINED
-    - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
-    - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-    - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-    - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-    - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+    - FDR-CD-SHORTINTEGRATIONCYCLE
+    - FDR-CD-SEPARATEPIPELINEKINDS
+    - FDR-CD-CDSTAYSINNONPROD
+    - FDR-CD-TWORELEASEGATES
+    - FDR-CD-PREPRODRUNG
+    - FDR-CD-TWOENVIRONMENTACTIVATION
+    - FDR-CD-GATEDEFINED
+    - FDR-CD-TYPE-PRECOMMITBUDGET
+    - FDR-CD-TYPE-DEPLOYISCDTAIL
+    - FDR-CD-TYPE-ONEDEPLOYPATH
+    - FDR-CD-TYPE-DEPLOYISPINNED
+    - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
   lens: governance
 content:
   title: The CI budget is the only promotion rule a quality gate checks
@@ -116,29 +116,29 @@ content:
   chips:
     - at: g-inner-loop
       kind: rule
-      rule: ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
+      rule: FDR-CD-SHORTINTEGRATIONCYCLE
     - at: g-machine-gate
       kind: rule
-      rule: ADR-FLOW-CD-GATEDEFINED
+      rule: FDR-CD-GATEDEFINED
     - at: g-cd
       kind: rule
-      rule: ADR-FLOW-CD-CDSTAYSINNONPROD
+      rule: FDR-CD-CDSTAYSINNONPROD
       gated: false
     - at: g-rc
       kind: rule
-      rule: ADR-FLOW-CD-TWORELEASEGATES
+      rule: FDR-CD-TWORELEASEGATES
       gated: false
     - at: g-deploy-non-prod
       kind: rule
-      rule: ADR-FLOW-CD-PREPRODRUNG
+      rule: FDR-CD-PREPRODRUNG
       gated: false
     - at: g-rbc
       kind: rule
-      rule: ADR-FLOW-CD-TWORELEASEGATES
+      rule: FDR-CD-TWORELEASEGATES
       gated: false
     - at: g-deploy-prod
       kind: rule
-      rule: ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
+      rule: FDR-CD-TWOENVIRONMENTACTIVATION
       gated: false
   legend: auto
   minimaps:
@@ -146,33 +146,33 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: docs/-/.
         by:
           - docs/adr/flow/cd-discipline-and-promotion-flow.md
@@ -201,170 +201,170 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/New-AdoPullRequest.ps1
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/types
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs
           - pwsh/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: pwsh/Catzc.Azure.Templates/.
         by:
           - pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: pwsh/Catzc.Base.Flow/tests/types
         by:
           - pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
-          - ADR-FLOW-CD-PREPRODRUNG
+          - FDR-CD-PREPRODRUNG
       - cell: pwsh/Catzc.Base.Flow/types
         by:
           - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/glossary.yml
-          - ADR-FLOW-CD-GATEDEFINED
+          - FDR-CD-GATEDEFINED
     module-neighbourhood:
       - cell: subject/.claude
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: subject/Catzc.Azure.DevOps
         by:
           - pwsh/Catzc.Azure.DevOps/New-AdoPullRequest.ps1
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: subject/Catzc.Azure.DevOps.BuildValidation
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -373,134 +373,134 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs
           - pwsh/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: subject/Catzc.Azure.Templates
         by:
           - pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: subject/Catzc.Base.Flow
         by:
           - pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
           - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
       - cell: subject/Catzc.Base.Maps
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/configs/glossary.yml
-          - ADR-FLOW-CD-GATEDEFINED
+          - FDR-CD-GATEDEFINED
       - cell: subject/pipelines
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
     axis:
       - cell: DSGN/build
         by:
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: DSGN/quality-control
         by:
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: DSGN/release
         by:
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: DSGN/deploy
         by:
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-          - ADR-FLOW-CD-TWORELEASEGATES
-          - ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE
-          - ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL
-          - ADR-FLOW-CD-TYPE-DEPLOYISPINNED
-          - ADR-FLOW-CD-TYPE-ONEDEPLOYPATH
-          - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+          - FDR-CD-TWORELEASEGATES
+          - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+          - FDR-CD-TYPE-DEPLOYISCDTAIL
+          - FDR-CD-TYPE-DEPLOYISPINNED
+          - FDR-CD-TYPE-ONEDEPLOYPATH
+          - FDR-CD-TYPE-PRECOMMITBUDGET
 layout:
   band-flow:
     x: 20

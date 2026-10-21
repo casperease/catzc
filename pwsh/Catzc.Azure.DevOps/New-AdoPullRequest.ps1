@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Azure.DevOps/tests/New-AdoPullRequest.Tests.ps1
     docs: "[New-AdoPullRequest.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/New-AdoPullRequest.ps1.md)"
     cites:
-      - ADR-FLOW-CD-TYPE
+      - FDR-CD-TYPE
       - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
 ---
 #>

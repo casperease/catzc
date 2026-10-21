@@ -4,6 +4,10 @@
 #     with_body_sha: "801279e2c44e"
 #   edges:
 #     docs: "[ci-pwsh.yaml.md](docs/references/ado/pipelines/ci-pwsh.yaml.md)"
+#     cites:
+#       - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
+#       - DDR-TRACK-TRACKISPLACEDCLUSTER
+#       - FDR-CD-GLOBS
 # ---
 
 trigger:

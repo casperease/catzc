@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
     docs: "[Aspect.cs.md](docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md)"
     cites:
-      - ADR-DSGN-ASPECT
-      - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+      - DDR-ASPECT
+      - FDR-CD-GLOBS-TRACKEDFILESONLY
 ---
 */
 

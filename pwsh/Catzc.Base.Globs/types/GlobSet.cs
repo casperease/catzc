@@ -2,13 +2,13 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4eec00132426"
+    with_body_sha: dcb1c707f68e
   edges:
     test: pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
     docs: "[GlobSet.cs.md](docs/references/pwsh/catzc-base-globs/types/GlobSet.cs.md)"
     cites:
-      - ADR-FLOW-CD-GLOBS
       - ADR-REPO-PROTGLOB
+      - FDR-CD-GLOBS
 ---
 */
 
@@ -65,7 +65,7 @@ public sealed class GlobSet
         if (string.IsNullOrWhiteSpace(layer) || Array.IndexOf(ValidLayers, layer) < 0)
         {
             throw new ArgumentException(string.Format(
-                "globset '{0}': layer '{1}' is not a layer (allowed: {2}, ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER)",
+                "globset '{0}': layer '{1}' is not a layer (allowed: {2}, FDR-CD-GLOBS-EVERYSETHASLAYER)",
                 name, layer, string.Join(", ", ValidLayers)));
         }
         bool hasInclude = include != null && include.Length > 0;

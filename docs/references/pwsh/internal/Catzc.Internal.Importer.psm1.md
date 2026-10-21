@@ -195,7 +195,7 @@ Optionally wipe compiled type DLLs first so the import below rebuilds them from 
 Above `Assert-CatzcRunModeExclusive -ModulesRoot $modulesRoot`, written with `#`.
 
 ```text
-The two run modes never coexist ([ADR-DSGN-RUNMODE-NEVERCOEXIST](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode-nevercoexist)):
+The two run modes never coexist ([DDR-RUNMODE-NEVERCOEXIST](/docs/adr/design/run-modes.md#rule-ddr-runmode-nevercoexist)):
 Import-AllModules evicted the other mode, and this
 proves it before any janitor touches the tree from a mixed session.
 ```

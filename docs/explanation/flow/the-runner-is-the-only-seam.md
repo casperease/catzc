@@ -10,7 +10,7 @@ The runner is the only seam from pipeline YAML into PowerShell.
 5  importer.ps1            loads the modules under pwsh/
 6  developer               dot-sources the importer and types the same command
 
-Supports ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL, ADR-FLOW-CD-RUNNER-IMPORTONCE and ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES (architecture lens).
+Supports FDR-CD-RUNNER-NOINLINEPOWERSHELL, FDR-CD-RUNNER-IMPORTONCE and FDR-CD-RUNNER-THINSTEPTEMPLATES (architecture lens).
 ```
 
 Azure DevOps runs YAML steps, and cats keeps its automation in PowerShell modules. The bridge between the two is a critical boundary, so
@@ -39,9 +39,9 @@ template or the task.
 ## Why it holds
 
 - YAML steps never contain inline PowerShell; all PowerShell runs through the runner or the step template that calls it
-  (ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL).
-- The runner imports the module system once, at its start, and the command runs in that same scope (ADR-FLOW-CD-RUNNER-IMPORTONCE).
-- The step template is a thin wrapper that adds pipeline concerns but no logic (ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES).
+  (FDR-CD-RUNNER-NOINLINEPOWERSHELL).
+- The runner imports the module system once, at its start, and the command runs in that same scope (FDR-CD-RUNNER-IMPORTONCE).
+- The step template is a thin wrapper that adds pipeline concerns but no logic (FDR-CD-RUNNER-THINSTEPTEMPLATES).
 
 ## Where the code and the ADR differ
 

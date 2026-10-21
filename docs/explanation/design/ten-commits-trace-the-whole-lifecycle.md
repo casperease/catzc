@@ -9,7 +9,7 @@ Ten numbered commits show every stage, gate, environment and ending of the commi
 4  the numbers    one digit per commit, the same in every lane, so a commit can be followed
 5  the endings    discarded, in process, an environment's occupant, or the dirty head
 
-Supports ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG, ADR-FLOW-CD-LIFE-DISCARDISTERMINAL, ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT, ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD, ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE, ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM and ADR-FLOW-CD-LIFE-NUMBERISIDENTITY, ADR-DSGN-VISUAL-ONLYGITLANEISTIME and ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER, and ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-ACCEPTANCETESTINGISNOTUAT.
+Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, FDR-CD-LIFE-DIRTYHEADUNSAFE, FDR-CD-LIFE-FAILEDSTAYSUPSTREAM and FDR-CD-LIFE-NUMBERISIDENTITY, DDR-VISUAL-ONLYGITLANEISTIME and DDR-VISUAL-ENVIRONMENTISCONTAINER, and FDR-CD-TWORELEASEGATES and FDR-CD-ACCEPTANCETESTINGISNOTUAT.
 ```
 
 A single commit is hard to follow when the picture is organised by stage. This diagram solves that by tracing ten commits at once. Each
@@ -23,7 +23,7 @@ commit. Read together, the ten numbers show every state a commit can hold and ev
 1. **The bands across the top.** Six stages run left to right: Authoring, PR+BVT, CI+, RC, RBC and DEPLOY-Prod. Brackets above them name the
    pipeline kinds and the stretch each one covers. CI covers the first two stages, CD covers everything up to the end of RC, CD+RBC and
    DEPLOY-Non Prod cover the middle stages, and CDe spans all six. The gate definitions, including RC and RBC, belong to the flow model
-   ([ADR-FLOW-CD-TWORELEASEGATES](../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-tworeleasegates)).
+   ([FDR-CD-TWORELEASEGATES](../../adr/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)).
 2. **The gates.** A red vertical line is a manual gate, where a human decides. A dashed grey line is a gate that runs by itself. Each stage
    has one box: Pre-Commit (L0/L2) is decided by a human in authoring and review, Commit (L0/L2) is the automatic BVT gate, L3-vertical-AT
    is an AT gate, and main-AT and release-AT are manual gates. Prod deploy has two boxes, inactive/pre-prod and live/production. Arrows
@@ -33,13 +33,13 @@ commit. Read together, the ten numbers show every state a commit can hold and ev
    has been in that state at an earlier stage and has since moved on.
 4. **The discarded lane.** A red row sits under the queue. A candidate that fails a gate drops into it at the stage where it failed, and it
    keeps its number there. Recording where it died is the point: "discarded at BVT" and "discarded at release-uat" are different facts
-   ([ADR-FLOW-CD-LIFE-DISCARDISTERMINAL](../../adr/flow/commit-lifecycle.md#rule-adr-flow-cd-life-discardisterminal)).
+   ([FDR-CD-LIFE-DISCARDISTERMINAL](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-discardisterminal)).
 5. **The environments lane.** Each hexagon is an env slot. The commit inside it is its occupant, drawn in that commit's own state colour
-   ([ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER](../../adr/design/visual-design.md#rule-adr-dsgn-visual-environmentiscontainer)). In this
+   ([DDR-VISUAL-ENVIRONMENTISCONTAINER](../../adr/design/visual-design.md#rule-ddr-visual-environmentiscontainer)). In this
    picture, 8 sits in the BVT env slot, 6 is the main-UAT occupant, 5 is the release-UAT occupant, and 4 is both the pre-prod and the
    production occupant. Slot 9 shows a topic commit deployed on demand, and slot 10 shows a commit that was deployed and then discarded.
 6. **The git lane.** This is the only lane where left to right is real time
-   ([ADR-DSGN-VISUAL-ONLYGITLANEISTIME](../../adr/design/visual-design.md#rule-adr-dsgn-visual-onlygitlaneistime)). The main line carries
+   ([DDR-VISUAL-ONLYGITLANEISTIME](../../adr/design/visual-design.md#rule-ddr-visual-onlygitlaneistime)). The main line carries
    the landed commits, and side branches carry topic commits. Reading along it, the three newest commits, 7, 8 and 10, are labelled as dirty
    heads: the tip of main is not always a commit that is safe to build on.
 7. **The legend.** Each state has a solid circle, a dashed ghost and a crossed discard. The legend also names the symbols: manual gate, a
@@ -48,20 +48,20 @@ commit. Read together, the ten numbers show every state a commit can hold and ev
 ## Why it holds
 
 - A commit holds one state at a time and moves one rung along the ladder or leaves it
-  ([ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG](../../adr/flow/commit-lifecycle.md#rule-adr-flow-cd-life-onestateadvancesonerung)).
+  ([FDR-CD-LIFE-ONESTATEADVANCESONERUNG](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-onestateadvancesonerung)).
 - Discard is terminal rejection at a named stage, and the commit stays in history
-  ([ADR-FLOW-CD-LIFE-DISCARDISTERMINAL](../../adr/flow/commit-lifecycle.md#rule-adr-flow-cd-life-discardisterminal)).
+  ([FDR-CD-LIFE-DISCARDISTERMINAL](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-discardisterminal)).
 - Each always-on environment has exactly one occupant plus its history
-  ([ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT](../../adr/flow/commit-lifecycle.md#rule-adr-flow-cd-life-onecommitperenvironment)).
+  ([FDR-CD-LIFE-ONECOMMITPERENVIRONMENT](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-onecommitperenvironment)).
 - Consumers sync from the BVT-verified server head, never from the tip of main; that same commit goes into main-UAT first, so commit 6 is
   both the sync point and the main-UAT occupant
-  ([ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD](../../adr/flow/commit-lifecycle.md#rule-adr-flow-cd-life-syncfromverifiedhead)).
+  ([FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-syncfromverifiedhead)).
 - The tip of main can be a dirty head that is unsafe to sync or promote from
-  ([ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE](../../adr/flow/commit-lifecycle.md#rule-adr-flow-cd-life-dirtyheadunsafe)).
+  ([FDR-CD-LIFE-DIRTYHEADUNSAFE](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-dirtyheadunsafe)).
 - A commit that fails a stage cannot go downstream
-  ([ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM](../../adr/flow/commit-lifecycle.md#rule-adr-flow-cd-life-failedstaysupstream)).
+  ([FDR-CD-LIFE-FAILEDSTAYSUPSTREAM](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-failedstaysupstream)).
 - A commit's number is its time-ordered identity, and its last appearance is where its story ends
-  ([ADR-FLOW-CD-LIFE-NUMBERISIDENTITY](../../adr/flow/commit-lifecycle.md#rule-adr-flow-cd-life-numberisidentity)).
+  ([FDR-CD-LIFE-NUMBERISIDENTITY](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-numberisidentity)).
 
 ## See also
 

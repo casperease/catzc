@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "51f8f9b1057c"
+#     with_body_sha: "56e3323ac83c"
 # ---
 
 description:
@@ -9,9 +9,9 @@ description:
   the pipeline lists, prod tier included, with no approval step in the YAML; two deploy functions throw on a missing or wrong subscription."
 about:
   adrs:
-    - ADR-FLOW-CD-CDSTAYSINNONPROD
-    - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-    - ADR-FLOW-CD-TWORELEASEGATES
+    - FDR-CD-CDSTAYSINNONPROD
+    - FDR-CD-PRODPROGRESSIONISDEPLOY
+    - FDR-CD-TWORELEASEGATES
   lens: operations
 content:
   title: A merge to main runs the CD pipeline all the way to prod, with no approval
@@ -115,15 +115,15 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
       - cell: docs/-/.
         by:
           - docs/adr/flow/cd-discipline-and-promotion-flow.md
@@ -139,107 +139,107 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Flow/types
         by:
           - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
     module-neighbourhood:
       - cell: subject/.claude
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
       - cell: subject/Catzc.Azure.DevOps
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
       - cell: subject/Catzc.Base.Flow
         by:
           - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-TWORELEASEGATES
       - cell: subject/Catzc.Base.Maps
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
       - cell: subject/pipelines
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
     axis:
       - cell: DSGN/build
         by:
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
       - cell: DSGN/quality-control
         by:
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
       - cell: DSGN/release
         by:
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
       - cell: DSGN/deploy
         by:
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-TWORELEASEGATES
 layout:
   band-trigger:
     x: 20

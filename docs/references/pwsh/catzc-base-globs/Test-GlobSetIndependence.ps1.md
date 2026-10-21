@@ -15,7 +15,7 @@ Within a layer, no two globsets may match a common file on their OWN membership 
 compose IGNORED). Two that do "contain parts of each other" and are not independent. The check is per layer, never across layers: a
 deployable-unit deliberately contains the base it composes, so cross-layer overlap is expected and correct. The 'loose-fileset' layer is
 EXEMPT — its sets are cross-cutting check surfaces (a track's root concern, a scan scope, the reserved umbrellas) and overlap by design
-([ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-everysethaslayer)).
+([FDR-CD-GLOBS-EVERYSETHASLAYER](../../../adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)).
 
 Evaluates the declared registry (Get-GlobSet) AND the derived module sets (Get-ModuleGlobSet,
 [ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../../../adr/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)) against
@@ -53,7 +53,7 @@ Above `$exemptLayer = 'loose-fileset'`, written with `#`.
 
 ```text
 loose-filesets are cross-cutting and overlap-exempt
-([ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-everysethaslayer)/10); every other layer is
+([FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)/10); every other layer is
 checked.
 ```
 
@@ -63,6 +63,6 @@ Above `$own = @{}`, written with `#`.
 
 ```text
 OWN members per set (compose ignored,
-[ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nooverlapwithinlayer)), computed once as a set for
+[FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)), computed once as a set for
 O(1) intersection.
 ```

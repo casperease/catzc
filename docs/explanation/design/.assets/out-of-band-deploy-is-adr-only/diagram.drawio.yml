@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "2b078a17ecc3"
+#     with_body_sha: "274606bff479"
 # ---
 
 description:
@@ -9,11 +9,11 @@ description:
   topic commit through main and the BVT to a BVT-verified commit.
 about:
   adrs:
-    - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-    - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
-    - ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
-    - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-    - ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
+    - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+    - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+    - DDR-VISUAL-BRANCHDIRECTIONISROLE
+    - DDR-VISUAL-FIXEDCOMMITPALETTE
+    - DDR-VISUAL-ENVIRONMENTISCONTAINER
   lens: governance
 content:
   title: No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only
@@ -116,30 +116,30 @@ content:
   chips:
     - at: c-topic
       kind: rule
-      rule: ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
+      rule: DDR-VISUAL-BRANCHDIRECTIONISROLE
       gated: false
     - at: c-topic
       kind: rule
-      rule: ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+      rule: DDR-VISUAL-FIXEDCOMMITPALETTE
       gated: false
       corner: bottom-right
     - at: a-deploy
       kind: rule
-      rule: ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      rule: FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       gated: false
       corner: bottom-right
     - at: e-environment
       kind: rule
-      rule: ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
+      rule: DDR-VISUAL-ENVIRONMENTISCONTAINER
       gated: false
     - at: c-main
       kind: rule
-      rule: ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+      rule: FDR-CD-LIFE-ONESTATEADVANCESONERUNG
       gated: false
       corner: bottom-right
     - at: c-verified
       kind: rule
-      rule: ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+      rule: DDR-VISUAL-FIXEDCOMMITPALETTE
       gated: false
   legend: auto
   minimaps:
@@ -147,16 +147,16 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
-          - ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
-          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: docs/-/.
         by:
           - docs/adr/design/dora-explains.md
@@ -171,57 +171,57 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
-          - ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
-          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
-          - ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
-          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
     grid:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
-          - ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
-          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: docs/markdown
         by:
           - docs/adr/design/dora-explains.md
@@ -235,20 +235,20 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
-          - ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
-          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: docs/yaml
         by:
           - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/powershell
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -256,40 +256,40 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/yaml
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/configs/agents.yml
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
-          - ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
-          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
     axis:
       - cell: DSGN/quality-control
         by:
-          - ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
-          - ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
-          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: DSGN/release
         by:
-          - ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
-          - ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
-          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: DSGN/deploy
         by:
-          - ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE
-          - ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER
-          - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
 layout:
   band-topic:
     x: 20

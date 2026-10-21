@@ -5,6 +5,9 @@ catzc:
     with_body_sha: "04d2c2f8e2f5"
   edges:
     docs: "[NoEnvRepositoryRoot.psm1.md](docs/references/pwsh/scriptanalyzer/NoEnvRepositoryRoot.psm1.md)"
+    cites:
+      - ADR-AUTO-NOPWD-ONEROOTACCESSOR
+      - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 ---
 #>
 

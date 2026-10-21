@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f6f32fd7ae2f
+    with_body_sha: "2a4e91c8b37b"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/AccostedConfig.Tests.ps1
     cites:

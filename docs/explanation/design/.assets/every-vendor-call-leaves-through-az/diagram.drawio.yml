@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b4e51a2623fb
+#     with_body_sha: e2b7824a17c4
 # ---
 
 description:
@@ -9,9 +9,9 @@ description:
   az command-line tool, the one exit to Azure.
 about:
   adrs:
-    - ADR-DSGN-THINPLAT-THINPLATFORM
-    - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-    - ADR-DSGN-THINPLAT-PLATFORMASCLI
+    - DDR-THINPLAT-THINPLATFORM
+    - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+    - DDR-THINPLAT-PLATFORMASCLI
     - ADR-AZ-CLI-AZBYDEFAULT
     - ADR-AZ-CLI-ASSERTAZ
     - ADR-AZ-CLI-NOAZMODULEIMPORT
@@ -113,9 +113,9 @@ content:
           - ADR-AZ-CLI-ASSERTAZ
           - ADR-AZ-CLI-AZBYDEFAULT
           - ADR-AZ-CLI-NOAZMODULEIMPORT
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-THINPLATFORM
       - cell: docs/-/.
         by:
           - docs/adr/azure/dora-explains.md
@@ -135,9 +135,9 @@ content:
           - ADR-AZ-CLI-ASSERTAZ
           - ADR-AZ-CLI-AZBYDEFAULT
           - ADR-AZ-CLI-NOAZMODULEIMPORT
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-THINPLATFORM
       - cell: pwsh/Catzc.Azure.Cli/.
         by:
           - pwsh/Catzc.Azure.Cli/Assert-AzCliBicep.ps1
@@ -155,9 +155,9 @@ content:
           - ADR-AZ-CLI-ASSERTAZ
           - ADR-AZ-CLI-AZBYDEFAULT
           - ADR-AZ-CLI-NOAZMODULEIMPORT
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-THINPLATFORM
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
@@ -182,9 +182,9 @@ content:
           - ADR-AZ-CLI-ASSERTAZ
           - ADR-AZ-CLI-AZBYDEFAULT
           - ADR-AZ-CLI-NOAZMODULEIMPORT
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-THINPLATFORM
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
@@ -197,15 +197,15 @@ content:
           - ADR-AZ-CLI-ASSERTAZ
           - ADR-AZ-CLI-AZBYDEFAULT
           - ADR-AZ-CLI-NOAZMODULEIMPORT
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-THINPLATFORM
     axis:
       - cell: DSGN/deploy
         by:
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-THINPLATFORM
       - cell: CLOUD/deploy
         by:
           - ADR-AZ-CLI-ASSERTAZ

@@ -27,5 +27,5 @@ Above `trigger:`, written with `#`.
 
 ```text
 Flux has no expedition config, so its own include covers only foundation and discovery; other deployments' config is excluded.
-[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:2](/docs/references/ado/pipelines/cd-flux.yaml.md#comment2)
+[FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:2](/docs/references/ado/pipelines/cd-flux.yaml.md#comment2)
 ```

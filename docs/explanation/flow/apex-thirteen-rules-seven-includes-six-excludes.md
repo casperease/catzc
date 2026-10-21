@@ -14,7 +14,7 @@ The apex unit flattens to 13 rules, 13 GitHub paths, and 7 ADO includes with 6 e
 9   Get-PipelineTrigger          reads the four path-filter lists back from the file
 10  Test-AdoPipelineTriggerGlob  compares projection and file as sets; one issue per pipeline
 
-Supports ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY, ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER and ADR-FLOW-CD-GLOBS-COMPOSESETS (implementation lens).
+Supports FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-CD-GLOBS-COMPOSESETS (implementation lens).
 ```
 
 The `apex` deployable unit in cats composes three base units and adds three configuration folders of its own, which flattens into a program
@@ -60,12 +60,12 @@ of 13 rules. `Get-GlobSetTrigger` walks that program once: the GitHub list is th
 ## Why it holds
 
 - Membership is decided by the ordered scan program, last-match-wins, with the leaf set's includes as selects and its excludes as drops
-  (ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY).
+  (FDR-CD-GLOBS-TRACKEDFILESONLY).
 - The native projection renders the flattened program into GitHub's ordered `!` dialect exactly, and into Azure DevOps' order-independent
   include and exclude lists by collapsing each pattern to its last select; the drift quality gate reports one issue per pipeline whose
-  declared trigger no longer equals its projection (ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER).
+  declared trigger no longer equals its projection (FDR-CD-GLOBS-NATIVEPATHFILTER).
 - A composing set's program is the composed programs first, deepest base first, each once, then its own rules last, so a unit re-adds a
-  slice its base dropped; the flattened program is what the projection is computed from (ADR-FLOW-CD-GLOBS-COMPOSESETS).
+  slice its base dropped; the flattened program is what the projection is computed from (FDR-CD-GLOBS-COMPOSESETS).
 
 ## See also
 

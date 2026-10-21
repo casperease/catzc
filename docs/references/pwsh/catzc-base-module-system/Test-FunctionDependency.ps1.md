@@ -23,7 +23,7 @@ Write-QualityGateReport, which writes out/test-function-dependency/, prints ever
 the result instead.
 
 Must run post-import so Get-Command covers all loaded modules. Reads the per-function source files, which exist only in the source tree, so
-it stops with a named error in build mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
+it stops with a named error in build mode (Assert-SourceTree, [DDR-RUNMODE](../../../adr/design/run-modes.md)).
 
 ### parameter `ModulesRoot`
 

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3a4283f76a1a"
+#     with_body_sha: "6e20fc5ac2ae"
 # ---
 
 description:
@@ -9,11 +9,11 @@ description:
   consumers clone out from the verified point.
 about:
   adrs:
-    - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-    - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-    - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-    - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
+    - DDR-REMOTE-SERVERREMOTEISTRUTH
+    - DDR-REMOTE-INTEGRATEFROMVERIFIED
+    - DDR-REMOTE-PULLREQUESTISINGRESS
+    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-CD-LIFE-DIRTYHEADUNSAFE
   lens: architecture
 content:
   title: "Clients bridge to one server remote: in through a pull request, out from the verified point"
@@ -92,16 +92,16 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/-/.
         by:
           - docs/adr/design/dora-explains.md
@@ -116,55 +116,55 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
     grid:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/markdown
         by:
           - docs/adr/design/dora-explains.md
@@ -178,22 +178,22 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/yaml
         by:
           - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/powershell
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -201,37 +201,37 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/yaml
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
     axis:
       - cell: DSGN/build
         by:
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
       - cell: DSGN/quality-control
         by:
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: DSGN/release
         by:
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: DSGN/deploy
         by:
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
 layout:
   band-in:
     x: 20

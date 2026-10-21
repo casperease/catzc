@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1ddb43ed239b"
+    with_body_sha: c005b50e15d9
   edges:
     cites:
       - ADR-AUTO-IDIOM-LANGUAGEIDIOM

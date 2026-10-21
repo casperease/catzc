@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.Variants/tests/Test-TrackDeclaration.Tests.ps1
     docs: "[Test-TrackDeclaration.ps1.md](docs/references/pwsh/catzc-base-variants/Test-TrackDeclaration.ps1.md)"
     cites:
-      - ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES
-      - ADR-DSGN-TRACKTYPE-DECLAREDONCE
+      - DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES
+      - DDR-TRACKTYPE-DECLAREDONCE
 ---
 #>
 

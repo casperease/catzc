@@ -9,7 +9,7 @@ Above `Describe 'Native-trigger projection coverage' -Tag 'L2', 'integrity',...`
 
 ```text
 Coverage of the native-trigger projection over THIS repo's real tree
-([ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-namedglobsets)), through its quality gate
+([FDR-CD-GLOBS-NAMEDGLOBSETS](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)), through its quality gate
 (Test-GlobSetTriggerCoverage — [ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The
 guaranteed safety property: every member of a pipeline-bound set matches at least one ADO include pattern — so an ADO
 include-only trigger is always a SUPERSET of exact membership and can never under-trigger (miss a deploy); the

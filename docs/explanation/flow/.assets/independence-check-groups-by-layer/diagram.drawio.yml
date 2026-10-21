@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c16238e81fa9
+#     with_body_sha: "2294e253dab7"
 # ---
 
 description:
@@ -9,8 +9,8 @@ description:
   shared file, writes a report, and throws once with one line per overlapping pair.
 about:
   adrs:
-    - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-    - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+    - FDR-CD-GLOBS-EVERYSETHASLAYER
+    - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
   lens: implementation
 content:
   title: Test-GlobSetIndependence groups every set by layer and tests each same-layer pair
@@ -102,13 +102,13 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: docs/-/.
         by:
           - docs/adr/flow/dora-explains.md
@@ -148,109 +148,109 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Test-Automation.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Resolve-TestSuite.ps1.md
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
           - pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Globs/configs
         by:
           - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Globs/private
         by:
           - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Globs/tests
         by:
           - pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Globs/tests/types
         by:
           - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
       - cell: pwsh/Catzc.Base.Globs/types
         by:
           - pwsh/Catzc.Base.Globs/types/DurableHash.cs
           - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
           - pwsh/Catzc.Base.Globs/types/GlobSet.cs
           - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.QualityGates/.
         by:
           - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
     module-neighbourhood:
       - cell: subject/.claude
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: subject/Catzc.Azure.DevOps
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: subject/Catzc.Azure.DevOps.BuildValidation
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -258,14 +258,14 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
@@ -279,33 +279,33 @@ content:
           - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
           - pwsh/Catzc.Base.Globs/types/GlobSet.cs
           - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: subject/Catzc.Base.Maps
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
           - pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: subject/pipelines
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
     axis:
       - cell: DSGN/*
         by:
-          - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-          - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
 layout:
   band-deployable-unit:
     x: 20

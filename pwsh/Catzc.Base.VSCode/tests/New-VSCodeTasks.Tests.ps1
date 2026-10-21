@@ -2,12 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "61a9e3ebd4a4"
+    with_body_sha: "0bedad301151"
   edges:
     code: pwsh/Catzc.Base.VSCode/New-VSCodeTasks.ps1
     cites:
-      - ADR-FLOW-GIT-USERRUNSGIT
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
+      - FDR-GIT-USERRUNSGIT
 ---
 #>
 
@@ -38,7 +38,7 @@ Describe 'New-VsCodeTasks' -Tag 'L0', 'logic' {
 }
 
 Describe 'New-VsCodeTasks — real vscode-tasks.yml' -Tag 'L1', 'integrity' {
-    It 'renders the shipped registry with the topic flow''s three tasks and the message input resolved' -Tag 'ADR-FLOW-GIT-USERRUNSGIT' {
+    It 'renders the shipped registry with the topic flow''s three tasks and the message input resolved' -Tag 'FDR-GIT-USERRUNSGIT' {
         # Get-Config constructs the VscodeTasksConfig type on load, so a render is also the shape proof.
         $text = New-VsCodeTasks
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json

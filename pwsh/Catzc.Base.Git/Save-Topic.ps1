@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.Git/tests/Save-Topic.Tests.ps1
     docs: "[Save-Topic.ps1.md](docs/references/pwsh/catzc-base-git/Save-Topic.ps1.md)"
     cites:
-      - ADR-FLOW-GIT-USERRUNSGIT
+      - FDR-GIT-USERRUNSGIT
 ---
 #>
 

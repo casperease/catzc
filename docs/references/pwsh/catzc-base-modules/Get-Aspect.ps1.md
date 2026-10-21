@@ -12,7 +12,7 @@ Returns a track/container's ordered aspect classification — the named parts it
 ### description
 
 An aspect convention is an ordered first-match (fallthrough) classification of VariantAspect { Name, Patterns }, patterns relative to the
-unit root; the LAST aspect is the '`**`' catch-all remainder ([ADR-DSGN-ASPECT](../../../adr/design/module-aspects.md)).
+unit root; the LAST aspect is the '`**`' catch-all remainder ([DDR-ASPECT](../../../adr/design/module-aspects.md)).
 
 A code track (a track of the modules track type) derives its convention from the layout
 ([ADR-AUTO-MODULE-EXISTSBYLAYOUT](../../../adr/automation/module-model.md#rule-adr-auto-module-existsbylayout)): 'live' is the patterns of

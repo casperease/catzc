@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4030c6f1b070"
+#     with_body_sha: dcbcf17dde3b
 #   edges:
 #     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/glossary.yml.md)"
 #     cites:
@@ -17,11 +17,11 @@
 #       - ADR-AUTO-TEST-TESTINGINPRODUCTION
 #       - ADR-AUTO-TEST-TEST
 #       - ADR-AUTO-TEST-TESTFILE
-#       - ADR-FLOW-CD-GATEDEFINED
 #       - ADR-PWSH-PESTER-TESTISIT
 #       - ADR-REPO-COMMENTS-ONELINEOFINSIGHT
 #       - ADR-REPO-LINK-KINDBYFILE
 #       - ADR-REPO-VOCAB
+#       - FDR-CD-GATEDEFINED
 # ---
 
 concepts:
@@ -78,7 +78,7 @@ concepts:
   gate:
     key: gate
     domain: flow
-    defined_by: ADR-FLOW-CD-GATEDEFINED
+    defined_by: FDR-CD-GATEDEFINED
     short: A check whose verdict decides whether work may proceed — automated (a quality gate, the CI gate) or human (RC, RBC).
     realized_by: { kind: prose-only }
     forms: [quality, CI, AT, RC, RBC, BVT, release, manual, PR, merge, commit, approval, production, push]

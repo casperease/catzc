@@ -7,7 +7,7 @@ catzc:
     docs: "[VariantAspect.cs.md](docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-      - ADR-DSGN-ASPECT
+      - DDR-ASPECT
 ---
 */
 

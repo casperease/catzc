@@ -14,7 +14,7 @@ Returns the repo-relative tracked files the managed-GUID scan reads — the scan
 Tracked files (Get-GitTrackedPath,
 [ADR-AUTO-TRACKED-ONESEAM](../../../../adr/automation/tracked-files-from-the-index.md#rule-adr-auto-tracked-oneseam) — the same matching
 universe as the globsets,
-[ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](../../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)), minus what the
+[FDR-CD-GLOBS-TRACKEDFILESONLY](../../../../adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)), minus what the
 scan must not read: vendored third-party code (pwsh/.vendor/), the committed compiled assembly (pwsh/.compiled/), known binary extensions,
 and the registry file itself — configs/guids.yml is the definition of the managed set, not a reference to it, and excluding it is what keeps
 the liveness check honest. The one place this scan reads the tracked set; a logic test mocks this seam (returning absolute fixture paths,

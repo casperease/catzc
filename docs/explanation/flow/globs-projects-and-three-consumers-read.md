@@ -12,7 +12,7 @@ Catzc.Base.Globs projects the program; workflows, pipelines and the branch polic
 7  .github/workflows/*.yml        a workflow declares the GitHub list by hand
 8  .ado/pipelines/*.yaml          an ado pipeline declares the ADO lists by hand
 
-Supports ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER and ADR-FLOW-CD-GLOBS-COMPOSESETS (architecture lens).
+Supports FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-CD-GLOBS-COMPOSESETS (architecture lens).
 ```
 
 One module of cats, `Catzc.Base.Globs`, owns the globset registry, the dialect, the flattened scan program and the native projection, and
@@ -44,10 +44,10 @@ itself, and it reads the GitHub list rather than the Azure DevOps lists.
 ## Why it holds
 
 - A pipeline, workflow or build-validation policy triggers on the globset's native path-filter projection, rendered by `Get-GlobSetTrigger`
-  from the flattened program: exact for GitHub, last select per pattern for Azure DevOps (ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER).
-- The flattened program is what the projection is computed from, with no reference-chasing at trigger time (ADR-FLOW-CD-GLOBS-COMPOSESETS).
+  from the flattened program: exact for GitHub, last select per pattern for Azure DevOps (FDR-CD-GLOBS-NATIVEPATHFILTER).
+- The flattened program is what the projection is computed from, with no reference-chasing at trigger time (FDR-CD-GLOBS-COMPOSESETS).
 - `Catzc.Base.Globs` owns the file, the dialect, the durable SHA, the native projection and the git-reflection query; nothing else parses
-  the config (ADR-FLOW-CD-GLOBS, "One configuration point").
+  the config (FDR-CD-GLOBS, "One configuration point").
 
 ## Where the code and the ADR differ
 

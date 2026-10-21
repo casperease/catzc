@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 A world-map highlight: the cells a request lights. A request is either ADR references or a drawing's files
-([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster) places each file in one cell).
+([DDR-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-ddr-track-trackisplacedcluster) places each file in one cell).
 
 ADR references (ForAdr) light, through the placements WorldMapBuilder derived in its fixed order per artifact kind:
 each requested ADR's own file (an ADR-<CODE>#n request lights its ADR's file), and every file whose citations a request

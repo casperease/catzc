@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
     docs: "[ValueChainHighlight.cs.md](docs/references/pwsh/catzc-base-maps/types/ValueChainHighlight.cs.md)"
     cites:
-      - ADR-DSGN-TRACK-LITCELL
-      - ADR-DSGN-TRACK-VALUECHAINMAP
+      - DDR-TRACK-LITCELL
+      - DDR-TRACK-VALUECHAINMAP
       - TDR-ONETRUTH-TRUTHISQUERYABLE
 ---
 */

@@ -7,9 +7,9 @@ catzc:
     test: pwsh/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1
     docs: "[Get-GlobSetTrigger.ps1.md](docs/references/pwsh/catzc-base-globs/Get-GlobSetTrigger.ps1.md)"
     cites:
-      - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
-      - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
-      - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+      - FDR-CD-GLOBS-NAMEDGLOBSETS
+      - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - FDR-CD-GLOBS-NATIVEPATHFILTER
 ---
 #>
 

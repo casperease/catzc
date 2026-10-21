@@ -7,7 +7,7 @@
 Every folder in the repository is conventional: its name infers its contents and purpose, for humans and for tooling. No folder needs a
 mapping file or a README to be understood — the name is the meaning. At the root this goes further: every root folder git tracks a file
 under names a **track** — the repository's unit of root concern — except `out/`, which holds gitignored output (`ADR-REPO-OUTDIR`); so
-adding a root folder is the decision to open a track (see [tracks](../design/tracks.md), code `ADR-DSGN-TRACK`).
+adding a root folder is the decision to open a track (see [tracks](../design/tracks.md), code `DDR-TRACK`).
 
 - [The thesis](#the-thesis)
 
@@ -199,7 +199,7 @@ hardcodes `'.internal'` and `'.vendor'`.
 A literal folder name is for a module-internal contract folder like these, never for a track's place: where a track's files live varies by
 repository kind ([ADR-REPO-REPOKIND-THREEKINDS](repository-kinds.md#rule-adr-repo-repokind-threekinds)), so code finds a place, or a named
 kind inside one, through the track
-([ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED](../design/tracks.md#rule-adr-dsgn-track-subscribablenotpathcoupled)).
+([DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED](../design/tracks.md#rule-ddr-track-subscribablenotpathcoupled)).
 
 ### A test-language root as a setting
 

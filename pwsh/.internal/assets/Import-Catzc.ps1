@@ -7,7 +7,7 @@ catzc:
     docs: "[Import-Catzc.ps1.md](docs/references/pwsh/internal/assets/Import-Catzc.ps1.md)"
     cites:
       - ADR-AUTO-BUNDLE
-      - ADR-DSGN-RUNMODE
+      - DDR-RUNMODE
 ---
 #>
 

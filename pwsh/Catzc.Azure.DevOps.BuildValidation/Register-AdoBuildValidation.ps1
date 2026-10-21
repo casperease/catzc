@@ -8,8 +8,8 @@ catzc:
     docs: "[Register-AdoBuildValidation.ps1.md](docs/references/pwsh/catzc-azure-dev-ops-build-validation/Register-AdoBuildValidation.ps1.md)"
     cites:
       - ADR-AUTO-IDEM
-      - ADR-FLOW-CD-GLOBS
-      - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+      - FDR-CD-GLOBS
+      - FDR-CD-TYPE-PRECOMMITBUDGET
       - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
 ---
 #>

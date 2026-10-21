@@ -5,6 +5,9 @@ catzc:
     with_body_sha: e676b81803ed
   edges:
     docs: "[NoUnsafeFirstIndex.psm1.md](docs/references/pwsh/scriptanalyzer/NoUnsafeFirstIndex.psm1.md)"
+    cites:
+      - ADR-PWSH-ERROR-STRICTCLEAN
+      - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 ---
 #>
 

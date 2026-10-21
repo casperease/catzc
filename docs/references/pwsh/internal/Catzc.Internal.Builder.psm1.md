@@ -12,7 +12,7 @@ Catzc.Internal.Builder — the build-mode engine (Invoke-ModuleBuild).
 
 Builds the selected modules into one installable, versioned Catzc package
 ([ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md),
-[ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)): every module stays its own PowerShell module of the same name, its
+[DDR-RUNMODE](/docs/adr/design/run-modes.md)): every module stays its own PowerShell module of the same name, its
 function files
 merged into one <Module>.functions.ps1 behind a generated manifest, beside the runtime loader (.internal), the vendored
 dependencies (.vendor), the full combined-types DLL and its sources (.compiled) and the package entry points. It

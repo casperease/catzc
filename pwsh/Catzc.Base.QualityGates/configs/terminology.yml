@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d07e81d95baa
+#     with_body_sha: "0c2fcd23863c"
 #   edges:
 #     docs: "[terminology.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md)"
 #     cites:
@@ -13,14 +13,14 @@
 #       - ADR-AUTO-SPELL
 #       - ADR-AUTO-TEST
 #       - ADR-AZ-CLI
-#       - ADR-DSGN-MODTYPE
-#       - ADR-DSGN-TRACK-VALUECHAINCONCERN
-#       - ADR-FLOW-CD-GLOBS
 #       - ADR-PWSH-NAMES-THROWAWAYINTERMEDIATES
 #       - ADR-REPO-EXAMPLE
 #       - ADR-REPO-LANG
 #       - ADR-REPO-OUTDIR-PLANNOTES
 #       - ADR-REPO-PROTGLOB
+#       - DDR-MODTYPE
+#       - DDR-TRACK-VALUECHAINCONCERN
+#       - FDR-CD-GLOBS
 # ---
 
 categories:
@@ -361,11 +361,11 @@ terms:
       expands_to: "configuration management database"
     - term: LOCAL
       meaning:
-        "LOCAL — the automation value-chain concern's six-letter column code on the value-chain minimap (ADR-DSGN-TRACK-VALUECHAINCONCERN)"
+        "LOCAL — the automation value-chain concern's six-letter column code on the value-chain minimap (DDR-TRACK-VALUECHAINCONCERN)"
       expands_to: "automation"
     - term: release
       meaning:
-        "RELEASE — the release value-chain concern's six-letter column code on the value-chain minimap (ADR-DSGN-TRACK-VALUECHAINCONCERN)"
+        "RELEASE — the release value-chain concern's six-letter column code on the value-chain minimap (DDR-TRACK-VALUECHAINCONCERN)"
       expands_to: "release"
     - term: dora
       meaning:
@@ -1193,13 +1193,13 @@ terms:
       meaning:
         "coined noun 'moduletype' — the head key naming the module type of the module a file is placed in (the module-types registry)"
     - term: modtype
-      meaning: "segment of the ADR code ADR-DSGN-MODTYPE — 'module type'"
+      meaning: "segment of the ADR code DDR-MODTYPE — 'module type'"
     - term: tracktype
       meaning: "coined noun 'tracktype' — the head key naming the track type of the track a file lives in (the track-types registry)"
     - term: foldered
       meaning: "coined adjective 'foldered'"
     - term: globset
-      meaning: "coined noun 'globset' — a named set of glob patterns defining a deployable unit (ADR-FLOW-CD-GLOBS)"
+      meaning: "coined noun 'globset' — a named set of glob patterns defining a deployable unit (FDR-CD-GLOBS)"
     - term: globsets
       meaning: "plural of the coined noun 'globset'"
     - term: greppable

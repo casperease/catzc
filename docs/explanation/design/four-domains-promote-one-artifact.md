@@ -11,7 +11,7 @@ Every pipeline kind after CI promotes the one artifact CI built, and each enviro
 6  pre-prod -> production   DEPLOY-Prod: staged inactive, then activated live
 7  tagged artifact          the one build every later domain promotes, never rebuilt
 
-Supports ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT, ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD, ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE and ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM (architecture lens).
+Supports FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, FDR-CD-LIFE-DIRTYHEADUNSAFE and FDR-CD-LIFE-FAILEDSTAYSUPSTREAM (architecture lens).
 ```
 
 The commit ladder in cats is cut into domains: GIT, then the pipeline kinds CI, CD, DEPLOY-Non-Prod and DEPLOY-Prod. Every domain after CI
@@ -42,15 +42,15 @@ occupant. Reading the occupants tells you what lives where right now, and which 
 ## Why it holds
 
 - Each always-on environment hosts exactly one commit, its occupant, plus a history of the commits it held before
-  (ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT).
+  (FDR-CD-LIFE-ONECOMMITPERENVIRONMENT).
 - Upstream integrators sync from the BVT-verified server head, the same commit the always-on non-prod environment takes first, so the commit
-  synced from and the commit `main-uat` takes are one (ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD).
+  synced from and the commit `main-uat` takes are one (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD).
 - The tip of main is only the newest commit; when it has failed a downstream stage it is the dirty HEAD, and nobody syncs or promotes from
-  it (ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE).
+  it (FDR-CD-LIFE-DIRTYHEADUNSAFE).
 - A commit that fails a stage cannot go downstream: neither promotion nor consumption proceeds from it
-  (ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM).
+  (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM).
 - A CD pipeline always contains the CI component, and the pipeline kinds share one key, the immutable tagged artifact
-  (ADR-FLOW-CD-SEPARATEPIPELINEKINDS, ADR-FLOW-CD-CDCONTAINSCI).
+  (FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI).
 
 ## Where the code and the ADR differ
 

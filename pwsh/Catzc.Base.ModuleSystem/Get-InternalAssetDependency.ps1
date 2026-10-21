@@ -8,7 +8,7 @@ catzc:
     docs: "[Get-InternalAssetDependency.ps1.md](docs/references/pwsh/catzc-base-module-system/Get-InternalAssetDependency.ps1.md)"
     cites:
       - ADR-AUTO-ASSETDEP-LITERALCHILDPATH
-      - ADR-DSGN-RUNMODE
+      - DDR-RUNMODE
 ---
 #>
 

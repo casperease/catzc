@@ -2,12 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b4e253814490
+    with_body_sha: dc18c8503efa
   edges:
     code: pwsh/Catzc.Base.Maps/types/WorldMapHighlight.cs
     cites:
-      - ADR-DSGN-TRACK-ROOTFILE
-      - ADR-DSGN-TRACK-LITCELL
+      - DDR-TRACK-ROOTFILE
+      - DDR-TRACK-LITCELL
 ---
 #>
 
@@ -79,7 +79,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
             @($highlight.Cells).Count | Should -Be 1
         }
 
-        It 'lights two ADRs of one domain each on its own file only' -Tag 'ADR-DSGN-TRACK-LITCELL' {
+        It 'lights two ADRs of one domain each on its own file only' -Tag 'DDR-TRACK-LITCELL' {
             $docs = (& $script:forAdr 'ADR-WIDGET-GADGET', 'ADR-WIDGET-SPROCKET').Cells | Where-Object Track -EQ 'docs'
             @($docs.Reasons | Where-Object Basis -EQ 'adr-file' | ForEach-Object { "$($_.Path) $($_.Requested)" }) |
                 Should -Be @('docs/adr/widgetry/widget-gadget.md ADR-WIDGET-GADGET', 'docs/adr/widgetry/widget-sprocket.md ADR-WIDGET-SPROCKET')
@@ -123,7 +123,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
     }
 
     Context 'reasons' {
-        It 'gives every lit file its reason: the basis, the covering request and the citation sites' -Tag 'ADR-DSGN-TRACK-LITCELL' {
+        It 'gives every lit file its reason: the basis, the covering request and the citation sites' -Tag 'DDR-TRACK-LITCELL' {
             $highlight = & $script:forAdr 'ADR-WIDGET-GADGET'
             $docs = $highlight.Cells[0].Reasons
             @($docs).Count | Should -Be 1
@@ -137,7 +137,7 @@ Describe 'WorldMapHighlight' -Tag 'L0', 'logic' {
             $highlight.Cells[1].Touched | Should -BeFalse
         }
 
-        It 'names the owner''s files a root file is lit through' -Tag 'ADR-DSGN-TRACK-ROOTFILE' {
+        It 'names the owner''s files a root file is lit through' -Tag 'DDR-TRACK-ROOTFILE' {
             $root = (& $script:forAdr 'ADR-WIDGET-GADGET').Cells[3].Reasons
             $root[0].Path | Should -Be 'importer.ps1'
             $root[0].Basis | Should -Be 'files.yml'

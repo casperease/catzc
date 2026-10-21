@@ -28,7 +28,7 @@ These edges are folded into Get-ModuleDependencyViolations beside the function-c
 (configs/dependencies.yml, asserted by the L2 tests) governs C# type layering.
 
 Reads each module's C# type files (`types/*.cs`), which exist only in the source tree, so it stops with a named error in build mode
-(Assert-SourceTree, [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
+(Assert-SourceTree, [DDR-RUNMODE](../../../adr/design/run-modes.md)).
 
 ### parameter `ModulesRoot`
 

@@ -6,8 +6,8 @@ catzc:
   edges:
     docs: "[WorldMap.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMap.cs.md)"
     cites:
-      - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-      - ADR-DSGN-TRACK-FILELANGUAGE
+      - DDR-TRACK-TRACKISPLACEDCLUSTER
+      - DDR-TRACK-FILELANGUAGE
       - TDR-ONETRUTH-TRUTHISQUERYABLE
 ---
 */

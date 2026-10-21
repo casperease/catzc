@@ -12,7 +12,7 @@ The CI budget is the only promotion rule a quality gate checks.
 7  DEPLOY-Prod      stage inactive in pre-prod, then activate live (#12)
 8  reviewer         code review, the only enforcer the ADR names for the whole flow
 
-Supports ADR-FLOW-CD-SHORTINTEGRATIONCYCLE, ADR-FLOW-CD-SEPARATEPIPELINEKINDS, ADR-FLOW-CD-CDSTAYSINNONPROD, ADR-FLOW-CD-TWORELEASEGATES, ADR-FLOW-CD-PREPRODRUNG, ADR-FLOW-CD-TWOENVIRONMENTACTIVATION and ADR-FLOW-CD-GATEDEFINED, ADR-FLOW-CD-TYPE-PRECOMMITBUDGET, ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL, ADR-FLOW-CD-TYPE-ONEDEPLOYPATH, ADR-FLOW-CD-TYPE-DEPLOYISPINNED and ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE (governance lens).
+Supports FDR-CD-SHORTINTEGRATIONCYCLE, FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES, FDR-CD-PREPRODRUNG, FDR-CD-TWOENVIRONMENTACTIVATION and FDR-CD-GATEDEFINED, FDR-CD-TYPE-PRECOMMITBUDGET, FDR-CD-TYPE-DEPLOYISCDTAIL, FDR-CD-TYPE-ONEDEPLOYPATH, FDR-CD-TYPE-DEPLOYISPINNED and FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE (governance lens).
 ```
 
 The CI discipline and the promotion flow set a rule for every pipeline kind and gate between a merge and production. Only one of those rules
@@ -39,19 +39,19 @@ reads left to right in one row, each kind or gate beside the rule that governs i
 7. **DEPLOY-Prod.** DEPLOY-Prod stages the artifact inactive in pre-prod, validates the exact bytes, then activates them live in production.
    Only the ADR states it.
 8. **Reviewer.** Code review is the only enforcer the ADR names for the whole flow. No test or analyzer rule in `pwsh/` checks an
-   ADR-FLOW-CD rule; the code cites the ADR only in the ADR registry, two glossary entries and comments.
+   FDR-CD rule; the code cites the ADR only in the ADR registry, two glossary entries and comments.
 
 ## Why it holds
 
-- The integration cycle is 5–10 minutes on a team basis; a gate slower than that becomes a queue (ADR-FLOW-CD-SHORTINTEGRATIONCYCLE,
-  ADR-FLOW-CD-TYPE-PRECOMMITBUDGET).
-- Build-once: nothing downstream rebuilds the tagged artifact (ADR-FLOW-CD-SEPARATEPIPELINEKINDS).
-- CD stays entirely within non-prod (ADR-FLOW-CD-CDSTAYSINNONPROD).
-- RC and RBC are the two hands-on release gates, and each is a gate, not a pipeline (ADR-FLOW-CD-TWORELEASEGATES).
-- DEPLOY splits by target into DEPLOY-Non-Prod and DEPLOY-Prod, and acts only once a gate clears (ADR-FLOW-CD-PREPRODRUNG,
-  ADR-FLOW-CD-TYPE-DEPLOYISCDTAIL–ADR-FLOW-CD-TYPE-DEPLOYCARRIESGOVERNANCE).
-- Deploy to prod stages the artifact inactive in pre-prod, then activates it live (ADR-FLOW-CD-TWOENVIRONMENTACTIVATION).
-- A gate decides by machine, as a quality gate inside the inner CI gate, or by human certification (ADR-FLOW-CD-GATEDEFINED).
+- The integration cycle is 5–10 minutes on a team basis; a gate slower than that becomes a queue (FDR-CD-SHORTINTEGRATIONCYCLE,
+  FDR-CD-TYPE-PRECOMMITBUDGET).
+- Build-once: nothing downstream rebuilds the tagged artifact (FDR-CD-SEPARATEPIPELINEKINDS).
+- CD stays entirely within non-prod (FDR-CD-CDSTAYSINNONPROD).
+- RC and RBC are the two hands-on release gates, and each is a gate, not a pipeline (FDR-CD-TWORELEASEGATES).
+- DEPLOY splits by target into DEPLOY-Non-Prod and DEPLOY-Prod, and acts only once a gate clears (FDR-CD-PREPRODRUNG,
+  FDR-CD-TYPE-DEPLOYISCDTAIL–FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE).
+- Deploy to prod stages the artifact inactive in pre-prod, then activates it live (FDR-CD-TWOENVIRONMENTACTIVATION).
+- A gate decides by machine, as a quality gate inside the inner CI gate, or by human certification (FDR-CD-GATEDEFINED).
 
 ## Where the code and the ADR differ
 

@@ -9,7 +9,7 @@ Above `on:`, written with `#`.
 
 ```text
 Trigger = the 'pwsh' globset projected into GitHub-native path filters (Get-GlobSetTrigger,
-[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)): the track is its own root folder (pwsh/**), so this fires exactly — and
+[FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)): the track is its own root folder (pwsh/**), so this fires exactly — and
 only starts at
 all — on a real change to the module system. No committed marker to go stale across a squash merge.
 ```

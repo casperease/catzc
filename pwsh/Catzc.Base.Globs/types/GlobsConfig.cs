@@ -2,13 +2,13 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b44a91d89453
+    with_body_sha: d4f32fecb13f
   edges:
     test: pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
     docs: "[GlobsConfig.cs.md](docs/references/pwsh/catzc-base-globs/types/GlobsConfig.cs.md)"
     cites:
-      - ADR-FLOW-CD-GLOBS
       - ADR-REPO-PROTGLOB
+      - FDR-CD-GLOBS
 ---
 */
 
@@ -84,7 +84,7 @@ public sealed class GlobsConfig
             }
             if (ReadStr(entry, "layer") == "module")
             {
-                errors.Add(string.Format("globset '{0}': the 'module' layer is derived-only (ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER, ADR-REPO-PROTGLOB) — the folder is the registration; declared layers: {1}", name, string.Join(", ", GlobSet.DeclaredLayers)));
+                errors.Add(string.Format("globset '{0}': the 'module' layer is derived-only (FDR-CD-GLOBS-EVERYSETHASLAYER, ADR-REPO-PROTGLOB) — the folder is the registration; declared layers: {1}", name, string.Join(", ", GlobSet.DeclaredLayers)));
                 continue;
             }
 
@@ -147,11 +147,11 @@ public sealed class GlobsConfig
                 GlobSet target;
                 if (reference == set.Name)
                 {
-                    errors.Add(string.Format("globset '{0}' composes itself (ADR-FLOW-CD-GLOBS-COMPOSESETS)", set.Name));
+                    errors.Add(string.Format("globset '{0}' composes itself (FDR-CD-GLOBS-COMPOSESETS)", set.Name));
                 }
                 else if (!map.TryGetValue(reference, out target))
                 {
-                    errors.Add(string.Format("globset '{0}' composes unknown set '{1}' — compose references declared sets only (ADR-FLOW-CD-GLOBS-COMPOSESETS)", set.Name, reference));
+                    errors.Add(string.Format("globset '{0}' composes unknown set '{1}' — compose references declared sets only (FDR-CD-GLOBS-COMPOSESETS)", set.Name, reference));
                 }
                 else
                 {
@@ -165,7 +165,7 @@ public sealed class GlobsConfig
             string cycle = FindComposeCycle(set, map, new List<string>());
             if (cycle != null)
             {
-                errors.Add(string.Format("compose cycle: {0} (ADR-FLOW-CD-GLOBS-COMPOSESETS)", cycle));
+                errors.Add(string.Format("compose cycle: {0} (FDR-CD-GLOBS-COMPOSESETS)", cycle));
                 break;
             }
         }

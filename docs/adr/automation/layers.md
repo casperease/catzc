@@ -15,7 +15,7 @@ sentence that means the PowerShell code names its track, a sentence that means a
 
 A **command** is one public function of the module system, the unit a contract describes. A command is written in one **implementation
 language**: a file language of `languages.yml` whose entry sets `executable: true`, a flag that is false unless stated
-([ADR-DSGN-TRACK-ONETECHSTACK](../design/tracks.md#rule-adr-dsgn-track-onetechstack),
+([DDR-TRACK-ONETECHSTACK](../design/tracks.md#rule-ddr-track-onetechstack),
 [ADR-AUTO-MODULE-LANGUAGESFROMFILES](module-model.md#rule-adr-auto-module-languagesfromfiles)); PowerShell with the C# types it hosts is one
 such language, Bash, Python and Go are the others.
 
@@ -84,7 +84,7 @@ configuration. About ten thousand citations of `ADR-AUTO-*` codes stay as they a
 
 ### Named by the stack
 
-A track owns one coherent stack and is named by it ([tracks](../design/tracks.md#rule-adr-dsgn-track-onetechstack)): `go`, `python` and
+A track owns one coherent stack and is named by it ([tracks](../design/tracks.md#rule-ddr-track-onetechstack)): `go`, `python` and
 `bash` are the test-artifact tracks, and the PowerShell track is `pwsh`, the name of the engine that runs it and of nothing else. The word
 automation then means the abstract wherever it appears, and a path that names a track names its stack. The code track's folder is the one
 place that still carries the old name; moving it is a single change, made in one quiet window, and every reader of the root reads it from

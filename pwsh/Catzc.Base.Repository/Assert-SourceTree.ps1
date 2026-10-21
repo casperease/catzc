@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.Repository/tests/Assert-SourceTree.Tests.ps1
     docs: "[Assert-SourceTree.ps1.md](docs/references/pwsh/catzc-base-repository/Assert-SourceTree.ps1.md)"
     cites:
-      - ADR-DSGN-RUNMODE
+      - DDR-RUNMODE
 ---
 #>
 

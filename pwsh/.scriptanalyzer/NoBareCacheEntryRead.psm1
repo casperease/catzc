@@ -5,6 +5,9 @@ catzc:
     with_body_sha: fd02664a83df
   edges:
     docs: "[NoBareCacheEntryRead.psm1.md](docs/references/pwsh/scriptanalyzer/NoBareCacheEntryRead.psm1.md)"
+    cites:
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 ---
 #>
 

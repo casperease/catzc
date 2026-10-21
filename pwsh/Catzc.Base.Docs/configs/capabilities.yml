@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: fffc8effb192
+#     with_body_sha: "549839a08640"
 #   edges:
 #     docs: "[capabilities.yml.md](docs/references/pwsh/catzc-base-docs/configs/capabilities.yml.md)"
 #     cites:
@@ -13,8 +13,6 @@
 #       - ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS
 #       - ADR-AUTO-TEST-QUALITYGATE
 #       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-#       - ADR-DSGN-VISUAL-LEFTTORIGHTISTIME
-#       - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
 #       - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
 #       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
 #       - ADR-REPO-AGENTS-STANDARDWORKER
@@ -32,6 +30,8 @@
 #       - ADR-REPO-SLIDES-TWODIRECTIONS
 #       - ADR-REPO-SLIDES-CONFLICTNEEDSAPICK
 #       - ADR-REPO-SLIDES-THEMESELECTOR
+#       - DDR-VISUAL-LEFTTORIGHTISTIME
+#       - DDR-VISUAL-FIXEDCOMMITPALETTE
 #       - PDR-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS
 #       - PDR-NOWASTE-SEVENWASTES
 #       - PDR-ONELIVE-ONEVERSION
@@ -123,17 +123,17 @@ capabilities:
 
   # Looking at one diagram PNG in the kit's vocabulary, never a meaning.
   - name: drawio-look
-    supported_by: [ADR-DSGN-VISUAL-LEFTTORIGHTISTIME]
+    supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME]
     checks: []
 
   # The wave protocol for authoring new diagrams: bounded fan-out, fixed briefs, one shared kit.
   - name: drawio-waves
-    supported_by: [ADR-DSGN-VISUAL-LEFTTORIGHTISTIME, ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY]
+    supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, DDR-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY]
     checks: [Test-CheckedInBinaries, Test-Links]
 
   # Fail-forward render of a .drawio.png with its minimaps, on the dark page by default.
   - name: drawio-renderer
-    supported_by: [ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE]
+    supported_by: [DDR-VISUAL-FIXEDCOMMITPALETTE]
     checks: [Test-CheckedInBinaries]
 
   # The verdict rules for one plan file.

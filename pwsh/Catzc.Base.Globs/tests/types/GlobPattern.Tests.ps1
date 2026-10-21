@@ -2,13 +2,13 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7447e51c04e5"
+    with_body_sha: d12c2a19af9c
   edges:
     docs: "[GlobPattern.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/types/GlobPattern.cs
     cites:
-      - ADR-FLOW-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
-      - ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED
+      - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
+      - FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED
 ---
 #>
 
@@ -69,7 +69,7 @@ Describe 'GlobPattern' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'the constructor guard (ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED)' {
+    Context 'the constructor guard (FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED)' {
         It 'rejects <why>: <pattern>' -ForEach @(
             @{ pattern = ''; why = 'an empty pattern' }
             @{ pattern = '   '; why = 'a whitespace pattern' }

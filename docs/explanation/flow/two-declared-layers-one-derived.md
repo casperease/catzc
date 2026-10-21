@@ -10,7 +10,7 @@ Every globset carries one of three layers; two are declared in globs.yml, the th
 5  Module sets              87 derived sets: two aspects per module folder, one per internal file
 6  module-leftovers         the module layer's catch-all, empty in a clean tree
 
-Supports ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER, ADR-FLOW-CD-GLOBS-COMPOSESETS and ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER (architecture lens).
+Supports FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-COMPOSESETS and FDR-CD-GLOBS-NOOVERLAPWITHINLAYER (architecture lens).
 ```
 
 Each globset in cats maps an area-of-control onto its tracked files, and every globset carries a layer that says what kind of thing it maps.
@@ -39,13 +39,13 @@ Two layers, `deployable-unit` and `loose-fileset`, are declared in `globs.yml`. 
 ## Why it holds
 
 - Every globset carries a layer. `deployable-unit` and `loose-fileset` are declared; `module` is derived-only, and declaring it is rejected
-  (ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER).
+  (FDR-CD-GLOBS-EVERYSETHASLAYER).
 - A deployable unit is either configured or a base that exists only to be composed; `pipeline:` and `verify:` are orthogonal annotations
-  valid on any layer (ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER).
+  valid on any layer (FDR-CD-GLOBS-EVERYSETHASLAYER).
 - A set composes other declared sets, its own rules last; references resolve to declared sets only and the graph must be acyclic
-  (ADR-FLOW-CD-GLOBS-COMPOSESETS).
+  (FDR-CD-GLOBS-COMPOSESETS).
 - Within the `deployable-unit` and `module` layers, no two sets select a common file on their own contribution; the `loose-fileset` layer is
-  exempt (ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER).
+  exempt (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER).
 
 ## Where the code and the ADR differ
 

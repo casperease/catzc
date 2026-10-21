@@ -14,7 +14,7 @@ The code carries both halves of ingress, but nothing finds the last verified com
 9   ADO branch policy             a build validation on main; blocking stops the merge
 10  Get-AdoBuildValidations       reads the policies back, so registration is idempotent
 
-Supports ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED and ADR-DSGN-REMOTE-PULLREQUESTISINGRESS (implementation lens).
+Supports DDR-REMOTE-INTEGRATEFROMVERIFIED and DDR-REMOTE-PULLREQUESTISINGRESS (implementation lens).
 ```
 
 Cats implements the way in from both sides. On the clone, a `git_workspace` variant feeds a guard that keeps automation from committing
@@ -47,10 +47,10 @@ the order shown. The way out has no chain at all: no function returns the last v
 ## Why it holds
 
 - The pull request is the authenticated ingress, and the server branch policy is what enforces it; `Sync-GeneratedFile`'s branch guard is
-  the local half (ADR-DSGN-REMOTE-PULLREQUESTISINGRESS).
+  the local half (DDR-REMOTE-PULLREQUESTISINGRESS).
 - `git_workspace` declares how changes reach main, and its single stop condition is a direct commit made while standing on main or master in
   `main-via-pr` (ADR-REPO-VARIANT-GITWORKSPACE).
-- Consumers integrate from the last remote-verified commit, never the remote HEAD (ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED).
+- Consumers integrate from the last remote-verified commit, never the remote HEAD (DDR-REMOTE-INTEGRATEFROMVERIFIED).
 
 ## Where the code and the ADR differ
 

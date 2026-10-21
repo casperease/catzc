@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.Git/tests/Sync-Topic.Tests.ps1
     docs: "[Sync-Topic.ps1.md](docs/references/pwsh/catzc-base-git/Sync-Topic.ps1.md)"
     cites:
-      - ADR-FLOW-GIT-USERRUNSGIT
-      - ADR-FLOW-GIT-SYNCBYREBASE
+      - FDR-GIT-USERRUNSGIT
+      - FDR-GIT-SYNCBYREBASE
 ---
 #>
 

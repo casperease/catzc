@@ -35,7 +35,7 @@ Conflict handling is a fast pre-scan (fast / faster / fastest):
 - -Force skip the pre-scan and overwrite.
 
 The copy is of the source tree (per-function files, tests/, root packages), so it stops with a named error in build mode (Assert-SourceTree,
-[ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
+[DDR-RUNMODE](../../../adr/design/run-modes.md)).
 
 See [ADR-CONF-LOADING](../../../adr/configuration/module-config-loading.md) (files.yml),
 [ADR-BCL-TYPES-NATIVETYPEDMODEL](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel), and

@@ -2,12 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "041879eb26d5"
+    with_body_sha: "177f3186ffbd"
   edges:
     test: pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
     docs: "[ModuleTypesConfig.cs.md](docs/references/pwsh/catzc-base-variants/types/ModuleTypesConfig.cs.md)"
     cites:
-      - ADR-DSGN-TRACK-ONETECHSTACK
+      - DDR-TRACK-ONETECHSTACK
 ---
 */
 
@@ -20,7 +20,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Variants;
 
-// Rests on [ADR-DSGN-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-onetechstack).
+// Rests on [DDR-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-ddr-track-onetechstack).
 public sealed class ModuleTypesConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

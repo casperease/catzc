@@ -10,7 +10,7 @@ One artifact is built once and climbs to production unchanged.
 5  production        past the gate, DEPLOY rolls the same artifact to prod
 6  the shortcut      the CD pipelines deploy production themselves today, in the same run
 
-Supports ADR-FLOW-CD-SHORTINTEGRATIONCYCLE, ADR-FLOW-CD-SEPARATEPIPELINEKINDS, ADR-FLOW-CD-CDSTAYSINNONPROD, ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY, ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-GATEDEFINED (meta lens).
+Supports FDR-CD-SHORTINTEGRATIONCYCLE, FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDSTAYSINNONPROD, FDR-CD-PRODPROGRESSIONISDEPLOY, FDR-CD-TWORELEASEGATES and FDR-CD-GATEDEFINED (meta lens).
 ```
 
 Build-once, deploy-many is the idea at the heart of the cats promotion flow. One artifact is built and verified once, tested in non-prod,
@@ -29,20 +29,20 @@ themselves, in the same run.
    tracks the latest main.
 4. **Manual gate.** A person certifies the artifact and decides whether it may proceed; a gate clears or holds, never half. The approval
    check lives in the execution engine: the adopting team applies the shipped `environment-approvals.yml` with
-   `Sync-AdoEnvironmentApprovals` (ADR-FLOW-CD-PRODAPPROVALGATE), and this repository ships that tooling but runs no apply.
+   `Sync-AdoEnvironmentApprovals` (FDR-CD-PRODAPPROVALGATE), and this repository ships that tooling but runs no apply.
 5. **Production.** Past the gate, the flow leaves automation and enters DEPLOY, the pipeline that acts once the gate clears.
 6. **The shortcut.** The apex and shared CD pipelines deploy the artifact to the prod tier themselves, in the same run as non-prod; the
    approval check on those environments is the engine's, configured by the adopting team's apply.
 
 ## Why it holds
 
-- CI is kept within a 5–10 minute integration cycle on a team basis (ADR-FLOW-CD-SHORTINTEGRATIONCYCLE).
+- CI is kept within a 5–10 minute integration cycle on a team basis (FDR-CD-SHORTINTEGRATIONCYCLE).
 - Nothing downstream rebuilds the tagged artifact, so production is byte-identical to what non-prod certified
-  (ADR-FLOW-CD-SEPARATEPIPELINEKINDS).
-- CD takes the artifact through non-prod only (ADR-FLOW-CD-CDSTAYSINNONPROD), and progression toward prod enters DEPLOY behind a manual gate
-  (ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY).
-- RC and RBC are the manual gates (ADR-FLOW-CD-TWORELEASEGATES). A gate decides; DEPLOY, the pipeline that acts, is not a gate
-  (ADR-FLOW-CD-GATEDEFINED).
+  (FDR-CD-SEPARATEPIPELINEKINDS).
+- CD takes the artifact through non-prod only (FDR-CD-CDSTAYSINNONPROD), and progression toward prod enters DEPLOY behind a manual gate
+  (FDR-CD-PRODPROGRESSIONISDEPLOY).
+- RC and RBC are the manual gates (FDR-CD-TWORELEASEGATES). A gate decides; DEPLOY, the pipeline that acts, is not a gate
+  (FDR-CD-GATEDEFINED).
 
 ## Where the code and the ADR differ
 

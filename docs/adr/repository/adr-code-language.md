@@ -2,6 +2,15 @@
 
 ## Rules: ADR-REPO-ADRCODE
 
+### Rule ADR-REPO-ADRCODE-DECISIONRECORDSSYSTEM
+
+The **Decision Records System (DRS)** is the one system that holds every **decision record**: the record-kind domains, their records and
+rules, the index and the registry, under its one root, `docs/drs/`. Every record is of exactly one **record kind** registered in `adrs.yml`
+(`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `RDR`), and the kinds together are called "XDR". "ADR" names the `ADR` kind only, never the
+system or a record of another kind.
+
+- [One system holds every record](#one-system-holds-every-record)
+
 ### Rule ADR-REPO-ADRCODE-PATHOFSEGMENTS
 
 A decision record code is a record kind followed by zero or more segments, each `-` plus an upper-case letter and then upper-case letters or
@@ -86,6 +95,13 @@ A rule registry keeps the order its ADR writes the rules in. Rules are never sor
 Every ADR, rule, and citation in this repository shares one marker, `ADR-`, and `docs/adr/index.md` lists every code. A rule is a fact the
 codebase is held to, and code, tests, configuration, and prose cite it constantly: one design rule alone is cited more than nine hundred
 times. The code a reader sees is the only hint, before opening the ADR, of what that citation asks for.
+
+### One system holds every record
+
+The repository's decisions are of seven kinds, from the thesis to the architecture of one implementation domain, and one index, one registry
+and one grammar serve them all. Naming that whole after one of its kinds would make "ADR" mean both a kind and everything, so the system
+has its own name, the DRS, and a record of any kind is a decision record. "XDR" is the family of kind codes, X standing for the kind's
+letter.
 
 ### One path for every level
 

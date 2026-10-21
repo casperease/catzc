@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
     docs: "[Get-CSharpTypeDependency.ps1.md](docs/references/pwsh/catzc-base-types-system/Get-CSharpTypeDependency.ps1.md)"
     cites:
-      - ADR-DSGN-RUNMODE
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+      - DDR-RUNMODE
 ---
 #>
 

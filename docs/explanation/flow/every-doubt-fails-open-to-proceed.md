@@ -9,7 +9,7 @@ Whether a change touches a unit is read from git at real refs, and every doubt f
 4  proceed                touched, or any doubt about the range or the diff
 5  a typo throws          an undeclared unit name is a programming error, never a silent skip
 
-Supports ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT (meta lens).
+Supports FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (meta lens).
 ```
 
 A deployable unit's pipeline stage has one question to ask before it does any work: did this change touch my area-of-control? In cats the
@@ -36,9 +36,9 @@ safe, a wrong skip is an un-deployed change, so every doubt proceeds.
 ## Why it holds
 
 - Whether a change touches a unit is computed from git at real refs, never from a committed hash, and the check fails open on any doubt so a
-  wrong skip can never drop a deploy (ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+  wrong skip can never drop a deploy (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
 - The check returns false only when it has positively confirmed the unit is untouched, and throws on an undeclared unit name so a typo never
-  silently skips (ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+  silently skips (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
 
 ## See also
 

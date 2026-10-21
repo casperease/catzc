@@ -23,7 +23,7 @@ that is how a slot / resource group is added (the next discovery picks it up).
 This function does NOT deploy, render, or call Azure. It only edits a file. Deployment of the change is the CD pipeline's job, against
 version control.
 
-It rests on [ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md) and [ADR-FLOW-CD-TYPE](../../../adr/flow/pipeline-types.md).
+It rests on [ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md) and [FDR-CD-TYPE](../../../adr/flow/pipeline-types.md).
 
 ### parameter `Template`
 

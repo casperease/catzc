@@ -9,7 +9,7 @@ Changes enter the mainline through one door, and consumers build on one stable p
 4  verified point   the last commit the server proved verified; it never moves
 5  consumer clones  every consumer builds on the verified point, never on HEAD
 
-Supports ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH, ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED, ADR-DSGN-REMOTE-NORECONCILINGTIPS and ADR-DSGN-REMOTE-PULLREQUESTISINGRESS (meta lens).
+Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-NORECONCILINGTIPS and DDR-REMOTE-PULLREQUESTISINGRESS (meta lens).
 ```
 
 The mainline of cats lives on an audited server git remote, and every developer box and CI agent is a client that bridges to it. Work
@@ -35,12 +35,12 @@ about its history.
 
 ## Why it holds
 
-- The audited server remote is the single source of truth, and local and CI clones are bridges to it (ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH).
-- A consumer integrates from the last remote-verified commit, never from the current remote HEAD (ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED).
+- The audited server remote is the single source of truth, and local and CI clones are bridges to it (DDR-REMOTE-SERVERREMOTEISTRUTH).
+- A consumer integrates from the last remote-verified commit, never from the current remote HEAD (DDR-REMOTE-INTEGRATEFROMVERIFIED).
 - Because the verified point never moves, a consumer never has to reconcile a tip that is later rewritten or superseded
-  (ADR-DSGN-REMOTE-NORECONCILINGTIPS).
+  (DDR-REMOTE-NORECONCILINGTIPS).
 - The pull request is the authenticated ingress, and closing every other door is what makes the `git log` audit trail complete
-  (ADR-DSGN-REMOTE-PULLREQUESTISINGRESS).
+  (DDR-REMOTE-PULLREQUESTISINGRESS).
 
 ## Where the code and the ADR differ
 

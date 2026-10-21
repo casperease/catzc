@@ -1,7 +1,7 @@
 # No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only
 
 ```text
-ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND is ADR-only, and the one gate on deploys in code allows main alone.
+FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND is ADR-only, and the one gate on deploys in code allows main alone.
 
 1  topic                a topic commit, brown and below the mainline; no gate checks either drawing rule
 2  out-of-band deploy   the deploy the rule allows; ADR-only, no code runs or checks it
@@ -10,15 +10,15 @@ ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND is ADR-only, and the one gate on deploys 
 5  main only            the gate in code: every Deploy_* stage needs refs/heads/main
 6  BVT                  checked on main: Test-Automation and Test-BuildArtifact run
 
-Supports ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG and ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND, and ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE, ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE and ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER (governance lens).
+Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG and FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, and DDR-VISUAL-BRANCHDIRECTIONISROLE, DDR-VISUAL-FIXEDCOMMITPALETTE and DDR-VISUAL-ENVIRONMENTISCONTAINER (governance lens).
 ```
 
-ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND lets a workflow deploy a topic commit without integrating it. Looked at as governance, the rule
+FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND lets a workflow deploy a topic commit without integrating it. Looked at as governance, the rule
 stands alone: no gate or checker in cats tests it, and nothing in the repository runs the deploy it allows. The one gate in code on the
-deploy side points the other way, since every `Deploy_*` stage runs only from main. The drawing rules of ADR-DSGN-VISUAL that colour these
+deploy side points the other way, since every `Deploy_*` stage runs only from main. The drawing rules of DDR-VISUAL that colour these
 commits have no checker either, and none is expected.
 
-![ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND is ADR-only and every Deploy stage is main-only](.assets/out-of-band-deploy-is-adr-only/diagram.drawio.png)
+![FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND is ADR-only and every Deploy stage is main-only](.assets/out-of-band-deploy-is-adr-only/diagram.drawio.png)
 
 ## Walkthrough
 
@@ -37,19 +37,19 @@ commits have no checker either, and none is expected.
 ## Why it holds
 
 - A topic commit can be deployed out-of-band without integrating into main, and the deploy confers no promotion state on the mainline
-  (ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND).
+  (FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND).
 - A commit holds one lifecycle state at a time and advances one rung along the ladder or leaves it
-  (ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG).
-- Topic branches render below the mainline and release branches above it (ADR-DSGN-VISUAL-BRANCHDIRECTIONISROLE).
+  (FDR-CD-LIFE-ONESTATEADVANCESONERUNG).
+- Topic branches render below the mainline and release branches above it (DDR-VISUAL-BRANCHDIRECTIONISROLE).
 - The commit colours are fixed: a topic commit is brown and never grey, and yellow is past the BVT with an immutable artifact
-  (ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE).
-- An environment box is a neutral container whose occupant carries its own state colour (ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER).
+  (DDR-VISUAL-FIXEDCOMMITPALETTE).
+- An environment box is a neutral container whose occupant carries its own state colour (DDR-VISUAL-ENVIRONMENTISCONTAINER).
 
 ## Where the code and the ADR differ
 
-- ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit; no pipeline or workflow does, and every
+- FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit; no pipeline or workflow does, and every
   `Deploy_*` stage is main-only.
-- The pipeline guide says the CI type produces no artifact, while ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE makes yellow carry an immutable
+- The pipeline guide says the CI type produces no artifact, while DDR-VISUAL-FIXEDCOMMITPALETTE makes yellow carry an immutable
   versioned artifact.
 
 ## See also

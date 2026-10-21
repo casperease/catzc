@@ -12,7 +12,7 @@ You edit globs.yml, and every other step prints what cats derived from it.
 7  Touched globsets    the declared sets the diff touched, in registry order
 8  Skip line           names the modules skipped as unchanged since their last green run
 
-Supports ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY, ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER and ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT (operations lens).
+Supports FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (operations lens).
 ```
 
 `globs.yml` is the only file a person writes to change an area-of-control in cats. Every other step is a command that loads the registry and
@@ -40,10 +40,10 @@ globset edit before any pipeline runs.
 ## Why it holds
 
 - The identity behind the skip is computed live and never committed, so a skip can never rest on a stale record
-  (ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY).
+  (FDR-CD-GLOBS-DURABLESHAIDENTITY).
 - Pipelines and workflows trigger on the projection, and the gates on the trigger report every pipeline whose declared trigger no longer
-  equals it (ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER).
-- Whether a change touches a set is computed from git at real refs and fails open on doubt (ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+  equals it (FDR-CD-GLOBS-NATIVEPATHFILTER).
+- Whether a change touches a set is computed from git at real refs and fails open on doubt (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
 
 ## See also
 

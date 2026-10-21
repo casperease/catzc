@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.Globs/tests/Get-GlobSet.Tests.ps1
     docs: "[Get-GlobSet.ps1.md](docs/references/pwsh/catzc-base-globs/Get-GlobSet.ps1.md)"
     cites:
-      - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+      - FDR-CD-GLOBS-NAMEDGLOBSETS
 ---
 #>
 

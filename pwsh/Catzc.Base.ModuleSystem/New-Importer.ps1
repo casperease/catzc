@@ -8,8 +8,8 @@ catzc:
     docs: "[New-Importer.ps1.md](docs/references/pwsh/catzc-base-module-system/New-Importer.ps1.md)"
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES
-      - ADR-DSGN-RUNMODE
       - ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE
+      - DDR-RUNMODE
 ---
 #>
 

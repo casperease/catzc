@@ -242,7 +242,7 @@ resolution context shifts at each level, making the actual file path a puzzle. A
   (customer, environment, subscription type) — these are version-controlled, testable, and independent of the pipeline.
 
 - **Flat pipeline files** with direct step template references, as
-  [ADR-FLOW-CD-PIPELINE-FLATREADABLEYAML](../flow/pipeline-concept.md#rule-adr-flow-cd-pipeline-flatreadableyaml) requires of every
+  [FDR-CD-PIPELINE-FLATREADABLEYAML](../flow/pipeline-concept.md#rule-fdr-cd-pipeline-flatreadableyaml) requires of every
   pipeline. Each step is either a direct task or a single-level template reference.
 
 ## Consequences

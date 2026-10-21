@@ -15,5 +15,5 @@ folder-owning Domain and its Role, the optional Terminology token, the domain's 
 A processed record built and validated by AdrsConfig — not a raw YAML mirror, so PascalCase
 ([ADR-BCL-TYPES](/docs/adr/automation/BCL/native-csharp-types.md),
 [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel),
-[ADR-DSGN-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainconcern)).
+[DDR-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-ddr-track-valuechainconcern)).
 ```

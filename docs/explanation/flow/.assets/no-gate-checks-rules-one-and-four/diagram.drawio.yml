@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: bf5b5f90c504
+#     with_body_sha: "6c5261eb8a13"
 # ---
 
 description:
@@ -9,10 +9,10 @@ description:
   gate checks the YAML or the command, and the gates that touch the template and the runner check something nearby, not the rule itself."
 about:
   adrs:
-    - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-    - ADR-FLOW-CD-RUNNER-IMPORTONCE
-    - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
-    - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
+    - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+    - FDR-CD-RUNNER-IMPORTONCE
+    - FDR-CD-RUNNER-THINSTEPTEMPLATES
+    - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
     - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
   lens: governance
 content:
@@ -86,17 +86,17 @@ content:
   chips:
     - at: a-pipeline-yaml
       kind: rule
-      rule: ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
+      rule: FDR-CD-RUNNER-NOINLINEPOWERSHELL
       gated: false
     - at: f-step-template
       kind: rule
-      rule: ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+      rule: FDR-CD-RUNNER-THINSTEPTEMPLATES
     - at: g-runner
       kind: rule
-      rule: ADR-FLOW-CD-RUNNER-IMPORTONCE
+      rule: FDR-CD-RUNNER-IMPORTONCE
     - at: a-run-command
       kind: rule
-      rule: ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
+      rule: FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
       gated: false
     - at: g-test-pipelines
       kind: rule
@@ -107,18 +107,18 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-IMPORTONCE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-IMPORTONCE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: docs/-/.
         by:
           - docs/adr/ado/dora-explains.md
@@ -138,19 +138,19 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
           - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-IMPORTONCE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1
           - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-IMPORTONCE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: pwsh/Catzc.Azure.DevOps/private
         by:
           - pwsh/Catzc.Azure.DevOps/private/Get-PipelineTemplateReference.ps1
@@ -163,41 +163,41 @@ content:
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-IMPORTONCE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-IMPORTONCE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-IMPORTONCE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-IMPORTONCE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
     module-neighbourhood:
       - cell: subject/.claude
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-IMPORTONCE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: subject/Catzc.Azure.DevOps
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -205,44 +205,44 @@ content:
           - pwsh/Catzc.Azure.DevOps/private/Get-PipelineTemplateReference.ps1
           - pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
           - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-IMPORTONCE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
           - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-IMPORTONCE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: subject/Catzc.Base.Maps
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-IMPORTONCE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: subject/pipelines
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-IMPORTONCE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
     axis:
       - cell: DSGN/*
         by:
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-IMPORTONCE
-          - ADR-FLOW-CD-RUNNER-NOINLINEPOWERSHELL
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: FLOW/build
         by:
           - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH

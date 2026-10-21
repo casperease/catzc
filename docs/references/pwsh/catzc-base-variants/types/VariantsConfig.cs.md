@@ -25,16 +25,16 @@ optional, and an unknown key throws (a typo fails fast at load):
                   tokens (^[a-z][a-z0-9]+$; empty = none). Not cross-checked against customer.yml (one layer up,
                   in Catzc.Azure) — an Azure-layer integrity test confirms every listed name is a customer.
   aspects         a non-empty map of track -> ordered list of single-key {name: [patterns]} entries
-                  ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)): kebab-case unique names, non-empty
+                  ([DDR-ASPECT](/docs/adr/design/module-aspects.md)): kebab-case unique names, non-empty
                   patterns, the LAST entry the bare '**' catch-all remainder and no earlier entry using it. The
                   catch-all's liveness is the container's call, and glob syntax is the Globs aspect engine's
                   check — structural checks only.
-  tracks          a non-empty map of track -> { root, class, languages } ([ADR-DSGN-TRACK](/docs/adr/design/tracks.md)),
+  tracks          a non-empty map of track -> { root, class, languages } ([DDR-TRACK](/docs/adr/design/tracks.md)),
                   in declared order: a kebab-case or dot-prefixed track name; 'root' required, one folder segment
                   (no '/', '\', '.' or '..'), never 'out' (gitignored output,
-                  [ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster)), and unique across tracks;
+                  [DDR-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-ddr-track-trackisplacedcluster)), and unique across tracks;
                   'class' required, one of VariantTrack.Classes
-                  ([ADR-DSGN-TRACK-ONETRACKTYPE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-onetracktype)); 'languages' optional
+                  ([DDR-TRACK-ONETRACKTYPE](/docs/adr/design/tracks.md#rule-ddr-track-onetracktype)); 'languages' optional
                   (default: none), a list of unique kebab-case file-language names. This file is validated alone:
                   that each name is a registered file language is an integrity test in Catzc.Base.Languages.
 ```

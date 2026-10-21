@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4f1539429d69"
+#     with_body_sha: "89fa08b8e57f"
 # ---
 
 description:
@@ -9,10 +9,10 @@ description:
   never on the provisional HEAD.
 about:
   adrs:
-    - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-    - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-    - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-    - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+    - DDR-REMOTE-SERVERREMOTEISTRUTH
+    - DDR-REMOTE-INTEGRATEFROMVERIFIED
+    - DDR-REMOTE-NORECONCILINGTIPS
+    - DDR-REMOTE-PULLREQUESTISINGRESS
   lens: meta
 content:
   title: Changes enter through one door, and consumers build on one stable point
@@ -79,68 +79,68 @@ content:
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-NORECONCILINGTIPS
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
       - cell: docs/-/.
         by:
           - docs/adr/design/dora-explains.md
           - docs/adr/design/server-remote-integration.md
           - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
           - docs/adr/index.md
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-NORECONCILINGTIPS
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-NORECONCILINGTIPS
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
     grid:
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-NORECONCILINGTIPS
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
       - cell: docs/markdown
         by:
           - docs/adr/design/dora-explains.md
           - docs/adr/design/server-remote-integration.md
           - docs/adr/index.md
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-NORECONCILINGTIPS
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
       - cell: docs/yaml
         by:
           - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
       - cell: pwsh/yaml
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-NORECONCILINGTIPS
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
     axis:
       - cell: DSGN/build
         by:
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-NORECONCILINGTIPS
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
       - cell: DSGN/quality-control
         by:
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-NORECONCILINGTIPS
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
 layout:
   band-in:
     x: 20

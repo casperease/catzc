@@ -9,6 +9,6 @@ Above `Describe 'Get-GlobSetFile' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 The member list: tracked universe ∩ globset membership, ordinally sorted
-([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly),
-[ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-durableshaidentity)).
+([FDR-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly),
+[FDR-CD-GLOBS-DURABLESHAIDENTITY](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)).
 ```

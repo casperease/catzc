@@ -9,5 +9,5 @@ Above `Describe 'Get-WorldMap — the real repository' -Tag 'L1', 'integrity',..
 
 ```text
 The real repository: every tracked file of the git index gets a cell, and no live file breaks its track's
-tech-stack ([ADR-DSGN-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-onetechstack)).
+tech-stack ([DDR-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-ddr-track-onetechstack)).
 ```

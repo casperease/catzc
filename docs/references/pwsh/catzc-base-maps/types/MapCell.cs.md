@@ -9,9 +9,9 @@ Above `namespace Catzc.Base.Maps;`, written with `//`.
 
 ```text
 One cell of the world map: a track (the row) crossed with a file language (the column), and how many tracked files
-sit in it ([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster),
-[ADR-DSGN-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-filelanguage)). A cell breaks "one tech-stack per track"
-([ADR-DSGN-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-onetechstack)) when it holds a live file whose file
+sit in it ([DDR-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-ddr-track-trackisplacedcluster),
+[DDR-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-ddr-track-filelanguage)). A cell breaks "one tech-stack per track"
+([DDR-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-ddr-track-onetechstack)) when it holds a live file whose file
 language the track does not declare; WorldMapBuilder decides that per file (MapPlacement.StackViolation) and the
 cell carries the result. A result type, so the properties are PascalCase
 ([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).

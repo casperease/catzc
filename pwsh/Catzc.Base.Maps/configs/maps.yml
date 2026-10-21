@@ -6,11 +6,11 @@
 #     docs: "[maps.yml.md](docs/references/pwsh/catzc-base-maps/configs/maps.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-#       - ADR-DSGN-TRACK-ROOTFILE
-#       - ADR-DSGN-TRACK-UNLISTEDFILE
-#       - ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS
-#       - ADR-DSGN-TRACK-VALUECHAINMAP
 #       - ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER
+#       - DDR-TRACK-ROOTFILE
+#       - DDR-TRACK-UNLISTEDFILE
+#       - DDR-TRACK-LABELSNAMEDEFINEDTERMS
+#       - DDR-TRACK-VALUECHAINMAP
 # ---
 
 {}

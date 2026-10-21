@@ -39,7 +39,7 @@ Whatever the entry point, the load runs the same steps in the same order, and th
   (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER).
 - A bundle is a session, not a passive library: loading it sets the global error and warning preferences exactly as the source importer does
   (ADR-AUTO-BUNDLE-BUNDLEISSESSION).
-- The two run modes never coexist in one session (ADR-DSGN-RUNMODE-NEVERCOEXIST).
+- The two run modes never coexist in one session (DDR-RUNMODE-NEVERCOEXIST).
 
 ## See also
 

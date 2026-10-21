@@ -7,7 +7,7 @@ catzc:
     docs: "[Test-GlobListEqual.ps1.md](docs/references/pwsh/catzc-base-globs/private/Test-GlobListEqual.ps1.md)"
     cites:
       - ADR-AUTO-XPLAT
-      - ADR-FLOW-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
+      - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
 ---
 #>
 

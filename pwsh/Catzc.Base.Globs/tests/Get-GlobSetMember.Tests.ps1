@@ -7,7 +7,7 @@ catzc:
     docs: "[Get-GlobSetMember.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
     cites:
-      - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+      - FDR-CD-GLOBS-TRACKEDFILESONLY
 ---
 #>
 

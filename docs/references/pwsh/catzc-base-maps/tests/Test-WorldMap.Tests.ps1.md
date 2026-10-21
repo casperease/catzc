@@ -9,8 +9,8 @@ Above `Describe 'Test-WorldMap' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-WorldMap reads the world map Get-WorldMap returns and reports its stack violations
-([ADR-DSGN-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-onetechstack)), its undeclared root folders
-([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster)) and the printed labels that name no glossary
+([DDR-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-ddr-track-onetechstack)), its undeclared root folders
+([DDR-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-ddr-track-trackisplacedcluster)) and the printed labels that name no glossary
 term, through Write-QualityGateReport
 ([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The logic tests mock the map, the
 glossary and the labels with widget/gadget fixtures

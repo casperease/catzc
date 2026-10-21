@@ -2,17 +2,17 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b4b9d323b7e8
+    with_body_sha: "598d0c499892"
   edges:
     docs: "[AdrsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
     cites:
       - ADR-AUTO-LAYERS-REALISENEVERREDEFINE
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
-      - ADR-DSGN-TRACK-VALUECHAINSTACK
-      - ADR-DSGN-TRACK-VALUECHAINCONCERN
       - ADR-REPO-ADRCODE-DOMAINSEGMENT
       - ADR-REPO-LANG
+      - DDR-TRACK-VALUECHAINSTACK
+      - DDR-TRACK-VALUECHAINCONCERN
 ---
 #>
 
@@ -170,7 +170,7 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: kinds, domains)*"
     }
 
-    Context 'value-chain stack and concerns' -Tag 'ADR-DSGN-TRACK-VALUECHAINSTACK', 'ADR-DSGN-TRACK-VALUECHAINCONCERN' {
+    Context 'value-chain stack and concerns' -Tag 'DDR-TRACK-VALUECHAINSTACK', 'DDR-TRACK-VALUECHAINCONCERN' {
         It 'declares the stack rows and the concerns once, in value-chain order' {
             [Catzc.Base.Docs.AdrsConfig]::Stacks | Should -Be @('PRIN', 'DSGN', 'AUTO', 'PIPE', 'CLOUD')
             [Catzc.Base.Docs.AdrsConfig]::Concerns | Should -Be @('automation', 'build', 'quality-control', 'release', 'deploy', 'access')

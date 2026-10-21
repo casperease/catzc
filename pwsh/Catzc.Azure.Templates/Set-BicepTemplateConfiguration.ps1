@@ -9,8 +9,8 @@ catzc:
     cites:
       - ADR-AUTO-DRYRUN
       - ADR-AZ-DATAMOD
-      - ADR-FLOW-CD-TYPE
       - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+      - FDR-CD-TYPE
 ---
 #>
 

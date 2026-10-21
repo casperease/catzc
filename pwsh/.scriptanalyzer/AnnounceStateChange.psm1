@@ -5,6 +5,11 @@ catzc:
     with_body_sha: "6a3f34e7fc2e"
   edges:
     docs: "[AnnounceStateChange.psm1.md](docs/references/pwsh/scriptanalyzer/AnnounceStateChange.psm1.md)"
+    cites:
+      - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
+      - ADR-PWSH-ANNOUNCE-INFORMATIONRECORD
+      - ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES
+      - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 ---
 #>
 

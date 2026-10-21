@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "53b20df25be9"
+#     with_body_sha: "9b4b1394e4b8"
 # ---
 
 description:
@@ -17,7 +17,7 @@ about:
     - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
     - ADR-REPO-ROOTCFG-FULLYMANAGED
     - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
-    - ADR-DSGN-RUNMODE-NEVERCOEXIST
+    - DDR-RUNMODE-NEVERCOEXIST
     - ADR-BCL-TYPES-JANITORSBYCALLER
   lens: governance
 content:
@@ -97,7 +97,7 @@ content:
       rule: ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
     - at: g-mode
       kind: rule
-      rule: ADR-DSGN-RUNMODE-NEVERCOEXIST
+      rule: DDR-RUNMODE-NEVERCOEXIST
     - at: g-janitors
       kind: rule
       rule: ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
@@ -128,7 +128,7 @@ content:
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOROOTS
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
           - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
           - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
@@ -233,7 +233,7 @@ content:
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOROOTS
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
           - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
           - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
@@ -257,7 +257,7 @@ content:
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOROOTS
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
           - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
           - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
@@ -318,7 +318,7 @@ content:
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
       - cell: pwsh/Catzc.Base.Languages/.
         by:
           - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
@@ -340,7 +340,7 @@ content:
           - pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
           - pwsh/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
       - cell: pwsh/Catzc.Base.ModuleSystem/tests
         by:
           - pwsh/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
@@ -383,7 +383,7 @@ content:
           - pwsh/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1
           - pwsh/Catzc.Base.Repository/Get-SessionActor.ps1
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
       - cell: pwsh/Catzc.Base.Repository/tests
         by:
           - pwsh/Catzc.Base.Repository/tests/Get-SessionActor.Tests.ps1
@@ -394,7 +394,7 @@ content:
           - pwsh/Catzc.Base.RootConfig/New-GitAttributes.ps1
           - pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
           - pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
           - ADR-REPO-ROOTCFG-FULLYMANAGED
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
       - cell: pwsh/Catzc.Base.RootConfig/configs
@@ -425,12 +425,12 @@ content:
           - pwsh/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
           - pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
       - cell: pwsh/Catzc.Base.Vendor/.
         by:
           - pwsh/Catzc.Base.Vendor/Install-VendorModule.ps1
           - pwsh/Catzc.Base.Vendor/Remove-VendorModules.ps1
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
       - cell: pwsh/Catzc.Base.VSCode/.
         by:
           - pwsh/Catzc.Base.VSCode/New-VSCodeExtensions.ps1
@@ -463,7 +463,7 @@ content:
           - ADR-AUTO-BUNDLE-BUNDLEISSESSION
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOROOTS
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
     grid:
       - cell: .claude/markdown
         by:
@@ -483,7 +483,7 @@ content:
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOROOTS
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
           - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
           - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
@@ -586,7 +586,7 @@ content:
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOROOTS
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
           - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
           - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
@@ -597,7 +597,7 @@ content:
           - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
           - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs
@@ -681,7 +681,7 @@ content:
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOROOTS
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
           - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
           - ADR-REPO-ROOTCFG-FULLYMANAGED
@@ -704,7 +704,7 @@ content:
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOROOTS
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
           - PDR-ONELIVE-ONEVERSION
           - ADR-PWSH-ERROR-STOPONERROR
           - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
@@ -716,17 +716,17 @@ content:
           - ADR-AUTO-BUNDLE-BUNDLEISSESSION
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
           - ADR-AUTO-BUNDLE-TWOROOTS
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
       - cell: (no track)/(other)
         by:
           - .gitattributes
           - .gitignore
           - ADR-BCL-TYPES-JANITORSBYCALLER
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
     axis:
       - cell: DSGN/build
         by:
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-NEVERCOEXIST
       - cell: DSGN/release
         by:
           - PDR-ONELIVE-ONEVERSION

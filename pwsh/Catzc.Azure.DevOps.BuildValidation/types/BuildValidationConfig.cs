@@ -8,7 +8,7 @@ catzc:
     docs: "[BuildValidationConfig.cs.md](docs/references/pwsh/catzc-azure-dev-ops-build-validation/types/BuildValidationConfig.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-      - ADR-FLOW-CD-TYPE-PRECOMMITBUDGET
+      - FDR-CD-TYPE-PRECOMMITBUDGET
 ---
 */
 

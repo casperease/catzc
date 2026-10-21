@@ -15,11 +15,11 @@ text of the files that cite, the repository-root files' owners (files.yml: root 
 the owning module's folder), and the globsets (globs.yml). Get-WorldMap gathers them from the repository.
 
 Placement is exact: the root folder gives the track and the extension gives the file language
-([ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster),
-[ADR-DSGN-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-filelanguage)). A file under no track goes to the NoTrack row
+([DDR-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-ddr-track-trackisplacedcluster),
+[DDR-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-ddr-track-filelanguage)). A file under no track goes to the NoTrack row
 and a file no file language names goes to the NoFileLanguage column, so every file has exactly one cell.
 
-The stack check ([ADR-DSGN-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-onetechstack)) reads the live aspect only. A
+The stack check ([DDR-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-ddr-track-onetechstack)) reads the live aspect only. A
 file is live unless it is in a verification track, under a .vendor/ folder, or outside its track's live aspect. A
 track with an aspects entry classifies by it: the unit is the track root's first folder, a file directly under the
 root is its own unit, and the first aspect whose pattern matches the unit-relative path wins. A track without an
@@ -53,7 +53,7 @@ Above `private static Catzc.Base.Variants.VariantTrack TrackOf(string path,...`,
 
 ```text
 The track with the longest place that contains a '/'-separated path
-([ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS](/docs/adr/design/track-types.md#rule-adr-dsgn-tracktype-longestplacewins)), or null when no place does.
+([DDR-TRACKTYPE-LONGESTPLACEWINS](/docs/adr/design/track-types.md#rule-ddr-tracktype-longestplacewins)), or null when no place does.
 ```
 
 ## comment:4
@@ -62,5 +62,5 @@ Above `private static readonly string[] NeverLiveTypes = { "vendored-code" };`, 
 
 ```text
 Track types whose files are never live: code written by a third party; a test file is never live by its track's aspects, whatever the
-track's type ([ADR-DSGN-TRACK-STACKVIOLATION](/docs/adr/design/tracks.md#rule-adr-dsgn-track-stackviolation)).
+track's type ([DDR-TRACK-STACKVIOLATION](/docs/adr/design/tracks.md#rule-ddr-track-stackviolation)).
 ```

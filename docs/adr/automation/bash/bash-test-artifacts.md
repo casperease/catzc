@@ -71,14 +71,14 @@ written the way the user writes commands: in Bash.
 
 The `bash` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a module
 is a folder under the Bash root that the layout places, and the tests of the engine sit in the track's own holder. The engine stays
-PowerShell and C# ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetechstack)); a Bash test verifies it from outside. The builder
+PowerShell and C# ([tracks](../../design/tracks.md#rule-ddr-track-onetechstack)); a Bash test verifies it from outside. The builder
 reads the engine's track, so no Bash test reaches a bundle, and a Bash module reaches one only when `files.yml` packages it
 ([platform-bundle](../platform-bundle.md)).
 
 ### The layout
 
 The Bash root follows the one convention every test language's root follows: `bash/` when present — the `bash` track
-([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)) — else `.bash/`. The default is declared once, on the `BashConfig` type,
+([tracks](../../design/tracks.md#rule-ddr-track-onetracktype)) — else `.bash/`. The default is declared once, on the `BashConfig` type,
 and `BashConfig.ResolveRoot` is the one resolver every caller asks. Under the root, `tests/<module>/` holds one Bash test folder per catzc
 module, named by rendering the module's repository normal form in Bash's folder case, kebab
 ([idiomatic-names](../idiomatic-names.md#rule-adr-auto-idiom-testfolderbyidiom)).

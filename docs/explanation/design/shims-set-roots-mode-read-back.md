@@ -14,7 +14,7 @@ Each entry script fixes the code root, and Get-CatzcRunMode reads the mode back 
 9   Assert-CatzcRunModeExclusive  the last load step: every loaded catzc module is under the root
 10  Exclusivity violated          the throw, naming each offending module and both roots
 
-Supports ADR-DSGN-RUNMODE-TWORUNMODES, ADR-DSGN-RUNMODE-MODEISDERIVED, ADR-DSGN-RUNMODE-NEVERCOEXIST and ADR-DSGN-RUNMODE-THREEBUILDKINDS (implementation lens).
+Supports DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-MODEISDERIVED, DDR-RUNMODE-NEVERCOEXIST and DDR-RUNMODE-THREEBUILDKINDS (implementation lens).
 ```
 
 The two entry scripts of cats, one per run mode, are both thin. Each one only fixes the roots and then calls the same function,
@@ -50,11 +50,11 @@ from that same code root, the mode a session reports cannot disagree with the co
 
 ## Why it holds
 
-- Source mode is entered by `importer.ps1` and build mode by the package's `Import-Catzc.ps1` (ADR-DSGN-RUNMODE-TWORUNMODES).
-- The mode is derived from the code root and never stored, so it cannot disagree with what loaded (ADR-DSGN-RUNMODE-MODEISDERIVED).
+- Source mode is entered by `importer.ps1` and build mode by the package's `Import-Catzc.ps1` (DDR-RUNMODE-TWORUNMODES).
+- The mode is derived from the code root and never stored, so it cannot disagree with what loaded (DDR-RUNMODE-MODEISDERIVED).
 - Entering either mode removes every module loaded from the other root, then asserts that every loaded catzc module comes from the active
-  root (ADR-DSGN-RUNMODE-NEVERCOEXIST).
-- Every kind of build root loads through the same importer (ADR-DSGN-RUNMODE-THREEBUILDKINDS).
+  root (DDR-RUNMODE-NEVERCOEXIST).
+- Every kind of build root loads through the same importer (DDR-RUNMODE-THREEBUILDKINDS).
 
 ## Where the code and the ADR differ
 

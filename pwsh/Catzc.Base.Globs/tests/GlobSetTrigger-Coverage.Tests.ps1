@@ -7,7 +7,7 @@ catzc:
     docs: "[GlobSetTrigger-Coverage.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+      - FDR-CD-GLOBS-NAMEDGLOBSETS
 ---
 #>
 

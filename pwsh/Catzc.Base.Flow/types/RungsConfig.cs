@@ -2,18 +2,18 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dc9d1af00b8f
+    with_body_sha: "876bdabe8a02"
   edges:
     test: pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
     docs: "[RungsConfig.cs.md](docs/references/pwsh/catzc-base-flow/types/RungsConfig.cs.md)"
     cites:
-      - ADR-FLOW-CD-CDSTAYSINNONPROD
-      - ADR-FLOW-CD-TWORELEASEGATES
-      - ADR-FLOW-CD-PREPRODRUNG
-      - ADR-FLOW-CD-TWOENVIRONMENTACTIVATION
-      - ADR-FLOW-CD-PRODAPPROVALGATE
-      - ADR-FLOW-CD-RUNGSREGISTRY
-      - ADR-FLOW-CD-CERTIFYINGRECORD
+      - FDR-CD-CDSTAYSINNONPROD
+      - FDR-CD-TWORELEASEGATES
+      - FDR-CD-PREPRODRUNG
+      - FDR-CD-TWOENVIRONMENTACTIVATION
+      - FDR-CD-PRODAPPROVALGATE
+      - FDR-CD-RUNGSREGISTRY
+      - FDR-CD-CERTIFYINGRECORD
 ---
 */
 
@@ -25,7 +25,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Flow;
 
-// The promotion ladder's rungs, in climbing order ([ADR-FLOW-CD-RUNGSREGISTRY](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-rungsregistry)).
+// The promotion ladder's rungs, in climbing order ([FDR-CD-RUNGSREGISTRY](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-rungsregistry)).
 public sealed class RungsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -40,10 +40,10 @@ public sealed class RungsConfig
 
     public static readonly IReadOnlyList<Rung> DefaultRungs = Array.AsReadOnly(new[]
     {
-        new Rung("main-uat", "dev", GateNone, new[] { "ADR-FLOW-CD-CDSTAYSINNONPROD" }),
-        new Rung("release-uat", "test", GateRc, new[] { "ADR-FLOW-CD-TWORELEASEGATES" }),
-        new Rung("pre-prod", "preprod", GateRbc, new[] { "ADR-FLOW-CD-PREPRODRUNG", "ADR-FLOW-CD-CERTIFYINGRECORD" }),
-        new Rung("prod", "prod", GateProdApproval, new[] { "ADR-FLOW-CD-PRODAPPROVALGATE", "ADR-FLOW-CD-TWOENVIRONMENTACTIVATION" }),
+        new Rung("main-uat", "dev", GateNone, new[] { "FDR-CD-CDSTAYSINNONPROD" }),
+        new Rung("release-uat", "test", GateRc, new[] { "FDR-CD-TWORELEASEGATES" }),
+        new Rung("pre-prod", "preprod", GateRbc, new[] { "FDR-CD-PREPRODRUNG", "FDR-CD-CERTIFYINGRECORD" }),
+        new Rung("prod", "prod", GateProdApproval, new[] { "FDR-CD-PRODAPPROVALGATE", "FDR-CD-TWOENVIRONMENTACTIVATION" }),
     });
 
     private static readonly string[] AllowedKeys = { "rungs" };

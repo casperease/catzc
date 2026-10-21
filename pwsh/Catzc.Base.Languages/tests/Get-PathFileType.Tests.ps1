@@ -2,15 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "963977d226d8"
+    with_body_sha: "521bf7ce6261"
   edges:
     code: pwsh/Catzc.Base.Languages/Get-PathFileType.ps1
     cites:
-      - ADR-DSGN-TRACK-FILELANGUAGE
+      - DDR-TRACK-FILELANGUAGE
 ---
 #>
 
-Describe 'Get-PathFileType' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-FILELANGUAGE' {
+Describe 'Get-PathFileType' -Tag 'L0', 'logic', 'DDR-TRACK-FILELANGUAGE' {
     It 'returns the extension of the file name without its dot' -ForEach @(
         @{ Path = 'widgetry/Catzc.Widget/Get-Gadget.ps1'; Expected = 'ps1' }
         @{ Path = 'widgetry/.internal/Catzc.Internal.Types.psm1'; Expected = 'psm1' }

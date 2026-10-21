@@ -8,7 +8,7 @@ catzc:
     docs: "[Get-TrackedFile.ps1.md](docs/references/pwsh/catzc-base-globs/Get-TrackedFile.ps1.md)"
     cites:
       - ADR-AUTO-TRACKED-ONESEAM
-      - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+      - FDR-CD-GLOBS-TRACKEDFILESONLY
 ---
 #>
 

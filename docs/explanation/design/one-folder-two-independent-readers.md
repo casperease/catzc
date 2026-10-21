@@ -12,7 +12,7 @@ One module folder has two independent readers: the loader and the globs engine.
 7  <module>-tests             the last aspect, the ** remainder: never ships
 8  Aspect sha locks           ADR-only: one immutable lock per aspect
 
-Supports ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS, ADR-DSGN-ASPECT-ASPECTSAREDERIVED and ADR-DSGN-ASPECT-ASPECTISAGLOBSET (architecture lens).
+Supports DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED and DDR-ASPECT-ASPECTISAGLOBSET (architecture lens).
 ```
 
 A cats module is a folder under `pwsh/`, and nothing else declares what it contains. Two components read that folder, and neither reads the
@@ -43,18 +43,18 @@ sits, so a module author shapes visibility and shipping identity with the same a
 ## Why it holds
 
 - Every module partitions its tracked files into aspects that are disjoint and exhaustive: no file in two aspects, no file in none
-  (ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS).
+  (DDR-ASPECT-MODULESPARTITIONINTOASPECTS).
 - Aspects are derived from folder conventions, never declared by hand; ordered first match with a `**` remainder makes the partition true by
-  construction (ADR-DSGN-ASPECT-ASPECTSAREDERIVED).
+  construction (DDR-ASPECT-ASPECTSAREDERIVED).
 - Each aspect is its own versioned artifact, so a test-only change never re-keys `live` and a runtime change never re-keys `tests`
-  (ADR-DSGN-ASPECT-ASPECTISAGLOBSET).
+  (DDR-ASPECT-ASPECTISAGLOBSET).
 
 ## Where the code and the ADR differ
 
-- ADR-DSGN-ASPECT-ASPECTISAGLOBSET makes each aspect a sha lock with a `<unit>-<aspect>.yml` marker by way of
-  ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT, but that rule computes change from git at real refs, never from a committed hash, and no aspect
+- DDR-ASPECT-ASPECTISAGLOBSET makes each aspect a sha lock with a `<unit>-<aspect>.yml` marker by way of
+  FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, but that rule computes change from git at real refs, never from a committed hash, and no aspect
   marker exists.
-- ADR-DSGN-ASPECT-ASPECTSAREDERIVED prefixes every aspect pattern with the unit root, but the tests set also reaches the language test
+- DDR-ASPECT-ASPECTSAREDERIVED prefixes every aspect pattern with the unit root, but the tests set also reaches the language test
   folders outside it.
 
 ## See also

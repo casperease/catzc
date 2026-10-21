@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.Exporter/tests/Get-CatzcContentHash.Tests.ps1
     docs: "[Get-CatzcContentHash.ps1.md](docs/references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md)"
     cites:
-      - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
       - ADR-PWSH-ENUM-ALWAYSBOUNDED
+      - FDR-CD-GLOBS-DURABLESHAIDENTITY
 ---
 #>
 

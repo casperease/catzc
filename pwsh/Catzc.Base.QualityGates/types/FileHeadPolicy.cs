@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "71f60bedbae7"
+    with_body_sha: efaeff76aefd
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/FileHeadPolicy.Tests.ps1
     docs: "[FileHeadPolicy.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/FileHeadPolicy.cs.md)"

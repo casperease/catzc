@@ -12,7 +12,7 @@ Three gates guard the CLI and az, but nothing checks that cats stays thin.
 7  az CLI                the default for every Azure operation
 8  swappable substrate   ADR-only: the vendor could change behind the CLI
 
-Supports ADR-DSGN-THINPLAT-THINPLATFORM, ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT, ADR-DSGN-THINPLAT-PLATFORMASCLI, ADR-DSGN-THINPLAT-REPRESENTEDASCODE and ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE, and ADR-AZ-CLI-AZBYDEFAULT, ADR-AZ-CLI-ASSERTAZ and ADR-AZ-CLI-NOAZMODULEIMPORT (governance lens).
+Supports DDR-THINPLAT-THINPLATFORM, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI, DDR-THINPLAT-REPRESENTEDASCODE and DDR-THINPLAT-SWAPPABLESUBSTRATE, and ADR-AZ-CLI-AZBYDEFAULT, ADR-AZ-CLI-ASSERTAZ and ADR-AZ-CLI-NOAZMODULEIMPORT (governance lens).
 ```
 
 Each rule that shapes cats as a thin platform constrains either the CLI surface or the vendor call behind it. Three of those rules have a
@@ -47,11 +47,11 @@ alone.
 
 ## Why it holds
 
-- The conventions over Azure are owned by the platform and live in its configuration (ADR-DSGN-THINPLAT-THINPLATFORM).
-- Thin is delegation, not reimplementation (ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT).
-- The `Verb-Noun` functions and their configuration are the platform's API (ADR-DSGN-THINPLAT-PLATFORMASCLI).
-- Everything the platform covers is code, in one living version (ADR-DSGN-THINPLAT-REPRESENTEDASCODE).
-- The substrate is swappable, and the consequential choices stay in the consumer's configuration (ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE).
+- The conventions over Azure are owned by the platform and live in its configuration (DDR-THINPLAT-THINPLATFORM).
+- Thin is delegation, not reimplementation (DDR-THINPLAT-DELEGATENOTREIMPLEMENT).
+- The `Verb-Noun` functions and their configuration are the platform's API (DDR-THINPLAT-PLATFORMASCLI).
+- Everything the platform covers is code, in one living version (DDR-THINPLAT-REPRESENTEDASCODE).
+- The substrate is swappable, and the consequential choices stay in the consumer's configuration (DDR-THINPLAT-SWAPPABLESUBSTRATE).
 - az is the default for Azure operations (ADR-AZ-CLI-AZBYDEFAULT), a function that calls az asserts `Assert-Tool 'az_cli'` first
   (ADR-AZ-CLI-ASSERTAZ), and automation code never imports `Az.*` (ADR-AZ-CLI-NOAZMODULEIMPORT).
 

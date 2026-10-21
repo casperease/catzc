@@ -12,7 +12,7 @@ Returns the module a repository-relative path is placed in, and its module type,
 ### description
 
 The module types of the module-types registry say where modules are placed and how a path names its module
-([ADR-DSGN-TRACK-ONETECHSTACK](../../../adr/design/tracks.md#rule-adr-dsgn-track-onetechstack)): a PowerShell module is a folder under
+([DDR-TRACK-ONETECHSTACK](../../../adr/design/tracks.md#rule-ddr-track-onetechstack)): a PowerShell module is a folder under
 automation or one psm1 file under pwsh/.internal, a settings module is a tool's dot-folder, a pipeline module is the folder that holds
 pipelines, and a Python, Go or Bash module is its track folder. The first module type to place a path names its module, so
 `pwsh/.internal/tests/Get-Foo.Tests.ps1` is in the module `Catzc.Internal.Tests`. A path no module type places, such as a file directly in

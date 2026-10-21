@@ -2,15 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e217d016ff08
+    with_body_sha: "9f6144fd830d"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
     docs: "[Test-GlobSetIndependence.ps1.md](docs/references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-      - ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER
       - ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS
+      - FDR-CD-GLOBS-EVERYSETHASLAYER
+      - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
 ---
 #>
 
@@ -55,7 +55,7 @@ function Test-GlobSetIndependence {
                     }
                 }
                 $sample = @($shared | Select-Object -First 5) -join ', '
-                $issues.Add("$($layer.Name): $a <-> $b share $($shared.Count) file(s), e.g. $sample (ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER)")
+                $issues.Add("$($layer.Name): $a <-> $b share $($shared.Count) file(s), e.g. $sample (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER)")
             }
         }
     }

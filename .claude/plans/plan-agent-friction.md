@@ -20,7 +20,7 @@ step below moves one of those to the one place that serves it; steps 1 and 2 lan
   rule, and points at `catzc-run` for the call shapes.
 
 - **Delegated to the orchestrator, recommendations taken (2026-10-21):** step 1's trim adds one clause that the Bash hook also denies the
-  git topic commands (ADR-FLOW-GIT-USERRUNSGIT), named from `git.yml`, and that a script naming them is written with the Write tool.
+  git topic commands (FDR-GIT-USERRUNSGIT), named from `git.yml`, and that a script naming them is written with the Write tool.
 
 ## Open steps
 

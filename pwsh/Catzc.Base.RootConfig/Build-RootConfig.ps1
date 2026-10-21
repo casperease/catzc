@@ -8,8 +8,8 @@ catzc:
     docs: "[Build-RootConfig.ps1.md](docs/references/pwsh/catzc-base-root-config/Build-RootConfig.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
-      - ADR-DSGN-RUNMODE
       - ADR-REPO-ROOTCFG
+      - DDR-RUNMODE
 ---
 #>
 

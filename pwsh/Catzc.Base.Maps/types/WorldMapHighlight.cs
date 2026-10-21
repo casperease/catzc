@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.Maps/tests/types/WorldMapHighlight.Tests.ps1
     docs: "[WorldMapHighlight.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapHighlight.cs.md)"
     cites:
-      - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+      - DDR-TRACK-TRACKISPLACEDCLUSTER
       - TDR-ONETRUTH-TRUTHISQUERYABLE
 ---
 */

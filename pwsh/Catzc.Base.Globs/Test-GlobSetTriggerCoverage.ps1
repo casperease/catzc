@@ -8,7 +8,7 @@ catzc:
     docs: "[Test-GlobSetTriggerCoverage.ps1.md](docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+      - FDR-CD-GLOBS-NATIVEPATHFILTER
 ---
 #>
 

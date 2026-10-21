@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0a51be8aa2e6"
+    with_body_sha: d886226a962e
     warning: "Do Not Edit, this file is generated"
     role: index
     track: docs
@@ -105,17 +105,17 @@ build). It builds on research, principles, and process; the flow and implementat
 
 **Role:** `architecture` — **depends on:** `research`, `principles`, `process`.
 
-| Code                 | ADR                                                              |
-| -------------------- | ---------------------------------------------------------------- |
-| `ADR-DSGN-TRACK`     | [tracks](design/tracks.md)                                       |
-| `ADR-DSGN-THINPLAT`  | [thin-platforms](design/thin-platforms.md)                       |
-| `ADR-DSGN-SELFSERV`  | [self-service](design/self-service.md)                           |
-| `ADR-DSGN-VISUAL`    | [visual-design](design/visual-design.md)                         |
-| `ADR-DSGN-REMOTE`    | [server-remote-integration](design/server-remote-integration.md) |
-| `ADR-DSGN-RUNMODE`   | [run-modes](design/run-modes.md)                                 |
-| `ADR-DSGN-TRACKTYPE` | [track-types](design/track-types.md)                             |
-| `ADR-DSGN-MODTYPE`   | [module-types](design/module-types.md)                           |
-| `ADR-DSGN-ASPECT`    | [module-aspects](design/module-aspects.md)                       |
+| Code            | ADR                                                              |
+| --------------- | ---------------------------------------------------------------- |
+| `DDR-TRACK`     | [tracks](design/tracks.md)                                       |
+| `DDR-THINPLAT`  | [thin-platforms](design/thin-platforms.md)                       |
+| `DDR-SELFSERV`  | [self-service](design/self-service.md)                           |
+| `DDR-VISUAL`    | [visual-design](design/visual-design.md)                         |
+| `DDR-REMOTE`    | [server-remote-integration](design/server-remote-integration.md) |
+| `DDR-RUNMODE`   | [run-modes](design/run-modes.md)                                 |
+| `DDR-TRACKTYPE` | [track-types](design/track-types.md)                             |
+| `DDR-MODTYPE`   | [module-types](design/module-types.md)                           |
+| `DDR-ASPECT`    | [module-aspects](design/module-aspects.md)                       |
 
 ### flow/
 
@@ -127,16 +127,16 @@ implement it.
 
 **Role:** `architecture` — **depends on:** `research`, `principles`, `process`, `design`.
 
-| Code                   | ADR                                                                          |
-| ---------------------- | ---------------------------------------------------------------------------- |
-| `ADR-FLOW-CD`          | [cd-discipline-and-promotion-flow](flow/cd-discipline-and-promotion-flow.md) |
-| `ADR-FLOW-CD-RUNNER`   | [pipeline-runner-pattern](flow/pipeline-runner-pattern.md)                   |
-| `ADR-FLOW-CD-DETECT`   | [pipeline-detection](flow/pipeline-detection.md)                             |
-| `ADR-FLOW-CD-TYPE`     | [pipeline-types](flow/pipeline-types.md)                                     |
-| `ADR-FLOW-CD-GLOBS`    | [durable-sha-globs](flow/durable-sha-globs.md)                               |
-| `ADR-FLOW-CD-PIPELINE` | [pipeline-concept](flow/pipeline-concept.md)                                 |
-| `ADR-FLOW-CD-LIFE`     | [commit-lifecycle](flow/commit-lifecycle.md)                                 |
-| `ADR-FLOW-GIT`         | [git-topic-flow](flow/git-topic-flow.md)                                     |
+| Code              | ADR                                                                          |
+| ----------------- | ---------------------------------------------------------------------------- |
+| `FDR-CD`          | [cd-discipline-and-promotion-flow](flow/cd-discipline-and-promotion-flow.md) |
+| `FDR-CD-RUNNER`   | [pipeline-runner-pattern](flow/pipeline-runner-pattern.md)                   |
+| `FDR-CD-DETECT`   | [pipeline-detection](flow/pipeline-detection.md)                             |
+| `FDR-CD-TYPE`     | [pipeline-types](flow/pipeline-types.md)                                     |
+| `FDR-CD-GLOBS`    | [durable-sha-globs](flow/durable-sha-globs.md)                               |
+| `FDR-CD-PIPELINE` | [pipeline-concept](flow/pipeline-concept.md)                                 |
+| `FDR-CD-LIFE`     | [commit-lifecycle](flow/commit-lifecycle.md)                                 |
+| `FDR-GIT`         | [git-topic-flow](flow/git-topic-flow.md)                                     |
 
 ### automation/
 
@@ -365,9 +365,9 @@ skips a repeated scan over an unchanged globset.
 ### research/
 
 The repository's core theoretical construct: the DORA research program, held as one ADR-style record per DORA capability, each with its own
-`ADR-DORA-<NAME>` rule codes, beside the cross-referenceable research reference in `docs/references/dora/`. It is trusted external
+`RDR-DORA-<NAME>` rule codes, beside the cross-referenceable research reference in `docs/references/dora/`. It is trusted external
 validation — every other domain depends on it and it depends on none; the others cite it through their `dora-explains.md` files and
-`ADR-DORA-*` citations.
+`RDR-DORA-*` citations.
 
 **Role:** `reference` — **depends on:** none.
 

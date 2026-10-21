@@ -1707,7 +1707,7 @@ with `-SubscriptionIdAssertIs`, which `Deploy-Bicep` requires in a pipeline
 fails before it changes anything. Every deploy job is bound to an Azure DevOps environment (`shared-psub`, `apex-prod`, …), where approvals
 and checks can be attached. The infrastructure CI needs no Azure identity at all: `ci-infrastructure.yaml` builds offline with `Mode: none`.
 Credentials never reach an environment variable in any mode
-([ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES](../../flow/pipeline-runner-pattern.md#rule-adr-flow-cd-runner-thinsteptemplates)).
+([FDR-CD-RUNNER-THINSTEPTEMPLATES](../../flow/pipeline-runner-pattern.md#rule-fdr-cd-runner-thinsteptemplates)).
 
 Two gaps remain. One service connection per subscription deploys `foundation`, `discovery`, and `expedition` alike, so a workload deploy
 runs with the rights the landing zone needs, to assign policies and, once rule 36 lands, roles. And the preview of a change,

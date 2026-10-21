@@ -13,7 +13,7 @@ The manifest and the aspects both come from one folder, by two code paths in cal
 8  <kebab>-live                  the live set
 9  <kebab>-tests                 the tests set, plus the language test folders
 
-Supports ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS and ADR-DSGN-ASPECT-ASPECTSAREDERIVED (implementation lens).
+Supports DDR-ASPECT-MODULESPARTITIONINTOASPECTS and DDR-ASPECT-ASPECTSAREDERIVED (implementation lens).
 ```
 
 Two code paths in cats read the same module folder and derive different things from it. On every import, the bootstrap guards the function
@@ -46,15 +46,15 @@ hand.
 
 ## Why it holds
 
-- A module's files partition into aspects that are disjoint and exhaustive (ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS).
+- A module's files partition into aspects that are disjoint and exhaustive (DDR-ASPECT-MODULESPARTITIONINTOASPECTS).
 - The aspects are derived from folder conventions by ordered first match, each aspect minus every earlier one, all prefixed by the unit root
-  (ADR-DSGN-ASPECT-ASPECTSAREDERIVED).
+  (DDR-ASPECT-ASPECTSAREDERIVED).
 
 ## Where the code and the ADR differ
 
 - ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED says `New-DynamicManifest` deletes the manifest when no `.ps1` is left; that function returns
   nothing, and `Import-AllModules` deletes the stale file.
-- ADR-DSGN-ASPECT-ASPECTSAREDERIVED prefixes every aspect pattern by the unit root; `Get-ModuleGlobSet` adds the language test folders to
+- DDR-ASPECT-ASPECTSAREDERIVED prefixes every aspect pattern by the unit root; `Get-ModuleGlobSet` adds the language test folders to
   the tests set outside it.
 
 ## See also

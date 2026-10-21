@@ -12,7 +12,7 @@ Throws unless an Azure DevOps environment's deployment history holds a successfu
 ### description
 
 The certifying record of a rung is the deployment history of its environment
-([ADR-FLOW-CD-CERTIFYINGRECORD](../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-certifyingrecord)): a DEPLOY run to a
+([FDR-CD-CERTIFYINGRECORD](../../../adr/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-certifyingrecord)): a DEPLOY run to a
 prod target calls this before it deploys, so a commit that never stood on pre-prod cannot ship. The commit is the source commit of the CI
 run that built the artifact. Each successful deployment in the history names the run that made it; that run's commit is the source commit of
 the CI run its `CiRunId` parameter names, or its own source commit when it has none. The newest matching deployment is returned; no match

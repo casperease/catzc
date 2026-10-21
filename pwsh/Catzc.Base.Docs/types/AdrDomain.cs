@@ -2,14 +2,14 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e96826819d9a
+    with_body_sha: "76f9c02f68d2"
   edges:
     docs: "[AdrDomain.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrDomain.cs.md)"
     cites:
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
-      - ADR-DSGN-TRACK-VALUECHAINSTACK
-      - ADR-DSGN-TRACK-VALUECHAINCONCERN
       - ADR-REPO-ADRCODE-DOMAINSEGMENT
+      - DDR-TRACK-VALUECHAINSTACK
+      - DDR-TRACK-VALUECHAINCONCERN
 ---
 */
 
@@ -22,7 +22,9 @@ public sealed class AdrDomain
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     public string Name { get; }
-    public string Code { get; }                    // null under a kind the domain owns (ADR-REPO-ADRCODE-DOMAINSEGMENT)
+    // null under a kind the domain owns
+    // ([ADR-REPO-ADRCODE-DOMAINSEGMENT](/docs/adr/repository/adr-code-language.md#rule-adr-repo-adrcode-domainsegment))
+    public string Code { get; }
     public string Kind { get; }                    // one of AdrsConfig.Kinds
     public string Prefix => Code == null ? Kind : Kind + "-" + Code; // the code every record of the domain starts with
     public string Role { get; }

@@ -2,15 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "45cd2ecd20af"
+    with_body_sha: f6e3c46d56d2
   edges:
     code: pwsh/Catzc.Base.Variants/types/ModuleTypesConfig.cs
     cites:
-      - ADR-DSGN-TRACK-ONETECHSTACK
+      - DDR-TRACK-ONETECHSTACK
 ---
 #>
 
-Describe 'ModuleTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-ONETECHSTACK' {
+Describe 'ModuleTypesConfig' -Tag 'L0', 'logic', 'DDR-TRACK-ONETECHSTACK' {
     BeforeAll {
         function script:New-Config {
             param($Types)

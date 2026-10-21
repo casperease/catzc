@@ -7,7 +7,7 @@
 The **importer** is the one way catzc enters a session: per execution engine one entry at the repository root, the importer entry the engine
 model names, every entry generated from one source and never hand-edited
 ([ADR-AUTO-ENGINE-IMPORTERENTRY](execution-engines.md#rule-adr-auto-engine-importerentry),
-[ADR-DSGN-RUNMODE-TWORUNMODES](../design/run-modes.md#rule-adr-dsgn-runmode-tworunmodes)).
+[DDR-RUNMODE-TWORUNMODES](../design/run-modes.md#rule-ddr-runmode-tworunmodes)).
 
 - [One entry per engine](#one-entry-per-engine)
 
@@ -69,7 +69,7 @@ entry, never a branch
 ### Rule ADR-AUTO-IMPORTER-MODEANDHOSTORTHOGONAL
 
 The run mode, source or build, and the host, console or headless, are orthogonal to the mix: they choose where the modules are read from and
-how the native types load ([ADR-DSGN-RUNMODE-MODEISDERIVED](../design/run-modes.md#rule-adr-dsgn-runmode-modeisderived)), the mix chooses
+how the native types load ([DDR-RUNMODE-MODEISDERIVED](../design/run-modes.md#rule-ddr-runmode-modeisderived)), the mix chooses
 which modules, languages and engines.
 
 - [The mix](#the-mix)

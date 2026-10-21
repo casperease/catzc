@@ -12,7 +12,7 @@ Logic tests pin the throw and the fail-open, an analyzer rule pins detection, an
 7  fetchDepth: 0                  required by GLOBS#9; set on the CD checkouts that diff, no gate checks it
 8  Changes step                   GLOBS#9's first step: the CD stages run the check, no gate requires it
 
-Supports ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT, ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK and ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY (governance lens).
+Supports FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-CD-DETECT-NODIRECTVARIABLECHECK and ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY (governance lens).
 ```
 
 Three rules constrain the touched-unit check, and they are enforced unevenly. The behaviour inside the module, the throw on an undeclared
@@ -47,9 +47,9 @@ stage that runs the check first, is wired into the CD pipelines, and no gate che
 ## Why it holds
 
 - Whether a change touches a unit is computed from git at real refs, the reference commit is resolved per context, the check fails open on
-  any doubt and throws on an undeclared name, and a pipeline checks out with `fetchDepth: 0` (ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+  any doubt and throws on an undeclared name, and a pipeline checks out with `fetchDepth: 0` (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
 - The detection variables are never read directly; `Test-IsRunningInPipeline` keeps the detection logic in one place
-  (ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK).
+  (FDR-CD-DETECT-NODIRECTVARIABLECHECK).
 - An error is raised through the assertion library, never through an inline check that raises its own error
   (ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY).
 

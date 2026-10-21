@@ -2,15 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "32020a4ed221"
+    with_body_sha: df90ab4645c4
   edges:
     docs: "[ValueChainCell.cs.md](docs/references/pwsh/catzc-base-maps/types/ValueChainCell.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-      - ADR-DSGN-TRACK-CELL
-      - ADR-DSGN-TRACK-VALUECHAINSTACK
-      - ADR-DSGN-TRACK-VALUECHAINCONCERN
-      - ADR-DSGN-TRACK-VALUECHAINMAP
+      - DDR-TRACK-CELL
+      - DDR-TRACK-VALUECHAINSTACK
+      - DDR-TRACK-VALUECHAINCONCERN
+      - DDR-TRACK-VALUECHAINMAP
 ---
 */
 
@@ -22,10 +22,10 @@ namespace Catzc.Base.Maps;
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Stack), nameof(Concern), nameof(AdrCount))]
 public sealed class ValueChainCell
 {
-    // The row: a row of the value-chain stack ([ADR-DSGN-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainstack)).
+    // The row: a row of the value-chain stack ([DDR-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-ddr-track-valuechainstack)).
     public string Stack { get; }
 
-    // The column: a value-chain concern ([ADR-DSGN-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainconcern)).
+    // The column: a value-chain concern ([DDR-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-ddr-track-valuechainconcern)).
     public string Concern { get; }
 
     public IReadOnlyList<string> Adrs { get; }

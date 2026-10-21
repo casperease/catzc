@@ -8,7 +8,7 @@ catzc:
     docs: "[Test-GlobSetAffected.ps1.md](docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md)"
     cites:
       - ADR-AUTO-FAILFAST
-      - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+      - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
 ---
 #>
 

@@ -11,7 +11,7 @@ The Azure DevOps step is named after its command, and its log echoes the command
 6  Write-Exception           type, message, stack trace and inner exceptions; the run stops
 7  developer                 runs .\importer.ps1 and pastes the RunCommand; no gate checks it
 
-Supports ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES and ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE (operations lens).
+Supports FDR-CD-RUNNER-THINSTEPTEMPLATES and FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE (operations lens).
 ```
 
 What an author writes in a pipeline is what the Azure DevOps run shows. The step's label is its command, the log names the mode and then
@@ -41,9 +41,9 @@ every `pwsh/**` change.
 
 ## Why it holds
 
-- Step templates add pipeline concerns such as the display name, and never contain logic (ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES).
+- Step templates add pipeline concerns such as the display name, and never contain logic (FDR-CD-RUNNER-THINSTEPTEMPLATES).
 - Whatever string appears in `RunCommand` can be pasted into a local terminal after running `.\importer.ps1`
-  (ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE).
+  (FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE).
 
 ## Where the code and the ADR differ
 

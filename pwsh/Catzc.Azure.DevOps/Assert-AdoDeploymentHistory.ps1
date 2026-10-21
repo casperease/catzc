@@ -2,12 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cf4ce17ebba9
+    with_body_sha: "03d4efc58fd6"
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Assert-AdoDeploymentHistory.Tests.ps1
     docs: "[Assert-AdoDeploymentHistory.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/Assert-AdoDeploymentHistory.ps1.md)"
     cites:
-      - ADR-FLOW-CD-CERTIFYINGRECORD
+      - FDR-CD-CERTIFYINGRECORD
 ---
 #>
 
@@ -74,5 +74,5 @@ function Assert-AdoDeploymentHistory {
     }
 
     throw "Commit $commit (CI run $CiRunId) has no successful deployment in the last $Top of '$Environment', so it never stood on that rung " +
-    '(ADR-FLOW-CD-CERTIFYINGRECORD).'
+    '(FDR-CD-CERTIFYINGRECORD).'
 }

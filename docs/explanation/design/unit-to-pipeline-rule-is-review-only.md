@@ -12,7 +12,7 @@ Tracks and deployable-units are checked in code; one unit to one pipeline is hel
 7  scope globset           a cross-cutting slice is a scope over tracks, never a new root
 8  code review             the only check of the pipeline rule and the scope rule
 
-Supports ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER, ADR-DSGN-TRACK-ONETRACKTYPE, ADR-DSGN-TRACK-DEPLOYABLEUNIT, ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER, ADR-FLOW-CD-GLOBS-COMPOSESETS, ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL and ADR-REPO-FOLDERS-CLOSEDROOTSET (governance lens).
+Supports DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-DEPLOYABLEUNIT, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-COMPOSESETS, ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL and ADR-REPO-FOLDERS-CLOSEDROOTSET (governance lens).
 ```
 
 The tracks ADR sets rules at three levels: what a track is, how a deployable-unit is composed, and how a pipeline binds a unit. Cats checks
@@ -46,13 +46,13 @@ a cross-cutting slice is a scope rather than a new track, have no check in code:
 
 ## Why it holds
 
-- A track is one root folder, named by it, and every tracked root folder except `out/` is a track (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER,
+- A track is one root folder, named by it, and every tracked root folder except `out/` is a track (DDR-TRACK-TRACKISPLACEDCLUSTER,
   ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL); the root set is closed (ADR-REPO-FOLDERS-CLOSEDROOTSET).
-- Each track carries one class, and a cross-cutting slice is a scope, not a track (ADR-DSGN-TRACK-ONETRACKTYPE).
-- A track owns one tech-stack, and a tech-stack is a set of file languages (ADR-DSGN-TRACK-ONETECHSTACK, ADR-DSGN-TRACK-FILELANGUAGE).
-- Tracks are subscribed to, never path-coupled (ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
-- Every globset declares its layer, and composition is acyclic (ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER, ADR-FLOW-CD-GLOBS-COMPOSESETS).
-- Units bind pipelines one to one (ADR-DSGN-TRACK-DEPLOYABLEUNIT).
+- Each track carries one class, and a cross-cutting slice is a scope, not a track (DDR-TRACK-ONETRACKTYPE).
+- A track owns one tech-stack, and a tech-stack is a set of file languages (DDR-TRACK-ONETECHSTACK, DDR-TRACK-FILELANGUAGE).
+- Tracks are subscribed to, never path-coupled (DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
+- Every globset declares its layer, and composition is acyclic (FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-COMPOSESETS).
+- Units bind pipelines one to one (DDR-TRACK-DEPLOYABLEUNIT).
 
 ## Where the code and the ADR differ
 

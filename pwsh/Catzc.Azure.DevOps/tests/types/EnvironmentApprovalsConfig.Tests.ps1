@@ -2,11 +2,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d1aa6a272952
+    with_body_sha: b94416981ac6
   edges:
     code: pwsh/Catzc.Azure.DevOps/types/EnvironmentApprovalsConfig.cs
     cites:
-      - ADR-FLOW-CD-RUNGSREGISTRY
+      - FDR-CD-RUNGSREGISTRY
 ---
 #>
 
@@ -43,12 +43,12 @@ Describe 'Catzc.Azure.DevOps.EnvironmentApprovalsConfig' -Tag 'L0' {
             $config.timeout_hours | Should -Be ([Catzc.Azure.DevOps.EnvironmentApprovalsConfig]::DefaultTimeoutHours)
         }
 
-        It 'derives each unit''s release-gate environments from the rungs registry, then the prod tier' -Tag 'ADR-FLOW-CD-RUNGSREGISTRY' {
+        It 'derives each unit''s release-gate environments from the rungs registry, then the prod tier' -Tag 'FDR-CD-RUNGSREGISTRY' {
             $config = [Catzc.Azure.DevOps.EnvironmentApprovalsConfig]::new([ordered]@{ units = @('widget', 'gadget'); prod_environments = @('widget-psub') })
             $config.Environments($ladder) | Should -Be @('widget-gadget-uat', 'widget-gizmo-stage', 'gadget-gadget-uat', 'gadget-gizmo-stage', 'widget-psub')
         }
 
-        It 'follows a renamed rung without an edit here' -Tag 'ADR-FLOW-CD-RUNGSREGISTRY' {
+        It 'follows a renamed rung without an edit here' -Tag 'FDR-CD-RUNGSREGISTRY' {
             $renamed = [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = [ordered]@{ 'sprocket-uat' = @{ environment = 'sprocket'; gate = 'rc' } } })
             $config = [Catzc.Azure.DevOps.EnvironmentApprovalsConfig]::new([ordered]@{ units = @('widget') })
             $config.Environments($renamed) | Should -Be @('widget-sprocket-uat')
@@ -103,7 +103,7 @@ Describe 'Catzc.Azure.DevOps.EnvironmentApprovalsConfig' -Tag 'L0' {
     }
 
     Context 'integrity (shipped config)' -Tag 'integrity' {
-        It 'derives the shipped approval environments from the shipped rungs registry' -Tag 'ADR-FLOW-CD-RUNGSREGISTRY' {
+        It 'derives the shipped approval environments from the shipped rungs registry' -Tag 'FDR-CD-RUNGSREGISTRY' {
             $names = (Get-Config -Config environment-approvals).Environments((Get-Config -Config rungs))
             $names | Should -Contain 'apex-release-uat'
             $names | Should -Contain 'apex-pre-prod'

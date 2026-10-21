@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "594df5d2a1ea"
+#     with_body_sha: "4e31130b33f3"
 # ---
 
 description:
@@ -9,11 +9,11 @@ description:
   no reimplementation, everything as code and the swappable substrate are held by review alone."
 about:
   adrs:
-    - ADR-DSGN-THINPLAT-THINPLATFORM
-    - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-    - ADR-DSGN-THINPLAT-PLATFORMASCLI
-    - ADR-DSGN-THINPLAT-REPRESENTEDASCODE
-    - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
+    - DDR-THINPLAT-THINPLATFORM
+    - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+    - DDR-THINPLAT-PLATFORMASCLI
+    - DDR-THINPLAT-REPRESENTEDASCODE
+    - DDR-THINPLAT-SWAPPABLESUBSTRATE
     - ADR-AZ-CLI-AZBYDEFAULT
     - ADR-AZ-CLI-ASSERTAZ
     - ADR-AZ-CLI-NOAZMODULEIMPORT
@@ -114,21 +114,21 @@ content:
       rule: ADR-AZ-CLI-NOAZMODULEIMPORT
     - at: g-functions
       kind: rule
-      rule: ADR-DSGN-THINPLAT-PLATFORMASCLI
+      rule: DDR-THINPLAT-PLATFORMASCLI
       gated: false
     - at: g-config
       kind: rule
-      rule: ADR-DSGN-THINPLAT-THINPLATFORM
+      rule: DDR-THINPLAT-THINPLATFORM
     - at: g-everything-code
       kind: rule
-      rule: ADR-DSGN-THINPLAT-REPRESENTEDASCODE
+      rule: DDR-THINPLAT-REPRESENTEDASCODE
       gated: false
     - at: g-assert-tool
       kind: rule
       rule: ADR-AZ-CLI-ASSERTAZ
     - at: g-no-reimplementation
       kind: rule
-      rule: ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
+      rule: DDR-THINPLAT-DELEGATENOTREIMPLEMENT
       gated: false
     - at: g-az-cli
       kind: rule
@@ -136,7 +136,7 @@ content:
       gated: false
     - at: g-substrate
       kind: rule
-      rule: ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
+      rule: DDR-THINPLAT-SWAPPABLESUBSTRATE
       gated: false
   legend: auto
   minimaps:
@@ -147,11 +147,11 @@ content:
           - ADR-AZ-CLI-ASSERTAZ
           - ADR-AZ-CLI-AZBYDEFAULT
           - ADR-AZ-CLI-NOAZMODULEIMPORT
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-REPRESENTEDASCODE
-          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-REPRESENTEDASCODE
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
       - cell: docs/-/.
         by:
           - docs/adr/azure/dora-explains.md
@@ -171,11 +171,11 @@ content:
           - ADR-AZ-CLI-ASSERTAZ
           - ADR-AZ-CLI-AZBYDEFAULT
           - ADR-AZ-CLI-NOAZMODULEIMPORT
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-REPRESENTEDASCODE
-          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-REPRESENTEDASCODE
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
       - cell: pwsh/Catzc.Azure.Cli/.
         by:
           - pwsh/Catzc.Azure.Cli/Assert-AzCliBicep.ps1
@@ -193,11 +193,11 @@ content:
           - ADR-AZ-CLI-ASSERTAZ
           - ADR-AZ-CLI-AZBYDEFAULT
           - ADR-AZ-CLI-NOAZMODULEIMPORT
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-REPRESENTEDASCODE
-          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-REPRESENTEDASCODE
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
@@ -222,11 +222,11 @@ content:
           - ADR-AZ-CLI-ASSERTAZ
           - ADR-AZ-CLI-AZBYDEFAULT
           - ADR-AZ-CLI-NOAZMODULEIMPORT
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-REPRESENTEDASCODE
-          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-REPRESENTEDASCODE
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
@@ -239,19 +239,19 @@ content:
           - ADR-AZ-CLI-ASSERTAZ
           - ADR-AZ-CLI-AZBYDEFAULT
           - ADR-AZ-CLI-NOAZMODULEIMPORT
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-REPRESENTEDASCODE
-          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-REPRESENTEDASCODE
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
     axis:
       - cell: DSGN/deploy
         by:
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-REPRESENTEDASCODE
-          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-REPRESENTEDASCODE
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
       - cell: CLOUD/deploy
         by:
           - ADR-AZ-CLI-ASSERTAZ

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "46102c4f065c"
+#     with_body_sha: "1cc30557e60b"
 # ---
 
 description:
@@ -9,11 +9,11 @@ description:
   is a plain boolean, and the other rules, and the one reader outside PowerShell, rest on the ADR alone, drawn dashed."
 about:
   adrs:
-    - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-    - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
-    - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-    - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-    - ADR-FLOW-CD-DETECT-FASTDETECTION
+    - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+    - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+    - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+    - FDR-CD-DETECT-BOOLEANNOTMODAL
+    - FDR-CD-DETECT-FASTDETECTION
     - ADR-AUTO-PARITY-ONESEAM
   lens: governance
 content:
@@ -77,25 +77,25 @@ content:
   chips:
     - at: g-detector
       kind: rule
-      rule: ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
+      rule: FDR-CD-DETECT-BOOLEANNOTMODAL
     - at: g-detector
       kind: rule
-      rule: ADR-FLOW-CD-DETECT-FASTDETECTION
+      rule: FDR-CD-DETECT-FASTDETECTION
       gated: false
     - at: g-hook
       kind: rule
-      rule: ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+      rule: FDR-CD-DETECT-NODIRECTVARIABLECHECK
       gated: false
     - at: s-consumers
       kind: rule
-      rule: ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+      rule: FDR-CD-DETECT-NODIRECTVARIABLECHECK
     - at: s-consumers
       kind: rule
-      rule: ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+      rule: FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       gated: false
     - at: s-consumers
       kind: rule
-      rule: ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
+      rule: FDR-CD-DETECT-PARAMETERSOVERDETECTION
       gated: false
     - at: s-consumers
       kind: rule
@@ -107,20 +107,20 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - ADR-AUTO-PARITY-ONESEAM
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: docs/-/.
         by:
           - docs/adr/automation/devbox-pipeline-parity.md
@@ -140,78 +140,78 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
           - docs/references/pwsh/catzc-base-repository/Get-RunEnvironment.ps1.md
           - ADR-AUTO-PARITY-ONESEAM
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: pwsh/Catzc.Azure.Templates/.
         by:
           - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - ADR-AUTO-PARITY-ONESEAM
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: pwsh/Catzc.Base.Globs/tests
         by:
           - pwsh/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Base.Repository/.
         by:
           - pwsh/Catzc.Base.Repository/Get-RunEnvironment.ps1
@@ -220,20 +220,20 @@ content:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - ADR-AUTO-PARITY-ONESEAM
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: docs/markdown
         by:
           - docs/adr/automation/devbox-pipeline-parity.md
@@ -252,27 +252,27 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
           - docs/references/pwsh/catzc-base-repository/Get-RunEnvironment.ps1.md
           - ADR-AUTO-PARITY-ONESEAM
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: docs/yaml
         by:
           - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: pwsh/powershell
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -285,21 +285,21 @@ content:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
           - pwsh/Catzc.Base.Repository/Get-RunEnvironment.ps1
           - ADR-AUTO-PARITY-ONESEAM
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: pwsh/yaml
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
           - ADR-AUTO-PARITY-ONESEAM
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: (no track)/(other)
         by:
           - .gitattributes
@@ -308,11 +308,11 @@ content:
     axis:
       - cell: DSGN/*
         by:
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-FASTDETECTION
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-DETECT-PARAMETERSOVERDETECTION
-          - ADR-FLOW-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-FASTDETECTION
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
+          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: AUTO/*
         by:
           - ADR-AUTO-PARITY-ONESEAM

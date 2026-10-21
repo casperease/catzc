@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e256e166da79
+#     with_body_sha: "6968a7488043"
 # ---
 
 description:
@@ -9,8 +9,8 @@ description:
   it in the live set, and the quality gates report a non-conventional file."
 about:
   adrs:
-    - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
-    - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+    - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
+    - DDR-ASPECT-ASPECTSAREDERIVED
   lens: operations
 content:
   title: Drop a file, and the next import exports it
@@ -100,8 +100,8 @@ content:
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: docs/-/.
         by:
           - docs/adr/design/dora-explains.md
@@ -116,101 +116,101 @@ content:
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
           - docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
           - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: pwsh/Catzc.Base.Globs/tests
         by:
           - pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: pwsh/Catzc.Base.Globs/tests/types
         by:
           - pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: pwsh/Catzc.Base.Globs/types
         by:
           - pwsh/Catzc.Base.Globs/types/Aspect.cs
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: pwsh/Catzc.Base.Modules/.
         by:
           - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: pwsh/Catzc.Base.Modules/tests
         by:
           - pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: pwsh/Catzc.Base.Variants/configs
         by:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: pwsh/Catzc.Base.Variants/types
         by:
           - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
           - pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
           - pwsh/Catzc.Base.Globs/types/Aspect.cs
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: subject/Catzc.Base.Modules
         by:
           - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
           - pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: subject/Catzc.Base.Variants
         by:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
           - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
       - cell: subject/pipelines
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
     axis:
       - cell: DSGN/build
         by:
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
 layout:
   band-file:
     x: 20

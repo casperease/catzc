@@ -31,7 +31,7 @@ destination, checks the build facet by facet, and deletes it. Every issue is pre
             build's typesHash and its accelerators; every shipped config through Get-Config; comment-based
             help kept and privates not exported; InModuleScope enters a built module.
 [parity]    Every built module exports exactly its source folder's public functions and defines exactly its
-            private ones ([ADR-DSGN-RUNMODE-SAMEMODULEINBOTH](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode-samemoduleinboth)).
+            private ones ([DDR-RUNMODE-SAMEMODULEINBOTH](/docs/adr/design/run-modes.md#rule-ddr-runmode-samemoduleinboth)).
 [manifest]  Every built manifest (Catzc.psd1 and each <Module>.psd1) is formatter-stable — Format-Code
             -Language powershell -DryRun would leave it byte-for-byte unchanged — so a published manifest
             never churns.

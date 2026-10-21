@@ -11,10 +11,10 @@ Returns the value-chain map: the rows of the value-chain stack crossed with the 
 
 ### description
 
-Builds the value-chain map ([ADR-DSGN-TRACK-VALUECHAINMAP](../../../adr/design/tracks.md#rule-adr-dsgn-track-valuechainmap)) with
+Builds the value-chain map ([DDR-TRACK-VALUECHAINMAP](../../../adr/design/tracks.md#rule-ddr-track-valuechainmap)) with
 Catzc.Base.Maps.ValueChainMap from adrs.yml: the rows are the value-chain stack the registry type declares (Catzc.Base.Docs.AdrsConfig
-Stacks, [ADR-DSGN-TRACK-VALUECHAINSTACK](../../../adr/design/tracks.md#rule-adr-dsgn-track-valuechainstack)), the columns its value-chain
-concerns (AdrsConfig Concerns, [ADR-DSGN-TRACK-VALUECHAINCONCERN](../../../adr/design/tracks.md#rule-adr-dsgn-track-valuechainconcern)), and
+Stacks, [DDR-TRACK-VALUECHAINSTACK](../../../adr/design/tracks.md#rule-ddr-track-valuechainstack)), the columns its value-chain
+concerns (AdrsConfig Concerns, [DDR-TRACK-VALUECHAINCONCERN](../../../adr/design/tracks.md#rule-ddr-track-valuechainconcern)), and
 each ADR (Get-AdrRuleSet) sits on its ADR domain's row in the column of each of its value-chain concerns. Every row meets every column, so
 the map holds every cell, empty ones included, row by row.
 

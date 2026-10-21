@@ -8,7 +8,7 @@ catzc:
     docs: "[Test-Formatting.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-Formatting.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
+      - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
       - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
       - TDR-NORMALFORM-UNCONTESTED
 ---

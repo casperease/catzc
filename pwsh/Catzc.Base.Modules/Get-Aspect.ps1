@@ -8,7 +8,7 @@ catzc:
     docs: "[Get-Aspect.ps1.md](docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md)"
     cites:
       - ADR-AUTO-MODULE-EXISTSBYLAYOUT
-      - ADR-DSGN-ASPECT
+      - DDR-ASPECT
 ---
 #>
 

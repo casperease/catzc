@@ -7,8 +7,8 @@ catzc:
     docs: "[ValueChainReason.cs.md](docs/references/pwsh/catzc-base-maps/types/ValueChainReason.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-      - ADR-DSGN-TRACK-VALUECHAINSTACK
-      - ADR-DSGN-TRACK-VALUECHAINCONCERN
+      - DDR-TRACK-VALUECHAINSTACK
+      - DDR-TRACK-VALUECHAINCONCERN
 ---
 */
 

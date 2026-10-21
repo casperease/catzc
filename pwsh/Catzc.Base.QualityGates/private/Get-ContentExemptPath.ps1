@@ -7,9 +7,9 @@ catzc:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-ContentExemptPath.Tests.ps1
     docs: "[Get-ContentExemptPath.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ContentExemptPath.ps1.md)"
     cites:
-      - ADR-DSGN-TRACK-UNORDEREDTRACK
       - ADR-REPO-CONTRACT-CONTRACTASSET
       - ADR-REPO-ROOTCFG-FULLYMANAGED
+      - DDR-TRACK-UNORDEREDTRACK
 ---
 #>
 

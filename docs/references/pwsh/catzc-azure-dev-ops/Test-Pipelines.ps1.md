@@ -19,7 +19,7 @@ out/test-pipelines/, and the gate throws once listing every violation (or return
 Rules enforced (each violation names its rule code, as '`[<rule>]` `pipelines/<file>`: `<message>`'):
 
 ```text
-[ADR-FLOW-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/adr/flow/pipeline-concept.md#rule-adr-flow-cd-pipeline-executableyamlextension)  Executable YAML is
+[FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/adr/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension)  Executable YAML is
 `.yaml`; there is no `.yml` under pipelines/ (config is `.yml`, but
                 it lives outside pipelines/).
 [ADR-ADO-NAME-FLATPIPELINESFOLDER](/docs/adr/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-flatpipelinesfolder)  Pipelines live FLAT
@@ -29,7 +29,7 @@ in pipelines/. Every `.yaml` is either at the root or directly in a
 [ADR-ADO-NAME-TEMPLATEKINDFOLDER](/docs/adr/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-templatekindfolder)  Template folders are
 the closed set steps/ jobs/ stages/ variables/ extends/, and a
                 fragment's structural kind matches its folder (a steps template lives in steps/, …).
-[ADR-FLOW-CD-PIPELINE-TYPEPREFIX](/docs/adr/flow/pipeline-concept.md#rule-adr-flow-cd-pipeline-typeprefix)  A root pipeline's
+[FDR-CD-PIPELINE-TYPEPREFIX](/docs/adr/flow/pipeline-concept.md#rule-fdr-cd-pipeline-typeprefix)  A root pipeline's
 filename starts with its type — cron | ci | cd | cde | deploy | input.
 [ADR-ADO-NAME-ABSOLUTETEMPLATEPATH](/docs/adr/ado/pipeline-naming-and-placement.md#rule-adr-ado-name-absolutetemplatepath)  Templates are
 referenced by absolute path (`/pipelines/<kind>/<name>.yaml`), never a
@@ -73,7 +73,7 @@ Test-Pipelines
 Above `if ($extension -eq '.yml') {`, written with `#`.
 
 ```text
-[ADR-FLOW-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/adr/flow/pipeline-concept.md#rule-adr-flow-cd-pipeline-executableyamlextension) — executable YAML
+[FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/adr/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension) — executable YAML
 under pipelines/ is `.yaml`, never `.yml`.
 ```
 
@@ -83,7 +83,7 @@ Above `$prefix = ($name -split '-', 2)[0]`, written with `#`.
 
 ```text
 --- Root of pipelines/ : this is a pipeline entry point. ---
-[ADR-FLOW-CD-PIPELINE-TYPEPREFIX](/docs/adr/flow/pipeline-concept.md#rule-adr-flow-cd-pipeline-typeprefix) — filename
+[FDR-CD-PIPELINE-TYPEPREFIX](/docs/adr/flow/pipeline-concept.md#rule-fdr-cd-pipeline-typeprefix) — filename
 starts with a valid type token.
 ```
 

@@ -2,17 +2,17 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4423c36247fa"
+    with_body_sha: "5f2e3a62ebaf"
   edges:
     code: pwsh/Catzc.Base.Variants/Test-TrackDeclaration.ps1
     cites:
-      - ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES
-      - ADR-DSGN-TRACKTYPE-DECLAREDONCE
+      - DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES
+      - DDR-TRACKTYPE-DECLAREDONCE
 ---
 #>
 
-# Rests on [ADR-DSGN-TRACKTYPE-DECLAREDONCE](/docs/adr/design/track-types.md#rule-adr-dsgn-tracktype-declaredonce).
-Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES' {
+# Rests on [DDR-TRACKTYPE-DECLAREDONCE](/docs/adr/design/track-types.md#rule-ddr-tracktype-declaredonce).
+Describe 'Test-TrackDeclaration' -Tag 'L0', 'logic', 'DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES' {
     BeforeAll {
         $script:trackTypes = [Catzc.Base.Variants.TrackTypesConfig]::new([ordered]@{
                 track_types = [ordered]@{

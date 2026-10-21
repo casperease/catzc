@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 The file-language registry (configs/languages.yml): every file language the repository's tracked files are written
-in, each named by its extensions ([ADR-DSGN-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-filelanguage)), with the
+in, each named by its extensions ([DDR-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-ddr-track-filelanguage)), with the
 formatter engine that formats it and its ADR folder. Registered in Catzc.Base.Config/configs/configs.yml
 (type: Catzc.Base.Languages.LanguagesConfig), so Get-Config -Config languages returns this typed record; Get-FileLanguage
 and Format-Code read it. Property names mirror the YAML keys (snake_case,

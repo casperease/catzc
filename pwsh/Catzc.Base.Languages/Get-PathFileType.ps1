@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.Languages/tests/Get-PathFileType.Tests.ps1
     docs: "[Get-PathFileType.ps1.md](docs/references/pwsh/catzc-base-languages/Get-PathFileType.ps1.md)"
     cites:
-      - ADR-DSGN-TRACK-FILELANGUAGE
+      - DDR-TRACK-FILELANGUAGE
 ---
 #>
 

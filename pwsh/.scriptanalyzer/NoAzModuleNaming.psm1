@@ -5,6 +5,8 @@ catzc:
     with_body_sha: fe59d6fd84f4
   edges:
     docs: "[NoAzModuleNaming.psm1.md](docs/references/pwsh/scriptanalyzer/NoAzModuleNaming.psm1.md)"
+    cites:
+      - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 ---
 #>
 

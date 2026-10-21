@@ -8,7 +8,7 @@ catzc:
     docs: "[Resolve-TestSuite.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Resolve-TestSuite.ps1.md)"
     cites:
       - ADR-AUTO-TEST-TESTSUITE
-      - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
+      - FDR-CD-GLOBS-EVERYSETHASLAYER
 ---
 #>
 

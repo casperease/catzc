@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepDeploymentName.Tests.ps1
     docs: "[Get-BicepDeploymentName.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md)"
     cites:
-      - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+      - FDR-CD-DETECT-NODIRECTVARIABLECHECK
 ---
 #>
 

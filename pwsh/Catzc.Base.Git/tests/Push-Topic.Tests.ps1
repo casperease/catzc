@@ -2,17 +2,17 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7df7b2e2840f"
+    with_body_sha: b06c5e9ae08d
   edges:
     code: pwsh/Catzc.Base.Git/Push-Topic.ps1
     cites:
-      - ADR-FLOW-GIT-ONESQUASHEDCOMMIT
-      - ADR-FLOW-GIT-SQUASHREBASESQUASH
-      - ADR-FLOW-GIT-TOPICHISTORYISTHEAUTHORS
+      - FDR-GIT-ONESQUASHEDCOMMIT
+      - FDR-GIT-SQUASHREBASESQUASH
+      - FDR-GIT-TOPICHISTORYISTHEAUTHORS
 ---
 #>
 
-Describe 'Push-Topic' -Tag 'L0', 'logic', 'ADR-FLOW-GIT-SQUASHREBASESQUASH' {
+Describe 'Push-Topic' -Tag 'L0', 'logic', 'FDR-GIT-SQUASHREBASESQUASH' {
     BeforeAll {
         $script:config = [Catzc.Base.Git.GitFlowConfig]::new(@{})
         $script:head = 'c' * 40
@@ -89,14 +89,14 @@ Describe 'Push-Topic' -Tag 'L0', 'logic', 'ADR-FLOW-GIT-SQUASHREBASESQUASH' {
         )
     }
 
-    It 'fast-pushes the one commit to main in main-direct, never with force' -Tag 'ADR-FLOW-GIT-ONESQUASHEDCOMMIT' {
+    It 'fast-pushes the one commit to main in main-direct, never with force' -Tag 'FDR-GIT-ONESQUASHEDCOMMIT' {
         Set-Git -MainViaPr $false
         (Push-Topic -Config $script:config).Target | Should -BeExactly 'main'
         $script:calls | Should -Contain 'git push origin HEAD:main'
         @($script:calls | Where-Object { $_ -like '*force*' }) | Should -HaveCount 0
     }
 
-    It 'refuses to force a main branch in main-via-pr' -Tag 'ADR-FLOW-GIT-TOPICHISTORYISTHEAUTHORS' {
+    It 'refuses to force a main branch in main-via-pr' -Tag 'FDR-GIT-TOPICHISTORYISTHEAUTHORS' {
         Set-Git -Branch 'main'
         { Push-Topic -Config $script:config } | Should -Throw "*main-via-pr and 'main' is a main branch*"
         @($script:calls | Where-Object { $_ -like 'git push*' }) | Should -HaveCount 0

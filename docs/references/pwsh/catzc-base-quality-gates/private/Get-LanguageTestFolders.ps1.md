@@ -12,7 +12,7 @@ Lists the repository's test folders in every test language beside PowerShell, ea
 ### description
 
 The test languages are test artifacts only, each in a root verification track of its own
-([ADR-DSGN-TRACK-ONETRACKTYPE](../../../../adr/design/tracks.md#rule-adr-dsgn-track-onetracktype)):
+([DDR-TRACK-ONETRACKTYPE](../../../../adr/design/tracks.md#rule-ddr-track-onetracktype)):
 
 ```text
 go      <goRoot>/tests/<folder>/ holding at least one .go file (the folders New-GoWorkspace renders a go.mod

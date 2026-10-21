@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "943a7b0cb098"
+#     with_body_sha: "3fa578c79e2d"
 # ---
 
 description:
@@ -9,9 +9,9 @@ description:
   newest commit on main, which failed there.
 about:
   adrs:
-    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-    - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-CD-LIFE-DIRTYHEADUNSAFE
+    - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
   lens: meta
 content:
   title: Sync from the BVT-verified head, not from the tip of main
@@ -57,15 +57,15 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/-/.
         by:
           - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
@@ -79,54 +79,54 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
     grid:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/markdown
         by:
           - docs/adr/flow/commit-lifecycle.md
@@ -138,22 +138,22 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/yaml
         by:
           - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
           - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/powershell
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -161,31 +161,31 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/yaml
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
     axis:
       - cell: DSGN/quality-control
         by:
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: DSGN/release
         by:
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: DSGN/deploy
         by:
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
 layout:
   band-mainline:
     x: 20

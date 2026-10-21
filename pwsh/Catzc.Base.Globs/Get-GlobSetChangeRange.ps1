@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
     docs: "[Get-GlobSetChangeRange.ps1.md](docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md)"
     cites:
-      - ADR-FLOW-CD-DETECT
-      - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+      - FDR-CD-DETECT
+      - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
 ---
 #>
 

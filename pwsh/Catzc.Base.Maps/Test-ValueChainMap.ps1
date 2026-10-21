@@ -2,16 +2,16 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7f67c05e8310"
+    with_body_sha: "0bc4b36397f6"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
     docs: "[Test-ValueChainMap.ps1.md](docs/references/pwsh/catzc-base-maps/Test-ValueChainMap.ps1.md)"
     cites:
       - ADR-AUTO-ONEJOB
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-DSGN-TRACK-VALUECHAINSTACK
-      - ADR-DSGN-TRACK-VALUECHAINCONCERN
-      - ADR-DSGN-TRACK-VALUECHAINMAP
+      - DDR-TRACK-VALUECHAINSTACK
+      - DDR-TRACK-VALUECHAINCONCERN
+      - DDR-TRACK-VALUECHAINMAP
 ---
 #>
 
@@ -29,8 +29,8 @@ function Test-ValueChainMap {
 
     # The rows and the columns: the closed sets of the registry type, in order.
     $axes = @(
-        @{ Name = 'rows'; Printed = @($map.Stacks); Declared = @([Catzc.Base.Docs.AdrsConfig]::Stacks); What = 'the rows of the value-chain stack'; Rule = 'ADR-DSGN-TRACK-VALUECHAINSTACK' }
-        @{ Name = 'columns'; Printed = @($map.Concerns); Declared = @([Catzc.Base.Docs.AdrsConfig]::Concerns); What = 'the value-chain concerns'; Rule = 'ADR-DSGN-TRACK-VALUECHAINCONCERN' }
+        @{ Name = 'rows'; Printed = @($map.Stacks); Declared = @([Catzc.Base.Docs.AdrsConfig]::Stacks); What = 'the rows of the value-chain stack'; Rule = 'DDR-TRACK-VALUECHAINSTACK' }
+        @{ Name = 'columns'; Printed = @($map.Concerns); Declared = @([Catzc.Base.Docs.AdrsConfig]::Concerns); What = 'the value-chain concerns'; Rule = 'DDR-TRACK-VALUECHAINCONCERN' }
     )
     foreach ($axis in $axes) {
         if (($axis.Printed -join ', ') -cne ($axis.Declared -join ', ')) {
@@ -40,10 +40,10 @@ function Test-ValueChainMap {
 
     # The ADRs: each sits in a cell, and declares only rows and value-chain concerns the map prints.
     foreach ($stray in $map.Strays) {
-        $issues.Add("stray value: $stray (ADR-DSGN-TRACK-VALUECHAINCONCERN)")
+        $issues.Add("stray value: $stray (DDR-TRACK-VALUECHAINCONCERN)")
     }
     foreach ($adr in $map.Unplaced) {
-        $issues.Add("unplaced ADR: $adr sits in no cell of the value-chain map (ADR-DSGN-TRACK-VALUECHAINCONCERN)")
+        $issues.Add("unplaced ADR: $adr sits in no cell of the value-chain map (DDR-TRACK-VALUECHAINCONCERN)")
     }
 
     # Printed labels: each value_chain_ label names a glossary term.
@@ -60,7 +60,7 @@ function Test-ValueChainMap {
     foreach ($name in $labelNames) {
         $text = [string] $labels.$name
         if ($null -eq (Resolve-MapLabelTerm -Label $text -Term $terms)) {
-            $issues.Add("unregistered label: maps.yml labels.$name '$text' names no glossary term in its head (ADR-DSGN-TRACK-VALUECHAINMAP)")
+            $issues.Add("unregistered label: maps.yml labels.$name '$text' names no glossary term in its head (DDR-TRACK-VALUECHAINMAP)")
         }
     }
 

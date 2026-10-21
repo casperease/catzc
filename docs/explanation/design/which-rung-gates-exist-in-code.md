@@ -12,7 +12,7 @@ Three rung checks run in code: PR build validation, the BVT and the failure stop
 7  two-slot activation       stage inactive in pre-prod, then activate live; an actuation, ADR-only
 8  failure stops downstream  each Deploy_* stage runs only when the stage before it succeeded
 
-Supports ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG, ADR-FLOW-CD-LIFE-DISCARDISTERMINAL, ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD, ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN, ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT, ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD, ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM, ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND, ADR-FLOW-CD-INNERANDOUTERLOOP, ADR-FLOW-CD-CDSTAYSINNONPROD, ADR-FLOW-CD-TWORELEASEGATES, ADR-FLOW-CD-TWOENVIRONMENTACTIVATION, ADR-AUTO-TEST-BUILDVERIFICATIONTEST and ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE (governance lens).
+Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-RETIREMENTISNOTDISCARD, FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, FDR-CD-INNERANDOUTERLOOP, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES, FDR-CD-TWOENVIRONMENTACTIVATION, ADR-AUTO-TEST-BUILDVERIFICATIONTEST and DDR-VISUAL-FIXEDCOMMITPALETTE (governance lens).
 ```
 
 Every rung of the commit ladder has an ADR rule and a gate that decides whether a commit climbs it. Lined up in ladder order, with the
@@ -44,20 +44,20 @@ gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
 
 ## Why it holds
 
-- A commit holds one state at a time and only climbs; a new attempt is a new commit (ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG).
+- A commit holds one state at a time and only climbs; a new attempt is a new commit (FDR-CD-LIFE-ONESTATEADVANCESONERUNG).
 - Discard is rejection at a named stage: BVT and L3 discard automatically, `release-uat` by hand at RBC
-  (ADR-FLOW-CD-LIFE-DISCARDISTERMINAL).
-- Retirement is a successful end of life, never a discard (ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD).
-- Supersession abandons a still-valid commit without rejecting it, so no gate decides it (ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN).
-- Each always-on environment holds one occupant, and no gate checks it (ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT).
+  (FDR-CD-LIFE-DISCARDISTERMINAL).
+- Retirement is a successful end of life, never a discard (FDR-CD-LIFE-RETIREMENTISNOTDISCARD).
+- Supersession abandons a still-valid commit without rejecting it, so no gate decides it (FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN).
+- Each always-on environment holds one occupant, and no gate checks it (FDR-CD-LIFE-ONECOMMITPERENVIRONMENT).
 - The BVT-verified server head is the stable integration point, and the same commit goes into `main-uat` first
-  (ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD).
-- A commit that fails a stage cannot go downstream (ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM).
-- An out-of-band deploy of a topic commit is not an integration (ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND).
-- PR build validation is the inner CI gate (ADR-FLOW-CD-INNERANDOUTERLOOP); L3 runs in CD (ADR-FLOW-CD-CDSTAYSINNONPROD); RC and RBC are the
-  manual gates (ADR-FLOW-CD-TWORELEASEGATES); deploy-to-prod is a two-environment activation (ADR-FLOW-CD-TWOENVIRONMENTACTIVATION).
+  (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD).
+- A commit that fails a stage cannot go downstream (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM).
+- An out-of-band deploy of a topic commit is not an integration (FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND).
+- PR build validation is the inner CI gate (FDR-CD-INNERANDOUTERLOOP); L3 runs in CD (FDR-CD-CDSTAYSINNONPROD); RC and RBC are the
+  manual gates (FDR-CD-TWORELEASEGATES); deploy-to-prod is a two-environment activation (FDR-CD-TWOENVIRONMENTACTIVATION).
 - The BVT includes the built-artifact checks of `Test-BuildArtifact` (ADR-AUTO-TEST-BUILDVERIFICATIONTEST).
-- The commit colours are the locked palette (ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE).
+- The commit colours are the locked palette (DDR-VISUAL-FIXEDCOMMITPALETTE).
 
 ## Where the code and the ADR differ
 

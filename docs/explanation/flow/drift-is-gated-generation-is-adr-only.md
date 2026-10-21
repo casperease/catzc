@@ -11,7 +11,7 @@ Three gates check the projection; generation is ADR-only.
 6  Test-AdoPipelineTriggerGlob    quality gate: the pipeline's four lists equal the projection
 7  Test-GlobSetTriggerCoverage    quality gate: every member hits an ADO include
 
-Supports ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY, ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER and ADR-FLOW-CD-GLOBS-COMPOSESETS, and ADR-AUTO-TEST-QUALITYGATE (governance lens).
+Supports FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-CD-GLOBS-COMPOSESETS, and ADR-AUTO-TEST-QUALITYGATE (governance lens).
 ```
 
 The projection of a globset into vendor path filters is the stage of the globset rules in cats that quality gates cover best: three gates
@@ -46,11 +46,11 @@ requires zero issues, so a drifted filter fails `Test-Automation` locally and in
 
 ## Why it holds
 
-- Membership is the ordered scan program evaluated last-match-wins, with precedence by position (ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY).
+- Membership is the ordered scan program evaluated last-match-wins, with precedence by position (FDR-CD-GLOBS-TRACKEDFILESONLY).
 - A pipeline, workflow or build-validation policy triggers on the native projection, generated from `globs.yml`, and the drift quality gates
   report one issue per pipeline whose declared trigger no longer equals its projection or whose file is missing
-  (ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER).
-- A composing set's program is the composed programs first and its own rules last, validated at config load (ADR-FLOW-CD-GLOBS-COMPOSESETS).
+  (FDR-CD-GLOBS-NATIVEPATHFILTER).
+- A composing set's program is the composed programs first and its own rules last, validated at config load (FDR-CD-GLOBS-COMPOSESETS).
 - A quality gate is one `Test-<subject>` function that checks one property of the whole repository, collects every issue, writes its report
   and throws once, and an integrity test runs it at its tier (ADR-AUTO-TEST-QUALITYGATE).
 

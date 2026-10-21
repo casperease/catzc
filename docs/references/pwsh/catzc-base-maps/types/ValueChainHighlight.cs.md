@@ -9,8 +9,8 @@ Above `using System;`, written with `//`.
 
 ```text
 A value-chain highlight: the lit cells of the value-chain map for ADR references
-([ADR-DSGN-TRACK-VALUECHAINMAP](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainmap),
-[ADR-DSGN-TRACK-LITCELL](/docs/adr/design/tracks.md#rule-adr-dsgn-track-litcell)). A reference is ADR-<CODE>, or one rule as
+([DDR-TRACK-VALUECHAINMAP](/docs/adr/design/tracks.md#rule-ddr-track-valuechainmap),
+[DDR-TRACK-LITCELL](/docs/adr/design/tracks.md#rule-ddr-track-litcell)). A reference is ADR-<CODE>, or one rule as
 ADR-<CODE>#n or ADR-<CODE>:n; a rule sits where its ADR sits, so it lights its ADR's cells. Each lit cell lists the
 requested ADRs that light it, with a ValueChainReason per ADR (its ADR domain's row, the concern, and whether the
 concerns are the ADR's own override or its ADR domain's default). The cells keep the map's order (rows, then

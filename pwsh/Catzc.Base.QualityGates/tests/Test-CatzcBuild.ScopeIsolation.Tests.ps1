@@ -2,15 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1734974c0aaa"
+    with_body_sha: "99ede688561f"
   edges:
     docs: "[Test-CatzcBuild.ScopeIsolation.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1.md)"
     cites:
-      - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
+      - DDR-RUNMODE-OWNSCRIPTSCOPE
 ---
 #>
 
-Describe 'Module script scopes are never shared' -Tag 'ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE' {
+Describe 'Module script scopes are never shared' -Tag 'DDR-RUNMODE-OWNSCRIPTSCOPE' {
     BeforeAll {
         $script:probeName = 'catzcScopeIsolationProbe'
 

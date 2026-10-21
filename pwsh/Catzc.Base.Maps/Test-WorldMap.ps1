@@ -2,17 +2,17 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "54941b3f5ff4"
+    with_body_sha: "86bb207eccc5"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
     docs: "[Test-WorldMap.ps1.md](docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-      - ADR-DSGN-TRACK-ONETECHSTACK
-      - ADR-DSGN-TRACK-FILELANGUAGE
-      - ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS
       - ADR-REPO-OUTDIR
+      - DDR-TRACK-TRACKISPLACEDCLUSTER
+      - DDR-TRACK-ONETECHSTACK
+      - DDR-TRACK-FILELANGUAGE
+      - DDR-TRACK-LABELSNAMEDEFINEDTERMS
 ---
 #>
 
@@ -41,7 +41,7 @@ function Test-WorldMap {
         $key = "$($cell.Track) x $($cell.FileLanguage)"
         if ($byCell.Contains($key)) {
             $paths = $byCell[$key]
-            $issues.Add("stack violation: $key holds $($paths.Count) live file(s) outside the track's file languages, e.g. $($paths[0]) (ADR-DSGN-TRACK-ONETECHSTACK)")
+            $issues.Add("stack violation: $key holds $($paths.Count) live file(s) outside the track's file languages, e.g. $($paths[0]) (DDR-TRACK-ONETECHSTACK)")
         }
     }
 
@@ -60,7 +60,7 @@ function Test-WorldMap {
         $undeclared[$rootFolder] = $undeclared.ContainsKey($rootFolder) ? $undeclared[$rootFolder] + 1 : 1
     }
     foreach ($rootFolder in $undeclared.Keys) {
-        $issues.Add("undeclared root folder: $rootFolder/ holds $($undeclared[$rootFolder]) tracked file(s) but no track names it (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER)")
+        $issues.Add("undeclared root folder: $rootFolder/ holds $($undeclared[$rootFolder]) tracked file(s) but no track names it (DDR-TRACK-TRACKISPLACEDCLUSTER)")
     }
 
     # Printed labels: each names a glossary term.
@@ -77,12 +77,12 @@ function Test-WorldMap {
     foreach ($name in $labelNames) {
         $text = [string] $labels.$name
         if ($null -eq (Resolve-MapLabelTerm -Label $text -Term $terms)) {
-            $issues.Add("unregistered label: maps.yml labels.$name '$text' names no glossary term in its head (ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS)")
+            $issues.Add("unregistered label: maps.yml labels.$name '$text' names no glossary term in its head (DDR-TRACK-LABELSNAMEDEFINEDTERMS)")
         }
     }
     $axes = @(
-        @{ Term = 'track'; Names = @($map.Tracks | Where-Object { $_ -cne [Catzc.Base.Maps.WorldMap]::NoTrack }); Rule = 'ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER' }
-        @{ Term = 'file language'; Names = @($map.FileLanguages | Where-Object { $_ -cne [Catzc.Base.Maps.WorldMap]::NoFileLanguage }); Rule = 'ADR-DSGN-TRACK-FILELANGUAGE' }
+        @{ Term = 'track'; Names = @($map.Tracks | Where-Object { $_ -cne [Catzc.Base.Maps.WorldMap]::NoTrack }); Rule = 'DDR-TRACK-TRACKISPLACEDCLUSTER' }
+        @{ Term = 'file language'; Names = @($map.FileLanguages | Where-Object { $_ -cne [Catzc.Base.Maps.WorldMap]::NoFileLanguage }); Rule = 'DDR-TRACK-FILELANGUAGE' }
     )
     foreach ($axis in $axes) {
         if ($axis.Names.Count -gt 0 -and $terms -cnotcontains $axis.Term) {

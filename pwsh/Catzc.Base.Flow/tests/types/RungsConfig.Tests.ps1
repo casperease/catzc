@@ -2,14 +2,14 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fb128ce56567
+    with_body_sha: "39d3cec34ce2"
   edges:
     code: pwsh/Catzc.Base.Flow/types/RungsConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-FLOW-CD-PREPRODRUNG
-      - ADR-FLOW-CD-RUNGSREGISTRY
-      - ADR-FLOW-CD-CERTIFYINGRECORD
+      - FDR-CD-PREPRODRUNG
+      - FDR-CD-RUNGSREGISTRY
+      - FDR-CD-CERTIFYINGRECORD
 ---
 #>
 
@@ -19,12 +19,12 @@ Describe 'RungsConfig declared ladder' -Tag 'L1', 'integrity' {
         $config.rungs.name | Should -Be @('main-uat', 'release-uat', 'pre-prod', 'prod')
         $config.rungs.environment | Should -Be @('dev', 'test', 'preprod', 'prod')
         $config.rungs.gate | Should -Be @('none', 'rc', 'rbc', 'prod-approval')
-        $config.rungs[2].rules | Should -Be @('ADR-FLOW-CD-PREPRODRUNG', 'ADR-FLOW-CD-CERTIFYINGRECORD')
+        $config.rungs[2].rules | Should -Be @('FDR-CD-PREPRODRUNG', 'FDR-CD-CERTIFYINGRECORD')
     }
 }
 
 Describe 'RungsConfig' -Tag 'L0', 'logic' {
-    It 'reads the rule codes that define a rung, and none when it lists none' -Tag 'ADR-FLOW-CD-RUNGSREGISTRY' {
+    It 'reads the rule codes that define a rung, and none when it lists none' -Tag 'FDR-CD-RUNGSREGISTRY' {
         $config = [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = [ordered]@{
                     'widget-uat' = @{ environment = 'widget'; gate = 'none'; rules = @('ADR-WIDGET-GADGET-SPIN') }
                     'gadget-uat' = @{ environment = 'gadget'; gate = 'rc' }
@@ -45,7 +45,7 @@ Describe 'RungsConfig' -Tag 'L0', 'logic' {
         ([Catzc.Base.Flow.RungsConfig]::new($null)).rungs | Should -HaveCount 4
     }
 
-    It 'maps a ladder it is given, keeping its order' -Tag 'ADR-FLOW-CD-RUNGSREGISTRY' {
+    It 'maps a ladder it is given, keeping its order' -Tag 'FDR-CD-RUNGSREGISTRY' {
         $config = [Catzc.Base.Flow.RungsConfig]::new(@{ rungs = [ordered]@{
                     'widget-uat' = @{ environment = 'widget'; gate = 'none' }
                     'gadget-uat' = @{ environment = 'gadget'; gate = 'rc' }
@@ -55,7 +55,7 @@ Describe 'RungsConfig' -Tag 'L0', 'logic' {
         $config.rungs[1].environment | Should -Be 'gadget'
     }
 
-    It 'selects the rungs behind given gates, in climbing order' -Tag 'ADR-FLOW-CD-RUNGSREGISTRY' {
+    It 'selects the rungs behind given gates, in climbing order' -Tag 'FDR-CD-RUNGSREGISTRY' {
         ([Catzc.Base.Flow.RungsConfig]::new(@{})).GatedBy('rc', 'rbc').name | Should -Be @('release-uat', 'pre-prod')
     }
 
@@ -90,7 +90,7 @@ Describe 'RungsConfig' -Tag 'L0', 'logic' {
 }
 
 Describe 'RungsConfig (shipped rungs.yml)' -Tag 'L1', 'integrity' {
-    It 'loads the shipped rungs.yml as a RungsConfig' -Tag 'ADR-FLOW-CD-RUNGSREGISTRY' {
+    It 'loads the shipped rungs.yml as a RungsConfig' -Tag 'FDR-CD-RUNGSREGISTRY' {
         (Get-Config -Config rungs) | Should -BeOfType ([Catzc.Base.Flow.RungsConfig])
     }
 }

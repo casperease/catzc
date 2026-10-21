@@ -139,7 +139,7 @@ the noun ("the gate", "each gate", "two gates") are not qualifiers, so they are 
 Two of the general families are easy to confuse. A **layer** is a level in a stack: one sits on or contains the next (language under
 PowerShell under installer; a fileset inside a module). A **facet** is one of several parallel views of, or checks on, the same thing: none
 sits above another (a build's `Types`, `Load`, `Parity`, and `Manifest` facets; a module's disk and session facets). The parts a unit's
-files partition into are **aspects** ([ADR-DSGN-ASPECT](../design/module-aspects.md)); a facet is never one of them.
+files partition into are **aspects** ([DDR-ASPECT](../design/module-aspects.md)); a facet is never one of them.
 
 ### PowerShell, pwsh and powershell
 

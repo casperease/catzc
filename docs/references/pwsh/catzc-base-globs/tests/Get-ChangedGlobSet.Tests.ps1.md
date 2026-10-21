@@ -9,7 +9,7 @@ Above `Describe 'Get-ChangedGlobSet' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-ChangedGlobSet: the computed area-of-control of a diff
-([ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-namedglobsets)) — the declared sets whose scan
+([FDR-CD-GLOBS-NAMEDGLOBSETS](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)) — the declared sets whose scan
 program selects a changed path, reflected from git at real refs instead of from a committed marker hash.
 ```
 

@@ -11,9 +11,9 @@ Above `using System;`, written with `//`.
 Draws the world map onto PdfDocument pages: the grid page (rows are the tracks, columns the file languages, each cell
 shaded by its file count) and the tree page (a squarified treemap of the tracks by file count, each holding its
 non-empty cells). The catch-all row prints the root-file label and the catch-all column the unlisted-file label
-([ADR-DSGN-TRACK-ROOTFILE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-rootfile),
-[ADR-DSGN-TRACK-UNLISTEDFILE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-unlistedfile)). A cell that breaks its track's tech-stack is
-marked ([ADR-DSGN-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-onetechstack)), and an optional WorldMapHighlight
+([DDR-TRACK-ROOTFILE](/docs/adr/design/tracks.md#rule-ddr-track-rootfile),
+[DDR-TRACK-UNLISTEDFILE](/docs/adr/design/tracks.md#rule-ddr-track-unlistedfile)). A cell that breaks its track's tech-stack is
+marked ([DDR-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-ddr-track-onetechstack)), and an optional WorldMapHighlight
 outlines its lit cells on top of everything else.
 
 Every page starts with the full-page background fill, so a viewer in dark or light mode shows the palette's

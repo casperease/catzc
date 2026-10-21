@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d541be80b3c1
+#     with_body_sha: c44a5f7badb1
 # ---
 
 description:
@@ -9,12 +9,12 @@ description:
   integrate from the verified point rest on code review alone.
 about:
   adrs:
-    - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-    - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-    - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-    - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+    - DDR-REMOTE-SERVERREMOTEISTRUTH
+    - DDR-REMOTE-INTEGRATEFROMVERIFIED
+    - DDR-REMOTE-NORECONCILINGTIPS
+    - DDR-REMOTE-PULLREQUESTISINGRESS
     - ADR-REPO-VARIANT-GITWORKSPACE
-    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
   lens: governance
 content:
   title: Only ingress is checked by gates; the source-of-truth and integration rules rest on code review
@@ -104,22 +104,22 @@ content:
       rule: ADR-REPO-VARIANT-GITWORKSPACE
     - at: g-policy
       kind: rule
-      rule: ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+      rule: DDR-REMOTE-PULLREQUESTISINGRESS
     - at: band-remote
       kind: rule
-      rule: ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+      rule: DDR-REMOTE-SERVERREMOTEISTRUTH
       gated: false
     - at: g-review
       kind: rule
-      rule: ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+      rule: DDR-REMOTE-INTEGRATEFROMVERIFIED
       gated: false
     - at: g-review
       kind: rule
-      rule: ADR-DSGN-REMOTE-NORECONCILINGTIPS
+      rule: DDR-REMOTE-NORECONCILINGTIPS
       gated: false
     - at: g-review
       kind: rule
-      rule: ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      rule: FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       gated: false
   legend: auto
   minimaps:
@@ -127,15 +127,15 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-NORECONCILINGTIPS
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
           - ADR-REPO-VARIANT-GITWORKSPACE
       - cell: docs/-/.
         by:
@@ -158,39 +158,39 @@ content:
           - docs/references/pwsh/catzc-base-variants/Test-AspectDeclaration.ps1.md
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
           - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-NORECONCILINGTIPS
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
           - ADR-REPO-VARIANT-GITWORKSPACE
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-NORECONCILINGTIPS
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
           - ADR-REPO-VARIANT-GITWORKSPACE
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.ModuleSystem/.
         by:
           - pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
@@ -212,20 +212,20 @@ content:
       - cell: subject/.claude
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: subject/Catzc.Azure.DevOps
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-NORECONCILINGTIPS
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
           - ADR-REPO-VARIANT-GITWORKSPACE
       - cell: subject/Catzc.Base.Maps
         by:
@@ -233,7 +233,7 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: subject/Catzc.Base.ModuleSystem
         by:
           - pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
@@ -248,32 +248,32 @@ content:
       - cell: subject/pipelines
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-NORECONCILINGTIPS
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
           - ADR-REPO-VARIANT-GITWORKSPACE
     axis:
       - cell: DSGN/build
         by:
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-NORECONCILINGTIPS
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
       - cell: DSGN/quality-control
         by:
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-NORECONCILINGTIPS
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
-          - ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-NORECONCILINGTIPS
+          - DDR-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-SERVERREMOTEISTRUTH
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: DSGN/release
         by:
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: DSGN/deploy
         by:
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: AUTO/*
         by:
           - ADR-REPO-VARIANT-GITWORKSPACE

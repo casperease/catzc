@@ -8,7 +8,7 @@ catzc:
     docs: "[Get-TrackPlacementMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md)"
     cites:
       - ADR-AZ-NAMING
-      - ADR-DSGN-TRACK
+      - DDR-TRACK
 ---
 #>
 

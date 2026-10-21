@@ -12,7 +12,7 @@ CI, CD and DEPLOY are separate pipeline kinds, keyed together by one artifact.
 7  pre-prod, production  DEPLOY-Prod stages the artifact inactive, then activates it live
 8  the CD run's path     the apex and shared CD pipelines deploy the prod tier themselves today
 
-Supports ADR-FLOW-CD-SEPARATEPIPELINEKINDS, ADR-FLOW-CD-CDCONTAINSCI, ADR-FLOW-CD-CDSTAYSINNONPROD, ADR-FLOW-CD-TWORELEASEGATES and ADR-FLOW-CD-PREPRODRUNG (architecture lens).
+Supports FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES and FDR-CD-PREPRODRUNG (architecture lens).
 ```
 
 Cats does not build one giant pipeline from commit to production. CI, CD and DEPLOY are separate pipeline kinds, each with its own trigger,
@@ -42,20 +42,20 @@ kinds rather than inside them, and it shows the path the CD pipelines in the rep
 8. **The CD run's own path to prod.** The apex and shared CD pipelines deploy the artifact to the prod tier themselves, in the same run as
    non-prod, with no DEPLOY in between: `psub` for both, and the expedition `prod` for apex. No CD pipeline deploys a pre-prod target, so
    the path ends on production. The approval check on a prod-tier environment is the engine's, configured by the adopting team's apply of
-   the shipped `environment-approvals.yml` through `Sync-AdoEnvironmentApprovals` (ADR-FLOW-CD-PRODAPPROVALGATE).
+   the shipped `environment-approvals.yml` through `Sync-AdoEnvironmentApprovals` (FDR-CD-PRODAPPROVALGATE).
 
 ## Why it holds
 
 - CI, CD, CDe and DEPLOY are separate pipeline kinds keyed together by the tagged artifact, and nothing downstream rebuilds it
-  (ADR-FLOW-CD-SEPARATEPIPELINEKINDS).
-- A CD pipeline always contains the CI component, and a solo CI pipeline contains only it (ADR-FLOW-CD-CDCONTAINSCI).
+  (FDR-CD-SEPARATEPIPELINEKINDS).
+- A CD pipeline always contains the CI component, and a solo CI pipeline contains only it (FDR-CD-CDCONTAINSCI).
 - CD takes the artifact through an on-demand environment with L3 system tests and then onto the always-on environment that tracks main,
-  entirely within non-prod (ADR-FLOW-CD-CDSTAYSINNONPROD).
-- RC and RBC are the two hands-on release gates, and each is a gate, not a pipeline (ADR-FLOW-CD-TWORELEASEGATES).
+  entirely within non-prod (FDR-CD-CDSTAYSINNONPROD).
+- RC and RBC are the two hands-on release gates, and each is a gate, not a pipeline (FDR-CD-TWORELEASEGATES).
 - DEPLOY splits by target: DEPLOY-Non-Prod into the non-prod acceptance environments, DEPLOY-Prod through pre-prod into production
-  (ADR-FLOW-CD-PREPRODRUNG).
+  (FDR-CD-PREPRODRUNG).
 - CD is the delivery posture. CDe is the alternative, a CD that folds the DEPLOY step back in and rolls to production automatically; a unit
-  is governed as one or the other, never both (ADR-FLOW-CD-CDEINTERNALIZESPROMOTION).
+  is governed as one or the other, never both (FDR-CD-CDEINTERNALIZESPROMOTION).
 
 ## Where the code and the ADR differ
 

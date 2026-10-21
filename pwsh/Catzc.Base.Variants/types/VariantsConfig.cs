@@ -2,16 +2,16 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "38349c736665"
+    with_body_sha: d1f35a3b61e4
   edges:
     test: pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
     docs: "[VariantsConfig.cs.md](docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-      - ADR-DSGN-ASPECT
-      - ADR-DSGN-TRACK
       - ADR-REPO-VARIANT
+      - DDR-ASPECT
+      - DDR-TRACK
 ---
 */
 
@@ -315,7 +315,7 @@ public sealed class VariantsConfig : Catzc.Base.Objects.DictionaryRecord
                 }
                 else if (place == "out" || place.StartsWith("out/", StringComparison.OrdinalIgnoreCase))
                 {
-                    errors.Add(string.Format("tracks['{0}']: place '{1}' is gitignored output, never a track (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER)", name, place));
+                    errors.Add(string.Format("tracks['{0}']: place '{1}' is gitignored output, never a track (DDR-TRACK-TRACKISPLACEDCLUSTER)", name, place));
                 }
                 else if (placeOwner.ContainsKey(place))
                 {

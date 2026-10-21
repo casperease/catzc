@@ -2,15 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "62c4171aa07d"
+    with_body_sha: "1b47a842dfd5"
   edges:
     code: pwsh/Catzc.Base.Git/Sync-Topic.ps1
     cites:
-      - ADR-FLOW-GIT-SYNCBYREBASE
+      - FDR-GIT-SYNCBYREBASE
 ---
 #>
 
-Describe 'Sync-Topic' -Tag 'L0', 'logic', 'ADR-FLOW-GIT-SYNCBYREBASE' {
+Describe 'Sync-Topic' -Tag 'L0', 'logic', 'FDR-GIT-SYNCBYREBASE' {
     BeforeAll {
         $script:config = [Catzc.Base.Git.GitFlowConfig]::new(@{})
         $script:onto = 'a' * 40

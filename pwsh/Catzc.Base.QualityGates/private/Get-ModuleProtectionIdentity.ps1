@@ -7,9 +7,9 @@ catzc:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-ModuleProtectionIdentity.Tests.ps1
     docs: "[Get-ModuleProtectionIdentity.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-ModuleProtectionIdentity.ps1.md)"
     cites:
-      - ADR-DSGN-ASPECT
-      - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
       - ADR-REPO-PROTGLOB
+      - DDR-ASPECT
+      - FDR-CD-GLOBS-DURABLESHAIDENTITY
 ---
 #>
 

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8519d7e88e58"
+#     with_body_sha: dd997aaaace4
 # ---
 
 description:
@@ -9,7 +9,7 @@ description:
   the build validation commit the deploy stages follow the template, not a rung."
 about:
   adrs:
-    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
   lens: implementation
 content:
   title: The pipelines wire only topic, landed and BVT; past BVT there is no ladder
@@ -148,11 +148,11 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: docs/-/.
         by:
           - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
@@ -166,38 +166,38 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
     grid:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: docs/markdown
         by:
           - docs/adr/flow/commit-lifecycle.md
@@ -209,16 +209,16 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: docs/yaml
         by:
           - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
           - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: pwsh/powershell
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -226,21 +226,21 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: pwsh/yaml
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
     axis:
       - cell: DSGN/quality-control
         by:
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: DSGN/release
         by:
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: DSGN/deploy
         by:
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
 layout:
   band-pre:
     x: 20

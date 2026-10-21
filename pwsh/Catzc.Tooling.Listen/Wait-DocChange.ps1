@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "73f844b033cf"
+    with_body_sha: "7cd7d5b0dfc8"
   edges:
     test: pwsh/Catzc.Tooling.Listen/tests/Wait-DocChange.Tests.ps1
     cites:

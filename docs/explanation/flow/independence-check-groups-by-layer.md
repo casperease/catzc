@@ -12,7 +12,7 @@ The independence gate groups every globset by layer and tests each same-layer pa
 7  Write-QualityGateReport       writes the report under out/test-globset-independence/
 8  One throw lists every pair    on issues, one throw with one line per overlapping pair
 
-Supports ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER and ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER (implementation lens).
+Supports FDR-CD-GLOBS-EVERYSETHASLAYER and FDR-CD-GLOBS-NOOVERLAPWITHINLAYER (implementation lens).
 ```
 
 The gate `Test-GlobSetIndependence` takes every declared and derived globset, computes each one's own members, groups the sets by `Layer`,
@@ -44,9 +44,9 @@ decides whether it is ever compared with anything. All paths below are under `pw
 ## Why it holds
 
 - Every globset carries a layer; `deployable-unit` and `loose-fileset` are declared, and `module` is derived from the folders and the
-  internal module files (ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER).
+  internal module files (FDR-CD-GLOBS-EVERYSETHASLAYER).
 - Within a layer, no two globsets select a common file on their own contribution, compose ignored; validation is per layer, never across,
-  and the `loose-fileset` layer is exempt (ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER).
+  and the `loose-fileset` layer is exempt (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER).
 
 ## See also
 

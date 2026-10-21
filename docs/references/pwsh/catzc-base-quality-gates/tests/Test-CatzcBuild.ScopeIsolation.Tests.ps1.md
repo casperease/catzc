@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Module script scopes are never shared' -Tag...`, written with `#`.
 
 ```text
-Scope isolation ([ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE](/docs/adr/design/run-modes.md#rule-adr-dsgn-runmode-ownscriptscope)): two catzc modules that
+Scope isolation ([DDR-RUNMODE-OWNSCRIPTSCOPE](/docs/adr/design/run-modes.md#rule-ddr-runmode-ownscriptscope)): two catzc modules that
 hold a $script: variable of the same name never see
 each other's value — in either run mode. The probe variable name is the test's own and is removed afterwards; no
 module code reads it. The modules are chosen generically (the first two loaded catzc modules by name), never by

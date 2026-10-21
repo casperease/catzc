@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "80bdff01ed1e"
+#     with_body_sha: "89f589daed07"
 # ---
 
 description:
@@ -9,8 +9,8 @@ description:
   with every raw-read line, and a CI step on the agent asserts the detector answers true and prints the staging directory."
 about:
   adrs:
-    - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-    - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
+    - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+    - FDR-CD-DETECT-BOOLEANNOTMODAL
   lens: operations
 content:
   title: A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam
@@ -86,13 +86,13 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: docs/-/.
         by:
           - docs/adr/flow/dora-explains.md
@@ -108,102 +108,102 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Azure.Templates/.
         by:
           - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Base.Globs/tests
         by:
           - pwsh/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
     module-neighbourhood:
       - cell: subject/.claude
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: subject/Catzc.Azure.DevOps
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: subject/Catzc.Azure.Templates
         by:
           - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
           - pwsh/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: subject/Catzc.Base.Maps
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: subject/pipelines
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
     axis:
       - cell: DSGN/*
         by:
-          - ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
 layout:
   band-devbox:
     x: 20

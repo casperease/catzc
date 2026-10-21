@@ -2,13 +2,13 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "809103c8a1c0"
+    with_body_sha: "67eccce0f6bd"
   edges:
     docs: "[GlobSet.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/types/GlobSet.cs
     cites:
-      - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
-      - ADR-FLOW-CD-GLOBS-COMPOSESETS
+      - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - FDR-CD-GLOBS-COMPOSESETS
 ---
 #>
 
@@ -20,7 +20,7 @@ Describe 'GlobSet' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'membership (ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY)' {
+    Context 'membership (FDR-CD-GLOBS-TRACKEDFILESONLY)' {
         It 'belongs when any include matches and no exclude does' {
             $set = & $script:make 'unit' @('src/**', 'importer.ps1') @('**/*.md')
             $set.Matches('src/a.cs') | Should -BeTrue

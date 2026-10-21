@@ -52,7 +52,7 @@ Above `$sets = @(Get-ModuleGlobSet -Name $setName) | Sort-Object Name`, written 
 
 ```text
 A module name resolves to its live/tests aspect sets
-([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)); a reserved/single set to
+([DDR-ASPECT](/docs/adr/design/module-aspects.md)); a reserved/single set to
 one. Fold the aspect hashes (name|hash, ordinal by name) so the constituent hash covers the
 module's whole content — identical protection semantics to the pre-aspect whole-module set.
 ```
@@ -82,5 +82,5 @@ Above `$names = [string[]]$constituents`, written with `#`.
 
 ```text
 ---- fold: name|hash lines, ordinal by name — the
-[ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-durableshaidentity) recipe over set hashes ----
+[FDR-CD-GLOBS-DURABLESHAIDENTITY](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity) recipe over set hashes ----
 ```

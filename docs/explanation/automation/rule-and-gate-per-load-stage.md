@@ -10,7 +10,7 @@ Every load stage but the unload has an ADR rule and a gate.
 5  Janitors                idempotent, actor-aware; gate Invoke-TypeCacheJanitor.Tests
 6  Unload                  the import-time helpers removed; no rule and no gate
 
-Supports ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-PWSH-ERROR-STOPONERROR, PDR-ONELIVE-ONEVERSION, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-DSGN-RUNMODE-NEVERCOEXIST and ADR-BCL-TYPES-JANITORSBYCALLER (governance lens).
+Supports ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-PWSH-ERROR-STOPONERROR, PDR-ONELIVE-ONEVERSION, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, DDR-RUNMODE-NEVERCOEXIST and ADR-BCL-TYPES-JANITORSBYCALLER (governance lens).
 ```
 
 The cats load sequence runs in six stages, from the generated shim to the final unload of the import-time helpers. Each stage but the last
@@ -34,7 +34,7 @@ Each stage has its own band, and a stage's gate sits in its band beside the rule
    (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE). `Import-AllModules.Tests` checks that a duplicated or
    shadowing function name fails the import, and `Import-CSharpTypes.Tests` and the walking-skeleton `Import-Catzc.Tests` also cover this
    stage.
-4. **Run mode.** The two run modes never coexist (ADR-DSGN-RUNMODE-NEVERCOEXIST). The stage is itself a check:
+4. **Run mode.** The two run modes never coexist (DDR-RUNMODE-NEVERCOEXIST). The stage is itself a check:
    `Assert-CatzcRunModeExclusive` runs on every load and throws when a module from the other run mode's root is still loaded.
    `Assert-CatzcRunModeExclusive.Tests` checks it, and the eviction block of `Import-AllModules.Tests` checks the removal that comes before
    it.
@@ -56,10 +56,10 @@ build, and code review rejects a bundle loader that forks the importer.
   (ADR-AUTO-BUNDLE-TWOROOTS), and a bundle is a session, not a passive library (ADR-AUTO-BUNDLE-BUNDLEISSESSION).
 - A bundle loads through the one living importer, so types and accelerators register before any module (ADR-AUTO-BUNDLE-ONELIVINGIMPORTER,
   ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE).
-- The two run modes never coexist in one session (ADR-DSGN-RUNMODE-NEVERCOEXIST).
+- The two run modes never coexist in one session (DDR-RUNMODE-NEVERCOEXIST).
 - Root-config generation is idempotent and runs on every import (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION), and the session actor decides what
   the janitors may change (ADR-BCL-TYPES-JANITORSBYCALLER).
-- The run modes have two entry points (ADR-DSGN-RUNMODE-TWORUNMODES).
+- The run modes have two entry points (DDR-RUNMODE-TWORUNMODES).
 
 ## Where the code and the ADR differ
 

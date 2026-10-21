@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "1bec31ec503c"
+#     with_body_sha: "5a2577448640"
 #   edges:
 #     docs: "[file-meta.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/file-meta.yml.md)"
 #     cites:
@@ -47,6 +47,6 @@ kinds:
     keys: [cites]
     select:
       [
-        { classes: [type, function, config, hook, module/internal] },
-        { classes: [test, fixture, asset], languages: [powershell] },
+        { classes: [type, function, config, hook, module/internal, pipeline, pipeline-template, template] },
+        { classes: [test, fixture, asset, analyzer-rule], languages: [powershell] },
       ]

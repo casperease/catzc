@@ -10,8 +10,8 @@ Above `using System;`, written with `//`.
 ```text
 Where the grid page of the world map puts things: the title, the legend band, the row headers (the tracks, then the
 root files), the column headers (the file languages, then the unlisted files) and every cell
-([ADR-DSGN-TRACK-ROOTFILE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-rootfile),
-[ADR-DSGN-TRACK-UNLISTEDFILE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-unlistedfile)). The page size comes from MapsLimits; the row
+([DDR-TRACK-ROOTFILE](/docs/adr/design/tracks.md#rule-ddr-track-rootfile),
+[DDR-TRACK-UNLISTEDFILE](/docs/adr/design/tracks.md#rule-ddr-track-unlistedfile)). The page size comes from MapsLimits; the row
 header is as wide as its longest printed label (within a third of the grid), and the columns share the rest evenly.
 The column-header band holds the column axis on one line and the file-language names on two, so a name that wraps
 leaves every column the same height.

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5aa5abdffb64"
+#     with_body_sha: eae41a597479
 # ---
 
 description:
@@ -13,8 +13,8 @@ about:
     - TDR-NORMALFORM-ENABLINGCONSTRAINTS
     - TDR-NORMALFORM-UNCONTESTED
     - TDR-NORMALFORM-MIGRATIONREACHESTHEFORM
-    - ADR-DSGN-TRACK-UNORDEREDTRACK
-    - ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
+    - DDR-TRACK-UNORDEREDTRACK
+    - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
   lens: meta
 content:
   title: A file leaves the unordered track only in the normal form
@@ -127,8 +127,8 @@ content:
           - TDR-NORMALFORM-UNCONTESTED
       - cell: DSGN/*
         by:
-          - ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
+          - DDR-TRACK-UNORDEREDTRACK
     lifecycle-position:
       - cell: main-uat
         by:
@@ -136,8 +136,8 @@ content:
           - .claude/CLAUDE.md
           - docs/adr/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
+          - DDR-TRACK-UNORDEREDTRACK
           - TDR-NORMALFORM-ANYCODEHASNORMALFORM
           - TDR-NORMALFORM-ENABLINGCONSTRAINTS
           - TDR-NORMALFORM-MIGRATIONREACHESTHEFORM
@@ -148,8 +148,8 @@ content:
           - .claude/CLAUDE.md
           - docs/adr/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
+          - DDR-TRACK-UNORDEREDTRACK
           - TDR-NORMALFORM-ANYCODEHASNORMALFORM
           - TDR-NORMALFORM-ENABLINGCONSTRAINTS
           - TDR-NORMALFORM-MIGRATIONREACHESTHEFORM
@@ -160,8 +160,8 @@ content:
           - .claude/CLAUDE.md
           - docs/adr/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
+          - DDR-TRACK-UNORDEREDTRACK
           - TDR-NORMALFORM-ANYCODEHASNORMALFORM
           - TDR-NORMALFORM-ENABLINGCONSTRAINTS
           - TDR-NORMALFORM-MIGRATIONREACHESTHEFORM
@@ -172,8 +172,8 @@ content:
           - .claude/CLAUDE.md
           - docs/adr/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
+          - DDR-TRACK-UNORDEREDTRACK
           - TDR-NORMALFORM-ANYCODEHASNORMALFORM
           - TDR-NORMALFORM-ENABLINGCONSTRAINTS
           - TDR-NORMALFORM-MIGRATIONREACHESTHEFORM
@@ -225,8 +225,8 @@ content:
           - pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
           - pwsh/Catzc.Base.Variants/types/VariantTrack.cs
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
+          - DDR-TRACK-UNORDEREDTRACK
           - TDR-NORMALFORM-ANYCODEHASNORMALFORM
           - TDR-NORMALFORM-ENABLINGCONSTRAINTS
           - TDR-NORMALFORM-MIGRATIONREACHESTHEFORM

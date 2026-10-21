@@ -11,7 +11,7 @@ A quality gate keeps units and modules disjoint; loose-filesets are exempt; two 
 6  module sets               derived-only, disjoint on their own contribution
 7  Config-load validation    GlobsConfig rejects a declared module layer or reserved name
 
-Supports ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER, ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER, ADR-AUTO-TEST-QUALITYGATE and ADR-REPO-PROTGLOB (governance lens).
+Supports FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER, ADR-AUTO-TEST-QUALITYGATE and ADR-REPO-PROTGLOB (governance lens).
 ```
 
 The per-layer independence rule says that peers in a layer never share a file on their own contribution. In cats a quality gate enforces it
@@ -41,9 +41,9 @@ behind them: they hold only as ADR rules.
 ## Why it holds
 
 - Every globset carries a layer, the `module` layer is derived-only, and a phantom unit or a loose-fileset without a demonstrated use is
-  forbidden (ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER).
+  forbidden (FDR-CD-GLOBS-EVERYSETHASLAYER).
 - Within a layer, no two globsets select a common file on their own contribution; validation is per layer, and the `loose-fileset` layer is
-  exempt (ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER).
+  exempt (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER).
 - A quality gate checks one property of the whole repository, writes its report and throws once listing every issue
   (ADR-AUTO-TEST-QUALITYGATE).
 - Module globsets are derived, never declared, and derived and declared sets share one name space (ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS).

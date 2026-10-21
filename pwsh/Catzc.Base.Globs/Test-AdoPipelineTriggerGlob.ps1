@@ -8,8 +8,8 @@ catzc:
     docs: "[Test-AdoPipelineTriggerGlob.ps1.md](docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
-      - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+      - FDR-CD-GLOBS-NAMEDGLOBSETS
+      - FDR-CD-GLOBS-NATIVEPATHFILTER
 ---
 #>
 

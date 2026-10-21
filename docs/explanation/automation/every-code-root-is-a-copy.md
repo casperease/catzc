@@ -55,7 +55,7 @@ drawn here.
 
 ## Where the code and the ADR differ
 
-ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL calls the `-Root` placement an install, where ADR-DSGN-RUNMODE-THREEBUILDKINDS calls the same root saved.
+ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL calls the `-Root` placement an install, where DDR-RUNMODE-THREEBUILDKINDS calls the same root saved.
 
 ## See also
 

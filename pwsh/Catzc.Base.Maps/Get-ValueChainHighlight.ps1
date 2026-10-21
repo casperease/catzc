@@ -8,10 +8,10 @@ catzc:
     docs: "[Get-ValueChainHighlight.ps1.md](docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md)"
     cites:
       - ADR-AUTO-TEST
-      - ADR-DSGN-TRACK-ONETECHSTACK
-      - ADR-DSGN-TRACK-LITCELL
-      - ADR-DSGN-TRACK-VALUECHAINMAP
-      - ADR-FLOW-CD
+      - DDR-TRACK-ONETECHSTACK
+      - DDR-TRACK-LITCELL
+      - DDR-TRACK-VALUECHAINMAP
+      - FDR-CD
       - TDR-ONETRUTH-TRUTHISQUERYABLE
 ---
 #>

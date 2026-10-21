@@ -2,12 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "30cc2321a5f6"
+    with_body_sha: "2abd58113efd"
   edges:
     code: pwsh/Catzc.Base.Variants/Get-Track.ps1
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-DSGN-TRACK-UNORDEREDTRACK
+      - DDR-TRACK-UNORDEREDTRACK
 ---
 #>
 
@@ -81,7 +81,7 @@ Describe 'Get-Track' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Get-Track — the real repository' -Tag 'L1', 'integrity', 'source-only', 'ADR-DSGN-TRACK-UNORDEREDTRACK' {
+Describe 'Get-Track — the real repository' -Tag 'L1', 'integrity', 'source-only', 'DDR-TRACK-UNORDEREDTRACK' {
     It 'declares the unordered track where imports land, and resolves a file at a landing address to it' {
         (Get-Track -Name '.unordered').type | Should -Be 'unordered'
         (Get-Track -Path '.unordered/widget-tools/Spin-Widget.ps1').name | Should -Be '.unordered'

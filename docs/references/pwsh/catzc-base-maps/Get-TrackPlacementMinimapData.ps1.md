@@ -13,7 +13,7 @@ The track placement minimap's data: every track under its track type, lit where 
 
 The subject is the files the ADR codes light on the world map. Each track of the tracks registry (Get-Track) is a cell under its track type,
 and a subject file lights the track its file facts place it in (Get-FileMetaFact), its vendor as the note
-([ADR-DSGN-TRACK](../../../adr/design/tracks.md)). Each lit cell carries the file and the requested code as its reason, in the minimap
+([DDR-TRACK](../../../adr/design/tracks.md)). Each lit cell carries the file and the requested code as its reason, in the minimap
 contract's shape.
 
 ### parameter `Adr`

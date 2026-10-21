@@ -5,6 +5,8 @@ catzc:
     with_body_sha: "222b6b3dcb2a"
   edges:
     docs: "[FunctionLength.psm1.md](docs/references/pwsh/scriptanalyzer/FunctionLength.psm1.md)"
+    cites:
+      - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 ---
 #>
 

@@ -10,24 +10,24 @@ Above `using System;`, written with `//`.
 ```text
 One named globset: an area-of-control's mapping onto files under version control — a kebab-case name, a
 description, its layer (deployable-unit | loose-fileset,
-[ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-everysethaslayer); the derived module layer never
+[FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer); the derived module layer never
 appears in the registry), the authored include/exclude patterns, and the optional composition
-([ADR-FLOW-CD-GLOBS-COMPOSESETS](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-composesets)). Membership is decided by the set's SCAN PROGRAM
-([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)): an ordered list of +/- rules
+([FDR-CD-GLOBS-COMPOSESETS](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)). Membership is decided by the set's SCAN PROGRAM
+([FDR-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)): an ordered list of +/- rules
 evaluated last-match-wins with a default of not-selected. A leaf set's program is its includes as '+' then
 its excludes as '-' (excludes come last and win). A composing set's program is the composed sets' programs
 first (dependency order, deepest base first, each set once), then its own +/- rules LAST — so a set's own
 rules override its base (it re-adds a slice the base dropped). The program drives everything downstream:
 Matches() decides membership, Get-GlobSetTrigger projects it into vendor path filters, and the durable SHA
-([ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-durableshaidentity)) is computed over exactly what the program selects.
+([FDR-CD-GLOBS-DURABLESHAIDENTITY](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)) is computed over exactly what the program selects.
 Verify (test blast-radius scope) and Pipeline (the trigger-role binding) are declarative meta annotations.
 A globset never composes itself and the compose graph is acyclic
-([ADR-FLOW-CD-GLOBS-COMPOSESETS](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-composesets)), which GlobsConfig asserts
+([FDR-CD-GLOBS-COMPOSESETS](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)), which GlobsConfig asserts
 across the whole registry at construction.
-Per-layer independence ([ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nooverlapwithinlayer)) is decided on OWN
+Per-layer independence ([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)) is decided on OWN
 membership (OwnMatches — the set's own rules only,
 compose ignored): within a non-loose layer no two sets may select a common file on their OWN contribution.
-See [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md).
+See [FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md).
 ```
 
 ## comment:2
@@ -35,7 +35,7 @@ See [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md).
 Above `public static readonly string[] DeclaredLayers = { "deployable-unit",...`, written with `//`.
 
 ```text
-The layers ([ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-everysethaslayer)) — three kinds of thing:
+The layers ([FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)) — three kinds of thing:
 'deployable-unit' (a configurable unit that ships) and
 'loose-fileset' (a cross-cutting check surface — a track's root concern like automation/infrastructure,
 a scan scope, the reserved umbrellas — that carries a demonstrated use, e.g. a pipeline, and deliberately
@@ -44,7 +44,7 @@ overlaps the boundaries it cuts across). 'module' is the DERIVED layer
 module partition plus the 'module-leftovers' catch-all — a valid GlobSet layer (Get-ModuleGlobSet
 constructs them), but GlobsConfig rejects it in the declared registry. Within every layer but
 'loose-fileset' the sets are pairwise-disjoint on OWN membership
-([ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nooverlapwithinlayer)).
+([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)).
 ```
 
 ## comment:3
@@ -62,7 +62,7 @@ Above `public readonly struct ScanRule`, written with `//`.
 
 ```text
 A single scan-program rule
-([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)): Select true = '+' (select), false = '-' (drop).
+([FDR-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)): Select true = '+' (select), false = '-' (drop).
 ```
 
 ## comment:5
@@ -79,7 +79,7 @@ program so it rebuilds against the resolved composition.
 Above `public bool Matches(string repoRelativePath)`, written with `//`.
 
 ```text
-Membership ([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)): evaluate the scan program
+Membership ([FDR-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)): evaluate the scan program
 last-match-wins, default not-selected — a file
 belongs when its last matching rule is '+'.
 ```
@@ -89,7 +89,7 @@ belongs when its last matching rule is '+'.
 Above `public bool OwnMatches(string repoRelativePath)`, written with `//`.
 
 ```text
-OWN membership ([ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nooverlapwithinlayer)): the set's own program only —
+OWN membership ([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)): the set's own program only —
 its includes as '+' then its excludes as
 '-', last-match-wins — with compose IGNORED. This is the set's OWN contribution, the slice it maps
 independent of any base it composes: a file belongs when the set selects it without help from a base.
@@ -113,7 +113,7 @@ Above `public string[] SelectOwnMembers(IReadOnlyList<string> tracked)`, written
 
 ```text
 The OWN members (OwnMatches, compose ignored) of a tracked-file universe, in ordinal order — the per-layer
-independence check's input ([ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-nooverlapwithinlayer)).
+independence check's input ([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)).
 ```
 
 ## comment:10
@@ -121,7 +121,7 @@ independence check's input ([ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/f
 Above `public IReadOnlyList<ScanRule> ScanProgram()`, written with `//`.
 
 ```text
-The flattened scan program ([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)/8): the composed sets'
+The flattened scan program ([FDR-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)/8): the composed sets'
 programs first (dependency order,
 deepest base first), then this set's own rules (includes as '+', excludes as '-') LAST, so own rules
 override the base. Identical (op, pattern) rules are deduped keeping the LAST occurrence — harmless for

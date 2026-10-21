@@ -7,9 +7,9 @@ catzc:
     docs: "[MapCell.cs.md](docs/references/pwsh/catzc-base-maps/types/MapCell.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-      - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-      - ADR-DSGN-TRACK-ONETECHSTACK
-      - ADR-DSGN-TRACK-FILELANGUAGE
+      - DDR-TRACK-TRACKISPLACEDCLUSTER
+      - DDR-TRACK-ONETECHSTACK
+      - DDR-TRACK-FILELANGUAGE
 ---
 */
 

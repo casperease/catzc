@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "94c99a030087"
+    with_body_sha: aeb77d388dec
   edges:
     cites:
       - ADR-AUTO-ACCOSTED-COMMANDFORM

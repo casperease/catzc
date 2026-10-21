@@ -7,9 +7,9 @@ catzc:
     test: pwsh/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
     docs: "[ValueChainMap.cs.md](docs/references/pwsh/catzc-base-maps/types/ValueChainMap.cs.md)"
     cites:
-      - ADR-DSGN-TRACK-VALUECHAINSTACK
-      - ADR-DSGN-TRACK-VALUECHAINCONCERN
-      - ADR-DSGN-TRACK-VALUECHAINMAP
+      - DDR-TRACK-VALUECHAINSTACK
+      - DDR-TRACK-VALUECHAINCONCERN
+      - DDR-TRACK-VALUECHAINMAP
       - TDR-ONETRUTH-TRUTHISQUERYABLE
 ---
 */

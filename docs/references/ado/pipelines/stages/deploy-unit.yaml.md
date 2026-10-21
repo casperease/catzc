@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `parameters:`, written with `#`.
 
 ```text
-The one deploy path of a unit, shared by its CD and its DEPLOY pipeline (ADR-FLOW-CD-TYPE-ONEDEPLOYPATH): foundation, then discovery, then
+The one deploy path of a unit, shared by its CD and its DEPLOY pipeline (FDR-CD-TYPE-ONEDEPLOYPATH): foundation, then discovery, then
 expedition, each stage emitted only when its list is non-empty. A list entry is { env, slot?, serviceConnection, subscriptionIdAssertIs,
 adoEnvironment? }; the ADO environment defaults to <Unit>-<env>[-<slot>]. CD passes no RunId (this run's artifacts); DEPLOY passes the
 certifying CD's pipeline and run id.

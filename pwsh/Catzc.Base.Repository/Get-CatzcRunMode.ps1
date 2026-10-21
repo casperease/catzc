@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.Repository/tests/Get-CatzcRunMode.Tests.ps1
     docs: "[Get-CatzcRunMode.ps1.md](docs/references/pwsh/catzc-base-repository/Get-CatzcRunMode.ps1.md)"
     cites:
-      - ADR-DSGN-RUNMODE-MODEISDERIVED
+      - DDR-RUNMODE-MODEISDERIVED
 ---
 #>
 

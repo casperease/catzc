@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.Variants/tests/Get-TrackPlace.Tests.ps1
     docs: "[Get-TrackPlace.ps1.md](docs/references/pwsh/catzc-base-variants/Get-TrackPlace.ps1.md)"
     cites:
-      - ADR-DSGN-TRACK
+      - DDR-TRACK
 ---
 #>
 

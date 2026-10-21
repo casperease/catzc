@@ -8,7 +8,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Tracks — the repository's root concerns`
 
-[ADR-DSGN-TRACK](tracks.md)
+[DDR-TRACK](tracks.md)
 
 > DORA identifies loosely coupled teams and code maintainability as drivers of delivery performance. Tracks establish named concerns with
 > clear ownership, tech-stacks, and subscription boundaries, enabling independent verification and blast-radius isolation through
@@ -24,7 +24,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Thin platforms — an API/CLI abstraction over a vendor layer`
 
-[ADR-DSGN-THINPLAT](thin-platforms.md)
+[DDR-THINPLAT](thin-platforms.md)
 
 > DORA's research identifies flexible infrastructure and tool empowerment as drivers of team autonomy and delivery performance. Thin
 > platforms harmonize the vendor surface through a CLI abstraction, reducing cognitive load while keeping consequential decisions visible
@@ -42,7 +42,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Self-service — safe by construction in controlled settings`
 
-[ADR-DSGN-SELFSERV](self-service.md)
+[DDR-SELFSERV](self-service.md)
 
 > DORA's research consistently ties elite delivery performance to exactly the practices this ADR makes structural — version control as the
 > single source of truth, trunk-based development, and automated deployment — and to lightweight, built-in change approval over heavyweight
@@ -60,7 +60,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Visual design of the value-chain diagrams — branch geometry and commit-colour semantics`
 
-[ADR-DSGN-VISUAL](visual-design.md)
+[DDR-VISUAL](visual-design.md)
 
 > Visual grammar is a communication artifact, and DORA treats the clarity of a team's delivery model as part of how well the team can
 > improve it: a shared, unambiguous picture of how work flows from commit to production is what lets a team reason about its own
@@ -79,7 +79,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `The audited server git remote — verified integration and PR ingress`
 
-[ADR-DSGN-REMOTE](server-remote-integration.md)
+[DDR-REMOTE](server-remote-integration.md)
 
 > DORA identifies trunk-based development, version control, and lightweight change approval as predictors of delivery performance.
 > Integrating from the last verified commit keeps the trunk continuously integrable without exposing consumers to a dirty tip, and making
@@ -99,7 +99,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Run modes — source mode and build mode`
 
-[ADR-DSGN-RUNMODE](run-modes.md)
+[DDR-RUNMODE](run-modes.md)
 
 > DORA ties deployment automation and continuous delivery to delivery performance. Shipping the toolset as a built, installable package that
 > runs the very same modules — proven by the same tests in both modes — makes the delivered artifact a verified form of the source rather
@@ -116,7 +116,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Track types — what a track owns, and where tracks are declared`
 
-[ADR-DSGN-TRACKTYPE](track-types.md)
+[DDR-TRACKTYPE](track-types.md)
 
 > DORA identifies loosely coupled teams and flexible infrastructure as drivers of delivery performance. Typing each track as deployable or
 > holder, and naming the vendor that reads it, keeps a platform change inside one track and lets a gate tell a deliverable from a vendor's
@@ -132,7 +132,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Module types — what a module is placed as`
 
-[ADR-DSGN-MODTYPE](module-types.md)
+[DDR-MODTYPE](module-types.md)
 
 > DORA identifies code maintainability and version control as drivers of delivery performance. One registry that says what a module is, and
 > a track type that admits only the module types it should, keeps one tech-stack per track visible without reading the files.
@@ -147,7 +147,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Module aspects — a unit's files partition into live and tests`
 
-[ADR-DSGN-ASPECT](module-aspects.md)
+[DDR-ASPECT](module-aspects.md)
 
 > DORA identifies loosely coupled teams and code maintainability as predictors of delivery performance. Partitioning modules into live and
 > test aspects creates clear ownership boundaries, prevents accidental shipping of unreviewed code, and enables independent reasoning about

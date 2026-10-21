@@ -5,10 +5,10 @@
 #   edges:
 #     docs: "[globs.yml.md](docs/references/pwsh/catzc-base-globs/configs/globs.yml.md)"
 #     cites:
-#       - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-#       - ADR-FLOW-CD-GLOBS
 #       - ADR-REPO-PROTGLOB-INCLUDESOWNCONFIG
 #       - ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS
+#       - DDR-TRACK-DEPLOYABLEUNIT
+#       - FDR-CD-GLOBS
 # ---
 
 globsets:

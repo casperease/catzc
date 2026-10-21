@@ -13,7 +13,7 @@ Runs a build run: the same tests as Test-Automation, against a fresh build of th
 
 The second of the two test runs over one body of tests
 ([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../../adr/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns),
-[ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES](../../../adr/design/run-modes.md#rule-adr-dsgn-runmode-sametestsbothmodes)). It builds the selected
+[DDR-RUNMODE-SAMETESTSBOTHMODES](../../../adr/design/run-modes.md#rule-ddr-runmode-sametestsbothmodes)). It builds the selected
 modules with Build-Modules (vendor policy 'full', so Pester and PSScriptAnalyzer ship with the build) into a fresh temporary destination,
 then runs the Test-Automation harness unchanged in shape — discovery, the tier/category tag checks, sharding, rows, reports — with one seam
 swapped: each shard worker dot-sources the build's Import-Catzc.ps1 -RepositoryRoot `<repo>` instead of the repository importer, so every

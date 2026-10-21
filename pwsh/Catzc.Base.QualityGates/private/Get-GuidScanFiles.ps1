@@ -8,7 +8,7 @@ catzc:
     docs: "[Get-GuidScanFiles.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-GuidScanFiles.ps1.md)"
     cites:
       - ADR-AUTO-TRACKED-ONESEAM
-      - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+      - FDR-CD-GLOBS-TRACKEDFILESONLY
 ---
 #>
 

@@ -6,7 +6,7 @@ catzc:
   edges:
     docs: "[PipelineTrigger-Integrity.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/PipelineTrigger-Integrity.Tests.ps1.md)"
     cites:
-      - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+      - FDR-CD-GLOBS-NAMEDGLOBSETS
 ---
 #>
 

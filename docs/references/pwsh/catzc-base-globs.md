@@ -25,7 +25,7 @@ that ships) or `loose-fileset` (a cross-cutting surface — a track's root conce
 whole-repository `repository` set, or a reserved umbrella); `module` (per-folder, with the `module-leftovers` catch-all) is derived from the
 folders and never declared. Validation rejects unknown keys, malformed patterns, and cyclic or self-referential compose. Within every layer
 but `loose-fileset` no two sets may overlap on their OWN contribution — a boundary never consumes a peer's files
-(`ADR-FLOW-CD-GLOBS-NOOVERLAPWITHINLAYER`); loose-filesets overlap the boundaries they cut across by design.
+(`FDR-CD-GLOBS-NOOVERLAPWITHINLAYER`); loose-filesets overlap the boundaries they cut across by design.
 
 ### responsibility:2 — Membership and durable identity
 

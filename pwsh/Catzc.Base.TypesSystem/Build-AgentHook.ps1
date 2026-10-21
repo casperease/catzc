@@ -2,14 +2,14 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c793a8bb02c4
+    with_body_sha: "35630b989311"
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Build-AgentHook.Tests.ps1
     docs: "[Build-AgentHook.ps1.md](docs/references/pwsh/catzc-base-types-system/Build-AgentHook.ps1.md)"
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-      - ADR-DSGN-RUNMODE
       - ADR-REPO-AI-EDITORISFACT
+      - DDR-RUNMODE
 ---
 #>
 
@@ -31,7 +31,7 @@ function Build-AgentHook {
 
         dotnet runs through Invoke-Executable rather than Invoke-Dotnet: that wrapper lives in the Tooling layer, which this Base module
         must not depend on, so dotnet must be on PATH. The hooks' C# code lives in the source tree, so it stops with a named error in build
-        mode (Assert-SourceTree, [ADR-DSGN-RUNMODE](/docs/adr/design/run-modes.md)).
+        mode (Assert-SourceTree, [DDR-RUNMODE](/docs/adr/design/run-modes.md)).
 
     .PARAMETER Name
         The hooks to publish, by folder name. Default: every hook folder under .claude/hooks/.

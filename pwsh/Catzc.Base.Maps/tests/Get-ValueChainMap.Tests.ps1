@@ -2,15 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "29e08d3e55d7"
+    with_body_sha: "0a77f14bba90"
   edges:
     docs: "[Get-ValueChainMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainMap.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Maps/Get-ValueChainMap.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-      - ADR-DSGN-TRACK-VALUECHAINSTACK
-      - ADR-DSGN-TRACK-VALUECHAINCONCERN
-      - ADR-DSGN-TRACK-VALUECHAINMAP
+      - DDR-TRACK-VALUECHAINSTACK
+      - DDR-TRACK-VALUECHAINCONCERN
+      - DDR-TRACK-VALUECHAINMAP
       - TDR-ONETRUTH-TRUTHISQUERYABLE
 ---
 #>
@@ -31,7 +31,7 @@ Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
         Mock Get-AdrRuleSet -ModuleName Catzc.Base.Maps { $script:ruleSets }
     }
 
-    It 'crosses the value-chain stack with the value-chain concerns, every cell included' -Tag 'ADR-DSGN-TRACK-VALUECHAINMAP' {
+    It 'crosses the value-chain stack with the value-chain concerns, every cell included' -Tag 'DDR-TRACK-VALUECHAINMAP' {
         $map = Get-ValueChainMap
         $map | Should -BeOfType [Catzc.Base.Maps.ValueChainMap]
         $map.Stacks | Should -Be $script:stacks
@@ -50,7 +50,7 @@ Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-ValueChainMap — the real registry' -Tag 'L1', 'integrity', 'source-only' {
-    It 'places every ADR of adrs.yml in at least one cell of its ADR domain''s row' -Tag 'ADR-DSGN-TRACK-VALUECHAINSTACK', 'ADR-DSGN-TRACK-VALUECHAINCONCERN' {
+    It 'places every ADR of adrs.yml in at least one cell of its ADR domain''s row' -Tag 'DDR-TRACK-VALUECHAINSTACK', 'DDR-TRACK-VALUECHAINCONCERN' {
         $map = Get-ValueChainMap
         $ruleSets = @(Get-AdrRuleSet)
         $map.AdrCount | Should -Be $ruleSets.Count

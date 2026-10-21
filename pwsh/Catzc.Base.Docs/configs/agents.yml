@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5503b58dc492"
+#     with_body_sha: de45cd6a3a47
 #   edges:
 #     docs: "[agents.yml.md](docs/references/pwsh/catzc-base-docs/configs/agents.yml.md)"
 #     cites:
@@ -10,8 +10,6 @@
 #       - ADR-AUTO-TEST-MEASUREFIRST
 #       - ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS
 #       - ADR-AUTO-TEST-QUALITYGATE
-#       - ADR-DSGN-VISUAL-LEFTTORIGHTISTIME
-#       - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
 #       - ADR-REPO-AGENTS
 #       - ADR-REPO-AI
 #       - ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY
@@ -27,6 +25,8 @@
 #       - ADR-REPO-SLIDES-DECLARATION
 #       - ADR-REPO-SLIDES-TWODIRECTIONS
 #       - ADR-REPO-VOCAB-DEFINEDTERM
+#       - DDR-VISUAL-LEFTTORIGHTISTIME
+#       - DDR-VISUAL-FIXEDCOMMITPALETTE
 #       - PDR-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS
 #       - PDR-NOWASTE-SEVENWASTES
 #       - PDR-ONELIVE-ONEVERSION
@@ -67,13 +67,13 @@ agents:
 
   # Authors new diagrams in the visual grammar and lands the approved ones under docs/.assets/, embedded in their ADRs.
   - name: drawio-diagram-waves
-    supported_by: [ADR-DSGN-VISUAL-LEFTTORIGHTISTIME, ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY]
+    supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, DDR-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY]
     checks: [Test-CheckedInBinaries, Test-Links]
     model_reason: leads other agents, ranks candidates and writes briefs in the ADRs' exact terms
 
   # Changes what a diagram says by editing its yml declaration and putting the png from it.
   - name: edit-diagram-yml
-    supported_by: [ADR-REPO-SLIDES-DECLARATION, ADR-REPO-SLIDES-TWODIRECTIONS, ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE]
+    supported_by: [ADR-REPO-SLIDES-DECLARATION, ADR-REPO-SLIDES-TWODIRECTIONS, DDR-VISUAL-FIXEDCOMMITPALETTE]
     checks: [Test-Diagrams, Test-CheckedInBinaries]
 
   # Shows the diagram review state on one shared page; it publishes from out/ and runs no catzc check.

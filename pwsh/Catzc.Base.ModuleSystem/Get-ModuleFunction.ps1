@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleFunction.Tests.ps1
     docs: "[Get-ModuleFunction.ps1.md](docs/references/pwsh/catzc-base-module-system/Get-ModuleFunction.ps1.md)"
     cites:
-      - ADR-DSGN-RUNMODE
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+      - DDR-RUNMODE
 ---
 #>
 

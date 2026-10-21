@@ -7,7 +7,7 @@
 Extend by adding, not editing: new functions, modules, and dependencies are new files and folders. Never modify the infrastructure — the
 importer entries and the bootstrap loader — to accommodate new content. The same shape holds one level up: a new root concern is a new
 **track** — a new root folder with its own tech-stack — never an edit smuggled into an existing one (see [tracks](../design/tracks.md), code
-`ADR-DSGN-TRACK`).
+`DDR-TRACK`).
 
 - [How the platform does it](#how-the-platform-does-it)
 

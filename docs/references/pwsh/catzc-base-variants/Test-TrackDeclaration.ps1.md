@@ -11,10 +11,10 @@ Checks that the tracks, the track types, the vendors and the module types agree 
 
 ### description
 
-The `tracks` map ([ADR-DSGN-TRACKTYPE-DECLAREDONCE](../../../adr/design/track-types.md#rule-adr-dsgn-tracktype-declaredonce)) and the
+The `tracks` map ([DDR-TRACKTYPE-DECLAREDONCE](../../../adr/design/track-types.md#rule-ddr-tracktype-declaredonce)) and the
 track-types registry are read apart, so this check reads them together: every track names a declared track type, every vendor a track names
 is declared, and every place of every module type lies in a track whose track type admits that module type
-([ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES](../../../adr/design/module-types.md#rule-adr-dsgn-modtype-tracktypeadmitsmoduletypes)). A
+([DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES](../../../adr/design/module-types.md#rule-ddr-modtype-tracktypeadmitsmoduletypes)). A
 module place that lies in no track is left out, since a root no git file is tracked under names no track. Throws one error naming every
 violation; returns nothing when the declarations agree.
 

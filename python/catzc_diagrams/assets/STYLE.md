@@ -45,7 +45,7 @@ every value; the first theme, dark, is the committed raster, and any other rende
 - Ids are semantic kebab/underscore slugs (`title`, `note`, `step-build`, `edge-build-test`). Never random ids.
 - Every word comes from the source ADR or code, using its exact terms. Don't invent numbers, parts or loops.
 - Stereotypes use guillemets: `<b>Name</b><br><i>&#171;module&#187;</i>`. Cite rules in parentheses, e.g.
-  `(ADR-FLOW-CD-SEPARATEPIPELINEKINDS)`. Write an em dash as `&#8212;`.
+  `(FDR-CD-SEPARATEPIPELINEKINDS)`. Write an em dash as `&#8212;`.
 - The first cell after the root is a `title` text whose words are the finding the reader should leave with, not just the topic.
 
 ## Glyphs: one kind, one shape, one colour, one legend phrase
@@ -57,7 +57,7 @@ means two things across slides (grey is not "config" on one slide and "drift" on
 
 **Structure in mid-tones, state set apart.** Structural kinds use lifted mid-tone fills with a rim of the same hue and `title` names:
 `slate` / `slate-rim`, `mauve` / `mauve-rim`, `olive` / `olive-rim`. Neutral kinds are `neutral` with `neutral-rim`. Results and failures
-are saturated with a bright rim, and commits keep the locked palette (ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE), so no structural glyph can be
+are saturated with a bright rim, and commits keep the locked palette (DDR-VISUAL-FIXEDCOMMITPALETTE), so no structural glyph can be
 mistaken for a commit state. Slate is shared by code unit, store and runner on purpose: their shapes (box, cylinder, pill) tell them apart.
 
 | Kind (legend phrase) | Shape                             | Fill / stroke         | Use it for                                                                                           |
@@ -68,7 +68,7 @@ mistaken for a commit state. Slate is shared by code unit, store and runner on p
 | store                | cylinder                          | slate / slate-rim     | the repository, a registry, a cache, a feed (`shape=cylinder3`); text `title`                        |
 | runner               | pill                              | slate / slate-rim     | a pipeline, stage, task or job that executes (`arcSize=50`); text `title`                            |
 | gate                 | rhombus, 3 px rim                 | neutral / neutral-rim | a check that passes or stops the flow; never red, never yellow; text `ink`                           |
-| environment          | hexagon                           | neutral / neutral-rim | a deployment target; neutral, coloured only by its occupant (ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER) |
+| environment          | hexagon                           | neutral / neutral-rim | a deployment target; neutral, coloured only by its occupant (DDR-VISUAL-ENVIRONMENTISCONTAINER) |
 | external tool        | square box                        | neutral / neutral-rim | a vendor tool the code delegates to (az CLI, Bicep, git); text `ink`                                 |
 | actor                | circle                            | page / neutral-rim    | a person (developer, reviewer); text `ink`                                                           |
 | result               | rounded box                       | green / green-rim     | what a step produces; text `title`                                                                   |
@@ -101,7 +101,7 @@ module.
 - **Colour budget:** at most four kinds on one slide, plus chrome. A fifth kind means the slide is two slides.
 - **A drift is not a kind.** An ADR claim the code contradicts is drawn as its normal glyph with a numbered marker; the article states it.
 
-**Commit-lifecycle diagrams** (`commits-quality/`) use ONLY the locked commit palette from ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE: the
+**Commit-lifecycle diagrams** (`commits-quality/`) use ONLY the locked commit palette from DDR-VISUAL-FIXEDCOMMITPALETTE: the
 `commits:` block of [`configs/drawio.yml`](../configs/drawio.yml) gives each state (topic, landed, bvt, l3, main-uat, release-uat, prod,
 discarded) its fill, stroke and digit ink, the same in every theme. Ghosts use the state fill plus `strokeWidth=1.2;dashed=1;opacity=60;`.
 

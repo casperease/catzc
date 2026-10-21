@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d2fb5ca72c93
+#     with_body_sha: "8cb7c07b2254"
 # ---
 
 description:
@@ -9,13 +9,13 @@ description:
   function cover six rules, and the three build kinds, told apart by place, need none."
 about:
   adrs:
-    - ADR-DSGN-RUNMODE-TWORUNMODES
-    - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-    - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-    - ADR-DSGN-RUNMODE-MODEISDERIVED
-    - ADR-DSGN-RUNMODE-NEVERCOEXIST
-    - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-    - ADR-DSGN-RUNMODE-THREEBUILDKINDS
+    - DDR-RUNMODE-TWORUNMODES
+    - DDR-RUNMODE-SAMEMODULEINBOTH
+    - DDR-RUNMODE-OWNSCRIPTSCOPE
+    - DDR-RUNMODE-MODEISDERIVED
+    - DDR-RUNMODE-NEVERCOEXIST
+    - DDR-RUNMODE-SAMETESTSBOTHMODES
+    - DDR-RUNMODE-THREEBUILDKINDS
   lens: governance
 content:
   title: Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none
@@ -104,37 +104,37 @@ content:
   chips:
     - at: g-test-automation
       kind: rule
-      rule: ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+      rule: DDR-RUNMODE-SAMEMODULEINBOTH
     - at: g-test-automation
       kind: rule
-      rule: ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
+      rule: DDR-RUNMODE-OWNSCRIPTSCOPE
     - at: g-test-automation
       kind: rule
-      rule: ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
+      rule: DDR-RUNMODE-SAMETESTSBOTHMODES
     - at: g-test-build
       kind: rule
-      rule: ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
+      rule: DDR-RUNMODE-OWNSCRIPTSCOPE
     - at: g-test-build
       kind: rule
-      rule: ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
+      rule: DDR-RUNMODE-SAMETESTSBOTHMODES
     - at: g-importer
       kind: rule
-      rule: ADR-DSGN-RUNMODE-TWORUNMODES
+      rule: DDR-RUNMODE-TWORUNMODES
     - at: g-exclusive
       kind: rule
-      rule: ADR-DSGN-RUNMODE-NEVERCOEXIST
+      rule: DDR-RUNMODE-NEVERCOEXIST
     - at: g-import-catzc
       kind: rule
-      rule: ADR-DSGN-RUNMODE-TWORUNMODES
+      rule: DDR-RUNMODE-TWORUNMODES
     - at: g-source-tree
       kind: rule
-      rule: ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+      rule: DDR-RUNMODE-SAMEMODULEINBOTH
     - at: g-run-mode
       kind: rule
-      rule: ADR-DSGN-RUNMODE-MODEISDERIVED
+      rule: DDR-RUNMODE-MODEISDERIVED
     - at: g-build-kinds
       kind: rule
-      rule: ADR-DSGN-RUNMODE-THREEBUILDKINDS
+      rule: DDR-RUNMODE-THREEBUILDKINDS
       gated: false
   legend: auto
   minimaps:
@@ -142,13 +142,13 @@ content:
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: docs/-/.
         by:
           - docs/adr/design/dora-explains.md
@@ -183,42 +183,42 @@ content:
           - docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md
           - docs/references/pwsh/internal/Catzc.Internal.TestKit.psm1.md
           - docs/references/pwsh/internal/assets/Import-Catzc.ps1.md
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/Catzc.Base.ConfigExtensions/.
         by:
           - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMEMODULEINBOTH
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/Catzc.Base.Docs/private
         by:
           - pwsh/Catzc.Base.Docs/private/Get-CatsModules.ps1
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMEMODULEINBOTH
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/Catzc.Base.ModuleSystem/.
         by:
           - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
@@ -228,112 +228,112 @@ content:
           - pwsh/Catzc.Base.ModuleSystem/New-Importer.ps1
           - pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
           - pwsh/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/Catzc.Base.QualityGates/.
         by:
           - pwsh/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
           - pwsh/Catzc.Base.QualityGates/Test-CatzcBuild.ps1
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
       - cell: pwsh/Catzc.Base.QualityGates/tests
         by:
           - pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
       - cell: pwsh/Catzc.Base.Repository/.
         by:
           - pwsh/Catzc.Base.Repository/Assert-SourceTree.ps1
           - pwsh/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1
           - pwsh/Catzc.Base.Repository/Get-CatzcRunMode.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/Catzc.Base.RootConfig/.
         by:
           - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/Catzc.Base.TypesSystem/.
         by:
           - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
           - pwsh/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1
           - pwsh/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
           - pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/Catzc.Base.Vendor/.
         by:
           - pwsh/Catzc.Base.Vendor/Install-VendorModule.ps1
           - pwsh/Catzc.Base.Vendor/Remove-VendorModules.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/Catzc.Internal.Assets/.
         by:
           - pwsh/.internal/assets/Import-Catzc.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/Catzc.Internal.Tests/.
         by:
           - pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-MODEISDERIVED
     module-neighbourhood:
       - cell: subject/Catzc.Base.ConfigExtensions
         by:
           - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMEMODULEINBOTH
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - pwsh/Catzc.Base.Docs/private/Get-CatsModules.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: subject/Catzc.Base.ModuleSystem
         by:
           - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
@@ -343,102 +343,102 @@ content:
           - pwsh/Catzc.Base.ModuleSystem/New-Importer.ps1
           - pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1
           - pwsh/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
           - pwsh/Catzc.Base.QualityGates/Test-CatzcBuild.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.ScopeIsolation.Tests.ps1
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
       - cell: subject/Catzc.Base.Repository
         by:
           - pwsh/Catzc.Base.Repository/Assert-SourceTree.ps1
           - pwsh/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1
           - pwsh/Catzc.Base.Repository/Get-CatzcRunMode.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: subject/Catzc.Base.RootConfig
         by:
           - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: subject/Catzc.Base.TypesSystem
         by:
           - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
           - pwsh/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1
           - pwsh/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1
           - pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: subject/Catzc.Base.Vendor
         by:
           - pwsh/Catzc.Base.Vendor/Install-VendorModule.ps1
           - pwsh/Catzc.Base.Vendor/Remove-VendorModules.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: subject/Catzc.Internal.Assets
         by:
           - pwsh/.internal/assets/Import-Catzc.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
       - cell: subject/Catzc.Internal.Tests
         by:
           - pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-MODEISDERIVED
       - cell: subject/pipelines
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
     axis:
       - cell: DSGN/build
         by:
-          - ADR-DSGN-RUNMODE-MODEISDERIVED
-          - ADR-DSGN-RUNMODE-NEVERCOEXIST
-          - ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
-          - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
-          - ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
-          - ADR-DSGN-RUNMODE-THREEBUILDKINDS
-          - ADR-DSGN-RUNMODE-TWORUNMODES
+          - DDR-RUNMODE-MODEISDERIVED
+          - DDR-RUNMODE-NEVERCOEXIST
+          - DDR-RUNMODE-OWNSCRIPTSCOPE
+          - DDR-RUNMODE-SAMEMODULEINBOTH
+          - DDR-RUNMODE-SAMETESTSBOTHMODES
+          - DDR-RUNMODE-THREEBUILDKINDS
+          - DDR-RUNMODE-TWORUNMODES
 layout:
   band-runs:
     x: 20

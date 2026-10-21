@@ -33,20 +33,20 @@ it. Loaded via Get-Config -Config maps.
     max_column_label: 16          #   characters a file-language name prints (whole number)
   labels:                         # WinAnsi text only: the base-14 PDF fonts show nothing else; each names a defined
                                   #   term in its head, the text before its first ':'
-                                  #   ([ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS](/docs/adr/design/tracks.md#rule-adr-dsgn-track-labelsnamedefinedterms))
+                                  #   ([DDR-TRACK-LABELSNAMEDEFINEDTERMS](/docs/adr/design/tracks.md#rule-ddr-track-labelsnamedefinedterms))
     grid_title: 'World map: tracks × file languages'
     tree_title: 'World map: repository tree'
     row_axis: Track               #   at most max_row_label characters
     column_axis: File language    #   at most max_column_label characters
     root_files: Root files        #   the row of the root files; at most max_row_label
-                                  #   ([ADR-DSGN-TRACK-ROOTFILE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-rootfile))
+                                  #   ([DDR-TRACK-ROOTFILE](/docs/adr/design/tracks.md#rule-ddr-track-rootfile))
     unlisted_files: Unlisted files #  the column of the unlisted files; at most max_column_label
-                                  #   ([ADR-DSGN-TRACK-UNLISTEDFILE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-unlistedfile))
+                                  #   ([DDR-TRACK-UNLISTEDFILE](/docs/adr/design/tracks.md#rule-ddr-track-unlistedfile))
     legend_files: 'Cell: files'
     legend_violation: Stack violation
     legend_highlight: Lit cell
     # the value-chain map's labels, checked by Test-ValueChainMap; no length limit
-    #   ([ADR-DSGN-TRACK-VALUECHAINMAP](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainmap))
+    #   ([DDR-TRACK-VALUECHAINMAP](/docs/adr/design/tracks.md#rule-ddr-track-valuechainmap))
     value_chain_title: 'Value-chain map: value-chain stack × value-chain concerns'
     value_chain_row_axis: Value-chain stack
     value_chain_column_axis: Value-chain concern

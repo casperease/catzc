@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "7e48f9552daa"
+#     with_body_sha: "26d8d315dd4a"
 # ---
 
 description:
@@ -9,10 +9,10 @@ description:
   environment holding one commit as its occupant, and the tagged artifact CI built once that every later domain promotes."
 about:
   adrs:
-    - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-    - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-CD-LIFE-DIRTYHEADUNSAFE
+    - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
   lens: architecture
 content:
   title: Four pipeline kinds promote one artifact that CI built once
@@ -173,17 +173,17 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/-/.
         by:
           - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
@@ -198,67 +198,67 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.ModuleSystem/configs
         by:
           - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
     grid:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/markdown
         by:
           - docs/adr/flow/commit-lifecycle.md
@@ -271,25 +271,25 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/yaml
         by:
           - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
           - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/powershell
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -297,38 +297,38 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/yaml
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
     axis:
       - cell: DSGN/quality-control
         by:
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: DSGN/release
         by:
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: DSGN/deploy
         by:
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
 layout:
   band-git:
     x: 20

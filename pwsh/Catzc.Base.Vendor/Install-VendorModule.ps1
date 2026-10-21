@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.Vendor/tests/Install-VendorModule.Tests.ps1
     docs: "[Install-VendorModule.ps1.md](docs/references/pwsh/catzc-base-vendor/Install-VendorModule.ps1.md)"
     cites:
-      - ADR-DSGN-RUNMODE
       - ADR-PWSH-VENDOR
+      - DDR-RUNMODE
 ---
 #>
 

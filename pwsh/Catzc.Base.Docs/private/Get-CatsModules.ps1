@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.Docs/tests/Get-CatsModules.Tests.ps1
     docs: "[Get-CatsModules.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-CatsModules.ps1.md)"
     cites:
-      - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
       - ADR-REPO-FOLDERS-DOTMEANSTOOLING
+      - DDR-RUNMODE-SAMEMODULEINBOTH
 ---
 #>
 

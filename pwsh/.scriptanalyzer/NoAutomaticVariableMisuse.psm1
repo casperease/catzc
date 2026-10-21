@@ -5,6 +5,8 @@ catzc:
     with_body_sha: "42731dcf93ed"
   edges:
     docs: "[NoAutomaticVariableMisuse.psm1.md](docs/references/pwsh/scriptanalyzer/NoAutomaticVariableMisuse.psm1.md)"
+    cites:
+      - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 ---
 #>
 

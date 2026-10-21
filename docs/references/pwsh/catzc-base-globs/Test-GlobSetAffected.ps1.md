@@ -14,10 +14,10 @@ Whether the current context's change touches a globset — the in-pipeline "is t
 The boolean a deployable unit's pipeline stage checks to stop early ("nothing for us; return") when its own area of control is untouched by
 the change. It reflects the context's diff (Get-GlobSetChangeRange, then Get-ChangedGlobSet) and reports whether the named set is among
 those touched. Because the range is resolved from real refs at run time
-([ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-changecomputedfromgit)), this check
+([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](../../../adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit)), this check
 is immune to the squash-merge and concurrent-merge staleness a committed marker hash suffers.
 
-Fail-open ([ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-changecomputedfromgit)):
+Fail-open ([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](../../../adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit)):
 when the reference commit cannot be resolved or the diff cannot be computed — a shallow clone that cannot reach the base, an unresolved PR
 target ref, a first commit with no parent — this returns
 $true, proceed. A redundant run is safe; a wrong skip is an un-deployed change. It returns

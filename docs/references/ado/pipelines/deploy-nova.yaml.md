@@ -9,5 +9,5 @@ Above `- ${{ if eq(parameters.Target, 'release-uat') }}:`, written with `#`.
 
 ```text
 release-uat is test; the RC approval check on nova-release-uat holds the job for its certifier
-([ADR-FLOW-CD-TWORELEASEGATES](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-tworeleasegates)).
+([FDR-CD-TWORELEASEGATES](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)).
 ```

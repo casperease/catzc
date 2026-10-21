@@ -5,6 +5,9 @@ catzc:
     with_body_sha: ef2fa52c3bf9
   edges:
     docs: "[NoRawConsoleWrite.psm1.md](docs/references/pwsh/scriptanalyzer/NoRawConsoleWrite.psm1.md)"
+    cites:
+      - ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT
+      - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 ---
 #>
 

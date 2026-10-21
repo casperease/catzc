@@ -1,17 +1,17 @@
 # ADR: Self-service — safe by construction in controlled settings
 
-## Rules: ADR-DSGN-SELFSERV
+## Rules: DDR-SELFSERV
 
-### Rule ADR-DSGN-SELFSERV-CONSUMERSPROVISIONTHEMSELVES
+### Rule DDR-SELFSERV-CONSUMERSPROVISIONTHEMSELVES
 
 Self-service is the platform's mode of use: a consumer provisions and changes managed infrastructure themselves, through the CLI
-(`ADR-DSGN-THINPLAT`), without filing a ticket to a central gatekeeper. This is only defensible because every self-service action is a
+(`DDR-THINPLAT`), without filing a ticket to a central gatekeeper. This is only defensible because every self-service action is a
 **reviewable, reproducible change to a single source of truth** — never a live, unrecorded mutation. The guardrails in the rules below are
 what make self-service safe in tightly controlled and managed settings, rather than a way to route around control.
 
 - [Self-service, not free-for-all](#self-service-not-free-for-all)
 
-### Rule ADR-DSGN-SELFSERV-REPOSITORYISSOURCEOFTRUTH
+### Rule DDR-SELFSERV-REPOSITORYISSOURCEOFTRUTH
 
 The repository is the **single source of truth** for everything the platform manages — automation, configuration, infrastructure, and pinned
 tooling — all represented as code (`PDR-EAC`). Self-service means editing that source and letting the platform apply it; it never means
@@ -21,7 +21,7 @@ reproduce, or review what is not written down.
 
 - [One source of truth, or none](#one-source-of-truth-or-none)
 
-### Rule ADR-DSGN-SELFSERV-IMMUTABLEREPRODUCIBLEARTIFACT
+### Rule DDR-SELFSERV-IMMUTABLEREPRODUCIBLEARTIFACT
 
 What ships is an **immutable, content-addressed artifact** built **reproducibly** from a source commit that is known and carrying
 **provenance** from source to deployed state. The globset durable-SHA identities content-address each shippable unit; a build is a
@@ -31,7 +31,7 @@ the Reproducible Builds project on the source-to-binary verification path, and S
 
 - [Immutable artifacts and provenance](#immutable-artifacts-and-provenance)
 
-### Rule ADR-DSGN-SELFSERV-TRUNKWITHGUARDRAILS
+### Rule DDR-SELFSERV-TRUNKWITHGUARDRAILS
 
 Changes reach production through **trunk-based development with automated guardrails**. Work lands on trunk in small batches behind
 short-lived branches that must pass the CI gate and are deleted after merge; there are no long-lived divergent branches and no legacy
@@ -41,7 +41,7 @@ a trade-off. (Primary source: trunkbaseddevelopment.com, Paul Hammant.)
 
 - [Trunk-based development](#trunk-based-development)
 
-### Rule ADR-DSGN-SELFSERV-REGULATEDNEEDSREPRODUCIBILITY
+### Rule DDR-SELFSERV-REGULATEDNEEDSREPRODUCIBILITY
 
 In tightly managed settings — regulated, compliance-bound, provenance-critical — self-service is acceptable **only when reproducibility,
 provenance, and an audit trail are intrinsic to the mechanism**, not bolted on as process. Here they are structural: the git history _is_
@@ -61,7 +61,7 @@ is simply not allowed.
 The resolution is to make self-service _safe by construction_. catzc rests on four properties that, together, make "anyone can change it
 themselves" and "every change is controlled, reproducible, and auditable" the same statement rather than opposing ones: a **single source of
 truth** (`PDR-EAC`), **immutable and reproducibly-built artifacts** with provenance, **trunk-based development** with automated
-guardrails (`PDR-ONELIVE`), and the **thin CLI** as the only way to act (`ADR-DSGN-THINPLAT`). Each one is load-bearing; remove any and
+guardrails (`PDR-ONELIVE`), and the **thin CLI** as the only way to act (`DDR-THINPLAT`). Each one is load-bearing; remove any and
 self-service stops being safe.
 
 ### Self-service, not free-for-all
@@ -115,11 +115,11 @@ path.
 ## Decision
 
 Make self-service the platform's mode of use, and make it safe by construction: every self-service action is a change to the **single source
-of truth** (ADR-DSGN-SELFSERV-REPOSITORYISSOURCEOFTRUTH), applied only through the **thin CLI**
-(ADR-DSGN-SELFSERV-CONSUMERSPROVISIONTHEMSELVES), shipped as an **immutable, reproducibly-built artifact with provenance**
-(ADR-DSGN-SELFSERV-IMMUTABLEREPRODUCIBLEARTIFACT), landed via **trunk-based development behind automated, mandatory guardrails**
-(ADR-DSGN-SELFSERV-TRUNKWITHGUARDRAILS). In controlled settings this makes self-service and auditability the same mechanism rather than
-competing ones (ADR-DSGN-SELFSERV-REGULATEDNEEDSREPRODUCIBILITY).
+of truth** (DDR-SELFSERV-REPOSITORYISSOURCEOFTRUTH), applied only through the **thin CLI**
+(DDR-SELFSERV-CONSUMERSPROVISIONTHEMSELVES), shipped as an **immutable, reproducibly-built artifact with provenance**
+(DDR-SELFSERV-IMMUTABLEREPRODUCIBLEARTIFACT), landed via **trunk-based development behind automated, mandatory guardrails**
+(DDR-SELFSERV-TRUNKWITHGUARDRAILS). In controlled settings this makes self-service and auditability the same mechanism rather than
+competing ones (DDR-SELFSERV-REGULATEDNEEDSREPRODUCIBILITY).
 
 ### How this is enforced
 
@@ -129,7 +129,7 @@ competing ones (ADR-DSGN-SELFSERV-REGULATEDNEEDSREPRODUCIBILITY).
   releasable.
 - **Fail-fast asserts and the quality gates** (the spelling, terminology, and generated-file drift quality gates) are the automated
   guardrails a self-service change must clear before it can merge.
-- **The thin CLI** (`ADR-DSGN-THINPLAT`) is the only actuator, so no self-service action can bypass the record.
+- **The thin CLI** (`DDR-THINPLAT`) is the only actuator, so no self-service action can bypass the record.
 
 ## References
 

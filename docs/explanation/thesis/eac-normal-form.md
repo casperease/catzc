@@ -12,7 +12,7 @@ A file leaves the unordered track only in the normal form.
 7  enabling constraints sensible defaults, catzc bundle, local configs: all a check may use
 
 Supports TDR-NORMALFORM-ANYCODEHASNORMALFORM, TDR-NORMALFORM-ENABLINGCONSTRAINTS, TDR-NORMALFORM-UNCONTESTED,
-TDR-NORMALFORM-MIGRATIONREACHESTHEFORM, ADR-DSGN-TRACK-UNORDEREDTRACK and ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT (meta lens).
+TDR-NORMALFORM-MIGRATIONREACHESTHEFORM, DDR-TRACK-UNORDEREDTRACK and DDR-TRACK-MIGRATEONEFILEPERCOMMIT (meta lens).
 ```
 
 Code reaches cats from many places: written in the trunk, imported with its history, copied from a vendor sample, exported from a UI. The
@@ -48,11 +48,11 @@ each file into the form before it leaves the track for its home.
   (TDR-NORMALFORM-UNCONTESTED).
 - Fragment migration brings an unordered fragment into the form through the one change process, and until then it decides nothing about the
   delivered system (TDR-NORMALFORM-MIGRATIONREACHESTHEFORM).
-- An import lands in the unordered track, and nothing reads or defaults to the track (ADR-DSGN-TRACK-UNORDEREDTRACK); sorting moves one file
-  per commit (ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT).
+- An import lands in the unordered track, and nothing reads or defaults to the track (DDR-TRACK-UNORDEREDTRACK); sorting moves one file
+  per commit (DDR-TRACK-MIGRATEONEFILEPERCOMMIT).
 
 ## See also
 
 - [Eac normal form](../../adr/thesis/eac-normal-form.md) — the thesis this article explains.
-- [Tracks](../../adr/design/tracks.md#rule-adr-dsgn-track-unorderedtrack) — the unordered track and how files leave it.
+- [Tracks](../../adr/design/tracks.md#rule-ddr-track-unorderedtrack) — the unordered track and how files leave it.
 - [The thesis explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

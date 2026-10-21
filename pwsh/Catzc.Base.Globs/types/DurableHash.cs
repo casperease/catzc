@@ -6,7 +6,7 @@ catzc:
   edges:
     docs: "[DurableHash.cs.md](docs/references/pwsh/catzc-base-globs/types/DurableHash.cs.md)"
     cites:
-      - ADR-FLOW-CD-GLOBS
+      - FDR-CD-GLOBS
 ---
 */
 

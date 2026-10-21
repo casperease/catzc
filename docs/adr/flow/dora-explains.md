@@ -8,7 +8,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `The CI discipline and the promotion flow — pipeline kinds keyed by the tagged artifact`
 
-[ADR-FLOW-CD](cd-discipline-and-promotion-flow.md)
+[FDR-CD](cd-discipline-and-promotion-flow.md)
 
 > DORA's research links continuous integration, continuous delivery, and deployment automation to faster, safer releases. Separating CI, CD,
 > and DEPLOY as distinct pipeline kinds keyed by immutable artifacts enables fast feedback loops, reliable promotion, and clear governance
@@ -28,7 +28,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Pipeline runner pattern — how pipelines invoke automation`
 
-[ADR-FLOW-CD-RUNNER](pipeline-runner-pattern.md)
+[FDR-CD-RUNNER](pipeline-runner-pattern.md)
 
 > DORA's research links local reproducibility and test automation to faster problem diagnosis and reduced mean time to recovery. This ADR's
 > runner pattern keeps pipeline steps locally reproducible and testable, centralizes bootstrap logic in one place, and separates
@@ -46,7 +46,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Pipeline detection — how functions adapt to their execution context`
 
-[ADR-FLOW-CD-DETECT](pipeline-detection.md)
+[FDR-CD-DETECT](pipeline-detection.md)
 
 > DORA's research links code maintainability and comprehensive testing to reduced defects and faster deployment cycles. Centralizing
 > platform detection in a single function keeps context-dependent logic greppable, testable, and consistent, preventing silent
@@ -64,7 +64,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Pipeline types — the six kinds of ADO artifact, named`
 
-[ADR-FLOW-CD-TYPE](pipeline-types.md)
+[FDR-CD-TYPE](pipeline-types.md)
 
 > DORA's research distinguishes Continuous Delivery (production changes behind a manual gate) from Continuous Deployment (automated prod
 > roll), and links explicit deployment governance to faster cycle times and lower failure rates. This ADR's taxonomy makes these
@@ -89,7 +89,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Globset triggers — areas-of-control projected to native filters and reflected from git`
 
-[ADR-FLOW-CD-GLOBS](durable-sha-globs.md)
+[FDR-CD-GLOBS](durable-sha-globs.md)
 
 > DORA's research links version-controlled configuration and deterministic deployment triggering to faster, more reliable deployments.
 > Keeping area-of-control boundaries as one source of truth, declarative — projected into native trigger filters and reflected from git
@@ -108,7 +108,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `Pipelines — the vendor-neutral CI/CD pipeline concept`
 
-[ADR-FLOW-CD-PIPELINE](pipeline-concept.md)
+[FDR-CD-PIPELINE](pipeline-concept.md)
 
 > DORA's research links deployment automation and code maintainability to faster, safer delivery. One vendor-neutral rule set for naming,
 > typing and reading a pipeline keeps every delivery platform's pipelines reviewable from the file alone, and a token that lives for one
@@ -126,7 +126,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `The commit lifecycle — states, environment occupancy, and the stable sync point`
 
-[ADR-FLOW-CD-LIFE](commit-lifecycle.md)
+[FDR-CD-LIFE](commit-lifecycle.md)
 
 > This model is a statement about how change flows into, through, and out of the mainline, which is the core of what DORA measures. A clear
 > lifecycle — one direction, named rejection points, a distinction between rejected/retired/superseded, a single stable integration point
@@ -147,7 +147,7 @@ the ADRs themselves; this file carries only their DORA rationale.
 
 `The git topic flow — the sync point, one squashed commit, and the user at the keyboard`
 
-[ADR-FLOW-GIT](git-topic-flow.md)
+[FDR-GIT](git-topic-flow.md)
 
 > Trunk-based development lives or dies on how a short-lived branch meets the trunk. Syncing a topic from one named commit, landing it as a
 > single squashed commit rebased onto the tip, and leaving every repository-changing act with its author keep the trunk a readable list of

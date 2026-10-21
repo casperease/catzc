@@ -9,7 +9,7 @@ A topic commit can reach an environment without reaching main; only landing on m
 4  main                 landing on main is the integration; the commit turns grey
 5  BVT                  turns the landed commit into a BVT-verified one, yellow
 
-Supports ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG and ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND, and ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE and ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER (meta lens).
+Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG and FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, and DDR-VISUAL-FIXEDCOMMITPALETTE and DDR-VISUAL-ENVIRONMENTISCONTAINER (meta lens).
 ```
 
 Deploying a commit and integrating it are separate events: a commit can reach an environment without reaching main. The commit lifecycle
@@ -35,15 +35,15 @@ ladder. Keeping the two events apart is what lets a commit's colour stay a true 
 ## Why it holds
 
 - A topic commit can be deployed out-of-band without integrating into main; the deploy confers no promotion state on the mainline
-  (ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND).
-- A commit advances one rung along the ladder at a time, or leaves it, and never moves backward (ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG).
+  (FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND).
+- A commit advances one rung along the ladder at a time, or leaves it, and never moves backward (FDR-CD-LIFE-ONESTATEADVANCESONERUNG).
 - Brown is a development commit and never an integrated mainline state; grey is integrated onto main; yellow is past the BVT
-  (ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE).
-- An environment box is neutral, and its occupant carries its own state colour (ADR-DSGN-VISUAL-ENVIRONMENTISCONTAINER).
+  (DDR-VISUAL-FIXEDCOMMITPALETTE).
+- An environment box is neutral, and its occupant carries its own state colour (DDR-VISUAL-ENVIRONMENTISCONTAINER).
 
 ## Where the code and the ADR differ
 
-ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows the out-of-band deploy, but no pipeline or workflow in cats runs one: every `Deploy_*` stage
+FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows the out-of-band deploy, but no pipeline or workflow in cats runs one: every `Deploy_*` stage
 runs only from main.
 
 ## See also

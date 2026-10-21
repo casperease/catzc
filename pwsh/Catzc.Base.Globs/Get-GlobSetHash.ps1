@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
     docs: "[Get-GlobSetHash.ps1.md](docs/references/pwsh/catzc-base-globs/Get-GlobSetHash.ps1.md)"
     cites:
-      - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
+      - FDR-CD-GLOBS-DURABLESHAIDENTITY
 ---
 #>
 

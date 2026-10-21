@@ -4,6 +4,8 @@
 #     with_body_sha: "2bbabef7cdf8"
 #   edges:
 #     docs: "[deploy-unit.yaml.md](docs/references/ado/pipelines/stages/deploy-unit.yaml.md)"
+#     cites:
+#       - FDR-CD-TYPE-ONEDEPLOYPATH
 # ---
 
 parameters:

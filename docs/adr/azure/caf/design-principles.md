@@ -96,7 +96,7 @@ production one `preprod`, `prod` and `psub`; `dev` and `test` share a subscripti
 configuration slot ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](../azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)).
 
 Self-service is a pull request, not a vending machine
-([ADR-DSGN-SELFSERV-CONSUMERSPROVISIONTHEMSELVES](../../design/self-service.md#rule-adr-dsgn-selfserv-consumersprovisionthemselves)). A team
+([DDR-SELFSERV-CONSUMERSPROVISIONTHEMSELVES](../../design/self-service.md#rule-ddr-selfserv-consumersprovisionthemselves)). A team
 adds a subscription entry to `azure.yml`, a network to `network.yml`, and one config per template; the CD pipeline of the customer then
 deploys `foundation`, `discovery` and `expedition` into it. Creating the subscription itself and placing it in a management group are not
 adopted: the repository deploys into subscriptions it is given and needs no rights above them
@@ -206,10 +206,10 @@ compiled template, and `-DryRun` runs Azure's own `--what-if`; every Azure opera
 ([ADR-AZ-CLI-AZBYDEFAULT](../prefer-az-cli.md#rule-adr-az-cli-azbydefault)). catzc is a command line in front of Azure, which the principle
 warns against, but a thin one: it harmonises how the organisation calls the vendor and delegates everything else to Bicep and the az CLI,
 never hiding or cloning the vendor's behaviour
-([ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT](../../design/thin-platforms.md#rule-adr-dsgn-thinplat-delegatenotreimplement)). Access is the
+([DDR-THINPLAT-DELEGATENOTREIMPLEMENT](../../design/thin-platforms.md#rule-ddr-thinplat-delegatenotreimplement)). Access is the
 subscription's own role-based access control, through the service connection that deploys it, and governance is Azure Policy
 (ADR-AZ-CAF-PRIN-POLICYDRIVENGOVERNANCE). The repository is the single place a change is made
-([ADR-DSGN-SELFSERV-REPOSITORYISSOURCEOFTRUTH](../../design/self-service.md#rule-adr-dsgn-selfserv-repositoryissourceoftruth)), and what it
+([DDR-SELFSERV-REPOSITORYISSOURCEOFTRUTH](../../design/self-service.md#rule-ddr-selfserv-repositoryissourceoftruth)), and what it
 changes is plain Azure resources that the portal, the az CLI, and any Azure tool see as they are.
 
 The management plane deviates. Monitoring is per subscription: `foundation` gives every subscription its own Log Analytics workspace, and

@@ -24,7 +24,7 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 - `pwsh/.vendor/` — third-party modules (checked in)
 - `.unordered/` — the unordered track, where an import lands with its history at a landing address `.unordered/<name>`
   (`Import-RepositoryWithHistory`); sorting moves each file out with `git mv`, and nothing reads or defaults to the track
-  ([ADR-DSGN-TRACK-UNORDEREDTRACK](../docs/adr/design/tracks.md#rule-adr-dsgn-track-unorderedtrack))
+  ([DDR-TRACK-UNORDEREDTRACK](../docs/adr/design/tracks.md#rule-ddr-track-unorderedtrack))
 - `docs/adr/` — Architecture Decision Records (see below); `docs/references/` — reference articles (incl. the DORA research reference in
   `docs/references/dora/`); `docs/how-to/` — task guides; `docs/.assets/` — diagram assets
 
@@ -52,8 +52,8 @@ Which catzc ADR decides each aspect you might take an idea for:
 - **Docs and ADR structure:** the [authoring conventions](../docs/adr/index.md#authoring-conventions).
 - **Contracts:** [ADR-REPO-CONTRACT](../docs/adr/repository/api-contracts.md).
 - **Testing:** [ADR-AUTO-TEST](../docs/adr/automation/test-automation.md).
-- **Pipelines:** [ADR-FLOW-CD](../docs/adr/flow/cd-discipline-and-promotion-flow.md) and
-  [ADR-FLOW-CD-RUNNER](../docs/adr/flow/pipeline-runner-pattern.md).
+- **Pipelines:** [FDR-CD](../docs/adr/flow/cd-discipline-and-promotion-flow.md) and
+  [FDR-CD-RUNNER](../docs/adr/flow/pipeline-runner-pattern.md).
 - **Tooling:** [ADR-AUTO-PKGMGR](../docs/adr/automation/use-proper-package-managers.md) and
   [ADR-AUTO-UVPY](../docs/adr/automation/uv-python-handler.md).
 - **Go itself:** [ADR-AUTO-GO](../docs/adr/automation/go/go-test-artifacts.md): Go in catzc is test artifacts only. A Go idea from eac

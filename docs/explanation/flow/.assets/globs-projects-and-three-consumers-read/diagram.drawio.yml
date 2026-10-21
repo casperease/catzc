@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3ba2aea5f434"
+#     with_body_sha: "857036e92c30"
 # ---
 
 description:
@@ -9,8 +9,8 @@ description:
   reads the GitHub list in code, while workflows and pipelines declare the lists by hand, drawn dashed.
 about:
   adrs:
-    - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-    - ADR-FLOW-CD-GLOBS-COMPOSESETS
+    - FDR-CD-GLOBS-NATIVEPATHFILTER
+    - FDR-CD-GLOBS-COMPOSESETS
   lens: architecture
 content:
   title: Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it
@@ -110,13 +110,13 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: docs/-/.
         by:
           - docs/adr/flow/dora-explains.md
@@ -153,98 +153,98 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
           - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
           - pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
           - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Globs/configs
         by:
           - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Globs/private
         by:
           - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Globs/tests/types
         by:
           - pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-COMPOSESETS
       - cell: pwsh/Catzc.Base.Globs/types
         by:
           - pwsh/Catzc.Base.Globs/types/DurableHash.cs
           - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
           - pwsh/Catzc.Base.Globs/types/GlobSet.cs
           - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
     module-neighbourhood:
       - cell: subject/.claude
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/Catzc.Azure.DevOps
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/Catzc.Azure.DevOps.BuildValidation
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -252,14 +252,14 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
@@ -274,31 +274,31 @@ content:
           - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
           - pwsh/Catzc.Base.Globs/types/GlobSet.cs
           - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/Catzc.Base.Maps
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/pipelines
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
     axis:
       - cell: DSGN/*
         by:
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
 layout:
   band-compose:
     x: 20

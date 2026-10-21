@@ -8,7 +8,7 @@ catzc:
     code: pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-      - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+      - FDR-CD-GLOBS-NAMEDGLOBSETS
 ---
 #>
 

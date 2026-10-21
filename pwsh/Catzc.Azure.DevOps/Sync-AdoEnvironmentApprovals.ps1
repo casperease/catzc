@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Azure.DevOps/tests/Sync-AdoEnvironmentApprovals.Tests.ps1
     docs: "[Sync-AdoEnvironmentApprovals.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md)"
     cites:
-      - ADR-FLOW-CD
+      - FDR-CD
       - TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD
 ---
 #>

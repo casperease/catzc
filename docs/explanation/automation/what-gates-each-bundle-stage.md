@@ -46,7 +46,7 @@ build run `Test-CatzcBuild` runs the same tests against a fresh build that the s
 - A devbox build carries the placeholder version, and a pipeline build gets a calculated, reproducible one (ADR-AUTO-BUNDLE-AUTOVERSION).
 - The same tests run in the source run and the build run (ADR-AUTO-TEST-SAMETESTSBOTHRUNS), and `source-only` is the one way out of the
   build run (ADR-AUTO-TEST-SOURCEONLYTAG).
-- Build mode has three kinds of code root, temporary, installed and saved (ADR-DSGN-RUNMODE-THREEBUILDKINDS).
+- Build mode has three kinds of code root, temporary, installed and saved (DDR-RUNMODE-THREEBUILDKINDS).
 
 ## Where the code and the ADR differ
 

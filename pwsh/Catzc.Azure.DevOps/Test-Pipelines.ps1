@@ -2,15 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "836ace994f00"
+    with_body_sha: d68046eaa4a8
   edges:
     test: pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
     docs: "[Test-Pipelines.ps1.md](docs/references/pwsh/catzc-azure-dev-ops/Test-Pipelines.ps1.md)"
     cites:
       - ADR-ADO-NAME
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-FLOW-CD-PIPELINE-TYPEPREFIX
-      - ADR-FLOW-CD-PIPELINE-EXECUTABLEYAMLEXTENSION
+      - FDR-CD-PIPELINE-TYPEPREFIX
+      - FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION
 ---
 #>
 
@@ -71,14 +71,14 @@ function Test-Pipelines {
         }
 
         if ($extension -eq '.yml') {
-            $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-FLOW-CD-PIPELINE-EXECUTABLEYAMLEXTENSION' -Message "Executable pipeline YAML must be '.yaml', not '.yml'."))
+            $violations.Add((New-Violation -RelativePath $rel -Rule 'FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION' -Message "Executable pipeline YAML must be '.yaml', not '.yml'."))
             continue
         }
 
         if ($segments.Count -eq 0) {
             $prefix = ($name -split '-', 2)[0]
             if ($prefix -notin $typePrefixes) {
-                $violations.Add((New-Violation -RelativePath $rel -Rule 'ADR-FLOW-CD-PIPELINE-TYPEPREFIX' -Message "Pipeline name must start with a type ($($typePrefixes -join ' | ')); got '$prefix'."))
+                $violations.Add((New-Violation -RelativePath $rel -Rule 'FDR-CD-PIPELINE-TYPEPREFIX' -Message "Pipeline name must start with a type ($($typePrefixes -join ' | ')); got '$prefix'."))
             }
         }
         else {

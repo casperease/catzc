@@ -7,9 +7,9 @@ catzc:
     test: pwsh/Catzc.Base.Git/tests/Get-SyncPoint.Tests.ps1
     docs: "[Get-SyncPoint.ps1.md](docs/references/pwsh/catzc-base-git/Get-SyncPoint.ps1.md)"
     cites:
-      - ADR-FLOW-GIT-USERRUNSGIT
-      - ADR-FLOW-GIT-SYNCPOINT
-      - ADR-FLOW-GIT-FALLBACKISANNOUNCED
+      - FDR-GIT-USERRUNSGIT
+      - FDR-GIT-SYNCPOINT
+      - FDR-GIT-FALLBACKISANNOUNCED
 ---
 #>
 

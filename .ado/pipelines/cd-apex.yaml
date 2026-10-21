@@ -4,6 +4,8 @@
 #     with_body_sha: "49a482295e2f"
 #   edges:
 #     docs: "[cd-apex.yaml.md](docs/references/ado/pipelines/cd-apex.yaml.md)"
+#     cites:
+#       - FDR-CD-GLOBS
 # ---
 
 trigger:

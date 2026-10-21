@@ -11,7 +11,7 @@ A push starts only the pipelines whose globset holds a changed file.
 6  Test-AdoPipelineTriggerGlob  the drift gate comparing each trigger with its projection
 7  trigger drifted              the failure a hand-edited trigger raises
 
-Supports ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED and ADR-DSGN-TRACK-DEPLOYABLEUNIT (operations lens).
+Supports DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED and DDR-TRACK-DEPLOYABLEUNIT (operations lens).
 ```
 
 Each pipeline in cats triggers on its globset projected to Azure DevOps path filters, so a change starts only the pipelines whose sets hold
@@ -42,8 +42,8 @@ to the shared foundation fires every CD pipeline; an edit to one unit's configur
 ## Why it holds
 
 - Consumers bind a track through its globset's projection, never by hand-matching its paths, so a change in one track never rebuilds
-  customers of another (ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
-- Each deployable-unit has its own pipeline, so an edit to one unit's configuration starts only that unit's (ADR-DSGN-TRACK-DEPLOYABLEUNIT).
+  customers of another (DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
+- Each deployable-unit has its own pipeline, so an edit to one unit's configuration starts only that unit's (DDR-TRACK-DEPLOYABLEUNIT).
 
 Azure DevOps path filters ignore order, so on `cd-shared` the root `configuration/*.yml` include and the `configuration/*/**` exclude sit at
 the same depth and Azure DevOps may drop a root `.yml`. `Test-GlobSetTriggerCoverage` guarantees the include-only trigger never misses a

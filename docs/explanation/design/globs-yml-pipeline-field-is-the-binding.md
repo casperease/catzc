@@ -11,7 +11,7 @@ One key in globs.yml, pipeline:, binds a globset to the file .ado/pipelines/<nam
 6  cd-<unit>.yaml               the CD pipeline file whose trigger is the unit's projection
 7  extends/cd-customer.yaml     the template three of the four CD pipelines extend
 
-Supports ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED and ADR-DSGN-TRACK-DEPLOYABLEUNIT (implementation lens).
+Supports DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED and DDR-TRACK-DEPLOYABLEUNIT (implementation lens).
 ```
 
 The link between what ships and the pipeline that ships it is a single key. Each entry in the globset registry `globs.yml` may carry
@@ -41,9 +41,9 @@ deployable-units bind the CD pipelines, and the base unit they compose binds non
 ## Why it holds
 
 - A consumer binds a track through its globset's projection, never by matching its paths by hand, so the trigger in each pipeline file is
-  the set's projection (ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
+  the set's projection (DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
 - A pipeline is the delivery machine of one deployable-unit, and a base unit that only exists to be composed binds none
-  (ADR-DSGN-TRACK-DEPLOYABLEUNIT).
+  (DDR-TRACK-DEPLOYABLEUNIT).
 
 Besides the gate against trigger drift, `Test-GlobSetTriggerCoverage` and `Register-AdoBuildValidation` also read the `pipeline:` field. The
 loose-filesets `templates`, `markdown-scope` and `repository` carry no `pipeline:`, and `ci-pwsh-expected-failures.yaml` triggers on

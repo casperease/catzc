@@ -128,7 +128,7 @@ is the standard, so an agent missing from it is never picked, and a stale entry 
 
 Most delegated work is the same shape: one task from a coordinator's brief, a named set of files, each file verified before the next, and a
 fixed report. One standard agent carries that shape, so each delegation does not invent its own. A specialised agent pays for itself only
-where the job needs knowledge the standard agent lacks, such as the diagram grammar of [ADR-DSGN-VISUAL](../design/visual-design.md), and
+where the job needs knowledge the standard agent lacks, such as the diagram grammar of [DDR-VISUAL](../design/visual-design.md), and
 that need is exactly what a supporting rule states.
 
 ### Robots and capabilities

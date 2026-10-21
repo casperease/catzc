@@ -2,13 +2,13 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f216d90a8801
+    with_body_sha: aa611e971f6e
   edges:
     docs: "[Program.cs.md](docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md)"
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-      - ADR-FLOW-GIT-USERRUNSGIT
+      - FDR-GIT-USERRUNSGIT
 ---
 */
 
@@ -38,12 +38,12 @@ public static class AssertBashTimeout
             string payload = Console.In.ReadToEnd();
 
             // The git topic commands change the repository, so they run only at the user's hand
-            // ([ADR-FLOW-GIT-USERRUNSGIT](/docs/adr/flow/git-topic-flow.md#rule-adr-flow-git-userrunsgit)).
+            // ([FDR-GIT-USERRUNSGIT](/docs/adr/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)).
             string userCommand = UserCommandIn(payload, repositoryRoot);
             if (userCommand != null)
             {
                 Console.Out.Write(BashSafeguard.DenyOutput(
-                    userCommand + " changes the repository and runs only at the user's hand (ADR-FLOW-GIT-USERRUNSGIT): name it to the user to run, and run only its tests."));
+                    userCommand + " changes the repository and runs only at the user's hand (FDR-GIT-USERRUNSGIT): name it to the user to run, and run only its tests."));
                 return 0;
             }
 

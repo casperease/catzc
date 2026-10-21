@@ -2,14 +2,14 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "90126af384df"
+    with_body_sha: "6810f891bf03"
   edges:
     docs: "[Get-FileLanguage.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Languages/Get-FileLanguage.ps1
     cites:
-      - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-      - ADR-DSGN-TRACK-ONETECHSTACK
-      - ADR-DSGN-TRACK-FILELANGUAGE
+      - DDR-TRACK-TRACKISPLACEDCLUSTER
+      - DDR-TRACK-ONETECHSTACK
+      - DDR-TRACK-FILELANGUAGE
 ---
 #>
 
@@ -137,7 +137,7 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
                 Sort-Object -Unique | Where-Object { $_.Split('/')[0] -ne 'out' })
         $folders.Count | Should -BeGreaterThan 0
         $undeclared = @($folders | Where-Object { $null -eq (Get-Track -Path $_) })
-        $undeclared | Should -BeNullOrEmpty -Because 'every tracked file lies in exactly one track (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER)'
+        $undeclared | Should -BeNullOrEmpty -Because 'every tracked file lies in exactly one track (DDR-TRACK-TRACKISPLACEDCLUSTER)'
     }
 
     It 'registers every file language a track declares' {
@@ -149,7 +149,7 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
                     }
                 }
             })
-        $unknown | Should -BeNullOrEmpty -Because 'a track declares its tech-stack in registered file languages (ADR-DSGN-TRACK-FILELANGUAGE)'
+        $unknown | Should -BeNullOrEmpty -Because 'a track declares its tech-stack in registered file languages (DDR-TRACK-FILELANGUAGE)'
     }
 
     It 'names an existing ADR folder for every file language that declares one' {
@@ -187,6 +187,6 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
         $report = @(foreach ($key in $violations.Keys) {
                 '{0}: {1} file(s), e.g. {2}' -f $key, $violations[$key].Count, $violations[$key][0]
             })
-        $report | Should -BeNullOrEmpty -Because 'a live file outside its track''s file languages is a second tech-stack (ADR-DSGN-TRACK-ONETECHSTACK)'
+        $report | Should -BeNullOrEmpty -Because 'a live file outside its track''s file languages is a second tech-stack (DDR-TRACK-ONETECHSTACK)'
     }
 }

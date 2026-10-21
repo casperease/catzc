@@ -2,14 +2,14 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6916f4e9bb4c"
+    with_body_sha: e1a2a334bdde
   edges:
     docs: "[Get-ValueChainHighlight.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Get-ValueChainHighlight.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-      - ADR-DSGN-TRACK-LITCELL
-      - ADR-DSGN-TRACK-VALUECHAINMAP
+      - DDR-TRACK-LITCELL
+      - DDR-TRACK-VALUECHAINMAP
       - TDR-ONETRUTH-TRUTHISQUERYABLE
 ---
 #>
@@ -30,13 +30,13 @@ Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
         Mock Get-ValueChainMap -ModuleName Catzc.Base.Maps { $script:map }
     }
 
-    It 'lights the cells of an ADR code given by position' -Tag 'ADR-DSGN-TRACK-VALUECHAINMAP' {
+    It 'lights the cells of an ADR code given by position' -Tag 'DDR-TRACK-VALUECHAINMAP' {
         $highlight = Get-ValueChainHighlight ADR-WIDGET-GADGET
         $highlight | Should -BeOfType [Catzc.Base.Maps.ValueChainHighlight]
         @($highlight.Cells | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) | Should -Be @('TOP x alpha', 'TOP x beta')
     }
 
-    It 'lights a rule citation''s ADR cells' -Tag 'ADR-DSGN-TRACK-LITCELL' {
+    It 'lights a rule citation''s ADR cells' -Tag 'DDR-TRACK-LITCELL' {
         $highlight = Get-ValueChainHighlight -Adr 'ADR-WIDGET-COG-SPIN'
         $highlight.Requested | Should -Be @('ADR-WIDGET-COG-SPIN')
         @($highlight.Cells | ForEach-Object { "$($_.Stack) x $($_.Concern)" }) | Should -Be @('BOTTOM x beta')
@@ -55,7 +55,7 @@ Describe 'Get-ValueChainHighlight' -Tag 'L0', 'logic' {
 }
 
 Describe 'Get-ValueChainHighlight — the real registry' -Tag 'L1', 'integrity', 'source-only' {
-    It 'lights the cells of each ADR''s row and value-chain concerns, for every ADR of adrs.yml' -Tag 'ADR-DSGN-TRACK-VALUECHAINMAP' {
+    It 'lights the cells of each ADR''s row and value-chain concerns, for every ADR of adrs.yml' -Tag 'DDR-TRACK-VALUECHAINMAP' {
         $citations = Get-AdrCitationMap
         foreach ($ruleSet in @(Get-AdrRuleSet)) {
             # A rule lights its ADR's cells; an ADR with no rules of its own stands for itself.

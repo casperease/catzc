@@ -8,7 +8,7 @@ catzc:
     docs: "[Invoke-BuildForVSCode.ps1.md](docs/references/pwsh/catzc-base-types-system/Invoke-BuildForVSCode.ps1.md)"
     cites:
       - ADR-BCL-TYPES
-      - ADR-DSGN-RUNMODE
+      - DDR-RUNMODE
 ---
 #>
 

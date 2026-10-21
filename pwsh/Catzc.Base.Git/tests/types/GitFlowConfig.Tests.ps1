@@ -2,12 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7f4a0385cc3a"
+    with_body_sha: ea4a893d163f
   edges:
     code: pwsh/Catzc.Base.Git/types/GitFlowConfig.cs
     cites:
-      - ADR-FLOW-GIT-USERRUNSGIT
-      - ADR-FLOW-GIT-SYNCPOINT
+      - FDR-GIT-USERRUNSGIT
+      - FDR-GIT-SYNCPOINT
       - PDR-CONFIG-DEFAULTDECLAREDONCE
 ---
 #>
@@ -25,7 +25,7 @@ Describe 'GitFlowConfig' -Tag 'L0', 'logic', 'PDR-CONFIG-DEFAULTDECLAREDONCE' {
         $config.IsMain($null) | Should -BeFalse
     }
 
-    It 'takes each stated value, a ref mark included' -Tag 'ADR-FLOW-GIT-SYNCPOINT' {
+    It 'takes each stated value, a ref mark included' -Tag 'FDR-GIT-SYNCPOINT' {
         $config = [Catzc.Base.Git.GitFlowConfig]::new(@{
                 remote        = 'upstream'
                 main_branches = @('trunk')
@@ -40,7 +40,7 @@ Describe 'GitFlowConfig' -Tag 'L0', 'logic', 'PDR-CONFIG-DEFAULTDECLAREDONCE' {
         [Catzc.Base.Git.GitFlowConfig]::new(@{ bvt_mark = 'none' }).bvt_mark_kind | Should -BeExactly 'none'
     }
 
-    It 'finds a user command a command line invokes, and none in a path or name that holds it' -Tag 'ADR-FLOW-GIT-USERRUNSGIT' {
+    It 'finds a user command a command line invokes, and none in a path or name that holds it' -Tag 'FDR-GIT-USERRUNSGIT' {
         $config = [Catzc.Base.Git.GitFlowConfig]::new(@{})
         $config.UserCommandIn('pwsh -NoProfile -Command ". ./importer.ps1; Push-Topic -Message x"') | Should -BeExactly 'Push-Topic'
         $config.UserCommandIn('pwsh -c "sync-topic"') | Should -BeExactly 'Sync-Topic'
@@ -50,7 +50,7 @@ Describe 'GitFlowConfig' -Tag 'L0', 'logic', 'PDR-CONFIG-DEFAULTDECLAREDONCE' {
         $config.UserCommandIn('') | Should -BeNullOrEmpty
     }
 
-    It 'finds a user command in command position: bare, after a separator, through cats, or in a pwsh -Command script' -Tag 'ADR-FLOW-GIT-USERRUNSGIT' {
+    It 'finds a user command in command position: bare, after a separator, through cats, or in a pwsh -Command script' -Tag 'FDR-GIT-USERRUNSGIT' {
         $config = [Catzc.Base.Git.GitFlowConfig]::new(@{})
         $config.UserCommandIn('Push-Topic -Message x') | Should -BeExactly 'Push-Topic'
         $config.UserCommandIn('cd out && Save-Topic') | Should -BeExactly 'Save-Topic'
@@ -59,7 +59,7 @@ Describe 'GitFlowConfig' -Tag 'L0', 'logic', 'PDR-CONFIG-DEFAULTDECLAREDONCE' {
         $config.UserCommandIn('timeout 300 pwsh -c "& Push-Topic"') | Should -BeExactly 'Push-Topic'
     }
 
-    It 'finds none in a quoted mention, a printf argument or a heredoc body' -Tag 'ADR-FLOW-GIT-USERRUNSGIT' {
+    It 'finds none in a quoted mention, a printf argument or a heredoc body' -Tag 'FDR-GIT-USERRUNSGIT' {
         $config = [Catzc.Base.Git.GitFlowConfig]::new(@{})
         $config.UserCommandIn('echo "the user runs Push-Topic"') | Should -BeNullOrEmpty
         $config.UserCommandIn("printf '%s\n' Push-Topic >> out/log.md") | Should -BeNullOrEmpty

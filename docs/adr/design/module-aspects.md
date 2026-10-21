@@ -1,8 +1,8 @@
 # ADR: Module aspects — a unit's files partition into live and tests
 
-## Rules: ADR-DSGN-ASPECT
+## Rules: DDR-ASPECT
 
-### Rule ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS
+### Rule DDR-ASPECT-MODULESPARTITIONINTOASPECTS
 
 Every module (and, at track granularity, every delivery package) **partitions** its tracked files into named **aspects** that are pairwise
 **disjoint** and jointly **exhaustive** — a true partition, no file in two aspects and no file in none. The aspect set is an ordered
@@ -13,7 +13,7 @@ variant (`Catzc.Base.Variants`).
 - [Context](#context)
 - [Decision](#decision)
 
-### Rule ADR-DSGN-ASPECT-ASPECTSAREDERIVED
+### Rule DDR-ASPECT-ASPECTSAREDERIVED
 
 Aspects are **auto-derived** from folder conventions, never hand-declared. `live` is a **closed** convention (the folder-scoped patterns of
 the layout's live rows — `*.ps1`, `private/**`, `types/**`, `configs/**`, `assets/**` — that never reach `tests/`, and are what the builder
@@ -23,7 +23,7 @@ all prefixed by the unit root.
 
 - [Decision](#decision)
 
-### Rule ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+### Rule DDR-ASPECT-TRACKPICKSCATCHALL
 
 Which aspect is the catch-all remainder is each **track's** call. A **code** track (`pwsh`) keeps `live` closed and declares the non-live
 `tests` last, so a stray or unclassified file lands on the verification side and can **never silently ship** (default-deny). A
@@ -34,7 +34,7 @@ aspect uses it.
 - [Decision](#decision)
 - [Consequences](#consequences)
 
-### Rule ADR-DSGN-ASPECT-ASPECTISAGLOBSET
+### Rule DDR-ASPECT-ASPECTISAGLOBSET
 
 Each aspect is its own derived globset, `<unit>-<aspect>`, with its own live durable-SHA identity and nothing committed per set. A unit's
 two aspects are therefore **two independent identities** — one `live`, one `tests`: a `tests`-only change never re-keys `live`, and a
@@ -45,7 +45,7 @@ degenerate one-aspect partition.
 - [Context](#context)
 - [Consequences](#consequences)
 
-### Rule ADR-DSGN-ASPECT-PARTITIONISCHECKED
+### Rule DDR-ASPECT-PARTITIONISCHECKED
 
 The partition invariant — disjoint + exhaustive over `git ls-files` — is an integrity check: a file claimed by two aspects, or by none,
 fails it (`AspectPartition.Validate`). The `module-leftovers` catch-all is the module-space complement — files under `pwsh/` that no module

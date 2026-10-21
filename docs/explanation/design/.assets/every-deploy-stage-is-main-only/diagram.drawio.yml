@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "9ecfd1e65528"
+#     with_body_sha: a5fc38f1401d
 # ---
 
 description:
@@ -9,7 +9,7 @@ description:
   topic commit is deployed by a pipeline.
 about:
   adrs:
-    - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+    - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
   lens: implementation
 content:
   title: Every Deploy stage in cats runs only from main, so no topic commit is deployed
@@ -124,11 +124,11 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: docs/-/.
         by:
           - docs/adr/flow/commit-lifecycle.md
@@ -140,38 +140,38 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
     grid:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: docs/markdown
         by:
           - docs/adr/flow/commit-lifecycle.md
@@ -183,11 +183,11 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/powershell
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -195,21 +195,21 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: pwsh/yaml
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
     axis:
       - cell: DSGN/quality-control
         by:
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: DSGN/release
         by:
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: DSGN/deploy
         by:
-          - ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
 layout:
   band-topic:
     x: 20

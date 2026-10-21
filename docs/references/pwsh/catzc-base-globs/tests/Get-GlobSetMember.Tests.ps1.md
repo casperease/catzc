@@ -9,7 +9,7 @@ Above `Describe 'Get-GlobSetMember' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 The single 'what is IN the package' source
-([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)): `git ls-files` ∩
+([FDR-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)): `git ls-files` ∩
 GlobSet.Matches, ordinal-sorted.
 Tested through the module (private). The '_' args in the scriptblock take the set and mocked tree.
 ```

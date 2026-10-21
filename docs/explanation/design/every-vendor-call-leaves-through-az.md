@@ -12,7 +12,7 @@ Every vendor call leaves cats through the az CLI, the one exit to Azure.
 7  Azure                    the vendor substrate, today the only one
 8  the single exit          the only edge that reaches Azure leaves from az
 
-Supports ADR-DSGN-THINPLAT-THINPLATFORM, ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT and ADR-DSGN-THINPLAT-PLATFORMASCLI, and ADR-AZ-CLI-AZBYDEFAULT, ADR-AZ-CLI-ASSERTAZ and ADR-AZ-CLI-NOAZMODULEIMPORT (architecture lens).
+Supports DDR-THINPLAT-THINPLATFORM, DDR-THINPLAT-DELEGATENOTREIMPLEMENT and DDR-THINPLAT-PLATFORMASCLI, and ADR-AZ-CLI-AZBYDEFAULT, ADR-AZ-CLI-ASSERTAZ and ADR-AZ-CLI-NOAZMODULEIMPORT (architecture lens).
 ```
 
 Cats is a thin platform over Azure: it standardizes how the vendor is used and leaves the work to the vendor's own tools. On the Bicep
@@ -41,11 +41,11 @@ and everything that reaches Azure, compiling a template included, goes out throu
 ## Why it holds
 
 - Cats is a single CLI abstraction over the vendor that standardizes how Azure is used without reimplementing it
-  (ADR-DSGN-THINPLAT-THINPLATFORM).
+  (DDR-THINPLAT-THINPLATFORM).
 - Thin comes from delegation: Bicep for templating and the az CLI for control-plane actions, never a clone of either
-  (ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT).
+  (DDR-THINPLAT-DELEGATENOTREIMPLEMENT).
 - The `Verb-Noun` functions and their configuration are the platform's API, so the modules behind them can be re-wired without touching a
-  consumer (ADR-DSGN-THINPLAT-PLATFORMASCLI).
+  consumer (DDR-THINPLAT-PLATFORMASCLI).
 - az is the default for every Azure operation, called through `Invoke-Executable` (ADR-AZ-CLI-AZBYDEFAULT); a function that calls az asserts
   it with `Assert-Tool 'az_cli'` first (ADR-AZ-CLI-ASSERTAZ); and automation code never imports `Az.*` (ADR-AZ-CLI-NOAZMODULEIMPORT).
 

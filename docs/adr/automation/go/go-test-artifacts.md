@@ -92,14 +92,14 @@ artifacts, keep everything Go-specific but the code generated, and run the tests
 
 The `go` track is a language track like `pwsh` ([module-model](../module-model.md#rule-adr-auto-module-everylanguagetrackalike)): a module
 is a folder under the Go root that the layout places, and the tests of the engine sit in the track's own holder. The engine stays PowerShell
-and C# ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetechstack)); a Go test verifies it from outside, as a black box, and nothing
+and C# ([tracks](../../design/tracks.md#rule-ddr-track-onetechstack)); a Go test verifies it from outside, as a black box, and nothing
 in the engine calls Go. The builder reads the engine's track, so no bundle holds a Go file unless `files.yml` packages it — the layout is
 the guarantee ([platform-bundle](../platform-bundle.md)).
 
 ### The layout
 
 The Go root is the one folder every Go file lives under. When the repository has a `go/` folder, that folder is the root, and it is the `go`
-track ([tracks](../../design/tracks.md#rule-adr-dsgn-track-onetracktype)). Otherwise the root is `.go/`, dot-prefixed as the tooling folders
+track ([tracks](../../design/tracks.md#rule-ddr-track-onetracktype)). Otherwise the root is `.go/`, dot-prefixed as the tooling folders
 are. The default is declared once, on the `GoConfig` type ([sensible-defaults](../sensible-defaults.md)), and `go.yml` declares a `root`
 only to place the Go root elsewhere.
 

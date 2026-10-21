@@ -2,16 +2,16 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "05a5eeee6e9a"
+    with_body_sha: "96e19b5c53ce"
   edges:
     code: pwsh/Catzc.Base.Git/Get-SyncPoint.ps1
     cites:
-      - ADR-FLOW-GIT-SYNCPOINT
-      - ADR-FLOW-GIT-FALLBACKISANNOUNCED
+      - FDR-GIT-SYNCPOINT
+      - FDR-GIT-FALLBACKISANNOUNCED
 ---
 #>
 
-Describe 'Get-SyncPoint' -Tag 'L0', 'logic', 'ADR-FLOW-GIT-SYNCPOINT' {
+Describe 'Get-SyncPoint' -Tag 'L0', 'logic', 'FDR-GIT-SYNCPOINT' {
     BeforeAll {
         $script:main = 'a' * 40
         $script:verified = 'b' * 40
@@ -27,7 +27,7 @@ Describe 'Get-SyncPoint' -Tag 'L0', 'logic', 'ADR-FLOW-GIT-SYNCPOINT' {
         Mock Assert-Command -ModuleName Catzc.Base.Git { }
     }
 
-    It 'falls back to the current server HEAD of the first main branch, and says so' -Tag 'ADR-FLOW-GIT-FALLBACKISANNOUNCED' {
+    It 'falls back to the current server HEAD of the first main branch, and says so' -Tag 'FDR-GIT-FALLBACKISANNOUNCED' {
         Set-Remote @("$script:main`tHEAD", "$script:main`trefs/heads/master", "$('d' * 40)`trefs/heads/widget")
         $point = Get-SyncPoint -Config ([Catzc.Base.Git.GitFlowConfig]::new(@{})) -WarningVariable warned -WarningAction SilentlyContinue
         $point.Commit | Should -BeExactly $script:main
@@ -47,7 +47,7 @@ Describe 'Get-SyncPoint' -Tag 'L0', 'logic', 'ADR-FLOW-GIT-SYNCPOINT' {
         $warned | Should -BeNullOrEmpty
     }
 
-    It 'falls back and names the missing mark when the marked ref is not on the server' -Tag 'ADR-FLOW-GIT-FALLBACKISANNOUNCED' {
+    It 'falls back and names the missing mark when the marked ref is not on the server' -Tag 'FDR-GIT-FALLBACKISANNOUNCED' {
         $config = [Catzc.Base.Git.GitFlowConfig]::new(@{ bvt_mark = @{ ref = 'refs/heads/widget-verified' } })
         Set-Remote @("$script:main`trefs/heads/main")
         $point = Get-SyncPoint -Config $config -WarningVariable warned -WarningAction SilentlyContinue

@@ -7,11 +7,11 @@ catzc:
     test: pwsh/Catzc.Base.Git/tests/Push-Topic.Tests.ps1
     docs: "[Push-Topic.ps1.md](docs/references/pwsh/catzc-base-git/Push-Topic.ps1.md)"
     cites:
-      - ADR-FLOW-CD-LIFE-FASTPUSHLANDS
-      - ADR-FLOW-GIT-USERRUNSGIT
-      - ADR-FLOW-GIT-ONESQUASHEDCOMMIT
-      - ADR-FLOW-GIT-SQUASHREBASESQUASH
-      - ADR-FLOW-GIT-TOPICHISTORYISTHEAUTHORS
+      - FDR-CD-LIFE-FASTPUSHLANDS
+      - FDR-GIT-USERRUNSGIT
+      - FDR-GIT-ONESQUASHEDCOMMIT
+      - FDR-GIT-SQUASHREBASESQUASH
+      - FDR-GIT-TOPICHISTORYISTHEAUTHORS
 ---
 #>
 

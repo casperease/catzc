@@ -9,7 +9,7 @@ A track ships through a deployable-unit, and each unit binds one pipeline.
 4  Binds one         one unit, one pipeline; two only when DEPLOY splits out of CD
 5  Pipeline          the unit's delivery machine
 
-Supports ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER, ADR-DSGN-TRACK-ONETRACKTYPE, ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED and ADR-DSGN-TRACK-DEPLOYABLEUNIT (meta lens).
+Supports DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED and DDR-TRACK-DEPLOYABLEUNIT (meta lens).
 ```
 
 Three words carry the delivery side of cats: a track is a concern, a deployable-unit is what ships, and a pipeline is a unit's delivery
@@ -30,13 +30,13 @@ track except through the unit that is that track.
 
 ## Why it holds
 
-- A track is one root concern with one root folder (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER).
-- Tracks are subscribed to, never path-coupled (ADR-DSGN-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
+- A track is one root concern with one root folder (DDR-TRACK-TRACKISPLACEDCLUSTER).
+- Tracks are subscribed to, never path-coupled (DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED).
 - Deployable-units determine CD pipelines one to one, and a CI pipeline that verifies a whole track binds the track's own set
-  (ADR-DSGN-TRACK-DEPLOYABLEUNIT).
+  (DDR-TRACK-DEPLOYABLEUNIT).
 
 A cross-cutting slice, such as every markdown file, is a scope over tracks rather than a track: it selects through the roots and owns none
-(ADR-DSGN-TRACK-ONETRACKTYPE).
+(DDR-TRACK-ONETRACKTYPE).
 
 ## See also
 

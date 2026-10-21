@@ -7,7 +7,7 @@ catzc:
     docs: "[Get-ChangedFile.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/private/Get-ChangedFile.ps1
     cites:
-      - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+      - FDR-CD-GLOBS-TRACKEDFILESONLY
 ---
 #>
 

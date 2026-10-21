@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d23e5d94f8d9
+#     with_body_sha: "0e72bcdb83d4"
 #     warning: "Do Not Edit, this file is generated"
 #     role: other
 #     generator: pwsh/Catzc.Base.RootConfig/New-GitAttributes.ps1
@@ -128,8 +128,7 @@ contracts/*/*/** catzc-contract text eol=lf
 **/tests/**/assets/** catzc-fixture
 
 # catzc: files under the unordered track are imports not yet sorted, held to no domain rule until they move — the
-# content tools (links, Markdown titles, source conventions) leave them as they landed
-# (ADR-DSGN-TRACK-UNORDEREDTRACK).
+# content tools (links, Markdown titles, source conventions) leave them as they landed (DDR-TRACK-UNORDEREDTRACK).
 .unordered/** catzc-unordered
 
 # catzc: these files are read verbatim by another tool, so they carry no meta block: the session instructions are

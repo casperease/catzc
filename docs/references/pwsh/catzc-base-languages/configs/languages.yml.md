@@ -9,7 +9,7 @@ Above `formatters:`, written with `#`.
 
 ```text
 The file-language registry — every file language the repository's tracked files are written in, each named by its
-extensions ([ADR-DSGN-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-filelanguage)). A track's tech-stack is the set of
+extensions ([DDR-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-ddr-track-filelanguage)). A track's tech-stack is the set of
 file languages it declares in variants.yml (`tracks:`); this registry makes that set checkable. Every extension
 belongs to exactly one file language; an extension no entry lists has no file language.
 
@@ -42,7 +42,7 @@ The defaults and the engine list are declared once on Catzc.Base.Languages.Langu
 Get-Config -Config languages and read through Get-FileLanguage.
 
 YAML is two file languages: executable pipeline YAML is `.yaml`, configuration data is `.yml`
-([ADR-FLOW-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/adr/flow/pipeline-concept.md#rule-adr-flow-cd-pipeline-executableyamlextension)).
+([FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/adr/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension)).
 ```
 
 ## comment:2

@@ -9,8 +9,8 @@ Above `trigger:`, written with `#`.
 
 ```text
 Build and verify only, no artifact and no deploy; az bicep build is offline, so Mode stays none and no auth is needed.
-[ADR-FLOW-CD-TYPE](/docs/adr/flow/pipeline-types.md),
-[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:1](/docs/references/ado/pipelines/ci-infrastructure.yaml.md#comment1)
+[FDR-CD-TYPE](/docs/adr/flow/pipeline-types.md),
+[FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:1](/docs/references/ado/pipelines/ci-infrastructure.yaml.md#comment1)
 ```
 
 ## comment:2

@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Aspect / AspectPartition' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
-Aspects ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)): the ordered first-match partition of a unit's tracked
+Aspects ([DDR-ASPECT](/docs/adr/design/module-aspects.md)): the ordered first-match partition of a unit's tracked
 files. Compile encodes each
 aspect as a leaf scan program (own patterns as include, earlier aspects' patterns as exclude); the last
 aspect ('**') becomes the non-live catch-all remainder. Validate re-checks disjoint + exhaustive.

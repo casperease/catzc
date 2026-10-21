@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5b4c846f314a"
+#     with_body_sha: "66c311f66c02"
 # ---
 
 description:
@@ -9,8 +9,8 @@ description:
   policies on main; nothing returns the last verified commit."
 about:
   adrs:
-    - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-    - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+    - DDR-REMOTE-INTEGRATEFROMVERIFIED
+    - DDR-REMOTE-PULLREQUESTISINGRESS
   lens: implementation
 content:
   title: The code carries both halves of ingress, but nothing finds the last verified commit
@@ -128,41 +128,41 @@ content:
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
       - cell: docs/-/.
         by:
           - docs/adr/design/dora-explains.md
           - docs/adr/design/server-remote-integration.md
           - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
           - docs/adr/index.md
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
       - cell: subject/pipelines
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
     axis:
       - cell: DSGN/build
         by:
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
       - cell: DSGN/quality-control
         by:
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
 layout:
   band-local:
     x: 20

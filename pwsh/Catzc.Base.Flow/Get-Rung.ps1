@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.Flow/tests/Get-Rung.Tests.ps1
     docs: "[Get-Rung.ps1.md](docs/references/pwsh/catzc-base-flow/Get-Rung.ps1.md)"
     cites:
-      - ADR-FLOW-CD-RUNGSREGISTRY
+      - FDR-CD-RUNGSREGISTRY
 ---
 #>
 

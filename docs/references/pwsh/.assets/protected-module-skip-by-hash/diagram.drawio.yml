@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "6d6b53fb456a"
+#     with_body_sha: ac95ef6e92be
 # ---
 
 description:
@@ -10,10 +10,10 @@ description:
 about:
   adrs:
     - ADR-REPO-PROTGLOB
-    - ADR-FLOW-CD-GLOBS
-    - ADR-FLOW-CD-DETECT
+    - FDR-CD-GLOBS
+    - FDR-CD-DETECT
     - ADR-PWSH-CACHE
-    - ADR-DSGN-ASPECT
+    - DDR-ASPECT
   lens: source
 content:
   title: Skip a module only if its folded hash matches its last green
@@ -135,21 +135,21 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/cd-shared.yaml
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-ASPECT
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - DDR-ASPECT
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
           - ADR-PWSH-CACHE
           - ADR-REPO-PROTGLOB
       - cell: ado-pipelines/pipelines/extends
         by:
           - .ado/pipelines/extends/cd-customer.yaml
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-GLOBS
       - cell: docs/-/.
         by:
           - docs/adr/automation/pwsh/dora-explains.md
@@ -268,9 +268,9 @@ content:
           - docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
           - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
           - docs/references/pwsh/catzc-tooling-core/private/Assert-ToolVersion.ps1.md
-          - ADR-DSGN-ASPECT
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - DDR-ASPECT
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
           - ADR-PWSH-CACHE
           - ADR-REPO-PROTGLOB
       - cell: pwsh/-/.
@@ -280,27 +280,27 @@ content:
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Azure.Templates/.
         by:
           - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
           - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
-          - ADR-FLOW-CD-DETECT
+          - FDR-CD-DETECT
           - ADR-PWSH-CACHE
       - cell: pwsh/Catzc.Base.Config/.
         by:
@@ -321,9 +321,9 @@ content:
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-ASPECT
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - DDR-ASPECT
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
           - ADR-PWSH-CACHE
           - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.Docs/private
@@ -334,8 +334,8 @@ content:
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Base.Execution/.
         by:
           - pwsh/Catzc.Base.Execution/Find-Executable.ps1
@@ -343,7 +343,7 @@ content:
       - cell: pwsh/Catzc.Base.Exporter/.
         by:
           - pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Base.Files/.
         by:
           - pwsh/Catzc.Base.Files/Get-GitTrackedPath.ps1
@@ -367,15 +367,15 @@ content:
           - pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
           - pwsh/Catzc.Base.Globs/Test-GlobSetProtection.ps1
           - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
-          - ADR-DSGN-ASPECT
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - DDR-ASPECT
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
           - ADR-PWSH-CACHE
           - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.Globs/configs
         by:
           - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-GLOBS
           - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.Globs/private
         by:
@@ -383,7 +383,7 @@ content:
           - pwsh/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
           - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
           - pwsh/Catzc.Base.Globs/private/Test-GlobListEqual.ps1
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Base.Globs/tests
         by:
           - pwsh/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
@@ -402,9 +402,9 @@ content:
           - pwsh/Catzc.Base.Globs/tests/Test-GlobSetAffected.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/Test-GlobSetProtection.Tests.ps1
-          - ADR-DSGN-ASPECT
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - DDR-ASPECT
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
           - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.Globs/tests/types
         by:
@@ -412,8 +412,8 @@ content:
           - pwsh/Catzc.Base.Globs/tests/types/GlobPattern.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-          - ADR-DSGN-ASPECT
-          - ADR-FLOW-CD-GLOBS
+          - DDR-ASPECT
+          - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Base.Globs/types
         by:
           - pwsh/Catzc.Base.Globs/types/Aspect.cs
@@ -421,8 +421,8 @@ content:
           - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
           - pwsh/Catzc.Base.Globs/types/GlobSet.cs
           - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
-          - ADR-DSGN-ASPECT
-          - ADR-FLOW-CD-GLOBS
+          - DDR-ASPECT
+          - FDR-CD-GLOBS
           - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.Maps/.
         by:
@@ -430,22 +430,22 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
           - ADR-PWSH-CACHE
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Base.Modules/.
         by:
           - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
-          - ADR-DSGN-ASPECT
+          - DDR-ASPECT
       - cell: pwsh/Catzc.Base.Modules/tests
         by:
           - pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
-          - ADR-DSGN-ASPECT
+          - DDR-ASPECT
       - cell: pwsh/Catzc.Base.ModuleSystem/.
         by:
           - pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
@@ -454,14 +454,14 @@ content:
         by:
           - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
           - pwsh/Catzc.Base.QualityGates/Test-ManagedGuids.ps1
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-GLOBS
           - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
           - ADR-PWSH-CACHE
           - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.QualityGates/private
@@ -473,8 +473,8 @@ content:
           - pwsh/Catzc.Base.QualityGates/private/Protect-TestedModule.ps1
           - pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
           - pwsh/Catzc.Base.QualityGates/private/Select-ProtectedTestFile.ps1
-          - ADR-DSGN-ASPECT
-          - ADR-FLOW-CD-GLOBS
+          - DDR-ASPECT
+          - FDR-CD-GLOBS
           - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.QualityGates/tests
         by:
@@ -486,12 +486,12 @@ content:
       - cell: pwsh/Catzc.Base.Variants/configs
         by:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - ADR-DSGN-ASPECT
+          - DDR-ASPECT
       - cell: pwsh/Catzc.Base.Variants/types
         by:
           - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - ADR-DSGN-ASPECT
+          - DDR-ASPECT
       - cell: pwsh/Catzc.Internal.Tests/.
         by:
           - pwsh/.internal/tests/Write-LoadTime.Tests.ps1
@@ -504,13 +504,13 @@ content:
       - cell: subject/.claude
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
       - cell: subject/Catzc.Azure.DevOps
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
       - cell: subject/Catzc.Azure.DevOps.BuildValidation
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -518,12 +518,12 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-GLOBS
       - cell: subject/Catzc.Azure.Templates
         by:
           - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
           - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
-          - ADR-FLOW-CD-DETECT
+          - FDR-CD-DETECT
           - ADR-PWSH-CACHE
       - cell: subject/Catzc.Base.Config
         by:
@@ -541,9 +541,9 @@ content:
           - pwsh/Catzc.Base.Docs/private/Get-CatsAdrIndex.ps1
           - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-DSGN-ASPECT
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - DDR-ASPECT
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
           - ADR-PWSH-CACHE
           - ADR-REPO-PROTGLOB
       - cell: subject/Catzc.Base.Execution
@@ -553,7 +553,7 @@ content:
       - cell: subject/Catzc.Base.Exporter
         by:
           - pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-GLOBS
       - cell: subject/Catzc.Base.Files
         by:
           - pwsh/Catzc.Base.Files/Get-GitTrackedPath.ps1
@@ -607,9 +607,9 @@ content:
           - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
           - pwsh/Catzc.Base.Globs/types/GlobSet.cs
           - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
-          - ADR-DSGN-ASPECT
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - DDR-ASPECT
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
           - ADR-PWSH-CACHE
           - ADR-REPO-PROTGLOB
       - cell: subject/Catzc.Base.Maps
@@ -619,8 +619,8 @@ content:
           - pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
           - ADR-PWSH-CACHE
       - cell: subject/Catzc.Base.ModuleSystem
         by:
@@ -630,7 +630,7 @@ content:
         by:
           - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
           - pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
-          - ADR-DSGN-ASPECT
+          - DDR-ASPECT
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
@@ -648,9 +648,9 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
-          - ADR-DSGN-ASPECT
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - DDR-ASPECT
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
           - ADR-PWSH-CACHE
           - ADR-REPO-PROTGLOB
       - cell: subject/Catzc.Base.Variants
@@ -658,7 +658,7 @@ content:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
           - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - ADR-DSGN-ASPECT
+          - DDR-ASPECT
       - cell: subject/Catzc.Internal.Tests
         by:
           - pwsh/.internal/tests/Write-LoadTime.Tests.ps1
@@ -672,19 +672,19 @@ content:
           - .ado/pipelines/cd-shared.yaml
           - .ado/pipelines/ci-pwsh.yaml
           - .ado/pipelines/extends/cd-customer.yaml
-          - ADR-DSGN-ASPECT
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - DDR-ASPECT
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
           - ADR-PWSH-CACHE
           - ADR-REPO-PROTGLOB
     axis:
       - cell: DSGN/build
         by:
-          - ADR-DSGN-ASPECT
+          - DDR-ASPECT
       - cell: DSGN/*
         by:
-          - ADR-FLOW-CD-DETECT
-          - ADR-FLOW-CD-GLOBS
+          - FDR-CD-DETECT
+          - FDR-CD-GLOBS
       - cell: AUTO/*
         by:
           - ADR-PWSH-CACHE

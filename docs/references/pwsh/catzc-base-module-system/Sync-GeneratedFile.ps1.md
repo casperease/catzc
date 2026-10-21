@@ -23,7 +23,7 @@ Guards, in order — each skip is one explanatory message and leaves the working
 
 - Skips in build mode (Get-CatzcRunMode,
 
-[ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)): the generated files belong to the source tree,
+[DDR-RUNMODE](../../../adr/design/run-modes.md)): the generated files belong to the source tree,
 
 ```text
 and the session runs a built package. A skip, not a throw, because the importer's janitor tail calls

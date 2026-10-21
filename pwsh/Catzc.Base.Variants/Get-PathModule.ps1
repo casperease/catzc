@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1
     docs: "[Get-PathModule.ps1.md](docs/references/pwsh/catzc-base-variants/Get-PathModule.ps1.md)"
     cites:
-      - ADR-DSGN-TRACK-ONETECHSTACK
+      - DDR-TRACK-ONETECHSTACK
 ---
 #>
 

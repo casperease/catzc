@@ -58,7 +58,7 @@ per-customer foundation), so it enables all of them; a repo with no customer tem
 Above `aspects:`, written with `#`.
 
 ```text
-Aspects ([ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md)) — per-track/per-container conventions. Each is an ordered, first-match
+Aspects ([DDR-ASPECT](/docs/adr/design/module-aspects.md)) — per-track/per-container conventions. Each is an ordered, first-match
 (fallthrough)
 list; the LAST aspect is the '**' catch-all remainder. The catch-all's liveness is the container's call:
 automation is CODE, so 'live' is closed (a stray file falls to the 'tests' catch-all and never ships);
@@ -72,11 +72,11 @@ construction of the ordering.
 Above `tracks:`, written with `#`.
 
 ```text
-Tracks ([ADR-DSGN-TRACK](/docs/adr/design/tracks.md)) — the repository's root concerns, the one declaration of what a
+Tracks ([DDR-TRACK](/docs/adr/design/tracks.md)) — the repository's root concerns, the one declaration of what a
 track is. Each entry names its root folder (one segment; every root folder git tracks a file under is a track, except
 out/), its class (core | adapter | external-port | verification | unordered,
-[ADR-DSGN-TRACK-ONETRACKTYPE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-onetracktype)) and the file languages its
+[DDR-TRACK-ONETRACKTYPE](/docs/adr/design/tracks.md#rule-ddr-track-onetracktype)) and the file languages its
 tech-stack is declared as (names from Catzc.Base.Languages' languages.yml,
-[ADR-DSGN-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-filelanguage); default: none). Read
+[DDR-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-ddr-track-filelanguage); default: none). Read
 through Get-Track; validated by the VariantsConfig type.
 ```

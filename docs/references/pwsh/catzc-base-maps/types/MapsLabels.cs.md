@@ -12,12 +12,12 @@ The map labels (the `labels` section of configs/maps.yml): the fixed text the ma
 
 The world map's labels: the title of each view, the header of each axis, the headers of the two catch-all lines of the
 grid and the legend's entries. The catch-all row holds the root files
-([ADR-DSGN-TRACK-ROOTFILE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-rootfile)) and the catch-all column the unlisted files
-([ADR-DSGN-TRACK-UNLISTEDFILE](/docs/adr/design/tracks.md#rule-adr-dsgn-track-unlistedfile)), so their headers print those terms.
+([DDR-TRACK-ROOTFILE](/docs/adr/design/tracks.md#rule-ddr-track-rootfile)) and the catch-all column the unlisted files
+([DDR-TRACK-UNLISTEDFILE](/docs/adr/design/tracks.md#rule-ddr-track-unlistedfile)), so their headers print those terms.
 
 The value-chain map's labels, each key starting value_chain_: its title, the header of each axis (the value-chain
 stack and the value-chain concerns) and the legend's entries
-([ADR-DSGN-TRACK-VALUECHAINMAP](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainmap)). Test-WorldMap checks the world map's
+([DDR-TRACK-VALUECHAINMAP](/docs/adr/design/tracks.md#rule-ddr-track-valuechainmap)). Test-WorldMap checks the world map's
 labels and Test-ValueChainMap the value-chain map's.
 
 The properties mirror the YAML keys, so they are snake_case

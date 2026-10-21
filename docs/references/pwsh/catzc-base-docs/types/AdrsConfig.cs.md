@@ -25,14 +25,14 @@ model, [ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/adr/azure/azure-custo
     segments), the leaf code (if any) matches the domain-code pattern, and when the external has a domain
     segment the EFFECTIVE code (leaf override else domain code) is that segment — the external is
     'ADR-<effective>' or begins 'ADR-<effective>-' (a one-segment external such as ADR-REPO-AI has none to match; so a
-    compound-code domain cites its root ADR as [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md) and the rest as
-[ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)-<NAME>); every
+    compound-code domain cites its root ADR as [FDR-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md) and the rest as
+[FDR-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)-<NAME>); every
     external is unique;
   - each domain declares its row of the value-chain stack (stack: one of Stacks,
-    [ADR-DSGN-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainstack)) and its default value-chain concerns
+    [DDR-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-ddr-track-valuechainstack)) and its default value-chain concerns
     (concern: a list of one or more of Concerns); a ruleset may override the default with its own concern list, so
     every ADR resolves to at least one value-chain concern
-    ([ADR-DSGN-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainconcern)). The allowed rows and concerns are
+    ([DDR-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-ddr-track-valuechainconcern)). The allowed rows and concerns are
     declared once, here, in value-chain order
     ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder));
   - a domain or ruleset key outside the declared keys is rejected, so a misspelled key never falls back to a default.
@@ -44,7 +44,7 @@ Above `public static readonly IReadOnlyList<string> Concerns =...`, written with
 
 ```text
 The value-chain concerns, in value-chain order, left to right
-([ADR-DSGN-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainconcern)).
+([DDR-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-ddr-track-valuechainconcern)).
 ```
 
 ## comment:3
@@ -54,8 +54,8 @@ Above `string expectedPrefix = effective == null ? domainKind : domainKind + "-"
 ```text
 The external starts with its domain's prefix: the kind and the effective code under a shared kind, the kind alone under a kind one
 domain owns. The external is either the domain-root citation '<kind>-<effective>' or a named '<kind>-<effective>-<NAME>'. A compound
-domain code (e.g. FLOW-CD, whose ADRs cite [ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md) and
-[ADR-FLOW-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)-<NAME>) is matched
+domain code (e.g. FLOW-CD, whose ADRs cite [FDR-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md) and
+[FDR-CD](/docs/adr/flow/cd-discipline-and-promotion-flow.md)-<NAME>) is matched
 by this prefix rule without splitting on a specific dash. A one-segment external
 ('ADR-<NAME>', no dash after the prefix) carries no domain segment and skips the match.
 ```

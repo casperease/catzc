@@ -12,7 +12,7 @@ Run-mode rules 1 to 6 each have a gate; rule 7's build kinds need none.
 7  Get-CatzcRunMode              derives the mode from the code root: rule 4
 8  Three build kinds             temporary, installed and saved, told apart by place: rule 7
 
-Supports ADR-DSGN-RUNMODE-TWORUNMODES, ADR-DSGN-RUNMODE-SAMEMODULEINBOTH, ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE, ADR-DSGN-RUNMODE-MODEISDERIVED, ADR-DSGN-RUNMODE-NEVERCOEXIST, ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES and ADR-DSGN-RUNMODE-THREEBUILDKINDS (governance lens).
+Supports DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-OWNSCRIPTSCOPE, DDR-RUNMODE-MODEISDERIVED, DDR-RUNMODE-NEVERCOEXIST, DDR-RUNMODE-SAMETESTSBOTHMODES and DDR-RUNMODE-THREEBUILDKINDS (governance lens).
 ```
 
 The run-modes ADR makes seven rules about how cats loads its modules from source and from a built package. Six of them are checked by code:
@@ -44,17 +44,17 @@ root tells apart, so no gate is needed. A reader who wants to know which run-mod
 
 ## Why it holds
 
-- Cats runs in exactly two modes, each with its own entry script (ADR-DSGN-RUNMODE-TWORUNMODES). Both test runs load their workers through
+- Cats runs in exactly two modes, each with its own entry script (DDR-RUNMODE-TWORUNMODES). Both test runs load their workers through
   those entry scripts.
-- Every module is the same module in both modes (ADR-DSGN-RUNMODE-SAMEMODULEINBOTH). The parity test and `Assert-SourceTree` check it, and
+- Every module is the same module in both modes (DDR-RUNMODE-SAMEMODULEINBOTH). The parity test and `Assert-SourceTree` check it, and
   the analyzer rule `Measure-NoScriptRootAnchor` keeps module code from anchoring on its own file's folder.
-- Each module keeps its own script scope in both modes (ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE). The scope-isolation test checks it.
-- The mode is derived, never stored (ADR-DSGN-RUNMODE-MODEISDERIVED). `Get-CatzcRunMode` derives it, and its tests check the derivation.
-- The two modes never coexist in one session (ADR-DSGN-RUNMODE-NEVERCOEXIST). `Assert-CatzcRunModeExclusive` checks it at the end of every
+- Each module keeps its own script scope in both modes (DDR-RUNMODE-OWNSCRIPTSCOPE). The scope-isolation test checks it.
+- The mode is derived, never stored (DDR-RUNMODE-MODEISDERIVED). `Get-CatzcRunMode` derives it, and its tests check the derivation.
+- The two modes never coexist in one session (DDR-RUNMODE-NEVERCOEXIST). `Assert-CatzcRunModeExclusive` checks it at the end of every
   load.
 - Both modes are tested by the same tests, and a test leaves the build run only through the `source-only` tag
-  (ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES).
-- Build mode has three kinds of root, told apart by where the code root lives (ADR-DSGN-RUNMODE-THREEBUILDKINDS). No code reports the kind.
+  (DDR-RUNMODE-SAMETESTSBOTHMODES).
+- Build mode has three kinds of root, told apart by where the code root lives (DDR-RUNMODE-THREEBUILDKINDS). No code reports the kind.
 
 ## Where the code and the ADR differ
 

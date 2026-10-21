@@ -95,7 +95,7 @@ just them.
 
 Run a test suite: the named globset's declared `verify:` scope in globs.yml, resolved to the module list and tier to run
 ([ADR-AUTO-TEST-TESTSUITE](../../../adr/automation/test-automation.md#rule-adr-auto-test-testsuite); the blast-radius marker role,
-[ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-everysethaslayer)) — "which tests do I
+[FDR-CD-GLOBS-EVERYSETHASLAYER](../../../adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)) — "which tests do I
 need to run to verify a change in that area-of-control". Mutually exclusive with -Modules; a globset without a verify scope is not a test
 suite and throws with the remedy. Find the suites a change touches with Get-MarkerBlastRadius.
 

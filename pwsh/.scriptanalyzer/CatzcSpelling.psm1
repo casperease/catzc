@@ -3,6 +3,9 @@
 catzc:
   immutable:
     with_body_sha: e702cf4cfb29
+  edges:
+    cites:
+      - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
 ---
 #>
 

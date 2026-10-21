@@ -14,7 +14,7 @@ Two variables are read in one place, 24 callers ask it, and one analyzer rule ba
 9   CatzcRules.psm1                 runs every check once per file; NoRawPipelineDetection is listed
 10  Measure-NoRawPipelineDetection  flags $env:TF_BUILD or $env:GITHUB_ACTIONS outside the detector
 
-Supports ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK, ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL and ADR-FLOW-CD-DETECT-FASTDETECTION (implementation lens).
+Supports FDR-CD-DETECT-NODIRECTVARIABLECHECK, FDR-CD-DETECT-BOOLEANNOTMODAL and FDR-CD-DETECT-FASTDETECTION (implementation lens).
 ```
 
 `Test-IsRunningInPipeline` is one expression: it casts two environment variables to booleans and ors them. Everything else in cats that
@@ -48,10 +48,10 @@ other read of those two variables into an error.
 ## Why it holds
 
 - Never check the detection variables directly; call `Test-IsRunningInPipeline`, and the analyzer rule makes the check mechanical
-  (ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK).
-- Detection is boolean, not modal: either variable set means a pipeline, otherwise not (ADR-FLOW-CD-DETECT-BOOLEANNOTMODAL).
+  (FDR-CD-DETECT-NODIRECTVARIABLECHECK).
+- Detection is boolean, not modal: either variable set means a pipeline, otherwise not (FDR-CD-DETECT-BOOLEANNOTMODAL).
 - The function stays fast: it is called often, so it reads two variables and does no I/O, network or computation
-  (ADR-FLOW-CD-DETECT-FASTDETECTION).
+  (FDR-CD-DETECT-FASTDETECTION).
 
 ## Where the code and the ADR differ
 

@@ -2,17 +2,17 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f3f988ffed35
+    with_body_sha: "8dd33ea2f98f"
   edges:
     docs: "[Test-WorldMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-      - ADR-DSGN-TRACK-ONETECHSTACK
-      - ADR-DSGN-TRACK-FILELANGUAGE
-      - ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS
+      - DDR-TRACK-TRACKISPLACEDCLUSTER
+      - DDR-TRACK-ONETECHSTACK
+      - DDR-TRACK-FILELANGUAGE
+      - DDR-TRACK-LABELSNAMEDEFINEDTERMS
 ---
 #>
 
@@ -72,23 +72,23 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
         $result.Facts['Labels'] | Should -Be 2
     }
 
-    It 'reports one issue per stack-violation cell, naming its count and its first file' -Tag 'ADR-DSGN-TRACK-ONETECHSTACK' {
+    It 'reports one issue per stack-violation cell, naming its count and its first file' -Tag 'DDR-TRACK-ONETECHSTACK' {
         $script:map = $script:brokenMap
         $result = Test-WorldMap -OutputFolder $script:out -PassThru
         $result.Facts['StackViolations'] | Should -Be 2
-        $result.Issues | Should -Contain "stack violation: widgets x gadget-text holds 2 live file(s) outside the track's file languages, e.g. widgets/Alpha/a.txt (ADR-DSGN-TRACK-ONETECHSTACK)"
+        $result.Issues | Should -Contain "stack violation: widgets x gadget-text holds 2 live file(s) outside the track's file languages, e.g. widgets/Alpha/a.txt (DDR-TRACK-ONETECHSTACK)"
     }
 
-    It 'reports each root folder no track names, never out/ or a file at the root' -Tag 'ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER' {
+    It 'reports each root folder no track names, never out/ or a file at the root' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER' {
         $script:map = $script:brokenMap
         $issues = @((Test-WorldMap -OutputFolder $script:out -PassThru).Issues | Where-Object { $_ -like 'undeclared root folder:*' })
         $issues | Should -Be @(
-            'undeclared root folder: cogs/ holds 1 tracked file(s) but no track names it (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER)'
-            'undeclared root folder: sprockets/ holds 2 tracked file(s) but no track names it (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER)'
+            'undeclared root folder: cogs/ holds 1 tracked file(s) but no track names it (DDR-TRACK-TRACKISPLACEDCLUSTER)'
+            'undeclared root folder: sprockets/ holds 2 tracked file(s) but no track names it (DDR-TRACK-TRACKISPLACEDCLUSTER)'
         )
     }
 
-    It 'reports a maps.yml label whose head names no glossary term, leaving the value_chain_ labels to Test-ValueChainMap' -Tag 'ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS' {
+    It 'reports a maps.yml label whose head names no glossary term, leaving the value_chain_ labels to Test-ValueChainMap' -Tag 'DDR-TRACK-LABELSNAMEDEFINEDTERMS' {
         $script:labels = [pscustomobject]@{
             row_axis          = 'Widgets'
             legend_files      = 'Gizmos per widget'
@@ -97,17 +97,17 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
         }
         $issues = @((Test-WorldMap -OutputFolder $script:out -PassThru).Issues)
         $issues | Should -Be @(
-            "unregistered label: maps.yml labels.column_axis 'Sprocket: gadget boxes' names no glossary term in its head (ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS)"
-            "unregistered label: maps.yml labels.legend_files 'Gizmos per widget' names no glossary term in its head (ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS)"
+            "unregistered label: maps.yml labels.column_axis 'Sprocket: gadget boxes' names no glossary term in its head (DDR-TRACK-LABELSNAMEDEFINEDTERMS)"
+            "unregistered label: maps.yml labels.legend_files 'Gizmos per widget' names no glossary term in its head (DDR-TRACK-LABELSNAMEDEFINEDTERMS)"
         )
     }
 
-    It 'reports the track and file-language names when the glossary lacks their axis term' -Tag 'ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS' {
+    It 'reports the track and file-language names when the glossary lacks their axis term' -Tag 'DDR-TRACK-LABELSNAMEDEFINEDTERMS' {
         $script:glossary = @($script:fullGlossary | Where-Object { $_.Concept.term -in 'widget', 'gadget box' })
         $issues = @((Test-WorldMap -OutputFolder $script:out -PassThru).Issues)
         $issues | Should -Be @(
-            "unregistered label: the names gadgets, widgets print as instances of 'track', which the glossary does not hold (ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER)"
-            "unregistered label: the names gadget-text, widget-script print as instances of 'file language', which the glossary does not hold (ADR-DSGN-TRACK-FILELANGUAGE)"
+            "unregistered label: the names gadgets, widgets print as instances of 'track', which the glossary does not hold (DDR-TRACK-TRACKISPLACEDCLUSTER)"
+            "unregistered label: the names gadget-text, widget-script print as instances of 'file language', which the glossary does not hold (DDR-TRACK-FILELANGUAGE)"
         )
     }
 
@@ -126,7 +126,7 @@ Describe 'Test-WorldMap' -Tag 'L0', 'logic' {
 }
 
 Describe 'Test-WorldMap on the repository' -Tag 'L1', 'integrity', 'source-only' {
-    It 'Test-WorldMap passes over the repository' -Tag 'ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER', 'ADR-DSGN-TRACK-ONETECHSTACK', 'ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS', 'ADR-AUTO-TEST-QUALITYGATE' {
+    It 'Test-WorldMap passes over the repository' -Tag 'DDR-TRACK-TRACKISPLACEDCLUSTER', 'DDR-TRACK-ONETECHSTACK', 'DDR-TRACK-LABELSNAMEDEFINEDTERMS', 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-WorldMap -PassThru -OutputFolder (Join-Path $TestDrive 'world-map')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }

@@ -6,9 +6,9 @@ commit, never the dirty remote HEAD) and how a change gets _in_ (ingress through
 commit-lifecycle states it builds on — the stable sync point and the dirty HEAD — belong to the delivery flow's commit lifecycle; this ADR
 owns the remote topology and the integration/ingress discipline over it.
 
-## Rules: ADR-DSGN-REMOTE
+## Rules: DDR-REMOTE
 
-### Rule ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH
+### Rule DDR-REMOTE-SERVERREMOTEISTRUTH
 
 **The audited server git remote is the single source of truth; local and CI repositories are bridges to it.** The mainline (`main` /
 `master`) that governs is the one on the server remote — Azure DevOps or GitHub — where identity, branch-protection policy, and the
@@ -17,7 +17,7 @@ branch's view of "main" is provisional until it is what the server holds. The se
 
 - [The authoritative remote](#the-authoritative-remote)
 
-### Rule ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
+### Rule DDR-REMOTE-INTEGRATEFROMVERIFIED
 
 **Integrate from the last remote-verified commit, never from the current remote HEAD.** The tip of the server's main (its HEAD) may be a
 **dirty HEAD** — landed but still unverified, or verified-then-failed downstream, and so unsafe to build on. Any consumer that builds on the
@@ -27,7 +27,7 @@ questions; this rule answers the second.
 
 - [Integrate from verified](#integrate-from-verified)
 
-### Rule ADR-DSGN-REMOTE-NORECONCILINGTIPS
+### Rule DDR-REMOTE-NORECONCILINGTIPS
 
 **Integrating from verified avoids ever having to reconcile a fixed or superseded tip.** A dirty HEAD is provisional: it may be fixed
 forward by a successor or superseded by a newer commit that overtakes it; history is never rewritten. A consumer that built on the verified
@@ -37,7 +37,7 @@ Integrate from verified and the reconciliation problem does not exist.
 
 - [Why verified is stable](#why-verified-is-stable)
 
-### Rule ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+### Rule DDR-REMOTE-PULLREQUESTISINGRESS
 
 **A pull request is the authenticated ingress engine, not merely a review.** In the audited regime (`git_workspace: main-via-pr`) the PR is
 the one sanctioned way a change enters the server's `main` / `master`: it **authenticates** the author against the server's identity model,
@@ -50,7 +50,7 @@ lets the `git log` audit trail be trusted as complete. Solo `main-direct` is the
 ## Context
 
 Trunk-based development ([one-living-version](../principles/one-living-version.md), `PDR-ONELIVE-TRUNKBASED`) puts one mainline at the
-centre, and [self-service](self-service.md) (`ADR-DSGN-SELFSERV`) rests its whole audit-and-approval story on that mainline living somewhere
+centre, and [self-service](self-service.md) (`DDR-SELFSERV`) rests its whole audit-and-approval story on that mainline living somewhere
 every change is attributed, passes its merge gate, and is recorded. That somewhere is the **server** git remote — the ADO or GitHub
 repository whose branch policy and identity model make those guarantees real. Developer and CI machines are clients that clone and bridge to
 it.
@@ -74,7 +74,7 @@ non-event for everyone downstream and keep the audit trail complete.
 The mainline is not a local artifact — it is the branch the server remote enforces, and the server is where identity, branch protection, and
 the immutable audit log live. A local clone is a bridge: it fetches from and pushes toward that remote, but "what is on main" is decided by
 the server, not by any client's local `main`. The guarantees the platform depends on — every change on main attributed, reviewed, and past
-its merge gate (`ADR-DSGN-SELFSERV`) — are server-side facts. A local `main` that has diverged, or a local commit never pushed through the
+its merge gate (`DDR-SELFSERV`) — are server-side facts. A local `main` that has diverged, or a local commit never pushed through the
 sanctioned path, is not "on main" in the sense that governs; it is working state that has not yet crossed the boundary.
 
 ### Integrate from verified
@@ -115,7 +115,7 @@ doorway collapses to a direct commit; the moment there is more than one author, 
 ## How this is enforced
 
 - **Server branch policy** — the protected `main` / `master` on the ADO / GitHub remote admits merges only through a PR, so ingress cannot
-  bypass the authenticate-and-merge path (`ADR-DSGN-REMOTE-PULLREQUESTISINGRESS`).
+  bypass the authenticate-and-merge path (`DDR-REMOTE-PULLREQUESTISINGRESS`).
 - **`git_workspace` variant** — `main-via-pr` vs `main-direct` selects the audited-ingress regime; `Sync-GeneratedFile`'s branch guard is
   the local half.
 - **The stable sync point** — the BVT-verified server head, as against the dirty HEAD, is the "last verified commit" this ADR tells
@@ -135,4 +135,4 @@ doorway collapses to a direct commit; the moment there is more than one author, 
 ## Related
 
 - [one-living-version](../principles/one-living-version.md) (`PDR-ONELIVE`) — trunk-based development and immutable history.
-- [self-service](self-service.md) (`ADR-DSGN-SELFSERV`) — the audit / change-approval guarantees the server remote and PR ingress make real.
+- [self-service](self-service.md) (`DDR-SELFSERV`) — the audit / change-approval guarantees the server remote and PR ingress make real.

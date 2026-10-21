@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "04415ad2a890"
+    with_body_sha: "8157fb452ae5"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
     docs: "[AdrsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md)"
@@ -12,12 +12,12 @@ catzc:
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
       - ADR-CONF-LOADING-CSHARPCONFIGTYPE
-      - ADR-DSGN-TRACK-VALUECHAINSTACK
-      - ADR-DSGN-TRACK-VALUECHAINCONCERN
-      - ADR-FLOW-CD
       - ADR-REPO-ADRCODE-PATHOFSEGMENTS
       - ADR-REPO-ADRCODE-DOMAINSEGMENT
       - ADR-REPO-AI
+      - DDR-TRACK-VALUECHAINSTACK
+      - DDR-TRACK-VALUECHAINCONCERN
+      - FDR-CD
 ---
 */
 
@@ -39,7 +39,7 @@ public sealed class AdrsConfig
     // ([ADR-REPO-ADRCODE-PATHOFSEGMENTS](/docs/adr/repository/adr-code-language.md#rule-adr-repo-adrcode-pathofsegments)).
     public const string DefaultKind = "ADR";
 
-    // The rows of the value-chain stack, top to bottom ([ADR-DSGN-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainstack)).
+    // The rows of the value-chain stack, top to bottom ([DDR-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-ddr-track-valuechainstack)).
     public static readonly IReadOnlyList<string> Stacks = Array.AsReadOnly(new[] { "PRIN", "DSGN", "AUTO", "PIPE", "CLOUD" });
 
     public static readonly IReadOnlyList<string> Concerns = Array.AsReadOnly(new[] { "automation", "build", "quality-control", "release", "deploy", "access" });

@@ -2,17 +2,17 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c949551779be
+    with_body_sha: d1f1f41156c8
   edges:
     docs: "[GlobsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-TESTSUITE
-      - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-      - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
-      - ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER
-      - ADR-FLOW-CD-GLOBS-COMPOSESETS
+      - DDR-TRACK-DEPLOYABLEUNIT
+      - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - FDR-CD-GLOBS-EVERYSETHASLAYER
+      - FDR-CD-GLOBS-COMPOSESETS
 ---
 #>
 
@@ -56,7 +56,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             { $c.Get('missing') } | Should -Throw "*no globset named 'missing'*"
         }
 
-        It 'carries the pipeline binding and the verify scope' -Tag 'ADR-DSGN-TRACK-DEPLOYABLEUNIT', 'ADR-AUTO-TEST-TESTSUITE' {
+        It 'carries the pipeline binding and the verify scope' -Tag 'DDR-TRACK-DEPLOYABLEUNIT', 'ADR-AUTO-TEST-TESTSUITE' {
             $c = & $script:make @{
                 unit = @{ description = 'd'; layer = 'deployable-unit'; include = @('src/**')
                     pipeline = 'cd-unit'; verify = @{ modules = @('Catzc.Azure.Templates'); level = 2 }
@@ -68,7 +68,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'composition (ADR-FLOW-CD-GLOBS-COMPOSESETS)' {
+    Context 'composition (FDR-CD-GLOBS-COMPOSESETS)' {
         It 'unions the composed set into the effective membership' {
             $c = & $script:make @{
                 'base' = @{ description = 'd'; layer = 'deployable-unit'; include = @('shared/**'); exclude = @('shared/private/**') }
@@ -81,7 +81,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $set.Matches('other/a.txt') | Should -BeFalse
         }
 
-        It 'flattens the composed surface into the scan program, own rules last (ADR-FLOW-CD-GLOBS-COMPOSESETS)' {
+        It 'flattens the composed surface into the scan program, own rules last (FDR-CD-GLOBS-COMPOSESETS)' {
             $c = & $script:make @{
                 'base' = @{ description = 'd'; layer = 'deployable-unit'; include = @('shared/**'); exclude = @('shared/config/**') }
                 'unit' = @{ description = 'd'; layer = 'deployable-unit'; compose = @('base'); include = @('mine/**'); pipeline = 'cd-unit' }
@@ -92,7 +92,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             (& $script:program $c.Get('base')) | Should -Be @('+ shared/**', '- shared/config/**')
         }
 
-        It 'flattens transitively, each rule appearing once — dedupe keeps the last occurrence (ADR-FLOW-CD-GLOBS-COMPOSESETS)' {
+        It 'flattens transitively, each rule appearing once — dedupe keeps the last occurrence (FDR-CD-GLOBS-COMPOSESETS)' {
             $c = & $script:make @{
                 'leaf' = @{ description = 'd'; layer = 'deployable-unit'; include = @('leaf/**') }
                 'mid'  = @{ description = 'd'; layer = 'deployable-unit'; compose = @('leaf'); include = @('mid/**') }
@@ -104,7 +104,7 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
 
         It 'rejects a compose reference to an unknown set' {
             { & $script:make @{ unit = @{ description = 'd'; layer = 'deployable-unit'; compose = @('nope') } } } |
-                Should -Throw '*unknown set*ADR-FLOW-CD-GLOBS-COMPOSESETS*'
+                Should -Throw '*unknown set*FDR-CD-GLOBS-COMPOSESETS*'
         }
 
         It 'rejects a self-compose' {

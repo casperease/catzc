@@ -14,9 +14,9 @@ semantics are exactly PowerShell wildcards ('*', '?', '[abc]'/'[a-z]'), delegate
 System.Management.Automation.WildcardPattern, matched case-sensitively. The constructor is the gate:
 it rejects '\', a leading '/', empty segments, '.'/'..' segments, a backtick (the dialect has no escape
 character), and '**' embedded inside a segment — a malformed pattern never produces an instance.
-See [ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)
-([ADR-FLOW-CD-GLOBS-REPOSITORYRELATIVEPATTERNS](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-repositoryrelativepatterns),
-[ADR-FLOW-CD-GLOBS-MALFORMEDPATTERNREJECTED](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-malformedpatternrejected)).
+See [FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)
+([FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-repositoryrelativepatterns),
+[FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-malformedpatternrejected)).
 ```
 
 ## comment:2

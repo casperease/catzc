@@ -12,7 +12,7 @@ Returns every tracked file as a repo-relative, '/'-separated path — the globse
 ### description
 
 `git ls-files` defines "files under version control"
-([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)): deterministic on
+([FDR-CD-GLOBS-TRACKEDFILESONLY](../../../adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)): deterministic on
 every checkout, independent of build residue, blind to untracked and ignored files. Read through Get-GitTrackedPath, the one place that
 answers it (from the index, in-process —
 [ADR-AUTO-TRACKED-ONESEAM](../../../adr/automation/tracked-files-from-the-index.md#rule-adr-auto-tracked-oneseam)). A tracked file may be

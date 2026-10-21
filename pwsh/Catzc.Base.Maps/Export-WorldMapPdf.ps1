@@ -7,10 +7,10 @@ catzc:
     test: pwsh/Catzc.Base.Maps/tests/Export-WorldMapPdf.Tests.ps1
     docs: "[Export-WorldMapPdf.ps1.md](docs/references/pwsh/catzc-base-maps/Export-WorldMapPdf.ps1.md)"
     cites:
-      - ADR-DSGN-TRACK-ONETECHSTACK
-      - ADR-DSGN-TRACK-ROOTFILE
-      - ADR-DSGN-TRACK-UNLISTEDFILE
       - ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER
+      - DDR-TRACK-ONETECHSTACK
+      - DDR-TRACK-ROOTFILE
+      - DDR-TRACK-UNLISTEDFILE
 ---
 #>
 

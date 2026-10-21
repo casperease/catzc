@@ -11,9 +11,9 @@ Above `Describe 'GlobsConfig' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 The globs.yml registry guard: strict shape (unknown keys rejected), every entry a valid GlobSet with a
-layer declared ([ADR-FLOW-CD-GLOBS-EVERYSETHASLAYER](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-everysethaslayer)), and compose
+layer declared ([FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)), and compose
 resolving acyclically to declared sets
-([ADR-FLOW-CD-GLOBS-COMPOSESETS](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-composesets)).
+([FDR-CD-GLOBS-COMPOSESETS](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)).
 ```
 
 ## comment:2
@@ -22,7 +22,7 @@ Above `$script:program = {`, written with `#`.
 
 ```text
 Render a set's flattened scan program as '+ pattern' / '- pattern' lines
-([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)/8) — the
+([FDR-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)/8) — the
 ordered membership program, the durable behaviour the removed marker rendering used to show.
 ```
 

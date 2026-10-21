@@ -12,7 +12,7 @@ The pipelines wire topic, landed and BVT; past BVT, stages follow the template, 
 7  Deploy_Foundation   the first deploy stage; depends on CI, runs on main only
 8  Deploy_Discovery    one stage that deploys nsub and psub side by side
 
-Supports ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM (implementation lens).
+Supports FDR-CD-LIFE-FAILEDSTAYSUPSTREAM (implementation lens).
 ```
 
 The commit lifecycle names eight rungs, from topic to production. The pipelines in cats wire the first three: a pull request to `main`, the
@@ -47,7 +47,7 @@ merge, and the CI engine that verifies the commit and publishes its artifact. Af
 
 ## Why it holds
 
-A commit that fails a stage cannot go downstream (ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM). In the code that rule is the `succeeded()`
+A commit that fails a stage cannot go downstream (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM). In the code that rule is the `succeeded()`
 condition on every `Deploy_*` stage: a failed CI stage skips every deploy, and a failed deploy stage skips the stages after it.
 
 ## Where the code and the ADR differ

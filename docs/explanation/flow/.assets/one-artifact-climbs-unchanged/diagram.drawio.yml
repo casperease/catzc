@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: eea5f80dce55
+#     with_body_sha: "856c58109427"
 # ---
 
 description:
@@ -9,12 +9,12 @@ description:
   bytes non-prod certified; today the CD pipelines also deploy production themselves, in the same run.
 about:
   adrs:
-    - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-    - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-    - ADR-FLOW-CD-CDSTAYSINNONPROD
-    - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-    - ADR-FLOW-CD-TWORELEASEGATES
-    - ADR-FLOW-CD-GATEDEFINED
+    - FDR-CD-SHORTINTEGRATIONCYCLE
+    - FDR-CD-SEPARATEPIPELINEKINDS
+    - FDR-CD-CDSTAYSINNONPROD
+    - FDR-CD-PRODPROGRESSIONISDEPLOY
+    - FDR-CD-TWORELEASEGATES
+    - FDR-CD-GATEDEFINED
   lens: meta
 content:
   title: One artifact is built once and climbs to production unchanged
@@ -102,21 +102,21 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: docs/-/.
         by:
           - docs/adr/flow/cd-discipline-and-promotion-flow.md
@@ -134,88 +134,88 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Flow/types
         by:
           - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/glossary.yml
-          - ADR-FLOW-CD-GATEDEFINED
+          - FDR-CD-GATEDEFINED
     grid:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: docs/markdown
         by:
           - docs/adr/flow/cd-discipline-and-promotion-flow.md
@@ -233,23 +233,23 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
           - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
           - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/powershell
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -257,55 +257,55 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/yaml
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.QualityGates/configs/glossary.yml
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
     axis:
       - cell: DSGN/build
         by:
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: DSGN/quality-control
         by:
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: DSGN/release
         by:
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
       - cell: DSGN/deploy
         by:
-          - ADR-FLOW-CD-CDSTAYSINNONPROD
-          - ADR-FLOW-CD-GATEDEFINED
-          - ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-          - ADR-FLOW-CD-SHORTINTEGRATIONCYCLE
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-GATEDEFINED
+          - FDR-CD-PRODPROGRESSIONISDEPLOY
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SHORTINTEGRATIONCYCLE
+          - FDR-CD-TWORELEASEGATES
 layout:
   band-automated:
     x: 20

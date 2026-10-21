@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "349cdb7e4153"
+#     with_body_sha: a81ae6107034
 # ---
 
 description:
@@ -9,10 +9,10 @@ description:
   substrate behind it.
 about:
   adrs:
-    - ADR-DSGN-THINPLAT-THINPLATFORM
-    - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-    - ADR-DSGN-THINPLAT-PLATFORMASCLI
-    - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
+    - DDR-THINPLAT-THINPLATFORM
+    - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+    - DDR-THINPLAT-PLATFORMASCLI
+    - DDR-THINPLAT-SWAPPABLESUBSTRATE
   lens: meta
 content:
   title: Consumers bind to one CLI, and everything behind it is delegated to the vendor
@@ -74,57 +74,57 @@ content:
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
       - cell: docs/-/.
         by:
           - docs/adr/design/dora-explains.md
           - docs/adr/design/thin-platforms.md
           - docs/adr/index.md
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
     grid:
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
       - cell: docs/markdown
         by:
           - docs/adr/design/dora-explains.md
           - docs/adr/design/thin-platforms.md
           - docs/adr/index.md
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
       - cell: pwsh/yaml
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
     axis:
       - cell: DSGN/deploy
         by:
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
-          - ADR-DSGN-THINPLAT-SWAPPABLESUBSTRATE
-          - ADR-DSGN-THINPLAT-THINPLATFORM
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
 layout:
   band-consumers:
     x: 20

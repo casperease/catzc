@@ -11,7 +11,7 @@ Imports an outside repository with its full history at one landing address under
 
 ### description
 
-An import ([ADR-DSGN-TRACK-UNORDEREDTRACK](../../../adr/design/tracks.md#rule-adr-dsgn-track-unorderedtrack)): every commit of the source
+An import ([DDR-TRACK-UNORDEREDTRACK](../../../adr/design/tracks.md#rule-ddr-track-unorderedtrack)): every commit of the source
 ref becomes part of this repository's history, and the source's files land at the landing address `<unordered>/<name>`, where `<unordered>`
 is the place of the track of type `unordered`. Nothing outside the address changes; sorting the files into their modules is a later
 `git mv`, one file or folder at a time.

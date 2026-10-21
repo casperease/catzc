@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
     docs: "[Get-ChangedGlobSet.ps1.md](docs/references/pwsh/catzc-base-globs/Get-ChangedGlobSet.ps1.md)"
     cites:
-      - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
-      - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+      - FDR-CD-GLOBS-NAMEDGLOBSETS
+      - FDR-CD-GLOBS-TRACKEDFILESONLY
 ---
 #>
 

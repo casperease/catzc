@@ -787,7 +787,7 @@ Summary (ours): Automate creating subscriptions for workload teams behind a self
 CAF's subscription vending guidance describes the process as an intake request, an IP address plan (IPAM) that hands the subscription its
 ranges, a subscription created by infrastructure as code, and a baseline of tags and budgets on it. The repository does all of that except
 the creation. The intake is a pull request
-([ADR-DSGN-SELFSERV-CONSUMERSPROVISIONTHEMSELVES](../../design/self-service.md#rule-adr-dsgn-selfserv-consumersprovisionthemselves)): a
+([DDR-SELFSERV-CONSUMERSPROVISIONTHEMSELVES](../../design/self-service.md#rule-ddr-selfserv-consumersprovisionthemselves)): a
 customer entry in `customer.yml` when the customer is new, a subscription entry in `azure.yml`, and the subscription's network in
 `network.yml`, which is the repository's IP address plan — the ranges live there and nowhere else
 ([ADR-AZ-NETWORK-ONEIPPLAN](../azure-network-model.md#rule-adr-az-network-oneipplan)), and `Test-AzureNetworkPlan` fails a plan where two

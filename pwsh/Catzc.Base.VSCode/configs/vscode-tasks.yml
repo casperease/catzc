@@ -1,15 +1,15 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "9861a8114c75"
+#     with_body_sha: "85f97153af7f"
 #   edges:
 #     cites:
-#       - ADR-FLOW-GIT
+#       - FDR-GIT
 # ---
 
 version: "2.0.0"
 tasks:
-  # The git topic flow ([ADR-FLOW-GIT](/docs/adr/flow/git-topic-flow.md)), each step at the user's hand: rebase the topic onto the sync
+  # The git topic flow ([FDR-GIT](/docs/adr/flow/git-topic-flow.md)), each step at the user's hand: rebase the topic onto the sync
   # point. Bind keys to these in your user keybindings.
   - label: Sync
     type: process

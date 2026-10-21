@@ -9,7 +9,7 @@ Every module file is in exactly one aspect: live first by a closed convention, t
 4  live lock      ADR-only: the live aspect's own sha lock
 5  tests lock     ADR-only: the tests aspect's own sha lock
 
-Supports ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS, ADR-DSGN-ASPECT-ASPECTSAREDERIVED, ADR-DSGN-ASPECT-ASPECTISAGLOBSET and ADR-DSGN-ASPECT-PARTITIONISCHECKED (meta lens).
+Supports DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ASPECTISAGLOBSET and DDR-ASPECT-PARTITIONISCHECKED (meta lens).
 ```
 
 A cats module holds two kinds of thing with opposite roles: the runtime code that ships, and the tests that verify it. Aspects keep them
@@ -34,21 +34,21 @@ identity.
 
 ## Why it holds
 
-- A module's files partition into aspects that are disjoint and exhaustive (ADR-DSGN-ASPECT-MODULESPARTITIONINTOASPECTS).
+- A module's files partition into aspects that are disjoint and exhaustive (DDR-ASPECT-MODULESPARTITIONINTOASPECTS).
 - Ordered first match with a `**` remainder makes the partition true by construction: each aspect is its own patterns minus every earlier
-  one (ADR-DSGN-ASPECT-ASPECTSAREDERIVED).
-- Each aspect is an immutable, independently versioned lock, never one lock for the whole module (ADR-DSGN-ASPECT-ASPECTISAGLOBSET).
-- A file claimed by two aspects, or by none, fails the integrity check (ADR-DSGN-ASPECT-PARTITIONISCHECKED). That check exists, but only
+  one (DDR-ASPECT-ASPECTSAREDERIVED).
+- Each aspect is an immutable, independently versioned lock, never one lock for the whole module (DDR-ASPECT-ASPECTISAGLOBSET).
+- A file claimed by two aspects, or by none, fails the integrity check (DDR-ASPECT-PARTITIONISCHECKED). That check exists, but only
   unit tests on fixture files run it.
 
 ## Where the code and the ADR differ
 
-- ADR-DSGN-ASPECT-ASPECTISAGLOBSET makes each aspect a sha lock with a `<unit>-<aspect>.yml` marker by way of
-  ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT, but that rule computes change from git at real refs, never from a committed hash, and no aspect
+- DDR-ASPECT-ASPECTISAGLOBSET makes each aspect a sha lock with a `<unit>-<aspect>.yml` marker by way of
+  FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, but that rule computes change from git at real refs, never from a committed hash, and no aspect
   marker exists.
-- ADR-DSGN-ASPECT-ASPECTSAREDERIVED prefixes every aspect pattern with the unit root, but the tests aspect also reaches the language test
+- DDR-ASPECT-ASPECTSAREDERIVED prefixes every aspect pattern with the unit root, but the tests aspect also reaches the language test
   folders outside it.
-- ADR-DSGN-ASPECT-PARTITIONISCHECKED makes the partition an integrity check over `git ls-files`, but no gate runs it on the real tree.
+- DDR-ASPECT-PARTITIONISCHECKED makes the partition an integrity check over `git ls-files`, but no gate runs it on the real tree.
 
 ## See also
 

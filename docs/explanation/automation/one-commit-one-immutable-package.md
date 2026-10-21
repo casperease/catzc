@@ -42,7 +42,7 @@ package is what the build wrote, and every place the package is installed holds 
   guard re-verifies that hash (ADR-AUTO-BUNDLE-IMMUTABLEBUILD).
 - An install verifies the source build before it touches the destination, and a re-install with a matching content hash does not copy again
   (ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL).
-- The build kinds say only where the code root lives, and every kind loads through the same importer (ADR-DSGN-RUNMODE-THREEBUILDKINDS).
+- The build kinds say only where the code root lives, and every kind loads through the same importer (DDR-RUNMODE-THREEBUILDKINDS).
 
 ## See also
 

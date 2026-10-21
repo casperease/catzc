@@ -35,7 +35,7 @@ Check only these files or folders (default: every tracked file). A file it passe
 uncontested, left unchanged by every formatter
 ([TDR-NORMALFORM-UNCONTESTED](../../../adr/thesis/eac-normal-form.md#rule-tdr-normalform-uncontested)), which is the check a file
 passes before it leaves the unordered track
-([ADR-DSGN-TRACK-MIGRATEONEFILEPERCOMMIT](../../../adr/design/tracks.md#rule-adr-dsgn-track-migrateonefilepercommit)).
+([DDR-TRACK-MIGRATEONEFILEPERCOMMIT](../../../adr/design/tracks.md#rule-ddr-track-migrateonefilepercommit)).
 
 ### parameter `OutputFolder`
 

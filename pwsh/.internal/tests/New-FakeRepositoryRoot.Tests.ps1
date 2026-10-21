@@ -2,14 +2,14 @@
 ---
 catzc:
   immutable:
-    with_body_sha: da0133468e85
+    with_body_sha: "989fbde8f235"
   edges:
     cites:
-      - ADR-DSGN-RUNMODE-MODEISDERIVED
+      - DDR-RUNMODE-MODEISDERIVED
 ---
 #>
 
-Describe 'New-FakeRepositoryRoot' -Tag 'L0', 'logic', 'ADR-DSGN-RUNMODE-MODEISDERIVED' {
+Describe 'New-FakeRepositoryRoot' -Tag 'L0', 'logic', 'DDR-RUNMODE-MODEISDERIVED' {
     BeforeAll {
         Import-InternalModule TestKit
     }

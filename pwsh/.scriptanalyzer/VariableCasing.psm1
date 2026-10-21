@@ -5,6 +5,8 @@ catzc:
     with_body_sha: "407bb7fcb9c6"
   edges:
     docs: "[VariableCasing.psm1.md](docs/references/pwsh/scriptanalyzer/VariableCasing.psm1.md)"
+    cites:
+      - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 ---
 #>
 

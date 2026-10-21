@@ -10,7 +10,7 @@ The quality gate on config checks that ** is last; whether the remainder ships i
 5  tests                     infrastructure's closed head: the explicit tests/ folders
 6  live                      infrastructure's remainder: that it ships is the track's call
 
-Supports ADR-DSGN-ASPECT-ASPECTSAREDERIVED, ADR-DSGN-ASPECT-TRACKPICKSCATCHALL and ADR-DSGN-ASPECT-PARTITIONISCHECKED (governance lens).
+Supports DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL and DDR-ASPECT-PARTITIONISCHECKED (governance lens).
 ```
 
 The aspect convention of cats has one real quality gate, and it checks shape, not meaning. When the variants config loads, the config type
@@ -22,7 +22,7 @@ partition check that the ADR describes exists in code, but only unit tests on fi
 
 ## Walkthrough
 
-1. **live, in the pwsh track.** The closed convention of ADR-DSGN-ASPECT-ASPECTSAREDERIVED: folder-scoped patterns that never reach
+1. **live, in the pwsh track.** The closed convention of DDR-ASPECT-ASPECTSAREDERIVED: folder-scoped patterns that never reach
    `tests/`. The rule is ADR-only in this respect: no gate checks that the patterns stay closed, and a pattern that reached `tests/` would
    load.
 2. **tests, in the pwsh track.** The remainder. That the code track's remainder is the non-live aspect, so that a stray file never ships, is
@@ -30,7 +30,7 @@ partition check that the ADR describes exists in code, but only unit tests on fi
 3. **VariantsConfig.** The gate, run per track entry when the config loads. The last aspect must be the single pattern `**`, and no earlier
    aspect may use the bare `**`; names must be kebab-case and unique, and every aspect needs a pattern. The same check runs for the
    infrastructure entry.
-4. **AspectPartition.Validate.** The disjoint-and-exhaustive check of ADR-DSGN-ASPECT-PARTITIONISCHECKED over a file universe: a file
+4. **AspectPartition.Validate.** The disjoint-and-exhaustive check of DDR-ASPECT-PARTITIONISCHECKED over a file universe: a file
    claimed by two aspects, or by none, is a violation. The type's own comment calls it the integrity check, but its only callers are the
    aspect unit tests, so on the real tree it is ADR-only.
 5. **tests, in the infrastructure track.** The deployment track's closed head, `**/tests/**`. Only the gate's structural checks apply to it.
@@ -40,10 +40,10 @@ partition check that the ADR describes exists in code, but only unit tests on fi
 
 ## Why it holds
 
-- `live` is a closed convention and the last aspect is the `**` catch-all remainder (ADR-DSGN-ASPECT-ASPECTSAREDERIVED).
+- `live` is a closed convention and the last aspect is the `**` catch-all remainder (DDR-ASPECT-ASPECTSAREDERIVED).
 - Which aspect is the remainder is each track's call, and the config type enforces the structure at load: the last aspect is `**`, and no
-  earlier one uses it (ADR-DSGN-ASPECT-TRACKPICKSCATCHALL).
-- A file claimed by two aspects, or by none, fails the partition integrity check (ADR-DSGN-ASPECT-PARTITIONISCHECKED).
+  earlier one uses it (DDR-ASPECT-TRACKPICKSCATCHALL).
+- A file claimed by two aspects, or by none, fails the partition integrity check (DDR-ASPECT-PARTITIONISCHECKED).
 
 ## Where the code and the ADR differ
 

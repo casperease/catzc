@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f46f48b197c2
+    with_body_sha: a008944777c7
     warning: "Do Not Edit, this file is generated"
     role: glossary
     track: docs
@@ -251,7 +251,7 @@ code and precise references.
 One row crossed with one column of a map — the world map's tracked files of one track in one file language, or the value-chain map's ADRs of
 one row of the value-chain stack in one value-chain concern.
 
-- **Defined by:** [ADR-DSGN-TRACK-CELL](design/tracks.md#rule-adr-dsgn-track-cell)
+- **Defined by:** [DDR-TRACK-CELL](design/tracks.md#rule-ddr-track-cell)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -267,7 +267,7 @@ one row of the value-chain stack in one value-chain concern.
 
 A track whose type owns deployable-units — collections of its modules that the repository delivers through CI/CD.
 
-- **Defined by:** [ADR-DSGN-TRACKTYPE-ONEROLE](design/track-types.md#rule-adr-dsgn-tracktype-onerole)
+- **Defined by:** [DDR-TRACKTYPE-ONEROLE](design/track-types.md#rule-ddr-tracktype-onerole)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -278,7 +278,7 @@ A track whose type owns deployable-units — collections of its modules that the
 
 What ships — a whole track or a reduced composition — bound one-to-one to its pipeline.
 
-- **Defined by:** [ADR-DSGN-TRACK-DEPLOYABLEUNIT](design/tracks.md#rule-adr-dsgn-track-deployableunit)
+- **Defined by:** [DDR-TRACK-DEPLOYABLEUNIT](design/tracks.md#rule-ddr-track-deployableunit)
 - **Realized by:** config-key `pwsh/Catzc.Base.Globs/configs/globs.yml`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -295,7 +295,7 @@ What ships — a whole track or a reduced composition — bound one-to-one to it
 The language a tracked file is written in, named by its extension — PowerShell, C#, YAML, Bicep, Markdown, Python; a track's tech-stack is a
 set of them.
 
-- **Defined by:** [ADR-DSGN-TRACK-FILELANGUAGE](design/tracks.md#rule-adr-dsgn-track-filelanguage)
+- **Defined by:** [DDR-TRACK-FILELANGUAGE](design/tracks.md#rule-ddr-track-filelanguage)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -316,7 +316,7 @@ set of them.
 
 A track that is itself a module more than it owns modules — one vendor's, one tool's or one purpose's files, shipping nothing of its own.
 
-- **Defined by:** [ADR-DSGN-TRACKTYPE-ONEROLE](design/track-types.md#rule-adr-dsgn-tracktype-onerole)
+- **Defined by:** [DDR-TRACKTYPE-ONEROLE](design/track-types.md#rule-ddr-tracktype-onerole)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -327,7 +327,7 @@ A track that is itself a module more than it owns modules — one vendor's, one 
 
 Bringing an outside repository into this one with its full history, at one landing address.
 
-- **Defined by:** [ADR-DSGN-TRACK-UNORDEREDTRACK](design/tracks.md#rule-adr-dsgn-track-unorderedtrack)
+- **Defined by:** [DDR-TRACK-UNORDEREDTRACK](design/tracks.md#rule-ddr-track-unorderedtrack)
 - **Realized by:** function `Import-RepositoryWithHistory`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -338,7 +338,7 @@ Bringing an outside repository into this one with its full history, at one landi
 
 The folder `.unordered/<name>` an import lands at, named by a short kebab word unique among the addresses.
 
-- **Defined by:** [ADR-DSGN-TRACK-UNORDEREDTRACK](design/tracks.md#rule-adr-dsgn-track-unorderedtrack)
+- **Defined by:** [DDR-TRACK-UNORDEREDTRACK](design/tracks.md#rule-ddr-track-unorderedtrack)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -350,7 +350,7 @@ The folder `.unordered/<name>` an import lands at, named by a short kebab word u
 A cell a highlight selects — on the world map the cells of the files an ADR code or a file set names, on the value-chain map the cells an
 ADR sits in.
 
-- **Defined by:** [ADR-DSGN-TRACK-LITCELL](design/tracks.md#rule-adr-dsgn-track-litcell)
+- **Defined by:** [DDR-TRACK-LITCELL](design/tracks.md#rule-ddr-track-litcell)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -362,7 +362,7 @@ ADR sits in.
 
 A named unit placed in a track — a folder or one file, found by where its files stand — resolved through its track.
 
-- **Defined by:** [ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT](design/module-types.md#rule-adr-dsgn-modtype-moduleisplacedunit)
+- **Defined by:** [DDR-MODTYPE-MODULEISPLACEDUNIT](design/module-types.md#rule-ddr-modtype-moduleisplacedunit)
 - **Realized by:** type `Catzc.Base.Modules.Module`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -375,7 +375,7 @@ A named unit placed in a track — a folder or one file, found by where its file
 The sort of module, named by the module-types registry, which says where modules of each type are found and how a path in that place names
 its module.
 
-- **Defined by:** [ADR-DSGN-MODTYPE-MODULETYPEISSORT](design/module-types.md#rule-adr-dsgn-modtype-moduletypeissort)
+- **Defined by:** [DDR-MODTYPE-MODULETYPEISSORT](design/module-types.md#rule-ddr-modtype-moduletypeissort)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -390,7 +390,7 @@ its module.
 
 The one commit an always-on environment holds, deployed there as its release candidate — named by its environment.
 
-- **Defined by:** [ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT](flow/commit-lifecycle.md#rule-adr-flow-cd-life-onecommitperenvironment)
+- **Defined by:** [FDR-CD-LIFE-ONECOMMITPERENVIRONMENT](flow/commit-lifecycle.md#rule-fdr-cd-life-onecommitperenvironment)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -408,7 +408,7 @@ The one commit an always-on environment holds, deployed there as its release can
 A path a track declares it covers — a root folder, a path inside one, or a tool's root folder; the longest place that contains a file names
 its track.
 
-- **Defined by:** [ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster)
+- **Defined by:** [DDR-TRACK-TRACKISPLACEDCLUSTER](design/tracks.md#rule-ddr-track-trackisplacedcluster)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -418,7 +418,7 @@ its track.
 
 A tracked file no track holds — at the repository root itself, or under out/ — the world map's own row.
 
-- **Defined by:** [ADR-DSGN-TRACK-ROOTFILE](design/tracks.md#rule-adr-dsgn-track-rootfile)
+- **Defined by:** [DDR-TRACK-ROOTFILE](design/tracks.md#rule-ddr-track-rootfile)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -431,7 +431,7 @@ A tracked file no track holds — at the repository root itself, or under out/ �
 
 How the toolset is loaded, source mode from a repository root or build mode from a built package; exactly two exist.
 
-- **Defined by:** [ADR-DSGN-RUNMODE-TWORUNMODES](design/run-modes.md#rule-adr-dsgn-runmode-tworunmodes)
+- **Defined by:** [DDR-RUNMODE-TWORUNMODES](design/run-modes.md#rule-ddr-runmode-tworunmodes)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
@@ -442,16 +442,15 @@ How the toolset is loaded, source mode from a repository root or build mode from
 
 Moving a file from its landing address to its module or track with `git mv`, so its history follows.
 
-- **Defined by:** [ADR-DSGN-TRACK-UNORDEREDTRACK](design/tracks.md#rule-adr-dsgn-track-unorderedtrack)
+- **Defined by:** [DDR-TRACK-UNORDEREDTRACK](design/tracks.md#rule-ddr-track-unorderedtrack)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 
 ### stack violation
 
-A world-map cell holding a live file whose file language its track does not declare — the second tech-stack ADR-DSGN-TRACK-ONETECHSTACK
-forbids.
+A world-map cell holding a live file whose file language its track does not declare — the second tech-stack DDR-TRACK-ONETECHSTACK forbids.
 
-- **Defined by:** [ADR-DSGN-TRACK-STACKVIOLATION](design/tracks.md#rule-adr-dsgn-track-stackviolation)
+- **Defined by:** [DDR-TRACK-STACKVIOLATION](design/tracks.md#rule-ddr-track-stackviolation)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -466,7 +465,7 @@ forbids.
 
 System.Collections.Specialized.OrderedDictionary
 
-- **Defined by:** [ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT](flow/commit-lifecycle.md#rule-adr-flow-cd-life-onecommitperenvironment)
+- **Defined by:** [FDR-CD-LIFE-ONECOMMITPERENVIRONMENT](flow/commit-lifecycle.md#rule-fdr-cd-life-onecommitperenvironment)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
@@ -475,7 +474,7 @@ System.Collections.Specialized.OrderedDictionary
 A named, on-disk cluster of module contents — the tracked files of one concern, selected by the places the track declares, and of one track
 type.
 
-- **Defined by:** [ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER](design/tracks.md#rule-adr-dsgn-track-trackisplacedcluster)
+- **Defined by:** [DDR-TRACK-TRACKISPLACEDCLUSTER](design/tracks.md#rule-ddr-track-trackisplacedcluster)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -501,7 +500,7 @@ type.
 The sort of cluster a track is, one of a closed set — modules, infrastructure, pipelines, vendor-settings, vendored-code, contracts,
 documentation, or unordered.
 
-- **Defined by:** [ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES](design/track-types.md#rule-adr-dsgn-tracktype-closedsetoftypes)
+- **Defined by:** [DDR-TRACKTYPE-CLOSEDSETOFTYPES](design/track-types.md#rule-ddr-tracktype-closedsetoftypes)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -513,7 +512,7 @@ documentation, or unordered.
 
 A tracked file no file language names — no extension, or one no entry lists — the world map's own column.
 
-- **Defined by:** [ADR-DSGN-TRACK-UNLISTEDFILE](design/tracks.md#rule-adr-dsgn-track-unlistedfile)
+- **Defined by:** [DDR-TRACK-UNLISTEDFILE](design/tracks.md#rule-ddr-track-unlistedfile)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -527,7 +526,7 @@ A tracked file no file language names — no extension, or one no entry lists �
 The track at `.unordered` where imports land; the unordered part of the repository is whatever is still under it, and nothing internal reads
 or falls back to it.
 
-- **Defined by:** [ADR-DSGN-TRACK-UNORDEREDTRACK](design/tracks.md#rule-adr-dsgn-track-unorderedtrack)
+- **Defined by:** [DDR-TRACK-UNORDEREDTRACK](design/tracks.md#rule-ddr-track-unorderedtrack)
 - **Realized by:** config-key `pwsh/Catzc.Base.Variants/configs/variants.yml`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 
@@ -536,7 +535,7 @@ or falls back to it.
 Where along delivery an ADR acts — automation, build, quality-control, release, deploy, or access — a default per ADR domain, an override
 per ADR.
 
-- **Defined by:** [ADR-DSGN-TRACK-VALUECHAINCONCERN](design/tracks.md#rule-adr-dsgn-track-valuechainconcern)
+- **Defined by:** [DDR-TRACK-VALUECHAINCONCERN](design/tracks.md#rule-ddr-track-valuechainconcern)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -550,7 +549,7 @@ per ADR.
 The ADRs drawn as the value-chain stack crossed with the value-chain concerns, computed from adrs.yml — where a decision sits in the value
 chain.
 
-- **Defined by:** [ADR-DSGN-TRACK-VALUECHAINMAP](design/tracks.md#rule-adr-dsgn-track-valuechainmap)
+- **Defined by:** [DDR-TRACK-VALUECHAINMAP](design/tracks.md#rule-ddr-track-valuechainmap)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -563,7 +562,7 @@ chain.
 
 The ordered rows a decision sits on, from the axioms down to the vendor — PRIN, DSGN, AUTO, PIPE, CLOUD; each ADR domain declares one.
 
-- **Defined by:** [ADR-DSGN-TRACK-VALUECHAINSTACK](design/tracks.md#rule-adr-dsgn-track-valuechainstack)
+- **Defined by:** [DDR-TRACK-VALUECHAINSTACK](design/tracks.md#rule-ddr-track-valuechainstack)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -576,7 +575,7 @@ The ordered rows a decision sits on, from the axioms down to the vendor — PRIN
 
 The platform or tool that reads a track's files, from a closed set declared once — never the third party that wrote them.
 
-- **Defined by:** [ADR-DSGN-TRACKTYPE-OPTIONALVENDOR](design/track-types.md#rule-adr-dsgn-tracktype-optionalvendor)
+- **Defined by:** [DDR-TRACKTYPE-OPTIONALVENDOR](design/track-types.md#rule-ddr-tracktype-optionalvendor)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -587,7 +586,7 @@ The platform or tool that reads a track's files, from a closed set declared once
 
 Code written by a third party that the repository does not author, held in a track of its own nested under another track's root.
 
-- **Defined by:** [ADR-DSGN-TRACKTYPE-VENDOREDCODE](design/track-types.md#rule-adr-dsgn-tracktype-vendoredcode)
+- **Defined by:** [DDR-TRACKTYPE-VENDOREDCODE](design/track-types.md#rule-ddr-tracktype-vendoredcode)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -599,7 +598,7 @@ Code written by a third party that the repository does not author, held in a tra
 The repository drawn as tracks crossed with file languages, plus a row for the root files and a column for the unlisted files — every
 tracked file in exactly one cell.
 
-- **Defined by:** [ADR-DSGN-TRACK-WORLDMAP](design/tracks.md#rule-adr-dsgn-track-worldmap)
+- **Defined by:** [DDR-TRACK-WORLDMAP](design/tracks.md#rule-ddr-track-worldmap)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
@@ -614,7 +613,7 @@ tracked file in exactly one cell.
 
 A check whose verdict decides whether work may proceed — automated (a quality gate, the CI gate) or human (RC, RBC).
 
-- **Defined by:** [ADR-FLOW-CD-GATEDEFINED](flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-gatedefined)
+- **Defined by:** [FDR-CD-GATEDEFINED](flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-gatedefined)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Forms:** `quality gate`, `CI gate`, `AT gate`, `RC gate`, `RBC gate`, `BVT gate`, `release gate`, `manual gate`, `PR gate`,
@@ -627,7 +626,7 @@ A check whose verdict decides whether work may proceed — automated (a quality 
 
 The immutable, tagged artifact a CI component builds from one commit — versioned, never rebuilt, promotable toward production.
 
-- **Defined by:** [ADR-FLOW-CD-RELEASECANDIDATE](flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-releasecandidate)
+- **Defined by:** [FDR-CD-RELEASECANDIDATE](flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-releasecandidate)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**

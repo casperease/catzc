@@ -11,7 +11,7 @@ A merge to main runs the CD pipeline all the way to prod, with no approval.
 6  Deploy-Bicep                throws when the subscription assert is missing
 7  Get-BicepDeploymentContext  throws when the session targets the wrong subscription
 
-Supports ADR-FLOW-CD-CDSTAYSINNONPROD, ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY and ADR-FLOW-CD-TWORELEASEGATES (operations lens).
+Supports FDR-CD-CDSTAYSINNONPROD, FDR-CD-PRODPROGRESSIONISDEPLOY and FDR-CD-TWORELEASEGATES (operations lens).
 ```
 
 To an operator in Azure DevOps, a customer CD pipeline is one run. A pull request or a merge to main triggers it, the CI stage builds, and a
@@ -40,9 +40,9 @@ CI stage, the deploy stages and the environments they reach, and two failures an
 
 ## Why it holds
 
-- CD takes the artifact through non-prod only (ADR-FLOW-CD-CDSTAYSINNONPROD).
-- Progression toward prod leaves the automated flow and enters DEPLOY, behind a manual gate (ADR-FLOW-CD-PRODPROGRESSIONISDEPLOY).
-- RC and RBC are the manual gates that decide whether the artifact may proceed (ADR-FLOW-CD-TWORELEASEGATES).
+- CD takes the artifact through non-prod only (FDR-CD-CDSTAYSINNONPROD).
+- Progression toward prod leaves the automated flow and enters DEPLOY, behind a manual gate (FDR-CD-PRODPROGRESSIONISDEPLOY).
+- RC and RBC are the manual gates that decide whether the artifact may proceed (FDR-CD-TWORELEASEGATES).
 
 ## Where the code and the ADR differ
 

@@ -8,7 +8,7 @@ catzc:
     docs: "[Test-ConfigValidators.ps1.md](docs/references/pwsh/catzc-base-config-extensions/Test-ConfigValidators.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+      - DDR-RUNMODE-SAMEMODULEINBOTH
 ---
 #>
 

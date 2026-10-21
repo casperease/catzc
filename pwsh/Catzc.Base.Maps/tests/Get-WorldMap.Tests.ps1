@@ -2,12 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "305e5c7980f0"
+    with_body_sha: a4b609fecedd
   edges:
     docs: "[Get-WorldMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
     cites:
-      - ADR-DSGN-TRACK-ONETECHSTACK
+      - DDR-TRACK-ONETECHSTACK
 ---
 #>
 
@@ -99,6 +99,6 @@ Describe 'Get-WorldMap — the real repository' -Tag 'L1', 'integrity', 'source-
 
     It 'finds no stack violation' {
         $report = @($script:map.StackViolations | ForEach-Object { '{0} ({1} x {2})' -f $_.Path, $_.Track, $_.FileLanguage })
-        $report | Should -BeNullOrEmpty -Because 'a live file outside its track''s file languages is a second tech-stack (ADR-DSGN-TRACK-ONETECHSTACK)'
+        $report | Should -BeNullOrEmpty -Because 'a live file outside its track''s file languages is a second tech-stack (DDR-TRACK-ONETECHSTACK)'
     }
 }

@@ -12,16 +12,16 @@ Lands the topic as one commit on the current server HEAD and pushes it, at the u
 ### description
 
 The push step of the git topic flow
-([ADR-FLOW-GIT-SQUASHREBASESQUASH](../../../adr/flow/git-topic-flow.md#rule-adr-flow-git-squashrebasesquash)): Save-Topic commits pending
+([FDR-GIT-SQUASHREBASESQUASH](../../../adr/flow/git-topic-flow.md#rule-fdr-git-squashrebasesquash)): Save-Topic commits pending
 changes, the topic is squashed to one commit over its merge base with the current server HEAD, rebased onto that HEAD, squashed again, and
 asserted to be exactly one commit ahead and none behind
-([ADR-FLOW-GIT-ONESQUASHEDCOMMIT](../../../adr/flow/git-topic-flow.md#rule-adr-flow-git-onesquashedcommit)). It then pushes by the workspace
+([FDR-GIT-ONESQUASHEDCOMMIT](../../../adr/flow/git-topic-flow.md#rule-fdr-git-onesquashedcommit)). It then pushes by the workspace
 variant: main-via-pr pushes the topic branch with --force-with-lease, its own history being the author's
-([ADR-FLOW-GIT-TOPICHISTORYISTHEAUTHORS](../../../adr/flow/git-topic-flow.md#rule-adr-flow-git-topichistoryistheauthors)); main-direct
+([FDR-GIT-TOPICHISTORYISTHEAUTHORS](../../../adr/flow/git-topic-flow.md#rule-fdr-git-topichistoryistheauthors)); main-direct
 fast-pushes the one commit to main, and a rejected push stops with the commit kept
-([ADR-FLOW-CD-LIFE-FASTPUSHLANDS](../../../adr/flow/commit-lifecycle.md#rule-adr-flow-cd-life-fastpushlands)). Main is never forced. It runs
+([FDR-CD-LIFE-FASTPUSHLANDS](../../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-fastpushlands)). Main is never forced. It runs
 git that changes the repository, so only the user invokes it
-([ADR-FLOW-GIT-USERRUNSGIT](../../../adr/flow/git-topic-flow.md#rule-adr-flow-git-userrunsgit)). A conflict stops it like Sync-Topic.
+([FDR-GIT-USERRUNSGIT](../../../adr/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)). A conflict stops it like Sync-Topic.
 
 ### parameter `Message`
 

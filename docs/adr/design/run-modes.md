@@ -1,8 +1,8 @@
 # ADR: Run modes — source mode and build mode
 
-## Rules: ADR-DSGN-RUNMODE
+## Rules: DDR-RUNMODE
 
-### Rule ADR-DSGN-RUNMODE-TWORUNMODES
+### Rule DDR-RUNMODE-TWORUNMODES
 
 A **run mode** is how the toolset is loaded, and there are exactly two. **Source mode** loads every module from `pwsh/<Module>/` in a
 repository root, entered by `importer.ps1`. **Build mode** loads the same modules from a built, installable `Catzc` package — each module's
@@ -11,28 +11,28 @@ installed package.
 
 - [Two modes, two entry points](#two-modes-two-entry-points)
 
-### Rule ADR-DSGN-RUNMODE-SAMEMODULEINBOTH
+### Rule DDR-RUNMODE-SAMEMODULEINBOTH
 
 Every module works in both modes and is the same module in both: the same name, public functions, private functions, configs, and assets.
 Only its on-disk form differs.
 
 - [The same module in both modes](#the-same-module-in-both-modes)
 
-### Rule ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE
+### Rule DDR-RUNMODE-OWNSCRIPTSCOPE
 
 Each module keeps its own script scope in both modes. Built modules are separate PowerShell modules inside the one package, so no module
 ever shares `$script:` state with another.
 
 - [One scope per module](#one-scope-per-module)
 
-### Rule ADR-DSGN-RUNMODE-MODEISDERIVED
+### Rule DDR-RUNMODE-MODEISDERIVED
 
 The mode is derived, never stored: `Get-CatzcRunMode` answers `source` when the code root (`CatzcModulesRoot`) is `<RepositoryRoot>/pwsh`,
 and `build` otherwise.
 
 - [Deriving the mode](#deriving-the-mode)
 
-### Rule ADR-DSGN-RUNMODE-NEVERCOEXIST
+### Rule DDR-RUNMODE-NEVERCOEXIST
 
 The two modes never coexist in one session. Entering either mode first removes every module loaded from the other mode's root, then asserts
 that every loaded catzc module comes from the active root. Switching works in any order and any number of times; the one thing that cannot
@@ -40,14 +40,14 @@ be swapped is the loaded C# types assembly, which is reused when both modes' typ
 
 - [Switching modes in one session](#switching-modes-in-one-session)
 
-### Rule ADR-DSGN-RUNMODE-SAMETESTSBOTHMODES
+### Rule DDR-RUNMODE-SAMETESTSBOTHMODES
 
 Both modes are tested by the same tests: the source run (`Test-Automation`) and the build run (`Test-CatzcBuild`) execute the same test
 files up to L2, and a test opts out of the build run only with the `source-only` tag.
 
 - [One body of tests](#one-body-of-tests)
 
-### Rule ADR-DSGN-RUNMODE-THREEBUILDKINDS
+### Rule DDR-RUNMODE-THREEBUILDKINDS
 
 Build mode has three kinds, told apart by where the code root lives: **temporary** (a devbox build under
 `<RepositoryRoot>/out/pwsh/built/<bundle>/`, overwritten in place), **installed** (a package under a `PSModulePath` entry, put there by

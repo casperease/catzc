@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ecfd53036f07
+    with_body_sha: a0c6957a1a68
   edges:
     docs: "[Get-ModuleGlobSet.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Get-ModuleGlobSet.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
@@ -11,8 +11,8 @@ catzc:
       - ADR-AUTO-GO-ONEGOROOT
       - ADR-AUTO-PY-ONEPYTHONROOT
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-      - ADR-DSGN-ASPECT
       - ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS
+      - DDR-ASPECT
 ---
 #>
 
@@ -56,7 +56,7 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
         Mock Assert-SourceTree -ModuleName Catzc.Base.Globs { }
     }
 
-    It 'derives live/tests aspect sets per module folder, partitioning the module tree (ADR-DSGN-ASPECT)' {
+    It 'derives live/tests aspect sets per module folder, partitioning the module tree (DDR-ASPECT)' {
         $aspects = @(Get-ModuleGlobSet -Name Catzc.Base.Alpha)
         ($aspects.Name | Sort-Object) | Should -Be @('catzc-base-alpha-live', 'catzc-base-alpha-tests')
         $live = $aspects | Where-Object Name -eq 'catzc-base-alpha-live'

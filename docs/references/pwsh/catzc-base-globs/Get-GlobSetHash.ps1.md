@@ -17,7 +17,7 @@ over the fold, returned as 64 lowercase hex chars: the set's live identity, comp
 tracked-but-missing-on-disk member (an unstaged deletion) folds the distinct line `<path>|missing` instead of throwing, so a deletion
 re-keys the set. Because the path is part of the fold, a rename re-keys even on byte-identical content.
 
-It rests on [ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY](../../../adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-durableshaidentity).
+It rests on [FDR-CD-GLOBS-DURABLESHAIDENTITY](../../../adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity).
 
 ### parameter `Name`
 

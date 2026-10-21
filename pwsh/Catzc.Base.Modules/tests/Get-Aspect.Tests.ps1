@@ -2,16 +2,16 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "253280eee979"
+    with_body_sha: dc93858e341e
   edges:
     code: pwsh/Catzc.Base.Modules/Get-Aspect.ps1
     cites:
       - ADR-AUTO-MODULE-EXISTSBYLAYOUT
-      - ADR-DSGN-ASPECT
+      - DDR-ASPECT
 ---
 #>
 
-# Rests on [ADR-DSGN-ASPECT](/docs/adr/design/module-aspects.md).
+# Rests on [DDR-ASPECT](/docs/adr/design/module-aspects.md).
 Describe 'Get-Aspect' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
     BeforeAll {
         $script:tracks = [Catzc.Base.Variants.VariantsConfig]::new([ordered]@{ tracks = [ordered]@{

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "1b3982ff3391"
+#     with_body_sha: f3b62d487eb1
 # ---
 
 description:
@@ -9,9 +9,9 @@ description:
   classifies a file as live or not.
 about:
   adrs:
-    - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-    - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
-    - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
+    - DDR-ASPECT-ASPECTSAREDERIVED
+    - DDR-ASPECT-TRACKPICKSCATCHALL
+    - DDR-ASPECT-ASPECTISAGLOBSET
   lens: implementation
 content:
   title: Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live
@@ -131,9 +131,9 @@ content:
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: docs/-/.
         by:
           - docs/adr/design/dora-explains.md
@@ -148,119 +148,119 @@ content:
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
           - docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
           - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: pwsh/Catzc.Base.Globs/tests
         by:
           - pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: pwsh/Catzc.Base.Globs/tests/types
         by:
           - pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: pwsh/Catzc.Base.Globs/types
         by:
           - pwsh/Catzc.Base.Globs/types/Aspect.cs
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: pwsh/Catzc.Base.Modules/.
         by:
           - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: pwsh/Catzc.Base.Modules/tests
         by:
           - pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: pwsh/Catzc.Base.Variants/configs
         by:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: pwsh/Catzc.Base.Variants/types
         by:
           - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
           - pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
           - pwsh/Catzc.Base.Globs/types/Aspect.cs
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: subject/Catzc.Base.Modules
         by:
           - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
           - pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: subject/Catzc.Base.Variants
         by:
           - pwsh/Catzc.Base.Variants/configs/variants.yml
           - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: subject/pipelines
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
     axis:
       - cell: DSGN/build
         by:
-          - ADR-DSGN-ASPECT-ASPECTISAGLOBSET
-          - ADR-DSGN-ASPECT-ASPECTSAREDERIVED
-          - ADR-DSGN-ASPECT-TRACKPICKSCATCHALL
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
 layout:
   band-config:
     x: 20

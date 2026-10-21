@@ -3,6 +3,10 @@
 catzc:
   immutable:
     with_body_sha: b0f486751e0c
+  edges:
+    cites:
+      - ADR-PWSH-ENUM-RAWDOTNETENUMERATION
+      - ADR-PWSH-ENUM-ALWAYSBOUNDED
 ---
 #>
 

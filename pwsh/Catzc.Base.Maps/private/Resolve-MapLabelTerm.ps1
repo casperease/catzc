@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.Maps/tests/Resolve-MapLabelTerm.Tests.ps1
     docs: "[Resolve-MapLabelTerm.ps1.md](docs/references/pwsh/catzc-base-maps/private/Resolve-MapLabelTerm.ps1.md)"
     cites:
-      - ADR-DSGN-TRACK-LABELSNAMEDEFINEDTERMS
-      - ADR-DSGN-TRACK-VALUECHAINMAP
+      - DDR-TRACK-LABELSNAMEDEFINEDTERMS
+      - DDR-TRACK-VALUECHAINMAP
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f7f506aaabc0
+    with_body_sha: "63184ad0b763"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/types/BicepSlot.Tests.ps1
     docs: "[BicepSlot.cs.md](docs/references/pwsh/catzc-azure-templates/types/BicepSlot.cs.md)"

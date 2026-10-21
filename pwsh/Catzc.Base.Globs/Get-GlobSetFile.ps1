@@ -7,8 +7,8 @@ catzc:
     test: pwsh/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
     docs: "[Get-GlobSetFile.ps1.md](docs/references/pwsh/catzc-base-globs/Get-GlobSetFile.ps1.md)"
     cites:
-      - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
-      - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
+      - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - FDR-CD-GLOBS-DURABLESHAIDENTITY
 ---
 #>
 

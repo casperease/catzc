@@ -10,7 +10,7 @@ The customer CD pipeline builds once, then deploys the prod tier itself.
 5  nsub, dev, test                   the non-prod targets
 6  psub, prod                        the prod-tier targets, deployed in the same run
 
-Supports ADR-FLOW-CD-SEPARATEPIPELINEKINDS, ADR-FLOW-CD-CDCONTAINSCI, ADR-FLOW-CD-CDSTAYSINNONPROD and ADR-FLOW-CD-TWOENVIRONMENTACTIVATION (implementation lens).
+Supports FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD and FDR-CD-TWOENVIRONMENTACTIVATION (implementation lens).
 ```
 
 Every customer CD ado pipeline in cats extends one template, `.ado/pipelines/extends/cd-customer.yaml`. The thin root pipelines
@@ -39,14 +39,14 @@ that apply them in dependency order. In `cd-apex`, each deploy stage reaches the
    expedition to `prod`, and `cd-shared.yaml` deploys `shared-psub`. The jobs come from `${{ each }}` and share each stage with no order
    between them, so prod-tier jobs run beside the non-prod ones. The approval check on a prod-tier environment is configured in the
    execution engine, by the adopting team's apply of the shipped `environment-approvals.yml` through `Sync-AdoEnvironmentApprovals`; this
-   repository ships the config and the apply but runs none (ADR-FLOW-CD-PRODAPPROVALGATE).
+   repository ships the config and the apply but runs none (FDR-CD-PRODAPPROVALGATE).
 
 ## Why it holds
 
-- The CI component builds the artifact once and every downstream deploy consumes it unchanged (ADR-FLOW-CD-SEPARATEPIPELINEKINDS).
-- A CD pipeline always contains the CI component and then takes the artifact in a direction (ADR-FLOW-CD-CDCONTAINSCI).
-- CD's direction stays entirely within non-prod (ADR-FLOW-CD-CDSTAYSINNONPROD).
-- Deploy to prod stages the artifact inactive in pre-prod before activating it live (ADR-FLOW-CD-TWOENVIRONMENTACTIVATION).
+- The CI component builds the artifact once and every downstream deploy consumes it unchanged (FDR-CD-SEPARATEPIPELINEKINDS).
+- A CD pipeline always contains the CI component and then takes the artifact in a direction (FDR-CD-CDCONTAINSCI).
+- CD's direction stays entirely within non-prod (FDR-CD-CDSTAYSINNONPROD).
+- Deploy to prod stages the artifact inactive in pre-prod before activating it live (FDR-CD-TWOENVIRONMENTACTIVATION).
 
 ## Where the code and the ADR differ
 

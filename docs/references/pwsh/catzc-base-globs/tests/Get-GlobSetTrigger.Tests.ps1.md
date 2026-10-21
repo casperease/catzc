@@ -9,7 +9,7 @@ Above `Describe 'Get-GlobSetTrigger' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-GlobSetTrigger: project a globset's scan program into vendor-native path filters
-([ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-namedglobsets)) — GitHub
+([FDR-CD-GLOBS-NAMEDGLOBSETS](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)) — GitHub
 ordered '!'-negation paths (exact), ADO order-independent include/exclude (last-select-per-pattern).
 ```
 

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: bc648df142f6
+#     with_body_sha: eebad29f992d
 # ---
 
 description:
@@ -9,8 +9,8 @@ description:
   full exception, and a developer copies the command from the label with no gate checking that."
 about:
   adrs:
-    - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
-    - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
+    - FDR-CD-RUNNER-THINSTEPTEMPLATES
+    - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
   lens: operations
 content:
   title: The Azure DevOps step is named after its command, and its log echoes the command before it runs
@@ -98,13 +98,13 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: docs/-/.
         by:
           - docs/adr/flow/dora-explains.md
@@ -117,46 +117,46 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
     grid:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: docs/markdown
         by:
           - docs/adr/flow/dora-explains.md
@@ -169,13 +169,13 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: pwsh/powershell
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -183,18 +183,18 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
       - cell: pwsh/yaml
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
     axis:
       - cell: DSGN/*
         by:
-          - ADR-FLOW-CD-RUNNER-DEVELOPERREPRODUCIBLE
-          - ADR-FLOW-CD-RUNNER-THINSTEPTEMPLATES
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
 layout:
   band-run:
     x: 20

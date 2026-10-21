@@ -7,7 +7,7 @@ catzc:
     test: pwsh/Catzc.Base.Vendor/tests/Remove-VendorModules.Tests.ps1
     docs: "[Remove-VendorModules.ps1.md](docs/references/pwsh/catzc-base-vendor/Remove-VendorModules.ps1.md)"
     cites:
-      - ADR-DSGN-RUNMODE
+      - DDR-RUNMODE
 ---
 #>
 

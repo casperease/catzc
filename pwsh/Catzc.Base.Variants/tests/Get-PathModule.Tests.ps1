@@ -2,15 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7f27c91b5430"
+    with_body_sha: "1d0f91a4e044"
   edges:
     code: pwsh/Catzc.Base.Variants/Get-PathModule.ps1
     cites:
-      - ADR-DSGN-TRACK-ONETECHSTACK
+      - DDR-TRACK-ONETECHSTACK
 ---
 #>
 
-Describe 'Get-PathModule' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-ONETECHSTACK' {
+Describe 'Get-PathModule' -Tag 'L0', 'logic', 'DDR-TRACK-ONETECHSTACK' {
     BeforeAll {
         $script:types = [Catzc.Base.Variants.ModuleTypesConfig]::new(@{
                 module_types = [ordered]@{
@@ -61,7 +61,7 @@ Describe 'Get-PathModule' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-ONETECHSTACK' {
     }
 }
 
-Describe 'Get-PathModule on the shipped module-types registry' -Tag 'L0', 'logic', 'ADR-DSGN-TRACK-ONETECHSTACK' {
+Describe 'Get-PathModule on the shipped module-types registry' -Tag 'L0', 'logic', 'DDR-TRACK-ONETECHSTACK' {
     It 'places a file in the module, and the module type, its folder names' -ForEach @(
         @{ Path = "$(Get-CatzcModulesFolder)/Catzc.Base.Variants/Get-Track.ps1"; Name = 'Catzc.Base.Variants'; Type = 'pwsh-folder' }
         @{ Path = "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Types.psm1"; Name = 'Catzc.Internal.Types'; Type = 'pwsh-psm1' }

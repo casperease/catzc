@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "9ff194e776e1"
+#     with_body_sha: "64944a03b200"
 # ---
 
 description:
@@ -9,9 +9,9 @@ description:
   projection of one set, the globsets a commit range touched, and the skip line of the test run."
 about:
   adrs:
-    - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-    - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-    - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - FDR-CD-GLOBS-DURABLESHAIDENTITY
+    - FDR-CD-GLOBS-NATIVEPATHFILTER
+    - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
   lens: operations
 content:
   title: You edit globs.yml, and every other step prints what cats derived from it
@@ -113,20 +113,20 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/cd-shared.yaml
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: ado-pipelines/pipelines/extends
         by:
           - .ado/pipelines/extends/cd-customer.yaml
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: docs/-/.
         by:
           - docs/adr/flow/dora-explains.md
@@ -169,51 +169,51 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-ModuleProtectionIdentity.ps1.md
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Exporter/.
         by:
           - pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
@@ -224,72 +224,72 @@ content:
           - pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
           - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
           - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Globs/configs
         by:
           - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Globs/private
         by:
           - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Globs/tests
         by:
           - pwsh/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
       - cell: pwsh/Catzc.Base.Globs/types
         by:
           - pwsh/Catzc.Base.Globs/types/DurableHash.cs
           - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
           - pwsh/Catzc.Base.Globs/types/GlobSet.cs
           - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
     module-neighbourhood:
       - cell: subject/.claude
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/Catzc.Azure.DevOps
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/Catzc.Azure.DevOps.BuildValidation
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -297,20 +297,20 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/Catzc.Base.Exporter
         by:
           - pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
@@ -329,39 +329,39 @@ content:
           - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
           - pwsh/Catzc.Base.Globs/types/GlobSet.cs
           - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/Catzc.Base.Maps
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
           - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/pipelines
         by:
           - .ado/pipelines/cd-shared.yaml
           - .ado/pipelines/ci-pwsh.yaml
           - .ado/pipelines/extends/cd-customer.yaml
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
     axis:
       - cell: DSGN/*
         by:
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
 layout:
   band-edit:
     x: 20

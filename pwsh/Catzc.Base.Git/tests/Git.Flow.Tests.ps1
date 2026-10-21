@@ -2,18 +2,18 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f0f81c35126c
+    with_body_sha: c8d503202bfd
   edges:
     cites:
-      - ADR-FLOW-GIT-USERRUNSGIT
-      - ADR-FLOW-GIT-FALLBACKISANNOUNCED
-      - ADR-FLOW-GIT-SYNCBYREBASE
-      - ADR-FLOW-GIT-ONESQUASHEDCOMMIT
-      - ADR-FLOW-GIT-TOPICHISTORYISTHEAUTHORS
+      - FDR-GIT-USERRUNSGIT
+      - FDR-GIT-FALLBACKISANNOUNCED
+      - FDR-GIT-SYNCBYREBASE
+      - FDR-GIT-ONESQUASHEDCOMMIT
+      - FDR-GIT-TOPICHISTORYISTHEAUTHORS
 ---
 #>
 
-Describe 'The git topic flow over a scratch server' -Tag 'L1', 'integration', 'ADR-FLOW-GIT-USERRUNSGIT' {
+Describe 'The git topic flow over a scratch server' -Tag 'L1', 'integration', 'FDR-GIT-USERRUNSGIT' {
     BeforeAll {
         $script:config = [Catzc.Base.Git.GitFlowConfig]::new(@{})
         function Invoke-Scratch {
@@ -64,14 +64,14 @@ Describe 'The git topic flow over a scratch server' -Tag 'L1', 'integration', 'A
         $script:topic = New-Clone 'topic' -Branch 'spin-widget'
     }
 
-    It 'resolves the current server HEAD as the sync point and announces the fallback' -Tag 'ADR-FLOW-GIT-FALLBACKISANNOUNCED' {
+    It 'resolves the current server HEAD as the sync point and announces the fallback' -Tag 'FDR-GIT-FALLBACKISANNOUNCED' {
         $point = Get-SyncPoint -Config $script:config -RepositoryRoot $script:topic -WarningVariable warned -WarningAction SilentlyContinue
         $point.Source | Should -BeExactly 'fallback'
         $point.Commit | Should -BeExactly (Invoke-Scratch $script:server @('rev-parse', 'main'))
         "$warned" | Should -BeLike '*marks no BVT-verified head*'
     }
 
-    It 'rebases the topic onto new server work' -Tag 'ADR-FLOW-GIT-SYNCBYREBASE' {
+    It 'rebases the topic onto new server work' -Tag 'FDR-GIT-SYNCBYREBASE' {
         Add-Commit $script:topic 'gadget.txt' 'topic'
         Add-Commit $script:seed 'sprocket.txt' 'server' -Push
         $result = Sync-Topic -Config $script:config -RepositoryRoot $script:topic -WarningAction SilentlyContinue
@@ -89,7 +89,7 @@ Describe 'The git topic flow over a scratch server' -Tag 'L1', 'integration', 'A
         Invoke-Scratch $script:topic @('rebase', '--abort') | Out-Null
     }
 
-    It 'lands a three-commit topic as one commit on main in main-direct' -Tag 'ADR-FLOW-GIT-ONESQUASHEDCOMMIT' {
+    It 'lands a three-commit topic as one commit on main in main-direct' -Tag 'FDR-GIT-ONESQUASHEDCOMMIT' {
         $before = Invoke-Scratch $script:server @('rev-parse', 'main')
         Add-Commit $script:topic 'gadget.txt' 'one'
         Add-Commit $script:topic 'sprocket.txt' 'two'
@@ -109,7 +109,7 @@ Describe 'The git topic flow over a scratch server' -Tag 'L1', 'integration', 'A
         Invoke-Scratch $script:topic @('rev-list', '--count', 'origin/main..HEAD') | Should -Be '1'
     }
 
-    It 'refuses main in main-via-pr' -Tag 'ADR-FLOW-GIT-TOPICHISTORYISTHEAUTHORS' {
+    It 'refuses main in main-via-pr' -Tag 'FDR-GIT-TOPICHISTORYISTHEAUTHORS' {
         Mock Test-GitWorkspace -ModuleName Catzc.Base.Git { $true }
         Invoke-Scratch $script:topic @('checkout', '--quiet', 'main') | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:topic 'gadget.txt'), "one`n")

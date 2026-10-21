@@ -5,6 +5,9 @@ catzc:
     with_body_sha: b4f779512bea
   edges:
     docs: "[NoScriptRootAnchor.psm1.md](docs/references/pwsh/scriptanalyzer/NoScriptRootAnchor.psm1.md)"
+    cites:
+      - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
+      - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 ---
 #>
 

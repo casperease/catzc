@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "0bc0cd2dee96"
+#     with_body_sha: e2daa9636e8e
 # ---
 
 description:
@@ -9,9 +9,9 @@ description:
   moves it, and every state it holds can be discarded."
 about:
   adrs:
-    - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
-    - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-    - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
+    - FDR-CD-SEPARATEPIPELINEKINDS
+    - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+    - FDR-CD-LIFE-DISCARDISTERMINAL
   lens: architecture
 content:
   title: Each pipeline shape runs a stretch of the promotion ladder, and every state it reaches can be discarded
@@ -121,22 +121,22 @@ content:
     axis:
       - cell: DSGN/build
         by:
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-SEPARATEPIPELINEKINDS
       - cell: DSGN/quality-control
         by:
-          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
       - cell: DSGN/release
         by:
-          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
       - cell: DSGN/deploy
         by:
-          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
     lifecycle-position:
       - cell: main-uat
         by:
@@ -157,9 +157,9 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
       - cell: release-uat
         by:
           - .ado/pipelines/ci-pwsh.yaml
@@ -179,9 +179,9 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
       - cell: pre-prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
@@ -201,9 +201,9 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
       - cell: prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
@@ -223,9 +223,9 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS
     layer-stack:
       - cell: automation
         by:
@@ -249,6 +249,6 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-DISCARDISTERMINAL
-          - ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG
-          - ADR-FLOW-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-SEPARATEPIPELINEKINDS

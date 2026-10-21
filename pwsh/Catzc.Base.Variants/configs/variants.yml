@@ -7,9 +7,9 @@
 #     cites:
 #       - ADR-AZ-CUSTOMER
 #       - ADR-AZ-NAMING
-#       - ADR-DSGN-ASPECT
-#       - ADR-DSGN-TRACK
 #       - ADR-REPO-VARIANT
+#       - DDR-ASPECT
+#       - DDR-TRACK
 # ---
 
 ado_naming: standard

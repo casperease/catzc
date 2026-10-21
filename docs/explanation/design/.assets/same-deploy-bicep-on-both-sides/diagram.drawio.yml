@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "451ced92bf9b"
+#     with_body_sha: c067347ca473
 # ---
 
 description:
@@ -9,8 +9,8 @@ description:
   and a run ends as a rejection, a preview, a failure or a deployment.
 about:
   adrs:
-    - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-    - ADR-DSGN-THINPLAT-PLATFORMASCLI
+    - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+    - DDR-THINPLAT-PLATFORMASCLI
   lens: operations
 content:
   title: A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription
@@ -104,36 +104,36 @@ content:
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
       - cell: docs/-/.
         by:
           - docs/adr/design/dora-explains.md
           - docs/adr/design/thin-platforms.md
           - docs/adr/index.md
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
       - cell: subject/pipelines
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
     axis:
       - cell: DSGN/deploy
         by:
-          - ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT
-          - ADR-DSGN-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
 layout:
   band-consumers:
     x: 20

@@ -3,6 +3,10 @@
 catzc:
   immutable:
     with_body_sha: "9d2c5d1cc495"
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - PDR-CONFIG-DEFAULTDECLAREDONCE
 ---
 #>
 

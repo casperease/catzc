@@ -28,5 +28,5 @@ Above `trigger:`, written with `#`.
 
 ```text
 The deeper apex include sits under the broader exclude of other deployments' config, so ADO keeps it in the trigger.
-[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:2](/docs/references/ado/pipelines/cd-apex.yaml.md#comment2)
+[FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:2](/docs/references/ado/pipelines/cd-apex.yaml.md#comment2)
 ```

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d7cfe68cbcf5
+#     with_body_sha: e263a9631e44
 #   edges:
 #     docs: "[analyzer-adr-map.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/analyzer-adr-map.yml.md)"
 #     cites:
@@ -17,7 +17,6 @@
 #       - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
 #       - ADR-AZ-CLI-AZURENOUNPREFIX
 #       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
-#       - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
 #       - ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT
 #       - ADR-PWSH-ANNOUNCE-CORRECTSTREAM
 #       - ADR-PWSH-ANNOUNCE-INFORMATIONRECORD
@@ -41,6 +40,7 @@
 #       - ADR-PWSH-PWD-RESTORESETLOCATION
 #       - ADR-PWSH-PWD-MODULELOCATESCONTENT
 #       - ADR-PWSH-VERBS-APPROVEDVERBS
+#       - FDR-CD-DETECT-NODIRECTVARIABLECHECK
 #       - PDR-CONFIG-DEFAULTDECLAREDONCE
 # ---
 
@@ -54,7 +54,7 @@ analyzers:
   Measure-NoAutomaticVariableMisuse: [ADR-PWSH-AUTOVAR-NOQUESTIONMARKVARIABLE]
   Measure-NoForEachObjectControlFlow: [ADR-PWSH-FOREACH-NOCONTROLFLOWINFOREACHOBJECT]
   Measure-NoRawVsoCommand: [ADR-ADO-VAR-NORAWLOGGINGCOMMANDS]
-  Measure-NoRawPipelineDetection: [ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK]
+  Measure-NoRawPipelineDetection: [FDR-CD-DETECT-NODIRECTVARIABLECHECK]
   Measure-NoRawInformationStream: [ADR-PWSH-ANNOUNCE-CORRECTSTREAM]
   Measure-NoRawConsoleWrite: [ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT]
   Measure-AnnounceStateChange:

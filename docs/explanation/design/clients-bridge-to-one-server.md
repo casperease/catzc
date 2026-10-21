@@ -10,7 +10,7 @@ Clients bridge to one server remote: in through a pull request, out from the ver
 5  verified point   the stable integration point, the BVT-verified server head
 6  consumer clones  developers, downstream units and upstream integrators build here
 
-Supports ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH, ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED and ADR-DSGN-REMOTE-PULLREQUESTISINGRESS, and ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD and ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE (architecture lens).
+Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED and DDR-REMOTE-PULLREQUESTISINGRESS, and FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD and FDR-CD-LIFE-DIRTYHEADUNSAFE (architecture lens).
 ```
 
 In cats the mainline is not a local artifact. It is the `main` / `master` branch that the server remote enforces, and that server is where
@@ -37,12 +37,12 @@ where a guarantee is enforced and where it is only a discipline.
 
 ## Why it holds
 
-- The server remote is the single source of truth, and every local and CI clone is a bridge to it (ADR-DSGN-REMOTE-SERVERREMOTEISTRUTH).
-- Consumers integrate from the last remote-verified commit, never the current remote HEAD (ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED).
+- The server remote is the single source of truth, and every local and CI clone is a bridge to it (DDR-REMOTE-SERVERREMOTEISTRUTH).
+- Consumers integrate from the last remote-verified commit, never the current remote HEAD (DDR-REMOTE-INTEGRATEFROMVERIFIED).
 - The pull request authenticates the author, runs the merge gates and performs the merge: it is the ingress engine, not merely a review
-  (ADR-DSGN-REMOTE-PULLREQUESTISINGRESS).
+  (DDR-REMOTE-PULLREQUESTISINGRESS).
 - The stable integration point is the BVT-verified server head, the same commit `main-UAT` takes first
-  (ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD), and the dirty HEAD is never a source to sync from (ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE).
+  (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD), and the dirty HEAD is never a source to sync from (FDR-CD-LIFE-DIRTYHEADUNSAFE).
 
 ## Where the code and the ADR differ
 

@@ -9,9 +9,9 @@ Above `Describe 'GlobSet' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 The globset record: membership is decided by the scan program — an ordered +/- rule list, last-match-wins
-([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)), flattened through compose with
+([FDR-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)), flattened through compose with
 own-rules-last
-([ADR-FLOW-CD-GLOBS-COMPOSESETS](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-composesets)); and the constructor guards the
+([FDR-CD-GLOBS-COMPOSESETS](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)); and the constructor guards the
 shape (kebab-case name, required description, a layer declared, include or compose present, no duplicate
 patterns).
 ```

@@ -2,16 +2,16 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4938866af7f2"
+    with_body_sha: "82713fe5e1b9"
   edges:
     docs: "[Test-ValueChainMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-DSGN-TRACK-VALUECHAINSTACK
-      - ADR-DSGN-TRACK-VALUECHAINCONCERN
-      - ADR-DSGN-TRACK-VALUECHAINMAP
+      - DDR-TRACK-VALUECHAINSTACK
+      - DDR-TRACK-VALUECHAINCONCERN
+      - DDR-TRACK-VALUECHAINMAP
 ---
 #>
 
@@ -63,21 +63,21 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
         $result.Facts['Labels'] | Should -Be 3
     }
 
-    It 'reports axes that are not the registry''s closed sets, a stray row, and an ADR in no cell' -Tag 'ADR-DSGN-TRACK-VALUECHAINSTACK', 'ADR-DSGN-TRACK-VALUECHAINCONCERN' {
+    It 'reports axes that are not the registry''s closed sets, a stray row, and an ADR in no cell' -Tag 'DDR-TRACK-VALUECHAINSTACK', 'DDR-TRACK-VALUECHAINCONCERN' {
         $script:map = $script:brokenMap
         $issues = @((Test-ValueChainMap -OutputFolder $script:out -PassThru).Issues)
         $issues | Should -Be @(
-            "axis: the map prints the rows TOP, BOTTOM, but the rows of the value-chain stack are $([Catzc.Base.Docs.AdrsConfig]::Stacks -join ', '), in that order (ADR-DSGN-TRACK-VALUECHAINSTACK)"
-            "axis: the map prints the columns alpha, but the value-chain concerns are $([Catzc.Base.Docs.AdrsConfig]::Concerns -join ', '), in that order (ADR-DSGN-TRACK-VALUECHAINCONCERN)"
-            "stray value: ADR-WIDGET-COG: 'MIDDLE' is not a row of the value-chain stack (TOP, BOTTOM) (ADR-DSGN-TRACK-VALUECHAINCONCERN)"
-            'unplaced ADR: ADR-WIDGET-COG sits in no cell of the value-chain map (ADR-DSGN-TRACK-VALUECHAINCONCERN)'
+            "axis: the map prints the rows TOP, BOTTOM, but the rows of the value-chain stack are $([Catzc.Base.Docs.AdrsConfig]::Stacks -join ', '), in that order (DDR-TRACK-VALUECHAINSTACK)"
+            "axis: the map prints the columns alpha, but the value-chain concerns are $([Catzc.Base.Docs.AdrsConfig]::Concerns -join ', '), in that order (DDR-TRACK-VALUECHAINCONCERN)"
+            "stray value: ADR-WIDGET-COG: 'MIDDLE' is not a row of the value-chain stack (TOP, BOTTOM) (DDR-TRACK-VALUECHAINCONCERN)"
+            'unplaced ADR: ADR-WIDGET-COG sits in no cell of the value-chain map (DDR-TRACK-VALUECHAINCONCERN)'
         )
     }
 
-    It 'reports a value_chain_ label whose head names no glossary term' -Tag 'ADR-DSGN-TRACK-VALUECHAINMAP' {
+    It 'reports a value_chain_ label whose head names no glossary term' -Tag 'DDR-TRACK-VALUECHAINMAP' {
         $script:labels = [pscustomobject]@{ value_chain_row_axis = 'Widgets'; value_chain_title = 'Gizmo map: widgets' }
         $issues = @((Test-ValueChainMap -OutputFolder $script:out -PassThru).Issues)
-        $issues | Should -Be @("unregistered label: maps.yml labels.value_chain_title 'Gizmo map: widgets' names no glossary term in its head (ADR-DSGN-TRACK-VALUECHAINMAP)")
+        $issues | Should -Be @("unregistered label: maps.yml labels.value_chain_title 'Gizmo map: widgets' names no glossary term in its head (DDR-TRACK-VALUECHAINMAP)")
     }
 
     It 'throws once listing every issue without -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
@@ -94,7 +94,7 @@ Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {
 }
 
 Describe 'Test-ValueChainMap on the repository' -Tag 'L1', 'integrity', 'source-only' {
-    It 'Test-ValueChainMap passes over the registry' -Tag 'ADR-DSGN-TRACK-VALUECHAINSTACK', 'ADR-DSGN-TRACK-VALUECHAINCONCERN', 'ADR-DSGN-TRACK-VALUECHAINMAP', 'ADR-AUTO-TEST-QUALITYGATE' {
+    It 'Test-ValueChainMap passes over the registry' -Tag 'DDR-TRACK-VALUECHAINSTACK', 'DDR-TRACK-VALUECHAINCONCERN', 'DDR-TRACK-VALUECHAINMAP', 'ADR-AUTO-TEST-QUALITYGATE' {
         $result = Test-ValueChainMap -PassThru -OutputFolder (Join-Path $TestDrive 'value-chain-map')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }

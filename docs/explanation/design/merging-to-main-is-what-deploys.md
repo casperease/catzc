@@ -10,12 +10,12 @@ An engineer has nothing to run to deploy a topic commit; completing the pull req
 5  complete PR             lands the commit on main; the push trigger starts the CD run
 6  ADO CD run              deploys foundation, discovery, then expedition
 
-Supports ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND (operations lens).
+Supports FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND (operations lens).
 ```
 
 Merging to main is the act that deploys, and an engineer who wants a topic commit in an environment has nothing else to run for it. A pull
 request starts a build that skips every deploy stage, and the `Release` workflow builds a package but deploys nothing. Only completing the
-pull request into main starts a run that deploys. The out-of-band topic deploy that ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows has no
+pull request into main starts a run that deploys. The out-of-band topic deploy that FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows has no
 pipeline behind it.
 
 ![Merging to main is what deploys](.assets/merging-to-main-is-what-deploys/diagram.drawio.png)
@@ -38,11 +38,11 @@ pipeline behind it.
 ## Why it holds
 
 - A topic commit can be deployed out-of-band by a workflow or pipeline, and that deploy is not an integration
-  (ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND). The operator sees the stricter code: only main deploys.
+  (FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND). The operator sees the stricter code: only main deploys.
 
 ## Where the code and the ADR differ
 
-ADR-FLOW-CD-LIFE-TOPICDEPLOYSOUTOFBAND describes an out-of-band topic deploy that no pipeline offers, so an operator has nothing to run for
+FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND describes an out-of-band topic deploy that no pipeline offers, so an operator has nothing to run for
 it.
 
 ## See also

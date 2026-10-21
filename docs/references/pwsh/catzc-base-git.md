@@ -59,7 +59,7 @@ The steps that bring a topic branch to the server's main ([git-topic-flow](../..
 BVT-verified server head or, announced, the current server HEAD; saving the working tree as a commit; rebasing the topic onto the sync
 point; and landing it as one commit by squash, rebase and squash, pushed by the workspace variant. Every step but the reading one changes
 the repository, so it runs only at the user's hand
-([ADR-FLOW-GIT-USERRUNSGIT](../../adr/flow/git-topic-flow.md#rule-adr-flow-git-userrunsgit)); the Bash hook denies those commands to an
+([FDR-GIT-USERRUNSGIT](../../adr/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)); the Bash hook denies those commands to an
 agent, reading their names from `git.yml`, and the VS Code tasks offer them to the user.
 
 ## What the module does

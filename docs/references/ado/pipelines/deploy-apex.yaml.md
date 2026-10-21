@@ -9,7 +9,7 @@ Above `- ${{ if eq(parameters.Target, 'release-uat') }}:`, written with `#`.
 
 ```text
 release-uat is test; the RC approval check on apex-release-uat holds the job for its certifier
-([ADR-FLOW-CD-TWORELEASEGATES](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-tworeleasegates)).
+([FDR-CD-TWORELEASEGATES](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)).
 ```
 
 ## comment:2
@@ -18,5 +18,5 @@ Above `- ${{ if eq(parameters.Target, 'prod') }}:`, written with `#`.
 
 ```text
 Stage the exact artifact in pre-prod, the inactive slot of prod, then activate it to prod
-([ADR-FLOW-CD-TWOENVIRONMENTACTIVATION](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-twoenvironmentactivation)).
+([FDR-CD-TWOENVIRONMENTACTIVATION](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-twoenvironmentactivation)).
 ```

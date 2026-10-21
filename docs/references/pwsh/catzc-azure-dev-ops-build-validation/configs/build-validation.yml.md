@@ -9,10 +9,10 @@ Above `branch: main`, written with `#`.
 
 ```text
 Build-validation branch policies tied to globsets — the server-side pre-commit half of a unit's CI
-binding ([ADR-FLOW-CD-TYPE-PRECOMMITBUDGET](/docs/adr/flow/pipeline-types.md#rule-adr-flow-cd-type-precommitbudget)): each entry binds one DECLARED globset's native
+binding ([FDR-CD-TYPE-PRECOMMITBUDGET](/docs/adr/flow/pipeline-types.md#rule-fdr-cd-type-precommitbudget)): each entry binds one DECLARED globset's native
 path projection
 (Get-GlobSetTrigger,
-[ADR-FLOW-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)) as the policy's path filter and runs the entry's pipeline as an
+[FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)) as the policy's path filter and runs the entry's pipeline as an
 ADO build validation on `branch`. Entries are a list (globset names are kebab-case, and snake_case key
 validation forbids hyphenated map keys). Per entry: `globset` (required, a declared globset name),
 `pipeline` (defaults to the globset's own `pipeline:` annotation in globs.yml), `blocking` (defaults to

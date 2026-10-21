@@ -7,9 +7,9 @@ catzc:
     test: pwsh/Catzc.Base.Maps/tests/types/WorldMapPdf.Tests.ps1
     docs: "[WorldMapPdf.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapPdf.cs.md)"
     cites:
-      - ADR-DSGN-TRACK-ONETECHSTACK
-      - ADR-DSGN-TRACK-ROOTFILE
-      - ADR-DSGN-TRACK-UNLISTEDFILE
+      - DDR-TRACK-ONETECHSTACK
+      - DDR-TRACK-ROOTFILE
+      - DDR-TRACK-UNLISTEDFILE
 ---
 */
 

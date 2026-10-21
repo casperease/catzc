@@ -13,6 +13,6 @@ Description rendered under the domain's heading in the generated index, the Depe
 domain DAG, its row of the value-chain stack (Stack), its default value-chain concerns (Concerns, in value-chain
 order), and the RuleSets it owns. Built and validated by AdrsConfig
 ([ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel),
-[ADR-DSGN-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainstack),
-[ADR-DSGN-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainconcern)).
+[DDR-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-ddr-track-valuechainstack),
+[DDR-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-ddr-track-valuechainconcern)).
 ```

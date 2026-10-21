@@ -11,7 +11,7 @@ A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pi
 6  ... failed (az exited N)       the throw when az exits non-zero
 7  Deployment ... succeeded       the outcome when the guards pass and az succeeds
 
-Supports ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT and ADR-DSGN-THINPLAT-PLATFORMASCLI (operations lens).
+Supports DDR-THINPLAT-DELEGATENOTREIMPLEMENT and DDR-THINPLAT-PLATFORMASCLI (operations lens).
 ```
 
 `Deploy-Bicep` is the one command a developer and a CD pipeline both type to deploy infrastructure, because the CLI is the platform's only
@@ -44,8 +44,8 @@ a deployment, or one of two failures.
 
 ## Why it holds
 
-- Thin comes from delegation: the command checks the target and hands the deployment to az (ADR-DSGN-THINPLAT-DELEGATENOTREIMPLEMENT).
-- The CLI is the only surface, so a developer and a pipeline bind to the same `Deploy-Bicep` (ADR-DSGN-THINPLAT-PLATFORMASCLI).
+- Thin comes from delegation: the command checks the target and hands the deployment to az (DDR-THINPLAT-DELEGATENOTREIMPLEMENT).
+- The CLI is the only surface, so a developer and a pipeline bind to the same `Deploy-Bicep` (DDR-THINPLAT-PLATFORMASCLI).
 
 ## Where the code and the ADR differ
 

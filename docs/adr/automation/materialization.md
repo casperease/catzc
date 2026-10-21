@@ -22,7 +22,7 @@ displayed; a display shows an explicitly declared value only.
 ### Rule ADR-AUTO-MATERIAL-SCOPEDSHACOMMITKEY
 
 The commit key of a resource is the scoped sha of its own globset, the patterns of `globs.yml` that select its inputs
-([ADR-DSGN-TRACK-DEPLOYABLEUNIT](../design/tracks.md#rule-adr-dsgn-track-deployableunit)), never the sha of the whole repository. A config
+([DDR-TRACK-DEPLOYABLEUNIT](../design/tracks.md#rule-ddr-track-deployableunit)), never the sha of the whole repository. A config
 variant of the globset is a different resource with its own key.
 
 - [The commit key](#the-commit-key)

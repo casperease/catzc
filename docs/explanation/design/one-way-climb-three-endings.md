@@ -8,7 +8,7 @@ A commit only climbs the promotion ladder, then ends superseded, discarded or re
 3  discarded   rejection at a named gate, before any value was delivered
 4  retired     a production commit that served and was replaced; a success
 
-Supports ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG, ADR-FLOW-CD-LIFE-DISCARDISTERMINAL, ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD, ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN and ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM (meta lens).
+Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-RETIREMENTISNOTDISCARD, FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN and FDR-CD-LIFE-FAILEDSTAYSUPSTREAM (meta lens).
 ```
 
 A commit in cats holds one lifecycle state at a time. It climbs the promotion ladder one rung at a time and never moves backward, because
@@ -33,13 +33,13 @@ or the commit delivered its value.
 
 ## Why it holds
 
-- A commit advances one rung or leaves the ladder, and never moves backward (ADR-FLOW-CD-LIFE-ONESTATEADVANCESONERUNG).
-- Discard is terminal rejection at a named stage, and the discarded commit stays in history (ADR-FLOW-CD-LIFE-DISCARDISTERMINAL).
-- Retirement is a successful end of life, not a discard (ADR-FLOW-CD-LIFE-RETIREMENTISNOTDISCARD).
-- Supersession abandons a still-valid commit that a newer one overtook (ADR-FLOW-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN).
-- A commit that fails a stage cannot go downstream (ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM).
+- A commit advances one rung or leaves the ladder, and never moves backward (FDR-CD-LIFE-ONESTATEADVANCESONERUNG).
+- Discard is terminal rejection at a named stage, and the discarded commit stays in history (FDR-CD-LIFE-DISCARDISTERMINAL).
+- Retirement is a successful end of life, not a discard (FDR-CD-LIFE-RETIREMENTISNOTDISCARD).
+- Supersession abandons a still-valid commit that a newer one overtook (FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN).
+- A commit that fails a stage cannot go downstream (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM).
 - The endings each have their own rendering: red for discarded, kept green for retired, a ghost for superseded
-  (ADR-DSGN-VISUAL-DISTINCTENDINGS).
+  (DDR-VISUAL-DISTINCTENDINGS).
 
 ## See also
 

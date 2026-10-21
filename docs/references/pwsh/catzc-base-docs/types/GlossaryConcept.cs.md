@@ -31,7 +31,7 @@ Above `public static readonly Regex CitationRe = new...`, written with `//`.
 ```text
 A rule citation in the '#' form: ADR-<code>[-<NAME>…]#<n>
 ([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](/docs/adr/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns),
-[ADR-FLOW-CD-SHORTINTEGRATIONCYCLE](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-adr-flow-cd-shortintegrationcycle)).
+[FDR-CD-SHORTINTEGRATIONCYCLE](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle)).
 ```
 
 ## comment:3

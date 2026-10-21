@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Get-TrackedFile' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
-The matching universe ([ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-trackedfilesonly)): tracked
+The matching universe ([FDR-CD-GLOBS-TRACKEDFILESONLY](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)): tracked
 files as `git ls-files` defines them, repo-relative — answered by Get-GitTrackedPath for the whole repository.
 ```
 

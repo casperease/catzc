@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "259668cd7794"
+#     with_body_sha: "1a478b64ffe2"
 # ---
 
 description:
@@ -9,9 +9,9 @@ description:
   Azure DevOps include and exclude collapse each pattern to its last select."
 about:
   adrs:
-    - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
-    - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-    - ADR-FLOW-CD-GLOBS-COMPOSESETS
+    - FDR-CD-GLOBS-TRACKEDFILESONLY
+    - FDR-CD-GLOBS-NATIVEPATHFILTER
+    - FDR-CD-GLOBS-COMPOSESETS
   lens: meta
 content:
   title: One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps
@@ -79,15 +79,15 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: docs/-/.
         by:
           - docs/adr/flow/dora-explains.md
@@ -135,47 +135,47 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-GuidScanFiles.ps1.md
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
@@ -185,35 +185,35 @@ content:
           - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
           - pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
           - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.Globs/configs
         by:
           - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.Globs/private
         by:
           - pwsh/Catzc.Base.Globs/private/Get-ChangedFile.ps1
           - pwsh/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
           - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.Globs/tests
         by:
           - pwsh/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.Globs/tests/types
         by:
           - pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.Globs/types
         by:
           - pwsh/Catzc.Base.Globs/types/Aspect.cs
@@ -221,46 +221,46 @@ content:
           - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
           - pwsh/Catzc.Base.Globs/types/GlobSet.cs
           - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
     module-neighbourhood:
       - cell: subject/.claude
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: subject/Catzc.Azure.DevOps
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: subject/Catzc.Azure.DevOps.BuildValidation
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -268,16 +268,16 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
@@ -302,37 +302,37 @@ content:
           - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
           - pwsh/Catzc.Base.Globs/types/GlobSet.cs
           - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: subject/Catzc.Base.Maps
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
           - pwsh/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: subject/pipelines
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
     axis:
       - cell: DSGN/*
         by:
-          - ADR-FLOW-CD-GLOBS-COMPOSESETS
-          - ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER
-          - ADR-FLOW-CD-GLOBS-TRACKEDFILESONLY
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
 layout:
   band-compose:
     x: 20

@@ -1,9 +1,15 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4381854524ee"
+#     with_body_sha: c2f4e170a79c
 #   edges:
 #     docs: "[cd-customer.yaml.md](docs/references/ado/pipelines/extends/cd-customer.yaml.md)"
+#     cites:
+#       - ADR-ADO-NAME
+#       - ADR-ADO-TEMPLATE
+#       - ADR-AZ-DATAMOD
+#       - ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS
+#       - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
 # ---
 
 parameters:
@@ -26,7 +32,7 @@ stages:
           vmImage: ubuntu-latest
         steps:
           - checkout: self
-            # Test-GlobSetAffected diffs real refs ([ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT](/docs/adr/flow/durable-sha-globs.md#rule-adr-flow-cd-globs-changecomputedfromgit))
+            # Test-GlobSetAffected diffs real refs ([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit))
             fetchDepth: 0
 
           - template: /.ado/pipelines/steps/invoke-automation.yaml

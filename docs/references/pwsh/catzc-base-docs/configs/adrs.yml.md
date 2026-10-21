@@ -18,8 +18,8 @@ Single source of truth for how the decision space is organised and cited. It dec
             Get-AdrDomainEdges | ConvertTo-AdrDomainDiagram, mirroring the module dependency graph). Each also
             declares its row of the value-chain stack (`stack`: PRIN, DSGN, AUTO, PIPE, or CLOUD) and its default
             value-chain concerns (`concern`: a list of automation, build, quality-control, release, deploy, access),
-            [ADR-DSGN-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainstack) and
-            [ADR-DSGN-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-adr-dsgn-track-valuechainconcern).
+            [DDR-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-ddr-track-valuechainstack) and
+            [DDR-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-ddr-track-valuechainconcern).
   rulesets: within a domain, keyed by INTERNAL kebab name (= the ADR file slug). Each declares its full
             EXTERNAL citation code (`ADR-<DC>-<NAME>`, or a one-segment `ADR-<NAME>` such as `ADR-REPO-AI`, fully
             spelled) and, when the code body is a registered spelling token, its `terminology` link into the

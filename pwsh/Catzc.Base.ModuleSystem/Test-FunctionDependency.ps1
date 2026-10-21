@@ -8,8 +8,8 @@ catzc:
     docs: "[Test-FunctionDependency.ps1.md](docs/references/pwsh/catzc-base-module-system/Test-FunctionDependency.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-DSGN-RUNMODE
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+      - DDR-RUNMODE
 ---
 #>
 

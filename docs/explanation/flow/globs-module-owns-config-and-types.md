@@ -10,7 +10,7 @@ Catzc.Base.Globs computes every globset role from one typed registry.
 5  Protection identity     Get-GlobSetHash: the live durable SHA of a set
 6  Test-Automation         reads a composite identity per module, never parses globs.yml
 
-Supports ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS, ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY, ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER and ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT (architecture lens).
+Supports FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (architecture lens).
 ```
 
 `Catzc.Base.Globs` is the one module that maps every area-of-control in cats, such as a deployable unit, a track or a scan scope, onto its
@@ -40,11 +40,11 @@ is one config edit in one place.
 ## Why it holds
 
 - `globs.yml` is the one source of truth, and its three roles (trigger, change report, protection) are all derived, with nothing committed
-  per set (ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS).
-- The identity is computed live and never committed, so it cannot go stale on a busy mainline (ADR-FLOW-CD-GLOBS-DURABLESHAIDENTITY).
+  per set (FDR-CD-GLOBS-NAMEDGLOBSETS).
+- The identity is computed live and never committed, so it cannot go stale on a busy mainline (FDR-CD-GLOBS-DURABLESHAIDENTITY).
 - Pipelines, workflows and build-validation policies trigger on the native path-filter projection of a globset, never on a committed marker
-  (ADR-FLOW-CD-GLOBS-NATIVEPATHFILTER).
-- Whether a change touches a set is computed from git at real refs (ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
+  (FDR-CD-GLOBS-NATIVEPATHFILTER).
+- Whether a change touches a set is computed from git at real refs (FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT).
 
 ## See also
 

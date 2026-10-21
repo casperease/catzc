@@ -9,7 +9,7 @@ Where the code loads from decides the run mode; nothing stores it.
 4  same modules     identical in both modes, each with its own script scope
 5  the invariant    the mode follows from the code root and the two modes never coexist
 
-Supports ADR-DSGN-RUNMODE-TWORUNMODES, ADR-DSGN-RUNMODE-SAMEMODULEINBOTH, ADR-DSGN-RUNMODE-MODEISDERIVED and ADR-DSGN-RUNMODE-NEVERCOEXIST (meta lens).
+Supports DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-MODEISDERIVED and DDR-RUNMODE-NEVERCOEXIST (meta lens).
 ```
 
 Run modes are the two ways cats loads its one set of modules: from the repository, where developers edit one function per file, and from a
@@ -32,10 +32,10 @@ is in. The place the code was loaded from is the answer, so the mode can never d
 
 ## Why it holds
 
-- Cats runs in exactly two modes, source and build, each entered by its own entry script (ADR-DSGN-RUNMODE-TWORUNMODES).
-- Every module is the same module in both modes; only its form on disk differs (ADR-DSGN-RUNMODE-SAMEMODULEINBOTH).
-- The mode is derived from the code root, never stored (ADR-DSGN-RUNMODE-MODEISDERIVED).
-- Entering one mode removes every module of the other, so the two never coexist (ADR-DSGN-RUNMODE-NEVERCOEXIST).
+- Cats runs in exactly two modes, source and build, each entered by its own entry script (DDR-RUNMODE-TWORUNMODES).
+- Every module is the same module in both modes; only its form on disk differs (DDR-RUNMODE-SAMEMODULEINBOTH).
+- The mode is derived from the code root, never stored (DDR-RUNMODE-MODEISDERIVED).
+- Entering one mode removes every module of the other, so the two never coexist (DDR-RUNMODE-NEVERCOEXIST).
 
 ## See also
 

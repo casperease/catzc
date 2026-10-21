@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "1c6faabadc13"
+#     with_body_sha: e16d6bdda91f
 # ---
 
 description:
@@ -9,9 +9,9 @@ description:
   changed paths; the pipeline stage that should call it is drawn dashed because no pipeline does.
 about:
   adrs:
-    - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
-    - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-    - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+    - FDR-CD-GLOBS-NAMEDGLOBSETS
+    - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+    - FDR-CD-DETECT-NODIRECTVARIABLECHECK
   lens: architecture
 content:
   title: Catzc.Base.Globs owns the check, the loader names the context, and git names the change
@@ -113,20 +113,20 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/cd-shared.yaml
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: ado-pipelines/pipelines/extends
         by:
           - .ado/pipelines/extends/cd-customer.yaml
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: docs/-/.
         by:
           - docs/adr/flow/dora-explains.md
@@ -173,48 +173,48 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: pwsh/Catzc.Azure.Templates/.
         by:
           - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
@@ -225,19 +225,19 @@ content:
           - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
           - pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
           - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: pwsh/Catzc.Base.Globs/configs
         by:
           - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: pwsh/Catzc.Base.Globs/private
         by:
           - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: pwsh/Catzc.Base.Globs/tests
         by:
           - pwsh/Catzc.Base.Globs/tests/Get-ChangedGlobSet.Tests.ps1
@@ -246,50 +246,50 @@ content:
           - pwsh/Catzc.Base.Globs/tests/Get-PipelineTrigger.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/PipelineTrigger-Integrity.Tests.ps1
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: pwsh/Catzc.Base.Globs/types
         by:
           - pwsh/Catzc.Base.Globs/types/DurableHash.cs
           - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
           - pwsh/Catzc.Base.Globs/types/GlobSet.cs
           - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
     module-neighbourhood:
       - cell: subject/.claude
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: subject/Catzc.Azure.DevOps
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: subject/Catzc.Azure.DevOps.BuildValidation
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -297,19 +297,19 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
           - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: subject/Catzc.Azure.Templates
         by:
           - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
@@ -332,39 +332,39 @@ content:
           - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
           - pwsh/Catzc.Base.Globs/types/GlobSet.cs
           - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: subject/Catzc.Base.Maps
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
       - cell: subject/pipelines
         by:
           - .ado/pipelines/cd-shared.yaml
           - .ado/pipelines/ci-pwsh.yaml
           - .ado/pipelines/extends/cd-customer.yaml
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
     axis:
       - cell: DSGN/*
         by:
-          - ADR-FLOW-CD-DETECT-NODIRECTVARIABLECHECK
-          - ADR-FLOW-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - ADR-FLOW-CD-GLOBS-NAMEDGLOBSETS
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-NAMEDGLOBSETS
 layout:
   band-globs:
     x: 20

@@ -4,6 +4,9 @@
 #     with_body_sha: "48f000fe80a0"
 #   edges:
 #     docs: "[release-automation.yml.md](docs/references/github/workflows/release-automation.yml.md)"
+#     cites:
+#       - ADR-GH-RELEASE
+#       - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
 # ---
 
 name: Release

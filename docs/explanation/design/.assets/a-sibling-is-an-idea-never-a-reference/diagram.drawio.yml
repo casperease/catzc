@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "81c31dd63511"
+#     with_body_sha: "1c7d026d97f5"
 # ---
 
 description:
@@ -14,10 +14,10 @@ about:
     - ADR-AUTO-GO-MODULESBYLAYOUT
     - PDR-CATS-CATZCISSOURCENAME
     - PDR-CATS-CATSISPERSONNAME
-    - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-    - ADR-DSGN-TRACK-ONETECHSTACK
-    - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-    - ADR-DSGN-TRACK-UNORDEREDTRACK
+    - DDR-TRACK-TRACKISPLACEDCLUSTER
+    - DDR-TRACK-ONETECHSTACK
+    - DDR-TRACK-DEPLOYABLEUNIT
+    - DDR-TRACK-UNORDEREDTRACK
   lens: meta
 content:
   title: A sibling is an idea, never a reference
@@ -92,7 +92,7 @@ content:
         by:
           - .claude/CLAUDE.md
           - ADR-AUTO-GO-MODULESBYLAYOUT
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-UNORDEREDTRACK
           - PDR-CATS-CATSISPERSONNAME
           - PDR-CATS-CATZCISSOURCENAME
           - PDR-ONELIVE-HISTORYINGIT
@@ -105,17 +105,17 @@ content:
           - .claude/plans/plan-listen-internal-readers.md
           - .claude/plans/plan-xdr-codes.md
           - .claude/plans/value-of-plan.md
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-UNORDEREDTRACK
           - PDR-ONELIVE-HISTORYINGIT
           - PDR-ONELIVE-ONEVERSION
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - ADR-AUTO-GO-MODULESBYLAYOUT
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-UNORDEREDTRACK
           - PDR-CATS-CATSISPERSONNAME
           - PDR-CATS-CATZCISSOURCENAME
           - PDR-ONELIVE-HISTORYINGIT
@@ -180,10 +180,10 @@ content:
           - docs/references/pwsh/internal/Catzc.Internal.Loader.psm1.md
           - docs/references/pwsh/internal/Catzc.Internal.Vendor.psm1.md
           - ADR-AUTO-GO-MODULESBYLAYOUT
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-UNORDEREDTRACK
           - PDR-CATS-CATSISPERSONNAME
           - PDR-CATS-CATZCISSOURCENAME
           - PDR-ONELIVE-HISTORYINGIT
@@ -199,10 +199,10 @@ content:
           - pwsh/Catzc.Base.Docs/configs/capabilities.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - ADR-AUTO-GO-MODULESBYLAYOUT
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-UNORDEREDTRACK
           - PDR-CATS-CATSISPERSONNAME
           - PDR-CATS-CATZCISSOURCENAME
           - PDR-ONELIVE-HISTORYINGIT
@@ -225,7 +225,7 @@ content:
       - cell: pwsh/Catzc.Base.Git/.
         by:
           - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-UNORDEREDTRACK
       - cell: pwsh/Catzc.Base.Git/configs
         by:
           - pwsh/Catzc.Base.Git/configs/gitignore.yml
@@ -233,20 +233,20 @@ content:
       - cell: pwsh/Catzc.Base.Git/tests
         by:
           - pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-UNORDEREDTRACK
       - cell: pwsh/Catzc.Base.Globs/configs
         by:
           - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-DEPLOYABLEUNIT
       - cell: pwsh/Catzc.Base.Globs/tests/types
         by:
           - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-DEPLOYABLEUNIT
       - cell: pwsh/Catzc.Base.Languages/tests
         by:
           - pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Export-WorldMapPdf.ps1
@@ -255,16 +255,16 @@ content:
           - pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-UNORDEREDTRACK
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
           - pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
       - cell: pwsh/Catzc.Base.Maps/types
         by:
           - pwsh/Catzc.Base.Maps/types/MapCell.cs
@@ -272,15 +272,15 @@ content:
           - pwsh/Catzc.Base.Maps/types/WorldMapBuilder.cs
           - pwsh/Catzc.Base.Maps/types/WorldMapHighlight.cs
           - pwsh/Catzc.Base.Maps/types/WorldMapPdf.cs
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
       - cell: pwsh/Catzc.Base.ModuleSystem/configs
         by:
           - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-UNORDEREDTRACK
       - cell: pwsh/Catzc.Base.QualityGates/.
         by:
           - pwsh/Catzc.Base.QualityGates/Build-CommentView.ps1
@@ -291,14 +291,14 @@ content:
         by:
           - pwsh/Catzc.Base.QualityGates/configs/comments.yml
           - pwsh/Catzc.Base.QualityGates/configs/source-conventions.yml
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-UNORDEREDTRACK
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1
           - pwsh/Catzc.Base.QualityGates/private/Invoke-Gofmt.ps1
           - ADR-AUTO-GO-MODULESBYLAYOUT
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-UNORDEREDTRACK
       - cell: pwsh/Catzc.Base.QualityGates/tests
         by:
           - pwsh/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
@@ -320,28 +320,28 @@ content:
           - pwsh/Catzc.Base.Variants/Get-PathModule.ps1
           - pwsh/Catzc.Base.Variants/Get-Track.ps1
           - pwsh/Catzc.Base.Variants/Get-TrackPlace.ps1
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-UNORDEREDTRACK
       - cell: pwsh/Catzc.Base.Variants/configs
         by:
           - pwsh/Catzc.Base.Variants/configs/track-types.yml
           - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-UNORDEREDTRACK
       - cell: pwsh/Catzc.Base.Variants/tests
         by:
           - pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1
           - pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-UNORDEREDTRACK
       - cell: pwsh/Catzc.Base.Variants/tests/types
         by:
           - pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
-          - ADR-DSGN-TRACK-ONETECHSTACK
+          - DDR-TRACK-ONETECHSTACK
       - cell: pwsh/Catzc.Base.Variants/types
         by:
           - pwsh/Catzc.Base.Variants/types/ModulePlace.cs
@@ -350,10 +350,10 @@ content:
           - pwsh/Catzc.Base.Variants/types/PathModule.cs
           - pwsh/Catzc.Base.Variants/types/VariantTrack.cs
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-UNORDEREDTRACK
     grid:
       - cell: .claude/markdown
         by:
@@ -365,7 +365,7 @@ content:
           - .claude/plans/plan-xdr-codes.md
           - .claude/plans/value-of-plan.md
           - ADR-AUTO-GO-MODULESBYLAYOUT
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-UNORDEREDTRACK
           - PDR-CATS-CATSISPERSONNAME
           - PDR-CATS-CATZCISSOURCENAME
           - PDR-ONELIVE-HISTORYINGIT
@@ -374,10 +374,10 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - ADR-AUTO-GO-MODULESBYLAYOUT
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-UNORDEREDTRACK
           - PDR-CATS-CATSISPERSONNAME
           - PDR-CATS-CATZCISSOURCENAME
           - PDR-ONELIVE-HISTORYINGIT
@@ -442,10 +442,10 @@ content:
           - docs/references/pwsh/internal/Catzc.Internal.Loader.psm1.md
           - docs/references/pwsh/internal/Catzc.Internal.Vendor.psm1.md
           - ADR-AUTO-GO-MODULESBYLAYOUT
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-UNORDEREDTRACK
           - PDR-CATS-CATSISPERSONNAME
           - PDR-CATS-CATZCISSOURCENAME
           - PDR-ONELIVE-HISTORYINGIT
@@ -468,10 +468,10 @@ content:
           - pwsh/Catzc.Base.Variants/types/PathModule.cs
           - pwsh/Catzc.Base.Variants/types/VariantTrack.cs
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-UNORDEREDTRACK
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/powershell
         by:
@@ -507,10 +507,10 @@ content:
           - pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
           - pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
           - ADR-AUTO-GO-MODULESBYLAYOUT
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-UNORDEREDTRACK
           - PDR-ONELIVE-HISTORYINGIT
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/yaml
@@ -527,10 +527,10 @@ content:
           - pwsh/Catzc.Base.Variants/configs/track-types.yml
           - pwsh/Catzc.Base.Variants/configs/variants.yml
           - ADR-AUTO-GO-MODULESBYLAYOUT
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-UNORDEREDTRACK
           - PDR-CATS-CATSISPERSONNAME
           - PDR-CATS-CATZCISSOURCENAME
           - PDR-ONELIVE-HISTORYINGIT
@@ -560,10 +560,10 @@ content:
           - PDR-CATS-CATZCISSOURCENAME
       - cell: DSGN/*
         by:
-          - ADR-DSGN-TRACK-DEPLOYABLEUNIT
-          - ADR-DSGN-TRACK-ONETECHSTACK
-          - ADR-DSGN-TRACK-TRACKISPLACEDCLUSTER
-          - ADR-DSGN-TRACK-UNORDEREDTRACK
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-TRACKISPLACEDCLUSTER
+          - DDR-TRACK-UNORDEREDTRACK
       - cell: AUTO/quality-control
         by:
           - ADR-AUTO-GO-MODULESBYLAYOUT

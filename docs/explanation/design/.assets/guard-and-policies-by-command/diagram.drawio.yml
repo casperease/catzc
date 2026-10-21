@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "80bd8cfe8516"
+#     with_body_sha: "7534b1d8d77e"
 # ---
 
 description:
@@ -9,8 +9,8 @@ description:
   an admin syncs the server's branch policies with one command and lists what the server holds.
 about:
   adrs:
-    - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-    - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+    - DDR-REMOTE-INTEGRATEFROMVERIFIED
+    - DDR-REMOTE-PULLREQUESTISINGRESS
   lens: operations
 content:
   title: A person turns on the local guard with one variant; an admin syncs the server policies with one command
@@ -94,41 +94,41 @@ content:
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
       - cell: docs/-/.
         by:
           - docs/adr/design/dora-explains.md
           - docs/adr/design/server-remote-integration.md
           - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
           - docs/adr/index.md
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
       - cell: subject/pipelines
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
     axis:
       - cell: DSGN/build
         by:
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
       - cell: DSGN/quality-control
         by:
-          - ADR-DSGN-REMOTE-INTEGRATEFROMVERIFIED
-          - ADR-DSGN-REMOTE-PULLREQUESTISINGRESS
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - DDR-REMOTE-PULLREQUESTISINGRESS
 layout:
   band-clone:
     x: 20

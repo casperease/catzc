@@ -4,11 +4,11 @@
 
 ### Rule ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE
 
-A module of a deployable track ([ADR-DSGN-TRACKTYPE-ONEROLE](../design/track-types.md#rule-adr-dsgn-tracktype-onerole)) is resolved through
+A module of a deployable track ([DDR-TRACKTYPE-ONEROLE](../design/track-types.md#rule-ddr-tracktype-onerole)) is resolved through
 the track that holds it, by one resolver, `Get-CatzcModule`. The track is the one the longest place names
-([ADR-DSGN-TRACKTYPE-LONGESTPLACEWINS](../design/track-types.md#rule-adr-dsgn-tracktype-longestplacewins)); the module's root is a place of
+([DDR-TRACKTYPE-LONGESTPLACEWINS](../design/track-types.md#rule-ddr-tracktype-longestplacewins)); the module's root is a place of
 that track plus the module's name; its module type is one the track type admits
-([ADR-DSGN-MODTYPE-TRACKTYPEADMITSMODULETYPES](../design/module-types.md#rule-adr-dsgn-modtype-tracktypeadmitsmoduletypes)). The resolver
+([DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES](../design/module-types.md#rule-ddr-modtype-tracktypeadmitsmoduletypes)). The resolver
 returns, for each module, its name, track, root, shape (a folder or one file), files, languages and engines, as one native type. No other
 command derives a module's name, root, languages or engines from a path or a folder listing, and no command spells a track's root: it reads
 the track. A place whose modules are internal declares `internal: true` in `module-types.yml` (public is the default on the type); the
@@ -24,7 +24,7 @@ declared once under each file language in `languages.yml`, with its default on t
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). A module's name, track, root, shape,
 files, languages and order are derived from placement; its needs (`dependencies.yml`), packages (`files.yml`) and an engine override are the
 only facts declared, and a module's existence is never declared. A file inside a module folder that the layout does not place is a finding.
-The aspects ([ADR-DSGN-ASPECT-ASPECTSAREDERIVED](../design/module-aspects.md#rule-adr-dsgn-aspect-aspectsarederived)) read their live
+The aspects ([DDR-ASPECT-ASPECTSAREDERIVED](../design/module-aspects.md#rule-ddr-aspect-aspectsarederived)) read their live
 patterns from the layout and every command that reads a module's folders reads the layout, except the loader that runs before the types
 load, which a test holds to the layout.
 
@@ -33,8 +33,8 @@ load, which a test holds to the layout.
 ### Rule ADR-AUTO-MODULE-LANGUAGESFROMFILES
 
 A module's languages are the file languages of its live files, and each must be one the track declares
-([ADR-DSGN-TRACK-FILELANGUAGE](../design/tracks.md#rule-adr-dsgn-track-filelanguage)); a file in another language is a stack violation
-([ADR-DSGN-TRACK-STACKVIOLATION](../design/tracks.md#rule-adr-dsgn-track-stackviolation)). Languages are modelled in general, whatever they
+([DDR-TRACK-FILELANGUAGE](../design/tracks.md#rule-ddr-track-filelanguage)); a file in another language is a stack violation
+([DDR-TRACK-STACKVIOLATION](../design/tracks.md#rule-ddr-track-stackviolation)). Languages are modelled in general, whatever they
 are: a track admits a language by declaring it, and the Go, Python and Bash rules say what each language's track holds beyond its modules.
 The formatter, the checks and the test handler of a file language are declared once per language in `languages.yml`, and a command that
 needs them reads them there ([PDR-CONFIG](../principles/configure-not-program.md)).
@@ -96,9 +96,9 @@ language is registry entries, a track in `variants.yml`, a module type with its 
 
 ## Context
 
-`ADR-AUTO-MODULE` sits under [ADR-DSGN-TRACK](../design/tracks.md): it cites `ADR-DSGN-TRACK`,
-[ADR-DSGN-TRACKTYPE](../design/track-types.md) and [ADR-DSGN-MODTYPE](../design/module-types.md) as the rules it specialises. A track is the
-repository's root entity, a deployable track ([ADR-DSGN-TRACKTYPE-ONEROLE](../design/track-types.md#rule-adr-dsgn-tracktype-onerole)) holds
+`ADR-AUTO-MODULE` sits under [DDR-TRACK](../design/tracks.md): it cites `DDR-TRACK`,
+[DDR-TRACKTYPE](../design/track-types.md) and [DDR-MODTYPE](../design/module-types.md) as the rules it specialises. A track is the
+repository's root entity, a deployable track ([DDR-TRACKTYPE-ONEROLE](../design/track-types.md#rule-ddr-tracktype-onerole)) holds
 modules, and the module types say what each sort of module is. Those three decide what a track, a module and a module type are; this ADR
 decides how the modules of a deployable track are found and what a reader can ask of one. It restates none of the three. It sits in the
 `automation` domain because the domain order lets `automation` cite `design` and not the other way round.
@@ -131,7 +131,7 @@ module. The existence of a module is the one fact no config states.
 
 ### Languages
 
-The file languages are a registry keyed by extension ([ADR-DSGN-TRACK-FILELANGUAGE](../design/tracks.md#rule-adr-dsgn-track-filelanguage));
+The file languages are a registry keyed by extension ([DDR-TRACK-FILELANGUAGE](../design/tracks.md#rule-ddr-track-filelanguage));
 a module's languages are read from its files through it, so no module lists its own. Keeping the language axis general lets a track admit a
 language by a line of config; the track's declared languages are what stops a stray one.
 

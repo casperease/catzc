@@ -5,6 +5,12 @@ catzc:
     with_body_sha: "2ff56717e7e7"
   edges:
     docs: "[SpellOutIdentifiers.psm1.md](docs/references/pwsh/scriptanalyzer/SpellOutIdentifiers.psm1.md)"
+    cites:
+      - ADR-AUTO-SPELL-FULLWORDIDENTIFIERS
+      - ADR-AUTO-SPELL-IDENTIFIERSNOTDATA
+      - ADR-AUTO-SPELL-CATEGORYANDMEANING
+      - ADR-AUTO-SPELL-FLAGGEDTOKENREVIEWED
+      - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cffefedbcf3e
+    with_body_sha: "0ffed4c09a6d"
   edges:
     code: pwsh/Catzc.Base.Modules/Get-CatzcModule.ps1
     cites:
@@ -12,7 +12,7 @@ catzc:
       - ADR-AUTO-MODULE-ENGINESUBSET
       - ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE
       - ADR-AUTO-TEST
-      - ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT
+      - DDR-MODTYPE-MODULEISPLACEDUNIT
 ---
 #>
 
@@ -193,7 +193,7 @@ Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKM
     }
 }
 
-Describe 'Get-CatzcModule on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE', 'ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT' {
+Describe 'Get-CatzcModule on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE', 'DDR-MODTYPE-MODULEISPLACEDUNIT' {
     BeforeAll {
         $script:modules = @(Get-CatzcModule)
         $script:codeTrack = Get-Track -Path (Get-CatzcModulesFolder)
@@ -228,7 +228,7 @@ Describe 'Get-CatzcModule on the repository' -Tag 'L1', 'integrity', 'ADR-AUTO-M
         }
     }
 
-    It 'resolves every template folder and every Bicep module file of the infrastructure track' -Tag 'ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT' {
+    It 'resolves every template folder and every Bicep module file of the infrastructure track' -Tag 'DDR-MODTYPE-MODULEISPLACEDUNIT' {
         $root = Get-RepositoryRoot
         $templates = @([System.IO.Directory]::EnumerateDirectories((Join-Path $root 'infrastructure/templates')).ForEach({ [System.IO.Path]::GetFileName($_) }))
         $bicepModules = @([System.IO.Directory]::EnumerateFiles((Join-Path $root 'infrastructure/modules'), '*.bicep').ForEach({ [System.IO.Path]::GetFileNameWithoutExtension($_) }))

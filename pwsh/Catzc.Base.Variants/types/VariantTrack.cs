@@ -2,13 +2,13 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8d7eab15115e"
+    with_body_sha: "96dc5fbdf0b6"
   edges:
     docs: "[VariantTrack.cs.md](docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-      - ADR-DSGN-TRACK
-      - ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES
+      - DDR-TRACK
+      - DDR-TRACKTYPE-CLOSEDSETOFTYPES
 ---
 */
 
@@ -27,7 +27,7 @@ public sealed class VariantTrack
     // The places the track covers: repository-relative paths with '/' separators (e.g. pwsh, .github/workflows).
     public IReadOnlyList<string> places { get; }
 
-    // The track's type: the id of a track type of the track-types registry ([ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES](/docs/adr/design/track-types.md#rule-adr-dsgn-tracktype-closedsetoftypes)).
+    // The track's type: the id of a track type of the track-types registry ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](/docs/adr/design/track-types.md#rule-ddr-tracktype-closedsetoftypes)).
     public string type { get; }
 
     // The vendor that reads the track's files, or null when the track has none.

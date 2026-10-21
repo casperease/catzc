@@ -8,7 +8,7 @@ catzc:
     docs: "[Clear-ModuleTypeCache.ps1.md](docs/references/pwsh/catzc-base-types-system/Clear-ModuleTypeCache.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
-      - ADR-DSGN-RUNMODE
+      - DDR-RUNMODE
 ---
 #>
 

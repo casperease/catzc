@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "00fb975f5db8"
+#     with_body_sha: b0fc3d41f16f
 # ---
 
 description:
@@ -10,12 +10,12 @@ description:
   main-UAT, is taken by nobody."
 about:
   adrs:
-    - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-    - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-    - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-    - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-    - ADR-FLOW-CD-TWORELEASEGATES
-    - ADR-FLOW-CD-PREPRODRUNG
+    - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-CD-LIFE-DIRTYHEADUNSAFE
+    - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-CD-TWORELEASEGATES
+    - FDR-CD-PREPRODRUNG
   lens: architecture
 content:
   title: Upstream integrators sync from the BVT-verified head, never from the tip of main
@@ -121,21 +121,21 @@ content:
       - cell: .claude/.claude/.
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: docs/-/.
         by:
           - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
@@ -154,92 +154,92 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Flow/tests/types
         by:
           - pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
-          - ADR-FLOW-CD-PREPRODRUNG
+          - FDR-CD-PREPRODRUNG
       - cell: pwsh/Catzc.Base.Flow/types
         by:
           - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Maps/tests
         by:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.ModuleSystem/configs
         by:
           - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
     grid:
       - cell: .claude/markdown
         by:
           - .claude/CLAUDE.md
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: ado-pipelines/pipeline-yaml
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: docs/markdown
         by:
           - docs/adr/flow/cd-discipline-and-promotion-flow.md
@@ -256,30 +256,30 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: docs/yaml
         by:
           - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
           - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
           - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/powershell
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -288,52 +288,52 @@ content:
           - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: pwsh/yaml
         by:
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
           - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
     axis:
       - cell: DSGN/build
         by:
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: DSGN/quality-control
         by:
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: DSGN/release
         by:
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
       - cell: DSGN/deploy
         by:
-          - ADR-FLOW-CD-LIFE-DIRTYHEADUNSAFE
-          - ADR-FLOW-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - ADR-FLOW-CD-LIFE-SYNCFROMVERIFIEDHEAD
-          - ADR-FLOW-CD-PREPRODRUNG
-          - ADR-FLOW-CD-TWORELEASEGATES
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
 layout:
   band-external:
     x: 20

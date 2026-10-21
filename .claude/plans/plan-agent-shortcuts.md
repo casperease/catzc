@@ -22,8 +22,7 @@ names the checked-in runner.
 
 - **The gate runner is a repo asset**: one checked-in entry script under `pwsh/.internal/assets/`, beside `Import-ModuleFiles.ps1`, that
   dot-sources the importer, runs each named command with its arguments, prints each verdict and goes on past a failure. It is the one way a
-  gate runs in a background call: `.claude/CLAUDE.md:151` (which advises a `;` command the safeguard forbids) changes with it
-  (PDR-ONELIVE).
+  gate runs in a background call: `.claude/CLAUDE.md:151` (which advises a `;` command the safeguard forbids) changes with it (PDR-ONELIVE).
 
 ## Open steps
 

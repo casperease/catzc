@@ -7,8 +7,8 @@ catzc:
     docs: "[WorldMapGridLayout.cs.md](docs/references/pwsh/catzc-base-maps/types/WorldMapGridLayout.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-      - ADR-DSGN-TRACK-ROOTFILE
-      - ADR-DSGN-TRACK-UNLISTEDFILE
+      - DDR-TRACK-ROOTFILE
+      - DDR-TRACK-UNLISTEDFILE
 ---
 */
 

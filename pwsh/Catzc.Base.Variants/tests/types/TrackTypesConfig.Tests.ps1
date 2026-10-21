@@ -2,15 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f1e97f041b13
+    with_body_sha: "457bb2b65e8c"
   edges:
     code: pwsh/Catzc.Base.Variants/types/TrackTypesConfig.cs
     cites:
-      - ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES
+      - DDR-TRACKTYPE-CLOSEDSETOFTYPES
 ---
 #>
 
-Describe 'TrackTypesConfig' -Tag 'L0', 'logic', 'ADR-DSGN-TRACKTYPE-CLOSEDSETOFTYPES' {
+Describe 'TrackTypesConfig' -Tag 'L0', 'logic', 'DDR-TRACKTYPE-CLOSEDSETOFTYPES' {
     BeforeAll {
         function script:New-Config {
             param($Types, $Vendors)

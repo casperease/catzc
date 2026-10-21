@@ -12,7 +12,7 @@ Two code roots feed one importer, which loads the same modules.
 7  Catzc.* modules               the same modules in both modes, one script scope each
 8  Catzc.Base.Repository         hands each module the code root it finds its files under
 
-Supports ADR-DSGN-RUNMODE-TWORUNMODES, ADR-DSGN-RUNMODE-SAMEMODULEINBOTH, ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE and ADR-DSGN-RUNMODE-THREEBUILDKINDS (architecture lens).
+Supports DDR-RUNMODE-TWORUNMODES, DDR-RUNMODE-SAMEMODULEINBOTH, DDR-RUNMODE-OWNSCRIPTSCOPE and DDR-RUNMODE-THREEBUILDKINDS (architecture lens).
 ```
 
 The two run modes of cats differ only in where the code root sits: source mode loads straight from the repository, and build mode loads from
@@ -48,11 +48,11 @@ build is a second run mode of the same modules, and not a second product.
 ## Why it holds
 
 - Cats runs in exactly two modes: source mode loads from `pwsh/` and is entered by `importer.ps1`, and build mode loads from a built package
-  and is entered by its `Import-Catzc.ps1` (ADR-DSGN-RUNMODE-TWORUNMODES).
-- Every module works in both modes and is the same module in both; only its form on disk differs (ADR-DSGN-RUNMODE-SAMEMODULEINBOTH).
-- The package `Catzc` is a container, not a scope, so no module ever shares `$script:` state with another (ADR-DSGN-RUNMODE-OWNSCRIPTSCOPE).
+  and is entered by its `Import-Catzc.ps1` (DDR-RUNMODE-TWORUNMODES).
+- Every module works in both modes and is the same module in both; only its form on disk differs (DDR-RUNMODE-SAMEMODULEINBOTH).
+- The package `Catzc` is a container, not a scope, so no module ever shares `$script:` state with another (DDR-RUNMODE-OWNSCRIPTSCOPE).
 - Build mode has three kinds of root, told apart by where the code root lives, and every kind loads through the same importer
-  (ADR-DSGN-RUNMODE-THREEBUILDKINDS). A NuGet package from `Export-Catzc -To nuget` is a distribution file, not a code root, until it is
+  (DDR-RUNMODE-THREEBUILDKINDS). A NuGet package from `Export-Catzc -To nuget` is a distribution file, not a code root, until it is
   installed or saved.
 
 ## See also

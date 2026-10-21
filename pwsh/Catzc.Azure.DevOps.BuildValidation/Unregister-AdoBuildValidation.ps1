@@ -8,7 +8,7 @@ catzc:
     docs: "[Unregister-AdoBuildValidation.ps1.md](docs/references/pwsh/catzc-azure-dev-ops-build-validation/Unregister-AdoBuildValidation.ps1.md)"
     cites:
       - ADR-AUTO-IDEM-ALREADYDONEISFINE
-      - ADR-FLOW-CD-GLOBS
+      - FDR-CD-GLOBS
 ---
 #>
 
