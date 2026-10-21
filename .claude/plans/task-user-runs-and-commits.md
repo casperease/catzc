@@ -29,7 +29,12 @@ final full run last.
    `Test-IdiomaticNames` no longer lists the old folders.
 5. Cut `.claude/CLAUDE.md`, section Sub-agents, to the agent names and one clause each (plan-claude-diet.md step 1). Check:
    `Test-AgentDefinitions` passes and `wc -c .claude/CLAUDE.md` is at most 11900.
-6. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+6. Commit the two BCL folder moves (plan-bcl-language.md): `docs/references/BCL/` and `docs/how-to/getting-started/BCL/` added, the old
+   `docs/references/pwsh/BCL/` and `docs/how-to/getting-started/pwsh/BCL/` deleted. Check: `Test-Links` on both folders reports no
+   `[Untracked]` issue.
+7. Edit `.claude/CLAUDE.md`, section Project structure: one line saying the `types/*.cs` files are written in BCL, a subset of .NET, hosted
+   by pwsh (plan-bcl-language.md, the CLAUDE.md step). Check: `Test-AgentDefinitions` passes.
+8. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
    every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

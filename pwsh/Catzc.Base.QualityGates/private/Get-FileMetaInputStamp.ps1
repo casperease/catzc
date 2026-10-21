@@ -37,7 +37,6 @@ function Get-FileMetaInputStamp {
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
-    $comments = Get-Config -Config comments
     $edgeKinds = @($Config.Imprint() | Where-Object { $_.settings.ContainsKey('relations') })
     $parts = [ordered]@{}
     foreach ($path in $File) {
@@ -45,7 +44,7 @@ function Get-FileMetaInputStamp {
         $relative = [System.IO.Path]::GetRelativePath($root, $full) -replace '\\', '/'
         $fileParts = [System.Collections.Generic.List[string]]::new()
         # The page's text is read for the cites; a relation's candidate counts by whether it is on disk.
-        $page = $comments.PageFor($relative)
+        $page = Get-CommentPage -Path $relative
         if ($page) {
             $pagePath = [System.IO.Path]::Combine($root, $page)
             $pageHash = if ([System.IO.File]::Exists($pagePath)) {

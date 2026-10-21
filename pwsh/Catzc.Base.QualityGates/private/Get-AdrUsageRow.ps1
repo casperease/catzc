@@ -55,7 +55,7 @@ function Get-AdrUsageRow {
         @()
     }
     else {
-        @([Catzc.Base.QualityGates.DocumentLinks]::Of($state.Body, $Path, (Get-Config -Config comments).PageFor($Path)))
+        @([Catzc.Base.QualityGates.DocumentLinks]::Of($state.Body, $Path, (Get-CommentPage -Path $Path)))
     }
 
     foreach ($citation in $adrs) {

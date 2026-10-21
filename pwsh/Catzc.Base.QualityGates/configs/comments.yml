@@ -36,24 +36,6 @@ keep_run:
   csharp: ["// catzc:"]
   bicep: ["// catzc:"]
 
-pages:
-  - source: pwsh/*
-    docs: docs/references/pwsh/{kebab}
-  - source: .ado/pipelines
-    docs: docs/references/ado/pipelines
-  - source: infrastructure
-    docs: docs/references/infrastructure
-  - source: .claude/hooks
-    docs: docs/references/pwsh/claude-hooks
-  - source: python/*
-    docs: docs/references/python/{kebab}
-  - source: .github/workflows
-    docs: docs/references/github/workflows
-  - source: pwsh/.scriptanalyzer
-    docs: docs/references/pwsh/scriptanalyzer
-  - source: pwsh/.internal
-    docs: docs/references/pwsh/internal
-
 exclude:
   asset: an asset is copied or published verbatim elsewhere, where a page of this repository would be foreign
   fixture/input: a test's input is read by the test, verbatim

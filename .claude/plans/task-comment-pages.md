@@ -49,10 +49,10 @@ only after every caller has moved, so no session's import path breaks in between
     `tests/Invoke-ImprintStep.Tests.ps1`.
 11. `pwsh/Catzc.Base.QualityGates/private/Move-FunctionHelp.ps1:49` calls `Get-CommentPage`. Check: `Invoke-TestFile` on
     `tests/Move-FunctionHelp.Tests.ps1`.
-12. `pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs` and `configs/comments.yml`, after every caller has moved: `pages`,
-    `DefaultPages` and `PageFor` deleted, and the `pages` cases leave `tests/types/CommentsConfig.Tests.ps1`;
-    `tests/Format-FileMeta.Tests.ps1:71` builds `CommentPagesConfig` instead, and `configs/source-conventions.yml:78-79` names
-    `CommentPagesConfig.DefaultPages`. Check: in a fresh `pwsh`, `Invoke-TestFile` on both test files.
+12. `pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs` and `configs/comments.yml`, after every caller has moved: `pages`, `DefaultPages`
+    and `PageFor` deleted, and the `pages` cases leave `tests/types/CommentsConfig.Tests.ps1`; `tests/Format-FileMeta.Tests.ps1:71` builds
+    `CommentPagesConfig` instead, and `configs/source-conventions.yml:78-79` names `CommentPagesConfig.DefaultPages`. Check: in a fresh
+    `pwsh`, `Invoke-TestFile` on both test files.
 13. `pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1`: the `docs` edge derived with `Get-CommentPage`, written by the same
     `[{leaf}]({path})` template. Check: `Invoke-TestFile` on `pwsh/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1` with a
     case for a generated file that has a page.

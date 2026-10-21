@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6a8f4aed0756"
+    with_body_sha: "0c3d94c8590a"
   edges:
     code: pwsh/Catzc.Base.Languages/types/BclConfig.cs
     cites:
@@ -22,6 +22,14 @@ Describe 'BclConfig' -Tag 'L0' {
         It 'loads the shipped bcl.yml as a BclConfig with the Debug on Any CPU pair' {
             $script:config | Should -BeOfType [Catzc.Base.Languages.BclConfig]
             $script:config.SolutionPair() | Should -BeExactly 'Debug|Any CPU'
+        }
+
+        It 'binds only type sources that exist, each to the pwsh host' {
+            $modules = Get-CatzcModulesRoot
+            foreach ($binding in $script:config.host_bindings) {
+                Join-Path $modules $binding.file | Should -Exist
+                $binding.host | Should -BeExactly 'pwsh'
+            }
         }
 
         It 'finds the tracked solutions and projects' {
@@ -87,6 +95,41 @@ Describe 'BclConfig' -Tag 'L0' {
         It 'rejects an unknown key and an invalid name, naming each' {
             { [Catzc.Base.Languages.BclConfig]::new([ordered]@{ widget = 'x'; configuration = 'Debug|x64'; platform = 7 }) } |
                 Should -Throw -ExpectedMessage "*unknown key 'widget'*invalid configuration 'Debug|x64'*invalid platform '7'*"
+        }
+
+        It 'has no host bindings by default' {
+            [Catzc.Base.Languages.BclConfig]::new([ordered]@{}).host_bindings.Count | Should -Be 0
+        }
+
+        It 'maps the host bindings in ordinal file order and finds one by file' {
+            $config = [Catzc.Base.Languages.BclConfig]::new([ordered]@{
+                    host_bindings = @(
+                        [ordered]@{ file = 'Catzc.Base.Widgets/types/Widget.cs'; host = 'pwsh'; reason = 'Parses scripts.' }
+                        [ordered]@{ file = 'Catzc.Base.Gadgets/types/Gadget.cs'; host = 'pwsh'; reason = ' Wraps a pipeline. ' }
+                    )
+                })
+            @($config.host_bindings.file) | Should -Be @('Catzc.Base.Gadgets/types/Gadget.cs', 'Catzc.Base.Widgets/types/Widget.cs')
+            $config.host_bindings[0].reason | Should -BeExactly 'Wraps a pipeline.'
+            $config.HostBindingOf('Catzc.Base.Widgets/types/Widget.cs').host | Should -BeExactly 'pwsh'
+            $config.HostBindingOf('Catzc.Base.Widgets/types/Other.cs') | Should -BeNullOrEmpty
+        }
+
+        It 'rejects a host binding without its reason, a bad file or host, and a file bound twice, naming each row' {
+            $raw = [ordered]@{
+                host_bindings = @(
+                    [ordered]@{ file = 'Catzc.Base.Widgets/types/Widget.cs'; host = 'pwsh' }
+                    [ordered]@{ file = 'widget.cs'; host = 'Pwsh!'; reason = 'x' }
+                    [ordered]@{ file = 'Catzc.Base.Gadgets/types/Gadget.cs'; host = 'pwsh'; reason = 'x' }
+                    [ordered]@{ file = 'Catzc.Base.Gadgets/types/Gadget.cs'; host = 'pwsh'; reason = 'y' }
+                )
+            }
+            { [Catzc.Base.Languages.BclConfig]::new($raw) } | Should -Throw -ExpectedMessage (
+                "*host_bindings``[0``]: a host binding needs its reason*host_bindings``[1``]: invalid file 'widget.cs'*" +
+                "host_bindings``[1``]: invalid host 'Pwsh!'*host_bindings``[3``]: 'Catzc.Base.Gadgets/types/Gadget.cs' is bound twice*")
+        }
+
+        It 'rejects host_bindings that is not a list' {
+            { [Catzc.Base.Languages.BclConfig]::new([ordered]@{ host_bindings = 'widget' }) } | Should -Throw -ExpectedMessage '*invalid host_bindings*'
         }
     }
 }

@@ -1,0 +1,52 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "747ea729cafa"
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Test-BclReferences.Tests.ps1
+---
+#>
+
+function Test-BclReferences {
+    [CmdletBinding()]
+    [OutputType([Catzc.Base.Reports.QualityGateResult])]
+    param(
+        [string] $ModulesRoot = (Get-CatzcModulesRoot),
+
+        [string] $OutputFolder,
+
+        [switch] $PassThru
+    )
+
+    $config = Get-Config -Config bcl
+    $hostUsing = [regex]::new('^\s*using\s+(static\s+)?System\.Management\.Automation\b', 'Multiline')
+    $issues = [System.Collections.Generic.List[string]]::new()
+    $bound = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    $sources = @(Get-ChildPath $ModulesRoot -Depth 3 -File -Filter '*.cs' -PruneVendor $true | Where-Object {
+            [System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName($_)) -ceq 'types' -and
+            -not [System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($_))).StartsWith('.')
+        })
+
+    foreach ($source in $sources) {
+        $module = [System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($source)))
+        $file = "$module/types/$([System.IO.Path]::GetFileName($source))"
+        if (-not $hostUsing.IsMatch([System.IO.File]::ReadAllText($source))) {
+            continue
+        }
+        [void]$bound.Add($file)
+        if ($null -eq $config.HostBindingOf($file)) {
+            $issues.Add("${file}: uses System.Management.Automation without a host binding in bcl.yml — move the host work to its pwsh caller, or add the row with its reason")
+        }
+    }
+
+    foreach ($binding in $config.host_bindings) {
+        if (-not $bound.Contains($binding.file)) {
+            $issues.Add("bcl.yml $($binding.file): binds a type source that does not use System.Management.Automation — remove the row")
+        }
+    }
+
+    Write-QualityGateReport -Subject 'bcl-references' -Title 'Test-BclReferences' -Issues $issues `
+        -Facts ([ordered]@{ Sources = $sources.Count; HostBound = $bound.Count; Rows = $config.host_bindings.Count }) `
+        -OutputFolder $OutputFolder -PassThru:$PassThru
+}

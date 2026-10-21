@@ -17,11 +17,7 @@ Describe 'Move-FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP-HELPONCOMMENTPAG
         Remove-Item -LiteralPath $script:widgetRoot -Recurse -Force -ErrorAction Ignore
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'widgets/Catzc.Widget')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot $script:codePath), $script:headed)
-        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'comments' } {
-            $comments = [pscustomobject]@{}
-            $comments | Add-Member -MemberType ScriptMethod -Name PageFor -Value { param($Path) "docs/references/$Path.md" }
-            $comments
-        }
+        Mock Get-CommentPage -ModuleName Catzc.Base.QualityGates { "docs/references/$Path.md" }
     }
 
     It 'writes the help onto a fresh page and leaves the head its facts without the config part' {

@@ -29,7 +29,7 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
                 Mock Get-RepositoryRoot { $mockRoot }
                 # The fixture modules live under widgets/, which is no track of the shipped registry; the resolver's own tests prove the real rule.
                 Mock Get-PathModule { [pscustomobject]@{ name = (($Path -replace '\\', '/') -split '/')[1]; type = 'widget-folder' } }
-                Mock Get-Config { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ pages = @(@{ source = 'widgets/*'; docs = 'docs/{kebab}' }) }) }
+                Mock Get-CommentPage { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @(@{ source = 'widgets/*'; docs = 'docs/{kebab}' }) }).PageFor($Path) }
                 # An edge no rule fills is an empty string, which the block leaves out; these cases look at the edges that are there.
                 $edges = Get-RelativeEdgesFileMetaFact -State ([pscustomobject]@{}) -Path $Path -Kind $Kind
                 $found = [ordered]@{}
@@ -80,7 +80,7 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
             $mockRoot = $Root
             Mock Get-RepositoryRoot { $mockRoot }
             Mock Get-PathModule { [pscustomobject]@{ name = 'Catzc.Gadget'; type = 'widget-folder' } }
-            Mock Get-Config { [Catzc.Base.QualityGates.CommentsConfig]::new(@{ pages = @(@{ source = 'widgets/*'; docs = 'docs/{kebab}' }) }) }
+            Mock Get-CommentPage { [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{ pages = @(@{ source = 'widgets/*'; docs = 'docs/{kebab}' }) }).PageFor($Path) }
             Get-RelativeEdgesFileMetaFact -State ([pscustomobject]@{}) -Path 'widgets/Catzc.Gadget/Get-Alone.ps1' -Kind $Kind
         }
         @($edges.Keys) | Should -Be @('docs', 'test', 'source')

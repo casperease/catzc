@@ -6,8 +6,8 @@ plan:
   class: feature
   targets:
     [
-      docs/references/pwsh/BCL,
-      docs/how-to/getting-started/pwsh/BCL,
+      docs/references/BCL,
+      docs/how-to/getting-started/BCL,
       docs/how-to/pwsh/manual-test-plan/csharp-types.md,
       docs/adr/automation/BCL/native-csharp-types.md,
       docs/adr/automation/BCL/index.md,
@@ -62,24 +62,10 @@ host (or a reader of a bundle) needs before the types can be reasoned about apar
 
 ## Open steps
 
-The doc moves go first.
+The doc moves landed (2026-10-21; `docs/how-to/pwsh/manual-test-plan/csharp-types.md` stays, since it tests the pwsh hosting). Their commits
+are the user's, in task-user-runs-and-commits. The ADR rule `ADR-AUTO-TYPES-BCLREFERENCESET` landed with the two narrowed `ADR-PWSH-TYPES`
+rules; its "How this is enforced" line comes with `Test-BclReferences` below.
 
-- [ ] `docs/references/pwsh/BCL/` → `docs/references/BCL/` (both pages, moved on disk): reword "the host-guaranteed assemblies" to the BCL
-      language with pwsh as its host, and re-point each relative link one level up (check: `Test-Links` on both pages).
-- [ ] `docs/how-to/getting-started/pwsh/BCL/` → `docs/how-to/getting-started/BCL/` (both pages, moved on disk): re-point relative links
-      (check: `Test-Links` on both pages).
-- [ ] `docs/how-to/pwsh/manual-test-plan/csharp-types.md`: decide by reading it whether it tests the pwsh hosting (stays) or the language
-      (moves to `docs/how-to/BCL/manual-test-plan/`); record the verdict here (check: `Test-Links` on the page).
-- [ ] `docs/index.md`, `docs/how-to/getting-started/automation/index.md`, `docs/how-to/getting-started/pwsh/add-a-module.md`,
-      `docs/how-to/getting-started/pwsh/debug-in-vscode.md`, `docs/references/pwsh/index.md`: re-point the links into the moved folders, one
-      file at a time; `references/pwsh/index.md` keeps one line pointing at the BCL reference as the language its loaders host (check:
-      `Test-Links` per file).
-- [ ] `docs/adr/automation/BCL/index.md`: say BCL is a language, a subset of .NET, hosted by pwsh, and name the two ADRs (language, hosting)
-      (check: `Test-Links`, `Test-Markdownlint`).
-- [ ] `docs/adr/automation/BCL/native-csharp-types.md`: a rule stating the BCL reference set — the BCL only, a host binding only as its
-      configured exception; the host-binding section names the language and its host apart (check: `Test-AdrIndex`, `Test-Links`).
-- [ ] `docs/adr/automation/pwsh/hosting-csharp-types.md`: narrow `ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES` and
-      `ADR-PWSH-TYPES-POWERSHELLPRIMITIVES` to "the BCL language, plus SMA for a configured host binding" (check: `Test-AdrIndex`).
 - [ ] `pwsh/Catzc.Base.Languages/configs/bcl.yml` and `pwsh/Catzc.Base.Languages/types/BclConfig.cs`, which exist with the build pair: add
       one row per host-bound file with its reason, beside `configuration` and `platform`. Today 12 `types/*.cs` files have
       `using System.Management.Automation`; the seven that stay host-bound after the unwraps below are its rows: `GlossaryProse.cs`,
@@ -92,7 +78,7 @@ The doc moves go first.
       `pwsh/Catzc.Base.Contracts/types/ContractValue.cs`, then `pwsh/Catzc.Base.Maps/types/ValueChainHighlight.cs`, `ValueChainMap.cs`,
       `WorldMapBuilder.cs` and `WorldMapHighlight.cs` (check: the owning module's Pester files after each, then a fresh full import).
 - [ ] `pwsh/Catzc.Base.Docs/configs/adrs.yml` and `docs/adr/index.md`: the `bcl` domain and its table; `automation/`'s description stops
-      listing `BCL/` as a language layer (check: `Test-AdrIndex`).
+      listing `BCL/` as a language layer (check: `Test-AdrRegistry`).
 - [ ] Re-cite `ADR-AUTO-TYPES-*` → `ADR-BCL-TYPES-*` with `Update-AdrCitation`, dry run first; the dry run lists
       `ADR-AUTO-TYPES-DEBUGANYCPU` too, cited in the head of `BclConfig.cs`, the three `.csproj` comments and the
       `Invoke-BuildForVSCode.ps1.md` page (check: `Test-AdrRegistry`, which runs the citation graph).

@@ -20,11 +20,7 @@ Describe 'Get-AdrUsageRow' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
 
     BeforeEach {
         Mock Get-AdrCitationMap -ModuleName Catzc.Base.QualityGates { $script:map }
-        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'comments' } {
-            $comments = [pscustomobject]@{}
-            $comments | Add-Member -MemberType ScriptMethod -Name PageFor -Value { $null }
-            $comments
-        }
+        Mock Get-CommentPage -ModuleName Catzc.Base.QualityGates { }
     }
 
     It 'gives one row per rule a Markdown file''s text cites, under its ADR' {

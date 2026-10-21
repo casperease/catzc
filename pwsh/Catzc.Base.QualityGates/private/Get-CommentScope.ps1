@@ -72,7 +72,7 @@ function Get-CommentScope {
         if ($config.IsExcluded($fileKinds.Resolve($file).Class)) {
             continue
         }
-        $page = $config.PageFor($file)
+        $page = Get-CommentPage -Path $file
         if (-not $page) {
             continue
         }

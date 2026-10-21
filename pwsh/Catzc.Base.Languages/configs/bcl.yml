@@ -1,9 +1,30 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: ca3d163bab05
+#     with_body_sha: "2a50a32baf54"
 #   edges:
 #     docs: "[bcl.yml.md](docs/references/pwsh/catzc-base-languages/configs/bcl.yml.md)"
 # ---
 
-{}
+host_bindings:
+  - file: Catzc.Base.Docs/types/GlossaryProse.cs
+    host: pwsh
+    reason: Walks the PowerShell syntax tree (CommandAst, ExpandableStringExpressionAst) to find the prose a glossary term appears in.
+  - file: Catzc.Base.Globs/types/GlobPattern.cs
+    host: pwsh
+    reason: Matches with PowerShell's WildcardPattern, so a glob means in C# exactly what it means to -Like and -Path.
+  - file: Catzc.Base.ModuleSystem/types/FunctionCallCollector.cs
+    host: pwsh
+    reason: Visits the PowerShell syntax tree (ScriptBlockAst, FunctionDefinitionAst, CommandAst) to collect the function-call edges.
+  - file: Catzc.Base.QualityGates/types/CommentLexer.cs
+    host: pwsh
+    reason: Tokenizes a script with the PowerShell Parser, so a comment is found exactly where pwsh would find it.
+  - file: Catzc.Base.Repository/types/ParsedScripts.cs
+    host: pwsh
+    reason: Parses scripts with the PowerShell Parser and caches their ScriptBlockAst and tokens.
+  - file: Catzc.Base.Repository/types/SyntaxSearch.cs
+    host: pwsh
+    reason: Searches the PowerShell syntax tree (CommandAst, FunctionDefinitionAst, VariableExpressionAst).
+  - file: Catzc.Base.Timeouts/types/PipelineWatchdog.cs
+    host: pwsh
+    reason: Watches a PowerShell pipeline of the host session and stops it when its time limit passes.

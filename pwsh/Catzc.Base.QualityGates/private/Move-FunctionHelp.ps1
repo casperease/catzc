@@ -46,7 +46,7 @@ function Move-FunctionHelp {
     $text = [System.IO.File]::ReadAllText($full)
     $form = (Get-Config -Config file-carriers).Find('powershell').Form()
     $state = Get-CodeMetaState -Text $text -Form $form
-    $page = (Get-Config -Config comments).PageFor($Path)
+    $page = Get-CommentPage -Path $Path
     $outcome = [pscustomobject]@{ Path = $Path; Page = $page; Moved = $false; Reason = $null; Text = $text; PageText = $null }
     if ($state.ConfigLines.Count -eq 0) {
         $outcome.Reason = 'the head holds no help'

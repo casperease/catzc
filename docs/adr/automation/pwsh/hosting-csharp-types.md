@@ -4,9 +4,10 @@
 
 ### Rule ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
 
-Host-guaranteed assemblies only — types reference the BCL plus `System.Management.Automation`, and nothing else. Both are in `Add-Type`'s
-default reference set, and both are loaded in every process that can load the compiled assembly, so a `using` namespace is the whole
-binding. No external packages, no NuGet.
+Host-guaranteed assemblies only — a type references the BCL language's reference set, the BCL (ADR-AUTO-TYPES-BCLREFERENCESET), plus
+`System.Management.Automation` for a type that is a configured host binding, one with its row in `bcl.yml`, and nothing else. Both are in
+`Add-Type`'s default reference set, and both are loaded in every process that can load the compiled assembly, so a `using` namespace is the
+whole binding. No external packages, no NuGet.
 
 - [The reference set](#the-reference-set)
 
@@ -32,10 +33,11 @@ runs at import.
 
 ### Rule ADR-PWSH-TYPES-POWERSHELLPRIMITIVES
 
-A type that needs a PowerShell primitive — `WildcardPattern`, `TypeAccelerators`, `PSObject` — takes it from `System.Management.Automation`
-through a `using` namespace (ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES), never through a copy of its own. The IDE project references
-`System.Management.Automation` **compile-time-only**, never copied to output, so the editor analyzes the same reference set `Add-Type`
-compiles against (ADR-AUTO-TYPES-NAMESPACEISMODULE).
+A type that needs a PowerShell primitive — `WildcardPattern`, `TypeAccelerators`, `PSObject` — is a host binding: it has its row in
+`bcl.yml` and takes the primitive from `System.Management.Automation` through a `using` namespace (ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES),
+never through a copy of its own. A value that only crosses from pwsh, such as a `PSObject` to unwrap, is unwrapped by its pwsh caller, so
+the type stays in the BCL language. The IDE project references `System.Management.Automation` **compile-time-only**, never copied to output,
+so the editor analyzes the same reference set `Add-Type` compiles against (ADR-AUTO-TYPES-NAMESPACEISMODULE).
 
 - [The reference set](#the-reference-set)
 
@@ -92,12 +94,13 @@ builds the project.
 
 `The reference set: host-guaranteed assemblies`
 
-A type may reference exactly what the host guarantees is present: the BCL and `System.Management.Automation` (SMA). The types compile and
-run exclusively inside a `pwsh` session's CLR — `Add-Type` is the only compiler, and its default reference set includes SMA alongside the
-shared framework. The compiled assembly is likewise only ever loaded by a `pwsh` process, where SMA is loaded by definition, so an SMA
-reference resolves in every process that can load the assembly at all. Using a PowerShell primitive from C# — `WildcardPattern`,
-`TypeAccelerators`, `PSObject` — therefore costs a `using` namespace and nothing more: no package, no assembly hint, no build step. That is
-what "host-guaranteed" means: the reference is satisfied by the same host that makes the type reachable in the first place.
+A type may reference exactly what the host guarantees is present: the BCL, which is the BCL language's whole reference set, and
+`System.Management.Automation` (SMA) for a configured host binding. The types compile and run exclusively inside a `pwsh` session's CLR —
+`Add-Type` is the only compiler, and its default reference set includes SMA alongside the shared framework. The compiled assembly is
+likewise only ever loaded by a `pwsh` process, where SMA is loaded by definition, so an SMA reference resolves in every process that can
+load the assembly at all. Using a PowerShell primitive from C# — `WildcardPattern`, `TypeAccelerators`, `PSObject` — therefore costs a
+`using` namespace and nothing more: no package, no assembly hint, no build step. That is what "host-guaranteed" means: the reference is
+satisfied by the same host that makes the type reachable in the first place.
 
 The boundary is packages, not the SMA line: `Add-Type` has no mechanism to add references beyond its default set, and there is no NuGet in
 this toolset. A type that wants `Microsoft.Extensions.*` or any other external package is asking for a dependency the host does not

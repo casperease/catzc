@@ -28,7 +28,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'step-adapter-repo'))
         $script:carriers = [Catzc.Base.Languages.FileCarriersConfig]::new(@{ carriers = [ordered]@{ markdown = @{ carrier = 'front-matter' }; powershell = @{ carrier = 'comment-head'; block = @('<#', '#>') } } })
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new(@{ languages = [ordered]@{ markdown = @{ extensions = @('.md'); formatter = 'prettier' } } })
-        $script:meta = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'required' }; kinds = [ordered]@{ 'file-path' = @{ keys = @('path') } } })
+        $script:meta = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'required' }; kinds = [ordered]@{ 'body-sha' = @{ keys = @('with_body_sha') } } })
         $script:widget = Join-Path $script:root 'docs/widget.md'
         $script:gadget = Join-Path $script:root 'docs/gadget.md'
     }
@@ -51,7 +51,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
             }
             $outcome.Changed | Should -Be @($script:widget)
             $outcome.Unfixable.Count | Should -Be 0
-            [System.IO.File]::ReadAllText($script:widget) | Should -BeLike "---`ncatzc:`n  immutable:`n    path: docs/widget.md`n---*# Widget*"
+            [System.IO.File]::ReadAllText($script:widget) | Should -BeLike "---`ncatzc:`n  immutable:`n    with_body_sha: *`n---*# Widget*"
         }
 
         It 'changes nothing under -DryRun, and still names the file it would change' {
@@ -101,7 +101,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
             $function = @('function Get-Gadget {', '    [OutputType([string])]', '    param(', '        [string] $Widget', '    )', '}')
             $script:helpText = ($function -join "`n") + "`n"
             [System.IO.File]::WriteAllText($script:helpFile, $script:helpText)
-            $script:helpPage = Join-Path $script:root ((Get-Config -Config comments).PageFor("$(Get-CatzcModulesFolder)/Widget/Get-Gadget.ps1"))
+            $script:helpPage = Join-Path $script:root (Get-CommentPage -Path "$(Get-CatzcModulesFolder)/Widget/Get-Gadget.ps1")
             $null = New-Item -ItemType Directory -Path (Split-Path $script:helpPage) -Force
             $script:pageText = "# $(Get-CatzcModulesFolder)/Widget/Get-Gadget.ps1`n`n## help`n`n### synopsis`n`nGets a gadget.`n`n### parameter ``Widget```n`nThe widget.`n`n### outputs`n`n``[string]`` The gadget.`n"
             [System.IO.File]::WriteAllText($script:helpPage, $script:pageText)

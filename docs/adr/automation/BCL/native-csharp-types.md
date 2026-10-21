@@ -217,11 +217,11 @@ before the module loop.
 
 `How the one host compiles, references, and names the types`
 
-BCL and its host are two things. The **language** is C# against the Base Class Library, a subset of .NET, with its own files, its own
-build pair, and the BCL as its whole reference set (Rule ADR-AUTO-TYPES-BCLREFERENCESET); this ADR decides it. The **host** is the one
-engine that runs the types today, pwsh, which compiles and loads them inside the .NET runtime already running its session. Which compiler
-builds the assembly, which host assemblies it guarantees, the short names pwsh callers type, how a running pwsh meets a changed type, and
-why the console text has to live in C# are that host's binding, decided in the pwsh domain.
+BCL and its host are two things. The **language** is C# against the Base Class Library, a subset of .NET, with its own files, its own build
+pair, and the BCL as its whole reference set (Rule ADR-AUTO-TYPES-BCLREFERENCESET); this ADR decides it. The **host** is the one engine that
+runs the types today, pwsh, which compiles and loads them inside the .NET runtime already running its session. Which compiler builds the
+assembly, which host assemblies it guarantees, the short names pwsh callers type, how a running pwsh meets a changed type, and why the
+console text has to live in C# are that host's binding, decided in the pwsh domain.
 
 A type that needs the host itself (a parser over pwsh's syntax tree, a runspace) binds to it on purpose, and that binding is a row in
 `bcl.yml` with its reason, so the language's reference set stays the BCL and every exception is named, not found.

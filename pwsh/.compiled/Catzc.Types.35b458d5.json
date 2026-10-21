@@ -1,5 +1,5 @@
 {
-  "hash": "8e2e6b3a",
+  "hash": "35b458d5",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -708,6 +708,14 @@
       "name": "Catzc.Base.Languages.BclConfig",
       "aliases": [],
       "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.BclHostBinding",
+      "aliases": [],
+      "display": [
+        "file",
+        "host"
+      ]
     },
     {
       "name": "Catzc.Base.Languages.CarrierKind",

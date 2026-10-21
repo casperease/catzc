@@ -47,7 +47,6 @@ function Get-RelativeEdgeCandidate {
                 -ErrorText "file-meta config: kind '$($Kind.id)' relation '$($relation['name'])' rules need 'paths', and 'classes' unless the rule applies to every class."
         }
     }
-    $comments = Get-Config -Config comments
 
     foreach ($file in $Path) {
         $name = [System.IO.Path]::GetFileNameWithoutExtension($file)
@@ -74,7 +73,7 @@ function Get-RelativeEdgeCandidate {
                         $candidate = $candidate.Replace($token, $tokens[$token])
                     }
                     if ($candidate.Contains('{page}')) {
-                        $page = $comments.PageFor($file)
+                        $page = Get-CommentPage -Path $file
                         if (-not $page) {
                             continue
                         }
