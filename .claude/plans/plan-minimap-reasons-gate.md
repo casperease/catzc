@@ -35,9 +35,3 @@ yet, so every one goes dark when the gate turns on; that is why the declared cel
       `declaration.py minimaps <folder>`, one folder per call, read the new cells against the drawing, then `Build-Diagrams -Stale` (check:
       `Test-Diagrams` over the tree reports 0 issues, 0 stale and no Write-DiagramMinimapData warning). The same pass drops declared cells
       the data no longer lights, such as `ado-pipelines/pipeline-yaml` in `build-diagrams-runs-five-stages`.
-
-## Open questions
-
-- Should `Test-Diagrams -Path` accept a legend-role folder (`docs/explanation/.assets/glyphs`), checking that its png carries the painted
-  `glyphs.xml` model, so the glyph library is gated like every other diagram rather than by a hand comparison? Recommendation: yes, one
-  branch beside the role checks in `drawio_forward.py` (catzc-61, 2026-10-21).

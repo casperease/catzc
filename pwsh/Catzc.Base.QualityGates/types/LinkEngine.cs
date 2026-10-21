@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3cf8a52859a5"
+    with_body_sha: "316b2cc3f5c6"
   edges:
     docs: "[LinkEngine.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/LinkEngine.cs.md)"
     cites:
@@ -29,8 +29,9 @@ public sealed class LinkEngine
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    static readonly Regex StringDocPath = new Regex(@"(?<![\w/.\-])docs/adr/[A-Za-z0-9_\-./]+?\.md(?![\w/])", RegexOptions.Compiled);
-    static readonly Regex InsertedLink = new Regex(@"\[[^\]\r\n]+\]\(/docs/adr/[^)\s]+\)", RegexOptions.Compiled);
+    // A path under the decision records' root in a string, and a code link this engine inserts into one.
+    readonly Regex StringDocPath;
+    readonly Regex InsertedLink;
     // A meta head written as line comments (a YAML or shell head): every comment in it is skipped, as a block-comment head is whole.
     static readonly Regex LineCommentHead = new Regex(
         @"\A[ \t]*(?<m>#|//)[ \t]*---[ \t]*\r?\n(?=[ \t]*\k<m>[ \t]*catzc:)(?:[ \t]*\k<m>[^\r\n]*\r?\n)*?[ \t]*\k<m>[ \t]*---[ \t]*(?:\r?\n|\z)",
@@ -49,18 +50,22 @@ public sealed class LinkEngine
     readonly CodeLinkRewriter rewriter;
     readonly MarkdownLinkScanner scanner;
 
-    public LinkEngine(string repositoryRoot, AdrCitationMap map, AdrCodeForm codeForm, LinkWrap wrap, IDictionary<string, int> lineLimits,
+    public LinkEngine(string repositoryRoot, AdrCitationMap map, AdrsConfig adrs, LinkWrap wrap, IDictionary<string, int> lineLimits,
         int defaultLineLimit, string selfUrlPrefix, IEnumerable<string> trackedFiles, SourceCheck stringCitations)
     {
         root = Path.GetFullPath(repositoryRoot ?? throw new ArgumentNullException(nameof(repositoryRoot)));
         this.map = map ?? throw new ArgumentNullException(nameof(map));
-        if (codeForm == null) { throw new ArgumentNullException(nameof(codeForm)); }
+        if (adrs == null) { throw new ArgumentNullException(nameof(adrs)); }
+        AdrCodeForm codeForm = adrs.CodeForm;
+        string records = Regex.Escape(adrs.Root + "/");
         StringNumberedCitation = new Regex(@"(?<![\w\-])" + codeForm.Cited + @"[:#](?:\d+|\$|\{(?:\d+\}|[A-Za-z_]))", RegexOptions.Compiled);
+        StringDocPath = new Regex(@"(?<![\w/.\-])" + records + @"[A-Za-z0-9_\-./]+?\.md(?![\w/])", RegexOptions.Compiled);
+        InsertedLink = new Regex(@"\[[^\]\r\n]+\]\(/" + records + @"[^)\s]+\)", RegexOptions.Compiled);
         this.stringCitations = stringCitations ?? throw new ArgumentNullException(nameof(stringCitations));
         this.wrap = wrap;
         this.lineLimits = new Dictionary<string, int>(lineLimits ?? new Dictionary<string, int>(), StringComparer.OrdinalIgnoreCase);
         this.defaultLineLimit = defaultLineLimit;
-        rewriter = new CodeLinkRewriter(map, codeForm, AnchorsOf);
+        rewriter = new CodeLinkRewriter(map, adrs, AnchorsOf);
         scanner = new MarkdownLinkScanner(root, codeForm, AnchorsOf, selfUrlPrefix, trackedFiles);
     }
 
@@ -271,7 +276,7 @@ public sealed class LinkEngine
         return string.Join("\n", result);
     }
 
-    static int BreakPoint(string line, int room, int tailRoom)
+    int BreakPoint(string line, int room, int tailRoom)
     {
         int bestBeforeLink = 0;
         int firstContent = ContentStart(line);

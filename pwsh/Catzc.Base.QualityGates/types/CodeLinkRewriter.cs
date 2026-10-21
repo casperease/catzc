@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d496ca5c796d
+    with_body_sha: "9751d6e51694"
   edges:
     docs: "[CodeLinkRewriter.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/CodeLinkRewriter.cs.md)"
     cites:
@@ -35,15 +35,19 @@ public sealed class CodeLinkRewriter
     readonly AdrCitationMap map;
     readonly Func<string, IReadOnlyCollection<string>> anchorsOf;
 
-    public CodeLinkRewriter(AdrCitationMap map, AdrCodeForm codeForm, Func<string, IReadOnlyCollection<string>> anchorsOf)
+    // The decision records' folder with its trailing '/', e.g. docs/adr/ (AdrsConfig.Root).
+    readonly string recordRoot;
+
+    public CodeLinkRewriter(AdrCitationMap map, AdrsConfig adrs, Func<string, IReadOnlyCollection<string>> anchorsOf)
     {
         this.map = map ?? throw new ArgumentNullException(nameof(map));
-        if (codeForm == null) { throw new ArgumentNullException(nameof(codeForm)); }
+        if (adrs == null) { throw new ArgumentNullException(nameof(adrs)); }
         this.anchorsOf = anchorsOf ?? throw new ArgumentNullException(nameof(anchorsOf));
-        string cited = codeForm.Cited;
+        recordRoot = adrs.Root + "/";
+        string cited = adrs.CodeForm.Cited;
         Reference = new Regex(
             @"(?<link>\[(?<text>[^\]\r\n]*)\]\((?<dest>[^)\s]+)\))" +
-            @"|(?<path>(?<![^\s(\[{,;:'""*])(?:\.{1,2}/)*/?docs/adr/[A-Za-z0-9_\-./]+?\.md)(?<frag>#[A-Za-z0-9_\-]+)?(?![\w/])" +
+            @"|(?<path>(?<![^\s(\[{,;:'""*])(?:\.{1,2}/)*/?" + Regex.Escape(recordRoot) + @"[A-Za-z0-9_\-./]+?\.md)(?<frag>#[A-Za-z0-9_\-]+)?(?![\w/])" +
             @"|(?<numbered>(?<![\w-])" + cited + @"[:#]\d+)" +
             @"|(?<cite>(?<!\w)(?<!(?:^|\D)-)(?<code>" + cited + @")(?![\w*]|-[A-Z0-9*<]))" +
             @"|(?<slug>(?<![^\s(\[{,;:'""*])(?<name>[a-z0-9]+(?:-[a-z0-9]+)*)\.md(?![\w/]))",
@@ -289,7 +293,7 @@ public sealed class CodeLinkRewriter
         problemType = LinkFindingType.Dangling;
         problem = null;
         string repoPath = ToRepositoryPath(rawPath) ?? rawPath;
-        bool plain = rawPath.StartsWith("docs/adr/", StringComparison.Ordinal);
+        bool plain = rawPath.StartsWith(recordRoot, StringComparison.Ordinal);
         type = plain ? LinkFindingType.Bare : LinkFindingType.Relative;
 
         if (citedCode != null)
@@ -354,17 +358,17 @@ public sealed class CodeLinkRewriter
         return false;
     }
 
-    // The repository-relative docs/adr path a written path points at, or null when it does not point into docs/adr.
-    static string ToRepositoryPath(string written)
+    // The repository-relative path under the root a written path points at, or null when it does not point under the root.
+    string ToRepositoryPath(string written)
     {
         if (string.IsNullOrEmpty(written)) { return null; }
         string path = written.Replace('\\', '/');
-        int at = path.IndexOf("docs/adr/", StringComparison.Ordinal);
+        int at = path.IndexOf(recordRoot, StringComparison.Ordinal);
         if (at < 0) { return null; }
         string prefix = path.Substring(0, at);
         foreach (string segment in prefix.Split('/'))
         {
-            if (segment.Length > 0 && segment != "." && segment != "..") { return null; }   // some other folder's docs/adr
+            if (segment.Length > 0 && segment != "." && segment != "..") { return null; }   // a same-named folder elsewhere
         }
         return path.Substring(at);
     }

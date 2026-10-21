@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b6663cf9e3b7
+    with_body_sha: b86670b24cb8
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
     docs: "[Build-ContractReference.ps1.md](docs/references/pwsh/catzc-base-contracts/Build-ContractReference.ps1.md)"
@@ -29,8 +29,9 @@ function Build-ContractReference {
     )
 
     $pageFolder = 'docs/references/contracts'
-    $adr = '../../adr/repository/api-contracts.md'
-    $commandAdr = '../../adr/repository/command-contracts.md'
+    $records = (Get-Config -Config adrs).Root
+    $adr = [System.IO.Path]::GetRelativePath($pageFolder, "$records/repository/api-contracts.md").Replace('\', '/')
+    $commandAdr = [System.IO.Path]::GetRelativePath($pageFolder, "$records/repository/command-contracts.md").Replace('\', '/')
     $kindText = @{ Presence = 'presence'; Fragment = 'fragment'; Schema = 'schema'; Sample = 'sample payload'; Command = 'command contract' }
     $directionText = @{ DependedOn = 'depended-on'; Provided = 'provided' }
     $headers = @('Module', 'Asset', 'Target', 'Direction', 'Kind', 'Signature')

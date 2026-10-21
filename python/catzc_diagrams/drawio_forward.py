@@ -179,7 +179,7 @@ def known_adrs():
     return set(
         re.findall(
             r"(?m)^\|\s*`(" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+)`",
-            (REPO / "docs" / "adr" / "index.md").read_text(encoding="utf-8"),
+            (REPO / minimaps.records_root() / "index.md").read_text(encoding="utf-8"),
         )
     )
 

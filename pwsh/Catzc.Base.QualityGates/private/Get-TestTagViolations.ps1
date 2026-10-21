@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ed65074efa61
+    with_body_sha: "43481ff2cd69"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
     docs: "[Get-TestTagViolations.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TestTagViolations.ps1.md)"
@@ -73,7 +73,7 @@ function Get-TestTagViolations {
                     [string[]] (Get-CatsAdrRuleIds), [System.StringComparer]::Ordinal)
             }
             if (-not $validRuleIds.Contains($tag)) {
-                $reasons += "unknown ADR rule '$tag' — no such rule in docs/adr"
+                $reasons += "unknown ADR rule '$tag' — no such rule in $((Get-Config -Config adrs).Root)"
             }
         }
 

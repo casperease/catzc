@@ -134,9 +134,11 @@ def test_the_rules_are_read_under_every_record_kind_the_registry_declares(tmp_pa
     )
     monkeypatch.setattr(minimaps, "REPO", tmp_path)
     minimaps.kinds.cache_clear()
+    minimaps.records_root.cache_clear()
     minimaps.rules.cache_clear()
     try:
         assert minimaps.rules() == {"ADR-WIDGET-TURN", "GDR-GADGET-SPIN"}
     finally:
         minimaps.kinds.cache_clear()
+        minimaps.records_root.cache_clear()
         minimaps.rules.cache_clear()

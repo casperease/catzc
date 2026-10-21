@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "07f5379526e4"
+    with_body_sha: "1770929ce1ef"
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Get-SkippedClassCitationFinding.ps1
 ---
@@ -19,7 +19,7 @@ Describe 'Get-SkippedClassCitationFinding' -Tag 'L0', 'logic' {
         $script:kind = [Catzc.Base.QualityGates.FileMetaKind]::new('adr-codes', @{ section = 'edges'; keys = @('cites'); select = @(@{ classes = @('function') }) })
         $pages = [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name PageFor -Value {
             param($source)
-            @{ 'src/widget.sh' = 'pages/widget.md'; 'src/gadget.ps1' = 'pages/gadget.md'; 'src/gizmo.sh' = 'pages/gizmo.md'; 'src/pageless.sh' = 'pages/none.md' }[$source]
+            @{ 'src/widget.sh' = 'pages/widget.md'; 'src/gadget.ps1' = 'pages/gadget.md'; 'src/gizmo.sh' = 'pages/gizmo.md'; 'src/orphan.sh' = 'pages/none.md' }[$source]
         } -PassThru
         $kinds = [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name Resolve -Value {
             param($source)
@@ -36,11 +36,12 @@ Describe 'Get-SkippedClassCitationFinding' -Tag 'L0', 'logic' {
         $script:configs = @{ 'file-meta' = [pscustomobject]@{ kinds = @($script:kind) }; 'comment-pages' = $pages; 'file-kinds' = $kinds; 'languages' = $languages }
 
         Mock Get-Config -ModuleName Catzc.Base.QualityGates { $script:configs[$Config] }
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @('src/widget.sh', 'src/gadget.ps1', 'src/gizmo.sh', 'src/pageless.sh', 'src/bare.sh') }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @('src/widget.sh', 'src/gadget.ps1', 'src/gizmo.sh', 'src/orphan.sh', 'src/bare.sh') }
         Mock Get-AdrCodesFileMetaFact -ModuleName Catzc.Base.QualityGates {
             @{ cites = [string[]] @(if ($Path -ne 'src/gizmo.sh') {
                         'ADR-WIDGET-GADGET-TURN'
-                    }) }
+                    })
+            }
         }
     }
 
@@ -56,7 +57,7 @@ Describe 'Get-SkippedClassCitationFinding' -Tag 'L0', 'logic' {
     It 'passes a selected class, a page that cites nothing, a missing page and a file without one' {
         $found = @(InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
                 param($Root)
-                Get-SkippedClassCitationFinding -RepositoryRoot $Root -Path 'src/gadget.ps1', 'src/gizmo.sh', 'src/pageless.sh', 'src/bare.sh'
+                Get-SkippedClassCitationFinding -RepositoryRoot $Root -Path 'src/gadget.ps1', 'src/gizmo.sh', 'src/orphan.sh', 'src/bare.sh'
             })
         $found | Should -HaveCount 0
     }

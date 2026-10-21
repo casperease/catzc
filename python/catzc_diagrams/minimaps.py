@@ -69,6 +69,12 @@ def kinds():
 
 
 @cache
+def records_root():
+    """The repository-relative folder of every decision record: adrs.yml's root, else the default AdrsConfig.DefaultRoot declares, docs/adr."""
+    return registry("pwsh/Catzc.Base.Docs/configs/adrs.yml").get("root") or "docs/adr"
+
+
+@cache
 def adrs():
     """Every ADR code in the registry with the stack and the concerns it sits on: a ruleset's own concern, else its domain's."""
     found = {}
@@ -91,10 +97,10 @@ def adrs():
 
 @cache
 def rules():
-    """Every rule code the ADRs define: the `### Rule <code>` headings under docs/adr, of every record kind adrs.yml declares."""
+    """Every rule code the ADRs define: the `### Rule <code>` headings under the records' root, of every record kind adrs.yml declares."""
     heading = re.compile(r"### Rule " + kinds() + r"-")
     found = set()
-    for page in (REPO / "docs" / "adr").rglob("*.md"):
+    for page in (REPO / records_root()).rglob("*.md"):
         for line in page.read_text(encoding="utf-8").splitlines():
             if heading.match(line):
                 found.add(line.removeprefix("### Rule ").split()[0])

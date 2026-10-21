@@ -22,7 +22,7 @@ the new comment text and reports what it found at comment-relative offsets; the 
 
 ## comment:2
 
-Above `@"|(?<path>(?<![^\s(\[{,;:'""*])(?:\.{1,2}/)*/?docs/adr/[A-Za-z0-9_\-./]+?\.m...`, written with `//`.
+Above `@"|(?<path>(?<![^\s(\[{,;:'""*])(?:\.{1,2}/)*/?" + Regex.Escape(recordRoot) +...`, written with `//`.
 
 ```text
 A path or file name starts a word: it follows the comment start, a space, or opening punctuation, never
@@ -78,9 +78,9 @@ A meta head is derived front matter: its adrs list holds the file's codes as pla
 
 ## comment:8
 
-Above `public CodeLinkRewriter(AdrCitationMap map, AdrCodeForm codeForm,...`, written with `//`.
+Above `public CodeLinkRewriter(AdrCitationMap map, AdrsConfig adrs, Func<string,...`, written with `//`.
 
 ```text
-codeForm: the code grammar over the registered kinds; anchorsOf: repository-relative .md path -> its GitHub anchors (null when the
+adrs: the registry, for its code grammar over the registered kinds and its root; anchorsOf: repository-relative .md path -> its GitHub anchors (null when the
 file does not exist).
 ```

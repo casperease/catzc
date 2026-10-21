@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "10bac74d7f0e"
+    with_body_sha: "6af5e09571e6"
   edges:
     docs: "[Invoke-LinkEngine.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Invoke-LinkEngine.ps1.md)"
 ---
@@ -38,7 +38,7 @@ function Invoke-LinkEngine {
     $engine = [Catzc.Base.QualityGates.LinkEngine]::new(
         $RepositoryRoot,
         (Get-AdrCitationMap -RepositoryRoot $RepositoryRoot),
-        (Get-Config -Config adrs).CodeForm,
+        (Get-Config -Config adrs),
         $Wrap,
         $limits,
         $settings.default_line_limit,

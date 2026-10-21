@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "06cffe58781b"
+    with_body_sha: "695fc905fa8c"
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Test-Diagrams.Tests.ps1
     docs: "[Test-Diagrams.ps1.md](docs/references/pwsh/catzc-base-slides/Test-Diagrams.ps1.md)"
@@ -33,8 +33,11 @@ function Test-Diagrams {
     $found = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+/diagram\.drawio\.(png|yml)$' } | ForEach-Object { $_.Substring(0, $_.LastIndexOf('/')) } |
             Select-Object -Unique | Where-Object { Test-Path -LiteralPath (Join-Path $root "$_/diagram.drawio.yml") -PathType Leaf })
     # A legend folder has no yml: the kit's drawio.yml names it under roles, and its png is checked against the painted glyph library.
-    $kitConfig = ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText((Join-Path $root "$Kit/configs/drawio.yml"))) -Ordered
-    $legends = @(if ($kitConfig.Contains('roles') -and $kitConfig['roles']) {
+    $kitConfigPath = Join-Path $root "$Kit/configs/drawio.yml"
+    $kitConfig = if ([System.IO.File]::Exists($kitConfigPath)) {
+        ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($kitConfigPath)) -Ordered
+    }
+    $legends = @(if ($kitConfig -and $kitConfig.Contains('roles') -and $kitConfig['roles']) {
             $kitConfig['roles'].Keys | Where-Object { $kitConfig['roles'][$_] -ceq 'legend' -and (Test-Path -LiteralPath (Join-Path $root "$_/diagram.drawio.png") -PathType Leaf) }
         })
     $found = @($found) + @($legends | Where-Object { $found -cnotcontains $_ })

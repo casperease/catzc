@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "0c2fcd23863c"
+#     with_body_sha: c4640d4b8c01
 #   edges:
 #     docs: "[terminology.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md)"
 #     cites:
@@ -364,13 +364,15 @@ terms:
         "LOCAL — the automation value-chain concern's six-letter column code on the value-chain minimap (DDR-TRACK-VALUECHAINCONCERN)"
       expands_to: "automation"
     - term: release
-      meaning:
-        "RELEASE — the release value-chain concern's six-letter column code on the value-chain minimap (DDR-TRACK-VALUECHAINCONCERN)"
+      meaning: "RELEASE — the release value-chain concern's six-letter column code on the value-chain minimap (DDR-TRACK-VALUECHAINCONCERN)"
       expands_to: "release"
     - term: dora
       meaning:
         "DevOps Research and Assessment (DORA) — the research program and its DevOps capability model, cited as a cross-cutting source"
       expands_to: "DevOps Research and Assessment"
+    - term: dsgn
+      meaning: "DSGN — the design stack row of the value chain (AdrsConfig.Stacks)"
+      expands_to: "design"
     - term: devops
       meaning: "development and operations (DevOps)"
       expands_to: "development and operations"

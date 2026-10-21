@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3968d0fe6c9c"
+    with_body_sha: c397c563d19d
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
     docs: "[LanguagesConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/LanguagesConfig.cs.md)"
@@ -698,7 +698,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             bool dotSegment = Array.Exists(adrFolder.Split('/'), s => s == "." || s == "..");
             if (!AdrFolder.IsMatch(adrFolder) || dotSegment)
             {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: invalid adr_folder '{1}' (a '/'-separated folder under docs/adr/, e.g. pwsh)", name, adrFolder));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: invalid adr_folder '{1}' (a '/'-separated folder under the decision records' root, e.g. pwsh)", name, adrFolder));
             }
         }
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1f5fc7e33249"
+    with_body_sha: "03c4b41236df"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-AnalyzerAdrMap.Tests.ps1
     docs: "[Test-AnalyzerAdrMap.ps1.md](docs/references/pwsh/catzc-base-quality-gates/Test-AnalyzerAdrMap.ps1.md)"
@@ -31,7 +31,7 @@ function Test-AnalyzerAdrMap {
     foreach ($analyzer in $mapped) {
         foreach ($id in @($map.analyzers[$analyzer])) {
             if (-not $validIds.Contains($id)) {
-                $issues.Add("${analyzer}: cites $id, which is not a rule in docs/adr")
+                $issues.Add("${analyzer}: cites $id, which is not a rule in $((Get-Config -Config adrs).Root)")
             }
         }
     }
