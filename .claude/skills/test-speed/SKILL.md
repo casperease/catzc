@@ -8,28 +8,6 @@ allowed-tools: Bash, Read, Grep, Edit, Write
 paths: pwsh/**/tests/**
 metadata:
   catzc:
-    immutable:
-      repo_status: clean
-      path: ".claude/skills/test-speed/SKILL.md"
-      folder: skills/test-speed
-      name: skill
-      filetype: md
-      role: capability
-      language: markdown
-      track: ".claude"
-      tracktype: vendor-settings
-      vendor: claude
-      module: ".claude"
-      moduletype: settings
-    edges:
-      cites:
-        - ADR-AUTO-TEST-TWOMANDATORYTAGS
-        - ADR-AUTO-TEST-SETUPONCE
-        - ADR-AUTO-TEST-ONEIMPORTPERCASE
-        - ADR-AUTO-TEST-MEASUREFIRST
-        - ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS
-        - ADR-AUTO-TEST-FEWINTEGRATIONTESTS
-        - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
     config:
       model_floor: sonnet
       needs: [pwsh]

@@ -7,19 +7,6 @@ user-invocable: true
 allowed-tools: Read, Grep, Glob, Edit, Write, Bash
 metadata:
   catzc:
-    immutable:
-      repo_status: clean
-      path: ".claude/skills/session-finalize/SKILL.md"
-      folder: skills/session-finalize
-      name: skill
-      filetype: md
-      role: capability
-      language: markdown
-      track: ".claude"
-      tracktype: vendor-settings
-      vendor: claude
-      module: ".claude"
-      moduletype: settings
     config:
       model_floor: sonnet
       needs: []

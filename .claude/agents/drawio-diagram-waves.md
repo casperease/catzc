@@ -12,20 +12,6 @@ model: sonnet
 effort: medium
 maxTurns: 60
 skills: [drawio-waves, drawio-look, drawio-renderer, drawio-declaration, catzc-run, git-readonly, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/drawio-diagram-waves.md"
-    folder: agents
-    name: drawio-diagram-waves
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # drawio-diagram-waves

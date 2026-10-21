@@ -8,22 +8,6 @@ allowed-tools: Agent, Bash, Read, Glob, Grep, Write, Edit
 paths: out/diagrams/**, python/catzc_diagrams/**
 metadata:
   catzc:
-    immutable:
-      repo_status: clean
-      path: ".claude/skills/drawio-waves/SKILL.md"
-      folder: skills/drawio-waves
-      name: skill
-      filetype: md
-      role: capability
-      language: markdown
-      track: ".claude"
-      tracktype: vendor-settings
-      vendor: claude
-      module: ".claude"
-      moduletype: settings
-    edges:
-      cites:
-        - ADR-REPO-SLIDES-ONEBUILDCOMMAND
     config:
       model_floor: sonnet
       needs: [uv, pillow]

@@ -1,20 +1,11 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.Config/configs/configs.yml
-#     folder: configs
-#     name: configs
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.Config
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: f1c4d3718201
 #   edges:
 #     docs: "[configs.yml.md](docs/references/pwsh/catzc-base-config/configs/configs.yml.md)"
+#     cites:
+#       - ADR-AUTO-OVERLAY
 # ---
 
 configs:
@@ -127,6 +118,13 @@ configs:
     type: Catzc.Tooling.Listen.ListenConfig
   learnings:
     type: Catzc.Base.Docs.LearningsConfig
+  hindsight:
+    type: Catzc.Base.Docs.LearningsConfig
+    differs:
+      folder:
+        The hindsight log is a second instance of the rolling-log type and lives in its own folder, .claude/hindsight, beside the learnings.
+      prefix: Its files are hindsight<sha>.md, so a reader tells the two logs apart by name.
+      title: Its files are headed "Hindsight <sha>", since they hold what the tree already knew, not what a session learned.
   variants:
     type: Catzc.Base.Variants.VariantsConfig
     differs:

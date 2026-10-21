@@ -11,20 +11,6 @@ model: sonnet
 effort: medium
 maxTurns: 60
 skills: [plan-decide, plan-value, git-readonly, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/plan-decide.md"
-    folder: agents
-    name: plan-decide
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # plan-decide

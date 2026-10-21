@@ -1,18 +1,5 @@
 ---
 catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/thesis/product-thesis/config.slide.md
-    folder: docs/explanation/thesis/product-thesis
-    name: config-slide
-    filetype: md
-    role: slide
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-PRIN-CONFIG
   config:
     pattern: table
     deck: product-thesis

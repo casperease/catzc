@@ -2,17 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1
-    name: import-c-sharp-types-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Tests
-    moduletype: pwsh-folder
-    catzc_bundle: minimal
+    with_body_sha: a112aa960cd3
   edges:
     docs: "[Import-CSharpTypes.Tests.ps1.md](docs/references/pwsh/internal/tests/Import-CSharpTypes.Tests.ps1.md)"
     cites:
@@ -59,6 +49,13 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         Mock Write-ImporterMessage { } -ModuleName Catzc.Internal.Bootstrap
         $shadowRoot = Join-Path $script:fixtureRoot 'shadow'
         Mock Get-TypesShadowRoot { $shadowRoot }.GetNewClosure() -ModuleName Catzc.Internal.Types
+        # A run from a VS Code terminal carries its mark; every case here is a plain devbox unless it sets the mark itself.
+        $script:originalTerminalProgram = $env:TERM_PROGRAM
+        $env:TERM_PROGRAM = ''
+    }
+
+    AfterEach {
+        $env:TERM_PROGRAM = $script:originalTerminalProgram
     }
 
     Context 'fixture' -Tag 'logic' {
@@ -305,6 +302,70 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $env:TF_BUILD = 'True'
             try {
                 $namespace = "CatzcTestGammaCi$runId"   # fresh namespace: a type persists for the process, so the first import must load it clean
+                $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
+                InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
+                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Gamma.cs"), "namespace $namespace;`npublic class Gamma { public int X; }")
+                { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
+                    Should -Throw '*changed since they were loaded*'
+            }
+            finally {
+                $env:TF_BUILD = $savedTfBuild
+            }
+        }
+
+        It 'inside VS Code, a source changed after load keeps the old types and names the loaded dll by hash — no throw' {
+            $savedTfBuild = $env:TF_BUILD
+            $savedGitHubActions = $env:GITHUB_ACTIONS
+            $env:TF_BUILD = ''
+            $env:GITHUB_ACTIONS = ''
+            $env:TERM_PROGRAM = 'vscode'
+            try {
+                $namespace = "CatzcTestGammaCode$runId"
+                $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
+                InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
+                $loadedHash = (Get-Variable -Name '__CatzcTypes' -Scope Global -ValueOnly)[[System.IO.Path]::GetFullPath($root)].Hash
+                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Gamma.cs"), "namespace $namespace;`npublic class Gamma { public int X; }")
+                { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
+                    Should -Not -Throw
+                Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter {
+                    $Message -like "Loaded inside VS Code with non-current types dll: $loadedHash *"
+                }
+                Should -Not -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -match 'Using the old C# types' }
+                (Get-Variable -Name '__CatzcTypes' -Scope Global -ValueOnly)[[System.IO.Path]::GetFullPath($root)].Hash | Should -Be $loadedHash -Because 'the session keeps the loaded assembly and records no new hash'
+            }
+            finally {
+                $env:TF_BUILD = $savedTfBuild
+                $env:GITHUB_ACTIONS = $savedGitHubActions
+            }
+        }
+
+        It 'inside VS Code, a type added after load is the same message, never a throw' {
+            $savedTfBuild = $env:TF_BUILD
+            $savedGitHubActions = $env:GITHUB_ACTIONS
+            $env:TF_BUILD = ''
+            $env:GITHUB_ACTIONS = ''
+            $env:TERM_PROGRAM = 'vscode'
+            try {
+                $namespace = "CatzcTestGammaCodeAdd$runId"
+                $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
+                InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
+                [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Delta.cs"), "namespace $namespace;`npublic class Delta { }")
+                { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R } } |
+                    Should -Not -Throw
+                Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Bootstrap -ParameterFilter { $Message -like 'Loaded inside VS Code with non-current types dll:*' }
+            }
+            finally {
+                $env:TF_BUILD = $savedTfBuild
+                $env:GITHUB_ACTIONS = $savedGitHubActions
+            }
+        }
+
+        It 'in a pipeline run from a VS Code terminal, a source changed after load still throws (the pipeline wins)' {
+            $savedTfBuild = $env:TF_BUILD
+            $env:TF_BUILD = 'True'
+            $env:TERM_PROGRAM = 'vscode'
+            try {
+                $namespace = "CatzcTestGammaCodeCi$runId"
                 $root = New-FixtureRoot @{ $namespace = @{ Gamma = 'public class Gamma { }' } }
                 InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
                 [System.IO.File]::WriteAllText((Join-Path $root "$namespace/types/Gamma.cs"), "namespace $namespace;`npublic class Gamma { public int X; }")

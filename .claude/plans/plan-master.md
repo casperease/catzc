@@ -65,10 +65,14 @@ was decided in the round of 2026-10-21; no chunk waits on a question.
 - agent-friction -> plan-agent-friction.md: the three gate steps first (Test-Plans' three-part plan rule and file paths, Test-Formatting
   `-Path`), then the plan-edit hook with its path-pattern map and the CLAUDE.md trim; the head how-to and its drawing after
   plan-minimal-heads.
+- claude-diet -> plan-claude-diet.md: the Sub-agents section of CLAUDE.md cut to names and one clause each, and the pwsh index named.
 - adr-authoring -> plan-adr-authoring.md: the glossary contrast declared once and the domain-deps memory deleted, the add-an-adr how-to
   after plan-agent-shortcuts' gate runner, the ADR-edit entry in plan-agent-friction's hook map.
 - diagram-build-learnings -> plan-diagram-build-learnings.md: fix the Build-Diagrams help (the sample sequence included), one merged
   catzc-run item, quiet the legend's warning by role, measure then memo the minimap stage, one pipeline drawing for an explanation page.
+- debt-signals -> plan-debt-signals.md: nineteen page lines, messages and commands that carry a declared fact to the session (janitor
+  outage, index-only gates, Format-Code kinds, grouped failures, a caller finder, the entry script's location, a once-only learning log,
+  three ADR pitfalls).
 - file-meta-cache -> plan-file-meta-cache.md: the help-page reword, the ADR-code stamp, the caching sentence and the strict-mode fix.
 - session-finalize -> plan-session-finalize.md: the roof-count sentence and the gate message.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.

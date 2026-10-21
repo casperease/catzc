@@ -10,20 +10,6 @@ model: sonnet
 effort: medium
 maxTurns: 30
 skills: [plan-shape, md-links, catzc-run, catzc-check, git-readonly, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/plan-clear.md"
-    folder: agents
-    name: plan-clear
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # plan-clear

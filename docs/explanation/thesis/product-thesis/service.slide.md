@@ -1,18 +1,5 @@
 ---
 catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/thesis/product-thesis/service.slide.md
-    folder: docs/explanation/thesis/product-thesis
-    name: service-slide
-    filetype: md
-    role: slide
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-THES-ONETRUTH-PROCESSESFOLLOWDELIVERY
   config:
     pattern: table
     deck: product-thesis

@@ -7,22 +7,6 @@ user-invocable: false
 allowed-tools: Bash, Read
 metadata:
   catzc:
-    immutable:
-      repo_status: clean
-      path: ".claude/skills/listen-notes/SKILL.md"
-      folder: skills/listen-notes
-      name: skill
-      filetype: md
-      role: capability
-      language: markdown
-      track: ".claude"
-      tracktype: vendor-settings
-      vendor: claude
-      module: ".claude"
-      moduletype: settings
-    edges:
-      cites:
-        - ADR-REPO-AI-EDITORISFACT
     config:
       model_floor: haiku
       needs: [pwsh]

@@ -8,23 +8,6 @@ allowed-tools: Bash, Read
 paths: docs/**/.assets/**/diagram.drawio.yml, docs/**/.assets/**/diagram.drawio.png, out/drawio/**
 metadata:
   catzc:
-    immutable:
-      repo_status: clean
-      path: ".claude/skills/drawio-declaration/SKILL.md"
-      folder: skills/drawio-declaration
-      name: skill
-      filetype: md
-      role: capability
-      language: markdown
-      track: ".claude"
-      tracktype: vendor-settings
-      vendor: claude
-      module: ".claude"
-      moduletype: settings
-    edges:
-      cites:
-        - ADR-REPO-SLIDES-TWODIRECTIONS
-        - ADR-REPO-SLIDES-CONFLICTNEEDSAPICK
     config:
       model_floor: haiku
       needs: [uv, pillow, pwsh]

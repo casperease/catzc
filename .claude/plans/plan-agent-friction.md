@@ -50,8 +50,11 @@ then 6.
        so no instruction has to say it (catzc-e8; it complements plan-agent-shortcuts' `New-Plan`, which writes the three, by checking
        them). Check: `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1` passes with a case for each missing part.
 2. [ ] `pwsh/Catzc.Base.QualityGates/Test-Plans.ps1`: `-Path` takes files as well as the folder (`[string[]]`), so a session checks its own
-       plan and is not failed by a peer's (catzc-e8, ADR-PWSH-PARAM); the step-1 cross-file checks still read the whole folder. Check: the
-       same test file, with a file-path case, and `Test-ParameterConsistency` passes.
+       plan and is not failed by a peer's (catzc-e8, ADR-PWSH-PARAM); the step-1 cross-file checks still read the whole folder. Hindsight
+       d7c207 ("relative to what"): a relative `-Path` resolves against the repository root, not the process folder (`Test-Plans.ps1:47`
+       uses `GetFullPath` on the process folder today), and `docs/references/pwsh/catzc-base-qualitygates/Test-Plans.ps1.md:37` says so.
+       Cost today: every relative caller is checked against the wrong folder. Check: the same test file, with a file-path case and a
+       relative-path case run from another folder, and `Test-ParameterConsistency` passes.
 3. [ ] `pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1`: its `-Path` landed with plan-eac-normal-form; confirm it scopes like the other
        gates (ADR-PWSH-PARAM). Check: `Test-ParameterConsistency` passes.
 4. [ ] The plan-edit hook as decided: a new `.claude/hooks/<name>/` program, its path-pattern map as config, and its registration in
@@ -67,3 +70,8 @@ then 6.
        `out/diagrams/dark-sample/` only. Check: the user approves the sample.
 7. [ ] After plan-agent-shortcuts' step 3: `.claude/CLAUDE.md`, section Time safeguard, trimmed as decided, when no peer has the file dirty.
        Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.
+8. [ ] In step 7's trim, `.claude/CLAUDE.md` (hindsight 226bbf, "which grep"): the probe line names the Grep tool for a recursive search and
+       bash `grep` only for one file, since a recursive bash grep cannot finish inside the 3 s roof; the multi-step "script under `out/`"
+       clause is cut for `Invoke-CatzcCommand.ps1` (the tree contradicts itself today); the same section says in one clause that Bash calls
+       use absolute paths (hindsight 226bbf, "the second half"; no line says it, a drifting folder is learned by failure), paid for by the
+       cut. Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.

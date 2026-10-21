@@ -7,19 +7,6 @@ user-invocable: false
 allowed-tools: Bash
 metadata:
   catzc:
-    immutable:
-      repo_status: clean
-      path: ".claude/skills/git-readonly/SKILL.md"
-      folder: skills/git-readonly
-      name: skill
-      filetype: md
-      role: capability
-      language: markdown
-      track: ".claude"
-      tracktype: vendor-settings
-      vendor: claude
-      module: ".claude"
-      moduletype: settings
     config:
       model_floor: haiku
       needs: [git]

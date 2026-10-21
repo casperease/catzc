@@ -49,7 +49,11 @@ the old cached types until the session restarts, and keeps the already-loaded ty
 never blocked. It returns without recording the new hash, so the warning repeats on every re-import until you restart. A type the loaded
 assembly lacks (added since load, or not loaded on behalf of another root) throws on a devbox too: the old types cannot serve code that uses
 it, so continuing would only move the failure to a confusing cast error far from the cause. The loader tells a pipeline from a devbox by
-asking `Test-IsRunningInPipeline`, like every other caller.
+asking `Test-IsRunningInPipeline`, like every other caller. Inside a **VS Code** terminal no drift throws: a throw cannot restart the
+terminal or the extension's host, and an import that dies there leaves the editor's session without cats, so the loader keeps the loaded
+assembly whatever drifted and writes one line, "loaded inside VS Code with non-current types dll", naming the loaded hash and the source
+hash. It asks `Test-IsRunningInVSCode`, the loader's one reader of VS Code's terminal mark, with `Assert-IsRunningInVSCode` as its guard
+form; the pipeline check comes first, so a pipeline is never softened by the mark.
 
 - [The cache-state contract](#the-cache-state-contract)
 
@@ -290,7 +294,9 @@ the types pre-pass runs.
 
 A person who edits a type and imports again keeps the loaded types and gets one yellow line naming the changed types by simple name; the
 import goes on and never waits. The importer starts no nested shell: a process cannot replace itself on every platform, and an agent or a
-script would block on a nested one. A pipeline must never run on stale types, so it throws.
+script would block on a nested one. A pipeline must never run on stale types, so it throws. A VS Code terminal is the one devbox host where
+even a missing type does not throw: the person cannot restart that host from the import, and the loader's line names the hash of the
+assembly the session runs on, so the next terminal they open is the fix.
 
 ### Why a shadow copy
 

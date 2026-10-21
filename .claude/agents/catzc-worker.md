@@ -10,28 +10,15 @@ description: >
   a continuation paste in the plans (`plan-intake`), for a decision round over the plans (`plan-decide`), for running one gate
   (`gate-runner`), for repairing links (`link-fixer`), for a rules review (`adr-reviewer`), for fact-checking a statement (`fact-checker`),
   for processing the listen mode's notes (`listen-very-carefully-to-doc-changes`), for a scout search of a listen reference
-  (`doc-pattern-scout`), for glossary terms (`glossary-keeper`), for making tests faster (`test-optimization`), or for driving live sessions
-  through the master plan by message (`implementation-orchestrator`).
+  (`doc-pattern-scout`), for glossary terms (`glossary-keeper`), for making tests faster (`test-optimization`), for the hindsight log
+  (`2020-hindsight`), for planning the debt it finds (`its-a-chore-but-i-will-do-better`), or for driving live sessions through the master
+  plan by message (`implementation-orchestrator`).
 tools: Bash, Read, Glob, Grep, Write, Edit
 disallowedTools: ""
 model: sonnet
 effort: medium
 maxTurns: 50
 skills: [catzc-module, catzc-verify, catzc-run, catzc-check, git-readonly, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/catzc-worker.md"
-    folder: agents
-    name: catzc-worker
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # catzc-worker

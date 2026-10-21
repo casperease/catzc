@@ -23,22 +23,27 @@ catzc:
 function Add-SessionLearning {
     <#
     .SYNOPSIS
-        Appends a session's "What I learned" sentences to the learnings log: a few markdown files of bounded length, first in first out.
+        Appends dated sentences to a rolling log: a few markdown files of bounded length, first in first out; the learnings log by default.
 
     .DESCRIPTION
         A learning is a forward memory for the next agents that work the same material: it completes "In hindsight I wish I knew this
         fact: …", and states what is true of the repository now, never the story of the session that found it. The session-finalize
         skill calls this with the lines of its "What I learned" section. Each sentence becomes one line,
-        `- <yyyy-MM-dd>: <sentence>`, appended to the newest file in learnings.yml's folder; a file that holds lines_per_file lines is full,
-        so the next line starts a new file, `learned<sha>.md`, `<sha>` the first six hex of a SHA-256 of the folder and its start time,
-        headed `# Session learnings <sha>` and then `Started <time>.`, the start time the files are ordered by. A long learning is wrapped at
+        `- <yyyy-MM-dd>: <sentence>`, appended to the newest file in the log's folder; a file that holds lines_per_file lines is full,
+        so the next line starts a new file, `<prefix><sha>.md`, `<sha>` the first six hex of a SHA-256 of the folder and its start time,
+        headed `# <title> <sha>` and then `Started <time>.`, the start time the files are ordered by. A long line is wrapped at
         140 columns as the markdown formatter wraps a list item (Format-MarkdownParagraph), so the log passes the markdown lint as written;
-        a learning is counted by the line that starts it. When a new file would make more than
-        `files` files, the oldest is deleted: git keeps it once committed. Lines are never edited and repeats are kept, since a learning that
-        recurs shows what keeps mattering. The defaults (5 files of 50 lines) are declared once on LearningsConfig.
+        a line is counted by the line that starts it. When a new file would make more than
+        `files` files, the oldest is deleted: git keeps it once committed. Lines are never edited and repeats are kept, since a line that
+        recurs shows what keeps mattering. Every log is one LearningsConfig instance, registered in configs.yml under its own name: the
+        learnings log (`learned<sha>.md`, "Session learnings") and the hindsight log the 2020-hindsight robot keeps (`hindsight<sha>.md`,
+        "Hindsight", in .claude/hindsight). The defaults (5 files of 50 lines) are declared once on LearningsConfig.
 
     .PARAMETER Learning
-        The sentences, one learning each; a sentence holds no line break.
+        The sentences, one line each; a sentence holds no line break.
+
+    .PARAMETER Log
+        The config name of the log to append to, a LearningsConfig in configs.yml. Default: learnings.
 
     .PARAMETER Date
         The date written on each line. Default: today.
@@ -52,10 +57,13 @@ function Add-SessionLearning {
         [Parameter(Mandatory, Position = 0)]
         [string[]] $Learning,
 
+        [ValidateSet('learnings', 'hindsight')]
+        [string] $Log = 'learnings',
+
         [DateTime] $Date = [DateTime]::Today
     )
 
-    $config = Get-Config -Config learnings
+    $config = Get-Config -Config $Log
     $folder = Join-Path (Get-RepositoryRoot) $config.folder
     $day = $Date.ToString('yyyy-MM-dd', [cultureinfo]::InvariantCulture)
     $encoding = [System.Text.UTF8Encoding]::new($false)
@@ -72,7 +80,7 @@ function Add-SessionLearning {
     $started = 'Started '
     foreach ($text in $sentences) {
         # A file's start time is its 'Started <time>.' line, not its name or its file time, so the order survives a clone.
-        $dated = @(foreach ($file in [System.IO.Directory]::GetFiles($folder, 'learned*.md')) {
+        $dated = @(foreach ($file in [System.IO.Directory]::GetFiles($folder, "$($config.prefix)*.md")) {
                 $line = @([System.IO.File]::ReadAllLines($file) | Where-Object { $_.StartsWith($started, [StringComparison]::Ordinal) } | Select-Object -First 1)
                 Assert-True ($line.Count -eq 1) -ErrorText "Add-SessionLearning: '$file' has no '$started<time>.' line."
                 [pscustomobject]@{ Path = $file; Since = [DateTimeOffset]::Parse($line[0].Substring($started.Length).TrimEnd('.'), [cultureinfo]::InvariantCulture) }
@@ -88,8 +96,8 @@ function Add-SessionLearning {
             $since = [DateTimeOffset]::Now.ToString('o', [cultureinfo]::InvariantCulture)
             $digest = [System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes("$($config.folder)|$since"))
             $sha = [Convert]::ToHexString($digest).Substring(0, 6).ToLowerInvariant()
-            $current = Join-Path $folder "learned$sha.md"
-            [System.IO.File]::WriteAllText($current, "# Session learnings $sha`n`n$started$since.`n`n", $encoding)
+            $current = Join-Path $folder "$($config.prefix)$sha.md"
+            [System.IO.File]::WriteAllText($current, "# $($config.title) $sha`n`n$started$since.`n`n", $encoding)
             [string[]] $files = @($files) + $current
             for ($i = 0; $i -lt $files.Count - $config.files; $i++) {
                 [System.IO.File]::Delete($files[$i])

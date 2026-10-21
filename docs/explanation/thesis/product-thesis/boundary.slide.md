@@ -1,19 +1,5 @@
 ---
 catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/thesis/product-thesis/boundary.slide.md
-    folder: docs/explanation/thesis/product-thesis
-    name: boundary-slide
-    filetype: md
-    role: slide
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-THES-ONETRUTH-PRODUCTMONOREPOSITORY
-      - ADR-THES-ONETRUTH-NOREPOSITORYVERSION
   config:
     pattern: pair
     deck: product-thesis

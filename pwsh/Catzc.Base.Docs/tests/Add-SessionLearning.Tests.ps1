@@ -1,7 +1,9 @@
 Describe 'Add-SessionLearning' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:config = [Catzc.Base.Docs.LearningsConfig]::new([ordered]@{ files = 2; lines_per_file = 2 })
+        $script:hindsight = [Catzc.Base.Docs.LearningsConfig]::new([ordered]@{ folder = '.claude/hindsight'; prefix = 'hindsight'; title = 'Hindsight'; files = 2; lines_per_file = 2 })
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'learnings' } { $script:config }
+        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'hindsight' } { $script:hindsight }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Docs { $ExecutionContext.SessionState.PSVariable.GetValue('script:root') }
         $script:date = [DateTime]::new(2026, 10, 21)
 
@@ -29,6 +31,17 @@ Describe 'Add-SessionLearning' -Tag 'L0', 'logic' {
         $lines[0] | Should -BeExactly "# Session learnings $sha"
         $lines[2] | Should -BeLike 'Started 20??-*.'
         @($lines | Select-Object -Skip 4) | Should -Be @('- 2026-10-21: The widget turns.', '- 2026-10-21: The gadget holds.')
+    }
+
+    It 'appends to another log under its own folder, prefix and title, the learnings log untouched' {
+        $written = @(Add-SessionLearning 'If only the widget had turned.' -Log hindsight -Date $script:date)
+        $written.Count | Should -Be 1
+        $written[0] | Should -BeLike (Join-Path $script:root '.claude/hindsight/hindsight??????.md')
+        $sha = [System.IO.Path]::GetFileNameWithoutExtension($written[0]).Substring('hindsight'.Length)
+        $lines = [System.IO.File]::ReadAllLines($written[0])
+        $lines[0] | Should -BeExactly "# Hindsight $sha"
+        $lines[4] | Should -BeExactly '- 2026-10-21: If only the widget had turned.'
+        [System.IO.Directory]::Exists((Join-Path $script:root '.claude/learnings')) | Should -BeFalse
     }
 
     It 'wraps a long learning at 140 columns as a list item' {

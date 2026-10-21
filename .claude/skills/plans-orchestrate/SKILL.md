@@ -7,19 +7,6 @@ user-invocable: false
 allowed-tools: ListAgents, SendMessage, Read
 metadata:
   catzc:
-    immutable:
-      repo_status: clean
-      path: ".claude/skills/plans-orchestrate/SKILL.md"
-      folder: skills/plans-orchestrate
-      name: skill
-      filetype: md
-      role: capability
-      language: markdown
-      track: ".claude"
-      tracktype: vendor-settings
-      vendor: claude
-      module: ".claude"
-      moduletype: settings
     config:
       model_floor: sonnet
       needs: []

@@ -28,5 +28,7 @@ domain, and no ADR holds them yet.
 
 ## Open steps
 
-5. [ ] The sample `out/diagrams/dark-sample/.assets/eac-normal-form/` is rendered and waits on the user's approval; only then a step places
-       it beside the ADR's explanation. Check: the user approves the sample.
+5. [ ] `docs/explanation/thesis/eac-normal-form.md` (new): an explanation page for ADR-THES-NORMALFORM, embedding the approved sample (the
+       user, 2026-10-21) moved from `out/diagrams/dark-sample/.assets/eac-normal-form/` to
+       `docs/explanation/thesis/.assets/eac-normal-form/` and put with `Build-Diagrams -Path`; linked from
+       `docs/explanation/thesis/index.md`. Check: `Test-Diagrams` on the folder, `Test-Links` on both pages.

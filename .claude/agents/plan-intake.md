@@ -10,20 +10,6 @@ model: sonnet
 effort: medium
 maxTurns: 30
 skills: [plan-intake, plan-value, git-readonly, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/plan-intake.md"
-    folder: agents
-    name: plan-intake
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # plan-intake

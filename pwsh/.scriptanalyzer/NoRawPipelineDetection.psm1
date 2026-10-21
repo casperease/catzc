@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/NoRawPipelineDetection.psm1
-    folder: pwsh/.scriptanalyzer
-    name: no-raw-pipeline-detection
-    filetype: psm1
-    role: analyzer-rule
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: c0525f16e977
   edges:
     docs: "[NoRawPipelineDetection.psm1.md](docs/references/pwsh/scriptanalyzer/NoRawPipelineDetection.psm1.md)"
 ---
@@ -35,8 +27,16 @@ function Measure-NoRawPipelineDetection {
 
     $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
     $ruleName = 'Measure-NoRawPipelineDetection'
-    $exemptFunction = 'Test-IsRunningInPipeline'
-    $detectionVars = @('env:TF_BUILD', 'env:GITHUB_ACTIONS')
+    # Each host-detection variable has one canonical reader; the loader carries them all.
+    $detectors = @{
+        'env:TF_BUILD'       = 'Test-IsRunningInPipeline'
+        'env:GITHUB_ACTIONS' = 'Test-IsRunningInPipeline'
+        'env:TERM_PROGRAM'   = 'Test-IsRunningInVSCode'
+    }
+    $reasons = @{
+        'Test-IsRunningInPipeline' = 'so detection stays in one place and both Azure DevOps and GitHub Actions are covered. See ADR: pipeline-detection.'
+        'Test-IsRunningInVSCode'   = 'so detection stays in one place and every VS Code terminal is read the same way (ADR-AUTO-TYPES-CHANGEDAFTERLOAD).'
+    }
 
     $isVariable = {
         param($node)
@@ -46,9 +46,10 @@ function Measure-NoRawPipelineDetection {
 
     foreach ($var in $variables) {
         $userPath = $var.VariablePath.UserPath
-        if ($detectionVars -notcontains $userPath) {
+        if (-not $detectors.ContainsKey($userPath)) {
             continue
         }
+        $exemptFunction = $detectors[$userPath]
 
         # Walk up the AST: if any ancestor is the canonical detector function, exempt it.
         $insideExempt = $false
@@ -68,7 +69,7 @@ function Measure-NoRawPipelineDetection {
 
         $envVar = '$' + $userPath
         $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
-                Message  = "Do not read the pipeline-detection variable '$envVar' directly. Call Test-IsRunningInPipeline so detection stays in one place and both Azure DevOps and GitHub Actions are covered. See ADR: pipeline-detection."
+                Message  = "Do not read the host-detection variable '$envVar' directly. Call $exemptFunction $($reasons[$exemptFunction])"
                 Extent   = $var.Extent
                 RuleName = $ruleName
                 Severity = 'Error'

@@ -8,26 +8,6 @@ allowed-tools: Bash, Read, Glob, Grep, Write, Edit
 paths: pwsh/**
 metadata:
   catzc:
-    immutable:
-      repo_status: clean
-      path: ".claude/skills/catzc-module/SKILL.md"
-      folder: skills/catzc-module
-      name: skill
-      filetype: md
-      role: capability
-      language: markdown
-      track: ".claude"
-      tracktype: vendor-settings
-      vendor: claude
-      module: ".claude"
-      moduletype: settings
-    edges:
-      cites:
-        - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-        - ADR-AUTO-PATH-TWOFORMS
-        - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
-        - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-        - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
     config:
       model_floor: sonnet
       needs: [pwsh]

@@ -11,20 +11,6 @@ model: haiku
 effort: low
 maxTurns: 6
 skills: [catzc-run, catzc-check, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/gate-runner.md"
-    folder: agents
-    name: gate-runner
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # gate-runner

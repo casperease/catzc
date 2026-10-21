@@ -2,15 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.scriptanalyzer/tests/NoRawPipelineDetection.Tests.ps1
-    folder: pwsh/.scriptanalyzer/tests
-    name: no-raw-pipeline-detection-tests
-    filetype: ps1
-    role: test
-    language: powershell
-    track: pwsh
-    tracktype: modules
+    with_body_sha: "0e9aa65d8517"
   edges:
     docs: "[NoRawPipelineDetection.Tests.ps1.md](docs/references/pwsh/scriptanalyzer/tests/NoRawPipelineDetection.Tests.ps1.md)"
 ---
@@ -61,6 +53,27 @@ function Test-IsRunningInPipeline {
 }
 '@
         Test-RawDetection $code | Should -BeNullOrEmpty
+    }
+
+    It 'flags a direct read of $env:TERM_PROGRAM outside the VS Code detector, naming that detector' {
+        $finding = Test-RawDetection "if (`$env:TERM_PROGRAM -eq 'vscode') { 'editor' }"
+        $finding | Should -Not -BeNullOrEmpty
+        $finding.Message | Should -BeLike '*Call Test-IsRunningInVSCode*'
+    }
+
+    It 'exempts the canonical Test-IsRunningInVSCode function, and only for its own variable' {
+        $code = @'
+function Test-IsRunningInVSCode {
+    $env:TERM_PROGRAM -eq 'vscode'
+}
+'@
+        Test-RawDetection $code | Should -BeNullOrEmpty
+        $crossed = @'
+function Test-IsRunningInVSCode {
+    [bool]$env:TF_BUILD
+}
+'@
+        Test-RawDetection $crossed | Should -Not -BeNullOrEmpty
     }
 
     It 'does not flag the output-path variable BUILD_ARTIFACTSTAGINGDIRECTORY' {

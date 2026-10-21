@@ -12,20 +12,6 @@ model: sonnet
 effort: medium
 maxTurns: 40
 skills: [catzc-module, catzc-run, catzc-check, git-readonly, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/build-inspiration-module.md"
-    folder: agents
-    name: build-inspiration-module
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # build-inspiration-module

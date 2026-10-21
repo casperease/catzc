@@ -6,19 +6,6 @@ user-invocable: false
 allowed-tools: Bash
 metadata:
   catzc:
-    immutable:
-      repo_status: clean
-      path: ".claude/skills/catzc-run/SKILL.md"
-      folder: skills/catzc-run
-      name: skill
-      filetype: md
-      role: capability
-      language: markdown
-      track: ".claude"
-      tracktype: vendor-settings
-      vendor: claude
-      module: ".claude"
-      moduletype: settings
     config:
       model_floor: haiku
       needs: [pwsh]

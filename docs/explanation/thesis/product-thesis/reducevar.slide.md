@@ -1,18 +1,5 @@
 ---
 catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/thesis/product-thesis/reducevar.slide.md
-    folder: docs/explanation/thesis/product-thesis
-    name: reducevar-slide
-    filetype: md
-    role: slide
-    language: markdown
-    track: docs
-    tracktype: documentation
-  edges:
-    cites:
-      - ADR-PRIN-REDUCEVAR
   config:
     pattern: table
     deck: product-thesis

@@ -11,20 +11,6 @@ model: haiku
 effort: low
 maxTurns: 20
 skills: [md-links, catzc-run, catzc-check, git-readonly, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/link-fixer.md"
-    folder: agents
-    name: link-fixer
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # link-fixer

@@ -27,7 +27,9 @@ final full run last.
 4. Stage the idiomatic-names moves (`python/tests/catzc_base_repository/`, `go/tests/catzcbaserepository/`, and later
    `python/catzc_diagrams/`): `Test-IdiomaticNames` reads the git index, so plan-idiomatic-names' gate-on step waits on it. Check:
    `Test-IdiomaticNames` no longer lists the old folders.
-5. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+5. Cut `.claude/CLAUDE.md`, section Sub-agents, to the agent names and one clause each (plan-claude-diet.md step 1). Check:
+   `Test-AgentDefinitions` passes and `wc -c .claude/CLAUDE.md` is at most 11900.
+6. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
    every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

@@ -12,26 +12,6 @@ model: sonnet
 effort: medium
 maxTurns: 60
 skills: [plans-orchestrate, git-readonly, catzc-run, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/implementation-orchestrator.md"
-    folder: agents
-    name: implementation-orchestrator
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
-  edges:
-    cites:
-      - ADR-PROC-PULLWORK-PULLNOTPUSH
-      - ADR-PROC-PULLWORK-LIMITWORKINPROGRESS
-      - ADR-REPO-AI-TRUSTTHETREE
-      - ADR-REPO-AI-NEVERDECIDEFORUSER
 ---
 
 # implementation-orchestrator

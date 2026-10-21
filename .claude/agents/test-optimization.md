@@ -12,20 +12,6 @@ model: sonnet
 effort: medium
 maxTurns: 40
 skills: [test-speed, catzc-run, catzc-check, git-readonly, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/test-optimization.md"
-    folder: agents
-    name: test-optimization
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # test-optimization

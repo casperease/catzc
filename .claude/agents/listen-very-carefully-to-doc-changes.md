@@ -12,20 +12,6 @@ model: opus
 effort: high
 maxTurns: 400
 skills: [catzc-run, listen-notes, listen-tiers, listen-insight, plan-shape, plan-value, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/listen-very-carefully-to-doc-changes.md"
-    folder: agents
-    name: listen-very-carefully-to-doc-changes
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # listen-very-carefully-to-doc-changes

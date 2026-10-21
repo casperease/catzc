@@ -1,20 +1,47 @@
 # ---
 # catzc:
 #   immutable:
-#     repo_status: clean
-#     path: pwsh/Catzc.Base.Docs/configs/capabilities.yml
-#     folder: configs
-#     name: capabilities
-#     filetype: yml
-#     role: config
-#     language: yaml
-#     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Base.Docs
-#     moduletype: pwsh-folder
-#     catzc_bundle: azure
+#     with_body_sha: "973f96475cce"
 #   edges:
 #     docs: "[capabilities.yml.md](docs/references/pwsh/catzc-base-docs/configs/capabilities.yml.md)"
+#     cites:
+#       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+#       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+#       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+#       - ADR-AUTO-TEST-SETUPONCE
+#       - ADR-AUTO-TEST-MEASUREFIRST
+#       - ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS
+#       - ADR-AUTO-TEST-QUALITYGATE
+#       - ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML
+#       - ADR-DORA-VISUAL-DISPLAYPROCESSSTATE
+#       - ADR-DORA-VISUAL-CHOSENWITHTEAM
+#       - ADR-DSGN-VISUAL-LEFTTORIGHTISTIME
+#       - ADR-DSGN-VISUAL-FIXEDCOMMITPALETTE
+#       - ADR-PRIN-CONFIG-DEFAULTANSWERSINSTANCEQUESTIONS
+#       - ADR-PRIN-NOWASTE-SEVENWASTES
+#       - ADR-PRIN-ONELIVE-ONEVERSION
+#       - ADR-PRIN-ONELIVE-HISTORYINGIT
+#       - ADR-PROC-BUILTIN-GATESAREPARTOFWORK
+#       - ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE
+#       - ADR-PROC-PULLWORK-PULLNOTPUSH
+#       - ADR-PROC-PULLWORK-LIMITWORKINPROGRESS
+#       - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
+#       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+#       - ADR-REPO-AGENTS-STANDARDWORKER
+#       - ADR-REPO-AGENTS-USERSKILL
+#       - ADR-REPO-AI-TRUSTTHETREE
+#       - ADR-REPO-AI-NEVERDECIDEFORUSER
+#       - ADR-REPO-AI-EDITORISFACT
+#       - ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY
+#       - ADR-REPO-LINK-KINDBYFILE
+#       - ADR-REPO-LINK-ONECITATIONSPELLING
+#       - ADR-REPO-PLANS-ONETOPICONEFILE
+#       - ADR-REPO-PLANS-OPENSTEP
+#       - ADR-REPO-PLANS-DECISIONSBECOMERULES
+#       - ADR-REPO-SLIDES-DECLARATION
+#       - ADR-REPO-SLIDES-TWODIRECTIONS
+#       - ADR-REPO-SLIDES-CONFLICTNEEDSAPICK
+#       - ADR-REPO-SLIDES-THEMESELECTOR
 # ---
 
 capabilities:
@@ -128,6 +155,16 @@ capabilities:
   - name: plan-value
     supported_by: [ADR-PRIN-NOWASTE-SEVENWASTES, ADR-PROC-PULLWORK-PULLNOTPUSH]
     checks: []
+
+  # The hindsight log and its validity rule: every smug line backed by what the tree holds or lacks.
+  - name: hindsight-log
+    supported_by: [ADR-REPO-AI-TRUSTTHETREE, ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE, ADR-PRIN-NOWASTE-SEVENWASTES]
+    checks: []
+
+  # The shape of one planned debt reduction from a hindsight line, and the .claude weight measure.
+  - name: debt-reduce
+    supported_by: [ADR-PRIN-NOWASTE-SEVENWASTES, ADR-PROC-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-OPENSTEP]
+    checks: [Test-Plans]
 
   # The message protocol between an orchestrator and the live sessions it drives over the master plan.
   - name: plans-orchestrate

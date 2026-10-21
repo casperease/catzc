@@ -1,15 +1,5 @@
 ---
 catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/thesis/product-thesis/cover.slide.md
-    folder: docs/explanation/thesis/product-thesis
-    name: cover-slide
-    filetype: md
-    role: slide
-    language: markdown
-    track: docs
-    tracktype: documentation
   config:
     pattern: cover
     deck: product-thesis

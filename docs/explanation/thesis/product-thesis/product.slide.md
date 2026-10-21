@@ -1,15 +1,5 @@
 ---
 catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/thesis/product-thesis/product.slide.md
-    folder: docs/explanation/thesis/product-thesis
-    name: product-slide
-    filetype: md
-    role: slide
-    language: markdown
-    track: docs
-    tracktype: documentation
   config:
     pattern: rule
     deck: product-thesis

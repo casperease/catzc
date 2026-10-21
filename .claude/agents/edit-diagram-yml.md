@@ -12,20 +12,6 @@ model: haiku
 effort: low
 maxTurns: 20
 skills: [drawio-declaration, drawio-look, catzc-run, git-readonly, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/edit-diagram-yml.md"
-    folder: agents
-    name: edit-diagram-yml
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # edit-diagram-yml

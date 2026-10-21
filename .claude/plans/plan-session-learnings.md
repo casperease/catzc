@@ -33,6 +33,12 @@ reach.
 
 ## Open questions
 
+- From the orchestrator's finalizer (catzc-6b, 2026-10-21): should `plans-orchestrate` gain the burst protocol as its fourth and fifth
+  messages (`hold` / `go`, a worker's `burst start` / `burst done`), and say the orchestrator runs no import-backed check during a hold?
+  Recommendation: yes, two lines in the capability; the session ran three bursts and one outage on it by hand.
+- Should `plans-orchestrate` say a step left open names its check too ("Check: …"), since `Test-Plans` rejects a waiting step without one?
+  Recommendation: yes, folded into its line 3.
+
 - From catzc-c3's learnings (2026-10-21): should the `catzc-run` capability say that a shared config (`file-meta.yml`, `generated-head.yml`,
   `glossary.yml`) is live for every session's next import, so an edit to one lands with its code in one pass and is parked in `out/` during
   a peer's burst? Recommendation: yes, one line in the capability, which shrinks what a worker must learn by outage.

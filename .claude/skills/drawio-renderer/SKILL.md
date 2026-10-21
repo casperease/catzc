@@ -9,22 +9,6 @@ allowed-tools: Bash, Read
 paths: docs/.assets/**/*.drawio.png, out/drawio/**
 metadata:
   catzc:
-    immutable:
-      repo_status: clean
-      path: ".claude/skills/drawio-renderer/SKILL.md"
-      folder: skills/drawio-renderer
-      name: skill
-      filetype: md
-      role: capability
-      language: markdown
-      track: ".claude"
-      tracktype: vendor-settings
-      vendor: claude
-      module: ".claude"
-      moduletype: settings
-    edges:
-      cites:
-        - ADR-REPO-SLIDES-ONEBUILDCOMMAND
     config:
       model_floor: haiku
       needs: [uv, pillow, pwsh]

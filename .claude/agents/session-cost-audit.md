@@ -13,20 +13,6 @@ model: haiku
 effort: low
 maxTurns: 20
 skills: [catzc-run, git-readonly, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/session-cost-audit.md"
-    folder: agents
-    name: session-cost-audit
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # session-cost-audit

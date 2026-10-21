@@ -7,19 +7,6 @@ allowed-tools: Read, Grep
 paths: .claude/plans/**
 metadata:
   catzc:
-    immutable:
-      repo_status: clean
-      path: ".claude/skills/plan-value/SKILL.md"
-      folder: skills/plan-value
-      name: skill
-      filetype: md
-      role: capability
-      language: markdown
-      track: ".claude"
-      tracktype: vendor-settings
-      vendor: claude
-      module: ".claude"
-      moduletype: settings
     config:
       model_floor: sonnet
       needs: []

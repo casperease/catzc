@@ -5,19 +5,6 @@ user-invocable: false
 allowed-tools: Read
 metadata:
   catzc:
-    immutable:
-      repo_status: clean
-      path: ".claude/skills/report-fixed/SKILL.md"
-      folder: skills/report-fixed
-      name: skill
-      filetype: md
-      role: capability
-      language: markdown
-      track: ".claude"
-      tracktype: vendor-settings
-      vendor: claude
-      module: ".claude"
-      moduletype: settings
     config:
       model_floor: haiku
       needs: []

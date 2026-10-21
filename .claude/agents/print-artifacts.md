@@ -12,20 +12,6 @@ model: haiku
 effort: low
 maxTurns: 12
 skills: [artifact-publish, drawio-declaration, catzc-run, git-readonly, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/print-artifacts.md"
-    folder: agents
-    name: print-artifacts
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # print-artifacts

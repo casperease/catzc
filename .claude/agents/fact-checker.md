@@ -12,20 +12,6 @@ model: haiku
 effort: medium
 maxTurns: 12
 skills: [git-readonly, catzc-run, listen-tiers]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/fact-checker.md"
-    folder: agents
-    name: fact-checker
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # fact-checker

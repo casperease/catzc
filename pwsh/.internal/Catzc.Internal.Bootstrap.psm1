@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/Catzc.Internal.Bootstrap.psm1
-    name: catzc-internal-bootstrap
-    filetype: psm1
-    role: module
-    subkind: internal
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Bootstrap
-    moduletype: pwsh-psm1
-    catzc_bundle: minimal
+    with_body_sha: "7b1f32ef4fc2"
   edges:
     docs: "[Catzc.Internal.Bootstrap.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md)"
 ---
@@ -324,7 +313,21 @@ function Import-CSharpTypes {
         if ($typeState.Drift.Count) {
             $changeSummary += ' Drifted: ' + ($typeState.Drift -join '; ') + '.'
         }
-        if ((Test-IsRunningInPipeline) -or $typeState.MissingTypes.Count) {
+        if (Test-IsRunningInPipeline) {
+            throw "$changeSummary Restart PowerShell to pick up the change."
+        }
+        # A throw cannot restart VS Code's terminal or host, so the session keeps the loaded assembly, whatever drifted, and names it.
+        if (Test-IsRunningInVSCode) {
+            $loadedDll = if ($typeState.LoadedHash) {
+                $typeState.LoadedHash
+            }
+            else {
+                'loaded for another root'
+            }
+            Write-ImporterMessage "Loaded inside VS Code with non-current types dll: $loadedDll (sources $($typeState.SourceHash); a new terminal loads them)" -ForegroundColor Yellow
+            return
+        }
+        if ($typeState.MissingTypes.Count) {
             throw "$changeSummary Restart PowerShell to pick up the change."
         }
         $names = @($typeState.Drift | ForEach-Object { $_ -replace '^.*/', '' })

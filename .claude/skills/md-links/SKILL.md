@@ -6,19 +6,6 @@ allowed-tools: Bash, Read, Edit
 paths: "**/*.md"
 metadata:
   catzc:
-    immutable:
-      repo_status: clean
-      path: ".claude/skills/md-links/SKILL.md"
-      folder: skills/md-links
-      name: skill
-      filetype: md
-      role: capability
-      language: markdown
-      track: ".claude"
-      tracktype: vendor-settings
-      vendor: claude
-      module: ".claude"
-      moduletype: settings
     config:
       model_floor: haiku
       needs: [pwsh]

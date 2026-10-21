@@ -2,18 +2,7 @@
 ---
 catzc:
   immutable:
-    repo_status: clean
-    path: pwsh/.internal/Catzc.Internal.Loader.psm1
-    name: catzc-internal-loader
-    filetype: psm1
-    role: module
-    subkind: internal
-    language: powershell
-    track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Loader
-    moduletype: pwsh-psm1
-    catzc_bundle: minimal
+    with_body_sha: b7763d75ba12
   edges:
     docs: "[Catzc.Internal.Loader.psm1.md](docs/references/pwsh/internal/Catzc.Internal.Loader.psm1.md)"
 ---
@@ -46,6 +35,15 @@ function Test-IsRunningInPipeline {
     param()
 
     [bool]$env:TF_BUILD -or [bool]$env:GITHUB_ACTIONS
+}
+
+# VS Code marks every terminal it opens, the PowerShell extension's own host included; this is the one reader of that mark.
+function Test-IsRunningInVSCode {
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param()
+
+    $env:TERM_PROGRAM -eq 'vscode'
 }
 
 # A host that runs -File, -Command or -EncodedCommand, or runs -NonInteractive, exits when its command ends and never shows a prompt, unless -NoExit keeps it open.
@@ -147,4 +145,4 @@ function Invoke-DeferredJanitorsPrompt {
     }
 }
 
-Export-ModuleMember -Function Import-InternalModule, Test-IsRunningInPipeline, Test-IsInteractiveHost, Enable-DeferredJanitors, Invoke-DeferredJanitorsPrompt
+Export-ModuleMember -Function Import-InternalModule, Test-IsRunningInPipeline, Test-IsRunningInVSCode, Test-IsInteractiveHost, Enable-DeferredJanitors, Invoke-DeferredJanitorsPrompt

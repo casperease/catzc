@@ -1,15 +1,5 @@
 ---
 catzc:
-  immutable:
-    repo_status: clean
-    path: docs/explanation/thesis/product-thesis/onelive.slide.md
-    folder: docs/explanation/thesis/product-thesis
-    name: onelive-slide
-    filetype: md
-    role: slide
-    language: markdown
-    track: docs
-    tracktype: documentation
   config:
     pattern: tiles
     deck: product-thesis

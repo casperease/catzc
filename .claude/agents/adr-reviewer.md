@@ -11,20 +11,6 @@ model: sonnet
 effort: medium
 maxTurns: 15
 skills: [adr-cite, git-readonly, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/adr-reviewer.md"
-    folder: agents
-    name: adr-reviewer
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # adr-reviewer
@@ -33,6 +19,6 @@ Review the named files against the rules that govern them; report findings, chan
 
 1. Take the file set from the brief, or `git diff --name-only` for a named revision range (git-readonly).
 2. adr-cite steps 1 to 3: the index, the governing ADRs in full, each rule by its full code.
-3. For each file, each rule it breaks: `path:line`, the rule's full code, one sentence saying what the rule states and what the line does; a rule
-   followed is not reported.
+3. For each file, each rule it breaks: `path:line`, the rule's full code, one sentence saying what the rule states and what the line does; a
+   rule followed is not reported.
 4. Report as report-fixed says: the findings ordered by file, the ADRs read, and what could not be judged from the files alone.

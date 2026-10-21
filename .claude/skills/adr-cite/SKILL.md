@@ -8,19 +8,6 @@ allowed-tools: Read, Grep, Glob
 paths: docs/adr/**
 metadata:
   catzc:
-    immutable:
-      repo_status: clean
-      path: ".claude/skills/adr-cite/SKILL.md"
-      folder: skills/adr-cite
-      name: skill
-      filetype: md
-      role: capability
-      language: markdown
-      track: ".claude"
-      tracktype: vendor-settings
-      vendor: claude
-      module: ".claude"
-      moduletype: settings
     config:
       model_floor: haiku
       needs: []

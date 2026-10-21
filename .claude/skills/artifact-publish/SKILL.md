@@ -8,19 +8,6 @@ allowed-tools: Artifact, ArtifactData, Read
 paths: out/diagrams/**, out/print-artifacts/**
 metadata:
   catzc:
-    immutable:
-      repo_status: clean
-      path: ".claude/skills/artifact-publish/SKILL.md"
-      folder: skills/artifact-publish
-      name: skill
-      filetype: md
-      role: capability
-      language: markdown
-      track: ".claude"
-      tracktype: vendor-settings
-      vendor: claude
-      module: ".claude"
-      moduletype: settings
     config:
       model_floor: haiku
       needs: [uv]

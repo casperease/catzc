@@ -77,6 +77,13 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/adr/repository/ai-agent
 - **`drawio-diagram-waves`** — authors new draw.io diagrams in bounded parallel waves for the user to approve.
 - **`edit-diagram-yml`** — changes what a diagram says or shows by editing the `content:` of its `diagram.drawio.yml` and re-rendering it
   with put, so the png follows its one source.
+- **`2020-hindsight`** — the smartest robot in the building, and insufferable about it: reads `.claude/learnings/`, finds where the tree
+  already automated or declared each lesson, or did not, and keeps the hindsight log `.claude/hindsight/` in the smug form "If only … had …:
+  \<evidence>", every line checked against the tree, never a bare opinion.
+- **`its-a-chore-but-i-will-do-better`** — the sunny one: puts every grumble of the hindsight log on the board as a planned debt reduction,
+  weighed by the whole system's quality and the noise it adds, never by its own sparkle; measures what `.claude` costs every session and
+  spawn, lands each item as an open step with its check in the owning plan, or in `plan-claude-diet.md` (the `.claude` weight) or
+  `plan-debt-<topic>.md` (tooling, links, defaults); plans only, never the change itself.
 - **`print-artifacts`** — republishes the diagram review artifact from the files on disk.
 - **`build-inspiration-module`** — creates or extends the inspiration module (`Get-Inspiration`).
 - **`session-cost-audit`** — measures what a session cost and why, against `out/plan-session-cost.md`, and proposes the changes.

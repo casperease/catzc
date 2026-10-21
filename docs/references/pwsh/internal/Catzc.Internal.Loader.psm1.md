@@ -16,8 +16,8 @@ two layers (see
 [ADR-PRIN-ONELIVE](/docs/adr/principles/one-living-version.md)). This loader is the one thing the importer loads
 unconditionally; it stays in the session (it is NOT removed with Bootstrap), so a post-import Catzc cover
 function can ensure a shared module is present before delegating to it. Because it is loaded first in both run
-modes, it also carries the one pipeline-detection function, Test-IsRunningInPipeline, which the bootstrap's
-C#-types pre-pass and the Catzc modules both call.
+modes, it also carries the one pipeline-detection function, Test-IsRunningInPipeline, and the one VS Code
+detection function, Test-IsRunningInVSCode, which the bootstrap's C#-types pre-pass and the Catzc modules both call.
 ```
 
 ## comment:2

@@ -5,30 +5,41 @@ using System.Globalization;
 
 namespace Catzc.Base.Docs;
 
-// The session-learnings log: a few markdown files of bounded length, first in first out (Add-SessionLearning).
+// A rolling log of dated lines: a few markdown files of bounded length, first in first out (Add-SessionLearning).
+// One instance per log; the learnings log is the default, and another log (hindsight) differs only in its folder, prefix and title.
 public sealed class LearningsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     public const string DefaultFolder = ".claude/learnings";
+    public const string DefaultPrefix = "learned";
+    public const string DefaultTitle = "Session learnings";
     public const int DefaultFiles = 5;
     public const int DefaultLinesPerFile = 50;
 
-    private static readonly string[] AllowedKeys = { "folder", "files", "lines_per_file" };
+    private static readonly string[] AllowedKeys = { "folder", "prefix", "title", "files", "lines_per_file" };
 
-    // The repository-relative folder the learnings files live in.
+    // The repository-relative folder the log's files live in.
     public string folder { get; }
+
+    // The file-name prefix: a file is <prefix><sha>.md, lowercase letters only.
+    public string prefix { get; }
+
+    // The words a file's heading opens with: '# <title> <sha>'.
+    public string title { get; }
 
     // How many files are kept; the oldest is dropped when a new one would exceed it.
     public int files { get; }
 
-    // How many learnings one file holds before the next file starts.
+    // How many lines one file holds before the next file starts.
     public int lines_per_file { get; }
 
     public LearningsConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
         string folderValue = DefaultFolder;
+        string prefixValue = DefaultPrefix;
+        string titleValue = DefaultTitle;
         int filesValue = DefaultFiles;
         int linesValue = DefaultLinesPerFile;
 
@@ -57,6 +68,27 @@ public sealed class LearningsConfig
                 }
             }
 
+            if (raw.Contains("prefix") && raw["prefix"] != null)
+            {
+                string value = raw["prefix"] as string;
+                bool letters = value != null && value.Length > 0 && Array.TrueForAll(value.ToCharArray(), c => c >= 'a' && c <= 'z');
+                if (letters) { prefixValue = value; }
+                else { errors.Add(string.Format(CultureInfo.InvariantCulture, "prefix '{0}' must be lowercase letters only", raw["prefix"])); }
+            }
+
+            if (raw.Contains("title") && raw["title"] != null)
+            {
+                string value = raw["title"] as string;
+                if (string.IsNullOrWhiteSpace(value) || value.IndexOfAny(new[] { '\r', '\n' }) >= 0 || value.Trim() != value)
+                {
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "title '{0}' must be one trimmed line of text", raw["title"]));
+                }
+                else
+                {
+                    titleValue = value;
+                }
+            }
+
             filesValue = WholeNumber(raw, "files", DefaultFiles, 1, 100, errors);
             linesValue = WholeNumber(raw, "lines_per_file", DefaultLinesPerFile, 1, 1000, errors);
         }
@@ -67,6 +99,8 @@ public sealed class LearningsConfig
         }
 
         folder = folderValue;
+        prefix = prefixValue;
+        title = titleValue;
         files = filesValue;
         lines_per_file = linesValue;
     }

@@ -10,20 +10,6 @@ model: haiku
 effort: low
 maxTurns: 10
 skills: [catzc-run, listen-tiers, report-fixed]
-catzc:
-  immutable:
-    repo_status: clean
-    path: ".claude/agents/doc-pattern-scout.md"
-    folder: agents
-    name: doc-pattern-scout
-    filetype: md
-    role: agent
-    language: markdown
-    track: ".claude"
-    tracktype: vendor-settings
-    vendor: claude
-    module: ".claude"
-    moduletype: settings
 ---
 
 # doc-pattern-scout
