@@ -82,3 +82,55 @@ Started 2026-10-22T01:04:04.9915901+02:00.
 - 2026-10-22 Jack: If only the session had read the minimap writer:
   docs/references/pwsh/catzc-base-slides/private/Write-DiagramMinimapData.ps1.md:11 computes each minimap from the ADR codes and :21 drops
   and reports any lit cell nobody declared, so content.minimaps choosing the maps was declared in the writer.
+- 2026-10-22 Jack: If only the session had read the minimap data article:
+  docs/references/pwsh/catzc-base-maps/Get-EngineStripMinimapData.ps1.md:25 already takes the world map built once by a caller that draws
+  many minimaps, so the double Get-WorldMap was a parameter left at its default.
+- 2026-10-22 Jack: If only the learning had read the article after it:
+  docs/references/pwsh/catzc-base-quality-gates/Get-FileMetaFact.ps1.md:10 now returns the place facts and the edges read from the
+  registries, git and the disk, never from a head, so with_body_sha alone is no longer its whole answer.
+- 2026-10-22 Jack: If only the session had read the head of the page it edited: docs/drs/index.md:5 says Do Not Edit, generated, and :11 and
+  :17 name pwsh/Catzc.Base.Drs/configs/drs-index.yml and drs.yml as its sources, so the hand edit was warned in the first lines.
+- 2026-10-22 Jack: If only the article agreed with its code: pwsh/Catzc.Base.Docs/private/Get-GlossarySourceViolations.ps1:68-70 flags a
+  contrast declared on both terms, as the learning says, while its page Get-GlossarySourceViolations.ps1.md:41 still calls a contrast that
+  is not reciprocal the finding, the same stale page an earlier line of this log trusted.
+- 2026-10-22 Jack: If only the session had read the parameter list:
+  docs/references/pwsh/catzc-base-quality-gates/Test-GeneratedFiles.ps1.md:45-54 lists Generator, OutputFolder and PassThru and no Path, so
+  running every registered writer was the declared shape.
+- 2026-10-22 Jack: If only the session had read the report writer: docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md:10
+  and :21 print the report and then throw once listing every issue unless -PassThru, so each finding shows twice by design and sort -u
+  treats a symptom the parameter cures.
+- 2026-10-22 Jack: If only the session had read the painter: python/catzc_diagrams/drawio_png.py:61 already says paint replaces every token
+  by its theme colour and fails on a token the theme lacks, so the loud failure the learning reports is now the declared behaviour.
+- 2026-10-22 Jack: If only the planner checked the tree as well as the plans: .claude/agents/its-a-chore-but-i-will-do-better.md:29-30 skips
+  a sentence only when an open step already covers it and never greps the tree for a gap that already landed, so stale gaps are still
+  planned.
+- 2026-10-22 Jack: If only the earlier line of this log had waited a day: pwsh/Catzc.Base.Files/Get-CodeCaller.ps1 now lists every tracked
+  file that names a type or config, so the caller grep it called a token tip is a command.
+- 2026-10-22 Jack: If only the earlier line of this log had waited too: docs/references/pwsh/catzc-base-quality-gates/New-Plan.ps1.md:10 and
+  :18 now write the value row and the master chunk line with the plan, so the summary it is given lands verbatim in both.
+- 2026-10-22 Jack: If only the sessions had read the folders ADR: docs/drs/repository/conventional-folders.md:41-44 already says a diagram
+  is the flat pair .assets/name.drawio.png and its .drawio.yml, or a yml drawio block in the article when the kit drawio.yml puts it there,
+  so the old folder rule is gone and the pair rule was declared before two sessions learned it.
+- 2026-10-22 Jack: If only the snapshot said when it fails: docs/references/pwsh/catzc-base-quality-gates/Invoke-TestFile.ps1.md:35-37
+  declares the verified snapshot taken when another run holds the folder, but no line says its priming can fail or how a run reports it, so
+  a silent failure is met by retry.
+- 2026-10-22 Jack: If only the session had read the gate article: docs/references/pwsh/catzc-base-slides/Test-Diagrams.ps1.md:21-23 now
+  names a declared diagram by its .drawio.yml, png or stem, and :10 and :17 report the minimaps a registry change left stale, so both
+  diagram learnings are the declared interface.
+- 2026-10-22 Jack: If only the earlier line of this log had waited: pwsh/Catzc.Base.QualityGates/Format-Code.ps1:214 now reports per
+  language how many files changed in content and how many only in wrapping, so the reread after a re-wrap is skipped by reading one count.
+- 2026-10-22 Jack: If only the earlier line of this log had waited as well: pwsh/.internal/assets/Invoke-CatzcCommand.ps1:49-50 now pushes
+  to the repository root before any command, so a relative path in a quoted command resolves from the root by construction.
+- 2026-10-22 Jack: If only the usage command looked before it read: docs/references/pwsh/catzc-base-files/Get-GitTrackedPath.ps1.md:17
+  declares that a file deleted from the working tree is still listed from the index, yet pwsh/Catzc.Base.QualityGates/Get-DrsUsage.ps1
+  checks no path exists, so the staged-but-deleted throw is a trap with a sign beside it.
+- 2026-10-22 Jack: If only the learning had read the renamed command:
+  docs/references/pwsh/catzc-base-quality-gates/Get-DrsUsage.ps1.md:14-17 now derives each citation from the text and its comment page,
+  never the head, and gives no row to an unregistered code, so the prose share the learning counted is no longer outside it.
+- 2026-10-22 Jack: If only someone had kept the before picture: nothing in the tree renders the old code output of a diagram for comparison,
+  and docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md:60 stops only a pair whose yml and png both moved since HEAD, so the
+  blame check stays a hand-made snapshot.
+- 2026-10-22 Jack: If only the session had loaded catzc-run: .claude/skills/catzc-run/SKILL.md:25-26 already answers a tree sweep with the
+  Grep and Glob tools, never a shell loop, and .claude/CLAUDE.md:133 holds the 3 s roof, so the wc loop was forbidden before it timed out.
+- 2026-10-22 Jack: If only the session had read the same capability: .claude/skills/catzc-run/SKILL.md:24-25 already waits on a background
+  run by a second background call, never by polling its output, so reading after the notification, once, was the declared way.
