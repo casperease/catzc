@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e702cf4cfb29
+    with_body_sha: "3f769ffd8cb8"
   edges:
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
@@ -14,7 +14,7 @@ param()
 
 Set-StrictMode -Version Latest   # this module's scope: the entry rule runs strict inside the analyzer engine
 
-# The spelling check reads the dictionaries, so it is its own entry rule: a dictionary edit re-runs this rule alone ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](/docs/adr/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)).
+# The spelling check reads the dictionaries, so it is its own entry rule: a dictionary edit re-runs this rule alone ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](/docs/drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)).
 $script:measure = $null
 
 function Measure-CatzcSpelling {

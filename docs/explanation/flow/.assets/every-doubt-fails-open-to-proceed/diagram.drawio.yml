@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "31d2b3ef21f6"
+#     with_body_sha: "42b8543d4560"
 # ---
 
 description:
@@ -91,9 +91,9 @@ content:
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: docs/-/.
         by:
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/flow/durable-sha-globs.md
-          - docs/adr/index.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/durable-sha-globs.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/ado/pipelines/cd-apex.yaml.md
           - docs/references/ado/pipelines/cd-flux.yaml.md

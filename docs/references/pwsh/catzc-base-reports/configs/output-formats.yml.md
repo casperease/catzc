@@ -9,7 +9,7 @@ Above `formats:`, written with `#`.
 
 ```text
 output-formats.yml — every kind of file a producer writes under the output root, declared once
-([ADR-REPO-OUTFMT](/docs/adr/repository/output-formats.md)). Validated on load by
+([ADR-REPO-OUTFMT](/docs/drs/repository/output-formats.md)). Validated on load by
 Catzc.Base.Reports.OutputFormatsConfig; Test-OutputFormats classifies the files under each format's folders and
 runs its validator.
 
@@ -35,5 +35,5 @@ Above `max_age: none`, written with `#`.
 
 ```text
 a plan cannot be regenerated
-([ADR-REPO-OUTDIR-PLANNOTES](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)), so a person retires it
+([ADR-REPO-OUTDIR-PLANNOTES](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)), so a person retires it
 ```

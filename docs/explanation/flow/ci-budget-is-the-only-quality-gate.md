@@ -63,8 +63,8 @@ reads left to right in one row, each kind or gate beside the rule that governs i
 
 ## See also
 
-- [The CI discipline and the promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains;
-  [pipeline types](../../adr/flow/pipeline-types.md) — the taxonomy it rests on.
+- [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains;
+  [pipeline types](../../drs/flow/pipeline-types.md) — the taxonomy it rests on.
 - The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md), [architecture](pipeline-kinds-keyed-by-one-artifact.md),
   [implementation](cd-builds-once-then-deploys-prod-itself.md) and [operations](a-merge-runs-cd-to-prod.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

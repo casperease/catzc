@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "903ecb573fe7"
+    with_body_sha: "6ef0321431ac"
   edges:
     docs: "[LinkFindingType.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/LinkFindingType.cs.md)"
     cites:
@@ -15,7 +15,7 @@ namespace Catzc.Base.QualityGates;
 public enum LinkFindingType
 {
     // Code kind — fixable.
-    Bare,           // a bare docs/adr path in a comment becomes a code link
+    Bare,           // a bare docs/drs path in a comment becomes a code link
     Relative,       // a ../ or rooted-but-unlinked path becomes a code link
     SlugOnly,       // an ADR file name alone (`caching.md`) becomes a code link when the slug is unique
     Adjacent,       // a path immediately followed by its own citation merges into one code link

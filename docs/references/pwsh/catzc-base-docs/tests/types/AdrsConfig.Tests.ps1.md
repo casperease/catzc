@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `function New-ValidRaw {`, written with `#`.
 
 ```text
-Neutral fixtures ([ADR-REPO-LANG](/docs/adr/repository/domain-language-separation.md)): invented
+Neutral fixtures ([ADR-REPO-LANG](/docs/drs/repository/domain-language-separation.md)): invented
 domains/codes, never real ADR vocabulary. Defined in
 BeforeAll so the helper is in scope for the run phase and visible to every It (a Describe-body function is
 only in discovery scope).

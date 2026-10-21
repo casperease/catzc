@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "63596bb55b02"
+#     with_body_sha: "8fcac59df69f"
 # ---
 
 description:
@@ -124,9 +124,9 @@ content:
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
       - cell: docs/-/.
         by:
-          - docs/adr/configuration/config-value-addressing.md
-          - docs/adr/configuration/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/configuration/config-value-addressing.md
+          - docs/drs/configuration/dora-explains.md
+          - docs/drs/index.md
           - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
           - docs/references/pwsh/catzc-base-config/Get-Config.ps1.md

@@ -6,7 +6,7 @@ on top of that reader, and the `configs.yml` registry that binds every shipped c
 types themselves (each lives in its owning module's `types/`), the config files they guard, the PowerShell validator extension point (that
 is [Catzc.Base.ConfigExtensions](catzc-base-config-extensions.md)), or the object-shaping helpers that manipulate already-loaded config
 objects (those live in [Catzc.Base.Objects](catzc-base-objects.md)). The design is governed by
-[module-config-loading](../../adr/configuration/module-config-loading.md).
+[module-config-loading](../../drs/configuration/module-config-loading.md).
 
 ## Responsibilities
 
@@ -23,7 +23,7 @@ The unified path from a config name to a validated, cached object. `Get-Config` 
 validates it — and stores the result keyed by resolved file path; a config with no registered type comes back raw. Every subsequent call for
 the same name returns the cached reference; the file is read once per session. Unknown and ambiguous names throw immediately; there is no
 silent fall-through. The full design — discovery, typed configs, poka-yoke table — is in
-[module-config-loading](../../adr/configuration/module-config-loading.md).
+[module-config-loading](../../drs/configuration/module-config-loading.md).
 
 ### responsibility:2 — Config type registry
 
@@ -31,7 +31,7 @@ A `configs.yml` file that binds each shipped config name to its C# config type (
 `[type]::new($dict)`, so the type both maps and validates the ordered dict into a typed object and reports every violation at once.
 `ConfigsConfig` (`Catzc.Base.Config.ConfigsConfig`) is the C# type that validates this registry file itself and exposes its entries. The
 quality gate `Test-ShippedConfigs` keeps the registry and the shipped configs in step. See
-[native-csharp-types](../../adr/automation/BCL/native-csharp-types.md) for the type mechanism.
+[native-csharp-types](../../drs/automation/BCL/native-csharp-types.md) for the type mechanism.
 
 ### responsibility:3 — Config value addressing
 
@@ -41,7 +41,7 @@ name (the owning module is discovered, not part of the address); each following 
 ordered dictionary or a typed object alike. The key path is optional — `global.<config>` addresses the whole config as a subtree. An address
 is the by-reference form of a config value: committable as data, dereferenced wherever a value is wanted without re-reading a file, and
 always read-only. Because an address only ever reaches version-controlled config, nothing addressable is a secret. The design is in
-[config-value-addressing](../../adr/configuration/config-value-addressing.md).
+[config-value-addressing](../../drs/configuration/config-value-addressing.md).
 
 ## What the module does
 

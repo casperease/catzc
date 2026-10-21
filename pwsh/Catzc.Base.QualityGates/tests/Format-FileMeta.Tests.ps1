@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e7379209f7ab
+    with_body_sha: "48b91d5f56dc"
   edges:
     code: pwsh/Catzc.Base.QualityGates/Format-FileMeta.ps1
     cites:
@@ -58,7 +58,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         Mock Get-Config { $script:registry } -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'file-meta' }
         # The one code the fixtures cite, registered with ten rules, so the adr-codes kind keeps it.
         Mock Get-AdrCitationMap -ModuleName Catzc.Base.QualityGates {
-            [Catzc.Base.Docs.AdrCitationMap]::new(@{ 'ADR-GADGET' = @{ path = 'docs/adr/gadget.md'; rules = [string[]] @('ADR-GADGET-TURN', 'ADR-GADGET-SPIN', 'ADR-GADGET-FOLD', 'ADR-GADGET-LIFT') } }, @())
+            [Catzc.Base.Docs.AdrCitationMap]::new(@{ 'ADR-GADGET' = @{ path = 'docs/drs/gadget.md'; rules = [string[]] @('ADR-GADGET-TURN', 'ADR-GADGET-SPIN', 'ADR-GADGET-FOLD', 'ADR-GADGET-LIFT') } }, @())
         }
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message { } -ModuleName Catzc.Base.Reports

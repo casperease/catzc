@@ -9,22 +9,22 @@ Above `globsets:`, written with `#`.
 
 ```text
 The globset registry — THE single source of truth mapping every area-of-control onto its files under
-version control (see [FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)). Each set projects to native
+version control (see [FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md)). Each set projects to native
 vendor path filters (Get-GlobSetTrigger) that pipelines and workflows trigger on, and to a git-reflected
 blast radius (Get-ChangedGlobSet); nothing is committed per set. Validated strictly on load by
 Catzc.Base.Globs.GlobsConfig.
 
-Every set declares its layer ([FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)): 'deployable-unit' (a
+Every set declares its layer ([FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)): 'deployable-unit' (a
 configurable unit that ships) or
 'loose-fileset' (a cross-cutting check surface — a track's root concern, a scan scope, the whole repository
 — that deliberately overlaps the boundaries it cuts across). The 'module' layer is derived from the folders
 (and the internal .psm1 files), never declared, and carries its own 'module-leftovers' catch-all — derived
 sets scope protection and blast radius
-([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)). Within every layer but 'loose-fileset' no
+([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](/docs/drs/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)). Within every layer but 'loose-fileset' no
 two sets may select a common file on their OWN contribution — a unit never consumes another unit's files,
-a module never another module's ([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)); loose-filesets
+a module never another module's ([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)); loose-filesets
 overlap freely. 'compose' unions another declared set's effective members into this one (acyclic,
-[FDR-CD-GLOBS-COMPOSESETS](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)). 'pipeline' names the pipeline bound to this set's
+[FDR-CD-GLOBS-COMPOSESETS](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)). 'pipeline' names the pipeline bound to this set's
 marker — any layer may bind one.
 
 Dialect: '/'-separated, repo-relative; '**' is the only cross-segment operator (zero or more whole
@@ -38,7 +38,7 @@ Above `pwsh:`, written with `#`.
 
 ```text
 The pwsh set (the pwsh track) — the module system under pwsh/. A loose-fileset
-([FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)):
+([FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)):
 a cross-cutting check surface with a demonstrated use (the ci-pwsh pipeline binds its marker). It
 overlaps the derived module sets it spans, which is exactly what the loose-fileset layer is for.
 ```
@@ -68,7 +68,7 @@ below carry those).
 Above `template-azure-subscription-foundation:`, written with `#`.
 
 ```text
-The base deployable unit ([FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)): the foundation template
+The base deployable unit ([FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)): the foundation template
 plus the shared Bicep modules, WITHOUT
 any deployment configuration (the root files and the customer subfolders). It binds no pipeline of its
 own — it ships only through a configured unit that composes it (apex/nova/flux/shared) — but carries the
@@ -82,7 +82,7 @@ Above `template-azure-subscription-discovery:`, written with `#`.
 ```text
 The landing-zone base unit: the discovery template WITHOUT any deployment configuration. It composes
 the foundation base, which owns the shared Bicep modules (a unit never owns another unit's files,
-[FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)), and which discovery deploys onto. It
+[FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)), and which discovery deploys onto. It
 binds no pipeline; it ships only through the configured units that compose it.
 ```
 
@@ -102,7 +102,7 @@ Above `nova:`, written with `#`.
 
 ```text
 Per-customer deployable units
-([DDR-TRACK-DEPLOYABLEUNIT](/docs/adr/design/tracks.md#rule-ddr-track-deployableunit)): the shared surface plus that customer's own
+([DDR-TRACK-DEPLOYABLEUNIT](/docs/drs/design/tracks.md#rule-ddr-track-deployableunit)): the shared surface plus that customer's own
 configuration subfolder — the folder IS the customer key, so the unit is the exact folder name.
 Adding a customer is adding an entry here — config, never code.
 ```
@@ -135,7 +135,7 @@ Above `repository:`, written with `#`.
 The whole repository: every tracked file under every named root (pwsh/, infrastructure/, docs/,
 pipelines/, .github/, contracts/, the root files, and any root added later). The protection identity for
 anything whose read set spans the repository
-([ADR-REPO-PROTGLOB-INCLUDESOWNCONFIG](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob-includesownconfig)/8): the managed-GUID and spelling scans
+([ADR-REPO-PROTGLOB-INCLUDESOWNCONFIG](/docs/drs/repository/protected-globs.md#rule-adr-repo-protglob-includesownconfig)/8): the managed-GUID and spelling scans
 (each reads a subset of it plus its own config, which it also contains), and the widened composite of a
 module that is unconstrained, carries integrity tests, or is an infra test unit. A covering superset is
 safe — it can only cause a redundant run, never a wrong skip — and integrity tests hold each scan's

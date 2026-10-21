@@ -12,7 +12,7 @@ The Azure DevOps coupling (configs/ado.yml): the data that binds this repo to on
 Entra (Azure AD) tenant behind it — the single source of truth for which org/tenant is the *correct* thing to
 be connected to. Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Azure.DevOps.AdoConfig), so
 Get-Config -Config ado returns this typed record. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
   organization  required; the org REST URL (https://dev.azure.com/<org> or https://<org>.visualstudio.com)

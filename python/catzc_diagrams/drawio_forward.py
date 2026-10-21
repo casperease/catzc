@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f15ad0aad285
+#     with_body_sha: d2a24bc38224
 # ---
 
 # cspell:ignore mxfile minimaps pnginfo XMLMATCH
@@ -119,7 +119,7 @@ def slide_facts(model):
         lens = None
     if NUMBERED.search(subtitle):
         problems.append(
-            f"the subtitle cites a rule by number, a rule is cited by its name (ADR-REPO-ADRCODE): {subtitle!r}"
+            f"the subtitle cites a rule by number, a rule is cited by its name (ADR-REPO-DRSCODE): {subtitle!r}"
         )
     return adrs_of(subtitle), lens, problems
 

@@ -12,7 +12,7 @@ Installs ShellCheck, the analyzer for the repository's shell scripts, at the too
 ### description
 
 ShellCheck is the analyzer the Test-ShellScripts quality gate runs over every tracked `*.sh` file
-([ADR-AUTO-ENGINE](../../../adr/automation/execution-engines.md)). Windows and macOS delegate to Install-Tool: winget koalaman.shellcheck as
+([ADR-AUTO-ENGINE](../../../drs/automation/execution-engines.md)). Windows and macOS delegate to Install-Tool: winget koalaman.shellcheck as
 a user-scope portable (no admin), or brew. Linux installs the distribution's shellcheck package with apt-get, which needs root. Idempotent:
 a ShellCheck already at the pinned version is left alone; another version throws unless -Force.
 

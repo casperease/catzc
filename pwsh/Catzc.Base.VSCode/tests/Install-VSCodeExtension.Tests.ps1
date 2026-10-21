@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6cd427f319c6"
+    with_body_sha: "1d2615adf9a8"
   edges:
     code: pwsh/Catzc.Base.VSCode/Install-VSCodeExtension.ps1
     cites:
@@ -10,7 +10,7 @@ catzc:
 ---
 #>
 
-# Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
+# Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
 Describe 'Install-VsCodeExtension' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'extensions'

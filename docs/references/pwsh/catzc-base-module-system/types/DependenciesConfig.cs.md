@@ -9,11 +9,11 @@ Above `using System;`, written with `//`.
 
 ```text
 The declared (ALLOWED) module dependency graph, configs/dependencies.yml
-([ADR-AUTO-DEPM](/docs/adr/automation/controlling-module-dependencies.md)). Constructing an instance MAPS and
+([ADR-AUTO-DEPM](/docs/drs/automation/controlling-module-dependencies.md)). Constructing an instance MAPS and
 VALIDATES the parsed YAML, collecting every violation into one throw. Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.ModuleSystem.DependenciesConfig), so
 Get-Config -Config dependencies returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Load-time rules are self-contained — this one file only, no filesystem reads (a declared module that is missing
 on disk is a Test-ModuleDependency finding, not load's):

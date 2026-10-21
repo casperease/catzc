@@ -9,25 +9,25 @@ Above `BeforeDiscovery {`, written with `#`.
 
 ```text
 L2 integrity for the SHIPPED bicep templates' parameter contract
-([ADR-AZ-DATAMOD-PARAMETERCONTRACT](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)): every template is built with the
+([ADR-AZ-DATAMOD-PARAMETERCONTRACT](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)): every template is built with the
 real `az bicep build`, and every parameters file it renders must satisfy the parameter model of its compiled main.json
 — types, @allowed values, bounds, required parameters, no undeclared parameter, and a Key Vault reference (never a
 literal) for a secure parameter. Get-BicepParameterViolations does the checking; its rules are proven on fixtures at
 L0 (Get-BicepParameterViolations.Tests.ps1). This file adds what only the real compiler can: the contract the shipped
 templates actually declare.
 
-Generic over the template set ([ADR-AUTO-TEST-GENERICTEMPLATETESTS](/docs/adr/automation/test-automation.md#rule-adr-auto-test-generictemplatetests)): the
+Generic over the template set ([ADR-AUTO-TEST-GENERICTEMPLATETESTS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-generictemplatetests)): the
 templates are discovered with Get-BicepTemplateNames, one test each, and no test names a template or asserts a
 production value. It runs in the `infrastructure` globset's test suite
-([ADR-AUTO-TEST-TESTSUITE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-testsuite)) —
+([ADR-AUTO-TEST-TESTSUITE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-testsuite)) —
 `Test-Automation -Suite infrastructure` — with the rest of the module's tests.
 
-Each test self-skips when `az` is absent ([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](/docs/adr/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)).
+Each test self-skips when `az` is absent ([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](/docs/drs/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)).
 The build output goes to this file's $TestDrive through the Get-BicepTemplatesOutputRoot seam
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)), so it never shares
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)), so it never shares
 out/template/<name> with another test file or a developer's build. greedy, not serial: it drives real
 `az bicep build` child processes but shares no mutable state
-([ADR-AUTO-TEST-ONESCHEDULINGPOOL](/docs/adr/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)).
+([ADR-AUTO-TEST-ONESCHEDULINGPOOL](/docs/drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)).
 ```
 
 ## comment:2
@@ -36,6 +36,6 @@ Above `if (Get-Command az -ErrorAction Ignore) {`, written with `#`.
 
 ```text
 The Bicep CLI is verified once here for the whole template set, not once per Build-Bicep call
-([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)): each probe is a 2 s `az bicep version`
+([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)): each probe is a 2 s `az bicep version`
 child process, and every build still compiles with the real `az bicep build`.
 ```

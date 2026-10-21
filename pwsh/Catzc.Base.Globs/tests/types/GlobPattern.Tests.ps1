@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d12c2a19af9c
+    with_body_sha: "09cfedf5f07f"
   edges:
     docs: "[GlobPattern.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/types/GlobPattern.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/types/GlobPattern.cs
@@ -51,8 +51,8 @@ Describe 'GlobPattern' -Tag 'L0', 'logic' {
             @{ pattern = 'widgets/**'; path = 'widgets/x/y/z.cs'; expected = $true }
             @{ pattern = 'widgets/**'; path = 'widgets2/a.ps1'; expected = $false }
             @{ pattern = '**/*.md'; path = 'README.md'; expected = $true }
-            @{ pattern = '**/*.md'; path = 'docs/adr/index.md'; expected = $true }
-            @{ pattern = '**/*.md'; path = 'docs/adr/index.txt'; expected = $false }
+            @{ pattern = '**/*.md'; path = 'docs/drs/index.md'; expected = $true }
+            @{ pattern = '**/*.md'; path = 'docs/drs/index.txt'; expected = $false }
             @{ pattern = '**/tests/**/*.ps1'; path = 'widgets/M/tests/a.Tests.ps1'; expected = $true }
             @{ pattern = '**/tests/**/*.ps1'; path = 'widgets/M/a.ps1'; expected = $false }
             @{ pattern = 'a/**/b'; path = 'a/b'; expected = $true }

@@ -58,7 +58,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - session-learnings -> plan-session-learnings.md: one learning reworded and catzc-49's lines appended; its questions are decided.
 - minimap-reasons-gate -> plan-minimap-reasons-gate.md: every diagram's placed minimap data written into its `diagram.drawio.yml` under
   `content.minimaps`, then the gate in Write-DiagramMinimapData drops an undeclared lit cell.
-- drs-system -> plan-drs-system.md: the Decision Records System (DRS): docs/adr moves to docs/drs, the holder of the XDR record-kind
+- drs-system -> plan-drs-system.md: the Decision Records System (DRS): docs/drs moves to docs/drs, the holder of the XDR record-kind
   domains; its root declared once, then the move after the user's go, the citations, and the Adr* names.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full

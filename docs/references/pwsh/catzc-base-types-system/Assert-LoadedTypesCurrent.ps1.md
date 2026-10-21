@@ -12,10 +12,10 @@ Asserts that the C# types loaded in this PowerShell process are current with the
 ### description
 
 The throwing form of Test-LoadedTypesCurrent
-([ADR-AUTO-FAILFAST-ASSERTPRECONDITIONS](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-assertpreconditions)): a
+([ADR-AUTO-FAILFAST-ASSERTPRECONDITIONS](../../../drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-assertpreconditions)): a
 precondition for work that must run on the types as written, such as a test of a type just edited. A loaded assembly cannot be swapped in a
 running process
-([ADR-BCL-TYPES-CHANGEDAFTERLOAD](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-changedafterload)), so the one
+([ADR-BCL-TYPES-CHANGEDAFTERLOAD](../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-changedafterload)), so the one
 remedy is a new process; the message names it, with every drifted type and both hashes or code roots.
 
 ### parameter `ModulesRoot`

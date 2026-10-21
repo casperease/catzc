@@ -9,5 +9,5 @@ Above `Describe 'ContractValue' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTA
 
 ```text
 ContractValue reads a parsed JSON or YAML value as one of the JSON kinds and compares two values by JSON equality
-([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)), whatever CLR type each parser chose.
+([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)), whatever CLR type each parser chose.
 ```

@@ -13,7 +13,7 @@ Quality gate: every tracked file and the folders that hold it are named in the i
 
 Judges every tracked file of a language that has a `naming:` entry in the languages config (Catzc.Base.Languages configs/languages.yml): its
 file name, without its extension, against the language's file cases, and every folder on its path against the language's folder cases
-([ADR-AUTO-IDIOM-LANGUAGEIDIOM](../../../adr/automation/idiomatic-names.md#rule-adr-auto-idiom-languageidiom)). Files under an exempt folder
+([ADR-AUTO-IDIOM-LANGUAGEIDIOM](../../../drs/automation/idiomatic-names.md#rule-adr-auto-idiom-languageidiom)). Files under an exempt folder
 (`naming.exempt_folders`) and the files a language lists as `exempt` keep their source's names. A misnamed folder is one issue per language,
 a misnamed file one issue: '`<folder>/`: the folder is not `<case>` (`<language>`)' or '`<file>`: the file name is not `<case>`
 (`<language>`)'.

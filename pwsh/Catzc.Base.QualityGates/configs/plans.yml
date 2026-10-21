@@ -1,13 +1,13 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "2c709202910f"
+#     with_body_sha: d7fae095f390
 #   edges:
 #     cites:
 #       - ADR-REPO-PLANS
 # ---
 
-# The settings Test-Plans holds the plans folder to ([ADR-REPO-PLANS](/docs/adr/repository/plans.md)); the defaults are declared once on PlansConfig.
+# The settings Test-Plans holds the plans folder to ([ADR-REPO-PLANS](/docs/drs/repository/plans.md)); the defaults are declared once on PlansConfig.
 folder: .claude/plans
 statuses: [active, blocked]
 ranks: [highest, high, medium-high, medium, low-medium, low]

@@ -12,7 +12,7 @@ plan:
       contracts/catzc/0.0.0,
       python,
       go,
-      docs/adr/automation/idiomatic-names.md,
+      docs/drs/automation/idiomatic-names.md,
     ]
 ---
 
@@ -31,8 +31,8 @@ states an interface once and each language's checker renders its own name.
 
 ## Decided (the user, 2026-10-20)
 
-Every decision is a rule of [idiomatic-names](../../docs/adr/automation/idiomatic-names.md) (`ADR-AUTO-IDIOM`), with the contract side in
-[command-contracts](../../docs/adr/repository/command-contracts.md) and [api-contracts](../../docs/adr/repository/api-contracts.md):
+Every decision is a rule of [idiomatic-names](../../docs/drs/automation/idiomatic-names.md) (`ADR-AUTO-IDIOM`), with the contract side in
+[command-contracts](../../docs/drs/repository/command-contracts.md) and [api-contracts](../../docs/drs/repository/api-contracts.md):
 
 - The idiom is a `naming:` entry per language in `languages.yml`, from a closed set of cases (ADR-AUTO-IDIOM-LANGUAGEIDIOM,
   ADR-AUTO-IDIOM-CLOSEDCASES); assets, vendored folders and listed files keep their source's names (ADR-AUTO-IDIOM-SOURCENAMEDEXEMPT).
@@ -70,7 +70,7 @@ L1 round trip in `ConvertTo-NormalName.Tests.ps1` passes once the user commits t
 
 ## Refs
 
-- [idiomatic-names](../../docs/adr/automation/idiomatic-names.md), [command-contracts](../../docs/adr/repository/command-contracts.md),
-  [api-contracts](../../docs/adr/repository/api-contracts.md)
+- [idiomatic-names](../../docs/drs/automation/idiomatic-names.md), [command-contracts](../../docs/drs/repository/command-contracts.md),
+  [api-contracts](../../docs/drs/repository/api-contracts.md)
 - `pwsh/Catzc.Base.Languages/types/LanguageNaming.cs`, `types/LanguagesConfig.cs` (`MisnamedPaths`), `configs/languages.yml`
 - `pwsh/Catzc.Base.QualityGates/Test-IdiomaticNames.ps1`, `Assert-IdiomaticNames.ps1`

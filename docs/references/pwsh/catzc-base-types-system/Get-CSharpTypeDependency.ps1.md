@@ -28,7 +28,7 @@ These edges are folded into Get-ModuleDependencyViolations beside the function-c
 (configs/dependencies.yml, asserted by the L2 tests) governs C# type layering.
 
 Reads each module's C# type files (`types/*.cs`), which exist only in the source tree, so it stops with a named error in build mode
-(Assert-SourceTree, [DDR-RUNMODE](../../../adr/design/run-modes.md)).
+(Assert-SourceTree, [DDR-RUNMODE](../../../drs/design/run-modes.md)).
 
 ### parameter `ModulesRoot`
 
@@ -53,7 +53,7 @@ Above `foreach ($cs in ([System.IO.Directory]::EnumerateFiles($typesDir, '*.cs')
 ```text
 [System.IO] (sorted) instead of Get-ChildItem/Get-Content — ~20ms-per-call cmdlet overhead the raw
 .NET enumeration + read avoid
-([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
 ```
 
 ## comment:2

@@ -9,21 +9,21 @@ Above `using System;`, written with `//`.
 
 ```text
 The file-language registry (configs/languages.yml): every file language the repository's tracked files are written
-in, each named by its extensions ([DDR-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-ddr-track-filelanguage)), with the
+in, each named by its extensions ([DDR-TRACK-FILELANGUAGE](/docs/drs/design/tracks.md#rule-ddr-track-filelanguage)), with the
 formatter engine that formats it and its ADR folder. Registered in Catzc.Base.Config/configs/configs.yml
 (type: Catzc.Base.Languages.LanguagesConfig), so Get-Config -Config languages returns this typed record; Get-FileLanguage
 and Format-Code read it. Property names mirror the YAML keys (snake_case,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Formatting is configured, not programmed
-([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)): an entry names the
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)): an entry names the
 formatter ENGINE that formats its files, one of FormatterEngines below, and Format-Code runs that engine. A language
 with nothing to format states why in 'no_formatter' instead
-([PDR-CONFIG-EXCEPTIONISCONFIGENTRY](/docs/adr/principles/configure-not-program.md#rule-pdr-config-exceptionisconfigentry)), so every language
+([PDR-CONFIG-EXCEPTIONISCONFIGENTRY](/docs/drs/principles/configure-not-program.md#rule-pdr-config-exceptionisconfigentry)), so every language
 carries exactly one of the two and a gap is a visible, reviewed entry.
 
 The sensible defaults are declared here, once
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): an omitted 'languages' is no
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): an omitted 'languages' is no
 file language, an omitted 'adr_folder' is none, and an omitted 'checks' is no quality gate.
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
@@ -39,7 +39,7 @@ Constructing an instance validates the file, collecting every violation into one
   - 'extensions' is a non-empty list; each extension starts with its leading dot, is lowercase letters and digits
     after it (e.g. .ps1), and belongs to exactly one file language (an extension claimed twice is rejected);
   - exactly one of 'formatter' (an engine in FormatterEngines) and 'no_formatter' (a non-empty reason);
-  - 'adr_folder' is a '/'-separated folder under docs/adr/, no leading or trailing slash, no '.' or '..' segment.
+  - 'adr_folder' is a '/'-separated folder under docs/drs/, no leading or trailing slash, no '.' or '..' segment.
 ```
 
 ## comment:2
@@ -49,7 +49,7 @@ Above `private static readonly string[] Engines = { "prettier", "gofmt", "ruff",
 ```text
 The formatter engines a language may name: one Format-Code adapter each. A new engine is new mechanism — its
 adapter and its name here land together
-([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](/docs/adr/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)).
+([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](/docs/drs/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)).
 ```
 
 ## comment:3
@@ -68,7 +68,7 @@ Above `public IReadOnlyDictionary<string, string> EditorFormatters()`, written w
 ```text
 The editor formatter of every language whose engine names a VS Code extension, keyed by the language's VS Code
 language id: what the editor's Format Document runs, the same engine Format-Code runs
-([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)).
+([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)).
 ```
 
 ## comment:5

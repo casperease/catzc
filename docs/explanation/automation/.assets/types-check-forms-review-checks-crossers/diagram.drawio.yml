@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f1748220226c
+#     with_body_sha: "31c1abf57727"
 # ---
 
 description:
@@ -151,10 +151,10 @@ content:
           - ADR-AUTO-PATH-WORKSPACEANCHOR
       - cell: docs/-/.
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/path-representation.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/path-representation.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-base-contracts/Get-Contract.ps1.md
           - docs/references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
           - docs/references/pwsh/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md

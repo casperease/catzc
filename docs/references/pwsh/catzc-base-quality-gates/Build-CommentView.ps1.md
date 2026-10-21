@@ -12,9 +12,9 @@ Writes the annotated view: every file that has a comment page, with each section
 ### description
 
 The inverse of Export-Comments. A file keeps no long comment and the prose lives once, in the file's comment page
-([PDR-ONELIVE-ONEVERSION](../../../adr/principles/one-living-version.md#rule-pdr-onelive-oneversion)); the view is the generated,
+([PDR-ONELIVE-ONEVERSION](../../../drs/principles/one-living-version.md#rule-pdr-onelive-oneversion)); the view is the generated,
 gitignored copy a reader or an agent opens to see a file with its comments inline. It is written under comments.yml's `view` folder in out/
-([ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-outputrootfunction)), at
+([ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION](../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-outputrootfunction)), at
 the file's own repository path, so `out/annotated/<path>` is the annotated `<path>`. Only files whose view differs from the file get one; a
 section whose code line is gone is left out (Test-Comments reports it).
 

@@ -12,14 +12,14 @@ Lists the inspirations catzc reads for ideas, and whether each is available on t
 ### description
 
 Reads the inspirations from configs/inspiration.yml (Get-Config -Config inspiration, whose type declares the sensible default, the one 'eac'
-entry; [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)),
+entry; [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)),
 resolves each root on this machine (Resolve-InspirationRoot), and returns one Inspiration record per pick: Id, Root, Available, Description,
 Paths.
 
 An inspiration is read for ideas, never as a reference implementation
-([ADR-REPO-INSPIRE-NEVERREFERENCE](../../../adr/repository/inspiration.md#rule-adr-repo-inspire-neverreference)), and the work carries on
+([ADR-REPO-INSPIRE-NEVERREFERENCE](../../../drs/repository/inspiration.md#rule-adr-repo-inspire-neverreference)), and the work carries on
 without one that is absent
-([ADR-REPO-INSPIRE-SIBLINGFORIDEAS](../../../adr/repository/inspiration.md#rule-adr-repo-inspire-siblingforideas)). So an inspiration whose
+([ADR-REPO-INSPIRE-SIBLINGFORIDEAS](../../../drs/repository/inspiration.md#rule-adr-repo-inspire-siblingforideas)). So an inspiration whose
 root does not exist here is reported with Available false, never thrown on.
 
 - No arguments: every available inspiration, in file order.

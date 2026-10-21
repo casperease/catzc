@@ -48,7 +48,7 @@ only two, move a path from one form to the other, so normalization is a guarante
 
 ## See also
 
-- [Path representation](../../adr/automation/path-representation.md) — the decision this article explains.
+- [Path representation](../../drs/automation/path-representation.md) — the decision this article explains.
 - The other views of the same boundary: [architecture](two-crossers-and-three-anchors.md),
   [implementation](output-root-first-then-repo-root.md), [operations](one-out-string-two-places.md) and
   [governance](types-check-forms-review-checks-crossers.md).

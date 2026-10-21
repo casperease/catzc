@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7f77e6e9f20d"
+    with_body_sha: e08688e4120a
   edges:
     test: pwsh/Catzc.Tooling.Listen/tests/Wait-DocNote.Tests.ps1
     cites:
@@ -17,7 +17,7 @@ function Wait-DocNote {
 
     .DESCRIPTION
         The processor's wait, bounded under the background roof of the time safeguard
-        ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). It
+        ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). It
         returns at once when unprocessed notes already exist, so a processor that starts late catches up on the backlog first.
 
         The session lives in out/, which can be wiped at any time: with no session yet, or once the session has vanished, it keeps

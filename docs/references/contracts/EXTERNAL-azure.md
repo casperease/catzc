@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1736b41bdd25"
+    with_body_sha: bd5294bbd090
     warning: "Do Not Edit, this file is generated"
     role: reference
     track: docs
@@ -24,13 +24,13 @@ A presence asset, a text fragment, and a JSON fragment or sample payload carry n
 A command contract's signature is the call interface its contract language states, as `Get-CommandContract` reads it; every other kind has
 none.
 
-Layout, kinds, and directions: [api-contracts](../../adr/repository/api-contracts.md); command contracts:
-[command-contracts](../../adr/repository/command-contracts.md).
+Layout, kinds, and directions: [api-contracts](../../drs/repository/api-contracts.md); command contracts:
+[command-contracts](../../drs/repository/command-contracts.md).
 
 ## 0.0.0
 
 The draft: the one mutable version folder
-([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
+([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
 
 | Module                  | Asset                                                | Target                                                              | Direction   | Kind   | Signature |
 | ----------------------- | ---------------------------------------------------- | ------------------------------------------------------------------- | ----------- | ------ | --------- |
@@ -47,7 +47,7 @@ Notes:
 ## 0.1.0
 
 Released, so frozen by its `.frozen` record
-([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
+([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
 
 | Module                  | Asset                                                | Target                                                              | Direction   | Kind   | Signature |
 | ----------------------- | ---------------------------------------------------- | ------------------------------------------------------------------- | ----------- | ------ | --------- |

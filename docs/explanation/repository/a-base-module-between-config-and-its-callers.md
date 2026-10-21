@@ -60,8 +60,8 @@ it.
 
 ## See also
 
-- [Repo-wide variants](../../adr/repository/repo-variants.md) — the decision this article explains.
-- [Controlling module dependencies](../../adr/automation/controlling-module-dependencies.md) — the declaration the edges live in.
+- [Repo-wide variants](../../drs/repository/repo-variants.md) — the decision this article explains.
+- [Controlling module dependencies](../../drs/automation/controlling-module-dependencies.md) — the declaration the edges live in.
 - The other lenses on the same diagram: [meta](one-home-one-read-path-one-vocabulary.md),
   [implementation](five-keys-one-reader-twelve-primitives.md), [operations](an-edit-lands-at-the-next-import.md) and
   [governance](values-and-edges-gated-reads-reviewed.md).

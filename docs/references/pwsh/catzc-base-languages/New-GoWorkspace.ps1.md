@@ -29,7 +29,7 @@ and dependencies are sorted ordinally and every file is LF with one trailing new
 every machine. Rendering is pure text: offline, with no call to the go tool.
 
 This is a pure renderer: it returns the content and writes nothing. It is the `generator` the root-config registry names for the go.work and
-go.mod targets, and Build-RootConfig owns the write ([ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md)). One call
+go.mod targets, and Build-RootConfig owns the write ([ADR-REPO-ROOTCFG](../../../drs/repository/generated-root-configs.md)). One call
 renders every file, so a registry entry selects its files with -Target.
 
 ### parameter `Target`
@@ -60,6 +60,6 @@ Above `$goVersion = "$(Get-ConfigValue -Address 'global.tools.go.version')"`, wr
 
 ```text
 The one Go version: the go tool's tools.yml pin, read by address (reading config is global access,
-[ADR-CONF-ADDRESSING](/docs/adr/configuration/config-value-addressing.md)). A major.minor pin (1.27) is a valid go
+[ADR-CONF-ADDRESSING](/docs/drs/configuration/config-value-addressing.md)). A major.minor pin (1.27) is a valid go
 directive, as is a full 1.N.P.
 ```

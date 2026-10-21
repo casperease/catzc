@@ -20,7 +20,7 @@ Constructing an instance validates the whole file, collecting every violation in
   - every entry is a well-formed ToolConfig (violations prefixed with the tool's name) with at least one install
     mechanism (a package-manager id, script_install, a uv shape, an MSYS2 package, or system_provided);
   - every depends_on names a declared tool
-    ([ADR-AUTO-DEPS-INSTALLORDERINCONFIG](/docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps-installorderinconfig));
+    ([ADR-AUTO-DEPS-INSTALLORDERINCONFIG](/docs/drs/automation/controlling-systemwide-deps.md#rule-adr-auto-deps-installorderinconfig));
   - the `python` tool's version never exceeds a tool's max_python — a poka-yoke against bumping Python to a
     bleeding-edge release a dependent (az_cli's venv runs on it) cannot use.
 ```

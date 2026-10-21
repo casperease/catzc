@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "04ffbc9cb90b"
+    with_body_sha: c12eb027bf15
   edges:
     code: pwsh/Catzc.Tooling.Listen/Start-DocListener.ps1
 ---
@@ -20,14 +20,14 @@ Describe 'Start-DocListener' -Tag 'L0', 'logic' {
     }
 
     It 'notes every settled change once and moves seen forward' {
-        Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nNoted.`n"
+        Write-ListenFixtureFile 'docs/drs/widget.md' "# Widget`n`nNoted.`n"
         Start-DocListener -Session $script:session -Cycles 1
-        @(Get-DocNote -Session $script:session).File | Should -Be @('docs/adr/widget.md')
+        @(Get-DocNote -Session $script:session).File | Should -Be @('docs/drs/widget.md')
         @(Get-DocChange -Session $script:session).Count | Should -Be 0
 
         Write-ListenFixtureFile 'docs/explanation/gadget.md' "# Gadget`n`nNoted next.`n"
         Start-DocListener -Session $script:session -Cycles 1
-        @((Get-DocNote -Session $script:session).File) | Should -Be @('docs/adr/widget.md', 'docs/explanation/gadget.md')
+        @((Get-DocNote -Session $script:session).File) | Should -Be @('docs/drs/widget.md', 'docs/explanation/gadget.md')
     }
 
     It 'moves both sides of a rename forward' {

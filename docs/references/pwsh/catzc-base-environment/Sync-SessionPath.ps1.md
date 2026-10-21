@@ -42,6 +42,6 @@ Above `$added = @($newPaths)`, written with `#`.
 
 ```text
 Rewrite the session PATH only when an entry arrives or leaves, and say which
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) — on a
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) — on a
 clean devbox nothing changes, so the import stays quiet.
 ```

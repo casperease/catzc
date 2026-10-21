@@ -9,5 +9,5 @@ Above `Describe 'Get-AgentFrontMatter' -Tag 'L0', 'logic',...`, written with `#`
 
 ```text
 Get-AgentFrontMatter over fixture agent files in $TestDrive. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

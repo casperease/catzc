@@ -30,7 +30,7 @@ Above `$isFunction = {`, written with `#`.
 
 ```text
 Predicates as locals, not inlined in FindAll's parens — dodges a cross-version indent skew
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
 ```
 
 ## comment:4

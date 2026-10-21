@@ -9,7 +9,7 @@ Above `It 'the committed english.txt.gz and its stamp match the tools.yml pin an
 
 ```text
 Binds to the shipped english.txt.gz + its stamp and the pinned tools.yml version — an integrity test
-([ADR-AUTO-TEST-ONECATEGORY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-onecategory)). It detects a stale dictionary
+([ADR-AUTO-TEST-ONECATEGORY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-onecategory)). It detects a stale dictionary
 WITHOUT re-running node: Test-GeneratedFiles (through Get-EnglishDictionaryDrift) checks that the gz and its
 stamp ship, that the recorded cspell version matches the tools.yml pin, and that the recorded word count
 matches the actual gz. Re-run Build-EnglishDictionary (and commit the gz + stamp) when it reports drift.

@@ -13,7 +13,7 @@ The module neighbourhood minimap's data: the modules a diagram's subject sits in
 
 The subject is the files the ADR codes light on the world map. Their modules form the lit `subject` ring; the modules those depend on form
 the `depends-on` ring and the modules that depend on them the `used-by` ring, read from the module dependency registry
-([ADR-AUTO-DEPM](../../../adr/automation/controlling-module-dependencies.md)). A neighbour's count is how many subject modules it is joined
+([ADR-AUTO-DEPM](../../../drs/automation/controlling-module-dependencies.md)). A neighbour's count is how many subject modules it is joined
 to. Each lit cell carries the file and the requested code as its reason, its module type as the note, in the minimap contract's shape.
 
 ### parameter `Adr`

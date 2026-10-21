@@ -10,7 +10,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Get-GlobSetHash' -Tag 'L1', 'logic' {`, written with `#`.
 
 ```text
-The durable SHA ([FDR-CD-GLOBS-DURABLESHAIDENTITY](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)):
+The durable SHA ([FDR-CD-GLOBS-DURABLESHAIDENTITY](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity)):
 64-hex-lowercase, EOL-insensitive, path-folded, ordinal, with the
 <path>|missing marker for an unstaged deletion.
 ```

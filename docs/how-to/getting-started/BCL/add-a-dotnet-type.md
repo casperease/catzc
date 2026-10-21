@@ -2,7 +2,7 @@
 
 Some logic is better as a native .NET type than as PowerShell — a process runner, or a validated data record that replaces a loose
 hashtable. Drop a `.cs` file in a module's `types/` folder and the importer compiles and loads it before any function runs. The full design
-is in [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md); this is the how-to.
+is in [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md); this is the how-to.
 
 ## Steps
 
@@ -25,7 +25,7 @@ is in [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md);
   `System.Management.Automation` — so a PowerShell primitive (`WildcardPattern`, `PSObject`) costs a `using` namespace and nothing more.
   There is no mechanism to add NuGet references.
 - Use **PascalCase** property names — _except_ on a type that mirrors a `configs/<name>.yml` file, where the properties match the snake_case
-  YAML keys (see [native-csharp-types rule ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../adr/automation/BCL/native-csharp-types.md)).
+  YAML keys (see [native-csharp-types rule ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../drs/automation/BCL/native-csharp-types.md)).
 
 ## Example: a plain result type
 

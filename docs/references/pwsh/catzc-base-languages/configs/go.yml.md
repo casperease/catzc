@@ -13,7 +13,7 @@ from: one per test module under <root>/tests/<module-in-kebab>/ and one per modu
 nothing Go-specific is committed but the Go files themselves.
 
 Every key is optional: an omitted key takes the sensible default declared once on
-Catzc.Base.Languages.GoConfig ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
+Catzc.Base.Languages.GoConfig ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 Loaded via Get-Config -Config go; the shape is validated by the GoConfig type.
 
 The go directive of go.work and every go.mod is not declared here: it is the go tool's pin in tools.yml

@@ -2,13 +2,13 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4a8e449f5c62"
+    with_body_sha: "8283f3b062ac"
   edges:
     docs: "[GlossaryConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/GlossaryConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-      - ADR-REPO-ADRCODE-NAMEDNOTNUMBERED
+      - ADR-REPO-DRSCODE-NAMEDNOTNUMBERED
       - ADR-REPO-VOCAB-DEFINEDTERM
       - ADR-REPO-VOCAB-GLOSSARYSOURCE
       - ADR-REPO-VOCAB-SOURCESINREPOSITORY
@@ -53,7 +53,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $c.options.checks | Should -Be @('anchored', 'single', 'avoid', 'enforced', 'forms')
         $c.options.surfaces | Should -Be @('markdown', 'comments', 'help', 'messages')
         $c.options.scope | Should -Be @('**')
-        $c.options.exclude | Should -Be @('docs/adr/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**', '**/.vendor/**', '.claude/plans/**')
+        $c.options.exclude | Should -Be @('docs/drs/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**', '**/.vendor/**', '.claude/plans/**')
     }
 
     It 'keeps concepts in source order' {
@@ -71,7 +71,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         $c.options.checks | Should -Be @('avoid')
         $c.options.scope | Should -Be @('docs/**')
         $c.options.surfaces | Should -Be @('markdown', 'comments', 'help', 'messages')
-        $c.options.exclude | Should -Be @('docs/adr/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**', '**/.vendor/**', '.claude/plans/**', 'docs/widget/**')
+        $c.options.exclude | Should -Be @('docs/drs/research/**', 'docs/references/dora/**', 'out/**', '.unordered/**', '**/.vendor/**', '.claude/plans/**', 'docs/widget/**')
     }
 
     It 'accepts an explicit empty checks list (opted in, structural check only)' -Tag 'ADR-REPO-VOCAB-GLOSSARYSOURCE' {
@@ -144,7 +144,7 @@ Describe 'GlossaryConfig' -Tag 'L0', 'logic' {
         (& $script:single $body).concepts[0].defined_by | Should -Be 'ADR-COG-GADGET-WHEEL-SPINS'
     }
 
-    It 'accepts a named rule citation, the domain, the ADR and the rule''s name' -Tag 'ADR-REPO-ADRCODE-NAMEDNOTNUMBERED' {
+    It 'accepts a named rule citation, the domain, the ADR and the rule''s name' -Tag 'ADR-REPO-DRSCODE-NAMEDNOTNUMBERED' {
         $body = & $script:concept
         $body.defined_by = 'ADR-COG-GADGET-SPINS'
         (& $script:single $body).concepts[0].defined_by | Should -Be 'ADR-COG-GADGET-SPINS'

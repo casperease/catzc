@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ba88bdfa7e1e
+    with_body_sha: "81d33242bce7"
   edges:
     docs: "[LayoutRow.cs.md](docs/references/pwsh/catzc-base-languages/types/LayoutRow.cs.md)"
     cites:
@@ -17,7 +17,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Languages;
 
-// One row of a module's layout: a folder inside the module and what it holds ([ADR-AUTO-MODULE-EXISTSBYLAYOUT](/docs/adr/automation/module-model.md#rule-adr-auto-module-existsbylayout); rests on [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder) and [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+// One row of a module's layout: a folder inside the module and what it holds ([ADR-AUTO-MODULE-EXISTSBYLAYOUT](/docs/drs/automation/module-model.md#rule-adr-auto-module-existsbylayout); rests on [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder) and [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 public sealed class LayoutRow
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

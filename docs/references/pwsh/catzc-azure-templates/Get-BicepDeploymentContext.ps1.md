@@ -33,7 +33,7 @@ Subscription-target templates leave `deployment.resource_group` unset and assert
 `configuration/[<customer>/]<env>[-<slot>].yml`, does NOT carry a `ResourceGroup` key. The target SUBSCRIPTION is the az session's (in a
 pipeline: the service connection's), resolved against azure.yml by Get-AzCliSessionSubscription; the slot addressed is (session customer?,
 env, slot). The optional -SubscriptionIdAssertIs guard pins the target explicitly. See
-[ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md).
+[ADR-AZ-DATAMOD](../../../drs/azure/azure-data-model.md).
 
 ### parameter `Environment`
 

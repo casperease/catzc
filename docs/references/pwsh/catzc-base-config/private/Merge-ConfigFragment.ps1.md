@@ -11,7 +11,7 @@ Merges a consumer overlay's config fragment onto a bundled config, key by key.
 
 ### description
 
-A fragment states only the keys that differ ([ADR-AUTO-OVERLAY](../../../../adr/automation/consumer-overlay.md)):
+A fragment states only the keys that differ ([ADR-AUTO-OVERLAY](../../../../drs/automation/consumer-overlay.md)):
 
 - a map merges into the bundled map recursively;
 - a scalar or a list replaces the bundled value (a list is never appended to, so the result is predictable);

@@ -54,9 +54,9 @@ commits have no checker either, and none is expected.
 
 ## See also
 
-- [The commit lifecycle](../../adr/flow/commit-lifecycle.md) — the decision this article explains.
-- [Visual design](../../adr/design/visual-design.md) — the drawing rules behind the V chips.
-- [Test automation](../../adr/automation/test-automation.md) — the BVT's built-artifact checks.
+- [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
+- [Visual design](../../drs/design/visual-design.md) — the drawing rules behind the V chips.
+- [Test automation](../../drs/automation/test-automation.md) — the BVT's built-artifact checks.
 - The other lenses on the same deploy: [meta](deploying-is-not-integrating.md),
   [architecture](deploy-and-integrate-share-only-the-topic.md), [implementation](every-deploy-stage-is-main-only.md) and
   [operations](merging-to-main-is-what-deploys.md).

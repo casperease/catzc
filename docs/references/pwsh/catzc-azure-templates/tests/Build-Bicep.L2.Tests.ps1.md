@@ -25,15 +25,15 @@ Three builds, not one per sample: each adds a DISTINCT real-compiler concern. sa
 sample-with-prepost are deliberately absent — their behaviour (indexed slots, the PrePost merge seam) is pure
 PowerShell fully covered at L0, and their compile is a flat resource-group build identical to the skeleton.
 Each It self-skips when `az` is absent
-([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](/docs/adr/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)); the skip key is the constrained
+([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](/docs/drs/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)); the skip key is the constrained
 `tool_az_missing` grammar.
 
 Isolation is the standard seam swap
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): redirect the template
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): redirect the template
 tree to tests/assets/templates and the
 azure/network configs to the fixtures, so these bind to the sample-* assets, never to shipped templates.
 greedy, not serial: it drives real `az bicep build` child processes (consuming the machine beyond this
-process — [ADR-AUTO-TEST-ONESCHEDULINGPOOL](/docs/adr/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)) but shares no mutable
+process — [ADR-AUTO-TEST-ONESCHEDULINGPOOL](/docs/drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)) but shares no mutable
 state. The build output is isolated to this file's own root via
 the Get-BicepTemplatesOutputRoot seam (below), so it no longer races the L0 Build-Bicep.Sample*.Tests.ps1
 files on out/template/<name> — which is what previously forced the serial tag.
@@ -45,7 +45,7 @@ Above `Mock Get-BicepTemplatesOutputRoot { Join-Path $TestDrive 'out' } -ModuleN
 
 ```text
 Isolate build output to this file's throwaway $TestDrive
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)) so the real-az
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)) so the real-az
 builds never
 share out/template/<name> with the L0 sample files — removing the sharing that forced a serial tag.
 Pester auto-cleans $TestDrive, so the per-test output teardown below is belt-and-suspenders only.

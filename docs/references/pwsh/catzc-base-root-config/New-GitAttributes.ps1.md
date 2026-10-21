@@ -20,7 +20,7 @@ one `<place>/** <attributes>` line per place of the track. A template that holds
 
 This is a pure renderer: it returns the content and writes nothing — it is the `generator` the root-config registry names for the
 .gitattributes target, and Build-RootConfig owns the write (through the same idempotent Write-FileIfChanged path as every managed file; see
-[ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md)).
+[ADR-REPO-ROOTCFG](../../../drs/repository/generated-root-configs.md)).
 
 ### outputs
 

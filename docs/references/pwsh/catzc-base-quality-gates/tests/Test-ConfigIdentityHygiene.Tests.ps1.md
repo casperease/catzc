@@ -10,6 +10,6 @@ Above `Describe 'Test-ConfigIdentityHygiene' -Tag 'L1', 'integrity', 'source-onl
 ```text
 Integrity — it reads the real shipped config (and derives from the real fixture configs). source-only: those are
 repository files, which give the same answer in both run modes. The logic block mocks the fixture set with a
-neutral token ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) and pins the gate's
-uniform shape ([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
+neutral token ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) and pins the gate's
+uniform shape ([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
 ```

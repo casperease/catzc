@@ -6,9 +6,9 @@ depend on. It also ships two bespoke installers — Git and Postman — that do 
 `ToolStatus`/`ToolStatusKind` types its status report is built on. It is the layer over the per-tool surfaces in
 [Catzc.Tooling.Core](catzc-tooling-core.md), [Catzc.Tooling.Python](catzc-tooling-python.md), [Catzc.Tooling.Node](catzc-tooling-node.md),
 and [Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md). The rationale is in
-[controlling-systemwide-deps](../../adr/automation/controlling-systemwide-deps.md) and
-[idempotent-state-functions](../../adr/automation/idempotent-state-functions.md); the status types are native per
-[native-csharp-types](../../adr/automation/BCL/native-csharp-types.md).
+[controlling-systemwide-deps](../../drs/automation/controlling-systemwide-deps.md) and
+[idempotent-state-functions](../../drs/automation/idempotent-state-functions.md); the status types are native per
+[native-csharp-types](../../drs/automation/BCL/native-csharp-types.md).
 
 ## Responsibilities
 
@@ -22,13 +22,13 @@ and [Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md). The rationale is in
 
 The whole machine rather than one tool: install (and uninstall) the complete locked tool set in the order declared dependencies require,
 report each tool's aggregate status — correct, usable-but-wrong-manager, wrong-version, missing, or unwanted — through the
-`ToolStatus`/`ToolStatusKind` types (see [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)), and assert that status is
+`ToolStatus`/`ToolStatusKind` types (see [native-csharp-types](../../drs/automation/BCL/native-csharp-types.md)), and assert that status is
 clean. It sits over the per-tool engines, diagnosing and converging.
 
 ### responsibility:2 — Workstation hygiene
 
 Keeping the workstation free of what the platform will not depend on: removing Chocolatey — a package manager the estate refuses (see
-[controlling-systemwide-deps](../../adr/automation/controlling-systemwide-deps.md)) — and clearing accumulated temporary files.
+[controlling-systemwide-deps](../../drs/automation/controlling-systemwide-deps.md)) — and clearing accumulated temporary files.
 
 ### responsibility:3 — Bespoke tool installers
 
@@ -41,8 +41,8 @@ The module depends on [Catzc.Tooling.Core](catzc-tooling-core.md) and the three 
 dynamic dispatch rather than a static call, so converging a workstation is just running the lifecycle for every tool in dependency order and
 then reporting where reality diverges from the lock. The status report is the surface a human or an assertion reads to see at a glance what
 needs installing, upgrading, or removing. Install and uninstall are dry-run-able so a run can be previewed before it mutates the machine
-(see [dry-run](../../adr/automation/dry-run.md)). The same functions run locally and in CI, with no separate provisioning script (see
-[cross-platform](../../adr/automation/cross-platform.md)).
+(see [dry-run](../../drs/automation/dry-run.md)). The same functions run locally and in CI, with no separate provisioning script (see
+[cross-platform](../../drs/automation/cross-platform.md)).
 
 Provisioning is also where the platform's package-manager support matters for enterprise and air-gapped networks, because the locked tools
 must still install where the public registries are unreachable. The support is uneven by manager: apt-get has full Artifactory support, so

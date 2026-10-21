@@ -10,13 +10,13 @@ Above `using System;`, written with `//`.
 ```text
 The VS Code workspace-settings registry, configs/vscode-settings.yml — the single authored source that
 New-VsCodeSettings renders to the managed .vscode/settings.json
-([ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)). The settings are VS Code's own keys (dotted,
+([ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md)). The settings are VS Code's own keys (dotted,
 camelCase — 'markdown.preview.fontSize', '[powershell]'), data passed through to the editor as-is, so the type
 keeps them as an ordered passthrough map (`settings`) rather than typing each key. Constructing an instance MAPS
 and VALIDATES the parsed YAML, collecting every violation into one throw. Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.VSCode.VscodeSettingsConfig), so
 Get-Config -Config vscode-settings returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Load-time rules:
   - only the top-level key 'settings', a required, non-empty map;

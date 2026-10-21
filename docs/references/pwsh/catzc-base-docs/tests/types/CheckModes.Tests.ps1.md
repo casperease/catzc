@@ -10,5 +10,5 @@ Above `Describe 'CheckModes' -Tag 'L0', 'logic', 'PDR-ONELIVE-ONEVERSION' {`, wr
 ```text
 CheckModes — the one parser of a check's mode setting, shared by every check config: an omitted mode is the default declared
 once on CheckMode, and an unknown one gets the one error text. Neutral fixture values
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

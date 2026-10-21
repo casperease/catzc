@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0ffed4c09a6d"
+    with_body_sha: d66d3168b2ae
   edges:
     code: pwsh/Catzc.Base.Modules/Get-CatzcModule.ps1
     cites:
@@ -16,7 +16,7 @@ catzc:
 ---
 #>
 
-# Rests on [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md).
+# Rests on [ADR-AUTO-TEST](/docs/drs/automation/test-automation.md).
 Describe 'Get-CatzcModule' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE' {
     BeforeAll {
         $script:first = [Catzc.Base.Engines.ExecutionEngines]::Names[0]

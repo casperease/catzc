@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "548600397d38"
+    with_body_sha: "7ad2e32f144d"
   edges:
     code: pwsh/Catzc.Base.Slides/Test-Slides.ps1
     cites:
@@ -22,8 +22,8 @@ Describe 'Test-Slides' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-CHECKABLECLAIMS' {
             [System.IO.File]::WriteAllText($full, $Content)
         }
         $script:write = $write
-        & $write 'docs/adr/index.md' "# ADR index`n`n| Code | ADR |`n| --- | --- |`n| ``ADR-WIDGET-GADGET`` | [gadget](widget/gadget.md) |`n"
-        & $write 'docs/adr/widget/gadget.md' "# ADR: gadget`n`n## Rules: ADR-WIDGET-GADGET`n`n### Rule ADR-WIDGET-GADGET-TURN`n`nA gadget turns.`n`n### Rule ADR-WIDGET-GADGET-SPIN`n`nA gadget spins round and round.`n"
+        & $write 'docs/drs/index.md' "# ADR index`n`n| Code | ADR |`n| --- | --- |`n| ``ADR-WIDGET-GADGET`` | [gadget](widget/gadget.md) |`n"
+        & $write 'docs/drs/widget/gadget.md' "# ADR: gadget`n`n## Rules: ADR-WIDGET-GADGET`n`n### Rule ADR-WIDGET-GADGET-TURN`n`nA gadget turns.`n`n### Rule ADR-WIDGET-GADGET-SPIN`n`nA gadget spins round and round.`n"
         & $write 'kit/slides.yml' "token:`n  bg: '#101010'`nface:`n  display: Georgia, serif`n  text: Arial, sans-serif`n"
         & $write 'kit/patterns/widget.html' '<section id="{{@id}}" style="background:{{@token.bg}}"><h2>{{title}}</h2><div data-field="body" data-max="1" data-max-words="5"><p data-item>{{item}}</p></div><p>{{@page}}</p></section>'
         $script:slide = {

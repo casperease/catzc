@@ -32,7 +32,7 @@ final full run last.
    `Test-AgentDefinitions` passes and `wc -c .claude/CLAUDE.md` is at most 11900.
 6. Commit the two BCL folder moves (plan-bcl-language.md): `docs/references/BCL/` and `docs/how-to/getting-started/BCL/` added, the old
    `docs/references/pwsh/BCL/` and `docs/how-to/getting-started/pwsh/BCL/` deleted; with them the sample folder
-   `docs/adr/automation/BCL/.assets/bcl-language/`, the new `docs/adr/automation/BCL/dora-explains.md`, and the `ADR-BCL-TYPES` re-cite
+   `docs/drs/automation/BCL/.assets/bcl-language/`, the new `docs/drs/automation/BCL/dora-explains.md`, and the `ADR-BCL-TYPES` re-cite
    across 299 files. Check: `Test-Links` on both folders reports no `[Untracked]` issue.
 7. Commit the bicepparam change (plan-bicepparam, done and deleted): the six foundation slots `nsub`, `psub`, `apex/nsub`, `apex/psub`,
    `flux/nsub`, `nova/nsub` under `infrastructure/templates/foundation/configuration/` replaced `.yml` by `.bicepparam` at the same path,

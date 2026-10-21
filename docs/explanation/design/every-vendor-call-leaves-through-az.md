@@ -51,8 +51,8 @@ and everything that reaches Azure, compiling a template included, goes out throu
 
 ## See also
 
-- [Thin platforms](../../adr/design/thin-platforms.md) — the decision this article explains.
-- [Prefer Az CLI over Az PowerShell modules](../../adr/azure/prefer-az-cli.md) — the az-first rules.
+- [Thin platforms](../../drs/design/thin-platforms.md) — the decision this article explains.
+- [Prefer Az CLI over Az PowerShell modules](../../drs/azure/prefer-az-cli.md) — the az-first rules.
 - The other lenses on the same platform: [meta](bind-to-one-cli-delegate-the-rest.md), [implementation](deploy-bicep-delegates-to-az.md),
   [operations](same-deploy-bicep-on-both-sides.md) and [governance](what-keeps-the-platform-thin.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

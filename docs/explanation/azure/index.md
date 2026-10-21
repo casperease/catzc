@@ -7,13 +7,13 @@ Azure name assembly    a name is a pure function of its components, never typed,
 Infrastructure kinds   templates, configuration slots and reusable modules, and what a change to each reaches
 ```
 
-These articles explain decisions from the [azure ADR domain](../../adr/index.md#azure): how a resource name is assembled from the identity
+These articles explain decisions from the [azure ADR domain](../../drs/index.md#azure): how a resource name is assembled from the identity
 data model and never typed by hand. Each article narrates one diagram; the [explanation index](../index.md) says how to read them.
 
 ## Azure name assembly
 
 An Azure name is a pure function of its components, and it is never truncated
-([azure-naming-standard](../../adr/azure/azure-naming-standard.md)).
+([azure-naming-standard](../../drs/azure/azure-naming-standard.md)).
 
 | Lens           | Article                                                                                                                |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------- |
@@ -26,7 +26,7 @@ An Azure name is a pure function of its components, and it is never truncated
 ## Infrastructure kinds
 
 Infrastructure code is of three kinds, each placed by the infrastructure track
-([infrastructure-kinds](../../adr/azure/infrastructure-kinds.md)).
+([infrastructure-kinds](../../drs/azure/infrastructure-kinds.md)).
 
 | Lens       | Article                                                                                                                                                       |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |

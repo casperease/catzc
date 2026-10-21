@@ -16,5 +16,5 @@ The data model it guards: under the top-level `configs` map, each entry is a map
 C# type FQN) and, optionally, `overridable` (a boolean; absent means true); `configs` is the only top-level
 key. An absent or empty `configs` map is valid. `configs` exposes the registry as config name -> type FQN, in
 file order; `sealedConfigs` names the entries a consumer overlay may not change (overridable: false — the
-engine-intrinsic configs, [ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)).
+engine-intrinsic configs, [ADR-AUTO-OVERLAY](/docs/drs/automation/consumer-overlay.md)).
 ```

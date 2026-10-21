@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e55f8a1e75c1
+#     with_body_sha: "05da232ba7dd"
 # ---
 
 description:
@@ -171,16 +171,16 @@ content:
           - ADR-AZ-DATAMOD
       - cell: docs/-/.
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/effective-in-enterprises.md
-          - docs/adr/automation/fail-fast-with-asserts.md
-          - docs/adr/automation/log-before-invoke.md
-          - docs/adr/azure/azure-customer-model.md
-          - docs/adr/azure/azure-data-model.md
-          - docs/adr/azure/dora-explains.md
-          - docs/adr/azure/prefer-az-cli.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/effective-in-enterprises.md
+          - docs/drs/automation/fail-fast-with-asserts.md
+          - docs/drs/automation/log-before-invoke.md
+          - docs/drs/azure/azure-customer-model.md
+          - docs/drs/azure/azure-data-model.md
+          - docs/drs/azure/dora-explains.md
+          - docs/drs/azure/prefer-az-cli.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/how-to/pwsh/manual-test-plan/azure.md
           - docs/references/ado/pipelines/cd-shared.yaml.md
           - docs/references/ado/pipelines/ci-infrastructure.yaml.md

@@ -27,18 +27,18 @@ Two ways a folder gets a source:
              mapping WINS over any pattern that also matches its folder.
 
 All paths are repository-root-relative and forward-slashed (communication form; see
-[ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)). Loaded via Get-Config -Config readme; the shape is validated by
+[ADR-AUTO-PATH](/docs/drs/automation/path-representation.md)). Loaded via Get-Config -Config readme; the shape is validated by
 Catzc.Base.Docs.DocsConfig and the patterns are expanded by Get-ReadmeMappings. See
-[ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+[ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
 ```
 
 ## comment:2
 
-Above `- folder: docs/adr`, written with `#`.
+Above `- folder: docs/drs`, written with `#`.
 
 ```text
 The ADR folder's README is generated from its index — same folder, so index.md's relative links need no
-rebasing ([ADR-REPO-README-WORKINGLINKS](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme-workinglinks)).
+rebasing ([ADR-REPO-README-WORKINGLINKS](/docs/drs/repository/generated-readmes.md#rule-adr-repo-readme-workinglinks)).
 ```
 
 ## comment:3

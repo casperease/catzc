@@ -22,8 +22,8 @@ importer.ps1): Write-FileIfChanged rewrites a README only when its composed cont
 delete-then-write, so a README that is a filesystem link is severed and never written through into its source. It writes into the catzc
 source tree, so it runs in source mode only (Assert-SourceTree); a session running a built package stops with a named error.
 
-See [ADR-REPO-README](../../../adr/repository/generated-readmes.md) and
-[ADR-CONF-LOADING](../../../adr/configuration/module-config-loading.md).
+See [ADR-REPO-README](../../../drs/repository/generated-readmes.md) and
+[ADR-CONF-LOADING](../../../drs/configuration/module-config-loading.md).
 
 ### parameter `Folder`
 
@@ -32,7 +32,7 @@ mapping. Default: every mapping.
 
 ### parameter `DryRun`
 
-Report what would change without touching the filesystem. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+Report what would change without touching the filesystem. See [ADR-AUTO-DRYRUN](../../../drs/automation/dry-run.md).
 
 ### parameter `Silent`
 

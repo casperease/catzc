@@ -14,10 +14,10 @@ Spell-checks the repository's known file types with cspell and writes a report u
 Runs the Code Spell Checker CLI (cspell) over the repository's known text file types — Markdown, PowerShell, YAML, JSON, C#, and Bicep —
 applying the single repo dictionary at /cspell.yml.
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): every cspell issue
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)): every cspell issue
 line ('`<path>:<line>:<col>` - Unknown word (`<word>`) …') is an issue, and the gate ends through Write-QualityGateReport, which writes
 out/test-spelling/, prints every issue, and throws once listing them all — so the misspelled words are named in the failure itself
-([ADR-AUTO-CONSOLE-SELFCONTAINEDERRORS](../../../adr/automation/console-output-matters.md#rule-adr-auto-console-selfcontainederrors)).
+([ADR-AUTO-CONSOLE-SELFCONTAINEDERRORS](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-selfcontainederrors)).
 -PassThru returns the result object instead. A cspell tool error (exit > 1) or a scan that matched no files throws before the report: there
 is no verdict to report.
 

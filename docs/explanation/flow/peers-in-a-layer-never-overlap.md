@@ -40,7 +40,7 @@ The ADR describes one module set per folder. The code derives two aspect sets pe
 
 ## See also
 
-- [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains.
+- [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
 - The other lenses on the same layers: [architecture](two-declared-layers-one-derived.md),
   [implementation](independence-check-groups-by-layer.md), [operations](declare-or-add-folder-gate-names-overlaps.md) and
   [governance](overlap-gated-for-units-and-modules.md).

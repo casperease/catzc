@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: debc06e0854f
+    with_body_sha: "858a2b690920"
   edges:
     docs: "[Get-BicepTemplates.Tests.ps1.md](docs/references/pwsh/catzc-azure-templates/tests/Get-BicepTemplates.Tests.ps1.md)"
     code: pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
@@ -213,7 +213,7 @@ Describe 'Get-BicepTemplates' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'session cache (docs/adr/automation/caching.md)' {
+    Context 'session cache (docs/drs/automation/caching.md)' {
         It 'caches across calls — returns the same object' {
             $first = Get-BicepTemplates
             $second = Get-BicepTemplates

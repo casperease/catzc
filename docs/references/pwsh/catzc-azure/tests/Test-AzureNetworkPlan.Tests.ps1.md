@@ -11,7 +11,7 @@ Above `Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {`, written with `#`.
 Test-AzureNetworkPlan and its join (Get-NetworkPlanViolations) over typed fixture configs with Greek environment
 names and neutral subscription names (core_lower, a hub; widget_lower, a spoke for customer widget), not the shipped
 ones, so editing azure.yml can never change the logic outcome
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2

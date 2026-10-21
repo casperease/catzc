@@ -6,13 +6,13 @@ How cats reads, validates, caches and addresses its configuration.
 The config read path   every read goes through one reader and one session cache
 ```
 
-These articles explain decisions from the [configuration ADR domain](../../adr/index.md#configuration): one reader, one cache per session,
+These articles explain decisions from the [configuration ADR domain](../../drs/index.md#configuration): one reader, one cache per session,
 and addresses that point into committed config. Each article narrates one diagram; the [explanation index](../index.md) says how to read
 them.
 
 ## The config read path
 
-Every config read goes through one reader and one session cache ([module-config-loading](../../adr/configuration/module-config-loading.md)).
+Every config read goes through one reader and one session cache ([module-config-loading](../../drs/configuration/module-config-loading.md)).
 
 | Lens           | Article                                                                                                             |
 | -------------- | ------------------------------------------------------------------------------------------------------------------- |

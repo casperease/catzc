@@ -3,7 +3,7 @@
 The path-anchor module. It is the **single source of truth for where files live** — locating the repository root, resolving repo-relative
 and absolute paths, pointing to the dedicated output directory, and naming whether code runs in a pipeline or on a devbox. No other module
 derives these answers independently; callers depend on `$PWD` nowhere (see
-[never-depend-on-pwd](../../adr/automation/never-depend-on-pwd.md)). What this module deliberately does **not** own is general filesystem
+[never-depend-on-pwd](../../drs/automation/never-depend-on-pwd.md)). What this module deliberately does **not** own is general filesystem
 work (copying trees, checking file locks, reading git facts) — those live in [Catzc.Base.Files](catzc-base-files.md). It is a member of the
 `Base` group, depends on [Catzc.Base.Asserts](catzc-base-asserts.md), and is a dependency of everything above it.
 
@@ -19,15 +19,15 @@ work (copying trees, checking file locks, reading git facts) — those live in [
 Where files are. This responsibility answers "where is the repository root", "where does this repo-relative path resolve to an absolute
 path", "what is this absolute path expressed relative to the root", and "where should generated output go". It is the single source of path
 anchors, so no function anywhere in the platform depends on the current working directory (see
-[never-depend-on-pwd](../../adr/automation/never-depend-on-pwd.md)) and all generated output lands in one dedicated, gitignored location
-(see [dedicated-output-directory](../../adr/repository/dedicated-output-directory.md)).
+[never-depend-on-pwd](../../drs/automation/never-depend-on-pwd.md)) and all generated output lands in one dedicated, gitignored location
+(see [dedicated-output-directory](../../drs/repository/dedicated-output-directory.md)).
 
 ### responsibility:2 — Pipeline context detection
 
 Whether the code is executing inside a CI pipeline, named as a run environment (Pipeline or Devbox) that an `-EnvironmentAssertIs` guard can
 pin. The answer keys environment-dependent settings such as the time-safeguard limits. It is read off the one detection seam, which lives in
 the always-loaded [Catzc.Internal.Loader](internal/catzc-internal-loader.md) so the importer's pre-pass can ask it before any module loads
-(see [pipeline-detection](../../adr/flow/pipeline-detection.md)). Callers never probe CI environment variables directly.
+(see [pipeline-detection](../../drs/flow/pipeline-detection.md)). Callers never probe CI environment variables directly.
 
 ## What the module does
 
@@ -38,13 +38,13 @@ root by name; `Resolve-RepoPath` converts a repo-relative path to its absolute f
 direction. A caller using any of these functions is immune to working-directory drift.
 
 The output location follows the same design. `Get-OutputRoot` returns the one path all generated files land in. That path is gitignored by
-policy (see [dedicated-output-directory](../../adr/repository/dedicated-output-directory.md)); because every module writes there through
+policy (see [dedicated-output-directory](../../drs/repository/dedicated-output-directory.md)); because every module writes there through
 this function, the location is never duplicated or guessed.
 
 Pipeline detection (responsibility 2) is a single boolean question with a single authoritative answer. Scattering the environment-variable
 checks that answer it across modules would mean each could disagree; `Test-IsRunningInPipeline` in the loader holds the logic once, and
 `Get-RunEnvironment` names its answer, so the detection heuristic can be improved in one place (see
-[pipeline-detection](../../adr/flow/pipeline-detection.md)).
+[pipeline-detection](../../drs/flow/pipeline-detection.md)).
 
 ## Division
 

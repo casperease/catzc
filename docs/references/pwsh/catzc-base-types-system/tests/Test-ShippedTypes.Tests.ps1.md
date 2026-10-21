@@ -10,5 +10,5 @@ Above `Describe 'Test-ShippedTypes' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Test-ShippedTypes over a fixture code root in $TestDrive: one file named for a type the session has (System.String
 under a 'System' module folder), one named for a type that never loaded. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

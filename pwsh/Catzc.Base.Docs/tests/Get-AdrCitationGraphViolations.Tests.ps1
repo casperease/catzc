@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3ac28976d376"
+    with_body_sha: "837021efa9fc"
   edges:
     docs: "[Get-AdrCitationGraphViolations.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-AdrCitationGraphViolations.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-AdrCitationGraphViolations.ps1
@@ -95,13 +95,13 @@ Describe 'Get-AdrCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUA
     }
 
     It 'reports a citation of a domain the citing domain does not depend on, naming the rule, the code, and both domains' {
-        $findings | Should -Contain 'docs/adr/widget/widget-one.md:11: ADR-WI-ONE-LEAN (widget) cites ADR-GA-ONE-APPLY (gadget); widget depends on: none'
-        $findings | Should -Contain 'docs/adr/widget/widget-one.md:11: ADR-WI-ONE-LEAN (widget) cites ADR-GZ-ONE-TURN (gizmo); widget depends on: none'
+        $findings | Should -Contain 'docs/drs/widget/widget-one.md:11: ADR-WI-ONE-LEAN (widget) cites ADR-GA-ONE-APPLY (gadget); widget depends on: none'
+        $findings | Should -Contain 'docs/drs/widget/widget-one.md:11: ADR-WI-ONE-LEAN (widget) cites ADR-GZ-ONE-TURN (gizmo); widget depends on: none'
     }
 
     It 'reads depends_on as declared, not transitively, and resolves a wildcard code to its domain' {
-        $findings | Should -Contain 'docs/adr/gizmo/gizmo-one.md:7: ADR-GZ-ONE-BUILD (gizmo) cites ADR-WI-ONE-LEAN (widget); gizmo depends on: gadget'
-        $findings | Should -Contain 'docs/adr/gizmo/gizmo-one.md:8: ADR-GZ-ONE-BUILD (gizmo) cites ADR-WI (widget); gizmo depends on: gadget'
+        $findings | Should -Contain 'docs/drs/gizmo/gizmo-one.md:7: ADR-GZ-ONE-BUILD (gizmo) cites ADR-WI-ONE-LEAN (widget); gizmo depends on: gadget'
+        $findings | Should -Contain 'docs/drs/gizmo/gizmo-one.md:8: ADR-GZ-ONE-BUILD (gizmo) cites ADR-WI (widget); gizmo depends on: gadget'
     }
 
     It 'reports each cited domain once per line, though a citation and a link both name it' {
@@ -109,12 +109,12 @@ Describe 'Get-AdrCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUA
     }
 
     It 'reports a body citation outside the rule registry, naming the ADR as the citer' {
-        $findings | Should -Contain 'docs/adr/widget/widget-one.md:17: ADR-WI-ONE (widget) cites ADR-GZ-ONE-BUILD (gizmo); widget depends on: none'
+        $findings | Should -Contain 'docs/drs/widget/widget-one.md:17: ADR-WI-ONE (widget) cites ADR-GZ-ONE-BUILD (gizmo); widget depends on: none'
     }
 
     It 'allows the own domain and a declared dependency in the body too, and ignores unknown codes, links outside the domains, and fences' {
         $findings | Should -HaveCount 5
-        $findings | Where-Object { $_ -like 'docs/adr/gadget/*' } | Should -HaveCount 0
+        $findings | Where-Object { $_ -like 'docs/drs/gadget/*' } | Should -HaveCount 0
     }
 
     It 'reports a link-only citation by its target' {
@@ -127,6 +127,6 @@ Describe 'Get-AdrCitationGraphViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUA
             $index = Get-AdrFileIndex @($Adrs.RuleSets) -AdrRoot $Root
             Get-AdrCitationGraphViolations -Adrs $Adrs -Index $index
         }
-        $found | Should -Be @('docs/adr/widget/widget-one.md:7: ADR-WI-ONE-SPIN (widget) cites ../gadget/gadget-one.md (gadget); widget depends on: none')
+        $found | Should -Be @('docs/drs/widget/widget-one.md:7: ADR-WI-ONE-SPIN (widget) cites ../gadget/gadget-one.md (gadget); widget depends on: none')
     }
 }

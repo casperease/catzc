@@ -9,5 +9,5 @@ Above `BeforeEach {`, written with `#`.
 
 ```text
 The report renders the records it is given as one plain table through Write-Message -NoHeader. Fixture
-tokens are neutral ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+tokens are neutral ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

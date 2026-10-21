@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "76bb046b83ad"
+#     with_body_sha: e949a2354052
 # ---
 
 description:
@@ -70,9 +70,9 @@ content:
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
       - cell: docs/-/.
         by:
-          - docs/adr/azure/azure-data-model.md
-          - docs/adr/azure/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/azure/azure-data-model.md
+          - docs/drs/azure/dora-explains.md
+          - docs/drs/index.md
           - docs/references/ado/pipelines/cd-shared.yaml.md
           - docs/references/ado/pipelines/extends/cd-customer.yaml.md
           - docs/references/infrastructure/templates/discovery/options.yml.md

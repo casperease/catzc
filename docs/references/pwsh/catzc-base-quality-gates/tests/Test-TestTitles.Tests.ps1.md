@@ -10,5 +10,5 @@ Above `Describe 'Test-TestTitles' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Test-TestTitles over fixture test files in $TestDrive (the repository root is mocked). The fixture titles are built
 from string pieces, so this file's own titles never carry the very token the gate bans. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

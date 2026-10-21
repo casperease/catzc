@@ -67,8 +67,8 @@ rungs. No pipeline defines the on-demand L3 environment. The ADRs also spell the
 
 ## See also
 
-- [The commit lifecycle](../../adr/flow/commit-lifecycle.md) — the decision this article explains.
-- [CD discipline and promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — RC, RBC, L3 and the pre-prod rung.
+- [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
+- [CD discipline and promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — RC, RBC, L3 and the pre-prod rung.
 - The other lenses on the same sync point: [meta](sync-from-the-bvt-verified-head.md) and
   [architecture](integrators-sync-from-the-bvt-verified-head.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

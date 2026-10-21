@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3e79f2734f97"
+    with_body_sha: fe69c449b878
   edges:
     code: pwsh/Catzc.Base.QualityGates/Get-AdrUsage.ps1
     cites:
@@ -15,7 +15,7 @@ Describe 'Get-AdrUsage (repository)' -Tag 'L1', 'integrity', 'source-only' {
         $script:rows = @(Get-AdrUsage)
         $script:map = Get-AdrCitationMap
         # Narrowing and grouping run over one folder, not the whole tree.
-        $script:slicePath = Join-Path (Get-RepositoryRoot) 'docs/adr/repository'
+        $script:slicePath = Join-Path (Get-RepositoryRoot) 'docs/drs/repository'
         $script:slice = @(Get-AdrUsage -Path $script:slicePath)
     }
 
@@ -53,7 +53,7 @@ Describe 'Get-AdrUsage (repository)' -Tag 'L1', 'integrity', 'source-only' {
     }
 
     It 'limits the scan to the path given' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
-        $path = 'docs/adr/repository/file-meta.md'
+        $path = 'docs/drs/repository/file-meta.md'
         # An absolute path: a relative one resolves against the process location, which a test worker does not hold at the root.
         $one = @(Get-AdrUsage -Path (Join-Path (Get-RepositoryRoot) $path))
         $one.Count | Should -BeGreaterThan 0

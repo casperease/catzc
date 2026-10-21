@@ -40,7 +40,7 @@ Lifetime is one of two mutually exclusive parameter sets:
 Cross-platform note (ADR cross-platform): `[SecureString]` is DPAPI-encrypted only on Windows; on Linux/macOS .NET stores it obfuscated, not
 encrypted. The value of the contract here is don't-log / don't-internalize / decrypt-only-at-the-boundary, not at-rest cryptography — the
 plaintext necessarily lands in $env: for the instant the external tool reads it
-([ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS](../../../adr/automation/environment-variables.md#rule-adr-auto-envvar-secrettochildprocess)).
+([ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS](../../../drs/automation/environment-variables.md#rule-adr-auto-envvar-secrettochildprocess)).
 
 ### parameter `Set`
 

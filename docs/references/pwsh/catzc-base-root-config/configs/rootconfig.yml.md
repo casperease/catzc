@@ -23,9 +23,9 @@ A `source` target is always a COPY of its template under the generated-file head
 
 `carrier` names the file-carriers entry for the generated-file head of a composed file (default: the entry of the
 target's file language); `sources` lists the authored files a generator renders from. All paths are repository-root-
-relative and forward-slashed (communication form; see [ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)). Loaded
+relative and forward-slashed (communication form; see [ADR-AUTO-PATH](/docs/drs/automation/path-representation.md)). Loaded
 via Get-Config -Config rootconfig; the shape is validated by Catzc.Base.RootConfig.RootConfigFiles. See
-[ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
+[ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md).
 ```
 
 ## comment:2
@@ -49,7 +49,7 @@ Above `- target: importer.sh`, written with `#`.
 
 ```text
 importer.sh — the bash (and zsh) entry: sourced, it defines the `cats` dispatcher that runs catzc commands through
-pwsh ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)). Committed for the same reason as importer.ps1: a fresh clone needs
+pwsh ([ADR-AUTO-ENGINE](/docs/drs/automation/execution-engines.md)). Committed for the same reason as importer.ps1: a fresh clone needs
 it before any import.
 ```
 

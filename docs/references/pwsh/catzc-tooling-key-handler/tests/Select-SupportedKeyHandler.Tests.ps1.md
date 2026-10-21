@@ -10,5 +10,5 @@ Above `Describe 'Select-SupportedKeyHandler' -Tag 'L0', 'logic',...`, written wi
 ```text
 Neutral fixture function names (widget/gadget) — Select-SupportedKeyHandler is pure classification logic,
 so a logic fixture must not borrow real PSReadLine function names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

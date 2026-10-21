@@ -9,6 +9,6 @@ Above `Describe 'Folder & file conventions' -Tag 'L0', 'integrity' {`, written w
 
 ```text
 The folder and file conventions over the real tree, through their quality gate (Test-FolderConventions,
-Catzc.Base.ModuleSystem — [ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The gate
+Catzc.Base.ModuleSystem — [ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The gate
 scans the tree once and lists every offender; this block runs it at its tier and guards it against a silent no-op.
 ```

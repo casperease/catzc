@@ -20,9 +20,9 @@ Show-Cats module [name]   the modules; with a name substring, the public functio
 Show-Cats verbs           the approved verbs in use across the tree
 ```
 
-Output is presentation only (the information stream, [ADR-AUTO-CONSOLE](../../../adr/automation/console-output-matters.md)); the function
+Output is presentation only (the information stream, [ADR-AUTO-CONSOLE](../../../drs/automation/console-output-matters.md)); the function
 returns nothing. Live bicep templates are out of scope here — use Get-BicepTemplates. The ADR reads are memoized for the session by the
-private getters ([ADR-AUTO-CACHE](../../../adr/automation/caching.md)); the module and verb areas read the loaded modules' exports, so they
+private getters ([ADR-AUTO-CACHE](../../../drs/automation/caching.md)); the module and verb areas read the loaded modules' exports, so they
 answer the same in source mode and build mode.
 
 ### parameter `Area`
@@ -60,7 +60,7 @@ Above `$entries = Get-CatsAdrIndex`, written with `#`.
 
 ```text
 Plain assignment (not @(...)): the getter returns a comma-wrapped array
-([ADR-AUTO-CACHE](/docs/adr/automation/caching.md) exemplar),
+([ADR-AUTO-CACHE](/docs/drs/automation/caching.md) exemplar),
 which assignment receives intact — wrapping it again in @() would nest it one level too deep.
 ```
 
@@ -70,5 +70,5 @@ Above `$entryEnforcers = $enforcers[$rule.Id]`, written with `#`.
 
 ```text
 Show what mechanically enforces this rule (tests + analyzer rules), if anything —
-the rule's code is the key both sides use ([index](/docs/adr/index.md)).
+the rule's code is the key both sides use ([index](/docs/drs/index.md)).
 ```

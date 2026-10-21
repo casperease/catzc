@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5dcf59de28df"
+    with_body_sha: "9056a9511910"
   edges:
     cites:
       - ADR-REPO-FILEMETA-METAKIND
@@ -11,7 +11,7 @@ catzc:
 
 namespace Catzc.Base.Globs;
 
-// What the file-kinds registry names for one path: the role its kind gives it, its subkind when it has one, and the kind's definition ([ADR-REPO-FILEMETA-METAKIND](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-metakind)).
+// What the file-kinds registry names for one path: the role its kind gives it, its subkind when it has one, and the kind's definition ([ADR-REPO-FILEMETA-METAKIND](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-metakind)).
 public sealed class FileKindMatch
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

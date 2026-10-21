@@ -18,11 +18,11 @@ reported and left unchanged.
 
 It announces how many files it checks before it checks them. It shares Format-Code's result cache for the file-meta imprint step, keyed on
 each file's SHA-256 and a stamp of the step's settings files, so a file either command last found clean is not checked again
-([ADR-AUTO-CACHE](../../../adr/automation/caching.md)). A file the run would change, or one a person must decide by hand, is never recorded
+([ADR-AUTO-CACHE](../../../drs/automation/caching.md)). A file the run would change, or one a person must decide by hand, is never recorded
 as clean. -NoCache checks every file.
 
-It rests on [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts) and
-[ADR-REPO-FORMAT-METAIMPRINT](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-metaimprint).
+It rests on [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts) and
+[ADR-REPO-FORMAT-METAIMPRINT](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-metaimprint).
 
 ### parameter `Path`
 
@@ -72,7 +72,7 @@ Above `function Format-FileMeta {`, written with `#`.
 
 ```text
 The repository's preview switch is -DryRun, so ShouldProcess and -WhatIf are deliberately absent.
-[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)
+[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect)
 ```
 
 ## comment:2

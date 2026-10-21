@@ -9,10 +9,10 @@ Above `using System;`, written with `//`.
 
 ```text
 The single export config (configs/exporter.yml): how this repository exports itself as the installable,
-versioned Catzc build ([ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md)). Registered in
+versioned Catzc build ([ADR-AUTO-BUNDLE](/docs/drs/automation/platform-bundle.md)). Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Exporter.ExporterConfig), so Get-Config -Config exporter
 returns this typed record. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException. Every key
 is required, and an unknown key throws (a typo fails fast at load):

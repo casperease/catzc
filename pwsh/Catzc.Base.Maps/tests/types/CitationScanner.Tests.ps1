@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "61f7e8e92b74"
+    with_body_sha: "15dabf48e5ed"
   edges:
     code: pwsh/Catzc.Base.Maps/types/CitationScanner.cs
 ---
@@ -20,7 +20,7 @@ Describe 'CitationScanner' -Tag 'L0', 'logic' {
 
     It 'finds ADR and rule codes as written, distinct, in ordinal order' {
         $text = @(
-            'See [ADR-WIDGET-GADGET-TURN](/docs/adr/widgetry/widget-gadget.md#rule-adr-widget-gadget-turn).'
+            'See [ADR-WIDGET-GADGET-TURN](/docs/drs/widgetry/widget-gadget.md#rule-adr-widget-gadget-turn).'
             '### Rule ADR-WIDGET-GADGET-TURN'
             'ADR-GIZMO-COG decides; ADR-WIDGET-GADGET-RE12 too, and `ADR-WIDGET-GADGET`.'
         ) -join "`n"

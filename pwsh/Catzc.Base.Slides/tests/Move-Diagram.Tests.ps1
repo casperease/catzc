@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9c874fec3f74"
+    with_body_sha: "5afc53588e55"
   edges:
     code: pwsh/Catzc.Base.Slides/Move-Diagram.ps1
     cites:
@@ -19,7 +19,7 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
             'docs/widgets/plain.md'                         = "# Plain`n`n[up](index.md)`n"
             'docs/widgets/assets/widget/diagram.drawio.png' = 'png'
             'docs/widgets/assets/widget/diagram.drawio.yml' = "description: A widget.`n"
-            'docs/adr/index.md'                             = "# Widget decisions`n"
+            'docs/drs/index.md'                             = "# Widget decisions`n"
             'docs/gadgets/index.md'                         = "# Gadgets`n`n![the widget slide](../widgets/assets/widget/diagram.drawio.png)`n"
         }
         foreach ($file in $files.Keys) {
@@ -78,7 +78,7 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     }
 
     It 'returns no pages under -PassThru when no page links the moved file' {
-        $result = Move-Diagram docs/adr/index.md docs/adr/.assets/widget/index.md -RepositoryRoot $script:widgetRoot -DryRun -PassThru
+        $result = Move-Diagram docs/drs/index.md docs/adr/.assets/widget/index.md -RepositoryRoot $script:widgetRoot -DryRun -PassThru
 
         $result.Moves.To | Should -Be @('docs/adr/.assets/widget/index.md')
         @($result.Pages).Count | Should -Be 0

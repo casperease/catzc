@@ -10,7 +10,7 @@ Above `Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity
 ```text
 The real repository against both registries: the tracks (Catzc.Base.Variants, variants.yml) and the file languages
 (configs/languages.yml). The tracked files come from the git index, read in-process (Get-GitTrackedPath, no git
-process). The stack check ([DDR-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-ddr-track-onetechstack)) reads the live aspect
+process). The stack check ([DDR-TRACK-ONETECHSTACK](/docs/drs/design/tracks.md#rule-ddr-track-onetechstack)) reads the live aspect
 only: a track's tests aspect (Get-Aspect), a
 vendored .vendor/ folder, and a verification track ship nothing, so they are never a second tech-stack.
 ```

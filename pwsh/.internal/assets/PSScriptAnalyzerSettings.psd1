@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "016df956143b"
+    with_body_sha: "6b85c4cf784d"
   edges:
     cites:
       - ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT
@@ -49,7 +49,7 @@ catzc:
         # NRE and stay enabled.
         'PSReservedCmdletChar'
         # Superseded by the custom Measure-NoRawConsoleWrite
-        # ([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)),
+        # ([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)),
         # which flags Write-Host AND
         # every other way past the information stream ([Console]::Write, $Host.UI, Out-Host, Write-Progress, ...).
         # One rule owns the console bypass, so a Write-Host is reported once, not twice.
@@ -67,7 +67,7 @@ catzc:
         # ── On by default in PSScriptAnalyzer ───────────────────────
 
         # Comment-based help is not used: a function's help is the config part of its meta head
-        # ([ADR-REPO-HELP](/docs/adr/repository/function-help.md)).
+        # ([ADR-REPO-HELP](/docs/drs/repository/function-help.md)).
         PSProvideCommentHelp                      = @{
             Enable = $false
         }
@@ -104,7 +104,7 @@ catzc:
         #     custom rules), so it never actually checked anything — disabling is no regression.
         #   - The profiles it reads (PSScriptAnalyzer's ~280 MB compatibility_profiles/) are not vendored:
         #     Install-VendorModule prunes the folder, so the rule has nothing to load
-        #     ([ADR-PWSH-VENDOR-ONLYWHATLOADS](/docs/adr/automation/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-onlywhatloads)).
+        #     ([ADR-PWSH-VENDOR-ONLYWHATLOADS](/docs/drs/automation/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-onlywhatloads)).
         #   - When it runs, PSScriptAnalyzer merges the target profiles into a single ~42 MB
         #     union_<hash>.json written INSIDE pwsh/.vendor/PSScriptAnalyzer/.../
         #     compatibility_profiles/, an untracked blob after every fresh run.

@@ -1,7 +1,7 @@
 # Catzc.Tooling.Listen
 
 The listen mode's module of the Tooling group: it notes every change the editor makes to the docs by hand, as raw fact, so the processor
-agent can turn each correction into repository-wide plans ([ai-agent-contract](../../adr/repository/ai-agent-contract.md)). It owns the
+agent can turn each correction into repository-wide plans ([ai-agent-contract](../../drs/repository/ai-agent-contract.md)). It owns the
 listener, a command with no model, and the reads the processor and its scouts make; it interprets nothing, and it never reads git state to
 decide what changed. Like [Catzc.Tooling.Inspiration](catzc-tooling-inspiration.md), it installs nothing, so it rests only on the `Base`
 group.
@@ -45,13 +45,13 @@ and every match is stated at one commit.
 ### responsibility:5 — Declare the session settings
 
 The watched folder, the output folder, the poll, the quiet window, the wait bounds and the tiers are entries in `configs/listen.yml`, each
-default declared once on its config type ([sensible-defaults](../../adr/automation/sensible-defaults.md)). A tier is a set of file kinds,
+default declared once on its config type ([sensible-defaults](../../drs/automation/sensible-defaults.md)). A tier is a set of file kinds,
 the kinds `file-kinds.yml` already declares, so the module adds no doc type of its own.
 
 ## What the module does
 
 The module is the deterministic half of the listen mode. The editor's corrections are fact
-([ai-agent-contract](../../adr/repository/ai-agent-contract.md)), and noting them needs no judgment, so the listener is a command: tested,
+([ai-agent-contract](../../drs/repository/ai-agent-contract.md)), and noting them needs no judgment, so the listener is a command: tested,
 free to run, and never late because something was thinking. Understanding stays with the processor agent, which reads the notes on its own
 time.
 
@@ -59,7 +59,7 @@ time.
 
 Detection compares the disk with the session's copies and their indexes, hashing only the files whose length or write time moved; git is
 read once, at the start, to pin the reference, which is the repository at HEAD with committed files only. Every wait is bounded
-([fail-fast-with-asserts](../../adr/automation/fail-fast-with-asserts.md)): the listener waits again after a bound runs out, and the
+([fail-fast-with-asserts](../../drs/automation/fail-fast-with-asserts.md)): the listener waits again after a bound runs out, and the
 processor's wait sits under the background roof of the time safeguard.
 
 ## Division

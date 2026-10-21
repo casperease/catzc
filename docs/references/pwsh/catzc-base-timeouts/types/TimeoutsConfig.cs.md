@@ -11,7 +11,7 @@ Above `using System;`, written with `//`.
 The time safeguards (configs/timeouts.yml) — how long a call may run before it is stopped. Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Timeouts.TimeoutsConfig), so Get-Config -Config timeouts
 returns this typed record; Get-TimeoutSeconds resolves a limit from it. Mirrors the YAML keys verbatim
-([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)). The Claude Code Bash
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)). The Claude Code Bash
 hook (.claude/hooks/Assert-BashTimeout/) compiles this same file, so the hook and the pwsh side share one parser
 and one set of defaults.
 
@@ -19,7 +19,7 @@ Limits are keyed on two axes: the environment (devbox | pipeline, from Get-RunEn
 execution engines (pwsh | bash | zsh). bash carries a foreground and a background limit (the hook bounds both, and
 it governs the Bash tool only); every other engine carries one limit, with the same defaults, for the work bounded
 outside the hook (Invoke-WithTimeout, Invoke-Executable, a zsh run). The sensible defaults are declared here, once
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), so an empty file and a
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), so an empty file and a
 fresh checkout behave the same; the file states only what is tuned.
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
@@ -54,7 +54,7 @@ Above `private static readonly string[] Shells = new...`, written with `//`.
 
 ```text
 The shells a limit is keyed by: the execution engines, declared once
-([ADR-AUTO-ENGINE-THREEENGINES](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine-threeengines)).
+([ADR-AUTO-ENGINE-THREEENGINES](/docs/drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)).
 ```
 
 ## comment:4

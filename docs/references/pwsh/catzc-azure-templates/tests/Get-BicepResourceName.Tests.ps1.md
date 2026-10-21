@@ -14,5 +14,5 @@ Read-only resolver tests: the boundary mocks and the config-cache reset are set 
 The mocked config is the same fixture every test and no test mutates it, so Get-Config keys its cache on
 the fixture path and the first call derives it cold (~80ms) while the rest hit the warm cache — a
 per-test reset would force that cold re-derive on every test
-([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)/[ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/adr/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
+([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)/[ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
 ```

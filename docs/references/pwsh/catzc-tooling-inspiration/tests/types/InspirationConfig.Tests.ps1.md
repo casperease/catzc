@@ -9,7 +9,7 @@ Above `Describe 'Catzc.Tooling.Inspiration.InspirationConfig' -Tag 'L0', 'logic'
 
 ```text
 InspirationConfig and its InspirationEntry over neutral fixtures (widget/gadget,
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)): the mapping, the one declared default
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), and every load-time rejection,
-including the communication-form root ([ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM](/docs/adr/automation/path-representation.md#rule-adr-auto-path-storedcommunicationform)).
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)): the mapping, the one declared default
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), and every load-time rejection,
+including the communication-form root ([ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM](/docs/drs/automation/path-representation.md#rule-adr-auto-path-storedcommunicationform)).
 ```

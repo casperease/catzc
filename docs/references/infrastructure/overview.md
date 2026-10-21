@@ -12,7 +12,7 @@ Bicep for the templating system, in two folders:
   declaration (`../../modules/<x>.bicep`) and inlined by `az bicep build`. Not discovered as templates.
 
 The system is documented in [the Catzc.Azure.Templates reference](../pwsh/catzc-azure-templates.md); the design rationale lives in
-[`docs/adr/azure/`](../../adr/azure/).
+[`docs/drs/azure/`](../../drs/azure/).
 
 ## The templates and their order
 
@@ -21,7 +21,7 @@ Three templates tell one story, and each deploys after the one before, because i
 1. **`foundation`** — the once-per-subscription baseline: the Log Analytics workspace and the Key Vault every later template uses.
 2. **`discovery`** — the CAF landing zone of the subscription, at subscription scope: a hub network in a shared subscription, a spoke in a
    customer subscription, the policies, and the budget. A new spoke needs its hub deployed first and again after it, so the peering and the
-   DNS zone links find both networks ([landing-zones](../../adr/azure/landing-zones.md)).
+   DNS zone links find both networks ([landing-zones](../../drs/azure/landing-zones.md)).
 3. **`expedition`** — the Well-Architected workload, one per configuration slot: storage and a SQL database behind private endpoints in the
    landing zone's network.
 

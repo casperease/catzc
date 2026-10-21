@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "1cc30557e60b"
+#     with_body_sha: de0b0b86c1f9
 # ---
 
 description:
@@ -123,11 +123,11 @@ content:
           - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: docs/-/.
         by:
-          - docs/adr/automation/devbox-pipeline-parity.md
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/flow/pipeline-detection.md
-          - docs/adr/index.md
+          - docs/drs/automation/devbox-pipeline-parity.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/pipeline-detection.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
@@ -236,11 +236,11 @@ content:
           - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
       - cell: docs/markdown
         by:
-          - docs/adr/automation/devbox-pipeline-parity.md
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/flow/pipeline-detection.md
-          - docs/adr/index.md
+          - docs/drs/automation/devbox-pipeline-parity.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/pipeline-detection.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md

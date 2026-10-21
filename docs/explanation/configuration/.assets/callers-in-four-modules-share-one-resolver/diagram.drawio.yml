@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "74d523509534"
+#     with_body_sha: "3e07cd025eba"
 # ---
 
 description:
@@ -102,9 +102,9 @@ content:
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
       - cell: docs/-/.
         by:
-          - docs/adr/configuration/config-value-addressing.md
-          - docs/adr/configuration/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/configuration/config-value-addressing.md
+          - docs/drs/configuration/dora-explains.md
+          - docs/drs/index.md
           - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
           - docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md

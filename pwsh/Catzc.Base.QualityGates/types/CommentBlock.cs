@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2d3217cda3e1"
+    with_body_sha: "532b64fee77b"
   edges:
     cites:
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
@@ -18,7 +18,7 @@ using System.Linq;
 
 namespace Catzc.Base.QualityGates;
 
-// Rests on [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel).
+// Rests on [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel).
 public sealed class CommentBlock
 {
     public CommentBlockKind Kind { get; }

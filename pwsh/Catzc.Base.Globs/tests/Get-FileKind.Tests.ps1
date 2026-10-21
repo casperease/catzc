@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "67c2ee4ade22"
+    with_body_sha: f69f80ffab37
   edges:
     code: pwsh/Catzc.Base.Globs/Get-FileKind.ps1
     cites:
@@ -37,9 +37,9 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
         @{ Path = 'docs/references/pwsh/.assets/catzc-widget/diagram.drawio.png'; Class = 'diagram' }
         @{ Path = 'docs/references/pwsh/.assets/catzc-widget/diagram.drawio.verify.md'; Class = 'asset-description' }
         @{ Path = 'docs/references/pwsh/catzc-widget.md'; Class = 'reference' }
-        @{ Path = 'docs/adr/index.md'; Class = 'index' }
-        @{ Path = 'docs/adr/glossary.md'; Class = 'glossary' }
-        @{ Path = 'docs/adr/repository/file-meta.md'; Class = 'adr' }
+        @{ Path = 'docs/drs/index.md'; Class = 'index' }
+        @{ Path = 'docs/drs/glossary.md'; Class = 'glossary' }
+        @{ Path = 'docs/drs/repository/file-meta.md'; Class = 'adr' }
         @{ Path = 'docs/references/pwsh/catzc-base-globs/Get-FileKind.ps1.md'; Class = 'comment-page' }
         @{ Path = 'infrastructure/templates/foundation/main.bicep'; Class = 'template' }
         @{ Path = 'infrastructure/templates/foundation/options.yml'; Class = 'template/config' }

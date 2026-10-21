@@ -18,7 +18,7 @@ Get-AzCliSubscriptionAccessState.
 
 Unlike Test-AzCliConnected (which asks "is this subscription the active one?"), this asks "can my current login reach this subscription?",
 independent of the active context — the question to ask before a call that supplies `--subscription <id>`. See
-[ADR-AZ-CLI-AZBYDEFAULT](../../../adr/azure/prefer-az-cli.md#rule-adr-az-cli-azbydefault).
+[ADR-AZ-CLI-AZBYDEFAULT](../../../drs/azure/prefer-az-cli.md#rule-adr-az-cli-azbydefault).
 
 ### parameter `SubscriptionId`
 

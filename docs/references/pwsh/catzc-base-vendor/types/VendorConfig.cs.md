@@ -9,10 +9,10 @@ Above `using System;`, written with `//`.
 
 ```text
 The vendor module source (configs/vendor.yml) — where Install-VendorModule downloads vendored modules from and
-Remove-VendorModules validates them against ([ADR-PWSH-VENDOR](/docs/adr/automation/pwsh/vendor-toolset-dependencies.md)).
+Remove-VendorModules validates them against ([ADR-PWSH-VENDOR](/docs/drs/automation/pwsh/vendor-toolset-dependencies.md)).
 Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Vendor.VendorConfig), so
 Get-Config -Config vendor returns this typed record. Mirrors the YAML keys verbatim (the file's own `sourceUrl`
-spelling, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+spelling, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
   - only the known keys ('source', 'sourceUrl') — an unknown key (a typo) fails fast at load;

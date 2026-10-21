@@ -35,11 +35,11 @@ Conflict handling is a fast pre-scan (fast / faster / fastest):
 - -Force skip the pre-scan and overwrite.
 
 The copy is of the source tree (per-function files, tests/, root packages), so it stops with a named error in build mode (Assert-SourceTree,
-[DDR-RUNMODE](../../../adr/design/run-modes.md)).
+[DDR-RUNMODE](../../../drs/design/run-modes.md)).
 
-See [ADR-CONF-LOADING](../../../adr/configuration/module-config-loading.md) (files.yml),
-[ADR-BCL-TYPES-NATIVETYPEDMODEL](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel), and
-[ADR-AUTO-PATH](../../../adr/automation/path-representation.md).
+See [ADR-CONF-LOADING](../../../drs/configuration/module-config-loading.md) (files.yml),
+[ADR-BCL-TYPES-NATIVETYPEDMODEL](../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel), and
+[ADR-AUTO-PATH](../../../drs/automation/path-representation.md).
 
 ### parameter `Destination`
 
@@ -92,7 +92,7 @@ Above `if ([System.IO.Directory]::Exists($destinationRoot) -and...`, written wit
 
 ```text
 An emptiness probe stops at the first entry of any kind, hidden and pruned names included
-([ADR-PWSH-ENUM-RAWDOTNETENUMERATION](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-rawdotnetenumeration)).
+([ADR-PWSH-ENUM-RAWDOTNETENUMERATION](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-rawdotnetenumeration)).
 ```
 
 ## comment:2
@@ -101,7 +101,7 @@ Above `foreach ($file in Get-ChildPath $item.Source -File -Depth 64 -Exclude @()
 
 ```text
 A named whole-tree walk
-([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every file the
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every file the
 copy would write is checked for a conflict.
 ```
 

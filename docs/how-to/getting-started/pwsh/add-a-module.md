@@ -1,7 +1,7 @@
 # Add a module
 
 A module is just a folder. Create a non-dot directory under `pwsh/`, drop `.ps1` files in it, and the importer discovers it — no
-registration, no manifest, no edit to any loader (see [open-closed-architecture](../../../adr/automation/open-closed-architecture.md)).
+registration, no manifest, no edit to any loader (see [open-closed-architecture](../../../drs/automation/open-closed-architecture.md)).
 
 ## Steps
 
@@ -16,7 +16,7 @@ registration, no manifest, no edit to any loader (see [open-closed-architecture]
 ## The well-known subfolders
 
 A module uses only these folder names — they are a contract tooling hardcodes (see
-[conventional-folders](../../../adr/repository/conventional-folders.md)). Create one only when you need it.
+[conventional-folders](../../../drs/repository/conventional-folders.md)). Create one only when you need it.
 
 | Folder     | Holds                                                           | Notes                                             |
 | ---------- | --------------------------------------------------------------- | ------------------------------------------------- |
@@ -62,14 +62,14 @@ modules:
 
 The `Test-ModuleDependency` quality gate (run by an L1 integrity test) fails the build if your module calls into a module it does not
 declare; a declaration that forms a cycle fails already when `dependencies.yml` loads. The same graph governs cross-module C# type
-references (see [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md)). A module that is **not** listed is
+references (see [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)). A module that is **not** listed is
 unconstrained; once you list it, it is policed — so list it.
 
 ## Module config (optional)
 
 If the module needs its own settings, drop `pwsh/<Module>/configs/<name>.yml` and read it anywhere with `Get-Config -Config <name>` — one
 reader, cached per session, validated on load. Every shipped config has a C# config type
-([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)): add one
+([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)): add one
 to the module's `types/` (see [add-a-dotnet-type](../BCL/add-a-dotnet-type.md)) and register it in `Catzc.Base.Config/configs/configs.yml`
 as `<name>: { type: <FQN> }`; `Get-Config` constructs it on load, and its constructor validates the file. Keep keys `snake_case`.
 
@@ -83,4 +83,4 @@ Test-Automation -Modules Catzc.Azure.Storage # run just this module's tests
 
 If a function does not appear, check the file name matches the function name and the file is at the module root (not in `private/`).
 Non-conforming files are silently skipped — that is by design (see
-[zero-ceremony-poka-yoke](../../../adr/automation/zero-ceremony-poka-yoke.md)).
+[zero-ceremony-poka-yoke](../../../drs/automation/zero-ceremony-poka-yoke.md)).

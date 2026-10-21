@@ -62,7 +62,7 @@ use, and lives until the next import. Read in call order, the code shows where e
 
 ## See also
 
-- [Module config loading](../../adr/configuration/module-config-loading.md) — the decision this article explains.
+- [Module config loading](../../drs/configuration/module-config-loading.md) — the decision this article explains.
 - The other lenses on the same read path: [meta](one-reader-one-cache-per-session.md),
   [architecture](callers-depend-on-one-config-module.md), [operations](ask-by-name-get-the-cached-object.md) and
   [governance](one-gate-guards-the-read-path.md).

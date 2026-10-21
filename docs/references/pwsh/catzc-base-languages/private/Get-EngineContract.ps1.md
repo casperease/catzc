@@ -13,9 +13,9 @@ commands.
 ### description
 
 A Go or Python test starts the engine as a process and asserts on its output
-([ADR-AUTO-GO-BLACKBOXTESTS](../../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go-blackboxtests),
-[ADR-AUTO-PY-BLACKBOXTESTS](../../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-blackboxtests)). How to start it
-comes from the execution engine model, never from the test ([ADR-AUTO-ENGINE](../../../../adr/automation/execution-engines.md)), so the same
+([ADR-AUTO-GO-BLACKBOXTESTS](../../../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-blackboxtests),
+[ADR-AUTO-PY-BLACKBOXTESTS](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-blackboxtests)). How to start it
+comes from the execution engine model, never from the test ([ADR-AUTO-ENGINE](../../../../drs/automation/execution-engines.md)), so the same
 test runs under every engine:
 
 ```text

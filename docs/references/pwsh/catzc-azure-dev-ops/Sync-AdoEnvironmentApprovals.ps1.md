@@ -12,7 +12,7 @@ Applies environment-approvals.yml to Azure DevOps: the approver group, its membe
 ### description
 
 A deploy to a prod-tier environment waits for a person to approve it, so CD never reaches production unattended
-([FDR-CD](../../../adr/flow/cd-discipline-and-promotion-flow.md)). The config is the truth and this apply makes the organization match
+([FDR-CD](../../../drs/flow/cd-discipline-and-promotion-flow.md)). The config is the truth and this apply makes the organization match
 it, in a fixed order: the group `[<project>]\<approver_group.name>` is created when missing; its members are made exactly the configured
 principal names, adding the missing and removing the unlisted; and each listed environment gets one Approval check by that group with the
 configured timeout, created, updated or left alone. An empty member list is refused before any call, and a missing environment or an unknown
@@ -20,7 +20,7 @@ member throws, naming it. The group name and the timeout default on the config t
 [Apply the prod-tier approvals](../../../how-to/automation/apply-environment-approvals.md).
 
 The approvals are Azure DevOps configuration, an adjacent store
-([TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../../../adr/thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)):
+([TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../../../drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)):
 this apply drives them one way from the repository, and nobody edits them beside the trunk.
 
 ### parameter `Project`

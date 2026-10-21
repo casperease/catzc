@@ -11,9 +11,9 @@ Checks contract assets against the real repository and returns one result per as
 
 ### description
 
-Contracts are binding ([ADR-REPO-CONTRACT-PROVENBYTESTS](../../../adr/repository/api-contracts.md#rule-adr-repo-contract-provenbytests)):
+Contracts are binding ([ADR-REPO-CONTRACT-PROVENBYTESTS](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-provenbytests)):
 each asset is checked by its kind
-([ADR-REPO-CONTRACT-CONTRACTASSET](../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)) and gives one
+([ADR-REPO-CONTRACT-CONTRACTASSET](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)) and gives one
 ContractCheckResult — Passed, and every finding as a precise message.
 
 - Presence: the target file exists, with the exact case of its path, checked against the directory listing.
@@ -29,14 +29,14 @@ ContractCheckResult — Passed, and every finding as a precise message.
 - Sample: the payload parses as JSON or YAML by its extension, and validates against the `<name>.schema.json` beside it when one exists.
 - Command: the command's file exists under the module's root and its parsed signature declares what the contract states, parameter by
   parameter and the output type
-  ([ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE](../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-checkerperlanguage)).
+  ([ADR-REPO-CMDCONTRACT-CHECKERPERLANGUAGE](../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-checkerperlanguage)).
 
 The assets come from the pipeline (Get-Contract) or -Asset; with neither, every asset of every unit's draft, 0.0.0, is checked. A failed
 check is a result with Passed false, never an exception; only misuse throws (a null asset, a repository root that does not exist). This
 returns records rather than a boolean, so it is a Get- and not a Test-
-([ADR-PWSH-VERBS-SEMANTICCONTRACT](../../../adr/automation/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-semanticcontract)), and the
+([ADR-PWSH-VERBS-SEMANTICCONTRACT](../../../drs/automation/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-semanticcontract)), and the
 noun is plural for the collection it returns
-([ADR-PWSH-VERBS-PLURALCOLLECTIONNOUNS](../../../adr/automation/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-pluralcollectionnouns)).
+([ADR-PWSH-VERBS-PLURALCOLLECTIONNOUNS](../../../drs/automation/pwsh/respect-pwsh-verb-rules.md#rule-adr-pwsh-verbs-pluralcollectionnouns)).
 
 ### parameter `Asset`
 

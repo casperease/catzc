@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "71735c969bfd"
+    with_body_sha: "022a2187e88b"
   edges:
     cites:
       - ADR-REPO-FILEMETA-ROLE
@@ -11,7 +11,7 @@ catzc:
 
 namespace Catzc.Base.Globs;
 
-// A kind mostly shadowed by an earlier one that the registry's overlaps do not list: the finding of FileKindsConfig.Shadowing ([ADR-REPO-FILEMETA-ROLE](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-role)).
+// A kind mostly shadowed by an earlier one that the registry's overlaps do not list: the finding of FileKindsConfig.Shadowing ([ADR-REPO-FILEMETA-ROLE](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-role)).
 [Catzc.Base.Objects.ConsoleDisplay(nameof(By), nameof(Hidden), nameof(Taken), nameof(Matched))]
 public sealed class FileKindShadow
 {

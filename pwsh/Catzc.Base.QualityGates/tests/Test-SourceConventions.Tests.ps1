@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b3929451643e
+    with_body_sha: f88c84c14ad9
   edges:
     docs: "[Test-SourceConventions.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-SourceConventions.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-SourceConventions.ps1
@@ -54,7 +54,7 @@ Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {
             }
         }
         Mock Get-AdrCitationMap -ModuleName Catzc.Base.QualityGates {
-            [Catzc.Base.Docs.AdrCitationMap]::new(@{ 'ADR-WIDGET-GADGET' = @{ path = 'docs/adr/widget/gadget.md'; rules = [string[]] @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN') } }, @())
+            [Catzc.Base.Docs.AdrCitationMap]::new(@{ 'ADR-WIDGET-GADGET' = @{ path = 'docs/drs/widget/gadget.md'; rules = [string[]] @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN') } }, @())
         }
         & $script:useMode 'gate'
         New-FixtureFile 'Widget/Get-Widget.ps1' 'function Get-Widget { }'

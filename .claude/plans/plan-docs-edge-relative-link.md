@@ -16,7 +16,7 @@ folder. The head is written by a tool that knows both paths, so it can write a p
 ## Why its value is medium
 
 The `docs` edge exists so a reader can step from a code file to its page in one click
-([ADR-REPO-FILEMETA-FEWLINKS](../../docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-fewlinks)). Today that click fails in every code
+([ADR-REPO-FILEMETA-FEWLINKS](../../docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-fewlinks)). Today that click fails in every code
 file that has a head.
 
 ## Decided (the user, 2026-10-21)
@@ -43,7 +43,7 @@ file that has a head.
 - [ ] `Get-RelativeEdgesFileMetaFact.ps1`: resolve `{relpath}` from `$Path` and the found path (`[System.IO.Path]::GetRelativePath` on the
       two parents, `\` to `/`). Check: its test file gets a `{relpath}` case for a file two levels below a module and one at the module
       root, and passes.
-- [ ] ADR text: `ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY` in `docs/adr/repository/code-file-meta.md` says "by its repository-relative path"
+- [ ] ADR text: `ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY` in `docs/drs/repository/code-file-meta.md` says "by its repository-relative path"
       and its example head shows `docs/references/...`; change both to the file-relative form (the example's file is
       `pwsh/Catzc.Base.Languages/types/FileLanguage.cs`, so `../../../docs/...`). Check the same wording in `file-meta.md` FEWLINKS. Check:
       `Test-Links` on both pages.

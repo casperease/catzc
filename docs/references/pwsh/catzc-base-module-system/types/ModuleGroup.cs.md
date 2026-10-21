@@ -10,7 +10,7 @@ Above `using System;`, written with `//`.
 ```text
 One declared module group of configs/dependencies.yml (`groups: <name>: <member>: [members]`): a named set of
 on-disk modules with its own internal member -> member DAG — a concept, not a disk module
-([ADR-AUTO-DEPM-TWOSECTIONS](/docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm-twosections)). Constructing
+([ADR-AUTO-DEPM-TWOSECTIONS](/docs/drs/automation/controlling-module-dependencies.md#rule-adr-auto-depm-twosections)). Constructing
 one MAPS and VALIDATES the group's member map, collecting every violation into one throw:
   - the group maps to a map of member modules (not a list or string);
   - each member maps to a list of member names (not a single string);

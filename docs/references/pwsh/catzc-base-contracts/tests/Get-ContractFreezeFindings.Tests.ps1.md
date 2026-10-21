@@ -8,9 +8,9 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
-A released version folder is immutable ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)):
+A released version folder is immutable ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)):
 Get-ContractFreezeFindings compares its files with the .frozen record Get-ContractFileHashes wrote at the freeze.
-Fixtures are a widget version folder in TestDrive ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+Fixtures are a widget version folder in TestDrive ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2
@@ -19,7 +19,7 @@ Above `BeforeDiscovery {`, written with `#`.
 
 ```text
 Every released version folder in the repository's contracts/ tree, one test each, discovered from the tree: a folder
-changed since its release fails here ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
+changed since its release fails here ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
 Released folders are every version folder but the draft 0.0.0; a tree with none discovers no test. It reads only the
 repository's files, so its answer cannot differ between the run modes (source-only).
 ```

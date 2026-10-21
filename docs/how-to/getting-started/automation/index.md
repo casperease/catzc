@@ -7,7 +7,7 @@ This guide gets you productive: how to load the system, how to use it in a scrip
 articles for the things you will actually do (add a function, add a module, add a C# type, add an infrastructure template, debug in VS Code,
 and so on).
 
-The _why_ behind every rule here lives in the [architecture decision records](../../../adr/index.md). This guide is the _how_.
+The _why_ behind every rule here lives in the [architecture decision records](../../../drs/index.md). This guide is the _how_.
 
 ---
 
@@ -27,7 +27,7 @@ accepts `-AllowWarnings` (don't make warnings fatal), `-DiagnoseLoadTime` (print
 
 > The importer is **dot-sourced** (`. ./importer.ps1`). It runs in your scope so its global state — the prompt hook, `$env:RepositoryRoot`,
 > error preferences — takes effect. Re-run it after changing files on disk: the importer invocation is the boundary at which the session's
-> view of the repository is fixed (see [caching](../../../adr/automation/caching.md)).
+> view of the repository is fixed (see [caching](../../../drs/automation/caching.md)).
 
 ---
 
@@ -49,7 +49,7 @@ up.
 ## Using it in CI/CD
 
 Pipeline steps invoke automation through the runner, never inline PowerShell (see
-[pipeline-runner-pattern](../../../adr/flow/pipeline-runner-pattern.md)):
+[pipeline-runner-pattern](../../../drs/flow/pipeline-runner-pattern.md)):
 
 ```yaml
 steps:
@@ -69,7 +69,7 @@ steps:
 
 The importer sets both `$ErrorActionPreference` and `$WarningPreference` to `Stop`. There are exactly two states: everything is fine
 (execution continues), or something is wrong (execution stops). No warnings, no "succeeded with warnings", no middle ground (see
-[error-handling](../../../adr/automation/pwsh/error-handling.md)).
+[error-handling](../../../drs/automation/pwsh/error-handling.md)).
 
 - **Interactive sessions** get a prompt hook that prints a full stack trace after any failed command.
 - **Scripts** add `trap { Write-Exception $_; break }` right after the importer line for the same effect.
@@ -111,7 +111,7 @@ out/                               all generated output (gitignored)
 ```
 
 The folder structure is a contract — tooling hardcodes these names. See
-[conventional-folders](../../../adr/repository/conventional-folders.md).
+[conventional-folders](../../../drs/repository/conventional-folders.md).
 
 ---
 
@@ -169,4 +169,4 @@ Looking for what a specific module does rather than how to do a task? See the [m
 
 The filesystem is the single source of truth. There are no hand-maintained manifests, export lists, or registration steps — which is exactly
 why "drop a file, get a function" works. For the reasoning, start with
-[zero-ceremony, hard to fail](../../../adr/automation/zero-ceremony-poka-yoke.md) and the [FAQ](faq.md).
+[zero-ceremony, hard to fail](../../../drs/automation/zero-ceremony-poka-yoke.md) and the [FAQ](faq.md).

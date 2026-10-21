@@ -59,7 +59,7 @@ identity resolved here.
 
 ## See also
 
-- [Templating data model](../../adr/azure/azure-data-model.md) — the decision this article explains.
+- [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains.
 - The other lenses on the same deploy target: [meta](the-session-is-the-deploy-target.md),
   [architecture](one-reverse-lookup-feeds-every-module.md), [operations](pipeline-pins-devbox-picks-the-target.md) and
   [governance](four-gates-hold-the-session-rule.md).

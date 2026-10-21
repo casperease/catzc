@@ -70,7 +70,7 @@
   <!--
     Stamp this project's version from the sources' identity. The RUNTIME (Import-CSharpTypes) writes
     pwsh/.compiled/Catzc.Types.<hash>.dll, where <hash> is the combined hash of every module's
-    types/*.cs (ADR caching, [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/adr/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)) — that
+    types/*.cs (ADR caching, [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)) — that
     hash IS the assembly's identity. The task computes
     the same hash from the sources with the SAME algorithm the loader uses (per file: SHA-256 of the bytes with
     every CR (0x0D) stripped, upper-hex; one line "<module>/<type>|<upper-hex>\n" per file in ordinal

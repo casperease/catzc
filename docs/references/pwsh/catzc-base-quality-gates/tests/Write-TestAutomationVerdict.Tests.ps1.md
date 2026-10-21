@@ -18,6 +18,6 @@ Above `function Get-VerdictRaw {`, written with `#`.
 
 ```text
 The presenter is a private (module-scoped) function, so it is invoked through InModuleScope
-([ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)). Returns the
+([ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)). Returns the
 RAW banner (ANSI intact) so a caller can assert on colour or strip for text.
 ```

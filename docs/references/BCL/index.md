@@ -8,7 +8,7 @@ the authoritative definitions.
 
 In catzc, BCL is two things, and this page is the one place that defines both.
 
-![BCL is a language; pwsh hosts it, and binds only by row](../../adr/automation/BCL/.assets/bcl-language/diagram.drawio.png)
+![BCL is a language; pwsh hosts it, and binds only by row](../../drs/automation/BCL/.assets/bcl-language/diagram.drawio.png)
 
 ## The BCL language
 
@@ -22,14 +22,14 @@ files:
 - **Its reference set** is the Base Class Library and nothing else. There is no NuGet in this toolset, so a type that wants a package is
   asking for logic that belongs in a script calling a vendored tool.
 
-The decision behind the language is the [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md) ADR.
+The decision behind the language is the [native-csharp-types](../../drs/automation/BCL/native-csharp-types.md) ADR.
 
 ## Its use inside the pwsh host
 
 pwsh is the language's host, not its owner. It compiles the sources into one combined assembly inside the .NET runtime already running the
 session, so a type costs no extra process and no build step, and pwsh callers reach each type by its full name or a `Catzc.` accelerator.
 That use is intrinsic to pwsh and decided in the pwsh domain, in the
-[hosting-csharp-types](../../adr/automation/pwsh/hosting-csharp-types.md) ADR.
+[hosting-csharp-types](../../drs/automation/pwsh/hosting-csharp-types.md) ADR.
 
 A type that needs the host itself, such as a parser over pwsh's syntax tree or a pipeline of the session, binds to
 `System.Management.Automation` on purpose. That host binding is one row in `bcl.yml` with its reason, and `Test-BclReferences` fails a type

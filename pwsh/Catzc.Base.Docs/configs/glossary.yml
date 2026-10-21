@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b61dcdaf586b
+#     with_body_sha: "63675f973b92"
 #   edges:
 #     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-docs/configs/glossary.yml.md)"
 #     cites:
@@ -12,7 +12,6 @@
 #       - ADR-AUTO-LAYERS-REALISENEVERREDEFINE
 #       - ADR-AUTO-MATERIAL-MATERIALIZATION
 #       - ADR-CONF-MDCONTRIB-CONFIGCONTRIBUTION
-#       - ADR-REPO-ADRCODE-DECISIONRECORDSSYSTEM
 #       - ADR-REPO-AGENTS-ROBOTBODYLIMIT
 #       - ADR-REPO-AGENTS-NAMEDMODEL
 #       - ADR-REPO-AGENTS-CAPABILITYFILE
@@ -21,6 +20,7 @@
 #       - ADR-REPO-CODEMETA-CODEFILEHEAD
 #       - ADR-REPO-CONTRACT-BINDINGINTERFACE
 #       - ADR-REPO-CONTRACT-CONTRACTASSET
+#       - ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM
 #       - ADR-REPO-FILEMETA-HEADPOLICY
 #       - ADR-REPO-FILEMETA-METAKIND
 #       - ADR-REPO-FILEMETA-ROLE
@@ -56,7 +56,7 @@ concepts:
   decision records system:
     key: drs
     domain: repository
-    defined_by: ADR-REPO-ADRCODE-DECISIONRECORDSSYSTEM
+    defined_by: ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM
     short: "The DRS: the one system that holds every decision record, its index and its registry, under docs/drs/."
     realized_by: { kind: prose-only }
     avoid:
@@ -64,13 +64,13 @@ concepts:
   decision record:
     key: decision_record
     domain: repository
-    defined_by: ADR-REPO-ADRCODE-DECISIONRECORDSSYSTEM
+    defined_by: ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM
     short: "One record of the DRS, of exactly one registered record kind, stating its rules and why."
     realized_by: { kind: prose-only }
   record kind:
     key: record_kind
     domain: repository
-    defined_by: ADR-REPO-ADRCODE-DECISIONRECORDSSYSTEM
+    defined_by: ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM
     short:
       "The first segment of a decision record code (ADR, TDR, PDR, WDR, DDR, FDR or RDR), registered in adrs.yml; together the XDR kinds."
     realized_by: { kind: prose-only }
@@ -108,7 +108,7 @@ concepts:
     key: domain
     domain: repository
     defined_by: ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY
-    short: A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its role and the domains it depends on.
+    short: A group of ADRs — one docs/drs/ subfolder — that adrs.yml declares with its role and the domains it depends on.
     realized_by: { kind: prose-only }
     forms:
       [

@@ -53,7 +53,7 @@ destination; a failure there throws the same message.
 
 ## See also
 
-- [Platform bundle](../../adr/automation/platform-bundle.md) — the decision this article explains.
+- [Platform bundle](../../drs/automation/platform-bundle.md) — the decision this article explains.
 - The other lenses on the same bundle: [meta](one-commit-one-immutable-package.md), [architecture](every-code-root-is-a-copy.md),
   [implementation](build-verify-then-copy-the-folder.md) and [governance](what-gates-each-bundle-stage.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -56,8 +56,8 @@ it against the environment, and the namer renders its customer into the resource
 
 ## See also
 
-- [Templating data model](../../adr/azure/azure-data-model.md) — the decision this article explains.
-- [Azure resource naming standard](../../adr/azure/azure-naming-standard.md) — why the subscription never enters a name.
+- [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains.
+- [Azure resource naming standard](../../drs/azure/azure-naming-standard.md) — why the subscription never enters a name.
 - The other lenses on the same deploy target: [meta](the-session-is-the-deploy-target.md),
   [implementation](read-the-session-guard-then-pick-slot.md), [operations](pipeline-pins-devbox-picks-the-target.md) and
   [governance](four-gates-hold-the-session-rule.md).

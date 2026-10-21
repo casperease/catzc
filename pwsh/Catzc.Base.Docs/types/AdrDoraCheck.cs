@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b57ac7671585
+    with_body_sha: "5cf8336db620"
   edges:
     docs: "[AdrDoraCheck.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrDoraCheck.cs.md)"
     cites:
@@ -29,7 +29,7 @@ public sealed class AdrDoraCheck
     public IReadOnlyDictionary<string, string> exempt { get; }
     public IReadOnlyDictionary<string, string> exempt_folders { get; }
 
-    // True when an ADR's path under docs/adr/ lies in an exempt folder.
+    // True when an ADR's path under docs/drs/ lies in an exempt folder.
     public bool IsExemptPath(string adrRelative)
     {
         if (string.IsNullOrEmpty(adrRelative)) { return false; }
@@ -55,7 +55,7 @@ public sealed class AdrDoraCheck
             IDictionary folders = raw["exempt_folders"] as IDictionary;
             if (folders == null)
             {
-                errors.Add(string.Format("{0}: exempt_folders must be a map of folder under docs/adr/ to reason", where));
+                errors.Add(string.Format("{0}: exempt_folders must be a map of folder under docs/drs/ to reason", where));
             }
             else
             {

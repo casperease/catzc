@@ -12,7 +12,7 @@ The config/template boundary is mocked ONCE for the whole block and the config c
 test reads the same fixture config, and Get-Config keys its cache on the resolved (fixture) path, so the
 first call derives it cold (~80ms) and the rest hit the warm cache. A per-test configCache reset would
 force that cold re-derive on every test
-([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)/[ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/adr/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)). Per-test we only wipe the (cheap) build folder,
+([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)/[ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)). Per-test we only wipe the (cheap) build folder,
 which a couple of tests depend on being clean.
 ```
 
@@ -23,7 +23,7 @@ Above `$script:outputRoot = Join-Path (Get-RepositoryRoot)...`, written with `#`
 ```text
 Own output root through the seam: any other file building the 'sample' fixture from a sibling
 worker can race the shared out/template/sample
-([ADR-AUTO-TEST-ONESCHEDULINGPOOL](/docs/adr/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool) — remove the sharing). Kept
+([ADR-AUTO-TEST-ONESCHEDULINGPOOL](/docs/drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool) — remove the sharing). Kept
 under the repo because the repo-relative artifact contract is asserted below.
 ```
 
@@ -33,7 +33,7 @@ Above `Mock Build-Bicep {`, written with `#`.
 
 ```text
 Mock Build-Bicep to materialize stub artifacts without invoking az ([System.IO], not the file cmdlets:
-~0.1ms vs ~20ms/call — [ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
+~0.1ms vs ~20ms/call — [ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
 ```
 
 ## comment:4
@@ -43,7 +43,7 @@ Above `Mock Get-AzCliSessionSubscription {`, written with `#`.
 ```text
 The deploy target is the az session's subscription — the whole-boundary session mock stands in
 for the service connection / az account set
-([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)).
+([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)).
 ```
 
 ## comment:5
@@ -53,7 +53,7 @@ Above `Get-Config -Config azure | Out-Null`, written with `#`.
 ```text
 Warm the fixture config + template-discovery caches ONCE, under the mocks above, so the cold derive
 is paid here and not by whichever test happens to run first
-([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)).
+([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
 ```
 
 ## comment:6

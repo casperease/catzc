@@ -9,7 +9,7 @@ Above `concepts:`, written with `#`.
 
 ```text
 glossary.yml — the Catzc.Base.QualityGates glossary source: the vocabulary of the quality gates this module owns — the
-test vocabulary of Test-Automation and the link vocabulary of Test-Links ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)). Every option is defaulted: all five
+test vocabulary of Test-Automation and the link vocabulary of Test-Links ([ADR-REPO-VOCAB](/docs/drs/repository/controlled-vocabulary.md)). Every option is defaulted: all five
 checks, the whole repository, every text surface
-([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). Checked by Test-Glossary.
+([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). Checked by Test-Glossary.
 ```

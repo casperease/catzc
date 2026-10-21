@@ -8,13 +8,13 @@ Variant primitives            nothing reads variants.yml directly
 Diagram build                 five stages in one command; rendering is the cost
 ```
 
-These articles explain decisions from the [repository ADR domain](../../adr/index.md#repository). Each article narrates one diagram; the
+These articles explain decisions from the [repository ADR domain](../../drs/index.md#repository). Each article narrates one diagram; the
 [explanation index](../index.md) says how to read them.
 
 ## Diagram build
 
 Build-Diagrams runs five stages in one command, and rendering is the cost
-([slides-as-markdown](../../adr/repository/slides-as-markdown.md)).
+([slides-as-markdown](../../drs/repository/slides-as-markdown.md)).
 
 | Lens           | Article                                                                                          |
 | -------------- | ------------------------------------------------------------------------------------------------ |

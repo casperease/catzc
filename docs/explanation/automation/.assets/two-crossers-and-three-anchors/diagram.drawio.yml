@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8bbb93f3aad9"
+#     with_body_sha: "5faafb3962f5"
 # ---
 
 description:
@@ -128,10 +128,10 @@ content:
           - ADR-AUTO-PATH-PUBLISHEDARTIFACT
       - cell: docs/-/.
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/path-representation.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/path-representation.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-base-docs/configs/readme.yml.md
           - docs/references/pwsh/catzc-base-docs/types/DocMapping.cs.md
           - docs/references/pwsh/catzc-base-docs/types/DocPattern.cs.md

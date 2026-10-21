@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `$script:root = Join-Path $TestDrive 'repo'`, written with `#`.
 
 ```text
-Isolate through the seams ([ADR-AUTO-TEST-NOOVERMOCKING](/docs/adr/automation/test-automation.md#rule-adr-auto-test-noovermocking)): a
+Isolate through the seams ([ADR-AUTO-TEST-NOOVERMOCKING](/docs/drs/automation/test-automation.md#rule-adr-auto-test-noovermocking)): a
 fixture config, a fixture tools.yml pin, and a fixture
 repository root in $TestDrive.
 ```

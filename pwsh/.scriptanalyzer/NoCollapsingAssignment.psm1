@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c79ef2a4445c
+    with_body_sha: "071369b57341"
   edges:
     cites:
       - ADR-PWSH-ERROR-STRICTCLEAN
@@ -19,7 +19,7 @@ function Measure-NoCollapsingAssignment {
     .DESCRIPTION
         A statement assigned to a variable yields its output, unwrapped: an empty branch gives $null and a one-item branch the item
         itself, so a later $variable.Count throws under strict mode on $null or reads the wrong thing on the item
-        ([ADR-PWSH-ERROR-STRICTCLEAN](/docs/adr/automation/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)). The
+        ([ADR-PWSH-ERROR-STRICTCLEAN](/docs/drs/automation/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)). The
         rule flags the assignment when the same script
         block reads .Count on that variable, the variable is not array-typed, and it is not assigned an @() anywhere else. The fix is
         `[object[]] $notes = @()` before the statement, with each branch assigning `@(...)`, or `$notes = @(if (...) { ... })`.

@@ -12,7 +12,7 @@ Composes a managed root file from its template: the template's content under the
 ### description
 
 The one composition of a `source` entry of rootconfig.yml
-([ADR-REPO-ROOTCFG-HEADEDCOPY](../../../../adr/repository/generated-root-configs.md#rule-adr-repo-rootcfg-headedcopy)): it reads the
+([ADR-REPO-ROOTCFG-HEADEDCOPY](../../../../drs/repository/generated-root-configs.md#rule-adr-repo-rootcfg-headedcopy)): it reads the
 template as LF and writes the generated-file head that names the template as its `source`, Build-RootConfig as its generator and carries the
 one warning, in the carrier the entry names. Build-RootConfig writes what it returns, and Test-RootConfigFiles compares the root file with
 it, so the writer and the gate can never disagree on what a copy is.

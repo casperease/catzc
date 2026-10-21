@@ -42,7 +42,7 @@ safeguard relies on.
 
 ## See also
 
-- [Fail fast with inline assertions](../../adr/automation/fail-fast-with-asserts.md) — the decision this article explains.
+- [Fail fast with inline assertions](../../drs/automation/fail-fast-with-asserts.md) — the decision this article explains.
 - The other lenses on the same verdict: [architecture](hook-compiles-module-verdict-and-limits.md),
   [implementation](decide-returns-null-or-a-reason.md), [operations](pass-the-limit-or-the-call-is-denied.md) and
   [governance](three-tests-prove-the-hook.md).

@@ -23,7 +23,7 @@ commit. Read together, the ten numbers show every state a commit can hold and ev
 1. **The bands across the top.** Six stages run left to right: Authoring, PR+BVT, CI+, RC, RBC and DEPLOY-Prod. Brackets above them name the
    pipeline kinds and the stretch each one covers. CI covers the first two stages, CD covers everything up to the end of RC, CD+RBC and
    DEPLOY-Non Prod cover the middle stages, and CDe spans all six. The gate definitions, including RC and RBC, belong to the flow model
-   ([FDR-CD-TWORELEASEGATES](../../adr/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)).
+   ([FDR-CD-TWORELEASEGATES](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates)).
 2. **The gates.** A red vertical line is a manual gate, where a human decides. A dashed grey line is a gate that runs by itself. Each stage
    has one box: Pre-Commit (L0/L2) is decided by a human in authoring and review, Commit (L0/L2) is the automatic BVT gate, L3-vertical-AT
    is an AT gate, and main-AT and release-AT are manual gates. Prod deploy has two boxes, inactive/pre-prod and live/production. Arrows
@@ -33,13 +33,13 @@ commit. Read together, the ten numbers show every state a commit can hold and ev
    has been in that state at an earlier stage and has since moved on.
 4. **The discarded lane.** A red row sits under the queue. A candidate that fails a gate drops into it at the stage where it failed, and it
    keeps its number there. Recording where it died is the point: "discarded at BVT" and "discarded at release-uat" are different facts
-   ([FDR-CD-LIFE-DISCARDISTERMINAL](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-discardisterminal)).
+   ([FDR-CD-LIFE-DISCARDISTERMINAL](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-discardisterminal)).
 5. **The environments lane.** Each hexagon is an env slot. The commit inside it is its occupant, drawn in that commit's own state colour
-   ([DDR-VISUAL-ENVIRONMENTISCONTAINER](../../adr/design/visual-design.md#rule-ddr-visual-environmentiscontainer)). In this
+   ([DDR-VISUAL-ENVIRONMENTISCONTAINER](../../drs/design/visual-design.md#rule-ddr-visual-environmentiscontainer)). In this
    picture, 8 sits in the BVT env slot, 6 is the main-UAT occupant, 5 is the release-UAT occupant, and 4 is both the pre-prod and the
    production occupant. Slot 9 shows a topic commit deployed on demand, and slot 10 shows a commit that was deployed and then discarded.
 6. **The git lane.** This is the only lane where left to right is real time
-   ([DDR-VISUAL-ONLYGITLANEISTIME](../../adr/design/visual-design.md#rule-ddr-visual-onlygitlaneistime)). The main line carries
+   ([DDR-VISUAL-ONLYGITLANEISTIME](../../drs/design/visual-design.md#rule-ddr-visual-onlygitlaneistime)). The main line carries
    the landed commits, and side branches carry topic commits. Reading along it, the three newest commits, 7, 8 and 10, are labelled as dirty
    heads: the tip of main is not always a commit that is safe to build on.
 7. **The legend.** Each state has a solid circle, a dashed ghost and a crossed discard. The legend also names the symbols: manual gate, a
@@ -48,26 +48,26 @@ commit. Read together, the ten numbers show every state a commit can hold and ev
 ## Why it holds
 
 - A commit holds one state at a time and moves one rung along the ladder or leaves it
-  ([FDR-CD-LIFE-ONESTATEADVANCESONERUNG](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-onestateadvancesonerung)).
+  ([FDR-CD-LIFE-ONESTATEADVANCESONERUNG](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-onestateadvancesonerung)).
 - Discard is terminal rejection at a named stage, and the commit stays in history
-  ([FDR-CD-LIFE-DISCARDISTERMINAL](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-discardisterminal)).
+  ([FDR-CD-LIFE-DISCARDISTERMINAL](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-discardisterminal)).
 - Each always-on environment has exactly one occupant plus its history
-  ([FDR-CD-LIFE-ONECOMMITPERENVIRONMENT](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-onecommitperenvironment)).
+  ([FDR-CD-LIFE-ONECOMMITPERENVIRONMENT](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-onecommitperenvironment)).
 - Consumers sync from the BVT-verified server head, never from the tip of main; that same commit goes into main-UAT first, so commit 6 is
   both the sync point and the main-UAT occupant
-  ([FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-syncfromverifiedhead)).
+  ([FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-syncfromverifiedhead)).
 - The tip of main can be a dirty head that is unsafe to sync or promote from
-  ([FDR-CD-LIFE-DIRTYHEADUNSAFE](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-dirtyheadunsafe)).
+  ([FDR-CD-LIFE-DIRTYHEADUNSAFE](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-dirtyheadunsafe)).
 - A commit that fails a stage cannot go downstream
-  ([FDR-CD-LIFE-FAILEDSTAYSUPSTREAM](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-failedstaysupstream)).
+  ([FDR-CD-LIFE-FAILEDSTAYSUPSTREAM](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-failedstaysupstream)).
 - A commit's number is its time-ordered identity, and its last appearance is where its story ends
-  ([FDR-CD-LIFE-NUMBERISIDENTITY](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-numberisidentity)).
+  ([FDR-CD-LIFE-NUMBERISIDENTITY](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-numberisidentity)).
 
 ## See also
 
-- [The commit lifecycle](../../adr/flow/commit-lifecycle.md) — the decision this article explains. Its worked-examples table gives the
+- [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains. Its worked-examples table gives the
   canonical verdict for each of the ten numbers; where a label in the picture words an ending differently, the table decides.
-- [Visual design](../../adr/design/visual-design.md) — the lanes, ghosts, numbers and colours used here.
+- [Visual design](../../drs/design/visual-design.md) — the lanes, ghosts, numbers and colours used here.
 - [Each pipeline shape runs a stretch of the same ladder](each-pipeline-shape-runs-a-stretch-of-the-ladder.md) — the companion flow variants
   of this picture.
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

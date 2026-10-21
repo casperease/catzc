@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "799c122b824b"
+    with_body_sha: "8c05aded683c"
   edges:
     code: pwsh/Catzc.Tooling.Listen/Get-DocNote.ps1
 ---
@@ -17,7 +17,7 @@ Describe 'Get-DocNote' -Tag 'L0', 'logic' {
     BeforeEach {
         Initialize-ListenFixture | Out-Null
         $script:session = (New-DocSnapshot).Path
-        Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nADR-WIDGET-PARTS-SINGLE and ADR-WIDGET-PARTS-DOUBLE.`n"
+        Write-ListenFixtureFile 'docs/drs/widget.md' "# Widget`n`nADR-WIDGET-PARTS-SINGLE and ADR-WIDGET-PARTS-DOUBLE.`n"
         Write-ListenFixtureFile 'docs/explanation/gadget.md' "# Gadget`n`nNo rule.`n"
         Get-DocChange -Session $script:session | New-DocNote -Session $script:session | Out-Null
     }
@@ -25,7 +25,7 @@ Describe 'Get-DocNote' -Tag 'L0', 'logic' {
     It 'reads every note from its head, in id order' {
         $notes = @(Get-DocNote -Session $script:session)
         @($notes.Id) | Should -Be @('0001', '0002')
-        $notes[0].File | Should -BeExactly 'docs/adr/widget.md'
+        $notes[0].File | Should -BeExactly 'docs/drs/widget.md'
         $notes[0].Change | Should -BeExactly 'modified'
         $notes[0].Kind | Should -BeExactly 'adr'
         $notes[0].Tier | Should -BeExactly 'rule'
@@ -37,7 +37,7 @@ Describe 'Get-DocNote' -Tag 'L0', 'logic' {
     }
 
     It 'leaves out the processed ones with -Unprocessed' {
-        Complete-DocNote -Session $script:session -Id '0001' -FactCheck 'partly' -FactCheckReason 'docs/adr/widget.md:3 names one part of two' -Pattern 'widget-parts' -Plan 'plan-listen-widget-parts.md'
+        Complete-DocNote -Session $script:session -Id '0001' -FactCheck 'partly' -FactCheckReason 'docs/drs/widget.md:3 names one part of two' -Pattern 'widget-parts' -Plan 'plan-listen-widget-parts.md'
         @(Get-DocNote -Session $script:session -Unprocessed).Id | Should -Be @('0002')
         (Get-DocNote -Session $script:session)[0].Processed | Should -BeTrue
     }

@@ -10,14 +10,14 @@ Above `using System;`, written with `//`.
 ```text
 The globset registry (configs/globs.yml) and its validity rules: a non-empty 'globsets' map of
 kebab-case name -> { description, layer (deployable-unit | loose-fileset — 'module' is derived-only and
-rejected here, [FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)), [include: [...]], [exclude: [...]],
+rejected here, [FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer)), [include: [...]], [exclude: [...]],
 [compose: [...]],
 [verify: { modules, level }], [pipeline] }, each entry a valid GlobSet, no unknown keys anywhere
 (strict-config discipline), and compose references resolving to declared sets acyclically
-([FDR-CD-GLOBS-COMPOSESETS](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)).
+([FDR-CD-GLOBS-COMPOSESETS](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)).
 The config itself is an ordinary tracked file and may be a member. Constructing an instance validates the
 whole registry (collecting all errors) and exposes the sets in registry order.
-See [FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md).
+See [FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md).
 ```
 
 ## comment:2
@@ -26,7 +26,7 @@ Above `public static readonly string[] ReservedNames = { "internal", "vendor",..
 
 ```text
 Names reserved for the DERIVED globsets
-([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)): the infra scopes every module's tests depend
+([ADR-REPO-PROTGLOB](/docs/drs/repository/protected-globs.md)): the infra scopes every module's tests depend
 on. Module folders derive their own sets by convention (Get-ModuleGlobSet); a declared set may not
 shadow a reserved name — the declared registry and the derived sets share one name space.
 ```
@@ -36,7 +36,7 @@ shadow a reserved name — the declared registry and the derived sets share one 
 Above `foreach (GlobSet set in sets)`, written with `//`.
 
 ```text
----- compose resolution ([FDR-CD-GLOBS-COMPOSESETS](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)): every reference
+---- compose resolution ([FDR-CD-GLOBS-COMPOSESETS](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-composesets)): every reference
 names a declared set, never itself, and
      the reference graph is acyclic; effective membership is the union through the references. ----
 ```

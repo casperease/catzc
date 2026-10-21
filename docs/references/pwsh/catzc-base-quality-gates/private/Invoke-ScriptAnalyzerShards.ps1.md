@@ -22,13 +22,13 @@ shards each pass's files across background pwsh PROCESSES — the same approach,
 - Each shard imports the vendored analyzer from the loaded code root (Get-CatzcModulesRoot/.vendor).
 - Shards run from the repo root (Push-Location/Pop-Location) so the settings' relative CustomRulePath entries resolve (ADR
   working-directory-mechanics, rule
-  [ADR-PWSH-PWD-RESTORESETLOCATION](../../../../adr/automation/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-restoresetlocation)/[ADR-PWSH-PWD-PUSHPOPINFINALLY](../../../../adr/automation/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-pushpopinfinally)).
+  [ADR-PWSH-PWD-RESTORESETLOCATION](../../../../drs/automation/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-restoresetlocation)/[ADR-PWSH-PWD-PUSHPOPINFINALLY](../../../../drs/automation/pwsh/working-directory-mechanics.md#rule-adr-pwsh-pwd-pushpopinfinally)).
 - Each shard reads the settings file itself and applies its pass's rule selection (`IncludeRules`, or extra `ExcludeRules`): a job's
   arguments are serialized, and the settings parser wants its own types back.
 
 The passes share one shard budget, split by their file counts, each pass at least one shard. A dot is printed per interval while shards run
 so the run never looks hung — a progress bar is banned (ADR console-output-matters, rule
-[ADR-AUTO-CONSOLE-NOBOXDRAWING](../../../../adr/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)). The external
+[ADR-AUTO-CONSOLE-NOBOXDRAWING](../../../../drs/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)). The external
 Invoke-ScriptAnalyzer progress bar is suppressed inside the worker for the same reason.
 
 ### parameter `Batch`
@@ -49,7 +49,7 @@ Above `$analyzerPath = Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyze
 
 ```text
 The vendored analyzer ships inside the code tree, so it resolves from the code root
-([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
+([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
 The shards still run from the repository root: the settings' CustomRulePath entries are relative to it.
 ```
 
@@ -69,7 +69,7 @@ Above `$savedProgress = $ProgressPreference`, written with `#`.
 ```text
 Invoke-ScriptAnalyzer draws its own Write-Progress bar; this repo bans progress bars (ADR
 console-output-matters, rule
-[ADR-AUTO-CONSOLE-NOBOXDRAWING](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)) and
+[ADR-AUTO-CONSOLE-NOBOXDRAWING](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)) and
 reports shard progress with dots instead. Suppress the
 external bar for the duration of the call and restore the preference in finally.
 ```
@@ -86,7 +86,7 @@ flake was root-caused to the built-in PSReservedCmdletChar rule dereferencing PS
 thread-unsafe helper runspace under concurrent load, and eliminated by excluding that rule in
 PSScriptAnalyzerSettings.psd1. So there is no transient case to tolerate — any error is real and
 fails loudly (ADR diagnostics-over-retry; we never retry,
-[ADR-AUTO-RETRY-NEVERINTESTS](/docs/adr/automation/retry-as-last-resort.md#rule-adr-auto-retry-neverintests)).
+[ADR-AUTO-RETRY-NEVERINTESTS](/docs/drs/automation/retry-as-last-resort.md#rule-adr-auto-retry-neverintests)).
 ```
 
 ## comment:5
@@ -95,9 +95,9 @@ Above `$dotted = $false`, written with `#`.
 
 ```text
 Print a dot per interval while shards run, rather than a progress bar (ADR console-output-matters,
-rule [ADR-AUTO-CONSOLE-NOBOXDRAWING](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)). The
+rule [ADR-AUTO-CONSOLE-NOBOXDRAWING](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing)). The
 dots go through the writer chokepoint
-([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)), so a
+([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)), so a
 Pester run
 silences them with everything else. $dotted tracks whether any dot was written so the closing newline only
 fires when it is needed.

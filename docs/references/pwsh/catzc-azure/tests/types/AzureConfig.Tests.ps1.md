@@ -12,8 +12,8 @@ Above `$script:baseConfig = [ordered]@{`, written with `#`.
 ```text
 Fixture identity — deliberately-distinct tokens (org tst, tenant fixtenant, Greek envs, core_*
 subscriptions) so this logic test owns its inputs and editing the shipped azure.yml can never
-change its outcome ([ADR-AUTO-TEST-ONECATEGORY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-onecategory),
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The AzureConfig type
+change its outcome ([ADR-AUTO-TEST-ONECATEGORY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-onecategory),
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). The AzureConfig type
 validates the passed dict standalone, so the fixture needs no shipped config.
 ```
 
@@ -23,11 +23,11 @@ Above `It 'every shipped customer — and the non-customer set — serves each..
 
 ```text
 The load-time type groups customer subscriptions by their RAW customer token (it must not read
-customer.yml — see [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)); this is the NORMALIZED
+customer.yml — see [ADR-AZ-CUSTOMER](/docs/drs/azure/azure-customer-model.md)); this is the NORMALIZED
 counterpart: with shortcode
 bindings resolved to canonical keys, every shipped customer still serves each env exactly once,
 and so does the non-customer (shared) set — the uniqueness every configuration file resolution
-rests on ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)).
+rests on ([ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md)).
 ```
 
 ## comment:3

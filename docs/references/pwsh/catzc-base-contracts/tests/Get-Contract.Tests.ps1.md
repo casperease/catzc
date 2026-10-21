@@ -9,7 +9,7 @@ Above `Describe 'Get-Contract' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-Contract lists contracts/<unit>/<version>/<module>/<path> and derives every fact from the asset's name and place
-([ADR-REPO-CONTRACT](/docs/adr/repository/api-contracts.md)): the target under the module's target root (#2), the kind
+([ADR-REPO-CONTRACT](/docs/drs/repository/api-contracts.md)): the target under the module's target root (#2), the kind
 from the suffix (#6), the direction from the convention and the version's contract.yml (#7), and the addressing mode
 from the config (#8). Fixtures are a widget repository in TestDrive.
 ```

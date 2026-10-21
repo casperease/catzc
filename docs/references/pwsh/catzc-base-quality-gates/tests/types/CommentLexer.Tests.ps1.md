@@ -9,7 +9,7 @@ Above `Describe 'CommentLexer' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 CommentLexer finds the comment spans a code link may live in
-([ADR-REPO-LINK-KINDBYFILE](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-kindbyfile)) and must never mistake a string for
-one ([ADR-REPO-LINK-STRINGSAREDATA](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-stringsaredata)). Each case asserts the comment
+([ADR-REPO-LINK-KINDBYFILE](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-kindbyfile)) and must never mistake a string for
+one ([ADR-REPO-LINK-STRINGSAREDATA](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-stringsaredata)). Each case asserts the comment
 texts found in a short widget/gadget snippet.
 ```

@@ -12,8 +12,8 @@ One approved-vocabulary entry from configs/terminology.yml — a term and its me
 group it is listed under in the registry (terms: <category>: [...]), passed in by TerminologyConfig, so
 the entry itself carries no category key. An abbreviation carries its full-word expansion; the other
 categories do not. Mirrors a terminology.yml entry (snake_case keys). See
-[ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md)
-([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)-[ADR-AUTO-SPELL-LIVEVOCABULARYONLY](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)).
+[ADR-AUTO-SPELL](/docs/drs/automation/spell-out-names.md)
+([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)-[ADR-AUTO-SPELL-LIVEVOCABULARYONLY](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)).
 
 Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary
 over its own properties and its constructor uses the base's Req/OptStr extraction helpers.

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9ad5b745d0af"
+    with_body_sha: d7c5514a7a60
   edges:
     docs: "[Build-AdrIndex.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Build-AdrIndex.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1
@@ -17,7 +17,7 @@ Describe 'Build-AdrIndex — generated ADR index' -Tag 'L1', 'integrity', 'sourc
     BeforeAll {
         $script:indexEntries = & (Get-Module Catzc.Base.Docs) { Get-CatsAdrIndex }
         $script:ruleSets = Get-AdrRuleSet
-        $script:adrRoot = Resolve-RepoPath 'docs/adr'
+        $script:adrRoot = Resolve-RepoPath 'docs/drs'
     }
 
     It 'the on-disk index is current — no drift from adrs.yml (Test-GeneratedFiles)' {

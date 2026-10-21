@@ -11,7 +11,7 @@ Applies the consumer overlay's function overrides to the loaded bundle, after ch
 
 ### description
 
-Runs at the end of a bundle load ([ADR-AUTO-OVERLAY](../../../adr/automation/consumer-overlay.md)). It checks the overlay first
+Runs at the end of a bundle load ([ADR-AUTO-OVERLAY](../../../drs/automation/consumer-overlay.md)). It checks the overlay first
 (Assert-CatzcOverlay), so nothing applies unless all of it is valid. Then each override file replaces its function inside the bundled
 module, in two steps:
 

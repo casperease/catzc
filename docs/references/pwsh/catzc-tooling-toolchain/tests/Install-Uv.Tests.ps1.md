@@ -20,7 +20,7 @@ Above `$script:savedHome = $env:HOME`, written with `#`.
 ```text
 The helper reads $env:HOME (the uv tool-bin anchor) and prepends to $env:PATH — snapshot both and
 restore after each test
-([ADR-PWSH-ENV-NOPESTERISOLATION](/docs/adr/automation/pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env-nopesterisolation)).
+([ADR-PWSH-ENV-NOPESTERISOLATION](/docs/drs/automation/pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env-nopesterisolation)).
 ```
 
 ## comment:3

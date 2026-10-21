@@ -40,7 +40,7 @@ A cross-cutting slice, such as every markdown file, is a scope over tracks rathe
 
 ## See also
 
-- [Tracks — the repository's root concerns](../../adr/design/tracks.md) — the decision this article explains.
+- [Tracks — the repository's root concerns](../../drs/design/tracks.md) — the decision this article explains.
 - The other lenses on the same model: [architecture](units-not-tracks-own-the-pipelines.md),
   [implementation](globs-yml-pipeline-field-is-the-binding.md), [operations](a-push-fires-only-touched-pipelines.md) and
   [governance](unit-to-pipeline-rule-is-review-only.md).

@@ -72,7 +72,7 @@ Above `$envEntry = $azure.environments[$Environment]`, written with `#`.
 Naming needs only the environment's IDENTITY (shortcode/region_code), never a subscription — so it
 reads azure.yml directly and is independent of subscription group/customer. The subscription group
 is a resolution axis only and is never a name component
-([ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming-subscriptionnotcomponent)).
+([ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT](/docs/drs/azure/azure-naming-standard.md#rule-adr-az-naming-subscriptionnotcomponent)).
 ```
 
 ## comment:2

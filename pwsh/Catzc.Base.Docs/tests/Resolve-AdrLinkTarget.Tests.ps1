@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e384d15d4b88
+    with_body_sha: "444a365fedcb"
   edges:
     docs: "[Resolve-AdrLinkTarget.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Resolve-AdrLinkTarget.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Resolve-AdrLinkTarget.ps1
@@ -30,11 +30,11 @@ Describe 'Resolve-AdrLinkTarget' -Tag 'L0', 'logic', 'ADR-REPO-LINK-MARKDOWNRELA
         Resolve-Fixture 'widget/dora-explains.md' 'widget-one.md' | Should -Be 'widget/widget-one.md'
     }
 
-    It 'returns nothing for an in-page anchor, a URL, a repository-rooted path, or a path that leaves docs/adr/' {
+    It 'returns nothing for an in-page anchor, a URL, a repository-rooted path, or a path that leaves docs/drs/' {
         Resolve-Fixture 'widget/widget-one.md' '#rule-adr-wi-one1' | Should -BeNullOrEmpty
         Resolve-Fixture 'widget/widget-one.md' 'https://example.com/widget.md' | Should -BeNullOrEmpty
         Resolve-Fixture 'widget/widget-one.md' 'mailto:gadget@example.com' | Should -BeNullOrEmpty
-        Resolve-Fixture 'widget/widget-one.md' '/docs/adr/gadget/gadget-one.md' | Should -BeNullOrEmpty
+        Resolve-Fixture 'widget/widget-one.md' '/docs/drs/gadget/gadget-one.md' | Should -BeNullOrEmpty
         Resolve-Fixture 'widget/widget-one.md' '../../references/gizmo/index.md' | Should -BeNullOrEmpty
     }
 }

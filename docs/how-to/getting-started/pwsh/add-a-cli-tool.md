@@ -2,8 +2,8 @@
 
 System CLI tools (Python, .NET, Azure CLI, Terraform, …) are version-locked in one config file and installed by a generic, platform-aware
 engine. Adding or upgrading a tool is a config change, not new install code. The reasoning is in
-[controlling-systemwide-deps](../../../adr/automation/controlling-systemwide-deps.md) and
-[use-proper-package-managers](../../../adr/automation/use-proper-package-managers.md).
+[controlling-systemwide-deps](../../../drs/automation/controlling-systemwide-deps.md) and
+[use-proper-package-managers](../../../drs/automation/use-proper-package-managers.md).
 
 ## The model
 
@@ -15,7 +15,7 @@ plus the install metadata each platform needs. The generic engine in `Catzc.Tool
   `apt_package`), all user-scope.
 - **uv** for the Python family (`uv_python` provisions Python itself; `uv_tool` installs a standalone Python CLI like the Azure CLI or
   Poetry in an isolated environment; `pip_package` installs an importable library like PySpark into the uv-managed Python). uv installs
-  entirely in user space — see [uv-python-handler](../../../adr/automation/uv-python-handler.md).
+  entirely in user space — see [uv-python-handler](../../../drs/automation/uv-python-handler.md).
 - **Vendored install scripts** (`script_install`) for tools like .NET.
 - **OS-provided prerequisites** (`system_provided`, e.g. winget) — supplied by the operating system, so the toolchain asserts them and keeps
   them on PATH via `session_path_hints`, never installs them; `windows_only: true` marks a Windows-only tool. Tools that install through one
@@ -77,13 +77,13 @@ if ($r.ExitCode -eq 0) { $account = $r.Output | ConvertFrom-Json }
 ```
 
 `Invoke-<Tool>` asserts the right version before running, so a script never silently uses the wrong toolchain. Each invocation logs the
-exact command first (see [log-before-invoke](../../../adr/automation/log-before-invoke.md)).
+exact command first (see [log-before-invoke](../../../drs/automation/log-before-invoke.md)).
 
 ## Why not Chocolatey, why not Az modules
 
 Windows installs use **winget** (hash-verified, mandatory review), never Chocolatey — `Install-DevBoxTools` even removes Chocolatey first
-(see [use-proper-package-managers](../../../adr/automation/use-proper-package-managers.md)). Azure work uses the **`az` CLI**, not the Az
-PowerShell modules, to avoid assembly conflicts and slow imports (see [prefer-az-cli](../../../adr/azure/prefer-az-cli.md)). To log in, use
+(see [use-proper-package-managers](../../../drs/automation/use-proper-package-managers.md)). Azure work uses the **`az` CLI**, not the Az
+PowerShell modules, to avoid assembly conflicts and slow imports (see [prefer-az-cli](../../../drs/azure/prefer-az-cli.md)). To log in, use
 `Connect-AzCli`.
 
 ## Verify

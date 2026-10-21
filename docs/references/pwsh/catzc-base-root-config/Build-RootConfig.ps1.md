@@ -22,9 +22,9 @@ record per file (Get-RootConfigRenderedFile): each file is written on its own an
 
 Idempotent and fast by construction, so the importer runs it on every load (see importer.ps1): the write goes through Write-FileIfChanged
 (canonical UTF-8/LF output, EOL-insensitive compare, write-on-change), so a clean tree is a true no-op. See
-[ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md).
+[ADR-REPO-ROOTCFG](../../../drs/repository/generated-root-configs.md).
 
-The managed root files are materialised from the source tree, so in build mode ([DDR-RUNMODE](../../../adr/design/run-modes.md)) this
+The managed root files are materialised from the source tree, so in build mode ([DDR-RUNMODE](../../../drs/design/run-modes.md)) this
 is a no-op that reports why and returns nothing — a skip, not a throw, because the importer's janitor tail calls it on every load and a
 janitor never breaks the load.
 
@@ -37,7 +37,7 @@ opted-in entry, or no file of the wildcard entry it matches. Default: every opte
 ### parameter `DryRun`
 
 Report what would change without writing any file. The composed content is the same either way; -DryRun only skips the write. See
-[ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+[ADR-AUTO-DRYRUN](../../../drs/automation/dry-run.md).
 
 ### parameter `Silent`
 

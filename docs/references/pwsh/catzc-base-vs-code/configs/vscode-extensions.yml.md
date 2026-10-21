@@ -13,7 +13,7 @@ Above `recommendations:`, written with `#`.
 ```text
 VS Code extension-recommendation registry — the single authored source for .vscode/extensions.json. The
 file the editor reads is a managed, gitignored copy rendered from this registry by New-VsCodeExtensions
-(wired through Build-RootConfig; see rootconfig.yml and [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)) —
+(wired through Build-RootConfig; see rootconfig.yml and [ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md)) —
 edit THIS file, never extensions.json. Explanations live here as comments; the rendered JSON carries only a
 generated-file header (VS Code reads JSONC, so the header is legal).
 
@@ -47,7 +47,7 @@ Above `- ms-python.python`, written with `#`.
 ```text
 The extensions that run the formatter engines — PowerShell, Go, Ruff, Prettier — are not listed here: the generator
 adds each engine's extension from languages.yml (`formatters:`), the one place it is named
-([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)). They also carry the
+([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)). They also carry the
 language services: the PowerShell extension's debugging, and gopls, which reads the repository-root go.work.
 The Python extension — for the Python tests under python/tests/: the settings generator points it at the generated
 test project's environment (python/.venv), so imports and the test explorer resolve with no setting.
@@ -69,5 +69,5 @@ Above `- DanLevett.regex-robin`, written with `#`.
 ```text
 Regex Robin — makes code links in comments Ctrl+clickable. Core VS Code links only http/https/file URLs
 outside markdown, so the regexrobin.rules entry in vscode-settings.yml turns each repository-rooted
-code link into a file link ([ADR-REPO-LINK-CODELINKS](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-codelinks)).
+code link into a file link ([ADR-REPO-LINK-CODELINKS](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)).
 ```

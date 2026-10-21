@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c4640d4b8c01
+#     with_body_sha: "7f5fb17210b5"
 #   edges:
 #     docs: "[terminology.yml.md](docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md)"
 #     cites:
@@ -57,10 +57,10 @@ categories:
       "A reserved word that names one thing and nothing else, so it may appear only in the places that name that thing; Test-Terminology
       fails it anywhere outside its scope (ADR-AUTO-ACCOSTED-RESERVEDNAME)."
     scope:
-      - "docs/adr/automation/accosted-language.md"
-      - "docs/adr/automation/dora-explains.md"
-      - "docs/adr/index.md"
-      - "docs/adr/glossary.md"
+      - "docs/drs/automation/accosted-language.md"
+      - "docs/drs/automation/dora-explains.md"
+      - "docs/drs/index.md"
+      - "docs/drs/glossary.md"
       - "docs/references/**/*accosted*"
       - "docs/references/pwsh/catzc-base-contracts.md"
       - "pwsh/Catzc.Base.Docs/configs/adrs.yml"
@@ -81,7 +81,7 @@ categories:
       - ".claude/learnings/**"
       - ".claude/hindsight/**"
   adr:
-    description: "An ADR rule-citation code — the short code naming a docs/adr rule."
+    description: "An ADR rule-citation code — the short code naming a docs/drs rule."
   ado:
     description: "Azure DevOps vocabulary: predefined pipeline variables, REST area names, and logging commands."
   azure:
@@ -644,7 +644,7 @@ terms:
         "Microsoft's canonical fictional company name (Contoso) — a design-zone example in ADRs and reference docs (ADR-REPO-EXAMPLE)"
   adr:
     - term: adr
-      meaning: "the ADR- rule-citation prefix; every rule code has the form ADR-<NAME> (see docs/adr/index.md)"
+      meaning: "the ADR- rule-citation prefix; every rule code has the form ADR-<NAME> (see docs/drs/index.md)"
     - term: azcli
       meaning: "'az cli' as one token (Invoke-AzCli, the prefer-az-cli decision of ADR-AZ-CLI)"
     - term: poka

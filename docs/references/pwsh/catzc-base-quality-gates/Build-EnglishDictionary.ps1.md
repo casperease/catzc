@@ -19,7 +19,7 @@ result gzip-compressed to pwsh/Catzc.Base.QualityGates/assets/english.txt.gz.
 Unlike the `.cspell/*.txt` term lists (regenerated cheaply from terminology.yml on every import), this list is EXPENSIVE to regenerate — it
 needs node, npx, and cspell's bundled tries — and it is needed on a fresh checkout by the L2 analyzer rule (Measure-SpellOutIdentifiers). So
 it is COMMITTED, the same call the compiled-type prebuild makes
-([ADR-REPO-OUTDIR-COMPILEDPREBUILD](../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-compiledprebuild)): a
+([ADR-REPO-OUTDIR-COMPILEDPREBUILD](../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-compiledprebuild)): a
 deterministic, expensive-to-regenerate artifact kept in the tree, not regenerated at import. Alongside the gz it writes a committed stamp
 (`assets/english.stamp`) recording the cspell + dict package versions it was flattened from and the word count. The drift check
 (Build-EnglishDictionary.Tests.ps1) compares that stamp's cspell version against the tools.yml pin — cheaply, with no node round-trip — and
@@ -29,12 +29,12 @@ and throws in build mode (Assert-SourceTree).
 
 SpellingOracle (Catzc.Base.QualityGates/types) loads this list plus every `.cspell/*.txt` term list into one set. English recognizes the
 spelled-out words (rule, collection, group); the term lists carry the product vocabulary and the conventional-abbreviation allow-list. See
-[ADR-AUTO-SPELL](../../../adr/automation/spell-out-names.md).
+[ADR-AUTO-SPELL](../../../drs/automation/spell-out-names.md).
 
 ### parameter `DryRun`
 
 Report whether the committed list would change without writing it. The returned content is the same in either mode; -DryRun skips the write.
-See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+See [ADR-AUTO-DRYRUN](../../../drs/automation/dry-run.md).
 
 ### parameter `PassThru`
 
@@ -87,7 +87,7 @@ Above `Write-Message 'Flattening cspell English dictionaries (en_US, en_GB) via.
 ```text
 cspell-trie reads a trie and prints its words. Pin to the cspell 10 line to match the installed tries.
 This shells out to npx (a cold run downloads cspell-trie) and reads ~440k words — announce it
-([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
+([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
 ```
 
 ## comment:5

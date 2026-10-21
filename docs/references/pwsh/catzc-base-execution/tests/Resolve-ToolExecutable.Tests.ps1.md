@@ -11,5 +11,5 @@ Above `BeforeAll {`, written with `#`.
 The mapping from a tools.yml entry to the probe's plain inputs: the tools config is a fixture dictionary
 (Get-Config mocked) and Find-Executable is mocked whole, so the assertions bind to which inputs each platform
 and session actor hands it. Fixture tokens are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

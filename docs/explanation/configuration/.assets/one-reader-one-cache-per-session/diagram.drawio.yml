@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b7fb378218b7
+#     with_body_sha: f65586f0e60b
 # ---
 
 description:
@@ -86,9 +86,9 @@ content:
           - ADR-CONF-LOADING-ONEREADER
       - cell: docs/-/.
         by:
-          - docs/adr/configuration/dora-explains.md
-          - docs/adr/configuration/module-config-loading.md
-          - docs/adr/index.md
+          - docs/drs/configuration/dora-explains.md
+          - docs/drs/configuration/module-config-loading.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-base-config/Get-Config.ps1.md
           - docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
           - docs/references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md

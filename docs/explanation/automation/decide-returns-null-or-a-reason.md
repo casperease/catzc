@@ -58,7 +58,7 @@ once more, to `BoundedCommand.Check`.
 
 ## See also
 
-- [Fail fast with inline assertions](../../adr/automation/fail-fast-with-asserts.md) — the decision this article explains.
+- [Fail fast with inline assertions](../../drs/automation/fail-fast-with-asserts.md) — the decision this article explains.
 - The other lenses on the same verdict: [meta](a-shell-call-carries-its-limit-or-is-denied.md),
   [architecture](hook-compiles-module-verdict-and-limits.md), [operations](pass-the-limit-or-the-call-is-denied.md) and
   [governance](three-tests-prove-the-hook.md).

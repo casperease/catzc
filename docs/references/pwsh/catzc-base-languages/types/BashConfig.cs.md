@@ -12,14 +12,14 @@ The Bash test settings (configs/bash.yml), and the single declaration of their s
 the .bats tests in <root>/tests/<folder>/ with the bats-core runner vendored at <root>/.vendor/bats-core/, and
 Update-BatsVendor refreshes that copy from the pinned release. Registered in Catzc.Base.Config/configs/configs.yml
 (type: Catzc.Base.Languages.BashConfig), so Get-Config -Config bash returns this typed record. Property names mirror
-the YAML keys (snake_case, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+the YAML keys (snake_case, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
   - only the known keys ('root', 'bats_version', 'bats_sha256') — an unknown key (a typo) fails at load;
   - 'root' is the Bash root folder, repository-relative: slash-separated segments of letters, digits, '.', '_' and
     '-', no leading or trailing slash, no '.' or '..' segment. Omitted, it resolves per repository (ResolveRoot):
     'bash' when the repository has a bash/ folder, else '.bash' — the one convention every test language's root
-    follows ([ADR-REPO-FOLDERS-LITERALNAMES](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders-literalnames));
+    follows ([ADR-REPO-FOLDERS-LITERALNAMES](/docs/drs/repository/conventional-folders.md#rule-adr-repo-folders-literalnames));
   - 'bats_version' is the vendored bats-core release (X.Y.Z), and 'bats_sha256' the SHA-256 of its source archive,
     both required: the vendored copy is reproducible from them.
 ```

@@ -9,7 +9,7 @@ Above `Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic',...`, written with `#
 
 ```text
 A contract asset's note is the header comment its file can carry without changing what its check compares
-([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): a YAML asset's leading '#' lines,
+([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): a YAML asset's leading '#' lines,
 a schema's "$comment", and nothing for every other asset. Fixtures are a widget repository in TestDrive
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "22797780f433"
+    with_body_sha: "68c981e3bcf8"
   edges:
     docs: "[MarkdownLinkRebaser.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/MarkdownLinkRebaser.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/types/MarkdownLinkRebaser.cs
@@ -54,7 +54,7 @@ Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic', 'ADR-REPO-README-WORKINGLINKS
 
     Context 'left as written' {
         It 'a URL, an in-file anchor, and a repository-rooted target' {
-            $text = '[u](https://example.com/x.md) [m](mailto:widget@example.com) [h](#setup) [r](/docs/adr/index.md)'
+            $text = '[u](https://example.com/x.md) [m](mailto:widget@example.com) [h](#setup) [r](/docs/drs/index.md)'
             & $script:rebase $text | Should -BeExactly $text
         }
 

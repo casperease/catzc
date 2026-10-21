@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0bedad301151"
+    with_body_sha: "810b8f3bae92"
   edges:
     code: pwsh/Catzc.Base.VSCode/New-VSCodeTasks.ps1
     cites:
@@ -11,7 +11,7 @@ catzc:
 ---
 #>
 
-# Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
+# Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
 Describe 'New-VsCodeTasks' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Config -ModuleName Catzc.Base.VSCode {

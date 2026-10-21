@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "452c74516b43"
+    with_body_sha: "5c3c410ae2a1"
   edges:
     code: pwsh/Catzc.Tooling.Listen/Wait-DocNote.ps1
     cites:
@@ -22,13 +22,13 @@ Describe 'Wait-DocNote' -Tag 'L0', 'logic', 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
     }
 
     It 'returns the backlog at once' {
-        Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nBacklog.`n"
+        Write-ListenFixtureFile 'docs/drs/widget.md' "# Widget`n`nBacklog.`n"
         Get-DocChange -Session $script:session | New-DocNote -Session $script:session | Out-Null
         @(Wait-DocNote -Session $script:session -TimeoutSeconds 1).Id | Should -Be @('0001')
     }
 
     It 'waits only for notes from the named writers' {
-        Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nNo ledger knows this.`n"
+        Write-ListenFixtureFile 'docs/drs/widget.md' "# Widget`n`nNo ledger knows this.`n"
         Get-DocChange -Session $script:session | New-DocNote -Session $script:session | Out-Null
         @(Wait-DocNote -Session $script:session -Source editor -TimeoutSeconds 1).Count | Should -Be 0
         @(Wait-DocNote -Session $script:session -Source unknown -TimeoutSeconds 1).Id | Should -Be @('0001')
@@ -42,7 +42,7 @@ Describe 'Wait-DocNote' -Tag 'L0', 'logic', 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
     It 'follows the newest session, so a listener started after a wipe is picked up' {
         [System.IO.Directory]::Delete($script:session, $true)
         $script:session = (New-DocSnapshot).Path
-        Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nAfter the wipe.`n"
+        Write-ListenFixtureFile 'docs/drs/widget.md' "# Widget`n`nAfter the wipe.`n"
         Get-DocChange -Session $script:session | New-DocNote -Session $script:session | Out-Null
         $notes = @(Wait-DocNote -TimeoutSeconds 1)
         @($notes.Id) | Should -Be @('0001')
@@ -55,9 +55,9 @@ Describe 'Wait-DocNote' -Tag 'L0', 'logic', 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
     }
 
     It 'returns nothing when its bound runs out with every note processed' {
-        Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nProcessed.`n"
+        Write-ListenFixtureFile 'docs/drs/widget.md' "# Widget`n`nProcessed.`n"
         Get-DocChange -Session $script:session | New-DocNote -Session $script:session | Out-Null
-        Complete-DocNote -Session $script:session -Id '0001' -FactCheck 'holds' -FactCheckReason 'docs/adr/widget.md:3 already says it' -Pattern 'widget' -Plan 'none'
+        Complete-DocNote -Session $script:session -Id '0001' -FactCheck 'holds' -FactCheckReason 'docs/drs/widget.md:3 already says it' -Pattern 'widget' -Plan 'none'
         $watch = [System.Diagnostics.Stopwatch]::StartNew()
         @(Wait-DocNote -Session $script:session -TimeoutSeconds 1).Count | Should -Be 0
         $watch.Elapsed.TotalSeconds | Should -BeLessThan 3

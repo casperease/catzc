@@ -66,9 +66,9 @@ gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
 
 ## See also
 
-- [The commit lifecycle](../../adr/flow/commit-lifecycle.md) — the decision this article explains.
-- [The CI discipline and the promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) ·
-  [Test automation](../../adr/automation/test-automation.md) · [Visual design](../../adr/design/visual-design.md)
+- [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
+- [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) ·
+  [Test automation](../../drs/automation/test-automation.md) · [Visual design](../../drs/design/visual-design.md)
 - The other lenses on the same lifecycle: [meta](one-way-climb-three-endings.md), [architecture](four-domains-promote-one-artifact.md),
   [implementation](code-wires-only-the-first-rungs.md) and [operations](engineer-merges-pipelines-do-the-rest.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

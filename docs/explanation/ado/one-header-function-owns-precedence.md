@@ -62,7 +62,7 @@ value, and nothing checks it against the header's source.
 
 ## See also
 
-- [Dual authentication](../../adr/ado/dual-authentication.md) — the decision this article explains.
+- [Dual authentication](../../drs/ado/dual-authentication.md) — the decision this article explains.
 - The other lenses on the same precedence: [meta](configured-credential-proves-its-org.md),
   [implementation](three-guarded-early-returns.md), [operations](what-you-set-decides-the-credential.md) and
   [governance](which-auth-rungs-have-a-gate.md).

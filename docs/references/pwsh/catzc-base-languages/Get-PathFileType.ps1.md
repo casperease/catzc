@@ -14,7 +14,7 @@ Returns the file type of a path, the extension of its file name without the dot.
 The file type says which sort of file inside its file language this is: `ps1`, `psm1` and `psd1` are all PowerShell, `yml` and `yaml` are
 different file types of the YAML family. It is the last extension of the file name, lower case. A file with no extension, a dotfile such as
 `.gitkeep`, and a name that ends in a dot have none: nothing is returned
-([DDR-TRACK-FILELANGUAGE](../../../adr/design/tracks.md#rule-ddr-track-filelanguage)).
+([DDR-TRACK-FILELANGUAGE](../../../drs/design/tracks.md#rule-ddr-track-filelanguage)).
 
 ### parameter `Path`
 

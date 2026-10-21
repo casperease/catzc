@@ -12,7 +12,7 @@ Lists what the Python checks read: every Python test folder, and every tracked .
 ### description
 
 Every .py file the repository holds takes the Python checks
-([ADR-AUTO-PY-EVERYFILELINTED](../../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfilelinted)): the Python
+([ADR-AUTO-PY-EVERYFILELINTED](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfilelinted)): the Python
 test folders (Get-LanguageTestFolders, language python — a folder, so a new test file counts before it is committed), and the tracked .py
 files anywhere else, such as the agent helpers under .claude/ (Get-GitTrackedPath, read from the index).
 

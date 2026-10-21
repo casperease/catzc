@@ -9,11 +9,11 @@ Above `using System;`, written with `//`.
 
 ```text
 The output-format catalogue, configs/output-formats.yml: every kind of file a producer writes under the output
-root, declared once ([ADR-REPO-OUTFMT-OUTPUTFORMAT](/docs/adr/repository/output-formats.md#rule-adr-repo-outfmt-outputformat)).
+root, declared once ([ADR-REPO-OUTFMT-OUTPUTFORMAT](/docs/drs/repository/output-formats.md#rule-adr-repo-outfmt-outputformat)).
 Constructing an instance MAPS and VALIDATES the parsed YAML, collecting every violation into one throw.
 Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Reports.OutputFormatsConfig), so
 Get-Config -Config output-formats returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Load-time rules:
   - only the top-level key 'formats' (required, a non-empty map of id -> OutputFormat);

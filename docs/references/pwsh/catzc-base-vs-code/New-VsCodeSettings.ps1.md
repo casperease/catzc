@@ -23,7 +23,7 @@ An authored entry wins over an injected key of the same name (an explicit `false
 
 This is a pure renderer: it returns the content and writes nothing — it is the `generator` the root-config registry names for the
 .vscode/settings.json target, and Build-RootConfig owns the write. It reads only its own registry, never rootconfig.yml, so the dependency
-edge stays one-way (RootConfig -> VSCode; see [ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md)).
+edge stays one-way (RootConfig -> VSCode; see [ADR-REPO-ROOTCFG](../../../drs/repository/generated-root-configs.md)).
 
 ### parameter `ManagedTarget`
 
@@ -41,7 +41,7 @@ copy, so a machine path is in place there.
 
 The editor formatter of each language, VS Code language id -> extension id, rendered as that language's `[<id>].editor.defaultFormatter`.
 Supplied by the generator dispatch from the file-language registry, so Format Document runs the engine Format-Code runs
-([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)); an
+([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)); an
 authored `[<id>]` block keeps its own settings, and an authored defaultFormatter in it wins.
 
 ### outputs

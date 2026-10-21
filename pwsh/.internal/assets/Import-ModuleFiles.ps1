@@ -2,14 +2,14 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "803c32aac523"
+    with_body_sha: c7ccc1e4cbd1
   edges:
     cites:
       - ADR-PWSH-MANIFEST
 ---
 #>
 
-# The shared loader of a source module ([ADR-PWSH-MANIFEST](/docs/adr/automation/pwsh/dynamic-module-manifests.md)): every
+# The shared loader of a source module ([ADR-PWSH-MANIFEST](/docs/drs/automation/pwsh/dynamic-module-manifests.md)): every
 # derived <Module>.psd1 names this script as its one NestedModule and lists the module's function files in
 # PrivateData.CatzcFiles (private/ first, then the root, each group ordinal, relative to the module folder). As a
 # nested .ps1 it runs in the module's session state, so each file it dot-sources defines its function there: public

@@ -13,7 +13,7 @@ Returns the repository normal form of a name written in a language's idiom.
 
 The name is split into its words by the first of the language's naming cases for the kind that it is in, and joined in the configured normal
 form, `naming_normal_form` of the languages config
-([ADR-AUTO-IDIOM-NORMALFORM](../../../adr/automation/idiomatic-names.md#rule-adr-auto-idiom-normalform)). A dotted name keeps its namespace
+([ADR-AUTO-IDIOM-NORMALFORM](../../../drs/automation/idiomatic-names.md#rule-adr-auto-idiom-normalform)). A dotted name keeps its namespace
 segments, joined by `.`. A name in none of the language's cases, and a language whose `naming:` names no case for the kind, are errors.
 
 ### parameter `Name`

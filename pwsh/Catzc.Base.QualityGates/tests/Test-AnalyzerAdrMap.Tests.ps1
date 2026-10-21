@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "07e5932272f3"
+    with_body_sha: a1db2a84d9b9
   edges:
     docs: "[Test-AnalyzerAdrMap.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-AnalyzerAdrMap.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-AnalyzerAdrMap.ps1
@@ -65,7 +65,7 @@ Describe 'Test-AnalyzerAdrMap' -Tag 'L0', 'logic' {
         }
         $message = $thrown.Exception.Message
         $message | Should -BeLike 'Test-AnalyzerAdrMap failed: 2 issue(s)*'
-        $message | Should -Match 'Measure-Widget: cites ADR-TST-WIDGET-GHOST, which is not a rule in docs/adr'
+        $message | Should -Match 'Measure-Widget: cites ADR-TST-WIDGET-GHOST, which is not a rule in docs/drs'
         $message | Should -Match 'Measure-Gadget: a custom analyzer rule missing from analyzer-adr-map.yml'
     }
 

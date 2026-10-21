@@ -14,7 +14,7 @@ ranges at build time (its PrePost prepare hook, or a config address in its param
 central plan is never duplicated into every template's per-slot config. Loaded via
 Get-Config -Config network; validated by the NetworkConfig type.
 
-Two blocks, and no two networks in the file overlap (see [ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md)):
+Two blocks, and no two networks in the file overlap (see [ADR-AZ-NETWORK](/docs/drs/azure/azure-network-model.md)):
 
 - `environments` is keyed by environment name (matching azure.yml's standard environments), so
   each environment gets a non-overlapping address space.

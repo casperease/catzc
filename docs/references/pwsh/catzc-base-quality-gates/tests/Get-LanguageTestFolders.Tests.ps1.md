@@ -11,7 +11,7 @@ Above `Describe 'Get-LanguageTestFolders' -Tag 'L0', 'logic' {`, written with `#
 Get-LanguageTestFolders over a fixture repository in $TestDrive (Get-RepositoryRoot and the go config mocked): catzc
 modules under pwsh/, Go test folders under the go/ root, Python test folders under python/ and Bash test folders
 under bash/. Neutral
-fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2

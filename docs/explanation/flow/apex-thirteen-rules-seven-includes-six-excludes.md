@@ -69,7 +69,7 @@ of 13 rules. `Get-GlobSetTrigger` walks that program once: the GitHub list is th
 
 ## See also
 
-- [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains.
+- [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
 - The other lenses on the same projection: [meta](one-program-two-vendor-dialects.md),
   [architecture](globs-projects-and-three-consumers-read.md), [operations](print-projection-then-drift-names-the-filter.md) and
   [governance](drift-is-gated-generation-is-adr-only.md).

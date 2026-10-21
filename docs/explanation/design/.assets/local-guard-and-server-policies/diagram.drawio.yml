@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "66c311f66c02"
+#     with_body_sha: dc6492937d5d
 # ---
 
 description:
@@ -132,10 +132,10 @@ content:
           - DDR-REMOTE-PULLREQUESTISINGRESS
       - cell: docs/-/.
         by:
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/server-remote-integration.md
-          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
-          - docs/adr/index.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/server-remote-integration.md
+          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/drs/index.md
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - DDR-REMOTE-PULLREQUESTISINGRESS
       - cell: pwsh/Catzc.Base.Docs/configs

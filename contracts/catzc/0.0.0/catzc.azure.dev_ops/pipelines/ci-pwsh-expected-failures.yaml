@@ -1,5 +1,5 @@
 # Depended-on fragment of .ado/pipelines/ci-pwsh-expected-failures.yaml
-# ([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines reads at the
+# ([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines reads at the
 # pipeline root — the `trigger` and `pr` blocks, and the `jobs` root. A null value pins only that the key exists.
 # Source: https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline
 trigger:

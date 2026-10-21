@@ -2,12 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "64645598ef01"
+    with_body_sha: "3e18e2fad394"
   edges:
     docs: "[AdrCitationRewriter.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCitationRewriter.cs.md)"
     cites:
-      - ADR-REPO-ADRCODE-PATHOFSEGMENTS
-      - ADR-REPO-ADRCODE-DOMAINSEGMENT
+      - ADR-REPO-DRSCODE-PATHOFSEGMENTS
+      - ADR-REPO-DRSCODE-DOMAINSEGMENT
       - ADR-REPO-LINK-MARKDOWNRELATIVE
 ---
 */
@@ -209,7 +209,7 @@ public sealed class AdrCitationRewriter
             {
                 kind = AdrCitationChangeKind.Path;
                 string written = match.Groups["bare"].Value;
-                // A moved one-segment folder's path is an ADR path only when it resolves under docs/adr from the citing file; elsewhere it names another folder of that name, such as the modules folder.
+                // A moved one-segment folder's path is an ADR path only when it resolves under docs/drs from the citing file; elsewhere it names another folder of that name, such as the modules folder.
                 bool folderPath = IsBareFolderPath(written);
                 string resolved = folderPath ? Join(Resolve(Segments(ParentOf(self)), written)) : adrRoot;
                 // It must also name the moved folder itself or a file or folder of it in the tree, so a module path such as pwsh/Catzc.X/... stays as written.

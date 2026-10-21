@@ -10,5 +10,5 @@ Above `Describe 'Get-EngineContract' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Get-EngineContract with the engines' executables mocked: the start arguments come from the execution engine model and
 load the run's entry — directly in pwsh, through importer.sh and CATZC_IMPORTER in the POSIX engines. Neutral fixture paths
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -1,5 +1,5 @@
 # Provided sample of a file's meta head
-# ([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the shape a tool may rely on when it reads the
+# ([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the shape a tool may rely on when it reads the
 # `catzc.immutable` and `catzc.edges` parts of a head. A head has two shapes. The navigation head of an authored code or config file, this
 # sample, holds `with_body_sha` and the edges: the ADR codes it cites, its comment page (`docs`), its test (`test`), and on a test the file it
 # tests (`code`). A generated file's head holds `with_body_sha`, `warning`, `role`, `track`, `generator` and `source`. Every other fact about

@@ -10,18 +10,18 @@ Above `using System;`, written with `//`.
 ```text
 One defined term of the controlled vocabulary (a configs/glossary.yml `concepts:` entry, keyed by the term). It
 carries the term's machine key, its ADR domain, the ONE rule that defines it
-([ADR-REPO-VOCAB-DEFINEDTERM](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm)), a one-line
+([ADR-REPO-VOCAB-DEFINEDTERM](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm)), a one-line
 definition, how it exists in the repository (GlossaryRealization), and optionally its relations to other terms,
 its contrasts with similar terms (each explained,
-[ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-similartermscontrasted)), and its avoided phrasings (GlossaryAvoid,
-[ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced)), and the words allowed to qualify its
-head word (forms, [ADR-REPO-VOCAB-FAMILYFORMS](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-familyforms)). Mirrors the YAML entry (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+[ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-similartermscontrasted)), and its avoided phrasings (GlossaryAvoid,
+[ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced)), and the words allowed to qualify its
+head word (forms, [ADR-REPO-VOCAB-FAMILYFORMS](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-familyforms)). Mirrors the YAML entry (snake_case keys,
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Only the entry's own shape is checked here. Whether `defined_by` names a real rule, `domain` a declared ADR
 domain, and the relation/contrast targets real concepts are cross-file facts, checked by the glossary checks
 (Test-Glossary), not on load — so loading a glossary stays hermetic (the
-[ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload) pattern).
+[ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload) pattern).
 ```
 
 ## comment:2
@@ -30,8 +30,8 @@ Above `public static readonly Regex CitationRe = new...`, written with `//`.
 
 ```text
 A rule citation in the '#' form: ADR-<code>[-<NAME>…]#<n>
-([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](/docs/adr/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns),
-[FDR-CD-SHORTINTEGRATIONCYCLE](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle)).
+([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns),
+[FDR-CD-SHORTINTEGRATIONCYCLE](/docs/drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle)).
 ```
 
 ## comment:3

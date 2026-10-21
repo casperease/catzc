@@ -10,5 +10,5 @@ Above `It 'reads the first token of <commandLine> as <expected>' -ForEach @(`, w
 ```text
 The name a command's time limit is looked up by (Get-TimeoutSeconds -Executable), so a wrong parse gives the
 command another executable's limit. Fixture tokens are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

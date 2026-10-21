@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dc04600f12ed
+    with_body_sha: "343490c0cb7b"
   edges:
     cites:
       - DDR-TRACK-ONETECHSTACK
@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Variants;
 
-// One module type of the module-types registry: its id, its one-sentence definition, and the places its modules are found in ([DDR-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-ddr-track-onetechstack)).
+// One module type of the module-types registry: its id, its one-sentence definition, and the places its modules are found in ([DDR-TRACK-ONETECHSTACK](/docs/drs/design/tracks.md#rule-ddr-track-onetechstack)).
 public sealed class ModuleTypeEntry
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

@@ -67,8 +67,8 @@ compares the `source` copies with their templates but no generator's output, and
 
 ## See also
 
-- [Generated root configs](../../adr/repository/generated-root-configs.md) — the decision this article explains.
-- [Test automation](../../adr/automation/test-automation.md) — the quality-gate rule the two gates follow.
+- [Generated root configs](../../drs/repository/generated-root-configs.md) — the decision this article explains.
+- [Test automation](../../drs/automation/test-automation.md) — the quality-gate rule the two gates follow.
 - The other lenses on the same mechanism: [meta](one-source-one-writer-one-boolean.md),
   [architecture](one-registry-one-writer-two-primitives.md), [implementation](opted-in-then-link-copy-or-render.md) and
   [operations](import-materialises-two-gates-name-the-fix.md).

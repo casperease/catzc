@@ -16,7 +16,7 @@ clears the specified Machine environment variables. Windows-only.
 
 Every persistent write goes through its seam — Set-EnvironmentPath for the PATH, Set-PermanentEnvironmentVariable for a variable — which
 announces the change; Windows broadcasts WM_SETTINGCHANGE on each persistent write, so running shells pick it up
-([ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../../adr/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)).
+([ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../../drs/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)).
 
 ### parameter `InstallDir`
 

@@ -29,7 +29,7 @@ Above `Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity
 ```text
 Reads the SHIPPED assets/gitkeep through Build-GitKeep's real lookup (nothing mocked on the read) and writes
 only into a fixture repository, so it runs in both the source run and the build run
-([ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest)).
+([ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest)).
 ```
 
 ## comment:4

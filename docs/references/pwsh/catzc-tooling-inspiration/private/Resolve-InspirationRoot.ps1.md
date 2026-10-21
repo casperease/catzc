@@ -12,12 +12,12 @@ Resolves an inspiration's stored root to its binding form, a normalized absolute
 ### description
 
 An inspiration's root is stored in communication form
-([ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM](../../../../adr/automation/path-representation.md#rule-adr-auto-path-storedcommunicationform)) and
+([ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM](../../../../drs/automation/path-representation.md#rule-adr-auto-path-storedcommunicationform)) and
 resolved only at the point of use
-([ADR-AUTO-PATH-BINDINGFORMONLYATBINDING](../../../../adr/automation/path-representation.md#rule-adr-auto-path-bindingformonlyatbinding)):
+([ADR-AUTO-PATH-BINDINGFORMONLYATBINDING](../../../../drs/automation/path-representation.md#rule-adr-auto-path-bindingformonlyatbinding)):
 
 - '`{workspace}/<folder>`' resolves against the workspace, the parent folder of the repository root
-  ([ADR-AUTO-PATH-WORKSPACEANCHOR](../../../../adr/automation/path-representation.md#rule-adr-auto-path-workspaceanchor));
+  ([ADR-AUTO-PATH-WORKSPACEANCHOR](../../../../drs/automation/path-representation.md#rule-adr-auto-path-workspaceanchor));
 - any other path goes through Resolve-RepoPath, so a repository-relative root resolves against the repository root and an absolute one
   passes through.
 

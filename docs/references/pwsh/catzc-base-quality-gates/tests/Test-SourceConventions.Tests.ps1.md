@@ -10,7 +10,7 @@ Above `Describe 'Test-SourceConventions' -Tag 'L0', 'logic' {`, written with `#`
 ```text
 Test-SourceConventions over fixture trees in $TestDrive: the repository root is mocked, so each test writes the
 source and test files it needs and pins one convention. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)): widget, gadget and sprocket stand
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)): widget, gadget and sprocket stand
 in for the engines, and ADR-WIDGET-GADGET for a code the ADR registry declares.
 ```
 
@@ -37,6 +37,6 @@ code in an L0 test's fixture data.
 Above `foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the
+A whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the
 fixture repository stands in for the tracked files, so nothing is pruned.
 ```

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d68975dbc1c3
+#     with_body_sha: ae8e9177641e
 # ---
 
 description:
@@ -134,13 +134,13 @@ content:
           - ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
       - cell: docs/-/.
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/dry-run.md
-          - docs/adr/automation/pwsh/assert-idioms.md
-          - docs/adr/automation/pwsh/dora-explains.md
-          - docs/adr/automation/test-automation.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/dry-run.md
+          - docs/drs/automation/pwsh/assert-idioms.md
+          - docs/drs/automation/pwsh/dora-explains.md
+          - docs/drs/automation/test-automation.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/how-to/getting-started/pwsh/run-tests-and-checks.md
           - docs/how-to/pwsh/manual-test-plan.md
           - docs/how-to/pwsh/manual-test-plan/azure.md

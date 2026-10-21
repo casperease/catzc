@@ -14,7 +14,7 @@ user-space.
 
 Called by Remove-LinuxToolInstall and Remove-MacToolInstall after each has tried its native package manager (apt on Linux, brew on macOS).
 Neither step here needs elevation
-([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)):
+([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)):
 the pip removal is the uv-scoped 'uv pip uninstall --system' (never a foreign system pip), and the stray delete removes only the resolved
 binary. Private to Catzc.Tooling.Core.
 

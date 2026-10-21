@@ -9,14 +9,14 @@ Above `using System;`, written with `//`.
 
 ```text
 One of the repository's execution engines — the shells its own code runs under
-([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)). Everything that differs between the engines is declared
+([ADR-AUTO-ENGINE](/docs/drs/automation/execution-engines.md)). Everything that differs between the engines is declared
 here, once, so no caller restates a flag, a quote rule, or a file name: how the engine's executable is named and
 located, which script files it runs, how it is started non-interactively, how it loads an entry script and runs a
 command, its strict mode, its time safeguard, the line endings and executable bit its scripts need, and its importer
 entry. The three instances live in ExecutionEngines; this type has no public constructor, so no caller invents a fourth.
 
 A model type, so its properties are PascalCase
-([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```
 
 ## comment:2
@@ -34,7 +34,7 @@ Above `public string TimeSafeguard { get; }`, written with `//`.
 
 ```text
 How a call is bounded in time in this engine
-([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)).
+([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)).
 ```
 
 ## comment:4

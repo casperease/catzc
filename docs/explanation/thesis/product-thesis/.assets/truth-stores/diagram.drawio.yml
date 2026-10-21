@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: dc094c0c0916
+#     with_body_sha: a14ec64b2b25
 # ---
 
 description:
@@ -132,7 +132,7 @@ content:
       - cell: main-uat
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - docs/adr/index.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
@@ -145,7 +145,7 @@ content:
       - cell: release-uat
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - docs/adr/index.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
@@ -158,7 +158,7 @@ content:
       - cell: pre-prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - docs/adr/index.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
@@ -171,7 +171,7 @@ content:
       - cell: prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - docs/adr/index.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
@@ -187,11 +187,11 @@ content:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/hindsight/hindsight226bbf.md
           - .claude/learnings/learned494e73.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
-          - docs/adr/thesis/dora-explains.md
-          - docs/adr/thesis/one-source-of-truth.md
-          - docs/adr/thesis/truth-stores.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/drs/thesis/dora-explains.md
+          - docs/drs/thesis/one-source-of-truth.md
+          - docs/drs/thesis/truth-stores.md
           - docs/references/contracts/catzc.md
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Register-AdoBuildValidation.ps1.md
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Sync-AdoBuildValidations.ps1.md

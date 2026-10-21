@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4e31130b33f3"
+#     with_body_sha: e33ec4d43c54
 # ---
 
 description:
@@ -154,11 +154,11 @@ content:
           - DDR-THINPLAT-THINPLATFORM
       - cell: docs/-/.
         by:
-          - docs/adr/azure/dora-explains.md
-          - docs/adr/azure/prefer-az-cli.md
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/thin-platforms.md
-          - docs/adr/index.md
+          - docs/drs/azure/dora-explains.md
+          - docs/drs/azure/prefer-az-cli.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/thin-platforms.md
+          - docs/drs/index.md
           - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliBicep.ps1.md
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md

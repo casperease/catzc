@@ -12,7 +12,7 @@ Hashes every file of one contract version folder, the content a release freezes.
 ### description
 
 A released version folder is immutable
-([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)); its .frozen
+([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)); its .frozen
 record holds the hashes this returns, so a later change to any file shows as a different hash. Every file under the folder counts, at any
 depth, contract.yml included; only the record itself, .frozen directly in the folder, does not.
 
@@ -27,7 +27,7 @@ The version folder's absolute path.
 ### outputs
 
 `[System.Collections.Specialized.OrderedDictionary]` The path under the folder, in communication form
-([ADR-AUTO-PATH-COMMUNICATIONFORM](../../../../adr/automation/path-representation.md#rule-adr-auto-path-communicationform)), to its
+([ADR-AUTO-PATH-COMMUNICATIONFORM](../../../../drs/automation/path-representation.md#rule-adr-auto-path-communicationform)), to its
 lowercase hex SHA-256, in ordinal order of path; keys compare ordinally.
 
 ### example 1
@@ -41,6 +41,6 @@ Get-ContractFileHashes -Folder $versionFolder
 Above `$files = [string[]] @(Get-ChildPath $Folder -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a frozen
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a frozen
 contract is hashed in full, so no name is pruned and no depth drops a file.
 ```

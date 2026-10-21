@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "48da24db2f38"
+    with_body_sha: "82bbececd5c5"
   edges:
     docs: "[Listen.Fixture.ps1.md](docs/references/pwsh/catzc-tooling-listen/tests/Listen.Fixture.ps1.md)"
 ---
@@ -20,7 +20,7 @@ function Write-ListenFixtureFile {
 
 function Initialize-ListenFixture {
     $script:root = Join-Path $TestDrive ('repo-' + [guid]::NewGuid().ToString('N').Substring(0, 8))
-    Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nThe widget rule, ADR-WIDGET-PARTS-SINGLE.`n"
+    Write-ListenFixtureFile 'docs/drs/widget.md' "# Widget`n`nThe widget rule, ADR-WIDGET-PARTS-SINGLE.`n"
     Write-ListenFixtureFile 'docs/explanation/gadget.md' "# Gadget`n`nWhy the gadget turns.`n"
     $script:root
 }
@@ -49,7 +49,7 @@ function Register-ListenFixtureMocks {
     # The committed reference: the fixture's files as committed, plus a code file and a binary one outside the watched folder.
     Mock New-RepositorySnapshot -ModuleName Catzc.Tooling.Listen {
         $root = $ExecutionContext.SessionState.PSVariable.GetValue('script:root')
-        foreach ($relative in 'docs/adr/widget.md', 'docs/explanation/gadget.md') {
+        foreach ($relative in 'docs/drs/widget.md', 'docs/explanation/gadget.md') {
             $target = Join-Path $Destination $relative
             [void] [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($target))
             [System.IO.File]::Copy((Join-Path $root $relative), $target)

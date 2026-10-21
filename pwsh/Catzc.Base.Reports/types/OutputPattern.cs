@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e108b2b46623
+    with_body_sha: f9cdb2cb30db
   edges:
     docs: "[OutputPattern.cs.md](docs/references/pwsh/catzc-base-reports/types/OutputPattern.cs.md)"
     cites:
@@ -62,7 +62,7 @@ public sealed class OutputPattern
         return new OutputPattern(text, parsed);
     }
 
-    // Console-ready text ([ADR-BCL-TYPES-CONSOLEREADYTOSTRING](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-consolereadytostring)).
+    // Console-ready text ([ADR-BCL-TYPES-CONSOLEREADYTOSTRING](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-consolereadytostring)).
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     // True when the output-root-relative path (with '/' or '\' separators) matches this pattern.

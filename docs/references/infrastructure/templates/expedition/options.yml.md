@@ -12,6 +12,6 @@ Per-template options for 'expedition' — the Well-Architected workload: storage
 private endpoints, landing in a discovery network. Deployed into its own resource group, one per
 configuration slot.
 
-Classification ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)):
+Classification ([ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md)):
   environment_kind: standard  -> configs use the standard envs (dev/test/preprod/prod), slotted per config
 ```

@@ -26,11 +26,11 @@ omit    — optional; component names this type drops from its render (e.g. `vm`
           never omitted.
 ```
 
-The `type` segment is 2-5 chars (see [ADR-AZ-NAMING](../../../adr/azure/azure-naming-standard.md)); the widened 5-char form is only for
+The `type` segment is 2-5 chars (see [ADR-AZ-NAMING](../../../drs/azure/azure-naming-standard.md)); the widened 5-char form is only for
 `long` types — the restricted `storage`/`vm` patterns keep a short 2-4 char abbreviation.
 
 Starter set from
-[ADR-AZ-NAMING-PATTERNPERRESOURCETYPE](../../../adr/azure/azure-naming-standard.md#rule-adr-az-naming-patternperresourcetype) — extend as
+[ADR-AZ-NAMING-PATTERNPERRESOURCETYPE](../../../drs/azure/azure-naming-standard.md#rule-adr-az-naming-patternperresourcetype) — extend as
 the consuming repos need.
 
 ### example 1

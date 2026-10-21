@@ -14,8 +14,8 @@ main.json — its type, whether it has a default, its @allowed values, and its @
 against it.
 
 A result type, not a config mirror, so its properties are PascalCase
-([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)). It is a model type
-([ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)): the checks branch on its
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)). It is a model type
+([ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)): the checks branch on its
 Type and bounds, so the shape is fixed here and validated at construction. Nested into BicepParameterModel, which
 parses the whole section.
 

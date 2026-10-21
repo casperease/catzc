@@ -9,8 +9,8 @@ Above `trigger:`, written with `#`.
 
 ```text
 Fires exactly, and only, when the module system changes: the track is its own root folder, with no committed marker to go stale.
-[FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md),
-[DDR-TRACK-TRACKISPLACEDCLUSTER](/docs/adr/design/tracks.md#rule-ddr-track-trackisplacedcluster) [comment:1](/docs/references/ado/pipelines/ci-pwsh.yaml.md#comment1)
+[FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md),
+[DDR-TRACK-TRACKISPLACEDCLUSTER](/docs/drs/design/tracks.md#rule-ddr-track-trackisplacedcluster) [comment:1](/docs/references/ado/pipelines/ci-pwsh.yaml.md#comment1)
 ```
 
 ## comment:2
@@ -91,5 +91,5 @@ Above `- job: BuildArtifact`, written with `#`.
 
 ```text
 --- BVT: the post-merge run on main checks the built artifact
-([ADR-AUTO-TEST-BUILDVERIFICATIONTEST](/docs/adr/automation/test-automation.md#rule-adr-auto-test-buildverificationtest)); PR runs skip it -------------------
+([ADR-AUTO-TEST-BUILDVERIFICATIONTEST](/docs/drs/automation/test-automation.md#rule-adr-auto-test-buildverificationtest)); PR runs skip it -------------------
 ```

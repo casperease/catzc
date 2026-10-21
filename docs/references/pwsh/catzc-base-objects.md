@@ -45,7 +45,7 @@ form is the mutation helper — deep-clone before modifying so the original reco
 tree of nested dictionaries and arrays.
 
 The module also owns `DictionaryRecord` (full name `Catzc.Base.Objects.DictionaryRecord`), the shared C# base class typed records across the
-codebase derive from (see [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)). Every module's types compile into one
+codebase derive from (see [native-csharp-types](../../drs/automation/BCL/native-csharp-types.md)). Every module's types compile into one
 assembly, so a record in any module can inherit from this single class without a per-module copy. `DictionaryRecord` supplies two things
 every record used to hand-roll: a dictionary _view_ over its own public, readable, non-indexed properties (`Contains`, the `[key]` indexer,
 `Keys`, `ToHashtable()`), and the protected extraction helpers (`Req`, `OptStr`, `StrArr`, `Flag`) that constructors called when reading

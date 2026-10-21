@@ -15,7 +15,7 @@ Several processes keep the same cache file: a test run's workers, a person's own
 the cache, checks its files, and saves, so a plain overwrite would drop every entry another process saved in between. The save therefore
 re-reads the file and keeps each of its entries for a path this cache has no entry for; this cache's own entries win. Keeping another
 process's entry is always safe: its key is the file's content and the check's inputs
-([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../adr/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)), so it
+([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)), so it
 can only match the bytes and inputs it was recorded for.
 
 The file is replaced in one step (written beside it, then moved over it), so a reader never sees half a file. A save that still fails —

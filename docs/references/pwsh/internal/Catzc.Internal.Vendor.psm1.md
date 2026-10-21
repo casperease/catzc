@@ -14,7 +14,7 @@ Loading the vendored modules under pwsh/.vendor/<Name>/<Version>/ happens BEFORE
 exists (the importer loads vendor dependencies first), so the implementation cannot live in a Catzc module.
 It also must be callable AFTER import by the Catzc.Base.Vendor cover functions that delegate to it — the
 single home for what both layers share (see
-[PDR-ONELIVE](/docs/adr/principles/one-living-version.md)). Like the other
+[PDR-ONELIVE](/docs/drs/principles/one-living-version.md)). Like the other
 .internal shared libraries (Types, the Loader), this module stays in the session; it is NOT removed with
 the transient bootstrap. Loaded on demand through Import-InternalModule Vendor.
 ```
@@ -57,7 +57,7 @@ Above `$vendorDirs = [System.IO.DirectoryInfo]::new($VendorRoot).GetDirectories(
 
 ```text
 One level, inline: this module loads before the walker exists
-([ADR-PWSH-ENUM-EARLYLOADINGCODE](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-earlyloadingcode)).
+([ADR-PWSH-ENUM-EARLYLOADINGCODE](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-earlyloadingcode)).
 ```
 
 ## comment:5
@@ -85,7 +85,7 @@ Above `if ($existing) {` (occurrence 2), written with `#`.
 ```text
 The load, the system copy it replaced, and the PSModulePath entries it dropped are one state change of
 the session, announced on one line
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) on
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) on
 the importer's verbose record
-([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
 ```

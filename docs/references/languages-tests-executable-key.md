@@ -17,7 +17,7 @@ The `executable` key named the runner's parameter that takes the path of the exe
 ## Why it goes
 
 The language entry gained its own `executable` flag, `executable: true` on the languages a command may be implemented in
-([layers](../adr/automation/layers.md), the rule that defines a command's implementation language). One entry then held two keys of one name
+([layers](../drs/automation/layers.md), the rule that defines a command's implementation language). One entry then held two keys of one name
 with two meanings, a boolean at the top and a parameter name inside `tests`. The decision, recorded in task-loose-ends step 2's naming note,
 is that the key inside `tests` takes the name of what it holds.
 

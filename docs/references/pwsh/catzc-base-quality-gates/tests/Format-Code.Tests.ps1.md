@@ -8,9 +8,9 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Format-Code' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
-Format-Code with its seams mocked ([ADR-AUTO-TEST-NOOVERMOCKING](/docs/adr/automation/test-automation.md#rule-adr-auto-test-noovermocking)): the
+Format-Code with its seams mocked ([ADR-AUTO-TEST-NOOVERMOCKING](/docs/drs/automation/test-automation.md#rule-adr-auto-test-noovermocking)): the
 file-language registry (Get-Config languages, a fixture LanguagesConfig), the scope (Get-FormatScope) and the engines
-(Invoke-FormatterEngine). Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+(Invoke-FormatterEngine). Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2
@@ -19,7 +19,7 @@ Above `Describe 'Format-Code engine grouping and result cache' -Tag 'L0', 'logic
 
 ```text
 One engine run per engine, and the content-keyed result cache, over real fixture files in $TestDrive with the engine
-mocked ([ADR-AUTO-CACHE](/docs/adr/automation/caching.md)).
+mocked ([ADR-AUTO-CACHE](/docs/drs/automation/caching.md)).
 ```
 
 ## comment:3
@@ -37,7 +37,7 @@ Above `Describe 'Format-Code engines' -Tag 'L0', 'integrity' {`, written with `#
 
 ```text
 Integrity: every engine the registry may name has its adapter, and the shipped languages.yml names only those engines
-([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](/docs/adr/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)).
+([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](/docs/drs/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)).
 ```
 
 ## comment:5
@@ -45,7 +45,7 @@ Integrity: every engine the registry may name has its adapter, and the shipped l
 Above `Describe 'Format-Code (real vendored analyzer and settings)' -Tag 'L2',...`, written with `#`.
 
 ```text
-The real-asset test of [ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest):
+The real-asset test of [ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest):
 the psscriptanalyzer engine imports the vendored PSScriptAnalyzer (<code root>/.vendor) and formats with the shipped
 settings file (<code root>/.internal/assets), nothing mocked but the console — integrity, and not source-only, so it
 runs in the source and the build run. An explicit -Path over a throwaway file keeps it off the source tree.
@@ -57,5 +57,5 @@ Above `Describe 'Format-Code (real prettier)' -Tag 'L2', 'logic' {`, written wit
 
 ```text
 The prettier engine over throwaway files, nothing mocked but the console; self-skips when prettier is absent
-([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](/docs/adr/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)).
+([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](/docs/drs/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)).
 ```

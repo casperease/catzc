@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "797e336add66"
+    with_body_sha: "4d1bb953fb26"
   edges:
     test: pwsh/Catzc.Base.Reports/tests/types/IsolationRunResult.Tests.ps1
     cites:
@@ -16,7 +16,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Reports;
 
-// Rests on [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel) and [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
+// Rests on [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel) and [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Isolation), nameof(Total), nameof(Failed), nameof(Sandbox))]
 public sealed class IsolationRunResult
 {

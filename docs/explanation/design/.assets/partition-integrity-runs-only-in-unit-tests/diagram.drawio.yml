@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: db9342fd81f7
+#     with_body_sha: c87c6e00b6f8
 # ---
 
 description:
@@ -177,16 +177,16 @@ content:
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: docs/-/.
         by:
-          - docs/adr/automation/pwsh/dora-explains.md
-          - docs/adr/automation/pwsh/dynamic-module-manifests.md
-          - docs/adr/automation/pwsh/one-function-per-file.md
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/module-aspects.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/flow/durable-sha-globs.md
-          - docs/adr/index.md
-          - docs/adr/repository/conventional-folders.md
-          - docs/adr/repository/dora-explains.md
+          - docs/drs/automation/pwsh/dora-explains.md
+          - docs/drs/automation/pwsh/dynamic-module-manifests.md
+          - docs/drs/automation/pwsh/one-function-per-file.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/module-aspects.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/durable-sha-globs.md
+          - docs/drs/index.md
+          - docs/drs/repository/conventional-folders.md
+          - docs/drs/repository/dora-explains.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/ado/pipelines/cd-apex.yaml.md
           - docs/references/ado/pipelines/cd-flux.yaml.md

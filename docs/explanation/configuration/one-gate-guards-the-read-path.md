@@ -71,9 +71,9 @@ legend.
 
 ## See also
 
-- [Module config loading](../../adr/configuration/module-config-loading.md) — the decision this article explains.
-- [Config value addressing](../../adr/configuration/config-value-addressing.md) and
-  [test automation](../../adr/automation/test-automation.md) — the other rules on the diagram.
+- [Module config loading](../../drs/configuration/module-config-loading.md) — the decision this article explains.
+- [Config value addressing](../../drs/configuration/config-value-addressing.md) and
+  [test automation](../../drs/automation/test-automation.md) — the other rules on the diagram.
 - The other lenses on the same read path: [meta](one-reader-one-cache-per-session.md),
   [architecture](callers-depend-on-one-config-module.md), [implementation](three-caches-back-one-reader.md) and
   [operations](ask-by-name-get-the-cached-object.md).

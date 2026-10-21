@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "1c7d026d97f5"
+#     with_body_sha: "20f43af1db7a"
 # ---
 
 description:
@@ -122,15 +122,15 @@ content:
           - PDR-ONELIVE-ONEVERSION
       - cell: docs/-/.
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/go/go-test-artifacts.md
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/tracks.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
-          - docs/adr/principles/cats-and-catzc.md
-          - docs/adr/principles/dora-explains.md
-          - docs/adr/principles/one-living-version.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/go/go-test-artifacts.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/tracks.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/drs/principles/cats-and-catzc.md
+          - docs/drs/principles/dora-explains.md
+          - docs/drs/principles/one-living-version.md
           - docs/how-to/automation/sort-an-import.md
           - docs/how-to/getting-started/automation/go/index.md
           - docs/how-to/pwsh/manual-test-plan/repository-conventions.md
@@ -384,15 +384,15 @@ content:
           - PDR-ONELIVE-ONEVERSION
       - cell: docs/markdown
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/go/go-test-artifacts.md
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/tracks.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
-          - docs/adr/principles/cats-and-catzc.md
-          - docs/adr/principles/dora-explains.md
-          - docs/adr/principles/one-living-version.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/go/go-test-artifacts.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/tracks.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/drs/principles/cats-and-catzc.md
+          - docs/drs/principles/dora-explains.md
+          - docs/drs/principles/one-living-version.md
           - docs/how-to/automation/sort-an-import.md
           - docs/how-to/getting-started/automation/go/index.md
           - docs/how-to/pwsh/manual-test-plan/repository-conventions.md

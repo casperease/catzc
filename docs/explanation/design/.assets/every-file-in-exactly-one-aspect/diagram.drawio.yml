@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "419d55f5548f"
+#     with_body_sha: "04039c068b5b"
 # ---
 
 description:
@@ -88,9 +88,9 @@ content:
           - DDR-ASPECT-PARTITIONISCHECKED
       - cell: docs/-/.
         by:
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/module-aspects.md
-          - docs/adr/index.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/module-aspects.md
+          - docs/drs/index.md
           - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
           - docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
@@ -185,9 +185,9 @@ content:
           - DDR-ASPECT-PARTITIONISCHECKED
       - cell: docs/markdown
         by:
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/module-aspects.md
-          - docs/adr/index.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/module-aspects.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
           - docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
           - docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md

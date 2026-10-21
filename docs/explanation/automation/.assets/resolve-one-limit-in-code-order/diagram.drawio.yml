@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f74ea4808536
+#     with_body_sha: "68cf6e9063bc"
 # ---
 
 description:
@@ -140,11 +140,11 @@ content:
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: docs/-/.
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/fail-fast-with-asserts.md
-          - docs/adr/automation/sensible-defaults.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/fail-fast-with-asserts.md
+          - docs/drs/automation/sensible-defaults.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/how-to/pwsh/manual-test-plan/repository-conventions.md
           - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
           - docs/references/pwsh/.assets/listen-mode-flow/diagram.drawio.yml

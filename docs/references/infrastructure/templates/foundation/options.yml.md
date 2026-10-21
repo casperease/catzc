@@ -11,7 +11,7 @@ Above `short_name: fnd`, written with `#`.
 Per-template options for 'foundation' — the once-per-subscription baseline (Log Analytics + Key
 Vault). Its Key Vault holds the SQL admin password that consuming templates reference.
 
-Classification ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)):
+Classification ([ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md)):
   environment_kind: subscription  -> configs use per-subscription envs (nsub/psub), once per sub
 (Slot is per-config, not a template bit — foundation's configs simply carry no slot.)
 ```

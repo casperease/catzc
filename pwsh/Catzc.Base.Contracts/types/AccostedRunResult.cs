@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "40bfc87175e5"
+    with_body_sha: "2eca7212efac"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/AccostedRunResult.Tests.ps1
     cites:
@@ -13,7 +13,7 @@ catzc:
 namespace Catzc.Base.Contracts;
 
 // The outcome of one run of an accosted file under one engine
-// ([ADR-AUTO-ACCOSTED-RUNNER](/docs/adr/automation/accosted-language.md#rule-adr-auto-accosted-runner)): passed exactly when the engine
+// ([ADR-AUTO-ACCOSTED-RUNNER](/docs/drs/automation/accosted-language.md#rule-adr-auto-accosted-runner)): passed exactly when the engine
 // exited 0.
 public sealed class AccostedRunResult
 {

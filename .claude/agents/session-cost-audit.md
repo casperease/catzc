@@ -24,7 +24,7 @@ import.
    (cache read 0.1x, 5-minute write 1.25x, 1-hour write 2x, output 5x; the summary's prompt-cache line says which TTL); report each bucket's
    share as a ratio estimate, never a price you did not read this session. Without a summary, skip this step.
 2. Measure the context inputs: the ADR-reading line of `.claude/CLAUDE.md` quoted with its line number; bytes and file counts under
-   `docs/adr/` (all, `research/`, the five largest files) and of `docs/adr/index.md`, tokens as bytes / 4 and said so; bytes of
+   `docs/drs/` (all, `research/`, the five largest files) and of `docs/drs/index.md`, tokens as bytes / 4 and said so; bytes of
    `.claude/CLAUDE.md`, of every `.claude/agents/*.md` with its `model`, and of every `.claude/skills/*/SKILL.md` with its floor.
 3. Count the denials in `out/time-safeguard.log` by command shape (importer call, Pester run, background call without a prefix, other) with
    the top repeats; an absent log is said.

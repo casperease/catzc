@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "202571a90876"
+#     with_body_sha: "5dd9b0098e74"
 # ---
 
 description:
@@ -122,13 +122,13 @@ content:
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - cell: docs/-/.
         by:
-          - docs/adr/automation/consumer-overlay.md
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/internal-asset-dependencies.md
-          - docs/adr/automation/pwsh/dora-explains.md
-          - docs/adr/automation/pwsh/script-scope-caching.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/automation/consumer-overlay.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/internal-asset-dependencies.md
+          - docs/drs/automation/pwsh/dora-explains.md
+          - docs/drs/automation/pwsh/script-scope-caching.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/references/pwsh/.assets/get-config-merge-seal-type/diagram.drawio.yml
           - docs/references/pwsh/.assets/invoke-tool-asserts-locked-version/diagram.drawio.yml
           - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml

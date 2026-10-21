@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "704b7e8b1a88"
+#     with_body_sha: "95abe6acb45f"
 #   edges:
 #     docs: "[vscode-settings.yml.md](docs/references/pwsh/catzc-base-vs-code/configs/vscode-settings.yml.md)"
 #     cites:
@@ -157,7 +157,7 @@ settings:
   azure-pipelines.customSchemaFile: ./.vscode/azure-pipelines-schema.json
 
   regexrobin.rules:
-    - regex: '\[[^\]\r\n]+\]\(/(docs/adr/[^)#\s]+\.md)(#[^)\s]*)?\)'
+    - regex: '\[[^\]\r\n]+\]\(/(docs/drs/[^)#\s]+\.md)(#[^)\s]*)?\)'
       editor:
         - link: "file:///${workspaceFolder}/$1"
           hoverMessage: "Open $1$2"

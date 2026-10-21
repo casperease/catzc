@@ -15,7 +15,7 @@ The source link line goes after the source's title when it has one, else at the 
 composer behind Build-Readme (the writer) and Test-GeneratedReadmes (the quality gate). The source's relative links are rebased from the
 source's folder to the README's (MarkdownLinkRebaser), so every link works where the README is opened; a line under the title links back to
 the source as the one place to edit
-([ADR-REPO-README-WORKINGLINKS](../../../../adr/repository/generated-readmes.md#rule-adr-repo-readme-workinglinks)). The line goes after the
+([ADR-REPO-README-WORKINGLINKS](../../../../drs/repository/generated-readmes.md#rule-adr-repo-readme-workinglinks)). The line goes after the
 source's '# ' title when it opens with one, else at the top. The copy opens with its own meta block, whose `kind` is the one the file-kinds
 registry names for the README, above both.
 

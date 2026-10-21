@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "28136106047e"
+    with_body_sha: "29d26fb46080"
   edges:
     code: pwsh/Catzc.Base.VSCode/Build-VSCodeExtension.ps1
     cites:
@@ -10,7 +10,7 @@ catzc:
 ---
 #>
 
-# Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
+# Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
 Describe 'Build-VsCodeExtension' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:folder = Join-Path $TestDrive 'widget-ext'

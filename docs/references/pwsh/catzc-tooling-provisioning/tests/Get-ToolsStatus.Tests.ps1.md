@@ -11,7 +11,7 @@ Above `BeforeAll {`, written with `#`.
 The probed branch: a tool with candidate paths takes its location and version from the probe record
 (Test-Tool -PassThru) and never starts a version job on its bare name. The probe, the package-manager oracle,
 the scope and winget are mocked. Fixture tokens are neutral
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2

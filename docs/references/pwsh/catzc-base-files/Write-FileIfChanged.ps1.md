@@ -14,7 +14,7 @@ file current" writer.
 
 Canonicalises the given content (LF endings, exactly one trailing newline) and compares it to what is on disk, ignoring line endings (CR
 stripped) — so a CRLF working tree (git core.autocrlf, an editor's format-on-save) never triggers a spurious rewrite (mirrors the
-compiled-type cache guard — see [ADR-AUTO-CACHE](../../../adr/automation/caching.md)). Only on a real content difference is the file
+compiled-type cache guard — see [ADR-AUTO-CACHE](../../../drs/automation/caching.md)). Only on a real content difference is the file
 written, as UTF-8 without BOM; a missing parent directory is created. Returns whether the file changed (or would change under -DryRun), so a
 caller can drive its own status line.
 
@@ -22,7 +22,7 @@ A changed write is delete-then-write, never in-place: writing through a symbolic
 content into the file the link points at, so the write always produces a fresh, independent file.
 
 This is the write tail every generated-artifact builder shares (Build-RootConfig, Build-GitKeep, …) — one living copy of the
-canonicalise/compare/write logic instead of one per builder (see [PDR-ONELIVE](../../../adr/principles/one-living-version.md)). It is a
+canonicalise/compare/write logic instead of one per builder (see [PDR-ONELIVE](../../../drs/principles/one-living-version.md)). It is a
 pure primitive: no console output — callers own their reporting.
 
 ### parameter `Path`
@@ -35,7 +35,7 @@ The full intended content. Canonicalised before compare and write: CR stripped, 
 
 ### parameter `DryRun`
 
-Report whether the file would change without writing it. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+Report whether the file would change without writing it. See [ADR-AUTO-DRYRUN](../../../drs/automation/dry-run.md).
 
 ### outputs
 

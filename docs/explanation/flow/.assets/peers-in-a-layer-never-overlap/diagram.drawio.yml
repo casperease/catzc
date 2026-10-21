@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "622a12a74c71"
+#     with_body_sha: d1a22a4969a1
 # ---
 
 description:
@@ -75,9 +75,9 @@ content:
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: docs/-/.
         by:
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/flow/durable-sha-globs.md
-          - docs/adr/index.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/durable-sha-globs.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/how-to/pwsh/manual-test-plan/pipelines-and-globs.md
           - docs/references/ado/pipelines/cd-apex.yaml.md

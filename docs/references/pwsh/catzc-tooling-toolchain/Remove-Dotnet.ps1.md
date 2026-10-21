@@ -11,7 +11,7 @@ Evicts an off-config .NET install — one the tooling's managed user-space insta
 
 ### description
 
-The destructive escape hatch beside Install-/Uninstall-Dotnet ([ADR-AUTO-REMOVE](../../../adr/automation/tool-removal-lifecycle.md)). It
+The destructive escape hatch beside Install-/Uninstall-Dotnet ([ADR-AUTO-REMOVE](../../../drs/automation/tool-removal-lifecycle.md)). It
 refuses the managed install — Uninstall-Dotnet owns that — and decides "managed" for the folder it is about to remove, not for whatever
 `dotnet` resolves to on PATH: in a catzc session PATH always leads to the managed install, so asking about PATH would refuse every stray
 one.
@@ -21,7 +21,7 @@ A folder that Windows-registered products own (the .NET SDK / runtime installers
 would orphan every entry — so the products are listed with the command that removes each by its own installer, and nothing is touched.
 Installer bundles come first and alone: a bundle holds the MSI products it installed, which go only with it, so the next run names whatever
 is left. Only an unregistered folder is deleted, with its machine PATH entry and DOTNET_ROOT (needs Administrator,
-[ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
+[ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
 
 Linux / macOS: evicts an off-config install by the mechanism that placed it (native package / uv-Python pip / stray binary).
 
@@ -53,7 +53,7 @@ Above `if ($IsLinux -or $IsMacOS) {`, written with `#`.
 ```text
 Unix: evict an off-config install by the mechanism that placed it (native package manager / uv-Python pip
 / stray binary); elevation is scoped to the mechanism
-([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)), so no admin assert
+([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)), so no admin assert
 here. The off-config install there is the one on PATH, so the managed check asks about PATH.
 ```
 
@@ -63,7 +63,7 @@ Above `if (Test-ExpectedPackageManager -Config $config -Path $resolvedDir) {`, w
 
 ```text
 Gate: the managed install is Uninstall-Dotnet's, judged for this folder
-([ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-removerefusesmanaged)).
+([ADR-AUTO-REMOVE-REMOVEREFUSESMANAGED](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-removerefusesmanaged)).
 ```
 
 ## comment:3
@@ -72,7 +72,7 @@ Above `$machineFolders = @('C:\Program Files\dotnet', 'C:\Program Files (x86)\do
 
 ```text
 A folder registered products own is removed by their mechanism, never by deleting it
-([ADR-AUTO-REMOVE-THREEPLATFORMCORES](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-threeplatformcores)) — checked before
+([ADR-AUTO-REMOVE-THREEPLATFORMCORES](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-threeplatformcores)) — checked before
 the folder itself, so registrations whose files are already gone are still reported. The .NET installers
 place their products in the machine-wide folders; a stray copy elsewhere is nobody's.
 ```
@@ -93,5 +93,5 @@ Above `Assert-IsAdministrator`, written with `#`.
 
 ```text
 Deleting the folder and the machine PATH entry needs Administrator — asserted for this step only
-([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
+([ADR-AUTO-REMOVE-ELEVATIONFOLLOWSMECHANISM](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-elevationfollowsmechanism)).
 ```

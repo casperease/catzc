@@ -10,7 +10,7 @@ Above `sections:`, written with `#`.
 ```text
 Gitignore registry — the single source of truth for the repository-root .gitignore. New-GitIgnore renders
 these sections (in order) into the sectioned, commented .gitignore, which is itself a managed, COMMITTED root
-file (Build-RootConfig materialises it on import; see rootconfig.yml and [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)).
+file (Build-RootConfig materialises it on import; see rootconfig.yml and [ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md)).
 
 Each section is a titled, explained group: `title` + `why` render as the section's comment block, `patterns`
 are verbatim git wildmatch lines (a bare string, or { pattern, note } for an aligned trailing comment). A

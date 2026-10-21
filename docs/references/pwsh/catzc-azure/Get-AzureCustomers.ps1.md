@@ -13,7 +13,7 @@ Returns the customer keys defined in configs/customer.yml.
 
 Reads the customer catalogue (customer.yml) via Get-Config and returns its keys — the readable customer names referenced by customer
 subscriptions in azure.yml. Returns an empty array when the catalogue is empty. Customer definitions were split out of azure.yml (see
-[ADR-AZ-CUSTOMER](../../../adr/azure/azure-customer-model.md)).
+[ADR-AZ-CUSTOMER](../../../drs/azure/azure-customer-model.md)).
 
 ### example 1
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5ca183b62672"
+    with_body_sha: "2dfab04e02bc"
   edges:
     code: pwsh/Catzc.Base.CodeMeta/types/CommentPagesConfig.cs
     cites:
@@ -31,7 +31,7 @@ Describe 'CommentPagesConfig' -Tag 'L0', 'logic' {
 
     It 'maps no page for a file outside every source, a dot-prefixed module folder, or a file directly in the prefix' -Tag 'ADR-REPO-COMMENTS-COMMENTPAGEPLACE' {
         $config = [Catzc.Base.CodeMeta.CommentPagesConfig]::new(@{})
-        $config.PageFor('docs/adr/index.md') | Should -BeNullOrEmpty
+        $config.PageFor('docs/drs/index.md') | Should -BeNullOrEmpty
         $config.PageFor('pwsh/.vendor/Gadget/Gadget.psm1') | Should -BeNullOrEmpty
         $config.PageFor('pwsh/importer.ps1') | Should -BeNullOrEmpty
         $config.PageFor('pwsh/Catzc.Widget.Gadgets') | Should -BeNullOrEmpty

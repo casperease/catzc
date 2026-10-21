@@ -11,7 +11,7 @@ Checks the controlled vocabulary against the repository: every glossary check, e
 
 ### description
 
-Runs the glossary checks of [ADR-REPO-VOCAB](../../../adr/repository/controlled-vocabulary.md) over every glossary source, in order:
+Runs the glossary checks of [ADR-REPO-VOCAB](../../../drs/repository/controlled-vocabulary.md) over every glossary source, in order:
 
 - G1 — the facts that span more than one source (Get-GlossarySourceViolations);
 - G2 — every term anchored on its defining rule (Get-GlossaryAnchorViolations);
@@ -22,9 +22,9 @@ Runs the glossary checks of [ADR-REPO-VOCAB](../../../adr/repository/controlled-
 
 G4 and G6 read the same text surfaces of the same tracked files, so they share one surface table and each file's prose is read once per run.
 Each source's own shape is validated when it loads (Catzc.Base.Docs.GlossaryConfig), so a source that is malformed fails before any check
-runs. A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends
+runs. A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends
 through Write-QualityGateReport, which writes out/test-glossary/, prints every issue, and throws once listing them all
-([ADR-AUTO-FAILFAST](../../../adr/automation/fail-fast-with-asserts.md)). The checks read the source tree's ADRs, tests, and tracked files,
+([ADR-AUTO-FAILFAST](../../../drs/automation/fail-fast-with-asserts.md)). The checks read the source tree's ADRs, tests, and tracked files,
 so it runs in source mode only.
 
 ### parameter `OutputFolder`

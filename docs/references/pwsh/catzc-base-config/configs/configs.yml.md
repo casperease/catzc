@@ -14,7 +14,7 @@ shipped configs/<name>.yml has an entry and loads, and that each entry names a s
   <config-name>:
     type: <C# FQN>         # construct [FQN]::new($dict) — maps + validates
     overridable: false     # optional; a consumer overlay may not change this config (default: true). Only the
-                           # engine-intrinsic configs are sealed ([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)).
+                           # engine-intrinsic configs are sealed ([ADR-AUTO-OVERLAY](/docs/drs/automation/consumer-overlay.md)).
 
 The registry validates ITSELF: the 'configs' config (this file) is validated by the C# type below.
 Get-ConfigRegistry constructs it on load.

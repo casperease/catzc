@@ -17,7 +17,7 @@ reads it) so the two can never drift — the same principle as the derived RG na
 `parameters.<config>.json` for a configuration-root (shared-platform) slot, or `parameters.<customer>.<config>.json` for a customer slot —
 where `<config>` is `<env>[-<slot>]` (Get-BicepConfigName). The artifact names mirror the configuration tree exactly: all of a template's
 slots render into one build folder, and keying on the customer keeps them structurally collision-free ((customer?, env, slot) is unique)
-with no guard to remember. See [ADR-AZ-DATAMOD](../../../../adr/azure/azure-data-model.md).
+with no guard to remember. See [ADR-AZ-DATAMOD](../../../../drs/azure/azure-data-model.md).
 
 ### parameter `Environment`
 

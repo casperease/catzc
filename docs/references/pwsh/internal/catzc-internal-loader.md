@@ -10,13 +10,13 @@ pipeline-detection function.
 
 The `.internal` folder holds code that both layers of the toolset must call — the pre-module **bootstrap** (which runs before any `Catzc`
 module exists) and the **`Catzc` modules** (which run after). Rather than duplicate that code across the two layers, it lives once under
-`.internal` and both sides load it through this loader (see [one-living-version](../../../adr/principles/one-living-version.md)). Because
+`.internal` and both sides load it through this loader (see [one-living-version](../../../drs/principles/one-living-version.md)). Because
 the loader itself is what provides `Import-InternalModule`, it cannot bootstrap itself — so the shim imports it directly, first, and never
 removes it. A resident cover function on a hot path can therefore call `Import-InternalModule Types` (or `Vendor`) and delegate, paying
 nothing when the shared module is already loaded.
 
 Because it is loaded first in both run modes and never removed, the loader also holds the one pipeline-detection function,
-`Test-IsRunningInPipeline` (see [pipeline-detection](../../../adr/flow/pipeline-detection.md)). The bootstrap's C#-types pre-pass runs
+`Test-IsRunningInPipeline` (see [pipeline-detection](../../../drs/flow/pipeline-detection.md)). The bootstrap's C#-types pre-pass runs
 before any `Catzc` module loads, and it calls the same function as every module, which needs no import step to reach it.
 
 `Import-InternalModule` is **idempotent**: it takes the bare area name of a shared module — `Types` resolves to
@@ -34,9 +34,9 @@ cache follows.
 
 ## Related
 
-- ADR: [one-living-version](../../../adr/principles/one-living-version.md) — the two-layer shared code this loader exists to serve.
-- ADR: [use-ps1-not-psm1](../../../adr/automation/pwsh/use-ps1-not-psm1.md) — the loader is a sanctioned `.psm1`, not a function file.
-- ADR: [caching](../../../adr/automation/caching.md) — the re-import invalidation boundary `-Force` honours.
-- ADR: [pipeline-detection](../../../adr/flow/pipeline-detection.md) — the one detection function the loader carries.
+- ADR: [one-living-version](../../../drs/principles/one-living-version.md) — the two-layer shared code this loader exists to serve.
+- ADR: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — the loader is a sanctioned `.psm1`, not a function file.
+- ADR: [caching](../../../drs/automation/caching.md) — the re-import invalidation boundary `-Force` honours.
+- ADR: [pipeline-detection](../../../drs/flow/pipeline-detection.md) — the one detection function the loader carries.
 - Reference: the [internal area overview](index.md) and the shared modules it loads — [Types](catzc-internal-types.md),
   [Vendor](catzc-internal-vendor.md), [Bootstrap](catzc-internal-bootstrap.md), [TestKit](catzc-internal-test-kit.md).

@@ -10,11 +10,11 @@ Above `exempt:`, written with `#`.
 ```text
 The parameter names Test-ParameterConsistency lets carry more than one type across the public functions. A name is
 exempt only when it means a different thing in different functions, each with its own type; a name that means the
-same thing everywhere takes one type instead ([ADR-PWSH-PARAM](/docs/adr/automation/pwsh/parameter-design.md)).
+same thing everywhere takes one type instead ([ADR-PWSH-PARAM](/docs/drs/automation/pwsh/parameter-design.md)).
 
   exempt  parameter name (no dash) -> why the same name means different things; omitted = none exempt
 
 The default is declared once on Catzc.Base.QualityGates.ParameterConsistencyConfig
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). Test-ParameterConsistency
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). Test-ParameterConsistency
 reports an entry whose name no longer conflicts, so the list only shrinks to what is real.
 ```

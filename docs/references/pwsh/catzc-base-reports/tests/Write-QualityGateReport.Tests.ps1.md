@@ -10,6 +10,6 @@ Above `Describe 'Write-QualityGateReport' -Tag 'L0', 'logic' {`, written with `#
 ```text
 Write-QualityGateReport is every quality gate's output. The settings come from the real ReportsConfig type over a
 mocked reports config, and the report goes to $TestDrive, so each test pins one part of the uniform shape
-([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). Neutral fixture subjects
-(widget/gadget, [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)). Neutral fixture subjects
+(widget/gadget, [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

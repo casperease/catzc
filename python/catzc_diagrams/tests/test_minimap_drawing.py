@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "82c08cf2cbb3"
+#     with_body_sha: "5d89c825dd64"
 # ---
 
 # cspell:ignore minimaps
@@ -128,8 +128,8 @@ def test_the_rules_are_read_under_every_record_kind_the_registry_declares(tmp_pa
     # A widget registry with two kinds: a rule heading under either is a rule, one under an undeclared kind is not.
     (tmp_path / "pwsh/Catzc.Base.Docs/configs").mkdir(parents=True)
     (tmp_path / "pwsh/Catzc.Base.Docs/configs/adrs.yml").write_text("kinds:\n  ADR: {}\n  GDR: {}\n", encoding="utf-8")
-    (tmp_path / "docs/adr/widget").mkdir(parents=True)
-    (tmp_path / "docs/adr/widget/gadget.md").write_text(
+    (tmp_path / "docs/drs/widget").mkdir(parents=True)
+    (tmp_path / "docs/drs/widget/gadget.md").write_text(
         "### Rule ADR-WIDGET-TURN\n\n### Rule GDR-GADGET-SPIN\n\n### Rule XDR-GIZMO-STOP\n", encoding="utf-8"
     )
     monkeypatch.setattr(minimaps, "REPO", tmp_path)

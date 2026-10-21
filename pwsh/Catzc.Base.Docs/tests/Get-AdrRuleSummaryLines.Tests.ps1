@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cdaf832925f1
+    with_body_sha: "8de26c31a534"
   edges:
     docs: "[Get-AdrRuleSummaryLines.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-AdrRuleSummaryLines.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-AdrRuleSummaryLines.ps1
@@ -16,7 +16,7 @@ Describe 'Get-AdrRuleSummaryLines' -Tag 'L0', 'logic' {
     BeforeAll {
         $path = Join-Path $TestDrive 'widget-one.md'
         $content = @(
-            '# docs/adr/widget/widget-one.md'                     # 1
+            '# docs/drs/widget/widget-one.md'                     # 1
             ''                                                   # 2
             'Prose before the registry cites ADR-GADGET-ONE-TURN.' # 3
             ''                                                   # 4

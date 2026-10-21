@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9f8541defbde"
+    with_body_sha: d9ce34123aa1
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/FunctionHelp.Tests.ps1
     docs: "[FunctionHelp.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/FunctionHelp.cs.md)"
@@ -21,7 +21,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
-// A file's help, as its comment page's help section holds it ([ADR-REPO-HELP-HELPONCOMMENTPAGE](/docs/adr/repository/function-help.md#rule-adr-repo-help-helponcommentpage)).
+// A file's help, as its comment page's help section holds it ([ADR-REPO-HELP-HELPONCOMMENTPAGE](/docs/drs/repository/function-help.md#rule-adr-repo-help-helponcommentpage)).
 public sealed class FunctionHelp
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

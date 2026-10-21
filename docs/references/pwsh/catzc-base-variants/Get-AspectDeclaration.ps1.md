@@ -13,7 +13,7 @@ Returns the aspect conventions the variants config holds, keyed by track.
 
 The `aspects` repo-wide variant, read through the private Get-Variant: each track's ordered aspect list, declared in variants.yml or built
 in (VariantsConfig.DefaultAspects). Get-Aspect and Test-AspectDeclaration read the variant through this accessor, so the variants file keeps
-one read path ([ADR-REPO-VARIANT](../../../adr/repository/repo-variants.md)).
+one read path ([ADR-REPO-VARIANT](../../../drs/repository/repo-variants.md)).
 
 ### example 1
 

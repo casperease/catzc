@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Test-GlobSetProtection / Protect-GlobSet' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
-The protected-glob skip ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)): session-memory skip of a
+The protected-glob skip ([ADR-REPO-PROTGLOB](/docs/drs/repository/protected-globs.md)): session-memory skip of a
 repeated green scan over an unchanged
 globset; hash-before-scan via the pending-promote handshake; completely ignored in pipelines.
 ```

@@ -14,7 +14,7 @@ Re-points a Markdown file's #fragment links at headings whose anchor changed, an
 Every inline link `[text](<target>#<fragment>)` — a relative target, or none for the file's own headings — is resolved against the file's
 folder; when `<resolved path>#<fragment>` is a key of Rename, the fragment is replaced by its value. The link text, the target as written,
 and every other byte are kept, so the text is returned unchanged when no link matches. Used by the heading normal form, which renames
-anchors ([ADR-REPO-FORMAT-PLAINHEADINGS](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-plainheadings)).
+anchors ([ADR-REPO-FORMAT-PLAINHEADINGS](../../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-plainheadings)).
 
 ### parameter `RelativePath`
 

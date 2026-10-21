@@ -9,5 +9,5 @@ Above `Describe 'MarkdownLinkRebaser' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
 A generated README copies an article into another folder; its relative links are rebased so they resolve there
-([ADR-REPO-README-WORKINGLINKS](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme-workinglinks)).
+([ADR-REPO-README-WORKINGLINKS](/docs/drs/repository/generated-readmes.md#rule-adr-repo-readme-workinglinks)).
 ```

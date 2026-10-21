@@ -55,8 +55,8 @@ that no gate bounds.
 
 ## See also
 
-- [Fail fast with inline assertions](../../adr/automation/fail-fast-with-asserts.md) and
-  [Sensible defaults for all parameters](../../adr/automation/sensible-defaults.md) — the decisions this article explains.
+- [Fail fast with inline assertions](../../drs/automation/fail-fast-with-asserts.md) and
+  [Sensible defaults for all parameters](../../drs/automation/sensible-defaults.md) — the decisions this article explains.
 - The other lenses on the same resolution: [meta](callers-value-else-config-else-default.md),
   [architecture](one-resolver-every-consumer-but-the-hook.md), [implementation](resolve-one-limit-in-code-order.md) and
   [operations](a-stopped-run-names-its-limit.md).

@@ -9,6 +9,6 @@ Above `Describe 'ContractsConfig' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 ContractsConfig maps contracts.yml and is the one declaration of its sensible defaults
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): an omitted key behaves exactly
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): an omitted key behaves exactly
 like the default, a declared but unbuilt addressing mode is a valid value, and anything else fails at construction.
 ```

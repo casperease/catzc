@@ -9,7 +9,7 @@ Above `namespace Catzc.Base.QualityGates;`, written with `//`.
 
 ```text
 What the link engine found at one place in a file
-([ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)). The fixable types are rewritten by
+([ADR-REPO-LINK](/docs/drs/repository/markdown-links.md)). The fixable types are rewritten by
 Format-Links and reported by Test-Links until they are; the rest cannot be fixed mechanically and need a
 person. Overlong is informational: a line that stays over its limit after the aligner did what it can.
 ```

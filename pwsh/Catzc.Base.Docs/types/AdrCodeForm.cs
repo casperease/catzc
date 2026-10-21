@@ -2,13 +2,13 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "82307baa9e37"
+    with_body_sha: "7f326478c580"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AdrCodeForm.Tests.ps1
     docs: "[AdrCodeForm.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrCodeForm.cs.md)"
     cites:
       - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
-      - ADR-REPO-ADRCODE
+      - ADR-REPO-DRSCODE
 ---
 */
 
@@ -18,7 +18,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Docs;
 
-// Rests on [ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/adr/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies).
+// Rests on [ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](/docs/drs/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-hostguaranteedassemblies).
 public sealed class AdrCodeForm
 {
     const string Segment = "-[A-Z][A-Z0-9]*";

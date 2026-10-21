@@ -60,7 +60,7 @@ sample code shows the same skip.
 
 ## See also
 
-- [Dual authentication](../../adr/ado/dual-authentication.md) — the decision this article explains.
+- [Dual authentication](../../drs/ado/dual-authentication.md) — the decision this article explains.
 - The other lenses on the same precedence: [meta](configured-credential-proves-its-org.md),
   [architecture](one-header-function-owns-precedence.md), [operations](what-you-set-decides-the-credential.md) and
   [governance](which-auth-rungs-have-a-gate.md).

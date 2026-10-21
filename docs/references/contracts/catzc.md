@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bf7d3d0f83f2
+    with_body_sha: "6974301bf488"
     warning: "Do Not Edit, this file is generated"
     role: reference
     track: docs
@@ -24,13 +24,13 @@ A presence asset, a text fragment, and a JSON fragment or sample payload carry n
 A command contract's signature is the call interface its contract language states, as `Get-CommandContract` reads it; every other kind has
 none.
 
-Layout, kinds, and directions: [api-contracts](../../adr/repository/api-contracts.md); command contracts:
-[command-contracts](../../adr/repository/command-contracts.md).
+Layout, kinds, and directions: [api-contracts](../../drs/repository/api-contracts.md); command contracts:
+[command-contracts](../../drs/repository/command-contracts.md).
 
 ## 0.0.0
 
 The draft: the one mutable version folder
-([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
+([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)).
 
 | Module                                 | Asset                                            | Target                                                                    | Direction               | Kind             | Signature                                                                                                                                                                                                                                                                                                                                                           |
 | -------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------- | ----------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -176,31 +176,31 @@ Notes:
   Test-AzureNetworkPlan, the quality gate that checks the network plan against the azure config's environments and subscriptions and returns
   its result under -PassThru.
 - `catzc.azure.dev_ops/pipelines/cd-apex.yaml`: Depended-on fragment of .ado/pipelines/cd-apex.yaml
-  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
+  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
   reads at the pipeline root — the `trigger` and `pr` blocks, honoured only there, and the `extends` root with its `template`. A null value
   pins only that the key exists. Source: <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
 - `catzc.azure.dev_ops/pipelines/cd-flux.yaml`: Depended-on fragment of .ado/pipelines/cd-flux.yaml
-  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
+  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
   reads at the pipeline root — the `trigger` and `pr` blocks, honoured only there, and the `extends` root with its `template`. A null value
   pins only that the key exists. Source: <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
 - `catzc.azure.dev_ops/pipelines/cd-nova.yaml`: Depended-on fragment of .ado/pipelines/cd-nova.yaml
-  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
+  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
   reads at the pipeline root — the `trigger` and `pr` blocks, honoured only there, and the `extends` root with its `template`. A null value
   pins only that the key exists. Source: <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
 - `catzc.azure.dev_ops/pipelines/cd-shared.yaml`: Depended-on fragment of .ado/pipelines/cd-shared.yaml
-  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
+  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
   reads at the pipeline root — the `trigger` and `pr` blocks, and the `stages` root. A null value pins only that the key exists. Source:
   <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
 - `catzc.azure.dev_ops/pipelines/ci-infrastructure.yaml`: Depended-on fragment of .ado/pipelines/ci-infrastructure.yaml
-  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
+  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
   reads at the pipeline root — the `trigger` and `pr` blocks, and the `jobs` root. A null value pins only that the key exists. Source:
   <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
 - `catzc.azure.dev_ops/pipelines/ci-pwsh-expected-failures.yaml`: Depended-on fragment of .ado/pipelines/ci-pwsh-expected-failures.yaml
-  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
+  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
   reads at the pipeline root — the `trigger` and `pr` blocks, and the `jobs` root. A null value pins only that the key exists. Source:
   <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
 - `catzc.azure.dev_ops/pipelines/ci-pwsh.yaml`: Depended-on fragment of .ado/pipelines/ci-pwsh.yaml
-  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
+  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
   reads at the pipeline root — the `trigger` and `pr` blocks, and the `jobs` root. A null value pins only that the key exists. Source:
   <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
 - `catzc.azure.dev_ops/test_pipelines.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
@@ -266,7 +266,7 @@ Notes:
   interface of Clear-GlobSetProtection, which drops every recorded glob protection so the next run of every protected scan scans in full; it
   takes no parameters.
 - `catzc.base.globs/configs/file-kinds.yml`: Provided fragment of pwsh/Catzc.Base.Globs/configs/file-kinds.yml
-  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the kinds and subkinds a
+  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the kinds and subkinds a
   consumer may rely on to be in the file-kinds registry, so the `kind` and `subkind` a file's meta head names keep their meaning. A null
   value pins only that the key exists; the definitions and the globs may change, and a consumer extends the registry with a config fragment
   of its own.
@@ -339,7 +339,7 @@ Notes:
   interface of Format-MarkdownTitle, which makes the H1 of every in-scope Markdown file its title. RepositoryRoot defaults to the repository
   root, a computed default the contract does not restate.
 - `catzc.base.quality_gates/head.sample.yml`: Provided sample of a file's meta head
-  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the shape a tool may rely
+  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the shape a tool may rely
   on when it reads the `catzc.immutable` and `catzc.edges` parts of a head. A head has two shapes. The navigation head of an authored code
   or config file, this sample, holds `with_body_sha` and the edges: the ADR codes it cites, its comment page (`docs`), its test (`test`),
   and on a test the file it tests (`code`). A generated file's head holds `with_body_sha`, `warning`, `role`, `track`, `generator` and
@@ -435,11 +435,11 @@ Notes:
   to the repository root, a computed default the contract does not restate; SkipMessages leaves the commit messages alone, and DryRun
   reports what would change.
 - `catzc.tooling.github/workflows/ci-pwsh.yml`: Depended-on fragment of .github/workflows/ci-pwsh.yml
-  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the keys GitHub Actions
+  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the keys GitHub Actions
   requires to run the workflow — the `on` events, and `jobs`, each job with the `runs-on` runner and its `steps`. A null value pins only
   that the key exists. Source: <https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions>
 - `catzc.tooling.github/workflows/release-automation.yml`: Depended-on fragment of .github/workflows/release-automation.yml
-  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the keys GitHub Actions
+  ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the keys GitHub Actions
   requires to run the workflow — the `on` events, and `jobs`, each job with the `runs-on` runner and its `steps`. A null value pins only
   that the key exists. Source: <https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions>
 - `catzc.tooling.inspiration/get_inspiration.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call

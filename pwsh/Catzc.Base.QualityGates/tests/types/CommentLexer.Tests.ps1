@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d08ae8afdeb5
+    with_body_sha: "3a8870a423da"
   edges:
     docs: "[CommentLexer.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/types/CommentLexer.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/types/CommentLexer.cs
@@ -76,11 +76,11 @@ Describe 'CommentLexer' -Tag 'L0', 'logic' {
     }
 
     It 'returns PowerShell string literals as data spans' -Tag 'ADR-REPO-LINK-STRINGSAREDATA' {
-        $source = "`$path = 'docs/adr/widget.md'   # see gadget"
+        $source = "`$path = 'docs/drs/widget.md'   # see gadget"
         $strings = @(foreach ($span in [Catzc.Base.QualityGates.CommentLexer]::PowerShellStrings($source)) {
                 $source.Substring($span.Item1, $span.Item2)
             })
-        $strings | Should -Be @("'docs/adr/widget.md'")
+        $strings | Should -Be @("'docs/drs/widget.md'")
     }
 
     Context 'string literals of every code family' {

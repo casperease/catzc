@@ -9,9 +9,9 @@ Above `using System;`, written with `//`.
 
 ```text
 A version folder's contract.yml, at contracts/<unit>/<version>/contract.yml
-([ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)): the exceptions to the direction
+([ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)): the exceptions to the direction
 convention. It mirrors the YAML mapping, so the property is snake_case
-([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
   direction  a map of an asset's path under the version folder (<module>/<path>, '/'-separated) to its direction,
              provided or depended-on. Optional; absent means no override.
 Construction validates the file and collects every violation into one ArgumentException; an unknown key throws.

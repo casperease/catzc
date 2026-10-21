@@ -5,8 +5,8 @@
 A template is a deployable Bicep unit discovered from the filesystem. Create a folder under `infrastructure/templates/<name>/`, give it a
 `main.bicep` and one config file per resource group, and `Get-BicepTemplates` finds it automatically. Its `short_name` (the Azure id
 segment) is **derived from the folder name** — no `options.yml` needed to get started; add one only to override `short_name` or set
-deployment options. The data model behind this is in [data-model](../../../adr/azure/azure-data-model.md); the naming rules are in
-[naming-standard](../../../adr/azure/azure-naming-standard.md).
+deployment options. The data model behind this is in [data-model](../../../drs/azure/azure-data-model.md); the naming rules are in
+[naming-standard](../../../drs/azure/azure-naming-standard.md).
 
 ## The layout
 
@@ -61,7 +61,7 @@ module adfMain '../../modules/data-factory.bicep' = {
 
 **`infrastructure/templates/survey/configuration/dev.yml`** — the parameter values for this one resource group. Resource names are written
 **statically** here (the build passes them through unchanged); they follow the
-[naming standard](../../../adr/azure/azure-naming-standard.md):
+[naming standard](../../../drs/azure/azure-naming-standard.md):
 
 ```yaml
 # survey, shared dev.
@@ -95,12 +95,12 @@ If the template needs build- or deploy-time logic, copy the starter `pwsh/Catzc.
 `infrastructure/templates/<name>/PrePost.psm1`, keep the hook(s) you need, delete the rest. The three opt-in hooks are:
 
 - `Invoke-BicepPrepareParameterSet` — build-time. Merge global config into the per-slot parameter set before the parameter file is rendered
-  (e.g. inject a Key Vault reference, or pull subnet ranges from [`network.yml`](../../../adr/azure/azure-network-model.md)).
+  (e.g. inject a Key Vault reference, or pull subnet ranges from [`network.yml`](../../../drs/azure/azure-network-model.md)).
 - `Invoke-BicepPreDeploy` — runs before `az deployment ... create`. State-changing prep; **must honour `-DryRun`**.
 - `Invoke-BicepPostDeploy` — runs after a successful deploy. Fixups and verification.
 
 A template with no `PrePost.psm1`, or one that doesn't export a given hook, simply skips that step — there is no default. See
-[prepost-extension-modules](../../../adr/automation/pwsh/prepost-extension-modules.md).
+[prepost-extension-modules](../../../drs/automation/pwsh/prepost-extension-modules.md).
 
 ## Where the global config lives
 

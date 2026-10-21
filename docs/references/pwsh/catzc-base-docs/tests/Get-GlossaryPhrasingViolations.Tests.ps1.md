@@ -9,11 +9,11 @@ Above `Describe 'Get-GlossaryPhrasingViolations' -Tag 'L0', 'logic' {`, written 
 
 ```text
 Get-GlossaryPhrasingViolations is private, so it is exercised through the module (InModuleScope, per
-[ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)). Each test writes its
+[ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)). Each test writes its
 own fixture file under $TestDrive and passes it as the only tracked file
 (-TrackedFile, -Root), so no git process runs; the glossary is built in memory from the real types. Fixture terms
 and rule codes are neutral (widget/gadget, tst —
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)): the avoided phrase is 'widget
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)): the avoided phrase is 'widget
 bundle'.
 ```
 

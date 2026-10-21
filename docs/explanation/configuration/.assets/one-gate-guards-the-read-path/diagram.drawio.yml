@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4c41b459d4da"
+#     with_body_sha: "847380319bb1"
 # ---
 
 description:
@@ -195,13 +195,13 @@ content:
           - ADR-CONF-LOADING-READINGISGLOBAL
       - cell: docs/-/.
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/test-automation.md
-          - docs/adr/configuration/config-value-addressing.md
-          - docs/adr/configuration/dora-explains.md
-          - docs/adr/configuration/module-config-loading.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/test-automation.md
+          - docs/drs/configuration/config-value-addressing.md
+          - docs/drs/configuration/dora-explains.md
+          - docs/drs/configuration/module-config-loading.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/how-to/getting-started/pwsh/add-a-module.md
           - docs/how-to/pwsh/manual-test-plan/configs.md
           - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml

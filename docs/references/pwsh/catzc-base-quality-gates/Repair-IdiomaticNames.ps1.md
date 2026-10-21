@@ -12,7 +12,7 @@ Moves each misnamed folder and file on disk to the name its language's idiom giv
 ### description
 
 The repair half of the quality gate Test-IdiomaticNames
-([ADR-AUTO-IDIOM-HELDBYGATE](../../../adr/automation/idiomatic-names.md#rule-adr-auto-idiom-heldbygate)): the gate reports a folder or a
+([ADR-AUTO-IDIOM-HELDBYGATE](../../../drs/automation/idiomatic-names.md#rule-adr-auto-idiom-heldbygate)): the gate reports a folder or a
 file whose name breaks its language's case, and this moves it to the rendering the languages config gives
 (LanguagesConfig.MisnamedPathRenames). Files move first and folders deepest first, so no move invalidates another; each move goes through a
 temporary name, so a case-only rename lands on a case-insensitive file system. It edits no file's text: each result lists the tracked files
@@ -21,7 +21,7 @@ whose text names the old path, for one-file-at-a-time edits, and git records the
 ### parameter `DryRun`
 
 Return the planned moves and the files that name each old path, and move nothing
-([ADR-PWSH-DRYRUN](../../../adr/automation/pwsh/prefer-dryrun-over-shouldprocess.md)).
+([ADR-PWSH-DRYRUN](../../../drs/automation/pwsh/prefer-dryrun-over-shouldprocess.md)).
 
 ### outputs
 

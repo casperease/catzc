@@ -23,7 +23,7 @@ Functions that produce multiple or recurring files create their own subdirectory
 `out/template/<name>/`); the subfolder names are ad-hoc workspaces with no fixed contract — the root is the contract. Scratch files that are
 consumed and discarded within one call do not belong here at all; they go to the system temp directory.
 
-The governing decisions are [dedicated-output-directory](../adr/repository/dedicated-output-directory.md) (the rules: `Get-OutputRoot` for
+The governing decisions are [dedicated-output-directory](../drs/repository/dedicated-output-directory.md) (the rules: `Get-OutputRoot` for
 every output path, subdirectories for recurring producers, temp for scratch, never output beside the source) and
-[path-representation](../adr/automation/path-representation.md) (why a stored `out/...` path re-anchors against the context-dependent output
+[path-representation](../drs/automation/path-representation.md) (why a stored `out/...` path re-anchors against the context-dependent output
 root, keeping artifacts portable between a devbox and a pipeline).

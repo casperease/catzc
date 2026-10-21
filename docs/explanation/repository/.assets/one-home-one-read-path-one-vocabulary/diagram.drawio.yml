@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: a25bf6328487
+#     with_body_sha: "1d3f27c472b5"
 # ---
 
 description:
@@ -76,9 +76,9 @@ content:
           - ADR-REPO-VARIANT-SESSIONVARIANT
       - cell: docs/-/.
         by:
-          - docs/adr/index.md
-          - docs/adr/repository/dora-explains.md
-          - docs/adr/repository/repo-variants.md
+          - docs/drs/index.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/repo-variants.md
           - docs/references/pwsh/catzc-base-variants/Get-AspectDeclaration.ps1.md
           - docs/references/pwsh/catzc-base-variants/Test-AspectDeclaration.ps1.md
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
@@ -114,9 +114,9 @@ content:
           - ADR-REPO-VARIANT-SESSIONVARIANT
       - cell: docs/markdown
         by:
-          - docs/adr/index.md
-          - docs/adr/repository/dora-explains.md
-          - docs/adr/repository/repo-variants.md
+          - docs/drs/index.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/repo-variants.md
           - docs/references/pwsh/catzc-base-variants/Get-AspectDeclaration.ps1.md
           - docs/references/pwsh/catzc-base-variants/Test-AspectDeclaration.ps1.md
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md

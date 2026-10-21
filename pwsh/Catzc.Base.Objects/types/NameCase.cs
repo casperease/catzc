@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ed2c8448092e
+    with_body_sha: "69800fc3731f"
   edges:
     cites:
       - ADR-AUTO-IDIOM-CLOSEDCASES
@@ -18,7 +18,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Objects;
 
-// The closed set of name cases, and a name split into its words and joined in another case; rests on [ADR-AUTO-IDIOM-CLOSEDCASES](/docs/adr/automation/idiomatic-names.md#rule-adr-auto-idiom-closedcases).
+// The closed set of name cases, and a name split into its words and joined in another case; rests on [ADR-AUTO-IDIOM-CLOSEDCASES](/docs/drs/automation/idiomatic-names.md#rule-adr-auto-idiom-closedcases).
 public static class NameCase
 {
     // A new case is new mechanism: its pattern here, and its split and its join below, land together.

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f1ccec9b6056
+#     with_body_sha: "4c30e944c758"
 # ---
 
 description:
@@ -181,13 +181,13 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: docs/-/.
         by:
-          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
-          - docs/adr/flow/cd-discipline-and-promotion-flow.md
-          - docs/adr/flow/commit-lifecycle.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/drs/flow/cd-discipline-and-promotion-flow.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/ado/pipelines/deploy-apex.yaml.md
           - docs/references/ado/pipelines/deploy-nova.yaml.md
@@ -302,11 +302,11 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: docs/markdown
         by:
-          - docs/adr/flow/cd-discipline-and-promotion-flow.md
-          - docs/adr/flow/commit-lifecycle.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/flow/cd-discipline-and-promotion-flow.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/ado/pipelines/deploy-apex.yaml.md
           - docs/references/ado/pipelines/deploy-nova.yaml.md
@@ -326,8 +326,8 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: docs/yaml
         by:
-          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
           - FDR-CD-LIFE-DISCARDISTERMINAL
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM

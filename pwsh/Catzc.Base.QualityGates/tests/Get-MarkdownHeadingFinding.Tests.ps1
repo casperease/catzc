@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1dd1742ad01c"
+    with_body_sha: "2aa850e780be"
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
     cites:
@@ -19,10 +19,10 @@ Describe 'Get-MarkdownHeadingFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-PLAIN
         }
 
         function script:Get-Finding {
-            param([string] $Text, [string] $RelativePath = 'docs/adr/widget/widget-rules.md')
+            param([string] $Text, [string] $RelativePath = 'docs/drs/widget/widget-rules.md')
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Text = $Text; RelativePath = $RelativePath } {
                 param($Text, $RelativePath)
-                $citation = @{ 'ADR-TST-WIDGET' = 'docs/adr/widget/widget-rules.md'; 'ADR-TST-GADGET' = 'docs/adr/gadget/gadget-rules.md' }
+                $citation = @{ 'ADR-TST-WIDGET' = 'docs/drs/widget/widget-rules.md'; 'ADR-TST-GADGET' = 'docs/drs/gadget/gadget-rules.md' }
                 Get-MarkdownHeadingFinding -RelativePath $RelativePath -Text $Text -Citation $citation
             }
         }
@@ -93,21 +93,21 @@ Describe 'Get-MarkdownHeadingFinding' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-PLAIN
     Context 'dora-explains' {
         It 'quotes each entry''s DORA paragraph, after the moved citation' {
             $text = Join-Lines '## Widget rules (`ADR-TST-WIDGET`)', '', 'DORA says widgets', 'matter.', '', '- [Capability](x.md) — why.', ''
-            $result = Get-Finding $text -RelativePath 'docs/adr/widget/dora-explains.md'
+            $result = Get-Finding $text -RelativePath 'docs/drs/widget/dora-explains.md'
             $result.Fixed | Should -Be (Join-Lines '## Widget rules', '', '[ADR-TST-WIDGET](widget-rules.md)', '', '> DORA says widgets', '> matter.', '', '- [Capability](x.md) — why.', '')
             $result.Findings.Kind | Should -Be 'Reference', 'Quote'
         }
 
         It 'accepts an entry already in normal form, so a second run changes nothing' {
             $text = Join-Lines '## Widget rules', '', '[ADR-TST-WIDGET](widget-rules.md)', '', '> DORA says widgets.', '', '- [Capability](x.md) — why.', ''
-            $result = Get-Finding $text -RelativePath 'docs/adr/widget/dora-explains.md'
+            $result = Get-Finding $text -RelativePath 'docs/drs/widget/dora-explains.md'
             $result.Findings | Should -BeNullOrEmpty
             $result.Fixed | Should -Be $text
         }
 
         It 'does not quote a list that opens an entry' {
             $text = Join-Lines '## Widget rules', '', '- [Capability](x.md) — why.', ''
-            (Get-Finding $text -RelativePath 'docs/adr/widget/dora-explains.md').Findings | Should -BeNullOrEmpty
+            (Get-Finding $text -RelativePath 'docs/drs/widget/dora-explains.md').Findings | Should -BeNullOrEmpty
         }
 
         It 'quotes nothing outside a dora-explains file' {

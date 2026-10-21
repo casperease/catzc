@@ -10,6 +10,6 @@ Above `Describe 'TimeoutSeconds defaults come from the time safeguard' -Tag 'L1'
 ```text
 A function bounds its own long-running work through Get-TimeoutSeconds -Command and its [TimeLimit] decoration, never
 a number literal as the parameter default
-([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](/docs/adr/automation/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)). Reads the shipped .ps1
+([ADR-PWSH-ASSERT-DECLAREDTIMELIMIT](/docs/drs/automation/pwsh/assert-idioms.md#rule-adr-pwsh-assert-declaredtimelimit)). Reads the shipped .ps1
 files by AST, so it runs in the source and the build run alike.
 ```

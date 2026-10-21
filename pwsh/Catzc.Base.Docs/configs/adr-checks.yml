@@ -1,13 +1,13 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "676c1c65d8e8"
+#     with_body_sha: c40b15f465ac
 #   edges:
 #     docs: "[adr-checks.yml.md](docs/references/pwsh/catzc-base-docs/configs/adr-checks.yml.md)"
 #     cites:
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 #       - ADR-AUTO-TEST-QUALITYGATE
-#       - ADR-REPO-ADRCODE
+#       - ADR-REPO-DRSCODE
 # ---
 
 engine_neutrality:
@@ -35,6 +35,6 @@ dora_coverage:
     azure/caf: Each ADR answers the Cloud Adoption Framework landing-zone guidance; docs/references/caf/index.md grounds it.
     azure/waf: Each ADR answers one Well-Architected pillar's checklist; docs/references/waf/index.md grounds it.
 
-# The segment grammar of ADR codes and named rule headings ([ADR-REPO-ADRCODE](/docs/adr/repository/adr-code-language.md)).
+# The segment grammar of ADR codes and named rule headings ([ADR-REPO-DRSCODE](/docs/drs/repository/drs-code-language.md)).
 code_language:
   mode: gate

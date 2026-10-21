@@ -9,7 +9,7 @@ Above `Describe 'Repository code links (automation comments)' -Tag 'L1',...`, wr
 
 ```text
 The real repository keeps its links aligned and resolving
-([ADR-REPO-LINK](/docs/adr/repository/markdown-links.md)). Integrity checks over the shipped tree, in two tiers: L1 is the
+([ADR-REPO-LINK](/docs/drs/repository/markdown-links.md)). Integrity checks over the shipped tree, in two tiers: L1 is the
 fast structural pass over the automation code's comments; L2 is the full pass over every git-tracked file — every markdown
 target and #fragment — plus the formatter-stable check and the editor rule that makes code links clickable.
 Rule-tag citations and analyzer mappings are validated elsewhere (Get-TestTagViolations, Get-AnalyzerAdrCoverage).

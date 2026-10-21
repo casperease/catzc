@@ -9,14 +9,14 @@ Module dependency groups   one declared allow-list, and every edge points down
 Compiled types             what unboxing costs, and what costs more than it
 ```
 
-These articles explain decisions from the [automation ADR domain](../../adr/index.md#automation): how the bundle is built and placed, how
+These articles explain decisions from the [automation ADR domain](../../drs/index.md#automation): how the bundle is built and placed, how
 the importer loads the modules, how modules may depend on one another, and what compiled types cost. Each article but the last narrates one
 diagram; the [explanation index](../index.md) says how to read them.
 
 ## The bundle
 
 One commit becomes one verified, immutable package, and every code root is a copy of it
-([platform-bundle](../../adr/automation/platform-bundle.md)).
+([platform-bundle](../../drs/automation/platform-bundle.md)).
 
 | Lens           | Article                                                                                                                        |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------ |
@@ -28,7 +28,7 @@ One commit becomes one verified, immutable package, and every code root is a cop
 
 ## The importer
 
-Every entry runs one load sequence through the importer ([platform-bundle](../../adr/automation/platform-bundle.md)).
+Every entry runs one load sequence through the importer ([platform-bundle](../../drs/automation/platform-bundle.md)).
 
 | Lens           | Article                                                                                                                   |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------- |
@@ -41,7 +41,7 @@ Every entry runs one load sequence through the importer ([platform-bundle](../..
 ## Module dependency groups
 
 One declared allow-list says what may depend on what, and the declared graph forms three layers
-([controlling-module-dependencies](../../adr/automation/controlling-module-dependencies.md)).
+([controlling-module-dependencies](../../drs/automation/controlling-module-dependencies.md)).
 
 | Lens           | Article                                                                                                                         |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------- |
@@ -54,7 +54,7 @@ One declared allow-list says what may depend on what, and the declared graph for
 ## Compiled types
 
 Reading a value out of an object costs a few nanoseconds, and the type tests, reflection lookups and PowerShell crossings around it cost
-more ([native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)).
+more ([native-csharp-types](../../drs/automation/BCL/native-csharp-types.md)).
 
 | Article                                                                                                                                              |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------- |

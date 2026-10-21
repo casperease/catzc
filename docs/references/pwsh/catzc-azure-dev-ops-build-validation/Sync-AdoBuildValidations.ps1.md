@@ -15,7 +15,7 @@ The config-driven reconcile: for each entry under 'validations' in build-validat
 policies, updating drifted ones, and leaving current ones alone — and emits each result. This is the everything-as-code path for the
 server-side policies: the local config is the source of truth, and this function converges the ADO project to it. The policies are Azure
 DevOps configuration, an adjacent store
-([TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../../../adr/thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)),
+([TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../../../drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)),
 driven one way from the repository and never edited beside the trunk.
 
 ### parameter `Branch`

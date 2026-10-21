@@ -10,7 +10,7 @@ Above `bats_version: "1.14.0"`, written with `#`.
 ```text
 The Bash tests — black-box tests of the engine written in Bash, under <root>/tests/<module-in-kebab>/*.bats, run by the
 bats-core runner vendored at <root>/.vendor/bats-core/
-([ADR-AUTO-BASH](/docs/adr/automation/bash/bash-test-artifacts.md)). Loaded via Get-Config -Config bash; the shape is
+([ADR-AUTO-BASH](/docs/drs/automation/bash/bash-test-artifacts.md)). Loaded via Get-Config -Config bash; the shape is
 validated by Catzc.Base.Languages.BashConfig.
 ```
 

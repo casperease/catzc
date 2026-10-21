@@ -15,12 +15,12 @@ Runs the same check as Format-MarkdownTitle, read-only, and reports every file w
 title (an H1 that is the file's path, or no H1), every heading with a trailing reference group, every unquoted dora-explains paragraph,
 every link to an anchor that moves, and every duplicate anchor. Running Format-MarkdownTitle fixes all of them except a Duplicate, an
 Untitled file and a Missing title, which the author writes; each issue says which. A quality gate
-([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends through
+([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends through
 Write-QualityGateReport, which writes out/test-markdown-title/, prints every issue, and throws once listing them all. It needs the source
 tree: it throws in build mode.
 
-It rests on [ADR-REPO-FORMAT-MARKDOWNTITLE](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-markdowntitle) and
-[ADR-REPO-FORMAT-PLAINHEADINGS](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-plainheadings).
+It rests on [ADR-REPO-FORMAT-MARKDOWNTITLE](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-markdowntitle) and
+[ADR-REPO-FORMAT-PLAINHEADINGS](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-plainheadings).
 
 ### parameter `Path`
 

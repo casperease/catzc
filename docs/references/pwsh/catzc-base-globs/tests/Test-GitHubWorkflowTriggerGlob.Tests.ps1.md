@@ -9,7 +9,7 @@ Above `Describe 'Test-GitHubWorkflowTriggerGlob' -Tag 'L0', 'logic' {`, written 
 
 ```text
 Test-GitHubWorkflowTriggerGlob is a quality gate
-([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate), drift detection): a workflow's
+([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate), drift detection): a workflow's
 actual paths vs the globset's ordered projection (GitHub paths are last-match-wins). Neutral fixtures (widget,
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the report goes to $TestDrive.
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the report goes to $TestDrive.
 ```

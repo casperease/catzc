@@ -9,8 +9,8 @@ Above `trigger:`, written with `#`.
 
 ```text
 Stage order is the safety property: foundation owns the Key Vault the others use, and expedition lands in discovery's network.
-[FDR-CD-TYPE](/docs/adr/flow/pipeline-types.md), [ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](/docs/adr/azure/landing-zones.md#rule-adr-az-lz-linksneedbothnetworks),
-[ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md) [comment:1](/docs/references/ado/pipelines/cd-shared.yaml.md#comment1)
+[FDR-CD-TYPE](/docs/drs/flow/pipeline-types.md), [ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](/docs/drs/azure/landing-zones.md#rule-adr-az-lz-linksneedbothnetworks),
+[ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md) [comment:1](/docs/references/ado/pipelines/cd-shared.yaml.md#comment1)
 ```
 
 ## comment:2
@@ -19,7 +19,7 @@ Above `trigger:`, written with `#`.
 
 ```text
 Root ymls and customer subfolders sit at one folder depth, so ADO may drop a root yml; Test-GlobSetAffected is the exact backstop.
-[FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:2](/docs/references/ado/pipelines/cd-shared.yaml.md#comment2)
+[FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md) [comment:2](/docs/references/ado/pipelines/cd-shared.yaml.md#comment2)
 ```
 
 ## comment:3

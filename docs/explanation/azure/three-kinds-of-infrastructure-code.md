@@ -42,7 +42,7 @@ each of its configuration slots deploys that one template into one resource grou
 
 ## See also
 
-- [Infrastructure kinds](../../adr/azure/infrastructure-kinds.md) — the decision this article explains.
+- [Infrastructure kinds](../../drs/azure/infrastructure-kinds.md) — the decision this article explains.
 - What a change to each kind reaches: [change one configuration slot](change-one-configuration-slot.md),
   [a module change fans out to its templates](a-module-change-fans-out-to-its-templates.md), [add a template](add-a-template.md) and
   [add a configuration slot](add-an-environment-slot.md).

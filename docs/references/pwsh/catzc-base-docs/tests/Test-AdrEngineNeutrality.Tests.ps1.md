@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
-Test-AdrEngineNeutrality over a fixture docs/adr tree in $TestDrive, a fixture AdrsConfig, and a fixture AdrChecksConfig
+Test-AdrEngineNeutrality over a fixture docs/drs tree in $TestDrive, a fixture AdrsConfig, and a fixture AdrChecksConfig
 (Get-Config and Resolve-RepoPath mocked). Neutral fixture names and tokens
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

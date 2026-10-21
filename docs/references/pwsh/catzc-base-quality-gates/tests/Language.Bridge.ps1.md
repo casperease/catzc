@@ -15,14 +15,14 @@ runs it without that data.
 
 Discovery reads the folder's tests from its source files (Get-GoTestCases, Get-PythonTestCases, Get-BashTestCases),
 so every test becomes one Pester test per engine it runs under (every engine; Bash tests the bash engine only), tagged
-L2 (a real tool and a real engine, [ADR-AUTO-TEST-NOCLOUDBELOWLTHREE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-nocloudbelowlthree))
+L2 (a real tool and a real engine, [ADR-AUTO-TEST-NOCLOUDBELOWLTHREE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-nocloudbelowlthree))
 plus its category from its name (TestIntegrity*, test_integrity* or "integrity: …" is integrity, everything else
 logic). The run calls the language's runner once
 for the module (Get-LanguageTestOutcomes): each test then passes, fails with the test output, or skips as the test
 did; when the source session handed down no managed tool at the pinned version, every test skips with
-tool_go_missing, tool_uv_missing or tool_bash_missing ([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](/docs/adr/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)).
+tool_go_missing, tool_uv_missing or tool_bash_missing ([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](/docs/drs/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)).
 The tests start the engine in processes of their own, so the file runs in the greedy phase
-([ADR-AUTO-TEST-ONESCHEDULINGPOOL](/docs/adr/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)).
+([ADR-AUTO-TEST-ONESCHEDULINGPOOL](/docs/drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)).
 ```
 
 ## comment:2
@@ -40,6 +40,6 @@ Above `$script:languageOutcomes = @{}`, written with `#`.
 
 ```text
 Every test runs once per execution engine
-([ADR-AUTO-ENGINE-STARTENVIRONMENT](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine-startenvironment)): the same test, a
+([ADR-AUTO-ENGINE-STARTENVIRONMENT](/docs/drs/automation/execution-engines.md#rule-adr-auto-engine-startenvironment)): the same test, a
 different contract.
 ```

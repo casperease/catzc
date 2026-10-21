@@ -9,7 +9,7 @@ Above `Describe 'Source & test file conventions' -Tag 'L0', 'integrity',...`, wr
 
 ```text
 The source and test file conventions over the real tree, through their quality gate (Test-SourceConventions —
-[ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The gate scans the tree once,
+[ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The gate scans the tree once,
 parses each source file once, and lists every offender; this block runs it at its tier and guards it against a
 silent no-op.
 source-only: it reads the per-function source files, which give the same answer in both run modes.
@@ -21,7 +21,7 @@ Above `Describe 'Test-Automation (vendored Pester)' -Tag 'L1', 'integrity',...`,
 
 ```text
 The real-asset test of
-[ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest) for
+[ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest) for
 Test-Automation's one internal asset: the vendored Pester under
 the code root. Pester is already loaded in this worker, so the lazy-load branch is forced by hiding it from
 Get-Module, and the re-import is intercepted (re-importing Pester mid-run would unload the running harness);

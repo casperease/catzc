@@ -19,7 +19,7 @@ Started 2026-10-21T20:09:00.4651213+02:00.
   Get-WorldMapHighlight too), not the C# step; measure the split before choosing a memo or a compiled type.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: Get-FileMetaFact now returns only with_body_sha, so place facts (track, module,
   language) come from Get-MinimapFact by placement, never from heads.
-- 2026-10-21 Cats: In hindsight I wish I knew this fact: docs/adr/index.md's authoring conventions are generated from
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: docs/drs/index.md's authoring conventions are generated from
   pwsh/Catzc.Base.Docs/configs/adr-index.yml; edit that source, never the page.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: conventional-folders allows a diagram folder only its yml, png and
   diagram.drawio.verify.md; minimap reasons go in the verify record's ## Minimap reasons section.

@@ -18,7 +18,7 @@ Above `Mock Get-AzureCustomers { @('acme', 'globex') } -ModuleName...`, written 
 
 ```text
 The customer catalogue reads are whole-boundary mocks
-([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)) — the rule
+([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)) — the rule
 needs the key
 list, and the candidates rule normalizes a non-matching raw token through Get-AzureCustomer.
 ```

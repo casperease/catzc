@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9eb24636a314"
+    with_body_sha: "6ccfef257240"
   edges:
     test: pwsh/Catzc.Base.Reports/tests/types/QualityGateResult.Tests.ps1
     cites:
@@ -18,7 +18,7 @@ using System.Collections.Specialized;
 
 namespace Catzc.Base.Reports;
 
-// Rests on [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel) and [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
+// Rests on [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel) and [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Subject), nameof(IssueCount), nameof(ReportPath))]
 public sealed class QualityGateResult
 {

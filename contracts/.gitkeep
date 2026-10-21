@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "46bf4ac56731"
+#     with_body_sha: "42e6ec4ca2f9"
 #     warning: "Do Not Edit, this file is generated"
 #     role: other
 #     track: contracts
@@ -14,4 +14,4 @@ This .gitkeep keeps its otherwise-empty (or content-ignored) folder tracked in g
 GENERATED — every .gitkeep is reproduced from pwsh/Catzc.Base.Docs/assets/gitkeep on import
 (Build-GitKeep); edit that source, never a copy. Everything worth knowing about this folder is in its
 README.md, generated from the folder's docs/references article — an integrity test guarantees the article
-exists (see docs/adr/repository/generated-readmes.md).
+exists (see docs/drs/repository/generated-readmes.md).

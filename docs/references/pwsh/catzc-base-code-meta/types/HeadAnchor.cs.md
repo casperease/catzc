@@ -9,5 +9,5 @@ Above `namespace Catzc.Base.CodeMeta;`, written with `//`.
 
 ```text
 What must stay above a comment head: nothing, a shebang, an XML or HTML prolog, or a fixed number of preamble lines.
-[ADR-REPO-CODEMETA-CODEFILEHEAD](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta-codefilehead)
+[ADR-REPO-CODEMETA-CODEFILEHEAD](/docs/drs/repository/code-file-meta.md#rule-adr-repo-codemeta-codefilehead)
 ```

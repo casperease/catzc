@@ -63,7 +63,7 @@ and the vendored modules have loaded.
 
 ## See also
 
-- [Run modes: source mode and build mode](../../adr/design/run-modes.md) — the decision this article explains.
+- [Run modes: source mode and build mode](../../drs/design/run-modes.md) — the decision this article explains.
 - The other lenses on the same modes: [meta](where-code-loads-from-decides-the-mode.md),
   [architecture](two-roots-one-importer-same-modules.md), [operations](one-entry-script-per-mode.md) and
   [governance](which-run-mode-rules-have-a-gate.md).

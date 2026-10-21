@@ -25,5 +25,5 @@ Usage:
 
 Security: all flags default to off. Each flag is an explicit escalation.
 No credentials leak to environment variables in any mode.
-See ADR: [FDR-CD-RUNNER](/docs/adr/flow/pipeline-runner-pattern.md)
+See ADR: [FDR-CD-RUNNER](/docs/drs/flow/pipeline-runner-pattern.md)
 ```

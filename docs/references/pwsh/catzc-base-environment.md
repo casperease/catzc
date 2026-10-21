@@ -18,7 +18,7 @@ Reading and writing the durable PATH — the value kept in the operating-system 
 in-session copy. This responsibility reads the current persistent PATH, replaces it wholesale, and adds or removes individual entries by
 name. Changes here survive shell restarts because they target the system store directly; they do not appear in the running session until the
 session PATH is re-synced (see [responsibility:2](#responsibility2--session-path-synchronization)). See
-[environment-variables](../../adr/automation/environment-variables.md) for the conventions that govern how the platform reads and writes OS
+[environment-variables](../../drs/automation/environment-variables.md) for the conventions that govern how the platform reads and writes OS
 environment state.
 
 ### responsibility:2 — Session PATH synchronization
@@ -39,8 +39,8 @@ to take effect now.
 The module ships one asset alongside its public functions: `assets/Set-LocalPsModulePath.ps1`. This is a one-time helper that writes a local
 PSModulePath entry into the user-scope `powershell.config.json`, preventing PowerShell from scanning a slow network share on every import.
 It is not a public function — it is an advisory script a developer runs once when setting up a machine on a domain network. The governing
-rationale is in [module-path-hygiene](../../adr/automation/pwsh/module-path-hygiene.md) (over
-[effective-in-enterprises](../../adr/automation/effective-in-enterprises.md)).
+rationale is in [module-path-hygiene](../../drs/automation/pwsh/module-path-hygiene.md) (over
+[effective-in-enterprises](../../drs/automation/effective-in-enterprises.md)).
 
 The module has no configuration files and no private helpers. All input validation is delegated to
 [Catzc.Base.Asserts](catzc-base-asserts.md), keeping each function's body focused on the PATH operation itself.

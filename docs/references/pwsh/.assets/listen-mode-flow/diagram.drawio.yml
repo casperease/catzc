@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "52c37add6dd9"
+#     with_body_sha: b6ea7e536b7f
 # ---
 
 description:
@@ -109,7 +109,7 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
-          - docs/adr/index.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
@@ -119,7 +119,7 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
-          - docs/adr/index.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
@@ -129,7 +129,7 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
-          - docs/adr/index.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
@@ -139,7 +139,7 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
-          - docs/adr/index.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
@@ -158,11 +158,11 @@ content:
           - .claude/plans/task-user-runs-and-commits.md
           - .claude/skills/listen-insight/SKILL.md
           - .claude/skills/listen-notes/SKILL.md
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/fail-fast-with-asserts.md
-          - docs/adr/index.md
-          - docs/adr/repository/ai-agent-contract.md
-          - docs/adr/repository/dora-explains.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/fail-fast-with-asserts.md
+          - docs/drs/index.md
+          - docs/drs/repository/ai-agent-contract.md
+          - docs/drs/repository/dora-explains.md
           - docs/references/agent-contracts.md
           - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
           - docs/references/pwsh/.assets/listen-mode-flow/diagram.drawio.yml

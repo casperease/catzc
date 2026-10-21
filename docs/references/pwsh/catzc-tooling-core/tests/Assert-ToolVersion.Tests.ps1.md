@@ -12,6 +12,6 @@ Above `BeforeEach {`, written with `#`.
 ```text
 Hermetic: every collaborator is mocked in the module scope, so the assertion binds to the version-check
 LOGIC (pipeline lock vs devbox lever), never to the shipped tools.yml values or the installed toolchain.
-Fixture tools ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)): faketool carries a
+Fixture tools ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)): faketool carries a
 devbox_version lever, lockedtool has none.
 ```

@@ -15,9 +15,9 @@ registry's `categories:`).
 - **Generator:** `Build-TerminologyDictionary` writes `.cspell/<category>.txt`, each with a `#` header comment naming this source. The
   importer runs it on every load (see `importer.ps1`), so the lists stay current.
 - **Everything here is generated:** the word lists are ignored by the folder's `.gitignore`, which is itself a managed root-config copy (see
-  [generated-root-configs](../adr/repository/generated-root-configs.md)), and the folder's `README.md` is a generated link to this article
-  (see [generated-readmes](../adr/repository/generated-readmes.md)). Only the `.gitkeep` keeping the folder tracked is committed. On a fresh
+  [generated-root-configs](../drs/repository/generated-root-configs.md)), and the folder's `README.md` is a generated link to this article
+  (see [generated-readmes](../drs/repository/generated-readmes.md)). Only the `.gitkeep` keeping the folder tracked is committed. On a fresh
   clone, run `. ./importer.ps1` once so the files exist and cspell can resolve them.
 
-A hand-edit is overwritten on the next import. See [spell-out-names](../adr/automation/spell-out-names.md) and
-[dedicated-output-directory](../adr/repository/dedicated-output-directory.md) (`ADR-REPO-OUTDIR-DICTIONARIESGENERATED`).
+A hand-edit is overwritten on the next import. See [spell-out-names](../drs/automation/spell-out-names.md) and
+[dedicated-output-directory](../drs/repository/dedicated-output-directory.md) (`ADR-REPO-OUTDIR-DICTIONARIESGENERATED`).

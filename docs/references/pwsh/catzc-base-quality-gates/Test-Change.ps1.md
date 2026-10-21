@@ -12,7 +12,7 @@ Quality gate over what changed: runs the tests and the checks of the changed fil
 ### description
 
 The check a person (or an agent) runs before handing work over: instead of the whole suite and every repository-wide quality gate, only what
-the change touches ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate): a quality gate
+the change touches ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate): a quality gate
 over its declared scope — here, the changed files).
 
 ```text
@@ -22,7 +22,7 @@ tests         the test files that cover the changed files by convention (Get-Cha
               the test file of a changed function, the test file of a changed C# type), run as one test run through
               Invoke-TestFile — never a bare Invoke-Pester; each failed test is one issue;
 checks        the quality gates each changed file's language names in languages.yml (`checks`, Get-ChangeCheckPlan) —
-              configuration, not code ([PDR-CONFIG](/docs/adr/principles/configure-not-program.md)). A gate
+              configuration, not code ([PDR-CONFIG](/docs/drs/principles/configure-not-program.md)). A gate
               with a [string[]] -Path is given the changed files and every issue it finds counts; any other gate
               runs whole and an issue counts only when it names a changed file (the rest are counted as
               unattributed, not reported). A gate that throws (a tool missing) is one issue.

@@ -1,7 +1,7 @@
 # Catzc.Base.Slides
 
 The slides module. It owns the render of a deck from its slide files through the patterns of the slides kit, the gate that checks every
-slide file against the rules it quotes ([ADR-REPO-SLIDES](../../adr/repository/slides-as-markdown.md)), and the one command that renders
+slide file against the rules it quotes ([ADR-REPO-SLIDES](../../drs/repository/slides-as-markdown.md)), and the one command that renders
 every draw.io slide of the repository from its source. It deliberately does **not** own the kit's content, which is authored in the
 `catzc_diagrams` module of the python track, or the publishing of a rendered deck, which a person does after reading the render.
 

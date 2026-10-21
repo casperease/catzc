@@ -10,14 +10,14 @@ Above `parameters:`, written with `#`.
 ```text
 Whole-pipeline (extends) template — the ONE shared structure for every customer CD.
 
-Per [ADR-ADO-NAME](/docs/adr/ado/pipeline-naming-and-placement.md), customer CD is the sanctioned large-template
+Per [ADR-ADO-NAME](/docs/drs/ado/pipeline-naming-and-placement.md), customer CD is the sanctioned large-template
 case: every customer's thin pipeline (cd-apex.yaml, cd-nova.yaml, cd-flux.yaml) `extends:` this file
 and supplies only meta selection criteria — the customer key and the per-deployment env/slot/
 service-connection/assert map. No automation config is needled through
-([ADR-ADO-TEMPLATE](/docs/adr/ado/custom-template-discipline.md)).
+([ADR-ADO-TEMPLATE](/docs/drs/ado/custom-template-discipline.md)).
 
 The deploy TARGET is the az session's subscription — exactly what each entry's service connection logs
-into ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)). Nothing chains a subscription name; instead every entry pins its
+into ([ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md)). Nothing chains a subscription name; instead every entry pins its
 expectation with `subscriptionIdAssertIs` (mandatory in a pipeline), so a mis-wired service connection
 fails loudly instead of silently retargeting. The customer that renders into names is derived from the
 session subscription, and the session's customer picks the configuration/<customer>/ slot.
@@ -39,7 +39,7 @@ required to actually deploy.
 
 One customer pipeline deploys one customer's spokes; the shared hubs deploy from cd-shared.yaml. The
 rollout order across them when a spoke is added (hub, then spoke, then hub again —
-[ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](/docs/adr/azure/landing-zones.md#rule-adr-az-lz-linksneedbothnetworks)) is run by hand across the two pipelines, not encoded here.
+[ADR-AZ-LZ-LINKSNEEDBOTHNETWORKS](/docs/drs/azure/landing-zones.md#rule-adr-az-lz-linksneedbothnetworks)) is run by hand across the two pipelines, not encoded here.
 
 Triggers live in the thin root pipelines that extend this template — `trigger:` / `pr:` are honored
 only at the pipeline root, not inside an extends template.

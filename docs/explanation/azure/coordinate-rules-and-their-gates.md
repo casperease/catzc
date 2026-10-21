@@ -65,8 +65,8 @@ check cites ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY and the filename parser cites ADR-
 
 ## See also
 
-- [Templating data model](../../adr/azure/azure-data-model.md) — the decision this article explains, with the
-  [customer model](../../adr/azure/azure-customer-model.md) it pairs with.
+- [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains, with the
+  [customer model](../../drs/azure/azure-customer-model.md) it pairs with.
 - The other lenses on the same coordinate: [meta](config-path-is-a-coordinate.md), [architecture](two-layers-join-through-one-resolver.md),
   [implementation](coordinate-resolved-file-by-file-at-discovery.md) and [operations](a-bad-coordinate-stops-discovery.md).
 - [The Azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

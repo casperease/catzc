@@ -45,7 +45,7 @@ Above `$fixturePaths = [string[]] @($allTermPaths | Where-Object {...`, written 
 
 ```text
 Fixture terms (.cspell/fixture.txt) are test-only vocabulary
-([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)): kept separate so
+([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)): kept separate so
 the oracle
 accepts them only when analyzing a test file, never in production code.
 ```
@@ -65,7 +65,7 @@ Above `$isTestScope = Test-AnalyzedFileIsTest -ScriptBlockAst $ScriptBlockAst...
 
 ```text
 A test file may use fixture vocabulary
-([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)); production code may
+([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)); production code may
 not. Fixture terms are accepted
 only when the file under analysis is a test (`*.Tests.ps1` or under a `tests/` folder).
 ```
@@ -86,7 +86,7 @@ Above `$isVariable = {`, written with `#`.
 ```text
 Every variable reference — assignment targets, parameters, loop variables, and reads — so a coined name
 is caught wherever it is defined. Predicate as a local
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
 ```
 
 ## comment:9
@@ -95,7 +95,7 @@ Above `if ($variablePath.DriveName) {`, written with `#`.
 
 ```text
 $env:, $function:, $variable: … — an external/special drive, not an identifier we choose
-([ADR-AUTO-SPELL-IDENTIFIERSNOTDATA](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-identifiersnotdata)).
+([ADR-AUTO-SPELL-IDENTIFIERSNOTDATA](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-identifiersnotdata)).
 ```
 
 ## comment:10
@@ -104,5 +104,5 @@ Above `$isFunction = {`, written with `#`.
 
 ```text
 The noun of each function name (the verb is checked by PSUseApprovedVerbs). Predicate as a local
-([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
+([ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound)).
 ```

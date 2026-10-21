@@ -57,8 +57,8 @@ The decision describes a pipeline stage that runs `Test-GlobSetAffected` first; 
 
 ## See also
 
-- [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains.
-- [Pipeline detection](../../adr/flow/pipeline-detection.md) — the one detection function the resolver asks.
+- [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
+- [Pipeline detection](../../drs/flow/pipeline-detection.md) — the one detection function the resolver asks.
 - The other lenses on the same check: [meta](every-doubt-fails-open-to-proceed.md),
   [implementation](range-per-context-then-diff-and-match.md), [operations](stop-only-on-false-everything-else-proceeds.md) and
   [governance](tests-pin-the-throw-and-fail-open-cd-calls-it.md).

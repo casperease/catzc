@@ -1,8 +1,8 @@
 # Add a fact to a file's head
 
 A file's **head** is the one block of facts the tooling owns about it. What decides whether a file has one, and what it holds, is
-[ADR-REPO-FILEMETA](../../adr/repository/file-meta.md); how a code file carries it is
-[ADR-REPO-CODEMETA](../../adr/repository/code-file-meta.md). This guide takes a wanted fact to an imprinted head, and restates none of their
+[ADR-REPO-FILEMETA](../../drs/repository/file-meta.md); how a code file carries it is
+[ADR-REPO-CODEMETA](../../drs/repository/code-file-meta.md). This guide takes a wanted fact to an imprinted head, and restates none of their
 rules.
 
 ## Decide which head the fact belongs to

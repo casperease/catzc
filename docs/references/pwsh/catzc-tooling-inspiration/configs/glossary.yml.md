@@ -9,6 +9,6 @@ Above `concepts:`, written with `#`.
 
 ```text
 glossary.yml — the Catzc.Tooling.Inspiration glossary source: the vocabulary of the inspirations this module declares
-([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)). Every option is defaulted
-([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). Checked by Test-Glossary.
+([ADR-REPO-VOCAB](/docs/drs/repository/controlled-vocabulary.md)). Every option is defaulted
+([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). Checked by Test-Glossary.
 ```

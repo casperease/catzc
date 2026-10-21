@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c40090fba168
+#     with_body_sha: "90fbddc35205"
 # ---
 
 description:
@@ -114,9 +114,9 @@ content:
           - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
       - cell: docs/-/.
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/platform-bundle.md
-          - docs/adr/index.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/platform-bundle.md
+          - docs/drs/index.md
           - docs/references/github/workflows/ci-pwsh.yml.md
           - docs/references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
           - docs/references/pwsh/catzc-base-exporter/Assert-CatzcBundle.ps1.md

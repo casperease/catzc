@@ -14,8 +14,8 @@ The adr-codes meta kind's fact: the ADR citations the file and its comment page 
 A citation is `ADR-<CODE>#<n>`; the colon form belongs to a rule's own heading and is no citation. A rule the file defines itself is listed
 under `defines`, never here, and a code the ADR index does not register is no citation. A file whose class the kind's `domain_classes`
 setting names also lists a bare `ADR-<CODE>`; the setting defaults to the classes the kind selects. The codes come from the text alone,
-never from the head ([ADR-REPO-FILEMETA-NOREADBACK](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)). The
-spelling is [ADR-REPO-LINK-ONECITATIONSPELLING](../../../../adr/repository/markdown-links.md#rule-adr-repo-link-onecitationspelling), and
+never from the head ([ADR-REPO-FILEMETA-NOREADBACK](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)). The
+spelling is [ADR-REPO-LINK-ONECITATIONSPELLING](../../../../drs/repository/markdown-links.md#rule-adr-repo-link-onecitationspelling), and
 the order is ordinal, so a rerun never moves a code.
 
 ### parameter `State`

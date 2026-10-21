@@ -40,9 +40,9 @@ pipeline reads the hosted-agent locations.
 Above `version: "5"` (occurrence 2), written with `#`.
 
 ```text
-zsh 5 — the third execution engine ([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)) and the checker of
+zsh 5 — the third execution engine ([ADR-AUTO-ENGINE](/docs/drs/automation/execution-engines.md)) and the checker of
 the repository's *.zsh scripts (Test-ShellScripts runs `zsh -n`,
-[ADR-AUTO-BASH-SHELLSCRIPTSCHECKED](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-shellscriptschecked)).
+[ADR-AUTO-BASH-SHELLSCRIPTSCHECKED](/docs/drs/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-shellscriptschecked)).
 ```
 
 ## comment:5
@@ -251,7 +251,7 @@ Above `version: "0.11"`, written with `#`.
 ```text
 ShellCheck 0.11 — the analyzer for the repository's shell scripts (*.sh, the importer.sh dispatcher), run by the
 Test-ShellScripts quality gate
-([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md): bash scripts take the checks that read them). Windows: winget
+([ADR-AUTO-ENGINE](/docs/drs/automation/execution-engines.md): bash scripts take the checks that read them). Windows: winget
 koalaman.shellcheck as a user-scope portable (no admin). macOS: brew. Linux: the distribution's package, which needs
 root (Install-Shellcheck).
 ```

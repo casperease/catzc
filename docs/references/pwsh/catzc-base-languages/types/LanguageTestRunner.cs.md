@@ -9,7 +9,7 @@ Above `public sealed class LanguageTestRunner`, written with `//`.
 
 ```text
 How a test-artifact language's tests run: the command that runs them, the tools that must resolve first, and the parameter the tool's
-path binds to ([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](/docs/adr/automation/module-model.md#rule-adr-auto-module-checksbylanguage)).
+path binds to ([ADR-AUTO-MODULE-CHECKSBYLANGUAGE](/docs/drs/automation/module-model.md#rule-adr-auto-module-checksbylanguage)).
 ```
 
 ## comment:2

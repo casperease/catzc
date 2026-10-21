@@ -5,7 +5,7 @@ Started 2026-10-21T05:24:52.8629145+02:00.
 - 2026-10-21 Jack: If only the article had said relative to what: pwsh/Catzc.Base.QualityGates/Test-Plans.ps1:47 resolves -Path with
   GetFullPath against the process directory, while docs/references/pwsh/catzc-base-qualitygates/Test-Plans.ps1.md:37 says only the plans
   folder to check, so every relative caller is checked against the wrong folder, politely.
-- 2026-10-21 Jack: If only the gate looked for what is missing: docs/adr/repository/plans.md:31 (ADR-REPO-PLANS-OPENSTEP) defines an open
+- 2026-10-21 Jack: If only the gate looked for what is missing: docs/drs/repository/plans.md:31 (ADR-REPO-PLANS-OPENSTEP) defines an open
   step as a checkbox line and Test-Plans.ps1.md:24 checks only - [ ] items, but nothing in the tree flags a numbered step without a
   checkbox, so it passes the gate and escapes the closing sweep alike.
 - 2026-10-21 Jack: If only the learning had waited a commit: .claude/agents/fact-checker.md:11 runs on haiku and its registry entry at
@@ -38,7 +38,7 @@ Started 2026-10-21T05:24:52.8629145+02:00.
 - 2026-10-21 Jack: If only the one place had a page: pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs:150 renders every test folder name
   through TestFolderOf, called by Invoke-PythonTest.ps1:54 and Invoke-GoTest.ps1:52, but no article under docs/references/ names it, so a
   session finds the single source only by grep.
-- 2026-10-21 Jack: If only the lock had a janitor: docs/adr/automation/python/python-test-artifacts.md:43 and .gitignore:120 declare uv.lock
+- 2026-10-21 Jack: If only the lock had a janitor: docs/drs/automation/python/python-test-artifacts.md:43 and .gitignore:120 declare uv.lock
   a gitignored product of uv sync, but nothing in the tree deletes it or warns that it pins member paths, so every member move ends in a red
   uv sync and a manual delete.
 - 2026-10-21 Jack: If only one living version applied to slugs: the module-to-kebab rule, ToLowerInvariant then dot to hyphen, is spelled
@@ -52,10 +52,10 @@ Started 2026-10-21T05:24:52.8629145+02:00.
   quoted arguments, as .claude/skills/catzc-run/SKILL.md:18 prescribes, so a cats call never needs a comma list, but nothing in the tree
   warns a script of one's own that pwsh -File hands it one string.
 - 2026-10-21 Jack: If only the tip had read the rules before proposing to break them: .claude/CLAUDE.md:124 forbids batch-editing many files
-  with scripts and docs/adr/repository/ai-agent-contract.md:40 says one file at a time, read back, so a burst of apply and rollback scripts
+  with scripts and docs/drs/repository/ai-agent-contract.md:40 says one file at a time, read back, so a burst of apply and rollback scripts
   is the very sweep the tree bans, rollback included.
 - 2026-10-21 Jack: If only the session had read the config article:
   docs/references/pwsh/catzc-base-qualitygates/configs/file-meta.yml.md:30-31 already says a meta kind with no select applies to every file
   that carries a head, so a select-less body-sha was always going to meet every carrier, BodyHash or not.
-- 2026-10-21 Jack: If only the session had read the config ADR: docs/adr/configuration/module-config-loading.md:22 already says Get-Config
+- 2026-10-21 Jack: If only the session had read the config ADR: docs/drs/configuration/module-config-loading.md:22 already says Get-Config
   caches by resolved file path and invalidates only by re-import, so a peer sees the edit at its next fresh import and not a moment sooner.

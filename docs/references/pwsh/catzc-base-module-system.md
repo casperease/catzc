@@ -4,9 +4,9 @@ The module-system introspection module: the one place the platform turns to reas
 on disk, what the module-to-module and function-to-function dependency edges actually are, and whether those edges — together with the
 cross-module C# type edges computed by [Catzc.Base.TypesSystem](catzc-base-types-system.md) — conform to the group-aware declared graph in
 `dependencies.yml`. Its quality gates are the mechanical guard that keeps the layering and the module conventions honest (see
-[controlling-module-dependencies](../../adr/automation/controlling-module-dependencies.md),
-[open-closed-architecture](../../adr/automation/open-closed-architecture.md), and
-[native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)); copying the toolset and generating the repository's `importer.ps1`
+[controlling-module-dependencies](../../drs/automation/controlling-module-dependencies.md),
+[open-closed-architecture](../../drs/automation/open-closed-architecture.md), and
+[native-csharp-types](../../drs/automation/BCL/native-csharp-types.md)); copying the toolset and generating the repository's `importer.ps1`
 entry point complete the module's concern. The native C# type system itself — the compiled-assembly cache and the cross-module
 type-reference scanner — lives in [Catzc.Base.TypesSystem](catzc-base-types-system.md).
 
@@ -31,7 +31,7 @@ sites.
 
 Computing the actual dependency edges — module-to-module through PowerShell call-site analysis and function-to-function through call-graph
 traversal from a named root — rendering them, ordering the modules foundation-first, and checking them with quality gates
-([ADR-AUTO-TEST-QUALITYGATE](../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The actual edges, together with the
+([ADR-AUTO-TEST-QUALITYGATE](../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The actual edges, together with the
 cross-module C# type edges that [Catzc.Base.TypesSystem](catzc-base-types-system.md) computes, are checked against the declared graph in
 `dependencies.yml`; the whole call graph is checked for cycles; and every function call is checked to resolve to a defined command. The
 declared graph is group-aware: its `groups:` section names sets of on-disk modules each with an internal member-to-member DAG; its
@@ -43,8 +43,8 @@ this responsibility owns — `dependencies.yml` — is the platform's single dec
 The quality gates over the shape of the module tree itself: every module folder follows the folder and file conventions, every checked-in
 binary under `pwsh/.vendor` and `pwsh/.compiled` is stored byte-exact, and every internal asset dependency — a module reading a file from
 its own folder — is inventoried from the code and covered by a test that runs in both run modes (see
-[conventional-folders](../../adr/repository/conventional-folders.md) and
-[internal-asset-dependencies](../../adr/automation/internal-asset-dependencies.md)).
+[conventional-folders](../../drs/repository/conventional-folders.md) and
+[internal-asset-dependencies](../../drs/automation/internal-asset-dependencies.md)).
 
 ### responsibility:4 — Toolset model and copy
 
@@ -82,11 +82,11 @@ The `Base` group is the primary instance of this schema: it holds the cluster of
 `Catzc.Base.ModuleSystem` is itself a member, with its own declared intra-group dependencies. A feature module such as `Catzc.Azure` or
 `Catzc.Tooling.Core` declares `[Base]` in its `modules:` entry, which permits an edge to any member without naming each individually.
 
-The gates are the mechanical evidence that the [open-closed-architecture](../../adr/automation/open-closed-architecture.md) rules hold:
+The gates are the mechanical evidence that the [open-closed-architecture](../../drs/automation/open-closed-architecture.md) rules hold:
 extending the platform means adding new files, and the gates are what prove no addition created a layering violation or broke a module
 convention. The cross-module C# type edges that PowerShell call-site analysis cannot see are computed by
 [Catzc.Base.TypesSystem](catzc-base-types-system.md)'s `Get-CSharpTypeDependency` (see
-[native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)) and folded into `Test-ModuleDependency`, completing the edge set it
+[native-csharp-types](../../drs/automation/BCL/native-csharp-types.md)) and folded into `Test-ModuleDependency`, completing the edge set it
 runs against.
 
 The diagram below draws the two dependency graphs from the source. The declared graph in `dependencies.yml` orders the test run and closes

@@ -50,7 +50,7 @@ Above `$needsInstall = $true`, written with `#`.
 Decide whether to run the install script. Our own install dir wins the check: when it already holds
 the locked version the download is skipped, but the environment is STILL converged below — re-running
 repairs a lost PATH/DOTNET_ROOT persistence instead of returning past it
-([ADR-AUTO-IDEM-CHECKBEFOREACTING](/docs/adr/automation/idempotent-state-functions.md#rule-adr-auto-idem-checkbeforeacting)). Without this,
+([ADR-AUTO-IDEM-CHECKBEFOREACTING](/docs/drs/automation/idempotent-state-functions.md#rule-adr-auto-idem-checkbeforeacting)). Without this,
 a session where dotnet resolves through the session janitor's PATH hints masks a broken persistent
 PATH forever, and every non-repo process (an editor's language server) fails to find dotnet.
 ```
@@ -72,7 +72,7 @@ Above `if ($IsWindows) {`, written with `#`.
 
 ```text
 Resolve the vendored install script shipped in this module's assets/
-([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency))
+([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency))
 ```
 
 ## comment:4
@@ -83,5 +83,5 @@ Above `if ($env:DOTNET_ROOT -ne $installDir) {`, written with `#`.
 Converge the environment on every run that owns the install — session + persistent, both idempotent.
 This is the PATH non-repo processes resolve dotnet through.
 Each change is announced where it happens, and only when it changes something
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).
 ```

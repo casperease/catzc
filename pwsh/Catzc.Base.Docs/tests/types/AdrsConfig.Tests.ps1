@@ -2,14 +2,14 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "314931937db1"
+    with_body_sha: "8f3f14d96be5"
   edges:
     docs: "[AdrsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
     cites:
       - ADR-AUTO-LAYERS-REALISENEVERREDEFINE
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
-      - ADR-REPO-ADRCODE-DOMAINSEGMENT
+      - ADR-REPO-DRSCODE-DOMAINSEGMENT
       - ADR-REPO-LANG
       - DDR-TRACK-VALUECHAINSTACK
       - DDR-TRACK-VALUECHAINCONCERN
@@ -39,7 +39,7 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         }
     }
 
-    Context 'record kinds' -Tag 'ADR-REPO-ADRCODE-DOMAINSEGMENT' {
+    Context 'record kinds' -Tag 'ADR-REPO-DRSCODE-DOMAINSEGMENT' {
         It 'registers the one shared kind ADR when the registry declares none' {
             $config = [Catzc.Base.Docs.AdrsConfig]::new((New-ValidRaw))
             $config.Kinds | Should -Be @('ADR')
@@ -184,8 +184,8 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: root, kinds, domains)*"
     }
 
-    It 'keeps every decision record under docs/adr when the registry names no root' {
-        [Catzc.Base.Docs.AdrsConfig]::new((New-ValidRaw)).Root | Should -Be 'docs/adr'
+    It 'keeps every decision record under docs/drs when the registry names no root' {
+        [Catzc.Base.Docs.AdrsConfig]::new((New-ValidRaw)).Root | Should -Be 'docs/drs'
     }
 
     It 'reads the root the registry names' {
@@ -329,7 +329,7 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
             @($config.RuleSets | Where-Object Domain -EQ 'beta').Folder | Should -Be @('alpha/beta', 'alpha/beta')
         }
 
-        It 'throws on a folder that leaves docs/adr or is not a relative path' {
+        It 'throws on a folder that leaves docs/drs or is not a relative path' {
             foreach ($folder in '../alpha', 'alpha/../beta', '/alpha', 'alpha/', 'alphaeta') {
                 $raw = New-ValidRaw
                 $raw.domains.beta['folder'] = $folder

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d69f62a42c7f
+    with_body_sha: "953a53bd393e"
   edges:
     code: pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs
     cites:
@@ -13,7 +13,7 @@ catzc:
 ---
 #>
 
-# Rests on [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities) and [ADR-REPO-AGENTS-NOORPHANNOGHOST](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-noorphannoghost).
+# Rests on [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities) and [ADR-REPO-AGENTS-NOORPHANNOGHOST](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-noorphannoghost).
 Describe 'CapabilitiesConfig' -Tag 'L0', 'logic', 'ADR-REPO-AGENTS-CAPABILITYREGISTERED' {
     BeforeAll {
         $script:widget = [ordered]@{ name = 'widget-spin'; supported_by = @('ADR-WIDGET-ONE-TURN'); checks = @('Test-Widget') }

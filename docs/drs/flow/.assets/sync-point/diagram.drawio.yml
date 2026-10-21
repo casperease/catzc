@@ -1,0 +1,289 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: "70adc9dacfef"
+# ---
+
+description:
+  Upstream consumers sync from the latest BVT-verified HEAD of the server's main and never from the dirty tip, a commit that landed after it
+  and is not yet judged or failed; the main-UAT occupant is a separate fact, with the verified HEAD queued as its next candidate.
+about:
+  adrs:
+    - DDR-REMOTE-INTEGRATEFROMVERIFIED
+    - FDR-CD-LIFE-DIRTYHEADUNSAFE
+    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+    - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+  lens: architecture
+content:
+  title: Upstream consumers sync from the BVT-verified HEAD, never from the dirty tip
+  kind: reference
+  flow: left-to-right
+  relation: points at
+  theme: dark
+  bands:
+    - id: band-consumers
+      label: UPSTREAM
+    - id: band-server
+      label: SERVER MAIN
+    - id: band-uat
+      label: MAIN-UAT
+  glyphs:
+    - id: g-integrator
+      kind: actor
+      label: upstream integrator
+      in: band-consumers
+    - id: c-verified
+      kind: commit
+      label: BVT-verified HEAD
+      in: band-server
+    - id: c-tip
+      kind: commit
+      label: dirty tip
+      in: band-server
+      state: landed
+      ghost: true
+    - id: e-main-uat
+      kind: env
+      label: main-UAT
+      in: band-uat
+    - id: c-occupant
+      kind: commit
+      label: occupant
+      in: e-main-uat
+      state: main-uat
+  edges:
+    - from: g-integrator
+      to: c-verified
+      kind: flow
+      label: syncs from
+    - from: g-integrator
+      to: c-tip
+      kind: fail
+      label: never
+    - from: c-verified
+      to: e-main-uat
+      kind: flow
+      label: next candidate
+    - from: c-verified
+      to: c-tip
+      kind: flow
+      label: lands after
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by:
+          - .claude/CLAUDE.md
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: docs/-/.
+        by:
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/server-remote-integration.md
+          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+    grid:
+      - cell: .claude/markdown
+        by:
+          - .claude/CLAUDE.md
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: ado-pipelines/pipeline-yaml
+        by:
+          - .ado/pipelines/ci-pwsh.yaml
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: docs/markdown
+        by:
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/server-remote-integration.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: docs/yaml
+        by:
+          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/adrs.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    axis:
+      - cell: DSGN/build
+        by:
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+      - cell: DSGN/quality-control
+        by:
+          - DDR-REMOTE-INTEGRATEFROMVERIFIED
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: DSGN/release
+        by:
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: DSGN/deploy
+        by:
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+layout:
+  band-consumers:
+    x: 20
+    y: 84
+    w: 300
+    h: 380
+  band-server:
+    x: 340
+    y: 84
+    w: 540
+    h: 380
+  band-uat:
+    x: 900
+    y: 84
+    w: 380
+    h: 380
+  g-integrator:
+    x: 90
+    y: 250
+    w: 160
+    h: 52
+  c-verified:
+    x: 480
+    y: 150
+    w: 260
+    h: 44
+  c-tip:
+    x: 480
+    y: 360
+    w: 260
+    h: 44
+  e-main-uat:
+    x: 960
+    y: 140
+    w: 260
+    h: 72
+  c-occupant:
+    x: 1130
+    y: 162
+    w: 80
+    h: 28

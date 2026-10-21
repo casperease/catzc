@@ -12,7 +12,7 @@ Resolves a (possibly repo-relative or out/-anchored) path to an absolute one —
 ### description
 
 Companion to ConvertTo-RepoRelativePath, and the binding helper for the path-representation contract
-([ADR-AUTO-PATH](../../../adr/automation/path-representation.md)). Resolution rules, in order:
+([ADR-AUTO-PATH](../../../drs/automation/path-representation.md)). Resolution rules, in order:
 
 - A path under the reserved 'out/' anchor resolves against Get-OutputRoot, NOT the repository root. The output root is context-dependent
   ({root}/out on a devbox, the external staging directory in a pipeline), so the SAME stored 'out/...' string re-anchors to the right place

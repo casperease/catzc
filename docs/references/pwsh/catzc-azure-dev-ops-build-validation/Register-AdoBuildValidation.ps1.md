@@ -11,16 +11,16 @@ Registers (creates or updates) the build-validation branch policy tied to a glob
 
 ### description
 
-Binds the globset's native path projection (Get-GlobSetTrigger, [FDR-CD-GLOBS](../../../adr/flow/durable-sha-globs.md)) as the path
+Binds the globset's native path projection (Get-GlobSetTrigger, [FDR-CD-GLOBS](../../../drs/flow/durable-sha-globs.md)) as the path
 filter of an ADO build-validation policy that queues the resolved pipeline on the guarded branch — the server-side pre-commit half of the
-unit's CI binding ([FDR-CD-TYPE-PRECOMMITBUDGET](../../../adr/flow/pipeline-types.md#rule-fdr-cd-type-precommitbudget)).
+unit's CI binding ([FDR-CD-TYPE-PRECOMMITBUDGET](../../../drs/flow/pipeline-types.md#rule-fdr-cd-type-precommitbudget)).
 Everything defaults from local config: the pipeline resolves -Pipeline, then the globset's build-validation.yml entry, then the globset's
 own 'pipeline:' annotation in globs.yml; the branch resolves -Branch, then build-validation.yml 'branch'; blocking and the display name come
 from the entry (defaults: blocking, 'Build validation - `<globset>`'). The policy is Azure DevOps configuration, an adjacent store
-([TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../../../adr/thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)),
+([TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../../../drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)),
 driven one way from the repository and never edited beside the trunk.
 
-Idempotent ([ADR-AUTO-IDEM](../../../adr/automation/idempotent-state-functions.md)): an existing policy for the same pipeline on the same
+Idempotent ([ADR-AUTO-IDEM](../../../drs/automation/idempotent-state-functions.md)): an existing policy for the same pipeline on the same
 branch is updated when it differs and left alone when current; the resulting policy configuration is returned either way. The matching
 existing policy is found by pipeline definition + branch, so a marker-path or display-name change updates the policy in place instead of
 creating a duplicate.
@@ -73,6 +73,6 @@ Above `$pathFilters = Get-BuildValidationPathFilter -GlobSet $set`, written with
 ```text
 The server-side pre-commit trigger filters on the globset's native path projection
 (Get-BuildValidationPathFilter -> Get-GlobSetTrigger,
-[FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)) — the same globs the pipeline
+[FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md)) — the same globs the pipeline
 triggers on — never a committed marker.
 ```

@@ -12,7 +12,7 @@ The graph helpers behind the declared module dependency graph (configs/dependenc
 node's dependency list from the parsed YAML, and finding a cycle in a node -> dependencies adjacency map.
 Shared by DependenciesConfig (the module graph) and ModuleGroup (each group's internal member graph), so
 both graphs read and cycle-check the same way
-([ADR-AUTO-DEPM-GROUPAWAREINTEGRITY](/docs/adr/automation/controlling-module-dependencies.md#rule-adr-auto-depm-groupawareintegrity)).
+([ADR-AUTO-DEPM-GROUPAWAREINTEGRITY](/docs/drs/automation/controlling-module-dependencies.md#rule-adr-auto-depm-groupawareintegrity)).
 ```
 
 ## comment:2

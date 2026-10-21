@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5178573b10e7"
+#     with_body_sha: "70455a91bd3d"
 # ---
 
 # cspell:ignore minimaps textlength LANCZOS
@@ -70,8 +70,8 @@ def kinds():
 
 @cache
 def records_root():
-    """The repository-relative folder of every decision record: adrs.yml's root, else the default AdrsConfig.DefaultRoot declares, docs/adr."""
-    return registry("pwsh/Catzc.Base.Docs/configs/adrs.yml").get("root") or "docs/adr"
+    """The repository-relative folder of every decision record: adrs.yml's root, else the default AdrsConfig.DefaultRoot declares, docs/drs."""
+    return registry("pwsh/Catzc.Base.Docs/configs/adrs.yml").get("root") or "docs/drs"
 
 
 @cache

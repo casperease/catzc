@@ -35,4 +35,4 @@ shipped `assets/`. Tests that must validate the _shipped_ assets belong in `test
 seam).
 
 Full rationale — logic vs integrity tests, isolation via seams, mocking discipline, the gotchas — is the
-[`test-automation`](../../../../docs/adr/automation/test-automation.md) ADR.
+[`test-automation`](../../../../docs/drs/automation/test-automation.md) ADR.

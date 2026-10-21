@@ -11,8 +11,8 @@ Above `It 'orders every dependency before its dependents (diamond + independent.
 Isolate the sort from the shipped tools.yml by mocking the config seam to a controlled graph: this
 verifies the ALGORITHM (dependencies-before-dependents, a diamond, an independent root, and cycle
 detection), never the production tool set
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)/[ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)). 'base/mid1/mid2/top/lone' are fixture
-identities ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) — nothing here
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)/[ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)). 'base/mid1/mid2/top/lone' are fixture
+identities ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) — nothing here
 binds to a real tool name.
 ```
 
@@ -23,7 +23,7 @@ Above `BeforeAll {`, written with `#`.
 ```text
 Binds to the shipped config as a SET, asserting invariants that hold for every tool — never a
 specific tool name or a hardcoded pairing
-([ADR-AUTO-TEST-GENERICTEMPLATETESTS](/docs/adr/automation/test-automation.md#rule-adr-auto-test-generictemplatetests)). The ordering algorithm
+([ADR-AUTO-TEST-GENERICTEMPLATETESTS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-generictemplatetests)). The ordering algorithm
 itself is proven by the
 logic Context above.
 ```

@@ -52,7 +52,7 @@ Knowing that one method sits behind all three roles tells a reader where a chang
 
 ## See also
 
-- [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains.
+- [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
 - The other lenses on the same globset roles: [meta](three-views-derived-live-from-one-program.md),
   [architecture](globs-module-owns-config-and-types.md), [operations](edit-globs-yml-then-read-the-output.md) and
   [governance](gates-check-source-and-trigger.md).

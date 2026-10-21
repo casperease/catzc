@@ -11,7 +11,7 @@ Above `targetScope = 'subscription'`, written with `//`.
 discovery — the CAF application landing zone. Deployed once per subscription (envs nsub/psub) at
 subscription scope: a hub in each shared subscription, a spoke in each customer subscription. The
 kind, the address space, and the subnets come from network.yml by config address, so the IP plan is
-read, never copied ([ADR-AZ-NETWORK-ONEIPPLAN](/docs/adr/azure/azure-network-model.md#rule-adr-az-network-oneipplan)).
+read, never copied ([ADR-AZ-NETWORK-ONEIPPLAN](/docs/drs/azure/azure-network-model.md#rule-adr-az-network-oneipplan)).
 
 Both kinds deploy one resource group with the virtual network (every subnet inline), a network security
 group per subnet named in networkSecurityGroupNames, the activity log and the network diagnostics to

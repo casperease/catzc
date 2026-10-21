@@ -18,12 +18,12 @@ An issue is an unresolved call ('`<caller>` -> `<missing>` (`<module>/<file>:<li
 (module-root) function name — exported names must be globally unique, mirroring the importer's Assert-UniqueModuleFunctionName. Duplicate
 private names across modules are allowed (privates are module-scoped and not exported).
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends through
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends through
 Write-QualityGateReport, which writes out/test-function-dependency/, prints every issue, and throws once listing them all; -PassThru returns
 the result instead.
 
 Must run post-import so Get-Command covers all loaded modules. Reads the per-function source files, which exist only in the source tree, so
-it stops with a named error in build mode (Assert-SourceTree, [DDR-RUNMODE](../../../adr/design/run-modes.md)).
+it stops with a named error in build mode (Assert-SourceTree, [DDR-RUNMODE](../../../drs/design/run-modes.md)).
 
 ### parameter `ModulesRoot`
 
@@ -59,7 +59,7 @@ Above `$parsed = [System.Collections.Generic.List[object]]::new()`, written with
 
 ```text
 Parse every source .ps1 ONCE ([System.IO] recursive — Get-ChildItem -Recurse carries ~20ms/call provider
-overhead, [ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)); the definition map
+overhead, [ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)); the definition map
 and the call-resolution walk reuse these ASTs, so each file is read and parsed a single time. The walk itself is
 [Catzc.Base.ModuleSystem.FunctionCallCollector] — one C# pass per function, not scriptblock-predicate FindAll calls.
 ```

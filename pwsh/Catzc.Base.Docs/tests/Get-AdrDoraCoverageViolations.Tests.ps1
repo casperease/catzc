@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "92ebd548a523"
+    with_body_sha: d1e035c58b2b
   edges:
     docs: "[Get-AdrDoraCoverageViolations.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-AdrDoraCoverageViolations.ps1
@@ -90,15 +90,15 @@ Describe 'Get-AdrDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUAL
     }
 
     It 'reports a rule set no section links, even when a link outside any section names it' {
-        $findings | Should -Contain 'docs/adr/widget/dora-explains.md: no section links ADR-WI-TWO (docs/adr/widget/sub/widget-two.md)'
+        $findings | Should -Contain 'docs/drs/widget/dora-explains.md: no section links ADR-WI-TWO (docs/drs/widget/sub/widget-two.md)'
     }
 
     It 'reports a rule set two sections link, with both sections'' heading lines' {
-        $findings | Should -Contain 'docs/adr/gadget/dora-explains.md:3,7: 2 sections link ADR-GA-ONE (docs/adr/gadget/gadget-one.md)'
+        $findings | Should -Contain 'docs/drs/gadget/dora-explains.md:3,7: 2 sections link ADR-GA-ONE (docs/drs/gadget/gadget-one.md)'
     }
 
     It 'reports a domain without a DORA file once per rule set' {
-        $findings | Should -Contain 'docs/adr/gizmo/dora-explains.md: missing, so no section links ADR-GZ-ONE'
+        $findings | Should -Contain 'docs/drs/gizmo/dora-explains.md: missing, so no section links ADR-GZ-ONE'
     }
 
     It 'passes a rule set with exactly one section and skips one with no ADR file' {
@@ -110,7 +110,7 @@ Describe 'Get-AdrDoraCoverageViolations' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUAL
         $exempt = Get-Finding ([ordered]@{ exempt = [ordered]@{ gizmo = 'Gizmo is the reference itself.' } })
         $exempt | Where-Object { $_ -like '*gizmo*' } | Should -HaveCount 0
         $renamed = Get-Finding ([ordered]@{ file = 'gadget-notes.md'; exempt = [ordered]@{ gizmo = 'Gizmo is the reference itself.' } })
-        $renamed | Should -Contain 'docs/adr/widget/gadget-notes.md: missing, so no section links ADR-WI-ONE'
+        $renamed | Should -Contain 'docs/drs/widget/gadget-notes.md: missing, so no section links ADR-WI-ONE'
     }
 
     It 'skips a rule set whose ADR lies in an exempt folder, and only that one' -Tag 'PDR-CONFIG-EXCEPTIONISCONFIGENTRY' {

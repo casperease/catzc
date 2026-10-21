@@ -3,10 +3,10 @@
 The contracts module. It **makes the repository's contracts binding**: every contract asset under `contracts/` is checked against the real
 files it constrains, and every released version folder is held to the `.frozen` record written when it was released, so a change that breaks
 a contract fails here and not at a consumer or a platform
-([api-contracts](../../adr/repository/api-contracts.md#rule-adr-repo-contract-provenbytests)). It owns the mechanism — listing the assets,
+([api-contracts](../../drs/repository/api-contracts.md#rule-adr-repo-contract-provenbytests)). It owns the mechanism — listing the assets,
 checking them, freezing a release, and writing the contract reference — but **not** the assets themselves: each asset sits in the folder of
 the module that talks to the outside party, such as [Catzc.Tooling.Github](catzc-tooling-github.md) for the workflow files GitHub reads. The
-layout and the rules are the subject of [api-contracts](../../adr/repository/api-contracts.md); the folder itself is described in
+layout and the rules are the subject of [api-contracts](../../drs/repository/api-contracts.md); the folder itself is described in
 [the contracts surface](../contracts.md).
 
 ## Responsibilities
@@ -43,7 +43,7 @@ root, and the direction from the convention, which a version's `contract.yml` ov
 module's target root is one configured setting, the repository root by default. How one asset addresses many files is a configured setting
 with a sensible default; only the full-path mode is built, and selecting a declared mode that is not built throws. A command contract, the
 asset that states a command's call interface, is listed the same way and read by the one reader of the contract language
-([command-contracts](../../adr/repository/command-contracts.md)): its parameters, output and one-line signature as a typed record.
+([command-contracts](../../drs/repository/command-contracts.md)): its parameters, output and one-line signature as a typed record.
 
 ### responsibility:4 — Release freezing
 
@@ -65,16 +65,16 @@ file — there is no registry to keep in step. Responsibility 2 turns that list 
 the quality gate built on those records, adding the freeze comparison and the verdict. Keeping the per-asset check a separate, record-only
 step is what lets an owning module test its own assets in its own tests while the quality gate covers them all.
 
-Two rules from [api-contracts](../../adr/repository/api-contracts.md) shape the release half. A released provided contract is kept while a
+Two rules from [api-contracts](../../drs/repository/api-contracts.md) shape the release half. A released provided contract is kept while a
 consumer pins it — the one sanctioned backwards compatibility in the repository
-([ADR-REPO-CONTRACT-KEPTWHILEPINNED](../../adr/repository/api-contracts.md#rule-adr-repo-contract-keptwhilepinned)) — so the quality gate
+([ADR-REPO-CONTRACT-KEPTWHILEPINNED](../../drs/repository/api-contracts.md#rule-adr-repo-contract-keptwhilepinned)) — so the quality gate
 keeps checking the provided assets of older released folders, but not their depended-on assets, which follow their platform. And a released
-folder is immutable ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)):
+folder is immutable ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)):
 responsibility 4 writes the `.frozen` record once, and responsibility 1 holds the folder to it on every run. The release version itself
 comes from [Catzc.Base.Exporter](catzc-base-exporter.md) (`Resolve-CatzcBuildVersion`).
 
 Responsibility 5 keeps what an asset is for in one place, the asset's header comment
-([ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS](../../adr/repository/api-contracts.md#rule-adr-repo-contract-headersayswhatitpins)): `contracts/`
+([ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS](../../drs/repository/api-contracts.md#rule-adr-repo-contract-headersayswhatitpins)): `contracts/`
 holds only assets, and the reference pages project their notes. The module reads its one setting through
 [Catzc.Base.Config](catzc-base-config.md) and ends its quality gate through [Catzc.Base.Reports](catzc-base-reports.md).
 

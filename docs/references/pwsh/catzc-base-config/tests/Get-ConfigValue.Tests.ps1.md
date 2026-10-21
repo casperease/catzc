@@ -9,7 +9,7 @@ Above `Mock Get-Config -ModuleName Catzc.Base.Config -MockWith { $script:fixture
 
 ```text
 Get-ConfigValue reads through Get-Config
-([ADR-CONF-LOADING-ONEREADER](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-onereader)); mock the
+([ADR-CONF-LOADING-ONEREADER](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-onereader)); mock the
 reader, not a file.
 ```
 
@@ -19,5 +19,5 @@ Above `(Get-ConfigValue -Address 'global.tools').Contains('python') | Should -Be
 
 ```text
 tools.yml loads as the typed ToolsConfig (a read-only tool map); guards the real wiring end to end
-([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
+([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
 ```

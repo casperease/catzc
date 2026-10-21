@@ -12,9 +12,9 @@ Reads the command contracts, all of them or by command, module, unit or version,
 ### description
 
 The one reader of a command contract
-([ADR-REPO-CMDCONTRACT-ONEREADER](../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-onereader)): every
+([ADR-REPO-CMDCONTRACT-ONEREADER](../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-onereader)): every
 `<Verb-Noun>.command.yml` asset Get-Contract lists
-([ADR-REPO-CMDCONTRACT-COMMANDCONTRACT](../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-commandcontract)) is parsed
+([ADR-REPO-CMDCONTRACT-COMMANDCONTRACT](../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-commandcontract)) is parsed
 by the ContractCommand type, the one grammar of the contract language, and comes back with its asset, the command's name, its parameters,
 its output and its one-line signature. The selectors take wildcards and narrow the assets the way Get-Contract's do; -Name matches the
 command. A contract that does not parse throws, naming the asset: this is the reader, and Test-Contracts is where a defect is reported as a

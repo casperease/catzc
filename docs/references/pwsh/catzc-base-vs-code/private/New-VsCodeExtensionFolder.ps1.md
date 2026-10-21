@@ -16,7 +16,7 @@ module's `assets/extensions/<name>.js` to `extension.js`. The folder is generate
 is edited by hand.
 
 It rests on
-[ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency).
+[ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency).
 
 ### parameter `Extension`
 

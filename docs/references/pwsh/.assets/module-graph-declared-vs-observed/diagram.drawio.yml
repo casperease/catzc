@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "0faf582b68c1"
+#     with_body_sha: "4936e9c819c7"
 # ---
 
 description:
@@ -164,16 +164,16 @@ content:
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: docs/-/.
         by:
-          - docs/adr/automation/caching.md
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/pwsh/dora-explains.md
-          - docs/adr/automation/pwsh/pester-testing.md
-          - docs/adr/automation/pwsh/script-scope-caching.md
-          - docs/adr/automation/test-automation.md
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/run-modes.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/automation/caching.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/pwsh/dora-explains.md
+          - docs/drs/automation/pwsh/pester-testing.md
+          - docs/drs/automation/pwsh/script-scope-caching.md
+          - docs/drs/automation/test-automation.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/run-modes.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/references/pwsh/.assets/get-config-merge-seal-type/diagram.drawio.yml
           - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml
           - docs/references/pwsh/.assets/invoke-tool-asserts-locked-version/diagram.drawio.yml

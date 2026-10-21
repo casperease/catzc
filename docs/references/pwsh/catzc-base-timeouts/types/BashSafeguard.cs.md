@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 The Bash time safeguard's verdict on one Claude Code Bash call
-([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). The PreToolUse hook
+([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). The PreToolUse hook
 (.claude/hooks/Assert-BashTimeout/) compiles this same file, so the hook's decision and its L0 tests in
 Catzc.Base.Timeouts are one implementation.
 
@@ -49,5 +49,5 @@ Above `public static string FindConfig(string repositoryRoot)`, written with `//
 
 ```text
 The hook runs outside cats, so it finds the modules folder by the one top-level folder that holds this config
-([ADR-AUTO-LAYERS](/docs/adr/automation/layers.md)).
+([ADR-AUTO-LAYERS](/docs/drs/automation/layers.md)).
 ```

@@ -12,7 +12,7 @@ Lists every place one file restates the engine set instead of reading it from th
 ### description
 
 The engine-set check of Test-SourceConventions
-([ADR-AUTO-ENGINE-THREEENGINES](../../../../adr/automation/execution-engines.md#rule-adr-auto-engine-threeengines)): the execution engines
+([ADR-AUTO-ENGINE-THREEENGINES](../../../../drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)): the execution engines
 are declared once, in `[Catzc.Base.Engines.ExecutionEngines]`, and every other list is read from it. The engine names and their count come
 from the caller, read from that model, so nothing here names an engine.
 

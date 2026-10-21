@@ -60,5 +60,5 @@ Above `Write-Message 'Loading PSScriptAnalyzer (first use this session)...'`, wr
 
 ```text
 First use this session pays the vendored-module import (several seconds) — announce it
-([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
+([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
 ```

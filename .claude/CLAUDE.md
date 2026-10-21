@@ -6,10 +6,10 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 
 - **catzc** — the reserved, source-code-level name of the system: the `Catzc.*` module prefix, the C# `Catzc.*` namespaces, the `Catzc.`
   type-accelerator prefix, and the literal product token. Use it in code and in precise references
-  ([PDR-CATS-CATZCISSOURCENAME](../docs/adr/principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename)).
+  ([PDR-CATS-CATZCISSOURCENAME](../docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename)).
 - **cats** (plural) — the conversational cover term for the catzc system as a whole: the human-friendly name used in prose and docs and when
   talking to or about the system ("ask cats"). It stands in for the complicated, code-level catzc
-  ([PDR-CATS-CATSISPERSONNAME](../docs/adr/principles/cats-and-catzc.md#rule-pdr-cats-catsispersonname)).
+  ([PDR-CATS-CATSISPERSONNAME](../docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-catsispersonname)).
 - **"domain rules" / "ADR rules"** — the sanctioned terms for this repository's conventions and decision records. Never say "house rules";
   it is not a domain-sanctioned term.
 
@@ -24,15 +24,15 @@ PowerShell 7.4+ module system with zero-ceremony module authoring.
 - `pwsh/.vendor/` — third-party modules (checked in)
 - `.unordered/` — the unordered track, where an import lands with its history at a landing address `.unordered/<name>`
   (`Import-RepositoryWithHistory`); sorting moves each file out with `git mv`, and nothing reads or defaults to the track
-  ([DDR-TRACK-UNORDEREDTRACK](../docs/adr/design/tracks.md#rule-ddr-track-unorderedtrack))
-- `docs/adr/` — Architecture Decision Records (see below); `docs/references/` — reference articles (incl. the DORA research reference in
+  ([DDR-TRACK-UNORDEREDTRACK](../docs/drs/design/tracks.md#rule-ddr-track-unorderedtrack))
+- `docs/drs/` — Architecture Decision Records (see below); `docs/references/` — reference articles (incl. the DORA research reference in
   `docs/references/dora/`); `docs/how-to/` — task guides; `docs/.assets/` — diagram assets
 
 ## ADRs
 
-Architecture Decision Records live under `docs/adr/`, grouped into the domains that `docs/adr/index.md` lists. The index also holds every
+Architecture Decision Records live under `docs/drs/`, grouped into the domains that `docs/drs/index.md` lists. The index also holds every
 rule-citation code (e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`) and the **authoring conventions**. The ADRs define the design principles
-behind this codebase and must be followed when writing or reviewing code. **Read `docs/adr/index.md` at the start of every session**, then
+behind this codebase and must be followed when writing or reviewing code. **Read `docs/drs/index.md` at the start of every session**, then
 read in full the ADRs that govern the files a task touches, and cite their rules by code. The whole corpus is far larger than a context
 window, so never sweep it, and never sweep `research/`, which is reference material, not rules.
 
@@ -46,29 +46,29 @@ without it.
 
 Which catzc ADR decides each aspect you might take an idea for:
 
-- **Module and command design:** [ADR-PWSH-ONEFUNC](../docs/adr/automation/pwsh/one-function-per-file.md),
-  [ADR-PWSH-PARAM](../docs/adr/automation/pwsh/parameter-design.md), and the one resolution order of a setting,
-  [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
-- **Docs and ADR structure:** the [authoring conventions](../docs/adr/index.md#authoring-conventions).
-- **Contracts:** [ADR-REPO-CONTRACT](../docs/adr/repository/api-contracts.md).
-- **Testing:** [ADR-AUTO-TEST](../docs/adr/automation/test-automation.md).
-- **Pipelines:** [FDR-CD](../docs/adr/flow/cd-discipline-and-promotion-flow.md) and
-  [FDR-CD-RUNNER](../docs/adr/flow/pipeline-runner-pattern.md).
-- **Tooling:** [ADR-AUTO-PKGMGR](../docs/adr/automation/use-proper-package-managers.md) and
-  [ADR-AUTO-UVPY](../docs/adr/automation/uv-python-handler.md).
-- **Go itself:** [ADR-AUTO-GO](../docs/adr/automation/go/go-test-artifacts.md): Go in catzc is test artifacts only. A Go idea from eac
+- **Module and command design:** [ADR-PWSH-ONEFUNC](../docs/drs/automation/pwsh/one-function-per-file.md),
+  [ADR-PWSH-PARAM](../docs/drs/automation/pwsh/parameter-design.md), and the one resolution order of a setting,
+  [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
+- **Docs and ADR structure:** the [authoring conventions](../docs/drs/index.md#authoring-conventions).
+- **Contracts:** [ADR-REPO-CONTRACT](../docs/drs/repository/api-contracts.md).
+- **Testing:** [ADR-AUTO-TEST](../docs/drs/automation/test-automation.md).
+- **Pipelines:** [FDR-CD](../docs/drs/flow/cd-discipline-and-promotion-flow.md) and
+  [FDR-CD-RUNNER](../docs/drs/flow/pipeline-runner-pattern.md).
+- **Tooling:** [ADR-AUTO-PKGMGR](../docs/drs/automation/use-proper-package-managers.md) and
+  [ADR-AUTO-UVPY](../docs/drs/automation/uv-python-handler.md).
+- **Go itself:** [ADR-AUTO-GO](../docs/drs/automation/go/go-test-artifacts.md): Go in catzc is test artifacts only. A Go idea from eac
   beyond that scope opens a question for the user. It is never a precedent.
-- **Copying anything across:** [PDR-ONELIVE](../docs/adr/principles/one-living-version.md). Catzc carries one living version of each
+- **Copying anything across:** [PDR-ONELIVE](../docs/drs/principles/one-living-version.md). Catzc carries one living version of each
   behaviour, so an idea is rebuilt here to catzc's rules, never ported alongside.
 
 ## Sub-agents
 
 Sub-agent definitions live in `.claude/agents/<name>.md`. Every agent exists because an ADR rule supports it, and is mapped to the gates and
 checks it runs or guards; the registry is `pwsh/Catzc.Base.Docs/configs/agents.yml`, and `Test-AgentDefinitions` keeps the files, the
-registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/adr/repository/agent-definitions.md)). Every agent is a
+registry, and this list in step (`ADR-REPO-AGENTS`, [agent-definitions](../docs/drs/repository/agent-definitions.md)). Every agent is a
 robot: a body of at most 20 lines on a named model, loading its shared know-how from capabilities, `.claude/skills/<domain>-<job>/SKILL.md`
 files of at most 10 lines with a model floor, registered in `pwsh/Catzc.Base.Docs/configs/capabilities.yml`. Every robot and capability
-reads the AI agent contract first, [ADR-REPO-AI](../docs/adr/repository/ai-agent-contract.md); it is named once, here and as `contracts` in
+reads the AI agent contract first, [ADR-REPO-AI](../docs/drs/repository/ai-agent-contract.md); it is named once, here and as `contracts` in
 `agents.yml`, never in a file's front matter.
 
 - **`catzc-worker`** — the **standard** sub-agent for delegated work: one scoped task from a coordinator's brief, editing only the files it
@@ -144,13 +144,13 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/adr/repository/ai-agent
 - **No mutating git operations**: Never run git add, commit, push, reset, checkout, rebase, merge, or other state-changing git commands
   unless the user explicitly asks. Read-only commands (status, log, diff, blame) are fine.
 - **One living version — never back-compat or legacy** (`PDR-ONELIVE`,
-  [one-living-version](../docs/adr/principles/one-living-version.md)): the repo carries exactly one version of every behaviour. Never add
+  [one-living-version](../docs/drs/principles/one-living-version.md)): the repo carries exactly one version of every behaviour. Never add
   backwards-compatibility shims, deprecated-alias fields, or migration fallbacks (e.g. when changing `azure.yml`, the data model,
   `options.yml`, or the `Get-Azure*`/`Get-Bicep*` resolvers); change the contract and every in-tree caller in the same change, and delete
   the old shape. No legacy/dead code parked in the tree, no versioned variants (`*V2`, `*_old`, `legacy/`), no long-lived version branches —
   trunk-based, one source of truth. All history lives in `git log`/`git blame`, never in retained files, commented-out blocks, or "we used
   to" notes (docs read present-tense too).
-- **Plans are authored in `.claude/plans/plan-<topic>.md`** (`ADR-REPO-PLANS`, [plans](../docs/adr/repository/plans.md)): when asked to
+- **Plans are authored in `.claude/plans/plan-<topic>.md`** (`ADR-REPO-PLANS`, [plans](../docs/drs/repository/plans.md)): when asked to
   "make a plan", write that file — do not use plan mode or show a selection menu; the user wants a file to review. A plan holds the delta
   only, `plan-master.md` and the `task-<topic>.md` files are derived from the plans (the master's list carries the order, never a name), and
   a done plan is deleted.

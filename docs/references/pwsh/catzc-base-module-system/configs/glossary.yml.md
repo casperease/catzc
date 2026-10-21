@@ -9,7 +9,7 @@ Above `concepts:`, written with `#`.
 
 ```text
 glossary.yml — the Catzc.Base.ModuleSystem glossary source: the vocabulary of what ships and how it advances —
-deployable-units, the release candidates built from them, and the environments' occupants ([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)).
+deployable-units, the release candidates built from them, and the environments' occupants ([ADR-REPO-VOCAB](/docs/drs/repository/controlled-vocabulary.md)).
 Every option is defaulted: all five checks, the whole repository, every text surface
-([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). Checked by Test-Glossary.
+([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). Checked by Test-Glossary.
 ```

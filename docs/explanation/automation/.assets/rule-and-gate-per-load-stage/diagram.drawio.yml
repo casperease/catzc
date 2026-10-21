@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "9b4b1394e4b8"
+#     with_body_sha: "32e3a27654a6"
 # ---
 
 description:
@@ -136,20 +136,20 @@ content:
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
       - cell: docs/-/.
         by:
-          - docs/adr/automation/BCL/dora-explains.md
-          - docs/adr/automation/BCL/native-csharp-types.md
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/platform-bundle.md
-          - docs/adr/automation/pwsh/dora-explains.md
-          - docs/adr/automation/pwsh/error-handling.md
-          - docs/adr/automation/pwsh/hosting-csharp-types.md
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/run-modes.md
-          - docs/adr/index.md
-          - docs/adr/principles/dora-explains.md
-          - docs/adr/principles/one-living-version.md
-          - docs/adr/repository/dora-explains.md
-          - docs/adr/repository/generated-root-configs.md
+          - docs/drs/automation/BCL/dora-explains.md
+          - docs/drs/automation/BCL/native-csharp-types.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/platform-bundle.md
+          - docs/drs/automation/pwsh/dora-explains.md
+          - docs/drs/automation/pwsh/error-handling.md
+          - docs/drs/automation/pwsh/hosting-csharp-types.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/run-modes.md
+          - docs/drs/index.md
+          - docs/drs/principles/dora-explains.md
+          - docs/drs/principles/one-living-version.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/generated-root-configs.md
           - docs/references/agent-contracts.md
           - docs/references/note-file-kind.md
           - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
@@ -491,20 +491,20 @@ content:
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
       - cell: docs/markdown
         by:
-          - docs/adr/automation/BCL/dora-explains.md
-          - docs/adr/automation/BCL/native-csharp-types.md
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/platform-bundle.md
-          - docs/adr/automation/pwsh/dora-explains.md
-          - docs/adr/automation/pwsh/error-handling.md
-          - docs/adr/automation/pwsh/hosting-csharp-types.md
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/run-modes.md
-          - docs/adr/index.md
-          - docs/adr/principles/dora-explains.md
-          - docs/adr/principles/one-living-version.md
-          - docs/adr/repository/dora-explains.md
-          - docs/adr/repository/generated-root-configs.md
+          - docs/drs/automation/BCL/dora-explains.md
+          - docs/drs/automation/BCL/native-csharp-types.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/platform-bundle.md
+          - docs/drs/automation/pwsh/dora-explains.md
+          - docs/drs/automation/pwsh/error-handling.md
+          - docs/drs/automation/pwsh/hosting-csharp-types.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/run-modes.md
+          - docs/drs/index.md
+          - docs/drs/principles/dora-explains.md
+          - docs/drs/principles/one-living-version.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/generated-root-configs.md
           - docs/references/agent-contracts.md
           - docs/references/note-file-kind.md
           - docs/references/pwsh/catzc-base-code-meta/types/CommentPageMap.cs.md

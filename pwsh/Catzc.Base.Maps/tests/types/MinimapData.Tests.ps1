@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a0fddc1fae63
+    with_body_sha: "59b79935c8e1"
   edges:
     code: pwsh/Catzc.Base.Maps/types/MinimapData.cs
     cites:
@@ -25,9 +25,9 @@ Describe 'MinimapData' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-PROVENBYTESTS' {
             [Catzc.Base.Languages.FileLanguage]::new('notes', @('.md'), $null, 'fixture', $null, $null, $null)
         )
         $texts = [ordered]@{ 'widgets/Alpha/Get-Widget.ps1' = '# ADR-WIDGET-GADGET-SPIN'; 'docs/guide.md' = 'Read ADR-WIDGET-GADGET.' }
-        $paths = @('widgets/Alpha/Get-Widget.ps1', 'docs/adr/widgetry/widget-gadget.md', 'docs/guide.md')
+        $paths = @('widgets/Alpha/Get-Widget.ps1', 'docs/drs/widgetry/widget-gadget.md', 'docs/guide.md')
         $script:worldMap = [Catzc.Base.Maps.WorldMapBuilder]::Build($tracks, $languages, $paths, [ordered]@{},
-            [ordered]@{ 'ADR-WIDGET-GADGET' = 'widgetry' }, [ordered]@{ 'ADR-WIDGET-GADGET' = 'docs/adr/widgetry/widget-gadget.md' }, $texts, [ordered]@{}, @())
+            [ordered]@{ 'ADR-WIDGET-GADGET' = 'widgetry' }, [ordered]@{ 'ADR-WIDGET-GADGET' = 'docs/drs/widgetry/widget-gadget.md' }, $texts, [ordered]@{}, @())
         $script:worldHighlight = [Catzc.Base.Maps.WorldMapHighlight]::ForAdr($script:worldMap, @('ADR-WIDGET-GADGET'), @(), @())
 
         $adr = {

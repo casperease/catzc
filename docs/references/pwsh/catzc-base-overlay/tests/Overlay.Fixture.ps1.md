@@ -10,7 +10,7 @@ Above `$script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N
 ```text
 Shared fixture of the overlay tests: a bundled module Catzc.Base.Widget (a dynamic module in the session, so its
 functions and their contracts are real), a code root that ships it, and a consumer overlay root — all neutral
-names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). Dot-source it in BeforeAll;
+names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). Dot-source it in BeforeAll;
 call Remove-OverlayFixture in AfterAll.
 ```
 

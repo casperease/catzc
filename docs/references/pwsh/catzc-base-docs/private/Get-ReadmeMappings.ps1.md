@@ -19,7 +19,7 @@ missing. An explicit mapping WINS over a pattern that targets the same folder.
 
 Only a trailing `/*` glob is supported: `<prefix>/*` matches the immediate, non-dot-prefixed subdirectories of `<prefix>`. The globs expand
 over the catzc source tree, so it runs in source mode only (Assert-SourceTree). See
-[ADR-REPO-README](../../../../adr/repository/generated-readmes.md).
+[ADR-REPO-README](../../../../drs/repository/generated-readmes.md).
 
 ### parameter `Config`
 
@@ -41,6 +41,6 @@ Above `foreach ($dir in ([System.IO.Directory]::EnumerateDirectories($prefixPath
 ```text
 [System.IO] (sorted) rather than Get-ChildItem — the cmdlet carries ~20ms of per-call provider
 overhead the raw .NET enumeration avoids
-([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)). '*' excludes dot-prefixed
+([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)). '*' excludes dot-prefixed
 infrastructure folders.
 ```

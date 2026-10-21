@@ -9,7 +9,7 @@ Above `source: PSGallery`, written with `#`.
 
 ```text
 Vendor module source — where Install-VendorModule downloads from and Remove-VendorModules validates against
-(see [ADR-PWSH-VENDOR](/docs/adr/automation/pwsh/vendor-toolset-dependencies.md)). Loaded by Get-Config -Config vendor and
+(see [ADR-PWSH-VENDOR](/docs/drs/automation/pwsh/vendor-toolset-dependencies.md)). Loaded by Get-Config -Config vendor and
 validated by the VendorConfig type. Read only through the module's functions.
 ```
 

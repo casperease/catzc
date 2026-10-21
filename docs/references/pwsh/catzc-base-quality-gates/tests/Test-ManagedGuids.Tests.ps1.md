@@ -9,5 +9,5 @@ Above `Describe 'Test-ManagedGuids' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-ManagedGuids over a mocked scan, registry, and 'repository' globset, so each test pins one rule. Neutral
-fixture names and test-shaped guids ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+fixture names and test-shaped guids ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

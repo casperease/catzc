@@ -46,8 +46,8 @@ package is what the build wrote, and every place the package is installed holds 
 
 ## See also
 
-- [Platform bundle](../../adr/automation/platform-bundle.md) — the decision this article explains.
-- [Run modes](../../adr/design/run-modes.md) — the build kinds.
+- [Platform bundle](../../drs/automation/platform-bundle.md) — the decision this article explains.
+- [Run modes](../../drs/design/run-modes.md) — the build kinds.
 - The other lenses on the same bundle: [architecture](every-code-root-is-a-copy.md), [implementation](build-verify-then-copy-the-folder.md),
   [operations](build-then-place-with-one-command.md) and [governance](what-gates-each-bundle-stage.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

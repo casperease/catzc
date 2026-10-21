@@ -447,7 +447,7 @@ Quality bar for this format: `docs/explanation/automation/three-layers-edges-poi
 These come from the wave-1 review. The user rated azure and commits-quality "SUPER" and config-read-path "really bad", and sent
 promotion-flow, globset-roles, bundle, importer, dependency-groups, auth and runner back for "simplify and verify".
 
-- **Quality bar:** `docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.png`. It has labelled bands, one direction, short boxes, a
+- **Quality bar:** `docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.png`. It has labelled bands, one direction, short boxes, a
   footer of meanings, and a swatch legend. Read it before drawing.
 - **Group-level beats module-level.** If the source has dozens of nodes (e.g. dependencies.yml), draw the groups and point to the config for
   the per-node detail.

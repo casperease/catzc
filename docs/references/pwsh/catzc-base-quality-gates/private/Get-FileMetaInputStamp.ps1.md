@@ -14,7 +14,7 @@ Stamps, per file, the files beside it that its meta block is read from, so a fil
 A file's head is not a function of its own bytes alone: the cites are read from its comment page as well, and a relation's edge names the
 first of its candidates on disk. So each file's stamp hashes its comment page's bytes (or that it is missing) and, for every relation of a
 kind that declares relations, whether each candidate (Get-RelativeEdgeCandidate) is on disk. Split-CachedFile joins the stamp to the file's
-key ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../adr/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)), so
+key ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)), so
 a change beside the file checks it again.
 
 ### parameter `File`

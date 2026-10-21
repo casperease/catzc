@@ -12,7 +12,7 @@ Lists the tracked files that name a type, a function or a config key.
 ### description
 
 The callers of a name, for a change that replaces one shape with another and must move every in-tree caller in the same change
-([PDR-ONELIVE](../../../adr/principles/one-living-version.md)). It reads every file `Get-GitTrackedPath` lists under -Path and returns,
+([PDR-ONELIVE](../../../drs/principles/one-living-version.md)). It reads every file `Get-GitTrackedPath` lists under -Path and returns,
 sorted and once each, the repo-relative path of every file whose text holds any of the names, in any case. A binary file (one holding a NUL
 character) and a tracked file deleted from the working tree are skipped; an untracked file is never read, so a new file counts once it is
 staged.

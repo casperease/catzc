@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0efe70bc4660"
+    with_body_sha: e0a424a54b77
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Get-AdrUsageRow.ps1
     cites:
@@ -13,8 +13,8 @@ catzc:
 Describe 'Get-AdrUsageRow' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
     BeforeAll {
         $script:map = [Catzc.Base.Docs.AdrCitationMap]::new(
-            @{ 'ADR-WIDGET-PART' = @{ path = 'docs/adr/widget/part.md'; rules = [string[]] @('ADR-WIDGET-PART-TURN', 'ADR-WIDGET-PART-SPIN', 'ADR-WIDGET-PART-FOLD') } },
-            @('docs/adr/widget/part.md', 'docs/adr/index.md'))
+            @{ 'ADR-WIDGET-PART' = @{ path = 'docs/drs/widget/part.md'; rules = [string[]] @('ADR-WIDGET-PART-TURN', 'ADR-WIDGET-PART-SPIN', 'ADR-WIDGET-PART-FOLD') } },
+            @('docs/drs/widget/part.md', 'docs/drs/index.md'))
 
         function script:Get-Rows {
             param([string] $Text, [string] $Path = 'docs/gadget/spec.md', $Form)

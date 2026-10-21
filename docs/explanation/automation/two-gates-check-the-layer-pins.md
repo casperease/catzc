@@ -60,8 +60,8 @@ and ADR-AUTO-DEPM-STITCHISCONFIG), lie outside these two gates.
 
 ## See also
 
-- [Controlling module dependencies](../../adr/automation/controlling-module-dependencies.md) — the decision this article explains.
-- [Test automation](../../adr/automation/test-automation.md) — the quality-gate rule, ADR-AUTO-TEST-QUALITYGATE.
+- [Controlling module dependencies](../../drs/automation/controlling-module-dependencies.md) — the decision this article explains.
+- [Test automation](../../drs/automation/test-automation.md) — the quality-gate rule, ADR-AUTO-TEST-QUALITYGATE.
 - The other lenses on the same graph: [meta](a-declared-allow-list-of-layers.md), [architecture](three-layers-edges-point-down.md),
   [implementation](two-sections-unioned-into-one-allow-set.md) and [operations](undeclared-edge-fails-with-one-line.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

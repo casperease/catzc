@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "44e273c03bf6"
+#     with_body_sha: "7e162f86c3ec"
 #   edges:
 #     docs: "[cd-shared.yaml.md](docs/references/ado/pipelines/cd-shared.yaml.md)"
 #     cites:
@@ -55,7 +55,7 @@ stages:
           vmImage: ubuntu-latest
         steps:
           - checkout: self
-            # Test-GlobSetAffected diffs real refs ([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit))
+            # Test-GlobSetAffected diffs real refs ([FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit))
             fetchDepth: 0
 
           - template: /.ado/pipelines/steps/invoke-automation.yaml

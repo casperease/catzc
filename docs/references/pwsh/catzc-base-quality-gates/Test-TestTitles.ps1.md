@@ -11,11 +11,11 @@ Quality gate: no test title carries an angle-bracket template token unless its b
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the titles of
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the titles of
 every It, Describe, and Context in the test files (except the vendored ones). Pester treats an angle-bracket word in a title as its name
 template and expands it as a variable in the test's scope. With -ForEach or -TestCases data that is the intended feature; without data the
 token is almost always prose (a placeholder path), which expands to empty in a non-strict scope and THROWS in a strict one — and the tests
-run strict ([ADR-AUTO-TEST-FILEPARALLELISM](../../../adr/automation/test-automation.md#rule-adr-auto-test-fileparallelism)), so such a title
+run strict ([ADR-AUTO-TEST-FILEPARALLELISM](../../../drs/automation/test-automation.md#rule-adr-auto-test-fileparallelism)), so such a title
 fails its file at name expansion, far from the cause. Each such title is an issue: rephrase it, or add -ForEach data.
 
 The title is a block's first string argument (single- or double-quoted). A file that does not parse is another gate's problem and is

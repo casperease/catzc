@@ -52,7 +52,7 @@ themselves, in the same run.
 
 ## See also
 
-- [The CI discipline and the promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains.
+- [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains.
 - The other lenses on the same flow: [architecture](pipeline-kinds-keyed-by-one-artifact.md),
   [implementation](cd-builds-once-then-deploys-prod-itself.md), [operations](a-merge-runs-cd-to-prod.md) and
   [governance](ci-budget-is-the-only-quality-gate.md).

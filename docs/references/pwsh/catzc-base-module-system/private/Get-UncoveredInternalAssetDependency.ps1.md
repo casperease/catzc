@@ -12,12 +12,12 @@ Lists the functions with an internal asset dependency that no qualifying test co
 ### description
 
 Takes the inventory (Get-InternalAssetDependency) and, for every function in it, looks for a test that satisfies
-[ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest).
+[ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](../../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest).
 The function's test files are the ones in its own module's tests/ folder named for it: `<Function>.Tests.ps1`, or
 `<Function>.<suffix>.Tests.ps1` for a cross-cutting test file
-([ADR-PWSH-PESTER-TESTFILE](../../../../adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-testfile)). Each file is parsed, never
+([ADR-PWSH-PESTER-TESTFILE](../../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-testfile)). Each file is parsed, never
 run: every It block's tags are the union of its own -Tag values and those of each enclosing Describe and Context (the block chain,
-[ADR-AUTO-TEST-TWOMANDATORYTAGS](../../../../adr/automation/test-automation.md#rule-adr-auto-test-twomandatorytags)/27). A test qualifies
+[ADR-AUTO-TEST-TWOMANDATORYTAGS](../../../../drs/automation/test-automation.md#rule-adr-auto-test-twomandatorytags)/27). A test qualifies
 when its chain carries the citation 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' and does not carry 'source-only' — so it runs in both the source
 run and the build run.
 
@@ -26,7 +26,7 @@ function, ChildPath the child paths its calls read (sorted, unique; '.' for a ca
 repository-relative test files that were inspected (empty when none exists). Returns nothing when every function is covered.
 
 It rests on
-[ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically).
+[ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY](../../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically).
 
 ### parameter `ModulesRoot`
 

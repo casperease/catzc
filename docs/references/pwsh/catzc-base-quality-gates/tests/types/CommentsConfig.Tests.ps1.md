@@ -9,6 +9,6 @@ Above `Describe 'CommentsConfig' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 CommentsConfig maps comments.yml and is the one declaration of its sensible defaults
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): an omitted key
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)): an omitted key
 behaves exactly like the default, and a malformed value fails at construction naming the key.
 ```

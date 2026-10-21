@@ -19,13 +19,13 @@ per-extension explanations live as comments in the yml — the authored, searche
 
 This is a pure renderer: it returns the content and writes nothing — it is the `generator` the root-config registry names for the
 .vscode/extensions.json target, and Build-RootConfig owns the write. See
-[ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md).
+[ADR-REPO-ROOTCFG](../../../drs/repository/generated-root-configs.md).
 
 ### parameter `EngineExtension`
 
 The extensions that run the repository's formatter engines in the editor, appended after the authored recommendations when not already
 listed. Supplied by the generator dispatch from the file-language registry, so an engine's extension is recommended wherever a language uses
-it ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)).
+it ([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)).
 
 ### outputs
 

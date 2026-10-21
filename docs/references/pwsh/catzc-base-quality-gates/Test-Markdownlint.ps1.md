@@ -17,7 +17,7 @@ docs/notes/) and the generated README copy-ins (`**/README.md`, a derived artifa
 markdownlint-cli2 does not apply .markdownlintignore to globs passed on the command line, so the exclusions are passed explicitly. The root
 .markdownlintignore mirrors these for the editor extension's benefit.
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): every violation
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)): every violation
 line ('`<path>:<line>:<col>` `<rule id>/<rule name>` …') is an issue, and the gate ends through Write-QualityGateReport, which writes
 out/test-markdownlint/, prints every issue, and throws once listing them all; -PassThru returns the result object instead. A tool error
 (exit > 1) throws before the report.
@@ -58,23 +58,23 @@ Above `'!**/README.md'`, written with `#`.
 Generated READMEs (Catzc.Base.Docs) are derived artifacts, not source: they are gitignored
 copies whose authored source under docs/ is what is linted — linting the copy would
 double-report the source. See
-[ADR-REPO-README-AUTHOREDSOURCES](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme-authoredsources).
+[ADR-REPO-README-AUTHOREDSOURCES](/docs/drs/repository/generated-readmes.md#rule-adr-repo-readme-authoredsources).
 ```
 
 ## comment:2
 
-Above `'!docs/adr/index.md'`, written with `#`.
+Above `'!docs/drs/index.md'`, written with `#`.
 
 ```text
-[index](/docs/adr/index.md) is generated from adrs.yml (Build-AdrIndex) — a derived artifact whose source
+[index](/docs/drs/index.md) is generated from adrs.yml (Build-AdrIndex) — a derived artifact whose source
 (adrs.yml + the generator's prose) is what is linted, not the projection.
 ```
 
 ## comment:3
 
-Above `'!docs/adr/glossary.md'`, written with `#`.
+Above `'!docs/drs/glossary.md'`, written with `#`.
 
 ```text
-[glossary](/docs/adr/glossary.md) is generated from the configs/glossary.yml sources (Build-Glossary) — likewise
+[glossary](/docs/drs/glossary.md) is generated from the configs/glossary.yml sources (Build-Glossary) — likewise
 derived; the generator emits it already formatted.
 ```

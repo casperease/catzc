@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "034ba760978a"
+    with_body_sha: "9b5be2f53b6a"
   edges:
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
@@ -21,7 +21,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Docs;
 
-// Rests on [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml), [ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype), [ADR-REPO-AGENTS-NOORPHANNOGHOST](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-noorphannoghost) and [ADR-REPO-AGENTS-CAPABILITYREGISTERED](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-capabilityregistered).
+// Rests on [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml), [ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype), [ADR-REPO-AGENTS-NOORPHANNOGHOST](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-noorphannoghost) and [ADR-REPO-AGENTS-CAPABILITYREGISTERED](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-capabilityregistered).
 public sealed class CapabilityEntry : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "name", "supported_by", "checks", "invoked_by" };
@@ -40,7 +40,7 @@ public sealed class CapabilityEntry : Catzc.Base.Objects.DictionaryRecord
     // The gate and check functions the capability runs or guards, in file order; empty when it has none.
     public IReadOnlyList<string> checks { get; }
 
-    // Who loads the capability: a robot preloads it, or the user invokes it by name as a user skill ([ADR-REPO-AGENTS-USERSKILL](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-userskill)).
+    // Who loads the capability: a robot preloads it, or the user invokes it by name as a user skill ([ADR-REPO-AGENTS-USERSKILL](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-userskill)).
     public string invoked_by { get; } = "robot";
 
     public CapabilityEntry(IDictionary d)

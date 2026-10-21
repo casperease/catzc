@@ -10,5 +10,5 @@ Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`, written with `#
 ```text
 Neutral fixture globset names (widget/gadget), not the real loose-fileset/deployable-unit names, so
 this logic test owns its inputs and editing the shipped globs.yml can never change its outcome
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -54,7 +54,7 @@ edges only, and nothing checks the direction between tracks.
 
 ## See also
 
-- [Tracks — the repository's root concerns](../../adr/design/tracks.md) — the decision this article explains.
+- [Tracks — the repository's root concerns](../../drs/design/tracks.md) — the decision this article explains.
 - The other lenses on the same model: [meta](one-unit-one-pipeline.md), [implementation](globs-yml-pipeline-field-is-the-binding.md),
   [operations](a-push-fires-only-touched-pipelines.md) and [governance](unit-to-pipeline-rule-is-review-only.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

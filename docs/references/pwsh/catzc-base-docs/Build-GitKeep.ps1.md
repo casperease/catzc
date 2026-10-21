@@ -20,13 +20,13 @@ adding a .gitkeep anywhere demands its reference article — the gap finder for 
 
 Idempotent and fast by construction, so the importer runs it on every load beside Build-Readme: writes go through Write-FileIfChanged
 (canonical output, EOL-insensitive compare, write only on drift). .gitkeep files are committed — tracking the folder is their whole job — so
-a source change lands as a reviewable diff across every location. See [ADR-REPO-README](../../../adr/repository/generated-readmes.md).
+a source change lands as a reviewable diff across every location. See [ADR-REPO-README](../../../drs/repository/generated-readmes.md).
 
-It rests on [ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths).
+It rests on [ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](../../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths).
 
 ### parameter `DryRun`
 
-Report what would change without writing any file. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+Report what would change without writing any file. See [ADR-AUTO-DRYRUN](../../../drs/automation/dry-run.md).
 
 ### parameter `Silent`
 

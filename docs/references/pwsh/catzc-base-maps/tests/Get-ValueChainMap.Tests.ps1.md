@@ -9,8 +9,8 @@ Above `Describe 'Get-ValueChainMap' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-ValueChainMap builds the value-chain map from the registry's closed sets and its ADRs
-([DDR-TRACK-VALUECHAINMAP](/docs/adr/design/tracks.md#rule-ddr-track-valuechainmap)). The logic tests mock the ADRs with
-widget/gadget fixtures ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the axes are
+([DDR-TRACK-VALUECHAINMAP](/docs/drs/design/tracks.md#rule-ddr-track-valuechainmap)). The logic tests mock the ADRs with
+widget/gadget fixtures ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the axes are
 the closed sets AdrsConfig declares, read from the type, never spelled out here.
 ```
 

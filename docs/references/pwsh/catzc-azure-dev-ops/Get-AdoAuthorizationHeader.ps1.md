@@ -49,11 +49,11 @@ Above `if ((Test-IsRunningInPipeline) -and $env:SYSTEM_ACCESSTOKEN) {`, written 
 
 ```text
 Every caller takes its header here
-([ADR-ADO-AUTH-SEPARATETOKENFUNCTION](/docs/adr/ado/dual-authentication.md#rule-adr-ado-auth-separatetokenfunction)), the sources in a fixed order ([ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE](/docs/adr/ado/dual-authentication.md#rule-adr-ado-auth-fixedcredentialprecedence)).
+([ADR-ADO-AUTH-SEPARATETOKENFUNCTION](/docs/drs/ado/dual-authentication.md#rule-adr-ado-auth-separatetokenfunction)), the sources in a fixed order ([ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE](/docs/drs/ado/dual-authentication.md#rule-adr-ado-auth-fixedcredentialprecedence)).
 The pipeline is detected explicitly
-([ADR-ADO-AUTH-EXPLICITDETECTION](/docs/adr/ado/dual-authentication.md#rule-adr-ado-auth-explicitdetection)); its
+([ADR-ADO-AUTH-EXPLICITDETECTION](/docs/drs/ado/dual-authentication.md#rule-adr-ado-auth-explicitdetection)); its
 token is the mapped one
-([ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN](/docs/adr/ado/dual-authentication.md#rule-adr-ado-auth-templatesmapsystemtoken)).
+([ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN](/docs/drs/ado/dual-authentication.md#rule-adr-ado-auth-templatesmapsystemtoken)).
 ```
 
 ## comment:3
@@ -62,7 +62,7 @@ Above `$collectionUri = "$env:SYSTEM_COLLECTIONURI".TrimEnd('/')`, written with 
 
 ```text
 The agent token is scoped to the org the pipeline runs in — prove that is the configured org
-([ADR-ADO-AUTH-PROVETARGET](/docs/adr/ado/dual-authentication.md#rule-adr-ado-auth-provetarget)).
+([ADR-ADO-AUTH-PROVETARGET](/docs/drs/ado/dual-authentication.md#rule-adr-ado-auth-provetarget)).
 ```
 
 ## comment:4
@@ -71,5 +71,5 @@ Above `$result = Invoke-AzCli "account get-access-token --resource $ResourceUrl.
 
 ```text
 The last source yields a token or says how to get one
-([ADR-ADO-AUTH-ASSERTWHENNOTOKEN](/docs/adr/ado/dual-authentication.md#rule-adr-ado-auth-assertwhennotoken)).
+([ADR-ADO-AUTH-ASSERTWHENNOTOKEN](/docs/drs/ado/dual-authentication.md#rule-adr-ado-auth-assertwhennotoken)).
 ```

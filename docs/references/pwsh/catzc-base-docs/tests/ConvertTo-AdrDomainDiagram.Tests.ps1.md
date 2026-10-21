@@ -9,5 +9,5 @@ Above `Describe 'ConvertTo-AdrDomainDiagram' -Tag 'L0', 'logic' {`, written with
 
 ```text
 ConvertTo-AdrDomainDiagram — a pure renderer, fed fixture edges and a fixture AdrsConfig for the node roles
-(Get-Config mocked). Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+(Get-Config mocked). Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

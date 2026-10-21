@@ -67,8 +67,8 @@ kinds rather than inside them, and it shows the path the CD pipelines in the rep
 
 ## See also
 
-- [The CI discipline and the promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains;
-  [pipeline types](../../adr/flow/pipeline-types.md) — the taxonomy it builds on.
+- [The CI discipline and the promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the decision this article explains;
+  [pipeline types](../../drs/flow/pipeline-types.md) — the taxonomy it builds on.
 - The other lenses on the same flow: [meta](one-artifact-climbs-unchanged.md), [implementation](cd-builds-once-then-deploys-prod-itself.md),
   [operations](a-merge-runs-cd-to-prod.md) and [governance](ci-budget-is-the-only-quality-gate.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

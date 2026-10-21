@@ -15,7 +15,7 @@ The registry Get-Config reads: maps each shipped config name to its C# config ty
 directly here (not via Get-Config, to avoid circularity), validated by the C# type Catzc.Base.Config.ConfigsConfig (which the registry
 registers for its own 'configs' config), and cached for the session. The file is located through Get-CatzcModuleRoot, so the shipped
 registry resolves inside the loaded module in both run modes
-([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
+([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
 
 ## comment:1
 
@@ -23,5 +23,5 @@ Above `$cached =...`, written with `#`.
 
 ```text
 strict-clean
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```

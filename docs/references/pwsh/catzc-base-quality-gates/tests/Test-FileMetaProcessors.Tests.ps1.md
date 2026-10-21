@@ -9,5 +9,5 @@ Above `Describe 'Test-FileMetaProcessors' -Tag 'L0', 'logic',...`, written with 
 
 ```text
 Test-FileMetaProcessors over in-memory registries and fixture processor functions defined in the module scope.
-Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

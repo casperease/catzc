@@ -10,7 +10,7 @@ Above `Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Update-AdrCitation rewrites one file's ADR references through a code map and a rule map. Every test writes its own
 file into one shared fixture repository in $TestDrive: an ADR index of neutral widget/gizmo codes
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) and the two fixture maps under
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) and the two fixture maps under
 tests/assets/update-adr-citation/. In them one ADR moves whole to another code and folder, one moves folder and keeps
 its code, a folder maps to a new one, one rule moves to a new ADR, and one rule collapses into a kept rule whose path
 only the index names.

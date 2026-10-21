@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ccd40848c6b8
+    with_body_sha: "83fb0034b1be"
   edges:
     docs: "[LanguageNaming.cs.md](docs/references/pwsh/catzc-base-languages/types/LanguageNaming.cs.md)"
     cites:
@@ -21,7 +21,7 @@ using Catzc.Base.Objects;
 
 namespace Catzc.Base.Languages;
 
-// A language's idiomatic names for its files and the folders that hold them, in the closed cases of NameCase; rests on [ADR-AUTO-IDIOM-CLOSEDCASES](/docs/adr/automation/idiomatic-names.md#rule-adr-auto-idiom-closedcases).
+// A language's idiomatic names for its files and the folders that hold them, in the closed cases of NameCase; rests on [ADR-AUTO-IDIOM-CLOSEDCASES](/docs/drs/automation/idiomatic-names.md#rule-adr-auto-idiom-closedcases).
 public sealed class LanguageNaming
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -87,7 +87,7 @@ public sealed class LanguageNaming
         }
     }
 
-    // What breaks one defined name, or null: it must be in one of the kind's cases and round-trip through the normal form; rests on [ADR-AUTO-IDIOM-ROUNDTRIP](/docs/adr/automation/idiomatic-names.md#rule-adr-auto-idiom-roundtrip).
+    // What breaks one defined name, or null: it must be in one of the kind's cases and round-trip through the normal form; rests on [ADR-AUTO-IDIOM-ROUNDTRIP](/docs/drs/automation/idiomatic-names.md#rule-adr-auto-idiom-roundtrip).
     public string JudgeName(string kind, string name, string normalForm)
     {
         IReadOnlyList<string> cases = CasesOf(kind);
@@ -106,7 +106,7 @@ public sealed class LanguageNaming
         return back == name ? null : "does not round-trip through the normal form (it renders back as " + back + ")";
     }
 
-    // A catzc module's test folder in this language: the module's words joined in the first folder case, catzc_base_repository when it is snake; rests on [ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM](/docs/adr/automation/idiomatic-names.md#rule-adr-auto-idiom-testfolderbyidiom).
+    // A catzc module's test folder in this language: the module's words joined in the first folder case, catzc_base_repository when it is snake; rests on [ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM](/docs/drs/automation/idiomatic-names.md#rule-adr-auto-idiom-testfolderbyidiom).
     public string TestFolderOf(string module)
     {
         if (folder.Count == 0) { throw new InvalidOperationException("naming: the language names no folder case, so it names no test folder"); }

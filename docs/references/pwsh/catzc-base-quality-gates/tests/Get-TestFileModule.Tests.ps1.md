@@ -9,5 +9,5 @@ Above `Describe 'Get-TestFileModule' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-TestFileModule with Get-RepositoryRoot and Get-LanguageTestFolders mocked: a run file maps to its unit for
-per-module protection. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+per-module protection. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

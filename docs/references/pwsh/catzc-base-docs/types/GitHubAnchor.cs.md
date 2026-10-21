@@ -10,7 +10,7 @@ Above `using System;`, written with `//`.
 ```text
 GitHub's heading anchors: the slug GitHub renders for a markdown heading, and the full anchor set of a
 markdown document — what a link's #fragment must name to resolve on GitHub
-([ADR-REPO-LINK-MARKDOWNRELATIVE](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)).
+([ADR-REPO-LINK-MARKDOWNRELATIVE](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)).
 
 The slug follows GitHub's rendered-text algorithm: inline markup is reduced to its text (code-span backticks
 dropped, a link to its text, emphasis asterisks dropped), the text is lowercased, every character that is not

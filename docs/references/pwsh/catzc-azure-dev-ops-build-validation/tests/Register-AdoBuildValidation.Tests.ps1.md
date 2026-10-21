@@ -10,5 +10,5 @@ Above `Describe 'Register-AdoBuildValidation' -Tag 'L0', 'logic' {`, written wit
 ```text
 The write side: idempotent create-or-update of one globset's build-validation policy, everything
 defaulted from build-validation.yml, globs.yml, and ado.yml; -DryRun returns the plan
-([ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md)).
+([ADR-AUTO-DRYRUN](/docs/drs/automation/dry-run.md)).
 ```

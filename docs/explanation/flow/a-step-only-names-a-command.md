@@ -42,7 +42,7 @@ No gate checks that a step's command runs the same way in a terminal: nothing re
 
 ## See also
 
-- [Pipeline runner pattern](../../adr/flow/pipeline-runner-pattern.md) — the decision this article explains.
+- [Pipeline runner pattern](../../drs/flow/pipeline-runner-pattern.md) — the decision this article explains.
 - The other lenses on the same runner: [architecture](the-runner-is-the-only-seam.md),
   [implementation](three-tasks-one-guard-one-runner.md), [operations](the-step-is-named-after-its-command.md) and
   [governance](no-gate-checks-rules-one-and-four.md).

@@ -24,7 +24,7 @@ Constructing an instance validates the table, collecting every violation into on
   - every engine column present in every case, as a map or as "n/a: <reason>" with a non-empty reason — so a case
     can never silently skip an engine.
 The columns are the repository's execution engines, read from their one declaration (ExecutionEngines.Names,
-[ADR-AUTO-ENGINE-THREEENGINES](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine-threeengines)), so a table cannot invent one.
+[ADR-AUTO-ENGINE-THREEENGINES](/docs/drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)), so a table cannot invent one.
 ```
 
 ## comment:2
@@ -33,7 +33,7 @@ Above `private static readonly IReadOnlyList<string> Engines =...`, written with
 
 ```text
 The columns: the execution engines, declared once
-([ADR-AUTO-ENGINE-THREEENGINES](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine-threeengines)), in their order.
+([ADR-AUTO-ENGINE-THREEENGINES](/docs/drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)), in their order.
 ```
 
 ## comment:3

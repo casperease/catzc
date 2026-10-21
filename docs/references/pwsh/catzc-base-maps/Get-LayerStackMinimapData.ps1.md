@@ -13,7 +13,7 @@ The layer stack minimap's data: the layers of the automation, lit by the layer o
 
 The subject is the files the ADR codes light on the world map. Each layer the ADR registry names is a cell, in stack order, and a subject
 file lights the layer of the ADR its requested code belongs to, the longest matching ADR code winning
-([ADR-AUTO-LAYERS-REALISENEVERREDEFINE](../../../adr/automation/layers.md#rule-adr-auto-layers-realiseneverredefine)). Each lit cell carries
+([ADR-AUTO-LAYERS-REALISENEVERREDEFINE](../../../drs/automation/layers.md#rule-adr-auto-layers-realiseneverredefine)). Each lit cell carries
 the file, the requested code and the ADR as its reason, in the minimap contract's shape.
 
 ### parameter `Adr`

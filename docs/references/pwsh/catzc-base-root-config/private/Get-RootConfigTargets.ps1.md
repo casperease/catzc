@@ -13,10 +13,10 @@ Resolves the rootconfig registry into the list of opted-in managed root files Bu
 
 Filters the validated registry (Get-Config -Config rootconfig) down to the entries with optIn true — the files the automation actually
 manages. Opted-out entries are inert: validated for shape when the config loads, but neither written nor treated as owned. The full registry
-semantics live in configs/rootconfig.yml; see [ADR-REPO-ROOTCFG](../../../../adr/repository/generated-root-configs.md).
+semantics live in configs/rootconfig.yml; see [ADR-REPO-ROOTCFG](../../../../drs/repository/generated-root-configs.md).
 
 With -FollowMix, an entry that is an engine's importer entry is kept only when one of the engines it serves is in the session's import mix
-([ADR-AUTO-IMPORTER-ENTRIESFOLLOWMIX](../../../../adr/automation/importer.md#rule-adr-auto-importer-entriesfollowmix)), so `importer.sh` is
+([ADR-AUTO-IMPORTER-ENTRIESFOLLOWMIX](../../../../drs/automation/importer.md#rule-adr-auto-importer-entriesfollowmix)), so `importer.sh` is
 materialised only with a POSIX engine in the mix.
 
 ### parameter `Config`

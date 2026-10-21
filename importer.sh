@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "92979499dcfb"
+#     with_body_sha: "0725a57c58eb"
 #     warning: "Do Not Edit, this file is generated"
 #     role: script
 #     generator: pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
@@ -11,7 +11,7 @@
 # shellcheck shell=bash
 # importer.sh — brings catzc to a bash (or zsh) session. catzc's commands are PowerShell, so this defines one dispatcher,
 # `cats`, that runs any catzc command through pwsh with the repository's importer loaded
-# (ADR-AUTO-ENGINE, docs/adr/automation/execution-engines.md):
+# (ADR-AUTO-ENGINE, docs/drs/automation/execution-engines.md):
 #
 #   source ./importer.sh                                  # must be sourced, not run
 #   cats                                                  # lists the catzc commands

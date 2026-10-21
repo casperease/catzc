@@ -9,12 +9,12 @@ Above `Describe 'Test-ValueChainMap' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-ValueChainMap reads the value-chain map Get-ValueChainMap returns and reports axes that are not the registry's
-closed sets ([DDR-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-ddr-track-valuechainstack),
-[DDR-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-ddr-track-valuechainconcern)), ADRs it cannot place, and value_chain_
-labels that name no glossary term ([DDR-TRACK-VALUECHAINMAP](/docs/adr/design/tracks.md#rule-ddr-track-valuechainmap)), through
-Write-QualityGateReport ([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The logic
+closed sets ([DDR-TRACK-VALUECHAINSTACK](/docs/drs/design/tracks.md#rule-ddr-track-valuechainstack),
+[DDR-TRACK-VALUECHAINCONCERN](/docs/drs/design/tracks.md#rule-ddr-track-valuechainconcern)), ADRs it cannot place, and value_chain_
+labels that name no glossary term ([DDR-TRACK-VALUECHAINMAP](/docs/drs/design/tracks.md#rule-ddr-track-valuechainmap)), through
+Write-QualityGateReport ([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)). The logic
 tests mock the map, the glossary and the labels with widget/gadget fixtures
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the clean map's axes are the closed
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the clean map's axes are the closed
 sets AdrsConfig declares, read from the type.
 ```
 

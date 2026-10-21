@@ -15,7 +15,7 @@ Returns the parsed yml as an ordered dictionary — typically just a `Parameters
 merge with global config happens here; PrePost's Invoke-BicepPrepareParameterSet is the merge seam. The resource-group name is not read from
 this file — it is derived by Get-BicepResourceGroupName.
 
-The config address is literal ([ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md)): a configuration-root file
+The config address is literal ([ADR-AZ-DATAMOD](../../../drs/azure/azure-data-model.md)): a configuration-root file
 `configuration/<env>[-<slot>].yml` (the shared-platform deployment), or a customer's file `configuration/<customer>/<env>[-<slot>].yml` when
 -Customer is given. No resolution machinery — the coordinate IS the file.
 

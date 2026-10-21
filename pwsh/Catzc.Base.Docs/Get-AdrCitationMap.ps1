@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "53d368928e5e"
+    with_body_sha: ea753bc9f0ed
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-AdrCitationMap.Tests.ps1
     docs: "[Get-AdrCitationMap.ps1.md](docs/references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)"
@@ -43,7 +43,7 @@ function Get-AdrCitationMap {
         }
     }
 
-    # An ADR sits at most three levels below docs/adr (domain, subfolder, file); the fourth level is headroom.
+    # An ADR sits at most three levels below docs/drs (domain, subfolder, file); the fourth level is headroom.
     $documents = foreach ($file in Get-ChildPath $adrRoot -File -Filter '*.md' -Depth 4) {
         [System.IO.Path]::GetRelativePath($root, $file) -replace '\\', '/'
     }

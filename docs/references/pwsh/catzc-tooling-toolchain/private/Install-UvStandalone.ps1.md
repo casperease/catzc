@@ -13,8 +13,8 @@ Bootstraps uv on Linux from Astral's standalone GitHub release — user-space, h
 
 Linux has no uv apt package, so the fresh-machine bootstrap is Astral's standalone release: resolve the newest astral-sh/uv release matching
 the locked version prefix, download the platform tarball verified against the release asset's published SHA-256 (Save-VerifiedDownload — the
-Install-Git discipline, see [ADR-AUTO-PKGMGR](../../../../adr/automation/use-proper-package-managers.md)), and extract uv and uvx into the
-uv tool-bin (~/.local/bin, [ADR-AUTO-UVPY](../../../../adr/automation/uv-python-handler.md)). Entirely user-space: no package manager, no
+Install-Git discipline, see [ADR-AUTO-PKGMGR](../../../../drs/automation/use-proper-package-managers.md)), and extract uv and uvx into the
+uv tool-bin (~/.local/bin, [ADR-AUTO-UVPY](../../../../drs/automation/uv-python-handler.md)). Entirely user-space: no package manager, no
 elevation. The standalone build is also the one `uv self update` serves, so later upgrades stay in place.
 
 ### parameter `Version`
@@ -45,5 +45,5 @@ Above `if (($env:PATH -split [System.IO.Path]::PathSeparator) -notcontains...`, 
 
 ```text
 The uv tool-bin is normally on the persistent PATH already
-([ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)); make it resolve in this session.
+([ADR-AUTO-UVPY](/docs/drs/automation/uv-python-handler.md)); make it resolve in this session.
 ```

@@ -11,5 +11,5 @@ Above `Describe 'Get-CatsRuleEnforcers' -Tag 'L0', 'logic' {`, written with `#`.
 Get-CatsRuleEnforcers over a fixture test tree in $TestDrive and a mocked analyzer map: the AST reader credits
 only -Tag citations, never a citation-shaped string elsewhere. The repository facts behind it (every cited id is a
 real rule) are quality gates of their own. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

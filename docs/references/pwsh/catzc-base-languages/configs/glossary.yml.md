@@ -10,7 +10,7 @@ Above `concepts:`, written with `#`.
 ```text
 glossary.yml — the Catzc.Base.Languages glossary source: the vocabulary of the test languages beside PowerShell that
 this module owns — the Go test layout and the class of track it lives in
-([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)). Every option is defaulted: all five checks, the
+([ADR-REPO-VOCAB](/docs/drs/repository/controlled-vocabulary.md)). Every option is defaulted: all five checks, the
 whole repository, every text surface
-([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). Checked by Test-Glossary.
+([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). Checked by Test-Glossary.
 ```

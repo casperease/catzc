@@ -9,6 +9,6 @@ Above `using System;`, written with `//`.
 
 ```text
 Reads and writes a code file's meta head as pure text work, so every behaviour is proved on strings and no file is touched.
-[ADR-REPO-CODEMETA-CODEFILEHEAD](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta-codefilehead),
-[ADR-REPO-FILEMETA-PUREPARTS](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-pureparts)
+[ADR-REPO-CODEMETA-CODEFILEHEAD](/docs/drs/repository/code-file-meta.md#rule-adr-repo-codemeta-codefilehead),
+[ADR-REPO-FILEMETA-PUREPARTS](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-pureparts)
 ```

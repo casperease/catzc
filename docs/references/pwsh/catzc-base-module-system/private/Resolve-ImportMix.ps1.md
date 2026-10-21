@@ -14,7 +14,7 @@ Resolves an import mix from the caller's values, the importer configuration and 
 Gathers the facts the resolution needs: the engines whose executable is located, each module's code languages, and the languages
 configuration's known, executable and handled languages. It hands them to ImportMix.Resolve, the one place the mix is decided. A resolution
 error (an unknown name, an absent engine, a language without a handler) surfaces as itself, so the importer stops with the NotImplemented
-error ([ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS](../../../../adr/automation/importer.md#rule-adr-auto-importer-unhandledlanguagestops)).
+error ([ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS](../../../../drs/automation/importer.md#rule-adr-auto-importer-unhandledlanguagestops)).
 
 ### parameter `Languages`
 

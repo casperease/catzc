@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e92d7693fe1a
+    with_body_sha: d299837dd546
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/Get-ModuleFunction.Tests.ps1
     docs: "[Get-ModuleFunction.ps1.md](docs/references/pwsh/catzc-base-module-system/Get-ModuleFunction.ps1.md)"
@@ -22,7 +22,7 @@ function Get-ModuleFunction {
         Assert-SourceTree
     }
 
-    # [System.IO] enumeration ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths))
+    # [System.IO] enumeration ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths))
     $moduleNames = (Get-CatzcModule -EngineTrack).name
 
     $modules = Get-Module | Where-Object { $_.Name -in $moduleNames }

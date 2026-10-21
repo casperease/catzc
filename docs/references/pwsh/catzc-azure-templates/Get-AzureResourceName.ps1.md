@@ -94,7 +94,7 @@ Above `$omit = if ($specification.Contains('omit')) {`, written with `#`.
 ```text
 A type may omit components from its render — e.g. the Windows `vm` (15-char cap) drops
 org/customer/role, which the resource group already encodes (see
-[ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)). The `type`
+[ADR-AZ-NAMING](/docs/drs/azure/azure-naming-standard.md)). The `type`
 segment is never omitted.
 ```
 
@@ -105,7 +105,7 @@ Above `$envValue = if ($specification.pattern -eq 'long') {`, written with `#`.
 ```text
 The env-segment is the readable name for the generous `long` pattern, the 2-char shortcode for
 the restricted patterns (kv/storage/vm) — see
-[ADR-AZ-NAMING-PATTERNPERRESOURCETYPE](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming-patternperresourcetype).
+[ADR-AZ-NAMING-PATTERNPERRESOURCETYPE](/docs/drs/azure/azure-naming-standard.md#rule-adr-az-naming-patternperresourcetype).
 ```
 
 ## comment:3
@@ -124,5 +124,5 @@ Above `$checks = [ordered]@{`, written with `#`.
 
 ```text
 Component format checks (case-sensitive, lowercase) — see
-[ADR-AZ-NAMING-LOWERCASECOMPONENTS](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents).
+[ADR-AZ-NAMING-LOWERCASECOMPONENTS](/docs/drs/azure/azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents).
 ```

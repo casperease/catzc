@@ -57,7 +57,7 @@ reads no file itself.
 
 ## See also
 
-- [Module config loading](../../adr/configuration/module-config-loading.md) — the decision this article explains.
+- [Module config loading](../../drs/configuration/module-config-loading.md) — the decision this article explains.
 - The other lenses on the same read path: [meta](one-reader-one-cache-per-session.md), [implementation](three-caches-back-one-reader.md),
   [operations](ask-by-name-get-the-cached-object.md) and [governance](one-gate-guards-the-read-path.md).
 - [The configuration explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

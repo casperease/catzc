@@ -12,7 +12,7 @@ Returns the full path of an execution engine's executable on this machine.
 ### description
 
 Locates the engine's executable the way its model says (ExecutionEngine.Locate,
-[ADR-AUTO-ENGINE](../../../adr/automation/execution-engines.md)):
+[ADR-AUTO-ENGINE](../../../drs/automation/execution-engines.md)):
 
 ```text
 ps-home  pwsh, beside the PowerShell that is running ($PSHOME), so a started engine is the same PowerShell as

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "07cd7c39961b"
+    with_body_sha: f78955ca6601
   edges:
     code: pwsh/Catzc.Base.VSCode/private/New-VSCodeExtensionFolder.ps1
     cites:
@@ -11,7 +11,7 @@ catzc:
 ---
 #>
 
-# Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
+# Rests on [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams).
 Describe 'New-VsCodeExtensionFolder' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:assets = Join-Path $TestDrive 'assets'

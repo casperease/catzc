@@ -12,7 +12,7 @@ The ADR citation registry as one immutable lookup: each citation code (ADR-<CODE
 repository-relative path and declared rule numbers, plus the reverse path -> code map and a unique-slug
 -> path map. Built from the ADR index (Get-AdrCitationMap) and read by the link engine, which derives every
 code link's destination from the citation code
-([ADR-REPO-LINK-CODELINKS](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-codelinks)): the code is the source of truth, so a
+([ADR-REPO-LINK-CODELINKS](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)): the code is the source of truth, so a
 moved ADR re-points every link to it.
 ```
 
@@ -32,6 +32,6 @@ Above `int dash = code.IndexOf('-', code.IndexOf('-') + 1);`, written with `//`.
 
 ```text
 Every hyphen-prefix of a code (ADR-AUTO for
-[ADR-PWSH-ERROR](/docs/adr/automation/pwsh/error-handling.md)) names its domain; a domain code or a
+[ADR-PWSH-ERROR](/docs/drs/automation/pwsh/error-handling.md)) names its domain; a domain code or a
 domain wildcard (ADR-AUTO-*) is a valid mention, not an unknown ADR.
 ```

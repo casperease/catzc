@@ -8,9 +8,9 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'GlobPattern' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
-The dialect's truth table ([FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-repositoryrelativepatterns)) and the
+The dialect's truth table ([FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-repositoryrelativepatterns)) and the
 constructor guard
-([FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-malformedpatternrejected)): per-segment PowerShell
+([FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-malformedpatternrejected)): per-segment PowerShell
 wildcards, '**' as the only cross-segment operator (zero or more whole segments), case-sensitive; a
 malformed pattern never produces an instance.
 ```

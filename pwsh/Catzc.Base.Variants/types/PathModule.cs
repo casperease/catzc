@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3478f1bcaabe"
+    with_body_sha: c7aa25bd1631
   edges:
     cites:
       - DDR-TRACK-ONETECHSTACK
@@ -11,7 +11,7 @@ catzc:
 
 namespace Catzc.Base.Variants;
 
-// The module a path is placed in, and the module type that says what sort of module it is ([DDR-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-ddr-track-onetechstack)).
+// The module a path is placed in, and the module type that says what sort of module it is ([DDR-TRACK-ONETECHSTACK](/docs/drs/design/tracks.md#rule-ddr-track-onetechstack)).
 public sealed class PathModule
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

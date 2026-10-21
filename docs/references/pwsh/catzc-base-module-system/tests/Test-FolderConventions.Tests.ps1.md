@@ -10,5 +10,5 @@ Above `Describe 'Test-FolderConventions' -Tag 'L0', 'logic' {`, written with `#`
 ```text
 Test-FolderConventions over fixture module trees in $TestDrive: the repository root is mocked, so each test builds
 the folders it needs and pins one convention. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

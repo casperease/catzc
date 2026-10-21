@@ -48,8 +48,8 @@ runs only from main.
 
 ## See also
 
-- [The commit lifecycle](../../adr/flow/commit-lifecycle.md) — the decision this article explains.
-- [Visual design](../../adr/design/visual-design.md) — the commit colours and the neutral environment.
+- [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
+- [Visual design](../../drs/design/visual-design.md) — the commit colours and the neutral environment.
 - The other lenses on the same deploy: [architecture](deploy-and-integrate-share-only-the-topic.md),
   [implementation](every-deploy-stage-is-main-only.md), [operations](merging-to-main-is-what-deploys.md) and
   [governance](out-of-band-deploy-is-adr-only.md).

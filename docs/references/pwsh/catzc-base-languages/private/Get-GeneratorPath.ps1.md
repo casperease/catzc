@@ -14,7 +14,7 @@ Returns the repository-relative path of the file a generator command is defined 
 A generated file's head names its generator by that path, so a reader opens the writer straight from the head. The command is looked up
 among the loaded functions, and one that is not loaded is an error: a head never names a generator that cannot be found.
 
-It rests on [ADR-REPO-FILEMETA-COMPOSEDFILES](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-composedfiles).
+It rests on [ADR-REPO-FILEMETA-COMPOSEDFILES](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-composedfiles).
 
 ### parameter `Name`
 

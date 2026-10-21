@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "35630b989311"
+    with_body_sha: "8ca3122d80e2"
   edges:
     test: pwsh/Catzc.Base.TypesSystem/tests/Build-AgentHook.Tests.ps1
     docs: "[Build-AgentHook.ps1.md](docs/references/pwsh/catzc-base-types-system/Build-AgentHook.ps1.md)"
@@ -21,9 +21,9 @@ function Build-AgentHook {
     .DESCRIPTION
         Each folder under .claude/hooks/ that holds a .csproj is one hook: Assert-BashTimeout runs before every Bash call an agent makes
         and denies a call that does not run inside the safeguard
-        ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait));
+        ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait));
         Record-AgentWrite records what an agent session writes, so the listen mode tells it from the editor's changes
-        ([ADR-REPO-AI-EDITORISFACT](/docs/adr/repository/ai-agent-contract.md#rule-adr-repo-ai-editorisfact)). A hook is
+        ([ADR-REPO-AI-EDITORISFACT](/docs/drs/repository/ai-agent-contract.md#rule-adr-repo-ai-editorisfact)). A hook is
         a compiled
         program rather than a script because it runs that often: it starts in about a third of the time pwsh does. This publishes each,
         framework-dependent, to .claude/hooks/bin/ (gitignored), and records a hash of its sources beside it as <AssemblyName>.source.sha256;
@@ -31,7 +31,7 @@ function Build-AgentHook {
 
         dotnet runs through Invoke-Executable rather than Invoke-Dotnet: that wrapper lives in the Tooling layer, which this Base module
         must not depend on, so dotnet must be on PATH. The hooks' C# code lives in the source tree, so it stops with a named error in build
-        mode (Assert-SourceTree, [DDR-RUNMODE](/docs/adr/design/run-modes.md)).
+        mode (Assert-SourceTree, [DDR-RUNMODE](/docs/drs/design/run-modes.md)).
 
     .PARAMETER Name
         The hooks to publish, by folder name. Default: every hook folder under .claude/hooks/.

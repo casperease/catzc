@@ -21,7 +21,7 @@ from it.
 This is a pure renderer: it returns the content and writes nothing — it is the `generator` the root-config registry names for the .gitignore
 target, and Build-RootConfig owns the write (through the same idempotent Write-FileIfChanged path as every managed file). It reads only its
 own registry, never rootconfig.yml, so Catzc.Base.Git carries no dependency on Catzc.Base.RootConfig (the composition edge runs the other
-way; see [ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md)).
+way; see [ADR-REPO-ROOTCFG](../../../drs/repository/generated-root-configs.md)).
 
 ### parameter `Inject`
 

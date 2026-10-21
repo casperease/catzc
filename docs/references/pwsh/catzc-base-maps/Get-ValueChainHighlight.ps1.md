@@ -13,8 +13,8 @@ Returns the value-chain map cells that ADR codes light.
 
 Builds the value-chain map (Get-ValueChainMap) and lights its cells with Catzc.Base.Maps.ValueChainHighlight: each code (`ADR-<CODE>`, or
 one rule as `ADR-<CODE>#n` or `ADR-<CODE>:n`) lights the cells its ADR sits in, its ADR domain's row crossed with each of its value-chain
-concerns ([DDR-TRACK-LITCELL](../../../adr/design/tracks.md#rule-ddr-track-litcell),
-[DDR-TRACK-VALUECHAINMAP](../../../adr/design/tracks.md#rule-ddr-track-valuechainmap)). A rule sits where its ADR sits, so a
+concerns ([DDR-TRACK-LITCELL](../../../drs/design/tracks.md#rule-ddr-track-litcell),
+[DDR-TRACK-VALUECHAINMAP](../../../drs/design/tracks.md#rule-ddr-track-valuechainmap)). A rule sits where its ADR sits, so a
 citation of one rule lights the same cells as its ADR. Each lit cell lists the requested ADRs that light it. It is the value-chain
 counterpart of Get-WorldMapHighlight -Adr, which lights where the ADR's files sit.
 
@@ -25,7 +25,7 @@ The ADR codes, each optionally narrowed to one rule (#n or :n). An unknown code 
 ### parameter `AsJson`
 
 Return the highlight as JSON (the request and the lit cells with their ADRs) instead of the object
-([TDR-ONETRUTH-TRUTHISQUERYABLE](../../../adr/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)).
+([TDR-ONETRUTH-TRUTHISQUERYABLE](../../../drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)).
 
 ### outputs
 

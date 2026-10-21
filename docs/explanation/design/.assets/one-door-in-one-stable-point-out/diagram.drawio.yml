@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "89fa08b8e57f"
+#     with_body_sha: "25f3ff8d4896"
 # ---
 
 description:
@@ -85,10 +85,10 @@ content:
           - DDR-REMOTE-SERVERREMOTEISTRUTH
       - cell: docs/-/.
         by:
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/server-remote-integration.md
-          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
-          - docs/adr/index.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/server-remote-integration.md
+          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/drs/index.md
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - DDR-REMOTE-NORECONCILINGTIPS
           - DDR-REMOTE-PULLREQUESTISINGRESS
@@ -110,16 +110,16 @@ content:
           - DDR-REMOTE-SERVERREMOTEISTRUTH
       - cell: docs/markdown
         by:
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/server-remote-integration.md
-          - docs/adr/index.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/server-remote-integration.md
+          - docs/drs/index.md
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - DDR-REMOTE-NORECONCILINGTIPS
           - DDR-REMOTE-PULLREQUESTISINGRESS
           - DDR-REMOTE-SERVERREMOTEISTRUTH
       - cell: docs/yaml
         by:
-          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
       - cell: pwsh/yaml
         by:

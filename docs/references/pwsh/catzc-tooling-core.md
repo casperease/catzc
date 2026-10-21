@@ -5,9 +5,9 @@ command-line tool is locked to which version — the `tools.yml` config and the 
 [Catzc.Base.Execution](catzc-base-execution.md), the module furthest down the stack that reads them — to assert a tool's presence, install
 it, and uninstall it through the right mechanism. Every other Tooling module is built on this one; it knows nothing about any specific tool,
 only how to drive one from its config. The rationale is in
-[controlling-systemwide-deps](../../adr/automation/controlling-systemwide-deps.md) and
-[uv-python-handler](../../adr/automation/uv-python-handler.md), and the config is modelled as a native type per
-[native-csharp-types](../../adr/automation/BCL/native-csharp-types.md).
+[controlling-systemwide-deps](../../drs/automation/controlling-systemwide-deps.md) and
+[uv-python-handler](../../drs/automation/uv-python-handler.md), and the config is modelled as a native type per
+[native-csharp-types](../../drs/automation/BCL/native-csharp-types.md).
 
 ## Responsibilities
 
@@ -23,7 +23,7 @@ only how to drive one from its config. The rationale is in
 
 Reading `tools.yml` and resolving, for any named tool, its locked version, the command it provides (and the per-platform command suffix that
 command takes), and the order tools must be installed in to satisfy their declared dependencies. `tools.yml` is the single source of truth;
-the `ToolConfig` C# type is its in-memory shape (see [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)). Both live in
+the `ToolConfig` C# type is its in-memory shape (see [native-csharp-types](../../drs/automation/BCL/native-csharp-types.md)). Both live in
 [Catzc.Base.Execution](catzc-base-execution.md), so a bundle without the Tooling group still locates every managed tool. Because every fact
 about a tool lives in config — its install mechanism, dependencies, and any devbox version relaxation or session PATH hint — adding or
 upgrading one is an edit here, not new install code.
@@ -48,9 +48,9 @@ The generic mechanism that installs the locked version idempotently and uninstal
 package manager (winget / brew / apt), installs Python-based CLIs as isolated uv tools (`Install-UvTool`) or into the uv-managed Python,
 runs uv through a single asserted wrapper (`Invoke-Uv`), resolves the install scope and script-install directory, checksum-verifies a
 download before it is trusted, and hard-removes a system installation placed outside the manager. Idempotence is a requirement here, not a
-nicety (see [idempotent-state-functions](../../adr/automation/idempotent-state-functions.md)); the mechanism follows the tool's declared
-kind (see [uv-python-handler](../../adr/automation/uv-python-handler.md) and
-[use-proper-package-managers](../../adr/automation/use-proper-package-managers.md)).
+nicety (see [idempotent-state-functions](../../drs/automation/idempotent-state-functions.md)); the mechanism follows the tool's declared
+kind (see [uv-python-handler](../../drs/automation/uv-python-handler.md) and
+[use-proper-package-managers](../../drs/automation/use-proper-package-managers.md)).
 
 ### responsibility:4 — Session tool reconciliation
 

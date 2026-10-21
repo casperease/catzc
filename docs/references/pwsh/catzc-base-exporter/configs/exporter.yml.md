@@ -14,7 +14,7 @@ Build-Modules / Export-Catzc read their defaults from here (Get-Config -Config e
 override for ad-hoc builds. Because every read routes through the Get-Config / Resolve-ConfigEntry seam,
 Pester tests swap in a fixture exporter.yml to vary these options without touching the shipped config — the
 repo keeps exactly one real export config. Validated on load by the ExporterConfig type.
-See [ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md).
+See [ADR-AUTO-BUNDLE](/docs/drs/automation/platform-bundle.md).
 ```
 
 ## comment:2
@@ -53,5 +53,5 @@ Above `module_guid: 211b36c7-f7eb-4f3c-93f5-9132b535fa56`, written with `#`.
 ```text
 Package identity and metadata — Build-Modules hands these to the build engine, which writes them into the
 build's top-level Catzc.psd1 (the manifest Install-PSResource and the PowerShell Gallery read). module_guid is
-the module's stable identity across versions (a registered managed GUID, [ADR-AUTO-GUIDS](/docs/adr/automation/managed-guids.md)).
+the module's stable identity across versions (a registered managed GUID, [ADR-AUTO-GUIDS](/docs/drs/automation/managed-guids.md)).
 ```

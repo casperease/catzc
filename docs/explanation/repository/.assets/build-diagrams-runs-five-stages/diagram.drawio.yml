@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "42ef47611ac6"
+#     with_body_sha: "5994477d7614"
 # ---
 
 description:
@@ -72,9 +72,9 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/plans/plan-minimap-reasons-gate.md
-          - docs/adr/index.md
-          - docs/adr/repository/dora-explains.md
-          - docs/adr/repository/slides-as-markdown.md
+          - docs/drs/index.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/slides-as-markdown.md
           - docs/references/pwsh/catzc-base-slides.md
           - docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md
           - docs/references/python/catzc_diagrams.md
@@ -93,9 +93,9 @@ content:
           - ADR-REPO-SLIDES-MINIMAPSFROMDATA
       - cell: docs/markdown
         by:
-          - docs/adr/index.md
-          - docs/adr/repository/dora-explains.md
-          - docs/adr/repository/slides-as-markdown.md
+          - docs/drs/index.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/slides-as-markdown.md
           - docs/references/pwsh/catzc-base-slides.md
           - docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md
           - docs/references/python/catzc_diagrams.md

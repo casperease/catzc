@@ -54,7 +54,7 @@ rest, so a stray file can never silently ship. The infrastructure track declares
 
 ## See also
 
-- [Module aspects](../../adr/design/module-aspects.md) — the decision this article explains.
+- [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains.
 - The other lenses on the same catch-all: [architecture](only-pwsh-compiles-its-aspects.md),
   [implementation](get-aspect-feeds-globs-and-maps.md), [operations](get-aspect-names-the-remainder.md) and
   [governance](gate-checks-order-not-liveness.md).

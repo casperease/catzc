@@ -16,7 +16,7 @@ The PowerShell AST omits comments, here-doc trivia, and help entirely, so this r
 illustrating `[acme, globex]`, a `.EXAMPLE` help block, or demo data in a comment never reaches it.
 
 A live identity is legitimate ONLY inside an `integrity`-tagged block (binding the real config is an integrity test's job,
-[ADR-AUTO-TEST-ONECATEGORY](../../../../adr/automation/test-automation.md#rule-adr-auto-test-onecategory)); anywhere else in a logic-bearing
+[ADR-AUTO-TEST-ONECATEGORY](../../../../drs/automation/test-automation.md#rule-adr-auto-test-onecategory)); anywhere else in a logic-bearing
 test file it is a leak. So the scan EXCLUDES the script-block extent of every Describe/Context/It tagged `integrity`, and reports a match
 everywhere else — the shared setup, the logic Contexts, the unit tests. This makes a MIXED logic+integrity file work with no file split: the
 integrity Context's identities are carved out, the logic body is checked.
@@ -25,7 +25,7 @@ Classification and exclusion are read from the AST `-Tag` values, never by runni
 surface and is skipped; a `*.Integrity.Tests.ps1` file is skipped by convention. Matching is EXACT (a literal that IS 'apex', not the
 segment inside 'apex/…' or a path), so false positives stay near zero (Phase 1).
 
-It rests on [ADR-REPO-LANG](../../../../adr/repository/domain-language-separation.md).
+It rests on [ADR-REPO-LANG](../../../../drs/repository/domain-language-separation.md).
 
 ### parameter `Path`
 
@@ -45,7 +45,7 @@ Above `$isCommandNode = {`, written with `#`.
 
 ```text
 Predicates bound to locals (never inlined in a .FindAll(...) call) —
-[ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/adr/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound).
+[ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND](/docs/drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-multilinepredicatebound).
 ```
 
 ## comment:2

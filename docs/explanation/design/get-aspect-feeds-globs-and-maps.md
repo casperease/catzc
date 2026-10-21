@@ -77,9 +77,9 @@ The code that validates the order sits in the config type, before either caller 
 
 ## See also
 
-- [Module aspects](../../adr/design/module-aspects.md) — the decision this article explains. Also
-  [durable sha globs](../../adr/flow/durable-sha-globs.md), [repo-wide variants](../../adr/repository/repo-variants.md) and
-  [tracks](../../adr/design/tracks.md).
+- [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains. Also
+  [durable sha globs](../../drs/flow/durable-sha-globs.md), [repo-wide variants](../../drs/repository/repo-variants.md) and
+  [tracks](../../drs/design/tracks.md).
 - The other lenses on the same catch-all: [meta](each-track-picks-its-catch-all.md), [architecture](only-pwsh-compiles-its-aspects.md),
   [operations](get-aspect-names-the-remainder.md) and [governance](gate-checks-order-not-liveness.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

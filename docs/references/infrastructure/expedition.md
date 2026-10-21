@@ -5,7 +5,7 @@ landing zone. `expedition` owns its data resources and nothing of the network or
 its private endpoints in the `private-endpoints` subnet of the customer's spoke; a shared-platform deployment places them in the hub's
 `shared-services` subnet. Either way they register in the hub's private DNS zones. It needs `discovery`'s network and DNS zones and
 `foundation`'s Log Analytics workspace and Key Vault, so both deploy first (see [discovery](discovery.md) and [foundation](foundation.md)).
-The configuration tree is [data-model](../../adr/azure/azure-data-model.md).
+The configuration tree is [data-model](../../drs/azure/azure-data-model.md).
 
 ## Resources
 

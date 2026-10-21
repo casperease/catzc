@@ -44,7 +44,7 @@ through its service connection, and a developer runs `Connect-AzCli` and picks h
 
 ## See also
 
-- [Thin platforms](../../adr/design/thin-platforms.md) — the decision this article explains.
+- [Thin platforms](../../drs/design/thin-platforms.md) — the decision this article explains.
 - The other lenses on the same platform: [architecture](every-vendor-call-leaves-through-az.md),
   [implementation](deploy-bicep-delegates-to-az.md), [operations](same-deploy-bicep-on-both-sides.md) and
   [governance](what-keeps-the-platform-thin.md).

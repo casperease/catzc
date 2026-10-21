@@ -53,8 +53,8 @@ one reader outside PowerShell, rest on the ADR alone.
 
 ## See also
 
-- [Pipeline detection](../../adr/flow/pipeline-detection.md) — the decision this article explains;
-  [Devbox and pipeline parity](../../adr/automation/devbox-pipeline-parity.md) — the seam it keeps.
+- [Pipeline detection](../../drs/flow/pipeline-detection.md) — the decision this article explains;
+  [Devbox and pipeline parity](../../drs/automation/devbox-pipeline-parity.md) — the seam it keeps.
 - The other lenses on the same detector: [meta](one-boolean-answer-from-one-function.md),
   [architecture](the-loader-holds-the-one-detector.md), [implementation](two-variables-read-in-one-place.md) and
   [operations](the-analyzer-names-the-raw-read.md).

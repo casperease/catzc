@@ -18,8 +18,8 @@ exists on disk becomes the edge's value. A path takes the tokens `{module}` (the
 from comments.yml). An edge no rule fills is empty, so it is left out of the block and a file with no relatives carries none.
 
 Its rules are config, as PDR-CONFIG-VARYINGBEHAVIOURISCONFIG of
-[configure-not-program](../../../../adr/principles/configure-not-program.md) asks, and it rests on
-[ADR-REPO-FILEMETA-FEWLINKS](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-fewlinks) for the few edges it writes.
+[configure-not-program](../../../../drs/principles/configure-not-program.md) asks, and it rests on
+[ADR-REPO-FILEMETA-FEWLINKS](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-fewlinks) for the few edges it writes.
 
 ### parameter `State`
 

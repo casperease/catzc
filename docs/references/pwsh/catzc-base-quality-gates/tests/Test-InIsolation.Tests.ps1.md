@@ -9,7 +9,7 @@ Above `Describe 'Test-InIsolation (vendored Pester)' -Tag 'L1', 'integrity',...`
 
 ```text
 The real-asset test of
-[ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest) for
+[ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest) for
 Test-InIsolation's lazy Pester load: the vendored Pester under
 the code root. Pester is already loaded in this worker, so the lazy-load branch is forced by hiding it from
 Get-Module and the re-import is intercepted (re-importing Pester mid-run would unload the running harness); the

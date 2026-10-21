@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5f891ef33fae"
+#     with_body_sha: d3ee429f0639
 # ---
 
 description:
@@ -106,9 +106,9 @@ content:
           - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: docs/-/.
         by:
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/module-aspects.md
-          - docs/adr/index.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/module-aspects.md
+          - docs/drs/index.md
           - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
           - docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md

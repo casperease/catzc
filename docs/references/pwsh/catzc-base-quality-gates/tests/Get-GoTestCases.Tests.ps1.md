@@ -12,5 +12,5 @@ Above `Describe 'Get-GoTestCases' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Get-GoTestCases over a fixture Go test folder in $TestDrive (the go config mocked to its defaults): the Go tests are
 read from the *_test.go source, never by running go. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

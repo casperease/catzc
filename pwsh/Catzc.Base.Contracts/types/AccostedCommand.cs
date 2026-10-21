@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: aeb77d388dec
+    with_body_sha: "883ab4e963e3"
   edges:
     cites:
       - ADR-AUTO-ACCOSTED-COMMANDFORM
@@ -18,7 +18,7 @@ using System.Text.RegularExpressions;
 namespace Catzc.Base.Contracts;
 
 // One command of an accosted run
-// ([ADR-AUTO-ACCOSTED-COMMANDFORM](/docs/adr/automation/accosted-language.md#rule-adr-auto-accosted-commandform)): a contracted command's
+// ([ADR-AUTO-ACCOSTED-COMMANDFORM](/docs/drs/automation/accosted-language.md#rule-adr-auto-accosted-commandform)): a contracted command's
 // normal-form name and its literal arguments.
 public sealed class AccostedCommand
 {

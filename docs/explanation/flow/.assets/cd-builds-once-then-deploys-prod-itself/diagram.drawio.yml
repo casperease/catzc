@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "06c3158810c3"
+#     with_body_sha: d65fdbc9e07b
 # ---
 
 description:
@@ -147,9 +147,9 @@ content:
           - FDR-CD-TWOENVIRONMENTACTIVATION
       - cell: docs/-/.
         by:
-          - docs/adr/flow/cd-discipline-and-promotion-flow.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/flow/cd-discipline-and-promotion-flow.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/ado/pipelines/deploy-apex.yaml.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md

@@ -64,7 +64,7 @@ The ADR keeps `RepoRelativePath` repo-root-pure, yet its `ToAbsolute` joins ever
 
 ## See also
 
-- [Path representation](../../adr/automation/path-representation.md) — the decision this article explains.
+- [Path representation](../../drs/automation/path-representation.md) — the decision this article explains.
 - The other views of the same boundary: [meta](two-forms-never-a-third.md), [implementation](output-root-first-then-repo-root.md),
   [operations](one-out-string-two-places.md) and [governance](types-check-forms-review-checks-crossers.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

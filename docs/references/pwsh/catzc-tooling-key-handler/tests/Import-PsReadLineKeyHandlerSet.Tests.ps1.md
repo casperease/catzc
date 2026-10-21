@@ -12,5 +12,5 @@ Import-PsReadLineKeyHandlerSet over fixture configs (Get-Config mocked to the re
 data): the plan marks each binding supported exactly when its function is in the allow-list, and -DryRun applies
 nothing. The shipped configs' load is the quality gate Test-ShippedConfigs; a binding's non-empty key and function
 is a KeyHandlerBinding construction rule. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

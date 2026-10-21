@@ -106,7 +106,7 @@ Above `$content = Get-DynamicManifestContent -NestedModule $script:moduleFilesLo
 
 ```text
 Canonical, formatter-stable text — no hand-padded alignment
-([ADR-REPO-FORMAT-TOOLSFORMAT](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-toolsformat)); the L2 tests guard the
+([ADR-REPO-FORMAT-TOOLSFORMAT](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-toolsformat)); the L2 tests guard the
 invariant.
 ```
 
@@ -150,7 +150,7 @@ Above `$fields = [ordered]@{`, written with `#`.
 ```text
 Ordered fields with their value literals. The '=' column width is derived from the longest key, so a new
 field re-aligns automatically and no alignment is maintained by hand
-([ADR-REPO-FORMAT-TOOLSFORMAT](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-toolsformat)).
+([ADR-REPO-FORMAT-TOOLSFORMAT](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-toolsformat)).
 ```
 
 ## comment:13
@@ -235,7 +235,7 @@ loaded cross-root) is a hard failure — the code that uses it is certain to fai
 here. A changed or removed type degrades gracefully — keep the already-loaded types this session,
 warn (orange), and return WITHOUT recording the new hash, so the warning repeats on every re-import
 until you restart. Every devbox session, a person's included, takes this path
-([ADR-BCL-TYPES-ONEDRIFTMEASURE](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-onedriftmeasure)): one
+([ADR-BCL-TYPES-ONEDRIFTMEASURE](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-onedriftmeasure)): one
 yellow line naming the changed types by simple name, and the import goes on.
 ```
 
@@ -286,9 +286,9 @@ Above `$deferred = $false`, written with `#`.
 ```text
 Load the assembly if not already in the AppDomain (a reimport keeps the live copy). Verify EVERY type.
 Loading a binary into the session is a state change, so it is announced
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) on the
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) on the
 importer's verbose record
-([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)), naming
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)), naming
 the DLL; a reimport that keeps the live copy loads
 nothing and says nothing. The load goes through a per-user shadow copy (Import-TypesAssembly), never the
 .compiled file itself, so no session ever locks a build inside the repository; the message names the
@@ -404,7 +404,7 @@ Above `$moduleDirs = [System.IO.DirectoryInfo]::new($ModulesRoot).GetDirectories
 
 ```text
 One level, inline: this module loads before the walker exists
-([ADR-PWSH-ENUM-EARLYLOADINGCODE](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-earlyloadingcode)).
+([ADR-PWSH-ENUM-EARLYLOADINGCODE](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-earlyloadingcode)).
 ```
 
 ## comment:33
@@ -473,7 +473,7 @@ Above `. $importedModule { Set-StrictMode -Version Latest }`, written with `#`.
 ```text
 A session-level Set-StrictMode does not reach module code, so strict mode is set in each module's own
 script scope, which every function in the module inherits
-([ADR-PWSH-ERROR](/docs/adr/automation/pwsh/error-handling.md)).
+([ADR-PWSH-ERROR](/docs/drs/automation/pwsh/error-handling.md)).
 ```
 
 ## comment:39
@@ -482,10 +482,10 @@ Above `$summary = "Loaded $($imported.Count) modules from '$ModulesRoot'"`, writ
 
 ```text
 Loading and unloading modules changes the session, so it is announced
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) on the
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)) on the
 importer's
 verbose record
-([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)): one
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)): one
 line names
 the load, plus any module that left the session for good — evicted from another root, or gone from the tree.
 A re-import's remove-then-reload of the same modules is not a departure and is not listed.

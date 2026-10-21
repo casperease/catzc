@@ -6,10 +6,10 @@ plan:
   class: feature
   targets:
     [
-      docs/adr,
+      docs/drs,
       pwsh/Catzc.Base.Docs/configs/adrs.yml,
       pwsh/Catzc.Base.Docs/types/AdrsConfig.cs,
-      docs/adr/repository/adr-code-language.md,
+      docs/drs/repository/drs-code-language.md,
       pwsh/Catzc.Base.Docs/configs/glossary.yml,
     ]
 ---
@@ -18,13 +18,13 @@ plan:
 
 The **Decision Records System (DRS)** is the one system that holds every decision record: the record-kind domains (`RDR`, `TDR`, `PDR`,
 `WDR`, `DDR`, `FDR`, and the shared `ADR` of the implementation domains, together "XDR"), their rules, the index and the registry. Its home
-is `docs/drs/`; `docs/adr/` names one kind for a folder that holds seven.
+is `docs/drs/`; `docs/drs/` names one kind for a folder that holds seven.
 
 ## Why its value is high
 
 Since the record-kind codes landed (2026-10-21), the folder name, the index title and the umbrella word "ADR" say one kind where the tree
-holds seven: a reader who meets `docs/adr/principles/one-living-version.md` with a `PDR-ONELIVE` code reads two names for one thing. The
-move touches `docs/adr` in 3,194 places in 1,206 files and a relative `../adr/` link in 697 files, so it is one planned burst after the root
+holds seven: a reader who meets `docs/drs/principles/one-living-version.md` with a `PDR-ONELIVE` code reads two names for one thing. The
+move touches `docs/drs` in 3,194 places in 1,206 files and a relative `../adr/` link in 697 files, so it is one planned burst after the root
 is declared once, not a sweep.
 
 ## Decided (the user, 2026-10-21)
@@ -35,7 +35,7 @@ is declared once, not a sweep.
   `drs.yml`, `drs-index.yml`, `drs-checks.yml`, `analyzer-drs-map.yml`, the `drs-reviewer` agent and the `drs-cite` skill.
 - The DRS commands and types leave `Catzc.Base.Docs` for their own module, `Catzc.Base.Drs`, in the same step as the rename, so each file
   moves and is renamed once.
-- The grammar record `ADR-REPO-ADRCODE` (`adr-code-language.md`) becomes `ADR-REPO-DRSCODE` (`drs-code-language.md`), re-cited in the move's
+- The grammar record `ADR-REPO-DRSCODE` (`adr-code-language.md`) becomes `ADR-REPO-DRSCODE` (`drs-code-language.md`), re-cited in the move's
   burst.
 - In prose, "decision record" names one record, "the DRS" the system, and "ADR" only the `ADR` kind; the sanctioned pair is "domain rules /
   DRS rules".
@@ -50,30 +50,30 @@ The record-kind rewrite has landed, so the steps run in order; the move is one b
 
 ## Open steps
 
-- [ ] `docs/adr/repository/adr-code-language.md`: a rule naming the DRS, `docs/drs/` its one root, every record of one registered kind, the
+- [ ] `docs/drs/repository/drs-code-language.md`: a rule naming the DRS, `docs/drs/` its one root, every record of one registered kind, the
       kinds together "XDR" (check: `Test-AdrRegistry`, `Test-Links` on the file).
 - [ ] `pwsh/Catzc.Base.Docs/configs/glossary.yml`: entries for **DRS**, **decision record** and **record kind**, each defined by the new
       rule; `domain rules` reads "its decision records and the rules they state", avoid `house rules` say `domain rules / DRS rules` (check:
       `Test-Glossary`, `Build-Glossary`).
-- [ ] The root readers outside `Catzc.Base.Docs` read `AdrsConfig.Root` (Python: `adrs.yml`'s `root`, default `docs/adr`), staged, one
+- [ ] The root readers outside `Catzc.Base.Docs` read `AdrsConfig.Root` (Python: `adrs.yml`'s `root`, default `docs/drs`), staged, one
       burst: `CodeLinkRewriter.cs` (its path pattern and `ToRepositoryPath`), `LinkEngine.cs` (`StringDocPath`, `InsertedLink`), the
       `LanguagesConfig.cs` message, `Build-ContractReference.ps1`'s two relative links, the `Get-TestTagViolations` and
       `Test-AnalyzerAdrMap` messages, and `minimaps.py` and `drawio_forward.py` (check: `Test-Links.Tests`, `Format-Links.Tests`,
       `Build-ContractReference.Tests`, the `catzc_diagrams` pytest; `out/drs/residual.txt` rerun finds only comments, fixtures, pages and
       config data).
 - [ ] The move, one burst after the user's go: the rewrite of `out/drs/dryrun.ps1` written (its code map `out/drs/root-code-map.tsv`, one
-      row of kind `root`, `docs/adr` -> `docs/drs`) plus one ADR row `ADR-REPO-ADRCODE` -> `ADR-REPO-DRSCODE` with the file renamed
-      `drs-code-language.md`, then `docs/adr/` moved to `docs/drs/` on disk (the user commits), the `root` default flipped to `docs/drs`,
+      row of kind `root`, `docs/drs` -> `docs/drs`) plus one ADR row `ADR-REPO-DRSCODE` -> `ADR-REPO-DRSCODE` with the file renamed
+      `drs-code-language.md`, then `docs/drs/` moved to `docs/drs/` on disk (the user commits), the `root` default flipped to `docs/drs`,
       then `Build-AdrIndex`, `Build-AdrCodeDictionary`, `Build-Glossary` and `Format-FileMeta`. The dry run (2026-10-21): 6,963 rewrites in
       1,911 of 1,985 files that name the root, 0 throws, 3,109 repository-rooted (1,435 path mentions, 1,674 links) and 3,854 relative
       (3,846 links, 8 path mentions); the 31 Unhandled are the numbered fixtures every run reports. 21 files name the root as a literal no
-      rewrite reaches (code strings and folder mentions, `readme.yml`, `GlossaryOptions.cs`'s `docs/adr/research/**`, the type default):
+      rewrite reaches (code strings and folder mentions, `readme.yml`, `GlossaryOptions.cs`'s `docs/drs/research/**`, the type default):
       `out/drs/dryrun.ps1` lists them, and they change by hand in the same burst (check: `Test-Links`, `Test-AdrRegistry`,
-      `Test-GeneratedFiles`, `Test-FileMeta`, `git grep -n "docs/adr"` finds nothing).
+      `Test-GeneratedFiles`, `Test-FileMeta`, `git grep -n "docs/drs"` finds nothing).
 - [ ] `pwsh/Catzc.Base.Docs/configs/adr-index.yml`: the index titled "DRS index and rule-citation registry", its preamble saying the DRS
       holds the record-kind domains (check: `Build-AdrIndex`, `Test-GeneratedFiles`).
-- [ ] By hand, one file at a time: the four `.claude/hooks/` files that name `docs/adr` (each hook rebuilt), `agents.yml`,
-      `capabilities.yml`, and every `diagram.drawio.yml` naming `docs/adr`, re-rendered (check: `git grep -n "docs/adr"` finds nothing).
+- [ ] By hand, one file at a time: the four `.claude/hooks/` files that name `docs/drs` (each hook rebuilt), `agents.yml`,
+      `capabilities.yml`, and every `diagram.drawio.yml` naming `docs/drs`, re-rendered (check: `git grep -n "docs/drs"` finds nothing).
 - [ ] `.claude/CLAUDE.md`, the user's edit: the structure line and the `## ADRs` section become `docs/drs/` and `## DRS`, "read
       `docs/drs/index.md`", "domain rules / DRS rules" (check: `Test-Links` on the file).
 - [ ] `pwsh/Catzc.Base.MarkdownMeta/`: `Format-MarkdownParagraph` moves down from `Catzc.Base.Docs` with its test and page, its callers

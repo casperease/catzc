@@ -13,9 +13,9 @@ Renders a repository normal-form name in a language's idiom.
 
 The name is split into its words by the configured normal form, `naming_normal_form` of the languages config, and joined in one of the
 language's naming cases for the kind, so it is the inverse of ConvertTo-NormalName
-([ADR-AUTO-IDIOM-ROUNDTRIP](../../../adr/automation/idiomatic-names.md#rule-adr-auto-idiom-roundtrip)). The case is the one named, else the
+([ADR-AUTO-IDIOM-ROUNDTRIP](../../../drs/automation/idiomatic-names.md#rule-adr-auto-idiom-roundtrip)). The case is the one named, else the
 language's first case for the kind
-([ADR-PWSH-PARAM-RESOLUTIONORDER](../../../adr/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)). A name not in the
+([ADR-PWSH-PARAM-RESOLUTIONORDER](../../../drs/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)). A name not in the
 normal form, a case the language does not configure for the kind, and words a case cannot join (a `verb-noun` name whose words start with no
 approved verb) are errors.
 

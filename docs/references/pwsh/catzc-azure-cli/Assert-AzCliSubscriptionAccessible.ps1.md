@@ -18,8 +18,8 @@ the later call.
 
 The check is a real, read-only ARM call (see Get-AzCliSubscriptionAccessState), so a pass proves the later call will actually reach ARM, not
 merely that the subscription is in the local profile. The generic, azure.yml-free primitive. Both Assert/Test share
-Get-AzCliSubscriptionAccessState. See [ADR-AZ-CLI-AZBYDEFAULT](../../../adr/azure/prefer-az-cli.md#rule-adr-az-cli-azbydefault) and
-[ADR-AUTO-FAILFAST](../../../adr/automation/fail-fast-with-asserts.md).
+Get-AzCliSubscriptionAccessState. See [ADR-AZ-CLI-AZBYDEFAULT](../../../drs/azure/prefer-az-cli.md#rule-adr-az-cli-azbydefault) and
+[ADR-AUTO-FAILFAST](../../../drs/automation/fail-fast-with-asserts.md).
 
 ### parameter `SubscriptionId`
 

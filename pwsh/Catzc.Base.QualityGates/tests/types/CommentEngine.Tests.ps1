@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c404bd142b37
+    with_body_sha: "9843d7c62e4c"
   edges:
     code: pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs
     cites:
@@ -18,7 +18,7 @@ catzc:
 ---
 #>
 
-# Rests on [PDR-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-pdr-onelive-oneversion).
+# Rests on [PDR-ONELIVE-ONEVERSION](/docs/drs/principles/one-living-version.md#rule-pdr-onelive-oneversion).
 # cspell:ignore nwidgets npublic nvar nwidget ngadget gadgt wdgt -- escape-sequence artifacts in the "`n…" fixture strings, and the deliberate misspelling a kept cspell directive covers
 Describe 'CommentEngine' -Tag 'L0', 'logic' {
     BeforeAll {

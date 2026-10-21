@@ -21,12 +21,12 @@ terminate where this must let go. A watchpoint is a diagnostic — it costs its 
 found is bounded (Invoke-WithTimeout, a timeouts.yml entry).
 
 It rests on
-[ADR-AUTO-FAILFAST-NEVERCATCHASSERTIONS](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-nevercatchassertions) and
-[ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait). It is the
+[ADR-AUTO-FAILFAST-NEVERCATCHASSERTIONS](../../../drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-nevercatchassertions) and
+[ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](../../../drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait). It is the
 watchpoint of
-[ADR-AUTO-FAILFAST-WATCHPOINTTHENBOUND](../../../adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-watchpointthenbound), in
+[ADR-AUTO-FAILFAST-WATCHPOINTTHENBOUND](../../../drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-watchpointthenbound), in
 its pwsh form
-[ADR-PWSH-ASSERT-WATCHBLOCKINGBEHINDSWITCH](../../../adr/automation/pwsh/assert-idioms.md#rule-adr-pwsh-assert-watchblockingbehindswitch).
+[ADR-PWSH-ASSERT-WATCHBLOCKINGBEHINDSWITCH](../../../drs/automation/pwsh/assert-idioms.md#rule-adr-pwsh-assert-watchblockingbehindswitch).
 
 ### parameter `Seconds`
 

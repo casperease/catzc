@@ -22,7 +22,7 @@ No admin required. Idempotent — safe to run repeatedly.
 
 It runs before catzc is loaded, so it writes through Write-Information directly rather than the writer chokepoint — the same information
 stream
-([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../../../adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)),
+([ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../../../drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)),
 always shown, colour as embedded ANSI.
 
 ### example 1

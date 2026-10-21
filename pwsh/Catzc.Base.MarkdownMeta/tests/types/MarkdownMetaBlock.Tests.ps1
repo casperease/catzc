@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "18d63e79dae6"
+    with_body_sha: "19289b3cadb9"
   edges:
     code: pwsh/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs
     cites:
@@ -71,7 +71,7 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
         @{ Text = 'say "hi"'; Expected = '"say \"hi\""' }
         @{ Text = "two`nlines"; Expected = '"two\nlines"' }
         @{ Text = 'widget'; Expected = 'widget' }
-        @{ Text = 'docs/adr/widget.md'; Expected = 'docs/adr/widget.md' }
+        @{ Text = 'docs/drs/widget.md'; Expected = 'docs/drs/widget.md' }
         @{ Text = 'ADR-WIDGET-GADGET-RE01'; Expected = 'ADR-WIDGET-GADGET-RE01' }
         @{ Text = 'ADR-WIDGET-GADGET#{1,3-5}'; Expected = '"ADR-WIDGET-GADGET#{1,3-5}"' }
         @{ Text = 'ADR-WIDGET-GADGET#{1, 2}'; Expected = '"ADR-WIDGET-GADGET#{1, 2}"' }

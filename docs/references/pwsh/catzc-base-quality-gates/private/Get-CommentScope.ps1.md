@@ -15,7 +15,7 @@ The one scope Export-Comments, Build-CommentView and Test-Comments share, so the
 starts from the files Get-LinkScope lists (the tracked files, or the given -Path, minus every file the content tools leave as written) and
 keeps a file when its file language is one comments.yml names, comments.yml maps it to a page, and its file kind is none that comments.yml
 excludes (tests, their fixtures and assets by default)
-([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../../adr/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../../drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
 
 ### parameter `RepositoryRoot`
 

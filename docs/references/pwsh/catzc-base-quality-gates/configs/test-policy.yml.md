@@ -8,11 +8,11 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `l4_mutation: {}`, written with `#`.
 
 ```text
-What a test may do to the environment it reaches ([ADR-AUTO-TEST-TESTINGINPRODUCTION](/docs/adr/automation/test-automation.md#rule-adr-auto-test-testinginproduction)).
+What a test may do to the environment it reaches ([ADR-AUTO-TEST-TESTINGINPRODUCTION](/docs/drs/automation/test-automation.md#rule-adr-auto-test-testinginproduction)).
 
 Every key is optional: an omitted key takes the sensible default declared once on
 Catzc.Base.QualityGates.TestPolicyConfig
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 ```
 
 ## comment:2

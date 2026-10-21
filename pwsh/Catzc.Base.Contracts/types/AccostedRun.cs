@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5e774a62e8df"
+    with_body_sha: f7a8f8f516c8
   edges:
     cites:
       - ADR-AUTO-ACCOSTED-FILEFORM
@@ -16,7 +16,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Contracts;
 
-// One run of an accosted file ([ADR-AUTO-ACCOSTED-FILEFORM](/docs/adr/automation/accosted-language.md#rule-adr-auto-accosted-fileform)): a
+// One run of an accosted file ([ADR-AUTO-ACCOSTED-FILEFORM](/docs/drs/automation/accosted-language.md#rule-adr-auto-accosted-fileform)): a
 // list of commands run in order, nothing passed between them.
 public sealed class AccostedRun
 {

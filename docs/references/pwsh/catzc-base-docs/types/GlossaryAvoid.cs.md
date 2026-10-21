@@ -10,8 +10,8 @@ Above `using System;`, written with `//`.
 ```text
 One avoided phrasing of a glossary concept (a configs/glossary.yml `avoid:` entry): the phrase that must not
 appear in prose within the source's scope, and what to say instead. Mirrors the YAML entry (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)). The phrase is stored lower-cased — matching is
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)). The phrase is stored lower-cased — matching is
 case-insensitive and word-bounded — and the
 phrase and its replacement are both required, so a violation can always name the fix. See
-[ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced).
+[ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced).
 ```

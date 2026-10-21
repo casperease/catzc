@@ -12,7 +12,7 @@ Writes a quality gate's report, prints it, and ends the gate: throws once with e
 ### description
 
 The one implementation of a quality gate's output
-([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)), so every gate reports the same
+([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)), so every gate reports the same
 way:
 
 - a run folder `<output root>/<folder>/<stamp>/` holding `<report_file>` — a markdown report naming the gate, its facts, and every issue —
@@ -67,5 +67,5 @@ Above `if (-not $OutputFolder) {`, written with `#`.
 ```text
 A body fill-in on purpose: every gate forwards its own -OutputFolder here, empty when its caller gave none, and
 an explicit empty argument would override a declared default
-([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/adr/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
+([ADR-PWSH-PARAM-RESOLUTIONORDER](/docs/drs/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
 ```

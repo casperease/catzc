@@ -44,5 +44,5 @@ Above `$head = $Matches['head']`, written with `#`.
 
 ```text
 Capture before the next -match overwrites $Matches
-([ADR-PWSH-AUTOVAR](/docs/adr/automation/pwsh/automatic-variable-pitfalls.md)).
+([ADR-PWSH-AUTOVAR](/docs/drs/automation/pwsh/automatic-variable-pitfalls.md)).
 ```

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "01e3ec4a8e9c"
+#     with_body_sha: fff7c5210a3a
 # ---
 
 description:
@@ -153,9 +153,9 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: docs/-/.
         by:
-          - docs/adr/flow/cd-discipline-and-promotion-flow.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/flow/cd-discipline-and-promotion-flow.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/ado/pipelines/deploy-apex.yaml.md
           - docs/references/ado/pipelines/deploy-nova.yaml.md
@@ -241,9 +241,9 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: docs/markdown
         by:
-          - docs/adr/flow/cd-discipline-and-promotion-flow.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/flow/cd-discipline-and-promotion-flow.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/ado/pipelines/deploy-apex.yaml.md
           - docs/references/ado/pipelines/deploy-nova.yaml.md

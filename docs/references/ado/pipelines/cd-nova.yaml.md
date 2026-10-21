@@ -27,5 +27,5 @@ Above `trigger:`, written with `#`.
 
 ```text
 Only nova's own configuration subfolders are included and other deployments' config is excluded, so their changes never trigger it.
-[FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:2](/docs/references/ado/pipelines/cd-nova.yaml.md#comment2)
+[FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md) [comment:2](/docs/references/ado/pipelines/cd-nova.yaml.md#comment2)
 ```

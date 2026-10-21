@@ -9,12 +9,12 @@ Above `using System;`, written with `//`.
 
 ```text
 Claude Code PreToolUse hook: denies a Bash call that does not run inside the time safeguard
-([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)).
+([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)).
 
 The decision is Catzc.Base.Timeouts.BashSafeguard and the limits are Catzc.Base.Timeouts.TimeoutsConfig — the
 module's own source files, compiled into this program (see the .csproj), so the hook, Get-TimeoutSeconds and the
 L0 tests share one parser, one set of defaults and one verdict
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). This file only does the I/O: read the payload
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). This file only does the I/O: read the payload
 from stdin, load timeouts.yml, detect the run environment, print a denial, and append each denial to
 out/time-safeguard.log — the list of blockers to tune.
 
@@ -37,5 +37,5 @@ Above `Console.Out.Write(BashSafeguard.DenyOutput("Bash time safeguard hook fail
 
 ```text
 The safeguard is a control: when it cannot decide, it denies, and the reason names why
-([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)).
+([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)).
 ```

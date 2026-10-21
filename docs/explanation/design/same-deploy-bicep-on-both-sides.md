@@ -56,8 +56,8 @@ pipeline, a devbox builds where a pipeline needs artifacts, `-DoNotRebuild` and 
 
 ## See also
 
-- [Thin platforms](../../adr/design/thin-platforms.md) — the decision this article explains.
-- [Devbox / pipeline parity](../../adr/automation/devbox-pipeline-parity.md) — the one seam between a devbox and a pipeline.
+- [Thin platforms](../../drs/design/thin-platforms.md) — the decision this article explains.
+- [Devbox / pipeline parity](../../drs/automation/devbox-pipeline-parity.md) — the one seam between a devbox and a pipeline.
 - The other lenses on the same platform: [meta](bind-to-one-cli-delegate-the-rest.md),
   [architecture](every-vendor-call-leaves-through-az.md), [implementation](deploy-bicep-delegates-to-az.md) and
   [governance](what-keeps-the-platform-thin.md).

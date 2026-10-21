@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2bf58cd2ec87"
+    with_body_sha: "01a1fa467c13"
   edges:
     test: pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
     docs: "[Get-CatzcModule.ps1.md](docs/references/pwsh/catzc-base-modules/Get-CatzcModule.ps1.md)"
@@ -62,7 +62,7 @@ function Get-CatzcModule {
         $relocated = $anchored -and $trackEntry.execution_engines -ccontains $engine
         $admitted = @($moduleTypes.types.Where({ $typeEntry.admits -ccontains $_.id }))
         $admittedPlaces = @($admitted | ForEach-Object { $_.places })
-        # A place of another track nested under this track's places holds its own files ([DDR-TRACKTYPE-LONGESTPLACEWINS](/docs/adr/design/track-types.md#rule-ddr-tracktype-longestplacewins)).
+        # A place of another track nested under this track's places holds its own files ([DDR-TRACKTYPE-LONGESTPLACEWINS](/docs/drs/design/track-types.md#rule-ddr-tracktype-longestplacewins)).
         $nestedPlaces = @($allTracks.Where({ $_.name -cne $trackEntry.name }) | ForEach-Object { $_.places } | Where-Object {
                 $nested = $_
                 $trackEntry.places.Where({ $nested.StartsWith("$_/", [System.StringComparison]::Ordinal) }).Count -gt 0

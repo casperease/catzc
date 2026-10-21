@@ -9,5 +9,5 @@ Above `Describe 'ContractManifest' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
 ContractManifest maps a version folder's contract.yml, the direction overrides of single assets
-([ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)).
+([ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)).
 ```

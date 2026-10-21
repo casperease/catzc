@@ -11,7 +11,7 @@ Above `Mock Get-Config -ModuleName Catzc.Base.VSCode {`, written with `#`.
 
 ```text
 Isolate through the config seam
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): a small
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)): a small
 fixture registry with an authored
 search.exclude carrying an explicit un-exclude (false) that injection must not override.
 ```

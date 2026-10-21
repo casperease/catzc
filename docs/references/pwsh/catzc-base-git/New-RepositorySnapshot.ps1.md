@@ -30,7 +30,7 @@ The build uses git for the history and plain file copies for the content:
 
 A marker file inside the snapshot's .git folder records its provenance; Remove-RepositorySnapshot refuses any folder without it. The
 snapshot is announced once it is ready
-([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](../../../adr/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
+([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
 
 ### parameter `SourceRoot`
 
@@ -48,7 +48,7 @@ How many times to build the snapshot when verification finds it differs from its
 
 Builds the snapshot from HEAD alone: the clone checks the commit out, and no staged, unstaged or untracked change of the source reaches it.
 It is the committed truth at one commit, for a reader that must not see the working tree, such as the listen mode's reference
-([TDR-ONETRUTH](../../../adr/thesis/one-source-of-truth.md)). Modified, Untracked and Deleted are then 0, and no verification runs.
+([TDR-ONETRUTH](../../../drs/thesis/one-source-of-truth.md)). Modified, Untracked and Deleted are then 0, and no verification runs.
 Checking out the whole tree takes longer than git's everyday limit, so the checkout is bounded by the command's own limit, its `TimeLimit`
 (120 s) or its `commands` entry in timeouts.yml.
 

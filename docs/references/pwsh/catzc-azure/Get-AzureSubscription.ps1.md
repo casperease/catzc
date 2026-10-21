@@ -15,8 +15,8 @@ Reads configs/azure.yml via Get-Config and looks up the subscription by name (a 
 resolved configuration coordinates and the session reverse lookup (Get-AzCliSessionSubscription) build on; there is no (environment, group,
 customer) join here. The matching tenant is looked up by name and embedded. A subscription MAY carry a `customer`, named by its key OR its
 2-char shortcode (a customer in customer.yml); it is resolved to the canonical key and included (and renders into the resource names of
-anything deployed there). See [ADR-AZ-DATAMOD-CUSTOMERAXIS](../../../adr/azure/azure-data-model.md#rule-adr-az-datamod-customeraxis) and
-[ADR-AZ-CUSTOMER](../../../adr/azure/azure-customer-model.md).
+anything deployed there). See [ADR-AZ-DATAMOD-CUSTOMERAXIS](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-customeraxis) and
+[ADR-AZ-CUSTOMER](../../../drs/azure/azure-customer-model.md).
 
 ### parameter `Subscription`
 
@@ -43,5 +43,5 @@ Above `$customerToken = Get-AzureSubscriptionCustomer $found`, written with `#`.
 ```text
 The subscription's `customer` field may name a customer by its key OR its 2-char shortcode; normalize
 to the canonical key so the resolved object is the same whichever form the config used. Empty when the
-subscription is not a customer subscription. See [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md).
+subscription is not a customer subscription. See [ADR-AZ-CUSTOMER](/docs/drs/azure/azure-customer-model.md).
 ```

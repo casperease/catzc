@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fd22e510262c
+    with_body_sha: "308fc7b8c602"
   edges:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
@@ -18,7 +18,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.VSCode;
 
-// Rests on [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder) and [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml).
+// Rests on [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder) and [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml).
 public sealed class VscodeOwnExtension : Catzc.Base.Objects.DictionaryRecord
 {
     public const string DefaultPublisher = "catzc";

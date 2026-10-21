@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4455395292ef"
+    with_body_sha: f3520f09d038
   edges:
     cites:
       - ADR-REPO-VARIANT-FILEHEADS
@@ -12,7 +12,7 @@ catzc:
 namespace Catzc.Base.Variants;
 
 // The `file_heads` variant: which files carry a head, by the kind of file
-// ([ADR-REPO-VARIANT-FILEHEADS](/docs/adr/repository/repo-variants.md#rule-adr-repo-variant-fileheads)).
+// ([ADR-REPO-VARIANT-FILEHEADS](/docs/drs/repository/repo-variants.md#rule-adr-repo-variant-fileheads)).
 public sealed class VariantFileHeads
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

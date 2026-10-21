@@ -17,7 +17,7 @@ forbidden set is always current (add a customer to customer.yml and it is automa
 identities is declared by the module that owns them, in its configs/identity-tokens.yml (IdentityTokensConfig): this function lists those
 owners and walks each declared path, so it never names another module's config and a bundle without those modules simply yields no tokens
 from them. A declaration may name only a config its own module owns. Every value is read through Get-Config (the one global reader,
-[ADR-CONF-LOADING](../../../../adr/configuration/module-config-loading.md)), so a test isolates this function by mocking Get-Config to
+[ADR-CONF-LOADING](../../../../drs/configuration/module-config-loading.md)), so a test isolates this function by mocking Get-Config to
 fixtures.
 
 This is STAGE 1 — the DISTINCTIVE identities only (customers, subscriptions, org, deployable units, template names, ADO project).
@@ -25,9 +25,9 @@ Environment names (dev/test/preprod/prod) are deliberately excluded: they are am
 later, position-aware stage. Each record carries its Source and a Suggest string so a finding can name the fixture the test should have
 used.
 
-Backs Test-LogicTestIdentity ([ADR-REPO-LANG](../../../../adr/repository/domain-language-separation.md)): a logic test whose AST contains a
+Backs Test-LogicTestIdentity ([ADR-REPO-LANG](../../../../drs/repository/domain-language-separation.md)): a logic test whose AST contains a
 string literal equal to one of these tokens (or a delimited segment of one) is using a live identity where a fixture belongs
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
 ### outputs
 

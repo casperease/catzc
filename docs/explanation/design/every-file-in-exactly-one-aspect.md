@@ -52,7 +52,7 @@ identity.
 
 ## See also
 
-- [Module aspects](../../adr/design/module-aspects.md) — the decision this article explains.
+- [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains.
 - The other lenses on the same layout: [architecture](one-folder-two-independent-readers.md),
   [implementation](manifest-and-aspects-from-one-folder.md), [operations](drop-a-file-the-import-exports-it.md) and
   [governance](partition-integrity-runs-only-in-unit-tests.md).

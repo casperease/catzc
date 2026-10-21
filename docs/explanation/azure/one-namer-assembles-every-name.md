@@ -56,7 +56,7 @@ is the resource-group name the deploy uses. Because nothing else builds names, a
 
 ## See also
 
-- [Azure resource naming standard](../../adr/azure/azure-naming-standard.md) — the decision this article explains.
+- [Azure resource naming standard](../../drs/azure/azure-naming-standard.md) — the decision this article explains.
 - The other lenses on the same naming standard: [meta](names-are-pure-and-never-truncated.md),
   [implementation](lookup-form-check-render-in-order.md), [operations](names-are-derived-never-typed.md) and
   [governance](how-each-naming-rule-is-held.md).

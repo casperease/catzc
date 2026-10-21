@@ -9,17 +9,17 @@ Above `formatters:`, written with `#`.
 
 ```text
 The file-language registry — every file language the repository's tracked files are written in, each named by its
-extensions ([DDR-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-ddr-track-filelanguage)). A track's tech-stack is the set of
+extensions ([DDR-TRACK-FILELANGUAGE](/docs/drs/design/tracks.md#rule-ddr-track-filelanguage)). A track's tech-stack is the set of
 file languages it declares in variants.yml (`tracks:`); this registry makes that set checkable. Every extension
 belongs to exactly one file language; an extension no entry lists has no file language.
 
 Formatting is configured here, not programmed
-([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)): an entry names the
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)): an entry names the
 formatter engine for its files, and Format-Code (Catzc.Base.QualityGates) runs it; Test-Formatting checks the same
 entries. Supporting a language on an existing engine is one line here. A language with nothing to format says why.
 The editor reads the same entries: the root-config generator sets each language's VS Code default formatter to its
 engine's extension and recommends that extension, so Format Document and Format-Code run the same engine
-([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)).
+([ADR-REPO-FORMAT-CONFIGUREDFORMATTERS](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-configuredformatters)).
 
 Per formatter (formatters:):
   vscode_extension  the VS Code extension that runs the engine in the editor; omitted = the editor has none
@@ -32,17 +32,17 @@ Per language (languages:):
   formatter        the formatter engine: prettier | gofmt | ruff | psscriptanalyzer | dotnet-format | bicep
   no_formatter     instead of formatter: why the language has none (exactly one of the two)
   vscode_language  the VS Code language id of its files; omitted = the language's own name
-  adr_folder       its ADR folder under docs/adr/; omitted = none
+  adr_folder       its ADR folder under docs/drs/; omitted = none
   checks           the quality gates Test-Change runs over a changed file of the language, in this order; a gate
                    with a -Path parameter is given the changed files, any other runs whole and its issues are kept
                    when they name a changed file; omitted = none
 
 The defaults and the engine list are declared once on Catzc.Base.Languages.LanguagesConfig
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). Loaded via
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). Loaded via
 Get-Config -Config languages and read through Get-FileLanguage.
 
 YAML is two file languages: executable pipeline YAML is `.yaml`, configuration data is `.yml`
-([FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/adr/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension)).
+([FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION](/docs/drs/flow/pipeline-concept.md#rule-fdr-cd-pipeline-executableyamlextension)).
 ```
 
 ## comment:2

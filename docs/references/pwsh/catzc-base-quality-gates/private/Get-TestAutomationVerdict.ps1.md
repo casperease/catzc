@@ -71,6 +71,6 @@ Above `$seconds = [math]::Round($DurationSeconds,...`, written with `#`.
 
 ```text
 Invariant so the duration reads the same on any devbox culture
-([ADR-AUTO-XPLAT-INVARIANTCULTURE](/docs/adr/automation/cross-platform.md#rule-adr-auto-xplat-invariantculture)) — a da-DK box would
+([ADR-AUTO-XPLAT-INVARIANTCULTURE](/docs/drs/automation/cross-platform.md#rule-adr-auto-xplat-invariantculture)) — a da-DK box would
 otherwise render '42,3s' and diverge from CI's '42.3s'.
 ```

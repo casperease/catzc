@@ -1,7 +1,7 @@
 # `<name>`
 
 One or two sentences: what `<name>` deploys and its single responsibility; what it deliberately does not own; and any cross-template
-dependency (for example, it needs `foundation`'s Key Vault). Link the governing ADR(s) (`../../adr/azure/...`).
+dependency (for example, it needs `foundation`'s Key Vault). Link the governing ADR(s) (`../../drs/azure/...`).
 
 ## Resources
 

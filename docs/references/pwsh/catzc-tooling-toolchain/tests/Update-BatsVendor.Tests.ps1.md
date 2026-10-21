@@ -10,7 +10,7 @@ Above `Describe 'Update-BatsVendor' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Update-BatsVendor with the download and tar mocked: the mocked tar lays out a fixture release in the staging folder,
 and the vendored folder of a fixture repository in $TestDrive is rebuilt from it. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2
@@ -18,6 +18,6 @@ and the vendored folder of a fixture repository in $TestDrive is rebuilt from it
 Above `$files = @(Get-ChildPath $script:target -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the vendored
+A whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the vendored
 runner is compared file for file, so nothing is pruned.
 ```

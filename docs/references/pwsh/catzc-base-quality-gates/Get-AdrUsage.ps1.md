@@ -12,7 +12,7 @@ Lists every ADR citation and ADR link the tracked files make.
 ### description
 
 Derives each file's citations and links from its text and its comment page with the processors the imprint uses, never from a head
-([ADR-REPO-FILEMETA-NOREADBACK](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)), so a file with no head or a stale
+([ADR-REPO-FILEMETA-NOREADBACK](../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)), so a file with no head or a stale
 one lists the same rows. One row per citation, in the order git lists the files. A code or rule the ADR index does not register, such as a
 placeholder named in a comment, gives no row. A bare code is the whole ADR (Rule is null). A file whose carrier is a JSON property or a
 sidecar is not listed.
@@ -54,5 +54,5 @@ Get-AdrUsage -Code ADR-PWSH-ERROR -GroupBy Rule
 ### example 2
 
 ```powershell
-Get-AdrUsage -Path docs/adr -Source link -GroupBy Document | Sort-Object Count -Descending
+Get-AdrUsage -Path docs/drs -Source link -GroupBy Document | Sort-Object Count -Descending
 ```

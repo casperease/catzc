@@ -13,7 +13,7 @@ Quality gate: type-checks every Python file the repository holds with pyright, t
 
 Runs `pyright` over every .py file the repository holds (Get-PythonCheckScope: the Python test folders, and the tracked .py files outside
 the Python root, such as the agent helpers under .claude/;
-[ADR-AUTO-PY-EVERYFILETYPECHECKED](../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfiletypechecked)), with the
+[ADR-AUTO-PY-EVERYFILETYPECHECKED](../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfiletypechecked)), with the
 pinned pyright and the Python test workspace's `[tool.pyright]` settings (Invoke-PythonWorkspaceTool, `--project pyproject.toml`). The
 type-checking mode is `python.yml`'s `type_checking`, the same mode the generated VS Code settings give Pylance, so the gate and the editor
 report the same findings. Every error and warning is one issue: '`<file>:<line>:<column>`: `<severity>` `<rule>` `<message>`'; information

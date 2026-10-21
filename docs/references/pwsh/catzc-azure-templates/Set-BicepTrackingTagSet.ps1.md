@@ -58,7 +58,7 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessFor
 
 ```text
 State-changing function deliberately uses -DryRun, not ShouldProcess — see
-[ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+[ADR-AUTO-DRYRUN](/docs/drs/automation/dry-run.md).
 ```
 
 ## comment:2

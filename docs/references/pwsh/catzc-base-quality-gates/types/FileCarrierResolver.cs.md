@@ -9,5 +9,5 @@ Above `using System;`, written with `//`.
 
 ```text
 Finds the carrier entry of a repository path, with every glob compiled once, so a scan of all tracked files stays cheap.
-[ADR-REPO-FILEMETA-KINDSCOPE](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-kindscope)
+[ADR-REPO-FILEMETA-KINDSCOPE](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-kindscope)
 ```

@@ -10,5 +10,5 @@ Above `Describe 'Get-AdrDoraCoverageViolations' -Tag 'L0', 'logic',...`, written
 ```text
 Get-AdrDoraCoverageViolations — every rule set outside the domains its config exempts has exactly one section linking its ADR in its domain's
 DORA file. A fixture tree in $TestDrive and a fixture registry; neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

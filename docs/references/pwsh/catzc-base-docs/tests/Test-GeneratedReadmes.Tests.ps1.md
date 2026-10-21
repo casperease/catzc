@@ -10,7 +10,7 @@ Above `Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Test-GeneratedReadmes over fixture READMEs in $TestDrive: the mappings, git's ignore check, and the index are mocked,
 and the repository root is redirected to the fixture, so each test pins one rule. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2
@@ -22,7 +22,7 @@ The quality gate over the real repository. readme.yml (expanded by Get-ReadmeMap
 README.md is generated from a docs/ source — a derived artifact, never authored in place — so each must be
 gitignored, out of git, and current with its source. Hand-authored READMEs are exactly the folders NOT in
 readme.yml; they are individually un-ignored in .gitignore and are out of scope here. See
-[ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+[ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
 
 Reads only the repository's files and git index (through the source-tree-only Get-ReadmeMappings) — the same
 answer in both run modes, so the build run skips it.

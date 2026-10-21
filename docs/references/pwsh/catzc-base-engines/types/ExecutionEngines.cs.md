@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 The repository's execution engines — exactly three, pwsh, bash and zsh, declared once
-([ADR-AUTO-ENGINE](/docs/adr/automation/execution-engines.md)). Every list of engines in the codebase — config keys
+([ADR-AUTO-ENGINE](/docs/drs/automation/execution-engines.md)). Every list of engines in the codebase — config keys
 per shell, per-engine fixture columns, an engine argument's allowed values — is Names, so adding or changing an
 engine is one edit here.
 ```

@@ -13,12 +13,12 @@ Catzc.Internal.Importer — the importer overlay.
 The whole load sequence lives here, in Invoke-Importer, whose parameter block is the importer's public
 switch surface. The root importer.ps1 is a thin, GENERATED shim (New-Importer) that carries the same param
 block and delegates here — one living copy of the load logic (see
-[PDR-ONELIVE](/docs/adr/principles/one-living-version.md)), which a bundle's entry runs too, in its -Bundle mode
-([ADR-AUTO-BUNDLE-ONELIVINGIMPORTER](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle-onelivingimporter)).
+[PDR-ONELIVE](/docs/drs/principles/one-living-version.md)), which a bundle's entry runs too, in its -Bundle mode
+([ADR-AUTO-BUNDLE-ONELIVINGIMPORTER](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-onelivingimporter)).
 It sets the two roots, RepositoryRoot and CatzcModulesRoot, equal in the mono repo
-([ADR-AUTO-BUNDLE-TWOROOTS](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle-tworoots)), and establishes the
+([ADR-AUTO-BUNDLE-TWOROOTS](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-tworoots)), and establishes the
 catzc session every entry loads into
-([ADR-AUTO-BUNDLE-BUNDLEISSESSION](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle-bundleissession)).
+([ADR-AUTO-BUNDLE-BUNDLEISSESSION](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-bundleissession)).
 Like the transient bootstrap, this module is import-time orchestration, not shared library code: the shim
 removes it after Invoke-Importer returns.
 ```
@@ -120,7 +120,7 @@ Above `$showStateChanges = $VerbosePreference -ne 'SilentlyContinue'`, written w
 
 ```text
 -Verbose shows the importer's own state-change record
-([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)). The
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)). The
 dot-sourced shim binds it in the caller's scope, so for the import the session-wide preference is quieted,
 restored in the finally below: otherwise every Import-Module would list each function it dot-sources and exports.
 ```
@@ -172,13 +172,13 @@ Above `Write-ImporterMessage ("Session:...`, written with `#`.
 
 ```text
 Every lasting change to the caller's session is announced
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)):
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)):
 the preferences and the
 error view, then the two roots and the internal modules that stay loaded — RepositoryRoot set by the
 importer.ps1 shim and the modules by Import-InternalModule, which both delegate their announcement here.
 This is the first point Write-ImporterMessage (Catzc.Internal.Bootstrap) is loaded. Like every announcement
 of the importer's own load, they go on its verbose record
-([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
 ```
 
 ## comment:16
@@ -195,7 +195,7 @@ Optionally wipe compiled type DLLs first so the import below rebuilds them from 
 Above `Assert-CatzcRunModeExclusive -ModulesRoot $modulesRoot`, written with `#`.
 
 ```text
-The two run modes never coexist ([DDR-RUNMODE-NEVERCOEXIST](/docs/adr/design/run-modes.md#rule-ddr-runmode-nevercoexist)):
+The two run modes never coexist ([DDR-RUNMODE-NEVERCOEXIST](/docs/drs/design/run-modes.md#rule-ddr-runmode-nevercoexist)):
 Import-AllModules evicted the other mode, and this
 proves it before any janitor touches the tree from a mixed session.
 ```
@@ -347,9 +347,9 @@ rematerialise what it removed in the same run. Guarded: absent in the bootstrap 
 Above `if (Get-Command Build-AdrIndex -ErrorAction Ignore) {`, written with `#`.
 
 ```text
-Keep the generated ADR pages current (Catzc.Base.Docs): [index](/docs/adr/index.md) from adrs.yml and
-[glossary](/docs/adr/glossary.md) from the glossary sources — committed so GitHub has them, rebuilt BEFORE
-Build-Readme (the docs/adr README is generated from the index). See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+Keep the generated ADR pages current (Catzc.Base.Docs): [index](/docs/drs/index.md) from adrs.yml and
+[glossary](/docs/drs/glossary.md) from the glossary sources — committed so GitHub has them, rebuilt BEFORE
+Build-Readme (the docs/drs README is generated from the index). See [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
 ```
 
 ## comment:31
@@ -358,7 +358,7 @@ Above `if (Get-Command Build-ContractReference -ErrorAction Ignore) {`, written 
 
 ```text
 Keep the generated contract pages current (Catzc.Base.Contracts): docs/references/contracts/<unit>.md from the
-contract assets' header comments — committed so GitHub has them. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+contract assets' header comments — committed so GitHub has them. See [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
 ```
 
 ## comment:32
@@ -378,7 +378,7 @@ Above `if (Get-Command Build-GitKeep -ErrorAction Ignore) {`, written with `#`.
 ```text
 Keep the managed .gitkeep files current (Catzc.Base.Docs). Every .gitkeep is a committed copy of the
 one shared template, pointing at its folder's generated README — reproduced here so a template change
-propagates, and a fast no-op on a clean tree. See [ADR-REPO-README](/docs/adr/repository/generated-readmes.md).
+propagates, and a fast no-op on a clean tree. See [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
 ```
 
 ## comment:34
@@ -400,7 +400,7 @@ Keep the managed root config files current (Catzc.Base.RootConfig). Every opted-
 reproduced from its single in-repo source of truth — an authored source copied out with a generated-file
 header (e.g. the root PSScriptAnalyzerSettings.psd1 from .internal/assets), or a generator's rendered
 output (e.g. New-Importer for importer.ps1). Rewrites only on drift, so a clean tree is a fast no-op.
-Guarded: absent in the bootstrap sandbox. See [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
+Guarded: absent in the bootstrap sandbox. See [ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md).
 ```
 
 ## comment:36
@@ -412,10 +412,10 @@ Reconcile the session PATH to whatever tools are actually present — including 
 installer layer (e.g. nvm-managed node) — and report any running from a non-owned location on one line.
 Session-only, self-skips in CI. The importer is dot-sourced, so its PATH nudges land in the caller's live
 session. The janitor announces each nudge like any function, but at every shell open the same nudges are part
-of the load record ([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)):
+of the load record ([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)):
 the importer's -Verbose decides whether they are shown, so a plain import prints only the Loaded line. The
 quieting is the session-wide information preference, restored in the finally
-([ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-unannouncedchanges)): a common parameter
+([ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-unannouncedchanges)): a common parameter
 would reach only the janitor's own scope, not the writer chokepoint in Catzc.Base.Writers. Guarded: absent in
 the bootstrap sandbox (Catzc.Tooling.Core).
 ```

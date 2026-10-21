@@ -10,5 +10,5 @@ Above `Describe 'ConvertTo-PesterRunTarget' -Tag 'L0', 'logic' {`, written with 
 ```text
 ConvertTo-PesterRunTarget over a fixture repository in $TestDrive (Get-RepositoryRoot and Get-LanguageTestFolders
 mocked): language test folders become language bridge containers, everything else stays a Pester path. Neutral
-fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -9,7 +9,7 @@ Above `concepts:`, written with `#`.
 
 ```text
 glossary.yml — the Catzc.Base.Engines glossary source: the vocabulary of the execution engine model this module owns
-([ADR-REPO-VOCAB](/docs/adr/repository/controlled-vocabulary.md)). Every option is defaulted: all five checks, the
+([ADR-REPO-VOCAB](/docs/drs/repository/controlled-vocabulary.md)). Every option is defaulted: all five checks, the
 whole repository, every text surface
-([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). Checked by Test-Glossary.
+([ADR-REPO-VOCAB-GLOSSARYSOURCE](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)). Checked by Test-Glossary.
 ```

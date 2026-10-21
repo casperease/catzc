@@ -10,5 +10,5 @@ Above `Describe 'Test-ConsoleReadyType' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Test-ConsoleReadyType — whether a shipped type renders as a readable line in pwsh: it overrides ToString(), or it is
 a kind never held as a value. Probed with BCL types and Add-Type probes. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

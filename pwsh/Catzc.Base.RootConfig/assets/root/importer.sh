@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 # importer.sh — brings catzc to a bash (or zsh) session. catzc's commands are PowerShell, so this defines one dispatcher,
 # `cats`, that runs any catzc command through pwsh with the repository's importer loaded
-# (ADR-AUTO-ENGINE, docs/adr/automation/execution-engines.md):
+# (ADR-AUTO-ENGINE, docs/drs/automation/execution-engines.md):
 #
 #   source ./importer.sh                                  # must be sourced, not run
 #   cats                                                  # lists the catzc commands

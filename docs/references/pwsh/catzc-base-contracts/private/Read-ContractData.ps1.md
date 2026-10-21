@@ -15,7 +15,7 @@ Parses by the format Get-ContractDataFormat names: Json with ConvertFrom-Json -A
 -Ordered, the first document only. The result is the value model ContractValue reads (objects as dictionaries, arrays as lists, scalars as
 CLR values, an empty document as null), and an array is returned whole, never enumerated. A file of any other format, and a file that does
 not parse, throw a message naming the file, which a contract check reports as its finding
-([ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)).
+([ADR-REPO-CONTRACT-CONTRACTASSET](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)).
 
 ### parameter `RepositoryRoot`
 

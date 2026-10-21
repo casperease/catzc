@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c397c563d19d
+    with_body_sha: "1d7c80763eb8"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
     docs: "[LanguagesConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/LanguagesConfig.cs.md)"
@@ -29,7 +29,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Languages;
 
-// Rests on [ADR-AUTO-MODULE-EXISTSBYLAYOUT](/docs/adr/automation/module-model.md#rule-adr-auto-module-existsbylayout).
+// Rests on [ADR-AUTO-MODULE-EXISTSBYLAYOUT](/docs/drs/automation/module-model.md#rule-adr-auto-module-existsbylayout).
 public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "languages config validation failed:\n";
@@ -37,7 +37,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "imprint", "layout", "tests", "executable", "naming" };
     private static readonly string[] AllowedNamingKeys = { "folder", "file", "function", "type", "exempt" };
     private static readonly string[] AllowedGlobalNamingKeys = { "exempt_folders", "normal_form" };
-    // The repository normal form when the file names none; rests on [ADR-AUTO-IDIOM-NORMALFORM](/docs/adr/automation/idiomatic-names.md#rule-adr-auto-idiom-normalform).
+    // The repository normal form when the file names none; rests on [ADR-AUTO-IDIOM-NORMALFORM](/docs/drs/automation/idiomatic-names.md#rule-adr-auto-idiom-normalform).
     private const string DefaultNormalForm = "snake";
     // A normal form renders every other case from its words, so it is a case whose split and join lose nothing.
     private static readonly string[] NormalFormCases = { "snake", "kebab", "pascal" };
@@ -92,7 +92,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     // The case every name has under its language's idiom, for the places that name a thing for more than one language.
     public string naming_normal_form { get; }
 
-    // One finding per file name and per folder that breaks its language's naming, each folder once per language, in path order; rests on [ADR-AUTO-IDIOM-LANGUAGEIDIOM](/docs/adr/automation/idiomatic-names.md#rule-adr-auto-idiom-languageidiom).
+    // One finding per file name and per folder that breaks its language's naming, each folder once per language, in path order; rests on [ADR-AUTO-IDIOM-LANGUAGEIDIOM](/docs/drs/automation/idiomatic-names.md#rule-adr-auto-idiom-languageidiom).
     public IReadOnlyList<string> MisnamedPaths(IEnumerable<string> paths) => MisnamedPathRenames(paths).Select(r => r.Finding()).ToArray();
 
     // Each misnamed folder and file with the idiomatic name its language gives it, in the order MisnamedPaths reports them.

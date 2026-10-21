@@ -14,7 +14,7 @@ Deploys a bicep template to Azure (resolves context, runs hooks, calls az, sets 
 The deploy target is the az session's subscription — in a pipeline, exactly what the service connection logged into — reverse-resolved
 against azure.yml (Get-AzCliSessionSubscription). The session's customer picks the slot: a customer subscription deploys the template's
 `configuration/<customer>/` config, a non-customer subscription the configuration-root one. The -SubscriptionIdAssertIs guard pins the
-target explicitly and is MANDATORY in a pipeline ([ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md)).
+target explicitly and is MANDATORY in a pipeline ([ADR-AZ-DATAMOD](../../../drs/azure/azure-data-model.md)).
 
 Flow:
 
@@ -30,7 +30,7 @@ Flow:
 8. Set-BicepTrackingTagSet.
 
 Pass -DryRun to preview: it runs `az deployment ... create --what-if` (Azure's server-side preview) and skips the real deploy, the
-post-deploy hook, and tag-setting. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+post-deploy hook, and tag-setting. See [ADR-AUTO-DRYRUN](../../../drs/automation/dry-run.md).
 
 ### parameter `Environment`
 
@@ -91,7 +91,7 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessFor
 
 ```text
 State-changing function deliberately uses -DryRun, not ShouldProcess — see
-[ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+[ADR-AUTO-DRYRUN](/docs/drs/automation/dry-run.md).
 ```
 
 ## comment:2
@@ -102,7 +102,7 @@ Above `if ((Test-IsRunningInPipeline) -and...`, written with `#`.
 In a pipeline the target MUST be pinned explicitly — the session (the service connection) selects
 it, and the assert guard is the pipeline's declared expectation, so a re-wired service connection
 can never silently retarget an existing pipeline's deploy. Fail fast at the call site instead.
-See [ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md).
+See [ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md).
 ```
 
 ## comment:3
@@ -131,7 +131,7 @@ Above `. $prepostModule { Set-StrictMode -Version Latest }`, written with `#`.
 
 ```text
 The template's hooks run strict like every catzc module, whoever wrote them
-([ADR-PWSH-ERROR-STRICTCLEAN](/docs/adr/automation/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)).
+([ADR-PWSH-ERROR-STRICTCLEAN](/docs/drs/automation/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)).
 ```
 
 ## comment:6
@@ -142,7 +142,7 @@ Above `$deployInvocation = [ordered]@{`, written with `#`.
 The deploy invocation — the arguments this deploy is acting on (incl. Mode). DryRun is passed
 as its own first-class parameter to PreDeploy (it's the side-effect kill switch — too special
 to hide in a bag). Computed descriptor objects stay separate.
-See [ADR-PWSH-PREPOST](/docs/adr/automation/pwsh/prepost-extension-modules.md).
+See [ADR-PWSH-PREPOST](/docs/drs/automation/pwsh/prepost-extension-modules.md).
 ```
 
 ## comment:7

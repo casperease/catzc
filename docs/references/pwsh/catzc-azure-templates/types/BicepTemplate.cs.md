@@ -24,7 +24,7 @@ Above `public bool customer_deployment { get; }`, written with `//`.
 
 ```text
 Whether this is a customer template (its configs deploy into customer subscriptions). Defaults to the
-have_customers repo variant; see [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md). Always present (a bool).
+have_customers repo variant; see [ADR-AZ-CUSTOMER](/docs/drs/azure/azure-customer-model.md). Always present (a bool).
 ```
 
 ## comment:3

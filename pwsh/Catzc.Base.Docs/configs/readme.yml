@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8376a06cee84"
+#     with_body_sha: "34d581fae697"
 #   edges:
 #     docs: "[readme.yml.md](docs/references/pwsh/catzc-base-docs/configs/readme.yml.md)"
 #     cites:
@@ -15,8 +15,8 @@ patterns:
   - glob: python/*
     source: docs/references/python/{kebab}.md
 mappings:
-  - folder: docs/adr
-    source: docs/adr/index.md
+  - folder: docs/drs
+    source: docs/drs/index.md
   - folder: .ado/pipelines
     source: docs/references/ado/pipelines.md
   - folder: infrastructure

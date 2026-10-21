@@ -1,7 +1,7 @@
 # Catzc.Base.Docs
 
 The generated-README module. It owns the rule that a `README.md` in a conventional folder is a **generated copy** of one authored docs
-source, never a hand-kept one (see [generated-readmes](../../adr/repository/generated-readmes.md)): the source's relative links are rebased
+source, never a hand-kept one (see [generated-readmes](../../drs/repository/generated-readmes.md)): the source's relative links are rebased
 to the README's folder, so every link works where the README is opened, and a line under the title names the source as the one place to
 edit. What it deliberately does **not** own is the prose itself — that lives in the authored sources under `docs/` — nor the write
 primitive, which is `Write-FileIfChanged` ([Catzc.Base.Files](catzc-base-files.md)); the importer keeps every README current on every load.
@@ -29,8 +29,8 @@ every relative link rebased from the source's folder to the README's (`MarkdownL
 through `Write-FileIfChanged` ([Catzc.Base.Files](catzc-base-files.md)): a current README is a no-op, and a stale one is rewritten by
 delete-then-write, so a README that is still a filesystem link is severed, never written through into its source. That idempotence is what
 lets the importer regenerate every README on each load at no steady-state cost (see
-[generated-readmes](../../adr/repository/generated-readmes.md)). A quality gate
-([ADR-AUTO-TEST-QUALITYGATE](../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)), `Test-GeneratedReadmes`, checks the
+[generated-readmes](../../drs/repository/generated-readmes.md)). A quality gate
+([ADR-AUTO-TEST-QUALITYGATE](../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)), `Test-GeneratedReadmes`, checks the
 result: every generated README is gitignored, untracked, and current with its source.
 
 ### responsibility:2 — README map
@@ -69,7 +69,7 @@ unregistered.
 ### responsibility:5 — Controlled vocabulary
 
 The glossary: every defined term, merged from the modules' `configs/glossary.yml` sources (see
-[controlled-vocabulary](../../adr/repository/controlled-vocabulary.md)). This responsibility returns the merged vocabulary, generates the
+[controlled-vocabulary](../../drs/repository/controlled-vocabulary.md)). This responsibility returns the merged vocabulary, generates the
 glossary page from it, and checks it — every term anchored on its one defining rule, and no avoided phrasing used within a source's scope.
 
 ### responsibility:6 — Ask cats
@@ -79,7 +79,7 @@ functions, and the approved verbs in use. It prints only; it returns nothing.
 
 ### responsibility:7 — Sub-agent registry
 
-Which sub-agents exist and why (see [agent-definitions](../../adr/repository/agent-definitions.md)). The registry is `agents.yml`: one entry
+Which sub-agents exist and why (see [agent-definitions](../../drs/repository/agent-definitions.md)). The registry is `agents.yml`: one entry
 per `.claude/agents/<name>.md` definition, with the rule citations that support the agent and the gate and check functions it runs or
 guards, plus the one standard agent for delegated work. It is validated when it loads. A quality gate, `Test-AgentDefinitions`, keeps the
 agent files, the registry, and the `## Sub-agents` list in `.claude/CLAUDE.md` in step, resolving every citation to a real rule and every
@@ -89,7 +89,7 @@ check to an existing command.
 
 The one way generated markdown wraps its prose: a paragraph or list item filled at the 140-column width the way the formatter fills it, so a
 page a generator writes is the page the formatter leaves alone (see
-[uniform-formatting](../../adr/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)). Every generator that
+[uniform-formatting](../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)). Every generator that
 writes markdown wraps through it, in this module or another. The reverse is one reader too: a list item with the continuation lines the
 formatter wrapped it onto is read back whole by one command, which every checker that reads list items calls.
 

@@ -9,5 +9,5 @@ Above `BeforeAll {`, written with `#`.
 
 ```text
 Get-PipelineTemplateReference is private, so it is exercised through the module
-([ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)).
+([ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)).
 ```

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0de6169d09d1"
+    with_body_sha: "77f382d1aa72"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/PlansConfig.Tests.ps1
     cites:
@@ -15,7 +15,7 @@ catzc:
 ---
 */
 
-// The settings Test-Plans holds the plans folder to; every default is declared once here ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
+// The settings Test-Plans holds the plans folder to; every default is declared once here ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,10 +34,10 @@ public sealed class PlansConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] ValueKeys = { "file" };
     private static readonly string[] TaskKeys = { "max" };
 
-    // The repository-relative folder the plans live in ([ADR-REPO-PLANS-ONETOPICONEFILE](/docs/adr/repository/plans.md#rule-adr-repo-plans-onetopiconefile)).
+    // The repository-relative folder the plans live in ([ADR-REPO-PLANS-ONETOPICONEFILE](/docs/drs/repository/plans.md#rule-adr-repo-plans-onetopiconefile)).
     public string folder { get; } = ".claude/plans";
 
-    // The states a plan's head may declare ([ADR-REPO-PLANS-PLANHEAD](/docs/adr/repository/plans.md#rule-adr-repo-plans-planhead)).
+    // The states a plan's head may declare ([ADR-REPO-PLANS-PLANHEAD](/docs/drs/repository/plans.md#rule-adr-repo-plans-planhead)).
     public IReadOnlyList<string> statuses { get; } = new[] { "active", "blocked" };
 
     // The value ranks value-of-plan.md orders by, highest first.
@@ -47,18 +47,18 @@ public sealed class PlansConfig : Catzc.Base.Objects.DictionaryRecord
     public IReadOnlyList<string> head_required { get; } = new[] { "status", "value", "reviewed", "targets" };
     public IReadOnlyList<string> head_allowed { get; } = new[] { "blocked_on", "waits_on", "class", "next", "parent", "siblings", "role", "rule" };
 
-    // The section headings every plan has (matched as a prefix of the heading text), and the heading carried text sits under ([ADR-REPO-PLANS-ONESHAPE](/docs/adr/repository/plans.md#rule-adr-repo-plans-oneshape)).
+    // The section headings every plan has (matched as a prefix of the heading text), and the heading carried text sits under ([ADR-REPO-PLANS-ONESHAPE](/docs/drs/repository/plans.md#rule-adr-repo-plans-oneshape)).
     public IReadOnlyList<string> sections_required { get; } = new[] { "Open steps" };
     public string sections_carried { get; } = "Carried";
 
-    // The master plan and the sections it has instead of a plan's shape ([ADR-REPO-PLANS-MASTERANDTASKS](/docs/adr/repository/plans.md#rule-adr-repo-plans-masterandtasks)).
+    // The master plan and the sections it has instead of a plan's shape ([ADR-REPO-PLANS-MASTERANDTASKS](/docs/drs/repository/plans.md#rule-adr-repo-plans-masterandtasks)).
     public string master_file { get; } = "plan-master.md";
     public IReadOnlyList<string> master_sections { get; } = new[] { "Process", "Chunks" };
 
-    // The sorting overlay that holds one value row per plan ([ADR-REPO-PLANS-THREEPARTS](/docs/adr/repository/plans.md#rule-adr-repo-plans-threeparts)).
+    // The sorting overlay that holds one value row per plan ([ADR-REPO-PLANS-THREEPARTS](/docs/drs/repository/plans.md#rule-adr-repo-plans-threeparts)).
     public string value_file { get; } = "value-of-plan.md";
 
-    // The most task files the folder holds; a task is named by its topic, the master's list carries the order ([ADR-REPO-PLANS-MASTERANDTASKS](/docs/adr/repository/plans.md#rule-adr-repo-plans-masterandtasks)).
+    // The most task files the folder holds; a task is named by its topic, the master's list carries the order ([ADR-REPO-PLANS-MASTERANDTASKS](/docs/drs/repository/plans.md#rule-adr-repo-plans-masterandtasks)).
     public int tasks_max { get; } = 50;
 
     // The file-name patterns the folder accepts; any other name is a finding.

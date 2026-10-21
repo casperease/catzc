@@ -56,7 +56,7 @@ partition check that the ADR describes exists in code, but only unit tests on fi
 
 ## See also
 
-- [Module aspects](../../adr/design/module-aspects.md) — the decision this article explains.
+- [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains.
 - The other lenses on the same catch-all: [meta](each-track-picks-its-catch-all.md), [architecture](only-pwsh-compiles-its-aspects.md),
   [implementation](get-aspect-feeds-globs-and-maps.md) and [operations](get-aspect-names-the-remainder.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

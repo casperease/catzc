@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3e7eeeebfeee"
+    with_body_sha: "570a55f31101"
   edges:
     code: pwsh/Catzc.Tooling.Listen/Complete-DocNote.ps1
 ---
@@ -12,13 +12,13 @@ Describe 'Complete-DocNote' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Listen.Fixture.ps1')
         Register-ListenFixtureMocks
-        $script:reason = 'docs/adr/widget.md:3 still says one part'
+        $script:reason = 'docs/drs/widget.md:3 still says one part'
     }
 
     BeforeEach {
         Initialize-ListenFixture | Out-Null
         $script:session = (New-DocSnapshot).Path
-        Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nCompleted.`n"
+        Write-ListenFixtureFile 'docs/drs/widget.md' "# Widget`n`nCompleted.`n"
         Get-DocChange -Session $script:session | New-DocNote -Session $script:session | Out-Null
     }
 

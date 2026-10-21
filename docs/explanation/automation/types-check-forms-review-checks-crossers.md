@@ -62,7 +62,7 @@ channel, is a per-channel choice with no gate. Neither carries a chip.
 
 ## See also
 
-- [Path representation](../../adr/automation/path-representation.md) — the decision this article explains.
+- [Path representation](../../drs/automation/path-representation.md) — the decision this article explains.
 - The other views of the same boundary: [meta](two-forms-never-a-third.md), [architecture](two-crossers-and-three-anchors.md),
   [implementation](output-root-first-then-repo-root.md) and [operations](one-out-string-two-places.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

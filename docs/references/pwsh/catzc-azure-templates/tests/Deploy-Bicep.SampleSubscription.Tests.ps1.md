@@ -9,7 +9,7 @@ Above `Mock Get-AzCliSessionSubscription {`, written with `#`.
 
 ```text
 The deploy target is the az session's subscription
-([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries) whole-boundary
+([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries) whole-boundary
 mock).
 ```
 
@@ -19,7 +19,7 @@ Above `Get-Config -Config azure | Out-Null`, written with `#`.
 
 ```text
 Warm the path-keyed session caches once, not per test
-([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)).
+([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
 ```
 
 ## comment:3
@@ -37,7 +37,7 @@ Above `Get-Config -Config azure | Out-Null` (occurrence 2), written with `#`.
 
 ```text
 Warm the path-keyed session caches once, not per test
-([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)).
+([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
 ```
 
 ## comment:5
@@ -46,5 +46,5 @@ Above `Get-Config -Config azure | Out-Null` (occurrence 3), written with `#`.
 
 ```text
 Warm the path-keyed session caches once, not per test
-([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)).
+([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
 ```

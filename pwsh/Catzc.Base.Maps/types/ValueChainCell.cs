@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: df90ab4645c4
+    with_body_sha: "3a675f0213ba"
   edges:
     docs: "[ValueChainCell.cs.md](docs/references/pwsh/catzc-base-maps/types/ValueChainCell.cs.md)"
     cites:
@@ -22,10 +22,10 @@ namespace Catzc.Base.Maps;
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Stack), nameof(Concern), nameof(AdrCount))]
 public sealed class ValueChainCell
 {
-    // The row: a row of the value-chain stack ([DDR-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-ddr-track-valuechainstack)).
+    // The row: a row of the value-chain stack ([DDR-TRACK-VALUECHAINSTACK](/docs/drs/design/tracks.md#rule-ddr-track-valuechainstack)).
     public string Stack { get; }
 
-    // The column: a value-chain concern ([DDR-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-ddr-track-valuechainconcern)).
+    // The column: a value-chain concern ([DDR-TRACK-VALUECHAINCONCERN](/docs/drs/design/tracks.md#rule-ddr-track-valuechainconcern)).
     public string Concern { get; }
 
     public IReadOnlyList<string> Adrs { get; }

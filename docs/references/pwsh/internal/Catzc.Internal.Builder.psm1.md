@@ -11,8 +11,8 @@ Above `Set-StrictMode -Version Latest`, written with `#`.
 Catzc.Internal.Builder — the build-mode engine (Invoke-ModuleBuild).
 
 Builds the selected modules into one installable, versioned Catzc package
-([ADR-AUTO-BUNDLE](/docs/adr/automation/platform-bundle.md),
-[DDR-RUNMODE](/docs/adr/design/run-modes.md)): every module stays its own PowerShell module of the same name, its
+([ADR-AUTO-BUNDLE](/docs/drs/automation/platform-bundle.md),
+[DDR-RUNMODE](/docs/drs/design/run-modes.md)): every module stays its own PowerShell module of the same name, its
 function files
 merged into one <Module>.functions.ps1 behind a generated manifest, beside the runtime loader (.internal), the vendored
 dependencies (.vendor), the full combined-types DLL and its sources (.compiled) and the package entry points. It
@@ -183,7 +183,7 @@ Above `[CmdletBinding()]` (occurrence 8), written with `#`.
 Above `foreach ($file in Get-ChildPath $sourceFull -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the build
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the build
 copies every shippable file, so nothing is pruned here.
 ```
 
@@ -262,7 +262,7 @@ Above `[CmdletBinding()]` (occurrence 12), written with `#`.
 Above `foreach ($file in @(Get-ChildPath $BuildRoot -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a stale
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a stale
 file anywhere under the build root must go, so nothing is pruned.
 ```
 
@@ -346,6 +346,6 @@ Above `$plannedPaths =...`, written with `#`.
 
 ```text
 The presence check
-([ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically)), checked
+([ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically)), checked
 against the plan so a missing asset fails before any write.
 ```

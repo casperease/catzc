@@ -27,7 +27,7 @@ de-duplicated). Pass an explicit path to target a specific folder.
 ### parameter `DryRun`
 
 Report what would be removed without deleting anything. The returned summary's Removed count is the number of top-level entries that would
-be deleted; nothing is touched. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+be deleted; nothing is touched. See [ADR-AUTO-DRYRUN](../../../drs/automation/dry-run.md).
 
 ### example 1
 

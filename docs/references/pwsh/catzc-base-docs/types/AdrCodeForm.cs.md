@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `public sealed class AdrCodeForm`, written with `//`.
 
 ```text
-The code grammar over the registered record kinds (ADR-REPO-ADRCODE), and the shortest form of a derived list of codes.
+The code grammar over the registered record kinds (ADR-REPO-DRSCODE), and the shortest form of a derived list of codes.
 
   ADR-<DOMAIN>-<ADR>-<NAME>   one rule, under a shared kind
   ADR-<DOMAIN>-<ADR>          the whole ADR, every rule of it

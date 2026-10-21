@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b4a895f80282
+    with_body_sha: "7eabe129ffaf"
   edges:
     code: pwsh/Catzc.Tooling.Listen/Update-DocSnapshot.ps1
 ---
@@ -20,8 +20,8 @@ Describe 'Update-DocSnapshot' -Tag 'L0', 'logic' {
     }
 
     It 'moves seen forward for a changed file and leaves the baseline as it was' {
-        Write-ListenFixtureFile 'docs/adr/widget.md' "# Widget`n`nMoved on.`n"
-        Update-DocSnapshot -Session $script:session -Path 'docs/adr/widget.md'
+        Write-ListenFixtureFile 'docs/drs/widget.md' "# Widget`n`nMoved on.`n"
+        Update-DocSnapshot -Session $script:session -Path 'docs/drs/widget.md'
         @(Get-DocChange -Session $script:session).Count | Should -Be 0
         [System.IO.File]::ReadAllText((Join-Path $script:session 'seen/adr/widget.md')) | Should -BeLike '*Moved on.*'
         [System.IO.File]::ReadAllText((Join-Path $script:session 'baseline/adr/widget.md')) | Should -BeLike '*widget rule*'

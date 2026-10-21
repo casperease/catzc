@@ -16,11 +16,11 @@ builds one per entry and prefixes every violation with the tool's name.
 Constructing an instance validates the entry, collecting every violation into one ArgumentException:
   - only the known keys below (an unknown key would be silently invisible to every caller);
   - version, command, version_command and version_pattern are required
-    ([ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS](/docs/adr/automation/controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions));
+    ([ADR-AUTO-DEPS-LOCKEDTOOLVERSIONS](/docs/drs/automation/controlling-systemwide-deps.md#rule-adr-auto-deps-lockedtoolversions));
   - version_pattern captures the version as the named group (?<ver>...);
   - every session_host_probes entry ends with the {version} segment;
   - msys2_url and msys2_sha256 are declared together or not at all, and msys2_sha256 is 64 lowercase hex
-    digits ([ADR-AUTO-PKGMGR-VERIFYDOWNLOADS](/docs/adr/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr-verifydownloads)).
+    digits ([ADR-AUTO-PKGMGR-VERIFYDOWNLOADS](/docs/drs/automation/use-proper-package-managers.md#rule-adr-auto-pkgmgr-verifydownloads)).
 
 Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary
 over its own properties and its constructor uses the base's OptStr/StrArr/Flag extraction helpers.

@@ -12,7 +12,7 @@ DictionaryRecord — the shared base of the YAML-mirror records: a dictionary vi
 data properties, and the protected extraction helpers (Req / OptStr / StrArr / Flag) a derived constructor uses.
 Exercised through a probe record compiled by Add-Type against the loaded combined assembly, which also shows a
 type compiled later can derive from the base. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2

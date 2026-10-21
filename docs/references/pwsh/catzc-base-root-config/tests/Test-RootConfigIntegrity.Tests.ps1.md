@@ -9,7 +9,7 @@ Above `Describe 'Managed root config files agree with .gitignore and git trackin
 
 ```text
 Integrity test for managed root config files, through the quality gates Test-RootConfigFiles and
-Test-RootAnalyzerSettings ([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
+Test-RootAnalyzerSettings ([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
 
 rootconfig.yml is the registry of repository-root files fully managed by the source-of-truth automation.
 Per opted-in entry, `committed` decides git membership, and registry, .gitignore, and git's tracked set
@@ -19,7 +19,7 @@ must agree:
   committed true  -> the target is tracked (needed before the importer runs) and NOT ignored.
 and every target is a real file, a `source` target its template under the generated head. Mirrors the
 generated-README integrity test (Test-GeneratedReadmes.Tests.ps1). See
-[ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
+[ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md).
 ```
 
 ## comment:2

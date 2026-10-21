@@ -19,5 +19,5 @@ Above `$script:savedProcessJavaHome = $env:JAVA_HOME`, written with `#`.
 
 ```text
 The managed body clears the session JAVA_HOME — restore it so the test leaves the process as it found it
-([ADR-PWSH-ENV-NOPESTERISOLATION](/docs/adr/automation/pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env-nopesterisolation)).
+([ADR-PWSH-ENV-NOPESTERISOLATION](/docs/drs/automation/pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env-nopesterisolation)).
 ```

@@ -13,7 +13,7 @@ entry (`guids:`), plus the non-allow list of values that are never a legitimate 
 Constructing an instance MAPS and VALIDATES the parsed YAML, collecting every violation into one throw.
 Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.QualityGates.GuidsConfig), so
 Get-Config -Config guids returns this typed model. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Load-time rules:
   - only the top-level keys 'denied' (optional) and 'guids' (required; an empty map or no value allowed) — the

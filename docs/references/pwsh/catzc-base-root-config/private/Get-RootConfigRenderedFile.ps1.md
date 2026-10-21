@@ -19,7 +19,7 @@ records, so Build-RootConfig writes every generated file the same way and Test-R
   path that must match the entry's target (case-sensitive wildcard match; a literal target matches only itself).
 
 A wildcard target (`go/tests/*/go.mod`) needs records and may render none (no folder yet); a literal target must render exactly one file.
-Any other shape throws, naming the entry and the generator. See [ADR-REPO-ROOTCFG](../../../../adr/repository/generated-root-configs.md).
+Any other shape throws, naming the entry and the generator. See [ADR-REPO-ROOTCFG](../../../../drs/repository/generated-root-configs.md).
 
 ### parameter `Entry`
 

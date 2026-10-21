@@ -9,7 +9,7 @@ Above `Describe 'Ansi' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 The single ConsoleColor -> ANSI SGR map
-([ADR-AUTO-CONSOLE-SPARINGCOLOUR](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)): the escape
+([ADR-AUTO-CONSOLE-SPARINGCOLOUR](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)): the escape
 codes Write-InformationColored and
 RainbowColor both resolve through, asserted in one place so the two can never disagree.
 ```

@@ -12,7 +12,7 @@ Builds the selected modules into one installable, versioned Catzc module — bui
 ### description
 
 The public entry to the build
-([ADR-AUTO-BUNDLE-BUNDLEISBUILD](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle-bundleisbuild)). It settles the build's
+([ADR-AUTO-BUNDLE-BUNDLEISBUILD](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-bundleisbuild)). It settles the build's
 inputs from configs/exporter.yml (Get-Config -Config exporter), hands them to the engine (Invoke-ModuleBuild in Catzc.Internal.Builder), and
 verifies what the engine wrote: against the bundle's footprint limits (max_files, max_bytes, when it states them; a build that overrides the
 selection or vendor policy is an experiment, not the bundle, and is not measured), then with Assert-CatzcBundle. A build is a build of one
@@ -92,7 +92,7 @@ Above `function Build-Modules {`, written with `#`.
 
 ```text
 Uses -DryRun, not ShouldProcess/-WhatIf — see
-[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect).
+[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect).
 ```
 
 ## comment:2

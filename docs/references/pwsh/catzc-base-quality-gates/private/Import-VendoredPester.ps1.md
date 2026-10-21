@@ -12,12 +12,12 @@ Loads the vendored Pester into the session on first use, and makes sure it is th
 ### description
 
 Pester's import is deferred at import time for speed
-([ADR-PWSH-VENDOR-LAZYLOADEXPENSIVE](../../../../adr/automation/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive));
+([ADR-PWSH-VENDOR-LAZYLOADEXPENSIVE](../../../../drs/automation/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-lazyloadexpensive));
 the test entry points that need it in the parent session — for a discovery pass, or an in-session run — load it here, once. It is vendored
 inside the code tree, so it resolves from the code root
-([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)),
+([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)),
 and the load is announced
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../../adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](../../../../drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).
 A session that already has the vendored version loaded from the vendor folder is left as it is — a check of a few milliseconds; any other
 Pester in the session (a system install, another version) is removed and replaced, and the replacement is named in the announcement.
 

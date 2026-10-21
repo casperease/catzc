@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "365c3bb001d7"
+    with_body_sha: "3afcac9c4243"
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Get-HelpPageFinding.ps1
     cites:
@@ -52,7 +52,7 @@ Describe 'Get-HelpPageFinding' -Tag 'L0', 'logic', 'ADR-REPO-HELP-FIVEFAULTSREPO
 
     It 'reports a comment-based help block and a help line made of a citation alone' {
         $legacy = "<#`n.SYNOPSIS`n    Gets.`n#>`n" + $script:code
-        $body = "### synopsis`n`nGets.`n`n### description`n`n[ADR-WIDGET-SPINS](/docs/adr/widget.md#rule-adr-widget-spins)`n`n### parameter ``Name```n`nN.`n`n### parameter ``Force```n`nF.`n"
+        $body = "### synopsis`n`nGets.`n`n### description`n`n[ADR-WIDGET-SPINS](/docs/drs/widget.md#rule-adr-widget-spins)`n`n### parameter ``Name```n`nN.`n`n### parameter ``Force```n`nF.`n"
         $found = & $script:find $legacy (& $script:page $body)
         $found | Should -Contain 'comment-based help is not used: write the help in the ## help section of the comment page'
         $found | Should -Contain 'a help line is made of nothing but a citation or a page link, which the tooling derives'

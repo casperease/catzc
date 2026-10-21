@@ -11,9 +11,9 @@ Quality gate: every module folder under pwsh/ follows the folder and file conven
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the module
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)) over the module
 folders of `<RepositoryRoot>/pwsh` (dot-prefixed folders are infrastructure, not modules). It scans the tree once with `[System.IO]` and
-collects every issue ([ADR-REPO-FOLDERS](../../../adr/repository/conventional-folders.md)):
+collects every issue ([ADR-REPO-FOLDERS](../../../drs/repository/conventional-folders.md)):
 
 - every module subdirectory is a conventional folder: private, tests, assets, types, configs;
 - no test file (`*.Tests.ps1`) sits at the module root or in private/ — tests belong in tests/;
@@ -65,5 +65,5 @@ Above `if ($name -match '^\.') {`, written with `#`.
 
 ```text
 Dot-prefixed entries are tooling (a schema sidecar, an editor dotfile), not module config
-([ADR-REPO-FOLDERS-DOTMEANSTOOLING](/docs/adr/repository/conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)).
+([ADR-REPO-FOLDERS-DOTMEANSTOOLING](/docs/drs/repository/conventional-folders.md#rule-adr-repo-folders-dotmeanstooling)).
 ```

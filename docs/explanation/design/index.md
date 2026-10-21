@@ -14,12 +14,12 @@ The thin platform           consumers bind to one CLI; the rest is delegated to 
 Server remote integration   one door in, one stable point out
 ```
 
-These articles explain decisions from the [design ADR domain](../../adr/index.md#design). Each article narrates one diagram; the
+These articles explain decisions from the [design ADR domain](../../drs/index.md#design). Each article narrates one diagram; the
 [explanation index](../index.md) says how to read them.
 
 ## Commit lifecycle states
 
-A commit only climbs, then ends in one of three ways ([commit-lifecycle](../../adr/flow/commit-lifecycle.md)).
+A commit only climbs, then ends in one of three ways ([commit-lifecycle](../../drs/flow/commit-lifecycle.md)).
 
 | Lens           | Article                                                                                                          |
 | -------------- | ---------------------------------------------------------------------------------------------------------------- |
@@ -31,7 +31,7 @@ A commit only climbs, then ends in one of three ways ([commit-lifecycle](../../a
 
 ## Commit lifecycle pictures
 
-Two whole-picture diagrams of the same lifecycle ([commit-lifecycle](../../adr/flow/commit-lifecycle.md)). They have no separate lenses.
+Two whole-picture diagrams of the same lifecycle ([commit-lifecycle](../../drs/flow/commit-lifecycle.md)). They have no separate lenses.
 
 | Picture         | Article                                                                                                                          |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------- |
@@ -40,7 +40,7 @@ Two whole-picture diagrams of the same lifecycle ([commit-lifecycle](../../adr/f
 
 ## Out-of-band topic deploy
 
-Deploying a topic commit is not integrating it ([commit-lifecycle](../../adr/flow/commit-lifecycle.md)).
+Deploying a topic commit is not integrating it ([commit-lifecycle](../../drs/flow/commit-lifecycle.md)).
 
 | Lens           | Article                                                                                                                            |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
@@ -52,7 +52,7 @@ Deploying a topic commit is not integrating it ([commit-lifecycle](../../adr/flo
 
 ## The sync point
 
-Upstream integrators sync from the last certified commit, not from the tip of main ([commit-lifecycle](../../adr/flow/commit-lifecycle.md)).
+Upstream integrators sync from the last certified commit, not from the tip of main ([commit-lifecycle](../../drs/flow/commit-lifecycle.md)).
 This diagram has no implementation or operations lens.
 
 | Lens         | Article                                                                                                                            |
@@ -63,7 +63,7 @@ This diagram has no implementation or operations lens.
 
 ## Run modes
 
-Where the code loads from decides the run mode ([run-modes](../../adr/design/run-modes.md)).
+Where the code loads from decides the run mode ([run-modes](../../drs/design/run-modes.md)).
 
 | Lens           | Article                                                                                                                     |
 | -------------- | --------------------------------------------------------------------------------------------------------------------------- |
@@ -76,7 +76,7 @@ Where the code loads from decides the run mode ([run-modes](../../adr/design/run
 ## Module folder layout
 
 Every module file is in exactly one aspect, and the manifest and the aspects both come from the module folder
-([module-aspects](../../adr/design/module-aspects.md)).
+([module-aspects](../../drs/design/module-aspects.md)).
 
 | Lens           | Article                                                                                           |
 | -------------- | ------------------------------------------------------------------------------------------------- |
@@ -88,7 +88,7 @@ Every module file is in exactly one aspect, and the manifest and the aspects bot
 
 ## Tracks, units and pipelines
 
-A track ships through a deployable-unit, and each unit has one pipeline ([tracks](../../adr/design/tracks.md)).
+A track ships through a deployable-unit, and each unit has one pipeline ([tracks](../../drs/design/tracks.md)).
 
 | Lens           | Article                                                                                                                                          |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -100,8 +100,8 @@ A track ships through a deployable-unit, and each unit has one pipeline ([tracks
 
 ## The sibling model
 
-Catzc and eac, the same family in two languages, compared model by model ([tracks](../../adr/design/tracks.md),
-[one-living-version](../../adr/principles/one-living-version.md)). One article, one meta slide, no other lenses.
+Catzc and eac, the same family in two languages, compared model by model ([tracks](../../drs/design/tracks.md),
+[one-living-version](../../drs/principles/one-living-version.md)). One article, one meta slide, no other lenses.
 
 | Picture      | Article                                                                              |
 | ------------ | ------------------------------------------------------------------------------------ |
@@ -109,7 +109,7 @@ Catzc and eac, the same family in two languages, compared model by model ([track
 
 ## The thin platform
 
-Consumers bind to one CLI, and everything behind it is delegated to the vendor ([thin-platforms](../../adr/design/thin-platforms.md)).
+Consumers bind to one CLI, and everything behind it is delegated to the vendor ([thin-platforms](../../drs/design/thin-platforms.md)).
 
 | Lens           | Article                                                                                                                                  |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
@@ -122,7 +122,7 @@ Consumers bind to one CLI, and everything behind it is delegated to the vendor (
 ## Server remote integration
 
 Changes enter through one door, and consumers build on one stable point
-([server-remote-integration](../../adr/design/server-remote-integration.md)).
+([server-remote-integration](../../drs/design/server-remote-integration.md)).
 
 | Lens           | Article                                                                                                                                     |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |

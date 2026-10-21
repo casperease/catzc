@@ -65,7 +65,7 @@ Above `$fragmentPath = $null`, written with `#`.
 
 ```text
 A consumer overlay's fragment of this config (<overlay root>/<Module>/configs/<name>.yml), in build mode only
-([ADR-AUTO-OVERLAY](/docs/adr/automation/consumer-overlay.md)). The cache key carries the fragment's stamp,
+([ADR-AUTO-OVERLAY](/docs/drs/automation/consumer-overlay.md)). The cache key carries the fragment's stamp,
 so an edited fragment is never served from a stale merge.
 ```
 
@@ -75,7 +75,7 @@ Above `$script:configCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
 
 ## comment:3
@@ -84,10 +84,10 @@ Above `$entry = Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name;
 
 ```text
 The one reader
-([ADR-CONF-LOADING-ONEREADER](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-onereader));
+([ADR-CONF-LOADING-ONEREADER](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-onereader));
 the name is discovered and an unknown one throws
-([ADR-CONF-LOADING-EXISTENCEDISCOVERED](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-existencediscovered),
-[ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST](/docs/adr/configuration/config-value-addressing.md#rule-adr-conf-addressing-resolutionfailsfast)).
+([ADR-CONF-LOADING-EXISTENCEDISCOVERED](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-existencediscovered),
+[ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST](/docs/drs/configuration/config-value-addressing.md#rule-adr-conf-addressing-resolutionfailsfast)).
 ```
 
 ## comment:4
@@ -96,7 +96,7 @@ Above `if ($null -eq...`, written with `#`.
 
 ```text
 Cached by the resolved file path
-([ADR-CONF-LOADING-CACHEBYPATH](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-cachebypath)).
+([ADR-CONF-LOADING-CACHEBYPATH](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-cachebypath)).
 ```
 
 ## comment:5
@@ -105,5 +105,5 @@ Above `$type = [type] $registered['type']`, written with `#`.
 
 ```text
 The registered C# type maps and validates the parsed dictionary at construction
-([ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)).
+([ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)).
 ```

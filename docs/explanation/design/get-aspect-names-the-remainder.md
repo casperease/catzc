@@ -51,8 +51,8 @@ aspect is not the bare `**`.
 
 ## See also
 
-- [Module aspects](../../adr/design/module-aspects.md) — the decision this article explains. Also
-  [repo-wide variants](../../adr/repository/repo-variants.md).
+- [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains. Also
+  [repo-wide variants](../../drs/repository/repo-variants.md).
 - The other lenses on the same catch-all: [meta](each-track-picks-its-catch-all.md), [architecture](only-pwsh-compiles-its-aspects.md),
   [implementation](get-aspect-feeds-globs-and-maps.md) and [governance](gate-checks-order-not-liveness.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

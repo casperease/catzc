@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "856c58109427"
+#     with_body_sha: f3fb04175b6c
 # ---
 
 description:
@@ -119,10 +119,10 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: docs/-/.
         by:
-          - docs/adr/flow/cd-discipline-and-promotion-flow.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/flow/cd-discipline-and-promotion-flow.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/ado/pipelines/deploy-apex.yaml.md
           - docs/references/ado/pipelines/deploy-nova.yaml.md
@@ -218,10 +218,10 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: docs/markdown
         by:
-          - docs/adr/flow/cd-discipline-and-promotion-flow.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/flow/cd-discipline-and-promotion-flow.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/ado/pipelines/deploy-apex.yaml.md
           - docs/references/ado/pipelines/deploy-nova.yaml.md

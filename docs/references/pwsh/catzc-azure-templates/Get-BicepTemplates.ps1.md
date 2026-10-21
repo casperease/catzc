@@ -17,7 +17,7 @@ Scans `infrastructure/templates/` at depth 1 for template folders (reusable bice
 are NOT discovered here). Each folder must contain a `main.bicep` and a `configuration/` subfolder. A config lives at the configuration ROOT
 — `configuration/<env>[-<slot>].yml`, a shared-platform deployment — or under a customer subfolder,
 `configuration/<customer>/<env>[-<slot>].yml`, where the folder is always a customer KEY from customer.yml. One config file ⟷ one resource
-group ([ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md)). The filename resolves (Resolve-BicepConfigName) to its environment +
+group ([ADR-AZ-DATAMOD](../../../drs/azure/azure-data-model.md)). The filename resolves (Resolve-BicepConfigName) to its environment +
 optional slot: `dev.yml` (base slot of env `dev`), `dev-001.yml` (slot `001`). The SUBSCRIPTION is resolved per config
 (Get-BicepConfigSubscriptionCandidates): a root config's env must be served by exactly one non-customer subscription; a customer config's
 env by exactly one of that customer's subscriptions. Validated at discovery: the subfolder is a defined customer key, and every config
@@ -43,7 +43,7 @@ output_folder         — where Build-Bicep writes main.json + parameters.<subsc
 deployment_mode       — 'Incremental' unless overridden by options.yml
 deployment_target     — 'ResourceGroup' unless overridden by options.yml
 environment_kind      — 'standard' unless options.yml sets it; the env-class bit (standard|subscription, see
-[ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md))
+[ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md))
 customer_deployment   — whether this is a customer template; defaults to the have_customers variant unless
                         options.yml sets it
 prepost_module        — path to PrePost.psm1 if present (key omitted otherwise)
@@ -70,7 +70,7 @@ Above `if ($null -eq...`, written with `#`.
 ```text
 Filesystem-derived information is cached for the session, lazily on first use, keyed on the discovery
 root + the output root — see
-[ADR-AUTO-CACHE](/docs/adr/automation/caching.md). The on-disk file set is fixed at importer time
+[ADR-AUTO-CACHE](/docs/drs/automation/caching.md). The on-disk file set is fixed at importer time
 (pipeline: static checkout; devbox: re-run the importer after editing files), so re-running the
 importer is the only invalidation. Keying on the root lets tests redirect discovery to a fixture
 tree (Mock Get-BicepTemplatesRoot) or the build output to a folder of their own (Mock
@@ -84,7 +84,7 @@ Above `$script:bicepTemplatesCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
 
 ## comment:3
@@ -114,7 +114,7 @@ calls — it was the dominant cost of a cold discovery (~0.8s of ~1.2s). The raw
 Above `$environmentKind = if ($options.Contains('environment_kind')) {`, written with `#`.
 
 ```text
-Env-class template classification ([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)): the env-class bit
+Env-class template classification ([ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md)): the env-class bit
 (standard/subscription, default standard). Every config below must match it. The slot is a
 per-config dimension, not a template bit — a template may mix slotted and non-slotted configs.
 ```
@@ -125,7 +125,7 @@ Above `$customerDeploymentOption = if ($options.Contains('customer_deployment'))
 
 ```text
 Customer-class bit
-([ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)): whether this is a customer template. It
+([ADR-AZ-CUSTOMER](/docs/drs/azure/azure-customer-model.md)): whether this is a customer template. It
 defaults to the have_customers repo variant (Test-HaveCustomers) unless options.yml sets it. An
 explicit customer_deployment: true is only allowed when customers are enabled (the repo-level guard).
 ```
@@ -139,7 +139,7 @@ short_name is the Azure id segment every resource name is built from. It is DERI
 name by default; an options.yml `short_name` overrides it. BicepShortName owns the derivation +
 format validation (a malformed override, or a folder that cannot yield a valid short_name without an
 override, throws here — naming the template). See
-[ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers).
+[ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS](/docs/drs/azure/azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers).
 ```
 
 ## comment:8

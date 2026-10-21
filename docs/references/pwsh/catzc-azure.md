@@ -21,8 +21,8 @@ a region, region code, and short code), and the subscriptions (each bound to a t
 environments). Overlaid on this is the IP plan: a range per environment, and a hub-and-spoke network per subscription — a hub in each shared
 subscription, a spoke in each customer subscription, with no two networks overlapping. This is data, not behaviour — it lives in two
 configuration assets, `azure.yml` and `network.yml`, and is the single source of truth the whole Azure stack resolves against; a quality
-gate keeps the IP plan in step with the environments and subscriptions. See [data-model](../../adr/azure/azure-data-model.md) and
-[network-model](../../adr/azure/azure-network-model.md).
+gate keeps the IP plan in step with the environments and subscriptions. See [data-model](../../drs/azure/azure-data-model.md) and
+[network-model](../../drs/azure/azure-network-model.md).
 
 ### responsibility:2 — Subscription resolution
 

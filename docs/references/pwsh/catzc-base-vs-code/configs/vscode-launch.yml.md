@@ -10,7 +10,7 @@ Above `version: "0.2.0"`, written with `#`.
 ```text
 VS Code launch-profile registry — the single authored source for .vscode/launch.json. The file the editor
 reads is a managed, gitignored copy rendered from this registry by New-VsCodeLaunch (wired through
-Build-RootConfig; see rootconfig.yml and [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)) — edit THIS file,
+Build-RootConfig; see rootconfig.yml and [ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md)) — edit THIS file,
 never launch.json. Explanations live here as comments; the rendered JSON carries only a generated-file
 header (VS Code reads JSONC, so the header is legal).
 

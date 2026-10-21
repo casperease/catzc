@@ -9,5 +9,5 @@ Above `Describe 'Test-GlobSetTriggerCoverage' -Tag 'L0', 'logic' {`, written wit
 
 ```text
 Test-GlobSetTriggerCoverage over mocked globsets, projections, and members; the include patterns are real
-GlobPattern instances. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+GlobPattern instances. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -12,7 +12,7 @@ Normalizes a path to its communication form: out/-anchored, then repo-root-relat
 ### description
 
 The "relative-where-possible" normalization for paths kept in records, configs, and long-lived information
-([ADR-AUTO-PATH](../../../adr/automation/path-representation.md)). It picks the anchor in order:
+([ADR-AUTO-PATH](../../../drs/automation/path-representation.md)). It picks the anchor in order:
 
 1. Under the OUTPUT root (Get-OutputRoot) -> '`out/<remainder>`' (forward slashes). The output root is context-dependent ({root}/out on a
    devbox, the external staging directory in a pipeline), so the reserved 'out/' sentinel keeps an output artifact portable across the
@@ -20,7 +20,7 @@ The "relative-where-possible" normalization for paths kept in records, configs, 
    no repo-relative form (it lives outside the repo) is captured here.
 2. Under the REPOSITORY root (Get-RepositoryRoot) -> a plain repo-relative path (forward slashes).
 3. Under neither -> returned absolute (normalized). No repo/out-relative form exists; degrade honestly
-   ([ADR-AUTO-PATH-FOREIGNPATHS](../../../adr/automation/path-representation.md#rule-adr-auto-path-foreignpaths)) rather than emit a hybrid.
+   ([ADR-AUTO-PATH-FOREIGNPATHS](../../../drs/automation/path-representation.md#rule-adr-auto-path-foreignpaths)) rather than emit a hybrid.
 
 Pairs with Resolve-RepoPath, which turns the result back into an absolute path against the matching root.
 

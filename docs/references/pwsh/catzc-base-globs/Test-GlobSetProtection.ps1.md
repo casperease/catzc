@@ -11,7 +11,7 @@ True when a scan may be skipped: this test already ran green against this globse
 
 ### description
 
-The query half of the protected-glob skip ([ADR-REPO-PROTGLOB](../../../adr/repository/protected-globs.md)): a heavy read-only scan is a
+The query half of the protected-glob skip ([ADR-REPO-PROTGLOB](../../../drs/repository/protected-globs.md)): a heavy read-only scan is a
 pure function of its globset's durable SHA, so a repeat run against an unchanged set proves nothing. The protection map is session memory
 only — keyed `<test>|<globset>`, holding the durable SHA of the last green run — and in a pipeline it is never consulted: this returns
 $false unconditionally, so CI always scans full.
@@ -52,7 +52,7 @@ Above `$script:protectedGlobSets = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entries
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
 
 ## comment:2

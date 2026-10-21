@@ -10,5 +10,5 @@ Above `Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Test-RootConfigFiles over fixture root files in $TestDrive: the registry entries, git's ignore check, and the index
 are mocked, so each test pins one agreement rule. A hard link stands in for a materialised link (no privilege
-needed). Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+needed). Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

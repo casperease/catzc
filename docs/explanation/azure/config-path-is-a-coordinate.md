@@ -48,8 +48,8 @@ resolution is one-to-one all the way through, listing the `configuration/` tree 
 
 ## See also
 
-- [Templating data model](../../adr/azure/azure-data-model.md) — the decision this article explains, with the
-  [customer model](../../adr/azure/azure-customer-model.md) it pairs with.
+- [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains, with the
+  [customer model](../../drs/azure/azure-customer-model.md) it pairs with.
 - The other lenses on the same coordinate: [architecture](two-layers-join-through-one-resolver.md),
   [implementation](coordinate-resolved-file-by-file-at-discovery.md), [operations](a-bad-coordinate-stops-discovery.md) and
   [governance](coordinate-rules-and-their-gates.md).

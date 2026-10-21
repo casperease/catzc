@@ -66,7 +66,7 @@ A key cannot contain a dot, because `Get-ConfigValue` splits the whole address o
 
 ## See also
 
-- [Config value addressing](../../adr/configuration/config-value-addressing.md) — the decision this article explains.
+- [Config value addressing](../../drs/configuration/config-value-addressing.md) — the decision this article explains.
 - The other lenses on the same walk: [meta](an-address-is-a-read-only-walk.md),
   [architecture](callers-in-four-modules-share-one-resolver.md), [operations](type-an-address-get-the-value.md) and
   [governance](two-test-files-check-the-address-rules.md).

@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Resolve-AdrLinkTarget' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
-Resolve-AdrLinkTarget — a markdown link in a file under docs/adr/, resolved relative to its file
-([ADR-REPO-LINK-MARKDOWNRELATIVE](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)) to its path under docs/adr/. Pure path logic: the
-fixture root need not exist. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+Resolve-AdrLinkTarget — a markdown link in a file under docs/drs/, resolved relative to its file
+([ADR-REPO-LINK-MARKDOWNRELATIVE](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-markdownrelative)) to its path under docs/drs/. Pure path logic: the
+fixture root need not exist. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

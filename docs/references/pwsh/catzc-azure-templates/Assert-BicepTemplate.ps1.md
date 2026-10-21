@@ -91,5 +91,5 @@ Above `$built = $false`, written with `#`.
 
 ```text
 The full build (render + compile) so the rendered parameters files can be checked against the
-compiled parameter model ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)).
+compiled parameter model ([ADR-AZ-DATAMOD-PARAMETERCONTRACT](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)).
 ```

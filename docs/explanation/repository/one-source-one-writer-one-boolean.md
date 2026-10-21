@@ -47,7 +47,7 @@ is gitignored or stays tracked is one boolean per entry, not a second system.
 
 ## See also
 
-- [Generated root configs](../../adr/repository/generated-root-configs.md) — the decision this article explains.
+- [Generated root configs](../../drs/repository/generated-root-configs.md) — the decision this article explains.
 - The other lenses on the same mechanism: [architecture](one-registry-one-writer-two-primitives.md),
   [implementation](opted-in-then-link-copy-or-render.md), [operations](import-materialises-two-gates-name-the-fix.md) and
   [governance](three-gates-check-registry-drift-membership.md).

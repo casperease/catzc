@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "9e9a6e4de4f9"
+#     with_body_sha: "4004f3d17e02"
 # ---
 
 description: 'Ten commits climb the promotion ladder at once: each stage gate passes some on and discards others, every environment
@@ -426,8 +426,8 @@ content:
       by:
       - .ado/pipelines/ci-pwsh.yaml
       - .claude/CLAUDE.md
-      - docs/adr/flow/dora-explains.md
-      - docs/adr/index.md
+      - docs/drs/flow/dora-explains.md
+      - docs/drs/index.md
       - docs/how-to/automation/apply-environment-approvals.md
       - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
       - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
@@ -452,8 +452,8 @@ content:
       by:
       - .ado/pipelines/ci-pwsh.yaml
       - .claude/CLAUDE.md
-      - docs/adr/flow/dora-explains.md
-      - docs/adr/index.md
+      - docs/drs/flow/dora-explains.md
+      - docs/drs/index.md
       - docs/how-to/automation/apply-environment-approvals.md
       - docs/references/ado/pipelines/deploy-apex.yaml.md
       - docs/references/ado/pipelines/deploy-nova.yaml.md
@@ -481,8 +481,8 @@ content:
       by:
       - .ado/pipelines/ci-pwsh.yaml
       - .claude/CLAUDE.md
-      - docs/adr/flow/dora-explains.md
-      - docs/adr/index.md
+      - docs/drs/flow/dora-explains.md
+      - docs/drs/index.md
       - docs/how-to/automation/apply-environment-approvals.md
       - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
       - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
@@ -507,8 +507,8 @@ content:
       by:
       - .ado/pipelines/ci-pwsh.yaml
       - .claude/CLAUDE.md
-      - docs/adr/flow/dora-explains.md
-      - docs/adr/index.md
+      - docs/drs/flow/dora-explains.md
+      - docs/drs/index.md
       - docs/how-to/automation/apply-environment-approvals.md
       - docs/references/ado/pipelines/deploy-apex.yaml.md
       - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
@@ -535,13 +535,13 @@ content:
       by:
       - .ado/pipelines/ci-pwsh.yaml
       - .claude/CLAUDE.md
-      - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
-      - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
-      - docs/adr/flow/cd-discipline-and-promotion-flow.md
-      - docs/adr/flow/commit-lifecycle.md
-      - docs/adr/flow/dora-explains.md
-      - docs/adr/glossary.md
-      - docs/adr/index.md
+      - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
+      - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
+      - docs/drs/flow/cd-discipline-and-promotion-flow.md
+      - docs/drs/flow/commit-lifecycle.md
+      - docs/drs/flow/dora-explains.md
+      - docs/drs/glossary.md
+      - docs/drs/index.md
       - docs/how-to/automation/apply-environment-approvals.md
       - docs/references/ado/pipelines/deploy-apex.yaml.md
       - docs/references/ado/pipelines/deploy-nova.yaml.md

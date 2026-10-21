@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "65ef39214ccc"
+    with_body_sha: "226373a3446e"
   edges:
     code: pwsh/Catzc.Tooling.Listen/New-DocSnapshot.ps1
 ---
@@ -28,8 +28,8 @@ Describe 'New-DocSnapshot' -Tag 'L0', 'logic' {
             [System.IO.File]::ReadAllText((Join-Path $session.Path "$copy/adr/widget.md")) | Should -BeLike '*widget rule*'
             [System.IO.File]::Exists((Join-Path $session.Path "$copy/explanation/gadget.md")) | Should -BeTrue
             $index = [System.IO.File]::ReadAllText((Join-Path $session.Path "$copy.json")) | ConvertFrom-Json -AsHashtable
-            @($index.Keys | Sort-Object) | Should -Be @('docs/adr/widget.md', 'docs/explanation/gadget.md')
-            $index['docs/adr/widget.md'].hash | Should -Not -BeNullOrEmpty
+            @($index.Keys | Sort-Object) | Should -Be @('docs/drs/widget.md', 'docs/explanation/gadget.md')
+            $index['docs/drs/widget.md'].hash | Should -Not -BeNullOrEmpty
         }
         [System.IO.Directory]::Exists((Join-Path $session.Path 'notes')) | Should -BeTrue
         Should -Invoke New-RepositorySnapshot -ModuleName Catzc.Tooling.Listen -Times 1 -Exactly -ParameterFilter {

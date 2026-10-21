@@ -12,7 +12,7 @@ Names the data format a contract check parses a file as, from its extension: Jso
 ### description
 
 The one place the contract checks decide how a file is read
-([ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): .json is Json; .yml
+([ADR-REPO-CONTRACT-CONTRACTASSET](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): .json is Json; .yml
 and .yaml are Yaml; any other extension is text, and gives nothing. A fragment of a Json or Yaml file is compared as a key subset, of any
 other file as lines; a schema or a sample payload must be Json or Yaml. The extension compares ordinally.
 

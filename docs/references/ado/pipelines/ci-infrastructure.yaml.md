@@ -9,8 +9,8 @@ Above `trigger:`, written with `#`.
 
 ```text
 Build and verify only, no artifact and no deploy; az bicep build is offline, so Mode stays none and no auth is needed.
-[FDR-CD-TYPE](/docs/adr/flow/pipeline-types.md),
-[FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md) [comment:1](/docs/references/ado/pipelines/ci-infrastructure.yaml.md#comment1)
+[FDR-CD-TYPE](/docs/drs/flow/pipeline-types.md),
+[FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md) [comment:1](/docs/references/ado/pipelines/ci-infrastructure.yaml.md#comment1)
 ```
 
 ## comment:2
@@ -19,7 +19,7 @@ Above `- template: /.ado/pipelines/steps/invoke-automation.yaml` (occurrence 7),
 
 ```text
 The infrastructure globset's test suite: its verify scope (Catzc.Azure.Templates up to L2,
-[ADR-AUTO-TEST-TESTSUITE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-testsuite)), including the L2 test that
+[ADR-AUTO-TEST-TESTSUITE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-testsuite)), including the L2 test that
 builds every shipped template and checks its rendered parameters files against the compiled parameter model
-([ADR-AZ-DATAMOD-PARAMETERCONTRACT](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)).
+([ADR-AZ-DATAMOD-PARAMETERCONTRACT](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)).
 ```

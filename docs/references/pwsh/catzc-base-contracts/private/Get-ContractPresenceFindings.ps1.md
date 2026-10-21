@@ -11,7 +11,7 @@ Checks that a contract asset's target file exists with the exact case of its pat
 
 ### description
 
-The presence check of [ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset),
+The presence check of [ADR-REPO-CONTRACT-CONTRACTASSET](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset),
 which every fragment and schema check runs first. An outside platform reads the path as written, and a case-insensitive file system
 (Windows, the default macOS volume) would find a file whose case differs, so the path is walked one segment at a time against the directory
 listing and each segment compares ordinally. A segment that exists only in another case, a missing segment, a folder where the file belongs,

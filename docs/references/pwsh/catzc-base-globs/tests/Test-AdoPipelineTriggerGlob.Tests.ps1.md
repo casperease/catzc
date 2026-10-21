@@ -9,7 +9,7 @@ Above `Describe 'Test-AdoPipelineTriggerGlob' -Tag 'L0', 'logic' {`, written wit
 
 ```text
 Test-AdoPipelineTriggerGlob is a quality gate
-([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate), drift detection): each pipeline's
+([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate), drift detection): each pipeline's
 actual trigger vs its globset's projection, compared as sets (ADO path filters are order-independent). A drifted
 or missing pipeline is one issue; the report goes to $TestDrive.
 ```

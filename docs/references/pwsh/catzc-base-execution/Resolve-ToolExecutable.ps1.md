@@ -15,7 +15,7 @@ The one reading of a tools.yml entry for the existence check, so a caller runs t
 (`& (Resolve-ToolExecutable -Tool widget).Path`). Test-Tool -PassThru and Assert-Tool return and read the same record.
 
 Reads the entry through Get-Config -Config tools, as a dictionary (reading a config is global access, never guarded by module
-dependencies:[ADR-CONF-LOADING-READINGISGLOBAL](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading-readingisglobal)),
+dependencies:[ADR-CONF-LOADING-READINGISGLOBAL](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-readingisglobal)),
 and hands Find-Executable plain inputs:
 
 - the candidates for this platform and run environment (Get-RunEnvironment): windows_probes or unix_probes on a devbox,

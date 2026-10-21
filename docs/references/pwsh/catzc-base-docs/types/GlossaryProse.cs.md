@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 The prose of one file, as the glossary checks read it (G4, G6): never a regex over source text
-([ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](/docs/adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced)).
+([ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](/docs/drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced)).
   Markdown    the whole file as one 'markdown' segment, fenced code blocks blanked;
   PowerShell  the real parser's tokens and AST: 'help' (a block comment holding .SYNOPSIS or .DESCRIPTION),
               'comments' (every other comment), and 'messages' — the strings passed to throw, Write-Message,
@@ -19,7 +19,7 @@ The prose of one file, as the glossary checks read it (G4, G6): never a regex ov
 Every segment's mentions — `code`, "quoted" and “curly-quoted” spans that do not cross a blank line — are blanked to
 spaces (RemoveMentions), and it carries the line it starts on, so a match's offset maps to its line. Markdown also
 blanks what is not prose: a link or image destination, the `(path)` after `]`, and the title line that names the
-file's own repository path ([ADR-REPO-FORMAT-MARKDOWNTITLE](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-markdowntitle)).
+file's own repository path ([ADR-REPO-FORMAT-MARKDOWNTITLE](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-markdowntitle)).
 ```
 
 ## comment:2

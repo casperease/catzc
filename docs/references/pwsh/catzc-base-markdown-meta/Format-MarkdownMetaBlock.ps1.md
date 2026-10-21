@@ -15,7 +15,7 @@ The `immutable` and `edges` parts are written from -Immutable and -Edges in the 
 give the same bytes. The authored `config` part and every other byte of the text are kept as written. With no facts, no edges and no config
 lines the block is removed. Pure: it reads no file and no config, and it returns the text rather than writing it.
 
-It rests on [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts).
+It rests on [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts).
 
 ### parameter `Text`
 

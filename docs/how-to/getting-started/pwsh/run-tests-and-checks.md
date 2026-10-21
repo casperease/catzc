@@ -28,7 +28,7 @@ Test-Automation -Suite infrastructure # one test suite: the infrastructure globs
 ```
 
 A test suite is a named selection declared in `globs.yml`: a globset's `verify:` scope, its modules up to a top tier
-([ADR-AUTO-TEST-TESTSUITE](../../../adr/automation/test-automation.md#rule-adr-auto-test-testsuite)).
+([ADR-AUTO-TEST-TESTSUITE](../../../drs/automation/test-automation.md#rule-adr-auto-test-testsuite)).
 `Test-Automation -Suite infrastructure` runs the `Catzc.Azure.Templates` tests up to L2, including the L2 tests that build every shipped
 template with `az bicep build` and check its rendered parameters files against the compiled parameter model; without `az` those tests skip.
 
@@ -58,8 +58,8 @@ run fails fast if any test is missing — or ambiguous on — either tag.
 | L3   | Vertical system tests, outside state; self-skip | —           |
 
 L2/L3 tests **self-skip** when their tool or cloud access is missing, so the default devbox run stays green without `az` configured. See
-[test-automation](../../../adr/automation/test-automation.md) for the logic-vs-integrity split and the isolation idioms, and
-[retry-as-last-resort](../../../adr/automation/retry-as-last-resort.md) for why tests never retry.
+[test-automation](../../../drs/automation/test-automation.md) for the logic-vs-integrity split and the isolation idioms, and
+[retry-as-last-resort](../../../drs/automation/retry-as-last-resort.md) for why tests never retry.
 
 ## The report
 
@@ -90,15 +90,15 @@ Export-SpellingTriage      # queue the flagged words for triage -> out/terminolo
 `Export-SpellingTriage` scans the same content as `Test-Spelling` and writes every flagged word to a triage queue under `out/`. A queued
 word is still flagged: it is accepted only when someone adds it to the terminology registry (`terminology.yml`) with its meaning and
 category, and an invented identifier abbreviation is spelled out instead (see
-[spell-out-names](../../../adr/automation/spell-out-names.md)).
+[spell-out-names](../../../drs/automation/spell-out-names.md)).
 
 PSScriptAnalyzer itself (style, approved verbs, the custom rules under `pwsh/.scriptanalyzer/`) runs as part of the **L2** tests via the
 analyzer test — so `Test-Automation -Level 2` is what catches a formatting or convention violation before CI does.
 
 ## Marker freshness and protected scans
 
-Two globset-backed behaviors show up in quality-gate runs (see [durable-sha-globs](../../../adr/flow/durable-sha-globs.md) and
-[protected-globs](../../../adr/repository/protected-globs.md)):
+Two globset-backed behaviors show up in quality-gate runs (see [durable-sha-globs](../../../drs/flow/durable-sha-globs.md) and
+[protected-globs](../../../drs/repository/protected-globs.md)):
 
 - A red **trigger globs** test means a pipeline's `trigger:`/`pr:` `paths:` filter has drifted from its globset's projection — regenerate it
   from `Get-GlobSetTrigger`. Run `Test-AdoPipelineTriggerGlob -PassThru` / `Test-GitHubWorkflowTriggerGlob -PassThru` to list one issue per

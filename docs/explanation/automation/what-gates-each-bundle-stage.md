@@ -55,9 +55,9 @@ build run `Test-CatzcBuild` runs the same tests against a fresh build that the s
 
 ## See also
 
-- [Platform bundle](../../adr/automation/platform-bundle.md) — the decision this article explains.
-- [Dynamic module manifests](../../adr/automation/pwsh/dynamic-module-manifests.md) — the merged module form of the payload.
-- [Test automation](../../adr/automation/test-automation.md) and [Run modes](../../adr/design/run-modes.md) — the build run and the build
+- [Platform bundle](../../drs/automation/platform-bundle.md) — the decision this article explains.
+- [Dynamic module manifests](../../drs/automation/pwsh/dynamic-module-manifests.md) — the merged module form of the payload.
+- [Test automation](../../drs/automation/test-automation.md) and [Run modes](../../drs/design/run-modes.md) — the build run and the build
   kinds.
 - The other lenses on the same bundle: [meta](one-commit-one-immutable-package.md), [architecture](every-code-root-is-a-copy.md),
   [implementation](build-verify-then-copy-the-folder.md) and [operations](build-then-place-with-one-command.md).

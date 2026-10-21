@@ -12,20 +12,20 @@ Returns a module's own folder inside the loaded catzc code tree, optionally join
 ### description
 
 The one sanctioned way for module code to locate content that ships with it — its configs/ and assets/, or another module's
-([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
-Resolves against Get-CatzcModulesRoot, so the answer is correct in both run modes ([DDR-RUNMODE](../../../adr/design/run-modes.md)):
+([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
+Resolves against Get-CatzcModulesRoot, so the answer is correct in both run modes ([DDR-RUNMODE](../../../drs/design/run-modes.md)):
 `<RepositoryRoot>/pwsh/<Module>` in source mode, and `<build>/<version>/<Module>` in build mode, where the merged `<Module>.ps1` sits beside
 the same configs/ and assets/ folders.
 
 -Module defaults to the module of the calling function, so module code writes only the child path. Pass -ChildPath as a string literal at
 every call site: Get-InternalAssetDependency derives the inventory of internal asset dependencies from those literals
-([ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath)).
+([ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath)).
 
 Asserts the module folder exists; the child path is not asserted, so a caller may name a file it is about to create, or test for an optional
 one.
 
 In build mode a consumer overlay may replace a module's asset: when `<overlay root>/<Module>/<ChildPath>` is a file under assets/, that path
-is returned instead of the bundled one ([ADR-AUTO-OVERLAY](../../../adr/automation/consumer-overlay.md)). Only assets/ is looked up there —
+is returned instead of the bundled one ([ADR-AUTO-OVERLAY](../../../drs/automation/consumer-overlay.md)). Only assets/ is looked up there —
 configs merge through Get-Config, and the registry and other module files are never replaced wholesale. A consumer's local module — an
 overlay folder that names no bundled module — resolves to its overlay folder.
 

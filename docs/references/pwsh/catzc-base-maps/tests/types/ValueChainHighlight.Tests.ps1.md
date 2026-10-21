@@ -9,7 +9,7 @@ Above `Describe 'ValueChainHighlight' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 ValueChainHighlight lights the value-chain map cells an ADR, or one of its rules, sits in
-([DDR-TRACK-LITCELL](/docs/adr/design/tracks.md#rule-ddr-track-litcell),
-[DDR-TRACK-VALUECHAINMAP](/docs/adr/design/tracks.md#rule-ddr-track-valuechainmap)), with widget/gadget fixtures
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([DDR-TRACK-LITCELL](/docs/drs/design/tracks.md#rule-ddr-track-litcell),
+[DDR-TRACK-VALUECHAINMAP](/docs/drs/design/tracks.md#rule-ddr-track-valuechainmap)), with widget/gadget fixtures
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "23f8bf04e7b3"
+#     with_body_sha: "48208c8f12e6"
 # ---
 
 description:
@@ -96,9 +96,9 @@ content:
           - ADR-AUTO-DEPM-TWOSECTIONS
       - cell: docs/-/.
         by:
-          - docs/adr/automation/controlling-module-dependencies.md
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/automation/controlling-module-dependencies.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-base-maps/Get-ModuleNeighbourhoodMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-module-system/types/DependenciesConfig.cs.md
           - docs/references/pwsh/catzc-base-module-system/types/DependencyGraph.cs.md
@@ -135,9 +135,9 @@ content:
           - ADR-AUTO-DEPM-TWOSECTIONS
       - cell: docs/markdown
         by:
-          - docs/adr/automation/controlling-module-dependencies.md
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/automation/controlling-module-dependencies.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-base-maps/Get-ModuleNeighbourhoodMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-module-system/types/DependenciesConfig.cs.md
           - docs/references/pwsh/catzc-base-module-system/types/DependencyGraph.cs.md

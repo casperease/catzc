@@ -18,5 +18,5 @@ collecting every violation into one throw:
   - `description` is required and non-empty;
   - `sentence` is optional but non-empty when present (the ConvertTo-Guid source of a minted placeholder).
 Value uniqueness spans both sections, so GuidsConfig checks it. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

@@ -41,7 +41,7 @@ predicted, compared and reproduced without looking anything up in Azure.
 
 ## See also
 
-- [Azure resource naming standard](../../adr/azure/azure-naming-standard.md) — the decision this article explains.
+- [Azure resource naming standard](../../drs/azure/azure-naming-standard.md) — the decision this article explains.
 - The other lenses on the same naming standard: [architecture](one-namer-assembles-every-name.md),
   [implementation](lookup-form-check-render-in-order.md), [operations](names-are-derived-never-typed.md) and
   [governance](how-each-naming-rule-is-held.md).

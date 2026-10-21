@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: aae69797af47
+    with_body_sha: "281fbf3b6587"
   edges:
     docs: "[Invoke-RootConfigGenerator.ps1.md](docs/references/pwsh/catzc-base-root-config/private/Invoke-RootConfigGenerator.ps1.md)"
     cites:
@@ -57,7 +57,7 @@ function Invoke-RootConfigGenerator {
             else {
                 "`${workspaceFolder}/$pythonRoot/.venv/bin/python"
             }
-            # Pylance runs pyright in the mode Test-PythonTypes runs it in ([ADR-AUTO-PY-EVERYFILETYPECHECKED](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfiletypechecked)).
+            # Pylance runs pyright in the mode Test-PythonTypes runs it in ([ADR-AUTO-PY-EVERYFILETYPECHECKED](/docs/drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfiletypechecked)).
             $machineSetting['python.analysis.typeCheckingMode'] = $python.type_checking
             $languageFormatter = [ordered]@{}
             $editorFormatters = (Get-Config -Config languages).EditorFormatters()

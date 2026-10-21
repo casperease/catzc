@@ -8,9 +8,9 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `using System;`, written with `//`.
 
 ```text
-One environment's IP plan in configs/network.yml ([ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md)): the
+One environment's IP plan in configs/network.yml ([ADR-AZ-NETWORK](/docs/drs/azure/azure-network-model.md)): the
 vnet address space and default subnet, keyed by the azure.yml environment name. Mirrors an `environments` entry
-(snake_case keys, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+(snake_case keys, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 NetworkConfig builds one per entry and collects its violations with the file's.
 
 Shape: the name is a lower-snake_case identifier; vnet_address_space and default_subnet are required, aligned IPv4

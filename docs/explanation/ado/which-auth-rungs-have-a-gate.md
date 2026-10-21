@@ -55,7 +55,7 @@ No analyzer rule cites ADR-ADO-AUTH. The analyzer rule `Measure-NoRawPipelineDet
 
 ## See also
 
-- [Dual authentication](../../adr/ado/dual-authentication.md) — the decision this article explains.
+- [Dual authentication](../../drs/ado/dual-authentication.md) — the decision this article explains.
 - The other lenses on the same precedence: [meta](configured-credential-proves-its-org.md),
   [architecture](one-header-function-owns-precedence.md), [implementation](three-guarded-early-returns.md) and
   [operations](what-you-set-decides-the-credential.md).

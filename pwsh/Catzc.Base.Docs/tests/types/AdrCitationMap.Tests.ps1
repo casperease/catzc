@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "061617daa564"
+    with_body_sha: a56fe468c12f
   edges:
     code: pwsh/Catzc.Base.Docs/types/AdrCitationMap.cs
     cites:
@@ -14,7 +14,7 @@ catzc:
 
 Describe 'AdrCitationMap' -Tag 'L0', 'logic', 'ADR-REPO-LINK-ONECITATIONSPELLING' {
     BeforeAll {
-        $entry = { param($rules) @{ path = 'docs/adr/widget/x.md'; rules = [string[]] $rules } }
+        $entry = { param($rules) @{ path = 'docs/drs/widget/x.md'; rules = [string[]] $rules } }
         $script:map = [Catzc.Base.Docs.AdrCitationMap]::new([ordered]@{
                 'ADR-WIDGET-GADGET'  = (& $entry @('ADR-WIDGET-GADGET-TURN'))
                 'GD-SPROCKET-COG'    = (& $entry @('GD-SPROCKET-COG-SPIN'))

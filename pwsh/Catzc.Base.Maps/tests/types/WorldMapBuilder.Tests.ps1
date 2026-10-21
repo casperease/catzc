@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "778d2c620d43"
+    with_body_sha: "2b24463e3184"
   edges:
     code: pwsh/Catzc.Base.Maps/types/WorldMapBuilder.cs
 ---
@@ -32,13 +32,13 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
         }
         $script:index = [ordered]@{ 'ADR-WIDGET-GADGET' = 'widgetry'; 'ADR-WIDGET-SPROCKET' = 'widgetry'; 'ADR-GIZMO-COG' = 'gizmos' }
         $script:texts = [ordered]@{
-            'widgets/Alpha/Get-Widget.ps1'             = '# [ADR-WIDGET-GADGET-SPIN](/docs/adr/widgetry/widget-gadget.md#rule-adr-widget-gadget-spin)'
+            'widgets/Alpha/Get-Widget.ps1'             = '# [ADR-WIDGET-GADGET-SPIN](/docs/drs/widgetry/widget-gadget.md#rule-adr-widget-gadget-spin)'
             'widgets/Alpha/configs/alpha.yml'          = '# alpha (ADR-GIZMO-COG)'
             'widgets/Alpha/tests/Get-Widget.Tests.ps1' = '# ADR-GIZMO-COG-DROP'
             'gadgets/settings.yml'                     = 'gadget: true'
             'gadgets/notes.md'                         = 'A gadget note.'
-            'docs/adr/widgetry/widget-gadget.md'       = '### Rule ADR-WIDGET-GADGET-SPIN (cites ADR-GIZMO-COG)'
-            'docs/adr/index.md'                        = '- ADR-WIDGET-SPROCKET'
+            'docs/drs/widgetry/widget-gadget.md'       = '### Rule ADR-WIDGET-GADGET-SPIN (cites ADR-GIZMO-COG)'
+            'docs/drs/index.md'                        = '- ADR-WIDGET-SPROCKET'
             'docs/guide.md'                            = 'Read ADR-WIDGET-SPROCKET.'
             'pipelines/ci-widgets.yaml'                = 'trigger: none'
             'pipelines/cd-gadgets.yaml'                = '# ADR-GIZMO-COG-LIFT'
@@ -59,8 +59,8 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
             'gadgets/notes.md'
             'probes/check.prb'
             'probes/extra.ps1'
-            'docs/adr/widgetry/widget-gadget.md'
-            'docs/adr/index.md'
+            'docs/drs/widgetry/widget-gadget.md'
+            'docs/drs/index.md'
             'docs/guide.md'
             'pipelines/ci-widgets.yaml'
             'pipelines/cd-gadgets.yaml'
@@ -69,7 +69,7 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
             'README.md'
             'out/.gitkeep'
         )
-        $script:adrFiles = [ordered]@{ 'ADR-WIDGET-GADGET' = 'docs/adr/widgetry/widget-gadget.md' }
+        $script:adrFiles = [ordered]@{ 'ADR-WIDGET-GADGET' = 'docs/drs/widgetry/widget-gadget.md' }
         $script:globSets = @([Catzc.Base.Globs.GlobSet]::new('widgets-set', 'The widgets.', 'loose-fileset', @('widgets/**'), @(), @(), @(), -1, 'ci-widgets'))
         $script:build = {
             param([string[]] $Paths = $script:paths, $Tracks = $script:tracks, $Languages = $script:languages)
@@ -169,14 +169,14 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
 
     Context 'highlight relation in the fixed order per artifact kind' {
         It 'gives an ADR''s own file that ADR''s code, not its citations' {
-            $placement = $script:map.Placement('docs/adr/widgetry/widget-gadget.md')
+            $placement = $script:map.Placement('docs/drs/widgetry/widget-gadget.md')
             $placement.Basis | Should -Be 'adr-file'
             $placement.Adr | Should -Be 'ADR-WIDGET-GADGET'
             $placement.Citations | Should -BeNullOrEmpty
         }
 
-        It 'gives a markdown file under docs/adr/ that is no ADR''s own file its citations' {
-            $placement = $script:map.Placement('docs/adr/index.md')
+        It 'gives a markdown file under docs/drs/ that is no ADR''s own file its citations' {
+            $placement = $script:map.Placement('docs/drs/index.md')
             $placement.Basis | Should -Be 'citations'
             $placement.Adr | Should -BeNullOrEmpty
             $placement.Citations | Should -Be @('ADR-WIDGET-SPROCKET')
@@ -218,9 +218,9 @@ Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
             "$($guide.Track) x $($guide.FileLanguage) $($guide.Basis)" | Should -Be 'docs x notes none'
             $guide.Citations | Should -BeNullOrEmpty
             $guide.Sites | Should -BeNullOrEmpty
-            $map.Placement('docs/adr/index.md').Citations | Should -Be @('ADR-WIDGET-SPROCKET')
+            $map.Placement('docs/drs/index.md').Citations | Should -Be @('ADR-WIDGET-SPROCKET')
             $map.Placement('importer.ps1').Citations | Should -Be @('ADR-GIZMO-COG', 'ADR-WIDGET-GADGET-SPIN')
-            $map.Placement('docs/adr/widgetry/widget-gadget.md').Basis | Should -Be 'adr-file'
+            $map.Placement('docs/drs/widgetry/widget-gadget.md').Basis | Should -Be 'adr-file'
         }
     }
 

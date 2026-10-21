@@ -12,5 +12,5 @@ One captured PSReadLine key binding of configs/key-handler-bindings.yml (`- key:
 written by Save-PsReadLineKeyHandlerSet and replayed by Import-PsReadLineKeyHandlerSet. Constructing one MAPS and
 VALIDATES the entry: a mapping carrying a non-empty 'key' and 'function' (the only two keys the capture writes);
 every violation is reported in one throw, prefixed with the entry's position. Mirrors the YAML mapping
-(snake_case keys, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+(snake_case keys, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

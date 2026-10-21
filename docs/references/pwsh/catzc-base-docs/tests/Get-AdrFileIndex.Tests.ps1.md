@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Get-AdrFileIndex' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
-Get-AdrFileIndex — every docs/adr/**/*.md keyed by "<domain folder>/<slug>", and each rule set mapped to its one file. A fixture
+Get-AdrFileIndex — every docs/drs/**/*.md keyed by "<domain folder>/<slug>", and each rule set mapped to its one file. A fixture
 tree in $TestDrive and a fixture registry; neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

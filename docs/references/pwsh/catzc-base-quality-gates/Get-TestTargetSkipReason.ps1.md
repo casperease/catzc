@@ -12,10 +12,10 @@ Says why an L4 test must skip against its target environment, or nothing when it
 ### description
 
 An L4 test checks the released system itself, after final approval
-([ADR-AUTO-TEST-TESTINGINPRODUCTION](../../../adr/automation/test-automation.md#rule-adr-auto-test-testinginproduction)). It may run
+([ADR-AUTO-TEST-TESTINGINPRODUCTION](../../../drs/automation/test-automation.md#rule-adr-auto-test-testinginproduction)). It may run
 anywhere, a devbox included: the only limit is the security context of the console running it. So each L4 test asks here first and
 self-skips with the answer
-([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](../../../adr/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)):
+([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](../../../drs/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)):
 
 - `target_<environment>_unreachable` — the probe says this console's identity cannot reach the environment (or the probe throws);
 - `target_<environment>_readonly` — the test needs synthetic transactions, but test-policy.yml lets the environment take read-only probes

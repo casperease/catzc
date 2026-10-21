@@ -12,7 +12,7 @@ Returns the repository's execution engines, or one by name.
 ### description
 
 The repository's own code runs under exactly three execution engines, pwsh, bash and zsh, declared once in the ExecutionEngines model
-([ADR-AUTO-ENGINE](../../../adr/automation/execution-engines.md)): each names how its executable is located, which scripts it runs, how it
+([ADR-AUTO-ENGINE](../../../drs/automation/execution-engines.md)): each names how its executable is located, which scripts it runs, how it
 starts non-interactively, how it loads an entry script and runs a command (StartArguments), its strict mode, its time safeguard, the line
 endings and executable bit its scripts need, and its importer entry. A caller reads what differs between the engines here instead of
 restating it.

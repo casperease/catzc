@@ -11,7 +11,7 @@ Formats the repository's files, each with the formatter engine languages.yml nam
 
 ### description
 
-Formatting is configured, not programmed ([PDR-CONFIG](../../../adr/principles/configure-not-program.md)): the file-language registry
+Formatting is configured, not programmed ([PDR-CONFIG](../../../drs/principles/configure-not-program.md)): the file-language registry
 (Catzc.Base.Languages configs/languages.yml) names each language's formatter engine — prettier, gofmt, ruff, psscriptanalyzer,
 dotnet-format, bicep — and this one command runs it. Supporting a language on an existing engine is one line in that file; a new engine is
 one adapter (Invoke-FormatterEngine).
@@ -21,12 +21,12 @@ byte-frozen) are never formatted (Get-FormatScope). Each file belongs to the lan
 without a formatter (`no_formatter:`) is left as it is. A run also imprints (Invoke-ImprintStep) the file-meta heads of every file in its
 scope, so a folder run can write heads into files nobody named. Each engine reads the repository's layout settings — .editorconfig, .prettierrc.yml,
 the analyzer settings, the pinned ruff configuration
-([ADR-REPO-FORMAT-BASELINEISFLOOR](../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-baselineisfloor)).
+([ADR-REPO-FORMAT-BASELINEISFLOOR](../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-baselineisfloor)).
 
 Each engine runs once over the files of every selected language it formats, so a tool that starts slowly starts once. A result cache under
 out/ remembers, per file, that the engine last found it formatted, keyed on the file's SHA-256 and a stamp of the engine's settings files
 and the tool pins (Get-FormatEngineStamp): a file whose key still matches is not handed to the engine again, so a run after a small change
-checks only what changed ([ADR-AUTO-CACHE](../../../adr/automation/caching.md)). A pipeline starts without the cache and checks everything;
+checks only what changed ([ADR-AUTO-CACHE](../../../drs/automation/caching.md)). A pipeline starts without the cache and checks everything;
 -NoCache does the same on a devbox.
 
 For each language it announces how many files it checked and changed, and names every changed file. With -PassThru it returns one
@@ -68,7 +68,7 @@ Format-Code
 ### example 2
 
 ```powershell
-Format-Code -Language markdown -Path docs/adr/principles
+Format-Code -Language markdown -Path docs/drs/principles
 ```
 
 ### example 3
@@ -83,7 +83,7 @@ Above `Write-Message "$verb $($pending.Count) $(@($engineGroup.Group |...`, writ
 
 ```text
 Announce before the engine runs: a whole-repository pass takes seconds and prints nothing until it ends
-([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
+([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
 ```
 
 ## comment:2

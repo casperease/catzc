@@ -53,6 +53,6 @@ each file into the form before it leaves the track for its home.
 
 ## See also
 
-- [Eac normal form](../../adr/thesis/eac-normal-form.md) — the thesis this article explains.
-- [Tracks](../../adr/design/tracks.md#rule-ddr-track-unorderedtrack) — the unordered track and how files leave it.
+- [Eac normal form](../../drs/thesis/eac-normal-form.md) — the thesis this article explains.
+- [Tracks](../../drs/design/tracks.md#rule-ddr-track-unorderedtrack) — the unordered track and how files leave it.
 - [The thesis explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

@@ -40,18 +40,18 @@ which steps they include and where the row ends.
 ## Why it holds
 
 - Every shape climbs the same ladder in the same order, so a colour means the same durable fact in every panel
-  ([FDR-CD-LIFE-ONESTATEADVANCESONERUNG](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-onestateadvancesonerung)).
+  ([FDR-CD-LIFE-ONESTATEADVANCESONERUNG](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-onestateadvancesonerung)).
 - Every step has an exit to discarded, and the discarded commit stays in history
-  ([FDR-CD-LIFE-DISCARDISTERMINAL](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-discardisterminal)).
+  ([FDR-CD-LIFE-DISCARDISTERMINAL](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-discardisterminal)).
 - A failed step stops the commit going further in every shape
-  ([FDR-CD-LIFE-FAILEDSTAYSUPSTREAM](../../adr/flow/commit-lifecycle.md#rule-fdr-cd-life-failedstaysupstream)).
+  ([FDR-CD-LIFE-FAILEDSTAYSUPSTREAM](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-failedstaysupstream)).
 - RC and RBC are defined by the flow model, and the acceptance testing that clears them is separate from the environment it runs in
-  ([FDR-CD-TWORELEASEGATES](../../adr/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates),
-  [FDR-CD-ACCEPTANCETESTINGISNOTUAT](../../adr/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-acceptancetestingisnotuat)).
+  ([FDR-CD-TWORELEASEGATES](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates),
+  [FDR-CD-ACCEPTANCETESTINGISNOTUAT](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-acceptancetestingisnotuat)).
 
 ## See also
 
-- [The commit lifecycle](../../adr/flow/commit-lifecycle.md) — the decision this article explains.
-- [Cd discipline and promotion flow](../../adr/flow/cd-discipline-and-promotion-flow.md) — the pipeline kinds and the RC and RBC gates.
+- [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
+- [Cd discipline and promotion flow](../../drs/flow/cd-discipline-and-promotion-flow.md) — the pipeline kinds and the RC and RBC gates.
 - [Ten numbered commits trace the whole lifecycle](ten-commits-trace-the-whole-lifecycle.md) — the same ladder with ten real commits on it.
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

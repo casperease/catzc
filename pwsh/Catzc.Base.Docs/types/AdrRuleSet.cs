@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1ea863bd09f4"
+    with_body_sha: "5ebe258831ca"
   edges:
     docs: "[AdrRuleSet.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrRuleSet.cs.md)"
     cites:
@@ -31,9 +31,9 @@ public sealed class AdrRuleSet
     public string Stack { get; }       // the owning domain's row of the value-chain stack
     public IReadOnlyList<string> Concerns { get; }       // effective value-chain concerns (override or domain default)
     public IReadOnlyList<string> DomainConcerns { get; } // the owning domain's default value-chain concerns
-    public string Layer { get; }       // the layer of the automation the ADR belongs to ([ADR-AUTO-LAYERS-REALISENEVERREDEFINE](/docs/adr/automation/layers.md#rule-adr-auto-layers-realiseneverredefine))
+    public string Layer { get; }       // the layer of the automation the ADR belongs to ([ADR-AUTO-LAYERS-REALISENEVERREDEFINE](/docs/drs/automation/layers.md#rule-adr-auto-layers-realiseneverredefine))
 
-    public string Folder { get; }      // the owning domain's folder under docs/adr
+    public string Folder { get; }      // the owning domain's folder under docs/drs
 
     public AdrRuleSet(string domain, string role, string slug, string external, string code, string domainCode, string stack, IReadOnlyList<string> concerns, IReadOnlyList<string> domainConcerns, string layer = AdrsConfig.DefaultLayer, string folder = null)
     {

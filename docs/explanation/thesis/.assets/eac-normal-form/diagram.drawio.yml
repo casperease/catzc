@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: eae41a597479
+#     with_body_sha: "094a4cacb983"
 # ---
 
 description:
@@ -134,7 +134,7 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
-          - docs/adr/index.md
+          - docs/drs/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
           - DDR-TRACK-UNORDEREDTRACK
@@ -146,7 +146,7 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
-          - docs/adr/index.md
+          - docs/drs/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
           - DDR-TRACK-UNORDEREDTRACK
@@ -158,7 +158,7 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
-          - docs/adr/index.md
+          - docs/drs/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
           - DDR-TRACK-UNORDEREDTRACK
@@ -170,7 +170,7 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
-          - docs/adr/index.md
+          - docs/drs/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
           - DDR-TRACK-UNORDEREDTRACK
@@ -188,12 +188,12 @@ content:
           - .claude/plans/plan-listen-internal-readers.md
           - .claude/plans/plan-xdr-codes.md
           - .claude/plans/value-of-plan.md
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/tracks.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
-          - docs/adr/thesis/dora-explains.md
-          - docs/adr/thesis/eac-normal-form.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/tracks.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/drs/thesis/dora-explains.md
+          - docs/drs/thesis/eac-normal-form.md
           - docs/how-to/automation/sort-an-import.md
           - docs/how-to/getting-started/automation/add-a-doc-chapter.md
           - docs/how-to/getting-started/automation/add-an-adr.md

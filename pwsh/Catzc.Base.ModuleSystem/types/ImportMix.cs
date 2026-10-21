@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8c8c31748f42"
+    with_body_sha: "78bd4e413c04"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/types/ImportMix.Tests.ps1
     docs: "[ImportMix.cs.md](docs/references/pwsh/catzc-base-module-system/types/ImportMix.cs.md)"
@@ -18,7 +18,7 @@ using System.Globalization;
 
 namespace Catzc.Base.ModuleSystem;
 
-// Rests on [ADR-AUTO-IMPORTER-ONEMIXRECORD](/docs/adr/automation/importer.md#rule-adr-auto-importer-onemixrecord).
+// Rests on [ADR-AUTO-IMPORTER-ONEMIXRECORD](/docs/drs/automation/importer.md#rule-adr-auto-importer-onemixrecord).
 public sealed class ImportMix
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

@@ -10,6 +10,6 @@ Above `Describe 'ADO pipeline trigger globs match the globset projection' -Tag '
 ```text
 Integrity: every pipeline-bound globset's ADO pipeline (and the GitHub CI workflow) declares the trigger
 path filters its projection computes — the drift quality gates over THIS repo's real pipeline files
-([FDR-CD-GLOBS-NAMEDGLOBSETS](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)).
+([FDR-CD-GLOBS-NAMEDGLOBSETS](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)).
 A source-path filter hand-edited out of sync with globs.yml fails here.
 ```

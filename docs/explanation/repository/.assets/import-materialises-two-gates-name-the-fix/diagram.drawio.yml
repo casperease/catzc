@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: ca849bd3abc3
+#     with_body_sha: "3b1a1e2d8a0a"
 # ---
 
 description:
@@ -106,9 +106,9 @@ content:
           - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
       - cell: docs/-/.
         by:
-          - docs/adr/index.md
-          - docs/adr/repository/dora-explains.md
-          - docs/adr/repository/generated-root-configs.md
+          - docs/drs/index.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/generated-root-configs.md
           - docs/references/pwsh/catzc-base-git/New-GitIgnore.ps1.md
           - docs/references/pwsh/catzc-base-git/configs/gitignore.yml.md
           - docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md

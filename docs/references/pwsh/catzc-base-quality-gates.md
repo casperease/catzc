@@ -7,7 +7,7 @@ quality gates whose property belongs to another module (the module-graph quality
 [Catzc.Base.ModuleSystem](catzc-base-module-system.md)), or the per-tool configuration (cSpell, markdownlint, and Prettier each carry their
 own config at the repository root). A quality gate collects every issue, writes its report through
 [Catzc.Base.Reports](catzc-base-reports.md), and throws once listing them all
-([test-automation](../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)); the tier and category tag rules the Pester
+([test-automation](../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)); the tier and category tag rules the Pester
 runner enforces are the subject of the same ADR.
 
 ## Responsibilities
@@ -31,17 +31,17 @@ test, which tests the released system after final approval, asks `Get-TestTarget
 reach its target or the target's `test-policy.yml` mode does not allow what it does. A module's Go, Python and Bash tests, in the Go test
 module and the Python and Bash test folders named for it, count as that module's tests: one shared Pester bridge, the language bridge, runs
 them and turns every test into one Pester test. The tag model, the two-axis tagging contract, the two run modes, and the tier definitions
-are the subject of [test-automation](../../adr/automation/test-automation.md); the Go, Python and Bash tests are the subject of
-[go-test-artifacts](../../adr/automation/go/go-test-artifacts.md),
-[python-test-artifacts](../../adr/automation/python/python-test-artifacts.md) and
-[bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md).
+are the subject of [test-automation](../../drs/automation/test-automation.md); the Go, Python and Bash tests are the subject of
+[go-test-artifacts](../../drs/automation/go/go-test-artifacts.md),
+[python-test-artifacts](../../drs/automation/python/python-test-artifacts.md) and
+[bash-test-artifacts](../../drs/automation/bash/bash-test-artifacts.md).
 
 ### responsibility:2 — Repository quality gates
 
 The gates that each check one property of the whole repository: every generated file equals what its generator would write now; every
 formatter would leave the repository unchanged; the built artifact builds, loads, and matches its source; every shipped config has a
 registered C# config type and loads through it
-([module-config-loading](../../adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)); the source and test
+([module-config-loading](../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)); the source and test
 files follow the naming and one-function conventions; test titles carry no unfilled template token; the manual test plan lists every
 integrity check once; the analyzer-to-ADR map cites only real rules and maps every custom analyzer rule; the PowerShell passes
 PSScriptAnalyzer; and test and production identities never cross — no logic test names a live identity, no shipped config carries a
@@ -55,15 +55,15 @@ its flagged tokens into a triage queue), the Markdown linter, the Markdown forma
 Markdown title and heading formatter and quality gate, the Markdown meta formatter and its two gates (the block itself and the registry's
 processors), the one formatting command (`Format-Code`, which runs the formatter engine `languages.yml` names for each file language —
 Prettier, the managed toolchain's `gofmt`, the pinned `ruff`, PSScriptAnalyzer, `dotnet format`, the pinned Bicep CLI — with one private
-adapter per engine; [configure-not-program](../../adr/principles/configure-not-program.md)), the C# type-namespace formatter, the Python
+adapter per engine; [configure-not-program](../../drs/principles/configure-not-program.md)), the C# type-namespace formatter, the Python
 lint and type quality gates (`Test-PythonLint`, `ruff check`; `Test-PythonTypes`, `pyright`, the engine Pylance runs in the editor) over
 every `.py` file the repository holds, the shell-script quality gate (`Test-ShellScripts`: LF, the executable bit, and ShellCheck) over
-every shell script it tracks ([bash-test-artifacts](../../adr/automation/bash/bash-test-artifacts.md)), the idiomatic-names quality gate and
+every shell script it tracks ([bash-test-artifacts](../../drs/automation/bash/bash-test-artifacts.md)), the idiomatic-names quality gate and
 its assertion (`Test-IdiomaticNames`, `Assert-IdiomaticNames`: every tracked file and its folders named in its language's idiom;
-[idiomatic-names](../../adr/automation/idiomatic-names.md)), and the link aligner and quality gate, which keep code links repository-rooted
-and markdown links relative and resolving ([markdown-links](../../adr/repository/markdown-links.md)), and the comment converters and their
+[idiomatic-names](../../drs/automation/idiomatic-names.md)), and the link aligner and quality gate, which keep code links repository-rooted
+and markdown links relative and resolving ([markdown-links](../../drs/repository/markdown-links.md)), and the comment converters and their
 quality gate, which move every long comment into its file's comment page, leaving nothing behind in the file, and write the annotated view
-([comments-in-docs](../../adr/repository/comments-in-docs.md)). The responsibility owns the invocation of each tool, not the tool itself or
+([comments-in-docs](../../drs/repository/comments-in-docs.md)). The responsibility owns the invocation of each tool, not the tool itself or
 its per-tool configuration.
 
 ### responsibility:4 — Terminology and dictionaries
@@ -76,7 +76,7 @@ unjustified ones.
 ### responsibility:5 — Managed GUIDs
 
 The managed-GUID registry (`guids.yml`) names every GUID the repository is allowed to carry
-([managed-guids](../../adr/automation/managed-guids.md)). This responsibility reads the registry, answers or asserts whether one GUID is
+([managed-guids](../../drs/automation/managed-guids.md)). This responsibility reads the registry, answers or asserts whether one GUID is
 registered, scans tracked text for GUID literals, mints a readable GUID from a sentence, and checks the repository: every GUID in tracked
 text is registered, none is denied, and every entry is live.
 

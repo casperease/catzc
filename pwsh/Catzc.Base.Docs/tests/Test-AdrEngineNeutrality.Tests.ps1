@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c8ce5a6b8cad
+    with_body_sha: f48129eaf7f0
   edges:
     docs: "[Test-AdrEngineNeutrality.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Test-AdrEngineNeutrality.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Test-AdrEngineNeutrality.ps1
@@ -84,7 +84,7 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
         $script:checks = New-ChecksConfig -Mode 'report'
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'adrs' } { $script:adrs }
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'adr-checks' } { $script:checks }
-        Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq 'docs/adr' } { Join-Path $TestDrive 'adr' }
+        Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq 'docs/drs' } { Join-Path $TestDrive 'adr' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
@@ -92,8 +92,8 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
         $result = Test-AdrEngineNeutrality -OutputFolder $out -PassThru
         $result.Subject | Should -Be 'adr-engine-neutrality'
         $result.Issues | Should -Be @(
-            "docs/adr/gadget/gadget-one.md:7: ADR-GA-ONE-RUN: gizmo-variable — '`$gizmo:'"
-            "docs/adr/gadget/gadget-one.md:7: ADR-GA-ONE-RUN: gizmo-file — '.gz1'"
+            "docs/drs/gadget/gadget-one.md:7: ADR-GA-ONE-RUN: gizmo-variable — '`$gizmo:'"
+            "docs/drs/gadget/gadget-one.md:7: ADR-GA-ONE-RUN: gizmo-file — '.gz1'"
         )
         $result.Facts['Mode'] | Should -Be 'report'
         $result.Facts['Domains'] | Should -Be 'gadget'
@@ -124,7 +124,7 @@ Describe 'Test-AdrEngineNeutrality' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGA
 
     It 'passes in gate mode when no summary carries a token' {
         $script:checks = New-ChecksConfig -Mode 'gate' -Domains @('widget')
-        Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq 'docs/adr' } {
+        Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq 'docs/drs' } {
             $clean = Join-Path $TestDrive 'clean/adr'
             [void][System.IO.Directory]::CreateDirectory((Join-Path $clean 'widget'))
             [System.IO.File]::WriteAllText((Join-Path $clean 'widget/widget-one.md'), "# Widget one`n`n## Rules: ADR-WI-ONE`n`n### Rule ADR-WI-ONE-SPIN`n`nA widget spins.`n")

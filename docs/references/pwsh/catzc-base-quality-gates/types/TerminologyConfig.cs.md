@@ -19,8 +19,8 @@ generator (Build-TerminologyDictionary) and gate (Test-Terminology). The 'catego
 source of the category set. A category with no 'scope' is GLOBAL — its terms are legitimate everywhere; a
 category WITH a scope is ZONE-BOUND — its terms belong only under the scope globs, and cspell enforces
 that (a fixture token in shipped config, or a live identity in a logic test, becomes a spelling failure).
-See [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md)
-([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)-[ADR-AUTO-SPELL-LIVEVOCABULARYONLY](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)).
+See [ADR-AUTO-SPELL](/docs/drs/automation/spell-out-names.md)
+([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)-[ADR-AUTO-SPELL-LIVEVOCABULARYONLY](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)).
 ```
 
 ## comment:2

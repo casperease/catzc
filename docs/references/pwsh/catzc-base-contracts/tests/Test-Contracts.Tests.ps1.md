@@ -10,11 +10,11 @@ Above `Describe 'Test-Contracts' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Test-Contracts runs every asset of each unit's current version folder, and the provided assets of every released
 folder, through its kind's check, checks every released folder against its .frozen record, and reports every finding
-as one issue ([ADR-REPO-CONTRACT-PROVENBYTESTS](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-provenbytests),
-[ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable),
-[ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)). Fixtures are a widget repository in
+as one issue ([ADR-REPO-CONTRACT-PROVENBYTESTS](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-provenbytests),
+[ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable),
+[ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)). Fixtures are a widget repository in
 TestDrive, its assets under contracts/widget/<version>/Catzc.Widget/, a released folder frozen by
-Publish-ContractRelease ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the settings
+Publish-ContractRelease ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the settings
 are mocked, so the logic tests read no shipped config. The checks themselves are pinned by
 Get-ContractCheckResults.Tests.ps1, the freeze comparison by Get-ContractFreezeFindings.Tests.ps1.
 ```

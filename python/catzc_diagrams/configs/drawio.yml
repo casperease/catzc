@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "43ef7a8b1bf4"
+#     with_body_sha: f40b30279676
 # ---
 
 renderer:
@@ -17,7 +17,7 @@ lenses: # the closed set of lenses a diagram is drawn through (its about.lens, t
   operations: what an operator sets and sees
   governance: which gates check it
   source: one responsibility of one module, drawn from the code
-commits: # the locked commit palette ([DDR-VISUAL-FIXEDCOMMITPALETTE](/docs/adr/design/visual-design.md#rule-ddr-visual-fixedcommitpalette)):a commit state's fill, stroke and digit ink, hex without the hash; the first is the default
+commits: # the locked commit palette ([DDR-VISUAL-FIXEDCOMMITPALETTE](/docs/drs/design/visual-design.md#rule-ddr-visual-fixedcommitpalette)):a commit state's fill, stroke and digit ink, hex without the hash; the first is the default
   bvt: FFE082 F9A825 1E2430
   topic: C4915C 7A4B25 1E2430
   landed: C9CCD1 6B7178 1E2430
@@ -37,7 +37,7 @@ layers: # the paint order, back to front: put orders the model's cells by it und
   labels: text, on top of everything
 kinds: # the two diagram kinds; each supplies the default three minimaps (minimaps: below)
   explanation: an explanation diagram, embedded by an article under docs/explanation
-  reference: a reference diagram, embedded by a page under docs/references or docs/adr
+  reference: a reference diagram, embedded by a page under docs/references or docs/drs
 themes: # the themes a diagram renders in, each a theme-<name> token set below; the first is the default and the one whose raster is committed
   dark: the dark page and the light ink of STYLE.md
   light: the light page and the dark ink of the light-era kit, rendered on demand to out/

@@ -11,9 +11,9 @@ Commits every change of the working tree to the topic branch, at the user's hand
 
 ### description
 
-The commit step of the git topic flow ([git-topic-flow](../../../adr/flow/git-topic-flow.md)): it stages every change and commits it with
+The commit step of the git topic flow ([git-topic-flow](../../../drs/flow/git-topic-flow.md)): it stages every change and commits it with
 the message, `...` when none is given. It runs git that changes the repository, so only the user invokes it
-([FDR-GIT-USERRUNSGIT](../../../adr/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)). It refuses a detached HEAD, and in a
+([FDR-GIT-USERRUNSGIT](../../../drs/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)). It refuses a detached HEAD, and in a
 main-via-pr workspace a main branch, since a change reaches main through a pull request there. A clean tree is left as it is.
 
 ### parameter `Message`

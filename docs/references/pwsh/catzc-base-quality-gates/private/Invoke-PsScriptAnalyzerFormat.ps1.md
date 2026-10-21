@@ -13,17 +13,17 @@ The psscriptanalyzer formatter engine: formats the given PowerShell files with t
 ### description
 
 One Format-Code engine adapter
-([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../adr/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)).
+([PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../../../../drs/principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)).
 Two steps per file, the same two VS Code's Format Document and save apply:
 
 1. Invoke-Formatter with the repository's one analyzer settings file — brace placement, indentation, whitespace, and hashtable alignment
    (the codeFormatting settings in vscode-settings.yml mirror the same rules);
 2. the .editorconfig rules Invoke-Formatter does not read — LF line endings, no trailing whitespace, one final newline
-   ([ADR-REPO-FORMAT-CROSSLANGUAGEBASELINE](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-crosslanguagebaseline)).
+   ([ADR-REPO-FORMAT-CROSSLANGUAGEBASELINE](../../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-crosslanguagebaseline)).
 
 A file is written back as UTF-8 without a BOM only when the result differs, compared case-sensitively so a casing-only change counts. The
 vendored analyzer and its settings ship in the code tree, so both resolve from the code root
-([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency));
+([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](../../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency));
 the first use in a session imports the analyzer, which takes seconds and is announced.
 
 ### parameter `File`
@@ -54,5 +54,5 @@ Above `Write-Message 'Loading PSScriptAnalyzer (first use this session)...'`, wr
 
 ```text
 First use this session pays the vendored-module import (several seconds) — announce it
-([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
+([ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcebeforeblocking)).
 ```

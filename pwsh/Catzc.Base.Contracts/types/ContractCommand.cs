@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b31278584682
+    with_body_sha: "8227a857ad27"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/ContractCommand.Tests.ps1
     docs: "[ContractCommand.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractCommand.cs.md)"
@@ -22,7 +22,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Contracts;
 
-// Rests on [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder), [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml) and [ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage).
+// Rests on [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder), [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml) and [ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](/docs/drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage).
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Name), nameof(Signature))]
 public sealed class ContractCommand
 {

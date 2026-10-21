@@ -6,7 +6,7 @@ and configuration into them.
 
 ## How to read these articles
 
-Every article has the same three parts, mirroring the rule registry of an [ADR](../../adr/index.md):
+Every article has the same three parts, mirroring the rule registry of an [ADR](../../drs/index.md):
 
 1. **Responsibilities** — an ordered, named registry. Each entry is a `responsibility:<n>` heading with a definition of one area of
    responsibility the module owns. This is the vocabulary the rest of the article uses.
@@ -21,8 +21,8 @@ responsibilities and the prose. To find the function for a job, scan the divisio
 ## The modules
 
 Modules are layered — a module may only call into the modules it declares in `dependencies.yml` (an acyclic graph; see
-[native-csharp-types](../../adr/automation/BCL/native-csharp-types.md) and
-[open-closed-architecture](../../adr/automation/open-closed-architecture.md)). They are listed here foundation-first.
+[native-csharp-types](../../drs/automation/BCL/native-csharp-types.md) and
+[open-closed-architecture](../../drs/automation/open-closed-architecture.md)). They are listed here foundation-first.
 
 | Module                                                                        | In one line                                                                                                                                                  |
 | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |

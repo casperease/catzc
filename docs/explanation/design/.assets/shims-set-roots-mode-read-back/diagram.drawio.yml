@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: dcfe36abea4c
+#     with_body_sha: "8ed88dc93395"
 # ---
 
 description:
@@ -136,10 +136,10 @@ content:
           - DDR-RUNMODE-TWORUNMODES
       - cell: docs/-/.
         by:
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/run-modes.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/run-modes.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
           - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
           - docs/references/pwsh/catzc-base-module-system/Copy-CatzcModule.ps1.md

@@ -11,7 +11,7 @@ Above `Describe 'Get-ScriptAnalyzerDiagnostics (real vendored analyzer)' -Tag 'L
 L2: drives the real PSScriptAnalyzer across background-job shards (the whole point of the helper), over
 throwaway fixtures. Integrity, because it reads two shipped assets with nothing mocked: the vendored
 analyzer (<code root>/.vendor/PSScriptAnalyzer) and the one settings file (<code root>/.internal/assets) — the
-real-asset test of [ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest),
+real-asset test of [ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest),
 so it runs in both the source and the build run.
 ```
 

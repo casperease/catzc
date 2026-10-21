@@ -8,10 +8,10 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Describe 'Test-ParameterConsistency' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
-Test-ParameterConsistency is a quality gate ([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)):
+Test-ParameterConsistency is a quality gate ([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)):
 the logic block mocks the file set, the conflict finder (its own unit), and the exemption config; the integrity block
 runs the gate over the real public functions. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```
 
 ## comment:2

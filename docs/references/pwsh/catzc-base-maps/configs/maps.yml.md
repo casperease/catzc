@@ -10,9 +10,9 @@ Above `{}`, written with `#`.
 ```text
 maps.yml — the map settings: the palette, the limits, the printed labels of the world map and the value-chain map,
 the reviewed highlight pins and exceptions, and the folder under the output root the PDFs are written to
-([ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)). Every key has a
+([ADR-REPO-OUTDIR-SUBDIRECTORYPERPRODUCER](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-subdirectoryperproducer)). Every key has a
 sensible default, declared once on Catzc.Base.Maps.MapsConfig and the section types it holds
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)); set a key only to change
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)); set a key only to change
 it. Loaded via Get-Config -Config maps.
 
   palette:                        # colours, each '#' and six hex digits
@@ -33,20 +33,20 @@ it. Loaded via Get-Config -Config maps.
     max_column_label: 16          #   characters a file-language name prints (whole number)
   labels:                         # WinAnsi text only: the base-14 PDF fonts show nothing else; each names a defined
                                   #   term in its head, the text before its first ':'
-                                  #   ([DDR-TRACK-LABELSNAMEDEFINEDTERMS](/docs/adr/design/tracks.md#rule-ddr-track-labelsnamedefinedterms))
+                                  #   ([DDR-TRACK-LABELSNAMEDEFINEDTERMS](/docs/drs/design/tracks.md#rule-ddr-track-labelsnamedefinedterms))
     grid_title: 'World map: tracks × file languages'
     tree_title: 'World map: repository tree'
     row_axis: Track               #   at most max_row_label characters
     column_axis: File language    #   at most max_column_label characters
     root_files: Root files        #   the row of the root files; at most max_row_label
-                                  #   ([DDR-TRACK-ROOTFILE](/docs/adr/design/tracks.md#rule-ddr-track-rootfile))
+                                  #   ([DDR-TRACK-ROOTFILE](/docs/drs/design/tracks.md#rule-ddr-track-rootfile))
     unlisted_files: Unlisted files #  the column of the unlisted files; at most max_column_label
-                                  #   ([DDR-TRACK-UNLISTEDFILE](/docs/adr/design/tracks.md#rule-ddr-track-unlistedfile))
+                                  #   ([DDR-TRACK-UNLISTEDFILE](/docs/drs/design/tracks.md#rule-ddr-track-unlistedfile))
     legend_files: 'Cell: files'
     legend_violation: Stack violation
     legend_highlight: Lit cell
     # the value-chain map's labels, checked by Test-ValueChainMap; no length limit
-    #   ([DDR-TRACK-VALUECHAINMAP](/docs/adr/design/tracks.md#rule-ddr-track-valuechainmap))
+    #   ([DDR-TRACK-VALUECHAINMAP](/docs/drs/design/tracks.md#rule-ddr-track-valuechainmap))
     value_chain_title: 'Value-chain map: value-chain stack × value-chain concerns'
     value_chain_row_axis: Value-chain stack
     value_chain_column_axis: Value-chain concern

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0afa8f91083f"
+    with_body_sha: dfd4016ea6e6
   edges:
     docs: "[Test-Links.Untracked.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-Links.Untracked.Tests.ps1.md)"
     cites:
@@ -24,13 +24,13 @@ Describe 'Test-Links — untracked link targets' -Tag 'L0', 'logic', 'ADR-REPO-L
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         $script:reportBase = Join-Path $TestDrive "reports-$([guid]::NewGuid().ToString('N'))"
-        & $writeFile $root 'docs/adr/index.md' "| Code | ADR |`n| ---- | --- |`n| ``ADR-TST-WIDGET`` | [widget-rules](widget/widget-rules.md) |`n"
-        & $writeFile $root 'docs/adr/widget/widget-rules.md' "# Widget rules`n`n### Rule ADR-TST-WIDGET-TURN`n`nOne.`n"
+        & $writeFile $root 'docs/drs/index.md' "| Code | ADR |`n| ---- | --- |`n| ``ADR-TST-WIDGET`` | [widget-rules](widget/widget-rules.md) |`n"
+        & $writeFile $root 'docs/drs/widget/widget-rules.md' "# Widget rules`n`n### Rule ADR-TST-WIDGET-TURN`n`nOne.`n"
         & $writeFile $root 'docs/widget.md' "# docs/widget.md`n`n## Widget`n`nSee [rules](adr/widget/widget-rules.md), [gadget](gadget.md), [folder](adr/widget), and [here](#widget).`n"
         & $writeFile $root 'docs/gadget.md' "# docs/gadget.md`n"
         # The fixture is the loaded repository; git tracks everything except docs/gadget.md.
         Mock Get-RepositoryRoot { $script:root } -ModuleName Catzc.Base.QualityGates
-        Mock Get-GitTrackedPath { 'docs/adr/index.md', 'docs/adr/widget/widget-rules.md', 'docs/widget.md' } -ModuleName Catzc.Base.QualityGates
+        Mock Get-GitTrackedPath { 'docs/drs/index.md', 'docs/drs/widget/widget-rules.md', 'docs/widget.md' } -ModuleName Catzc.Base.QualityGates
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 

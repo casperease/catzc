@@ -13,10 +13,10 @@ Maps every indexed ADR rule id to the text of its normative summary that can def
 
 Walks the ADRs the index lists (Get-CatsAdrIndex) and reads each one's rules (Get-CatsAdrRules), keeping each rule's Statement — its whole
 normative summary on one line — with inline code spans removed. A code span is a mention, never a definition
-([ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](../../../../adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced)),
+([ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced)),
 so `A **<term>** is …` written in backticks neither anchors nor defines a term. This is the one text the anchoring (G2) and
 single-definition (G3) checks match against
-([ADR-REPO-VOCAB-DEFINEDTERM](../../../../adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm)); ADR bodies are never
+([ADR-REPO-VOCAB-DEFINEDTERM](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-definedterm)); ADR bodies are never
 read.
 
 Private helper for the glossary checks; not exported.
@@ -34,5 +34,5 @@ ordinal keys.
 ### example 1
 
 ```powershell
-(Get-GlossaryRuleStatements -IndexPath (Resolve-RepoPath 'docs/adr/index.md'))['ADR-REPO-VOCAB-DEFINEDTERM']
+(Get-GlossaryRuleStatements -IndexPath (Resolve-RepoPath 'docs/drs/index.md'))['ADR-REPO-VOCAB-DEFINEDTERM']
 ```

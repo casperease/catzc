@@ -12,7 +12,7 @@ Lists everything in the consumer overlay, each entry classified by where it sits
 ### description
 
 Under .catzc/automation/ a file's location is its meaning: it sits at the path of what it changes in the bundle's code root
-([ADR-AUTO-OVERLAY](../../../adr/automation/consumer-overlay.md)). A folder named for a bundled module changes that module, and within it:
+([ADR-AUTO-OVERLAY](../../../drs/automation/consumer-overlay.md)). A folder named for a bundled module changes that module, and within it:
 
 ```text
 <Function>.ps1          FunctionOverride (public)    replaces the module's public function <Function>
@@ -42,7 +42,7 @@ Get-CatzcOverlay | Format-Table Kind, Module, Target
 Above `$files = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every
 file of a consumer module is classified, so nothing is pruned.
 ```
 
@@ -51,6 +51,6 @@ file of a consumer module is classified, so nothing is pruned.
 Above `$prefix = ".catzc/$([System.IO.Path]::GetFileName($overlayRoot.TrimEnd('\',...`, written with `#`.
 
 ```text
-The overlay root is .catzc/<track folder> ([PDR-CATS-FOLDERSUSECATZC](/docs/adr/principles/cats-and-catzc.md#rule-pdr-cats-foldersusecatzc))
+The overlay root is .catzc/<track folder> ([PDR-CATS-FOLDERSUSECATZC](/docs/drs/principles/cats-and-catzc.md#rule-pdr-cats-foldersusecatzc))
 and names its own folder, so the records spell no track folder of their own.
 ```

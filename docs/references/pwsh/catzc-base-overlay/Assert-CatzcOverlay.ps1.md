@@ -12,7 +12,7 @@ Checks the consumer overlay against its rules and throws once, listing every vio
 ### description
 
 The overlay is the only place a consumer changes what a built bundle does, so it is checked as a whole before any of it is applied
-([ADR-AUTO-OVERLAY](../../../adr/automation/consumer-overlay.md)):
+([ADR-AUTO-OVERLAY](../../../drs/automation/consumer-overlay.md)):
 
 ```text
 Unknown           an entry that is no override point

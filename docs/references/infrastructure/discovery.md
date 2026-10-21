@@ -4,8 +4,8 @@ The CAF application landing zone of one subscription. `discovery` deploys the ne
 in, and no workload of its own. It is deployed once per subscription, at subscription scope: a **hub** in each shared subscription and a
 **spoke** in each customer subscription, peered to its hub. Management groups are out of its reach; the landing zone ends at the
 subscription. It needs `foundation`'s Log Analytics workspace, so `foundation` deploys first (see [foundation](foundation.md)). The network
-plan is [network-model](../../adr/azure/azure-network-model.md); the configuration tree and the config-addressed parameters are
-[data-model](../../adr/azure/azure-data-model.md).
+plan is [network-model](../../drs/azure/azure-network-model.md); the configuration tree and the config-addressed parameters are
+[data-model](../../drs/azure/azure-data-model.md).
 
 ## Resources
 

@@ -1,5 +1,5 @@
 # Depended-on fragment of .github/workflows/ci-pwsh.yml
-# ([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the keys GitHub Actions requires
+# ([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the keys GitHub Actions requires
 # to run the workflow — the `on` events, and `jobs`, each job with the `runs-on` runner and its `steps`. A null value
 # pins only that the key exists.
 # Source: https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions

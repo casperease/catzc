@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "73e3365b999a"
+    with_body_sha: a85b1c7dc28f
   edges:
     docs: "[Build-Glossary.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Build-Glossary.ps1
@@ -47,10 +47,10 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
             (& $entry 'gadget shelf' 'repository' @{ defined_by = $script:longRule })
         )
         $citations = [Catzc.Base.Docs.AdrCitationMap]::new(
-            @{ 'ADR-TST-WIDGET' = @{ path = 'docs/adr/repository/widget-thing.md'; rules = [string[]] @('ADR-TST-WIDGET-REST', $script:longRule) } },
-            @('docs/adr/repository/widget-thing.md'))
+            @{ 'ADR-TST-WIDGET' = @{ path = 'docs/drs/repository/widget-thing.md'; rules = [string[]] @('ADR-TST-WIDGET-REST', $script:longRule) } },
+            @('docs/drs/repository/widget-thing.md'))
         $domains = [pscustomobject]@{
-            Root    = 'docs/adr'
+            Root    = 'docs/drs'
             Domains = @([pscustomobject]@{ Name = 'repository' }, [pscustomobject]@{ Name = 'automation' }, [pscustomobject]@{ Name = 'flow' })
         }
         Mock Get-Glossary -ModuleName Catzc.Base.Docs -MockWith { , $entries }.GetNewClosure()
@@ -64,7 +64,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         Build-Glossary -Path $script:page -Silent | Out-Null
         $text = [System.IO.File]::ReadAllText($script:page)
 
-        $text | Should -BeLike "---`ncatzc:*role: other*generator: pwsh/Catzc.Base.Docs/Build-Glossary.ps1*---`n`n# docs/adr/glossary.md*"
+        $text | Should -BeLike "---`ncatzc:*role: other*generator: pwsh/Catzc.Base.Docs/Build-Glossary.ps1*---`n`n# docs/drs/glossary.md*"
         $text.IndexOf('## repository') | Should -BeLessThan $text.IndexOf('## automation')
         $text | Should -Not -Match '## flow'   # a domain without concepts gets no section
         $text | Should -Match ([regex]::Escape('- **Defined by:** [ADR-TST-WIDGET-REST](repository/widget-thing.md#rule-adr-tst-widget-rest)'))

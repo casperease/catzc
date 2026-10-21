@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "56e351554097"
+    with_body_sha: "788bde7c4bf4"
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Get-RepointedMarkdownText.ps1
     cites:
@@ -13,10 +13,10 @@ catzc:
 Describe 'Get-RepointedMarkdownText' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-PLAINHEADINGS' {
     BeforeAll {
         function script:Get-Repointed {
-            param([string] $Text, [string] $RelativePath = 'docs/adr/widget/widget-rules.md')
+            param([string] $Text, [string] $RelativePath = 'docs/drs/widget/widget-rules.md')
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Text = $Text; RelativePath = $RelativePath } {
                 param($Text, $RelativePath)
-                $rename = @{ 'docs/adr/gadget/gadget-rules.md#validation-assert-gadget' = 'validation'; 'docs/adr/widget/widget-rules.md#old' = 'new' }
+                $rename = @{ 'docs/drs/gadget/gadget-rules.md#validation-assert-gadget' = 'validation'; 'docs/drs/widget/widget-rules.md#old' = 'new' }
                 Get-RepointedMarkdownText -RelativePath $RelativePath -Text $Text -Rename $rename
             }
         }
@@ -31,7 +31,7 @@ Describe 'Get-RepointedMarkdownText' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-PLAINH
     }
 
     It 'resolves ./ and a link from another folder depth' {
-        Get-Repointed 'See [it](./gadget/gadget-rules.md#validation-assert-gadget).' -RelativePath 'docs/adr/index.md' |
+        Get-Repointed 'See [it](./gadget/gadget-rules.md#validation-assert-gadget).' -RelativePath 'docs/drs/index.md' |
             Should -Be 'See [it](./gadget/gadget-rules.md#validation).'
     }
 

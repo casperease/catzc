@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b343c9a90206
+    with_body_sha: "8278ebdb2ecd"
   edges:
     docs: "[Get-AutoControlledGlobs.Tests.ps1.md](docs/references/pwsh/catzc-base-git/tests/Get-AutoControlledGlobs.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
@@ -60,9 +60,9 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
         & $isControlled "$modules/Catzc.Base.Git/Catzc.Base.Git.psd1" | Should -BeTrue
         & $isControlled 'infrastructure/README.md' | Should -BeTrue
         # the generated ADR pages are committed, so a clean never deletes them
-        & $isControlled 'docs/adr/index.md' | Should -BeFalse
-        & $isControlled 'docs/adr/glossary.md' | Should -BeFalse
-        & $isControlled 'docs/adr/repository/new-draft.md' | Should -BeFalse
+        & $isControlled 'docs/drs/index.md' | Should -BeFalse
+        & $isControlled 'docs/drs/glossary.md' | Should -BeFalse
+        & $isControlled 'docs/drs/repository/new-draft.md' | Should -BeFalse
         & $isControlled 'out/report-widget.md' | Should -BeTrue
         & $isControlled 'out/plan-widget.md' | Should -BeFalse
         & $isControlled "$modules/Catzc.Base.Git/New-Draft.ps1" | Should -BeFalse

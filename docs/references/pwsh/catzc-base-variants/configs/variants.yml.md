@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `ado_naming: standard`, written with `#`.
 
 ```text
-Repo-wide variants — settings fixed for the importer session (see [ADR-REPO-VARIANT](/docs/adr/repository/repo-variants.md)).
+Repo-wide variants — settings fixed for the importer session (see [ADR-REPO-VARIANT](/docs/drs/repository/repo-variants.md)).
 A growing dictionary of repo-wide switches: edit a value and re-run the importer to apply it. Read only
 through the module's Test-/Assert-/Get- primitives; loaded by Get-Config -Config variants and validated
 by the VariantsConfig type.
@@ -20,7 +20,7 @@ Above `ado_naming: standard`, written with `#`.
 
 ```text
 Azure resource-name component order — the segment order every generated resource name uses.
-standard | classic (the keys of Get-AzureNameOrderSet). See [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md).
+standard | classic (the keys of Get-AzureNameOrderSet). See [ADR-AZ-NAMING](/docs/drs/azure/azure-naming-standard.md).
 Changing this re-spells every resource name, so every typed name in each template's configuration must
 be re-edited to match — deliberately not a casual flip.
 ```
@@ -48,7 +48,7 @@ Enabled-customer set for the repo:
                      customer-free repo)
   all              — every customer defined in customer.yml is enabled
   [acme, globex]   — only these named customers are enabled
-See [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md). customer.yml is the catalogue of who the customers are; this
+See [ADR-AZ-CUSTOMER](/docs/drs/azure/azure-customer-model.md). customer.yml is the catalogue of who the customers are; this
 variant is which of them this repo actually deploys for. This repo ships customer templates (e.g. the
 per-customer foundation), so it enables all of them; a repo with no customer templates leaves this false.
 ```
@@ -58,7 +58,7 @@ per-customer foundation), so it enables all of them; a repo with no customer tem
 Above `aspects:`, written with `#`.
 
 ```text
-Aspects ([DDR-ASPECT](/docs/adr/design/module-aspects.md)) — per-track/per-container conventions. Each is an ordered, first-match
+Aspects ([DDR-ASPECT](/docs/drs/design/module-aspects.md)) — per-track/per-container conventions. Each is an ordered, first-match
 (fallthrough)
 list; the LAST aspect is the '**' catch-all remainder. The catch-all's liveness is the container's call:
 automation is CODE, so 'live' is closed (a stray file falls to the 'tests' catch-all and never ships);
@@ -72,11 +72,11 @@ construction of the ordering.
 Above `tracks:`, written with `#`.
 
 ```text
-Tracks ([DDR-TRACK](/docs/adr/design/tracks.md)) — the repository's root concerns, the one declaration of what a
+Tracks ([DDR-TRACK](/docs/drs/design/tracks.md)) — the repository's root concerns, the one declaration of what a
 track is. Each entry names its root folder (one segment; every root folder git tracks a file under is a track, except
 out/), its class (core | adapter | external-port | verification | unordered,
-[DDR-TRACK-ONETRACKTYPE](/docs/adr/design/tracks.md#rule-ddr-track-onetracktype)) and the file languages its
+[DDR-TRACK-ONETRACKTYPE](/docs/drs/design/tracks.md#rule-ddr-track-onetracktype)) and the file languages its
 tech-stack is declared as (names from Catzc.Base.Languages' languages.yml,
-[DDR-TRACK-FILELANGUAGE](/docs/adr/design/tracks.md#rule-ddr-track-filelanguage); default: none). Read
+[DDR-TRACK-FILELANGUAGE](/docs/drs/design/tracks.md#rule-ddr-track-filelanguage); default: none). Read
 through Get-Track; validated by the VariantsConfig type.
 ```

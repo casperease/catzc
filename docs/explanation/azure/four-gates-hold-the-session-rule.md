@@ -60,8 +60,8 @@ accepts a pipeline call without the pin, so the first gate guards the deploy sur
 
 ## See also
 
-- [Templating data model](../../adr/azure/azure-data-model.md) — the decision this article explains.
-- [Azure resource naming standard](../../adr/azure/azure-naming-standard.md) — why the subscription never enters a name.
+- [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains.
+- [Azure resource naming standard](../../drs/azure/azure-naming-standard.md) — why the subscription never enters a name.
 - The other lenses on the same deploy target: [meta](the-session-is-the-deploy-target.md),
   [architecture](one-reverse-lookup-feeds-every-module.md), [implementation](read-the-session-guard-then-pick-slot.md) and
   [operations](pipeline-pins-devbox-picks-the-target.md).

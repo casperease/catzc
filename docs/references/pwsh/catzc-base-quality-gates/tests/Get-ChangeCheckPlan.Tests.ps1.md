@@ -9,5 +9,5 @@ Above `Describe 'Get-ChangeCheckPlan' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-ChangeCheckPlan over fixture files, with the file-language registry mocked to fixture languages. Neutral fixture
-names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

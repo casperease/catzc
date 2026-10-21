@@ -6,7 +6,7 @@ one `<template>.md` per deployable template (named for its `infrastructure/templ
 template article; when in doubt, match `foundation.md` (the smallest complete example).
 
 Each article is also the **source** that its folder's generated `README.md` links to (module `Catzc.Base.Docs`; see
-[generated-readmes](../../adr/repository/generated-readmes.md)): the README is a filesystem link to the article, not a copy. The mapping
+[generated-readmes](../../drs/repository/generated-readmes.md)): the README is a filesystem link to the article, not a copy. The mapping
 from folder to source lives in `pwsh/Catzc.Base.Docs/configs/readme.yml`. Author links relative to _this_ directory — the docs tree is the
 reading surface where they resolve; the README is a pointer to the article, not a second rendering.
 
@@ -22,7 +22,7 @@ A template article describes a template by **what it deploys and how it is confi
 
 1. **`# <name>`** — H1, the template's folder name (`# foundation`). One H1 per file.
 2. **Lead paragraph** — what the template deploys and its single responsibility; what it deliberately does not own; and any cross-template
-   dependency (e.g. it needs `foundation`'s Key Vault). Link the governing ADR(s) (`../../adr/azure/...`).
+   dependency (e.g. it needs `foundation`'s Key Vault). Link the governing ADR(s) (`../../drs/azure/...`).
 3. **`## Resources`** — a bullet list of the Azure resources it creates, each naming the shared `*.bicep` module that provides it.
 4. **`## Configuration`** — its `short_name` and `environment_kind`, the environments/slots it targets, the
    `configuration/[<customer>/]<env>[-<slot>].yml` files shipped, and any `PrePost.psm1` behaviour.
@@ -33,7 +33,7 @@ shared modules and how a template references one.
 
 ## References point one way
 
-An article cites ADRs (`../../adr/...`), sibling articles (`foundation.md`), and the automation reference
+An article cites ADRs (`../../drs/...`), sibling articles (`foundation.md`), and the automation reference
 (`../pwsh/catzc-azure-templates.md`); an ADR or the code never links back to these articles. (Same rule as the ADR authoring conventions.)
 
 ## Formatting & gates

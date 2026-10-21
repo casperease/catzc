@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "0ce52dedf8f6"
+#     with_body_sha: "97551084a187"
 # ---
 
 description:
@@ -175,11 +175,11 @@ content:
           - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: docs/-/.
         by:
-          - docs/adr/flow/cd-discipline-and-promotion-flow.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/flow/pipeline-types.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/flow/cd-discipline-and-promotion-flow.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/pipeline-types.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/ado/pipelines/cd-shared.yaml.md
           - docs/references/ado/pipelines/ci-infrastructure.yaml.md

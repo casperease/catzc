@@ -10,7 +10,7 @@ Above `Describe 'BuildValidationConfig' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 The build-validation.yml type (collect-all-then-throw), plus the shipped-config integrity check: every entry
 ties to a declared globset and resolves a pipeline (the
-[ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload) pattern — the cross-config
+[ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload) pattern — the cross-config
 reference is enforced here and at runtime, never at config load).
 ```
 
@@ -21,5 +21,5 @@ Above `$script:valid = [ordered]@{`, written with `#`.
 ```text
 Neutral fixture globset/pipeline names (widget/gadget) — the type checks SHAPE only (globset existence
 is enforced by the integrity test below and at runtime), so a logic fixture must not borrow real
-deployable-unit names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+deployable-unit names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

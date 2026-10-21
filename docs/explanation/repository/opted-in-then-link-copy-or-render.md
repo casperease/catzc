@@ -62,7 +62,7 @@ its output and writes the same head over it. One primitive in `Catzc.Base.Files`
 
 ## See also
 
-- [Generated root configs](../../adr/repository/generated-root-configs.md) — the decision this article explains.
+- [Generated root configs](../../drs/repository/generated-root-configs.md) — the decision this article explains.
 - The other lenses on the same mechanism: [meta](one-source-one-writer-one-boolean.md),
   [architecture](one-registry-one-writer-two-primitives.md), [operations](import-materialises-two-gates-name-the-fix.md) and
   [governance](three-gates-check-registry-drift-membership.md).

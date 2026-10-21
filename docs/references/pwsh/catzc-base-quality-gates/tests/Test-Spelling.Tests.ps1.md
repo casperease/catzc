@@ -21,10 +21,10 @@ Above `Describe 'Repository spelling integrity' -Tag 'L2', 'integrity', 'source-
 ```text
 Integrity: the ACTUAL repository content is spell-clean. Unlike the logic test above (real cspell over a
 fixture file), this binds to the real repo — Test-Spelling with no -Path scans its default content scope
-([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). L2 because it drives the cspell
+([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). L2 because it drives the cspell
 CLI; self-skips when cspell is absent
-([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](/docs/adr/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)/9).
-Behind a protected glob ([ADR-REPO-PROTGLOB](/docs/adr/repository/protected-globs.md)): a repeat local run over an
+([ADR-AUTO-TEST-TAGBYOUTERMOSTRING](/docs/drs/automation/test-automation.md#rule-adr-auto-test-tagbyoutermostring)/9).
+Behind a protected glob ([ADR-REPO-PROTGLOB](/docs/drs/repository/protected-globs.md)): a repeat local run over an
 unchanged 'repository' globset
 (every tracked file under every named root — a covering superset of cspell's content scope and its
 own configs) is skipped; in a pipeline the protection is ignored and the scan always runs full. source-only: it

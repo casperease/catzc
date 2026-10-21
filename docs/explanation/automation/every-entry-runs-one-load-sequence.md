@@ -43,7 +43,7 @@ Whatever the entry point, the load runs the same steps in the same order, and th
 
 ## See also
 
-- [Platform bundle](../../adr/automation/platform-bundle.md) — the decision this article explains.
+- [Platform bundle](../../drs/automation/platform-bundle.md) — the decision this article explains.
 - The other lenses on the same load sequence: [architecture](two-entries-feed-one-importer.md),
   [implementation](invoke-importer-in-code-order.md), [operations](dot-source-one-entry-script.md) and
   [governance](rule-and-gate-per-load-stage.md).

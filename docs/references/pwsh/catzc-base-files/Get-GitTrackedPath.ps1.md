@@ -11,7 +11,7 @@ Returns the subset of the given repository paths that git tracks.
 
 ### description
 
-The one place catzc answers `git ls-files -- <paths>` ([ADR-AUTO-TRACKED](../../../adr/automation/tracked-files-from-the-index.md)): every
+The one place catzc answers `git ls-files -- <paths>` ([ADR-AUTO-TRACKED](../../../drs/automation/tracked-files-from-the-index.md)): every
 tracked file at or under the given paths, as a repo-relative, '/'-separated path ('.' is the whole repository). A path git does not track
 (new, ignored, or absent) contributes nothing, so "is this file under version control?" is a membership test on the result. A tracked file
 deleted from the working tree is still listed — it is still in the index.
@@ -42,7 +42,7 @@ Get-GitTrackedPath 'pwsh/Catzc.Base.Docs/configs/glossary.yml'
 ### example 2
 
 ```powershell
-Get-GitTrackedPath 'pwsh/Catzc.Base.Docs/configs', 'docs/adr'
+Get-GitTrackedPath 'pwsh/Catzc.Base.Docs/configs', 'docs/drs'
 ```
 
 ### example 3
@@ -63,7 +63,7 @@ Above `$script:gitIndexCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
 
 ## comment:2
@@ -73,5 +73,5 @@ Above `$content = [System.IO.File]::ReadAllBytes($indexPath)`, written with `#`.
 ```text
 The key is the index's content, not the session: the index changes mid-session (a commit, a `git add`),
 so a cached listing is reused only while the bytes on disk are identical
-([ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE](/docs/adr/automation/caching.md#rule-adr-auto-cache-sessionchangedgitstate)).
+([ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE](/docs/drs/automation/caching.md#rule-adr-auto-cache-sessionchangedgitstate)).
 ```

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3113487545e2"
+#     with_body_sha: "41008c2fc923"
 # ---
 
 description:
@@ -110,11 +110,11 @@ content:
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
       - cell: docs/-/.
         by:
-          - docs/adr/azure/.assets/azure-name-assembly/diagram.drawio.verify.md
-          - docs/adr/azure/.assets/azure-name-assembly/diagram.drawio.yml
-          - docs/adr/azure/azure-naming-standard.md
-          - docs/adr/azure/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.verify.md
+          - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.yml
+          - docs/drs/azure/azure-naming-standard.md
+          - docs/drs/azure/dora-explains.md
+          - docs/drs/index.md
           - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-cli/Get-AzCliSessionSubscription.ps1.md
           - docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "0a75a22ecdc2"
+#     with_body_sha: "8fa5b538c619"
 #     warning: "Do Not Edit, this file is generated"
 #     role: other
 #     generator: pwsh/Catzc.Base.Git/New-GitIgnore.ps1
@@ -22,14 +22,14 @@ tmp
 bash.exe.stackdump
 
 # ── Output directory ────────────────────────────────────────────────────────────────────────────────────────────────
-# All generated artifacts land in out/ (see docs/adr/repository/dedicated-output-directory.md). The folder itself is
+# All generated artifacts land in out/ (see docs/drs/repository/dedicated-output-directory.md). The folder itself is
 # kept so a fresh checkout has the anchor; its contents never enter git.
 out/*
 # keep the folder, ignore its contents
 !out/.gitkeep
 
 # ── Rendered PDFs ───────────────────────────────────────────────────────────────────────────────────────────────────
-# A PDF is rendered from a source, so it is output (docs/adr/repository/dedicated-output-directory.md, rule 11):
+# A PDF is rendered from a source, so it is output (docs/drs/repository/dedicated-output-directory.md, rule 11):
 # ignored everywhere. A PDF that must be committed opts out here with its own '!' line and a note saying why.
 *.pdf
 
@@ -74,7 +74,7 @@ pwsh/**/*.psd1
 
 # ── Generated READMEs ───────────────────────────────────────────────────────────────────────────────────────────────
 # A README.md in a mapped conventional folder is a generated copy of an authored docs source (Build-Readme,
-# Catzc.Base.Docs; see docs/adr/repository/generated-readmes.md) — derived artifacts like the module manifests,
+# Catzc.Base.Docs; see docs/drs/repository/generated-readmes.md) — derived artifacts like the module manifests,
 # regenerated on every import. Hand-authored READMEs are exactly the unmapped folders and opt back in below. The
 # generated cspell dictionaries under .cspell/ are ignored by the folder's own managed .gitignore (a root-config
 # copy), so only that folder's .gitkeep is committed.
@@ -87,7 +87,7 @@ pwsh/**/*.psd1
 
 # ── Compiled C# types — transient temp only ─────────────────────────────────────────────────────────────────────────
 # The combined compiled assembly (pwsh/.compiled/Catzc.Types.<hash>.dll) is COMMITTED — a vendored, hash-keyed
-# prebuild that lets a fresh checkout and CI load without compiling (see docs/adr/automation/caching.md). Only the
+# prebuild that lets a fresh checkout and CI load without compiling (see docs/drs/automation/caching.md). Only the
 # concurrent-compile temp file is ignored.
 pwsh/.compiled/*.tmp
 

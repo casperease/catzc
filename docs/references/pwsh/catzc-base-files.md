@@ -3,7 +3,7 @@
 The filesystem and source-control module. It owns the shared write primitives every generated-artifact builder shares —
 `Write-FileIfChanged` for idempotent canonical content — plus an efficient directory-tree copy, file-lock detection, and the git
 working-tree facts (branch, commit, committing) that higher-level modules build on without reinventing. It is a member of the `Base` group
-(see [open-closed-architecture](../../adr/automation/open-closed-architecture.md)) and depends on Catzc.Base.Execution (for `git`
+(see [open-closed-architecture](../../drs/automation/open-closed-architecture.md)) and depends on Catzc.Base.Execution (for `git`
 invocations) and Catzc.Base.Asserts (for the Assert/Test convention the lock-check pairs follow).
 
 ## Responsibilities
@@ -28,7 +28,7 @@ open handle; on Linux/macOS, where locks are advisory, it reports none.
 
 Reading the working tree's current git branch and commit, and committing a scoped path set. The branch and commit are read in-process from
 git's ref files through the `GitRefs` reader in [Catzc.Base.Git](catzc-base-git.md), so no process starts
-([tracked-files-from-the-index](../../adr/automation/tracked-files-from-the-index.md), ADR-AUTO-TRACKED-INPROCESSREFS). Committing writes,
+([tracked-files-from-the-index](../../drs/automation/tracked-files-from-the-index.md), ADR-AUTO-TRACKED-INPROCESSREFS). Committing writes,
 so it calls `Invoke-Executable` (from Catzc.Base.Execution) to run `git` with logged, exit-code-managed invocations, the same discipline
 every external command in the platform follows. Branch and commit are intentionally separate getters: they serve different purposes for
 callers (log context, cache keys, CI identifiers) and neither implies the other.

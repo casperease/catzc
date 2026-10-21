@@ -9,7 +9,7 @@ Above `analyzers:`, written with `#`.
 
 ```text
 Maps each ENABLED PSScriptAnalyzer rule that enforces an ADR rule to the rule id(s) it enforces, cited in
-the [index](/docs/adr/index.md) '#' form (ADR-<CODE>#<n>). This is the source for the 'pssa-rule' enforcer kind in the
+the [index](/docs/drs/index.md) '#' form (ADR-<CODE>#<n>). This is the source for the 'pssa-rule' enforcer kind in the
 Test-Automation rule-coverage report (Get-AnalyzerAdrCoverage): a rule listed here is credited as
 mechanically enforced on every run, because the L2 PSScriptAnalyzer gate runs inside Test-Automation.
 
@@ -18,6 +18,6 @@ A rule that maps to no ADR is simply absent. Every custom analyzer rule MUST app
 so a new custom rule cannot ship unmapped; a built-in appears only when it genuinely enforces an ADR and is
 enabled in PSScriptAnalyzerSettings.psd1. Shape is validated at load (the AnalyzerAdrMapConfig type); id
 existence is checked by an integrity test, not at load (so config load stays hermetic — the
-[ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)
+[ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)
 pattern).
 ```

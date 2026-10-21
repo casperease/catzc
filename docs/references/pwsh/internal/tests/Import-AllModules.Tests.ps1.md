@@ -40,7 +40,7 @@ Above `param([Parameter(Mandatory)][string]$Capture)`, written with `#`.
 ```text
 ONE cold import in a child pwsh; $Capture is evaluated AFTER the import and returned as parsed JSON. The
 import's announcements are information records
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)), so
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)), so
 6>$null keeps them out of the JSON.
 ```
 
@@ -79,7 +79,7 @@ Above `Describe 'Run-mode eviction across code roots' -Tag 'L2', 'logic', 'greed
 ```text
 Greedy: one child pwsh dot-sources three importers in sequence (process-global module state), so it consumes the
 machine beyond its own process and carries an L2-scale budget
-([ADR-AUTO-TEST-ONESCHEDULINGPOOL](/docs/adr/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)).
+([ADR-AUTO-TEST-ONESCHEDULINGPOOL](/docs/drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)).
 ```
 
 ## comment:9

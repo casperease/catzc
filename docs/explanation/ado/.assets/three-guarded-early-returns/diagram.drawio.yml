@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "63dc8d06b9a7"
+#     with_body_sha: f11e6300b508
 # ---
 
 description:
@@ -131,9 +131,9 @@ content:
           - ADR-ADO-AUTH-PROVETARGET
       - cell: docs/-/.
         by:
-          - docs/adr/ado/dora-explains.md
-          - docs/adr/ado/dual-authentication.md
-          - docs/adr/index.md
+          - docs/drs/ado/dora-explains.md
+          - docs/drs/ado/dual-authentication.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-azure-dev-ops/Get-AdoAuthorizationHeader.ps1.md
           - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
           - ADR-ADO-AUTH-EXPLICITDETECTION

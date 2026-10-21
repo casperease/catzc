@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a4b609fecedd
+    with_body_sha: "218164eeba3f"
   edges:
     docs: "[Get-WorldMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
@@ -38,7 +38,7 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
         Mock Test-AspectDeclaration -ModuleName Catzc.Base.Maps { $script:variants.aspects.ContainsKey($Track) }
         Mock Get-AdrRuleSet -ModuleName Catzc.Base.Maps { [pscustomobject]@{ External = 'ADR-WIDGET-GADGET'; Domain = 'widgetry' } }
         Mock Get-AdrCitationMap -ModuleName Catzc.Base.Maps {
-            [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name PathOf -Value { param($Code) "docs/adr/widgetry/$($Code.ToLowerInvariant()).md" } -PassThru
+            [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name PathOf -Value { param($Code) "docs/drs/widgetry/$($Code.ToLowerInvariant()).md" } -PassThru
         }
         Mock Get-GlobSet -ModuleName Catzc.Base.Maps { }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Maps { $script:root }

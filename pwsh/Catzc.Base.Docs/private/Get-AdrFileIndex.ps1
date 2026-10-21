@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fc43aa5826c3
+    with_body_sha: "64a0e6e32389"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-AdrFileIndex.Tests.ps1
     docs: "[Get-AdrFileIndex.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-AdrFileIndex.ps1.md)"
@@ -27,7 +27,7 @@ function Get-AdrFileIndex {
     $folders = @($RuleSets.Folder | Sort-Object -Unique | Sort-Object -Property Length -Descending)
     $relativePaths = [System.Collections.Generic.List[string]]::new()
     $byKey = @{}
-    # An ADR sits at most three levels below docs/adr (domain, subfolder, file); the fourth level is headroom.
+    # An ADR sits at most three levels below docs/drs (domain, subfolder, file); the fourth level is headroom.
     foreach ($file in Get-ChildPath $AdrRoot -File -Filter '*.md' -Depth 4) {
         $relative = $file.Substring($AdrRoot.Length).TrimStart('\', '/').Replace('\', '/')
         $relativePaths.Add($relative)

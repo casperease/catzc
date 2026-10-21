@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3b98bda56c58"
+    with_body_sha: fd4a02ab0619
   edges:
     code: pwsh/Catzc.Tooling.Listen/Find-DocPattern.ps1
 ---
@@ -20,7 +20,7 @@ Describe 'Find-DocPattern' -Tag 'L0', 'logic' {
 
     It 'finds every matching line in the committed reference, in path order, with its tier, skipping binaries and .git' {
         $found = @(Find-DocPattern -Session $script:session 'ADR-WIDGET-PARTS-SINGLE')
-        @($found.Path) | Should -Be @('Get-Widget.ps1', 'docs/adr/widget.md')
+        @($found.Path) | Should -Be @('Get-Widget.ps1', 'docs/drs/widget.md')
         @($found.Tier) | Should -Be @('code', 'rule')
         $found[1].Line | Should -Be 3
         $found[1].Text | Should -BeExactly 'The widget rule, ADR-WIDGET-PARTS-SINGLE.'
@@ -28,7 +28,7 @@ Describe 'Find-DocPattern' -Tag 'L0', 'logic' {
     }
 
     It 'searches only the named tiers' {
-        @((Find-DocPattern -Session $script:session 'ADR-WIDGET' -Tier 'rule').Path) | Should -Be @('docs/adr/widget.md')
+        @((Find-DocPattern -Session $script:session 'ADR-WIDGET' -Tier 'rule').Path) | Should -Be @('docs/drs/widget.md')
         @(Find-DocPattern -Session $script:session 'ADR-WIDGET' -Tier 'docs').Count | Should -Be 0
     }
 

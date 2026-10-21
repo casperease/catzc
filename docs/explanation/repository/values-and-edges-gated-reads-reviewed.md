@@ -59,9 +59,9 @@ the one the decision is named for, has no gate at all and is left to code review
 
 ## See also
 
-- [Repo-wide variants](../../adr/repository/repo-variants.md) — the decision this article explains.
-- [Controlling module dependencies](../../adr/automation/controlling-module-dependencies.md) and
-  [test automation](../../adr/automation/test-automation.md) — the gate rules, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY and
+- [Repo-wide variants](../../drs/repository/repo-variants.md) — the decision this article explains.
+- [Controlling module dependencies](../../drs/automation/controlling-module-dependencies.md) and
+  [test automation](../../drs/automation/test-automation.md) — the gate rules, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY and
   ADR-AUTO-TEST-QUALITYGATE.
 - The other lenses on the same diagram: [meta](one-home-one-read-path-one-vocabulary.md),
   [architecture](a-base-module-between-config-and-its-callers.md), [implementation](five-keys-one-reader-twelve-primitives.md) and

@@ -9,5 +9,5 @@ Above `Describe 'Test-ShippedConfigs' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-ShippedConfigs over a fixture code root in $TestDrive, with the registry and Get-Config mocked in the gate's
-scope. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+scope. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

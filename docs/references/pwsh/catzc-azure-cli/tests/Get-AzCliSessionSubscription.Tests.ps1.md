@@ -9,7 +9,7 @@ Above `BeforeAll {`, written with `#`.
 
 ```text
 The session read is a whole-function boundary mock
-([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)); config discovery
+([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)); config discovery
 redirects to
 the fixture identities, so nothing production is in play.
 ```

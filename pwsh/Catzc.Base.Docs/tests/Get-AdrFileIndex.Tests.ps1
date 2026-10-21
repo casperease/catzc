@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "10cb932d568b"
+    with_body_sha: "969a7446ac90"
   edges:
     docs: "[Get-AdrFileIndex.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Get-AdrFileIndex.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-AdrFileIndex.ps1
@@ -42,7 +42,7 @@ Describe 'Get-AdrFileIndex' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'lists every file relative to docs/adr/ with forward slashes' {
+    It 'lists every file relative to docs/drs/ with forward slashes' {
         $index.Relative | Sort-Object | Should -Be @('gadget/widget-one.md', 'index.md', 'widget/sub/widget-two.md', 'widget/widget-one.md', 'widget/widget-two.md')
     }
 

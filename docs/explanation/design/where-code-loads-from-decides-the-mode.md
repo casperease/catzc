@@ -39,7 +39,7 @@ is in. The place the code was loaded from is the answer, so the mode can never d
 
 ## See also
 
-- [Run modes: source mode and build mode](../../adr/design/run-modes.md) — the decision this article explains.
+- [Run modes: source mode and build mode](../../drs/design/run-modes.md) — the decision this article explains.
 - The other lenses on the same modes: [architecture](two-roots-one-importer-same-modules.md),
   [implementation](shims-set-roots-mode-read-back.md), [operations](one-entry-script-per-mode.md) and
   [governance](which-run-mode-rules-have-a-gate.md).

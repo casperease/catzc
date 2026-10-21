@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "1b2837ae118e"
+#     with_body_sha: e69a36f01833
 #   edges:
 #     docs: "[glossary.yml.md](docs/references/pwsh/catzc-azure-templates/configs/glossary.yml.md)"
 #     cites:
@@ -76,7 +76,7 @@ concepts:
     defined_by: ADR-AZ-LZ-LANDINGZONE
     short:
       Microsoft's guidance for preparing an Azure estate; its landing-zone design principles and design areas are recorded as vendor
-      recommendation in docs/adr/azure/caf/, one rule per recommendation.
+      recommendation in docs/drs/azure/caf/, one rule per recommendation.
     realized_by: { kind: prose-only }
     contrasts:
       well-architected framework:
@@ -93,7 +93,7 @@ concepts:
     domain: azure
     defined_by: ADR-AZ-LZ-EVERYPILLAR
     short:
-      Microsoft's checklist of a workload's quality in five pillars; each checklist item is a rule in docs/adr/azure/waf/, numbered as
+      Microsoft's checklist of a workload's quality in five pillars; each checklist item is a rule in docs/drs/azure/waf/, numbered as
       Microsoft numbers it.
     realized_by: { kind: prose-only }
   pillar:
@@ -102,7 +102,7 @@ concepts:
     defined_by: ADR-AZ-LZ-EVERYPILLAR
     short:
       One of the Well-Architected Framework's five qualities — reliability, security, cost optimization, operational excellence, performance
-      efficiency — each one ADR in docs/adr/azure/waf/.
+      efficiency — each one ADR in docs/drs/azure/waf/.
     realized_by: { kind: prose-only }
   break-glass login:
     key: break_glass_login

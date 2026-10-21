@@ -63,8 +63,8 @@ example: its coordinate is customer `apex`, environment `nsub`, base slot, and i
 
 ## See also
 
-- [Templating data model](../../adr/azure/azure-data-model.md) — the decision this article explains, with the
-  [customer model](../../adr/azure/azure-customer-model.md) it pairs with.
+- [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains, with the
+  [customer model](../../drs/azure/azure-customer-model.md) it pairs with.
 - The other lenses on the same coordinate: [meta](config-path-is-a-coordinate.md), [architecture](two-layers-join-through-one-resolver.md),
   [operations](a-bad-coordinate-stops-discovery.md) and [governance](coordinate-rules-and-their-gates.md).
 - [The Azure explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

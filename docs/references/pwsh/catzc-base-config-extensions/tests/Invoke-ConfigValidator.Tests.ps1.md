@@ -9,5 +9,5 @@ Above `Describe 'Invoke-ConfigValidator' -Tag 'L0', 'logic' {`, written with `#`
 
 ```text
 Invoke-ConfigValidator over in-memory fixture modules whose private validators it must find and run in their
-own scope. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+own scope. Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "26d8d315dd4a"
+#     with_body_sha: be64539c8c14
 # ---
 
 description:
@@ -186,12 +186,12 @@ content:
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/-/.
         by:
-          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
-          - docs/adr/flow/commit-lifecycle.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
@@ -261,10 +261,10 @@ content:
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/markdown
         by:
-          - docs/adr/flow/commit-lifecycle.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
@@ -277,8 +277,8 @@ content:
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/yaml
         by:
-          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
           - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT

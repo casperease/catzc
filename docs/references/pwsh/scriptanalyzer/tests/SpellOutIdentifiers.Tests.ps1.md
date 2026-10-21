@@ -29,5 +29,5 @@ Above `@{ Code = 'foreach ($i in 1..3) { $i }' }`, written with `#`.
 
 ```text
 single-letter loop index
-([ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-allowedabbreviations))
+([ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-allowedabbreviations))
 ```

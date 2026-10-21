@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7cd7d5b0dfc8"
+    with_body_sha: aea273494f79
   edges:
     test: pwsh/Catzc.Tooling.Listen/tests/Wait-DocChange.Tests.ps1
     cites:
@@ -18,7 +18,7 @@ function Wait-DocChange {
     .DESCRIPTION
         Polls Get-DocChange every poll_milliseconds. Once a change shows, it waits until the set of changes, diffs included, has stayed the
         same for quiet_seconds, so one burst of saves is one change. The whole wait is bounded by -TimeoutSeconds
-        ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)); the
+        ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)); the
         listener simply waits again after a bound runs out.
 
     .PARAMETER Session

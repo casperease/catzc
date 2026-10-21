@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "87f6e64dfb5d"
+    with_body_sha: "44e6667c6823"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AdrIndexConfig.Tests.ps1
     cites:
@@ -16,7 +16,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Docs;
 
-// The authored text of the ADR index: the preamble above the generated code tables and the authoring conventions below them, both Markdown that Build-AdrIndex reflows ([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
+// The authored text of the ADR index: the preamble above the generated code tables and the authoring conventions below them, both Markdown that Build-AdrIndex reflows ([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
 public sealed class AdrIndexConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

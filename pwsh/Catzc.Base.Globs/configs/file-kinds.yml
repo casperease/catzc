@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "656b3bda12e8"
+#     with_body_sha: f53dea9ff8ad
 #   edges:
 #     docs: "[file-kinds.yml.md](docs/references/pwsh/catzc-base-globs/configs/file-kinds.yml.md)"
 #     cites:
@@ -126,13 +126,13 @@ kinds:
     files: [".claude/skills/**"]
   index:
     definition: The entry page that lists and links what a folder holds.
-    files: ["docs/index.md", "docs/adr/index.md"]
+    files: ["docs/index.md", "docs/drs/index.md"]
   glossary:
     definition: The generated page that defines the terms of the domain rules.
-    files: ["docs/adr/glossary.md"]
+    files: ["docs/drs/glossary.md"]
   adr:
     definition: A decision record whose numbered rules the code follows.
-    files: ["docs/adr/**"]
+    files: ["docs/drs/**"]
   # The diagram kinds come before the two trees they live in, so the first match names a diagram or a description, not a page.
   diagram:
     definition: A diagram image of the documentation, drawn in the diagram editor or rendered from a description.

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3aeabc766f99"
+#     with_body_sha: d254170c4f12
 # ---
 
 description:
@@ -160,12 +160,12 @@ content:
           - ADR-REPO-PROTGLOB
       - cell: docs/-/.
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/test-automation.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
-          - docs/adr/repository/dora-explains.md
-          - docs/adr/repository/protected-globs.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/test-automation.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/protected-globs.md
           - docs/how-to/getting-started/pwsh/run-tests-and-checks.md
           - docs/how-to/pwsh/manual-test-plan.md
           - docs/how-to/pwsh/manual-test-plan/azure.md

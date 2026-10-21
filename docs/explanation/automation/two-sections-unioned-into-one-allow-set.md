@@ -63,7 +63,7 @@ the code in this order shows exactly where an undeclared edge is caught.
 
 ## See also
 
-- [Controlling module dependencies](../../adr/automation/controlling-module-dependencies.md) — the decision this article explains.
+- [Controlling module dependencies](../../drs/automation/controlling-module-dependencies.md) — the decision this article explains.
 - The other lenses on the same graph: [meta](a-declared-allow-list-of-layers.md), [architecture](three-layers-edges-point-down.md),
   [operations](undeclared-edge-fails-with-one-line.md) and [governance](two-gates-check-the-layer-pins.md).
 - [The automation explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

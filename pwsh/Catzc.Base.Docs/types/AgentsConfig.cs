@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "853d85132e75"
+    with_body_sha: "1f1e7abc3132"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
     docs: "[AgentsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md)"
@@ -33,7 +33,7 @@ public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
 
     public IReadOnlyList<string> contracts { get; } = new[] { "ADR-REPO-AI" };
 
-    // The standard sub-agent for delegated work ([ADR-REPO-AGENTS-STANDARDWORKER](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-standardworker)).
+    // The standard sub-agent for delegated work ([ADR-REPO-AGENTS-STANDARDWORKER](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-standardworker)).
     public string standard { get; }
 
     // The registered agents, in file order.

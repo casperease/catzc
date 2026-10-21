@@ -13,7 +13,7 @@ One ADR rule-set (an ADR) as declared in adrs.yml: its internal kebab Slug, full
 folder-owning Domain and its Role, the optional Terminology token, the domain's row of the value-chain stack
 (Stack), and the effective value-chain Concerns (a ruleset override, else the domain default DomainConcerns).
 A processed record built and validated by AdrsConfig — not a raw YAML mirror, so PascalCase
-([ADR-BCL-TYPES](/docs/adr/automation/BCL/native-csharp-types.md),
-[ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel),
-[DDR-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-ddr-track-valuechainconcern)).
+([ADR-BCL-TYPES](/docs/drs/automation/BCL/native-csharp-types.md),
+[ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel),
+[DDR-TRACK-VALUECHAINCONCERN](/docs/drs/design/tracks.md#rule-ddr-track-valuechainconcern)).
 ```

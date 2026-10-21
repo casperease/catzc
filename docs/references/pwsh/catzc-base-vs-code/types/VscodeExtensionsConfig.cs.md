@@ -10,11 +10,11 @@ Above `using System;`, written with `//`.
 ```text
 The VS Code extension-recommendation registry, configs/vscode-extensions.yml — the single authored source that
 New-VsCodeExtensions renders to the managed .vscode/extensions.json
-([ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)). Constructing an instance MAPS and VALIDATES
+([ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md)). Constructing an instance MAPS and VALIDATES
 the parsed YAML, collecting every violation into one throw. Registered in Catzc.Base.Config/configs/configs.yml
 (type: Catzc.Base.VSCode.VscodeExtensionsConfig), so Get-Config -Config vscode-extensions returns this typed
 model. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Load-time rules:
   - only the top-level key 'recommendations', a non-empty list;

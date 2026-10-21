@@ -9,5 +9,5 @@ Above `Describe 'SyntaxSearch' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 The compiled searches return what a PowerShell predicate over FindAll returned. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

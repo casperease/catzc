@@ -3,7 +3,7 @@
 The Bicep templating module. It is the top of the Azure stack: it discovers the deployable templates in the repository, derives the names
 their resources must carry, builds them into deployable artifacts, and deploys them. It consumes the identity model from
 [Catzc.Azure](catzc-azure.md) and the session checks from [Catzc.Azure.Cli](catzc-azure-cli.md), and is the implementation of the
-[data-model](../../adr/azure/azure-data-model.md) and [naming-standard](../../adr/azure/azure-naming-standard.md) decisions.
+[data-model](../../drs/azure/azure-data-model.md) and [naming-standard](../../drs/azure/azure-naming-standard.md) decisions.
 
 ## Responsibilities
 
@@ -21,7 +21,7 @@ their resources must carry, builds them into deployable artifacts, and deploys t
 Finding the deployable templates on disk and reading their structure: the per-template options, and the per-resource-group configuration
 files that map a subscription, environment, and slot to one set of parameters. This responsibility also exposes the distinct customers,
 subscriptions, and slots a template targets, and writing a configuration back. One configuration file corresponds to exactly one Azure
-resource group, so this responsibility _is_ the resource-group inventory. See [data-model](../../adr/azure/azure-data-model.md).
+resource group, so this responsibility _is_ the resource-group inventory. See [data-model](../../drs/azure/azure-data-model.md).
 
 ### responsibility:2 — Deterministic resource naming
 
@@ -29,7 +29,7 @@ Assembling an Azure resource name from its canonical components — environment,
 customer and role, and resource type — in the active component order, rendered to each resource type's length and character budget. Names
 are deterministic, with no random suffixes, and an over-budget name fails rather than being silently truncated. This responsibility owns the
 name builder and the registries of orders, render patterns, and resource types. See
-[naming-standard](../../adr/azure/azure-naming-standard.md).
+[naming-standard](../../drs/azure/azure-naming-standard.md).
 
 ### responsibility:3 — Deployment classification
 
@@ -54,7 +54,7 @@ state-changing responsibility, and it verifies the session targets the configure
 Checking that a template is internally consistent and conforms to the model — that its configuration sits under defined subscriptions
 serving the right environments, that its class and slots are valid, that its name renders within budget, and that every parameters file it
 renders satisfies the parameter model of its compiled `main.json` (see
-[data-model](../../adr/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)). This is the guard the integrity tests run across
+[data-model](../../drs/azure/azure-data-model.md#rule-adr-az-datamod-parametercontract)). This is the guard the integrity tests run across
 every shipped template.
 
 ## What the module does
@@ -69,11 +69,11 @@ Build (responsibility 4) and deploy (responsibility 5) are the two execution pha
 immutable artifact and never touches the cloud, while deploy is the only place state changes. Both phases call the template's optional
 extension hooks at the right moments — preparation merges global configuration into the parameter set at build time, and the pre/post-deploy
 hooks bracket the deployment — which is how a template injects a secret reference or provisions a queue without that logic leaking into the
-engine (see [prepost-extension-modules](../../adr/automation/pwsh/prepost-extension-modules.md)). A value that belongs to the repository
+engine (see [prepost-extension-modules](../../drs/automation/pwsh/prepost-extension-modules.md)). A value that belongs to the repository
 rather than to one template, such as the policy enforcement mode, needs no hook: a template's configuration names it by its config address,
 and build renders the addressed value into the parameter file (see
-[data-model](../../adr/azure/azure-data-model.md#rule-adr-az-datamod-valuebyaddress) and
-[config-value-addressing](../../adr/configuration/config-value-addressing.md)). Deploy leans on the session-verification checks before it
+[data-model](../../drs/azure/azure-data-model.md#rule-adr-az-datamod-valuebyaddress) and
+[config-value-addressing](../../drs/configuration/config-value-addressing.md)). Deploy leans on the session-verification checks before it
 acts, so a deployment can never run against the wrong subscription.
 
 The classification vocabularies (responsibility 3) are the small enumerations that keep options and deploys honest, and integrity validation

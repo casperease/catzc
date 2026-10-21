@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2775efee3e06"
+    with_body_sha: ce9383a561c2
   edges:
     code: pwsh/Catzc.Base.Docs/types/AdrCodeForm.cs
     cites:
@@ -16,7 +16,7 @@ Describe 'AdrCodeForm' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
         # ADR is shared, GDR owned, and HDR owned with a group segment, as RDR-DORA-<NAME> is.
         $script:form = [Catzc.Base.Docs.AdrCodeForm]::new([ordered]@{ ADR = 3; GDR = 2; HDR = 3 })
-        $entry = { param($rules) @{ path = 'docs/adr/widget/x.md'; rules = [string[]] $rules } }
+        $entry = { param($rules) @{ path = 'docs/drs/widget/x.md'; rules = [string[]] $rules } }
         $script:registry = [Catzc.Base.Docs.AdrCitationMap]::new([ordered]@{
                 'ADR-WIDGET-GADGET'   = (& $entry @('ADR-WIDGET-GADGET-TURN', 'ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-FOLD'))
                 'ADR-WIDGET-SPROCKET' = (& $entry @('ADR-WIDGET-SPROCKET-RE01', 'ADR-WIDGET-SPROCKET-RE02'))

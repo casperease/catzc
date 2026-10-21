@@ -1,5 +1,5 @@
 # Binary files must never be line-ending normalized — EOL conversion rewrites the bytes, which corrupts
-# the file and breaks the byte-exact, hash-keyed compiled-type cache (see docs/adr/automation/caching.md).
+# the file and breaks the byte-exact, hash-keyed compiled-type cache (see docs/drs/automation/caching.md).
 # The `binary` macro expands to `-text -diff`: no text conversion, no textual diff.
 # Verified by the Test-CheckedInBinaries quality gate (Catzc.Base.ModuleSystem): every tracked file git sees as binary
 # must be stored as binary and matched by an explicit `binary` rule here.
@@ -29,13 +29,13 @@ pwsh/.compiled/** binary
 # C# type sources are the byte-exact key of the compiled-type cache — their combined hash names the committed
 # pwsh/.compiled/Catzc.Types.<hash>.dll. Pin them to LF so every clone/checkout materializes identical
 # bytes regardless of core.autocrlf; otherwise a CRLF working tree diverges from the committed build and trips
-# the loader's "types changed since they were loaded" guard on re-import. See docs/adr/automation/caching.md.
+# the loader's "types changed since they were loaded" guard on re-import. See docs/drs/automation/caching.md.
 *.cs     text eol=lf
 
 # The committed managed root-config targets (rootconfig.yml committed:true — importer.ps1 and the git files)
 # are written canonical-LF by Write-FileIfChanged. Pin them to LF so a core.autocrlf=true machine neither
 # warns on every regeneration commit nor checks out CRLF copies that differ from what the writer produced.
-# See docs/adr/repository/generated-root-configs.md.
+# See docs/drs/repository/generated-root-configs.md.
 /.gitattributes text eol=lf
 /.gitignore     text eol=lf
 /importer.ps1   text eol=lf
@@ -58,7 +58,7 @@ pwsh/.vendor/** linguist-vendored
 
 # GitHub (linguist): committed files the automation writes are generated — out of the statistics, and collapsed
 # in pull-request diffs so review lands on their sources (the New-Importer shim, the managed root-config copies,
-# and the generated ADR pages; see docs/adr/repository/generated-root-configs.md). The ADR index and glossary are
+# and the generated ADR pages; see docs/drs/repository/generated-root-configs.md). The ADR index and glossary are
 # committed so GitHub has them — every ADR citation links the index — and Build-AdrIndex / Build-Glossary rewrite
 # them on import from adrs.yml and the glossary sources; Build-ContractReference rewrites the per-unit contract
 # pages from the contract assets; Build-GitKeep rewrites every .gitkeep from its one source.
@@ -70,8 +70,8 @@ pwsh/.compiled/** linguist-generated
 /pwsh/.internal/assets/Catzc.Types.csproj linguist-generated
 /.gitattributes linguist-generated
 /.gitignore     linguist-generated
-/docs/adr/index.md    linguist-generated
-/docs/adr/glossary.md linguist-generated
+/docs/drs/index.md    linguist-generated
+/docs/drs/glossary.md linguist-generated
 /docs/references/contracts/*.md linguist-generated
 
 # GitHub (linguist): the Markdown here — the ADRs, the explanations, the how-tos, the diagram articles — is authored,
@@ -110,13 +110,13 @@ pwsh/.compiled/** linguist-generated
 
 # catzc: these files are read verbatim by another tool, so they carry no meta block: the session instructions are
 # injected as written into every Claude session, the repository landing page is what GitHub renders first, and the
-# session settings are parsed by Claude Code (docs/adr/repository/file-meta.md, ADR-REPO-FILEMETA-KINDSCOPE).
+# session settings are parsed by Claude Code (docs/drs/repository/file-meta.md, ADR-REPO-FILEMETA-KINDSCOPE).
 /.claude/CLAUDE.md -catzc-meta
 /.claude/settings.json -catzc-meta
 /.github/README.md -catzc-meta
 
 # catzc: the root-file sources are copied to the repository root under the head Build-RootConfig writes into each copy,
-# so a head here would sit beside it with the source's path (docs/adr/repository/file-meta.md, ADR-REPO-FILEMETA-COMPOSEDFILES).
+# so a head here would sit beside it with the source's path (docs/drs/repository/file-meta.md, ADR-REPO-FILEMETA-COMPOSEDFILES).
 /pwsh/Catzc.Base.RootConfig/assets/root/** -catzc-meta
 
 # catzc: the .gitkeep source is likewise copied into every .gitkeep under the head Build-GitKeep writes there.

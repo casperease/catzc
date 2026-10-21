@@ -18,7 +18,7 @@ files a generator renders from, for its head. A `target` holding a wildcard (`*`
 go/tests/*/go.mod) names a set of files and is allowed only on a `generator` entry: the generator returns one
 { Target; Content } record per file, and each record's path must match the pattern. Paths are
 repository-root-relative, '/'-separated communication-form values (see
-[ADR-AUTO-PATH](/docs/adr/automation/path-representation.md)). Mirrors a rootconfig.yml files entry (snake_case
+[ADR-AUTO-PATH](/docs/drs/automation/path-representation.md)). Mirrors a rootconfig.yml files entry (snake_case
 keys).
 
 Derives from Catzc.Base.Objects.DictionaryRecord, so an instance also presents as a read-only dictionary

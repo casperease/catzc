@@ -13,29 +13,29 @@ dot-prefixed folder.
 ### description
 
 Contracts are binding, proven by tests
-([ADR-REPO-CONTRACT-PROVENBYTESTS](../../../adr/repository/api-contracts.md#rule-adr-repo-contract-provenbytests)). A quality gate
-([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) that checks three things.
+([ADR-REPO-CONTRACT-PROVENBYTESTS](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-provenbytests)). A quality gate
+([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)) that checks three things.
 
 The binding assets. Each is checked by its kind with Get-ContractCheckResults
-([ADR-REPO-CONTRACT-CONTRACTASSET](../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)):
+([ADR-REPO-CONTRACT-CONTRACTASSET](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)):
 
 - every asset, in both directions, of each unit's current version folder, -Version;
 - the provided assets of every other released version folder still in the tree. Released folders are the pin record: a version folder is
   kept while a consumer pins it, and retiring it means deleting the folder
-  ([ADR-REPO-CONTRACT-KEPTWHILEPINNED](../../../adr/repository/api-contracts.md#rule-adr-repo-contract-keptwhilepinned)). Their depended-on
+  ([ADR-REPO-CONTRACT-KEPTWHILEPINNED](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-keptwhilepinned)). Their depended-on
   assets are not checked: a depended-on contract follows its outside platform, so only the current version's binds.
 
 Every finding is one issue naming the asset, its kind and direction, 'pinned' for an asset of an older release, and the finding.
 
 The freeze. Every version folder other than 0.0.0 is released, so immutable
-([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../adr/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)): its files must
+([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)): its files must
 match the .frozen record Publish-ContractRelease wrote when it froze the draft. A missing record, and each file changed, added or removed
 since, is one issue.
 
 The layout. contracts/ holds no dot-prefixed folder at any depth
-([ADR-REPO-CONTRACT-NODOTFOLDERS](../../../adr/repository/api-contracts.md#rule-adr-repo-contract-nodotfolders)): an asset whose target sits
+([ADR-REPO-CONTRACT-NODOTFOLDERS](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-nodotfolders)): an asset whose target sits
 under a dot-prefixed root reaches it through its module's target root
-([ADR-REPO-CONTRACT-LAYOUT](../../../adr/repository/api-contracts.md#rule-adr-repo-contract-layout)). Each outermost dot-prefixed folder is
+([ADR-REPO-CONTRACT-LAYOUT](../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)). Each outermost dot-prefixed folder is
 one issue (Get-ContractDotFolderFindings); a dot-prefixed file name, such as the .frozen record, is not.
 
 The current version folder is the draft, 0.0.0, on a devbox and in every build before a release. A release build freezes the draft with

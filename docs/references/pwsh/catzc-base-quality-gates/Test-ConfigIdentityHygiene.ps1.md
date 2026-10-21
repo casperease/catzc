@@ -23,12 +23,12 @@ comment-blind by construction: a config comment illustrating `[acme, globex]` is
 It also checks that the two identity sets are disjoint: a fixture token that is also a live identity (Get-LiveIdentityTokens, derived from
 the shipped config) is an issue, whatever -Path names.
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends through
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends through
 Write-QualityGateReport, which writes out/test-config-identity-hygiene/, prints every finding, and throws once listing them all; -PassThru
 returns the result instead. It reads the shipped config, so a Pester test wrapping it is `integrity`. It needs the source tree: the fixture
 identities live in the repository's tests/, so the source-tree guard (Assert-SourceTree) throws in build mode.
 
-It rests on [ADR-REPO-LANG](../../../adr/repository/domain-language-separation.md).
+It rests on [ADR-REPO-LANG](../../../drs/repository/domain-language-separation.md).
 
 ### parameter `Path`
 

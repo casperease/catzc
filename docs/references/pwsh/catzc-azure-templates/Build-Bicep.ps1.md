@@ -108,7 +108,7 @@ Above `. $prepostModule { Set-StrictMode -Version Latest }`, written with `#`.
 
 ```text
 The template's hooks run strict like every catzc module, whoever wrote them
-([ADR-PWSH-ERROR-STRICTCLEAN](/docs/adr/automation/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)).
+([ADR-PWSH-ERROR-STRICTCLEAN](/docs/drs/automation/pwsh/error-handling.md#rule-adr-pwsh-error-strictclean)).
 ```
 
 ## comment:5
@@ -126,7 +126,7 @@ Above `if ($configurationDescriptor.Contains('ParametersFile') -and...`, written
 
 ```text
 A config-addressed parameter `{ address: global.<config>.<key>… }` renders as the value it addresses
-([ADR-AZ-DATAMOD-VALUEBYADDRESS](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-valuebyaddress)), before the PrePost hook,
+([ADR-AZ-DATAMOD-VALUEBYADDRESS](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-valuebyaddress)), before the PrePost hook,
 so the hook and the parameters file see only ARM entries.
 ```
 
@@ -138,7 +138,7 @@ Above `$buildInvocation = [ordered]@{`, written with `#`.
 The build invocation for this slot — the arguments Build-Bicep is acting on. Hooks read what
 they need from it (e.g. $BuildInvocation.Customer) rather than via raw params, so adding a
 dimension never changes the hook signature.
-See [ADR-PWSH-PREPOST](/docs/adr/automation/pwsh/prepost-extension-modules.md).
+See [ADR-PWSH-PREPOST](/docs/drs/automation/pwsh/prepost-extension-modules.md).
 ```
 
 ## comment:8

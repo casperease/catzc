@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: fd779f84fa74
+#     with_body_sha: "15b1c6ec7b67"
 # ---
 
 description:
@@ -118,9 +118,9 @@ content:
           - ADR-CONF-LOADING-READINGISGLOBAL
       - cell: docs/-/.
         by:
-          - docs/adr/configuration/dora-explains.md
-          - docs/adr/configuration/module-config-loading.md
-          - docs/adr/index.md
+          - docs/drs/configuration/dora-explains.md
+          - docs/drs/configuration/module-config-loading.md
+          - docs/drs/index.md
           - docs/how-to/getting-started/pwsh/add-a-module.md
           - docs/how-to/pwsh/manual-test-plan/configs.md
           - docs/references/pwsh/.assets/invoke-tool-asserts-locked-version/diagram.drawio.yml

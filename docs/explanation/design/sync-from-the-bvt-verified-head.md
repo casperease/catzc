@@ -41,7 +41,7 @@ exists. The rule is a convention the ADR states.
 
 ## See also
 
-- [The commit lifecycle](../../adr/flow/commit-lifecycle.md) — the decision this article explains.
+- [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
 - The other lenses on the same sync point: [architecture](integrators-sync-from-the-bvt-verified-head.md) and
   [governance](sync-point-rules-are-adr-only.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

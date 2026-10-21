@@ -18,7 +18,7 @@ Above `public ContractCommand(ContractAsset asset, IDictionary raw) : this(raw)`
 
 ```text
 The contract of one command asset: the asset names the command
-([ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS](/docs/adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-noplacementfacts)), raw is its parsed document.
+([ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS](/docs/drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-noplacementfacts)), raw is its parsed document.
 ```
 
 ## comment:3

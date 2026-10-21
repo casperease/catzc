@@ -10,7 +10,7 @@ Above `Mock Get-CatsAdrRuleIds { @('ADR-WIDGET-GADGET-TURN',...`, written with `
 ```text
 A fixture rule-id set so the validation is hermetic — it never reads the
 shipped ADR tree. Mocking the whole boundary function is the seam
-([ADR-AUTO-TEST](/docs/adr/automation/test-automation.md)).
+([ADR-AUTO-TEST](/docs/drs/automation/test-automation.md)).
 ```
 
 ## comment:2

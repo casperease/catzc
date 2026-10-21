@@ -43,7 +43,7 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 ### 1. Config conventions
 
 **Guards:** every shipped config has a C# config type
-([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)) and loads
+([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)) and loads
 through it.
 
 **Checks:**
@@ -63,7 +63,7 @@ through it.
 ### 3. Config validator coverage
 
 **Guards:** every PowerShell config validator — the extension point for a config that cannot ship a C# type
-([ADR-CONF-LOADING-POWERSHELLVALIDATOR](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading-powershellvalidator)) —
+([ADR-CONF-LOADING-POWERSHELLVALIDATOR](../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-powershellvalidator)) —
 belongs to a real config.
 
 **Checks:**

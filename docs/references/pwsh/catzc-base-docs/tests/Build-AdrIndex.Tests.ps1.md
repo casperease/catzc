@@ -8,6 +8,6 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `$result = Test-GeneratedFiles -Generator Build-AdrIndex -PassThru...`, written with `#`.
 
 ```text
-The importer's janitor tail materialised [index](/docs/adr/index.md) before this run; the gate checks it
+The importer's janitor tail materialised [index](/docs/drs/index.md) before this run; the gate checks it
 without writing.
 ```

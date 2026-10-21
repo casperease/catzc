@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5cc64a1f5266"
+#     with_body_sha: "215ab647cb46"
 # ---
 
 description:
@@ -163,13 +163,13 @@ content:
           - ADR-AUTO-PKGMGR
       - cell: docs/-/.
         by:
-          - docs/adr/automation/bash/bash-test-artifacts.md
-          - docs/adr/automation/controlling-systemwide-deps.md
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/execution-engines.md
-          - docs/adr/automation/use-proper-package-managers.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/automation/bash/bash-test-artifacts.md
+          - docs/drs/automation/controlling-systemwide-deps.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/execution-engines.md
+          - docs/drs/automation/use-proper-package-managers.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/how-to/pwsh/manual-test-plan/static-analysis.md
           - docs/references/pwsh/.assets/tools-yml-install-dispatch/diagram.drawio.yml
           - docs/references/pwsh/catzc-base-docs/Test-AdrEngineNeutrality.ps1.md

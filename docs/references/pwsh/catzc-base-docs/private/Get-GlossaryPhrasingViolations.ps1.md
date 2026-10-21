@@ -12,9 +12,9 @@ Lists the uses of avoided phrasings within each glossary source's scope (check G
 ### description
 
 An avoided phrasing blurs a defined term, so prose within its source's scope never uses it
-([ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](../../../../adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced)).
+([ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-avoidedphrasingreplaced)).
 For every source whose `checks` include `avoid`, this reads the tracked files its `scope` matches and its `exclude` does not
-([ADR-REPO-VOCAB-GLOSSARYSOURCE](../../../../adr/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)), on the text
+([ADR-REPO-VOCAB-GLOSSARYSOURCE](../../../../drs/repository/controlled-vocabulary.md#rule-adr-repo-vocab-glossarysource)), on the text
 surfaces its `surfaces` name:
 
 - markdown — the prose of `*.md` files: fenced code blocks are skipped;

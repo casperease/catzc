@@ -12,5 +12,5 @@ Validates the compiled GlossaryConfig type and the records it builds (GlossaryOp
 GlossaryRealization, GlossaryAvoid) directly — the constructor is the guard that stops a malformed glossary source
 from ever producing an instance. Only the self-contained load-time rules live here; the cross-source and
 cross-file checks belong to the glossary checks. Fixture terms are neutral (widget/gadget,
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

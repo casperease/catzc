@@ -20,5 +20,5 @@ Above `$script:fakeUserPath = "C:\existing\tool;$tempDir"`, written with `#`.
 ```text
 Seed with the entry already there → Add must detect it and skip the registry write entirely.
 (Asserting on Set-EnvironmentPath invocation avoids relying on mock-to-mock state round-tripping,
-which hits a Pester $script: scope surprise — see docs/adr test-automation Gotchas.)
+which hits a Pester $script: scope surprise — see docs/drs test-automation Gotchas.)
 ```

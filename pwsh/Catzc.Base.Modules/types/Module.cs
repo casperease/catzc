@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e377ab8b2812
+    with_body_sha: "48ca8e13dff7"
   edges:
     test: pwsh/Catzc.Base.Modules/tests/types/Module.Tests.ps1
     docs: "[Module.cs.md](docs/references/pwsh/catzc-base-modules/types/Module.cs.md)"
@@ -17,7 +17,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Modules;
 
-// Rests on [ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](/docs/adr/automation/module-model.md#rule-adr-auto-module-deployabletrackmodule) and [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel).
+// Rests on [ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](/docs/drs/automation/module-model.md#rule-adr-auto-module-deployabletrackmodule) and [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel).
 public sealed class Module
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

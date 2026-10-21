@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "593776784495"
+    with_body_sha: b3a79af69366
   edges:
     docs: "[Build-ContractReference.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Contracts/Build-ContractReference.ps1
@@ -42,7 +42,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
         $null = New-Item -ItemType Directory -Force -Path $script:root
-        Add-File 'contracts/widget/0.0.0/catzc.widget/.widget/flows/build.yml' ((@('# The keys the gadget host reads, per [ADR-TST-WIDGET-TURN](/docs/adr/repository/widget-thing.md#rule-adr-tst-widget-turn).', 'widget:') -join "`n") + "`n")
+        Add-File 'contracts/widget/0.0.0/catzc.widget/.widget/flows/build.yml' ((@('# The keys the gadget host reads, per [ADR-TST-WIDGET-TURN](/docs/drs/repository/widget-thing.md#rule-adr-tst-widget-turn).', 'widget:') -join "`n") + "`n")
         Add-File 'contracts/widget/0.0.0/catzc.widget/.widget/README.md' ''
         Add-File 'contracts/widget/0.0.0/catzc.gadget/gadget.sample.json' '{ "gadget": 1 }'
         Add-File 'contracts/widget/0.0.0/catzc.widget/get_widget.command.yml' "parameters:`n  path: string!`n  strict: switch`noutput: string`n"

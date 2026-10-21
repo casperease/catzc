@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6810f891bf03"
+    with_body_sha: c7ecda1b0943
   edges:
     docs: "[Get-FileLanguage.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Languages/Get-FileLanguage.ps1
@@ -154,8 +154,8 @@ Describe 'Get-FileLanguage — the real repository' -Tag 'L1', 'integrity', 'sou
 
     It 'names an existing ADR folder for every file language that declares one' {
         $missing = @(Get-FileLanguage | Where-Object { $null -ne $_.adr_folder } |
-                Where-Object { -not (Test-Path -LiteralPath (Join-Path (Get-RepositoryRoot) "docs/adr/$($_.adr_folder)") -PathType Container) } |
-                ForEach-Object { "$($_.name): docs/adr/$($_.adr_folder)" })
+                Where-Object { -not (Test-Path -LiteralPath (Join-Path (Get-RepositoryRoot) "docs/drs/$($_.adr_folder)") -PathType Container) } |
+                ForEach-Object { "$($_.name): docs/drs/$($_.adr_folder)" })
         $missing | Should -BeNullOrEmpty
     }
 

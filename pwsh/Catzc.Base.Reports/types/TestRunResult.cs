@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "720b5c1bee75"
+    with_body_sha: "9d561afc68eb"
   edges:
     test: pwsh/Catzc.Base.Reports/tests/types/TestRunResult.Tests.ps1
     cites:
@@ -16,7 +16,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Reports;
 
-// Rests on [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel) and [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
+// Rests on [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel) and [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Result), nameof(PassedCount), nameof(FailedCount), nameof(DurationSeconds))]
 public sealed class TestRunResult
 {

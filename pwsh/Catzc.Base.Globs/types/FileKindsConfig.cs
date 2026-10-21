@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ac0e38a55d82
+    with_body_sha: "21448616f77c"
   edges:
     test: pwsh/Catzc.Base.Globs/tests/types/FileKindsConfig.Tests.ps1
     docs: "[FileKindsConfig.cs.md](docs/references/pwsh/catzc-base-globs/types/FileKindsConfig.cs.md)"
@@ -21,7 +21,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Globs;
 
-// Rests on [ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype) and [ADR-REPO-FILEMETA-METAKIND](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-metakind).
+// Rests on [ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype) and [ADR-REPO-FILEMETA-METAKIND](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-metakind).
 public sealed class FileKindsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

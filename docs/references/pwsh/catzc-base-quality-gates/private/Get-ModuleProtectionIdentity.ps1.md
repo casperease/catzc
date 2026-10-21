@@ -11,7 +11,7 @@ Composes a module's protection identity — the durable SHA of everything its te
 
 ### description
 
-The composite ([ADR-REPO-PROTGLOB](../../../../adr/repository/protected-globs.md)): a hash-of-hashes fold over (1) the module's own derived
+The composite ([ADR-REPO-PROTGLOB](../../../../drs/repository/protected-globs.md)): a hash-of-hashes fold over (1) the module's own derived
 globset, (2) the derived sets of its declared dependency closure from dependencies.yml (transitive; a group reference permits any member, so
 it expands to all members), (3) the four reserved infra scopes (internal, vendor, compiled, scriptanalyzer), and (4) the runner's own set
 (catzc-base-quality-gates — an edit to the harness re-keys every module). Two fail-safe cases widen the fold with the declared
@@ -52,7 +52,7 @@ Above `$sets = @(Get-ModuleGlobSet -Name $setName) | Sort-Object Name`, written 
 
 ```text
 A module name resolves to its live/tests aspect sets
-([DDR-ASPECT](/docs/adr/design/module-aspects.md)); a reserved/single set to
+([DDR-ASPECT](/docs/drs/design/module-aspects.md)); a reserved/single set to
 one. Fold the aspect hashes (name|hash, ordinal by name) so the constituent hash covers the
 module's whole content — identical protection semantics to the pre-aspect whole-module set.
 ```
@@ -82,5 +82,5 @@ Above `$names = [string[]]$constituents`, written with `#`.
 
 ```text
 ---- fold: name|hash lines, ordinal by name — the
-[FDR-CD-GLOBS-DURABLESHAIDENTITY](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity) recipe over set hashes ----
+[FDR-CD-GLOBS-DURABLESHAIDENTITY](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-durableshaidentity) recipe over set hashes ----
 ```

@@ -9,5 +9,5 @@ Above `Describe 'Get-TestRunContext' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-TestRunContext over fixture locations; the session actor and the tool lookup are mocked, so no real process or
-PATH state decides the outcome ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+PATH state decides the outcome ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

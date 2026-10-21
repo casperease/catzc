@@ -17,7 +17,7 @@ a VscodeLaunchConfig) and renders it to the launch.json content: the version and
 live as comments in the yml — the authored, searched artifact — not in the rendering.
 
 This is a pure renderer: it returns the content and writes nothing — it is the `generator` the root-config registry names for the
-.vscode/launch.json target, and Build-RootConfig owns the write. See [ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md).
+.vscode/launch.json target, and Build-RootConfig owns the write. See [ADR-REPO-ROOTCFG](../../../drs/repository/generated-root-configs.md).
 
 ### outputs
 

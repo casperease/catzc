@@ -16,8 +16,8 @@ Explains ADR-REPO-FILEMETA, ADR-REPO-CODEMETA, ADR-REPO-COMMENTS and ADR-REPO-HE
 A file in this repository is more than its text. It has a place (a path, a module, a track), a role (its kind), a language, things it points
 at (the rules it cites, the pages it links, its comment page, its test) and a status in git. Some files also carry these facts in a **meta
 block**: the `catzc` front-matter key of a Markdown file, the meta head of a code file, a property of a JSON file
-([ADR-REPO-FILEMETA-HEADPOLICY](../adr/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)). Which files carry one is a policy, and
-no command reads a fact back from one ([ADR-REPO-FILEMETA-NOREADBACK](../adr/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)), so
+([ADR-REPO-FILEMETA-HEADPOLICY](../drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)). Which files carry one is a policy, and
+no command reads a fact back from one ([ADR-REPO-FILEMETA-NOREADBACK](../drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)), so
 every command works the same whether a file has a block or not.
 
 ## The principle
@@ -29,7 +29,7 @@ run anything to see them. It is never the source:
   that wants a file's citations scans its text and its comment page, never its `cites` edge.
 - **Removing every head changes no verdict.** Every gate, generator and resolver gives the same answer on a tree with all heads stripped.
 - **A head is configured, not assumed.** Whether a file carries one is a setting with its default declared once
-  ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
+  ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 
 Three things can sit in front matter, and only the first is a fact:
 
@@ -42,8 +42,8 @@ Three things can sit in front matter, and only the first is a fact:
 ## Where each fact comes from
 
 Every imprinted kind is an entry of `pwsh/Catzc.Base.QualityGates/configs/file-meta.yml` with a `Get-<Kind>FileMetaFact` processor
-([ADR-REPO-FILEMETA-METAKIND](../adr/repository/file-meta.md#rule-adr-repo-filemeta-metakind),
-[ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION](../adr/repository/file-meta.md#rule-adr-repo-filemeta-subscribebyfunction)), and each derives from
+([ADR-REPO-FILEMETA-METAKIND](../drs/repository/file-meta.md#rule-adr-repo-filemeta-metakind),
+[ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION](../drs/repository/file-meta.md#rule-adr-repo-filemeta-subscribebyfunction)), and each derives from
 outside the head:
 
 | Fact                                        | Source                                                                                                                                                      |
@@ -60,7 +60,7 @@ outside the head:
 | `defines`, `links`                          | the Markdown body                                                                                                                                           |
 | `cites`                                     | the text and the comment page; a code with no other home is a one-line `Rests on` link beside the code it binds                                             |
 | `page`, `test`                              | the `relative-edges` path rules and the disk                                                                                                                |
-| comments (a long comment lives on its page) | `comments.yml`, the code and its page ([ADR-REPO-COMMENTS-ONELINEOFINSIGHT](../adr/repository/comments-in-docs.md#rule-adr-repo-comments-onelineofinsight)) |
+| comments (a long comment lives on its page) | `comments.yml`, the code and its page ([ADR-REPO-COMMENTS-ONELINEOFINSIGHT](../drs/repository/comments-in-docs.md#rule-adr-repo-comments-onelineofinsight)) |
 
 `Get-AdrUsage` counts the ADR citations and links of the tree through the same processors, so its rows are the same with or without heads.
 
@@ -89,7 +89,7 @@ These keys are never written into a head; each still has its meaning and its one
 | `links`        | every link a Markdown file points out of itself                                          | the Markdown body, read by `Test-Links`                                               |
 
 The module facts, `module`, `moduletype`, `catzc_bundle`, `tracktype` and `vendor`, are each one question to the registry that places the
-module ([module-types](../adr/design/module-types.md)) or declares its track, so a head that showed them would be a second list of what the
+module ([module-types](../drs/design/module-types.md)) or declares its track, so a head that showed them would be a second list of what the
 registries say and would change on every move of a module. A Markdown file's `defines` and `links` are its text: the rules an ADR declares
 are its rule headings and the rules it cites are read from its text, never counting its own rules or a placeholder named in prose, and the
 links that leave a file are its body. A generated page carries only its relative edges, never a list of either.
@@ -116,10 +116,10 @@ part is a finding left for the author (`ForbiddenConfig`), so no authored key is
 
 A function's help is prose an author writes, so it lives with the file's other prose: in the `## help` section of its comment page, the page
 `comments.yml` names for the path
-([ADR-REPO-HELP-HELPONCOMMENTPAGE](../adr/repository/function-help.md#rule-adr-repo-help-helponcommentpage)). The section has one shape,
+([ADR-REPO-HELP-HELPONCOMMENTPAGE](../drs/repository/function-help.md#rule-adr-repo-help-helponcommentpage)). The section has one shape,
 `### synopsis`, `### description`, one ``### parameter `<Name>` `` per parameter in `param()` order, the name written as code, `### inputs`,
 `### outputs`, one `### example <n>` per example and `### notes`, and `Export-Comments`, which appends the page's `## comment:<n>` sections,
-never writes it ([ADR-REPO-COMMENTS-PAGEISAUTHORED](../adr/repository/comments-in-docs.md#rule-adr-repo-comments-pageisauthored)).
+never writes it ([ADR-REPO-COMMENTS-PAGEISAUTHORED](../drs/repository/comments-in-docs.md#rule-adr-repo-comments-pageisauthored)).
 `Format-Code` checks it through its `ps-help` step (`Get-HelpPageFinding`): a function file with no page, a page with no synopsis, a
 parameter with no subsection or a subsection for one that is gone, and an `outputs` type that disagrees with `[OutputType]` are findings.
 
@@ -131,14 +131,14 @@ Each tool runs over the repository, or over the paths given, and each is idempot
 - **`Format-Code`** formats each file with the formatter engine `languages.yml` names for its language and runs the language's imprint
   steps, and `Test-Formatting` fails when a run would change anything. Markdown is formatted at 140 columns; `Test-Markdownlint` lints it,
   and `Format-MarkdownTitle` brings the H1 and the headings into normal form. The imprint is stable under these formatters, so the two never
-  undo each other ([ADR-REPO-FILEMETA-IMPRINTEDPARTS](../adr/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts)).
+  undo each other ([ADR-REPO-FILEMETA-IMPRINTEDPARTS](../drs/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts)).
 - **`Format-FileMeta`** brings every in-scope file to its head policy, and `Test-FileMeta` fails any difference and any key no kind owns.
   Its scope is `Get-FileMetaScope`: the files a folder lists in git, or a file named in `-Path` as given, new or tracked, unless git ignores
-  it, less those `.gitattributes` exempts ([ADR-REPO-FILEMETA-KINDSCOPE](../adr/repository/file-meta.md#rule-adr-repo-filemeta-kindscope)).
+  it, less those `.gitattributes` exempts ([ADR-REPO-FILEMETA-KINDSCOPE](../drs/repository/file-meta.md#rule-adr-repo-filemeta-kindscope)).
 - **`Export-Comments`** moves every long comment into the file's comment page, and `Test-Comments` checks that each page section still names
   a code line.
 - **`Format-GeneratedFileHead`** is the one function every writer calls to compose a generated file's head; the imprint leaves those files
-  alone ([ADR-REPO-FILEMETA-COMPOSEDFILES](../adr/repository/file-meta.md#rule-adr-repo-filemeta-composedfiles)).
+  alone ([ADR-REPO-FILEMETA-COMPOSEDFILES](../drs/repository/file-meta.md#rule-adr-repo-filemeta-composedfiles)).
 
 ## The single-file tool: Sync-FileMeta
 
@@ -153,7 +153,7 @@ What it is not:
   the one question it needs.
 - **Not a gate.** `Test-FileMeta` and the other gates give the verdict; the file tool only writes.
 - **Not a second engine.** It calls the repository tools on one file, so there is one living version of the imprint
-  ([PDR-ONELIVE](../adr/principles/one-living-version.md)).
+  ([PDR-ONELIVE](../drs/principles/one-living-version.md)).
 
 ## Where a head is still read
 
@@ -171,8 +171,8 @@ None of them reads an imprinted fact to decide something it could derive.
 
 ## See also
 
-- [File meta](../adr/repository/file-meta.md): the carriers, the meta-kind registry, the head policy, place facts and edges.
-- [Code file meta](../adr/repository/code-file-meta.md): the meta head of a code file.
-- [Function help](../adr/repository/function-help.md): the help section of the comment page.
-- [Comments in docs](../adr/repository/comments-in-docs.md): long comments on their page, and the page as an authored file.
-- [Sensible defaults](../adr/automation/sensible-defaults.md): the one resolution order of a setting.
+- [File meta](../drs/repository/file-meta.md): the carriers, the meta-kind registry, the head policy, place facts and edges.
+- [Code file meta](../drs/repository/code-file-meta.md): the meta head of a code file.
+- [Function help](../drs/repository/function-help.md): the help section of the comment page.
+- [Comments in docs](../drs/repository/comments-in-docs.md): long comments on their page, and the page as an authored file.
+- [Sensible defaults](../drs/automation/sensible-defaults.md): the one resolution order of a setting.

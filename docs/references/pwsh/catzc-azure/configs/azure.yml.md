@@ -29,7 +29,7 @@ Above `org: zct`, written with `#`.
 
 ```text
 Vertical / organization shortcode — global, one per repo. The <org> component of every Azure
-resource name (see [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)). Placeholder — set your org's shortcode.
+resource name (see [ADR-AZ-NAMING](/docs/drs/azure/azure-naming-standard.md)). Placeholder — set your org's shortcode.
 (The resource-name component ORDER is NOT here — it is a durable tooling setting in code:
  Get-AzureNameOrder. Changing it requires re-editing every typed name in the configs.)
 ```
@@ -53,7 +53,7 @@ policy_enforcement — the enforcementMode of the policy assignments the templat
 Default (enforce) or DoNotEnforce (audit only). Optional; omitted keys take the default declared on
 AzureConfig, { production: Default, nonproduction: DoNotEnforce }. A stricter repository sets
 nonproduction: Default. Templates read it by config address (global.azure.policy_enforcement.<key>),
-[ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-policyenforcementmode).
+[ADR-AZ-DATAMOD-POLICYENFORCEMENTMODE](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-policyenforcementmode).
 policy_enforcement: { production: Default, nonproduction: Default }
 ```
 
@@ -63,7 +63,7 @@ Above `environments:`, written with `#`.
 
 ```text
 Customer DEFINITIONS live in configs/customer.yml (the catalogue), not here — see
-[ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md). A subscription below binds a customer by naming it in its `customer`
+[ADR-AZ-CUSTOMER](/docs/drs/azure/azure-customer-model.md). A subscription below binds a customer by naming it in its `customer`
 field, by EITHER its key (apex) OR its 2-char shortcode (ap); WHICH customers are enabled for deployment
 is the `have_customers` variant in variants.yml.
 ```
@@ -74,13 +74,13 @@ Above `environments:`, written with `#`.
 
 ```text
 Environments. The map KEY is the readable env name (the deploy handle, the config-file name, and
-the env-segment of relaxed resource names — see [ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)); it must be
+the env-segment of relaxed resource names — see [ADR-AZ-NAMING](/docs/drs/azure/azure-naming-standard.md)); it must be
 unique. `shortcode` is a 2-letter code, unique, used
 as the env-segment of the restricted (tight-budget) patterns only — `kv`/`storage`/`vm` — so a
 readable name never costs a tight name a byte; its 2nd char lets same-first-letter envs coexist
 (e.g. preprod `pp` vs prod `pr`). `region` is the Azure deployment location; `region_code`
 is its 3-letter name component (`weu`). `staging_for` marks an environment as another's staging slot,
-inactive until activated (preprod stages prod, [ADR-AZ-DATAMOD-STAGINGSLOT](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-stagingslot)).
+inactive until activated (preprod stages prod, [ADR-AZ-DATAMOD-STAGINGSLOT](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-stagingslot)).
 ```
 
 ## comment:8
@@ -99,7 +99,7 @@ Above `subscriptions:`, written with `#`.
 
 ```text
 Subscriptions. A template's configuration tree addresses subscriptions by convention
-([ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)): a config at the configuration/ ROOT (`<env>[-<slot>].yml`) is a
+([ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md)): a config at the configuration/ ROOT (`<env>[-<slot>].yml`) is a
 shared-platform deployment — its env must be served by exactly ONE non-customer subscription, which is
 the resolved target; a config under a `configuration/<customer>/` subfolder (the folder is always a
 customer KEY from customer.yml) resolves to that customer's one subscription serving the env. The
@@ -108,7 +108,7 @@ session's subscription (the service connection), verified against this declarati
 -SubscriptionIdAssertIs guard. A subscription MAY carry an optional `customer` (a reference into
 customer.yml, by key or 2-char shortcode) — the single source of "is this a customer subscription?";
 the customer renders into the resource names of anything deployed here (see
-[ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md)). A subscription's `environments` may freely mix standard envs
+[ADR-AZ-NAMING](/docs/drs/azure/azure-naming-standard.md)). A subscription's `environments` may freely mix standard envs
 (dev/test/preprod/prod) with AT MOST ONE per-subscription identity env (nsub xor psub) — the identity
 env addresses once-per-subscription templates (environment_kind: subscription).
 ```

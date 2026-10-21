@@ -10,5 +10,5 @@ Above `Describe 'Get-PythonTestCases' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 Get-PythonTestCases over fixture test files in $TestDrive: the top-level test functions of every test_*.py file,
 with the package pytest reports for them. Neutral fixture names
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

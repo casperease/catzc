@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2d62f8f62125"
+    with_body_sha: c73d84eacc8b
   edges:
     code: pwsh/Catzc.Base.Files/Get-RepoStatus.ps1
     cites:
@@ -10,7 +10,7 @@ catzc:
 ---
 #>
 
-# Rests on [ADR-REPO-FILEMETA-FILEISNODE](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-fileisnode).
+# Rests on [ADR-REPO-FILEMETA-FILEISNODE](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-fileisnode).
 Describe 'Get-RepoStatus' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:tracked = @('widget/a.md')

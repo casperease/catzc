@@ -9,6 +9,6 @@ Above `Describe 'Get-PipelineTrigger' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-PipelineTrigger: read a pipeline/workflow YAML's actual trigger path filters
-([FDR-CD-GLOBS-NAMEDGLOBSETS](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)) — the
+([FDR-CD-GLOBS-NAMEDGLOBSETS](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)) — the
 on-disk side the drift quality gate compares against the computed projection.
 ```

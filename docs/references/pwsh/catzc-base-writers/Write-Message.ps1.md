@@ -22,7 +22,7 @@ Write-Message '...' -Verbose:$emitVerbose;
 Output is suppressed during a Pester run by the chokepoint guard in Write-InformationColored (this function has none of its own), so it
 stays silent in tests without per-function plumbing.
 
-It rests on [ADR-AUTO-CONSOLE-NOBOXDRAWING](../../../adr/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing).
+It rests on [ADR-AUTO-CONSOLE-NOBOXDRAWING](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-noboxdrawing).
 
 ### parameter `Message`
 
@@ -46,7 +46,7 @@ side-grades to its base colour rather than drawing a gradient (a gradient rule i
 ### parameter `Warning`
 
 Render the line yellow on the information stream
-([ADR-AUTO-CONSOLE-SPARINGCOLOUR](../../../adr/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour) yellow = warning) —
+([ADR-AUTO-CONSOLE-SPARINGCOLOUR](../../../drs/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour) yellow = warning) —
 a non-fatal, attention-drawing status line, NOT the terminating Write-Warning stream. The importer sets $WarningPreference = 'Stop', so a
 real warning would halt (NoWriteErrorOrWarning rule, error-handling ADR); use throw for something that must stop and -Warning for something
 worth noticing that must not. Implies yellow, so it is mutually exclusive with -ForegroundColor, and does not apply on the verbose stream.
@@ -94,7 +94,7 @@ Above `if ($Warning) {`, written with `#`.
 
 ```text
 -Warning is sugar for yellow
-([ADR-AUTO-CONSOLE-SPARINGCOLOUR](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)) on the
+([ADR-AUTO-CONSOLE-SPARINGCOLOUR](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)) on the
 information stream, NOT the terminating Write-Warning stream.
 Parameter sets make it exclusive with -ForegroundColor, so at most one of these branches carries a colour.
 ```

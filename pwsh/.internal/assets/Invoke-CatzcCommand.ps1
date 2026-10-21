@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1ced0b6d5261"
+    with_body_sha: "7cec9329ec88"
   edges:
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
@@ -15,7 +15,7 @@ catzc:
 
 .DESCRIPTION
     The one way a gate or test runs in a background call
-    ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/adr/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)): one command, no script of its own in out/.
+    ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)): one command, no script of its own in out/.
     It dot-sources the importer once, then runs every command line it is given in order, from the repository root (the importer's folder),
     and gives the caller its location back at the end. A command that throws, or writes an error, is a
     failure: its verdict line names it with the message, and the next command still runs. So is a command whose result object reports

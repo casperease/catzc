@@ -10,7 +10,7 @@ Above `using System;`, written with `//`.
 ```text
 The Azure Pipelines schema registry, configs/vscode-pipeline-schema.yml — the authored source that
 New-VsCodePipelineSchema renders to the managed .vscode/azure-pipelines-schema.json, the schema the Azure Pipelines
-extension validates pipeline YAML against ([ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md)).
+extension validates pipeline YAML against ([ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md)).
 The file IS a JSON-Schema document ('$schema', camelCase keywords), data passed through to the extension as-is, so
 the type keeps it as an ordered passthrough map (`document`) rather than typing each keyword. Constructing an
 instance MAPS and VALIDATES the parsed YAML, collecting every violation into one throw. Registered in

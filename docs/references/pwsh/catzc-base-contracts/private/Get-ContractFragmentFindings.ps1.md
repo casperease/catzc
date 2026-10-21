@@ -11,7 +11,7 @@ Checks that a fragment asset's target exists and contains the fragment, and retu
 
 ### description
 
-The fragment check of [ADR-REPO-CONTRACT-CONTRACTASSET](../../../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset).
+The fragment check of [ADR-REPO-CONTRACT-CONTRACTASSET](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset).
 The target must first be present, with the exact case of its path (Get-ContractPresenceFindings); a missing target is the only finding,
 since there is nothing to compare. Then, by the target's format (Get-ContractDataFormat):
 

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: a81ae6107034
+#     with_body_sha: "24b65d02d696"
 # ---
 
 description:
@@ -80,9 +80,9 @@ content:
           - DDR-THINPLAT-THINPLATFORM
       - cell: docs/-/.
         by:
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/thin-platforms.md
-          - docs/adr/index.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/thin-platforms.md
+          - docs/drs/index.md
           - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
           - DDR-THINPLAT-PLATFORMASCLI
           - DDR-THINPLAT-SWAPPABLESUBSTRATE
@@ -104,9 +104,9 @@ content:
           - DDR-THINPLAT-THINPLATFORM
       - cell: docs/markdown
         by:
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/thin-platforms.md
-          - docs/adr/index.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/thin-platforms.md
+          - docs/drs/index.md
           - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
           - DDR-THINPLAT-PLATFORMASCLI
           - DDR-THINPLAT-SWAPPABLESUBSTRATE

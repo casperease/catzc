@@ -12,7 +12,7 @@ Returns the consumer's overlay root — `<RepositoryRoot>/.catzc/automation` —
 ### description
 
 A consumer of a built bundle works in its own working root and changes what the bundle does only through its overlay, the .catzc/ folder
-there ([ADR-AUTO-OVERLAY](../../../adr/automation/consumer-overlay.md)). Under .catzc/automation/ every file sits at the path of what it
+there ([ADR-AUTO-OVERLAY](../../../drs/automation/consumer-overlay.md)). Under .catzc/automation/ every file sits at the path of what it
 changes in the bundle's code root, so this root is where a config fragment, a function override, a local module, or a local test is looked
 for.
 

@@ -20,7 +20,7 @@ Two kinds of reference are read in every line:
 
 - a citation code, `ADR-<CODE>` or `ADR-<CODE>#<n>`, resolved to its domain through the registry (an External code, or a domain's code in a
   wildcard such as `ADR-<CODE>-*`); a code the registry does not know is left to Test-Links;
-- a markdown link whose target is a file under `docs/adr/<domain>/` (Resolve-AdrLinkTarget).
+- a markdown link whose target is a file under `docs/drs/<domain>/` (Resolve-AdrLinkTarget).
 
 Each line reports the domain it cites once, naming the first reference to it.
 
@@ -32,7 +32,7 @@ The ADR registry (Get-Config -Config adrs).
 
 ### parameter `Index`
 
-The docs/adr/ file index (Get-AdrFileIndex).
+The docs/drs/ file index (Get-AdrFileIndex).
 
 ### outputs
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c005b50e15d9
+    with_body_sha: f9e3ca14b263
   edges:
     cites:
       - ADR-AUTO-IDIOM-LANGUAGEIDIOM
@@ -14,7 +14,7 @@ using System;
 namespace Catzc.Base.Languages;
 
 // One misnamed folder or file and the idiomatic name its language gives it
-// ([ADR-AUTO-IDIOM-LANGUAGEIDIOM](/docs/adr/automation/idiomatic-names.md#rule-adr-auto-idiom-languageidiom)).
+// ([ADR-AUTO-IDIOM-LANGUAGEIDIOM](/docs/drs/automation/idiomatic-names.md#rule-adr-auto-idiom-languageidiom)).
 [Catzc.Base.Objects.ConsoleDisplay("path", "target")]
 public sealed class PathRename
 {

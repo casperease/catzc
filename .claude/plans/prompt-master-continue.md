@@ -7,8 +7,8 @@ prompt:
 
 # Prompt: execute the next chunk of the master plan
 
-You work in `C:\projects\catzc`, one of several sessions on this repository. Read `.claude/CLAUDE.md`, then `docs/adr/index.md` (cite rules
-by code, never sweep the corpus), then `docs/adr/repository/ai-agent-contract.md`, then `.claude/plans/plan-master.md`: its Process section
+You work in `C:\projects\catzc`, one of several sessions on this repository. Read `.claude/CLAUDE.md`, then `docs/drs/index.md` (cite rules
+by code, never sweep the corpus), then `docs/drs/repository/ai-agent-contract.md`, then `.claude/plans/plan-master.md`: its Process section
 is the method, its Chunks list is the order. Take the first chunk whose plan has an open step an agent can take without the user; the
 diagram track is not yours. Read that chunk's plan in full, head first, before any edit, and the ADRs that govern the files it touches.
 

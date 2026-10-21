@@ -50,7 +50,7 @@ reports every non-conventional module subfolder as an issue.
 
 ## See also
 
-- [Module aspects](../../adr/design/module-aspects.md) — the decision this article explains.
+- [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains.
 - The other lenses on the same layout: [meta](every-file-in-exactly-one-aspect.md), [architecture](one-folder-two-independent-readers.md),
   [implementation](manifest-and-aspects-from-one-folder.md) and [governance](partition-integrity-runs-only-in-unit-tests.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

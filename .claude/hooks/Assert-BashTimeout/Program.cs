@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: aa611e971f6e
+    with_body_sha: "2611388121c0"
   edges:
     docs: "[Program.cs.md](docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md)"
     cites:
@@ -38,7 +38,7 @@ public static class AssertBashTimeout
             string payload = Console.In.ReadToEnd();
 
             // The git topic commands change the repository, so they run only at the user's hand
-            // ([FDR-GIT-USERRUNSGIT](/docs/adr/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)).
+            // ([FDR-GIT-USERRUNSGIT](/docs/drs/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)).
             string userCommand = UserCommandIn(payload, repositoryRoot);
             if (userCommand != null)
             {

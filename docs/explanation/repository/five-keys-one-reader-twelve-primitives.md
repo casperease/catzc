@@ -67,7 +67,7 @@ the accessor to the `Test-` and `Assert-` guards that answer a question or stop 
 
 ## See also
 
-- [Repo-wide variants](../../adr/repository/repo-variants.md) — the decision this article explains.
+- [Repo-wide variants](../../drs/repository/repo-variants.md) — the decision this article explains.
 - The other lenses on the same diagram: [meta](one-home-one-read-path-one-vocabulary.md),
   [architecture](a-base-module-between-config-and-its-callers.md), [operations](an-edit-lands-at-the-next-import.md) and
   [governance](values-and-edges-gated-reads-reviewed.md).

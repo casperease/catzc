@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0181376d3a54"
+    with_body_sha: "69bd56e8a9eb"
   edges:
     docs: "[Test-Links.Repository.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-Links.Repository.Tests.ps1.md)"
     cites:
@@ -45,6 +45,6 @@ Describe 'Repository links (every tracked file)' -Tag 'L2', 'integrity', 'source
     It 'the VS Code registries make code links clickable' -Tag 'ADR-REPO-LINK-CODELINKS' {
         (Get-Config -Config vscode-extensions).recommendations | Should -Contain 'DanLevett.regex-robin'
         $rules = @((Get-Config -Config vscode-settings).settings['regexrobin.rules'])
-        @($rules | Where-Object { $_.regex -like '*docs/adr/*' }).Count | Should -Be 1
+        @($rules | Where-Object { $_.regex -like '*docs/drs/*' }).Count | Should -Be 1
     }
 }

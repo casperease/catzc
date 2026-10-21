@@ -9,10 +9,10 @@ Above `{}`, written with `#`.
 
 ```text
 inspiration.yml — the inspirations catzc reads for ideas, never as a reference implementation
-([ADR-REPO-INSPIRE](/docs/adr/repository/inspiration.md)). Get-Inspiration lists them and reports whether each is
+([ADR-REPO-INSPIRE](/docs/drs/repository/inspiration.md)). Get-Inspiration lists them and reports whether each is
 available on this machine. Validated on load by InspirationConfig, which declares the sensible default once: an
 empty file, or an omitted 'inspirations' key, is the one eac entry shown below
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)); set the key only to change it.
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)); set the key only to change it.
 
   inspirations:
     - id: eac                                   # kebab-case
@@ -21,5 +21,5 @@ empty file, or an omitted 'inspirations' key, is the one eac entry shown below
       paths: [docs, specs, contracts, go]       # optional: the folders worth reading
 
 {workspace} is the parent folder of the repository root, where sibling checkouts live
-([ADR-AUTO-PATH-WORKSPACEANCHOR](/docs/adr/automation/path-representation.md#rule-adr-auto-path-workspaceanchor)).
+([ADR-AUTO-PATH-WORKSPACEANCHOR](/docs/drs/automation/path-representation.md#rule-adr-auto-path-workspaceanchor)).
 ```

@@ -9,7 +9,7 @@ Above `Context 'integrity (shipped tools.yml)' -Tag 'integrity' {`, written with
 
 ```text
 Reads the shipped tools.yml — guards real repository content
-([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
+([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)).
 ```
 
 ## comment:2
@@ -18,7 +18,7 @@ Above `Context 'logic (inline configs)' -Tag 'logic' {`, written with `#`.
 
 ```text
 Constructor logic on an inline (synthetic) config — independent of any shipped asset
-([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). The rule keys on the literal
+([ADR-AUTO-TEST-LOGICANDINTEGRITY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-logicandintegrity)). The rule keys on the literal
 `python` tool (the pinned interpreter); every other tool is a fixture token
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

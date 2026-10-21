@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "63184ad0b763"
+    with_body_sha: e85047352cde
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/types/BicepSlot.Tests.ps1
     docs: "[BicepSlot.cs.md](docs/references/pwsh/catzc-azure-templates/types/BicepSlot.cs.md)"
@@ -35,7 +35,7 @@ public sealed class BicepSlot
     public string file { get; }
 
     // The config's source format, from its extension: yml or bicepparam
-    // ([ADR-AZ-DATAMOD-BICEPPARAMSLOT](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-bicepparamslot)).
+    // ([ADR-AZ-DATAMOD-BICEPPARAMSLOT](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-bicepparamslot)).
     public string format { get; }
 
     public const string YmlFormat = "yml";

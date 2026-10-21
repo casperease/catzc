@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8e33465debb9"
+#     with_body_sha: "81d5055f9b6a"
 # ---
 
 description:
@@ -124,13 +124,13 @@ content:
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - cell: docs/-/.
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/dry-run.md
-          - docs/adr/automation/pwsh/dora-explains.md
-          - docs/adr/automation/pwsh/script-scope-caching.md
-          - docs/adr/configuration/dora-explains.md
-          - docs/adr/configuration/module-config-loading.md
-          - docs/adr/index.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/dry-run.md
+          - docs/drs/automation/pwsh/dora-explains.md
+          - docs/drs/automation/pwsh/script-scope-caching.md
+          - docs/drs/configuration/dora-explains.md
+          - docs/drs/configuration/module-config-loading.md
+          - docs/drs/index.md
           - docs/references/pwsh/.assets/bicep-deploy-one-immutable-context/diagram.drawio.yml
           - docs/references/pwsh/.assets/get-config-merge-seal-type/diagram.drawio.yml
           - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml

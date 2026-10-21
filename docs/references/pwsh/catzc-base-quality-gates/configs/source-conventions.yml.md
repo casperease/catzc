@@ -14,7 +14,7 @@ The source checks Test-SourceConventions runs beside its naming conventions. Eac
   exempt  repository-relative glob -> why its files are left out; default none
 Every key is optional: an omitted key takes the sensible default declared once on
 Catzc.Base.QualityGates.SourceConventionsConfig
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)).
 ```
 
 ## comment:2
@@ -23,12 +23,12 @@ Above `engine_set:`, written with `#`.
 
 ```text
 The engine set is declared once, in the ExecutionEngines model, and never restated
-([ADR-AUTO-ENGINE-THREEENGINES](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine-threeengines)). The engine names and their
+([ADR-AUTO-ENGINE-THREEENGINES](/docs/drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)). The engine names and their
 count are read from the model, so the phrases below are .NET regular expressions with placeholders:
   count_phrases  {count} is a number word or digits; a match whose number is not the model's count is a finding
   name_phrases   {name} is any engine name; one phrase's matches on one line that name two or more engines, but not
                  all of them, are a finding
-The term "POSIX engines" ([ADR-AUTO-ENGINE-IMPORTERENTRY](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine-importerentry)) is
+The term "POSIX engines" ([ADR-AUTO-ENGINE-IMPORTERENTRY](/docs/drs/automation/execution-engines.md#rule-adr-auto-engine-importerentry)) is
 derived from the model and carries neither a count nor an engine name, so no phrase matches it.
 Defaults: no phrases.
 ```
@@ -39,5 +39,5 @@ Above `neutral_codes:`, written with `#`.
 
 ```text
 A logic (L0) test's fixture data uses neutral ADR codes, never one the ADR index declares
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

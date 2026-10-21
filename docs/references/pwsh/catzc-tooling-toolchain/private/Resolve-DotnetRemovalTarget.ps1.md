@@ -14,7 +14,7 @@ The .NET folder Remove-Dotnet evicts by default: the off-config install, never t
 The folder of the `dotnet` on PATH, unless that is the managed user-space install (Test-ExpectedPackageManager -Path) — in a catzc session
 it always is, because the importer puts the managed install first — in which case the machine-wide C:\Program Files\dotnet, the folder a
 system installer places. Remove-Dotnet's -InstallDir default
-([ADR-PWSH-PARAM-RESOLUTIONORDER](../../../../adr/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
+([ADR-PWSH-PARAM-RESOLUTIONORDER](../../../../drs/automation/pwsh/parameter-design.md#rule-adr-pwsh-param-resolutionorder)).
 
 ### outputs
 

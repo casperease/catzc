@@ -12,7 +12,7 @@ Splits a quality check's files into those its result cache already knows are cle
 ### description
 
 The read half of a result cache
-([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../adr/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)): each
+([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)): each
 file inside the repository gets the key '`<SHA-256 of its bytes>:<stamp>`'; a file whose cache entry equals its key is cached, every other
 file is pending. A file outside the repository, or one that does not exist, is always pending and never keyed (it is never recorded).
 Update-ResultCache is the write half.

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "664bbb3f2e23"
+    with_body_sha: b6950e927d81
   edges:
     docs: "[Test-GlobSetProtection.Tests.ps1.md](docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetProtection.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Globs/Test-GlobSetProtection.ps1
@@ -105,7 +105,7 @@ Describe 'Test-GlobSetProtection / Protect-GlobSet' -Tag 'L0', 'logic' {
 
         It 'promotes the queried (pre-run) identity, not a later -Hash' {
             Test-GlobSetProtection -Test 'suite' -Name 'Some.Module' -Hash ('c' * 64) | Out-Null
-            # pending wins ([ADR-REPO-PROTGLOB-PROTECTIONKEY](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob-protectionkey))
+            # pending wins ([ADR-REPO-PROTGLOB-PROTECTIONKEY](/docs/drs/repository/protected-globs.md#rule-adr-repo-protglob-protectionkey))
             Protect-GlobSet -Test 'suite' -Name 'Some.Module' -Hash ('d' * 64)
             Test-GlobSetProtection -Test 'suite' -Name 'Some.Module' -Hash ('c' * 64) | Should -BeTrue
         }

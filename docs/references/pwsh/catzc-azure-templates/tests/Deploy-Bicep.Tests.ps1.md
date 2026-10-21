@@ -11,7 +11,7 @@ Above `[System.IO.Directory]::CreateDirectory($script:tempArtifacts) | Out-Null`
 Static fixtures + boundary mocks set up ONCE (not per test). The only per-test state is the hook
 marker files (pre-/post-called.json), cleared in BeforeEach; main.json/parameters/PrePost.psm1 never
 change, so rebuilding them every test was pure filesystem-cmdlet tax (~5 cmdlet calls × ~20ms —
-[ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)). [System.IO] writes them in
+[ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)). [System.IO] writes them in
 ~0.1ms.
 ```
 
@@ -54,7 +54,7 @@ Above `Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter {
 fixture (its configuration/<customer>/ folders) against the fixture customer.yml, not the shipped one.
 Without it this file is not hermetic — it passed only when Build-Bicep.SampleCustomer happened to
 share a worker and pre-populate the template-descriptor cache
-([ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/adr/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)/[ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)).
+([ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)/[ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
 ```
 
 ## comment:6
@@ -64,7 +64,7 @@ Above `Get-Config -Config azure | Out-Null`, written with `#`.
 ```text
 Warm the fixture config + template-discovery caches ONCE, under the mocks above, so the cold derive
 is paid here and not by whichever test happens to run first
-([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)).
+([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)).
 ```
 
 ## comment:7

@@ -33,7 +33,7 @@ Above `$pythonVersion = (Get-ToolConfig -Tool 'python').version`, written with `
 
 ```text
 Land the package in the toolchain's importable Python — uv's managed CPython — which needs three flags
-together ([ADR-AUTO-UVPY-TWOINSTALLSHAPES](/docs/adr/automation/uv-python-handler.md#rule-adr-auto-uvpy-twoinstallshapes), "installs INTO the
+together ([ADR-AUTO-UVPY-TWOINSTALLSHAPES](/docs/drs/automation/uv-python-handler.md#rule-adr-auto-uvpy-twoinstallshapes), "installs INTO the
 uv-managed Python so import works"):
   --python <pin>          pin WHICH interpreter, so it can never drift to a stray system Python
   --system                permit a non-virtual install (uv otherwise wants a venv)

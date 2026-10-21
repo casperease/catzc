@@ -21,13 +21,13 @@ bare type accelerator cannot give — and verifies the IDE project matches the r
 
 dotnet runs through Invoke-Executable rather than Invoke-Dotnet: that wrapper (with its locked-SDK assertion) lives in the Tooling layer,
 which this Base module must not depend on. So there is no locked-version check here; dotnet must be on PATH. See
-[ADR-BCL-TYPES](../../../adr/automation/BCL/native-csharp-types.md).
+[ADR-BCL-TYPES](../../../drs/automation/BCL/native-csharp-types.md).
 
 The project builds the source tree's `types/*.cs`, so it stops with a named error in build mode (Assert-SourceTree,
-[DDR-RUNMODE](../../../adr/design/run-modes.md)).
+[DDR-RUNMODE](../../../drs/design/run-modes.md)).
 
 It builds the one configuration of `bcl.yml`, Debug by default
-([ADR-BCL-TYPES-DEBUGANYCPU](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-debuganycpu)).
+([ADR-BCL-TYPES-DEBUGANYCPU](../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-debuganycpu)).
 
 ### parameter `PassThru`
 

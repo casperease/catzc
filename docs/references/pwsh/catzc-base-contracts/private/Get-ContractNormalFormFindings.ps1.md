@@ -12,7 +12,7 @@ Checks that every name a command contract states is in the repository normal for
 ### description
 
 A command contract names its command, module, parameters, parameter sets and types in the repository normal form, never in one language's
-idiom ([ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](../../../../adr/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage)),
+idiom ([ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](../../../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage)),
 so each language's checker renders its own name from it. Every name of the contract that is not in the normal form's case is one finding.
 
 ### parameter `Contract`

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d8a8307216b8
+#     with_body_sha: "22a9731ab025"
 #   edges:
 #     docs: "[adrs.yml.md](docs/references/pwsh/catzc-base-docs/configs/adrs.yml.md)"
 #     cites:
@@ -105,13 +105,13 @@
 #       - ADR-PWSH-VENDOR
 #       - ADR-PWSH-VERBS
 #       - ADR-PWSH-XPLAT
-#       - ADR-REPO-ADRCODE
 #       - ADR-REPO-AGENTS
 #       - ADR-REPO-AI
 #       - ADR-REPO-CMDCONTRACT
 #       - ADR-REPO-CODEMETA
 #       - ADR-REPO-COMMENTS
 #       - ADR-REPO-CONTRACT
+#       - ADR-REPO-DRSCODE
 #       - ADR-REPO-EXAMPLE
 #       - ADR-REPO-FILEMETA
 #       - ADR-REPO-FOLDERS
@@ -250,7 +250,7 @@ domains:
 
   process:
     kind: WDR
-    # our own continuously-improved way of working ([WDR-KAIZEN](/docs/adr/process/inspect-and-adapt.md)); Design/Exploration + ASM
+    # our own continuously-improved way of working ([WDR-KAIZEN](/docs/drs/process/inspect-and-adapt.md)); Design/Exploration + ASM
     role: optimisable
     description: >-
       How the team works: the Agile Manifesto's values and principles, lean flow as the Toyota Production System maps to software, and one
@@ -538,7 +538,7 @@ domains:
       domain-language-separation: { external: ADR-REPO-LANG }
       controlled-vocabulary: { external: ADR-REPO-VOCAB, concern: [quality-control] }
       markdown-links: { external: ADR-REPO-LINK, concern: [quality-control] }
-      adr-code-language: { external: ADR-REPO-ADRCODE, concern: [quality-control] }
+      drs-code-language: { external: ADR-REPO-DRSCODE, concern: [quality-control] }
       comments-in-docs: { external: ADR-REPO-COMMENTS, concern: [quality-control] }
       file-meta: { external: ADR-REPO-FILEMETA, concern: [quality-control] }
       code-file-meta: { external: ADR-REPO-CODEMETA, concern: [quality-control] }

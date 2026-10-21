@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b01e07b25e1f
+    with_body_sha: "31830ea773d1"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
     docs: "[AdrsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md)"
@@ -12,9 +12,9 @@ catzc:
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
       - ADR-CONF-LOADING-CSHARPCONFIGTYPE
-      - ADR-REPO-ADRCODE-PATHOFSEGMENTS
-      - ADR-REPO-ADRCODE-DOMAINSEGMENT
       - ADR-REPO-AI
+      - ADR-REPO-DRSCODE-PATHOFSEGMENTS
+      - ADR-REPO-DRSCODE-DOMAINSEGMENT
       - DDR-TRACK-VALUECHAINSTACK
       - DDR-TRACK-VALUECHAINCONCERN
       - FDR-CD
@@ -42,7 +42,7 @@ public sealed class AdrsConfig
     public const int DefaultSharedRuleSegments = 3;
     public const int DefaultOwnedRuleSegments = 2;
 
-    // The rows of the value-chain stack, top to bottom ([DDR-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-ddr-track-valuechainstack)).
+    // The rows of the value-chain stack, top to bottom ([DDR-TRACK-VALUECHAINSTACK](/docs/drs/design/tracks.md#rule-ddr-track-valuechainstack)).
     public static readonly IReadOnlyList<string> Stacks = Array.AsReadOnly(new[] { "PRIN", "DSGN", "AUTO", "PIPE", "CLOUD" });
 
     public static readonly IReadOnlyList<string> Concerns = Array.AsReadOnly(new[] { "automation", "build", "quality-control", "release", "deploy", "access" });
@@ -64,7 +64,7 @@ public sealed class AdrsConfig
     private static readonly string[] AllowedKeys = { "root", "kinds", "domains" };
 
     // The repository-relative folder that holds every decision record when adrs.yml names none.
-    public const string DefaultRoot = "docs/adr";
+    public const string DefaultRoot = "docs/drs";
 
     // The repository-relative folder that holds every decision record, '/'-separated, with no trailing '/'.
     public string Root { get; }
@@ -72,11 +72,11 @@ public sealed class AdrsConfig
     private static readonly string[] AllowedDomainKeys = { "kind", "code", "role", "description", "depends_on", "stack", "concern", "folder", "rulesets" };
     private static readonly Regex FolderRe = new Regex("^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$", RegexOptions.Compiled);
 
-    // The folder under docs/adr that holds a domain's ADRs when its entry names none: the domain's own name.
+    // The folder under docs/drs that holds a domain's ADRs when its entry names none: the domain's own name.
     public static string DefaultFolder(string domain) => domain;
     private static readonly string[] AllowedRuleSetKeys = { "external", "code", "concern", "layer" };
 
-    // The five layers of the automation, and the one an ADR belongs to when its entry names none ([ADR-AUTO-LAYERS-REALISENEVERREDEFINE](/docs/adr/automation/layers.md#rule-adr-auto-layers-realiseneverredefine)).
+    // The five layers of the automation, and the one an ADR belongs to when its entry names none ([ADR-AUTO-LAYERS-REALISENEVERREDEFINE](/docs/drs/automation/layers.md#rule-adr-auto-layers-realiseneverredefine)).
     private static readonly string[] LayerNames = { "automation", "contract", "language", "engine", "importer" };
     public static readonly IReadOnlyList<string> Layers = LayerNames;
     public const string DefaultLayer = "automation";

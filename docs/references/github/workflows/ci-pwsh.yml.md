@@ -9,7 +9,7 @@ Above `on:`, written with `#`.
 
 ```text
 Trigger = the 'pwsh' globset projected into GitHub-native path filters (Get-GlobSetTrigger,
-[FDR-CD-GLOBS](/docs/adr/flow/durable-sha-globs.md)): the track is its own root folder (pwsh/**), so this fires exactly — and
+[FDR-CD-GLOBS](/docs/drs/flow/durable-sha-globs.md)): the track is its own root folder (pwsh/**), so this fires exactly — and
 only starts at
 all — on a real change to the module system. No committed marker to go stale across a squash merge.
 ```
@@ -39,7 +39,7 @@ Above `bundle-hash:`, written with `#`.
 
 ```text
 The same commit builds the same bundle on every OS
-([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](/docs/adr/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)). A Windows runner checks
+([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](/docs/drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)). A Windows runner checks
 out with core.autocrlf=true and the others with LF, so equal content hashes prove that the build ships the
 bytes git stores, not the bytes a checkout wrote.
 ```

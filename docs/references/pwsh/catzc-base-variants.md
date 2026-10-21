@@ -2,11 +2,11 @@
 
 The repo-wide variants module — the single home for settings that are **fixed for the importer session** and read the same everywhere. A
 variant is a repo-wide switch, backed by `configs/variants.yml`, loaded once per session (re-run the importer to pick up an edit — the
-`Get-Config` cache boundary, see [caching](../../adr/automation/caching.md)). The file is a growing dictionary: the Azure resource-name
+`Get-Config` cache boundary, see [caching](../../drs/automation/caching.md)). The file is a growing dictionary: the Azure resource-name
 component order (`ado_naming`), the enabled-customer set (`have_customers`), how changes reach main (`git_workspace`), which files carry a
 head (`file_heads`), and the per-track aspect classifications (`aspects`). Nothing reads the raw file — callers use the module's
 `Test-`/`Assert-`/`Get-` primitives, so a repo-wide guard is a one-liner anywhere above the config layer (see
-[repo-variants](../../adr/repository/repo-variants.md)). It is a member of the `Base` group and depends on
+[repo-variants](../../drs/repository/repo-variants.md)). It is a member of the `Base` group and depends on
 [Catzc.Base.Config](catzc-base-config.md) (to read the config), [Catzc.Base.Objects](catzc-base-objects.md) (the base of its config type),
 and [Catzc.Base.Asserts](catzc-base-asserts.md).
 
@@ -25,7 +25,7 @@ and [Catzc.Base.Asserts](catzc-base-asserts.md).
 Which Azure resource-name component order the repo uses — `standard` (env/slot first) or `classic` (type first, CAF-style). `Get-AdoNaming`
 returns the value that `Get-BicepResourceName` passes to the name assembler (a key of `Get-AzureNameOrderSet`); `Test-AdoNaming` and
 `Assert-AdoNaming` guard a code path that only holds under one convention. Changing this variant re-spells every generated resource name, so
-it is a deliberate, one-time repo decision, not a runtime toggle (see [naming-standard](../../adr/azure/azure-naming-standard.md)).
+it is a deliberate, one-time repo decision, not a runtime toggle (see [naming-standard](../../drs/azure/azure-naming-standard.md)).
 
 ### responsibility:2 — Enabled-customer set variant
 
@@ -45,7 +45,7 @@ is the one named; the canonical consumer is the stop condition for automated com
 ### responsibility:4 — Aspect classification variant
 
 Each track's ordered, first-match classification of a unit's files into named aspects (see
-[module-aspects](../../adr/design/module-aspects.md)), declared in `variants.yml` or built in: the declared conventions keyed by track, as
+[module-aspects](../../drs/design/module-aspects.md)), declared in `variants.yml` or built in: the declared conventions keyed by track, as
 typed records of a name and its glob patterns, the last the `**` catch-all remainder, and whether a track has an entry at all. The code
 track's convention is derived from the layout instead, by [Catzc.Base.Modules](catzc-base-modules.md), which reads this variant through the
 module and never the file.
@@ -55,7 +55,7 @@ module and never the file.
 Whether an authored code or config file carries the navigation head — `minimal` (the default: its body hash and its edges to the rules it
 cites, its comment page and its test) or `none` (no authored file carries a head). `Get-FileHeadVariant` returns the mode of
 `file_heads.code` and `Test-FileHeadVariant -Minimal|-None` answers whether it is the one named; a generated file's head is outside the
-variant (see [repo-variants](../../adr/repository/repo-variants.md)).
+variant (see [repo-variants](../../drs/repository/repo-variants.md)).
 
 ## What the module does
 

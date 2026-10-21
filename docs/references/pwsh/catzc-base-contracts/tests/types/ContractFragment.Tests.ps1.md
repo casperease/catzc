@@ -9,6 +9,6 @@ Above `Describe 'ContractFragment' -Tag 'L0', 'logic',...`, written with `#`.
 
 ```text
 ContractFragment checks that a real file contains a fragment
-([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): JSON and YAML by key subset, any
+([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): JSON and YAML by key subset, any
 other text by its non-blank lines in order. Each rule has a passing and a failing target.
 ```

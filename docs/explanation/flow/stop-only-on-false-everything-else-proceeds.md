@@ -44,7 +44,7 @@ positive confirmation that there is nothing to process, and every other outcome,
 
 ## See also
 
-- [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains.
+- [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
 - The other lenses on the same check: [meta](every-doubt-fails-open-to-proceed.md),
   [architecture](globs-asks-loader-for-context-and-git-for-diff.md), [implementation](range-per-context-then-diff-and-match.md) and
   [governance](tests-pin-the-throw-and-fail-open-cd-calls-it.md).

@@ -66,8 +66,8 @@ requires zero issues, so a drifted filter fails `Test-Automation` locally and in
 
 ## See also
 
-- [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains, with
-  [test automation](../../adr/automation/test-automation.md).
+- [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains, with
+  [test automation](../../drs/automation/test-automation.md).
 - The other lenses on the same projection: [meta](one-program-two-vendor-dialects.md),
   [architecture](globs-projects-and-three-consumers-read.md), [implementation](apex-thirteen-rules-seven-includes-six-excludes.md) and
   [operations](print-projection-then-drift-names-the-filter.md).

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: ea9146d37d18
+#     with_body_sha: "54bfca40e025"
 # ---
 
 description:
@@ -142,11 +142,11 @@ content:
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: docs/-/.
         by:
-          - docs/adr/azure/azure-customer-model.md
-          - docs/adr/azure/azure-data-model.md
-          - docs/adr/azure/dora-explains.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/azure/azure-customer-model.md
+          - docs/drs/azure/azure-data-model.md
+          - docs/drs/azure/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/references/ado/pipelines/cd-shared.yaml.md
           - docs/references/ado/pipelines/extends/cd-customer.yaml.md
           - docs/references/infrastructure/templates/discovery/options.yml.md

@@ -61,8 +61,8 @@ the order shown. The way out has no chain at all: no function returns the last v
 
 ## See also
 
-- [The audited server git remote](../../adr/design/server-remote-integration.md) — the decision this article explains.
-- [Repo variants](../../adr/repository/repo-variants.md) — the `git_workspace` variant.
+- [The audited server git remote](../../drs/design/server-remote-integration.md) — the decision this article explains.
+- [Repo variants](../../drs/repository/repo-variants.md) — the `git_workspace` variant.
 - The other lenses on the same decision: [meta](one-door-in-one-stable-point-out.md), [architecture](clients-bridge-to-one-server.md),
   [operations](guard-and-policies-by-command.md) and [governance](ingress-gated-the-rest-by-review.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

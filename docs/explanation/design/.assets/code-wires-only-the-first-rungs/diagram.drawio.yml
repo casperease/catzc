@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: dd997aaaace4
+#     with_body_sha: eb1ae97c8019
 # ---
 
 description:
@@ -155,11 +155,11 @@ content:
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: docs/-/.
         by:
-          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
-          - docs/adr/flow/commit-lifecycle.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
@@ -200,9 +200,9 @@ content:
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: docs/markdown
         by:
-          - docs/adr/flow/commit-lifecycle.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
@@ -212,8 +212,8 @@ content:
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: docs/yaml
         by:
-          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
       - cell: pwsh/bcl
         by:

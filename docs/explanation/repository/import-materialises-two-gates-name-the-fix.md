@@ -61,7 +61,7 @@ generator drift check is `Test-GeneratedFiles`.
 
 ## See also
 
-- [Generated root configs](../../adr/repository/generated-root-configs.md) — the decision this article explains.
+- [Generated root configs](../../drs/repository/generated-root-configs.md) — the decision this article explains.
 - The other lenses on the same mechanism: [meta](one-source-one-writer-one-boolean.md),
   [architecture](one-registry-one-writer-two-primitives.md), [implementation](opted-in-then-link-copy-or-render.md) and
   [governance](three-gates-check-registry-drift-membership.md).

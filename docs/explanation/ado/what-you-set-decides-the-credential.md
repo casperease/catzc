@@ -57,7 +57,7 @@ The ADR's step-template sample shows only the `PowerShell@2` task, while `invoke
 
 ## See also
 
-- [Dual authentication](../../adr/ado/dual-authentication.md) — the decision this article explains.
+- [Dual authentication](../../drs/ado/dual-authentication.md) — the decision this article explains.
 - The other lenses on the same precedence: [meta](configured-credential-proves-its-org.md),
   [architecture](one-header-function-owns-precedence.md), [implementation](three-guarded-early-returns.md) and
   [governance](which-auth-rungs-have-a-gate.md).

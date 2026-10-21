@@ -21,7 +21,7 @@ The config's customer is its configuration subfolder ('' for a configuration-roo
 
 Empty result means the config conforms.
 
-It rests on [ADR-AZ-CUSTOMER](../../../../adr/azure/azure-customer-model.md).
+It rests on [ADR-AZ-CUSTOMER](../../../../drs/azure/azure-customer-model.md).
 
 ### parameter `Customer`
 

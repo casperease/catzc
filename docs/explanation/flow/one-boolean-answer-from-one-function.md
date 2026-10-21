@@ -42,8 +42,8 @@ answers true or false, and an analyzer rule makes sure nobody reads the signal a
 
 ## See also
 
-- [Pipeline detection](../../adr/flow/pipeline-detection.md) — the decision this article explains;
-  [Devbox and pipeline parity](../../adr/automation/devbox-pipeline-parity.md) — the seam it keeps.
+- [Pipeline detection](../../drs/flow/pipeline-detection.md) — the decision this article explains;
+  [Devbox and pipeline parity](../../drs/automation/devbox-pipeline-parity.md) — the seam it keeps.
 - The other lenses on the same detector: [architecture](the-loader-holds-the-one-detector.md),
   [implementation](two-variables-read-in-one-place.md), [operations](the-analyzer-names-the-raw-read.md) and
   [governance](one-gate-checks-the-raw-read-rule.md).

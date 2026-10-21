@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e51441d50a61
+    with_body_sha: b0add85b199f
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplates.Tests.ps1
     docs: "[Get-BicepTemplates.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md)"
@@ -92,7 +92,7 @@ function Get-BicepTemplates {
                 'configuration'
             }
             # One config per coordinate
-            # ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)): never a yml and a bicepparam of one name.
+            # ([ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-onefileonesubscription)): never a yml and a bicepparam of one name.
             foreach ($pair in @($files | Group-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) } | Where-Object Count -GT 1)) {
                 throw "Template '$name' has both $relativeFolder/$($pair.Name).yml and $relativeFolder/$($pair.Name).bicepparam for one coordinate; keep one."
             }

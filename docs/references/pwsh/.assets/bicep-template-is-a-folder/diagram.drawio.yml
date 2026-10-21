@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "72c5242550ac"
+#     with_body_sha: c4dd4776416f
 # ---
 
 description:
@@ -131,19 +131,19 @@ content:
           - ADR-CONF-ADDRESSING
       - cell: docs/-/.
         by:
-          - docs/adr/automation/BCL/.assets/bcl-language/diagram.drawio.yml
-          - docs/adr/automation/BCL/dora-explains.md
-          - docs/adr/automation/BCL/native-csharp-types.md
-          - docs/adr/azure/.assets/azure-name-assembly/diagram.drawio.verify.md
-          - docs/adr/azure/.assets/azure-name-assembly/diagram.drawio.yml
-          - docs/adr/azure/azure-customer-model.md
-          - docs/adr/azure/azure-data-model.md
-          - docs/adr/azure/azure-naming-standard.md
-          - docs/adr/azure/dora-explains.md
-          - docs/adr/configuration/config-value-addressing.md
-          - docs/adr/configuration/dora-explains.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/automation/BCL/.assets/bcl-language/diagram.drawio.yml
+          - docs/drs/automation/BCL/dora-explains.md
+          - docs/drs/automation/BCL/native-csharp-types.md
+          - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.verify.md
+          - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.yml
+          - docs/drs/azure/azure-customer-model.md
+          - docs/drs/azure/azure-data-model.md
+          - docs/drs/azure/azure-naming-standard.md
+          - docs/drs/azure/dora-explains.md
+          - docs/drs/configuration/config-value-addressing.md
+          - docs/drs/configuration/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/how-to/getting-started/BCL/add-a-dotnet-type.md
           - docs/how-to/pwsh/manual-test-plan/azure.md
           - docs/references/ado/pipelines/cd-shared.yaml.md

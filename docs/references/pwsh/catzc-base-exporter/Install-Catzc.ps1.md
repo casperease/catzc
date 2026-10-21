@@ -12,7 +12,7 @@ Installs a Catzc build — two-part beside a working root, or into the current u
 ### description
 
 Places a build (Build-Modules' `Catzc/<version>/` folder) where it is consumed
-([ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle-twoartifactinstall)):
+([ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-twoartifactinstall)):
 
 ```text
 -Root <dir>            the two-part install. The build is copied to <dir>/.vendor/Catzc/<version>/, and a
@@ -75,7 +75,7 @@ Above `function Install-Catzc {`, written with `#`.
 
 ```text
 Uses -DryRun, not ShouldProcess/-WhatIf — see
-[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect).
+[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect).
 ```
 
 ## comment:2
@@ -84,7 +84,7 @@ Above `if (-not $IsWindows) {`, written with `#`.
 
 ```text
 A copy drops the executable bit, which an engine whose scripts need it (bash) requires on Unix
-([ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine-differencesdeclaredonce)): every shipped script
+([ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE](/docs/drs/automation/execution-engines.md#rule-adr-auto-engine-differencesdeclaredonce)): every shipped script
 of such an engine that starts with its shebang is made executable again.
 ```
 
@@ -94,6 +94,6 @@ Above `foreach ($script in Get-ChildPath $moduleTarget -File -Filter "*$extensio
 
 ```text
 A named whole-tree walk
-([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every shebang
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every shebang
 script of the installed module is re-marked.
 ```

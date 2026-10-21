@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c44a5f7badb1
+#     with_body_sha: c09403baf5b1
 # ---
 
 description:
@@ -139,14 +139,14 @@ content:
           - ADR-REPO-VARIANT-GITWORKSPACE
       - cell: docs/-/.
         by:
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/server-remote-integration.md
-          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
-          - docs/adr/flow/commit-lifecycle.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/index.md
-          - docs/adr/repository/dora-explains.md
-          - docs/adr/repository/repo-variants.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/server-remote-integration.md
+          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/repo-variants.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md

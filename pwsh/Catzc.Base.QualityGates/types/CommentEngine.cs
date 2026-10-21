@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0e6dbb422256"
+    with_body_sha: "904cf6b34328"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
     cites:
@@ -23,7 +23,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.QualityGates;
 
-// Rests on [PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig), [PDR-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-pdr-onelive-oneversion) and [ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted).
+// Rests on [PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig), [PDR-ONELIVE-ONEVERSION](/docs/drs/principles/one-living-version.md#rule-pdr-onelive-oneversion) and [ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted).
 public static class CommentEngine
 {
     static readonly Regex CodeSpanText = new Regex(@"(`+)[^`\r\n]+?\1", RegexOptions.Compiled);

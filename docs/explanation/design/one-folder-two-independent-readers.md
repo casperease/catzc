@@ -59,7 +59,7 @@ sits, so a module author shapes visibility and shipping identity with the same a
 
 ## See also
 
-- [Module aspects](../../adr/design/module-aspects.md) — the decision this article explains.
+- [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains.
 - The other lenses on the same layout: [meta](every-file-in-exactly-one-aspect.md),
   [implementation](manifest-and-aspects-from-one-folder.md), [operations](drop-a-file-the-import-exports-it.md) and
   [governance](partition-integrity-runs-only-in-unit-tests.md).

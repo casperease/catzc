@@ -15,12 +15,12 @@ coverage lives in the FIXTURE-based L2 'real az' logic tests (Build-Bicep.*.Test
 Get-BicepTemplatesRoot to tests/assets/templates/ and build a sample-* asset). This file binds to the real
 infrastructure/templates/ + configs (it does NOT mock the Get-BicepTemplatesRoot / Resolve-ConfigEntry
 seams — binding to the real assets is the whole point of an integrity test,
-[ADR-AUTO-TEST-ONECATEGORY](/docs/adr/automation/test-automation.md#rule-adr-auto-test-onecategory)) and is generic: it
+[ADR-AUTO-TEST-ONECATEGORY](/docs/drs/automation/test-automation.md#rule-adr-auto-test-onecategory)) and is generic: it
 DISCOVERS the set and asserts invariants that hold for EVERY shipped template, binding to no template name
-and no production-derived value ([ADR-AUTO-TEST-GENERICTEMPLATETESTS](/docs/adr/automation/test-automation.md#rule-adr-auto-test-generictemplatetests)).
+and no production-derived value ([ADR-AUTO-TEST-GENERICTEMPLATETESTS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-generictemplatetests)).
 
 One read-only scan in BeforeAll; each It block asserts one facet of it
-([ADR-AUTO-TEST-INTEGRITYREADSFILES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-integrityreadsfiles)/18/20). Both validators run here:
+([ADR-AUTO-TEST-INTEGRITYREADSFILES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-integrityreadsfiles)/18/20). Both validators run here:
 Get-BicepTemplates (discovery — folders/files named right, options schema, identity references) and
 Assert-BicepTemplate (the consolidated validator, every problem in one message). Neither builds.
 NB: Get-BicepTemplates returns a comma-wrapped array — assign it (an @()-wrap nests it one level) and

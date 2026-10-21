@@ -9,8 +9,8 @@ Above `Describe 'Get-GlossaryDefinitionViolations' -Tag 'L0', 'logic' {`, writte
 
 ```text
 Get-GlossaryDefinitionViolations is private, so it is exercised through the module (InModuleScope, per
-[ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)). A fixture ADR index and
+[ADR-PWSH-PESTER-PRIVATETHROUGHMODULE](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-privatethroughmodule)). A fixture ADR index and
 two ADRs live in $TestDrive, and the glossary is built in memory from
 the real GlossaryEntry/GlossaryConcept/GlossaryOptions types. Fixture terms and rule codes are neutral
-(widget/gadget, tst — [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+(widget/gadget, tst — [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

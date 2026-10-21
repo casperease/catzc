@@ -9,8 +9,8 @@ Above `Describe 'Catzc.Tooling.Inspiration.InspirationRoot' -Tag 'L0', 'logic' {
 
 ```text
 InspirationRoot over neutral fixture paths (widget/gadget,
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)): the {workspace} anchor resolves to
-the parent of the repository root ([ADR-AUTO-PATH-WORKSPACEANCHOR](/docs/adr/automation/path-representation.md#rule-adr-auto-path-workspaceanchor)),
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)): the {workspace} anchor resolves to
+the parent of the repository root ([ADR-AUTO-PATH-WORKSPACEANCHOR](/docs/drs/automation/path-representation.md#rule-adr-auto-path-workspaceanchor)),
 identically from pwsh's and Git Bash's view of that root. The platform is a parameter, so every branch runs on
 every OS.
 ```

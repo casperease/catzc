@@ -9,6 +9,6 @@ Above `Describe 'SourceConventionsConfig' -Tag 'L0' {`, written with `#`.
 
 ```text
 SourceConventionsConfig maps source-conventions.yml: an omitted check takes every default of its type
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), and an unknown key fails at
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), and an unknown key fails at
 construction.
 ```

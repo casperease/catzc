@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a4c634e97cf8
+    with_body_sha: "41659fa1962b"
   edges:
     docs: "[Test-ToolLocationManaged.Tests.ps1.md](docs/references/pwsh/catzc-tooling-core/tests/Test-ToolLocationManaged.Tests.ps1.md)"
     code: pwsh/Catzc.Tooling.Core/private/Test-ToolLocationManaged.ps1
@@ -84,7 +84,7 @@ Describe 'Test-ToolLocationManaged' -Tag 'L0', 'logic' {
     ) {
         InModuleScope Catzc.Tooling.Core -Parameters @{ location = $location; expected = $expected } {
             param($location, $expected)
-            # Neutral fixture ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+            # Neutral fixture ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
             Mock Get-ScriptInstallDir { 'C:\Users\me\AppData\Local\Gadget' }
             $config = [Catzc.Base.Execution.ToolConfig]::new(@{
                     version = '1'; command = 'widget'; version_command = 'widget --version'; version_pattern = '(?<ver>.+)'

@@ -2,17 +2,17 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "35530bd22c5a"
+    with_body_sha: e16cb2ea0720
   edges:
     docs: "[Test-AdrRegistry.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Test-AdrRegistry.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Test-AdrRegistry.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-REPO-ADRCODE-PATHOFSEGMENTS
-      - ADR-REPO-ADRCODE-DOMAINSEGMENT
-      - ADR-REPO-ADRCODE-NAMEDNOTNUMBERED
-      - ADR-REPO-ADRCODE-ONESTRINGONEFACT
+      - ADR-REPO-DRSCODE-PATHOFSEGMENTS
+      - ADR-REPO-DRSCODE-DOMAINSEGMENT
+      - ADR-REPO-DRSCODE-NAMEDNOTNUMBERED
+      - ADR-REPO-DRSCODE-ONESTRINGONEFACT
       - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
 ---
 #>
@@ -72,7 +72,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         $script:checks = New-ChecksConfig -CitationGraph 'report' -DoraCoverage 'report'
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'adrs' } { $script:fixture }
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'adr-checks' } { $script:checks }
-        Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq 'docs/adr' } { Join-Path $TestDrive 'adr' }
+        Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs -ParameterFilter { $Path -eq 'docs/drs' } { Join-Path $TestDrive 'adr' }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
@@ -92,10 +92,10 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             $thrown = { Test-AdrRegistry -OutputFolder $out } | Should -Throw -PassThru
             $message = $thrown.Exception.Message
             $message | Should -BeLike 'Test-AdrRegistry failed: 4 issue(s)*'
-            $message | Should -Match 'ADR-WI-ONE: no ADR file docs/adr/widget/\*\*/widget-one\.md'
-            $message | Should -Match 'ADR-GA-ONE: 2 ADR files named gadget-one\.md under docs/adr/gadget/'
-            $message | Should -Match "docs/adr/gadget/widget-one\.md: must head its rule registry '## Rules: ADR-GA-WIDGET'"
-            $message | Should -Match "docs/adr/gadget/gizmo\.md: declares '## Rules: ADR-GA-GIZMO' but no adrs\.yml rule set registers it"
+            $message | Should -Match 'ADR-WI-ONE: no ADR file docs/drs/widget/\*\*/widget-one\.md'
+            $message | Should -Match 'ADR-GA-ONE: 2 ADR files named gadget-one\.md under docs/drs/gadget/'
+            $message | Should -Match "docs/drs/gadget/widget-one\.md: must head its rule registry '## Rules: ADR-GA-WIDGET'"
+            $message | Should -Match "docs/drs/gadget/gizmo\.md: declares '## Rules: ADR-GA-GIZMO' but no adrs\.yml rule set registers it"
         }
 
         It 'returns the issues under -PassThru instead of throwing' {
@@ -103,7 +103,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
             $result.Subject | Should -Be 'adr-registry'
             $result.Issues | Should -HaveCount 1
-            $result.Issues[0] | Should -Match "docs/adr/widget/widget-one\.md: must head its rule registry '## Rules: ADR-WI-ONE'"
+            $result.Issues[0] | Should -Match "docs/drs/widget/widget-one\.md: must head its rule registry '## Rules: ADR-WI-ONE'"
         }
     }
 
@@ -117,12 +117,12 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             $result.IssueCount | Should -Be 0
             $result.Facts['CitationGraphMode'] | Should -Be 'report'
             $result.Facts['CitationGraphFindings'] | Should -Be 1
-            $result.Facts['CitationGraph'] | Should -Be @('docs/adr/widget/widget-one.md:7: ADR-WI-ONE-LEAN (widget) cites ADR-GA-ONE-APPLY (gadget); widget depends on: none')
+            $result.Facts['CitationGraph'] | Should -Be @('docs/drs/widget/widget-one.md:7: ADR-WI-ONE-LEAN (widget) cites ADR-GA-ONE-APPLY (gadget); widget depends on: none')
             $result.Facts['DoraCoverageMode'] | Should -Be 'report'
             $result.Facts['DoraCoverage'] | Should -Be @(
-                'docs/adr/widget/dora-explains.md: missing, so no section links ADR-WI-ONE'
-                'docs/adr/gadget/dora-explains.md: no section links ADR-GA-ONE (docs/adr/gadget/sub/gadget-one.md)'
-                'docs/adr/gadget/dora-explains.md: no section links ADR-GA-WIDGET (docs/adr/gadget/widget-one.md)'
+                'docs/drs/widget/dora-explains.md: missing, so no section links ADR-WI-ONE'
+                'docs/drs/gadget/dora-explains.md: no section links ADR-GA-ONE (docs/drs/gadget/sub/gadget-one.md)'
+                'docs/drs/gadget/dora-explains.md: no section links ADR-GA-WIDGET (docs/drs/gadget/widget-one.md)'
             )
             Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -ParameterFilter { $Message -eq '1 adr-citation-graph issue(s).' }
             Should -Invoke Write-Message -ModuleName Catzc.Base.Reports -ParameterFilter { $Message -eq '3 adr-dora-coverage issue(s).' }
@@ -149,7 +149,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         }
     }
 
-    Context 'the code-language check' -Tag 'ADR-REPO-ADRCODE-PATHOFSEGMENTS' {
+    Context 'the code-language check' -Tag 'ADR-REPO-DRSCODE-PATHOFSEGMENTS' {
         BeforeAll {
             $script:sharedFixture = $script:fixture
         }
@@ -163,7 +163,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
             $result.IssueCount | Should -Be 0
             $result.Facts['CodeLanguageMode'] | Should -Be 'report'
-            $result.Facts['CodeLanguage'] | Should -Be @('docs/adr/widget/widget-one.md: 2 numbered rule heading(s); a rule is named, never numbered (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)')
+            $result.Facts['CodeLanguage'] | Should -Be @('docs/drs/widget/widget-one.md: 2 numbered rule heading(s); a rule is named, never numbered (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)')
         }
 
         It 'passes named rule headings that are one segment below their ADR' {
@@ -193,10 +193,10 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
             $result.Facts['CodeLanguage'] | Should -Be @(
-                "docs/adr/widget/widget-one.md:5: '### Rule ADR-WI-ONE-SPINS-FREELY' is not ADR-WI-ONE plus one named segment (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)"
-                "docs/adr/widget/widget-one.md:7: '### Rule ADR-GA-ONE-SPINS' is not ADR-WI-ONE plus one named segment (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)"
-                'docs/adr/widget/widget-one.md:9: rule ADR-WI-ONE-TWO shares its name with the ADR ADR-WI-ONE-TWO (ADR-REPO-ADRCODE-ONESTRINGONEFACT)'
-                "ADR-GIZMO (widget): does not start with its domain's prefix, ADR-WI- (ADR-REPO-ADRCODE-DOMAINSEGMENT)"
+                "docs/drs/widget/widget-one.md:5: '### Rule ADR-WI-ONE-SPINS-FREELY' is not ADR-WI-ONE plus one named segment (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)"
+                "docs/drs/widget/widget-one.md:7: '### Rule ADR-GA-ONE-SPINS' is not ADR-WI-ONE plus one named segment (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)"
+                'docs/drs/widget/widget-one.md:9: rule ADR-WI-ONE-TWO shares its name with the ADR ADR-WI-ONE-TWO (ADR-REPO-DRSCODE-ONESTRINGONEFACT)'
+                "ADR-GIZMO (widget): does not start with its domain's prefix, ADR-WI- (ADR-REPO-DRSCODE-DOMAINSEGMENT)"
             )
         }
 
@@ -213,7 +213,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             Write-AdrFixture 'widget/widget-one.md' "# Widget one`n`n## Rules: ADR-WI-SPIN`n"
             Remove-Item -LiteralPath (Join-Path $TestDrive 'adr/gadget') -Recurse -Force
             $result = Test-AdrRegistry -OutputFolder $out -PassThru
-            $result.Facts['CodeLanguage'] | Should -Be @('widget: domain code WI-SPIN is not one segment (ADR-REPO-ADRCODE-DOMAINSEGMENT)')
+            $result.Facts['CodeLanguage'] | Should -Be @('widget: domain code WI-SPIN is not one segment (ADR-REPO-DRSCODE-DOMAINSEGMENT)')
         }
 
         It 'adds its findings to the gate''s issues in gate mode' {

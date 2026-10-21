@@ -17,7 +17,7 @@ VscodeTasksConfig) and renders it to the tasks.json content: the version, tasks,
 comments in the yml, not in the rendering.
 
 This is a pure renderer: it returns the content and writes nothing — it is the `generator` the root-config registry names for the
-.vscode/tasks.json target, and Build-RootConfig owns the write. See [ADR-REPO-ROOTCFG](../../../adr/repository/generated-root-configs.md).
+.vscode/tasks.json target, and Build-RootConfig owns the write. See [ADR-REPO-ROOTCFG](../../../drs/repository/generated-root-configs.md).
 
 ### outputs
 

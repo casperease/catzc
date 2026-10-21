@@ -65,8 +65,8 @@ documents exactly such a case, which `Test-GlobSetTriggerCoverage`, checking ADO
 
 ## See also
 
-- [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains, with
-  [test automation](../../adr/automation/test-automation.md) and [protected globs](../../adr/repository/protected-globs.md).
+- [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains, with
+  [test automation](../../drs/automation/test-automation.md) and [protected globs](../../drs/repository/protected-globs.md).
 - The other lenses on the same globset roles: [meta](three-views-derived-live-from-one-program.md),
   [architecture](globs-module-owns-config-and-types.md), [implementation](one-scan-program-feeds-three-roles.md) and
   [operations](edit-globs-yml-then-read-the-output.md).

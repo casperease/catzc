@@ -9,10 +9,10 @@ plan:
       docs/references/BCL,
       docs/how-to/getting-started/BCL,
       docs/how-to/pwsh/manual-test-plan/csharp-types.md,
-      docs/adr/automation/BCL/native-csharp-types.md,
-      docs/adr/automation/BCL/index.md,
-      docs/adr/automation/pwsh/hosting-csharp-types.md,
-      docs/adr/index.md,
+      docs/drs/automation/BCL/native-csharp-types.md,
+      docs/drs/automation/BCL/index.md,
+      docs/drs/automation/pwsh/hosting-csharp-types.md,
+      docs/drs/index.md,
       pwsh/Catzc.Base.Docs/configs/adrs.yml,
       pwsh/Catzc.Base.Languages/configs/languages.yml,
       docs/index.md,
@@ -54,7 +54,7 @@ host (or a reader of a bundle) needs before the types can be reasoned about apar
   running the session, intrinsic to pwsh. The build pair of `ADR-AUTO-TYPES-DEBUGANYCPU` is the language's, so it lives in `bcl.yml` on
   `BclConfig` (landed), and the host bindings join it there.
 - **The BCL drawing is wanted**, after the host bindings land, as one sample folder `out/diagrams/dark-sample/.assets/bcl-language/`; on
-  approval it goes to `docs/adr/automation/BCL/.assets/bcl-language/`, kept in step with the one definition page.
+  approval it goes to `docs/drs/automation/BCL/.assets/bcl-language/`, kept in step with the one definition page.
 
 ## Decided (delegated to the orchestrator, 2026-10-21, recommendations taken)
 
@@ -71,7 +71,7 @@ Everything else landed on 2026-10-21 and waits for the user's commit: the doc mo
 
 ## Refs
 
-- `docs/adr/automation/BCL/native-csharp-types.md` (`ADR-AUTO-TYPES`) — what the types are.
-- `docs/adr/automation/pwsh/hosting-csharp-types.md` (`ADR-PWSH-TYPES`) — how pwsh hosts them.
-- `docs/adr/principles/one-living-version.md` (`PDR-ONELIVE`) — moves and renames change every caller at once.
+- `docs/drs/automation/BCL/native-csharp-types.md` (`ADR-AUTO-TYPES`) — what the types are.
+- `docs/drs/automation/pwsh/hosting-csharp-types.md` (`ADR-PWSH-TYPES`) — how pwsh hosts them.
+- `docs/drs/principles/one-living-version.md` (`PDR-ONELIVE`) — moves and renames change every caller at once.
 - Microsoft's BCL definition: <https://learn.microsoft.com/en-us/dotnet/standard/glossary#bcl>.

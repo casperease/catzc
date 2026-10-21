@@ -57,7 +57,7 @@ build is a second run mode of the same modules, and not a second product.
 
 ## See also
 
-- [Run modes: source mode and build mode](../../adr/design/run-modes.md) — the decision this article explains.
+- [Run modes: source mode and build mode](../../drs/design/run-modes.md) — the decision this article explains.
 - The other lenses on the same modes: [meta](where-code-loads-from-decides-the-mode.md),
   [implementation](shims-set-roots-mode-read-back.md), [operations](one-entry-script-per-mode.md) and
   [governance](which-run-mode-rules-have-a-gate.md).

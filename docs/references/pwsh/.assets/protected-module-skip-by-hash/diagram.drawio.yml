@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: ac95ef6e92be
+#     with_body_sha: e83bb98a1e54
 # ---
 
 description:
@@ -152,16 +152,16 @@ content:
           - FDR-CD-GLOBS
       - cell: docs/-/.
         by:
-          - docs/adr/automation/pwsh/dora-explains.md
-          - docs/adr/automation/pwsh/script-scope-caching.md
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/module-aspects.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/flow/durable-sha-globs.md
-          - docs/adr/flow/pipeline-detection.md
-          - docs/adr/index.md
-          - docs/adr/repository/dora-explains.md
-          - docs/adr/repository/protected-globs.md
+          - docs/drs/automation/pwsh/dora-explains.md
+          - docs/drs/automation/pwsh/script-scope-caching.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/module-aspects.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/durable-sha-globs.md
+          - docs/drs/flow/pipeline-detection.md
+          - docs/drs/index.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/protected-globs.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/how-to/pwsh/manual-test-plan/pipelines-and-globs.md
           - docs/references/ado/pipelines/cd-apex.yaml.md

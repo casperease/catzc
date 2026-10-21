@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9751d6e51694"
+    with_body_sha: "0b00e30943ce"
   edges:
     docs: "[CodeLinkRewriter.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/CodeLinkRewriter.cs.md)"
     cites:
@@ -35,7 +35,7 @@ public sealed class CodeLinkRewriter
     readonly AdrCitationMap map;
     readonly Func<string, IReadOnlyCollection<string>> anchorsOf;
 
-    // The decision records' folder with its trailing '/', e.g. docs/adr/ (AdrsConfig.Root).
+    // The decision records' folder with its trailing '/', e.g. docs/drs/ (AdrsConfig.Root).
     readonly string recordRoot;
 
     public CodeLinkRewriter(AdrCitationMap map, AdrsConfig adrs, Func<string, IReadOnlyCollection<string>> anchorsOf)

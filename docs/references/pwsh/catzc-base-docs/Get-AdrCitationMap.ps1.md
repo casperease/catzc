@@ -11,18 +11,18 @@ Builds the ADR citation map: every citation code to its ADR's path and declared 
 
 ### description
 
-Reads the rule-citation registry in `<root>/docs/adr/index.md` (Get-CatsAdrIndex) and each listed ADR's `### Rule <CODE>:<n>` headings
+Reads the rule-citation registry in `<root>/docs/drs/index.md` (Get-CatsAdrIndex) and each listed ADR's `### Rule <CODE>:<n>` headings
 (Get-CatsAdrRules), and returns one immutable `[Catzc.Base.Docs.AdrCitationMap]`: code -> repository-relative ADR path and rule numbers, the
-reverse path -> code map, and a unique-slug -> path map over every markdown file under docs/adr/ (so a stale path to a moved ADR resolves by
+reverse path -> code map, and a unique-slug -> path map over every markdown file under docs/drs/ (so a stale path to a moved ADR resolves by
 its file name). The link engine derives every code link's destination from it
-([ADR-REPO-LINK-CODELINKS](../../../adr/repository/markdown-links.md#rule-adr-repo-link-codelinks)).
+([ADR-REPO-LINK-CODELINKS](../../../drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)).
 
 A pure function of the files on disk, memoized per resolved repository root for the session (re-run the importer to refresh — see
-[ADR-AUTO-CACHE](../../../adr/automation/caching.md)); a test passes a fixture root, so the fixture map and the real one never collide.
+[ADR-AUTO-CACHE](../../../drs/automation/caching.md)); a test passes a fixture root, so the fixture map and the real one never collide.
 
 ### parameter `RepositoryRoot`
 
-The repository root whose [index](../../../adr/index.md) is read. Defaults to the loaded repository root.
+The repository root whose [index](../../../drs/index.md) is read. Defaults to the loaded repository root.
 
 ### outputs
 
@@ -31,7 +31,7 @@ The repository root whose [index](../../../adr/index.md) is read. Defaults to th
 ### example 1
 
 ```powershell
-(Get-AdrCitationMap).Destination('ADR-PWSH-ERROR', 3)   # /docs/adr/automation/pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror
+(Get-AdrCitationMap).Destination('ADR-PWSH-ERROR', 3)   # /docs/drs/automation/pwsh/error-handling.md#rule-adr-pwsh-error-thrownotwriteerror
 ```
 
 ## comment:1
@@ -40,5 +40,5 @@ Above `$script:adrCitationMapCache = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entry
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```

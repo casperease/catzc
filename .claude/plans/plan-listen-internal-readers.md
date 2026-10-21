@@ -16,9 +16,9 @@ plan:
 # The listen mode: nothing internal reads the unordered part as truth
 
 The editor's note 0001 (session `out/listen/20261021-005743`, reference pinned at `ed41b3e`, tier `rule`) sharpens
-TDR-NORMALFORM-MIGRATIONREACHESTHEFORM in `docs/adr/thesis/eac-normal-form.md:79`: "nothing **internally** reads it as truth until it is in
+TDR-NORMALFORM-MIGRATIONREACHESTHEFORM in `docs/drs/thesis/eac-normal-form.md:79`: "nothing **internally** reads it as truth until it is in
 the form". The prohibition scopes to the repository's own readers (its commands, defaults, globs, gates, generators and agents), the list
-DDR-TRACK-UNORDEREDTRACK names at `docs/adr/design/tracks.md:165`; a reader outside the repository is not one the repository governs. The
+DDR-TRACK-UNORDEREDTRACK names at `docs/drs/design/tracks.md:165`; a reader outside the repository is not one the repository governs. The
 sentences that state the same prohibition bare follow it.
 
 ## Why its value is high
@@ -29,7 +29,7 @@ reader takes the stronger bare form for the rule.
 ## Decided
 
 - The editor's edit is fact (ADR-REPO-AI-EDITORISFACT): the note is a correction, never a question.
-- `docs/adr/design/tracks.md:165` already lists the internal readers, so it needs no edit; `eac-normal-form.md:87` ("decides nothing about
+- `docs/drs/design/tracks.md:165` already lists the internal readers, so it needs no edit; `eac-normal-form.md:87` ("decides nothing about
   the delivered system") states the outcome, not the readers, so it stays.
 
 ## Open steps

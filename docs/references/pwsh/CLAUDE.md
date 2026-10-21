@@ -17,7 +17,7 @@ Every article has these five parts, in this order:
 
 1. **`# <module name>`** — the H1 is the exact module name (`# Catzc.Azure.Cli`), with no code-span line below it. One H1 per file. The
    file's repository path is a derived fact in its meta block, written by `Format-FileMeta`
-   ([uniform-formatting](../../adr/repository/uniform-formatting.md), ADR-REPO-FORMAT-MARKDOWNTITLE).
+   ([uniform-formatting](../../drs/repository/uniform-formatting.md), ADR-REPO-FORMAT-MARKDOWNTITLE).
 2. **Lead paragraph** (directly under the title) — what the module _is_, in one or two sentences: its single most important responsibility
    first, what it owns and (where it clarifies the boundary) what it deliberately does **not** own, with links to the governing ADR(s). Lead
    with the thesis, not a feature list.
@@ -30,7 +30,7 @@ Every article has these five parts, in this order:
 5. **`## Division`** — the _only_ section that names concrete functions: a one-line intro sentence, then the function table (see below). It
    is the index from "what the module is" to "what it exposes."
 
-**References point one way.** An article cites ADRs (`../../adr/...`) and sibling references (`catzc-*.md`); an ADR or the code never links
+**References point one way.** An article cites ADRs (`../../drs/...`) and sibling references (`catzc-*.md`); an ADR or the code never links
 back to these articles. (Same rule as the ADR authoring conventions.)
 
 ## Responsibilities

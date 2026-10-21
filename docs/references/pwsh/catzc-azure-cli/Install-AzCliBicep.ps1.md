@@ -15,7 +15,7 @@ The install companion to Test-AzCliBicep (query) and Assert-AzCliBicep (throw). 
 deterministically instead of relying on az's silent first-use auto-install, which can fail quietly behind an enterprise proxy or leave a
 stale version. Idempotent — skips when the Bicep CLI already meets Get-AzureBicepMinVersion (azure.yml `bicep_min_version`); installs it
 when absent, upgrades it when too old. Asserts the az CLI itself first (Assert-Tool 'az_cli'), and confirms the result meets the minimum
-before returning. See [ADR-AZ-CLI-AZBYDEFAULT](../../../adr/azure/prefer-az-cli.md#rule-adr-az-cli-azbydefault).
+before returning. See [ADR-AZ-CLI-AZBYDEFAULT](../../../drs/azure/prefer-az-cli.md#rule-adr-az-cli-azbydefault).
 
 ### parameter `Force`
 

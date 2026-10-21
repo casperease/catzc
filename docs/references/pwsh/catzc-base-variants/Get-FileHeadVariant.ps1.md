@@ -14,7 +14,7 @@ Returns whether an authored code or config file carries the navigation head ('mi
 The `file_heads.code` repo-wide variant (configs/variants.yml), fixed for the importer session. 'minimal' (VariantsConfig's
 DefaultFileHeadsCode) gives every authored code or config file the navigation head, its body hash and its edges to the rules it cites, its
 comment page and its test; 'none' gives none and strips one a file holds. A generated file's head is outside the variant. See
-[ADR-REPO-VARIANT-FILEHEADS](../../../adr/repository/repo-variants.md#rule-adr-repo-variant-fileheads).
+[ADR-REPO-VARIANT-FILEHEADS](../../../drs/repository/repo-variants.md#rule-adr-repo-variant-fileheads).
 
 ### outputs
 

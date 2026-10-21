@@ -4,8 +4,8 @@ Some names are read on every import: a module's command that `rootconfig.yml` na
 walks, a function the `.internal` loaders call. Renaming one of them is safe only as one change: every reader moves with the name, and a
 fresh full import proves the result before anything else runs. A half-renamed tree breaks the import of every session that opens on it, so
 the rename is prepared first, applied in one burst, and rolled back whole when the import fails. Each name follows its language's idiom
-([idiomatic-names](../../adr/automation/idiomatic-names.md)), and the old name is gone afterwards, with no alias kept
-([one-living-version](../../adr/principles/one-living-version.md)).
+([idiomatic-names](../../drs/automation/idiomatic-names.md)), and the old name is gone afterwards, with no alias kept
+([one-living-version](../../drs/principles/one-living-version.md)).
 
 ## Prepare
 

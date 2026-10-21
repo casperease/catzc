@@ -22,20 +22,20 @@ It rewrites:
 - every other code of a registered kind (the kinds of adrs.yml), through the code map; a new code may be a bare kind, as the code of a
   domain that owns its record kind becomes that kind;
 - rule anchors `rule-<code>`, standalone and inside links;
-- link destinations into docs/adr/: one with a rule anchor follows the rule, possibly to another file, and any other follows the file. A
+- link destinations into docs/drs/: one with a rule anchor follows the rule, possibly to another file, and any other follows the file. A
   relative link is resolved at the file's folder and written back relative to it; a repository-rooted code link stays rooted
-  ([ADR-REPO-LINK-MARKDOWNRELATIVE](../../../adr/repository/markdown-links.md#rule-adr-repo-link-markdownrelative));
-- plain path mentions of a mapped ADR file or folder: `docs/adr/<path>`, `/docs/adr/<path>`, a relative path, or a path relative to
-  docs/adr/.
+  ([ADR-REPO-LINK-MARKDOWNRELATIVE](../../../drs/repository/markdown-links.md#rule-adr-repo-link-markdownrelative));
+- plain path mentions of a mapped ADR file or folder: `docs/drs/<path>`, `/docs/drs/<path>`, a relative path, or a path relative to
+  docs/drs/.
 
 Matching is exact, with a token boundary on both sides, and runs through the whole file, fenced code blocks included. A numbered citation
 (`<code>:<n>`, `<code>#<n>`), which names no rule since rules are named, is left as written and returned as an Unhandled change, with a
 warning message, for a person to resolve. A file with nothing to change is not written, so its bytes stay identical; a changed file keeps
 its byte order mark and line endings. Running the command twice is a no-op
-([ADR-AUTO-IDEM](../../../adr/automation/idempotent-state-functions.md)).
+([ADR-AUTO-IDEM](../../../drs/automation/idempotent-state-functions.md)).
 
 The maps are the tab-separated files a migration plan produces: the code map (old_code, new_code, old_path, new_path, kind; paths relative
-to docs/adr/; '-' for none; kind move, path, new, folder, or root, where a folder row maps its file's folder too, and the one root row, its
+to docs/drs/; '-' for none; kind move, path, new, folder, or root, where a folder row maps its file's folder too, and the one root row, its
 two paths repository-relative, moves the root itself to a folder of the same depth, so every path under it moves, a bare mention of the root
 moves with it, and a relative link is written from the citing file's place after the move) and the rule map (old_rule, new_rule, kind, why;
 each rule a named rule code; kind move or collapse). The path of a rule's new code comes from the code map, else from the ADR index
@@ -61,7 +61,7 @@ to the loaded repository root.
 
 ### parameter `DryRun`
 
-Return the changes without writing the file. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+Return the changes without writing the file. See [ADR-AUTO-DRYRUN](../../../drs/automation/dry-run.md).
 
 ### outputs
 

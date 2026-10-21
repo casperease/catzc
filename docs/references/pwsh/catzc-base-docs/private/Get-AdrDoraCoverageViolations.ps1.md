@@ -25,7 +25,7 @@ The ADR registry (Get-Config -Config adrs).
 
 ### parameter `Index`
 
-The docs/adr/ file index (Get-AdrFileIndex).
+The docs/drs/ file index (Get-AdrFileIndex).
 
 ### parameter `Settings`
 

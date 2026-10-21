@@ -15,7 +15,7 @@ Reads configs/azure.yml via Get-Config and composes an ordered dictionary with t
 region_code) and the serving subscription (via Get-AzureSubscription). The subscription is named directly — the deploy path resolves it from
 the az session and passes it in — so it is an explicit input here. Asserts the subscription actually serves the environment. The embedded
 subscription's optional `customer` is what renders into resource names. See
-[ADR-AZ-DATAMOD-CUSTOMERAXIS](../../../adr/azure/azure-data-model.md#rule-adr-az-datamod-customeraxis).
+[ADR-AZ-DATAMOD-CUSTOMERAXIS](../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-customeraxis).
 
 ### parameter `Environment`
 

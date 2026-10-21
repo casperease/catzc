@@ -11,7 +11,7 @@ Records a green scan against its globset's identity, so an unchanged repeat run 
 
 ### description
 
-The record half of the protected-glob skip ([ADR-REPO-PROTGLOB](../../../adr/repository/protected-globs.md)) — call it only AFTER the scan
+The record half of the protected-glob skip ([ADR-REPO-PROTGLOB](../../../drs/repository/protected-globs.md)) — call it only AFTER the scan
 passes, so a red scan is never cached away. It promotes the pending hash Test-GlobSetProtection captured before the scan (falling back to
 computing one when the query was never asked). Session memory only; in a pipeline this is a no-op, so CI never records protection.
 
@@ -27,7 +27,7 @@ The scope's name in the protection key: a declared globset, or (with a prior -Ha
 
 A precomputed durable identity to record when no pending value exists for the key — for callers that protect directly without a prior
 Test-GlobSetProtection query. A pending pre-scan value always wins over this (hash-before-scan,
-[ADR-REPO-PROTGLOB-PROTECTIONKEY](../../../adr/repository/protected-globs.md#rule-adr-repo-protglob-protectionkey)).
+[ADR-REPO-PROTGLOB-PROTECTIONKEY](../../../drs/repository/protected-globs.md#rule-adr-repo-protglob-protectionkey)).
 
 ### example 1
 
@@ -42,7 +42,7 @@ Above `$script:protectedGlobSets = @{}`, written with `#`.
 
 ```text
 strict-clean probe of the lazy cache entries
-([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/adr/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
+([ADR-PWSH-CACHE-STRICTSAFEPROBE](/docs/drs/automation/pwsh/script-scope-caching.md#rule-adr-pwsh-cache-strictsafeprobe))
 ```
 
 ## comment:2

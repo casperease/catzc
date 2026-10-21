@@ -9,5 +9,5 @@ Above `Mock Get-AzCliSessionSubscription {`, written with `#`.
 
 ```text
 The scope subscription is the az session's — the whole-boundary session mock
-([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)).
+([ADR-PWSH-PESTER-MOCKMODULEBOUNDARIES](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-mockmoduleboundaries)).
 ```

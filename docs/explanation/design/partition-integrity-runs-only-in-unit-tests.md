@@ -70,10 +70,10 @@ the ADR states, tells a reviewer where a mistake would slip through.
 
 ## See also
 
-- [Module aspects](../../adr/design/module-aspects.md) — the decision this article explains. Also
-  [dynamic module manifests](../../adr/automation/pwsh/dynamic-module-manifests.md),
-  [one function per file](../../adr/automation/pwsh/one-function-per-file.md),
-  [conventional folders](../../adr/repository/conventional-folders.md) and [durable sha globs](../../adr/flow/durable-sha-globs.md).
+- [Module aspects](../../drs/design/module-aspects.md) — the decision this article explains. Also
+  [dynamic module manifests](../../drs/automation/pwsh/dynamic-module-manifests.md),
+  [one function per file](../../drs/automation/pwsh/one-function-per-file.md),
+  [conventional folders](../../drs/repository/conventional-folders.md) and [durable sha globs](../../drs/flow/durable-sha-globs.md).
 - The other lenses on the same layout: [meta](every-file-in-exactly-one-aspect.md), [architecture](one-folder-two-independent-readers.md),
   [implementation](manifest-and-aspects-from-one-folder.md) and [operations](drop-a-file-the-import-exports-it.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

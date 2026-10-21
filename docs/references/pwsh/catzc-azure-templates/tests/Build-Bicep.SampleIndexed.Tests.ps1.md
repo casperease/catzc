@@ -12,7 +12,7 @@ Above `BeforeAll {`, written with `#`.
 ```text
 Boundary mocks + config-cache reset run ONCE (the mocked config is identical every test); only the
 build output folder is wiped per test, since the build tests write into it
-([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)/[ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/adr/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
+([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)/[ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
 ```
 
 ## comment:2
@@ -32,7 +32,7 @@ Above `Get-BicepTemplate sample-indexed | Out-Null`, written with `#`.
 ```text
 Warm the discovery + config caches once, so the first It doesn't pay the cold Get-BicepTemplate
 derive (template-tree enumeration + config load) inside its own timing
-([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)). Every test
+([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)). Every test
 here reads the same fixture template, and BeforeEach wipes only the build output, not the caches.
 ```
 

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: fb9e79aabf6a
+#     with_body_sha: "8f00ae1072d6"
 # ---
 
 description:
@@ -131,11 +131,11 @@ content:
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
       - cell: docs/-/.
         by:
-          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
-          - docs/adr/flow/commit-lifecycle.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
@@ -184,9 +184,9 @@ content:
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
       - cell: docs/markdown
         by:
-          - docs/adr/flow/commit-lifecycle.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
@@ -197,8 +197,8 @@ content:
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
       - cell: docs/yaml
         by:
-          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/adr/flow/.assets/sync-point/diagram.drawio.yml
+          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
       - cell: pwsh/bcl

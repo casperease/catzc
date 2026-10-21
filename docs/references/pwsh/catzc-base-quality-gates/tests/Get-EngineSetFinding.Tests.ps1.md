@@ -9,6 +9,6 @@ Above `Describe 'Get-EngineSetFinding' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-EngineSetFinding over fixture texts, with a fixture engine set — widget, gadget and sprocket stand in for the
-model's engines ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)), so the finder is
+model's engines ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)), so the finder is
 proven to read the names and their count from its caller, never from a literal of its own.
 ```

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: acc8e07965c8
+    with_body_sha: fba51c36ee23
   edges:
     docs: "[ConvertTo-ContractNoteMarkdown.Tests.ps1.md](docs/references/pwsh/catzc-base-contracts/tests/ConvertTo-ContractNoteMarkdown.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Contracts/private/ConvertTo-ContractNoteMarkdown.ps1
@@ -26,7 +26,7 @@ Describe 'ConvertTo-ContractNoteMarkdown' -Tag 'L0', 'logic' {
     }
 
     It 'makes a repository-rooted link relative to the page, keeping its fragment' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
-        ConvertTo-Markdown 'Pinned by [ADR-TST-WIDGET-SPIN](/docs/adr/repository/widget-thing.md#rule-adr-tst-widget-spin).' |
+        ConvertTo-Markdown 'Pinned by [ADR-TST-WIDGET-SPIN](/docs/drs/repository/widget-thing.md#rule-adr-tst-widget-spin).' |
             Should -BeExactly 'Pinned by [ADR-TST-WIDGET-SPIN](../../adr/repository/widget-thing.md#rule-adr-tst-widget-spin).'
         ConvertTo-Markdown 'See [gadget](/docs/references/widgets/gadget.md).' | Should -BeExactly 'See [gadget](gadget.md).'
     }

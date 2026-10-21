@@ -12,7 +12,7 @@ Runs a tool from the Python test workspace's pinned environment (ruff), against 
 ### description
 
 The Python checks run one pinned tool set for every .py file the repository tracks — the Python tests, and the agent helpers under .claude/
-([ADR-AUTO-PY-EVERYFILELINTED](../../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfilelinted)). The tools are
+([ADR-AUTO-PY-EVERYFILELINTED](../../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-everyfilelinted)). The tools are
 the workspace's dependencies (python.yml), so this syncs the workspace once (`uv sync --all-packages`) and runs
 `uv run --no-sync <tool> <arguments> --config pyproject.toml <files>` from the workspace root, the Python root: the explicit --config gives
 every file the workspace's ruff settings (the 140-column line, the pinned Python), wherever it lives.

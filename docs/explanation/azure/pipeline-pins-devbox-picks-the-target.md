@@ -58,7 +58,7 @@ is about to act on, and stops with one of three errors when the session is missi
 
 ## See also
 
-- [Templating data model](../../adr/azure/azure-data-model.md) — the decision this article explains.
+- [Templating data model](../../drs/azure/azure-data-model.md) — the decision this article explains.
 - The other lenses on the same deploy target: [meta](the-session-is-the-deploy-target.md),
   [architecture](one-reverse-lookup-feeds-every-module.md), [implementation](read-the-session-guard-then-pick-slot.md) and
   [governance](four-gates-hold-the-session-rule.md).

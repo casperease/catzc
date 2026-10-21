@@ -8,7 +8,7 @@ catzc:
     docs: "[Build-AdrCodeDictionary.ps1.md](docs/references/pwsh/catzc-base-docs/Build-AdrCodeDictionary.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
-      - ADR-REPO-ADRCODE-SEGMENTSAREWORDS
+      - ADR-REPO-DRSCODE-SEGMENTSAREWORDS
 ---
 #>
 

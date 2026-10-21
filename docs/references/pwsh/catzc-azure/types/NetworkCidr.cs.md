@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 IPv4 CIDR arithmetic for the network plan (configs/network.yml,
-[ADR-AZ-NETWORK](/docs/adr/azure/azure-network-model.md)): the one place a range is parsed, so the shape check,
+[ADR-AZ-NETWORK](/docs/drs/azure/azure-network-model.md)): the one place a range is parsed, so the shape check,
 the subnet-inside-its-vnet check, and the no-overlap check all read a range the same way. NetworkEnvironment,
 NetworkSubscription and NetworkConfig call it while they validate.
 

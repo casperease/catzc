@@ -9,5 +9,5 @@ Above `preamble: |`, written with `#`.
 
 ```text
 The authored text of
-[index](/docs/adr/index.md) around its generated code tables; Build-AdrIndex reflows it, and its links resolve from docs/adr.
+[index](/docs/drs/index.md) around its generated code tables; Build-AdrIndex reflows it, and its links resolve from docs/drs.
 ```

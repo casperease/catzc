@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3b14f441b4ae"
+#     with_body_sha: "5302cc4830ce"
 # ---
 
 description:
@@ -110,9 +110,9 @@ content:
           - ADR-AUTO-DEPM-TWOSECTIONS
       - cell: docs/-/.
         by:
-          - docs/adr/automation/controlling-module-dependencies.md
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/automation/controlling-module-dependencies.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-base-maps/Get-ModuleNeighbourhoodMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-module-system/types/DependenciesConfig.cs.md
           - docs/references/pwsh/catzc-base-module-system/types/DependencyGraph.cs.md

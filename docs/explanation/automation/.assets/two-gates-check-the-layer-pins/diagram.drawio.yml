@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "9739061d5d5c"
+#     with_body_sha: dc206baaa749
 # ---
 
 description:
@@ -154,11 +154,11 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: docs/-/.
         by:
-          - docs/adr/automation/controlling-module-dependencies.md
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/test-automation.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/automation/controlling-module-dependencies.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/test-automation.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml
           - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
           - docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.yml
@@ -522,11 +522,11 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: docs/markdown
         by:
-          - docs/adr/automation/controlling-module-dependencies.md
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/test-automation.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/automation/controlling-module-dependencies.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/test-automation.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-azure-dev-ops/Test-Pipelines.ps1.md
           - docs/references/pwsh/catzc-azure/Test-AzureNetworkPlan.ps1.md
           - docs/references/pwsh/catzc-base-config-extensions/Test-ConfigValidators.ps1.md

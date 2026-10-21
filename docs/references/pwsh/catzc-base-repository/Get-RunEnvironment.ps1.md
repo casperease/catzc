@@ -11,7 +11,7 @@ Returns where this session runs: Pipeline or Devbox.
 
 ### description
 
-The environment axis of devbox/pipeline parity ([ADR-AUTO-PARITY](../../../adr/automation/devbox-pipeline-parity.md)), read off the one
+The environment axis of devbox/pipeline parity ([ADR-AUTO-PARITY](../../../drs/automation/devbox-pipeline-parity.md)), read off the one
 seam, Test-IsRunningInPipeline. It answers where the run happens; who drives it (a person or an agent) is Get-SessionActor's question.
 Environment-dependent settings, such as the time-safeguard limits, key on this.
 

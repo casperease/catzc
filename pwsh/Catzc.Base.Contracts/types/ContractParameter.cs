@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ab779dcd02f3
+    with_body_sha: a9b38ec9fe48
   edges:
     docs: "[ContractParameter.cs.md](docs/references/pwsh/catzc-base-contracts/types/ContractParameter.cs.md)"
     cites:
@@ -19,7 +19,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Contracts;
 
-// Rests on [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
+// Rests on [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder).
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Name), nameof(Spec))]
 public sealed class ContractParameter
 {

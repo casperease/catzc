@@ -12,7 +12,7 @@ The globsets a diff touches — the computed area-of-control of a change.
 ### description
 
 Reflects a change into the globset registry: returns every declared globset whose scan program (GlobSet.Matches, last-match-wins
-[FDR-CD-GLOBS-TRACKEDFILESONLY](../../../adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)) selects at least one
+[FDR-CD-GLOBS-TRACKEDFILESONLY](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-trackedfilesonly)) selects at least one
 changed path. The "which areas of control did this change touch" fact, computed from git at the real refs — reading the merged tree as it
 actually is, so it is immune to the squash-merge and concurrent-merge staleness a per-set hash frozen on a branch would suffer, and correct
 across renames (Get-ChangedFile splits a rename into both of its paths).
@@ -24,7 +24,7 @@ only the declared units.
 In a pipeline this is the "is there anything here for us to process?" gate: a deployable unit's stage asks whether its own set is in the
 returned list and stops early when it is not. The reference commit that range is measured from is the resolver's job, never this function's.
 
-It rests on [FDR-CD-GLOBS-NAMEDGLOBSETS](../../../adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets).
+It rests on [FDR-CD-GLOBS-NAMEDGLOBSETS](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets).
 
 ### parameter `ChangedFile`
 

@@ -8,11 +8,11 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `using System.Collections.Generic;`, written with `//`.
 
 ```text
-One ADR domain (a docs/adr/<area>/ folder) from adrs.yml: its Name, 2-4 letter Code, Role, the reader-facing
+One ADR domain (a docs/drs/<area>/ folder) from adrs.yml: its Name, 2-4 letter Code, Role, the reader-facing
 Description rendered under the domain's heading in the generated index, the DependsOn links that form the
 domain DAG, its row of the value-chain stack (Stack), its default value-chain concerns (Concerns, in value-chain
 order), and the RuleSets it owns. Built and validated by AdrsConfig
-([ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel),
-[DDR-TRACK-VALUECHAINSTACK](/docs/adr/design/tracks.md#rule-ddr-track-valuechainstack),
-[DDR-TRACK-VALUECHAINCONCERN](/docs/adr/design/tracks.md#rule-ddr-track-valuechainconcern)).
+([ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel),
+[DDR-TRACK-VALUECHAINSTACK](/docs/drs/design/tracks.md#rule-ddr-track-valuechainstack),
+[DDR-TRACK-VALUECHAINCONCERN](/docs/drs/design/tracks.md#rule-ddr-track-valuechainconcern)).
 ```

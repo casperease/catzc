@@ -9,13 +9,13 @@ Globset layers        peers in a layer never share a file, except loose-filesets
 Globset roles         one ordered program; its three views are derived live
 ```
 
-These articles explain decisions from the [flow ADR domain](../../adr/index.md#flow): promotion, the pipeline runner, and the globsets that
+These articles explain decisions from the [flow ADR domain](../../drs/index.md#flow): promotion, the pipeline runner, and the globsets that
 decide which pipelines a change triggers. Each article narrates one diagram; the [explanation index](../index.md) says how to read them.
 
 ## The promotion flow
 
 One artifact is built once and climbs to production unchanged
-([cd-discipline-and-promotion-flow](../../adr/flow/cd-discipline-and-promotion-flow.md)).
+([cd-discipline-and-promotion-flow](../../drs/flow/cd-discipline-and-promotion-flow.md)).
 
 | Lens           | Article                                                                                                                 |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------- |
@@ -28,7 +28,7 @@ One artifact is built once and climbs to production unchanged
 ## The pipeline runner
 
 A pipeline step only names a command that a developer can run locally
-([pipeline-runner-pattern](../../adr/flow/pipeline-runner-pattern.md)).
+([pipeline-runner-pattern](../../drs/flow/pipeline-runner-pattern.md)).
 
 | Lens           | Article                                                                                                                                   |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
@@ -40,7 +40,7 @@ A pipeline step only names a command that a developer can run locally
 
 ## Globset layers
 
-Peers in a layer never share a file, except in the loose-fileset layer ([durable-sha-globs](../../adr/flow/durable-sha-globs.md)).
+Peers in a layer never share a file, except in the loose-fileset layer ([durable-sha-globs](../../drs/flow/durable-sha-globs.md)).
 
 | Lens           | Article                                                                                                                    |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------- |
@@ -53,7 +53,7 @@ Peers in a layer never share a file, except in the loose-fileset layer ([durable
 ## Globset roles
 
 A globset is one ordered program, and its three views are derived live, never committed
-([durable-sha-globs](../../adr/flow/durable-sha-globs.md)).
+([durable-sha-globs](../../drs/flow/durable-sha-globs.md)).
 
 | Lens           | Article                                                                                                                                 |
 | -------------- | --------------------------------------------------------------------------------------------------------------------------------------- |

@@ -41,7 +41,7 @@ Every lit cell comes from the files and codes tied to ADR-REPO-SLIDES-MINIMAPSFR
 - **Which layer: automation.** Every file that cites the rule cites a code of ADR-REPO-SLIDES, whose layer is automation.
 - **Which tracks and languages: `ado-pipelines` × pipeline-yaml.** `.ado/pipelines/ci-pwsh.yaml` is the pipeline whose globset covers the
   Slides module that carries the rule.
-- **`docs` × markdown.** The ADR itself, `docs/adr/repository/slides-as-markdown.md`, and the pages that cite the rule: this article, the
+- **`docs` × markdown.** The ADR itself, `docs/drs/repository/slides-as-markdown.md`, and the pages that cite the rule: this article, the
   ADR index, the domain's `dora-explains.md`, the `Catzc.Base.Slides` and `catzc_diagrams` references, and the `Build-Diagrams` help page.
 - **`pwsh` × powershell.** `pwsh/Catzc.Base.Slides/Build-Diagrams.ps1` and the grid minimap's test,
   `pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1`, cite the rule.
@@ -55,6 +55,6 @@ Every lit cell comes from the files and codes tied to ADR-REPO-SLIDES-MINIMAPSFR
 
 ## See also
 
-- [Slides as markdown](../../adr/repository/slides-as-markdown.md) — the decision this article explains.
+- [Slides as markdown](../../drs/repository/slides-as-markdown.md) — the decision this article explains.
 - [The `Build-Diagrams` help](../../references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md) — its parameters and journeys.
 - [The repository explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

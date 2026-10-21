@@ -12,7 +12,7 @@ Reads what a JSON text or an MSBuild project says about its own meta property, w
 ### description
 
 Pure: it takes the text and the property's name, reads no file and no config
-([ADR-REPO-FILEMETA-JSONCARRIER](../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-jsoncarrier)). The property is an ignored
+([ADR-REPO-FILEMETA-JSONCARRIER](../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-jsoncarrier)). The property is an ignored
 top-level member of a JSON file, or the CDATA property inside the first PropertyGroup labelled catzc of an MSBuild project.
 
 ### parameter `Text`

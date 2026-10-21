@@ -11,6 +11,6 @@ Above `Describe 'Test-ModuleDependency' {`, written with `#`.
 
 ```text
 Test-ModuleDependency is a quality gate
-([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): each L0 case runs it with
+([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)): each L0 case runs it with
 -PassThru over mocked boundaries and reads the collected issues; the report goes to $TestDrive.
 ```

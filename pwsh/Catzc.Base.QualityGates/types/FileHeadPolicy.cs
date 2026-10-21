@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: efaeff76aefd
+    with_body_sha: ca807f73a7f5
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/FileHeadPolicy.Tests.ps1
     docs: "[FileHeadPolicy.cs.md](docs/references/pwsh/catzc-base-quality-gates/types/FileHeadPolicy.cs.md)"
@@ -68,7 +68,7 @@ public sealed class FileHeadPolicy
     }
 
     // A class entry decides first; an authored file in a code carrier takes the file-heads variant
-    // ([ADR-REPO-VARIANT-FILEHEADS](/docs/adr/repository/repo-variants.md#rule-adr-repo-variant-fileheads)), else the default.
+    // ([ADR-REPO-VARIANT-FILEHEADS](/docs/drs/repository/repo-variants.md#rule-adr-repo-variant-fileheads)), else the default.
     public HeadPolicy For(string fileClass, bool codeCarrier = false, bool codeHeads = false)
     {
         foreach (KeyValuePair<string, HeadPolicy> entry in classes)

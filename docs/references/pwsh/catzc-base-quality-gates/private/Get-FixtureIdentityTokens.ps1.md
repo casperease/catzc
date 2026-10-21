@@ -23,7 +23,7 @@ Backs Test-ConfigIdentityHygiene: a shipped `configs/*.yml` or `infrastructure/*
 tokens has a test fixture where a live identity belongs, and a fixture token that is also a live identity (Get-LiveIdentityTokens) is no
 fixture at all.
 
-It rests on [ADR-REPO-LANG](../../../../adr/repository/domain-language-separation.md).
+It rests on [ADR-REPO-LANG](../../../../drs/repository/domain-language-separation.md).
 
 ### outputs
 

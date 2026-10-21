@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "06cf9a8a8291"
+#     with_body_sha: b625c3d5cd73
 # ---
 
 description:
@@ -150,12 +150,12 @@ content:
           - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: docs/-/.
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/test-automation.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/flow/durable-sha-globs.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/test-automation.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/durable-sha-globs.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/ado/pipelines/cd-apex.yaml.md
           - docs/references/ado/pipelines/cd-flux.yaml.md

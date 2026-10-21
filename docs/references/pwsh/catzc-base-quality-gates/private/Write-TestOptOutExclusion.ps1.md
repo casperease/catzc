@@ -15,7 +15,7 @@ The build run never drops a test silently: every test it leaves out by its opt-o
 grouped by file (repository-relative), and written to excluded-tests.csv in the run directory (File, ExpandedPath, Level, Category) beside
 tests.csv. Nothing to exclude still prints its one-line count, so a reader sees the exclusion was considered.
 
-It rests on [ADR-AUTO-TEST-SOURCEONLYTAG](../../../../adr/automation/test-automation.md#rule-adr-auto-test-sourceonlytag).
+It rests on [ADR-AUTO-TEST-SOURCEONLYTAG](../../../../drs/automation/test-automation.md#rule-adr-auto-test-sourceonlytag).
 
 ### parameter `Tests`
 

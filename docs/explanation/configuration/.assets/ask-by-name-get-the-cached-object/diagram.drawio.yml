@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8aa43d83947f"
+#     with_body_sha: "983e0df02acc"
 # ---
 
 description:
@@ -124,10 +124,10 @@ content:
           - ADR-CONF-LOADING-ONEREADER
       - cell: docs/-/.
         by:
-          - docs/adr/configuration/config-value-addressing.md
-          - docs/adr/configuration/dora-explains.md
-          - docs/adr/configuration/module-config-loading.md
-          - docs/adr/index.md
+          - docs/drs/configuration/config-value-addressing.md
+          - docs/drs/configuration/dora-explains.md
+          - docs/drs/configuration/module-config-loading.md
+          - docs/drs/index.md
           - docs/how-to/getting-started/pwsh/add-a-module.md
           - docs/how-to/pwsh/manual-test-plan/configs.md
           - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml

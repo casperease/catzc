@@ -20,7 +20,7 @@ both shard the analysis across background processes (see Get-ScriptAnalyzerDiagn
 progress rather than ~90s of silence. It is also the verify counterpart to Format-Code -Language powershell — Format-Code FIXES the
 auto-fixable formatting, Test-ScriptAnalyzer only reports and never rewrites files.
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)): every diagnostic
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)): every diagnostic
 ('`<path>:<line>:<col>` `<severity>` `<rule>` `<message>`', repository-relative) is an issue, and the gate ends through
 Write-QualityGateReport, which writes out/test-script-analyzer/, prints every issue, and throws once listing them all; -PassThru returns the
 result object instead.
@@ -72,7 +72,7 @@ Above `$settingsPath = Join-Path (Get-CatzcModulesRoot)...`, written with `#`.
 
 ```text
 The one settings file ships inside the code tree, so it resolves from the code root
-([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](/docs/adr/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
+([ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY](/docs/drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-internalassetdependency)).
 ```
 
 ## comment:2
@@ -90,7 +90,7 @@ Above `$full = if ([System.IO.Path]::IsPathRooted($item)) {`, written with `#`.
 
 ```text
 A relative path is repository-relative, never $PWD-relative
-([ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS](/docs/adr/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-noworkingdirectorypaths)).
+([ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS](/docs/drs/automation/never-depend-on-pwd.md#rule-adr-auto-nopwd-noworkingdirectorypaths)).
 ```
 
 ## comment:4

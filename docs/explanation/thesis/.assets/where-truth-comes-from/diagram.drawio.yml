@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "9cf967bcd7ce"
+#     with_body_sha: "65714b742ab6"
 # ---
 
 description:
@@ -103,7 +103,7 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
-          - docs/adr/index.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
@@ -120,7 +120,7 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
-          - docs/adr/index.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
@@ -137,7 +137,7 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
-          - docs/adr/index.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
@@ -154,7 +154,7 @@ content:
         by:
           - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
-          - docs/adr/index.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
@@ -179,13 +179,13 @@ content:
           - .claude/plans/value-of-plan.md
           - .claude/skills/listen-insight/SKILL.md
           - .claude/skills/listen-notes/SKILL.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
-          - docs/adr/repository/ai-agent-contract.md
-          - docs/adr/repository/dora-explains.md
-          - docs/adr/repository/plans.md
-          - docs/adr/thesis/dora-explains.md
-          - docs/adr/thesis/one-source-of-truth.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/drs/repository/ai-agent-contract.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/plans.md
+          - docs/drs/thesis/dora-explains.md
+          - docs/drs/thesis/one-source-of-truth.md
           - docs/references/agent-contracts.md
           - docs/references/pwsh/.assets/listen-mode-flow/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Register-AdoBuildValidation.ps1.md

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fb6eded688e9
+    with_body_sha: f59ec9ff4f60
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/AccostedFile.Tests.ps1
     cites:
@@ -17,7 +17,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Contracts;
 
-// An accosted file ([ADR-AUTO-ACCOSTED-FILEFORM](/docs/adr/automation/accosted-language.md#rule-adr-auto-accosted-fileform)): its one key,
+// An accosted file ([ADR-AUTO-ACCOSTED-FILEFORM](/docs/drs/automation/accosted-language.md#rule-adr-auto-accosted-fileform)): its one key,
 // runs, a non-empty list of runs.
 public sealed class AccostedFile
 {

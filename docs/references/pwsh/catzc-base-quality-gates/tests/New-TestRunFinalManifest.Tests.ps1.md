@@ -18,7 +18,7 @@ Above `Describe 'New-TestRunFinalManifest — a snapshot run, written and read b
 
 ```text
 The run.json a reader sees for a run that collided with another
-([ADR-AUTO-TEST-RUNSNEVERWAIT](/docs/adr/automation/test-automation.md#rule-adr-auto-test-runsneverwait)): the terminal manifest built
+([ADR-AUTO-TEST-RUNSNEVERWAIT](/docs/drs/automation/test-automation.md#rule-adr-auto-test-runsneverwait)): the terminal manifest built
 from a snapshot worker run, written by Write-TestRunManifest, and read back as JSON — the shape a script that
 watches concurrent runs reads, with no unit between them mocked.
 ```

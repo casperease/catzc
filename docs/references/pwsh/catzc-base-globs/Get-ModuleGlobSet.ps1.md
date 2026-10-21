@@ -13,22 +13,22 @@ umbrellas, and the 'module-leftovers' catch-all.
 ### description
 
 Derived sets are never written in globs.yml: the folder (or file) is the registration. Every module folder the resolver (Get-CatzcModule)
-finds in the code track partitions into live/tests aspect sets ([DDR-ASPECT](../../../adr/design/module-aspects.md)), named by the
+finds in the code track partitions into live/tests aspect sets ([DDR-ASPECT](../../../drs/design/module-aspects.md)), named by the
 readme-kebab convention plus the aspect (Catzc.Base.Globs -> 'catzc-base-globs-live' and 'catzc-base-globs-tests') — 'live' the module's
 shippable surface (functions, private helpers, types, configs), 'tests' its verification harness, plus its Go, Python and Bash test folders
 `<root>/tests/<kebab>/` of each language root when they exist
-([ADR-AUTO-GO-ONEGOROOT](../../../adr/automation/go/go-test-artifacts.md#rule-adr-auto-go-onegoroot),
-[ADR-AUTO-PY-ONEPYTHONROOT](../../../adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-onepythonroot),
-[ADR-AUTO-BASH-ONEBASHROOT](../../../adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-onebashroot)); the two are disjoint and
+([ADR-AUTO-GO-ONEGOROOT](../../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-onegoroot),
+[ADR-AUTO-PY-ONEPYTHONROOT](../../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-onepythonroot),
+[ADR-AUTO-BASH-ONEBASHROOT](../../../drs/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-onebashroot)); the two are disjoint and
 cover the folder. The whole-module set is their union (a test-only change never re-keys live). Every internal shared module
 `pwsh/.internal/<Name>.psm1` derives a single-file set (no tests aspect) by the same kebab convention (Catzc.Internal.Bootstrap ->
 'catzc-internal-bootstrap'). The reserved names cover the dot-prefixed infrastructure every module's test results also depend on:
 'internal', 'vendor', 'compiled', 'scriptanalyzer'. Derived sets bound the scope of protection and blast radius
-([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../../../adr/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)). A
+([ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS](../../../drs/repository/protected-globs.md#rule-adr-repo-protglob-derivedmoduleglobsets)). A
 declared globset may not shadow a derived name; the collision throws here, naming both sides.
 
 The derived sets are repository-relative globs over the source tree's module folders (git-tracked paths), so it stops with a named error in
-build mode (Assert-SourceTree, [DDR-RUNMODE](../../../adr/design/run-modes.md)).
+build mode (Assert-SourceTree, [DDR-RUNMODE](../../../drs/design/run-modes.md)).
 
 ### parameter `Name`
 
@@ -55,10 +55,10 @@ Above `foreach ($reservedName in [Catzc.Base.Globs.GlobsConfig]::ReservedNames) 
 ```text
 The reserved umbrellas are cross-cutting check surfaces, not independent modules: 'internal' overlaps
 every catzc-internal-* single-file set, 'vendor'/'compiled'/'scriptanalyzer' cover whole dot-folders.
-They are loose-filesets ([FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer),
+They are loose-filesets ([FDR-CD-GLOBS-EVERYSETHASLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer),
 overlap-exempt), not the 'module' layer whose sets are the
 pairwise-disjoint per-folder modules
-([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)).
+([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)).
 ```
 
 ## comment:2
@@ -66,7 +66,7 @@ pairwise-disjoint per-folder modules
 Above `$aspectList = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()`, written with `#`.
 
 ```text
-The aspect convention ([DDR-ASPECT](/docs/adr/design/module-aspects.md)): each module folder partitions into
+The aspect convention ([DDR-ASPECT](/docs/drs/design/module-aspects.md)): each module folder partitions into
 disjoint, exhaustive aspect sets
 (live/tests by default) from the 'aspects' variant. The whole-module set is the union of its aspects
 (a shipped module = 1 live + 1 tests, isolated: a test-only change never re-keys live). Compiled per
@@ -79,9 +79,9 @@ Above `$goRoot = (Get-Config -Config go).ResolveRoot((Get-RepositoryRoot))`, wri
 
 ```text
 A module's Go, Python and Bash test folders (<root>/tests/<kebab>/ of each language root,
-[ADR-AUTO-GO-ONEGOROOT](/docs/adr/automation/go/go-test-artifacts.md#rule-adr-auto-go-onegoroot),
-[ADR-AUTO-PY-ONEPYTHONROOT](/docs/adr/automation/python/python-test-artifacts.md#rule-adr-auto-py-onepythonroot),
-[ADR-AUTO-BASH-ONEBASHROOT](/docs/adr/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-onebashroot)) are part of its tests
+[ADR-AUTO-GO-ONEGOROOT](/docs/drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-onegoroot),
+[ADR-AUTO-PY-ONEPYTHONROOT](/docs/drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-onepythonroot),
+[ADR-AUTO-BASH-ONEBASHROOT](/docs/drs/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-onebashroot)) are part of its tests
 aspect: a change to them re-keys the module they verify,
 never its live aspect.
 ```
@@ -106,7 +106,7 @@ that is not dot-folder infrastructure (the reserved umbrellas' loose-fileset ter
 the module layer covers module-space and a stray file cannot go unmapped — it should be empty in a
 clean tree, but stuff can pop up (a file dropped at pwsh/'s root, a folder not yet a module). Its
 OWN excludes are every module folder plus the four dot-folders, so it stays disjoint from every module
-set ([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)). Derived, module-layer,
+set ([FDR-CD-GLOBS-NOOVERLAPWITHINLAYER](/docs/drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-nooverlapwithinlayer)). Derived, module-layer,
 never declared; a declared set may not shadow it.
 ```
 

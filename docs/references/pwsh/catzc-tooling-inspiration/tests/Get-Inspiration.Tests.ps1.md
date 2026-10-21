@@ -9,7 +9,7 @@ Above `Describe 'Get-Inspiration' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-Inspiration over a fixture config (Get-Config mocked to the real InspirationConfig built from neutral widget/gadget
-data, [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) and a TestDrive workspace in
+data, [ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) and a TestDrive workspace in
 which widget and gadget exist and gizmo does not. An inspiration that is absent is reported, never thrown on
-([ADR-REPO-INSPIRE-SIBLINGFORIDEAS](/docs/adr/repository/inspiration.md#rule-adr-repo-inspire-siblingforideas)).
+([ADR-REPO-INSPIRE-SIBLINGFORIDEAS](/docs/drs/repository/inspiration.md#rule-adr-repo-inspire-siblingforideas)).
 ```

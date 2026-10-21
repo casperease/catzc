@@ -2,14 +2,14 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "01490963d387"
+    with_body_sha: e3b08fd08d61
   edges:
     docs: "[Get-AdrCodeLanguageViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-AdrCodeLanguageViolations.ps1.md)"
     cites:
-      - ADR-REPO-ADRCODE-PATHOFSEGMENTS
-      - ADR-REPO-ADRCODE-DOMAINSEGMENT
-      - ADR-REPO-ADRCODE-NAMEDNOTNUMBERED
-      - ADR-REPO-ADRCODE-ONESTRINGONEFACT
+      - ADR-REPO-DRSCODE-PATHOFSEGMENTS
+      - ADR-REPO-DRSCODE-DOMAINSEGMENT
+      - ADR-REPO-DRSCODE-NAMEDNOTNUMBERED
+      - ADR-REPO-DRSCODE-ONESTRINGONEFACT
 ---
 #>
 
@@ -38,17 +38,17 @@ function Get-AdrCodeLanguageViolations {
         if ($domain.Code) {
             $prefix = "$($domain.Kind)-$($domain.Code.Split('-')[0])"
             if ($domain.Code -cnotmatch "^$segment\z") {
-                "$($domain.Name): domain code $($domain.Code) is not one segment (ADR-REPO-ADRCODE-DOMAINSEGMENT)"
+                "$($domain.Name): domain code $($domain.Code) is not one segment (ADR-REPO-DRSCODE-DOMAINSEGMENT)"
             }
         }
         foreach ($ruleSet in $domain.RuleSets) {
             $code = $ruleSet.External
             if ($code -cnotmatch $cited) {
-                "${code} ($($domain.Name)): not a path of upper-case segments after a registered kind (ADR-REPO-ADRCODE-PATHOFSEGMENTS)"
+                "${code} ($($domain.Name)): not a path of upper-case segments after a registered kind (ADR-REPO-DRSCODE-PATHOFSEGMENTS)"
                 continue
             }
             if (-not $code.StartsWith("$prefix-", [System.StringComparison]::Ordinal)) {
-                "${code} ($($domain.Name)): does not start with its domain's prefix, $prefix- (ADR-REPO-ADRCODE-DOMAINSEGMENT)"
+                "${code} ($($domain.Name)): does not start with its domain's prefix, $prefix- (ADR-REPO-DRSCODE-DOMAINSEGMENT)"
             }
             if (-not $Index.FileOf.ContainsKey($code)) {
                 continue
@@ -77,15 +77,15 @@ function Get-AdrCodeLanguageViolations {
                     continue
                 }
                 if ($rule -cnotmatch "^$([regex]::Escape($code))-$segment\z") {
-                    "$($Adrs.Root)/${relative}:$($i + 1): '### Rule $rule' is not $code plus one named segment (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)"
+                    "$($Adrs.Root)/${relative}:$($i + 1): '### Rule $rule' is not $code plus one named segment (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)"
                     continue
                 }
                 if ($codes.Contains($rule)) {
-                    "$($Adrs.Root)/${relative}:$($i + 1): rule $rule shares its name with the ADR $rule (ADR-REPO-ADRCODE-ONESTRINGONEFACT)"
+                    "$($Adrs.Root)/${relative}:$($i + 1): rule $rule shares its name with the ADR $rule (ADR-REPO-DRSCODE-ONESTRINGONEFACT)"
                 }
             }
             if ($numbered -gt 0) {
-                "$($Adrs.Root)/${relative}: $numbered numbered rule heading(s); a rule is named, never numbered (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)"
+                "$($Adrs.Root)/${relative}: $numbered numbered rule heading(s); a rule is named, never numbered (ADR-REPO-DRSCODE-NAMEDNOTNUMBERED)"
             }
         }
     }

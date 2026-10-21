@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b07376de727b
+    with_body_sha: "78be45446f8c"
   edges:
     docs: "[Update-AdrCitation.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Update-AdrCitation.ps1
@@ -10,8 +10,8 @@ catzc:
       - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
       - ADR-AUTO-IDEM-CHECKBEFOREACTING
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-      - ADR-REPO-ADRCODE-PATHOFSEGMENTS
-      - ADR-REPO-ADRCODE-NAMEDNOTNUMBERED
+      - ADR-REPO-DRSCODE-PATHOFSEGMENTS
+      - ADR-REPO-DRSCODE-NAMEDNOTNUMBERED
       - ADR-REPO-LINK-MARKDOWNRELATIVE
       - ADR-REPO-LINK-CODELINKS
 ---
@@ -44,7 +44,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
             [System.IO.File]::ReadAllText($full)
         }
 
-        & $script:writeText 'docs/adr/index.md' ((@(
+        & $script:writeText 'docs/drs/index.md' ((@(
                     '| Code | ADR |'
                     '| ---- | --- |'
                     '| `ADR-WIDGET-SPROCKET` | [sprocket-rules](widget/sprocket-rules.md) |'
@@ -52,14 +52,14 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
                     '| `ADR-GIZMO-GADGET` | [gadget-rules](gizmo/gadget-rules.md) |'
                     '| `ADR-GIZMO-LEVER` | [lever-rules](gizmo/lever-rules.md) |'
                 ) -join "`n") + "`n") | Out-Null
-        & $script:writeText 'docs/adr/widget/sprocket-rules.md' "# Sprocket`n`n### Rule ADR-WIDGET-SPROCKET-TURN`n`nOne.`n`n### Rule ADR-WIDGET-SPROCKET-DROP`n`nTwo.`n" | Out-Null
-        & $script:writeText 'docs/adr/widget/cog-rules.md' "# Cog`n`n### Rule ADR-WIDGET-COG-SPINS`n`nOne.`n" | Out-Null
-        & $script:writeText 'docs/adr/gizmo/gadget-rules.md' "# Gadget`n`n### Rule ADR-GIZMO-GADGET-TURN`n`nOne.`n" | Out-Null
-        & $script:writeText 'docs/adr/gizmo/lever-rules.md' "# Lever`n`n### Rule ADR-GIZMO-LEVER-SPIN`n`nOne.`n" | Out-Null
+        & $script:writeText 'docs/drs/widget/sprocket-rules.md' "# Sprocket`n`n### Rule ADR-WIDGET-SPROCKET-TURN`n`nOne.`n`n### Rule ADR-WIDGET-SPROCKET-DROP`n`nTwo.`n" | Out-Null
+        & $script:writeText 'docs/drs/widget/cog-rules.md' "# Cog`n`n### Rule ADR-WIDGET-COG-SPINS`n`nOne.`n" | Out-Null
+        & $script:writeText 'docs/drs/gizmo/gadget-rules.md' "# Gadget`n`n### Rule ADR-GIZMO-GADGET-TURN`n`nOne.`n" | Out-Null
+        & $script:writeText 'docs/drs/gizmo/lever-rules.md' "# Lever`n`n### Rule ADR-GIZMO-LEVER-SPIN`n`nOne.`n" | Out-Null
     }
 
     Context 'citations' {
-        It 'moves a code to another registered kind, its rule anchors with it' -Tag 'ADR-REPO-ADRCODE-PATHOFSEGMENTS' {
+        It 'moves a code to another registered kind, its rule anchors with it' -Tag 'ADR-REPO-DRSCODE-PATHOFSEGMENTS' {
             $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
             $rows = foreach ($pair in @(@('ADR-WIDGET-COG', 'DDR-COG'), @('ADR-WIDGET-COG-SPINS', 'DDR-COG-SPINS'))) {
                 @($pair[0], $pair[1], '-', 'widget/cog-rules.md', 'move') -join "`t"
@@ -119,30 +119,30 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
 
     Context 'links' {
         It 'resolves a relative link at the file''s own depth and writes it back relative' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' -ForEach @(
-            @{ File = 'docs/adr/widget/near.md'; Link = 'sub/gadget-rules.md'; Expected = '../gizmo/gadget-rules.md' }
-            @{ File = 'docs/adr/widget/sub/inside.md'; Link = 'gadget-rules.md'; Expected = '../../gizmo/gadget-rules.md' }
+            @{ File = 'docs/drs/widget/near.md'; Link = 'sub/gadget-rules.md'; Expected = '../gizmo/gadget-rules.md' }
+            @{ File = 'docs/drs/widget/sub/inside.md'; Link = 'gadget-rules.md'; Expected = '../../gizmo/gadget-rules.md' }
             @{ File = 'docs/guide/deep/far.md'; Link = '../../adr/widget/sub/gadget-rules.md'; Expected = '../../adr/gizmo/gadget-rules.md' }
-            @{ File = 'top.md'; Link = 'docs/adr/widget/sub/cog-rules.md'; Expected = 'docs/adr/widget/cog-rules.md' }
-            @{ File = 'docs/adr/widget/folder.md'; Link = 'sub/'; Expected = '../gizmo/' }
+            @{ File = 'top.md'; Link = 'docs/drs/widget/sub/cog-rules.md'; Expected = 'docs/drs/widget/cog-rules.md' }
+            @{ File = 'docs/drs/widget/folder.md'; Link = 'sub/'; Expected = '../gizmo/' }
         ) {
             & $script:update $File "[x]($Link)" | Should -BeExactly "[x]($Expected)"
         }
 
         It 'follows a rule anchor to the file of the rule''s new ADR' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
-            & $script:update 'docs/adr/widget/follow.md' '[s](sprocket-rules.md#rule-adr-widget-sprocket-spin) [g](sub/gadget-rules.md#rule-adr-widget-gadget-lift)' |
+            & $script:update 'docs/drs/widget/follow.md' '[s](sprocket-rules.md#rule-adr-widget-sprocket-spin) [g](sub/gadget-rules.md#rule-adr-widget-gadget-lift)' |
                 Should -BeExactly '[s](../gizmo/lever-rules.md#rule-adr-gizmo-lever-spin) [g](sprocket-rules.md#rule-adr-widget-sprocket-drop)'
         }
 
         It 'sends an in-file anchor of a rule that leaves the ADR to the rule''s new file' {
             $text = "# Sprocket`n`n### Rule ADR-WIDGET-SPROCKET-TURN`n`nSee [spin](#rule-adr-widget-sprocket-spin) and [turn](#rule-adr-widget-sprocket-turn).`n"
-            & $script:update 'docs/adr/widget/sprocket-rules.md' $text |
+            & $script:update 'docs/drs/widget/sprocket-rules.md' $text |
                 Should -BeExactly "# Sprocket`n`n### Rule ADR-WIDGET-SPROCKET-TURN`n`nSee [spin](../gizmo/lever-rules.md#rule-adr-gizmo-lever-spin) and [turn](#rule-adr-widget-sprocket-turn).`n"
         }
 
         It 'keeps a code link repository-rooted, its text and target consistent' -Tag 'ADR-REPO-LINK-CODELINKS' {
-            $text = "# [ADR-WIDGET-GADGET-FOLD](/docs/adr/widget/sub/gadget-rules.md#rule-adr-widget-gadget-fold)`n"
+            $text = "# [ADR-WIDGET-GADGET-FOLD](/docs/drs/widget/sub/gadget-rules.md#rule-adr-widget-gadget-fold)`n"
             & $script:update 'tools/Get-Widget.ps1' $text |
-                Should -BeExactly "# [ADR-GIZMO-GADGET-FOLD](/docs/adr/gizmo/gadget-rules.md#rule-adr-gizmo-gadget-fold)`n"
+                Should -BeExactly "# [ADR-GIZMO-GADGET-FOLD](/docs/drs/gizmo/gadget-rules.md#rule-adr-gizmo-gadget-fold)`n"
         }
 
         It 'leaves an off-repository URL and an unmapped link alone' {
@@ -153,33 +153,33 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
 
     Context 'plain paths' {
         It 'rewrites a path mention in each anchoring form' -ForEach @(
-            @{ Text = 'docs/adr/widget/sub/gadget-rules.md.'; Expected = 'docs/adr/gizmo/gadget-rules.md.' }
-            @{ Text = '`/docs/adr/widget/sub/cog-rules.md`'; Expected = '`/docs/adr/widget/cog-rules.md`' }
+            @{ Text = 'docs/drs/widget/sub/gadget-rules.md.'; Expected = 'docs/drs/gizmo/gadget-rules.md.' }
+            @{ Text = '`/docs/drs/widget/sub/cog-rules.md`'; Expected = '`/docs/drs/widget/cog-rules.md`' }
             @{ Text = 'widget/sub/cog-rules.md'; Expected = 'widget/cog-rules.md' }
             @{ Text = 'widget/sub/<name>.md'; Expected = 'gizmo/<name>.md' }
             @{ Text = 'folder: widget/sub'; Expected = 'folder: gizmo' }
             @{ Text = 'widget/sub/gadget-rules.md#rule-adr-widget-gadget-lift'; Expected = 'widget/sprocket-rules.md#rule-adr-widget-sprocket-drop' }
         ) {
-            & $script:update 'docs/adr/plain.md' $Text | Should -BeExactly $Expected
+            & $script:update 'docs/drs/plain.md' $Text | Should -BeExactly $Expected
         }
 
         It 'leaves a path that only ends like an ADR folder alone' {
-            & $script:update 'docs/adr/plain-other.md' 'docs/guide/widget/sub/page.md and out/widget/sub' |
+            & $script:update 'docs/drs/plain-other.md' 'docs/guide/widget/sub/page.md and out/widget/sub' |
                 Should -BeExactly 'docs/guide/widget/sub/page.md and out/widget/sub'
         }
 
         It 'moves a one-segment folder''s path mentions and leaves its bare name in prose alone' {
             $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
             $codeMap = & $script:writeText 'maps/folder-code-map.tsv' ($header + "`n" + (@('-', '-', 'gadgets/index.md', 'gizmos/index.md', 'folder') -join "`t") + "`n")
-            & $script:writeText 'docs/adr/gadgets/index.md' "# Gadgets`n" | Out-Null
+            & $script:writeText 'docs/drs/gadgets/index.md' "# Gadgets`n" | Out-Null
             $text = "Three gadgets share one fragment, so gadgets need a folder: gadgets/ holds them, see gadgets/index.md.`n"
-            $full = & $script:writeText 'docs/adr/widget/folder-word.md' $text
+            $full = & $script:writeText 'docs/drs/widget/folder-word.md' $text
             Update-AdrCitation -Path $full -CodeMap $codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root -InformationAction SilentlyContinue | Out-Null
             [System.IO.File]::ReadAllText($full) |
                 Should -BeExactly "Three gadgets share one fragment, so gadgets need a folder: gizmos/ holds them, see gizmos/index.md.`n"
         }
 
-        It 'leaves a path of a same-named folder outside docs/adr alone, such as a module path' {
+        It 'leaves a path of a same-named folder outside docs/drs alone, such as a module path' {
             $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
             $codeMap = & $script:writeText 'maps/module-folder-code-map.tsv' ($header + "`n" + (@('-', '-', "$(Split-Path (Get-CatzcModulesRoot) -Leaf)/index.md", 'automation/pwsh/index.md', 'folder') -join "`t") + "`n")
             $text = "The loader reads pwsh/Catzc.Widget/x.ps1 and pwsh/Catzc.Widget/ before any module.`n"
@@ -188,12 +188,12 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
             [System.IO.File]::ReadAllText($full) | Should -BeExactly $text
         }
 
-        It 'inside docs/adr, moves a real page of the folder and leaves a module path of the same name alone' {
+        It 'inside docs/drs, moves a real page of the folder and leaves a module path of the same name alone' {
             $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
             $codeMap = & $script:writeText 'maps/module-folder-in-adr-code-map.tsv' ($header + "`n" + (@('-', '-', "$(Split-Path (Get-CatzcModulesRoot) -Leaf)/index.md", 'automation/pwsh/index.md', 'folder') -join "`t") + "`n")
-            & $script:writeText 'docs/adr/automation/pwsh/widget-rules.md' "# Widget rules`n" | Out-Null
+            & $script:writeText 'docs/drs/automation/pwsh/widget-rules.md' "# Widget rules`n" | Out-Null
             $text = "The loader reads pwsh/Catzc.Widget/x.ps1, and pwsh/widget-rules.md says why.`n"
-            $full = & $script:writeText 'docs/adr/widget/module-paths.md' $text
+            $full = & $script:writeText 'docs/drs/widget/module-paths.md' $text
             Update-AdrCitation -Path $full -CodeMap $codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root -InformationAction SilentlyContinue | Out-Null
             [System.IO.File]::ReadAllText($full) | Should -BeExactly "The loader reads pwsh/Catzc.Widget/x.ps1, and automation/pwsh/widget-rules.md says why.`n"
         }
@@ -202,7 +202,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
     Context 'a root move' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
         BeforeAll {
             $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
-            $script:rootMap = & $script:writeText 'maps/root-code-map.tsv' ($header + "`n" + (@('-', '-', 'docs/adr', 'docs/gadgets', 'root') -join "`t") + "`n")
+            $script:rootMap = & $script:writeText 'maps/root-code-map.tsv' ($header + "`n" + (@('-', '-', 'docs/drs', 'docs/gadgets', 'root') -join "`t") + "`n")
             $script:moveRoot = {
                 param([string] $Relative, [string] $Text, [string] $CodeMap = $script:rootMap)
                 $full = & $script:writeText $Relative $Text
@@ -216,13 +216,13 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
             @{ Name = 'relative link from outside'; Relative = 'docs/how-to/widget.md'; Text = "See [cog](../adr/widget/cog-rules.md).`n"
                 Expected = "See [cog](../gadgets/widget/cog-rules.md).`n"
             }
-            @{ Name = 'repository-rooted code link'; Relative = 'docs/how-to/widget.md'; Text = "[cog](/docs/adr/widget/cog-rules.md#rule-adr-widget-cog-spins)`n"
+            @{ Name = 'repository-rooted code link'; Relative = 'docs/how-to/widget.md'; Text = "[cog](/docs/drs/widget/cog-rules.md#rule-adr-widget-cog-spins)`n"
                 Expected = "[cog](/docs/gadgets/widget/cog-rules.md#rule-adr-widget-cog-spins)`n"
             }
-            @{ Name = 'plain path mention'; Relative = 'notes/widget.md'; Text = "Read docs/adr/gizmo/lever-rules.md first.`n"
+            @{ Name = 'plain path mention'; Relative = 'notes/widget.md'; Text = "Read docs/drs/gizmo/lever-rules.md first.`n"
                 Expected = "Read docs/gadgets/gizmo/lever-rules.md first.`n"
             }
-            @{ Name = 'bare mention of the root itself'; Relative = 'notes/widget.md'; Text = "Records live in docs/adr/, see /docs/adr. Root: 'docs/adr'`n"
+            @{ Name = 'bare mention of the root itself'; Relative = 'notes/widget.md'; Text = "Records live in docs/drs/, see /docs/drs. Root: 'docs/drs'`n"
                 Expected = "Records live in docs/gadgets/, see /docs/gadgets. Root: 'docs/gadgets'`n"
             }
         ) {
@@ -236,12 +236,12 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
 
         It 'leaves a link between two records, and a link out of the root at the same depth, as written' {
             $text = "[lever](../gizmo/lever-rules.md) and [how-to](../../how-to/widget.md) and [here](#rule-adr-widget-sprocket-turn)`n"
-            & $script:moveRoot 'docs/adr/widget/root-links.md' $text | Should -BeExactly $text
+            & $script:moveRoot 'docs/drs/widget/root-links.md' $text | Should -BeExactly $text
         }
 
         It 'refuses a root row that <Name>' -ForEach @(
-            @{ Name = 'moves another folder'; From = 'docs/gizmos'; To = 'docs/gadgets'; Error = "*moves the root 'docs/adr', not 'docs/gizmos'*" }
-            @{ Name = 'changes the depth'; From = 'docs/adr'; To = 'gadgets'; Error = '*not a folder of its own depth*' }
+            @{ Name = 'moves another folder'; From = 'docs/gizmos'; To = 'docs/gadgets'; Error = "*moves the root 'docs/drs', not 'docs/gizmos'*" }
+            @{ Name = 'changes the depth'; From = 'docs/drs'; To = 'gadgets'; Error = '*not a folder of its own depth*' }
         ) {
             $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
             $codeMap = & $script:writeText "maps/bad-root-$($From -replace '/', '-').tsv" ($header + "`n" + (@('-', '-', $From, $To, 'root') -join "`t") + "`n")
@@ -251,7 +251,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
 
     Context 'the file' {
         It 'returns each change with its kind, line, old text, and new text' {
-            & $script:update 'docs/adr/widget/report.md' "ADR-WIDGET-GADGET-LIFT`n[c](sub/cog-rules.md) ADR-WIDGET-GADGET`n" | Out-Null
+            & $script:update 'docs/drs/widget/report.md' "ADR-WIDGET-GADGET-LIFT`n[c](sub/cog-rules.md) ADR-WIDGET-GADGET`n" | Out-Null
             $script:changes.Count | Should -Be 3
             $script:changes[0].Kind | Should -Be ([Catzc.Base.Docs.AdrCitationChangeKind]::Citation)
             $script:changes[0].Line | Should -Be 1
@@ -261,7 +261,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
             $script:changes[1].Line | Should -Be 2
             $script:changes[1].New | Should -BeExactly 'cog-rules.md'
             $script:changes[2].Kind | Should -Be ([Catzc.Base.Docs.AdrCitationChangeKind]::Code)
-            $script:changes[2].Path | Should -BeExactly 'docs/adr/widget/report.md'
+            $script:changes[2].Path | Should -BeExactly 'docs/drs/widget/report.md'
         }
 
         It 'with -DryRun returns the changes and writes nothing' -Tag 'ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT' {
@@ -275,7 +275,7 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
 
         It 'leaves a file with nothing to change byte-identical, with CRLF and a byte order mark' {
             $body = $script:utf8.GetBytes("ADR-WIDGET-SPROCKET-TURN`r`n[k](../widget/cog-rules.md)`r`n")
-            $full = & $script:writeBytes 'docs/adr/gizmo/still.md' ([byte[]] (@(0xEF, 0xBB, 0xBF) + $body))
+            $full = & $script:writeBytes 'docs/drs/gizmo/still.md' ([byte[]] (@(0xEF, 0xBB, 0xBF) + $body))
             $before = [System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes($full))
             $stamp = [System.IO.File]::GetLastWriteTimeUtc($full)
             $changes = @(Update-AdrCitation -Path $full -CodeMap $script:codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root)
@@ -294,9 +294,9 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
 
         It 'is a no-op the second time' -Tag 'ADR-AUTO-IDEM-CHECKBEFOREACTING' {
             $text = "ADR-WIDGET-GADGET-TURN, ADR-WIDGET-GADGET-LIFT`n[s](../widget/sprocket-rules.md#rule-adr-widget-sprocket-spin) widget/sub/`n"
-            $once = & $script:update 'docs/adr/gizmo/twice.md' $text
+            $once = & $script:update 'docs/drs/gizmo/twice.md' $text
             $once | Should -Not -BeExactly $text
-            $full = Join-Path $script:root 'docs/adr/gizmo/twice.md'
+            $full = Join-Path $script:root 'docs/drs/gizmo/twice.md'
             $again = @(Update-AdrCitation -Path $full -CodeMap $script:codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root)
             $again.Count | Should -Be 0
             [System.IO.File]::ReadAllText($full) | Should -BeExactly $once
@@ -339,15 +339,15 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
         }
     }
 
-    Context 'rule renames' -Tag 'ADR-REPO-ADRCODE-NAMEDNOTNUMBERED' {
+    Context 'rule renames' -Tag 'ADR-REPO-DRSCODE-NAMEDNOTNUMBERED' {
         It 'renames a rule in place, its citation and its heading' {
             & $script:update 'notes/renamed.md' "See ADR-WIDGET-COG-TURNS.`n### Rule ADR-WIDGET-COG-TURNS`n" |
                 Should -BeExactly "See ADR-WIDGET-COG-SPINS.`n### Rule ADR-WIDGET-COG-SPINS`n"
         }
 
         It 'rewrites a code link''s text and its anchor to the renamed rule' -Tag 'ADR-REPO-LINK-CODELINKS' {
-            & $script:update 'src/renamed.ps1' '# [ADR-WIDGET-COG-TURNS](/docs/adr/widget/cog-rules.md#rule-adr-widget-cog-turns)' |
-                Should -BeExactly '# [ADR-WIDGET-COG-SPINS](/docs/adr/widget/cog-rules.md#rule-adr-widget-cog-spins)'
+            & $script:update 'src/renamed.ps1' '# [ADR-WIDGET-COG-TURNS](/docs/drs/widget/cog-rules.md#rule-adr-widget-cog-turns)' |
+                Should -BeExactly '# [ADR-WIDGET-COG-SPINS](/docs/drs/widget/cog-rules.md#rule-adr-widget-cog-spins)'
         }
 
         It 'reports a numbered heading as Unhandled and leaves it as written' {

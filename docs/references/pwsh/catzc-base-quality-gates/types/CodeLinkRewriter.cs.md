@@ -9,10 +9,10 @@ Above `using System;`, written with `//`.
 
 ```text
 Rewrites the ADR references in one comment into canonical code links
-([ADR-REPO-LINK-CODELINKS](/docs/adr/repository/markdown-links.md#rule-adr-repo-link-codelinks)):
-  `[ADR-<CODE>](/docs/adr/<path>.md)`                                 a whole ADR
-  `[ADR-<CODE>-<NAME>](/docs/adr/<path>.md#rule-adr-<code>-<name>)`  one rule
-Every other spelling is recognised — a bare, ./, ../ or rooted docs/adr path, an ADR file name alone, a bare
+([ADR-REPO-LINK-CODELINKS](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)):
+  `[ADR-<CODE>](/docs/drs/<path>.md)`                                 a whole ADR
+  `[ADR-<CODE>-<NAME>](/docs/drs/<path>.md#rule-adr-<code>-<name>)`  one rule
+Every other spelling is recognised — a bare, ./, ../ or rooted docs/drs path, an ADR file name alone, a bare
 citation, a path followed by its own citation, and a markdown link in another shape — and a numbered citation is
 reported, since it names no rule. The citation code is the source of truth: the destination is derived from it (AdrCitationMap), so a stale
 path is re-pointed and a text/destination mismatch resolves in favour of the code.
@@ -26,7 +26,7 @@ Above `@"|(?<path>(?<![^\s(\[{,;:'""*])(?:\.{1,2}/)*/?" + Regex.Escape(recordRoo
 
 ```text
 A path or file name starts a word: it follows the comment start, a space, or opening punctuation, never
-another character — `<root>/docs/adr/index.md` is a placeholder path, not a reference.
+another character — `<root>/docs/drs/index.md` is a placeholder path, not a reference.
 ```
 
 ## comment:3
@@ -61,7 +61,7 @@ separator opened it.
 Above `int RepeatedLink(string comment, int at, bool[] literal, string canonical)`, written with `//`.
 
 ```text
-A bracketed link right after a bare citation that names the same ADR or rule — `ADR-X-NAME ([x](/docs/adr/x.md#rule-adr-x-name))`,
+A bracketed link right after a bare citation that names the same ADR or rule — `ADR-X-NAME ([x](/docs/drs/x.md#rule-adr-x-name))`,
 the link perhaps on the next line — is the same reference spelled twice. It merges into the citation's one
 canonical link instead of becoming a second copy of it. Returns how many characters it covers (0 when there is
 none, or when the link points elsewhere).

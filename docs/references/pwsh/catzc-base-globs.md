@@ -3,7 +3,7 @@
 The globset primitive: the single source of truth (`globs.yml`) mapping every deployable unit onto its files under version control, the
 native path-filter projection that pipelines and workflows trigger on, the git-reflected "which areas of control did this change touch"
 report, and the session-memory protection that skips a repeated local scan over an unchanged set. The governing decisions are
-[durable-sha-globs](../../adr/flow/durable-sha-globs.md) and [protected-globs](../../adr/repository/protected-globs.md); the module owns the
+[durable-sha-globs](../../drs/flow/durable-sha-globs.md) and [protected-globs](../../drs/repository/protected-globs.md); the module owns the
 glob dialect, the durable-SHA identity, the vendor projection, and the git-reflection query — pipelines carry generated registrations only,
 never hand-authored source-path filters, and nothing is committed per set.
 
@@ -40,7 +40,7 @@ is: its kind (its role, and a subkind where it has one) is the first entry of th
 The two derivations that replace a committed per-set marker. The **projection** renders a globset's flattened scan program into each
 vendor's native path-filter dialect — GitHub `on.*.paths` with ordered `!` negation (exact), Azure DevOps `trigger.paths.include`/`exclude`
 and branch-policy `filenamePatterns` (order-independent, last-select-per-pattern) — so a pipeline triggers, or does not start at all, on the
-real files. Quality gates ([ADR-AUTO-TEST-QUALITYGATE](../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) guard the
+real files. Quality gates ([ADR-AUTO-TEST-QUALITYGATE](../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)) guard the
 projection: the drift quality gates compare each ADO pipeline's or GitHub workflow's declared trigger to the projection and report one issue
 per drifted or missing pipeline, and the coverage quality gate confirms every member of a pipeline-bound set matches an ADO include pattern,
 so an include-only trigger can never under-trigger. The **git reflection** answers "did this change touch the unit?" from git at the real

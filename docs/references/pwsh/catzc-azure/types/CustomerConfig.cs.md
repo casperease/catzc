@@ -8,11 +8,11 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `using System;`, written with `//`.
 
 ```text
-The customer catalogue (configs/customer.yml, [ADR-AZ-CUSTOMER](/docs/adr/azure/azure-customer-model.md)) — the
+The customer catalogue (configs/customer.yml, [ADR-AZ-CUSTOMER](/docs/drs/azure/azure-customer-model.md)) — the
 customers this repo can deploy for; WHICH of them are enabled is the have_customers variant, not this file.
 Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Azure.CustomerConfig), so
 Get-Config -Config customer returns this typed record. Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
   - the top-level key 'customers' is required (an empty map is allowed) and is the only key;
@@ -20,9 +20,9 @@ Constructing an instance validates the file, collecting every violation into one
   - shortcodes are unique;
   - no key equals any shortcode — a subscription's `customer` field may name a customer by its key OR its
     shortcode, so a collision would make that reference ambiguous
-    ([ADR-AZ-CUSTOMER-TWOBINDINGS](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer-twobindings)).
+    ([ADR-AZ-CUSTOMER-TWOBINDINGS](/docs/drs/azure/azure-customer-model.md#rule-adr-az-customer-twobindings)).
 Self-contained — it does NOT read azure.yml (a subscription references a customer here, so azure.yml depends
-on customer.yml, never the reverse; [ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/adr/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)).
+on customer.yml, never the reverse; [ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](/docs/drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload)).
 ```
 
 ## comment:2

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "96dc5fbdf0b6"
+    with_body_sha: "51d85be0dd7c"
   edges:
     docs: "[VariantTrack.cs.md](docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md)"
     cites:
@@ -27,7 +27,7 @@ public sealed class VariantTrack
     // The places the track covers: repository-relative paths with '/' separators (e.g. pwsh, .github/workflows).
     public IReadOnlyList<string> places { get; }
 
-    // The track's type: the id of a track type of the track-types registry ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](/docs/adr/design/track-types.md#rule-ddr-tracktype-closedsetoftypes)).
+    // The track's type: the id of a track type of the track-types registry ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](/docs/drs/design/track-types.md#rule-ddr-tracktype-closedsetoftypes)).
     public string type { get; }
 
     // The vendor that reads the track's files, or null when the track has none.

@@ -16,8 +16,8 @@ Every git-tracked `*.md` file — the repository as committed, so a gitignored g
 whose OptOut attribute .gitattributes marks unset (the meta block's -catzc-meta; the title has none). No list of its own: a new exception is
 declared in the .gitattributes source like every other file class.
 
-It rests on [ADR-REPO-FILEMETA-KINDSCOPE](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-kindscope) and
-[ADR-REPO-FORMAT-MARKDOWNTITLE](../../../../adr/repository/uniform-formatting.md#rule-adr-repo-format-markdowntitle).
+It rests on [ADR-REPO-FILEMETA-KINDSCOPE](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-kindscope) and
+[ADR-REPO-FORMAT-MARKDOWNTITLE](../../../../drs/repository/uniform-formatting.md#rule-adr-repo-format-markdowntitle).
 
 ### parameter `RepositoryRoot`
 

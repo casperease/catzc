@@ -22,7 +22,7 @@ template identifier):
 
 Empty result means the config conforms.
 
-It rests on [ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY](../../../../adr/azure/azure-data-model.md#rule-adr-az-datamod-schemaandintegrity).
+It rests on [ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY](../../../../drs/azure/azure-data-model.md#rule-adr-az-datamod-schemaandintegrity).
 
 ### parameter `Customer`
 

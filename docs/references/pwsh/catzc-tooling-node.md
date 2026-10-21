@@ -3,8 +3,8 @@
 The Node.js ecosystem module of the Tooling group. It owns the Node runtime and npm, and the npm-delivered quality tools the repository's
 quality gates run on — cSpell, markdownlint, and Prettier — each pinned to its locked version through the generic engine in
 [Catzc.Tooling.Core](catzc-tooling-core.md). It carries no engine of its own; it is the thin, Node-specific surface over Core, and it
-installs through npm per [use-proper-package-managers](../../adr/automation/use-proper-package-managers.md) and
-[controlling-systemwide-deps](../../adr/automation/controlling-systemwide-deps.md).
+installs through npm per [use-proper-package-managers](../../drs/automation/use-proper-package-managers.md) and
+[controlling-systemwide-deps](../../drs/automation/controlling-systemwide-deps.md).
 
 ## Responsibilities
 
@@ -34,7 +34,7 @@ idempotently — there is no Node-specific install logic outside that delegation
 The two responsibilities are the runtime and what rides on it. Responsibility 1 owns Node and npm — the package manager responsibility 2
 needs; responsibility 2 owns the quality tools that are themselves npm packages. The relationship to the quality gates is one-way: the gates
 invoke these tools at runtime, while this module owns only installing and locking them. The same functions run locally and in CI (see
-[cross-platform](../../adr/automation/cross-platform.md)).
+[cross-platform](../../drs/automation/cross-platform.md)).
 
 ## Division
 

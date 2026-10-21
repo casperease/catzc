@@ -9,5 +9,5 @@ Above `Describe 'Get-FormatScope' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Get-FormatScope with git mocked: the tracked files (Get-GitTrackedPath) and the .gitattributes classes
-(Get-GitAttributeValue). Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+(Get-GitAttributeValue). Neutral fixture names ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

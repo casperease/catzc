@@ -8,6 +8,6 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `Mock Get-ToolConfig { [pscustomobject]@{ command = 'widget'; pip_package =...`, written with `#`.
 
 ```text
-Neutral fixture tool ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) — a
+Neutral fixture tool ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) — a
 pip_package library, like PySpark but not a live identity.
 ```

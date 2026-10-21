@@ -49,7 +49,7 @@ in timeouts.yml (Get-TestTimeLimits).
 ### parameter `RunBudgetSeconds`
 
 The budget for the whole run, in seconds; the header records the run against it (a devbox run over it fails,
-[ADR-AUTO-TEST-DEVBOXRUNBUDGET](../../../../adr/automation/test-automation.md#rule-adr-auto-test-devboxrunbudget)). Defaults to
+[ADR-AUTO-TEST-DEVBOXRUNBUDGET](../../../../drs/automation/test-automation.md#rule-adr-auto-test-devboxrunbudget)). Defaults to
 `tests.run_seconds` in timeouts.yml (Get-TestTimeLimits).
 
 ### parameter `SlowestCount`

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a52949917f3e
+    with_body_sha: df9d5ce0e0a6
   edges:
     code: pwsh/Catzc.Base.Modules/types/Module.cs
     cites:
@@ -11,7 +11,7 @@ catzc:
 ---
 #>
 
-# Rests on [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel).
+# Rests on [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel).
 Describe 'Module' -Tag 'L0', 'logic', 'ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE' {
     It 'holds the identity it was given and copies its lists, so a caller''s array cannot change it' {
         $files = [string[]]@('Gadget.wdg', 'inner/Cog.wdg')

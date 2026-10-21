@@ -13,7 +13,7 @@ Catzc.Internal.Loader — the always-loaded entry point for .internal shared cod
 The .internal folder holds code that BOTH the bootstrap (which runs before any Catzc module exists) and the
 Catzc modules (which run after) must call — the single home for what would otherwise be duplicated across the
 two layers (see
-[PDR-ONELIVE](/docs/adr/principles/one-living-version.md)). This loader is the one thing the importer loads
+[PDR-ONELIVE](/docs/drs/principles/one-living-version.md)). This loader is the one thing the importer loads
 unconditionally; it stays in the session (it is NOT removed with Bootstrap), so a post-import Catzc cover
 function can ensure a shared module is present before delegating to it. Because it is loaded first in both run
 modes, it also carries the one pipeline-detection function, Test-IsRunningInPipeline, and the one VS Code

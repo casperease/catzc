@@ -10,7 +10,7 @@ Above `BeforeAll {`, written with `#`.
 ```text
 Read-only resolver tests: the config mock + cache reset run ONCE, not per test — the mocked config is
 identical every test and no test mutates it, so the cache stays warm
-([ADR-AUTO-TEST-SETUPONCE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-setuponce)/[ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/adr/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
+([ADR-AUTO-TEST-SETUPONCE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-setuponce)/[ADR-AUTO-TEST-SAFESEAMSWAPS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-safeseamswaps)).
 ```
 
 ## comment:2

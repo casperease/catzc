@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c450f3609cc3
+#     with_body_sha: d164a58c482b
 # ---
 
 description:
@@ -94,9 +94,9 @@ content:
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: docs/-/.
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/fail-fast-with-asserts.md
-          - docs/adr/index.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/fail-fast-with-asserts.md
+          - docs/drs/index.md
           - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
           - docs/references/pwsh/.assets/listen-mode-flow/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md

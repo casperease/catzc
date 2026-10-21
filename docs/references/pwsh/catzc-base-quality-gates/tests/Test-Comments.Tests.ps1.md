@@ -9,6 +9,6 @@ Above `Describe 'Test-Comments' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Test-Comments is the gate that every long comment lives in its file's comment page and every section
-still names a code line of the file ([PDR-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-pdr-onelive-oneversion)), tested in
+still names a code line of the file ([PDR-ONELIVE-ONEVERSION](/docs/drs/principles/one-living-version.md#rule-pdr-onelive-oneversion)), tested in
 isolation on a widget/gadget fixture repository in $TestDrive; each case breaks the page or the file one way.
 ```

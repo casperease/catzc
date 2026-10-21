@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4271c776d662"
+    with_body_sha: "6d9c3ac944d7"
   edges:
     test: pwsh/Catzc.Base.ModuleSystem/tests/types/ImporterConfig.Tests.ps1
     cites:
@@ -17,7 +17,7 @@ using System.Globalization;
 
 namespace Catzc.Base.ModuleSystem;
 
-// Rests on [ADR-AUTO-IMPORTER-DECIDESMIX](/docs/adr/automation/importer.md#rule-adr-auto-importer-decidesmix).
+// Rests on [ADR-AUTO-IMPORTER-DECIDESMIX](/docs/drs/automation/importer.md#rule-adr-auto-importer-decidesmix).
 public sealed class ImporterConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

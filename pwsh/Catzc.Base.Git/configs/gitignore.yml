@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f9371bb287b0
+#     with_body_sha: "101ca97404e0"
 #   edges:
 #     docs: "[gitignore.yml.md](docs/references/pwsh/catzc-base-git/configs/gitignore.yml.md)"
 #     cites:
@@ -28,7 +28,7 @@ sections:
   - id: output
     title: Output directory
     why: >
-      All generated artifacts land in out/ (see docs/adr/repository/dedicated-output-directory.md). The folder itself is kept so a fresh
+      All generated artifacts land in out/ (see docs/drs/repository/dedicated-output-directory.md). The folder itself is kept so a fresh
       checkout has the anchor; its contents never enter git.
     patterns:
       - out/*
@@ -37,7 +37,7 @@ sections:
   - id: pdfs
     title: Rendered PDFs
     why: >
-      A PDF is rendered from a source, so it is output (docs/adr/repository/dedicated-output-directory.md, rule 11): ignored everywhere. A
+      A PDF is rendered from a source, so it is output (docs/drs/repository/dedicated-output-directory.md, rule 11): ignored everywhere. A
       PDF that must be committed opts out here with its own '!' line and a note saying why.
     patterns:
       - "*.pdf"
@@ -66,7 +66,7 @@ sections:
     title: Generated READMEs
     why: >
       A README.md in a mapped conventional folder is a generated copy of an authored docs source (Build-Readme, Catzc.Base.Docs; see
-      docs/adr/repository/generated-readmes.md) — derived artifacts like the module manifests, regenerated on every import. Hand-authored
+      docs/drs/repository/generated-readmes.md) — derived artifacts like the module manifests, regenerated on every import. Hand-authored
       READMEs are exactly the unmapped folders and opt back in below. The generated cspell dictionaries under .cspell/ are ignored by the
       folder's own managed .gitignore (a root-config copy), so only that folder's .gitkeep is committed.
     patterns:
@@ -83,7 +83,7 @@ sections:
     title: Compiled C# types — transient temp only
     why: >
       The combined compiled assembly (pwsh/.compiled/Catzc.Types.<hash>.dll) is COMMITTED — a vendored, hash-keyed prebuild that lets a
-      fresh checkout and CI load without compiling (see docs/adr/automation/caching.md). Only the concurrent-compile temp file is ignored.
+      fresh checkout and CI load without compiling (see docs/drs/automation/caching.md). Only the concurrent-compile temp file is ignored.
     patterns:
       - pwsh/.compiled/*.tmp
 

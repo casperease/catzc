@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7e44945660a0"
+    with_body_sha: df804dee3230
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/Get-BicepTemplateConfiguration.Tests.ps1
     docs: "[Get-BicepTemplateConfiguration.ps1.md](docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md)"
@@ -58,7 +58,7 @@ function Get-BicepTemplateConfiguration {
         "under configuration/$Customer/"
     }
     # A bicepparam slot is read by the Bicep compiler, not here: its descriptor carries its source path
-    # ([ADR-AZ-DATAMOD-BICEPPARAMSLOT](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-bicepparamslot)).
+    # ([ADR-AZ-DATAMOD-BICEPPARAMSLOT](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-bicepparamslot)).
     $bicepParamFile = Join-Path $folder "$configName.bicepparam"
     if ([System.IO.File]::Exists($bicepParamFile)) {
         return [ordered]@{ BicepParamFile = $bicepParamFile }

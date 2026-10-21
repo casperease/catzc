@@ -20,7 +20,7 @@ and a file's content is hashed with its carriage returns removed. A clone, a sna
 stamp the same, so every checkout agrees on a stamp computed from the same inputs (the root-config inputs stamp of Catzc.Base.RootConfig).
 The work is done by the compiled Catzc.Base.Files.InputStamp, which hashes the files in parallel: a few megabytes of text take milliseconds.
 
-It rests on [PDR-ONELIVE](../../../adr/principles/one-living-version.md).
+It rests on [PDR-ONELIVE](../../../drs/principles/one-living-version.md).
 
 ### parameter `Path`
 
@@ -50,5 +50,5 @@ Extra text folded into the stamp, for an input that is not a file (a setting, a 
 ### example 1
 
 ```powershell
-Get-InputStamp -Path $glossaryPaths, (Resolve-RepoPath 'docs/adr') -Exclude '*/README.md'
+Get-InputStamp -Path $glossaryPaths, (Resolve-RepoPath 'docs/drs') -Exclude '*/README.md'
 ```

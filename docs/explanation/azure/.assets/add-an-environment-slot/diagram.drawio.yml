@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "6f01e5c74041"
+#     with_body_sha: dfe0452325b2
 # ---
 
 description:
@@ -86,7 +86,7 @@ content:
       - cell: main-uat
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - docs/adr/index.md
+          - docs/drs/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
@@ -94,7 +94,7 @@ content:
       - cell: release-uat
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - docs/adr/index.md
+          - docs/drs/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
@@ -102,7 +102,7 @@ content:
       - cell: pre-prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - docs/adr/index.md
+          - docs/drs/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
@@ -110,7 +110,7 @@ content:
       - cell: prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - docs/adr/index.md
+          - docs/drs/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
@@ -119,11 +119,11 @@ content:
       - cell: automation
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - docs/adr/azure/azure-data-model.md
-          - docs/adr/azure/dora-explains.md
-          - docs/adr/azure/infrastructure-kinds.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/azure/azure-data-model.md
+          - docs/drs/azure/dora-explains.md
+          - docs/drs/azure/infrastructure-kinds.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/references/ado/pipelines/cd-shared.yaml.md
           - docs/references/ado/pipelines/extends/cd-customer.yaml.md
           - docs/references/infrastructure/templates/discovery/options.yml.md

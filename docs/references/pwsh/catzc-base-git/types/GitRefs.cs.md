@@ -12,7 +12,7 @@ Git's refs, read in-process: where a checkout's git directory is, which commit H
 the branch HEAD is on — what `git rev-parse` answers, without starting git. Refs are small text files (loose refs,
 `packed-refs`), so reading them directly is exact and cheap. A layout this reader cannot read correctly — the
 reftable ref store, or a loose annotated tag, whose commit sits inside a tag object — is rejected loudly rather
-than read wrong ([ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)).
+than read wrong ([ADR-AUTO-TRACKED](/docs/drs/automation/tracked-files-from-the-index.md)).
 ```
 
 ## comment:2

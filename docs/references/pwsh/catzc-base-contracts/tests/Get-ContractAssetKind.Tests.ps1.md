@@ -9,6 +9,6 @@ Above `Describe 'Get-ContractAssetKind' -Tag 'L0', 'logic',...`, written with `#
 
 ```text
 The name rule of a contract asset's kind
-([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the suffix picks schema or sample,
+([ADR-REPO-CONTRACT-CONTRACTASSET](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the suffix picks schema or sample,
 and any other name is a fragment, or a presence when empty.
 ```

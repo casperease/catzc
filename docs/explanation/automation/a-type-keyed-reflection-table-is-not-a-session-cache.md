@@ -19,11 +19,11 @@ from what the ADR and the type system define; the two are read here, and no rule
 ## Walkthrough
 
 1. **What the ADR governs.** `ADR-AUTO-CACHE` is about "static config reads" and "filesystem-derived information"
-   ([caching](../../adr/automation/caching.md)): ADR-AUTO-CACHE-STATICCONFIGREADS is a function that loads and parses a checked-in file
+   ([caching](../../drs/automation/caching.md)): ADR-AUTO-CACHE-STATICCONFIGREADS is a function that loads and parses a checked-in file
    (`Get-Config`), ADR-AUTO-CACHE-FILESYSTEMDERIVED a function that scans the repository by convention (`Get-BicepTemplates`).
    ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE covers git state, ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS a quality check's clean verdicts,
    ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD the committed type assembly itself. Its decision stores the cache in module `$script:` state
-   ([script-scope-caching](../../adr/automation/pwsh/script-scope-caching.md), `ADR-PWSH-CACHE-SCRIPTSCOPESTATE`), and its one invalidation
+   ([script-scope-caching](../../drs/automation/pwsh/script-scope-caching.md), `ADR-PWSH-CACHE-SCRIPTSCOPESTATE`), and its one invalidation
    is re-running the importer (`ADR-AUTO-CACHE-IMPORTERINVALIDATES`).
 2. **What the table is.** A `ConcurrentDictionary<Type, Shape>` in a static class under a module's `types/`, filled by `GetOrAdd` on the
    first use of a type. Its entries are the readable properties of a type, a name-to-property map, and the type's `[ConsoleDisplay]` list:
@@ -33,7 +33,7 @@ from what the ADR and the type system define; the two are read here, and no rule
    hash of every `types/*.cs`. The table caches nothing about the repository's content and nothing a person edits mid-session.
 4. **Its life is the process, and it cannot go stale.** A loaded assembly cannot be swapped in a running process; on a devbox a changed type
    warns and the old types stay until restart, and in a pipeline the loader throws (`ADR-BCL-TYPES-CHANGEDAFTERLOAD`,
-   [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md)). The key is the `Type` object itself, so a type from a different
+   [native-csharp-types](../../drs/automation/BCL/native-csharp-types.md)). The key is the `Type` object itself, so a type from a different
    assembly is a different key, and one type's metadata never changes. The cache cannot be wrong while the process lives.
 5. **No invalidation, and no reach for the importer.** Re-running the importer discards module `$script:` state; it does not unload a type
    or a static field in a type. That is correct here: the entry would be rebuilt to the same answer. A new process starts with an empty
@@ -67,5 +67,5 @@ from what the ADR and the type system define; the two are read here, and no rule
 ## See also
 
 - [Unboxing is cheap, the type tests and crossings around it are not](../pwsh/unboxing-is-cheap-and-crossings-are-not.md)
-- [caching](../../adr/automation/caching.md) and [script-scope-caching](../../adr/automation/pwsh/script-scope-caching.md)
+- [caching](../../drs/automation/caching.md) and [script-scope-caching](../../drs/automation/pwsh/script-scope-caching.md)
 - [Automation explanations](index.md)

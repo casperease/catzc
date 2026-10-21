@@ -11,16 +11,16 @@ Returns the repository's tracks — all of them, the named ones, or the track th
 
 ### description
 
-The `tracks` repo-wide variant (configs/variants.yml, [DDR-TRACK](../../../adr/design/tracks.md)) declares each track: its places, its
-type ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](../../../adr/design/track-types.md#rule-ddr-tracktype-closedsetoftypes)), its vendor when
+The `tracks` repo-wide variant (configs/variants.yml, [DDR-TRACK](../../../drs/design/tracks.md)) declares each track: its places, its
+type ([DDR-TRACKTYPE-CLOSEDSETOFTYPES](../../../drs/design/track-types.md#rule-ddr-tracktype-closedsetoftypes)), its vendor when
 it has one and the file languages of its tech-stack
-([DDR-TRACK-FILELANGUAGE](../../../adr/design/tracks.md#rule-ddr-track-filelanguage)). Each result is a VariantTrack, in declared
+([DDR-TRACK-FILELANGUAGE](../../../drs/design/tracks.md#rule-ddr-track-filelanguage)). Each result is a VariantTrack, in declared
 order; the shape is validated by the VariantsConfig type.
 
 -Path answers "which track does this file belong to?"
-([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../adr/design/tracks.md#rule-ddr-track-trackisplacedcluster)): the track with the longest
+([DDR-TRACK-TRACKISPLACEDCLUSTER](../../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)): the track with the longest
 place that contains the path
-([DDR-TRACKTYPE-LONGESTPLACEWINS](../../../adr/design/track-types.md#rule-ddr-tracktype-longestplacewins)), so a narrower place
+([DDR-TRACKTYPE-LONGESTPLACEWINS](../../../drs/design/track-types.md#rule-ddr-tracktype-longestplacewins)), so a narrower place
 wins over a wider one (a bare place, e.g. 'docs', is its own track's path). A file at the repository root, a path under out/ (gitignored
 output, never a track), and a path no place contains return nothing.
 
@@ -47,5 +47,5 @@ Get-Track
 ### example 3
 
 ```powershell
-(Get-Track -Path 'docs/adr/design/tracks.md').name        # -> docs
+(Get-Track -Path 'docs/drs/design/tracks.md').name        # -> docs
 ```

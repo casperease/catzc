@@ -9,5 +9,5 @@ Above `public sealed class TruthStoresConfig`, written with `//`.
 
 ```text
 The truth stores catzc reads, writes or reports to, one entry each with its kind, URL and owning state machine
-([TDR-STORES-THREEKINDS](/docs/adr/thesis/truth-stores.md#rule-tdr-stores-threekinds)).
+([TDR-STORES-THREEKINDS](/docs/drs/thesis/truth-stores.md#rule-tdr-stores-threekinds)).
 ```

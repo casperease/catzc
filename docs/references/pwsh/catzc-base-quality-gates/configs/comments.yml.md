@@ -12,11 +12,11 @@ Comment-page settings for Export-Comments / Build-CommentView / Test-Comments.
 
 A file carries no long comment — the prose lives in the file's comment page under docs/references, and the file's
 head names the page, so each comment has exactly one living copy
-([PDR-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-pdr-onelive-oneversion)). Every key is optional:
+([PDR-ONELIVE-ONEVERSION](/docs/drs/principles/one-living-version.md#rule-pdr-onelive-oneversion)). Every key is optional:
 an omitted key takes the sensible default declared once on Catzc.Base.QualityGates.CommentsConfig
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/adr/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). The comment syntax of
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). The comment syntax of
 each language is CommentLexer's, the one place that knows it; this file decides what moves and where it goes
-([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/adr/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
+([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](/docs/drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
 ```
 
 ## comment:2
@@ -45,7 +45,7 @@ Above `keep_run:`, written with `#`.
 
 ```text
 A head listed here keeps the whole run of comment lines it opens, which is how the meta head stays in the file.
-[ADR-REPO-CODEMETA-COMMENTSLEAVEHEAD](/docs/adr/repository/code-file-meta.md#rule-adr-repo-codemeta-commentsleavehead)
+[ADR-REPO-CODEMETA-COMMENTSLEAVEHEAD](/docs/drs/repository/code-file-meta.md#rule-adr-repo-codemeta-commentsleavehead)
 ```
 
 ## comment:5
@@ -65,5 +65,5 @@ Above `view: out/annotated`, written with `#`.
 
 ```text
 The gitignored folder, under out/, Build-CommentView writes the annotated view to
-([ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-outputrootfunction)).
+([ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-outputrootfunction)).
 ```

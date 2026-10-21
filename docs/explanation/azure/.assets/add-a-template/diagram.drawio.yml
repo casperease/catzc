@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "6ab5d16951fe"
+#     with_body_sha: "85dc11a311c6"
 # ---
 
 description:
@@ -97,28 +97,28 @@ content:
       - cell: main-uat
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - docs/adr/index.md
+          - docs/drs/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - ADR-AZ-IACKIND-THREEKINDS
           - ADR-AZ-IACKIND-TRACKPLACESKINDS
       - cell: release-uat
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - docs/adr/index.md
+          - docs/drs/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - ADR-AZ-IACKIND-THREEKINDS
           - ADR-AZ-IACKIND-TRACKPLACESKINDS
       - cell: pre-prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - docs/adr/index.md
+          - docs/drs/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - ADR-AZ-IACKIND-THREEKINDS
           - ADR-AZ-IACKIND-TRACKPLACESKINDS
       - cell: prod
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - docs/adr/index.md
+          - docs/drs/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - ADR-AZ-IACKIND-THREEKINDS
           - ADR-AZ-IACKIND-TRACKPLACESKINDS
@@ -126,9 +126,9 @@ content:
       - cell: automation
         by:
           - .ado/pipelines/ci-pwsh.yaml
-          - docs/adr/azure/dora-explains.md
-          - docs/adr/azure/infrastructure-kinds.md
-          - docs/adr/index.md
+          - docs/drs/azure/dora-explains.md
+          - docs/drs/azure/infrastructure-kinds.md
+          - docs/drs/index.md
           - pwsh/Catzc.Base.Docs/configs/adrs.yml
           - ADR-AZ-IACKIND-THREEKINDS
           - ADR-AZ-IACKIND-TRACKPLACESKINDS

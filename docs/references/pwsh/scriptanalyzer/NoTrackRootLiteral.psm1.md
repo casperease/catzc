@@ -9,5 +9,5 @@ Above `$script:roots = $null`, written with `#`.
 
 ```text
 The modules track's places and the exempt globs, read once per analyzer session
-([ADR-AUTO-LAYERS](/docs/adr/automation/layers.md)).
+([ADR-AUTO-LAYERS](/docs/drs/automation/layers.md)).
 ```

@@ -12,7 +12,7 @@ Verifies a Catzc build (or an install of one) is complete and unchanged since it
 ### description
 
 The build's integrity guard
-([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](../../../adr/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)). Given a build root —
+([ADR-AUTO-BUNDLE-IMMUTABLEBUILD](../../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild)). Given a build root —
 `out/automation/built/<bundle>/Catzc/<version>/`, or an installed copy — it asserts:
 
 - layout: build.json, Catzc.psd1, Catzc.psm1, Import-Catzc.ps1 and the .internal loader are present, and the folder is named for
@@ -47,7 +47,7 @@ Above `$files = foreach ($file in Get-ChildPath $root -File -Depth 64 -Exclude @
 
 ```text
 Every file once, build-relative and forward-slashed: the tests/ scan and the shipped type sources read it.
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the bundle
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the bundle
 is verified in full, vendored modules included, so nothing is pruned.
 ```
 

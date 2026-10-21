@@ -12,7 +12,7 @@ Returns every way an override file breaks the contract of the function it replac
 ### description
 
 The bundle's own code keeps calling a function the way it always has, so an override keeps the original's contract
-([ADR-AUTO-OVERLAY](../../../../adr/automation/consumer-overlay.md)): it declares every parameter the original declares, with the same type;
+([ADR-AUTO-OVERLAY](../../../../drs/automation/consumer-overlay.md)): it declares every parameter the original declares, with the same type;
 it adds no mandatory parameter the original does not have as mandatory; and it declares the same `[OutputType]`. Read from the override's
 syntax tree, against the loaded original.
 

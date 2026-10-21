@@ -13,7 +13,7 @@ launching git. Plain `git ls-files` is exactly the index's entry list, so the in
 the answer — ContentHash keys a cache on those bytes, and equal bytes can never yield a stale listing.
 Reads index versions 2-4 (v4 prefix-compressed paths included) of a SHA-1 repository; a split index
 (the 'link' extension) or a sparse index (directory entries) is rejected loudly rather than read wrong
-([ADR-AUTO-TRACKED](/docs/adr/automation/tracked-files-from-the-index.md)).
+([ADR-AUTO-TRACKED](/docs/drs/automation/tracked-files-from-the-index.md)).
 ```
 
 ## comment:2

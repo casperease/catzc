@@ -58,8 +58,8 @@ other violations.
 
 ## See also
 
-- [Module config loading](../../adr/configuration/module-config-loading.md) — the decision this article explains, and
-  [config value addressing](../../adr/configuration/config-value-addressing.md) for the address rules.
+- [Module config loading](../../drs/configuration/module-config-loading.md) — the decision this article explains, and
+  [config value addressing](../../drs/configuration/config-value-addressing.md) for the address rules.
 - The other lenses on the same read path: [meta](one-reader-one-cache-per-session.md),
   [architecture](callers-depend-on-one-config-module.md), [implementation](three-caches-back-one-reader.md) and
   [governance](one-gate-guards-the-read-path.md).

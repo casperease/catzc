@@ -21,7 +21,7 @@ which may appear many-per-subscription.
 
 ```text
 which appear exactly once per subscription. See
-[ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md).
+[ADR-AZ-DATAMOD](/docs/drs/azure/azure-data-model.md).
 ```
 
 ### example 1

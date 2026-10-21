@@ -26,7 +26,7 @@ skills: [catzc-module, catzc-verify, catzc-run, catzc-check, git-readonly, repor
 Do the one task the brief gives (Scope, Owns, Reads, Done when) and nothing else; the coordinator owns the plan, the shared files and the
 final verification.
 
-1. Read what the brief's Reads names first: the code, the plan in `.claude/plans/`, `docs/adr/index.md`, then in full the ADRs that govern
+1. Read what the brief's Reads names first: the code, the plan in `.claude/plans/`, `docs/drs/index.md`, then in full the ADRs that govern
    the owned files; a decision the brief lists is made, never re-opened; a conflict between two instructions follows the brief and is said
    in the report.
 2. The repository rules of `.claude/CLAUDE.md` apply: one function per file, public and private by location, one C# type per file written

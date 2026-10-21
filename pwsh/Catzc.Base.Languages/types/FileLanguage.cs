@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "895a38717cb8"
+    with_body_sha: "95f8394c8dc0"
   edges:
     docs: "[FileLanguage.cs.md](docs/references/pwsh/catzc-base-languages/types/FileLanguage.cs.md)"
     cites:
@@ -19,7 +19,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Languages;
 
-// Rests on [ADR-AUTO-MODULE-EXISTSBYLAYOUT](/docs/adr/automation/module-model.md#rule-adr-auto-module-existsbylayout).
+// Rests on [ADR-AUTO-MODULE-EXISTSBYLAYOUT](/docs/drs/automation/module-model.md#rule-adr-auto-module-existsbylayout).
 public sealed class FileLanguage
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -37,7 +37,7 @@ public sealed class FileLanguage
     // The VS Code language id of the language's files (e.g. azure-pipelines); its own name unless the entry states one.
     public string vscode_language { get; }
 
-    // The language's ADR folder under docs/adr/ (e.g. pwsh). Null when it has none.
+    // The language's ADR folder under docs/drs/ (e.g. pwsh). Null when it has none.
     public string adr_folder { get; }
 
     public IReadOnlyList<string> checks { get; }
@@ -51,13 +51,13 @@ public sealed class FileLanguage
     // How the language's test artifacts run, for a language that has them; null for every other language.
     public LanguageTestRunner tests { get; }
 
-    // Whether a command may be implemented in the language ([ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION](/docs/adr/automation/layers.md#rule-adr-auto-layers-commandispublicfunction)); false unless the entry says true.
+    // Whether a command may be implemented in the language ([ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION](/docs/drs/automation/layers.md#rule-adr-auto-layers-commandispublicfunction)); false unless the entry says true.
     public bool executable { get; }
 
     // The language's idiomatic file and folder names; null for a language that states none.
     public LanguageNaming naming { get; }
 
-    // Whether the importer has a handler for the language: an executable language whose layout rows place it in a module, or whose tests runner runs it ([ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS](/docs/adr/automation/importer.md#rule-adr-auto-importer-unhandledlanguagestops)).
+    // Whether the importer has a handler for the language: an executable language whose layout rows place it in a module, or whose tests runner runs it ([ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS](/docs/drs/automation/importer.md#rule-adr-auto-importer-unhandledlanguagestops)).
     public bool handled => executable && (layout.Count > 0 || tests != null);
 
     public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string vscodeLanguage, string adrFolder,

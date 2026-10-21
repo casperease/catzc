@@ -56,7 +56,7 @@ construction in the resolver, with no check and no dedicated test. Four comment 
 
 ## See also
 
-- [Azure resource naming standard](../../adr/azure/azure-naming-standard.md) — the decision this article explains.
+- [Azure resource naming standard](../../drs/azure/azure-naming-standard.md) — the decision this article explains.
 - The other lenses on the same naming standard: [meta](names-are-pure-and-never-truncated.md),
   [architecture](one-namer-assembles-every-name.md), [implementation](lookup-form-check-render-in-order.md) and
   [operations](names-are-derived-never-typed.md).

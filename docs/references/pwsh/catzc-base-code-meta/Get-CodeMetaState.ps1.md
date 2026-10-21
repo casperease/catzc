@@ -13,7 +13,7 @@ Reads what a code text says about its own meta head, without changing it.
 
 Pure: it takes the text and the head's comment syntax, reads no file and no config.
 
-It rests on [ADR-REPO-CODEMETA-CODEFILEHEAD](../../../adr/repository/code-file-meta.md#rule-adr-repo-codemeta-codefilehead).
+It rests on [ADR-REPO-CODEMETA-CODEFILEHEAD](../../../drs/repository/code-file-meta.md#rule-adr-repo-codemeta-codefilehead).
 
 ### parameter `Text`
 

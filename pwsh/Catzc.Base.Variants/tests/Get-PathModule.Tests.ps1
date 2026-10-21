@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1d0f91a4e044"
+    with_body_sha: "2efc1a1f5371"
   edges:
     code: pwsh/Catzc.Base.Variants/Get-PathModule.ps1
     cites:
@@ -88,7 +88,7 @@ Describe 'Get-PathModule on the shipped module-types registry' -Tag 'L0', 'logic
     }
 
     It 'places a documentation page, a contract, and a root file in no module' -ForEach @(
-        @{ Path = 'docs/adr/index.md' }
+        @{ Path = 'docs/drs/index.md' }
         @{ Path = 'contracts/catzc/0.0.0/contract.yml' }
         @{ Path = 'importer.ps1' }
         @{ Path = "$(Get-CatzcModulesFolder)/.vendor/Pester/Pester.psd1" }

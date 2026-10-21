@@ -2,7 +2,7 @@
 
 The declarative git-configuration module. It owns the rule that **what git ignores is declared, explained, and generated**: the
 repository-root `.gitignore` is rendered in full from a section registry (`gitignore.yml`) — every rule under a titled, explained comment
-block — and never hand-maintained (see [generated-root-configs](../../adr/repository/generated-root-configs.md)). What it deliberately does
+block — and never hand-maintained (see [generated-root-configs](../../drs/repository/generated-root-configs.md)). What it deliberately does
 **not** own is the materialisation: `New-GitIgnore` is a pure renderer that returns content and writes nothing; the `.gitignore` target
 itself is a managed, committed root file written by [Catzc.Base.RootConfig](catzc-base-root-config.md)'s `Build-RootConfig`, which names
 `New-GitIgnore` as that entry's generator.
@@ -41,12 +41,12 @@ copies the source index so staged-versus-unstaged state matches, and copies the 
 never through a checkout, which re-applies line-ending conversion. It then requires the snapshot's `git status` to equal the source's line
 for line, and throws (removing the half-built copy) on any difference. Ignored content is never copied. A provenance marker inside the
 snapshot's `.git` folder lets `Remove-RepositorySnapshot` refuse anything that is not a snapshot. The test harness runs a concurrent run in
-one (see [test-automation](../../adr/automation/test-automation.md#rule-adr-auto-test-runsneverwait)).
+one (see [test-automation](../../drs/automation/test-automation.md#rule-adr-auto-test-runsneverwait)).
 
 ### responsibility:4 — Reading git
 
 Answering questions about a repository without starting git where its format is small, and with a single git process where it is not
-([tracked-files-from-the-index](../../adr/automation/tracked-files-from-the-index.md)). The index reader lists tracked files from
+([tracked-files-from-the-index](../../drs/automation/tracked-files-from-the-index.md)). The index reader lists tracked files from
 `.git/index`. The refs reader finds a checkout's git directory (a linked worktree included), resolves `HEAD`, branches and tags from the ref
 files, and names the current branch. The history scan hunts a token through every commit message, path and distinct file content a ref
 reaches, reading each object once from one `git cat-file` stream. These are types the rest of the platform reads through: the tracked-file
@@ -55,11 +55,11 @@ seam and the branch and commit getters in [Catzc.Base.Files](catzc-base-files.md
 
 ### responsibility:5 — The git topic flow
 
-The steps that bring a topic branch to the server's main ([git-topic-flow](../../adr/flow/git-topic-flow.md)): reading the sync point, the
+The steps that bring a topic branch to the server's main ([git-topic-flow](../../drs/flow/git-topic-flow.md)): reading the sync point, the
 BVT-verified server head or, announced, the current server HEAD; saving the working tree as a commit; rebasing the topic onto the sync
 point; and landing it as one commit by squash, rebase and squash, pushed by the workspace variant. Every step but the reading one changes
 the repository, so it runs only at the user's hand
-([FDR-GIT-USERRUNSGIT](../../adr/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)); the Bash hook denies those commands to an
+([FDR-GIT-USERRUNSGIT](../../drs/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)); the Bash hook denies those commands to an
 agent, reading their names from `git.yml`, and the VS Code tasks offer them to the user.
 
 ## What the module does

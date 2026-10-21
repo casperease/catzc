@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "769958dd591b"
+#     with_body_sha: c12dd85c72e1
 # ---
 
 description:
@@ -111,12 +111,12 @@ content:
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: docs/-/.
         by:
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/visual-design.md
-          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/adr/flow/commit-lifecycle.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/visual-design.md
+          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
@@ -173,11 +173,11 @@ content:
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: docs/markdown
         by:
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/visual-design.md
-          - docs/adr/flow/commit-lifecycle.md
-          - docs/adr/flow/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/visual-design.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md
@@ -190,7 +190,7 @@ content:
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
       - cell: docs/yaml
         by:
-          - docs/adr/flow/.assets/commit-promotion-states/diagram.drawio.yml
+          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
       - cell: pwsh/bcl
         by:

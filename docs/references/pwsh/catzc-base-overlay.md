@@ -4,8 +4,8 @@ The consumer overlay module. It **applies a consumer's changes to a built bundle
 working root, where every file sits at the path of what it changes in the bundle — and checks them as a whole first, so nothing applies
 unless all of it is valid. It owns the function overrides and the one check of a function file's shape; it deliberately does **not** own
 config fragments or asset overrides, which `Get-Config` and `Get-CatzcModuleRoot` read on demand. The rules are in
-[consumer-overlay](../../adr/automation/consumer-overlay.md); the bundle it changes is
-[platform-bundle](../../adr/automation/platform-bundle.md).
+[consumer-overlay](../../drs/automation/consumer-overlay.md); the bundle it changes is
+[platform-bundle](../../drs/automation/platform-bundle.md).
 
 ## Responsibilities
 

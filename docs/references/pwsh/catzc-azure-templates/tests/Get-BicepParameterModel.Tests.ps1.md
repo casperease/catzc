@@ -10,10 +10,10 @@ Above `Describe 'Get-BicepParameterModel' -Tag 'L0', 'logic' {`, written with `#
 ```text
 Logic tests for Get-BicepParameterModel and the BicepParameterModel/BicepParameter types it returns: the model parsed
 from a fixture main.json (tests/assets/parameter-model/main.json, widget/gadget parameters —
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)), and the build-when-not-current
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)), and the build-when-not-current
 decision. No az: the fixture stands in for the compiled main.json, and Build-Bicep (the one az touch) is mocked.
 Discovery binds to the fixture templates and the output to this file's $TestDrive through the seams
-([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/adr/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)).
+([ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams)).
 ```
 
 ## comment:2

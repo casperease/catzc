@@ -3,7 +3,7 @@
 The diagram kit, a module of the python track. It owns the rendering of every diagram of the repository from its one source, the
 `diagram.drawio.yml` beside its `diagram.drawio.png`: put renders the declaration into the png, get folds a draw.io edit back into the yml,
 and the three minimaps of the right column are drawn from data the kit only validates
-([ADR-REPO-SLIDES](../../adr/repository/slides-as-markdown.md)). It deliberately does **not** decide anything: what a diagram shows comes
+([ADR-REPO-SLIDES](../../drs/repository/slides-as-markdown.md)). It deliberately does **not** decide anything: what a diagram shows comes
 from its declaration, the minimap data comes from `Catzc.Base.Maps`, and the one command that rebuilds a diagram folder is `Build-Diagrams`
 of `Catzc.Base.Slides`.
 

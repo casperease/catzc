@@ -14,7 +14,7 @@ Uninstalls Java via the platform package manager.
 Removes Java through the configured manager and clears JAVA_HOME (on Unix, removes the marker block from $PROFILE) — the managed uninstall.
 For a Java installed OUTSIDE the tooling system (a foreign JDK, an apt package on a uv-first box), escalate with -Remove -Force: the managed
 uninstall runs best-effort and then falls through to Remove-Java, which evicts whatever the configured manager did not own
-([ADR-AUTO-REMOVE-ONECALLESCALATION](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).
+([ADR-AUTO-REMOVE-ONECALLESCALATION](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).
 
 ### parameter `Version`
 
@@ -23,7 +23,7 @@ Java version to uninstall. Defaults to the locked version in Get-ToolConfig.
 ### parameter `Remove`
 
 After the managed uninstall, escalate to Remove-Java to evict an off-config install. Pair with -Force to actually remove; -Remove alone
-reports the plan ([ADR-AUTO-REMOVE-DOUBLYGUARDED](../../../adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-doublyguarded)).
+reports the plan ([ADR-AUTO-REMOVE-DOUBLYGUARDED](../../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-doublyguarded)).
 
 ### parameter `Force`
 
@@ -47,8 +47,8 @@ Above `try {`, written with `#`.
 
 ```text
 Managed uninstall best-effort; with -Remove a failure is logged and the escalation proceeds, without
--Remove it propagates ([ADR-AUTO-ONEJOB-CALLERHANDLESERRORS](/docs/adr/automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors),
-[ADR-AUTO-REMOVE-ONECALLESCALATION](/docs/adr/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).
+-Remove it propagates ([ADR-AUTO-ONEJOB-CALLERHANDLESERRORS](/docs/drs/automation/single-responsibility-functions.md#rule-adr-auto-onejob-callerhandleserrors),
+[ADR-AUTO-REMOVE-ONECALLESCALATION](/docs/drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-onecallescalation)).
 ```
 
 ## comment:2
@@ -58,5 +58,5 @@ Above `if ($env:JAVA_HOME) {`, written with `#`.
 ```text
 Clean up JAVA_HOME. Each removal is announced where it happens, and only when there was something to
 remove
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).
 ```

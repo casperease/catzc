@@ -53,7 +53,7 @@ Above `Assert-IsAdministrator -ErrorText "Install-$command on Linux requires roo
 ```text
 Linux package installation via apt-get requires root. The user-space uv family never routes here:
 Install-Uv bootstraps uv from Astral's standalone release, and the Python-based CLIs install
-through uv ([ADR-AUTO-UVPY](/docs/adr/automation/uv-python-handler.md)).
+through uv ([ADR-AUTO-UVPY](/docs/drs/automation/uv-python-handler.md)).
 ```
 
 ## comment:4

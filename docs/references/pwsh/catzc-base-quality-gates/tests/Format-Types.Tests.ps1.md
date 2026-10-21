@@ -9,8 +9,8 @@ Above `Describe 'Format-Types' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Format-Types maintains each C# type source's file-scoped namespace from its module folder; its -DryRun is the C#
-part of Test-Formatting ([ADR-AUTO-TEST-QUALITYGATE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
+part of Test-Formatting ([ADR-AUTO-TEST-QUALITYGATE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)).
 A fixture tree in $TestDrive stands in for the repository (neutral widget/gadget names,
-[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the real tree is checked by the
+[ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)); the real tree is checked by the
 formatting integrity test in Test-Formatting.Tests.ps1.
 ```

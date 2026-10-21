@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0aa62c03406a"
+    with_body_sha: fef6cbd0ab38
   edges:
     code: pwsh/Catzc.Base.QualityGates/types/FunctionHelp.cs
     cites:
@@ -83,8 +83,8 @@ Describe 'FunctionHelp' -Tag 'L0', 'logic', 'ADR-REPO-HELP-HELPONCOMMENTPAGE' {
         }
 
         It 'spans a placeholder, a glob and a bracket token, and leaves code spans, links and URLs as written' {
-            & $script:md 'Writes <out>/widget, globs **/*.wdg and returns [string[]] (see `<kept>`, [ADR-WIDGET-TURN](/docs/adr/widget.md) and <https://example.com>).' |
-                Should -BeExactly 'Writes `<out>/widget`, globs `**/*.wdg` and returns `[string[]]` (see `<kept>`, [ADR-WIDGET-TURN](/docs/adr/widget.md) and <https://example.com>).'
+            & $script:md 'Writes <out>/widget, globs **/*.wdg and returns [string[]] (see `<kept>`, [ADR-WIDGET-TURN](/docs/drs/widget.md) and <https://example.com>).' |
+                Should -BeExactly 'Writes `<out>/widget`, globs `**/*.wdg` and returns `[string[]]` (see `<kept>`, [ADR-WIDGET-TURN](/docs/drs/widget.md) and <https://example.com>).'
         }
 
         It 'spans a placeholder with spaces in it, and a URL with a placeholder in it, and turns any other bare URL into an autolink' {

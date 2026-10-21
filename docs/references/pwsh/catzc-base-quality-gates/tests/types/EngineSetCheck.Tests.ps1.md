@@ -10,6 +10,6 @@ Above `Describe 'EngineSetCheck' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 EngineSetCheck maps the engine-set check's settings and matches its phrases against the engine names it is given —
 widget, gadget and sprocket stand in for the model's engines
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) — so no engine name or count is a
-literal of the check ([ADR-AUTO-ENGINE-THREEENGINES](/docs/adr/automation/execution-engines.md#rule-adr-auto-engine-threeengines)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)) — so no engine name or count is a
+literal of the check ([ADR-AUTO-ENGINE-THREEENGINES](/docs/drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)).
 ```

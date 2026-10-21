@@ -17,5 +17,5 @@ Constructing one VALIDATES the entry, collecting every violation into one throw:
   - each coordinate is a string — it may be empty ('') while the target is disabled, and must be non-empty once
     it is enabled (an enabled target needs somewhere to publish).
 Mirrors the YAML mapping (snake_case keys,
-[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+[ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 ```

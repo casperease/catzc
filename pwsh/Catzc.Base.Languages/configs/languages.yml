@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "98a117547fb9"
+#     with_body_sha: ed9bfcaaf909
 #   edges:
 #     docs: "[languages.yml.md](docs/references/pwsh/catzc-base-languages/configs/languages.yml.md)"
 #     cites:
@@ -112,7 +112,7 @@ languages:
     layout:
       - { folder: configs, role: config }
   # A flat list of harmless contracted calls, run under every engine
-  # ([ADR-AUTO-ACCOSTED](/docs/adr/automation/accosted-language.md)); its compound extension wins over .yml.
+  # ([ADR-AUTO-ACCOSTED](/docs/drs/automation/accosted-language.md)); its compound extension wins over .yml.
   accosted:
     extensions: [.accosted.yml]
     formatter: prettier

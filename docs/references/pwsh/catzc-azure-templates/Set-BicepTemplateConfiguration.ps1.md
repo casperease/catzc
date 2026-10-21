@@ -23,7 +23,7 @@ that is how a slot / resource group is added (the next discovery picks it up).
 This function does NOT deploy, render, or call Azure. It only edits a file. Deployment of the change is the CD pipeline's job, against
 version control.
 
-It rests on [ADR-AZ-DATAMOD](../../../adr/azure/azure-data-model.md) and [FDR-CD-TYPE](../../../adr/flow/pipeline-types.md).
+It rests on [ADR-AZ-DATAMOD](../../../drs/azure/azure-data-model.md) and [FDR-CD-TYPE](../../../drs/flow/pipeline-types.md).
 
 ### parameter `Template`
 
@@ -49,7 +49,7 @@ configuration-root (shared-platform) config. The coordinate must resolve to exac
 
 ### parameter `DryRun`
 
-Preview only — returns the planned path and content without writing. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+Preview only — returns the planned path and content without writing. See [ADR-AUTO-DRYRUN](../../../drs/automation/dry-run.md).
 
 ### example 1
 
@@ -69,7 +69,7 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessFor
 
 ```text
 State-changing function deliberately uses -DryRun, not ShouldProcess — see
-[ADR-AUTO-DRYRUN](/docs/adr/automation/dry-run.md).
+[ADR-AUTO-DRYRUN](/docs/drs/automation/dry-run.md).
 ```
 
 ## comment:2

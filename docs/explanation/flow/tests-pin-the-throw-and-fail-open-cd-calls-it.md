@@ -60,9 +60,9 @@ The decision wants the check to gate a unit's stages; the CD pipelines run it, b
 
 ## See also
 
-- [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains.
-- [Pipeline detection](../../adr/flow/pipeline-detection.md) and
-  [Fail fast with inline assertions](../../adr/automation/fail-fast-with-asserts.md) — the two other decisions whose rules the check
+- [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
+- [Pipeline detection](../../drs/flow/pipeline-detection.md) and
+  [Fail fast with inline assertions](../../drs/automation/fail-fast-with-asserts.md) — the two other decisions whose rules the check
   carries.
 - The other lenses on the same check: [meta](every-doubt-fails-open-to-proceed.md),
   [architecture](globs-asks-loader-for-context-and-git-for-diff.md), [implementation](range-per-context-then-diff-and-match.md) and

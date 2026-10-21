@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d96e59f9a644
+    with_body_sha: a45d3a903ea8
   edges:
     docs: "[ModulePlace.cs.md](docs/references/pwsh/catzc-base-variants/types/ModulePlace.cs.md)"
     cites:
@@ -16,7 +16,7 @@ using System.Linq;
 
 namespace Catzc.Base.Variants;
 
-// Rests on [DDR-TRACK-ONETECHSTACK](/docs/adr/design/tracks.md#rule-ddr-track-onetechstack).
+// Rests on [DDR-TRACK-ONETECHSTACK](/docs/drs/design/tracks.md#rule-ddr-track-onetechstack).
 public sealed class ModulePlace
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

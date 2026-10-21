@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e6ce765f7b59
+#     with_body_sha: cbfc5b082b11
 # ---
 
 description:
@@ -133,13 +133,13 @@ content:
           - ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS
       - cell: docs/-/.
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/platform-bundle.md
-          - docs/adr/automation/pwsh/dora-explains.md
-          - docs/adr/automation/pwsh/dynamic-module-manifests.md
-          - docs/adr/automation/test-automation.md
-          - docs/adr/glossary.md
-          - docs/adr/index.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/platform-bundle.md
+          - docs/drs/automation/pwsh/dora-explains.md
+          - docs/drs/automation/pwsh/dynamic-module-manifests.md
+          - docs/drs/automation/test-automation.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
           - docs/references/github/workflows/ci-pwsh.yml.md
           - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml
           - docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.yml

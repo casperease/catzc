@@ -17,8 +17,8 @@ ignorePaths:
   - "**/types/.compiled/**"
   # Per-slot template configs hold Azure resource names assembled by the naming convention (deweuzctexpedapst:
   # env, region, org, template, customer, type). They are data, not vocabulary
-  # ([ADR-AUTO-SPELL-IDENTIFIERSNOTDATA](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-identifiersnotdata)), written statically per slot
-  # ([ADR-AZ-DATAMOD-STATICRESOURCENAMES](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-staticresourcenames)), so the spelling gate and the editor
+  # ([ADR-AUTO-SPELL-IDENTIFIERSNOTDATA](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-identifiersnotdata)), written statically per slot
+  # ([ADR-AZ-DATAMOD-STATICRESOURCENAMES](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-staticresourcenames)), so the spelling gate and the editor
   # both skip them here, once.
   - infrastructure/templates/**/configuration/**
   # MSBuild output of the IDE-only C# project and the hooks — transient, gitignored, never authored.
@@ -26,14 +26,14 @@ ignorePaths:
   - "**/bin/**"
   # The output directory, the unordered track and the editor's notes are never the repository's vocabulary;
   # READMEs, the decision-record index and the glossary are generated from sources that are checked
-  # ([ADR-REPO-README-AUTHOREDSOURCES](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme-authoredsources)).
+  # ([ADR-REPO-README-AUTHOREDSOURCES](/docs/drs/repository/generated-readmes.md#rule-adr-repo-readme-authoredsources)).
   # Test-Spelling and the terminology corpus both read this one list.
   - out/**
   - docs/notes/**
   - .unordered/**
   - "**/README.md"
-  - docs/adr/index.md
-  - docs/adr/glossary.md
+  - docs/drs/index.md
+  - docs/drs/glossary.md
   - cspell.yml
   - "**/*.dll"
   - "**/*.pdb"
@@ -49,13 +49,13 @@ ignoreRegExpList:
   - /\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b/g
   - /(?<![\s(\[*_>|/,]|^)`[nrt](?=[a-z])/gm
 # Approved-vocabulary dictionaries — one per registry category
-# ([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)) — generated from the terminology
+# ([ADR-AUTO-SPELL-CATEGORYANDMEANING](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning)) — generated from the terminology
 # registry (pwsh/Catzc.Base.QualityGates/configs/terminology.yml) by Build-TerminologyDictionary. The
 # .cspell/<category>.txt lists are GITIGNORED and regenerated at the importer tail (terminology.yml is the
 # single source of truth), so run `. ./importer.ps1` once on a fresh clone before cspell can resolve them.
 # Never hand-edit the lists; add or remove vocabulary in terminology.yml. See .cspell/README.md and
-# [ADR-AUTO-SPELL](/docs/adr/automation/spell-out-names.md)
-# ([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)-[ADR-AUTO-SPELL-LIVEVOCABULARYONLY](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)).
+# [ADR-AUTO-SPELL](/docs/drs/automation/spell-out-names.md)
+# ([ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)-[ADR-AUTO-SPELL-LIVEVOCABULARYONLY](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)).
 #
 # ONE definition + dictionary entry per registry category. This list must match the `categories:` keys in
 # terminology.yml — adding a category means adding it in both places (cspell.yml cannot read the registry).
@@ -108,9 +108,9 @@ languageSettings:
   - languageId: powershell
     dictionaries:
       # cspell's built-in PowerShell dictionary. The conventional-abbreviation allow-list
-      # ([ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-allowedabbreviations) — cfg, ctx,
+      # ([ADR-AUTO-SPELL-ALLOWEDABBREVIATIONS](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-allowedabbreviations) — cfg, ctx,
       # cmd, repo, …) and all other approved vocabulary live in terminology.yml (single source,
-      # [ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](/docs/adr/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)),
+      # [ADR-AUTO-SPELL-ONEVOCABULARYSOURCE](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-onevocabularysource)),
       # generated into the .cspell/*.txt dictionaries this config loads globally — never inline here.
       - powershell
   - languageId: markdown

@@ -7,27 +7,27 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Generates [index](../../../adr/index.md) — the ADR code -> rule-citation registry — from adrs.yml, the single source of truth for the ADR
+Generates [index](../../../drs/index.md) — the ADR code -> rule-citation registry — from adrs.yml, the single source of truth for the ADR
 domain structure.
 
 ### description
 
 index.md is a derived projection of pwsh/Catzc.Base.Docs/configs/adrs.yml: authored preamble and authoring-convention prose wrapped around
 one code-registry table per domain (in declared order). Every ADR row is `| ``<external>`` | [<slug>](<path>) |` — the format
-Get-CatsAdrIndex parses and the citation grammar Show-Cats presents. Each link path is resolved to the real `docs/adr/<domain>/**/<slug>.md`
+Get-CatsAdrIndex parses and the citation grammar Show-Cats presents. Each link path is resolved to the real `docs/drs/<domain>/**/<slug>.md`
 file.
 
 The index is committed — so GitHub has it, and every ADR citation's link resolves there — marked linguist-generated so its diff collapses,
-and reproduced on every import (before Build-Readme, which generates the docs/adr README from it), so adrs.yml is the ONLY place the
+and reproduced on every import (before Build-Readme, which generates the docs/drs README from it), so adrs.yml is the ONLY place the
 registry is edited — a hand-edit to index.md is overwritten on the next load. See
-[ADR-REPO-README](../../../adr/repository/generated-readmes.md) for the generated-file pattern.
+[ADR-REPO-README](../../../drs/repository/generated-readmes.md) for the generated-file pattern.
 
 Idempotent and fast: the write goes through Write-FileIfChanged (canonical output, EOL-insensitive compare, write only on drift), so a clean
 tree costs one file read.
 
 ### parameter `DryRun`
 
-Report whether index.md would change without writing it. See [ADR-AUTO-DRYRUN](../../../adr/automation/dry-run.md).
+Report whether index.md would change without writing it. See [ADR-AUTO-DRYRUN](../../../drs/automation/dry-run.md).
 
 ### parameter `Silent`
 
@@ -45,7 +45,7 @@ Return a result object ({ Path; Changed; DryRun }) instead of the repo-relative 
 
 ```powershell
 Build-AdrIndex
-Regenerates docs/adr/index.md from adrs.yml.
+Regenerates docs/drs/index.md from adrs.yml.
 ```
 
 ### example 2
@@ -62,7 +62,7 @@ Above `$reflow = {`, written with `#`.
 ```text
 The authored prose above is wrapped for reading here, not for the page: reflow every paragraph and list item
 through Format-MarkdownParagraph (Prettier's fill), so the generated page is formatter-stable
-([ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](/docs/adr/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)). A heading and a blank
+([ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](/docs/drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)). A heading and a blank
 line pass through; a '- ' line opens a list item, and an indented or plain line continues the open block.
 ```
 
@@ -71,7 +71,7 @@ line pass through; a '- ' line opens a list item, and an indented or plain line 
 Above `$pathBySlugKey = @{}`, written with `#`.
 
 ```text
-Map "<domainFolder>/<slug>" -> the ADR file path relative to docs/adr (forward-slashed), so a ruleset
+Map "<domainFolder>/<slug>" -> the ADR file path relative to docs/drs (forward-slashed), so a ruleset
 in a subfolder (automation/BCL/) still resolves to its real link target. The
 generated index.md and every folder README are skipped — they are not ADRs.
 ```

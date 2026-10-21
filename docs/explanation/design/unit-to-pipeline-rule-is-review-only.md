@@ -63,7 +63,7 @@ a cross-cutting slice is a scope rather than a new track, have no check in code:
 
 ## See also
 
-- [Tracks — the repository's root concerns](../../adr/design/tracks.md) — the decision this article explains.
+- [Tracks — the repository's root concerns](../../drs/design/tracks.md) — the decision this article explains.
 - The other lenses on the same model: [meta](one-unit-one-pipeline.md), [architecture](units-not-tracks-own-the-pipelines.md),
   [implementation](globs-yml-pipeline-field-is-the-binding.md) and [operations](a-push-fires-only-touched-pipelines.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

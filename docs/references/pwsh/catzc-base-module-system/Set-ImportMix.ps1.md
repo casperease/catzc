@@ -12,10 +12,10 @@ Resolves the session's import mix, keeps it as the session record, and removes t
 ### description
 
 The importer calls it once its modules are loaded
-([ADR-AUTO-IMPORTER-RESOLVEDAFTERLOAD](../../../adr/automation/importer.md#rule-adr-auto-importer-resolvedafterload)). Each axis is the
+([ADR-AUTO-IMPORTER-RESOLVEDAFTERLOAD](../../../drs/automation/importer.md#rule-adr-auto-importer-resolvedafterload)). Each axis is the
 caller's value when given, else the importer configuration's, where auto resolves from the session. A module with a code language outside
 the mix is removed
-([ADR-AUTO-IMPORTER-CODELANGUAGESSELECTMODULES](../../../adr/automation/importer.md#rule-adr-auto-importer-codelanguagesselectmodules)), and
+([ADR-AUTO-IMPORTER-CODELANGUAGESSELECTMODULES](../../../drs/automation/importer.md#rule-adr-auto-importer-codelanguagesselectmodules)), and
 the removal is announced; nothing is announced when no module goes. Get-ImportMix returns the kept record.
 
 ### parameter `LanguageNames`

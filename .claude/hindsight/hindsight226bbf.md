@@ -6,7 +6,7 @@ Started 2026-10-21T05:07:31.0383252+02:00.
   import: nothing in the tree says so or parks an edit during a burst (no capability line, no hook, no how-to), only the open question at
   .claude/plans/plan-session-learnings.md:42, so each robot learns it by outage.
 - 2026-10-21 Jack: If only the session had opened its module article before inventing Test-AdrCodes:
-  docs/references/pwsh/catzc-base-docs.md:127 lists Test-AdrRegistry, and docs/adr/repository/adr-code-language.md:156 says it runs the
+  docs/references/pwsh/catzc-base-docs.md:127 lists Test-AdrRegistry, and docs/drs/repository/drs-code-language.md:156 says it runs the
   code_language check.
 - 2026-10-21 Jack: If only the session had read the load sequence: docs/references/pwsh/internal/index.md:19 and
   docs/references/pwsh/catzc-base-rootconfig.md:62 declare the janitors, and Invoke-ImporterJanitors runs Build-Glossary and
@@ -64,10 +64,10 @@ Started 2026-10-21T05:07:31.0383252+02:00.
 - 2026-10-21 Jack: If only the tip had read both instructions: .claude/CLAUDE.md:129 still prescribes multi-step work in a script under
   out/, while .claude/skills/catzc-run/SKILL.md:30 forbids an out/*.ps1 for cats commands and routes them through Invoke-CatzcCommand.ps1,
   so the tip is half right and the tree contradicts itself.
-- 2026-10-21 Jack: If only the session had read the contract it is told to read first: docs/adr/repository/ai-agent-contract.md:78 already
+- 2026-10-21 Jack: If only the session had read the contract it is told to read first: docs/drs/repository/ai-agent-contract.md:78 already
   says the truth is the whole repository at one commit, committed files only, and :63 (ADR-REPO-AI-EDITORISFACT) makes the listen mode the
   one exception.
-- 2026-10-21 Jack: If only the session had read the thesis instead of rediscovering it: docs/adr/thesis/truth-stores.md:22
+- 2026-10-21 Jack: If only the session had read the thesis instead of rediscovering it: docs/drs/thesis/truth-stores.md:22
   (TDR-STORES-RESPONSIBILITYDOMAIN) declares one repository per responsibility domain, and the rule, docs, code order exists only as a
   plan-step order in .claude/skills/listen-insight/SKILL.md:38, never as a ranking of truth.
 - 2026-10-21 Jack: If only the session had read its own CLAUDE.md: .claude/CLAUDE.md:41 already says C:\projects\eac is read for inspiration
@@ -82,12 +82,12 @@ Started 2026-10-21T05:07:31.0383252+02:00.
   (pwsh/.scriptanalyzer/NoCollapsingAssignment.psm1), mapped to ADR-PWSH-ERROR-STRICTCLEAN at
   pwsh/Catzc.Base.QualityGates/configs/analyzer-adr-map.yml:49, already flags the collapse in Test-ScriptAnalyzer, as the learning itself
   admits.
-- 2026-10-21 Jack: If only the session had read the pitfalls ADR: docs/adr/automation/pwsh/automatic-variable-pitfalls.md:279 already says
+- 2026-10-21 Jack: If only the session had read the pitfalls ADR: docs/drs/automation/pwsh/automatic-variable-pitfalls.md:279 already says
   the engine coerces $null to the empty string at assignment and at parameter binding.
 - 2026-10-21 Jack: If only the session had read git-readonly: .claude/skills/git-readonly/SKILL.md:33 already says a file another session
   has dirty is reported, never edited, but no capability line says to re-read a shared file before relying on it, so peers are still trusted
   from stale memory.
-- 2026-10-21 Jack: If only the session had read the contract: docs/adr/repository/ai-agent-contract.md:60 (ADR-REPO-AI-OUTISOUTPUT) says
+- 2026-10-21 Jack: If only the session had read the contract: docs/drs/repository/ai-agent-contract.md:60 (ADR-REPO-AI-OUTISOUTPUT) says
   nearly word for word that a run reads back only its own stamped folder in out/ and waits through its absence.
 - 2026-10-21 Jack: If only someone had written it down: .claude/CLAUDE.md:160 demands only that a gate is run before it is claimed passed,
   and nothing in the tree, no ADR rule, capability or how-to, says a new tool counts as working only after a live run, so green tests go on
@@ -114,16 +114,16 @@ Started 2026-10-21T05:07:31.0383252+02:00.
 - 2026-10-21 Jack: If only the session had read the check before the gate read it back: Get-GlossarySourceViolations, G1 of Test-Glossary,
   already fails a contrast that is not reciprocal across sources
   (docs/references/pwsh/catzc-base-docs/private/Get-GlossarySourceViolations.ps1.md:41, ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED).
-- 2026-10-21 Jack: If only the steps lived in one place: the authoring conventions name adrs.yml at docs/adr/index.md:406, the glossary
+- 2026-10-21 Jack: If only the steps lived in one place: the authoring conventions name adrs.yml at docs/drs/index.md:406, the glossary
   sources at :419 and dora-explains.md at :448, and .claude/skills/catzc-verify/SKILL.md:22 names Build-AdrIndex, but no how-to under
   docs/how-to/ lists the steps of adding an ADR in order, exactly as the learning complains.
 - 2026-10-21 Jack: If only New-Plan finished the job: pwsh/Catzc.Base.QualityGates/New-Plan.ps1:10 writes the plan file only and leaves the
-  value row and the master line to the hand, though docs/adr/repository/plans.md:59 calls plan-master.md a derived executable, and no
+  value row and the master line to the hand, though docs/drs/repository/plans.md:59 calls plan-master.md a derived executable, and no
   command rebuilds it or guards sessions editing it at once.
-- 2026-10-21 Jack: If only the session had read the glossary avoid table: docs/adr/glossary.md:60 already tells the eac normal form from the
+- 2026-10-21 Jack: If only the session had read the glossary avoid table: docs/drs/glossary.md:60 already tells the eac normal form from the
   sibling eac repository (ADR-REPO-INSPIRE), and :1432 names the sibling an inspiration, so the double meaning was settled before it was
   learned.
-- 2026-10-21 Jack: If only the session had read either entry: docs/adr/glossary.md:46 (eac normal form, TDR-NORMALFORM) and :951
+- 2026-10-21 Jack: If only the session had read either entry: docs/drs/glossary.md:46 (eac normal form, TDR-NORMALFORM) and :951
   (repository normal form, ADR-AUTO-IDIOM-NORMALFORM) already contrast each other in the very words of the learning.
 - 2026-10-21 Jack: If only Add-SessionLearning had looked before it wrote: pwsh/Catzc.Base.Docs/Add-SessionLearning.ps1 appends every line
   it is given and checks no existing line, its only Contains at :113 guarding the list of files written, so a relayed lesson is logged twice

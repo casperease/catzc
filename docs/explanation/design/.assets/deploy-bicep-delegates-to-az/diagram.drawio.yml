@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "1131d3dee3fb"
+#     with_body_sha: b6e1b26b0248
 # ---
 
 description:
@@ -144,9 +144,9 @@ content:
           - DDR-THINPLAT-PLATFORMASCLI
       - cell: docs/-/.
         by:
-          - docs/adr/design/dora-explains.md
-          - docs/adr/design/thin-platforms.md
-          - docs/adr/index.md
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/thin-platforms.md
+          - docs/drs/index.md
           - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
           - DDR-THINPLAT-PLATFORMASCLI
       - cell: pwsh/Catzc.Base.Docs/configs

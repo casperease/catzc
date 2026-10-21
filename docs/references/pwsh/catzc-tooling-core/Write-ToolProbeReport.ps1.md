@@ -12,7 +12,7 @@ Writes a compact table of tool existence checks: where each tool was found, its 
 ### description
 
 Renders the probe records from Test-Tool -PassThru as one plain-text table through Write-Message -NoHeader
-([ADR-PWSH-ANNOUNCE-CORRECTSTREAM](../../../adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-correctstream)): one row
+([ADR-PWSH-ANNOUNCE-CORRECTSTREAM](../../../drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-correctstream)): one row
 per tool with Found, Method (probe | path | none), Version against Required, VersionOk, ProbeMs and VersionMs, then the path. The header
 line names the session actor the checks ran as. Writes nothing for no records. With no -Probe it checks every tool in tools.yml.
 

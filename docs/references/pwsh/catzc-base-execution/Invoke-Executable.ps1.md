@@ -121,7 +121,7 @@ Above `function Invoke-Executable {`, written with `#`.
 
 ```text
 Uses -DryRun, not ShouldProcess/-WhatIf — see
-[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/adr/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect).
+[ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT](/docs/drs/automation/dry-run.md#rule-adr-auto-dryrun-branchbeforesideeffect).
 ```
 
 ## comment:2
@@ -133,5 +133,5 @@ Unit-test tripwire (sibling to -DryRun: both prevent a launch — DryRun returns
 throws). When a unit (L1) run sets $env:CATZC_BLOCK_REAL_PROCESS, a real process launch means a Mock
 failed to intercept — almost always a -ModuleName pointing at the wrong module — so the test was
 silently hitting the live tool. Fail loudly instead. -DryRun is exempt (it never launches).
-See [ADR-AUTO-TEST](/docs/adr/automation/test-automation.md).
+See [ADR-AUTO-TEST](/docs/drs/automation/test-automation.md).
 ```

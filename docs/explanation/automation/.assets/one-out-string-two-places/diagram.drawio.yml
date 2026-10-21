@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: ebc3c405ce73
+#     with_body_sha: e7a24596fb74
 # ---
 
 description:
@@ -108,9 +108,9 @@ content:
           - ADR-AUTO-PATH-OUTANCHOR
       - cell: docs/-/.
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/path-representation.md
-          - docs/adr/index.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/path-representation.md
+          - docs/drs/index.md
           - docs/references/pwsh/catzc-base-docs/configs/readme.yml.md
           - docs/references/pwsh/catzc-base-docs/types/DocMapping.cs.md
           - docs/references/pwsh/catzc-base-docs/types/DocPattern.cs.md

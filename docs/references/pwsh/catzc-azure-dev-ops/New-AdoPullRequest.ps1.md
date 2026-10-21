@@ -11,10 +11,10 @@ Creates an Azure DevOps pull request via the Git REST API.
 
 ### description
 
-The "land via PR" half of an INPUT pipeline (see [FDR-CD-TYPE](../../../adr/flow/pipeline-types.md)): once an INPUT step has committed
+The "land via PR" half of an INPUT pipeline (see [FDR-CD-TYPE](../../../drs/flow/pipeline-types.md)): once an INPUT step has committed
 a config change to a branch, this opens a PR so the change goes through the normal PR gate before the CD pipeline deploys it. Opening the PR
 drives Azure DevOps one way from the repository, as an adjacent store is driven
-([TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../../../adr/thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)):
+([TDR-ONETRUTH-REPOSITORYISCONFIGURATIONRECORD](../../../drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-repositoryisconfigurationrecord)):
 the change it proposes is the repository's branch, and the review it collects is runtime state that catzc only reads.
 
 Resolves the repository by name, normalizes branch names to `refs/heads/<branch>`, and POSTs the PR. Authentication is the dual-auth pattern

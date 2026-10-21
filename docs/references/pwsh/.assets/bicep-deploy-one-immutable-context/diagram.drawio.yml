@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8921ecab2201"
+#     with_body_sha: "277265befa21"
 # ---
 
 description:
@@ -156,15 +156,15 @@ content:
           - ADR-PWSH-PREPOST
       - cell: docs/-/.
         by:
-          - docs/adr/automation/dora-explains.md
-          - docs/adr/automation/dry-run.md
-          - docs/adr/automation/pwsh/dora-explains.md
-          - docs/adr/automation/pwsh/prefer-dryrun-over-shouldprocess.md
-          - docs/adr/automation/pwsh/prepost-extension-modules.md
-          - docs/adr/azure/az-session-verification.md
-          - docs/adr/azure/azure-data-model.md
-          - docs/adr/azure/dora-explains.md
-          - docs/adr/index.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/dry-run.md
+          - docs/drs/automation/pwsh/dora-explains.md
+          - docs/drs/automation/pwsh/prefer-dryrun-over-shouldprocess.md
+          - docs/drs/automation/pwsh/prepost-extension-modules.md
+          - docs/drs/azure/az-session-verification.md
+          - docs/drs/azure/azure-data-model.md
+          - docs/drs/azure/dora-explains.md
+          - docs/drs/index.md
           - docs/references/ado/pipelines/cd-shared.yaml.md
           - docs/references/ado/pipelines/extends/cd-customer.yaml.md
           - docs/references/infrastructure/templates/discovery/options.yml.md

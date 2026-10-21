@@ -40,5 +40,5 @@ Above `if ($env:JAVA_HOME -ne $javaHome) {`, written with `#`.
 
 ```text
 Set for current session. Each change is announced where it happens, and only when it changes something
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)).
 ```

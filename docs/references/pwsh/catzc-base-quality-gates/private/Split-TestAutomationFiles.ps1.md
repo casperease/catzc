@@ -24,11 +24,11 @@ as the tier/category axes):
 
 A test that changes state outside the repository is not a phase concern: it is an L3 vertical system test, and only the run that owns the
 working folder runs L3 (Resolve-TestRunMaxLevel,
-[ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../../../adr/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)).
+[ADR-AUTO-TEST-SYSTEMTESTSATLTHREE](../../../../drs/automation/test-automation.md#rule-adr-auto-test-systemtestsatlthree)).
 
 A file carrying both serial and greedy is serial: strict isolation wins. Granularity is deliberately the file — a file is the unit a shard
 schedules, so one tagged test moves its whole file. See the test-automation ADR
-([ADR-AUTO-TEST-ONESCHEDULINGPOOL](../../../../adr/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)).
+([ADR-AUTO-TEST-ONESCHEDULINGPOOL](../../../../drs/automation/test-automation.md#rule-adr-auto-test-oneschedulingpool)).
 
 ### parameter `Discovery`
 

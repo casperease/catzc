@@ -31,6 +31,6 @@ Above `$snapshotCache = Join-Path $Location.Snapshot.Path 'out/cache'`, written 
 ```text
 Hand the snapshot's result caches home before it goes: the checks this run made in the snapshot are as
 valid for the working folder as for the snapshot, since each entry is keyed on a file's content and the
-check's inputs ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](/docs/adr/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)). Save-ResultCache
+check's inputs ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](/docs/drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)). Save-ResultCache
 merges them with what the working folder's cache holds.
 ```

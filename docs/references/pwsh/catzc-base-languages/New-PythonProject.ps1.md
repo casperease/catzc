@@ -13,7 +13,7 @@ Renders the Python test workspace: the uv workspace root `<root>/pyproject.toml`
 
 Python code in this repository is test artifacts only: black-box tests in `<root>/tests/<module-in-kebab>/`, under the Python root
 (python.yml `root`: python/ when the repository has one, else .python/;
-[ADR-AUTO-PY](../../../adr/automation/python/python-test-artifacts.md)). The tests form one uv workspace — uv's own monorepo layout, and the
+[ADR-AUTO-PY](../../../drs/automation/python/python-test-artifacts.md)). The tests form one uv workspace — uv's own monorepo layout, and the
 Python form of go.work with one go.mod per module:
 
 ```text
@@ -53,5 +53,5 @@ Above `$pythonVersion = "$(Get-ConfigValue -Address 'global.tools.python.version
 
 ```text
 The one Python version: the python tool's tools.yml pin, read by address (reading config is global access,
-[ADR-CONF-ADDRESSING](/docs/adr/configuration/config-value-addressing.md)).
+[ADR-CONF-ADDRESSING](/docs/drs/configuration/config-value-addressing.md)).
 ```

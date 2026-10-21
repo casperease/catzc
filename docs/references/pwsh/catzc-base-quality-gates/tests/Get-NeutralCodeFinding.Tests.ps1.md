@@ -10,5 +10,5 @@ Above `Describe 'Get-NeutralCodeFinding' -Tag 'L0', 'logic' {`, written with `#`
 ```text
 Get-NeutralCodeFinding over fixture test files: ADR-WIDGET-GADGET stands in for a code the ADR registry declares,
 and ADR-WIDGET-SPROCKET for a neutral one
-([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

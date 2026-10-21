@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b9b6a3c434ba
+#     with_body_sha: "33db948a3114"
 # ---
 
 description:
@@ -90,9 +90,9 @@ content:
           - ADR-REPO-ROOTCFG-REGISTRY
       - cell: docs/-/.
         by:
-          - docs/adr/index.md
-          - docs/adr/repository/dora-explains.md
-          - docs/adr/repository/generated-root-configs.md
+          - docs/drs/index.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/generated-root-configs.md
           - docs/references/pwsh/catzc-base-git/New-GitIgnore.ps1.md
           - docs/references/pwsh/catzc-base-git/configs/gitignore.yml.md
           - docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md

@@ -11,7 +11,7 @@ The set of ADR rule citations a Pester test enforces — every '`ADR-<CODE>#<n>`
 
 ### description
 
-The optional third tag dimension (provenance): which ADR rule(s) a test enforces, cited in the [index](../../../../adr/index.md) '#' form
+The optional third tag dimension (provenance): which ADR rule(s) a test enforces, cited in the [index](../../../../drs/index.md) '#' form
 (e.g. 'ADR-PWSH-ERROR-THROWNOTWRITEERROR'). Unlike the tier and category axes — single-valued and resolved nearest-contributing-block-wins
 (Get-TestBlockTag) — provenance is SET-VALUED and ADDITIVE: a Describe may enforce a broad rule and an inner It a specific one, and both
 hold. So this UNIONS every well-formed citation across the test's own It-tags and every ancestor block (root excluded), returning them

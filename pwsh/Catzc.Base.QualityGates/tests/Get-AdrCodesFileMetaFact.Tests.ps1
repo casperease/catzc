@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: aed9870d3c4b
+    with_body_sha: dc9395f16f7e
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Get-AdrCodesFileMetaFact.ps1
     cites:
@@ -24,9 +24,9 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
         # The fixture codes below are the only ones this index registers, each with its rules in authored order.
         Mock Get-AdrCitationMap -ModuleName Catzc.Base.QualityGates {
             [Catzc.Base.Docs.AdrCitationMap]::new(@{
-                    'ADR-WIDGET'      = @{ path = 'docs/adr/widget.md'; rules = [string[]] @('ADR-WIDGET-TURN', 'ADR-WIDGET-SPIN') }
-                    'ADR-WIDGET-PART' = @{ path = 'docs/adr/widget-part.md'; rules = [string[]] @('ADR-WIDGET-PART-FOLD', 'ADR-WIDGET-PART-BEND') }
-                    'ADR-GADGET'      = @{ path = 'docs/adr/gadget.md'; rules = [string[]] @('ADR-GADGET-LIFT', 'ADR-GADGET-DROP', 'ADR-GADGET-RE12') }
+                    'ADR-WIDGET'      = @{ path = 'docs/drs/widget.md'; rules = [string[]] @('ADR-WIDGET-TURN', 'ADR-WIDGET-SPIN') }
+                    'ADR-WIDGET-PART' = @{ path = 'docs/drs/widget-part.md'; rules = [string[]] @('ADR-WIDGET-PART-FOLD', 'ADR-WIDGET-PART-BEND') }
+                    'ADR-GADGET'      = @{ path = 'docs/drs/gadget.md'; rules = [string[]] @('ADR-GADGET-LIFT', 'ADR-GADGET-DROP', 'ADR-GADGET-RE12') }
                 }, @())
         }
 
@@ -68,7 +68,7 @@ Describe 'Get-AdrCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
     }
 
     It 'finds a citation inside a link' {
-        $codes = Get-Codes "[ADR-GADGET-DROP](/docs/adr/gadget.md#rule-adr-gadget-drop)`n"
+        $codes = Get-Codes "[ADR-GADGET-DROP](/docs/drs/gadget.md#rule-adr-gadget-drop)`n"
         $codes | Should -Be @('ADR-GADGET-DROP')
     }
 

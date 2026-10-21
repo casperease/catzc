@@ -16,7 +16,7 @@ drift from what the owners actually generate. It is the union of:
 
 - the managed root-config registry's gitignored targets (rootconfig.yml entries with optIn and committed false — .editorconfig, the .vscode/
   files, cspell.yml, catzc.sln, …), read through Get-Config (reading a config is global access, never limited by the dependency graph —
-  [ADR-CONF-LOADING-READINGISGLOBAL](../../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading-readingisglobal));
+  [ADR-CONF-LOADING-READINGISGLOBAL](../../../../drs/configuration/module-config-loading.md#rule-adr-conf-loading-readingisglobal));
 - the conventional generated-artifact classes: the dynamic module manifests (`pwsh/<Module>/<Module>.psd1`), the generated READMEs (every
   gitignored README.md is a generated copy by the generated-readmes contract — a hand-authored README is only safe once opted in and
   committed), the generated cspell dictionaries (.cspell/), the transient output root (out/ — disposable by the dedicated-output-directory
@@ -25,7 +25,7 @@ drift from what the owners actually generate. It is the union of:
 
 Minus the exclusions, written gitignore-style with a leading '!': a path matching an exclusion is never auto-controlled, whatever else it
 matches (the authored `out/plan-*.md` files,
-[ADR-REPO-OUTDIR-PLANNOTES](../../../../adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)).
+[ADR-REPO-OUTDIR-PLANNOTES](../../../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)).
 
 Patterns are repo-relative, '/'-separated -like globs; a directory is listed both bare and with a trailing `/*` so a whole-folder candidate
 from `git clean` matches too.
@@ -49,7 +49,7 @@ Above `$ret.Add('.cspell')`, written with `#`.
 
 ```text
 Generated cspell dictionaries, regenerated at the importer tail
-([ADR-REPO-OUTDIR-DICTIONARIESGENERATED](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-dictionariesgenerated)).
+([ADR-REPO-OUTDIR-DICTIONARIESGENERATED](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-dictionariesgenerated)).
 ```
 
 ## comment:3
@@ -59,7 +59,7 @@ Above `$ret.Add('out')`, written with `#`.
 ```text
 The output root — transient by contract (dedicated-output-directory) — except the authored plan files,
 which are working notes, not output
-([ADR-REPO-OUTDIR-PLANNOTES](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)).
+([ADR-REPO-OUTDIR-PLANNOTES](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-plannotes)).
 ```
 
 ## comment:4

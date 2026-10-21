@@ -20,7 +20,7 @@ Scaffolds into ANY repository root that already carries the .internal overlay â€
 nothing absolute is baked in.
 
 Writes the source tree's entry point from the source overlay, so it stops with a named error in build mode (Assert-SourceTree,
-[DDR-RUNMODE](../../../adr/design/run-modes.md)).
+[DDR-RUNMODE](../../../drs/design/run-modes.md)).
 
 ### parameter `RepositoryRoot`
 
@@ -65,7 +65,7 @@ Above `$suppression =...`, written with `#`.
 
 ```text
 The shim sets $env:RepositoryRoot, but its announcement is delegated
-([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)):
+([ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-announcelastingchanges)):
 Invoke-Importer
 names it on its Roots line, the first point a writer is loaded.
 ```
@@ -77,7 +77,7 @@ Above ``$paramBlock = "$suppression`n" + "[CmdletBinding()]`n" + "param(`n" +...
 ```text
 [CmdletBinding()] makes the shim accept -Verbose (forwarded to Invoke-Importer by @PSBoundParameters), which
 shows the importer's own state-change record
-([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/adr/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
+([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
 Dot-sourced, the preference stays inside
 the import and does not leak into the caller's session.
 ```

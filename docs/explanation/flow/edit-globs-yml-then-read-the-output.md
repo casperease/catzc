@@ -47,7 +47,7 @@ globset edit before any pipeline runs.
 
 ## See also
 
-- [Globset triggers](../../adr/flow/durable-sha-globs.md) — the decision this article explains.
+- [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
 - The other lenses on the same globset roles: [meta](three-views-derived-live-from-one-program.md),
   [architecture](globs-module-owns-config-and-types.md), [implementation](one-scan-program-feeds-three-roles.md) and
   [governance](gates-check-source-and-trigger.md).

@@ -18,10 +18,10 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
   private, `.Tests.ps1` excluded), and writes a canonical `<Module>.psd1` that lists them in `PrivateData.CatzcFiles` and names the shared
   loader `assets/Import-ModuleFiles.ps1` as its one `NestedModules` entry: the loader parses each file in memory and dot-sources it into the
   module, so they share one session state and keep their source file and line. It scans for `.ps1` only — a `.psm1` inside a module folder
-  is silently ignored — which is one of the mechanical enforcements of [use-ps1-not-psm1](../../../adr/automation/pwsh/use-ps1-not-psm1.md).
+  is silently ignored — which is one of the mechanical enforcements of [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md).
   `Get-DynamicManifestContent` renders the manifest text: the `=` column is computed from the longest key rather than hand-padded, endings
   are LF, and the output is formatter-stable — running the formatter over it is a no-op — so the bytes are identical on every platform and
-  every build of a commit ([ADR-REPO-FORMAT-TOOLSFORMAT](../../../adr/repository/uniform-formatting.md)).
+  every build of a commit ([ADR-REPO-FORMAT-TOOLSFORMAT](../../../drs/repository/uniform-formatting.md)).
 - **C# type compile and load** — `Import-CSharpTypes` compiles every module's `types/*.cs` into one hash-keyed assembly,
   `pwsh/.compiled/Catzc.Types.<hash>.dll`, so a type in one module can reference a type in another. It keys the assembly off the combined
   source hash from [Catzc.Internal.Types](catzc-internal-types.md) (the same hash the cache janitor uses, so the two can never drift),
@@ -29,7 +29,7 @@ Bootstrap is the part of the load sequence that turns a folder of `.ps1` files i
   the `Test-Formatting` gate checks through `Format-Types`), loads the committed DLL when its hash matches or compiles fresh through Roslyn
   once per hash, verifies every expected type resolved, and publishes each type's `[PSTypeAlias]` accelerator. On a devbox it degrades
   gracefully when a live type changed or was removed (warn and keep the loaded copy), and fails fast when a type was added since load; in CI
-  a stale-types load is a hard failure. The full contract is the [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md)
+  a stale-types load is a hard failure. The full contract is the [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md)
   ADR and the [BCL type-system reference](../../BCL/types-system.md).
 - **Collision guard** — `Assert-UniqueModuleFunctionName` turns PowerShell's silent last-writer-wins command shadowing into a loud, fast
   failure before anything loads. It catches two cases and reports all of them at once: two catzc modules exporting the same name, and an
@@ -57,11 +57,11 @@ The module-internal engine `Import-AllModules` drives (not exported):
 
 ## Related
 
-- ADR: [use-ps1-not-psm1](../../../adr/automation/pwsh/use-ps1-not-psm1.md) — `New-DynamicManifest` scanning only `.ps1` is the enforcement;
+- ADR: [use-ps1-not-psm1](../../../drs/automation/pwsh/use-ps1-not-psm1.md) — `New-DynamicManifest` scanning only `.ps1` is the enforcement;
   Bootstrap is itself a sanctioned `.psm1`.
-- ADR: [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md) and [caching](../../../adr/automation/caching.md) — the one
+- ADR: [native-csharp-types](../../../drs/automation/BCL/native-csharp-types.md) and [caching](../../../drs/automation/caching.md) — the one
   combined assembly, its committed prebuild, and the hash key `Import-CSharpTypes` loads by.
-- ADR: [uniform-formatting](../../../adr/repository/uniform-formatting.md) — the canonical, hand-alignment-free manifest text.
+- ADR: [uniform-formatting](../../../drs/repository/uniform-formatting.md) — the canonical, hand-alignment-free manifest text.
 - Reference: [Catzc.Internal.Types](catzc-internal-types.md) — the shared hash; the [BCL type-system reference](../../BCL/types-system.md);
   [Catzc.Base.ModuleSystem](../catzc-base-module-system.md) — the post-import dependency-graph check over the same modules; the
   [internal area overview](index.md).

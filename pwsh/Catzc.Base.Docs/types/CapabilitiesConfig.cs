@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "82b46a8c7b20"
+    with_body_sha: "35dea4a4fac1"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/CapabilitiesConfig.Tests.ps1
     cites:
@@ -19,12 +19,12 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Docs;
 
-// Rests on [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml), [ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype) and [ADR-REPO-AGENTS-NOORPHANNOGHOST](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-noorphannoghost).
+// Rests on [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml), [ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype) and [ADR-REPO-AGENTS-NOORPHANNOGHOST](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-noorphannoghost).
 public sealed class CapabilitiesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "capabilities" };
 
-    // The registered capabilities, in file order ([ADR-REPO-AGENTS-CAPABILITYREGISTERED](/docs/adr/repository/agent-definitions.md#rule-adr-repo-agents-capabilityregistered)).
+    // The registered capabilities, in file order ([ADR-REPO-AGENTS-CAPABILITYREGISTERED](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-capabilityregistered)).
     public IReadOnlyList<CapabilityEntry> capabilities { get; }
 
     public CapabilitiesConfig(IDictionary d)

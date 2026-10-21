@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2ce041575a6d"
+    with_body_sha: "964298fc6700"
   edges:
     cites:
       - FDR-CD-RUNGSREGISTRY
@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Flow;
 
-// One rung of the promotion ladder ([FDR-CD-RUNGSREGISTRY](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-rungsregistry)).
+// One rung of the promotion ladder ([FDR-CD-RUNGSREGISTRY](/docs/drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-rungsregistry)).
 public sealed class Rung
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

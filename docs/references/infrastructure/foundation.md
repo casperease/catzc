@@ -2,7 +2,7 @@
 
 The once-per-subscription baseline. `foundation` deploys the shared services every other template in the subscription depends on — a Log
 Analytics workspace and a Key Vault — and nothing customer- or environment-specific. It is classified `environment_kind: subscription` — one
-deployment per subscription, not per environment (see [data-model](../../adr/azure/azure-data-model.md)).
+deployment per subscription, not per environment (see [data-model](../../drs/azure/azure-data-model.md)).
 
 Its consumers name its resources in their configs, so `foundation` deploys before them:
 

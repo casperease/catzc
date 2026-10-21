@@ -13,7 +13,7 @@ The body-sha meta kind's fact: the hash of the file's body below its front matte
 
 The hash changes exactly when the body does; front matter and line endings never move it.
 
-It rests on [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../../adr/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts).
+It rests on [ADR-REPO-FILEMETA-IMPRINTEDPARTS](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-imprintedparts).
 
 ### parameter `State`
 

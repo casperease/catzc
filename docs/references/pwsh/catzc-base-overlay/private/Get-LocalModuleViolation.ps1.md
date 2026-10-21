@@ -12,7 +12,7 @@ Returns every reason a consumer's local module cannot load.
 ### description
 
 A local module is an overlay folder that names no bundled module, and it follows catzc's own module conventions
-([ADR-AUTO-OVERLAY](../../../../adr/automation/consumer-overlay.md)): it never takes the reserved Catzc. prefix; it carries no types/ (a
+([ADR-AUTO-OVERLAY](../../../../drs/automation/consumer-overlay.md)): it never takes the reserved Catzc. prefix; it carries no types/ (a
 bundle compiles no C#); it holds only function files at its root (public) and under private/, and configs/, assets/ and tests/; every
 function file passes the shape check every function file loaded away from its folder passes (Get-FunctionFileViolation); it has at least one
 function; and none of its public functions takes the name of a command already loaded, which would silently replace a bundled one —
@@ -35,6 +35,6 @@ The folder as the messages show it.
 Above `$files = [string[]] @(Get-ChildPath $Path -File -Depth 64 -Exclude @()...`, written with `#`.
 
 ```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/adr/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a
+A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): a
 violation anywhere in the module must show, so nothing is pruned.
 ```

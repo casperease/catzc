@@ -7,7 +7,7 @@ manifest to edit, no export list to maintain.
 
 1. Pick the right module folder under `pwsh/` (or [create a new module](../add-a-module.md) first).
 2. Create `pwsh/<Module>/Verb-Noun.ps1`. The **file name must equal the function name**, and the file must contain exactly one function (see
-   [one-function-per-file](../../../../adr/automation/pwsh/one-function-per-file.md)).
+   [one-function-per-file](../../../../drs/automation/pwsh/one-function-per-file.md)).
 3. Create the paired test `pwsh/<Module>/tests/Verb-Noun.Tests.ps1`.
 4. Re-run the importer (`. ./importer.ps1`) and run `Test-Automation`.
 
@@ -41,7 +41,7 @@ function Get-Widgets {
 ```
 
 Five functional lines, three assertions — that ratio is the target (see
-[fail-fast-with-asserts](../../../../adr/automation/fail-fast-with-asserts.md)).
+[fail-fast-with-asserts](../../../../drs/automation/fail-fast-with-asserts.md)).
 
 ## The rules you must follow
 
@@ -50,19 +50,19 @@ These are enforced by PSScriptAnalyzer and the convention tests — code that br
 - **Approved verb, meaningful noun.** Use a verb from `Get-Verb` (`Get`, `New`, `Set`, `Install`, `Invoke`, `Assert`, `Test`, …). Use a
   **plural** noun when you return a collection (`Get-Widgets`) and a **singular** noun when you return one object (`Get-Widget`). The verb
   is a contract: `Get-` must not change state, `Test-` returns `[bool]`, `Assert-` throws on failure (see
-  [respect-pwsh-verb-rules](../../../../adr/automation/pwsh/respect-pwsh-verb-rules.md)).
+  [respect-pwsh-verb-rules](../../../../drs/automation/pwsh/respect-pwsh-verb-rules.md)).
 - **Assert your assumptions.** Validate parameters at entry and results after every external call with the `Assert-*` library — never inline
-  `if (-not $x) { throw }` (see [fail-fast-with-asserts](../../../../adr/automation/fail-fast-with-asserts.md)).
+  `if (-not $x) { throw }` (see [fail-fast-with-asserts](../../../../drs/automation/fail-fast-with-asserts.md)).
 - **Throw, don't warn.** Use `throw` / `Assert-*` for failure and `Write-Message` / `Write-Verbose` for information. `Write-Error` and
-  `Write-Warning` are banned (see [error-handling](../../../../adr/automation/pwsh/error-handling.md)).
+  `Write-Warning` are banned (see [error-handling](../../../../drs/automation/pwsh/error-handling.md)).
 - **Sensible defaults.** Make the zero/low-argument call do the common thing; pull defaults from config where they live (see
-  [sensible-defaults](../../../../adr/automation/sensible-defaults.md)); make the primary argument positional and use `[switch]` for opt-in
-  behavior (see [parameter-design](../../../../adr/automation/pwsh/parameter-design.md)).
+  [sensible-defaults](../../../../drs/automation/sensible-defaults.md)); make the primary argument positional and use `[switch]` for opt-in
+  behavior (see [parameter-design](../../../../drs/automation/pwsh/parameter-design.md)).
 - **One responsibility.** A function does one thing its name describes. `Invoke-Widget` must not secretly install the tool — assert the
   precondition and let the caller compose (see
-  [single-responsibility-functions](../../../../adr/automation/single-responsibility-functions.md)).
+  [single-responsibility-functions](../../../../drs/automation/single-responsibility-functions.md)).
 - **Style.** K&R braces, 4-space indent, no trailing semicolons, `foreach` over `ForEach-Object` for anything with control flow, PascalCase
-  parameters / camelCase locals (see [powershell-formatting](../../../../adr/automation/pwsh/powershell-formatting.md)).
+  parameters / camelCase locals (see [powershell-formatting](../../../../drs/automation/pwsh/powershell-formatting.md)).
 
 ## Reuse the base library
 
@@ -71,7 +71,7 @@ Before writing a helper, reach for what already exists in `Catzc.Base.*` and `Ca
 - Run external tools with `Invoke-Executable` (it logs the command, handles exit codes, and returns a `CliResult` with `-PassThru`) — not a
   bare `& tool`.
 - Locate files with `Get-RepositoryRoot` / `Get-RepositoryFile`; write output under `Get-OutputRoot`. Never depend on `$PWD` (see
-  [never-depend-on-pwd](../../../../adr/automation/never-depend-on-pwd.md)).
+  [never-depend-on-pwd](../../../../drs/automation/never-depend-on-pwd.md)).
 - Load config with `Get-Config -Config <name>`.
 - Common guards: `Assert-NotNullOrWhitespace`, `Assert-PathExist`, `Assert-Command`, `Assert-True`, `Test-Command`.
 
@@ -98,8 +98,8 @@ Describe 'Get-Widgets' -Tag 'L1', 'logic' {
 ```
 
 Logic tests run on fixtures/mocks and are hermetic; mock only real boundaries (filesystem location, CLIs), and mock the whole boundary
-function — see [test-automation](../../../../adr/automation/test-automation.md) for tiers and tagging, and
-[pester-testing](../../../../adr/automation/pwsh/pester-testing.md) for the isolation idioms.
+function — see [test-automation](../../../../drs/automation/test-automation.md) for tiers and tagging, and
+[pester-testing](../../../../drs/automation/pwsh/pester-testing.md) for the isolation idioms.
 
 ### Citing the enforced rule
 

@@ -9,10 +9,10 @@ Above `using System;`, written with `//`.
 
 ```text
 The stored form of an inspiration's root and its resolution to binding form. A root is stored in communication
-form ([ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM](/docs/adr/automation/path-representation.md#rule-adr-auto-path-storedcommunicationform)): repository-relative, or
+form ([ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM](/docs/drs/automation/path-representation.md#rule-adr-auto-path-storedcommunicationform)): repository-relative, or
 anchored on the {workspace} anchor — the parent folder of the repository root, where sibling checkouts live
-([ADR-AUTO-PATH-WORKSPACEANCHOR](/docs/adr/automation/path-representation.md#rule-adr-auto-path-workspaceanchor)). Resolve turns either into a
-'/'-separated absolute path, the binding form ([ADR-AUTO-PATH-BINDINGFORMONLYATBINDING](/docs/adr/automation/path-representation.md#rule-adr-auto-path-bindingformonlyatbinding)).
+([ADR-AUTO-PATH-WORKSPACEANCHOR](/docs/drs/automation/path-representation.md#rule-adr-auto-path-workspaceanchor)). Resolve turns either into a
+'/'-separated absolute path, the binding form ([ADR-AUTO-PATH-BINDINGFORMONLYATBINDING](/docs/drs/automation/path-representation.md#rule-adr-auto-path-bindingformonlyatbinding)).
 
 The repository root reaches the resolver in the view of the shell that set it: 'C:\projects\catzc' under pwsh,
 '/c/projects/catzc' under Git Bash. ToNative maps both to one form, so the two shells resolve a root identically.

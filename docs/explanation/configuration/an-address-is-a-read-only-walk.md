@@ -49,7 +49,7 @@ The loading ADR says only `Get-Config` is public, while the addressing ADR makes
 
 ## See also
 
-- [Config value addressing](../../adr/configuration/config-value-addressing.md) — the decision this article explains.
+- [Config value addressing](../../drs/configuration/config-value-addressing.md) — the decision this article explains.
 - The other lenses on the same walk: [architecture](callers-in-four-modules-share-one-resolver.md),
   [implementation](strip-split-walk-every-wrong-turn-throws.md), [operations](type-an-address-get-the-value.md) and
   [governance](two-test-files-check-the-address-rules.md).

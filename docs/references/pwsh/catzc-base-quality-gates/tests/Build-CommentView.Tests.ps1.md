@@ -9,8 +9,8 @@ Above `Describe 'Build-CommentView' -Tag 'L0', 'logic' {`, written with `#`.
 
 ```text
 Build-CommentView writes the inverse of Export-Comments: the annotated copy of every file that has a comment page,
-under the view folder in out/ ([ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION](/docs/adr/repository/dedicated-output-directory.md#rule-adr-repo-outdir-outputrootfunction)),
+under the view folder in out/ ([ADR-REPO-OUTDIR-OUTPUTROOTFUNCTION](/docs/drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-outputrootfunction)),
 equal to the file before its comments moved
-([PDR-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-pdr-onelive-oneversion)). Tested in isolation on a
+([PDR-ONELIVE-ONEVERSION](/docs/drs/principles/one-living-version.md#rule-pdr-onelive-oneversion)). Tested in isolation on a
 widget/gadget fixture repository in $TestDrive.
 ```

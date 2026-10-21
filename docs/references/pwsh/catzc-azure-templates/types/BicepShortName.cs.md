@@ -9,7 +9,7 @@ Above `using System;`, written with `//`.
 
 ```text
 A template's `short_name` — the 2-5 char, lowercase-alnum Azure id segment every resource name is built
-from ([ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers)). A template carries TWO identifiers: its readable,
+from ([ADR-AZ-NAMING-TWOTEMPLATEIDENTIFIERS](/docs/drs/azure/azure-naming-standard.md#rule-adr-az-naming-twotemplateidentifiers)). A template carries TWO identifiers: its readable,
 kebab-case on-disk FOLDER name and this short_name; only the short_name is ever Azure-facing.
 
 The short_name is DERIVED from the folder name by default — lowercase, keep only [a-z0-9] (hyphens and any
@@ -18,7 +18,7 @@ with an explicit `short_name` in its optional options.yml
 (Read-BicepTemplateOptions). This type makes the two identifiers, the derivation, and the format validation
 ONE construction-time invariant, so no caller re-implements the rule and a malformed name cannot exist.
 
-A plain model type ([ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)) — Get-BicepTemplates
+A plain model type ([ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel)) — Get-BicepTemplates
 constructs one per template and pins its .value as the short_name; it does not mirror a YAML file, so it
 keeps default validation and derivation logic here rather than a loose dictionary.
 ```
@@ -29,7 +29,7 @@ Above `public const int MaxLength = 5;`, written with `//`.
 
 ```text
 The maximum short_name length. Keeping this at 5 keeps the worst-case tight (storage) name at 23/24
-with a byte to spare ([ADR-AZ-NAMING](/docs/adr/azure/azure-naming-standard.md), "Length budget").
+with a byte to spare ([ADR-AZ-NAMING](/docs/drs/azure/azure-naming-standard.md), "Length budget").
 ```
 
 ## comment:3
@@ -61,5 +61,5 @@ Above `public static bool IsValid(string value)`, written with `//`.
 ```text
 A well-formed short_name: 2-MaxLength chars, a leading letter then lowercase-alnum. Mirrors the
 options.yml schema regex ^[a-z][a-z0-9]{1,4}$ (Read-BicepTemplateOptions) and naming-standard Rule
-[ADR-AZ-NAMING-LOWERCASECOMPONENTS](/docs/adr/azure/azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents).
+[ADR-AZ-NAMING-LOWERCASECOMPONENTS](/docs/drs/azure/azure-naming-standard.md#rule-adr-az-naming-lowercasecomponents).
 ```

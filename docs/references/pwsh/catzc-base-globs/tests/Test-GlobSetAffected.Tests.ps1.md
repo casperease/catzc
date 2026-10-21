@@ -10,7 +10,7 @@ Above `Describe 'Test-GlobSetAffected' -Tag 'L0', 'logic' {`, written with `#`.
 ```text
 The in-pipeline "is there anything here for us to process?" check — reflects the context's diff and reports
 whether the named unit is touched, fail-open on any doubt
-([ADR-REPO-PROTGLOB-FAILOPEN](/docs/adr/repository/protected-globs.md#rule-adr-repo-protglob-failopen)), fail-fast on a typo'd name.
+([ADR-REPO-PROTGLOB-FAILOPEN](/docs/drs/repository/protected-globs.md#rule-adr-repo-protglob-failopen)), fail-fast on a typo'd name.
 ```
 
 ## comment:2
@@ -19,5 +19,5 @@ Above `$script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{`, written with `#
 
 ```text
 Neutral fixture names (widget/gadget), not the shipped set names, so this logic test owns its
-inputs ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/adr/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
+inputs ([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](/docs/drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 ```

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "82b0e1117454"
+    with_body_sha: "1fe585815aa4"
   edges:
     test: pwsh/Catzc.Base.VSCode/tests/types/VscodeTasksConfig.Tests.ps1
     cites:
@@ -18,7 +18,7 @@ using System.Collections.Specialized;
 
 namespace Catzc.Base.VSCode;
 
-// Rests on [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml) and [ADR-REPO-ROOTCFG](/docs/adr/repository/generated-root-configs.md).
+// Rests on [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml) and [ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md).
 public sealed class VscodeTasksConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "vscode-tasks config validation failed:\n";

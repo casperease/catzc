@@ -12,9 +12,9 @@ Answers "which areas-of-control do these changes touch?" — one row per matched
 ### description
 
 The blast-radius query (the third marker role,
-[FDR-CD-GLOBS-NAMEDGLOBSETS](../../../adr/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)): maps changed files onto
+[FDR-CD-GLOBS-NAMEDGLOBSETS](../../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-namedglobsets)): maps changed files onto
 every globset whose effective membership matches at least one of them — the declared registry (tracks, deployable-units, scopes;
-compose-aware) AND the derived module sets ([ADR-REPO-PROTGLOB](../../../adr/repository/protected-globs.md)), so the answer covers both
+compose-aware) AND the derived module sets ([ADR-REPO-PROTGLOB](../../../drs/repository/protected-globs.md)), so the answer covers both
 "which pipelines/units this fires" (Pipeline) and "which tests verify it" (the derived module rows name the modules for Test-Automation
 -Modules; a declared row's VerifyModules/VerifyLevel carry its configured verify scope — its test suite, run by name with Test-Automation
 -Suite).

@@ -21,5 +21,5 @@ Above `It 'excludes .git directory by default' -Tag 'integrity' {`, written with
 ```text
 Its own integrity tag keeps this a distinct, named check in the manual test plan (a facet worth
 citing on its own), while reusing the one scan above rather than re-walking the repo
-([ADR-AUTO-TEST-ONEIMPORTPERCASE](/docs/adr/automation/test-automation.md#rule-adr-auto-test-oneimportpercase)).
+([ADR-AUTO-TEST-ONEIMPORTPERCASE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-oneimportpercase)).
 ```

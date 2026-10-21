@@ -11,12 +11,12 @@ Quality gate: the manual test plan lists every integrity check, once.
 
 ### description
 
-A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../adr/automation/test-automation.md#rule-adr-auto-test-qualitygate)) keeping the manual
+A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)) keeping the manual
 test plan in step with the tests. The plan is the overview docs/how-to/pwsh/manual-test-plan.md plus one category file per category (at
 most 13) in docs/how-to/pwsh/manual-test-plan/; the index rows live in the category files. It finds every integrity-tagged Describe,
 Context, and It across the test files (except the vendored ones) by PARSING them — never by Pester discovery, as a nested Invoke-Pester
 inside a run is unsafe
-([ADR-AUTO-TEST-INTEGRITYREADSFILES](../../../adr/automation/test-automation.md#rule-adr-auto-test-integrityreadsfiles)). A block is
+([ADR-AUTO-TEST-INTEGRITYREADSFILES](../../../drs/automation/test-automation.md#rule-adr-auto-test-integrityreadsfiles)). A block is
 integrity when its own -Tag array holds the literal 'integrity'; its identity is the pair (repository- relative file, block name), as block
 names repeat across files.
 

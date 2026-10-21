@@ -53,8 +53,8 @@ where a guarantee is enforced and where it is only a discipline.
 
 ## See also
 
-- [The audited server git remote](../../adr/design/server-remote-integration.md) — the decision this article explains.
-- [Commit lifecycle](../../adr/flow/commit-lifecycle.md) — the stable point and the dirty HEAD.
+- [The audited server git remote](../../drs/design/server-remote-integration.md) — the decision this article explains.
+- [Commit lifecycle](../../drs/flow/commit-lifecycle.md) — the stable point and the dirty HEAD.
 - The other lenses on the same decision: [meta](one-door-in-one-stable-point-out.md), [implementation](local-guard-and-server-policies.md),
   [operations](guard-and-policies-by-command.md) and [governance](ingress-gated-the-rest-by-review.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

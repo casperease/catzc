@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e265236cf4e6
+    with_body_sha: "6beb5e05b4ae"
   edges:
     test: pwsh/Catzc.Base.MarkdownMeta/tests/types/MarkdownDocument.Tests.ps1
     docs: "[MarkdownDocument.cs.md](docs/references/pwsh/catzc-base-markdown-meta/types/MarkdownDocument.cs.md)"
@@ -23,7 +23,7 @@ public sealed class MarkdownDocument
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    // The reserved front-matter key the tooling owns ([ADR-REPO-FILEMETA-HEADPOLICY](/docs/adr/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)).
+    // The reserved front-matter key the tooling owns ([ADR-REPO-FILEMETA-HEADPOLICY](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)).
     public const string MetaKey = "catzc";
 
     readonly List<string> frontMatter;

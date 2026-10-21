@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2a4e91c8b37b"
+    with_body_sha: e978c46ab4bd
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/types/AccostedConfig.Tests.ps1
     cites:
@@ -20,7 +20,7 @@ using System.Text.RegularExpressions;
 namespace Catzc.Base.Contracts;
 
 // The accosted language's settings
-// ([ADR-AUTO-ACCOSTED](/docs/adr/automation/accosted-language.md)): which verbs are harmless, and the timeouts.yml key that bounds one run.
+// ([ADR-AUTO-ACCOSTED](/docs/drs/automation/accosted-language.md)): which verbs are harmless, and the timeouts.yml key that bounds one run.
 public sealed class AccostedConfig
 {
     public static readonly string[] DefaultHarmlessVerbs = { "get", "test", "find", "measure" };

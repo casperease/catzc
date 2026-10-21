@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "876bdabe8a02"
+    with_body_sha: fda04bbc15ce
   edges:
     test: pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
     docs: "[RungsConfig.cs.md](docs/references/pwsh/catzc-base-flow/types/RungsConfig.cs.md)"
@@ -25,7 +25,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Flow;
 
-// The promotion ladder's rungs, in climbing order ([FDR-CD-RUNGSREGISTRY](/docs/adr/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-rungsregistry)).
+// The promotion ladder's rungs, in climbing order ([FDR-CD-RUNGSREGISTRY](/docs/drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-rungsregistry)).
 public sealed class RungsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

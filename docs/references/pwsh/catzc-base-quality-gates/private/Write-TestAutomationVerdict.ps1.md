@@ -14,7 +14,7 @@ opens with.
 
 Renders one end-of-run banner and nothing else: a Write-Header whose rule lines carry a per-character gradient (green-rainbow on a passing
 run, red-rainbow on a failing one,
-[ADR-AUTO-CONSOLE-SPARINGCOLOUR](../../../../adr/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)) while its titled
+[ADR-AUTO-CONSOLE-SPARINGCOLOUR](../../../../drs/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)) while its titled
 line keeps the anchor's solid base colour, a default-coloured counts detail line (the banner rule carries the signal; the counts are data),
 and a Write-Footer closing the same gradient. It is the symmetric close to Write-TestAutomationHeader's cyan opener, printed on every exit
 path so a run is always visually bracketed. Every line routes through the shared Write-InformationColored chokepoint, so it stays silent
@@ -23,7 +23,7 @@ under the Pester harness ($global:__PesterRunning) with no per-function plumbing
 ### parameter `Result`
 
 The aggregate run verdict — the primary argument (Position 0). A ValidateSet, so a value other than 'Passed' or 'Failed' is rejected at
-binding (fail-fast, [ADR-AUTO-FAILFAST](../../../../adr/automation/fail-fast-with-asserts.md)). It selects the gradient anchor: green for a
+binding (fail-fast, [ADR-AUTO-FAILFAST](../../../../drs/automation/fail-fast-with-asserts.md)). It selects the gradient anchor: green for a
 pass, red for a fail.
 
 ### parameter `Summary`
@@ -59,7 +59,7 @@ Above `$anchor = if ($Result -eq 'Passed') {`, written with `#`.
 ```text
 Green-rainbow celebrates a pass, red-rainbow marks a fail — the gradient lives in this one end-of-run
 verdict and nowhere else
-([ADR-AUTO-CONSOLE-SPARINGCOLOUR](/docs/adr/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)
+([ADR-AUTO-CONSOLE-SPARINGCOLOUR](/docs/drs/automation/console-output-matters.md#rule-adr-auto-console-sparingcolour)
 "sparingly"). The rule lines take the per-character walk; the
 title keeps the anchor's solid base colour (the profile side-grades to Base on the titled line).
 ```
@@ -70,7 +70,7 @@ Above `$detail = [string]::Format([System.Globalization.CultureInfo]::InvariantC
 
 ```text
 Invariant so the duration reads the same on any devbox culture
-([ADR-AUTO-XPLAT-INVARIANTCULTURE](/docs/adr/automation/cross-platform.md#rule-adr-auto-xplat-invariantculture)), matching the title's summary.
+([ADR-AUTO-XPLAT-INVARIANTCULTURE](/docs/drs/automation/cross-platform.md#rule-adr-auto-xplat-invariantculture)), matching the title's summary.
 ```
 
 ## comment:3

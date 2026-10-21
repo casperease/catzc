@@ -10,7 +10,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <!-- The one configuration and platform of bcl.yml
-        ([ADR-BCL-TYPES-DEBUGANYCPU](/docs/adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-debuganycpu)). -->
+        ([ADR-BCL-TYPES-DEBUGANYCPU](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-debuganycpu)). -->
     <Configurations>Debug</Configurations>
     <Platforms>AnyCPU</Platforms>
     <AssemblyName>Show-EditReminder</AssemblyName>

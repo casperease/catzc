@@ -13,7 +13,7 @@ Tests whether the C# types loaded in this PowerShell process are current with th
 
 A loaded assembly cannot be unloaded or swapped in a running process: once a `types/*.cs` file changes after its types loaded, this process
 keeps the old types until a new process loads the new ones
-([ADR-BCL-TYPES-CHANGEDAFTERLOAD](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-changedafterload)). This answers
+([ADR-BCL-TYPES-CHANGEDAFTERLOAD](../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-changedafterload)). This answers
 whether that has happened, from the one measurement the loader and the importer use (Get-LoadedTypeDrift in Catzc.Internal.Types):
 $true when every type the code root's sources declare is loaded as written (or none is
 loaded yet), $false when a source was added, changed,
