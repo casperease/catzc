@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "92639b0b0c18"
+    with_body_sha: "4e23e1188a8d"
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Invoke-FileMetaEngine.ps1
     cites:

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "29b4be5efafe"
+    with_body_sha: "2f327883353b"
   edges:
     docs: "[GlossaryOptions.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/GlossaryOptions.cs.md)"
     cites:

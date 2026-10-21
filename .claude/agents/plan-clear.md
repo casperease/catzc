@@ -21,7 +21,7 @@ Clean the given plan, or every `.claude/plans/plan-*.md` when none is given, to 
 3. Write the verdicts for the file, one line each, to `out/plan-clear-<topic>.md`.
 4. Act on each verdict with Edit, one at a time, re-reading the file after each edit.
 5. A delete verdict removes the done plan with a plain delete on disk, never a git command, and lists the deletion for the user's commit.
-6. Replace the deleted plan's row in `value-of-plan.md` with one line saying it was deleted and why (ADR-REPO-PLANS-DONEPLANDELETED);
-   touch nothing else in that file.
+6. Replace the deleted plan's row in `value-of-plan.md` with one line saying it was deleted and why (ADR-REPO-PLANS-DONEPLANDELETED); touch
+   nothing else in that file.
 7. Background Bash `timeout 120 pwsh -NoProfile -File out/plan-clear-links.ps1` running `Test-Links` on each edited file.
 8. Report as report-fixed says: files touched, the verdict files, the link-check output verbatim, what was left undone and why.

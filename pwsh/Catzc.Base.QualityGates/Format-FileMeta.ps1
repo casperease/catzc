@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0a6257ada895"
+    with_body_sha: "1301a5612f89"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
     docs: "[Format-FileMeta.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Format-FileMeta.ps1.md)"

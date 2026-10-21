@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "49af9d12da84"
+    with_body_sha: d08f3297c50b
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
     docs: "[Build-CommentView.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Build-CommentView.ps1.md)"

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "23271c98467a"
+    with_body_sha: "593ae8772049"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1
     docs: "[MapsConfig.cs.md](../../../docs/references/pwsh/catzc-base-maps/types/MapsConfig.cs.md)"

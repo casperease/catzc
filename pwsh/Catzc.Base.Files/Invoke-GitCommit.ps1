@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "29a826662bff"
+    with_body_sha: "41c3b52aaf98"
   edges:
     test: pwsh/Catzc.Base.Files/tests/Invoke-GitCommit.Tests.ps1
     docs: "[Invoke-GitCommit.ps1.md](../../docs/references/pwsh/catzc-base-files/Invoke-GitCommit.ps1.md)"

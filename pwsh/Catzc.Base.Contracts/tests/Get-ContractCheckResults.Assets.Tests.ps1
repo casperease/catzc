@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6be34f68e8a8"
+    with_body_sha: "189bf4d80550"
   edges:
     docs: "[Get-ContractCheckResults.Assets.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/tests/Get-ContractCheckResults.Assets.Tests.ps1.md)"
     cites:

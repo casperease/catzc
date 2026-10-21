@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6a4033072927"
+    with_body_sha: df1e7340dadf
   edges:
     docs: "[Test-FileMeta.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-FileMeta.ps1.md)"
     cites:

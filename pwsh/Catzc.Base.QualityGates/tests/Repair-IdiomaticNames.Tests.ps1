@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9b5652e1388a"
+    with_body_sha: "131cc893dc7d"
   edges:
     code: pwsh/Catzc.Base.QualityGates/Repair-IdiomaticNames.ps1
 ---

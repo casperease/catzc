@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "155d273aef5a"
+    with_body_sha: "9e0900b5193b"
   edges:
     docs: "[Build-RootConfig.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-root-config/tests/Build-RootConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1

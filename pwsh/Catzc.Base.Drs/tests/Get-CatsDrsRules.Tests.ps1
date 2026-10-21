@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: dce9299da80a
   edges:
-    code: pwsh/Catzc.Base.Drs/private/Get-CatsDrsRules.ps1
+    code: pwsh/Catzc.Base.Drs/Get-CatsDrsRules.ps1
     cites:
       - ADR-REPO-VOCAB-DEFINEDTERM
 ---

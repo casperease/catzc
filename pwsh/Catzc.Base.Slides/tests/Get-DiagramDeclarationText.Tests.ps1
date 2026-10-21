@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2e0b4e3e1f35"
+    with_body_sha: "05828b49343a"
   edges:
     code: pwsh/Catzc.Base.Slides/private/Get-DiagramDeclarationText.ps1
     cites:

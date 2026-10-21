@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8aa0674b44b5"
+    with_body_sha: "57788c5fd31e"
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Get-SkippedClassCitationFinding.ps1
 ---

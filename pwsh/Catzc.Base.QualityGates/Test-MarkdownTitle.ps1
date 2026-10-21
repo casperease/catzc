@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a5ca1c4df47e
+    with_body_sha: d63787da70fa
   edges:
     docs: "[Test-MarkdownTitle.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-MarkdownTitle.ps1.md)"
     cites:

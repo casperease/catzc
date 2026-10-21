@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d1f9907a8afd
+    with_body_sha: "5e314d336b07"
   edges:
     code: pwsh/Catzc.Base.Maps/Get-ModuleNeighbourhoodMinimapData.ps1
 ---

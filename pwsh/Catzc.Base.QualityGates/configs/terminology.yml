@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "14e7cb7528f8"
+#     with_body_sha: "99b3ec0d023c"
 #   edges:
 #     docs: "[terminology.yml.md](../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md)"
 #     cites:
@@ -1180,7 +1180,9 @@ terms:
     - term: getcommandcontract
       meaning: "the command get_command_contract rendered in the flat naming case, the example of that case (ADR-AUTO-IDIOM-CLOSEDCASES)"
     - term: drsonly
-      meaning: "coined noun 'drsonly' — the diagram kit's glyph kind for something a decision record states that no code runs (python/catzc_diagrams)"
+      meaning:
+        "coined noun 'drsonly' — the diagram kit's glyph kind for something a decision record states that no code runs
+        (python/catzc_diagrams)"
     - term: rebaser
       meaning: "coined noun 'rebaser' — rewrites relative links for a new base folder (MarkdownLinkRebaser)"
     - term: arrayifies

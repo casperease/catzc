@@ -30,5 +30,5 @@ metadata:
    in one pass, and a file-meta engine test follows the script-scope `Get-<Kind>FileMetaFact` precedent in
    `Invoke-FileMetaEngine.Tests.ps1`.
 3. Edit one file, run its test file through catzc-check, then the next; never a sweep; strict-mode clean; an ADR the code cites is read in
-   full first and cited by its full rule code, `ADR-<DOMAIN>-<ADR>-<RULE>`; a validation attribute also runs when the function reassigns
-   its parameter, so put a computed default in a local.
+   full first and cited by its full rule code, `ADR-<DOMAIN>-<ADR>-<RULE>`; a validation attribute also runs when the function reassigns its
+   parameter, so put a computed default in a local.

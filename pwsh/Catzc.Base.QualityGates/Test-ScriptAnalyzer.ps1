@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4260f4b95136"
+    with_body_sha: "5c6021b8bfd5"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
     docs: "[Test-ScriptAnalyzer.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-ScriptAnalyzer.ps1.md)"

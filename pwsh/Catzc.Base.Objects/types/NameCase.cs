@@ -4,6 +4,7 @@ catzc:
   immutable:
     with_body_sha: "69800fc3731f"
   edges:
+    test: pwsh/Catzc.Base.Objects/tests/types/NameCase.Tests.ps1
     cites:
       - ADR-AUTO-IDIOM-CLOSEDCASES
 ---

@@ -4,7 +4,7 @@ catzc:
   immutable:
     with_body_sha: bfc83b081d96
   edges:
-    code: pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
+    code: pwsh/Catzc.Base.Drs/Get-CatsDrsIndex.ps1
 ---
 #>
 

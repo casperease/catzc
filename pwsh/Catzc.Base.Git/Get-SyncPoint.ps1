@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "802c85fdf7f9"
+    with_body_sha: e2db9a51fdf4
   edges:
     test: pwsh/Catzc.Base.Git/tests/Get-SyncPoint.Tests.ps1
     docs: "[Get-SyncPoint.ps1.md](../../docs/references/pwsh/catzc-base-git/Get-SyncPoint.ps1.md)"

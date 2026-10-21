@@ -2,13 +2,14 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2da7d4b0530d"
+    with_body_sha: a33b5ced352a
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1
     docs: "[Test-Links.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-Links.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-LINK-ONECITATIONSPELLING
+      - ADR-REPO-LINK-STRINGSAREDATA
 ---
 #>
 

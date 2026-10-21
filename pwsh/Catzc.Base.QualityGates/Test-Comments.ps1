@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d6a13b352dc9
+    with_body_sha: f8ba9f6f2b79
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Comments.Tests.ps1
     docs: "[Test-Comments.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-Comments.ps1.md)"
