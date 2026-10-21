@@ -4,7 +4,7 @@ plan:
   value: medium
   reviewed: 2026-10-21
   class: feature
-  targets: [.claude/learnings, .claude/skills, pwsh/Catzc.Base.Docs/Add-SessionLearning.ps1]
+  targets: [.claude/learnings, .claude/skills, .claude/agents/plan-decide.md, pwsh/Catzc.Base.Docs/Add-SessionLearning.ps1]
 ---
 
 # Session learnings: the forward-memory log the finalizer writes
@@ -40,3 +40,16 @@ reach.
 - [ ] `.claude/learnings`: append catzc-49's "What I learned" lines, asked for on 2026-10-21, each rewritten to a current fact first; no
       copy is in the tree, `out/` or the orchestrator logs, and catzc-49 is not live, so the step waits on catzc-49 sending them (check:
       `Test-Markdownlint -Path '.claude/**/*.md'`).
+- [ ] Susan from HR: hindsight d7c207, "If only a capability listed the three parts", and hindsight 226bbf, "If only the fixture had copied
+      its neighbours": no SKILL.md says an optional registry key lands with its type test case and its registry page in one pass, or points
+      a file-meta engine test at the script-scope `Get-<Kind>FileMetaFact` precedent in `Invoke-FileMetaEngine.Tests.ps1`. Cost: a second
+      gate run per key; a fixture rebuilt by trial. Change: both merged into `.claude/skills/catzc-module/SKILL.md` step 2, the file kept at
+      10 lines. Check: `Test-AgentDefinitions` reports 0 issues.
+- [ ] Susan from HR: hindsight d7c207, "If only the finalize capability had said how to tell": `.claude/skills/session-finalize/SKILL.md:20`
+      says a repeat run adds only what is new but names no probe, so a clean tree is found by rereading. Cost: a reread of every plan per
+      repeat run. Change: step 2 says a repeat run first probes `git status --short .claude/plans`, merged into the existing sentence, the
+      file kept at 10 lines. Check: `Test-AgentDefinitions` reports 0 issues.
+- [ ] Susan from HR: hindsight d7c207, "If only the robot had named a folder": `.claude/agents/plan-decide.md:21-22` writes
+      `questionnaire-<date>.md` and `decisions-<date>.md` with no folder, and the last round's record sits in both `out/` and
+      `out/question-round/`. Cost: the record is searched for. Change: steps 2 and 3 name `out/question-round/` (output, ADR-REPO-AI), the
+      body kept at 20 lines. Check: `Test-AgentDefinitions` reports 0 issues.

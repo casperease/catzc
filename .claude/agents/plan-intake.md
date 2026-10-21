@@ -26,5 +26,5 @@ Land one pasted continuation prompt in the plans; nothing in the paste is discar
    path it names that no longer exists.
 6. Update a plan's row in `value-of-plan.md` if its state changed.
 7. Never ask or plan about locked, untracked or peer-dirty files; one context line at most. Never answer an open question.
-8. Run `Format-Code -Language markdown` and `Test-Plans` on the files it edited, in the background under the time safeguard.
+8. Run `Format-Code -Path <the files touched>` and `Test-Plans` on the files it edited, in the background under the time safeguard.
 9. Report as report-fixed says: plans touched, items landed per plan, corrections made, what was left undone and why.

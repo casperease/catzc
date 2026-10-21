@@ -54,12 +54,17 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - agent-friction -> plan-agent-friction.md: step 3, one Format-Code form in three files (agents), then the user's CLAUDE.md trims
   (task-user-runs-and-commits).
 - claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit only (Sub-agents cut, the pwsh index named; task-user-runs-and-commits).
-- session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
+- session-learnings -> plan-session-learnings.md: three capability lines free (catzc-module, session-finalize, plan-decide.md, one file
+  each); catzc-49's lines wait on catzc-49.
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
-- debt-reference-pages -> plan-debt-reference-pages.md: four reference pages say what their code does today (hindsight 031350); four steps, page edits only
-- debt-gate-findings -> plan-debt-gate-findings.md: three gates report what sessions met by hand: a deleted indexed path, step-list drift, a slide order gap (hindsight 031350, d7c207)
-- debt-docs -> plan-debt-docs.md: two how-tos for facts found only by whoever knew them, a command contract sample and a hook fed from a payload file (hindsight 031350); two open questions
-- debt-import-path -> plan-debt-import-path.md: an instant parse check before the next import, and importer.sh passing list parameters (hindsight 031350); import-path burst
+- debt-reference-pages -> plan-debt-reference-pages.md: four reference pages say what their code does today (hindsight 031350); four steps,
+  page edits only
+- debt-gate-findings -> plan-debt-gate-findings.md: three gates report what sessions met by hand: a deleted indexed path, step-list drift, a
+  slide order gap (hindsight 031350, d7c207)
+- debt-docs -> plan-debt-docs.md: two how-tos for facts found only by whoever knew them, a command contract sample and a hook fed from a
+  payload file (hindsight 031350); two open questions
+- debt-import-path -> plan-debt-import-path.md: an instant parse check before the next import, and importer.sh passing list parameters
+  (hindsight 031350); import-path burst
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.
