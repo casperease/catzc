@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d6a570d5a865
+#     with_body_sha: b61dcdaf586b
 #   edges:
 #     docs: "[glossary.yml.md](docs/references/pwsh/catzc-base-docs/configs/glossary.yml.md)"
 #     cites:
@@ -12,6 +12,7 @@
 #       - ADR-AUTO-LAYERS-REALISENEVERREDEFINE
 #       - ADR-AUTO-MATERIAL-MATERIALIZATION
 #       - ADR-CONF-MDCONTRIB-CONFIGCONTRIBUTION
+#       - ADR-REPO-ADRCODE-DECISIONRECORDSSYSTEM
 #       - ADR-REPO-AGENTS-ROBOTBODYLIMIT
 #       - ADR-REPO-AGENTS-NAMEDMODEL
 #       - ADR-REPO-AGENTS-CAPABILITYFILE
@@ -48,10 +49,31 @@ concepts:
     key: domain_rules
     domain: repository
     defined_by: ADR-REPO-VOCAB-DOMAINRULES
-    short: The repository's conventions and decision records — its ADRs and the rules they state.
+    short: The repository's conventions and its decision records and the rules they state.
     realized_by: { kind: prose-only }
     avoid:
-      - { phrase: house rules, say: domain rules / ADR rules }
+      - { phrase: house rules, say: domain rules / DRS rules }
+  decision records system:
+    key: drs
+    domain: repository
+    defined_by: ADR-REPO-ADRCODE-DECISIONRECORDSSYSTEM
+    short: "The DRS: the one system that holds every decision record, its index and its registry, under docs/drs/."
+    realized_by: { kind: prose-only }
+    avoid:
+      - { phrase: ADR system, say: the DRS }
+  decision record:
+    key: decision_record
+    domain: repository
+    defined_by: ADR-REPO-ADRCODE-DECISIONRECORDSSYSTEM
+    short: "One record of the DRS, of exactly one registered record kind, stating its rules and why."
+    realized_by: { kind: prose-only }
+  record kind:
+    key: record_kind
+    domain: repository
+    defined_by: ADR-REPO-ADRCODE-DECISIONRECORDSSYSTEM
+    short:
+      "The first segment of a decision record code (ADR, TDR, PDR, WDR, DDR, FDR or RDR), registered in adrs.yml; together the XDR kinds."
+    realized_by: { kind: prose-only }
   workstream:
     key: workstream
     domain: repository

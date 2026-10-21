@@ -4,10 +4,10 @@
 
 ### Rule ADR-REPO-ADRCODE-DECISIONRECORDSSYSTEM
 
-The **Decision Records System (DRS)** is the one system that holds every **decision record**: the domains of every record kind, their records and
-rules, the index and the registry, under its one root, `docs/drs/`. Every record is of exactly one **record kind** registered in `adrs.yml`
-(`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `RDR`), and the kinds together are called "XDR". "ADR" names the `ADR` kind only, never the
-system or a record of another kind.
+The **decision records system** (DRS) is the one system that holds every **decision record**: the domains of every record kind, their
+records and rules, the index and the registry, under its one root, `docs/drs/`. Every record is of exactly one **record kind** registered in
+`adrs.yml` (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `RDR`), and the kinds together are called "XDR". "ADR" names the `ADR` kind only,
+never the system or a record of another kind.
 
 - [One system holds every record](#one-system-holds-every-record)
 
@@ -112,7 +112,7 @@ tree, so a domain, an ADR, and a rule are read, searched, and parsed the same wa
 
 The most general part comes first, so the codes of one domain sort together and one prefix search finds them. A code that leaves out its
 domain's prefix, or names another domain than the folder it lives in, breaks both. The kind says before the record is opened whether it is a
-thesis, an axiom, a way of working, a design, a flow, research, or an architecture decision; a framing domain owns its kind, so one segment
+thesis, an axiom, a way of working, a design, a flow, research, or an architecture decision; where one domain owns its kind, one segment
 says both and the domain segment would only repeat it. The research domain's records group under `DORA`, the research program they record,
 as a vendor framework groups (`RDR-DORA-VCS`).
 

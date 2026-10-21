@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "47d458025b5a"
+#     with_body_sha: "25c453840685"
 #   edges:
 #     docs: "[adr-index.yml.md](docs/references/pwsh/catzc-base-docs/configs/adr-index.yml.md)"
 #     cites:
@@ -28,7 +28,7 @@ preamble: |
 
   - A code is a path: the record kind, then the domain where the kind is shared, then the record, then the rule, each an upper-case segment
     joined by `-`; the registered kinds (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `RDR`) are the searchable markers for a reference
-    anywhere in the repository (ADR-REPO-ADRCODE-PATHOFSEGMENTS). A framing domain owns its kind and drops its domain segment; the
+    anywhere in the repository (ADR-REPO-ADRCODE-PATHOFSEGMENTS). A domain that owns its kind drops its domain segment; the
     implementation domains share `ADR` and keep theirs (ADR-REPO-ADRCODE-DOMAINSEGMENT).
   - **Cite a rule** by its code, which names it — e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`, `ADR-AUTO-CACHE-READONLYVALUES`,
     `ADR-AZ-NAMING-NEVERTRUNCATE`. A rule is never numbered (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED).

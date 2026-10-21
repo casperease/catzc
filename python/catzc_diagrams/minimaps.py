@@ -18,6 +18,7 @@ checked against their registries (problems), and otherwise ignored. The registri
 
 import base64
 import io
+import re
 from functools import cache
 from pathlib import Path
 
@@ -90,11 +91,12 @@ def adrs():
 
 @cache
 def rules():
-    """Every rule code the ADRs define: the `### Rule <code>` headings under docs/adr."""
+    """Every rule code the ADRs define: the `### Rule <code>` headings under docs/adr, of every record kind adrs.yml declares."""
+    heading = re.compile(r"### Rule " + kinds() + r"-")
     found = set()
     for page in (REPO / "docs" / "adr").rglob("*.md"):
         for line in page.read_text(encoding="utf-8").splitlines():
-            if line.startswith("### Rule ADR-"):
+            if heading.match(line):
                 found.add(line.removeprefix("### Rule ").split()[0])
     return found
 

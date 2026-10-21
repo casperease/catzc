@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a008944777c7
+    with_body_sha: "6faf3757e2c4"
     warning: "Do Not Edit, this file is generated"
     role: glossary
     track: docs
@@ -1318,6 +1318,26 @@ over a closed type set whose defaults are declared once on the ContractCommand t
   - [implementation language](#implementation-language): An implementation language is the file language a command's source is written in;
     the contract language is the notation its call interface is stated in.
 
+### decision record
+
+One record of the DRS, of exactly one registered record kind, stating its rules and why.
+
+- **Defined by:** [ADR-REPO-ADRCODE-DECISIONRECORDSSYSTEM](repository/adr-code-language.md#rule-adr-repo-adrcode-decisionrecordssystem)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
+
+### decision records system
+
+The DRS: the one system that holds every decision record, its index and its registry, under docs/drs/.
+
+- **Defined by:** [ADR-REPO-ADRCODE-DECISIONRECORDSSYSTEM](repository/adr-code-language.md#rule-adr-repo-adrcode-decisionrecordssystem)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
+
+| Avoid        | Say instead |
+| ------------ | ----------- |
+| `adr system` | the DRS     |
+
 ### deck file
 
 The `deck.md` of a deck folder — the deck's title and its sections, beside the slide files it gathers.
@@ -1376,7 +1396,7 @@ A group of ADRs — one docs/adr/ subfolder — that adrs.yml declares with its 
 
 ### domain rules
 
-The repository's conventions and decision records — its ADRs and the rules they state.
+The repository's conventions and its decision records and the rules they state.
 
 - **Defined by:** [ADR-REPO-VOCAB-DOMAINRULES](repository/controlled-vocabulary.md#rule-adr-repo-vocab-domainrules)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
@@ -1384,7 +1404,7 @@ The repository's conventions and decision records — its ADRs and the rules the
 
 | Avoid         | Say instead              |
 | ------------- | ------------------------ |
-| `house rules` | domain rules / ADR rules |
+| `house rules` | domain rules / DRS rules |
 
 ### edge
 
@@ -1577,6 +1597,14 @@ A contract an outside consumer may rely on — the repository's only public API,
     follows that platform; a provided contract is a promise to a consumer, kept while the consumer pins that version of its unit.
   - [pin](#pin): A pin is the consumer's explicit choice of a version that crosses the repository boundary; a provided contract is the
     promise catzc keeps under that pin.
+
+### record kind
+
+The first segment of a decision record code (ADR, TDR, PDR, WDR, DDR, FDR or RDR), registered in adrs.yml; together the XDR kinds.
+
+- **Defined by:** [ADR-REPO-ADRCODE-DECISIONRECORDSSYSTEM](repository/adr-code-language.md#rule-adr-repo-adrcode-decisionrecordssystem)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
 ### robot
 

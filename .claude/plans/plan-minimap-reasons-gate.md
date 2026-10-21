@@ -30,9 +30,9 @@ yet, so every one goes dark when the gate turns on; that is why the declared cel
 
 ## Open steps
 
-- [ ] After plan-xdr-codes' rewrite (it changes the codes in diagram subtitles, so one render serves both), re-render the stale minimaps
-      (the user, 2026-10-21): `Build-Diagrams -Stale`, then `Test-Diagrams` over the tree, and a few re-rendered pngs Read against their yml
-      (check: `Test-Diagrams` reports 0 issues and 0 stale minimaps).
+- [ ] Now that the record-kind rewrite has landed (it changed the codes in diagram subtitles), re-render the stale minimaps (the user,
+      2026-10-21): `Build-Diagrams -Stale`, then `Test-Diagrams` over the tree, and a few re-rendered pngs Read against their yml (check:
+      `Test-Diagrams` reports 0 issues and 0 stale minimaps).
 - [ ] `pwsh/Catzc.Base.Slides/private/Write-DiagramMinimapData.ps1`, last: drop a drawn cell the yml does not list, and report it (check:
       `Invoke-TestFile` on its test file with a widget fixture whose yml omits one cell, and `Build-Diagrams -Path` on one folder draws
       every cell).

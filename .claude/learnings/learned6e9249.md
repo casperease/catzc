@@ -70,7 +70,7 @@ Started 2026-10-21T20:09:00.4651213+02:00.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: contracts/EXTERNAL-azure/0.1.0 is frozen and carries ADR codes, so a citation
   rename never rewrites it.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: about 1,330 code occurrences are neutral test fixtures (ADR-WIDGET and kin), not
-  real domains.
+  domains adrs.yml registers.
 - 2026-10-21 Cats: Token tip: Next time, save tokens by: a raw git grep inventory into out/ first, and Get-AdrUsage only with -Path.
 - 2026-10-21 Cats: Token tip: Next time, save tokens by: writing a pwsh script with the Write tool, never inside a heredoc in a call the
   hook may deny.
@@ -79,13 +79,13 @@ Started 2026-10-21T20:09:00.4651213+02:00.
 - 2026-10-21 Cats: Token tip: Next time, save tokens by: grepping out/orchestrator-\<date>.log for a missing plan before reporting it lost.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: AdrCitationRewriter validates every code-map row against ^ADR(-SEG)+, so a map to a
   new record kind cannot load until the rewriter reads the kinds from the registry.
-- 2026-10-21 Cats: In hindsight I wish I knew this fact: an edit to any pwsh/*/types/*.cs file is compiled by the next import of every
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: an edit to any pwsh/_/types/_.cs file is compiled by the next import of every
   session, so a multi-edit type change must be staged in out/ and swapped in with a fresh import in one script.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: Test-Links exempts string paths only in *.Tests.ps1 files until LinkEngine treats
   every file in a tests/ folder as a test, which ADR-REPO-LINK-STRINGSAREDATA already says.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: ADR-AUTO-TEST-QUALITYGATE requires a gate to throw once listing every issue, so
   findings printed once means Write-QualityGateReport prints issue lines only under -PassThru.
-- 2026-10-21 Cats: In hindsight I wish I knew this fact: the framing domains are cited 4,587 times in 826 files, and the frozen
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: the domains that own their kind are cited 4,587 times in 826 files, and the frozen
   contracts/EXTERNAL-azure/0.1.0 cites only REPO rules.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: NameCase.Render splits DevOps into dev-ops and VSCode into vs-code, so every
   {kebab} rendered from a module name changed with it.

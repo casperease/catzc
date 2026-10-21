@@ -122,3 +122,21 @@ def test_a_row_lit_as_a_whole_is_outlined_and_a_place_drops_its_placeholders():
     placeholders["lit"][0]["at"] = ["pwsh", "-", "."]
     plain["lit"][0]["at"] = ["pwsh"]
     assert minimaps.picture_from(placeholders, 300, 160) == minimaps.picture_from(plain, 300, 160)
+
+
+def test_the_rules_are_read_under_every_record_kind_the_registry_declares(tmp_path, monkeypatch):
+    # A widget registry with two kinds: a rule heading under either is a rule, one under an undeclared kind is not.
+    (tmp_path / "pwsh/Catzc.Base.Docs/configs").mkdir(parents=True)
+    (tmp_path / "pwsh/Catzc.Base.Docs/configs/adrs.yml").write_text("kinds:\n  ADR: {}\n  GDR: {}\n", encoding="utf-8")
+    (tmp_path / "docs/adr/widget").mkdir(parents=True)
+    (tmp_path / "docs/adr/widget/gadget.md").write_text(
+        "### Rule ADR-WIDGET-TURN\n\n### Rule GDR-GADGET-SPIN\n\n### Rule XDR-GIZMO-STOP\n", encoding="utf-8"
+    )
+    monkeypatch.setattr(minimaps, "REPO", tmp_path)
+    minimaps.kinds.cache_clear()
+    minimaps.rules.cache_clear()
+    try:
+        assert minimaps.rules() == {"ADR-WIDGET-TURN", "GDR-GADGET-SPIN"}
+    finally:
+        minimaps.kinds.cache_clear()
+        minimaps.rules.cache_clear()

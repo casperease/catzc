@@ -22,15 +22,15 @@ is `docs/drs/`; `docs/adr/` names one kind for a folder that holds seven.
 
 ## Why its value is high
 
-Since the record-kind codes landed (plan-xdr-codes), the folder name, the index title and the umbrella word "ADR" say one kind where the
-tree holds seven: a reader who meets `docs/adr/principles/one-living-version.md` with a `PDR-ONELIVE` code reads two names for one thing.
-The move touches `docs/adr` in 3,194 places in 1,206 files and a relative `../adr/` link in 697 files, so it is one planned burst after the
-root is declared once, not a sweep.
+Since the record-kind codes landed (2026-10-21), the folder name, the index title and the umbrella word "ADR" say one kind where the tree
+holds seven: a reader who meets `docs/adr/principles/one-living-version.md` with a `PDR-ONELIVE` code reads two names for one thing. The
+move touches `docs/adr` in 3,194 places in 1,206 files and a relative `../adr/` link in 697 files, so it is one planned burst after the root
+is declared once, not a sweep.
 
 ## Decided (the user, 2026-10-21)
 
 - The system is named **DRS**, the Decision Records System; it lives in `docs/drs/` and holds the XDR record-kind domains and their rules.
-- The record kinds and their codes are unchanged: `ADR` stays the shared kind of the implementation domains (plan-xdr-codes).
+- The record kinds and their codes are unchanged: `ADR` stays the shared kind of the implementation domains.
 - Every `Adr*` name is system-level, so each takes `Drs`: `Test-DrsRegistry`, `Build-DrsIndex`, `Update-DrsCitation`, `DrsConfig`,
   `drs.yml`, `drs-index.yml`, `drs-checks.yml`, `analyzer-drs-map.yml`, the `drs-reviewer` agent and the `drs-cite` skill.
 - The DRS commands and types leave `Catzc.Base.Docs` for their own module, `Catzc.Base.Drs`, in the same step as the rename, so each file
@@ -42,8 +42,7 @@ root is declared once, not a sweep.
 
 ## Order
 
-After plan-xdr-codes' last burst (`DDR`, `FDR`): both rewrite citations in the same files, so they never run at once. Steps 1 and 2 touch no
-citation and may go first.
+The record-kind rewrite has landed, so the steps run in order; the move is one burst after the user's go.
 
 ## Open steps
 
@@ -85,5 +84,4 @@ citation and may go first.
 
 ## Refs
 
-- plan-xdr-codes.md: the record kinds this system holds.
 - `.claude/CLAUDE.md` is dirty in a peer's change; its step waits for that change to land.

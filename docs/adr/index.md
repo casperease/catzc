@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d886226a962e
+    with_body_sha: f490ccf7cab7
     warning: "Do Not Edit, this file is generated"
     role: index
     track: docs
@@ -25,8 +25,8 @@ normative summary plus internal links to the prose that justifies it). The gramm
 
 - A code is a path: the record kind, then the domain where the kind is shared, then the record, then the rule, each an upper-case segment
   joined by `-`; the registered kinds (`ADR`, `TDR`, `PDR`, `WDR`, `DDR`, `FDR`, `RDR`) are the searchable markers for a reference anywhere
-  in the repository (ADR-REPO-ADRCODE-PATHOFSEGMENTS). A framing domain owns its kind and drops its domain segment; the implementation
-  domains share `ADR` and keep theirs (ADR-REPO-ADRCODE-DOMAINSEGMENT).
+  in the repository (ADR-REPO-ADRCODE-PATHOFSEGMENTS). A domain that owns its kind drops its domain segment; the implementation domains
+  share `ADR` and keep theirs (ADR-REPO-ADRCODE-DOMAINSEGMENT).
 - **Cite a rule** by its code, which names it — e.g. `ADR-PWSH-ERROR-THROWNOTWRITEERROR`, `ADR-AUTO-CACHE-READONLYVALUES`,
   `ADR-AZ-NAMING-NEVERTRUNCATE`. A rule is never numbered (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED).
 - The code resolves to the heading's anchor, `#rule-` and the code in lower case — e.g.
