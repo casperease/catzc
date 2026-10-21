@@ -63,4 +63,5 @@ The module's public functions, sorted into the responsibilities above.
 |                                          | `Get-FileLockingProcess` |
 | responsibility:2 — Source-control facts  | `Get-GitCurrentBranch`   |
 |                                          | `Get-GitCurrentCommit`   |
+|                                          | `Get-CodeCaller`         |
 |                                          | `Invoke-GitCommit`       |

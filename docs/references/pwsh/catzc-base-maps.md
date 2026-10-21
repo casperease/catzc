@@ -60,7 +60,8 @@ are configuration with a default declared once on the config type. The bytes dep
 Computing the data a diagram's minimaps draw, one function per minimap, in the one shape of the minimap contract. A diagram's subject is the
 files its ADR codes light on the world map; each minimap projects those files and their facts onto its own axes, read from a registry (the
 rungs, the ADR layers, the tracks, the execution engines, the module dependencies), so every lit cell carries the file and the requested
-code that light it. Which minimaps a diagram kind may show, and the three it shows by default, are configuration.
+code that light it. A caller drawing many diagrams reads the facts of every subject file once and hands them to each minimap, as it does the
+world map. Which minimaps a diagram kind may show, and the three it shows by default, are configuration.
 
 ## What the module does
 
@@ -108,3 +109,4 @@ The module's public functions and configuration, sorted into the responsibilitie
 |                                           | `Get-TrackPlacementMinimapData`      |
 |                                           | `Get-EngineStripMinimapData`         |
 |                                           | `Get-ModuleNeighbourhoodMinimapData` |
+|                                           | `Get-MinimapFact`                    |

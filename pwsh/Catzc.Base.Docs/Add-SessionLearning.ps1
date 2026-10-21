@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a6d947139adc
+    with_body_sha: eb7e3e930f45
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Add-SessionLearning.Tests.ps1
     docs: "[Add-SessionLearning.ps1.md](docs/references/pwsh/catzc-base-docs/Add-SessionLearning.ps1.md)"
@@ -23,8 +23,9 @@ function Add-SessionLearning {
         headed `# <title> <sha>` and then `Started <time>.`, the start time the files are ordered by. A long line is wrapped at
         140 columns as the markdown formatter wraps a list item (Format-MarkdownParagraph), so the log passes the markdown lint as written;
         a line is counted by the line that starts it. When a new file would make more than
-        `files` files, the oldest is deleted: git keeps it once committed. Lines are never edited and repeats are kept, since a line that
-        recurs shows what keeps mattering. Every log is one LearningsConfig instance, registered in configs.yml under its own name: the
+        `files` files, the oldest is deleted: git keeps it once committed. Lines are never edited and a repeat across calls is kept, since
+        a line that recurs shows what keeps mattering; only a sentence given twice in one call (a relayed batch) is written once, and each
+        skip is reported with a warning. Every log is one LearningsConfig instance, registered in configs.yml under its own name: the
         learnings log (`learned<sha>.md`, "Session learnings") and the hindsight log the 2020-hindsight robot keeps (`hindsight<sha>.md`,
         "Hindsight", in .claude/hindsight). The defaults (5 files of 50 lines) are declared once on LearningsConfig.
 
@@ -67,10 +68,15 @@ function Add-SessionLearning {
     }
     $encoding = [System.Text.UTF8Encoding]::new($false)
 
+    $seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $sentences = @(foreach ($sentence in $Learning) {
             $text = "$sentence".Trim()
             Assert-True ($text.Length -gt 0) -ErrorText 'Add-SessionLearning: a learning is empty.'
             Assert-True ($text.IndexOfAny([char[]] "`r`n") -lt 0) -ErrorText "Add-SessionLearning: '$text' holds a line break; give one learning per sentence."
+            if (-not $seen.Add($text)) {
+                Write-Message "Add-SessionLearning: skipped '$text', already given in this call." -Warning
+                continue
+            }
             $text
         })
 

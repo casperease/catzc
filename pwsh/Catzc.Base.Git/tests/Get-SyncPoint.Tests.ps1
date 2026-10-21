@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9a1fb7669620"
+    with_body_sha: "05a5eeee6e9a"
   edges:
     code: pwsh/Catzc.Base.Git/Get-SyncPoint.ps1
     cites:
@@ -57,6 +57,6 @@ Describe 'Get-SyncPoint' -Tag 'L0', 'logic', 'ADR-FLOW-GIT-SYNCPOINT' {
 
     It 'stops when the server has none of the main branches' {
         Set-Remote @("$script:main`trefs/heads/widget")
-        { Get-SyncPoint -Config ([Catzc.Base.Git.GitFlowConfig]::new(@{})) } | Should -Throw "*has none of the main branches main, master*"
+        { Get-SyncPoint -Config ([Catzc.Base.Git.GitFlowConfig]::new(@{})) } | Should -Throw '*has none of the main branches main, master*'
     }
 }

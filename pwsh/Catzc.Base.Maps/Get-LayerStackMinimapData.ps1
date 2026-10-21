@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "04c2fee5e9b4"
+    with_body_sha: "9cb91f37362f"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-LayerStackMinimapData.Tests.ps1
     docs: "[Get-LayerStackMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-LayerStackMinimapData.ps1.md)"
@@ -19,6 +19,10 @@ function Get-LayerStackMinimapData {
         [Parameter(Mandatory, Position = 0)]
         [string[]] $Adr,
 
+        [Catzc.Base.Maps.WorldMap] $WorldMap,
+
+        [hashtable] $Facts,
+
         [switch] $AsJson
     )
 
@@ -27,7 +31,7 @@ function Get-LayerStackMinimapData {
     $ruleSets = @(Get-AdrRuleSet | Sort-Object { $_.External.Length } -Descending)
     $count = @{}
     $reasons = @{}
-    foreach ($item in @(Get-MinimapSubject -Adr $Adr)) {
+    foreach ($item in @(Get-MinimapSubject -Adr $Adr -WorldMap $WorldMap -Facts $Facts)) {
         $ruleSet = $ruleSets | Where-Object { $item.Requested -ceq $_.External -or $item.Requested.StartsWith("$($_.External)-", [System.StringComparison]::Ordinal) } |
             Select-Object -First 1
         if (-not $ruleSet) {

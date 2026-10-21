@@ -242,10 +242,10 @@ compiles. The repo ships an **IDE-only** `Catzc.Types.csproj` (under `pwsh/.inte
 source) and a classic root `catzc.sln` (Dev Kit loads a `.sln`, not a `.slnx`; kept at the repo root so the editor auto-loads it, and it
 references the project by relative path) that mirror the runtime compile — `Nullable` and `ImplicitUsings` off, .NET 10 — so the editor's
 feedback equals the runtime's: real namespaces (no `CA1050`), with two deliberate opt-outs stated in `.editorconfig` — `IDE1006` (snake_case
-config-mirroring props, Rule ADR-BCL-TYPES-SNAKECASEMIRRORSYAML) and `IDE0130` (the namespace mirrors the module, not the project's
-physical folder path, Rule ADR-BCL-TYPES-NAMESPACEISMODULE). The runtime never builds the project, and `Invoke-BuildForVsCode` builds the
-IDE project on demand for the editor (see below). The [poka-yoke](../../principles/poka-yoke.md) is preserved because the namespace is
-folder-derived by `Format-Types` and checked by `Test-Formatting`, not a second source of truth, maintained by hand, that could drift.
+config-mirroring props, Rule ADR-BCL-TYPES-SNAKECASEMIRRORSYAML) and `IDE0130` (the namespace mirrors the module, not the project's physical
+folder path, Rule ADR-BCL-TYPES-NAMESPACEISMODULE). The runtime never builds the project, and `Invoke-BuildForVsCode` builds the IDE project
+on demand for the editor (see below). The [poka-yoke](../../principles/poka-yoke.md) is preserved because the namespace is folder-derived by
+`Format-Types` and checked by `Test-Formatting`, not a second source of truth, maintained by hand, that could drift.
 
 To keep that IDE artifact honest, the project **stamps its version from the committed `Catzc.Types.<hash>.dll`** — the runtime assembly's
 own identity ([ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](../caching.md#rule-adr-auto-cache-compiledtypeprebuild)) — so its build metadata (the
@@ -273,12 +273,12 @@ root. Every process loads the assembly from a per-user shadow copy (`Import-Type
 Because the DLL filename _is_ the combined source hash, there is no "present but stale" state — a source that changes has a different
 filename, so the current-hash DLL is simply absent until built. The loader resolves every state:
 
-| current-hash DLL                       | types loaded this session | Outcome                                                                                                                                                                                                                                                                                                                                                              |
-| -------------------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| present                                | no                        | **Skip compile, load it.** CI / fresh-checkout hot path (no Roslyn).                                                                                                                                                                                                                                                                                                 |
-| present                                | yes                       | **No-op.** Types already loaded in the process.                                                                                                                                                                                                                                                                                                                      |
-| absent (source added/changed/deleted)  | no                        | **Compile** all sources → the hash-named DLL, load, verify every type.                                                                                                                                                                                                                                                                                               |
-| absent (DLL deleted, source unchanged) | yes                       | **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the committed artifact; no reload.                                                                                                                                                                                                                                                         |
+| current-hash DLL                       | types loaded this session | Outcome                                                                                                                                                                                                                                                                                                                                                             |
+| -------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| present                                | no                        | **Skip compile, load it.** CI / fresh-checkout hot path (no Roslyn).                                                                                                                                                                                                                                                                                                |
+| present                                | yes                       | **No-op.** Types already loaded in the process.                                                                                                                                                                                                                                                                                                                     |
+| absent (source added/changed/deleted)  | no                        | **Compile** all sources → the hash-named DLL, load, verify every type.                                                                                                                                                                                                                                                                                              |
+| absent (DLL deleted, source unchanged) | yes                       | **Recompile via `-OutputAssembly`** (writes without loading) — self-heals the committed artifact; no reload.                                                                                                                                                                                                                                                        |
 | absent because the source CHANGED      | yes                       | **Devbox, whoever runs: warn (yellow, the changed types by simple name) + keep the old types and go on** this session (ADR-BCL-TYPES-ONEDRIFTMEASURE) (return, don't record the new hash) — unless a type was added, which throws "restart PowerShell". **Pipeline: throw "restart PowerShell"** — CI must not run on stale types. A loaded copy cannot be swapped. |
 
 A superseded-hash DLL (the old build after a source edit) is pruned by the loader on rebuild and by the post-import janitor
@@ -315,8 +315,8 @@ sources on disk and names each drifted type; the loader reads it to warn or thro
 `Assert-LoadedTypesCurrent` give the same answer to any code that needs current types, such as a test of a type just edited.
 
 Whether a stale load warns or throws depends on where the process runs, and the loader asks `Test-IsRunningInPipeline`, the one reader of
-the pipeline variables, like every other caller (Rule ADR-BCL-TYPES-CHANGEDAFTERLOAD). The detection function is therefore loaded before
-the types pre-pass runs.
+the pipeline variables, like every other caller (Rule ADR-BCL-TYPES-CHANGEDAFTERLOAD). The detection function is therefore loaded before the
+types pre-pass runs.
 
 A person who edits a type and imports again keeps the loaded types and gets one yellow line naming the changed types by simple name; the
 import goes on and never waits. The importer starts no nested shell: a process cannot replace itself on every platform, and an agent or a
@@ -482,7 +482,7 @@ as well as its files, so the pair is the language's configuration, apart from th
   mismatched / block-scoped namespace and dotted-filename throws, the filename-type verification, the changed-after-load fail-fast,
   self-heal of a deleted DLL, the `DictionaryRecord` dictionary view, and a drift guard (the committed `Catzc.Types.<hash>.dll` matches the
   current sources, with no pending git changes). A `shipped C# types` test asserts every committed type resolves **and** declares its module
-  namespace (via `Test-Formatting -Language csharp`), and a `PSTypeAlias accelerators` test asserts a decorated type's accelerator resolves
+  namespace (via `Test-Formatting -Language bcl`), and a `PSTypeAlias accelerators` test asserts a decorated type's accelerator resolves
   after load. `Set-CSharpFileScopedNamespace.Tests.ps1` unit-tests the namespace string engine behind `Format-Types`.
 
 - **`Clear-ModuleTypeCache`** keeps the current `pwsh/.compiled/Catzc.Types.<hash>.dll` and prunes the rest (deleting on a devbox only). A

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "7253d54307a6"
+#     with_body_sha: a3ca2193bf69
 #   edges:
 #     docs: "[agents.yml.md](docs/references/pwsh/catzc-base-docs/configs/agents.yml.md)"
 #     cites:
@@ -134,7 +134,6 @@ agents:
     supported_by: [ADR-REPO-AI-TRUSTTHETREE, ADR-REPO-VOCAB-DEFINEDTERM, ADR-REPO-AI-NEVERDECIDEFORUSER]
     checks: []
 
-  # Reads what sessions learned the hard way, finds where the tree already knew or does not, and keeps the hindsight log: smug in form, checked in fact.
   - name: 2020-hindsight
     persona: Jack
     supported_by:

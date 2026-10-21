@@ -17,8 +17,8 @@ Started 2026-10-21T02:21:00.2535622+02:00.
   is committed.
 - 2026-10-21 Cats: Adding an ADR touches the page, the adrs.yml ruleset and domain description, Build-AdrIndex, glossary.yml with
   Build-Glossary, the domain's dora-explains.md, and Format-Code; no how-to lists these.
-- 2026-10-21 Cats: A background Bash call takes one command after its timeout prefix, so running several catzc gates needs a script file
-  under out/.
+- 2026-10-21 Cats: A background Bash call takes one command after its timeout prefix, and the entry script
+  pwsh/.internal/assets/Invoke-CatzcCommand.ps1 runs several quality gates in that one call, so no script file is needed.
 - 2026-10-21 Cats: plan-master.md and value-of-plan.md are edited by several sessions at once; a new plan adds one master line and one value
   row without touching other lines.
 - 2026-10-21 Cats: "eac" names both everything as code (ADR-PRIN-EAC, the eac normal form) and the sibling repository C:\projects\eac.
@@ -70,8 +70,8 @@ Started 2026-10-21T02:21:00.2535622+02:00.
   beside the ones you changed.
 - 2026-10-21 Cats: Token tip: run every gate through pwsh/.internal/assets/Invoke-CatzcCommand.ps1 with several quoted commands in one
   background call instead of one out/*.ps1 per gate.
-- 2026-10-21 Cats: Token tip: before citing a rule code in an ADR, check the citing domain's depends_on in adrs.yml, which costs one grep
-  and saves a failed gate and a round trip.
+- 2026-10-21 Cats: Token tip: before citing a rule code in an ADR, check the owning domain's depends_on in adrs.yml, which costs one grep
+  and saves a failed quality gate and a round trip.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: the importer runs Build-RootConfig, which runs New-PythonProject and
   New-GoWorkspace, so changing a test-folder validator breaks every session's import unless the folder rename lands in the same pass.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: Invoke-TestFile calls Get-LanguageTestFolders on every run, so a test-folder rename

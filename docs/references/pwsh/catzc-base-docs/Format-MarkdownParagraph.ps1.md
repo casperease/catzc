@@ -37,7 +37,8 @@ The maximum line width, prefix included. Defaults to 140, the repository's markd
 
 ### outputs
 
-`[string[]]` The wrapped lines.
+`[string[]]` The wrapped lines, written as one array object (the closing unary comma), so a caller takes the object whole: assign it, or
+join it (`` -join "`n" ``), and never pipe it expecting one line per item.
 
 ### example 1
 

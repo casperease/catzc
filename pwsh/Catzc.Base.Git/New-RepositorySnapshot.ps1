@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "01c02f75a2e8"
+    with_body_sha: c1f5b79f82bf
   edges:
     test: pwsh/Catzc.Base.Git/tests/New-RepositorySnapshot.Tests.ps1
     docs: "[New-RepositorySnapshot.ps1.md](docs/references/pwsh/catzc-base-git/New-RepositorySnapshot.ps1.md)"
@@ -76,13 +76,24 @@ function New-RepositorySnapshot {
                     [void]$relativePaths.Add($line)
                 }
             }
+            $diskFolders = @{}
             foreach ($relativePath in $relativePaths) {
                 $sourceFile = Join-Path $SourceRoot $relativePath
                 # A tracked file deleted from the working tree stays deleted in the snapshot.
                 if (-not [System.IO.File]::Exists($sourceFile)) {
                     continue
                 }
-                $targetFile = Join-Path $Destination $relativePath
+                $listed = ''
+                $onDisk = ''
+                foreach ($segment in @($relativePath -split '/' | Select-Object -SkipLast 1)) {
+                    $listed = "$listed/$segment"
+                    if (-not $diskFolders.ContainsKey($listed)) {
+                        $found = @([System.IO.Directory]::EnumerateDirectories([System.IO.Path]::Join($SourceRoot, $onDisk), $segment))
+                        $diskFolders[$listed] = [System.IO.Path]::Join($onDisk, [System.IO.Path]::GetFileName(($found.Count -eq 1) ? $found[0] : $segment))
+                    }
+                    $onDisk = $diskFolders[$listed]
+                }
+                $targetFile = [System.IO.Path]::Join($Destination, $onDisk, [System.IO.Path]::GetFileName($relativePath))
                 [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($targetFile)) | Out-Null
                 [System.IO.File]::Copy($sourceFile, $targetFile, $true)
             }

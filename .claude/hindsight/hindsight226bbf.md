@@ -10,7 +10,8 @@ Started 2026-10-21T05:07:31.0383252+02:00.
   code_language check.
 - 2026-10-21 Jack: If only the session had read the load sequence: docs/references/pwsh/internal/index.md:19 and
   docs/references/pwsh/catzc-base-rootconfig.md:62 declare the janitors, and Invoke-ImporterJanitors runs Build-Glossary and
-  Build-RootConfig at pwsh/.internal/Catzc.Internal.Importer.psm1:381 and :405, though no line warns that a bad source breaks every session.
+  Build-RootConfig at pwsh/.internal/Catzc.Internal.Importer.psm1:381 and :405, though no line warns that a broken glossary source breaks
+  every session.
 - 2026-10-21 Jack: If only the session had checked the dependency graph: pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml:82-94 keeps
   Catzc.Base.Languages below Catzc.Base.QualityGates, where CommentsConfig.PageFor lives (types/CommentsConfig.cs:237), and nothing in the
   tree derives a docs edge for a generated head yet.

@@ -60,9 +60,7 @@ Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
                         relations = @{ selected_by = @('gadget run') }
                     })
             })
-        $gadget = & $script:source 'Gadget' ([ordered]@{
-                'gadget run' = (& $script:concept 'gadget_run' @{ contrasts = @{ 'widget suite' = 'A widget suite is files at rest; a gadget run executes.' } })
-            })
+        $gadget = & $script:source 'Gadget' ([ordered]@{ 'gadget run' = (& $script:concept 'gadget_run') })
         & $script:violations @($gadget, $widget) | Should -BeNullOrEmpty
     }
 
@@ -112,14 +110,16 @@ Describe 'Get-GlossarySourceViolations' -Tag 'L0', 'logic' {
         $found | Should -Contain "widgets/Catzc.Widget/configs/glossary.yml: concept 'widget suite': part_of target 'widget module' is not a defined term (ADR-REPO-VOCAB-SOURCESINREPOSITORY)"
     }
 
-    It 'reports a contrast that is not reciprocal, against the side that has it' -Tag 'ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED' {
+    It 'reports a contrast declared on both terms, once, against the second declaration' -Tag 'ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED' {
         $widget = & $script:source 'Widget' ([ordered]@{
                 'widget suite' = (& $script:concept 'widget_suite' @{ contrasts = @{ 'gadget run' = 'A gadget run executes; a widget suite is files at rest.' } })
             })
-        $gadget = & $script:source 'Gadget' ([ordered]@{ 'gadget run' = (& $script:concept 'gadget_run') })
+        $gadget = & $script:source 'Gadget' ([ordered]@{
+                'gadget run' = (& $script:concept 'gadget_run' @{ contrasts = @{ 'widget suite' = 'A widget suite is files at rest; a gadget run executes.' } })
+            })
         $found = & $script:violations @($gadget, $widget)
         $found.Count | Should -Be 1
-        $found[0] | Should -BeLike "widgets/Catzc.Widget/*: concept 'widget suite': contrasts 'gadget run', but 'gadget run' (widgets/Catzc.Gadget/configs/glossary.yml) does not contrast 'widget suite' back*"
+        $found[0] | Should -BeLike "widgets/Catzc.Widget/*: concept 'widget suite': contrasts 'gadget run', which 'gadget run' (widgets/Catzc.Gadget/configs/glossary.yml) already declares; declare a contrast once*"
     }
 
     It 'reports a source that git does not track' -Tag 'ADR-REPO-VOCAB-SOURCESINREPOSITORY' {

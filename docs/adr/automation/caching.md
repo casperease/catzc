@@ -178,8 +178,9 @@ cache, its result is worth keeping across sessions, so it cannot rely on the imp
 verdict on a file is a pure function of the file's bytes, the tool version, and the tool's settings, so a key over all three is right by
 construction, like the content-keyed git state above. The settings are declared, not guessed — an engine's `settings:` in `languages.yml` —
 so adding an input is a configuration change. Only the clean verdict is cached: a file the tool would change is checked again every run
-until it is fixed, so the cache can make a check faster but never greener. The cache lives in `out/`, so the tree never carries it, and a
-pipeline's fresh checkout checks every file.
+until it is fixed, so the cache can make a check faster but never greener. A check whose verdict also reads files beside the file stamps
+them into that file's key, as `Get-FileMetaInputStamp` does for a head's comment page, its relations' candidates and the registered ADR
+codes. The cache lives in `out/`, so the tree never carries it, and a pipeline's fresh checkout checks every file.
 
 ## Decision
 

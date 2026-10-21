@@ -45,7 +45,7 @@ function Get-ImprintStepFile {
             $entries = @(Get-FileMetaScope -RepositoryRoot $root -Path $Path -Config (Get-Config -Config file-meta))
             return , [string[]] @($entries | ForEach-Object { [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $_.Path)) })
         }
-        'csharp-namespace' {
+        'bcl-namespace' {
             $lookup = Get-ScopeLookup -RepositoryRoot $root -Path $Path -Command Get-ImprintStepFile
             $types = @(Get-GitTrackedPath $lookup | Where-Object { $_ -match "^$modulesFolder/[^/]+/types/[^/]+\.cs$" })
             return , [string[]] @($types | ForEach-Object { [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $_)) })

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bac9c9333afe
+    with_body_sha: "841e9875e259"
   edges:
     docs: "[Format-Code.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Format-Code.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Format-Code.ps1
@@ -217,7 +217,7 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIG
                 imprint   = @('file-meta')
                 steps     = [ordered]@{ 'file-meta' = [ordered]@{ settings = @('step.settings') } }
                 languages = [ordered]@{
-                    widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier'; imprint = @('csharp-namespace') }
+                    widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier'; imprint = @('bcl-namespace') }
                     gadget = [ordered]@{ extensions = @('.gdg'); formatter = 'prettier' }
                 }
             })
@@ -233,9 +233,9 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIG
         }
         [System.IO.File]::WriteAllText($script:settingsFile, 'one')
         Remove-Item -LiteralPath $script:outRoot -Recurse -Force -ErrorAction Ignore
-        $script:stepFiles = @{ 'file-meta' = @($script:widgetFile, $script:gadgetFile); 'csharp-namespace' = @($script:widgetFile) }
-        $script:stepChanged = @{ 'file-meta' = @(); 'csharp-namespace' = @() }
-        $script:stepUnfixable = @{ 'file-meta' = @{}; 'csharp-namespace' = @{} }
+        $script:stepFiles = @{ 'file-meta' = @($script:widgetFile, $script:gadgetFile); 'bcl-namespace' = @($script:widgetFile) }
+        $script:stepChanged = @{ 'file-meta' = @(); 'bcl-namespace' = @() }
+        $script:stepUnfixable = @{ 'file-meta' = @{}; 'bcl-namespace' = @{} }
         $script:stepRuns = [System.Collections.Generic.List[string]]::new()
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }
@@ -257,7 +257,7 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIG
 
     It 'runs the global step once over every language in scope, then a language''s own step over its files only' -Tag 'ADR-PRIN-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         $null = Format-Code -DryRun
-        $script:stepRuns | Should -Be @('file-meta|a.wdg,a.gdg', 'csharp-namespace|a.wdg')
+        $script:stepRuns | Should -Be @('file-meta|a.wdg,a.gdg', 'bcl-namespace|a.wdg')
     }
 
     It 'merges what a step changed into the result of the language that owns the file' {
@@ -291,7 +291,7 @@ Describe 'Format-Code imprint steps' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIG
         $null = Format-Code -DryRun
         $script:stepRuns.Clear()
         $null = Format-Code -DryRun
-        $script:stepRuns | Should -Be @('file-meta|', 'csharp-namespace|')
+        $script:stepRuns | Should -Be @('file-meta|', 'bcl-namespace|')
         $script:stepRuns.Clear()
         [System.IO.File]::WriteAllText($script:settingsFile, 'two')
         $null = Format-Code -DryRun

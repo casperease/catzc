@@ -26,9 +26,13 @@ function Get-ScopeLookup {
         return , [string[]] @('.')
     }
     $lookup = foreach ($item in $Path) {
-        $full = [System.IO.Path]::GetFullPath((Resolve-Path -LiteralPath $item).Path)
+        $full = [System.IO.Path]::GetFullPath($item, (Get-Location).ProviderPath)
         $relative = [System.IO.Path]::GetRelativePath($root, $full) -replace '\\', '/'
         Assert-False ($relative -eq '..' -or $relative.StartsWith('../')) -ErrorText "${Command}: -Path '$item' lies outside the repository '$root'."
+        # A path the index lists but the working tree has lost, a deletion not yet staged, stays in scope; the reader skips it.
+        if (-not (Test-Path -LiteralPath $full)) {
+            Assert-True (@(Get-GitTrackedPath $relative).Count -gt 0) -ErrorText "${Command}: -Path '$item' does not exist and is not tracked."
+        }
         $relative
     }
     , [string[]] @($lookup)

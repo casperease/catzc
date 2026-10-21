@@ -19,7 +19,7 @@ carriers:
 
   # A block-comment head at the top holding the same front matter a Markdown file has; a #Requires or help block may follow it.
   powershell: { carrier: comment-head, block: ["<#", "#>"] }
-  csharp: { carrier: comment-head, block: ["/*", "*/"] }
+  bcl: { carrier: comment-head, block: ["/*", "*/"] }
   yaml: { carrier: comment-head, line: "#" }
   pipeline-yaml: { carrier: comment-head, line: "#" }
   bicep: { carrier: comment-head, line: "//" }

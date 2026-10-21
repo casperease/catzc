@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c8d62e28430e
+    with_body_sha: a50b5ee18484
   edges:
     code: pwsh/Catzc.Base.Maps/Get-CodeLocationsMinimapData.ps1
 ---
@@ -32,5 +32,17 @@ Describe 'Get-CodeLocationsMinimapData' -Tag 'L0', 'logic' {
         $data = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET'
         @($data.Lit | Where-Object { $_.Reasons.Count -eq 0 }) | Should -BeNullOrEmpty
         Test-Json -Json (Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET' -AsJson) -Schema $script:schema | Should -BeTrue
+    }
+
+    It 'hands the world map it is given to the subject' {
+        $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(), [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
+        $null = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET' -WorldMap $map
+        Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($WorldMap, $map) }
+    }
+
+    It 'hands the facts it is given to the subject' {
+        $given = @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = @{ track = 'widgets' } }
+        $null = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET' -Facts $given
+        Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($Facts, $given) }
     }
 }

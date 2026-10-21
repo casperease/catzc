@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "519b009e63e1"
+    with_body_sha: "96d44a144001"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
     docs: "[Get-WorldMapHighlight.ps1.md](docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md)"
@@ -25,10 +25,17 @@ function Get-WorldMapHighlight {
         [Parameter(Mandatory, ParameterSetName = 'Path')]
         [string[]] $Path,
 
+        [Catzc.Base.Maps.WorldMap] $WorldMap,
+
         [switch] $AsJson
     )
 
-    $map = Get-WorldMap
+    $map = if ($WorldMap) {
+        $WorldMap
+    }
+    else {
+        Get-WorldMap
+    }
     $highlight = switch ($PSCmdlet.ParameterSetName) {
         'Path' {
             [Catzc.Base.Maps.WorldMapHighlight]::ForPaths($map, $Path)

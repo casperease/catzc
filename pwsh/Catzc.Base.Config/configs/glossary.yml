@@ -28,7 +28,3 @@ concepts:
       A file in an overlay that states only the keys of one config that differ, merged onto the bundled config before its type validates the
       result.
     realized_by: { kind: prose-only }
-    contrasts:
-      posture:
-        A posture is what one config key does when no file states it; a config fragment is a file that changes a few keys of a shipped
-        config.

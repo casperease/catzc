@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3623868a097b"
+    with_body_sha: bfc833eb8595
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-CodeLocationsMinimapData.Tests.ps1
     docs: "[Get-CodeLocationsMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-CodeLocationsMinimapData.ps1.md)"
@@ -16,13 +16,17 @@ function Get-CodeLocationsMinimapData {
         [Parameter(Mandatory, Position = 0)]
         [string[]] $Adr,
 
+        [Catzc.Base.Maps.WorldMap] $WorldMap,
+
+        [hashtable] $Facts,
+
         [switch] $AsJson
     )
 
     $count = @{}
     $reasons = @{}
     $places = [System.Collections.Generic.List[string[]]]::new()
-    foreach ($item in @(Get-MinimapSubject -Adr $Adr)) {
+    foreach ($item in @(Get-MinimapSubject -Adr $Adr -WorldMap $WorldMap -Facts $Facts)) {
         if (-not $item.Facts -or -not $item.Facts['track']) {
             continue
         }

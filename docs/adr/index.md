@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "09e4c4b50266"
+    with_body_sha: "8f2dade3d15d"
     warning: "Do Not Edit, this file is generated"
     role: index
     track: docs
@@ -186,6 +186,7 @@ github, and azure domains build on it.
 | `ADR-AUTO-MODULE`   | [module-model](automation/module-model.md)                                       |
 | `ADR-AUTO-LAYERS`   | [layers](automation/layers.md)                                                   |
 | `ADR-AUTO-IMPORTER` | [importer](automation/importer.md)                                               |
+| `ADR-AUTO-ACCOSTED` | [accosted-language](automation/accosted-language.md)                             |
 
 ### automation/BCL/
 

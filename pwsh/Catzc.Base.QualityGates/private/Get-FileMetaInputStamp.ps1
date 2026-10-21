@@ -2,8 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6df830c848a3"
+    with_body_sha: "38fb0231a497"
   edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Get-FileMetaInputStamp.Tests.ps1
     docs: "[Get-FileMetaInputStamp.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-FileMetaInputStamp.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
@@ -27,6 +28,9 @@ function Get-FileMetaInputStamp {
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
     $commentPages = Get-Config -Config comment-pages
     $edgeKinds = @($Config.Imprint() | Where-Object { $_.settings.ContainsKey('relations') })
+    $codeKind = @($Config.Imprint() | Where-Object { $_.id -ceq 'adr-codes' })
+    $languages = Get-Config -Config languages
+    $codesHash = $null
     $parts = [ordered]@{}
     foreach ($path in $File) {
         $full = [System.IO.Path]::GetFullPath($path)
@@ -43,6 +47,17 @@ function Get-FileMetaInputStamp {
                 'missing'
             }
             $fileParts.Add("page:${page}:$pageHash")
+        }
+        # A file whose cites the adr-codes kind writes reads the registered codes, so a new or removed code rechecks it, and nothing else does.
+        if ($codeKind.Count -eq 1) {
+            $language = $languages.ForPath($relative)
+            if ($Config.Selects($codeKind[0], (Get-FileKind $relative).Class, ($language ? $language.name : $null))) {
+                if ($null -eq $codesHash) {
+                    $codes = @((Get-AdrCitationMap -RepositoryRoot $root).Codes | Sort-Object -CaseSensitive) -join "`n"
+                    $codesHash = [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($codes)))
+                }
+                $fileParts.Add("adr-codes:$codesHash")
+            }
         }
         $parts[$relative] = @($full, $fileParts)
     }

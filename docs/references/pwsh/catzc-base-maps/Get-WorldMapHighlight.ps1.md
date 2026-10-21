@@ -32,6 +32,10 @@ The ADR codes, each optionally narrowed to one rule (#n or :n). An unknown code 
 
 The repository-relative paths of tracked files. A path the map does not hold throws.
 
+### parameter `WorldMap`
+
+The world map to light, built once by a caller that lights many subjects in one run. Default: the map Get-WorldMap builds.
+
 ### parameter `AsJson`
 
 Return the highlight as JSON (the request, and the lit cells with their files and each file's reason: the basis, the covering request and

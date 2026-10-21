@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c8dc3050ff57
+    with_body_sha: "151947906ec7"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/Invoke-PythonTest.Tests.ps1
     docs: "[Invoke-PythonTest.ps1.md](docs/references/pwsh/catzc-base-languages/Invoke-PythonTest.ps1.md)"
@@ -86,7 +86,8 @@ function Invoke-PythonTest {
     try {
         $sync = Invoke-Executable "$uvCommand sync --all-packages --quiet" -WorkingDirectory $pythonRoot -PassThru -NoAssert
         if ($sync.ExitCode -ne 0) {
-            throw "uv sync failed in $pythonRelative/ (exit $($sync.ExitCode)); is the python pin installed? Run Install-Python.`n$($sync.Full)"
+            throw ("uv sync failed in $pythonRelative/ (exit $($sync.ExitCode)); is the python pin installed? Run Install-Python. " +
+                "If a workspace member moved: $pythonRelative/uv.lock is a gitignored product that pins member paths; delete it and run again.`n$($sync.Full)")
         }
 
         $lint = Invoke-Executable "$uvCommand run --no-sync --quiet ruff check `"$inWorkspace`"" -WorkingDirectory $pythonRoot -PassThru -NoAssert

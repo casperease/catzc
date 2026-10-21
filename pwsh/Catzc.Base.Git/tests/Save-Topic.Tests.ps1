@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cbb515f122e1
+    with_body_sha: "661b5a8c5795"
   edges:
     code: pwsh/Catzc.Base.Git/Save-Topic.ps1
     cites:
@@ -21,9 +21,15 @@ Describe 'Save-Topic' -Tag 'L0', 'logic', 'ADR-FLOW-GIT-USERRUNSGIT' {
             Mock Test-GitWorkspace -ModuleName Catzc.Base.Git { $script:mainViaPr }
             Mock Invoke-Executable -ModuleName Catzc.Base.Git {
                 $output = switch -Wildcard ($Command) {
-                    'git rev-parse*' { $script:branch }
-                    'git status*' { $script:status }
-                    default { '' }
+                    'git rev-parse*' {
+                        $script:branch
+                    }
+                    'git status*' {
+                        $script:status
+                    }
+                    default {
+                        ''
+                    }
                 }
                 [pscustomobject]@{ Output = $output; ExitCode = 0 }
             }

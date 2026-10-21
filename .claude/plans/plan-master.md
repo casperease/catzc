@@ -46,7 +46,6 @@ Open, in execution order. A chunk without a task file is executed from its plan'
 2026-10-21 are open in agent-friction, claude-diet, truth-stores, session-learnings and test-signal-proposals; they wait on the next
 plan-decide round, and only truth-stores and test-signal-proposals are blocked by them.
 
-- minimal-heads -> plan-minimal-heads.md: the engine's unowned-key case, one whole-tree re-format after the bcl re-cite; the ADR fold last.
 - idiomatic-names -> plan-idiomatic-names.md: wire the naming gate in (the three folder renames are tracked), then the repository normal
   form: helper and acronym renames, the repair command, and the `0.0.0` command contracts.
 - listen-internal-readers -> plan-listen-internal-readers.md: one step left, the user's `.claude/CLAUDE.md` edit
@@ -54,25 +53,18 @@ plan-decide round, and only truth-stores and test-signal-proposals are blocked b
 - agent-shortcuts -> plan-agent-shortcuts.md: one step left, the gate runner's CLAUDE.md line (the user's, task-user-runs-and-commits).
 - truth-stores -> plan-truth-stores.md: the approved sample enters the product-thesis deck; blocked_on its Q1 (no slide pattern carries an
   image).
-- eac-normal-form -> plan-eac-normal-form.md: one step left, the explanation page that embeds the approved sample.
-- bcl-language -> plan-bcl-language.md: the language-row rename after plan-minimal-heads; the CLAUDE.md line is the user's
-  (task-user-runs-and-commits).
-- agent-friction -> plan-agent-friction.md: `Test-ParameterConsistency` clean after the `-Kind` rename; the head how-to and its drawing
-  after plan-minimal-heads; the CLAUDE.md trim (the user's).
+- bcl-language -> plan-bcl-language.md: one step left, the CLAUDE.md line (the user's, task-user-runs-and-commits).
+- agent-friction -> plan-agent-friction.md: the head how-to and its drawing sample (free now that minimal-heads has landed); the CLAUDE.md
+  trim (the user's).
 - git-topic-commands -> plan-git-topic-commands.md: one check left, `Test-Formatting` on the module after plan-minimal-heads' whole-tree
   re-format.
-- claude-diet -> plan-claude-diet.md: the Sub-agents section of CLAUDE.md cut to names and one clause each, and the pwsh index named.
+- claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit only (Sub-agents cut, the pwsh index named; task-user-runs-and-commits).
 - adr-authoring -> plan-adr-authoring.md: the glossary contrast declared once and the domain-deps memory deleted, the add-an-adr how-to
   after plan-agent-shortcuts' gate runner, the ADR-edit entry in plan-agent-friction's hook map.
 - diagram-build-learnings -> plan-diagram-build-learnings.md: fix the Build-Diagrams help (the sample sequence included), one merged
   catzc-run item, quiet the legend's warning by role, measure then memo the minimap stage, one pipeline drawing for an explanation page.
 - accosted-language -> plan-accosted-language.md: the ADR and the reserved word first, then the terminology gate, glossary, language row and
   resolver, the config and typed record, the reader, the run limit and runner, their contracts, the first accosted file.
-- debt-signals -> plan-debt-signals.md: twenty page lines, messages and commands that carry a declared fact to the session (janitor outage,
-  index-only gates, Format-Code kinds, grouped failures, a caller finder, the entry script's location, a once-only learning log, three ADR
-  pitfalls, the rolling logs in the Docs article).
-- file-meta-cache -> plan-file-meta-cache.md: the help-page reword, the ADR-code stamp, the caching sentence and the strict-mode fix.
-- session-finalize -> plan-session-finalize.md: the roof-count sentence, the gate message, and the skill's glossary term.
 - session-learnings -> plan-session-learnings.md: one learning reworded and catzc-49's lines appended; eight open questions wait on a
   plan-decide round.
 - test-signal-proposals -> plan-test-signal-proposals.md: blocked_on its three questions for the user (the bridge's setup error, one

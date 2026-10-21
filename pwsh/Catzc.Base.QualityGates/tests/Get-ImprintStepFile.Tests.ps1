@@ -41,10 +41,10 @@ Describe 'Get-ImprintStepFile' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFO
         $found | Should -Be @((Join-Path $script:root 'docs/widget.md'), (Join-Path $script:root 'docs/gadget.md'))
     }
 
-    It 'returns only the type sources under a module for the csharp-namespace step' {
+    It 'returns only the type sources under a module for the bcl-namespace step' {
         $found = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
             param($Root)
-            Get-ImprintStepFile -Step csharp-namespace -RepositoryRoot $Root
+            Get-ImprintStepFile -Step bcl-namespace -RepositoryRoot $Root
         }
         $found | Should -Be @((Join-Path $script:root 'widget-modules/Widget/types/Gadget.cs'))
     }

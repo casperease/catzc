@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8f19db4b29a1"
+    with_body_sha: "159a20367f2d"
   edges:
     docs: "[Enter-TestRunLocation.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Enter-TestRunLocation.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Enter-TestRunLocation.ps1
@@ -161,11 +161,23 @@ Describe 'Enter-TestRunLocation' -Tag 'L1', 'logic' {
         [System.IO.Directory]::Exists((Join-Path $snapshotPath 'out/cache')) | Should -BeFalse
     }
 
-    It 'removes the snapshot and fails when priming it fails' {
-        Mock Invoke-Executable { throw 'import failed' } -ModuleName Catzc.Base.QualityGates
-        { InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Test-Automation' -Isolated } } |
-            Should -Throw '*went to a snapshot, but priming the snapshot failed: import failed*'
-        Should -Invoke Remove-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Path -like '*catzc-run-*' }
+    It 'keeps the snapshot and the import''s output when priming fails, and throws the cause' {
+        Mock Invoke-Executable {
+            [pscustomobject]@{ ExitCode = 1; Output = ''; Full = "loading widgets`nthe gadget type failed to compile" }
+        } -ModuleName Catzc.Base.QualityGates
+        $thrown = $null
+        try {
+            InModuleScope Catzc.Base.QualityGates { Enter-TestRunLocation -EntryPoint 'Test-Automation' -Isolated }
+        }
+        catch {
+            $thrown = $_.Exception.Message
+        }
+        $thrown | Should -BeLike '*went to a snapshot, but priming the snapshot failed (exit 1)*the gadget type failed to compile*'
+        Should -Invoke Remove-RepositorySnapshot -ModuleName Catzc.Base.QualityGates -Times 0
+        $log = @([System.IO.Directory]::GetFiles((Join-Path $script:outRoot 'test-snapshot-priming'), 'catzc-run-*.log'))
+        $log | Should -HaveCount 1
+        [System.IO.File]::ReadAllText($log[0]) | Should -BeExactly "loading widgets`nthe gadget type failed to compile"
+        $thrown | Should -BeLike "*$($log[0])*"
     }
 
     It 'says plainly when the holder left no lock record' {

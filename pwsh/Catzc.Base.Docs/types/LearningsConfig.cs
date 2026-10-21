@@ -2,9 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8d81cae1dd0a"
+    with_body_sha: "7d335512fafb"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/LearningsConfig.Tests.ps1
+    docs: "[LearningsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/LearningsConfig.cs.md)"
 ---
 */
 
@@ -15,8 +16,6 @@ using System.Globalization;
 
 namespace Catzc.Base.Docs;
 
-// A rolling log of dated lines: a few markdown files of bounded length, first in first out (Add-SessionLearning).
-// One instance per log; the learnings log is the default, and another log (hindsight) differs only in its folder, prefix and title.
 public sealed class LearningsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

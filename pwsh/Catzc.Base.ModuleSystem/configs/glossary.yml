@@ -46,7 +46,6 @@ concepts:
         whichever commit is built.
       track: A track is a cluster of module contents; a deployable-unit is what ships, composed from a whole track or a reduced part of one.
       deployable track: A deployable track is the track that owns deployable-units; a deployable-unit is what ships.
-      bundle: A bundle is one build of the toolset; a deployable-unit is what ships from the mono-repository, whichever way it is built.
   release candidate:
     key: release_candidate
     domain: flow
@@ -54,9 +53,6 @@ concepts:
     short: The immutable, tagged artifact a CI component builds from one commit — versioned, never rebuilt, promotable toward production.
     realized_by: { kind: prose-only }
     contrasts:
-      deployable-unit:
-        A deployable-unit is the composition that ships, whichever commit is built; a release candidate is one commit's tagged, immutable
-        build of it.
       occupant:
         An occupant is the commit an environment holds; a release candidate is the artifact built from it, the same bytes wherever it is
         deployed.
@@ -72,21 +68,12 @@ concepts:
     defined_by: ADR-AUTO-PATH-PUBLISHEDARTIFACT
     short: A file one stage produces and a later stage downloads and consumes — carried by ArtifactRef, anchored on its artifact root.
     realized_by: { kind: type, pattern: "Catzc.Base.Objects.ArtifactRef" }
-    contrasts:
-      release candidate:
-        A release candidate is the tagged build that gets promoted; a published artifact is any file handed across a stage boundary.
-      contract asset:
-        A contract asset is a checked-in file that states what the repository boundary requires, frozen with its unit's release; a published
-        artifact is a file one stage produces and a later stage consumes within a run.
   occupant:
     key: occupant
     domain: design
     defined_by: ADR-FLOW-CD-LIFE-ONECOMMITPERENVIRONMENT
     short: The one commit an always-on environment holds, deployed there as its release candidate — named by its environment.
     realized_by: { kind: prose-only }
-    contrasts:
-      release candidate:
-        A release candidate is the artifact, the same bytes wherever it is deployed; an occupant is the commit one environment holds.
     avoid:
       - { phrase: current occupant, say: occupant (the `<environment>` occupant) }
       - { phrase: current occupants, say: occupants }
@@ -114,9 +101,6 @@ concepts:
     defined_by: ADR-DSGN-TRACK-UNORDEREDTRACK
     short: The folder `.unordered/<name>` an import lands at, named by a short kebab word unique among the addresses.
     realized_by: { kind: prose-only }
-    contrasts:
-      landing zone:
-        A landing zone is the Azure network and guardrails a workload lands in; a landing address is the folder an import lands at.
   sorting:
     key: sorting
     domain: design
@@ -135,9 +119,6 @@ concepts:
       language track:
         A language track is a modules track of one language, holding its modules and its test holder alike; a track is any cluster of module
         contents.
-      deployable-unit:
-        A deployable-unit is what ships, composed from a whole track or a reduced part of one; a track is the cluster of module contents
-        itself.
       file language:
         A file language is the kind of text a file holds, named by its extension; a track is the cluster the file lives in, and its
         tech-stack is a set of file languages.
@@ -146,8 +127,6 @@ concepts:
         under them.
       value-chain concern:
         A value-chain concern is where along delivery a decision acts; a track is a concern of the repository, the cluster where files live.
-      role: A role is the part a file plays, wherever it lives; a track is the cluster the file lives in.
-      module type: A module type is the sort of module found at a place; a track is a cluster of places and the concern it holds.
       track type: A track type is the sort of cluster a track is, one of a closed set; a track is the named cluster itself.
       place: A place is one path a track covers; a track is the cluster of module contents, whatever places select it.
       module: A module is one named unit placed in a track; a track is the cluster of module contents and the concern it holds.
@@ -157,9 +136,6 @@ concepts:
     defined_by: ADR-DSGN-MODTYPE-MODULEISPLACEDUNIT
     short: A named unit placed in a track — a folder or one file, found by where its files stand — resolved through its track.
     realized_by: { kind: type, pattern: "Catzc.Base.Modules.Module" }
-    contrasts:
-      track: A track is the cluster of module contents and the concern it holds; a module is one named unit placed in it.
-      module type: A module type is the sort of module found at a place; a module is one unit of that sort.
   language track:
     key: language_track
     domain: automation
@@ -168,10 +144,6 @@ concepts:
       A modules track of one language — pwsh, python, go, bash — holding its modules as folders under its root and its own test holder under
       tests/, the same way for every language.
     realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Variants/configs/module-types.yml" }
-    contrasts:
-      track:
-        A track is any named cluster of module contents; a language track is one whose modules are written in one language and resolved
-        alike.
   layout:
     key: layout
     domain: automation
@@ -180,8 +152,6 @@ concepts:
       The one table of folders inside a module and what each holds, declared once under each file language and read by every command that
       reads a module's folders.
     realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Languages/configs/languages.yml" }
-    contrasts:
-      module type: A module type says where modules of a sort are found; a layout says what a module's own folders hold.
   track type:
     key: track_type
     domain: design
@@ -190,10 +160,6 @@ concepts:
       The sort of cluster a track is, one of a closed set — modules, infrastructure, pipelines, vendor-settings, vendored-code, contracts,
       documentation, or unordered.
     realized_by: { kind: prose-only }
-    contrasts:
-      track: A track is the named cluster of module contents; a track type is the sort it is, declared once for every track of that sort.
-      module type: A module type is the sort of module placed in a track; a track type is the sort of track, and admits module types.
-      role: A role is the part a file plays; a track type is the sort of cluster the file lives in.
   deployable track:
     key: deployable_track
     domain: design
@@ -202,7 +168,6 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       holder track: A holder track is itself a module and ships nothing of its own; a deployable track owns deployable-units.
-      deployable-unit: A deployable-unit is what ships; a deployable track is the track that owns it.
   holder track:
     key: holder_track
     domain: design
@@ -211,9 +176,6 @@ concepts:
       A track that is itself a module more than it owns modules — one vendor's, one tool's or one purpose's files, shipping nothing of its
       own.
     realized_by: { kind: prose-only }
-    contrasts:
-      deployable track:
-        A deployable track owns deployable-units delivered through CI/CD; a holder track holds files a platform or tool reads.
   vendor:
     key: vendor
     domain: design
@@ -230,8 +192,6 @@ concepts:
     defined_by: ADR-DSGN-TRACKTYPE-VENDOREDCODE
     short: Code written by a third party that the repository does not author, held in a track of its own nested under another track's root.
     realized_by: { kind: prose-only }
-    contrasts:
-      vendor: A vendor is the platform that reads a track's files; vendored code is code written by a third party.
   place:
     key: place
     domain: design
@@ -240,8 +200,6 @@ concepts:
       A path a track declares it covers — a root folder, a path inside one, or a tool's root folder; the longest place that contains a file
       names its track.
     realized_by: { kind: prose-only }
-    contrasts:
-      track: A track is the cluster of module contents; a place is one path the track covers.
   root file:
     key: root_file
     domain: design
@@ -249,7 +207,6 @@ concepts:
     short: A tracked file no track holds — at the repository root itself, or under out/ — the world map's own row.
     realized_by: { kind: prose-only }
     contrasts:
-      track: A track is a root folder and every file under it; a root file is a tracked file outside every track.
       unlisted file:
         An unlisted file is a tracked file outside every file language, whatever its track; a root file is one outside every track, whatever
         its file language.
@@ -262,33 +219,15 @@ concepts:
       tech-stack is a set of them.
     realized_by: { kind: prose-only }
     contrasts:
-      track: A track is a root folder and the concern it holds; a file language is the kind of text one file holds, wherever it lives.
-      implementation language:
-        An implementation language is a file language a command is written in; a file language is any language the registry names by
-        extension.
-      contract language:
-        The contract language is a notation inside one YAML file, the one a command contract is written in; a file language is the kind of
-        text a whole file holds, named by its extension.
-      language zone:
-        A language zone is one of the design, test, and live registers of identities; a file language is the kind of text one file holds.
       unlisted file:
         An unlisted file is a tracked file no file language names — no extension, or one no entry lists; a file language is a registered
         kind of text, named by its extensions.
-      role: A role is the part a file plays, what it is for; a file language is the sort of text it holds.
-      file type: A file type is the single extension of one file; a file language groups the extensions of one kind of text.
   unlisted file:
     key: unlisted_file
     domain: design
     defined_by: ADR-DSGN-TRACK-UNLISTEDFILE
     short: A tracked file no file language names — no extension, or one no entry lists — the world map's own column.
     realized_by: { kind: prose-only }
-    contrasts:
-      file language:
-        A file language is a registered kind of text, named by its extensions; an unlisted file is a tracked file whose extension none of
-        them lists.
-      root file:
-        A root file is a tracked file outside every track; an unlisted file is a tracked file outside every file language, whatever its
-        track.
   world map:
     key: world_map
     domain: design
@@ -312,7 +251,6 @@ concepts:
       ADRs of one row of the value-chain stack in one value-chain concern.
     realized_by: { kind: prose-only }
     contrasts:
-      world map: The world map is a whole grid; a cell is one intersection of it, holding the files of one track in one file language.
       value-chain map:
         The value-chain map is a whole grid; a cell is one intersection of it, holding the ADRs of one row in one value-chain concern.
       stack violation:
@@ -339,10 +277,6 @@ concepts:
       Where along delivery an ADR acts — automation, build, quality-control, release, deploy, or access — a default per ADR domain, an
       override per ADR.
     realized_by: { kind: prose-only }
-    contrasts:
-      track: A track is a root concern, the root folder where files live; a value-chain concern is where along delivery a decision acts.
-      value-chain stack:
-        The value-chain stack is the rows, how general a decision is; a value-chain concern is a column, where along delivery it acts.
   value-chain map:
     key: value_chain_map
     domain: design
@@ -351,11 +285,6 @@ concepts:
       The ADRs drawn as the value-chain stack crossed with the value-chain concerns, computed from adrs.yml — where a decision sits in the
       value chain.
     realized_by: { kind: prose-only }
-    contrasts:
-      world map:
-        The world map crosses tracks with file languages and says where a decision's files sit; the value-chain map says where along
-        delivery the decision acts.
-      cell: A cell is one intersection of the value-chain map, holding the ADRs of one row in one value-chain concern; the map is the grid.
   stack violation:
     key: stack_violation
     domain: design
@@ -365,12 +294,9 @@ concepts:
       ADR-DSGN-TRACK-ONETECHSTACK forbids.
     realized_by: { kind: prose-only }
     contrasts:
-      cell: A cell is any intersection of the world map; a stack violation is a cell that breaks its track's tech-stack.
       lit cell:
         A lit cell is selected by a highlight and says nothing about the stack; a stack violation is a finding, marked whatever the
         highlight.
-      value-chain stack:
-        The value-chain stack orders decisions, not files; a stack violation is a world-map cell outside its track's tech-stack.
   lit cell:
     key: lit_cell
     domain: design
@@ -379,10 +305,6 @@ concepts:
       A cell a highlight selects — on the world map the cells of the files an ADR code or a file set names, on the value-chain map the cells
       an ADR sits in.
     realized_by: { kind: prose-only }
-    contrasts:
-      cell: A cell is any intersection of a map; a lit cell is one a highlight selects.
-      stack violation:
-        A stack violation is a finding about a cell's files; a lit cell is a selection, made by a highlight, that never judges the cell.
   importer:
     key: importer
     domain: automation
@@ -391,9 +313,3 @@ concepts:
       The one way catzc enters a session, one entry per execution engine at the repository root, which decides the mix of languages, engines
       and modules the session loads.
     realized_by: { kind: prose-only }
-    contrasts:
-      automation:
-        Automation is what the loaded modules offer; the importer is what brings a mix of languages, engines and modules into a session.
-      run mode: A run mode says where the importer reads the modules from; the importer decides which modules, languages and engines load.
-      import:
-        An import brings an outside repository's files and history into this repository; the importer brings catzc's modules into a session.

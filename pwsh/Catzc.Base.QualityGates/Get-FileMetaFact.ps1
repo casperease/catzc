@@ -34,6 +34,10 @@ function Get-FileMetaFact {
                 continue
             }
             $file = $entry.Path
+            # A path the index lists but the working tree has lost, a deletion not yet staged, has no facts to read.
+            if (-not [System.IO.File]::Exists((Join-Path $root $file))) {
+                continue
+            }
             $text = [System.IO.File]::ReadAllText((Join-Path $root $file))
             $fileState = if ($carrier -eq [Catzc.Base.Languages.CarrierKind]::Property) {
                 $propertyState = Get-PropertyMetaState -Text $text -Property $entry.Carrier.property -Strip $entry.Carrier.strip

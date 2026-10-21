@@ -29,11 +29,10 @@ step below moves one of those to the one place that serves it. Recommended order
 
 ## Open steps
 
-1. [ ] After plan-minimal-heads lands: `docs/how-to/pwsh/add-a-head-fact.md` (new), the steps from a wanted fact to an imprinted head in the
-       minimal model that plan sets (the warning head of a generated file, the navigation head of authored code under `file_heads.code`, the
-       kind in `file-meta.yml` and its processor found by name, its test, `Format-FileMeta` on one module, the gates). It links
-       ADR-REPO-FILEMETA and ADR-REPO-CODEMETA, never restates their rules. Check: `Test-Links -Path docs/how-to/pwsh/add-a-head-fact.md`
-       and `Format-Code -Language markdown` on it.
+1. [ ] `docs/how-to/pwsh/add-a-head-fact.md` (new), the steps from a wanted fact to an imprinted head in the minimal model (the warning head
+       of a generated file, the navigation head of authored code under `file_heads.code`, the kind in `file-meta.yml` and its processor
+       found by name, its test, `Format-FileMeta` on one module, the gates). It links ADR-REPO-FILEMETA and ADR-REPO-CODEMETA, never
+       restates their rules. Check: `Test-Links -Path docs/how-to/pwsh/add-a-head-fact.md` and `Format-Code -Language markdown` on it.
 2. [ ] After step 1, the drawing: one diagram, "what decides a head and what fills it", the minimal model's three outcomes (a generated
        file's warning head, authored code's navigation head by its variant, no head) and the keys each holds. Sample in
        `out/diagrams/dark-sample/` only. Check: the user approves the sample.

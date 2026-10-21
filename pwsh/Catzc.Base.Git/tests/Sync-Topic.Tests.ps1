@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8148d532a698"
+    with_body_sha: "62c4171aa07d"
   edges:
     code: pwsh/Catzc.Base.Git/Sync-Topic.ps1
     cites:
@@ -22,11 +22,21 @@ Describe 'Sync-Topic' -Tag 'L0', 'logic', 'ADR-FLOW-GIT-SYNCBYREBASE' {
             Mock Get-SyncPoint -ModuleName Catzc.Base.Git { [pscustomobject]@{ Commit = $script:onto; Source = 'fallback'; Branch = 'main' } }
             Mock Invoke-Executable -ModuleName Catzc.Base.Git {
                 switch -Wildcard ($Command) {
-                    'git rev-parse*' { [pscustomobject]@{ Output = $script:branch; ExitCode = 0 } }
-                    'git status*' { [pscustomobject]@{ Output = $script:status; ExitCode = 0 } }
-                    'git rebase*' { [pscustomobject]@{ Output = ''; ExitCode = $script:rebaseExit } }
-                    'git diff*' { [pscustomobject]@{ Output = "widget.ps1`ngadget.yml"; ExitCode = 0 } }
-                    default { [pscustomobject]@{ Output = ''; ExitCode = 0 } }
+                    'git rev-parse*' {
+                        [pscustomobject]@{ Output = $script:branch; ExitCode = 0 }
+                    }
+                    'git status*' {
+                        [pscustomobject]@{ Output = $script:status; ExitCode = 0 }
+                    }
+                    'git rebase*' {
+                        [pscustomobject]@{ Output = ''; ExitCode = $script:rebaseExit }
+                    }
+                    'git diff*' {
+                        [pscustomobject]@{ Output = "widget.ps1`ngadget.yml"; ExitCode = 0 }
+                    }
+                    default {
+                        [pscustomobject]@{ Output = ''; ExitCode = 0 }
+                    }
                 }
             }
         }
@@ -49,7 +59,7 @@ Describe 'Sync-Topic' -Tag 'L0', 'logic', 'ADR-FLOW-GIT-SYNCBYREBASE' {
 
     It 'stops on a conflict with the files and the continue and abort commands, and never aborts on its own' {
         Set-Git -RebaseExit 1
-        { Sync-Topic -Config $script:config } | Should -Throw "*conflicts in: widget.ps1, gadget.yml*git rebase --continue*git rebase --abort*"
+        { Sync-Topic -Config $script:config } | Should -Throw '*conflicts in: widget.ps1, gadget.yml*git rebase --continue*git rebase --abort*'
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Git -Times 0 -ParameterFilter { $Command -like 'git rebase --abort*' -or $Command -like 'git rebase --skip*' }
     }
 

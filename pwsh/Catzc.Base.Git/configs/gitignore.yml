@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: caa5b582c591
+#     with_body_sha: f9371bb287b0
 #   edges:
 #     docs: "[gitignore.yml.md](docs/references/pwsh/catzc-base-git/configs/gitignore.yml.md)"
 #     cites:
@@ -58,7 +58,8 @@ sections:
     why: >
       Repository-root config files fully managed by Catzc.Base.RootConfig — each reproduced on import from its one in-repo source of truth
       (see rootconfig.yml). Edit the source, never the root copy; this list is injected from the registry's committed:false targets and
-      never restated by hand.
+      never restated by hand. The root catzc.sln, for one, is rendered by the RootConfig janitor from
+      pwsh/Catzc.Base.RootConfig/assets/root/catzc.sln on every load, so a hand edit to the root copy is lost.
     inject: rootconfig-committed-false
 
   - id: readmes

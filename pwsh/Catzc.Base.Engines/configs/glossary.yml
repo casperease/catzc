@@ -25,8 +25,6 @@ concepts:
       auto: auto is a value that leaves the engine open; an execution engine is the pwsh, bash or zsh it resolves to.
       posix engine:
         A POSIX engine is an execution engine whose importer entry is importer.sh; an execution engine is any one of them, pwsh included.
-      pwsh:
-        pwsh is one of the three execution engines and the name the PowerShell track takes from it; an execution engine is any of the three.
   engine start environment:
     key: engine_start_environment
     domain: automation
@@ -45,9 +43,6 @@ concepts:
       The execution engines whose importer entry is importer.sh, read from the model's ImporterEntry and never listed:
         they share that importer and its cats dispatcher.
     realized_by: { kind: prose-only }
-    contrasts:
-      execution engine:
-        An execution engine is any one of the shells the code runs under; the POSIX engines are those of them that load importer.sh.
   auto:
     key: auto
     domain: automation
@@ -55,5 +50,3 @@ concepts:
     short:
       The engine value that names no particular engine: the caller takes whatever engine the sensible default resolves to.
     realized_by: { kind: prose-only }
-    contrasts:
-      execution engine: An execution engine is one of pwsh, bash and zsh; auto is a value that leaves the choice among them open.

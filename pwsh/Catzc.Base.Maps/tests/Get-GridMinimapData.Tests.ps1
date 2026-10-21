@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fe2861acb7dc
+    with_body_sha: b44a2e467cb0
   edges:
     code: pwsh/Catzc.Base.Maps/Get-GridMinimapData.ps1
     cites:
@@ -21,5 +21,9 @@ Describe 'Get-GridMinimapData' -Tag 'L1', 'integrity', 'source-only' {
         $data.Lit | Should -Not -BeNullOrEmpty
         @($data.Lit | Where-Object { $_.Reasons.Count -eq 0 }) | Should -BeNullOrEmpty
         Test-Json -Json $data.ToJson() -Schema $script:schema | Should -BeTrue
+    }
+
+    It 'draws the same grid on a world map built once and handed in' {
+        Get-GridMinimapData -Adr 'ADR-REPO-SLIDES' -WorldMap (Get-WorldMap) -AsJson | Should -BeExactly (Get-GridMinimapData -Adr 'ADR-REPO-SLIDES' -AsJson)
     }
 }

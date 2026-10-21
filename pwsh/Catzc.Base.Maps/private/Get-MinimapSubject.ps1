@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b6c28c4bd742
+    with_body_sha: be8192176a7f
 ---
 #>
 
@@ -11,23 +11,29 @@ function Get-MinimapSubject {
     [OutputType([pscustomobject])]
     param(
         [Parameter(Mandatory)]
-        [string[]] $Adr
+        [string[]] $Adr,
+
+        [Catzc.Base.Maps.WorldMap] $WorldMap,
+
+        [hashtable] $Facts
     )
 
-    $map = Get-WorldMap
-    $reasons = @(foreach ($cell in (Get-WorldMapHighlight -Adr $Adr).Cells) {
+    $map = if ($WorldMap) {
+        $WorldMap
+    }
+    else {
+        Get-WorldMap
+    }
+    $reasons = @(foreach ($cell in (Get-WorldMapHighlight -Adr $Adr -WorldMap $map).Cells) {
             foreach ($reason in $cell.Reasons) {
                 if ($reason.Path) {
                     $reason
                 }
             }
         })
-    $facts = @{}
-    $paths = @($reasons | ForEach-Object Path | Sort-Object -Unique)
-    if ($paths.Count -gt 0) {
-        foreach ($fact in @(Get-FileMetaFact -Path $paths)) {
-            $facts[$fact.Path] = $fact.Immutable
-        }
+    # Facts read once for every folder of a call are handed in; a path they lack has no facts, as Get-FileMetaFact would return none.
+    if ($null -eq $Facts) {
+        $Facts = Get-MinimapFact -Path @($reasons | ForEach-Object Path)
     }
     foreach ($reason in $reasons) {
         $placement = $map.Placement($reason.Path)
@@ -37,7 +43,7 @@ function Get-MinimapSubject {
             Citations = [string[]] @(if ($placement) {
                     $placement.Citations
                 })
-            Facts     = $facts[$reason.Path]
+            Facts     = $Facts[$reason.Path]
         }
     }
 }

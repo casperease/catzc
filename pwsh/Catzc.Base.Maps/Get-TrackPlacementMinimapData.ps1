@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "742496b0e645"
+    with_body_sha: cf570091b72a
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-TrackPlacementMinimapData.Tests.ps1
     docs: "[Get-TrackPlacementMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md)"
@@ -19,6 +19,10 @@ function Get-TrackPlacementMinimapData {
         [Parameter(Mandatory, Position = 0)]
         [string[]] $Adr,
 
+        [Catzc.Base.Maps.WorldMap] $WorldMap,
+
+        [hashtable] $Facts,
+
         [switch] $AsJson
     )
 
@@ -27,7 +31,7 @@ function Get-TrackPlacementMinimapData {
     $types = [string[]] @($tracks | ForEach-Object type | Select-Object -Unique)
     $count = @{}
     $reasons = @{}
-    foreach ($item in @(Get-MinimapSubject -Adr $Adr)) {
+    foreach ($item in @(Get-MinimapSubject -Adr $Adr -WorldMap $WorldMap -Facts $Facts)) {
         if (-not $item.Facts -or -not $item.Facts['track']) {
             continue
         }

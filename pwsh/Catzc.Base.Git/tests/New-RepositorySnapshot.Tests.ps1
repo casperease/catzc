@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2538af0a40ec"
+    with_body_sha: "79ce61134364"
   edges:
     docs: "[New-RepositorySnapshot.Tests.ps1.md](docs/references/pwsh/catzc-base-git/tests/New-RepositorySnapshot.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Git/New-RepositorySnapshot.ps1
@@ -142,6 +142,35 @@ Describe 'New-RepositorySnapshot' -Tag 'L2', 'logic' {
         }
         finally {
             Remove-RepositorySnapshot $committed.Path
+        }
+    }
+
+    It 'names each folder as the source has it on disk, though the index keeps the case of a case-only rename' {
+        $renamed = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-snapshot-case-' + [guid]::NewGuid().ToString('N').Substring(0, 12))
+        $caseSnapshot = $null
+        try {
+            [System.IO.Directory]::CreateDirectory((Join-Path $renamed 'Widget.Gadget/Sprocket')) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $renamed 'Widget.Gadget/Sprocket/a.txt'), "a`n")
+            & git -C $renamed init -b main *> $null
+            & git -C $renamed config user.email 'widget@example.com' *> $null
+            & git -C $renamed config user.name 'Widget' *> $null
+            & git -C $renamed config commit.gpgsign false *> $null
+            & git -C $renamed add -A *> $null
+            & git -C $renamed commit -m 'seed' *> $null
+            # A case-only rename on disk, through a neutral name so a case-insensitive file system takes it.
+            [System.IO.Directory]::Move((Join-Path $renamed 'Widget.Gadget'), (Join-Path $renamed 'widget.tmp'))
+            [System.IO.Directory]::Move((Join-Path $renamed 'widget.tmp'), (Join-Path $renamed 'widget.gadget'))
+
+            $caseSnapshot = New-RepositorySnapshot -SourceRoot $renamed
+            @([System.IO.Directory]::GetDirectories($caseSnapshot.Path) | ForEach-Object { [System.IO.Path]::GetFileName($_) } | Where-Object { $_ -ne '.git' }) |
+                Should -BeExactly @('widget.gadget')
+            [System.IO.File]::ReadAllText((Join-Path $caseSnapshot.Path 'widget.gadget/Sprocket/a.txt')) | Should -BeExactly "a`n"
+        }
+        finally {
+            if ($caseSnapshot) {
+                Remove-RepositorySnapshot $caseSnapshot.Path
+            }
+            Remove-Item $renamed -Recurse -Force -ErrorAction SilentlyContinue
         }
     }
 

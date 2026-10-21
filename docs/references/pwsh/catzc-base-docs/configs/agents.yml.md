@@ -22,3 +22,12 @@ Loaded via Get-Config -Config agents (shape-validated by the AgentsConfig type).
 Test-AgentDefinitions checks it against the agent files, the ADR rule ids, the loaded commands, and the
 `## Sub-agents` list in .claude/CLAUDE.md.
 ```
+
+## comment:2
+
+Above `- name: 2020-hindsight`, written with `#`.
+
+```text
+Reads what sessions learned the hard way, finds where the tree already knew or does not, and keeps the hindsight log: smug in form, checked in fact.
+A robot reading a long log caps its probes per line and writes in batches: a 40-turn roof ended this one's first run before its one write.
+```

@@ -125,3 +125,12 @@ Above `public bool IsLaidOut(IEnumerable trackLanguages)`, written with `//`.
 A track is laid out when its primary language, the first it declares, owns a live layout row; its modules exist by that layout.
 A language whose only rows are never live (markdown's readme) lays out no module.
 ```
+
+## comment:11
+
+Above `public FileLanguage ForPath(string path)`, written with `//`.
+
+```text
+The file language of a file path, by the longest extension a language declares, so x.widget.yml takes the language that declares
+.widget.yml while x.yml keeps the one that declares .yml; null when no extension of the file names one.
+```

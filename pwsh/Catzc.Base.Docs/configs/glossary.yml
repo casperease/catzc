@@ -124,7 +124,6 @@ concepts:
     realized_by: { kind: prose-only }
     forms: [language, design, test, live, landing, dns, availability]
     contrasts:
-      domain: An ADR domain groups ADRs in one docs/adr/ subfolder; a language zone is a register of identities.
       file language:
         A file language is the kind of text one file holds, named by its extension; a language zone is a register of identities.
   source:
@@ -231,8 +230,6 @@ concepts:
     realized_by: { kind: prose-only }
     forms: [build, types, load, parity, manifest, module, disk, session, runtime]
     verbs: true
-    contrasts:
-      layer: A layer is one level of a stack, sitting on or containing the next; a facet is a parallel view of the same thing.
   scope:
     key: scope
     domain: repository
@@ -318,10 +315,6 @@ concepts:
       A contract an outside platform expects of our files and calls, such as GitHub reading a workflow file; it follows the platform, so a
       platform change is a new draft.
     realized_by: { kind: prose-only }
-    contrasts:
-      provided contract:
-        A provided contract is a promise to an outside consumer, kept while the consumer pins that version of its unit; a depended-on
-        contract records what a platform requires and follows the platform.
   contract asset:
     key: contract_asset
     domain: repository
@@ -331,8 +324,6 @@ concepts:
       name picks its kind — a fragment, a schema, a sample payload, or a command contract.
     realized_by: { kind: prose-only }
     contrasts:
-      contract:
-        A contract is the binding interface at the repository boundary; a contract asset is one checked-in file that states part of it.
       command contract:
         A command contract is the one asset kind that states a command's call interface and is compared with the command's source; a
         contract asset is any file of the five kinds.
@@ -348,9 +339,6 @@ concepts:
       process.
     realized_by: { kind: prose-only }
     contrasts:
-      source:
-        A source, always qualified, names where one thing comes from; the source of truth is the one store that decides what is true about
-        the delivered system.
       adjacent store:
         An adjacent store is a second store driven one way from the trunk's pipelines, a projection of the truth; the source of truth is the
         record it is driven from.
@@ -366,8 +354,6 @@ concepts:
       GitHub SaaS, with its own history, driven one way from the trunk's pipelines and never edited beside it.
     realized_by: { kind: prose-only }
     contrasts:
-      source of truth:
-        The source of truth is the record everything is driven from; an adjacent store is a one-way projection of it, never a second record.
       fact source: A fact source is owned by a state machine and only read; an adjacent store is driven one way from the trunk's pipelines.
   truth store:
     key: truth_store
@@ -376,10 +362,6 @@ concepts:
     short:
       Any store that holds part of the truth about a delivered system — a version-controlled repository, a fact source, or a state machine.
     realized_by: { kind: prose-only }
-    contrasts:
-      source of truth:
-        The source of truth is the one truth store that decides inside a responsibility domain, the repository; a truth store is any store
-        of the three kinds.
   version-controlled repository:
     key: version_controlled_repository
     domain: thesis
@@ -394,8 +376,6 @@ concepts:
       The organisation, team, product, or person that one repository is the responsibility boundary for, set by where git's hard security
       controls stop.
     realized_by: { kind: prose-only }
-    contrasts:
-      domain: A domain is a group of ADRs; a responsibility domain is what one repository is accountable for.
   fact source:
     key: fact_source
     domain: thesis
@@ -405,9 +385,6 @@ concepts:
       runtime state — whose state catzc reads only.
     realized_by: { kind: prose-only }
     contrasts:
-      adjacent store:
-        An adjacent store is driven one way from the trunk's pipelines, such as the Azure DevOps configuration; a fact source is owned by a
-        state machine and only read, such as the Azure DevOps runtime state.
       state machine: A state machine is the application that owns and changes a fact source; a fact source is the store catzc reads.
   state machine:
     key: state_machine
@@ -416,8 +393,6 @@ concepts:
     short:
       An application that owns fact sources and changes their state by its own rules, met by catzc only at a junction, inbound or outbound.
     realized_by: { kind: prose-only }
-    contrasts:
-      fact source: A fact source is the store catzc reads; a state machine is the application that owns and changes it.
   actionable fact:
     key: actionable_fact
     domain: thesis
@@ -493,8 +468,6 @@ concepts:
       commit with all its consumers.
     realized_by: { kind: prose-only }
     contrasts:
-      product mono-repository:
-        A product mono-repository is the repository as a whole, with its tracks and deployable-units; the trunk is its one mainline.
       pin: A pin is an explicit version at the repository boundary; inside the trunk nothing is pinned, and everything is at HEAD.
   pin:
     key: pin
@@ -504,11 +477,6 @@ concepts:
       An explicit version, controlled by the consumer, of a dependency that crosses the repository boundary inward, stitched into an
       immutable artifact at build time.
     realized_by: { kind: prose-only }
-    contrasts:
-      trunk: Inside the trunk everything is at HEAD, with no version; a pin is the one form of synchronisation, at the repository boundary.
-      provided contract:
-        A provided contract is the promise catzc keeps to a consumer; a pin is the consumer's explicit choice of the version that promise
-        holds for.
   config contribution:
     key: config_contribution
     domain: configuration
@@ -537,7 +505,6 @@ concepts:
       Markdown files, with the files it applies to, the keys it owns and, for a gather kind, the config it feeds.
     realized_by: { kind: prose-only }
     contrasts:
-      meta block: The meta block is the block in one file; a meta kind is the registry entry that says what goes in that block across files.
       role: A role is the part one file plays; a meta kind is a registry entry that says which derived fact goes into a head.
   meta head:
     key: meta_head
@@ -548,7 +515,6 @@ concepts:
       so it is the form a meta block takes in a C# or PowerShell file.
     realized_by: { kind: prose-only }
     contrasts:
-      meta block: The meta block is the facts in any file; the meta head is the form they take in a code file.
       materialization:
         Materialization says when a resource comes into being and how long it holds; a meta head is where a generated file shows its commit
         key, body_sha.
@@ -560,10 +526,6 @@ concepts:
       When a knowledge resource comes into being and how long it holds, on-demand (made when asked, held for the call or the session) or
       commit (made at commit, keyed by the scoped sha of its inputs, never changing).
     realized_by: { kind: prose-only }
-    contrasts:
-      meta head:
-        A meta head is the leading comment that holds a file's facts; materialization is the property of a resource that a generated file's
-        body_sha makes visible there.
     avoid:
       - { phrase: cached at commit, say: a commit resource }
       - { phrase: materialized view, say: a commit resource }
@@ -587,10 +549,6 @@ concepts:
       One named relation under the edges part of a meta block, from the file to a rule code, a file or a URL, such as defines, cites, links,
       page or test, written on its source only.
     realized_by: { kind: prose-only }
-    contrasts:
-      place facts:
-        An edge is a named relation leaving the file, read from its text; the place facts are properties of the file as a node, read from
-        the repository's configuration.
   role:
     key: file_role
     domain: repository
@@ -600,7 +558,6 @@ concepts:
       file's language, track or module.
     realized_by: { kind: prose-only }
     contrasts:
-      meta kind: A meta kind is a registry entry that says which derived fact goes into a head; a role is the part one file plays.
       file language: A file language is the sort of text a file holds, named by its extension; a role is what the file is for.
       track: A track is the cluster a file lives in; a role is the part it plays, wherever it lives.
       track type: A track type is the sort of cluster a file lives in; a role is the part the file plays, wherever it lives.
@@ -613,7 +570,6 @@ concepts:
     short: The narrowing of a role, such as a gate among the functions, written under its role in the file-kinds registry.
     realized_by: { kind: prose-only }
     contrasts:
-      role: A role is the part a file plays; a subkind is one narrower role under it, and a file has at most one.
       file type: A file type is how a file's name ends; a subkind is a narrower role, whatever the name.
   file type:
     key: file_type
@@ -623,8 +579,6 @@ concepts:
     realized_by: { kind: prose-only }
     contrasts:
       file language: A file language groups the extensions of one kind of text; a file type is the single extension of one file.
-      role: A role is the part a file plays; a file type is how its name ends.
-      subkind: A subkind is a narrower role, whatever the name; a file type is how a file's name ends.
   staging slot:
     key: staging_slot
     domain: design
@@ -683,8 +637,6 @@ concepts:
     defined_by: ADR-PRIN-CATS-CATSISPERSONNAME
     short: The product's name to a person — the executor outside pwsh, and the word in prose, docs and conversation.
     realized_by: { kind: prose-only }
-    contrasts:
-      catzc: catzc is the source-level name every module, namespace and path carries; cats is the friendly form a person reads and says.
   automation:
     key: automation
     domain: automation
@@ -719,11 +671,6 @@ concepts:
       A provided contract asset, `<module>/<Verb-Noun>.command.yml` in a unit's version folder, that states one command's call interface in
       the contract language; a command is public exactly when one names it.
     realized_by: { kind: prose-only }
-    contrasts:
-      command: A command is the function that implements the interface; a command contract is the asset that states it at the boundary.
-      contract asset:
-        A contract asset is any file of the five kinds; a command contract is the kind that states a command's call interface and is
-        compared with the command's source.
   contract language:
     key: contract_language
     domain: repository
@@ -750,9 +697,6 @@ concepts:
     contrasts:
       file language:
         A file language is any language the registry names by extension; an implementation language is one a command is written in.
-      contract language:
-        The contract language is the notation a command's call interface is stated in; an implementation language is the file language the
-        command's source is written in.
     avoid:
       - { phrase: automation language, say: implementation language }
   pwsh:

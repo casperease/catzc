@@ -68,7 +68,10 @@ block (10, the `---` delimiters excluded, lines counted as rule 6 counts them), 
 there once and nowhere else. The catzc block of a capability nests under `metadata`, the one front-matter key the editors that validate a
 skill file leave free, at the key path the carrier registry declares
 ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)), and holds only the authored `config` part, with the floor
-as the author's line in it, so no imprint touches it.
+as the author's line in it, so no imprint touches it. The roof counts each top-level front-matter key (`name`, `description`,
+`user-invocable`, `allowed-tools`, and the `metadata` key that holds the catzc block, though not the block itself) as well as each body
+line, so five of the ten are spent before the body begins; a wrapped
+continuation neither costs nor saves a line, so a new item fits only by merging it into an existing line.
 
 - [Robots and capabilities](#robots-and-capabilities)
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8dc57550f851"
+    with_body_sha: "6e507abe7da2"
   edges:
     docs: "[Invoke-PythonTest.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/Invoke-PythonTest.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Languages/Invoke-PythonTest.ps1
@@ -145,7 +145,7 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
 
         It 'throws with the remedy when uv sync fails' {
             $script:syncExit = 2
-            { Invoke-PythonTest Catzc.Widget } | Should -Throw '*uv sync failed*Run Install-Python*No interpreter found*'
+            { Invoke-PythonTest Catzc.Widget } | Should -Throw '*uv sync failed*Run Install-Python*uv.lock is a gitignored product*delete it and run again*No interpreter found*'
         }
 
         It 'throws with the ruff output when ruff check fails' {

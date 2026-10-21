@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8819211a69dc"
+    with_body_sha: "8bf32509d69d"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-ModuleNeighbourhoodMinimapData.Tests.ps1
     docs: "[Get-ModuleNeighbourhoodMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-ModuleNeighbourhoodMinimapData.ps1.md)"
@@ -17,6 +17,10 @@ function Get-ModuleNeighbourhoodMinimapData {
     param(
         [Parameter(Mandatory, Position = 0)]
         [string[]] $Adr,
+
+        [Catzc.Base.Maps.WorldMap] $WorldMap,
+
+        [hashtable] $Facts,
 
         [switch] $AsJson
     )
@@ -36,7 +40,7 @@ function Get-ModuleNeighbourhoodMinimapData {
     $count = @{}
     $reasons = @{}
     $subject = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
-    foreach ($item in @(Get-MinimapSubject -Adr $Adr)) {
+    foreach ($item in @(Get-MinimapSubject -Adr $Adr -WorldMap $WorldMap -Facts $Facts)) {
         if (-not $item.Facts -or -not $item.Facts['module']) {
             continue
         }

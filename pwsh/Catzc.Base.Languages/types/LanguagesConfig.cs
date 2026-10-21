@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e91d848b582c
+    with_body_sha: "50fc48e29294"
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
     docs: "[LanguagesConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/LanguagesConfig.cs.md)"
@@ -56,7 +56,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     // A settings entry is a repository-relative file, or `<file>#<key>` for one top-level key of a YAML file.
     private static readonly Regex SettingsPath = new Regex("^[A-Za-z0-9_.-]+(/[A-Za-z0-9_.-]+)*(#[A-Za-z0-9_]+)?$");
     private static readonly Regex LanguageName = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
-    private static readonly Regex Extension = new Regex("^\\.[a-z0-9]+$");
+    private static readonly Regex Extension = new Regex("^(\\.[a-z0-9]+)+$");
     private static readonly Regex AdrFolder = new Regex("^[A-Za-z0-9_-][A-Za-z0-9._-]*(/[A-Za-z0-9_-][A-Za-z0-9._-]*)*$");
     private static readonly Regex VscodeLanguage = new Regex("^[a-z][a-z0-9-]*$");
     private static readonly Regex VscodeExtension = new Regex("^[A-Za-z0-9][A-Za-z0-9-]*\\.[A-Za-z0-9][A-Za-z0-9-]*$");
@@ -68,7 +68,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     public static IReadOnlyList<string> FormatterEngines => Engines;
 
     // A new imprint step is new mechanism too: its Format-Code adapter and its name here must land together.
-    private static readonly string[] StepNames = { "file-meta", "csharp-namespace", "comments", "ps-help" };
+    private static readonly string[] StepNames = { "file-meta", "bcl-namespace", "comments", "ps-help" };
     public static IReadOnlyList<string> ImprintSteps => StepNames;
 
     // The imprint steps Format-Code runs after every language's formatter, over every language. Empty when the file lists none.
@@ -613,8 +613,18 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         return byExtension.TryGetValue(key.ToLowerInvariant(), out language) ? language : null;
     }
 
-    // The file language of a file path, by its extension, or null when the extension names none or the file has none.
-    public FileLanguage ForPath(string path) => ForExtension(ExtensionOf(path));
+    public FileLanguage ForPath(string path)
+    {
+        if (string.IsNullOrEmpty(path)) { return null; }
+        string normalized = path.Replace('\\', '/');
+        string fileName = normalized.Substring(normalized.LastIndexOf('/') + 1).ToLowerInvariant();
+        for (int dot = fileName.IndexOf('.', 1); dot > 0 && dot < fileName.Length - 1; dot = fileName.IndexOf('.', dot + 1))
+        {
+            FileLanguage language;
+            if (byExtension.TryGetValue(fileName.Substring(dot), out language)) { return language; }
+        }
+        return null;
+    }
 
     public static string ExtensionOf(string path)
     {
@@ -945,7 +955,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             }
             else if (!Extension.IsMatch(extension))
             {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: invalid extension '{1}' (a dot, then lowercase letters and digits)", name, extension));
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: invalid extension '{1}' (one or more parts, each a dot, then lowercase letters and digits)", name, extension));
             }
             else if (extensions.Contains(extension))
             {

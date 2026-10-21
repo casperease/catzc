@@ -6,95 +6,51 @@ plan:
   class: meta
   targets:
     [
-      docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md,
-      .claude/skills/catzc-run/SKILL.md,
-      python/catzc_diagrams/drawio_forward.py,
-      python/catzc_diagrams/configs/drawio.yml,
-      pwsh/Catzc.Base.Slides/private/Write-DiagramMinimapData.ps1,
+      pwsh/Catzc.Base.Maps/private/Get-MinimapSubject.ps1,
+      pwsh/Catzc.Base.Slides/Build-Diagrams.ps1,
+      pwsh/Catzc.Base.Slides/Test-Diagrams.ps1,
+      python/catzc_diagrams/declaration.py,
     ]
 ---
 
-# Diagram build learnings: what a "hung" Build-Diagrams taught, folded back into docs, instructions and the renderer
+# Diagram build learnings: what a "hung" Build-Diagrams taught, folded back into the build, the renderer and one drawing
 
-A bare `Build-Diagrams` looked hung: it wrote the minimap data of all 171 diagram folders (1.5-2.5 s each), then rendered each (about 1 s),
-for 5-8 minutes with no output. Per-folder progress lines fixed the silence (committed as a user step in task-user-runs-and-commits). This
-plan folds the rest of what the session learned back into the repository: the help page that describes the run wrongly, the run skill that
-lacks two patterns an agent tripped on, the warning a full run prints on every pass, the minimap cost, and one drawing of the pipeline.
+A bare `Build-Diagrams` looked hung: the minimap stage alone took minutes before the first render. This plan carries what is left of that
+lesson: the rest of the minimap cost, a sample that the gates can reach, the renderer's edge vocabulary, and one drawing of the pipeline.
 
 ## Why its value is medium
 
-Every agent and every user who runs `Build-Diagrams`, or any cats command under the time safeguard, pays for each item today: a wrong mental
-model from the help, a denied or timed-out call from a missing pattern, and a warning that trains readers to ignore warnings. None of it
-blocks a feature.
+Every agent and every user who runs a full `Build-Diagrams` pays for the minimap stage, and every sample is put by hand outside the gates.
+None of it blocks a feature.
 
 ## Recommendations (the agent's, each with its reason)
 
-- Fix the help before anything else: it is the page a reader trusts, and it is wrong on three facts.
-- Keep a bare `Build-Diagrams` as the full rebuild; do not make `-Stale` the default. A full rebuild that silently does less breaks the
-  one-command promise; the help names `-Stale` and `-Path` as the everyday journeys instead.
-- Quiet the glyphs warning in the renderer by role, not by giving the legend a yml: `drawio.yml` already says the glyphs folder is a
-  `legend`, and a legend draws no minimaps, so `W_UNDECLARED` asks for something a legend never needs (configure, don't program: the role is
-  the config, the renderer reads it).
-- Make the minimap stage cheaper by computing each distinct ADR set once per run: 10 of the 11 automation folders share one of two ADR sets,
-  so the same minimap data is computed again and again. Measure first; a per-run memo, never a session cache (a guard's verdict is never
-  cached across runs). A compiled type only if the measurement says PowerShell is the cost.
+- Profile before changing the minimap subject: the world map is built once per call now, and what is left is paid on every minimap call, so
+  the next lever is whatever that call still repeats. A per-run load or batch, never a session cache (a guard's verdict is never cached
+  across runs).
 - The drawing is one sample for approval, never a batch, and lands only with the article that embeds it.
 
 ## Decided (the user, 2026-10-21, decision round)
 
 - **The pipeline drawing lives on an explanation page** on how a diagram is built, in that page's own `.assets/<slug>/`, so the reference
   page stays text; the user names the page when the sample is approved.
-- **catzc-run takes both patterns as one merged item**: a private function runs as `& (Get-Module <Module>) { … }`, never by dot-sourcing
-  its file; a background run is waited on by a second background call, never by polling; the tree is searched with the Grep tool. The file
-  ends at its 10-line roof.
 - **No `-Sample` path**: a build reading the gitignored `out/` would break ADR-REPO-SLIDES-ONEBUILDCOMMAND and keep state outside version
   control; the two manual calls (`Write-DiagramMinimapData` inside its module, then `put`) stay, and the help names them.
 
 ## Open steps
 
-### Docs
-
-- [ ] `docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md`, `### description`: say the run writes the minimap data of every
-      declared folder first, then renders or syncs each; that it prints one line per folder per stage with its position, status and time,
-      and the total at the end; that a full run takes minutes and `-Stale` or `-Path` is the everyday journey. Replace the locality
-      paragraph with what the code does: every page anywhere that embeds a folder's png is its article, a folder no page embeds is an orphan
-      (reported, still rendered), and each page's Supports line is held against the yml (reported as drift). Then rebuild the comment view
-      with `Build-CommentView` on `Build-Diagrams.ps1`. The page also names the sample sequence: `Write-DiagramMinimapData` inside its
-      module, then `put` (check: `Test-Links` on the page, `Test-GeneratedFiles` on its head).
-
-### Instructions
-
-- [ ] `.claude/skills/catzc-run/SKILL.md`: one new numbered item carrying both patterns as decided (its step 2 already names the entry
-      script); merge wording until the file stays at most 10 counted lines (check: `Test-AgentDefinitions`).
-
-### Renderer
-
-- [ ] `python/catzc_diagrams/drawio_forward.py`: skip `W_UNDECLARED` for a folder whose role in `drawio.yml` `roles:` is `legend`, since a
-      legend draws no minimaps; a slide folder with no declaration still warns. Add the case to the renderer's tests, one for each role
-      (check: `Invoke-PythonTest` on the catzc_diagrams tests, then `Build-Diagrams -Path docs/explanation/.assets/glyphs` prints `clean`).
-
-### Speed
-
-- [ ] Measure: one script in `out/` that times `Write-DiagramMinimapData` over every declared folder and counts the distinct `about.adrs`
-      sets; record the numbers in this plan in place of this step (check: the script exits 0 under `timeout 360` and prints the seconds per
-      folder and the set count).
-- [ ] `pwsh/Catzc.Base.Slides/private/Write-DiagramMinimapData.ps1`: compute each minimap once per distinct ADR set within one call and
-      write it to every folder that shares the set; `Build-Diagrams` passes all declared folders in one call again, keeping its progress
-      line per folder (check: `Invoke-TestFile` on both functions' tests, and the measuring script shows the gain). Only if the measurement
-      shows the minimap functions themselves are the cost, a compiled type in their place, measured against PowerShell.
-
 ### Drawing
 
-- [ ] One sample in `out/diagrams/dark-sample/build-diagrams-pipeline/`: the Build-Diagrams pipeline as symbols (find folders, find
-      articles, minimap data, render or sync, report), the minimap stage marked as the cost, `about.adrs`
-      `ADR-REPO-SLIDES-MINIMAPSFROMDATA`. Words go in an article, not on the slide. The user approves before anything lands in `docs/`
-      (check: `Test-Diagrams -Path` on the sample folder, then the user's approval).
+- [ ] The sample in `out/diagrams/dark-sample/build-diagrams-pipeline/` waits for the user's approval: the Build-Diagrams pipeline as five
+      symbols (diagram folders, articles, minimap data, render or sync, report), marker 1 on the minimap stage as the cost, `about.adrs`
+      `ADR-REPO-SLIDES-MINIMAPSFROMDATA`; words go in the article (check: the user's approval).
 - [ ] On approval: the folder lands in the `.assets` of the explanation page that embeds it (the user names the page), put with
       `Build-Diagrams -Path` (check: `Test-Diagrams` on the folder, `Test-Links` on the article).
-- [ ] `Build-Diagrams` and `Test-Diagrams`: `-Path` accepts `out/diagrams/dark-sample/`, so a sample is gated and needs no hand put (found
-      by catzc-56's two samples, 2026-10-21) (check: `Test-Diagrams -Path out/diagrams/dark-sample/.assets/truth-stores`).
+- [ ] `Build-Diagrams` and `Test-Diagrams`: `-Path` accepts `out/diagrams/dark-sample/`, so a sample is gated and needs no hand put; today
+      `Test-Diagrams -Path` refuses a folder outside `docs/**/.assets/` (check:
+      `Test-Diagrams -Path out/diagrams/dark-sample/build-diagrams-pipeline`).
 - [ ] `python/catzc_diagrams/declaration.py`, with `assets/glyphs.xml` and `assets/STYLE.md` following: `read` and `junction` edge kinds,
       and the thick edge's legend phrase set per diagram rather than fixed to "to a named set", with cases in `tests/test_declaration.py`
-      (check: the renderer's tests under `Invoke-PythonTest`, then one sample re-rendered).
+      (check: `Invoke-PythonTest Catzc.Base.Slides -Folder python/catzc_diagrams/tests`, then one sample re-rendered).
 
 ## Refs

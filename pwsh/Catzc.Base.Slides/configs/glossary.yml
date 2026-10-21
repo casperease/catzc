@@ -28,8 +28,6 @@ concepts:
     defined_by: ADR-REPO-SLIDES-SLIDEFILE
     short: The `deck.md` of a deck folder — the deck's title and its sections, beside the slide files it gathers.
     realized_by: { kind: prose-only }
-    contrasts:
-      slide file: A slide file is one slide of a deck; the deck file names the deck and its sections and holds no slide.
   field:
     key: field
     domain: repository
@@ -54,5 +52,3 @@ concepts:
       A diagram's one source, `diagram.drawio.yml` beside its `diagram.drawio.png` — a description, what the diagram shows in the kit's
       closed vocabulary, and where a moved cell sits; put renders it into the drawing and get reads the drawing back into it.
     realized_by: { kind: prose-only }
-    contrasts:
-      slide file: A slide file is markdown prose a pattern fills; a diagram declaration is yml the kit renders into a draw.io model.

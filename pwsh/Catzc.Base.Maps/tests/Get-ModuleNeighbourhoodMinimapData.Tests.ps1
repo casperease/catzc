@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "61bfe0d8de4e"
+    with_body_sha: d1f9907a8afd
   edges:
     code: pwsh/Catzc.Base.Maps/Get-ModuleNeighbourhoodMinimapData.ps1
 ---
@@ -30,5 +30,17 @@ Describe 'Get-ModuleNeighbourhoodMinimapData' -Tag 'L0', 'logic' {
         @($data.Lit | ForEach-Object { $_.At -join ' x ' }) | Should -Be @('subject x Widgets')
         $data.Lit[0].Reasons[0].Note | Should -Be 'pwsh-folder'
         Test-Json -Json $data.ToJson() -Schema $script:schema | Should -BeTrue
+    }
+
+    It 'hands the world map it is given to the subject' {
+        $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(), [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
+        $null = Get-ModuleNeighbourhoodMinimapData -Adr 'ADR-WIDGET' -WorldMap $map
+        Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($WorldMap, $map) }
+    }
+
+    It 'hands the facts it is given to the subject' {
+        $given = @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = @{ track = 'widgets' } }
+        $null = Get-ModuleNeighbourhoodMinimapData -Adr 'ADR-WIDGET' -Facts $given
+        Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($Facts, $given) }
     }
 }

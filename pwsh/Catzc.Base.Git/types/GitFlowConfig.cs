@@ -2,9 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "88a709629058"
+    with_body_sha: "72f978c62e2c"
   edges:
     test: pwsh/Catzc.Base.Git/tests/types/GitFlowConfig.Tests.ps1
+    docs: "[GitFlowConfig.cs.md](docs/references/pwsh/catzc-base-git/types/GitFlowConfig.cs.md)"
 ---
 */
 
@@ -116,19 +117,127 @@ public sealed class GitFlowConfig
         return null;
     }
 
-    // The first user command a shell command line invokes, or null: a name counts only as a word of its own, so a path or file name
-    // that holds it (tests/Sync-Topic.Tests.ps1) is no invocation.
     public string UserCommandIn(string commandLine)
     {
         if (string.IsNullOrEmpty(commandLine)) { return null; }
-        foreach (string name in user_commands)
+        return InvokedIn(WithoutHeredocBodies(commandLine), 0);
+    }
+
+    private static readonly Regex HeredocStart = new Regex(@"<<-?\s*['""]?(\w+)['""]?", RegexOptions.CultureInvariant);
+    private static readonly Regex Assignment = new Regex(@"^[A-Za-z_]\w*=", RegexOptions.CultureInvariant);
+    private static readonly Regex CommandSwitch = new Regex(@"^-(c|com|comm|comma|comman|command)$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+
+    private string InvokedIn(string script, int depth)
+    {
+        if (depth > 3) { return null; }
+        foreach (string segment in Segments(script))
         {
-            if (Regex.IsMatch(commandLine, @"(?<![\w./\\-])" + Regex.Escape(name) + @"(?![\w.\\/-])", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+            List<string> words = Words(segment);
+            int first = 0;
+            // A wrapper runs the command that follows it: timeout and its duration, env, a variable assignment, cats.
+            while (first < words.Count)
             {
-                return name;
+                string word = words[first];
+                if (string.Equals(word, "timeout", StringComparison.Ordinal)) { first += 2; continue; }
+                if (string.Equals(word, "env", StringComparison.Ordinal) || string.Equals(word, "cats", StringComparison.Ordinal) || Assignment.IsMatch(word)) { first++; continue; }
+                break;
+            }
+            if (first >= words.Count) { continue; }
+            string command = words[first];
+            foreach (string name in user_commands)
+            {
+                if (string.Equals(Plain(command), Plain(name), StringComparison.OrdinalIgnoreCase)) { return name; }
+            }
+            if (Regex.IsMatch(command, @"^(pwsh|powershell)(\.exe)?$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+            {
+                for (int i = first + 1; i < words.Count; i++)
+                {
+                    if (CommandSwitch.IsMatch(words[i]))
+                    {
+                        string found = InvokedIn(string.Join(" ", words.GetRange(i + 1, words.Count - i - 1)), depth + 1);
+                        if (found != null) { return found; }
+                        break;
+                    }
+                }
             }
         }
         return null;
+    }
+
+    // A command name as cats takes it (push-topic) and as pwsh does (Push-Topic) compare alike.
+    private static string Plain(string name) => name.Replace("-", "").Replace("_", "");
+
+    private static string WithoutHeredocBodies(string text)
+    {
+        string[] lines = text.Replace("\r\n", "\n").Split('\n');
+        var kept = new List<string>();
+        string delimiter = null;
+        foreach (string line in lines)
+        {
+            if (delimiter != null)
+            {
+                if (string.Equals(line.Trim(), delimiter, StringComparison.Ordinal)) { delimiter = null; }
+                continue;
+            }
+            kept.Add(line);
+            Match start = HeredocStart.Match(line);
+            if (start.Success) { delimiter = start.Groups[1].Value; }
+        }
+        return string.Join("\n", kept);
+    }
+
+    // The script cut at every separator outside quotes: ; & | ( ) { } and a line end.
+    private static List<string> Segments(string script)
+    {
+        var segments = new List<string>();
+        var current = new System.Text.StringBuilder();
+        char quote = '\0';
+        foreach (char c in script)
+        {
+            if (quote != '\0')
+            {
+                if (c == quote) { quote = '\0'; }
+                current.Append(c);
+                continue;
+            }
+            if (c == '\'' || c == '"') { quote = c; current.Append(c); continue; }
+            if (";&|(){}\n".IndexOf(c) >= 0)
+            {
+                segments.Add(current.ToString());
+                current.Clear();
+                continue;
+            }
+            current.Append(c);
+        }
+        segments.Add(current.ToString());
+        return segments;
+    }
+
+    // A segment's words, split at white space outside quotes, each without its quotes.
+    private static List<string> Words(string segment)
+    {
+        var words = new List<string>();
+        var current = new System.Text.StringBuilder();
+        char quote = '\0';
+        bool started = false;
+        foreach (char c in segment)
+        {
+            if (quote != '\0')
+            {
+                if (c == quote) { quote = '\0'; } else { current.Append(c); }
+                continue;
+            }
+            if (c == '\'' || c == '"') { quote = c; started = true; continue; }
+            if (char.IsWhiteSpace(c))
+            {
+                if (started) { words.Add(current.ToString()); current.Clear(); started = false; }
+                continue;
+            }
+            current.Append(c);
+            started = true;
+        }
+        if (started) { words.Add(current.ToString()); }
+        return words;
     }
 
     // True when the branch is one of the server's main branches.

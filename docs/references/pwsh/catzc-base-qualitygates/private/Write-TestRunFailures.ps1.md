@@ -14,7 +14,9 @@ its tests ran.
 
 The one place a test run's failures reach the console, shared by Invoke-TestFile and Test-Automation, at every -Output level: a failure is
 the one thing a quiet run must still show, and the worker's Pester output does not carry it to a redirected console. Renders a framed
-section (Write-Header / Write-Footer, red) with one 'FAIL `<ExpandedPath>`' line per failed row followed by its whole ErrorMessage, then one
+section (Write-Header / Write-Footer, red) with one 'FAIL `<ExpandedPath>`' line per failed row, grouped by ErrorMessage in the order each
+message first failed: a group's paths come first, then its whole message once, headed by '`<n>` failures share this message:' when the
+group holds more than one, so one cause behind many cases prints once. Then one
 'FAIL `<file>` (failed before its tests ran)' line per file the files sidecar marks Failed with an error of its own — a file that throws
 while Pester discovers it, or in its BeforeAll, yields no row, so its error is only there. Writes nothing when there is no failure.
 

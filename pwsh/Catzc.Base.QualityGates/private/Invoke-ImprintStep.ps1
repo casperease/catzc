@@ -50,7 +50,7 @@ function Invoke-ImprintStep {
                 $outcome.Unfixable[(& $absolute $finding.Path)] = "a meta key no kind owns ($($finding.Actual)) — move it under config, or remove it, or declare a meta kind that owns it"
             }
         }
-        'csharp-namespace' {
+        'bcl-namespace' {
             if ($File.Count -eq 0) {
                 return $outcome
             }

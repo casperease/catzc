@@ -67,6 +67,10 @@ or control flow — is reading stale state.
 > If you need the value later, capture it in a named local on the very next line. Better yet, use a wrapper that encapsulates the
 > read-and-reset cycle so callers never touch the variable directly.
 
+The same "lose it or hold it" trap has a .NET twin: `[System.IO.File]::ReadLines` cut short by `Select-Object -First` keeps its file open
+until the enumerator is disposed, so a later write to that file fails on a held handle; a reader of the first lines takes
+`Get-Content -TotalCount` or `[System.IO.File]::ReadAllLines`.
+
 ## Decision
 
 Automatic variables that carry implicit state must be handled according to the rules below. Variables not listed here (e.g.,

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0b56fe96c727"
+    with_body_sha: "9d201e7c8de3"
   edges:
     docs: "[Test-Terminology.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Test-Terminology.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-Terminology.ps1
@@ -58,6 +58,29 @@ Describe 'Test-Terminology' -Tag 'L0', 'logic' {
         $r = Test-Terminology -OutputFolder $script:reportBase -PassThru
         $r.IssueCount | Should -Be 1
         $r.Issues -join "`n" | Should -Match "orphan.*'entra'"
+    }
+
+    It 'reports a reserved term in a tracked file outside its category''s scope, and nowhere inside it' {
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates {
+            [Catzc.Base.QualityGates.TerminologyConfig]::new([ordered]@{
+                    categories = [ordered]@{ reserved = [ordered]@{ description = 'one thing'; scope = @('widgets/**') } }
+                    terms      = [ordered]@{ reserved = @([ordered]@{ term = 'gizmo'; meaning = 'the one widget language' }) }
+                })
+        }
+        Mock Build-TerminologyDictionary -ModuleName Catzc.Base.QualityGates {
+            [pscustomobject]@{ Category = 'reserved'; Path = 'x'; WordCount = 1; Changed = $false; DryRun = $true }
+        }
+        Mock Get-TerminologyCorpus -ModuleName Catzc.Base.QualityGates { 'gizmo' }
+        foreach ($file in @{ 'widgets/spin.md' = 'The Gizmo language.'; 'gadgets/turn.md' = 'A gizmo here.'; 'gadgets/gizmos.md' = 'gizmos' }.GetEnumerator()) {
+            $path = Join-Path $TestDrive $file.Key
+            $null = New-Item -ItemType File -Path $path -Force
+            [System.IO.File]::WriteAllText($path, $file.Value)
+        }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @('widgets/spin.md', 'gadgets/turn.md', 'gadgets/gizmos.md', 'gadgets/gone.md') }
+
+        $r = Test-Terminology -OutputFolder $script:reportBase -PassThru
+        $r.IssueCount | Should -Be 1
+        $r.Issues[0] | Should -BeLike "reserved: 'gizmo' appears in gadgets/turn.md, outside the scope*"
     }
 
     It 'reports a validation failure when the registry does not load (ADR-AUTO-SPELL-CATEGORYANDMEANING)' {

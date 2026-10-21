@@ -18,7 +18,7 @@ Describe 'Reset-GitHubRepository' -Tag 'L1', 'logic' {
         [System.IO.File]::WriteAllText((Join-Path $script:repo '.git/HEAD'), "ref: refs/heads/main`n")
         [System.IO.File]::WriteAllText((Join-Path $script:repo '.git/refs/heads/main'), "$script:local`n")
 
-        function script:RunReset {
+        function script:Invoke-Reset {
             param([hashtable] $Extra = @{})
             Reset-GitHubRepository -Repo 'me/project' -BackupBundle 'TestDrive:/backup.bundle' -RepositoryPath $script:repo @Extra
         }
@@ -41,27 +41,27 @@ Describe 'Reset-GitHubRepository' -Tag 'L1', 'logic' {
     }
 
     It 'is a dry run without -ConfirmRepo (nothing destructive runs)' {
-        $result = RunReset
+        $result = Invoke-Reset
         $result.DryRun | Should -BeTrue
         Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 0 -ParameterFilter { $Command -like 'gh repo delete*' }
     }
 
     It 'still runs the preflight during a dry run' {
-        RunReset | Out-Null
+        Invoke-Reset | Out-Null
         Should -Invoke -ModuleName Catzc.Tooling.Github Assert-GitHubPurgeReady -Times 1
     }
 
     It 'is a dry run when -ConfirmRepo does not match -Repo' {
-        (RunReset @{ ConfirmRepo = 'me/wrong' }).DryRun | Should -BeTrue
+        (Invoke-Reset @{ ConfirmRepo = 'me/wrong' }).DryRun | Should -BeTrue
     }
 
     It '-DryRun forces a dry run even when -ConfirmRepo matches' {
-        (RunReset @{ ConfirmRepo = 'me/project'; DryRun = $true }).DryRun | Should -BeTrue
+        (Invoke-Reset @{ ConfirmRepo = 'me/project'; DryRun = $true }).DryRun | Should -BeTrue
         Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 0 -ParameterFilter { $Command -like 'gh repo delete*' }
     }
 
     It 'when armed, deletes, recreates, and pushes' {
-        $result = RunReset @{ ConfirmRepo = 'me/project' }
+        $result = Invoke-Reset @{ ConfirmRepo = 'me/project' }
         $result.DryRun | Should -BeFalse
         Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 1 -ParameterFilter { $Command -like 'gh repo delete me/project*' }
         Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 1 -ParameterFilter { $Command -like 'gh repo create me/project *' }
@@ -69,48 +69,48 @@ Describe 'Reset-GitHubRepository' -Tag 'L1', 'logic' {
     }
 
     It 'runs the post-verify scan on the pushed branch, never on a mirror clone, when a token is given' {
-        RunReset @{ ConfirmRepo = 'me/project'; Token = 'old-name' } | Out-Null
+        Invoke-Reset @{ ConfirmRepo = 'me/project'; Token = 'old-name' } | Out-Null
         Should -Invoke -ModuleName Catzc.Tooling.Github Test-GitHistoryClean -Times 1 -Exactly -ParameterFilter { $Ref -eq 'main' }
         Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 0 -ParameterFilter { $Command -like 'git clone*' }
     }
 
     It 'bounds the push and the remote read with its own time limit' {
         $limit = Get-TimeoutSeconds -Command 'Reset-GitHubRepository'
-        RunReset @{ ConfirmRepo = 'me/project'; Token = 'old-name' } | Out-Null
+        Invoke-Reset @{ ConfirmRepo = 'me/project'; Token = 'old-name' } | Out-Null
         Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 1 -ParameterFilter { $Command -like 'git push*' -and $TimeoutSeconds -eq $limit }
         Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 1 -ParameterFilter { $Command -like 'git ls-remote*' -and $TimeoutSeconds -eq $limit }
     }
 
     It 'aborts with a do-not-publish warning when the remote holds a commit the local scan did not cover' {
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = (New-RefListing "$script:local refs/heads/main", "$script:foreign refs/heads/gadget"); Errors = '' } } -ParameterFilter { $Command -like 'git ls-remote*' }
-        { RunReset @{ ConfirmRepo = 'me/project'; Token = 'old-name' } } | Should -Throw "*refs/heads/gadget ($script:foreign)*DO NOT make it public*"
+        { Invoke-Reset @{ ConfirmRepo = 'me/project'; Token = 'old-name' } } | Should -Throw "*refs/heads/gadget ($script:foreign)*DO NOT make it public*"
     }
 
     It 'aborts with a do-not-publish warning when post-verify finds the token' {
         Mock -ModuleName Catzc.Tooling.Github Test-GitHistoryClean { [pscustomobject]@{ Clean = $false; Blobs = @('rev:file:1'); Paths = @(); Messages = @() } }
-        { RunReset @{ ConfirmRepo = 'me/project'; Token = 'old-name' } } | Should -Throw '*DO NOT make it public*'
+        { Invoke-Reset @{ ConfirmRepo = 'me/project'; Token = 'old-name' } } | Should -Throw '*DO NOT make it public*'
     }
 
     It 'when renaming, creates under the new name after checking it is free' {
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 1; Output = ''; Errors = 'not found' } } -ParameterFilter { $Command -like 'gh repo view me/new*' }
-        RunReset @{ ConfirmRepo = 'me/project'; NewName = 'me/new' } | Out-Null
+        Invoke-Reset @{ ConfirmRepo = 'me/project'; NewName = 'me/new' } | Out-Null
         Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 1 -ParameterFilter { $Command -like 'gh repo delete me/project*' }
         Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 1 -ParameterFilter { $Command -like 'gh repo create me/new *' }
     }
 
     It 'when renaming, aborts if the target name is already taken' {
         # Catch-all returns exit 0 for `gh repo view me/new`, i.e. the name exists.
-        { RunReset @{ ConfirmRepo = 'me/project'; NewName = 'me/new' } } | Should -Throw '*already exists*'
+        { Invoke-Reset @{ ConfirmRepo = 'me/project'; NewName = 'me/new' } } | Should -Throw '*already exists*'
     }
 
     It 'reports intact state when the delete fails' {
         Mock -ModuleName Catzc.Tooling.Github Invoke-Executable { [pscustomobject]@{ ExitCode = 1; Output = ''; Errors = 'permission denied' } } -ParameterFilter { $Command -like 'gh repo delete*' }
-        { RunReset @{ ConfirmRepo = 'me/project' } } | Should -Throw '*Delete failed*'
+        { Invoke-Reset @{ ConfirmRepo = 'me/project' } } | Should -Throw '*Delete failed*'
     }
 
     It 'propagates a preflight failure without touching the remote' {
         Mock -ModuleName Catzc.Tooling.Github Assert-GitHubPurgeReady { throw 'preflight boom' }
-        { RunReset @{ ConfirmRepo = 'me/project' } } | Should -Throw '*preflight boom*'
+        { Invoke-Reset @{ ConfirmRepo = 'me/project' } } | Should -Throw '*preflight boom*'
         Should -Invoke -ModuleName Catzc.Tooling.Github Invoke-Executable -Times 0 -ParameterFilter { $Command -like 'gh repo delete*' }
     }
 }

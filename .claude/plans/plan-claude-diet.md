@@ -19,10 +19,6 @@ It cuts a cost paid by every session and every spawn that loads the project inst
 
 ## Decided (the user, 2026-10-21, decision round)
 
-- **Two learned-by-failure facts become merged clauses, no new line** (Q4, Q5): `catzc-module` says a shipped config value away from its
-  type's default carries a `differs` reason in `configs.yml`; `catzc-run` says `Format-Code` inside a robot takes `-Path` on the files
-  touched, never `-Language markdown`.
-- **The probe cap is a comment on the 2020-hindsight entry only** (Q6): the robot rule in `agents.yml` stays as it is.
 - **The learnings log stays signed `Cats`** (Q7): no `persona` key on `CapabilityEntry`.
 
 ## Open steps
@@ -36,13 +32,6 @@ It cuts a cost paid by every session and every spawn that loads the project inst
        Project structure names `docs/references/pwsh/index.md` as where a design round starts (about 70 bytes added, paid for by step 1's
        cut; no new line, no new file). Cost today: no robot, capability or CLAUDE.md line names the index. Check:
        `Test-Links -Path .claude/CLAUDE.md`, and `wc -c .claude/CLAUDE.md` still at most 12100.
-3. [ ] `.claude/skills/catzc-module/SKILL.md`: merge into an existing line the clause that a shipped config value away from its type's
-       default carries a `differs` reason in `configs.yml` (`Test-ShippedConfigs` fails it otherwise); no line added. Check:
-       `Test-AgentDefinitions`, and `wc -l` on the file unchanged.
-4. [ ] `.claude/skills/catzc-run/SKILL.md`: merge into an existing line the clause that `Format-Code` inside a robot takes `-Path` on the
-       files touched, never `-Language markdown`; no line added. Check: `Test-AgentDefinitions`, and `wc -l` on the file unchanged.
-5. [ ] `pwsh/Catzc.Base.Docs/configs/agents.yml`: a comment on the `2020-hindsight` entry that a robot reading a long log caps its probes
-       per line and writes in batches, since a 40-turn roof ended its first run before its one write. Check: `Test-AgentDefinitions`.
 
 ## Open questions
 

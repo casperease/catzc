@@ -359,6 +359,7 @@ domains:
       module-model: { external: ADR-AUTO-MODULE, concern: [automation, build, quality-control] }
       layers: { external: ADR-AUTO-LAYERS }
       importer: { external: ADR-AUTO-IMPORTER, layer: importer }
+      accosted-language: { external: ADR-AUTO-ACCOSTED, concern: [quality-control], layer: contract }
 
   bcl:
     code: BCL

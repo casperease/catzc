@@ -27,7 +27,8 @@ final full run last.
 4. Stage the idiomatic-names moves (`python/tests/catzc_base_repository/`, `go/tests/catzcbaserepository/`, and later
    `python/catzc_diagrams/`): `Test-IdiomaticNames` reads the git index, so plan-idiomatic-names' gate-on step waits on it. Check:
    `Test-IdiomaticNames` no longer lists the old folders.
-5. Cut `.claude/CLAUDE.md`, section Sub-agents, to the agent names and one clause each (plan-claude-diet.md step 1). Check:
+5. Cut `.claude/CLAUDE.md`, section Sub-agents, to the agent names and one clause each, and in the same edit name
+   `docs/references/pwsh/index.md` on the `docs/references/` line as where a design round starts (plan-claude-diet.md steps 1-2). Check:
    `Test-AgentDefinitions` passes and `wc -c .claude/CLAUDE.md` is at most 11900.
 6. Commit the two BCL folder moves (plan-bcl-language.md): `docs/references/BCL/` and `docs/how-to/getting-started/BCL/` added, the old
    `docs/references/pwsh/BCL/` and `docs/how-to/getting-started/pwsh/BCL/` deleted; with them the sample folder

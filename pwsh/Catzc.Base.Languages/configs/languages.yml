@@ -1,10 +1,11 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: de9a5ace60c4
+#     with_body_sha: f5dc1d53a795
 #   edges:
 #     docs: "[languages.yml.md](docs/references/pwsh/catzc-base-languages/configs/languages.yml.md)"
 #     cites:
+#       - ADR-AUTO-ACCOSTED
 #       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 #       - ADR-DSGN-TRACK-FILELANGUAGE
 #       - ADR-FLOW-CD-PIPELINE-EXECUTABLEYAMLEXTENSION
@@ -89,13 +90,13 @@ languages:
       - { folder: ".", role: manifest, extensions: [.psd1], live: false, shipped: false }
       - { folder: private, role: private-function, shipped: false }
       - { folder: extension, role: editor-extension, live: false, shipped: false }
-  csharp:
+  bcl:
     extensions: [.cs]
     executable: true
     formatter: dotnet-format
     adr_folder: automation/BCL
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments, Test-BclReferences]
-    imprint: [csharp-namespace]
+    imprint: [bcl-namespace]
     layout:
       - { folder: types, role: type }
   pipeline-yaml:
@@ -110,6 +111,14 @@ languages:
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments, Test-AgentDefinitions]
     layout:
       - { folder: configs, role: config }
+  # A flat list of harmless contracted calls, run under every engine (ADR-AUTO-ACCOSTED); its compound extension wins over .yml.
+  accosted:
+    extensions: [.accosted.yml]
+    formatter: prettier
+    adr_folder: automation
+    checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
+    layout:
+      - { folder: accosted, role: run-list, live: false, shipped: false }
   markdown:
     extensions: [.md]
     formatter: prettier

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c0b94f225f77
+    with_body_sha: "952fa887ccb6"
   edges:
     docs: "[Invoke-PythonWorkspaceTool.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Invoke-PythonWorkspaceTool.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Invoke-PythonWorkspaceTool.ps1
@@ -60,7 +60,7 @@ Describe 'Invoke-PythonWorkspaceTool' -Tag 'L0', 'logic' {
     It 'throws with the remedy when the sync fails, running no tool' {
         $script:syncExit = 2
         { InModuleScope Catzc.Base.QualityGates { Invoke-PythonWorkspaceTool -Tool 'ruff check' -File 'C:\widget\a.py' } } |
-            Should -Throw '*uv sync failed*Run Install-Python*No interpreter found*'
+            Should -Throw '*uv sync failed*Run Install-Python*uv.lock is a gitignored product*delete it and run again*No interpreter found*'
         $script:seen.Count | Should -Be 1
     }
 

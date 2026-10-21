@@ -26,10 +26,9 @@ plan:
 # BCL is its own language, not a part of pwsh
 
 The `types/*.cs` sources are written in **BCL**: C# that references the .NET Base Class Library and nothing else, a subset of .NET. pwsh is
-the one host that compiles and loads them today, so it binds them (`ADR-PWSH-TYPES`), but it does not own them. The ADRs already sit at
-`docs/adr/automation/BCL/`, outside pwsh; the reference and how-to pages still sit under `pwsh/`, the language row is named `csharp`, and
-the reference set the types compile against is "the BCL plus `System.Management.Automation`", which is not a subset of .NET's BCL. This plan
-moves BCL out of pwsh in the docs, the language registry and the reference set.
+the one host that compiles and loads them today, so it binds them (`ADR-PWSH-TYPES`), but it does not own them. Its ADRs, reference and
+how-to pages sit in `BCL/` folders outside pwsh, its language row is `bcl`, and `Test-BclReferences` holds the reference set; what is left
+is naming BCL where a session reads first.
 
 ## Why its value is medium
 
@@ -50,9 +49,6 @@ host (or a reader of a bundle) needs before the types can be reasoned about apar
   `ContractValue.Unwrap`'s signature changes; the parser and runspace types keep their rows.
 - **BCL is its own ADR domain**, `bcl` (folder `automation/BCL`, depends on `automation`): `ADR-AUTO-TYPES` is re-cited to `ADR-BCL-TYPES`
   with `Update-AdrCitation`, dry run first, and `ADR-PWSH-TYPES` depends on `bcl`.
-- **The language row is renamed `csharp` to `bcl` after plan-minimal-heads lands**, since that plan drops `language` from code heads and the
-  rename shrinks from about 290 files to the configs and tests; the `csharp-namespace` imprint step becomes `bcl-namespace` in the same
-  change.
 - **BCL is two things** (the user, 2026-10-21): a .NET language in catzc's domain, where a language carries more than its file row (its
   build pair, its projects and solution, its reference set); and its use inside pwsh, which compiles the types in the .NET runtime already
   running the session, intrinsic to pwsh. The build pair of `ADR-AUTO-TYPES-DEBUGANYCPU` is the language's, so it lives in `bcl.yml` on
@@ -65,9 +61,6 @@ host (or a reader of a bundle) needs before the types can be reasoned about apar
 Everything else landed on 2026-10-21 and waits for the user's commit: the doc moves, the host bindings, the `bcl` domain with the re-cite to
 `ADR-BCL-TYPES`, the definition page and the approved diagram.
 
-- [ ] After plan-minimal-heads lands: `pwsh/Catzc.Base.Languages/configs/languages.yml`: rename the `csharp` row to `bcl` and the
-      `csharp-namespace` step to `bcl-namespace`, then every caller in the same change, one file at a time (check: `Catzc.Base.Languages`
-      and `Catzc.Base.QualityGates` Pester, then `Test-Formatting -Language bcl`).
 - [ ] `.claude/CLAUDE.md`, section Project structure: one line saying that the `types/*.cs` files are written in BCL, a subset of .NET, and
       pwsh hosts them, linking the BCL reference index, after the doc moves land (check: `Test-AgentDefinitions`,
       `Test-Links -Path .claude/CLAUDE.md`).

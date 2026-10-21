@@ -29,6 +29,24 @@ function Build-Glossary {
     $citations = Get-AdrCitationMap
     $relationLabels = [ordered]@{ kind_of = 'Kind of'; part_of = 'Part of'; selected_by = 'Selected by' }
 
+    # A contrast is declared once, on either term, and shows on both entries; a term's own declaration wins over the mirrored one.
+    $contrasts = [System.Collections.Generic.Dictionary[string, System.Collections.Generic.Dictionary[string, string]]]::new([System.StringComparer]::Ordinal)
+    foreach ($entry in @($entries)) {
+        $contrasts[$entry.Concept.term] = [System.Collections.Generic.Dictionary[string, string]]::new([System.StringComparer]::Ordinal)
+    }
+    foreach ($entry in @($entries)) {
+        foreach ($other in $entry.Concept.contrasts.Keys) {
+            if ($contrasts.ContainsKey($other)) {
+                $contrasts[$other][$entry.Concept.term] = $entry.Concept.contrasts[$other]
+            }
+        }
+    }
+    foreach ($entry in @($entries)) {
+        foreach ($other in $entry.Concept.contrasts.Keys) {
+            $contrasts[$entry.Concept.term][$other] = $entry.Concept.contrasts[$other]
+        }
+    }
+
     $lines = [System.Collections.Generic.List[string]]::new()
     $lines.Add('# docs/adr/glossary.md')
     $lines.Add('')
@@ -102,12 +120,13 @@ function Build-Glossary {
                 }
             }
 
-            if ($concept.contrasts.Count -gt 0) {
+            $contrasted = $contrasts[$concept.term]
+            if ($contrasted.Count -gt 0) {
                 $lines.Add('- **Contrasts:**')
-                $others = [string[]] @($concept.contrasts.Keys)
+                $others = [string[]] @($contrasted.Keys)
                 [System.Array]::Sort($others, [System.StringComparer]::Ordinal)
                 foreach ($other in $others) {
-                    $text = "[$other](#$($other -replace ' ', '-')): $($concept.contrasts[$other])"
+                    $text = "[$other](#$($other -replace ' ', '-')): $($contrasted[$other])"
                     foreach ($line in (Format-MarkdownParagraph -Text $text -FirstPrefix '  - ' -ContinuationPrefix '    ')) {
                         $lines.Add($line)
                     }

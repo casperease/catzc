@@ -20,7 +20,8 @@ is the truth; the working tree is the proposal for the next commit.
 
 ### Rule ADR-REPO-AI-SMALLTESTSDIRECTLY
 
-**A small test may run directly.** One Pester file or one gate on one file, in the background; Test-Automation is the user's.
+**A small test may run directly.** One Pester file or one gate on one file, in the background; Test-Automation is the user's. A new tool
+counts as working only after one live run of it; green tests alone never vouch for it.
 
 ### Rule ADR-REPO-AI-NEVERMUTATEGIT
 

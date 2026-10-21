@@ -41,8 +41,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
                 contrasts   = @{ 'widget suite' = 'A widget suite is files at rest; a gadget run executes.' }
             })
             (& $entry 'widget suite' 'repository' @{
-                contrasts = @{ 'gadget run' = 'A gadget run executes; a widget suite is files at rest.' }
-                avoid     = @(@{ phrase = 'widget bundle'; say = 'widget suite' })
+                avoid = @(@{ phrase = 'widget bundle'; say = 'widget suite' })
             })
             (& $entry 'gadget shelf' 'repository' @{ defined_by = $script:longRule })
         )
@@ -69,8 +68,14 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         $text | Should -Match ([regex]::Escape('- **Defined by:** [ADR-TST-WIDGET-REST](repository/widget-thing.md#rule-adr-tst-widget-rest)'))
         $text | Should -Match ([regex]::Escape('- **Realized by:** tag `gadget`'))
         $text | Should -Match ([regex]::Escape('- **Part of:** [widget suite](#widget-suite)'))
-        $text | Should -Match ([regex]::Escape('  - [gadget run](#gadget-run): A gadget run executes; a widget suite is files at rest.'))
         $text | Should -Match ([regex]::Escape('| `widget bundle` | widget suite |'))
+    }
+
+    It 'renders a contrast declared on one term on both terms'' entries' -Tag 'ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED' {
+        Build-Glossary -Path $script:page -Silent | Out-Null
+        $text = [System.IO.File]::ReadAllText($script:page)
+        $text | Should -Match ([regex]::Escape('  - [widget suite](#widget-suite): A widget suite is files at rest; a gadget run executes.'))
+        $text | Should -Match ([regex]::Escape('  - [gadget run](#gadget-run): A widget suite is files at rest; a gadget run executes.'))
     }
 
     It 'wraps a rule link longer than a line onto its own continuation line, as Prettier does' -Tag 'ADR-REPO-VOCAB-DEFINEDTERM' {

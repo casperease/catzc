@@ -27,8 +27,8 @@ vocabulary (DORA) enters only through its in-repository reference and the ADR th
 
 ### Rule ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED
 
-Similar terms are contrasted. A concept that names a similar term explains, in one sentence, how it differs; the contrast is reciprocal, so
-both terms carry an explanation of the difference.
+Similar terms are contrasted. A concept that names a similar term explains, in one sentence that names both, how they differ; the contrast
+is declared once, on either term, and the glossary shows it on both terms' entries.
 
 - [Contrasts](#contrasts)
 
@@ -114,8 +114,8 @@ repo-relative, and outside vocabulary arrives through the repository's own refer
 `Contrasts make neighbouring terms distinct`
 
 Most confusion is between near neighbours, not distant words: a test suite and a test run, a release candidate and a deployable unit. A
-definition read alone rarely settles which is meant. A contrast — one sentence on how this concept differs from a named neighbour — does,
-and requiring it on both sides keeps the pair from drifting apart in one direction only.
+definition read alone rarely settles which is meant. A contrast — one sentence on how this concept differs from a named neighbour — does. It
+is declared once and shown on both entries (ADR-PRIN-ONELIVE), so the two sides cannot drift apart: there is only one sentence to keep.
 
 ### Avoided phrasings
 
@@ -181,7 +181,7 @@ with their replacements. A source's options default sensibly, and a source overr
 - **`Get-GlossarySourceViolations`** (`Catzc.Base.Docs`) checks the facts that span more than one source, over every source
   `Get-GlossarySources` discovers (`Get-Config -Config glossary -ListOwners`): a term or machine key declared by two sources and a domain
   that `adrs.yml` does not declare (ADR-REPO-VOCAB-DEFINEDTERM), a contrast or relation target that no source defines and a source that git
-  does not track (ADR-REPO-VOCAB-SOURCESINREPOSITORY), a contrast that is not reciprocal (ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED), and an
+  does not track (ADR-REPO-VOCAB-SOURCESINREPOSITORY), a contrast declared on both terms (ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED), and an
   avoided phrase that is another source's term (ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED). It names the source path and the term in one
   message per violation.
 
@@ -228,8 +228,8 @@ with their replacements. A source's options default sensibly, and a source overr
 - A blurring phrasing carries its replacement, so fixing one is a mechanical edit rather than a judgement call.
 - Vocabulary control is opt-in per module: a module with no glossary source pays nothing, and a source that needs less — a scope that is
   narrower, or fewer checks — says so in its options.
-- The cost is a second artifact beside the ADR for every defined term — a glossary entry — and the discipline of recording contrasts in both
-  directions.
+- The cost is a second artifact beside the ADR for every defined term — a glossary entry — and one sentence per contrasted pair, written to
+  read on either term's entry.
 
 ## Related
 

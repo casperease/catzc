@@ -20,6 +20,7 @@ from the modules' glossary sources — and answers "ask cats", the offline brows
 | responsibility:6 | ask        | [Ask cats](#responsibility6--ask-cats)                             |
 | responsibility:7 | agents     | [Sub-agent registry](#responsibility7--sub-agent-registry)         |
 | responsibility:8 | markdown   | [Generated markdown](#responsibility8--generated-markdown)         |
+| responsibility:9 | logs       | [Rolling logs](#responsibility9--rolling-logs)                     |
 
 ### responsibility:1 — README materialisation
 
@@ -91,6 +92,13 @@ page a generator writes is the page the formatter leaves alone (see
 [uniform-formatting](../../adr/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)). Every generator that
 writes markdown wraps through it, in this module or another.
 
+### responsibility:9 — Rolling logs
+
+The session logs a robot reads and appends to: the learnings log in `.claude/learnings/` and the hindsight log in `.claude/hindsight/`. Each
+log is one config (`learnings.yml`, `hindsight.yml`) naming its folder, file prefix and title, with every omitted key taking the default
+declared once on its config type, and one writer, `Add-SessionLearning`, appends a line to the log it names with `-Log`, wrapped as the
+markdown formatter wraps it, so formatting never rewrites a log.
+
 ## What the module does
 
 The module's core is the generated README: every conventional folder's README is a copy of one authored source, readable where it is opened.
@@ -136,3 +144,6 @@ The module's public surface, sorted into the responsibilities above.
 | responsibility:7 — Sub-agent registry     | `Test-AgentDefinitions`      |
 | config                                    | `agents.yml`                 |
 | responsibility:8 — Generated markdown     | `Format-MarkdownParagraph`   |
+| responsibility:9 — Rolling logs           | `Add-SessionLearning`        |
+| config                                    | `learnings.yml`              |
+|                                           | `hindsight.yml`              |

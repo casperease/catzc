@@ -1,7 +1,7 @@
 ---
 name: session-finalize
 description:
-  Bring this main session to its finalization phase, a checkpoint the user runs any time before clearing it; the user invokes it, no robot;
+  Checkpoint this main session, any time before the user clears it, so what it owes lives in the tree; the user invokes it, no robot;
   input is the session's own context.
 user-invocable: true
 allowed-tools: Read, Grep, Glob, Edit, Write, Bash

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6bb81edb4798"
+    with_body_sha: "3804e5ddad4c"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Terminology.Tests.ps1
     docs: "[Test-Terminology.ps1.md](docs/references/pwsh/catzc-base-qualitygates/Test-Terminology.ps1.md)"
@@ -54,6 +54,32 @@ function Test-Terminology {
                     "orphan (ADR-AUTO-SPELL-LIVEVOCABULARYONLY): '$($term.term)' is not referenced anywhere in the tree — remove it " +
                     'from terminology.yml.'
                 )
+            }
+        }
+
+        # A reserved term names one thing, so it may stand only in the files its category's scope lists.
+        $reserved = @($config.terms | Where-Object { $_.category -ceq 'reserved' })
+        if ($reserved.Count -gt 0) {
+            $allowed = @(if ($config.categoryScopes.ContainsKey('reserved')) {
+                    $config.categoryScopes['reserved'] | ForEach-Object { [Catzc.Base.Globs.GlobPattern]::new($_) }
+                })
+            foreach ($relative in @(Get-GitTrackedPath '.')) {
+                if (@($allowed | Where-Object { $_.Matches($relative) }).Count -gt 0) {
+                    continue
+                }
+                $full = Join-Path $root $relative
+                if (-not [System.IO.File]::Exists($full)) {
+                    continue
+                }
+                $text = [System.IO.File]::ReadAllText($full)
+                foreach ($term in $reserved) {
+                    if ($text -match "(?i)\b$([regex]::Escape($term.term))\b") {
+                        $issues.Add(
+                            "reserved: '$($term.term)' appears in $relative, outside the scope of the 'reserved' category — use the word only " +
+                            'where it names its one thing, or add the file to the scope in terminology.yml.'
+                        )
+                    }
+                }
             }
         }
     }

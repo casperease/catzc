@@ -2,17 +2,16 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "06bff3d4c3dd"
+    with_body_sha: ea7dce981d66
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/types/EditRemindersConfig.Tests.ps1
+    docs: "[EditRemindersConfig.cs.md](docs/references/pwsh/catzc-base-qualitygates/types/EditRemindersConfig.cs.md)"
     cites:
       - ADR-PRIN-CONFIG
       - ADR-PRIN-POKAYOKE
 ---
 */
 
-// The reminders an agent session is shown after it edits a file: one map from repository path patterns to the checks that file's edit owes,
-// read by the Show-EditReminder hook (ADR-PRIN-POKAYOKE) and declared as config, one mechanism with an entry per kind of file (ADR-PRIN-CONFIG).
 using System;
 using System.Collections;
 using System.Collections.Generic;

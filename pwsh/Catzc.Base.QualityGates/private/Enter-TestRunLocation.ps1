@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d241ff83a56a
+    with_body_sha: "17ac1db915f4"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Enter-TestRunLocation.Tests.ps1
     docs: "[Enter-TestRunLocation.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Enter-TestRunLocation.ps1.md)"
@@ -97,13 +97,17 @@ function Enter-TestRunLocation {
 
     Write-Message 'Priming the snapshot: one import materialises its generated files...'
     $start = ([Catzc.Base.Engines.ExecutionEngines]::Pwsh.NonInteractiveArguments) -join ' '
-    try {
-        Invoke-Executable "pwsh $start -File `"$(Join-Path $location.Snapshot.Path 'importer.ps1')`"" `
-            -WorkingDirectory $location.Snapshot.Path -PassThru -Silent | Out-Null
-    }
-    catch {
-        Remove-RepositorySnapshot $location.Snapshot.Path
-        throw "The working folder was held, so this run went to a snapshot, but priming the snapshot failed: $($_.Exception.Message)"
+    $priming = Invoke-Executable "pwsh $start -File `"$(Join-Path $location.Snapshot.Path 'importer.ps1')`"" `
+        -WorkingDirectory $location.Snapshot.Path -PassThru -Silent -NoAssert
+    if ($priming.ExitCode -ne 0) {
+        # The failed import's output is the cause: it is kept in a log under out/, with the snapshot left for a look, and its tail is thrown.
+        $logFolder = Join-Path (Get-OutputRoot) 'test-snapshot-priming'
+        [void] [System.IO.Directory]::CreateDirectory($logFolder)
+        $log = Join-Path $logFolder "$([System.IO.Path]::GetFileName($location.Snapshot.Path)).log"
+        [System.IO.File]::WriteAllText($log, "$($priming.Full)")
+        $tail = @("$($priming.Full)".TrimEnd() -split '\r?\n' | Select-Object -Last 10) -join "`n"
+        throw ("The working folder was held, so this run went to a snapshot, but priming the snapshot failed (exit $($priming.ExitCode)); " +
+            "the import's output is in $log and the snapshot is kept at $($location.Snapshot.Path). Last lines:`n$tail")
     }
     $location.Mode = 'snapshot'
     $location.Root = $location.Snapshot.Path

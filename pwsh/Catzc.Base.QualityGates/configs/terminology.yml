@@ -1,10 +1,11 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "0b88ec2b9f60"
+#     with_body_sha: "49268b2d8500"
 #   edges:
 #     docs: "[terminology.yml.md](docs/references/pwsh/catzc-base-qualitygates/configs/terminology.yml.md)"
 #     cites:
+#       - ADR-AUTO-ACCOSTED
 #       - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
 #       - ADR-AUTO-IDIOM-CLOSEDCASES
 #       - ADR-AUTO-IDIOM-TESTFOLDERBYIDIOM
@@ -51,6 +52,30 @@ categories:
       ADRs and reference docs (ADR-REPO-EXAMPLE, ADR-REPO-LANG)."
     scope:
       - "docs/**"
+  reserved:
+    description:
+      "A reserved word that names one thing and nothing else, so it may appear only in the places that name that thing; Test-Terminology
+      fails it anywhere outside its scope (ADR-AUTO-ACCOSTED-RESERVEDNAME)."
+    scope:
+      - "docs/adr/automation/accosted-language.md"
+      - "docs/adr/automation/dora-explains.md"
+      - "docs/adr/index.md"
+      - "docs/adr/glossary.md"
+      - "docs/references/**/*accosted*"
+      - "docs/references/pwsh/catzc-base-contracts.md"
+      - "pwsh/Catzc.Base.Docs/configs/adrs.yml"
+      - "pwsh/Catzc.Base.Languages/configs/languages.yml"
+      - "pwsh/Catzc.Base.Languages/configs/glossary.yml"
+      - "pwsh/Catzc.Base.QualityGates/configs/terminology.yml"
+      - "pwsh/Catzc.Base.Timeouts/configs/timeouts.yml"
+      - "pwsh/Catzc.Base.Contracts/configs/accosted.yml"
+      - "pwsh/Catzc.Base.Contracts/configs/configs.yml"
+      - "pwsh/Catzc.Base.Contracts/**/*Accosted*"
+      - "pwsh/Catzc.Base.Contracts/accosted/**"
+      - "contracts/catzc/0.0.0/catzc.base.contracts/*accosted*"
+      - ".claude/plans/**"
+      - ".claude/learnings/**"
+      - ".claude/hindsight/**"
   adr:
     description: "An ADR rule-citation code — the short code naming a docs/adr rule."
   ado:
@@ -1092,6 +1117,9 @@ terms:
       meaning: "PowerShell $WarningPreference variable"
     - term: whatifpreference
       meaning: "PowerShell $WhatIfPreference variable"
+  reserved:
+    - term: accosted
+      meaning: "the accosted language, a flat list of harmless contracted calls (ADR-AUTO-ACCOSTED); reserved for it and nothing else"
   coined:
     - term: catzcbaserepository
       meaning:

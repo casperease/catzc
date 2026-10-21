@@ -11,7 +11,8 @@ Turns the optional files or folders of a scope into the repository-relative path
 
 ### description
 
-No path means the whole repository; a path outside the repository root is refused.
+No path means the whole repository; a path outside the repository root is refused. A path the working tree has lost stays in scope while
+the index still lists it, a deletion not yet staged, so the reader skips it; a path neither on disk nor tracked is refused.
 
 ### parameter `RepositoryRoot`
 

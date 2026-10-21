@@ -60,7 +60,7 @@ Describe 'FileCarrierResolver' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE'
         $shipped = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers), (Get-Config -Config languages))
         $modulesFolder = Get-CatzcModulesFolder
         $shipped.For("$modulesFolder/Catzc.Base.QualityGates/Format-Code.ps1").id | Should -BeExactly 'powershell'
-        $shipped.For("$modulesFolder/Catzc.Base.Languages/types/FileLanguage.cs").id | Should -BeExactly 'csharp'
+        $shipped.For("$modulesFolder/Catzc.Base.Languages/types/FileLanguage.cs").id | Should -BeExactly 'bcl'
         $shipped.For('docs/adr/index.md').id | Should -BeExactly 'markdown'
         $shipped.For('docs/explanation/design/.assets/gadget-spins/diagram.drawio.png').id | Should -BeExactly 'diagram-folder'
         $shipped.For('docs/references/pwsh/.assets/catzc-widget/diagram.drawio.png').id | Should -BeExactly 'diagram-folder'

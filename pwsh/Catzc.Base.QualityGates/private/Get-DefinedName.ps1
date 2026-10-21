@@ -2,9 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2cb34b4dc521"
+    with_body_sha: cd6e8e1c7488
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-DefinedName.Tests.ps1
+    docs: "[Get-DefinedName.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Get-DefinedName.ps1.md)"
 ---
 #>
 
@@ -19,8 +20,6 @@ function Get-DefinedName {
         [string] $RepositoryRoot = (Get-RepositoryRoot)
     )
 
-    # How each language defines a function or a type is mechanism, one reader per language: PowerShell by its parser, Python and Go by
-    # their definition keywords at the start of a line.
     $patterns = @{
         python = @{ function = '(?m)^[ \t]*(?:async[ \t]+)?def[ \t]+([A-Za-z_][A-Za-z0-9_]*)'; type = '(?m)^[ \t]*class[ \t]+([A-Za-z_][A-Za-z0-9_]*)' }
         go     = @{ function = '(?m)^func[ \t]+(?:\([^)]*\)[ \t]*)?([A-Za-z_][A-Za-z0-9_]*)'; type = '(?m)^type[ \t]+([A-Za-z_][A-Za-z0-9_]*)' }

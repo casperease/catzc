@@ -32,7 +32,7 @@ tracks:
     {
       places: [pwsh],
       type: modules,
-      languages: [powershell, csharp, yaml, json, jsonl, bash, xml, css, javascript, solution, stamp, asset],
+      languages: [powershell, bcl, yaml, json, jsonl, bash, xml, css, javascript, solution, stamp, asset],
       execution_engines: [pwsh],
     }
   pwsh-vendor: { places: [pwsh/.vendor], type: vendored-code }
@@ -54,6 +54,6 @@ tracks:
   bash-vendor: { places: [bash/.vendor], type: vendored-code }
   .github: { places: [.github], type: vendor-settings, vendor: github, languages: [yaml, markdown] }
   .cspell: { places: [.cspell], type: vendor-settings, vendor: cspell }
-  .claude: { places: [.claude], type: vendor-settings, vendor: claude, languages: [markdown, python, csharp, json, xml, html, powershell] }
+  .claude: { places: [.claude], type: vendor-settings, vendor: claude, languages: [markdown, python, bcl, json, xml, html, powershell] }
   .vscode: { places: [.vscode], type: vendor-settings, vendor: vscode, languages: [json] }
   .unordered: { places: [.unordered], type: unordered, languages: [markdown] }

@@ -110,3 +110,12 @@ Above `if ($Committed) {`, written with `#`.
 The committed form checks the commit out in the snapshot itself: nothing of the source's working tree reaches it, so it
 cannot differ from its source and needs no verification.
 ```
+
+## comment:5
+
+Above `$diskFolders = @{}`, written with `#`.
+
+```text
+A folder renamed only in case keeps its old case in the index (core.ignorecase never records it), so each target folder takes
+the name its source folder has on disk, resolved once per folder.
+```

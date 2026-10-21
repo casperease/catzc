@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b97fd87f0639
+    with_body_sha: "1d2466ded1de"
   edges:
     code: pwsh/Catzc.Base.Maps/Get-LayerStackMinimapData.ps1
 ---
@@ -29,5 +29,17 @@ Describe 'Get-LayerStackMinimapData' -Tag 'L0', 'logic' {
         @($data.Lit | ForEach-Object { $_.At[0] }) | Should -Be @('engine', 'importer')
         $data.Lit[1].Reasons[0].Note | Should -Be 'ADR-WIDGET-GADGET-LONG'
         Test-Json -Json $data.ToJson() -Schema $script:schema | Should -BeTrue
+    }
+
+    It 'hands the world map it is given to the subject' {
+        $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(), [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
+        $null = Get-LayerStackMinimapData -Adr 'ADR-WIDGET' -WorldMap $map
+        Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($WorldMap, $map) }
+    }
+
+    It 'hands the facts it is given to the subject' {
+        $given = @{ 'widgets/Catzc.Widget/Get-Widget.ps1' = @{ track = 'widgets' } }
+        $null = Get-LayerStackMinimapData -Adr 'ADR-WIDGET' -Facts $given
+        Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($Facts, $given) }
     }
 }

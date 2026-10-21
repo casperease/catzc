@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f1b6039f478e
+    with_body_sha: a80c0d64fa67
   edges:
     code: pwsh/Catzc.Base.Git/types/GitFlowConfig.cs
     cites:
@@ -48,6 +48,23 @@ Describe 'GitFlowConfig' -Tag 'L0', 'logic', 'ADR-PRIN-CONFIG-DEFAULTDECLAREDONC
         $config.UserCommandIn('timeout 330 pwsh -File out/run.ps1 -Path pwsh/Catzc.Base.Git/tests/Save-Topic.Tests.ps1') | Should -BeNullOrEmpty
         $config.UserCommandIn('cat pwsh/Catzc.Base.Git/Push-Topic.ps1') | Should -BeNullOrEmpty
         $config.UserCommandIn('') | Should -BeNullOrEmpty
+    }
+
+    It 'finds a user command in command position: bare, after a separator, through cats, or in a pwsh -Command script' -Tag 'ADR-FLOW-GIT-USERRUNSGIT' {
+        $config = [Catzc.Base.Git.GitFlowConfig]::new(@{})
+        $config.UserCommandIn('Push-Topic -Message x') | Should -BeExactly 'Push-Topic'
+        $config.UserCommandIn('cd out && Save-Topic') | Should -BeExactly 'Save-Topic'
+        $config.UserCommandIn('echo x | Sync-Topic') | Should -BeExactly 'Sync-Topic'
+        $config.UserCommandIn('cats push-topic --message x') | Should -BeExactly 'Push-Topic'
+        $config.UserCommandIn('timeout 300 pwsh -c "& Push-Topic"') | Should -BeExactly 'Push-Topic'
+    }
+
+    It 'finds none in a quoted mention, a printf argument or a heredoc body' -Tag 'ADR-FLOW-GIT-USERRUNSGIT' {
+        $config = [Catzc.Base.Git.GitFlowConfig]::new(@{})
+        $config.UserCommandIn('echo "the user runs Push-Topic"') | Should -BeNullOrEmpty
+        $config.UserCommandIn("printf '%s\n' Push-Topic >> out/log.md") | Should -BeNullOrEmpty
+        $config.UserCommandIn("cat > out/note.md <<'EOF'`nPush-Topic -Message x`nEOF`necho done") | Should -BeNullOrEmpty
+        $config.UserCommandIn('pwsh -c "Write-Output ''run Save-Topic next''"') | Should -BeNullOrEmpty
     }
 
     It 'finds the shipped config under the modules folder' -Tag 'L1' {

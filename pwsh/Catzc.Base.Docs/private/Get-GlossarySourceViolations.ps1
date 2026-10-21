@@ -52,6 +52,7 @@ function Get-GlossarySourceViolations {
     }
 
     # Second pass: references between concepts, now that every term is known.
+    $contrasted = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($item in $Source) {
         foreach ($concept in $item.Config.concepts) {
             $term = $concept.term
@@ -64,8 +65,12 @@ function Get-GlossarySourceViolations {
                 if (-not $termConcept.ContainsKey($other)) {
                     $violations.Add("$($item.Path): concept '$term': contrast target '$other' is not a defined term (ADR-REPO-VOCAB-SOURCESINREPOSITORY)")
                 }
-                elseif (-not $termConcept[$other].contrasts.ContainsKey($term)) {
-                    $violations.Add("$($item.Path): concept '$term': contrasts '$other', but '$other' ($($termSource[$other])) does not contrast '$term' back (ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED)")
+                # A contrast is declared once and the build shows it on both entries; the second declaration of a pair is the finding.
+                elseif ($termConcept[$other].contrasts.ContainsKey($term) -and -not $contrasted.Add("$other`n$term")) {
+                    $violations.Add("$($item.Path): concept '$term': contrasts '$other', which '$other' ($($termSource[$other])) already declares; declare a contrast once (ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED)")
+                }
+                else {
+                    [void] $contrasted.Add("$term`n$other")
                 }
             }
             foreach ($kind in $concept.relations.Keys) {

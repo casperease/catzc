@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: dcb7cb6d8533
+    with_body_sha: "31e9a78aa5f0"
   edges:
     code: pwsh/Catzc.Base.Languages/ConvertTo-NormalName.ps1
     cites:
@@ -49,8 +49,8 @@ Describe 'ConvertTo-NormalName' -Tag 'L0', 'logic' {
 
     It 'throws on a name in none of the language''s cases, and on a language with no case for the kind' {
         { ConvertTo-NormalName 'gadget_part' -Language widget } | Should -Throw "*'gadget_part' is not a widget function name*verb-noun*"
-        { ConvertTo-NormalName 'Get-Gadget' -Language plain } | Should -Throw "*naming names no function case*"
-        { ConvertTo-NormalName 'Get-Gadget' -Language gadget -NameKind folder } | Should -Throw "*naming names no folder case*"
+        { ConvertTo-NormalName 'Get-Gadget' -Language plain } | Should -Throw '*naming names no function case*'
+        { ConvertTo-NormalName 'Get-Gadget' -Language gadget -NameKind folder } | Should -Throw '*naming names no folder case*'
     }
 }
 

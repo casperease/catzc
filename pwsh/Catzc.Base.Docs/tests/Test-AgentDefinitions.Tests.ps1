@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "690d09e9553b"
+    with_body_sha: "5e248b2afe6c"
   edges:
     docs: "[Test-AgentDefinitions.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Test-AgentDefinitions.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
@@ -102,7 +102,7 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: front matter must set user-invocable: false'
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: front matter has no allowed-tools'
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: metadata.catzc.config.model_floor must be haiku, sonnet or opus'
-        $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: has 11 lines outside its catzc head, the roof is 10 (roofs.capability_lines)'
+        $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: has 11 lines outside its catzc head (4 front-matter keys and 7 body lines), the roof is 10 (roofs.capability_lines)'
     }
 
     It 'reports a skills name with no capability file and a capability no agent preloads' -Tag 'ADR-REPO-AGENTS-NOORPHANNOGHOST' {

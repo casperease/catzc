@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6e47eaa16238"
+    with_body_sha: "409138e82efb"
 ---
 #>
 
@@ -41,6 +41,13 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
         $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer)
         $LASTEXITCODE | Should -Be 0
         $lines[-1] | Should -BeExactly '[Invoke-CatzcCommand] 1 of 1 passed'
+    }
+
+    It 'runs every command from the importer''s folder, and gives the caller its location back' {
+        $caller = (Get-Location).Path
+        $lines = @(& $script:entry "if ((Get-Location).Path -ne '$TestDrive') { throw `"ran in `$((Get-Location).Path)`" }" -Importer $script:importer)
+        $lines[0] | Should -BeLike '`[Invoke-CatzcCommand`] passed: *'
+        (Get-Location).Path | Should -Be $caller
     }
 
     It 'throws when no command is named' {

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a6f144b81d63
+    with_body_sha: "90126af384df"
   edges:
     docs: "[Get-FileLanguage.Tests.ps1.md](docs/references/pwsh/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Languages/Get-FileLanguage.ps1
@@ -46,6 +46,20 @@ Describe 'Get-FileLanguage' -Tag 'L0', 'logic' {
         (Get-FileLanguage -Path 'widget/Get-Widget.wdg').name | Should -Be 'widget'
         (Get-FileLanguage -Path 'widget\deep\nested\Gadget.Sprocket.WIDGET').name | Should -Be 'widget'
         (Get-FileLanguage -Path 'gadget.gdg').name | Should -Be 'gadget'
+    }
+
+    It 'resolves the longest declared extension, so a compound extension wins over its last part' {
+        $compound = [Catzc.Base.Languages.LanguagesConfig]::new([ordered]@{
+                languages = [ordered]@{
+                    widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier' }
+                    gadget = [ordered]@{ extensions = @('.gadget.wdg'); formatter = 'prettier' }
+                }
+            })
+        Mock Get-Config -ModuleName Catzc.Base.Languages -ParameterFilter { $Config -eq 'languages' } { $compound }
+        (Get-FileLanguage -Path 'widgets/spin.gadget.wdg').name | Should -Be 'gadget'
+        (Get-FileLanguage -Path 'widgets/Spin.GADGET.WDG').name | Should -Be 'gadget'
+        (Get-FileLanguage -Path 'widgets/spin.wdg').name | Should -Be 'widget'
+        (Get-FileLanguage -Path 'widgets/spin.sprocket.wdg').name | Should -Be 'widget'
     }
 
     It 'returns nothing, never throwing, for an unknown extension, a dotfile, no extension, and an empty path' {

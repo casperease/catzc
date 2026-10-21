@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7c85a7b81811"
+    with_body_sha: "7df7b2e2840f"
   edges:
     code: pwsh/Catzc.Base.Git/Push-Topic.ps1
     cites:
@@ -27,17 +27,39 @@ Describe 'Push-Topic' -Tag 'L0', 'logic', 'ADR-FLOW-GIT-SQUASHREBASESQUASH' {
             Mock Invoke-Executable -ModuleName Catzc.Base.Git {
                 $script:calls.Add($Command)
                 $result = switch -Wildcard ($Command) {
-                    'git rev-parse --verify --quiet origin/main' { @('', 0) }
-                    'git rev-parse origin/main' { @($script:head, 0) }
-                    'git rev-parse HEAD' { @($script:commit, 0) }
-                    'git merge-base*' { @($script:base, 0) }
-                    "git rev-list --count $script:base..HEAD" { @($script:git.Before, 0) }
-                    "git rev-list --count $script:head..HEAD" { @($script:git.Ahead, 0) }
-                    "git rev-list --count HEAD..$script:head" { @('0', 0) }
-                    'git rebase*' { @('', $script:git.RebaseExit) }
-                    'git diff*' { @('widget.ps1', 0) }
-                    'git push*' { @('', $script:git.PushExit) }
-                    default { @('', 0) }
+                    'git rev-parse --verify --quiet origin/main' {
+                        @('', 0)
+                    }
+                    'git rev-parse origin/main' {
+                        @($script:head, 0)
+                    }
+                    'git rev-parse HEAD' {
+                        @($script:commit, 0)
+                    }
+                    'git merge-base*' {
+                        @($script:base, 0)
+                    }
+                    "git rev-list --count $script:base..HEAD" {
+                        @($script:git.Before, 0)
+                    }
+                    "git rev-list --count $script:head..HEAD" {
+                        @($script:git.Ahead, 0)
+                    }
+                    "git rev-list --count HEAD..$script:head" {
+                        @('0', 0)
+                    }
+                    'git rebase*' {
+                        @('', $script:git.RebaseExit)
+                    }
+                    'git diff*' {
+                        @('widget.ps1', 0)
+                    }
+                    'git push*' {
+                        @('', $script:git.PushExit)
+                    }
+                    default {
+                        @('', 0)
+                    }
                 }
                 [pscustomobject]@{ Output = $result[0]; ExitCode = $result[1] }
             }

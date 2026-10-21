@@ -88,6 +88,12 @@ These keys are never written into a head; each still has its meaning and its one
 | `defines`      | the rules an ADR defines in its own rule headings                                        | the ADR's `### Rule` headings, read by `Get-AdrDefinedRule`                           |
 | `links`        | every link a Markdown file points out of itself                                          | the Markdown body, read by `Test-Links`                                               |
 
+The module facts, `module`, `moduletype`, `catzc_bundle`, `tracktype` and `vendor`, are each one question to the registry that places the
+module ([module-types](../adr/design/module-types.md)) or declares its track, so a head that showed them would be a second list of what the
+registries say and would change on every move of a module. A Markdown file's `defines` and `links` are its text: the rules an ADR declares
+are its rule headings and the rules it cites are read from its text, never counting its own rules or a placeholder named in prose, and the
+links that leave a file are its body. A generated page carries only its relative edges, never a list of either.
+
 ## The head policy
 
 Whether a file carries a head is the `head_policy` of `file-meta.yml`: a class pattern names `required`, `optional` or `forbidden`, the

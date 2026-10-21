@@ -20,6 +20,15 @@ to. Each lit cell carries the file and the requested code as its reason, its mod
 
 The ADR codes of the diagram's subject.
 
+### parameter `WorldMap`
+
+The world map the subject is lit on, built once by a caller that draws many minimaps in one run. Default: the map Get-WorldMap builds.
+
+### parameter `Facts`
+
+The file facts of the subject's paths, read once by Get-MinimapFact for a caller that draws many minimaps in one run. Default: the facts
+read for this subject alone.
+
 ### parameter `AsJson`
 
 Return the data as JSON in the minimap contract's shape instead of the object.

@@ -55,6 +55,24 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         @($runs.Status | Sort-Object -Unique) | Should -Be @('clean')
     }
 
+    It 'writes the minimap data of every declared folder in one call, one progress line per folder' {
+        $declarations = @('docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' | ForEach-Object { Join-Path $script:widgetRoot "$_/diagram.drawio.yml" })
+        Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { foreach ($item in $Folder) { "out/minimaps/$item" } }
+        try {
+            foreach ($declaration in $declarations) {
+                [System.IO.Directory]::CreateDirectory((Split-Path $declaration -Parent)) | Out-Null
+                [System.IO.File]::WriteAllText($declaration, "about: {}`n")
+            }
+            $null = & $script:build @{ Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' }
+        }
+        finally {
+            $declarations | ForEach-Object { [System.IO.File]::Delete($_) }
+        }
+        Should -Invoke Write-DiagramMinimapData -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Folder.Count -eq 2 }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Message -like 'minimaps 1/2 docs/widgets/.assets/widget-a (*' }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Message -like 'minimaps 2/2 docs/widgets/.assets/widget-b (*' }
+    }
+
     It 'with no path, rebuilds every diagram folder under docs/**/.assets/**, and nothing that is not one' {
         $folders = @(& $script:build).Folder
         $folders | Should -Be @('docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b', 'docs/gizmos/.assets/gizmo')

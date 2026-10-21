@@ -33,20 +33,6 @@ reach.
 
 ## Open steps
 
-- [ ] `.claude/learnings/learned80b500.md:20`: "catzc gates" reworded to the glossary's term, and the fact brought up to date: the entry
-      script `pwsh/.internal/assets/Invoke-CatzcCommand.ps1` runs several commands in one background call, so no script file is needed
-      (check: `Test-Glossary` lists nothing on the file); lines 73 and 74 ("citing domain", "failed gate") reworded to the glossary's terms
-      in the same edit, and `.claude/hindsight/hindsight226bbf.md:13` ("bad source") likewise (check: `Test-Glossary` lists nothing on
-      either file).
-- [ ] `.claude/learnings`: append catzc-49's "What I learned" lines, asked for on 2026-10-21, each rewritten to a current fact first (check:
+- [ ] `.claude/learnings`: append catzc-49's "What I learned" lines, asked for on 2026-10-21, each rewritten to a current fact first; no
+      copy is in the tree, `out/` or the orchestrator logs, and catzc-49 is not live, so the step waits on catzc-49 sending them (check:
       `Test-Markdownlint -Path '.claude/**/*.md'`).
-- [ ] `.claude/skills/plans-orchestrate/SKILL.md`: the burst protocol as two lines (`hold` / `go`, a worker's `burst start` / `burst done`,
-      no import-backed check during a hold), and line 3 says a step left open names its check (check: `Test-AgentDefinitions`, the body at
-      most 10 lines).
-- [ ] `.claude/skills/catzc-run/SKILL.md`: one line, a shared config (`file-meta.yml`, `generated-head.yml`, `glossary.yml`) is live for
-      every session's next import, so its edit lands with its code in one pass and is parked in `out/` during a peer's burst (check:
-      `Test-AgentDefinitions`, the body at most 10 lines).
-- [ ] `.claude/skills/catzc-module/SKILL.md`: half a line, an internal psm1 exports an explicit list, so a new loader function is named in
-      its `Export-ModuleMember` before its first test run (check: `Test-AgentDefinitions`).
-- [ ] `.claude/skills/catzc-module/SKILL.md`, half a line merged into an existing line naming `Catzc.Base.CodeMeta` as the home of a shared
-      head mechanism (check: `Test-AgentDefinitions`).

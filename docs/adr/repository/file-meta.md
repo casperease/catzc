@@ -127,16 +127,6 @@ without one is a visible finding, or an `exclude` entry of its carrier with the 
 
 - [Property and sidecar carriers](#property-and-sidecar-carriers)
 
-### Rule ADR-REPO-FILEMETA-MARKDOWNEDGES
-
-A Markdown file's head never lists what the file defines or every link it points at: the rules an ADR declares are its `### Rule` headings,
-read by `Get-AdrDefinedRule`, and the links that leave a file are its body, read by `Test-Links`, so a head that listed them would be a
-second statement of the text. A generated page carries its relative edges only, never a `links` list and never a `defines` list. The rules
-an ADR cites from elsewhere are derived from its text the same way, so a rule's own text is never a citation of itself and a placeholder
-named in prose is none either.
-
-- [What a Markdown file defines and points at](#what-a-markdown-file-defines-and-points-at)
-
 ### Rule ADR-REPO-FILEMETA-FEWLINKS
 
 The head is a map of facts about its own file, so it holds as few links to other files as possible, and only those that cost to derive and
@@ -166,17 +156,6 @@ of a later entry's files is an overlap the registry lists on purpose, a meta kin
 and a consumer extends the registry with a config fragment. A provided contract pins the role and subkind names.
 
 - [File kinds](#file-kinds)
-
-### Rule ADR-REPO-FILEMETA-MODULEFACTS
-
-A head never holds a file's module facts: `module` and `moduletype` are what the module-types registry declares for the module the file is
-placed in ([ADR-DSGN-MODTYPE-MODULETYPEISSORT](../design/module-types.md#rule-adr-dsgn-modtype-moduletypeissort)), `catzc_bundle` the
-smallest bundle of the catzc exporter (the one bundler there is) that holds the module, from the exporter registry, and `tracktype` and
-`vendor` the track's declaration
-([ADR-DSGN-TRACKTYPE-FACTSFROMDECLARATION](../design/track-types.md#rule-adr-dsgn-tracktype-factsfromdeclaration)). Each is derived on
-demand from its registry, never shown in a head.
-
-- [Module types](#module-types)
 
 ### Rule ADR-REPO-FILEMETA-FILEISNODE
 
@@ -323,15 +302,6 @@ property of the node, the second a set of directed, named edges leaving it. The 
 only the few a reader needs before opening anything, and the body hash sits at their head as the stamp of the text. An edge is named for the
 relation, so a new relation is a new name and a registry entry, and the target of an edge is spelled the same way wherever it is read.
 
-### What a Markdown file defines and points at
-
-`Declared rules and outgoing links are the text, read on demand`
-
-A rule an ADR declares and a rule it cites answer different questions: which decisions does this file own, and which decisions does it rest
-on. Both are in the page's text, its rule headings and its citations, and the links it points at are in its text too, so a tool that needs
-them reads the text, and a list of them in the head would only repeat the page a reader already has open. The citations leave out the rules
-the page declares, so an ADR never depends on itself.
-
 ### Relatives
 
 `A code file names the few files that belong to it, in the head`
@@ -354,14 +324,6 @@ for: a test, a function, a config, a decision record. The registry holds each ro
 it, in the order they are checked, with the subkinds of a role written under it, and it is the one place a glob for a file's role is
 written. It is local to catzc and global to every file, so a generated head and every gate say the same thing about a file, and a consumer
 extends it with a config fragment instead of editing it. A provided contract pins the names, so a consumer's tool may rely on them.
-
-### Module types
-
-`A module is placed by its type, and one registry says where`
-
-What a module is and how its type is declared are in [module-types](../design/module-types.md). A file's module, its type and the catzc
-bundle it ships in are each one question to a registry, so a head that showed them would be a second list of what the registries already
-say, and it would change on every move of a module.
 
 ### A head shows the facts, never holds them
 

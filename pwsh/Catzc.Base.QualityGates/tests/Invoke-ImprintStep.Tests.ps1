@@ -65,7 +65,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
         }
     }
 
-    Context 'the csharp-namespace step' {
+    Context 'the bcl-namespace step' {
         It 'hands the files to Format-Types, and returns its block-scoped files as ones a person must repair' {
             $typeFile = Join-Path $script:root "$(Get-CatzcModulesFolder)/Widget/types/Gadget.cs"
             $block = Join-Path $script:root "$(Get-CatzcModulesFolder)/Widget/types/Gizmo.cs"
@@ -76,7 +76,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
             $script:block = $block
             $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Files = @($typeFile, $block) } {
                 param($Root, $Files)
-                Invoke-ImprintStep -Step csharp-namespace -File $Files -RepositoryRoot $Root -DryRun
+                Invoke-ImprintStep -Step bcl-namespace -File $Files -RepositoryRoot $Root -DryRun
             }
             Should -Invoke Format-Types -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $DryRun -and $PassThru -and ($Path -join '|') -eq "$typeFile|$block" }
             $outcome.Changed | Should -Be @($typeFile)

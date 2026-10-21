@@ -100,6 +100,8 @@ test.
 The workspace makes the Go test folders buildable and the run uses them: the renderer gives every folder its `go.mod` and joins them in one
 `go.work`, and a run executes one folder's tests against the engine it is pointed at. The two meet in the folder convention — one kebab-case
 folder per catzc module — which is also how the test harness maps the Go tests to their module for ordering, protection, and selection.
+That folder name has one source: `TestFolderOf` on the `LanguagesConfig` type (the languages registry's naming case), which
+`Invoke-GoTest`, `Invoke-PythonTest` and `Invoke-BashTest` each call, so no run derives a test folder name of its own.
 
 The module sits on [Catzc.Base.Config](catzc-base-config.md) for `go.yml` and the `tools.yml` pin (read by address, as global config
 access), [Catzc.Base.Objects](catzc-base-objects.md) for the config type's record base, [Catzc.Base.Repository](catzc-base-repository.md)

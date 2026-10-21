@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "00be3883a048"
+    with_body_sha: "1e39f174a06c"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
     docs: "[Test-AgentDefinitions.ps1.md](docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md)"
@@ -109,7 +109,7 @@ function Test-AgentDefinitions {
         }
         $lines = Get-RobotLineCount -Path $file -Key $key
         if ($lines.Capability -gt $config.capability_lines) {
-            $issues.Add("${relative}: has $($lines.Capability) lines outside its catzc head, the roof is $($config.capability_lines) (roofs.capability_lines)")
+            $issues.Add("${relative}: has $($lines.Capability) lines outside its catzc head ($($lines.Capability - $lines.Body) front-matter keys and $($lines.Body) body lines), the roof is $($config.capability_lines) (roofs.capability_lines)")
         }
     }
     $capabilityNames = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)

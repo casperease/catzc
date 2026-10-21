@@ -56,8 +56,6 @@ concepts:
     defined_by: ADR-AUTO-TEST-ONECATEGORY
     short: A test's kind, logic or integrity — one mandatory tag saying whether it runs on fixtures or reads the shipped assets.
     realized_by: { kind: tag, pattern: "logic|integrity" }
-    contrasts:
-      tier: A tier says what a test may touch and when it runs; a category says what it reads (logic or integrity).
     avoid:
       - { phrase: integrity suite, say: the integrity tests }
   test run:
@@ -69,7 +67,6 @@ concepts:
       report.
     realized_by: { kind: artifact, pattern: "out/test-*/*/run.json" }
     contrasts:
-      release candidate: A release candidate is the artifact a release-candidate test run verifies; a test run executes tests.
       all tests: All tests is every test in the repository, at rest; a test run executes one selection of them, possibly all.
       test suite: A test suite is a declared selection at rest; a test run executes a selection, a test suite or an ad-hoc one.
     avoid:
@@ -98,7 +95,6 @@ concepts:
     relations:
       kind_of: [gate]
     contrasts:
-      gate: A gate is any decision point, human or automated; a quality gate is one automated check of the repository.
       build verification test: The BVT is the verification that runs every quality gate together; a quality gate is one check inside it.
     avoid:
       - { phrase: analyzer suite, say: the analyzer quality gate (Test-ScriptAnalyzer) }
@@ -123,7 +119,6 @@ concepts:
     relations:
       part_of: [test file]
     contrasts:
-      test file: A test file is the *.Tests.ps1 file; a test block is a Describe or Context inside it.
       test: A test is one It that passes or fails; a test block groups tests and carries their shared tags and setup.
   test:
     key: test
@@ -135,8 +130,6 @@ concepts:
     realized_by: { kind: function, pattern: "It" }
     relations:
       part_of: [test block]
-    contrasts:
-      test block: A test block groups tests and carries their shared tags and setup; a test is one It that passes or fails.
   phase:
     key: phase
     domain: automation
@@ -146,18 +139,12 @@ concepts:
       tags.
     realized_by: { kind: tag, pattern: "serial|greedy" }
     forms: [parallel, serial, greedy, worker, execution, run, test]
-    contrasts:
-      tier: A tier is what a test may touch; a phase is when its file runs within a run (parallel, greedy, serial).
   build verification test:
     key: bvt
     domain: automation
     defined_by: ADR-AUTO-TEST-BUILDVERIFICATIONTEST
     short: The BVT — the verification that precedes every promotion and every creation of release artifacts, and that the commit gate runs.
     realized_by: { kind: prose-only }
-    contrasts:
-      quality gate:
-        A quality gate is one check inside the BVT; the BVT is the verification that runs them together, before a promotion and in the
-        commit gate.
   all tests:
     key: all_tests
     domain: automation
@@ -166,7 +153,6 @@ concepts:
       Every test in the repository — every test file of every module, at every tier and category; what a test run selects at its defaults.
     realized_by: { kind: function, pattern: "Test-Automation" }
     contrasts:
-      test run: A test run executes one selection of tests, possibly all; all tests is every test in the repository, at rest.
       test suite: A test suite is a named selection, usually a few modules up to a tier; all tests is every test there is.
     avoid:
       - { phrase: the test suite, say: all tests }
@@ -181,22 +167,12 @@ concepts:
       A named, declared selection of tests that runs as one unit — a globset's verify scope in globs.yml (modules up to a tier), run with
       Test-Automation -Suite.
     realized_by: { kind: config-key, pattern: "pwsh/Catzc.Base.Globs/configs/globs.yml" }
-    contrasts:
-      all tests: All tests is every test there is; a test suite is a named selection, usually a few modules up to a tier.
-      test run: A test run executes a selection, a test suite or an ad-hoc one; a test suite is the declared selection at rest.
-      tier: A tier is one level a single test carries; a test suite selects whole modules up to a top tier.
-      release candidate:
-        A release candidate is the artifact under test; a test suite is the declared selection of tests that verifies a change.
   vertical test:
     key: vertical_test
     domain: automation
     defined_by: ADR-AUTO-TEST-ONIONOFRINGS
     short: An L2 or L3 test that cuts from an outer ring of the test onion (local tools; outside state) through to the core, the code alone.
     realized_by: { kind: tag, pattern: "L2|L3" }
-    contrasts:
-      tier: A tier names a test's outermost ring and every test has one; a vertical test is an L2 or L3 test, one that crosses a ring.
-      testing in production:
-        Testing in production checks the released system after final approval; a vertical test crosses a ring around the code.
   markdown link:
     key: markdown_link
     domain: repository
@@ -213,10 +189,6 @@ concepts:
     defined_by: ADR-REPO-LINK-KINDBYFILE
     short: An ADR citation in a code comment, written as a repository-rooted markdown link whose text is the citation code.
     realized_by: { kind: function, pattern: Format-Links }
-    contrasts:
-      markdown link:
-        A markdown link lives in a .md file and is relative to it; a code link lives in a comment of a non-markdown file and is
-        repository-rooted.
   comment page:
     key: comment_page
     domain: repository

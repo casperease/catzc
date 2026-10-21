@@ -675,3 +675,18 @@ live in the ADRs themselves; this file carries only their DORA rationale.
 - [Flexible infrastructure](../../references/dora/capabilities.md#flexible-infrastructure) — a new language or engine is an entry and its
   handlers, loaded or refused loudly at import, never a second loader.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Accosted language
+
+`The accosted language — a flat list of harmless contracted calls, run under every engine`
+
+[ADR-AUTO-ACCOSTED](accosted-language.md)
+
+> DORA ties test automation and maintainable code to delivery performance. A smoke list written in the contracts' own notation, read by one
+> reader and run under every engine, proves the contracted surface answers everywhere without a test script to read or maintain.
+
+- [Test automation](../../references/dora/capabilities.md#test-automation) — every harmless contracted command runs under every engine from
+  one list.
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a call is written once, in the contract form, and
+  checked against its contract by the one reader.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.

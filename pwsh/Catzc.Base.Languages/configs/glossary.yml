@@ -37,10 +37,6 @@ concepts:
       The one language-neutral spelling of a function, type, parameter or module name, in the naming case the languages config sets as
       `naming.normal_form`, which is `snake` (`get_command_contract`); every language's idiomatic name is a rendering of it.
     realized_by: { kind: prose-only }
-    contrasts:
-      eac normal form:
-        The eac normal form is the verifiable shape of a whole piece of code; the repository normal form is the one language-neutral
-        spelling of a name.
   bash test folder:
     key: bash_test_folder
     domain: automation

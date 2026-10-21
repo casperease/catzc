@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "71f0dd8d3e31"
+    with_body_sha: e24379e8497c
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-PythonWorkspaceTool.Tests.ps1
     docs: "[Invoke-PythonWorkspaceTool.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Invoke-PythonWorkspaceTool.ps1.md)"
@@ -42,7 +42,8 @@ function Invoke-PythonWorkspaceTool {
     try {
         $sync = Invoke-Executable "$uvCommand sync --all-packages --quiet" -WorkingDirectory $pythonRoot -PassThru -NoAssert -Silent
         if ($sync.ExitCode -ne 0) {
-            throw "uv sync failed in $pythonRelative/ (exit $($sync.ExitCode)); is the python pin installed? Run Install-Python.`n$($sync.Full)"
+            throw ("uv sync failed in $pythonRelative/ (exit $($sync.ExitCode)); is the python pin installed? Run Install-Python. " +
+                "If a workspace member moved: $pythonRelative/uv.lock is a gitignored product that pins member paths; delete it and run again.`n$($sync.Full)")
         }
         Invoke-Executable "$uvCommand run --no-sync --quiet $Tool $ConfigOption pyproject.toml $quoted" -WorkingDirectory $pythonRoot -PassThru -NoAssert -Silent
     }

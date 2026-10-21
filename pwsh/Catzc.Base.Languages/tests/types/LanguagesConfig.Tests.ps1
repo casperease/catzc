@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b9957eb1c66e
+    with_body_sha: cee6858c9a10
   edges:
     code: pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs
     cites:
@@ -47,7 +47,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
 
         It 'marks PowerShell with its hosted C#, Bash, Python and Go as the implementation languages' -Tag 'ADR-AUTO-LAYERS-COMMANDISPUBLICFUNCTION' {
             @((Get-Config -Config languages).languages.Where({ $_.executable }).name) |
-                Should -Be @('powershell', 'csharp', 'python', 'go', 'bash')
+                Should -Be @('powershell', 'bcl', 'python', 'go', 'bash')
         }
     }
 
@@ -197,15 +197,15 @@ Describe 'LanguagesConfig' -Tag 'L0' {
                     imprint   = @('file-meta')
                     steps     = [ordered]@{ 'file-meta' = [ordered]@{ settings = @('configs/file-meta.yml', 'configs/file-carriers.yml') } }
                     languages = [ordered]@{
-                        widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier'; imprint = @('csharp-namespace') }
+                        widget = [ordered]@{ extensions = @('.wdg'); formatter = 'prettier'; imprint = @('bcl-namespace') }
                         gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'gadgets are never formatted' }
                     }
                 })
             $config.imprint | Should -Be @('file-meta')
-            $config.languages[0].imprint | Should -Be @('csharp-namespace')
+            $config.languages[0].imprint | Should -Be @('bcl-namespace')
             $config.languages[1].imprint.Count | Should -Be 0
             $config.steps['file-meta'].settings | Should -Be @('configs/file-meta.yml', 'configs/file-carriers.yml')
-            $config.steps['csharp-namespace'].settings.Count | Should -Be 0 -Because 'a listed step the file does not describe reads no settings'
+            $config.steps['bcl-namespace'].settings.Count | Should -Be 0 -Because 'a listed step the file does not describe reads no settings'
             $config.steps.Keys.Count | Should -Be 2
         }
 
@@ -217,7 +217,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         }
 
         It 'throws on an unknown step, a duplicate, a step both global and a language''s own, and malformed steps' -Tag 'ADR-PRIN-CONFIG-NEWINSTANCEISCONFIGCHANGE' {
-            { & $script:make ([ordered]@{ imprint = @('shine') }) } | Should -Throw "*imprint: unknown imprint step 'shine' (one of: file-meta, csharp-namespace, comments, ps-help)*"
+            { & $script:make ([ordered]@{ imprint = @('shine') }) } | Should -Throw "*imprint: unknown imprint step 'shine' (one of: file-meta, bcl-namespace, comments, ps-help)*"
             { & $script:make ([ordered]@{ imprint = @('file-meta', 'file-meta') }) } | Should -Throw "*imprint: duplicate imprint step 'file-meta'*"
             { & $script:make ([ordered]@{ imprint = 'file-meta' }) } | Should -Throw '*imprint must be a list of imprint step names*'
             { & $script:make ([ordered]@{ steps = [ordered]@{ shine = [ordered]@{} } }) } | Should -Throw "*steps: unknown imprint step 'shine'*"
@@ -230,7 +230,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         }
 
         It 'names the steps it may list, each with an adapter in Format-Code' -Tag 'integrity' {
-            [Catzc.Base.Languages.LanguagesConfig]::ImprintSteps | Should -Be @('file-meta', 'csharp-namespace', 'comments', 'ps-help')
+            [Catzc.Base.Languages.LanguagesConfig]::ImprintSteps | Should -Be @('file-meta', 'bcl-namespace', 'comments', 'ps-help')
         }
 
         It 'is empty for an empty file' {
@@ -267,11 +267,15 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             { & $script:one ([ordered]@{ extensions = @('wdg') }) } | Should -Throw "*extension 'wdg' needs its leading dot*"
         }
 
-        It 'throws on an uppercase or dotted extension, and a duplicate within one language' {
-            $err = { & $script:one ([ordered]@{ extensions = @('.WDG', '.w.dg', '.wdg', '.wdg') }) } | Should -Throw -PassThru
+        It 'throws on an uppercase or empty-part extension, and a duplicate within one language' {
+            $err = { & $script:one ([ordered]@{ extensions = @('.WDG', '.w..dg', '.wdg', '.wdg') }) } | Should -Throw -PassThru
             $err.Exception.Message | Should -BeLike "*invalid extension '.WDG'*"
-            $err.Exception.Message | Should -BeLike "*invalid extension '.w.dg'*"
+            $err.Exception.Message | Should -BeLike "*invalid extension '.w..dg'*"
             $err.Exception.Message | Should -BeLike "*duplicate extension '.wdg'*"
+        }
+
+        It 'accepts a compound extension, each part a dot and lowercase letters or digits' {
+            { & $script:one ([ordered]@{ extensions = @('.gadget.wdg') }) } | Should -Not -Throw
         }
 
         It 'throws on a language with no extensions' {
@@ -580,8 +584,8 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $config.IsLaidOut(@('go')) | Should -BeTrue
             $config.IsLaidOut(@('bash')) | Should -BeTrue
             $config.IsLaidOut(@('markdown', 'asset')) | Should -BeFalse
-            # The editor extension's folder is laid out but neither live nor shipped, like the shared tests folder.
-            $config.LayoutFolders() | Should -Be @('private', 'extension', 'types', 'configs', 'assets', 'tests')
+            # The editor extension's folder and the accosted run lists are laid out but neither live nor shipped, like the shared tests folder.
+            $config.LayoutFolders() | Should -Be @('private', 'extension', 'types', 'configs', 'accosted', 'assets', 'tests')
             $config.ShippedFolders() | Should -Be @('types', 'configs', 'assets')
         }
     }

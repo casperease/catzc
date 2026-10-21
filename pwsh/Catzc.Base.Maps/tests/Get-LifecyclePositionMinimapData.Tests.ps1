@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1211c6d9191d"
+    with_body_sha: "4d341e4df494"
   edges:
     code: pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
     cites:
@@ -44,5 +44,19 @@ Describe 'Get-LifecyclePositionMinimapData' -Tag 'L0', 'logic', 'ADR-FLOW-CD-RUN
         $data = Get-LifecyclePositionMinimapData -Adr 'ADR-GIZMO'
         $data.Lit | Should -HaveCount 0
         $data.Cells | Should -HaveCount 3
+    }
+
+    It 'hands the world map it is given to the subject' {
+        Mock Get-MinimapSubject -ModuleName Catzc.Base.Maps { & $script:subject 'docs/widget.md' @('ADR-GIZMO') }
+        $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(), [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
+        $null = Get-LifecyclePositionMinimapData -Adr 'ADR-GIZMO' -WorldMap $map
+        Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($WorldMap, $map) }
+    }
+
+    It 'hands the facts it is given to the subject' {
+        Mock Get-MinimapSubject -ModuleName Catzc.Base.Maps { & $script:subject 'docs/widget.md' @('ADR-GIZMO') }
+        $given = @{ 'docs/widget.md' = @{ track = 'docs' } }
+        $null = Get-LifecyclePositionMinimapData -Adr 'ADR-GIZMO' -Facts $given
+        Should -Invoke Get-MinimapSubject -ModuleName Catzc.Base.Maps -Times 1 -Exactly -ParameterFilter { [object]::ReferenceEquals($Facts, $given) }
     }
 }

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: eea50a83ac4e
+    with_body_sha: "58d1ffc4f749"
   edges:
     code: pwsh/Catzc.Base.Docs/Add-SessionLearning.ps1
 ---
@@ -84,13 +84,23 @@ Describe 'Add-SessionLearning' -Tag 'L0', 'logic' {
         [System.IO.File]::ReadAllText($written[0]) | Should -BeLike '*onto a second line.*'
     }
 
-    It 'starts the next file when the newest is full, and keeps repeats' {
-        $null = Add-SessionLearning 'The widget turns.', 'The widget turns.' -Date $script:date
+    It 'starts the next file when the newest is full, and keeps repeats across calls' {
+        $null = Add-SessionLearning 'The widget turns.' -Date $script:date
+        $null = Add-SessionLearning 'The widget turns.' -Date $script:date
         $written = @(Add-SessionLearning 'The gizmo waits.' -Date $script:date)
         $files = Get-LearningFile
         $files.Count | Should -Be 2
         $written | Should -Be @($files[1])
         @([System.IO.File]::ReadAllLines($files[0]) | Where-Object { $_.StartsWith('- ') }).Count | Should -Be 2
+    }
+
+    It 'writes a sentence given twice in one call once, and warns of the skip' {
+        Mock Write-Message -ModuleName Catzc.Base.Docs { }
+        $written = @(Add-SessionLearning 'The gadget holds.', ' The gadget holds. ' -Date $script:date)
+        @([System.IO.File]::ReadAllLines($written[0]) | Where-Object { $_.StartsWith('- ') }) | Should -Be @('- 2026-10-21: The gadget holds.')
+        Should -Invoke Write-Message -ModuleName Catzc.Base.Docs -Times 1 -Exactly -ParameterFilter {
+            $Warning -and $Message -ceq "Add-SessionLearning: skipped 'The gadget holds.', already given in this call."
+        }
     }
 
     It 'drops the oldest file when a new one would exceed the file count' {

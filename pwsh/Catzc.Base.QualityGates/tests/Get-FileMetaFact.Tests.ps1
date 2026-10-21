@@ -114,6 +114,13 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
         $facts[1].Immutable['with_body_sha'] | Should -BeExactly $facts[0].Immutable['with_body_sha']
     }
 
+    It 'skips a file the index lists but the working tree has lost' {
+        $carrier = [pscustomobject]@{ carrier = [Catzc.Base.Languages.CarrierKind]::FrontMatter; key = [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
+        Mock Get-FileMetaScope -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/gone-widget.md'; Carrier = $carrier } }
+        @(InModuleScope Catzc.Base.QualityGates { Get-FileMetaFact 'docs/gone-widget.md' }).Count | Should -Be 0
+    }
+
     It 'skips a file whose carrier is a sidecar' {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
         Mock Get-FileMetaScope -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget.png'; Carrier = [pscustomobject]@{ carrier = [Catzc.Base.Languages.CarrierKind]::Sidecar } } }

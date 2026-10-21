@@ -90,10 +90,13 @@ function Build-Diagrams {
     $declared = @($folders | Where-Object { Test-Path -LiteralPath (Join-Path $root "$_/diagram.drawio.yml") -PathType Leaf })
     if (-not $DryRun -and $declared.Count -gt 0) {
         Write-Message "Build-Diagrams: writing the minimap data of $($declared.Count) declared folder(s), then $(if ($FromDrawing) { 'syncing' } else { 'rendering' }) $($folders.Count)."
-        for ($index = 0; $index -lt $declared.Count; $index++) {
-            $step = [System.Diagnostics.Stopwatch]::StartNew()
-            $null = Write-DiagramMinimapData -Folder $declared[$index] -RepositoryRoot $root
+        # One call builds the world map once for every folder; each folder's target streams back as its data is written.
+        $index = 0
+        $step = [System.Diagnostics.Stopwatch]::StartNew()
+        Write-DiagramMinimapData -Folder $declared -RepositoryRoot $root | ForEach-Object {
             Write-Message "minimaps $($index + 1)/$($declared.Count) $($declared[$index]) ($([Math]::Round($step.Elapsed.TotalSeconds, 1)) s)"
+            $index++
+            $step.Restart()
         }
     }
     if ($FromDrawing) {

@@ -120,7 +120,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
 
     It 'moves a C# line run with its own marker' -Tag 'ADR-REPO-COMMENTS-MOVELOSESNOTHING' {
         $csharp = "namespace Widget;`n`n/// The gadget cache, keyed by widget,`n/// so a lookup is one hash.`npublic sealed class Gadget { }`n"
-        $csResult = & $export $csharp '.cs' 'csharp'
+        $csResult = & $export $csharp '.cs' 'bcl'
         $csResult.PageText.Contains('written with `///`') | Should -BeTrue
         $csResult.Text.Contains('///') | Should -BeFalse
         [Catzc.Base.QualityGates.CommentEngine]::View($csResult.Text, '.cs', $csResult.PageText) | Should -BeExactly $csharp
@@ -128,7 +128,7 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
 
     It 'moves a delimited block, which the view writes back as line comments in the family marker' -Tag 'ADR-REPO-COMMENTS-MOVELOSESNOTHING' {
         $text = "/*`n  Widget layout: gadgets first,`n  then the rest.`n*/`nvar widget = 1;`n"
-        $result = & $export $text '.cs' 'csharp'
+        $result = & $export $text '.cs' 'bcl'
         $result.MovedCount | Should -Be 1
         $result.Text | Should -BeExactly "var widget = 1;`n"
         $view = [Catzc.Base.QualityGates.CommentEngine]::View($result.Text, '.cs', $result.PageText)

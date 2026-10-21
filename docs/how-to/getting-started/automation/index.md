@@ -149,6 +149,7 @@ Short, focused how-to articles for the common jobs:
 | Add or upgrade a CLI tool (az, dotnet, …) | [Add a CLI tool](../pwsh/add-a-cli-tool.md)                         |
 | Vendor a third-party PowerShell module    | [Vendor a module](../pwsh/vendor-a-module.md)                       |
 | Write a new doc chapter or ADR            | [Add a doc chapter](add-a-doc-chapter.md)                           |
+| Land a decision as an ADR                 | [Add an ADR](add-an-adr.md)                                         |
 
 Looking for what a specific module does rather than how to do a task? See the [module reference](../../../references/pwsh/index.md).
 

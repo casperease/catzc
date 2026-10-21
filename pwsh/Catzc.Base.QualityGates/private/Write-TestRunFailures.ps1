@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e52d1f469df7
+    with_body_sha: "9e812e7e7cb9"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Write-TestRunFailures.Tests.ps1
     docs: "[Write-TestRunFailures.ps1.md](docs/references/pwsh/catzc-base-qualitygates/private/Write-TestRunFailures.ps1.md)"
@@ -28,9 +28,24 @@ function Write-TestRunFailures {
 
     Write-Message '' -NoHeader
     Write-Header "Failures ($($failedRows.Count + $failedFiles.Count))" -ForegroundColor Red
+    # Rows that share a message share a cause: each is named, and the message is written once, in the order it first failed.
+    $byMessage = [ordered]@{}
     foreach ($row in $failedRows) {
-        Write-Message "FAIL $($row.ExpandedPath)" -NoHeader -ForegroundColor Red
-        foreach ($line in ("$($row.ErrorMessage)".TrimEnd() -split '\r?\n')) {
+        $message = "$($row.ErrorMessage)".TrimEnd()
+        if (-not $byMessage.Contains($message)) {
+            $byMessage[$message] = [System.Collections.Generic.List[string]]::new()
+        }
+        $byMessage[$message].Add($row.ExpandedPath)
+    }
+    foreach ($message in $byMessage.Keys) {
+        $paths = $byMessage[$message]
+        foreach ($path in $paths) {
+            Write-Message "FAIL $path" -NoHeader -ForegroundColor Red
+        }
+        if ($paths.Count -gt 1) {
+            Write-Message "     $($paths.Count) failures share this message:" -NoHeader
+        }
+        foreach ($line in ($message -split '\r?\n')) {
             Write-Message "     $line" -NoHeader
         }
     }

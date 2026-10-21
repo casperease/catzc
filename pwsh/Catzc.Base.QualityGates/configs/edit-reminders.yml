@@ -9,3 +9,11 @@ reminders:
     say: >-
       You edited a plan file. Before you report: run `Format-Code -Language markdown -Path <the plan files you edited>`, then
       `Test-Plans -Path <the same files>`. A new plan also needs its row in value-of-plan.md and its chunk line in plan-master.md.
+  - paths: ["pwsh/Catzc.Base.Docs/configs/adrs.yml"]
+    say: >-
+      You edited the ADR registry. Before you report: run `Build-AdrIndex`, then `Test-AdrRegistry`; a new ADR also needs its entry in its
+      domain's dora-explains.md (docs/how-to/getting-started/automation/add-an-adr.md).
+  - paths: ["pwsh/*/configs/glossary.yml"]
+    say: >-
+      You edited a glossary source. Before you report: run `Build-Glossary`, then `Test-Glossary`; a contrast is declared once, on either
+      term.

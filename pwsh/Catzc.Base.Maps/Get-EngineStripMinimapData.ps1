@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ce0b33f70495
+    with_body_sha: aea1ef647b0e
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-EngineStripMinimapData.Tests.ps1
     docs: "[Get-EngineStripMinimapData.ps1.md](docs/references/pwsh/catzc-base-maps/Get-EngineStripMinimapData.ps1.md)"
@@ -17,6 +17,10 @@ function Get-EngineStripMinimapData {
     param(
         [Parameter(Mandatory, Position = 0)]
         [string[]] $Adr,
+
+        [Catzc.Base.Maps.WorldMap] $WorldMap,
+
+        [hashtable] $Facts,
 
         [switch] $AsJson
     )
@@ -38,7 +42,7 @@ function Get-EngineStripMinimapData {
     }
     $count = @{}
     $reasons = @{}
-    foreach ($item in @(Get-MinimapSubject -Adr $Adr)) {
+    foreach ($item in @(Get-MinimapSubject -Adr $Adr -WorldMap $WorldMap -Facts $Facts)) {
         $language = if ($item.Facts) {
             "$($item.Facts['language'])"
         }

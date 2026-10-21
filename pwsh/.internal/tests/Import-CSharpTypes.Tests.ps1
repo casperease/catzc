@@ -509,7 +509,7 @@ Describe 'shipped C# types' -Tag 'L0', 'integrity' {
             Set-ItResult -Skipped -Because 'harness_test_formatting'; return
         }
         Mock Format-Code -ModuleName Catzc.Base.QualityGates { }
-        $result = Test-Formatting -Language csharp -PassThru -OutputFolder (Join-Path $TestDrive 'formatting')
+        $result = Test-Formatting -Language bcl -PassThru -OutputFolder (Join-Path $TestDrive 'formatting')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

@@ -324,6 +324,8 @@ them as Pester tests.
   [automatic-variable-pitfalls](automatic-variable-pitfalls.md#rule-adr-pwsh-autovar-nocoalesceonstrings)).
 - **`Where-Object prop -EQ` / `ForEach-Object prop` shortcuts do not bind `[ordered]` dictionary keys** — use the script-block form. This
   codebase returns ordered dicts pervasively.
+- **`Should -BeLike` and `Should -Throw` match a `-like` pattern, where `[ ]` is a character class.** A bracketed fragment
+  (`"*[Drift]*"`) matches one of its letters, not the brackets; escape it (`` `[Drift`] ``) or compare whole with `-BeExactly`.
 - **A comma-wrapped array return piped directly member-enumerates.** `Get-BicepTemplates | Where …` feeds the whole array as one object;
   parenthesise first: `(Get-BicepTemplates) | Where …`.
 - **To test that a parameter is mandatory, bind it to `$null` — never omit it.** An _absent_ mandatory parameter makes an interactive host

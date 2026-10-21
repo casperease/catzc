@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a233ff3cde06
+    with_body_sha: "0a0ed4abca49"
   edges:
     code: pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
     cites:
@@ -37,6 +37,12 @@ Describe 'Get-WorldMapHighlight' -Tag 'L0', 'logic' {
         $highlight | Should -BeOfType [Catzc.Base.Maps.WorldMapHighlight]
         @($highlight.Cells | ForEach-Object { "$($_.Track) x $($_.FileLanguage)" }) | Should -Be @('gadgets x widget-script', 'widgets x widget-script')
         $highlight.Cells[0].Sources | Should -Be @('pin')
+    }
+
+    It 'lights the cells on the world map it is given, without building one' {
+        $highlight = Get-WorldMapHighlight ADR-WIDGET-GADGET -WorldMap $script:map
+        @($highlight.Cells | ForEach-Object { "$($_.Track) x $($_.FileLanguage)" }) | Should -Be @('gadgets x widget-script', 'widgets x widget-script')
+        Should -Invoke Get-WorldMap -ModuleName Catzc.Base.Maps -Times 0 -Exactly
     }
 
     It 'lights the cells of the given files' {

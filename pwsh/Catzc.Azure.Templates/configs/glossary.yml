@@ -70,8 +70,6 @@ concepts:
     short:
       The landing zone of a customer subscription — peered to the hub of its tier, holding the subnet its workloads' private endpoints use.
     realized_by: { kind: prose-only }
-    contrasts:
-      hub: A hub is a shared subscription's landing zone, listing its spokes; a spoke is a customer subscription's, peered to its hub.
   cloud adoption framework:
     key: cloud_adoption_framework
     domain: azure
@@ -98,9 +96,6 @@ concepts:
       Microsoft's checklist of a workload's quality in five pillars; each checklist item is a rule in docs/adr/azure/waf/, numbered as
       Microsoft numbers it.
     realized_by: { kind: prose-only }
-    contrasts:
-      cloud adoption framework:
-        The Well-Architected Framework shapes the workload; the Cloud Adoption Framework shapes the landing zone it lands in.
   pillar:
     key: pillar
     domain: azure

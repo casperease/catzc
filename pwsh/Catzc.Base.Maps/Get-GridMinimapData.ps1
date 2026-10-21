@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "27087e554f3b"
+    with_body_sha: ad4e31d2e7fd
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1
 ---
@@ -15,11 +15,19 @@ function Get-GridMinimapData {
         [Parameter(Mandatory, Position = 0)]
         [string[]] $Adr,
 
+        [Catzc.Base.Maps.WorldMap] $WorldMap,
+
         [switch] $AsJson
     )
 
+    $map = if ($WorldMap) {
+        $WorldMap
+    }
+    else {
+        Get-WorldMap
+    }
     # Tracks down, file languages across: a cell is lit by the subject's files in it.
-    $data = [Catzc.Base.Maps.MinimapData]::FromWorldMap((Get-WorldMap), (Get-WorldMapHighlight -Adr $Adr))
+    $data = [Catzc.Base.Maps.MinimapData]::FromWorldMap($map, (Get-WorldMapHighlight -Adr $Adr -WorldMap $map))
     if ($AsJson) {
         return $data.ToJson()
     }

@@ -1,0 +1,104 @@
+# ADR-AUTO-ACCOSTED: the accosted language, a flat list of harmless contracted calls
+
+## Rules: ADR-AUTO-ACCOSTED
+
+### Rule ADR-AUTO-ACCOSTED-FILEFORM
+
+An **accosted** file is `<name>.accosted.yml`: a YAML document whose one key, `runs:`, is a list of runs, and each run a list of commands
+run in order. It has no syntax of its own: no variables, pipes, branches, loops, and no output passed from one command to the next. Because
+it is YAML, the YAML formatter and checks apply to it unchanged. A module keeps its accosted files in the folder its language row's layout
+names, `accosted/`, beside its commands.
+
+- [A list, not a script](#a-list-not-a-script)
+
+### Rule ADR-AUTO-ACCOSTED-COMMANDFORM
+
+A command is written in the contract form: one mapping whose key is a contracted command's name in the repository normal form and whose
+value maps each argument, by its normal-form parameter name, to a literal of the type the command contract gives it
+(`get_file_language: { path: README.md }`). Only the closed types of the contract language occur, so a command line holds nothing a reader
+must evaluate.
+
+- [The contract form, and nothing else](#the-contract-form-and-nothing-else)
+
+### Rule ADR-AUTO-ACCOSTED-HARMLESS
+
+A command is **harmless** when a command contract names it and its verb is on the harmless-verb list, declared once in the language's config
+with its default on the config type ([ADR-PRIN-CONFIG](../principles/configure-not-program.md),
+[ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)); the contract language gains no key
+for it. A write confined to the output folder `out/` is harmless: a `Test-*` gate whose output-folder argument lies under `out/` is allowed,
+and any other argument that names a write target is rejected. An accosted file holds harmless commands only.
+
+- [Harmless is a verb list](#harmless-is-a-verb-list)
+
+### Rule ADR-AUTO-ACCOSTED-RESERVEDNAME
+
+The word **accosted** is reserved, as the catzc token is
+([ADR-PRIN-CATS-CATZCISSOURCENAME](../principles/cats-and-catzc.md#rule-adr-prin-cats-catzcissourcename)): it names this language and
+nothing else, so it appears only in the language's row, its extension, this ADR, its glossary entry, its module types and their tests, and the
+plans and session logs that name it. The places are the scope of the `reserved` terminology category, and a gate fails the word anywhere
+else.
+
+- [A reserved word](#a-reserved-word)
+
+### Rule ADR-AUTO-ACCOSTED-ONEREADER
+
+One reader turns an accosted file into its typed record, and nothing else parses one. It rejects, each with the message of the command
+contract it checked: a command no contract names, a verb not on the harmless list, an unknown or missing parameter, and a value outside its
+parameter's type. It reads the committed contracts, never the loaded module.
+
+- [One reader](#one-reader)
+
+### Rule ADR-AUTO-ACCOSTED-RUNNER
+
+The runner runs every run of a file through `cats` under each engine of the engine registry ([execution-engines](execution-engines.md)), so
+every listed command is proven from every engine, and bounds each run by its configured time limit
+([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)). It returns one result per run and
+engine.
+
+- [Run everywhere, bounded](#run-everywhere-bounded)
+
+## Context
+
+The contracted surface is the part of the module system other callers rely on, and every contracted command is promised to answer from every
+engine. Proving that by hand is a long list of small calls; writing it as a script invites the variables, branches and side effects that
+make a script hard to read and unsafe to run anywhere.
+
+### A list, not a script
+
+A list of runs reads top to bottom and runs the same way every time. With no syntax beyond YAML, there is nothing to learn and nothing a
+formatter must be taught.
+
+### The contract form, and nothing else
+
+The contracts already write a command's call interface in the repository normal form. Writing each call in that same form keeps one notation
+for "a command and its arguments", and lets the reader check every call against the contract it names.
+
+### Harmless is a verb list
+
+Which commands are safe to run anywhere is a policy, so it is config: a verb list with its default declared once. A gate that writes its
+report under `out/` changes nothing the repository holds, so it stays on the list.
+
+### A reserved word
+
+A word that names one thing is only useful while it names nothing else. Reserving it, and gating the reservation, keeps the language's name
+searchable.
+
+### One reader
+
+One reader means one set of rejections with one set of messages, and a runner that never meets a command the reader would refuse.
+
+### Run everywhere, bounded
+
+Each engine's start resolves a contracted command differently, so the proof runs under every engine. A run that hangs is stopped by its
+bound and reported, never waited on.
+
+## Decision
+
+Adopt the accosted language for smoke runs of the contracted surface: `<name>.accosted.yml` files of runs of contract-form commands, read by
+one reader, run by one runner under every engine, harmless by a configured verb list, with its name reserved.
+
+## Consequences
+
+- A module can prove its harmless commands answer from every engine by listing them, without writing a test script.
+- A new harmless verb is a config change; a new kind of argument is a change to the contract language, never to this language.
+- The word "accosted" outside its allowed places fails a gate.

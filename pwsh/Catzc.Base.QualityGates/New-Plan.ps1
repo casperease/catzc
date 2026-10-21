@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b7bc0db2da66
+    with_body_sha: "68b618590d84"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/New-Plan.Tests.ps1
     cites:
@@ -109,11 +109,21 @@ function New-Plan {
     Assert-True ($header -ge 0) -ErrorText "New-Plan: the '## $Class plans' section of $($Config.value_file) has no table."
     $cells = foreach ($column in @($valueLines[$header].Trim('|').Split('|') | ForEach-Object { $_.Trim() })) {
         switch ($column) {
-            'Value' { $Value }
-            'Plan' { "plan-$Topic" }
-            'Why' { $Summary }
-            'State' { 'new' }
-            default { '' }
+            'Value' {
+                $Value
+            }
+            'Plan' {
+                "plan-$Topic"
+            }
+            'Why' {
+                $Summary
+            }
+            'State' {
+                'new'
+            }
+            default {
+                ''
+            }
         }
     }
     $valueLines.Insert($last + 1, "| $($cells -join ' | ') |")

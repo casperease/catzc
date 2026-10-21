@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ba909b1696ca
+    with_body_sha: "01611768b723"
     warning: "Do Not Edit, this file is generated"
     role: glossary
     track: docs
@@ -40,8 +40,8 @@ SaaS, with its own history, driven one way from the trunk's pipelines and never 
 - **Contrasts:**
   - [fact source](#fact-source): A fact source is owned by a state machine and only read; an adjacent store is driven one way from the
     trunk's pipelines.
-  - [source of truth](#source-of-truth): The source of truth is the record everything is driven from; an adjacent store is a one-way
-    projection of it, never a second record.
+  - [source of truth](#source-of-truth): An adjacent store is a second store driven one way from the trunk's pipelines, a projection of the
+    truth; the source of truth is the record it is driven from.
 
 ### eac normal form
 
@@ -76,8 +76,8 @@ state — whose state catzc reads only.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [adjacent store](#adjacent-store): An adjacent store is driven one way from the trunk's pipelines, such as the Azure DevOps
-    configuration; a fact source is owned by a state machine and only read, such as the Azure DevOps runtime state.
+  - [adjacent store](#adjacent-store): A fact source is owned by a state machine and only read; an adjacent store is driven one way from the
+    trunk's pipelines.
   - [state machine](#state-machine): A state machine is the application that owns and changes a fact source; a fact source is the store
     catzc reads.
 
@@ -98,10 +98,9 @@ artifact at build time.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [provided contract](#provided-contract): A provided contract is the promise catzc keeps to a consumer; a pin is the consumer's explicit
-    choice of the version that promise holds for.
-  - [trunk](#trunk): Inside the trunk everything is at HEAD, with no version; a pin is the one form of synchronisation, at the repository
-    boundary.
+  - [provided contract](#provided-contract): A pin is the consumer's explicit choice of a version that crosses the repository boundary; a
+    provided contract is the promise catzc keeps under that pin.
+  - [trunk](#trunk): A pin is an explicit version at the repository boundary; inside the trunk nothing is pinned, and everything is at HEAD.
 
 ### product mono-repository
 
@@ -132,7 +131,7 @@ stop.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [domain](#domain): A domain is a group of ADRs; a responsibility domain is what one repository is accountable for.
+  - [domain](#domain): A responsibility domain is what one repository is accountable for; an ADR domain groups ADRs.
 
 ### source of truth
 
@@ -144,8 +143,8 @@ The one store whose content decides what is true about the delivered system — 
 - **Contrasts:**
   - [adjacent store](#adjacent-store): An adjacent store is a second store driven one way from the trunk's pipelines, a projection of the
     truth; the source of truth is the record it is driven from.
-  - [source](#source): A source, always qualified, names where one thing comes from; the source of truth is the one store that decides what
-    is true about the delivered system.
+  - [source](#source): The source of truth is the one store that decides what is true about the delivered system, the repository; a source,
+    always qualified, names where one thing comes from.
   - [truth store](#truth-store): A truth store is any store of the three kinds; the source of truth is the one truth store that decides
     inside a responsibility domain, the repository.
 
@@ -157,7 +156,8 @@ An application that owns fact sources and changes their state by its own rules, 
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [fact source](#fact-source): A fact source is the store catzc reads; a state machine is the application that owns and changes it.
+  - [fact source](#fact-source): A state machine is the application that owns and changes a fact source; a fact source is the store catzc
+    reads.
 
 ### trunk
 
@@ -169,8 +169,8 @@ with all its consumers.
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
   - [pin](#pin): A pin is an explicit version at the repository boundary; inside the trunk nothing is pinned, and everything is at HEAD.
-  - [product mono-repository](#product-mono-repository): A product mono-repository is the repository as a whole, with its tracks and
-    deployable-units; the trunk is its one mainline.
+  - [product mono-repository](#product-mono-repository): The trunk is the one mainline of a product mono-repository, where everything is at
+    HEAD; the product mono-repository is the repository as a whole, with its tracks and deployable-units.
 
 ### truth store
 
@@ -180,8 +180,8 @@ Any store that holds part of the truth about a delivered system — a version-co
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [source of truth](#source-of-truth): The source of truth is the one truth store that decides inside a responsibility domain, the
-    repository; a truth store is any store of the three kinds.
+  - [source of truth](#source-of-truth): A truth store is any store of the three kinds; the source of truth is the one truth store that
+    decides inside a responsibility domain, the repository.
 
 ### uncontested
 
@@ -217,8 +217,7 @@ The product's name to a person — the executor outside pwsh, and the word in pr
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [catzc](#catzc): catzc is the source-level name every module, namespace and path carries; cats is the friendly form a person reads and
-    says.
+  - [catzc](#catzc): cats is the same system named to a person; catzc is its name to code and to the facts the tooling writes.
 
 ### catzc
 
@@ -251,8 +250,8 @@ one row of the value-chain stack in one value-chain concern.
     intersection, allowed or not.
   - [value-chain map](#value-chain-map): The value-chain map is a whole grid; a cell is one intersection of it, holding the ADRs of one row
     in one value-chain concern.
-  - [world map](#world-map): The world map is a whole grid; a cell is one intersection of it, holding the files of one track in one file
-    language.
+  - [world map](#world-map): A cell is one row crossed with one column; the world map is the whole grid of them, computed from the
+    registries and the git index.
 
 ### deployable track
 
@@ -262,7 +261,7 @@ A track whose type owns deployable-units — collections of its modules that the
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [deployable-unit](#deployable-unit): A deployable-unit is what ships; a deployable track is the track that owns it.
+  - [deployable-unit](#deployable-unit): A deployable track is the track that owns deployable-units; a deployable-unit is what ships.
   - [holder track](#holder-track): A holder track is itself a module and ships nothing of its own; a deployable track owns deployable-units.
 
 ### deployable-unit
@@ -273,8 +272,8 @@ What ships — a whole track or a reduced composition — bound one-to-one to it
 - **Realized by:** config-key `pwsh/Catzc.Base.Globs/configs/globs.yml`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [bundle](#bundle): A bundle is one build of the toolset; a deployable-unit is what ships from the mono-repository, whichever way it is
-    built.
+  - [bundle](#bundle): A deployable-unit is what ships from the mono-repository, composed from a whole track or part of one; a bundle is one
+    build of the toolset.
   - [deployable track](#deployable-track): A deployable track is the track that owns deployable-units; a deployable-unit is what ships.
   - [release candidate](#release-candidate): A release candidate is one commit's tagged, immutable build of a deployable-unit; a
     deployable-unit is the composition that ships, whichever commit is built.
@@ -290,16 +289,16 @@ set of them.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [contract language](#contract-language): The contract language is a notation inside one YAML file, the one a command contract is written
-    in; a file language is the kind of text a whole file holds, named by its extension.
-  - [file type](#file-type): A file type is the single extension of one file; a file language groups the extensions of one kind of text.
-  - [implementation language](#implementation-language): An implementation language is a file language a command is written in; a file
-    language is any language the registry names by extension.
-  - [language zone](#language-zone): A language zone is one of the design, test, and live registers of identities; a file language is the
-    kind of text one file holds.
-  - [role](#role): A role is the part a file plays, what it is for; a file language is the sort of text it holds.
-  - [track](#track): A track is a root folder and the concern it holds; a file language is the kind of text one file holds, wherever it
-    lives.
+  - [contract language](#contract-language): A file language is the kind of text a file holds, named by its extension; the contract language
+    is a notation inside one YAML file, not a file language of its own.
+  - [file type](#file-type): A file language groups the extensions of one kind of text; a file type is the single extension of one file.
+  - [implementation language](#implementation-language): A file language is any language the registry names by extension; an implementation
+    language is one a command is written in.
+  - [language zone](#language-zone): A file language is the kind of text one file holds, named by its extension; a language zone is a
+    register of identities.
+  - [role](#role): A file language is the sort of text a file holds, named by its extension; a role is what the file is for.
+  - [track](#track): A file language is the kind of text a file holds, named by its extension; a track is the cluster the file lives in, and
+    its tech-stack is a set of file languages.
   - [unlisted file](#unlisted-file): An unlisted file is a tracked file no file language names — no extension, or one no entry lists; a file
     language is a registered kind of text, named by its extensions.
 
@@ -311,8 +310,8 @@ A track that is itself a module more than it owns modules — one vendor's, one 
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [deployable track](#deployable-track): A deployable track owns deployable-units delivered through CI/CD; a holder track holds files a
-    platform or tool reads.
+  - [deployable track](#deployable-track): A holder track is itself a module and ships nothing of its own; a deployable track owns
+    deployable-units.
 
 ### import
 
@@ -333,8 +332,8 @@ The folder `.unordered/<name>` an import lands at, named by a short kebab word u
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [landing zone](#landing-zone): A landing zone is the Azure network and guardrails a workload lands in; a landing address is the folder
-    an import lands at.
+  - [landing zone](#landing-zone): A landing address is the folder an import lands at under the unordered track; a landing zone is the Azure
+    network and guardrails a workload lands in.
 
 ### lit cell
 
@@ -345,9 +344,9 @@ ADR sits in.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [cell](#cell): A cell is any intersection of a map; a lit cell is one a highlight selects.
-  - [stack violation](#stack-violation): A stack violation is a finding about a cell's files; a lit cell is a selection, made by a
-    highlight, that never judges the cell.
+  - [cell](#cell): A lit cell is a cell a highlight selects; a cell is any intersection, lit or not.
+  - [stack violation](#stack-violation): A lit cell is selected by a highlight and says nothing about the stack; a stack violation is a
+    finding, marked whatever the highlight.
 
 ### module
 
@@ -357,8 +356,9 @@ A named unit placed in a track — a folder or one file, found by where its file
 - **Realized by:** type `Catzc.Base.Modules.Module`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [module type](#module-type): A module type is the sort of module found at a place; a module is one unit of that sort.
-  - [track](#track): A track is the cluster of module contents and the concern it holds; a module is one named unit placed in it.
+  - [module type](#module-type): A module is one named unit placed in a track; a module type is the sort of module found at a place, one of
+    a closed set.
+  - [track](#track): A module is one named unit placed in a track; a track is the cluster of module contents and the concern it holds.
 
 ### module type
 
@@ -384,8 +384,8 @@ The one commit an always-on environment holds, deployed there as its release can
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [release candidate](#release-candidate): A release candidate is the artifact, the same bytes wherever it is deployed; an occupant is the
-    commit one environment holds.
+  - [release candidate](#release-candidate): An occupant is the commit an environment holds; a release candidate is the artifact built from
+    it, the same bytes wherever it is deployed.
 
 | Avoid               | Say instead                             |
 | ------------------- | --------------------------------------- |
@@ -402,7 +402,7 @@ its track.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [track](#track): A track is the cluster of module contents; a place is one path the track covers.
+  - [track](#track): A place is one path a track covers; a track is the cluster of module contents, whatever places select it.
 
 ### root file
 
@@ -412,7 +412,8 @@ A tracked file no track holds — at the repository root itself, or under out/ �
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [track](#track): A track is a root folder and every file under it; a root file is a tracked file outside every track.
+  - [track](#track): A root file is a tracked file no track holds, at the repository root or under out/; a track is a cluster of places and
+    every file under them.
   - [unlisted file](#unlisted-file): An unlisted file is a tracked file outside every file language, whatever its track; a root file is one
     outside every track, whatever its file language.
 
@@ -444,11 +445,12 @@ forbids.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [cell](#cell): A cell is any intersection of the world map; a stack violation is a cell that breaks its track's tech-stack.
+  - [cell](#cell): A stack violation is a cell holding a live file outside its track's file languages; a cell is any intersection, allowed
+    or not.
   - [lit cell](#lit-cell): A lit cell is selected by a highlight and says nothing about the stack; a stack violation is a finding, marked
     whatever the highlight.
-  - [value-chain stack](#value-chain-stack): The value-chain stack orders decisions, not files; a stack violation is a world-map cell
-    outside its track's tech-stack.
+  - [value-chain stack](#value-chain-stack): A stack violation is a world-map cell outside its track's tech-stack, a set of file languages;
+    the value-chain stack orders decisions, not files.
 
 ### staging slot
 
@@ -467,17 +469,17 @@ type.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [deployable-unit](#deployable-unit): A deployable-unit is what ships, composed from a whole track or a reduced part of one; a track is
-    the cluster of module contents itself.
+  - [deployable-unit](#deployable-unit): A track is a cluster of module contents; a deployable-unit is what ships, composed from a whole
+    track or a reduced part of one.
   - [file language](#file-language): A file language is the kind of text a file holds, named by its extension; a track is the cluster the
     file lives in, and its tech-stack is a set of file languages.
   - [language track](#language-track): A language track is a modules track of one language, holding its modules and its test holder alike; a
     track is any cluster of module contents.
   - [module](#module): A module is one named unit placed in a track; a track is the cluster of module contents and the concern it holds.
-  - [module type](#module-type): A module type is the sort of module found at a place; a track is a cluster of places and the concern it
-    holds.
+  - [module type](#module-type): A track is the cluster of module contents and the concern it holds; a module type is the sort of module
+    found at a place inside or across tracks.
   - [place](#place): A place is one path a track covers; a track is the cluster of module contents, whatever places select it.
-  - [role](#role): A role is the part a file plays, wherever it lives; a track is the cluster the file lives in.
+  - [role](#role): A track is the cluster a file lives in; a role is the part it plays, wherever it lives.
   - [root file](#root-file): A root file is a tracked file no track holds, at the repository root or under out/; a track is a cluster of
     places and every file under them.
   - [track type](#track-type): A track type is the sort of cluster a track is, one of a closed set; a track is the named cluster itself.
@@ -493,11 +495,9 @@ documentation, or unordered.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [module type](#module-type): A module type is the sort of module placed in a track; a track type is the sort of track, and admits module
-    types.
-  - [role](#role): A role is the part a file plays; a track type is the sort of cluster the file lives in.
-  - [track](#track): A track is the named cluster of module contents; a track type is the sort it is, declared once for every track of that
-    sort.
+  - [module type](#module-type): A track type is the sort of cluster a track is; a module type is the sort of module placed in it.
+  - [role](#role): A track type is the sort of cluster a file lives in; a role is the part the file plays, wherever it lives.
+  - [track](#track): A track type is the sort of cluster a track is, one of a closed set; a track is the named cluster itself.
 
 ### unlisted file
 
@@ -507,10 +507,10 @@ A tracked file no file language names — no extension, or one no entry lists �
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [file language](#file-language): A file language is a registered kind of text, named by its extensions; an unlisted file is a tracked
-    file whose extension none of them lists.
-  - [root file](#root-file): A root file is a tracked file outside every track; an unlisted file is a tracked file outside every file
-    language, whatever its track.
+  - [file language](#file-language): An unlisted file is a tracked file no file language names — no extension, or one no entry lists; a file
+    language is a registered kind of text, named by its extensions.
+  - [root file](#root-file): An unlisted file is a tracked file outside every file language, whatever its track; a root file is one outside
+    every track, whatever its file language.
 
 ### unordered track
 
@@ -530,10 +530,10 @@ per ADR.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [track](#track): A track is a root concern, the root folder where files live; a value-chain concern is where along delivery a decision
-    acts.
-  - [value-chain stack](#value-chain-stack): The value-chain stack is the rows, how general a decision is; a value-chain concern is a
-    column, where along delivery it acts.
+  - [track](#track): A value-chain concern is where along delivery a decision acts; a track is a concern of the repository, the cluster
+    where files live.
+  - [value-chain stack](#value-chain-stack): A value-chain concern is a column, where along delivery an ADR acts; the value-chain stack is
+    the rows, how general the decision is.
 
 ### value-chain map
 
@@ -544,10 +544,10 @@ chain.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [cell](#cell): A cell is one intersection of the value-chain map, holding the ADRs of one row in one value-chain concern; the map is the
-    grid.
-  - [world map](#world-map): The world map crosses tracks with file languages and says where a decision's files sit; the value-chain map
-    says where along delivery the decision acts.
+  - [cell](#cell): The value-chain map is a whole grid; a cell is one intersection of it, holding the ADRs of one row in one value-chain
+    concern.
+  - [world map](#world-map): The value-chain map says where along delivery a decision acts; the world map crosses tracks with file languages
+    and says where its files sit.
 
 ### value-chain stack
 
@@ -581,7 +581,8 @@ Code written by a third party that the repository does not author, held in a tra
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [vendor](#vendor): A vendor is the platform that reads a track's files; vendored code is code written by a third party.
+  - [vendor](#vendor): Vendored code is written by a third party and the repository does not author it; a vendor is the platform that reads
+    a track's files.
 
 ### world map
 
@@ -620,8 +621,8 @@ The immutable, tagged artifact a CI component builds from one commit — version
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [deployable-unit](#deployable-unit): A deployable-unit is the composition that ships, whichever commit is built; a release candidate is
-    one commit's tagged, immutable build of it.
+  - [deployable-unit](#deployable-unit): A release candidate is one commit's tagged, immutable build of a deployable-unit; a deployable-unit
+    is the composition that ships, whichever commit is built.
   - [occupant](#occupant): An occupant is the commit an environment holds; a release candidate is the artifact built from it, the same bytes
     wherever it is deployed.
   - [published artifact](#published-artifact): A published artifact is any file handed across a stage boundary; a release candidate is the
@@ -644,7 +645,7 @@ Every test in the repository — every test file of every module, at every tier 
 - **Realized by:** function `Test-Automation`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
-  - [test run](#test-run): A test run executes one selection of tests, possibly all; all tests is every test in the repository, at rest.
+  - [test run](#test-run): All tests is every test in the repository, at rest; a test run executes one selection of them, possibly all.
   - [test suite](#test-suite): A test suite is a named selection, usually a few modules up to a tier; all tests is every test there is.
 
 | Avoid               | Say instead |
@@ -662,8 +663,8 @@ System.Collections.Specialized.OrderedDictionary
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Engines/configs/glossary.yml`
 - **Contrasts:**
-  - [execution engine](#execution-engine): An execution engine is one of pwsh, bash and zsh; auto is a value that leaves the choice among
-    them open.
+  - [execution engine](#execution-engine): auto is a value that leaves the engine open; an execution engine is the pwsh, bash or zsh it
+    resolves to.
 
 ### automation
 
@@ -702,8 +703,7 @@ The BVT — the verification that precedes every promotion and every creation of
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
-  - [quality gate](#quality-gate): A quality gate is one check inside the BVT; the BVT is the verification that runs them together, before a
-    promotion and in the commit gate.
+  - [quality gate](#quality-gate): The BVT is the verification that runs every quality gate together; a quality gate is one check inside it.
 
 ### bundle
 
@@ -724,7 +724,7 @@ A test's kind, logic or integrity — one mandatory tag saying whether it runs o
 - **Realized by:** tag `logic|integrity`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
-  - [tier](#tier): A tier says what a test may touch and when it runs; a category says what it reads (logic or integrity).
+  - [tier](#tier): A category says what a test reads (logic or integrity); a tier says what it may touch and when it runs.
 
 | Avoid             | Say instead         |
 | ----------------- | ------------------- |
@@ -750,8 +750,8 @@ result.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Config/configs/glossary.yml`
 - **Contrasts:**
-  - [posture](#posture): A posture is what one config key does when no file states it; a config fragment is a file that changes a few keys
-    of a shipped config.
+  - [posture](#posture): A config fragment is a file that changes a few keys of a shipped config; a posture is what one key does when no
+    file states it.
 
 ### engine start environment
 
@@ -777,8 +777,7 @@ System.Collections.Specialized.OrderedDictionary
   - [auto](#auto): auto is a value that leaves the engine open; an execution engine is the pwsh, bash or zsh it resolves to.
   - [posix engine](#posix-engine): A POSIX engine is an execution engine whose importer entry is importer.sh; an execution engine is any one
     of them, pwsh included.
-  - [pwsh](#pwsh): pwsh is one of the three execution engines and the name the PowerShell track takes from it; an execution engine is any of
-    the three.
+  - [pwsh](#pwsh): pwsh is one of the three execution engines, and the name the PowerShell track takes from it.
 
 ### go test module
 
@@ -798,8 +797,8 @@ Bash, Python and Go.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [contract language](#contract-language): The contract language is the notation a command's call interface is stated in; an
-    implementation language is the file language the command's source is written in.
+  - [contract language](#contract-language): An implementation language is the file language a command's source is written in; the contract
+    language is the notation its call interface is stated in.
   - [file language](#file-language): A file language is any language the registry names by extension; an implementation language is one a
     command is written in.
 
@@ -816,12 +815,12 @@ modules the session loads.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [automation](#automation): Automation is what the loaded modules offer; the importer is what brings a mix of languages, engines and
-    modules into a session.
-  - [import](#import): An import brings an outside repository's files and history into this repository; the importer brings catzc's modules
-    into a session.
-  - [run mode](#run-mode): A run mode says where the importer reads the modules from; the importer decides which modules, languages and
-    engines load.
+  - [automation](#automation): The importer brings a mix of languages, engines and modules into a session; automation is what the loaded
+    modules offer.
+  - [import](#import): The importer brings catzc's modules into a session; an import brings an outside repository's files and history into
+    this repository.
+  - [run mode](#run-mode): The importer decides which modules, languages and engines a session loads; a run mode says where it reads the
+    modules from.
 
 ### language track
 
@@ -832,8 +831,8 @@ tests/, the same way for every language.
 - **Realized by:** config-key `pwsh/Catzc.Base.Variants/configs/module-types.yml`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [track](#track): A track is any named cluster of module contents; a language track is one whose modules are written in one language and
-    resolved alike.
+  - [track](#track): A language track is a modules track of one language, holding its modules and its test holder alike; a track is any
+    cluster of module contents.
 
 ### layout
 
@@ -844,7 +843,7 @@ module's folders.
 - **Realized by:** config-key `pwsh/Catzc.Base.Languages/configs/languages.yml`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [module type](#module-type): A module type says where modules of a sort are found; a layout says what a module's own folders hold.
+  - [module type](#module-type): A layout says what a module's own folders hold; a module type says where modules of a sort are found.
 
 ### materialization
 
@@ -855,8 +854,8 @@ When a knowledge resource comes into being and how long it holds, on-demand (mad
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [meta head](#meta-head): A meta head is the leading comment that holds a file's facts; materialization is the property of a resource
-    that a generated file's body_sha makes visible there.
+  - [meta head](#meta-head): Materialization says when a resource comes into being and how long it holds; a meta head is where a generated
+    file shows its commit key, body_sha.
 
 | Avoid               | Say instead       |
 | ------------------- | ----------------- |
@@ -873,7 +872,7 @@ A test run's scheduling stage — parallel and greedy files share one pool, seri
 - **Forms:** `parallel phase`, `serial phase`, `greedy phase`, `worker phase`, `execution phase`, `run phase`, `test phase`, and the bare
   `phase`
 - **Contrasts:**
-  - [tier](#tier): A tier is what a test may touch; a phase is when its file runs within a run (parallel, greedy, serial).
+  - [tier](#tier): A phase is when a test's file runs within a run (parallel, greedy, serial); a tier is what the test may touch.
 
 ### posix engine
 
@@ -883,8 +882,8 @@ System.Collections.Specialized.OrderedDictionary
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Engines/configs/glossary.yml`
 - **Contrasts:**
-  - [execution engine](#execution-engine): An execution engine is any one of the shells the code runs under; the POSIX engines are those of
-    them that load importer.sh.
+  - [execution engine](#execution-engine): A POSIX engine is an execution engine whose importer entry is importer.sh; an execution engine is
+    any one of them, pwsh included.
 
 ### posture
 
@@ -906,10 +905,10 @@ A file one stage produces and a later stage downloads and consumes — carried b
 - **Realized by:** type `Catzc.Base.Objects.ArtifactRef`
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [contract asset](#contract-asset): A contract asset is a checked-in file that states what the repository boundary requires, frozen with
-    its unit's release; a published artifact is a file one stage produces and a later stage consumes within a run.
-  - [release candidate](#release-candidate): A release candidate is the tagged build that gets promoted; a published artifact is any file
-    handed across a stage boundary.
+  - [contract asset](#contract-asset): A published artifact is a file one stage produces and a later stage consumes within a run; a contract
+    asset is a checked-in file that states what the repository boundary requires, frozen with its unit's release.
+  - [release candidate](#release-candidate): A published artifact is any file handed across a stage boundary; a release candidate is the
+    tagged build that gets promoted.
 
 ### pwsh
 
@@ -942,7 +941,7 @@ Write-QualityGateReport and throws once with every issue.
 - **Contrasts:**
   - [build verification test](#build-verification-test): The BVT is the verification that runs every quality gate together; a quality gate
     is one check inside it.
-  - [gate](#gate): A gate is any decision point, human or automated; a quality gate is one automated check of the repository.
+  - [gate](#gate): A quality gate is one automated check of the repository; a gate is any decision point, human or automated.
 
 | Avoid            | Say instead                                     |
 | ---------------- | ----------------------------------------------- |
@@ -957,8 +956,8 @@ The one language-neutral spelling of a function, type, parameter or module name,
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Languages/configs/glossary.yml`
 - **Contrasts:**
-  - [eac normal form](#eac-normal-form): The eac normal form is the verifiable shape of a whole piece of code; the repository normal form is
-    the one language-neutral spelling of a name.
+  - [eac normal form](#eac-normal-form): The repository normal form is the one language-neutral spelling of a name; the eac normal form is
+    the verifiable shape of a whole piece of code.
 
 ### test
 
@@ -970,7 +969,7 @@ one Pester It.
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Part of:** [test block](#test-block)
 - **Contrasts:**
-  - [test block](#test-block): A test block groups tests and carries their shared tags and setup; a test is one It that passes or fails.
+  - [test block](#test-block): A test is one It that passes or fails; a test block groups tests and carries their shared tags and setup.
 
 ### test file
 
@@ -996,8 +995,8 @@ One invocation of Test-Automation, Test-CatzcBuild, or Invoke-TestFile over a se
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
   - [all tests](#all-tests): All tests is every test in the repository, at rest; a test run executes one selection of them, possibly all.
-  - [release candidate](#release-candidate): A release candidate is the artifact a release-candidate test run verifies; a test run executes
-    tests.
+  - [release candidate](#release-candidate): A test run executes tests; a release candidate is the artifact a release-candidate test run
+    verifies.
   - [test suite](#test-suite): A test suite is a declared selection at rest; a test run executes a selection, a test suite or an ad-hoc one.
 
 | Avoid          | Say instead                                      |
@@ -1017,11 +1016,11 @@ Test-Automation -Suite.
 - **Realized by:** config-key `pwsh/Catzc.Base.Globs/configs/globs.yml`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
-  - [all tests](#all-tests): All tests is every test there is; a test suite is a named selection, usually a few modules up to a tier.
-  - [release candidate](#release-candidate): A release candidate is the artifact under test; a test suite is the declared selection of tests
-    that verifies a change.
-  - [test run](#test-run): A test run executes a selection, a test suite or an ad-hoc one; a test suite is the declared selection at rest.
-  - [tier](#tier): A tier is one level a single test carries; a test suite selects whole modules up to a top tier.
+  - [all tests](#all-tests): A test suite is a named selection, usually a few modules up to a tier; all tests is every test there is.
+  - [release candidate](#release-candidate): A test suite is the declared selection of tests that verifies a change; a release candidate is
+    the artifact under test.
+  - [test run](#test-run): A test suite is a declared selection at rest; a test run executes a selection, a test suite or an ad-hoc one.
+  - [tier](#tier): A test suite is a declared selection of modules up to a top tier; a tier is one level a single test carries.
 
 ### testing in production
 
@@ -1062,10 +1061,9 @@ An L2 or L3 test that cuts from an outer ring of the test onion (local tools; ou
 - **Realized by:** tag `L2|L3`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
-  - [testing in production](#testing-in-production): Testing in production checks the released system after final approval; a vertical test
-    crosses a ring around the code.
-  - [tier](#tier): A tier names a test's outermost ring and every test has one; a vertical test is an L2 or L3 test, one that crosses a
-    ring.
+  - [testing in production](#testing-in-production): A vertical test crosses the local-tool or outside-state ring around the code; testing
+    in production checks the released system.
+  - [tier](#tier): A vertical test is an L2 or L3 test that cuts from its ring through to the core; a tier names the ring, any test has one.
 
 ## pwsh
 
@@ -1079,7 +1077,7 @@ A Describe or Context in a test file — a named group of tests whose tags and s
 - **Part of:** [test file](#test-file)
 - **Contrasts:**
   - [test](#test): A test is one It that passes or fails; a test block groups tests and carries their shared tags and setup.
-  - [test file](#test-file): A test file is the *.Tests.ps1 file; a test block is a Describe or Context inside it.
+  - [test file](#test-file): A test block is a Describe or Context inside a test file; a test file is the file that holds them.
 
 ## configuration
 
@@ -1192,7 +1190,7 @@ The landing zone of a customer subscription — peered to the hub of its tier, h
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 - **Contrasts:**
-  - [hub](#hub): A hub is a shared subscription's landing zone, listing its spokes; a spoke is a customer subscription's, peered to its hub.
+  - [hub](#hub): A spoke is a customer subscription's landing zone, peered to its hub; a hub is a shared subscription's, listing its spokes.
 
 ### subscription vending
 
@@ -1213,8 +1211,8 @@ numbers it.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Azure.Templates/configs/glossary.yml`
 - **Contrasts:**
-  - [cloud adoption framework](#cloud-adoption-framework): The Well-Architected Framework shapes the workload; the Cloud Adoption Framework
-    shapes the landing zone it lands in.
+  - [cloud adoption framework](#cloud-adoption-framework): The Cloud Adoption Framework shapes the landing zone; the Well-Architected
+    Framework shapes the workload in it.
 
 ## repository
 
@@ -1235,8 +1233,8 @@ An ADR citation in a code comment, written as a repository-rooted markdown link 
 - **Realized by:** function `Format-Links`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
-  - [markdown link](#markdown-link): A markdown link lives in a .md file and is relative to it; a code link lives in a comment of a
-    non-markdown file and is repository-rooted.
+  - [markdown link](#markdown-link): A code link lives in a comment of a non-markdown file and is repository-rooted; a markdown link lives
+    in a .md file and is relative to it.
 
 ### command contract
 
@@ -1247,10 +1245,10 @@ contract language; a command is public exactly when one names it.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [command](#command): A command is the function that implements the interface; a command contract is the asset that states it at the
-    boundary.
-  - [contract asset](#contract-asset): A contract asset is any file of the five kinds; a command contract is the kind that states a
-    command's call interface and is compared with the command's source.
+  - [command](#command): A command contract is the asset that states a command's call interface at the boundary; the command is the function
+    that implements it.
+  - [contract asset](#contract-asset): A command contract is the one asset kind that states a command's call interface and is compared with
+    the command's source; a contract asset is any file of the five kinds.
 
 ### comment page
 
@@ -1283,8 +1281,8 @@ picks its kind — a fragment, a schema, a sample payload, or a command contract
 - **Contrasts:**
   - [command contract](#command-contract): A command contract is the one asset kind that states a command's call interface and is compared
     with the command's source; a contract asset is any file of the five kinds.
-  - [contract](#contract): A contract is the binding interface at the repository boundary; a contract asset is one checked-in file that
-    states part of it.
+  - [contract](#contract): A contract asset is one file in an owning module's folder of a unit's contracts/ version folder; a contract is
+    the binding interface its assets state together.
   - [published artifact](#published-artifact): A published artifact is a file one stage produces and a later stage consumes within a run; a
     contract asset is a checked-in file that states what the repository boundary requires, frozen with its unit's release.
 
@@ -1310,7 +1308,7 @@ The `deck.md` of a deck folder — the deck's title and its sections, beside the
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Slides/configs/glossary.yml`
 - **Contrasts:**
-  - [slide file](#slide-file): A slide file is one slide of a deck; the deck file names the deck and its sections and holds no slide.
+  - [slide file](#slide-file): The deck file names the deck's title and sections; a slide file is one slide of it.
 
 ### depended-on contract
 
@@ -1321,8 +1319,8 @@ platform change is a new draft.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [provided contract](#provided-contract): A provided contract is a promise to an outside consumer, kept while the consumer pins that
-    version of its unit; a depended-on contract records what a platform requires and follows the platform.
+  - [provided contract](#provided-contract): A depended-on contract is what an outside platform expects of our files and calls, and it
+    follows that platform; a provided contract is a promise to a consumer, kept while the consumer pins that version of its unit.
 
 ### diagram declaration
 
@@ -1333,8 +1331,8 @@ vocabulary, and where a moved cell sits; put renders it into the drawing and get
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Slides/configs/glossary.yml`
 - **Contrasts:**
-  - [slide file](#slide-file): A slide file is markdown prose a pattern fills; a diagram declaration is yml the kit renders into a draw.io
-    model.
+  - [slide file](#slide-file): A diagram declaration is yml the kit renders into a draw.io model; a slide file is markdown prose a pattern
+    fills.
 
 ### domain
 
@@ -1379,8 +1377,8 @@ or test, written on its source only.
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
-  - [place facts](#place-facts): An edge is a named relation leaving the file, read from its text; the place facts are properties of the
-    file as a node, read from the repository's configuration.
+  - [place facts](#place-facts): The place facts are properties of the file as a node, read from the repository's configuration; an edge is
+    a named relation leaving the file, read from its text.
 
 ### facet
 
@@ -1393,7 +1391,7 @@ module facet (disk, session).
 - **Forms:** `build facet`, `types facet`, `load facet`, `parity facet`, `manifest facet`, `module facet`, `disk facet`, `session facet`,
   `runtime facet`, and the bare `facet`, with its verb forms
 - **Contrasts:**
-  - [layer](#layer): A layer is one level of a stack, sitting on or containing the next; a facet is a parallel view of the same thing.
+  - [layer](#layer): A facet is one of several parallel views of, or checks on, the same thing; a layer is one level of a stack.
 
 ### field
 
@@ -1417,8 +1415,8 @@ The extension of a file's name, which tells the sorts of file inside one languag
 - **Contrasts:**
   - [file language](#file-language): A file language groups the extensions of one kind of text; a file type is the single extension of one
     file.
-  - [role](#role): A role is the part a file plays; a file type is how its name ends.
-  - [subkind](#subkind): A subkind is a narrower role, whatever the name; a file type is how a file's name ends.
+  - [role](#role): A file type is how a file's name ends; a role is the part the file plays.
+  - [subkind](#subkind): A file type is how a file's name ends; a subkind is a narrower role, whatever the name.
 
 ### imprint step
 
@@ -1450,7 +1448,7 @@ One of the three registers — design, test, live — each with its own terminol
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Forms:** `language zone`, `design zone`, `test zone`, `live zone`, `landing zone`, `dns zone`, `availability zone`, and the bare `zone`
 - **Contrasts:**
-  - [domain](#domain): An ADR domain groups ADRs in one docs/adr/ subfolder; a language zone is a register of identities.
+  - [domain](#domain): A language zone is one of the design, test, and live registers of identities; an ADR domain groups ADRs.
   - [file language](#file-language): A file language is the kind of text one file holds, named by its extension; a language zone is a
     register of identities.
 
@@ -1583,8 +1581,8 @@ language, track or module.
   - [file language](#file-language): A file language is the sort of text a file holds, named by its extension; a role is what the file is
     for.
   - [file type](#file-type): A file type is how a file's name ends; a role is the part the file plays.
-  - [meta kind](#meta-kind): A meta kind is a registry entry that says which derived fact goes into a head; a role is the part one file
-    plays.
+  - [meta kind](#meta-kind): A role is the part one file plays; a meta kind is a registry entry that says which derived fact goes into a
+    head.
   - [subkind](#subkind): A subkind is one narrower role under a role, and a file has at most one; a role is the part itself.
   - [track](#track): A track is the cluster a file lives in; a role is the part it plays, wherever it lives.
   - [track type](#track-type): A track type is the sort of cluster a file lives in; a role is the part the file plays, wherever it lives.
@@ -1642,7 +1640,7 @@ The narrowing of a role, such as a gate among the functions, written under its r
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 - **Contrasts:**
   - [file type](#file-type): A file type is how a file's name ends; a subkind is a narrower role, whatever the name.
-  - [role](#role): A role is the part a file plays; a subkind is one narrower role under it, and a file has at most one.
+  - [role](#role): A subkind is one narrower role under a role, and a file has at most one; a role is the part itself.
 
 ### workstream
 

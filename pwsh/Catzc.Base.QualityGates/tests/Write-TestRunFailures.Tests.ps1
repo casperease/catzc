@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4d2928bcf904"
+    with_body_sha: "6527f8fee63d"
   edges:
     docs: "[Write-TestRunFailures.Tests.ps1.md](docs/references/pwsh/catzc-base-qualitygates/tests/Write-TestRunFailures.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Write-TestRunFailures.ps1
@@ -51,6 +51,27 @@ Describe 'Write-TestRunFailures' -Tag 'L0', 'logic' {
         $script:headers | Should -Be @('Failures (1)') -Because 'a file whose tests failed has no error of its own; its rows carry them'
         $script:lines | Should -Contain 'FAIL C:\widget\Gadget.Tests.ps1 (failed before its tests ran)'
         $script:lines | Should -Contain '     gadget discovery broke'
+    }
+
+    It 'names every failed test that shares a message, and writes the message once with its count' {
+        $rows = @(
+            [pscustomobject]@{ Result = 'Failed'; ExpandedPath = 'Widget.spins'; ErrorMessage = 'gadget lint failed' }
+            [pscustomobject]@{ Result = 'Failed'; ExpandedPath = 'Widget.fits'; ErrorMessage = 'Expected 2, but got 1.' }
+            [pscustomobject]@{ Result = 'Failed'; ExpandedPath = 'Widget.turns'; ErrorMessage = 'gadget lint failed' }
+            [pscustomobject]@{ Result = 'Failed'; ExpandedPath = 'Widget.stops'; ErrorMessage = 'gadget lint failed' }
+        )
+        & $script:write $rows @()
+        $script:headers | Should -Be @('Failures (4)')
+        $script:lines | Should -Be @(
+            ''
+            'FAIL Widget.spins'
+            'FAIL Widget.turns'
+            'FAIL Widget.stops'
+            '     3 failures share this message:'
+            '     gadget lint failed'
+            'FAIL Widget.fits'
+            '     Expected 2, but got 1.'
+        )
     }
 
     It 'writes nothing when nothing failed' {
