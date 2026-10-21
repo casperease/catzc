@@ -17,6 +17,137 @@ one of them is slow: over the 177 declared diagrams, finding the diagrams and th
 about 20 seconds, and rendering about 1.2 seconds a diagram, close to three and a half minutes in all. So a full run takes minutes, and the
 everyday journeys are `-Stale`, which rebuilds only the diagrams a tree change left stale, and `-Path`, which rebuilds the diagrams named.
 
+```yml drawio
+description:
+  "Build-Diagrams as one pipeline of five stages: it finds the diagrams in the tree, finds every page that embeds each one, writes the
+  minimap data of every declared diagram, renders or syncs each diagram, and reports. Rendering is where a full run spends its time."
+about:
+  adrs:
+    - ADR-REPO-SLIDES-MINIMAPSFROMDATA
+  lens: implementation
+content:
+  title: Build-Diagrams runs five stages, and rendering is the cost
+  kind: explanation
+  flow: left-to-right
+  relation: then
+  theme: dark
+  bands:
+    - id: band-pipeline
+      label: BUILD-DIAGRAMS
+  glyphs:
+    - id: g-folders
+      kind: set
+      label: diagrams
+      in: band-pipeline
+    - id: g-articles
+      kind: file
+      label: articles
+      in: band-pipeline
+    - id: g-minimaps
+      kind: code
+      label: minimap data
+      in: band-pipeline
+    - id: g-render
+      kind: runner
+      label: render or sync
+      in: band-pipeline
+    - id: g-report
+      kind: result
+      label: report
+      in: band-pipeline
+  edges:
+    - from: g-folders
+      to: g-articles
+      kind: flow
+      label: ""
+    - from: g-articles
+      to: g-minimaps
+      kind: flow
+      label: ""
+    - from: g-minimaps
+      to: g-render
+      kind: flow
+      label: ""
+    - from: g-render
+      to: g-report
+      kind: flow
+      label: ""
+  markers:
+    - at: g-render
+      number: 1
+  legend: auto
+  minimaps:
+    axis:
+      - cell: AUTO/quality-control
+        by:
+          - ADR-REPO-SLIDES-MINIMAPSFROMDATA
+    layer-stack:
+      - cell: automation
+        by:
+          - docs/drs/index.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/slides-as-markdown.md
+          - docs/references/pwsh/catzc-base-slides.md
+          - docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md
+          - docs/references/python/catzc_diagrams.md
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1
+          - pwsh/Catzc.Base.Slides/Build-Diagrams.ps1
+          - pwsh/Catzc.Base.Slides/tests/Write-DiagramMinimapData.Tests.ps1
+          - ADR-REPO-SLIDES-MINIMAPSFROMDATA
+    grid:
+      - cell: docs/markdown
+        by:
+          - docs/drs/index.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/slides-as-markdown.md
+          - docs/references/pwsh/catzc-base-slides.md
+          - docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md
+          - docs/references/python/catzc_diagrams.md
+          - ADR-REPO-SLIDES-MINIMAPSFROMDATA
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1
+          - pwsh/Catzc.Base.Slides/Build-Diagrams.ps1
+          - pwsh/Catzc.Base.Slides/tests/Write-DiagramMinimapData.Tests.ps1
+          - ADR-REPO-SLIDES-MINIMAPSFROMDATA
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-REPO-SLIDES-MINIMAPSFROMDATA
+layout:
+  band-pipeline:
+    x: 20
+    y: 84
+    w: 1260
+    h: 170
+  g-folders:
+    x: 60
+    y: 144
+    w: 180
+    h: 60
+  g-articles:
+    x: 300
+    y: 144
+    w: 180
+    h: 60
+  g-minimaps:
+    x: 540
+    y: 144
+    w: 200
+    h: 60
+  g-render:
+    x: 800
+    y: 144
+    w: 200
+    h: 60
+  g-report:
+    x: 1060
+    y: 144
+    w: 180
+    h: 60
+```
+
 ![Build-Diagrams runs five stages, and rendering is the cost](.assets/build-diagrams-runs-five-stages.drawio.png)
 
 ## Walkthrough

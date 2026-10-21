@@ -21,7 +21,8 @@ the renderer, which reports it.
 
 Each stage prints one line per diagram with its position, the diagram, its status and its time, and the run ends with the total. A full run
 over every diagram takes minutes; the everyday journeys are `-Stale`, which rebuilds only what a tree change left stale, and `-Path`, which
-rebuilds the diagrams named.
+rebuilds the diagrams named. A tree `-Stale` run takes about 210 seconds, so it and a tree `Test-Diagrams` run as two calls, each under the
+360-second roof.
 
 Before it renders, each diagram finds its articles: every page anywhere in the tree that embeds its `<name>.drawio.png`. A diagram no page
 embeds is an orphan, reported and still rendered. Each page's Supports line is held against the diagram's yml, and a mismatch is reported as

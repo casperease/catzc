@@ -53,10 +53,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - bcl-language -> plan-bcl-language.md: one step left, the CLAUDE.md line (the user's, task-user-runs-and-commits).
 - agent-friction -> plan-agent-friction.md: the user's CLAUDE.md trims only (task-user-runs-and-commits).
 - claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit only (Sub-agents cut, the pwsh index named; task-user-runs-and-commits).
-- session-learnings -> plan-session-learnings.md: one learning reworded and catzc-49's lines appended; its questions are decided.
+- session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
-- diagram-in-article -> plan-diagram-in-article.md: A diagram may declare itself in its article, in a yml drawio fenced block the kit
-  renders like mermaid; the .assets file stays the default.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

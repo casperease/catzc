@@ -32,15 +32,14 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-| Value  | Plan                    | Needed docs                                                                                     | Needed tests                                                                                          | State                                            |
-| ------ | ----------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| medium | plan-session-learnings  | the session-finalize skill (the learning definition)                                            | Pester for Add-SessionLearning and LearningsConfig                                                    | decided; six steps                               |
-| high   | plan-agent-shortcuts    | the plans ADR names New-Plan                                                                    | Pester for the gate runner and New-Plan, Test-AgentDefinitions                                        | one step left, the user's CLAUDE.md line         |
-| high   | plan-idiomatic-names    | ADR-AUTO-IDIOM (written), the command-contracts and api-contracts rules (written)               | Test-IdiomaticNames, Pester for the naming types, Test-Contracts                                      | folders renamed; wiring and the normal form open |
-| high   | plan-agent-friction     | ADR-REPO-PLANS gains the three-part plan rule; a how-to for a head fact                         | Pester for Test-Plans and Test-Formatting, the hook test, Test-ParameterConsistency                   | the head how-to and drawing, the user's trim     |
-| medium | plan-bcl-language       | the BCL reference-set rule in ADR-AUTO-TYPES, the narrowed ADR-PWSH-TYPES rules, the bcl domain | Test-Links on the moved pages, Pester for the host-binding gate and config, Test-DrsRegistry          | one step left, the user's CLAUDE.md line         |
-| high   | plan-drs-system         | the DRS rule in ADR-REPO-DRSCODE, glossary entries for DRS, decision record and record kind     | Catzc.Base.Docs Pester, Update-DrsCitation dry run, Test-DrsRegistry, Test-Links, Test-GeneratedFiles | one step left, the user's CLAUDE.md edit         |
-| medium | plan-diagram-in-article | ADR-REPO-SLIDES and the conventional-folders rule (two carriers)                                | pytest, the Slides Pester, Test-Diagrams, Test-ShippedConfigs                                         | decided; rules, config, tools, one proof diagram |
+| Value  | Plan                   | Needed docs                                                                                     | Needed tests                                                                                          | State                                            |
+| ------ | ---------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| medium | plan-session-learnings | the session-finalize skill (the learning definition)                                            | Pester for Add-SessionLearning and LearningsConfig                                                    | decided; six steps                               |
+| high   | plan-agent-shortcuts   | the plans ADR names New-Plan                                                                    | Pester for the gate runner and New-Plan, Test-AgentDefinitions                                        | one step left, the user's CLAUDE.md line         |
+| high   | plan-idiomatic-names   | ADR-AUTO-IDIOM (written), the command-contracts and api-contracts rules (written)               | Test-IdiomaticNames, Pester for the naming types, Test-Contracts                                      | folders renamed; wiring and the normal form open |
+| high   | plan-agent-friction    | ADR-REPO-PLANS gains the three-part plan rule; a how-to for a head fact                         | Pester for Test-Plans and Test-Formatting, the hook test, Test-ParameterConsistency                   | the head how-to and drawing, the user's trim     |
+| medium | plan-bcl-language      | the BCL reference-set rule in ADR-AUTO-TYPES, the narrowed ADR-PWSH-TYPES rules, the bcl domain | Test-Links on the moved pages, Pester for the host-binding gate and config, Test-DrsRegistry          | one step left, the user's CLAUDE.md line         |
+| high   | plan-drs-system        | the DRS rule in ADR-REPO-DRSCODE, glossary entries for DRS, decision record and record kind     | Catzc.Base.Docs Pester, Update-DrsCitation dry run, Test-DrsRegistry, Test-Links, Test-GeneratedFiles | one step left, the user's CLAUDE.md edit         |
 
 ## Pending deletion
 
@@ -74,3 +73,5 @@ Deleted 2026-10-21, every step landed (ADR-REPO-PLANS-DONEPLANDELETED):
 - plan-debt-empty-path: an empty `-Path` is refused by `ValidatePathGiven` on the 21 whole-tree commands; the `catzc-run` path-list clause.
 - plan-debt-diagram-names: the `drsonly` glyph kind and "DRS-only" prose, `-Stem`, `Rename-CodeName` listing skipped hits, the
   `Move-Diagram` deleted-page guard.
+- plan-diagram-in-article: a diagram declared in its article in a `yml drawio` block above its image, `carriers:` in the kit's `drawio.yml`,
+  `build-diagrams-runs-five-stages` as the proof; the `catzc-verify` staging clause and the `Build-Diagrams` page's two-call sentence.
