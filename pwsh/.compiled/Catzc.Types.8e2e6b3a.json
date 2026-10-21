@@ -1,5 +1,5 @@
 {
-  "hash": "07e15bf8",
+  "hash": "8e2e6b3a",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -198,6 +198,16 @@
         "HasHead",
         "NewLine"
       ]
+    },
+    {
+      "name": "Catzc.Base.CodeMeta.CommentPageMap",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.CodeMeta.CommentPagesConfig",
+      "aliases": [],
+      "display": []
     },
     {
       "name": "Catzc.Base.CodeMeta.HeadAnchor",
@@ -695,12 +705,12 @@
       "display": []
     },
     {
-      "name": "Catzc.Base.Languages.CarrierKind",
+      "name": "Catzc.Base.Languages.BclConfig",
       "aliases": [],
       "display": []
     },
     {
-      "name": "Catzc.Base.Languages.DotnetConfig",
+      "name": "Catzc.Base.Languages.CarrierKind",
       "aliases": [],
       "display": []
     },
@@ -1228,11 +1238,6 @@
     },
     {
       "name": "Catzc.Base.QualityGates.CommentLexer",
-      "aliases": [],
-      "display": []
-    },
-    {
-      "name": "Catzc.Base.QualityGates.CommentPageMap",
       "aliases": [],
       "display": []
     },

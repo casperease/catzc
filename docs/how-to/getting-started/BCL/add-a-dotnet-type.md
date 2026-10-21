@@ -2,7 +2,7 @@
 
 Some logic is better as a native .NET type than as PowerShell — a process runner, or a validated data record that replaces a loose
 hashtable. Drop a `.cs` file in a module's `types/` folder and the importer compiles and loads it before any function runs. The full design
-is in [native-csharp-types](../../../../adr/automation/BCL/native-csharp-types.md); this is the how-to.
+is in [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md); this is the how-to.
 
 ## Steps
 
@@ -25,7 +25,7 @@ is in [native-csharp-types](../../../../adr/automation/BCL/native-csharp-types.m
   `System.Management.Automation` — so a PowerShell primitive (`WildcardPattern`, `PSObject`) costs a `using` namespace and nothing more.
   There is no mechanism to add NuGet references.
 - Use **PascalCase** property names — _except_ on a type that mirrors a `configs/<name>.yml` file, where the properties match the snake_case
-  YAML keys (see [native-csharp-types rule ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](../../../../adr/automation/BCL/native-csharp-types.md)).
+  YAML keys (see [native-csharp-types rule ADR-AUTO-TYPES-SNAKECASEMIRRORSYAML](../../../adr/automation/BCL/native-csharp-types.md)).
 
 ## Example: a plain result type
 
@@ -66,7 +66,7 @@ public sealed class CliResult
 A data record backed by a YAML/dictionary shape can inherit the shared base `Catzc.Base.Objects.DictionaryRecord`, which gives it a
 dictionary view (`Contains`, the `[key]` indexer, `Keys`, `ToHashtable()`) and protected extraction helpers (`Req` / `OptStr` / `StrArr`).
 Because that is a cross-module reference, the owning module must declare `Catzc.Base.Objects` in `dependencies.yml` (see
-[Add a module](../add-a-module.md#declaring-dependencies)). Properties match the snake_case config keys they mirror.
+[Add a module](../pwsh/add-a-module.md#declaring-dependencies)). Properties match the snake_case config keys they mirror.
 
 ## Compilation and caching
 

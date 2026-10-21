@@ -43,3 +43,13 @@ It cuts a cost paid by every session and every spawn that loads the project inst
        files touched, never `-Language markdown`; no line added. Check: `Test-AgentDefinitions`, and `wc -l` on the file unchanged.
 5. [ ] `pwsh/Catzc.Base.Docs/configs/agents.yml`: a comment on the `2020-hindsight` entry that a robot reading a long log caps its probes
        per line and writes in batches, since a 40-turn roof ended its first run before its one write. Check: `Test-AgentDefinitions`.
+
+## Open questions
+
+- From catzc-72's finalize (2026-10-21): the `session-finalize` skill's step 2 runs `Format-Code -Language markdown` over the whole tree,
+  which this run used and which reformatted two files outside the session (a peer's learnings file and a reference page), against decision
+  Q5. Should step 2 say `Format-Code -Path` on the plans touched? Recommendation: yes, the same clause Q5 gives `catzc-run`.
+- Same finalize: `plan-decide` names no folder for its questionnaire and decisions files (older rounds used `.claude/plans`, this one
+  `out/`). Should its step 2 name `out/`? Recommendation: yes, three words merged into the line, since `out/` keeps them off `Test-Plans`.
+- Same finalize: bash `find` and `grep -r` over the tree exceed the 3 s foreground roof. Should `catzc-run`'s fastest-runner line say the
+  Grep and Glob tools answer a tree sweep? Recommendation: yes, a merged clause, no new line.

@@ -71,7 +71,7 @@ The importer is the boundary at which the session's view of the repo is fixed, s
 pick up the change. Two exceptions:
 
 - A **C# type** edit cannot be hot-swapped — the loader will tell you to start a fresh session (see
-  [Add a C# type](BCL/add-a-dotnet-type.md)).
+  [Add a C# type](../BCL/add-a-dotnet-type.md)).
 - Set breakpoints _before_ invoking; changing a file mid-break runs the old parsed copy until you re-import.
 
 ## Diagnosing a slow or broken import

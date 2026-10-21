@@ -2,25 +2,25 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3487b45080d1"
+    with_body_sha: "6a8f4aed0756"
   edges:
-    code: pwsh/Catzc.Base.Languages/types/DotnetConfig.cs
+    code: pwsh/Catzc.Base.Languages/types/BclConfig.cs
     cites:
       - ADR-AUTO-TYPES-DEBUGANYCPU
 ---
 #>
 
-Describe 'DotnetConfig' -Tag 'L0' {
+Describe 'BclConfig' -Tag 'L0' {
 
-    Context 'integrity (shipped dotnet.yml and the tracked solutions and projects)' -Tag 'integrity' {
+    Context 'integrity (shipped bcl.yml and the tracked solutions and projects)' -Tag 'integrity' {
         BeforeAll {
-            $script:config = Get-Config -Config dotnet
+            $script:config = Get-Config -Config bcl
             $script:root = Get-RepositoryRoot
             $script:tracked = @(Get-GitTrackedPath '.' | Where-Object { $_ -match '\.(sln|csproj)$' -and $_ -notmatch '(^|/)\.vendor/' })
         }
 
-        It 'loads the shipped dotnet.yml as a DotnetConfig with the Debug on Any CPU pair' {
-            $script:config | Should -BeOfType [Catzc.Base.Languages.DotnetConfig]
+        It 'loads the shipped bcl.yml as a BclConfig with the Debug on Any CPU pair' {
+            $script:config | Should -BeOfType [Catzc.Base.Languages.BclConfig]
             $script:config.SolutionPair() | Should -BeExactly 'Debug|Any CPU'
         }
 
@@ -65,27 +65,27 @@ Describe 'DotnetConfig' -Tag 'L0' {
     Context 'logic (fixture configs)' -Tag 'logic' {
         It 'takes the declared defaults for an empty or absent file' {
             foreach ($raw in [ordered]@{}, $null) {
-                $config = [Catzc.Base.Languages.DotnetConfig]::new($raw)
-                $config.configuration | Should -BeExactly ([Catzc.Base.Languages.DotnetConfig]::DefaultConfiguration)
-                $config.platform | Should -BeExactly ([Catzc.Base.Languages.DotnetConfig]::DefaultPlatform)
+                $config = [Catzc.Base.Languages.BclConfig]::new($raw)
+                $config.configuration | Should -BeExactly ([Catzc.Base.Languages.BclConfig]::DefaultConfiguration)
+                $config.platform | Should -BeExactly ([Catzc.Base.Languages.BclConfig]::DefaultPlatform)
             }
-            [Catzc.Base.Languages.DotnetConfig]::DefaultConfiguration | Should -BeExactly 'Debug'
-            [Catzc.Base.Languages.DotnetConfig]::DefaultPlatform | Should -BeExactly 'Any CPU'
+            [Catzc.Base.Languages.BclConfig]::DefaultConfiguration | Should -BeExactly 'Debug'
+            [Catzc.Base.Languages.BclConfig]::DefaultPlatform | Should -BeExactly 'Any CPU'
         }
 
         It 'treats a key set to null like an omitted key' {
-            $config = [Catzc.Base.Languages.DotnetConfig]::new([ordered]@{ configuration = $null; platform = $null })
+            $config = [Catzc.Base.Languages.BclConfig]::new([ordered]@{ configuration = $null; platform = $null })
             $config.SolutionPair() | Should -BeExactly 'Debug|Any CPU'
         }
 
         It 'maps every key and spells the platform the way a project does' {
-            $config = [Catzc.Base.Languages.DotnetConfig]::new([ordered]@{ configuration = 'Widget'; platform = 'Gadget CPU' })
+            $config = [Catzc.Base.Languages.BclConfig]::new([ordered]@{ configuration = 'Widget'; platform = 'Gadget CPU' })
             $config.SolutionPair() | Should -BeExactly 'Widget|Gadget CPU'
             $config.ProjectPlatform() | Should -BeExactly 'GadgetCPU'
         }
 
         It 'rejects an unknown key and an invalid name, naming each' {
-            { [Catzc.Base.Languages.DotnetConfig]::new([ordered]@{ widget = 'x'; configuration = 'Debug|x64'; platform = 7 }) } |
+            { [Catzc.Base.Languages.BclConfig]::new([ordered]@{ widget = 'x'; configuration = 'Debug|x64'; platform = 7 }) } |
                 Should -Throw -ExpectedMessage "*unknown key 'widget'*invalid configuration 'Debug|x64'*invalid platform '7'*"
         }
     }

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "818cbe98f9ce"
+    with_body_sha: "8fcff102ad72"
 ---
 
 # Documentation
@@ -21,7 +21,7 @@ in a script and in CI, and the task index. Its how-to articles:
 
 - [Add a function](how-to/getting-started/pwsh/powershell/add-a-function.md)
 - [Add a module](how-to/getting-started/pwsh/add-a-module.md)
-- [Add a C# type](how-to/getting-started/pwsh/BCL/add-a-dotnet-type.md)
+- [Add a C# type](how-to/getting-started/BCL/add-a-dotnet-type.md)
 - [Add an infrastructure template](how-to/getting-started/automation/add-an-infrastructure-template.md)
 - [Run tests and checks](how-to/getting-started/pwsh/run-tests-and-checks.md)
 - [Debug in VS Code](how-to/getting-started/pwsh/debug-in-vscode.md)

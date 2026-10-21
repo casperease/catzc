@@ -6,17 +6,18 @@ on: the foundational types (`Object`, `String`, `Array`, `Int32`), collections, 
 same set the runtime libraries, framework libraries, or shared framework. See the [Microsoft references](#microsoft-references) below for
 the authoritative definitions.
 
-The automation platform authors part of its code as native C# types (the `types/*.cs` sources), compiled into one combined assembly and
-loaded at import. Those types compile against the **host-guaranteed assemblies** — the BCL plus `System.Management.Automation`, both in
-`Add-Type`'s default reference set — and nothing else: there is no NuGet in this toolset, so a type may use only what the `pwsh` host itself
-ships (see [hosting-csharp-types rule ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](../../../adr/automation/pwsh/hosting-csharp-types.md)). This
-area collects the BCL-side reference material.
+The automation platform authors part of its code as native C# types (the `types/*.cs` sources) in the **BCL language**: C# against the Base
+Class Library, a subset of .NET. pwsh is the language's host, not its owner: it compiles the sources into one combined assembly inside the
+.NET runtime already running the session, and loads it at import. There is no NuGet in this toolset, so a type uses the BCL and nothing
+else, and a type that binds to the host's own `System.Management.Automation` does so as a configured exception (see
+[hosting-csharp-types rule ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES](../../adr/automation/pwsh/hosting-csharp-types.md)). This area collects
+the BCL-side reference material.
 
 - [The type system](types-system.md) — the combined assembly, the shared `DictionaryRecord` base, and the type-accelerator aliases.
 
-The governing decision is the [native-csharp-types](../../../adr/automation/BCL/native-csharp-types.md) ADR. The modules most involved are
-[`Catzc.Base.Objects`](../catzc-base-objects.md) (the `DictionaryRecord` base and shared records) and
-[`Catzc.Base.TypesSystem`](../catzc-base-typessystem.md) (the IDE project build).
+The governing decision is the [native-csharp-types](../../adr/automation/BCL/native-csharp-types.md) ADR. The modules most involved are
+[`Catzc.Base.Objects`](../pwsh/catzc-base-objects.md) (the `DictionaryRecord` base and shared records) and
+[`Catzc.Base.TypesSystem`](../pwsh/catzc-base-typessystem.md) (the IDE project build).
 
 ## Microsoft references
 

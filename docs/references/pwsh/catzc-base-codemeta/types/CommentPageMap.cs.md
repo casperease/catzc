@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/types/CommentPageMap.cs
+# pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -8,7 +8,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `using System;`, written with `//`.
 
 ```text
-One entry of comments.yml's `pages:` list: which docs folder holds the comment pages of the files under a source
+One entry of comment-pages.yml's `pages:` list: which docs folder holds the comment pages of the files under a source
 folder. A comment page is the one living copy of a file's long comments
 ([ADR-PRIN-ONELIVE-ONEVERSION](/docs/adr/principles/one-living-version.md#rule-adr-prin-onelive-oneversion)); the pages live under
 docs/references like every other authored source

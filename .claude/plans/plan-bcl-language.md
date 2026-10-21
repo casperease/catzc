@@ -53,6 +53,10 @@ host (or a reader of a bundle) needs before the types can be reasoned about apar
 - **The language row is renamed `csharp` to `bcl` after plan-minimal-heads lands**, since that plan drops `language` from code heads and the
   rename shrinks from about 290 files to the configs and tests; the `csharp-namespace` imprint step becomes `bcl-namespace` in the same
   change.
+- **BCL is two things** (the user, 2026-10-21): a .NET language in catzc's domain, where a language carries more than its file row (its
+  build pair, its projects and solution, its reference set); and its use inside pwsh, which compiles the types in the .NET runtime already
+  running the session, intrinsic to pwsh. The build pair of `ADR-AUTO-TYPES-DEBUGANYCPU` is the language's, so it lives in `bcl.yml` on
+  `BclConfig` (landed), and the host bindings join it there.
 - **The BCL drawing is wanted**, after the host bindings land, as one sample folder `out/diagrams/dark-sample/.assets/bcl-language/`; on
   approval it goes to `docs/adr/automation/BCL/.assets/bcl-language/`, kept in step with the one definition page.
 
@@ -76,8 +80,8 @@ The doc moves go first.
       configured exception; the host-binding section names the language and its host apart (check: `Test-AdrIndex`, `Test-Links`).
 - [ ] `docs/adr/automation/pwsh/hosting-csharp-types.md`: narrow `ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES` and
       `ADR-PWSH-TYPES-POWERSHELLPRIMITIVES` to "the BCL language, plus SMA for a configured host binding" (check: `Test-AdrIndex`).
-- [ ] `pwsh/Catzc.Base.Languages/configs/bcl.yml` and `pwsh/Catzc.Base.Languages/types/BclConfig.cs` (the planner's name, 2026-10-21): one
-      row per host-bound file with its reason; register in `configs.yml`. Today 12 `types/*.cs` files have
+- [ ] `pwsh/Catzc.Base.Languages/configs/bcl.yml` and `pwsh/Catzc.Base.Languages/types/BclConfig.cs`, which exist with the build pair: add
+      one row per host-bound file with its reason, beside `configuration` and `platform`. Today 12 `types/*.cs` files have
       `using System.Management.Automation`; the seven that stay host-bound after the unwraps below are its rows: `GlossaryProse.cs`,
       `GlobPattern.cs`, `FunctionCallCollector.cs`, `CommentLexer.cs`, `ParsedScripts.cs`, `SyntaxSearch.cs`, `PipelineWatchdog.cs` (check:
       `Invoke-TestFile` on `pwsh/Catzc.Base.Languages/tests/types/BclConfig.Tests.ps1`).
@@ -90,16 +94,18 @@ The doc moves go first.
 - [ ] `pwsh/Catzc.Base.Docs/configs/adrs.yml` and `docs/adr/index.md`: the `bcl` domain and its table; `automation/`'s description stops
       listing `BCL/` as a language layer (check: `Test-AdrIndex`).
 - [ ] Re-cite `ADR-AUTO-TYPES-*` → `ADR-BCL-TYPES-*` with `Update-AdrCitation`, dry run first; the dry run lists
-      `ADR-AUTO-TYPES-DEBUGANYCPU` too, cited in the head of `DotnetConfig.cs`, the three `.csproj` comments and the
+      `ADR-AUTO-TYPES-DEBUGANYCPU` too, cited in the head of `BclConfig.cs`, the three `.csproj` comments and the
       `Invoke-BuildForVSCode.ps1.md` page (check: `Test-AdrRegistry`, which runs the citation graph).
 - [ ] After plan-minimal-heads lands: `pwsh/Catzc.Base.Languages/configs/languages.yml`: rename the `csharp` row to `bcl` and the
       `csharp-namespace` step to `bcl-namespace`, then every caller in the same change, one file at a time (check: `Catzc.Base.Languages`
       and `Catzc.Base.QualityGates` Pester, then `Test-Formatting -Language bcl`).
-- [ ] `docs/references/BCL/index.md` (after the move): the one page that defines the BCL language, its host and its reference set; the
-      reference-set wording leaves `docs/references/pwsh/index.md` and links here instead, so the definition has one living version
-      (`ADR-PRIN-ONELIVE`) (check: `Test-Links` on both pages, `grep -c "System.Management.Automation"` on the pwsh index is 0).
-- [ ] `.claude/CLAUDE.md`, section Project structure: one line, "`types/*.cs` are written in BCL, a subset of .NET; pwsh hosts them",
-      linking the BCL reference index, after the doc moves land (check: `Test-AgentDefinitions`, `Test-Links -Path .claude/CLAUDE.md`).
+- [ ] `docs/references/BCL/index.md` (after the move): the one page that defines the BCL language (its files, its build pair from `bcl.yml`,
+      its reference set) and its use inside the pwsh host, as the two things the user decided; the reference-set wording leaves
+      `docs/references/pwsh/index.md` and links here instead, so the definition has one living version (`ADR-PRIN-ONELIVE`) (check:
+      `Test-Links` on both pages, `grep -c "System.Management.Automation"` on the pwsh index is 0).
+- [ ] `.claude/CLAUDE.md`, section Project structure: one line saying that the `types/*.cs` files are written in BCL, a subset of .NET, and
+      pwsh hosts them, linking the BCL reference index, after the doc moves land (check: `Test-AgentDefinitions`,
+      `Test-Links -Path .claude/CLAUDE.md`).
 - [ ] After the `bcl.yml` step: the BCL diagram as one sample folder `out/diagrams/dark-sample/.assets/bcl-language/` (its
       `diagram.drawio.yml` and png), the host box showing the kinds `bcl.yml` keeps; nothing in `docs/` until approved (check: the user
       approves the sample).
@@ -108,13 +114,11 @@ The doc moves go first.
 
 ## Open questions
 
-- From the session that added `ADR-AUTO-TYPES-DEBUGANYCPU` (2026-10-21): the one build pair (Debug on Any CPU) lives on `DotnetConfig`, read
-  through `pwsh/Catzc.Base.Languages/configs/dotnet.yml`. Should it stay its own config, or become keys of the planned `bcl.yml`?
-  Recommendation: keep `dotnet.yml`, since the pair governs the hook projects too, and they are .NET programs, not BCL types.
-- From the same session, two facts each could shrink what the next session reads, as one clause merged into an existing line: should
-  `catzc-run` say that changing a code line whose long comment moved to a `docs/references/` comment page means editing that page's "Above
-  `…`" line too? Should `.claude/CLAUDE.md`'s Project structure say that `catzc.sln` at the root is a gitignored output of
-  `Build-RootConfig`, with only its asset tracked? Recommendation: yes to the first; no to the second, which `rootconfig.yml` already says.
+- From the session that added `ADR-AUTO-TYPES-DEBUGANYCPU` (2026-10-21), two facts each could shrink what the next session reads, as one
+  clause merged into an existing line: should `catzc-run` say that changing a code line whose long comment moved to a `docs/references/`
+  comment page means editing that page's "Above `…`" line too? Should `.claude/CLAUDE.md`'s Project structure say that `catzc.sln` at the
+  root is a gitignored output of `Build-RootConfig`, with only its asset tracked? Recommendation: yes to the first; no to the second, which
+  `rootconfig.yml` already says.
 
 ## Refs
 

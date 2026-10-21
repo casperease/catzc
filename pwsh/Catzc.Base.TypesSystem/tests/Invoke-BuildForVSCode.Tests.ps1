@@ -10,8 +10,8 @@ Describe 'Invoke-BuildForVSCode' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'runs dotnet build on Catzc.Types.csproj in the configuration of dotnet.yml' {
-        Mock Get-Config -ModuleName Catzc.Base.TypesSystem { [Catzc.Base.Languages.DotnetConfig]::new([ordered]@{ configuration = 'Widget' }) }
+    It 'runs dotnet build on Catzc.Types.csproj in the configuration of bcl.yml' {
+        Mock Get-Config -ModuleName Catzc.Base.TypesSystem { [Catzc.Base.Languages.BclConfig]::new([ordered]@{ configuration = 'Widget' }) }
         Invoke-BuildForVSCode | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem -Times 1 -ParameterFilter {
             $Command -match 'dotnet build' -and $Command -match 'Catzc\.Types\.csproj' -and $Command -match '--configuration Widget'

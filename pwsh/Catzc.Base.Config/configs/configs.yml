@@ -22,6 +22,8 @@ configs:
     type: Catzc.Base.QualityGates.LinksConfig
   comments:
     type: Catzc.Base.QualityGates.CommentsConfig
+  comment-pages:
+    type: Catzc.Base.CodeMeta.CommentPagesConfig
   file-meta:
     type: Catzc.Base.QualityGates.FileMetaConfig
   generated-files:
@@ -147,8 +149,8 @@ configs:
     type: Catzc.Base.VSCode.VscodePipelineSchemaConfig
   go:
     type: Catzc.Base.Languages.GoConfig
-  dotnet:
-    type: Catzc.Base.Languages.DotnetConfig
+  bcl:
+    type: Catzc.Base.Languages.BclConfig
   python:
     type: Catzc.Base.Languages.PythonConfig
   bash:

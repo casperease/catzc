@@ -2,14 +2,15 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "38c8d550ab7e"
+    with_body_sha: "59108c9e8e27"
   edges:
-    test: pwsh/Catzc.Base.Languages/tests/types/DotnetConfig.Tests.ps1
-    docs: "[DotnetConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/DotnetConfig.cs.md)"
+    test: pwsh/Catzc.Base.Languages/tests/types/BclConfig.Tests.ps1
+    docs: "[BclConfig.cs.md](docs/references/pwsh/catzc-base-languages/types/BclConfig.cs.md)"
     cites:
       - ADR-AUTO-TYPES-DEBUGANYCPU
 ---
 */
+
 
 using System;
 using System.Collections;
@@ -19,13 +20,13 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Languages;
 
-public sealed class DotnetConfig : Catzc.Base.Objects.DictionaryRecord
+public sealed class BclConfig : Catzc.Base.Objects.DictionaryRecord
 {
     public const string DefaultConfiguration = "Debug";
 
     public const string DefaultPlatform = "Any CPU";
 
-    private const string Failed = "dotnet config validation failed:\n";
+    private const string Failed = "bcl config validation failed:\n";
     private static readonly string[] AllowedKeys = { "configuration", "platform" };
     private static readonly Regex Name = new Regex(@"^[A-Za-z][A-Za-z0-9]*( [A-Za-z0-9]+)*$");
 
@@ -33,7 +34,7 @@ public sealed class DotnetConfig : Catzc.Base.Objects.DictionaryRecord
 
     public string platform { get; }
 
-    public DotnetConfig(IDictionary raw)
+    public BclConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
         configuration = DefaultConfiguration;

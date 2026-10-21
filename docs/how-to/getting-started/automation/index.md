@@ -141,7 +141,7 @@ Short, focused how-to articles for the common jobs:
 | ----------------------------------------- | ------------------------------------------------------------------- |
 | Add a public function to a module         | [Add a function](../pwsh/powershell/add-a-function.md)              |
 | Create a brand-new module                 | [Add a module](../pwsh/add-a-module.md)                             |
-| Add a native .NET type backed by C#       | [Add a C# type](../pwsh/BCL/add-a-dotnet-type.md)                   |
+| Add a native .NET type backed by C#       | [Add a C# type](../BCL/add-a-dotnet-type.md)                        |
 | Add a deployable Bicep template           | [Add an infrastructure template](add-an-infrastructure-template.md) |
 | Define a deployable unit + trigger file   | [Add a deployable unit](add-a-deployable-unit.md)                   |
 | Run the tests, linters, and formatters    | [Run tests and checks](../pwsh/run-tests-and-checks.md)             |

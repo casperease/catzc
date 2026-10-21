@@ -32,6 +32,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Catzc.Base.CodeMeta;
 
 namespace Catzc.Base.QualityGates;
 

@@ -21,7 +21,7 @@ Started 2026-10-21T06:22:09.4408143+02:00.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: a config is registered in pwsh/Catzc.Base.Config/configs/configs.yml as name -> C#
   type, and its default is a const on that type, so an empty yml is a valid config.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: Format-Code moves a long code comment to a docs/references comment page whose
-  "Above ``...``" line names the code line, so editing that code line means editing the page too.
+  "Above `...`" line names the code line, so editing that code line means editing the page too.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: Base modules run dotnet through Invoke-Executable, never Invoke-Dotnet, and
   Build-AgentHook and Invoke-BuildForVSCode are the only catzc callers of dotnet build/publish.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: plan-bcl-language re-cites every ADR-AUTO-TYPES-* rule to ADR-BCL-TYPES-*, so a new
@@ -30,3 +30,17 @@ Started 2026-10-21T06:22:09.4408143+02:00.
   3 s foreground roof twice.
 - 2026-10-21 Cats: Token tip: Next time, save tokens by: reading an ADR with Read and an offset rather than cat, whose large output was
   persisted and read twice.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: New-Plan writes only the plan file; the value-of-plan.md row and the plan-master.md
+  chunk line are written by hand.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: the contract language has no side-effect key and no config marks a command
+  harmless; a verb allow-list in config is the planned way (plan-accosted-language).
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: terminology.yml categories carry a scope that is a zone map, and no category
+  reserves a token to named paths yet.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: the plan-decide agent names no folder for its questionnaire and decisions files;
+  older rounds kept them in .claude/plans, the 2026-10-21 round in out/.
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: a bash find or grep -r over the whole tree exceeds the 3 s foreground roof; the
+  Grep and Glob tools answer the same question in time.
+- 2026-10-21 Cats: Token tip: Next time, save tokens by: probing the tree with the Grep and Glob tools instead of bash find or grep -r,
+  which time out and need a second read.
+- 2026-10-21 Cats: Token tip: Next time, save tokens by: reading one sample command.yml and the plans ADR rule headings before writing a
+  plan, instead of whole ADR pages.

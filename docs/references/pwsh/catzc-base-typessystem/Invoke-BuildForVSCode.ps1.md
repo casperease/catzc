@@ -26,7 +26,7 @@ which this Base module must not depend on. So there is no locked-version check h
 The project builds the source tree's `types/*.cs`, so it stops with a named error in build mode (Assert-SourceTree,
 [ADR-DSGN-RUNMODE](../../../adr/design/run-modes.md)).
 
-It builds the one configuration of `dotnet.yml`, Debug by default
+It builds the one configuration of `bcl.yml`, Debug by default
 ([ADR-AUTO-TYPES-DEBUGANYCPU](../../../adr/automation/BCL/native-csharp-types.md#rule-adr-auto-types-debuganycpu)).
 
 ### parameter `PassThru`

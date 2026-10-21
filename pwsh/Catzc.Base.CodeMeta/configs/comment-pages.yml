@@ -1,0 +1,34 @@
+# ---
+# catzc:
+#   immutable:
+#     repo_status: clean
+#     path: pwsh/Catzc.Base.CodeMeta/configs/comment-pages.yml
+#     folder: configs
+#     name: comment-pages
+#     filetype: yml
+#     role: config
+#     language: yaml
+#     track: pwsh
+#     tracktype: modules
+#     module: Catzc.Base.CodeMeta
+#     moduletype: pwsh-folder
+#     catzc_bundle: azure
+# ---
+
+pages:
+  - source: pwsh/*
+    docs: docs/references/pwsh/{kebab}
+  - source: .ado/pipelines
+    docs: docs/references/ado/pipelines
+  - source: infrastructure
+    docs: docs/references/infrastructure
+  - source: .claude/hooks
+    docs: docs/references/pwsh/claude-hooks
+  - source: python/*
+    docs: docs/references/python/{kebab}
+  - source: .github/workflows
+    docs: docs/references/github/workflows
+  - source: pwsh/.scriptanalyzer
+    docs: docs/references/pwsh/scriptanalyzer
+  - source: pwsh/.internal
+    docs: docs/references/pwsh/internal

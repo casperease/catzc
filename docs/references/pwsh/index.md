@@ -78,10 +78,11 @@ Modules are layered — a module may only call into the modules it declares in `
 
 ## Beyond the modules
 
-Two reference areas cover the parts of `pwsh/` that are not themselves modules:
+One reference area covers the part of `pwsh/` that is not itself a module:
 
 - [Internal (`.psm1` shared infrastructure)](internal/index.md) — the loader and shared libraries under `pwsh/.internal/` that run the
   import sequence and load every module above.
-- [BCL (C# / .NET types)](BCL/index.md) — the native C# type system those loaders compile and load.
+
+The `types/*.cs` sources those loaders compile and load are written in [BCL](../BCL/index.md), a language of its own that pwsh hosts.
 
 New here for a task rather than a survey? Start with the [getting-started guide](../../how-to/getting-started/automation/index.md).

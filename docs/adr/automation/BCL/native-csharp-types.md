@@ -154,11 +154,20 @@ reads the memo, and the builder, the janitor and the gates hash every byte.
 Every non-vendored `.sln` and `.csproj` declares exactly one build configuration and platform, Debug on Any CPU, and every `dotnet` call a
 catzc command makes builds that pair. A solution lists only `Debug|Any CPU` in its `SolutionConfigurationPlatforms` and maps each project
 only by `<guid>.Debug|Any CPU.ActiveCfg` and `<guid>.Debug|Any CPU.Build.0`; a project declares `<Configurations>Debug</Configurations>` and
-`<Platforms>AnyCPU</Platforms>`. The pair is a sensible default declared once on the `DotnetConfig` type and read through `dotnet.yml`, so
-every generator of a solution, a project, or a build takes it from there and never names a configuration of its own.
+`<Platforms>AnyCPU</Platforms>`. The pair belongs to the BCL language, not to its pwsh host: it is a sensible default declared once on the
+`BclConfig` type and read through `bcl.yml`, so every generator of a solution, a project, or a build takes it from there and never names a
+configuration of its own.
 
 - [One build configuration](#one-build-configuration)
 - [How this is enforced](#how-this-is-enforced)
+
+### Rule ADR-AUTO-TYPES-BCLREFERENCESET
+
+A type references the Base Class Library and nothing else: that is the BCL language's reference set. A type that binds to its host, such as
+one that uses pwsh's `System.Management.Automation`, is a host binding, and a host binding is a configured exception: one row in `bcl.yml`
+names the file and its reason. A host-bound type without its row is out of the language.
+
+- [The host binding](#the-host-binding)
 
 ## Context
 
@@ -208,9 +217,14 @@ before the module loop.
 
 `How the one host compiles, references, and names the types`
 
-The types run inside the process of the one engine that hosts them, pwsh. Which compiler builds the assembly, which assemblies a type may
-reference, the short names pwsh callers type, how a running pwsh meets a changed type, and why the console text has to live in C# are that
-host's binding, decided in the pwsh domain. This ADR decides what the types are; that one decides how the host carries them.
+BCL and its host are two things. The **language** is C# against the Base Class Library, a subset of .NET, with its own files, its own
+build pair, and the BCL as its whole reference set (Rule ADR-AUTO-TYPES-BCLREFERENCESET); this ADR decides it. The **host** is the one
+engine that runs the types today, pwsh, which compiles and loads them inside the .NET runtime already running its session. Which compiler
+builds the assembly, which host assemblies it guarantees, the short names pwsh callers type, how a running pwsh meets a changed type, and
+why the console text has to live in C# are that host's binding, decided in the pwsh domain.
+
+A type that needs the host itself (a parser over pwsh's syntax tree, a runspace) binds to it on purpose, and that binding is a row in
+`bcl.yml` with its reason, so the language's reference set stays the BCL and every exception is named, not found.
 
 ### Declared namespaces and the IDE project
 
@@ -416,14 +430,16 @@ The C# in this repository is source that runs inside one host or a small agent h
 the host's runtime compile, and a hook is published framework-dependent where it runs. Nothing ships a separately optimized build, so a
 Release configuration and the x64 and x86 platforms only multiply the matrix a solution carries, the rows an editor offers, and the outputs
 that can disagree. One pair, Debug on Any CPU, keeps the editor's build, the hook's publish and the solution's map the same build
-([reduce-variability](../../principles/reduce-variability.md)). The pair is configuration, not code: `DotnetConfig` declares the default
-once ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), and a generator reads it.
+([reduce-variability](../../principles/reduce-variability.md)). BCL is a .NET language in this domain, and a language here carries its build
+as well as its files, so the pair is the language's configuration, apart from the pwsh host that compiles the types inside its own running
+.NET runtime. It is configuration, not code: `BclConfig` declares the default once
+([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)), and a generator reads it.
 
 ### How this is enforced
 
-- **`DotnetConfig.Tests.ps1`** (in `Catzc.Base.Languages`) pins the default pair, and its integrity test fails a tracked, non-vendored
-  `.sln` or `.csproj` that declares any other configuration or platform (Rule ADR-AUTO-TYPES-DEBUGANYCPU). `Build-AgentHook` and
-  `Invoke-BuildForVSCode` build the configuration they read from `dotnet.yml`.
+- **`BclConfig.Tests.ps1`** (in `Catzc.Base.Languages`) pins the default pair, and its integrity test fails a tracked, non-vendored `.sln`
+  or `.csproj` that declares any other configuration or platform (Rule ADR-AUTO-TYPES-DEBUGANYCPU). `Build-AgentHook` and
+  `Invoke-BuildForVSCode` build the configuration they read from `bcl.yml`.
 
 - **`Import-CSharpTypes.Tests.ps1` and `Get-CombinedTypeHash.Tests.ps1`** (`pwsh/.internal/tests`) — the console cell verifies and defers,
   the first `Initialize-Types` loads, the eager cell loads at import, and the hash memo rehashes exactly the files whose length or last

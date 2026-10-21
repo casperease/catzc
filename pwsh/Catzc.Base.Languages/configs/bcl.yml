@@ -1,0 +1,9 @@
+# ---
+# catzc:
+#   immutable:
+#     with_body_sha: ca3d163bab05
+#   edges:
+#     docs: "[bcl.yml.md](docs/references/pwsh/catzc-base-languages/configs/bcl.yml.md)"
+# ---
+
+{}

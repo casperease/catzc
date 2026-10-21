@@ -24,7 +24,7 @@ A module uses only these folder names — they are a contract tooling hardcodes 
 | `private/` | Private helpers, same one-function-per-file rule                | Loaded into module scope, not exported            |
 | `tests/`   | `Verb-Noun.Tests.ps1` Pester files; fixtures in `tests/assets/` | Discovered by `Test-Automation`                   |
 | `configs/` | The module's own config — flat kebab-case `<name>.yml`          | Read via `Get-Config -Config <name>`              |
-| `types/`   | C# sources autoloaded as .NET types                             | See [Add a C# type](BCL/add-a-dotnet-type.md)     |
+| `types/`   | C# sources autoloaded as .NET types                             | See [Add a C# type](../BCL/add-a-dotnet-type.md)  |
 | `assets/`  | Shipped templates, scripts, schemas, starters                   | Referenced via `$PSScriptRoot`; not test fixtures |
 
 A module with no private helpers has no `private/`; a module with no config has no `configs/`. The convention defines what each name means
@@ -70,8 +70,8 @@ unconstrained; once you list it, it is policed — so list it.
 If the module needs its own settings, drop `pwsh/<Module>/configs/<name>.yml` and read it anywhere with `Get-Config -Config <name>` — one
 reader, cached per session, validated on load. Every shipped config has a C# config type
 ([ADR-CONF-LOADING-CSHARPCONFIGTYPE](../../../adr/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)): add one
-to the module's `types/` (see [add-a-dotnet-type](BCL/add-a-dotnet-type.md)) and register it in `Catzc.Base.Config/configs/configs.yml` as
-`<name>: { type: <FQN> }`; `Get-Config` constructs it on load, and its constructor validates the file. Keep keys `snake_case`.
+to the module's `types/` (see [add-a-dotnet-type](../BCL/add-a-dotnet-type.md)) and register it in `Catzc.Base.Config/configs/configs.yml`
+as `<name>: { type: <FQN> }`; `Get-Config` constructs it on load, and its constructor validates the file. Keep keys `snake_case`.
 
 ## Verify
 

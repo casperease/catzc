@@ -39,7 +39,7 @@ function Invoke-BuildForVSCode {
     $project = Join-Path (Get-CatzcModulesRoot) '.internal/assets/Catzc.Types.csproj'
     Assert-PathExist $project
 
-    $configuration = (Get-Config -Config dotnet).configuration
+    $configuration = (Get-Config -Config bcl).configuration
     $result = Invoke-Executable "dotnet build `"$project`" --configuration $configuration" -PassThru
 
     if ($PassThru) {
