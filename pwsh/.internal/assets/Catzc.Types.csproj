@@ -21,17 +21,10 @@
   immutable:
     with_body_sha: b2daa32161e8
     warning: "Do Not Edit, this file is generated"
-    repo_status: locked
-    path: pwsh/.internal/assets/Catzc.Types.csproj
-    source: pwsh/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml
     role: asset
-    language: xml
-    filetype: csproj
     track: pwsh
-    tracktype: modules
-    module: Catzc.Internal.Assets
-    moduletype: pwsh-folder
-    generator: pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1]]></CatzcMeta>
+    generator: pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
+    source: pwsh/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml]]></CatzcMeta>
   </PropertyGroup>
 
   <PropertyGroup>

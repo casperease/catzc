@@ -1,4 +1,20 @@
 Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS', 'ADR-REPO-FORMAT-METAIMPRINT' {
+    BeforeAll {
+        # A fixture kind with a fixture processor, so the commands are proven on a place fact of their own.
+        InModuleScope Catzc.Base.QualityGates {
+            function script:Get-WidgetRoleFileMetaFact {
+                param($State, $Path, $Kind)
+                [ordered]@{ role = "$((Get-FileKind $Path).Class)" }
+            }
+        }
+    }
+
+    AfterAll {
+        InModuleScope Catzc.Base.QualityGates {
+            Remove-Item Function:\Get-WidgetRoleFileMetaFact -ErrorAction Ignore
+        }
+    }
+
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
         [System.IO.Directory]::CreateDirectory((Join-Path $script:widgetRoot 'docs')) | Out-Null
@@ -18,7 +34,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
                 head_policy = @{ default = 'required' }
                 kinds       = [ordered]@{
                     'body-sha'  = @{ keys = @('with_body_sha') }
-                    'file-role' = @{ keys = @('role') }
+                    'widget-role' = @{ keys = @('role') }
                     'adr-codes' = @{ keys = @('cites'); section = 'edges' }
                 }
             })

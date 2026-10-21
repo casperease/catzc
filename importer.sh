@@ -3,13 +3,9 @@
 #   immutable:
 #     with_body_sha: "13861fbb7e83"
 #     warning: "Do Not Edit, this file is generated"
-#     repo_status: locked
-#     path: importer.sh
-#     source: pwsh/Catzc.Base.RootConfig/assets/root/importer.sh
 #     role: script
-#     language: bash
-#     filetype: sh
 #     generator: pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
+#     source: pwsh/Catzc.Base.RootConfig/assets/root/importer.sh
 # ---
 
 # shellcheck shell=bash

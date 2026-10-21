@@ -20,16 +20,7 @@
 keys:
   - with_body_sha
   - warning
-  - repo_status
-  - path
-  - source
   - role
-  - subkind
-  - language
-  - filetype
   - track
-  - tracktype
-  - vendor
-  - module
-  - moduletype
   - generator
+  - source

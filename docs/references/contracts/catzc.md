@@ -1,17 +1,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a09b94f81092
+    with_body_sha: f479b11203a9
     warning: "Do Not Edit, this file is generated"
-    repo_status: locked
-    path: docs/references/contracts/catzc.md
-    source: contracts/catzc
     role: reference
-    language: markdown
-    filetype: md
     track: docs
-    tracktype: documentation
     generator: pwsh/Catzc.Base.Contracts/Build-ContractReference.ps1
+    source: contracts/catzc
 ---
 
 # docs/references/contracts/catzc.md
@@ -405,14 +400,16 @@ Notes:
   and returns its result under -PassThru.
 - `Catzc.Base.QualityGates/head.sample.yml`: Provided sample of a file's meta head
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../adr/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the shape a tool may rely
-  on when it reads the `catzc.immutable` and `catzc.edges` parts of a head, written by Format-FileMeta in the carrier of the file (a comment
-  head, or Markdown front matter). Every key is optional except `path` and `role`, and a fact a file has no value for is left out. The role
-  is the name of the file-kinds entry that selects the file; the kind of the object it belongs to is its track's type, `tracktype`. Its
-  schema, head.schema.json, lists the keys.
+  on when it reads the `catzc.immutable` and `catzc.edges` parts of a head. A head has two shapes. The navigation head of an authored code
+  or config file, this sample, holds `with_body_sha` and the edges: the ADR codes it cites, its comment page (`docs`), its test (`test`),
+  and on a test the file it tests (`code`). A generated file's head holds `with_body_sha`, `warning`, `role`, `track`, `generator` and
+  `source`. Every other fact about a file is derived on demand, never shown. Only `with_body_sha` is required, and a fact a file has no
+  value for is left out. Its schema, head.schema.json, lists the keys of both shapes.
 - `Catzc.Base.QualityGates/head.schema.json`: Provided schema of a file's meta head, validated against the sample beside it
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the keys of catzc.immutable (the place facts) and catzc.edges (the outgoing edges), which a tool may
-  rely on. A fact a file has no value for is left out, so only path and role are required. The role is the name of the file-kinds entry that
-  selects the file; the kind of the object the file belongs to is its track's type, tracktype.
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the keys of catzc.immutable and catzc.edges, which a tool may rely on. The navigation head of an
+  authored code or config file holds with_body_sha and the edges; a generated file's head holds with_body_sha, warning, role, track,
+  generator and source. Every other fact about a file is derived on demand. A fact a file has no value for is left out, so only
+  with_body_sha is required.
 - `Catzc.Base.Repository/Get-RepositoryFile.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Get-RepositoryFile, which returns the full, normalized path to a file relative to the repository root.
 - `Catzc.Base.RootConfig/Test-RootAnalyzerSettings.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call

@@ -63,12 +63,12 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
     It 'copies a source entry out under a generated head naming the source and Build-RootConfig as its generator' {
         Build-RootConfig | Out-Null
         $text = [System.IO.File]::ReadAllText($script:copyTarget)
-        $text | Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     warning: "Do Not Edit, this file is generated"\n#     repo_status: locked\n#     path: fixture\.yml\n#     source: sources/fixture\.yml\n#     role: other\n#     language: yaml\n#     filetype: yml\n#     generator: widgets/Catzc\.Widget/Build-RootConfig\.ps1\n# ---\n\nalpha: 1\nbeta: 2\n$'
+        $text | Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     warning: "Do Not Edit, this file is generated"\n#     role: other\n#     generator: widgets/Catzc\.Widget/Build-RootConfig\.ps1\n#     source: sources/fixture\.yml\n# ---\n\nalpha: 1\nbeta: 2\n$'
     }
 
     It 'renders a generator entry through the dispatch, under a head naming the generator and its sources' {
         Build-RootConfig | Out-Null
-        [System.IO.File]::ReadAllText($script:genTarget) | Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     warning: "Do Not Edit, this file is generated"\n#     repo_status: locked\n#     path: generated\.txt\n#     source: sources/fixture\.yml\n#     role: other\n#     filetype: txt\n#     generator: widgets/Catzc\.Widget/Fake-Generator\.ps1\n# ---\n\nrendered output\n$'
+        [System.IO.File]::ReadAllText($script:genTarget) | Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     warning: "Do Not Edit, this file is generated"\n#     role: other\n#     generator: widgets/Catzc\.Widget/Fake-Generator\.ps1\n#     source: sources/fixture\.yml\n# ---\n\nrendered output\n$'
         Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'Fake-Generator' -and $Target -eq 'generated.txt' }
     }
 
@@ -149,7 +149,7 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         # The pattern of the generated head a generator's file carries, over the content the generator rendered; the body hash is any 12 hex digits.
         $script:headed = {
             param([string] $Target, [string] $Body)
-            '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     warning: "Do Not Edit, this file is generated"\n#     repo_status: locked\n#     path: ' + [regex]::Escape($Target) + '\n#     role: other\n#     filetype: txt\n#     generator: widgets/Catzc\.Widget/New-Widget\.ps1\n# ---\n\n' + [regex]::Escape($Body).Replace("`n", '\n') + '$'
+            '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     warning: "Do Not Edit, this file is generated"\n#     role: other\n#     generator: widgets/Catzc\.Widget/New-Widget\.ps1\n# ---\n\n' + [regex]::Escape($Body).Replace("`n", '\n') + '$'
         }
 
         Mock Write-Message -ModuleName Catzc.Base.RootConfig { }

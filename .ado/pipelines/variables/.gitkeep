@@ -3,16 +3,10 @@
 #   immutable:
 #     with_body_sha: "46bf4ac56731"
 #     warning: "Do Not Edit, this file is generated"
-#     repo_status: locked
-#     path: ".ado/pipelines/variables/.gitkeep"
-#     source: pwsh/Catzc.Base.Docs/assets/gitkeep
 #     role: other
 #     track: ado-pipelines
-#     tracktype: pipelines
-#     vendor: ado
-#     module: pipelines
-#     moduletype: pipeline
 #     generator: pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
+#     source: pwsh/Catzc.Base.Docs/assets/gitkeep
 # ---
 
 This .gitkeep keeps its otherwise-empty (or content-ignored) folder tracked in git.

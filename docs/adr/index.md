@@ -3,15 +3,10 @@ catzc:
   immutable:
     with_body_sha: "1b42f9947464"
     warning: "Do Not Edit, this file is generated"
-    repo_status: locked
-    path: docs/adr/index.md
-    source: pwsh/Catzc.Base.Docs/configs/adrs.yml
     role: index
-    language: markdown
-    filetype: md
     track: docs
-    tracktype: documentation
     generator: pwsh/Catzc.Base.Docs/Build-AdrIndex.ps1
+    source: pwsh/Catzc.Base.Docs/configs/adrs.yml
 ---
 
 # ADR index and rule-citation registry

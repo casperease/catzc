@@ -3,17 +3,10 @@
 #   immutable:
 #     with_body_sha: "345215a75e71"
 #     warning: "Do Not Edit, this file is generated"
-#     repo_status: locked
-#     path: pwsh/.internal/assets/importer-commands.sh
-#     source: contracts/catzc/0.0.0
 #     role: asset
-#     language: bash
-#     filetype: sh
 #     track: pwsh
-#     tracktype: modules
-#     module: Catzc.Internal.Assets
-#     moduletype: pwsh-folder
 #     generator: pwsh/Catzc.Base.Contracts/New-CatsCommandLookup.ps1
+#     source: contracts/catzc/0.0.0
 # ---
 
 # shellcheck shell=bash

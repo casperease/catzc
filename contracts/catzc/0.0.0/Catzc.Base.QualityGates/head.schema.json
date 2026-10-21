@@ -1,5 +1,5 @@
 {
-  "$comment": "Provided schema of a file's meta head, validated against the sample beside it (ADR-REPO-CONTRACT-CONTRACTASSET): the keys of catzc.immutable (the place facts) and catzc.edges (the outgoing edges), which a tool may rely on. A fact a file has no value for is left out, so only path and role are required. The role is the name of the file-kinds entry that selects the file; the kind of the object the file belongs to is its track's type, tracktype.",
+  "$comment": "Provided schema of a file's meta head, validated against the sample beside it (ADR-REPO-CONTRACT-CONTRACTASSET): the keys of catzc.immutable and catzc.edges, which a tool may rely on. The navigation head of an authored code or config file holds with_body_sha and the edges; a generated file's head holds with_body_sha, warning, role, track, generator and source. Every other fact about a file is derived on demand. A fact a file has no value for is left out, so only with_body_sha is required.",
   "type": "object",
   "required": ["catzc"],
   "additionalProperties": false,
@@ -12,39 +12,25 @@
         "config": { "type": "object" },
         "immutable": {
           "type": "object",
-          "required": ["path", "role"],
+          "required": ["with_body_sha"],
           "additionalProperties": false,
           "properties": {
             "with_body_sha": { "type": "string" },
             "warning": { "type": "string" },
-            "repo_status": { "type": "string", "enum": ["clean", "locked"] },
-            "path": { "type": "string" },
-            "folder": { "type": "string" },
-            "name": { "type": "string" },
-            "source": { "type": "string" },
             "role": { "type": "string" },
-            "subkind": { "type": "string" },
-            "language": { "type": "string" },
-            "filetype": { "type": "string" },
             "track": { "type": "string" },
-            "tracktype": { "type": "string" },
-            "vendor": { "type": "string" },
-            "module": { "type": "string" },
-            "moduletype": { "type": "string" },
-            "catzc_bundle": { "type": "string" },
             "generator": { "type": "string" },
-            "visibility": { "type": "string", "enum": ["public", "private"] }
+            "source": { "type": ["string", "array"], "items": { "type": "string" } }
           }
         },
         "edges": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "defines": { "type": "array", "items": { "type": "string" } },
             "cites": { "type": "array", "items": { "type": "string" } },
-            "links": { "type": "array", "items": { "type": "string" } },
-            "page": { "type": "string" },
-            "test": { "type": "string" }
+            "test": { "type": "string" },
+            "docs": { "type": "string" },
+            "code": { "type": "string" }
           }
         }
       }

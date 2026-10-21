@@ -60,32 +60,12 @@ function Format-GeneratedFileHead {
     $entry = $Carriers.Find($id)
     Assert-NotNull $entry -ErrorText "Format-GeneratedFileHead: '$relative' names the carrier '$id', which file-carriers.yml does not declare."
 
-    # A generated file is locked: its source is the truth, so the head says to edit that instead.
-    $values = @{ warning = $Head.warning; repo_status = 'locked'; path = $relative; role = $FileKind.role }
-    if ($FileKind.subkind) {
-        $values['subkind'] = $FileKind.subkind
-    }
-    # A file no language lists, such as a dotfile, has none to name.
-    if ($language) {
-        $values['language'] = $language.name
-    }
-    $fileType = Get-PathFileType $relative
-    if ($fileType) {
-        $values['filetype'] = $fileType
-    }
-    # A root file is in no track, and a file outside pwsh/ is in no module.
+    # The head says what not to touch and what to edit instead; every other fact about the file is derived on demand.
+    $values = @{ warning = $Head.warning; role = $FileKind.role }
+    # A root file is in no track.
     $track = Get-Track -Path $relative
     if ($track) {
         $values['track'] = $track.name
-        $values['tracktype'] = $track.type
-        if ($track.vendor) {
-            $values['vendor'] = $track.vendor
-        }
-    }
-    $module = Get-PathModule $relative
-    if ($module) {
-        $values['module'] = $module.name
-        $values['moduletype'] = $module.type
     }
     if ($Generator) {
         $values['generator'] = Get-GeneratorPath $Generator

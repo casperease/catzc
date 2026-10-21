@@ -4,13 +4,9 @@ catzc:
   immutable:
     with_body_sha: "2f253655e0c6"
     warning: "Do Not Edit, this file is generated"
-    repo_status: locked
-    path: importer.ps1
-    source: pwsh/.internal/Catzc.Internal.Importer.psm1
     role: script
-    language: powershell
-    filetype: ps1
     generator: pwsh/Catzc.Base.ModuleSystem/New-Importer.ps1
+    source: pwsh/.internal/Catzc.Internal.Importer.psm1
 ---
 #>
 

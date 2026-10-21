@@ -48,7 +48,7 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
         $report = @(Build-GitKeep -PassThru)
         ($report | Where-Object Path -EQ 'contracts/.gitkeep').Changed | Should -BeTrue
         $written = ([System.IO.File]::ReadAllText((Join-Path $script:fake.Root 'contracts/.gitkeep')) -replace "`r", '')
-        $written | Should -Match ('^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     warning: "Do Not Edit, this file is generated"\n#     repo_status: locked\n#     path: contracts/\.gitkeep\n#     source: [^\n]*\n#     role: other\n#     track: contracts\n#     tracktype: contracts\n#     generator: ' + [regex]::Escape("$(Get-CatzcModulesFolder)/Catzc.Base.Docs/Build-GitKeep.ps1") + '\n# ---\n\n')
+        $written | Should -Match ('^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     warning: "Do Not Edit, this file is generated"\n#     role: other\n#     track: contracts\n#     generator: ' + [regex]::Escape("$(Get-CatzcModulesFolder)/Catzc.Base.Docs/Build-GitKeep.ps1") + '\n#     source: [^\n]*\n# ---\n\n')
         $written | Should -BeLike ('*' + ($script:expected -replace "`r", '').TrimEnd("`n") + "`n")
     }
 
@@ -93,7 +93,8 @@ Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR
         $written = [System.IO.File]::ReadAllText((Join-Path $script:fake.Root 'widgets/.gitkeep'))
         $shipped.Trim() | Should -Not -BeNullOrEmpty
         ($written -replace "`r", '') | Should -BeLike ('*' + ($shipped -replace "`r", '').TrimEnd("`n") + "`n")
-        $written | Should -BeLike '*path: widgets/.gitkeep*role: other*'
+        $written | Should -BeLike '*role: other*'
+        $written | Should -Not -BeLike '*path: widgets/.gitkeep*'
     }
 }
 

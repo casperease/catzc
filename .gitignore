@@ -3,13 +3,11 @@
 #   immutable:
 #     with_body_sha: "08898915a9b6"
 #     warning: "Do Not Edit, this file is generated"
-#     repo_status: locked
-#     path: ".gitignore"
+#     role: other
+#     generator: pwsh/Catzc.Base.Git/New-GitIgnore.ps1
 #     source:
 #       - pwsh/Catzc.Base.Git/configs/gitignore.yml
 #       - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
-#     role: other
-#     generator: pwsh/Catzc.Base.Git/New-GitIgnore.ps1
 # ---
 
 # ── Local, never-committed files ────────────────────────────────────────────────────────────────────────────────────

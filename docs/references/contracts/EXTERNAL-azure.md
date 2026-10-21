@@ -3,15 +3,10 @@ catzc:
   immutable:
     with_body_sha: "1736b41bdd25"
     warning: "Do Not Edit, this file is generated"
-    repo_status: locked
-    path: docs/references/contracts/EXTERNAL-azure.md
-    source: contracts/EXTERNAL-azure
     role: reference
-    language: markdown
-    filetype: md
     track: docs
-    tracktype: documentation
     generator: pwsh/Catzc.Base.Contracts/Build-ContractReference.ps1
+    source: contracts/EXTERNAL-azure
 ---
 
 # docs/references/contracts/EXTERNAL-azure.md

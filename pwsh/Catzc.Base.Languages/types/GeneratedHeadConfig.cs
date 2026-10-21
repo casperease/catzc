@@ -13,7 +13,7 @@ public sealed class GeneratedHeadConfig : Catzc.Base.Objects.DictionaryRecord
     public const string DefaultWarning = "Do Not Edit, this file is generated";
 
     private const string Failed = "generated-head configuration validation failed:\n";
-    private static readonly string[] Known = ["with_body_sha", "warning", "repo_status", "path", "source", "role", "subkind", "language", "filetype", "track", "tracktype", "vendor", "module", "moduletype", "generator"];
+    private static readonly string[] Known = ["with_body_sha", "warning", "role", "track", "generator", "source"];
     private static readonly string[] TopLevel = ["keys", "warning"];
 
     // The head keys in writing order.
@@ -38,7 +38,7 @@ public sealed class GeneratedHeadConfig : Catzc.Base.Objects.DictionaryRecord
             if (Array.IndexOf(Known, key) < 0) { errors.Add(string.Format("unknown head key '{0}' (allowed: {1})", key, string.Join(", ", Known))); }
         }
         if (listed.Distinct().Count() != listed.Length) { errors.Add("a head key is listed once"); }
-        foreach (string required in new[] { "path", "role" })
+        foreach (string required in new[] { "with_body_sha", "warning", "role" })
         {
             if (Array.IndexOf(listed, required) < 0) { errors.Add(string.Format("the head key '{0}' is required", required)); }
         }

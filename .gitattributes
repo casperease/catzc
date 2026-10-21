@@ -3,13 +3,11 @@
 #   immutable:
 #     with_body_sha: d23e5d94f8d9
 #     warning: "Do Not Edit, this file is generated"
-#     repo_status: locked
-#     path: ".gitattributes"
+#     role: other
+#     generator: pwsh/Catzc.Base.RootConfig/New-GitAttributes.ps1
 #     source:
 #       - pwsh/Catzc.Base.RootConfig/assets/root/.gitattributes-template
 #       - pwsh/Catzc.Base.Globs/configs/file-kinds.yml
-#     role: other
-#     generator: pwsh/Catzc.Base.RootConfig/New-GitAttributes.ps1
 # ---
 
 # Binary files must never be line-ending normalized — EOL conversion rewrites the bytes, which corrupts

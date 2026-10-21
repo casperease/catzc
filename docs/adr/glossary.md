@@ -3,13 +3,8 @@ catzc:
   immutable:
     with_body_sha: fb6be9a7becf
     warning: "Do Not Edit, this file is generated"
-    repo_status: locked
-    path: docs/adr/glossary.md
     role: glossary
-    language: markdown
-    filetype: md
     track: docs
-    tracktype: documentation
     generator: pwsh/Catzc.Base.Docs/Build-Glossary.ps1
 ---
 
