@@ -32,3 +32,19 @@ Started 2026-10-21T02:21:00.2535622+02:00.
   logged twice.
 - 2026-10-21: Token tip: start every out/ script with Set-Location (Get-RepositoryRoot) after the import, since the shell's working folder
   drifts between calls and a relative path then fails.
+- 2026-10-21: In hindsight I wish I knew this fact: no plan-refinement skill exists; plan-shape, plan-decide and plan-clear together are the
+  refinement toolset.
+- 2026-10-21: In hindsight I wish I knew this fact: Test-Plans -Path resolves a relative path against the process directory, not the
+  repository root, so a script passes it absolute.
+- 2026-10-21: In hindsight I wish I knew this fact: Test-Plans passes numbered open steps that carry no [ ] checkbox, while the closing
+  sweep counts only - [ ] lines.
+- 2026-10-21: In hindsight I wish I knew this fact: .claude/CLAUDE.md advises pwsh -Command ". ./importer.ps1; \<cmd>" while catzc-run
+  forbids ; in a background call.
+- 2026-10-21: In hindsight I wish I knew this fact: the fact-checker robot already runs on haiku; only its stale model_reason in agents.yml
+  remains.
+- 2026-10-21: In hindsight I wish I knew this fact: 267 .cs files carry language: csharp in their head, so the csharp row rename costs about
+  290 files until minimal-heads drops the key.
+- 2026-10-21: In hindsight I wish I knew this fact: at most 20 subagents run at once; a 41-agent fan-out needs a second wave.
+- 2026-10-21: Token tip: Next time, save tokens by: putting a fan-out brief in one file and giving each agent a one-line prompt that names
+  it.
+- 2026-10-21: Token tip: Next time, save tokens by: using absolute paths in Bash, since a cd persists and later relative cat calls fail.

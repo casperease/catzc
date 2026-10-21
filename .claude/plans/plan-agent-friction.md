@@ -36,6 +36,13 @@ then 6.
   (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT), the hook, its log `out/time-safeguard.log`, `timeouts.yml`, the denial rule and the fastest-runner
   rule, and points at `catzc-run` for the call shapes.
 
+## Open questions
+
+- **Q1 (session-finalize, 2026-10-21): Does `Test-Plans` fail an open-steps section whose steps carry no checkbox?** Four plans had numbered
+  steps without `[ ]`, `Test-Plans` passed them, and the closing sweep (which counts `- [ ]`) would have listed them as done.
+  Recommendation: yes, a finding in step 1's change to `Test-Plans`, so the sweep's count and ADR-REPO-PLANS-OPENSTEP are held by the gate.
+  Alternative: leave it to the sweep's read of each candidate.
+
 ## Open steps
 
 1. [ ] `pwsh/Catzc.Base.QualityGates/Test-Plans.ps1` and `docs/adr/repository/plans.md`: a plan with no chunk line in `plan-master.md` or no
