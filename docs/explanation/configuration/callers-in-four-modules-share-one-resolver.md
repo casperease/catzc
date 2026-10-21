@@ -47,7 +47,7 @@ committed `configs/<name>.yml` in the module that ships it.
 - An address references only version-controlled config, so anything addressable is non-secret, and secrets travel out of band as a
   `[SecureString]` through the one sanctioned seam (ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The loading ADR says only `Get-Config` is public, while the addressing ADR makes `Get-ConfigValue` public as well, and it is.
 

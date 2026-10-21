@@ -53,7 +53,7 @@ a log so the limits can be tuned together instead of worked around.
 - The limits are deliberately tight at a devbox and live in one config, so a call that needs longer surfaces as a blocker to tune rather
   than a limit raised quietly (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The denial has a pipeline wording, but the importer never publishes the hook in a pipeline, so no pipeline call ever sees it.
 

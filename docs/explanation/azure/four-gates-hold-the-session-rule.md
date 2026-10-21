@@ -53,7 +53,7 @@ misstates a config path.
   pipeline and optional on a devbox, and it is a guard, never a selector (ADR-AZ-DATAMOD-JOINSINPOWERSHELL).
 - The subscription is a resolution axis only and never a name component (ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADR names `Deploy-Bicep` as the function that throws without the pin, and so does the code; `Get-BicepDeploymentContext` on its own
 accepts a pipeline call without the pin, so the first gate guards the deploy surface, not the context function.

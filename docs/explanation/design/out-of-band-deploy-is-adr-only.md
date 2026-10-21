@@ -45,7 +45,7 @@ commits have no checker either, and none is expected.
   (DDR-VISUAL-FIXEDCOMMITPALETTE).
 - An environment box is a neutral container whose occupant carries its own state colour (DDR-VISUAL-ENVIRONMENTISCONTAINER).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit; no pipeline or workflow does, and every
   `Deploy_*` stage is main-only.

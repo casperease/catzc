@@ -56,7 +56,7 @@ from that same code root, the mode a session reports cannot disagree with the co
   root (DDR-RUNMODE-NEVERCOEXIST).
 - Every kind of build root loads through the same importer (DDR-RUNMODE-THREEBUILDKINDS).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADR says the importer evicts the other mode before it loads a root. The eviction runs inside `Import-AllModules`, after the preferences
 and the vendored modules have loaded.

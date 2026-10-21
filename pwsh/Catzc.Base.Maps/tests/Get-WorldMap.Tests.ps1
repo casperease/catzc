@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "218164eeba3f"
+    with_body_sha: "866da098919e"
   edges:
     docs: "[Get-WorldMap.Tests.ps1.md](docs/references/pwsh/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
@@ -74,6 +74,48 @@ Describe 'Get-WorldMap' -Tag 'L0', 'logic' {
         }
         finally {
             Set-Content -LiteralPath (Join-Path $script:root 'widgets/Alpha/Get-Widget.ps1') -Value '# ADR-WIDGET-GADGET-SPIN' -NoNewline
+        }
+    }
+
+    It 'reads a file''s citations from its body, never its catzc head, so a pipeline whose head cites still falls back to its globset' {
+        $pipeline = Join-Path $script:root 'pipelines/ci-widgets.yaml'
+        New-Item -ItemType Directory -Path (Split-Path $pipeline -Parent) -Force | Out-Null
+        Set-Content -LiteralPath $pipeline -Value "# ---`n# catzc:`n#   edges:`n#     cites:`n#       - ADR-WIDGET-GADGET-BEND`n# ---`n`ntrigger: none`n" -NoNewline
+        Mock Get-Track -ModuleName Catzc.Base.Maps {
+            [Catzc.Base.Variants.VariantTrack]::new('widgets', @('widgets'), 'modules', $null, @('widget-script'))
+            [Catzc.Base.Variants.VariantTrack]::new([Catzc.Base.Maps.WorldMapBuilder]::AdoPipelinesTrack, @('pipelines'), 'pipelines', $null, @('widget-pipe'))
+        }
+        Mock Get-FileLanguage -ModuleName Catzc.Base.Maps {
+            [Catzc.Base.Languages.FileLanguage]::new('widget-script', @('.ps1'), $null, 'fixture', $null, $null, $null)
+            [Catzc.Base.Languages.FileLanguage]::new('widget-pipe', @('.yaml'), $null, 'fixture', $null, $null, $null)
+        }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Maps { 'widgets/Alpha/Get-Widget.ps1', 'pipelines/ci-widgets.yaml' }
+        Mock Get-GlobSet -ModuleName Catzc.Base.Maps {
+            [Catzc.Base.Globs.GlobSet]::new('widgets-set', 'The widgets.', 'loose-fileset', @('widgets/**'), @(), @(), @(), -1, 'ci-widgets')
+        }
+        try {
+            $placement = (Get-WorldMap).Placement('pipelines/ci-widgets.yaml')
+            $placement.Basis | Should -Be 'globset'
+            $placement.Citations | Should -Be @('ADR-WIDGET-GADGET-SPIN')
+        }
+        finally {
+            Remove-Item -LiteralPath (Split-Path $pipeline -Parent) -Recurse -Force
+        }
+    }
+
+    It 'reads a file''s citations from its comment page too, the same source its head is built from' {
+        $code = Join-Path $script:root 'widgets/Alpha/Get-Gadget.ps1'
+        $page = Join-Path $script:root 'docs/widget-pages/Get-Gadget.ps1.md'
+        New-Item -ItemType Directory -Path (Split-Path $page -Parent) -Force | Out-Null
+        Set-Content -LiteralPath $code -Value "<#`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-WIDGET-GADGET-BEND`n---`n#>`n`nfunction Get-Gadget { }`n" -NoNewline
+        Set-Content -LiteralPath $page -Value "# widgets/Alpha/Get-Gadget.ps1`n`nThe gadget turns by ADR-WIDGET-GADGET-LIFT.`n" -NoNewline
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Maps { 'widgets/Alpha/Get-Widget.ps1', 'widgets/Alpha/Get-Gadget.ps1' }
+        Mock Get-CommentPage -ModuleName Catzc.Base.Maps -ParameterFilter { $Path -eq 'widgets/Alpha/Get-Gadget.ps1' } { 'docs/widget-pages/Get-Gadget.ps1.md' }
+        try {
+            (Get-WorldMap).Placement('widgets/Alpha/Get-Gadget.ps1').Citations | Should -Be @('ADR-WIDGET-GADGET-LIFT')
+        }
+        finally {
+            Remove-Item -LiteralPath $code, (Split-Path $page -Parent) -Recurse -Force
         }
     }
 

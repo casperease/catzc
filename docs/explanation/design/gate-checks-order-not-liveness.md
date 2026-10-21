@@ -45,7 +45,7 @@ partition check that the ADR describes exists in code, but only unit tests on fi
   earlier one uses it (DDR-ASPECT-TRACKPICKSCATCHALL).
 - A file claimed by two aspects, or by none, fails the partition integrity check (DDR-ASPECT-PARTITIONISCHECKED).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR makes the partition invariant an integrity check over `git ls-files`, and the type's reference page (`Aspect.cs.md`) says
   `AspectPartition.Validate` re-checks for the integrity tests; no gate runs it on the real tree.

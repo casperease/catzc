@@ -53,7 +53,7 @@ out of step with the registry, one of two quality gates says which file and what
   target may be a link; an integrity test asserts it from the registry outward (ADR-REPO-ROOTCFG-THREEWAYAGREEMENT).
 - A `source` target is a headed copy of its template, never a link, so a write never reaches the template (ADR-REPO-ROOTCFG-HEADEDCOPY).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 ADR-REPO-ROOTCFG-THREEWAYAGREEMENT places the drift check, a generator target matching its generator's output, inside the integrity test;
 `Test-RootConfigFiles` compares the content of the `source` copies with their templates but not the output of any generator, and the

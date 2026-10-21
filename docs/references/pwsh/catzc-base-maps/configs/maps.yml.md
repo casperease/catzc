@@ -57,8 +57,9 @@ it. Loaded via Get-Config -Config maps.
     exceptions: []                #   cells an ADR never lights (a passing mention)
       # each: { adr: <ADR code, optionally #n>, track: <track>, file_language: <file language>, reason: <why> }
     citation_exclude:             #   globs of files whose citations light nothing; each still sits in its cell
-      - .claude/hindsight/**      #   the session logs: about the system, not the system
+      - .claude/hindsight/**      #   the session logs and the plans: about the system, not the system
       - .claude/learnings/**
+      - .claude/plans/**
       - docs/.assets/**           #   the generated slide descriptions, so a minimap never lights its own description
       - docs/explanation/**       #   the explanation articles the slides illustrate
       - python/catzc_diagrams/**  #   the drawing tooling

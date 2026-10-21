@@ -49,7 +49,7 @@ itself, and it reads the GitHub list rather than the Azure DevOps lists.
 - `Catzc.Base.Globs` owns the file, the dialect, the durable SHA, the native projection and the git-reflection query; nothing else parses
   the config (FDR-CD-GLOBS, "One configuration point").
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR says branch-policy `filenamePatterns` use the order-independent Azure DevOps projection. `Get-BuildValidationPathFilter` uses the
   ordered GitHub list with `!` negation, anchored with `/`.

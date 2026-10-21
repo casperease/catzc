@@ -42,7 +42,7 @@ about its history.
 - The pull request is the authenticated ingress, and closing every other door is what makes the `git log` audit trail complete
   (DDR-REMOTE-PULLREQUESTISINGRESS).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR tells every consumer to integrate from the last verified commit, but no function or pipeline in cats resolves that commit, and the
   pipelines trigger on `main`.

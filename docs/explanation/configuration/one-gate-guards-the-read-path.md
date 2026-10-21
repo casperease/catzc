@@ -62,7 +62,7 @@ legend.
   ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD).
 - Every quality gate runs in an integrity test at its tier (ADR-AUTO-TEST-QUALITYGATE).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The one-reader rule has two exceptions the ADR does not state: `Get-ConfigRegistry` reads `configs.yml` and caches it itself, and
   `Test-ConfigIdentityHygiene` parses module configs directly.

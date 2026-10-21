@@ -54,7 +54,7 @@ the code in this order shows exactly where an undeclared edge is caught.
 - The declaration's shape is checked when it loads, and the gate checks the real edges and the on-disk modules against it
   (ADR-AUTO-DEPM-GROUPAWAREINTEGRITY).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR says actual in-group edges must stay within the group's declared internal map. The allow-set is a union, so the four Tooling
   members that also pin `Tooling` in `modules:` (Python, Node, Toolchain and Provisioning) may reach any Tooling member.

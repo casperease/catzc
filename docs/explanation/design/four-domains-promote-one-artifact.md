@@ -52,7 +52,7 @@ occupant. Reading the occupants tells you what lives where right now, and which 
 - A CD pipeline always contains the CI component, and the pipeline kinds share one key, the immutable tagged artifact
   (FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - No DEPLOY pipeline exists: each CD pipeline deploys straight from its own CI stage, and no environment is named `main-uat` or
   `release-uat`.

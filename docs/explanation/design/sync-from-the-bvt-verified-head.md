@@ -34,7 +34,7 @@ the newest commit fails, it becomes the dirty HEAD, and nothing follows it.
 - Downstream flow proceeds only from the last successful state; a failure is a hard stop, not a warning
   (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 No code holds a sync point: the CD pipelines deploy the tip of main once it passes their CI stage, and no environment named `main-uat`
 exists. The rule is a convention the ADR states.

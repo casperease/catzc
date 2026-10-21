@@ -47,7 +47,7 @@ No stage in `.ado/pipelines/` is named BVT; the pipeline guide names the CI type
 - A topic commit can be deployed out-of-band by a workflow or pipeline, and that deploy is not an integration
   (FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND). The code takes the stricter path: it deploys nothing that has not landed on main.
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND says a workflow or pipeline may deploy a topic commit; no pipeline or workflow does, and every
   `Deploy_*` stage is main-only.

@@ -57,7 +57,7 @@ the ADR states, tells a reviewer where a mistake would slip through.
 - Each aspect is an immutable, independently versioned lock (DDR-ASPECT-ASPECTISAGLOBSET), and a file claimed by two aspects, or by
   none, fails the integrity check (DDR-ASPECT-PARTITIONISCHECKED).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - DDR-ASPECT-PARTITIONISCHECKED says a broken partition fails `AspectPartition.Validate`, and the type's reference page
   (`Aspect.cs.md`) says it re-checks "for the integrity gate", but no gate runs it on the real tree.

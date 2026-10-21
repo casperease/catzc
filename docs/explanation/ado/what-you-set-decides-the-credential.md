@@ -50,7 +50,7 @@ Each failure carries a verbatim fragment of its message; the full messages are q
 - The step template, not the function, decides whether a step gets the token, so the pipeline YAML is the audit trail
   (ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADR's step-template sample shows only the `PowerShell@2` task, while `invoke-automation.yaml` maps the token in all three Modes
 (`PowerShell@2`, `AzureCLI@2` and `AzurePowerShell@5`).

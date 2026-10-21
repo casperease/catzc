@@ -51,7 +51,7 @@ check something nearby rather than the rule itself.
   (FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE).
 - Templates are referenced by an absolute path under `/.ado/pipelines/` (ADR-ADO-NAME-ABSOLUTETEMPLATEPATH).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR says the step template holds no logic; each of its three tasks runs a strict-mode guard that throws before the runner starts.
 - Step 1b re-implements the template's guard inline, so a change to the template's own guard is not covered by any run.

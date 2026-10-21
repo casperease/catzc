@@ -49,7 +49,7 @@ rule that governs it: R is DDR-REMOTE, V is ADR-REPO-VARIANT and L is FDR-CD-LIF
 - `git_workspace` selects the regime, and its single stop condition is a direct commit while standing on main or master in `main-via-pr`
   (ADR-REPO-VARIANT-GITWORKSPACE).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR says the server branch policy admits merges only through a pull request, but cats registers only Azure DevOps build-validation
   policies, sets no direct-push rule, and has nothing for GitHub.

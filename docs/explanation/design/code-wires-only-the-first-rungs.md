@@ -50,7 +50,7 @@ merge, and the CI engine that verifies the commit and publishes its artifact. Af
 A commit that fails a stage cannot go downstream (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM). In the code that rule is the `succeeded()`
 condition on every `Deploy_*` stage: a failed CI stage skips every deploy, and a failed deploy stage skips the stages after it.
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - Past BVT there is no promotion ladder: a stage deploys its non-prod and prod-tier targets together (`nsub` and `psub`, or apex's
   expedition `dev` and `prod`), where the ADR climbs `main-uat` → `release-uat` → `pre-prod` → `production` one rung at a time.

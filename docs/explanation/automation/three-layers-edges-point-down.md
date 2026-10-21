@@ -42,7 +42,7 @@ to a lower one.
 - The declaration is checked when it loads, so every target must exist and no cycle may form, and the quality gate then checks every real
   edge in the code against it (ADR-AUTO-DEPM-GROUPAWAREINTEGRITY).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADR says a module missing from the `modules:` section is unconstrained. The code also constrains every member of a group, so a Base
 library that appears only in `groups:` is still held to the Base group's internal order.

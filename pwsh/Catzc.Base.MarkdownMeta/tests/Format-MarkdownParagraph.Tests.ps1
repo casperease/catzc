@@ -4,8 +4,8 @@ catzc:
   immutable:
     with_body_sha: "9ac948e338e5"
   edges:
-    docs: "[Format-MarkdownParagraph.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Format-MarkdownParagraph.Tests.ps1.md)"
-    code: pwsh/Catzc.Base.Docs/Format-MarkdownParagraph.ps1
+    docs: "[Format-MarkdownParagraph.Tests.ps1.md](docs/references/pwsh/catzc-base-markdown-meta/tests/Format-MarkdownParagraph.Tests.ps1.md)"
+    code: pwsh/Catzc.Base.MarkdownMeta/Format-MarkdownParagraph.ps1
     cites:
       - ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED
 ---

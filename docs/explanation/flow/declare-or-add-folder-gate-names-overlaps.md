@@ -44,7 +44,7 @@ either passes or names every same-layer pair that shares a file.
 - Within a layer, no two globsets select a common file on their own contribution, and a violation names both sets and a shared file; the
   `loose-fileset` layer is exempt (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 ADR-REPO-PROTGLOB says every shadowing declared name is rejected at load; only the reserved names are, and the other shadows throw in
 `Get-ModuleGlobSet`.

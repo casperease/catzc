@@ -53,7 +53,7 @@ have a value to check against. The only caller of the function is `Invoke-AdoRes
 - Pipeline detection goes through `Test-IsRunningInPipeline`, never a raw read of the agent variables (ADR-ADO-AUTH-EXPLICITDETECTION).
 - When the az CLI yields no token, the assert names the actionable causes (ADR-ADO-AUTH-ASSERTWHENNOTOKEN).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The rule says the pipeline rung asserts `SYSTEM_COLLECTIONURI`, but the code skips the comparison when that variable is empty; the ADR's own
 sample code shows the same skip.

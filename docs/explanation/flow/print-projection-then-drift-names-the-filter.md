@@ -58,7 +58,7 @@ GitHub paths are ordered.
 - An include-only projection is a safe superset that can never under-trigger, which the coverage check confirms for every member of a
   pipeline-bound set (FDR-CD-GLOBS, "How this is enforced").
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR says the projected filters are generated from `globs.yml` into the YAML and never hand-authored. No command writes them; the
   developer pastes the printed lists into the pipeline file, and the gate catches a mismatch.

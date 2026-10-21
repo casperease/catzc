@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9198da89956b"
+    with_body_sha: dd93c044e141
     warning: "Do Not Edit, this file is generated"
     role: index
     track: docs
@@ -11,12 +11,12 @@ catzc:
       - pwsh/Catzc.Base.Docs/configs/adr-index.yml
 ---
 
-# ADR index and rule-citation registry
+# DRS index and rule-citation registry
 
-Architecture Decision Records live under `docs/drs/`, grouped by domain — the sections below mirror the domains declared in
-`pwsh/Catzc.Base.Docs/configs/adrs.yml`, from which this file is generated. The ADRs define the design principles this codebase must follow.
-**Read this index at the start of every session**, then read in full the ADRs that govern the files a task touches, and cite their rules by
-code.
+The Decision Records System (DRS) holds every decision record under `docs/drs/`, each of one registered record kind, grouped by domain — the
+sections below mirror the domains declared in `pwsh/Catzc.Base.Docs/configs/adrs.yml`, from which this file is generated. The ADRs define
+the design principles this codebase must follow. **Read this index at the start of every session**, then read in full the ADRs that govern
+the files a task touches, and cite their rules by code.
 
 ## Citing a rule
 

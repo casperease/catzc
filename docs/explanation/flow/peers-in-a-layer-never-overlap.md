@@ -34,7 +34,7 @@ which cuts across the others, is the only exemption, and across layers one file 
 - Within a layer, no two globsets select a common file on their own contribution; the rule is per layer, never across, and the
   `loose-fileset` layer is exempt (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADR describes one module set per folder. The code derives two aspect sets per folder, `-live` and `-tests`, and no whole-module set.
 

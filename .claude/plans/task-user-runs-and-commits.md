@@ -71,7 +71,10 @@ final full run last.
     `catzc-tooling-keyhandler`, `catzc-azure-devops` to `catzc-azure-dev-ops` and its `-build-validation`, and
     `internal/catzc-internal-testkit` to `catzc-internal-test-kit`; 581 files, folder and module page each), with the `docs:` head edges of
     605 files, the four renderers and the hand links. Check: `Test-Links` reports no `[Untracked]` issue under `docs/references/pwsh`.
-14. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+14. Edit `.claude/CLAUDE.md` for the DRS (plan-drs-system): the `## ADRs` section becomes `## DRS`, "read `docs/drs/index.md`", and the
+    sanctioned pair "domain rules / DRS rules"; the move's rewrite already changed its `docs/adr` paths and links. Check: `Test-Links` on
+    the file.
+15. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

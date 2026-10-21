@@ -52,7 +52,7 @@ the order shown. The way out has no chain at all: no function returns the last v
   `main-via-pr` (ADR-REPO-VARIANT-GITWORKSPACE).
 - Consumers integrate from the last remote-verified commit, never the remote HEAD (DDR-REMOTE-INTEGRATEFROMVERIFIED).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR tells consumers to integrate from the last verified commit, but no function in cats returns it, and the pipelines trigger on
   `main`.

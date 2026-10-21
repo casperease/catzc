@@ -48,7 +48,7 @@ that apply them in dependency order. In `cd-apex`, each deploy stage reaches the
 - CD's direction stays entirely within non-prod (FDR-CD-CDSTAYSINNONPROD).
 - Deploy to prod stages the artifact inactive in pre-prod before activating it live (FDR-CD-TWOENVIRONMENTACTIVATION).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR keeps CD entirely within non-prod and says CD never touches production; `cd-apex.yaml` and `cd-shared.yaml` deploy `psub`, and
   `cd-apex.yaml` deploys the expedition to `prod`, from the CD run.

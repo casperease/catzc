@@ -43,7 +43,7 @@ template or the task.
 - The runner imports the module system once, at its start, and the command runs in that same scope (FDR-CD-RUNNER-IMPORTONCE).
 - The step template is a thin wrapper that adds pipeline concerns but no logic (FDR-CD-RUNNER-THINSTEPTEMPLATES).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADR says the step template holds no logic, but each of its three tasks runs a strict-mode guard that throws on a multiline `RunCommand`
 without a `DisplayName` before it calls the runner.

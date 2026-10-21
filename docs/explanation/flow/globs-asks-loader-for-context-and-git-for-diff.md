@@ -51,7 +51,7 @@ And it asks git for the diff, because the changed paths are read from the reposi
 - Nothing checks the pipeline-detection variables directly; context detection goes through `Test-IsRunningInPipeline` so the logic stays in
   one place (FDR-CD-DETECT-NODIRECTVARIABLECHECK).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The decision describes a pipeline stage that runs `Test-GlobSetAffected` first; no pipeline or workflow in the repository calls it.
 

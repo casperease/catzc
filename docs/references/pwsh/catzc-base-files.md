@@ -31,7 +31,8 @@ git's ref files through the `GitRefs` reader in [Catzc.Base.Git](catzc-base-git.
 ([tracked-files-from-the-index](../../drs/automation/tracked-files-from-the-index.md), ADR-AUTO-TRACKED-INPROCESSREFS). Committing writes,
 so it calls `Invoke-Executable` (from Catzc.Base.Execution) to run `git` with logged, exit-code-managed invocations, the same discipline
 every external command in the platform follows. Branch and commit are intentionally separate getters: they serve different purposes for
-callers (log context, cache keys, CI identifiers) and neither implies the other.
+callers (log context, cache keys, CI identifiers) and neither implies the other. Over the tracked files, it finds the callers of a name and
+renames a set of names as whole tokens, so a rename moves every in-tree caller in one change.
 
 ## What the module does
 
@@ -64,4 +65,5 @@ The module's public functions, sorted into the responsibilities above.
 | responsibility:2 — Source-control facts  | `Get-GitCurrentBranch`   |
 |                                          | `Get-GitCurrentCommit`   |
 |                                          | `Get-CodeCaller`         |
+|                                          | `Rename-CodeName`        |
 |                                          | `Invoke-GitCommit`       |

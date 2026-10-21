@@ -41,7 +41,7 @@ ladder. Keeping the two events apart is what lets a commit's colour stay a true 
   (DDR-VISUAL-FIXEDCOMMITPALETTE).
 - An environment box is neutral, and its occupant carries its own state colour (DDR-VISUAL-ENVIRONMENTISCONTAINER).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows the out-of-band deploy, but no pipeline or workflow in cats runs one: every `Deploy_*` stage
 runs only from main.

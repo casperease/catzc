@@ -45,7 +45,7 @@ every `pwsh/**` change.
 - Whatever string appears in `RunCommand` can be pasted into a local terminal after running `.\importer.ps1`
   (FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - No gate checks that a pasted `RunCommand` reproduces the step: nothing replays a command outside the runner.
 - The ADR's runner listing leaves out the log lines and diagnostics that the run shows.

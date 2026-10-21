@@ -57,7 +57,7 @@ instead.
   (ADR-AUTO-PATH-OUTANCHOR).
 - A published artifact is created by `ArtifactRef`, holds both forms and anchors on the artifact root (ADR-AUTO-PATH-PUBLISHEDARTIFACT).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADR keeps `RepoRelativePath` repo-root-pure, yet its `ToAbsolute` joins every relative value onto the repository root and knows no
 `out/` anchor, a third resolver beside the two crossers.

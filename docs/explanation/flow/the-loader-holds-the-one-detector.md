@@ -48,7 +48,7 @@ time-safeguard hook, repeats the test on its own.
 - The function is the one seam between devbox and pipeline, so "where do the two diverge?" has a finite answer: the callers above the loader
   (ADR-AUTO-PARITY-ONESEAM).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADR says never to read the variables directly, and the analyzer enforces that for PowerShell. The C# hook `Assert-BashTimeout` reads
 both variables itself, and no gate reaches C#.

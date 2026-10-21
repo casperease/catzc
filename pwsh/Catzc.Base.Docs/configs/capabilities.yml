@@ -90,8 +90,8 @@ capabilities:
         Test-GeneratedFiles,
       ]
 
-  # Finding the rules that govern a file set and citing them by code, without sweeping the corpus.
-  - name: adr-cite
+  # Finding the rules that govern a file set and citing them by code, without sweeping the DRS.
+  - name: drs-cite
     supported_by: [ADR-REPO-LINK-ONECITATIONSPELLING]
     checks: []
 

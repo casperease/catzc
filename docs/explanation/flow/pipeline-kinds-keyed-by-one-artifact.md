@@ -57,7 +57,7 @@ kinds rather than inside them, and it shows the path the CD pipelines in the rep
 - CD is the delivery posture. CDe is the alternative, a CD that folds the DEPLOY step back in and rolls to production automatically; a unit
   is governed as one or the other, never both (FDR-CD-CDEINTERNALIZESPROMOTION).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR keeps CD entirely within non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same
   run, with no DEPLOY pipeline.

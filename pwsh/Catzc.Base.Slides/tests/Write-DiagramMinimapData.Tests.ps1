@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ebb554112b58
+    with_body_sha: "41c3a5c0135f"
   edges:
     code: pwsh/Catzc.Base.Slides/private/Write-DiagramMinimapData.ps1
     cites:
@@ -16,7 +16,7 @@ Describe 'Write-DiagramMinimapData' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-MINIMAP
         $script:folder = 'docs/explanation/widget/.assets/widget-flow'
         $source = Join-Path $script:root $script:folder
         [System.IO.Directory]::CreateDirectory($source) | Out-Null
-        # The widget's declaration lists one of the two lit layers and omits the other.
+        # The widget's declaration lists one of the two lit cells and omits the other.
         $yml = @'
 about:
   adrs:

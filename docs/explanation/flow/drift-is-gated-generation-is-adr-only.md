@@ -54,7 +54,7 @@ requires zero issues, so a drifted filter fails `Test-Automation` locally and in
 - A quality gate is one `Test-<subject>` function that checks one property of the whole repository, collects every issue, writes its report
   and throws once, and an integrity test runs it at its tier (ADR-AUTO-TEST-QUALITYGATE).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR says the projected filters are generated from `globs.yml` into the YAML; nothing in the tree writes them, so they are kept by hand
   and only compared.

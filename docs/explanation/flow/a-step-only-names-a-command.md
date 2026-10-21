@@ -36,7 +36,7 @@ the runner's own failure modes.
 - YAML steps never contain inline PowerShell; all PowerShell runs through the runner (FDR-CD-RUNNER-NOINLINEPOWERSHELL).
 - Whatever string a step names can be pasted into a local terminal after the importer (FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 No gate checks that a step's command runs the same way in a terminal: nothing replays a command outside the runner.
 

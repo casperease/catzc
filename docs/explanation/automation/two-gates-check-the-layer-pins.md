@@ -52,7 +52,7 @@ The remaining rules, which keep module and system dependencies apart and pin, ve
 (ADR-AUTO-DEPM-NOTSYSTEMDEPENDENCY, ADR-AUTO-DEPM-EXACTVERSIONPINS, ADR-AUTO-DEPM-INTERNALVENDORED, ADR-AUTO-DEPM-EXTERNALSTITCHEDATBUILD
 and ADR-AUTO-DEPM-STITCHISCONFIG), lie outside these two gates.
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR says actual in-group edges must stay within the group's declared internal map. The code unions a member's pins with its in-group
   list, so the four Tooling members that pin `Tooling` may reach any Tooling member.

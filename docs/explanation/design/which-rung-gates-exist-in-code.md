@@ -59,7 +59,7 @@ gate from L3 up to production is stated by the ADRs and enforced by nothing yet.
 - The BVT includes the built-artifact checks of `Test-BuildArtifact` (ADR-AUTO-TEST-BUILDVERIFICATIONTEST).
 - The commit colours are the locked palette (DDR-VISUAL-FIXEDCOMMITPALETTE).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - No pipeline runs L3, and no RC or RBC gate, no inactive staging in `pre-prod`, and no out-of-band topic deploy path exists.
 - The failure stop holds only between template stages, and no code records a discard.

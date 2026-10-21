@@ -53,7 +53,7 @@ other read of those two variables into an error.
 - The function stays fast: it is called often, so it reads two variables and does no I/O, network or computation
   (FDR-CD-DETECT-FASTDETECTION).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR's `Get-OutputRoot` listing carries `[CmdletBinding()]`; the function in the tree has none. The logic is identical.
 - The ADR lists the detector's `[OutputType([bool])]` before `[CmdletBinding()]`; the code has the reverse order.

@@ -1,7 +1,7 @@
 ---
 name: git-readonly
 description:
-  Git as a read-only probe of the tree; for plan-clear, adr-reviewer, session-cost-audit and every robot; input is the question about the
+  Git as a read-only probe of the tree; for plan-clear, drs-reviewer, session-cost-audit and every robot; input is the question about the
   tree.
 user-invocable: false
 allowed-tools: Bash

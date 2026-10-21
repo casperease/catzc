@@ -44,7 +44,7 @@ rest, so a stray file can never silently ship. The infrastructure track declares
 - Which aspect is the remainder is the track's call: a code track declares the non-live `tests` last, a deployment track declares `live`
   last, and the config type checks the structure when the variants load (DDR-ASPECT-TRACKPICKSCATCHALL).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR partitions every delivery package at track granularity by the same convention. In the code, only the module folders of the pwsh
   track are compiled into aspect sets; the infrastructure convention is read and classifies files as live or not, but no set is derived from

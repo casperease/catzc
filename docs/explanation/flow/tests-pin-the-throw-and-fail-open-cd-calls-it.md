@@ -53,7 +53,7 @@ stage that runs the check first, is wired into the CD pipelines, and no gate che
 - An error is raised through the assertion library, never through an inline check that raises its own error
   (ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The decision wants the check to gate a unit's stages; the CD pipelines run it, but no test or quality gate requires the `Changes` step or
 `fetchDepth: 0`, so a pipeline that drops them is not caught.

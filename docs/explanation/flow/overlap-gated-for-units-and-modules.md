@@ -48,7 +48,7 @@ behind them: they hold only as ADR rules.
   (ADR-AUTO-TEST-QUALITYGATE).
 - Module globsets are derived, never declared, and derived and declared sets share one name space (ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR's "How this is enforced" section names the schema check and the gates on the triggers but not `Test-GlobSetIndependence`, which is
   the gate that enforces the independence rule.

@@ -40,7 +40,7 @@ and one guard vocabulary, and nothing reads the file it lives in directly.
   (ADR-AUTO-CACHE-IMPORTERINVALIDATES), and the cache lives in module script state that the importer boundary resets
   (ADR-PWSH-CACHE-SCRIPTSCOPESTATE).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 One reader is the rule, and one module breaks it: `Get-Aspect` and `Test-AspectDeclaration` in `Catzc.Base.Modules` read the `aspects` key
 straight off the loaded variants config instead of through `Get-Variant`, so the file has a second read path today.

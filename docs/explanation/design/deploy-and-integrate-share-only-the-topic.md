@@ -45,7 +45,7 @@ the promotion ladder.
   artifact (DDR-VISUAL-FIXEDCOMMITPALETTE).
 - An environment box is a neutral container, and the commit inside it carries its own state colour (DDR-VISUAL-ENVIRONMENTISCONTAINER).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit, but no pipeline or workflow in cats does:
   every `Deploy_*` stage runs only when the source branch is `refs/heads/main`.

@@ -54,7 +54,7 @@ a cross-cutting slice is a scope rather than a new track, have no check in code:
 - Every globset declares its layer, and composition is acyclic (FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-COMPOSESETS).
 - Units bind pipelines one to one (DDR-TRACK-DEPLOYABLEUNIT).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The tracks ADR's enforcement list names the folders ADR, the globset registry, the gates on dependencies and code review, but not the
   `tracks` variant, its load-time validation, or the integrity tests that now check rules 1, 2, 3 and 6.

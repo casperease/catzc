@@ -47,7 +47,7 @@ where the file lives, never wrapped, and reading a config is global access with 
   (ADR-CONF-LOADING-CSHARPCONFIGTYPE).
 - Reading a config is global access, never guarded by dependencies (ADR-CONF-LOADING-READINGISGLOBAL).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADR says discovery scans `pwsh/*/configs/`. The code scans the loaded code root, `Get-CatzcModulesRoot`, which is the source `pwsh/`
 folder or a built package, and skips dot-folders.

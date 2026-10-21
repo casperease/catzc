@@ -51,7 +51,7 @@ their files, so the limits it reads and the verdict it gives are the ones `Get-T
   the L0 tests check, and an integrity test runs the published hook against the shipped config to prove it
   (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR says the run environment is read through `Get-RunEnvironment`. The hook has no PowerShell session, so it decides devbox or
   pipeline itself with `BashSafeguard.EnvironmentOf`, a second copy of the one pipeline-detection test; an L0 test checks the two agree.

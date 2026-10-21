@@ -55,7 +55,7 @@ the lookup; az and Bicep do the work, which is what keeps the platform thin.
 - `Deploy-Bicep` and its configuration are the API a consumer binds to; nothing behind it is called directly
   (DDR-THINPLAT-PLATFORMASCLI).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - ADR-AZ-CLI-AZBYDEFAULT says to parse az output with `ConvertFrom-Json`, but `Deploy-Bicep` asks az for `--output yaml` and parses it with
   `ConvertFrom-Yaml`.

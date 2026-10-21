@@ -29,7 +29,7 @@ Started 2026-10-21T20:42:19.8972026+02:00.
   Get-FileMetaFact before writing any citation text.
 - 2026-10-21 Cats: Token tip: Next time, save tokens by: putting a whole burst (edit check, fresh import, format, gates, tests) in one out/
   script so the import runs once.
-- 2026-10-21 Cats: In hindsight I wish I knew this fact: a code head's docs edge is built from the link template "[{leaf}]({path})" in
+- 2026-10-21 Cats: In hindsight I wish I knew this fact: a code head's docs edge is built from the link template `[{leaf}]({path})` in
   QualityGates configs/file-meta.yml, and {path} is repository-relative, so the link breaks from the file's folder.
 - 2026-10-21 Cats: In hindsight I wish I knew this fact: a head's cites include every registered code its comment page cites, so an
   unexpected cite like ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD on a QualityGates type comes from its page, not an error.

@@ -61,7 +61,7 @@ build, and code review rejects a bundle loader that forks the importer.
   the janitors may change (ADR-BCL-TYPES-JANITORSBYCALLER).
 - The run modes have two entry points (DDR-RUNMODE-TWORUNMODES).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - No ADR rule covers removing the Bootstrap and the importer after the load, although the code does it on every load.
 

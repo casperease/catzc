@@ -47,7 +47,7 @@ Two layers, `deployable-unit` and `loose-fileset`, are declared in `globs.yml`. 
 - Within the `deployable-unit` and `module` layers, no two sets select a common file on their own contribution; the `loose-fileset` layer is
   exempt (FDR-CD-GLOBS-NOOVERLAPWITHINLAYER).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR lists a reserved umbrella among the kinds of declared loose-fileset; the code derives the four umbrellas and rejects them as
   declared names.

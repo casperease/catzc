@@ -50,7 +50,7 @@ the one the decision is named for, has no gate at all and is left to code review
 - The declaration's shape is checked at load and the real edges by the gate (ADR-AUTO-DEPM-GROUPAWAREINTEGRITY), and a quality gate is one
   `Test-<subject>` that collects every issue and throws once, run by an integrity test at its tier (ADR-AUTO-TEST-QUALITYGATE).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR makes `Get-Variant` the single access point; `Get-Aspect` and `Test-AspectDeclaration` in `Catzc.Base.Modules` read the loaded
   config directly, and no gate catches it.

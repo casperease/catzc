@@ -55,7 +55,7 @@ infrastructure convention.
 - A track owns one coherent tech-stack, and the world map checks it on live files only, which is why Maps needs every track's convention to
   tell live files from the rest (DDR-TRACK-ONETECHSTACK).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR partitions every delivery package at track granularity by the same convention, and says a track's `-live` and `-tests` packages
   use it when derived. No code derives them: the compiler runs only for `pwsh/<Module>` roots, and Maps classifies without deriving.

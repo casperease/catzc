@@ -50,7 +50,7 @@ hand.
 - The aspects are derived from folder conventions by ordered first match, each aspect minus every earlier one, all prefixed by the unit root
   (DDR-ASPECT-ASPECTSAREDERIVED).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED says `New-DynamicManifest` deletes the manifest when no `.ps1` is left; that function returns
   nothing, and `Import-AllModules` deletes the stale file.

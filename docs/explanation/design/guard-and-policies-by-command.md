@@ -45,7 +45,7 @@ other half of the decision, picking the last verified commit to integrate from.
   `main-via-pr` (ADR-REPO-VARIANT-GITWORKSPACE).
 - Consumers integrate from the last remote-verified commit, never the remote HEAD (DDR-REMOTE-INTEGRATEFROMVERIFIED).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR tells every consumer to integrate from the last verified commit, but no command in cats resolves or checks out that commit.
 - The ADR has the branch policy admit merges only through a pull request, but the admin command registers only build-validation policies on

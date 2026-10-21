@@ -49,7 +49,7 @@ Besides the gate against trigger drift, `Test-GlobSetTriggerCoverage` and `Regis
 loose-filesets `templates`, `markdown-scope` and `repository` carry no `pipeline:`, and `ci-pwsh-expected-failures.yaml` triggers on
 `pwsh/**` without any globset binding it.
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 `cd-shared.yaml` and `Test-GlobSetTriggerCoverage` name an in-pipeline `Test-GlobSetAffected` check as the exact backstop, but no ado
 pipeline under `.ado/pipelines/` runs it.

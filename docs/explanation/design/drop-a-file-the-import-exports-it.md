@@ -43,7 +43,7 @@ and each failure they raise names the file or function at fault.
 - The aspects come from folder conventions, never from a hand-written list; `live` is closed, so a file can enter it only by matching the
   convention (DDR-ASPECT-ASPECTSAREDERIVED).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 ADR-REPO-FOLDERS-UNKNOWNFOLDERSIGNORED says unknown folders are ignored, not errors. The loader does skip them, but `Test-FolderConventions`
 reports every non-conventional module subfolder as an issue.

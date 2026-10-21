@@ -41,7 +41,7 @@ identity.
 - A file claimed by two aspects, or by none, fails the integrity check (DDR-ASPECT-PARTITIONISCHECKED). That check exists, but only
   unit tests on fixture files run it.
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - DDR-ASPECT-ASPECTISAGLOBSET makes each aspect a sha lock with a `<unit>-<aspect>.yml` marker by way of
   FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, but that rule computes change from git at real refs, never from a committed hash, and no aspect

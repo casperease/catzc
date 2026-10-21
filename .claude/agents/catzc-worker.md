@@ -8,7 +8,7 @@ description: >
   diagrams (`drawio-diagram-waves`, `edit-diagram-yml`), for publishing review artifacts (`print-artifacts`), for the inspiration module
   (`build-inspiration-module`), for auditing what a session cost (`session-cost-audit`), for cleaning the plans (`plan-clear`), for landing
   a continuation paste in the plans (`plan-intake`), for a decision round over the plans (`plan-decide`), for running one gate
-  (`gate-runner`), for repairing links (`link-fixer`), for a rules review (`adr-reviewer`), for fact-checking a statement (`fact-checker`),
+  (`gate-runner`), for repairing links (`link-fixer`), for a rules review (`drs-reviewer`), for fact-checking a statement (`fact-checker`),
   for processing the listen mode's notes (`listen-very-carefully-to-doc-changes`), for a scout search of a listen reference
   (`doc-pattern-scout`), for glossary terms (`glossary-keeper`), for making tests faster (`test-optimization`), for the hindsight log
   (`2020-hindsight`), for planning the debt it finds (`its-a-chore-but-i-will-do-better`), or for driving live sessions through the master

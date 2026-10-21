@@ -59,7 +59,7 @@ the accessor to the `Test-` and `Assert-` guards that answer a question or stop 
   (ADR-REPO-VARIANT-HAVECUSTOMERS, ADR-PWSH-VERBS-PLURALCOLLECTIONNOUNS).
 - `git_workspace` is read through `Get-GitWorkspace` and `Test-GitWorkspace -MainDirect|-MainViaPr` (ADR-REPO-VARIANT-GITWORKSPACE).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR promises a `Get-` accessor and `Test-`/`Assert-` guards for each variant; `git_workspace` has no `Assert-`, and `aspects` and
   `tracks` have only their accessors.

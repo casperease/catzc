@@ -55,7 +55,7 @@ Around the header function sit the parts its proofs rest on: the step template t
 - The step template maps the system token, and functions read only the mapped `$env:SYSTEM_ACCESSTOKEN`
   (ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADR says a PAT is bound to the configured org by construction. The API functions default `-Organization` from `ado.yml` but accept any
 value, and nothing checks it against the header's source.

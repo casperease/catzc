@@ -55,7 +55,7 @@ trap, and no code runs it, so it is not drawn.
 - The step template adds pipeline concerns, such as the service connection, the token and the display name
   (FDR-CD-RUNNER-THINSTEPTEMPLATES).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR lists four template parameters; the template has seven, adding `AllowWarnings`, `DisplayName` and `StepName`.
 - The ADR's runner listing leaves out the `SYSTEM_DEBUG` verbose switch, the logging and the diagnostics between sanitizing and invoking.

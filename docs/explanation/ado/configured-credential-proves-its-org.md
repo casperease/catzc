@@ -42,7 +42,7 @@ source.
 A function that guessed which credential was meant, or fell back to another source when the first failed, would turn auth failures into
 opaque 401 errors, or worse, into a token aimed at the wrong organization.
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR says every source proves its org, but the personal access token has no runtime proof. Its binding "by construction" holds only by
   default, because each API function accepts an `-Organization` override that nothing checks against the header.

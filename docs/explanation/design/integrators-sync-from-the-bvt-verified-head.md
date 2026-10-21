@@ -47,7 +47,7 @@ spreading. All of this is stated by the ADRs; no pipeline in the repository runs
 - RC at `main-UAT` and RBC at release-uat are the manual gates, and the prod tail runs release-uat, pre-prod, production
   (FDR-CD-TWORELEASEGATES, FDR-CD-PREPRODRUNG).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADRs describe `main-UAT`, release-uat and pre-prod as always-on environments with one occupant each, joined by the RC and RBC gates. The
 CD pipelines define no `main-uat` or release-uat environment and record no occupant: once a main commit passes its CI stage, CD deploys it

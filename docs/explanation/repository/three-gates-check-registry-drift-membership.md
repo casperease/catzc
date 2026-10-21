@@ -60,7 +60,7 @@ nowhere else.
   (ADR-REPO-ROOTCFG-WILDCARDGENERATOR).
 - Every repository check is a quality gate that collects every issue, writes one report and throws once (ADR-AUTO-TEST-QUALITYGATE).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 ADR-REPO-ROOTCFG-THREEWAYAGREEMENT lists the drift check among the integrity test's assertions; the integrity check `Test-RootConfigFiles`
 compares the `source` copies with their templates but no generator's output, and the generator drift check lives in `Test-GeneratedFiles`.

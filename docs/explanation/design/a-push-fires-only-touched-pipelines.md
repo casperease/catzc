@@ -49,7 +49,7 @@ Azure DevOps path filters ignore order, so on `cd-shared` the root `configuratio
 the same depth and Azure DevOps may drop a root `.yml`. `Test-GlobSetTriggerCoverage` guarantees the include-only trigger never misses a
 member. The scopes `markdown-scope` and `repository` bind no pipeline.
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 `cd-shared.yaml` names "the in-pipeline Test-GlobSetAffected gate" as the exact backstop for a dropped root `.yml`, but no ado pipeline
 under `.ado/pipelines/` runs `Test-GlobSetAffected`.

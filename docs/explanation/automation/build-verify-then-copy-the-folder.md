@@ -58,7 +58,7 @@ for a disk export.
 - A devbox build carries the `6.6.666` placeholder and a pipeline build gets a calculated version, both declared in `exporter.yml`
   (ADR-AUTO-BUNDLE-AUTOVERSION).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - ADR-AUTO-BUNDLE-IMMUTABLEBUILD lists the internal-asset presence check among the checks of `Assert-CatzcBundle`. The code runs it in
   `Invoke-ModuleBuild`, against the plan and before any write, as ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY says.

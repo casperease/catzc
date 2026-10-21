@@ -44,7 +44,7 @@ where a guarantee is enforced and where it is only a discipline.
 - The stable integration point is the BVT-verified server head, the same commit `main-UAT` takes first
   (FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD), and the dirty HEAD is never a source to sync from (FDR-CD-LIFE-DIRTYHEADUNSAFE).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR has every consumer integrate from the last verified commit, but no function or pipeline in cats resolves that commit, and the
   pipelines trigger on `main`.

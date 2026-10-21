@@ -47,7 +47,7 @@ ADR both say so.
 Scopes such as `markdown-scope` and `repository` select across tracks and own no root; they bind no pipeline, so they have no place in this
 picture. The `templates` loose-fileset binds none either.
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The tracks ADR says the gates on the dependency graph enforce the one-directional core and adapter dependency; those gates check module
 edges only, and nothing checks the direction between tracks.

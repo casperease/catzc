@@ -57,7 +57,7 @@ worth knowing before relying on either.
 - The projected filters are generated from `globs.yml`, never hand-authored (FDR-CD-GLOBS-NATIVEPATHFILTER); this part is held by the
   ADR alone, since the gates check equality with the projection but nothing writes the YAML.
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADR says the filters are generated into the YAML and that an ADO projection that cannot reproduce exact membership is caught at
 generation time. No generator writes the YAML, `Get-GlobSetTrigger` defers that case to the superset integrity test, and `cd-shared.yaml`

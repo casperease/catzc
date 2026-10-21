@@ -44,7 +44,7 @@ CI stage, the deploy stages and the environments they reach, and two failures an
 - Progression toward prod leaves the automated flow and enters DEPLOY, behind a manual gate (FDR-CD-PRODPROGRESSIONISDEPLOY).
 - RC and RBC are the manual gates that decide whether the artifact may proceed (FDR-CD-TWORELEASEGATES).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR keeps CD in non-prod and puts a manual gate and DEPLOY before prod, but `cd-apex.yaml` and `cd-shared.yaml` deploy `psub`, and
   `cd-apex.yaml` also deploys the expedition to `prod`, from the CD run.

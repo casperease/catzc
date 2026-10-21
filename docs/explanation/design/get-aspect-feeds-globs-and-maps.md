@@ -67,7 +67,7 @@ The code that validates the order sits in the config type, before either caller 
 - A track owns one coherent tech-stack, and the world map checks it on live files only, so the builder must classify every file of every
   track (DDR-TRACK-ONETECHSTACK).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The reference page of the aspect type (`Aspect.cs.md`) names `Get-ModuleAspect` as the PowerShell side that builds the sets;
   `Get-ModuleGlobSet` does it, and no function of that name exists.

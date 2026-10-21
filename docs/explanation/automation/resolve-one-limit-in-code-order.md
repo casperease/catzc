@@ -55,7 +55,7 @@ the config, and the default on the type are tried in exactly that order.
 - The explicit value, else the module's configuration read through `Get-Config`, else the default declared once on the config type, is the
   one resolution order of every configurable setting (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADR presents a per-executable entry as the remedy for a call that needs longer, but an entry replaces the limit in every environment and
 may lower it.

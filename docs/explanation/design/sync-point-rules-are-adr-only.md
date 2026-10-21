@@ -55,7 +55,7 @@ ADR-only, so "sync from the BVT-verified head" is a convention that no code chec
 - RC and RBC are manual gates at `main-UAT` and release-uat (FDR-CD-TWORELEASEGATES); the tail runs through pre-prod
   (FDR-CD-PREPRODRUNG); L3 runs in an on-demand environment (FDR-CD-CDSTAYSINNONPROD).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADRs describe `main-UAT`, release-uat and pre-prod as always-on environments with occupants and RC and RBC gates. The CD pipelines
 define none of them: a main commit that passes its CI stage is deployed to every target of a stage at once, non-prod and prod tier side by

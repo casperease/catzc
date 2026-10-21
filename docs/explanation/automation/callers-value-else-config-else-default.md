@@ -44,7 +44,7 @@ tuned, and nothing removes it, because there is no "no limit" value.
 - A configurable setting resolves in one fixed order, the caller's explicit value, else the owning module's configuration, else the sensible
   default, and that default is declared exactly once, on the setting's config type (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADR bounds every external call, yet `Invoke-Executable -Direct`, the interactive mode, runs with no limit, on the grounds that a person
 at the prompt is its safeguard. The ADR also lets an exemption raise the limit of an agent's bash call, and the exemptions file accepts a

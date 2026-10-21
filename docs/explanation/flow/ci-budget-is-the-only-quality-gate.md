@@ -53,7 +53,7 @@ reads left to right in one row, each kind or gate beside the rule that governs i
 - Deploy to prod stages the artifact inactive in pre-prod, then activates it live (FDR-CD-TWOENVIRONMENTACTIVATION).
 - A gate decides by machine, as a quality gate inside the inner CI gate, or by human certification (FDR-CD-GATEDEFINED).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR keeps CD in non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same run, with no
   gate.

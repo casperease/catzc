@@ -119,10 +119,10 @@ agents:
     checks: [Test-Links, Format-Links]
 
   # Read-only review of a file set against the rules that govern it, each finding with its rule code.
-  - name: adr-reviewer
+  - name: drs-reviewer
     supported_by: [WDR-BUILTIN-GATESAREPARTOFWORK, ADR-REPO-LINK-ONECITATIONSPELLING]
     checks: []
-    model_reason: weighs a rule's prose against code across several ADRs and files
+    model_reason: weighs a rule's prose against code across several decision records and files
 
   # Keeps the glossary sources in step with the rules that bold each term, one term at a time.
   - name: glossary-keeper

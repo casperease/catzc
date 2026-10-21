@@ -56,7 +56,7 @@ root tells apart, so no gate is needed. A reader who wants to know which run-mod
   (DDR-RUNMODE-SAMETESTSBOTHMODES).
 - Build mode has three kinds of root, told apart by where the code root lives (DDR-RUNMODE-THREEBUILDKINDS). No code reports the kind.
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR says switching is tested from source to build, from build to source, each mode twice and in a longer alternation, each time
   asserting the derived mode. The switch test uses two fixture roots instead, and checks eviction and a fresh script scope, but not the

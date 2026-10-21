@@ -51,7 +51,7 @@ parses and types the file, and every mistake throws at the call that made it, wi
 - Resolution fails fast: a wrong name, a wrong key or a malformed address throws, never a silent empty value
   (ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADR says a config type reports every violation in one exception. `GlobsConfig` throws on a missing `globsets` map before it collects the
 other violations.

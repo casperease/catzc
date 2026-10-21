@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "6dba70fbd43c"
+#     with_body_sha: a41839d6d9e9
 #   edges:
 #     docs: "[dependencies.yml.md](docs/references/pwsh/catzc-base-module-system/configs/dependencies.yml.md)"
 # ---
@@ -223,6 +223,7 @@ groups:
         Catzc.Base.Files,
         Catzc.Base.Globs,
         Catzc.Base.Languages,
+        Catzc.Base.CodeMeta,
         Catzc.Base.Modules,
         Catzc.Base.Variants,
         Catzc.Base.Config,
@@ -232,6 +233,7 @@ groups:
       ]
     Catzc.Base.Contracts:
       [
+        Catzc.Base.MarkdownMeta,
         Catzc.Base.Config,
         Catzc.Base.Repository,
         Catzc.Base.Objects,

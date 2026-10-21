@@ -53,7 +53,7 @@ outside the repository is a copy of the one verified build.
 A NuGet package, packed by `Export-Catzc -To nuget`, is a distribution file and not a code root until it is installed or saved, so it is not
 drawn here.
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL calls the `-Root` placement an install, where DDR-RUNMODE-THREEBUILDKINDS calls the same root saved.
 

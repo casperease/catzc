@@ -60,7 +60,7 @@ segment at a time. Every wrong turn throws where it happens: at parameter bindin
 - An unknown or ambiguous name throws from the reader, a bad segment throws naming the address and the segment, and a malformed address is
   rejected at parameter binding; there is no silent empty value (ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 A key cannot contain a dot, because `Get-ConfigValue` splits the whole address on every dot; the ADR's grammar does not say so.
 

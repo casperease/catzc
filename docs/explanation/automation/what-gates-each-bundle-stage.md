@@ -48,7 +48,7 @@ build run `Test-CatzcBuild` runs the same tests against a fresh build that the s
   build run (ADR-AUTO-TEST-SOURCEONLYTAG).
 - Build mode has three kinds of code root, temporary, installed and saved (DDR-RUNMODE-THREEBUILDKINDS).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - ADR-AUTO-BUNDLE-IMMUTABLEBUILD lists the internal-asset presence check among the checks of `Assert-CatzcBundle`. The code runs that check
   in the engine, before it writes anything, as ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY says.

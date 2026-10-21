@@ -55,7 +55,7 @@ In the walkthrough, `A` is ADR-CONF-ADDRESSING and `E` is ADR-AUTO-ENVVAR; the d
 - A resolved node is a read, never mutated (ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD).
 - A secret crosses to a child or external process only through `Write-EnvironmentSet` (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The read-only rule is stated by the ADR and repeated in the help texts, and no code or test prevents a write through a resolved node.
 - The loading ADR says only `Get-Config` is public, while the addressing ADR makes `Get-ConfigValue` public as well, and it is.

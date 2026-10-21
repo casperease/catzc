@@ -40,7 +40,7 @@ pipeline behind it.
 - A topic commit can be deployed out-of-band by a workflow or pipeline, and that deploy is not an integration
   (FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND). The operator sees the stricter code: only main deploys.
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND describes an out-of-band topic deploy that no pipeline offers, so an operator has nothing to run for
 it.

@@ -52,7 +52,7 @@ it.
 - All config reads go through `Get-Config` (ADR-CONF-LOADING-ONEREADER), and every module edge is declared in `dependencies.yml` before it
   is used (ADR-AUTO-DEPM-CODEBUILTFROM).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR lists Tooling among the real consumers; the declaration allows it, and no Tooling module calls a primitive.
 - The ADR makes `Get-Variant` the single access point; `Get-Aspect` and `Test-AspectDeclaration` in `Catzc.Base.Modules` read the `aspects`

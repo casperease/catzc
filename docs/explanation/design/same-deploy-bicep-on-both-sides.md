@@ -47,7 +47,7 @@ a deployment, or one of two failures.
 - Thin comes from delegation: the command checks the target and hands the deployment to az (DDR-THINPLAT-DELEGATENOTREIMPLEMENT).
 - The CLI is the only surface, so a developer and a pipeline bind to the same `Deploy-Bicep` (DDR-THINPLAT-PLATFORMASCLI).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 ADR-AUTO-PARITY-ONESEAM allows a command to branch on the pipeline seam only where the environments genuinely differ, and names where output
 goes and the dev-box auto-commit. Here the seam also changes what the command does: `-SubscriptionIdAssertIs` is mandatory only in a

@@ -45,7 +45,7 @@ one reader outside PowerShell, rest on the ADR alone.
 - A command branches on the seam only where the environments genuinely differ, never to change what it does; the ADR alone states it
   (ADR-AUTO-PARITY-ONESEAM).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR forbids every direct read of the variables, and the analyzer enforces that for PowerShell; the C# hook `Assert-BashTimeout` reads
   both, and no gate reaches it.

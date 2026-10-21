@@ -43,7 +43,7 @@ at the call that made it.
 - A resolved node is a read. It may be a live reference into the config cache and must never be mutated
   (ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The loading ADR says only `Get-Config` is public, while the addressing ADR makes `Get-ConfigValue` public as well, and it is.
 

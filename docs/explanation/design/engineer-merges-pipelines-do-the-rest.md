@@ -49,7 +49,7 @@ A new attempt is a new commit: the engineer fixes forward with a new pull reques
 - `Test-Automation` and its tiers run on the devbox and in the pipeline, and must agree (ADR-AUTO-PARITY-CHECKEDEQUALLY).
 - PR build validation is the inner CI gate; the L3 outer loop runs post-commit (FDR-CD-INNERANDOUTERLOOP).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - Nothing records a BVT discard.
 - No L3, RC, RBC or `pre-prod` activation step exists to run.

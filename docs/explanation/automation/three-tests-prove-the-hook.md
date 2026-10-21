@@ -51,7 +51,7 @@ published, not just as written. One route the rule offers, exempting slow work b
   (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT).
 - A setting resolves in one fixed order, and its sensible default is declared once on the config type (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The ADR says the run environment comes from `Get-RunEnvironment`. The hook decides it with `BashSafeguard.EnvironmentOf`; an L0 test keeps
 the two in agreement.

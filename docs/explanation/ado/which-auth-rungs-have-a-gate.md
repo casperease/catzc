@@ -47,7 +47,7 @@ No analyzer rule cites ADR-ADO-AUTH. The analyzer rule `Measure-NoRawPipelineDet
 - The step template maps the system token when `ExposeAccessToken` is set (ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN).
 - Tokens are never kept beyond the request (FDR-CD-PIPELINE-NOSTOREDTOKENS).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - ADR-ADO-AUTH-SEPARATETOKENFUNCTION, ADR-ADO-AUTH-ASSERTWHENNOTOKEN and FDR-CD-PIPELINE-NOSTOREDTOKENS have no gate: no test and no
   analyzer rule.

@@ -44,7 +44,7 @@ themselves, in the same run.
 - RC and RBC are the manual gates (FDR-CD-TWORELEASEGATES). A gate decides; DEPLOY, the pipeline that acts, is not a gate
   (FDR-CD-GATEDEFINED).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR keeps CD entirely within non-prod, but the apex and shared CD pipelines deploy `psub`, and apex the expedition `prod`, in the same
   run.

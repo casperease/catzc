@@ -55,7 +55,7 @@ alone.
 - az is the default for Azure operations (ADR-AZ-CLI-AZBYDEFAULT), a function that calls az asserts `Assert-Tool 'az_cli'` first
   (ADR-AZ-CLI-ASSERTAZ), and automation code never imports `Az.*` (ADR-AZ-CLI-NOAZMODULEIMPORT).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The pipeline step template still offers `Mode: azps` (AzurePowerShell@5), and the CI pipeline exercises it, beside ADR-AZ-CLI's az-first
   rule.

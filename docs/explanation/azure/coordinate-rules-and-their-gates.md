@@ -58,7 +58,7 @@ held by the code that derives it.
 - A subscription binds a customer by key or shortcode through the single resolver (ADR-AZ-CUSTOMER-TWOBINDINGS), and the key is the
   subfolder name (ADR-AZ-CUSTOMER-KEYISSUBFOLDER).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 The data model states the exactly-one rule as ADR-AZ-DATAMOD-NAMEKEYEDMAPS, but the code that enforces it cites other rules: the shared
 check cites ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY and the filename parser cites ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION, and no file cites #3.

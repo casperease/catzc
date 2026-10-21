@@ -51,7 +51,7 @@ use, and lives until the next import. Read in call order, the code shows where e
 - The parsed config is cached by its resolved file path, and only a re-import invalidates it (ADR-CONF-LOADING-CACHEBYPATH).
 - The registered C# type is constructed once, on the cache miss, and its constructor maps and validates (ADR-CONF-LOADING-CSHARPCONFIGTYPE).
 
-## Where the code and the ADR differ
+## Where the code and the decision record differ
 
 - The ADR says no function re-reads a config file or keeps its own `$script:` config cache. `Get-ConfigRegistry` does both for
   `configs.yml`, an exception the ADR does not state.
