@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3c56239af025"
+#     with_body_sha: a5cb156da5c1
 # ---
 
 description:
@@ -123,13 +123,11 @@ content:
           - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
       - cell: documentation/docs
         by:
-          - docs/drs/automation/BCL/.assets/bcl-language/diagram.drawio.yml
           - docs/drs/automation/BCL/dora-explains.md
           - docs/drs/automation/BCL/native-csharp-types.md
           - docs/drs/automation/pwsh/dora-explains.md
           - docs/drs/automation/pwsh/hosting-csharp-types.md
           - docs/drs/index.md
-          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
           - docs/references/pwsh/catzc-base-contracts/types/ContractSchema.cs.md
           - docs/references/pwsh/catzc-base-drs/types/DrsRuleSet.cs.md
           - docs/references/pwsh/catzc-base-languages/types/BclConfig.cs.md

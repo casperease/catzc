@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5afc53588e55"
+    with_body_sha: "293b2af74e31"
   edges:
     code: pwsh/Catzc.Base.Slides/Move-Diagram.ps1
     cites:
@@ -15,12 +15,12 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     BeforeEach {
         $script:widgetRoot = Join-Path $TestDrive "widget-repository-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
         $files = [ordered]@{
-            'docs/widgets/index.md'                = "# Widgets`n`n![Widget](assets/widget.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](./plain.md)`n"
-            'docs/widgets/plain.md'                = "# Plain`n`n[up](index.md)`n"
+            'docs/widgets/index.md'                 = "# Widgets`n`n![Widget](assets/widget.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](./plain.md)`n"
+            'docs/widgets/plain.md'                 = "# Plain`n`n[up](index.md)`n"
             'docs/widgets/assets/widget.drawio.png' = 'png'
             'docs/widgets/assets/widget.drawio.yml' = "description: A widget.`n"
-            'docs/drs/index.md'                    = "# Widget decisions`n"
-            'docs/gadgets/index.md'                = "# Gadgets`n`n![the widget slide](../widgets/assets/widget.drawio.png)`n"
+            'docs/drs/index.md'                     = "# Widget decisions`n"
+            'docs/gadgets/index.md'                 = "# Gadgets`n`n![the widget slide](../widgets/assets/widget.drawio.png)`n"
         }
         foreach ($file in $files.Keys) {
             $full = Join-Path $script:widgetRoot $file
@@ -65,6 +65,14 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         Test-Path (Join-Path $script:widgetRoot 'docs/widgets/assets/widget.drawio.yml') | Should -BeTrue
         & $script:read 'docs/widgets/index.md' | Should -Match '\(assets/widget\.drawio\.png\)'
         Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Message -like 'Would move: *' } -Times 2 -Exactly
+    }
+
+    It 'skips a page that the index still holds but the disk no longer does' {
+        Remove-Item -LiteralPath (Join-Path $script:widgetRoot 'docs/gadgets/index.md')
+
+        $result = Move-Diagram docs/widgets/assets/widget docs/widgets/.assets/widget -RepositoryRoot $script:widgetRoot -DryRun -PassThru
+
+        @($result.Pages) | Should -Be @('docs/widgets/index.md')
     }
 
     It 'formats every page whose links it re-pointed, and nothing under -DryRun' -Tag 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {

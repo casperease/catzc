@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "521669fc3342"
+#     with_body_sha: "2294ed377989"
 # ---
 
 description:
@@ -56,7 +56,7 @@ content:
       label: <module>-tests
       in: band-aspects
     - id: g-locks
-      kind: adronly
+      kind: drsonly
       label: aspect sha locks
       in: band-aspects
   edges:
@@ -117,7 +117,6 @@ content:
           - docs/drs/design/dora-explains.md
           - docs/drs/design/module-aspects.md
           - docs/drs/index.md
-          - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
           - docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
           - docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md

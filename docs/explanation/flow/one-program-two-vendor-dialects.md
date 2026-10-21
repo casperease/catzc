@@ -49,5 +49,5 @@ keeps just each pattern's last select.
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
 - The other lenses on the same projection: [architecture](globs-projects-and-three-consumers-read.md),
   [implementation](apex-thirteen-rules-seven-includes-six-excludes.md), [operations](print-projection-then-drift-names-the-filter.md) and
-  [governance](drift-is-gated-generation-is-adr-only.md).
+  [governance](drift-is-gated-generation-is-drs-only.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

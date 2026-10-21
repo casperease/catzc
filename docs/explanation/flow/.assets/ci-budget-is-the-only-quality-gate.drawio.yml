@@ -64,19 +64,19 @@ content:
       label: CD
       in: grp-flow
     - id: g-rc
-      kind: adronly
+      kind: drsonly
       label: RC
       in: grp-flow
     - id: g-deploy-non-prod
-      kind: adronly
+      kind: drsonly
       label: DEPLOY-Non-Prod
       in: grp-flow
     - id: g-rbc
-      kind: adronly
+      kind: drsonly
       label: RBC
       in: grp-flow
     - id: g-deploy-prod
-      kind: adronly
+      kind: drsonly
       label: DEPLOY-Prod
       in: grp-flow
     - id: g-machine-gate

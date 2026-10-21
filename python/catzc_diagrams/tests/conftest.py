@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: acbd47148fa1
+#     with_body_sha: "9b67fc7ddeff"
 # ---
 
 # cspell:ignore minimaps
@@ -22,7 +22,7 @@ FIXTURE_MINIMAPS = ["grid", "axis", "layer-stack"]
 
 
 def empty_minimaps(folder, computed=False):
-    has_source = declaration.source_of(folder).is_file()
+    has_source = declaration.declared(folder)
     views = (declaration.load(folder)["content"]["minimaps"] if has_source else None) or FIXTURE_MINIMAPS
     return {view: {"id": view, "axes": [], "cells": [], "lit": []} for view in views}
 

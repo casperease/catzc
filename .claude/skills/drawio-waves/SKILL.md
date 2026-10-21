@@ -21,13 +21,13 @@ metadata:
    the next briefs while a wave runs and never polls or predicts; a session spawns at most 20 subagents in all, and a fan-out writes its
    brief once to a file and sends each agent one line naming it.
 2. Wave N: each maker gets exactly this brief: read `python/catzc_diagrams/assets/STYLE.md` and its quality-bar diagram; verify each claim
-   against the ADR, code and configs into `<name>.verify.md` (claim, `file:line`, confirmed / contradicted / ADR-only); write
-   `out/diagrams/wave-N/<subfolder>/<name>/diagram.drawio.yml` (`description:`, `about:`, `content:`, `layout:` only where the grid would
-   misplace a cell) to the readability rules; put it with drawio-declaration, look, fix, at most 3 puts; reply in at most 8 lines; the brief
-   names the finding and a sketch in the ADR's exact terms, the time safeguard, never `docs/`, never git.
+   against the ADR, code and configs into `<name>.verify.md` (claim, `file:line`, confirmed / contradicted / DRS-only); write
+   `out/diagrams/wave-N/<subfolder>/<name>.drawio.yml` (`description:`, `about:`, `content:`, `layout:` only where the grid would misplace a
+   cell) to the readability rules; put it with drawio-declaration, look, fix, at most 3 puts; reply in at most 8 lines; the brief names the
+   finding and a sketch in the ADR's exact terms, the time safeguard, never `docs/`, never git.
 3. Fan-in: one table per wave (diagram, staged path, finding, the maker's doubts), drift found in existing diagrams surfaced and not fixed,
    then the user's verdicts (approve / change / drop); fold what a report or verdict teaches into STYLE.md at once; bundles
    (`gallery_pdf.py`, with `--assets <tree>/.assets` for a landed tree, `atlas.py`) only on the user's ask, as PDF or a claude.ai page,
-   never a local HTML; an approved folder lands one at a time as `docs/<area>/.assets/<name>/`, its yml and png, embedded in its article
-   with one Edit, never over an existing folder, a `.bkp` or `.dtmp` sibling meaning the user has it open; a landed folder is rebuilt by
-   `Build-Diagrams -Path <folder>` only, never by hand (ADR-REPO-SLIDES-ONEBUILDCOMMAND).
+   never a local HTML; an approved diagram lands one at a time as the pair `docs/<area>/.assets/<name>.drawio.yml` and `.drawio.png`,
+   embedded in its article with one Edit, never over an existing pair, a `.bkp` or `.dtmp` sibling meaning the user has it open; a landed
+   diagram is rebuilt by `Build-Diagrams -Path <name>.drawio.yml` only, never by hand (ADR-REPO-SLIDES-ONEBUILDCOMMAND).

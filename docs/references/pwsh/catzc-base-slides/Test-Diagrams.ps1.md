@@ -12,16 +12,16 @@ left stale.
 
 ### description
 
-A declared diagram is a folder under a `.assets/` folder holding a tracked `diagram.drawio.png` beside its `diagram.drawio.yml`. The gate
-runs the draw.io kit's `declaration.py check` over each declared folder through uv and reads one JSON line per folder: the cells whose png
-differs from put of the yml are issues, a kit or folder error is an issue, and a minimap a registry change left stale is announced and
-counted in the report facts without failing the gate. It writes no diagram; the render is Build-Diagrams'. The result goes through the
-quality-gate report.
+A declared diagram is a `<name>.drawio.yml` in a `.assets/` folder, beside the `<name>.drawio.png` put from it, named by its stem
+`.assets/<name>`. The gate runs the draw.io kit's `declaration.py check` over each declared diagram through uv and reads one JSON line per
+diagram: the cells whose png differs from put of the yml are issues, a kit or diagram error is an issue, and a minimap a registry change
+left stale is announced and counted in the report facts without failing the gate. It writes no diagram; the render is Build-Diagrams'. The
+result goes through the quality-gate report.
 
 ### parameter `Path`
 
-Declared diagram folders, repository-relative or absolute. A folder that is not a declared diagram throws. The default is every declared
-diagram.
+Declared diagrams, repository-relative or absolute, each named by its `.drawio.yml`, its `.drawio.png` or its stem. A path that is not a
+declared diagram throws. The default is every declared diagram.
 
 ### parameter `Kit`
 
@@ -60,6 +60,24 @@ Test-Diagrams -Path docs/explanation/thesis/.assets/product-thesis
 Above ``foreach ($line in @($result.Output -split "`r?`n" | Where-Object {...``, written with `#`.
 
 ```text
-One JSON line per folder: the cells of a pair edited on both sides since HEAD, the cells whose png differs from put of the
+One JSON line per diagram: the cells of a pair edited on both sides since HEAD, the cells whose png differs from put of the
 yml, the minimaps a registry change left stale, or an error.
+```
+
+## comment:2
+
+Above `$candidates = @(Get-GitTrackedPath '.') + @(Get-GitChangedPath 'docs')`, written with `#`.
+
+```text
+A declared diagram is a <name>.drawio.yml under docs/**/.assets/, tracked or not, named by its stem .assets/<name>; a new one is
+checked once its first put has run.
+```
+
+## comment:3
+
+Above `$carrierMap = Get-DiagramCarrierMap -RepositoryRoot $root -Kit $Kit`, written with `#`.
+
+```text
+A diagram in the article carrier has no yml beside its png: the kit's drawio.yml names it under carriers, and the kit's check reads
+its block, failing a diagram with no block or two.
 ```

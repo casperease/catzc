@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "2f23f7aa3109"
+#     with_body_sha: "456b6d46c766"
 # ---
 
 description:
@@ -172,10 +172,6 @@ content:
           - docs/references/infrastructure/templates/discovery/options.yml.md
           - docs/references/infrastructure/templates/expedition/options.yml.md
           - docs/references/infrastructure/templates/foundation/options.yml.md
-          - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
-          - docs/references/pwsh/.assets/azure-identity-resolves-from-config/diagram.drawio.yml
-          - docs/references/pwsh/.assets/bicep-deploy-one-immutable-context/diagram.drawio.yml
-          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md
           - docs/references/pwsh/catzc-azure-cli/Get-AzCliSessionSubscription.ps1.md
@@ -201,6 +197,7 @@ content:
           - docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
           - docs/references/pwsh/catzc-azure-templates/tests/Get-BicepParameterModel.Shipped.Tests.ps1.md
           - docs/references/pwsh/catzc-azure-templates/types/BicepParamWriter.cs.md
+          - docs/references/pwsh/catzc-azure-templates/types/BicepSlot.cs.md
           - docs/references/pwsh/catzc-azure-templates/types/BicepTemplate.cs.md
           - docs/references/pwsh/catzc-azure/Get-AzureCustomers.ps1.md
           - docs/references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md

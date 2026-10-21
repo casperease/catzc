@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d05d4a44cad8
+#     with_body_sha: f97b00bde072
 # ---
 
 description:
@@ -108,7 +108,6 @@ content:
           - docs/drs/configuration/config-value-addressing.md
           - docs/drs/configuration/dora-explains.md
           - docs/drs/index.md
-          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
           - docs/references/pwsh/catzc-base-config/Get-Config.ps1.md
           - docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md

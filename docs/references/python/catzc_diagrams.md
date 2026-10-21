@@ -1,11 +1,11 @@
 # catzc_diagrams
 
 The diagram kit, a module of the python track. It owns the rendering of every diagram of the repository from its one source, the
-`diagram.drawio.yml` beside its `diagram.drawio.png`: put renders the declaration into the png, get folds a draw.io edit back into the yml,
+`<name>.drawio.yml` beside its `<name>.drawio.png`: put renders the declaration into the png, get folds a draw.io edit back into the yml,
 and the three minimaps of the right column are drawn from data the kit only validates
 ([ADR-REPO-SLIDES](../../drs/repository/slides-as-markdown.md)). It deliberately does **not** decide anything: what a diagram shows comes
-from its declaration, the minimap data comes from `Catzc.Base.Maps`, and the one command that rebuilds a diagram folder is `Build-Diagrams`
-of `Catzc.Base.Slides`.
+from its declaration, the minimap data comes from `Catzc.Base.Maps`, and the one command that rebuilds a diagram is `Build-Diagrams` of
+`Catzc.Base.Slides`.
 
 ## Responsibilities
 
@@ -18,11 +18,12 @@ of `Catzc.Base.Slides`.
 
 ### responsibility:1 — Put and get of a diagram
 
-A diagram folder holds `diagram.drawio.yml`, the declaration, and `diagram.drawio.png`, the render. `declaration.py` puts the declaration
-into the draw.io model embedded in the png and gets an edited model back into the yml; both directions are deterministic, and a pair whose
-two sides both moved since HEAD is a conflict only the author's pick by name clears. `drawio_png.py` draws the raster from the model on the
-theme's page, so the picture and the embedded XML stay honest to each other. `drawio_forward.py` runs a render fail-forward, always landing
-a source copy, a result PNG, the decoded model and a report under `out/drawio/`, and over a whole root it puts every declared folder.
+A diagram is two flat files in an `.assets/` folder, `<name>.drawio.yml`, the declaration, and `<name>.drawio.png`, the render, named by the
+stem `.assets/<name>`. `declaration.py` puts the declaration into the draw.io model embedded in the png and gets an edited model back into
+the yml; both directions are deterministic, and a pair whose two sides both moved since HEAD is a conflict only the author's pick by name
+clears. `drawio_png.py` draws the raster from the model on the theme's page, so the picture and the embedded XML stay honest to each other.
+`drawio_forward.py` runs a render fail-forward, always landing a source copy, a result PNG, the decoded model and a report under
+`out/drawio/`, and over a whole root it puts every declared diagram.
 
 ### responsibility:2 — The minimaps of a diagram
 
@@ -35,7 +36,7 @@ A diagram shows exactly three minimaps: the ones its declaration names, or its k
 
 The closed vocabulary every drawing is made of lives in the module's assets: the glyph library (`glyphs.xml`), the template slide, the style
 guide (`STYLE.md`) with the theme tokens and the readability rules, the renderer's defaults (`configs/drawio.yml`: page, output folder,
-lenses, folder roles, vocabularies), and the slides kit (`assets/slides/`: `slides.yml`, its style guide and the patterns `Build-SlideDeck`
+lenses, diagram roles, vocabularies), and the slides kit (`assets/slides/`: `slides.yml`, its style guide and the patterns `Build-SlideDeck`
 fills). A maker edits a declaration and reads the guide; the kit draws.
 
 ### responsibility:4 — Review bundles

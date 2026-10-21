@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: de090400679b
+#     with_body_sha: c79a97eb64fd
 # ---
 
 description:
@@ -131,7 +131,6 @@ content:
     lifecycle-position:
       - cell: main-uat
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -144,7 +143,6 @@ content:
           - TDR-STORES-THREEKINDS
       - cell: release-uat
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -157,7 +155,6 @@ content:
           - TDR-STORES-THREEKINDS
       - cell: pre-prod
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -170,7 +167,6 @@ content:
           - TDR-STORES-THREEKINDS
       - cell: prod
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -184,9 +180,6 @@ content:
     layer-stack:
       - cell: automation
         by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - .claude/hindsight/hindsight226bbf.md
-          - .claude/learnings/learned494e73.md
           - docs/drs/glossary.md
           - docs/drs/index.md
           - docs/drs/thesis/dora-explains.md
@@ -206,8 +199,8 @@ content:
           - pwsh/Catzc.Azure.DevOps/New-AdoPullRequest.ps1
           - pwsh/Catzc.Azure.DevOps/Register-AdoPipeline.ps1
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Flow/Get-TruthStore.ps1
           - pwsh/Catzc.Base.Flow/tests/types/TruthStoresConfig.Tests.ps1
           - pwsh/Catzc.Base.Flow/types/TruthStoresConfig.cs

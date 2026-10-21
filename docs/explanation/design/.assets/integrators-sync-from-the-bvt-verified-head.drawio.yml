@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "51fcdb51bcd4"
+#     with_body_sha: "125cbe78ee6b"
 # ---
 
 description:
@@ -36,7 +36,7 @@ content:
       in: band-tip
   glyphs:
     - id: x-integrator
-      kind: adronly
+      kind: drsonly
       label: upstream integrator
       in: band-external
     - id: g-production
@@ -135,8 +135,6 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: docs/-/.
         by:
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - docs/drs/flow/cd-discipline-and-promotion-flow.md
           - docs/drs/flow/commit-lifecycle.md
           - docs/drs/flow/dora-explains.md
@@ -259,14 +257,6 @@ content:
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
           - FDR-CD-PREPRODRUNG
           - FDR-CD-TWORELEASEGATES
-      - cell: docs/yaml
-        by:
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs

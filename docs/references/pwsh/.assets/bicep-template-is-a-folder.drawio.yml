@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "2b5d277d59d8"
+#     with_body_sha: "585c9fd1d245"
 # ---
 
 description:
@@ -127,10 +127,8 @@ content:
           - ADR-AZ-DATAMOD
       - cell: docs/-/.
         by:
-          - docs/drs/automation/BCL/.assets/bcl-language/diagram.drawio.yml
           - docs/drs/automation/BCL/dora-explains.md
           - docs/drs/automation/BCL/native-csharp-types.md
-          - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.yml
           - docs/drs/azure/azure-customer-model.md
           - docs/drs/azure/azure-data-model.md
           - docs/drs/azure/azure-naming-standard.md
@@ -147,10 +145,6 @@ content:
           - docs/references/infrastructure/templates/discovery/options.yml.md
           - docs/references/infrastructure/templates/expedition/options.yml.md
           - docs/references/infrastructure/templates/foundation/options.yml.md
-          - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
-          - docs/references/pwsh/.assets/azure-identity-resolves-from-config/diagram.drawio.yml
-          - docs/references/pwsh/.assets/bicep-deploy-one-immutable-context/diagram.drawio.yml
-          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md
           - docs/references/pwsh/catzc-azure-cli/Get-AzCliSessionSubscription.ps1.md
@@ -185,6 +179,7 @@ content:
           - docs/references/pwsh/catzc-azure-templates/types/BicepParameter.cs.md
           - docs/references/pwsh/catzc-azure-templates/types/BicepParameterModel.cs.md
           - docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md
+          - docs/references/pwsh/catzc-azure-templates/types/BicepSlot.cs.md
           - docs/references/pwsh/catzc-azure-templates/types/BicepTemplate.cs.md
           - docs/references/pwsh/catzc-azure/Get-AzureCustomers.ps1.md
           - docs/references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md

@@ -54,7 +54,20 @@ An explanation article narrates one diagram: how one part of cats works and why 
 2. Declare the diagram in `docs/explanation/<adr-domain>/.assets/<kebab-title>.drawio.yml` (its `description:`, the lens and ADR codes under
    `about:`, and the `content:` it draws), then put it with `Build-Diagrams -Path <that file>`. Declare its minimaps' lit cells with
    `declaration.py minimaps <that file>`, which writes each cell and what lit it under `content.minimaps`, then read them once against the
-   drawing.
+   drawing. To keep the declaration in the article instead, the way a `mermaid` block renders, name the diagram's stem
+   (`docs/explanation/<adr-domain>/.assets/<kebab-title>`) as `article` under `carriers:` in the kit's `drawio.yml`, and write the same yml
+   in a `yml drawio` block directly above the image that embeds its png:
+
+   ````markdown
+   ```yml drawio
+   description: Widgets pass a gate on their way to the gadget store.
+   about: { lens: architecture, adrs: [ADR-WIDGET-GATE] }
+   content: { title: Widgets pass a gate }
+   ```
+
+   ![Widgets pass a gate](.assets/<kebab-title>.drawio.png)
+   ````
+
 3. After the title, open with a fenced `text` block that gives the overview: the finding in one line, then one line per numbered point of
    the diagram. Then a short opening paragraph, the image, a Walkthrough that narrates every numbered point in order, the DRS rules that
    make it hold, and links to the decision record, the asset description and the related articles.

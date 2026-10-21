@@ -1,15 +1,17 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f40b30279676
+#     with_body_sha: a808562504a3
 # ---
 
 renderer:
   page: dark # dark | model. dark: every render sits on the dark page (STYLE.md tokens); model: the model's own background, white allowed. Parameter: --page
   out: out/drawio # where drawio_forward.py lands its artifacts when no <out_dir> argument is given
+  carrier: file # where a diagram's declaration lives when carriers: names none. file: <name>.drawio.yml beside its png; article: a `yml drawio` block directly above the image that embeds its png
   role: slide # a diagram's role when roles: names none. slide: its subtitle says `<codes> · <lens>`; legend: it names no ADR and has no subtitle
 roles: # a diagram's role, keyed by its stem's repository path (`.assets/<name>`), only where it is not renderer.role
   docs/explanation/.assets/glyphs: legend # the glyph library, the legend every slide's glyphs come from
+carriers: # a diagram's carrier, keyed by its stem's repository path (`.assets/<name>`), only where it is not renderer.carrier
 lenses: # the closed set of lenses a diagram is drawn through (its about.lens, the end of its subtitle), each with what it shows; the badge prints the name
   meta: what the decision is and why
   architecture: the parts and how they depend on each other
@@ -53,7 +55,7 @@ theme-dark: # every colour a style may name, as a token: a style says @<token>, 
   ink: CDD3DC # text
   title: DDE2E9 # the title and on-glyph names
   quiet: 949FAE # legend text and notes
-  line: AAB4C3 # flow edges, arrowheads, chip rims, the ADR-only dash
+  line: AAB4C3 # flow edges, arrowheads, chip rims, the DRS-only dash
   mark: E6EAF0 # marker disc and badge fill
   mark-ink: 1E2430 # marker digit and rim, badge text
   chip: 262E3B # chip fill

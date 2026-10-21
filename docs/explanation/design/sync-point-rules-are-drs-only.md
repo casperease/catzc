@@ -1,7 +1,7 @@
-# Only BVT has a gate in code; the sync-point rules are ADR-only
+# Only BVT has a gate in code; the sync-point rules are DRS-only
 
 ```text
-Only the BVT rung has a gate in code; every sync-point rule is ADR-only.
+Only the BVT rung has a gate in code; every sync-point rule is DRS-only.
 
 1  upstream integrator  syncs from the BVT-verified head, never from the dirty HEAD; no check
 2  production           holds one occupant, commit 4, plus a history; not recorded
@@ -18,9 +18,9 @@ Supports FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, FDR
 The sync point is the BVT-verified server head: upstream integrators take it, never the tip of main. The same commit goes into `main-UAT`
 first, so when it is deployed it is the `main-UAT` occupant. Of the rules that govern the rungs of the promotion ladder around it, only one
 has a gate in cats: the BVT rung, checked by the `ci-pwsh` pipeline. Every rule about occupants, the sync point and the dirty HEAD is
-ADR-only, so "sync from the BVT-verified head" is a convention that no code checks.
+DRS-only, so "sync from the BVT-verified head" is a convention that no code checks.
 
-![Only BVT has a gate in code; the sync-point rules are ADR-only](.assets/sync-point-rules-are-adr-only.drawio.png)
+![Only BVT has a gate in code; the sync-point rules are DRS-only](.assets/sync-point-rules-are-drs-only.drawio.png)
 
 ## Walkthrough
 

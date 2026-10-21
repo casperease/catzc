@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "6dc021fd331d"
+#     with_body_sha: c6698ffac30b
 # ---
 
 description:
@@ -119,7 +119,6 @@ content:
           - docs/drs/flow/pipeline-detection.md
           - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
-          - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
           - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
@@ -186,10 +185,6 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
-      - cell: docs/yaml
-        by:
-          - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/bcl
         by:

@@ -6,8 +6,8 @@ Every module file is in exactly one aspect: live first by a closed convention, t
 1  Module folder  every tracked file of the module
 2  live           the first aspect: a closed convention, what ships
 3  tests          the last aspect: the ** remainder, never ships
-4  live lock      ADR-only: the live aspect's own sha lock
-5  tests lock     ADR-only: the tests aspect's own sha lock
+4  live lock      DRS-only: the live aspect's own sha lock
+5  tests lock     DRS-only: the tests aspect's own sha lock
 
 Supports DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ASPECTISAGLOBSET and DDR-ASPECT-PARTITIONISCHECKED (meta lens).
 ```

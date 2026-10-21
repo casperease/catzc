@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "409c08d70b89"
+#     with_body_sha: "240eb155cb64"
 # ---
 
 description:
@@ -140,7 +140,6 @@ content:
     lifecycle-position:
       - cell: main-uat
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
           - docs/drs/flow/dora-explains.md
           - docs/drs/index.md
@@ -162,7 +161,6 @@ content:
           - FDR-CD-SEPARATEPIPELINEKINDS
       - cell: release-uat
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
           - docs/drs/flow/dora-explains.md
           - docs/drs/index.md
@@ -184,7 +182,6 @@ content:
           - FDR-CD-SEPARATEPIPELINEKINDS
       - cell: pre-prod
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
           - docs/drs/flow/dora-explains.md
           - docs/drs/index.md
@@ -206,7 +203,6 @@ content:
           - FDR-CD-SEPARATEPIPELINEKINDS
       - cell: prod
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
           - docs/drs/flow/dora-explains.md
           - docs/drs/index.md
@@ -229,9 +225,7 @@ content:
     layer-stack:
       - cell: automation
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
           - docs/drs/flow/cd-discipline-and-promotion-flow.md
           - docs/drs/flow/commit-lifecycle.md
           - docs/drs/flow/dora-explains.md

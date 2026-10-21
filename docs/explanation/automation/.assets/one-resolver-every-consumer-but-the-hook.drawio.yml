@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "04261ac8f948"
+#     with_body_sha: "6a6e23a3130e"
 # ---
 
 description:
@@ -120,9 +120,8 @@ content:
           - docs/drs/automation/sensible-defaults.md
           - docs/drs/glossary.md
           - docs/drs/index.md
+          - docs/how-to/pwsh/manual-test-plan/configs.md
           - docs/how-to/pwsh/manual-test-plan/repository-conventions.md
-          - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
-          - docs/references/pwsh/.assets/listen-mode-flow/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
           - docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md
           - docs/references/pwsh/catzc-base-contracts/configs/contracts.yml.md

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: bf0eef59a7ce
+#     with_body_sha: "0d4e1d4ac6ef"
 # ---
 
 description:
@@ -171,11 +171,6 @@ content:
           - docs/references/ado/pipelines/ci-infrastructure.yaml.md
           - docs/references/ado/pipelines/ci-pwsh.yaml.md
           - docs/references/github/workflows/ci-pwsh.yml.md
-          - docs/references/pwsh/.assets/get-config-merge-seal-type/diagram.drawio.yml
-          - docs/references/pwsh/.assets/invoke-tool-asserts-locked-version/diagram.drawio.yml
-          - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
-          - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
-          - docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Get-AdoBuildValidations.ps1.md
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Register-AdoBuildValidation.ps1.md
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Unregister-AdoBuildValidation.ps1.md
@@ -190,9 +185,9 @@ content:
           - docs/references/pwsh/catzc-base-config/private/Resolve-ConfigEntry.ps1.md
           - docs/references/pwsh/catzc-base-docs/Get-Glossary.ps1.md
           - docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Get-CatsDrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-drs/Get-CatsDrsRuleIds.ps1.md
           - docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md
-          - docs/references/pwsh/catzc-base-drs/private/Get-CatsDrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-execution/Find-Executable.ps1.md
           - docs/references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md
@@ -326,6 +321,7 @@ content:
           - ADR-PWSH-CACHE
       - cell: pwsh/Catzc.Base.Drs/.
         by:
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsIndex.ps1
           - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
           - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
           - ADR-PWSH-CACHE
@@ -337,10 +333,6 @@ content:
           - DDR-ASPECT
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
-      - cell: pwsh/Catzc.Base.Drs/private
-        by:
-          - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
-          - ADR-PWSH-CACHE
       - cell: pwsh/Catzc.Base.Drs/types
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
@@ -549,10 +541,10 @@ content:
           - ADR-PWSH-CACHE
       - cell: subject/Catzc.Base.Drs
         by:
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsIndex.ps1
           - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
           - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
           - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - ADR-PWSH-CACHE
           - ADR-REPO-PROTGLOB

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "47c1e50b64b4"
+    with_body_sha: "1060bc8aba01"
   edges:
     code: pwsh/Catzc.Base.QualityGates/types/FileCarrierResolver.cs
     cites:

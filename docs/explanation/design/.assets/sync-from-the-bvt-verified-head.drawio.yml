@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "06164eb815ac"
+#     with_body_sha: cee840d0ea1d
 # ---
 
 description:
@@ -24,7 +24,7 @@ content:
       label: MAINLINE
   glyphs:
     - id: g-integrator
-      kind: adronly
+      kind: drsonly
       label: upstream integrator
       in: band-mainline
     - id: g-main-uat
@@ -62,8 +62,6 @@ content:
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: docs/-/.
         by:
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - docs/drs/flow/commit-lifecycle.md
           - docs/drs/flow/dora-explains.md
           - docs/drs/index.md
@@ -126,13 +124,6 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - cell: docs/yaml
-        by:
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fc0bb8bc4b29
+    with_body_sha: "83c4e0bd162b"
   edges:
     docs: "[Get-DiagramSupportsDrift.ps1.md](../../../docs/references/pwsh/catzc-base-slides/private/Get-DiagramSupportsDrift.ps1.md)"
     cites:
@@ -15,21 +15,23 @@ function Get-DiagramSupportsDrift {
     [OutputType([string])]
     param(
         [Parameter(Mandatory)]
-        [string] $Folder,
+        [string] $Stem,
 
         [Parameter(Mandatory)]
         [AllowEmptyCollection()]
         [string[]] $Page,
 
         [Parameter(Mandatory)]
-        [string] $RepositoryRoot
+        [string] $RepositoryRoot,
+
+        [pscustomobject] $CarrierMap = (Get-DiagramCarrierMap -RepositoryRoot $RepositoryRoot)
     )
 
-    $source = Join-Path $RepositoryRoot "$Folder.drawio.yml"
-    if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
+    $text = Get-DiagramDeclarationText -Stem $Stem -RepositoryRoot $RepositoryRoot -CarrierMap $CarrierMap
+    if ($null -eq $text) {
         return
     }
-    $declaration = ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($source)) -Ordered
+    $declaration = ConvertFrom-Yaml -Yaml $text -Ordered
     $about = if ($declaration -and $declaration.Contains('about')) {
         $declaration['about']
     }
@@ -54,7 +56,7 @@ function Get-DiagramSupportsDrift {
                 $_.Groups[2].Value -ceq $lens -and (($said -join ' ') -ceq ($codes -join ' '))
             })
         if ($agrees.Count -eq 0) {
-            "$pagePath says Supports $($lines[0].Groups[1].Value) ($($lines[0].Groups[2].Value) lens) for $Folder; its yml says $($codes -join ', ') ($lens lens)"
+            "$pagePath says Supports $($lines[0].Groups[1].Value) ($($lines[0].Groups[2].Value) lens) for $Stem; its yml says $($codes -join ', ') ($lens lens)"
         }
     }
 }

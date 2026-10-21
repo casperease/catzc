@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f7dc20538d55
+#     with_body_sha: "17fcf4fbb921"
 # ---
 
 description:
@@ -83,7 +83,6 @@ content:
           - docs/drs/design/dora-explains.md
           - docs/drs/design/module-aspects.md
           - docs/drs/index.md
-          - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
           - docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
           - docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md
@@ -170,12 +169,6 @@ content:
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
           - docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
           - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
-          - DDR-ASPECT-ASPECTSAREDERIVED
-          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
-          - DDR-ASPECT-TRACKPICKSCATCHALL
-      - cell: docs/yaml
-        by:
-          - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - DDR-ASPECT-ASPECTSAREDERIVED
           - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
           - DDR-ASPECT-TRACKPICKSCATCHALL

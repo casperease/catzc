@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: da61a116008c
+#     with_body_sha: a5183115cc7c
 # ---
 
 description:
@@ -94,7 +94,6 @@ content:
           - docs/drs/flow/pipeline-detection.md
           - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
-          - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
           - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md

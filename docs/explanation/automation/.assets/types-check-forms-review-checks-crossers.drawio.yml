@@ -52,7 +52,7 @@ content:
       label: The two crossers
       in: band-crossers
     - id: a-review
-      kind: adronly
+      kind: drsonly
       label: Code review
       in: band-crossers
     - id: s-binding

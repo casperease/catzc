@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5faec517e4dc"
+#     with_body_sha: "165a574ff8e1"
 # ---
 
 description:
@@ -100,28 +100,24 @@ content:
     lifecycle-position:
       - cell: main-uat
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-IACKIND-THREEKINDS
           - ADR-AZ-IACKIND-TRACKPLACESKINDS
       - cell: release-uat
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-IACKIND-THREEKINDS
           - ADR-AZ-IACKIND-TRACKPLACESKINDS
       - cell: pre-prod
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-IACKIND-THREEKINDS
           - ADR-AZ-IACKIND-TRACKPLACESKINDS
       - cell: prod
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-IACKIND-THREEKINDS
@@ -129,7 +125,6 @@ content:
     layer-stack:
       - cell: automation
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/azure/dora-explains.md
           - docs/drs/azure/infrastructure-kinds.md
           - docs/drs/index.md

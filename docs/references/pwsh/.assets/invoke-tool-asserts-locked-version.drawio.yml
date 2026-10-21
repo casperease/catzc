@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "68702b705004"
+#     with_body_sha: "386bc4275ccf"
 # ---
 
 description:
@@ -125,12 +125,6 @@ content:
           - docs/drs/configuration/dora-explains.md
           - docs/drs/configuration/module-config-loading.md
           - docs/drs/index.md
-          - docs/references/pwsh/.assets/bicep-deploy-one-immutable-context/diagram.drawio.yml
-          - docs/references/pwsh/.assets/get-config-merge-seal-type/diagram.drawio.yml
-          - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml
-          - docs/references/pwsh/.assets/invoke-tool-asserts-locked-version/diagram.drawio.yml
-          - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
-          - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/Register-AdoBuildValidation.Tests.ps1.md
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/Unregister-AdoBuildValidation.Tests.ps1.md
           - docs/references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md
@@ -148,10 +142,10 @@ content:
           - docs/references/pwsh/catzc-base-docs/types/DocsConfig.cs.md
           - docs/references/pwsh/catzc-base-drs/Build-DrsCodeDictionary.ps1.md
           - docs/references/pwsh/catzc-base-drs/Build-DrsIndex.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Get-CatsDrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-drs/Get-CatsDrsRuleIds.ps1.md
           - docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md
           - docs/references/pwsh/catzc-base-drs/Update-DrsCitation.ps1.md
-          - docs/references/pwsh/catzc-base-drs/private/Get-CatsDrsIndex.ps1.md
           - docs/references/pwsh/catzc-base-execution/Find-Executable.ps1.md
           - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
           - docs/references/pwsh/catzc-base-execution/Resolve-ToolExecutable.ps1.md
@@ -231,6 +225,7 @@ content:
         by:
           - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
           - pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsIndex.ps1
           - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
           - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
           - pwsh/Catzc.Base.Drs/Update-DrsCitation.ps1
@@ -241,10 +236,6 @@ content:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
           - ADR-CONF-LOADING-READINGISGLOBAL
-          - ADR-PWSH-CACHE-STRICTSAFEPROBE
-      - cell: pwsh/Catzc.Base.Drs/private
-        by:
-          - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - cell: pwsh/Catzc.Base.Drs/tests
         by:
@@ -379,11 +370,11 @@ content:
         by:
           - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
           - pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsIndex.ps1
           - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
           - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
           - pwsh/Catzc.Base.Drs/Update-DrsCitation.ps1
           - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - pwsh/Catzc.Base.Drs/private/Get-CatsDrsIndex.ps1
           - pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1
           - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
           - ADR-CONF-LOADING-READINGISGLOBAL

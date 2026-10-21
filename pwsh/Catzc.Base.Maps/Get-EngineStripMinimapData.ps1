@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: aea1ef647b0e
+    with_body_sha: dc6a10104f57
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-EngineStripMinimapData.Tests.ps1
     docs: "[Get-EngineStripMinimapData.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-EngineStripMinimapData.ps1.md)"

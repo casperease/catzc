@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "41c3a5c0135f"
+    with_body_sha: "68eec0bc1dac"
   edges:
     code: pwsh/Catzc.Base.Slides/private/Write-DiagramMinimapData.ps1
     cites:
@@ -30,6 +30,7 @@ content:
 '@
         [System.IO.File]::WriteAllText("$source.drawio.yml", $yml)
         Mock Get-Config -ModuleName Catzc.Base.Slides -ParameterFilter { $Config -eq 'maps' } { [Catzc.Base.Maps.MapsConfig]::new([ordered]@{}) }
+        Mock Get-DiagramCarrierMap -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Default = 'file'; Carriers = @{} } }
         Mock Get-WorldMap -ModuleName Catzc.Base.Slides { }
         Mock Get-WorldMapHighlight -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Cells = @() } }
         Mock Get-MinimapFact -ModuleName Catzc.Base.Slides { @{} }
@@ -43,7 +44,7 @@ content:
         }
         $script:target = InModuleScope Catzc.Base.Slides -Parameters @{ Folder = $script:folder; Root = $script:root } {
             param($Folder, $Root)
-            Write-DiagramMinimapData -Folder $Folder -RepositoryRoot $Root -WarningVariable warned -WarningAction SilentlyContinue
+            Write-DiagramMinimapData -Stem $Folder -RepositoryRoot $Root -WarningVariable warned -WarningAction SilentlyContinue
             $script:warned = $warned
         }
         $script:warned = InModuleScope Catzc.Base.Slides { $script:warned }

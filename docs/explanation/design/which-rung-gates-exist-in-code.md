@@ -1,15 +1,15 @@
 # Only PR build validation, the BVT and the failure stop are checked in code
 
 ```text
-Three rung checks run in code: PR build validation, the BVT and the failure stop; the rest are ADR-only.
+Three rung checks run in code: PR build validation, the BVT and the failure stop; the rest are DRS-only.
 
 1  PR build validation       the inner CI gate before a topic commit merges
 2  landed                    the merged commit; an out-of-band topic deploy is not an integration
 3  BVT                       discards automatically; checked on main, the built artifact included
-4  L3-vertical-AT            automated acceptance testing in an on-demand environment; ADR-only
-5  RC on main-AT             the manual gate at main-uat; ADR-only
-6  RBC on release-AT         the manual gate at release-uat; ADR-only
-7  two-slot activation       stage inactive in pre-prod, then activate live; an actuation, ADR-only
+4  L3-vertical-AT            automated acceptance testing in an on-demand environment; DRS-only
+5  RC on main-AT             the manual gate at main-uat; DRS-only
+6  RBC on release-AT         the manual gate at release-uat; DRS-only
+7  two-slot activation       stage inactive in pre-prod, then activate live; an actuation, DRS-only
 8  failure stops downstream  each Deploy_* stage runs only when the stage before it succeeded
 
 Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-RETIREMENTISNOTDISCARD, FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, FDR-CD-INNERANDOUTERLOOP, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES, FDR-CD-TWOENVIRONMENTACTIVATION, ADR-AUTO-TEST-BUILDVERIFICATIONTEST and DDR-VISUAL-FIXEDCOMMITPALETTE (governance lens).

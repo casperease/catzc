@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "500f4d4c619f"
+#     with_body_sha: "02bf625887b0"
 # ---
 
 description:
@@ -39,7 +39,7 @@ content:
       label: QUALITY GATES
   glyphs:
     - id: a-reader
-      kind: adronly
+      kind: drsonly
       label: one reader
       in: band-read
     - id: g-resolution
@@ -51,7 +51,7 @@ content:
       label: session cache
       in: band-read
     - id: a-copy
-      kind: adronly
+      kind: drsonly
       label: a read, not a copy
       in: band-read
     - id: g-typed
@@ -59,7 +59,7 @@ content:
       label: typed once
       in: band-miss
     - id: a-validator
-      kind: adronly
+      kind: drsonly
       label: PowerShell validator
       in: band-extension
     - id: g-validators
@@ -189,11 +189,6 @@ content:
           - docs/drs/index.md
           - docs/how-to/getting-started/pwsh/add-a-module.md
           - docs/how-to/pwsh/manual-test-plan/configs.md
-          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
-          - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml
-          - docs/references/pwsh/.assets/invoke-tool-asserts-locked-version/diagram.drawio.yml
-          - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
-          - docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-dev-ops/Test-Pipelines.ps1.md
           - docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
           - docs/references/pwsh/catzc-azure/Test-AzureNetworkPlan.ps1.md

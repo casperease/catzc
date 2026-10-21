@@ -50,7 +50,7 @@ content:
       label: "Release: Run workflow"
       in: band-out-of-band
     - id: g-deploy-topic
-      kind: adronly
+      kind: drsonly
       label: deploy topic
       in: band-out-of-band
     - id: g-complete

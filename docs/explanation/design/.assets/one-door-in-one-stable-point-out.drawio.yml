@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4865aac853c1"
+#     with_body_sha: "591e9c5ae0f6"
 # ---
 
 description:
@@ -80,7 +80,6 @@ content:
         by:
           - docs/drs/design/dora-explains.md
           - docs/drs/design/server-remote-integration.md
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - docs/drs/index.md
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - DDR-REMOTE-NORECONCILINGTIPS
@@ -103,10 +102,6 @@ content:
           - DDR-REMOTE-NORECONCILINGTIPS
           - DDR-REMOTE-PULLREQUESTISINGRESS
           - DDR-REMOTE-SERVERREMOTEISTRUTH
-      - cell: docs/yaml
-        by:
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
       - cell: pwsh/yaml
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml

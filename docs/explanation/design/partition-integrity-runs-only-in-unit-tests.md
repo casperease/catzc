@@ -9,8 +9,8 @@ Partition integrity runs only in unit tests, and the per-aspect sha lock has no 
 4  Assert-Unique...FunctionName  import guard: unique exported names, fails fast
 5  New-DynamicManifest           no gate: the import regenerates every manifest
 6  VariantsConfig                config check: ** is last, and only last
-7  AspectPartition.Validate      ADR-only on the real tree: runs in unit tests only
-8  Aspect sha lock               ADR-only: nothing writes one
+7  AspectPartition.Validate      DRS-only on the real tree: runs in unit tests only
+8  Aspect sha lock               DRS-only: nothing writes one
 
 Supports DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ASPECTISAGLOBSET, DDR-ASPECT-PARTITIONISCHECKED, ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE, ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME, ADR-PWSH-MANIFEST-GENERATEDMANIFESTS, ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED, ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS and FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT (governance lens).
 ```
@@ -40,7 +40,7 @@ only the DDR states, tells a reviewer where a mistake would slip through.
 6. **VariantsConfig.** The config type checks the aspect order when the config loads: the last aspect is the bare `**` catch-all and no
    earlier aspect uses it, so `live` stays closed (DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL).
 7. **AspectPartition.Validate.** The disjoint and exhaustive check over `git ls-files` (DDR-ASPECT-PARTITIONISCHECKED). The code exists, but
-   its only callers are unit tests on fixture files, so on the real tree it is ADR-only.
+   its only callers are unit tests on fixture files, so on the real tree it is DRS-only.
 8. **Aspect sha lock.** One immutable lock per aspect, so a module is two independently versioned artifacts (DDR-ASPECT-ASPECTISAGLOBSET),
    with the mechanism placed in FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT. Nothing writes such a lock.
 

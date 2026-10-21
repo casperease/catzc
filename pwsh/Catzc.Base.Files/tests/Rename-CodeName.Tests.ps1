@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f9b8a94be208
+    with_body_sha: e0c59d24454a
   edges:
     code: pwsh/Catzc.Base.Files/Rename-CodeName.ps1
 ---
@@ -48,6 +48,22 @@ Describe 'Rename-CodeName' -Tag 'L0', 'logic' {
         ($rows | Where-Object Path -eq 'widgets/Get-WidgetSet.ps1').Count | Should -Be 2
         ($rows | Where-Object Path -eq 'docs/widget.md').Count | Should -Be 3
         $rows.Path | Should -Not -Contain 'assets/widget.bin'
+    }
+
+    It 'lists each name it skips inside a longer token, with its line, and leaves that token alone' {
+        $glyphs = Join-Path $script:root 'kit/glyphs.xml'
+        $null = New-Item -ItemType File -Path $glyphs -Force
+        [System.IO.File]::WriteAllText($glyphs, "<mxGraphModel>`n<mxCell id=`"g-WidgetConfig`" kind=`"WidgetConfig`" />`n", [System.Text.UTF8Encoding]::new($false))
+        $script:tracked += 'kit/glyphs.xml'
+
+        $rows = @(Rename-CodeName $script:map -DryRun)
+        $kit = $rows | Where-Object Path -eq 'kit/glyphs.xml'
+        $kit.Count | Should -Be 1
+        $kit.Skipped | Should -Be @('2:g-WidgetConfig')
+        ($rows | Where-Object Path -eq 'widgets/types/WidgetConfig.cs').Skipped | Should -Be @('1:WidgetConfigs', '1:GadgetWidgetConfig')
+
+        $null = Rename-CodeName $script:map
+        & $script:read 'kit/glyphs.xml' | Should -BeExactly "<mxGraphModel>`n<mxCell id=`"g-WidgetConfig`" kind=`"GadgetConfig`" />`n"
     }
 
     It 'writes nothing under -DryRun' {

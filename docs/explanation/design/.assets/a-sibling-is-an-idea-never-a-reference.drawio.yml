@@ -38,7 +38,7 @@ content:
       label: eac, the sibling repository
       in: band-sibling
     - id: a-sibling-own
-      kind: adronly
+      kind: drsonly
       label: "keeps its own: a rule is a .feature specification, no unordered file"
       in: band-sibling
     - id: n-model
@@ -60,7 +60,7 @@ content:
       label: rebuilt to catzc's rules, one living version, nothing ported alongside
       in: band-this
     - id: a-this-own
-      kind: adronly
+      kind: drsonly
       label: "keeps its own: a rule is an ADR cited by code, .unordered is where an import lands"
       in: band-this
   edges:

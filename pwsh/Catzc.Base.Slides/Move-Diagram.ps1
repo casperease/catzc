@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bb9bd7fb04ae
+    with_body_sha: ab608637fdfd
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Move-Diagram.Tests.ps1
     docs: "[Move-Diagram.ps1.md](../../docs/references/pwsh/catzc-base-slides/Move-Diagram.ps1.md)"
@@ -36,8 +36,6 @@ function Move-Diagram {
     $from = & $relative $Path
     $to = & $relative $Destination
     Assert-False ($from -eq '.' -or $from.StartsWith('../') -or $to -eq '.' -or $to.StartsWith('../')) -ErrorText "Move-Diagram: '$Path' and '$Destination' must both lie inside the repository '$root'."
-    # A diagram is the pair <stem>.drawio.png and <stem>.drawio.yml, named by either file or by its stem, and it moves whole; any other
-    # path, a file or a folder, moves as it is.
     $pair = $from -cmatch '\.drawio\.(png|yml)$' -or -not (Test-Path -LiteralPath (Join-Path $root $from))
     if ($pair) {
         $from = $from -creplace '\.drawio\.(png|yml)$', ''
@@ -73,7 +71,12 @@ function Move-Diagram {
     $edits = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($page in @($all.Output -split "`0" | Where-Object { $_ })) {
         $move = $moves | Where-Object { $_.From -ceq $page } | Select-Object -First 1
-        $text = [System.IO.File]::ReadAllText((Join-Path $root $page))
+        # A page still in the index but deleted on disk links to nothing.
+        $pagePath = Join-Path $root $page
+        if (-not [System.IO.File]::Exists($pagePath)) {
+            continue
+        }
+        $text = [System.IO.File]::ReadAllText($pagePath)
         if (-not $move -and -not $text.Contains($leaf)) {
             continue
         }

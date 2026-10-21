@@ -86,6 +86,13 @@ outside it fails validation with the list the author may choose from
 grid; a cell with one keeps it; a cell whose id is not in the content is removed. A diagram names no article: articles and slides embed its
 png, any number of them, and the build finds them by what embeds it.
 
+The declaration has two carriers, one per diagram. The default is the file `<name>.drawio.yml` beside the png. The other is a fenced block
+in an article, the way a `mermaid` block renders where it stands: its info string is `yml drawio`, so GitHub still shows it as YAML and the
+kit finds exactly that block, and it sits directly above the image that embeds `<name>.drawio.png`, which names the diagram it declares. The
+kit's `drawio.yml` chooses the carrier per diagram (`renderer.carrier`, `file` by default, and a `carriers:` entry keyed by the diagram's
+stem); the png stays in `.assets/` either way. A diagram declared by both carriers, or by no block or two in the article carrier, is a
+finding.
+
 - [The declaration is the source](#the-declaration-is-the-source)
 
 ### Rule ADR-REPO-SLIDES-TWODIRECTIONS

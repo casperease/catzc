@@ -2,12 +2,13 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a1f0a9f8171d
+    with_body_sha: a022984881f2
   edges:
     code: pwsh/Catzc.Base.Slides/Build-Diagrams.ps1
     cites:
       - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
       - ADR-REPO-SLIDES-ONEBUILDCOMMAND
+      - ADR-REPO-SLIDES-DECLARATION
       - ADR-REPO-SLIDES-TWODIRECTIONS
       - ADR-REPO-SLIDES-CONFLICTNEEDSAPICK
 ---
@@ -18,6 +19,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         $script:widgetRoot = Join-Path $TestDrive 'diagram-repository'
         $pages = [ordered]@{
             'kit/drawio_forward.py'  = "# renderer stand-in`n"
+            'kit/configs/drawio.yml' = "renderer:`n  carrier: file`ncarriers:`n"
             'docs/widgets/index.md'  = "# Widgets`n`n![Widget A](.assets/widget-a.drawio.png)`n`n![Widget B](./.assets/widget-b.drawio.png)`n"
             'docs/widgets/plain.md'  = "# Plain`n`n[a link](.assets/widget-a.drawio.yml)`n"
             'docs/gadgets/index.md'  = "# Gadgets`n`n![Gadget](.assets/gadget.drawio.png)`n"
@@ -48,7 +50,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         }
     }
 
-    It 'renders one diagram folder in one call, with the pages that embed it' {
+    It 'renders one diagram in one call, named by its stem, with the pages that embed it' {
         $runs = @(& $script:build @{ Path = 'docs/widgets/.assets/widget-a' })
         @($runs | ForEach-Object { "$($_.Folder) $($_.Stage)" }) | Should -Be @('docs/widgets/.assets/widget-a render')
         @($runs.Articles | Sort-Object -Unique) | Should -Be @('docs/widgets/index.md')
@@ -57,7 +59,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
 
     It 'writes the minimap data of every declared folder in one call, one progress line per folder' {
         $declarations = @('docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' | ForEach-Object { Join-Path $script:widgetRoot "$_.drawio.yml" })
-        Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { foreach ($item in $Folder) {
+        Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { foreach ($item in $Stem) {
                 "out/minimaps/$item"
             } }
         try {
@@ -70,7 +72,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         finally {
             $declarations | ForEach-Object { [System.IO.File]::Delete($_) }
         }
-        Should -Invoke Write-DiagramMinimapData -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Folder.Count -eq 2 }
+        Should -Invoke Write-DiagramMinimapData -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Stem.Count -eq 2 }
         Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Message -like 'minimaps 1/2 docs/widgets/.assets/widget-a (*' }
         Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { $Message -like 'minimaps 2/2 docs/widgets/.assets/widget-b (*' }
     }
@@ -129,6 +131,26 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
 
     It 'refuses a path that is not a diagram' {
         { & $script:build @{ Path = 'docs/widgets/.assets' } } | Should -Throw '*is not a diagram (*'
+    }
+
+    It 'finds a diagram the kit puts in its article before its first put, and writes its minimap data from the block' -Tag 'ADR-REPO-SLIDES-DECLARATION' {
+        $config = Join-Path $script:widgetRoot 'kit/configs/drawio.yml'
+        $page = Join-Path $script:widgetRoot 'docs/gizmos/cog.md'
+        $kept = [System.IO.File]::ReadAllText($config)
+        [System.IO.File]::WriteAllText($config, "renderer:`n  carrier: file`ncarriers:`n  docs/gizmos/.assets/cog: article`n")
+        [System.IO.File]::WriteAllText($page, "# Cog`n`n``````yml drawio`nabout: { lens: architecture, adrs: [ADR-WIDGET-GADGET] }`ncontent: {}`n```````n`n![Cog](.assets/cog.drawio.png)`n")
+        Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { foreach ($item in $Stem) {
+                "out/minimaps/$item"
+            } }
+        try {
+            $runs = @(& $script:build @{ Path = 'docs/gizmos/.assets/cog' })
+            $runs.Folder | Should -Be @('docs/gizmos/.assets/cog')
+            Should -Invoke Write-DiagramMinimapData -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { @($Stem) -ceq 'docs/gizmos/.assets/cog' }
+        }
+        finally {
+            [System.IO.File]::WriteAllText($config, $kept)
+            [System.IO.File]::Delete($page)
+        }
     }
 
     It 'lists the calls per folder under -DryRun and runs none' -Tag 'ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT' {
@@ -190,7 +212,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         }
 
         It 'refuses a diagram without a declaration' {
-            { & $script:build @{ Path = 'docs/widgets/.assets/widget-a'; FromDrawing = $true } } | Should -Throw '*widget-a has no .drawio.yml to sync*'
+            { & $script:build @{ Path = 'docs/widgets/.assets/widget-a'; FromDrawing = $true } } | Should -Throw '*widget-a has no declaration to sync*'
         }
     }
 

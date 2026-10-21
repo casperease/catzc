@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e9c507106947
+#     with_body_sha: "09e1a3d271a6"
 # ---
 
 description:
@@ -144,7 +144,6 @@ content:
           - docs/references/ado/pipelines/ci-infrastructure.yaml.md
           - docs/references/ado/pipelines/ci-pwsh.yaml.md
           - docs/references/github/workflows/ci-pwsh.yml.md
-          - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Get-AdoBuildValidations.ps1.md
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Register-AdoBuildValidation.ps1.md
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Unregister-AdoBuildValidation.ps1.md

@@ -55,9 +55,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit only (Sub-agents cut, the pwsh index named; task-user-runs-and-commits).
 - session-learnings -> plan-session-learnings.md: one learning reworded and catzc-49's lines appended; its questions are decided.
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
-- diagram-flat-files -> plan-diagram-flat-files.md: Every diagram is two files beside its pages, <name>.drawio.png and <name>.drawio.yml,
-  never a folder of its own.
-- debt-empty-path -> plan-debt-empty-path.md: A command handed an empty -Path refuses instead of running over the whole tree.
+- diagram-in-article -> plan-diagram-in-article.md: A diagram may declare itself in its article, in a yml drawio fenced block the kit
+  renders like mermaid; the .assets file stays the default.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

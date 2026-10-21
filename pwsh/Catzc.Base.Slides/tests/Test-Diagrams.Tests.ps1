@@ -2,10 +2,11 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d42ae359ba4d
+    with_body_sha: "143eee08cfd2"
   edges:
     code: pwsh/Catzc.Base.Slides/Test-Diagrams.ps1
     cites:
+      - ADR-REPO-SLIDES-DECLARATION
       - ADR-REPO-SLIDES-TWODIRECTIONS
 ---
 #>
@@ -21,6 +22,8 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
         }
         [System.IO.Directory]::CreateDirectory((Join-Path $root 'kit')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $root 'kit/declaration.py'), '')
+        [System.IO.Directory]::CreateDirectory((Join-Path $root 'kit/configs')) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $root 'kit/configs/drawio.yml'), "renderer:`n  carrier: file`ncarriers:`n")
         $script:out = Join-Path $root 'out'
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides {
             'widget-flow', 'gadget-flow', 'sprocket-flow', 'cog-flow', 'gear-flow' | ForEach-Object { "docs/explanation/widget/.assets/$_.drawio.png" }
@@ -94,6 +97,21 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
         $report = Test-Diagrams -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
         $report.Facts['DiagramCount'] | Should -Be 6
         $report.IssueCount | Should -Be 3
+    }
+
+    It 'fails a page whose yml drawio block has no image of a diagram directly below it' -Tag 'ADR-REPO-SLIDES-DECLARATION' {
+        $page = Join-Path $root 'docs/explanation/widget/widget-page.md'
+        [System.IO.File]::WriteAllText($page, "# Widget`n`n``````yml drawio`ncontent: {}`n```````n`nA sentence, then the image.`n`n![Widget](.assets/widget-flow.drawio.png)`n")
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides {
+            'docs/explanation/widget/.assets/new-flow.drawio.yml', 'docs/explanation/widget/.assets/new-flow.drawio.png', 'docs/explanation/widget/widget-page.md'
+        }
+        try {
+            $report = Test-Diagrams -Kit 'kit' -RepositoryRoot $root -OutputFolder $out -PassThru
+            @($report.Issues | Where-Object { $_.StartsWith('docs/explanation/widget/widget-page.md: 1 ', [System.StringComparison]::Ordinal) -and $_.Contains('block(s) with no image') }).Count | Should -Be 1
+        }
+        finally {
+            [System.IO.File]::Delete($page)
+        }
     }
 
     It 'checks an untracked diagram once its first put has run, and passes it, named by its yml' {

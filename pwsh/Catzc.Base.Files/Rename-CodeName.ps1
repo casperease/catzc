@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1595bafaacdf"
+    with_body_sha: "2e4107ddd301"
   edges:
     test: pwsh/Catzc.Base.Files/tests/Rename-CodeName.Tests.ps1
     docs: "[Rename-CodeName.ps1.md](../../docs/references/pwsh/catzc-base-files/Rename-CodeName.ps1.md)"
@@ -36,6 +36,8 @@ function Rename-CodeName {
     # Longest first, so a name that contains another is replaced whole; a name matches only as a token, never inside a longer one.
     $alternation = (@($lookup.Keys) | Sort-Object { $_.Length } -Descending | ForEach-Object { [regex]::Escape($_) }) -join '|'
     $token = [regex]::new("(?<![\w-])(?:$alternation)(?![\w-])")
+    # The longer tokens a name sits inside, such as an id `g-<name>`, are skipped by design; each is reported so the caller decides.
+    $within = [regex]::new("[\w-]*(?:$alternation)[\w-]*")
 
     $root = Get-RepositoryRoot
     foreach ($relative in @(Get-GitTrackedPath $Path)) {
@@ -55,13 +57,18 @@ function Rename-CodeName {
             continue
         }
         $count = $token.Matches($text).Count
-        if ($count -eq 0) {
+        $skipped = [string[]] @(foreach ($match in $within.Matches($text)) {
+                if (-not $lookup.ContainsKey($match.Value)) {
+                    "$(($text.Substring(0, $match.Index) -split "`n").Count):$($match.Value)"
+                }
+            })
+        if ($count -eq 0 -and $skipped.Count -eq 0) {
             continue
         }
-        if (-not $DryRun) {
+        if ($count -gt 0 -and -not $DryRun) {
             $renamed = $token.Replace($text, { param($match) $lookup[$match.Value] })
             [System.IO.File]::WriteAllText($full, $renamed, $encoding)
         }
-        [pscustomobject]@{ Path = $relative; Count = $count }
+        [pscustomobject]@{ Path = $relative; Count = $count; Skipped = $skipped }
     }
 }

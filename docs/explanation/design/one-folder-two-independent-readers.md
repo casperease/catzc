@@ -10,7 +10,7 @@ One module folder has two independent readers: the loader and the globs engine.
 5  Catzc.Base.Globs           the globs engine: one set per aspect
 6  <module>-live              the first aspect, a closed convention: ships
 7  <module>-tests             the last aspect, the ** remainder: never ships
-8  Aspect sha locks           ADR-only: one immutable lock per aspect
+8  Aspect sha locks           DRS-only: one immutable lock per aspect
 
 Supports DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED and DDR-ASPECT-ASPECTISAGLOBSET (architecture lens).
 ```

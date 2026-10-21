@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "52b72ea6aba9"
+    with_body_sha: "95985bbf5db2"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-LifecyclePositionMinimapData.Tests.ps1
     docs: "[Get-LifecyclePositionMinimapData.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md)"

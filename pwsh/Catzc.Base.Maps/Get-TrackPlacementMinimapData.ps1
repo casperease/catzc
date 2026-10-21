@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cf570091b72a
+    with_body_sha: cbc102554d06
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-TrackPlacementMinimapData.Tests.ps1
     docs: "[Get-TrackPlacementMinimapData.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md)"

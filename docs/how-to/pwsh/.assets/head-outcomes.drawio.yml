@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: bc4bb0bc95ed
+#     with_body_sha: acf24e62eaa6
 # ---
 
 description:
@@ -98,7 +98,6 @@ content:
           - docs/drs/repository/code-file-meta.md
           - docs/drs/repository/dora-explains.md
           - docs/drs/repository/file-meta.md
-          - docs/how-to/pwsh/.assets/head-outcomes/diagram.drawio.yml
           - docs/how-to/pwsh/add-a-head-fact.md
           - docs/how-to/pwsh/manual-test-plan/configs.md
           - docs/references/note-file-kind.md
@@ -153,7 +152,6 @@ content:
           - docs/drs/repository/code-file-meta.md
           - docs/drs/repository/dora-explains.md
           - docs/drs/repository/file-meta.md
-          - docs/how-to/pwsh/.assets/head-outcomes/diagram.drawio.yml
           - docs/how-to/pwsh/add-a-head-fact.md
           - docs/how-to/pwsh/manual-test-plan/configs.md
           - docs/references/note-file-kind.md
@@ -302,7 +300,6 @@ content:
           - docs/drs/repository/code-file-meta.md
           - docs/drs/repository/dora-explains.md
           - docs/drs/repository/file-meta.md
-          - docs/how-to/pwsh/.assets/head-outcomes/diagram.drawio.yml
           - docs/how-to/pwsh/add-a-head-fact.md
           - docs/how-to/pwsh/manual-test-plan/configs.md
           - docs/references/note-file-kind.md

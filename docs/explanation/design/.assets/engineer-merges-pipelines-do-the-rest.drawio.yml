@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e0e6d0758a89
+#     with_body_sha: "2723debc9260"
 # ---
 
 description:
@@ -51,7 +51,7 @@ content:
       label: post-commit CI
       in: band-integration
     - id: a-level-three
-      kind: adronly
+      kind: drsonly
       label: L3 run
       in: band-integration
     - id: r-deliver
@@ -126,8 +126,6 @@ content:
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
       - cell: docs/-/.
         by:
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - docs/drs/flow/commit-lifecycle.md
           - docs/drs/flow/dora-explains.md
           - docs/drs/index.md
@@ -183,12 +181,6 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-      - cell: docs/yaml
-        by:
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
       - cell: pwsh/bcl

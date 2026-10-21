@@ -1,10 +1,10 @@
 # No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only
 
 ```text
-FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND is ADR-only, and the one gate on deploys in code allows main alone.
+FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND is DRS-only, and the one gate on deploys in code allows main alone.
 
 1  topic                a topic commit, brown and below the mainline; no gate checks either drawing rule
-2  out-of-band deploy   the deploy the rule allows; ADR-only, no code runs or checks it
+2  out-of-band deploy   the deploy the rule allows; DRS-only, no code runs or checks it
 3  environment          a neutral container; its occupant keeps its own colour
 4  main                 landing on main is the integration
 5  main only            the gate in code: every Deploy_* stage needs refs/heads/main
@@ -18,14 +18,14 @@ alone: no gate or checker in cats tests it, and nothing in the repository runs t
 points the other way, since every `Deploy_*` stage runs only from main. The drawing rules of DDR-VISUAL that colour these commits have no
 checker either, and none is expected.
 
-![FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND is ADR-only and every Deploy stage is main-only](.assets/out-of-band-deploy-is-adr-only.drawio.png)
+![FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND is DRS-only and every Deploy stage is main-only](.assets/out-of-band-deploy-is-drs-only.drawio.png)
 
 ## Walkthrough
 
 1. **Topic.** A commit on a topic branch. Topic branches are drawn below the mainline, and a topic commit is brown, never grey. No gate
    checks either drawing rule.
 2. **Out-of-band deploy.** A workflow or pipeline may deploy the topic commit for a hotfix or an experiment, and the deploy is not an
-   integration. The rule is ADR-only: no code runs this deploy and no gate checks it.
+   integration. The rule is DRS-only: no code runs this deploy and no gate checks it.
 3. **Environment.** The environment is a neutral container, and its occupant keeps its own colour, so a topic commit deployed out of band
    stays brown inside it.
 4. **Main.** Landing on main is the integration, and from here a commit climbs one rung at a time.

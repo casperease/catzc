@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8751b620be07"
+#     with_body_sha: "497b196070c8"
 # ---
 
 description:
@@ -13,7 +13,7 @@ about:
     - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
   lens: governance
 content:
-  title: One rule bounds every call, three tests prove the hook, and the exemption route is ADR-only
+  title: One rule bounds every call, three tests prove the hook, and the exemption route is DRS-only
   kind: explanation
   flow: left-to-right
   relation: feeds the next step
@@ -43,7 +43,7 @@ content:
       label: Assert-BashTimeout
       in: band-hook
     - id: a-exemptions
-      kind: adronly
+      kind: drsonly
       label: timeout-exemptions.yml
       in: band-no-gate
     - id: g-logic
@@ -123,9 +123,8 @@ content:
           - docs/drs/automation/sensible-defaults.md
           - docs/drs/glossary.md
           - docs/drs/index.md
+          - docs/how-to/pwsh/manual-test-plan/configs.md
           - docs/how-to/pwsh/manual-test-plan/repository-conventions.md
-          - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
-          - docs/references/pwsh/.assets/listen-mode-flow/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
           - docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md
           - docs/references/pwsh/catzc-base-contracts/configs/contracts.yml.md

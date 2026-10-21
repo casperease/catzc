@@ -68,5 +68,5 @@ GitHub paths are ordered.
 - [Globset triggers](../../drs/flow/durable-sha-globs.md) — the decision this article explains.
 - The other lenses on the same projection: [meta](one-program-two-vendor-dialects.md),
   [architecture](globs-projects-and-three-consumers-read.md), [implementation](apex-thirteen-rules-seven-includes-six-excludes.md) and
-  [governance](drift-is-gated-generation-is-adr-only.md).
+  [governance](drift-is-gated-generation-is-drs-only.md).
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

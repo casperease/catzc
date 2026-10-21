@@ -57,7 +57,7 @@ content:
       label: non-prod
       in: band-automated
     - id: a-human-gate
-      kind: adronly
+      kind: drsonly
       label: human gate
       in: band-governed
     - id: e-production

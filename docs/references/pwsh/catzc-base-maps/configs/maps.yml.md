@@ -60,7 +60,7 @@ it. Loaded via Get-Config -Config maps.
       - .claude/hindsight/**      #   the session logs and the plans: about the system, not the system
       - .claude/learnings/**
       - .claude/plans/**
-      - docs/.assets/**           #   the generated slide descriptions, so a minimap never lights its own description
+      - docs/**/.assets/**        #   the diagram declarations, so a minimap never lights its own description
       - docs/explanation/**       #   the explanation articles the slides illustrate
       - python/catzc_diagrams/**  #   the drawing tooling
   output_folder: world-map        # one folder name under the output root

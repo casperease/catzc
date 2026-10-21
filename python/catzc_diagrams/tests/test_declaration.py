@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b1a53532a2ad
+#     with_body_sha: "48f108d009b5"
 # ---
 
 # cspell:ignore minimaps widgetese getpixel miny
@@ -334,7 +334,7 @@ def test_rule_chips_number_their_rule_and_round_trip_with_the_key_in_the_legend(
     ]
     first = declaration.normalise(raw)
     model = declaration.put(first)
-    assert 'value="#2"' in model and model.count("dashed=1;") >= 2  # the ADR-only chip and its legend swatch
+    assert 'value="#2"' in model and model.count("dashed=1;") >= 2  # the DRS-only chip and its legend swatch
     assert f"#1  {rules[0]}" in model and f"#2  {rules[1]}" in model
     back = declaration.get(model, kind="explanation")
     assert back["content"]["chips"] == first["content"]["chips"]

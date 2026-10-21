@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6a8d34a9c992"
+    with_body_sha: "8491f9cafce1"
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-LayerStackMinimapData.Tests.ps1
     docs: "[Get-LayerStackMinimapData.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-LayerStackMinimapData.ps1.md)"

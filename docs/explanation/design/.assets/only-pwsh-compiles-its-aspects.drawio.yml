@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e0c14c479a85
+#     with_body_sha: "982cbed4b0f2"
 # ---
 
 description:
@@ -103,7 +103,6 @@ content:
           - docs/drs/design/dora-explains.md
           - docs/drs/design/module-aspects.md
           - docs/drs/index.md
-          - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
           - docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
           - docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md

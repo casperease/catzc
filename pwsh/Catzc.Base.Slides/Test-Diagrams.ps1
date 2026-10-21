@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "695fc905fa8c"
+    with_body_sha: "1db31730a7cc"
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Test-Diagrams.Tests.ps1
     docs: "[Test-Diagrams.ps1.md](../../docs/references/pwsh/catzc-base-slides/Test-Diagrams.ps1.md)"
@@ -13,6 +13,7 @@ function Test-Diagrams {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
+        [Catzc.Base.Asserts.ValidatePathGiven()]
         [string[]] $Path,
 
         [string] $Kit = (Get-Config -Config slides).drawio_kit,
@@ -28,8 +29,6 @@ function Test-Diagrams {
     $declaration = Join-Path $root "$Kit/declaration.py"
     Assert-PathExist $declaration -PathType Leaf -ErrorText "Test-Diagrams: the draw.io kit '$Kit' has no declaration.py; slides.yml drawio_kit names the kit."
 
-    # A declared diagram is a <name>.drawio.yml under docs/**/.assets/, tracked or not, named by its stem .assets/<name>; a new one is
-    # checked once its first put has run.
     $candidates = @(Get-GitTrackedPath '.') + @(Get-GitChangedPath 'docs')
     $found = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.(png|yml)$' } | ForEach-Object { $_ -creplace '\.drawio\.(png|yml)$', '' } |
             Select-Object -Unique | Where-Object { Test-Path -LiteralPath (Join-Path $root "$_.drawio.yml") -PathType Leaf })
@@ -42,10 +41,12 @@ function Test-Diagrams {
             $kitConfig['roles'].Keys | Where-Object { $kitConfig['roles'][$_] -ceq 'legend' -and (Test-Path -LiteralPath (Join-Path $root "$_.drawio.png") -PathType Leaf) }
         })
     $found = @($found) + @($legends | Where-Object { $found -cnotcontains $_ })
+    $carrierMap = Get-DiagramCarrierMap -RepositoryRoot $root -Kit $Kit
+    $found = @($found) + @($carrierMap.Carriers.Keys | Where-Object { $carrierMap.Carriers[$_] -ceq 'article' -and $found -cnotcontains $_ })
     $folders = @(if ($Path) {
             foreach ($folderPath in $Path) {
                 $relative = ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\', '/') -creplace '\.drawio\.(png|yml)$', ''
-                Assert-True ($found -ccontains $relative) -ErrorText "Test-Diagrams: '$relative' is not a declared diagram (a <name>.drawio.yml under docs/**/.assets/, or a legend the kit's drawio.yml names)."
+                Assert-True ($found -ccontains $relative) -ErrorText "Test-Diagrams: '$relative' is not a declared diagram (a <name>.drawio.yml under docs/**/.assets/, a diagram the kit's drawio.yml puts in an article, or a legend it names)."
                 $relative
             }
         }
@@ -58,9 +59,9 @@ function Test-Diagrams {
     if ($folders.Count -gt 0) {
         $tool = Resolve-ToolExecutable -Tool uv
         Assert-True $tool.Found -ErrorText 'Test-Diagrams: uv is not installed (no managed uv found). Run Install-Uv.'
-        $declared = @($folders | Where-Object { $legends -cnotcontains $_ })
+        $declared = @($folders | Where-Object { $legends -cnotcontains $_ -and $null -ne (Get-DiagramDeclarationText -Stem $_ -RepositoryRoot $root -CarrierMap $carrierMap) })
         if ($declared.Count -gt 0) {
-            $null = Write-DiagramMinimapData -Folder $declared -RepositoryRoot $root
+            $null = Write-DiagramMinimapData -Stem $declared -RepositoryRoot $root
         }
         $quoted = ($folders | ForEach-Object { "`"$_`"" }) -join ' '
         $result = Invoke-Executable "`"$($tool.Path)`" run --project `"$(Join-Path $root $Kit)`" python `"$declaration`" check $quoted" -WorkingDirectory $root -PassThru -NoAssert -Silent
@@ -78,6 +79,22 @@ function Test-Diagrams {
             }
             elseif (@($row.stale).Count -gt 0) {
                 $stale.Add($row.diagram)
+            }
+        }
+    }
+    # Over the whole tree, a `yml drawio` block declares only the png embedded directly below it; a block with no such image is a finding.
+    if (-not $Path) {
+        $bound = '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```).*\r?\n)*```[ \t]*\r?\n(?:[ \t]*\r?\n)*!\[[^\]]*\]\((?:\./)?\.assets/[^/)\s]+\.drawio\.png\)'
+        foreach ($page in @($candidates | Where-Object { $_ -like 'docs/*.md' } | Select-Object -Unique)) {
+            $full = Join-Path $root $page
+            if (-not [System.IO.File]::Exists($full)) {
+                continue
+            }
+            $text = [System.IO.File]::ReadAllText($full)
+            $fences = @([regex]::Matches($text, '(?m)^```yml drawio[ \t]*$'))
+            $unbound = $fences.Count - @([regex]::Matches($text, $bound)).Count
+            if ($unbound -gt 0) {
+                $issues.Add("${page}: $unbound ``yml drawio`` block(s) with no image of an .assets/<name>.drawio.png directly below")
             }
         }
     }

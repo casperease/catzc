@@ -55,7 +55,7 @@ content:
       label: Globs · ModuleSystem · Maps
       in: band-callers
     - id: g-tooling
-      kind: adronly
+      kind: drsonly
       label: Tooling
       in: band-callers
   edges:

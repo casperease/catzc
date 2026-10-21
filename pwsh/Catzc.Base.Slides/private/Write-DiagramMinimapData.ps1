@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a76450255c71
+    with_body_sha: eb447bbbfe9b
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Write-DiagramMinimapData.Tests.ps1
     docs: "[Write-DiagramMinimapData.ps1.md](../../../docs/references/pwsh/catzc-base-slides/private/Write-DiagramMinimapData.ps1.md)"
@@ -14,7 +14,7 @@ function Write-DiagramMinimapData {
     [OutputType([string])]
     param(
         [Parameter(Mandatory)]
-        [string[]] $Folder,
+        [string[]] $Stem,
 
         [Parameter(Mandatory)]
         [string] $RepositoryRoot
@@ -23,9 +23,11 @@ function Write-DiagramMinimapData {
     $maps = Get-Config -Config maps
     # The world map is built once for every folder of the call; a minimap that draws on it is handed it rather than building its own.
     $worldMap = Get-WorldMap
-    $declared = foreach ($folderPath in $Folder) {
-        $source = Join-Path $RepositoryRoot "$folderPath.drawio.yml"
-        $declaration = ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($source)) -Ordered
+    $carrierMap = Get-DiagramCarrierMap -RepositoryRoot $RepositoryRoot
+    $declared = foreach ($folderPath in $Stem) {
+        $text = Get-DiagramDeclarationText -Stem $folderPath -RepositoryRoot $RepositoryRoot -CarrierMap $carrierMap
+        Assert-True ($null -ne $text) -ErrorText "Write-DiagramMinimapData: $folderPath has no declaration in its carrier (its .drawio.yml, or one ``yml drawio`` block above its image)."
+        $declaration = ConvertFrom-Yaml -Yaml $text -Ordered
         $about = if ($declaration -and $declaration.Contains('about')) {
             $declaration['about']
         }

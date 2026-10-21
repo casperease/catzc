@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "2e44e5bec500"
+#     with_body_sha: "555a39bb998b"
 # ---
 
 description:
@@ -36,7 +36,7 @@ content:
       label: local clone
       in: band-in
     - id: g-identity
-      kind: adronly
+      kind: drsonly
       label: identity model
       in: band-request
     - id: g-policy
@@ -98,7 +98,6 @@ content:
         by:
           - docs/drs/design/dora-explains.md
           - docs/drs/design/server-remote-integration.md
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - docs/drs/flow/commit-lifecycle.md
           - docs/drs/flow/dora-explains.md
           - docs/drs/index.md
@@ -165,12 +164,6 @@ content:
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - DDR-REMOTE-PULLREQUESTISINGRESS
           - DDR-REMOTE-SERVERREMOTEISTRUTH
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - cell: docs/yaml
-        by:
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/bcl

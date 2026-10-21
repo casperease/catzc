@@ -28,7 +28,7 @@ content:
       label: GATES
   glyphs:
     - id: a-pipeline-yaml
-      kind: adronly
+      kind: drsonly
       label: pipeline YAML
       in: band-rules
     - id: f-step-template
@@ -40,7 +40,7 @@ content:
       label: runner
       in: band-rules
     - id: a-run-command
-      kind: adronly
+      kind: drsonly
       label: same RunCommand
       in: band-rules
     - id: g-test-pipelines

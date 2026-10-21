@@ -50,7 +50,7 @@ content:
       label: main only
       in: band-out-of-band
     - id: a-deploy
-      kind: adronly
+      kind: drsonly
       label: out-of-band deploy
       in: band-out-of-band
     - id: c-main

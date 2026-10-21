@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e0b4ac406d2e
+#     with_body_sha: "96c0e8c86a7d"
 # ---
 
 description:
@@ -42,7 +42,7 @@ content:
       in: band-topic
       state: topic
     - id: a-deploy
-      kind: adronly
+      kind: drsonly
       label: out-of-band deploy
       in: band-out-of-band
     - id: e-environment
@@ -106,7 +106,6 @@ content:
         by:
           - docs/drs/design/dora-explains.md
           - docs/drs/design/visual-design.md
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
           - docs/drs/flow/commit-lifecycle.md
           - docs/drs/flow/dora-explains.md
           - docs/drs/index.md
@@ -177,10 +176,6 @@ content:
           - DDR-VISUAL-FIXEDCOMMITPALETTE
           - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
-      - cell: docs/yaml
-        by:
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs

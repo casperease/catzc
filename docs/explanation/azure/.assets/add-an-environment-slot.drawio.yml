@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "164c89ebc8aa"
+#     with_body_sha: "0475c6ba6af3"
 # ---
 
 description:
@@ -85,7 +85,6 @@ content:
     lifecycle-position:
       - cell: main-uat
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
@@ -93,7 +92,6 @@ content:
           - ADR-AZ-IACKIND-THREEKINDS
       - cell: release-uat
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
@@ -101,7 +99,6 @@ content:
           - ADR-AZ-IACKIND-THREEKINDS
       - cell: pre-prod
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
@@ -109,7 +106,6 @@ content:
           - ADR-AZ-IACKIND-THREEKINDS
       - cell: prod
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - docs/drs/index.md
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
@@ -118,7 +114,8 @@ content:
     layer-stack:
       - cell: automation
         by:
-          - .ado/pipelines/ci-pwsh.yaml
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/extends/cd-customer.yaml
           - docs/drs/azure/azure-data-model.md
           - docs/drs/azure/dora-explains.md
           - docs/drs/azure/infrastructure-kinds.md
@@ -129,9 +126,6 @@ content:
           - docs/references/infrastructure/templates/discovery/options.yml.md
           - docs/references/infrastructure/templates/expedition/options.yml.md
           - docs/references/infrastructure/templates/foundation/options.yml.md
-          - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
-          - docs/references/pwsh/.assets/azure-identity-resolves-from-config/diagram.drawio.yml
-          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md
           - docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
@@ -153,7 +147,9 @@ content:
           - docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md
           - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
-          - docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md
+          - infrastructure/templates/discovery/options.yml
+          - infrastructure/templates/expedition/options.yml
+          - infrastructure/templates/foundation/options.yml
           - pwsh/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1
           - pwsh/Catzc.Azure.Cli/Assert-AzCliIsConnected.ps1
           - pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
@@ -178,7 +174,6 @@ content:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - pwsh/Catzc.Base.QualityGates/private/Get-TerminologyCorpus.ps1
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
           - ADR-AZ-IACKIND-THREEKINDS

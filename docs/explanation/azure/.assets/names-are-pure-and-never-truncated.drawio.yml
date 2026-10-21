@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "6b6d46c36df8"
+#     with_body_sha: "7fb3346930e9"
 # ---
 
 description:
@@ -81,11 +81,9 @@ content:
     code-locations:
       - cell: docs/-/.
         by:
-          - docs/drs/azure/.assets/azure-name-assembly/diagram.drawio.yml
           - docs/drs/azure/azure-naming-standard.md
           - docs/drs/azure/dora-explains.md
           - docs/drs/index.md
-          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-cli/Get-AzCliSessionSubscription.ps1.md
           - docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md
           - docs/references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ed4490c34d3d
+    with_body_sha: "0b72a470b6c6"
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1
     docs: "[Build-Diagrams.ps1.md](../../docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md)"
@@ -15,6 +15,7 @@ function Build-Diagrams {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
+        [Catzc.Base.Asserts.ValidatePathGiven()]
         [string[]] $Path,
 
         [string] $Kit = (Get-Config -Config slides).drawio_kit,
@@ -39,11 +40,13 @@ function Build-Diagrams {
     # -Stale rebuilds only the diagrams whose minimaps a tree change left stale: the set Test-Diagrams reports.
     if ($Stale) {
         Assert-True (-not $Path) -ErrorText 'Build-Diagrams: -Stale finds its diagrams itself; pass no -Path.'
-        $Path = @((Test-Diagrams -Kit $Kit -RepositoryRoot $root -PassThru).Facts['StaleDiagrams'])
-        if ($Path.Count -eq 0) {
+        # The stale set is checked before it becomes -Path, whose ValidatePathGiven refuses an empty list on assignment too.
+        $stalePaths = @((Test-Diagrams -Kit $Kit -RepositoryRoot $root -PassThru).Facts['StaleDiagrams'])
+        if ($stalePaths.Count -eq 0) {
             Write-Message 'Build-Diagrams: no diagram carries a stale minimap.'
             return
         }
+        $Path = $stalePaths
     }
 
     $tracked = @(Get-GitTrackedPath '.')
@@ -52,10 +55,13 @@ function Build-Diagrams {
     $found = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.(png|yml)$' } |
             Where-Object { $_.EndsWith('.png') -or (Test-Path -LiteralPath (Join-Path $root $_) -PathType Leaf) } |
             ForEach-Object { $_ -creplace '\.drawio\.(png|yml)$', '' } | Select-Object -Unique)
+    # A diagram in the article carrier has no yml beside its png, and before its first put no png either: the kit's drawio.yml names it.
+    $carrierMap = Get-DiagramCarrierMap -RepositoryRoot $root -Kit $Kit
+    $found = @($found) + @($carrierMap.Carriers.Keys | Where-Object { $carrierMap.Carriers[$_] -ceq 'article' -and $found -cnotcontains $_ })
     $folders = @(if ($Path) {
             @(foreach ($folderPath in $Path) {
                     $relative = ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\', '/') -creplace '\.drawio\.(png|yml)$', ''
-                    Assert-True ($found -ccontains $relative) -ErrorText "Build-Diagrams: '$relative' is not a diagram (<article-folder>/.assets/<name>.drawio.yml, or a tracked <name>.drawio.png)."
+                    Assert-True ($found -ccontains $relative) -ErrorText "Build-Diagrams: '$relative' is not a diagram (<article-folder>/.assets/<name>.drawio.yml, a tracked <name>.drawio.png, or a stem drawio.yml's carriers: puts in an article)."
                     $relative
                 })
         }
@@ -73,7 +79,7 @@ function Build-Diagrams {
         if ($articles[$folderPath].Count -eq 0) {
             Write-Message "Build-Diagrams: $folderPath is an orphan; no page embeds its .drawio.png." -Warning
         }
-        foreach ($drift in @(Get-DiagramSupportsDrift -Folder $folderPath -Page $articles[$folderPath] -RepositoryRoot $root)) {
+        foreach ($drift in @(Get-DiagramSupportsDrift -Stem $folderPath -Page $articles[$folderPath] -RepositoryRoot $root -CarrierMap $carrierMap)) {
             Write-Message "Build-Diagrams: $drift" -Warning
         }
     }
@@ -88,13 +94,13 @@ function Build-Diagrams {
     $render = $true
     $runs = [System.Collections.Generic.List[pscustomobject]]::new()
     $total = [System.Diagnostics.Stopwatch]::StartNew()
-    $declared = @($folders | Where-Object { Test-Path -LiteralPath (Join-Path $root "$_.drawio.yml") -PathType Leaf })
+    $declared = @($folders | Where-Object { $null -ne (Get-DiagramDeclarationText -Stem $_ -RepositoryRoot $root -CarrierMap $carrierMap) })
     if (-not $DryRun -and $declared.Count -gt 0) {
         Write-Message "Build-Diagrams: writing the minimap data of $($declared.Count) declared diagram(s), then $(if ($FromDrawing) { 'syncing' } else { 'rendering' }) $($folders.Count)."
         # One call builds the world map once for every diagram; each diagram's target streams back as its data is written.
         $index = 0
         $step = [System.Diagnostics.Stopwatch]::StartNew()
-        Write-DiagramMinimapData -Folder $declared -RepositoryRoot $root | ForEach-Object {
+        Write-DiagramMinimapData -Stem $declared -RepositoryRoot $root | ForEach-Object {
             Write-Message "minimaps $($index + 1)/$($declared.Count) $($declared[$index]) ($([Math]::Round($step.Elapsed.TotalSeconds, 1)) s)"
             $index++
             $step.Restart()
@@ -104,7 +110,7 @@ function Build-Diagrams {
         Assert-True ([bool] $Path) -ErrorText 'Build-Diagrams: -FromDrawing syncs the diagrams it is given; pass -Path.'
         $declaration = Join-Path $root "$Kit/declaration.py"
         foreach ($folderPath in $folders) {
-            Assert-PathExist (Join-Path $root "$folderPath.drawio.yml") -PathType Leaf -ErrorText "Build-Diagrams: $folderPath has no .drawio.yml to sync."
+            Assert-True ($declared -ccontains $folderPath) -ErrorText "Build-Diagrams: $folderPath has no declaration to sync (its .drawio.yml, or one ``yml drawio`` block above its image)."
             $arguments = "run --project `"$(Join-Path $root $Kit)`" python `"$declaration`" sync `"$folderPath`""
             $run = [pscustomobject]@{ Folder = $folderPath; Articles = $articles[$folderPath]; Stage = 'sync'; ExitCode = $null; Status = 'dry-run' }
             $runs.Add($run)
@@ -121,7 +127,7 @@ function Build-Diagrams {
             $run.Status = 'clean'
             Write-Message "sync $($runs.Count)/$($folders.Count) $folderPath clean ($([Math]::Round($step.Elapsed.TotalSeconds, 1)) s)"
         }
-        if (-not $DryRun) {
+        if (-not $DryRun -and $folders.Count -gt 0) {
             $null = Test-Diagrams -Path $folders -Kit $Kit -RepositoryRoot $root
         }
         $render = $false

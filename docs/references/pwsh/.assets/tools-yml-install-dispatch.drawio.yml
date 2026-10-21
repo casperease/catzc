@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "238f3b6df48f"
+#     with_body_sha: e7d21b215f8d
 # ---
 
 description:
@@ -164,7 +164,6 @@ content:
           - docs/drs/glossary.md
           - docs/drs/index.md
           - docs/how-to/pwsh/manual-test-plan/static-analysis.md
-          - docs/references/pwsh/.assets/tools-yml-install-dispatch/diagram.drawio.yml
           - docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md
           - docs/references/pwsh/catzc-base-drs/types/DrsNeutralityCheck.cs.md
           - docs/references/pwsh/catzc-base-engines.md

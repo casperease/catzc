@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d1c3a80468ab
+#     with_body_sha: "1ffa007d0f3e"
 # ---
 
 description:
@@ -57,7 +57,7 @@ content:
       label: Quality gate
       in: band-repository
     - id: a-review
-      kind: adronly
+      kind: drsonly
       label: Same-change review
       in: band-no-gate
   edges:
@@ -150,9 +150,6 @@ content:
           - docs/drs/automation/test-automation.md
           - docs/drs/glossary.md
           - docs/drs/index.md
-          - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml
-          - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
-          - docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-dev-ops/Test-Pipelines.ps1.md
           - docs/references/pwsh/catzc-azure/Test-AzureNetworkPlan.ps1.md
           - docs/references/pwsh/catzc-base-config-extensions/Test-ConfigValidators.ps1.md
@@ -624,12 +621,6 @@ content:
           - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
           - ADR-AUTO-DEPM-TWOSECTIONS
           - ADR-AUTO-DEPM-UNIFIEDGRAPH
-          - ADR-AUTO-TEST-QUALITYGATE
-      - cell: docs/yaml
-        by:
-          - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml
-          - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
-          - docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.yml
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/bcl
         by:

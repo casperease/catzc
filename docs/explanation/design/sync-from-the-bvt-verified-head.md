@@ -42,5 +42,5 @@ exists. The rule is a convention the FDR states.
 
 - [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
 - The other lenses on the same sync point: [architecture](integrators-sync-from-the-bvt-verified-head.md) and
-  [governance](sync-point-rules-are-adr-only.md).
+  [governance](sync-point-rules-are-drs-only.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

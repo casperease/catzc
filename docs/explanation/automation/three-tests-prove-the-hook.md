@@ -1,7 +1,7 @@
-# One rule bounds every call, three tests prove the hook, and the exemption route is ADR-only
+# One rule bounds every call, three tests prove the hook, and the exemption route is DRS-only
 
 ```text
-One rule bounds every agent call, three tests prove the hook at three tiers, and the exemption route is ADR-only.
+One rule bounds every agent call, three tests prove the hook at three tiers, and the exemption route is DRS-only.
 
 1  TimeoutsConfig             the limits, validated at load, defaults declared once (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER)
 2  BashSafeguard.Decide       the verdict that applies the bash limits to a call (ADR-AUTO-FAILFAST-BOUNDEVERYWAIT)

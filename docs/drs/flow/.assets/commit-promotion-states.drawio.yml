@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8a756ce892dc"
+#     with_body_sha: "7094784e8066"
 # ---
 
 description:
@@ -254,8 +254,6 @@ content:
         by:
           - docs/drs/design/dora-explains.md
           - docs/drs/design/visual-design.md
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - docs/drs/flow/commit-lifecycle.md
           - docs/drs/flow/dora-explains.md
           - docs/drs/index.md

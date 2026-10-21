@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4eb5cbace8eb"
+#     with_body_sha: "94358e4fb587"
 # ---
 
 description:
@@ -133,7 +133,6 @@ content:
           - docs/drs/design/run-modes.md
           - docs/drs/glossary.md
           - docs/drs/index.md
-          - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
           - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
           - docs/references/pwsh/catzc-base-module-system/Copy-CatzcModule.ps1.md
           - docs/references/pwsh/catzc-base-module-system/Get-FunctionDependency.ps1.md

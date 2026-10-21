@@ -40,7 +40,7 @@ content:
       label: The two crossers
       in: band-boundary
     - id: a-hybrid
-      kind: adronly
+      kind: drsonly
       label: A hybrid form
       in: band-boundary
     - id: s-binding

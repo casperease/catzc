@@ -35,7 +35,7 @@ for p in sorted(glob.glob("out/diagrams/wave-*/*/*.drawio.png")):
             if not line.startswith("|") or line.startswith(("|---", "| #")):
                 continue
             verdict = [c.strip() for c in line.strip().strip("|").split("|")][-1].lower().lstrip("*")
-            for key, word in (("confirmed", "confirmed"), ("adr", "adr-only"), ("contradicted", "contradicted")):
+            for key, word in (("confirmed", "confirmed"), ("adr", "drs-only"), ("contradicted", "contradicted")):
                 if verdict.startswith(word):
                     counts[key] += 1
         v["verify"] = rel[: -len(".drawio.png")] + ".verify.md"

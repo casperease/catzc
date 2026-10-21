@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "26cbcb58401f"
+#     with_body_sha: "2054a0acfac5"
 # ---
 
 description:
@@ -47,7 +47,7 @@ content:
       label: config validation
       in: band-surface
     - id: g-everything-code
-      kind: adronly
+      kind: drsonly
       label: everything is code
       in: band-catzc
     - id: g-assert-tool
@@ -55,7 +55,7 @@ content:
       label: Assert-Tool 'az_cli'
       in: band-catzc
     - id: g-no-reimplementation
-      kind: adronly
+      kind: drsonly
       label: no reimplementation
       in: band-delegated
     - id: g-az-cli
@@ -63,7 +63,7 @@ content:
       label: az CLI
       in: band-delegated
     - id: g-substrate
-      kind: adronly
+      kind: drsonly
       label: swappable substrate
       in: band-substrate
   edges:
@@ -148,7 +148,6 @@ content:
           - docs/drs/design/dora-explains.md
           - docs/drs/design/thin-platforms.md
           - docs/drs/index.md
-          - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliBicep.ps1.md
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md

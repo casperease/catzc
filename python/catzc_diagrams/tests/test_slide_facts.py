@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "6d12e32c8ada"
+#     with_body_sha: b6ccab918159
 # ---
 
 """The subtitle a slide says it supports (`<codes> · <lens>`) and the article's Supports line held against it.

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "9591ed79289b"
+#     with_body_sha: "3a299117e4c1"
 # ---
 
 # cspell:ignore minimaps

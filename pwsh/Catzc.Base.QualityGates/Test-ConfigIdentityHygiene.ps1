@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c27a9ae8687b
+    with_body_sha: "9ede910dde11"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1
     docs: "[Test-ConfigIdentityHygiene.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-ConfigIdentityHygiene.ps1.md)"
@@ -31,6 +31,8 @@ function Test-ConfigIdentityHygiene {
         [string[]] (Get-FixtureIdentityTokens), [System.StringComparer]::OrdinalIgnoreCase)
 
     $root = Get-RepositoryRoot
+    # The default set lives in its own variable: -Path's ValidatePathGiven would refuse an empty set on assignment.
+    $files = $Path
     if (-not $Path) {
         $terminology = 'configs/terminology.yml'
         $moduleConfigs = Get-ChildPath (Join-Path $root (Get-CatzcModulesFolder)) -File -Filter '*.yml' -Depth 3 -PruneVendor $true |
@@ -41,11 +43,11 @@ function Test-ConfigIdentityHygiene {
                 Get-ChildPath $placeRoot -File -Filter '*.yml' -Depth 4
             }
         }
-        $Path = @($moduleConfigs) + @($infrastructureConfigs) | Sort-Object
+        $files = @($moduleConfigs) + @($infrastructureConfigs) | Sort-Object
     }
 
     $findings = [System.Collections.Generic.List[object]]::new()
-    foreach ($file in $Path) {
+    foreach ($file in $files) {
         $parsed = [System.IO.File]::ReadAllText($file) | ConvertFrom-Yaml -Ordered
 
         # Iterative walk of the parsed structure — keys and scalar values only, so comments never enter.
@@ -95,5 +97,5 @@ function Test-ConfigIdentityHygiene {
     }
 
     Write-QualityGateReport -Subject config-identity-hygiene -Title Test-ConfigIdentityHygiene -Issues $issues `
-        -Facts ([ordered]@{ FileCount = @($Path).Count; LiveTokens = $liveTokens.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
+        -Facts ([ordered]@{ FileCount = @($files).Count; LiveTokens = $liveTokens.Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

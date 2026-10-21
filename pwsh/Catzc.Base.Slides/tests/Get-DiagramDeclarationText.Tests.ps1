@@ -1,0 +1,54 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "2e0b4e3e1f35"
+  edges:
+    code: pwsh/Catzc.Base.Slides/private/Get-DiagramDeclarationText.ps1
+    cites:
+      - ADR-REPO-SLIDES-DECLARATION
+---
+#>
+
+Describe 'Get-DiagramDeclarationText' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-DECLARATION' {
+    BeforeAll {
+        $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'docs/widgets/.assets')) | Out-Null
+        $script:read = {
+            param([string] $Stem, [string] $Carrier)
+            $map = [pscustomobject]@{ Default = 'file'; Carriers = @{ 'docs/widgets/.assets/gadget-flow' = $Carrier } }
+            InModuleScope Catzc.Base.Slides -Parameters @{ Root = $script:root; Stem = $Stem; Map = $map } {
+                param($Root, $Stem, $Map)
+                Get-DiagramDeclarationText -Stem $Stem -RepositoryRoot $Root -CarrierMap $Map
+            }
+        }
+        $script:page = Join-Path $script:root 'docs/widgets/gadget-flow.md'
+        $script:block = "``````yml drawio`ncontent: { title: Gadgets }`n```````n"
+    }
+
+    AfterEach {
+        Get-ChildItem -Path (Join-Path $script:root 'docs/widgets') -Filter '*.md' -File | Remove-Item
+    }
+
+    It 'reads the file carrier: the yml beside the png' {
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/.assets/widget-flow.drawio.yml'), "content: { title: Widgets }`n")
+        & $script:read 'docs/widgets/.assets/widget-flow' 'article' | Should -BeExactly "content: { title: Widgets }`n"
+    }
+
+    It 'gives nothing for a file-carrier diagram without its yml' {
+        & $script:read 'docs/widgets/.assets/sprocket-flow' 'article' | Should -BeNullOrEmpty
+    }
+
+    It 'reads the article carrier: the one yml drawio block directly above the image of its png' {
+        [System.IO.File]::WriteAllText($script:page, "# Gadgets`n`n$($script:block)`n![Gadgets](.assets/gadget-flow.drawio.png)`n")
+        & $script:read 'docs/widgets/.assets/gadget-flow' 'article' | Should -BeExactly "content: { title: Gadgets }`n"
+    }
+
+    It 'gives nothing when a sentence stands between the block and the image, or when two blocks declare it' {
+        [System.IO.File]::WriteAllText($script:page, "# Gadgets`n`n$($script:block)`nA sentence.`n`n![Gadgets](.assets/gadget-flow.drawio.png)`n")
+        & $script:read 'docs/widgets/.assets/gadget-flow' 'article' | Should -BeNullOrEmpty
+        [System.IO.File]::WriteAllText($script:page, "# Gadgets`n`n$($script:block)`n![Gadgets](.assets/gadget-flow.drawio.png)`n")
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/second.md'), "# Again`n`n$($script:block)`n![Gadgets](.assets/gadget-flow.drawio.png)`n")
+        & $script:read 'docs/widgets/.assets/gadget-flow' 'article' | Should -BeNullOrEmpty
+    }
+}

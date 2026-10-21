@@ -417,7 +417,7 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
         IList list = map[key] as IList;
         if (list == null || map[key] is string)
         {
-            errors.Add(string.Format(CultureInfo.InvariantCulture, "highlight.{0} must be a list of globs, e.g. [docs/.assets/**]", key));
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "highlight.{0} must be a list of globs, e.g. [docs/**/.assets/**]", key));
             return Array.Empty<string>();
         }
         List<string> globs = new List<string>();

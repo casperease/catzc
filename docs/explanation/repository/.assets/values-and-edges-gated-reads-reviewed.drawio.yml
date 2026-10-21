@@ -43,7 +43,7 @@ content:
       label: Get-Variant
       in: band-reader
     - id: g-review
-      kind: adronly
+      kind: drsonly
       label: Code review
       in: band-reader
     - id: g-variants

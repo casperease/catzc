@@ -1,10 +1,10 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "849d2a6f7ba2"
+#     with_body_sha: "3fbde0f30e69"
 # ---
 
-# cspell:ignore minimaps mxfile pnginfo adronly mapkey
+# cspell:ignore minimaps mxfile pnginfo drsonly mapkey
 """The declaration of a diagram: its source beside its .drawio.png, and the two directions between them.
 
 A diagram is two flat files in an `.assets/` folder, named by the diagram: `<name>.drawio.yml`, its one source, and `<name>.drawio.png`,
@@ -234,20 +234,96 @@ def slide_of(diagram):
     return stem.with_name(stem.name + SLIDE)
 
 
+CARRIERS = ("file", "article")  # where a declaration lives: <name>.drawio.yml beside the png, or a `yml drawio` block in its article
+FENCE = "yml drawio"  # the info string of an article's declaration block, the way a mermaid block is fenced
+
+
+def carrier_of(diagram):
+    """A diagram's carrier: its entry under drawio.yml carriers:, keyed by its stem's repository path, else renderer.carrier."""
+    stem = diagram_of(diagram).resolve()
+    repo = KIT.parents[1]
+    path = stem.relative_to(repo).as_posix() if stem.is_relative_to(repo) else stem.name
+    carrier = DEFAULTS.get("carriers", {}).get(path, DEFAULTS["renderer"]["carrier"])
+    if carrier not in CARRIERS:
+        raise DeclarationError(f"drawio.yml gives {path} the carrier '{carrier}', not one of {', '.join(CARRIERS)}")
+    return carrier
+
+
+def blocks_in(text, name):
+    """The `yml drawio` blocks of a page that sit directly above an image embedding `.assets/<name>.drawio.png`, only blank lines
+    between, each as the (start, end) of its body in the text."""
+    pattern = re.compile(
+        r"^```" + re.escape(FENCE) + r"[ \t]*\n((?:(?!```).*\n)*)```[ \t]*\n(?:[ \t]*\n)*!\[[^\]]*\]\((?:\./)?\.assets/" + re.escape(name) + r"\.drawio\.png\)",
+        re.M,
+    )
+    return [(m.start(1), m.end(1)) for m in pattern.finditer(text)]
+
+
+def article_block(diagram):
+    """The one block in the diagram's article that declares it: (page, start, end). The articles are the pages beside its `.assets`; no
+    block, or a block in two places, fails naming the pages."""
+    stem = diagram_of(diagram)
+    found = [(page, *span) for page in sorted(stem.parent.parent.glob("*.md")) for span in blocks_in(page.read_text(encoding="utf-8"), stem.name)]
+    if len(found) != 1:
+        pages = ", ".join(sorted({p.name for p, _, _ in found})) or "none"
+        raise DeclarationError(f"{stem}: the article carrier needs exactly one `{FENCE}` block above its image, found {len(found)} ({pages})")
+    return found[0]
+
+
+def declared(diagram):
+    """Whether the diagram has its declaration in its carrier."""
+    if carrier_of(diagram) == "file":
+        return source_of(diagram).is_file()
+    try:
+        article_block(diagram)
+        return True
+    except DeclarationError:
+        return False
+
+
+def read_source(diagram):
+    """The declaration's text from its carrier, and where it lives (the file, or the article page)."""
+    if carrier_of(diagram) == "file":
+        source = source_of(diagram)
+        if not source.is_file():
+            raise DeclarationError(f"{diagram}: no {source.name}, the diagram's one source")
+        return source.read_text(encoding="utf-8"), source
+    page, start, end = article_block(diagram)
+    return page.read_text(encoding="utf-8")[start:end], page
+
+
+def write_source(diagram, text):
+    """Write the declaration's text into its carrier: the file whole, or the article's block in place, the rest of the page as it was."""
+    if carrier_of(diagram) == "file":
+        source_of(diagram).write_text(text, encoding="utf-8")
+        return source_of(diagram)
+    page, start, end = article_block(diagram)
+    whole = page.read_text(encoding="utf-8")
+    page.write_text(whole[:start] + text.rstrip("\n") + "\n" + whole[end:], encoding="utf-8")
+    return page
+
+
+def carrier_findings(diagram):
+    """A diagram declared in both carriers: the file beside its png and a block in its article. Empty when it has one."""
+    stem = diagram_of(diagram)
+    blocks = [p.name for p in sorted(stem.parent.parent.glob("*.md")) if blocks_in(p.read_text(encoding="utf-8"), stem.name)]
+    if source_of(stem).is_file() and blocks:
+        return [f"declared in both carriers: {source_of(stem).name} and a `{FENCE}` block in {', '.join(blocks)}"]
+    return []
+
+
 def load(folder):
-    """The declaration of a diagram, from its one source file."""
-    source = source_of(folder)
-    if not source.is_file():
-        raise DeclarationError(f"{folder}: no {source.name}, the diagram's one source")
-    return normalise(yaml.safe_load(source.read_text(encoding="utf-8")) or {}, where=str(source))
+    """The declaration of a diagram, from its carrier."""
+    text, where = read_source(folder)
+    return normalise(yaml.safe_load(text) or {}, where=str(where))
 
 
 def save(folder, declaration):
-    """Write a declaration into the diagram's source file. The drawing carries no description, so a declaration read back by get
-    keeps the description the file already has."""
-    source = source_of(folder)
-    if source.is_file():
-        held = normalise(yaml.safe_load(source.read_text(encoding="utf-8")) or {}, where=str(source))
+    """Write a declaration into the diagram's carrier. The drawing carries no description, so a declaration read back by get keeps the
+    description the source already has."""
+    if declared(folder):
+        text, where = read_source(folder)
+        held = normalise(yaml.safe_load(text) or {}, where=str(where))
         if not declaration.get("description"):
             declaration = {**declaration, "description": held["description"]}
         # The drawing carries the ADR codes of `about:` in its subtitle; a drawing without them keeps the source's.
@@ -263,7 +339,7 @@ def save(folder, declaration):
             if mine(old) == mine(new):
                 kept = {k: held["content"][k] for k in SHORTHAND + ("generated",) if k in held["content"]}
                 declaration = {**declaration, "content": {**declaration["content"], **kept}}
-    source.write_text(dump(declaration), encoding="utf-8")
+    write_source(folder, dump(declaration))
 
 
 TOP_KEYS = ("description", "about", "content", "layout")
@@ -1136,7 +1212,7 @@ def legend_entries(content):
     if any(c["kind"] == "rule" and not c.get("gated", True) for c in content["chips"]):
         mark = LIB["marks"]["rule"]
         dashed = lambda eid, x, y: [cell(f"lg-{eid}", "#2", mark["style"] + "dashed=1;", x + 4, y - 2, mark["size"][0], mark["size"][1])]
-        entries.append(("chip-rule-adr", dashed, "dashed rule chip: ADR-only (no gate)"))
+        entries.append(("chip-rule-adr", dashed, "dashed rule chip: DRS-only (no gate)"))
     if wanted is not None:
         entries = [e for e in entries if e[2] in wanted]
     return entries
@@ -1508,8 +1584,7 @@ def declare_minimaps(folder):
     """Write a diagram's computed minimap placement into its source: content.minimaps lists each shown minimap's lit cells. Only that
     key's lines change: the rest of the text, its generated head and its formatting included, is kept as it was read, never re-dumped,
     which would drop the head and what a row or lane expands to."""
-    source = source_of(folder)
-    text = source.read_text(encoding="utf-8")
+    text, source = read_source(folder)
     raw = yaml.safe_load(text) or {}
     placed = placement(minimap_data(folder, computed=True))
     raw.setdefault("content", {})["minimaps"] = placed
@@ -1527,8 +1602,7 @@ def declare_minimaps(folder):
         start = stop = end
     else:
         stop = next((i for i in range(start + 1, end) if lines[i].strip() and len(lines[i]) - len(lines[i].lstrip()) <= 2), end)
-    source.write_text("\n".join(lines[:start] + minimaps_block(placed) + lines[stop:]), encoding="utf-8")
-    return source
+    return write_source(folder, "\n".join(lines[:start] + minimaps_block(placed) + lines[stop:]))
 
 
 def with_data(folder, declaration):
@@ -1555,18 +1629,35 @@ def changed_cells(one, other):
 
 
 def committed(folder):
-    """The pair as committed at git HEAD: the source's text and the model embedded in the png, read with `git show`. None when the
-    diagram is outside a repository or either file is not committed: an untracked pair has no base."""
+    """The pair as committed at git HEAD: the source's text (the file, or the article's block) and the model embedded in the png, read
+    with `git show`. None when the diagram is outside a repository or either side is not committed: an untracked pair has no base."""
     stem = diagram_of(folder).resolve()
     run = lambda *args: subprocess.run(["git", "-C", str(stem.parent), *args], capture_output=True)
     top = run("rev-parse", "--show-toplevel")
     if top.returncode != 0:
         return None
-    rel = stem.relative_to(Path(top.stdout.decode("utf-8").strip()).resolve()).as_posix()
-    source, png = run("show", f"HEAD:{rel}{SOURCE}"), run("show", f"HEAD:{rel}{SLIDE}")
-    if source.returncode != 0 or png.returncode != 0:
+    root = Path(top.stdout.decode("utf-8").strip()).resolve()
+    rel = stem.relative_to(root).as_posix()
+    png = run("show", f"HEAD:{rel}{SLIDE}")
+    if png.returncode != 0:
         return None
-    return source.stdout.decode("utf-8"), decode(mxfile_chunk(Image.open(io.BytesIO(png.stdout)))).strip()
+    if carrier_of(stem) == "file":
+        source = run("show", f"HEAD:{rel}{SOURCE}")
+        if source.returncode != 0:
+            return None
+        text = source.stdout.decode("utf-8")
+    else:
+        # The committed block is the one the committed article page holds; a page that is not committed, or holds none or two, has no base.
+        page = article_block(stem)[0]
+        shown = run("show", f"HEAD:{page.resolve().relative_to(root).as_posix()}")
+        if shown.returncode != 0:
+            return None
+        whole = shown.stdout.decode("utf-8")
+        spans = blocks_in(whole, stem.name)
+        if len(spans) != 1:
+            return None
+        text = whole[spans[0][0] : spans[0][1]]
+    return text, decode(mxfile_chunk(Image.open(io.BytesIO(png.stdout)))).strip()
 
 
 def kind_of(folder):
@@ -1583,7 +1674,7 @@ def conflict(folder, base):
         return []
     # The base is compared as data, never validated: it was valid against the registries of its own commit, not today's.
     source, model = load(folder), model_of(folder)
-    unmoved = yaml.safe_load(source_of(folder).read_text(encoding="utf-8")) == yaml.safe_load(base[0])
+    unmoved = yaml.safe_load(read_source(folder)[0]) == yaml.safe_load(base[0])
     if unmoved or model == base[1]:
         return []
     back = undrawn(get(model, kind_of(folder))["content"], source)
@@ -1621,6 +1712,11 @@ def main():
                     stale = ["legend"] if drawio_forward.legend_stale(folder) else []
                     print(json.dumps({"diagram": name, "conflict": [], "drift": [], "stale": stale}))
                     continue
+                # A diagram declared in both carriers is a finding before anything is compared.
+                twice = carrier_findings(folder)
+                if twice:
+                    print(json.dumps({"diagram": name, "error": "; ".join(twice)}))
+                    continue
                 both = conflict(folder, committed(folder))
                 cells, stale = ([], []) if both else drift(folder)
                 print(json.dumps({"diagram": name, "conflict": both, "drift": cells, "stale": stale}))
@@ -1630,7 +1726,7 @@ def main():
     if len(args) == 2 and args[0] == "tidy":  # the source re-saved through the kit: normalised, the retired about keys dropped
         folder = diagram_of(args[1])
         save(folder, load(folder))
-        print(f"tidy {source_of(folder)}")
+        print(f"tidy {read_source(folder)[1]}")
         return
     if len(args) == 2 and args[0] == "minimaps":  # the diagram's computed minimap cells written into its source
         print(f"minimaps {declare_minimaps(diagram_of(args[1]))}")
@@ -1653,7 +1749,7 @@ def main():
         print(f"put {dst}")
     else:
         save(folder, get(model_of(folder), kind_of(folder)))
-        print(f"get {source_of(folder)}")
+        print(f"get {read_source(folder)[1]}")
 
 
 if __name__ == "__main__":

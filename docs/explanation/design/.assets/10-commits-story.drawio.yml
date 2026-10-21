@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "1bf82a5c2a0a"
+#     with_body_sha: "5c02d28ff820"
 # ---
 
 description:
@@ -425,7 +425,6 @@ content:
     lifecycle-position:
       - cell: main-uat
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
           - docs/drs/flow/dora-explains.md
           - docs/drs/index.md
@@ -451,7 +450,9 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: release-uat
         by:
-          - .ado/pipelines/ci-pwsh.yaml
+          - .ado/pipelines/deploy-apex.yaml
+          - .ado/pipelines/deploy-nova.yaml
+          - .ado/pipelines/deploy-shared.yaml
           - .claude/CLAUDE.md
           - docs/drs/flow/dora-explains.md
           - docs/drs/index.md
@@ -480,7 +481,6 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: pre-prod
         by:
-          - .ado/pipelines/ci-pwsh.yaml
           - .claude/CLAUDE.md
           - docs/drs/flow/dora-explains.md
           - docs/drs/index.md
@@ -506,7 +506,7 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: prod
         by:
-          - .ado/pipelines/ci-pwsh.yaml
+          - .ado/pipelines/deploy-apex.yaml
           - .claude/CLAUDE.md
           - docs/drs/flow/dora-explains.md
           - docs/drs/index.md
@@ -534,10 +534,10 @@ content:
     layer-stack:
       - cell: automation
         by:
-          - .ado/pipelines/ci-pwsh.yaml
+          - .ado/pipelines/deploy-apex.yaml
+          - .ado/pipelines/deploy-nova.yaml
+          - .ado/pipelines/deploy-shared.yaml
           - .claude/CLAUDE.md
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - docs/drs/flow/cd-discipline-and-promotion-flow.md
           - docs/drs/flow/commit-lifecycle.md
           - docs/drs/flow/dora-explains.md
@@ -553,8 +553,8 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
           - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1

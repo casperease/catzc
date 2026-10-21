@@ -6,7 +6,7 @@ An engineer has nothing to run to deploy a topic commit; completing the pull req
 1  push topic, open PR     the engineer opens a pull request into main
 2  ADO PR build            runs the CI stage and skips every Deploy_* stage
 3  Release: Run workflow   builds the package from any ref; a release, not a deploy
-4  deploy topic            no pipeline or workflow to run; ADR-only
+4  deploy topic            no pipeline or workflow to run; DRS-only
 5  complete PR             lands the commit on main; the push trigger starts the CD run
 6  ADO CD run              deploys foundation, discovery, then expedition
 
@@ -49,5 +49,5 @@ FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND describes an out-of-band topic deploy that no 
 - [The commit lifecycle](../../drs/flow/commit-lifecycle.md) — the decision this article explains.
 - The other lenses on the same deploy: [meta](deploying-is-not-integrating.md),
   [architecture](deploy-and-integrate-share-only-the-topic.md), [implementation](every-deploy-stage-is-main-only.md) and
-  [governance](out-of-band-deploy-is-adr-only.md).
+  [governance](out-of-band-deploy-is-drs-only.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

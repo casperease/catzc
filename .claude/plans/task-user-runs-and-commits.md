@@ -71,11 +71,17 @@ final full run last.
     `catzc-tooling-keyhandler`, `catzc-azure-devops` to `catzc-azure-dev-ops` and its `-build-validation`, and
     `internal/catzc-internal-testkit` to `catzc-internal-test-kit`; 581 files, folder and module page each), with the `docs:` head edges of
     605 files, the four renderers and the hand links. Check: `Test-Links` reports no `[Untracked]` issue under `docs/references/pwsh`.
-14. Edit `.claude/CLAUDE.md` for the DRS and the flat diagrams: line 31 `## ADRs` becomes `## DRS`, line 33 says the DRS holds the decision
+14. Commit the flat diagram files (plan-diagram-flat-files, done and deleted): every `.assets/<name>/diagram.drawio.{png,yml}` moved on disk
+    to `.assets/<name>.drawio.png` and `.assets/<name>.drawio.yml` (355 files, 178 empty folders removed), with the 175 re-pointed pages,
+    the re-declared ymls, the 27 re-rendered pngs, the kit, the agent and three skills; plus the `adronly` to `drsonly` rename (37 ymls, the
+    glyph library, 50 re-rendered pngs) and the three pages moved to `*-is-drs-only.md` / `*-are-drs-only.md` with their diagram pairs
+    (plan-debt-diagram-names, done and deleted). Stage the whole `docs/` tree at once so git pairs each rename. Check: `git status` shows
+    renames, not delete and add pairs, under `docs/`, and `Test-Links` has no `[Untracked]` issue.
+15. Edit `.claude/CLAUDE.md` for the DRS and the flat diagrams: line 31 `## ADRs` becomes `## DRS`, line 33 says the DRS holds the decision
     records, line 13's pair becomes "domain rules / DRS rules" (plan-drs-system; the move already rewrote its paths), and line 78's
-    `edit-diagram-yml` entry names `<name>.drawio.yml` instead of `diagram.drawio.yml` (plan-diagram-flat-files). Check: `Test-Links` and
+    `edit-diagram-yml` entry names `<name>.drawio.yml` instead of `diagram.drawio.yml` (the flat files, step 14). Check: `Test-Links` and
     `Test-AgentDefinitions`.
-15. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+16. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

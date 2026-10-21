@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: a52dbd49cd1e
+#     with_body_sha: "6bf1b6a5fd16"
 # ---
 
 description:
@@ -114,7 +114,6 @@ content:
           - docs/drs/design/dora-explains.md
           - docs/drs/design/thin-platforms.md
           - docs/drs/index.md
-          - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliBicep.ps1.md
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md

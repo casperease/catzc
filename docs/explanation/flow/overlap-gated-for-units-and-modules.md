@@ -1,7 +1,7 @@
 # A gate checks overlap for units and modules, and loose-filesets are exempt
 
 ```text
-A quality gate keeps units and modules disjoint; loose-filesets are exempt; two prohibitions are ADR-only.
+A quality gate keeps units and modules disjoint; loose-filesets are exempt; two prohibitions are DRS-only.
 
 1  No phantom unit           a unit neither composed nor pipeline-bound; no code checks it
 2  deployable-unit sets      disjoint on their own contribution, compose ignored

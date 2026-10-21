@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "1ffa5ca880d9"
+#     with_body_sha: c43e084e26f5
 # ---
 
 description:
@@ -132,8 +132,6 @@ content:
           - docs/drs/glossary.md
           - docs/drs/index.md
           - docs/references/github/workflows/ci-pwsh.yml.md
-          - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml
-          - docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.yml
           - docs/references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
           - docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md
           - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md

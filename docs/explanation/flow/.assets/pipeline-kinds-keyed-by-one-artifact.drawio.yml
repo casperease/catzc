@@ -57,11 +57,11 @@ content:
       label: tagged artifact
       in: band-cd
     - id: g-rc
-      kind: adronly
+      kind: drsonly
       label: RC
       in: band-cd
     - id: g-rbc
-      kind: adronly
+      kind: drsonly
       label: RBC
       in: band-non-prod
     - id: g-release-uat

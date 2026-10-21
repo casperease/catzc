@@ -4,7 +4,7 @@
 A topic commit can reach an environment without reaching main; only landing on main puts it on the ladder.
 
 1  topic commit         a commit on a topic branch, brown, off main
-2  out-of-band deploy   a workflow deploys the topic commit; ADR-only, no code runs it
+2  out-of-band deploy   a workflow deploys the topic commit; DRS-only, no code runs it
 3  environment          a neutral container; its occupant stays brown
 4  main                 landing on main is the integration; the commit turns grey
 5  BVT                  turns the landed commit into a BVT-verified one, yellow
@@ -23,7 +23,7 @@ ladder. Keeping the two events apart is what lets a commit's colour stay a true 
 1. **Topic commit.** A commit on a topic branch, off main. It is brown, the development colour, which is never an integrated mainline state.
    It has two ways forward.
 2. **The out-of-band deploy.** A workflow or pipeline may deploy a topic commit directly, for a hotfix or an experiment. The deploy is
-   explicitly not an integration and confers no promotion state, so no edge leads from it to main. The edge is ADR-only because nothing in
+   explicitly not an integration and confers no promotion state, so no edge leads from it to main. The edge is DRS-only because nothing in
    the repository runs this deploy today.
 3. **Environment.** The environment is a neutral container, and the commit inside it is its occupant, in that commit's own colour. After an
    out-of-band deploy the occupant stays brown: deployed, but not integrated.
@@ -52,5 +52,5 @@ only from main.
 - [Visual design](../../drs/design/visual-design.md) — the commit colours and the neutral environment.
 - The other lenses on the same deploy: [architecture](deploy-and-integrate-share-only-the-topic.md),
   [implementation](every-deploy-stage-is-main-only.md), [operations](merging-to-main-is-what-deploys.md) and
-  [governance](out-of-band-deploy-is-adr-only.md).
+  [governance](out-of-band-deploy-is-drs-only.md).
 - [The design explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

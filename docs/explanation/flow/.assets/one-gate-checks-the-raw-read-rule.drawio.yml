@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "2200ef816f7b"
+#     with_body_sha: "974ac5d33d06"
 # ---
 
 description:
@@ -120,7 +120,6 @@ content:
           - docs/drs/flow/pipeline-detection.md
           - docs/drs/index.md
           - docs/how-to/automation/apply-environment-approvals.md
-          - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
           - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
@@ -234,14 +233,6 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
           - docs/references/pwsh/catzc-base-repository/Get-RunEnvironment.ps1.md
           - ADR-AUTO-PARITY-ONESEAM
-          - FDR-CD-DETECT-BOOLEANNOTMODAL
-          - FDR-CD-DETECT-FASTDETECTION
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
-          - FDR-CD-DETECT-PARAMETERSOVERDETECTION
-          - FDR-CD-DETECT-VISIBLECONTEXTBEHAVIOUR
-      - cell: docs/yaml
-        by:
-          - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - FDR-CD-DETECT-BOOLEANNOTMODAL
           - FDR-CD-DETECT-FASTDETECTION
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK

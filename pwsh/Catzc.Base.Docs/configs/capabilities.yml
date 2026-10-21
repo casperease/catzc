@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4035a85e8bbd"
+#     with_body_sha: "9a1e9626c7c8"
 #   edges:
 #     docs: "[capabilities.yml.md](../../../docs/references/pwsh/catzc-base-docs/configs/capabilities.yml.md)"
 #     cites:
@@ -115,7 +115,7 @@ capabilities:
     supported_by: [RDR-DORA-VISUAL-DISPLAYPROCESSSTATE, RDR-DORA-VISUAL-CHOSENWITHTEAM]
     checks: []
 
-  # Put, get, sync, theme and stale-rebuild of a diagram folder from its yml declaration.
+  # Put, get, sync, theme and stale-rebuild of a diagram from its yml declaration.
   - name: drawio-declaration
     supported_by:
       [ADR-REPO-SLIDES-DECLARATION, ADR-REPO-SLIDES-TWODIRECTIONS, ADR-REPO-SLIDES-CONFLICTNEEDSAPICK, ADR-REPO-SLIDES-THEMESELECTOR]

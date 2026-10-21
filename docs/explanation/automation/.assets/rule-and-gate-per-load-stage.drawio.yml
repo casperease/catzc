@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c7a31f69caa9
+#     with_body_sha: "84ed3434ac26"
 # ---
 
 description:
@@ -129,8 +129,6 @@ content:
           - docs/drs/repository/generated-root-configs.md
           - docs/references/agent-contracts.md
           - docs/references/note-file-kind.md
-          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
-          - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
           - docs/references/pwsh/catzc-base-code-meta/types/CommentPageMap.cs.md
           - docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md
           - docs/references/pwsh/catzc-base-drs/types/DrsCitationMap.cs.md
@@ -557,12 +555,6 @@ content:
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
           - DDR-RUNMODE-NEVERCOEXIST
           - PDR-ONELIVE-ONEVERSION
-      - cell: docs/yaml
-        by:
-          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
-          - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
-          - ADR-BCL-TYPES-JANITORSBYCALLER
-          - DDR-RUNMODE-NEVERCOEXIST
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d1d8c291f5d1
+#     with_body_sha: "4859ce1bda52"
 # ---
 
 description:
@@ -83,8 +83,6 @@ content:
         by:
           - docs/drs/design/dora-explains.md
           - docs/drs/design/server-remote-integration.md
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - docs/drs/flow/commit-lifecycle.md
           - docs/drs/flow/dora-explains.md
           - docs/drs/glossary.md
@@ -168,15 +166,6 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-      - cell: docs/yaml
-        by:
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - FDR-CD-LIFE-DIRTYHEADUNSAFE
           - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM

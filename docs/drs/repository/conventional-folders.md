@@ -39,8 +39,9 @@ by `Import-AllModules` (dot-prefixed directories are excluded from module discov
 
 Documentation folders are markdown-only. `docs/` organizes its subfolders freely (the names and casing are the author's), but it holds only
 `.md` files — except the dot-prefixed `.assets/` folders, which hold the diagrams the markdown embeds. An `.assets/` folder sits beside the
-pages that embed its diagrams and holds each diagram as two flat files named by the diagram, never a folder of its own: its one source
-`<page-folder>/.assets/<name>.drawio.yml` and the render `<name>.drawio.png` put from it, so `<name>` is the diagram's only name; its
+pages that embed its diagrams and holds each diagram as flat files named by the diagram, never a folder of its own: the render
+`<page-folder>/.assets/<name>.drawio.png` and, by default, its one source `<name>.drawio.yml` put to it (a diagram the kit's `drawio.yml`
+puts in the article carrier keeps its source as a `yml drawio` block in the article instead), so `<name>` is the diagram's only name; its
 minimaps are embedded in the render, drawn from computed data, never kept as files of their own. Each subfolder of `docs/drs/` is a
 decision-record **domain**: a group of decision records that `drs.yml` declares with its role and the domains it depends on.
 

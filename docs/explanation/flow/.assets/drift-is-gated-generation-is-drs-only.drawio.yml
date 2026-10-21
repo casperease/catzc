@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8a12f592d70f"
+#     with_body_sha: "7dea901f489c"
 # ---
 
 description:
@@ -41,7 +41,7 @@ content:
       label: ADO include and exclude
       in: band-projection
     - id: a-generated
-      kind: adronly
+      kind: drsonly
       label: generated YAML filters
       in: band-projection
     - id: g-github-gate
@@ -168,10 +168,6 @@ content:
           - docs/references/ado/pipelines/ci-infrastructure.yaml.md
           - docs/references/ado/pipelines/ci-pwsh.yaml.md
           - docs/references/github/workflows/ci-pwsh.yml.md
-          - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml
-          - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
-          - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
-          - docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Get-AdoBuildValidations.ps1.md
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Register-AdoBuildValidation.ps1.md
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Unregister-AdoBuildValidation.ps1.md

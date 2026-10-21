@@ -23,7 +23,7 @@ partition check that the DDR describes exists in code, but only unit tests on fi
 ## Walkthrough
 
 1. **live, in the pwsh track.** The closed convention of DDR-ASPECT-ASPECTSAREDERIVED: folder-scoped patterns that never reach `tests/`. The
-   rule is ADR-only in this respect: no gate checks that the patterns stay closed, and a pattern that reached `tests/` would load.
+   rule is DRS-only in this respect: no gate checks that the patterns stay closed, and a pattern that reached `tests/` would load.
 2. **tests, in the pwsh track.** The remainder. That the code track's remainder is the non-live aspect, so that a stray file never ships, is
    the track's own declaration in its `aspects` entry. A unit test proves it on a fixture module; no gate checks the real convention for it.
 3. **VariantsConfig.** The gate, run per track entry when the config loads. The last aspect must be the single pattern `**`, and no earlier
@@ -31,7 +31,7 @@ partition check that the DDR describes exists in code, but only unit tests on fi
    infrastructure entry.
 4. **AspectPartition.Validate.** The disjoint-and-exhaustive check of DDR-ASPECT-PARTITIONISCHECKED over a file universe: a file claimed by
    two aspects, or by none, is a violation. The type's own comment calls it the integrity check, but its only callers are the aspect unit
-   tests, so on the real tree it is ADR-only.
+   tests, so on the real tree it is DRS-only.
 5. **tests, in the infrastructure track.** The deployment track's closed head, `**/tests/**`. Only the gate's structural checks apply to it.
 6. **live, in the infrastructure track.** The deployment track's remainder, and the one that ships. Its liveness is a declaration like the
    pwsh one, unchecked by any gate; and no code derives an infrastructure globset from it, so the partition check could not run there even

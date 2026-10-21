@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "1991d2e22dc9"
+#     with_body_sha: bc28494235bb
 # ---
 
 description:
@@ -79,7 +79,6 @@ content:
           - docs/drs/design/run-modes.md
           - docs/drs/glossary.md
           - docs/drs/index.md
-          - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
           - docs/references/pwsh/catzc-base-config-extensions/Test-ConfigValidators.ps1.md
           - docs/references/pwsh/catzc-base-docs/private/Get-CatsModules.ps1.md
           - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
@@ -233,13 +232,6 @@ content:
           - docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md
           - docs/references/pwsh/internal/Catzc.Internal.TestKit.psm1.md
           - docs/references/pwsh/internal/assets/Import-Catzc.ps1.md
-          - DDR-RUNMODE-MODEISDERIVED
-          - DDR-RUNMODE-NEVERCOEXIST
-          - DDR-RUNMODE-SAMEMODULEINBOTH
-          - DDR-RUNMODE-TWORUNMODES
-      - cell: docs/yaml
-        by:
-          - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
           - DDR-RUNMODE-MODEISDERIVED
           - DDR-RUNMODE-NEVERCOEXIST
           - DDR-RUNMODE-SAMEMODULEINBOTH

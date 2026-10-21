@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "14c8ac743a0d"
+#     with_body_sha: "94a305302994"
 # ---
 
 description:
@@ -89,8 +89,6 @@ content:
           - docs/drs/automation/dora-explains.md
           - docs/drs/automation/fail-fast-with-asserts.md
           - docs/drs/index.md
-          - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
-          - docs/references/pwsh/.assets/listen-mode-flow/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
           - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
           - docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3ebaa156f618"
+#     with_body_sha: "0e602a26b423"
 # ---
 
 """The assets gallery PDF: one page per PNG, and a description page after a PNG that has one.

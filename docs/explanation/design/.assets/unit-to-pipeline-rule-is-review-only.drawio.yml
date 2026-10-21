@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3967fa9c457e"
+#     with_body_sha: "97d966328437"
 # ---
 
 description:
@@ -60,7 +60,7 @@ content:
       label: scope globset
       in: band-pipelines
     - id: g-review
-      kind: adronly
+      kind: drsonly
       label: code review
       in: band-pipelines
   edges:
@@ -164,7 +164,6 @@ content:
           - docs/references/ado/pipelines/ci-pwsh.yaml.md
           - docs/references/github/workflows/ci-pwsh.yml.md
           - docs/references/note-file-kind.md
-          - docs/references/pwsh/.assets/protected-module-skip-by-hash/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Get-AdoBuildValidations.ps1.md
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Register-AdoBuildValidation.ps1.md
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Unregister-AdoBuildValidation.ps1.md

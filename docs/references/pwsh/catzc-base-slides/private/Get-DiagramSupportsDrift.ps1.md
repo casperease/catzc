@@ -11,17 +11,17 @@ Holds each page that embeds a diagram against the diagram's declaration.
 
 ### description
 
-Reads each page's `Supports <codes> (<lens> lens)` lines and the folder's `diagram.drawio.yml` (about.adrs, about.lens). A page passes when
-one of its lines names the declaration's codes and lens; a page with no Supports line, or a folder without a declaration, is not checked
+Reads each page's `Supports <codes> (<lens> lens)` lines and the diagram's `<name>.drawio.yml` (about.adrs, about.lens). A page passes when
+one of its lines names the declaration's codes and lens; a page with no Supports line, or a diagram without a declaration, is not checked
 (ADR-REPO-SLIDES-ONEBUILDCOMMAND).
 
-### parameter `Folder`
+### parameter `Stem`
 
-The diagram folder, repository-relative.
+The diagram's stem, `.assets/<name>`, repository-relative.
 
 ### parameter `Page`
 
-The pages that embed the folder's png, repository-relative.
+The pages that embed the diagram's png, repository-relative.
 
 ### parameter `RepositoryRoot`
 
@@ -33,7 +33,7 @@ The repository root the paths are under.
 
 ## comment:1
 
-Above `$source = Join-Path $RepositoryRoot "$Folder/diagram.drawio.yml"`, written with `#`.
+Above `$source = Join-Path $RepositoryRoot "$Stem.drawio.yml"`, written with `#`.
 
 ```text
 Each embedding page's `Supports <codes> (<lens> lens)` lines against the diagram's yml: a page passes when one of its lines

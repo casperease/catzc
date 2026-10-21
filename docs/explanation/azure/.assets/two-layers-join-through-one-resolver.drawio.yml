@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "7c6cd3b46241"
+#     with_body_sha: "68ffcfeb7044"
 # ---
 
 description:
@@ -124,9 +124,6 @@ content:
           - docs/references/infrastructure/templates/discovery/options.yml.md
           - docs/references/infrastructure/templates/expedition/options.yml.md
           - docs/references/infrastructure/templates/foundation/options.yml.md
-          - docs/references/pwsh/.assets/az-cli-test-assert-share-one-state/diagram.drawio.yml
-          - docs/references/pwsh/.assets/azure-identity-resolves-from-config/diagram.drawio.yml
-          - docs/references/pwsh/.assets/bicep-template-is-a-folder/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
           - docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md
           - docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md

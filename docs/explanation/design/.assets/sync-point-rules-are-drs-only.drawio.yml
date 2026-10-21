@@ -1,12 +1,12 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b61387db7316
+#     with_body_sha: "21d8814b5750"
 # ---
 
 description:
   Of the rules around the sync point only the BVT rung has a gate in code, the ci-pwsh pipeline; every rule about occupants, the sync point,
-  the manual release gates and the dirty HEAD is ADR-only.
+  the manual release gates and the dirty HEAD is DRS-only.
 about:
   adrs:
     - FDR-CD-LIFE-DISCARDISTERMINAL
@@ -19,7 +19,7 @@ about:
     - FDR-CD-PREPRODRUNG
   lens: governance
 content:
-  title: Only BVT has a gate in code; the sync-point rules are ADR-only
+  title: Only BVT has a gate in code; the sync-point rules are DRS-only
   kind: explanation
   flow: left-to-right
   relation: takes its commit from
@@ -33,7 +33,7 @@ content:
       label: TIP OF MAIN
   glyphs:
     - id: g-integrator
-      kind: adronly
+      kind: drsonly
       label: upstream integrator
       in: band-external
     - id: g-production
@@ -176,8 +176,6 @@ content:
           - FDR-CD-TWORELEASEGATES
       - cell: docs/-/.
         by:
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - docs/drs/flow/cd-discipline-and-promotion-flow.md
           - docs/drs/flow/commit-lifecycle.md
           - docs/drs/flow/dora-explains.md
@@ -317,15 +315,6 @@ content:
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
           - FDR-CD-PREPRODRUNG
           - FDR-CD-TWORELEASEGATES
-      - cell: docs/yaml
-        by:
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-DISCARDISTERMINAL
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs

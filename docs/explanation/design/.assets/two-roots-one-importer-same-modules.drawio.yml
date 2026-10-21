@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c0acf87842ee
+#     with_body_sha: b8c3cf613d31
 # ---
 
 description:
@@ -113,7 +113,6 @@ content:
           - docs/drs/design/run-modes.md
           - docs/drs/glossary.md
           - docs/drs/index.md
-          - docs/references/pwsh/.assets/module-graph-declared-vs-observed/diagram.drawio.yml
           - docs/references/pwsh/catzc-base-config-extensions/Test-ConfigValidators.ps1.md
           - docs/references/pwsh/catzc-base-docs/private/Get-CatsModules.ps1.md
           - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md

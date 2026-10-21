@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "21c18adc1d56"
+    with_body_sha: "5a97ab4901b6"
   edges:
     code: pwsh/Catzc.Base.Slides/types/SlidesConfig.cs
     cites:
@@ -34,7 +34,7 @@ Describe 'SlidesConfig' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-SLIDEFILEKIND' {
         { [Catzc.Base.Slides.SlidesConfig]::new(@{ drawio_kit = '../kit' }) } | Should -Throw '*drawio_kit*communication form*'
     }
 
-    It 'lists no diagram folder: a diagram folder is found under docs/**/.assets/**, so the old keys are unknown' -Tag 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
+    It 'lists no diagram: a diagram is found under docs/**/.assets/, so the old keys are unknown' -Tag 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_folders = @('docs/widgets/.assets') }) } | Should -Throw '*unknown key ''diagram_folders''*'
         { [Catzc.Base.Slides.SlidesConfig]::new(@{ diagram_batch = 7 }) } | Should -Throw '*unknown key ''diagram_batch''*'
     }

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "28e37b6a69a4"
+#     with_body_sha: "5828973e34f2"
 # ---
 
 description:
@@ -72,7 +72,7 @@ content:
       label: BVT-verified
       in: band-ci
     - id: a-l3-at
-      kind: adronly
+      kind: drsonly
       label: L3-vertical-AT
       in: band-cd
     - id: c-l3
@@ -81,7 +81,7 @@ content:
       in: band-cd
       state: l3
     - id: a-rc
-      kind: adronly
+      kind: drsonly
       label: RC on main-AT
       in: band-cd
     - id: c-main-uat
@@ -90,7 +90,7 @@ content:
       in: band-cd
       state: main-uat
     - id: a-rbc
-      kind: adronly
+      kind: drsonly
       label: RBC on release-AT
       in: band-cd
     - id: c-release-uat
@@ -99,7 +99,7 @@ content:
       in: band-cd
       state: release-uat
     - id: a-two-slot
-      kind: adronly
+      kind: drsonly
       label: two-slot activation
       in: band-deploy
     - id: c-production
@@ -278,8 +278,6 @@ content:
           - docs/drs/automation/test-automation.md
           - docs/drs/design/dora-explains.md
           - docs/drs/design/visual-design.md
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - docs/drs/flow/cd-discipline-and-promotion-flow.md
           - docs/drs/flow/commit-lifecycle.md
           - docs/drs/flow/dora-explains.md
@@ -290,8 +288,6 @@ content:
           - docs/references/ado/pipelines/deploy-apex.yaml.md
           - docs/references/ado/pipelines/deploy-nova.yaml.md
           - docs/references/ado/pipelines/deploy-shared.yaml.md
-          - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml
-          - docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.yml
           - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
           - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
           - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
@@ -516,20 +512,6 @@ content:
           - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
           - FDR-CD-TWOENVIRONMENTACTIVATION
           - FDR-CD-TWORELEASEGATES
-      - cell: docs/yaml
-        by:
-          - docs/drs/flow/.assets/commit-promotion-states/diagram.drawio.yml
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
-          - docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded/diagram.drawio.yml
-          - docs/references/pwsh/.assets/test-automation-one-run-pipeline/diagram.drawio.yml
-          - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
-          - FDR-CD-LIFE-DISCARDISTERMINAL
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-          - FDR-CD-LIFE-RETIREMENTISNOTDISCARD
-          - FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/bcl
         by:
           - pwsh/Catzc.Base.Drs/types/DrsConfig.cs

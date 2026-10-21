@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6a079caed2c6"
+    with_body_sha: "575be444e20a"
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Test-Slides.Tests.ps1
     docs: "[Test-Slides.ps1.md](../../docs/references/pwsh/catzc-base-slides/Test-Slides.ps1.md)"
@@ -15,6 +15,7 @@ function Test-Slides {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
+        [Catzc.Base.Asserts.ValidatePathGiven()]
         [string[]] $Path,
 
         [string] $Kit = (Get-Config -Config slides).kit,

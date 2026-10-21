@@ -3,7 +3,7 @@
     <mxCell id="0" />
     <mxCell id="1" parent="0" />
     <mxCell id="sidebar-bg" value="" style="rounded=1;arcSize=2;html=1;fillColor=@sidebar;strokeColor=@sidebar-rim;shadow=0;" vertex="1" parent="1"><mxGeometry x="1304" y="4" width="264" height="632" as="geometry" /></mxCell>
-    <!-- cspell:ignore adronly mapkey -->
+    <!-- cspell:ignore drsonly mapkey -->
     <!-- Demo slide in the dark theme (assets/STYLE.md). It shows every glyph kind at once; a real slide uses at most four. -->
     <mxCell id="title" value="Template: a widget is built, checked, and either shipped or rejected" style="text;html=1;align=left;verticalAlign=middle;fontSize=16;fontStyle=1;fontColor=@title;" vertex="1" parent="1">
       <mxGeometry x="20" y="14" width="1260" height="30" as="geometry" />
@@ -59,7 +59,7 @@
     <mxCell id="g-failure" value="&lt;b&gt;widget rejected&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=@red;strokeColor=@red-rim;fontColor=@red-ink;fontSize=12;" vertex="1" parent="1">
       <mxGeometry x="880" y="300" width="140" height="44" as="geometry" />
     </mxCell>
-    <mxCell id="g-adronly" value="&lt;b&gt;widget cache&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=@page;strokeColor=@line;dashed=1;fontColor=@ink;fontSize=12;" vertex="1" parent="1">
+    <mxCell id="g-drsonly" value="&lt;b&gt;widget cache&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=@page;strokeColor=@line;dashed=1;fontColor=@ink;fontSize=12;" vertex="1" parent="1">
       <mxGeometry x="680" y="300" width="140" height="44" as="geometry" />
     </mxCell>
     <mxCell id="e-file-code" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=@line;shadow=0;" edge="1" parent="1" source="g-file" target="g-code">
@@ -89,7 +89,7 @@
     <mxCell id="e-result-env" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=@line;shadow=0;" edge="1" parent="1" source="g-result" target="g-env">
       <mxGeometry relative="1" as="geometry" />
     </mxCell>
-    <mxCell id="e-runner-cache" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=@line;dashed=1;shadow=0;" edge="1" parent="1" source="g-runner" target="g-adronly">
+    <mxCell id="e-runner-cache" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=@line;dashed=1;shadow=0;" edge="1" parent="1" source="g-runner" target="g-drsonly">
       <mxGeometry relative="1" as="geometry" />
     </mxCell>
     <mxCell id="chip-gate" value="#2" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=@band;strokeColor=@line;fontColor=@ink;fontStyle=1;fontSize=10.5;" vertex="1" parent="1">
@@ -133,7 +133,7 @@
     <mxCell id="lg-env" value="" style="shape=hexagon;perimeter=hexagonPerimeter2;html=1;fillColor=@neutral;strokeColor=@neutral-rim;" vertex="1" parent="1"><mxGeometry x="418" y="476" width="40" height="22" as="geometry" /></mxCell>
     <mxCell id="lg-env-t" value="environment" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;" vertex="1" parent="1"><mxGeometry x="466" y="477" width="120" height="20" as="geometry" /></mxCell>
     <mxCell id="lg-adr" value="" style="rounded=1;html=1;arcSize=20;fillColor=@page;strokeColor=@line;dashed=1;" vertex="1" parent="1"><mxGeometry x="418" y="506" width="40" height="18" as="geometry" /></mxCell>
-    <mxCell id="lg-adr-t" value="ADR-only" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;" vertex="1" parent="1"><mxGeometry x="466" y="505" width="120" height="20" as="geometry" /></mxCell>
+    <mxCell id="lg-adr-t" value="DRS-only" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;" vertex="1" parent="1"><mxGeometry x="466" y="505" width="120" height="20" as="geometry" /></mxCell>
     <mxCell id="lg-result" value="" style="rounded=1;html=1;arcSize=20;fillColor=@green;strokeColor=@green-rim;" vertex="1" parent="1"><mxGeometry x="610" y="450" width="40" height="18" as="geometry" /></mxCell>
     <mxCell id="lg-result-t" value="result" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;" vertex="1" parent="1"><mxGeometry x="658" y="449" width="120" height="20" as="geometry" /></mxCell>
     <mxCell id="lg-failure" value="" style="rounded=1;html=1;arcSize=20;fillColor=@red;strokeColor=@red-rim;" vertex="1" parent="1"><mxGeometry x="610" y="478" width="40" height="18" as="geometry" /></mxCell>

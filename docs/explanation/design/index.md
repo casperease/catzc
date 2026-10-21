@@ -48,7 +48,7 @@ Deploying a topic commit is not integrating it ([commit-lifecycle](../../drs/flo
 | architecture   | [Deploying a topic commit and integrating it share only the topic commit](deploy-and-integrate-share-only-the-topic.md)            |
 | implementation | [Every Deploy stage in cats runs only from main, so no topic commit is deployed](every-deploy-stage-is-main-only.md)               |
 | operations     | [Merging to main is what deploys; there is no run that deploys a topic](merging-to-main-is-what-deploys.md)                        |
-| governance     | [No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only](out-of-band-deploy-is-adr-only.md) |
+| governance     | [No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only](out-of-band-deploy-is-drs-only.md) |
 
 ## The sync point
 
@@ -59,7 +59,7 @@ This diagram has no implementation or operations lens.
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
 | meta         | [Sync from the BVT-verified head, not from the tip of main](sync-from-the-bvt-verified-head.md)                                    |
 | architecture | [Upstream integrators sync from the BVT-verified head, never from the tip of main](integrators-sync-from-the-bvt-verified-head.md) |
-| governance   | [Only BVT has a gate in code; the sync-point rules are ADR-only](sync-point-rules-are-adr-only.md)                                 |
+| governance   | [Only BVT has a gate in code; the sync-point rules are DRS-only](sync-point-rules-are-drs-only.md)                                 |
 
 ## Run modes
 

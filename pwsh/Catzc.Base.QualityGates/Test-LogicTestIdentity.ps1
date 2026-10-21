@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "37259a66ce44"
+    with_body_sha: "6c6628377818"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
     docs: "[Test-LogicTestIdentity.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-LogicTestIdentity.ps1.md)"
@@ -31,12 +31,14 @@ function Test-LogicTestIdentity {
         $live[$identity.Token] = $identity
     }
 
+    # The default set lives in its own variable: -Path's ValidatePathGiven would refuse an empty set on assignment.
+    $files = $Path
     if (-not $Path) {
         # The default set is every test file of the catzc source tree — tests never ship in a build.
         Assert-SourceTree
         $modulesRoot = Get-CatzcModulesRoot
         # Test files reach four levels below pwsh/ (module, tests, types, file); vendored modules are pruned by the walk.
-        $Path = Get-ChildPath $modulesRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
+        $files = Get-ChildPath $modulesRoot -File -Filter '*.Tests.ps1' -Depth 4 -PruneVendor $true |
             Sort-Object
     }
 
@@ -52,7 +54,7 @@ function Test-LogicTestIdentity {
         [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
 
     $issues = [System.Collections.Generic.List[string]]::new()
-    foreach ($file in $Path) {
+    foreach ($file in $files) {
         $text = [System.IO.File]::ReadAllText($file)
         if (-not (($tokenRegex -and $tokenRegex.IsMatch($text)) -or $identityParamRegex.IsMatch($text))) {
             continue
@@ -63,5 +65,5 @@ function Test-LogicTestIdentity {
     }
 
     Write-QualityGateReport -Subject logic-test-identity -Title Test-LogicTestIdentity -Issues $issues.ToArray() `
-        -Facts ([ordered]@{ FileCount = @($Path).Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
+        -Facts ([ordered]@{ FileCount = @($files).Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

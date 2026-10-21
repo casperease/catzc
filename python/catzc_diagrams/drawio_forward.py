@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d2a24bc38224
+#     with_body_sha: "10f670767545"
 # ---
 
 # cspell:ignore mxfile minimaps pnginfo XMLMATCH
@@ -223,17 +223,21 @@ def supports_drift(folder, adrs, lens):
 
 def diagrams(root):
     """The diagrams under a root, by stem, or the root itself when it names one: each `<article-folder>/.assets/<name>` with a
-    `<name>.drawio.png`, or a `<name>.drawio.yml` whose first put has not been run yet. The root may be a stem or a file of a pair."""
+    `<name>.drawio.png`, a `<name>.drawio.yml` whose first put has not been run yet, or a stem drawio.yml's carriers: puts in an article.
+    The root may be a stem or a file of a pair."""
     root = Path(root)
     for suffix in (SLIDE, SOURCE):
         if root.name.endswith(suffix):
             root = root.with_name(root.name[: -len(suffix)])
     root = root.resolve()
-    if any(root.with_name(root.name + suffix).is_file() for suffix in (SLIDE, SOURCE)):
+    # A diagram in the article carrier has no yml beside its png, and before its first put no png either: drawio.yml names it.
+    in_articles = {(REPO / stem).resolve() for stem, carrier in DEFAULTS.get("carriers", {}).items() if carrier == "article"}
+    if root in in_articles or any(root.with_name(root.name + suffix).is_file() for suffix in (SLIDE, SOURCE)):
         return [root]
     if not root.is_dir():
         return []
     found = {p.with_name(p.name[: -len(suffix)]) for suffix in (SLIDE, SOURCE) for p in root.rglob(f"*{suffix}") if p.parent.name == ".assets"}
+    found |= {stem for stem in in_articles if stem.is_relative_to(root)}
     return sorted(found)
 
 
@@ -252,12 +256,12 @@ def bulk(root, theme=None):
     # A diagram with a declaration is put from it, minimaps included; a diagram without one is only checked and reported.
     import declaration
 
-    declared = [f for f in folders if declaration.source_of(f).is_file()]
+    declared = [f for f in folders if declaration.declared(f)]
     folders = [f for f in folders if f not in declared]
     # Only the default theme is committed; another theme renders the declared diagrams on demand to out/, and nothing else.
     themed = theme is not None and theme != THEMES[0]
     if themed:
-        warnings += [f"W_THEME {rel(f)}: no {declaration.source_of(f).name}, so it renders in the default theme only" for f in folders]
+        warnings += [f"W_THEME {rel(f)}: no declaration in its carrier, so it renders in the default theme only" for f in folders]
         folders = []
     put = 0
     for f in declared:
@@ -299,7 +303,7 @@ def bulk(root, theme=None):
             drift = supports_drift(f, adrs, lens)
             if drift:
                 warnings.append(f"W_SUPPORTS {drift}")
-        warnings += undeclared_warnings(f, declaration.source_of(f).name)
+        warnings += undeclared_warnings(f, declaration.source_of(f).name if declaration.carrier_of(f) == "file" else f"`{declaration.FENCE}` block")
     counts.update(prepared=done, undeclared=len(folders))
     for w in warnings:
         print(f"warn {w}")

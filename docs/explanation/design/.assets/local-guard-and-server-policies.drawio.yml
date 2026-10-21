@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "7944145e72fa"
+#     with_body_sha: "94216c600225"
 # ---
 
 description:
@@ -129,7 +129,6 @@ content:
         by:
           - docs/drs/design/dora-explains.md
           - docs/drs/design/server-remote-integration.md
-          - docs/drs/flow/.assets/sync-point/diagram.drawio.yml
           - docs/drs/index.md
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - DDR-REMOTE-PULLREQUESTISINGRESS
