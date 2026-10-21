@@ -50,6 +50,9 @@ public static class NameCase
 
     public static bool IsInCase(string caseName, string name) => name != null && CaseOf(caseName).IsMatch(name);
 
+    // A normal-form name in one call: its segments joined by '.', each in the normal form, as FromNormal reads it.
+    public static bool IsNormal(string name, string normalForm) => name != null && name.Split('.').All(s => IsInCase(normalForm, s));
+
     // A name in a case as its namespace segments, each a list of lowercase words; null when the name is not in the case.
     public static string[][] Split(string caseName, string name)
     {

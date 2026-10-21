@@ -57,3 +57,21 @@ Above `public AdrCitationRewriter(IEnumerable codeRows, IEnumerable ruleRows,...
 treeFiles are the repository-relative paths of the files under docs/adr in the tree, before or after a folder moves;
 kinds are the record kinds the registry declares (AdrsConfig.Kinds), old and new codes alike.
 ```
+
+## comment:6
+
+Above `readonly string anchorPattern;`, written with `//`.
+
+```text
+The code grammar over the registered record kinds, the markers of a code
+([ADR-REPO-ADRCODE-PATHOFSEGMENTS](/docs/adr/repository/adr-code-language.md#rule-adr-repo-adrcode-pathofsegments)).
+```
+
+## comment:7
+
+Above `codeShape = new Regex("^" + upper + @"(?:-[A-Z][A-Z0-9]*)*$",...`, written with `//`.
+
+```text
+A new code may be a bare kind: a framing domain's code becomes its kind
+([ADR-REPO-ADRCODE-DOMAINSEGMENT](/docs/adr/repository/adr-code-language.md#rule-adr-repo-adrcode-domainsegment)).
+```

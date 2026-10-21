@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6e8fa604b8c5"
+    with_body_sha: b81a62b83571
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Show-Cats.Tests.ps1
     docs: "[Show-Cats.ps1.md](docs/references/pwsh/catzc-base-docs/Show-Cats.ps1.md)"
@@ -45,10 +45,11 @@ function Show-Cats {
                     break
                 }
                 $enforcers = Get-CatsRuleEnforcers
+                $root = (Get-Config -Config adrs).Root
                 foreach ($entry in $matched) {
                     Write-Message "$($entry.Code)  $($entry.Title)" -NoHeader -ForegroundColor Cyan
-                    Write-Message "  docs/adr/$($entry.Path)" -NoHeader
-                    $rules = @(Get-CatsAdrRules -AdrPath (Resolve-RepoPath "docs/adr/$($entry.Path)"))
+                    Write-Message "  $root/$($entry.Path)" -NoHeader
+                    $rules = @(Get-CatsAdrRules -AdrPath (Resolve-RepoPath "$root/$($entry.Path)"))
                     foreach ($rule in $rules) {
                         $summary = if ($rule.Summary.Length -gt 100) {
                             $rule.Summary.Substring(0, 97) + '...'

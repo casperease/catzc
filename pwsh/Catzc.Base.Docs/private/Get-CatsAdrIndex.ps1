@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fc98a1a35a2a
+    with_body_sha: "132df9dd97e2"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-CatsAdrIndex.Tests.ps1
     docs: "[Get-CatsAdrIndex.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-CatsAdrIndex.ps1.md)"
@@ -16,7 +16,7 @@ function Get-CatsAdrIndex {
     [OutputType([object[]])]
     [CmdletBinding()]
     param(
-        [string] $IndexPath = (Resolve-RepoPath 'docs/adr/index.md')
+        [string] $IndexPath = (Resolve-RepoPath "$((Get-Config -Config adrs).Root)/index.md")
     )
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrIndexCache')) {

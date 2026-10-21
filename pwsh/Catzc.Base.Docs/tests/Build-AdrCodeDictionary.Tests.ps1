@@ -2,11 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "300d438ba0e4"
+    with_body_sha: b48ce2d338df
   edges:
     code: pwsh/Catzc.Base.Docs/Build-AdrCodeDictionary.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
+      - ADR-REPO-ADRCODE-DOMAINSEGMENT
       - ADR-REPO-ADRCODE-NAMEDNOTNUMBERED
 ---
 #>
@@ -47,6 +48,32 @@ Describe 'Build-AdrCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-ADRCODE-NAMEDNO
         $words = @($text -split "`n" | Where-Object { $_ -match '^[a-z0-9]+$' })
         $words | Should -Be @('adr', 'gadget', 'hidden', 'spinner', 'spins', 'wi')
         $result.WordCount | Should -Be 6
+    }
+
+    It 'writes the rule headings of every registered kind' -Tag 'ADR-REPO-ADRCODE-DOMAINSEGMENT' {
+        $shared = $script:fixture
+        try {
+            $script:fixture = [Catzc.Base.Docs.AdrsConfig]::new([ordered]@{
+                    kinds   = [ordered]@{ ADR = [ordered]@{ name = 'Architecture Decision Record'; shared = $true }; GDR = [ordered]@{ name = 'Gadget Decision Record' } }
+                    domains = [ordered]@{
+                        gizmo = [ordered]@{
+                            kind = 'GDR'; role = 'axioms'; description = 'The gizmo axioms.'; depends_on = @(); stack = 'PRIN'; concern = @('build')
+                            rulesets = [ordered]@{ 'gizmo-lever' = [ordered]@{ external = 'GDR-LEVER' } }
+                        }
+                    }
+                })
+            [void][System.IO.Directory]::CreateDirectory((Join-Path $script:root 'docs/adr/gizmo'))
+            [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/adr/gizmo/gizmo-lever.md'), "# Lever`n`n## Rules: GDR-LEVER`n`n### Rule GDR-LEVER-TILTS`n")
+            Build-AdrCodeDictionary -Silent | Out-Null
+            $text = [System.IO.File]::ReadAllText((Join-Path $script:root '.cspell/adr-codes.txt'))
+            $words = @($text -split "`n" | Where-Object { $_ -match '^[a-z0-9]+$' })
+            foreach ($word in 'gdr', 'lever', 'tilts') {
+                $words | Should -Contain $word
+            }
+        }
+        finally {
+            $script:fixture = $shared
+        }
     }
 
     It 'leaves the file alone on a second run, and writes nothing under -DryRun' {

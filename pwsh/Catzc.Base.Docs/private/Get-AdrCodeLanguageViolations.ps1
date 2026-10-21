@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "45c5b2c2d515"
+    with_body_sha: "01490963d387"
   edges:
     docs: "[Get-AdrCodeLanguageViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-AdrCodeLanguageViolations.ps1.md)"
     cites:
@@ -77,15 +77,15 @@ function Get-AdrCodeLanguageViolations {
                     continue
                 }
                 if ($rule -cnotmatch "^$([regex]::Escape($code))-$segment\z") {
-                    "docs/adr/${relative}:$($i + 1): '### Rule $rule' is not $code plus one named segment (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)"
+                    "$($Adrs.Root)/${relative}:$($i + 1): '### Rule $rule' is not $code plus one named segment (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)"
                     continue
                 }
                 if ($codes.Contains($rule)) {
-                    "docs/adr/${relative}:$($i + 1): rule $rule shares its name with the ADR $rule (ADR-REPO-ADRCODE-ONESTRINGONEFACT)"
+                    "$($Adrs.Root)/${relative}:$($i + 1): rule $rule shares its name with the ADR $rule (ADR-REPO-ADRCODE-ONESTRINGONEFACT)"
                 }
             }
             if ($numbered -gt 0) {
-                "docs/adr/${relative}: $numbered numbered rule heading(s); a rule is named, never numbered (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)"
+                "$($Adrs.Root)/${relative}: $numbered numbered rule heading(s); a rule is named, never numbered (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)"
             }
         }
     }

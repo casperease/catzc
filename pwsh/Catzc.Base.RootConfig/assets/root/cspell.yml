@@ -21,9 +21,19 @@ ignorePaths:
   # ([ADR-AZ-DATAMOD-STATICRESOURCENAMES](/docs/adr/azure/azure-data-model.md#rule-adr-az-datamod-staticresourcenames)), so the spelling gate and the editor
   # both skip them here, once.
   - infrastructure/templates/**/configuration/**
-  # IDE-only C# project (Catzc.Types.csproj) MSBuild output — transient, gitignored, never authored.
-  - obj/**
-  - bin/**
+  # MSBuild output of the IDE-only C# project and the hooks — transient, gitignored, never authored.
+  - "**/obj/**"
+  - "**/bin/**"
+  # The output directory, the unordered track and the editor's notes are never the repository's vocabulary;
+  # READMEs, the decision-record index and the glossary are generated from sources that are checked
+  # ([ADR-REPO-README-AUTHOREDSOURCES](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme-authoredsources)).
+  # Test-Spelling and the terminology corpus both read this one list.
+  - out/**
+  - docs/notes/**
+  - .unordered/**
+  - "**/README.md"
+  - docs/adr/index.md
+  - docs/adr/glossary.md
   - cspell.yml
   - "**/*.dll"
   - "**/*.pdb"

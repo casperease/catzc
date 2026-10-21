@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7bd62cb8edd1"
+    with_body_sha: a6f0d8432a56
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-GlossaryDefinitionViolations.Tests.ps1
     docs: "[Get-GlossaryDefinitionViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-GlossaryDefinitionViolations.ps1.md)"
@@ -18,7 +18,7 @@ function Get-GlossaryDefinitionViolations {
         [AllowEmptyCollection()]
         [Catzc.Base.Docs.GlossaryEntry[]] $Entry = (Get-Glossary),
 
-        [string] $IndexPath = (Resolve-RepoPath 'docs/adr/index.md')
+        [string] $IndexPath = (Resolve-RepoPath "$((Get-Config -Config adrs).Root)/index.md")
     )
 
     $statements = Get-GlossaryRuleStatements -IndexPath $IndexPath

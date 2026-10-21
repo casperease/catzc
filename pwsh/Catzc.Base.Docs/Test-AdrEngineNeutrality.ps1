@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "495dd1a185af"
+    with_body_sha: c8242256a7b2
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Test-AdrEngineNeutrality.Tests.ps1
     docs: "[Test-AdrEngineNeutrality.ps1.md](docs/references/pwsh/catzc-base-docs/Test-AdrEngineNeutrality.ps1.md)"
@@ -23,7 +23,7 @@ function Test-AdrEngineNeutrality {
 
     $adrs = Get-Config -Config adrs
     $settings = (Get-Config -Config adr-checks).engine_neutrality
-    $index = Get-AdrFileIndex @($adrs.RuleSets) -AdrRoot (Resolve-RepoPath 'docs/adr')
+    $index = Get-AdrFileIndex @($adrs.RuleSets) -AdrRoot (Resolve-RepoPath $adrs.Root)
     $issues = [System.Collections.Generic.List[string]]::new()
 
     $ruleSetCount = 0
@@ -51,7 +51,7 @@ function Test-AdrEngineNeutrality {
                 foreach ($token in $settings.tokens) {
                     $found = $token.Find($summaryLine.Text)
                     if ($found.Count -gt 0) {
-                        $issues.Add("docs/adr/${relative}:$($summaryLine.Line): $($summaryLine.Rule): $($token.name) — $(($found | ForEach-Object { "'$_'" }) -join ', ')")
+                        $issues.Add("$($adrs.Root)/${relative}:$($summaryLine.Line): $($summaryLine.Rule): $($token.name) — $(($found | ForEach-Object { "'$_'" }) -join ', ')")
                     }
                 }
             }

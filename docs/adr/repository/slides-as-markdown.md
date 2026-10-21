@@ -18,10 +18,10 @@ A **pattern** is one file, `patterns/<name>.html` in the slides kit, the `assets
 track: one section in the slide format whose placeholders name its fields and say which are required. A slide names its pattern in its head.
 Adding a layout is a new pattern file and one line in the kit's `STYLE.md`, never a change to the renderer
 ([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig),
-[PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)). What
-every pattern shares, the dark tones, the faces, the type scale, the footer and the output folder, is declared once in the kit's
-`slides.yml` ([PDR-CONFIG-DEFAULTDECLAREDONCE](../principles/configure-not-program.md#rule-pdr-config-defaultdeclaredonce)). A
-pattern is dark; no light background exists.
+[PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE](../principles/configure-not-program.md#rule-pdr-config-newinstanceisconfigchange)). What every
+pattern shares, the dark tones, the faces, the type scale, the footer and the output folder, is declared once in the kit's `slides.yml`
+([PDR-CONFIG-DEFAULTDECLAREDONCE](../principles/configure-not-program.md#rule-pdr-config-defaultdeclaredonce)). A pattern is dark; no light
+background exists.
 
 - [Patterns are configuration](#patterns-are-configuration)
 
@@ -45,11 +45,10 @@ is the gate over these checks, one file at a time.
 ### Rule ADR-REPO-SLIDES-DECKISPROJECTION
 
 The published deck is a projection of the slide files. The files are the deck's one living version
-([PDR-ONELIVE-ONEVERSION](../principles/one-living-version.md#rule-pdr-onelive-oneversion)), and no state of the deck lives
-outside them
-([PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../principles/everything-as-code.md#rule-pdr-eac-nostateoutsideversioncontrol)): the deck
-is replaced whole on publish, and an edit made in the deck's own editor is carried back into the slide file or discarded. No slide has a
-verify record of its own, because rule 4 derives what such a record would hold.
+([PDR-ONELIVE-ONEVERSION](../principles/one-living-version.md#rule-pdr-onelive-oneversion)), and no state of the deck lives outside them
+([PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../principles/everything-as-code.md#rule-pdr-eac-nostateoutsideversioncontrol)): the deck is
+replaced whole on publish, and an edit made in the deck's own editor is carried back into the slide file or discarded. No slide has a verify
+record of its own, because rule 4 derives what such a record would hold.
 
 - [One source of truth for a deck](#one-source-of-truth-for-a-deck)
 
@@ -69,8 +68,8 @@ command repeated over every diagram folder found under `docs/**/.assets/**`, so 
 declaration (or, for a folder without one, the model embedded in its `diagram.drawio.png`) and the repository's maps. The articles and
 slides that embed the png are not inputs: the build finds every one of them, wherever it sits, and holds each one's Supports line against
 the declaration's ADR codes and lens. No step of it asks a session or a model to decide anything
-([PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../principles/everything-as-code.md#rule-pdr-eac-nostateoutsideversioncontrol)). A raster
-is never drawn by hand or by the draw.io CLI: a session edits a model, and the kit renders it.
+([PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL](../principles/everything-as-code.md#rule-pdr-eac-nostateoutsideversioncontrol)). A raster is never
+drawn by hand or by the draw.io CLI: a session edits a model, and the kit renders it.
 
 - [One command renders every diagram](#one-command-renders-every-diagram)
 
@@ -82,9 +81,9 @@ codes, the lens, the kind, the flow and the one relation its flow edges mean, th
 covers, the groups, which may nest, the glyphs with their kind and holder, the edges, the markers, the chips, the legend and the three
 minimaps. `layout:` says where a named cell sits. Every vocabulary is closed and declared once, in the kit's `drawio.yml` (the lenses,
 kinds, themes, minimap ids and span words) or in its glyph library (the glyph and edge kinds), and a value outside it fails validation with
-the list the author may choose from ([PDR-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-pdr-pokayoke-detectearliest)).
-A cell without a layout entry is placed by the grid; a cell with one keeps it; a cell whose id is not in the content is removed. A diagram
-names no article: articles and slides embed its png, any number of them, and the build finds them by what embeds it.
+the list the author may choose from ([PDR-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-pdr-pokayoke-detectearliest)). A cell
+without a layout entry is placed by the grid; a cell with one keeps it; a cell whose id is not in the content is removed. A diagram names no
+article: articles and slides embed its png, any number of them, and the build finds them by what embeds it.
 
 - [The declaration is the source](#the-declaration-is-the-source)
 
@@ -130,9 +129,11 @@ A diagram shows exactly three minimaps: the ones its declaration names, or its k
 each one of the eight minimap ids. A minimap's data is computed, never drawn by hand: `Catzc.Base.Maps` projects the diagram's subject, the
 ADR codes in `about.adrs` and the files that cite them, onto the minimap's axes with the data command `maps.yml` names for its id, and every
 lit cell carries its reason. The diagram's declaration lists each shown minimap's lit cells, each with the files and rule codes that lit it,
-under `content.minimaps`, written from the computed data by `declaration.py minimaps`. The data is contract JSON
-([ADR-REPO-CONTRACT](api-contracts.md)), written to `out/minimaps/` by `Build-Diagrams` and `Test-Diagrams`; the kit validates it and only
-draws it, and no minimap file lives in a diagram folder. A diagram whose data is missing does not put.
+under `content.minimaps`, written from the computed data by `declaration.py minimaps`. A drawn minimap lights only the cells its declaration
+lists: `Write-DiagramMinimapData` drops and reports any other lit cell, since a lit cell nobody declared is unverifiable, and keeps the
+whole computed data beside it for that writer. The data is contract JSON ([ADR-REPO-CONTRACT](api-contracts.md)), written to `out/minimaps/`
+by `Build-Diagrams` and `Test-Diagrams`; the kit validates it and only draws it, and no minimap file lives in a diagram folder. A diagram
+whose data is missing does not put.
 
 - [The declaration is the source](#the-declaration-is-the-source)
 

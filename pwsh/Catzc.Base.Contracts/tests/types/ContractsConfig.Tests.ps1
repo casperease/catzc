@@ -89,9 +89,7 @@ Describe 'ContractsConfig (shipped contracts.yml)' -Tag 'L1', 'integrity' {
     It 'names a target root only for a module folder that exists, by the module''s normal form' -Tag 'ADR-REPO-CONTRACT-LAYOUT' {
         $normalForm = (Get-Config -Config languages).naming_normal_form
         foreach ($module in (Get-Config -Config contracts).target_roots.Keys) {
-            foreach ($segment in $module.Split('.')) {
-                [Catzc.Base.Objects.NameCase]::IsInCase($normalForm, $segment) | Should -BeTrue -Because "'$module' keys a target root"
-            }
+            [Catzc.Base.Objects.NameCase]::IsNormal($module, $normalForm) | Should -BeTrue -Because "'$module' keys a target root"
             Join-Path (Get-CatzcModulesRoot) ([Catzc.Base.Objects.NameCase]::FromNormal($module, 'pascal-dotted', $normalForm)) | Should -Exist
         }
     }

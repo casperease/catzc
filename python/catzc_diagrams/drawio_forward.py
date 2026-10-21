@@ -133,11 +133,22 @@ def folder_role(folder):
     return role
 
 
+def legend_model():
+    """The kit's glyph library as a legend folder's png carries it: glyphs.xml without its comments, its tokens painted in the
+    default theme."""
+    lines = (KIT / "assets" / "glyphs.xml").read_text(encoding="utf-8").splitlines()
+    return paint("\n".join(line for line in lines if not line.lstrip().startswith("<!--")).strip())
+
+
+def legend_stale(folder):
+    """Whether a legend folder's png carries another model than the painted glyph library: a kit change left it stale."""
+    return decode(mxfile_chunk(Image.open(Path(folder) / SLIDE))).strip() != legend_model().strip()
+
+
 def put_legend(folder):
     """Render a legend folder's png from the kit's glyph library, its tokens painted in the default theme first, as every put paints
     them; the png carries the painted model, so draw.io opens what the raster shows."""
-    lines = (KIT / "assets" / "glyphs.xml").read_text(encoding="utf-8").splitlines()
-    model = paint("\n".join(line for line in lines if not line.lstrip().startswith("<!--")).strip())
+    model = legend_model()
     img = render(ET.fromstring(model)).convert("RGB")
     info = PngInfo()
     info.add_text("mxfile", encode(model, "Page-1"))

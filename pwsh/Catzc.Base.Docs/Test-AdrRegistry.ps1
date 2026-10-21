@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "313d85cf5927"
+    with_body_sha: "539bcf4a6f5a"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Test-AdrRegistry.Tests.ps1
     docs: "[Test-AdrRegistry.ps1.md](docs/references/pwsh/catzc-base-docs/Test-AdrRegistry.ps1.md)"
@@ -24,7 +24,7 @@ function Test-AdrRegistry {
     $adrs = Get-Config -Config adrs
     $checks = Get-Config -Config adr-checks
     $ruleSets = @($adrs.RuleSets)
-    $index = Get-AdrFileIndex $ruleSets -AdrRoot (Resolve-RepoPath 'docs/adr')
+    $index = Get-AdrFileIndex $ruleSets -AdrRoot (Resolve-RepoPath $adrs.Root)
     $issues = [System.Collections.Generic.List[string]]::new()
 
     $rulesHeadingByPath = @{}
@@ -43,15 +43,15 @@ function Test-AdrRegistry {
                 $index.ByKey[$key]
             })
         if ($files.Count -eq 0) {
-            $issues.Add("$($ruleSet.External): no ADR file docs/adr/$($ruleSet.Folder)/**/$($ruleSet.Slug).md")
+            $issues.Add("$($ruleSet.External): no ADR file $($adrs.Root)/$($ruleSet.Folder)/**/$($ruleSet.Slug).md")
             continue
         }
         if ($files.Count -gt 1) {
-            $issues.Add("$($ruleSet.External): $($files.Count) ADR files named $($ruleSet.Slug).md under docs/adr/$($ruleSet.Folder)/ —$(($files | ForEach-Object { "docs/adr/$_" }) -join ', ')")
+            $issues.Add("$($ruleSet.External): $($files.Count) ADR files named $($ruleSet.Slug).md under $($adrs.Root)/$($ruleSet.Folder)/ —$(($files | ForEach-Object { "$($adrs.Root)/$_" }) -join ', ')")
             continue
         }
         if ($rulesHeadingByPath[$files[0]] -cne $ruleSet.External) {
-            $issues.Add("docs/adr/$($files[0]): must head its rule registry '## Rules: $($ruleSet.External)' (the adrs.yml external code)")
+            $issues.Add("$($adrs.Root)/$($files[0]): must head its rule registry '## Rules: $($ruleSet.External)' (the adrs.yml external code)")
         }
     }
 
@@ -65,7 +65,7 @@ function Test-AdrRegistry {
     foreach ($relative in @($rulesHeadingByPath.Keys | Sort-Object)) {
         $key = $keyOfPath[$relative]
         if (-not $registeredKeys.Contains($key)) {
-            $issues.Add("docs/adr/${relative}: declares '## Rules: $($rulesHeadingByPath[$relative])' but no adrs.yml rule set registers it")
+            $issues.Add("$($adrs.Root)/${relative}: declares '## Rules: $($rulesHeadingByPath[$relative])' but no adrs.yml rule set registers it")
         }
     }
 

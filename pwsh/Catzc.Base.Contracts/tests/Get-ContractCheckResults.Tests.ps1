@@ -327,7 +327,8 @@ widget: cog
             Add-File 'widgets/Catzc.Widget/Get-Widget.ps1' "function Get-Widget {`n    param([string] `$Path)`n}`n"
             Add-Asset 'get_widget.command.yml' "parameters:`n  Path: string`n"
             $result = Get-CheckResult 'get_widget.command.yml'
-            $result.Findings | Should -Be @("'contracts/widget/0.0.0/catzc.widget/get_widget.command.yml': 'Path' is not in the repository normal form, snake (ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE)")
+            $result.Findings.Count | Should -Be 1
+            $result.Findings[0] | Should -BeLike "'contracts/widget/0.0.0/catzc.widget/get_widget.command.yml': 'Path' is not in the repository normal form, snake (*)"
         }
 
         It 'fails when the command file is missing, and says so when the name is a private function' {

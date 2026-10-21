@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5a06b67b2ea3"
+    with_body_sha: "314931937db1"
   edges:
     docs: "[AdrsConfig.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/types/AdrsConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/types/AdrsConfig.cs
@@ -181,7 +181,27 @@ Describe 'AdrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     It 'rejects an unknown top-level key' {
         $raw = New-ValidRaw
         $raw['widget'] = 1
-        { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: kinds, domains)*"
+        { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: root, kinds, domains)*"
+    }
+
+    It 'keeps every decision record under docs/adr when the registry names no root' {
+        [Catzc.Base.Docs.AdrsConfig]::new((New-ValidRaw)).Root | Should -Be 'docs/adr'
+    }
+
+    It 'reads the root the registry names' {
+        $raw = New-ValidRaw
+        $raw['root'] = 'docs/widgets'
+        [Catzc.Base.Docs.AdrsConfig]::new($raw).Root | Should -Be 'docs/widgets'
+    }
+
+    It 'rejects a root of <Name>' -ForEach @(
+        @{ Name = 'a parent segment'; Root = 'docs/../widgets' }
+        @{ Name = 'a trailing slash'; Root = 'docs/widgets/' }
+        @{ Name = 'a rooted path'; Root = '/docs/widgets' }
+    ) {
+        $raw = New-ValidRaw
+        $raw['root'] = $Root
+        { [Catzc.Base.Docs.AdrsConfig]::new($raw) } | Should -Throw "*root '$Root' must be*"
     }
 
     Context 'value-chain stack and concerns' -Tag 'DDR-TRACK-VALUECHAINSTACK', 'DDR-TRACK-VALUECHAINCONCERN' {

@@ -1435,9 +1435,10 @@ def get(model, kind=None):
     return declaration
 
 
-def minimap_data(folder):
+def minimap_data(folder, computed=False):
     """A folder's three minimaps as Catzc.Base.Maps computed them, in order: out/minimaps/<folder>/minimaps.json names the ids and
-    <id>.json holds each, checked against the minimap contract. Missing data fails, naming the commands that write it."""
+    <id>.json holds each, lit only where the declaration lists a cell, checked against the minimap contract; computed reads the whole
+    data from computed/<id>.json instead. Missing data fails, naming the commands that write it."""
     folder = Path(folder).resolve()
     repo = KIT.parents[1]
     rel = folder.relative_to(repo).as_posix() if folder.is_relative_to(repo) else folder.name
@@ -1445,7 +1446,8 @@ def minimap_data(folder):
     index = root / "minimaps.json"
     if not index.is_file():
         raise DeclarationError(f"{rel}: no minimap data in out/minimaps/{rel}; Build-Diagrams or Test-Diagrams computes it (Write-DiagramMinimapData)")
-    return {view: minimap_contract.load_minimap(root / f"{view}.json") for view in json.loads(index.read_text(encoding="utf-8"))}
+    views = root / "computed" if computed else root
+    return {view: minimap_contract.load_minimap(views / f"{view}.json") for view in json.loads(index.read_text(encoding="utf-8"))}
 
 
 def placement(data):
@@ -1468,7 +1470,7 @@ def declare_minimaps(folder):
     key changes: the source is written back as it was read, never through dump, which leaves out what a row or lane expands to."""
     source = Path(folder) / SOURCE
     raw = yaml.safe_load(source.read_text(encoding="utf-8")) or {}
-    raw.setdefault("content", {})["minimaps"] = placement(minimap_data(folder))
+    raw.setdefault("content", {})["minimaps"] = placement(minimap_data(folder, computed=True))
     normalise(raw, where=str(source))
     source.write_text(yaml.safe_dump(raw, sort_keys=False, allow_unicode=True, width=120), encoding="utf-8")
     return source
@@ -1554,8 +1556,15 @@ def sync(folder, base):
 def main():
     args = sys.argv[1:]
     if len(args) >= 2 and args[0] == "check":  # one JSON line per folder: conflicted or drifted cells, stale minimaps, or the error
+        import drawio_forward
+
         for folder in args[1:]:
             try:
+                # A legend folder has no source: its png is checked against the painted glyph library, stale when a kit change moved it.
+                if drawio_forward.folder_role(folder) == "legend":
+                    stale = ["legend"] if drawio_forward.legend_stale(folder) else []
+                    print(json.dumps({"folder": folder, "conflict": [], "drift": [], "stale": stale}))
+                    continue
                 both = conflict(folder, committed(folder))
                 cells, stale = ([], []) if both else drift(folder)
                 print(json.dumps({"folder": folder, "conflict": both, "drift": cells, "stale": stale}))

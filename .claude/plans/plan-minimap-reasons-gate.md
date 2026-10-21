@@ -30,18 +30,18 @@ yet, so every one goes dark when the gate turns on; that is why the declared cel
 
 ## Open steps
 
-- [ ] Now that the record-kind rewrite has landed (it changed the codes in diagram subtitles), re-render the stale minimaps (the user,
-      2026-10-21): `Build-Diagrams -Stale`, then `Test-Diagrams` over the tree, and a few re-rendered pngs Read against their yml (check:
-      `Test-Diagrams` reports 0 issues and 0 stale minimaps).
-- [ ] `pwsh/Catzc.Base.Slides/private/Write-DiagramMinimapData.ps1`, last: drop a drawn cell the yml does not list, and report it (check:
-      `Invoke-TestFile` on its test file with a widget fixture whose yml omits one cell, and `Build-Diagrams -Path` on one folder draws
-      every cell).
+- [ ] The gate is on and drops 95 computed lit cells in 54 folders whose `diagram.drawio.yml` predates them (the 54 `Test-Diagrams` names
+      stale, mostly `docs/explanation/flow/.assets/` and `docs/references/pwsh/.assets/`): re-declare each folder with
+      `declaration.py minimaps <folder>`, one folder per call, read the new cells against the drawing, then `Build-Diagrams -Stale` (check:
+      `Test-Diagrams` over the tree reports 0 issues, 0 stale and no Write-DiagramMinimapData warning). The same pass drops declared cells
+      the data no longer lights, such as `ado-pipelines/pipeline-yaml` in `build-diagrams-runs-five-stages`.
 
 ## Open questions
 
-- Should a script that compares `git show` output in Python name `encoding="utf-8"` by default, through one line in the `git-readonly`
-  capability? A Windows default code page turned 25 clean ymls into false losses during the minimap move. Recommendation: yes, a merged
-  clause, no new line (catzc-61, 2026-10-21).
+- Should a session learning in `.claude/learnings/` be left out of a minimap's subject? `.claude/learnings/learned6e9249.md` cites ADR codes
+  and so lights code-locations cells such as `.claude/.claude/learnings` (track, module, folder), and every new or pruned learning then
+  makes the declared cells stale. Recommendation: yes, one exclusion beside the subject's other filters, declared once in `maps.yml`
+  (catzc-1c, 2026-10-21).
 
 - Should `Test-Diagrams -Path` accept a legend-role folder (`docs/explanation/.assets/glyphs`), checking that its png carries the painted
   `glyphs.xml` model, so the glyph library is gated like every other diagram rather than by a hand comparison? Recommendation: yes, one

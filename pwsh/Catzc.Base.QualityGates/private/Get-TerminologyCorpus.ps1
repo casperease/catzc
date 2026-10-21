@@ -2,11 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f18bdd244e85
+    with_body_sha: "6759e5bf5651"
   edges:
     docs: "[Get-TerminologyCorpus.ps1.md](docs/references/pwsh/catzc-base-quality-gates/private/Get-TerminologyCorpus.ps1.md)"
     cites:
-      - ADR-AZ-DATAMOD
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
 ---
 #>
@@ -29,23 +28,15 @@ function Get-TerminologyCorpus {
         [string[]] @('.gitignore', '.gitattributes', '.markdownlintignore', '.prettierignore'),
         [System.StringComparer]::OrdinalIgnoreCase)
 
-    # Mirror Test-Spelling's content scope: skip vendor, generated, and output trees.
-    $excludeRegex = @(
-        '[\\/]\.git[\\/]'
-        '[\\/]\.vendor[\\/]'
-        '[\\/]assets[\\/]scripts[\\/]'
-        '[\\/]\.compiled[\\/]'
-        '[\\/]obj[\\/]'
-        '[\\/]bin[\\/]'
-        '[\\/]out[\\/]'
-        '[\\/]docs[\\/]notes[\\/]'
-        '[\\/]\.unordered[\\/]'
-    ) -join '|'
-
-    $configurationRegex = @(
-        '^[\\/]configuration[\\/]'
-        '^[\\/]infrastructure[\\/]templates[\\/].+[\\/]configuration[\\/]'
-    ) -join '|'
+    # Test-Spelling's one scope: the ignorePaths of the root cspell.yml, read as cspell reads them, where a glob with no '/' matches a name at any depth.
+    $ignored = @(foreach ($glob in ([System.IO.File]::ReadAllText((Join-Path $Root 'cspell.yml')) | ConvertFrom-Yaml).ignorePaths) {
+            [Catzc.Base.Globs.GlobPattern]::new($(if ($glob.Contains('/')) {
+                        $glob
+                    }
+                    else {
+                        "**/$glob"
+                    }))
+        })
 
     $excludeSet = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
     foreach ($e in $Exclude) {
@@ -59,13 +50,8 @@ function Get-TerminologyCorpus {
             -not $names.Contains([System.IO.Path]::GetFileName($path))) {
             continue
         }
-        if ($path -match $excludeRegex) {
-            continue
-        }
-        if ($path.Substring($Root.Length) -match $configurationRegex) {
-            continue
-        }
-        if ([System.IO.Path]::GetFileName($path) -eq 'cspell.yml') {
+        $relative = $path.Substring($Root.Length).TrimStart('\', '/').Replace('\', '/')
+        if (@($ignored | Where-Object { $_.Matches($relative) }).Count) {
             continue
         }
         if ($excludeSet.Contains($path)) {

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "442ae2e252d7"
+    with_body_sha: b01e07b25e1f
   edges:
     test: pwsh/Catzc.Base.Docs/tests/types/AdrsConfig.Tests.ps1
     docs: "[AdrsConfig.cs.md](docs/references/pwsh/catzc-base-docs/types/AdrsConfig.cs.md)"
@@ -61,7 +61,13 @@ public sealed class AdrsConfig
     // The long name of a registered kind (Thesis Decision Record), or null for one not registered.
     public string KindName(string kind) => kind != null && kindNames.TryGetValue(kind, out string name) ? name : null;
 
-    private static readonly string[] AllowedKeys = { "kinds", "domains" };
+    private static readonly string[] AllowedKeys = { "root", "kinds", "domains" };
+
+    // The repository-relative folder that holds every decision record when adrs.yml names none.
+    public const string DefaultRoot = "docs/adr";
+
+    // The repository-relative folder that holds every decision record, '/'-separated, with no trailing '/'.
+    public string Root { get; }
     private static readonly string[] AllowedKindKeys = { "name", "shared" };
     private static readonly string[] AllowedDomainKeys = { "kind", "code", "role", "description", "depends_on", "stack", "concern", "folder", "rulesets" };
     private static readonly Regex FolderRe = new Regex("^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$", RegexOptions.Compiled);
@@ -129,6 +135,13 @@ public sealed class AdrsConfig
         Regex externalRe = new Regex("^" + new AdrCodeForm(defaultSegments).Cited + "$", RegexOptions.Compiled);
         Dictionary<string, string> kindOwner = new Dictionary<string, string>(StringComparer.Ordinal);
 
+        string root = (raw != null && raw.Contains("root") && raw["root"] != null) ? raw["root"].ToString() : DefaultRoot;
+        if (!FolderRe.IsMatch(root) || Array.IndexOf(root.Split('/'), "..") >= 0 || Array.IndexOf(root.Split('/'), ".") >= 0)
+        {
+            errors.Add(string.Format("root '{0}' must be a '/'-separated repository-relative folder, with no '.' or '..' segment", root));
+        }
+        Root = root;
+
         IDictionary domainsMap = (raw != null && raw.Contains("domains")) ? raw["domains"] as IDictionary : null;
         if (domainsMap == null || domainsMap.Count == 0)
         {
@@ -193,7 +206,7 @@ public sealed class AdrsConfig
             string folder = d.Contains("folder") && d["folder"] != null ? d["folder"].ToString() : DefaultFolder(name);
             if (!FolderRe.IsMatch(folder) || Array.IndexOf(folder.Split('/'), "..") >= 0 || Array.IndexOf(folder.Split('/'), ".") >= 0)
             {
-                errors.Add(string.Format("domain '{0}': folder '{1}' must be a '/'-separated path under docs/adr, with no '.' or '..' segment", name, folder));
+                errors.Add(string.Format("domain '{0}': folder '{1}' must be a '/'-separated path under the root, with no '.' or '..' segment", name, folder));
             }
             else if (seenFolders.ContainsKey(folder))
             {

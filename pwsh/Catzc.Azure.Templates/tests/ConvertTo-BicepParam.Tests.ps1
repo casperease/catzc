@@ -38,7 +38,8 @@ Describe 'ConvertTo-BicepParam — every shipped yml slot renders as bicep forma
         $rendered = [ordered]@{}
         $templates = Get-BicepTemplates
         foreach ($template in $templates) {
-            foreach ($slot in $template.slots) {
+            # A bicepparam slot is read by the Bicep compiler, never rendered here.
+            foreach ($slot in @($template.slots | Where-Object format -eq ([Catzc.Azure.Templates.BicepSlot]::YmlFormat))) {
                 $descriptor = Get-BicepTemplateConfiguration $template.name $slot.environment -Slot $slot.slot -Customer $slot.customer
                 $descriptor.ParametersFile.parameters = InModuleScope Catzc.Azure.Templates -Parameters @{ Parameters = $descriptor.ParametersFile.parameters } {
                     param($Parameters)

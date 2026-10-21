@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "91df61e85f95"
+    with_body_sha: d03d486d3bc8
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-GlossaryAnchorViolations.Tests.ps1
     docs: "[Get-GlossaryAnchorViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-GlossaryAnchorViolations.ps1.md)"
@@ -18,7 +18,7 @@ function Get-GlossaryAnchorViolations {
         [AllowEmptyCollection()]
         [Catzc.Base.Docs.GlossaryEntry[]] $Entry = (Get-Glossary),
 
-        [string] $IndexPath = (Resolve-RepoPath 'docs/adr/index.md')
+        [string] $IndexPath = (Resolve-RepoPath "$((Get-Config -Config adrs).Root)/index.md")
     )
 
     $statements = Get-GlossaryRuleStatements -IndexPath $IndexPath

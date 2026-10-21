@@ -21,7 +21,7 @@ function Get-ContractNormalFormFindings {
     )
 
     foreach ($name in $Contract.Names) {
-        if (-not [Catzc.Base.Objects.NameCase]::IsInCase($NormalForm, $name)) {
+        if (-not [Catzc.Base.Objects.NameCase]::IsNormal($name, $NormalForm)) {
             "'$name' is not in the repository normal form, $NormalForm (ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE)"
         }
     }

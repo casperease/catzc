@@ -196,7 +196,7 @@ Describe 'Test-AdrRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
                 "docs/adr/widget/widget-one.md:5: '### Rule ADR-WI-ONE-SPINS-FREELY' is not ADR-WI-ONE plus one named segment (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)"
                 "docs/adr/widget/widget-one.md:7: '### Rule ADR-GA-ONE-SPINS' is not ADR-WI-ONE plus one named segment (ADR-REPO-ADRCODE-NAMEDNOTNUMBERED)"
                 'docs/adr/widget/widget-one.md:9: rule ADR-WI-ONE-TWO shares its name with the ADR ADR-WI-ONE-TWO (ADR-REPO-ADRCODE-ONESTRINGONEFACT)'
-                "ADR-GIZMO (widget): does not start with its domain's segment, ADR-WI- (ADR-REPO-ADRCODE-DOMAINSEGMENT)"
+                "ADR-GIZMO (widget): does not start with its domain's prefix, ADR-WI- (ADR-REPO-ADRCODE-DOMAINSEGMENT)"
             )
         }
 

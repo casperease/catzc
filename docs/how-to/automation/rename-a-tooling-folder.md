@@ -22,6 +22,7 @@ the rename is prepared first, applied in one burst, and rolled back whole when t
 1. Move the files on disk: the command's file, its test file and its reference pages, or the folder.
 2. Edit every listed file, one file at a time, replacing the old spelling with the new.
 3. Run one fresh full import, `. ./importer.ps1` in a new `pwsh -NoProfile`, before any other command, then the renamed command's tests.
+   When the move takes a Python workspace member, delete the gitignored `uv.lock` before `uv sync`, since the lock pins each member's path.
 
 ## Roll back whole
 

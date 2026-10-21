@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "309e122fb3c7"
+    with_body_sha: c19c5bdc53ed
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1
     docs: "[Build-Glossary.ps1.md](docs/references/pwsh/catzc-base-docs/Build-Glossary.ps1.md)"
@@ -16,7 +16,7 @@ function Build-Glossary {
     [CmdletBinding()]
     [OutputType([string], [pscustomobject])]
     param(
-        [string] $Path = (Resolve-RepoPath 'docs/adr/glossary.md'),
+        [string] $Path = (Resolve-RepoPath "$((Get-Config -Config adrs).Root)/glossary.md"),
 
         [switch] $DryRun,
 
@@ -47,8 +47,9 @@ function Build-Glossary {
         }
     }
 
+    $root = (Get-Config -Config adrs).Root
     $lines = [System.Collections.Generic.List[string]]::new()
-    $lines.Add('# docs/adr/glossary.md')
+    $lines.Add("# $root/glossary.md")
     $lines.Add('')
     $lines.Add('Glossary: the controlled vocabulary')
     $lines.Add('')
@@ -78,10 +79,10 @@ function Build-Glossary {
             }
             $lines.Add('')
 
-            # The defining rule as a markdown link relative to docs/adr/ (the citation map's destination is repo-rooted).
+            # The defining rule as a markdown link relative to the root (the citation map's destination is repo-rooted).
             $destination = $citations.Destination($concept.defined_by)
             $definedBy = if ($destination) {
-                "[$($concept.defined_by)]($($destination -replace '^/docs/adr/', ''))"
+                "[$($concept.defined_by)]($($destination -replace "^/$([regex]::Escape($root))/", ''))"
             }
             else {
                 "``$($concept.defined_by)``"

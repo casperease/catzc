@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "90399a1e1434"
+    with_body_sha: "53d368928e5e"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-AdrCitationMap.Tests.ps1
     docs: "[Get-AdrCitationMap.ps1.md](docs/references/pwsh/catzc-base-docs/Get-AdrCitationMap.ps1.md)"
@@ -29,7 +29,8 @@ function Get-AdrCitationMap {
         return $script:adrCitationMapCache[$root]
     }
 
-    $adrRoot = Join-Path $root 'docs/adr'
+    $records = (Get-Config -Config adrs).Root
+    $adrRoot = Join-Path $root $records
     $indexPath = Join-Path $adrRoot 'index.md'
     Assert-PathExist $indexPath -PathType Leaf
 
@@ -37,7 +38,7 @@ function Get-AdrCitationMap {
     foreach ($row in (Get-CatsAdrIndex -IndexPath $indexPath)) {
         $adrFile = Join-Path $adrRoot $row.Path
         $entries[$row.Code] = @{
-            path  = 'docs/adr/' + ($row.Path -replace '\\', '/')
+            path  = "$records/" + ($row.Path -replace '\\', '/')
             rules = [string[]] @(Get-CatsAdrRules -AdrPath $adrFile | ForEach-Object Id)
         }
     }

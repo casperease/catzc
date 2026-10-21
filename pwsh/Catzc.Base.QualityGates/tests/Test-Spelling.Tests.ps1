@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "586b75c3a263"
+    with_body_sha: "21b4f91ffb77"
   edges:
     docs: "[Test-Spelling.Tests.ps1.md](docs/references/pwsh/catzc-base-quality-gates/tests/Test-Spelling.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-Spelling.ps1
@@ -101,18 +101,10 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'passes the content-scope excludes to cspell as --exclude globs' {
+    It 'passes no --exclude by default, so cspell.yml ignorePaths is the whole scope' {
         Test-Spelling -OutputFolder $script:reportBase | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter {
-            $Command -match "--exclude 'out/\*\*'" -and $Command -match "--exclude 'docs/notes/\*\*'"
-        }
-    }
-
-    It 'excludes the configuration slots by the infrastructure track''s configs kind, not a fixed path' {
-        Mock Get-TrackPlace -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Track -eq 'infrastructure' -and $TrackKind -eq 'configs' } { 'gadgets/*/settings' }
-        Test-Spelling -OutputFolder $script:reportBase | Out-Null
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter {
-            $Command -match ([regex]::Escape("--exclude 'gadgets/*/settings/**'"))
+            $Command -notmatch '--exclude'
         }
     }
 

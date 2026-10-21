@@ -46,18 +46,6 @@ authored tree, wider than the lint scope). [System.IO.Path]::GetExtension('.giti
 
 ## comment:2
 
-Above `$configurationRegex = @(`, written with `#`.
-
-```text
-The customer/machine-derived config tree (root configuration/,
-[ADR-AZ-DATAMOD](/docs/adr/azure/azure-data-model.md)) and the Bicep template
-configuration scaffold are out of the corpus — mirror Test-Spelling's scope. Match ROOT-RELATIVE and
-anchored so a nested AUTHORED 'configuration' folder (e.g. docs/adr/configuration/) stays in the corpus
-and can justify a term (a bare '[/]configuration[/]' substring would wrongly swallow the ADR folder).
-```
-
-## comment:3
-
 Above `$ret = [System.Text.StringBuilder]::new()`, written with `#`.
 
 ```text
@@ -66,7 +54,7 @@ scan is markedly faster ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/adr/automati
 Directory/name filtering is done inline on the raw path string.
 ```
 
-## comment:4
+## comment:3
 
 Above `foreach ($path in Get-ChildPath $Root -File -Depth 10) {`, written with `#`.
 

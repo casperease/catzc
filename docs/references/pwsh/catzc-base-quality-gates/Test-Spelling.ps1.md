@@ -30,11 +30,8 @@ ignorePaths from cspell.yml.
 
 ### parameter `Exclude`
 
-Globs the spelling QUALITY GATE skips, passed to cspell as --exclude. Defaults to the authored/generated trees that are out of scope to
-spell-check (out/, docs/notes, the machine-derived `configuration/**` trees). Non-authored noise (vendor, install scripts, compiled output,
-binaries) lives in cspell.yml ignorePaths instead — this parameter is for content scope, not third-party noise. Content the spelling quality
-gate does NOT check (authored/generated text, not third-party noise — that lives in cspell.yml ignorePaths). Passed to cspell as --exclude
-globs.
+Extra globs a caller wants skipped, passed to cspell as --exclude. Defaults to none: the gate's whole scope, third-party noise and
+out-of-scope content alike, is cspell.yml ignorePaths, the one list the terminology corpus reads too.
 
 ### parameter `OutputFolder`
 
@@ -58,44 +55,6 @@ $result.IssueCount
 ```
 
 ## comment:1
-
-Above `'**/README.md'`, written with `#`.
-
-```text
-Generated README copy-ins (Catzc.Base.Docs) are derived artifacts, not source: they are gitignored
-and their authored source under docs/ is what is spell-checked (mirrors Test-Markdownlint's
-'!**/README.md'). Their banner embeds the source's kebab filename, which is not a word. See
-[ADR-REPO-README-AUTHOREDSOURCES](/docs/adr/repository/generated-readmes.md#rule-adr-repo-readme-authoredsources).
-```
-
-## comment:2
-
-Above `'docs/adr/index.md'`, written with `#`.
-
-```text
-[index](/docs/adr/index.md) is generated from adrs.yml (Build-AdrIndex) — a derived artifact; its source
-(adrs.yml + the generator's prose) is what is reviewed, not the projection.
-```
-
-## comment:3
-
-Above `'docs/adr/glossary.md'`, written with `#`.
-
-```text
-[glossary](/docs/adr/glossary.md) is generated from the configs/glossary.yml sources (Build-Glossary) — likewise
-derived; the sources are what is spell-checked.
-```
-
-## comment:4
-
-Above `$excludeArgs = foreach ($e in $Exclude) {`, written with `#`.
-
-```text
-Content-scope exclusions (out/, docs/notes, generated config trees) — cspell ignorePaths rejects
-negation globs, so the gate's content scope is expressed here as --exclude on the command line.
-```
-
-## comment:5
 
 Above `$checkedMatch = [regex]::Match($result.Full, 'Files checked:\s*(?<n>\d+)')`, written with `#`.
 

@@ -564,6 +564,15 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             { [Catzc.Base.Objects.NameCase]::ToNormal('kebab', 'Gadget', 'snake') } | Should -Throw "*'Gadget' is not kebab*"
         }
 
+        It 'tells a dotted normal-form name in one call, while a case stays strict about the dot' -Tag 'ADR-AUTO-IDIOM-NORMALFORM' {
+            [Catzc.Base.Objects.NameCase]::IsNormal('widget.base.gadget_parts', 'snake') | Should -BeTrue
+            [Catzc.Base.Objects.NameCase]::IsNormal('__init__', 'snake') | Should -BeTrue
+            [Catzc.Base.Objects.NameCase]::IsNormal('widget.Base', 'snake') | Should -BeFalse
+            [Catzc.Base.Objects.NameCase]::IsNormal('widget..gadget', 'snake') | Should -BeFalse
+            [Catzc.Base.Objects.NameCase]::IsNormal($null, 'snake') | Should -BeFalse
+            [Catzc.Base.Objects.NameCase]::IsInCase('snake', 'widget.gadget') | Should -BeFalse
+        }
+
         It 'judges a file name past its role suffix and the one qualifier before it' -Tag 'ADR-AUTO-IDIOM-LANGUAGEIDIOM' {
             $naming = [Catzc.Base.Languages.LanguageNaming]::new(@(), @('verb-noun', 'pascal'), @())
             $naming.IsFileIdiomatic('Get-Gadget.Tests') | Should -BeTrue

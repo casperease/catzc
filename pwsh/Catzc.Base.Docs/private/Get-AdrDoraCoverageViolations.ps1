@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "345aeb5b158a"
+    with_body_sha: "0e41f185fb95"
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-AdrDoraCoverageViolations.Tests.ps1
     docs: "[Get-AdrDoraCoverageViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-AdrDoraCoverageViolations.ps1.md)"
@@ -31,7 +31,7 @@ function Get-AdrDoraCoverageViolations {
         $doraPath = [System.IO.Path]::Combine($Index.Root, $doraRelative)
         if (-not [System.IO.File]::Exists($doraPath)) {
             foreach ($ruleSet in $domain.RuleSets) {
-                "docs/adr/${doraRelative}: missing, so no section links $($ruleSet.External)"
+                "$($Adrs.Root)/${doraRelative}: missing, so no section links $($ruleSet.External)"
             }
             continue
         }
@@ -84,10 +84,10 @@ function Get-AdrDoraCoverageViolations {
                 }
             }
             if ($linkingLines.Count -eq 0) {
-                "docs/adr/${doraRelative}: no section links $($ruleSet.External) (docs/adr/$adrRelative)"
+                "$($Adrs.Root)/${doraRelative}: no section links $($ruleSet.External) ($($Adrs.Root)/$adrRelative)"
             }
             elseif ($linkingLines.Count -gt 1) {
-                "docs/adr/${doraRelative}:$($linkingLines -join ','): $($linkingLines.Count) sections link $($ruleSet.External) (docs/adr/$adrRelative)"
+                "$($Adrs.Root)/${doraRelative}:$($linkingLines -join ','): $($linkingLines.Count) sections link $($ruleSet.External) ($($Adrs.Root)/$adrRelative)"
             }
         }
     }

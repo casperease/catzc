@@ -51,19 +51,15 @@ The record-kind rewrite has landed, so the steps run in order; the move is one b
 - [ ] `pwsh/Catzc.Base.Docs/configs/glossary.yml`: entries for **DRS**, **decision record** and **record kind**, each defined by the new
       rule; `domain rules` reads "its decision records and the rules they state", avoid `house rules` say `domain rules / DRS rules` (check:
       `Test-Glossary`, `Build-Glossary`).
-- [ ] `pwsh/Catzc.Base.Docs/types/AdrsConfig.cs` and `adrs.yml`: a `root` key, its default `docs/adr` declared once on the type, and every
-      caller reads it instead of its literal: `Build-AdrCodeDictionary`, `Build-AdrIndex`, `Build-Glossary`, `Get-AdrCitationMap`,
-      `Get-CatsAdrRuleIds`, `Show-Cats`, `Test-AdrEngineNeutrality`, `Test-AdrRegistry`, `Update-AdrCitation`, the five
-      `private/Get-Adr*Violations` messages, `AdrCitationRewriter.cs`'s `AdrRoot`, and `readme.yml`'s two rows; type and callers in one pass
-      on staged copies, a fresh full import right after (check: the `Catzc.Base.Docs` Pester; `git grep "docs/adr" -- pwsh` finds only the
-      type default and comments).
-- [ ] `out/drs/dryrun.ps1`: `Update-AdrCitation -DryRun` with one folder `move` row `docs/adr` -> `docs/drs` (two segments, never a
-      one-segment folder row) (check: about 3,194 repository-rooted and 697-file relative rewrites, 0 throws, the counts written into this
-      step before the next).
-- [ ] The move, one burst after the user's go: `docs/adr/` moved to `docs/drs/` on disk (the user commits), the rewrite from the dry run's
-      map plus one ADR row `ADR-REPO-ADRCODE` -> `ADR-REPO-DRSCODE` with the file renamed `drs-code-language.md`, the `root` default flipped
-      to `docs/drs`, then `Build-AdrIndex`, `Build-AdrCodeDictionary`, `Build-Glossary` and `Format-FileMeta` (check: `Test-Links`,
-      `Test-AdrRegistry`, `Test-GeneratedFiles`, `Test-FileMeta`).
+- [ ] The move, one burst after the user's go: the rewrite of `out/drs/dryrun.ps1` written (its code map `out/drs/root-code-map.tsv`, one
+      row of kind `root`, `docs/adr` -> `docs/drs`) plus one ADR row `ADR-REPO-ADRCODE` -> `ADR-REPO-DRSCODE` with the file renamed
+      `drs-code-language.md`, then `docs/adr/` moved to `docs/drs/` on disk (the user commits), the `root` default flipped to `docs/drs`,
+      then `Build-AdrIndex`, `Build-AdrCodeDictionary`, `Build-Glossary` and `Format-FileMeta`. The dry run (2026-10-21): 6,963 rewrites in
+      1,911 of 1,985 files that name the root, 0 throws, 3,109 repository-rooted (1,435 path mentions, 1,674 links) and 3,854 relative
+      (3,846 links, 8 path mentions); the 31 Unhandled are the numbered fixtures every run reports. 21 files name the root as a literal no
+      rewrite reaches (code strings and folder mentions, `readme.yml`, `GlossaryOptions.cs`'s `docs/adr/research/**`, the type default):
+      `out/drs/dryrun.ps1` lists them, and they change by hand in the same burst (check: `Test-Links`, `Test-AdrRegistry`,
+      `Test-GeneratedFiles`, `Test-FileMeta`, `git grep -n "docs/adr"` finds nothing).
 - [ ] `pwsh/Catzc.Base.Docs/configs/adr-index.yml`: the index titled "DRS index and rule-citation registry", its preamble saying the DRS
       holds the record-kind domains (check: `Build-AdrIndex`, `Test-GeneratedFiles`).
 - [ ] By hand, one file at a time: the four `.claude/hooks/` files that name `docs/adr` (each hook rebuilt), `agents.yml`,

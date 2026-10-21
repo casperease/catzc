@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "4b29c49c4940"
+    with_body_sha: "73e3365b999a"
   edges:
     docs: "[Build-Glossary.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Build-Glossary.ps1
@@ -50,6 +50,7 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
             @{ 'ADR-TST-WIDGET' = @{ path = 'docs/adr/repository/widget-thing.md'; rules = [string[]] @('ADR-TST-WIDGET-REST', $script:longRule) } },
             @('docs/adr/repository/widget-thing.md'))
         $domains = [pscustomobject]@{
+            Root    = 'docs/adr'
             Domains = @([pscustomobject]@{ Name = 'repository' }, [pscustomobject]@{ Name = 'automation' }, [pscustomobject]@{ Name = 'flow' })
         }
         Mock Get-Glossary -ModuleName Catzc.Base.Docs -MockWith { , $entries }.GetNewClosure()

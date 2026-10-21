@@ -218,7 +218,8 @@ def test_declare_minimaps_writes_the_computed_cells_files_first_then_rules(tmp_p
         "axis": {"lit": [{"at": ["AUTO", "*"], "reasons": [reason("ADR-WIDGET", "ADR-WIDGET-SPIN")]}]},
         "layer-stack": {"lit": []},
     }
-    monkeypatch.setattr(declaration, "minimap_data", lambda folder: data)
+    # The writer reads the whole computed data, never the drawn data the gate filtered.
+    monkeypatch.setattr(declaration, "minimap_data", lambda folder, computed=False: data if computed else {})
     declaration.declare_minimaps(tmp_path)
     assert declaration.load(tmp_path)["content"]["minimaps"] == WIDGET_CELLS
 
@@ -721,7 +722,7 @@ def test_declare_minimaps_keeps_the_rows_and_an_edge_between_their_cells(tmp_pat
     raw["content"]["edges"].append({"from": "row-full-0", "to": "row-short-0", "kind": "adr"})  # both ends are cells the rows write out
     raw["content"]["minimaps"] = {view: [] for view in WIDGET_CELLS}
     (tmp_path / declaration.SOURCE).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
-    monkeypatch.setattr(declaration, "minimap_data", lambda folder: {view: {"lit": []} for view in WIDGET_CELLS})
+    monkeypatch.setattr(declaration, "minimap_data", lambda folder, computed=False: {view: {"lit": []} for view in WIDGET_CELLS})
     declaration.declare_minimaps(tmp_path)
     written = __import__("yaml").safe_load((tmp_path / declaration.SOURCE).read_text(encoding="utf-8"))
     assert written["content"]["rows"] == ROWS["rows"]

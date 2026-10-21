@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "78abae8e20f6"
+    with_body_sha: f2fcfa8ae1d8
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Build-AdrIndex.Tests.ps1
     docs: "[Build-AdrIndex.ps1.md](docs/references/pwsh/catzc-base-docs/Build-AdrIndex.ps1.md)"
@@ -74,14 +74,15 @@ function Build-AdrIndex {
     }
 
     $adrs = Get-Config -Config adrs
-    $adrDocsRoot = Resolve-RepoPath 'docs/adr'
+    $adrDocsRoot = Resolve-RepoPath $adrs.Root
+    $indexPath = "$($adrs.Root)/index.md"
     $fileOf = (Get-AdrFileIndex @($adrs.RuleSets) -AdrRoot $adrDocsRoot).FileOf
 
     $sections = foreach ($domain in $adrs.Domains) {
         $rows = foreach ($ruleSet in $domain.RuleSets) {
             $path = $fileOf[$ruleSet.External]
             if (-not $path) {
-                throw "Build-AdrIndex: no single ADR file docs/adr/$($domain.Folder)/**/$($ruleSet.Slug).md for $($ruleSet.External)"
+                throw "Build-AdrIndex: no single ADR file $($adrs.Root)/$($domain.Folder)/**/$($ruleSet.Slug).md for $($ruleSet.External)"
             }
             [pscustomobject]@{
                 Code = '`' + $ruleSet.External + '`'
@@ -120,10 +121,10 @@ function Build-AdrIndex {
 
     $content = (& $reflow $preamble) + "`n`n" + ($sections -join "`n`n") + "`n`n" + (& $reflow $conventions) + "`n"
 
-    $content = Format-GeneratedFileHead -Text $content -Path 'docs/adr/index.md' -Generator Build-AdrIndex -Source @(foreach ($config in 'adrs.yml', 'adr-index.yml') {
+    $content = Format-GeneratedFileHead -Text $content -Path $indexPath -Generator Build-AdrIndex -Source @(foreach ($config in 'adrs.yml', 'adr-index.yml') {
             ConvertTo-RepoRelativePath (Get-CatzcModuleRoot "configs/$config")
-        }) -FileKind (Get-FileKind 'docs/adr/index.md')
-    $target = Resolve-RepoPath 'docs/adr/index.md'
+        }) -FileKind (Get-FileKind $indexPath)
+    $target = Resolve-RepoPath $indexPath
     $changed = Write-FileIfChanged $target $content -DryRun:$DryRun
 
     $relativeTarget = ConvertTo-RepoRelativePath $target

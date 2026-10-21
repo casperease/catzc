@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "85ddc00d3379"
+    with_body_sha: d4684ab9d167
   edges:
     docs: "[Update-AdrCitation.Tests.ps1.md](docs/references/pwsh/catzc-base-docs/tests/Update-AdrCitation.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/Update-AdrCitation.ps1
@@ -196,6 +196,48 @@ Describe 'Update-AdrCitation' -Tag 'L0', 'logic' {
             $full = & $script:writeText 'docs/adr/widget/module-paths.md' $text
             Update-AdrCitation -Path $full -CodeMap $codeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root -InformationAction SilentlyContinue | Out-Null
             [System.IO.File]::ReadAllText($full) | Should -BeExactly "The loader reads pwsh/Catzc.Widget/x.ps1, and automation/pwsh/widget-rules.md says why.`n"
+        }
+    }
+
+    Context 'a root move' -Tag 'ADR-REPO-LINK-MARKDOWNRELATIVE' {
+        BeforeAll {
+            $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
+            $script:rootMap = & $script:writeText 'maps/root-code-map.tsv' ($header + "`n" + (@('-', '-', 'docs/adr', 'docs/gadgets', 'root') -join "`t") + "`n")
+            $script:moveRoot = {
+                param([string] $Relative, [string] $Text, [string] $CodeMap = $script:rootMap)
+                $full = & $script:writeText $Relative $Text
+                Update-AdrCitation -Path $full -CodeMap $CodeMap -RuleMap $script:ruleMap -RepositoryRoot $script:root -InformationAction SilentlyContinue |
+                    Out-Null
+                [System.IO.File]::ReadAllText($full)
+            }
+        }
+
+        It 'moves a <Name> under the new root' -ForEach @(
+            @{ Name = 'relative link from outside'; Relative = 'docs/how-to/widget.md'; Text = "See [cog](../adr/widget/cog-rules.md).`n"
+                Expected = "See [cog](../gadgets/widget/cog-rules.md).`n"
+            }
+            @{ Name = 'repository-rooted code link'; Relative = 'docs/how-to/widget.md'; Text = "[cog](/docs/adr/widget/cog-rules.md#rule-adr-widget-cog-spins)`n"
+                Expected = "[cog](/docs/gadgets/widget/cog-rules.md#rule-adr-widget-cog-spins)`n"
+            }
+            @{ Name = 'plain path mention'; Relative = 'notes/widget.md'; Text = "Read docs/adr/gizmo/lever-rules.md first.`n"
+                Expected = "Read docs/gadgets/gizmo/lever-rules.md first.`n"
+            }
+        ) {
+            & $script:moveRoot $Relative $Text | Should -BeExactly $Expected
+        }
+
+        It 'leaves a link between two records, and a link out of the root at the same depth, as written' {
+            $text = "[lever](../gizmo/lever-rules.md) and [how-to](../../how-to/widget.md) and [here](#rule-adr-widget-sprocket-turn)`n"
+            & $script:moveRoot 'docs/adr/widget/root-links.md' $text | Should -BeExactly $text
+        }
+
+        It 'refuses a root row that <Name>' -ForEach @(
+            @{ Name = 'moves another folder'; From = 'docs/gizmos'; To = 'docs/gadgets'; Error = "*moves the root 'docs/adr', not 'docs/gizmos'*" }
+            @{ Name = 'changes the depth'; From = 'docs/adr'; To = 'gadgets'; Error = '*not a folder of its own depth*' }
+        ) {
+            $header = @('old_code', 'new_code', 'old_path', 'new_path', 'kind') -join "`t"
+            $codeMap = & $script:writeText "maps/bad-root-$($From -replace '/', '-').tsv" ($header + "`n" + (@('-', '-', $From, $To, 'root') -join "`t") + "`n")
+            { & $script:moveRoot 'notes/refused.md' "text`n" $codeMap } | Should -Throw $Error
         }
     }
 

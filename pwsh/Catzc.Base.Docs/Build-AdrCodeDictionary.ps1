@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e5c54c6c95d0
+    with_body_sha: c2bd4f73e540
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Build-AdrCodeDictionary.Tests.ps1
     docs: "[Build-AdrCodeDictionary.ps1.md](docs/references/pwsh/catzc-base-docs/Build-AdrCodeDictionary.ps1.md)"
@@ -23,8 +23,8 @@ function Build-AdrCodeDictionary {
         [switch] $PassThru
     )
 
-    $adrRoot = Resolve-RepoPath 'docs/adr'
     $adrs = Get-Config -Config adrs
+    $adrRoot = Resolve-RepoPath $adrs.Root
     $index = Get-AdrFileIndex @($adrs.RuleSets) -AdrRoot $adrRoot
     $files = [string[]] @($index.Relative | ForEach-Object { [System.IO.Path]::Combine($index.Root, $_) })
     $relative = '.cspell/adr-codes.txt'
@@ -35,7 +35,7 @@ function Build-AdrCodeDictionary {
         $codes.Add($ruleSet.External)
     }
     foreach ($file in $files) {
-        foreach ($match in [regex]::Matches([System.IO.File]::ReadAllText($file), '(?m)^### Rule (?<rule>ADR-\S+)\s*$')) {
+        foreach ($match in [regex]::Matches([System.IO.File]::ReadAllText($file), "(?m)^### Rule (?<rule>$($adrs.CodeForm.Rule))\s*$")) {
             $codes.Add($match.Groups['rule'].Value)
         }
     }

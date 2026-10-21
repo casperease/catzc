@@ -51,8 +51,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   (task-user-runs-and-commits); the plan closes when it lands.
 - agent-shortcuts -> plan-agent-shortcuts.md: one step left, the gate runner's CLAUDE.md line (the user's, task-user-runs-and-commits).
 - bcl-language -> plan-bcl-language.md: one step left, the CLAUDE.md line (the user's, task-user-runs-and-commits).
-- agent-friction -> plan-agent-friction.md: the head how-to and its drawing sample (free now that minimal-heads has landed); the CLAUDE.md
-  trim (the user's).
+- agent-friction -> plan-agent-friction.md: the user's CLAUDE.md trims only (task-user-runs-and-commits).
 - claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit only (Sub-agents cut, the pwsh index named; task-user-runs-and-commits).
 - session-learnings -> plan-session-learnings.md: one learning reworded and catzc-49's lines appended; its questions are decided.
 - minimap-reasons-gate -> plan-minimap-reasons-gate.md: every diagram's placed minimap data written into its `diagram.drawio.yml` under

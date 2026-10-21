@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: fce9a126ab46
+    with_body_sha: b17e3ee99f5f
   edges:
     test: pwsh/Catzc.Base.Docs/tests/Get-AdrCitationGraphViolations.Tests.ps1
     docs: "[Get-AdrCitationGraphViolations.ps1.md](docs/references/pwsh/catzc-base-docs/private/Get-AdrCitationGraphViolations.ps1.md)"
@@ -105,7 +105,7 @@ function Get-AdrCitationGraphViolations {
                     if ($allowed.Contains($reference.Domain) -or -not $reported.Add($reference.Domain)) {
                         continue
                     }
-                    "docs/adr/${relative}:$($i + 1): $citer ($($domain.Name)) cites $($reference.Text) ($($reference.Domain)); $($domain.Name) depends on: $dependsOn"
+                    "$($Adrs.Root)/${relative}:$($i + 1): $citer ($($domain.Name)) cites $($reference.Text) ($($reference.Domain)); $($domain.Name) depends on: $dependsOn"
                 }
             }
         }
