@@ -3,6 +3,8 @@
 catzc:
   immutable:
     with_body_sha: bc651ce655a1
+  edges:
+    docs: "[ConvertTo-CommandLineText.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/ConvertTo-CommandLineText.ps1.md)"
 ---
 #>
 

@@ -12,7 +12,7 @@ catzc:
 
 function Start-ClaudeWorker {
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([string])]
     param(
         [string] $Agent = (Get-Config -Config claude-worker).agent,
 
@@ -36,12 +36,12 @@ function Start-ClaudeWorker {
     for ($index = 1; $index -le $Count; $index++) {
         $launch = Get-ClaudeWorkerLaunch -Agent $Agent -Model $Model -Prompt $Prompt -Launcher $Launcher -WorkingDirectory $root -Index $index
         if ($DryRun) {
-            $launch
+            $launch.CommandLine
             continue
         }
         Start-Process -FilePath $launch.FilePath -ArgumentList $launch.ArgumentList -WorkingDirectory $root
         if ($PassThru) {
-            $launch
+            $launch.CommandLine
         }
     }
 }

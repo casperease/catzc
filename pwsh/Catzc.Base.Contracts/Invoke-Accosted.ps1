@@ -5,6 +5,9 @@ catzc:
     with_body_sha: "73f973365b9e"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Invoke-Accosted.Tests.ps1
+    docs: "[Invoke-Accosted.ps1.md](../../docs/references/pwsh/catzc-base-contracts/Invoke-Accosted.ps1.md)"
+    cites:
+      - ADR-AUTO-ACCOSTED
 ---
 #>
 

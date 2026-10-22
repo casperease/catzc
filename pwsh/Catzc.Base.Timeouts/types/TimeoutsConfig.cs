@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "63ff5b91a399"
+    with_body_sha: cdb04c2bf5db
   edges:
     test: pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
     docs: "[TimeoutsConfig.cs.md](../../../docs/references/pwsh/catzc-base-timeouts/types/TimeoutsConfig.cs.md)"
@@ -23,7 +23,7 @@ namespace Catzc.Base.Timeouts;
 public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "limits", "executables", "commands", "tests", "wait" };
-    private static readonly string[] TestKeys = { "level_ms", "run_seconds", "engine_start_seconds", "run_list_seconds" };
+    private static readonly string[] TestKeys = { "level_ms", "run_seconds", "engine_start_seconds", "run_list_seconds", "run_lock_seconds" };
 
     // The default Watch-Blocking: one second and one millisecond, one pair for every environment.
     private static readonly string[] WaitKeys = { "seconds", "milliseconds" };
@@ -44,6 +44,8 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     private const int EngineStartDefaultSeconds = 150;
     // One run of a run list under one engine: an engine start and its few commands, under the pwsh limit.
     private const int RunListDefaultSeconds = 300;
+    // The wait for the machine's run lock (Invoke-CatzcCommand): a run that cannot take it in time stops inside the 360 s background roof.
+    private const int RunLockDefaultSeconds = 120;
     private static readonly string[] Environments = { "devbox", "pipeline" };
     private static readonly string[] Shells = new List<string>(Catzc.Base.Engines.ExecutionEngines.Names).ToArray();
     private static readonly string[] BashKeys = { "foreground", "background" };
@@ -81,6 +83,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     private int testRunSeconds = TestRunDefaultSeconds;
     private int engineStartSeconds = EngineStartDefaultSeconds;
     private int runListSeconds = RunListDefaultSeconds;
+    private int runLockSeconds = RunLockDefaultSeconds;
     private int waitSeconds = WaitDefaultSeconds;
     private int waitMilliseconds = WaitDefaultMilliseconds;
 
@@ -216,6 +219,7 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
             { "run_seconds", testRunSeconds },
             { "engine_start_seconds", engineStartSeconds },
             { "run_list_seconds", runListSeconds },
+            { "run_lock_seconds", runLockSeconds },
         };
 
         wait = new Hashtable(StringComparer.OrdinalIgnoreCase)
@@ -273,12 +277,18 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         return runListSeconds;
     }
 
+    // The most seconds a run waits for the machine's run lock before it stops.
+    public int RunLockSeconds()
+    {
+        return runLockSeconds;
+    }
+
     private void ReadTests(object value, List<string> errors)
     {
         IDictionary map = value as IDictionary;
         if (map == null)
         {
-            errors.Add("invalid tests (must be a map of level_ms, run_seconds, engine_start_seconds, run_list_seconds)");
+            errors.Add("invalid tests (must be a map of level_ms, run_seconds, engine_start_seconds, run_list_seconds, run_lock_seconds)");
             return;
         }
         CheckKeys(map, TestKeys, "tests.", errors);
@@ -335,6 +345,16 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
                 errors.Add(string.Format("invalid tests.run_list_seconds '{0}' (must be a positive whole number)", map["run_list_seconds"]));
             }
             else { runListSeconds = seconds.Value; }
+        }
+
+        if (map.Contains("run_lock_seconds") && map["run_lock_seconds"] != null)
+        {
+            int? seconds = PositiveSeconds(map["run_lock_seconds"]);
+            if (seconds == null)
+            {
+                errors.Add(string.Format("invalid tests.run_lock_seconds '{0}' (must be a positive whole number)", map["run_lock_seconds"]));
+            }
+            else { runLockSeconds = seconds.Value; }
         }
     }
 

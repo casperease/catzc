@@ -13,7 +13,7 @@ Starts new Claude Code worker sessions, each in a terminal window of its own, in
 
 Launches `claude --agent <Agent>` once per -Count, with `--model <Model>` only when -Model is given (otherwise the agent file's model
 applies) and -Prompt as the session's first prompt. The agent and the terminal are entries in `configs/claude-worker.yml`, each default
-declared once on its config type. -DryRun starts nothing and returns the planned launches (ADR-PWSH-DRYRUN-EARLYRETURNBRANCH).
+declared once on its config type. -DryRun starts nothing and returns the planned command lines (ADR-PWSH-DRYRUN-EARLYRETURNBRANCH).
 
 ### parameter `Agent`
 
@@ -37,15 +37,15 @@ The terminal to open: windows-terminal (a new wt.exe tab) or pwsh (a pwsh -NoExi
 
 ### parameter `PassThru`
 
-Returns one record per started session: the index, agent, model, launcher, file path, argument list, working directory and command line.
+Returns the command line of each started session.
 
 ### parameter `DryRun`
 
-Starts nothing and returns the records instead.
+Starts nothing and returns the command lines instead.
 
 ### outputs
 
-`[pscustomobject]` per launch under -PassThru or -DryRun, otherwise nothing.
+`[string]` per launch under -PassThru or -DryRun: its exact command line. Otherwise nothing.
 
 ### example 1
 

@@ -94,7 +94,8 @@ Describe 'Get-ImprintStepFile' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFO
         }
 
         It 'returns nothing for a -Path outside the plans folder' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
-            @(& $script:scope @((Join-Path $script:root 'docs/widget.md'))).Count | Should -Be 0
+            $found = & $script:scope @((Join-Path $script:root 'docs/widget.md'))
+            @($found).Count | Should -Be 0
         }
     }
 

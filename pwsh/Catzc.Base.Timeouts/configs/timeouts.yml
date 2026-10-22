@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b0ac11d5d62b
+#     with_body_sha: "0c11c04ba9a6"
 #   edges:
 #     docs: "[timeouts.yml.md](../../../docs/references/pwsh/catzc-base-timeouts/configs/timeouts.yml.md)"
 #     cites:
@@ -34,3 +34,4 @@ executables:
 tests:
   engine_start_seconds: 150 # one engine start of a black-box test (import plus one command): two starts and a margin stay under pwsh's 360
   run_list_seconds: 300 # one run of a run list under one engine: an engine start and its few commands, under pwsh's 360
+  run_lock_seconds: 120 # the wait for the machine's run lock (Invoke-CatzcCommand): a run that cannot take it stops inside bash's 360

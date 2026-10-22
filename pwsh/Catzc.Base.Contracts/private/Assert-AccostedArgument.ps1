@@ -3,6 +3,10 @@
 catzc:
   immutable:
     with_body_sha: cae35ba8efb0
+  edges:
+    docs: "[Assert-AccostedArgument.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/private/Assert-AccostedArgument.ps1.md)"
+    cites:
+      - ADR-AUTO-ACCOSTED
 ---
 #>
 

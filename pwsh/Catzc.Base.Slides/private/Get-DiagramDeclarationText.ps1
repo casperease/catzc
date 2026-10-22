@@ -5,6 +5,7 @@ catzc:
     with_body_sha: "67d21c6d58f9"
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Get-DiagramDeclarationText.Tests.ps1
+    docs: "[Get-DiagramDeclarationText.ps1.md](../../../docs/references/pwsh/catzc-base-slides/private/Get-DiagramDeclarationText.ps1.md)"
 ---
 #>
 

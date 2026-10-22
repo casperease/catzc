@@ -14,7 +14,7 @@ the user opens several workers in one call instead of by hand. It starts session
 ### responsibility:1 — Start worker sessions
 
 Open `Count` terminals, each running `claude --agent <Agent>` in the repository root, with a model only when one is asked for and an
-optional first prompt. A dry run starts nothing and returns the launches.
+optional first prompt. A dry run starts nothing and returns the command lines.
 
 ### responsibility:2 — Declare the session settings
 
@@ -26,7 +26,7 @@ The default agent and the terminal launcher are entries in `configs/claude-worke
 Starting a session is deterministic, so it is a command: it resolves the agent and the terminal as a setting resolves anywhere in catzc, the
 caller's value first, then the config entry, then the default declared on the config type
 ([sensible-defaults](../../drs/automation/sensible-defaults.md)). A model is passed only when asked for, so the agent file's model applies
-otherwise. The launch is shown before it is made: `-DryRun` returns each planned launch with its exact command line and starts nothing
+otherwise. The launch is shown before it is made: `-DryRun` returns each planned command line and starts nothing
 ([prefer-dryrun-over-shouldprocess](../../drs/automation/pwsh/prefer-dryrun-over-shouldprocess.md)).
 
 ## Division

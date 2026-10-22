@@ -11,8 +11,8 @@ Returns a diagram's declaration text from its carrier, or nothing when the carri
 
 ### description
 
-The carrier is the one the carrier map sets for the stem, else its default. The `file` carrier is the diagram's own `<stem>.drawio.yml`.
-The article carrier is the one `yml drawio` block, in a page of the folder that holds the diagram's .assets, that stands directly above the
+The carrier is the one the carrier map sets for the stem, else its default. The `file` carrier is the diagram's own `<stem>.drawio.yml`. The
+article carrier is the one `yml drawio` block, in a page of the folder that holds the diagram's .assets, that stands directly above the
 image of its png; two or more such blocks return nothing, as does a missing file.
 
 ### parameter `Stem`

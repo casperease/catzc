@@ -5,6 +5,7 @@ catzc:
     with_body_sha: "0bf9fd6f84ae"
   edges:
     test: pwsh/Catzc.Base.Slides/tests/Get-DiagramCarrierMap.Tests.ps1
+    docs: "[Get-DiagramCarrierMap.ps1.md](../../../docs/references/pwsh/catzc-base-slides/private/Get-DiagramCarrierMap.ps1.md)"
 ---
 #>
 

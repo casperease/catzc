@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7cec9329ec88"
+    with_body_sha: "60cc1ef6f2a9"
   edges:
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
@@ -21,6 +21,10 @@ catzc:
     failure: its verdict line names it with the message, and the next command still runs. So is a command whose result object reports
     Result Failed, which is why a test file runs as `Invoke-TestFile <file> -PassThru`. The exit code is 1 when any command failed.
 
+    The commands run under the machine's run lock, a named mutex, so heavy runs on one machine go one at a time. A run that finds the lock
+    held says so in one line and waits up to tests.run_lock_seconds of timeouts.yml; one that still cannot take it stops with a
+    "run lock busy" line and exit code 1, running nothing.
+
     timeout 300 pwsh -NoProfile -File pwsh/.internal/assets/Invoke-CatzcCommand.ps1 "Test-Plans" "Test-Links -Path docs/how-to/index.md"
 
 .PARAMETER Command
@@ -28,12 +32,17 @@ catzc:
 
 .PARAMETER Importer
     The importer to dot-source. Default: the repository's importer.ps1.
+
+.PARAMETER LockName
+    The named mutex the commands run under. Default: Local\catzc-run, one per user on the machine.
 #>
 param(
     [Parameter(Position = 0, ValueFromRemainingArguments)]
     [string[]] $Command,
 
-    [string] $Importer = (Join-Path $PSScriptRoot '../../../importer.ps1')
+    [string] $Importer = (Join-Path $PSScriptRoot '../../../importer.ps1'),
+
+    [string] $LockName = 'Local\catzc-run'
 )
 
 Set-StrictMode -Version Latest
@@ -45,6 +54,31 @@ if ($Command.Count -eq 0) {
 }
 
 . $Importer
+
+# The lock is taken after the import, since its wait is read from timeouts.yml; an abandoned lock (its run was killed) is taken over.
+$lockSeconds = (Get-Config -Config timeouts).tests.run_lock_seconds
+$lock = [System.Threading.Mutex]::new($false, $LockName)
+$owned = $false
+try {
+    $owned = $lock.WaitOne(0)
+}
+catch [System.Threading.AbandonedMutexException] {
+    $owned = $true
+}
+if (-not $owned) {
+    "[Invoke-CatzcCommand] waiting for the run lock: another run holds it (up to $lockSeconds s)"
+    try {
+        $owned = $lock.WaitOne([timespan]::FromSeconds($lockSeconds))
+    }
+    catch [System.Threading.AbandonedMutexException] {
+        $owned = $true
+    }
+}
+if (-not $owned) {
+    $lock.Dispose()
+    "[Invoke-CatzcCommand] run lock busy: another run held it for $lockSeconds s, so nothing ran"
+    exit 1
+}
 
 # Every command runs from the repository root, where the importer sits, so a relative path never resolves against the caller's folder.
 Push-Location -LiteralPath (Split-Path -Parent ([System.IO.Path]::GetFullPath($Importer)))
@@ -70,6 +104,8 @@ try {
 }
 finally {
     Pop-Location
+    $lock.ReleaseMutex()
+    $lock.Dispose()
 }
 
 "[Invoke-CatzcCommand] $(@($Command).Count - $failed) of $(@($Command).Count) passed"

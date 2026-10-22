@@ -5,6 +5,9 @@ catzc:
     with_body_sha: "37a19766885e"
   edges:
     test: pwsh/Catzc.Base.Contracts/tests/Get-AccostedFile.Tests.ps1
+    docs: "[Get-AccostedFile.ps1.md](../../docs/references/pwsh/catzc-base-contracts/Get-AccostedFile.ps1.md)"
+    cites:
+      - ADR-AUTO-ACCOSTED
 ---
 #>
 

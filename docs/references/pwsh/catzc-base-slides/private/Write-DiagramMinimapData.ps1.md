@@ -11,10 +11,10 @@ Computes the minimaps each diagram declares and writes their data under out/mini
 
 ### description
 
-Each diagram's declaration is read from its carrier (Get-DiagramDeclarationText) and must name its subject's ADR codes in `about.adrs`.
-The minimaps drawn are the ids its `content.minimaps` maps, or else the defaults maps.yml gives its kind (`content.kind`, else reference or
-explanation by its folder); each id must be a minimap maps.yml names a data command for. The world map and the subject's file facts are
-read once for the whole call and handed to the data commands that take them. Per diagram, each minimap's whole data is written to
+Each diagram's declaration is read from its carrier (Get-DiagramDeclarationText) and must name its subject's ADR codes in `about.adrs`. The
+minimaps drawn are the ids its `content.minimaps` maps, or else the defaults maps.yml gives its kind (`content.kind`, else reference or
+explanation by its folder); each id must be a minimap maps.yml names a data command for. The world map and the subject's file facts are read
+once for the whole call and handed to the data commands that take them. Per diagram, each minimap's whole data is written to
 `computed/<id>.json` and its drawn data to `<id>.json`, lighting only the cells the declaration lists, with a warning naming every lit cell
 it drops; `minimaps.json` holds the ids in order.
 

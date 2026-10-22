@@ -2,7 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "409138e82efb"
+    with_body_sha: "8b4f475d8598"
+  edges:
+    cites:
+      - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
 ---
 #>
 
@@ -10,11 +13,29 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
         $script:importer = Join-Path $TestDrive 'importer.ps1'
-        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Test-Gadget { param([string] `$Result) [pscustomobject]@{ Result = `$Result } }`n")
+        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Test-Gadget { param([string] `$Result) [pscustomobject]@{ Result = `$Result } }`nfunction Get-Config { param([string] `$Config) @{ tests = @{ run_lock_seconds = 1 } } }`n")
+        # Each run takes a lock of its own, so a real run holding the machine's lock never touches the test.
+        $script:lockName = "Local\catzc-test-$([guid]::NewGuid())"
+        # Holds the lock on another thread for the given milliseconds, the way another run would.
+        function script:Start-LockHolder {
+            param([string] $Name, [int] $Milliseconds)
+            $taken = [System.Threading.ManualResetEventSlim]::new($false)
+            $shell = [powershell]::Create().AddScript({
+                    param($Name, $Milliseconds, $Taken)
+                    $held = [System.Threading.Mutex]::new($true, $Name)
+                    $Taken.Set()
+                    Start-Sleep -Milliseconds $Milliseconds
+                    $held.ReleaseMutex()
+                    $held.Dispose()
+                }).AddArgument($Name).AddArgument($Milliseconds).AddArgument($taken)
+            $handle = $shell.BeginInvoke()
+            $null = $taken.Wait(2000)
+            [pscustomobject]@{ Shell = $shell; Handle = $handle }
+        }
     }
 
     It 'reports a passing and a failing command and runs the one after the failure' {
-        $lines = @(& $script:entry 'Get-Widget' 'throw "the gadget broke"' 'Get-Widget' -Importer $script:importer)
+        $lines = @(& $script:entry 'Get-Widget' 'throw "the gadget broke"' 'Get-Widget' -Importer $script:importer -LockName $script:lockName)
         $LASTEXITCODE | Should -Be 1
         $lines | Should -Be @(
             '[Invoke-CatzcCommand] passed: Get-Widget'
@@ -25,32 +46,62 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     }
 
     It 'counts a written error as a failure' {
-        $lines = @(& $script:entry 'Write-Error "gadget error"' -Importer $script:importer)
+        $lines = @(& $script:entry 'Write-Error "gadget error"' -Importer $script:importer -LockName $script:lockName)
         $LASTEXITCODE | Should -Be 1
         $lines[0] | Should -BeExactly '[Invoke-CatzcCommand] failed: Write-Error "gadget error" — gadget error'
     }
 
     It 'reads the verdict of a result object: Failed fails, Passed passes' {
-        $lines = @(& $script:entry 'Test-Gadget -Result Failed' 'Test-Gadget -Result Passed' -Importer $script:importer)
+        $lines = @(& $script:entry 'Test-Gadget -Result Failed' 'Test-Gadget -Result Passed' -Importer $script:importer -LockName $script:lockName)
         $LASTEXITCODE | Should -Be 1
         $lines[0] | Should -BeExactly '[Invoke-CatzcCommand] failed: Test-Gadget -Result Failed — it reported Failed'
         $lines[1] | Should -BeExactly '[Invoke-CatzcCommand] passed: Test-Gadget -Result Passed'
     }
 
     It 'exits 0 when every command passes' {
-        $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer)
+        $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName)
         $LASTEXITCODE | Should -Be 0
         $lines[-1] | Should -BeExactly '[Invoke-CatzcCommand] 1 of 1 passed'
     }
 
     It 'runs every command from the importer''s folder, and gives the caller its location back' {
         $caller = (Get-Location).Path
-        $lines = @(& $script:entry "if ((Get-Location).Path -ne '$TestDrive') { throw `"ran in `$((Get-Location).Path)`" }" -Importer $script:importer)
+        $lines = @(& $script:entry "if ((Get-Location).Path -ne '$TestDrive') { throw `"ran in `$((Get-Location).Path)`" }" -Importer $script:importer -LockName $script:lockName)
         $lines[0] | Should -BeLike '`[Invoke-CatzcCommand`] passed: *'
         (Get-Location).Path | Should -Be $caller
     }
 
     It 'throws when no command is named' {
-        { & $script:entry -Importer $script:importer } | Should -Throw '*name at least one command*'
+        { & $script:entry -Importer $script:importer -LockName $script:lockName } | Should -Throw '*name at least one command*'
+    }
+
+    It 'says it waits for a held run lock, then runs once the lock is free' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 300
+        try {
+            $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName)
+            $LASTEXITCODE | Should -Be 0
+            $lines[0] | Should -BeExactly '[Invoke-CatzcCommand] waiting for the run lock: another run holds it (up to 1 s)'
+            $lines[1] | Should -BeExactly '[Invoke-CatzcCommand] passed: Get-Widget'
+        }
+        finally {
+            $holder.Shell.EndInvoke($holder.Handle)
+            $holder.Shell.Dispose()
+        }
+    }
+
+    It 'stops with run lock busy, running nothing, when the lock stays held past its wait' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500
+        try {
+            $lines = @(& $script:entry 'throw "ran"' -Importer $script:importer -LockName $script:lockName)
+            $LASTEXITCODE | Should -Be 1
+            $lines | Should -Be @(
+                '[Invoke-CatzcCommand] waiting for the run lock: another run holds it (up to 1 s)'
+                '[Invoke-CatzcCommand] run lock busy: another run held it for 1 s, so nothing ran'
+            )
+        }
+        finally {
+            $holder.Shell.EndInvoke($holder.Handle)
+            $holder.Shell.Dispose()
+        }
     }
 }
