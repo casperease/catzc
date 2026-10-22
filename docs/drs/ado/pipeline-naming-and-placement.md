@@ -73,8 +73,9 @@ an executable ADO artifact or data our code reads.
 1. Pipelines live flat in `.ado/pipelines/`, named `<type>-<name>.yaml`
 ```
 
-A pipeline (the file ADO registers and runs) sits directly in `.ado/pipelines/`, not in a subfolder. Its name **starts with its type** — one
-of `cron`, `ci`, `cd`, `cde`, `deploy`, `input` — followed by a descriptive name:
+A pipeline (the file ADO registers and runs) sits directly in `.ado/pipelines/`, not in a subfolder.
+
+Its name **starts with its type** — one of `cron`, `ci`, `cd`, `cde`, `deploy`, `input` — followed by a descriptive name:
 
 ```text
 .ado/pipelines/ci-pwsh.yaml
