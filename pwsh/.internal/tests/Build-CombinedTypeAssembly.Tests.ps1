@@ -65,6 +65,17 @@ Describe 'Build-CombinedTypeAssembly' -Tag 'L1', 'logic' {
         @($built.Files.Key) | Should -Be @("$gadget/Lever", "$widget/Sprocket")
     }
 
+    It 'names a DLL built from headed sources by the hash of their bodies, the frozen copy hashing as the live root does' {
+        $headed = Join-Path $TestDrive 'headed-modules'
+        $typesDirectory = Join-Path $headed "$widget/types"
+        [System.IO.Directory]::CreateDirectory($typesDirectory) | Out-Null
+        [System.IO.Directory]::CreateDirectory((Join-Path $headed 'Catzc.Base.Languages/configs')) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $headed 'Catzc.Base.Languages/configs/file-carriers.yml'), "carriers:`n  bcl: { carrier: comment-head, block: [`"/*`", `"*/`"] }`n")
+        [System.IO.File]::WriteAllText((Join-Path $typesDirectory 'Sprocket.cs'), "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-WIDGET-ONE`n---`n*/`n`nnamespace $widget;`npublic class Sprocket { }")
+        $headedBuild = Build-CombinedTypeAssembly -ModulesRoot $headed -OutputDirectory (Join-Path $TestDrive 'headed/.compiled')
+        $headedBuild.Hash | Should -Be (Get-CombinedTypeHash $headed).CombinedHash
+    }
+
     It 'does not load the assembly it writes' {
         ([System.Management.Automation.PSTypeName]"$widget.Sprocket").Type | Should -BeNullOrEmpty
     }

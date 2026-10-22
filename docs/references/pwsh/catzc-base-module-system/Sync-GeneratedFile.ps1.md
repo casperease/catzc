@@ -6,7 +6,8 @@ catzc:
       - ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
       - ADR-BCL-TYPES-JANITORSBYCALLER
       - ADR-REPO-VARIANT-GITWORKSPACE
-    drs_total: 3
+      - DDR-RUNMODE
+    drs_total: 4
 ---
 
 # pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1

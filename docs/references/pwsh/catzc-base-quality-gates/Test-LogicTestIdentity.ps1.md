@@ -5,7 +5,8 @@ catzc:
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-QUALITYGATE
-    drs_total: 2
+      - ADR-REPO-LANG
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1

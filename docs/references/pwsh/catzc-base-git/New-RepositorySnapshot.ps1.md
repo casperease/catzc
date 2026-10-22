@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
-    drs_total: 1
+      - TDR-ONETRUTH
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.Git/New-RepositorySnapshot.ps1

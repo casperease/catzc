@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-ASSETDEP-LITERALCHILDPATH
-    drs_total: 1
+      - DDR-RUNMODE
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.ModuleSystem/Get-InternalAssetDependency.ps1

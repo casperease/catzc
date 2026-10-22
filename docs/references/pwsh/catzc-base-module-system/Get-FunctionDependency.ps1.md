@@ -10,7 +10,8 @@ catzc:
       - ADR-AUTO-TEST-SAFESEAMSWAPS
       - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
-    drs_total: 7
+      - DDR-RUNMODE
+    drs_total: 8
 ---
 
 # pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1

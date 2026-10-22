@@ -5,9 +5,10 @@ catzc:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-ENGINE-THREEENGINES
+      - ADR-AUTO-LAYERS
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-    drs_total: 4
+    drs_total: 5
 ---
 
 # pwsh/Catzc.Base.QualityGates/types/SourceConventionsConfig.cs

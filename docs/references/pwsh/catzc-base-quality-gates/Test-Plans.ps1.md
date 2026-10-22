@@ -5,13 +5,8 @@ catzc:
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-FOLDERS-STABLEFILENAMES
-      - ADR-REPO-PLANS-ONETOPICONEFILE
-      - ADR-REPO-PLANS-PLANHEAD
-      - ADR-REPO-PLANS-THREEPARTS
-      - ADR-REPO-PLANS-ONESHAPE
-      - ADR-REPO-PLANS-OPENSTEP
-      - ADR-REPO-PLANS-MASTERANDTASKS
-    drs_total: 8
+      - ADR-REPO-PLANS
+    drs_total: 9
 ---
 
 # pwsh/Catzc.Base.QualityGates/Test-Plans.ps1

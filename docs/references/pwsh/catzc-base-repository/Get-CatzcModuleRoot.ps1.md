@@ -5,7 +5,9 @@ catzc:
     cites:
       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
       - ADR-AUTO-ASSETDEP-LITERALCHILDPATH
-    drs_total: 2
+      - ADR-AUTO-OVERLAY
+      - DDR-RUNMODE
+    drs_total: 4
 ---
 
 # pwsh/Catzc.Base.Repository/Get-CatzcModuleRoot.ps1

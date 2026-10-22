@@ -4,8 +4,9 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-ASSETDEP-INTERNALASSETDEPENDENCY
+      - ADR-AUTO-OVERLAY
       - ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS
-    drs_total: 2
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Base.Overlay/Get-FunctionFileViolation.ps1

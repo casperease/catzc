@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-    drs_total: 1
+      - PDR-CONFIG
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.QualityGates/Test-Change.ps1

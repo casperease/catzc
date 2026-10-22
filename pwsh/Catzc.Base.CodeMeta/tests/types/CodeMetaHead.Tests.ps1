@@ -182,3 +182,23 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'A
         }
     }
 }
+
+# The types hash strips the head before the types load, so it cannot call CodeMetaHead; this proves the two read every real type the same.
+Describe 'CodeMetaHead and the types hash agree on every C# type' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CODEMETA-CODEFILEHEAD' {
+    It 'gives the same body as Get-TypeSourceBody for every tracked types/*.cs, under the bcl form file-carriers.yml declares' {
+        $root = Get-RepositoryRoot
+        $declared = (ConvertFrom-Yaml ([System.IO.File]::ReadAllText((Join-Path $root 'pwsh/Catzc.Base.Languages/configs/file-carriers.yml'))))['carriers']['bcl']
+        $block = [string[]] @($declared['block'])
+        $form = [Catzc.Base.CodeMeta.HeadForm]::ForBlock($block[0], $block[1])
+        $files = @(Invoke-Executable 'git -c core.quotepath=off ls-files -- "pwsh/*/types/*.cs"' -WorkingDirectory $root -PassThru -Silent).Output -split "`r?`n" | Where-Object { $_ }
+        $files.Count | Should -BeGreaterThan 0
+        $differ = @(foreach ($file in $files) {
+                $text = [System.IO.File]::ReadAllText((Join-Path $root $file)).Replace("`r", '')
+                $parsed = [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($text, $form)
+                if ($parsed.Rest -cne (Get-TypeSourceBody -Text $text -Block $block)) {
+                    $file
+                }
+            })
+        $differ | Should -BeNullOrEmpty -Because 'the bootstrap strip and CodeMetaHead must read a head the same way'
+    }
+}

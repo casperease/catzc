@@ -4,7 +4,9 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-    drs_total: 1
+      - ADR-CONF-LOADING
+      - ADR-REPO-LANG
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1

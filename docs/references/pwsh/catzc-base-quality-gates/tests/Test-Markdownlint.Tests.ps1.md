@@ -5,7 +5,8 @@ catzc:
     cites:
       - ADR-AUTO-TEST-TAGBYOUTERMOSTRING
       - ADR-AUTO-TEST-LOGICANDINTEGRITY
-    drs_total: 2
+      - ADR-REPO-PROTGLOB
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1

@@ -4,8 +4,10 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
+      - ADR-AUTO-DRYRUN
+      - ADR-AUTO-SPELL
       - ADR-REPO-OUTDIR-COMPILEDPREBUILD
-    drs_total: 2
+    drs_total: 4
 ---
 
 # pwsh/Catzc.Base.QualityGates/Build-EnglishDictionary.ps1

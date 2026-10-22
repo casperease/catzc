@@ -5,8 +5,9 @@ catzc:
     cites:
       - DDR-TRACK-TRACKISPLACEDCLUSTER
       - DDR-TRACK-ONETECHSTACK
+      - FDR-CD
       - TDR-ONETRUTH-TRUTHISQUERYABLE
-    drs_total: 3
+    drs_total: 4
 ---
 
 # pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1

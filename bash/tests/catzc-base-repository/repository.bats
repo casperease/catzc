@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: "9e85849e01c1"
-# ---
-
 # Black-box tests of Catzc.Base.Repository, in Bash.
 #
 # Each test calls catzc the way a Bash user does: setup loads the engine's entry, the repository's importer.sh

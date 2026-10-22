@@ -345,3 +345,12 @@ Above `[string] $StampPath`, written with `#`.
 A machine-local memo of each file's hash keyed by length and last write: a file that shows the same pair is not read again, and
 the memo is rewritten when any file was. Omitted, every file is hashed, which is what the builder, the janitor and the gates ask.
 ```
+
+## comment:21
+
+Above `$carriers = [System.IO.Path]::Combine($ModulesRoot, 'Catzc.Base.Languages',...`, written with `#`.
+
+```text
+The hash is the body's: a head-only change (the file-meta imprint) keeps it, so the dll is not rebuilt for a comment. The head's form is
+the bcl carrier's in file-carriers.yml; a modules root without the Languages module hashes whole files.
+```

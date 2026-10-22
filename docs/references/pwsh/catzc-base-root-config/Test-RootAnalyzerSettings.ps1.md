@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-    drs_total: 1
+      - ADR-REPO-ROOTCFG
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1

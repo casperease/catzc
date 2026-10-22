@@ -5,7 +5,8 @@ catzc:
     cites:
       - ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES
       - ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE
-    drs_total: 2
+      - DDR-RUNMODE
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Base.ModuleSystem/New-Importer.ps1

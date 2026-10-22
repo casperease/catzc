@@ -7,9 +7,11 @@ catzc:
       - ADR-AUTO-GO-ONEGOROOT
       - ADR-AUTO-PY-ONEPYTHONROOT
       - ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS
+      - DDR-ASPECT
+      - DDR-RUNMODE
       - FDR-CD-GLOBS-EVERYSETHASLAYER
       - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
-    drs_total: 6
+    drs_total: 8
 ---
 
 # pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1

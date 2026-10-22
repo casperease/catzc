@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-REPO-OUTDIR-PLANNOTES
-    drs_total: 1
+      - ADR-REPO-OUTFMT
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.Reports/configs/output-formats.yml

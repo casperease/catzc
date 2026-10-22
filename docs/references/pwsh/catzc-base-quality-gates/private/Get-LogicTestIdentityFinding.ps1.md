@@ -5,7 +5,8 @@ catzc:
     cites:
       - ADR-AUTO-TEST-ONECATEGORY
       - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
-    drs_total: 2
+      - ADR-REPO-LANG
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Base.QualityGates/private/Get-LogicTestIdentityFinding.ps1

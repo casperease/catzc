@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-    drs_total: 1
+      - ADR-PWSH-PARAM
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.QualityGates/configs/parameter-consistency.yml

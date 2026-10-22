@@ -43,8 +43,21 @@ module's step, since the scan guesses it from a file's `Get-Config` calls and al
 
 ## Open steps
 
-- [ ] The rest, one module at a time (catzc-a0, with catzc-e9 taking `Docs`, `Slides`, `Exporter` and `Git`; `Catzc.Base.Contracts` first,
-      `Catzc.Base.QualityGates` last, a module the re-imprint holds waits), each module's sets moved to a method on their type built on
-      `Catzc.Base.Folders.PathSet` (landed with the pilot `FileMetaConfig.EngineInputs`: the same 11 files and stamp, 2.23 ms to 1.50 ms per
-      stamp; `Get-FileMetaEngineStamp` deleted) and its forwarding functions deleted with their callers. (check: per module, its test files
-      green, `Test-ScriptAnalyzer` at 0, and the scan's hits for it at 0 by grep)
+- [ ] State at the 2026-10-22 checkpoint: landed `Contracts`, `Azure.Templates`, `ModuleSystem`, `Tooling.Listen` (catzc-a0; `Provisioning`
+      and `Exporter` out of scope); swapped in `Docs`, `Slides`, `Git` (catzc-e9): `Docs` green in a fresh process (its one remaining hit,
+      the README target join in `Test-GeneratedReadmes`, is an output join, kept; `LearningsConfig.Files` renamed `FilesIn`, since
+      PowerShell resolved `.Files(` to the `files` count property), `Slides` and `Git` checks still to run
+      (`bash out/e9-bcl-check.sh Slides`, then `Git`), then "go" to catzc-54; staged `Overlay`, `TypesSystem` (catzc-54; `VSCode`,
+      `Toolchain`, `Tooling.Core`, `Languages` out of scope). (check: catzc-e9's three modules' test files green in a fresh process, then
+      catzc-54's burst landed with its tests green)
+- [ ] The rest, one module at a time (catzc-a0: `RootConfig`, `Azure.DevOps`, `Config`, `ConfigExtensions`, `Drs`, `Files`, `Writers`,
+      `KeyHandler`, `Node`, then `Catzc.Base.QualityGates` last; each staged, then one burst in the order catzc-7d sends; a module the
+      re-imprint holds waits), each module's sets moved to a method on their type built on `Catzc.Base.Folders.PathSet` (landed with the
+      pilot `FileMetaConfig.EngineInputs`: the same 11 files and stamp, 2.23 ms to 1.50 ms per stamp; `Get-FileMetaEngineStamp` deleted) and
+      its forwarding functions deleted with their callers. (check: per module, its test files green, `Test-ScriptAnalyzer` at 0, and the
+      scan's hits for it at 0 by grep)
+- [ ] `Catzc.Base.Overlay` and `Catzc.Base.TypesSystem` land from `out/bcl-54-staged/` in one burst (catzc-54, 2026-10-22, parse-checked):
+      five repository listings through the walker (`Get-CatzcOverlay`, `Import-CatzcOverlay` unpruned; `Clear-ModuleTypeCache`,
+      `Get-CSharpTypeDependency`, `Test-ShippedTypes`); the other four modules of that slice (`Languages`, `VSCode`, `Tooling.Core`,
+      `Toolchain`) hold only output, temporary and outside-repository joins, which stay. (check: the two modules' test files and
+      `Import-CSharpTypes.Tests.ps1` green, `Test-ScriptAnalyzer` at 0 on the five files, one fresh full import)

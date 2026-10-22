@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
-    drs_total: 1
+      - ADR-AUTO-TEST
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.Execution/Invoke-Executable.ps1

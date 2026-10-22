@@ -4,13 +4,14 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-CACHE-IMPORTERINVALIDATES
+      - ADR-AUTO-TRACKED
       - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - ADR-REPO-FILEMETA-NOREADBACK
       - DDR-TRACK-TRACKISPLACEDCLUSTER
       - DDR-TRACK-ONETECHSTACK
       - DDR-TRACK-FILELANGUAGE
       - TDR-ONETRUTH-TRUTHISQUERYABLE
-    drs_total: 7
+    drs_total: 8
 ---
 
 # pwsh/Catzc.Base.Maps/Get-WorldMap.ps1

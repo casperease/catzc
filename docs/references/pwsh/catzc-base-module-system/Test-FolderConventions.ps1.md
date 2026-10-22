@@ -4,8 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-REPO-FOLDERS-DOTMEANSTOOLING
-    drs_total: 2
+      - ADR-REPO-FOLDERS
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1

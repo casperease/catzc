@@ -5,7 +5,8 @@ catzc:
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
-    drs_total: 2
+      - DDR-RUNMODE
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1

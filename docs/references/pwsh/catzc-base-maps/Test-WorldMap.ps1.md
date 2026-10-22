@@ -4,11 +4,12 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-OUTDIR
       - DDR-TRACK-TRACKISPLACEDCLUSTER
       - DDR-TRACK-ONETECHSTACK
       - DDR-TRACK-FILELANGUAGE
       - DDR-TRACK-LABELSNAMEDEFINEDTERMS
-    drs_total: 5
+    drs_total: 6
 ---
 
 # pwsh/Catzc.Base.Maps/Test-WorldMap.ps1

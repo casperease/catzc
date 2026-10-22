@@ -4,8 +4,9 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE
+      - ADR-AUTO-TRACKED
       - ADR-PWSH-CACHE-STRICTSAFEPROBE
-    drs_total: 2
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Base.Files/Get-GitTrackedPath.ps1

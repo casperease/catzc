@@ -113,4 +113,53 @@ Describe 'Get-CombinedTypeHash' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMO
         $result.CombinedHash | Should -Be (Get-CombinedTypeHash $root).CombinedHash
         @(Get-ChildPath $TestDrive -Depth 1 -File -Filter '*.tmp' -Exclude @() -PruneVendor $false).Count | Should -Be 0
     }
+
+    Context 'a modules root whose file-carriers.yml declares the bcl head' {
+        BeforeAll {
+            function script:New-HeadedRoot {
+                $root = New-TypesRoot
+                $configs = Join-Path $root 'Catzc.Base.Languages/configs'
+                [System.IO.Directory]::CreateDirectory($configs) | Out-Null
+                [System.IO.File]::WriteAllText((Join-Path $configs 'file-carriers.yml'), "carriers:`n  bcl: { carrier: comment-head, block: [`"/*`", `"*/`"] }`n")
+                $root
+            }
+            $script:head = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-WIDGET-ONE`n---`n*/`n`n"
+        }
+
+        It 'keeps the hash when only the head changes, and moves it when the body changes' {
+            $root = New-HeadedRoot
+            $alpha = Join-Path $root 'Widget/types/Alpha.cs'
+            $body = "namespace Widget;`npublic class Alpha { }`n"
+            [System.IO.File]::WriteAllText($alpha, $body)
+            $bare = (Get-CombinedTypeHash $root).CombinedHash
+
+            [System.IO.File]::WriteAllText($alpha, $script:head + $body)
+            (Get-CombinedTypeHash $root).CombinedHash | Should -Be $bare -Because 'adding a head changes no body'
+            [System.IO.File]::WriteAllText($alpha, $script:head.Replace('ADR-WIDGET-ONE', 'ADR-WIDGET-TWO') + $body)
+            (Get-CombinedTypeHash $root).CombinedHash | Should -Be $bare -Because 'a changed head changes no body'
+
+            [System.IO.File]::WriteAllText($alpha, $script:head + "namespace Widget;`npublic class Alpha { public int Tag; }`n")
+            (Get-CombinedTypeHash $root).CombinedHash | Should -Not -Be $bare
+        }
+
+        It 'reads a memo of whole-file hashes, from before the head was left out, as no memo' {
+            $root = New-HeadedRoot
+            $stamp = Join-Path $TestDrive "stamp-$([guid]::NewGuid().ToString('N')).json"
+            $first = Get-CombinedTypeHash $root -StampPath $stamp
+            $document = [System.IO.File]::ReadAllText($stamp) | ConvertFrom-Json -AsHashtable
+            $document['form'] | Should -Be 'body'
+            $document.Remove('form')
+            [System.IO.File]::WriteAllText($stamp, ($document | ConvertTo-Json -Depth 4 -Compress))
+
+            $again = Get-CombinedTypeHash $root -StampPath $stamp
+            $again.Rehashed | Should -Be 3
+            $again.CombinedHash | Should -Be $first.CombinedHash
+        }
+    }
+
+    It 'leaves a text without the head as it is, and strips a head with the blank lines below it' {
+        Get-TypeSourceBody -Text "namespace Widget;`n" -Block '/*', '*/' | Should -BeExactly "namespace Widget;`n"
+        Get-TypeSourceBody -Text "/* a plain comment */`nnamespace Widget;`n" -Block '/*', '*/' | Should -BeExactly "/* a plain comment */`nnamespace Widget;`n"
+        Get-TypeSourceBody -Text "/*`n---`ncatzc:`n  edges: {}`n---`n*/`n`n`nnamespace Widget;`n" -Block '/*', '*/' | Should -BeExactly "namespace Widget;`n"
+    }
 }

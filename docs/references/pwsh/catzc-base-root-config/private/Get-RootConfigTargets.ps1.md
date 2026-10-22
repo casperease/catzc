@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-IMPORTER-ENTRIESFOLLOWMIX
-    drs_total: 1
+      - ADR-REPO-ROOTCFG
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.RootConfig/private/Get-RootConfigTargets.ps1

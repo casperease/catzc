@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-MODULE-EXISTSBYLAYOUT
-    drs_total: 1
+      - DDR-ASPECT
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.Modules/Get-Aspect.ps1

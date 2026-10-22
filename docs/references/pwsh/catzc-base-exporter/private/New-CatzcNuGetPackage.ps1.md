@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
-    drs_total: 1
+      - ADR-GH-RELEASE
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1

@@ -44,8 +44,26 @@ ten "may I" questions on edits the rules already require, three to five tool cal
       and a burst event whose holder process is gone (a killed burst) does not hold waiters (decided as delegated; catzc-54). (check:
       `Wait-CatzcRunLock.Tests.ps1` green with a waiter-inside-a-300-s-call case, a dead-burst-holder case, and a waiter whose parent was
       killed while queued never taking the lock (an orphaned pwsh child held a 300 s burst after its bash wrapper was stopped, catzc-54))
+      Staged in `out/run-lock-staged2/` (280 s budget on `TimeoutsConfig` and `timeouts.yml`, gone-burst holder, `-ParentId` check; 15 of 15
+      in isolated Pester); it lands in one burst with a fresh import, which rebuilds the Bash hook.
+- [ ] `pwsh/.internal/assets/Enter-CatzcBurst.ps1`: a burst runs its work in the same call that enters it (catzc-e3, 2026-10-22: a burst
+      entered from its own background call held the lock for its 300 s unused, since nothing tells the agent when it starts holding; the
+      workaround `out/internal-burst.ps1` enters, waits for "holding the run lock", runs the steps and exits in one call), e.g. a `-Run`
+      list of commands it executes while holding, then releases. (check: `Enter-CatzcBurst.Tests.ps1` green with a case whose `-Run` steps
+      execute inside the burst and release the lock on success and on a failing step)
 
 ## Open questions
+
+- The orchestrator's finalize (2026-10-22), proposals to shrink what the next session reads, none applied: (1) one merged line in
+  `.claude/skills/plans-orchestrate/SKILL.md`: at most two heavy drones at a time on this devbox, bursts chained drone to drone, one unit
+  per `Invoke-CatzcCommand` call (today only in the orchestrator's memory); (2) once the parent check lands, drop the "never stop a queued
+  burst by TaskStop" caution from anyone's notes, since the waiter then stops itself; (3) `docs/drs/repository/file-meta.md` FILEISNODE
+  gains the folding sentence (a cited bare record code stands for its rules; `drs_total` counts before folding), so no reader re-derives it.
+  Take or leave each.
+
+- catzc-54's finalize (2026-10-22), a proposal, not applied: one line in `.claude/skills/catzc-verify/SKILL.md`, "a body diff after
+  `Format-Code` may be a long comment moved verbatim to its comment page; check the page before reporting a word change", so a drone does
+  not raise a re-imprint's comment move as a body change. Take it or leave it.
 
 - The user's (from plan-debt-hindsight-gaps, deleted 2026-10-22 when its steps landed): a capability line saying a line that pre-approves
   agent behaviour, or a `sed -i` delete, is denied by the permission system and goes to the user. Take it or leave it.

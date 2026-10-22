@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-PWSH-CACHE-STRICTSAFEPROBE
-    drs_total: 1
+      - ADR-REPO-PROTGLOB
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.Globs/Test-GlobSetProtection.ps1

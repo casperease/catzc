@@ -6,10 +6,8 @@ catzc:
       - ADR-REPO-PROTGLOB-INCLUDESOWNCONFIG
       - ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS
       - DDR-TRACK-DEPLOYABLEUNIT
-      - FDR-CD-GLOBS-EVERYSETHASLAYER
-      - FDR-CD-GLOBS-COMPOSESETS
-      - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
-    drs_total: 6
+      - FDR-CD-GLOBS
+    drs_total: 7
 ---
 
 # pwsh/Catzc.Base.Globs/configs/globs.yml

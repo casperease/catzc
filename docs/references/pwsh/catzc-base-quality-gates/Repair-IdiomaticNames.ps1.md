@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-IDIOM-HELDBYGATE
-    drs_total: 1
+      - ADR-PWSH-DRYRUN
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.QualityGates/Repair-IdiomaticNames.ps1

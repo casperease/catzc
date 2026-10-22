@@ -4,11 +4,12 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
+      - ADR-AUTO-CACHE
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-AUTO-TEST-NOOVERMOCKING
       - ADR-AUTO-TEST-TAGBYOUTERMOSTRING
       - PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE
-    drs_total: 5
+    drs_total: 6
 ---
 
 # pwsh/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1

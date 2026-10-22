@@ -13,6 +13,40 @@ catzc:
 
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
+function Get-TypeSourceBody {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)]
+        [AllowEmptyString()]
+        [string] $Text,
+
+        [Parameter(Mandatory)]
+        [string[]] $Block
+    )
+
+    # The bcl carrier's head, read the way CodeMetaHead.Parse reads it: the opener, a fence, catzc:, the closing fence, the closer, blank lines.
+    $lines = $Text -split "`n"
+    if ($lines.Count -lt 5 -or $lines[0].Trim() -cne $Block[0] -or $lines[1].Trim() -cne '---' -or $lines[2].TrimEnd() -cne 'catzc:') {
+        return $Text
+    }
+    $fence = 3
+    while ($fence -lt $lines.Count -and $lines[$fence].Trim() -cne '---') {
+        $fence++
+    }
+    if (($fence + 1) -ge $lines.Count -or $lines[$fence + 1].Trim() -cne $Block[1]) {
+        return $Text
+    }
+    $start = $fence + 2
+    while ($start -lt $lines.Count -and $lines[$start].Trim().Length -eq 0) {
+        $start++
+    }
+    if ($start -ge $lines.Count) {
+        return ''
+    }
+    $lines[$start..($lines.Count - 1)] -join "`n"
+}
+
 function Get-CombinedTypeHash {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -78,7 +112,8 @@ function Get-CombinedTypeHash {
     if ($StampPath -and [System.IO.File]::Exists($StampPath)) {
         try {
             $document = [System.IO.File]::ReadAllText($StampPath) | ConvertFrom-Json -AsHashtable
-            if ($document -is [hashtable] -and $document['files'] -is [hashtable]) {
+            # A memo of whole-file hashes, from before the head was left out, is read as no memo.
+            if ($document -is [hashtable] -and $document['form'] -ceq 'body' -and $document['files'] -is [hashtable]) {
                 $stamped = $document['files']
             }
         }
@@ -88,6 +123,12 @@ function Get-CombinedTypeHash {
     }
 
     $latin1 = [System.Text.Encoding]::Latin1
+    $carriers = [System.IO.Path]::Combine($ModulesRoot, 'Catzc.Base.Languages', 'configs', 'file-carriers.yml')
+    $block = $null
+    if ([System.IO.File]::Exists($carriers)) {
+        $declared = (ConvertFrom-Yaml ([System.IO.File]::ReadAllText($carriers)))['carriers']['bcl']
+        $block = [string[]] @($declared['block'])
+    }
     $snapshot = [ordered]@{}
     $memo = [ordered]@{}
     $rehashed = 0
@@ -101,7 +142,11 @@ function Get-CombinedTypeHash {
                 $fileHash = $known['hash']
             }
             else {
-                $normalizedBytes = $latin1.GetBytes($latin1.GetString([System.IO.File]::ReadAllBytes($file.Path)).Replace("`r", ''))
+                $normalized = $latin1.GetString([System.IO.File]::ReadAllBytes($file.Path)).Replace("`r", '')
+                if ($block) {
+                    $normalized = Get-TypeSourceBody -Text $normalized -Block $block
+                }
+                $normalizedBytes = $latin1.GetBytes($normalized)
                 $fileHash = [System.BitConverter]::ToString($sha.ComputeHash($normalizedBytes)) -replace '-', ''
                 $rehashed++
             }
@@ -121,7 +166,7 @@ function Get-CombinedTypeHash {
         if ($folder) {
             [System.IO.Directory]::CreateDirectory($folder) | Out-Null
         }
-        $json = [ordered]@{ combined = $combinedHash; files = $memo } | ConvertTo-Json -Depth 4 -Compress
+        $json = [ordered]@{ form = 'body'; combined = $combinedHash; files = $memo } | ConvertTo-Json -Depth 4 -Compress
         $temporary = "$StampPath.$([guid]::NewGuid().ToString('N')).tmp"
         [System.IO.File]::WriteAllText($temporary, $json)
         # The stamp is a cache that parallel imports share: a replace that loses to another process's read or replace leaves the next import to rehash.
@@ -296,6 +341,12 @@ function Build-CombinedTypeAssembly {
             catch [System.IO.FileNotFoundException], [System.IO.DirectoryNotFoundException] {
                 throw "C# type source '$($file.Path)' was removed while the types were being built. Re-run the build."
             }
+        }
+        # The carrier's head form is an input of the hash too, so the frozen copy hashes the bodies the live root hashes.
+        $carriers = [System.IO.Path]::Combine('Catzc.Base.Languages', 'configs', 'file-carriers.yml')
+        if ([System.IO.File]::Exists([System.IO.Path]::Combine($ModulesRoot, $carriers))) {
+            [System.IO.Directory]::CreateDirectory([System.IO.Path]::Combine($frozenRoot, 'Catzc.Base.Languages', 'configs')) | Out-Null
+            [System.IO.File]::Copy([System.IO.Path]::Combine($ModulesRoot, $carriers), [System.IO.Path]::Combine($frozenRoot, $carriers))
         }
         $frozenArguments = @{ ModulesRoot = $frozenRoot }
         if ($PSBoundParameters.ContainsKey('Module')) {
@@ -823,4 +874,4 @@ function Enable-DeferredTypesLoad {
     }
 }
 
-Export-ModuleMember -Function Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Get-TypesStampPath, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad
+Export-ModuleMember -Function Get-TypeSourceBody, Get-CombinedTypeHash, Get-LoadedTypeDrift, Build-CombinedTypeAssembly, Get-TypesShadowRoot, Get-TypesStampPath, Import-TypesAssembly, Test-TypesAssemblyContent, Get-TypesAssemblyManifest, Write-TypesAssemblyManifest, Get-TypesLoadPolicy, Register-DeferredTypes, Initialize-Types, Enable-DeferredTypesLoad

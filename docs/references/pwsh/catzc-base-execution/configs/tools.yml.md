@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
-    drs_total: 1
+      - ADR-AUTO-ENGINE
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.Execution/configs/tools.yml

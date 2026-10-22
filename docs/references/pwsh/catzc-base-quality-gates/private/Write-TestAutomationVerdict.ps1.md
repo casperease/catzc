@@ -4,8 +4,9 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-CONSOLE-SPARINGCOLOUR
+      - ADR-AUTO-FAILFAST
       - ADR-AUTO-XPLAT-INVARIANTCULTURE
-    drs_total: 2
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1

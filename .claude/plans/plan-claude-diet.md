@@ -69,3 +69,8 @@ It cuts a cost paid by every session and every spawn that loads the project inst
 - From catzc-54's review (2026-10-22): `Test-Slides` now checks each deck's slide order as a whole, while ADR-REPO-SLIDES-CHECKABLECLAIMS
   says a claim is checked one file at a time. Should the rule say a deck-level fact (order gaps and duplicates) is checked per deck?
   Recommendation: yes, one clause, since a rule is the user's to write.
+- From catzc-e3's second finalize (2026-10-22), four lines, none applied: (a) `drawio-declaration` says `declaration.py minimaps` reads the
+  data only `Build-Diagrams` refreshes, so the order is Build-Diagrams, minimaps, Build-Diagrams; (b) `catzc-check` says `Test-Diagrams`
+  takes diagram paths, never a folder; (c) `catzc-run` says a script reading `git show` sets `[Console]::OutputEncoding` to UTF-8, and a
+  `pwsh -File` list argument arrives as one comma string; (d) `catzc-run` says an `out/` script a session writes carries the session's name,
+  since peers' scripts share the folder (one was overwritten unseen). Recommendation: all four, each merged into an existing line.
