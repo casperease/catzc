@@ -4,8 +4,9 @@
 #     with_body_sha: "12337adf2533"
 # ---
 
-description: 'A wait''s limit resolves in one order: the caller''s value, else the config file, else the declared default; an exemption only raises
-  it to a ceiling, and one bounded wait runs under the winner.'
+description:
+  "A wait's limit resolves in one order: the caller's value, else the config file, else the declared default; an exemption only raises it to
+  a ceiling, and one bounded wait runs under the winner."
 about:
   adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
   lens: meta

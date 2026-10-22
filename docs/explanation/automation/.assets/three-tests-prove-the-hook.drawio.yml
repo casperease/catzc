@@ -4,8 +4,9 @@
 #     with_body_sha: "497b196070c8"
 # ---
 
-description: 'One rule bounds every agent call: the limits, the verdict and the hook follow it, three tests at three tiers prove the hook, and
-  the exemption route has no gate because it exists only in the ADR.'
+description:
+  "One rule bounds every agent call: the limits, the verdict and the hook follow it, three tests at three tiers prove the hook, and the
+  exemption route has no gate because it exists only in the ADR."
 about:
   adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
   lens: governance

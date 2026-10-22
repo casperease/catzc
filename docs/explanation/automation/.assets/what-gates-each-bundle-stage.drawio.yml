@@ -4,8 +4,9 @@
 #     with_body_sha: c43e084e26f5
 # ---
 
-description: 'Every stage of the bundle follows a rule and two gates check it: the integrity gate on every build and again before every install,
-  and the build run that repeats the same tests against a fresh build.'
+description:
+  "Every stage of the bundle follows a rule and two gates check it: the integrity gate on every build and again before every install, and
+  the build run that repeats the same tests against a fresh build."
 about:
   adrs:
     - ADR-AUTO-BUNDLE-BUNDLEISBUILD

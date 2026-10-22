@@ -4,8 +4,9 @@
 #     with_body_sha: "2c146bd5eb38"
 # ---
 
-description: 'The bash hook''s program loads the limits and the run environment, hands the call to Decide, and acts on what comes back: nothing
-  to let the call through, or a reason that becomes a denial and one line in the blocker log.'
+description:
+  "The bash hook's program loads the limits and the run environment, hands the call to Decide, and acts on what comes back: nothing to let
+  the call through, or a reason that becomes a denial and one line in the blocker log."
 about:
   adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
   lens: implementation

@@ -4,8 +4,9 @@
 #     with_body_sha: fc25d1a70aeb
 # ---
 
-description: 'The operator''s path through a unit''s triggers: edit globs.yml, print the projection with Get-GlobSetTrigger, paste the Azure DevOps
-  lists into the pipeline file, and two gates fail naming the missing include, the drifted filter or the missing file.'
+description:
+  "The operator's path through a unit's triggers: edit globs.yml, print the projection with Get-GlobSetTrigger, paste the Azure DevOps lists
+  into the pipeline file, and two gates fail naming the missing include, the drifted filter or the missing file."
 about:
   adrs: [FDR-CD-GLOBS-NATIVEPATHFILTER]
   lens: operations

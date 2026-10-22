@@ -4,8 +4,9 @@
 #     with_body_sha: "071cc0037111"
 # ---
 
-description: 'A pull request or a merge to main starts the CD pipeline: the CI stage builds, the deploy stages run on main only and reach every
-  target the pipeline lists, prod tier included, with no approval step in the YAML; two deploy functions throw on a missing or wrong subscription.'
+description:
+  "A pull request or a merge to main starts the CD pipeline: the CI stage builds, the deploy stages run on main only and reach every target
+  the pipeline lists, prod tier included, with no approval step in the YAML; two deploy functions throw on a missing or wrong subscription."
 about:
   adrs: [FDR-CD-CDSTAYSINNONPROD, FDR-CD-PRODPROGRESSIONISDEPLOY, FDR-CD-TWORELEASEGATES]
   lens: operations

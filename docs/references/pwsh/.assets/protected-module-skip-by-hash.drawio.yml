@@ -1,19 +1,14 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "0d4e1d4ac6ef"
+#     with_body_sha: "777c747fb2b7"
 # ---
 
 description:
   Before the workers start, a module's globset hashes fold into one identity that is compared with the identity recorded after its last
   green run; a match skips the module, the asked identity is held as pending, and a green result promotes it afterwards.
 about:
-  adrs:
-    - ADR-REPO-PROTGLOB
-    - FDR-CD-GLOBS
-    - FDR-CD-DETECT
-    - ADR-PWSH-CACHE
-    - DDR-ASPECT
+  adrs: [ADR-REPO-PROTGLOB, FDR-CD-GLOBS, FDR-CD-DETECT, ADR-PWSH-CACHE, DDR-ASPECT]
   lens: source
 content:
   title: Skip a module only if its folded hash matches its last green
@@ -22,121 +17,47 @@ content:
   relation: calls
   theme: dark
   bands:
-    - id: band-loader
-      label: CATZC.INTERNAL.LOADER
-    - id: band-query
-      label: QUERY · BEFORE THE WORKERS
-    - id: band-session
-      label: SESSION MAP
-    - id: band-record
-      label: RECORD · AFTER THE WORKERS
+    - { id: band-loader, label: CATZC.INTERNAL.LOADER }
+    - { id: band-query, label: QUERY · BEFORE THE WORKERS }
+    - { id: band-session, label: SESSION MAP }
+    - { id: band-record, label: RECORD · AFTER THE WORKERS }
   groups:
-    - id: grp-session
-      label: session maps
-      in: band-session
+    - { id: grp-session, label: session maps, in: band-session }
   glyphs:
-    - id: g-pipeline
-      kind: code
-      label: Test-IsRunningInPipeline
-      in: band-loader
-    - id: g-select
-      kind: private
-      label: Select-ProtectedTestFile
-      in: band-query
-    - id: g-identity
-      kind: private
-      label: Get-ModuleProtectionIdentity
-      in: band-query
-    - id: g-glob-hash
-      kind: code
-      label: Get-GlobSetHash
-      in: band-query
-    - id: t-durable
-      kind: type
-      label: DurableHash
-      in: band-query
-    - id: g-protection
-      kind: gate
-      label: Test-GlobSetProtection
-      in: band-query
-    - id: s-pending
-      kind: store
-      label: pendingGlobProtections
-      in: grp-session
-    - id: s-protected
-      kind: store
-      label: protectedGlobSets
-      in: grp-session
-    - id: g-tested
-      kind: private
-      label: Protect-TestedModule
-      in: band-record
-    - id: g-protect
-      kind: code
-      label: Protect-GlobSet
-      in: band-record
+    - { id: g-pipeline, kind: code, label: Test-IsRunningInPipeline, in: band-loader }
+    - { id: g-select, kind: private, label: Select-ProtectedTestFile, in: band-query }
+    - { id: g-identity, kind: private, label: Get-ModuleProtectionIdentity, in: band-query }
+    - { id: g-glob-hash, kind: code, label: Get-GlobSetHash, in: band-query }
+    - { id: t-durable, kind: type, label: DurableHash, in: band-query }
+    - { id: g-protection, kind: gate, label: Test-GlobSetProtection, in: band-query }
+    - { id: s-pending, kind: store, label: pendingGlobProtections, in: grp-session }
+    - { id: s-protected, kind: store, label: protectedGlobSets, in: grp-session }
+    - { id: g-tested, kind: private, label: Protect-TestedModule, in: band-record }
+    - { id: g-protect, kind: code, label: Protect-GlobSet, in: band-record }
   edges:
-    - from: g-select
-      to: g-pipeline
-      kind: flow
-      label: ""
-    - from: g-select
-      to: g-identity
-      kind: flow
-      label: ""
-    - from: g-identity
-      to: g-glob-hash
-      kind: flow
-      label: ""
-    - from: g-glob-hash
-      to: t-durable
-      kind: flow
-      label: ""
-    - from: g-identity
-      to: t-durable
-      kind: flow
-      label: ""
-    - from: g-select
-      to: g-protection
-      kind: flow
-      label: ""
-    - from: g-protection
-      to: s-protected
-      kind: flow
-      label: ""
-    - from: g-tested
-      to: g-protect
-      kind: flow
-      label: ""
-    - from: g-protect
-      to: s-protected
-      kind: flow
-      label: ""
+    - { from: g-select, to: g-pipeline, kind: flow, label: "" }
+    - { from: g-select, to: g-identity, kind: flow, label: "" }
+    - { from: g-identity, to: g-glob-hash, kind: flow, label: "" }
+    - { from: g-glob-hash, to: t-durable, kind: flow, label: "" }
+    - { from: g-identity, to: t-durable, kind: flow, label: "" }
+    - { from: g-select, to: g-protection, kind: flow, label: "" }
+    - { from: g-protection, to: s-protected, kind: flow, label: "" }
+    - { from: g-tested, to: g-protect, kind: flow, label: "" }
+    - { from: g-protect, to: s-protected, kind: flow, label: "" }
   markers:
-    - at: g-select
-      number: 1
-    - at: g-pipeline
-      number: 2
-    - at: g-identity
-      number: 3
-    - at: g-glob-hash
-      number: 4
-    - at: t-durable
-      number: 5
-    - at: g-protection
-      number: 6
-    - at: g-tested
-      number: 7
-    - at: g-protect
-      number: 8
+    - { at: g-select, number: 1 }
+    - { at: g-pipeline, number: 2 }
+    - { at: g-identity, number: 3 }
+    - { at: g-glob-hash, number: 4 }
+    - { at: t-durable, number: 5 }
+    - { at: g-protection, number: 6 }
+    - { at: g-tested, number: 7 }
+    - { at: g-protect, number: 8 }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-DETECT
-          - FDR-CD-GLOBS
+        by: [.claude/CLAUDE.md, FDR-CD-DETECT, FDR-CD-GLOBS]
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/cd-apex.yaml
@@ -147,9 +68,7 @@ content:
           - .ado/pipelines/ci-pwsh.yaml
           - FDR-CD-GLOBS
       - cell: ado-pipelines/pipelines/extends
-        by:
-          - .ado/pipelines/extends/cd-customer.yaml
-          - FDR-CD-GLOBS
+        by: [.ado/pipelines/extends/cd-customer.yaml, FDR-CD-GLOBS]
       - cell: docs/-/.
         by:
           - docs/drs/automation/pwsh/dora-explains.md
@@ -269,18 +188,11 @@ content:
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
       - cell: github-workflows/workflows/.
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - FDR-CD-GLOBS
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS]
       - cell: pwsh/-/.
-        by:
-          - pwsh/.scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1
-          - ADR-PWSH-CACHE
+        by: [pwsh/.scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1, ADR-PWSH-CACHE]
       - cell: pwsh/Catzc.Azure.DevOps/.
-        by:
-          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - FDR-CD-DETECT
-          - FDR-CD-GLOBS
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-DETECT, FDR-CD-GLOBS]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -288,13 +200,9 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
           - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
-        by:
-          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-          - FDR-CD-GLOBS
+        by: [pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml, FDR-CD-GLOBS]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
-        by:
-          - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - FDR-CD-GLOBS
+        by: [pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1, FDR-CD-GLOBS]
       - cell: pwsh/Catzc.Azure.Templates/.
         by:
           - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
@@ -302,9 +210,7 @@ content:
           - ADR-PWSH-CACHE
           - FDR-CD-DETECT
       - cell: pwsh/Catzc.Base.Config/.
-        by:
-          - pwsh/Catzc.Base.Config/Get-Config.ps1
-          - ADR-PWSH-CACHE
+        by: [pwsh/Catzc.Base.Config/Get-Config.ps1, ADR-PWSH-CACHE]
       - cell: pwsh/Catzc.Base.Config/private
         by:
           - pwsh/Catzc.Base.Config/private/Get-ConfigOverlayRoot.ps1
@@ -312,13 +218,9 @@ content:
           - pwsh/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1
           - ADR-PWSH-CACHE
       - cell: pwsh/Catzc.Base.Docs/.
-        by:
-          - pwsh/Catzc.Base.Docs/Get-Glossary.ps1
-          - ADR-PWSH-CACHE
+        by: [pwsh/Catzc.Base.Docs/Get-Glossary.ps1, ADR-PWSH-CACHE]
       - cell: pwsh/Catzc.Base.Docs/private
-        by:
-          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
-          - ADR-PWSH-CACHE
+        by: [pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1, ADR-PWSH-CACHE]
       - cell: pwsh/Catzc.Base.Drs/.
         by:
           - pwsh/Catzc.Base.Drs/Get-CatsDrsIndex.ps1
@@ -326,30 +228,15 @@ content:
           - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
           - ADR-PWSH-CACHE
       - cell: pwsh/Catzc.Base.Drs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-PWSH-CACHE
-          - ADR-REPO-PROTGLOB
-          - DDR-ASPECT
-          - FDR-CD-DETECT
-          - FDR-CD-GLOBS
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-PWSH-CACHE, ADR-REPO-PROTGLOB, DDR-ASPECT, FDR-CD-DETECT, FDR-CD-GLOBS]
       - cell: pwsh/Catzc.Base.Drs/types
-        by:
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - FDR-CD-DETECT
-          - FDR-CD-GLOBS
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-DETECT, FDR-CD-GLOBS]
       - cell: pwsh/Catzc.Base.Execution/.
-        by:
-          - pwsh/Catzc.Base.Execution/Find-Executable.ps1
-          - ADR-PWSH-CACHE
+        by: [pwsh/Catzc.Base.Execution/Find-Executable.ps1, ADR-PWSH-CACHE]
       - cell: pwsh/Catzc.Base.Exporter/.
-        by:
-          - pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
-          - FDR-CD-GLOBS
+        by: [pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1, FDR-CD-GLOBS]
       - cell: pwsh/Catzc.Base.Files/.
-        by:
-          - pwsh/Catzc.Base.Files/Get-GitTrackedPath.ps1
-          - ADR-PWSH-CACHE
+        by: [pwsh/Catzc.Base.Files/Get-GitTrackedPath.ps1, ADR-PWSH-CACHE]
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Clear-GlobSetProtection.ps1
@@ -375,10 +262,7 @@ content:
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Base.Globs/configs
-        by:
-          - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - ADR-REPO-PROTGLOB
-          - FDR-CD-GLOBS
+        by: [pwsh/Catzc.Base.Globs/configs/globs.yml, ADR-REPO-PROTGLOB, FDR-CD-GLOBS]
       - cell: pwsh/Catzc.Base.Globs/private
         by:
           - pwsh/Catzc.Base.Globs/private/Get-ChangedFile.ps1
@@ -436,22 +320,13 @@ content:
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
       - cell: pwsh/Catzc.Base.Maps/tests
-        by:
-          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - FDR-CD-DETECT
-          - FDR-CD-GLOBS
+        by: [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1, FDR-CD-DETECT, FDR-CD-GLOBS]
       - cell: pwsh/Catzc.Base.Modules/.
-        by:
-          - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
-          - DDR-ASPECT
+        by: [pwsh/Catzc.Base.Modules/Get-Aspect.ps1, DDR-ASPECT]
       - cell: pwsh/Catzc.Base.Modules/tests
-        by:
-          - pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
-          - DDR-ASPECT
+        by: [pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1, DDR-ASPECT]
       - cell: pwsh/Catzc.Base.ModuleSystem/.
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
-          - ADR-PWSH-CACHE
+        by: [pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1, ADR-PWSH-CACHE]
       - cell: pwsh/Catzc.Base.QualityGates/.
         by:
           - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
@@ -486,33 +361,18 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
           - ADR-REPO-PROTGLOB
       - cell: pwsh/Catzc.Base.Variants/configs
-        by:
-          - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - DDR-ASPECT
+        by: [pwsh/Catzc.Base.Variants/configs/variants.yml, DDR-ASPECT]
       - cell: pwsh/Catzc.Base.Variants/types
-        by:
-          - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
-          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - DDR-ASPECT
+        by: [pwsh/Catzc.Base.Variants/types/VariantAspect.cs, pwsh/Catzc.Base.Variants/types/VariantsConfig.cs, DDR-ASPECT]
       - cell: pwsh/Catzc.Internal.Tests/.
-        by:
-          - pwsh/.internal/tests/Write-LoadTime.Tests.ps1
-          - ADR-PWSH-CACHE
+        by: [pwsh/.internal/tests/Write-LoadTime.Tests.ps1, ADR-PWSH-CACHE]
       - cell: pwsh/Catzc.Tooling.Core/private
-        by:
-          - pwsh/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1
-          - ADR-PWSH-CACHE
+        by: [pwsh/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1, ADR-PWSH-CACHE]
     module-neighbourhood:
       - cell: subject/.claude
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-DETECT
-          - FDR-CD-GLOBS
+        by: [.claude/CLAUDE.md, FDR-CD-DETECT, FDR-CD-GLOBS]
       - cell: subject/Catzc.Azure.DevOps
-        by:
-          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - FDR-CD-DETECT
-          - FDR-CD-GLOBS
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-DETECT, FDR-CD-GLOBS]
       - cell: subject/Catzc.Azure.DevOps.BuildValidation
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -535,10 +395,7 @@ content:
           - pwsh/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1
           - ADR-PWSH-CACHE
       - cell: subject/Catzc.Base.Docs
-        by:
-          - pwsh/Catzc.Base.Docs/Get-Glossary.ps1
-          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
-          - ADR-PWSH-CACHE
+        by: [pwsh/Catzc.Base.Docs/Get-Glossary.ps1, pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1, ADR-PWSH-CACHE]
       - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/Get-CatsDrsIndex.ps1
@@ -552,17 +409,11 @@ content:
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
       - cell: subject/Catzc.Base.Execution
-        by:
-          - pwsh/Catzc.Base.Execution/Find-Executable.ps1
-          - ADR-PWSH-CACHE
+        by: [pwsh/Catzc.Base.Execution/Find-Executable.ps1, ADR-PWSH-CACHE]
       - cell: subject/Catzc.Base.Exporter
-        by:
-          - pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
-          - FDR-CD-GLOBS
+        by: [pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1, FDR-CD-GLOBS]
       - cell: subject/Catzc.Base.Files
-        by:
-          - pwsh/Catzc.Base.Files/Get-GitTrackedPath.ps1
-          - ADR-PWSH-CACHE
+        by: [pwsh/Catzc.Base.Files/Get-GitTrackedPath.ps1, ADR-PWSH-CACHE]
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Clear-GlobSetProtection.ps1
@@ -628,14 +479,9 @@ content:
           - FDR-CD-DETECT
           - FDR-CD-GLOBS
       - cell: subject/Catzc.Base.ModuleSystem
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
-          - ADR-PWSH-CACHE
+        by: [pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1, ADR-PWSH-CACHE]
       - cell: subject/Catzc.Base.Modules
-        by:
-          - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
-          - pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
-          - DDR-ASPECT
+        by: [pwsh/Catzc.Base.Modules/Get-Aspect.ps1, pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1, DDR-ASPECT]
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
@@ -665,13 +511,9 @@ content:
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
           - DDR-ASPECT
       - cell: subject/Catzc.Internal.Tests
-        by:
-          - pwsh/.internal/tests/Write-LoadTime.Tests.ps1
-          - ADR-PWSH-CACHE
+        by: [pwsh/.internal/tests/Write-LoadTime.Tests.ps1, ADR-PWSH-CACHE]
       - cell: subject/Catzc.Tooling.Core
-        by:
-          - pwsh/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1
-          - ADR-PWSH-CACHE
+        by: [pwsh/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1, ADR-PWSH-CACHE]
       - cell: subject/pipelines
         by:
           - .ado/pipelines/cd-apex.yaml
@@ -683,94 +525,27 @@ content:
           - .ado/pipelines/extends/cd-customer.yaml
           - FDR-CD-GLOBS
       - cell: subject/workflows
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - FDR-CD-GLOBS
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS]
     axis:
       - cell: DSGN/build
-        by:
-          - DDR-ASPECT
+        by: [DDR-ASPECT]
       - cell: DSGN/*
-        by:
-          - FDR-CD-DETECT
-          - FDR-CD-GLOBS
+        by: [FDR-CD-DETECT, FDR-CD-GLOBS]
       - cell: AUTO/*
-        by:
-          - ADR-PWSH-CACHE
-          - ADR-REPO-PROTGLOB
+        by: [ADR-PWSH-CACHE, ADR-REPO-PROTGLOB]
 layout:
-  band-loader:
-    x: 20
-    y: 88
-    w: 215
-    h: 84
-  band-query:
-    x: 270
-    y: 84
-    w: 1010
-    h: 220
-  band-session:
-    x: 270
-    y: 322
-    w: 1010
-    h: 122
-  band-record:
-    x: 270
-    y: 462
-    w: 1010
-    h: 122
-  g-pipeline:
-    x: 32
-    y: 124
-    w: 190
-    h: 40
-  g-select:
-    x: 295
-    y: 124
-    w: 190
-    h: 36
-  g-identity:
-    x: 535
-    y: 124
-    w: 230
-    h: 36
-  g-glob-hash:
-    x: 820
-    y: 210
-    w: 155
-    h: 40
-  t-durable:
-    x: 1055
-    y: 122
-    w: 150
-    h: 40
-  g-protection:
-    x: 285
-    y: 205
-    w: 210
-    h: 80
-  grp-session:
-    x: 300
-    y: 346
-    w: 480
-    h: 86
-  s-pending:
-    x: 315
-    y: 366
-    w: 200
-    h: 56
-  s-protected:
-    x: 560
-    y: 366
-    w: 200
-    h: 56
-  g-tested:
-    x: 295
-    y: 502
-    w: 190
-    h: 36
-  g-protect:
-    x: 575
-    y: 500
-    w: 150
-    h: 40
+  band-loader: { x: 20, y: 88, w: 215, h: 84 }
+  band-query: { x: 270, y: 84, w: 1010, h: 220 }
+  band-session: { x: 270, y: 322, w: 1010, h: 122 }
+  band-record: { x: 270, y: 462, w: 1010, h: 122 }
+  g-pipeline: { x: 32, y: 124, w: 190, h: 40 }
+  g-select: { x: 295, y: 124, w: 190, h: 36 }
+  g-identity: { x: 535, y: 124, w: 230, h: 36 }
+  g-glob-hash: { x: 820, y: 210, w: 155, h: 40 }
+  t-durable: { x: 1055, y: 122, w: 150, h: 40 }
+  g-protection: { x: 285, y: 205, w: 210, h: 80 }
+  grp-session: { x: 300, y: 346, w: 480, h: 86 }
+  s-pending: { x: 315, y: 366, w: 200, h: 56 }
+  s-protected: { x: 560, y: 366, w: 200, h: 56 }
+  g-tested: { x: 295, y: 502, w: 190, h: 36 }
+  g-protect: { x: 575, y: 500, w: 150, h: 40 }

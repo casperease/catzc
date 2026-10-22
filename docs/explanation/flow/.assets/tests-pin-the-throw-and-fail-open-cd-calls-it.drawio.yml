@@ -4,8 +4,9 @@
 #     with_body_sha: "08458d659dee"
 # ---
 
-description: 'Which checks pin the touched-unit check: logic tests pin the throw, the fail-open and the range, an analyzer rule pins the detection,
-  and the deep checkout and the Changes step are wired into the CD pipelines with no gate.'
+description:
+  "Which checks pin the touched-unit check: logic tests pin the throw, the fail-open and the range, an analyzer rule pins the detection, and
+  the deep checkout and the Changes step are wired into the CD pipelines with no gate."
 about:
   adrs: [FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-CD-DETECT-NODIRECTVARIABLECHECK, ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY]
   lens: governance

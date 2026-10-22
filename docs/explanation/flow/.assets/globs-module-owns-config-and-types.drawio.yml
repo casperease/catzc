@@ -4,8 +4,9 @@
 #     with_body_sha: "2d177b3a7462"
 # ---
 
-description: 'One typed registry, globs.yml, is validated and flattened by GlobsConfig and GlobSet, and the module computes three roles from it:
-  the trigger projection read by pipelines and workflows, the change report built from git, and the protection identity read by the test run.'
+description:
+  "One typed registry, globs.yml, is validated and flattened by GlobsConfig and GlobSet, and the module computes three roles from it: the
+  trigger projection read by pipelines and workflows, the change report built from git, and the protection identity read by the test run."
 about:
   adrs: [FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: architecture

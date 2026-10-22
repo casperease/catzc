@@ -4,8 +4,9 @@
 #     with_body_sha: f6818e48ea1e
 # ---
 
-description: 'The bundle in code: Build-Modules reads exporter.yml and calls the build engine, Assert-CatzcBundle checks what the engine wrote,
-  and each target verifies the build folder again before it copies or packs it whole.'
+description:
+  "The bundle in code: Build-Modules reads exporter.yml and calls the build engine, Assert-CatzcBundle checks what the engine wrote, and
+  each target verifies the build folder again before it copies or packs it whole."
 about:
   adrs: [ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL, ADR-AUTO-BUNDLE-AUTOVERSION]
   lens: implementation

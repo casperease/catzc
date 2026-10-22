@@ -4,8 +4,9 @@
 #     with_body_sha: f2c3b55e19ca
 # ---
 
-description: 'A coding agent''s shell call meets the time safeguard first: a call that carries its limit goes ahead untouched, and one that does
-  not is denied with the reason, never rewritten.'
+description:
+  "A coding agent's shell call meets the time safeguard first: a call that carries its limit goes ahead untouched, and one that does not is
+  denied with the reason, never rewritten."
 about:
   adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
   lens: meta

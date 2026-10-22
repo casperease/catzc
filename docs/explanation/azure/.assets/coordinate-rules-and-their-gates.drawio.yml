@@ -4,8 +4,9 @@
 #     with_body_sha: "8d5a5c56332a"
 # ---
 
-description: 'The rules that govern a config file''s coordinate and the gates that hold them: discovery and the validator both run the one shared
-  check, an integrity test runs the validator over the shipped tree, and the derived resource-group name has no gate.'
+description:
+  "The rules that govern a config file's coordinate and the gates that hold them: discovery and the validator both run the one shared check,
+  an integrity test runs the validator over the shipped tree, and the derived resource-group name has no gate."
 about:
   adrs:
     - ADR-AZ-DATAMOD-TWOCONFIGLAYERS

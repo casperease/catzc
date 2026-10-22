@@ -4,8 +4,9 @@
 #     with_body_sha: c6698ffac30b
 # ---
 
-description: 'Where the pipeline detector lives: the CI platforms set the variables, one loader function reads them, the bootstrap, the builder
-  and the modules ask that function, an analyzer rule bans a raw read, and only the C# hook repeats the test.'
+description:
+  "Where the pipeline detector lives: the CI platforms set the variables, one loader function reads them, the bootstrap, the builder and the
+  modules ask that function, an analyzer rule bans a raw read, and only the C# hook repeats the test."
 about:
   adrs: [FDR-CD-DETECT-NODIRECTVARIABLECHECK]
   lens: architecture

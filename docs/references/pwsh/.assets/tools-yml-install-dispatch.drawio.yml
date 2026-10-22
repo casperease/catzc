@@ -1,18 +1,14 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e7d21b215f8d
+#     with_body_sha: "31d3ead280c1"
 # ---
 
 description:
   tools.yml is the one locked list of tools; three readers take its typed map, and the devbox install walks the keys in dependency order and
   dispatches each to the install function whose name it derives, throwing when none exists.
 about:
-  adrs:
-    - ADR-AUTO-DEPS-INSTALLORDERINCONFIG
-    - ADR-AUTO-PKGMGR
-    - ADR-AUTO-ENGINE
-    - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
+  adrs: [ADR-AUTO-DEPS-INSTALLORDERINCONFIG, ADR-AUTO-PKGMGR, ADR-AUTO-ENGINE, ADR-AUTO-BASH-SHELLSCRIPTSCHECKED]
   lens: source
 content:
   title: tools.yml is the one locked list; dispatch is by key name
@@ -21,139 +17,53 @@ content:
   relation: feeds (data moves)
   theme: dark
   bands:
-    - id: band-config
-      label: CONFIG
-    - id: band-read
-      label: READ
-    - id: band-dispatch
-      label: DISPATCH
+    - { id: band-config, label: CONFIG }
+    - { id: band-read, label: READ }
+    - { id: band-dispatch, label: DISPATCH }
   groups:
-    - id: grp-execution
-      label: Catzc.Base.Execution
-      in: band-config
-    - id: grp-core
-      label: Catzc.Tooling.Core
-      in: band-read
+    - { id: grp-execution, label: Catzc.Base.Execution, in: band-config }
+    - { id: grp-core, label: Catzc.Tooling.Core, in: band-read }
   glyphs:
-    - id: f-tools-yml
-      kind: file
-      label: tools.yml
-      in: grp-execution
-    - id: t-config
-      kind: type
-      label: ToolsConfig
-      in: grp-execution
-    - id: g-status
-      kind: code
-      label: Get-ToolsStatus
-      in: band-read
-    - id: t-status
-      kind: type
-      label: ToolStatus
-      in: band-read
-    - id: g-order
-      kind: code
-      label: Get-ToolInstallOrder
-      in: grp-core
-    - id: g-tool-config
-      kind: code
-      label: Get-ToolConfig
-      in: grp-core
-    - id: g-suffix
-      kind: code
-      label: Get-ToolCommandSuffix
-      in: grp-core
-    - id: g-install
-      kind: code
-      label: Install-DevBoxTools
-      in: band-dispatch
-    - id: s-installers
-      kind: set
-      label: Install-<Suffix>
-      in: band-dispatch
-    - id: f-missing
-      kind: failure
-      label: No Install function found
-      in: band-dispatch
+    - { id: f-tools-yml, kind: file, label: tools.yml, in: grp-execution }
+    - { id: t-config, kind: type, label: ToolsConfig, in: grp-execution }
+    - { id: g-status, kind: code, label: Get-ToolsStatus, in: band-read }
+    - { id: t-status, kind: type, label: ToolStatus, in: band-read }
+    - { id: g-order, kind: code, label: Get-ToolInstallOrder, in: grp-core }
+    - { id: g-tool-config, kind: code, label: Get-ToolConfig, in: grp-core }
+    - { id: g-suffix, kind: code, label: Get-ToolCommandSuffix, in: grp-core }
+    - { id: g-install, kind: code, label: Install-DevBoxTools, in: band-dispatch }
+    - { id: s-installers, kind: set, label: Install-<Suffix>, in: band-dispatch }
+    - { id: f-missing, kind: failure, label: No Install function found, in: band-dispatch }
   edges:
-    - from: f-tools-yml
-      to: t-config
-      kind: flow
-      label: ""
-    - from: t-config
-      to: g-status
-      kind: flow
-      label: ""
-    - from: t-config
-      to: g-order
-      kind: flow
-      label: ""
-    - from: t-config
-      to: g-tool-config
-      kind: flow
-      label: ""
-    - from: t-config
-      to: g-suffix
-      kind: flow
-      label: ""
-    - from: g-status
-      to: t-status
-      kind: flow
-      label: ""
-    - from: t-status
-      to: g-install
-      kind: flow
-      label: ""
-    - from: g-order
-      to: g-install
-      kind: flow
-      label: ""
-    - from: g-tool-config
-      to: g-install
-      kind: flow
-      label: ""
-    - from: g-suffix
-      to: g-install
-      kind: flow
-      label: ""
-    - from: g-install
-      to: s-installers
-      kind: flow
-      label: ""
-    - from: g-install
-      to: f-missing
-      kind: fail
-      label: ""
+    - { from: f-tools-yml, to: t-config, kind: flow, label: "" }
+    - { from: t-config, to: g-status, kind: flow, label: "" }
+    - { from: t-config, to: g-order, kind: flow, label: "" }
+    - { from: t-config, to: g-tool-config, kind: flow, label: "" }
+    - { from: t-config, to: g-suffix, kind: flow, label: "" }
+    - { from: g-status, to: t-status, kind: flow, label: "" }
+    - { from: t-status, to: g-install, kind: flow, label: "" }
+    - { from: g-order, to: g-install, kind: flow, label: "" }
+    - { from: g-tool-config, to: g-install, kind: flow, label: "" }
+    - { from: g-suffix, to: g-install, kind: flow, label: "" }
+    - { from: g-install, to: s-installers, kind: flow, label: "" }
+    - { from: g-install, to: f-missing, kind: fail, label: "" }
   markers:
-    - at: f-tools-yml
-      number: 1
-    - at: t-config
-      number: 2
-    - at: g-status
-      number: 3
-    - at: g-order
-      number: 4
-    - at: g-tool-config
-      number: 5
-    - at: g-suffix
-      number: 6
-    - at: g-install
-      number: 7
-    - at: s-installers
-      number: 8
-    - at: f-missing
-      number: 9
+    - { at: f-tools-yml, number: 1 }
+    - { at: t-config, number: 2 }
+    - { at: g-status, number: 3 }
+    - { at: g-order, number: 4 }
+    - { at: g-tool-config, number: 5 }
+    - { at: g-suffix, number: 6 }
+    - { at: g-install, number: 7 }
+    - { at: s-installers, number: 8 }
+    - { at: f-missing, number: 9 }
   chips:
-    - at: s-installers
-      kind: count
-      text: "16"
+    - { at: s-installers, kind: count, text: "16" }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - ADR-AUTO-PKGMGR
+        by: [.claude/CLAUDE.md, ADR-AUTO-PKGMGR]
       - cell: docs/-/.
         by:
           - docs/drs/automation/bash/bash-test-artifacts.md
@@ -212,9 +122,7 @@ content:
           - ADR-AUTO-ENGINE
           - ADR-AUTO-PKGMGR
       - cell: pwsh/Catzc.Base.Drs/.
-        by:
-          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -223,39 +131,21 @@ content:
           - ADR-AUTO-ENGINE
           - ADR-AUTO-PKGMGR
       - cell: pwsh/Catzc.Base.Drs/tests
-        by:
-          - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.Drs/types
-        by:
-          - pwsh/Catzc.Base.Drs/types/DrsNeutralityCheck.cs
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.Drs/types/DrsNeutralityCheck.cs, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.Engines/.
-        by:
-          - pwsh/Catzc.Base.Engines/Get-ExecutionEngine.ps1
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.Engines/Get-ExecutionEngine.ps1, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.Engines/configs
-        by:
-          - pwsh/Catzc.Base.Engines/configs/glossary.yml
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.Engines/configs/glossary.yml, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.Engines/tests/types
-        by:
-          - pwsh/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.Engines/tests/types/ExecutionEngine.Tests.ps1, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.Engines/types
-        by:
-          - pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs
-          - pwsh/Catzc.Base.Engines/types/ExecutionEngines.cs
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs, pwsh/Catzc.Base.Engines/types/ExecutionEngines.cs, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.Execution/.
-        by:
-          - pwsh/Catzc.Base.Execution/Resolve-EngineExecutable.ps1
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.Execution/Resolve-EngineExecutable.ps1, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.Execution/configs
-        by:
-          - pwsh/Catzc.Base.Execution/configs/tools.yml
-          - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.Execution/configs/tools.yml, ADR-AUTO-BASH-SHELLSCRIPTSCHECKED, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.Execution/tests/types
         by:
           - pwsh/Catzc.Base.Execution/tests/types/ToolConfig.Tests.ps1
@@ -269,26 +159,15 @@ content:
           - ADR-AUTO-DEPS-INSTALLORDERINCONFIG
           - ADR-AUTO-PKGMGR
       - cell: pwsh/Catzc.Base.Exporter/.
-        by:
-          - pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.Exporter/Install-Catzc.ps1, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.Languages/.
-        by:
-          - pwsh/Catzc.Base.Languages/Invoke-GoTest.ps1
-          - pwsh/Catzc.Base.Languages/Invoke-PythonTest.ps1
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.Languages/Invoke-GoTest.ps1, pwsh/Catzc.Base.Languages/Invoke-PythonTest.ps1, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.Languages/configs
-        by:
-          - pwsh/Catzc.Base.Languages/configs/bash.yml
-          - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
+        by: [pwsh/Catzc.Base.Languages/configs/bash.yml, ADR-AUTO-BASH-SHELLSCRIPTSCHECKED]
       - cell: pwsh/Catzc.Base.Languages/private
-        by:
-          - pwsh/Catzc.Base.Languages/private/Get-EngineContract.ps1
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.Languages/private/Get-EngineContract.ps1, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.Maps/.
-        by:
-          - pwsh/Catzc.Base.Maps/Get-EngineStripMinimapData.ps1
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.Maps/Get-EngineStripMinimapData.ps1, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.QualityGates/.
         by:
           - pwsh/Catzc.Base.QualityGates/Test-ShellScripts.ps1
@@ -316,18 +195,14 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/Test-SourceConventions.Tests.ps1
           - ADR-AUTO-ENGINE
       - cell: pwsh/Catzc.Base.QualityGates/tests/types
-        by:
-          - pwsh/Catzc.Base.QualityGates/tests/types/EngineSetCheck.Tests.ps1
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.QualityGates/tests/types/EngineSetCheck.Tests.ps1, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.QualityGates/types
         by:
           - pwsh/Catzc.Base.QualityGates/types/EngineSetCheck.cs
           - pwsh/Catzc.Base.QualityGates/types/SourceConventionsConfig.cs
           - ADR-AUTO-ENGINE
       - cell: pwsh/Catzc.Base.RootConfig/configs
-        by:
-          - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.Timeouts/types
         by:
           - pwsh/Catzc.Base.Timeouts/types/BoundedCommand.cs
@@ -335,17 +210,11 @@ content:
           - pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs
           - ADR-AUTO-ENGINE
       - cell: pwsh/Catzc.Tooling.Core/.
-        by:
-          - pwsh/Catzc.Tooling.Core/Get-EngineCaseTable.ps1
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Tooling.Core/Get-EngineCaseTable.ps1, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Tooling.Core/types
-        by:
-          - pwsh/Catzc.Tooling.Core/types/EngineCaseTable.cs
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Tooling.Core/types/EngineCaseTable.cs, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Tooling.Provisioning/.
-        by:
-          - pwsh/Catzc.Tooling.Provisioning/Install-Zsh.ps1
-          - ADR-AUTO-PKGMGR
+        by: [pwsh/Catzc.Tooling.Provisioning/Install-Zsh.ps1, ADR-AUTO-PKGMGR]
       - cell: pwsh/Catzc.Tooling.Toolchain/.
         by:
           - pwsh/Catzc.Tooling.Toolchain/Install-Bicep.ps1
@@ -361,9 +230,7 @@ content:
           - ADR-AUTO-PKGMGR
     module-neighbourhood:
       - cell: subject/.claude
-        by:
-          - .claude/CLAUDE.md
-          - ADR-AUTO-PKGMGR
+        by: [.claude/CLAUDE.md, ADR-AUTO-PKGMGR]
       - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
@@ -395,9 +262,7 @@ content:
           - ADR-AUTO-ENGINE
           - ADR-AUTO-PKGMGR
       - cell: subject/Catzc.Base.Exporter
-        by:
-          - pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.Exporter/Install-Catzc.ps1, ADR-AUTO-ENGINE]
       - cell: subject/Catzc.Base.Languages
         by:
           - pwsh/Catzc.Base.Languages/Invoke-GoTest.ps1
@@ -407,9 +272,7 @@ content:
           - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
           - ADR-AUTO-ENGINE
       - cell: subject/Catzc.Base.Maps
-        by:
-          - pwsh/Catzc.Base.Maps/Get-EngineStripMinimapData.ps1
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.Maps/Get-EngineStripMinimapData.ps1, ADR-AUTO-ENGINE]
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/Test-ShellScripts.ps1
@@ -430,9 +293,7 @@ content:
           - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
           - ADR-AUTO-ENGINE
       - cell: subject/Catzc.Base.RootConfig
-        by:
-          - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml, ADR-AUTO-ENGINE]
       - cell: subject/Catzc.Base.Timeouts
         by:
           - pwsh/Catzc.Base.Timeouts/types/BoundedCommand.cs
@@ -440,14 +301,9 @@ content:
           - pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs
           - ADR-AUTO-ENGINE
       - cell: subject/Catzc.Tooling.Core
-        by:
-          - pwsh/Catzc.Tooling.Core/Get-EngineCaseTable.ps1
-          - pwsh/Catzc.Tooling.Core/types/EngineCaseTable.cs
-          - ADR-AUTO-ENGINE
+        by: [pwsh/Catzc.Tooling.Core/Get-EngineCaseTable.ps1, pwsh/Catzc.Tooling.Core/types/EngineCaseTable.cs, ADR-AUTO-ENGINE]
       - cell: subject/Catzc.Tooling.Provisioning
-        by:
-          - pwsh/Catzc.Tooling.Provisioning/Install-Zsh.ps1
-          - ADR-AUTO-PKGMGR
+        by: [pwsh/Catzc.Tooling.Provisioning/Install-Zsh.ps1, ADR-AUTO-PKGMGR]
       - cell: subject/Catzc.Tooling.Toolchain
         by:
           - pwsh/Catzc.Tooling.Toolchain/Install-Bicep.ps1
@@ -460,86 +316,22 @@ content:
           - ADR-AUTO-PKGMGR
     axis:
       - cell: AUTO/quality-control
-        by:
-          - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
+        by: [ADR-AUTO-BASH-SHELLSCRIPTSCHECKED]
       - cell: AUTO/*
-        by:
-          - ADR-AUTO-DEPS-INSTALLORDERINCONFIG
-          - ADR-AUTO-ENGINE
-          - ADR-AUTO-PKGMGR
+        by: [ADR-AUTO-DEPS-INSTALLORDERINCONFIG, ADR-AUTO-ENGINE, ADR-AUTO-PKGMGR]
 layout:
-  band-config:
-    x: 20
-    y: 84
-    w: 310
-    h: 344
-  band-read:
-    x: 350
-    y: 84
-    w: 490
-    h: 344
-  band-dispatch:
-    x: 860
-    y: 84
-    w: 420
-    h: 344
-  grp-execution:
-    x: 40
-    y: 116
-    w: 270
-    h: 240
-  f-tools-yml:
-    x: 105
-    y: 158
-    w: 140
-    h: 52
-  t-config:
-    x: 100
-    y: 282
-    w: 150
-    h: 40
-  g-status:
-    x: 440
-    y: 130
-    w: 150
-    h: 40
-  t-status:
-    x: 640
-    y: 130
-    w: 130
-    h: 40
-  grp-core:
-    x: 405
-    y: 190
-    w: 245
-    h: 210
-  g-order:
-    x: 440
-    y: 232
-    w: 190
-    h: 40
-  g-tool-config:
-    x: 440
-    y: 292
-    w: 190
-    h: 40
-  g-suffix:
-    x: 440
-    y: 352
-    w: 190
-    h: 40
-  g-install:
-    x: 880
-    y: 236
-    w: 170
-    h: 40
-  s-installers:
-    x: 1090
-    y: 236
-    w: 170
-    h: 40
-  f-missing:
-    x: 1090
-    y: 330
-    w: 170
-    h: 44
+  band-config: { x: 20, y: 84, w: 310, h: 344 }
+  band-read: { x: 350, y: 84, w: 490, h: 344 }
+  band-dispatch: { x: 860, y: 84, w: 420, h: 344 }
+  grp-execution: { x: 40, y: 116, w: 270, h: 240 }
+  f-tools-yml: { x: 105, y: 158, w: 140, h: 52 }
+  t-config: { x: 100, y: 282, w: 150, h: 40 }
+  g-status: { x: 440, y: 130, w: 150, h: 40 }
+  t-status: { x: 640, y: 130, w: 130, h: 40 }
+  grp-core: { x: 405, y: 190, w: 245, h: 210 }
+  g-order: { x: 440, y: 232, w: 190, h: 40 }
+  g-tool-config: { x: 440, y: 292, w: 190, h: 40 }
+  g-suffix: { x: 440, y: 352, w: 190, h: 40 }
+  g-install: { x: 880, y: 236, w: 170, h: 40 }
+  s-installers: { x: 1090, y: 236, w: 170, h: 40 }
+  f-missing: { x: 1090, y: 330, w: 170, h: 44 }

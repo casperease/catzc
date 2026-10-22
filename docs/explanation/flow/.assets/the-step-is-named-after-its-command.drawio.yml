@@ -4,8 +4,9 @@
 #     with_body_sha: e4f069cb5274
 # ---
 
-description: 'What an Azure DevOps run shows of one step: the label is the command, the log names the mode and echoes the command, a failure prints
-  a full exception, and a developer copies the command from the label with no gate checking that.'
+description:
+  "What an Azure DevOps run shows of one step: the label is the command, the log names the mode and echoes the command, a failure prints a
+  full exception, and a developer copies the command from the label with no gate checking that."
 about:
   adrs: [FDR-CD-RUNNER-THINSTEPTEMPLATES, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE]
   lens: operations

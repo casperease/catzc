@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "5acd270c21f4"
+#     with_body_sha: "2504e4aa6f2a"
 # ---
 
 description:
@@ -26,130 +26,50 @@ content:
   relation: feeds (a result to its caller)
   theme: dark
   bands:
-    - id: band-declared
-      label: DECLARED GRAPH
-    - id: band-observed
-      label: OBSERVED GRAPH
+    - { id: band-declared, label: DECLARED GRAPH }
+    - { id: band-observed, label: OBSERVED GRAPH }
   groups:
-    - id: grp-quality-gates
-      label: Catzc.Base.QualityGates
-      in: band-declared
+    - { id: grp-quality-gates, label: Catzc.Base.QualityGates, in: band-declared }
   glyphs:
-    - id: f-dependencies
-      kind: file
-      label: dependencies.yml
-      in: band-declared
-    - id: g-config
-      kind: private
-      label: Get-ModuleDependencyConfig
-      in: band-declared
-    - id: g-map
-      kind: private
-      label: Get-ModuleDependencyMap
-      in: band-declared
-    - id: g-order
-      kind: code
-      label: Get-ModuleOrder
-      in: band-declared
-    - id: g-test-paths
-      kind: private
-      label: Get-TestAutomationTestPaths
-      in: grp-quality-gates
-    - id: g-closure
-      kind: private
-      label: Get-ModuleDependencyClosure
-      in: band-declared
-    - id: g-function
-      kind: code
-      label: Get-FunctionDependency
-      in: band-observed
-    - id: g-module
-      kind: code
-      label: Get-ModuleDependency
-      in: band-observed
-    - id: g-violations
-      kind: private
-      label: Get-ModuleDependencyViolations
-      in: band-observed
-    - id: g-cycles
-      kind: gate
-      label: Test-ModuleCycles
-      in: band-observed
+    - { id: f-dependencies, kind: file, label: dependencies.yml, in: band-declared }
+    - { id: g-config, kind: private, label: Get-ModuleDependencyConfig, in: band-declared }
+    - { id: g-map, kind: private, label: Get-ModuleDependencyMap, in: band-declared }
+    - { id: g-order, kind: code, label: Get-ModuleOrder, in: band-declared }
+    - { id: g-test-paths, kind: private, label: Get-TestAutomationTestPaths, in: grp-quality-gates }
+    - { id: g-closure, kind: private, label: Get-ModuleDependencyClosure, in: band-declared }
+    - { id: g-function, kind: code, label: Get-FunctionDependency, in: band-observed }
+    - { id: g-module, kind: code, label: Get-ModuleDependency, in: band-observed }
+    - { id: g-violations, kind: private, label: Get-ModuleDependencyViolations, in: band-observed }
+    - { id: g-cycles, kind: gate, label: Test-ModuleCycles, in: band-observed }
   edges:
-    - from: f-dependencies
-      to: g-config
-      kind: flow
-      label: ""
-    - from: g-config
-      to: g-map
-      kind: flow
-      label: ""
-    - from: g-map
-      to: g-order
-      kind: flow
-      label: ""
-    - from: g-order
-      to: g-test-paths
-      kind: flow
-      label: ""
-    - from: g-map
-      to: g-closure
-      kind: flow
-      label: ""
-    - from: g-config
-      to: g-violations
-      kind: flow
-      label: ""
-    - from: g-function
-      to: g-module
-      kind: flow
-      label: ""
-    - from: g-module
-      to: g-violations
-      kind: flow
-      label: ""
-    - from: g-module
-      to: g-cycles
-      kind: flow
-      label: ""
+    - { from: f-dependencies, to: g-config, kind: flow, label: "" }
+    - { from: g-config, to: g-map, kind: flow, label: "" }
+    - { from: g-map, to: g-order, kind: flow, label: "" }
+    - { from: g-order, to: g-test-paths, kind: flow, label: "" }
+    - { from: g-map, to: g-closure, kind: flow, label: "" }
+    - { from: g-config, to: g-violations, kind: flow, label: "" }
+    - { from: g-function, to: g-module, kind: flow, label: "" }
+    - { from: g-module, to: g-violations, kind: flow, label: "" }
+    - { from: g-module, to: g-cycles, kind: flow, label: "" }
   markers:
-    - at: f-dependencies
-      number: 1
-    - at: g-map
-      number: 2
-    - at: g-order
-      number: 3
-    - at: g-test-paths
-      number: 4
-    - at: g-closure
-      number: 5
-    - at: g-function
-      number: 6
-    - at: g-module
-      number: 7
-    - at: g-violations
-      number: 8
-    - at: g-cycles
-      number: 9
+    - { at: f-dependencies, number: 1 }
+    - { at: g-map, number: 2 }
+    - { at: g-order, number: 3 }
+    - { at: g-test-paths, number: 4 }
+    - { at: g-closure, number: 5 }
+    - { at: g-function, number: 6 }
+    - { at: g-module, number: 7 }
+    - { at: g-violations, number: 8 }
+    - { at: g-cycles, number: 9 }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-AUTO-TEST-SAFESEAMSWAPS
+        by: [.claude/CLAUDE.md, ADR-AUTO-TEST-QUALITYGATE, ADR-AUTO-TEST-SAFESEAMSWAPS]
       - cell: .claude/.claude/agents
-        by:
-          - .claude/agents/test-optimization.md
-          - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-AUTO-TEST-SAFESEAMSWAPS
+        by: [.claude/agents/test-optimization.md, ADR-AUTO-TEST-QUALITYGATE, ADR-AUTO-TEST-SAFESEAMSWAPS]
       - cell: .claude/.claude/skills/test-speed
-        by:
-          - .claude/skills/test-speed/SKILL.md
-          - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+        by: [.claude/skills/test-speed/SKILL.md, ADR-AUTO-TEST-QUALITYGATE, ADR-AUTO-TEST-SAFESEAMSWAPS, ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS]
       - cell: docs/-/.
         by:
           - docs/drs/automation/caching.md
@@ -346,13 +266,9 @@ content:
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
           - DDR-RUNMODE
       - cell: pwsh/-/.
-        by:
-          - pwsh/.scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1
-          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+        by: [pwsh/.scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1, ADR-PWSH-CACHE-STRICTSAFEPROBE]
       - cell: pwsh/Catzc.Azure/.
-        by:
-          - pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Azure/tests
         by:
           - pwsh/Catzc.Azure/tests/Get-AzureBicepMinVersion.Tests.ps1
@@ -368,9 +284,7 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: pwsh/Catzc.Azure.DevOps/tests
-        by:
-          - pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Azure.Templates/.
         by:
           - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
@@ -402,9 +316,7 @@ content:
           - ADR-AUTO-TEST-SAFESEAMSWAPS
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
       - cell: pwsh/Catzc.Base.Config/.
-        by:
-          - pwsh/Catzc.Base.Config/Get-Config.ps1
-          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+        by: [pwsh/Catzc.Base.Config/Get-Config.ps1, ADR-PWSH-CACHE-STRICTSAFEPROBE]
       - cell: pwsh/Catzc.Base.Config/private
         by:
           - pwsh/Catzc.Base.Config/private/Get-ConfigOverlayRoot.ps1
@@ -412,22 +324,13 @@ content:
           - pwsh/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - cell: pwsh/Catzc.Base.Config/tests
-        by:
-          - pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.ConfigExtensions/.
-        by:
-          - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
-          - DDR-RUNMODE
+        by: [pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1, ADR-AUTO-TEST-QUALITYGATE, DDR-RUNMODE]
       - cell: pwsh/Catzc.Base.Contracts/.
-        by:
-          - pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Contracts/Test-Contracts.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Contracts/tests
-        by:
-          - pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Docs/.
         by:
           - pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
@@ -500,9 +403,7 @@ content:
           - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Drs/types
-        by:
-          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Execution/.
         by:
           - pwsh/Catzc.Base.Execution/Find-Executable.ps1
@@ -554,10 +455,7 @@ content:
           - pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Modules/tests
-        by:
-          - pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-AUTO-TEST-SAFESEAMSWAPS
+        by: [pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE, ADR-AUTO-TEST-SAFESEAMSWAPS]
       - cell: pwsh/Catzc.Base.ModuleSystem/.
         by:
           - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
@@ -582,10 +480,7 @@ content:
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
           - DDR-RUNMODE
       - cell: pwsh/Catzc.Base.ModuleSystem/configs
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml
-          - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-AUTO-TEST-SAFESEAMSWAPS
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml, ADR-AUTO-TEST-QUALITYGATE, ADR-AUTO-TEST-SAFESEAMSWAPS]
       - cell: pwsh/Catzc.Base.ModuleSystem/tests
         by:
           - pwsh/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1
@@ -687,26 +582,15 @@ content:
           - ADR-AUTO-TEST-SAFESEAMSWAPS
           - DDR-RUNMODE
       - cell: pwsh/Catzc.Base.Reports/.
-        by:
-          - pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/configs
-        by:
-          - pwsh/Catzc.Base.Reports/configs/reports.yml
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/configs/reports.yml, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/tests
-        by:
-          - pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/tests/types
-        by:
-          - pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/types
-        by:
-          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
-          - pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/types/CheckMode.cs, pwsh/Catzc.Base.Reports/types/ReportsConfig.cs, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Repository/.
         by:
           - pwsh/Catzc.Base.Repository/Assert-SourceTree.ps1
@@ -721,9 +605,7 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
           - DDR-RUNMODE
       - cell: pwsh/Catzc.Base.RootConfig/tests
-        by:
-          - pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.TypesSystem/.
         by:
           - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
@@ -735,9 +617,7 @@ content:
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
           - DDR-RUNMODE
       - cell: pwsh/Catzc.Base.TypesSystem/tests
-        by:
-          - pwsh/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1
-          - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+        by: [pwsh/Catzc.Base.TypesSystem/tests/Get-CSharpTypeDependency.Tests.ps1, ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS]
       - cell: pwsh/Catzc.Base.Variants/private
         by:
           - pwsh/Catzc.Base.Variants/private/Get-Variant.ps1
@@ -746,14 +626,9 @@ content:
           - ADR-AUTO-CACHE-KEYEDBYINPUTS
           - ADR-AUTO-CACHE-READONLYVALUES
       - cell: pwsh/Catzc.Base.Vendor/.
-        by:
-          - pwsh/Catzc.Base.Vendor/Install-VendorModule.ps1
-          - pwsh/Catzc.Base.Vendor/Remove-VendorModules.ps1
-          - DDR-RUNMODE
+        by: [pwsh/Catzc.Base.Vendor/Install-VendorModule.ps1, pwsh/Catzc.Base.Vendor/Remove-VendorModules.ps1, DDR-RUNMODE]
       - cell: pwsh/Catzc.Internal.Assets/.
-        by:
-          - pwsh/.internal/assets/Import-Catzc.ps1
-          - DDR-RUNMODE
+        by: [pwsh/.internal/assets/Import-Catzc.ps1, DDR-RUNMODE]
       - cell: pwsh/Catzc.Internal.Tests/.
         by:
           - pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1
@@ -765,9 +640,7 @@ content:
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
           - DDR-RUNMODE
       - cell: pwsh/Catzc.Tooling.Core/private
-        by:
-          - pwsh/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1
-          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+        by: [pwsh/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1, ADR-PWSH-CACHE-STRICTSAFEPROBE]
       - cell: pwsh/Catzc.Tooling.KeyHandler/private
         by:
           - pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
@@ -837,10 +710,7 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
       - cell: subject/Catzc.Base.ConfigExtensions
-        by:
-          - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
-          - DDR-RUNMODE
+        by: [pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1, ADR-AUTO-TEST-QUALITYGATE, DDR-RUNMODE]
       - cell: subject/Catzc.Base.Contracts
         by:
           - pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
@@ -968,10 +838,7 @@ content:
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
           - DDR-RUNMODE
       - cell: subject/Catzc.Base.Modules
-        by:
-          - pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-AUTO-TEST-SAFESEAMSWAPS
+        by: [pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE, ADR-AUTO-TEST-SAFESEAMSWAPS]
       - cell: subject/Catzc.Base.Objects
         by:
           - pwsh/Catzc.Base.Objects/types/TypeShape.cs
@@ -1091,14 +958,9 @@ content:
           - ADR-AUTO-CACHE-KEYEDBYINPUTS
           - ADR-AUTO-CACHE-READONLYVALUES
       - cell: subject/Catzc.Base.Vendor
-        by:
-          - pwsh/Catzc.Base.Vendor/Install-VendorModule.ps1
-          - pwsh/Catzc.Base.Vendor/Remove-VendorModules.ps1
-          - DDR-RUNMODE
+        by: [pwsh/Catzc.Base.Vendor/Install-VendorModule.ps1, pwsh/Catzc.Base.Vendor/Remove-VendorModules.ps1, DDR-RUNMODE]
       - cell: subject/Catzc.Internal.Assets
-        by:
-          - pwsh/.internal/assets/Import-Catzc.ps1
-          - DDR-RUNMODE
+        by: [pwsh/.internal/assets/Import-Catzc.ps1, DDR-RUNMODE]
       - cell: subject/Catzc.Internal.Tests
         by:
           - pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1
@@ -1110,9 +972,7 @@ content:
           - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
           - DDR-RUNMODE
       - cell: subject/Catzc.Tooling.Core
-        by:
-          - pwsh/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1
-          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+        by: [pwsh/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1, ADR-PWSH-CACHE-STRICTSAFEPROBE]
       - cell: subject/Catzc.Tooling.KeyHandler
         by:
           - pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
@@ -1121,13 +981,9 @@ content:
           - ADR-AUTO-TEST-SAFESEAMSWAPS
     axis:
       - cell: DSGN/build
-        by:
-          - DDR-RUNMODE
+        by: [DDR-RUNMODE]
       - cell: AUTO/quality-control
-        by:
-          - ADR-AUTO-TEST-QUALITYGATE
-          - ADR-AUTO-TEST-SAFESEAMSWAPS
-          - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+        by: [ADR-AUTO-TEST-QUALITYGATE, ADR-AUTO-TEST-SAFESEAMSWAPS, ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS]
       - cell: AUTO/*
         by:
           - ADR-AUTO-CACHE-FILESYSTEMDERIVED
@@ -1136,68 +992,16 @@ content:
           - ADR-AUTO-CACHE-READONLYVALUES
           - ADR-PWSH-CACHE-STRICTSAFEPROBE
 layout:
-  band-declared:
-    x: 20
-    y: 84
-    w: 1260
-    h: 190
-  band-observed:
-    x: 20
-    y: 304
-    w: 1260
-    h: 172
-  f-dependencies:
-    x: 160
-    y: 113
-    w: 130
-    h: 52
-  g-config:
-    x: 320
-    y: 121
-    w: 200
-    h: 40
-  g-map:
-    x: 560
-    y: 121
-    w: 190
-    h: 40
-  g-order:
-    x: 790
-    y: 121
-    w: 165
-    h: 40
-  grp-quality-gates:
-    x: 990
-    y: 94
-    w: 280
-    h: 90
-  g-test-paths:
-    x: 1010
-    y: 130
-    w: 240
-    h: 40
-  g-closure:
-    x: 790
-    y: 211
-    w: 215
-    h: 36
-  g-function:
-    x: 160
-    y: 334
-    w: 185
-    h: 40
-  g-module:
-    x: 385
-    y: 334
-    w: 175
-    h: 40
-  g-violations:
-    x: 650
-    y: 334
-    w: 230
-    h: 40
-  g-cycles:
-    x: 660
-    y: 397
-    w: 200
-    h: 70
+  band-declared: { x: 20, y: 84, w: 1260, h: 190 }
+  band-observed: { x: 20, y: 304, w: 1260, h: 172 }
+  f-dependencies: { x: 160, y: 113, w: 130, h: 52 }
+  g-config: { x: 320, y: 121, w: 200, h: 40 }
+  g-map: { x: 560, y: 121, w: 190, h: 40 }
+  g-order: { x: 790, y: 121, w: 165, h: 40 }
+  grp-quality-gates: { x: 990, y: 94, w: 280, h: 90 }
+  g-test-paths: { x: 1010, y: 130, w: 240, h: 40 }
+  g-closure: { x: 790, y: 211, w: 215, h: 36 }
+  g-function: { x: 160, y: 334, w: 185, h: 40 }
+  g-module: { x: 385, y: 334, w: 175, h: 40 }
+  g-violations: { x: 650, y: 334, w: 230, h: 40 }
+  g-cycles: { x: 660, y: 397, w: 200, h: 70 }

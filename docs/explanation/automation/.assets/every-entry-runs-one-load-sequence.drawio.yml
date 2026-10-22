@@ -4,8 +4,9 @@
 #     with_body_sha: "953c41784680"
 # ---
 
-description: 'Whatever the entry point, cats loads through the same five stages in the same order: enter, set up the session, load, prove one
-  run mode, then tidy and leave.'
+description:
+  "Whatever the entry point, cats loads through the same five stages in the same order: enter, set up the session, load, prove one run mode,
+  then tidy and leave."
 about:
   adrs: [ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION]
   lens: meta

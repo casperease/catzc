@@ -4,8 +4,9 @@
 #     with_body_sha: "09e1a3d271a6"
 # ---
 
-description: 'globs.yml is the only file a person writes; the config load validates it, and three commands then print what was derived from it:
-  the projection of one set, the globsets a commit range touched, and the skip line of the test run.'
+description:
+  "globs.yml is the only file a person writes; the config load validates it, and three commands then print what was derived from it: the
+  projection of one set, the globsets a commit range touched, and the skip line of the test run."
 about:
   adrs: [FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: operations

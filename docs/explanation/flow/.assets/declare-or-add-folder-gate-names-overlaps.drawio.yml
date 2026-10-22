@@ -4,9 +4,9 @@
 #     with_body_sha: ccae53cb7cd5
 # ---
 
-description: 'Two ways to change what the globs map: edit globs.yml (a deployable-unit is checked against its peers, a loose-fileset never, a
-  declared module layer is rejected at config load) or add a module folder; one run of the independence gate passes or names every overlapping
-  pair.'
+description:
+  "Two ways to change what the globs map: edit globs.yml (a deployable-unit is checked against its peers, a loose-fileset never, a declared
+  module layer is rejected at config load) or add a module folder; one run of the independence gate passes or names every overlapping pair."
 about:
   adrs: [FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
   lens: operations

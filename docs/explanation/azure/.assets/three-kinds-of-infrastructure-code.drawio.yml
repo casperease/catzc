@@ -4,8 +4,10 @@
 #     with_body_sha: "165a574ff8e1"
 # ---
 
-description: 'The infrastructure code has three kinds, each in its own place of the infrastructure track: reusable modules, templates and configuration
-  slots. A template pulls the modules it references into its main.bicep, and one configuration slot deploys that template into one resource group.'
+description:
+  "The infrastructure code has three kinds, each in its own place of the infrastructure track: reusable modules, templates and configuration
+  slots. A template pulls the modules it references into its main.bicep, and one configuration slot deploys that template into one resource
+  group."
 about:
   adrs: [ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
   lens: meta

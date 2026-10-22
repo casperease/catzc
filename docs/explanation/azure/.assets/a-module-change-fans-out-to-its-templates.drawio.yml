@@ -4,8 +4,9 @@
 #     with_body_sha: "7f88c40695fb"
 # ---
 
-description: 'A change to one reusable module edits one file in the modules place of the infrastructure track and fans out: every template that
-  references the module builds it in, the infrastructure CI validates every template, and every CD pipeline runs.'
+description:
+  "A change to one reusable module edits one file in the modules place of the infrastructure track and fans out: every template that
+  references the module builds it in, the infrastructure CI validates every template, and every CD pipeline runs."
 about:
   adrs: [ADR-AZ-IACKIND-THREEKINDS]
   lens: operations

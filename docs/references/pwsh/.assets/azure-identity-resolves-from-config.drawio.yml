@@ -1,17 +1,14 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "456b6d46c766"
+#     with_body_sha: "6cd573c40247"
 # ---
 
 description:
   Azure identities resolve only from the typed azure.yml and customer.yml; the az session subscription is looked up in the azure config and
   must match exactly one declared subscription before it reaches the subscription resolver.
 about:
-  adrs:
-    - ADR-AZ-SESSION
-    - ADR-AZ-DATAMOD
-    - ADR-AZ-CUSTOMER
+  adrs: [ADR-AZ-SESSION, ADR-AZ-DATAMOD, ADR-AZ-CUSTOMER]
   lens: source
 content:
   title: Azure identities resolve from config; session must match one
@@ -20,143 +17,55 @@ content:
   relation: feeds
   theme: dark
   bands:
-    - id: band-session
-      label: SESSION
-    - id: band-config
-      label: CONFIG
+    - { id: band-session, label: SESSION }
+    - { id: band-config, label: CONFIG }
   groups:
-    - id: grp-cli
-      label: Catzc.Azure.Cli
-      in: band-session
-    - id: grp-base-config
-      label: Catzc.Base.Config
-      in: band-config
-    - id: grp-resolvers
-      label: resolvers
-      in: band-config
+    - { id: grp-cli, label: Catzc.Azure.Cli, in: band-session }
+    - { id: grp-base-config, label: Catzc.Base.Config, in: band-config }
+    - { id: grp-resolvers, label: resolvers, in: band-config }
   glyphs:
-    - id: g-current-sub
-      kind: code
-      label: Get-CurrentAzSubscription
-      in: grp-cli
-    - id: g-session-sub
-      kind: gate
-      label: Get-AzCliSessionSubscription
-      in: grp-cli
-    - id: g-azure-yml
-      kind: file
-      label: azure.yml
-      in: band-config
-    - id: g-customer-yml
-      kind: file
-      label: customer.yml
-      in: band-config
-    - id: g-get-config
-      kind: code
-      label: Get-Config
-      in: grp-base-config
-    - id: g-azure-config
-      kind: type
-      label: AzureConfig
-      in: band-config
-    - id: g-customer-config
-      kind: type
-      label: CustomerConfig
-      in: band-config
-    - id: g-azure-customer
-      kind: code
-      label: Get-AzureCustomer
-      in: band-config
-    - id: g-azure-sub
-      kind: code
-      label: Get-AzureSubscription
-      in: grp-resolvers
-    - id: g-azure-env
-      kind: code
-      label: Get-AzureEnvironment
-      in: grp-resolvers
+    - { id: g-current-sub, kind: code, label: Get-CurrentAzSubscription, in: grp-cli }
+    - { id: g-session-sub, kind: gate, label: Get-AzCliSessionSubscription, in: grp-cli }
+    - { id: g-azure-yml, kind: file, label: azure.yml, in: band-config }
+    - { id: g-customer-yml, kind: file, label: customer.yml, in: band-config }
+    - { id: g-get-config, kind: code, label: Get-Config, in: grp-base-config }
+    - { id: g-azure-config, kind: type, label: AzureConfig, in: band-config }
+    - { id: g-customer-config, kind: type, label: CustomerConfig, in: band-config }
+    - { id: g-azure-customer, kind: code, label: Get-AzureCustomer, in: band-config }
+    - { id: g-azure-sub, kind: code, label: Get-AzureSubscription, in: grp-resolvers }
+    - { id: g-azure-env, kind: code, label: Get-AzureEnvironment, in: grp-resolvers }
   edges:
-    - from: g-azure-yml
-      to: g-get-config
-      kind: flow
-      label: ""
-    - from: g-customer-yml
-      to: g-get-config
-      kind: flow
-      label: ""
-    - from: g-get-config
-      to: g-azure-config
-      kind: flow
-      label: ""
-    - from: g-get-config
-      to: g-customer-config
-      kind: flow
-      label: ""
-    - from: g-azure-config
-      to: g-azure-sub
-      kind: flow
-      label: ""
-    - from: g-azure-config
-      to: g-session-sub
-      kind: flow
-      label: ""
-    - from: g-customer-config
-      to: g-azure-customer
-      kind: flow
-      label: ""
-    - from: g-azure-customer
-      to: g-azure-sub
-      kind: flow
-      label: ""
-    - from: g-current-sub
-      to: g-session-sub
-      kind: flow
-      label: ""
-    - from: g-session-sub
-      to: g-azure-sub
-      kind: flow
-      label: ""
-    - from: g-azure-sub
-      to: g-azure-env
-      kind: flow
-      label: ""
+    - { from: g-azure-yml, to: g-get-config, kind: flow, label: "" }
+    - { from: g-customer-yml, to: g-get-config, kind: flow, label: "" }
+    - { from: g-get-config, to: g-azure-config, kind: flow, label: "" }
+    - { from: g-get-config, to: g-customer-config, kind: flow, label: "" }
+    - { from: g-azure-config, to: g-azure-sub, kind: flow, label: "" }
+    - { from: g-azure-config, to: g-session-sub, kind: flow, label: "" }
+    - { from: g-customer-config, to: g-azure-customer, kind: flow, label: "" }
+    - { from: g-azure-customer, to: g-azure-sub, kind: flow, label: "" }
+    - { from: g-current-sub, to: g-session-sub, kind: flow, label: "" }
+    - { from: g-session-sub, to: g-azure-sub, kind: flow, label: "" }
+    - { from: g-azure-sub, to: g-azure-env, kind: flow, label: "" }
   markers:
-    - at: g-azure-yml
-      number: 1
-    - at: g-customer-yml
-      number: 2
-    - at: g-get-config
-      number: 3
-    - at: g-azure-config
-      number: 4
-    - at: g-customer-config
-      number: 5
-    - at: g-azure-customer
-      number: 6
-    - at: g-azure-sub
-      number: 7
-    - at: g-azure-env
-      number: 8
-    - at: g-current-sub
-      number: 9
-    - at: g-session-sub
-      number: 10
+    - { at: g-azure-yml, number: 1 }
+    - { at: g-customer-yml, number: 2 }
+    - { at: g-get-config, number: 3 }
+    - { at: g-azure-config, number: 4 }
+    - { at: g-customer-config, number: 5 }
+    - { at: g-azure-customer, number: 6 }
+    - { at: g-azure-sub, number: 7 }
+    - { at: g-azure-env, number: 8 }
+    - { at: g-current-sub, number: 9 }
+    - { at: g-session-sub, number: 10 }
   chips:
-    - at: g-session-sub
-      kind: count
-      text: "1"
+    - { at: g-session-sub, kind: count, text: "1" }
   legend: auto
   minimaps:
     code-locations:
       - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/cd-shared.yaml
-          - .ado/pipelines/ci-infrastructure.yaml
-          - ADR-AZ-DATAMOD
+        by: [.ado/pipelines/cd-shared.yaml, .ado/pipelines/ci-infrastructure.yaml, ADR-AZ-DATAMOD]
       - cell: ado-pipelines/pipelines/extends
-        by:
-          - .ado/pipelines/extends/cd-customer.yaml
-          - ADR-AZ-DATAMOD
+        by: [.ado/pipelines/extends/cd-customer.yaml, ADR-AZ-DATAMOD]
       - cell: docs/-/.
         by:
           - docs/drs/azure/az-session-verification.md
@@ -223,17 +132,11 @@ content:
           - ADR-AZ-DATAMOD
           - ADR-AZ-SESSION
       - cell: infrastructure/discovery/.
-        by:
-          - infrastructure/templates/discovery/options.yml
-          - ADR-AZ-DATAMOD
+        by: [infrastructure/templates/discovery/options.yml, ADR-AZ-DATAMOD]
       - cell: infrastructure/expedition/.
-        by:
-          - infrastructure/templates/expedition/options.yml
-          - ADR-AZ-DATAMOD
+        by: [infrastructure/templates/expedition/options.yml, ADR-AZ-DATAMOD]
       - cell: infrastructure/foundation/.
-        by:
-          - infrastructure/templates/foundation/options.yml
-          - ADR-AZ-DATAMOD
+        by: [infrastructure/templates/foundation/options.yml, ADR-AZ-DATAMOD]
       - cell: pwsh/Catzc.Azure/.
         by:
           - pwsh/Catzc.Azure/Get-AzureCustomers.ps1
@@ -243,11 +146,7 @@ content:
           - ADR-AZ-CUSTOMER
           - ADR-AZ-DATAMOD
       - cell: pwsh/Catzc.Azure/configs
-        by:
-          - pwsh/Catzc.Azure/configs/azure.yml
-          - pwsh/Catzc.Azure/configs/customer.yml
-          - ADR-AZ-CUSTOMER
-          - ADR-AZ-DATAMOD
+        by: [pwsh/Catzc.Azure/configs/azure.yml, pwsh/Catzc.Azure/configs/customer.yml, ADR-AZ-CUSTOMER, ADR-AZ-DATAMOD]
       - cell: pwsh/Catzc.Azure/tests/types
         by:
           - pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
@@ -273,17 +172,11 @@ content:
           - ADR-AZ-DATAMOD
           - ADR-AZ-SESSION
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
-        by:
-          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-          - ADR-AZ-CUSTOMER
+        by: [pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml, ADR-AZ-CUSTOMER]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/tests/types
-        by:
-          - pwsh/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1
-          - ADR-AZ-CUSTOMER
+        by: [pwsh/Catzc.Azure.DevOps.BuildValidation/tests/types/BuildValidationConfig.Tests.ps1, ADR-AZ-CUSTOMER]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/types
-        by:
-          - pwsh/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs
-          - ADR-AZ-CUSTOMER
+        by: [pwsh/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationEntry.cs, ADR-AZ-CUSTOMER]
       - cell: pwsh/Catzc.Azure.Templates/.
         by:
           - pwsh/Catzc.Azure.Templates/Assert-BicepTemplate.ps1
@@ -298,9 +191,7 @@ content:
           - ADR-AZ-CUSTOMER
           - ADR-AZ-DATAMOD
       - cell: pwsh/Catzc.Azure.Templates/configs
-        by:
-          - pwsh/Catzc.Azure.Templates/configs/glossary.yml
-          - ADR-AZ-DATAMOD
+        by: [pwsh/Catzc.Azure.Templates/configs/glossary.yml, ADR-AZ-DATAMOD]
       - cell: pwsh/Catzc.Azure.Templates/private
         by:
           - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigClassViolations.ps1
@@ -328,10 +219,7 @@ content:
           - ADR-AZ-CUSTOMER
           - ADR-AZ-DATAMOD
       - cell: pwsh/Catzc.Base.Docs/types
-        by:
-          - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
-          - pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
-          - ADR-AZ-CUSTOMER
+        by: [pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs, pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs, ADR-AZ-CUSTOMER]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
@@ -340,29 +228,17 @@ content:
           - ADR-AZ-DATAMOD
           - ADR-AZ-SESSION
       - cell: pwsh/Catzc.Base.Drs/types
-        by:
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - ADR-AZ-CUSTOMER
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, ADR-AZ-CUSTOMER]
       - cell: pwsh/Catzc.Base.QualityGates/configs
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
-          - ADR-AZ-CUSTOMER
+        by: [pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml, ADR-AZ-CUSTOMER]
       - cell: pwsh/Catzc.Base.QualityGates/private
-        by:
-          - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - ADR-AZ-DATAMOD
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1, ADR-AZ-DATAMOD]
       - cell: pwsh/Catzc.Base.QualityGates/types
-        by:
-          - pwsh/Catzc.Base.QualityGates/types/AnalyzerDrsMapConfig.cs
-          - ADR-AZ-CUSTOMER
+        by: [pwsh/Catzc.Base.QualityGates/types/AnalyzerDrsMapConfig.cs, ADR-AZ-CUSTOMER]
       - cell: pwsh/Catzc.Base.RootConfig/assets/root
-        by:
-          - pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml
-          - ADR-AZ-DATAMOD
+        by: [pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml, ADR-AZ-DATAMOD]
       - cell: pwsh/Catzc.Base.Variants/configs
-        by:
-          - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - ADR-AZ-CUSTOMER
+        by: [pwsh/Catzc.Base.Variants/configs/variants.yml, ADR-AZ-CUSTOMER]
     module-neighbourhood:
       - cell: subject/Catzc.Azure
         by:
@@ -426,10 +302,7 @@ content:
           - ADR-AZ-CUSTOMER
           - ADR-AZ-DATAMOD
       - cell: subject/Catzc.Base.Docs
-        by:
-          - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
-          - pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
-          - ADR-AZ-CUSTOMER
+        by: [pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs, pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs, ADR-AZ-CUSTOMER]
       - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
@@ -446,113 +319,35 @@ content:
           - ADR-AZ-CUSTOMER
           - ADR-AZ-DATAMOD
       - cell: subject/Catzc.Base.RootConfig
-        by:
-          - pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml
-          - ADR-AZ-DATAMOD
+        by: [pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml, ADR-AZ-DATAMOD]
       - cell: subject/Catzc.Base.Variants
-        by:
-          - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - ADR-AZ-CUSTOMER
+        by: [pwsh/Catzc.Base.Variants/configs/variants.yml, ADR-AZ-CUSTOMER]
       - cell: subject/discovery
-        by:
-          - infrastructure/templates/discovery/options.yml
-          - ADR-AZ-DATAMOD
+        by: [infrastructure/templates/discovery/options.yml, ADR-AZ-DATAMOD]
       - cell: subject/expedition
-        by:
-          - infrastructure/templates/expedition/options.yml
-          - ADR-AZ-DATAMOD
+        by: [infrastructure/templates/expedition/options.yml, ADR-AZ-DATAMOD]
       - cell: subject/foundation
-        by:
-          - infrastructure/templates/foundation/options.yml
-          - ADR-AZ-DATAMOD
+        by: [infrastructure/templates/foundation/options.yml, ADR-AZ-DATAMOD]
       - cell: subject/pipelines
-        by:
-          - .ado/pipelines/cd-shared.yaml
-          - .ado/pipelines/ci-infrastructure.yaml
-          - .ado/pipelines/extends/cd-customer.yaml
-          - ADR-AZ-DATAMOD
+        by: [.ado/pipelines/cd-shared.yaml, .ado/pipelines/ci-infrastructure.yaml, .ado/pipelines/extends/cd-customer.yaml, ADR-AZ-DATAMOD]
     axis:
       - cell: CLOUD/deploy
-        by:
-          - ADR-AZ-CUSTOMER
-          - ADR-AZ-DATAMOD
+        by: [ADR-AZ-CUSTOMER, ADR-AZ-DATAMOD]
       - cell: CLOUD/access
-        by:
-          - ADR-AZ-DATAMOD
-          - ADR-AZ-SESSION
+        by: [ADR-AZ-DATAMOD, ADR-AZ-SESSION]
 layout:
-  band-session:
-    x: 400
-    y: 84
-    w: 880
-    h: 190
-  band-config:
-    x: 20
-    y: 292
-    w: 1260
-    h: 220
-  grp-cli:
-    x: 604
-    y: 98
-    w: 292
-    h: 170
-  g-current-sub:
-    x: 645
-    y: 132
-    w: 210
-    h: 40
-  g-session-sub:
-    x: 622
-    y: 186
-    w: 256
-    h: 76
-  g-azure-yml:
-    x: 40
-    y: 322
-    w: 110
-    h: 46
-  g-customer-yml:
-    x: 40
-    y: 432
-    w: 110
-    h: 46
-  grp-base-config:
-    x: 190
-    y: 356
-    w: 180
-    h: 92
-  g-get-config:
-    x: 210
-    y: 396
-    w: 140
-    h: 40
-  g-azure-config:
-    x: 410
-    y: 326
-    w: 130
-    h: 40
-  g-customer-config:
-    x: 410
-    y: 436
-    w: 130
-    h: 40
-  g-azure-customer:
-    x: 650
-    y: 436
-    w: 200
-    h: 40
-  grp-resolvers:
-    x: 634
-    y: 302
-    w: 532
-    h: 96
-  g-azure-sub:
-    x: 650
-    y: 346
-    w: 200
-    h: 40
-  g-azure-env:
-    x: 950
-    y: 346
-    w: 200
-    h: 40
+  band-session: { x: 400, y: 84, w: 880, h: 190 }
+  band-config: { x: 20, y: 292, w: 1260, h: 220 }
+  grp-cli: { x: 604, y: 98, w: 292, h: 170 }
+  g-current-sub: { x: 645, y: 132, w: 210, h: 40 }
+  g-session-sub: { x: 622, y: 186, w: 256, h: 76 }
+  g-azure-yml: { x: 40, y: 322, w: 110, h: 46 }
+  g-customer-yml: { x: 40, y: 432, w: 110, h: 46 }
+  grp-base-config: { x: 190, y: 356, w: 180, h: 92 }
+  g-get-config: { x: 210, y: 396, w: 140, h: 40 }
+  g-azure-config: { x: 410, y: 326, w: 130, h: 40 }
+  g-customer-config: { x: 410, y: 436, w: 130, h: 40 }
+  g-azure-customer: { x: 650, y: 436, w: 200, h: 40 }
+  grp-resolvers: { x: 634, y: 302, w: 532, h: 96 }
+  g-azure-sub: { x: 650, y: 346, w: 200, h: 40 }
+  g-azure-env: { x: 950, y: 346, w: 200, h: 40 }

@@ -4,8 +4,9 @@
 #     with_body_sha: f793a033718d
 # ---
 
-description: 'The code path behind a globset: globs.yml through the validating load to GlobSet.ScanProgram(), then to the three role functions
-  and the callers that read each one''s output.'
+description:
+  "The code path behind a globset: globs.yml through the validating load to GlobSet.ScanProgram(), then to the three role functions and the
+  callers that read each one's output."
 about:
   adrs: [FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: implementation

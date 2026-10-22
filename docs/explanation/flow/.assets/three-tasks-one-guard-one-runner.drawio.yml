@@ -4,8 +4,9 @@
 #     with_body_sha: "54b5c756437f"
 # ---
 
-description: 'The path from a pipeline''s RunCommand to the running command: the step template''s three tasks carry one inline guard that can
-  throw, then the runner imports, traps, sanitizes and invokes in a fixed order.'
+description:
+  "The path from a pipeline's RunCommand to the running command: the step template's three tasks carry one inline guard that can throw, then
+  the runner imports, traps, sanitizes and invokes in a fixed order."
 about:
   adrs: [FDR-CD-RUNNER-NOINLINEPOWERSHELL, FDR-CD-RUNNER-IMPORTONCE, FDR-CD-RUNNER-THINSTEPTEMPLATES]
   lens: implementation

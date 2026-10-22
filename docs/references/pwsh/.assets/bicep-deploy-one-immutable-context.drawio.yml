@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: e9a8ec4b407e
+#     with_body_sha: "398a68508bf8"
 # ---
 
 description:
@@ -23,138 +23,52 @@ content:
   relation: calls
   theme: dark
   bands:
-    - id: band-entry
-      label: ENTRY
-    - id: band-resolve
-      label: RESOLVE
-    - id: band-deploy
-      label: DEPLOY
+    - { id: band-entry, label: ENTRY }
+    - { id: band-resolve, label: RESOLVE }
+    - { id: band-deploy, label: DEPLOY }
   groups:
-    - id: grp-types
-      label: context types
-      in: band-resolve
-    - id: grp-cli
-      label: Catzc.Azure.Cli
-      in: band-resolve
-    - id: grp-azure
-      label: Catzc.Azure
-      in: band-resolve
+    - { id: grp-types, label: context types, in: band-resolve }
+    - { id: grp-cli, label: Catzc.Azure.Cli, in: band-resolve }
+    - { id: grp-azure, label: Catzc.Azure, in: band-resolve }
   glyphs:
-    - id: g-deploy
-      kind: code
-      label: Deploy-Bicep
-      in: band-entry
-    - id: g-context
-      kind: code
-      label: Get-BicepDeploymentContext
-      in: band-resolve
-    - id: t-plan
-      kind: type
-      label: BicepDeploymentPlan
-      in: grp-types
-    - id: t-artifacts
-      kind: type
-      label: BicepArtifacts
-      in: grp-types
-    - id: t-context
-      kind: type
-      label: BicepDeploymentContext
-      in: grp-types
-    - id: g-build
-      kind: code
-      label: Build-Bicep
-      in: band-resolve
-    - id: g-session-sub
-      kind: code
-      label: Get-AzCliSessionSubscription
-      in: grp-cli
-    - id: g-invoke
-      kind: code
-      label: Invoke-AzCli
-      in: grp-cli
-    - id: g-environment
-      kind: code
-      label: Get-AzureEnvironment
-      in: grp-azure
-    - id: g-tracking
-      kind: code
-      label: Set-BicepTrackingTagSet
-      in: band-deploy
+    - { id: g-deploy, kind: code, label: Deploy-Bicep, in: band-entry }
+    - { id: g-context, kind: code, label: Get-BicepDeploymentContext, in: band-resolve }
+    - { id: t-plan, kind: type, label: BicepDeploymentPlan, in: grp-types }
+    - { id: t-artifacts, kind: type, label: BicepArtifacts, in: grp-types }
+    - { id: t-context, kind: type, label: BicepDeploymentContext, in: grp-types }
+    - { id: g-build, kind: code, label: Build-Bicep, in: band-resolve }
+    - { id: g-session-sub, kind: code, label: Get-AzCliSessionSubscription, in: grp-cli }
+    - { id: g-invoke, kind: code, label: Invoke-AzCli, in: grp-cli }
+    - { id: g-environment, kind: code, label: Get-AzureEnvironment, in: grp-azure }
+    - { id: g-tracking, kind: code, label: Set-BicepTrackingTagSet, in: band-deploy }
   edges:
-    - from: g-deploy
-      to: g-context
-      kind: flow
-      label: ""
-    - from: g-context
-      to: grp-types
-      kind: flow
-      label: ""
-    - from: g-context
-      to: g-build
-      kind: flow
-      label: ""
-    - from: g-context
-      to: g-session-sub
-      kind: flow
-      label: ""
-    - from: g-context
-      to: g-environment
-      kind: flow
-      label: ""
-    - from: g-build
-      to: g-invoke
-      kind: flow
-      label: ""
-    - from: g-deploy
-      to: g-invoke
-      kind: flow
-      label: ""
-    - from: g-deploy
-      to: g-tracking
-      kind: flow
-      label: ""
-    - from: g-tracking
-      to: g-invoke
-      kind: flow
-      label: ""
-    - from: g-tracking
-      to: g-session-sub
-      kind: flow
-      label: ""
-    - from: g-tracking
-      to: g-environment
-      kind: flow
-      label: ""
+    - { from: g-deploy, to: g-context, kind: flow, label: "" }
+    - { from: g-context, to: grp-types, kind: flow, label: "" }
+    - { from: g-context, to: g-build, kind: flow, label: "" }
+    - { from: g-context, to: g-session-sub, kind: flow, label: "" }
+    - { from: g-context, to: g-environment, kind: flow, label: "" }
+    - { from: g-build, to: g-invoke, kind: flow, label: "" }
+    - { from: g-deploy, to: g-invoke, kind: flow, label: "" }
+    - { from: g-deploy, to: g-tracking, kind: flow, label: "" }
+    - { from: g-tracking, to: g-invoke, kind: flow, label: "" }
+    - { from: g-tracking, to: g-session-sub, kind: flow, label: "" }
+    - { from: g-tracking, to: g-environment, kind: flow, label: "" }
   markers:
-    - at: g-deploy
-      number: 1
-    - at: g-context
-      number: 2
-    - at: g-session-sub
-      number: 3
-    - at: g-environment
-      number: 4
-    - at: g-build
-      number: 5
-    - at: t-context
-      number: 6
-    - at: g-invoke
-      number: 7
-    - at: g-tracking
-      number: 8
+    - { at: g-deploy, number: 1 }
+    - { at: g-context, number: 2 }
+    - { at: g-session-sub, number: 3 }
+    - { at: g-environment, number: 4 }
+    - { at: g-build, number: 5 }
+    - { at: t-context, number: 6 }
+    - { at: g-invoke, number: 7 }
+    - { at: g-tracking, number: 8 }
   legend: auto
   minimaps:
     code-locations:
       - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/cd-shared.yaml
-          - ADR-AZ-DATAMOD-CUSTOMERAXIS
-          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+        by: [.ado/pipelines/cd-shared.yaml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-VALUEBYADDRESS]
       - cell: ado-pipelines/pipelines/extends
-        by:
-          - .ado/pipelines/extends/cd-customer.yaml
-          - ADR-AZ-DATAMOD-CUSTOMERAXIS
-          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+        by: [.ado/pipelines/extends/cd-customer.yaml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-VALUEBYADDRESS]
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -227,20 +141,11 @@ content:
           - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
           - ADR-PWSH-PREPOST
       - cell: infrastructure/discovery/.
-        by:
-          - infrastructure/templates/discovery/options.yml
-          - ADR-AZ-DATAMOD-CUSTOMERAXIS
-          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+        by: [infrastructure/templates/discovery/options.yml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-VALUEBYADDRESS]
       - cell: infrastructure/expedition/.
-        by:
-          - infrastructure/templates/expedition/options.yml
-          - ADR-AZ-DATAMOD-CUSTOMERAXIS
-          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+        by: [infrastructure/templates/expedition/options.yml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-VALUEBYADDRESS]
       - cell: infrastructure/foundation/.
-        by:
-          - infrastructure/templates/foundation/options.yml
-          - ADR-AZ-DATAMOD-CUSTOMERAXIS
-          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+        by: [infrastructure/templates/foundation/options.yml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-VALUEBYADDRESS]
       - cell: pwsh/Catzc.Azure/.
         by:
           - pwsh/Catzc.Azure/Get-AzureEnvironment.ps1
@@ -249,15 +154,9 @@ content:
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-VALUEBYADDRESS
       - cell: pwsh/Catzc.Azure/configs
-        by:
-          - pwsh/Catzc.Azure/configs/azure.yml
-          - ADR-AZ-DATAMOD-CUSTOMERAXIS
-          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+        by: [pwsh/Catzc.Azure/configs/azure.yml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-VALUEBYADDRESS]
       - cell: pwsh/Catzc.Azure/tests/types
-        by:
-          - pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
-          - ADR-AZ-DATAMOD-CUSTOMERAXIS
-          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+        by: [pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-VALUEBYADDRESS]
       - cell: pwsh/Catzc.Azure/types
         by:
           - pwsh/Catzc.Azure/types/AzureConfig.cs
@@ -303,14 +202,9 @@ content:
           - ADR-AZ-DATAMOD-CUSTOMERAXIS
           - ADR-AZ-DATAMOD-VALUEBYADDRESS
       - cell: pwsh/Catzc.Azure.Templates/tests
-        by:
-          - pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1
-          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+        by: [pwsh/Catzc.Azure.Templates/tests/Resolve-BicepParameterAddresses.Tests.ps1, ADR-AZ-DATAMOD-VALUEBYADDRESS]
       - cell: pwsh/Catzc.Base.Docs/.
-        by:
-          - pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
-          - pwsh/Catzc.Base.Docs/Build-Readme.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.Docs/Build-GitKeep.ps1, pwsh/Catzc.Base.Docs/Build-Readme.ps1, ADR-AUTO-DRYRUN]
       - cell: pwsh/Catzc.Base.Drs/.
         by:
           - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
@@ -327,36 +221,19 @@ content:
           - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
           - ADR-PWSH-PREPOST
       - cell: pwsh/Catzc.Base.Drs/tests
-        by:
-          - pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1, ADR-AUTO-DRYRUN]
       - cell: pwsh/Catzc.Base.Environment/.
-        by:
-          - pwsh/Catzc.Base.Environment/Remove-PermanentPath.ps1
-          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+        by: [pwsh/Catzc.Base.Environment/Remove-PermanentPath.ps1, ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS]
       - cell: pwsh/Catzc.Base.Execution/.
-        by:
-          - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.Execution/Invoke-Executable.ps1, ADR-AUTO-DRYRUN]
       - cell: pwsh/Catzc.Base.Exporter/.
-        by:
-          - pwsh/Catzc.Base.Exporter/Build-Modules.ps1
-          - pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.Exporter/Build-Modules.ps1, pwsh/Catzc.Base.Exporter/Install-Catzc.ps1, ADR-AUTO-DRYRUN]
       - cell: pwsh/Catzc.Base.Files/.
-        by:
-          - pwsh/Catzc.Base.Files/Invoke-GitCommit.ps1
-          - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.Files/Invoke-GitCommit.ps1, pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1, ADR-AUTO-DRYRUN]
       - cell: pwsh/Catzc.Base.Git/.
-        by:
-          - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
-          - pwsh/Catzc.Base.Git/Reset-GitCleanFxd.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1, pwsh/Catzc.Base.Git/Reset-GitCleanFxd.ps1, ADR-AUTO-DRYRUN]
       - cell: pwsh/Catzc.Base.ModuleSystem/tests
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/tests/Set-ImportMix.Tests.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.ModuleSystem/tests/Set-ImportMix.Tests.ps1, ADR-AUTO-DRYRUN]
       - cell: pwsh/Catzc.Base.QualityGates/.
         by:
           - pwsh/Catzc.Base.QualityGates/Build-EnglishDictionary.ps1
@@ -379,26 +256,18 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/Sync-FileMeta.Tests.ps1
           - ADR-AUTO-DRYRUN
       - cell: pwsh/Catzc.Base.Reports/.
-        by:
-          - pwsh/Catzc.Base.Reports/Clear-Output.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.Reports/Clear-Output.ps1, ADR-AUTO-DRYRUN]
       - cell: pwsh/Catzc.Base.RootConfig/.
-        by:
-          - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1, ADR-AUTO-DRYRUN]
       - cell: pwsh/Catzc.Base.Slides/tests
-        by:
-          - pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1, ADR-AUTO-DRYRUN]
       - cell: pwsh/Catzc.Tooling.Provisioning/.
         by:
           - pwsh/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
           - pwsh/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
           - ADR-AUTO-DRYRUN
       - cell: pwsh/Catzc.Tooling.Toolchain/private
-        by:
-          - pwsh/Catzc.Tooling.Toolchain/private/Stop-DotnetInstallHolder.ps1
-          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+        by: [pwsh/Catzc.Tooling.Toolchain/private/Stop-DotnetInstallHolder.ps1, ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS]
     module-neighbourhood:
       - cell: subject/Catzc.Azure
         by:
@@ -447,10 +316,7 @@ content:
           - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
           - ADR-PWSH-PREPOST
       - cell: subject/Catzc.Base.Docs
-        by:
-          - pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
-          - pwsh/Catzc.Base.Docs/Build-Readme.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.Docs/Build-GitKeep.ps1, pwsh/Catzc.Base.Docs/Build-Readme.ps1, ADR-AUTO-DRYRUN]
       - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
@@ -465,32 +331,17 @@ content:
           - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
           - ADR-PWSH-PREPOST
       - cell: subject/Catzc.Base.Environment
-        by:
-          - pwsh/Catzc.Base.Environment/Remove-PermanentPath.ps1
-          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+        by: [pwsh/Catzc.Base.Environment/Remove-PermanentPath.ps1, ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS]
       - cell: subject/Catzc.Base.Execution
-        by:
-          - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.Execution/Invoke-Executable.ps1, ADR-AUTO-DRYRUN]
       - cell: subject/Catzc.Base.Exporter
-        by:
-          - pwsh/Catzc.Base.Exporter/Build-Modules.ps1
-          - pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.Exporter/Build-Modules.ps1, pwsh/Catzc.Base.Exporter/Install-Catzc.ps1, ADR-AUTO-DRYRUN]
       - cell: subject/Catzc.Base.Files
-        by:
-          - pwsh/Catzc.Base.Files/Invoke-GitCommit.ps1
-          - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.Files/Invoke-GitCommit.ps1, pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1, ADR-AUTO-DRYRUN]
       - cell: subject/Catzc.Base.Git
-        by:
-          - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
-          - pwsh/Catzc.Base.Git/Reset-GitCleanFxd.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1, pwsh/Catzc.Base.Git/Reset-GitCleanFxd.ps1, ADR-AUTO-DRYRUN]
       - cell: subject/Catzc.Base.ModuleSystem
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/tests/Set-ImportMix.Tests.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.ModuleSystem/tests/Set-ImportMix.Tests.ps1, ADR-AUTO-DRYRUN]
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/Build-EnglishDictionary.ps1
@@ -508,41 +359,24 @@ content:
           - ADR-AZ-DATAMOD-VALUEBYADDRESS
           - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
       - cell: subject/Catzc.Base.Reports
-        by:
-          - pwsh/Catzc.Base.Reports/Clear-Output.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.Reports/Clear-Output.ps1, ADR-AUTO-DRYRUN]
       - cell: subject/Catzc.Base.RootConfig
-        by:
-          - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1, ADR-AUTO-DRYRUN]
       - cell: subject/Catzc.Base.Slides
-        by:
-          - pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1
-          - ADR-AUTO-DRYRUN
+        by: [pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1, ADR-AUTO-DRYRUN]
       - cell: subject/Catzc.Tooling.Provisioning
         by:
           - pwsh/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
           - pwsh/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
           - ADR-AUTO-DRYRUN
       - cell: subject/Catzc.Tooling.Toolchain
-        by:
-          - pwsh/Catzc.Tooling.Toolchain/private/Stop-DotnetInstallHolder.ps1
-          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
+        by: [pwsh/Catzc.Tooling.Toolchain/private/Stop-DotnetInstallHolder.ps1, ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS]
       - cell: subject/discovery
-        by:
-          - infrastructure/templates/discovery/options.yml
-          - ADR-AZ-DATAMOD-CUSTOMERAXIS
-          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+        by: [infrastructure/templates/discovery/options.yml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-VALUEBYADDRESS]
       - cell: subject/expedition
-        by:
-          - infrastructure/templates/expedition/options.yml
-          - ADR-AZ-DATAMOD-CUSTOMERAXIS
-          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+        by: [infrastructure/templates/expedition/options.yml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-VALUEBYADDRESS]
       - cell: subject/foundation
-        by:
-          - infrastructure/templates/foundation/options.yml
-          - ADR-AZ-DATAMOD-CUSTOMERAXIS
-          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+        by: [infrastructure/templates/foundation/options.yml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-VALUEBYADDRESS]
       - cell: subject/pipelines
         by:
           - .ado/pipelines/cd-shared.yaml
@@ -551,97 +385,25 @@ content:
           - ADR-AZ-DATAMOD-VALUEBYADDRESS
     axis:
       - cell: AUTO/*
-        by:
-          - ADR-AUTO-DRYRUN
-          - ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS
-          - ADR-PWSH-PREPOST
+        by: [ADR-AUTO-DRYRUN, ADR-PWSH-DRYRUN-SUPPRESSSHOULDPROCESS, ADR-PWSH-PREPOST]
       - cell: CLOUD/deploy
-        by:
-          - ADR-AZ-DATAMOD-CUSTOMERAXIS
-          - ADR-AZ-DATAMOD-VALUEBYADDRESS
+        by: [ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-VALUEBYADDRESS]
       - cell: CLOUD/access
-        by:
-          - ADR-AZ-DATAMOD-CUSTOMERAXIS
-          - ADR-AZ-DATAMOD-VALUEBYADDRESS
-          - ADR-AZ-SESSION
+        by: [ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-VALUEBYADDRESS, ADR-AZ-SESSION]
 layout:
-  band-entry:
-    x: 20
-    y: 84
-    w: 190
-    h: 500
-  band-resolve:
-    x: 220
-    y: 84
-    w: 1060
-    h: 290
-  band-deploy:
-    x: 220
-    y: 394
-    w: 1060
-    h: 190
-  g-deploy:
-    x: 40
-    y: 300
-    w: 150
-    h: 44
-  g-context:
-    x: 250
-    y: 124
-    w: 220
-    h: 44
-  grp-types:
-    x: 540
-    y: 104
-    w: 720
-    h: 84
-  t-plan:
-    x: 560
-    y: 134
-    w: 200
-    h: 44
-  t-artifacts:
-    x: 790
-    y: 134
-    w: 180
-    h: 44
-  t-context:
-    x: 1000
-    y: 134
-    w: 240
-    h: 44
-  g-build:
-    x: 260
-    y: 275
-    w: 200
-    h: 44
-  grp-cli:
-    x: 520
-    y: 225
-    w: 290
-    h: 310
-  g-session-sub:
-    x: 545
-    y: 275
-    w: 240
-    h: 44
-  g-invoke:
-    x: 580
-    y: 465
-    w: 160
-    h: 44
-  grp-azure:
-    x: 840
-    y: 225
-    w: 260
-    h: 120
-  g-environment:
-    x: 860
-    y: 275
-    w: 220
-    h: 44
-  g-tracking:
-    x: 880
-    y: 465
-    w: 230
-    h: 44
+  band-entry: { x: 20, y: 84, w: 190, h: 500 }
+  band-resolve: { x: 220, y: 84, w: 1060, h: 290 }
+  band-deploy: { x: 220, y: 394, w: 1060, h: 190 }
+  g-deploy: { x: 40, y: 300, w: 150, h: 44 }
+  g-context: { x: 250, y: 124, w: 220, h: 44 }
+  grp-types: { x: 540, y: 104, w: 720, h: 84 }
+  t-plan: { x: 560, y: 134, w: 200, h: 44 }
+  t-artifacts: { x: 790, y: 134, w: 180, h: 44 }
+  t-context: { x: 1000, y: 134, w: 240, h: 44 }
+  g-build: { x: 260, y: 275, w: 200, h: 44 }
+  grp-cli: { x: 520, y: 225, w: 290, h: 310 }
+  g-session-sub: { x: 545, y: 275, w: 240, h: 44 }
+  g-invoke: { x: 580, y: 465, w: 160, h: 44 }
+  grp-azure: { x: 840, y: 225, w: 260, h: 120 }
+  g-environment: { x: 860, y: 275, w: 220, h: 44 }
+  g-tracking: { x: 880, y: 465, w: 230, h: 44 }

@@ -4,8 +4,9 @@
 #     with_body_sha: "4f84889d955e"
 # ---
 
-description: 'What a pipeline stage sees from one call to Test-GlobSetAffected: a boolean, at most one printed message, and one possible throw;
-  only false returns early, true and a doubt both proceed.'
+description:
+  "What a pipeline stage sees from one call to Test-GlobSetAffected: a boolean, at most one printed message, and one possible throw; only
+  false returns early, true and a doubt both proceed."
 about:
   adrs: [FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: operations

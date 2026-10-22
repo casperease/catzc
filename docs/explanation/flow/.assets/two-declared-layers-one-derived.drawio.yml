@@ -4,8 +4,9 @@
 #     with_body_sha: d882ac88b697
 # ---
 
-description: 'Every globset carries one of three layers: deployable-unit and loose-fileset sets are declared in globs.yml, module sets are derived
-  from the folders under pwsh; the reserved umbrellas are derived loose-filesets, and compose is the only edge between sets.'
+description:
+  "Every globset carries one of three layers: deployable-unit and loose-fileset sets are declared in globs.yml, module sets are derived from
+  the folders under pwsh; the reserved umbrellas are derived loose-filesets, and compose is the only edge between sets."
 about:
   adrs: [FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
   lens: architecture
