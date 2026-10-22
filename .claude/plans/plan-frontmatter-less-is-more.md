@@ -13,10 +13,10 @@ catzc:
     drs_total: 1
 ---
 
-# Frontmatter less is more: every file on disk is format-managed, and its head says only what pays
+# Front matter less is more: every file on disk is format-managed, and its head says only what pays
 
-Every file in the structure on disk is format-managed: a `Format-*` command corrects its format and decides whether it carries a head
-(frontmatter) and which one. The default is none; a head is printed only where it carries a fact worth its lines.
+Every file in the structure on disk is format-managed: a `Format-*` command corrects its format and decides whether it carries a head (front
+matter) and which one. The default is none; a head is printed only where it carries a fact worth its lines.
 
 ## Why its value
 

@@ -43,6 +43,12 @@ ten "may I" questions on edits the rules already require, three to five tool cal
       list of commands it executes while holding, then releases. (check: `Enter-CatzcBurst.Tests.ps1` green with a case whose `-Run` steps
       execute inside the burst and release the lock on success and on a failing step)
 
+- [ ] `pwsh/.internal/assets/Wait-CatzcRunLock.ps1`: a waiter whose holder record runs past its budget gives up at once with "retry after
+      it" even when that holder's process is gone (the orchestrator, 2026-10-22: six plan checks in a row stopped behind a test run's holder
+      record, the last one behind pid 15324 after its session had ended); the waiter checks the holder's process first, and a gone holder
+      never stops it, for a plain run as for a burst. (check: `Wait-CatzcRunLock.Tests.ps1` green with a case whose holder record names a
+      gone process and runs past the waiter's budget)
+
 ## Open questions
 
 - The orchestrator's finalize (2026-10-22), proposals to shrink what the next session reads, none applied: (1) one merged line in

@@ -54,8 +54,8 @@ module's step, since the scan guesses it from a file's `Get-Config` calls and al
       manual test plan land from `out/bcl-a0-staged/qg/` in one burst (15 files, each diffed against the live copy before its swap). (check:
       the burst's test files green, `Test-ScriptAnalyzer` at 0 on its files, the scan's `QualityGates` hits at 0 in scope by grep)
 - [ ] The whole-repository tiers of `Test-Spelling.Tests.ps1`, `Test-Markdownlint.Tests.ps1`, `Test-ScriptAnalyzer.Tests.ps1` and
-      `Get-ScriptAnalyzerDiagnostics.Tests.ps1` are green, one per call (catzc-e3, 2026-10-22: the other sessions' spelling and lint findings
-      that held them are fixed). (check: the four test files green, one per call)
+      `Get-ScriptAnalyzerDiagnostics.Tests.ps1` are green, one per call (catzc-e3, 2026-10-22: the other sessions' spelling and lint
+      findings that held them are fixed). (check: the four test files green, one per call)
 - [ ] `Catzc.Base.Overlay` and `Catzc.Base.TypesSystem` landed (catzc-a0, 2026-10-22: their other test files green, `Test-ScriptAnalyzer` at
       0 on the five files); left: `Import-CSharpTypes.Tests.ps1` (waits on the commit of `pwsh/.compiled`) and `Build-AgentHook.Tests.ps1`
       (its published-hook setups, see plan-debt-full-run-failures) green. (check: those two test files green)
