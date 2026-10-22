@@ -72,6 +72,32 @@ Describe 'Get-ImprintStepFile' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFO
         $found | Should -Be @((Join-Path $script:root 'widget-modules/Widget/Get-Gadget.ps1'))
     }
 
+    Context 'the plan-counts step' {
+        BeforeEach {
+            $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'plans') -Force
+            [System.IO.File]::WriteAllText((Join-Path $script:root 'plans/plan-master.md'), "# Master`n")
+            [System.IO.File]::WriteAllText((Join-Path $script:root 'plans/plan-widget.md'), "# Widget`n")
+            Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'plans' } { [Catzc.Base.QualityGates.PlansConfig]::new(@{ folder = 'plans' }) }
+            $script:scope = {
+                param([string[]] $Path)
+                InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Path = $Path } {
+                    param($Root, $Path)
+                    Get-ImprintStepFile -Step plan-counts -RepositoryRoot $Root -Path $Path
+                }
+            }
+        }
+
+        It 'returns the overlays of the plans folder that exist, with no -Path or one inside the folder' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
+            & $script:scope | Should -Be @((Join-Path $script:root 'plans/plan-master.md'))
+            & $script:scope @((Join-Path $script:root 'plans/plan-widget.md')) | Should -Be @((Join-Path $script:root 'plans/plan-master.md'))
+            & $script:scope @($script:root) | Should -Be @((Join-Path $script:root 'plans/plan-master.md'))
+        }
+
+        It 'returns nothing for a -Path outside the plans folder' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
+            @(& $script:scope @((Join-Path $script:root 'docs/widget.md'))).Count | Should -Be 0
+        }
+    }
+
     It 'leaves a path outside the repository out instead of refusing it, and asks nothing when none is left' {
         $found = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Outside = $script:outside } {
             param($Root, $Outside)

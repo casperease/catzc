@@ -73,7 +73,7 @@ function Test-Plans {
     $masterLines = @(& $readLines $Config.master_file)
     $valueLines = @(& $readLines $Config.value_file)
 
-    $stepWords = @{ one = 1; two = 2; three = 3; four = 4; five = 5; six = 6; seven = 7; eight = 8; nine = 9; ten = 10; eleven = 11; twelve = 12 }
+    $openCounts = Get-PlanOpenStepCount $folder -Config $Config
     $issues = [System.Collections.Generic.List[string]]::new()
     $plans = 0
     $tasks = 0
@@ -218,21 +218,13 @@ function Test-Plans {
         }
 
         $items = @(Get-MarkdownListItem -Line $lines)
-        $openCount = @($items | Where-Object { $_.First -match '^\s*(-|\d+\.) \[ \]' }).Count
-        # A step count an overlay states ("three steps", "one step left") is the plan's open steps, or it has drifted.
+        $openCount = [int] $openCounts[$name]
+        # A step count an overlay states ("three steps", "one step left") is the plan's open steps, or it has drifted; Format-Code rewrites it.
         $assertCount = {
             param([string] $Text, [string] $Overlay)
-            if ($Text -match "(?i)\b(?<n>\d+|$($stepWords.Keys -join '|'))\s+steps?\b") {
-                $count = $Matches['n'].ToLowerInvariant()
-                $stated = if ($stepWords.ContainsKey($count)) {
-                    $stepWords[$count]
-                }
-                else {
-                    [int] $count
-                }
-                if ($stated -ne $openCount) {
-                    & $add 1 'ADR-REPO-PLANS-THREEPARTS' "$Overlay says $stated step(s), but the plan has $openCount open step(s)"
-                }
+            $stated = Resolve-PlanStepCount -Text $Text
+            if ($stated -and $stated.Count -ne $openCount) {
+                & $add 1 'ADR-REPO-PLANS-THREEPARTS' "$Overlay says $($stated.Count) step(s), but the plan has $openCount open step(s)"
             }
         }
 

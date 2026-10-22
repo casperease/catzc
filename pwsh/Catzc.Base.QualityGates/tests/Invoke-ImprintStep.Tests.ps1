@@ -155,6 +155,23 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
         }
     }
 
+    Context 'the plan-counts step' {
+        It 'hands each folder of its files to Update-PlanStepCount once, and returns the overlays it changed' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
+            $master = Join-Path $script:root 'plans/plan-master.md'
+            $value = Join-Path $script:root 'plans/value-of-plan.md'
+            $script:plansFolder = Join-Path $script:root 'plans'
+            Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'plans' } { [Catzc.Base.QualityGates.PlansConfig]::new(@{}) }
+            Mock Update-PlanStepCount -ModuleName Catzc.Base.QualityGates { [string[]] @($script:plansFolder + '/plan-master.md') }
+            $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Files = @($master, $value) } {
+                param($Root, $Files)
+                Invoke-ImprintStep -Step plan-counts -File $Files -RepositoryRoot $Root -DryRun
+            }
+            Should -Invoke Update-PlanStepCount -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $DryRun -and $Folder -eq $script:plansFolder }
+            $outcome.Changed | Should -Be @($script:plansFolder + '/plan-master.md')
+            $outcome.Unfixable.Count | Should -Be 0
+        }
+    }
+
     Context 'every step' {
         It 'returns an empty outcome for no files, without running anything, for every step the registry may list: <_>' -ForEach @([Catzc.Base.Languages.LanguagesConfig]::ImprintSteps) {
             Mock Format-Types -ModuleName Catzc.Base.QualityGates { }
