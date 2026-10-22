@@ -71,6 +71,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   head: generated files a warning (and body sha when tracked), authored files only a docs link and DRS codes, else none.
 - bcl-path-sets -> plan-bcl-path-sets.md: Every hand-built path set, folder scan and module-base lookup in a non-internal module moves into
   a BCL helper on the type that owns it; pass-through functions go.
+- vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
+  or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

@@ -28,3 +28,20 @@ Started 2026-10-22T09:08:25.1759302+02:00.
   -nodeReuse:false -p:UseSharedCompilation=false stops it (this corrects the earlier race line).
 - 2026-10-22 Cats: In hindsight I wish I knew this fact: per ADR-AUTO-SPELL-ONEVOCABULARYSOURCE a new known word goes into terminology.yml,
   never into the cspell config.
+- 2026-10-22 Cats: Every pwsh death in VS Code today was a window reload: main.log says received terminate message from renderer with exit
+  code 0, and the PowerShell extension log then says terminated or Extension Terminal was closed; neither is a crash.
+- 2026-10-22 Cats: Get-CombinedTypeHash strips each type source's generated head before hashing, so any second copy of the algorithm (the
+  csproj task, the compiled-info extension) calls every build stale.
+- 2026-10-22 Cats: The type-cache janitor used to stop any process holding a superseded types DLL at every person's first prompt; a session
+  bound to an earlier instance is a fact now, never a target (ADR-PWSH-TYPES-ONEINSTANCEPERSESSION).
+- 2026-10-22 Cats: A BCL ADR may not cite a pwsh rule: the citation graph lets pwsh depend on bcl only, so a BCL sentence stands on its own
+  rule.
+- 2026-10-22 Cats: Formatting a new C# type after the run's import leaves the analyzer's spelling pass without the current assembly;
+  Format-Types first, then a fresh import.
+- 2026-10-22 Cats: The extension-host pwsh is headless to the importer (its command line has -Command without -NoExit), so its janitors run
+  inline at import, not at the first prompt.
+- 2026-10-22 Cats: The orchestrator session's inbox can be full; a HOLD or RELEASE to it is then dropped, and the notice arrives later.
+- 2026-10-22 Cats: Token tip: read the heads of a log before grepping its tail; the extension-host activation list answers the
+  terminal-environment question in one read.
+- 2026-10-22 Cats: Token tip: name the gate set once in one Invoke-CatzcCommand run instead of one run per gate; the run lock serialises
+  them anyway.

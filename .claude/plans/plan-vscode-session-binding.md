@@ -1,0 +1,46 @@
+---
+plan:
+  status: active
+  value: medium
+  reviewed: 2026-10-22
+  class: feature
+  targets: [pwsh/Catzc.Base.VSCode/Get-VsCodeSession.ps1, pwsh/.internal/Catzc.Internal.Importer.psm1]
+---
+
+# VS Code session binding: the decision observed, the hang caught from the inside
+
+The rule ADR-PWSH-TYPES-ONEINSTANCEPERSESSION is in the tree with its code: no janitor stops or waits on a holder of a superseded types
+build, the editor's artifacts ask the loader for the one hash, and `Get-VsCodeSession` answers a session's binding from inside it. What is
+left is the observation that the hang of the PowerShell extension's session is gone, and two janitors the rule did not judge.
+
+## Why its value is medium
+
+The hang was never captured in a log, so its cause is inferred from the three behaviours removed (a stop-and-wait, a throw over a held
+build, a reload prompted by a false warning). A day in VS Code without a hang closes the question; a recurrence has a command to describe
+it.
+
+## Decided (the user, 2026-10-22)
+
+- A pwsh session is bound to one types instance per type domain; the tooling accepts that fact, inside VS Code above all. No alarm is
+  silenced to make a symptom disappear: the terminal's environment-changes indicator stays on.
+- Diagnosis is a small toolset command that runs inside the controlled environment, guarded by `Assert-IsRunningInVsCode`, never a probe run
+  from an agent's process against the session.
+- A system-state change (a tool install) is the user's, from a script they run; an agent never makes one.
+
+## Open steps
+
+1. [ ] `pwsh/.internal/Catzc.Internal.Importer.psm1`, `Invoke-EditorExtensionJanitor`: decide whether `code --install-extension` may run
+       from inside VS Code's own session (`Test-IsRunningInVsCode`), where the editor installing an extension while its extension host waits
+       on the prompt is the untested hang hypothesis; the janitor either skips with one line naming the command to run from outside, or
+       keeps running after the hypothesis is tested with `Get-VsCodeSession` in the extension's session (check:
+       `Invoke-TestFile -Path pwsh/.internal/tests/Invoke-EditorExtensionJanitor.Tests.ps1`).
+2. [ ] `pwsh/Catzc.Base.VSCode/Get-VsCodeSession.ps1`: when the hang recurs, the user runs `Get-VsCodeSession` in the hung session's sibling
+       and pastes its one line; the command then grows what the line lacked, one property at a time (check:
+       `Invoke-TestFile -Path pwsh/Catzc.Base.VSCode/tests/Get-VsCodeSession.Tests.ps1`).
+
+## Open questions
+
+- Does a stack capture of a hung pwsh (`dotnet-stack report`) join the toolbox as a command with its `Install-DotnetStack` triad
+  (ADR-AUTO-DEPS-TOOLTRIAD), or is `Get-VsCodeSession` enough? Recommendation: wait for one recurrence before adding a tool.
+- Does `Build-AgentHook`'s `dotnet publish` belong in a janitor that runs at the first prompt of the extension's session, where it costs
+  tens of seconds in the host that shows IntelliSense? Recommendation: judge it with the first step's evidence, not before.
