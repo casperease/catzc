@@ -4,8 +4,10 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY
+      - ADR-AUTO-BUNDLE
       - ADR-PWSH-ENUM-ALWAYSBOUNDED
-    drs_total: 2
+      - DDR-RUNMODE
+    drs_total: 4
 ---
 
 # pwsh/.internal/Catzc.Internal.Builder.psm1

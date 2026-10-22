@@ -5,7 +5,8 @@ catzc:
     cites:
       - ADR-AUTO-TEST-BUILDVERIFICATIONTEST
       - DDR-TRACK-TRACKISPLACEDCLUSTER
-    drs_total: 2
+      - FDR-CD-GLOBS
+    drs_total: 3
 ---
 
 # .ado/pipelines/ci-pwsh.yaml

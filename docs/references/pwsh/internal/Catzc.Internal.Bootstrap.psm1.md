@@ -7,8 +7,9 @@ catzc:
       - ADR-BCL-TYPES-ONEDRIFTMEASURE
       - ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE
       - ADR-PWSH-ENUM-EARLYLOADINGCODE
+      - ADR-PWSH-ERROR
       - ADR-REPO-FORMAT-TOOLSFORMAT
-    drs_total: 5
+    drs_total: 6
 ---
 
 # pwsh/.internal/Catzc.Internal.Bootstrap.psm1

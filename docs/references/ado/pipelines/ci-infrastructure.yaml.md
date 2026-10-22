@@ -5,7 +5,9 @@ catzc:
     cites:
       - ADR-AUTO-TEST-TESTSUITE
       - ADR-AZ-DATAMOD-PARAMETERCONTRACT
-    drs_total: 2
+      - FDR-CD-GLOBS
+      - FDR-CD-TYPE
+    drs_total: 4
 ---
 
 # .ado/pipelines/ci-infrastructure.yaml

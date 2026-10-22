@@ -6,7 +6,8 @@ catzc:
       - ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES
       - ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE
       - ADR-PWSH-ENUM-EARLYLOADINGCODE
-    drs_total: 3
+      - PDR-ONELIVE
+    drs_total: 4
 ---
 
 # pwsh/.internal/Catzc.Internal.Vendor.psm1

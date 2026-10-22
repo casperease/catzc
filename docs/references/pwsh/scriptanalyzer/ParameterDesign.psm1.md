@@ -4,8 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
-      - ADR-PWSH-PARAM-RESOLUTIONORDER
-    drs_total: 2
+      - ADR-PWSH-PARAM
+    drs_total: 3
 ---
 
 # pwsh/.scriptanalyzer/ParameterDesign.psm1
