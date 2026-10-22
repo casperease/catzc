@@ -304,16 +304,15 @@ relation, so a new relation is a new name and a registry entry, and the target o
 
 ### Relatives
 
-`A code file names the few files that belong to it, in the head`
+`A file names the one companion that costs to find, in the head`
 
-A code file has two companions a reader wants one step away, and both cost to find: the page that holds its moved comments, and the test
-that proves it; a test has one, the code it tests. Writing each as a link in the code would put a pointer in every file and a line to keep
-in step with the companion. The head already holds derived facts, so the companions are edges, one fixed name per kind of companion, and no
-more than the ones that truly define a relationship, so the head stays a map of facts about its own file. The registry holds the list of
-edges and the path rule of each, and an edge whose file does not exist is not written, so an entry in the head is always a working pointer.
-The page is the companion a reader opens from the code, so its edge is written as a link, which an editor and GitHub follow in one click
-because its target is the page's path from the file's own folder, the way both resolve a link; an edge a tool follows stays a bare
-repository-relative path.
+A file has one companion a reader wants one step away that costs to find: the page that holds its moved comments. Its test costs nothing,
+since the convention places it, its stem under `tests/`, so a head that named it would only repeat the convention and churn with it.
+Writing the page as a link in the code would put a pointer in the file and a line to keep in step with the page. The head already holds
+derived facts, so the page is an edge with a fixed name, the only relative edge, and the head stays a map of facts about its own file. The
+registry holds the edge and its path rule, and an edge whose page does not exist is not written, so an entry in the head is always a working
+pointer. The edge is written as a link, which an editor and GitHub follow in one click because its target is the page's path from the
+file's own folder, the way both resolve a link.
 
 ### File kinds
 
@@ -339,13 +338,16 @@ remove blocks freely. The imprint reads the block only to say that it differs fr
 
 `A head where a reader needs one, none where it only repeats`
 
-A block is worth its bytes where a reader cannot easily derive what it says. A generated file names the command that writes it and the
-source to edit instead, and stamps the body its writer composed, so every generated file requires one, tracked or not. An authored code or
-config file is opened on GitHub or in an editor by a reader who wants its rules, its docs and its test one step away, so it carries the
-navigation head, its body hash and those edges, as the repo-wide variant says, and a repository that wants none switches the variant, never
-code. Every other authored file's facts are all derivable, so a block on it is a second statement that can drift and adds a diff to every
-move, and it carries none. An agent definition's front matter is the editor's own keys, so it carries no catzc block either; a capability
-keeps the authored `config` part its tool reads.
+A block is worth its bytes where a reader cannot easily derive what it says, and a head on every file is noise most readers and every agent
+read past on each file they open, and churn on every edit of the body. So every file on disk is format-managed, the default is no head, and
+a format run prints one only where it pays. A generated file carries the warning, so a reader is told not to edit it, with the command that
+writes it and the source to edit instead; while git tracks it, its head also stamps the body its writer composed, the body it is immutable
+with, and an untracked generated file, which no commit compares, carries the warning alone. An authored file tracked in git is opened on
+GitHub or in an editor by a reader who wants its comment page and the rules that cite it one step away, so it carries `docs` and `cites`
+when it has them, and nothing else: a body hash on an authored file changes on every edit and tells a reader nothing, and its test is found
+by convention. An authored file with neither carries no head, so a format run clears the head it no longer calls for. An agent or skill
+definition's front matter is the editor's own keys, so the policy leaves it as authored; a capability keeps the authored `config` part its
+tool reads.
 
 ### How this is enforced
 

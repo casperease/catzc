@@ -66,6 +66,19 @@ function Test-Formatting {
         }
     }
 
+    # Every file in scope is format-managed: a file no formatter covers is a finding, unless a language was named to narrow the run.
+    if (-not $Language) {
+        foreach ($file in @(Get-FormatScope -RepositoryRoot (Get-RepositoryRoot) -Path $Path)) {
+            $fileLanguage = $config.ForPath($file)
+            if ($null -eq $fileLanguage) {
+                & $addIssue $file 'no Format-* command covers it — no file language in languages.yml claims its extension'
+            }
+            elseif (-not $fileLanguage.formatter) {
+                & $addIssue $file "no Format-* command covers it — its language '$($fileLanguage.name)' has no formatter ($($fileLanguage.no_formatter))"
+            }
+        }
+    }
+
     Write-QualityGateReport -Subject formatting -Title Test-Formatting -Issues $issues.ToArray() `
         -Facts ([ordered]@{ Languages = $selected.Count; Paths = @($Path).Count }) -OutputFolder $OutputFolder -PassThru:$PassThru
 }

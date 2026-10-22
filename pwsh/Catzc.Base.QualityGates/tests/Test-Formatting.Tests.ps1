@@ -36,6 +36,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } { $script:languages }
         Mock Format-Code -ModuleName Catzc.Base.QualityGates { }
+        Mock Get-FormatScope -ModuleName Catzc.Base.QualityGates { , [string[]] @() }
         $script:reportFolder = Join-Path $TestDrive 'formatting'
     }
 
