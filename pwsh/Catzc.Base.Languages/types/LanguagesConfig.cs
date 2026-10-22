@@ -68,7 +68,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     public static IReadOnlyList<string> FormatterEngines => Engines;
 
     // A new imprint step is new mechanism too: its Format-Code adapter and its name here must land together.
-    private static readonly string[] StepNames = { "file-meta", "bcl-namespace", "comments", "ps-help" };
+    private static readonly string[] StepNames = { "file-meta", "bcl-namespace", "comments", "ps-help", "plan-counts" };
     public static IReadOnlyList<string> ImprintSteps => StepNames;
 
     // The imprint steps Format-Code runs after every language's formatter, over every language. Empty when the file lists none.

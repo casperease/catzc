@@ -66,6 +66,10 @@ steps:
       - pwsh/Catzc.Base.QualityGates/configs/file-meta.yml
       - pwsh/Catzc.Base.Languages/configs/file-carriers.yml
       - pwsh/Catzc.Base.Languages/configs/languages.yml
+  # The step counts the plan overlays state, rewritten from each plan's open steps.
+  plan-counts:
+    settings:
+      - pwsh/Catzc.Base.QualityGates/configs/plans.yml
 naming:
   # Assets and vendored modules are named by their source, never by the language's idiom.
   exempt_folders: [assets, .vendor]
@@ -122,6 +126,7 @@ languages:
     extensions: [.md]
     formatter: prettier
     checks: [Test-Markdownlint, Test-MarkdownTitle, Test-Formatting, Test-Spelling, Test-Links, Test-AgentDefinitions, Test-Plans]
+    imprint: [plan-counts]
     layout:
       - { folder: ".", role: readme, extensions: [.md], live: false, shipped: false }
   bicep:

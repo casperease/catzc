@@ -164,6 +164,15 @@ function Format-Code {
         $fileStamp = if ($step -ceq 'file-meta') {
             Get-FileMetaInputStamp -File $candidates -RepositoryRoot $root
         }
+        elseif ($step -ceq 'plan-counts') {
+            # The plan-counts step's verdict reads the open steps of the plans beside each overlay, so their counts join its key.
+            $stamps = @{}
+            foreach ($candidate in $candidates) {
+                $counts = Get-PlanOpenStepCount ([System.IO.Path]::GetDirectoryName($candidate)) -Config (Get-Config -Config plans)
+                $stamps[$candidate] = @($counts.Keys | ForEach-Object { "${_}=$($counts[$_])" }) -join ';'
+            }
+            $stamps
+        }
         else {
             @{}
         }

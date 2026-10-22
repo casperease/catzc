@@ -91,6 +91,17 @@ function Invoke-ImprintStep {
             $moved = @(Export-Comments -Path $File -RepositoryRoot $root -DryRun:$DryRun)
             $outcome.Changed = [string[]] @($moved | ForEach-Object { & $absolute $_ })
         }
+        'plan-counts' {
+            if ($File.Count -eq 0) {
+                return $outcome
+            }
+            # The counts are derived from the plans beside each overlay, so each folder the files sit in is rewritten once.
+            $plans = Get-Config -Config plans
+            $folders = @($File | ForEach-Object { [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetFullPath($_)) } | Sort-Object -Unique)
+            $outcome.Changed = [string[]] @(foreach ($folder in $folders) {
+                    Update-PlanStepCount $folder -Config $plans -DryRun:$DryRun
+                })
+        }
         default {
             throw "Invoke-ImprintStep: no adapter for the imprint step '$Step' (declared: $([Catzc.Base.Languages.LanguagesConfig]::ImprintSteps -join ', '))."
         }

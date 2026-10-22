@@ -59,6 +59,28 @@ function Get-ImprintStepFile {
             $scope = @(Get-CommentScope -RepositoryRoot $root -Path $Path)
             return , [string[]] @($scope | ForEach-Object { [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $_.File)) })
         }
+        'plan-counts' {
+            # The step rewrites the master and the value overlay; it is in scope with no -Path, or one in, or above, the plans folder.
+            $plans = Get-Config -Config plans
+            $folder = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($root, $plans.folder))
+            $overlays = @(foreach ($name in $plans.master_file, $plans.value_file) {
+                    $overlay = Join-Path $folder $name
+                    if ([System.IO.File]::Exists($overlay)) {
+                        $overlay
+                    }
+                })
+            if ($Path) {
+                $separator = [System.IO.Path]::DirectorySeparatorChar
+                $touched = @($Path | Where-Object {
+                        $full = [System.IO.Path]::GetFullPath((Resolve-Path -LiteralPath $_).ProviderPath).TrimEnd($separator)
+                        $full -eq $folder -or $full.StartsWith($folder + $separator) -or $folder.StartsWith($full + $separator)
+                    })
+                if ($touched.Count -eq 0) {
+                    return , [string[]] @()
+                }
+            }
+            return , [string[]] $overlays
+        }
         default {
             throw "Get-ImprintStepFile: no adapter for the imprint step '$Step' (declared: $([Catzc.Base.Languages.LanguagesConfig]::ImprintSteps -join ', '))."
         }

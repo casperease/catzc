@@ -122,6 +122,8 @@ configs:
     type: Catzc.Tooling.Inspiration.InspirationConfig
   listen:
     type: Catzc.Tooling.Listen.ListenConfig
+  claude-worker:
+    type: Catzc.Tooling.Claude.ClaudeWorkerConfig
   learnings:
     type: Catzc.Base.Docs.LearningsConfig
   hindsight:
