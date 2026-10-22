@@ -96,8 +96,8 @@ The grammar is fixed by a `ValidatePattern` on `Get-ConfigValue` so a malformed 
 `The address grammar, concretely`
 
 ```powershell
-Get-ConfigValue -Address 'global.myproperty.name'     # scalar leaf → the value at myproperty → name
-Get-ConfigValue -Address 'global.database'            # subtree     → the whole database config node
+Get-ConfigValue -Address 'global.myproperty.name'                       # scalar leaf → the value at myproperty → name
+Get-ConfigValue -Address 'global.database'                              # subtree     → the whole database config node
 Get-ConfigValue -Address 'global.azure.environments.prod.region_code'   # deep leaf
 ```
 
