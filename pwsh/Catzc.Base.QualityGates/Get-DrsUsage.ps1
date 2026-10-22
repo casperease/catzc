@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "425e93be108f"
+    with_body_sha: "0aef0b718fb5"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-DrsUsage.Tests.ps1
     docs: "[Get-DrsUsage.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Get-DrsUsage.ps1.md)"
@@ -31,6 +31,9 @@ function Get-DrsUsage {
 
     $map = Get-DrsCitationMap -RepositoryRoot $RepositoryRoot
     $config = Get-Config -Config file-meta
+    # Resolved once for the whole scan, not once per file.
+    $kind = $config.kinds | Where-Object { $_.id -eq 'drs-codes' }
+    $pages = Get-Config -Config comment-pages
     $rows = foreach ($entry in Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $config) {
         $carrier = $entry.Carrier.carrier
         if ($carrier -eq [Catzc.Base.Languages.CarrierKind]::Property -or $carrier -eq [Catzc.Base.Languages.CarrierKind]::Sidecar) {
@@ -41,7 +44,7 @@ function Get-DrsUsage {
             continue
         }
         $text = [System.IO.File]::ReadAllText($file)
-        $arguments = @{ Text = $text; Path = $entry.Path; Map = $map }
+        $arguments = @{ Text = $text; Path = $entry.Path; Map = $map; Kind = $kind; Pages = $pages }
         if ($carrier -eq [Catzc.Base.Languages.CarrierKind]::CommentHead) {
             $arguments['Form'] = $entry.Carrier.Form()
         }

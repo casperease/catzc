@@ -46,3 +46,59 @@ Started 2026-10-22T02:17:29.6324179+02:00.
   red test, until its exit-code step lands; read the Invoke-TestFile line, not the total.
 - 2026-10-22 Cats: Token tip: Next time, save tokens by: briefing a worker as \<plan> step; owns \<files>; check \<check>, never the plan
   text again.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Test-Parsing -Path takes files only; a folder fails with Path does not exist.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: the decision-record gate is Test-DrsRegistry, registry-wide with no -Path; there is
+  no Test-Drs.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: every import builds each .claude/hooks folder that has a csproj
+  (Invoke-AgentHookJanitor), so a new hook folder is an import-path change.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Build-Modules lists module files from the git index case-sensitively, so an
+  unstaged case-only rename drops the module from every build.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Format-Code imprint steps run after the formatter pass over the -Path files only,
+  so a step that writes other files must format them itself.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: in Pester, (Get-X)[0] on a one-item result indexes a character of the string;
+  @(Get-X)[0] takes the item.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Invoke-CatzcCommand.ps1 holds a machine-wide run lock, and an import-path change
+  runs inside Enter-CatzcBurst / -InBurst / Exit-CatzcBurst.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: the Bash time safeguard denies a background call with any command before its
+  timeout prefix, so cleanup goes in its own foreground call.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: checking a gate name and its -Path shape with Get-Command before batching it into
+  one entry-script call.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: drafting import-path files in the scratchpad and landing them in one burst, so one
+  check run covers them.
+- 2026-10-22 Cats: Python Path.write_text on Windows writes CRLF unless newline='\n' is passed; the diagram kit's write_source now passes
+  it.
+- 2026-10-22 Cats: PyYAML's width is soft and a flow-context plain scalar cannot hold ', ', so a Prettier-clean yml printer quotes per
+  context, uses double quotes and fills long plain text itself.
+- 2026-10-22 Cats: With core.ignorecase=true a case-only rename on disk is invisible to git status, and the builder's case-sensitive index
+  check then drops the whole module.
+- 2026-10-22 Cats: Format-Code's plan-counts imprint step rewrites plan-master.md and value-of-plan.md even when -Path names one plan.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: reading the failing gate's own -PassThru Issues first instead of inferring the
+  cause from a test's count assertion.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: running Format-Code on a reflowed file and diffing with --strip-trailing-cr before
+  guessing at print-form differences.
+- 2026-10-22 Cats: A function's help lives only in the `## help` section of its comment page, and Format-Code re-imprints the code file's
+  head (`docs:`, `cites:`) from that page, so a new page needs Format-Code on its source file too or Test-Formatting fails that file.
+- 2026-10-22 Cats: Get-HelpPageFinding reports comment-based help at any indent, so an inline `.SYNOPSIS` block left inside a function now
+  fails Test-Formatting as a second copy of the page's help.
+- 2026-10-22 Cats: The intended overlaps between file kinds live in `overlaps:` of `pwsh/Catzc.Base.Globs/configs/file-kinds.yml`, not in
+  globs.yml, and a kind whose glob matches no tracked file fails Test-FileKindReachability on its own.
+- 2026-10-22 Cats: The manual test plan matches a row on test file plus Describe name, so renaming a Describe in an integrity test leaves a
+  stale row that ManualTestPlan-Coverage reports as a missing one.
+- 2026-10-22 Cats: Invoke-CatzcCommand takes a machine-wide run lock before the import and fails a run whose Invoke-TestFile reports Failed;
+  an import-path change is a burst: Enter-CatzcBurst in the background, the checks as one Invoke-CatzcCommand -InBurst call, then
+  Exit-CatzcBurst and a "burst done" message at once.
+- 2026-10-22 Cats: Commands handed from bash to Invoke-CatzcCommand go in single quotes, since bash expands `$_` inside double quotes and
+  breaks the PowerShell expression.
+- 2026-10-22 Cats: The whole-tree Get-DrsUsage scan costs about 11 to 13 s, mostly in the shared imprint processors (Get-CodeMetaState,
+  Get-MarkdownMetaState, Get-DrsCodesFileMetaFact), so a faster Get-DrsUsage test needs those processors faster.
+- 2026-10-22 Cats: Auto mode denies an edit to `.claude/agents/*.md` that pre-approves agent behaviour as self-modification, and denies
+  `sed -i` line deletes; such a line goes to the user, never to a peer session.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: running every check of a step as one Invoke-CatzcCommand call with several quoted
+  commands, then grepping only its passed, failed and Expected lines.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: recording a test file's It and Should counts with one grep before any edit, so the
+  before-and-after comparison needs no extra run.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: a burst holds Local\catzc-run for minutes, so any run queued behind it exits run
+  lock busy after 120 s and nothing runs.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Format-Code -Path on one plan also rewrites plan-master.md and value-of-plan.md
+  through the plan-counts imprint step (now formatted in the same run).
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: the decision-record gate is Test-DrsRegistry; there is no Test-Drs.

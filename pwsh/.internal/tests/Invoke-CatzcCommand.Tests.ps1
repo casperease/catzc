@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a839045f4885
+    with_body_sha: a8583a5605a1
   edges:
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
@@ -13,7 +13,7 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
         $script:importer = Join-Path $TestDrive 'importer.ps1'
-        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Test-Gadget { param([string] `$Result) [pscustomobject]@{ Result = `$Result } }`nfunction Invoke-TestFile { [CmdletBinding()] param([string] `$Path, [switch] `$PassThru) if (`$PassThru) { [pscustomobject]@{ Result = 'Failed' } } }`n")
+        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Test-Gadget { param([string] `$Result) [pscustomobject]@{ Result = `$Result } }`nfunction Invoke-TestFile { [CmdletBinding()] param([string] `$Path, [switch] `$PassThru) if (`$PassThru) { [pscustomobject]@{ Result = 'Failed' } } }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
         # An importer that throws, so a run that must not import shows it did not.
         $script:throwingImporter = Join-Path $TestDrive 'throwing-importer.ps1'
         [System.IO.File]::WriteAllText($script:throwingImporter, "throw 'imported'`n")
@@ -46,6 +46,11 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
             '[Invoke-CatzcCommand] passed: Get-Widget'
             '[Invoke-CatzcCommand] 2 of 3 passed'
         )
+    }
+
+    It 'shows a command''s own output on the information stream, apart from the verdict lines' {
+        $all = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName 6>&1 | ForEach-Object { "$_" })
+        $all | Should -Be @('widget', '[Invoke-CatzcCommand] passed: Get-Widget', '[Invoke-CatzcCommand] 1 of 1 passed')
     }
 
     It 'counts a written error as a failure' {

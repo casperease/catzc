@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a3dae2820f4c
+    with_body_sha: "417af5ce24e6"
   edges:
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
@@ -16,8 +16,9 @@ catzc:
 .DESCRIPTION
     A burst is a change every session's next import reads (an importer-path script, a type, a config the Bash hook validates), made and
     checked while no other run imports ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)).
-    This takes the run lock Invoke-CatzcCommand runs under, waiting up to -LockSeconds for the run that holds it, and says it holds it in
-    one line. Every other run then waits for it; the burst's own checks pass Invoke-CatzcCommand -InBurst. It holds until
+    This takes the run lock Invoke-CatzcCommand runs under, in turn with every other waiter and up to -LockSeconds for the run that holds
+    it (Wait-CatzcRunLock.ps1), and says it holds it in one line. Every other run then waits for as long as the burst lasts; the burst's
+    own checks pass Invoke-CatzcCommand -InBurst. It holds until
     Exit-CatzcBurst.ps1 ends the burst or -Seconds pass, then releases the lock and says which. It imports nothing, so it runs in the
     background beside the burst, and the burst starts once its holding line is printed.
 
@@ -44,27 +45,12 @@ param(
 
 Set-StrictMode -Version Latest
 
-# An abandoned lock (its run was killed) is taken over.
-$lock = [System.Threading.Mutex]::new($false, $LockName)
-$owned = $false
-try {
-    $owned = $lock.WaitOne(0)
-}
-catch [System.Threading.AbandonedMutexException] {
-    $owned = $true
-}
-if (-not $owned) {
-    "[Enter-CatzcBurst] waiting for the run lock: another run holds it (up to $LockSeconds s)"
-    try {
-        $owned = $lock.WaitOne([timespan]::FromSeconds($LockSeconds))
-    }
-    catch [System.Threading.AbandonedMutexException] {
-        $owned = $true
-    }
-}
-if (-not $owned) {
-    $lock.Dispose()
-    "[Enter-CatzcBurst] run lock busy: another run held it for $LockSeconds s, so no burst started"
+# A burst queues for the lock like any run; the waiting lines pass through as they happen.
+. (Join-Path $PSScriptRoot 'Wait-CatzcRunLock.ps1')
+$taken = [ref] $null
+Wait-CatzcRunLock -LockName $LockName -LockSeconds $LockSeconds -Caller 'Enter-CatzcBurst' -Busy 'no burst started' -Lock $taken
+$lock = $taken.Value
+if ($null -eq $lock) {
     exit 1
 }
 

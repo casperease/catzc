@@ -40,12 +40,9 @@ opens one of the 176 declarations.
 
 ## Open steps
 
-- [ ] `docs/drs/azure/.assets/azure-name-assembly.drawio.yml`: reflowed by the new subcommand as the pilot. (check: the file shrinks from
-      374 lines, `git diff --stat` shows that file only, Test-Formatting on it is clean, and
-      `Build-Diagrams -Path docs/drs/azure/.assets/azure-name-assembly.drawio.yml` renders a png identical to the committed one)
-- [ ] `docs/drs/repository/slides-as-markdown.md`: ADR-REPO-SLIDES-DECLARATION gains the print form in one sentence (a leaf node is one flow
-      line when it fits the markdown `max_line_length`), with its reasoning in the section "The declaration is the source" (decisions become
-      rules, ADR-REPO-PLANS-DECISIONSBECOMERULES). (check: Test-Drs and Test-Links on the file)
+- [ ] The user commits the pilot (`azure-name-assembly.drawio.yml` at 156 lines, its png byte-identical, with `declaration.py`'s quoting,
+      fill and LF-write fixes; catzc-54, 2026-10-22), then answers the first question below, which opens the rest. (check: `git log -1` on
+      the yml shows the 156-line form)
 
 ## Open questions
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f3e7233fc31e
+    with_body_sha: "9ee795c3e16f"
   edges:
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
@@ -25,12 +25,12 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
                 }).AddArgument($script:enter).AddArgument($Name).AddArgument($Seconds)
             $handle = $shell.BeginInvoke()
             $deadline = [datetime]::UtcNow.AddSeconds(2)
-            $event = $null
-            while (-not [System.Threading.EventWaitHandle]::TryOpenExisting("$Name-burst", [ref] $event) -and [datetime]::UtcNow -lt $deadline) {
+            $opened = $null
+            while (-not [System.Threading.EventWaitHandle]::TryOpenExisting("$Name-burst", [ref] $opened) -and [datetime]::UtcNow -lt $deadline) {
                 Start-Sleep -Milliseconds 10
             }
-            if ($event) {
-                $event.Dispose()
+            if ($opened) {
+                $opened.Dispose()
             }
             [pscustomobject]@{ Shell = $shell; Handle = $handle }
         }
@@ -39,6 +39,31 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
             $lines = @($Burst.Shell.EndInvoke($Burst.Handle))
             $Burst.Shell.Dispose()
             $lines
+        }
+        # Runs Invoke-CatzcCommand on another thread, the way another session's run would queue behind the burst.
+        function script:Start-Run {
+            param([string] $Name, [int] $LockSeconds)
+            $shell = [powershell]::Create().AddScript({
+                    param($Entry, $Importer, $Name, $LockSeconds)
+                    & $Entry 'Get-Widget' -Importer $Importer -LockName $Name -LockSeconds $LockSeconds
+                }).AddArgument($script:entry).AddArgument($script:importer).AddArgument($Name).AddArgument($LockSeconds)
+            [pscustomobject]@{ Shell = $shell; Handle = $shell.BeginInvoke() }
+        }
+        # Holds the lock on another thread for the given milliseconds, the way a plain run (no burst) would.
+        function script:Start-LockHolder {
+            param([string] $Name, [int] $Milliseconds)
+            $taken = [System.Threading.ManualResetEventSlim]::new($false)
+            $shell = [powershell]::Create().AddScript({
+                    param($Name, $Milliseconds, $Taken)
+                    $held = [System.Threading.Mutex]::new($false, $Name)
+                    $null = $held.WaitOne()
+                    $Taken.Set()
+                    Start-Sleep -Milliseconds $Milliseconds
+                    $held.ReleaseMutex()
+                    $held.Dispose()
+                }).AddArgument($Name).AddArgument($Milliseconds).AddArgument($taken)
+            $handle = $shell.BeginInvoke()
+            [pscustomobject]@{ Shell = $shell; Handle = $handle; Taken = $taken.Wait(2000) }
         }
     }
 
@@ -49,10 +74,19 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
 
     It 'holds the lock against every other run until Exit-CatzcBurst ends the burst' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         $burst = Start-Burst -Name $script:lockName -Seconds 5
-        $run = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1)
-        $LASTEXITCODE | Should -Be 1
-        $run[-1] | Should -BeExactly '[Invoke-CatzcCommand] run lock busy: another run held it for 1 s, so nothing ran'
+        $run = Start-Run -Name $script:lockName -LockSeconds 1
+        # Past the run's own 1 s wait it still waits, since the burst holds the lock, and runs only after the burst ends.
+        Start-Sleep -Milliseconds 1500
+        $run.Handle.IsCompleted | Should -BeFalse
         & $script:exit -LockName $script:lockName | Should -BeExactly "[Exit-CatzcBurst] ended the burst on $script:lockName"
+        $lines = @($run.Shell.EndInvoke($run.Handle))
+        $run.Shell.Dispose()
+        $lines | Should -Be @(
+            '[Invoke-CatzcCommand] waiting for the run lock: another run holds it (up to 1 s)'
+            '[Invoke-CatzcCommand] a burst holds the run lock: waiting until it ends, then up to 1 s'
+            '[Invoke-CatzcCommand] passed: Get-Widget'
+            '[Invoke-CatzcCommand] 1 of 1 passed'
+        )
         Stop-Burst $burst | Should -Be @(
             '[Enter-CatzcBurst] holding the run lock for up to 5 s; end the burst with Exit-CatzcBurst.ps1'
             '[Enter-CatzcBurst] released the run lock: Exit-CatzcBurst ended the burst'
@@ -80,8 +114,9 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
     }
 
     It 'stops with run lock busy, starting no burst, when another run keeps the lock past its wait' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
-        $other = Start-Burst -Name $script:lockName -Seconds 5
+        $other = Start-LockHolder -Name $script:lockName -Milliseconds 2500
         try {
+            $other.Taken | Should -BeTrue
             $lines = @(& $script:enter -Seconds 1 -LockName $script:lockName -LockSeconds 1)
             $LASTEXITCODE | Should -Be 1
             $lines | Should -Be @(
@@ -90,8 +125,8 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
             )
         }
         finally {
-            & $script:exit -LockName $script:lockName
-            $null = Stop-Burst $other
+            $other.Shell.EndInvoke($other.Handle)
+            $other.Shell.Dispose()
         }
     }
 }

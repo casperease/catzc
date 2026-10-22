@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: da1c5ea4ad97
+    with_body_sha: "05259e6c30af"
   edges:
     docs: "[Invoke-ExecutableStreamed.ps1.md](../../../docs/references/pwsh/catzc-base-execution/private/Invoke-ExecutableStreamed.ps1.md)"
 ---
@@ -24,6 +24,9 @@ function Invoke-ExecutableStreamed {
         [Parameter(Mandatory)]
         [ValidateRange(1, [int]::MaxValue)]
         [int] $TimeoutSeconds,
+        [Parameter(Mandatory)]
+        [ValidateRange(1, [int]::MaxValue)]
+        [int] $DrainSeconds,
         [switch] $AsBytes,
         [string] $InputText,
         [switch] $DryRun
@@ -40,7 +43,7 @@ function Invoke-ExecutableStreamed {
     # CliRunner is autoloaded at import time from types/ (Bootstrap's Import-CSharpTypes).
     try {
         $runResult = if ($AsBytes) {
-            [Catzc.Base.Execution.CliRunner]::RunBytes($Command, $WorkingDirectory, $TimeoutSeconds)
+            [Catzc.Base.Execution.CliRunner]::RunBytes($Command, $WorkingDirectory, $TimeoutSeconds, $DrainSeconds)
         }
         else {
             # Null leaves stdin as before; a bound -InputText, even an empty one, is written and closed.
@@ -50,7 +53,7 @@ function Invoke-ExecutableStreamed {
             else {
                 $null
             }
-            [Catzc.Base.Execution.CliRunner]::Run($Command, $suppressOutput, $WorkingDirectory, $TimeoutSeconds, $standardInput)
+            [Catzc.Base.Execution.CliRunner]::Run($Command, $suppressOutput, $WorkingDirectory, $TimeoutSeconds, $DrainSeconds, $standardInput)
         }
     }
     catch [System.Management.Automation.MethodInvocationException] {

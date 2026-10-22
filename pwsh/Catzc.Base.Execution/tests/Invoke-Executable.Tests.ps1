@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c456f7f1eda1
+    with_body_sha: "300ee0299461"
   edges:
     docs: "[Invoke-Executable.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-execution/tests/Invoke-Executable.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
@@ -11,6 +11,43 @@ catzc:
       - ADR-AUTO-TEST-ONIONOFRINGS
 ---
 #>
+
+BeforeAll {
+    function script:Start-InputPipeChild {
+        # sort reads stdin to EOF.
+        $inputReader = if ($IsWindows) {
+            "$env:SystemRoot\System32\sort.exe"
+        }
+        else {
+            'cat'
+        }
+        $importer = Join-Path (Get-RepositoryRoot) 'importer.ps1'
+        $startInfo = [System.Diagnostics.ProcessStartInfo]::new('pwsh')
+        $childCommand = ". '$importer' -SkipJanitors *> `$null; exit (Invoke-Executable '$inputReader' -PassThru).ExitCode"
+        '-NoProfile', '-NonInteractive', '-Command', $childCommand | ForEach-Object { $startInfo.ArgumentList.Add($_) }
+        $startInfo.UseShellExecute = $false
+        $startInfo.RedirectStandardInput = $true   # held open and never written: the child's stdin is a live pipe
+        $startInfo.RedirectStandardOutput = $true
+        $startInfo.RedirectStandardError = $true
+        [void]$startInfo.Environment.Remove('CATZC_BLOCK_REAL_PROCESS')
+        $child = [System.Diagnostics.Process]::Start($startInfo)
+        [pscustomobject]@{ Process = $child; Output = $child.StandardOutput.ReadToEndAsync(); Errors = $child.StandardError.ReadToEndAsync() }
+    }
+    $script:inputPipeChild = if (-not $env:CATZC_BLOCK_REAL_PROCESS) {
+        Start-InputPipeChild
+    }
+}
+
+AfterAll {
+    # A filter that skipped the L2 test leaves its child running.
+    if ($script:inputPipeChild) {
+        if (-not $script:inputPipeChild.Process.HasExited) {
+            $script:inputPipeChild.Process.Kill($true)
+        }
+        $script:inputPipeChild.Process.StandardInput.Close()
+        $script:inputPipeChild.Process.Dispose()
+    }
+}
 
 Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
     BeforeAll {
@@ -305,6 +342,11 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
             { Invoke-Executable 'echo hello' -Direct -Silent } | Should -Not -Throw
         }
 
+        It '-DrainSeconds and -Direct are mutually exclusive, and a drain wait under one second is refused' {
+            { Invoke-Executable 'echo hello' -DrainSeconds 5 -Direct } | Should -Throw '*Parameter set cannot be resolved*'
+            { Invoke-Executable $simpleCmd -DrainSeconds 0 -Silent } | Should -Throw
+        }
+
         It '-TimeoutSeconds and -Direct are mutually exclusive' {
             { Invoke-Executable 'echo hello' -TimeoutSeconds 5 -Direct } | Should -Throw '*Parameter set cannot be resolved*'
         }
@@ -323,10 +365,10 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
         It 'fails fast, naming the cause, when a process the command started keeps its output open after it exits' -Tag 'L2' {
             $leaver = 'pwsh -NoProfile -NonInteractive -Command "Start-Process -NoNewWindow -FilePath pwsh -ArgumentList ''-NoProfile'',''-Command'',''Start-Sleep -Seconds 20''; exit 0"'
             $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
-            $err = { Invoke-Executable $leaver -TimeoutSeconds 60 -Silent -PassThru } | Should -Throw -PassThru
+            $err = { Invoke-Executable $leaver -TimeoutSeconds 60 -DrainSeconds 1 -Silent -PassThru } | Should -Throw -PassThru
             $stopwatch.Elapsed.TotalSeconds | Should -BeLessThan 15
             $err.Exception | Should -BeOfType [System.IO.IOException]
-            $err.Exception.Message | Should -BeLike '*still holds its output open*--disable-build-servers*'
+            $err.Exception.Message | Should -BeLike '*still holds its output open*waited 1s after exit*--disable-build-servers*'
         }
 
         It "defaults the limit to the executable's entry from Get-TimeoutSeconds" {
@@ -463,25 +505,17 @@ Describe 'Invoke-Executable' -Tag 'L0', 'logic' {
 # L2: a real child pwsh whose stdin is a pipe that stays open — the shape of a worker or an agent's shell.
 Describe 'Invoke-Executable from a caller whose stdin is not a terminal' -Tag 'L2', 'logic' {
     It 'gives a visible run an empty, closed stdin too, so a stdin reader finishes instead of waiting on the pipe' {
-        # sort reads stdin to EOF; inheriting the open pipe would leave it waiting forever.
-        $inputReader = if ($IsWindows) {
-            "$env:SystemRoot\System32\sort.exe"
+        # The child started in the file's BeforeAll; a run that started none starts it now.
+        $started = if ($script:inputPipeChild) {
+            $script:inputPipeChild
         }
         else {
-            'cat'
+            Start-InputPipeChild
         }
-        $importer = Join-Path (Get-RepositoryRoot) 'importer.ps1'
-        $startInfo = [System.Diagnostics.ProcessStartInfo]::new('pwsh')
-        $childCommand = ". '$importer' -SkipJanitors *> `$null; exit (Invoke-Executable '$inputReader' -PassThru).ExitCode"
-        '-NoProfile', '-NonInteractive', '-Command', $childCommand | ForEach-Object { $startInfo.ArgumentList.Add($_) }
-        $startInfo.UseShellExecute = $false
-        $startInfo.RedirectStandardInput = $true   # held open and never written: the child's stdin is a live pipe
-        $startInfo.RedirectStandardOutput = $true
-        $startInfo.RedirectStandardError = $true
-        [void]$startInfo.Environment.Remove('CATZC_BLOCK_REAL_PROCESS')
-        $child = [System.Diagnostics.Process]::Start($startInfo)
-        $outputTask = $child.StandardOutput.ReadToEndAsync()
-        $errorTask = $child.StandardError.ReadToEndAsync()
+        $script:inputPipeChild = $null
+        $child = $started.Process
+        $outputTask = $started.Output
+        $errorTask = $started.Errors
         try {
             $exited = $child.WaitForExit(120000)
             $exited | Should -BeTrue -Because "the child should not wait on its open stdin pipe. stderr: $(if ($errorTask.IsCompleted) { $errorTask.Result })"

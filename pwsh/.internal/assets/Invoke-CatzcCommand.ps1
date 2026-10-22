@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2304b4c9dd5b"
+    with_body_sha: d99286c00bab
   edges:
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
@@ -23,9 +23,10 @@ catzc:
     code is 1 when any command failed.
 
     The import and the commands run under the machine's run lock, a named mutex, so heavy runs on one machine go one at a time. The lock
-    is taken before the import, so a waiting run holds no import. A run that finds the lock held says so in one line and waits up to
-    -LockSeconds; one that still cannot take it stops with a "run lock busy" line and exit code 1, importing and running nothing. While a
-    session's Enter-CatzcBurst holds the lock, every other run waits, and the burst's own checks pass -InBurst.
+    is taken before the import, so a waiting run holds no import, and waiters take it in the order they came (Wait-CatzcRunLock.ps1). A
+    run that finds the lock held says so in one line and waits up to -LockSeconds; one that still cannot take it stops with a "run lock
+    busy" line and exit code 1, importing and running nothing. While a session's Enter-CatzcBurst holds the lock, a waiting run says so
+    and waits as long as the burst lasts, then up to -LockSeconds more; the burst's own checks pass -InBurst.
 
     timeout 300 pwsh -NoProfile -File pwsh/.internal/assets/Invoke-CatzcCommand.ps1 "Test-Plans" "Test-Links -Path docs/how-to/index.md"
 
@@ -39,8 +40,8 @@ catzc:
     The named mutex the import and the commands run under. Default: Local\catzc-run, one per user on the machine.
 
 .PARAMETER LockSeconds
-    The most seconds a run waits for the run lock before it stops. Default: 120, so a run that cannot take it stops inside the 360 s
-    background roof of the time safeguard.
+    The most seconds a run waits for the run lock before it stops, counted again from the end of a burst that held it. Default: 120, so a
+    run that cannot take it stops inside the 360 s background roof of the time safeguard.
 
 .PARAMETER InBurst
     Run under the lock the session's Enter-CatzcBurst holds, taking none: the burst's own checks. Throws when no burst holds the lock.
@@ -79,27 +80,14 @@ if ($InBurst) {
     $owned = $true
 }
 else {
-    # The lock is taken before the import, so a waiting run holds no import; an abandoned lock (its run was killed) is taken over.
-    $lock = [System.Threading.Mutex]::new($false, $LockName)
-    try {
-        $owned = $lock.WaitOne(0)
-    }
-    catch [System.Threading.AbandonedMutexException] {
-        $owned = $true
-    }
+    # The lock is taken before the import, so a waiting run holds no import; the waiting lines pass through as they happen.
+    . (Join-Path $PSScriptRoot 'Wait-CatzcRunLock.ps1')
+    $taken = [ref] $null
+    Wait-CatzcRunLock -LockName $LockName -LockSeconds $LockSeconds -Caller 'Invoke-CatzcCommand' -Busy 'nothing ran' -Lock $taken
+    $lock = $taken.Value
+    $owned = $null -ne $lock
 }
 if (-not $owned) {
-    "[Invoke-CatzcCommand] waiting for the run lock: another run holds it (up to $LockSeconds s)"
-    try {
-        $owned = $lock.WaitOne([timespan]::FromSeconds($LockSeconds))
-    }
-    catch [System.Threading.AbandonedMutexException] {
-        $owned = $true
-    }
-}
-if (-not $owned) {
-    $lock.Dispose()
-    "[Invoke-CatzcCommand] run lock busy: another run held it for $LockSeconds s, so nothing ran"
     exit 1
 }
 
@@ -118,7 +106,8 @@ try {
                 $output = @(& ([scriptblock]::Create($line)))
                 # A result object (Invoke-TestFile -PassThru) carries the verdict of a command that reports a failure without throwing.
                 $results = @($output | Where-Object { $null -ne $_ -and $_.PSObject.Properties['Result'] })
-                $output | Where-Object { $results -notcontains $_ } | Out-Host
+                # The command's own output is shown as the host renders it, through the information stream, never as a verdict line.
+                $output | Where-Object { $results -notcontains $_ } | Out-String -Stream | ForEach-Object { Write-Message $_ -NoHeader }
                 if (@($results | Where-Object { $_.Result -eq 'Failed' }).Count -gt 0) {
                     throw 'it reported Failed'
                 }

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "62b544a62477"
+    with_body_sha: "3d10b5870efa"
   edges:
     code: pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs
     cites:
@@ -196,10 +196,22 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             $config.wait['milliseconds'] | Should -Be 250
         }
 
+        It 'resolves the output drain wait to five seconds when wait is absent' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+            (New-TimeoutsConfig ([ordered]@{})).wait['drain_seconds'] | Should -Be 5
+            [Catzc.Base.Timeouts.TimeoutsConfig]::WaitDefaultDrainSeconds | Should -Be 5
+        }
+
+        It 'overrides the output drain wait alone' {
+            $config = New-TimeoutsConfig ([ordered]@{ wait = @{ drain_seconds = 2 } })
+            $config.wait['drain_seconds'] | Should -Be 2
+            $config.wait['seconds'] | Should -Be 1
+        }
+
         It 'rejects a bad wait section: <case>' -ForEach @(
             @{ case = 'an unknown key'; wait = @{ hours = 1 }; message = "*unknown key 'wait.hours'*" }
             @{ case = 'a zero'; wait = @{ seconds = 0 }; message = "*invalid wait.seconds '0'*" }
             @{ case = 'a negative number'; wait = @{ milliseconds = -5 }; message = "*invalid wait.milliseconds '-5'*" }
+            @{ case = 'a zero drain wait'; wait = @{ drain_seconds = 0 }; message = "*invalid wait.drain_seconds '0'*" }
             @{ case = 'a shape that is not a map'; wait = 3; message = '*invalid wait (must be a map*' }
         ) {
             { New-TimeoutsConfig ([ordered]@{ wait = $wait }) } | Should -Throw $message

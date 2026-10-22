@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "0f4bff43b0a4"
+    with_body_sha: "8f0349b6454c"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Invoke-ImprintStep.Tests.ps1
     docs: "[Invoke-ImprintStep.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-ImprintStep.ps1.md)"
@@ -101,6 +101,10 @@ function Invoke-ImprintStep {
             $outcome.Changed = [string[]] @(foreach ($folder in $folders) {
                     Update-PlanStepCount $folder -Config $plans -DryRun:$DryRun
                 })
+            # A rewritten overlay can lie outside -Path, past the formatter's pass, so the step formats what it wrote itself.
+            if (-not $DryRun -and $outcome.Changed.Count -gt 0) {
+                $null = Invoke-FormatterEngine -Engine prettier -File $outcome.Changed
+            }
         }
         default {
             throw "Invoke-ImprintStep: no adapter for the imprint step '$Step' (declared: $([Catzc.Base.Languages.LanguagesConfig]::ImprintSteps -join ', '))."

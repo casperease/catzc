@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: bd893980ec42
+#     with_body_sha: "4c7a928d21a5"
 # ---
 
 # cspell:ignore minimaps mxfile pnginfo drsonly mapkey
@@ -296,11 +296,11 @@ def read_source(diagram):
 def write_source(diagram, text):
     """Write the declaration's text into its carrier: the file whole, or the article's block in place, the rest of the page as it was."""
     if carrier_of(diagram) == "file":
-        source_of(diagram).write_text(text, encoding="utf-8")
+        source_of(diagram).write_text(text, encoding="utf-8", newline="\n")  # LF on every platform, as the formatter keeps it
         return source_of(diagram)
     page, start, end = article_block(diagram)
     whole = page.read_text(encoding="utf-8")
-    page.write_text(whole[:start] + text.rstrip("\n") + "\n" + whole[end:], encoding="utf-8")
+    page.write_text(whole[:start] + text.rstrip("\n") + "\n" + whole[end:], encoding="utf-8", newline="\n")
     return page
 
 
@@ -785,10 +785,11 @@ def flow_yaml(data, width):
     return "\n".join(lines) + "\n"
 
 
-def _flow_scalar(value):
-    # A scalar quoted where yaml.safe_dump quotes it inside a flow collection, where a plain `,` or `[` would end it; a quoted one takes
-    # Prettier's double quotes when its text holds no `"` or `\` to escape.
-    text = yaml.safe_dump([value], default_flow_style=True, allow_unicode=True, width=10**9).strip()[1:-1]
+def _flow_scalar(value, flow=True):
+    # A scalar quoted where yaml.safe_dump quotes it, inside a flow collection (where a plain `,` or `[` would end it) or in block style;
+    # a quoted one takes Prettier's double quotes when its text holds no `"` or `\` to escape.
+    dumped = yaml.safe_dump([value], default_flow_style=flow, allow_unicode=True, width=10**9).strip()
+    text = dumped[1:-1] if flow else dumped[2:]
     if text.startswith("'") and isinstance(value, str) and '"' not in value and "\\" not in value and value.isprintable():
         return f'"{value}"'
     return text
@@ -808,9 +809,9 @@ def _scalar_lines(key, value, indent, width):
     """A scalar under its key, or a list item when the key is None, as Prettier prints it: on the key's or dash's line when it fits, else
     a plain text filled word by word at the width, under the key or beside the dash; any other long scalar as yaml.safe_dump writes it."""
     pad = " " * indent
-    lead = "-" if key is None else f"{_flow_scalar(key)}:"
-    text = _flow_scalar(value)
-    if len(pad + lead) + 1 + len(text) <= width or not isinstance(value, str):
+    lead = "-" if key is None else f"{_flow_scalar(key, flow=False)}:"
+    text = _flow_scalar(value, flow=False)
+    if "\n" not in text and len(pad + lead) + 1 + len(text) <= width or not isinstance(value, str):
         return [f"{pad}{lead} {text}"]
     words = value.split(" ")
     if text[0] in "'\"" or "\n" in value or "" in words:

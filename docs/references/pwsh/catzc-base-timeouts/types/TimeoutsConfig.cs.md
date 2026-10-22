@@ -104,3 +104,12 @@ The limit for an executable that pwsh code runs: its own entry when it has one, 
 pwsh limit. The name may carry a directory and an extension (`C:\tools\dotnet.exe`); only the bare name is
 looked up.
 ```
+
+## comment:9
+
+Above `private static readonly string[] WaitKeys = { "seconds", "milliseconds",...`, written with `//`.
+
+```text
+The default Watch-Blocking: one second and one millisecond, one pair for every environment; and drain_seconds, how long
+Invoke-Executable waits for a run's output to end after its process exits, before it names a child that holds the output open.
+```

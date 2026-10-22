@@ -44,6 +44,11 @@ Suppress all console output. Output is still captured for -PassThru.
 
 The run's time limit. Past it CliRunner kills the process tree and throws a TimeoutException.
 
+### parameter `DrainSeconds`
+
+How long CliRunner waits for the output to end after the process exits. Past it CliRunner throws an IOException naming a process the command
+started that still holds the output open.
+
 ### parameter `AsBytes`
 
 Capture stdout as its exact bytes (CliResult.Bytes) instead of text, with no console echo — for a binary stream. Returns the CliResult as

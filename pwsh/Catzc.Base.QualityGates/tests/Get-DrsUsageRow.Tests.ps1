@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "907b3cce5c74"
+    with_body_sha: "00641a18d7a2"
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Get-DrsUsageRow.ps1
     cites:
@@ -20,11 +20,13 @@ Describe 'Get-DrsUsageRow' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-NOREADBACK' {
             param([string] $Text, [string] $Path = 'docs/gadget/spec.md', $Form)
             InModuleScope Catzc.Base.QualityGates -Parameters @{ Text = $Text; Path = $Path; Map = $script:map; Form = $Form } {
                 param($Text, $Path, $Map, $Form)
+                $kind = (Get-Config -Config file-meta).kinds | Where-Object { $_.id -eq 'drs-codes' }
+                $pages = Get-Config -Config comment-pages
                 if ($Form) {
-                    Get-DrsUsageRow -Text $Text -Path $Path -Map $Map -Form $Form
+                    Get-DrsUsageRow -Text $Text -Path $Path -Map $Map -Kind $kind -Pages $pages -Form $Form
                 }
                 else {
-                    Get-DrsUsageRow -Text $Text -Path $Path -Map $Map
+                    Get-DrsUsageRow -Text $Text -Path $Path -Map $Map -Kind $kind -Pages $pages
                 }
             }
         }

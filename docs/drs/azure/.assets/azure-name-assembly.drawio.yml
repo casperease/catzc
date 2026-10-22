@@ -1,11 +1,12 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "56842374fb4a"
+#     with_body_sha: b9a111f812af
 # ---
 
-description: An Azure resource name is assembled from eight components in a fixed order; the type's pattern picks the form and the limit, a render
-  past the limit throws at deploy time and is never truncated, and three worked examples show the names that come out.
+description:
+  An Azure resource name is assembled from eight components in a fixed order; the type's pattern picks the form and the limit, a render past
+  the limit throws at deploy time and is never truncated, and three worked examples show the names that come out.
 about:
   adrs: [ADR-AZ-NAMING]
   lens: implementation
@@ -18,7 +19,7 @@ content:
   bands:
     - { id: band-components, label: COMPONENTS IN STANDARD ORDER }
     - { id: band-render, label: RENDER BY THE TYPE'S PATTERN }
-    - { id: band-names, label: 'EXAMPLES: prod fin weu apex' }
+    - { id: band-names, label: "EXAMPLES: prod fin weu apex" }
   groups:
     - { id: grp-name, label: Resource Name, in: band-components }
     - { id: grp-resource-groups, label: Resource Groups, in: band-names }
@@ -34,8 +35,8 @@ content:
     - { id: c-role, kind: set, label: 7 role (optional), in: grp-name }
     - { id: c-type, kind: set, label: 8 type, in: grp-name }
     - { id: g-pattern, kind: code, label: pattern of the type, in: band-render }
-    - { id: g-limit, kind: gate, label: 'fits the limit?', in: band-render }
-    - { id: f-throws, kind: failure, label: 'throws at deploy time, never truncated', in: band-render }
+    - { id: g-limit, kind: gate, label: "fits the limit?", in: band-render }
+    - { id: f-throws, kind: failure, label: "throws at deploy time, never truncated", in: band-render }
     - { id: r-name, kind: result, label: deterministic name, in: band-render }
     - { id: n-rg-base, kind: result, label: prod-weu-fin-disc-rg, in: grp-resource-groups }
     - { id: n-rg-slot, kind: result, label: prod-001-weu-fin-edge-waf, in: grp-resource-groups }
@@ -44,13 +45,13 @@ content:
     - { id: n-storage-slot, kind: result, label: pr001weufindiscxaphotst (23), in: grp-storage }
     - { id: n-vm, kind: result, label: pr001weudiscvm (14), in: grp-virtual-machine }
   edges:
-    - { from: grp-name, to: g-pattern, kind: flow, label: '' }
-    - { from: g-pattern, to: g-limit, kind: flow, label: '' }
+    - { from: grp-name, to: g-pattern, kind: flow, label: "" }
+    - { from: g-pattern, to: g-limit, kind: flow, label: "" }
     - { from: g-limit, to: r-name, kind: flow, label: fits }
     - { from: g-limit, to: f-throws, kind: fail, label: exceeds }
-    - { from: r-name, to: grp-resource-groups, kind: flow, label: '' }
-    - { from: r-name, to: grp-storage, kind: flow, label: '' }
-    - { from: r-name, to: grp-virtual-machine, kind: flow, label: '' }
+    - { from: r-name, to: grp-resource-groups, kind: flow, label: "" }
+    - { from: r-name, to: grp-storage, kind: flow, label: "" }
+    - { from: r-name, to: grp-virtual-machine, kind: flow, label: "" }
   legend: auto
   minimaps:
     code-locations:

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: b306f493f055
+    with_body_sha: f7858d29eb63
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Update-PlanStepCount.Tests.ps1
     docs: "[Update-PlanStepCount.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Update-PlanStepCount.ps1.md)"
@@ -37,36 +37,45 @@ function Update-PlanStepCount {
         $Text.Substring(0, $found.Index) + $phrase + $Text.Substring($found.Index + $found.Length)
     }
     $changed = [System.Collections.Generic.List[string]]::new()
+    $write = -not $DryRun
     $save = {
         param([string] $Path, [string] $Before, [string[]] $Lines, [string] $Newline)
         $after = $Lines -join $Newline
         if ($after -cne $Before) {
-            if (-not $DryRun) {
+            if ($write) {
                 [System.IO.File]::WriteAllText($Path, $after, [System.Text.UTF8Encoding]::new($false))
             }
             $changed.Add($Path)
         }
     }
 
-    # A chunk line of the master names its plan after '->'; the phrase sits on the first line of the item that holds one.
+    # A chunk line of the master names its plan after '->'; the phrase is read across the item's lines, so a count Prettier wrapped is found.
     $master = Join-Path $Folder $Config.master_file
     if ([System.IO.File]::Exists($master)) {
         $text = [System.IO.File]::ReadAllText($master)
         $newline = $text.Contains("`r`n") ? "`r`n" : "`n"
-        $lines = $text -split "`r?`n"
-        foreach ($item in @(Get-MarkdownListItem -Line $lines)) {
+        $lines = [System.Collections.Generic.List[string]]::new([string[]] ($text -split "`r?`n"))
+        # From the last item up, so a rewrite that joins two lines never moves an item still to come.
+        $items = @(Get-MarkdownListItem -Line $lines.ToArray())
+        [Array]::Reverse($items)
+        foreach ($item in $items) {
             if ($item.First -notmatch '->\s*(?<plan>plan-[^\s:]+\.md)\b' -or -not $counts.Contains($Matches['plan'])) {
                 continue
             }
             $count = $counts[$Matches['plan']]
-            for ($i = $item.LineNumber - 1; $i -lt $lines.Count -and ($i -eq $item.LineNumber - 1 -or $lines[$i] -match '^\s{2,}\S'); $i++) {
-                if (Resolve-PlanStepCount -Text $lines[$i]) {
-                    $lines[$i] = & $rewrite $lines[$i] $count
-                    break
-                }
+            $start = $item.LineNumber - 1
+            $end = $start + 1
+            while ($end -lt $lines.Count -and $lines[$end] -match '^\s{2,}\S') {
+                $end++
+            }
+            $span = $lines.GetRange($start, $end - $start).ToArray() -join "`n"
+            $rewritten = & $rewrite $span $count
+            if ($rewritten -cne $span) {
+                $lines.RemoveRange($start, $end - $start)
+                $lines.InsertRange($start, [string[]] ($rewritten -split "`n"))
             }
         }
-        & $save $master $text $lines $newline
+        & $save $master $text $lines.ToArray() $newline
     }
 
     # A row of the value overlay names its plan's topic in its second cell; the phrase sits in its last cell.

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "810427b3151f"
+    with_body_sha: "60e97f05a41b"
   edges:
     docs: "[Invoke-ImprintStep.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-ImprintStep.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/private/Invoke-ImprintStep.ps1
@@ -163,6 +163,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
             $script:plansFolder = Join-Path $script:root 'plans'
             Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'plans' } { [Catzc.Base.QualityGates.PlansConfig]::new(@{}) }
             Mock Update-PlanStepCount -ModuleName Catzc.Base.QualityGates { [string[]] @($script:plansFolder + '/plan-master.md') }
+            Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates { }
             $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Files = @($master, $value) } {
                 param($Root, $Files)
                 Invoke-ImprintStep -Step plan-counts -File $Files -RepositoryRoot $Root -DryRun
@@ -170,6 +171,21 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
             Should -Invoke Update-PlanStepCount -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $DryRun -and $Folder -eq $script:plansFolder }
             $outcome.Changed | Should -Be @($script:plansFolder + '/plan-master.md')
             $outcome.Unfixable.Count | Should -Be 0
+            Should -Invoke Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates -Times 0
+        }
+
+        It 'formats the overlays it rewrote with Prettier, since they can lie outside -Path' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
+            $master = Join-Path $script:root 'plans/plan-master.md'
+            $script:rewritten = Join-Path $script:root 'plans/plan-master.md'
+            Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'plans' } { [Catzc.Base.QualityGates.PlansConfig]::new(@{}) }
+            Mock Update-PlanStepCount -ModuleName Catzc.Base.QualityGates { [string[]] @($script:rewritten) }
+            Mock Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates { }
+            $outcome = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; File = $master } {
+                param($Root, $File)
+                Invoke-ImprintStep -Step plan-counts -File $File -RepositoryRoot $Root
+            }
+            Should -Invoke Invoke-FormatterEngine -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Engine -ceq 'prettier' -and ($File -join '|') -eq $script:rewritten }
+            $outcome.Changed | Should -Be @($script:rewritten)
         }
     }
 

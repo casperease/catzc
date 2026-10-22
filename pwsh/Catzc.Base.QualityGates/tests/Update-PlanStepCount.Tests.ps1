@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f71aee181048
+    with_body_sha: "7b1aca5557e3"
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Update-PlanStepCount.ps1
     cites:
@@ -51,6 +51,12 @@ Describe 'Update-PlanStepCount' -Tag 'L0', 'logic', 'ADR-REPO-PLANS-THREEPARTS' 
         $master | Should -BeLike "*plan-gadget.md: the turn,`n  one step left*"
         $master | Should -BeLike '*plan-sprocket.md: three steps, no plan file*'
         & $script:read 'value-of-plan.md' | Should -BeLike '*| low | plan-gadget | one step |*'
+    }
+
+    It 'rewrites a count Prettier wrapped across two lines of a chunk, and leaves the chunks around it in place' {
+        & $script:write 'plan-master.md' @('# Master', '', '- widget -> plan-widget.md: the spin, five', '  steps left', '- gadget -> plan-gadget.md: one step left')
+        [void] (& $script:update)
+        & $script:read 'plan-master.md' | Should -BeExactly "# Master`n`n- widget -> plan-widget.md: the spin, two steps left`n- gadget -> plan-gadget.md: one step left`n"
     }
 
     It 'reports nothing and writes nothing when every count is right' {

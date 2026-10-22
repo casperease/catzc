@@ -84,7 +84,9 @@ kit's `drawio.yml` (the lenses, kinds, themes, minimap ids and span words) or in
 outside it fails validation with the list the author may choose from
 ([PDR-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-pdr-pokayoke-detectearliest)). A cell without a layout entry is placed by the
 grid; a cell with one keeps it; a cell whose id is not in the content is removed. A diagram names no article: articles and slides embed its
-png, any number of them, and the build finds them by what embeds it.
+png, any number of them, and the build finds them by what embeds it. The kit prints a declaration with each leaf node (a mapping or list
+whose children are all scalars) as one flow line in Prettier's form when that line, its indent and key included, fits the `max_line_length`
+of the root `.editorconfig`'s `[*.md]` section, and in block style otherwise.
 
 The declaration has two carriers, one per diagram. The default is the file `<name>.drawio.yml` beside the png. The other is a fenced block
 in an article, the way a `mermaid` block renders where it stands: its info string is `yml drawio`, so GitHub still shows it as YAML and the
@@ -255,6 +257,11 @@ A diagram that lives only as embedded XML can be reviewed only as a picture, and
 puts what the diagram says in a few lines of yml that a pull request shows as a diff, a gate can read, and a vocabulary can bound: a span
 label, a glyph kind or a minimap id is right or it is refused with the list it should have come from. The layout stays separate, so the
 content reads without coordinates and a moved box is a one-line change.
+
+A declaration is dense data: glyphs, edges and groups of three or four short keys each. One key per line spends most of the file on
+structure, so a glyph printed as one flow line reads as one row of a table and the file shrinks to about a third, less to read for every
+session that opens one. The limit is the markdown line length, read where it is declared, never copied, and Prettier wraps at the same
+width, so a flow line that fits passes Test-Formatting as printed. YAML reads flow and block alike, so no reader changes.
 
 ### Two directions, one truth
 

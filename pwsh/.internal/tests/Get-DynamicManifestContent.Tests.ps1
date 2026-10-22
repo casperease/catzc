@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "34eee2d31bd4"
+    with_body_sha: f2103d5a03e1
   edges:
     docs: "[Get-DynamicManifestContent.Tests.ps1.md](../../../docs/references/pwsh/internal/tests/Get-DynamicManifestContent.Tests.ps1.md)"
 ---
@@ -238,8 +238,9 @@ Describe 'Get-DynamicManifestContent is formatter-stable' -Tag 'L2', 'integrity'
 
     It 'Invoke-Formatter leaves every built manifest byte-for-byte unchanged (Test-BuildArtifact)' {
         $result = Test-BuildArtifact -Facet Manifest -PassThru -OutputFolder (Join-Path $TestDrive 'build-artifact')
-        $result.Facts['Modules'] | Should -BeGreaterThan 0
+        # The issues first: a build that throws leaves Modules at 0, and its [build] issues name why.
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
+        $result.Facts['Modules'] | Should -BeGreaterThan 0
     }
 
     It 'Invoke-Formatter leaves a derived manifest (the shared loader and its file list) byte-for-byte unchanged' {

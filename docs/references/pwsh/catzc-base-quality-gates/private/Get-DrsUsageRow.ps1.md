@@ -29,6 +29,14 @@ The file's repository-relative path.
 
 The ADR citation map.
 
+### parameter `Kind`
+
+The `drs-codes` meta kind, whose processor reads the codes the file cites.
+
+### parameter `Pages`
+
+The comment-pages config, which finds a Markdown file's comment page so the links in it count as the file's own.
+
 ### parameter `Form`
 
 The comment syntax of a code file (a Catzc.Base.CodeMeta.HeadForm), so a head it may carry is set apart from its text. Omitted for a

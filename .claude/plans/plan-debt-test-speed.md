@@ -17,19 +17,17 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
 
 ## Open steps
 
-1. [ ] `pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1` (86.6 s in the ranked run): two baseline runs and a timing per block;
-       its one L2 test runs the gate over the whole tree, which is what it proves, so a fix is made only for a cause outside that check.
-       Check: `Invoke-TestFile` on the file twice, the same test names and `Should` count before and after.
-2. [ ] The next three files by cost, each measured and fixed as step 1: `Get-AdrUsage.Tests.ps1` (22.5 s; now `Get-DrsUsage.Tests.ps1`,
-       13.4 s and 12.9 s, its whole-tree scan about 12 s; the drs-codes kind and comment-pages config resolved once in `Get-DrsUsage.ps1`
-       and passed to `Get-DrsUsageRow`, about 1.2 s, decided by the orchestrator as delegated; the shared imprint processors' 7 s are
-       outside this step, `out/catzc-e3-test-speed-2.md`), `Import-Catzc.Tests.ps1` (22.1 s)
-       and `Invoke-Executable.Tests.ps1` (20.5 s). `Import-Catzc.Tests.ps1` waits on the VSCode case-only rename (plan-debt-full-run-failures
-       step 2, the user's): its full-build test fails in 2 to 3 s on "Catzc.Base.VSCode has no function files" (catzc-a0, 2026-10-22; the
-       reduced-build test alone is about 7 s), so the 22.1 s is measured once the build passes. Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, and
-       `Test-ScriptAnalyzer -Path` at 0 on each changed file.
-3. [ ] The role's report, `out/test-optimization-2026-10-22.md`: the roofs, the run measured, the table, per file the cause, rule, timings
-       and counts, and the next three files. Check: the file exists and names every file measured.
+2. [ ] The next three files by cost, each measured and fixed as step 1: `Get-AdrUsage.Tests.ps1` (22.5 s; now `Get-DrsUsage.Tests.ps1`, 13.4
+       s and 12.9 s, its whole-tree scan about 12 s; the drs-codes kind and comment-pages config resolved once in `Get-DrsUsage.ps1` and
+       passed to `Get-DrsUsageRow`, about 1.2 s, decided by the orchestrator as delegated; the shared imprint processors' 7 s are outside
+       this step, `out/catzc-e3-test-speed-2.md`; landed and kept: in-process 15.0/13.2 s -> 13.6/11.3 s, names and `Should` counts the
+       same, but the file measured 16.4 to 16.8 s under five busy sessions, re-measured in a quiet window at 12.07 s and 16.56 s, 7 tests
+       green, a spread larger than the fix, as `out/test-optimization-2026-10-22.md` says, catzc-e9), `Import-Catzc.Tests.ps1` (22.1 s) and
+       `Invoke-Executable.Tests.ps1` (20.5 s; landed: 13.5 s -> 10.4 s, the stdin child started in a file-level BeforeAll,
+       ADR-AUTO-TEST-SETUPONCE, 59 tests and 81 `Should` the same, catzc-e9). `Import-Catzc.Tests.ps1` waits on the VSCode case-only rename
+       (plan-debt-full-run-failures step 2, the user's): its full-build test fails in 2 to 3 s on "Catzc.Base.VSCode has no function files"
+       (catzc-a0, 2026-10-22; the reduced-build test alone is about 7 s), so the 22.1 s is measured once the build passes. Check:
+       `Invoke-TestFile` twice per file, the same test names and `Should` count, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 
 ## Open questions
 

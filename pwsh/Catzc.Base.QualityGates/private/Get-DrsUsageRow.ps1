@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "06221b3fe740"
+    with_body_sha: d69378f136e2
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-DrsUsageRow.Tests.ps1
     docs: "[Get-DrsUsageRow.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-DrsUsageRow.ps1.md)"
@@ -25,12 +25,17 @@ function Get-DrsUsageRow {
         [Parameter(Mandatory)]
         [Catzc.Base.Drs.DrsCitationMap] $Map,
 
+        [Parameter(Mandatory)]
+        [Catzc.Base.QualityGates.FileMetaKind] $Kind,
+
+        [Parameter(Mandatory)]
+        [Catzc.Base.CodeMeta.CommentPagesConfig] $Pages,
+
         [Catzc.Base.CodeMeta.HeadForm] $Form
     )
 
     # The rows come from the file's text through the processors the imprint uses, never from its head.
-    $kinds = (Get-Config -Config file-meta).kinds
-    $citesKind = $kinds | Where-Object { $_.id -eq 'drs-codes' }
+    $citesKind = $Kind
     $isCode = $PSBoundParameters.ContainsKey('Form')
     $state = if ($isCode) {
         Get-CodeMetaState -Text $Text -Form $Form
@@ -43,7 +48,7 @@ function Get-DrsUsageRow {
         @()
     }
     else {
-        @([Catzc.Base.QualityGates.DocumentLinks]::Of($state.Body, $Path, (Get-CommentPage -Path $Path -Config (Get-Config -Config comment-pages))))
+        @([Catzc.Base.QualityGates.DocumentLinks]::Of($state.Body, $Path, (Get-CommentPage -Path $Path -Config $Pages)))
     }
 
     foreach ($citation in $adrs) {

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "03a27ee62a31"
+    with_body_sha: "6284d752a850"
   edges:
     test: pwsh/Catzc.Base.Execution/tests/types/CliRunner.Tests.ps1
     docs: "[CliRunner.cs.md](../../../docs/references/pwsh/catzc-base-execution/types/CliRunner.cs.md)"
@@ -34,12 +34,10 @@ public class CliRunner
 
     public byte[] StdoutBytes { get; private set; }
 
-    public static CliRunner Run(string commandLine, bool silent, string workingDirectory, int timeoutSeconds, string input = null)
+    public static CliRunner Run(string commandLine, bool silent, string workingDirectory, int timeoutSeconds, int drainSeconds,
+        string input = null)
     {
-        if (timeoutSeconds <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(timeoutSeconds), "every run needs a positive time limit");
-        }
+        AssertLimits(timeoutSeconds, drainSeconds);
 
         var parsed = ParseCommand(commandLine);
 
@@ -50,15 +48,12 @@ public class CliRunner
                 "Break the command into separate Invoke-Executable calls, or use -Direct for shell expressions.");
         }
 
-        return RunDirect(commandLine, parsed.Executable, parsed.Arguments, silent, workingDirectory, timeoutSeconds, input);
+        return RunDirect(commandLine, parsed.Executable, parsed.Arguments, silent, workingDirectory, timeoutSeconds, drainSeconds, input);
     }
 
-    public static CliRunner RunBytes(string commandLine, string workingDirectory, int timeoutSeconds)
+    public static CliRunner RunBytes(string commandLine, string workingDirectory, int timeoutSeconds, int drainSeconds)
     {
-        if (timeoutSeconds <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(timeoutSeconds), "every run needs a positive time limit");
-        }
+        AssertLimits(timeoutSeconds, drainSeconds);
 
         var parsed = ParseCommand(commandLine);
         if (parsed.HasShellOperator)
@@ -82,7 +77,7 @@ public class CliRunner
             stdoutThread.Start();
             stderrThread.Start();
 
-            Supervise(commandLine, process, timeoutSeconds, stdoutThread, stderrThread);
+            Supervise(commandLine, process, timeoutSeconds, TimeSpan.FromSeconds(drainSeconds), stdoutThread, stderrThread);
             runner.ExitCode = process.ExitCode;
         }
 
@@ -97,8 +92,20 @@ public class CliRunner
         return ParseCommand(commandLine ?? "").Executable ?? "";
     }
 
+    private static void AssertLimits(int timeoutSeconds, int drainSeconds)
+    {
+        if (timeoutSeconds <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(timeoutSeconds), "every run needs a positive time limit");
+        }
+        if (drainSeconds <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(drainSeconds), "every run needs a positive limit on its output's end after exit");
+        }
+    }
+
     private static CliRunner RunDirect(string commandLine, string executable, List<string> arguments, bool silent,
-        string workingDirectory, int timeoutSeconds, string input)
+        string workingDirectory, int timeoutSeconds, int drainSeconds, string input)
     {
         var runner = new CliRunner();
         var stdoutSb = new StringBuilder();
@@ -110,7 +117,7 @@ public class CliRunner
             psi.StandardInputEncoding = new UTF8Encoding(false);
         }
 
-        return Execute(commandLine, psi, stdoutSb, stderrSb, silent, timeoutSeconds, runner, input);
+        return Execute(commandLine, psi, stdoutSb, stderrSb, silent, timeoutSeconds, TimeSpan.FromSeconds(drainSeconds), runner, input);
     }
 
     private static ProcessStartInfo NewStartInfo(string executable, List<string> arguments, string workingDirectory,
@@ -156,17 +163,15 @@ public class CliRunner
         { IsBackground = true };
     }
 
-    private static readonly TimeSpan DrainLimit = TimeSpan.FromSeconds(5);
-
-    private static void Supervise(string commandLine, Process process, int timeoutSeconds, Thread stdoutThread,
+    private static void Supervise(string commandLine, Process process, int timeoutSeconds, TimeSpan drainLimit, Thread stdoutThread,
         Thread stderrThread)
     {
         if (!process.WaitForExit(TimeSpan.FromSeconds(timeoutSeconds)))
         {
             process.Kill(entireProcessTree: true);
             process.WaitForExit();
-            stdoutThread.Join(DrainLimit);
-            stderrThread.Join(DrainLimit);
+            stdoutThread.Join(drainLimit);
+            stderrThread.Join(drainLimit);
             throw new TimeoutException(
                 $"Killed '{commandLine}' after {timeoutSeconds}s: it did not finish within its time limit. " +
                 "Make it faster, or raise the limit: pass -TimeoutSeconds, or tune the executable's entry in " +
@@ -175,20 +180,20 @@ public class CliRunner
 
         process.WaitForExit();
         var drainClock = System.Diagnostics.Stopwatch.StartNew();
-        var drained = stdoutThread.Join(DrainLimit);
-        var remaining = DrainLimit - drainClock.Elapsed;
+        var drained = stdoutThread.Join(drainLimit);
+        var remaining = drainLimit - drainClock.Elapsed;
         drained &= stderrThread.Join(remaining > TimeSpan.Zero ? remaining : TimeSpan.Zero);
         if (!drained)
         {
             throw new IOException(
                 $"'{commandLine}' exited (code {process.ExitCode}), but a process it started still holds its output open, " +
-                $"so the output never ended (waited {DrainLimit.TotalSeconds:0}s after exit). Stop that process from " +
+                $"so the output never ended (waited {drainLimit.TotalSeconds:0}s after exit). Stop that process from " +
                 "inheriting the output: for a dotnet build, pass --disable-build-servers.");
         }
     }
 
     private static CliRunner Execute(string commandLine, ProcessStartInfo psi, StringBuilder stdoutSb,
-        StringBuilder stderrSb, bool silent, int timeoutSeconds, CliRunner runner, string input)
+        StringBuilder stderrSb, bool silent, int timeoutSeconds, TimeSpan drainLimit, CliRunner runner, string input)
     {
         var previousEncoding = Console.OutputEncoding;
 
@@ -239,7 +244,7 @@ public class CliRunner
                     }).Start();
                 }
 
-                Supervise(commandLine, process, timeoutSeconds, stdoutThread, stderrThread);
+                Supervise(commandLine, process, timeoutSeconds, drainLimit, stdoutThread, stderrThread);
 
                 runner.ExitCode = process.ExitCode;
             }

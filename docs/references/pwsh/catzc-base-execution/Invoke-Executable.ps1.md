@@ -59,6 +59,11 @@ empty .Output), never echoed to the console. Not compatible with -Direct.
 The time limit for this call, in seconds. Defaults to the executable's limit from timeouts.yml (Get-TimeoutSeconds). Not compatible with
 -Direct.
 
+### parameter `DrainSeconds`
+
+How long to wait, after the process exits, for its output to end; past it the call throws, naming a process the command started that still
+holds the output open. Defaults to wait.drain_seconds of timeouts.yml. Not compatible with -Direct.
+
 ### parameter `InputText`
 
 Written to the child's stdin, which is then closed: how one process reads a list that would overflow the command line.

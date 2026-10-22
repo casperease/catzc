@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3467349c8c11"
+    with_body_sha: "833653616f79"
   edges:
     test: pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1
     docs: "[Invoke-Executable.ps1.md](../../docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md)"
@@ -32,6 +32,10 @@ function Invoke-Executable {
         [Parameter(ParameterSetName = 'Stream')]
         [ValidateRange(1, [int]::MaxValue)]
         [int] $TimeoutSeconds,
+
+        [Parameter(ParameterSetName = 'Stream')]
+        [ValidateRange(1, [int]::MaxValue)]
+        [int] $DrainSeconds,
 
         [Parameter(ParameterSetName = 'Stream')]
         [string] $InputText,
@@ -73,7 +77,10 @@ function Invoke-Executable {
         if (-not $PSBoundParameters.ContainsKey('TimeoutSeconds')) {
             $TimeoutSeconds = Get-TimeoutSeconds -Executable ([Catzc.Base.Execution.CliRunner]::ExecutableName($Command))
         }
-        $streamed = @{ TimeoutSeconds = $TimeoutSeconds; AsBytes = $AsBytes }
+        if (-not $PSBoundParameters.ContainsKey('DrainSeconds')) {
+            $DrainSeconds = (Get-Config -Config timeouts).wait['drain_seconds']
+        }
+        $streamed = @{ TimeoutSeconds = $TimeoutSeconds; DrainSeconds = $DrainSeconds; AsBytes = $AsBytes }
         # An unbound [string] is empty, not null, so only a passed -InputText reaches the child's stdin.
         if ($PSBoundParameters.ContainsKey('InputText')) {
             $streamed.InputText = $InputText
