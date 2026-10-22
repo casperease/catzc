@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "748ab8035f8f"
-  edges:
-    code: pwsh/Catzc.Base.Asserts/types/ValidatePathGivenAttribute.cs
----
-#>
-
 Describe 'ValidatePathGivenAttribute' -Tag 'L0', 'logic' {
     BeforeAll {
         function script:Use-Widget {

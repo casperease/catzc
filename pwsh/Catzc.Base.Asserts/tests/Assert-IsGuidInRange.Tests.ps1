@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "6c140634a9d4"
-  edges:
-    code: pwsh/Catzc.Base.Asserts/Assert-IsGuidInRange.ps1
----
-#>
-
 Describe 'Assert-IsGuidInRange' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fixture GUIDs are built at runtime (not literals), so they need no managed-GUID registry entry.

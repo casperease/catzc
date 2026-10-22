@@ -26,12 +26,15 @@ Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Docs { $script:root }
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Docs { Join-Path $script:root $Path }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
-        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'readme' } { [pscustomobject]@{} }
+        $script:exempt = @()
+        Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'readme' } { [pscustomobject]@{ without_article = $script:exempt } }
         $script:mappings = @(
             [pscustomobject]@{ folder = 'widget'; source = 'docs/widget.md' }
             [pscustomobject]@{ folder = 'gadget'; source = 'docs/gadget.md' }
         )
+        $script:absent = @()
         Mock Get-ReadmeMappings -ModuleName Catzc.Base.Docs { $script:mappings }
+        Mock Get-ReadmeMappings -ModuleName Catzc.Base.Docs -ParameterFilter { $Missing } { $script:absent }
         $script:ignored = @('widget/README.md', 'gadget/README.md')
         Mock Invoke-Executable -ModuleName Catzc.Base.Docs -ParameterFilter { $Command -match ' check-ignore --no-index ' } {
             [pscustomobject]@{ Output = $script:ignored -join "`n"; Errors = ''; ExitCode = [int]($script:ignored.Count -eq 0) }
@@ -87,6 +90,22 @@ Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {
         $result = Test-GeneratedReadmes -OutputFolder $script:out -PassThru
         $result.Subject | Should -Be 'generated-readmes'
         $result.Issues | Should -HaveCount 1
+    }
+
+    It 'reports a pattern-matched folder whose article is missing, and lets a named exemption pass' {
+        $script:absent = @([pscustomobject]@{ folder = 'gizmo'; source = 'docs/gizmo.md' })
+        $result = Test-GeneratedReadmes -OutputFolder $script:out -PassThru
+        @($result.Issues) | Should -HaveCount 1
+        $result.Issues[0] | Should -BeLike 'gizmo: a readme.yml pattern matches it but its article docs/gizmo.md does not exist*'
+        $script:exempt = @([pscustomobject]@{ folder = 'gizmo'; reason = 'a gizmo ships nothing' })
+        (Test-GeneratedReadmes -OutputFolder $script:out -PassThru).IssueCount | Should -Be 0
+    }
+
+    It 'reports an exemption that no longer names a folder without its article' {
+        $script:exempt = @([pscustomobject]@{ folder = 'widget'; reason = 'once had no article' })
+        $result = Test-GeneratedReadmes -OutputFolder $script:out -PassThru
+        @($result.Issues) | Should -HaveCount 1
+        $result.Issues[0] | Should -BeLike 'widget: readme.yml without_article names it, but it has its article*'
     }
 }
 

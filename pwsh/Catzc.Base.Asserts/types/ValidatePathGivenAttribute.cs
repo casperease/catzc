@@ -1,13 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    with_body_sha: "7229b29e43e1"
-  edges:
-    test: pwsh/Catzc.Base.Asserts/tests/types/ValidatePathGivenAttribute.Tests.ps1
----
-*/
-
 using System.Collections;
 using System.Management.Automation;
 

@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "466a487cc0f0"
-  edges:
-    code: pwsh/Catzc.Base.Asserts/Assert-IsRunningInVSCode.ps1
----
-#>
-
 Describe 'Assert-IsRunningInVsCode' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:originalTerminalProgram = $env:TERM_PROGRAM

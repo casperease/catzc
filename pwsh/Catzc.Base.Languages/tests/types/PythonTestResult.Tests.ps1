@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: e95ae81edbe8
-  edges:
-    code: pwsh/Catzc.Base.Languages/types/PythonTestResult.cs
----
-#>
-
 Describe 'PythonTestResult' -Tag 'L0', 'logic' {
     It 'derives the category from the name: test_integrity* is integrity, the rest logic' {
         [Catzc.Base.Languages.PythonTestResult]::new('test_widget', 'test_integrity_widget_ships', 'pass', 0.5, '').Category | Should -Be 'integrity'

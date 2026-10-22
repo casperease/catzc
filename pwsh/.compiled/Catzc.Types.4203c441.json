@@ -1,5 +1,5 @@
 {
-  "hash": "51574bfc",
+  "hash": "4203c441",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -382,6 +382,11 @@
     },
     {
       "name": "Catzc.Base.Docs.DocPattern",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Docs.DocWithoutArticle",
       "aliases": [],
       "display": []
     },

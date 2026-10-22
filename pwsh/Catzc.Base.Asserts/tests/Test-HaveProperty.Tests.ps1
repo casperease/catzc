@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "5517a37686f0"
-  edges:
-    code: pwsh/Catzc.Base.Asserts/Test-HaveProperty.ps1
----
-#>
-
 BeforeAll {
     $script:object = [pscustomobject]@{ Name = 'test'; Value = 42 }
     $script:nested = [pscustomobject]@{

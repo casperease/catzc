@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: b668c1d918de
-  edges:
-    code: pwsh/Catzc.Base.Languages/types/BashConfig.cs
----
-#>
-
 Describe 'BashConfig' -Tag 'L0' {
 
     Context 'integrity (shipped bash.yml)' -Tag 'integrity' {

@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "50eb99e41605"
-  edges:
-    code: pwsh/Catzc.Base.Asserts/Assert-True.ps1
----
-#>
-
 Describe 'Assert-True' -Tag 'L0', 'logic' {
     It 'passes when value is $true' {
         { Assert-True $true } | Should -Not -Throw

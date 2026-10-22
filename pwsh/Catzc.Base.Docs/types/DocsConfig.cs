@@ -27,7 +27,10 @@ public sealed class DocsConfig
     // Explicit folder->source README copy-ins, in registry order.
     public IReadOnlyList<DocMapping> mappings { get; }
 
-    private static readonly string[] AllowedKeys = { "patterns", "mappings" };
+    // Pattern-matched folders allowed to have no source article, each with its reason; empty by default.
+    public IReadOnlyList<DocWithoutArticle> without_article { get; }
+
+    private static readonly string[] AllowedKeys = { "patterns", "mappings", "without_article" };
 
     public DocsConfig(IDictionary raw)
     {
@@ -46,6 +49,7 @@ public sealed class DocsConfig
 
         patterns = ParsePatterns(raw, errors);
         mappings = ParseMappings(raw, errors);
+        without_article = ParseWithoutArticle(raw, errors);
 
         if (errors.Count == 0 && patterns.Count == 0 && mappings.Count == 0)
         {
@@ -97,6 +101,31 @@ public sealed class DocsConfig
 
             if (!seen.Add(m.folder)) { errors.Add(string.Format("duplicate target folder '{0}'", m.folder)); continue; }
             list.Add(m);
+        }
+        return list;
+    }
+
+    private static IReadOnlyList<DocWithoutArticle> ParseWithoutArticle(IDictionary raw, List<string> errors)
+    {
+        List<DocWithoutArticle> list = new List<DocWithoutArticle>();
+        HashSet<string> seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        object obj = (raw != null && raw.Contains("without_article")) ? raw["without_article"] : null;
+        if (obj == null) { return list; }
+
+        IEnumerable seq = obj as IEnumerable;
+        if (seq == null || obj is string) { errors.Add("'without_article' must be a list"); return list; }
+
+        foreach (object item in seq)
+        {
+            IDictionary entry = item as IDictionary;
+            if (entry == null) { errors.Add("each 'without_article' entry must be a mapping"); continue; }
+
+            DocWithoutArticle w;
+            try { w = new DocWithoutArticle(entry); }
+            catch (ArgumentException ex) { errors.Add(ex.Message); continue; }
+
+            if (!seen.Add(w.folder)) { errors.Add(string.Format("duplicate without_article folder '{0}'", w.folder)); continue; }
+            list.Add(w);
         }
         return list;
     }

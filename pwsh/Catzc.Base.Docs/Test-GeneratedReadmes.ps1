@@ -21,9 +21,21 @@ function Test-GeneratedReadmes {
     )
 
     $repositoryRoot = Get-RepositoryRoot
-    $mappings = @(Get-ReadmeMappings -Config (Get-Config -Config readme))
+    $config = Get-Config -Config readme
+    $mappings = @(Get-ReadmeMappings -Config $config)
     $targets = @($mappings | ForEach-Object { "$($_.folder)/README.md" } | Sort-Object -Unique)
     $issues = [System.Collections.Generic.List[string]]::new()
+
+    # A folder a pattern matches gets its README only from an article; a missing article is a finding unless readme.yml names the folder.
+    $missing = @(Get-ReadmeMappings -Config $config -Missing)
+    $exempt = @($config.without_article | ForEach-Object { $_.folder })
+    foreach ($entry in $missing | Where-Object { $_.folder -notin $exempt }) {
+        $issues.Add("$($entry.folder): a readme.yml pattern matches it but its article $($entry.source) does not exist — write it, or name the folder under without_article with its reason")
+    }
+    $missingFolders = @($missing | ForEach-Object { $_.folder })
+    foreach ($folder in $exempt | Where-Object { $_ -notin $missingFolders }) {
+        $issues.Add("${folder}: readme.yml without_article names it, but it has its article or no pattern matches it — drop the entry")
+    }
 
     if ($targets.Count -gt 0) {
         $quotedPaths = foreach ($target in $targets) {

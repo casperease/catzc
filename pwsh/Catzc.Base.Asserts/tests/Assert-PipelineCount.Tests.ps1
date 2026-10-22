@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "7887fdd000a5"
-  edges:
-    code: pwsh/Catzc.Base.Asserts/Assert-PipelineCount.ps1
----
-#>
-
 Describe 'Assert-PipelineCount' -Tag 'L0', 'logic' {
     Context 'Equals' {
         It 'passes when count matches' {

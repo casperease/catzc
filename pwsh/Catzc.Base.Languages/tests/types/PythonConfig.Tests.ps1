@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: e3c031578074
-  edges:
-    code: pwsh/Catzc.Base.Languages/types/PythonConfig.cs
----
-#>
-
 Describe 'PythonConfig' -Tag 'L0' {
 
     Context 'integrity (shipped python.yml)' -Tag 'integrity' {

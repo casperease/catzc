@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "25abbdf40769"
-  edges:
-    code: pwsh/Catzc.Base.Asserts/Test-NotNullOrWhitespace.ps1
----
-#>
-
 Describe 'Test-NotNullOrWhitespace' -Tag 'L0', 'logic' {
     It 'returns $true for non-empty string' {
         Test-NotNullOrWhitespace 'hello' | Should -BeTrue

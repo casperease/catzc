@@ -64,6 +64,19 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'returns under -Missing exactly the matched folders whose derived source does not exist' {
+        InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
+            param($Root)
+            $config = [pscustomobject]@{
+                patterns = @([pscustomobject]@{ glob = 'widgets/*'; source = 'docs/references/pwsh/{kebab}.md' })
+                mappings = @()
+            }
+            $missing = @(Get-ReadmeMappings -Config $config -RepositoryRoot $Root -Missing)
+            @($missing.folder) | Should -Be @('widgets/Catzc.NoDoc')
+            $missing[0].source | Should -Be 'docs/references/pwsh/catzc-no-doc.md'
+        }
+    }
+
     It 'excludes dot-prefixed folders from a /* glob' {
         InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
             param($Root)

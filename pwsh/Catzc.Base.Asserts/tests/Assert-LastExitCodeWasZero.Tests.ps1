@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: a55d9db7cff4
-  edges:
-    code: pwsh/Catzc.Base.Asserts/Assert-LastExitCodeWasZero.ps1
----
-#>
-
 Describe 'Assert-LastExitCodeWasZero' -Tag 'L0', 'logic' {
     It 'passes when LASTEXITCODE is 0' {
         $global:LASTEXITCODE = 0

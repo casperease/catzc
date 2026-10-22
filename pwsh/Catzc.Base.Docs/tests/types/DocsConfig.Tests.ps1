@@ -70,4 +70,16 @@ Describe 'DocsConfig' -Tag 'L0', 'logic' {
     It 'rejects an unknown top-level key' {
         { [Catzc.Base.Docs.DocsConfig]::new(@{ widget = 1 }) } | Should -Throw "*unknown top-level key 'widget'*"
     }
+
+    It 'reads without_article as folder and reason, empty when omitted, and rejects a missing reason or a duplicate folder' {
+        $patterns = @(@{ glob = 'widgets/*'; source = 'docs/{kebab}.md' })
+        (& $script:make @{ patterns = $patterns }).without_article | Should -HaveCount 0
+        $config = & $script:make @{ patterns = $patterns; without_article = @(@{ folder = 'widgets/gizmo'; reason = 'ships nothing' }) }
+        $config.without_article[0].folder | Should -Be 'widgets/gizmo'
+        $config.without_article[0].reason | Should -Be 'ships nothing'
+        { & $script:make @{ patterns = $patterns; without_article = @(@{ folder = 'widgets/gizmo' }) } } | Should -Throw '*reason is required*'
+        {
+            & $script:make @{ patterns = $patterns; without_article = @(@{ folder = 'widgets/gizmo'; reason = 'a' }, @{ folder = 'widgets/gizmo'; reason = 'b' }) }
+        } | Should -Throw '*duplicate without_article folder*'
+    }
 }

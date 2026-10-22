@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "1e80fc328404"
-  edges:
-    code: pwsh/Catzc.Base.Asserts/Assert-YmlNaming.ps1
----
-#>
-
 Describe 'Assert-YmlNaming' -Tag 'L0', 'logic' {
     It 'passes for valid snake_case keys' {
         $yaml = [ordered]@{ foo_bar = 'value'; baz = [ordered]@{ nested_key = 1 } }

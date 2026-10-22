@@ -17,7 +17,9 @@ function Get-ReadmeMappings {
         [Parameter(Mandatory)]
         $Config,
 
-        [string] $RepositoryRoot = (Get-RepositoryRoot)
+        [string] $RepositoryRoot = (Get-RepositoryRoot),
+
+        [switch] $Missing
     )
 
     # The globs expand over the source tree's folders (pwsh/* and the like).
@@ -25,6 +27,7 @@ function Get-ReadmeMappings {
 
     # Explicit mappings first — they win over any pattern that also matches their folder.
     $byFolder = [ordered]@{}
+    $absent = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($mapping in @($Config.mappings)) {
         $byFolder[$mapping.folder] = [pscustomobject]@{ folder = $mapping.folder; source = $mapping.source }
     }
@@ -59,12 +62,17 @@ function Get-ReadmeMappings {
             $source = $pattern.source.Replace('{kebab}', $kebab).Replace('{name}', $leaf)
             $sourcePath = Join-Path $RepositoryRoot $source
             if (-not (Test-Path $sourcePath -PathType Leaf)) {
-                continue   # no authored source yet — skip so the importer's Build-Readme never throws
+                # No authored source yet: Build-Readme skips it so the importer never throws, and -Missing hands it to the gate.
+                $absent.Add([pscustomobject]@{ folder = $folder; source = $source })
+                continue
             }
 
             $byFolder[$folder] = [pscustomobject]@{ folder = $folder; source = $source }
         }
     }
 
+    if ($Missing) {
+        return @($absent)
+    }
     @($byFolder.Values)
 }
