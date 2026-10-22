@@ -216,7 +216,7 @@ Describe 'Get-AdoYamlFiles' -Tag 'L0' {
         }
     }
 
-    Context 'a widget tree' {
+    Context 'a widget tree' -Tag 'logic' {
         BeforeAll {
             $script:widgetRoot = Join-Path $TestDrive 'widget-pipelines'
             $deep = Join-Path $script:widgetRoot 'a/b/c/d/e'

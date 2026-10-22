@@ -13,7 +13,7 @@ catzc:
 ---
 #>
 
-Describe 'The git topic flow over a scratch server' -Tag 'L1', 'integration', 'FDR-GIT-USERRUNSGIT' {
+Describe 'The git topic flow over a scratch server' -Tag 'L1', 'logic', 'FDR-GIT-USERRUNSGIT' {
     BeforeAll {
         $script:config = [Catzc.Base.Git.GitFlowConfig]::new(@{})
         function Invoke-Scratch {

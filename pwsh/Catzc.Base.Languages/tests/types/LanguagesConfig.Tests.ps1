@@ -455,7 +455,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
         }
     }
 
-    Context 'LanguageNaming cases' {
+    Context 'LanguageNaming cases' -Tag 'logic' {
         It 'splits a name in its case into namespace segments of lowercase words, and joins them back' -Tag 'ADR-AUTO-IDIOM-CLOSEDCASES' -ForEach @(
             @{ Case = 'pascal'; Name = 'GadgetMetrics'; Words = 'gadget metrics' }
             @{ Case = 'camel'; Name = 'requireGadgetPart'; Words = 'require gadget part' }
