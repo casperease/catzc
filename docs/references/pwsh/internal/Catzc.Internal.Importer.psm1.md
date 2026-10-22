@@ -85,7 +85,7 @@ regenerating janitors below rematerialise the tree.
 
 ## comment:6
 
-Above `[switch] $Bundle`, written with `#`.
+Above `[switch] $Bundle,`, written with `#`.
 
 ```text
 Load as an installed bundle, not the mono repo. Honour the pre-set $env:CatzcModulesRoot (the bundle's
@@ -202,7 +202,7 @@ proves it before any janitor touches the tree from a mixed session.
 
 ## comment:18
 
-Above `if (-not $SkipJanitors) {`, written with `#`.
+Above `if (-not $SkipJanitors -and -not $deferJanitors) {`, written with `#`.
 
 ```text
 The post-import janitors, in their fixed order (Invoke-ImporterJanitors). An isolated copy and a bundle
@@ -309,9 +309,9 @@ Above `[CmdletBinding()]` (occurrence 6), written with `#`.
 
 ```text
 .SYNOPSIS
-    Publishes the agent Bash time-safeguard hook when its C# source changed, without ever failing the load.
+    Publishes every agent hook, each folder under .claude/hooks that has a csproj, whose C# source changed, without ever failing the load.
 .DESCRIPTION
-    A checkout without the hook's code or dotnet is told, never stopped: Install-Dotnet needs this import.
+    A checkout without the hooks' code or dotnet is told, never stopped: Install-Dotnet needs this import.
     [comment:29](/docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md#comment29)
 ```
 

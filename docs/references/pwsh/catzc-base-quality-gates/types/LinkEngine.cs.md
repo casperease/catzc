@@ -83,7 +83,7 @@ A line that still cannot fit is reported Overlong. With LinkWrap.Off every overl
 
 ## comment:8
 
-Above `static int BreakPoint(string line, int room, int tailRoom)`, written with `//`.
+Above `int BreakPoint(string line, int room, int tailRoom)`, written with `//`.
 
 ```text
 Where to break an overlong line. Preferred: before the word holding an inserted code link, so the link and the

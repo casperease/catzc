@@ -142,3 +142,11 @@ Started 2026-10-22T04:59:45.8045278+02:00.
 - 2026-10-22 Jack: If only the session had read the finder:
   docs/references/pwsh/catzc-base-quality-gates/private/Get-HelpPageFinding.ps1.md:16-18 reports a comment-based help block in the file,
   read by the PowerShell parser whatever its indent, so an inline SYNOPSIS beside a page was a second copy by declaration.
+- 2026-10-22 Jack: If only the session had read the kinds registry: pwsh/Catzc.Base.Globs/configs/file-kinds.yml:159-160 holds the intended
+  overlaps, earlier kind first, and says a kind mostly shadowed by an unlisted pair fails Test-FileKindReachability, so globs.yml was never
+  where an overlap is declared.
+- 2026-10-22 Jack: If only the session had loaded catzc-run: .claude/skills/catzc-run/SKILL.md:19 already wraps every command in single
+  quotes so bash leaves the pipeline variable alone, so the broken expression was a capability line unread.
+- 2026-10-22 Jack: If only the stopwatch had read the plan: .claude/plans/plan-debt-test-speed.md:20-22 already measures
+  Get-DrsUsage.Tests.ps1 at 13.4 s and 12.9 s, a whole-tree scan of about 12 s, and places the 7 s of the shared imprint processors outside
+  the fix, so the cost was on the board before it was learned.

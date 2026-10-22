@@ -26,7 +26,7 @@ domain, and the relation/contrast targets real concepts are cross-file facts, ch
 
 ## comment:2
 
-Above `public static readonly Regex CitationRe = new...`, written with `//`.
+Above `public static readonly Regex CitationRe = new Regex("^" +...`, written with `//`.
 
 ```text
 A rule citation in the '#' form: ADR-<code>[-<NAME>…]#<n>

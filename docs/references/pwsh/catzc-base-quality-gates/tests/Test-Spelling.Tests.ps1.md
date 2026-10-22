@@ -33,7 +33,7 @@ reads the repository's files, which give the same answer in both run modes.
 
 ## comment:3
 
-Above `$spelledExtensions = @('.md', '.ps1', '.psm1', '.psd1', '.yml', '.yaml',...`, written with `#`.
+Above `$spelledExtensions = @((Get-Config -Config...`, written with `#`.
 
 ```text
 The spelling scan's default content types; cspell.yml ignorePaths drops vendored code. Any such

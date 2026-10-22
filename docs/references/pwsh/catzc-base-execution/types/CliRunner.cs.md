@@ -94,12 +94,13 @@ would end the host.
 
 ## comment:9
 
-Above `private static readonly TimeSpan DrainLimit = TimeSpan.FromSeconds(5);`, written with `//`.
+Above `private static void AssertLimits(int timeoutSeconds, int drainSeconds)`, written with `//`.
 
 ```text
-How long the output readers may take to reach end-of-stream once the process has exited. The rest of a
-finished process's output drains in milliseconds; a reader still blocked after this is waiting on a pipe
-that a process the command started (a detached server, a grandchild) still holds open.
+Both limits a run is given must be positive: timeoutSeconds bounds the process, and drainSeconds how long the
+output readers may take to reach end-of-stream once the process has exited. The rest of a finished process's
+output drains in milliseconds; a reader still blocked after drainSeconds is waiting on a pipe that a process
+the command started (a detached server, a grandchild) still holds open.
 ```
 
 ## comment:10

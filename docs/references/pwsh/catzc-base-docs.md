@@ -5,8 +5,8 @@ source, never a hand-kept one (see [generated-readmes](../../drs/repository/gene
 to the README's folder, so every link works where the README is opened, and a line under the title names the source as the one place to
 edit. What it deliberately does **not** own is the prose itself — that lives in the authored sources under `docs/` — nor the write
 primitive, which is `Write-FileIfChanged` ([Catzc.Base.Files](catzc-base-files.md)); the importer keeps every README current on every load.
-The module also generates the other derived documentation pages from their authored sources — the ADR index from `drs.yml` and the glossary
-from the modules' glossary sources — and answers "ask cats", the offline browser over the ADRs, modules, and verbs.
+The module also generates the glossary from the modules' glossary sources and answers "ask cats", the offline browser over the ADRs,
+modules, and verbs. The ADR registry, and the index generated from it, are [Catzc.Base.Drs](catzc-base-drs.md).
 
 ## Responsibilities
 
@@ -15,12 +15,11 @@ from the modules' glossary sources — and answers "ask cats", the offline brows
 | responsibility:1 | copy       | [README materialisation](#responsibility1--readme-materialisation) |
 | responsibility:2 | map        | [README map](#responsibility2--readme-map)                         |
 | responsibility:3 | markers    | [Managed .gitkeep files](#responsibility3--managed-gitkeep-files)  |
-| responsibility:4 | adr        | [ADR registry](#responsibility4--adr-registry)                     |
-| responsibility:5 | vocabulary | [Controlled vocabulary](#responsibility5--controlled-vocabulary)   |
-| responsibility:6 | ask        | [Ask cats](#responsibility6--ask-cats)                             |
-| responsibility:7 | agents     | [Sub-agent registry](#responsibility7--sub-agent-registry)         |
-| responsibility:8 | markdown   | [Generated markdown](#responsibility8--generated-markdown)         |
-| responsibility:9 | logs       | [Rolling logs](#responsibility9--rolling-logs)                     |
+| responsibility:4 | vocabulary | [Controlled vocabulary](#responsibility4--controlled-vocabulary)   |
+| responsibility:5 | ask        | [Ask cats](#responsibility5--ask-cats)                             |
+| responsibility:6 | agents     | [Sub-agent registry](#responsibility6--sub-agent-registry)         |
+| responsibility:7 | markdown   | [Generated markdown](#responsibility7--generated-markdown)         |
+| responsibility:8 | logs       | [Rolling logs](#responsibility8--rolling-logs)                     |
 
 ### responsibility:1 — README materialisation
 
@@ -58,26 +57,18 @@ points the reader at the folder's `README.md`, and an integrity test makes that 
 readme-mapped target (responsibility:2), so dropping a `.gitkeep` anywhere demands its reference article. Unlike the gitignored READMEs, the
 `.gitkeep` copies stay committed — tracking the folder is their purpose — so a source change lands as a reviewable, repo-wide diff.
 
-### responsibility:4 — ADR registry
-
-The ADR domain structure as data: `drs.yml` declares each domain, its role and dependencies, and each ADR's citation code. This
-responsibility generates the committed ADR index from it on every import, reads the declared rule-sets, the flat set of rule ids, and the
-citation map every rule reference resolves through, and renders the domain dependency graph as typed edges or a diagram. A quality gate
-keeps the registry and the ADR files in step: one rule file per declared rule-set, headed by its citation code, and no rule file left
-unregistered.
-
-### responsibility:5 — Controlled vocabulary
+### responsibility:4 — Controlled vocabulary
 
 The glossary: every defined term, merged from the modules' `configs/glossary.yml` sources (see
 [controlled-vocabulary](../../drs/repository/controlled-vocabulary.md)). This responsibility returns the merged vocabulary, generates the
 glossary page from it, and checks it — every term anchored on its one defining rule, and no avoided phrasing used within a source's scope.
 
-### responsibility:6 — Ask cats
+### responsibility:5 — Ask cats
 
 "Ask cats": an offline, deterministic browser over what the repository already knows — the ADR codes and rules, the modules and their public
 functions, and the approved verbs in use. It prints only; it returns nothing.
 
-### responsibility:7 — Sub-agent registry
+### responsibility:6 — Sub-agent registry
 
 Which sub-agents exist and why (see [agent-definitions](../../drs/repository/agent-definitions.md)). The registry is `agents.yml`: one entry
 per `.claude/agents/<name>.md` definition, with the rule citations that support the agent and the gate and check functions it runs or
@@ -85,7 +76,7 @@ guards, plus the one standard agent for delegated work. It is validated when it 
 agent files, the registry, and the `## Sub-agents` list in `.claude/CLAUDE.md` in step, resolving every citation to a real rule and every
 check to an existing command.
 
-### responsibility:8 — Generated markdown
+### responsibility:7 — Generated markdown
 
 The one way generated markdown wraps its prose: a paragraph or list item filled at the 140-column width the way the formatter fills it, so a
 page a generator writes is the page the formatter leaves alone (see
@@ -93,7 +84,7 @@ page a generator writes is the page the formatter leaves alone (see
 writes markdown wraps through it, in this module or another. The reverse is one reader too: a list item with the continuation lines the
 formatter wrapped it onto is read back whole by one command, which every checker that reads list items calls.
 
-### responsibility:9 — Rolling logs
+### responsibility:8 — Rolling logs
 
 The session logs a robot reads and appends to: the learnings log in `.claude/learnings/` and the hindsight log in `.claude/hindsight/`. Each
 log is one config (`learnings.yml`, `hindsight.yml`) naming its folder, file prefix and title, with every omitted key taking the default
@@ -113,39 +104,27 @@ stale one is rewritten through the shared `Write-FileIfChanged` primitive. The m
 `DocPattern`) are validated at load, then the glob patterns are expanded against the filesystem to the concrete folder-to-source list, so a
 bad entry fails fast rather than producing a broken README.
 
-The ADR index and the glossary follow the same pattern: an authored source (`drs.yml` and the index's own text in `drs-index.yml`, the
-glossary sources) and a generated page reproduced from it, which `Test-GeneratedFiles`
-([Catzc.Base.QualityGates](catzc-base-quality-gates.md)) checks for drift.
+The glossary follows the same pattern: an authored source (the modules' glossary sources) and a generated page reproduced from it, which
+`Test-GeneratedFiles` ([Catzc.Base.QualityGates](catzc-base-quality-gates.md)) checks for drift.
 
 ## Division
 
 The module's public surface, sorted into the responsibilities above.
 
-| Responsibility                            | Function                     |
-| ----------------------------------------- | ---------------------------- |
-| responsibility:1 — README materialisation | `Build-Readme`               |
-|                                           | `Test-GeneratedReadmes`      |
-| responsibility:2 — README map             | `readme.yml`                 |
-| responsibility:3 — Managed .gitkeep files | `Build-GitKeep`              |
-| responsibility:4 — ADR registry           | `Build-DrsIndex`             |
-|                                           | `Get-DrsRuleSet`             |
-|                                           | `Get-CatsDrsRuleIds`         |
-|                                           | `Get-DrsCitationMap`         |
-|                                           | `Get-DrsDomainEdges`         |
-|                                           | `ConvertTo-DrsDomainDiagram` |
-|                                           | `Test-DrsRegistry`           |
-|                                           | `Test-DrsEngineNeutrality`   |
-| config                                    | `drs.yml`                    |
-|                                           | `drs-checks.yml`             |
-|                                           | `drs-index.yml`              |
-| responsibility:5 — Controlled vocabulary  | `Get-Glossary`               |
-|                                           | `Build-Glossary`             |
-|                                           | `Test-Glossary`              |
-| responsibility:6 — Ask cats               | `Show-Cats`                  |
-| responsibility:7 — Sub-agent registry     | `Test-AgentDefinitions`      |
-| config                                    | `agents.yml`                 |
-| responsibility:8 — Generated markdown     | `Format-MarkdownParagraph`   |
-|                                           | `Get-MarkdownListItem`       |
-| responsibility:9 — Rolling logs           | `Add-SessionLearning`        |
-| config                                    | `learnings.yml`              |
-|                                           | `hindsight.yml`              |
+| Responsibility                            | Function                   |
+| ----------------------------------------- | -------------------------- |
+| responsibility:1 — README materialisation | `Build-Readme`             |
+|                                           | `Test-GeneratedReadmes`    |
+| responsibility:2 — README map             | `readme.yml`               |
+| responsibility:3 — Managed .gitkeep files | `Build-GitKeep`            |
+| responsibility:4 — Controlled vocabulary  | `Get-Glossary`             |
+|                                           | `Build-Glossary`           |
+|                                           | `Test-Glossary`            |
+| responsibility:5 — Ask cats               | `Show-Cats`                |
+| responsibility:6 — Sub-agent registry     | `Test-AgentDefinitions`    |
+| config                                    | `agents.yml`               |
+| responsibility:7 — Generated markdown     | `Format-MarkdownParagraph` |
+|                                           | `Get-MarkdownListItem`     |
+| responsibility:8 — Rolling logs           | `Add-SessionLearning`      |
+| config                                    | `learnings.yml`            |
+|                                           | `hindsight.yml`            |

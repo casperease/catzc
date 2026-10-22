@@ -328,8 +328,9 @@ them as Pester tests.
   matches one of its letters, not the brackets; escape it (`` `[Drift`] ``) or compare whole with `-BeExactly`.
 - **A comma-wrapped array return piped directly member-enumerates.** `Get-BicepTemplates | Where …` feeds the whole array as one object;
   parenthesise first: `(Get-BicepTemplates) | Where …`.
-- **Index a function's result as `@(Get-X)[0]`**, never `(Get-X)[0]`: a one-item result unrolls to the item, so `(Get-X)[0]` on a single
-  string returns its first character.
+- **Take a function's first result as `Get-X | Select-Object -First 1`**, never `(Get-X)[0]`: a one-item result unrolls to the item, so
+  `(Get-X)[0]` on a single string returns its first character
+  ([ADR-PWSH-ERROR-STRICTCLEAN](error-handling.md#rule-adr-pwsh-error-strictclean)).
 - **To test that a parameter is mandatory, bind it to `$null` — never omit it.** An _absent_ mandatory parameter makes an interactive host
   **prompt** (and hang), not throw; it only throws under `-NonInteractive`. Supplying the param explicitly as `$null` (with valid values for
   the others) rejects at binding in _every_ host — `{ Invoke-Foo -X $null -Y @{} } | Should -Throw`. Relying on `-NonInteractive` to turn

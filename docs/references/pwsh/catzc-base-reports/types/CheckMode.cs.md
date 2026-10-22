@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `namespace Catzc.Base.Docs;`, written with `//`.
+Above `namespace Catzc.Base.Reports;`, written with `//`.
 
 ```text
 How a repository check treats what it finds, set per check in its config (drs-checks.yml in Catzc.Base.Docs; links.yml and

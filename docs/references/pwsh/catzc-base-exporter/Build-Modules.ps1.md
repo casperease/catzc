@@ -33,6 +33,9 @@ package       exporter.yml module_guid + package.* -> the engine's PackageMetada
 -DryRun returns the engine's plan and writes nothing (so there is nothing to verify). Returns the engine's result (BuildRoot, Version,
 Modules, TypesHash, ContentHash, FileCount, Dirty, DryRun).
 
+The engine ships a file only when its path, case included, is one git lists (Test-BuildSourceShippable over `git ls-files`), so a case-only
+rename on disk that git does not track drops the renamed module's files from that check, and the build ships none of them.
+
 ### parameter `Module`
 
 Module names to build (closure-expanded by the engine), in place of the bundle's profile.

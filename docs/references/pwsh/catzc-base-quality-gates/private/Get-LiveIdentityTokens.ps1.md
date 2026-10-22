@@ -63,7 +63,7 @@ the org, subscriptions, environments (position match — ambiguous words such as
 
 ## comment:4
 
-Above `$templatesRoot = Join-Path (Get-RepositoryRoot) 'infrastructure/templates'`, written with `#`.
+Above `$templatesRoot = Join-Path (Get-RepositoryRoot) $templatesPlace`, written with `#`.
 
 ```text
 NOTE: deployable-unit and pipeline names (globs.yml) are deliberately NOT included in Stage 1. The

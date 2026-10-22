@@ -47,7 +47,7 @@ Get-LanguageTestFolders | Where-Object Module -EQ 'Catzc.Base.Repository'
 
 ## comment:1
 
-Above `$modulesByKebab = @{}`, written with `#`.
+Above `$modulesByFolder = @{}`, written with `#`.
 
 ```text
 The catzc modules of the source tree, by kebab name: the folders under <repository>/automation/, read from the

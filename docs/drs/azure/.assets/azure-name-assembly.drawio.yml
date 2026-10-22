@@ -1,8 +1,10 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b9a111f812af
+#     with_body_sha: ebb53d0b87ea
 # ---
+
+# cspell:ignore prweufindiscaphotst weufindiscxaphotst weudiscvm
 
 description:
   An Azure resource name is assembled from eight components in a fixed order; the type's pattern picks the form and the limit, a render past

@@ -88,6 +88,29 @@ Describe 'Test-Spelling' -Tag 'L0', 'logic' {
         { Test-Spelling -OutputFolder $script:reportBase } | Should -Throw '*matched no files*'
     }
 
+    It 'reports a clean run that checked no file as a finding, never a pass' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+        $script:cspellOut = 'CSpell: Files checked: 0, Issues found: 0 in 0 files.'
+        $result = Test-Spelling -Path 'widgets' -OutputFolder $script:reportBase -PassThru
+        $result.IssueCount | Should -Be 1
+        $result.Issues[0] | Should -BeLike '*checked no file*widgets*'
+    }
+
+    It 'passes when only some batches check files' {
+        $paths = 1..60 | ForEach-Object { "gadget-$_.md" }
+        $script:cspellOut = 'CSpell: Files checked: 0, Issues found: 0 in 0 files.'
+        Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Command -match "'gadget-1\.md'" } {
+            [pscustomobject]@{ ExitCode = 0; Full = 'CSpell: Files checked: 50, Issues found: 0 in 0 files.'; Output = '' }
+        }
+        (Test-Spelling -Path $paths -OutputFolder $script:reportBase -PassThru).IssueCount | Should -Be 0
+    }
+
+    It 'spells the files under dot folders and leaves the git-ignored ones out' {
+        Test-Spelling -OutputFolder $script:reportBase | Out-Null
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter {
+            $Command -match ' --dot ' -and $Command -match ' --gitignore '
+        }
+    }
+
     It 'throws a tool error when cspell exits greater than 1' {
         $script:cspellExit = 2
         $script:cspellOut = 'configuration error'

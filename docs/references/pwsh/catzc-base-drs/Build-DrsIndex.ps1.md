@@ -65,16 +65,6 @@ through Format-MarkdownParagraph (Prettier's fill), so the generated page is for
 line pass through; a '- ' line opens a list item, and an indented or plain line continues the open block.
 ```
 
-## comment:2
-
-Above `$pathBySlugKey = @{}`, written with `#`.
-
-```text
-Map "<domainFolder>/<slug>" -> the ADR file path relative to docs/drs (forward-slashed), so a ruleset
-in a subfolder (automation/BCL/) still resolves to its real link target. The
-generated index.md and every folder README are skipped — they are not ADRs.
-```
-
 ## comment:3
 
 Above `$sections = foreach ($domain in $adrs.Domains) {`, written with `#`.

@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `namespace Catzc.Base.Docs;`, written with `//`.
+Above `namespace Catzc.Base.Drs;`, written with `//`.
 
 ```text
 What one DrsCitationChange rewrote: the closed set of ADR reference forms Update-DrsCitation recognises, plus the

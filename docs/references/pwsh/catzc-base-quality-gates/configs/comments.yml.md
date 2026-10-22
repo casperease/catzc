@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `languages: [powershell, yaml, pipeline-yaml, csharp, bicep]`, written with `#`.
+Above `languages: [powershell, yaml, pipeline-yaml, bcl, bicep]`, written with `#`.
 
 ```text
 Comment-page settings for Export-Comments / Build-CommentView / Test-Comments.
@@ -21,7 +21,7 @@ each language is CommentLexer's, the one place that knows it; this file decides 
 
 ## comment:2
 
-Above `languages: [powershell, yaml, pipeline-yaml, csharp, bicep]`, written with `#`.
+Above `languages: [powershell, yaml, pipeline-yaml, bcl, bicep]`, written with `#`.
 
 ```text
 The file languages (languages.yml names) whose files carry comment pages. A language CommentLexer cannot read
