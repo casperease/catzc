@@ -25,7 +25,7 @@ Describe 'New-DocSnapshot' -Tag 'L0', 'logic' {
         $session.Path | Should -BeLike (Join-Path $script:root 'out/listen/*')
 
         foreach ($copy in 'baseline', 'seen') {
-            [System.IO.File]::ReadAllText((Join-Path $session.Path "$copy/adr/widget.md")) | Should -BeLike '*widget rule*'
+            [System.IO.File]::ReadAllText((Join-Path $session.Path "$copy/drs/widget.md")) | Should -BeLike '*widget rule*'
             [System.IO.File]::Exists((Join-Path $session.Path "$copy/explanation/gadget.md")) | Should -BeTrue
             $index = [System.IO.File]::ReadAllText((Join-Path $session.Path "$copy.json")) | ConvertFrom-Json -AsHashtable
             @($index.Keys | Sort-Object) | Should -Be @('docs/drs/widget.md', 'docs/explanation/gadget.md')

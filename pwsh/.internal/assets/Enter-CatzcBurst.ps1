@@ -1,4 +1,15 @@
 <#
+---
+catzc:
+  immutable:
+    with_body_sha: a3dae2820f4c
+  edges:
+    cites:
+      - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+---
+#>
+
+<#
 .SYNOPSIS
     Holds the machine's run lock for a session's import-path burst, until Exit-CatzcBurst ends it or its limit passes.
 

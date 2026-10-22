@@ -23,8 +23,8 @@ Describe 'Update-DocSnapshot' -Tag 'L0', 'logic' {
         Write-ListenFixtureFile 'docs/drs/widget.md' "# Widget`n`nMoved on.`n"
         Update-DocSnapshot -Session $script:session -Path 'docs/drs/widget.md'
         @(Get-DocChange -Session $script:session).Count | Should -Be 0
-        [System.IO.File]::ReadAllText((Join-Path $script:session 'seen/adr/widget.md')) | Should -BeLike '*Moved on.*'
-        [System.IO.File]::ReadAllText((Join-Path $script:session 'baseline/adr/widget.md')) | Should -BeLike '*widget rule*'
+        [System.IO.File]::ReadAllText((Join-Path $script:session 'seen/drs/widget.md')) | Should -BeLike '*Moved on.*'
+        [System.IO.File]::ReadAllText((Join-Path $script:session 'baseline/drs/widget.md')) | Should -BeLike '*widget rule*'
     }
 
     It 'removes a deleted file from seen and its index' {

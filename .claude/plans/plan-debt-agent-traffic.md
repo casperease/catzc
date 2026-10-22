@@ -34,22 +34,18 @@ ten "may I" questions on edits the rules already require, three to five tool cal
       so a new key lands in `TimeoutsConfig.cs`, then an import, then the yml, as the edit reminder says): one command that holds
       `Local\catzc-run` for a session's import-path burst, released at its end or after a declared limit, so a burst needs no HOLD and GO
       messages. Check: its test, and a run started during the hold reporting that it waited.
-- [ ] `.claude/skills/report-fixed/SKILL.md`: one line, a reply to a coordinator in another session is
-      `<step> PASS|RED|BLOCKED: <one verdict     line>; details out/<session>-<step>.md`, the full report in that file. Merged, the file
-      kept at 10 lines. Check: `Test-AgentDefinitions`.
 - [ ] The user's (a worker's permission mode refused it as an agent definition widening its own approvals, 2026-10-22):
       `.claude/agents/catzc-worker.md`: one line, an edit the domain rules require on a file the brief owns or touches (a re-imprinted head,
       inline help moved to its page, a family form the glossary flags) is pre-approved and is reported, not asked. The body kept at 20
       lines. Check: `Test-AgentDefinitions`.
-- [ ] `.claude/skills/plans-orchestrate/SKILL.md`: a brief is `<plan> step <n or text>; owns <files>; check <check>`, never the plan's text
-      again; a HOLD and a GO go to every live session that runs import-backed checks, and a session that has said it runs none (a planner)
-      is left out. Merged, the file kept at 10 lines. Check: `Test-AgentDefinitions`.
-- [ ] `pwsh/Catzc.Base.QualityGates/Test-Plans.ps1` and `Format-Code`'s plan handling: a step count stated in a chunk line or value row is
-      rewritten from the plan's open steps when the plans are formatted, so striking a step never needs a hand sync; `Test-Plans` keeps its
-      finding for anything left stale. Read how `Format-Code` treats markdown first; a new command is the fallback. Check: `Invoke-TestFile`
-      on `Test-Plans.Tests.ps1` and the formatter's test, and `Test-Plans` on the live folder.
-- [ ] `.claude/hooks`: a hook appends every cross-session message sent or received to `out/orchestrator-<date>.log`, so no session spends a
-      tool call on its log; read the hook events Claude Code offers first (a SendMessage PostToolUse is certain, a received message may not
-      be), and land what the events allow, the rest staying a Bash line. Check: the hook's test, and one send that appears in the log.
+- [ ] `pwsh/.internal/assets/Invoke-CatzcCommand.ps1` (catzc-e3's finding, 2026-10-22): a command whose result reports a failure (an
+      `Invoke-TestFile` result of Failed) counts as failed, so the run prints "0 of 1 passed" and exits 1, never "1 of 1 passed" for a red
+      test. Check: the entry script's test with a red-result case, and one live red run exiting 1.
+- [ ] `Catzc.Tooling.Claude` (`Start-ClaudeWorker`, starts workers as `claude --agent catzc-worker` on the agent file's model; built
+      2026-10-22, its tests, analyzer, links and a live `-DryRun` green): the remaining checks, `Format-Types -DryRun`, `Test-Contracts`,
+      `Test-ParameterConsistency`, `Test-Spelling` on its files, then `Build-Readme` for its README. Check: each reports 0 issues and
+      `Test-GeneratedFiles` passes.
+- [ ] The `Record-SessionMessage` hook is built and tested (catzc-a0, 2026-10-22); left: the user registers it in `.claude/settings.json`
+      (task-user-runs-and-commits). Check: one message sent between sessions appears in `out/orchestrator-<date>.log`.
 - [ ] `.claude/skills/plans-orchestrate/SKILL.md` line 4: the log line is written by the hook when the hook covers it (after the step
       above). Check: `Test-AgentDefinitions`.

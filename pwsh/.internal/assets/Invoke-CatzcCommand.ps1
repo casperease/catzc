@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "505622a76cbf"
+    with_body_sha: "91ecb82c2c34"
   edges:
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT

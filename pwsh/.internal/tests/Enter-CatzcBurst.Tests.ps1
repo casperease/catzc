@@ -1,3 +1,14 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: f3e7233fc31e
+  edges:
+    cites:
+      - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+---
+#>
+
 Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:enter = Join-Path $PSScriptRoot '../assets/Enter-CatzcBurst.ps1'

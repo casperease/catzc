@@ -164,6 +164,8 @@ overlaps:
   - [fixture, asset]
   - [test, script]
   - [function, script]
+  - [slides-kit, drawio-kit]
+  - [test, drawio-kit]
   - [drawio-kit, script]
   - [asset, script]
   - [fixture, script]
