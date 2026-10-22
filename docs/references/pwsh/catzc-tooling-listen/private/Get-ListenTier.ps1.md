@@ -11,8 +11,8 @@ Names a repository-relative path's file kind (Get-FileKind) and the listen tier 
 
 ### description
 
-The kind is the role Get-FileKind matches, or none for a path no kind matches; listen.yml's TierOf places the kind, and a kind no tier
-names falls in its rest tier.
+The kind is the role Get-FileKind matches, or none for a path no kind matches; listen.yml's TierOf places the kind, and a kind no tier names
+falls in its rest tier.
 
 ### parameter `Path`
 

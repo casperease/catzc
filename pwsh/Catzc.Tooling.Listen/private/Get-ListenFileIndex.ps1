@@ -2,7 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "352eef5b25d6"
+    with_body_sha: "2c9c208f8ad4"
+  edges:
+    docs: "[Get-ListenFileIndex.ps1.md](../../../docs/references/pwsh/catzc-tooling-listen/private/Get-ListenFileIndex.ps1.md)"
 ---
 #>
 

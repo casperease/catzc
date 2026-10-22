@@ -5,6 +5,9 @@ catzc:
     with_body_sha: e592892739ab
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-BclReferences.Tests.ps1
+    docs: "[Test-BclReferences.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-BclReferences.ps1.md)"
+    cites:
+      - ADR-PWSH-TYPES-POWERSHELLPRIMITIVES
 ---
 #>
 

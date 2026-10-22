@@ -39,7 +39,7 @@ function Register-ListenFixtureMocks {
     Mock Get-Config -ModuleName Catzc.Tooling.Listen -ParameterFilter { $Config -eq 'listen' } { $script:config }
     Mock Write-Message -ModuleName Catzc.Tooling.Listen { }
     Mock Get-FileKind -ModuleName Catzc.Tooling.Listen {
-        if ($Path -like '*/adr/*') {
+        if ($Path -like '*/drs/*') {
             [Catzc.Base.Globs.FileKindMatch]::new('adr', $null, 'A widget rule.')
         }
         elseif ($Path -like '*/explanation/*') {

@@ -15,8 +15,8 @@ Compares the watched folder on disk with a session's index (seen.json or baselin
 entry is unchanged without being read; any other file is hashed, and an equal hash is unchanged too, so a save of the same bytes is no
 change. Git state plays no part.
 
-Each change is one record: Path (repository-relative), Change (added, modified, deleted, or renamed when a deleted and an added file share
-a hash; each added file pairs with one deleted file at most), From (the old path of a rename), Kind (the file kind, Get-FileKind), Tier
+Each change is one record: Path (repository-relative), Change (added, modified, deleted, or renamed when a deleted and an added file share a
+hash; each added file pairs with one deleted file at most), From (the old path of a rename), Kind (the file kind, Get-FileKind), Tier
 (listen.yml's tier of that kind), Source (who made the file's current bytes: agent, editor or unknown, from the write ledgers) and Agent
 (the agent's session id), Rules (the ADR codes cited in the diff's added and removed lines, not the whole file's) and Diff (the unified diff
 against the copy).

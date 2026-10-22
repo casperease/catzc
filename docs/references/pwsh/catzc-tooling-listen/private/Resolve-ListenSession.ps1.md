@@ -11,9 +11,9 @@ Resolves a listen session's folder: the one named, or the newest under the outpu
 
 ### description
 
-A session folder is named by its start stamp (yyyyMMdd-HHmmss), so the newest is the last by ordinal name. A session must hold its
-seen.json index; a folder without one is no session. The output folder lives in out/, which can be wiped at any time, so a session can be
-missing at the start and can vanish while it is in use.
+A session folder is named by its start stamp (yyyyMMdd-HHmmss), so the newest is the last by ordinal name. A session must hold its seen.json
+index; a folder without one is no session. The output folder lives in out/, which can be wiped at any time, so a session can be missing at
+the start and can vanish while it is in use.
 
 ### parameter `Session`
 

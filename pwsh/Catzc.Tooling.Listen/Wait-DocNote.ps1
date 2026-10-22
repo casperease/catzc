@@ -2,9 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e08688e4120a
+    with_body_sha: "9f6237b60a3a"
   edges:
     test: pwsh/Catzc.Tooling.Listen/tests/Wait-DocNote.Tests.ps1
+    docs: "[Wait-DocNote.ps1.md](../../docs/references/pwsh/catzc-tooling-listen/Wait-DocNote.ps1.md)"
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
 ---

@@ -3,6 +3,8 @@
 catzc:
   immutable:
     with_body_sha: "023e9a570e7c"
+  edges:
+    docs: "[Invoke-BicepParamsBuild.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/private/Invoke-BicepParamsBuild.ps1.md)"
 ---
 #>
 

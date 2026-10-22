@@ -2,7 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: ffc333bd0426
+    with_body_sha: "38c900d707da"
+  edges:
+    docs: "[Resolve-ListenSession.ps1.md](../../../docs/references/pwsh/catzc-tooling-listen/private/Resolve-ListenSession.ps1.md)"
 ---
 #>
 

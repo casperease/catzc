@@ -2,9 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8e2cfc380600"
+    with_body_sha: "4275f68f7446"
   edges:
     test: pwsh/Catzc.Tooling.Listen/tests/Find-DocPattern.Tests.ps1
+    docs: "[Find-DocPattern.ps1.md](../../docs/references/pwsh/catzc-tooling-listen/Find-DocPattern.ps1.md)"
 ---
 #>
 

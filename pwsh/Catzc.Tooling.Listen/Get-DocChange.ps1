@@ -2,9 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2f580a72be38"
+    with_body_sha: "9d5b03d0e634"
   edges:
     test: pwsh/Catzc.Tooling.Listen/tests/Get-DocChange.Tests.ps1
+    docs: "[Get-DocChange.ps1.md](../../docs/references/pwsh/catzc-tooling-listen/Get-DocChange.ps1.md)"
 ---
 #>
 

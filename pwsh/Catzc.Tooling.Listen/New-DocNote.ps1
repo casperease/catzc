@@ -2,9 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: cb6e4ae9347c
+    with_body_sha: a5a2ff715ad5
   edges:
     test: pwsh/Catzc.Tooling.Listen/tests/New-DocNote.Tests.ps1
+    docs: "[New-DocNote.ps1.md](../../docs/references/pwsh/catzc-tooling-listen/New-DocNote.ps1.md)"
 ---
 #>
 

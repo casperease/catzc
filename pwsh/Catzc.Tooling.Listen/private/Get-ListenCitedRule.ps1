@@ -2,8 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "682dce5f8b5b"
+    with_body_sha: "6b863fcf2520"
   edges:
+    docs: "[Get-ListenCitedRule.ps1.md](../../../docs/references/pwsh/catzc-tooling-listen/private/Get-ListenCitedRule.ps1.md)"
     cites:
       - ADR-AUTO
 ---

@@ -3,6 +3,8 @@
 catzc:
   immutable:
     with_body_sha: "9a1441c4224c"
+  edges:
+    docs: "[Get-WrapFreeStamp.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-WrapFreeStamp.ps1.md)"
 ---
 #>
 

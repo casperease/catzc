@@ -2,9 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c4b4b69ce646
+    with_body_sha: c1d1e3cdd7e5
   edges:
     test: pwsh/Catzc.Tooling.Listen/tests/Update-DocSnapshot.Tests.ps1
+    docs: "[Update-DocSnapshot.ps1.md](../../docs/references/pwsh/catzc-tooling-listen/Update-DocSnapshot.ps1.md)"
 ---
 #>
 

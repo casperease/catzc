@@ -3,6 +3,8 @@
 catzc:
   immutable:
     with_body_sha: dc7b50090127
+  edges:
+    docs: "[Assert-BicepParamSlot.ps1.md](../../../docs/references/pwsh/catzc-azure-templates/private/Assert-BicepParamSlot.ps1.md)"
 ---
 #>
 

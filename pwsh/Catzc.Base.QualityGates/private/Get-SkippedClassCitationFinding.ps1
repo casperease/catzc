@@ -5,6 +5,7 @@ catzc:
     with_body_sha: "35ae45393176"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-SkippedClassCitationFinding.Tests.ps1
+    docs: "[Get-SkippedClassCitationFinding.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-SkippedClassCitationFinding.ps1.md)"
 ---
 #>
 
