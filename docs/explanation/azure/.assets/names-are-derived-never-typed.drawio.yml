@@ -22,81 +22,32 @@ content:
   relation: feeds the next
   theme: dark
   bands:
-    - id: band-change
-      label: YOU CHANGE
-    - id: band-run
-      label: YOU RUN
-    - id: band-get
-      label: YOU GET
+    - { id: band-change, label: YOU CHANGE }
+    - { id: band-run, label: YOU RUN }
+    - { id: band-get, label: YOU GET }
   glyphs:
-    - id: g-variants
-      kind: file
-      label: variants.yml
-      in: band-change
-    - id: g-options
-      kind: file
-      label: options.yml
-      in: band-change
-    - id: g-deploy
-      kind: code
-      label: Deploy-Bicep
-      in: band-run
-    - id: g-resource-name
-      kind: code
-      label: Get-BicepResourceName
-      in: band-run
-    - id: g-namer
-      kind: code
-      label: Get-AzureResourceName
-      in: band-get
-    - id: r-name
-      kind: result
-      label: dev-001-weu-zct-sidx-rg
-      in: band-get
-    - id: f-throw
-      kind: failure
-      label: throw
-      in: band-get
+    - { id: g-variants, kind: file, label: variants.yml, in: band-change }
+    - { id: g-options, kind: file, label: options.yml, in: band-change }
+    - { id: g-deploy, kind: code, label: Deploy-Bicep, in: band-run }
+    - { id: g-resource-name, kind: code, label: Get-BicepResourceName, in: band-run }
+    - { id: g-namer, kind: code, label: Get-AzureResourceName, in: band-get }
+    - { id: r-name, kind: result, label: dev-001-weu-zct-sidx-rg, in: band-get }
+    - { id: f-throw, kind: failure, label: throw, in: band-get }
   edges:
-    - from: g-variants
-      to: g-resource-name
-      kind: flow
-      label: ""
-    - from: g-options
-      to: g-resource-name
-      kind: flow
-      label: ""
-    - from: g-deploy
-      to: g-resource-name
-      kind: flow
-      label: ""
-    - from: g-resource-name
-      to: g-namer
-      kind: flow
-      label: ""
-    - from: g-namer
-      to: r-name
-      kind: flow
-      label: ""
-    - from: g-namer
-      to: f-throw
-      kind: fail
-      label: ""
+    - { from: g-variants, to: g-resource-name, kind: flow, label: "" }
+    - { from: g-options, to: g-resource-name, kind: flow, label: "" }
+    - { from: g-deploy, to: g-resource-name, kind: flow, label: "" }
+    - { from: g-resource-name, to: g-namer, kind: flow, label: "" }
+    - { from: g-namer, to: r-name, kind: flow, label: "" }
+    - { from: g-namer, to: f-throw, kind: fail, label: "" }
   markers:
-    - at: g-variants
-      number: 1
-    - at: g-options
-      number: 2
-    - at: g-deploy
-      number: 3
-    - at: g-resource-name
-      number: 4
-    - at: g-namer
-      number: 5
-    - at: r-name
-      number: 6
-    - at: f-throw
-      number: 7
+    - { at: g-variants, number: 1 }
+    - { at: g-options, number: 2 }
+    - { at: g-deploy, number: 3 }
+    - { at: g-resource-name, number: 4 }
+    - { at: g-namer, number: 5 }
+    - { at: r-name, number: 6 }
+    - { at: f-throw, number: 7 }
   legend: auto
   minimaps:
     code-locations:
@@ -140,9 +91,7 @@ content:
           - ADR-AZ-NAMING-ORDERISVARIANT
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
       - cell: pwsh/Catzc.Azure.Cli/.
-        by:
-          - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
-          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+        by: [pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1, ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT]
       - cell: pwsh/Catzc.Azure.Templates/.
         by:
           - pwsh/Catzc.Azure.Templates/Get-AzureResourceName.ps1
@@ -199,9 +148,7 @@ content:
           - ADR-AZ-NAMING-ORDERISVARIANT
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
       - cell: subject/Catzc.Azure.Cli
-        by:
-          - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
-          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+        by: [pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1, ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT]
       - cell: subject/Catzc.Azure.Templates
         by:
           - pwsh/Catzc.Azure.Templates/Get-AzureResourceName.ps1
@@ -247,53 +194,13 @@ content:
           - ADR-AZ-NAMING-ORDERISVARIANT
           - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
 layout:
-  band-change:
-    x: 20
-    y: 84
-    w: 1260
-    h: 110
-  band-run:
-    x: 20
-    y: 214
-    w: 1260
-    h: 100
-  band-get:
-    x: 20
-    y: 334
-    w: 1260
-    h: 200
-  g-variants:
-    x: 700
-    y: 122
-    w: 240
-    h: 52
-  g-options:
-    x: 1000
-    y: 122
-    w: 240
-    h: 52
-  g-deploy:
-    x: 140
-    y: 246
-    w: 280
-    h: 44
-  g-resource-name:
-    x: 700
-    y: 246
-    w: 540
-    h: 44
-  g-namer:
-    x: 820
-    y: 374
-    w: 300
-    h: 44
-  r-name:
-    x: 140
-    y: 374
-    w: 420
-    h: 44
-  f-throw:
-    x: 820
-    y: 464
-    w: 300
-    h: 44
+  band-change: { x: 20, y: 84, w: 1260, h: 110 }
+  band-run: { x: 20, y: 214, w: 1260, h: 100 }
+  band-get: { x: 20, y: 334, w: 1260, h: 200 }
+  g-variants: { x: 700, y: 122, w: 240, h: 52 }
+  g-options: { x: 1000, y: 122, w: 240, h: 52 }
+  g-deploy: { x: 140, y: 246, w: 280, h: 44 }
+  g-resource-name: { x: 700, y: 246, w: 540, h: 44 }
+  g-namer: { x: 820, y: 374, w: 300, h: 44 }
+  r-name: { x: 140, y: 374, w: 420, h: 44 }
+  f-throw: { x: 820, y: 464, w: 300, h: 44 }

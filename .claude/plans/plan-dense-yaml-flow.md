@@ -6,16 +6,26 @@ plan:
   class: feature
   targets:
     [
-      python/catzc_diagrams/declaration.py,
-      python/catzc_diagrams/tests/test_declaration.py,
-      docs/drs/repository/slides-as-markdown.md,
-      docs/drs/azure/.assets/azure-name-assembly.drawio.yml,
+      docs/explanation/design/.assets,
+      docs/explanation/flow/.assets,
+      docs/explanation/automation/.assets,
+      docs/explanation/azure/.assets,
+      docs/references/pwsh/.assets,
+      docs/explanation/repository/.assets,
+      docs/explanation/configuration/.assets,
+      docs/explanation/ado/.assets,
+      docs/explanation/thesis/.assets,
+      docs/explanation/thesis/product-thesis/.assets,
+      docs/drs/flow/.assets,
+      docs/drs/automation/BCL/.assets,
+      docs/how-to/pwsh/.assets,
+      docs/explanation/repository/build-diagrams-runs-five-stages.md,
     ]
 ---
 
 # Dense yaml flow
 
-A diagram declaration is high-density data: `azure-name-assembly.drawio.yml` spends 374 lines on glyphs, edges and groups of three to four
+A diagram declaration is high-density data: `azure-name-assembly.drawio.yml` spent 374 lines on glyphs, edges and groups of three to four
 short keys each, one key per line. The default block style suits most yml; a declaration reads better with each small record on one line.
 
 ## Why its value
@@ -37,25 +47,33 @@ opens one of the 176 declarations.
   printed declaration passes Test-Formatting unchanged.
 - **Reading does not change:** YAML parses flow and block alike, so `read_source`, `load` and the pwsh readers (`Write-DiagramMinimapData`,
   `Get-DiagramDeclarationText`) stay as they are.
+- **The other 175 declarations are reflowed, one `.assets/` folder at a time** (the user, 2026-10-22), each write guarded by the `load()`
+  parity check, so the tree holds one print form (PDR-ONELIVE).
+- **No other yml flattens** (the user, 2026-10-22): configs are hand-authored and Prettier keeps a flow line a person writes; a second dense
+  file kind opens its own plan.
 
 ## Open steps
 
-- [ ] The user commits the pilot (`azure-name-assembly.drawio.yml` at 156 lines, its png byte-identical, with `declaration.py`'s quoting,
-      fill and LF-write fixes; catzc-54, 2026-10-22), then answers the first question below, which opens the rest. (check: `git log -1` on
-      the yml shows the 156-line form)
+Each step runs `declaration.py reflow` on every declaration of one folder (or the one article carrier), one file at a time. Its check, the
+same for each: every `.drawio.yml` of the folder shorter or equal, `Test-Formatting -Path <folder>` at 0, `Build-Diagrams -Path <folder>`
+clean, and `git status --short <folder>` lists `.drawio.yml` files only, so no png changed.
 
-## Open questions
-
-- **The other 175 declarations.** Recommended: reflow them through the subcommand after the pilot is committed, a folder of `.assets/` at a
-  time, each write already guarded by the `load()` parity check, with the folder's renders checked unchanged. The alternative is to leave
-  them until a sync rewrites each one, which leaves two print forms in the tree for a long time (PDR-ONELIVE).
-- **Other dense yml.** Recommended: no. Configs are hand-authored, and Prettier keeps a flow line a person writes. A generic flattening step
-  in Format-Code would need a comment-preserving YAML round trip that pwsh lacks; it opens as its own plan if a second dense file kind turns
-  up.
+- [ ] `docs/explanation/design/.assets` (46). (check: as above)
+- [ ] `docs/explanation/flow/.assets` (35). (check: as above)
+- [ ] `docs/explanation/automation/.assets` (30). (check: as above)
+- [ ] `docs/explanation/azure/.assets` (20). (check: as above)
+- [ ] `docs/references/pwsh/.assets` (12). (check: as above)
+- [ ] `docs/explanation/repository/.assets` (10), and the article carrier's `yml drawio` block in
+      `docs/explanation/repository/build-diagrams-runs-five-stages.md`. (check: as above, and `Test-Formatting` on the page at 0)
+- [ ] `docs/explanation/configuration/.assets` (10). (check: as above)
+- [ ] The small folders, one at a time: `docs/explanation/ado/.assets` (5), `docs/explanation/thesis/.assets` (2),
+      `docs/explanation/thesis/product-thesis/.assets` (1), `docs/drs/flow/.assets` (2), `docs/drs/automation/BCL/.assets` (1),
+      `docs/how-to/pwsh/.assets` (1). (check: as above, per folder)
 
 ## Refs
 
 - The writers: `dump()` and `minimaps_block()` in `python/catzc_diagrams/declaration.py`; `save()` (sync) and `declare_minimaps()` call
-  them.
+  them; `reflow` rewrites one declaration and refuses a write whose `load()` differs.
+- The pilot: `docs/drs/azure/.assets/azure-name-assembly.drawio.yml`, committed in 4870b9a4d at 155 lines.
 - The limit: `pwsh/Catzc.Base.RootConfig/assets/root/.editorconfig` `[*.md]`, materialised to the root by Build-RootConfig;
   `.prettierrc.yml` `printWidth` holds the same 140.

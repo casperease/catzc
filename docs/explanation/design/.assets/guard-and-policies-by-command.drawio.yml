@@ -8,9 +8,7 @@ description:
   A person turns on the local guard by setting one variant and re-running the importer, which then skips the generated-file commit on main;
   an admin syncs the server's branch policies with one command and lists what the server holds.
 about:
-  adrs:
-    - DDR-REMOTE-INTEGRATEFROMVERIFIED
-    - DDR-REMOTE-PULLREQUESTISINGRESS
+  adrs: [DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
   lens: operations
 content:
   title: A person turns on the local guard with one variant; an admin syncs the server policies with one command
@@ -19,75 +17,30 @@ content:
   relation: then
   theme: dark
   bands:
-    - id: band-clone
-      label: ON A CLONE
-    - id: band-admin
-      label: ADMIN
+    - { id: band-clone, label: ON A CLONE }
+    - { id: band-admin, label: ADMIN }
   glyphs:
-    - id: f-variants
-      kind: file
-      label: variants.yml
-      in: band-clone
-    - id: c-importer
-      kind: code
-      label: importer.ps1
-      in: band-clone
-    - id: c-sync
-      kind: code
-      label: Sync-GeneratedFile
-      in: band-clone
-    - id: f-skipped
-      kind: failure
-      label: Skipped on main
-      in: band-clone
-    - id: c-validations
-      kind: code
-      label: Sync-AdoBuildValidations
-      in: band-admin
-    - id: g-policy
-      kind: gate
-      label: ADO branch policy
-      in: band-admin
-    - id: c-list
-      kind: code
-      label: Get-AdoBuildValidations
-      in: band-admin
+    - { id: f-variants, kind: file, label: variants.yml, in: band-clone }
+    - { id: c-importer, kind: code, label: importer.ps1, in: band-clone }
+    - { id: c-sync, kind: code, label: Sync-GeneratedFile, in: band-clone }
+    - { id: f-skipped, kind: failure, label: Skipped on main, in: band-clone }
+    - { id: c-validations, kind: code, label: Sync-AdoBuildValidations, in: band-admin }
+    - { id: g-policy, kind: gate, label: ADO branch policy, in: band-admin }
+    - { id: c-list, kind: code, label: Get-AdoBuildValidations, in: band-admin }
   edges:
-    - from: f-variants
-      to: c-importer
-      kind: flow
-      label: ""
-    - from: c-importer
-      to: c-sync
-      kind: flow
-      label: ""
-    - from: c-sync
-      to: f-skipped
-      kind: fail
-      label: ""
-    - from: c-validations
-      to: g-policy
-      kind: flow
-      label: ""
-    - from: g-policy
-      to: c-list
-      kind: flow
-      label: ""
+    - { from: f-variants, to: c-importer, kind: flow, label: "" }
+    - { from: c-importer, to: c-sync, kind: flow, label: "" }
+    - { from: c-sync, to: f-skipped, kind: fail, label: "" }
+    - { from: c-validations, to: g-policy, kind: flow, label: "" }
+    - { from: g-policy, to: c-list, kind: flow, label: "" }
   markers:
-    - at: f-variants
-      number: 1
-    - at: c-importer
-      number: 2
-    - at: c-sync
-      number: 3
-    - at: f-skipped
-      number: 4
-    - at: c-validations
-      number: 5
-    - at: g-policy
-      number: 6
-    - at: c-list
-      number: 7
+    - { at: f-variants, number: 1 }
+    - { at: c-importer, number: 2 }
+    - { at: c-sync, number: 3 }
+    - { at: f-skipped, number: 4 }
+    - { at: c-validations, number: 5 }
+    - { at: g-policy, number: 6 }
+    - { at: c-list, number: 7 }
   legend: auto
   minimaps:
     code-locations:
@@ -99,68 +52,22 @@ content:
           - DDR-REMOTE-INTEGRATEFROMVERIFIED
           - DDR-REMOTE-PULLREQUESTISINGRESS
       - cell: pwsh/Catzc.Base.Drs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-PULLREQUESTISINGRESS
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
     module-neighbourhood:
       - cell: subject/Catzc.Base.Drs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-PULLREQUESTISINGRESS
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
     axis:
       - cell: DSGN/build
-        by:
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-PULLREQUESTISINGRESS
+        by: [DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
       - cell: DSGN/quality-control
-        by:
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-PULLREQUESTISINGRESS
+        by: [DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
 layout:
-  band-clone:
-    x: 20
-    y: 84
-    w: 1260
-    h: 140
-  band-admin:
-    x: 20
-    y: 244
-    w: 1260
-    h: 140
-  f-variants:
-    x: 60
-    y: 130
-    w: 130
-    h: 52
-  c-importer:
-    x: 260
-    y: 134
-    w: 150
-    h: 44
-  c-sync:
-    x: 480
-    y: 134
-    w: 180
-    h: 44
-  f-skipped:
-    x: 740
-    y: 134
-    w: 170
-    h: 44
-  c-validations:
-    x: 60
-    y: 294
-    w: 210
-    h: 44
-  g-policy:
-    x: 340
-    y: 280
-    w: 170
-    h: 72
-  c-list:
-    x: 590
-    y: 294
-    w: 210
-    h: 44
+  band-clone: { x: 20, y: 84, w: 1260, h: 140 }
+  band-admin: { x: 20, y: 244, w: 1260, h: 140 }
+  f-variants: { x: 60, y: 130, w: 130, h: 52 }
+  c-importer: { x: 260, y: 134, w: 150, h: 44 }
+  c-sync: { x: 480, y: 134, w: 180, h: 44 }
+  f-skipped: { x: 740, y: 134, w: 170, h: 44 }
+  c-validations: { x: 60, y: 294, w: 210, h: 44 }
+  g-policy: { x: 340, y: 280, w: 170, h: 72 }
+  c-list: { x: 590, y: 294, w: 210, h: 44 }

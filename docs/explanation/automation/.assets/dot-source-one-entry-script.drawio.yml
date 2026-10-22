@@ -4,13 +4,10 @@
 #     with_body_sha: a572df28370f
 # ---
 
-description:
-  "Two entry scripts, one per run mode, start the same load: session set-up, load, a run-mode check and the janitors, ending on one line in
-  a console session; each of the three checks that can stop the load fails with a named error."
+description: 'Two entry scripts, one per run mode, start the same load: session set-up, load, a run-mode check and the janitors, ending on one
+  line in a console session; each of the three checks that can stop the load fails with a named error.'
 about:
-  adrs:
-    - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
-    - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+  adrs: [ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION]
   lens: operations
 content:
   title: Dot-source one entry script, and a failed check stops the load with a named error
@@ -19,95 +16,35 @@ content:
   relation: runs next
   theme: dark
   bands:
-    - id: band-run
-      label: RUN AND SEE
+    - { id: band-run, label: RUN AND SEE }
   glyphs:
-    - id: g-importer
-      kind: code
-      label: . ./importer.ps1
-      in: band-run
-    - id: g-import-catzc
-      kind: code
-      label: . Import-Catzc.ps1
-      in: band-run
-    - id: g-session
-      kind: code
-      label: Session set-up
-      in: band-run
-    - id: g-load
-      kind: code
-      label: Load
-      in: band-run
-    - id: g-mode
-      kind: gate
-      label: Run-mode check
-      in: band-run
-    - id: g-janitors
-      kind: code
-      label: Janitors
-      in: band-run
-    - id: r-loaded
-      kind: result
-      label: Loaded in N seconds
-      in: band-run
-    - id: f-stops
-      kind: failure
-      label: Stops with a named error
-      in: band-run
+    - { id: g-importer, kind: code, label: . ./importer.ps1, in: band-run }
+    - { id: g-import-catzc, kind: code, label: . Import-Catzc.ps1, in: band-run }
+    - { id: g-session, kind: code, label: Session set-up, in: band-run }
+    - { id: g-load, kind: code, label: Load, in: band-run }
+    - { id: g-mode, kind: gate, label: Run-mode check, in: band-run }
+    - { id: g-janitors, kind: code, label: Janitors, in: band-run }
+    - { id: r-loaded, kind: result, label: Loaded in N seconds, in: band-run }
+    - { id: f-stops, kind: failure, label: Stops with a named error, in: band-run }
   edges:
-    - from: g-importer
-      to: g-session
-      kind: flow
-      label: ""
-    - from: g-import-catzc
-      to: g-session
-      kind: flow
-      label: ""
-    - from: g-session
-      to: g-load
-      kind: flow
-      label: ""
-    - from: g-load
-      to: g-mode
-      kind: flow
-      label: ""
-    - from: g-mode
-      to: g-janitors
-      kind: flow
-      label: ""
-    - from: g-janitors
-      to: r-loaded
-      kind: flow
-      label: ""
-    - from: g-session
-      to: f-stops
-      kind: fail
-      label: ""
-    - from: g-load
-      to: f-stops
-      kind: fail
-      label: ""
-    - from: g-mode
-      to: f-stops
-      kind: fail
-      label: ""
+    - { from: g-importer, to: g-session, kind: flow, label: "" }
+    - { from: g-import-catzc, to: g-session, kind: flow, label: "" }
+    - { from: g-session, to: g-load, kind: flow, label: "" }
+    - { from: g-load, to: g-mode, kind: flow, label: "" }
+    - { from: g-mode, to: g-janitors, kind: flow, label: "" }
+    - { from: g-janitors, to: r-loaded, kind: flow, label: "" }
+    - { from: g-session, to: f-stops, kind: fail, label: "" }
+    - { from: g-load, to: f-stops, kind: fail, label: "" }
+    - { from: g-mode, to: f-stops, kind: fail, label: "" }
   markers:
-    - at: g-importer
-      number: 1
-    - at: g-import-catzc
-      number: 2
-    - at: g-session
-      number: 3
-    - at: g-load
-      number: 4
-    - at: g-mode
-      number: 5
-    - at: g-janitors
-      number: 6
-    - at: r-loaded
-      number: 7
-    - at: f-stops
-      number: 8
+    - { at: g-importer, number: 1 }
+    - { at: g-import-catzc, number: 2 }
+    - { at: g-session, number: 3 }
+    - { at: g-load, number: 4 }
+    - { at: g-mode, number: 5 }
+    - { at: g-janitors, number: 6 }
+    - { at: r-loaded, number: 7 }
+    - { at: f-stops, number: 8 }
   legend: auto
   minimaps:
     code-locations:
@@ -126,15 +63,9 @@ content:
           - ADR-AUTO-BUNDLE-BUNDLEISSESSION
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
       - cell: pwsh/Catzc.Base.Drs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
-          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
       - cell: pwsh/Catzc.Base.Exporter/configs
-        by:
-          - pwsh/Catzc.Base.Exporter/configs/exporter.yml
-          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
-          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+        by: [pwsh/Catzc.Base.Exporter/configs/exporter.yml, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
       - cell: pwsh/Catzc.Base.Exporter/private
         by:
           - pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
@@ -147,10 +78,7 @@ content:
           - ADR-AUTO-BUNDLE-BUNDLEISSESSION
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
       - cell: pwsh/Catzc.Internal.Assets/.
-        by:
-          - pwsh/.internal/assets/Import-Catzc.ps1
-          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
-          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+        by: [pwsh/.internal/assets/Import-Catzc.ps1, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
     grid:
       - cell: docs/markdown
         by:
@@ -185,62 +113,19 @@ content:
           - ADR-AUTO-BUNDLE-BUNDLEISSESSION
           - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
       - cell: (no track)/powershell
-        by:
-          - importer.ps1
-          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
-          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+        by: [importer.ps1, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
     axis:
       - cell: AUTO/build
-        by:
-          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
-          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+        by: [ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
       - cell: AUTO/release
-        by:
-          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
-          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+        by: [ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
 layout:
-  band-run:
-    x: 20
-    y: 84
-    w: 1260
-    h: 470
-  g-importer:
-    x: 340
-    y: 128
-    w: 190
-    h: 44
-  g-import-catzc:
-    x: 550
-    y: 128
-    w: 190
-    h: 44
-  g-session:
-    x: 340
-    y: 194
-    w: 400
-    h: 44
-  g-load:
-    x: 340
-    y: 260
-    w: 400
-    h: 44
-  g-mode:
-    x: 400
-    y: 324
-    w: 280
-    h: 68
-  g-janitors:
-    x: 340
-    y: 420
-    w: 400
-    h: 44
-  r-loaded:
-    x: 340
-    y: 486
-    w: 400
-    h: 44
-  f-stops:
-    x: 900
-    y: 260
-    w: 220
-    h: 44
+  band-run: { x: 20, y: 84, w: 1260, h: 470 }
+  g-importer: { x: 340, y: 128, w: 190, h: 44 }
+  g-import-catzc: { x: 550, y: 128, w: 190, h: 44 }
+  g-session: { x: 340, y: 194, w: 400, h: 44 }
+  g-load: { x: 340, y: 260, w: 400, h: 44 }
+  g-mode: { x: 400, y: 324, w: 280, h: 68 }
+  g-janitors: { x: 340, y: 420, w: 400, h: 44 }
+  r-loaded: { x: 340, y: 486, w: 400, h: 44 }
+  f-stops: { x: 900, y: 260, w: 220, h: 44 }

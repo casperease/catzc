@@ -8,8 +8,7 @@ description:
   The deploy target is the subscription the az session is signed in to; the guard states which subscription the session is expected to
   target and only confirms it, stopping a mis-wired connection, and never selects one.
 about:
-  adrs:
-    - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+  adrs: [ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
   lens: meta
 content:
   title: The az session is the deploy target, and the guard only checks it
@@ -18,60 +17,29 @@ content:
   relation: decides the next step
   theme: dark
   bands:
-    - id: band-session
-      label: SESSION
-    - id: band-guard
-      label: GUARD
+    - { id: band-session, label: SESSION }
+    - { id: band-guard, label: GUARD }
   glyphs:
-    - id: x-session
-      kind: external
-      label: az session
-      in: band-session
-    - id: g-guard
-      kind: gate
-      label: subscription guard
-      in: band-guard
-    - id: r-target
-      kind: result
-      label: deploy target
-      in: band-guard
-    - id: f-mis-wired
-      kind: failure
-      label: mis-wired connection
-      in: band-guard
+    - { id: x-session, kind: external, label: az session, in: band-session }
+    - { id: g-guard, kind: gate, label: subscription guard, in: band-guard }
+    - { id: r-target, kind: result, label: deploy target, in: band-guard }
+    - { id: f-mis-wired, kind: failure, label: mis-wired connection, in: band-guard }
   edges:
-    - from: x-session
-      to: g-guard
-      kind: flow
-      label: ""
-    - from: g-guard
-      to: r-target
-      kind: flow
-      label: ""
-    - from: g-guard
-      to: f-mis-wired
-      kind: fail
-      label: ""
+    - { from: x-session, to: g-guard, kind: flow, label: "" }
+    - { from: g-guard, to: r-target, kind: flow, label: "" }
+    - { from: g-guard, to: f-mis-wired, kind: fail, label: "" }
   markers:
-    - at: x-session
-      number: 1
-    - at: g-guard
-      number: 2
-    - at: r-target
-      number: 3
-    - at: f-mis-wired
-      number: 4
+    - { at: x-session, number: 1 }
+    - { at: g-guard, number: 2 }
+    - { at: r-target, number: 3 }
+    - { at: f-mis-wired, number: 4 }
   legend: auto
   minimaps:
     code-locations:
       - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/cd-shared.yaml
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [.ado/pipelines/cd-shared.yaml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: ado-pipelines/pipelines/extends
-        by:
-          - .ado/pipelines/extends/cd-customer.yaml
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [.ado/pipelines/extends/cd-customer.yaml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: docs/-/.
         by:
           - docs/drs/azure/azure-data-model.md
@@ -104,29 +72,17 @@ content:
           - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
       - cell: infrastructure/discovery/.
-        by:
-          - infrastructure/templates/discovery/options.yml
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [infrastructure/templates/discovery/options.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: infrastructure/expedition/.
-        by:
-          - infrastructure/templates/expedition/options.yml
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [infrastructure/templates/expedition/options.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: infrastructure/foundation/.
-        by:
-          - infrastructure/templates/foundation/options.yml
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [infrastructure/templates/foundation/options.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: pwsh/Catzc.Azure/.
-        by:
-          - pwsh/Catzc.Azure/Get-AzureSubscriptionEnvironment.ps1
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [pwsh/Catzc.Azure/Get-AzureSubscriptionEnvironment.ps1, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: pwsh/Catzc.Azure/configs
-        by:
-          - pwsh/Catzc.Azure/configs/azure.yml
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [pwsh/Catzc.Azure/configs/azure.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: pwsh/Catzc.Azure/tests/types
-        by:
-          - pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: pwsh/Catzc.Azure/types
         by:
           - pwsh/Catzc.Azure/types/AzureConfig.cs
@@ -156,13 +112,9 @@ content:
           - pwsh/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
       - cell: pwsh/Catzc.Base.Drs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: pwsh/Catzc.Base.QualityGates/private
-        by:
-          - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
     module-neighbourhood:
       - cell: subject/Catzc.Azure
         by:
@@ -193,65 +145,26 @@ content:
           - pwsh/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
       - cell: subject/Catzc.Base.Drs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: subject/Catzc.Base.QualityGates
-        by:
-          - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: subject/discovery
-        by:
-          - infrastructure/templates/discovery/options.yml
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [infrastructure/templates/discovery/options.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: subject/expedition
-        by:
-          - infrastructure/templates/expedition/options.yml
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [infrastructure/templates/expedition/options.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: subject/foundation
-        by:
-          - infrastructure/templates/foundation/options.yml
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [infrastructure/templates/foundation/options.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: subject/pipelines
-        by:
-          - .ado/pipelines/cd-shared.yaml
-          - .ado/pipelines/extends/cd-customer.yaml
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [.ado/pipelines/cd-shared.yaml, .ado/pipelines/extends/cd-customer.yaml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
     axis:
       - cell: CLOUD/deploy
-        by:
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: CLOUD/access
-        by:
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
 layout:
-  band-session:
-    x: 20
-    y: 84
-    w: 560
-    h: 250
-  band-guard:
-    x: 600
-    y: 84
-    w: 680
-    h: 250
-  x-session:
-    x: 200
-    y: 156
-    w: 200
-    h: 52
-  g-guard:
-    x: 700
-    y: 148
-    w: 200
-    h: 68
-  r-target:
-    x: 1040
-    y: 160
-    w: 200
-    h: 44
-  f-mis-wired:
-    x: 700
-    y: 268
-    w: 200
-    h: 44
+  band-session: { x: 20, y: 84, w: 560, h: 250 }
+  band-guard: { x: 600, y: 84, w: 680, h: 250 }
+  x-session: { x: 200, y: 156, w: 200, h: 52 }
+  g-guard: { x: 700, y: 148, w: 200, h: 68 }
+  r-target: { x: 1040, y: 160, w: 200, h: 44 }
+  f-mis-wired: { x: 700, y: 268, w: 200, h: 44 }

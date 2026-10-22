@@ -29,143 +29,53 @@ content:
   relation: output read by the next
   theme: dark
   bands:
-    - id: band-source
-      label: SOURCE
-    - id: band-load
-      label: LOAD
-    - id: band-flatten
-      label: FLATTEN
-    - id: band-roles
-      label: ROLES
-    - id: band-checked
-      label: CHECKED BY
+    - { id: band-source, label: SOURCE }
+    - { id: band-load, label: LOAD }
+    - { id: band-flatten, label: FLATTEN }
+    - { id: band-roles, label: ROLES }
+    - { id: band-checked, label: CHECKED BY }
   glyphs:
-    - id: f-registry
-      kind: file
-      label: Registry
-      in: band-source
-    - id: g-independence
-      kind: gate
-      label: Test-GlobSetIndependence
-      in: band-source
-    - id: g-config-load
-      kind: gate
-      label: Config load
-      in: band-load
-    - id: g-scan-program
-      kind: code
-      label: Scan program
-      in: band-flatten
-    - id: g-projection
-      kind: code
-      label: Native projection
-      in: band-roles
-    - id: g-git-reflection
-      kind: code
-      label: Git reflection
-      in: band-roles
-    - id: g-live-identity
-      kind: code
-      label: Live identity
-      in: band-roles
-    - id: g-trigger-gates
-      kind: gate
-      label: Trigger gates
-      in: band-checked
+    - { id: f-registry, kind: file, label: Registry, in: band-source }
+    - { id: g-independence, kind: gate, label: Test-GlobSetIndependence, in: band-source }
+    - { id: g-config-load, kind: gate, label: Config load, in: band-load }
+    - { id: g-scan-program, kind: code, label: Scan program, in: band-flatten }
+    - { id: g-projection, kind: code, label: Native projection, in: band-roles }
+    - { id: g-git-reflection, kind: code, label: Git reflection, in: band-roles }
+    - { id: g-live-identity, kind: code, label: Live identity, in: band-roles }
+    - { id: g-trigger-gates, kind: gate, label: Trigger gates, in: band-checked }
   edges:
-    - from: f-registry
-      to: g-independence
-      kind: flow
-      label: ""
-    - from: f-registry
-      to: g-config-load
-      kind: flow
-      label: ""
-    - from: g-config-load
-      to: g-scan-program
-      kind: flow
-      label: ""
-    - from: g-scan-program
-      to: g-projection
-      kind: flow
-      label: ""
-    - from: g-scan-program
-      to: g-git-reflection
-      kind: flow
-      label: ""
-    - from: g-scan-program
-      to: g-live-identity
-      kind: flow
-      label: ""
-    - from: g-projection
-      to: g-trigger-gates
-      kind: flow
-      label: ""
+    - { from: f-registry, to: g-independence, kind: flow, label: "" }
+    - { from: f-registry, to: g-config-load, kind: flow, label: "" }
+    - { from: g-config-load, to: g-scan-program, kind: flow, label: "" }
+    - { from: g-scan-program, to: g-projection, kind: flow, label: "" }
+    - { from: g-scan-program, to: g-git-reflection, kind: flow, label: "" }
+    - { from: g-scan-program, to: g-live-identity, kind: flow, label: "" }
+    - { from: g-projection, to: g-trigger-gates, kind: flow, label: "" }
   markers:
-    - at: f-registry
-      number: 1
-    - at: g-independence
-      number: 2
-    - at: g-config-load
-      number: 3
-    - at: g-scan-program
-      number: 4
-    - at: g-projection
-      number: 5
-    - at: g-trigger-gates
-      number: 6
-    - at: g-git-reflection
-      number: 7
-    - at: g-live-identity
-      number: 8
+    - { at: f-registry, number: 1 }
+    - { at: g-independence, number: 2 }
+    - { at: g-config-load, number: 3 }
+    - { at: g-scan-program, number: 4 }
+    - { at: g-projection, number: 5 }
+    - { at: g-trigger-gates, number: 6 }
+    - { at: g-git-reflection, number: 7 }
+    - { at: g-live-identity, number: 8 }
   chips:
-    - at: f-registry
-      kind: rule
-      rule: FDR-CD-GLOBS-NAMEDGLOBSETS
-    - at: f-registry
-      kind: rule
-      rule: FDR-CD-GLOBS-EVERYSETHASLAYER
-    - at: f-registry
-      kind: rule
-      rule: FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
-    - at: g-independence
-      kind: rule
-      rule: FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
-    - at: g-independence
-      kind: rule
-      rule: ADR-AUTO-TEST-QUALITYGATE
-    - at: g-config-load
-      kind: rule
-      rule: FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED
-    - at: g-config-load
-      kind: rule
-      rule: FDR-CD-GLOBS-COMPOSESETS
-    - at: g-scan-program
-      kind: rule
-      rule: FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
-    - at: g-scan-program
-      kind: rule
-      rule: FDR-CD-GLOBS-TRACKEDFILESONLY
-    - at: g-scan-program
-      kind: rule
-      rule: FDR-CD-GLOBS-COMPOSESETS
-    - at: g-projection
-      kind: rule
-      rule: FDR-CD-GLOBS-NATIVEPATHFILTER
-    - at: g-git-reflection
-      kind: rule
-      rule: FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-      gated: false
-    - at: g-live-identity
-      kind: rule
-      rule: FDR-CD-GLOBS-DURABLESHAIDENTITY
-      gated: false
-    - at: g-trigger-gates
-      kind: rule
-      rule: FDR-CD-GLOBS-NATIVEPATHFILTER
-    - at: g-trigger-gates
-      kind: rule
-      rule: ADR-AUTO-TEST-QUALITYGATE
+    - { at: f-registry, kind: rule, rule: FDR-CD-GLOBS-NAMEDGLOBSETS }
+    - { at: f-registry, kind: rule, rule: FDR-CD-GLOBS-EVERYSETHASLAYER }
+    - { at: f-registry, kind: rule, rule: FDR-CD-GLOBS-NOOVERLAPWITHINLAYER }
+    - { at: g-independence, kind: rule, rule: FDR-CD-GLOBS-NOOVERLAPWITHINLAYER }
+    - { at: g-independence, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
+    - { at: g-config-load, kind: rule, rule: FDR-CD-GLOBS-MALFORMEDPATTERNREJECTED }
+    - { at: g-config-load, kind: rule, rule: FDR-CD-GLOBS-COMPOSESETS }
+    - { at: g-scan-program, kind: rule, rule: FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS }
+    - { at: g-scan-program, kind: rule, rule: FDR-CD-GLOBS-TRACKEDFILESONLY }
+    - { at: g-scan-program, kind: rule, rule: FDR-CD-GLOBS-COMPOSESETS }
+    - { at: g-projection, kind: rule, rule: FDR-CD-GLOBS-NATIVEPATHFILTER }
+    - { at: g-git-reflection, kind: rule, rule: FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, gated: false }
+    - { at: g-live-identity, kind: rule, rule: FDR-CD-GLOBS-DURABLESHAIDENTITY, gated: false }
+    - { at: g-trigger-gates, kind: rule, rule: FDR-CD-GLOBS-NATIVEPATHFILTER }
+    - { at: g-trigger-gates, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
   legend: auto
   minimaps:
     code-locations:
@@ -184,13 +94,9 @@ content:
           - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
           - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: .claude/.claude/agents
-        by:
-          - .claude/agents/test-optimization.md
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [.claude/agents/test-optimization.md, ADR-AUTO-TEST-QUALITYGATE]
       - cell: .claude/.claude/skills/test-speed
-        by:
-          - .claude/skills/test-speed/SKILL.md
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [.claude/skills/test-speed/SKILL.md, ADR-AUTO-TEST-QUALITYGATE]
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/cd-apex.yaml
@@ -210,9 +116,7 @@ content:
           - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
           - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: ado-pipelines/pipelines/extends
-        by:
-          - .ado/pipelines/extends/cd-customer.yaml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [.ado/pipelines/extends/cd-customer.yaml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -399,9 +303,7 @@ content:
           - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
           - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Azure/.
-        by:
-          - pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Azure.DevOps/.
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -418,9 +320,7 @@ content:
           - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
           - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Azure.DevOps/tests
-        by:
-          - pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -463,21 +363,13 @@ content:
           - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
           - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.Config/tests
-        by:
-          - pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.ConfigExtensions/.
-        by:
-          - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Contracts/.
-        by:
-          - pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Contracts/Test-Contracts.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Contracts/tests
-        by:
-          - pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Docs/.
         by:
           - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
@@ -485,20 +377,14 @@ content:
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Docs/configs
-        by:
-          - pwsh/Catzc.Base.Docs/configs/agents.yml
-          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Docs/configs/agents.yml, pwsh/Catzc.Base.Docs/configs/capabilities.yml, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Docs/tests
         by:
           - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Drs/.
-        by:
-          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
-          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1, pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
@@ -538,13 +424,9 @@ content:
           - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
           - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.Execution/.
-        by:
-          - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Execution/Invoke-Executable.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Exporter/.
-        by:
-          - pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
-          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+        by: [pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1, FDR-CD-GLOBS-DURABLESHAIDENTITY]
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
@@ -681,9 +563,7 @@ content:
           - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
           - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.Modules/tests
-        by:
-          - pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.ModuleSystem/.
         by:
           - pwsh/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1
@@ -694,9 +574,7 @@ content:
           - pwsh/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.ModuleSystem/configs
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.ModuleSystem/tests
         by:
           - pwsh/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1
@@ -785,47 +663,28 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/TestTitle-TemplateTokens.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Reports/.
-        by:
-          - pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/configs
-        by:
-          - pwsh/Catzc.Base.Reports/configs/reports.yml
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/configs/reports.yml, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/tests
-        by:
-          - pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/tests/types
-        by:
-          - pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/types
-        by:
-          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
-          - pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/types/CheckMode.cs, pwsh/Catzc.Base.Reports/types/ReportsConfig.cs, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.RootConfig/.
         by:
           - pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
           - pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.RootConfig/tests
-        by:
-          - pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.TypesSystem/.
-        by:
-          - pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Internal.Tests/.
-        by:
-          - pwsh/.internal/tests/Test-FolderConventions.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/.internal/tests/Test-FolderConventions.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Tooling.KeyHandler/private
-        by:
-          - pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1, ADR-AUTO-TEST-QUALITYGATE]
     module-neighbourhood:
       - cell: subject/.claude
         by:
@@ -844,9 +703,7 @@ content:
           - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
           - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: subject/Catzc.Azure
-        by:
-          - pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: subject/Catzc.Azure.DevOps
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -881,13 +738,9 @@ content:
           - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
           - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: subject/Catzc.Base.Config
-        by:
-          - pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: subject/Catzc.Base.ConfigExtensions
-        by:
-          - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: subject/Catzc.Base.Contracts
         by:
           - pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
@@ -928,13 +781,9 @@ content:
           - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
           - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: subject/Catzc.Base.Execution
-        by:
-          - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Execution/Invoke-Executable.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: subject/Catzc.Base.Exporter
-        by:
-          - pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
-          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+        by: [pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1, FDR-CD-GLOBS-DURABLESHAIDENTITY]
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
@@ -1025,9 +874,7 @@ content:
           - pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: subject/Catzc.Base.Modules
-        by:
-          - pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/Test-AnalyzerDrsMap.ps1
@@ -1111,17 +958,11 @@ content:
           - pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: subject/Catzc.Base.TypesSystem
-        by:
-          - pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: subject/Catzc.Internal.Tests
-        by:
-          - pwsh/.internal/tests/Test-FolderConventions.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/.internal/tests/Test-FolderConventions.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: subject/Catzc.Tooling.KeyHandler
-        by:
-          - pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: subject/pipelines
         by:
           - .ado/pipelines/cd-apex.yaml
@@ -1168,71 +1009,18 @@ content:
           - FDR-CD-GLOBS-REPOSITORYRELATIVEPATTERNS
           - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: AUTO/quality-control
-        by:
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [ADR-AUTO-TEST-QUALITYGATE]
 layout:
-  band-source:
-    x: 20
-    y: 108
-    w: 1260
-    h: 110
-  band-load:
-    x: 20
-    y: 232
-    w: 1260
-    h: 110
-  band-flatten:
-    x: 20
-    y: 356
-    w: 1260
-    h: 110
-  band-roles:
-    x: 20
-    y: 480
-    w: 1260
-    h: 110
-  band-checked:
-    x: 20
-    y: 604
-    w: 1260
-    h: 110
-  g-independence:
-    x: 80
-    y: 130
-    w: 240
-    h: 80
-  f-registry:
-    x: 560
-    y: 140
-    w: 200
-    h: 64
-  g-config-load:
-    x: 540
-    y: 254
-    w: 240
-    h: 80
-  g-scan-program:
-    x: 560
-    y: 380
-    w: 200
-    h: 64
-  g-projection:
-    x: 100
-    y: 506
-    w: 200
-    h: 56
-  g-git-reflection:
-    x: 330
-    y: 506
-    w: 200
-    h: 56
-  g-live-identity:
-    x: 560
-    y: 506
-    w: 200
-    h: 56
-  g-trigger-gates:
-    x: 70
-    y: 626
-    w: 260
-    h: 80
+  band-source: { x: 20, y: 108, w: 1260, h: 110 }
+  band-load: { x: 20, y: 232, w: 1260, h: 110 }
+  band-flatten: { x: 20, y: 356, w: 1260, h: 110 }
+  band-roles: { x: 20, y: 480, w: 1260, h: 110 }
+  band-checked: { x: 20, y: 604, w: 1260, h: 110 }
+  g-independence: { x: 80, y: 130, w: 240, h: 80 }
+  f-registry: { x: 560, y: 140, w: 200, h: 64 }
+  g-config-load: { x: 540, y: 254, w: 240, h: 80 }
+  g-scan-program: { x: 560, y: 380, w: 200, h: 64 }
+  g-projection: { x: 100, y: 506, w: 200, h: 56 }
+  g-git-reflection: { x: 330, y: 506, w: 200, h: 56 }
+  g-live-identity: { x: 560, y: 506, w: 200, h: 56 }
+  g-trigger-gates: { x: 70, y: 626, w: 260, h: 80 }

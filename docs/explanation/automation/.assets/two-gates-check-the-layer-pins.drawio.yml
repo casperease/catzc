@@ -23,126 +23,53 @@ content:
   relation: runs before
   theme: dark
   bands:
-    - id: band-top
-      label: TOP LAYER
-    - id: band-middle
-      label: MIDDLE LAYER
-    - id: band-foundation
-      label: FOUNDATION
-    - id: band-load
-      label: AT LOAD
-    - id: band-repository
-      label: AGAINST THE REPOSITORY
-    - id: band-no-gate
-      label: NO GATE
+    - { id: band-top, label: TOP LAYER }
+    - { id: band-middle, label: MIDDLE LAYER }
+    - { id: band-foundation, label: FOUNDATION }
+    - { id: band-load, label: AT LOAD }
+    - { id: band-repository, label: AGAINST THE REPOSITORY }
+    - { id: band-no-gate, label: NO GATE }
   glyphs:
-    - id: s-azure-ext
-      kind: set
-      label: AzureExt
-      in: band-top
-    - id: s-tooling
-      kind: set
-      label: Tooling
-      in: band-middle
-    - id: s-base
-      kind: set
-      label: Base
-      in: band-foundation
-    - id: g-load
-      kind: gate
-      label: Load check
-      in: band-load
-    - id: g-quality
-      kind: gate
-      label: Quality gate
-      in: band-repository
-    - id: a-review
-      kind: drsonly
-      label: Same-change review
-      in: band-no-gate
+    - { id: s-azure-ext, kind: set, label: AzureExt, in: band-top }
+    - { id: s-tooling, kind: set, label: Tooling, in: band-middle }
+    - { id: s-base, kind: set, label: Base, in: band-foundation }
+    - { id: g-load, kind: gate, label: Load check, in: band-load }
+    - { id: g-quality, kind: gate, label: Quality gate, in: band-repository }
+    - { id: a-review, kind: drsonly, label: Same-change review, in: band-no-gate }
   edges:
-    - from: s-azure-ext
-      to: s-tooling
-      kind: thick
-      label: ""
-    - from: s-azure-ext
-      to: s-base
-      kind: thick
-      label: ""
-    - from: s-tooling
-      to: s-base
-      kind: thick
-      label: ""
-    - from: g-load
-      to: g-quality
-      kind: flow
-      label: ""
+    - { from: s-azure-ext, to: s-tooling, kind: thick, label: "" }
+    - { from: s-azure-ext, to: s-base, kind: thick, label: "" }
+    - { from: s-tooling, to: s-base, kind: thick, label: "" }
+    - { from: g-load, to: g-quality, kind: flow, label: "" }
   markers:
-    - at: s-azure-ext
-      number: 1
-    - at: s-tooling
-      number: 2
-    - at: s-base
-      number: 3
-    - at: g-load
-      number: 4
-    - at: g-quality
-      number: 5
-    - at: a-review
-      number: 6
+    - { at: s-azure-ext, number: 1 }
+    - { at: s-tooling, number: 2 }
+    - { at: s-base, number: 3 }
+    - { at: g-load, number: 4 }
+    - { at: g-quality, number: 5 }
+    - { at: a-review, number: 6 }
   chips:
-    - at: s-azure-ext
-      kind: rule
-      rule: ADR-AUTO-DEPM-TWOSECTIONS
-    - at: s-azure-ext
-      kind: rule
-      rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
-    - at: s-tooling
-      kind: rule
-      rule: ADR-AUTO-DEPM-TWOSECTIONS
-    - at: s-tooling
-      kind: rule
-      rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
-    - at: s-base
-      kind: rule
-      rule: ADR-AUTO-DEPM-TWOSECTIONS
-    - at: s-base
-      kind: rule
-      rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
-    - at: g-load
-      kind: rule
-      rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
-    - at: g-quality
-      kind: rule
-      rule: ADR-AUTO-DEPM-CODEBUILTFROM
-    - at: g-quality
-      kind: rule
-      rule: ADR-AUTO-DEPM-UNIFIEDGRAPH
-    - at: g-quality
-      kind: rule
-      rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
-    - at: g-quality
-      kind: rule
-      rule: ADR-AUTO-TEST-QUALITYGATE
-    - at: a-review
-      kind: rule
-      rule: ADR-AUTO-DEPM-EXTENDBYDECLARING
-      gated: false
+    - { at: s-azure-ext, kind: rule, rule: ADR-AUTO-DEPM-TWOSECTIONS }
+    - { at: s-azure-ext, kind: rule, rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY }
+    - { at: s-tooling, kind: rule, rule: ADR-AUTO-DEPM-TWOSECTIONS }
+    - { at: s-tooling, kind: rule, rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY }
+    - { at: s-base, kind: rule, rule: ADR-AUTO-DEPM-TWOSECTIONS }
+    - { at: s-base, kind: rule, rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY }
+    - { at: g-load, kind: rule, rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY }
+    - { at: g-quality, kind: rule, rule: ADR-AUTO-DEPM-CODEBUILTFROM }
+    - { at: g-quality, kind: rule, rule: ADR-AUTO-DEPM-UNIFIEDGRAPH }
+    - { at: g-quality, kind: rule, rule: ADR-AUTO-DEPM-GROUPAWAREINTEGRITY }
+    - { at: g-quality, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
+    - { at: a-review, kind: rule, rule: ADR-AUTO-DEPM-EXTENDBYDECLARING, gated: false }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [.claude/CLAUDE.md, ADR-AUTO-TEST-QUALITYGATE]
       - cell: .claude/.claude/agents
-        by:
-          - .claude/agents/test-optimization.md
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [.claude/agents/test-optimization.md, ADR-AUTO-TEST-QUALITYGATE]
       - cell: .claude/.claude/skills/test-speed
-        by:
-          - .claude/skills/test-speed/SKILL.md
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [.claude/skills/test-speed/SKILL.md, ADR-AUTO-TEST-QUALITYGATE]
       - cell: docs/-/.
         by:
           - docs/drs/automation/controlling-module-dependencies.md
@@ -258,33 +185,19 @@ content:
           - ADR-AUTO-DEPM-UNIFIEDGRAPH
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Azure/.
-        by:
-          - pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Azure.DevOps/.
-        by:
-          - pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Azure.DevOps/tests
-        by:
-          - pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Config/tests
-        by:
-          - pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.ConfigExtensions/.
-        by:
-          - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Contracts/.
-        by:
-          - pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Contracts/Test-Contracts.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Contracts/tests
-        by:
-          - pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Docs/.
         by:
           - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
@@ -292,20 +205,14 @@ content:
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Docs/configs
-        by:
-          - pwsh/Catzc.Base.Docs/configs/agents.yml
-          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Docs/configs/agents.yml, pwsh/Catzc.Base.Docs/configs/capabilities.yml, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Docs/tests
         by:
           - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
           - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Drs/.
-        by:
-          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
-          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1, pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
@@ -325,13 +232,9 @@ content:
           - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Drs/types
-        by:
-          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Execution/.
-        by:
-          - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Execution/Invoke-Executable.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
@@ -364,9 +267,7 @@ content:
           - pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Modules/tests
-        by:
-          - pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.ModuleSystem/.
         by:
           - pwsh/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1
@@ -377,9 +278,7 @@ content:
           - pwsh/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.ModuleSystem/configs
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.ModuleSystem/tests
         by:
           - pwsh/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1
@@ -430,9 +329,7 @@ content:
           - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.QualityGates/private
-        by:
-          - pwsh/Catzc.Base.QualityGates/private/Get-GeneratedFileGenerator.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-GeneratedFileGenerator.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.QualityGates/tests
         by:
           - pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
@@ -460,54 +357,31 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/TestTitle-TemplateTokens.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Reports/.
-        by:
-          - pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/configs
-        by:
-          - pwsh/Catzc.Base.Reports/configs/reports.yml
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/configs/reports.yml, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/tests
-        by:
-          - pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/tests/types
-        by:
-          - pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/types
-        by:
-          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
-          - pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/types/CheckMode.cs, pwsh/Catzc.Base.Reports/types/ReportsConfig.cs, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.RootConfig/.
         by:
           - pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
           - pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.RootConfig/tests
-        by:
-          - pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.TypesSystem/.
-        by:
-          - pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Internal.Tests/.
-        by:
-          - pwsh/.internal/tests/Test-FolderConventions.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/.internal/tests/Test-FolderConventions.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Tooling.KeyHandler/private
-        by:
-          - pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1, ADR-AUTO-TEST-QUALITYGATE]
     grid:
       - cell: .claude/markdown
-        by:
-          - .claude/CLAUDE.md
-          - .claude/agents/test-optimization.md
-          - .claude/skills/test-speed/SKILL.md
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [.claude/CLAUDE.md, .claude/agents/test-optimization.md, .claude/skills/test-speed/SKILL.md, ADR-AUTO-TEST-QUALITYGATE]
       - cell: docs/markdown
         by:
           - docs/drs/automation/controlling-module-dependencies.md
@@ -763,13 +637,10 @@ content:
           - ADR-AUTO-DEPM-UNIFIEDGRAPH
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: (no track)/powershell
-        by:
-          - importer.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [importer.ps1, ADR-AUTO-TEST-QUALITYGATE]
     axis:
       - cell: AUTO/quality-control
-        by:
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [ADR-AUTO-TEST-QUALITYGATE]
       - cell: AUTO/*
         by:
           - ADR-AUTO-DEPM-CODEBUILTFROM
@@ -778,63 +649,15 @@ content:
           - ADR-AUTO-DEPM-TWOSECTIONS
           - ADR-AUTO-DEPM-UNIFIEDGRAPH
 layout:
-  band-top:
-    x: 20
-    y: 84
-    w: 640
-    h: 120
-  band-middle:
-    x: 20
-    y: 254
-    w: 640
-    h: 120
-  band-foundation:
-    x: 20
-    y: 424
-    w: 640
-    h: 120
-  band-load:
-    x: 680
-    y: 84
-    w: 600
-    h: 120
-  band-repository:
-    x: 680
-    y: 254
-    w: 600
-    h: 120
-  band-no-gate:
-    x: 680
-    y: 424
-    w: 600
-    h: 120
-  s-azure-ext:
-    x: 40
-    y: 122
-    w: 520
-    h: 56
-  s-tooling:
-    x: 40
-    y: 292
-    w: 220
-    h: 56
-  s-base:
-    x: 40
-    y: 462
-    w: 520
-    h: 56
-  g-load:
-    x: 880
-    y: 112
-    w: 200
-    h: 68
-  g-quality:
-    x: 830
-    y: 282
-    w: 300
-    h: 68
-  a-review:
-    x: 830
-    y: 462
-    w: 300
-    h: 56
+  band-top: { x: 20, y: 84, w: 640, h: 120 }
+  band-middle: { x: 20, y: 254, w: 640, h: 120 }
+  band-foundation: { x: 20, y: 424, w: 640, h: 120 }
+  band-load: { x: 680, y: 84, w: 600, h: 120 }
+  band-repository: { x: 680, y: 254, w: 600, h: 120 }
+  band-no-gate: { x: 680, y: 424, w: 600, h: 120 }
+  s-azure-ext: { x: 40, y: 122, w: 520, h: 56 }
+  s-tooling: { x: 40, y: 292, w: 220, h: 56 }
+  s-base: { x: 40, y: 462, w: 520, h: 56 }
+  g-load: { x: 880, y: 112, w: 200, h: 68 }
+  g-quality: { x: 830, y: 282, w: 300, h: 68 }
+  a-review: { x: 830, y: 462, w: 300, h: 56 }

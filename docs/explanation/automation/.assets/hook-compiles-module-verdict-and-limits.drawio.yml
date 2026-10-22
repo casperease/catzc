@@ -8,8 +8,7 @@ description:
   The hook program compiles the Timeouts module's own verdict and limit types from their source files, so the agent-side hook and the
   pwsh-side resolver read the same typed limits from the same config.
 about:
-  adrs:
-    - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
   lens: architecture
 content:
   title: The hook compiles the module's own verdict and limit types, so the agent side and the pwsh side agree
@@ -18,96 +17,41 @@ content:
   relation: depends on
   theme: dark
   bands:
-    - id: band-claude
-      label: CLAUDE CODE
-    - id: band-hook
-      label: HOOK
-    - id: band-module
-      label: CATZC.BASE.TIMEOUTS
+    - { id: band-claude, label: CLAUDE CODE }
+    - { id: band-hook, label: HOOK }
+    - { id: band-module, label: CATZC.BASE.TIMEOUTS }
   groups:
-    - id: grp-types
-      label: compiled into the hook
-      in: band-module
+    - { id: grp-types, label: compiled into the hook, in: band-module }
   glyphs:
-    - id: x-bash
-      kind: external
-      label: Bash tool
-      in: band-claude
-    - id: g-hook
-      kind: code
-      label: Assert-BashTimeout
-      in: band-hook
-    - id: g-seconds
-      kind: code
-      label: Get-TimeoutSeconds
-      in: band-module
-    - id: g-config
-      kind: code
-      label: TimeoutsConfig
-      in: grp-types
-    - id: g-safeguard
-      kind: code
-      label: BashSafeguard
-      in: grp-types
-    - id: g-bounded
-      kind: code
-      label: BoundedCommand
-      in: grp-types
-    - id: g-timeouts
-      kind: file
-      label: timeouts.yml
-      in: band-module
+    - { id: x-bash, kind: external, label: Bash tool, in: band-claude }
+    - { id: g-hook, kind: code, label: Assert-BashTimeout, in: band-hook }
+    - { id: g-seconds, kind: code, label: Get-TimeoutSeconds, in: band-module }
+    - { id: g-config, kind: code, label: TimeoutsConfig, in: grp-types }
+    - { id: g-safeguard, kind: code, label: BashSafeguard, in: grp-types }
+    - { id: g-bounded, kind: code, label: BoundedCommand, in: grp-types }
+    - { id: g-timeouts, kind: file, label: timeouts.yml, in: band-module }
   edges:
-    - from: x-bash
-      to: g-hook
-      kind: flow
-      label: ""
-    - from: g-hook
-      to: grp-types
-      kind: flow
-      label: ""
-    - from: g-seconds
-      to: g-config
-      kind: flow
-      label: ""
-    - from: g-safeguard
-      to: g-config
-      kind: flow
-      label: ""
-    - from: g-safeguard
-      to: g-bounded
-      kind: flow
-      label: ""
-    - from: g-config
-      to: g-timeouts
-      kind: flow
-      label: ""
+    - { from: x-bash, to: g-hook, kind: flow, label: "" }
+    - { from: g-hook, to: grp-types, kind: flow, label: "" }
+    - { from: g-seconds, to: g-config, kind: flow, label: "" }
+    - { from: g-safeguard, to: g-config, kind: flow, label: "" }
+    - { from: g-safeguard, to: g-bounded, kind: flow, label: "" }
+    - { from: g-config, to: g-timeouts, kind: flow, label: "" }
   markers:
-    - at: x-bash
-      number: 1
-    - at: g-hook
-      number: 2
-    - at: g-safeguard
-      number: 3
-    - at: g-bounded
-      number: 4
-    - at: g-config
-      number: 5
-    - at: g-timeouts
-      number: 6
-    - at: g-seconds
-      number: 7
+    - { at: x-bash, number: 1 }
+    - { at: g-hook, number: 2 }
+    - { at: g-safeguard, number: 3 }
+    - { at: g-bounded, number: 4 }
+    - { at: g-config, number: 5 }
+    - { at: g-timeouts, number: 6 }
+    - { at: g-seconds, number: 7 }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [.claude/CLAUDE.md, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: .claude/.claude/hooks/Assert-BashTimeout
-        by:
-          - .claude/hooks/Assert-BashTimeout/Program.cs
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [.claude/hooks/Assert-BashTimeout/Program.cs, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -128,73 +72,40 @@ content:
           - docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Azure.Cli/.
-        by:
-          - pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Docs/.
-        by:
-          - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Docs/Test-Glossary.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Docs/configs
-        by:
-          - pwsh/Catzc.Base.Docs/configs/agents.yml
-          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Docs/configs/agents.yml, pwsh/Catzc.Base.Docs/configs/capabilities.yml, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Docs/tests
-        by:
-          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Drs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Drs/private
-        by:
-          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Engines/types
-        by:
-          - pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Globs/.
-        by:
-          - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Languages/tests
-        by:
-          - pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
           - pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Base.Timeouts/.
-        by:
-          - pwsh/Catzc.Base.Timeouts/Get-TestTimeLimits.ps1
-          - pwsh/Catzc.Base.Timeouts/Watch-Blocking.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Timeouts/Get-TestTimeLimits.ps1, pwsh/Catzc.Base.Timeouts/Watch-Blocking.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Timeouts/tests/types
-        by:
-          - pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Timeouts/types
-        by:
-          - pwsh/Catzc.Base.Timeouts/types/BashSafeguard.cs
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Timeouts/types/BashSafeguard.cs, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.TypesSystem/.
-        by:
-          - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Internal.Assets/.
-        by:
-          - pwsh/.internal/assets/Invoke-CatzcCommand.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Tooling.Listen/.
-        by:
-          - pwsh/Catzc.Tooling.Listen/Wait-DocChange.ps1
-          - pwsh/Catzc.Tooling.Listen/Wait-DocNote.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Tooling.Listen/Wait-DocChange.ps1, pwsh/Catzc.Tooling.Listen/Wait-DocNote.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Tooling.Listen/tests
         by:
           - pwsh/Catzc.Tooling.Listen/tests/Wait-DocChange.Tests.ps1
@@ -202,14 +113,9 @@ content:
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
     module-neighbourhood:
       - cell: subject/.claude
-        by:
-          - .claude/CLAUDE.md
-          - .claude/hooks/Assert-BashTimeout/Program.cs
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [.claude/CLAUDE.md, .claude/hooks/Assert-BashTimeout/Program.cs, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: subject/Catzc.Azure.Cli
-        by:
-          - pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
@@ -223,17 +129,11 @@ content:
           - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: subject/Catzc.Base.Engines
-        by:
-          - pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: subject/Catzc.Base.Globs
-        by:
-          - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: subject/Catzc.Base.Languages
-        by:
-          - pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
@@ -247,13 +147,9 @@ content:
           - pwsh/Catzc.Base.Timeouts/types/BashSafeguard.cs
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: subject/Catzc.Base.TypesSystem
-        by:
-          - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: subject/Catzc.Internal.Assets
-        by:
-          - pwsh/.internal/assets/Invoke-CatzcCommand.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: subject/Catzc.Tooling.Listen
         by:
           - pwsh/Catzc.Tooling.Listen/Wait-DocChange.ps1
@@ -263,61 +159,16 @@ content:
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
     axis:
       - cell: AUTO/*
-        by:
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
 layout:
-  band-claude:
-    x: 20
-    y: 84
-    w: 1260
-    h: 100
-  band-hook:
-    x: 20
-    y: 204
-    w: 1260
-    h: 100
-  band-module:
-    x: 20
-    y: 324
-    w: 1260
-    h: 250
-  x-bash:
-    x: 570
-    y: 122
-    w: 160
-    h: 44
-  g-hook:
-    x: 560
-    y: 244
-    w: 180
-    h: 44
-  grp-types:
-    x: 320
-    y: 360
-    w: 660
-    h: 110
-  g-seconds:
-    x: 60
-    y: 410
-    w: 180
-    h: 44
-  g-config:
-    x: 340
-    y: 410
-    w: 150
-    h: 44
-  g-safeguard:
-    x: 575
-    y: 410
-    w: 150
-    h: 44
-  g-bounded:
-    x: 810
-    y: 410
-    w: 150
-    h: 44
-  g-timeouts:
-    x: 350
-    y: 506
-    w: 130
-    h: 52
+  band-claude: { x: 20, y: 84, w: 1260, h: 100 }
+  band-hook: { x: 20, y: 204, w: 1260, h: 100 }
+  band-module: { x: 20, y: 324, w: 1260, h: 250 }
+  x-bash: { x: 570, y: 122, w: 160, h: 44 }
+  g-hook: { x: 560, y: 244, w: 180, h: 44 }
+  grp-types: { x: 320, y: 360, w: 660, h: 110 }
+  g-seconds: { x: 60, y: 410, w: 180, h: 44 }
+  g-config: { x: 340, y: 410, w: 150, h: 44 }
+  g-safeguard: { x: 575, y: 410, w: 150, h: 44 }
+  g-bounded: { x: 810, y: 410, w: 150, h: 44 }
+  g-timeouts: { x: 350, y: 506, w: 130, h: 52 }

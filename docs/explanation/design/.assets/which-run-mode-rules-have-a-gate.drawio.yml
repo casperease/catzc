@@ -4,9 +4,8 @@
 #     with_body_sha: "967648ce8756"
 # ---
 
-description:
-  "Which run-mode rules a gate checks: the two test runs, the two entry scripts, the exclusivity assert, the source-tree assert and the mode
-  function cover six rules, and the three build kinds, told apart by place, need none."
+description: 'Which run-mode rules a gate checks: the two test runs, the two entry scripts, the exclusivity assert, the source-tree assert and
+  the mode function cover six rules, and the three build kinds, told apart by place, need none.'
 about:
   adrs:
     - DDR-RUNMODE-TWORUNMODES
@@ -24,118 +23,45 @@ content:
   relation: calls
   theme: dark
   bands:
-    - id: band-runs
-      label: TEST RUNS
-    - id: band-load
-      label: LOAD
-    - id: band-after
-      label: AFTER THE LOAD
+    - { id: band-runs, label: TEST RUNS }
+    - { id: band-load, label: LOAD }
+    - { id: band-after, label: AFTER THE LOAD }
   glyphs:
-    - id: g-test-automation
-      kind: gate
-      label: Test-Automation
-      in: band-runs
-    - id: g-test-build
-      kind: gate
-      label: Test-CatzcBuild
-      in: band-runs
-    - id: g-importer
-      kind: code
-      label: importer.ps1
-      in: band-load
-    - id: g-exclusive
-      kind: gate
-      label: Assert-CatzcRunModeExclusive
-      in: band-load
-    - id: g-import-catzc
-      kind: code
-      label: Import-Catzc.ps1
-      in: band-load
-    - id: g-source-tree
-      kind: gate
-      label: Assert-SourceTree
-      in: band-after
-    - id: g-run-mode
-      kind: code
-      label: Get-CatzcRunMode
-      in: band-after
-    - id: g-build-kinds
-      kind: drsonly
-      label: Three build kinds
-      in: band-after
+    - { id: g-test-automation, kind: gate, label: Test-Automation, in: band-runs }
+    - { id: g-test-build, kind: gate, label: Test-CatzcBuild, in: band-runs }
+    - { id: g-importer, kind: code, label: importer.ps1, in: band-load }
+    - { id: g-exclusive, kind: gate, label: Assert-CatzcRunModeExclusive, in: band-load }
+    - { id: g-import-catzc, kind: code, label: Import-Catzc.ps1, in: band-load }
+    - { id: g-source-tree, kind: gate, label: Assert-SourceTree, in: band-after }
+    - { id: g-run-mode, kind: code, label: Get-CatzcRunMode, in: band-after }
+    - { id: g-build-kinds, kind: drsonly, label: Three build kinds, in: band-after }
   edges:
-    - from: g-test-automation
-      to: g-importer
-      kind: flow
-      label: ""
-    - from: g-test-build
-      to: g-import-catzc
-      kind: flow
-      label: ""
-    - from: g-importer
-      to: g-exclusive
-      kind: flow
-      label: ""
-    - from: g-import-catzc
-      to: g-exclusive
-      kind: flow
-      label: ""
-    - from: g-source-tree
-      to: g-run-mode
-      kind: flow
-      label: ""
+    - { from: g-test-automation, to: g-importer, kind: flow, label: "" }
+    - { from: g-test-build, to: g-import-catzc, kind: flow, label: "" }
+    - { from: g-importer, to: g-exclusive, kind: flow, label: "" }
+    - { from: g-import-catzc, to: g-exclusive, kind: flow, label: "" }
+    - { from: g-source-tree, to: g-run-mode, kind: flow, label: "" }
   markers:
-    - at: g-test-automation
-      number: 1
-    - at: g-test-build
-      number: 2
-    - at: g-importer
-      number: 3
-    - at: g-exclusive
-      number: 4
-    - at: g-import-catzc
-      number: 5
-    - at: g-source-tree
-      number: 6
-    - at: g-run-mode
-      number: 7
-    - at: g-build-kinds
-      number: 8
+    - { at: g-test-automation, number: 1 }
+    - { at: g-test-build, number: 2 }
+    - { at: g-importer, number: 3 }
+    - { at: g-exclusive, number: 4 }
+    - { at: g-import-catzc, number: 5 }
+    - { at: g-source-tree, number: 6 }
+    - { at: g-run-mode, number: 7 }
+    - { at: g-build-kinds, number: 8 }
   chips:
-    - at: g-test-automation
-      kind: rule
-      rule: DDR-RUNMODE-SAMEMODULEINBOTH
-    - at: g-test-automation
-      kind: rule
-      rule: DDR-RUNMODE-OWNSCRIPTSCOPE
-    - at: g-test-automation
-      kind: rule
-      rule: DDR-RUNMODE-SAMETESTSBOTHMODES
-    - at: g-test-build
-      kind: rule
-      rule: DDR-RUNMODE-OWNSCRIPTSCOPE
-    - at: g-test-build
-      kind: rule
-      rule: DDR-RUNMODE-SAMETESTSBOTHMODES
-    - at: g-importer
-      kind: rule
-      rule: DDR-RUNMODE-TWORUNMODES
-    - at: g-exclusive
-      kind: rule
-      rule: DDR-RUNMODE-NEVERCOEXIST
-    - at: g-import-catzc
-      kind: rule
-      rule: DDR-RUNMODE-TWORUNMODES
-    - at: g-source-tree
-      kind: rule
-      rule: DDR-RUNMODE-SAMEMODULEINBOTH
-    - at: g-run-mode
-      kind: rule
-      rule: DDR-RUNMODE-MODEISDERIVED
-    - at: g-build-kinds
-      kind: rule
-      rule: DDR-RUNMODE-THREEBUILDKINDS
-      gated: false
+    - { at: g-test-automation, kind: rule, rule: DDR-RUNMODE-SAMEMODULEINBOTH }
+    - { at: g-test-automation, kind: rule, rule: DDR-RUNMODE-OWNSCRIPTSCOPE }
+    - { at: g-test-automation, kind: rule, rule: DDR-RUNMODE-SAMETESTSBOTHMODES }
+    - { at: g-test-build, kind: rule, rule: DDR-RUNMODE-OWNSCRIPTSCOPE }
+    - { at: g-test-build, kind: rule, rule: DDR-RUNMODE-SAMETESTSBOTHMODES }
+    - { at: g-importer, kind: rule, rule: DDR-RUNMODE-TWORUNMODES }
+    - { at: g-exclusive, kind: rule, rule: DDR-RUNMODE-NEVERCOEXIST }
+    - { at: g-import-catzc, kind: rule, rule: DDR-RUNMODE-TWORUNMODES }
+    - { at: g-source-tree, kind: rule, rule: DDR-RUNMODE-SAMEMODULEINBOTH }
+    - { at: g-run-mode, kind: rule, rule: DDR-RUNMODE-MODEISDERIVED }
+    - { at: g-build-kinds, kind: rule, rule: DDR-RUNMODE-THREEBUILDKINDS, gated: false }
   legend: auto
   minimaps:
     code-locations:
@@ -180,17 +106,11 @@ content:
           - DDR-RUNMODE-THREEBUILDKINDS
           - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/Catzc.Base.ConfigExtensions/.
-        by:
-          - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-          - DDR-RUNMODE-SAMEMODULEINBOTH
+        by: [pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1, DDR-RUNMODE-SAMEMODULEINBOTH]
       - cell: pwsh/Catzc.Base.Docs/configs
-        by:
-          - pwsh/Catzc.Base.Docs/configs/glossary.yml
-          - DDR-RUNMODE-TWORUNMODES
+        by: [pwsh/Catzc.Base.Docs/configs/glossary.yml, DDR-RUNMODE-TWORUNMODES]
       - cell: pwsh/Catzc.Base.Docs/private
-        by:
-          - pwsh/Catzc.Base.Docs/private/Get-CatsModules.ps1
-          - DDR-RUNMODE-SAMEMODULEINBOTH
+        by: [pwsh/Catzc.Base.Docs/private/Get-CatsModules.ps1, DDR-RUNMODE-SAMEMODULEINBOTH]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -296,14 +216,10 @@ content:
           - DDR-RUNMODE-THREEBUILDKINDS
           - DDR-RUNMODE-TWORUNMODES
       - cell: pwsh/Catzc.Internal.Tests/.
-        by:
-          - pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
-          - DDR-RUNMODE-MODEISDERIVED
+        by: [pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1, DDR-RUNMODE-MODEISDERIVED]
     module-neighbourhood:
       - cell: subject/Catzc.Base.ConfigExtensions
-        by:
-          - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-          - DDR-RUNMODE-SAMEMODULEINBOTH
+        by: [pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1, DDR-RUNMODE-SAMEMODULEINBOTH]
       - cell: subject/Catzc.Base.Docs
         by:
           - pwsh/Catzc.Base.Docs/configs/glossary.yml
@@ -412,9 +328,7 @@ content:
           - DDR-RUNMODE-THREEBUILDKINDS
           - DDR-RUNMODE-TWORUNMODES
       - cell: subject/Catzc.Internal.Tests
-        by:
-          - pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1
-          - DDR-RUNMODE-MODEISDERIVED
+        by: [pwsh/.internal/tests/New-FakeRepositoryRoot.Tests.ps1, DDR-RUNMODE-MODEISDERIVED]
     axis:
       - cell: DSGN/build
         by:
@@ -426,58 +340,14 @@ content:
           - DDR-RUNMODE-THREEBUILDKINDS
           - DDR-RUNMODE-TWORUNMODES
 layout:
-  band-runs:
-    x: 20
-    y: 104
-    w: 1260
-    h: 130
-  band-load:
-    x: 20
-    y: 254
-    w: 1260
-    h: 130
-  band-after:
-    x: 20
-    y: 404
-    w: 1260
-    h: 130
-  g-test-automation:
-    x: 160
-    y: 130
-    w: 200
-    h: 84
-  g-test-build:
-    x: 900
-    y: 130
-    w: 200
-    h: 84
-  g-importer:
-    x: 140
-    y: 300
-    w: 240
-    h: 44
-  g-exclusive:
-    x: 460
-    y: 280
-    w: 340
-    h: 90
-  g-import-catzc:
-    x: 880
-    y: 300
-    w: 240
-    h: 44
-  g-source-tree:
-    x: 140
-    y: 435
-    w: 240
-    h: 90
-  g-run-mode:
-    x: 500
-    y: 458
-    w: 260
-    h: 44
-  g-build-kinds:
-    x: 880
-    y: 456
-    w: 240
-    h: 52
+  band-runs: { x: 20, y: 104, w: 1260, h: 130 }
+  band-load: { x: 20, y: 254, w: 1260, h: 130 }
+  band-after: { x: 20, y: 404, w: 1260, h: 130 }
+  g-test-automation: { x: 160, y: 130, w: 200, h: 84 }
+  g-test-build: { x: 900, y: 130, w: 200, h: 84 }
+  g-importer: { x: 140, y: 300, w: 240, h: 44 }
+  g-exclusive: { x: 460, y: 280, w: 340, h: 90 }
+  g-import-catzc: { x: 880, y: 300, w: 240, h: 44 }
+  g-source-tree: { x: 140, y: 435, w: 240, h: 90 }
+  g-run-mode: { x: 500, y: 458, w: 260, h: 44 }
+  g-build-kinds: { x: 880, y: 456, w: 240, h: 52 }

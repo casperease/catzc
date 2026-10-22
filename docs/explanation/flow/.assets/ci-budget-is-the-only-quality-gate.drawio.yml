@@ -29,117 +29,49 @@ content:
   relation: checks
   theme: dark
   bands:
-    - id: band-flow
-      label: FLOW
-    - id: band-checks
-      label: CHECKS
+    - { id: band-flow, label: FLOW }
+    - { id: band-checks, label: CHECKS }
   spans:
     - id: span-ci
       label: CI
-      over:
-        - g-inner-loop
+      over: [g-inner-loop]
     - id: span-cd
       label: CD
-      over:
-        - g-inner-loop
-        - g-cd
+      over: [g-inner-loop, g-cd]
     - id: span-deploy
       label: DEPLOY
-      over:
-        - g-rc
-        - g-deploy-non-prod
-        - g-rbc
-        - g-deploy-prod
+      over: [g-rc, g-deploy-non-prod, g-rbc, g-deploy-prod]
   groups:
-    - id: grp-flow
-      label: kinds and gates, merge to production
-      in: band-flow
+    - { id: grp-flow, label: "kinds and gates, merge to production", in: band-flow }
   glyphs:
-    - id: g-inner-loop
-      kind: runner
-      label: CI inner loop
-      in: grp-flow
-    - id: g-cd
-      kind: runner
-      label: CD
-      in: grp-flow
-    - id: g-rc
-      kind: drsonly
-      label: RC
-      in: grp-flow
-    - id: g-deploy-non-prod
-      kind: drsonly
-      label: DEPLOY-Non-Prod
-      in: grp-flow
-    - id: g-rbc
-      kind: drsonly
-      label: RBC
-      in: grp-flow
-    - id: g-deploy-prod
-      kind: drsonly
-      label: DEPLOY-Prod
-      in: grp-flow
-    - id: g-machine-gate
-      kind: gate
-      label: machine gate
-      in: band-checks
-    - id: g-reviewer
-      kind: actor
-      label: reviewer
-      in: band-checks
+    - { id: g-inner-loop, kind: runner, label: CI inner loop, in: grp-flow }
+    - { id: g-cd, kind: runner, label: CD, in: grp-flow }
+    - { id: g-rc, kind: drsonly, label: RC, in: grp-flow }
+    - { id: g-deploy-non-prod, kind: drsonly, label: DEPLOY-Non-Prod, in: grp-flow }
+    - { id: g-rbc, kind: drsonly, label: RBC, in: grp-flow }
+    - { id: g-deploy-prod, kind: drsonly, label: DEPLOY-Prod, in: grp-flow }
+    - { id: g-machine-gate, kind: gate, label: machine gate, in: band-checks }
+    - { id: g-reviewer, kind: actor, label: reviewer, in: band-checks }
   edges:
-    - from: g-machine-gate
-      to: g-inner-loop
-      kind: flow
-      label: ""
-    - from: g-reviewer
-      to: grp-flow
-      kind: adr
-      label: ""
+    - { from: g-machine-gate, to: g-inner-loop, kind: flow, label: "" }
+    - { from: g-reviewer, to: grp-flow, kind: adr, label: "" }
   markers:
-    - at: g-inner-loop
-      number: 1
-    - at: g-machine-gate
-      number: 2
-    - at: g-cd
-      number: 3
-    - at: g-rc
-      number: 4
-    - at: g-deploy-non-prod
-      number: 5
-    - at: g-rbc
-      number: 6
-    - at: g-deploy-prod
-      number: 7
-    - at: g-reviewer
-      number: 8
+    - { at: g-inner-loop, number: 1 }
+    - { at: g-machine-gate, number: 2 }
+    - { at: g-cd, number: 3 }
+    - { at: g-rc, number: 4 }
+    - { at: g-deploy-non-prod, number: 5 }
+    - { at: g-rbc, number: 6 }
+    - { at: g-deploy-prod, number: 7 }
+    - { at: g-reviewer, number: 8 }
   chips:
-    - at: g-inner-loop
-      kind: rule
-      rule: FDR-CD-SHORTINTEGRATIONCYCLE
-    - at: g-machine-gate
-      kind: rule
-      rule: FDR-CD-GATEDEFINED
-    - at: g-cd
-      kind: rule
-      rule: FDR-CD-CDSTAYSINNONPROD
-      gated: false
-    - at: g-rc
-      kind: rule
-      rule: FDR-CD-TWORELEASEGATES
-      gated: false
-    - at: g-deploy-non-prod
-      kind: rule
-      rule: FDR-CD-PREPRODRUNG
-      gated: false
-    - at: g-rbc
-      kind: rule
-      rule: FDR-CD-TWORELEASEGATES
-      gated: false
-    - at: g-deploy-prod
-      kind: rule
-      rule: FDR-CD-TWOENVIRONMENTACTIVATION
-      gated: false
+    - { at: g-inner-loop, kind: rule, rule: FDR-CD-SHORTINTEGRATIONCYCLE }
+    - { at: g-machine-gate, kind: rule, rule: FDR-CD-GATEDEFINED }
+    - { at: g-cd, kind: rule, rule: FDR-CD-CDSTAYSINNONPROD, gated: false }
+    - { at: g-rc, kind: rule, rule: FDR-CD-TWORELEASEGATES, gated: false }
+    - { at: g-deploy-non-prod, kind: rule, rule: FDR-CD-PREPRODRUNG, gated: false }
+    - { at: g-rbc, kind: rule, rule: FDR-CD-TWORELEASEGATES, gated: false }
+    - { at: g-deploy-prod, kind: rule, rule: FDR-CD-TWOENVIRONMENTACTIVATION, gated: false }
   legend: auto
   minimaps:
     code-locations:
@@ -173,9 +105,7 @@ content:
           - FDR-CD-TYPE-ONEDEPLOYPATH
           - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: ado-pipelines/pipelines/stages
-        by:
-          - .ado/pipelines/stages/deploy-unit.yaml
-          - FDR-CD-TYPE-ONEDEPLOYPATH
+        by: [.ado/pipelines/stages/deploy-unit.yaml, FDR-CD-TYPE-ONEDEPLOYPATH]
       - cell: docs/-/.
         by:
           - docs/drs/flow/cd-discipline-and-promotion-flow.md
@@ -238,13 +168,9 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
           - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
-        by:
-          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-          - FDR-CD-TYPE-PRECOMMITBUDGET
+        by: [pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml, FDR-CD-TYPE-PRECOMMITBUDGET]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
-        by:
-          - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - FDR-CD-TYPE-PRECOMMITBUDGET
+        by: [pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1, FDR-CD-TYPE-PRECOMMITBUDGET]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/types
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/types/BuildValidationConfig.cs
@@ -259,9 +185,7 @@ content:
           - FDR-CD-TYPE-ONEDEPLOYPATH
           - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: pwsh/Catzc.Base.Docs/types
-        by:
-          - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
-          - FDR-CD-SHORTINTEGRATIONCYCLE
+        by: [pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs, FDR-CD-SHORTINTEGRATIONCYCLE]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -293,9 +217,7 @@ content:
           - FDR-CD-TYPE-ONEDEPLOYPATH
           - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: pwsh/Catzc.Base.Flow/tests/types
-        by:
-          - pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
-          - FDR-CD-PREPRODRUNG
+        by: [pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1, FDR-CD-PREPRODRUNG]
       - cell: pwsh/Catzc.Base.Flow/types
         by:
           - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
@@ -336,9 +258,7 @@ content:
           - FDR-CD-TYPE-ONEDEPLOYPATH
           - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: pwsh/Catzc.Base.QualityGates/configs
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/glossary.yml
-          - FDR-CD-GATEDEFINED
+        by: [pwsh/Catzc.Base.QualityGates/configs/glossary.yml, FDR-CD-GATEDEFINED]
     module-neighbourhood:
       - cell: subject/.claude
         by:
@@ -389,9 +309,7 @@ content:
           - FDR-CD-TYPE-ONEDEPLOYPATH
           - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: subject/Catzc.Base.Docs
-        by:
-          - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
-          - FDR-CD-SHORTINTEGRATIONCYCLE
+        by: [pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs, FDR-CD-SHORTINTEGRATIONCYCLE]
       - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -435,9 +353,7 @@ content:
           - FDR-CD-TYPE-ONEDEPLOYPATH
           - FDR-CD-TYPE-PRECOMMITBUDGET
       - cell: subject/Catzc.Base.QualityGates
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/glossary.yml
-          - FDR-CD-GATEDEFINED
+        by: [pwsh/Catzc.Base.QualityGates/configs/glossary.yml, FDR-CD-GATEDEFINED]
       - cell: subject/pipelines
         by:
           - .ado/pipelines/cd-shared.yaml
@@ -511,58 +427,14 @@ content:
           - FDR-CD-TYPE-ONEDEPLOYPATH
           - FDR-CD-TYPE-PRECOMMITBUDGET
 layout:
-  band-flow:
-    x: 20
-    y: 152
-    w: 1260
-    h: 200
-  band-checks:
-    x: 20
-    y: 372
-    w: 1260
-    h: 160
-  grp-flow:
-    x: 40
-    y: 192
-    w: 1220
-    h: 144
-  g-inner-loop:
-    x: 70
-    y: 254
-    w: 180
-    h: 56
-  g-cd:
-    x: 290
-    y: 254
-    w: 160
-    h: 56
-  g-rc:
-    x: 490
-    y: 250
-    w: 110
-    h: 64
-  g-deploy-non-prod:
-    x: 640
-    y: 254
-    w: 190
-    h: 56
-  g-rbc:
-    x: 870
-    y: 250
-    w: 110
-    h: 64
-  g-deploy-prod:
-    x: 1020
-    y: 254
-    w: 190
-    h: 56
-  g-machine-gate:
-    x: 120
-    y: 408
-    w: 220
-    h: 90
-  g-reviewer:
-    x: 700
-    y: 412
-    w: 120
-    h: 80
+  band-flow: { x: 20, y: 152, w: 1260, h: 200 }
+  band-checks: { x: 20, y: 372, w: 1260, h: 160 }
+  grp-flow: { x: 40, y: 192, w: 1220, h: 144 }
+  g-inner-loop: { x: 70, y: 254, w: 180, h: 56 }
+  g-cd: { x: 290, y: 254, w: 160, h: 56 }
+  g-rc: { x: 490, y: 250, w: 110, h: 64 }
+  g-deploy-non-prod: { x: 640, y: 254, w: 190, h: 56 }
+  g-rbc: { x: 870, y: 250, w: 110, h: 64 }
+  g-deploy-prod: { x: 1020, y: 254, w: 190, h: 56 }
+  g-machine-gate: { x: 120, y: 408, w: 220, h: 90 }
+  g-reviewer: { x: 700, y: 412, w: 120, h: 80 }

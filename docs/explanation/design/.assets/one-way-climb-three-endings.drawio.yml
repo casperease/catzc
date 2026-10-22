@@ -4,9 +4,8 @@
 #     with_body_sha: "4647547ecdaa"
 # ---
 
-description:
-  "The eight rungs a commit climbs, one at a time and never backward, and its three endings off the ladder: superseded, drawn as a ghost of
-  its last colour, discarded in red at a gate, and retired from production in its kept green."
+description: 'The eight rungs a commit climbs, one at a time and never backward, and its three endings off the ladder: superseded, drawn as a
+  ghost of its last colour, discarded in red at a gate, and retired from production in its kept green.'
 about:
   adrs:
     - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
@@ -22,136 +21,47 @@ content:
   relation: climbs one rung
   theme: dark
   bands:
-    - id: band-climb
-      label: THE CLIMB
-    - id: band-superseded
-      label: SUPERSEDED
-    - id: band-ended
-      label: DISCARDED / RETIRED
+    - { id: band-climb, label: THE CLIMB }
+    - { id: band-superseded, label: SUPERSEDED }
+    - { id: band-ended, label: DISCARDED / RETIRED }
   spans:
     - id: span-ci
       label: CI
-      over:
-        - c-landed
-        - c-bvt
+      over: [c-landed, c-bvt]
     - id: span-cd
       label: CD
-      over:
-        - c-l3
+      over: [c-l3]
     - id: span-deploy
       label: DEPLOY
-      over:
-        - c-main-uat
-        - c-release-uat
-        - c-pre-prod
-        - c-production
+      over: [c-main-uat, c-release-uat, c-pre-prod, c-production]
   glyphs:
-    - id: c-topic
-      kind: commit
-      label: topic
-      in: band-climb
-      state: topic
-    - id: c-landed
-      kind: commit
-      label: landed
-      in: band-climb
-      state: landed
-    - id: c-bvt
-      kind: commit
-      label: BVT
-      in: band-climb
-    - id: c-l3
-      kind: commit
-      label: L3
-      in: band-climb
-      state: l3
-    - id: c-main-uat
-      kind: commit
-      label: main-UAT
-      in: band-climb
-      state: main-uat
-    - id: c-release-uat
-      kind: commit
-      label: release-uat
-      in: band-climb
-      state: release-uat
-    - id: c-pre-prod
-      kind: commit
-      label: pre-prod
-      in: band-climb
-      state: prod
-    - id: c-production
-      kind: commit
-      label: production
-      in: band-climb
-      state: prod
-    - id: c-superseded
-      kind: commit
-      label: superseded
-      in: band-superseded
-      state: release-uat
-      ghost: true
-    - id: c-discarded
-      kind: commit
-      label: discarded
-      in: band-ended
-      state: discarded
-    - id: c-retired
-      kind: commit
-      label: retired
-      in: band-ended
-      state: prod
+    - { id: c-topic, kind: commit, label: topic, in: band-climb, state: topic }
+    - { id: c-landed, kind: commit, label: landed, in: band-climb, state: landed }
+    - { id: c-bvt, kind: commit, label: BVT, in: band-climb }
+    - { id: c-l3, kind: commit, label: L3, in: band-climb, state: l3 }
+    - { id: c-main-uat, kind: commit, label: main-UAT, in: band-climb, state: main-uat }
+    - { id: c-release-uat, kind: commit, label: release-uat, in: band-climb, state: release-uat }
+    - { id: c-pre-prod, kind: commit, label: pre-prod, in: band-climb, state: prod }
+    - { id: c-production, kind: commit, label: production, in: band-climb, state: prod }
+    - { id: c-superseded, kind: commit, label: superseded, in: band-superseded, state: release-uat, ghost: true }
+    - { id: c-discarded, kind: commit, label: discarded, in: band-ended, state: discarded }
+    - { id: c-retired, kind: commit, label: retired, in: band-ended, state: prod }
   edges:
-    - from: c-topic
-      to: c-landed
-      kind: flow
-      label: ""
-    - from: c-landed
-      to: c-bvt
-      kind: flow
-      label: ""
-    - from: c-bvt
-      to: c-l3
-      kind: adr
-      label: ""
-    - from: c-l3
-      to: c-main-uat
-      kind: adr
-      label: ""
-    - from: c-main-uat
-      to: c-release-uat
-      kind: adr
-      label: ""
-    - from: c-release-uat
-      to: c-pre-prod
-      kind: adr
-      label: ""
-    - from: c-pre-prod
-      to: c-production
-      kind: adr
-      label: ""
-    - from: c-release-uat
-      to: c-superseded
-      kind: adr
-      label: ""
-    - from: c-bvt
-      to: c-discarded
-      kind: fail
-      label: ""
-    - from: c-production
-      to: c-retired
-      kind: adr
-      label: ""
+    - { from: c-topic, to: c-landed, kind: flow, label: "" }
+    - { from: c-landed, to: c-bvt, kind: flow, label: "" }
+    - { from: c-bvt, to: c-l3, kind: adr, label: "" }
+    - { from: c-l3, to: c-main-uat, kind: adr, label: "" }
+    - { from: c-main-uat, to: c-release-uat, kind: adr, label: "" }
+    - { from: c-release-uat, to: c-pre-prod, kind: adr, label: "" }
+    - { from: c-pre-prod, to: c-production, kind: adr, label: "" }
+    - { from: c-release-uat, to: c-superseded, kind: adr, label: "" }
+    - { from: c-bvt, to: c-discarded, kind: fail, label: "" }
+    - { from: c-production, to: c-retired, kind: adr, label: "" }
   markers:
-    - at: band-climb
-      number: 1
-      corner: top-right
-    - at: c-superseded
-      number: 2
-    - at: c-discarded
-      number: 3
-    - at: c-retired
-      number: 4
+    - { at: band-climb, number: 1, corner: top-right }
+    - { at: c-superseded, number: 2 }
+    - { at: c-discarded, number: 3 }
+    - { at: c-retired, number: 4 }
   legend: auto
   minimaps:
     code-locations:
@@ -297,73 +207,17 @@ content:
           - FDR-CD-LIFE-RETIREMENTISNOTDISCARD
           - FDR-CD-LIFE-SUPERSESSIONABANDONSOVERTAKEN
 layout:
-  band-climb:
-    x: 20
-    y: 84
-    w: 1260
-    h: 120
-  band-superseded:
-    x: 20
-    y: 224
-    w: 1260
-    h: 110
-  band-ended:
-    x: 20
-    y: 354
-    w: 1260
-    h: 130
-  c-topic:
-    x: 50
-    y: 138
-    w: 100
-    h: 50
-  c-landed:
-    x: 198
-    y: 138
-    w: 100
-    h: 50
-  c-bvt:
-    x: 346
-    y: 138
-    w: 100
-    h: 50
-  c-l3:
-    x: 494
-    y: 138
-    w: 100
-    h: 50
-  c-main-uat:
-    x: 642
-    y: 138
-    w: 100
-    h: 50
-  c-release-uat:
-    x: 790
-    y: 138
-    w: 100
-    h: 50
-  c-pre-prod:
-    x: 938
-    y: 138
-    w: 100
-    h: 50
-  c-production:
-    x: 1086
-    y: 138
-    w: 100
-    h: 50
-  c-superseded:
-    x: 790
-    y: 266
-    w: 100
-    h: 50
-  c-discarded:
-    x: 346
-    y: 410
-    w: 100
-    h: 50
-  c-retired:
-    x: 1086
-    y: 410
-    w: 100
-    h: 50
+  band-climb: { x: 20, y: 84, w: 1260, h: 120 }
+  band-superseded: { x: 20, y: 224, w: 1260, h: 110 }
+  band-ended: { x: 20, y: 354, w: 1260, h: 130 }
+  c-topic: { x: 50, y: 138, w: 100, h: 50 }
+  c-landed: { x: 198, y: 138, w: 100, h: 50 }
+  c-bvt: { x: 346, y: 138, w: 100, h: 50 }
+  c-l3: { x: 494, y: 138, w: 100, h: 50 }
+  c-main-uat: { x: 642, y: 138, w: 100, h: 50 }
+  c-release-uat: { x: 790, y: 138, w: 100, h: 50 }
+  c-pre-prod: { x: 938, y: 138, w: 100, h: 50 }
+  c-production: { x: 1086, y: 138, w: 100, h: 50 }
+  c-superseded: { x: 790, y: 266, w: 100, h: 50 }
+  c-discarded: { x: 346, y: 410, w: 100, h: 50 }
+  c-retired: { x: 1086, y: 410, w: 100, h: 50 }

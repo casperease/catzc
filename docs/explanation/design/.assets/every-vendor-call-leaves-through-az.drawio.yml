@@ -23,87 +23,34 @@ content:
   relation: uses
   theme: dark
   bands:
-    - id: band-surface
-      label: CLI SURFACE
-    - id: band-platform
-      label: CATZC
-    - id: band-delegated
-      label: DELEGATED
-    - id: band-vendor
-      label: VENDOR SUBSTRATE
+    - { id: band-surface, label: CLI SURFACE }
+    - { id: band-platform, label: CATZC }
+    - { id: band-delegated, label: DELEGATED }
+    - { id: band-vendor, label: VENDOR SUBSTRATE }
   glyphs:
-    - id: c-templates
-      kind: code
-      label: Catzc.Azure.Templates
-      in: band-surface
-    - id: f-configuration
-      kind: file
-      label: azure.yml · options.yml
-      in: band-surface
-    - id: c-azure-cli
-      kind: code
-      label: Catzc.Azure.Cli
-      in: band-platform
-    - id: c-tooling
-      kind: code
-      label: Catzc.Tooling.Core
-      in: band-platform
-    - id: x-command
-      kind: external
-      label: az CLI
-      in: band-delegated
-    - id: x-bicep
-      kind: external
-      label: Bicep
-      in: band-delegated
-    - id: e-azure
-      kind: env
-      label: Azure
-      in: band-vendor
+    - { id: c-templates, kind: code, label: Catzc.Azure.Templates, in: band-surface }
+    - { id: f-configuration, kind: file, label: azure.yml · options.yml, in: band-surface }
+    - { id: c-azure-cli, kind: code, label: Catzc.Azure.Cli, in: band-platform }
+    - { id: c-tooling, kind: code, label: Catzc.Tooling.Core, in: band-platform }
+    - { id: x-command, kind: external, label: az CLI, in: band-delegated }
+    - { id: x-bicep, kind: external, label: Bicep, in: band-delegated }
+    - { id: e-azure, kind: env, label: Azure, in: band-vendor }
   edges:
-    - from: c-templates
-      to: f-configuration
-      kind: flow
-      label: ""
-    - from: c-templates
-      to: c-azure-cli
-      kind: flow
-      label: ""
-    - from: c-azure-cli
-      to: f-configuration
-      kind: flow
-      label: ""
-    - from: c-azure-cli
-      to: c-tooling
-      kind: flow
-      label: ""
-    - from: c-azure-cli
-      to: x-command
-      kind: flow
-      label: ""
-    - from: x-command
-      to: x-bicep
-      kind: flow
-      label: ""
-    - from: x-command
-      to: e-azure
-      kind: flow
-      label: the single exit
+    - { from: c-templates, to: f-configuration, kind: flow, label: "" }
+    - { from: c-templates, to: c-azure-cli, kind: flow, label: "" }
+    - { from: c-azure-cli, to: f-configuration, kind: flow, label: "" }
+    - { from: c-azure-cli, to: c-tooling, kind: flow, label: "" }
+    - { from: c-azure-cli, to: x-command, kind: flow, label: "" }
+    - { from: x-command, to: x-bicep, kind: flow, label: "" }
+    - { from: x-command, to: e-azure, kind: flow, label: the single exit }
   markers:
-    - at: c-templates
-      number: 1
-    - at: f-configuration
-      number: 2
-    - at: c-azure-cli
-      number: 3
-    - at: c-tooling
-      number: 4
-    - at: x-command
-      number: 5
-    - at: x-bicep
-      number: 6
-    - at: e-azure
-      number: 7
+    - { at: c-templates, number: 1 }
+    - { at: f-configuration, number: 2 }
+    - { at: c-azure-cli, number: 3 }
+    - { at: c-tooling, number: 4 }
+    - { at: x-command, number: 5 }
+    - { at: x-bicep, number: 6 }
+    - { at: e-azure, number: 7 }
   legend: auto
   minimaps:
     code-locations:
@@ -149,11 +96,7 @@ content:
           - DDR-THINPLAT-PLATFORMASCLI
           - DDR-THINPLAT-THINPLATFORM
       - cell: pwsh/Catzc.Base.QualityGates/configs
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - ADR-AZ-CLI-ASSERTAZ
-          - ADR-AZ-CLI-AZBYDEFAULT
-          - ADR-AZ-CLI-NOAZMODULEIMPORT
+        by: [pwsh/Catzc.Base.QualityGates/configs/terminology.yml, ADR-AZ-CLI-ASSERTAZ, ADR-AZ-CLI-AZBYDEFAULT, ADR-AZ-CLI-NOAZMODULEIMPORT]
     module-neighbourhood:
       - cell: subject/Catzc.Azure.Cli
         by:
@@ -176,80 +119,23 @@ content:
           - DDR-THINPLAT-PLATFORMASCLI
           - DDR-THINPLAT-THINPLATFORM
       - cell: subject/Catzc.Base.QualityGates
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - ADR-AZ-CLI-ASSERTAZ
-          - ADR-AZ-CLI-AZBYDEFAULT
-          - ADR-AZ-CLI-NOAZMODULEIMPORT
+        by: [pwsh/Catzc.Base.QualityGates/configs/terminology.yml, ADR-AZ-CLI-ASSERTAZ, ADR-AZ-CLI-AZBYDEFAULT, ADR-AZ-CLI-NOAZMODULEIMPORT]
     axis:
       - cell: DSGN/deploy
-        by:
-          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
-          - DDR-THINPLAT-PLATFORMASCLI
-          - DDR-THINPLAT-THINPLATFORM
+        by: [DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI, DDR-THINPLAT-THINPLATFORM]
       - cell: CLOUD/deploy
-        by:
-          - ADR-AZ-CLI-ASSERTAZ
-          - ADR-AZ-CLI-AZBYDEFAULT
-          - ADR-AZ-CLI-NOAZMODULEIMPORT
+        by: [ADR-AZ-CLI-ASSERTAZ, ADR-AZ-CLI-AZBYDEFAULT, ADR-AZ-CLI-NOAZMODULEIMPORT]
       - cell: CLOUD/access
-        by:
-          - ADR-AZ-CLI-ASSERTAZ
-          - ADR-AZ-CLI-AZBYDEFAULT
-          - ADR-AZ-CLI-NOAZMODULEIMPORT
+        by: [ADR-AZ-CLI-ASSERTAZ, ADR-AZ-CLI-AZBYDEFAULT, ADR-AZ-CLI-NOAZMODULEIMPORT]
 layout:
-  band-surface:
-    x: 20
-    y: 84
-    w: 1260
-    h: 120
-  band-platform:
-    x: 20
-    y: 224
-    w: 1260
-    h: 120
-  band-delegated:
-    x: 20
-    y: 364
-    w: 1260
-    h: 120
-  band-vendor:
-    x: 20
-    y: 504
-    w: 1260
-    h: 120
-  c-templates:
-    x: 200
-    y: 125
-    w: 280
-    h: 44
-  f-configuration:
-    x: 600
-    y: 125
-    w: 280
-    h: 44
-  c-azure-cli:
-    x: 380
-    y: 265
-    w: 280
-    h: 44
-  c-tooling:
-    x: 800
-    y: 265
-    w: 280
-    h: 44
-  x-command:
-    x: 380
-    y: 405
-    w: 280
-    h: 44
-  x-bicep:
-    x: 800
-    y: 405
-    w: 280
-    h: 44
-  e-azure:
-    x: 380
-    y: 545
-    w: 280
-    h: 52
+  band-surface: { x: 20, y: 84, w: 1260, h: 120 }
+  band-platform: { x: 20, y: 224, w: 1260, h: 120 }
+  band-delegated: { x: 20, y: 364, w: 1260, h: 120 }
+  band-vendor: { x: 20, y: 504, w: 1260, h: 120 }
+  c-templates: { x: 200, y: 125, w: 280, h: 44 }
+  f-configuration: { x: 600, y: 125, w: 280, h: 44 }
+  c-azure-cli: { x: 380, y: 265, w: 280, h: 44 }
+  c-tooling: { x: 800, y: 265, w: 280, h: 44 }
+  x-command: { x: 380, y: 405, w: 280, h: 44 }
+  x-bicep: { x: 800, y: 405, w: 280, h: 44 }
+  e-azure: { x: 380, y: 545, w: 280, h: 52 }

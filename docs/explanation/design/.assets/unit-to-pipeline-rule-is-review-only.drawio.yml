@@ -24,115 +24,46 @@ content:
   relation: is checked by
   theme: dark
   bands:
-    - id: band-tracks
-      label: TRACKS
-    - id: band-units
-      label: DEPLOYABLE-UNITS
-    - id: band-pipelines
-      label: PIPELINES · SCOPES
+    - { id: band-tracks, label: TRACKS }
+    - { id: band-units, label: DEPLOYABLE-UNITS }
+    - { id: band-pipelines, label: PIPELINES · SCOPES }
   glyphs:
-    - id: g-track
-      kind: set
-      label: track
-      in: band-tracks
-    - id: g-variants-config
-      kind: gate
-      label: VariantsConfig
-      in: band-tracks
-    - id: g-language-tests
-      kind: gate
-      label: Get-FileLanguage.Tests
-      in: band-tracks
-    - id: g-unit
-      kind: set
-      label: deployable-unit
-      in: band-units
-    - id: g-globs-config
-      kind: gate
-      label: GlobsConfig
-      in: band-units
-    - id: g-pipeline
-      kind: runner
-      label: pipeline
-      in: band-pipelines
-    - id: g-scope
-      kind: set
-      label: scope globset
-      in: band-pipelines
-    - id: g-review
-      kind: drsonly
-      label: code review
-      in: band-pipelines
+    - { id: g-track, kind: set, label: track, in: band-tracks }
+    - { id: g-variants-config, kind: gate, label: VariantsConfig, in: band-tracks }
+    - { id: g-language-tests, kind: gate, label: Get-FileLanguage.Tests, in: band-tracks }
+    - { id: g-unit, kind: set, label: deployable-unit, in: band-units }
+    - { id: g-globs-config, kind: gate, label: GlobsConfig, in: band-units }
+    - { id: g-pipeline, kind: runner, label: pipeline, in: band-pipelines }
+    - { id: g-scope, kind: set, label: scope globset, in: band-pipelines }
+    - { id: g-review, kind: drsonly, label: code review, in: band-pipelines }
   edges:
-    - from: g-track
-      to: g-variants-config
-      kind: flow
-      label: ""
-    - from: g-track
-      to: g-language-tests
-      kind: flow
-      label: ""
-    - from: g-unit
-      to: g-globs-config
-      kind: flow
-      label: ""
-    - from: g-pipeline
-      to: g-review
-      kind: adr
-      label: ""
-    - from: g-scope
-      to: g-review
-      kind: adr
-      label: ""
+    - { from: g-track, to: g-variants-config, kind: flow, label: "" }
+    - { from: g-track, to: g-language-tests, kind: flow, label: "" }
+    - { from: g-unit, to: g-globs-config, kind: flow, label: "" }
+    - { from: g-pipeline, to: g-review, kind: adr, label: "" }
+    - { from: g-scope, to: g-review, kind: adr, label: "" }
   markers:
-    - at: g-track
-      number: 1
-    - at: g-variants-config
-      number: 2
-    - at: g-language-tests
-      number: 3
-    - at: g-unit
-      number: 4
-    - at: g-globs-config
-      number: 5
-    - at: g-pipeline
-      number: 6
-    - at: g-scope
-      number: 7
-    - at: g-review
-      number: 8
+    - { at: g-track, number: 1 }
+    - { at: g-variants-config, number: 2 }
+    - { at: g-language-tests, number: 3 }
+    - { at: g-unit, number: 4 }
+    - { at: g-globs-config, number: 5 }
+    - { at: g-pipeline, number: 6 }
+    - { at: g-scope, number: 7 }
+    - { at: g-review, number: 8 }
   chips:
-    - at: g-track
-      kind: rule
-      rule: DDR-TRACK-TRACKISPLACEDCLUSTER
-    - at: g-track
-      kind: rule
-      rule: ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
-    - at: g-track
-      kind: rule
-      rule: ADR-REPO-FOLDERS-CLOSEDROOTSET
-    - at: g-unit
-      kind: rule
-      rule: FDR-CD-GLOBS-EVERYSETHASLAYER
-    - at: g-unit
-      kind: rule
-      rule: FDR-CD-GLOBS-COMPOSESETS
-    - at: g-pipeline
-      kind: rule
-      rule: DDR-TRACK-DEPLOYABLEUNIT
-      gated: false
-    - at: g-scope
-      kind: rule
-      rule: DDR-TRACK-ONETRACKTYPE
-      gated: false
+    - { at: g-track, kind: rule, rule: DDR-TRACK-TRACKISPLACEDCLUSTER }
+    - { at: g-track, kind: rule, rule: ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL }
+    - { at: g-track, kind: rule, rule: ADR-REPO-FOLDERS-CLOSEDROOTSET }
+    - { at: g-unit, kind: rule, rule: FDR-CD-GLOBS-EVERYSETHASLAYER }
+    - { at: g-unit, kind: rule, rule: FDR-CD-GLOBS-COMPOSESETS }
+    - { at: g-pipeline, kind: rule, rule: DDR-TRACK-DEPLOYABLEUNIT, gated: false }
+    - { at: g-scope, kind: rule, rule: DDR-TRACK-ONETRACKTYPE, gated: false }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [.claude/CLAUDE.md, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/cd-apex.yaml
@@ -210,15 +141,9 @@ content:
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-EVERYSETHASLAYER
       - cell: github-workflows/workflows/.
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: pwsh/Catzc.Azure.DevOps/.
-        by:
-          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -227,10 +152,7 @@ content:
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-EVERYSETHASLAYER
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
-        by:
-          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
@@ -247,26 +169,13 @@ content:
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-EVERYSETHASLAYER
       - cell: pwsh/Catzc.Base.Drs/types
-        by:
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: pwsh/Catzc.Base.Globs/.
-        by:
-          - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
-          - pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1, pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: pwsh/Catzc.Base.Globs/configs
-        by:
-          - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - DDR-TRACK-DEPLOYABLEUNIT
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [pwsh/Catzc.Base.Globs/configs/globs.yml, DDR-TRACK-DEPLOYABLEUNIT, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: pwsh/Catzc.Base.Globs/private
-        by:
-          - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: pwsh/Catzc.Base.Globs/tests/types
         by:
           - pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
@@ -283,9 +192,7 @@ content:
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-EVERYSETHASLAYER
       - cell: pwsh/Catzc.Base.Languages/tests
-        by:
-          - pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
-          - DDR-TRACK-TRACKISPLACEDCLUSTER
+        by: [pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1, DDR-TRACK-TRACKISPLACEDCLUSTER]
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
@@ -319,19 +226,11 @@ content:
           - ADR-REPO-FOLDERS-CLOSEDROOTSET
           - ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
       - cell: pwsh/Catzc.Base.ModuleSystem/configs
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-          - DDR-TRACK-DEPLOYABLEUNIT
-          - DDR-TRACK-TRACKISPLACEDCLUSTER
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml, DDR-TRACK-DEPLOYABLEUNIT, DDR-TRACK-TRACKISPLACEDCLUSTER]
       - cell: pwsh/Catzc.Base.QualityGates/.
-        by:
-          - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [pwsh/Catzc.Base.QualityGates/Test-Automation.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: pwsh/Catzc.Base.QualityGates/configs
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [pwsh/Catzc.Base.QualityGates/configs/terminology.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1
@@ -360,15 +259,9 @@ content:
           - DDR-TRACK-TRACKISPLACEDCLUSTER
     module-neighbourhood:
       - cell: subject/.claude
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [.claude/CLAUDE.md, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: subject/Catzc.Azure.DevOps
-        by:
-          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: subject/Catzc.Azure.DevOps.BuildValidation
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -405,9 +298,7 @@ content:
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-EVERYSETHASLAYER
       - cell: subject/Catzc.Base.Languages
-        by:
-          - pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
-          - DDR-TRACK-TRACKISPLACEDCLUSTER
+        by: [pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1, DDR-TRACK-TRACKISPLACEDCLUSTER]
       - cell: subject/Catzc.Base.Maps
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
@@ -466,10 +357,7 @@ content:
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-EVERYSETHASLAYER
       - cell: subject/workflows
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-EVERYSETHASLAYER]
     axis:
       - cell: DSGN/*
         by:
@@ -479,62 +367,16 @@ content:
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-EVERYSETHASLAYER
       - cell: AUTO/*
-        by:
-          - ADR-REPO-FOLDERS-CLOSEDROOTSET
-          - ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL
+        by: [ADR-REPO-FOLDERS-CLOSEDROOTSET, ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL]
 layout:
-  band-tracks:
-    x: 20
-    y: 104
-    w: 460
-    h: 380
-  band-units:
-    x: 500
-    y: 104
-    w: 260
-    h: 380
-  band-pipelines:
-    x: 780
-    y: 104
-    w: 500
-    h: 380
-  g-track:
-    x: 140
-    y: 160
-    w: 220
-    h: 52
-  g-variants-config:
-    x: 30
-    y: 350
-    w: 210
-    h: 90
-  g-language-tests:
-    x: 250
-    y: 350
-    w: 220
-    h: 90
-  g-unit:
-    x: 540
-    y: 160
-    w: 180
-    h: 52
-  g-globs-config:
-    x: 540
-    y: 350
-    w: 180
-    h: 90
-  g-pipeline:
-    x: 820
-    y: 160
-    w: 180
-    h: 52
-  g-scope:
-    x: 1060
-    y: 160
-    w: 180
-    h: 52
-  g-review:
-    x: 930
-    y: 360
-    w: 220
-    h: 60
+  band-tracks: { x: 20, y: 104, w: 460, h: 380 }
+  band-units: { x: 500, y: 104, w: 260, h: 380 }
+  band-pipelines: { x: 780, y: 104, w: 500, h: 380 }
+  g-track: { x: 140, y: 160, w: 220, h: 52 }
+  g-variants-config: { x: 30, y: 350, w: 210, h: 90 }
+  g-language-tests: { x: 250, y: 350, w: 220, h: 90 }
+  g-unit: { x: 540, y: 160, w: 180, h: 52 }
+  g-globs-config: { x: 540, y: 350, w: 180, h: 90 }
+  g-pipeline: { x: 820, y: 160, w: 180, h: 52 }
+  g-scope: { x: 1060, y: 160, w: 180, h: 52 }
+  g-review: { x: 930, y: 360, w: 220, h: 60 }

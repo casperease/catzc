@@ -22,71 +22,32 @@ content:
   relation: crosses the boundary
   theme: dark
   bands:
-    - id: band-communication
-      label: COMMUNICATION FORM
-    - id: band-boundary
-      label: THE BOUNDARY
-    - id: band-binding
-      label: BINDING FORM
-    - id: band-stage
-      label: CROSS-STAGE
+    - { id: band-communication, label: COMMUNICATION FORM }
+    - { id: band-boundary, label: THE BOUNDARY }
+    - { id: band-binding, label: BINDING FORM }
+    - { id: band-stage, label: CROSS-STAGE }
   glyphs:
-    - id: s-communication
-      kind: set
-      label: Communication form
-      in: band-communication
-    - id: g-crossers
-      kind: code
-      label: The two crossers
-      in: band-boundary
-    - id: a-hybrid
-      kind: drsonly
-      label: A hybrid form
-      in: band-boundary
-    - id: s-binding
-      kind: set
-      label: Binding form
-      in: band-binding
-    - id: s-artifact
-      kind: set
-      label: Published artifact
-      in: band-stage
+    - { id: s-communication, kind: set, label: Communication form, in: band-communication }
+    - { id: g-crossers, kind: code, label: The two crossers, in: band-boundary }
+    - { id: a-hybrid, kind: drsonly, label: A hybrid form, in: band-boundary }
+    - { id: s-binding, kind: set, label: Binding form, in: band-binding }
+    - { id: s-artifact, kind: set, label: Published artifact, in: band-stage }
   edges:
-    - from: s-communication
-      to: g-crossers
-      kind: flow
-      label: ""
-    - from: g-crossers
-      to: s-binding
-      kind: flow
-      label: ""
-    - from: s-binding
-      to: g-crossers
-      kind: flow
-      label: ""
-    - from: g-crossers
-      to: s-communication
-      kind: flow
-      label: ""
+    - { from: s-communication, to: g-crossers, kind: flow, label: "" }
+    - { from: g-crossers, to: s-binding, kind: flow, label: "" }
+    - { from: s-binding, to: g-crossers, kind: flow, label: "" }
+    - { from: g-crossers, to: s-communication, kind: flow, label: "" }
   markers:
-    - at: s-communication
-      number: 1
-    - at: g-crossers
-      number: 2
-    - at: s-binding
-      number: 3
-    - at: a-hybrid
-      number: 4
-    - at: s-artifact
-      number: 5
+    - { at: s-communication, number: 1 }
+    - { at: g-crossers, number: 2 }
+    - { at: s-binding, number: 3 }
+    - { at: a-hybrid, number: 4 }
+    - { at: s-artifact, number: 5 }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/skills/catzc-module
-        by:
-          - .claude/skills/catzc-module/SKILL.md
-          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
-          - ADR-AUTO-PATH-TWOFORMS
+        by: [.claude/skills/catzc-module/SKILL.md, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING, ADR-AUTO-PATH-TWOFORMS]
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -121,23 +82,13 @@ content:
           - pwsh/Catzc.Base.Contracts/Publish-ContractRelease.ps1
           - ADR-AUTO-PATH-COMMUNICATIONFORM
       - cell: pwsh/Catzc.Base.Contracts/private
-        by:
-          - pwsh/Catzc.Base.Contracts/private/Get-ContractFileHashes.ps1
-          - ADR-AUTO-PATH-COMMUNICATIONFORM
+        by: [pwsh/Catzc.Base.Contracts/private/Get-ContractFileHashes.ps1, ADR-AUTO-PATH-COMMUNICATIONFORM]
       - cell: pwsh/Catzc.Base.Contracts/tests
-        by:
-          - pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1
-          - ADR-AUTO-PATH-COMMUNICATIONFORM
+        by: [pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1, ADR-AUTO-PATH-COMMUNICATIONFORM]
       - cell: pwsh/Catzc.Base.Contracts/tests/types
-        by:
-          - pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1
-          - ADR-AUTO-PATH-COMMUNICATIONFORM
-          - ADR-AUTO-PATH-TWOFORMS
+        by: [pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1, ADR-AUTO-PATH-COMMUNICATIONFORM, ADR-AUTO-PATH-TWOFORMS]
       - cell: pwsh/Catzc.Base.Contracts/types
-        by:
-          - pwsh/Catzc.Base.Contracts/types/ContractAsset.cs
-          - ADR-AUTO-PATH-COMMUNICATIONFORM
-          - ADR-AUTO-PATH-TWOFORMS
+        by: [pwsh/Catzc.Base.Contracts/types/ContractAsset.cs, ADR-AUTO-PATH-COMMUNICATIONFORM, ADR-AUTO-PATH-TWOFORMS]
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/readme.yml
@@ -172,13 +123,9 @@ content:
           - ADR-AUTO-PATH-PUBLISHEDARTIFACT
           - ADR-AUTO-PATH-TWOFORMS
       - cell: pwsh/Catzc.Base.ModuleSystem/configs
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
       - cell: pwsh/Catzc.Base.Objects/tests/types
-        by:
-          - pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
-          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+        by: [pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
       - cell: pwsh/Catzc.Base.Objects/types
         by:
           - pwsh/Catzc.Base.Objects/types/ArtifactRef.cs
@@ -214,23 +161,14 @@ content:
           - ADR-AUTO-PATH-PUBLISHEDARTIFACT
           - ADR-AUTO-PATH-TWOFORMS
       - cell: pwsh/Catzc.Base.Slides/tests/types
-        by:
-          - pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1
-          - ADR-AUTO-PATH-TWOFORMS
+        by: [pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1, ADR-AUTO-PATH-TWOFORMS]
       - cell: pwsh/Catzc.Tooling.Inspiration/private
-        by:
-          - pwsh/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
-          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+        by: [pwsh/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING]
       - cell: pwsh/Catzc.Tooling.Inspiration/types
-        by:
-          - pwsh/Catzc.Tooling.Inspiration/types/InspirationRoot.cs
-          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+        by: [pwsh/Catzc.Tooling.Inspiration/types/InspirationRoot.cs, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING]
     module-neighbourhood:
       - cell: subject/.claude
-        by:
-          - .claude/skills/catzc-module/SKILL.md
-          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
-          - ADR-AUTO-PATH-TWOFORMS
+        by: [.claude/skills/catzc-module/SKILL.md, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING, ADR-AUTO-PATH-TWOFORMS]
       - cell: subject/Catzc.Base.Contracts
         by:
           - pwsh/Catzc.Base.Contracts/Get-Contract.ps1
@@ -297,9 +235,7 @@ content:
           - ADR-AUTO-PATH-PUBLISHEDARTIFACT
           - ADR-AUTO-PATH-TWOFORMS
       - cell: subject/Catzc.Base.Slides
-        by:
-          - pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1
-          - ADR-AUTO-PATH-TWOFORMS
+        by: [pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1, ADR-AUTO-PATH-TWOFORMS]
       - cell: subject/Catzc.Tooling.Inspiration
         by:
           - pwsh/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
@@ -314,48 +250,12 @@ content:
           - ADR-AUTO-PATH-PUBLISHEDARTIFACT
           - ADR-AUTO-PATH-TWOFORMS
 layout:
-  band-communication:
-    x: 20
-    y: 84
-    w: 380
-    h: 220
-  band-boundary:
-    x: 420
-    y: 84
-    w: 440
-    h: 220
-  band-binding:
-    x: 880
-    y: 84
-    w: 400
-    h: 220
-  band-stage:
-    x: 20
-    y: 324
-    w: 1260
-    h: 130
-  s-communication:
-    x: 60
-    y: 150
-    w: 300
-    h: 52
-  g-crossers:
-    x: 530
-    y: 150
-    w: 220
-    h: 52
-  a-hybrid:
-    x: 530
-    y: 236
-    w: 220
-    h: 44
-  s-binding:
-    x: 920
-    y: 150
-    w: 300
-    h: 52
-  s-artifact:
-    x: 530
-    y: 374
-    w: 220
-    h: 52
+  band-communication: { x: 20, y: 84, w: 380, h: 220 }
+  band-boundary: { x: 420, y: 84, w: 440, h: 220 }
+  band-binding: { x: 880, y: 84, w: 400, h: 220 }
+  band-stage: { x: 20, y: 324, w: 1260, h: 130 }
+  s-communication: { x: 60, y: 150, w: 300, h: 52 }
+  g-crossers: { x: 530, y: 150, w: 220, h: 52 }
+  a-hybrid: { x: 530, y: 236, w: 220, h: 44 }
+  s-binding: { x: 920, y: 150, w: 300, h: 52 }
+  s-artifact: { x: 530, y: 374, w: 220, h: 52 }

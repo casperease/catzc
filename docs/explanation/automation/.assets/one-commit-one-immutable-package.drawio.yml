@@ -8,10 +8,7 @@ description:
   Selected modules are built once into one versioned package, an integrity check proves it, and every other code root is a copy of that
   package that is checked again before the copy is placed.
 about:
-  adrs:
-    - ADR-AUTO-BUNDLE-BUNDLEISBUILD
-    - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
-    - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+  adrs: [ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
   lens: meta
 content:
   title: One commit becomes one verified, immutable package, and every code root is a copy of it
@@ -20,73 +17,31 @@ content:
   relation: feeds or runs the next step
   theme: dark
   bands:
-    - id: band-source
-      label: SOURCE
-    - id: band-build
-      label: BUILD
-    - id: band-bundle
-      label: BUNDLE
-    - id: band-roots
-      label: CODE ROOTS
+    - { id: band-source, label: SOURCE }
+    - { id: band-build, label: BUILD }
+    - { id: band-bundle, label: BUNDLE }
+    - { id: band-roots, label: CODE ROOTS }
   groups:
-    - id: grp-copies
-      label: " "
-      in: band-roots
+    - { id: grp-copies, label: " ", in: band-roots }
   glyphs:
-    - id: s-modules
-      kind: set
-      label: Selected modules
-      in: band-source
-    - id: g-build
-      kind: code
-      label: One build
-      in: band-build
-    - id: g-integrity
-      kind: gate
-      label: Integrity check
-      in: band-build
-    - id: r-temporary
-      kind: result
-      label: Temporary build
-      in: band-bundle
-    - id: r-installed
-      kind: result
-      label: Installed · saved
-      in: grp-copies
+    - { id: s-modules, kind: set, label: Selected modules, in: band-source }
+    - { id: g-build, kind: code, label: One build, in: band-build }
+    - { id: g-integrity, kind: gate, label: Integrity check, in: band-build }
+    - { id: r-temporary, kind: result, label: Temporary build, in: band-bundle }
+    - { id: r-installed, kind: result, label: Installed · saved, in: grp-copies }
   edges:
-    - from: s-modules
-      to: g-build
-      kind: flow
-      label: ""
-    - from: g-build
-      to: g-integrity
-      kind: flow
-      label: ""
-    - from: g-integrity
-      to: r-temporary
-      kind: flow
-      label: ""
-    - from: r-temporary
-      to: grp-copies
-      kind: flow
-      label: ""
-    - from: grp-copies
-      to: g-integrity
-      kind: flow
-      label: checked again
+    - { from: s-modules, to: g-build, kind: flow, label: "" }
+    - { from: g-build, to: g-integrity, kind: flow, label: "" }
+    - { from: g-integrity, to: r-temporary, kind: flow, label: "" }
+    - { from: r-temporary, to: grp-copies, kind: flow, label: "" }
+    - { from: grp-copies, to: g-integrity, kind: flow, label: checked again }
   markers:
-    - at: s-modules
-      number: 1
-    - at: g-build
-      number: 2
-    - at: g-integrity
-      number: 3
-    - at: r-temporary
-      number: 4
-    - at: r-installed
-      number: 5
-    - at: grp-copies
-      number: 6
+    - { at: s-modules, number: 1 }
+    - { at: g-build, number: 2 }
+    - { at: g-integrity, number: 3 }
+    - { at: r-temporary, number: 4 }
+    - { at: r-installed, number: 5 }
+    - { at: grp-copies, number: 6 }
   legend: auto
   minimaps:
     code-locations:
@@ -112,13 +67,9 @@ content:
           - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
           - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
       - cell: github-workflows/workflows/.
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+        by: [.github/workflows/ci-pwsh.yml, ADR-AUTO-BUNDLE-IMMUTABLEBUILD]
       - cell: pwsh/Catzc.Base.Docs/configs
-        by:
-          - pwsh/Catzc.Base.Docs/configs/glossary.yml
-          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+        by: [pwsh/Catzc.Base.Docs/configs/glossary.yml, ADR-AUTO-BUNDLE-BUNDLEISBUILD]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -162,9 +113,7 @@ content:
           - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
     module-neighbourhood:
       - cell: subject/Catzc.Base.Docs
-        by:
-          - pwsh/Catzc.Base.Docs/configs/glossary.yml
-          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+        by: [pwsh/Catzc.Base.Docs/configs/glossary.yml, ADR-AUTO-BUNDLE-BUNDLEISBUILD]
       - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -192,68 +141,20 @@ content:
           - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
           - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
       - cell: subject/workflows
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+        by: [.github/workflows/ci-pwsh.yml, ADR-AUTO-BUNDLE-IMMUTABLEBUILD]
     axis:
       - cell: AUTO/build
-        by:
-          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
-          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
-          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+        by: [ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
       - cell: AUTO/release
-        by:
-          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
-          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
-          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+        by: [ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
 layout:
-  band-source:
-    x: 20
-    y: 84
-    w: 230
-    h: 300
-  band-build:
-    x: 270
-    y: 84
-    w: 450
-    h: 300
-  band-bundle:
-    x: 740
-    y: 84
-    w: 230
-    h: 300
-  band-roots:
-    x: 990
-    y: 84
-    w: 290
-    h: 300
-  s-modules:
-    x: 40
-    y: 180
-    w: 190
-    h: 44
-  g-build:
-    x: 290
-    y: 180
-    w: 150
-    h: 44
-  g-integrity:
-    x: 500
-    y: 168
-    w: 190
-    h: 68
-  r-temporary:
-    x: 760
-    y: 290
-    w: 190
-    h: 44
-  grp-copies:
-    x: 1010
-    y: 130
-    w: 250
-    h: 150
-  r-installed:
-    x: 1030
-    y: 180
-    w: 210
-    h: 44
+  band-source: { x: 20, y: 84, w: 230, h: 300 }
+  band-build: { x: 270, y: 84, w: 450, h: 300 }
+  band-bundle: { x: 740, y: 84, w: 230, h: 300 }
+  band-roots: { x: 990, y: 84, w: 290, h: 300 }
+  s-modules: { x: 40, y: 180, w: 190, h: 44 }
+  g-build: { x: 290, y: 180, w: 150, h: 44 }
+  g-integrity: { x: 500, y: 168, w: 190, h: 68 }
+  r-temporary: { x: 760, y: 290, w: 190, h: 44 }
+  grp-copies: { x: 1010, y: 130, w: 250, h: 150 }
+  r-installed: { x: 1030, y: 180, w: 210, h: 44 }

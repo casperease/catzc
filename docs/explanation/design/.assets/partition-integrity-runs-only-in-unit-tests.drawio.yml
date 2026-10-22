@@ -4,9 +4,8 @@
 #     with_body_sha: a62d1ed8d72b
 # ---
 
-description:
-  "Which rules of a module folder's layout a gate checks: two quality gates, the import guard and the config check hold theirs, while the
-  partition check runs only in unit tests, the manifest has no gate and the per-aspect sha lock has no mechanism."
+description: 'Which rules of a module folder''s layout a gate checks: two quality gates, the import guard and the config check hold theirs, while
+  the partition check runs only in unit tests, the manifest has no gate and the per-aspect sha lock has no mechanism.'
 about:
   adrs:
     - DDR-ASPECT-ASPECTSAREDERIVED
@@ -27,136 +26,52 @@ content:
   relation: reads, then runs
   theme: dark
   bands:
-    - id: band-folder
-      label: FOLDER
-    - id: band-visibility
-      label: VISIBILITY
-    - id: band-aspect
-      label: ASPECT
-    - id: band-lock
-      label: SHA LOCK
+    - { id: band-folder, label: FOLDER }
+    - { id: band-visibility, label: VISIBILITY }
+    - { id: band-aspect, label: ASPECT }
+    - { id: band-lock, label: SHA LOCK }
   glyphs:
-    - id: g-root
-      kind: code
-      label: pwsh/<Module>/
-      in: band-folder
-    - id: g-source-conventions
-      kind: gate
-      label: Test-SourceConventions
-      in: band-folder
-    - id: g-folder-conventions
-      kind: gate
-      label: Test-FolderConventions
-      in: band-folder
-    - id: g-assert-unique
-      kind: gate
-      label: Assert-Unique...FunctionName
-      in: band-visibility
-    - id: g-manifest
-      kind: code
-      label: New-DynamicManifest
-      in: band-visibility
-    - id: g-variants-config
-      kind: gate
-      label: VariantsConfig
-      in: band-aspect
-    - id: g-validate
-      kind: drsonly
-      label: AspectPartition.Validate
-      in: band-aspect
-    - id: g-sha-lock
-      kind: drsonly
-      label: aspect sha lock
-      in: band-lock
+    - { id: g-root, kind: code, label: pwsh/<Module>/, in: band-folder }
+    - { id: g-source-conventions, kind: gate, label: Test-SourceConventions, in: band-folder }
+    - { id: g-folder-conventions, kind: gate, label: Test-FolderConventions, in: band-folder }
+    - { id: g-assert-unique, kind: gate, label: Assert-Unique...FunctionName, in: band-visibility }
+    - { id: g-manifest, kind: code, label: New-DynamicManifest, in: band-visibility }
+    - { id: g-variants-config, kind: gate, label: VariantsConfig, in: band-aspect }
+    - { id: g-validate, kind: drsonly, label: AspectPartition.Validate, in: band-aspect }
+    - { id: g-sha-lock, kind: drsonly, label: aspect sha lock, in: band-lock }
   edges:
-    - from: g-root
-      to: g-source-conventions
-      kind: flow
-      label: ""
-    - from: g-root
-      to: g-folder-conventions
-      kind: flow
-      label: ""
-    - from: g-root
-      to: g-assert-unique
-      kind: flow
-      label: ""
-    - from: g-assert-unique
-      to: g-manifest
-      kind: flow
-      label: ""
-    - from: g-variants-config
-      to: g-validate
-      kind: adr
-      label: ""
-    - from: g-variants-config
-      to: g-sha-lock
-      kind: adr
-      label: ""
+    - { from: g-root, to: g-source-conventions, kind: flow, label: "" }
+    - { from: g-root, to: g-folder-conventions, kind: flow, label: "" }
+    - { from: g-root, to: g-assert-unique, kind: flow, label: "" }
+    - { from: g-assert-unique, to: g-manifest, kind: flow, label: "" }
+    - { from: g-variants-config, to: g-validate, kind: adr, label: "" }
+    - { from: g-variants-config, to: g-sha-lock, kind: adr, label: "" }
   markers:
-    - at: g-root
-      number: 1
-    - at: g-source-conventions
-      number: 2
-    - at: g-folder-conventions
-      number: 3
-    - at: g-assert-unique
-      number: 4
-    - at: g-manifest
-      number: 5
-    - at: g-variants-config
-      number: 6
-    - at: g-validate
-      number: 7
-    - at: g-sha-lock
-      number: 8
+    - { at: g-root, number: 1 }
+    - { at: g-source-conventions, number: 2 }
+    - { at: g-folder-conventions, number: 3 }
+    - { at: g-assert-unique, number: 4 }
+    - { at: g-manifest, number: 5 }
+    - { at: g-variants-config, number: 6 }
+    - { at: g-validate, number: 7 }
+    - { at: g-sha-lock, number: 8 }
   chips:
-    - at: g-source-conventions
-      kind: rule
-      rule: ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
-    - at: g-source-conventions
-      kind: rule
-      rule: ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
-    - at: g-folder-conventions
-      kind: rule
-      rule: ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
-    - at: g-assert-unique
-      kind: rule
-      rule: ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
-    - at: g-manifest
-      kind: rule
-      rule: ADR-PWSH-MANIFEST-GENERATEDMANIFESTS
-      gated: false
-    - at: g-manifest
-      kind: rule
-      rule: ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED
-      gated: false
-    - at: g-variants-config
-      kind: rule
-      rule: DDR-ASPECT-ASPECTSAREDERIVED
-    - at: g-variants-config
-      kind: rule
-      rule: DDR-ASPECT-TRACKPICKSCATCHALL
-    - at: g-validate
-      kind: rule
-      rule: DDR-ASPECT-PARTITIONISCHECKED
-      gated: false
-    - at: band-lock
-      kind: rule
-      rule: DDR-ASPECT-ASPECTISAGLOBSET
-      gated: false
-    - at: band-lock
-      kind: rule
-      rule: FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-      gated: false
+    - { at: g-source-conventions, kind: rule, rule: ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE }
+    - { at: g-source-conventions, kind: rule, rule: ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME }
+    - { at: g-folder-conventions, kind: rule, rule: ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS }
+    - { at: g-assert-unique, kind: rule, rule: ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME }
+    - { at: g-manifest, kind: rule, rule: ADR-PWSH-MANIFEST-GENERATEDMANIFESTS, gated: false }
+    - { at: g-manifest, kind: rule, rule: ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED, gated: false }
+    - { at: g-variants-config, kind: rule, rule: DDR-ASPECT-ASPECTSAREDERIVED }
+    - { at: g-variants-config, kind: rule, rule: DDR-ASPECT-TRACKPICKSCATCHALL }
+    - { at: g-validate, kind: rule, rule: DDR-ASPECT-PARTITIONISCHECKED, gated: false }
+    - { at: band-lock, kind: rule, rule: DDR-ASPECT-ASPECTISAGLOBSET, gated: false }
+    - { at: band-lock, kind: rule, rule: FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, gated: false }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [.claude/CLAUDE.md, ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/cd-apex.yaml
@@ -167,9 +82,7 @@ content:
           - .ado/pipelines/ci-pwsh.yaml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: ado-pipelines/pipelines/extends
-        by:
-          - .ado/pipelines/extends/cd-customer.yaml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [.ado/pipelines/extends/cd-customer.yaml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: docs/-/.
         by:
           - docs/drs/automation/pwsh/dora-explains.md
@@ -230,13 +143,9 @@ content:
           - DDR-ASPECT-TRACKPICKSCATCHALL
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: github-workflows/workflows/.
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Azure.DevOps/.
-        by:
-          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -244,17 +153,11 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
-        by:
-          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
-        by:
-          - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Base.Docs/configs
-        by:
-          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
+        by: [pwsh/Catzc.Base.Docs/configs/capabilities.yml, ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -269,9 +172,7 @@ content:
           - DDR-ASPECT-TRACKPICKSCATCHALL
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Base.Drs/types
-        by:
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
@@ -283,13 +184,9 @@ content:
           - DDR-ASPECT-TRACKPICKSCATCHALL
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Base.Globs/configs
-        by:
-          - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Base.Globs/configs/globs.yml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Base.Globs/private
-        by:
-          - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Base.Globs/tests
         by:
           - pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
@@ -323,9 +220,7 @@ content:
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Base.Maps/tests
-        by:
-          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Base.Modules/.
         by:
           - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
@@ -341,13 +236,9 @@ content:
           - DDR-ASPECT-PARTITIONISCHECKED
           - DDR-ASPECT-TRACKPICKSCATCHALL
       - cell: pwsh/Catzc.Base.ModuleSystem/.
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
-          - ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
+        by: [pwsh/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1, ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS]
       - cell: pwsh/Catzc.Base.QualityGates/configs
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Base.QualityGates/configs/terminology.yml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-ChangeTestFile.ps1
@@ -380,14 +271,9 @@ content:
           - ADR-PWSH-MANIFEST-ONEDEFINITIONPERNAME
     module-neighbourhood:
       - cell: subject/.claude
-        by:
-          - .claude/CLAUDE.md
-          - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [.claude/CLAUDE.md, ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: subject/Catzc.Azure.DevOps
-        by:
-          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: subject/Catzc.Azure.DevOps.BuildValidation
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -397,9 +283,7 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: subject/Catzc.Base.Docs
-        by:
-          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
+        by: [pwsh/Catzc.Base.Docs/configs/capabilities.yml, ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE]
       - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -441,9 +325,7 @@ content:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: subject/Catzc.Base.ModuleSystem
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
-          - ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
+        by: [pwsh/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1, ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS]
       - cell: subject/Catzc.Base.Modules
         by:
           - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
@@ -489,19 +371,12 @@ content:
           - .ado/pipelines/extends/cd-customer.yaml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: subject/workflows
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
     axis:
       - cell: DSGN/build
-        by:
-          - DDR-ASPECT-ASPECTISAGLOBSET
-          - DDR-ASPECT-ASPECTSAREDERIVED
-          - DDR-ASPECT-PARTITIONISCHECKED
-          - DDR-ASPECT-TRACKPICKSCATCHALL
+        by: [DDR-ASPECT-ASPECTISAGLOBSET, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-PARTITIONISCHECKED, DDR-ASPECT-TRACKPICKSCATCHALL]
       - cell: DSGN/*
-        by:
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: AUTO/*
         by:
           - ADR-PWSH-MANIFEST-GENERATEDMANIFESTS
@@ -510,63 +385,15 @@ content:
           - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
           - ADR-REPO-FOLDERS-FIXEDMODULEFOLDERS
 layout:
-  band-folder:
-    x: 20
-    y: 104
-    w: 500
-    h: 300
-  band-visibility:
-    x: 540
-    y: 104
-    w: 280
-    h: 300
-  band-aspect:
-    x: 840
-    y: 104
-    w: 240
-    h: 300
-  band-lock:
-    x: 1100
-    y: 104
-    w: 180
-    h: 300
-  g-root:
-    x: 100
-    y: 170
-    w: 300
-    h: 44
-  g-source-conventions:
-    x: 30
-    y: 290
-    w: 230
-    h: 90
-  g-folder-conventions:
-    x: 280
-    y: 290
-    w: 230
-    h: 90
-  g-assert-unique:
-    x: 560
-    y: 150
-    w: 240
-    h: 90
-  g-manifest:
-    x: 580
-    y: 310
-    w: 200
-    h: 44
-  g-variants-config:
-    x: 850
-    y: 150
-    w: 220
-    h: 90
-  g-validate:
-    x: 850
-    y: 310
-    w: 220
-    h: 52
-  g-sha-lock:
-    x: 1115
-    y: 160
-    w: 150
-    h: 52
+  band-folder: { x: 20, y: 104, w: 500, h: 300 }
+  band-visibility: { x: 540, y: 104, w: 280, h: 300 }
+  band-aspect: { x: 840, y: 104, w: 240, h: 300 }
+  band-lock: { x: 1100, y: 104, w: 180, h: 300 }
+  g-root: { x: 100, y: 170, w: 300, h: 44 }
+  g-source-conventions: { x: 30, y: 290, w: 230, h: 90 }
+  g-folder-conventions: { x: 280, y: 290, w: 230, h: 90 }
+  g-assert-unique: { x: 560, y: 150, w: 240, h: 90 }
+  g-manifest: { x: 580, y: 310, w: 200, h: 44 }
+  g-variants-config: { x: 850, y: 150, w: 220, h: 90 }
+  g-validate: { x: 850, y: 310, w: 220, h: 52 }
+  g-sha-lock: { x: 1115, y: 160, w: 150, h: 52 }

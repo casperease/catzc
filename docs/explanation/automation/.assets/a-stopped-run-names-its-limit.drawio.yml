@@ -4,13 +4,10 @@
 #     with_body_sha: e105d8177548
 # ---
 
-description:
-  "Every call runs inside a limit: an agent's Bash call meets the hook, a developer's or pipeline's pwsh work runs through the two bounded
-  runners, and a run past its limit stops with a message naming the limit and where to change it."
+description: 'Every call runs inside a limit: an agent''s Bash call meets the hook, a developer''s or pipeline''s pwsh work runs through the two
+  bounded runners, and a run past its limit stops with a message naming the limit and where to change it.'
 about:
-  adrs:
-    - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-    - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
   lens: operations
 content:
   title: A run past its limit stops with a message that names the limit and where to change it
@@ -19,94 +16,41 @@ content:
   relation: runs
   theme: dark
   bands:
-    - id: band-caller
-      label: CALLER
-    - id: band-call
-      label: CALL
-    - id: band-stop
-      label: STOP
+    - { id: band-caller, label: CALLER }
+    - { id: band-call, label: CALL }
+    - { id: band-stop, label: STOP }
   groups:
-    - id: grp-runners
-      label: bounded runners
-      in: band-call
+    - { id: grp-runners, label: bounded runners, in: band-call }
   glyphs:
-    - id: g-agent
-      kind: actor
-      label: agent
-      in: band-caller
-    - id: g-developer
-      kind: actor
-      label: developer
-      in: band-caller
-    - id: g-hook
-      kind: gate
-      label: Assert-BashTimeout
-      in: band-call
-    - id: g-executable
-      kind: code
-      label: Invoke-Executable
-      in: grp-runners
-    - id: g-with-timeout
-      kind: code
-      label: Invoke-WithTimeout
-      in: grp-runners
-    - id: f-denied
-      kind: failure
-      label: Bash call denied
-      in: band-stop
-    - id: f-timeout
-      kind: failure
-      label: TimeoutException
-      in: band-stop
+    - { id: g-agent, kind: actor, label: agent, in: band-caller }
+    - { id: g-developer, kind: actor, label: developer, in: band-caller }
+    - { id: g-hook, kind: gate, label: Assert-BashTimeout, in: band-call }
+    - { id: g-executable, kind: code, label: Invoke-Executable, in: grp-runners }
+    - { id: g-with-timeout, kind: code, label: Invoke-WithTimeout, in: grp-runners }
+    - { id: f-denied, kind: failure, label: Bash call denied, in: band-stop }
+    - { id: f-timeout, kind: failure, label: TimeoutException, in: band-stop }
   edges:
-    - from: g-agent
-      to: g-hook
-      kind: flow
-      label: ""
-    - from: g-developer
-      to: grp-runners
-      kind: flow
-      label: ""
-    - from: g-hook
-      to: f-denied
-      kind: fail
-      label: ""
-    - from: grp-runners
-      to: f-timeout
-      kind: fail
-      label: ""
+    - { from: g-agent, to: g-hook, kind: flow, label: "" }
+    - { from: g-developer, to: grp-runners, kind: flow, label: "" }
+    - { from: g-hook, to: f-denied, kind: fail, label: "" }
+    - { from: grp-runners, to: f-timeout, kind: fail, label: "" }
   markers:
-    - at: g-agent
-      number: 1
-    - at: g-developer
-      number: 2
-    - at: g-hook
-      number: 3
-    - at: g-executable
-      number: 4
-    - at: g-with-timeout
-      number: 5
-    - at: f-denied
-      number: 6
-    - at: f-timeout
-      number: 7
+    - { at: g-agent, number: 1 }
+    - { at: g-developer, number: 2 }
+    - { at: g-hook, number: 3 }
+    - { at: g-executable, number: 4 }
+    - { at: g-with-timeout, number: 5 }
+    - { at: f-denied, number: 6 }
+    - { at: f-timeout, number: 7 }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [.claude/CLAUDE.md, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: .claude/.claude/hooks/Assert-BashTimeout
-        by:
-          - .claude/hooks/Assert-BashTimeout/Program.cs
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [.claude/hooks/Assert-BashTimeout/Program.cs, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: .claude/.claude/skills/catzc-module
-        by:
-          - .claude/skills/catzc-module/SKILL.md
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [.claude/skills/catzc-module/SKILL.md, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -188,41 +132,23 @@ content:
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/-/.
-        by:
-          - pwsh/.scriptanalyzer/tests/NoLiteralDefault.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/.scriptanalyzer/tests/NoLiteralDefault.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Azure/types
-        by:
-          - pwsh/Catzc.Azure/types/AzureConfig.cs
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Azure/types/AzureConfig.cs, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Azure.Cli/.
-        by:
-          - pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.CodeMeta/tests/types
-        by:
-          - pwsh/Catzc.Base.CodeMeta/tests/types/CommentPagesConfig.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.CodeMeta/tests/types/CommentPagesConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Config/configs
-        by:
-          - pwsh/Catzc.Base.Config/configs/glossary.yml
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Config/configs/glossary.yml, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Config/tests
-        by:
-          - pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Config/tests/Get-Config.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Config/types
-        by:
-          - pwsh/Catzc.Base.Config/types/ConfigDefaultDifference.cs
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Config/types/ConfigDefaultDifference.cs, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Contracts/configs
-        by:
-          - pwsh/Catzc.Base.Contracts/configs/contracts.yml
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Contracts/configs/contracts.yml, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Contracts/tests
-        by:
-          - pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Contracts/tests/types
         by:
           - pwsh/Catzc.Base.Contracts/tests/types/AccostedConfig.Tests.ps1
@@ -236,9 +162,7 @@ content:
           - pwsh/Catzc.Base.Contracts/types/ContractsConfig.cs
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: pwsh/Catzc.Base.Docs/.
-        by:
-          - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Docs/Test-Glossary.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/agents.yml
@@ -246,13 +170,9 @@ content:
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Base.Docs/tests
-        by:
-          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Docs/tests/types
-        by:
-          - pwsh/Catzc.Base.Docs/tests/types/LearningsConfig.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Docs/tests/types/LearningsConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
@@ -260,43 +180,26 @@ content:
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Base.Drs/private
-        by:
-          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Drs/tests/types
-        by:
-          - pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Drs/tests/types/DrsChecksConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Drs/types
-        by:
-          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs, pwsh/Catzc.Base.Drs/types/DrsConfig.cs, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Engines/types
-        by:
-          - pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Flow/tests/types
-        by:
-          - pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Folders/tests
-        by:
-          - pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Folders/tests/types
         by:
           - pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
           - pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: pwsh/Catzc.Base.Git/.
-        by:
-          - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Globs/.
-        by:
-          - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Languages/configs
         by:
           - pwsh/Catzc.Base.Languages/configs/file-carriers.yml
@@ -305,9 +208,7 @@ content:
           - pwsh/Catzc.Base.Languages/configs/python.yml
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: pwsh/Catzc.Base.Languages/tests
-        by:
-          - pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Languages/tests/types
         by:
           - pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1
@@ -322,13 +223,9 @@ content:
           - pwsh/Catzc.Base.Languages/types/LayoutRow.cs
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: pwsh/Catzc.Base.Maps/configs
-        by:
-          - pwsh/Catzc.Base.Maps/configs/maps.yml
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Maps/configs/maps.yml, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Maps/tests/types
-        by:
-          - pwsh/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Maps/tests/types/MapsConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Maps/types
         by:
           - pwsh/Catzc.Base.Maps/types/MapsConfig.cs
@@ -348,9 +245,7 @@ content:
           - pwsh/Catzc.Base.ModuleSystem/tests/types/ImporterConfig.Tests.ps1
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: pwsh/Catzc.Base.QualityGates/.
-        by:
-          - pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.QualityGates/configs
         by:
           - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
@@ -419,10 +314,7 @@ content:
           - pwsh/Catzc.Base.Slides/tests/types/SlidesKit.Tests.ps1
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: pwsh/Catzc.Base.Timeouts/.
-        by:
-          - pwsh/Catzc.Base.Timeouts/Get-TestTimeLimits.ps1
-          - pwsh/Catzc.Base.Timeouts/Watch-Blocking.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Timeouts/Get-TestTimeLimits.ps1, pwsh/Catzc.Base.Timeouts/Watch-Blocking.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Timeouts/tests/types
         by:
           - pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
@@ -436,64 +328,39 @@ content:
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Base.TypesSystem/.
-        by:
-          - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Base.Variants/private
-        by:
-          - pwsh/Catzc.Base.Variants/private/Get-Variant.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Variants/private/Get-Variant.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Variants/tests
         by:
           - pwsh/Catzc.Base.Variants/tests/Get-FileHeadVariant.Tests.ps1
           - pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: pwsh/Catzc.Base.Variants/tests/types
-        by:
-          - pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Variants/types
-        by:
-          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Variants/types/VariantsConfig.cs, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.VSCode/types
-        by:
-          - pwsh/Catzc.Base.VSCode/types/VscodeOwnExtension.cs
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.VSCode/types/VscodeOwnExtension.cs, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Internal.Assets/.
-        by:
-          - pwsh/.internal/assets/Invoke-CatzcCommand.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Tooling.Inspiration/.
-        by:
-          - pwsh/Catzc.Tooling.Inspiration/Get-Inspiration.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Tooling.Inspiration/Get-Inspiration.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Tooling.Inspiration/configs
-        by:
-          - pwsh/Catzc.Tooling.Inspiration/configs/inspiration.yml
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Tooling.Inspiration/configs/inspiration.yml, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Tooling.Inspiration/tests/types
-        by:
-          - pwsh/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Tooling.Inspiration/types
-        by:
-          - pwsh/Catzc.Tooling.Inspiration/types/InspirationConfig.cs
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Tooling.Inspiration/types/InspirationConfig.cs, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Tooling.Listen/.
-        by:
-          - pwsh/Catzc.Tooling.Listen/Wait-DocChange.ps1
-          - pwsh/Catzc.Tooling.Listen/Wait-DocNote.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Tooling.Listen/Wait-DocChange.ps1, pwsh/Catzc.Tooling.Listen/Wait-DocNote.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Tooling.Listen/tests
         by:
           - pwsh/Catzc.Tooling.Listen/tests/Wait-DocChange.Tests.ps1
           - pwsh/Catzc.Tooling.Listen/tests/Wait-DocNote.Tests.ps1
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Tooling.Listen/tests/types
-        by:
-          - pwsh/Catzc.Tooling.Listen/tests/types/ListenConfig.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Tooling.Listen/tests/types/ListenConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
     module-neighbourhood:
       - cell: subject/.claude
         by:
@@ -503,17 +370,11 @@ content:
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: subject/Catzc.Azure
-        by:
-          - pwsh/Catzc.Azure/types/AzureConfig.cs
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Azure/types/AzureConfig.cs, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: subject/Catzc.Azure.Cli
-        by:
-          - pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: subject/Catzc.Base.CodeMeta
-        by:
-          - pwsh/Catzc.Base.CodeMeta/tests/types/CommentPagesConfig.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.CodeMeta/tests/types/CommentPagesConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: subject/Catzc.Base.Config
         by:
           - pwsh/Catzc.Base.Config/configs/glossary.yml
@@ -551,13 +412,9 @@ content:
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: subject/Catzc.Base.Engines
-        by:
-          - pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: subject/Catzc.Base.Flow
-        by:
-          - pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: subject/Catzc.Base.Folders
         by:
           - pwsh/Catzc.Base.Folders/tests/Get-ChildPath.Tests.ps1
@@ -565,13 +422,9 @@ content:
           - pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: subject/Catzc.Base.Git
-        by:
-          - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: subject/Catzc.Base.Globs
-        by:
-          - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: subject/Catzc.Base.Languages
         by:
           - pwsh/Catzc.Base.Languages/configs/file-carriers.yml
@@ -669,13 +522,9 @@ content:
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: subject/Catzc.Base.TypesSystem
-        by:
-          - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: subject/Catzc.Base.VSCode
-        by:
-          - pwsh/Catzc.Base.VSCode/types/VscodeOwnExtension.cs
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.VSCode/types/VscodeOwnExtension.cs, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: subject/Catzc.Base.Variants
         by:
           - pwsh/Catzc.Base.Variants/private/Get-Variant.ps1
@@ -685,9 +534,7 @@ content:
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: subject/Catzc.Internal.Assets
-        by:
-          - pwsh/.internal/assets/Invoke-CatzcCommand.ps1
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: subject/Catzc.Tooling.Inspiration
         by:
           - pwsh/Catzc.Tooling.Inspiration/Get-Inspiration.ps1
@@ -706,62 +553,16 @@ content:
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
     axis:
       - cell: AUTO/*
-        by:
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+        by: [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
 layout:
-  band-caller:
-    x: 20
-    y: 84
-    w: 240
-    h: 320
-  band-call:
-    x: 280
-    y: 84
-    w: 480
-    h: 320
-  band-stop:
-    x: 780
-    y: 84
-    w: 500
-    h: 320
-  g-agent:
-    x: 80
-    y: 124
-    w: 100
-    h: 64
-  g-developer:
-    x: 80
-    y: 262
-    w: 100
-    h: 64
-  g-hook:
-    x: 560
-    y: 120
-    w: 180
-    h: 72
-  grp-runners:
-    x: 320
-    y: 214
-    w: 210
-    h: 170
-  g-executable:
-    x: 340
-    y: 254
-    w: 170
-    h: 44
-  g-with-timeout:
-    x: 340
-    y: 322
-    w: 170
-    h: 44
-  f-denied:
-    x: 950
-    y: 134
-    w: 180
-    h: 44
-  f-timeout:
-    x: 950
-    y: 276
-    w: 180
-    h: 44
+  band-caller: { x: 20, y: 84, w: 240, h: 320 }
+  band-call: { x: 280, y: 84, w: 480, h: 320 }
+  band-stop: { x: 780, y: 84, w: 500, h: 320 }
+  g-agent: { x: 80, y: 124, w: 100, h: 64 }
+  g-developer: { x: 80, y: 262, w: 100, h: 64 }
+  g-hook: { x: 560, y: 120, w: 180, h: 72 }
+  grp-runners: { x: 320, y: 214, w: 210, h: 170 }
+  g-executable: { x: 340, y: 254, w: 170, h: 44 }
+  g-with-timeout: { x: 340, y: 322, w: 170, h: 44 }
+  f-denied: { x: 950, y: 134, w: 180, h: 44 }
+  f-timeout: { x: 950, y: 276, w: 180, h: 44 }

@@ -23,79 +23,36 @@ content:
   relation: the artifact moves on
   theme: dark
   bands:
-    - id: band-automated
-      label: AUTOMATED
-    - id: band-governed
-      label: GOVERNED
+    - { id: band-automated, label: AUTOMATED }
+    - { id: band-governed, label: GOVERNED }
   spans:
     - id: span-ci
       label: CI
-      over:
-        - g-build
-        - r-artifact
+      over: [g-build, r-artifact]
     - id: span-cd
       label: CD
-      over:
-        - g-build
-        - r-artifact
-        - e-non-prod
+      over: [g-build, r-artifact, e-non-prod]
     - id: span-deploy
       label: DEPLOY
-      over:
-        - e-production
+      over: [e-production]
   glyphs:
-    - id: g-build
-      kind: runner
-      label: build & verify
-      in: band-automated
-    - id: r-artifact
-      kind: result
-      label: tagged artifact
-      in: band-automated
-    - id: e-non-prod
-      kind: env
-      label: non-prod
-      in: band-automated
-    - id: a-human-gate
-      kind: drsonly
-      label: human gate
-      in: band-governed
-    - id: e-production
-      kind: env
-      label: production
-      in: band-governed
+    - { id: g-build, kind: runner, label: build & verify, in: band-automated }
+    - { id: r-artifact, kind: result, label: tagged artifact, in: band-automated }
+    - { id: e-non-prod, kind: env, label: non-prod, in: band-automated }
+    - { id: a-human-gate, kind: drsonly, label: human gate, in: band-governed }
+    - { id: e-production, kind: env, label: production, in: band-governed }
   edges:
-    - from: g-build
-      to: r-artifact
-      kind: flow
-      label: ""
-    - from: r-artifact
-      to: e-non-prod
-      kind: flow
-      label: ""
-    - from: e-non-prod
-      to: a-human-gate
-      kind: adr
-      label: ""
-    - from: a-human-gate
-      to: e-production
-      kind: adr
-      label: ""
-    - from: r-artifact
-      to: e-production
-      kind: flow
-      label: 6 · the shortcut
+    - { from: g-build, to: r-artifact, kind: flow, label: "" }
+    - { from: r-artifact, to: e-non-prod, kind: flow, label: "" }
+    - { from: e-non-prod, to: a-human-gate, kind: adr, label: "" }
+    - { from: a-human-gate, to: e-production, kind: adr, label: "" }
+    - { from: r-artifact, to: e-production, kind: flow, label: 6 · the shortcut }
   markers:
-    - at: g-build
-      number: 1
-    - at: r-artifact
-      number: 2
-    - at: e-non-prod
-      number: 3
-    - at: a-human-gate
-      number: 4
-    - at: e-production
-      number: 5
+    - { at: g-build, number: 1 }
+    - { at: r-artifact, number: 2 }
+    - { at: e-non-prod, number: 3 }
+    - { at: a-human-gate, number: 4 }
+    - { at: e-production, number: 5 }
   legend: auto
   minimaps:
     code-locations:
@@ -109,15 +66,9 @@ content:
           - FDR-CD-SHORTINTEGRATIONCYCLE
           - FDR-CD-TWORELEASEGATES
       - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/deploy-apex.yaml
-          - .ado/pipelines/deploy-nova.yaml
-          - .ado/pipelines/deploy-shared.yaml
-          - FDR-CD-TWORELEASEGATES
+        by: [.ado/pipelines/deploy-apex.yaml, .ado/pipelines/deploy-nova.yaml, .ado/pipelines/deploy-shared.yaml, FDR-CD-TWORELEASEGATES]
       - cell: ado-pipelines/pipelines/steps
-        by:
-          - .ado/pipelines/steps/download-artifact.yaml
-          - FDR-CD-PRODPROGRESSIONISDEPLOY
+        by: [.ado/pipelines/steps/download-artifact.yaml, FDR-CD-PRODPROGRESSIONISDEPLOY]
       - cell: docs/-/.
         by:
           - docs/drs/flow/cd-discipline-and-promotion-flow.md
@@ -151,9 +102,7 @@ content:
           - FDR-CD-SHORTINTEGRATIONCYCLE
           - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Docs/types
-        by:
-          - pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
-          - FDR-CD-SHORTINTEGRATIONCYCLE
+        by: [pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs, FDR-CD-SHORTINTEGRATIONCYCLE]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -173,10 +122,7 @@ content:
           - FDR-CD-SHORTINTEGRATIONCYCLE
           - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.Flow/types
-        by:
-          - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
-          - FDR-CD-CDSTAYSINNONPROD
-          - FDR-CD-TWORELEASEGATES
+        by: [pwsh/Catzc.Base.Flow/types/RungsConfig.cs, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWORELEASEGATES]
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
@@ -198,9 +144,7 @@ content:
           - FDR-CD-SHORTINTEGRATIONCYCLE
           - FDR-CD-TWORELEASEGATES
       - cell: pwsh/Catzc.Base.QualityGates/configs
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/glossary.yml
-          - FDR-CD-GATEDEFINED
+        by: [pwsh/Catzc.Base.QualityGates/configs/glossary.yml, FDR-CD-GATEDEFINED]
     grid:
       - cell: .claude/markdown
         by:
@@ -310,38 +254,10 @@ content:
           - FDR-CD-SHORTINTEGRATIONCYCLE
           - FDR-CD-TWORELEASEGATES
 layout:
-  band-automated:
-    x: 20
-    y: 108
-    w: 760
-    h: 240
-  band-governed:
-    x: 800
-    y: 108
-    w: 480
-    h: 240
-  g-build:
-    x: 50
-    y: 150
-    w: 170
-    h: 56
-  r-artifact:
-    x: 280
-    y: 156
-    w: 170
-    h: 44
-  e-non-prod:
-    x: 510
-    y: 130
-    w: 190
-    h: 56
-  a-human-gate:
-    x: 880
-    y: 130
-    w: 130
-    h: 64
-  e-production:
-    x: 1060
-    y: 260
-    w: 190
-    h: 56
+  band-automated: { x: 20, y: 108, w: 760, h: 240 }
+  band-governed: { x: 800, y: 108, w: 480, h: 240 }
+  g-build: { x: 50, y: 150, w: 170, h: 56 }
+  r-artifact: { x: 280, y: 156, w: 170, h: 44 }
+  e-non-prod: { x: 510, y: 130, w: 190, h: 56 }
+  a-human-gate: { x: 880, y: 130, w: 130, h: 64 }
+  e-production: { x: 1060, y: 260, w: 190, h: 56 }

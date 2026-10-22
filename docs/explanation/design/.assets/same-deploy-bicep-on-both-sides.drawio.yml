@@ -8,9 +8,7 @@ description:
   A developer after Connect-AzCli and a pipeline step in azcli mode type the same Deploy-Bicep; only the pipeline must pin the subscription,
   and a run ends as a rejection, a preview, a failure or a deployment.
 about:
-  adrs:
-    - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
-    - DDR-THINPLAT-PLATFORMASCLI
+  adrs: [DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI]
   lens: operations
 content:
   title: A developer and a pipeline type the same Deploy-Bicep; only the pipeline must pin the subscription
@@ -19,85 +17,34 @@ content:
   relation: then
   theme: dark
   bands:
-    - id: band-consumers
-      label: CONSUMERS
-    - id: band-surface
-      label: CLI SURFACE
-    - id: band-catzc
-      label: CATZC
-    - id: band-delegated
-      label: DELEGATED
-    - id: band-substrate
-      label: VENDOR SUBSTRATE
+    - { id: band-consumers, label: CONSUMERS }
+    - { id: band-surface, label: CLI SURFACE }
+    - { id: band-catzc, label: CATZC }
+    - { id: band-delegated, label: DELEGATED }
+    - { id: band-substrate, label: VENDOR SUBSTRATE }
   glyphs:
-    - id: g-connect
-      kind: code
-      label: Connect-AzCli
-      in: band-consumers
-    - id: g-mode
-      kind: runner
-      label: "Mode: azcli"
-      in: band-consumers
-    - id: g-deploy
-      kind: code
-      label: Deploy-Bicep
-      in: band-surface
-    - id: f-rejected
-      kind: failure
-      label: subscription target rejected
-      in: band-catzc
-    - id: r-preview
-      kind: result
-      label: what-if preview
-      in: band-delegated
-    - id: f-failed
-      kind: failure
-      label: "... failed (az exited N)"
-      in: band-delegated
-    - id: r-succeeded
-      kind: result
-      label: Deployment ... succeeded
-      in: band-substrate
+    - { id: g-connect, kind: code, label: Connect-AzCli, in: band-consumers }
+    - { id: g-mode, kind: runner, label: "Mode: azcli", in: band-consumers }
+    - { id: g-deploy, kind: code, label: Deploy-Bicep, in: band-surface }
+    - { id: f-rejected, kind: failure, label: subscription target rejected, in: band-catzc }
+    - { id: r-preview, kind: result, label: what-if preview, in: band-delegated }
+    - { id: f-failed, kind: failure, label: "... failed (az exited N)", in: band-delegated }
+    - { id: r-succeeded, kind: result, label: Deployment ... succeeded, in: band-substrate }
   edges:
-    - from: g-connect
-      to: g-deploy
-      kind: flow
-      label: ""
-    - from: g-mode
-      to: g-deploy
-      kind: flow
-      label: ""
-    - from: g-deploy
-      to: f-rejected
-      kind: fail
-      label: ""
-    - from: g-deploy
-      to: r-preview
-      kind: flow
-      label: ""
-    - from: g-deploy
-      to: f-failed
-      kind: fail
-      label: ""
-    - from: g-deploy
-      to: r-succeeded
-      kind: flow
-      label: ""
+    - { from: g-connect, to: g-deploy, kind: flow, label: "" }
+    - { from: g-mode, to: g-deploy, kind: flow, label: "" }
+    - { from: g-deploy, to: f-rejected, kind: fail, label: "" }
+    - { from: g-deploy, to: r-preview, kind: flow, label: "" }
+    - { from: g-deploy, to: f-failed, kind: fail, label: "" }
+    - { from: g-deploy, to: r-succeeded, kind: flow, label: "" }
   markers:
-    - at: g-connect
-      number: 1
-    - at: g-mode
-      number: 2
-    - at: g-deploy
-      number: 3
-    - at: f-rejected
-      number: 4
-    - at: r-preview
-      number: 5
-    - at: f-failed
-      number: 6
-    - at: r-succeeded
-      number: 7
+    - { at: g-connect, number: 1 }
+    - { at: g-mode, number: 2 }
+    - { at: g-deploy, number: 3 }
+    - { at: f-rejected, number: 4 }
+    - { at: r-preview, number: 5 }
+    - { at: f-failed, number: 6 }
+    - { at: r-succeeded, number: 7 }
   legend: auto
   minimaps:
     code-locations:
@@ -109,79 +56,23 @@ content:
           - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
           - DDR-THINPLAT-PLATFORMASCLI
       - cell: pwsh/Catzc.Base.Drs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
-          - DDR-THINPLAT-PLATFORMASCLI
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI]
     module-neighbourhood:
       - cell: subject/Catzc.Base.Drs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
-          - DDR-THINPLAT-PLATFORMASCLI
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI]
     axis:
       - cell: DSGN/deploy
-        by:
-          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
-          - DDR-THINPLAT-PLATFORMASCLI
+        by: [DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI]
 layout:
-  band-consumers:
-    x: 20
-    y: 84
-    w: 1260
-    h: 100
-  band-surface:
-    x: 20
-    y: 204
-    w: 1260
-    h: 100
-  band-catzc:
-    x: 20
-    y: 324
-    w: 1260
-    h: 100
-  band-delegated:
-    x: 20
-    y: 444
-    w: 1260
-    h: 100
-  band-substrate:
-    x: 20
-    y: 564
-    w: 1260
-    h: 100
-  g-connect:
-    x: 270
-    y: 120
-    w: 260
-    h: 44
-  g-mode:
-    x: 780
-    y: 120
-    w: 260
-    h: 44
-  g-deploy:
-    x: 460
-    y: 240
-    w: 360
-    h: 44
-  f-rejected:
-    x: 900
-    y: 360
-    w: 280
-    h: 44
-  r-preview:
-    x: 200
-    y: 480
-    w: 260
-    h: 44
-  f-failed:
-    x: 700
-    y: 480
-    w: 260
-    h: 44
-  r-succeeded:
-    x: 520
-    y: 600
-    w: 260
-    h: 44
+  band-consumers: { x: 20, y: 84, w: 1260, h: 100 }
+  band-surface: { x: 20, y: 204, w: 1260, h: 100 }
+  band-catzc: { x: 20, y: 324, w: 1260, h: 100 }
+  band-delegated: { x: 20, y: 444, w: 1260, h: 100 }
+  band-substrate: { x: 20, y: 564, w: 1260, h: 100 }
+  g-connect: { x: 270, y: 120, w: 260, h: 44 }
+  g-mode: { x: 780, y: 120, w: 260, h: 44 }
+  g-deploy: { x: 460, y: 240, w: 360, h: 44 }
+  f-rejected: { x: 900, y: 360, w: 280, h: 44 }
+  r-preview: { x: 200, y: 480, w: 260, h: 44 }
+  f-failed: { x: 700, y: 480, w: 260, h: 44 }
+  r-succeeded: { x: 520, y: 600, w: 260, h: 44 }

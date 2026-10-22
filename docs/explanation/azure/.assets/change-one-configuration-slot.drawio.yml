@@ -8,9 +8,7 @@ description:
   Changing one configuration slot edits one file in the configs place of the infrastructure track; only the CD pipeline of the slot's owner
   runs, and the change reaches the one resource group the slot deploys.
 about:
-  adrs:
-    - ADR-AZ-IACKIND-THREEKINDS
-    - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+  adrs: [ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION]
   lens: operations
 content:
   title: Changing one configuration slot runs only its owner's pipeline and reaches only its resource group
@@ -19,87 +17,42 @@ content:
   relation: triggers
   theme: dark
   bands:
-    - id: band-edit
-      label: THE EDIT
-    - id: band-pipeline
-      label: PIPELINE
-    - id: band-deployed
-      label: DEPLOYED
+    - { id: band-edit, label: THE EDIT }
+    - { id: band-pipeline, label: PIPELINE }
+    - { id: band-deployed, label: DEPLOYED }
   spans:
     - id: span-configs
       label: configs
-      over:
-        - band-edit
+      over: [band-edit]
   glyphs:
-    - id: g-slot
-      kind: file
-      label: one slot file
-      in: band-edit
-    - id: r-owner
-      kind: runner
-      label: the owner's CD pipeline
-      in: band-pipeline
-    - id: r-others
-      kind: runner
-      label: every other CD pipeline
-      in: band-pipeline
-    - id: e-group
-      kind: env
-      label: the slot's resource group
-      in: band-deployed
+    - { id: g-slot, kind: file, label: one slot file, in: band-edit }
+    - { id: r-owner, kind: runner, label: the owner's CD pipeline, in: band-pipeline }
+    - { id: r-others, kind: runner, label: every other CD pipeline, in: band-pipeline }
+    - { id: e-group, kind: env, label: the slot's resource group, in: band-deployed }
   edges:
-    - from: g-slot
-      to: r-owner
-      kind: flow
-      label: ""
-    - from: r-owner
-      to: e-group
-      kind: flow
-      label: ""
+    - { from: g-slot, to: r-owner, kind: flow, label: "" }
+    - { from: r-owner, to: e-group, kind: flow, label: "" }
   markers:
-    - at: g-slot
-      number: 1
-    - at: r-owner
-      number: 2
-    - at: r-others
-      number: 3
-    - at: e-group
-      number: 4
+    - { at: g-slot, number: 1 }
+    - { at: r-owner, number: 2 }
+    - { at: r-others, number: 3 }
+    - { at: e-group, number: 4 }
   legend: auto
   minimaps:
     axis:
       - cell: CLOUD/deploy
-        by:
-          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
-          - ADR-AZ-IACKIND-THREEKINDS
+        by: [ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION, ADR-AZ-IACKIND-THREEKINDS]
       - cell: CLOUD/access
-        by:
-          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+        by: [ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION]
     lifecycle-position:
       - cell: main-uat
-        by:
-          - docs/drs/index.md
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
-          - ADR-AZ-IACKIND-THREEKINDS
+        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION, ADR-AZ-IACKIND-THREEKINDS]
       - cell: release-uat
-        by:
-          - docs/drs/index.md
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
-          - ADR-AZ-IACKIND-THREEKINDS
+        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION, ADR-AZ-IACKIND-THREEKINDS]
       - cell: pre-prod
-        by:
-          - docs/drs/index.md
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
-          - ADR-AZ-IACKIND-THREEKINDS
+        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION, ADR-AZ-IACKIND-THREEKINDS]
       - cell: prod
-        by:
-          - docs/drs/index.md
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
-          - ADR-AZ-IACKIND-THREEKINDS
+        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION, ADR-AZ-IACKIND-THREEKINDS]
     layer-stack:
       - cell: automation
         by:
@@ -166,18 +119,6 @@ content:
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-IACKIND-THREEKINDS
 layout:
-  r-owner:
-    x: 540
-    y: 140
-    w: 220
-    h: 44
-  r-others:
-    x: 540
-    y: 196
-    w: 220
-    h: 40
-  e-group:
-    x: 960
-    y: 132
-    w: 220
-    h: 60
+  r-owner: { x: 540, y: 140, w: 220, h: 44 }
+  r-others: { x: 540, y: 196, w: 220, h: 40 }
+  e-group: { x: 960, y: 132, w: 220, h: 60 }

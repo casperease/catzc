@@ -8,11 +8,7 @@ description:
   A globset registry flattens into one ordered program, and the trigger, the change report and the protection identity are read-outs derived
   live from it, never committed.
 about:
-  adrs:
-    - FDR-CD-GLOBS-NAMEDGLOBSETS
-    - FDR-CD-GLOBS-TRACKEDFILESONLY
-    - FDR-CD-GLOBS-DURABLESHAIDENTITY
-    - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+  adrs: [FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: meta
 content:
   title: A globset is one ordered program, and its three views are derived live, never committed
@@ -21,61 +17,26 @@ content:
   relation: derives the next
   theme: dark
   bands:
-    - id: band-source
-      label: SOURCE
-    - id: band-flatten
-      label: FLATTEN
-    - id: band-derived
-      label: DERIVED LIVE
+    - { id: band-source, label: SOURCE }
+    - { id: band-flatten, label: FLATTEN }
+    - { id: band-derived, label: DERIVED LIVE }
   glyphs:
-    - id: f-registry
-      kind: file
-      label: Registry
-      in: band-source
-    - id: c-program
-      kind: code
-      label: Ordered program
-      in: band-flatten
-    - id: c-trigger
-      kind: code
-      label: Trigger
-      in: band-derived
-    - id: c-change-report
-      kind: code
-      label: Change report
-      in: band-derived
-    - id: c-protection
-      kind: code
-      label: Protection
-      in: band-derived
+    - { id: f-registry, kind: file, label: Registry, in: band-source }
+    - { id: c-program, kind: code, label: Ordered program, in: band-flatten }
+    - { id: c-trigger, kind: code, label: Trigger, in: band-derived }
+    - { id: c-change-report, kind: code, label: Change report, in: band-derived }
+    - { id: c-protection, kind: code, label: Protection, in: band-derived }
   edges:
-    - from: f-registry
-      to: c-program
-      kind: flow
-      label: ""
-    - from: c-program
-      to: c-trigger
-      kind: flow
-      label: ""
-    - from: c-program
-      to: c-change-report
-      kind: flow
-      label: ""
-    - from: c-program
-      to: c-protection
-      kind: flow
-      label: ""
+    - { from: f-registry, to: c-program, kind: flow, label: "" }
+    - { from: c-program, to: c-trigger, kind: flow, label: "" }
+    - { from: c-program, to: c-change-report, kind: flow, label: "" }
+    - { from: c-program, to: c-protection, kind: flow, label: "" }
   markers:
-    - at: f-registry
-      number: 1
-    - at: c-program
-      number: 2
-    - at: c-trigger
-      number: 3
-    - at: c-change-report
-      number: 4
-    - at: c-protection
-      number: 5
+    - { at: f-registry, number: 1 }
+    - { at: c-program, number: 2 }
+    - { at: c-trigger, number: 3 }
+    - { at: c-change-report, number: 4 }
+    - { at: c-protection, number: 5 }
   legend: auto
   minimaps:
     code-locations:
@@ -99,9 +60,7 @@ content:
           - FDR-CD-GLOBS-NAMEDGLOBSETS
           - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: ado-pipelines/pipelines/extends
-        by:
-          - .ado/pipelines/extends/cd-customer.yaml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [.ado/pipelines/extends/cd-customer.yaml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: docs/-/.
         by:
           - docs/drs/flow/dora-explains.md
@@ -216,9 +175,7 @@ content:
           - FDR-CD-GLOBS-NAMEDGLOBSETS
           - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: pwsh/Catzc.Base.Exporter/.
-        by:
-          - pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
-          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+        by: [pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1, FDR-CD-GLOBS-DURABLESHAIDENTITY]
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
@@ -347,9 +304,7 @@ content:
           - FDR-CD-GLOBS-NAMEDGLOBSETS
           - FDR-CD-GLOBS-TRACKEDFILESONLY
       - cell: subject/Catzc.Base.Exporter
-        by:
-          - pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
-          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+        by: [pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1, FDR-CD-GLOBS-DURABLESHAIDENTITY]
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
@@ -429,49 +384,13 @@ content:
           - FDR-CD-GLOBS-TRACKEDFILESONLY
     axis:
       - cell: DSGN/*
-        by:
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - FDR-CD-GLOBS-DURABLESHAIDENTITY
-          - FDR-CD-GLOBS-NAMEDGLOBSETS
-          - FDR-CD-GLOBS-TRACKEDFILESONLY
+        by: [FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-TRACKEDFILESONLY]
 layout:
-  band-source:
-    x: 20
-    y: 84
-    w: 220
-    h: 330
-  band-flatten:
-    x: 260
-    y: 84
-    w: 240
-    h: 330
-  band-derived:
-    x: 520
-    y: 84
-    w: 760
-    h: 330
-  f-registry:
-    x: 40
-    y: 216
-    w: 180
-    h: 64
-  c-program:
-    x: 280
-    y: 132
-    w: 200
-    h: 256
-  c-trigger:
-    x: 600
-    y: 132
-    w: 300
-    h: 56
-  c-change-report:
-    x: 600
-    y: 232
-    w: 300
-    h: 56
-  c-protection:
-    x: 600
-    y: 332
-    w: 300
-    h: 56
+  band-source: { x: 20, y: 84, w: 220, h: 330 }
+  band-flatten: { x: 260, y: 84, w: 240, h: 330 }
+  band-derived: { x: 520, y: 84, w: 760, h: 330 }
+  f-registry: { x: 40, y: 216, w: 180, h: 64 }
+  c-program: { x: 280, y: 132, w: 200, h: 256 }
+  c-trigger: { x: 600, y: 132, w: 300, h: 56 }
+  c-change-report: { x: 600, y: 232, w: 300, h: 56 }
+  c-protection: { x: 600, y: 332, w: 300, h: 56 }

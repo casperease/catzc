@@ -4,14 +4,10 @@
 #     with_body_sha: "17fcf4fbb921"
 # ---
 
-description:
-  "A tracked file is tried against its track's aspects in order and the first match wins: the code track tries live first and lets tests
-  catch the rest, the deployment track tries tests first and lets live catch the rest."
+description: 'A tracked file is tried against its track''s aspects in order and the first match wins: the code track tries live first and lets
+  tests catch the rest, the deployment track tries tests first and lets live catch the rest.'
 about:
-  adrs:
-    - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
-    - DDR-ASPECT-ASPECTSAREDERIVED
-    - DDR-ASPECT-TRACKPICKSCATCHALL
+  adrs: [DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL]
   lens: meta
 content:
   title: "Each track picks its catch-all: a stray module file falls to tests, a stray template file to live"
@@ -20,61 +16,26 @@ content:
   relation: tried next, first match wins
   theme: dark
   bands:
-    - id: band-unit
-      label: A UNIT
-    - id: band-code
-      label: "CODE TRACK: PWSH"
-    - id: band-deployment
-      label: "DEPLOYMENT TRACK: INFRASTRUCTURE"
+    - { id: band-unit, label: A UNIT }
+    - { id: band-code, label: "CODE TRACK: PWSH" }
+    - { id: band-deployment, label: "DEPLOYMENT TRACK: INFRASTRUCTURE" }
   glyphs:
-    - id: f-tracked
-      kind: file
-      label: a tracked file of a unit
-      in: band-unit
-    - id: s-code-live
-      kind: set
-      label: live
-      in: band-code
-    - id: s-code-tests
-      kind: set
-      label: tests
-      in: band-code
-    - id: s-deployment-tests
-      kind: set
-      label: tests
-      in: band-deployment
-    - id: s-deployment-live
-      kind: set
-      label: live
-      in: band-deployment
+    - { id: f-tracked, kind: file, label: a tracked file of a unit, in: band-unit }
+    - { id: s-code-live, kind: set, label: live, in: band-code }
+    - { id: s-code-tests, kind: set, label: tests, in: band-code }
+    - { id: s-deployment-tests, kind: set, label: tests, in: band-deployment }
+    - { id: s-deployment-live, kind: set, label: live, in: band-deployment }
   edges:
-    - from: f-tracked
-      to: s-code-live
-      kind: flow
-      label: ""
-    - from: s-code-live
-      to: s-code-tests
-      kind: flow
-      label: ""
-    - from: f-tracked
-      to: s-deployment-tests
-      kind: flow
-      label: ""
-    - from: s-deployment-tests
-      to: s-deployment-live
-      kind: flow
-      label: ""
+    - { from: f-tracked, to: s-code-live, kind: flow, label: "" }
+    - { from: s-code-live, to: s-code-tests, kind: flow, label: "" }
+    - { from: f-tracked, to: s-deployment-tests, kind: flow, label: "" }
+    - { from: s-deployment-tests, to: s-deployment-live, kind: flow, label: "" }
   markers:
-    - at: f-tracked
-      number: 1
-    - at: s-code-live
-      number: 2
-    - at: s-code-tests
-      number: 3
-    - at: s-deployment-tests
-      number: 4
-    - at: s-deployment-live
-      number: 5
+    - { at: f-tracked, number: 1 }
+    - { at: s-code-live, number: 2 }
+    - { at: s-code-tests, number: 3 }
+    - { at: s-deployment-tests, number: 4 }
+    - { at: s-deployment-live, number: 5 }
   legend: auto
   minimaps:
     code-locations:
@@ -200,48 +161,13 @@ content:
           - DDR-ASPECT-TRACKPICKSCATCHALL
     axis:
       - cell: DSGN/build
-        by:
-          - DDR-ASPECT-ASPECTSAREDERIVED
-          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
-          - DDR-ASPECT-TRACKPICKSCATCHALL
+        by: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-TRACKPICKSCATCHALL]
 layout:
-  band-unit:
-    x: 20
-    y: 84
-    w: 1260
-    h: 100
-  band-code:
-    x: 20
-    y: 204
-    w: 620
-    h: 280
-  band-deployment:
-    x: 660
-    y: 204
-    w: 620
-    h: 280
-  f-tracked:
-    x: 200
-    y: 124
-    w: 900
-    h: 48
-  s-code-live:
-    x: 115
-    y: 250
-    w: 420
-    h: 44
-  s-code-tests:
-    x: 115
-    y: 370
-    w: 420
-    h: 44
-  s-deployment-tests:
-    x: 960
-    y: 250
-    w: 280
-    h: 44
-  s-deployment-live:
-    x: 960
-    y: 370
-    w: 280
-    h: 44
+  band-unit: { x: 20, y: 84, w: 1260, h: 100 }
+  band-code: { x: 20, y: 204, w: 620, h: 280 }
+  band-deployment: { x: 660, y: 204, w: 620, h: 280 }
+  f-tracked: { x: 200, y: 124, w: 900, h: 48 }
+  s-code-live: { x: 115, y: 250, w: 420, h: 44 }
+  s-code-tests: { x: 115, y: 370, w: 420, h: 44 }
+  s-deployment-tests: { x: 960, y: 250, w: 280, h: 44 }
+  s-deployment-live: { x: 960, y: 370, w: 280, h: 44 }

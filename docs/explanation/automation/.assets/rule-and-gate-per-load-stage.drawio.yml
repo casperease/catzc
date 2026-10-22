@@ -27,90 +27,41 @@ content:
   relation: is checked by
   theme: dark
   bands:
-    - id: band-shim
-      label: SHIM
-    - id: band-session
-      label: SESSION
-    - id: band-load
-      label: LOAD
-    - id: band-mode
-      label: RUN MODE
-    - id: band-janitors
-      label: JANITORS
-    - id: band-unload
-      label: UNLOAD
+    - { id: band-shim, label: SHIM }
+    - { id: band-session, label: SESSION }
+    - { id: band-load, label: LOAD }
+    - { id: band-mode, label: RUN MODE }
+    - { id: band-janitors, label: JANITORS }
+    - { id: band-unload, label: UNLOAD }
   glyphs:
-    - id: g-shim
-      kind: gate
-      label: New-Importer.Tests
-      in: band-shim
-    - id: g-session
-      kind: gate
-      label: code review
-      in: band-session
-    - id: g-load
-      kind: gate
-      label: Import-AllModules.Tests
-      in: band-load
-    - id: g-mode
-      kind: gate
-      label: Assert-CatzcRunModeExclusive.Tests
-      in: band-mode
-    - id: g-janitors
-      kind: gate
-      label: Invoke-TypeCacheJanitor.Tests
-      in: band-janitors
+    - { id: g-shim, kind: gate, label: New-Importer.Tests, in: band-shim }
+    - { id: g-session, kind: gate, label: code review, in: band-session }
+    - { id: g-load, kind: gate, label: Import-AllModules.Tests, in: band-load }
+    - { id: g-mode, kind: gate, label: Assert-CatzcRunModeExclusive.Tests, in: band-mode }
+    - { id: g-janitors, kind: gate, label: Invoke-TypeCacheJanitor.Tests, in: band-janitors }
   markers:
-    - at: g-shim
-      number: 1
-    - at: g-session
-      number: 2
-    - at: g-load
-      number: 3
-    - at: g-mode
-      number: 4
-    - at: g-janitors
-      number: 5
-    - at: band-unload
-      number: 6
+    - { at: g-shim, number: 1 }
+    - { at: g-session, number: 2 }
+    - { at: g-load, number: 3 }
+    - { at: g-mode, number: 4 }
+    - { at: g-janitors, number: 5 }
+    - { at: band-unload, number: 6 }
   chips:
-    - at: g-shim
-      kind: rule
-      rule: ADR-REPO-ROOTCFG-FULLYMANAGED
-    - at: g-shim
-      kind: rule
-      rule: PDR-ONELIVE-ONEVERSION
-    - at: g-session
-      kind: rule
-      rule: ADR-PWSH-ERROR-STOPONERROR
-    - at: g-session
-      kind: rule
-      rule: ADR-AUTO-BUNDLE-TWOROOTS
-    - at: g-session
-      kind: rule
-      rule: ADR-AUTO-BUNDLE-BUNDLEISSESSION
-    - at: g-load
-      kind: rule
-      rule: ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
-    - at: g-load
-      kind: rule
-      rule: ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
-    - at: g-mode
-      kind: rule
-      rule: DDR-RUNMODE-NEVERCOEXIST
-    - at: g-janitors
-      kind: rule
-      rule: ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
-    - at: g-janitors
-      kind: rule
-      rule: ADR-BCL-TYPES-JANITORSBYCALLER
+    - { at: g-shim, kind: rule, rule: ADR-REPO-ROOTCFG-FULLYMANAGED }
+    - { at: g-shim, kind: rule, rule: PDR-ONELIVE-ONEVERSION }
+    - { at: g-session, kind: rule, rule: ADR-PWSH-ERROR-STOPONERROR }
+    - { at: g-session, kind: rule, rule: ADR-AUTO-BUNDLE-TWOROOTS }
+    - { at: g-session, kind: rule, rule: ADR-AUTO-BUNDLE-BUNDLEISSESSION }
+    - { at: g-load, kind: rule, rule: ADR-AUTO-BUNDLE-ONELIVINGIMPORTER }
+    - { at: g-load, kind: rule, rule: ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE }
+    - { at: g-mode, kind: rule, rule: DDR-RUNMODE-NEVERCOEXIST }
+    - { at: g-janitors, kind: rule, rule: ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION }
+    - { at: g-janitors, kind: rule, rule: ADR-BCL-TYPES-JANITORSBYCALLER }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - PDR-ONELIVE-ONEVERSION
+        by: [.claude/CLAUDE.md, PDR-ONELIVE-ONEVERSION]
       - cell: docs/-/.
         by:
           - docs/drs/automation/BCL/dora-explains.md
@@ -216,18 +167,11 @@ content:
           - DDR-RUNMODE-NEVERCOEXIST
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.CodeMeta/types
-        by:
-          - pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs
-          - PDR-ONELIVE-ONEVERSION
+        by: [pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs, PDR-ONELIVE-ONEVERSION]
       - cell: pwsh/Catzc.Base.Docs/configs
-        by:
-          - pwsh/Catzc.Base.Docs/configs/agents.yml
-          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - PDR-ONELIVE-ONEVERSION
+        by: [pwsh/Catzc.Base.Docs/configs/agents.yml, pwsh/Catzc.Base.Docs/configs/capabilities.yml, PDR-ONELIVE-ONEVERSION]
       - cell: pwsh/Catzc.Base.Drs/.
-        by:
-          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
-          - ADR-PWSH-ERROR-STOPONERROR
+        by: [pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1, ADR-PWSH-ERROR-STOPONERROR]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
@@ -275,29 +219,15 @@ content:
           - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Git/.
-        by:
-          - pwsh/Catzc.Base.Git/New-GitIgnore.ps1
-          - ADR-REPO-ROOTCFG-FULLYMANAGED
-          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+        by: [pwsh/Catzc.Base.Git/New-GitIgnore.ps1, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION]
       - cell: pwsh/Catzc.Base.Git/configs
-        by:
-          - pwsh/Catzc.Base.Git/configs/gitignore.yml
-          - ADR-REPO-ROOTCFG-FULLYMANAGED
-          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+        by: [pwsh/Catzc.Base.Git/configs/gitignore.yml, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION]
       - cell: pwsh/Catzc.Base.Git/types
-        by:
-          - pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
-          - ADR-REPO-ROOTCFG-FULLYMANAGED
-          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+        by: [pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION]
       - cell: pwsh/Catzc.Base.Globs/.
-        by:
-          - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
-          - DDR-RUNMODE-NEVERCOEXIST
+        by: [pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1, DDR-RUNMODE-NEVERCOEXIST]
       - cell: pwsh/Catzc.Base.Languages/.
-        by:
-          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
-          - ADR-REPO-ROOTCFG-FULLYMANAGED
-          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+        by: [pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION]
       - cell: pwsh/Catzc.Base.Languages/types
         by:
           - pwsh/Catzc.Base.Languages/types/GoWorkspaceFile.cs
@@ -316,9 +246,7 @@ content:
           - ADR-BCL-TYPES-JANITORSBYCALLER
           - DDR-RUNMODE-NEVERCOEXIST
       - cell: pwsh/Catzc.Base.ModuleSystem/tests
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1
-          - ADR-BCL-TYPES-JANITORSBYCALLER
+        by: [pwsh/Catzc.Base.ModuleSystem/tests/Sync-GeneratedFile.Tests.ps1, ADR-BCL-TYPES-JANITORSBYCALLER]
       - cell: pwsh/Catzc.Base.QualityGates/.
         by:
           - pwsh/Catzc.Base.QualityGates/Build-CommentView.ps1
@@ -328,13 +256,9 @@ content:
           - ADR-PWSH-ERROR-STOPONERROR
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.QualityGates/configs
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/comments.yml
-          - PDR-ONELIVE-ONEVERSION
+        by: [pwsh/Catzc.Base.QualityGates/configs/comments.yml, PDR-ONELIVE-ONEVERSION]
       - cell: pwsh/Catzc.Base.QualityGates/private
-        by:
-          - pwsh/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1
-          - ADR-REPO-ROOTCFG-FULLYMANAGED
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1, ADR-REPO-ROOTCFG-FULLYMANAGED]
       - cell: pwsh/Catzc.Base.QualityGates/tests
         by:
           - pwsh/Catzc.Base.QualityGates/tests/Build-CommentView.Tests.ps1
@@ -342,9 +266,7 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/Test-Comments.Tests.ps1
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.QualityGates/tests/types
-        by:
-          - pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
-          - PDR-ONELIVE-ONEVERSION
+        by: [pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1, PDR-ONELIVE-ONEVERSION]
       - cell: pwsh/Catzc.Base.QualityGates/types
         by:
           - pwsh/Catzc.Base.QualityGates/types/CommentBlockKind.cs
@@ -352,13 +274,9 @@ content:
           - pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Reports/tests/types
-        by:
-          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
-          - PDR-ONELIVE-ONEVERSION
+        by: [pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1, PDR-ONELIVE-ONEVERSION]
       - cell: pwsh/Catzc.Base.Reports/types
-        by:
-          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
-          - PDR-ONELIVE-ONEVERSION
+        by: [pwsh/Catzc.Base.Reports/types/CheckModes.cs, PDR-ONELIVE-ONEVERSION]
       - cell: pwsh/Catzc.Base.Repository/.
         by:
           - pwsh/Catzc.Base.Repository/Assert-SourceTree.ps1
@@ -367,9 +285,7 @@ content:
           - ADR-BCL-TYPES-JANITORSBYCALLER
           - DDR-RUNMODE-NEVERCOEXIST
       - cell: pwsh/Catzc.Base.Repository/tests
-        by:
-          - pwsh/Catzc.Base.Repository/tests/Get-SessionActor.Tests.ps1
-          - ADR-BCL-TYPES-JANITORSBYCALLER
+        by: [pwsh/Catzc.Base.Repository/tests/Get-SessionActor.Tests.ps1, ADR-BCL-TYPES-JANITORSBYCALLER]
       - cell: pwsh/Catzc.Base.RootConfig/.
         by:
           - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
@@ -380,10 +296,7 @@ content:
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
           - DDR-RUNMODE-NEVERCOEXIST
       - cell: pwsh/Catzc.Base.RootConfig/configs
-        by:
-          - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
-          - ADR-REPO-ROOTCFG-FULLYMANAGED
-          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+        by: [pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION]
       - cell: pwsh/Catzc.Base.RootConfig/private
         by:
           - pwsh/Catzc.Base.RootConfig/private/Get-RootConfigRenderedFile.ps1
@@ -396,10 +309,7 @@ content:
           - ADR-REPO-ROOTCFG-FULLYMANAGED
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
       - cell: pwsh/Catzc.Base.RootConfig/types
-        by:
-          - pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
-          - ADR-REPO-ROOTCFG-FULLYMANAGED
-          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+        by: [pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION]
       - cell: pwsh/Catzc.Base.TypesSystem/.
         by:
           - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
@@ -409,10 +319,7 @@ content:
           - ADR-BCL-TYPES-JANITORSBYCALLER
           - DDR-RUNMODE-NEVERCOEXIST
       - cell: pwsh/Catzc.Base.Vendor/.
-        by:
-          - pwsh/Catzc.Base.Vendor/Install-VendorModule.ps1
-          - pwsh/Catzc.Base.Vendor/Remove-VendorModules.ps1
-          - DDR-RUNMODE-NEVERCOEXIST
+        by: [pwsh/Catzc.Base.Vendor/Install-VendorModule.ps1, pwsh/Catzc.Base.Vendor/Remove-VendorModules.ps1, DDR-RUNMODE-NEVERCOEXIST]
       - cell: pwsh/Catzc.Base.VSCode/.
         by:
           - pwsh/Catzc.Base.VSCode/New-VSCodeExtensions.ps1
@@ -448,9 +355,7 @@ content:
           - DDR-RUNMODE-NEVERCOEXIST
     grid:
       - cell: .claude/markdown
-        by:
-          - .claude/CLAUDE.md
-          - PDR-ONELIVE-ONEVERSION
+        by: [.claude/CLAUDE.md, PDR-ONELIVE-ONEVERSION]
       - cell: docs/markdown
         by:
           - docs/drs/automation/BCL/dora-explains.md
@@ -676,18 +581,12 @@ content:
           - ADR-AUTO-BUNDLE-TWOROOTS
           - DDR-RUNMODE-NEVERCOEXIST
       - cell: (no track)/(other)
-        by:
-          - .gitattributes
-          - .gitignore
-          - ADR-BCL-TYPES-JANITORSBYCALLER
-          - DDR-RUNMODE-NEVERCOEXIST
+        by: [.gitattributes, .gitignore, ADR-BCL-TYPES-JANITORSBYCALLER, DDR-RUNMODE-NEVERCOEXIST]
     axis:
       - cell: DSGN/build
-        by:
-          - DDR-RUNMODE-NEVERCOEXIST
+        by: [DDR-RUNMODE-NEVERCOEXIST]
       - cell: DSGN/release
-        by:
-          - PDR-ONELIVE-ONEVERSION
+        by: [PDR-ONELIVE-ONEVERSION]
       - cell: AUTO/build
         by:
           - ADR-AUTO-BUNDLE-BUNDLEISSESSION
@@ -696,68 +595,18 @@ content:
           - ADR-BCL-TYPES-JANITORSBYCALLER
           - ADR-PWSH-TYPES-TYPEACCELERATORATTRIBUTE
       - cell: AUTO/release
-        by:
-          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
-          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
-          - ADR-AUTO-BUNDLE-TWOROOTS
+        by: [ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-TWOROOTS]
       - cell: AUTO/*
-        by:
-          - ADR-PWSH-ERROR-STOPONERROR
-          - ADR-REPO-ROOTCFG-FULLYMANAGED
-          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+        by: [ADR-PWSH-ERROR-STOPONERROR, ADR-REPO-ROOTCFG-FULLYMANAGED, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION]
 layout:
-  band-shim:
-    x: 20
-    y: 124
-    w: 1260
-    h: 70
-  band-session:
-    x: 20
-    y: 204
-    w: 1260
-    h: 70
-  band-load:
-    x: 20
-    y: 284
-    w: 1260
-    h: 70
-  band-mode:
-    x: 20
-    y: 364
-    w: 1260
-    h: 70
-  band-janitors:
-    x: 20
-    y: 444
-    w: 1260
-    h: 70
-  band-unload:
-    x: 20
-    y: 524
-    w: 1260
-    h: 70
-  g-shim:
-    x: 600
-    y: 136
-    w: 400
-    h: 48
-  g-session:
-    x: 600
-    y: 216
-    w: 400
-    h: 48
-  g-load:
-    x: 600
-    y: 296
-    w: 400
-    h: 48
-  g-mode:
-    x: 600
-    y: 376
-    w: 400
-    h: 48
-  g-janitors:
-    x: 600
-    y: 456
-    w: 400
-    h: 48
+  band-shim: { x: 20, y: 124, w: 1260, h: 70 }
+  band-session: { x: 20, y: 204, w: 1260, h: 70 }
+  band-load: { x: 20, y: 284, w: 1260, h: 70 }
+  band-mode: { x: 20, y: 364, w: 1260, h: 70 }
+  band-janitors: { x: 20, y: 444, w: 1260, h: 70 }
+  band-unload: { x: 20, y: 524, w: 1260, h: 70 }
+  g-shim: { x: 600, y: 136, w: 400, h: 48 }
+  g-session: { x: 600, y: 216, w: 400, h: 48 }
+  g-load: { x: 600, y: 296, w: 400, h: 48 }
+  g-mode: { x: 600, y: 376, w: 400, h: 48 }
+  g-janitors: { x: 600, y: 456, w: 400, h: 48 }

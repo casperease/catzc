@@ -4,12 +4,10 @@
 #     with_body_sha: c6698ffac30b
 # ---
 
-description:
-  "Where the pipeline detector lives: the CI platforms set the variables, one loader function reads them, the bootstrap, the builder and the
-  modules ask that function, an analyzer rule bans a raw read, and only the C# hook repeats the test."
+description: 'Where the pipeline detector lives: the CI platforms set the variables, one loader function reads them, the bootstrap, the builder
+  and the modules ask that function, an analyzer rule bans a raw read, and only the C# hook repeats the test.'
 about:
-  adrs:
-    - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+  adrs: [FDR-CD-DETECT-NODIRECTVARIABLECHECK]
   lens: architecture
 content:
   title: The detector lives in the loader, which both run modes import first and keep loaded
@@ -18,101 +16,44 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-    - id: band-platform
-      label: PLATFORM
-    - id: band-loader
-      label: LOADER
-    - id: band-callers
-      label: CALLERS
-    - id: band-hook
-      label: HOOK
-    - id: band-enforcement
-      label: ENFORCEMENT
+    - { id: band-platform, label: PLATFORM }
+    - { id: band-loader, label: LOADER }
+    - { id: band-callers, label: CALLERS }
+    - { id: band-hook, label: HOOK }
+    - { id: band-enforcement, label: ENFORCEMENT }
   groups:
-    - id: grp-platforms
-      label: sets TF_BUILD or GITHUB_ACTIONS
-      in: band-platform
-    - id: grp-callers
-      label: ask the one detector
-      in: band-callers
+    - { id: grp-platforms, label: sets TF_BUILD or GITHUB_ACTIONS, in: band-platform }
+    - { id: grp-callers, label: ask the one detector, in: band-callers }
   glyphs:
-    - id: r-azure-agent
-      kind: runner
-      label: Azure DevOps agent
-      in: grp-platforms
-    - id: r-github-runner
-      kind: runner
-      label: GitHub Actions runner
-      in: grp-platforms
-    - id: c-detector
-      kind: code
-      label: Test-IsRunningInPipeline
-      in: band-loader
-    - id: c-bootstrap
-      kind: code
-      label: Catzc.Internal.Bootstrap
-      in: grp-callers
-    - id: c-builder
-      kind: code
-      label: Catzc.Internal.Builder
-      in: grp-callers
-    - id: s-modules
-      kind: set
-      label: Catzc modules
-      in: grp-callers
-    - id: c-hook
-      kind: code
-      label: Assert-BashTimeout
-      in: band-hook
-    - id: g-analyzer-rule
-      kind: gate
-      label: Measure-NoRawPipelineDetection
-      in: band-enforcement
+    - { id: r-azure-agent, kind: runner, label: Azure DevOps agent, in: grp-platforms }
+    - { id: r-github-runner, kind: runner, label: GitHub Actions runner, in: grp-platforms }
+    - { id: c-detector, kind: code, label: Test-IsRunningInPipeline, in: band-loader }
+    - { id: c-bootstrap, kind: code, label: Catzc.Internal.Bootstrap, in: grp-callers }
+    - { id: c-builder, kind: code, label: Catzc.Internal.Builder, in: grp-callers }
+    - { id: s-modules, kind: set, label: Catzc modules, in: grp-callers }
+    - { id: c-hook, kind: code, label: Assert-BashTimeout, in: band-hook }
+    - { id: g-analyzer-rule, kind: gate, label: Measure-NoRawPipelineDetection, in: band-enforcement }
   edges:
-    - from: grp-platforms
-      to: c-detector
-      kind: flow
-      label: ""
-    - from: c-detector
-      to: grp-callers
-      kind: flow
-      label: ""
-    - from: grp-platforms
-      to: c-hook
-      kind: flow
-      label: ""
-    - from: grp-callers
-      to: g-analyzer-rule
-      kind: flow
-      label: ""
+    - { from: grp-platforms, to: c-detector, kind: flow, label: "" }
+    - { from: c-detector, to: grp-callers, kind: flow, label: "" }
+    - { from: grp-platforms, to: c-hook, kind: flow, label: "" }
+    - { from: grp-callers, to: g-analyzer-rule, kind: flow, label: "" }
   markers:
-    - at: r-azure-agent
-      number: 1
-    - at: r-github-runner
-      number: 2
-    - at: c-detector
-      number: 3
-    - at: c-bootstrap
-      number: 4
-    - at: c-builder
-      number: 5
-    - at: s-modules
-      number: 6
-    - at: g-analyzer-rule
-      number: 7
-    - at: c-hook
-      number: 8
+    - { at: r-azure-agent, number: 1 }
+    - { at: r-github-runner, number: 2 }
+    - { at: c-detector, number: 3 }
+    - { at: c-bootstrap, number: 4 }
+    - { at: c-builder, number: 5 }
+    - { at: s-modules, number: 6 }
+    - { at: g-analyzer-rule, number: 7 }
+    - { at: c-hook, number: 8 }
   chips:
-    - at: s-modules
-      kind: count
-      text: "22"
+    - { at: s-modules, kind: count, text: "22" }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+        by: [.claude/CLAUDE.md, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
       - cell: docs/-/.
         by:
           - docs/drs/flow/dora-explains.md
@@ -129,29 +70,17 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Azure.DevOps/.
-        by:
-          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
       - cell: pwsh/Catzc.Azure.Templates/.
-        by:
-          - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+        by: [pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
       - cell: pwsh/Catzc.Base.Drs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
       - cell: pwsh/Catzc.Base.Drs/types
-        by:
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
       - cell: pwsh/Catzc.Base.Globs/.
-        by:
-          - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+        by: [pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
       - cell: pwsh/Catzc.Base.Globs/tests
-        by:
-          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+        by: [pwsh/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
@@ -159,18 +88,12 @@ content:
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/Catzc.Base.Maps/tests
-        by:
-          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+        by: [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
       - cell: pwsh/Catzc.Base.QualityGates/configs
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+        by: [pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
     grid:
       - cell: .claude/markdown
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+        by: [.claude/CLAUDE.md, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
       - cell: docs/markdown
         by:
           - docs/drs/flow/dora-explains.md
@@ -187,9 +110,7 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - cell: pwsh/bcl
-        by:
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
       - cell: pwsh/powershell
         by:
           - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
@@ -208,81 +129,20 @@ content:
           - FDR-CD-DETECT-NODIRECTVARIABLECHECK
     axis:
       - cell: DSGN/*
-        by:
-          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+        by: [FDR-CD-DETECT-NODIRECTVARIABLECHECK]
 layout:
-  band-platform:
-    x: 20
-    y: 84
-    w: 300
-    h: 260
-  band-loader:
-    x: 340
-    y: 84
-    w: 340
-    h: 260
-  band-callers:
-    x: 700
-    y: 84
-    w: 580
-    h: 260
-  band-hook:
-    x: 20
-    y: 364
-    w: 300
-    h: 140
-  band-enforcement:
-    x: 340
-    y: 364
-    w: 940
-    h: 140
-  grp-platforms:
-    x: 40
-    y: 124
-    w: 260
-    h: 200
-  r-azure-agent:
-    x: 60
-    y: 170
-    w: 220
-    h: 44
-  r-github-runner:
-    x: 60
-    y: 252
-    w: 220
-    h: 44
-  c-detector:
-    x: 400
-    y: 192
-    w: 220
-    h: 44
-  grp-callers:
-    x: 730
-    y: 116
-    w: 300
-    h: 212
-  c-bootstrap:
-    x: 760
-    y: 160
-    w: 220
-    h: 44
-  c-builder:
-    x: 760
-    y: 218
-    w: 220
-    h: 44
-  s-modules:
-    x: 760
-    y: 276
-    w: 220
-    h: 44
-  c-hook:
-    x: 60
-    y: 424
-    w: 220
-    h: 44
-  g-analyzer-rule:
-    x: 730
-    y: 408
-    w: 300
-    h: 84
+  band-platform: { x: 20, y: 84, w: 300, h: 260 }
+  band-loader: { x: 340, y: 84, w: 340, h: 260 }
+  band-callers: { x: 700, y: 84, w: 580, h: 260 }
+  band-hook: { x: 20, y: 364, w: 300, h: 140 }
+  band-enforcement: { x: 340, y: 364, w: 940, h: 140 }
+  grp-platforms: { x: 40, y: 124, w: 260, h: 200 }
+  r-azure-agent: { x: 60, y: 170, w: 220, h: 44 }
+  r-github-runner: { x: 60, y: 252, w: 220, h: 44 }
+  c-detector: { x: 400, y: 192, w: 220, h: 44 }
+  grp-callers: { x: 730, y: 116, w: 300, h: 212 }
+  c-bootstrap: { x: 760, y: 160, w: 220, h: 44 }
+  c-builder: { x: 760, y: 218, w: 220, h: 44 }
+  s-modules: { x: 760, y: 276, w: 220, h: 44 }
+  c-hook: { x: 60, y: 424, w: 220, h: 44 }
+  g-analyzer-rule: { x: 730, y: 408, w: 300, h: 84 }

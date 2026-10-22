@@ -4,14 +4,10 @@
 #     with_body_sha: "240eb155cb64"
 # ---
 
-description:
-  "Six pipeline shapes, each a run of the promotion ladder from its first state: every step a commit takes is labelled with the stage that
-  moves it, and every state it holds can be discarded."
+description: 'Six pipeline shapes, each a run of the promotion ladder from its first state: every step a commit takes is labelled with the stage
+  that moves it, and every state it holds can be discarded.'
 about:
-  adrs:
-    - FDR-CD-SEPARATEPIPELINEKINDS
-    - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-    - FDR-CD-LIFE-DISCARDISTERMINAL
+  adrs: [FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-DISCARDISTERMINAL]
   lens: architecture
 content:
   title: Each pipeline shape runs a stretch of the promotion ladder, and every state it reaches can be discarded
@@ -20,19 +16,11 @@ content:
   relation: moved by the stage
   theme: dark
   bands:
-    - id: band-shapes
-      label: PIPELINE SHAPES
-    - id: band-key
-      label: NAMES
+    - { id: band-shapes, label: PIPELINE SHAPES }
+    - { id: band-key, label: NAMES }
   templates:
     pipeline-shape:
-      states:
-        PR: landed
-        BVT: bvt
-        L3-vertical-AT: l3
-        main-UAT: main-uat
-        release-uat: release-uat
-        release: prod
+      states: { PR: landed, BVT: bvt, L3-vertical-AT: l3, main-UAT: main-uat, release-uat: release-uat, release: prod }
       drop: discarded
   rows:
     - id: pr-cd-rbc
@@ -40,103 +28,67 @@ content:
       label: PR + CD + RBC
       in: band-shapes
       start: topic
-      steps:
-        - PR
-        - BVT
-        - L3-vertical-AT
-        - main-UAT
-        - release-uat
-        - release
-      skip:
-        - main-UAT
+      steps: [PR, BVT, L3-vertical-AT, main-UAT, release-uat, release]
+      skip: [main-UAT]
     - id: cde
       template: pipeline-shape
       label: CDe
       in: band-shapes
       start: landed
-      steps:
-        - BVT
-        - L3-vertical-AT
-        - release
+      steps: [BVT, L3-vertical-AT, release]
     - id: pr-cd-rc
       template: pipeline-shape
       label: PR + CD + RC
       in: band-shapes
       start: topic
-      steps:
-        - PR
-        - BVT
-        - L3-vertical-AT
-        - main-UAT
-        - release
+      steps: [PR, BVT, L3-vertical-AT, main-UAT, release]
     - id: pr-cde
       template: pipeline-shape
       label: PR + CDe
       in: band-shapes
       start: topic
-      steps:
-        - PR
-        - BVT
-        - L3-vertical-AT
-        - release
+      steps: [PR, BVT, L3-vertical-AT, release]
     - id: cd-rc
       template: pipeline-shape
       label: CD + RC
       in: band-shapes
       start: landed
-      steps:
-        - BVT
-        - L3-vertical-AT
-        - main-UAT
-        - release
+      steps: [BVT, L3-vertical-AT, main-UAT, release]
     - id: pr-ci-plus
       template: pipeline-shape
       label: PR + CI+
       in: band-shapes
       start: topic
-      steps:
-        - PR
-        - BVT
-        - L3-vertical-AT
+      steps: [PR, BVT, L3-vertical-AT]
   notes:
     - id: note-names
       in: band-key
-      text: "PR: Pull Request
-
+      text: 'PR: Pull Request
+      
         Direct: integrates to main via a direct pull
-
+      
         CI: Continuous Integration (basic)
-
+      
         CI+: Continuous Integration (with system tests)
-
+      
         CD: Continuous Delivery
-
+      
         CDe: Continuous Deployment
-
+      
         RC: Release Certification (hands on)
-
-        RBC: Release Branch Certification (hands on)"
+      
+        RBC: Release Branch Certification (hands on)'
   legend: auto
   minimaps:
     axis:
       - cell: DSGN/build
-        by:
-          - FDR-CD-SEPARATEPIPELINEKINDS
+        by: [FDR-CD-SEPARATEPIPELINEKINDS]
       - cell: DSGN/quality-control
-        by:
-          - FDR-CD-LIFE-DISCARDISTERMINAL
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-          - FDR-CD-SEPARATEPIPELINEKINDS
+        by: [FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-SEPARATEPIPELINEKINDS]
       - cell: DSGN/release
-        by:
-          - FDR-CD-LIFE-DISCARDISTERMINAL
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-          - FDR-CD-SEPARATEPIPELINEKINDS
+        by: [FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-SEPARATEPIPELINEKINDS]
       - cell: DSGN/deploy
-        by:
-          - FDR-CD-LIFE-DISCARDISTERMINAL
-          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
-          - FDR-CD-SEPARATEPIPELINEKINDS
+        by: [FDR-CD-LIFE-DISCARDISTERMINAL, FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-SEPARATEPIPELINEKINDS]
     lifecycle-position:
       - cell: main-uat
         by:

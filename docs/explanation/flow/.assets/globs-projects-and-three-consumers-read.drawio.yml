@@ -8,9 +8,7 @@ description:
   The globs module projects the flattened scan program into a GitHub list and an Azure DevOps include and exclude pair; the branch policy
   reads the GitHub list in code, while workflows and pipelines declare the lists by hand, drawn dashed.
 about:
-  adrs:
-    - FDR-CD-GLOBS-NATIVEPATHFILTER
-    - FDR-CD-GLOBS-COMPOSESETS
+  adrs: [FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-COMPOSESETS]
   lens: architecture
 content:
   title: Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it
@@ -19,99 +17,40 @@ content:
   relation: feeds
   theme: dark
   bands:
-    - id: band-compose
-      label: COMPOSE
-    - id: band-projection
-      label: PROJECTION
-    - id: band-trigger
-      label: TRIGGER
+    - { id: band-compose, label: COMPOSE }
+    - { id: band-projection, label: PROJECTION }
+    - { id: band-trigger, label: TRIGGER }
   glyphs:
-    - id: f-globs
-      kind: file
-      label: globs.yml
-      in: band-compose
-    - id: g-globset
-      kind: code
-      label: GlobSet
-      in: band-compose
-    - id: g-trigger
-      kind: code
-      label: Get-GlobSetTrigger
-      in: band-projection
-    - id: r-github
-      kind: result
-      label: ordered GitHub paths
-      in: band-projection
-    - id: r-ado
-      kind: result
-      label: ADO include and exclude
-      in: band-projection
-    - id: g-path-filter
-      kind: code
-      label: Get-BuildValidationPathFilter
-      in: band-trigger
-    - id: f-workflows
-      kind: file
-      label: .github/workflows/*.yml
-      in: band-trigger
-    - id: f-pipelines
-      kind: file
-      label: .ado/pipelines/*.yaml
-      in: band-trigger
+    - { id: f-globs, kind: file, label: globs.yml, in: band-compose }
+    - { id: g-globset, kind: code, label: GlobSet, in: band-compose }
+    - { id: g-trigger, kind: code, label: Get-GlobSetTrigger, in: band-projection }
+    - { id: r-github, kind: result, label: ordered GitHub paths, in: band-projection }
+    - { id: r-ado, kind: result, label: ADO include and exclude, in: band-projection }
+    - { id: g-path-filter, kind: code, label: Get-BuildValidationPathFilter, in: band-trigger }
+    - { id: f-workflows, kind: file, label: .github/workflows/*.yml, in: band-trigger }
+    - { id: f-pipelines, kind: file, label: .ado/pipelines/*.yaml, in: band-trigger }
   edges:
-    - from: f-globs
-      to: g-globset
-      kind: flow
-      label: ""
-    - from: g-globset
-      to: g-trigger
-      kind: flow
-      label: ""
-    - from: g-trigger
-      to: r-github
-      kind: flow
-      label: ""
-    - from: g-trigger
-      to: r-ado
-      kind: flow
-      label: ""
-    - from: r-github
-      to: g-path-filter
-      kind: flow
-      label: ""
-    - from: r-github
-      to: f-workflows
-      kind: adr
-      label: ""
-    - from: r-ado
-      to: f-pipelines
-      kind: adr
-      label: ""
+    - { from: f-globs, to: g-globset, kind: flow, label: "" }
+    - { from: g-globset, to: g-trigger, kind: flow, label: "" }
+    - { from: g-trigger, to: r-github, kind: flow, label: "" }
+    - { from: g-trigger, to: r-ado, kind: flow, label: "" }
+    - { from: r-github, to: g-path-filter, kind: flow, label: "" }
+    - { from: r-github, to: f-workflows, kind: adr, label: "" }
+    - { from: r-ado, to: f-pipelines, kind: adr, label: "" }
   markers:
-    - at: f-globs
-      number: 1
-    - at: g-globset
-      number: 2
-    - at: g-trigger
-      number: 3
-    - at: r-github
-      number: 4
-    - at: r-ado
-      number: 5
-    - at: g-path-filter
-      number: 6
-    - at: f-workflows
-      number: 7
-    - at: f-pipelines
-      number: 8
+    - { at: f-globs, number: 1 }
+    - { at: g-globset, number: 2 }
+    - { at: g-trigger, number: 3 }
+    - { at: r-github, number: 4 }
+    - { at: r-ado, number: 5 }
+    - { at: g-path-filter, number: 6 }
+    - { at: f-workflows, number: 7 }
+    - { at: f-pipelines, number: 8 }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [.claude/CLAUDE.md, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/cd-apex.yaml
@@ -160,15 +99,9 @@ content:
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: github-workflows/workflows/.
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
       - cell: pwsh/Catzc.Azure.DevOps/.
-        by:
-          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -177,25 +110,16 @@ content:
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
-        by:
-          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Drs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
       - cell: pwsh/Catzc.Base.Drs/types
-        by:
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
@@ -204,15 +128,9 @@ content:
           - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
           - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Globs/configs
-        by:
-          - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [pwsh/Catzc.Base.Globs/configs/globs.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
       - cell: pwsh/Catzc.Base.Globs/private
-        by:
-          - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
       - cell: pwsh/Catzc.Base.Globs/tests/types
         by:
           - pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
@@ -234,26 +152,14 @@ content:
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Maps/tests
-        by:
-          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
       - cell: pwsh/Catzc.Base.QualityGates/configs
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [pwsh/Catzc.Base.QualityGates/configs/terminology.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
     module-neighbourhood:
       - cell: subject/.claude
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [.claude/CLAUDE.md, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
       - cell: subject/Catzc.Azure.DevOps
-        by:
-          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
       - cell: subject/Catzc.Azure.DevOps.BuildValidation
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -294,10 +200,7 @@ content:
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/Catzc.Base.QualityGates
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [pwsh/Catzc.Base.QualityGates/configs/terminology.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
       - cell: subject/pipelines
         by:
           - .ado/pipelines/cd-apex.yaml
@@ -309,68 +212,19 @@ content:
           - FDR-CD-GLOBS-COMPOSESETS
           - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/workflows
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
     axis:
       - cell: DSGN/*
-        by:
-          - FDR-CD-GLOBS-COMPOSESETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
 layout:
-  band-compose:
-    x: 20
-    y: 84
-    w: 1260
-    h: 120
-  band-projection:
-    x: 20
-    y: 224
-    w: 1260
-    h: 130
-  band-trigger:
-    x: 20
-    y: 374
-    w: 1260
-    h: 130
-  f-globs:
-    x: 440
-    y: 118
-    w: 140
-    h: 56
-  g-globset:
-    x: 720
-    y: 122
-    w: 200
-    h: 48
-  g-trigger:
-    x: 720
-    y: 262
-    w: 200
-    h: 48
-  r-github:
-    x: 440
-    y: 262
-    w: 200
-    h: 44
-  r-ado:
-    x: 1000
-    y: 262
-    w: 200
-    h: 44
-  g-path-filter:
-    x: 60
-    y: 412
-    w: 320
-    h: 48
-  f-workflows:
-    x: 440
-    y: 408
-    w: 220
-    h: 56
-  f-pipelines:
-    x: 1000
-    y: 408
-    w: 220
-    h: 56
+  band-compose: { x: 20, y: 84, w: 1260, h: 120 }
+  band-projection: { x: 20, y: 224, w: 1260, h: 130 }
+  band-trigger: { x: 20, y: 374, w: 1260, h: 130 }
+  f-globs: { x: 440, y: 118, w: 140, h: 56 }
+  g-globset: { x: 720, y: 122, w: 200, h: 48 }
+  g-trigger: { x: 720, y: 262, w: 200, h: 48 }
+  r-github: { x: 440, y: 262, w: 200, h: 44 }
+  r-ado: { x: 1000, y: 262, w: 200, h: 44 }
+  g-path-filter: { x: 60, y: 412, w: 320, h: 48 }
+  f-workflows: { x: 440, y: 408, w: 220, h: 56 }
+  f-pipelines: { x: 1000, y: 408, w: 220, h: 56 }

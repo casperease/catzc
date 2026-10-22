@@ -4,9 +4,8 @@
 #     with_body_sha: ce8a7658f2b3
 # ---
 
-description:
-  "A config file's place under a template's configuration tree is its coordinate: a root config or a customer config, checked against
-  exactly one subscription, resolves to that subscription and to one resource group."
+description: 'A config file''s place under a template''s configuration tree is its coordinate: a root config or a customer config, checked against
+  exactly one subscription, resolves to that subscription and to one resource group.'
 about:
   adrs:
     - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
@@ -21,59 +20,25 @@ content:
   relation: resolves to
   theme: dark
   bands:
-    - id: band-tree
-      label: CONFIGURATION TREE
-    - id: band-resolved
-      label: RESOLVED
+    - { id: band-tree, label: CONFIGURATION TREE }
+    - { id: band-resolved, label: RESOLVED }
   glyphs:
-    - id: g-root
-      kind: file
-      label: root config
-      in: band-tree
-    - id: g-customer
-      kind: file
-      label: customer config
-      in: band-tree
-    - id: g-one
-      kind: gate
-      label: exactly one subscription
-      in: band-resolved
-    - id: e-subscription
-      kind: env
-      label: subscription
-      in: band-resolved
-    - id: e-group
-      kind: env
-      label: resource group
-      in: band-resolved
+    - { id: g-root, kind: file, label: root config, in: band-tree }
+    - { id: g-customer, kind: file, label: customer config, in: band-tree }
+    - { id: g-one, kind: gate, label: exactly one subscription, in: band-resolved }
+    - { id: e-subscription, kind: env, label: subscription, in: band-resolved }
+    - { id: e-group, kind: env, label: resource group, in: band-resolved }
   edges:
-    - from: g-root
-      to: g-one
-      kind: flow
-      label: ""
-    - from: g-customer
-      to: g-one
-      kind: flow
-      label: ""
-    - from: g-one
-      to: e-subscription
-      kind: flow
-      label: ""
-    - from: e-subscription
-      to: e-group
-      kind: flow
-      label: ""
+    - { from: g-root, to: g-one, kind: flow, label: "" }
+    - { from: g-customer, to: g-one, kind: flow, label: "" }
+    - { from: g-one, to: e-subscription, kind: flow, label: "" }
+    - { from: e-subscription, to: e-group, kind: flow, label: "" }
   markers:
-    - at: g-root
-      number: 1
-    - at: g-customer
-      number: 2
-    - at: g-one
-      number: 3
-    - at: e-subscription
-      number: 4
-    - at: e-group
-      number: 5
+    - { at: g-root, number: 1 }
+    - { at: g-customer, number: 2 }
+    - { at: g-one, number: 3 }
+    - { at: e-subscription, number: 4 }
+    - { at: e-group, number: 5 }
   legend: auto
   minimaps:
     code-locations:
@@ -209,9 +174,7 @@ content:
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
       - cell: pwsh/Catzc.Azure.Templates/configs
-        by:
-          - pwsh/Catzc.Azure.Templates/configs/glossary.yml
-          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+        by: [pwsh/Catzc.Azure.Templates/configs/glossary.yml, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION]
       - cell: pwsh/Catzc.Azure.Templates/private
         by:
           - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigName.ps1
@@ -224,9 +187,7 @@ content:
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
       - cell: pwsh/Catzc.Azure.Templates/types
-        by:
-          - pwsh/Catzc.Azure.Templates/types/BicepTemplate.cs
-          - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+        by: [pwsh/Catzc.Azure.Templates/types/BicepTemplate.cs, ADR-AZ-CUSTOMER-KEYISSUBFOLDER]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
@@ -242,9 +203,7 @@ content:
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
       - cell: pwsh/Catzc.Base.Variants/configs
-        by:
-          - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+        by: [pwsh/Catzc.Base.Variants/configs/variants.yml, ADR-AZ-CUSTOMER-KEYISSUBFOLDER]
     module-neighbourhood:
       - cell: subject/Catzc.Azure
         by:
@@ -306,9 +265,7 @@ content:
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
       - cell: subject/Catzc.Base.Variants
-        by:
-          - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+        by: [pwsh/Catzc.Base.Variants/configs/variants.yml, ADR-AZ-CUSTOMER-KEYISSUBFOLDER]
       - cell: subject/discovery
         by:
           - infrastructure/templates/discovery/options.yml
@@ -342,43 +299,12 @@ content:
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
       - cell: CLOUD/access
-        by:
-          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
-          - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+        by: [ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION, ADR-AZ-DATAMOD-TWOCONFIGLAYERS]
 layout:
-  band-tree:
-    x: 20
-    y: 84
-    w: 420
-    h: 280
-  band-resolved:
-    x: 460
-    y: 84
-    w: 820
-    h: 280
-  g-root:
-    x: 70
-    y: 144
-    w: 170
-    h: 52
-  g-customer:
-    x: 70
-    y: 266
-    w: 170
-    h: 52
-  g-one:
-    x: 520
-    y: 190
-    w: 210
-    h: 68
-  e-subscription:
-    x: 800
-    y: 198
-    w: 180
-    h: 52
-  e-group:
-    x: 1050
-    y: 198
-    w: 180
-    h: 52
+  band-tree: { x: 20, y: 84, w: 420, h: 280 }
+  band-resolved: { x: 460, y: 84, w: 820, h: 280 }
+  g-root: { x: 70, y: 144, w: 170, h: 52 }
+  g-customer: { x: 70, y: 266, w: 170, h: 52 }
+  g-one: { x: 520, y: 190, w: 210, h: 68 }
+  e-subscription: { x: 800, y: 198, w: 180, h: 52 }
+  e-group: { x: 1050, y: 198, w: 180, h: 52 }

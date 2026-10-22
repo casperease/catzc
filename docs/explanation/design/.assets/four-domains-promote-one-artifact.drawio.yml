@@ -4,9 +4,8 @@
 #     with_body_sha: "1e4005bb0585"
 # ---
 
-description:
-  "The ladder of commit states cut into its domains: GIT, then the pipeline kinds CI, CD, DEPLOY-Non-Prod and DEPLOY-Prod, each always-on
-  environment holding one commit as its occupant, and the tagged artifact CI built once that every later domain promotes."
+description: 'The ladder of commit states cut into its domains: GIT, then the pipeline kinds CI, CD, DEPLOY-Non-Prod and DEPLOY-Prod, each always-on
+  environment holding one commit as its occupant, and the tagged artifact CI built once that every later domain promotes.'
 about:
   adrs:
     - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
@@ -21,152 +20,55 @@ content:
   relation: promotes, or builds
   theme: dark
   bands:
-    - id: band-git
-      label: GIT
-    - id: band-ci
-      label: CI
-    - id: band-cd
-      label: CD
-    - id: band-non-prod
-      label: DEPLOY-NON-PROD
-    - id: band-prod
-      label: DEPLOY-PROD
+    - { id: band-git, label: GIT }
+    - { id: band-ci, label: CI }
+    - { id: band-cd, label: CD }
+    - { id: band-non-prod, label: DEPLOY-NON-PROD }
+    - { id: band-prod, label: DEPLOY-PROD }
   spans:
     - id: span-ci
       label: CI
-      over:
-        - band-ci
+      over: [band-ci]
     - id: span-cd
       label: CD
-      over:
-        - band-cd
+      over: [band-cd]
     - id: span-deploy
       label: DEPLOY
-      over:
-        - band-non-prod
-        - band-prod
+      over: [band-non-prod, band-prod]
   glyphs:
-    - id: c-topic
-      kind: commit
-      label: topic
-      in: band-git
-      state: topic
-    - id: c-main
-      kind: commit
-      label: main
-      in: band-git
-      state: landed
-    - id: g-engine
-      kind: runner
-      label: CI engine
-      in: band-ci
-    - id: c-bvt
-      kind: commit
-      label: BVT
-      in: band-ci
-    - id: g-on-demand
-      kind: env
-      label: on-demand env
-      in: band-cd
-    - id: c-l3
-      kind: commit
-      label: L3
-      in: g-on-demand
-      state: l3
-    - id: g-main-uat
-      kind: env
-      label: main-uat
-      in: band-non-prod
-    - id: c-main-uat
-      kind: commit
-      label: M
-      in: g-main-uat
-      state: main-uat
-    - id: g-release-uat
-      kind: env
-      label: release-uat
-      in: band-non-prod
-    - id: c-release-uat
-      kind: commit
-      label: R
-      in: g-release-uat
-      state: release-uat
-    - id: g-pre-prod
-      kind: env
-      label: pre-prod
-      in: band-prod
-    - id: c-pre-prod
-      kind: commit
-      label: P
-      in: g-pre-prod
-      state: prod
-    - id: g-production
-      kind: env
-      label: production
-      in: band-prod
-    - id: c-production
-      kind: commit
-      label: P
-      in: g-production
-      state: prod
-    - id: s-artifact
-      kind: store
-      label: tagged artifact
-      in: band-non-prod
+    - { id: c-topic, kind: commit, label: topic, in: band-git, state: topic }
+    - { id: c-main, kind: commit, label: main, in: band-git, state: landed }
+    - { id: g-engine, kind: runner, label: CI engine, in: band-ci }
+    - { id: c-bvt, kind: commit, label: BVT, in: band-ci }
+    - { id: g-on-demand, kind: env, label: on-demand env, in: band-cd }
+    - { id: c-l3, kind: commit, label: L3, in: g-on-demand, state: l3 }
+    - { id: g-main-uat, kind: env, label: main-uat, in: band-non-prod }
+    - { id: c-main-uat, kind: commit, label: M, in: g-main-uat, state: main-uat }
+    - { id: g-release-uat, kind: env, label: release-uat, in: band-non-prod }
+    - { id: c-release-uat, kind: commit, label: R, in: g-release-uat, state: release-uat }
+    - { id: g-pre-prod, kind: env, label: pre-prod, in: band-prod }
+    - { id: c-pre-prod, kind: commit, label: P, in: g-pre-prod, state: prod }
+    - { id: g-production, kind: env, label: production, in: band-prod }
+    - { id: c-production, kind: commit, label: P, in: g-production, state: prod }
+    - { id: s-artifact, kind: store, label: tagged artifact, in: band-non-prod }
   edges:
-    - from: c-topic
-      to: c-main
-      kind: flow
-      label: ""
-    - from: c-main
-      to: g-engine
-      kind: flow
-      label: ""
-    - from: g-engine
-      to: c-bvt
-      kind: flow
-      label: ""
-    - from: c-bvt
-      to: g-on-demand
-      kind: flow
-      label: ""
-    - from: g-on-demand
-      to: g-main-uat
-      kind: flow
-      label: ""
-    - from: g-main-uat
-      to: g-release-uat
-      kind: flow
-      label: ""
-    - from: g-release-uat
-      to: g-pre-prod
-      kind: flow
-      label: ""
-    - from: g-pre-prod
-      to: g-production
-      kind: flow
-      label: ""
-    - from: g-engine
-      to: s-artifact
-      kind: flow
-      label: ""
+    - { from: c-topic, to: c-main, kind: flow, label: "" }
+    - { from: c-main, to: g-engine, kind: flow, label: "" }
+    - { from: g-engine, to: c-bvt, kind: flow, label: "" }
+    - { from: c-bvt, to: g-on-demand, kind: flow, label: "" }
+    - { from: g-on-demand, to: g-main-uat, kind: flow, label: "" }
+    - { from: g-main-uat, to: g-release-uat, kind: flow, label: "" }
+    - { from: g-release-uat, to: g-pre-prod, kind: flow, label: "" }
+    - { from: g-pre-prod, to: g-production, kind: flow, label: "" }
+    - { from: g-engine, to: s-artifact, kind: flow, label: "" }
   markers:
-    - at: band-git
-      number: 1
-      corner: top-right
-    - at: g-engine
-      number: 2
-    - at: g-on-demand
-      number: 3
-    - at: g-main-uat
-      number: 4
-    - at: g-release-uat
-      number: 5
-    - at: band-prod
-      number: 6
-      corner: top-right
-    - at: s-artifact
-      number: 7
+    - { at: band-git, number: 1, corner: top-right }
+    - { at: g-engine, number: 2 }
+    - { at: g-on-demand, number: 3 }
+    - { at: g-main-uat, number: 4 }
+    - { at: g-release-uat, number: 5 }
+    - { at: band-prod, number: 6, corner: top-right }
+    - { at: s-artifact, number: 7 }
   legend: auto
   minimaps:
     code-locations:
@@ -201,9 +103,7 @@ content:
           - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.Docs/configs
-        by:
-          - pwsh/Catzc.Base.Docs/configs/glossary.yml
-          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+        by: [pwsh/Catzc.Base.Docs/configs/glossary.yml, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -235,9 +135,7 @@ content:
           - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - cell: pwsh/Catzc.Base.ModuleSystem/configs
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT]
     grid:
       - cell: .claude/markdown
         by:
@@ -309,103 +207,23 @@ content:
           - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
 layout:
-  band-git:
-    x: 20
-    y: 84
-    w: 180
-    h: 320
-  band-ci:
-    x: 220
-    y: 84
-    w: 240
-    h: 320
-  band-cd:
-    x: 480
-    y: 84
-    w: 170
-    h: 320
-  band-non-prod:
-    x: 670
-    y: 84
-    w: 290
-    h: 320
-  band-prod:
-    x: 980
-    y: 84
-    w: 300
-    h: 320
-  c-topic:
-    x: 36
-    y: 170
-    w: 56
-    h: 56
-  c-main:
-    x: 124
-    y: 170
-    w: 56
-    h: 56
-  g-engine:
-    x: 236
-    y: 176
-    w: 130
-    h: 44
-  c-bvt:
-    x: 392
-    y: 170
-    w: 56
-    h: 56
-  g-on-demand:
-    x: 500
-    y: 152
-    w: 130
-    h: 92
-  g-main-uat:
-    x: 685
-    y: 152
-    w: 120
-    h: 92
-  g-release-uat:
-    x: 835
-    y: 152
-    w: 120
-    h: 92
-  g-pre-prod:
-    x: 995
-    y: 152
-    w: 120
-    h: 92
-  g-production:
-    x: 1145
-    y: 152
-    w: 120
-    h: 92
-  c-l3:
-    x: 547
-    y: 160
-    w: 28
-    h: 28
-  c-main-uat:
-    x: 731
-    y: 160
-    w: 28
-    h: 28
-  c-release-uat:
-    x: 881
-    y: 160
-    w: 28
-    h: 28
-  c-pre-prod:
-    x: 1041
-    y: 160
-    w: 28
-    h: 28
-  c-production:
-    x: 1191
-    y: 160
-    w: 28
-    h: 28
-  s-artifact:
-    x: 236
-    y: 310
-    w: 1030
-    h: 60
+  band-git: { x: 20, y: 84, w: 180, h: 320 }
+  band-ci: { x: 220, y: 84, w: 240, h: 320 }
+  band-cd: { x: 480, y: 84, w: 170, h: 320 }
+  band-non-prod: { x: 670, y: 84, w: 290, h: 320 }
+  band-prod: { x: 980, y: 84, w: 300, h: 320 }
+  c-topic: { x: 36, y: 170, w: 56, h: 56 }
+  c-main: { x: 124, y: 170, w: 56, h: 56 }
+  g-engine: { x: 236, y: 176, w: 130, h: 44 }
+  c-bvt: { x: 392, y: 170, w: 56, h: 56 }
+  g-on-demand: { x: 500, y: 152, w: 130, h: 92 }
+  g-main-uat: { x: 685, y: 152, w: 120, h: 92 }
+  g-release-uat: { x: 835, y: 152, w: 120, h: 92 }
+  g-pre-prod: { x: 995, y: 152, w: 120, h: 92 }
+  g-production: { x: 1145, y: 152, w: 120, h: 92 }
+  c-l3: { x: 547, y: 160, w: 28, h: 28 }
+  c-main-uat: { x: 731, y: 160, w: 28, h: 28 }
+  c-release-uat: { x: 881, y: 160, w: 28, h: 28 }
+  c-pre-prod: { x: 1041, y: 160, w: 28, h: 28 }
+  c-production: { x: 1191, y: 160, w: 28, h: 28 }
+  s-artifact: { x: 236, y: 310, w: 1030, h: 60 }

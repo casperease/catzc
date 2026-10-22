@@ -22,113 +22,41 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-    - id: band-discovery
-      label: DISCOVERY
-    - id: band-resolver
-      label: RESOLVER
-    - id: band-identity
-      label: IDENTITY
+    - { id: band-discovery, label: DISCOVERY }
+    - { id: band-resolver, label: RESOLVER }
+    - { id: band-identity, label: IDENTITY }
   glyphs:
-    - id: g-config
-      kind: file
-      label: configuration/apex/nsub.yml
-      in: band-discovery
-    - id: g-discovery
-      kind: code
-      label: Get-BicepTemplates
-      in: band-discovery
-    - id: g-resolve-name
-      kind: code
-      label: Resolve-BicepConfigName
-      in: band-discovery
-    - id: g-violations
-      kind: gate
-      label: Get-BicepSubscriptionConfigViolations
-      in: band-discovery
-    - id: f-invalid
-      kind: failure
-      label: has an invalid config
-      in: band-discovery
-    - id: g-slot
-      kind: type
-      label: BicepSlot
-      in: band-discovery
-    - id: g-candidates
-      kind: code
-      label: Get-BicepConfigSubscriptionCandidates
-      in: band-resolver
-    - id: g-customer
-      kind: code
-      label: Get-AzureCustomer
-      in: band-resolver
-    - id: g-azure
-      kind: file
-      label: azure.yml
-      in: band-identity
-    - id: g-customer-file
-      kind: file
-      label: customer.yml
-      in: band-identity
+    - { id: g-config, kind: file, label: configuration/apex/nsub.yml, in: band-discovery }
+    - { id: g-discovery, kind: code, label: Get-BicepTemplates, in: band-discovery }
+    - { id: g-resolve-name, kind: code, label: Resolve-BicepConfigName, in: band-discovery }
+    - { id: g-violations, kind: gate, label: Get-BicepSubscriptionConfigViolations, in: band-discovery }
+    - { id: f-invalid, kind: failure, label: has an invalid config, in: band-discovery }
+    - { id: g-slot, kind: type, label: BicepSlot, in: band-discovery }
+    - { id: g-candidates, kind: code, label: Get-BicepConfigSubscriptionCandidates, in: band-resolver }
+    - { id: g-customer, kind: code, label: Get-AzureCustomer, in: band-resolver }
+    - { id: g-azure, kind: file, label: azure.yml, in: band-identity }
+    - { id: g-customer-file, kind: file, label: customer.yml, in: band-identity }
   edges:
-    - from: g-config
-      to: g-discovery
-      kind: flow
-      label: ""
-    - from: g-discovery
-      to: g-resolve-name
-      kind: flow
-      label: ""
-    - from: g-resolve-name
-      to: g-violations
-      kind: flow
-      label: ""
-    - from: g-violations
-      to: g-slot
-      kind: flow
-      label: ""
-    - from: g-resolve-name
-      to: f-invalid
-      kind: fail
-      label: ""
-    - from: g-violations
-      to: f-invalid
-      kind: fail
-      label: ""
-    - from: g-candidates
-      to: g-violations
-      kind: flow
-      label: ""
-    - from: g-customer
-      to: g-candidates
-      kind: flow
-      label: ""
-    - from: g-azure
-      to: g-candidates
-      kind: flow
-      label: ""
-    - from: g-customer-file
-      to: g-customer
-      kind: flow
-      label: ""
+    - { from: g-config, to: g-discovery, kind: flow, label: "" }
+    - { from: g-discovery, to: g-resolve-name, kind: flow, label: "" }
+    - { from: g-resolve-name, to: g-violations, kind: flow, label: "" }
+    - { from: g-violations, to: g-slot, kind: flow, label: "" }
+    - { from: g-resolve-name, to: f-invalid, kind: fail, label: "" }
+    - { from: g-violations, to: f-invalid, kind: fail, label: "" }
+    - { from: g-candidates, to: g-violations, kind: flow, label: "" }
+    - { from: g-customer, to: g-candidates, kind: flow, label: "" }
+    - { from: g-azure, to: g-candidates, kind: flow, label: "" }
+    - { from: g-customer-file, to: g-customer, kind: flow, label: "" }
   markers:
-    - at: g-config
-      number: 1
-    - at: g-discovery
-      number: 2
-    - at: g-resolve-name
-      number: 3
-    - at: g-azure
-      number: 4
-    - at: g-candidates
-      number: 5
-    - at: g-customer
-      number: 6
-    - at: g-violations
-      number: 7
-    - at: f-invalid
-      number: 8
-    - at: g-slot
-      number: 9
+    - { at: g-config, number: 1 }
+    - { at: g-discovery, number: 2 }
+    - { at: g-resolve-name, number: 3 }
+    - { at: g-azure, number: 4 }
+    - { at: g-candidates, number: 5 }
+    - { at: g-customer, number: 6 }
+    - { at: g-violations, number: 7 }
+    - { at: f-invalid, number: 8 }
+    - { at: g-slot, number: 9 }
   legend: auto
   minimaps:
     code-locations:
@@ -273,9 +201,7 @@ content:
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: pwsh/Catzc.Azure.Templates/configs
-        by:
-          - pwsh/Catzc.Azure.Templates/configs/glossary.yml
-          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+        by: [pwsh/Catzc.Azure.Templates/configs/glossary.yml, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION]
       - cell: pwsh/Catzc.Azure.Templates/private
         by:
           - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigClassViolations.ps1
@@ -291,10 +217,7 @@ content:
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: pwsh/Catzc.Azure.Templates/types
-        by:
-          - pwsh/Catzc.Azure.Templates/types/BicepTemplate.cs
-          - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
-          - ADR-AZ-CUSTOMER-TWOBINDINGS
+        by: [pwsh/Catzc.Azure.Templates/types/BicepTemplate.cs, ADR-AZ-CUSTOMER-KEYISSUBFOLDER, ADR-AZ-CUSTOMER-TWOBINDINGS]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-index.yml
@@ -311,10 +234,7 @@ content:
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: pwsh/Catzc.Base.Variants/configs
-        by:
-          - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
-          - ADR-AZ-CUSTOMER-TWOBINDINGS
+        by: [pwsh/Catzc.Base.Variants/configs/variants.yml, ADR-AZ-CUSTOMER-KEYISSUBFOLDER, ADR-AZ-CUSTOMER-TWOBINDINGS]
     module-neighbourhood:
       - cell: subject/Catzc.Azure
         by:
@@ -382,10 +302,7 @@ content:
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: subject/Catzc.Base.Variants
-        by:
-          - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
-          - ADR-AZ-CUSTOMER-TWOBINDINGS
+        by: [pwsh/Catzc.Base.Variants/configs/variants.yml, ADR-AZ-CUSTOMER-KEYISSUBFOLDER, ADR-AZ-CUSTOMER-TWOBINDINGS]
       - cell: subject/discovery
         by:
           - infrastructure/templates/discovery/options.yml
@@ -420,73 +337,18 @@ content:
           - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: CLOUD/access
-        by:
-          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-          - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
-          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+        by: [ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY]
 layout:
-  band-discovery:
-    x: 20
-    y: 84
-    w: 1260
-    h: 250
-  band-resolver:
-    x: 20
-    y: 354
-    w: 1260
-    h: 120
-  band-identity:
-    x: 20
-    y: 494
-    w: 1260
-    h: 120
-  g-config:
-    x: 40
-    y: 134
-    w: 190
-    h: 52
-  g-discovery:
-    x: 270
-    y: 138
-    w: 180
-    h: 44
-  g-resolve-name:
-    x: 490
-    y: 138
-    w: 230
-    h: 44
-  g-violations:
-    x: 760
-    y: 126
-    w: 320
-    h: 68
-  g-slot:
-    x: 1120
-    y: 142
-    w: 130
-    h: 36
-  f-invalid:
-    x: 490
-    y: 244
-    w: 230
-    h: 44
-  g-candidates:
-    x: 760
-    y: 398
-    w: 320
-    h: 44
-  g-customer:
-    x: 1110
-    y: 398
-    w: 150
-    h: 44
-  g-azure:
-    x: 840
-    y: 538
-    w: 160
-    h: 52
-  g-customer-file:
-    x: 1110
-    y: 538
-    w: 150
-    h: 52
+  band-discovery: { x: 20, y: 84, w: 1260, h: 250 }
+  band-resolver: { x: 20, y: 354, w: 1260, h: 120 }
+  band-identity: { x: 20, y: 494, w: 1260, h: 120 }
+  g-config: { x: 40, y: 134, w: 190, h: 52 }
+  g-discovery: { x: 270, y: 138, w: 180, h: 44 }
+  g-resolve-name: { x: 490, y: 138, w: 230, h: 44 }
+  g-violations: { x: 760, y: 126, w: 320, h: 68 }
+  g-slot: { x: 1120, y: 142, w: 130, h: 36 }
+  f-invalid: { x: 490, y: 244, w: 230, h: 44 }
+  g-candidates: { x: 760, y: 398, w: 320, h: 44 }
+  g-customer: { x: 1110, y: 398, w: 150, h: 44 }
+  g-azure: { x: 840, y: 538, w: 160, h: 52 }
+  g-customer-file: { x: 1110, y: 538, w: 150, h: 52 }

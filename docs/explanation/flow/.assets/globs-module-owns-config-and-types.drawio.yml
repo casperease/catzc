@@ -4,15 +4,10 @@
 #     with_body_sha: "2d177b3a7462"
 # ---
 
-description:
-  "One typed registry, globs.yml, is validated and flattened by GlobsConfig and GlobSet, and the module computes three roles from it: the
-  trigger projection read by pipelines and workflows, the change report built from git, and the protection identity read by the test run."
+description: 'One typed registry, globs.yml, is validated and flattened by GlobsConfig and GlobSet, and the module computes three roles from it:
+  the trigger projection read by pipelines and workflows, the change report built from git, and the protection identity read by the test run.'
 about:
-  adrs:
-    - FDR-CD-GLOBS-NAMEDGLOBSETS
-    - FDR-CD-GLOBS-DURABLESHAIDENTITY
-    - FDR-CD-GLOBS-NATIVEPATHFILTER
-    - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+  adrs: [FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: architecture
 content:
   title: Catzc.Base.Globs computes every globset role from one typed registry
@@ -21,85 +16,32 @@ content:
   relation: output read by the next
   theme: dark
   bands:
-    - id: band-module
-      label: GLOBS MODULE
-    - id: band-edge
-      label: EDGE
+    - { id: band-module, label: GLOBS MODULE }
+    - { id: band-edge, label: EDGE }
   glyphs:
-    - id: f-globs
-      kind: file
-      label: globs.yml
-      in: band-module
-    - id: g-config
-      kind: code
-      label: GlobsConfig → GlobSet
-      in: band-module
-    - id: g-trigger
-      kind: code
-      label: Trigger projection
-      in: band-module
-    - id: g-change-report
-      kind: code
-      label: Change report
-      in: band-module
-    - id: g-identity
-      kind: code
-      label: Protection identity
-      in: band-module
-    - id: g-pipelines
-      kind: runner
-      label: Pipelines · workflows
-      in: band-edge
-    - id: x-git
-      kind: external
-      label: git
-      in: band-edge
-    - id: g-automation
-      kind: code
-      label: Test-Automation
-      in: band-edge
+    - { id: f-globs, kind: file, label: globs.yml, in: band-module }
+    - { id: g-config, kind: code, label: GlobsConfig → GlobSet, in: band-module }
+    - { id: g-trigger, kind: code, label: Trigger projection, in: band-module }
+    - { id: g-change-report, kind: code, label: Change report, in: band-module }
+    - { id: g-identity, kind: code, label: Protection identity, in: band-module }
+    - { id: g-pipelines, kind: runner, label: Pipelines · workflows, in: band-edge }
+    - { id: x-git, kind: external, label: git, in: band-edge }
+    - { id: g-automation, kind: code, label: Test-Automation, in: band-edge }
   edges:
-    - from: f-globs
-      to: g-config
-      kind: flow
-      label: ""
-    - from: g-config
-      to: g-trigger
-      kind: flow
-      label: ""
-    - from: g-config
-      to: g-change-report
-      kind: flow
-      label: ""
-    - from: g-config
-      to: g-identity
-      kind: flow
-      label: ""
-    - from: g-trigger
-      to: g-pipelines
-      kind: flow
-      label: ""
-    - from: x-git
-      to: g-change-report
-      kind: flow
-      label: ""
-    - from: g-identity
-      to: g-automation
-      kind: flow
-      label: ""
+    - { from: f-globs, to: g-config, kind: flow, label: "" }
+    - { from: g-config, to: g-trigger, kind: flow, label: "" }
+    - { from: g-config, to: g-change-report, kind: flow, label: "" }
+    - { from: g-config, to: g-identity, kind: flow, label: "" }
+    - { from: g-trigger, to: g-pipelines, kind: flow, label: "" }
+    - { from: x-git, to: g-change-report, kind: flow, label: "" }
+    - { from: g-identity, to: g-automation, kind: flow, label: "" }
   markers:
-    - at: f-globs
-      number: 1
-    - at: g-config
-      number: 2
-    - at: g-trigger
-      number: 3
-    - at: g-change-report
-      number: 4
-    - at: g-identity
-      number: 5
-    - at: g-automation
-      number: 6
+    - { at: f-globs, number: 1 }
+    - { at: g-config, number: 2 }
+    - { at: g-trigger, number: 3 }
+    - { at: g-change-report, number: 4 }
+    - { at: g-identity, number: 5 }
+    - { at: g-automation, number: 6 }
   legend: auto
   minimaps:
     code-locations:
@@ -123,9 +65,7 @@ content:
           - FDR-CD-GLOBS-NAMEDGLOBSETS
           - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: ado-pipelines/pipelines/extends
-        by:
-          - .ado/pipelines/extends/cd-customer.yaml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [.ado/pipelines/extends/cd-customer.yaml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: docs/-/.
         by:
           - docs/drs/flow/dora-explains.md
@@ -231,9 +171,7 @@ content:
           - FDR-CD-GLOBS-NAMEDGLOBSETS
           - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.Exporter/.
-        by:
-          - pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
-          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+        by: [pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1, FDR-CD-GLOBS-DURABLESHAIDENTITY]
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
@@ -310,9 +248,7 @@ content:
           - FDR-CD-GLOBS-NAMEDGLOBSETS
           - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: pwsh/Catzc.Base.QualityGates/private
-        by:
-          - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
-          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1, FDR-CD-GLOBS-DURABLESHAIDENTITY]
     module-neighbourhood:
       - cell: subject/.claude
         by:
@@ -348,9 +284,7 @@ content:
           - FDR-CD-GLOBS-NAMEDGLOBSETS
           - FDR-CD-GLOBS-NATIVEPATHFILTER
       - cell: subject/Catzc.Base.Exporter
-        by:
-          - pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1
-          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+        by: [pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1, FDR-CD-GLOBS-DURABLESHAIDENTITY]
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
@@ -421,59 +355,15 @@ content:
           - FDR-CD-GLOBS-NATIVEPATHFILTER
     axis:
       - cell: DSGN/*
-        by:
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
-          - FDR-CD-GLOBS-DURABLESHAIDENTITY
-          - FDR-CD-GLOBS-NAMEDGLOBSETS
-          - FDR-CD-GLOBS-NATIVEPATHFILTER
+        by: [FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NAMEDGLOBSETS, FDR-CD-GLOBS-NATIVEPATHFILTER]
 layout:
-  band-module:
-    x: 20
-    y: 84
-    w: 900
-    h: 340
-  band-edge:
-    x: 940
-    y: 84
-    w: 340
-    h: 340
-  f-globs:
-    x: 40
-    y: 222
-    w: 180
-    h: 64
-  g-config:
-    x: 260
-    y: 174
-    w: 200
-    h: 160
-  g-trigger:
-    x: 500
-    y: 126
-    w: 400
-    h: 56
-  g-change-report:
-    x: 500
-    y: 226
-    w: 400
-    h: 56
-  g-identity:
-    x: 500
-    y: 326
-    w: 400
-    h: 56
-  g-pipelines:
-    x: 980
-    y: 126
-    w: 260
-    h: 56
-  x-git:
-    x: 980
-    y: 226
-    w: 260
-    h: 56
-  g-automation:
-    x: 980
-    y: 326
-    w: 260
-    h: 56
+  band-module: { x: 20, y: 84, w: 900, h: 340 }
+  band-edge: { x: 940, y: 84, w: 340, h: 340 }
+  f-globs: { x: 40, y: 222, w: 180, h: 64 }
+  g-config: { x: 260, y: 174, w: 200, h: 160 }
+  g-trigger: { x: 500, y: 126, w: 400, h: 56 }
+  g-change-report: { x: 500, y: 226, w: 400, h: 56 }
+  g-identity: { x: 500, y: 326, w: 400, h: 56 }
+  g-pipelines: { x: 980, y: 126, w: 260, h: 56 }
+  x-git: { x: 980, y: 226, w: 260, h: 56 }
+  g-automation: { x: 980, y: 326, w: 260, h: 56 }

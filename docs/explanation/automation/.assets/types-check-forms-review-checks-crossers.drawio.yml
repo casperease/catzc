@@ -26,117 +26,47 @@ content:
   relation: checks
   theme: dark
   bands:
-    - id: band-communication
-      label: COMMUNICATION FORM
-    - id: band-crossers
-      label: THE TWO CROSSERS
-    - id: band-binding
-      label: BINDING FORM
-    - id: band-stage
-      label: CROSS-STAGE
+    - { id: band-communication, label: COMMUNICATION FORM }
+    - { id: band-crossers, label: THE TWO CROSSERS }
+    - { id: band-binding, label: BINDING FORM }
+    - { id: band-stage, label: CROSS-STAGE }
   glyphs:
-    - id: s-communication
-      kind: set
-      label: Communication form
-      in: band-communication
-    - id: g-repo-relative
-      kind: gate
-      label: RepoRelativePath
-      in: band-communication
-    - id: g-inspiration
-      kind: gate
-      label: InspirationRoot
-      in: band-communication
-    - id: g-crossers
-      kind: code
-      label: The two crossers
-      in: band-crossers
-    - id: a-review
-      kind: drsonly
-      label: Code review
-      in: band-crossers
-    - id: s-binding
-      kind: set
-      label: Binding form
-      in: band-binding
-    - id: s-artifact
-      kind: set
-      label: Published artifact
-      in: band-stage
-    - id: g-reference
-      kind: gate
-      label: ArtifactRef
-      in: band-stage
+    - { id: s-communication, kind: set, label: Communication form, in: band-communication }
+    - { id: g-repo-relative, kind: gate, label: RepoRelativePath, in: band-communication }
+    - { id: g-inspiration, kind: gate, label: InspirationRoot, in: band-communication }
+    - { id: g-crossers, kind: code, label: The two crossers, in: band-crossers }
+    - { id: a-review, kind: drsonly, label: Code review, in: band-crossers }
+    - { id: s-binding, kind: set, label: Binding form, in: band-binding }
+    - { id: s-artifact, kind: set, label: Published artifact, in: band-stage }
+    - { id: g-reference, kind: gate, label: ArtifactRef, in: band-stage }
   edges:
-    - from: g-repo-relative
-      to: s-communication
-      kind: flow
-      label: ""
-    - from: g-inspiration
-      to: s-communication
-      kind: flow
-      label: ""
-    - from: g-reference
-      to: s-artifact
-      kind: flow
-      label: ""
+    - { from: g-repo-relative, to: s-communication, kind: flow, label: "" }
+    - { from: g-inspiration, to: s-communication, kind: flow, label: "" }
+    - { from: g-reference, to: s-artifact, kind: flow, label: "" }
   markers:
-    - at: s-communication
-      number: 1
-    - at: g-crossers
-      number: 2
-    - at: s-binding
-      number: 3
-    - at: g-repo-relative
-      number: 4
-    - at: g-inspiration
-      number: 5
-    - at: a-review
-      number: 6
-    - at: s-artifact
-      number: 7
-    - at: g-reference
-      number: 8
+    - { at: s-communication, number: 1 }
+    - { at: g-crossers, number: 2 }
+    - { at: s-binding, number: 3 }
+    - { at: g-repo-relative, number: 4 }
+    - { at: g-inspiration, number: 5 }
+    - { at: a-review, number: 6 }
+    - { at: s-artifact, number: 7 }
+    - { at: g-reference, number: 8 }
   chips:
-    - at: s-communication
-      kind: rule
-      rule: ADR-AUTO-PATH-TWOFORMS
-    - at: s-communication
-      kind: rule
-      rule: ADR-AUTO-PATH-COMMUNICATIONFORM
-    - at: s-communication
-      kind: rule
-      rule: ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM
-    - at: s-communication
-      kind: rule
-      rule: ADR-AUTO-PATH-WORKSPACEANCHOR
-    - at: g-crossers
-      kind: rule
-      rule: ADR-AUTO-PATH-CENTRALNORMALIZATION
-      gated: false
-    - at: g-crossers
-      kind: rule
-      rule: ADR-AUTO-PATH-NAMEBYFORM
-      gated: false
-    - at: g-crossers
-      kind: rule
-      rule: ADR-AUTO-PATH-OUTANCHOR
-      gated: false
-    - at: s-binding
-      kind: rule
-      rule: ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
-      gated: false
-    - at: s-artifact
-      kind: rule
-      rule: ADR-AUTO-PATH-PUBLISHEDARTIFACT
+    - { at: s-communication, kind: rule, rule: ADR-AUTO-PATH-TWOFORMS }
+    - { at: s-communication, kind: rule, rule: ADR-AUTO-PATH-COMMUNICATIONFORM }
+    - { at: s-communication, kind: rule, rule: ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM }
+    - { at: s-communication, kind: rule, rule: ADR-AUTO-PATH-WORKSPACEANCHOR }
+    - { at: g-crossers, kind: rule, rule: ADR-AUTO-PATH-CENTRALNORMALIZATION, gated: false }
+    - { at: g-crossers, kind: rule, rule: ADR-AUTO-PATH-NAMEBYFORM, gated: false }
+    - { at: g-crossers, kind: rule, rule: ADR-AUTO-PATH-OUTANCHOR, gated: false }
+    - { at: s-binding, kind: rule, rule: ADR-AUTO-PATH-BINDINGFORMONLYATBINDING, gated: false }
+    - { at: s-artifact, kind: rule, rule: ADR-AUTO-PATH-PUBLISHEDARTIFACT }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/skills/catzc-module
-        by:
-          - .claude/skills/catzc-module/SKILL.md
-          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
-          - ADR-AUTO-PATH-TWOFORMS
+        by: [.claude/skills/catzc-module/SKILL.md, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING, ADR-AUTO-PATH-TWOFORMS]
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -181,23 +111,13 @@ content:
           - pwsh/Catzc.Base.Contracts/Publish-ContractRelease.ps1
           - ADR-AUTO-PATH-COMMUNICATIONFORM
       - cell: pwsh/Catzc.Base.Contracts/private
-        by:
-          - pwsh/Catzc.Base.Contracts/private/Get-ContractFileHashes.ps1
-          - ADR-AUTO-PATH-COMMUNICATIONFORM
+        by: [pwsh/Catzc.Base.Contracts/private/Get-ContractFileHashes.ps1, ADR-AUTO-PATH-COMMUNICATIONFORM]
       - cell: pwsh/Catzc.Base.Contracts/tests
-        by:
-          - pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1
-          - ADR-AUTO-PATH-COMMUNICATIONFORM
+        by: [pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1, ADR-AUTO-PATH-COMMUNICATIONFORM]
       - cell: pwsh/Catzc.Base.Contracts/tests/types
-        by:
-          - pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1
-          - ADR-AUTO-PATH-COMMUNICATIONFORM
-          - ADR-AUTO-PATH-TWOFORMS
+        by: [pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1, ADR-AUTO-PATH-COMMUNICATIONFORM, ADR-AUTO-PATH-TWOFORMS]
       - cell: pwsh/Catzc.Base.Contracts/types
-        by:
-          - pwsh/Catzc.Base.Contracts/types/ContractAsset.cs
-          - ADR-AUTO-PATH-COMMUNICATIONFORM
-          - ADR-AUTO-PATH-TWOFORMS
+        by: [pwsh/Catzc.Base.Contracts/types/ContractAsset.cs, ADR-AUTO-PATH-COMMUNICATIONFORM, ADR-AUTO-PATH-TWOFORMS]
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/readme.yml
@@ -248,13 +168,9 @@ content:
           - ADR-AUTO-PATH-TWOFORMS
           - ADR-AUTO-PATH-WORKSPACEANCHOR
       - cell: pwsh/Catzc.Base.ModuleSystem/configs
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
       - cell: pwsh/Catzc.Base.Objects/tests/types
-        by:
-          - pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
-          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+        by: [pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
       - cell: pwsh/Catzc.Base.Objects/types
         by:
           - pwsh/Catzc.Base.Objects/types/ArtifactRef.cs
@@ -308,13 +224,9 @@ content:
           - ADR-AUTO-PATH-TWOFORMS
           - ADR-AUTO-PATH-WORKSPACEANCHOR
       - cell: pwsh/Catzc.Base.Slides/tests/types
-        by:
-          - pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1
-          - ADR-AUTO-PATH-TWOFORMS
+        by: [pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1, ADR-AUTO-PATH-TWOFORMS]
       - cell: pwsh/Catzc.Tooling.Inspiration/configs
-        by:
-          - pwsh/Catzc.Tooling.Inspiration/configs/inspiration.yml
-          - ADR-AUTO-PATH-WORKSPACEANCHOR
+        by: [pwsh/Catzc.Tooling.Inspiration/configs/inspiration.yml, ADR-AUTO-PATH-WORKSPACEANCHOR]
       - cell: pwsh/Catzc.Tooling.Inspiration/private
         by:
           - pwsh/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
@@ -322,9 +234,7 @@ content:
           - ADR-AUTO-PATH-STOREDCOMMUNICATIONFORM
           - ADR-AUTO-PATH-WORKSPACEANCHOR
       - cell: pwsh/Catzc.Tooling.Inspiration/tests
-        by:
-          - pwsh/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1
-          - ADR-AUTO-PATH-WORKSPACEANCHOR
+        by: [pwsh/Catzc.Tooling.Inspiration/tests/Resolve-InspirationRoot.Tests.ps1, ADR-AUTO-PATH-WORKSPACEANCHOR]
       - cell: pwsh/Catzc.Tooling.Inspiration/tests/types
         by:
           - pwsh/Catzc.Tooling.Inspiration/tests/types/InspirationConfig.Tests.ps1
@@ -339,10 +249,7 @@ content:
           - ADR-AUTO-PATH-WORKSPACEANCHOR
     module-neighbourhood:
       - cell: subject/.claude
-        by:
-          - .claude/skills/catzc-module/SKILL.md
-          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
-          - ADR-AUTO-PATH-TWOFORMS
+        by: [.claude/skills/catzc-module/SKILL.md, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING, ADR-AUTO-PATH-TWOFORMS]
       - cell: subject/Catzc.Base.Contracts
         by:
           - pwsh/Catzc.Base.Contracts/Get-Contract.ps1
@@ -435,9 +342,7 @@ content:
           - ADR-AUTO-PATH-TWOFORMS
           - ADR-AUTO-PATH-WORKSPACEANCHOR
       - cell: subject/Catzc.Base.Slides
-        by:
-          - pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1
-          - ADR-AUTO-PATH-TWOFORMS
+        by: [pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1, ADR-AUTO-PATH-TWOFORMS]
       - cell: subject/Catzc.Tooling.Inspiration
         by:
           - pwsh/Catzc.Tooling.Inspiration/configs/inspiration.yml
@@ -462,63 +367,15 @@ content:
           - ADR-AUTO-PATH-TWOFORMS
           - ADR-AUTO-PATH-WORKSPACEANCHOR
 layout:
-  band-communication:
-    x: 20
-    y: 84
-    w: 380
-    h: 300
-  band-crossers:
-    x: 420
-    y: 84
-    w: 440
-    h: 300
-  band-binding:
-    x: 880
-    y: 84
-    w: 400
-    h: 300
-  band-stage:
-    x: 20
-    y: 404
-    w: 1260
-    h: 140
-  s-communication:
-    x: 60
-    y: 150
-    w: 300
-    h: 52
-  g-repo-relative:
-    x: 40
-    y: 268
-    w: 170
-    h: 68
-  g-inspiration:
-    x: 220
-    y: 268
-    w: 170
-    h: 68
-  g-crossers:
-    x: 510
-    y: 150
-    w: 240
-    h: 52
-  a-review:
-    x: 510
-    y: 270
-    w: 240
-    h: 52
-  s-binding:
-    x: 920
-    y: 150
-    w: 300
-    h: 52
-  s-artifact:
-    x: 60
-    y: 446
-    w: 300
-    h: 52
-  g-reference:
-    x: 540
-    y: 438
-    w: 190
-    h: 68
+  band-communication: { x: 20, y: 84, w: 380, h: 300 }
+  band-crossers: { x: 420, y: 84, w: 440, h: 300 }
+  band-binding: { x: 880, y: 84, w: 400, h: 300 }
+  band-stage: { x: 20, y: 404, w: 1260, h: 140 }
+  s-communication: { x: 60, y: 150, w: 300, h: 52 }
+  g-repo-relative: { x: 40, y: 268, w: 170, h: 68 }
+  g-inspiration: { x: 220, y: 268, w: 170, h: 68 }
+  g-crossers: { x: 510, y: 150, w: 240, h: 52 }
+  a-review: { x: 510, y: 270, w: 240, h: 52 }
+  s-binding: { x: 920, y: 150, w: 300, h: 52 }
+  s-artifact: { x: 60, y: 446, w: 300, h: 52 }
+  g-reference: { x: 540, y: 438, w: 190, h: 68 }

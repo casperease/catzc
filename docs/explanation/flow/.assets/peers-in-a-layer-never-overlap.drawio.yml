@@ -4,13 +4,10 @@
 #     with_body_sha: "7d69766e799c"
 # ---
 
-description:
-  "The three globset layers as bands: deployable-unit, loose-fileset and module sets, with one rule across them, peers in a layer are
-  disjoint, which a gate checks for the two boundary layers and the loose-fileset layer is exempt from."
+description: 'The three globset layers as bands: deployable-unit, loose-fileset and module sets, with one rule across them, peers in a layer are
+  disjoint, which a gate checks for the two boundary layers and the loose-fileset layer is exempt from.'
 about:
-  adrs:
-    - FDR-CD-GLOBS-EVERYSETHASLAYER
-    - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+  adrs: [FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
   lens: meta
 content:
   title: Peers in a layer never share a file, except in the loose-fileset layer
@@ -19,55 +16,27 @@ content:
   relation: checks its peers
   theme: dark
   bands:
-    - id: band-unit
-      label: DEPLOYABLE-UNIT
-    - id: band-loose
-      label: LOOSE-FILESET
-    - id: band-module
-      label: MODULE
+    - { id: band-unit, label: DEPLOYABLE-UNIT }
+    - { id: band-loose, label: LOOSE-FILESET }
+    - { id: band-module, label: MODULE }
   glyphs:
-    - id: s-ships
-      kind: set
-      label: What ships
-      in: band-unit
-    - id: g-peers-disjoint
-      kind: gate
-      label: Peers disjoint
-      in: band-unit
-    - id: s-cross-cutting
-      kind: set
-      label: Cross-cutting surfaces
-      in: band-loose
-    - id: s-module-space
-      kind: set
-      label: Module space
-      in: band-module
+    - { id: s-ships, kind: set, label: What ships, in: band-unit }
+    - { id: g-peers-disjoint, kind: gate, label: Peers disjoint, in: band-unit }
+    - { id: s-cross-cutting, kind: set, label: Cross-cutting surfaces, in: band-loose }
+    - { id: s-module-space, kind: set, label: Module space, in: band-module }
   edges:
-    - from: g-peers-disjoint
-      to: s-ships
-      kind: flow
-      label: ""
-    - from: g-peers-disjoint
-      to: s-module-space
-      kind: flow
-      label: ""
+    - { from: g-peers-disjoint, to: s-ships, kind: flow, label: "" }
+    - { from: g-peers-disjoint, to: s-module-space, kind: flow, label: "" }
   markers:
-    - at: s-ships
-      number: 1
-    - at: s-cross-cutting
-      number: 2
-    - at: s-module-space
-      number: 3
-    - at: g-peers-disjoint
-      number: 4
+    - { at: s-ships, number: 1 }
+    - { at: s-cross-cutting, number: 2 }
+    - { at: s-module-space, number: 3 }
+    - { at: g-peers-disjoint, number: 4 }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [.claude/CLAUDE.md, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/cd-apex.yaml
@@ -119,15 +88,9 @@ content:
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: github-workflows/workflows/.
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Azure.DevOps/.
-        by:
-          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -146,15 +109,9 @@ content:
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Drs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Base.Drs/types
-        by:
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
@@ -162,24 +119,16 @@ content:
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Globs/configs
-        by:
-          - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Base.Globs/configs/globs.yml, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Base.Globs/private
-        by:
-          - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Base.Globs/tests
         by:
           - pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Globs/tests/types
-        by:
-          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: pwsh/Catzc.Base.Globs/types
         by:
           - pwsh/Catzc.Base.Globs/types/DurableHash.cs
@@ -196,34 +145,18 @@ content:
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Maps/tests
-        by:
-          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Base.QualityGates/.
-        by:
-          - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [pwsh/Catzc.Base.QualityGates/Test-Automation.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: pwsh/Catzc.Base.QualityGates/configs
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Base.QualityGates/configs/terminology.yml, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Base.QualityGates/private
-        by:
-          - pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER]
     module-neighbourhood:
       - cell: subject/.claude
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [.claude/CLAUDE.md, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: subject/Catzc.Azure.DevOps
-        by:
-          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: subject/Catzc.Azure.DevOps.BuildValidation
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -280,48 +213,15 @@ content:
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: subject/workflows
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
     axis:
       - cell: DSGN/*
-        by:
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
 layout:
-  band-unit:
-    x: 20
-    y: 84
-    w: 1260
-    h: 140
-  band-loose:
-    x: 20
-    y: 244
-    w: 1260
-    h: 120
-  band-module:
-    x: 20
-    y: 384
-    w: 1260
-    h: 140
-  s-ships:
-    x: 140
-    y: 140
-    w: 300
-    h: 56
-  g-peers-disjoint:
-    x: 470
-    y: 124
-    w: 180
-    h: 84
-  s-cross-cutting:
-    x: 140
-    y: 290
-    w: 300
-    h: 56
-  s-module-space:
-    x: 140
-    y: 440
-    w: 840
-    h: 56
+  band-unit: { x: 20, y: 84, w: 1260, h: 140 }
+  band-loose: { x: 20, y: 244, w: 1260, h: 120 }
+  band-module: { x: 20, y: 384, w: 1260, h: 140 }
+  s-ships: { x: 140, y: 140, w: 300, h: 56 }
+  g-peers-disjoint: { x: 470, y: 124, w: 180, h: 84 }
+  s-cross-cutting: { x: 140, y: 290, w: 300, h: 56 }
+  s-module-space: { x: 140, y: 440, w: 840, h: 56 }

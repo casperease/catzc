@@ -26,65 +26,33 @@ content:
   relation: an idea crosses
   theme: dark
   bands:
-    - id: band-sibling
-      label: "SIBLING: EAC, GO"
-    - id: band-meet
-      label: WHERE THE MODELS MEET
-    - id: band-this
-      label: "CATZC: POWERSHELL AND C#"
+    - { id: band-sibling, label: "SIBLING: EAC, GO" }
+    - { id: band-meet, label: WHERE THE MODELS MEET }
+    - { id: band-this, label: "CATZC: POWERSHELL AND C#" }
   glyphs:
-    - id: s-sibling
-      kind: store
-      label: eac, the sibling repository
-      in: band-sibling
-    - id: a-sibling-own
-      kind: drsonly
-      label: "keeps its own: a rule is a .feature specification, no unordered file"
-      in: band-sibling
+    - { id: s-sibling, kind: store, label: "eac, the sibling repository", in: band-sibling }
+    - { id: a-sibling-own, kind: drsonly, label: "keeps its own: a rule is a .feature specification, no unordered file", in: band-sibling }
     - id: n-model
       kind: set
-      label:
-        "the shared model: a module is a placement with a kind, a default is declared once, public is what a contract names, change is keyed
-        by the unit's hash, one output root"
+      label: 'the shared model: a module is a placement with a kind, a default is declared once, public is what a contract names, change is keyed
+        by the unit''s hash, one output root'
       in: band-meet
-    - id: g-owner
-      kind: gate
-      label: the owning ADR decides
-      in: band-meet
-    - id: s-this
-      kind: store
-      label: catzc, this repository
-      in: band-this
-    - id: r-rebuilt
-      kind: result
-      label: rebuilt to catzc's rules, one living version, nothing ported alongside
-      in: band-this
+    - { id: g-owner, kind: gate, label: the owning ADR decides, in: band-meet }
+    - { id: s-this, kind: store, label: "catzc, this repository", in: band-this }
+    - { id: r-rebuilt, kind: result, label: "rebuilt to catzc's rules, one living version, nothing ported alongside", in: band-this }
     - id: a-this-own
       kind: drsonly
       label: "keeps its own: a rule is an ADR cited by code, .unordered is where an import lands"
       in: band-this
   edges:
-    - from: s-sibling
-      to: g-owner
-      kind: flow
-      label: an idea, named where it is used
-    - from: g-owner
-      to: r-rebuilt
-      kind: flow
-      label: ""
-    - from: r-rebuilt
-      to: s-this
-      kind: flow
-      label: lands as a rule
+    - { from: s-sibling, to: g-owner, kind: flow, label: "an idea, named where it is used" }
+    - { from: g-owner, to: r-rebuilt, kind: flow, label: "" }
+    - { from: r-rebuilt, to: s-this, kind: flow, label: lands as a rule }
   markers:
-    - at: s-sibling
-      number: 1
-    - at: n-model
-      number: 2
-    - at: g-owner
-      number: 3
-    - at: r-rebuilt
-      number: 4
+    - { at: s-sibling, number: 1 }
+    - { at: n-model, number: 2 }
+    - { at: g-owner, number: 3 }
+    - { at: r-rebuilt, number: 4 }
   legend: auto
   minimaps:
     code-locations:
@@ -98,9 +66,7 @@ content:
           - PDR-ONELIVE-HISTORYINGIT
           - PDR-ONELIVE-ONEVERSION
       - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-TRACK-TRACKISPLACEDCLUSTER
+        by: [.ado/pipelines/ci-pwsh.yaml, DDR-TRACK-TRACKISPLACEDCLUSTER]
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -171,9 +137,7 @@ content:
           - PDR-ONELIVE-HISTORYINGIT
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.CodeMeta/types
-        by:
-          - pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs
-          - PDR-ONELIVE-ONEVERSION
+        by: [pwsh/Catzc.Base.CodeMeta/types/CommentPageMap.cs, PDR-ONELIVE-ONEVERSION]
       - cell: pwsh/Catzc.Base.Docs/configs
         by:
           - pwsh/Catzc.Base.Docs/configs/agents.yml
@@ -204,30 +168,17 @@ content:
           - PDR-ONELIVE-HISTORYINGIT
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Git/.
-        by:
-          - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
-          - DDR-TRACK-UNORDEREDTRACK
+        by: [pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1, DDR-TRACK-UNORDEREDTRACK]
       - cell: pwsh/Catzc.Base.Git/configs
-        by:
-          - pwsh/Catzc.Base.Git/configs/gitignore.yml
-          - ADR-AUTO-GO-MODULESBYLAYOUT
+        by: [pwsh/Catzc.Base.Git/configs/gitignore.yml, ADR-AUTO-GO-MODULESBYLAYOUT]
       - cell: pwsh/Catzc.Base.Git/tests
-        by:
-          - pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1
-          - DDR-TRACK-UNORDEREDTRACK
+        by: [pwsh/Catzc.Base.Git/tests/Import-RepositoryWithHistory.Tests.ps1, DDR-TRACK-UNORDEREDTRACK]
       - cell: pwsh/Catzc.Base.Globs/configs
-        by:
-          - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - DDR-TRACK-DEPLOYABLEUNIT
+        by: [pwsh/Catzc.Base.Globs/configs/globs.yml, DDR-TRACK-DEPLOYABLEUNIT]
       - cell: pwsh/Catzc.Base.Globs/tests/types
-        by:
-          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-          - DDR-TRACK-DEPLOYABLEUNIT
+        by: [pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1, DDR-TRACK-DEPLOYABLEUNIT]
       - cell: pwsh/Catzc.Base.Languages/tests
-        by:
-          - pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
-          - DDR-TRACK-ONETECHSTACK
-          - DDR-TRACK-TRACKISPLACEDCLUSTER
+        by: [pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1, DDR-TRACK-ONETECHSTACK, DDR-TRACK-TRACKISPLACEDCLUSTER]
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Export-WorldMapPdf.ps1
@@ -287,9 +238,7 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/Test-Comments.Tests.ps1
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.QualityGates/tests/types
-        by:
-          - pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1
-          - PDR-ONELIVE-ONEVERSION
+        by: [pwsh/Catzc.Base.QualityGates/tests/types/CommentEngine.Tests.ps1, PDR-ONELIVE-ONEVERSION]
       - cell: pwsh/Catzc.Base.QualityGates/types
         by:
           - pwsh/Catzc.Base.QualityGates/types/CommentBlockKind.cs
@@ -297,13 +246,9 @@ content:
           - pwsh/Catzc.Base.QualityGates/types/CommentsConfig.cs
           - PDR-ONELIVE-ONEVERSION
       - cell: pwsh/Catzc.Base.Reports/tests/types
-        by:
-          - pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1
-          - PDR-ONELIVE-ONEVERSION
+        by: [pwsh/Catzc.Base.Reports/tests/types/CheckModes.Tests.ps1, PDR-ONELIVE-ONEVERSION]
       - cell: pwsh/Catzc.Base.Reports/types
-        by:
-          - pwsh/Catzc.Base.Reports/types/CheckModes.cs
-          - PDR-ONELIVE-ONEVERSION
+        by: [pwsh/Catzc.Base.Reports/types/CheckModes.cs, PDR-ONELIVE-ONEVERSION]
       - cell: pwsh/Catzc.Base.Variants/.
         by:
           - pwsh/Catzc.Base.Variants/Get-PathModule.ps1
@@ -328,9 +273,7 @@ content:
           - DDR-TRACK-ONETECHSTACK
           - DDR-TRACK-UNORDEREDTRACK
       - cell: pwsh/Catzc.Base.Variants/tests/types
-        by:
-          - pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
-          - DDR-TRACK-ONETECHSTACK
+        by: [pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1, DDR-TRACK-ONETECHSTACK]
       - cell: pwsh/Catzc.Base.Variants/types
         by:
           - pwsh/Catzc.Base.Variants/types/ModulePlace.cs
@@ -354,9 +297,7 @@ content:
           - PDR-ONELIVE-HISTORYINGIT
           - PDR-ONELIVE-ONEVERSION
       - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-TRACK-TRACKISPLACEDCLUSTER
+        by: [.ado/pipelines/ci-pwsh.yaml, DDR-TRACK-TRACKISPLACEDCLUSTER]
       - cell: docs/markdown
         by:
           - docs/drs/automation/dora-explains.md
@@ -514,84 +455,27 @@ content:
           - PDR-ONELIVE-ONEVERSION
     axis:
       - cell: DSGN/build
-        by:
-          - PDR-CATS-CATSISPERSONNAME
-          - PDR-CATS-CATZCISSOURCENAME
+        by: [PDR-CATS-CATSISPERSONNAME, PDR-CATS-CATZCISSOURCENAME]
       - cell: DSGN/quality-control
-        by:
-          - PDR-CATS-CATSISPERSONNAME
-          - PDR-CATS-CATZCISSOURCENAME
+        by: [PDR-CATS-CATSISPERSONNAME, PDR-CATS-CATZCISSOURCENAME]
       - cell: DSGN/release
-        by:
-          - PDR-CATS-CATSISPERSONNAME
-          - PDR-CATS-CATZCISSOURCENAME
-          - PDR-ONELIVE-HISTORYINGIT
-          - PDR-ONELIVE-ONEVERSION
+        by: [PDR-CATS-CATSISPERSONNAME, PDR-CATS-CATZCISSOURCENAME, PDR-ONELIVE-HISTORYINGIT, PDR-ONELIVE-ONEVERSION]
       - cell: DSGN/deploy
-        by:
-          - PDR-CATS-CATSISPERSONNAME
-          - PDR-CATS-CATZCISSOURCENAME
+        by: [PDR-CATS-CATSISPERSONNAME, PDR-CATS-CATZCISSOURCENAME]
       - cell: DSGN/access
-        by:
-          - PDR-CATS-CATSISPERSONNAME
-          - PDR-CATS-CATZCISSOURCENAME
+        by: [PDR-CATS-CATSISPERSONNAME, PDR-CATS-CATZCISSOURCENAME]
       - cell: DSGN/*
-        by:
-          - DDR-TRACK-DEPLOYABLEUNIT
-          - DDR-TRACK-ONETECHSTACK
-          - DDR-TRACK-TRACKISPLACEDCLUSTER
-          - DDR-TRACK-UNORDEREDTRACK
+        by: [DDR-TRACK-DEPLOYABLEUNIT, DDR-TRACK-ONETECHSTACK, DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-UNORDEREDTRACK]
       - cell: AUTO/quality-control
-        by:
-          - ADR-AUTO-GO-MODULESBYLAYOUT
+        by: [ADR-AUTO-GO-MODULESBYLAYOUT]
 layout:
-  band-sibling:
-    x: 20
-    y: 84
-    w: 380
-    h: 340
-  band-meet:
-    x: 420
-    y: 84
-    w: 460
-    h: 340
-  band-this:
-    x: 900
-    y: 84
-    w: 380
-    h: 340
-  s-sibling:
-    x: 110
-    y: 130
-    w: 200
-    h: 70
-  a-sibling-own:
-    x: 40
-    y: 340
-    w: 340
-    h: 60
-  n-model:
-    x: 440
-    y: 130
-    w: 420
-    h: 84
-  g-owner:
-    x: 540
-    y: 280
-    w: 220
-    h: 80
-  s-this:
-    x: 990
-    y: 130
-    w: 200
-    h: 70
-  r-rebuilt:
-    x: 920
-    y: 280
-    w: 340
-    h: 56
-  a-this-own:
-    x: 920
-    y: 350
-    w: 340
-    h: 60
+  band-sibling: { x: 20, y: 84, w: 380, h: 340 }
+  band-meet: { x: 420, y: 84, w: 460, h: 340 }
+  band-this: { x: 900, y: 84, w: 380, h: 340 }
+  s-sibling: { x: 110, y: 130, w: 200, h: 70 }
+  a-sibling-own: { x: 40, y: 340, w: 340, h: 60 }
+  n-model: { x: 440, y: 130, w: 420, h: 84 }
+  g-owner: { x: 540, y: 280, w: 220, h: 80 }
+  s-this: { x: 990, y: 130, w: 200, h: 70 }
+  r-rebuilt: { x: 920, y: 280, w: 340, h: 56 }
+  a-this-own: { x: 920, y: 350, w: 340, h: 60 }

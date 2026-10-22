@@ -8,10 +8,7 @@ description:
   An upstream integrator takes its commit from the BVT-verified server head, which main-UAT also takes first, never from the dirty HEAD, the
   newest commit on main, which failed there.
 about:
-  adrs:
-    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
-    - FDR-CD-LIFE-DIRTYHEADUNSAFE
-    - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+  adrs: [FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, FDR-CD-LIFE-DIRTYHEADUNSAFE, FDR-CD-LIFE-FAILEDSTAYSUPSTREAM]
   lens: meta
 content:
   title: Sync from the BVT-verified head, not from the tip of main
@@ -20,46 +17,23 @@ content:
   relation: takes its commit from
   theme: dark
   bands:
-    - id: band-mainline
-      label: MAINLINE
+    - { id: band-mainline, label: MAINLINE }
   glyphs:
-    - id: g-integrator
-      kind: drsonly
-      label: upstream integrator
-      in: band-mainline
-    - id: g-main-uat
-      kind: env
-      label: "BVT-verified head: commit 6, also the main-UAT occupant"
-      in: band-mainline
-    - id: f-dirty-head
-      kind: failure
-      label: "dirty HEAD: commit 10"
-      in: band-mainline
+    - { id: g-integrator, kind: drsonly, label: upstream integrator, in: band-mainline }
+    - { id: g-main-uat, kind: env, label: "BVT-verified head: commit 6, also the main-UAT occupant", in: band-mainline }
+    - { id: f-dirty-head, kind: failure, label: "dirty HEAD: commit 10", in: band-mainline }
   edges:
-    - from: g-integrator
-      to: g-main-uat
-      kind: adr
-      label: ""
-    - from: g-main-uat
-      to: f-dirty-head
-      kind: fail
-      label: ""
+    - { from: g-integrator, to: g-main-uat, kind: adr, label: "" }
+    - { from: g-main-uat, to: f-dirty-head, kind: fail, label: "" }
   markers:
-    - at: g-integrator
-      number: 1
-    - at: g-main-uat
-      number: 2
-    - at: f-dirty-head
-      number: 3
+    - { at: g-integrator, number: 1 }
+    - { at: g-main-uat, number: 2 }
+    - { at: f-dirty-head, number: 3 }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+        by: [.claude/CLAUDE.md, FDR-CD-LIFE-DIRTYHEADUNSAFE, FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD]
       - cell: docs/-/.
         by:
           - docs/drs/flow/commit-lifecycle.md
@@ -108,11 +82,7 @@ content:
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
     grid:
       - cell: .claude/markdown
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+        by: [.claude/CLAUDE.md, FDR-CD-LIFE-DIRTYHEADUNSAFE, FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD]
       - cell: docs/markdown
         by:
           - docs/drs/flow/commit-lifecycle.md
@@ -151,38 +121,13 @@ content:
           - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
     axis:
       - cell: DSGN/quality-control
-        by:
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+        by: [FDR-CD-LIFE-DIRTYHEADUNSAFE, FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD]
       - cell: DSGN/release
-        by:
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+        by: [FDR-CD-LIFE-DIRTYHEADUNSAFE, FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD]
       - cell: DSGN/deploy
-        by:
-          - FDR-CD-LIFE-DIRTYHEADUNSAFE
-          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+        by: [FDR-CD-LIFE-DIRTYHEADUNSAFE, FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD]
 layout:
-  band-mainline:
-    x: 20
-    y: 84
-    w: 1260
-    h: 240
-  g-integrator:
-    x: 100
-    y: 170
-    w: 240
-    h: 56
-  g-main-uat:
-    x: 520
-    y: 150
-    w: 260
-    h: 96
-  f-dirty-head:
-    x: 960
-    y: 172
-    w: 260
-    h: 52
+  band-mainline: { x: 20, y: 84, w: 1260, h: 240 }
+  g-integrator: { x: 100, y: 170, w: 240, h: 56 }
+  g-main-uat: { x: 520, y: 150, w: 260, h: 96 }
+  f-dirty-head: { x: 960, y: 172, w: 260, h: 52 }

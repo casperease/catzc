@@ -6,11 +6,7 @@
 
 description: "A track composes into a deployable-unit, and a deployable-unit binds one pipeline: the delivery side of cats in a line."
 about:
-  adrs:
-    - DDR-TRACK-TRACKISPLACEDCLUSTER
-    - DDR-TRACK-ONETRACKTYPE
-    - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
-    - DDR-TRACK-DEPLOYABLEUNIT
+  adrs: [DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED, DDR-TRACK-DEPLOYABLEUNIT]
   lens: meta
 content:
   title: A track ships through a deployable-unit, and each unit has one pipeline
@@ -19,52 +15,27 @@ content:
   relation: binds one pipeline (1-1)
   theme: dark
   bands:
-    - id: band-tracks
-      label: TRACKS
-    - id: band-units
-      label: DEPLOYABLE-UNITS
-    - id: band-pipelines
-      label: PIPELINES
+    - { id: band-tracks, label: TRACKS }
+    - { id: band-units, label: DEPLOYABLE-UNITS }
+    - { id: band-pipelines, label: PIPELINES }
   glyphs:
-    - id: s-track
-      kind: set
-      label: Track
-      in: band-tracks
-    - id: s-unit
-      kind: set
-      label: Deployable-unit
-      in: band-units
-    - id: r-pipeline
-      kind: runner
-      label: Pipeline
-      in: band-pipelines
+    - { id: s-track, kind: set, label: Track, in: band-tracks }
+    - { id: s-unit, kind: set, label: Deployable-unit, in: band-units }
+    - { id: r-pipeline, kind: runner, label: Pipeline, in: band-pipelines }
   edges:
-    - from: s-track
-      to: s-unit
-      kind: thick
-      label: ""
-    - from: s-unit
-      to: r-pipeline
-      kind: flow
-      label: ""
+    - { from: s-track, to: s-unit, kind: thick, label: "" }
+    - { from: s-unit, to: r-pipeline, kind: flow, label: "" }
   markers:
-    - at: s-track
-      number: 1
-    - at: s-track->s-unit
-      number: 2
-    - at: s-unit
-      number: 3
-    - at: s-unit->r-pipeline
-      number: 4
-    - at: r-pipeline
-      number: 5
+    - { at: s-track, number: 1 }
+    - { at: s-track->s-unit, number: 2 }
+    - { at: s-unit, number: 3 }
+    - { at: s-unit->r-pipeline, number: 4 }
+    - { at: r-pipeline, number: 5 }
   legend: auto
   minimaps:
     code-locations:
       - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-TRACK-TRACKISPLACEDCLUSTER
+        by: [.ado/pipelines/ci-pwsh.yaml, DDR-TRACK-TRACKISPLACEDCLUSTER]
       - cell: docs/-/.
         by:
           - docs/drs/design/dora-explains.md
@@ -102,17 +73,11 @@ content:
           - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
           - DDR-TRACK-TRACKISPLACEDCLUSTER
       - cell: pwsh/Catzc.Base.Globs/configs
-        by:
-          - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - DDR-TRACK-DEPLOYABLEUNIT
+        by: [pwsh/Catzc.Base.Globs/configs/globs.yml, DDR-TRACK-DEPLOYABLEUNIT]
       - cell: pwsh/Catzc.Base.Globs/tests/types
-        by:
-          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-          - DDR-TRACK-DEPLOYABLEUNIT
+        by: [pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1, DDR-TRACK-DEPLOYABLEUNIT]
       - cell: pwsh/Catzc.Base.Languages/tests
-        by:
-          - pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1
-          - DDR-TRACK-TRACKISPLACEDCLUSTER
+        by: [pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1, DDR-TRACK-TRACKISPLACEDCLUSTER]
       - cell: pwsh/Catzc.Base.Maps/.
         by:
           - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
@@ -124,9 +89,7 @@ content:
           - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
           - DDR-TRACK-TRACKISPLACEDCLUSTER
       - cell: pwsh/Catzc.Base.Maps/tests
-        by:
-          - pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
-          - DDR-TRACK-TRACKISPLACEDCLUSTER
+        by: [pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1, DDR-TRACK-TRACKISPLACEDCLUSTER]
       - cell: pwsh/Catzc.Base.Maps/types
         by:
           - pwsh/Catzc.Base.Maps/types/MapCell.cs
@@ -135,14 +98,9 @@ content:
           - pwsh/Catzc.Base.Maps/types/WorldMapHighlight.cs
           - DDR-TRACK-TRACKISPLACEDCLUSTER
       - cell: pwsh/Catzc.Base.ModuleSystem/configs
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
-          - DDR-TRACK-DEPLOYABLEUNIT
-          - DDR-TRACK-TRACKISPLACEDCLUSTER
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml, DDR-TRACK-DEPLOYABLEUNIT, DDR-TRACK-TRACKISPLACEDCLUSTER]
       - cell: pwsh/Catzc.Base.QualityGates/private
-        by:
-          - pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1
-          - DDR-TRACK-ONETRACKTYPE
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1, DDR-TRACK-ONETRACKTYPE]
       - cell: pwsh/Catzc.Base.Variants/.
         by:
           - pwsh/Catzc.Base.Variants/Get-Track.ps1
@@ -168,9 +126,7 @@ content:
           - DDR-TRACK-TRACKISPLACEDCLUSTER
     grid:
       - cell: ado-pipelines/pipeline-yaml
-        by:
-          - .ado/pipelines/ci-pwsh.yaml
-          - DDR-TRACK-TRACKISPLACEDCLUSTER
+        by: [.ado/pipelines/ci-pwsh.yaml, DDR-TRACK-TRACKISPLACEDCLUSTER]
       - cell: docs/markdown
         by:
           - docs/drs/design/dora-explains.md
@@ -240,39 +196,11 @@ content:
           - DDR-TRACK-TRACKISPLACEDCLUSTER
     axis:
       - cell: DSGN/*
-        by:
-          - DDR-TRACK-DEPLOYABLEUNIT
-          - DDR-TRACK-ONETRACKTYPE
-          - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
-          - DDR-TRACK-TRACKISPLACEDCLUSTER
+        by: [DDR-TRACK-DEPLOYABLEUNIT, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED, DDR-TRACK-TRACKISPLACEDCLUSTER]
 layout:
-  band-tracks:
-    x: 20
-    y: 84
-    w: 300
-    h: 180
-  band-units:
-    x: 340
-    y: 84
-    w: 520
-    h: 180
-  band-pipelines:
-    x: 880
-    y: 84
-    w: 400
-    h: 180
-  s-track:
-    x: 60
-    y: 146
-    w: 220
-    h: 56
-  s-unit:
-    x: 480
-    y: 146
-    w: 220
-    h: 56
-  r-pipeline:
-    x: 960
-    y: 146
-    w: 240
-    h: 56
+  band-tracks: { x: 20, y: 84, w: 300, h: 180 }
+  band-units: { x: 340, y: 84, w: 520, h: 180 }
+  band-pipelines: { x: 880, y: 84, w: 400, h: 180 }
+  s-track: { x: 60, y: 146, w: 220, h: 56 }
+  s-unit: { x: 480, y: 146, w: 220, h: 56 }
+  r-pipeline: { x: 960, y: 146, w: 240, h: 56 }

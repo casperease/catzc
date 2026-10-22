@@ -4,14 +4,10 @@
 #     with_body_sha: "7ea31cd59acf"
 # ---
 
-description:
-  "Get-BicepDeploymentContext reads the az session and resolves it against azure.yml, applies the optional subscription guard, and only then
-  addresses the slot: the environment check, the configuration file and the resource-group name."
+description: 'Get-BicepDeploymentContext reads the az session and resolves it against azure.yml, applies the optional subscription guard, and
+  only then addresses the slot: the environment check, the configuration file and the resource-group name.'
 about:
-  adrs:
-    - ADR-AZ-DATAMOD-CUSTOMERAXIS
-    - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
-    - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+  adrs: [ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
   lens: implementation
 content:
   title: Get-BicepDeploymentContext reads the session, guards it, then picks the slot
@@ -20,97 +16,38 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-    - id: band-session
-      label: SESSION
-    - id: band-guard
-      label: GUARD
-    - id: band-slot
-      label: SLOT
+    - { id: band-session, label: SESSION }
+    - { id: band-guard, label: GUARD }
+    - { id: band-slot, label: SLOT }
   groups:
-    - id: grp-slot
-      label: the slot
-      in: band-slot
+    - { id: grp-slot, label: the slot, in: band-slot }
   glyphs:
-    - id: g-current
-      kind: code
-      label: Get-CurrentAzSubscription
-      in: band-session
-    - id: g-session
-      kind: code
-      label: Get-AzCliSessionSubscription
-      in: band-session
-    - id: g-azure
-      kind: file
-      label: azure.yml
-      in: band-session
-    - id: f-undeclared
-      kind: failure
-      label: undeclared subscription
-      in: band-session
-    - id: g-assert
-      kind: gate
-      label: -SubscriptionIdAssertIs
-      in: band-guard
-    - id: f-wrong
-      kind: failure
-      label: wrong subscription
-      in: band-guard
-    - id: g-environment
-      kind: code
-      label: Get-AzureEnvironment
-      in: grp-slot
-    - id: g-configuration
-      kind: code
-      label: Get-BicepTemplateConfiguration
-      in: grp-slot
-    - id: g-group
-      kind: code
-      label: Get-BicepResourceGroupName
-      in: grp-slot
+    - { id: g-current, kind: code, label: Get-CurrentAzSubscription, in: band-session }
+    - { id: g-session, kind: code, label: Get-AzCliSessionSubscription, in: band-session }
+    - { id: g-azure, kind: file, label: azure.yml, in: band-session }
+    - { id: f-undeclared, kind: failure, label: undeclared subscription, in: band-session }
+    - { id: g-assert, kind: gate, label: -SubscriptionIdAssertIs, in: band-guard }
+    - { id: f-wrong, kind: failure, label: wrong subscription, in: band-guard }
+    - { id: g-environment, kind: code, label: Get-AzureEnvironment, in: grp-slot }
+    - { id: g-configuration, kind: code, label: Get-BicepTemplateConfiguration, in: grp-slot }
+    - { id: g-group, kind: code, label: Get-BicepResourceGroupName, in: grp-slot }
   edges:
-    - from: g-current
-      to: g-session
-      kind: flow
-      label: ""
-    - from: g-azure
-      to: g-session
-      kind: flow
-      label: ""
-    - from: g-session
-      to: f-undeclared
-      kind: fail
-      label: ""
-    - from: g-session
-      to: g-assert
-      kind: flow
-      label: ""
-    - from: g-assert
-      to: f-wrong
-      kind: fail
-      label: ""
-    - from: g-assert
-      to: grp-slot
-      kind: flow
-      label: ""
+    - { from: g-current, to: g-session, kind: flow, label: "" }
+    - { from: g-azure, to: g-session, kind: flow, label: "" }
+    - { from: g-session, to: f-undeclared, kind: fail, label: "" }
+    - { from: g-session, to: g-assert, kind: flow, label: "" }
+    - { from: g-assert, to: f-wrong, kind: fail, label: "" }
+    - { from: g-assert, to: grp-slot, kind: flow, label: "" }
   markers:
-    - at: g-current
-      number: 1
-    - at: g-session
-      number: 2
-    - at: g-azure
-      number: 3
-    - at: f-undeclared
-      number: 4
-    - at: g-assert
-      number: 5
-    - at: f-wrong
-      number: 6
-    - at: g-environment
-      number: 7
-    - at: g-configuration
-      number: 8
-    - at: g-group
-      number: 9
+    - { at: g-current, number: 1 }
+    - { at: g-session, number: 2 }
+    - { at: g-azure, number: 3 }
+    - { at: f-undeclared, number: 4 }
+    - { at: g-assert, number: 5 }
+    - { at: f-wrong, number: 6 }
+    - { at: g-environment, number: 7 }
+    - { at: g-configuration, number: 8 }
+    - { at: g-group, number: 9 }
   legend: auto
   minimaps:
     code-locations:
@@ -323,78 +260,20 @@ content:
           - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
     axis:
       - cell: CLOUD/deploy
-        by:
-          - ADR-AZ-DATAMOD-CUSTOMERAXIS
-          - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
       - cell: CLOUD/access
-        by:
-          - ADR-AZ-DATAMOD-CUSTOMERAXIS
-          - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
-          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+        by: [ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
 layout:
-  band-session:
-    x: 20
-    y: 84
-    w: 560
-    h: 280
-  band-guard:
-    x: 600
-    y: 84
-    w: 300
-    h: 280
-  band-slot:
-    x: 920
-    y: 84
-    w: 360
-    h: 280
-  g-current:
-    x: 40
-    y: 134
-    w: 210
-    h: 44
-  g-session:
-    x: 290
-    y: 134
-    w: 270
-    h: 44
-  g-azure:
-    x: 60
-    y: 254
-    w: 130
-    h: 52
-  f-undeclared:
-    x: 320
-    y: 262
-    w: 220
-    h: 44
-  g-assert:
-    x: 650
-    y: 134
-    w: 200
-    h: 68
-  f-wrong:
-    x: 650
-    y: 262
-    w: 200
-    h: 44
-  grp-slot:
-    x: 940
-    y: 124
-    w: 320
-    h: 230
-  g-environment:
-    x: 960
-    y: 166
-    w: 280
-    h: 44
-  g-configuration:
-    x: 960
-    y: 226
-    w: 280
-    h: 44
-  g-group:
-    x: 960
-    y: 286
-    w: 280
-    h: 44
+  band-session: { x: 20, y: 84, w: 560, h: 280 }
+  band-guard: { x: 600, y: 84, w: 300, h: 280 }
+  band-slot: { x: 920, y: 84, w: 360, h: 280 }
+  g-current: { x: 40, y: 134, w: 210, h: 44 }
+  g-session: { x: 290, y: 134, w: 270, h: 44 }
+  g-azure: { x: 60, y: 254, w: 130, h: 52 }
+  f-undeclared: { x: 320, y: 262, w: 220, h: 44 }
+  g-assert: { x: 650, y: 134, w: 200, h: 68 }
+  f-wrong: { x: 650, y: 262, w: 200, h: 44 }
+  grp-slot: { x: 940, y: 124, w: 320, h: 230 }
+  g-environment: { x: 960, y: 166, w: 280, h: 44 }
+  g-configuration: { x: 960, y: 226, w: 280, h: 44 }
+  g-group: { x: 960, y: 286, w: 280, h: 44 }

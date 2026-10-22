@@ -4,12 +4,10 @@
 #     with_body_sha: "4f84889d955e"
 # ---
 
-description:
-  "What a pipeline stage sees from one call to Test-GlobSetAffected: a boolean, at most one printed message, and one possible throw; only
-  false returns early, true and a doubt both proceed."
+description: 'What a pipeline stage sees from one call to Test-GlobSetAffected: a boolean, at most one printed message, and one possible throw;
+  only false returns early, true and a doubt both proceed.'
 about:
-  adrs:
-    - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+  adrs: [FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
   lens: operations
 content:
   title: A stage returns only on $false; a doubt prints a message and proceeds; a typo throws
@@ -18,78 +16,34 @@ content:
   relation: produces
   theme: dark
   bands:
-    - id: band-who
-      label: WHO RUNS IT
-    - id: band-call
-      label: THE CALL
-    - id: band-returns
-      label: WHAT IT RETURNS AND PRINTS
+    - { id: band-who, label: WHO RUNS IT }
+    - { id: band-call, label: THE CALL }
+    - { id: band-returns, label: WHAT IT RETURNS AND PRINTS }
   glyphs:
-    - id: a-stage
-      kind: drsonly
-      label: a unit's pipeline stage
-      in: band-who
-    - id: c-affected
-      kind: code
-      label: Test-GlobSetAffected apex
-      in: band-call
-    - id: x-undeclared
-      kind: failure
-      label: not a declared globset
-      in: band-call
-    - id: r-false
-      kind: result
-      label: $false, return
-      in: band-returns
-    - id: r-true
-      kind: result
-      label: $true, proceed
-      in: band-returns
-    - id: r-message
-      kind: result
-      label: fail-open message
-      in: band-returns
+    - { id: a-stage, kind: drsonly, label: a unit's pipeline stage, in: band-who }
+    - { id: c-affected, kind: code, label: Test-GlobSetAffected apex, in: band-call }
+    - { id: x-undeclared, kind: failure, label: not a declared globset, in: band-call }
+    - { id: r-false, kind: result, label: "$false, return", in: band-returns }
+    - { id: r-true, kind: result, label: "$true, proceed", in: band-returns }
+    - { id: r-message, kind: result, label: fail-open message, in: band-returns }
   edges:
-    - from: a-stage
-      to: c-affected
-      kind: adr
-      label: ""
-    - from: c-affected
-      to: r-false
-      kind: flow
-      label: ""
-    - from: c-affected
-      to: r-true
-      kind: flow
-      label: ""
-    - from: c-affected
-      to: r-message
-      kind: flow
-      label: ""
-    - from: c-affected
-      to: x-undeclared
-      kind: fail
-      label: ""
+    - { from: a-stage, to: c-affected, kind: adr, label: "" }
+    - { from: c-affected, to: r-false, kind: flow, label: "" }
+    - { from: c-affected, to: r-true, kind: flow, label: "" }
+    - { from: c-affected, to: r-message, kind: flow, label: "" }
+    - { from: c-affected, to: x-undeclared, kind: fail, label: "" }
   markers:
-    - at: a-stage
-      number: 1
-    - at: c-affected
-      number: 2
-    - at: r-false
-      number: 3
-    - at: r-true
-      number: 4
-    - at: r-message
-      number: 5
-    - at: x-undeclared
-      number: 6
+    - { at: a-stage, number: 1 }
+    - { at: c-affected, number: 2 }
+    - { at: r-false, number: 3 }
+    - { at: r-true, number: 4 }
+    - { at: r-message, number: 5 }
+    - { at: x-undeclared, number: 6 }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [.claude/CLAUDE.md, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/cd-apex.yaml
@@ -100,9 +54,7 @@ content:
           - .ado/pipelines/ci-pwsh.yaml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: ado-pipelines/pipelines/extends
-        by:
-          - .ado/pipelines/extends/cd-customer.yaml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [.ado/pipelines/extends/cd-customer.yaml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: docs/-/.
         by:
           - docs/drs/flow/dora-explains.md
@@ -136,13 +88,9 @@ content:
           - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: github-workflows/workflows/.
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Azure.DevOps/.
-        by:
-          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -150,34 +98,22 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
-        by:
-          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
-        by:
-          - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Base.Drs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Base.Drs/types
-        by:
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
           - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Base.Globs/configs
-        by:
-          - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Base.Globs/configs/globs.yml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Base.Globs/private
-        by:
-          - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Base.Globs/types
         by:
           - pwsh/Catzc.Base.Globs/types/DurableHash.cs
@@ -192,22 +128,14 @@ content:
           - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: pwsh/Catzc.Base.Maps/tests
-        by:
-          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: pwsh/Catzc.Base.QualityGates/configs
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Base.QualityGates/configs/terminology.yml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
     module-neighbourhood:
       - cell: subject/.claude
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [.claude/CLAUDE.md, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: subject/Catzc.Azure.DevOps
-        by:
-          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: subject/Catzc.Azure.DevOps.BuildValidation
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -217,10 +145,7 @@ content:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: subject/Catzc.Base.Drs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: subject/Catzc.Base.Globs
         by:
           - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
@@ -240,9 +165,7 @@ content:
           - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: subject/Catzc.Base.QualityGates
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [pwsh/Catzc.Base.QualityGates/configs/terminology.yml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
       - cell: subject/pipelines
         by:
           - .ado/pipelines/cd-apex.yaml
@@ -254,56 +177,17 @@ content:
           - .ado/pipelines/extends/cd-customer.yaml
           - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
       - cell: subject/workflows
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
     axis:
       - cell: DSGN/*
-        by:
-          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+        by: [FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
 layout:
-  band-who:
-    x: 20
-    y: 84
-    w: 1260
-    h: 110
-  band-call:
-    x: 20
-    y: 210
-    w: 1260
-    h: 110
-  band-returns:
-    x: 20
-    y: 336
-    w: 1260
-    h: 120
-  a-stage:
-    x: 440
-    y: 122
-    w: 260
-    h: 44
-  c-affected:
-    x: 300
-    y: 250
-    w: 540
-    h: 44
-  x-undeclared:
-    x: 920
-    y: 250
-    w: 240
-    h: 44
-  r-false:
-    x: 325
-    y: 382
-    w: 150
-    h: 44
-  r-true:
-    x: 495
-    y: 382
-    w: 150
-    h: 44
-  r-message:
-    x: 665
-    y: 382
-    w: 150
-    h: 44
+  band-who: { x: 20, y: 84, w: 1260, h: 110 }
+  band-call: { x: 20, y: 210, w: 1260, h: 110 }
+  band-returns: { x: 20, y: 336, w: 1260, h: 120 }
+  a-stage: { x: 440, y: 122, w: 260, h: 44 }
+  c-affected: { x: 300, y: 250, w: 540, h: 44 }
+  x-undeclared: { x: 920, y: 250, w: 240, h: 44 }
+  r-false: { x: 325, y: 382, w: 150, h: 44 }
+  r-true: { x: 495, y: 382, w: 150, h: 44 }
+  r-message: { x: 665, y: 382, w: 150, h: 44 }

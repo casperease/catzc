@@ -8,9 +8,7 @@ description:
   The independence gate groups every declared and derived globset by layer, skips the loose-fileset group, tests each same-layer pair for a
   shared file, writes a report, and throws once with one line per overlapping pair.
 about:
-  adrs:
-    - FDR-CD-GLOBS-EVERYSETHASLAYER
-    - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+  adrs: [FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
   lens: implementation
 content:
   title: Test-GlobSetIndependence groups every set by layer and tests each same-layer pair
@@ -19,91 +17,38 @@ content:
   relation: in code order
   theme: dark
   bands:
-    - id: band-deployable-unit
-      label: DEPLOYABLE-UNIT
-    - id: band-loose-fileset
-      label: LOOSE-FILESET
-    - id: band-module
-      label: MODULE
+    - { id: band-deployable-unit, label: DEPLOYABLE-UNIT }
+    - { id: band-loose-fileset, label: LOOSE-FILESET }
+    - { id: band-module, label: MODULE }
   glyphs:
-    - id: s-deployable-units
-      kind: set
-      label: deployable-unit sets
-      in: band-deployable-unit
-    - id: g-overlaps-units
-      kind: gate
-      label: Overlaps per pair
-      in: band-deployable-unit
-    - id: s-declared-loose
-      kind: set
-      label: declared loose-filesets
-      in: band-loose-fileset
-    - id: s-reserved-names
-      kind: set
-      label: ReservedNames umbrellas
-      in: band-loose-fileset
-    - id: g-report
-      kind: code
-      label: Write-QualityGateReport
-      in: band-loose-fileset
-    - id: f-throw
-      kind: failure
-      label: One throw lists every pair
-      in: band-loose-fileset
-    - id: s-module-layer
-      kind: set
-      label: module-layer sets
-      in: band-module
-    - id: g-overlaps-modules
-      kind: gate
-      label: Overlaps per pair
-      in: band-module
+    - { id: s-deployable-units, kind: set, label: deployable-unit sets, in: band-deployable-unit }
+    - { id: g-overlaps-units, kind: gate, label: Overlaps per pair, in: band-deployable-unit }
+    - { id: s-declared-loose, kind: set, label: declared loose-filesets, in: band-loose-fileset }
+    - { id: s-reserved-names, kind: set, label: ReservedNames umbrellas, in: band-loose-fileset }
+    - { id: g-report, kind: code, label: Write-QualityGateReport, in: band-loose-fileset }
+    - { id: f-throw, kind: failure, label: One throw lists every pair, in: band-loose-fileset }
+    - { id: s-module-layer, kind: set, label: module-layer sets, in: band-module }
+    - { id: g-overlaps-modules, kind: gate, label: Overlaps per pair, in: band-module }
   edges:
-    - from: s-deployable-units
-      to: g-overlaps-units
-      kind: flow
-      label: ""
-    - from: s-module-layer
-      to: g-overlaps-modules
-      kind: flow
-      label: ""
-    - from: g-overlaps-units
-      to: g-report
-      kind: flow
-      label: ""
-    - from: g-overlaps-modules
-      to: g-report
-      kind: flow
-      label: ""
-    - from: g-report
-      to: f-throw
-      kind: fail
-      label: ""
+    - { from: s-deployable-units, to: g-overlaps-units, kind: flow, label: "" }
+    - { from: s-module-layer, to: g-overlaps-modules, kind: flow, label: "" }
+    - { from: g-overlaps-units, to: g-report, kind: flow, label: "" }
+    - { from: g-overlaps-modules, to: g-report, kind: flow, label: "" }
+    - { from: g-report, to: f-throw, kind: fail, label: "" }
   markers:
-    - at: s-deployable-units
-      number: 1
-    - at: s-declared-loose
-      number: 2
-    - at: s-reserved-names
-      number: 3
-    - at: s-module-layer
-      number: 4
-    - at: g-overlaps-units
-      number: 5
-    - at: g-overlaps-modules
-      number: 6
-    - at: g-report
-      number: 7
-    - at: f-throw
-      number: 8
+    - { at: s-deployable-units, number: 1 }
+    - { at: s-declared-loose, number: 2 }
+    - { at: s-reserved-names, number: 3 }
+    - { at: s-module-layer, number: 4 }
+    - { at: g-overlaps-units, number: 5 }
+    - { at: g-overlaps-modules, number: 6 }
+    - { at: g-report, number: 7 }
+    - { at: f-throw, number: 8 }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [.claude/CLAUDE.md, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: ado-pipelines/pipelines/.
         by:
           - .ado/pipelines/cd-apex.yaml
@@ -155,15 +100,9 @@ content:
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: github-workflows/workflows/.
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Azure.DevOps/.
-        by:
-          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -182,15 +121,9 @@ content:
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Drs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Base.Drs/types
-        by:
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Base.Globs/.
         by:
           - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
@@ -198,24 +131,16 @@ content:
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Globs/configs
-        by:
-          - pwsh/Catzc.Base.Globs/configs/globs.yml
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Base.Globs/configs/globs.yml, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Base.Globs/private
-        by:
-          - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Base.Globs/tests
         by:
           - pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
           - pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Globs/tests/types
-        by:
-          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: pwsh/Catzc.Base.Globs/types
         by:
           - pwsh/Catzc.Base.Globs/types/DurableHash.cs
@@ -232,34 +157,18 @@ content:
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: pwsh/Catzc.Base.Maps/tests
-        by:
-          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Base.QualityGates/.
-        by:
-          - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [pwsh/Catzc.Base.QualityGates/Test-Automation.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER]
       - cell: pwsh/Catzc.Base.QualityGates/configs
-        by:
-          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Base.QualityGates/configs/terminology.yml, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: pwsh/Catzc.Base.QualityGates/private
-        by:
-          - pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
+        by: [pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER]
     module-neighbourhood:
       - cell: subject/.claude
-        by:
-          - .claude/CLAUDE.md
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [.claude/CLAUDE.md, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: subject/Catzc.Azure.DevOps
-        by:
-          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
       - cell: subject/Catzc.Azure.DevOps.BuildValidation
         by:
           - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
@@ -316,68 +225,19 @@ content:
           - FDR-CD-GLOBS-EVERYSETHASLAYER
           - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
       - cell: subject/workflows
-        by:
-          - .github/workflows/ci-pwsh.yml
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
     axis:
       - cell: DSGN/*
-        by:
-          - FDR-CD-GLOBS-EVERYSETHASLAYER
-          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+        by: [FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
 layout:
-  band-deployable-unit:
-    x: 20
-    y: 84
-    w: 1260
-    h: 120
-  band-loose-fileset:
-    x: 20
-    y: 254
-    w: 1260
-    h: 120
-  band-module:
-    x: 20
-    y: 424
-    w: 1260
-    h: 120
-  s-deployable-units:
-    x: 140
-    y: 120
-    w: 300
-    h: 56
-  g-overlaps-units:
-    x: 760
-    y: 104
-    w: 200
-    h: 88
-  s-declared-loose:
-    x: 140
-    y: 290
-    w: 300
-    h: 56
-  s-reserved-names:
-    x: 480
-    y: 290
-    w: 230
-    h: 56
-  g-report:
-    x: 760
-    y: 290
-    w: 200
-    h: 56
-  f-throw:
-    x: 1010
-    y: 296
-    w: 230
-    h: 44
-  s-module-layer:
-    x: 140
-    y: 460
-    w: 440
-    h: 56
-  g-overlaps-modules:
-    x: 760
-    y: 444
-    w: 200
-    h: 88
+  band-deployable-unit: { x: 20, y: 84, w: 1260, h: 120 }
+  band-loose-fileset: { x: 20, y: 254, w: 1260, h: 120 }
+  band-module: { x: 20, y: 424, w: 1260, h: 120 }
+  s-deployable-units: { x: 140, y: 120, w: 300, h: 56 }
+  g-overlaps-units: { x: 760, y: 104, w: 200, h: 88 }
+  s-declared-loose: { x: 140, y: 290, w: 300, h: 56 }
+  s-reserved-names: { x: 480, y: 290, w: 230, h: 56 }
+  g-report: { x: 760, y: 290, w: 200, h: 56 }
+  f-throw: { x: 1010, y: 296, w: 230, h: 44 }
+  s-module-layer: { x: 140, y: 460, w: 440, h: 56 }
+  g-overlaps-modules: { x: 760, y: 444, w: 200, h: 88 }

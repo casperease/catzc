@@ -4,14 +4,10 @@
 #     with_body_sha: "864d3fe6b150"
 # ---
 
-description:
-  "A config file placed under a template is discovered as a slot, or stops discovery with one line naming the file and why: no subscription,
-  more than one, or a subfolder that is not a customer key."
+description: 'A config file placed under a template is discovered as a slot, or stops discovery with one line naming the file and why: no subscription,
+  more than one, or a subfolder that is not a customer key.'
 about:
-  adrs:
-    - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-    - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
-    - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+  adrs: [ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY, ADR-AZ-CUSTOMER-KEYISSUBFOLDER]
   lens: operations
 content:
   title: A config file that resolves to no subscription, or to two, stops discovery with one line
@@ -20,92 +16,39 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-    - id: band-run
-      label: RUN
-    - id: band-see
-      label: SEE
+    - { id: band-run, label: RUN }
+    - { id: band-see, label: SEE }
   groups:
-    - id: grp-failures
-      label: discovery stops
-      in: band-see
+    - { id: grp-failures, label: discovery stops, in: band-see }
   glyphs:
-    - id: g-config
-      kind: file
-      label: configuration/apex/nsub.yml
-      in: band-run
-    - id: g-discovery
-      kind: code
-      label: Get-BicepTemplates
-      in: band-run
-    - id: g-validator
-      kind: code
-      label: Assert-BicepTemplate
-      in: band-run
-    - id: r-slot
-      kind: result
-      label: apex/nsub -> apex_nonprod
-      in: band-see
-    - id: f-unresolved
-      kind: failure
-      label: cannot be resolved
-      in: grp-failures
-    - id: f-several
-      kind: failure
-      label: more than one subscription
-      in: grp-failures
-    - id: f-not-customer
-      kind: failure
-      label: is not a customer key
-      in: grp-failures
+    - { id: g-config, kind: file, label: configuration/apex/nsub.yml, in: band-run }
+    - { id: g-discovery, kind: code, label: Get-BicepTemplates, in: band-run }
+    - { id: g-validator, kind: code, label: Assert-BicepTemplate, in: band-run }
+    - { id: r-slot, kind: result, label: apex/nsub -> apex_nonprod, in: band-see }
+    - { id: f-unresolved, kind: failure, label: cannot be resolved, in: grp-failures }
+    - { id: f-several, kind: failure, label: more than one subscription, in: grp-failures }
+    - { id: f-not-customer, kind: failure, label: is not a customer key, in: grp-failures }
   edges:
-    - from: g-config
-      to: g-discovery
-      kind: flow
-      label: ""
-    - from: g-config
-      to: g-validator
-      kind: flow
-      label: ""
-    - from: g-discovery
-      to: r-slot
-      kind: flow
-      label: ""
-    - from: g-discovery
-      to: grp-failures
-      kind: fail
-      label: ""
-    - from: g-validator
-      to: grp-failures
-      kind: fail
-      label: ""
+    - { from: g-config, to: g-discovery, kind: flow, label: "" }
+    - { from: g-config, to: g-validator, kind: flow, label: "" }
+    - { from: g-discovery, to: r-slot, kind: flow, label: "" }
+    - { from: g-discovery, to: grp-failures, kind: fail, label: "" }
+    - { from: g-validator, to: grp-failures, kind: fail, label: "" }
   markers:
-    - at: g-config
-      number: 1
-    - at: g-discovery
-      number: 2
-    - at: g-validator
-      number: 3
-    - at: r-slot
-      number: 4
-    - at: f-unresolved
-      number: 5
-    - at: f-several
-      number: 6
-    - at: f-not-customer
-      number: 7
+    - { at: g-config, number: 1 }
+    - { at: g-discovery, number: 2 }
+    - { at: g-validator, number: 3 }
+    - { at: r-slot, number: 4 }
+    - { at: f-unresolved, number: 5 }
+    - { at: f-several, number: 6 }
+    - { at: f-not-customer, number: 7 }
   legend: auto
   minimaps:
     code-locations:
       - cell: ado-pipelines/pipelines/.
-        by:
-          - .ado/pipelines/cd-shared.yaml
-          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+        by: [.ado/pipelines/cd-shared.yaml, ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY]
       - cell: ado-pipelines/pipelines/extends
-        by:
-          - .ado/pipelines/extends/cd-customer.yaml
-          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+        by: [.ado/pipelines/extends/cd-customer.yaml, ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY]
       - cell: docs/-/.
         by:
           - docs/drs/azure/azure-customer-model.md
@@ -150,20 +93,11 @@ content:
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: infrastructure/discovery/.
-        by:
-          - infrastructure/templates/discovery/options.yml
-          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+        by: [infrastructure/templates/discovery/options.yml, ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY]
       - cell: infrastructure/expedition/.
-        by:
-          - infrastructure/templates/expedition/options.yml
-          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+        by: [infrastructure/templates/expedition/options.yml, ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY]
       - cell: infrastructure/foundation/.
-        by:
-          - infrastructure/templates/foundation/options.yml
-          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+        by: [infrastructure/templates/foundation/options.yml, ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY]
       - cell: pwsh/Catzc.Azure/.
         by:
           - pwsh/Catzc.Azure/Get-AzureCustomers.ps1
@@ -225,9 +159,7 @@ content:
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: pwsh/Catzc.Azure.Templates/types
-        by:
-          - pwsh/Catzc.Azure.Templates/types/BicepTemplate.cs
-          - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+        by: [pwsh/Catzc.Azure.Templates/types/BicepTemplate.cs, ADR-AZ-CUSTOMER-KEYISSUBFOLDER]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -240,9 +172,7 @@ content:
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: pwsh/Catzc.Base.Variants/configs
-        by:
-          - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+        by: [pwsh/Catzc.Base.Variants/configs/variants.yml, ADR-AZ-CUSTOMER-KEYISSUBFOLDER]
     module-neighbourhood:
       - cell: subject/Catzc.Azure
         by:
@@ -297,24 +227,13 @@ content:
           - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
       - cell: subject/Catzc.Base.Variants
-        by:
-          - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+        by: [pwsh/Catzc.Base.Variants/configs/variants.yml, ADR-AZ-CUSTOMER-KEYISSUBFOLDER]
       - cell: subject/discovery
-        by:
-          - infrastructure/templates/discovery/options.yml
-          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+        by: [infrastructure/templates/discovery/options.yml, ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY]
       - cell: subject/expedition
-        by:
-          - infrastructure/templates/expedition/options.yml
-          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+        by: [infrastructure/templates/expedition/options.yml, ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY]
       - cell: subject/foundation
-        by:
-          - infrastructure/templates/foundation/options.yml
-          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+        by: [infrastructure/templates/foundation/options.yml, ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY]
       - cell: subject/pipelines
         by:
           - .ado/pipelines/cd-shared.yaml
@@ -323,62 +242,17 @@ content:
           - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
     axis:
       - cell: CLOUD/deploy
-        by:
-          - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
-          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+        by: [ADR-AZ-CUSTOMER-KEYISSUBFOLDER, ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY]
       - cell: CLOUD/access
-        by:
-          - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
-          - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+        by: [ADR-AZ-DATAMOD-NAMEKEYEDMAPS, ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY]
 layout:
-  band-run:
-    x: 20
-    y: 84
-    w: 560
-    h: 340
-  band-see:
-    x: 600
-    y: 84
-    w: 680
-    h: 340
-  g-config:
-    x: 50
-    y: 214
-    w: 190
-    h: 52
-  g-discovery:
-    x: 340
-    y: 134
-    w: 200
-    h: 44
-  g-validator:
-    x: 340
-    y: 304
-    w: 200
-    h: 44
-  r-slot:
-    x: 650
-    y: 134
-    w: 220
-    h: 44
-  grp-failures:
-    x: 640
-    y: 214
-    w: 330
-    h: 200
-  f-unresolved:
-    x: 670
-    y: 256
-    w: 270
-    h: 44
-  f-several:
-    x: 670
-    y: 308
-    w: 270
-    h: 44
-  f-not-customer:
-    x: 670
-    y: 360
-    w: 270
-    h: 44
+  band-run: { x: 20, y: 84, w: 560, h: 340 }
+  band-see: { x: 600, y: 84, w: 680, h: 340 }
+  g-config: { x: 50, y: 214, w: 190, h: 52 }
+  g-discovery: { x: 340, y: 134, w: 200, h: 44 }
+  g-validator: { x: 340, y: 304, w: 200, h: 44 }
+  r-slot: { x: 650, y: 134, w: 220, h: 44 }
+  grp-failures: { x: 640, y: 214, w: 330, h: 200 }
+  f-unresolved: { x: 670, y: 256, w: 270, h: 44 }
+  f-several: { x: 670, y: 308, w: 270, h: 44 }
+  f-not-customer: { x: 670, y: 360, w: 270, h: 44 }

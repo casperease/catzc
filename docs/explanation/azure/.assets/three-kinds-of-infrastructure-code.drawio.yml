@@ -4,14 +4,10 @@
 #     with_body_sha: "165a574ff8e1"
 # ---
 
-description:
-  "The infrastructure code has three kinds, each in its own place of the infrastructure track: reusable modules, templates and configuration
-  slots. A template pulls the modules it references into its main.bicep, and one configuration slot deploys that template into one resource
-  group."
+description: 'The infrastructure code has three kinds, each in its own place of the infrastructure track: reusable modules, templates and configuration
+  slots. A template pulls the modules it references into its main.bicep, and one configuration slot deploys that template into one resource group.'
 about:
-  adrs:
-    - ADR-AZ-IACKIND-THREEKINDS
-    - ADR-AZ-IACKIND-TRACKPLACESKINDS
+  adrs: [ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
   lens: meta
 content:
   title: Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together
@@ -20,108 +16,51 @@ content:
   relation: feeds
   theme: dark
   bands:
-    - id: band-modules
-      label: MODULES
-    - id: band-templates
-      label: TEMPLATE
-    - id: band-configs
-      label: CONFIGURATION SLOTS
-    - id: band-deployed
-      label: DEPLOYED
+    - { id: band-modules, label: MODULES }
+    - { id: band-templates, label: TEMPLATE }
+    - { id: band-configs, label: CONFIGURATION SLOTS }
+    - { id: band-deployed, label: DEPLOYED }
   spans:
     - id: span-modules
       label: modules
-      over:
-        - band-modules
+      over: [band-modules]
     - id: span-templates
       label: templates
-      over:
-        - band-templates
+      over: [band-templates]
     - id: span-configs
       label: configs
-      over:
-        - band-configs
+      over: [band-configs]
   glyphs:
-    - id: g-module
-      kind: code
-      label: reusable module
-      in: band-modules
-    - id: g-main
-      kind: code
-      label: main.bicep
-      in: band-templates
-    - id: g-options
-      kind: file
-      label: options.yml
-      in: band-templates
-    - id: g-slot
-      kind: file
-      label: <env>[-<slot>].yml
-      in: band-configs
-    - id: e-group
-      kind: env
-      label: resource group
-      in: band-deployed
+    - { id: g-module, kind: code, label: reusable module, in: band-modules }
+    - { id: g-main, kind: code, label: main.bicep, in: band-templates }
+    - { id: g-options, kind: file, label: options.yml, in: band-templates }
+    - { id: g-slot, kind: file, label: "<env>[-<slot>].yml", in: band-configs }
+    - { id: e-group, kind: env, label: resource group, in: band-deployed }
   edges:
-    - from: g-module
-      to: g-main
-      kind: flow
-      label: ""
-    - from: g-options
-      to: g-main
-      kind: flow
-      label: ""
-    - from: g-main
-      to: g-slot
-      kind: flow
-      label: ""
-    - from: g-slot
-      to: e-group
-      kind: flow
-      label: ""
+    - { from: g-module, to: g-main, kind: flow, label: "" }
+    - { from: g-options, to: g-main, kind: flow, label: "" }
+    - { from: g-main, to: g-slot, kind: flow, label: "" }
+    - { from: g-slot, to: e-group, kind: flow, label: "" }
   markers:
-    - at: g-module
-      number: 1
-    - at: g-main
-      number: 2
-    - at: g-options
-      number: 3
-    - at: g-slot
-      number: 4
-    - at: e-group
-      number: 5
+    - { at: g-module, number: 1 }
+    - { at: g-main, number: 2 }
+    - { at: g-options, number: 3 }
+    - { at: g-slot, number: 4 }
+    - { at: e-group, number: 5 }
   legend: auto
   minimaps:
     axis:
       - cell: CLOUD/deploy
-        by:
-          - ADR-AZ-IACKIND-THREEKINDS
-          - ADR-AZ-IACKIND-TRACKPLACESKINDS
+        by: [ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
     lifecycle-position:
       - cell: main-uat
-        by:
-          - docs/drs/index.md
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-AZ-IACKIND-THREEKINDS
-          - ADR-AZ-IACKIND-TRACKPLACESKINDS
+        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
       - cell: release-uat
-        by:
-          - docs/drs/index.md
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-AZ-IACKIND-THREEKINDS
-          - ADR-AZ-IACKIND-TRACKPLACESKINDS
+        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
       - cell: pre-prod
-        by:
-          - docs/drs/index.md
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-AZ-IACKIND-THREEKINDS
-          - ADR-AZ-IACKIND-TRACKPLACESKINDS
+        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
       - cell: prod
-        by:
-          - docs/drs/index.md
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-AZ-IACKIND-THREEKINDS
-          - ADR-AZ-IACKIND-TRACKPLACESKINDS
+        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
     layer-stack:
       - cell: automation
         by:
@@ -132,8 +71,4 @@ content:
           - ADR-AZ-IACKIND-THREEKINDS
           - ADR-AZ-IACKIND-TRACKPLACESKINDS
 layout:
-  g-slot:
-    x: 680
-    y: 164
-    w: 200
-    h: 52
+  g-slot: { x: 680, y: 164, w: 200, h: 52 }
