@@ -215,4 +215,29 @@ Describe 'Get-AdoYamlFiles' -Tag 'L0' {
             $gitFiles | Should -BeNullOrEmpty
         }
     }
+
+    Context 'a widget tree' {
+        BeforeAll {
+            $script:widgetRoot = Join-Path $TestDrive 'widget-pipelines'
+            $deep = Join-Path $script:widgetRoot 'a/b/c/d/e'
+            [System.IO.Directory]::CreateDirectory($deep) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $deep 'gadget.yaml'), "trigger: none`njobs: []`n")
+            $cache = Join-Path $script:widgetRoot '.terraform'
+            [System.IO.Directory]::CreateDirectory($cache) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $cache 'provider.yml'), "widget: 1`n")
+            Mock Write-Message -ModuleName Catzc.Azure.DevOps { }
+        }
+
+        It 'finds a YAML file five folders below the root at the default depth' {
+            @(Get-AdoYamlFiles -Path $script:widgetRoot).RelativePath | Should -Contain 'a/b/c/d/e/gadget.yaml'
+        }
+
+        It 'stops at a -Depth that overrides the default' {
+            @(Get-AdoYamlFiles -Path $script:widgetRoot -Depth 3 | ForEach-Object RelativePath) | Should -Not -Contain 'a/b/c/d/e/gadget.yaml'
+        }
+
+        It 'never searches a .terraform provider cache' {
+            @(Get-AdoYamlFiles -Path $script:widgetRoot).RelativePath | Should -Not -Contain '.terraform/provider.yml'
+        }
+    }
 }

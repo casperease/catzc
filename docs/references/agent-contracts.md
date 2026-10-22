@@ -4,7 +4,11 @@ catzc:
   edges:
     cites:
       - ADR-REPO-AGENTS-ROBOTBODYLIMIT
-    drs_total: 1
+      - ADR-REPO-AI
+      - PDR-CONFIG
+      - PDR-ONELIVE
+      - PDR-REDUCEVAR
+    drs_total: 5
 ---
 
 # Agent contracts: what `contracts: [ADR-REPO-AI]` said, and where it lives now

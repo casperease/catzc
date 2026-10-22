@@ -13,7 +13,7 @@ public sealed class FolderWalkConfig
     public const bool DefaultPruneVendorInSearches = true;
     public const string VendorFolder = ".vendor";
 
-    private static readonly string[] DefaultExclude = { ".git", "node_modules", "out" };
+    private static readonly string[] DefaultExclude = { ".git", "node_modules", "out", ".terraform" };
     private static readonly string[] AllowedKeys = { "depth", "exclude", "prune_vendor_in_searches" };
 
     public int depth { get; }

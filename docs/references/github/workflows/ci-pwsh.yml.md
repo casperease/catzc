@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
-    drs_total: 1
+      - FDR-CD-GLOBS
+    drs_total: 2
 ---
 
 # .github/workflows/ci-pwsh.yml

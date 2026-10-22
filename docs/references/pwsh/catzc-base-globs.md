@@ -5,7 +5,7 @@ catzc:
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
       - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
-    drs_total: 2
+    drs_total: 7
 ---
 
 # Catzc.Base.Globs

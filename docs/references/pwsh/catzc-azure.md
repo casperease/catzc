@@ -4,7 +4,7 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-    drs_total: 1
+    drs_total: 4
 ---
 
 # Catzc.Azure

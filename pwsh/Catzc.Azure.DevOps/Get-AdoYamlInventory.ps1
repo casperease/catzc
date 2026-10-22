@@ -13,14 +13,14 @@ function Get-AdoYamlInventory {
     param(
         [string] $Path,
 
-        [string[]] $Exclude = @('.git', 'node_modules', '.terraform'),
+        [int] $Depth = (Get-Config -Config ado).yaml_inventory_depth,
 
         [string] $Project,
 
         [string] $Organization
     )
 
-    $scanParams = @{ Exclude = $Exclude }
+    $scanParams = @{ Depth = $Depth }
     if ($Path) {
         $scanParams.Path = $Path
     }

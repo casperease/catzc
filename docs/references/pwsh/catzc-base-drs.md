@@ -5,7 +5,8 @@ catzc:
     cites:
       - ADR-AUTO-ENGINE-THREEENGINES
       - ADR-AUTO-TEST-QUALITYGATE
-    drs_total: 2
+      - ADR-REPO-DRSCODE
+    drs_total: 3
 ---
 
 # Catzc.Base.Drs

@@ -19,7 +19,14 @@ namespace Catzc.Azure.DevOps;
 
 public sealed class AdoConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "organization", "project", "tenant" };
+    private static readonly string[] RequiredKeys = { "organization", "project", "tenant" };
+    private static readonly string[] AllowedKeys = { "organization", "project", "tenant", "yaml_inventory_depth" };
+
+    // How deep the YAML inventory walks below its root: pipelines sit up to five folders below the repository root.
+    public const int DefaultYamlInventoryDepth = 6;
+
+    // The folder depth Get-AdoYamlFiles walks to (1, the root itself), unless its -Depth overrides it.
+    public int yaml_inventory_depth { get; } = DefaultYamlInventoryDepth;
 
     // The Azure DevOps organization URL (the REST API host).
     public string organization { get; }
@@ -45,9 +52,16 @@ public sealed class AdoConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
 
-        foreach (string key in AllowedKeys)
+        foreach (string key in RequiredKeys)
         {
             if (d == null || !d.Contains(key)) { errors.Add(string.Format("Missing required key: '{0}'", key)); }
+        }
+
+        if (d != null && d.Contains("yaml_inventory_depth"))
+        {
+            int depth;
+            if (d["yaml_inventory_depth"] != null && int.TryParse(d["yaml_inventory_depth"].ToString(), out depth) && depth >= 1) { yaml_inventory_depth = depth; }
+            else { errors.Add(string.Format("yaml_inventory_depth '{0}' is invalid (must be a whole number of 1 or more)", d["yaml_inventory_depth"])); }
         }
 
         string org = Text(d, "organization");

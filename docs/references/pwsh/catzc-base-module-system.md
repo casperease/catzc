@@ -4,7 +4,7 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-    drs_total: 8
+    drs_total: 9
 ---
 
 # Catzc.Base.ModuleSystem

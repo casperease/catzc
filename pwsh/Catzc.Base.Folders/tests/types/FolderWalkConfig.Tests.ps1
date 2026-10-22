@@ -15,7 +15,7 @@ Describe 'FolderWalkConfig' -Tag 'L0', 'logic' {
     It 'takes the declared defaults for every omitted key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $config = [Catzc.Base.Folders.FolderWalkConfig]::new(@{})
         $config.depth | Should -Be 2
-        $config.exclude | Should -Be @('.git', 'node_modules', 'out')
+        $config.exclude | Should -Be @('.git', 'node_modules', 'out', '.terraform')
         $config.prune_vendor_in_searches | Should -BeTrue
     }
 
