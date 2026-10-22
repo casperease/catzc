@@ -130,3 +130,12 @@ Started 2026-10-22T01:08:38.5211231+02:00.
 - 2026-10-22 Jack: If only someone had asked first: nothing in the tree, no capability or how-to, says to confirm the final shape of a
   cross-cutting record before writing its first hundred entries, and plan-shape shapes plans only, so the rewrite of a hundred rows remains
   the lesson.
+- 2026-10-22 Jack: If only the session had read the resolver: pwsh/Catzc.Base.QualityGates/private/Resolve-PlanStepCount.ps1:27 and :44
+  match a stated count in digits or in the words one to twelve, and its test at Resolve-PlanStepCount.Tests.ps1:38 writes every count above
+  twelve in digits, so the one word that escapes is a word the tree itself never writes.
+- 2026-10-22 Jack: If only Jack had waited for the gate: docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md:22-23 now fails a
+  chunk line or value row whose stated step count differs from the open steps (ADR-REPO-PLANS-THREEPARTS), so the earlier line of this log
+  saying nothing compares them is stale and the sync is a gate, not a habit.
+- 2026-10-22 Jack: If only the drs module had an article: docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md:10 names the one
+  registry-wide gate, but docs/references/pwsh/ holds no catzc-base-drs.md beside every other module article, so Test-Drs and Test-DrsCodes
+  are guessed three times before the page is found.
