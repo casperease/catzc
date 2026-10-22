@@ -226,3 +226,14 @@ Ignored paths that have no '!' exception, hidden everywhere (explorer, search, q
 *.psd1, *.pdf) stay visible, because files.exclude would hide the tracked files too. explorer.excludeGitIgnore is not set: it would hide
 the generated settings folders (.vscode and the root config copies), which are ignored on purpose and still wanted in the explorer.
 ```
+
+## comment:19
+
+Above `terminal.integrated.environmentChangesRelaunch: false`, written with `#`.
+
+```text
+Extensions (git, python, debugpy, go, copilot) contribute environment variables after a terminal has started. By default VS Code
+relaunches every terminal not yet typed into when that happens, killing the pwsh and the import it holds, and marks the others with a
+yellow "Terminal Environment Changes" warning. A terminal keeps the environment it started with: the contributions are PATH entries
+and helper variables no cats command reads.
+```
