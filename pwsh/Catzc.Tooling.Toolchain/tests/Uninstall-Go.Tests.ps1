@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: f386940c846b
-  edges:
-    code: pwsh/Catzc.Tooling.Toolchain/Uninstall-Go.ps1
----
-#>
-
 # Hermetic logic (L1): the managed home is a fixture folder under $TestDrive; the persistent PATH seam is mocked.
 Describe 'Uninstall-Go' -Tag 'L1', 'logic' {
     BeforeAll {

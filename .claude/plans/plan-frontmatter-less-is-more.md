@@ -54,6 +54,14 @@ the tree, they churn on every body edit, and agents read them on every file they
 
 ## Open steps
 
+- [ ] From the read-only audit of 2026-10-22 (decided as delegated): one derivation for every class, a bare record code (`ADR-AZ-NETWORK`)
+      counts for Markdown as it does for code, so about 120 comment pages that cite only bare record codes gain a head (catzc-a0, a burst).
+      The audit's other point stands as designed: a cited bare record code folds the rules below it into `cites:`, and `drs_total` counts
+      before folding (catzc-a0's reading). (check: an engine test, and `Format-Code -Path`
+      `docs/references/pwsh/catzc-azure/configs/network.yml.md` writing its head)
+- [ ] The folders no unit covers join the re-imprint: `infrastructure/` (46), `.ado/pipelines/` (16), `.github/workflows/` (2),
+      `bash/tests/` (2), `go/tests/` (1), each still carrying an authored `with_body_sha` (the audit). (check: per folder, `Test-FileMeta` at 0
+      and `git diff` head lines only)
 - [ ] The tree re-imprinted in the order of `out/frontmatter-reimprint-order.md` (157 units, 4,643 files: 378 heads dropped, about 1,110
       Markdown heads gained, 2,273 hashes and 1,666 test/code edges removed, 3,244 warnings added), docs units by catzc-e9 and code units by
       catzc-e3 and catzc-54, `pwsh/Catzc.Base.RootConfig`, `.claude/hooks` and `pwsh/.internal` last, one burst each (import-path); a

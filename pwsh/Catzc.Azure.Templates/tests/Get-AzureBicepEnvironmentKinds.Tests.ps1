@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "0ef38f25fcdb"
-  edges:
-    code: pwsh/Catzc.Azure.Templates/Get-AzureBicepEnvironmentKinds.ps1
----
-#>
-
 Describe 'Get-AzureBicepEnvironmentKinds' -Tag 'L0', 'logic' {
     It 'returns standard and subscription' {
         $kinds = Get-AzureBicepEnvironmentKinds

@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "2e736920a33d"
-  edges:
-    code: pwsh/Catzc.Tooling.Toolchain/private/Stop-DotnetInstallHolder.ps1
----
-#>
-
 Describe 'Stop-DotnetInstallHolder' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:installDir = Join-Path $TestDrive 'widget-dotnet'

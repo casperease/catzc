@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "3eeac3206942"
-  edges:
-    code: pwsh/Catzc.Azure.Templates/private/Read-BicepTemplateOptions.ps1
----
-#>
-
 # cspell:ignore ndeployment nresource nsubscription toolong
 Describe 'Read-BicepTemplateOptions' -Tag 'L0', 'logic' {
     BeforeAll {

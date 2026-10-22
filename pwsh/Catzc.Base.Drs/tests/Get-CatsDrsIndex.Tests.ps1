@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: bfc83b081d96
-  edges:
-    code: pwsh/Catzc.Base.Drs/Get-CatsDrsIndex.ps1
----
-#>
-
 Describe 'Get-CatsDrsIndex' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:indexPath = Join-Path $TestDrive 'index.md'

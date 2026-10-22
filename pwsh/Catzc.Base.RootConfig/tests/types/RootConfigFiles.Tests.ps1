@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "5f962c9030c9"
-  edges:
-    code: pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
----
-#>
-
 Describe 'RootConfigFiles' -Tag 'L0', 'logic' {
     It 'constructs and exposes valid entries in registry order' {
         $c = [Catzc.Base.RootConfig.RootConfigFiles]::new(@{

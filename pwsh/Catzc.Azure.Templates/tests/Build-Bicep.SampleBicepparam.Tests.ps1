@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "6ed2aea1523e"
----
-#>
-
 # cspell:ignore alweutstsbppst btweutstsbppst
 Describe 'sample-bicepparam (a bicepparam slot beside a yml slot)' -Tag 'L0', 'logic' {
     BeforeAll {

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: bbbe40fce0e7
----
-#>
-
 Describe 'Invoke-Dotnet' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:available = Test-Tool 'dotnet'

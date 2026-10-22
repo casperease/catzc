@@ -171,17 +171,17 @@ Describe 'FileMetaConfig.EngineInputs' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECK
         $script:gates = Join-Path $script:root 'Catzc.Base.QualityGates'
         $script:languages = Join-Path $script:root 'Catzc.Base.Languages'
         $files = [ordered]@{
-            "$script:gates/configs/file-meta.yml"                   = "kinds: {}`n"
-            "$script:languages/configs/file-carriers.yml"           = "carriers: {}`n"
-            "$script:gates/Format-FileMeta.ps1"                     = "function Format-FileMeta {}`n"
-            "$script:gates/Get-FileMetaFact.ps1"                    = "function Get-FileMetaFact {}`n"
-            "$script:gates/private/Invoke-FileMetaEngine.ps1"       = "function Invoke-FileMetaEngine {}`n"
-            "$script:gates/private/Get-WidgetFileMetaFact.ps1"      = "function Get-WidgetFileMetaFact {}`n"
-            "$script:gates/tests/Get-WidgetFileMetaFact.Tests.ps1"  = "Describe 'widget' {}`n"
-            "$script:gates/types/FileMetaConfig.cs"                 = "class FileMetaConfig {}`n"
-            "$script:gates/types/FileHeadPolicy.cs"                 = "class FileHeadPolicy {}`n"
-            "$script:gates/types/HeadPolicy.cs"                     = "enum HeadPolicy {}`n"
-            "$script:gates/types/GadgetConfig.cs"                   = "class GadgetConfig {}`n"
+            "$script:gates/configs/file-meta.yml"                  = "kinds: {}`n"
+            "$script:languages/configs/file-carriers.yml"          = "carriers: {}`n"
+            "$script:gates/Format-FileMeta.ps1"                    = "function Format-FileMeta {}`n"
+            "$script:gates/Get-FileMetaFact.ps1"                   = "function Get-FileMetaFact {}`n"
+            "$script:gates/private/Invoke-FileMetaEngine.ps1"      = "function Invoke-FileMetaEngine {}`n"
+            "$script:gates/private/Get-WidgetFileMetaFact.ps1"     = "function Get-WidgetFileMetaFact {}`n"
+            "$script:gates/tests/Get-WidgetFileMetaFact.Tests.ps1" = "Describe 'widget' {}`n"
+            "$script:gates/types/FileMetaConfig.cs"                = "class FileMetaConfig {}`n"
+            "$script:gates/types/FileHeadPolicy.cs"                = "class FileHeadPolicy {}`n"
+            "$script:gates/types/HeadPolicy.cs"                    = "enum HeadPolicy {}`n"
+            "$script:gates/types/GadgetConfig.cs"                  = "class GadgetConfig {}`n"
         }
         foreach ($file in $files.Keys) {
             [System.IO.Directory]::CreateDirectory((Split-Path $file -Parent)) | Out-Null

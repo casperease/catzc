@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "7ee94764306f"
-  edges:
-    code: pwsh/Catzc.Azure.Templates/ConvertTo-BicepParam.ps1
----
-#>
-
 Describe 'ConvertTo-BicepParam' -Tag 'L0', 'logic' {
     It 'renders the descriptor''s parameters against the using path' {
         $descriptor = [ordered]@{ ParametersFile = [ordered]@{ parameters = [ordered]@{ widgetName = @{ value = 'widget' }; gadgetCount = @{ value = 2 } } } }

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "62063875072f"
----
-#>
-
 Describe 'Invoke-Terraform' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:available = Test-Tool 'terraform'

@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: a0d91b8779ea
-  edges:
-    code: pwsh/Catzc.Azure.Templates/Get-AzureNameOrderSet.ps1
----
-#>
-
 Describe 'Get-AzureNameOrderSet' -Tag 'L0', 'logic' {
     It 'exposes the standard and classic orders' {
         $orders = Get-AzureNameOrderSet

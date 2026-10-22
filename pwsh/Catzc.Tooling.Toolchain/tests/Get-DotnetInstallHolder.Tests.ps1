@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "7dce6316b6da"
-  edges:
-    code: pwsh/Catzc.Tooling.Toolchain/private/Get-DotnetInstallHolder.ps1
----
-#>
-
 Describe 'Get-DotnetInstallHolder' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:installDir = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

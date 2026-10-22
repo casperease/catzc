@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "7fb3d6641588"
-  edges:
-    code: pwsh/Catzc.Azure.Templates/types/BicepParamWriter.cs
----
-#>
-
 Describe 'BicepParamWriter' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:write = { param($Parameters) [Catzc.Azure.Templates.BicepParamWriter]::Write('../main.bicep', $Parameters) }

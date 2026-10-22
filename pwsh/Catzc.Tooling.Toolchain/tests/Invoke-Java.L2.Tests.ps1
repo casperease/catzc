@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: d4f5ccb47ae6
----
-#>
-
 Describe 'Invoke-Java' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:available = Test-Tool 'java'

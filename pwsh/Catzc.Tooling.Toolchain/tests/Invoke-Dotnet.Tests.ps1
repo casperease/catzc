@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: bdcd59c984cb
-  edges:
-    code: pwsh/Catzc.Tooling.Toolchain/Invoke-Dotnet.ps1
----
-#>
-
 Describe 'Invoke-Dotnet' -Tag 'L0', 'logic' {
     It 'builds correct command via -DryRun' {
         Invoke-Dotnet 'build' -DryRun | Should -Be 'dotnet build'

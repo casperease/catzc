@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "926c2d88dd96"
-  edges:
-    code: pwsh/Catzc.Azure.Templates/types/BicepSlot.cs
----
-#>
-
 Describe 'BicepSlot' -Tag 'L0', 'logic' {
     It 'takes its format from its config file: <File> is <Format>' -ForEach @(
         @{ File = 'C:\widget\configuration\dev.yml'; Format = 'yml' }

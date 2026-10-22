@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "0b1f265e45fe"
-  edges:
-    code: pwsh/Catzc.Tooling.Toolchain/Invoke-Java.ps1
----
-#>
-
 Describe 'Invoke-Java' -Tag 'L0', 'logic' {
     It 'builds correct command via -DryRun' {
         Invoke-Java '--version' -DryRun | Should -Be 'java --version'

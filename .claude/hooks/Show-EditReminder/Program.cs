@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    with_body_sha: "2a9413a6d5e9"
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

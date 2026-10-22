@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: e1195dafbfaf
-  edges:
-    code: pwsh/Catzc.Base.Globs/Get-MarkerBlastRadius.ps1
----
-#>
-
 Describe 'Get-MarkerBlastRadius' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:config = [Catzc.Base.Globs.GlobsConfig]::new(@{
