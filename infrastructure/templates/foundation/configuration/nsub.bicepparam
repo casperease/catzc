@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     with_body_sha: a5141e3fa70d
-// ---
-
 // foundation, shared nonprod subscription (env nsub). One config file ⟷ one resource group.
 using '../main.bicep'
 

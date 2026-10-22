@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     with_body_sha: "1d002018255c"
-// ---
-
 // foundation, apex nonprod subscription (env nsub, customer apex).
 using '../../main.bicep'
 

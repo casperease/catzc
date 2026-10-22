@@ -28,7 +28,7 @@ function New-RepositorySnapshot {
 
     Assert-Command git
     $SourceRoot = [System.IO.Path]::GetFullPath($SourceRoot).TrimEnd('\', '/')
-    Assert-PathExist (Join-Path $SourceRoot '.git')
+    Assert-PathExist ([Catzc.Base.Git.GitWorkTree]::GitFolder($SourceRoot))
     $Destination = [System.IO.Path]::GetFullPath($Destination).TrimEnd('\', '/')
     if (Test-Path -LiteralPath $Destination) {
         throw "Cannot create a repository snapshot at '$Destination': the folder already exists."
@@ -52,7 +52,7 @@ function New-RepositorySnapshot {
                 createdAt  = [DateTimeOffset]::UtcNow.ToString('o')
                 pid        = $PID
             }
-            [System.IO.File]::WriteAllText((Join-Path $Destination '.git/catzc-snapshot.json'),
+            [System.IO.File]::WriteAllText([Catzc.Base.Git.GitWorkTree]::SnapshotMarker($Destination),
                 (ConvertTo-Json -InputObject $marker), [System.Text.UTF8Encoding]::new($false))
 
             if ($Committed) {
@@ -87,7 +87,8 @@ function New-RepositorySnapshot {
                 foreach ($segment in @($relativePath -split '/' | Select-Object -SkipLast 1)) {
                     $listed = "$listed/$segment"
                     if (-not $diskFolders.ContainsKey($listed)) {
-                        $found = @([System.IO.Directory]::EnumerateDirectories([System.IO.Path]::Join($SourceRoot, $onDisk), $segment))
+                        # The bounded walker, one level, nothing pruned: a tracked file under .vendor or out keeps its folder's case too.
+                        $found = @([Catzc.Base.Folders.FolderWalker]::Walk([System.IO.Path]::Join($SourceRoot, $onDisk), 1, [string[]] @($segment), $false, $true, [string[]] @()))
                         $diskFolders[$listed] = [System.IO.Path]::Join($onDisk, [System.IO.Path]::GetFileName(($found.Count -eq 1) ? $found[0] : $segment))
                     }
                     $onDisk = $diskFolders[$listed]
@@ -133,7 +134,7 @@ function New-RepositorySnapshot {
         }
         catch {
             $failure = $_
-            if ([System.IO.File]::Exists((Join-Path $Destination '.git/catzc-snapshot.json'))) {
+            if ([Catzc.Base.Git.GitWorkTree]::IsSnapshot($Destination)) {
                 # A cleanup that fails (a file another process holds) is announced, never thrown in place of the failure that caused it.
                 try {
                     Remove-RepositorySnapshot -Path $Destination

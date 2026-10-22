@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: "4e303870f3aa"
-# ---
-
 ParametersFile:
   parameters:
     tags:

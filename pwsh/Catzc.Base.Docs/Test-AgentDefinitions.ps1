@@ -117,9 +117,8 @@ function Test-AgentDefinitions {
     }
 
     # The agent files, by name, and the descriptions the standard-agent check reads.
-    $files = @(if ([System.IO.Directory]::Exists($agentsRoot)) {
-            [System.IO.Directory]::GetFiles($agentsRoot, '*.md') | Sort-Object
-        })
+    Assert-PathExist $agentsRoot -PathType Container -ErrorText "Test-AgentDefinitions: no agents folder at '$agentsRoot'."
+    $files = @(Get-ChildPath -Path $agentsRoot -Depth 1 -Filter '*.md' -File | Sort-Object)
     $descriptions = @{}
     $preloaded = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($file in $files) {

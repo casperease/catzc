@@ -89,6 +89,17 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'fails when a pattern names a folder the tree does not have, instead of matching nothing' {
+        InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
+            param($Root)
+            $config = [pscustomobject]@{
+                patterns = @([pscustomobject]@{ glob = 'sprockets/*'; source = 'docs/references/pwsh/{kebab}.md' })
+                mappings = @()
+            }
+            { Get-ReadmeMappings -Config $config -RepositoryRoot $Root } | Should -Throw "*names 'sprockets', which is no folder*"
+        }
+    }
+
     It 'lets an explicit mapping win over a pattern that also matches the folder' {
         InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
             param($Root)

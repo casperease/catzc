@@ -21,8 +21,8 @@ function Remove-RepositorySnapshot {
     if (-not [System.IO.Directory]::Exists($Path)) {
         return
     }
-    if (-not (Test-RepositorySnapshot $Path)) {
-        throw "Refusing to delete '$Path': it is not a repository snapshot (no .git/catzc-snapshot.json marker)."
+    if (-not [Catzc.Base.Git.GitWorkTree]::IsSnapshot($Path)) {
+        throw "Refusing to delete '$Path': it is not a repository snapshot (no $([Catzc.Base.Git.GitWorkTree]::SnapshotMarkerFile) marker)."
     }
 
     try {

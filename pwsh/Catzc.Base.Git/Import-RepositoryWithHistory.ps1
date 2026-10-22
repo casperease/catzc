@@ -31,7 +31,7 @@ function Import-RepositoryWithHistory {
 
     Assert-Command git
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot).TrimEnd('\', '/')
-    Assert-PathExist (Join-Path $root '.git')
+    Assert-PathExist ([Catzc.Base.Git.GitWorkTree]::GitFolder($root))
 
     $isLocal = Test-Path -LiteralPath $Source -PathType Container
     if ($isLocal) {
@@ -56,7 +56,7 @@ function Import-RepositoryWithHistory {
     $staged = (Invoke-Executable "git -C `"$root`" diff --cached --name-only" -PassThru -Silent).Output.Trim()
     Assert-True (-not $staged) -ErrorText "Import-RepositoryWithHistory: '$root' has staged changes; the import commit would carry them."
     if ($isLocal) {
-        Assert-PathExist (Join-Path $Source '.git')
+        Assert-PathExist ([Catzc.Base.Git.GitWorkTree]::GitFolder($Source))
         $dirty = (Invoke-Executable "git -C `"$Source`" status --porcelain" -PassThru -Silent).Output.Trim()
         Assert-True (-not $dirty) -ErrorText ("Import-RepositoryWithHistory: the source '$Source' has uncommitted changes; " +
             'commit or discard them first.')

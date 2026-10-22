@@ -18,7 +18,7 @@ function Get-DiagramCarrierMap {
     )
 
     # The kit's drawio.yml declares where a declaration lives: renderer.carrier for every diagram, and carriers: by stem for the rest.
-    $path = Join-Path $RepositoryRoot "$Kit/configs/drawio.yml"
+    $path = [Catzc.Base.Slides.DrawioKit]::new($RepositoryRoot, $Kit).Config
     Assert-PathExist $path -PathType Leaf -ErrorText "Get-DiagramCarrierMap: the draw.io kit '$Kit' has no configs/drawio.yml."
     $config = ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($path)) -Ordered
     Assert-True ($config.Contains('renderer') -and $config['renderer'] -and $config['renderer'].Contains('carrier')) -ErrorText "Get-DiagramCarrierMap: $path declares no renderer.carrier."

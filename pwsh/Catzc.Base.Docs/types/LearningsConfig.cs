@@ -41,6 +41,13 @@ public sealed class LearningsConfig
     // How many lines one file holds before the next file starts.
     public int lines_per_file { get; }
 
+    // The learnings files in a folder, <prefix>*.md directly in it, sorted; the folder must exist.
+    public string[] Files(string folderPath)
+    {
+        if (!System.IO.Directory.Exists(folderPath)) { throw new ArgumentException("the learnings folder does not exist: " + folderPath, "folderPath"); }
+        return new Catzc.Base.Folders.PathSet().AddPattern(folderPath, prefix + "*.md", 1).ToArray();
+    }
+
     public LearningsConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();

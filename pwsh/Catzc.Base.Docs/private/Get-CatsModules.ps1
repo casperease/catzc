@@ -18,20 +18,18 @@ function Get-CatsModules {
         [string] $ModulesRoot = (Get-CatzcModulesRoot)
     )
 
-    $root = [System.IO.Path]::GetFullPath($ModulesRoot).TrimEnd('\', '/')
-
-    $loaded = foreach ($module in (Get-Module)) {
-        if (-not $module.ModuleBase -or $module.Name.StartsWith('.')) {
+    # A cats module is a folder of the modules root that a module of the same name is loaded from; the walker lists the folders.
+    $loaded = foreach ($folder in @(Get-ChildPath -Path $ModulesRoot -Depth 1 -Directory)) {
+        $name = [System.IO.Path]::GetFileName("$folder".TrimEnd('\', '/'))
+        if ($name.StartsWith('.')) {
             continue
         }
-        $base = [System.IO.Path]::GetFullPath($module.ModuleBase).TrimEnd('\', '/')
-        if ([System.IO.Path]::GetDirectoryName($base) -ine $root) {
-            continue
+        foreach ($module in @(Get-Module -Name $name)) {
+            $from = [System.IO.Path]::GetFullPath([System.IO.Path]::GetDirectoryName($module.Path)).TrimEnd('\', '/')
+            if ($from -ieq [System.IO.Path]::GetFullPath("$folder").TrimEnd('\', '/') -and [System.IO.Path]::GetExtension($module.Path) -ne '.ps1') {
+                $module
+            }
         }
-        if ([System.IO.Path]::GetFileName($base) -ne $module.Name -or [System.IO.Path]::GetExtension($module.Path) -eq '.ps1') {
-            continue
-        }
-        $module
     }
 
     $ret = foreach ($module in ($loaded | Sort-Object Name -Unique)) {

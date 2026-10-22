@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     with_body_sha: "8efd6f3c485a"
-// ---
-
 // foundation, flux nonprod subscription (env nsub, customer flux). flux is dev-only -> nonprod only.
 using '../../main.bicep'
 

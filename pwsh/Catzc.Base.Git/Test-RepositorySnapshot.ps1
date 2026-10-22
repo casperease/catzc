@@ -15,5 +15,5 @@ function Test-RepositorySnapshot {
         [string] $Path = (Get-RepositoryRoot)
     )
 
-    [System.IO.File]::Exists((Join-Path $Path '.git/catzc-snapshot.json'))
+    [Catzc.Base.Git.GitWorkTree]::IsSnapshot($Path)
 }

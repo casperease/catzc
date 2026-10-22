@@ -1,5 +1,5 @@
 {
-  "hash": "6846a139",
+  "hash": "91eb666d",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -666,6 +666,11 @@
     },
     {
       "name": "Catzc.Base.Git.GitRefs",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Git.GitWorkTree",
       "aliases": [],
       "display": []
     },
@@ -1606,6 +1611,11 @@
     },
     {
       "name": "Catzc.Base.RootConfig.RootConfigFiles",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Slides.DrawioKit",
       "aliases": [],
       "display": []
     },

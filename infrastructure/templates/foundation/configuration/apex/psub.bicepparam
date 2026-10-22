@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     with_body_sha: f0040b8660cb
-// ---
-
 // foundation, apex prod subscription (env psub, customer apex).
 using '../../main.bicep'
 

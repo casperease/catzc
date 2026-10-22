@@ -48,7 +48,7 @@ function Add-SessionLearning {
     $started = 'Started '
     foreach ($text in $sentences) {
         # A file's start time is its 'Started <time>.' line, not its name or its file time, so the order survives a clone.
-        $dated = @(foreach ($file in [System.IO.Directory]::GetFiles($folder, "$($config.prefix)*.md")) {
+        $dated = @(foreach ($file in $config.Files($folder)) {
                 $line = @([System.IO.File]::ReadAllLines($file) | Where-Object { $_.StartsWith($started, [StringComparison]::Ordinal) } | Select-Object -First 1)
                 Assert-True ($line.Count -eq 1) -ErrorText "Add-SessionLearning: '$file' has no '$started<time>.' line."
                 [pscustomobject]@{ Path = $file; Since = [DateTimeOffset]::Parse($line[0].Substring($started.Length).TrimEnd('.'), [cultureinfo]::InvariantCulture) }

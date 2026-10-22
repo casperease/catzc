@@ -33,7 +33,8 @@ function Build-Diagrams {
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
-    $renderer = Join-Path $root "$Kit/drawio_forward.py"
+    $drawio = [Catzc.Base.Slides.DrawioKit]::new($root, $Kit)
+    $renderer = $drawio.Renderer
     Assert-PathExist $renderer -PathType Leaf -ErrorText "Build-Diagrams: the draw.io kit '$Kit' has no drawio_forward.py; slides.yml drawio_kit names the kit."
     Assert-True (-not ($FromDrawing -and $Stale)) -ErrorText 'Build-Diagrams: -FromDrawing and -Stale are two journeys; pass one.'
     # -Stale rebuilds only the diagrams whose minimaps a tree change left stale: the set Test-Diagrams reports.
@@ -107,10 +108,10 @@ function Build-Diagrams {
     }
     if ($FromDrawing) {
         Assert-True ([bool] $Path) -ErrorText 'Build-Diagrams: -FromDrawing syncs the diagrams it is given; pass -Path.'
-        $declaration = Join-Path $root "$Kit/declaration.py"
+        $declaration = $drawio.Declaration
         foreach ($folderPath in $folders) {
             Assert-True ($declared -ccontains $folderPath) -ErrorText "Build-Diagrams: $folderPath has no declaration to sync (its .drawio.yml, or one ``yml drawio`` block above its image)."
-            $arguments = "run --project `"$(Join-Path $root $Kit)`" python `"$declaration`" sync `"$folderPath`""
+            $arguments = "run --project `"$($drawio.Folder)`" python `"$declaration`" sync `"$folderPath`""
             $run = [pscustomobject]@{ Folder = $folderPath; Articles = $articles[$folderPath]; Stage = 'sync'; ExitCode = $null; Status = 'dry-run' }
             $runs.Add($run)
             if ($DryRun) {
@@ -134,7 +135,7 @@ function Build-Diagrams {
     foreach ($folderPath in @(if ($render) {
                 $folders
             })) {
-        $arguments = "run --project `"$(Join-Path $root $Kit)`" python `"$renderer`" --all `"$(Join-Path $root $folderPath)`" --theme $Theme"
+        $arguments = "run --project `"$($drawio.Folder)`" python `"$renderer`" --all `"$(Join-Path $root $folderPath)`" --theme $Theme"
         $run = [pscustomobject]@{ Folder = $folderPath; Articles = $articles[$folderPath]; Stage = 'render'; ExitCode = $null; Status = 'dry-run' }
         if ($DryRun) {
             Write-Message "Would run: uv $arguments"

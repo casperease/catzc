@@ -103,7 +103,7 @@ function Move-Diagram {
     }
 
     # The kit's drawio.yml keys a diagram's carrier and role by its stem; a repository without one has no article-carried diagram.
-    $kitConfig = Join-Path $root "$Kit/configs/drawio.yml"
+    $kitConfig = [Catzc.Base.Slides.DrawioKit]::new($root, $Kit).Config
     $configText = if ([System.IO.File]::Exists($kitConfig)) {
         [System.IO.File]::ReadAllText($kitConfig)
     }
@@ -207,10 +207,10 @@ function Move-Diagram {
         }
         if ($rekey) {
             # The kit's code is the loaded repository's; the drawio.yml it edits is the target tree's.
-            $kitCode = Join-Path (Get-RepositoryRoot) $Kit
+            $kitCode = [Catzc.Base.Slides.DrawioKit]::new((Get-RepositoryRoot), $Kit)
             $tool = Resolve-ToolExecutable -Tool uv
             Assert-True $tool.Found -ErrorText 'Move-Diagram: uv is not installed (no managed uv found). Run Install-Uv.'
-            Invoke-Executable "`"$($tool.Path)`" run --project `"$kitCode`" python `"$(Join-Path $kitCode 'declaration.py')`" rekey `"$from`" `"$to`" `"$kitConfig`"" -WorkingDirectory $root -Silent | Out-Null
+            Invoke-Executable "`"$($tool.Path)`" run --project `"$($kitCode.Folder)`" python `"$($kitCode.Declaration)`" rekey `"$from`" `"$to`" `"$kitConfig`"" -WorkingDirectory $root -Silent | Out-Null
         }
         # A re-pointed link changes its line's length, so every rewritten page is formatted again, as the repository formats it.
         $pages = @(foreach ($edit in $edits) {

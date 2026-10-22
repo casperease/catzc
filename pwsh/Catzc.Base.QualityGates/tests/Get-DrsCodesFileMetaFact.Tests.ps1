@@ -172,7 +172,7 @@ Describe 'Get-DrsCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
                 param($State, $Kind)
                 Get-DrsCodesFileMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
             }
-            , @($fact['cites']) | Should -Be @('ADR-GADGET-DROP', 'ADR-WIDGET')
+            @($fact['cites']) | Should -Be @('ADR-GADGET-DROP', 'ADR-WIDGET')
         }
     }
 

@@ -24,14 +24,15 @@ function Test-Diagrams {
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
-    $declaration = Join-Path $root "$Kit/declaration.py"
+    $drawio = [Catzc.Base.Slides.DrawioKit]::new($root, $Kit)
+    $declaration = $drawio.Declaration
     Assert-PathExist $declaration -PathType Leaf -ErrorText "Test-Diagrams: the draw.io kit '$Kit' has no declaration.py; slides.yml drawio_kit names the kit."
 
     $candidates = @(Get-GitTrackedPath '.') + @(Get-GitChangedPath 'docs')
     $found = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.(png|yml)$' } | ForEach-Object { $_ -creplace '\.drawio\.(png|yml)$', '' } |
             Select-Object -Unique | Where-Object { Test-Path -LiteralPath (Join-Path $root "$_.drawio.yml") -PathType Leaf })
     # A legend diagram has no yml: the kit's drawio.yml names its stem under roles, and its png is checked against the painted glyph library.
-    $kitConfigPath = Join-Path $root "$Kit/configs/drawio.yml"
+    $kitConfigPath = $drawio.Config
     $kitConfig = if ([System.IO.File]::Exists($kitConfigPath)) {
         ConvertFrom-Yaml -Yaml ([System.IO.File]::ReadAllText($kitConfigPath)) -Ordered
     }
@@ -72,7 +73,7 @@ function Test-Diagrams {
             $null = Write-DiagramMinimapData -Stem $declared -RepositoryRoot $root
         }
         $quoted = ($folders | ForEach-Object { "`"$_`"" }) -join ' '
-        $result = Invoke-Executable "`"$($tool.Path)`" run --project `"$(Join-Path $root $Kit)`" python `"$declaration`" check $quoted" -WorkingDirectory $root -PassThru -NoAssert -Silent
+        $result = Invoke-Executable "`"$($tool.Path)`" run --project `"$($drawio.Folder)`" python `"$declaration`" check $quoted" -WorkingDirectory $root -PassThru -NoAssert -Silent
         Assert-True ($result.ExitCode -eq 0) -ErrorText "Test-Diagrams: the drift check failed (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"
         foreach ($line in @($result.Output -split "`r?`n" | Where-Object { $_.StartsWith('{') })) {
             $row = $line | ConvertFrom-Json

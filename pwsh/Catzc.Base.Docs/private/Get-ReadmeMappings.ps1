@@ -41,12 +41,11 @@ function Get-ReadmeMappings {
             throw "Unsupported README glob '$($pattern.glob)'. Only a trailing '/*' is supported (e.g. '<folder>/*')."
         }
 
+        # A pattern names a folder of the source tree, so a missing one is a config fault, never an empty match.
         $prefixPath = Join-Path $RepositoryRoot $prefix
-        if (-not (Test-Path $prefixPath -PathType Container)) {
-            continue
-        }
+        Assert-PathExist $prefixPath -PathType Container -ErrorText "readme.yml: the pattern '$($pattern.glob)' names '$prefix', which is no folder."
 
-        foreach ($dir in ([System.IO.Directory]::EnumerateDirectories($prefixPath) | Sort-Object)) {
+        foreach ($dir in @(Get-ChildPath -Path $prefixPath -Depth 1 -Directory | Sort-Object)) {
             $leaf = [System.IO.Path]::GetFileName($dir)
             if ($leaf.StartsWith('.')) {
                 continue

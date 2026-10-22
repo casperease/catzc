@@ -1,9 +1,3 @@
-// ---
-// catzc:
-//   immutable:
-//     with_body_sha: "6df4d2df8981"
-// ---
-
 // foundation, nova nonprod subscription (env nsub, customer nova). nova is dev-only -> nonprod only.
 using '../../main.bicep'
 
