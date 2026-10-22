@@ -307,12 +307,12 @@ relation, so a new relation is a new name and a registry entry, and the target o
 `A file names the one companion that costs to find, in the head`
 
 A file has one companion a reader wants one step away that costs to find: the page that holds its moved comments. Its test costs nothing,
-since the convention places it, its stem under `tests/`, so a head that named it would only repeat the convention and churn with it.
-Writing the page as a link in the code would put a pointer in the file and a line to keep in step with the page. The head already holds
-derived facts, so the page is an edge with a fixed name, the only relative edge, and the head stays a map of facts about its own file. The
-registry holds the edge and its path rule, and an edge whose page does not exist is not written, so an entry in the head is always a working
-pointer. The edge is written as a link, which an editor and GitHub follow in one click because its target is the page's path from the
-file's own folder, the way both resolve a link.
+since the convention places it, its stem under `tests/`, so a head that named it would only repeat the convention and churn with it. Writing
+the page as a link in the code would put a pointer in the file and a line to keep in step with the page. The head already holds derived
+facts, so the page is an edge with a fixed name, the only relative edge, and the head stays a map of facts about its own file. The registry
+holds the edge and its path rule, and an edge whose page does not exist is not written, so an entry in the head is always a working pointer.
+The edge is written as a link, which an editor and GitHub follow in one click because its target is the page's path from the file's own
+folder, the way both resolve a link.
 
 ### File kinds
 
