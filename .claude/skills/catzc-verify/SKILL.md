@@ -17,8 +17,9 @@ metadata:
 1. Per file right after its edit, through catzc-check: `Test-Parsing -Path <ps1, psm1, psd1, yml>` (a stray `'` breaks every import), then
    `Invoke-TestFile -Path <its test file>`; re-read a file right before editing it and never overwrite another session's in-flight edit. A
    rename of a folder or command the tooling names lands its import-path readers (`rootconfig.yml` and Build-RootConfig's writers,
-   `Get-LanguageTestFolders`, the `.internal` loaders, the contract readers) in the same pass after a HOLD to every peer ListAgents shows,
-   the orchestrator included, then one fresh full import and a GO to the same peers; on failure restore them from HEAD; multi-file type work
+   `Get-LanguageTestFolders`, the `.internal` loaders, the contract readers) in the same pass inside a burst, never a HOLD or GO message:
+   `pwsh/.internal/assets/Enter-CatzcBurst.ps1` in the background holds the run lock, the checks and one fresh full import run through
+   `Invoke-CatzcCommand.ps1 -InBurst`, and `Exit-CatzcBurst.ps1` ends it; on failure restore them from HEAD; multi-file type work
    is edited on staged copies under `out/<topic>/staged/` and swapped in by one script with a fresh import and a restore on failure, a
    public staged copy proved by that swap, never by dot-sourcing it (the exported command stays);
    `Get-CodeCaller -Name <type or config key>` lists the callers of a changed type or config, never a recursive grep.

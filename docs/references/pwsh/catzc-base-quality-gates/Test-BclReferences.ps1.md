@@ -19,8 +19,8 @@ modules, and finds the ones with a `using` (or `using static`) of System.Managem
 1. a type source that uses System.Management.Automation with no host binding row in bcl.yml;
 2. a bcl.yml row whose type source does not use it, so the row is stale.
 
-The report is written through Write-QualityGateReport under the subject `bcl-references`, with the facts Sources (type sources read),
-HostBound (sources that use the namespace) and Rows (host binding rows).
+The report is written through Write-QualityGateReport under the subject `bcl-references`, with the facts `Sources` (type sources read),
+`HostBound` (sources that use the namespace) and `Rows` (host binding rows).
 
 ### parameter `ModulesRoot`
 
