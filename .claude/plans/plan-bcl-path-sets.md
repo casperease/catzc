@@ -50,15 +50,12 @@ module's step, since the scan guesses it from a file's `Get-Config` calls and al
 
 ## Open steps
 
-- [ ] The rest, one module at a time (`RootConfig` staged in `out/bcl-e3-staged/`, waiting for its burst; catzc-e3: `KeyHandler`, its
-      default path on `KeyHandlerBindingsConfig` through `PathSet` with an edge to `Catzc.Base.Folders`; `Files`, `Writers` and `Node` hold
-      only the stamp engine, `env:` and temporary joins, out of scope; then `Catzc.Base.QualityGates` last, from `out/bcl-qg-prep.md`:
-      catzc-e3 the analyzer, dictionary and root-config groups, catzc-a0 the eight walker scans and `PlansConfig`, `TerminologyConfig` and
-      the manual test plan, all staged for one burst; each staged, then one burst in the order catzc-7d sends; a module the re-imprint holds
-      waits), each module's sets moved to a method on their type built on `Catzc.Base.Folders.PathSet` (landed with the pilot
-      `FileMetaConfig.EngineInputs`: the same 11 files and stamp, 2.23 ms to 1.50 ms per stamp; `Get-FileMetaEngineStamp` deleted) and its
-      forwarding functions deleted with their callers. (check: per module, its test files green, `Test-ScriptAnalyzer` at 0, and the scan's
-      hits for it at 0 by grep)
+- [ ] `Catzc.Base.QualityGates`, catzc-a0's half: the eight walker scans, `PlansConfig.PlanFiles`, `TerminologyConfig.DefiningFiles` and the
+      manual test plan land from `out/bcl-a0-staged/qg/` in one burst (15 files, each diffed against the live copy before its swap). (check:
+      the burst's test files green, `Test-ScriptAnalyzer` at 0 on its files, the scan's `QualityGates` hits at 0 in scope by grep)
+- [ ] The whole-repository tiers of `Test-Spelling.Tests.ps1`, `Test-Markdownlint.Tests.ps1`, `Test-ScriptAnalyzer.Tests.ps1` and
+      `Get-ScriptAnalyzerDiagnostics.Tests.ps1` are green, one per call (catzc-e3, 2026-10-22: the other sessions' spelling and lint findings
+      that held them are fixed). (check: the four test files green, one per call)
 - [ ] `Catzc.Base.Overlay` and `Catzc.Base.TypesSystem` landed (catzc-a0, 2026-10-22: their other test files green, `Test-ScriptAnalyzer` at
       0 on the five files); left: `Import-CSharpTypes.Tests.ps1` (waits on the commit of `pwsh/.compiled`) and `Build-AgentHook.Tests.ps1`
       (its published-hook setups, see plan-debt-full-run-failures) green. (check: those two test files green)

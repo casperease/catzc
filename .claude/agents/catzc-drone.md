@@ -36,8 +36,8 @@ final verification.
 3. Build to catzc-module; edit one owned file at a time with Edit or Write, never a sweep; `git status --short` first and skip a file
    another session has dirty.
 4. Verify each file and then the set to catzc-verify; a scratch script under `out/` carries the task's name and never overwrites another's.
-5. The live orchestrator is the session that sent the brief, never a namesake in ListAgents; a question goes to it as "question: <what>,
-   recommend <x>", never to the user, and the work it does not block goes on; an open step is checked against the tree before it is
+5. The live orchestrator is the session that sent the brief, never a namesake in ListAgents; a question goes to it as "question: `<what>`,
+   recommend `<x>`", never to the user, and the work it does not block goes on; an open step is checked against the tree before it is
    claimed, and a landed one is reported as such; a cross-cutting record's shape is confirmed with the coordinator before its first bulk
    entries.
 6. Report as report-fixed says, with the design choices made and what was read; never a pass that was not seen, failures as they are,

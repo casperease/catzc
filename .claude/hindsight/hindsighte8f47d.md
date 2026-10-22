@@ -127,8 +127,8 @@ Started 2026-10-22T04:59:45.8045278+02:00.
   docs/references/pwsh/catzc-base-quality-gates/private/Get-ImprintStepFile.ps1.md:10 lists the files one imprint step may write in its own
   scope, apart from -Path, but no line says the formatter pass covers only -Path, so a step writing beyond it learns to format its own files
   by failing.
-- 2026-10-22 Jack: If only the two ADRs had met: docs/drs/automation/pwsh/pester-testing.md:331 prescribes @(Get-X)[0] for a one-item
-  result, while docs/drs/automation/pwsh/error-handling.md:42 forbids @(result)[0] and :213 has Measure-NoUnsafeFirstIndex flag it, so a
+- 2026-10-22 Jack: If only the two ADRs had met: docs/drs/automation/pwsh/pester-testing.md:331 prescribes `@(Get-X)[0]` for a one-item
+  result, while docs/drs/automation/pwsh/error-handling.md:42 forbids `@(result)[0]` and :213 has Measure-NoUnsafeFirstIndex flag it, so a
   test author learns the right index from one rule and its ban from the other.
 - 2026-10-22 Jack: If only the session had read its own CLAUDE.md: .claude/CLAUDE.md:132-133 already puts a background call behind one
   timeout prefix around one command, no cd, pipes or semicolons, and .claude/hooks/Assert-BashTimeout/ denies the rest, so cleanup ahead of

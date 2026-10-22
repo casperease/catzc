@@ -47,14 +47,19 @@ ten "may I" questions on edits the rules already require, three to five tool cal
 
 - The orchestrator's finalize (2026-10-22), proposals to shrink what the next session reads, none applied: (1) one merged line in
   `.claude/skills/plans-orchestrate/SKILL.md`: at most two heavy drones at a time on this devbox, bursts chained drone to drone, one unit
-  per `Invoke-CatzcCommand` call (today only in the orchestrator's memory); (2) once the parent check lands, drop the "never stop a queued
-  burst by TaskStop" caution from anyone's notes, since the waiter then stops itself; (3) `docs/drs/repository/file-meta.md` FILEISNODE
-  gains the folding sentence (a cited bare record code stands for its rules; `drs_total` counts before folding), so no reader re-derives it.
-  Take or leave each.
+  per `Invoke-CatzcCommand` call (today only in the orchestrator's memory); (2) the parent check landed (2026-10-22), so drop the "never
+  stop a queued burst by TaskStop" caution from anyone's notes, since the waiter now stops itself; (3) `docs/drs/repository/file-meta.md`
+  FILEISNODE gains the folding sentence (a cited bare record code stands for its rules; `drs_total` counts before folding), so no reader
+  re-derives it. Take or leave each.
 
 - catzc-54's finalize (2026-10-22), a proposal, not applied: one line in `.claude/skills/catzc-verify/SKILL.md`, "a body diff after
   `Format-Code` may be a long comment moved verbatim to its comment page; check the page before reporting a word change", so a drone does
   not raise a re-imprint's comment move as a body change. Take it or leave it.
+
+- The orchestrator's second finalize (2026-10-22), proposals, none applied: (1) one line in `.claude/skills/catzc-verify/SKILL.md`, "a test
+  file red on HEAD is fixed inside the burst that touches its subject, never left out", since a left-out test cannot judge the change; (2) a
+  burst leaves out only test files red for commit state or a named race, each listed in its plan step with what clears it. Take or leave
+  each.
 
 - The user's (from plan-debt-hindsight-gaps, deleted 2026-10-22 when its steps landed): a capability line saying a line that pre-approves
   agent behaviour, or a `sed -i` delete, is denied by the permission system and goes to the user. Take it or leave it.

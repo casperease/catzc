@@ -74,3 +74,9 @@ It cuts a cost paid by every session and every spawn that loads the project inst
   takes diagram paths, never a folder; (c) `catzc-run` says a script reading `git show` sets `[Console]::OutputEncoding` to UTF-8, and a
   `pwsh -File` list argument arrives as one comma string; (d) `catzc-run` says an `out/` script a session writes carries the session's name,
   since peers' scripts share the folder (one was overwritten unseen). Recommendation: all four, each merged into an existing line.
+- From catzc-e3's third finalize (2026-10-22), three lines, none applied: (a) `catzc-verify` names `out/e3-stage-burst.ps1`'s shape as the
+  way to land staged C# (back up, swap, test under one fresh import, restore on failure, never killed mid-swap) in place of hand bursts; (b)
+  `catzc-module` says a new member goes after an existing member, never between a comment and its line, since the comments step moves the
+  joined run onto the page; (c) `catzc-module` says a test reads a property over a maybe-empty result with `ForEach-Object <Property>`,
+  since `@(…).Property` throws under strict mode. Recommendation: (b) and (c) merged into existing lines; (a) as a command (an
+  `Invoke-StagedBurst` beside `Enter-CatzcBurst`) rather than a capability line, so it is one mechanism.
