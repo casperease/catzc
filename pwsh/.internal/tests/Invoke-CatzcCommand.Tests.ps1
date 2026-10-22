@@ -13,7 +13,7 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
         $script:importer = Join-Path $TestDrive 'importer.ps1'
-        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Test-Gadget { param([string] `$Result) [pscustomobject]@{ Result = `$Result } }`n")
+        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Test-Gadget { param([string] `$Result) [pscustomobject]@{ Result = `$Result } }`nfunction Invoke-TestFile { param([string] `$Path, [switch] `$PassThru) if (`$PassThru) { [pscustomobject]@{ Result = 'Failed' } } }`n")
         # An importer that throws, so a run that must not import shows it did not.
         $script:throwingImporter = Join-Path $TestDrive 'throwing-importer.ps1'
         [System.IO.File]::WriteAllText($script:throwingImporter, "throw 'imported'`n")
@@ -59,6 +59,15 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
         $LASTEXITCODE | Should -Be 1
         $lines[0] | Should -BeExactly '[Invoke-CatzcCommand] failed: Test-Gadget -Result Failed — it reported Failed'
         $lines[1] | Should -BeExactly '[Invoke-CatzcCommand] passed: Test-Gadget -Result Passed'
+    }
+
+    It 'counts a red test file as failed when the line names no -PassThru' {
+        $lines = @(& $script:entry 'Invoke-TestFile widget.Tests.ps1' -Importer $script:importer -LockName $script:lockName)
+        $LASTEXITCODE | Should -Be 1
+        $lines | Should -Be @(
+            '[Invoke-CatzcCommand] failed: Invoke-TestFile widget.Tests.ps1 — it reported Failed'
+            '[Invoke-CatzcCommand] 0 of 1 passed'
+        )
     }
 
     It 'exits 0 when every command passes' {

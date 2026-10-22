@@ -19,7 +19,8 @@ catzc:
     It dot-sources the importer once, then runs every command line it is given in order, from the repository root (the importer's folder),
     and gives the caller its location back at the end. A command that throws, or writes an error, is a
     failure: its verdict line names it with the message, and the next command still runs. So is a command whose result object reports
-    Result Failed, which is why a test file runs as `Invoke-TestFile <file> -PassThru`. The exit code is 1 when any command failed.
+    Result Failed; every Invoke-TestFile of the run returns that object, -PassThru named or not, so a red test file is a failure. The exit
+    code is 1 when any command failed.
 
     The import and the commands run under the machine's run lock, a named mutex, so heavy runs on one machine go one at a time. The lock
     is taken before the import, so a waiting run holds no import. A run that finds the lock held says so in one line and waits up to
@@ -108,6 +109,8 @@ try {
 
     # Every command runs from the repository root, where the importer sits, so a relative path never resolves against the caller's folder.
     Push-Location -LiteralPath (Split-Path -Parent ([System.IO.Path]::GetFullPath($Importer)))
+    # A test file reports a red run in its result object alone, so every Invoke-TestFile of the run returns one, -PassThru named or not.
+    $PSDefaultParameterValues['Invoke-TestFile:PassThru'] = $true
     try {
         foreach ($line in $Command) {
             try {

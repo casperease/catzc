@@ -41,10 +41,6 @@ ten "may I" questions on edits the rules already require, three to five tool cal
 - [ ] `pwsh/.internal/assets/Invoke-CatzcCommand.ps1` (catzc-e3's finding, 2026-10-22): a command whose result reports a failure (an
       `Invoke-TestFile` result of Failed) counts as failed, so the run prints "0 of 1 passed" and exits 1, never "1 of 1 passed" for a red
       test. Check: the entry script's test with a red-result case, and one live red run exiting 1.
-- [ ] `Catzc.Tooling.Claude` (`Start-ClaudeWorker`, starts workers as `claude --agent catzc-worker` on the agent file's model; built
-      2026-10-22, its tests, analyzer, links and a live `-DryRun` green): the remaining checks, `Format-Types -DryRun`, `Test-Contracts`,
-      `Test-ParameterConsistency`, `Test-Spelling` on its files, then `Build-Readme` for its README. Check: each reports 0 issues and
-      `Test-GeneratedFiles` passes.
 - [ ] The `Record-SessionMessage` hook is built and tested (catzc-a0, 2026-10-22); left: the user registers it in `.claude/settings.json`
       (task-user-runs-and-commits). Check: one message sent between sessions appears in `out/orchestrator-<date>.log`.
 - [ ] `.claude/skills/plans-orchestrate/SKILL.md` line 4: the log line is written by the hook when the hook covers it (after the step

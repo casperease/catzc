@@ -26,17 +26,19 @@ on 2026-10-22 with five sessions running tests). A red file has its cause report
        (Maps, Contracts, Slides, Azure.Templates, QualityGates, Docs, TypesSystem, CodeMeta, Flow, Languages, ModuleSystem, Objects, then
        Tooling.Listen), `Test-Formatting -Path` on the module after each. An inline help block left in a `.ps1` is removed once its page
        holds the help (ADR-REPO-HELP-HELPONCOMMENTPAGE), and `Get-HelpPageFinding`'s legacy-help check also matches indented help, with a
-       test case (catzc-e3's finding: an indented block slipped past it). All seven files and every module are done, each module green
-       under `Test-Formatting -Path` (2026-10-22); left: the whole test file. Check: `Invoke-TestFile` on `Test-Formatting.Tests.ps1` alone.
-2. [ ] `Get-DynamicManifestContent.Tests.ps1`, still red on 2026-10-22 (`Facts['Modules']` is 0, `out/test-file/20261022-031430-d26183`):
-       a count of 0 means `Build-Modules` threw or built nothing, and the test asserts the count before it shows the build issues; next is
+       test case (catzc-e3's finding: an indented block slipped past it). All seven files and every module are done, each module green under
+       `Test-Formatting -Path` (2026-10-22); left: the whole test file. Check: `Invoke-TestFile` on `Test-Formatting.Tests.ps1` alone.
+2. [ ] `Get-DynamicManifestContent.Tests.ps1`, still red on 2026-10-22 (`Facts['Modules']` is 0, `out/test-file/20261022-031430-d26183`): a
+       count of 0 means `Build-Modules` threw or built nothing, and the test asserts the count before it shows the build issues; next is
        `Test-BuildArtifact -Facet Manifest -PassThru` alone to read them. Check: `Invoke-TestFile` on it alone.
 3. [ ] `Test-FileKindReachability.Tests.ps1`, red on 2026-10-22: `drawio-kit` is shadowed by `slides-kit` (12 of 35) and `test` (9 of 35),
-       so `file-kinds.yml` lists both pairs in `overlaps` (decided by the orchestrator); the kind `asset-description` matches no tracked
-       file (see the open question). Details `out/catzc-e3-full-run-3.md`. Check: `Invoke-TestFile` on it alone.
+       so `file-kinds.yml` lists both pairs in `overlaps` (landed; the shadow finding is gone); left red only on the kind
+       `asset-description`, which matches no tracked file (see the open question; `out/test-file/20261022-031859-d4dd28`). Check:
+       `Invoke-TestFile` on it alone.
 4. [ ] `ManualTestPlan-Coverage.Tests.ps1`, red on 2026-10-22 on one new integrity block with no manual-test-plan row
-       (`ValidatePathGivenAttribute.Tests.ps1` :: "ValidatePathGiven on the whole-tree commands"); catzc-e3 proposes it as row 36 in
-       `repository-conventions.md` (details `out/catzc-e3-full-run-4.md`). Check: `Invoke-TestFile` on it alone.
+       (`ValidatePathGivenAttribute.Tests.ps1`), now row 36 in `repository-conventions.md` (landed); left: `Build-DrsIndex.Tests.ps1`'s block
+       "generated ADR index" still has its row under "generated DRS index" (`adr-registry.md` line 11), so that cell is renamed to match
+       (details `out/catzc-e3-full-run-4.md`). Check: `Invoke-TestFile` on it alone.
 5. [ ] `Test-Glossary.Tests.ps1` (4 findings that day; `Test-Glossary` reports 0 today). Check: `Invoke-TestFile` on it alone.
 
 ## Open questions
