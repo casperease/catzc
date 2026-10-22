@@ -37,6 +37,13 @@ ten "may I" questions on edits the rules already require, three to five tool cal
       (task-user-runs-and-commits). Check: one message sent between sessions appears in `out/orchestrator-<date>.log`.
 - [ ] `.claude/skills/plans-orchestrate/SKILL.md` line 4: the log line is written by the hook when the hook covers it (after the step
       above). Check: `Test-AgentDefinitions`.
+- [ ] The run lock knows its holder (catzc-54's finding, 2026-10-22; decided as delegated): the holder writes a record beside the queue
+      (pid, process start, its commands, a deadline from their TimeLimit in `timeouts.yml`); a waiter waits while that holder lives and is
+      inside its deadline, then up to the `run_lock` wait default, and stops at once with "holder <pid> busy until <time>" when the
+      holder's deadline is past its own `-BudgetSeconds`; the wait default (120 s) and the stale-ticket age (720 s) move from literals in
+      `Invoke-CatzcCommand.ps1`, `Enter-CatzcBurst.ps1` and `Wait-CatzcRunLock.ps1` into `timeouts.yml` (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER,
+      ADR-AUTO-FAILFAST-BOUNDEVERYWAIT). One burst (catzc-54). Check: `Wait-CatzcRunLock.Tests.ps1` green with a long non-burst holder
+      case and an over-budget case, and one run queued behind a 200 s plain run runs after it.
 
 ## Open questions
 

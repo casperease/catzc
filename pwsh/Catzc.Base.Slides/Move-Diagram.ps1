@@ -209,8 +209,9 @@ function Move-Diagram {
         if ($rekey) {
             # The kit's code is the loaded repository's; the drawio.yml it edits is the target tree's.
             $kitCode = Join-Path (Get-RepositoryRoot) $Kit
-            $uv = Resolve-ToolExecutable -Tool uv
-            Invoke-Executable "`"$uv`" run --project `"$kitCode`" python `"$(Join-Path $kitCode 'declaration.py')`" rekey `"$from`" `"$to`" `"$kitConfig`"" -WorkingDirectory $root -Silent | Out-Null
+            $tool = Resolve-ToolExecutable -Tool uv
+            Assert-True $tool.Found -ErrorText 'Move-Diagram: uv is not installed (no managed uv found). Run Install-Uv.'
+            Invoke-Executable "`"$($tool.Path)`" run --project `"$kitCode`" python `"$(Join-Path $kitCode 'declaration.py')`" rekey `"$from`" `"$to`" `"$kitConfig`"" -WorkingDirectory $root -Silent | Out-Null
         }
         # A re-pointed link changes its line's length, so every rewritten page is formatted again, as the repository formats it.
         $pages = @(foreach ($edit in $edits) {
