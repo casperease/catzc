@@ -41,7 +41,7 @@ stale or superseded item is recorded as such, with the reason.
 | medium | plan-bcl-language      | the BCL reference-set rule in ADR-AUTO-TYPES, the narrowed ADR-PWSH-TYPES rules, the bcl domain | Test-Links on the moved pages, Pester for the host-binding gate and config, Test-DrsRegistry          | one step left, the user's CLAUDE.md line         |
 | high   | plan-drs-system        | the DRS rule in ADR-REPO-DRSCODE, glossary entries for DRS, decision record and record kind     | Catzc.Base.Docs Pester, Update-DrsCitation dry run, Test-DrsRegistry, Test-Links, Test-GeneratedFiles | one step left, the user's CLAUDE.md edit         |
 | medium | plan-debt-root-assets  | none (one catzc-run clause)                                                                     | Test-AgentDefinitions                                                                                 | one step                                         |
-| medium | plan-dense-yaml-flow |  |  | new |
+| medium | plan-dense-yaml-flow | ADR-REPO-SLIDES-DECLARATION gains the print form | pytest test_declaration.py, Test-Formatting on the pilot, its render unchanged | six steps; two open questions |
 
 ## Pending deletion
 

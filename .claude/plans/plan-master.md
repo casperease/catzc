@@ -57,7 +57,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
 - debt-root-assets -> plan-debt-root-assets.md: a root asset edit lands under a burst, since every import's Build-RootConfig janitor
   materialises it; one step
-- dense-yaml-flow -> plan-dense-yaml-flow.md: A diagram declaration prints a node whose children are all scalars as one flow line when that line fits the markdown max_line_length, so a dense declaration reads in a fraction of the lines.
+- dense-yaml-flow -> plan-dense-yaml-flow.md: six steps; a diagram declaration prints each leaf node as one flow line when it fits the
+  markdown max_line_length; the pilot is azure-name-assembly.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.
