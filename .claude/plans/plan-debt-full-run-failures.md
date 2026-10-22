@@ -32,7 +32,9 @@ on 2026-10-22 with five sessions running tests). A red file has its cause report
        documenting `[string]` (fixed to `[string[]]` by the orchestrator). `Invoke-CatzcCommand.ps1` is formatted (catzc-e9, "0 of 1 file(s)
        changed"); the rerun is red on 27 committed files with stale heads from the commits since 03:00 without a re-imprint (the plan-counts
        imprint step, `out/test-file/20261022-033238-28ca2c`), re-imprinted by `Format-Code -Path` on those files in one burst (catzc-e9; the
-       re-imprint is rule-required, decided by the orchestrator as delegated). Check: `Invoke-TestFile` on `Test-Formatting.Tests.ps1`
+       re-imprint is rule-required, decided by the orchestrator as delegated). Rerun at 03:41 (`out/test-file/20261022-034119-6dd7fc`): 0
+       stale files left, 4 live edits of working sessions only; the rerun that closes the step runs in a quiet window, after the plan-counts
+       imprint fix (plan-debt-agent-traffic), since that step leaves the master and the value file unformatted after any plan edit. Check: `Invoke-TestFile` on `Test-Formatting.Tests.ps1`
        alone.
 2. [ ] `Get-DynamicManifestContent.Tests.ps1`, still red on 2026-10-22 (`Facts['Modules']` is 0, `out/test-file/20261022-031430-d26183`):
        the cause (catzc-54, `out/catzc-54-full-run-2-5.md`) is a case-only rename git does not track, `pwsh/Catzc.Base.VSCode/*-VsCode*.ps1`

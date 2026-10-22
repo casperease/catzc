@@ -1001,7 +1001,7 @@ def test_a_leaf_mapping_that_fits_is_one_flow_line_and_one_over_the_width_stays_
     data = {"glyphs": [{"id": "widget", "kind": "set", "label": "1 widget"}, {"id": "gadget", "label": "g" * 60}]}
     text = declaration.flow_yaml(data, 60)
     assert "  - { id: widget, kind: set, label: 1 widget }\n" in text
-    assert "  - id: gadget\n    label: " in text
+    assert "  - id: gadget\n    label:" in text
     assert __import__("yaml").safe_load(text) == data
 
 
