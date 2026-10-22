@@ -30,20 +30,21 @@ on 2026-10-22 with five sessions running tests). A red file has its cause report
        `Test-Formatting -Path` (2026-10-22). The whole file was left red on 2 findings (catzc-a0): `Invoke-CatzcCommand.ps1` not formatted
        after the run-lock change (`Format-Code -Path` on it, when catzc-e9 has finished with it), and the `Start-ClaudeWorker` page
        documenting `[string]` (fixed to `[string[]]` by the orchestrator). Check: `Invoke-TestFile` on `Test-Formatting.Tests.ps1` alone.
-2. [ ] `Get-DynamicManifestContent.Tests.ps1`, still red on 2026-10-22 (`Facts['Modules']` is 0, `out/test-file/20261022-031430-d26183`): the
-       cause (catzc-54, `out/catzc-54-full-run-2-5.md`) is a case-only rename git does not track, `pwsh/Catzc.Base.VSCode/*-VsCode*.ps1` on
-       disk against `*-VSCode*.ps1` in the index, so the builder's case-sensitive index check drops every file and builds nothing. The fix
-       is the user's (task-user-runs-and-commits). Check: `Invoke-TestFile` on it alone, after the rename is staged.
+2. [ ] `Get-DynamicManifestContent.Tests.ps1`, still red on 2026-10-22 (`Facts['Modules']` is 0, `out/test-file/20261022-031430-d26183`):
+       the cause (catzc-54, `out/catzc-54-full-run-2-5.md`) is a case-only rename git does not track, `pwsh/Catzc.Base.VSCode/*-VsCode*.ps1`
+       on disk against `*-VSCode*.ps1` in the index, so the builder's case-sensitive index check drops every file and builds nothing. The
+       fix is the user's (task-user-runs-and-commits). Check: `Invoke-TestFile` on it alone, after the rename is staged.
 3. [ ] `Test-FileKindReachability.Tests.ps1`, red on 2026-10-22: `drawio-kit` is shadowed by `slides-kit` (12 of 35) and `test` (9 of 35),
        so `file-kinds.yml` lists both pairs in `overlaps` (landed; the shadow finding is gone); left red only on the kind
        `asset-description`, which matches no tracked file (see the open question; `out/test-file/20261022-031859-d4dd28`). Check:
        `Invoke-TestFile` on it alone.
 4. [ ] `ManualTestPlan-Coverage.Tests.ps1`, red on 2026-10-22 on one new integrity block with no manual-test-plan row
-       (`ValidatePathGivenAttribute.Tests.ps1`), now row 36 in `repository-conventions.md` (landed); left: `Build-DrsIndex.Tests.ps1`'s block
-       "generated ADR index" still has its row under "generated DRS index" (`adr-registry.md` line 11), so that cell is renamed to match
-       (details `out/catzc-e3-full-run-4.md`). Check: `Invoke-TestFile` on it alone.
-5. [ ] `Test-Glossary.Tests.ps1`, red on 2026-10-22 on one G6 hit: `docs/references/pwsh/catzc-base-quality-gates/Test-BclReferences.ps1.md:22`
-       says "facts Sources"; the fact names are written as code (`Sources`, `HostBound`, `Rows`). Check: `Invoke-TestFile` on it alone.
+       (`ValidatePathGivenAttribute.Tests.ps1`), now row 36 in `repository-conventions.md` (landed); left: `Build-DrsIndex.Tests.ps1`'s
+       block "generated ADR index" still has its row under "generated DRS index" (`adr-registry.md` line 11), so that cell is renamed to
+       match (details `out/catzc-e3-full-run-4.md`). Check: `Invoke-TestFile` on it alone.
+5. [ ] `Test-Glossary.Tests.ps1`, red on 2026-10-22 on one G6 hit:
+       `docs/references/pwsh/catzc-base-quality-gates/Test-BclReferences.ps1.md:22` says "facts Sources"; the fact names are written as code
+       (`Sources`, `HostBound`, `Rows`). Check: `Invoke-TestFile` on it alone.
 
 ## Open questions
 

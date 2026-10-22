@@ -55,9 +55,11 @@ It cuts a cost paid by every session and every spawn that loads the project inst
   `Invoke-PythonTest <Pascal.Dotted>` as the one Python test call, the module's own `tests/` found first; (c) `catzc-verify` says a G6
   family-form hit on a new page is fixed with a declared form, never a new one. Recommendation: all three, each merged into an existing
   line.
-- From the orchestrator's finalize (2026-10-22): with five sessions running tests at once, memory fell to 3.7 GB free and three runs were
-  killed by the host. Should `plans-orchestrate` say that heavy runs (a test file, a pytest folder, a burst's import) go one at a time
-  through the orchestrator's queue, a session asking for a turn and reporting "run done"? Recommendation: yes, merged into its line 3.
+- From the orchestrator's finalize (2026-10-22): a contract `output: pscustomobject` broke every session's import (the janitor's
+  `New-CatsCommandLookup` refuses it), and a new `.claude/hooks` folder is built by every import. Should `catzc-module` say in its contract
+  line that an output is `void`, a contract type or `<type>[]`, and `catzc-verify` name a new hook folder among the import-path files?
+  Recommendation: yes to both, each merged into an existing line. (The memory queue it replaces is retired: `Invoke-CatzcCommand` takes the
+  run lock before the import.)
 - From catzc-54's review (2026-10-22): `Test-Slides` now checks each deck's slide order as a whole, while ADR-REPO-SLIDES-CHECKABLECLAIMS
   says a claim is checked one file at a time. Should the rule say a deck-level fact (order gaps and duplicates) is checked per deck?
   Recommendation: yes, one clause, since a rule is the user's to write.

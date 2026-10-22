@@ -31,3 +31,18 @@ Started 2026-10-22T02:17:29.6324179+02:00.
   Invoke-CatzcCommand lines instead of a tail.
 - 2026-10-22 Cats: Token tip: Next time, save tokens by: editing a plan with the Edit tool, never a pwsh one-liner, which strips backticks
   and apostrophes and costs a rewrite.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Invoke-CatzcCommand.ps1 takes the machine lock Local\catzc-run before the import
+  (-LockSeconds 120), so a waiting run costs a bare pwsh; a lock taken after the import let every waiter hold a full import and run the
+  machine out of memory.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: a command contract output must be void, a contract type or a type followed by [],
+  and an invalid one breaks every session import, since the import janitor reads every contract through New-CatsCommandLookup.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: every import builds each .claude/hooks folder that holds a csproj
+  (Invoke-AgentHookJanitor), so a new hook folder is an import-path change.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: ADR-PWSH-DRYRUN-DRYRUNSWITCH forbids SupportsShouldProcess and -WhatIf; a command
+  previews with -DryRun.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: a case-only rename git does not track (VsCode on disk, VSCode in the index) makes
+  Build-Modules drop every file of the module, since its index check is case-sensitive.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Invoke-CatzcCommand prints 1 of 1 passed and exits 0 when Invoke-TestFile reports a
+  red test, until its exit-code step lands; read the Invoke-TestFile line, not the total.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: briefing a worker as \<plan> step; owns \<files>; check \<check>, never the plan
+  text again.

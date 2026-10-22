@@ -29,18 +29,13 @@ ten "may I" questions on edits the rules already require, three to five tool cal
 
 ## Open steps
 
-- [ ] The burst side of the run lock (the run-side lock `Local\catzc-run` landed 2026-10-22 in `Invoke-CatzcCommand.ps1`, 120 s,
-      `tests.run_lock_seconds`; adding that key to `timeouts.yml` before the fresh import made the Bash hook deny every call for a minute,
-      so a new key lands in `TimeoutsConfig.cs`, then an import, then the yml, as the edit reminder says): one command that holds
-      `Local\catzc-run` for a session's import-path burst, released at its end or after a declared limit, so a burst needs no HOLD and GO
-      messages. Check: its test, and a run started during the hold reporting that it waited.
+- [ ] `.claude/skills/catzc-verify/SKILL.md` step 1: an import-path burst runs `pwsh/.internal/assets/Enter-CatzcBurst.ps1` in the
+      background, its owner's checks run with `Invoke-CatzcCommand.ps1 -InBurst`, and `Exit-CatzcBurst.ps1` ends it, in place of the HOLD
+      and GO messages (the lock pair landed 2026-10-22, catzc-e9). Merged, the file kept at 10 lines. Check: `Test-AgentDefinitions`.
 - [ ] The user's (a worker's permission mode refused it as an agent definition widening its own approvals, 2026-10-22):
       `.claude/agents/catzc-worker.md`: one line, an edit the domain rules require on a file the brief owns or touches (a re-imprinted head,
       inline help moved to its page, a family form the glossary flags) is pre-approved and is reported, not asked. The body kept at 20
       lines. Check: `Test-AgentDefinitions`.
-- [ ] `pwsh/.internal/assets/Invoke-CatzcCommand.ps1` (catzc-e3's finding, 2026-10-22): a command whose result reports a failure (an
-      `Invoke-TestFile` result of Failed) counts as failed, so the run prints "0 of 1 passed" and exits 1, never "1 of 1 passed" for a red
-      test. Check: the entry script's test with a red-result case, and one live red run exiting 1.
 - [ ] The `Record-SessionMessage` hook is built and tested (catzc-a0, 2026-10-22); left: the user registers it in `.claude/settings.json`
       (task-user-runs-and-commits). Check: one message sent between sessions appears in `out/orchestrator-<date>.log`.
 - [ ] `.claude/skills/plans-orchestrate/SKILL.md` line 4: the log line is written by the hook when the hook covers it (after the step
