@@ -111,7 +111,8 @@ try {
     . $Importer
 
     # Imported, the run knows its commands' time limits, so the holder record's deadline moves from the budget to their sum.
-    if ($lock -and (Get-Command Get-TimeoutSeconds -ErrorAction Ignore)) {
+    # Get-Module loads nothing, so an importer without the timeouts module leaves the deadline at the budget and autoloads no module.
+    if ($lock -and (Get-Module Catzc.Base.Timeouts)) {
         $limit = 0
         foreach ($line in $Command) {
             $name = ($line.Trim() -split '\s+', 2)[0]
