@@ -62,6 +62,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue; two steps
 - frontmatter-less-is-more -> plan-frontmatter-less-is-more.md: Every file on disk is format-managed and its Format command decides its
   head: generated files a warning (and body sha when tracked), authored files only a docs link and DRS codes, else none.
+- diagram-article-carrier -> plan-diagram-article-carrier.md: Every diagram declaration moves into its article as a yml drawio block above
+  its image; the kit default carrier becomes article, seven random diagrams stay file-carried so the file carrier stays live.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.
