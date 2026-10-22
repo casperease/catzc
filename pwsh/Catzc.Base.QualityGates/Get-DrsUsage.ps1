@@ -36,7 +36,7 @@ function Get-DrsUsage {
     $pages = Get-Config -Config comment-pages
     $rows = foreach ($entry in Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $config) {
         $carrier = $entry.Carrier.carrier
-        if ($carrier -eq [Catzc.Base.Languages.CarrierKind]::Property -or $carrier -eq [Catzc.Base.Languages.CarrierKind]::Sidecar) {
+        if ($carrier -eq [Catzc.Base.Languages.CarrierKind]::Property) {
             continue
         }
         $file = Join-Path $RepositoryRoot $entry.Path

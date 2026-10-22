@@ -46,8 +46,6 @@ public sealed class FileCarrier
     // The ignored top-level key that holds a property carrier's block (e.g. //). Null for any other carrier.
     public string property { get; }
 
-    public string sidecar { get; }
-
     // Why a file class carries no meta block. Null unless the carrier is None, which needs one.
     public string reason { get; }
 
@@ -58,7 +56,7 @@ public sealed class FileCarrier
     public IReadOnlyList<string> strip { get; }
 
     public FileCarrier(string id, string[] files, CarrierKind carrier, string line, string[] block, Catzc.Base.CodeMeta.HeadAnchor anchor,
-        int preambleLines, string property, string sidecar, string reason, IDictionary<string, string> exclude, string[] strip = null, string key = null)
+        int preambleLines, string property, string reason, IDictionary<string, string> exclude, string[] strip = null, string key = null)
     {
         this.key = key;
         this.strip = strip == null ? Array.Empty<string>() : (string[])strip.Clone();
@@ -71,7 +69,6 @@ public sealed class FileCarrier
         this.anchor = anchor;
         preamble_lines = preambleLines;
         this.property = property;
-        this.sidecar = sidecar;
         this.reason = reason;
     }
 

@@ -14,8 +14,8 @@ Lists every ADR citation and ADR link the tracked files make.
 Derives each file's citations and links from its text and its comment page with the processors the imprint uses, never from a head
 ([ADR-REPO-FILEMETA-NOREADBACK](../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)), so a file with no head or a stale
 one lists the same rows. One row per citation, in the order git lists the files. A code or rule the ADR index does not register, such as a
-placeholder named in a comment, gives no row. A bare code is the whole ADR (Rule is null). A file whose carrier is a JSON property or a
-sidecar is not listed, and neither is a file the index still lists but the working tree has deleted.
+placeholder named in a comment, gives no row. A bare code is the whole ADR (Rule is null). A file whose carrier is a JSON property is not
+listed, and neither is a file the index still lists but the working tree has deleted.
 
 GroupBy Rule answers "who cites this rule": one row per code and rule, with the documents that cite it. GroupBy Document answers "what does
 this file cite": one row per citing file, with its citations.

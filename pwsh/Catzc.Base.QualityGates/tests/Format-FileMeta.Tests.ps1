@@ -167,7 +167,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
     It 'flags a key no kind owns and says where it belongs' {
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/widget.md'), "---`ncatzc:`n  other: 1`n---`n# docs/widget.md`n")
         { Test-FileMeta -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase } |
-            Should -Throw "*docs/widget.md:0 ``[Unowned``] expected 'immutable, edges or config', found 'catzc.other' — move it under config, or remove it*"
+            Should -Throw "*docs/widget.md:0 ``[Unowned``] expected 'warning, immutable, edges or config', found 'catzc.other' — move it under config, or remove it*"
     }
 
     It 'returns the result with the file count under -PassThru' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {

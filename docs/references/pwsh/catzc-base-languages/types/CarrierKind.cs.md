@@ -8,6 +8,6 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `namespace Catzc.Base.Languages;`, written with `//`.
 
 ```text
-Where a file keeps its meta block: in its own text (front matter, comment head, ignored property), beside it (sidecar), or nowhere.
+Where a file keeps its meta block: in its own text (front matter, comment head, ignored property), or nowhere.
 [ADR-REPO-FILEMETA-HEADPOLICY](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)
 ```

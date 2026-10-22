@@ -29,28 +29,9 @@ function Get-FileMetaScope {
     $languages = Get-Config -Config languages
     $fileKinds = Get-Config -Config file-kinds
 
-    # A file named in -Path is taken as given, tracked or new, unless git ignores it; a folder lists its tracked files.
-    $given = @($lookup | Where-Object { $_ -ne '.' -and [System.IO.File]::Exists((Join-Path $root $_)) })
-    $folders = @($lookup | Where-Object { $_ -notin $given })
-    if ($given.Count -gt 0) {
-        $ignored = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-        # Batches keep each command line short: one call with hundreds of paths overflows the OS command-line limit.
-        $batchSize = 50
-        for ($start = 0; $start -lt $given.Count; $start += $batchSize) {
-            $quoted = foreach ($file in $given[$start..([Math]::Min($start + $batchSize, $given.Count) - 1)]) {
-                "`"$file`""
-            }
-            # Exit 0: some paths are ignored, 1: none are; anything else is a git failure.
-            $ignoredRun = Invoke-Executable "git -C `"$root`" -c core.quotepath=off check-ignore --no-index -- $($quoted -join ' ')" -PassThru -Silent -NoAssert
-            Assert-True ($ignoredRun.ExitCode -le 1) -ErrorText "Get-FileMetaScope: git check-ignore failed ($($ignoredRun.ExitCode)): $($ignoredRun.Errors)"
-            foreach ($line in @($ignoredRun.Output -split "`r?`n" | Where-Object { $_ })) {
-                [void] $ignored.Add($line.Trim())
-            }
-        }
-        $given = @($given | Where-Object { -not $ignored.Contains($_) })
-    }
-    $paths = @($given) + @(if ($folders.Count -gt 0) {
-            Get-GitTrackedPath ([string[]] $folders)
+    # A file named in -Path counts only while git tracks it, as a folder lists its tracked files: an untracked authored file carries no head.
+    $paths = @(if ($lookup.Count -gt 0) {
+            Get-GitTrackedPath ([string[]] @($lookup))
         })
 
     $candidates = [System.Collections.Generic.List[pscustomobject]]::new()

@@ -10,14 +10,13 @@ plan:
 # BCL path sets: hand-built path lists move into helpers on the types that own them
 
 Functions in the non-internal modules assemble file-path sets by hand: a module base from `(Get-Module …).ModuleBase`, `Join-Path` with
-literal file names, a raw `[System.IO.Directory]::GetFiles` scan, then a sort-unique list for `Get-InputStamp`
-(`Get-FileMetaEngineStamp` is the sample). The knowledge of which files make up a set lives in PowerShell literals, while the types it
-describes know nothing of it.
+literal file names, a raw `[System.IO.Directory]::GetFiles` scan, then a sort-unique list for `Get-InputStamp` (`Get-FileMetaEngineStamp` is
+the sample). The knowledge of which files make up a set lives in PowerShell literals, while the types it describes know nothing of it.
 
 ## Why its value
 
-One mechanism per kind (configure, don't program): the type that owns a set of files says which files they are, compiled and tested
-once, and a scan goes through the bounded walker; the functions shrink or go, and a new input is one line on its type.
+One mechanism per kind (configure, don't program): the type that owns a set of files says which files they are, compiled and tested once,
+and a scan goes through the bounded walker; the functions shrink or go, and a new input is one line on its type.
 
 ## Decided (the user, 2026-10-22)
 
@@ -32,11 +31,10 @@ once, and a scan goes through the bounded walker; the functions shrink or go, an
 
 - [ ] The scan: every hit in the scope, its kind (path set, scan, module base, stamp input), the owning type and whether its function
       becomes a pass-through (catzc-e3, `out/bcl-path-sets-scan.md`). (check: every module counted, the owning type named per hit)
-- [ ] The shared helper: a BCL path-set type (add a file under a base, add a pattern through the bounded walker, sorted unique result)
-      in the module that owns path facts, with its type tests. Import-path, a burst. (check: its type test file green, one fresh full
-      import)
-- [ ] The pilot: `FileMetaConfig.EngineInputs` replaces the body of `Get-FileMetaEngineStamp`, which goes if only a pass-through; the
-      stamp measured before and after (same hash, timing compared, as type-first changes are measured). (check:
+- [ ] The shared helper: a BCL path-set type (add a file under a base, add a pattern through the bounded walker, sorted unique result) in
+      the module that owns path facts, with its type tests. Import-path, a burst. (check: its type test file green, one fresh full import)
+- [ ] The pilot: `FileMetaConfig.EngineInputs` replaces the body of `Get-FileMetaEngineStamp`, which goes if only a pass-through; the stamp
+      measured before and after (same hash, timing compared, as type-first changes are measured). (check:
       `Get-FileMetaEngineStamp.Tests.ps1` or its successor green, the same stamp value for the same tree)
 - [ ] The rest, one module at a time in the scan's order, each module's sets moved to their types and its pass-throughs deleted with their
       callers. (check: per module, its test files green, `Test-ScriptAnalyzer` at 0, and the scan's hits for it at 0 by grep)

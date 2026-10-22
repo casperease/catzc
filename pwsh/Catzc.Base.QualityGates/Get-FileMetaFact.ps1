@@ -29,10 +29,6 @@ function Get-FileMetaFact {
         $root = Get-RepositoryRoot
         foreach ($entry in @(Get-FileMetaScope -RepositoryRoot $root -Path $Path -Config $Config)) {
             $carrier = $entry.Carrier.carrier
-            # A sidecar carrier's facts are its description file's, which is in scope on its own.
-            if ($carrier -eq [Catzc.Base.Languages.CarrierKind]::Sidecar) {
-                continue
-            }
             $file = $entry.Path
             # A path the index lists but the working tree has lost, a deletion not yet staged, has no facts to read.
             if (-not [System.IO.File]::Exists((Join-Path $root $file))) {
@@ -53,13 +49,14 @@ function Get-FileMetaFact {
                 Get-MarkdownMetaState -Text $text -Key $entry.Carrier.key
             }
             $facts = Get-FileMetaFact -State $fileState -Path $file -Config $Config
-            [pscustomobject]@{ Path = $file; Immutable = $facts.Immutable; Edges = $facts.Edges }
+            [pscustomobject]@{ Path = $file; Edges = $facts.Edges }
         }
         return
     }
 
     Assert-True ($Path.Count -eq 1) -ErrorText "Get-FileMetaFact -State reads one file, but $($Path.Count) paths were given."
-    $facts = @{ immutable = [ordered]@{}; edges = [ordered]@{} }
+    # Every imprint kind writes under edges, the one part an authored head holds (FileMetaKind.Sections).
+    $edges = [ordered]@{}
     $language = (Get-Config -Config languages).ForPath($Path[0])
     $languageName = if ($language) {
         $language.name
@@ -81,8 +78,8 @@ function Get-FileMetaFact {
         Assert-True (($actual -join ',') -ceq ($expected -join ',')) `
             -ErrorText "file-meta config: '$($kind.processor)' returned keys [$($actual -join ', ')], but kind '$($kind.id)' declares [$($expected -join ', ')]."
         foreach ($key in $expected) {
-            $facts[$kind.section][$key] = $produced[$key]
+            $edges[$key] = $produced[$key]
         }
     }
-    [pscustomobject]@{ Immutable = $facts['immutable']; Edges = $facts['edges'] }
+    [pscustomobject]@{ Edges = $edges }
 }

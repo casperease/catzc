@@ -12,13 +12,3 @@ The properties are snake_case because they mirror the YAML keys; FileCarriersCon
 [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml),
 [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)
 ```
-
-## comment:2
-
-Above `public string sidecar { get; }`, written with `//`.
-
-```text
-The path template of a sidecar carrier, where {base} is the file's path without its last extension and {stem} the middle part of
-its name between the first and last "--" (the whole name without extensions when it has none); one folder level may be "*".
-Null for any other carrier.
-```

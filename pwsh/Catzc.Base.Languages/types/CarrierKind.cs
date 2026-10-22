@@ -17,6 +17,5 @@ public enum CarrierKind
     FrontMatter,
     CommentHead,
     Property,
-    Sidecar,
     None,
 }

@@ -59,7 +59,7 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
 
     It 'collects the facts of every kind that applies, in registry order' {
         $facts = Get-Facts @{ kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites', 'drs_total'); section = 'edges' }; 'widget-shade' = @{ keys = @('shade') } } }
-        $facts.Immutable.Count | Should -Be 0
+        @($facts.PSObject.Properties.Name) | Should -Be @('Edges') -Because 'an imprint kind writes under edges only, so no immutable part comes back'
         $facts.Edges.Keys | Should -Be @('cites', 'drs_total', 'shade')
         $facts.Edges['cites'] | Should -Be @('ADR-GADGET-TURN')
     }
@@ -67,7 +67,7 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     It 'puts every key into the edges, the one part an imprint kind writes, in registry order' -Tag 'ADR-REPO-FILEMETA-FILEISNODE' {
         Mock Get-RelativeEdgesFileMetaFact { [ordered]@{ role = 'widget' } } -ModuleName Catzc.Base.QualityGates
         $facts = Get-Facts @{ kinds = [ordered]@{ 'widget-shade' = @{ keys = @('shade') }; 'drs-codes' = @{ keys = @('cites', 'drs_total'); section = 'edges' }; gadget = @{ keys = @('role'); processor = 'Get-RelativeEdgesFileMetaFact' } } }
-        $facts.Immutable.Count | Should -Be 0
+        @($facts.PSObject.Properties.Name) | Should -Be @('Edges') -Because 'an imprint kind writes under edges only, so no immutable part comes back'
         $facts.Edges.Keys | Should -Be @('shade', 'cites', 'drs_total', 'role')
     }
 
@@ -130,12 +130,6 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
         Mock Get-FileMetaScope -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/gone-widget.md'; Carrier = $carrier } }
         @(InModuleScope Catzc.Base.QualityGates { Get-FileMetaFact 'docs/gone-widget.md' }).Count | Should -Be 0
-    }
-
-    It 'skips a file whose carrier is a sidecar' {
-        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
-        Mock Get-FileMetaScope -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/widget.png'; Carrier = [pscustomobject]@{ carrier = [Catzc.Base.Languages.CarrierKind]::Sidecar } } }
-        @(InModuleScope Catzc.Base.QualityGates { Get-FileMetaFact 'docs/widget.png' }).Count | Should -Be 0
     }
 
     It 'rejects -State with more than one path' {

@@ -110,21 +110,19 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; strip = @(' # catzc:') }) } | Should -Throw '*without surrounding spaces*'
         }
 
-        It 'reads front matter, a property, a sidecar and a reason for none, and keeps declared order' {
+        It 'reads front matter, a property and a reason for none, and keeps declared order' {
             $config = & $script:make ([ordered]@{ carriers = [ordered]@{
-                        widget   = [ordered]@{ carrier = 'front-matter' }
-                        gadget   = [ordered]@{ carrier = 'property'; property = '//' }
-                        sprocket = [ordered]@{ files = @('docs/*.png'); carrier = 'sidecar'; sidecar = '{base}.md' }
-                        cog      = [ordered]@{ carrier = 'none'; reason = 'binary' }
+                        widget = [ordered]@{ carrier = 'front-matter' }
+                        gadget = [ordered]@{ carrier = 'property'; property = '//' }
+                        cog    = [ordered]@{ files = @('docs/*.png'); carrier = 'none'; reason = 'binary' }
                     }
                 })
-            $config.carriers.id | Should -Be @('widget', 'gadget', 'sprocket', 'cog')
+            $config.carriers.id | Should -Be @('widget', 'gadget', 'cog')
             $config.carriers[0].key | Should -Be 'catzc' -Because 'a front-matter block sits at the reserved top-level key unless the entry nests it'
             $config.carriers[1].key | Should -BeNullOrEmpty
             $config.carriers[1].property | Should -Be '//'
-            $config.carriers[2].sidecar | Should -Be '{base}.md'
             $config.carriers[2].files | Should -Be @('docs/*.png')
-            $config.carriers[3].reason | Should -Be 'binary'
+            $config.carriers[2].reason | Should -Be 'binary'
             $config.Find('gadget').carrier | Should -Be ([Catzc.Base.Languages.CarrierKind]::Property)
             $config.Find('missing') | Should -BeNullOrEmpty
         }
@@ -136,13 +134,13 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
         It 'rejects an unknown key, carrier and anchor, naming the allowed ones' {
             { & $script:make @{ other = 1 } } | Should -Throw "*unknown key 'other' (allowed: carriers)*"
             { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; shade = 1 }) } | Should -Throw "*unknown key 'shade'*"
-            { & $script:one ([ordered]@{ carrier = 'banner' }) } | Should -Throw "*unknown carrier 'banner' (one of: front-matter, comment-head, property, sidecar, none)*"
+            { & $script:one ([ordered]@{ carrier = 'banner' }) } | Should -Throw "*unknown carrier 'banner' (one of: front-matter, comment-head, property, none)*"
             { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; anchor = 'middle' }) } | Should -Throw "*unknown anchor 'middle' (one of: start, after-shebang, after-prolog, after-preamble)*"
             { & $script:one ([ordered]@{ carrier = '0' }) } | Should -Throw '*unknown carrier*'
         }
 
         It 'needs a carrier' {
-            { & $script:one ([ordered]@{ line = '#' }) } | Should -Throw '*needs a carrier (one of: front-matter, comment-head, property, sidecar, none)*'
+            { & $script:one ([ordered]@{ line = '#' }) } | Should -Throw '*needs a carrier (one of: front-matter, comment-head, property, none)*'
         }
 
         It 'needs exactly one of line and block for a comment head, and rejects a bad delimiter' {
@@ -173,10 +171,9 @@ Describe 'FileCarriersConfig' -Tag 'L0' {
             { & $script:one ([ordered]@{ carrier = 'comment-head'; line = '#'; preamble_lines = 2 }) } | Should -Throw '*preamble_lines is required, and only allowed*'
         }
 
-        It 'needs a sidecar template that names {base}, and the files it covers' {
-            { & $script:one ([ordered]@{ carrier = 'sidecar'; files = @('a/*.png'); sidecar = 'notes.md' }) } | Should -Throw '*names {base}*'
-            { & $script:one ([ordered]@{ carrier = 'sidecar'; sidecar = '{base}.md' }) } | Should -Throw '*selects its files with files*'
-            { & $script:one ([ordered]@{ carrier = 'sidecar'; files = @('a/*.png'); sidecar = 'docs/*/{stem}.md' }) } | Should -Not -Throw
+        It 'knows no sidecar carrier: a file carries its block in its own text, or none' {
+            { & $script:one ([ordered]@{ carrier = 'sidecar'; files = @('a/*.png') }) } | Should -Throw "*unknown carrier 'sidecar'*"
+            { & $script:one ([ordered]@{ carrier = 'none'; reason = 'binary'; sidecar = '{base}.md' }) } | Should -Throw "*unknown key 'sidecar'*"
         }
 
         It 'rejects a bad id, a duplicate file glob and a non-map entry' {

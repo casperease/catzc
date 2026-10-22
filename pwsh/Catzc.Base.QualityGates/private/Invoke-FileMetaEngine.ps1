@@ -44,32 +44,6 @@ function Invoke-FileMetaEngine {
             continue
         }
 
-        # A sidecar carrier keeps the block in the Markdown file beside the file, which is in scope on its own, so only its presence is checked.
-        if ($carrier -eq [Catzc.Base.Languages.CarrierKind]::Sidecar) {
-            $name = [System.IO.Path]::GetFileName($file)
-            $name = $name.Substring(0, $name.IndexOf('.'))
-            $segments = $name -split '--'
-            $stem = $name
-            if ($segments.Count -ge 3) {
-                $stem = $segments[1..($segments.Count - 2)] -join '--'
-            }
-            $sidecar = $entry.Carrier.sidecar.Replace('{base}', $file.Substring(0, $file.LastIndexOf('.'))).Replace('{stem}', $stem)
-            $exists = if ($sidecar.Contains('*')) {
-                # One folder level may be a wildcard: the description is found in whichever folder beside the article holds it.
-                $before, $after = $sidecar -split '\*', 2
-                $root = Join-Path $RepositoryRoot $before
-                [System.IO.Directory]::Exists($root) -and @([System.IO.Directory]::GetDirectories($root)).Where({ [System.IO.File]::Exists($_ + $after) }).Count -eq 1
-            }
-            else {
-                [System.IO.File]::Exists((Join-Path $RepositoryRoot $sidecar))
-            }
-            if (-not $exists) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'MissingSidecar'; Actual = 'no file'; Expected = $sidecar })
-            }
-            [pscustomobject]@{ Path = $file; Findings = $findings; Fixed = $null }
-            continue
-        }
-
         $text = [System.IO.File]::ReadAllText((Join-Path $RepositoryRoot $file))
 
         # A key no kind owns is the author's: report it and leave the file alone.
@@ -86,14 +60,14 @@ function Invoke-FileMetaEngine {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "property '$property' holds something else"; Expected = 'a catzc meta block, or no such property' })
             }
             foreach ($section in $state.Sections | Where-Object { $_ -notin $parts }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.$section"; Expected = 'immutable, edges or config' })
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.$section"; Expected = 'warning, immutable, edges or config' })
             }
         }
         elseif ($isHead) {
             $form = $entry.Carrier.Form()
             $state = Get-CodeMetaState -Text $text -Form $form
             foreach ($section in $state.Sections | Where-Object { $_ -notin $parts }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.$section"; Expected = 'immutable, edges or config' })
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.$section"; Expected = 'warning, immutable, edges or config' })
             }
         }
         else {
@@ -103,7 +77,7 @@ function Invoke-FileMetaEngine {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "a key above $($entry.Carrier.key) holds a flow or scalar value"; Expected = 'a block mapping the catzc block can nest under' })
             }
             foreach ($section in $state.Sections | Where-Object { $_ -notin $parts }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.$section"; Expected = 'immutable, edges or config' })
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.$section"; Expected = 'warning, immutable, edges or config' })
             }
         }
 
@@ -116,7 +90,7 @@ function Invoke-FileMetaEngine {
         # The writers drop a block whose facts and config part are all empty, so a file with no fact to show carries no head.
         if ($findings.Count -eq 0) {
             $facts = if ($policy -in [Catzc.Base.QualityGates.HeadPolicy]::Forbidden, [Catzc.Base.QualityGates.HeadPolicy]::Config) {
-                [pscustomobject]@{ Immutable = [ordered]@{}; Edges = [ordered]@{} }
+                [pscustomobject]@{ Edges = [ordered]@{} }
             }
             else {
                 Get-FileMetaFact -State $state -Path $file -Config $Config
@@ -125,13 +99,13 @@ function Invoke-FileMetaEngine {
             $shown = @($facts.Edges.Values | Where-Object { $null -ne $_ -and "$_" -ne '' -and @($_).Count -gt 0 }).Count -gt 0
             $warning = $shown ? $Config.warning : ''
             $fixed = if ($isProperty) {
-                Format-PropertyMetaHead -Text $text -Property $property -Strip $entry.Carrier.strip -Immutable $facts.Immutable -Edges $facts.Edges -Warning $warning
+                Format-PropertyMetaHead -Text $text -Property $property -Strip $entry.Carrier.strip -Edges $facts.Edges -Warning $warning
             }
             elseif ($isHead) {
-                Format-CodeMetaHead -Text $text -Form $form -Immutable $facts.Immutable -Edges $facts.Edges -Warning $warning
+                Format-CodeMetaHead -Text $text -Form $form -Edges $facts.Edges -Warning $warning
             }
             else {
-                Format-MarkdownMetaBlock -Text $text -Immutable $facts.Immutable -Edges $facts.Edges -Key $entry.Carrier.key -Warning $warning
+                Format-MarkdownMetaBlock -Text $text -Edges $facts.Edges -Key $entry.Carrier.key -Warning $warning
             }
             if ($fixed -cne $text) {
                 $expected = if ($policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Forbidden) {
@@ -143,7 +117,14 @@ function Invoke-FileMetaEngine {
                 else {
                     'the imprinted meta block, or none when every fact is empty'
                 }
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 1; Kind = 'Drift'; Actual = 'the meta block as written'; Expected = $expected })
+                # An authored head has no immutable part: Format-FileMeta removes one, and the finding says so before it does.
+                $drifted = if ('immutable' -in @($state.Sections)) {
+                    'an authored head holds an immutable part, which Format-FileMeta removes'
+                }
+                else {
+                    'the meta block as written'
+                }
+                $findings.Add([pscustomobject]@{ Path = $file; Line = 1; Kind = 'Drift'; Actual = $drifted; Expected = $expected })
             }
         }
         [pscustomobject]@{ Path = $file; Findings = $findings; Fixed = $fixed }

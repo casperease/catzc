@@ -14,14 +14,14 @@ The place facts and the edges of files, as the imprint would write them, read fr
 The one read-only door to the file facts: given paths, it takes each file that `Get-FileMetaScope` lists, reads its body apart from any meta
 block, and returns the facts of every imprint kind that selects it by the file's class and language, writing nothing. A head on the file
 changes no output, because the facts are derived, never read back
-([ADR-REPO-FILEMETA-NOREADBACK](../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)). A sidecar-carried file is skipped:
-its facts belong to its description file, which is in scope on its own. The imprint calls it with the state it has already read.
+([ADR-REPO-FILEMETA-NOREADBACK](../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)). The imprint calls it with the
+state it has already read.
 
 Each kind's processor is the function the registry names, found in this module's scope; a kind with no such function fails the run and names
 the function it expected. A test fixture follows the precedent of `Invoke-FileMetaEngine.Tests.ps1`: it defines its processor at script
 scope (`function script:Get-WidgetPathFileMetaFact`) so the lookup finds it, and removes it after. A processor must return exactly the keys
-its kind declares, so a kind can never write a key another kind owns. Each key goes into the part its kind names, `immutable` or `edges`,
-and comes back in registry order, which is the order it is written.
+its kind declares, so a kind can never write a key another kind owns. Each key goes into `edges`, the one part an imprint kind writes, and
+comes back in registry order, which is the order it is written.
 
 It rests on [ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION](../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-subscribebyfunction).
 
@@ -39,11 +39,11 @@ The meta-kind registry. Defaults to file-meta.yml.
 
 ### outputs
 
-`[pscustomobject]` Per file, @{ Path; Immutable; Edges }, each part an ordered dictionary of key to value in registry order; with -State, @{
-Immutable; Edges } for the one file.
+`[pscustomobject]` Per file, @{ Path; Edges }, the edges an ordered dictionary of key to value in registry order; with -State, @{ Edges }
+for the one file.
 
 ### example 1
 
 ```powershell
-Get-FileMetaFact pwsh/Catzc.Base.Maps | Select-Object Path, { $_.Immutable['track'] }
+Get-FileMetaFact pwsh/Catzc.Base.Maps | Select-Object Path, { $_.Edges['cites'] }
 ```

@@ -11,8 +11,8 @@ Computes the meta block of every in-scope file — the one place Format-FileMeta
 
 ### description
 
-Each file's `immutable` and `edges` parts are rebuilt from the imprint kinds of the registry, and its authored `config` part is kept as
-written. A file whose block holds a key no kind owns is reported as Unowned and left unchanged, since writing it would drop the author's key
+Each file's `warning` line and `edges` part are rebuilt from the registry and its imprint kinds, and its authored `config` part is kept as
+written. An `immutable` part in an authored head is removed and reported as Drift that names it, since only a generated head has one. A file whose block holds a key no kind owns is reported as Unowned and left unchanged, since writing it would drop the author's key
 ([ADR-REPO-FILEMETA-KINDSCOPE](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-kindscope)).
 
 ### parameter `RepositoryRoot`

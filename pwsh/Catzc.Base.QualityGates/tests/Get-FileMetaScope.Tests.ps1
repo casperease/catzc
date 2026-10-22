@@ -30,7 +30,6 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE' {
                     gadget = @{ carrier = 'front-matter' }
                     stamp  = @{ carrier = 'none'; reason = 'written whole' }
                     data   = @{ carrier = 'property'; property = '//' }
-                    image  = @{ files = @('**/*.pic'); carrier = 'sidecar'; sidecar = '{base}.md' }
                 }
             })
         $script:resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new($carriers, $languages)
@@ -59,15 +58,14 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE' {
 
     It 'keeps the tracked files with a carrier that no exclude, exemption or opt-out takes out' {
         $found = & $script:scope
-        $found.Path | Should -Be @('widgets/Widget/get.wdg', 'docs/read.gdg', 'docs/other.wdg', 'docs/table.dat', 'docs/image.pic')
+        $found.Path | Should -Be @('widgets/Widget/get.wdg', 'docs/read.gdg', 'docs/other.wdg', 'docs/table.dat')
     }
 
-    It 'hands each file its carrier entry, a property or a sidecar carrier included' {
+    It 'hands each file its carrier entry, a property carrier included' {
         $found = & $script:scope
         $found[0].Carrier.id | Should -BeExactly 'widget'
         $found[1].Carrier.id | Should -BeExactly 'gadget'
         $found[3].Carrier.carrier | Should -Be ([Catzc.Base.Languages.CarrierKind]::Property)
-        $found[4].Carrier.carrier | Should -Be ([Catzc.Base.Languages.CarrierKind]::Sidecar)
     }
 
     It 'leaves out a file whose class has no carrier, a carrier of none, and a file no imprint kind selects' {
@@ -110,23 +108,17 @@ Describe 'Get-FileMetaScope' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-KINDSCOPE' {
     Context 'a file named in -Path' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
         BeforeEach {
             [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/new.gdg'), "# New`n")
-            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/built.gdg'), "# Built`n")
-            Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 0; Output = 'docs/built.gdg'; Errors = '' } } -ModuleName Catzc.Base.QualityGates
         }
 
-        It 'takes a new file as given, though git does not track it, and asks git for no folder listing' {
-            $found = & $script:scope (Join-Path $script:widgetRoot 'docs/new.gdg')
-            $found.Path | Should -Be @('docs/new.gdg')
-            Should -Invoke Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -Times 0
+        It 'leaves out a named file git does not track: an untracked authored file carries no head' {
+            Mock Get-GitTrackedPath { } -ModuleName Catzc.Base.QualityGates
+            @(& $script:scope (Join-Path $script:widgetRoot 'docs/new.gdg')).Count | Should -Be 0
+            Should -Invoke Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { @($Path) -contains 'docs/new.gdg' }
         }
 
-        It 'leaves out a named file that git ignores' {
-            @(& $script:scope (Join-Path $script:widgetRoot 'docs/built.gdg')).Count | Should -Be 0
-        }
-
-        It 'stops on a git failure, naming it' {
-            Mock Invoke-Executable { [pscustomobject]@{ ExitCode = 128; Output = ''; Errors = 'not a git repository' } } -ModuleName Catzc.Base.QualityGates
-            { & $script:scope (Join-Path $script:widgetRoot 'docs/new.gdg') } | Should -Throw '*check-ignore failed (128)*'
+        It 'takes a named file once git tracks it' {
+            Mock Get-GitTrackedPath { 'docs/new.gdg' } -ModuleName Catzc.Base.QualityGates
+            (& $script:scope (Join-Path $script:widgetRoot 'docs/new.gdg')).Path | Should -Be @('docs/new.gdg')
         }
     }
 }
