@@ -43,6 +43,7 @@ stale or superseded item is recorded as such, with the reason.
 | high   | plan-debt-agent-traffic     | the catzc-run, report-fixed, catzc-worker and plans-orchestrate lines; the entry script page    | the entry script test, Test-Plans tests, the hook test, Test-AgentDefinitions                         | three steps                                      |
 | high   | plan-debt-full-run-failures | none (test reruns)                                                                              | one Invoke-TestFile per failing file                                                                  | two steps                                        |
 | medium | plan-debt-test-speed        | none (test files only)                                                                          | the measured test files, twice each                                                                   | two steps                                        |
+| medium | plan-debt-gate-sweep |  |  | new |
 
 ## Pending deletion
 

@@ -112,3 +112,33 @@ Started 2026-10-22T04:59:45.8045278+02:00.
   imprint step and docs/references/pwsh/catzc-base-quality-gates/private/Update-PlanStepCount.ps1.md:14-16 rewrites the master and value-row
   counts from the open steps, so striking a step is synced by one Format-Code, and the rewrite of both overlays from one plan path is that
   step at work.
+- 2026-10-22 Jack: If only the step lister had finished its thought:
+  docs/references/pwsh/catzc-base-quality-gates/private/Get-ImprintStepFile.ps1.md:10 lists the files one imprint step may write in its own
+  scope, apart from -Path, but no line says the formatter pass covers only -Path, so a step writing beyond it learns to format its own files
+  by failing.
+- 2026-10-22 Jack: If only the two ADRs had met: docs/drs/automation/pwsh/pester-testing.md:331 prescribes @(Get-X)[0] for a one-item
+  result, while docs/drs/automation/pwsh/error-handling.md:42 forbids @(result)[0] and :213 has Measure-NoUnsafeFirstIndex flag it, so a
+  test author learns the right index from one rule and its ban from the other.
+- 2026-10-22 Jack: If only the session had read its own CLAUDE.md: .claude/CLAUDE.md:132-133 already puts a background call behind one
+  timeout prefix around one command, no cd, pipes or semicolons, and .claude/hooks/Assert-BashTimeout/ denies the rest, so cleanup ahead of
+  the prefix was a denial on file.
+- 2026-10-22 Jack: If only the batch had trusted its runner: pwsh/.internal/assets/Invoke-CatzcCommand.ps1:20-21 runs the next command after
+  one that throws and names the failure in its verdict line, so a misnamed gate costs one line of a batch, and each gate article under
+  docs/references/pwsh/ gives the -Path shape without a Get-Command.
+- 2026-10-22 Jack: If only the session had loaded catzc-verify: .claude/skills/catzc-verify/SKILL.md:21-26 already lands import-path files
+  in one burst with one fresh import through -InBurst, stages multi-file type work under an out staged folder and drafts a new hook folder
+  outside the tree, so the scratchpad draft is the declared protocol.
+- 2026-10-22 Jack: If only the kit author had loaded catzc-verify: .claude/skills/catzc-verify/SKILL.md:26-27 says a Python file writer
+  passes an LF newline because Path.write_text writes CRLF on Windows, so the CRLF diagram files are a capability line that arrived after
+  the damage.
+- 2026-10-22 Jack: If only the session had read the kit printer: python/catzc_diagrams/declaration.py:761-782 prints the yml through its own
+  flow_yaml in Prettier form at the width read from the [*.md] max_line_length, so PyYAML width was never the printer of record.
+- 2026-10-22 Jack: If only the session had asked the formatter: docs/references/pwsh/catzc-base-quality-gates/Format-Code.ps1.md:77 lists
+  what Format-Code would change through -DryRun -PassThru and its ChangedFiles, so a print-form doubt is one dry run, not a diff that strips
+  trailing CR.
+- 2026-10-22 Jack: If only the session had loaded catzc-verify: .claude/skills/catzc-verify/SKILL.md:30-31 puts the code file of a new or
+  changed comment page in the Format-Code -Path, since pwsh/Catzc.Base.QualityGates/configs/file-meta.yml:32-35 derives the docs edge from
+  the page, so the Test-Formatting failure was the declared consequence.
+- 2026-10-22 Jack: If only the session had read the finder:
+  docs/references/pwsh/catzc-base-quality-gates/private/Get-HelpPageFinding.ps1.md:16-18 reports a comment-based help block in the file,
+  read by the PowerShell parser whatever its indent, so an inline SYNOPSIS beside a page was a second copy by declaration.
