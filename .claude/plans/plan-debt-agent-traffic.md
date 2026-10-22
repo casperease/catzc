@@ -8,7 +8,7 @@ plan:
     [
       pwsh/.internal/assets/Invoke-CatzcCommand.ps1,
       .claude/skills/report-fixed/SKILL.md,
-      .claude/agents/catzc-worker.md,
+      .claude/agents/catzc-drone.md,
       .claude/skills/plans-orchestrate/SKILL.md,
       pwsh/Catzc.Base.QualityGates/Test-Plans.ps1,
       .claude/hooks,
@@ -30,7 +30,7 @@ ten "may I" questions on edits the rules already require, three to five tool cal
 ## Open steps
 
 - [ ] The user's (a worker's permission mode refused it as an agent definition widening its own approvals, 2026-10-22):
-      `.claude/agents/catzc-worker.md`: one line, an edit the domain rules require on a file the brief owns or touches (a re-imprinted head,
+      `.claude/agents/catzc-drone.md`: one line, an edit the domain rules require on a file the brief owns or touches (a re-imprinted head,
       inline help moved to its page, a family form the glossary flags) is pre-approved and is reported, not asked. The body kept at 20
       lines. Check: `Test-AgentDefinitions`.
 - [ ] The `Record-SessionMessage` hook is built and tested (catzc-a0, 2026-10-22); left: the user registers it in `.claude/settings.json`

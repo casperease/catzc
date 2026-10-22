@@ -91,7 +91,7 @@ final full run last.
     that the hook also denies the git topic commands. Cost today: the tree contradicts itself on `out/` scripts, and a recursive bash grep
     cannot finish inside the 3 s roof. Check: `Test-AgentDefinitions`, `Test-Links -Path .claude/CLAUDE.md`, and `wc -c .claude/CLAUDE.md`
     still at most 11900.
-17. plan-debt-agent-traffic: add the `catzc-worker` line the plan quotes (a worker's permission mode refused it as self-modification), and
+17. plan-debt-agent-traffic: add the `catzc-drone` line the plan quotes (a drone's permission mode refused it as self-modification), and
     register the `Record-SessionMessage` hook in `.claude/settings.json` (a PostToolUse entry matching `SendMessage`, and a UserPromptSubmit
     entry), once catzc-a0 has built it. Check: `Test-AgentDefinitions`, and one message sent between sessions appears in
     `out/orchestrator-<date>.log`.

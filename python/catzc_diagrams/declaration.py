@@ -356,6 +356,41 @@ def recorded_carriers(text, key, carrier):
     return "\n".join(lines[:head] + [opener] + kept + lines[end:])
 
 
+IGNORE_LINE = re.compile(r"^[ \t]*#[ \t]*cspell:ignore[ \t]+(.*?)[ \t]*$", re.M)  # a yml's cspell ignore comment
+PAGE_IGNORE = re.compile(r"^<!-- cspell:ignore[ \t]+(.*?)[ \t]*-->[ \t]*$", re.M)  # a page's own cspell ignore comment
+
+
+def with_page_ignores(whole, words):
+    """A page's text with the words added to its own `<!-- cspell:ignore … -->` comment, made under the title when it has none, so a
+    word a declaration told cspell to ignore stays ignored once the declaration is a block of the page."""
+    if not words:
+        return whole
+    found = PAGE_IGNORE.search(whole)
+    if found:
+        held = found.group(1).split()
+        merged = held + [w for w in words if w not in held]
+        return whole[: found.start()] + f"<!-- cspell:ignore {' '.join(merged)} -->" + whole[found.end() :]
+    lines = whole.split("\n")
+    title = next((i for i, line in enumerate(lines) if line.startswith("# ")), -1)
+    return "\n".join(lines[: title + 1] + ([""] if title >= 0 else []) + [f"<!-- cspell:ignore {' '.join(words)} -->"] + ([] if title >= 0 else [""]) + lines[title + 1 :])
+
+
+def without_page_ignores(whole, body):
+    """The page's ignore words the block body uses, and the page's text with each word the rest of the page no longer uses dropped from
+    its comment; a comment left empty goes with the blank line after it."""
+    found = PAGE_IGNORE.search(whole)
+    if not found:
+        return [], whole
+    uses = lambda text, w: re.search(r"(?<![A-Za-z])" + re.escape(w) + r"(?![A-Za-z])", text, re.I) is not None
+    held = found.group(1).split()
+    rest = whole[: found.start()] + whole[found.end() :]
+    taken = [w for w in held if uses(body, w)]
+    kept = [w for w in held if w not in taken or uses(rest, w)]
+    if kept:
+        return taken, whole[: found.start()] + f"<!-- cspell:ignore {' '.join(kept)} -->" + whole[found.end() :]
+    return taken, whole[: found.start()] + re.sub(r"^\n\n?", "", whole[found.end() :])
+
+
 def carry(diagram, carrier):
     """Move a diagram's declaration to the other carrier: the yml beside its png becomes a `yml drawio` block directly above the image in
     its one article, or the block becomes the yml, and drawio.yml carriers: records it. The move is all or nothing: it refuses a diagram
@@ -373,7 +408,9 @@ def carry(diagram, carrier):
     # A file's comment head is the file's own, never part of the declaration, so the block takes the body alone.
     lines = text.split("\n")
     body = "\n".join(lines[next((i for i, line in enumerate(lines) if line.strip() and not line.startswith("#")), len(lines)) :])
-    body = body.strip("\n") + "\n"
+    # The words a yml tells cspell to ignore move to the page's own comment; a comment inside a code block would not be read.
+    words = [w for found in IGNORE_LINE.findall(text) for w in found.split()]
+    body = IGNORE_LINE.sub("", body).strip("\n") + "\n"
     config = CONFIG.read_text(encoding="utf-8")
     saved = {CONFIG: config}
     if carrier == "article":
@@ -385,7 +422,7 @@ def carry(diagram, carrier):
         whole = page.read_text(encoding="utf-8")
         saved[page] = whole
         saved[source_of(stem)] = text
-        changes = [(page, whole[:at] + f"```{FENCE}\n{body}```\n\n" + whole[at:]), (source_of(stem), None)]
+        changes = [(page, with_page_ignores(whole[:at] + f"```{FENCE}\n{body}```\n\n" + whole[at:], words)), (source_of(stem), None)]
     else:
         page, start, end = article_block(stem)
         whole = page.read_text(encoding="utf-8")
@@ -394,7 +431,8 @@ def carry(diagram, carrier):
         # The block runs from its fence line to the blank lines that end at the image, which stays where it was.
         opening = whole.rfind(f"```{FENCE}", 0, start)
         after = re.match(r"```[ \t]*\n(?:[ \t]*\n)*", whole[end:])
-        changes = [(source_of(stem), body), (page, whole[:opening] + whole[end + after.end() :])]
+        taken, rest = without_page_ignores(whole[:opening] + whole[end + after.end() :], body)
+        changes = [(source_of(stem), (f"# cspell:ignore {' '.join(taken)}\n\n" if taken else "") + body), (page, rest)]
     changes.append((CONFIG, recorded_carriers(config, carrier_key(stem), carrier)))
     held = DEFAULTS.get("carriers")
     try:
@@ -415,7 +453,8 @@ def carry(diagram, carrier):
                 path.write_text(old, encoding="utf-8", newline="\n")
         DEFAULTS["carriers"] = held
         raise
-    return read_source(stem)[1]
+    # The png is what Build-Diagrams takes for a diagram whose declaration sits in an article: the stem alone names no file.
+    return read_source(stem)[1], stem.with_name(stem.name + SLIDE)
 
 
 def load(folder):
@@ -1990,7 +2029,9 @@ def main():
         print(f"reflow {reflow(diagram_of(args[1]))}")
         return
     if len(args) == 3 and args[0] == "carry":  # the declaration moved to the other carrier, drawio.yml carriers: recording it
-        print(f"carry {carry(diagram_of(args[1]), args[2])}")
+        where, png = carry(diagram_of(args[1]), args[2])
+        target = png.resolve().relative_to(KIT.parents[1]).as_posix() if png.resolve().is_relative_to(KIT.parents[1]) else png
+        print(f"carry {where}; render with: Build-Diagrams -Path {target}")
         return
     if len(args) == 2 and args[0] == "minimaps":  # the diagram's computed minimap cells written into its source
         print(f"minimaps {declare_minimaps(diagram_of(args[1]))}")

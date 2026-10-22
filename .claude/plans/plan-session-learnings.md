@@ -9,7 +9,7 @@ plan:
       .claude/learnings,
       .claude/skills,
       .claude/agents/plan-decide.md,
-      .claude/agents/catzc-worker.md,
+      .claude/agents/catzc-drone.md,
       pwsh/Catzc.Base.Docs/Add-SessionLearning.ps1,
     ]
 ---
