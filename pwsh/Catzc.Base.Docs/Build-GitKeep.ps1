@@ -1,10 +1,7 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "57e79d5e2098"
   edges:
-    test: pwsh/Catzc.Base.Docs/tests/Build-GitKeep.Tests.ps1
     docs: "[Build-GitKeep.ps1.md](../../docs/references/pwsh/catzc-base-docs/Build-GitKeep.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
@@ -27,7 +24,6 @@ function Build-GitKeep {
     $sourcePath = Get-CatzcModuleRoot 'assets/gitkeep'
     Assert-PathExist $sourcePath
     $text = [System.IO.File]::ReadAllText($sourcePath)
-    $sourceRelative = ConvertTo-RepoRelativePath $sourcePath
 
     $repositoryRoot = Get-RepositoryRoot
 
@@ -45,7 +41,7 @@ function Build-GitKeep {
     $emitVerbose = $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
 
     $ret = foreach ($keep in $found) {
-        $content = Format-GeneratedFileHead -Text $text -Path $keep -Carrier placeholder -Generator Build-GitKeep -Source $sourceRelative -FileKind (Get-FileKind $keep)
+        $content = Format-GeneratedFileHead -Text $text -Path $keep -Carrier placeholder
         $changed = Write-FileIfChanged (Resolve-RepoPath $keep) $content -DryRun:$DryRun
 
         if ($changed -and -not $Silent) {

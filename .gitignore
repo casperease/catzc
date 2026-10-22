@@ -1,13 +1,8 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8fa5b538c619"
 #     warning: "Do Not Edit, this file is generated"
-#     role: other
-#     generator: pwsh/Catzc.Base.Git/New-GitIgnore.ps1
-#     source:
-#       - pwsh/Catzc.Base.Git/configs/gitignore.yml
-#       - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+#     with_body_sha: "8fa5b538c619"
 # ---
 
 # ── Local, never-committed files ────────────────────────────────────────────────────────────────────────────────────

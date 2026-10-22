@@ -1,11 +1,8 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: e18eb96d72bc
   edges:
     docs: "[Build-GitKeep.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Build-GitKeep.Tests.ps1.md)"
-    code: pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
 ---
@@ -38,7 +35,8 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
         $report = @(Build-GitKeep -PassThru)
         ($report | Where-Object Path -EQ 'contracts/.gitkeep').Changed | Should -BeTrue
         $written = ([System.IO.File]::ReadAllText((Join-Path $script:fake.Root 'contracts/.gitkeep')) -replace "`r", '')
-        $written | Should -Match ('^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     warning: "Do Not Edit, this file is generated"\n#     role: other\n#     track: contracts\n#     generator: ' + [regex]::Escape("$(Get-CatzcModulesFolder)/Catzc.Base.Docs/Build-GitKeep.ps1") + '\n#     source: [^\n]*\n# ---\n\n')
+        # The body hash is written only while git tracks the file, so a fixture tree may or may not carry it.
+        $written | Should -Match '^# ---\n# catzc:\n#   immutable:\n#     warning: "Do Not Edit, this file is generated"\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?# ---\n\n'
         $written | Should -BeLike ('*' + ($script:expected -replace "`r", '').TrimEnd("`n") + "`n")
     }
 

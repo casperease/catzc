@@ -1,10 +1,7 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "88897277e7dc"
   edges:
-    test: pwsh/Catzc.Azure.Templates/tests/Set-BicepTemplateConfiguration.Tests.ps1
     docs: "[Set-BicepTemplateConfiguration.ps1.md](../../docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
@@ -97,10 +94,10 @@ function Set-BicepTemplateConfiguration {
         $config['ParametersFile']['parameters'][$name] = [ordered]@{ value = $Parameters[$name] }
     }
 
-    # One config file is one resource group; the head names this command as its writer and carries the one warning.
+    # One config file is one resource group; the head carries the one warning.
     $relative = ConvertTo-RepoRelativePath $configFile
     $yaml = (ConvertTo-Yaml $config) -replace "`r`n", "`n"
-    $content = Format-GeneratedFileHead -Text $yaml -Path $relative -Generator Set-BicepTemplateConfiguration -FileKind (Get-FileKind $relative)
+    $content = Format-GeneratedFileHead -Text $yaml -Path $relative
 
     if ($DryRun) {
         Write-Message "[DryRun] would write $configFile"

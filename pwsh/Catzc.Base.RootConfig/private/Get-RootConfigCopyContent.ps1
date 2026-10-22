@@ -1,8 +1,6 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "565ae86683ad"
   edges:
     docs: "[Get-RootConfigCopyContent.ps1.md](../../../docs/references/pwsh/catzc-base-root-config/private/Get-RootConfigCopyContent.ps1.md)"
     cites:
@@ -24,5 +22,5 @@ function Get-RootConfigCopyContent {
     Assert-PathExist $SourcePath -PathType Leaf
     # The template is read as LF, so the copy is the same whatever line endings the checkout gave the template.
     $content = [System.IO.File]::ReadAllText($SourcePath) -replace "`r`n", "`n" -replace "`r", "`n"
-    Format-GeneratedFileHead -Text $content -Path $Entry.target -Carrier $Entry.carrier -Generator Build-RootConfig -Source $Entry.source -FileKind (Get-FileKind $Entry.target)
+    Format-GeneratedFileHead -Text $content -Path $Entry.target -Carrier $Entry.carrier
 }

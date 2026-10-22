@@ -1,10 +1,7 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "149b74997318"
   edges:
-    test: pwsh/Catzc.Base.QualityGates/tests/Invoke-FileMetaEngine.Tests.ps1
     docs: "[Invoke-FileMetaEngine.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Invoke-FileMetaEngine.ps1.md)"
     cites:
       - ADR-REPO-FILEMETA-KINDSCOPE
@@ -34,7 +31,6 @@ function Invoke-FileMetaEngine {
         })
     # The imprinted parts are wholly the engine's: a key no kind owns there is dropped on imprint, and only the config part is the author's.
     $parts = 'immutable', 'edges', 'config'
-    $codeHeads = Test-FileHeadVariant -Minimal
 
     $entries = foreach ($entry in $files) {
         $file = $entry.Path
@@ -112,19 +108,13 @@ function Invoke-FileMetaEngine {
         }
 
         $fixed = $text
-        $policy = $Config.PolicyFor((Get-FileKind $file).Class, ($isHead -or $isProperty), $codeHeads)
-        $hasBlock = if ($isProperty -or $isHead) {
-            $state.HasHead
-        }
-        else {
-            $state.HasMetaBlock
-        }
+        $policy = $Config.PolicyFor((Get-FileKind $file).Class)
         # A forbidden block that holds an authored config part is the author's to move: stripping it would drop their keys.
         if ($findings.Count -eq 0 -and $policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Forbidden -and $state.ConfigLines.Count -gt 0) {
             $findings.Add([pscustomobject]@{ Path = $file; Line = 1; Kind = 'ForbiddenConfig'; Actual = 'a config part'; Expected = 'no meta block, as the head policy forbids one' })
         }
-        $skip = $policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Optional -and -not $hasBlock
-        if ($findings.Count -eq 0 -and -not $skip) {
+        # The writers drop a block whose facts and config part are all empty, so a file with no fact to show carries no head.
+        if ($findings.Count -eq 0) {
             $facts = if ($policy -in [Catzc.Base.QualityGates.HeadPolicy]::Forbidden, [Catzc.Base.QualityGates.HeadPolicy]::Config) {
                 [pscustomobject]@{ Immutable = [ordered]@{}; Edges = [ordered]@{} }
             }
@@ -148,7 +138,7 @@ function Invoke-FileMetaEngine {
                     'the authored config part alone, as the head policy keeps nothing else'
                 }
                 else {
-                    'the imprinted meta block'
+                    'the imprinted meta block, or none when every fact is empty'
                 }
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 1; Kind = 'Drift'; Actual = 'the meta block as written'; Expected = $expected })
             }

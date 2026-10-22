@@ -1,8 +1,6 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "67e935d59e4f"
   edges:
     docs: "[Get-ReadmeContent.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-ReadmeContent.ps1.md)"
     cites:
@@ -25,7 +23,7 @@ function Get-ReadmeContent {
     # The rebased links are longer than the source's, so a line the source wrapped at the width can pass it here; wrap those blocks again.
     $body = Format-LongMarkdownLines -Text ([Catzc.Base.MarkdownMeta.MarkdownLinkRebaser]::Rebase($text, $Mapping.source, $Mapping.folder))
 
-    # The head names the source to edit and says not to edit the copy, so the body is the article alone.
+    # The head says not to edit the copy, so the body is the article alone.
     $readme = "$($Mapping.folder)/README.md"
-    Format-GeneratedFileHead -Text $body -Path $readme -Generator Build-Readme -Source $Mapping.source -FileKind (Get-FileKind $readme)
+    Format-GeneratedFileHead -Text $body -Path $readme
 }

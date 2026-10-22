@@ -1,10 +1,7 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "22b089488fc1"
   edges:
-    code: pwsh/Catzc.Base.Globs/Get-FileKind.ps1
     cites:
       - ADR-REPO-FILEMETA-METAKIND
 ---
@@ -31,6 +28,8 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
         @{ Path = 'python/catzc_diagrams/assets/slides/slides.yml'; Class = 'slides-kit' }
         @{ Path = 'tools/export.py'; Class = 'script' }
         @{ Path = 'docs/explanation/design/.assets/gadget-spins.drawio.png'; Class = 'diagram' }
+        @{ Path = 'docs/explanation/design/.assets/gadget-spins.drawio.yml'; Class = 'diagram-declaration' }
+        @{ Path = 'docs/drs/widget/.assets/gadget-turns.drawio.yml'; Class = 'diagram-declaration' }
         @{ Path = 'docs/explanation/design/.assets/gadget-spins.drawio.verify.md'; Class = 'asset-description' }
         @{ Path = 'docs/explanation/design/gadget-spins.md'; Class = 'explanation' }
         @{ Path = 'docs/explanation/design/widget-deck/gadget-spins.slide.md'; Class = 'slide' }

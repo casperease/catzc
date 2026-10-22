@@ -1,10 +1,7 @@
 /*
 ---
 catzc:
-  immutable:
-    with_body_sha: f118c052e47c
   edges:
-    test: pwsh/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1
     docs: "[FileMetaConfig.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/FileMetaConfig.cs.md)"
     cites:
       - ADR-CONF-LOADING-CSHARPCONFIGTYPE
@@ -88,7 +85,7 @@ public sealed class FileMetaConfig
         foreach (FileMetaKind kind in list) { kind.registry = this; }
     }
 
-    public HeadPolicy PolicyFor(string fileClass, bool codeCarrier = false, bool codeHeads = false) => head_policy.For(fileClass, codeCarrier, codeHeads);
+    public HeadPolicy PolicyFor(string fileClass) => head_policy.For(fileClass);
 
     public bool Selects(FileMetaKind kind, string fileClass, string language) => kind != null && kind.Selects(fileClass, language);
 
@@ -98,7 +95,7 @@ public sealed class FileMetaConfig
     // The imprint kinds in registry order: the order their facts are written.
     public IReadOnlyList<FileMetaKind> Imprint() => kinds.Where(k => k.direction == FileMetaDirection.Imprint).ToList();
 
-    // The keys the imprint kinds write under one part of the block, `immutable` or `edges`.
+    // The keys the imprint kinds write under one part of the block; an imprint kind writes under `edges` only.
     public IReadOnlyList<string> KeysOf(string section) =>
         Imprint().Where(k => k.section == section).SelectMany(k => k.keys).ToList();
 

@@ -1,11 +1,8 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: bc9c70d01068
   edges:
     docs: "[Build-Readme.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Build-Readme.Tests.ps1.md)"
-    code: pwsh/Catzc.Base.Docs/Build-Readme.ps1
     cites:
       - ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS
       - ADR-REPO-README-WORKINGLINKS
@@ -59,8 +56,8 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         ) -join "`n"
         $text | Should -MatchExactly ('^---\ncatzc:\n  immutable:\n(    [^\n]*\n)+---\n\n' + [regex]::Escape($body) + '$')
         $text | Should -BeLike "*`n    warning: `"$((Get-Config -Config generated-head).warning)`"`n*"
-        $text | Should -BeLike "*`n    source: docs/references/pwsh/foo.md`n*"
-        $text | Should -BeLike "*`n    role: readme`n*"
+        $text | Should -Not -BeLike '*source:*'
+        $text | Should -Not -BeLike '*role:*'
         $text | Should -Not -BeLike '*Generated from*'
     }
 

@@ -1,11 +1,8 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "39caae27ea6c"
   edges:
     docs: "[Build-ContractReference.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-contracts/tests/Build-ContractReference.Tests.ps1.md)"
-    code: pwsh/Catzc.Base.Contracts/Build-ContractReference.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-REPO-CMDCONTRACT-ONEREADER
@@ -58,7 +55,7 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         $paths | Should -Be @('docs/references/contracts/gadget.md', 'docs/references/contracts/widget.md')
 
         $page = Read-Page
-        $page | Should -Match ("(?s)^---`ncatzc:.*role: reference.*generator: pwsh/Catzc.Base.Contracts/Build-ContractReference\.ps1.*---`n`n" + [regex]::Escape("# docs/references/contracts/widget.md`n`n``The widget contracts```n"))
+        $page | Should -Match ("(?s)^---`ncatzc:.*warning: .*---`n`n" + [regex]::Escape("# docs/references/contracts/widget.md`n`n``The widget contracts```n"))
         $sections = @([regex]::Matches($page, '(?m)^## (.+)$') | ForEach-Object { $_.Groups[1].Value })
         $sections | Should -Be @('0.0.0', '1.10.0', '1.2.0')
     }

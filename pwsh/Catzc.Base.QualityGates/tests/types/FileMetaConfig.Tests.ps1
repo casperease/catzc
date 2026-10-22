@@ -1,11 +1,8 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "85fe5ff314d5"
   edges:
     docs: "[FileMetaConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-quality-gates/tests/types/FileMetaConfig.Tests.ps1.md)"
-    code: pwsh/Catzc.Base.QualityGates/types/FileMetaConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-REPO-FILEMETA-METAKIND
@@ -15,7 +12,7 @@ catzc:
 #>
 
 Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
-    It 'lists the keys the imprint kinds write under each part, in registry order' -Tag 'ADR-REPO-FILEMETA-FILEISNODE' {
+    It 'lists the keys the imprint kinds write under the edges, in registry order, and none under immutable' -Tag 'ADR-REPO-FILEMETA-FILEISNODE' {
         $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
                 kinds = [ordered]@{
                     stamp  = @{ keys = @('with_stamp') }
@@ -25,21 +22,26 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
                     links  = @{ section = 'edges' }
                 }
             })
-        $config.KeysOf('immutable') | Should -Be @('with_stamp', 'size')
-        $config.KeysOf('edges') | Should -Be @('cites', 'links')
+        @($config.KeysOf('immutable')) | Should -BeNullOrEmpty
+        $config.KeysOf('edges') | Should -Be @('with_stamp', 'cites', 'size', 'links')
+    }
+
+    It 'rejects an imprint kind that writes under immutable: an authored head has no immutable part' -Tag 'ADR-REPO-FILEMETA-FILEISNODE' {
+        { [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ widget = @{ section = 'immutable'; keys = @('with_body_sha') } } }) } |
+            Should -Throw "*kind 'widget': section 'immutable' is not one of: edges (an authored head has no immutable part, ADR-REPO-FILEMETA-FILEISNODE)*"
     }
 
     It 'takes the declared defaults for every omitted key of a kind' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-        $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'body-sha' = $null } })
+        $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'widget-shade' = $null } })
         $kind = $config.kinds[0]
-        $kind.id | Should -BeExactly 'body-sha'
+        $kind.id | Should -BeExactly 'widget-shade'
         $kind.direction | Should -Be ([Catzc.Base.QualityGates.FileMetaDirection]::Imprint)
         $kind.select.Count | Should -Be 1
         $kind.select[0].classes.Count | Should -Be 0
         $kind.select[0].languages.Count | Should -Be 0
-        $kind.keys | Should -Be @('body_sha')
-        $kind.section | Should -BeExactly 'immutable'
-        $kind.processor | Should -BeExactly 'Get-BodyShaFileMetaFact'
+        $kind.keys | Should -Be @('widget_shade')
+        $kind.section | Should -BeExactly 'edges'
+        $kind.processor | Should -BeExactly 'Get-WidgetShadeFileMetaFact'
         $kind.target | Should -BeNullOrEmpty
         $kind.settings.Count | Should -Be 0
     }
@@ -104,7 +106,7 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
     }
 
     It 'names the subscribed function from the kind''s id' -ForEach @(
-        @{ Id = 'body-sha'; Direction = 'Imprint'; Expected = 'Get-BodyShaFileMetaFact' }
+        @{ Id = 'widget-shade'; Direction = 'Imprint'; Expected = 'Get-WidgetShadeFileMetaFact' }
         @{ Id = 'widget'; Direction = 'Imprint'; Expected = 'Get-WidgetFileMetaFact' }
         @{ Id = 'gadget-list'; Direction = 'Gather'; Expected = 'Get-GadgetListMarkdownConfigContribution' }
     ) -Tag 'ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION' {
@@ -143,7 +145,7 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
         @{ Raw = @{ kinds = @{ widget = @{ select = @(@{ classes = @('*-*') }) } } }; Message = '*more than one ''*''*' }
         @{ Raw = @{ kinds = @{ widget = @{ settings = 'x' } } }; Message = '*settings must be a map*' }
         @{ Raw = @{ kinds = [ordered]@{ widget = @{ keys = @('size') }; gadget = @{ keys = @('size') } } }; Message = '*key ''size'' is owned by both ''widget'' and ''gadget''*' }
-        @{ Raw = @{ kinds = [ordered]@{ widget = @{ section = 'derived' } } }; Message = '*kind ''widget'': section ''derived'' is not one of: immutable, edges*' }
+        @{ Raw = @{ kinds = [ordered]@{ widget = @{ section = 'derived' } } }; Message = '*kind ''widget'': section ''derived'' is not one of: edges*' }
         @{ Raw = @{ kinds = [ordered]@{ widget = @{ direction = 'gather'; target = 'widgets'; section = 'edges' } } }; Message = '*kind ''widget'': only an imprint kind has a ''section''*' }
     ) {
         { [Catzc.Base.QualityGates.FileMetaConfig]::new($Raw) } | Should -Throw $Message

@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-REPO-FILEMETA-METAKIND
+---
+
 # pwsh/Catzc.Base.QualityGates/configs/file-meta.yml
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
@@ -19,7 +27,7 @@ Above `drs-codes:`, written with `#`.
 
 ```text
 The ADR codes the file cites, its comment page's too, sorted and without duplicates, less the rules it defines; a long key, so late.
-A code file also lists the bare domain codes.
+A file of a code class (domain_classes) also lists the bare domain codes.
 ```
 
 ## comment:4
@@ -36,7 +44,7 @@ select it applies to every file that carries a head.
 Above `relative-edges:`, written with `#`.
 
 ```text
-The files a code file is bound to by a relation that costs to derive and defines it: the page its comments live on and the test that
-proves it, and from a test the code it proves. Each path stays in the file's own module or its docs section, never in another module, and
-a page knows its code by its name, so it records no edge back. One is written only when its file exists.
+The one file a file is bound to by a relation that costs to derive: the page its comments live on, under its docs section. A page knows
+its code by its name, so it records no edge back, and a test is found by convention, so neither carries an edge. It is written only when
+the page exists.
 ```

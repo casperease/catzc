@@ -1,15 +1,14 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: d1c541e20fa3
   edges:
-    code: pwsh/Catzc.Base.QualityGates/Format-FileMeta.ps1
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
       - ADR-AUTO-CONSOLE-ANNOUNCEBEFOREBLOCKING
       - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-FILEMETA-HEADPOLICY
       - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+      - ADR-REPO-FILEMETA-COMPOSEDFILES
       - ADR-REPO-FORMAT-METAIMPRINT
 ---
 #>
@@ -50,9 +49,8 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
             })
         Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
         $script:registry = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                head_policy = @{ default = 'required' }
+                head_policy = @{ default = 'facts' }
                 kinds       = [ordered]@{
-                    'body-sha'    = @{ keys = @('with_body_sha') }
                     'widget-role' = @{ keys = @('role') }
                     'drs-codes'   = @{ keys = @('cites'); section = 'edges' }
                 }
@@ -118,13 +116,13 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         $bytes = [System.IO.File]::ReadAllBytes((Join-Path $script:widgetRoot 'docs/widget.md'))
         $bytes[0] | Should -Be ([byte] [char] '-')
         $text = [System.Text.Encoding]::UTF8.GetString($bytes)
-        $text | Should -BeLike "---`r`ncatzc:`r`n  immutable:`r`n    with_body_sha: *`r`n    role: gadget`r`n  edges:`r`n    cites:`r`n      - ADR-GADGET-SPIN`r`n---`r`n`r`n# docs/widget.md*"
+        $text | Should -BeLike "---`r`ncatzc:`r`n  edges:`r`n    role: gadget`r`n    cites:`r`n      - ADR-GADGET-SPIN`r`n---`r`n`r`n# docs/widget.md*"
     }
 
     It 'keeps the authored config part and the other front matter keys' {
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
-        $text = [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md')) -replace 'with_body_sha: "?[0-9a-f]{12}"?', 'with_body_sha: HASH'
-        $text | Should -BeExactly "---`nname: gadget`ncatzc:`n  immutable:`n    with_body_sha: HASH`n    role: gadget`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
+        $text = [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md'))
+        $text | Should -BeExactly "---`nname: gadget`ncatzc:`n  edges:`n    role: gadget`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
     }
 
     It 'changes nothing on a second run' {
@@ -163,7 +161,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
 
     It 'flags the drifted files and points at the formatter' {
         { Test-FileMeta -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase } |
-            Should -Throw "Test-FileMeta failed: 2 issue(s)*docs/widget.md:1 ``[Drift``] expected 'the imprinted meta block'*run Format-FileMeta*"
+            Should -Throw "Test-FileMeta failed: 2 issue(s)*docs/widget.md:1 ``[Drift``] expected 'the imprinted meta block*run Format-FileMeta*"
     }
 
     It 'flags a key no kind owns and says where it belongs' {
@@ -183,5 +181,38 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
     It 'passes once the files are imprinted' {
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
         { Test-FileMeta -RepositoryRoot $script:widgetRoot -OutputFolder $script:reportBase } | Should -Not -Throw
+    }
+
+    It 'gives an authored Markdown page that cites a code its cites head, and strips the head of one that cites none' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
+        $registry = $script:registry
+        $scope = $script:scope
+        try {
+            # The shipped shape: no place fact on an authored file, so its head is its edges or nothing.
+            $script:registry = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites'); section = 'edges' } } })
+            [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/plain.md'), "---`ncatzc:`n  immutable:`n    with_body_sha: 0123456789ab`n---`n`n# docs/plain.md`n`nNo rule here.`n")
+            $script:scope = @(
+                [pscustomobject]@{ Path = 'docs/widget.md'; Carrier = $script:front }
+                [pscustomobject]@{ Path = 'docs/plain.md'; Carrier = $script:front }
+            )
+            Format-FileMeta -RepositoryRoot $script:widgetRoot -NoCache | Sort-Object | Should -Be @('docs/plain.md', 'docs/widget.md')
+            $cited = [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/widget.md')) -replace "`r", ''
+            $cited | Should -BeLike "---`ncatzc:`n  edges:`n    cites:`n      - ADR-GADGET-SPIN`n---`n`n# docs/widget.md*"
+            $cited | Should -Not -BeLike '*with_body_sha*' -Because 'only the generated-head writer emits a body hash, never the imprint of an authored file'
+            [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/plain.md')) | Should -BeExactly "# docs/plain.md`n`nNo rule here.`n"
+        }
+        finally {
+            $script:registry = $registry
+            $script:scope = $scope
+        }
+    }
+}
+
+Describe 'Format-FileMeta on the repository' -Tag 'L2', 'integrity', 'source-only', 'ADR-REPO-FILEMETA-HEADPOLICY' {
+    It 'leaves a generated page''s head to its generator: the page is outside the scope, so a run changes nothing' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
+        $before = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'docs/drs/index.md'))
+        $result = Format-FileMeta -Path 'docs/drs/index.md' -DryRun -NoCache -PassThru
+        $result.FileCount | Should -Be 0
+        $result.ChangedCount | Should -Be 0
+        [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'docs/drs/index.md')) | Should -BeExactly $before
     }
 }

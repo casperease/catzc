@@ -1,7 +1,5 @@
 # ---
 # catzc:
-#   immutable:
-#     with_body_sha: "45862c2816b8"
 #   edges:
 #     docs: "[variants.yml.md](../../../docs/references/pwsh/catzc-base-variants/configs/variants.yml.md)"
 #     cites:
@@ -17,9 +15,6 @@ ado_naming: standard
 git_workspace: main-direct
 
 have_customers: all
-
-file_heads:
-  code: minimal
 
 # A code track's aspects are derived from the layout in languages.yml (Get-Aspect), so only the other deployable tracks declare theirs.
 aspects:

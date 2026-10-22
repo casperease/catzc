@@ -19,12 +19,8 @@
   <PropertyGroup Label="catzc">
     <CatzcMeta><![CDATA[catzc:
   immutable:
-    with_body_sha: "55d329c0f306"
     warning: "Do Not Edit, this file is generated"
-    role: asset
-    track: pwsh
-    generator: pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
-    source: pwsh/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml]]></CatzcMeta>
+    with_body_sha: "55d329c0f306"]]></CatzcMeta>
   </PropertyGroup>
 
   <PropertyGroup>

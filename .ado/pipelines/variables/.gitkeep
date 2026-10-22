@@ -1,12 +1,8 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "42e6ec4ca2f9"
 #     warning: "Do Not Edit, this file is generated"
-#     role: other
-#     track: ado-pipelines
-#     generator: pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
-#     source: pwsh/Catzc.Base.Docs/assets/gitkeep
+#     with_body_sha: "42e6ec4ca2f9"
 # ---
 
 This .gitkeep keeps its otherwise-empty (or content-ignored) folder tracked in git.

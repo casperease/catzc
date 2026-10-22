@@ -1,10 +1,7 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "4bc7c5b33387"
   edges:
-    test: pwsh/Catzc.Base.Contracts/tests/Build-ContractReference.Tests.ps1
     docs: "[Build-ContractReference.ps1.md](../../docs/references/pwsh/catzc-base-contracts/Build-ContractReference.ps1.md)"
     cites:
       - ADR-REPO-CMDCONTRACT-ONEREADER
@@ -166,7 +163,7 @@ function Build-ContractReference {
         }
 
         $path = Join-Path $RepositoryRoot "$pageFolder/$unit.md"
-        $page = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path "$pageFolder/$unit.md" -Generator Build-ContractReference -Source "contracts/$unit" -FileKind (Get-FileKind "$pageFolder/$unit.md")
+        $page = Format-GeneratedFileHead -Text (($lines -join "`n") + "`n") -Path "$pageFolder/$unit.md"
         $changed = Write-FileIfChanged $path $page -DryRun:$DryRun
         $results.Add([pscustomobject]@{
                 Unit = $unit; Path = "$pageFolder/$unit.md"; Changed = $changed; Removed = $false; DryRun = [bool] $DryRun

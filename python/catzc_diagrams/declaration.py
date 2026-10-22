@@ -28,6 +28,7 @@ usage (repo root, background):
   uv run --project python python python/catzc_diagrams/declaration.py tidy <diagram>
   uv run --project python python python/catzc_diagrams/declaration.py minimaps <diagram>
   uv run --project python python python/catzc_diagrams/declaration.py reflow <diagram>
+  uv run --project python python python/catzc_diagrams/declaration.py carry <diagram> article|file
 (<diagram> is the stem `.assets/<name>` or either file of its pair)
 
 A pair whose yml and png both moved from the pair committed at git HEAD, and now disagree, is a conflict: check names its cells, the bulk

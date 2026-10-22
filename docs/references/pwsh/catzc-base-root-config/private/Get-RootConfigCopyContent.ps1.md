@@ -1,3 +1,10 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-REPO-ROOTCFG-HEADEDCOPY
+---
+
 # pwsh/Catzc.Base.RootConfig/private/Get-RootConfigCopyContent.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
@@ -13,9 +20,8 @@ Composes a managed root file from its template: the template's content under the
 
 The one composition of a `source` entry of rootconfig.yml
 ([ADR-REPO-ROOTCFG-HEADEDCOPY](../../../../drs/repository/generated-root-configs.md#rule-adr-repo-rootcfg-headedcopy)): it reads the
-template as LF and writes the generated-file head that names the template as its `source`, Build-RootConfig as its generator and carries the
-one warning, in the carrier the entry names. Build-RootConfig writes what it returns, and Test-RootConfigFiles compares the root file with
-it, so the writer and the gate can never disagree on what a copy is.
+template as LF and writes the generated-file head that carries the one warning, in the carrier the entry names. Build-RootConfig writes what
+it returns, and Test-RootConfigFiles compares the root file with it, so the writer and the gate can never disagree on what a copy is.
 
 ### parameter `Entry`
 

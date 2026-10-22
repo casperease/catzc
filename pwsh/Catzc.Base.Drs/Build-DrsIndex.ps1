@@ -1,10 +1,7 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "02747ba025ef"
   edges:
-    test: pwsh/Catzc.Base.Drs/tests/Build-DrsIndex.Tests.ps1
     docs: "[Build-DrsIndex.ps1.md](../../docs/references/pwsh/catzc-base-drs/Build-DrsIndex.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
@@ -121,9 +118,7 @@ function Build-DrsIndex {
 
     $content = (& $reflow $preamble) + "`n`n" + ($sections -join "`n`n") + "`n`n" + (& $reflow $conventions) + "`n"
 
-    $content = Format-GeneratedFileHead -Text $content -Path $indexPath -Generator Build-DrsIndex -Source @(foreach ($config in 'drs.yml', 'drs-index.yml') {
-            ConvertTo-RepoRelativePath (Get-CatzcModuleRoot "configs/$config")
-        }) -FileKind (Get-FileKind $indexPath)
+    $content = Format-GeneratedFileHead -Text $content -Path $indexPath
     $target = Resolve-RepoPath $indexPath
     $changed = Write-FileIfChanged $target $content -DryRun:$DryRun
 

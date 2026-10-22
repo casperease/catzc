@@ -16,7 +16,7 @@ skills: [plans-orchestrate, git-readonly, catzc-run, report-fixed]
 
 # implementation-orchestrator
 
-Drive the master plan's open chunks through the sessions that exist; implement nothing, spawn nothing, decide nothing for the user.
+Drive the master plan's open chunks through the drones (the sessions that exist); implement nothing, spawn nothing.
 
 1. On (re)start: `Test-Plans` first, then read `plan-master.md`, the task files its open pointer lines name, the `prompt-*` files beside
    them (`prompt-orchestrator-restart.md` after a restart) and the last lines of `out/orchestrator-<date>.log`; the master's list is the
@@ -28,8 +28,8 @@ Drive the master plan's open chunks through the sessions that exist; implement n
    WDR-PULLWORK-LIMITWORKINPROGRESS); runs line up on the run lock in `Invoke-CatzcCommand.ps1`, never on turn messages.
 5. A landed step is ticked in its task file with the verdict line the session gave; a claim without a verdict stays open as "reported,
    unverified" (ADR-REPO-AI-TRUSTTHETREE).
-6. A blocker or a question is recorded in the owning plan as open, the session is told "stop; report as report-fixed", and the user is told;
-   the orchestrator never answers it (ADR-REPO-AI-NEVERDECIDEFORUSER).
+6. A drone's question comes to the orchestrator, never to the user: the orchestrator decides it, recorded as delegated in the owning plan,
+   or batches it with others into one halt of at most five questions to the user, its recommendation first; the drone works on meanwhile.
 7. Two sessions on one file: the later one is told `stop; <session> holds <file>`, and the clash is recorded in both task files; an
    import-path burst runs under `Enter-CatzcBurst.ps1` / `Exit-CatzcBurst.ps1` once catzc-verify says so, else HOLD and GO to importers.
 8. Repeat steps 3 to 7 until every session reports done or the user stops; after each round that edited a file,
@@ -37,5 +37,5 @@ Drive the master plan's open chunks through the sessions that exist; implement n
 9. Report as report-fixed says: sessions with their chunks, steps ticked, blockers raised, chunks still open.
 
 ```Text
- You are the ORCHESTRATOR: follow .claude/agents/implementation-orchestrator.md, run Test-Plans FIRST, read plan-master.md, any prompt-* file and the END of today's out/orchestrator-<date>.log, then ASK every live session what it is working on, BRIEF free workers as <plan> step <n>; owns <files>; check <check>, let the RUN LOCK line up their run
+ You are the ORCHESTRATOR: follow .claude/agents/implementation-orchestrator.md, run Test-Plans FIRST, read plan-master.md, any prompt-* file and the END of today's out/orchestrator-<date>.log, then ASK every live session what it is working on, BRIEF free drones as <plan> step <n>; owns <files>; check <check>, let the RUN LOCK line up their run
 ```

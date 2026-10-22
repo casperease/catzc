@@ -1,11 +1,8 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "9e0900b5193b"
   edges:
     docs: "[Build-RootConfig.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-root-config/tests/Build-RootConfig.Tests.ps1.md)"
-    code: pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
     cites:
       - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
@@ -26,8 +23,6 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         $script:genTarget = Join-Path $script:fake.Root 'generated.txt'
 
         Mock Write-Message -ModuleName Catzc.Base.RootConfig { }
-        # The fixture generator is no loaded function, so the head's path for it is pinned.
-        Mock Get-GeneratorPath -ModuleName Catzc.Base.Languages { "widgets/Catzc.Widget/$Name.ps1" }
         # The fake root is not the loaded code root, so the derived run mode reads 'build'; pin the source mode.
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
         Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig { "rendered output`n" }
@@ -50,15 +45,16 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         Remove-Item $script:copyTarget, $script:genTarget -Force -ErrorAction Ignore
     }
 
-    It 'copies a source entry out under a generated head naming the source and Build-RootConfig as its generator' {
+    # The body hash is written only while git tracks the file, so a fixture tree may or may not carry it.
+    It 'copies a source entry out under the generated head, the warning and nothing else derived' {
         Build-RootConfig | Out-Null
         $text = [System.IO.File]::ReadAllText($script:copyTarget)
-        $text | Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     warning: "Do Not Edit, this file is generated"\n#     role: other\n#     generator: widgets/Catzc\.Widget/Build-RootConfig\.ps1\n#     source: sources/fixture\.yml\n# ---\n\nalpha: 1\nbeta: 2\n$'
+        $text | Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n#     warning: "Do Not Edit, this file is generated"\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?# ---\n\nalpha: 1\nbeta: 2\n$'
     }
 
-    It 'renders a generator entry through the dispatch, under a head naming the generator and its sources' {
+    It 'renders a generator entry through the dispatch, under the generated head' {
         Build-RootConfig | Out-Null
-        [System.IO.File]::ReadAllText($script:genTarget) | Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     warning: "Do Not Edit, this file is generated"\n#     role: other\n#     generator: widgets/Catzc\.Widget/Fake-Generator\.ps1\n#     source: sources/fixture\.yml\n# ---\n\nrendered output\n$'
+        [System.IO.File]::ReadAllText($script:genTarget) | Should -MatchExactly '^# ---\n# catzc:\n#   immutable:\n#     warning: "Do Not Edit, this file is generated"\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?# ---\n\nrendered output\n$'
         Should -Invoke Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'Fake-Generator' -and $Target -eq 'generated.txt' }
     }
 
@@ -139,11 +135,10 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
         # The pattern of the generated head a generator's file carries, over the content the generator rendered; the body hash is any 12 hex digits.
         $script:headed = {
             param([string] $Body)
-            '^# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "?[0-9a-f]{12}"?\n#     warning: "Do Not Edit, this file is generated"\n#     role: other\n#     generator: widgets/Catzc\.Widget/New-Widget\.ps1\n# ---\n\n' + [regex]::Escape($Body).Replace("`n", '\n') + '$'
+            '^# ---\n# catzc:\n#   immutable:\n#     warning: "Do Not Edit, this file is generated"\n(#     with_body_sha: "?[0-9a-f]{12}"?\n)?# ---\n\n' + [regex]::Escape($Body).Replace("`n", '\n') + '$'
         }
 
         Mock Write-Message -ModuleName Catzc.Base.RootConfig { }
-        Mock Get-GeneratorPath -ModuleName Catzc.Base.Languages { "widgets/Catzc.Widget/$Name.ps1" }
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
         Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig {
             [pscustomobject]@{ Target = 'widgets/alpha/gadget.txt'; Content = "alpha`n" }

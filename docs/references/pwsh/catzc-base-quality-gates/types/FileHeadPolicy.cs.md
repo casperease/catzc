@@ -1,3 +1,10 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-REPO-FILEMETA-HEADPOLICY
+---
+
 # pwsh/Catzc.Base.QualityGates/types/FileHeadPolicy.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
@@ -8,15 +15,15 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `public sealed class FileHeadPolicy`, written with `//`.
 
 ```text
-The head policy of the meta-kind registry: whether a file of a class must, may or must not carry a meta block
-([ADR-REPO-FILEMETA-HEADPOLICY](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)).
+The head policy of the meta-kind registry: whether a file of a class carries the facts its kinds produce, no meta block, or only its
+authored config part ([ADR-REPO-FILEMETA-HEADPOLICY](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)).
 ```
 
 ## comment:2
 
-Above `public HeadPolicy For(string fileClass, bool codeCarrier = false, bool...`, written with `//`.
+Above `public HeadPolicy For(string fileClass)`, written with `//`.
 
 ```text
-A class entry decides first; an authored file in a code carrier takes the file-heads variant
-([ADR-REPO-VARIANT-FILEHEADS](/docs/drs/repository/repo-variants.md#rule-adr-repo-variant-fileheads)), else the default.
+A class entry decides first, else the default: the facts, so a file whose facts are all empty carries no head
+([ADR-REPO-FILEMETA-HEADPOLICY](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)).
 ```

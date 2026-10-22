@@ -1,7 +1,5 @@
 # ---
 # catzc:
-#   immutable:
-#     with_body_sha: "106964593bb0"
 #   edges:
 #     docs: "[file-meta.yml.md](../../../docs/references/pwsh/catzc-base-quality-gates/configs/file-meta.yml.md)"
 #     cites:
@@ -9,44 +7,31 @@
 #       - ADR-REPO-FILEMETA-METAKIND
 # ---
 
-# Whether a file of a class must, may or must not carry a block, or keeps only its authored config part; the first class that matches decides, else an authored code or config file takes the file-heads variant, else the default (forbidden on the type).
+# Whether a file of a class carries the facts its kinds produce, none at all, or only its authored config part; the first class that matches decides, else the default (facts on the type): a head only when a fact is non-empty.
 head_policy:
+  default: facts
   classes:
     agent: forbidden
     capability: config
     slide: config
-    index: required
-    glossary: required
+    diagram-declaration: forbidden
 
 kinds:
-  # The hash of the body below the head, first of the place facts, on every file the policy gives a head; an author's hash in the config part is left alone.
-  body-sha:
-    keys: [with_body_sha]
-
-  # The few files a code file points at, one edge per fixed name; each only when it exists, docs as a link to the comment page relative to the file's own folder, so it opens in GitHub and an editor, code from a test to the file it tests.
+  # The comment page a file points at, only when it exists, as a link relative to the file's own folder, so it opens in GitHub and an editor; a test is found by convention, its stem under tests/.
   relative-edges:
     section: edges
-    keys: [test, docs, code]
+    keys: [docs]
     settings:
       relations:
         - name: docs
           link: "[{leaf}]({relative_path})"
           rules:
             - { paths: ["{page}"] }
-        - name: test
-          rules:
-            - { classes: [type], paths: ["pwsh/{module}/tests/types/{stem}.Tests.ps1"] }
-            - { classes: [function], paths: ["pwsh/{module}/tests/{stem}.Tests.ps1"] }
-        - name: code
-          rules:
-            - { classes: [test], paths: ["pwsh/{module}/types/{stem}.cs", "pwsh/{module}/{stem}.ps1", "pwsh/{module}/private/{stem}.ps1"] }
 
-  # The ADR codes a file and its comment page cite, never read back from its head; a code class also lists bare domain codes (domain_classes default). A page that renders a registry carries none.
+  # The ADR codes a file and its comment page cite, on every authored class, never read back from its head; a code class also lists bare domain codes. A page that renders a registry carries none.
   drs-codes:
     section: edges
     keys: [cites]
-    select:
-      [
-        { classes: [type, function, config, hook, module/internal, pipeline, pipeline-template, template] },
-        { classes: [test, fixture, asset, analyzer-rule], languages: [powershell] },
-      ]
+    settings:
+      domain_classes:
+        [type, function, config, hook, module/internal, pipeline, pipeline-template, template, test, fixture, asset, analyzer-rule]

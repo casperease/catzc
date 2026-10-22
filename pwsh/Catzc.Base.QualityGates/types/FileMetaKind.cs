@@ -1,8 +1,6 @@
 /*
 ---
 catzc:
-  immutable:
-    with_body_sha: "866a646f98c9"
   edges:
     docs: "[FileMetaKind.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/FileMetaKind.cs.md)"
     cites:
@@ -33,8 +31,8 @@ public sealed class FileMetaKind
     static readonly Regex KeyPattern = new Regex("^[a-z][a-z0-9_]*$", RegexOptions.Compiled);
     static readonly string[] Allowed = { "direction", "section", "select", "keys", "processor", "target", "settings" };
 
-    public const string DefaultSection = "immutable";
-    public static readonly string[] Sections = { "immutable", "edges" };
+    public const string DefaultSection = "edges";
+    public static readonly string[] Sections = { "edges" };
 
     public string id { get; }
     public FileMetaDirection direction { get; }
@@ -67,6 +65,7 @@ public sealed class FileMetaKind
         string explicitProcessor = null;
         string targetConfig = null;
         string sectionName = DefaultSection;
+        bool sectionGiven = false;
         var settingMap = new Dictionary<string, object>(StringComparer.Ordinal);
 
         if (raw != null)
@@ -92,11 +91,12 @@ public sealed class FileMetaKind
             }
             if (Has(raw, "section"))
             {
+                sectionGiven = true;
                 sectionName = Convert.ToString(raw["section"], CultureInfo.InvariantCulture);
                 if (!Sections.Contains(sectionName))
                 {
                     throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                        "{0}: section '{1}' is not one of: {2}", where, sectionName, string.Join(", ", Sections)));
+                        "{0}: section '{1}' is not one of: {2} (an authored head has no immutable part, ADR-REPO-FILEMETA-FILEISNODE)", where, sectionName, string.Join(", ", Sections)));
                 }
             }
             if (Has(raw, "select"))
@@ -129,7 +129,7 @@ public sealed class FileMetaKind
         {
             throw new ArgumentException(where + ": only a gather kind has a 'target'");
         }
-        if (direction == FileMetaDirection.Gather && sectionName != DefaultSection)
+        if (direction == FileMetaDirection.Gather && sectionGiven)
         {
             throw new ArgumentException(where + ": only an imprint kind has a 'section'");
         }

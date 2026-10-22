@@ -1,13 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    with_body_sha: "289de261e643"
-  edges:
-    test: pwsh/Catzc.Base.Languages/tests/types/GeneratedHeadConfig.Tests.ps1
----
-*/
-
 // The keys of the generated-file head, in the order they are written; a key a file has no value for is left out.
 
 using System;
@@ -23,7 +13,7 @@ public sealed class GeneratedHeadConfig : Catzc.Base.Objects.DictionaryRecord
     public const string DefaultWarning = "Do Not Edit, this file is generated";
 
     private const string Failed = "generated-head configuration validation failed:\n";
-    private static readonly string[] Known = ["with_body_sha", "warning", "role", "track", "generator", "source"];
+    private static readonly string[] Known = ["warning", "with_body_sha"];
     private static readonly string[] TopLevel = ["keys", "warning"];
 
     // The head keys in writing order.
@@ -48,7 +38,7 @@ public sealed class GeneratedHeadConfig : Catzc.Base.Objects.DictionaryRecord
             if (Array.IndexOf(Known, key) < 0) { errors.Add(string.Format("unknown head key '{0}' (allowed: {1})", key, string.Join(", ", Known))); }
         }
         if (listed.Distinct().Count() != listed.Length) { errors.Add("a head key is listed once"); }
-        foreach (string required in new[] { "with_body_sha", "warning", "role" })
+        foreach (string required in Known)
         {
             if (Array.IndexOf(listed, required) < 0) { errors.Add(string.Format("the head key '{0}' is required", required)); }
         }

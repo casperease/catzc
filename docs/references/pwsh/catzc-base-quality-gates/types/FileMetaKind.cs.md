@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-REPO-FILEMETA-METAKIND
+      - ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION
+      - ADR-REPO-FILEMETA-FILEISNODE
+---
+
 # pwsh/Catzc.Base.QualityGates/types/FileMetaKind.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
@@ -24,9 +34,9 @@ The function a module subscribes by default: Get-<Id>FileMetaFact, or Get-<Id>Ma
 
 ## comment:3
 
-Above `public const string DefaultSection = "immutable";`, written with `//`.
+Above `public const string DefaultSection = "edges";`, written with `//`.
 
 ```text
-The parts of the meta block an imprint kind writes into: the place facts, or the outgoing edges
-([ADR-REPO-FILEMETA-FILEISNODE](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-fileisnode)).
+The one part of the meta block an imprint kind writes into, the outgoing edges: an authored head has no immutable part, which only the
+generated-head writer writes ([ADR-REPO-FILEMETA-FILEISNODE](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-fileisnode)).
 ```

@@ -1,5 +1,5 @@
 {
-  "hash": "b35cefbb",
+  "hash": "a61cf121",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -1746,11 +1746,6 @@
     },
     {
       "name": "Catzc.Base.Variants.VariantAspect",
-      "aliases": [],
-      "display": []
-    },
-    {
-      "name": "Catzc.Base.Variants.VariantFileHeads",
       "aliases": [],
       "display": []
     },

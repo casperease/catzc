@@ -1,11 +1,10 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "023e6f5e0135"
   edges:
     cites:
       - ADR-REPO-CONTRACT-PROVENBYTESTS
+      - ADR-REPO-FILEMETA-HEADPOLICY
 ---
 #>
 
@@ -34,7 +33,9 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
     }
 
     It 'holds a sample whose every key is one the code writes, in the part the code writes it' {
-        foreach ($key in $script:sample['catzc']['immutable'].Keys) {
+        foreach ($key in @(if ($script:sample['catzc'].Contains('immutable')) {
+                    $script:sample['catzc']['immutable'].Keys
+                })) {
             $key | Should -BeIn $script:writtenImmutable
         }
         foreach ($key in $script:sample['catzc']['edges'].Keys) {
@@ -62,8 +63,9 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
         }
     }
 
-    It 'requires the one key no head is without' {
-        $script:parts['immutable']['required'] | Should -Be @('with_body_sha')
-        $script:sample['catzc']['immutable'].Keys | Should -Contain 'with_body_sha'
+    It 'requires no key, since an authored head holds edges only and a generated one holds the body hash only while tracked' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
+        $script:parts['immutable'].Contains('required') | Should -BeFalse
+        $script:schema['properties']['catzc'].Contains('required') | Should -BeFalse
+        $script:sample['catzc'].Contains('immutable') | Should -BeFalse -Because 'the sample is an authored head'
     }
 }

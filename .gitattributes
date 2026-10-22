@@ -1,13 +1,8 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: af0fb1003037
 #     warning: "Do Not Edit, this file is generated"
-#     role: other
-#     generator: pwsh/Catzc.Base.RootConfig/New-GitAttributes.ps1
-#     source:
-#       - pwsh/Catzc.Base.RootConfig/assets/root/.gitattributes-template
-#       - pwsh/Catzc.Base.Globs/configs/file-kinds.yml
+#     with_body_sha: af0fb1003037
 # ---
 
 # Binary files must never be line-ending normalized — EOL conversion rewrites the bytes, which corrupts

@@ -1,14 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f872b25f06ee
     warning: "Do Not Edit, this file is generated"
-    role: index
-    track: docs
-    generator: pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
-    source:
-      - pwsh/Catzc.Base.Drs/configs/drs.yml
-      - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+    with_body_sha: f872b25f06ee
 ---
 
 # DRS index and rule-citation registry

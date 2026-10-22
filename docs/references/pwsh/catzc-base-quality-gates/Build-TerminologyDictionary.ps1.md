@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-SPELL-ONEVOCABULARYSOURCE
+      - ADR-AUTO-SPELL-CATEGORYANDMEANING
+      - ADR-REPO-OUTDIR-DICTIONARIESGENERATED
+---
+
 # pwsh/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
@@ -99,7 +108,7 @@ for a deterministic list.
 Above `$text = if ($words.Count -gt 0) {`, written with `#`.
 
 ```text
-A generated-file head (cspell treats '#' lines as comments) names the generator and the single source —
+A generated-file head (cspell treats '#' lines as comments) carries the do-not-edit warning —
 mirrored by .cspell/README.md. It is part of the content, so it is drift-compared too.
 ```
 

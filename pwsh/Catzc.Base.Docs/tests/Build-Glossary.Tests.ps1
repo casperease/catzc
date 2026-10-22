@@ -1,11 +1,8 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "9fe4346ce021"
   edges:
     docs: "[Build-Glossary.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Build-Glossary.Tests.ps1.md)"
-    code: pwsh/Catzc.Base.Docs/Build-Glossary.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
@@ -64,7 +61,8 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         Build-Glossary -Path $script:page -Silent | Out-Null
         $text = [System.IO.File]::ReadAllText($script:page)
 
-        $text | Should -BeLike "---`ncatzc:*role: other*generator: pwsh/Catzc.Base.Docs/Build-Glossary.ps1*---`n`n# docs/drs/glossary.md*"
+        $text | Should -BeLike "---`ncatzc:*warning: *---`n`n# docs/drs/glossary.md*"
+        $text | Should -Not -BeLike '*generator:*'
         $text.IndexOf('## repository') | Should -BeLessThan $text.IndexOf('## automation')
         $text | Should -Not -Match '## flow'   # a domain without concepts gets no section
         $text | Should -Match ([regex]::Escape('- **Defined by:** [ADR-TST-WIDGET-REST](repository/widget-thing.md#rule-adr-tst-widget-rest)'))

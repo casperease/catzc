@@ -1,11 +1,8 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "53f1e31f2b76"
 #     warning: "Do Not Edit, this file is generated"
-#     role: script
-#     generator: pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
-#     source: pwsh/Catzc.Base.RootConfig/assets/root/importer.sh
+#     with_body_sha: "53f1e31f2b76"
 # ---
 
 # shellcheck shell=bash

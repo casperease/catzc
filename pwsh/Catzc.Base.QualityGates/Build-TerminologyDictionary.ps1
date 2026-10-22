@@ -1,10 +1,7 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "07602e1bfba0"
   edges:
-    test: pwsh/Catzc.Base.QualityGates/tests/Build-TerminologyDictionary.Tests.ps1
     docs: "[Build-TerminologyDictionary.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Build-TerminologyDictionary.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
@@ -52,7 +49,7 @@ function Build-TerminologyDictionary {
         else {
             ''
         }
-        $content = Format-GeneratedFileHead -Text $text -Path ".cspell/$category.txt" -Carrier word-list -Generator Build-TerminologyDictionary -Source (ConvertTo-RepoRelativePath (Get-CatzcModuleRoot 'configs/terminology.yml')) -FileKind (Get-FileKind ".cspell/$category.txt")
+        $content = Format-GeneratedFileHead -Text $text -Path ".cspell/$category.txt" -Carrier word-list
 
         $dictPath = Join-Path $cspellDir "$category.txt"
 

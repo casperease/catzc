@@ -1,7 +1,5 @@
 # ---
 # catzc:
-#   immutable:
-#     with_body_sha: "4576ec7e56d0"
 #   edges:
 #     docs: "[file-kinds.yml.md](../../../docs/references/pwsh/catzc-base-globs/configs/file-kinds.yml.md)"
 #     cites:
@@ -130,6 +128,10 @@ kinds:
   glossary:
     definition: The generated page that defines the terms of the domain rules.
     files: ["docs/drs/glossary.md"]
+  # A diagram's declaration comes before the decision records, so a declaration under docs/drs is one too.
+  diagram-declaration:
+    definition: The declaration a diagram is rendered from, its one source beside the image under .assets.
+    files: ["docs/**/.assets/*.drawio.yml"]
   adr:
     definition: A decision record whose numbered rules the code follows.
     files: ["docs/drs/**"]

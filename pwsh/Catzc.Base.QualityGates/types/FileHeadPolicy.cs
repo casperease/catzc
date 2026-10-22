@@ -1,14 +1,10 @@
 /*
 ---
 catzc:
-  immutable:
-    with_body_sha: d5bf14b208ba
   edges:
-    test: pwsh/Catzc.Base.QualityGates/tests/types/FileHeadPolicy.Tests.ps1
     docs: "[FileHeadPolicy.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/FileHeadPolicy.cs.md)"
     cites:
       - ADR-REPO-FILEMETA-HEADPOLICY
-      - ADR-REPO-VARIANT-FILEHEADS
 ---
 */
 
@@ -23,7 +19,7 @@ public sealed class FileHeadPolicy
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    public const HeadPolicy DefaultPolicy = HeadPolicy.Forbidden;
+    public const HeadPolicy DefaultPolicy = HeadPolicy.Facts;
 
     static readonly string[] Allowed = { "default", "classes" };
 
@@ -67,13 +63,12 @@ public sealed class FileHeadPolicy
         classes = list;
     }
 
-    public HeadPolicy For(string fileClass, bool codeCarrier = false, bool codeHeads = false)
+    public HeadPolicy For(string fileClass)
     {
         foreach (KeyValuePair<string, HeadPolicy> entry in classes)
         {
             if (FileSelector.ClassMatches(entry.Key, fileClass)) { return entry.Value; }
         }
-        if (codeCarrier) { return codeHeads ? HeadPolicy.Required : HeadPolicy.Forbidden; }
         return @default;
     }
 
@@ -82,13 +77,12 @@ public sealed class FileHeadPolicy
         string text = Convert.ToString(value, CultureInfo.InvariantCulture);
         switch (text)
         {
-            case "required": return HeadPolicy.Required;
-            case "optional": return HeadPolicy.Optional;
+            case "facts": return HeadPolicy.Facts;
             case "forbidden": return HeadPolicy.Forbidden;
             case "config": return HeadPolicy.Config;
             default:
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                    "file-meta config: {0} is '{1}' (allowed: required, optional, forbidden, config)", where, text));
+                    "file-meta config: {0} is '{1}' (allowed: facts, forbidden, config)", where, text));
         }
     }
 }

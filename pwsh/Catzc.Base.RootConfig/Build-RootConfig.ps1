@@ -1,10 +1,7 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "494f82ab9d86"
   edges:
-    test: pwsh/Catzc.Base.RootConfig/tests/Build-RootConfig.Tests.ps1
     docs: "[Build-RootConfig.ps1.md](../../docs/references/pwsh/catzc-base-root-config/Build-RootConfig.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
@@ -76,7 +73,7 @@ function Build-RootConfig {
 
     $ret = foreach ($entry in $entries) {
         if ($entry.source) {
-            # Content from an authored source file, with the generated-file head naming the source.
+            # Content from an authored source file, under the generated-file head.
             $content = Get-RootConfigCopyContent -Entry $entry -SourcePath (Resolve-RepoPath $entry.source)
             $files = @([pscustomobject]@{ Target = $entry.target; Content = $content; From = $entry.source })
         }
@@ -85,7 +82,7 @@ function Build-RootConfig {
                 Assert-PathExist (Resolve-RepoPath $listed)
             }
             $files = @(foreach ($file in @(Get-RootConfigRenderedFile -Entry $entry)) {
-                    $content = Format-GeneratedFileHead -Text $file.Content -Path $file.Target -Carrier $entry.carrier -Generator $entry.generator -Source $entry.sources -FileKind (Get-FileKind $file.Target)
+                    $content = Format-GeneratedFileHead -Text $file.Content -Path $file.Target -Carrier $entry.carrier
                     [pscustomobject]@{ Target = $file.Target; Content = $content; From = "$($entry.generator) (generator)" }
                 })
         }

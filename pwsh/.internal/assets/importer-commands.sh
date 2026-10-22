@@ -1,12 +1,8 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b06457c4f419
 #     warning: "Do Not Edit, this file is generated"
-#     role: asset
-#     track: pwsh
-#     generator: pwsh/Catzc.Base.Contracts/New-CatsCommandLookup.ps1
-#     source: contracts/catzc/0.0.0
+#     with_body_sha: b06457c4f419
 # ---
 
 # shellcheck shell=bash

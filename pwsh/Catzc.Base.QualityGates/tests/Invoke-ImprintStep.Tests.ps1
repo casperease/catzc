@@ -1,11 +1,8 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "60e97f05a41b"
   edges:
     docs: "[Invoke-ImprintStep.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-ImprintStep.Tests.ps1.md)"
-    code: pwsh/Catzc.Base.QualityGates/private/Invoke-ImprintStep.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
@@ -19,9 +16,23 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'step-adapter-repo'))
         $script:carriers = [Catzc.Base.Languages.FileCarriersConfig]::new(@{ carriers = [ordered]@{ markdown = @{ carrier = 'front-matter' }; powershell = @{ carrier = 'comment-head'; block = @('<#', '#>') } } })
         $script:languages = [Catzc.Base.Languages.LanguagesConfig]::new(@{ languages = [ordered]@{ markdown = @{ extensions = @('.md'); formatter = 'prettier' } } })
-        $script:meta = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'required' }; kinds = [ordered]@{ 'body-sha' = @{ keys = @('with_body_sha') } } })
+        # A fixture kind with a fixture processor, so the step is proven on a fact of its own, whatever kinds the shipped registry holds.
+        InModuleScope Catzc.Base.QualityGates {
+            function script:Get-WidgetShadeFileMetaFact {
+                [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The engine passes State, Path and Kind by name; the fixture fact needs none')]
+                param($State, $Path, $Kind)
+                [ordered]@{ shade = 'blue' }
+            }
+        }
+        $script:meta = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ head_policy = @{ default = 'facts' }; kinds = [ordered]@{ 'widget-shade' = @{ keys = @('shade') } } })
         $script:widget = Join-Path $script:root 'docs/widget.md'
         $script:gadget = Join-Path $script:root 'docs/gadget.md'
+    }
+
+    AfterAll {
+        InModuleScope Catzc.Base.QualityGates {
+            Remove-Item Function:\Get-WidgetShadeFileMetaFact -ErrorAction Ignore
+        }
     }
 
     BeforeEach {
@@ -42,7 +53,7 @@ Describe 'Invoke-ImprintStep' -Tag 'L0', 'logic', 'ADR-REPO-FORMAT-CONFIGUREDFOR
             }
             $outcome.Changed | Should -Be @($script:widget)
             $outcome.Unfixable.Count | Should -Be 0
-            [System.IO.File]::ReadAllText($script:widget) | Should -BeLike "---`ncatzc:`n  immutable:`n    with_body_sha: *`n---*# Widget*"
+            [System.IO.File]::ReadAllText($script:widget) | Should -BeLike "---`ncatzc:`n  edges:`n    shade: blue`n---*# Widget*"
         }
 
         It 'changes nothing under -DryRun, and still names the file it would change' {

@@ -1,10 +1,7 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "3c01cff6ebe2"
   edges:
-    test: pwsh/Catzc.Base.Drs/tests/Build-DrsCodeDictionary.Tests.ps1
     docs: "[Build-DrsCodeDictionary.ps1.md](../../docs/references/pwsh/catzc-base-drs/Build-DrsCodeDictionary.ps1.md)"
     cites:
       - ADR-AUTO-DRYRUN
@@ -54,7 +51,7 @@ function Build-DrsCodeDictionary {
     else {
         ''
     }
-    $content = Format-GeneratedFileHead -Text $text -Path $relative -Carrier word-list -Generator Build-DrsCodeDictionary -Source (ConvertTo-RepoRelativePath (Get-CatzcModuleRoot 'configs/drs.yml')) -FileKind (Get-FileKind $relative)
+    $content = Format-GeneratedFileHead -Text $text -Path $relative -Carrier word-list
     $existing = if (Test-Path -LiteralPath $path) {
         [System.IO.File]::ReadAllText($path)
     }

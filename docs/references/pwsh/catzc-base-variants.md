@@ -1,14 +1,20 @@
+---
+catzc:
+  edges:
+    cites:
+      - DDR-TRACK-TRACKISPLACEDCLUSTER
+---
+
 # Catzc.Base.Variants
 
 The repo-wide variants module — the single home for settings that are **fixed for the importer session** and read the same everywhere. A
 variant is a repo-wide switch, backed by `configs/variants.yml`, loaded once per session (re-run the importer to pick up an edit — the
 `Get-Config` cache boundary, see [caching](../../drs/automation/caching.md)). The file is a growing dictionary: the Azure resource-name
-component order (`ado_naming`), the enabled-customer set (`have_customers`), how changes reach main (`git_workspace`), which files carry a
-head (`file_heads`), and the per-track aspect classifications (`aspects`). Nothing reads the raw file — callers use the module's
-`Test-`/`Assert-`/`Get-` primitives, so a repo-wide guard is a one-liner anywhere above the config layer (see
-[repo-variants](../../drs/repository/repo-variants.md)). It is a member of the `Base` group and depends on
-[Catzc.Base.Config](catzc-base-config.md) (to read the config), [Catzc.Base.Objects](catzc-base-objects.md) (the base of its config type),
-and [Catzc.Base.Asserts](catzc-base-asserts.md).
+component order (`ado_naming`), the enabled-customer set (`have_customers`), how changes reach main (`git_workspace`), and the per-track
+aspect classifications (`aspects`). Nothing reads the raw file — callers use the module's `Test-`/`Assert-`/`Get-` primitives, so a
+repo-wide guard is a one-liner anywhere above the config layer (see [repo-variants](../../drs/repository/repo-variants.md)). It is a member
+of the `Base` group and depends on [Catzc.Base.Config](catzc-base-config.md) (to read the config),
+[Catzc.Base.Objects](catzc-base-objects.md) (the base of its config type), and [Catzc.Base.Asserts](catzc-base-asserts.md).
 
 ## Responsibilities
 
@@ -18,8 +24,7 @@ and [Catzc.Base.Asserts](catzc-base-asserts.md).
 | responsibility:2 | customers | [Enabled-customer set variant](#responsibility2--enabled-customer-set-variant)   |
 | responsibility:3 | workspace | [Git workspace variant](#responsibility3--git-workspace-variant)                 |
 | responsibility:4 | aspects   | [Aspect classification variant](#responsibility4--aspect-classification-variant) |
-| responsibility:5 | heads     | [File-heads variant](#responsibility5--file-heads-variant)                       |
-| responsibility:6 | tracks    | [Track and module-type variant](#responsibility6--track-and-module-type-variant) |
+| responsibility:5 | tracks    | [Track and module-type variant](#responsibility5--track-and-module-type-variant) |
 
 ### responsibility:1 — Resource-name order variant
 
@@ -51,15 +56,7 @@ typed records of a name and its glob patterns, the last the `**` catch-all remai
 track's convention is derived from the layout instead, by [Catzc.Base.Modules](catzc-base-modules.md), which reads this variant through the
 module and never the file.
 
-### responsibility:5 — File-heads variant
-
-Whether an authored code or config file carries the navigation head — `minimal` (the default: the head the
-[head policy](../../drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy) calls for, its `cites` and `docs` edges only, and none on
-a file that has neither) or `none` (no authored file carries a head). `Get-FileHeadVariant` returns the mode of `file_heads.code` and
-`Test-FileHeadVariant -Minimal|-None` answers whether it is the one named; a generated file's head is outside the variant (see
-[repo-variants](../../drs/repository/repo-variants.md)).
-
-### responsibility:6 — Track and module-type variant
+### responsibility:5 — Track and module-type variant
 
 The repository's tracks, each a placed cluster of one track type
 ([DDR-TRACK-TRACKISPLACEDCLUSTER](../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)), declared in `variants.yml` against the
@@ -104,9 +101,7 @@ The module's public functions, sorted into the responsibilities above.
 |                                                  | `Test-GitWorkspace`      |
 | responsibility:4 — Aspect classification variant | `Get-AspectDeclaration`  |
 |                                                  | `Test-AspectDeclaration` |
-| responsibility:5 — File-heads variant            | `Get-FileHeadVariant`    |
-|                                                  | `Test-FileHeadVariant`   |
-| responsibility:6 — Track and module-type variant | `Get-Track`              |
+| responsibility:5 — Track and module-type variant | `Get-Track`              |
 |                                                  | `Get-TrackPlace`         |
 |                                                  | `Get-PathModule`         |
 |                                                  | `Test-TrackDeclaration`  |

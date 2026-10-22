@@ -1,12 +1,8 @@
 ---
 catzc:
   immutable:
-    with_body_sha: bd5294bbd090
     warning: "Do Not Edit, this file is generated"
-    role: reference
-    track: docs
-    generator: pwsh/Catzc.Base.Contracts/Build-ContractReference.ps1
-    source: contracts/EXTERNAL-azure
+    with_body_sha: bd5294bbd090
 ---
 
 # docs/references/contracts/EXTERNAL-azure.md

@@ -8,6 +8,6 @@ The comments of the file that outgrew one line, one section per comment, verbati
 Above `keys:`, written with `#`.
 
 ```text
-The keys of the generated-file head in writing order; the body hash opens it as in every imprinted block, and source follows path so no
-word before it reads as a qualifier of the glossary's source term.
+The keys of the generated-file head in writing order: the do-not-edit warning, then the hash of the body it is immutable with, written only
+while git tracks the file.
 ```
