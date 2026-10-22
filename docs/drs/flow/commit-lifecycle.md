@@ -1,3 +1,20 @@
+---
+catzc:
+  edges:
+    cites:
+      - DDR-REMOTE-INTEGRATEFROMVERIFIED
+      - DDR-REMOTE-NORECONCILINGTIPS
+      - DDR-REMOTE-PULLREQUESTISINGRESS
+      - DDR-VISUAL-ONLYGITLANEISTIME
+      - DDR-VISUAL-ENVIRONMENTISCONTAINER
+      - DDR-VISUAL-DISTINCTENDINGS
+      - FDR-CD-TWORELEASEGATES
+      - FDR-CD-ACCEPTANCETESTINGISNOTUAT
+      - FDR-CD-RELEASECANDIDATE
+      - FDR-GIT-SYNCPOINT
+      - FDR-GIT-FALLBACKISANNOUNCED
+---
+
 # Flow: The commit lifecycle — states, environment occupancy, and the stable sync point
 
 The value-chain diagrams under `docs/.assets/commits-quality` — the `value-chain` promotion diagram and its `state-changes` flow-variant

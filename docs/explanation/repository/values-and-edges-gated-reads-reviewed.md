@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-VARIANT
+---
+
 # Values and module edges have a gate; the no-direct-read rule is left to review
 
 ```text

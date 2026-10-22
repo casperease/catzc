@@ -1,3 +1,15 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-PWSH-VERBS-PLURALCOLLECTIONNOUNS
+      - ADR-REPO-VARIANT-SESSIONVARIANT
+      - ADR-REPO-VARIANT-NODIRECTREADS
+      - ADR-REPO-VARIANT-ADONAMING
+      - ADR-REPO-VARIANT-HAVECUSTOMERS
+      - ADR-REPO-VARIANT-GITWORKSPACE
+---
+
 # Five keys, one private reader, fifteen exported primitives
 
 ```text

@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-DEPM-UNIFIEDGRAPH
+      - ADR-AUTO-DEPM-TWOSECTIONS
+      - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+---
+
 # Two sections of dependencies.yml are unioned into one allow-set per source module
 
 ```text
@@ -20,6 +29,132 @@ Supports ADR-AUTO-DEPM-UNIFIEDGRAPH, ADR-AUTO-DEPM-TWOSECTIONS and ADR-AUTO-DEPM
 the file loads, and `Get-ModuleDependencyViolations` merges them into one allow-set for each source module. Every function-call edge and
 every C# type edge from that module is then checked against the set, and the `Test-ModuleDependency` quality gate fails on any miss. Reading
 the code in this order shows exactly where an undeclared edge is caught.
+
+```yml drawio
+description:
+  The two sections of dependencies.yml are validated at load and then unioned into one allow-set per source module, which the quality gate
+  checks every function-call and type edge against, throwing one error that lists every issue.
+about:
+  adrs: [ADR-AUTO-DEPM-UNIFIEDGRAPH, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY]
+  lens: implementation
+content:
+  title: Two sections of dependencies.yml are unioned into one allow-set per source module
+  kind: explanation
+  flow: top-to-bottom
+  relation: feeds
+  theme: dark
+  bands:
+    - { id: band-file, label: DEPENDENCIES.YML }
+    - { id: band-load, label: AT LOAD }
+    - { id: band-allow, label: ALLOW-SET }
+    - { id: band-gate, label: GATE }
+  glyphs:
+    - { id: g-groups, kind: file, label: "groups:", in: band-file }
+    - { id: g-modules, kind: file, label: "modules:", in: band-file }
+    - { id: g-config, kind: code, label: DependenciesConfig, in: band-load }
+    - { id: f-validation, kind: failure, label: validation failed, in: band-load }
+    - { id: g-function, kind: code, label: Get-ModuleDependency, in: band-allow }
+    - { id: g-allowed, kind: code, label: $resolveAllowed, in: band-allow }
+    - { id: g-type, kind: code, label: Get-CSharpTypeDependency, in: band-allow }
+    - { id: g-test, kind: gate, label: Test-ModuleDependency, in: band-gate }
+    - { id: f-issues, kind: failure, label: "failed: N issue(s)", in: band-gate }
+  edges:
+    - { from: g-groups, to: g-config, kind: flow, label: "" }
+    - { from: g-modules, to: g-config, kind: flow, label: "" }
+    - { from: g-config, to: g-allowed, kind: flow, label: "" }
+    - { from: g-function, to: g-allowed, kind: flow, label: "" }
+    - { from: g-type, to: g-allowed, kind: flow, label: "" }
+    - { from: g-allowed, to: g-test, kind: flow, label: "" }
+    - { from: g-config, to: f-validation, kind: fail, label: "" }
+    - { from: g-test, to: f-issues, kind: fail, label: "" }
+  markers:
+    - { at: g-groups, number: 1 }
+    - { at: g-modules, number: 2 }
+    - { at: g-config, number: 3 }
+    - { at: f-validation, number: 4 }
+    - { at: g-function, number: 5 }
+    - { at: g-allowed, number: 6 }
+    - { at: g-type, number: 7 }
+    - { at: g-test, number: 8 }
+    - { at: f-issues, number: 9 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/automation/controlling-module-dependencies.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-maps/Get-ModuleNeighbourhoodMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/types/DependenciesConfig.cs.md
+          - docs/references/pwsh/catzc-base-module-system/types/DependencyGraph.cs.md
+          - docs/references/pwsh/catzc-base-module-system/types/ModuleGroup.cs.md
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+          - ADR-AUTO-DEPM-UNIFIEDGRAPH
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-UNIFIEDGRAPH]
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-ModuleNeighbourhoodMinimapData.ps1
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+          - ADR-AUTO-DEPM-UNIFIEDGRAPH
+      - cell: pwsh/Catzc.Base.ModuleSystem/types
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+          - ADR-AUTO-DEPM-UNIFIEDGRAPH
+    grid:
+      - cell: docs/markdown
+        by:
+          - docs/drs/automation/controlling-module-dependencies.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-maps/Get-ModuleNeighbourhoodMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/types/DependenciesConfig.cs.md
+          - docs/references/pwsh/catzc-base-module-system/types/DependencyGraph.cs.md
+          - docs/references/pwsh/catzc-base-module-system/types/ModuleGroup.cs.md
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+          - ADR-AUTO-DEPM-UNIFIEDGRAPH
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+          - ADR-AUTO-DEPM-UNIFIEDGRAPH
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Base.Maps/Get-ModuleNeighbourhoodMinimapData.ps1
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+          - ADR-AUTO-DEPM-UNIFIEDGRAPH
+      - cell: pwsh/yaml
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-UNIFIEDGRAPH]
+    axis:
+      - cell: AUTO/*
+        by: [ADR-AUTO-DEPM-GROUPAWAREINTEGRITY, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-UNIFIEDGRAPH]
+layout:
+  band-file: { x: 20, y: 84, w: 1260, h: 110 }
+  band-load: { x: 20, y: 214, w: 1260, h: 110 }
+  band-allow: { x: 20, y: 344, w: 1260, h: 110 }
+  band-gate: { x: 20, y: 474, w: 1260, h: 130 }
+  g-groups: { x: 300, y: 126, w: 260, h: 52 }
+  g-modules: { x: 620, y: 126, w: 260, h: 52 }
+  g-config: { x: 300, y: 254, w: 580, h: 44 }
+  f-validation: { x: 960, y: 254, w: 280, h: 44 }
+  g-function: { x: 40, y: 382, w: 230, h: 44 }
+  g-allowed: { x: 300, y: 382, w: 580, h: 44 }
+  g-type: { x: 910, y: 382, w: 330, h: 44 }
+  g-test: { x: 450, y: 502, w: 280, h: 68 }
+  f-issues: { x: 960, y: 514, w: 280, h: 44 }
+```
 
 ![Two sections unioned into one allow-set](.assets/two-sections-unioned-into-one-allow-set.drawio.png)
 

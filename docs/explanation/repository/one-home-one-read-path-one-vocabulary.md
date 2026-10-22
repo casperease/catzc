@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-CACHE-IMPORTERINVALIDATES
+      - ADR-PWSH-CACHE-SCRIPTSCOPESTATE
+      - ADR-REPO-VARIANT-SESSIONVARIANT
+      - ADR-REPO-VARIANT-NODIRECTREADS
+---
+
 # A repo-wide switch has one home, one read path and one guard vocabulary
 
 ```text

@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    warning: "Do Not Edit, this file is generated"
     with_body_sha: c32aa50ec9b3
+    warning: "Do Not Edit, this file is generated"
 ---
 
 # docs/drs/glossary.md

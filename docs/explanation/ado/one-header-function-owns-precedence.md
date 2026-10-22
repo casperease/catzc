@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+      - ADR-ADO-AUTH-PROVETARGET
+      - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
+      - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+---
+
 # One function owns the credential precedence, and ado.yml anchors every proof
 
 ```text

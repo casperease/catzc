@@ -1,8 +1,8 @@
 # ---
 # catzc:
 #   immutable:
-#     warning: "Do Not Edit, this file is generated"
 #     with_body_sha: b06457c4f419
+#     warning: "Do Not Edit, this file is generated"
 # ---
 
 # shellcheck shell=bash

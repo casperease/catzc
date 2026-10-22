@@ -134,7 +134,8 @@ Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity', 's
 
 Describe 'Build-Glossary — shipped configs/drs.yml and types' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     It 'finds the domain registry and the type sources in the loaded module' {
-        $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/drs.yml' -Module Catzc.Base.Docs)) | ConvertFrom-Yaml -Ordered
+        # The domain registry Build-Glossary reads through Get-Config ships in Catzc.Base.Drs.
+        $registry = [System.IO.File]::ReadAllText((Get-CatzcModuleRoot 'configs/drs.yml' -Module Catzc.Base.Drs)) | ConvertFrom-Yaml -Ordered
         @($registry['domains'].Keys).Count | Should -BeGreaterThan 0
         [System.IO.Directory]::EnumerateFiles((Get-CatzcModuleRoot 'types' -Module Catzc.Base.Docs), '*.cs') | Should -Not -BeNullOrEmpty
     }

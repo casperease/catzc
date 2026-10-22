@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+      - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+      - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+---
+
 # Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private
 
 ```text
@@ -16,6 +25,152 @@ A global config address can be held by code in any module, but only one module k
 resolver, `Get-ConfigValue`, keeps the key walk private, and builds the resolver on its own reader, `Get-Config`. Four modules hold
 addresses today, and every one of them depends on the same module and the same public pair, while the only file an address can reach is a
 committed `configs/<name>.yml` in the module that ships it.
+
+```yml drawio
+description:
+  Four modules hold config addresses and hand them to the one public resolver in Catzc.Base.Config, which keeps the key walk private and
+  builds on its own reader; the only file an address can reach is a committed config file.
+about:
+  adrs: [ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY]
+  lens: architecture
+content:
+  title: Callers in four modules dereference an address through Catzc.Base.Config; the walk stays private
+  kind: explanation
+  flow: left-to-right
+  relation: depends on
+  theme: dark
+  bands:
+    - { id: band-callers, label: CALLERS }
+    - { id: band-config, label: CATZC.BASE.CONFIG }
+    - { id: band-committed, label: COMMITTED CONFIG }
+  groups:
+    - { id: grp-consumers, label: four consumers, in: band-callers }
+  glyphs:
+    - { id: g-environment, kind: code, label: Catzc.Tooling.Environment, in: grp-consumers }
+    - { id: g-templates, kind: code, label: Catzc.Azure.Templates, in: grp-consumers }
+    - { id: g-languages, kind: code, label: Catzc.Base.Languages, in: grp-consumers }
+    - { id: g-gates, kind: code, label: Catzc.Base.QualityGates, in: grp-consumers }
+    - { id: g-value, kind: code, label: Get-ConfigValue, in: band-config }
+    - { id: g-walk, kind: code, label: Resolve-ConfigKeyPath, in: band-config }
+    - { id: g-reader, kind: code, label: Get-Config, in: band-config }
+    - { id: g-file, kind: file, label: configs/<name>.yml, in: band-committed }
+  edges:
+    - { from: grp-consumers, to: g-value, kind: flow, label: 4/4 }
+    - { from: g-value, to: g-walk, kind: flow, label: "" }
+    - { from: g-value, to: g-reader, kind: flow, label: "" }
+    - { from: g-reader, to: g-file, kind: flow, label: "" }
+  markers:
+    - { at: grp-consumers, number: 1 }
+    - { at: g-value, number: 2 }
+    - { at: g-walk, number: 3 }
+    - { at: g-reader, number: 4 }
+    - { at: g-file, number: 5 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/configuration/config-value-addressing.md
+          - docs/drs/configuration/dora-explains.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
+          - docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
+          - docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md
+          - docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md
+          - docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md
+          - docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Azure.Templates/private
+        by:
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Base.Config/.
+        by:
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Base.Config/private
+        by:
+          - pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Base.Folders/tests/types
+        by: [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM]
+      - cell: pwsh/Catzc.Base.Languages/.
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Tooling.Environment/.
+        by:
+          - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure.Templates
+        by:
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: subject/Catzc.Base.Config
+        by:
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: subject/Catzc.Base.Folders
+        by: [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM]
+      - cell: subject/Catzc.Base.Languages
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: subject/Catzc.Tooling.Environment
+        by:
+          - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+    axis:
+      - cell: AUTO/*
+        by: [ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY]
+layout:
+  band-callers: { x: 20, y: 84, w: 420, h: 300 }
+  band-config: { x: 460, y: 84, w: 460, h: 300 }
+  band-committed: { x: 940, y: 84, w: 340, h: 300 }
+  grp-consumers: { x: 40, y: 124, w: 260, h: 250 }
+  g-environment: { x: 60, y: 166, w: 220, h: 44 }
+  g-templates: { x: 60, y: 220, w: 220, h: 44 }
+  g-languages: { x: 60, y: 274, w: 220, h: 44 }
+  g-gates: { x: 60, y: 328, w: 220, h: 44 }
+  g-value: { x: 500, y: 232, w: 180, h: 44 }
+  g-walk: { x: 500, y: 316, w: 190, h: 44 }
+  g-reader: { x: 740, y: 232, w: 160, h: 44 }
+  g-file: { x: 1000, y: 226, w: 220, h: 52 }
+```
 
 ![Callers in four modules dereference an address through Catzc.Base.Config](.assets/callers-in-four-modules-share-one-resolver.drawio.png)
 

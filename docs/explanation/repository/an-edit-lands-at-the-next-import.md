@@ -1,3 +1,14 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-CACHE-IMPORTERINVALIDATES
+      - ADR-REPO-VARIANT-SESSIONVARIANT
+      - ADR-REPO-VARIANT-NODIRECTREADS
+      - ADR-REPO-VARIANT-HAVECUSTOMERS
+      - ADR-REPO-VARIANT-GITWORKSPACE
+---
+
 # An edit to a variant lands at the next import, and a wrong value fails once, at load
 
 ```text

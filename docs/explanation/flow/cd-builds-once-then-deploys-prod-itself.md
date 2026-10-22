@@ -18,6 +18,176 @@ Every customer CD ado pipeline in cats extends one template, `.ado/pipelines/ext
 and subscription assert. In code order, the template runs one CI stage that builds and publishes three artifacts, then three deploy stages
 that apply them in dependency order. In `cd-apex`, each deploy stage reaches the non-prod and the prod tier in the same run.
 
+```yml drawio
+description:
+  The customer CD pipeline builds each of the three templates once in the CI stage, then three chained deploy stages apply the published
+  artifacts, reaching the non-prod targets and the prod tier in the same run.
+about:
+  adrs: [FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWOENVIRONMENTACTIVATION]
+  lens: implementation
+content:
+  title: The customer CD pipeline builds once, then deploys the prod tier itself
+  kind: explanation
+  flow: left-to-right
+  relation: next in code order
+  theme: dark
+  bands:
+    - { id: band-ci, label: CI STAGE }
+    - { id: band-deploy, label: DEPLOY STAGES }
+    - { id: band-targets, label: TARGETS }
+  spans:
+    - id: span-ci
+      label: CI
+      over: [band-ci]
+    - id: span-cd
+      label: CD
+      over: [band-ci, band-deploy]
+  glyphs:
+    - { id: g-build-bicep, kind: runner, label: Build-Bicep, in: band-ci }
+    - { id: r-foundation, kind: result, label: foundation, in: band-ci }
+    - { id: r-discovery, kind: result, label: discovery, in: band-ci }
+    - { id: r-expedition, kind: result, label: expedition, in: band-ci }
+    - { id: g-deploy-foundation, kind: runner, label: Deploy_Foundation, in: band-deploy }
+    - { id: g-deploy-discovery, kind: runner, label: Deploy_Discovery, in: band-deploy }
+    - { id: g-deploy-expedition, kind: runner, label: Deploy_Expedition, in: band-deploy }
+    - { id: e-non-prod, kind: env, label: nsub · dev · test, in: band-targets }
+    - { id: e-prod-tier, kind: env, label: psub · prod, in: band-targets }
+  edges:
+    - { from: g-build-bicep, to: r-foundation, kind: flow, label: "" }
+    - { from: g-build-bicep, to: r-discovery, kind: flow, label: "" }
+    - { from: g-build-bicep, to: r-expedition, kind: flow, label: "" }
+    - { from: r-foundation, to: g-deploy-foundation, kind: flow, label: "" }
+    - { from: r-discovery, to: g-deploy-discovery, kind: flow, label: "" }
+    - { from: r-expedition, to: g-deploy-expedition, kind: flow, label: "" }
+    - { from: g-deploy-foundation, to: g-deploy-discovery, kind: flow, label: "" }
+    - { from: g-deploy-discovery, to: g-deploy-expedition, kind: flow, label: "" }
+    - { from: g-deploy-foundation, to: e-non-prod, kind: flow, label: "" }
+    - { from: g-deploy-expedition, to: e-prod-tier, kind: flow, label: "" }
+  markers:
+    - { at: g-build-bicep, number: 1 }
+    - { at: r-foundation, number: 2 }
+    - { at: g-deploy-foundation, number: 3 }
+    - { at: g-deploy-discovery, number: 4 }
+    - { at: e-non-prod, number: 5 }
+    - { at: e-prod-tier, number: 6 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by: [.claude/CLAUDE.md, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD, FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-TWOENVIRONMENTACTIVATION]
+      - cell: ado-pipelines/pipelines/.
+        by: [.ado/pipelines/deploy-apex.yaml, FDR-CD-TWOENVIRONMENTACTIVATION]
+      - cell: docs/-/.
+        by:
+          - docs/drs/flow/cd-discipline-and-promotion-flow.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/deploy-apex.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-CDCONTAINSCI
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - FDR-CD-CDCONTAINSCI
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - FDR-CD-CDCONTAINSCI
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+      - cell: pwsh/Catzc.Base.Drs/types
+        by:
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - FDR-CD-CDCONTAINSCI
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+      - cell: pwsh/Catzc.Base.Flow/types
+        by: [pwsh/Catzc.Base.Flow/types/RungsConfig.cs, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWOENVIRONMENTACTIVATION]
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - FDR-CD-CDCONTAINSCI
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-CDCONTAINSCI
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+    module-neighbourhood:
+      - cell: subject/.claude
+        by: [.claude/CLAUDE.md, FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD, FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-TWOENVIRONMENTACTIVATION]
+      - cell: subject/Catzc.Azure.DevOps
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - FDR-CD-CDCONTAINSCI
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - FDR-CD-CDCONTAINSCI
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+      - cell: subject/Catzc.Base.Flow
+        by: [pwsh/Catzc.Base.Flow/types/RungsConfig.cs, FDR-CD-CDSTAYSINNONPROD, FDR-CD-TWOENVIRONMENTACTIVATION]
+      - cell: subject/Catzc.Base.Maps
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-CDCONTAINSCI
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-SEPARATEPIPELINEKINDS
+          - FDR-CD-TWOENVIRONMENTACTIVATION
+      - cell: subject/pipelines
+        by: [.ado/pipelines/deploy-apex.yaml, FDR-CD-TWOENVIRONMENTACTIVATION]
+    axis:
+      - cell: DSGN/build
+        by: [FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD, FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-TWOENVIRONMENTACTIVATION]
+      - cell: DSGN/quality-control
+        by: [FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD, FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-TWOENVIRONMENTACTIVATION]
+      - cell: DSGN/release
+        by: [FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD, FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-TWOENVIRONMENTACTIVATION]
+      - cell: DSGN/deploy
+        by: [FDR-CD-CDCONTAINSCI, FDR-CD-CDSTAYSINNONPROD, FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-TWOENVIRONMENTACTIVATION]
+layout:
+  band-ci: { x: 20, y: 108, w: 400, h: 290 }
+  band-deploy: { x: 440, y: 108, w: 300, h: 290 }
+  band-targets: { x: 760, y: 108, w: 520, h: 290 }
+  g-build-bicep: { x: 40, y: 170, w: 140, h: 56 }
+  r-foundation: { x: 240, y: 170, w: 150, h: 44 }
+  r-discovery: { x: 240, y: 260, w: 150, h: 44 }
+  r-expedition: { x: 240, y: 350, w: 150, h: 44 }
+  g-deploy-foundation: { x: 470, y: 168, w: 200, h: 48 }
+  g-deploy-discovery: { x: 470, y: 258, w: 200, h: 48 }
+  g-deploy-expedition: { x: 470, y: 348, w: 200, h: 48 }
+  e-non-prod: { x: 960, y: 160, w: 220, h: 56 }
+  e-prod-tier: { x: 960, y: 340, w: 220, h: 56 }
+```
+
 ![The customer CD pipeline builds once, then deploys the prod tier itself](.assets/cd-builds-once-then-deploys-prod-itself.drawio.png)
 
 ## Walkthrough

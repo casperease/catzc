@@ -19,8 +19,8 @@
   <PropertyGroup Label="catzc">
     <CatzcMeta><![CDATA[catzc:
   immutable:
-    warning: "Do Not Edit, this file is generated"
-    with_body_sha: "55d329c0f306"]]></CatzcMeta>
+    with_body_sha: "55d329c0f306"
+    warning: "Do Not Edit, this file is generated"]]></CatzcMeta>
   </PropertyGroup>
 
   <PropertyGroup>

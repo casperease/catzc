@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-REPO-ROOTCFG-REGISTRY
+      - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+      - ADR-REPO-ROOTCFG-HEADEDCOPY
+---
+
 # One registry, one writer, one write primitive, two kinds of target
 
 ```text

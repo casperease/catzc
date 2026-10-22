@@ -18,6 +18,131 @@ What an author writes in a pipeline is what the Azure DevOps run shows. The step
 echoes the command it is about to run, and a failure prints a full exception before the run stops. A developer who wants to reproduce a
 failed step copies the command from the label and runs it after the importer.
 
+```yml drawio
+description:
+  "What an Azure DevOps run shows of one step: the label is the command, the log names the mode and echoes the command, a failure prints a
+  full exception, and a developer copies the command from the label with no gate checking that."
+about:
+  adrs: [FDR-CD-RUNNER-THINSTEPTEMPLATES, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE]
+  lens: operations
+content:
+  title: The Azure DevOps step is named after its command, and its log echoes the command before it runs
+  kind: explanation
+  flow: left-to-right
+  relation: run order
+  theme: dark
+  bands:
+    - { id: band-run, label: PIPELINE RUN }
+    - { id: band-developer, label: DEVELOPER }
+  glyphs:
+    - { id: r-step, kind: runner, label: pipeline step, in: band-run }
+    - { id: r-label, kind: result, label: step label, in: band-run }
+    - { id: r-invoke, kind: result, label: "Invoke-Automation [Mode]", in: band-run }
+    - { id: r-echo, kind: result, label: echoed command, in: band-run }
+    - { id: x-guard, kind: failure, label: guard throw, in: band-run }
+    - { id: x-exception, kind: failure, label: Write-Exception, in: band-run }
+    - { id: a-developer, kind: actor, label: developer, in: band-developer }
+  edges:
+    - { from: r-step, to: r-label, kind: flow, label: "" }
+    - { from: r-label, to: r-invoke, kind: flow, label: "" }
+    - { from: r-invoke, to: r-echo, kind: flow, label: "" }
+    - { from: r-step, to: x-guard, kind: fail, label: "" }
+    - { from: r-echo, to: x-exception, kind: fail, label: "" }
+    - { from: r-label, to: a-developer, kind: adr, label: "" }
+  markers:
+    - { at: r-step, number: 1 }
+    - { at: r-label, number: 2 }
+    - { at: x-guard, number: 3 }
+    - { at: r-invoke, number: 4 }
+    - { at: r-echo, number: 5 }
+    - { at: x-exception, number: 6 }
+    - { at: a-developer, number: 7 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by: [.claude/CLAUDE.md, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-THINSTEPTEMPLATES]
+      - cell: ado-pipelines/pipelines/steps
+        by: [.ado/pipelines/steps/invoke-automation.yaml, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-THINSTEPTEMPLATES]
+      - cell: docs/-/.
+        by:
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/pipeline-runner-pattern.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/steps/invoke-automation.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-THINSTEPTEMPLATES]
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-THINSTEPTEMPLATES]
+      - cell: pwsh/Catzc.Base.Drs/types
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-THINSTEPTEMPLATES]
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+    grid:
+      - cell: .claude/markdown
+        by: [.claude/CLAUDE.md, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-THINSTEPTEMPLATES]
+      - cell: ado-pipelines/pipeline-yaml
+        by: [.ado/pipelines/steps/invoke-automation.yaml, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-THINSTEPTEMPLATES]
+      - cell: docs/markdown
+        by:
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/pipeline-runner-pattern.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/steps/invoke-automation.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/bcl
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-THINSTEPTEMPLATES]
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/yaml
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-THINSTEPTEMPLATES]
+    axis:
+      - cell: DSGN/*
+        by: [FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-THINSTEPTEMPLATES]
+layout:
+  band-run: { x: 20, y: 84, w: 1260, h: 210 }
+  band-developer: { x: 20, y: 314, w: 1260, h: 130 }
+  r-step: { x: 60, y: 120, w: 170, h: 56 }
+  r-label: { x: 300, y: 120, w: 160, h: 56 }
+  r-invoke: { x: 530, y: 120, w: 230, h: 56 }
+  r-echo: { x: 830, y: 120, w: 180, h: 56 }
+  x-guard: { x: 60, y: 226, w: 170, h: 44 }
+  x-exception: { x: 830, y: 226, w: 180, h: 44 }
+  a-developer: { x: 330, y: 352, w: 100, h: 64 }
+```
+
 ![The step is named after its command](.assets/the-step-is-named-after-its-command.drawio.png)
 
 ## Walkthrough

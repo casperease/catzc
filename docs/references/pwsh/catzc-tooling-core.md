@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+      - ADR-CONF-LOADING-READINGISGLOBAL
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+---
+
 # Catzc.Tooling.Core
 
 The foundation of the Tooling group. It owns the generic, tool-agnostic engine that reads the single source of truth for which external
@@ -89,6 +98,365 @@ module and only this module within the group. Core is the engine; they are the p
 
 The diagram below draws tool invocation from the source. Every tool wrapper asserts the locked version from `tools.yml` before it runs the
 tool. The assertion either probes for the executable or checks the command and reads its version. The query form shares the same pieces.
+
+```yml drawio
+description:
+  "Every Invoke-Tool wrapper asserts the locked version before it runs the tool: Assert-Tool either probes for the executable or checks the
+  command and reads its version, and Test-Tool shares the same pieces as a boolean."
+about:
+  adrs: [ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT, ADR-PWSH-CACHE-STRICTSAFEPROBE, ADR-CONF-LOADING-READINGISGLOBAL]
+  lens: source
+content:
+  title: Each tool wrapper asserts the locked version before it runs
+  kind: reference
+  flow: left-to-right
+  relation: calls
+  theme: dark
+  bands:
+    - { id: band-entry, label: ENTRY }
+    - { id: band-core, label: TOOLING CORE }
+    - { id: band-execution, label: CATZC.BASE.EXECUTION }
+  glyphs:
+    - { id: g-wrappers, kind: set, label: Invoke-<Tool>, in: band-entry }
+    - { id: g-assert-tool, kind: code, label: Assert-Tool, in: band-core }
+    - { id: g-assert-version, kind: private, label: Assert-ToolVersion, in: band-core }
+    - { id: g-get-version, kind: code, label: Get-ToolVersion, in: band-core }
+    - { id: g-test-tool, kind: code, label: Test-Tool, in: band-core }
+    - { id: g-resolve, kind: private, label: Resolve-ToolExecutable, in: band-execution }
+    - { id: f-tools-yml, kind: file, label: tools.yml, in: band-execution }
+    - { id: g-invoke, kind: code, label: Invoke-Executable, in: band-execution }
+  edges:
+    - { from: g-wrappers, to: g-assert-tool, kind: flow, label: "" }
+    - { from: g-wrappers, to: g-invoke, kind: flow, label: "" }
+    - { from: g-assert-tool, to: g-assert-version, kind: flow, label: "" }
+    - { from: g-assert-tool, to: g-resolve, kind: flow, label: "" }
+    - { from: g-assert-version, to: g-get-version, kind: flow, label: "" }
+    - { from: g-get-version, to: g-invoke, kind: flow, label: "" }
+    - { from: g-test-tool, to: g-get-version, kind: flow, label: "" }
+    - { from: g-test-tool, to: g-resolve, kind: flow, label: "" }
+  markers:
+    - { at: g-wrappers, number: 1 }
+    - { at: g-assert-tool, number: 2 }
+    - { at: g-resolve, number: 3 }
+    - { at: g-assert-version, number: 4 }
+    - { at: g-get-version, number: 5 }
+    - { at: f-tools-yml, number: 6 }
+    - { at: g-invoke, number: 7 }
+    - { at: g-test-tool, number: 8 }
+  chips:
+    - { at: g-wrappers, kind: count, text: "10" }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/dry-run.md
+          - docs/drs/automation/pwsh/dora-explains.md
+          - docs/drs/automation/pwsh/script-scope-caching.md
+          - docs/drs/configuration/dora-explains.md
+          - docs/drs/configuration/module-config-loading.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/Register-AdoBuildValidation.Tests.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/Unregister-AdoBuildValidation.Tests.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Set-BicepTrackingTagSet.ps1.md
+          - docs/references/pwsh/catzc-base-config/Get-Config.ps1.md
+          - docs/references/pwsh/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md
+          - docs/references/pwsh/catzc-base-config/private/Get-ConfigRegistry.ps1.md
+          - docs/references/pwsh/catzc-base-config/private/Resolve-ConfigEntry.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Build-GitKeep.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Get-Glossary.ps1.md
+          - docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/DocsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/Build-DrsCodeDictionary.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Build-DrsIndex.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Get-CatsDrsIndex.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Get-CatsDrsRuleIds.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Get-DrsCitationMap.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Update-DrsCitation.ps1.md
+          - docs/references/pwsh/catzc-base-execution/Find-Executable.ps1.md
+          - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
+          - docs/references/pwsh/catzc-base-execution/Resolve-ToolExecutable.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/Build-Modules.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md
+          - docs/references/pwsh/catzc-base-files/Get-GitTrackedPath.ps1.md
+          - docs/references/pwsh/catzc-base-files/Invoke-GitCommit.ps1.md
+          - docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md
+          - docs/references/pwsh/catzc-base-git/Import-RepositoryWithHistory.ps1.md
+          - docs/references/pwsh/catzc-base-git/Reset-GitCleanFxd.ps1.md
+          - docs/references/pwsh/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md
+          - docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md
+          - docs/references/pwsh/catzc-base-globs/Protect-GlobSet.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-GlobSetProtection.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Copy-CatzcModule.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Get-FunctionDependency.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Build-EnglishDictionary.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Build-TerminologyDictionary.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Export-SpellingTriage.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Format-FileMeta.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Format-MarkdownTitle.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-LiveIdentityTokens.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/Build-RootConfig.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/types/RootConfigFiles.cs.md
+          - docs/references/pwsh/catzc-tooling-core/private/Assert-ToolVersion.ps1.md
+          - docs/references/pwsh/catzc-tooling-provisioning/Clear-TempFolders.ps1.md
+          - docs/references/pwsh/catzc-tooling-provisioning/Initialize-GitClone.ps1.md
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-CONF-LOADING-READINGISGLOBAL
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: pwsh/-/.
+        by: [pwsh/.scriptanalyzer/tests/NoBareCacheEntryRead.Tests.ps1, ADR-PWSH-CACHE-STRICTSAFEPROBE]
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/tests
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Register-AdoBuildValidation.Tests.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Unregister-AdoBuildValidation.Tests.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+      - cell: pwsh/Catzc.Azure.Templates/.
+        by:
+          - pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+          - pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/Set-BicepTrackingTagSet.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: pwsh/Catzc.Base.Config/.
+        by: [pwsh/Catzc.Base.Config/Get-Config.ps1, ADR-PWSH-CACHE-STRICTSAFEPROBE]
+      - cell: pwsh/Catzc.Base.Config/private
+        by:
+          - pwsh/Catzc.Base.Config/private/Get-ConfigOverlayRoot.ps1
+          - pwsh/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
+          - pwsh/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: pwsh/Catzc.Base.Docs/.
+        by:
+          - pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
+          - pwsh/Catzc.Base.Docs/Build-Readme.ps1
+          - pwsh/Catzc.Base.Docs/Get-Glossary.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-CONF-LOADING-READINGISGLOBAL
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: pwsh/Catzc.Base.Docs/private
+        by: [pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1, ADR-CONF-LOADING-READINGISGLOBAL, ADR-PWSH-CACHE-STRICTSAFEPROBE]
+      - cell: pwsh/Catzc.Base.Docs/types
+        by: [pwsh/Catzc.Base.Docs/types/DocsConfig.cs, ADR-CONF-LOADING-READINGISGLOBAL]
+      - cell: pwsh/Catzc.Base.Drs/.
+        by:
+          - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
+          - pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsIndex.ps1
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
+          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
+          - pwsh/Catzc.Base.Drs/Update-DrsCitation.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-CONF-LOADING-READINGISGLOBAL
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: pwsh/Catzc.Base.Drs/tests
+        by: [pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1, ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT]
+      - cell: pwsh/Catzc.Base.Execution/.
+        by:
+          - pwsh/Catzc.Base.Execution/Find-Executable.ps1
+          - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
+          - pwsh/Catzc.Base.Execution/Resolve-ToolExecutable.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-CONF-LOADING-READINGISGLOBAL
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: pwsh/Catzc.Base.Exporter/.
+        by: [pwsh/Catzc.Base.Exporter/Build-Modules.ps1, pwsh/Catzc.Base.Exporter/Install-Catzc.ps1, ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT]
+      - cell: pwsh/Catzc.Base.Files/.
+        by:
+          - pwsh/Catzc.Base.Files/Get-GitTrackedPath.ps1
+          - pwsh/Catzc.Base.Files/Invoke-GitCommit.ps1
+          - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: pwsh/Catzc.Base.Git/.
+        by:
+          - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
+          - pwsh/Catzc.Base.Git/Reset-GitCleanFxd.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+      - cell: pwsh/Catzc.Base.Git/private
+        by: [pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1, ADR-CONF-LOADING-READINGISGLOBAL]
+      - cell: pwsh/Catzc.Base.Git/types
+        by: [pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs, ADR-CONF-LOADING-READINGISGLOBAL]
+      - cell: pwsh/Catzc.Base.Globs/.
+        by: [pwsh/Catzc.Base.Globs/Protect-GlobSet.ps1, pwsh/Catzc.Base.Globs/Test-GlobSetProtection.ps1, ADR-PWSH-CACHE-STRICTSAFEPROBE]
+      - cell: pwsh/Catzc.Base.Maps/.
+        by: [pwsh/Catzc.Base.Maps/Get-WorldMap.ps1, ADR-PWSH-CACHE-STRICTSAFEPROBE]
+      - cell: pwsh/Catzc.Base.ModuleSystem/.
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
+          - ADR-CONF-LOADING-READINGISGLOBAL
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: pwsh/Catzc.Base.QualityGates/.
+        by:
+          - pwsh/Catzc.Base.QualityGates/Build-EnglishDictionary.ps1
+          - pwsh/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1
+          - pwsh/Catzc.Base.QualityGates/Export-SpellingTriage.ps1
+          - pwsh/Catzc.Base.QualityGates/Format-FileMeta.ps1
+          - pwsh/Catzc.Base.QualityGates/Format-MarkdownTitle.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+      - cell: pwsh/Catzc.Base.QualityGates/configs
+        by: [pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml, ADR-PWSH-CACHE-STRICTSAFEPROBE]
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1, ADR-CONF-LOADING-READINGISGLOBAL]
+      - cell: pwsh/Catzc.Base.QualityGates/tests
+        by:
+          - pwsh/Catzc.Base.QualityGates/tests/Move-FunctionHelp.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Sync-FileMeta.Tests.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+      - cell: pwsh/Catzc.Base.RootConfig/.
+        by: [pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1, ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT]
+      - cell: pwsh/Catzc.Base.RootConfig/types
+        by: [pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs, ADR-CONF-LOADING-READINGISGLOBAL]
+      - cell: pwsh/Catzc.Base.Slides/tests
+        by: [pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1, ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT]
+      - cell: pwsh/Catzc.Internal.Tests/.
+        by: [pwsh/.internal/tests/Write-LoadTime.Tests.ps1, ADR-PWSH-CACHE-STRICTSAFEPROBE]
+      - cell: pwsh/Catzc.Tooling.Core/private
+        by: [pwsh/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1, ADR-PWSH-CACHE-STRICTSAFEPROBE]
+      - cell: pwsh/Catzc.Tooling.Provisioning/.
+        by:
+          - pwsh/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
+          - pwsh/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure.DevOps.BuildValidation
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Register-AdoBuildValidation.Tests.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/tests/Unregister-AdoBuildValidation.Tests.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+      - cell: subject/Catzc.Azure.Templates
+        by:
+          - pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+          - pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/Set-BicepTrackingTagSet.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: subject/Catzc.Base.Config
+        by:
+          - pwsh/Catzc.Base.Config/Get-Config.ps1
+          - pwsh/Catzc.Base.Config/private/Get-ConfigOverlayRoot.ps1
+          - pwsh/Catzc.Base.Config/private/Get-ConfigRegistry.ps1
+          - pwsh/Catzc.Base.Config/private/Resolve-ConfigEntry.ps1
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/Build-GitKeep.ps1
+          - pwsh/Catzc.Base.Docs/Build-Readme.ps1
+          - pwsh/Catzc.Base.Docs/Get-Glossary.ps1
+          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
+          - pwsh/Catzc.Base.Docs/types/DocsConfig.cs
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-CONF-LOADING-READINGISGLOBAL
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/Build-DrsCodeDictionary.ps1
+          - pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsIndex.ps1
+          - pwsh/Catzc.Base.Drs/Get-CatsDrsRuleIds.ps1
+          - pwsh/Catzc.Base.Drs/Get-DrsCitationMap.ps1
+          - pwsh/Catzc.Base.Drs/Update-DrsCitation.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/tests/Update-DrsCitation.Tests.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-CONF-LOADING-READINGISGLOBAL
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: subject/Catzc.Base.Execution
+        by:
+          - pwsh/Catzc.Base.Execution/Find-Executable.ps1
+          - pwsh/Catzc.Base.Execution/Invoke-Executable.ps1
+          - pwsh/Catzc.Base.Execution/Resolve-ToolExecutable.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-CONF-LOADING-READINGISGLOBAL
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: subject/Catzc.Base.Exporter
+        by: [pwsh/Catzc.Base.Exporter/Build-Modules.ps1, pwsh/Catzc.Base.Exporter/Install-Catzc.ps1, ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT]
+      - cell: subject/Catzc.Base.Files
+        by:
+          - pwsh/Catzc.Base.Files/Get-GitTrackedPath.ps1
+          - pwsh/Catzc.Base.Files/Invoke-GitCommit.ps1
+          - pwsh/Catzc.Base.Files/Write-FileIfChanged.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: subject/Catzc.Base.Git
+        by:
+          - pwsh/Catzc.Base.Git/Import-RepositoryWithHistory.ps1
+          - pwsh/Catzc.Base.Git/Reset-GitCleanFxd.ps1
+          - pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
+          - pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: subject/Catzc.Base.Globs
+        by: [pwsh/Catzc.Base.Globs/Protect-GlobSet.ps1, pwsh/Catzc.Base.Globs/Test-GlobSetProtection.ps1, ADR-PWSH-CACHE-STRICTSAFEPROBE]
+      - cell: subject/Catzc.Base.Maps
+        by: [pwsh/Catzc.Base.Maps/Get-WorldMap.ps1, ADR-PWSH-CACHE-STRICTSAFEPROBE]
+      - cell: subject/Catzc.Base.ModuleSystem
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Get-FunctionDependency.ps1
+          - ADR-CONF-LOADING-READINGISGLOBAL
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: subject/Catzc.Base.QualityGates
+        by:
+          - pwsh/Catzc.Base.QualityGates/Build-EnglishDictionary.ps1
+          - pwsh/Catzc.Base.QualityGates/Build-TerminologyDictionary.ps1
+          - pwsh/Catzc.Base.QualityGates/Export-SpellingTriage.ps1
+          - pwsh/Catzc.Base.QualityGates/Format-FileMeta.ps1
+          - pwsh/Catzc.Base.QualityGates/Format-MarkdownTitle.ps1
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
+          - pwsh/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Move-FunctionHelp.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Sync-FileMeta.Tests.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-CONF-LOADING-READINGISGLOBAL
+          - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - cell: subject/Catzc.Base.RootConfig
+        by:
+          - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: subject/Catzc.Base.Slides
+        by: [pwsh/Catzc.Base.Slides/tests/Build-Diagrams.Tests.ps1, ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT]
+      - cell: subject/Catzc.Internal.Tests
+        by: [pwsh/.internal/tests/Write-LoadTime.Tests.ps1, ADR-PWSH-CACHE-STRICTSAFEPROBE]
+      - cell: subject/Catzc.Tooling.Core
+        by: [pwsh/Catzc.Tooling.Core/private/Assert-ToolVersion.ps1, ADR-PWSH-CACHE-STRICTSAFEPROBE]
+      - cell: subject/Catzc.Tooling.Provisioning
+        by:
+          - pwsh/Catzc.Tooling.Provisioning/Clear-TempFolders.ps1
+          - pwsh/Catzc.Tooling.Provisioning/Initialize-GitClone.ps1
+          - ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT
+    axis:
+      - cell: AUTO/*
+        by: [ADR-AUTO-DRYRUN-BRANCHBEFORESIDEEFFECT, ADR-CONF-LOADING-READINGISGLOBAL, ADR-PWSH-CACHE-STRICTSAFEPROBE]
+layout:
+  band-entry: { x: 20, y: 84, w: 180, h: 400 }
+  band-core: { x: 220, y: 84, w: 1060, h: 260 }
+  band-execution: { x: 220, y: 374, w: 1060, h: 110 }
+  g-wrappers: { x: 30, y: 136, w: 150, h: 40 }
+  g-assert-tool: { x: 280, y: 136, w: 150, h: 40 }
+  g-assert-version: { x: 600, y: 136, w: 170, h: 40 }
+  g-get-version: { x: 960, y: 136, w: 160, h: 40 }
+  g-test-tool: { x: 600, y: 266, w: 170, h: 40 }
+  g-resolve: { x: 265, y: 414, w: 190, h: 40 }
+  f-tools-yml: { x: 640, y: 402, w: 120, h: 52 }
+  g-invoke: { x: 940, y: 414, w: 200, h: 40 }
+```
+
 ![Each Invoke-Tool wrapper asserts the locked version before it runs](.assets/invoke-tool-asserts-locked-version.drawio.png)
 
 ## Division

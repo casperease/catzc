@@ -1,8 +1,8 @@
 # ---
 # catzc:
 #   immutable:
-#     warning: "Do Not Edit, this file is generated"
 #     with_body_sha: af0fb1003037
+#     warning: "Do Not Edit, this file is generated"
 # ---
 
 # Binary files must never be line-ending normalized — EOL conversion rewrites the bytes, which corrupts

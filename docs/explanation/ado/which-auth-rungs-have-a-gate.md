@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-ADO-AUTH
+      - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - FDR-CD-PIPELINE-NOSTOREDTOKENS
+---
+
 # The PAT proof and the empty-token assert have no gate
 
 ```text

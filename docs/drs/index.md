@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    warning: "Do Not Edit, this file is generated"
     with_body_sha: f872b25f06ee
+    warning: "Do Not Edit, this file is generated"
 ---
 
 # DRS index and rule-citation registry

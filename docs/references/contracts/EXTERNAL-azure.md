@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    warning: "Do Not Edit, this file is generated"
     with_body_sha: bd5294bbd090
+    warning: "Do Not Edit, this file is generated"
 ---
 
 # docs/references/contracts/EXTERNAL-azure.md

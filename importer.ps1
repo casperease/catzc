@@ -2,8 +2,8 @@
 ---
 catzc:
   immutable:
-    warning: "Do Not Edit, this file is generated"
     with_body_sha: "2f253655e0c6"
+    warning: "Do Not Edit, this file is generated"
 ---
 #>
 

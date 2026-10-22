@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-REPO-AI-EDITORISFACT
+      - ADR-REPO-PLANS-DECISIONSBECOMERULES
+---
+
 # Thesis explanations
 
 ```text

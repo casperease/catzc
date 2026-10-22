@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+      - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - ADR-REPO-ROOTCFG-HEADEDCOPY
+---
+
 # The import materialises every root file; two gates catch drift and name the fix
 
 ```text

@@ -16,6 +16,132 @@ A developer who writes `if ($env:TF_BUILD)` finds out at the next analyzer run, 
 that names the file, the position, the rule and the function to call instead, and then throws. On the agent side the CI pipeline proves the
 seam itself: one step asserts that the detector answers true and prints where the output root landed.
 
+```yml drawio
+description:
+  "What a developer and the pipeline see of the pipeline-detection seam: Test-ScriptAnalyzer on a devbox writes its report or throws once
+  with every raw-read line, and a CI step on the agent asserts the detector answers true and prints the staging directory."
+about:
+  adrs: [FDR-CD-DETECT-NODIRECTVARIABLECHECK, FDR-CD-DETECT-BOOLEANNOTMODAL]
+  lens: operations
+content:
+  title: A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam
+  kind: explanation
+  flow: top-to-bottom
+  relation: feeds the next step
+  theme: dark
+  bands:
+    - { id: band-devbox, label: DEVBOX }
+    - { id: band-pipeline, label: PIPELINE }
+  glyphs:
+    - { id: g-analyzer, kind: gate, label: Test-ScriptAnalyzer, in: band-devbox }
+    - { id: r-report, kind: result, label: out/test-script-analyzer/, in: band-devbox }
+    - { id: x-failed, kind: failure, label: Test-ScriptAnalyzer failed, in: band-devbox }
+    - { id: c-in-pipeline, kind: code, label: Test-IsRunningInPipeline, in: band-pipeline }
+    - { id: r-true, kind: result, label: $true, in: band-pipeline }
+    - { id: c-output-root, kind: code, label: Get-OutputRoot, in: band-pipeline }
+    - { id: r-staging, kind: result, label: staging directory, in: band-pipeline }
+  edges:
+    - { from: g-analyzer, to: r-report, kind: flow, label: "" }
+    - { from: g-analyzer, to: x-failed, kind: fail, label: "" }
+    - { from: c-in-pipeline, to: r-true, kind: flow, label: "" }
+    - { from: c-output-root, to: r-staging, kind: flow, label: "" }
+  markers:
+    - { at: g-analyzer, number: 1 }
+    - { at: r-report, number: 2 }
+    - { at: x-failed, number: 3 }
+    - { at: c-in-pipeline, number: 4 }
+    - { at: c-output-root, number: 5 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by: [.claude/CLAUDE.md, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: docs/-/.
+        by:
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/pipeline-detection.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: pwsh/Catzc.Azure.Templates/.
+        by: [pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: pwsh/Catzc.Base.Drs/types
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: pwsh/Catzc.Base.Globs/.
+        by: [pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: pwsh/Catzc.Base.Globs/tests
+        by:
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by: [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: pwsh/Catzc.Base.QualityGates/configs
+        by: [pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+    module-neighbourhood:
+      - cell: subject/.claude
+        by: [.claude/CLAUDE.md, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: subject/Catzc.Azure.DevOps
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: subject/Catzc.Azure.Templates
+        by: [pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - cell: subject/Catzc.Base.Globs
+        by:
+          - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - cell: subject/Catzc.Base.Maps
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - cell: subject/Catzc.Base.QualityGates
+        by: [pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+    axis:
+      - cell: DSGN/*
+        by: [FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+layout:
+  band-devbox: { x: 20, y: 84, w: 1260, h: 180 }
+  band-pipeline: { x: 20, y: 284, w: 1260, h: 180 }
+  g-analyzer: { x: 200, y: 136, w: 220, h: 84 }
+  r-report: { x: 560, y: 118, w: 280, h: 44 }
+  x-failed: { x: 560, y: 200, w: 280, h: 44 }
+  c-in-pipeline: { x: 200, y: 318, w: 220, h: 44 }
+  r-true: { x: 560, y: 318, w: 280, h: 44 }
+  c-output-root: { x: 200, y: 400, w: 220, h: 44 }
+  r-staging: { x: 560, y: 400, w: 280, h: 44 }
+```
+
 ![The analyzer names the raw read](.assets/the-analyzer-names-the-raw-read.drawio.png)
 
 ## Walkthrough

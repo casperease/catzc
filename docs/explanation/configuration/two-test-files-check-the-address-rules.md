@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+      - ADR-CONF-ADDRESSING
+---
+
 # Two L0 test files check the address rules; read-only and committed-only rest on convention
 
 ```text
@@ -18,6 +26,214 @@ Five addressing rules and one environment-variable rule constrain how cats deref
 carries the rules that govern it, set against what checks them. No quality gate looks at addresses; two L0 test files do, one for the
 grammar, the reader and the walk, and one for the secret hand-off. Two rules rest on convention: that a resolved node is never written
 through, and that nothing an address can reach is a secret.
+
+```yml drawio
+description:
+  "Each stage of resolving a global config address with the rules that govern it and what checks them: two L0 test files check the grammar,
+  the reader, the walk and the secret hand-off, while read-only and committed-only rest on convention."
+about:
+  adrs:
+    - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+    - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+    - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+    - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+    - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+    - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+  lens: governance
+content:
+  title: Two L0 test files check the address rules; read-only and committed-only rest on convention
+  kind: explanation
+  flow: left-to-right
+  relation: the walk, or what a test checks
+  theme: dark
+  bands:
+    - { id: band-resolve, label: RESOLVE }
+    - { id: band-secrets, label: SECRETS }
+    - { id: band-tests, label: L0 TESTS }
+  glyphs:
+    - { id: g-grammar, kind: code, label: address grammar, in: band-resolve }
+    - { id: g-reader, kind: code, label: one reader, in: band-resolve }
+    - { id: g-walk, kind: code, label: key walk, in: band-resolve }
+    - { id: a-copy, kind: drsonly, label: "a read, not a copy", in: band-resolve }
+    - { id: g-secret, kind: code, label: secret hand-off, in: band-secrets }
+    - { id: g-value-tests, kind: gate, label: Get-ConfigValue.Tests, in: band-tests }
+    - { id: g-env-tests, kind: gate, label: Write-EnvironmentSet.Tests, in: band-tests }
+  edges:
+    - { from: g-grammar, to: g-reader, kind: flow, label: "" }
+    - { from: g-reader, to: g-walk, kind: flow, label: "" }
+    - { from: g-walk, to: a-copy, kind: flow, label: "" }
+    - { from: g-value-tests, to: g-reader, kind: flow, label: "" }
+    - { from: g-env-tests, to: g-secret, kind: flow, label: "" }
+  markers:
+    - { at: g-grammar, number: 1 }
+    - { at: g-reader, number: 2 }
+    - { at: g-walk, number: 3 }
+    - { at: a-copy, number: 4 }
+    - { at: g-secret, number: 5 }
+    - { at: g-value-tests, number: 6 }
+    - { at: g-env-tests, number: 7 }
+  chips:
+    - { at: g-grammar, kind: rule, rule: ADR-CONF-ADDRESSING-GLOBALADDRESSFORM }
+    - { at: g-grammar, kind: rule, rule: ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG }
+    - { at: g-reader, kind: rule, rule: ADR-CONF-ADDRESSING-GLOBALADDRESSFORM }
+    - { at: g-reader, kind: rule, rule: ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY, gated: false }
+    - { at: g-walk, kind: rule, rule: ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG }
+    - { at: g-walk, kind: rule, rule: ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST }
+    - { at: a-copy, kind: rule, rule: ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD, gated: false }
+    - { at: g-secret, kind: rule, rule: ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS }
+    - { at: g-value-tests, kind: rule, rule: ADR-CONF-ADDRESSING-GLOBALADDRESSFORM }
+    - { at: g-value-tests, kind: rule, rule: ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG }
+    - { at: g-value-tests, kind: rule, rule: ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST }
+    - { at: g-env-tests, kind: rule, rule: ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/environment-variables.md
+          - docs/drs/configuration/config-value-addressing.md
+          - docs/drs/configuration/dora-explains.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
+          - docs/references/pwsh/catzc-base-config/Get-Config.ps1.md
+          - docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
+          - docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md
+          - docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md
+          - docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md
+          - docs/references/pwsh/catzc-tooling-environment.md
+          - docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Azure.Templates/private
+        by:
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Base.Config/.
+        by:
+          - pwsh/Catzc.Base.Config/Get-Config.ps1
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Base.Config/private
+        by:
+          - pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Base.Config/tests
+        by:
+          - pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Base.Folders/tests/types
+        by: [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM]
+      - cell: pwsh/Catzc.Base.Languages/.
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Tooling.Environment/.
+        by:
+          - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure.Templates
+        by:
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: subject/Catzc.Base.Config
+        by:
+          - pwsh/Catzc.Base.Config/Get-Config.ps1
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+          - pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: subject/Catzc.Base.Folders
+        by: [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM]
+      - cell: subject/Catzc.Base.Languages
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: subject/Catzc.Tooling.Environment
+        by:
+          - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+    axis:
+      - cell: AUTO/*
+        by:
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+layout:
+  band-resolve: { x: 20, y: 100, w: 620, h: 380 }
+  band-secrets: { x: 660, y: 100, w: 620, h: 130 }
+  band-tests: { x: 660, y: 250, w: 620, h: 230 }
+  g-grammar: { x: 170, y: 146, w: 300, h: 44 }
+  g-reader: { x: 170, y: 226, w: 300, h: 44 }
+  g-walk: { x: 170, y: 306, w: 300, h: 44 }
+  a-copy: { x: 170, y: 386, w: 300, h: 44 }
+  g-secret: { x: 1000, y: 146, w: 260, h: 44 }
+  g-value-tests: { x: 680, y: 330, w: 280, h: 68 }
+  g-env-tests: { x: 1000, y: 330, w: 260, h: 68 }
+```
 
 ![Two L0 test files check the address rules](.assets/two-test-files-check-the-address-rules.drawio.png)
 

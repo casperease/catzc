@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-PATH-CENTRALNORMALIZATION
+      - ADR-AUTO-PATH-FOREIGNPATHS
+      - ADR-AUTO-PATH-OUTANCHOR
+      - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+---
+
 # Output root first, then repository root, else absolute, and out/ re-anchors on the output root
 
 ```text
@@ -21,6 +31,218 @@ Supports ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-FOREIGNPATHS, ADR-AUT
 of their tests is the whole contract. Converting a path tries the output root before the repository root and keeps a normalized absolute
 path when neither applies; resolving a path re-anchors `out/` on `Get-OutputRoot`, passes a rooted path through and joins everything else
 onto the repository root. Across a stage boundary `ArtifactRef` does the same job against the artifact root.
+
+```yml drawio
+description:
+  A path is converted under the output root first, then the repository root, else kept absolute; Resolve-RepoPath re-anchors out/ on the
+  output root, and an artifact reference carries the relative and absolute forms across stages.
+about:
+  adrs: [ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-FOREIGNPATHS, ADR-AUTO-PATH-OUTANCHOR, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
+  lens: implementation
+content:
+  title: Output root first, then repository root, else absolute, and out/ re-anchors on the output root
+  kind: explanation
+  flow: left-to-right
+  relation: passes the path on
+  theme: dark
+  bands:
+    - { id: band-communication, label: COMMUNICATION FORM }
+    - { id: band-crossers, label: THE TWO CROSSERS }
+    - { id: band-binding, label: BINDING FORM }
+    - { id: band-stage, label: CROSS-STAGE }
+  groups:
+    - { id: grp-paths, label: communicated paths, in: band-communication }
+  glyphs:
+    - { id: r-out, kind: result, label: out/template/.../main.json, in: grp-paths }
+    - { id: r-repository, kind: result, label: pwsh/mod/file.ps1, in: grp-paths }
+    - { id: r-foreign, kind: result, label: 'D:\a\1\ws\sample\main.json', in: grp-paths }
+    - { id: g-resolve, kind: code, label: Resolve-RepoPath, in: band-crossers }
+    - { id: g-output-root, kind: code, label: Get-OutputRoot, in: band-crossers }
+    - { id: g-convert, kind: code, label: ConvertTo-RepoRelativePath, in: band-crossers }
+    - { id: s-effects, kind: set, label: "Reads, writes, tool calls", in: band-binding }
+    - { id: g-materialize, kind: code, label: ArtifactRef.Materialize, in: band-stage }
+    - { id: g-reference, kind: code, label: ArtifactRef, in: band-stage }
+    - { id: g-resolve-at, kind: code, label: ResolveAt / ExistsAt, in: band-stage }
+  edges:
+    - { from: grp-paths, to: g-resolve, kind: flow, label: "" }
+    - { from: g-resolve, to: s-effects, kind: flow, label: "" }
+    - { from: g-output-root, to: g-resolve, kind: flow, label: "" }
+    - { from: g-output-root, to: g-convert, kind: flow, label: "" }
+    - { from: g-convert, to: grp-paths, kind: flow, label: "" }
+    - { from: g-materialize, to: g-reference, kind: flow, label: "" }
+    - { from: g-reference, to: g-resolve-at, kind: flow, label: "" }
+  markers:
+    - { at: r-out, number: 1 }
+    - { at: r-repository, number: 2 }
+    - { at: r-foreign, number: 3 }
+    - { at: g-resolve, number: 4 }
+    - { at: g-output-root, number: 5 }
+    - { at: s-effects, number: 6 }
+    - { at: g-convert, number: 7 }
+    - { at: g-materialize, number: 8 }
+    - { at: g-reference, number: 9 }
+    - { at: g-resolve-at, number: 10 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/path-representation.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-docs/configs/readme.yml.md
+          - docs/references/pwsh/catzc-base-docs/types/DocMapping.cs.md
+          - docs/references/pwsh/catzc-base-docs/types/DocPattern.cs.md
+          - docs/references/pwsh/catzc-base-module-system/Copy-CatzcModule.ps1.md
+          - docs/references/pwsh/catzc-base-objects/types/ArtifactRef.cs.md
+          - docs/references/pwsh/catzc-base-objects/types/RepoRelativePath.cs.md
+          - docs/references/pwsh/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md
+          - docs/references/pwsh/catzc-base-repository/Resolve-RepoPath.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/configs/rootconfig.yml.md
+          - docs/references/pwsh/catzc-base-root-config/types/RootConfigFile.cs.md
+          - docs/references/pwsh/catzc-tooling-inspiration/types/Inspiration.cs.md
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/readme.yml
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/DocMapping.cs
+          - pwsh/Catzc.Base.Docs/types/DocPattern.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.ModuleSystem/.
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
+      - cell: pwsh/Catzc.Base.Objects/tests/types
+        by: [pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
+      - cell: pwsh/Catzc.Base.Objects/types
+        by:
+          - pwsh/Catzc.Base.Objects/types/ArtifactRef.cs
+          - pwsh/Catzc.Base.Objects/types/RepoRelativePath.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.Repository/.
+        by:
+          - pwsh/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
+          - pwsh/Catzc.Base.Repository/Resolve-RepoPath.ps1
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.RootConfig/configs
+        by:
+          - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.RootConfig/types
+        by:
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFile.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Tooling.Inspiration/types
+        by: [pwsh/Catzc.Tooling.Inspiration/types/Inspiration.cs, ADR-AUTO-PATH-FOREIGNPATHS]
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/readme.yml
+          - pwsh/Catzc.Base.Docs/types/DocMapping.cs
+          - pwsh/Catzc.Base.Docs/types/DocPattern.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Base.ModuleSystem
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Base.Objects
+        by:
+          - pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
+          - pwsh/Catzc.Base.Objects/types/ArtifactRef.cs
+          - pwsh/Catzc.Base.Objects/types/RepoRelativePath.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Base.Repository
+        by:
+          - pwsh/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
+          - pwsh/Catzc.Base.Repository/Resolve-RepoPath.ps1
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Base.RootConfig
+        by:
+          - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFile.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-FOREIGNPATHS
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Tooling.Inspiration
+        by: [pwsh/Catzc.Tooling.Inspiration/types/Inspiration.cs, ADR-AUTO-PATH-FOREIGNPATHS]
+    axis:
+      - cell: AUTO/*
+        by: [ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-FOREIGNPATHS, ADR-AUTO-PATH-OUTANCHOR, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
+layout:
+  band-communication: { x: 20, y: 84, w: 380, h: 300 }
+  band-crossers: { x: 420, y: 84, w: 440, h: 300 }
+  band-binding: { x: 880, y: 84, w: 400, h: 300 }
+  band-stage: { x: 20, y: 404, w: 1260, h: 130 }
+  grp-paths: { x: 40, y: 118, w: 340, h: 250 }
+  r-out: { x: 60, y: 162, w: 300, h: 44 }
+  r-repository: { x: 60, y: 230, w: 300, h: 44 }
+  r-foreign: { x: 60, y: 298, w: 300, h: 44 }
+  g-resolve: { x: 510, y: 138, w: 240, h: 52 }
+  g-output-root: { x: 510, y: 228, w: 240, h: 44 }
+  g-convert: { x: 510, y: 304, w: 240, h: 52 }
+  s-effects: { x: 920, y: 138, w: 300, h: 52 }
+  g-materialize: { x: 70, y: 452, w: 280, h: 52 }
+  g-reference: { x: 510, y: 452, w: 240, h: 52 }
+  g-resolve-at: { x: 920, y: 452, w: 300, h: 52 }
+```
 
 ![The output root is tried first, then the repository root](.assets/output-root-first-then-repo-root.drawio.png)
 

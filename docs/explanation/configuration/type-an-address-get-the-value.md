@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+      - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+      - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+---
+
 # Type an address and get its value back; a wrong address throws its message at the call
 
 ```text
@@ -19,6 +29,177 @@ Three commands dereference a global config address in cats, and each shows the p
 the value the address names, and a message at the call when the address is wrong. `Get-ConfigValue` returns the value,
 `Write-EnvironmentSet` puts it into a child process's environment next to secrets it masks, and `Build-Bicep` writes it into a template's
 parameters file.
+
+```yml drawio
+description:
+  "Three commands dereference a global config address and show the same two things: Get-ConfigValue returns the value, Write-EnvironmentSet
+  prints it with secrets masked, and Build-Bicep renders it into a parameters file; a wrong address throws a message at the call."
+about:
+  adrs:
+    - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+    - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+    - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+    - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+  lens: operations
+content:
+  title: Type an address and get its value back; a wrong address throws its message at the call
+  kind: explanation
+  flow: left-to-right
+  relation: prints or writes
+  theme: dark
+  bands:
+    - { id: band-command, label: COMMAND }
+    - { id: band-see, label: WHAT YOU SEE }
+    - { id: band-fail, label: FAIL FAST }
+  glyphs:
+    - { id: g-value, kind: code, label: Get-ConfigValue, in: band-command }
+    - { id: g-env, kind: code, label: Write-EnvironmentSet, in: band-command }
+    - { id: g-build, kind: code, label: Build-Bicep, in: band-command }
+    - { id: r-value, kind: result, label: "'0.43.8'", in: band-see }
+    - { id: r-lines, kind: result, label: BICEP = 0.43.8 · TOK = ***, in: band-see }
+    - { id: r-params, kind: result, label: parameters.<config>.json, in: band-see }
+    - { id: f-wrong, kind: failure, label: wrong address throws, in: band-fail }
+    - { id: f-invalid, kind: failure, label: invalid addressed parameters, in: band-fail }
+  edges:
+    - { from: g-value, to: r-value, kind: flow, label: "'global.azure.…'" }
+    - { from: g-env, to: r-lines, kind: flow, label: "-Set @{ … }" }
+    - { from: g-build, to: r-params, kind: flow, label: "{ address: global.… }" }
+    - { from: g-value, to: f-wrong, kind: fail, label: "" }
+    - { from: g-build, to: f-invalid, kind: fail, label: "" }
+  markers:
+    - { at: g-value, number: 1 }
+    - { at: r-value, number: 2 }
+    - { at: g-env, number: 3 }
+    - { at: r-lines, number: 4 }
+    - { at: g-build, number: 5 }
+    - { at: r-params, number: 6 }
+    - { at: f-wrong, number: 7 }
+    - { at: f-invalid, number: 8 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/environment-variables.md
+          - docs/drs/configuration/config-value-addressing.md
+          - docs/drs/configuration/dora-explains.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
+          - docs/references/pwsh/catzc-base-config/Get-Config.ps1.md
+          - docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
+          - docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md
+          - docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md
+          - docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md
+          - docs/references/pwsh/catzc-tooling-environment.md
+          - docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Azure.Templates/private
+        by:
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Base.Config/.
+        by:
+          - pwsh/Catzc.Base.Config/Get-Config.ps1
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Base.Config/private
+        by:
+          - pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Base.Config/tests
+        by: [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST]
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Base.Folders/tests/types
+        by: [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM]
+      - cell: pwsh/Catzc.Base.Languages/.
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: pwsh/Catzc.Tooling.Environment/.
+        by:
+          - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure.Templates
+        by:
+          - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: subject/Catzc.Base.Config
+        by:
+          - pwsh/Catzc.Base.Config/Get-Config.ps1
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+          - pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: subject/Catzc.Base.Folders
+        by: [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM]
+      - cell: subject/Catzc.Base.Languages
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+      - cell: subject/Catzc.Tooling.Environment
+        by:
+          - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+    axis:
+      - cell: AUTO/*
+        by:
+          - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
+layout:
+  band-command: { x: 20, y: 84, w: 280, h: 380 }
+  band-see: { x: 460, y: 84, w: 400, h: 380 }
+  band-fail: { x: 880, y: 84, w: 400, h: 380 }
+  g-value: { x: 60, y: 134, w: 200, h: 44 }
+  g-env: { x: 60, y: 254, w: 200, h: 44 }
+  g-build: { x: 60, y: 374, w: 200, h: 44 }
+  r-value: { x: 500, y: 134, w: 320, h: 44 }
+  r-lines: { x: 500, y: 254, w: 320, h: 44 }
+  r-params: { x: 500, y: 374, w: 320, h: 44 }
+  f-wrong: { x: 920, y: 194, w: 320, h: 44 }
+  f-invalid: { x: 920, y: 290, w: 320, h: 44 }
+```
 
 ![Type an address and get its value back](.assets/type-an-address-get-the-value.drawio.png)
 

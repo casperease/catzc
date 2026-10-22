@@ -16,6 +16,126 @@ A pipeline step in cats does not hold PowerShell. It names a command, and one ru
 in a terminal. YAML declares, PowerShell executes, and the string in the step is exactly what a developer types after loading the modules.
 That one invariant is what makes every pipeline step reproducible by hand.
 
+```yml drawio
+description:
+  A pipeline step names a command and holds no PowerShell; the pipeline task adds the authentication and the runner loads the modules once,
+  so the command runs exactly as a developer runs it after loading the modules, with no gate checking that.
+about:
+  adrs: [FDR-CD-RUNNER-NOINLINEPOWERSHELL, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE]
+  lens: meta
+content:
+  title: A pipeline step only names a command that a developer can run locally
+  kind: explanation
+  flow: left-to-right
+  relation: passes the command on
+  theme: dark
+  bands:
+    - { id: band-pipeline, label: PIPELINE }
+    - { id: band-developer, label: DEVELOPER }
+  glyphs:
+    - { id: g-step, kind: runner, label: pipeline step, in: band-pipeline }
+    - { id: g-task, kind: runner, label: pipeline task, in: band-pipeline }
+    - { id: g-runner, kind: code, label: runner, in: band-pipeline }
+    - { id: g-same-command, kind: code, label: same command, in: band-pipeline }
+    - { id: g-developer, kind: actor, label: developer, in: band-developer }
+  edges:
+    - { from: g-step, to: g-task, kind: flow, label: "" }
+    - { from: g-task, to: g-runner, kind: flow, label: "" }
+    - { from: g-runner, to: g-same-command, kind: flow, label: "" }
+    - { from: g-developer, to: g-same-command, kind: adr, label: "" }
+  markers:
+    - { at: g-step, number: 1 }
+    - { at: g-task, number: 2 }
+    - { at: g-runner, number: 3 }
+    - { at: g-same-command, number: 4 }
+    - { at: g-developer, number: 5 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by: [.claude/CLAUDE.md, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-NOINLINEPOWERSHELL]
+      - cell: ado-pipelines/pipelines/steps
+        by: [.ado/pipelines/steps/invoke-automation.yaml, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-NOINLINEPOWERSHELL]
+      - cell: docs/-/.
+        by:
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/pipeline-runner-pattern.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/steps/invoke-automation.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-NOINLINEPOWERSHELL]
+      - cell: pwsh/Catzc.Base.Drs/types
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-NOINLINEPOWERSHELL]
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+    grid:
+      - cell: .claude/markdown
+        by: [.claude/CLAUDE.md, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-NOINLINEPOWERSHELL]
+      - cell: ado-pipelines/pipeline-yaml
+        by: [.ado/pipelines/steps/invoke-automation.yaml, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-NOINLINEPOWERSHELL]
+      - cell: docs/markdown
+        by:
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/pipeline-runner-pattern.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/steps/invoke-automation.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+      - cell: pwsh/bcl
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-NOINLINEPOWERSHELL]
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+      - cell: pwsh/yaml
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-NOINLINEPOWERSHELL]
+    axis:
+      - cell: DSGN/*
+        by: [FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE, FDR-CD-RUNNER-NOINLINEPOWERSHELL]
+layout:
+  band-pipeline: { x: 20, y: 84, w: 1260, h: 130 }
+  band-developer: { x: 20, y: 250, w: 1260, h: 130 }
+  g-step: { x: 60, y: 124, w: 180, h: 60 }
+  g-task: { x: 320, y: 124, w: 180, h: 60 }
+  g-runner: { x: 580, y: 124, w: 180, h: 60 }
+  g-same-command: { x: 1040, y: 124, w: 200, h: 60 }
+  g-developer: { x: 1090, y: 290, w: 100, h: 70 }
+```
+
 ![A pipeline step only names a command you can run locally](.assets/a-step-only-names-a-command.drawio.png)
 
 ## Walkthrough

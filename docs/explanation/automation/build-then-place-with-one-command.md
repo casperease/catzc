@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+      - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - ADR-AUTO-BUNDLE-AUTOVERSION
+---
+
 # Build the bundle once, then place it with one command
 
 ```text
@@ -18,6 +27,171 @@ Supports ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL and 
 Building and placing the bundle takes two commands at the prompt. In a source-mode session a person runs `Build-Modules`, which verifies its
 own output and prints where the build went, and then one command places it: `Install-Catzc -Scope CurrentUser`, `Export-Catzc -Root <dir>`,
 or `Export-Catzc -To nuget`. A build that fails its integrity check throws with the whole list of what is wrong.
+
+```yml drawio
+description:
+  A source-mode session builds the bundle, the build checks its own output, and one placement command then copies the build into a module
+  path, beside a working root, or into a package.
+about:
+  adrs: [ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL, ADR-AUTO-BUNDLE-AUTOVERSION]
+  lens: operations
+content:
+  title: Build the bundle once, then place it with one command
+  kind: explanation
+  flow: left-to-right
+  relation: feeds or runs the next step
+  theme: dark
+  bands:
+    - { id: band-source, label: SOURCE }
+    - { id: band-build, label: BUILD }
+    - { id: band-bundle, label: BUNDLE }
+    - { id: band-targets, label: TARGETS }
+  groups:
+    - { id: grp-places, label: placement commands, in: band-targets }
+  glyphs:
+    - { id: g-importer, kind: code, label: . ./importer.ps1, in: band-source }
+    - { id: g-build, kind: code, label: Build-Modules, in: band-build }
+    - { id: g-assert, kind: gate, label: Assert-CatzcBundle, in: band-build }
+    - { id: f-invalid, kind: failure, label: Catzc build ... is invalid, in: band-build }
+    - { id: r-built, kind: result, label: Built Catzc 6.6.666, in: band-bundle }
+    - { id: g-install, kind: code, label: Install-Catzc -Scope, in: grp-places }
+    - { id: g-root, kind: code, label: Export-Catzc -Root, in: grp-places }
+    - { id: g-nuget, kind: code, label: Export-Catzc -To nuget, in: grp-places }
+  edges:
+    - { from: g-importer, to: g-build, kind: flow, label: "" }
+    - { from: g-build, to: g-assert, kind: flow, label: "" }
+    - { from: g-assert, to: r-built, kind: flow, label: "" }
+    - { from: g-assert, to: f-invalid, kind: fail, label: "" }
+    - { from: r-built, to: grp-places, kind: flow, label: "" }
+  markers:
+    - { at: g-importer, number: 1 }
+    - { at: g-build, number: 2 }
+    - { at: g-assert, number: 3 }
+    - { at: f-invalid, number: 4 }
+    - { at: r-built, number: 5 }
+    - { at: g-install, number: 6 }
+    - { at: g-root, number: 7 }
+    - { at: g-nuget, number: 8 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/platform-bundle.md
+          - docs/drs/index.md
+          - docs/references/github/workflows/ci-pwsh.yml.md
+          - docs/references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/Assert-CatzcBundle.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/Export-Catzc.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/Resolve-CatzcBuildVersion.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md
+          - docs/references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md
+          - docs/references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md
+          - docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md
+          - docs/references/pwsh/internal/assets/Import-Catzc.ps1.md
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: github-workflows/workflows/.
+        by: [.github/workflows/ci-pwsh.yml, ADR-AUTO-BUNDLE-IMMUTABLEBUILD]
+      - cell: pwsh/Catzc.Base.Contracts/.
+        by: [pwsh/Catzc.Base.Contracts/Publish-ContractRelease.ps1, ADR-AUTO-BUNDLE-AUTOVERSION]
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: pwsh/Catzc.Base.Exporter/.
+        by:
+          - pwsh/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
+          - pwsh/Catzc.Base.Exporter/Export-Catzc.ps1
+          - pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
+          - pwsh/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: pwsh/Catzc.Base.Exporter/configs
+        by:
+          - pwsh/Catzc.Base.Exporter/configs/exporter.yml
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: pwsh/Catzc.Base.Exporter/private
+        by:
+          - pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
+          - pwsh/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: pwsh/Catzc.Base.Exporter/types
+        by:
+          - pwsh/Catzc.Base.Exporter/types/ExporterBundle.cs
+          - pwsh/Catzc.Base.Exporter/types/ExporterConfig.cs
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: pwsh/Catzc.Internal.Assets/.
+        by:
+          - pwsh/.internal/assets/Import-Catzc.ps1
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Contracts
+        by: [pwsh/Catzc.Base.Contracts/Publish-ContractRelease.ps1, ADR-AUTO-BUNDLE-AUTOVERSION]
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: subject/Catzc.Base.Exporter
+        by:
+          - pwsh/Catzc.Base.Exporter/Assert-CatzcBundle.ps1
+          - pwsh/Catzc.Base.Exporter/Export-Catzc.ps1
+          - pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
+          - pwsh/Catzc.Base.Exporter/Resolve-CatzcBuildVersion.ps1
+          - pwsh/Catzc.Base.Exporter/configs/exporter.yml
+          - pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
+          - pwsh/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
+          - pwsh/Catzc.Base.Exporter/types/ExporterBundle.cs
+          - pwsh/Catzc.Base.Exporter/types/ExporterConfig.cs
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: subject/Catzc.Internal.Assets
+        by:
+          - pwsh/.internal/assets/Import-Catzc.ps1
+          - ADR-AUTO-BUNDLE-AUTOVERSION
+          - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: subject/workflows
+        by: [.github/workflows/ci-pwsh.yml, ADR-AUTO-BUNDLE-IMMUTABLEBUILD]
+    axis:
+      - cell: AUTO/build
+        by: [ADR-AUTO-BUNDLE-AUTOVERSION, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
+      - cell: AUTO/release
+        by: [ADR-AUTO-BUNDLE-AUTOVERSION, ADR-AUTO-BUNDLE-IMMUTABLEBUILD, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
+layout:
+  band-source: { x: 20, y: 84, w: 230, h: 300 }
+  band-build: { x: 270, y: 84, w: 450, h: 300 }
+  band-bundle: { x: 740, y: 84, w: 230, h: 300 }
+  band-targets: { x: 990, y: 84, w: 290, h: 300 }
+  g-importer: { x: 40, y: 180, w: 190, h: 44 }
+  g-build: { x: 290, y: 180, w: 150, h: 44 }
+  g-assert: { x: 500, y: 168, w: 190, h: 68 }
+  f-invalid: { x: 500, y: 290, w: 190, h: 44 }
+  r-built: { x: 760, y: 180, w: 190, h: 44 }
+  grp-places: { x: 1010, y: 140, w: 250, h: 230 }
+  g-install: { x: 1030, y: 184, w: 210, h: 44 }
+  g-root: { x: 1030, y: 244, w: 210, h: 44 }
+  g-nuget: { x: 1030, y: 304, w: 210, h: 44 }
+```
 
 ![Build, then place with one command](.assets/build-then-place-with-one-command.drawio.png)
 

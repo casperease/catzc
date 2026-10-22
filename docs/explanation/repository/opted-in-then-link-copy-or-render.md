@@ -1,3 +1,14 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-REPO-ROOTCFG-REGISTRY
+      - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+      - ADR-REPO-ROOTCFG-COMPOSEDROOTFILE
+      - ADR-REPO-ROOTCFG-HEADEDCOPY
+      - ADR-REPO-ROOTCFG-WILDCARDGENERATOR
+---
+
 # The optIn filter, then copy or render, through one write primitive
 
 ```text

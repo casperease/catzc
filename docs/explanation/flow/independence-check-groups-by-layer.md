@@ -19,6 +19,246 @@ The gate `Test-GlobSetIndependence` takes every declared and derived globset, co
 skips the `loose-fileset` group, and tests every pair inside the other groups for a shared file. Where a set's layer comes from therefore
 decides whether it is ever compared with anything. All paths below are under `pwsh/Catzc.Base.Globs/`.
 
+```yml drawio
+description:
+  The independence gate groups every declared and derived globset by layer, skips the loose-fileset group, tests each same-layer pair for a
+  shared file, writes a report, and throws once with one line per overlapping pair.
+about:
+  adrs: [FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+  lens: implementation
+content:
+  title: Test-GlobSetIndependence groups every set by layer and tests each same-layer pair
+  kind: explanation
+  flow: left-to-right
+  relation: in code order
+  theme: dark
+  bands:
+    - { id: band-deployable-unit, label: DEPLOYABLE-UNIT }
+    - { id: band-loose-fileset, label: LOOSE-FILESET }
+    - { id: band-module, label: MODULE }
+  glyphs:
+    - { id: s-deployable-units, kind: set, label: deployable-unit sets, in: band-deployable-unit }
+    - { id: g-overlaps-units, kind: gate, label: Overlaps per pair, in: band-deployable-unit }
+    - { id: s-declared-loose, kind: set, label: declared loose-filesets, in: band-loose-fileset }
+    - { id: s-reserved-names, kind: set, label: ReservedNames umbrellas, in: band-loose-fileset }
+    - { id: g-report, kind: code, label: Write-QualityGateReport, in: band-loose-fileset }
+    - { id: f-throw, kind: failure, label: One throw lists every pair, in: band-loose-fileset }
+    - { id: s-module-layer, kind: set, label: module-layer sets, in: band-module }
+    - { id: g-overlaps-modules, kind: gate, label: Overlaps per pair, in: band-module }
+  edges:
+    - { from: s-deployable-units, to: g-overlaps-units, kind: flow, label: "" }
+    - { from: s-module-layer, to: g-overlaps-modules, kind: flow, label: "" }
+    - { from: g-overlaps-units, to: g-report, kind: flow, label: "" }
+    - { from: g-overlaps-modules, to: g-report, kind: flow, label: "" }
+    - { from: g-report, to: f-throw, kind: fail, label: "" }
+  markers:
+    - { at: s-deployable-units, number: 1 }
+    - { at: s-declared-loose, number: 2 }
+    - { at: s-reserved-names, number: 3 }
+    - { at: s-module-layer, number: 4 }
+    - { at: g-overlaps-units, number: 5 }
+    - { at: g-overlaps-modules, number: 6 }
+    - { at: g-report, number: 7 }
+    - { at: f-throw, number: 8 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by: [.claude/CLAUDE.md, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
+          - .ado/pipelines/ci-pwsh.yaml
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: docs/-/.
+        by:
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/durable-sha-globs.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/how-to/pwsh/manual-test-plan/pipelines-and-globs.md
+          - docs/references/ado/pipelines/cd-apex.yaml.md
+          - docs/references/ado/pipelines/cd-flux.yaml.md
+          - docs/references/ado/pipelines/cd-nova.yaml.md
+          - docs/references/ado/pipelines/cd-shared.yaml.md
+          - docs/references/ado/pipelines/ci-infrastructure.yaml.md
+          - docs/references/ado/pipelines/ci-pwsh.yaml.md
+          - docs/references/github/workflows/ci-pwsh.yml.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Get-AdoBuildValidations.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Register-AdoBuildValidation.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Unregister-AdoBuildValidation.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/configs/build-validation.yml.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/private/Get-BuildValidationPathFilter.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-globs.md
+          - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md
+          - docs/references/pwsh/catzc-base-globs/configs/globs.yml.md
+          - docs/references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/types/DurableHash.cs.md
+          - docs/references/pwsh/catzc-base-globs/types/GlobPattern.cs.md
+          - docs/references/pwsh/catzc-base-globs/types/GlobSet.cs.md
+          - docs/references/pwsh/catzc-base-globs/types/GlobsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Automation.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Resolve-TestSuite.ps1.md
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: github-workflows/workflows/.
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+      - cell: pwsh/Catzc.Base.Drs/types
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+      - cell: pwsh/Catzc.Base.Globs/.
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: pwsh/Catzc.Base.Globs/configs
+        by: [pwsh/Catzc.Base.Globs/configs/globs.yml, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+      - cell: pwsh/Catzc.Base.Globs/private
+        by: [pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+      - cell: pwsh/Catzc.Base.Globs/tests
+        by:
+          - pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: pwsh/Catzc.Base.Globs/tests/types
+        by: [pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER]
+      - cell: pwsh/Catzc.Base.Globs/types
+        by:
+          - pwsh/Catzc.Base.Globs/types/DurableHash.cs
+          - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
+          - pwsh/Catzc.Base.Globs/types/GlobSet.cs
+          - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by: [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+      - cell: pwsh/Catzc.Base.QualityGates/.
+        by: [pwsh/Catzc.Base.QualityGates/Test-Automation.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER]
+      - cell: pwsh/Catzc.Base.QualityGates/configs
+        by: [pwsh/Catzc.Base.QualityGates/configs/terminology.yml, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by: [pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER]
+    module-neighbourhood:
+      - cell: subject/.claude
+        by: [.claude/CLAUDE.md, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+      - cell: subject/Catzc.Azure.DevOps
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+      - cell: subject/Catzc.Azure.DevOps.BuildValidation
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: subject/Catzc.Base.Globs
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
+          - pwsh/Catzc.Base.Globs/configs/globs.yml
+          - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
+          - pwsh/Catzc.Base.Globs/tests/GlobSet-Independence.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Globs/types/DurableHash.cs
+          - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
+          - pwsh/Catzc.Base.Globs/types/GlobSet.cs
+          - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: subject/Catzc.Base.Maps
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: subject/Catzc.Base.QualityGates
+        by:
+          - pwsh/Catzc.Base.QualityGates/Test-Automation.ps1
+          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+          - pwsh/Catzc.Base.QualityGates/private/Resolve-TestSuite.ps1
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
+          - .ado/pipelines/ci-pwsh.yaml
+          - FDR-CD-GLOBS-EVERYSETHASLAYER
+          - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+      - cell: subject/workflows
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+    axis:
+      - cell: DSGN/*
+        by: [FDR-CD-GLOBS-EVERYSETHASLAYER, FDR-CD-GLOBS-NOOVERLAPWITHINLAYER]
+layout:
+  band-deployable-unit: { x: 20, y: 84, w: 1260, h: 120 }
+  band-loose-fileset: { x: 20, y: 254, w: 1260, h: 120 }
+  band-module: { x: 20, y: 424, w: 1260, h: 120 }
+  s-deployable-units: { x: 140, y: 120, w: 300, h: 56 }
+  g-overlaps-units: { x: 760, y: 104, w: 200, h: 88 }
+  s-declared-loose: { x: 140, y: 290, w: 300, h: 56 }
+  s-reserved-names: { x: 480, y: 290, w: 230, h: 56 }
+  g-report: { x: 760, y: 290, w: 200, h: 56 }
+  f-throw: { x: 1010, y: 296, w: 230, h: 44 }
+  s-module-layer: { x: 140, y: 460, w: 440, h: 56 }
+  g-overlaps-modules: { x: 760, y: 444, w: 200, h: 88 }
+```
+
 ![Test-GlobSetIndependence groups by layer](.assets/independence-check-groups-by-layer.drawio.png)
 
 ## Walkthrough

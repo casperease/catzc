@@ -1,8 +1,8 @@
 ---
 catzc:
   immutable:
-    warning: "Do Not Edit, this file is generated"
     with_body_sha: "058fb7eeba83"
+    warning: "Do Not Edit, this file is generated"
 ---
 
 # docs/references/contracts/catzc.md

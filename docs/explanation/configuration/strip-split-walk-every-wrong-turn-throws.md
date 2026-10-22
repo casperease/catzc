@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+      - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+      - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+---
+
 # Strip, split, read once, walk one segment at a time; every wrong turn throws
 
 ```text
@@ -20,6 +29,157 @@ Resolving a global config address is three small functions in `Catzc.Base.Config
 splits the address, `Get-Config` reads the named config once and serves its cache after that, and `Resolve-ConfigKeyPath` walks the keys one
 segment at a time. Every wrong turn throws where it happens: at parameter binding, in the reader, or in the walk. The real example
 `global.azure.bicep_min_version` resolves to `'0.43.8'` on the typed `AzureConfig` object.
+
+```yml drawio
+description:
+  "Resolving a global config address is three small functions in a fixed order: the address is validated at binding, stripped and split, the
+  named config is read once, and the keys are walked one segment at a time; every wrong turn throws where it happens."
+about:
+  adrs: [ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST]
+  lens: implementation
+content:
+  title: Strip, split, read once, walk one segment at a time; every wrong turn throws
+  kind: explanation
+  flow: left-to-right
+  relation: calls, in code order
+  theme: dark
+  bands:
+    - { id: band-resolve, label: RESOLVE }
+    - { id: band-fail, label: FAIL FAST }
+  glyphs:
+    - { id: g-caller, kind: code, label: Write-EnvironmentSet, in: band-resolve }
+    - { id: g-pattern, kind: gate, label: ValidatePattern, in: band-resolve }
+    - { id: g-value, kind: code, label: Get-ConfigValue, in: band-resolve }
+    - { id: g-config, kind: code, label: Get-Config, in: band-resolve }
+    - { id: g-walk, kind: code, label: Resolve-ConfigKeyPath, in: band-resolve }
+    - { id: r-node, kind: result, label: "'0.43.8'", in: band-resolve }
+    - { id: f-binding, kind: failure, label: rejected at binding, in: band-fail }
+    - { id: f-name, kind: failure, label: unknown or ambiguous name, in: band-fail }
+    - { id: f-key, kind: failure, label: key or property not found, in: band-fail }
+  edges:
+    - { from: g-caller, to: g-pattern, kind: flow, label: "'global.…'" }
+    - { from: g-pattern, to: g-value, kind: flow, label: "" }
+    - { from: g-value, to: g-config, kind: flow, label: -Config azure }
+    - { from: g-config, to: g-walk, kind: flow, label: "-Node, -Segment" }
+    - { from: g-walk, to: r-node, kind: flow, label: "" }
+    - { from: g-pattern, to: f-binding, kind: fail, label: "" }
+    - { from: g-config, to: f-name, kind: fail, label: "" }
+    - { from: g-walk, to: f-key, kind: fail, label: "" }
+  markers:
+    - { at: g-caller, number: 1 }
+    - { at: g-pattern, number: 2 }
+    - { at: g-value, number: 3 }
+    - { at: g-config, number: 4 }
+    - { at: g-walk, number: 5 }
+    - { at: r-node, number: 6 }
+    - { at: f-binding, number: 7 }
+    - { at: f-name, number: 8 }
+    - { at: f-key, number: 9 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/configuration/config-value-addressing.md
+          - docs/drs/configuration/dora-explains.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-azure-templates/private/Resolve-BicepParameterAddresses.ps1.md
+          - docs/references/pwsh/catzc-base-config/Get-Config.ps1.md
+          - docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
+          - docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md
+          - docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md
+          - docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md
+          - docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: pwsh/Catzc.Azure.Templates/private
+        by: [pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM]
+      - cell: pwsh/Catzc.Base.Config/.
+        by:
+          - pwsh/Catzc.Base.Config/Get-Config.ps1
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: pwsh/Catzc.Base.Config/private
+        by:
+          - pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: pwsh/Catzc.Base.Config/tests
+        by: [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST]
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: pwsh/Catzc.Base.Folders/tests/types
+        by: [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM]
+      - cell: pwsh/Catzc.Base.Languages/.
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: pwsh/Catzc.Tooling.Environment/.
+        by:
+          - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure.Templates
+        by: [pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM]
+      - cell: subject/Catzc.Base.Config
+        by:
+          - pwsh/Catzc.Base.Config/Get-Config.ps1
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+          - pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: subject/Catzc.Base.Folders
+        by: [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM]
+      - cell: subject/Catzc.Base.Languages
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: subject/Catzc.Tooling.Environment
+        by:
+          - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
+          - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
+          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+    axis:
+      - cell: AUTO/*
+        by: [ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST]
+layout:
+  band-resolve: { x: 20, y: 84, w: 1260, h: 160 }
+  band-fail: { x: 20, y: 264, w: 1260, h: 120 }
+  g-caller: { x: 40, y: 140, w: 160, h: 44 }
+  g-pattern: { x: 270, y: 128, w: 140, h: 68 }
+  g-value: { x: 440, y: 140, w: 150, h: 44 }
+  g-config: { x: 720, y: 140, w: 110, h: 44 }
+  g-walk: { x: 980, y: 140, w: 160, h: 44 }
+  r-node: { x: 1160, y: 140, w: 90, h: 44 }
+  f-binding: { x: 240, y: 312, w: 200, h: 44 }
+  f-name: { x: 675, y: 312, w: 200, h: 44 }
+  f-key: { x: 960, y: 312, w: 200, h: 44 }
+```
 
 ![Strip, split, read once, walk one segment at a time](.assets/strip-split-walk-every-wrong-turn-throws.drawio.png)
 

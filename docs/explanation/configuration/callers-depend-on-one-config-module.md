@@ -1,3 +1,14 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-CONF-LOADING-ONEREADER
+      - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+      - ADR-CONF-LOADING-CACHEBYPATH
+      - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+      - ADR-CONF-LOADING-READINGISGLOBAL
+---
+
 # Callers in any module read config through one module
 
 ```text
@@ -17,6 +28,274 @@ Supports ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-C
 A config belongs to the module that ships it, but the code that reads it can live anywhere in cats. The architecture keeps those two apart:
 every caller depends on one module, `Catzc.Base.Config`, and the owning module only ships a file and a C# type. The owner is discovered from
 where the file lives, never wrapped, and reading a config is global access with no dependency guard.
+
+```yml drawio
+description:
+  Every caller in any module reads config through the one reader module, which looks the file up in the session cache and, on a miss, builds
+  the owning module's C# type from the file it ships; the quality gate calls the same reader.
+about:
+  adrs:
+    - ADR-CONF-LOADING-ONEREADER
+    - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+    - ADR-CONF-LOADING-CACHEBYPATH
+    - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+    - ADR-CONF-LOADING-READINGISGLOBAL
+  lens: architecture
+content:
+  title: Callers in any module read config through one module
+  kind: explanation
+  flow: left-to-right
+  relation: calls, or the read
+  theme: dark
+  bands:
+    - { id: band-read, label: READ PATH }
+    - { id: band-miss, label: MISS }
+    - { id: band-gates, label: QUALITY GATES }
+  glyphs:
+    - { id: g-caller, kind: code, label: caller, in: band-read }
+    - { id: g-config, kind: code, label: Catzc.Base.Config, in: band-read }
+    - { id: s-cache, kind: store, label: session cache, in: band-read }
+    - { id: r-typed, kind: result, label: typed or raw, in: band-read }
+    - { id: g-file, kind: file, label: configs/<name>.yml, in: band-miss }
+    - { id: g-type, kind: code, label: owner's C# type, in: band-miss }
+    - { id: g-gates, kind: code, label: Catzc.Base.QualityGates, in: band-gates }
+  edges:
+    - { from: g-caller, to: g-config, kind: flow, label: "" }
+    - { from: g-config, to: s-cache, kind: flow, label: "" }
+    - { from: s-cache, to: r-typed, kind: flow, label: "" }
+    - { from: s-cache, to: g-file, kind: flow, label: "" }
+    - { from: g-file, to: g-type, kind: flow, label: "" }
+    - { from: g-type, to: r-typed, kind: flow, label: "" }
+    - { from: g-gates, to: g-config, kind: flow, label: "" }
+  markers:
+    - { at: g-caller, number: 1 }
+    - { at: g-config, number: 2 }
+    - { at: s-cache, number: 3 }
+    - { at: r-typed, number: 4 }
+    - { at: g-file, number: 5 }
+    - { at: g-type, number: 6 }
+    - { at: g-gates, number: 7 }
+  chips:
+    - { at: g-caller, kind: count, text: 26/39 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/configuration/dora-explains.md
+          - docs/drs/configuration/module-config-loading.md
+          - docs/drs/index.md
+          - docs/how-to/getting-started/pwsh/add-a-module.md
+          - docs/how-to/pwsh/manual-test-plan/configs.md
+          - docs/references/pwsh/catzc-base-config/Get-Config.ps1.md
+          - docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
+          - docs/references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md
+          - docs/references/pwsh/catzc-base-docs/private/Get-CatsRuleEnforcers.ps1.md
+          - docs/references/pwsh/catzc-base-docs/private/Get-GlossarySources.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md
+          - docs/references/pwsh/catzc-base-docs/types/DocsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-execution/Resolve-ToolExecutable.ps1.md
+          - docs/references/pwsh/catzc-base-git/private/Get-AutoControlledGlobs.ps1.md
+          - docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md
+          - docs/references/pwsh/catzc-base-module-system/Copy-CatzcModule.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-ShippedConfigs.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-LiveIdentityTokens.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/types/FileMetaConfig.cs.md
+          - docs/references/pwsh/catzc-base-root-config/types/RootConfigFiles.cs.md
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.Config/.
+        by:
+          - pwsh/Catzc.Base.Config/Get-Config.ps1
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: pwsh/Catzc.Base.Config/tests
+        by: [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1, ADR-CONF-LOADING-ONEREADER]
+      - cell: pwsh/Catzc.Base.Docs/.
+        by:
+          - pwsh/Catzc.Base.Docs/Build-Readme.ps1
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.Docs/private
+        by:
+          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
+          - pwsh/Catzc.Base.Docs/private/Get-GlossarySources.ps1
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
+          - pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs
+          - pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs
+          - pwsh/Catzc.Base.Docs/types/DocsConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.Drs/tests
+        by: [pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
+      - cell: pwsh/Catzc.Base.Drs/types
+        by: [pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs, pwsh/Catzc.Base.Drs/types/DrsConfig.cs, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
+      - cell: pwsh/Catzc.Base.Execution/.
+        by: [pwsh/Catzc.Base.Execution/Resolve-ToolExecutable.ps1, ADR-CONF-LOADING-READINGISGLOBAL]
+      - cell: pwsh/Catzc.Base.Git/private
+        by: [pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1, ADR-CONF-LOADING-READINGISGLOBAL]
+      - cell: pwsh/Catzc.Base.Git/types
+        by:
+          - pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.Globs/types
+        by: [pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
+      - cell: pwsh/Catzc.Base.ModuleSystem/.
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.QualityGates/.
+        by: [pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: pwsh/Catzc.Base.QualityGates/tests/types
+        by: [pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
+      - cell: pwsh/Catzc.Base.QualityGates/types
+        by: [pwsh/Catzc.Base.QualityGates/types/FileMetaConfig.cs, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
+      - cell: pwsh/Catzc.Base.RootConfig/types
+        by:
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Config
+        by:
+          - pwsh/Catzc.Base.Config/Get-Config.ps1
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/Build-Readme.ps1
+          - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
+          - pwsh/Catzc.Base.Docs/private/Get-GlossarySources.ps1
+          - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
+          - pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs
+          - pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs
+          - pwsh/Catzc.Base.Docs/types/DocsConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: subject/Catzc.Base.Execution
+        by: [pwsh/Catzc.Base.Execution/Resolve-ToolExecutable.ps1, ADR-CONF-LOADING-READINGISGLOBAL]
+      - cell: subject/Catzc.Base.Git
+        by:
+          - pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
+          - pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: subject/Catzc.Base.Globs
+        by: [pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
+      - cell: subject/Catzc.Base.ModuleSystem
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: subject/Catzc.Base.QualityGates
+        by:
+          - pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/types/FileMetaConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+      - cell: subject/Catzc.Base.RootConfig
+        by:
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+    axis:
+      - cell: AUTO/*
+        by:
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+          - ADR-CONF-LOADING-READINGISGLOBAL
+layout:
+  band-read: { x: 20, y: 84, w: 1260, h: 120 }
+  band-miss: { x: 560, y: 224, w: 720, h: 120 }
+  band-gates: { x: 20, y: 364, w: 520, h: 120 }
+  g-caller: { x: 40, y: 130, w: 160, h: 44 }
+  g-config: { x: 290, y: 130, w: 200, h: 44 }
+  s-cache: { x: 600, y: 122, w: 160, h: 60 }
+  r-typed: { x: 1060, y: 130, w: 200, h: 44 }
+  g-file: { x: 610, y: 272, w: 160, h: 52 }
+  g-type: { x: 860, y: 272, w: 400, h: 44 }
+  g-gates: { x: 280, y: 412, w: 220, h: 44 }
+```
 
 ![Callers in any module read config through one module](.assets/callers-depend-on-one-config-module.drawio.png)
 

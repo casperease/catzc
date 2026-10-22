@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+      - ADR-ADO-AUTH-PROVETARGET
+      - ADR-ADO-AUTH-EXPLICITDETECTION
+      - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+---
+
 # The header function is four checks and three returns, and none falls through on failure
 
 ```text

@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-DEPM-CODEBUILTFROM
+      - ADR-AUTO-DEPM-TWOSECTIONS
+      - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+---
+
 # Module dependencies form three layers, and every edge points down
 
 ```text
@@ -17,6 +26,120 @@ Cats is built from about forty PowerShell modules that call one another. To keep
 declared up front in one file, `dependencies.yml`, and the declaration is the allow-list: an edge the file does not permit fails the build.
 Seen from far enough away, the declared graph has a simple shape. The modules sit in three layers, and every allowed dependency points down
 to a lower one.
+
+```yml drawio
+description:
+  "Module dependencies form three layers: the Azure extension group on top, the Azure root and the tooling modules in the middle, and the
+  base libraries as the foundation; every allowed edge points down."
+about:
+  adrs: [ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-TWOSECTIONS, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY]
+  lens: architecture
+content:
+  title: Module dependencies form three layers, and every edge points down
+  kind: explanation
+  flow: top-to-bottom
+  relation: may depend on
+  theme: dark
+  bands:
+    - { id: band-top, label: TOP LAYER }
+    - { id: band-middle, label: MIDDLE LAYER }
+    - { id: band-foundation, label: FOUNDATION }
+  glyphs:
+    - { id: s-azure-ext, kind: set, label: AzureExt, in: band-top }
+    - { id: g-azure, kind: code, label: Catzc.Azure, in: band-middle }
+    - { id: g-core, kind: code, label: Tooling.Core, in: band-middle }
+    - { id: s-tooling, kind: set, label: Tooling, in: band-middle }
+    - { id: g-github, kind: code, label: Github · KeyHandler, in: band-middle }
+    - { id: s-base, kind: set, label: Base, in: band-foundation }
+  edges:
+    - { from: s-azure-ext, to: g-azure, kind: flow, label: 4/5 }
+    - { from: s-azure-ext, to: s-base, kind: thick, label: 5/5 }
+    - { from: s-azure-ext, to: s-tooling, kind: thick, label: 3/5 }
+    - { from: s-azure-ext, to: g-core, kind: flow, label: "" }
+    - { from: g-azure, to: s-base, kind: thick, label: "" }
+    - { from: s-tooling, to: s-base, kind: thick, label: 6/6 }
+    - { from: g-github, to: s-base, kind: thick, label: 2/2 }
+  markers:
+    - { at: s-azure-ext, number: 1 }
+    - { at: g-azure, number: 2 }
+    - { at: s-tooling, number: 3 }
+    - { at: g-github, number: 4 }
+    - { at: s-base, number: 5 }
+    - { at: g-core, number: 6 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/automation/controlling-module-dependencies.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-maps/Get-ModuleNeighbourhoodMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/types/DependenciesConfig.cs.md
+          - docs/references/pwsh/catzc-base-module-system/types/DependencyGraph.cs.md
+          - docs/references/pwsh/catzc-base-module-system/types/ModuleGroup.cs.md
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY, ADR-AUTO-DEPM-TWOSECTIONS]
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-ModuleNeighbourhoodMinimapData.ps1
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: pwsh/Catzc.Base.ModuleSystem/types
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+    grid:
+      - cell: docs/markdown
+        by:
+          - docs/drs/automation/controlling-module-dependencies.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-maps/Get-ModuleNeighbourhoodMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/types/DependenciesConfig.cs.md
+          - docs/references/pwsh/catzc-base-module-system/types/DependencyGraph.cs.md
+          - docs/references/pwsh/catzc-base-module-system/types/ModuleGroup.cs.md
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/DependencyGraph.cs
+          - pwsh/Catzc.Base.ModuleSystem/types/ModuleGroup.cs
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Base.Maps/Get-ModuleNeighbourhoodMinimapData.ps1
+          - ADR-AUTO-DEPM-CODEBUILTFROM
+          - ADR-AUTO-DEPM-GROUPAWAREINTEGRITY
+          - ADR-AUTO-DEPM-TWOSECTIONS
+      - cell: pwsh/yaml
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY, ADR-AUTO-DEPM-TWOSECTIONS]
+    axis:
+      - cell: AUTO/*
+        by: [ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-GROUPAWAREINTEGRITY, ADR-AUTO-DEPM-TWOSECTIONS]
+layout:
+  band-top: { x: 20, y: 84, w: 1260, h: 130 }
+  band-middle: { x: 20, y: 254, w: 1260, h: 120 }
+  band-foundation: { x: 20, y: 424, w: 1260, h: 120 }
+  s-azure-ext: { x: 140, y: 122, w: 620, h: 56 }
+  g-azure: { x: 40, y: 292, w: 200, h: 56 }
+  g-core: { x: 280, y: 292, w: 130, h: 56 }
+  s-tooling: { x: 600, y: 292, w: 280, h: 56 }
+  g-github: { x: 920, y: 292, w: 320, h: 56 }
+  s-base: { x: 40, y: 462, w: 1200, h: 56 }
+```
 
 ![Module dependencies form three layers, and every edge points down](.assets/three-layers-edges-point-down.drawio.png)
 

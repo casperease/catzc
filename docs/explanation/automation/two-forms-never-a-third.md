@@ -1,3 +1,14 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-PATH-TWOFORMS
+      - ADR-AUTO-PATH-COMMUNICATIONFORM
+      - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+      - ADR-AUTO-PATH-CENTRALNORMALIZATION
+      - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+---
+
 # A path has two forms, never a third, and one pair of crossers moves it between them
 
 ```text
@@ -16,6 +27,264 @@ Every path that moves through cats is either data or an address. As data it is i
 output root, slash-separated, with no `.` or `..` segments, so it reads the same on a workstation and on a build agent. As an address it is
 in binding form: a normalized absolute path that exists only on the line that reads, writes, or hands the path to a tool. Two functions, and
 only two, move a path from one form to the other, so normalization is a guarantee rather than a hope.
+
+```yml drawio
+description:
+  A path has a communication form and a binding form, never a third; one pair of crossers moves it between them, a hybrid form is always a
+  bug, and a published artifact anchors on its own root across a stage boundary.
+about:
+  adrs:
+    - ADR-AUTO-PATH-TWOFORMS
+    - ADR-AUTO-PATH-COMMUNICATIONFORM
+    - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+    - ADR-AUTO-PATH-CENTRALNORMALIZATION
+    - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+  lens: meta
+content:
+  title: A path has two forms, never a third, and one pair of crossers moves it between them
+  kind: explanation
+  flow: left-to-right
+  relation: crosses the boundary
+  theme: dark
+  bands:
+    - { id: band-communication, label: COMMUNICATION FORM }
+    - { id: band-boundary, label: THE BOUNDARY }
+    - { id: band-binding, label: BINDING FORM }
+    - { id: band-stage, label: CROSS-STAGE }
+  glyphs:
+    - { id: s-communication, kind: set, label: Communication form, in: band-communication }
+    - { id: g-crossers, kind: code, label: The two crossers, in: band-boundary }
+    - { id: a-hybrid, kind: drsonly, label: A hybrid form, in: band-boundary }
+    - { id: s-binding, kind: set, label: Binding form, in: band-binding }
+    - { id: s-artifact, kind: set, label: Published artifact, in: band-stage }
+  edges:
+    - { from: s-communication, to: g-crossers, kind: flow, label: "" }
+    - { from: g-crossers, to: s-binding, kind: flow, label: "" }
+    - { from: s-binding, to: g-crossers, kind: flow, label: "" }
+    - { from: g-crossers, to: s-communication, kind: flow, label: "" }
+  markers:
+    - { at: s-communication, number: 1 }
+    - { at: g-crossers, number: 2 }
+    - { at: s-binding, number: 3 }
+    - { at: a-hybrid, number: 4 }
+    - { at: s-artifact, number: 5 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/skills/catzc-module
+        by: [.claude/skills/catzc-module/SKILL.md, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING, ADR-AUTO-PATH-TWOFORMS]
+      - cell: docs/-/.
+        by:
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/path-representation.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-contracts/Get-Contract.ps1.md
+          - docs/references/pwsh/catzc-base-contracts/Publish-ContractRelease.ps1.md
+          - docs/references/pwsh/catzc-base-contracts/private/Get-ContractFileHashes.ps1.md
+          - docs/references/pwsh/catzc-base-contracts/tests/types/ContractAsset.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-contracts/types/ContractAsset.cs.md
+          - docs/references/pwsh/catzc-base-docs/configs/readme.yml.md
+          - docs/references/pwsh/catzc-base-docs/types/DocMapping.cs.md
+          - docs/references/pwsh/catzc-base-docs/types/DocPattern.cs.md
+          - docs/references/pwsh/catzc-base-module-system/Copy-CatzcModule.ps1.md
+          - docs/references/pwsh/catzc-base-objects/types/ArtifactRef.cs.md
+          - docs/references/pwsh/catzc-base-objects/types/RepoRelativePath.cs.md
+          - docs/references/pwsh/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md
+          - docs/references/pwsh/catzc-base-repository/Resolve-RepoPath.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/configs/rootconfig.yml.md
+          - docs/references/pwsh/catzc-base-root-config/types/RootConfigFile.cs.md
+          - docs/references/pwsh/catzc-tooling-inspiration/private/Resolve-InspirationRoot.ps1.md
+          - docs/references/pwsh/catzc-tooling-inspiration/types/InspirationRoot.cs.md
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: pwsh/Catzc.Base.Contracts/.
+        by:
+          - pwsh/Catzc.Base.Contracts/Get-Contract.ps1
+          - pwsh/Catzc.Base.Contracts/Publish-ContractRelease.ps1
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+      - cell: pwsh/Catzc.Base.Contracts/private
+        by: [pwsh/Catzc.Base.Contracts/private/Get-ContractFileHashes.ps1, ADR-AUTO-PATH-COMMUNICATIONFORM]
+      - cell: pwsh/Catzc.Base.Contracts/tests
+        by: [pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1, ADR-AUTO-PATH-COMMUNICATIONFORM]
+      - cell: pwsh/Catzc.Base.Contracts/tests/types
+        by: [pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1, ADR-AUTO-PATH-COMMUNICATIONFORM, ADR-AUTO-PATH-TWOFORMS]
+      - cell: pwsh/Catzc.Base.Contracts/types
+        by: [pwsh/Catzc.Base.Contracts/types/ContractAsset.cs, ADR-AUTO-PATH-COMMUNICATIONFORM, ADR-AUTO-PATH-TWOFORMS]
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/readme.yml
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/DocMapping.cs
+          - pwsh/Catzc.Base.Docs/types/DocPattern.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: pwsh/Catzc.Base.ModuleSystem/.
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
+      - cell: pwsh/Catzc.Base.Objects/tests/types
+        by: [pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
+      - cell: pwsh/Catzc.Base.Objects/types
+        by:
+          - pwsh/Catzc.Base.Objects/types/ArtifactRef.cs
+          - pwsh/Catzc.Base.Objects/types/RepoRelativePath.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: pwsh/Catzc.Base.Repository/.
+        by:
+          - pwsh/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
+          - pwsh/Catzc.Base.Repository/Resolve-RepoPath.ps1
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: pwsh/Catzc.Base.RootConfig/configs
+        by:
+          - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: pwsh/Catzc.Base.RootConfig/types
+        by:
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFile.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: pwsh/Catzc.Base.Slides/tests/types
+        by: [pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1, ADR-AUTO-PATH-TWOFORMS]
+      - cell: pwsh/Catzc.Tooling.Inspiration/private
+        by: [pwsh/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING]
+      - cell: pwsh/Catzc.Tooling.Inspiration/types
+        by: [pwsh/Catzc.Tooling.Inspiration/types/InspirationRoot.cs, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING]
+    module-neighbourhood:
+      - cell: subject/.claude
+        by: [.claude/skills/catzc-module/SKILL.md, ADR-AUTO-PATH-BINDINGFORMONLYATBINDING, ADR-AUTO-PATH-TWOFORMS]
+      - cell: subject/Catzc.Base.Contracts
+        by:
+          - pwsh/Catzc.Base.Contracts/Get-Contract.ps1
+          - pwsh/Catzc.Base.Contracts/Publish-ContractRelease.ps1
+          - pwsh/Catzc.Base.Contracts/private/Get-ContractFileHashes.ps1
+          - pwsh/Catzc.Base.Contracts/tests/Get-Contract.Tests.ps1
+          - pwsh/Catzc.Base.Contracts/tests/types/ContractAsset.Tests.ps1
+          - pwsh/Catzc.Base.Contracts/types/ContractAsset.cs
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/readme.yml
+          - pwsh/Catzc.Base.Docs/types/DocMapping.cs
+          - pwsh/Catzc.Base.Docs/types/DocPattern.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: subject/Catzc.Base.ModuleSystem
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: subject/Catzc.Base.Objects
+        by:
+          - pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
+          - pwsh/Catzc.Base.Objects/types/ArtifactRef.cs
+          - pwsh/Catzc.Base.Objects/types/RepoRelativePath.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: subject/Catzc.Base.Repository
+        by:
+          - pwsh/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
+          - pwsh/Catzc.Base.Repository/Resolve-RepoPath.ps1
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: subject/Catzc.Base.RootConfig
+        by:
+          - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFile.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+      - cell: subject/Catzc.Base.Slides
+        by: [pwsh/Catzc.Base.Slides/tests/types/SlidesConfig.Tests.ps1, ADR-AUTO-PATH-TWOFORMS]
+      - cell: subject/Catzc.Tooling.Inspiration
+        by:
+          - pwsh/Catzc.Tooling.Inspiration/private/Resolve-InspirationRoot.ps1
+          - pwsh/Catzc.Tooling.Inspiration/types/InspirationRoot.cs
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+    axis:
+      - cell: AUTO/*
+        by:
+          - ADR-AUTO-PATH-BINDINGFORMONLYATBINDING
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-COMMUNICATIONFORM
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+          - ADR-AUTO-PATH-TWOFORMS
+layout:
+  band-communication: { x: 20, y: 84, w: 380, h: 220 }
+  band-boundary: { x: 420, y: 84, w: 440, h: 220 }
+  band-binding: { x: 880, y: 84, w: 400, h: 220 }
+  band-stage: { x: 20, y: 324, w: 1260, h: 130 }
+  s-communication: { x: 60, y: 150, w: 300, h: 52 }
+  g-crossers: { x: 530, y: 150, w: 220, h: 52 }
+  a-hybrid: { x: 530, y: 236, w: 220, h: 44 }
+  s-binding: { x: 920, y: 150, w: 300, h: 52 }
+  s-artifact: { x: 530, y: 374, w: 220, h: 52 }
+```
 
 ![A path has two forms, never a third](.assets/two-forms-never-a-third.drawio.png)
 

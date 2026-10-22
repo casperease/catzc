@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - DDR-TRACK-UNORDEREDTRACK
+      - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
+      - TDR-NORMALFORM
+---
+
 # A file leaves the unordered track only in the normal form
 
 ```text

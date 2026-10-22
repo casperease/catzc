@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+      - DDR-RUNMODE-NEVERCOEXIST
+---
+
 # Every entry runs one load sequence
 
 ```text
@@ -15,6 +24,121 @@ Supports ADR-AUTO-BUNDLE-ONELIVINGIMPORTER and ADR-AUTO-BUNDLE-BUNDLEISSESSION (
 Cats loads through the same five stages in the same order, whatever the entry point: enter, set up the session, load, prove one run mode,
 then tidy up and leave. There is one living importer, never a forked copy, so a session loaded from the repository and a session loaded from
 a build are set up the same way.
+
+```yml drawio
+description:
+  "Whatever the entry point, cats loads through the same five stages in the same order: enter, set up the session, load, prove one run mode,
+  then tidy and leave."
+about:
+  adrs: [ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-BUNDLEISSESSION]
+  lens: meta
+content:
+  title: Every entry runs one load sequence
+  kind: explanation
+  flow: top-to-bottom
+  relation: runs next
+  theme: dark
+  bands:
+    - { id: band-load, label: LOAD SEQUENCE }
+  glyphs:
+    - { id: g-enter, kind: code, label: Enter, in: band-load }
+    - { id: g-session, kind: code, label: Set up the session, in: band-load }
+    - { id: g-load, kind: code, label: Load, in: band-load }
+    - { id: g-prove, kind: gate, label: Prove one run mode, in: band-load }
+    - { id: g-tidy, kind: code, label: "Tidy, then leave", in: band-load }
+  edges:
+    - { from: g-enter, to: g-session, kind: flow, label: "" }
+    - { from: g-session, to: g-load, kind: flow, label: "" }
+    - { from: g-load, to: g-prove, kind: flow, label: "" }
+    - { from: g-prove, to: g-tidy, kind: flow, label: "" }
+  markers:
+    - { at: g-enter, number: 1 }
+    - { at: g-session, number: 2 }
+    - { at: g-load, number: 3 }
+    - { at: g-prove, number: 4 }
+    - { at: g-tidy, number: 5 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/platform-bundle.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md
+          - docs/references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md
+          - docs/references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md
+          - docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md
+          - docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md
+          - docs/references/pwsh/internal/assets/Import-Catzc.ps1.md
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
+      - cell: pwsh/Catzc.Base.Exporter/configs
+        by: [pwsh/Catzc.Base.Exporter/configs/exporter.yml, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
+      - cell: pwsh/Catzc.Base.Exporter/private
+        by:
+          - pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: pwsh/Catzc.Base.Exporter/types
+        by:
+          - pwsh/Catzc.Base.Exporter/types/ExporterBundle.cs
+          - pwsh/Catzc.Base.Exporter/types/ExporterConfig.cs
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: pwsh/Catzc.Internal.Assets/.
+        by: [pwsh/.internal/assets/Import-Catzc.ps1, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
+    grid:
+      - cell: docs/markdown
+        by:
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/platform-bundle.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md
+          - docs/references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md
+          - docs/references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md
+          - docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md
+          - docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md
+          - docs/references/pwsh/internal/assets/Import-Catzc.ps1.md
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.Exporter/types/ExporterBundle.cs
+          - pwsh/Catzc.Base.Exporter/types/ExporterConfig.cs
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: pwsh/powershell
+        by:
+          - pwsh/.internal/assets/Import-Catzc.ps1
+          - pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Exporter/configs/exporter.yml
+          - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - cell: (no track)/powershell
+        by: [importer.ps1, ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
+    axis:
+      - cell: AUTO/build
+        by: [ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
+      - cell: AUTO/release
+        by: [ADR-AUTO-BUNDLE-BUNDLEISSESSION, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER]
+layout:
+  band-load: { x: 20, y: 84, w: 1260, h: 400 }
+  g-enter: { x: 390, y: 128, w: 500, h: 44 }
+  g-session: { x: 390, y: 194, w: 500, h: 44 }
+  g-load: { x: 390, y: 260, w: 500, h: 44 }
+  g-prove: { x: 500, y: 324, w: 280, h: 68 }
+  g-tidy: { x: 390, y: 420, w: 500, h: 44 }
+```
 
 ![Every entry runs one load sequence](.assets/every-entry-runs-one-load-sequence.drawio.png)
 

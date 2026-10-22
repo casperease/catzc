@@ -1,3 +1,14 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+      - ADR-AUTO-BUNDLE-TWOROOTS
+      - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+      - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - DDR-RUNMODE-THREEBUILDKINDS
+---
+
 # One engine builds the bundle, and every code root is a copy of its output
 
 ```text
@@ -19,6 +30,171 @@ Cats runs from a code root: the folder its modules load from. In the repository 
 the code anywhere else, so the platform has to be built and then copied. Seen as components, the bundle has a clear shape. One `.internal`
 engine writes the build from the source tree, the exporter module drives the engine and owns the integrity guard, and every code root
 outside the repository is a copy of the one verified build.
+
+```yml drawio
+description:
+  One engine in the internal modules builds the bundle from the source tree, the exporter module drives it and owns the integrity guard, and
+  every code root outside the repository is a copy of the one verified build.
+about:
+  adrs: [ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-TWOROOTS, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL]
+  lens: architecture
+content:
+  title: One engine builds the bundle, and every code root is a copy of its output
+  kind: explanation
+  flow: left-to-right
+  relation: feeds or runs the next step
+  theme: dark
+  bands:
+    - { id: band-source, label: SOURCE }
+    - { id: band-build, label: BUILD }
+    - { id: band-bundle, label: BUNDLE }
+    - { id: band-roots, label: CODE ROOTS }
+  groups:
+    - { id: grp-roots, label: " ", in: band-roots }
+  glyphs:
+    - { id: s-source, kind: store, label: pwsh/, in: band-source }
+    - { id: g-engine, kind: code, label: Catzc.Internal.Builder, in: band-build }
+    - { id: g-exporter, kind: code, label: Catzc.Base.Exporter, in: band-build }
+    - { id: g-assert, kind: gate, label: Assert-CatzcBundle, in: band-build }
+    - { id: r-temporary, kind: result, label: Temporary build, in: band-bundle }
+    - { id: r-installed, kind: result, label: Installed, in: grp-roots }
+    - { id: r-saved, kind: result, label: Saved, in: grp-roots }
+  edges:
+    - { from: s-source, to: g-engine, kind: flow, label: "" }
+    - { from: g-exporter, to: g-engine, kind: flow, label: "" }
+    - { from: g-engine, to: g-assert, kind: flow, label: "" }
+    - { from: g-assert, to: r-temporary, kind: flow, label: "" }
+    - { from: r-temporary, to: grp-roots, kind: flow, label: "" }
+    - { from: grp-roots, to: g-assert, kind: flow, label: checked again }
+  markers:
+    - { at: s-source, number: 1 }
+    - { at: g-engine, number: 2 }
+    - { at: g-assert, number: 3 }
+    - { at: r-temporary, number: 4 }
+    - { at: r-installed, number: 5 }
+    - { at: r-saved, number: 6 }
+    - { at: g-exporter, number: 7 }
+    - { at: grp-roots, number: 8 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/platform-bundle.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-exporter/Build-Modules.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/Export-Catzc.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md
+          - docs/references/pwsh/catzc-base-exporter/private/Assert-BundleFootprint.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/private/New-CatzcNuGetPackage.ps1.md
+          - docs/references/pwsh/catzc-base-exporter/types/ExporterBundle.cs.md
+          - docs/references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md
+          - docs/references/pwsh/internal/Catzc.Internal.Builder.psm1.md
+          - docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md
+          - docs/references/pwsh/internal/assets/Import-Catzc.ps1.md
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+          - ADR-AUTO-BUNDLE-TWOROOTS
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by: [pwsh/Catzc.Base.Docs/configs/glossary.yml, ADR-AUTO-BUNDLE-BUNDLEISBUILD]
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+          - ADR-AUTO-BUNDLE-TWOROOTS
+      - cell: pwsh/Catzc.Base.Exporter/.
+        by:
+          - pwsh/Catzc.Base.Exporter/Build-Modules.ps1
+          - pwsh/Catzc.Base.Exporter/Export-Catzc.ps1
+          - pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+      - cell: pwsh/Catzc.Base.Exporter/configs
+        by:
+          - pwsh/Catzc.Base.Exporter/configs/exporter.yml
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+          - ADR-AUTO-BUNDLE-TWOROOTS
+      - cell: pwsh/Catzc.Base.Exporter/private
+        by:
+          - pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
+          - pwsh/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+          - ADR-AUTO-BUNDLE-TWOROOTS
+      - cell: pwsh/Catzc.Base.Exporter/types
+        by:
+          - pwsh/Catzc.Base.Exporter/types/ExporterBundle.cs
+          - pwsh/Catzc.Base.Exporter/types/ExporterConfig.cs
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+          - ADR-AUTO-BUNDLE-TWOROOTS
+      - cell: pwsh/Catzc.Internal.Assets/.
+        by:
+          - pwsh/.internal/assets/Import-Catzc.ps1
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+          - ADR-AUTO-BUNDLE-TWOROOTS
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Docs
+        by: [pwsh/Catzc.Base.Docs/configs/glossary.yml, ADR-AUTO-BUNDLE-BUNDLEISBUILD]
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+          - ADR-AUTO-BUNDLE-TWOROOTS
+      - cell: subject/Catzc.Base.Exporter
+        by:
+          - pwsh/Catzc.Base.Exporter/Build-Modules.ps1
+          - pwsh/Catzc.Base.Exporter/Export-Catzc.ps1
+          - pwsh/Catzc.Base.Exporter/Install-Catzc.ps1
+          - pwsh/Catzc.Base.Exporter/configs/exporter.yml
+          - pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
+          - pwsh/Catzc.Base.Exporter/private/New-CatzcNuGetPackage.ps1
+          - pwsh/Catzc.Base.Exporter/types/ExporterBundle.cs
+          - pwsh/Catzc.Base.Exporter/types/ExporterConfig.cs
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+          - ADR-AUTO-BUNDLE-TWOROOTS
+      - cell: subject/Catzc.Internal.Assets
+        by:
+          - pwsh/.internal/assets/Import-Catzc.ps1
+          - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+          - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
+          - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+          - ADR-AUTO-BUNDLE-TWOROOTS
+    axis:
+      - cell: AUTO/build
+        by: [ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL, ADR-AUTO-BUNDLE-TWOROOTS]
+      - cell: AUTO/release
+        by: [ADR-AUTO-BUNDLE-BUNDLEISBUILD, ADR-AUTO-BUNDLE-ONELIVINGIMPORTER, ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL, ADR-AUTO-BUNDLE-TWOROOTS]
+layout:
+  band-source: { x: 20, y: 84, w: 230, h: 300 }
+  band-build: { x: 270, y: 84, w: 450, h: 300 }
+  band-bundle: { x: 740, y: 84, w: 230, h: 300 }
+  band-roots: { x: 990, y: 84, w: 290, h: 300 }
+  s-source: { x: 40, y: 172, w: 190, h: 60 }
+  g-engine: { x: 290, y: 180, w: 180, h: 44 }
+  g-exporter: { x: 290, y: 296, w: 180, h: 44 }
+  g-assert: { x: 520, y: 168, w: 180, h: 68 }
+  r-temporary: { x: 760, y: 296, w: 190, h: 44 }
+  grp-roots: { x: 1010, y: 130, w: 250, h: 190 }
+  r-installed: { x: 1030, y: 176, w: 210, h: 44 }
+  r-saved: { x: 1030, y: 246, w: 210, h: 44 }
+```
 
 ![One engine builds, every code root is a copy](.assets/every-code-root-is-a-copy.drawio.png)
 

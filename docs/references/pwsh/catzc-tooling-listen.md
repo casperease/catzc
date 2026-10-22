@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - ADR-REPO-AI-EDITORISFACT
+---
+
 # Catzc.Tooling.Listen
 
 The listen mode's module of the Tooling group: it notes every change the editor makes to the docs by hand, as raw fact, so the processor
@@ -54,6 +62,150 @@ The module is the deterministic half of the listen mode. The editor's correction
 ([ai-agent-contract](../../drs/repository/ai-agent-contract.md)), and noting them needs no judgment, so the listener is a command: tested,
 free to run, and never late because something was thinking. Understanding stays with the processor agent, which reads the notes on its own
 time.
+
+```yml drawio
+description:
+  "The listen mode: each writer leaves its trace in a ledger, the listener notes every settled change with who wrote it, and the processor
+  plans from the editor's notes alone."
+about:
+  adrs: [ADR-REPO-AI-EDITORISFACT, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+  lens: meta
+content:
+  title: Every writer leaves a trace; the listener notes all changes, and the processor plans from the editor's alone
+  kind: explanation
+  flow: left-to-right
+  relation: what comes next
+  theme: dark
+  bands:
+    - { id: band-writers, label: WRITERS }
+    - { id: band-ledgers, label: LEDGERS }
+    - { id: band-listener, label: LISTENER }
+    - { id: band-processor, label: PROCESSOR }
+  glyphs:
+    - { id: a-editor, kind: actor, label: the editor (VS Code), in: band-writers }
+    - { id: a-agents, kind: actor, label: agent sessions, in: band-writers }
+    - { id: s-saves, kind: store, label: editor-saves.jsonl, in: band-ledgers }
+    - { id: s-writes, kind: store, label: agent-writes.jsonl, in: band-ledgers }
+    - { id: r-listener, kind: runner, label: Start-DocListener, in: band-listener }
+    - { id: f-notes, kind: file, label: "notes, tagged by source", in: band-listener }
+    - { id: g-editor-only, kind: gate, label: editor notes only, in: band-processor }
+    - { id: r-processor, kind: runner, label: the processor, in: band-processor }
+    - { id: r-plans, kind: result, label: plan-listen-*.md, in: band-processor }
+  edges:
+    - { from: a-editor, to: s-saves, kind: flow, label: save }
+    - { from: a-agents, to: s-writes, kind: flow, label: write }
+    - { from: s-saves, to: r-listener, kind: flow, label: "" }
+    - { from: s-writes, to: r-listener, kind: flow, label: "" }
+    - { from: r-listener, to: f-notes, kind: flow, label: "" }
+    - { from: f-notes, to: g-editor-only, kind: flow, label: "" }
+    - { from: g-editor-only, to: r-processor, kind: flow, label: "" }
+    - { from: r-processor, to: r-plans, kind: thick, label: plans }
+  legend: auto
+  minimaps:
+    axis:
+      - cell: AUTO/*
+        by: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-REPO-AI-EDITORISFACT]
+    lifecycle-position:
+      - cell: main-uat
+        by:
+          - .claude/CLAUDE.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+          - ADR-REPO-AI-EDITORISFACT
+      - cell: release-uat
+        by:
+          - .claude/CLAUDE.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+          - ADR-REPO-AI-EDITORISFACT
+      - cell: pre-prod
+        by:
+          - .claude/CLAUDE.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+          - ADR-REPO-AI-EDITORISFACT
+      - cell: prod
+        by:
+          - .claude/CLAUDE.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+          - ADR-REPO-AI-EDITORISFACT
+    layer-stack:
+      - cell: automation
+        by:
+          - .claude/CLAUDE.md
+          - .claude/hooks/Assert-BashTimeout/Program.cs
+          - .claude/skills/listen-insight/SKILL.md
+          - .claude/skills/listen-notes/SKILL.md
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/fail-fast-with-asserts.md
+          - docs/drs/index.md
+          - docs/drs/repository/ai-agent-contract.md
+          - docs/drs/repository/dora-explains.md
+          - docs/references/agent-contracts.md
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliSubscriptionAccessible.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
+          - docs/references/pwsh/catzc-base-docs/tests/Test-Glossary.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/configs/drs.yml.md
+          - docs/references/pwsh/catzc-base-drs/private/Import-DrsCitationMapFile.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-engines/types/ExecutionEngine.cs.md
+          - docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Test-TestRunOverBudget.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationVerdict.ps1.md
+          - docs/references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md
+          - docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md
+          - docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md
+          - docs/references/pwsh/catzc-base-types-system.md
+          - docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md
+          - importer.ps1
+          - pwsh/.internal/assets/Invoke-CatzcCommand.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliSubscriptionAccessible.ps1
+          - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
+          - pwsh/Catzc.Base.Docs/configs/agents.yml
+          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/private/Import-DrsCitationMapFile.ps1
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Engines/types/ExecutionEngine.cs
+          - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
+          - pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Test-TestRunOverBudget.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Write-TestAutomationVerdict.ps1
+          - pwsh/Catzc.Base.Timeouts/Get-TestTimeLimits.ps1
+          - pwsh/Catzc.Base.Timeouts/Watch-Blocking.ps1
+          - pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Timeouts/types/BashSafeguard.cs
+          - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
+          - pwsh/Catzc.Tooling.Listen/Wait-DocChange.ps1
+          - pwsh/Catzc.Tooling.Listen/Wait-DocNote.ps1
+          - pwsh/Catzc.Tooling.Listen/tests/Wait-DocChange.Tests.ps1
+          - pwsh/Catzc.Tooling.Listen/tests/Wait-DocNote.Tests.ps1
+          - pwsh/Catzc.Tooling.Listen/tests/types/WriteLedger.Tests.ps1
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+          - ADR-REPO-AI-EDITORISFACT
+layout:
+  a-editor: { x: 110, y: 140, w: 90, h: 70 }
+  a-agents: { x: 110, y: 270, w: 90, h: 70 }
+  s-saves: { x: 380, y: 145, w: 220, h: 60 }
+  s-writes: { x: 380, y: 275, w: 220, h: 60 }
+```
 
 ![Every writer leaves a trace; the listener notes all changes, and the processor plans from the editor's alone](.assets/listen-mode-flow.drawio.png)
 

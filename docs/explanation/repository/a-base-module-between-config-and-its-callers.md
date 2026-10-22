@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-DEPM-CODEBUILTFROM
+      - ADR-CONF-LOADING-ONEREADER
+      - ADR-REPO-VARIANT-SESSIONVARIANT
+      - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
+---
+
 # Catzc.Base.Variants sits in Base, over Config, under every real caller
 
 ```text

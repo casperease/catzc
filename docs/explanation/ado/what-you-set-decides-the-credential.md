@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+      - ADR-ADO-AUTH-PROVETARGET
+      - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+      - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+---
+
 # What you set decides the credential, and each wrong setup stops with its own message
 
 ```text

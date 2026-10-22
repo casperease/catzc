@@ -20,6 +20,405 @@ Supports FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-
 `globs.yml` through the validating load to that method, then to the three role functions and the function that reads each one's output.
 Knowing that one method sits behind all three roles tells a reader where a change to the dialect or to compose lands.
 
+```yml drawio
+description:
+  "The code path behind a globset: globs.yml through the validating load to GlobSet.ScanProgram(), then to the three role functions and the
+  callers that read each one's output."
+about:
+  adrs: [FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-DURABLESHAIDENTITY, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
+  lens: implementation
+content:
+  title: One method, GlobSet.ScanProgram(), feeds all three globset role functions
+  kind: explanation
+  flow: left-to-right
+  relation: output read by the next
+  theme: dark
+  bands:
+    - { id: band-config, label: CONFIG }
+    - { id: band-program, label: PROGRAM }
+    - { id: band-functions, label: FUNCTIONS }
+    - { id: band-callers, label: CALLERS }
+  glyphs:
+    - { id: f-globs-yml, kind: file, label: globs.yml, in: band-config }
+    - { id: c-globs-config, kind: code, label: GlobsConfig, in: band-config }
+    - { id: x-validation, kind: failure, label: validation failed, in: band-config }
+    - { id: c-scan-program, kind: code, label: GlobSet.ScanProgram(), in: band-program }
+    - { id: c-trigger, kind: code, label: Get-GlobSetTrigger, in: band-functions }
+    - { id: c-changed, kind: code, label: Get-ChangedGlobSet, in: band-functions }
+    - { id: c-hash, kind: code, label: Get-GlobSetHash, in: band-functions }
+    - { id: g-trigger-gates, kind: gate, label: Trigger gates, in: band-callers }
+    - { id: c-affected, kind: code, label: Test-GlobSetAffected, in: band-callers }
+    - { id: c-protection, kind: code, label: Test-GlobSetProtection, in: band-callers }
+  edges:
+    - { from: f-globs-yml, to: c-globs-config, kind: flow, label: "" }
+    - { from: c-globs-config, to: x-validation, kind: fail, label: "" }
+    - { from: c-globs-config, to: c-scan-program, kind: flow, label: "" }
+    - { from: c-scan-program, to: c-trigger, kind: flow, label: "" }
+    - { from: c-scan-program, to: c-changed, kind: flow, label: "" }
+    - { from: c-scan-program, to: c-hash, kind: flow, label: "" }
+    - { from: c-trigger, to: g-trigger-gates, kind: flow, label: "" }
+    - { from: c-changed, to: c-affected, kind: flow, label: "" }
+    - { from: c-hash, to: c-protection, kind: flow, label: "" }
+  markers:
+    - { at: f-globs-yml, number: 1 }
+    - { at: c-globs-config, number: 2 }
+    - { at: c-scan-program, number: 3 }
+    - { at: c-trigger, number: 4 }
+    - { at: c-changed, number: 5 }
+    - { at: c-hash, number: 6 }
+    - { at: g-trigger-gates, number: 7 }
+    - { at: c-affected, number: 8 }
+    - { at: c-protection, number: 9 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by:
+          - .claude/CLAUDE.md
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
+          - .ado/pipelines/ci-pwsh.yaml
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: ado-pipelines/pipelines/extends
+        by: [.ado/pipelines/extends/cd-customer.yaml, FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT]
+      - cell: docs/-/.
+        by:
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/durable-sha-globs.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/cd-apex.yaml.md
+          - docs/references/ado/pipelines/cd-flux.yaml.md
+          - docs/references/ado/pipelines/cd-nova.yaml.md
+          - docs/references/ado/pipelines/cd-shared.yaml.md
+          - docs/references/ado/pipelines/ci-infrastructure.yaml.md
+          - docs/references/ado/pipelines/ci-pwsh.yaml.md
+          - docs/references/github/workflows/ci-pwsh.yml.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Get-AdoBuildValidations.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Register-AdoBuildValidation.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Unregister-AdoBuildValidation.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/configs/build-validation.yml.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/private/Get-BuildValidationPathFilter.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-exporter/Get-CatzcContentHash.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Get-ChangedGlobSet.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Get-GlobSetFile.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Get-GlobSetHash.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Get-GlobSetTrigger.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Get-TrackedFile.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-GlobSetAffected.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md
+          - docs/references/pwsh/catzc-base-globs/configs/globs.yml.md
+          - docs/references/pwsh/catzc-base-globs/private/Get-ChangedFile.ps1.md
+          - docs/references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md
+          - docs/references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetHash.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md
+          - docs/references/pwsh/catzc-base-globs/types/DurableHash.cs.md
+          - docs/references/pwsh/catzc-base-globs/types/GlobPattern.cs.md
+          - docs/references/pwsh/catzc-base-globs/types/GlobSet.cs.md
+          - docs/references/pwsh/catzc-base-globs/types/GlobsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-GuidScanFiles.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-ModuleProtectionIdentity.ps1.md
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: github-workflows/workflows/.
+        by:
+          - .github/workflows/ci-pwsh.yml
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Drs/types
+        by:
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Exporter/.
+        by: [pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1, FDR-CD-GLOBS-DURABLESHAIDENTITY]
+      - cell: pwsh/Catzc.Base.Globs/.
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetFile.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetHash.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
+          - pwsh/Catzc.Base.Globs/Get-TrackedFile.ps1
+          - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Globs/configs
+        by:
+          - pwsh/Catzc.Base.Globs/configs/globs.yml
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Globs/private
+        by:
+          - pwsh/Catzc.Base.Globs/private/Get-ChangedFile.ps1
+          - pwsh/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
+          - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Globs/tests
+        by:
+          - pwsh/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Globs/tests/types
+        by:
+          - pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Globs/types
+        by:
+          - pwsh/Catzc.Base.Globs/types/Aspect.cs
+          - pwsh/Catzc.Base.Globs/types/DurableHash.cs
+          - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
+          - pwsh/Catzc.Base.Globs/types/GlobSet.cs
+          - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.QualityGates/configs
+        by:
+          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+    module-neighbourhood:
+      - cell: subject/.claude
+        by:
+          - .claude/CLAUDE.md
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Azure.DevOps
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Azure.DevOps.BuildValidation
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Base.Exporter
+        by: [pwsh/Catzc.Base.Exporter/Get-CatzcContentHash.ps1, FDR-CD-GLOBS-DURABLESHAIDENTITY]
+      - cell: subject/Catzc.Base.Globs
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetFile.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetHash.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
+          - pwsh/Catzc.Base.Globs/Get-TrackedFile.ps1
+          - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetAffected.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
+          - pwsh/Catzc.Base.Globs/configs/globs.yml
+          - pwsh/Catzc.Base.Globs/private/Get-ChangedFile.ps1
+          - pwsh/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
+          - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetHash.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Globs/types/Aspect.cs
+          - pwsh/Catzc.Base.Globs/types/DurableHash.cs
+          - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
+          - pwsh/Catzc.Base.Globs/types/GlobSet.cs
+          - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Base.Maps
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Base.QualityGates
+        by:
+          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+          - pwsh/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
+          - .ado/pipelines/ci-pwsh.yaml
+          - .ado/pipelines/extends/cd-customer.yaml
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/workflows
+        by:
+          - .github/workflows/ci-pwsh.yml
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+    axis:
+      - cell: DSGN/*
+        by:
+          - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+          - FDR-CD-GLOBS-DURABLESHAIDENTITY
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+layout:
+  band-config: { x: 20, y: 84, w: 220, h: 330 }
+  band-program: { x: 260, y: 84, w: 240, h: 330 }
+  band-functions: { x: 520, y: 84, w: 400, h: 330 }
+  band-callers: { x: 940, y: 84, w: 340, h: 330 }
+  f-globs-yml: { x: 40, y: 128, w: 180, h: 64 }
+  c-globs-config: { x: 40, y: 232, w: 180, h: 56 }
+  x-validation: { x: 40, y: 332, w: 180, h: 44 }
+  c-scan-program: { x: 280, y: 132, w: 200, h: 256 }
+  c-trigger: { x: 540, y: 132, w: 360, h: 56 }
+  c-changed: { x: 540, y: 232, w: 360, h: 56 }
+  c-hash: { x: 540, y: 332, w: 360, h: 56 }
+  g-trigger-gates: { x: 960, y: 120, w: 300, h: 80 }
+  c-affected: { x: 960, y: 232, w: 300, h: 56 }
+  c-protection: { x: 960, y: 332, w: 300, h: 56 }
+```
+
 ![ScanProgram() feeds three role functions](.assets/one-scan-program-feeds-three-roles.drawio.png)
 
 ## Walkthrough

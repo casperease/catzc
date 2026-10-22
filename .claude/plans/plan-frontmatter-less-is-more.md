@@ -5,10 +5,6 @@ plan:
   reviewed: 2026-10-22
   class: feature
   targets: [pwsh/Catzc.Base.QualityGates/configs/file-meta.yml, pwsh/Catzc.Base.CodeMeta, docs/drs/repository]
-catzc:
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA-HEADPOLICY
 ---
 
 # Frontmatter less is more: every file on disk is format-managed, and its head says only what pays
@@ -53,15 +49,10 @@ the tree, they churn on every body edit, and agents read them on every file they
       body" (the user, 2026-10-22): `Format-GeneratedFileHead` writes that order and every generated file is regenerated (catzc-a0). (check:
       the writer's test asserting the order, `Test-GeneratedFiles` at 0, and a grep over generated heads for an `immutable:` part whose
       first key is not `with_body_sha` at 0)
-- [ ] The engine, in one burst, per `out/frontmatter-mechanism-map.md` (catzc-a0): `file-meta.yml` (no authored `body-sha`, `relative-edges`
-      `[docs]`, `drs-codes` every authored class, a head only when a fact is non-empty), `generated-head.yml` `[warning, with_body_sha]`,
-      `Format-GeneratedFileHead` (sha only while tracked, no docs edge), the `file_heads` variant with `Get-FileHeadVariant` and
-      `Test-FileHeadVariant` deleted, `FileHeadPolicy`, `HeadPolicy`, `FileMetaConfig`, `Invoke-FileMetaEngine`, `Get-FileMetaInputStamp`;
-      with the variant goes ADR-REPO-VARIANT-FILEHEADS in `docs/drs/repository/repo-variants.md`, every head and test tag citing it moved to
-      ADR-REPO-FILEMETA-HEADPOLICY, so no citation is left dangling (catzc-e9's point, decided as delegated); the variant's comment pages
-      (`VariantFileHeads.cs.md`, `Get-FileHeadVariant.ps1.md` deleted, `FileHeadPolicy.cs.md` rewritten) and responsibility 5 of
-      `docs/references/pwsh/catzc-base-variants.md` with its Division rows go in the same change. (check: each touched test file green with
-      a case per class, one fresh full import, `Test-DrsRegistry` at 0 and `Test-Links` over `docs/drs` at 0)
+- [ ] `Get-RootConfigInputStamp` hashes `generated-head.yml` and the module that writes generated heads, so a head-format change
+      invalidates `Build-RootConfig`'s memo (six root files kept the old key order through `Sync-GeneratedFile` and `Test-GeneratedFiles`
+      until the memo was cleared by hand; catzc-a0, 2026-10-22; decided as delegated). Import-path, a burst. (check: its test file green
+      with a case where a changed `generated-head.yml` changes the stamp)
 - [ ] The tree re-imprinted, one module folder, then one docs folder, at a time, by `Format-Code -Path` on each, so every head matches the
       rule: about 2,400 hashes and 1,666 test/code edges removed, 560 heads dropped (the scans). (check: per folder, `Test-FileMeta` at 0
       and `git diff` showing head lines only)

@@ -5,5 +5,5 @@
 # ---
 
 keys:
-  - warning
   - with_body_sha
+  - warning

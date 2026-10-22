@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-PATH-CENTRALNORMALIZATION
+      - ADR-AUTO-PATH-NAMEBYFORM
+      - ADR-AUTO-PATH-OUTANCHOR
+      - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+---
+
 # Two crossers anchor on two roots, and a published artifact anchors on its artifact root
 
 ```text
@@ -19,6 +29,212 @@ The path contract of cats is built from two functions in `Catzc.Base.Repository`
 `Resolve-RepoPath` are the only boundary crossers, and each decides between the output root and the repository root. A published artifact
 crosses a stage boundary, where neither root survives, so its type `ArtifactRef` in `Catzc.Base.Objects` anchors on the artifact root
 instead.
+
+```yml drawio
+description:
+  Two crossers anchor on the repository root and the output root, one into binding form and one into communication form; a published
+  artifact anchors on its own artifact root, the only anchor that survives a stage boundary.
+about:
+  adrs: [ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-NAMEBYFORM, ADR-AUTO-PATH-OUTANCHOR, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
+  lens: architecture
+content:
+  title: Two crossers anchor on two roots, and a published artifact anchors on its artifact root
+  kind: explanation
+  flow: left-to-right
+  relation: hands a path to
+  theme: dark
+  bands:
+    - { id: band-communication, label: COMMUNICATION FORM }
+    - { id: band-crossers, label: THE TWO CROSSERS }
+    - { id: band-binding, label: BINDING FORM }
+    - { id: band-stage, label: CROSS-STAGE }
+  glyphs:
+    - { id: s-records, kind: set, label: "Returns, records, configs", in: band-communication }
+    - { id: g-resolve, kind: code, label: Resolve-RepoPath, in: band-crossers }
+    - { id: t-output, kind: store, label: output root, in: band-crossers }
+    - { id: t-repository, kind: store, label: repository root, in: band-crossers }
+    - { id: g-convert, kind: code, label: ConvertTo-RepoRelativePath, in: band-crossers }
+    - { id: s-effects, kind: set, label: "Reads, writes, tool calls", in: band-binding }
+    - { id: t-artifact, kind: store, label: artifact root, in: band-stage }
+    - { id: g-reference, kind: code, label: ArtifactRef, in: band-stage }
+  edges:
+    - { from: s-records, to: g-resolve, kind: flow, label: "" }
+    - { from: g-resolve, to: s-effects, kind: flow, label: "" }
+    - { from: s-effects, to: g-convert, kind: flow, label: "" }
+    - { from: g-convert, to: s-records, kind: flow, label: "" }
+    - { from: t-output, to: g-resolve, kind: flow, label: "" }
+    - { from: t-output, to: g-convert, kind: flow, label: "" }
+    - { from: t-repository, to: g-resolve, kind: flow, label: "" }
+    - { from: t-repository, to: g-convert, kind: flow, label: "" }
+    - { from: t-artifact, to: g-reference, kind: flow, label: "" }
+  markers:
+    - { at: s-records, number: 1 }
+    - { at: g-resolve, number: 2 }
+    - { at: s-effects, number: 3 }
+    - { at: g-convert, number: 4 }
+    - { at: t-output, number: 5 }
+    - { at: t-repository, number: 6 }
+    - { at: t-artifact, number: 7 }
+    - { at: g-reference, number: 8 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/path-representation.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-docs/configs/readme.yml.md
+          - docs/references/pwsh/catzc-base-docs/types/DocMapping.cs.md
+          - docs/references/pwsh/catzc-base-docs/types/DocPattern.cs.md
+          - docs/references/pwsh/catzc-base-module-system/Copy-CatzcModule.ps1.md
+          - docs/references/pwsh/catzc-base-objects/types/ArtifactRef.cs.md
+          - docs/references/pwsh/catzc-base-objects/types/RepoRelativePath.cs.md
+          - docs/references/pwsh/catzc-base-repository/ConvertTo-RepoRelativePath.ps1.md
+          - docs/references/pwsh/catzc-base-repository/Get-RepositoryFile.ps1.md
+          - docs/references/pwsh/catzc-base-repository/Get-RepositoryFolder.ps1.md
+          - docs/references/pwsh/catzc-base-repository/Resolve-RepoPath.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/configs/rootconfig.yml.md
+          - docs/references/pwsh/catzc-base-root-config/types/RootConfigFile.cs.md
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-NAMEBYFORM
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/readme.yml
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-NAMEBYFORM
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/DocMapping.cs
+          - pwsh/Catzc.Base.Docs/types/DocPattern.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-NAMEBYFORM
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-NAMEBYFORM
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.ModuleSystem/.
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-NAMEBYFORM
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
+      - cell: pwsh/Catzc.Base.Objects/tests/types
+        by: [pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
+      - cell: pwsh/Catzc.Base.Objects/types
+        by:
+          - pwsh/Catzc.Base.Objects/types/ArtifactRef.cs
+          - pwsh/Catzc.Base.Objects/types/RepoRelativePath.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-NAMEBYFORM
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.Repository/.
+        by:
+          - pwsh/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
+          - pwsh/Catzc.Base.Repository/Get-RepositoryFile.ps1
+          - pwsh/Catzc.Base.Repository/Get-RepositoryFolder.ps1
+          - pwsh/Catzc.Base.Repository/Resolve-RepoPath.ps1
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-NAMEBYFORM
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.RootConfig/configs
+        by:
+          - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-NAMEBYFORM
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: pwsh/Catzc.Base.RootConfig/types
+        by:
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFile.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-NAMEBYFORM
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/configs/readme.yml
+          - pwsh/Catzc.Base.Docs/types/DocMapping.cs
+          - pwsh/Catzc.Base.Docs/types/DocPattern.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-NAMEBYFORM
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-NAMEBYFORM
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Base.ModuleSystem
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-NAMEBYFORM
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Base.Objects
+        by:
+          - pwsh/Catzc.Base.Objects/tests/types/ArtifactRef.Tests.ps1
+          - pwsh/Catzc.Base.Objects/types/ArtifactRef.cs
+          - pwsh/Catzc.Base.Objects/types/RepoRelativePath.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-NAMEBYFORM
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Base.Repository
+        by:
+          - pwsh/Catzc.Base.Repository/ConvertTo-RepoRelativePath.ps1
+          - pwsh/Catzc.Base.Repository/Get-RepositoryFile.ps1
+          - pwsh/Catzc.Base.Repository/Get-RepositoryFolder.ps1
+          - pwsh/Catzc.Base.Repository/Resolve-RepoPath.ps1
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-NAMEBYFORM
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+      - cell: subject/Catzc.Base.RootConfig
+        by:
+          - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFile.cs
+          - ADR-AUTO-PATH-CENTRALNORMALIZATION
+          - ADR-AUTO-PATH-NAMEBYFORM
+          - ADR-AUTO-PATH-OUTANCHOR
+          - ADR-AUTO-PATH-PUBLISHEDARTIFACT
+    axis:
+      - cell: AUTO/*
+        by: [ADR-AUTO-PATH-CENTRALNORMALIZATION, ADR-AUTO-PATH-NAMEBYFORM, ADR-AUTO-PATH-OUTANCHOR, ADR-AUTO-PATH-PUBLISHEDARTIFACT]
+layout:
+  band-communication: { x: 20, y: 84, w: 380, h: 260 }
+  band-crossers: { x: 420, y: 84, w: 440, h: 260 }
+  band-binding: { x: 880, y: 84, w: 400, h: 260 }
+  band-stage: { x: 20, y: 364, w: 1260, h: 130 }
+  s-records: { x: 60, y: 122, w: 300, h: 200 }
+  g-resolve: { x: 510, y: 122, w: 240, h: 48 }
+  t-output: { x: 470, y: 204, w: 150, h: 50 }
+  t-repository: { x: 650, y: 204, w: 150, h: 50 }
+  g-convert: { x: 510, y: 280, w: 240, h: 48 }
+  s-effects: { x: 920, y: 122, w: 300, h: 200 }
+  t-artifact: { x: 470, y: 410, w: 170, h: 52 }
+  g-reference: { x: 700, y: 410, w: 220, h: 52 }
+```
 
 ![Two crossers anchor on two roots](.assets/two-crossers-and-three-anchors.drawio.png)
 

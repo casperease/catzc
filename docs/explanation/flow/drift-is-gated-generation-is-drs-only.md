@@ -19,6 +19,735 @@ check that every bound workflow and pipeline declares its projection and that th
 FDR states around the projection has no code behind it: that the YAML filters are generated rather than written by hand. It is worth knowing
 before relying on it.
 
+```yml drawio
+description:
+  The flattened scan program feeds the GitHub paths and the Azure DevOps include and exclude lists, and three quality gates check those
+  projections; the generation of the YAML filters is drawn dashed because no code and no gate holds it.
+about:
+  adrs: [FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-COMPOSESETS, ADR-AUTO-TEST-QUALITYGATE]
+  lens: governance
+content:
+  title: Three gates check the projection, while generation is held by the ADR alone
+  kind: explanation
+  flow: left-to-right
+  relation: feeds
+  theme: dark
+  bands:
+    - { id: band-compose, label: COMPOSE }
+    - { id: band-projection, label: PROJECTION }
+    - { id: band-checked, label: CHECKED BY }
+  glyphs:
+    - { id: r-flattened, kind: result, label: flattened scan program, in: band-compose }
+    - { id: r-github, kind: result, label: GitHub paths, in: band-projection }
+    - { id: r-ado, kind: result, label: ADO include and exclude, in: band-projection }
+    - { id: a-generated, kind: drsonly, label: generated YAML filters, in: band-projection }
+    - { id: g-github-gate, kind: gate, label: Test-GitHubWorkflowTriggerGlob, in: band-checked }
+    - { id: g-ado-gate, kind: gate, label: Test-AdoPipelineTriggerGlob, in: band-checked }
+    - { id: g-coverage-gate, kind: gate, label: Test-GlobSetTriggerCoverage, in: band-checked }
+  edges:
+    - { from: r-flattened, to: r-github, kind: flow, label: "" }
+    - { from: r-flattened, to: r-ado, kind: flow, label: "" }
+    - { from: r-ado, to: a-generated, kind: adr, label: "" }
+    - { from: r-github, to: g-github-gate, kind: flow, label: "" }
+    - { from: r-ado, to: g-ado-gate, kind: flow, label: "" }
+    - { from: r-ado, to: g-coverage-gate, kind: flow, label: "" }
+  markers:
+    - { at: r-flattened, number: 1 }
+    - { at: r-github, number: 2 }
+    - { at: r-ado, number: 3 }
+    - { at: a-generated, number: 4 }
+    - { at: g-github-gate, number: 5 }
+    - { at: g-ado-gate, number: 6 }
+    - { at: g-coverage-gate, number: 7 }
+  chips:
+    - { at: r-flattened, kind: rule, rule: FDR-CD-GLOBS-COMPOSESETS }
+    - { at: r-flattened, kind: rule, rule: FDR-CD-GLOBS-TRACKEDFILESONLY, gated: false }
+    - { at: r-github, kind: rule, rule: FDR-CD-GLOBS-NATIVEPATHFILTER }
+    - { at: r-ado, kind: rule, rule: FDR-CD-GLOBS-NATIVEPATHFILTER }
+    - { at: a-generated, kind: rule, rule: FDR-CD-GLOBS-NATIVEPATHFILTER, gated: false }
+    - { at: g-github-gate, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
+    - { at: g-ado-gate, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
+    - { at: g-coverage-gate, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by:
+          - .claude/CLAUDE.md
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: .claude/.claude/agents
+        by: [.claude/agents/test-optimization.md, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: .claude/.claude/skills/test-speed
+        by: [.claude/skills/test-speed/SKILL.md, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
+          - .ado/pipelines/ci-pwsh.yaml
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: docs/-/.
+        by:
+          - docs/drs/automation/dora-explains.md
+          - docs/drs/automation/test-automation.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/durable-sha-globs.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/cd-apex.yaml.md
+          - docs/references/ado/pipelines/cd-flux.yaml.md
+          - docs/references/ado/pipelines/cd-nova.yaml.md
+          - docs/references/ado/pipelines/cd-shared.yaml.md
+          - docs/references/ado/pipelines/ci-infrastructure.yaml.md
+          - docs/references/ado/pipelines/ci-pwsh.yaml.md
+          - docs/references/github/workflows/ci-pwsh.yml.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Get-AdoBuildValidations.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Register-AdoBuildValidation.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Unregister-AdoBuildValidation.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/configs/build-validation.yml.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/private/Get-BuildValidationPathFilter.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Test-Pipelines.ps1.md
+          - docs/references/pwsh/catzc-azure/Test-AzureNetworkPlan.ps1.md
+          - docs/references/pwsh/catzc-base-config-extensions/Test-ConfigValidators.ps1.md
+          - docs/references/pwsh/catzc-base-config/tests/Config-Conventions.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md
+          - docs/references/pwsh/catzc-base-contracts/tests/Test-Contracts.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs.md
+          - docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Test-GeneratedReadmes.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Test-Glossary.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsEngineNeutrality.ps1.md
+          - docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md
+          - docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md
+          - docs/references/pwsh/catzc-base-drs/tests/Get-DrsRuleSet.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/tests/Test-DrsRegistry.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-execution/Invoke-Executable.ps1.md
+          - docs/references/pwsh/catzc-base-globs.md
+          - docs/references/pwsh/catzc-base-globs/Get-ChangedGlobSet.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Get-GlobSetFile.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Get-GlobSetTrigger.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Get-TrackedFile.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-GlobSetIndependence.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md
+          - docs/references/pwsh/catzc-base-globs/configs/globs.yml.md
+          - docs/references/pwsh/catzc-base-globs/private/Get-ChangedFile.ps1.md
+          - docs/references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md
+          - docs/references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/GlobSetTrigger-Coverage.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Test-GlobSetIndependence.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md
+          - docs/references/pwsh/catzc-base-globs/types/DurableHash.cs.md
+          - docs/references/pwsh/catzc-base-globs/types/GlobPattern.cs.md
+          - docs/references/pwsh/catzc-base-globs/types/GlobSet.cs.md
+          - docs/references/pwsh/catzc-base-globs/types/GlobsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Test-ValueChainMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/tests/Test-ValueChainMap.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-module-system.md
+          - docs/references/pwsh/catzc-base-module-system/Test-CheckedInBinaries.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Test-FolderConventions.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Test-FunctionDependency.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Test-InternalAssetDependency.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Test-ModuleCycles.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Test-ModuleDependency.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/configs/artifacts.yml.md
+          - docs/references/pwsh/catzc-base-module-system/tests/Get-InternalAssetDependency.Integrity.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/tests/Test-CheckedInBinaries.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/tests/Test-FunctionDependency.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/tests/Test-ModuleDependency.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-AnalyzerDrsMap.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-BuildArtifact.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Change.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Comments.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-ConfigIdentityHygiene.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-FileMeta.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-FileMetaProcessors.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Formatting.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-GeneratedFiles.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Links.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-LogicTestIdentity.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-ManagedGuids.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-ManualTestPlan.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-MarkdownTitle.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Markdownlint.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-ParameterConsistency.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-ScriptAnalyzer.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-ShippedConfigs.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-SourceConventions.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Spelling.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Terminology.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-TestTitles.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/configs/generated-files.yml.md
+          - docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-GeneratedFileGenerator.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-GuidScanFiles.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Format-Types.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Get-AnalyzerDrsCoverage.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Get-RepositoryGuids.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Get-TestTagViolations.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/ManualTestPlan-Coverage.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-Automation.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-BuildArtifact.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-ConfigIdentityHygiene.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-Formatting.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-GeneratedFiles.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-Links.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-LogicTestIdentity.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-ParameterConsistency.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-PythonLint.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/Test-ShellScripts.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/tests/TestTitle-TemplateTokens.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md
+          - docs/references/pwsh/catzc-base-reports/configs/reports.yml.md
+          - docs/references/pwsh/catzc-base-reports/tests/Write-QualityGateReport.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-reports/types/CheckMode.cs.md
+          - docs/references/pwsh/catzc-base-reports/types/ReportsConfig.cs.md
+          - docs/references/pwsh/catzc-base-root-config.md
+          - docs/references/pwsh/catzc-base-root-config/Test-RootAnalyzerSettings.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/Test-RootConfigFiles.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/tests/Test-RootConfigIntegrity.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-types-system/Test-ShippedTypes.ps1.md
+          - docs/references/pwsh/catzc-tooling-key-handler/private/Select-SupportedKeyHandler.ps1.md
+          - docs/references/pwsh/internal/tests/Test-FolderConventions.Tests.ps1.md
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: github-workflows/workflows/.
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-TRACKEDFILESONLY]
+      - cell: pwsh/Catzc.Azure/.
+        by: [pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Azure.DevOps/tests
+        by: [pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Config/tests
+        by: [pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Base.ConfigExtensions/.
+        by: [pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Base.Contracts/.
+        by: [pwsh/Catzc.Base.Contracts/Test-Contracts.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Base.Contracts/tests
+        by: [pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Base.Docs/.
+        by:
+          - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
+          - pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
+          - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by: [pwsh/Catzc.Base.Docs/configs/agents.yml, pwsh/Catzc.Base.Docs/configs/capabilities.yml, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Base.Docs/tests
+        by:
+          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Drs/.
+        by: [pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1, pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Drs/tests
+        by:
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationGraphViolations.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Drs/types
+        by:
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Execution/.
+        by: [pwsh/Catzc.Base.Execution/Invoke-Executable.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Base.Globs/.
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetFile.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
+          - pwsh/Catzc.Base.Globs/Get-TrackedFile.ps1
+          - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Globs/configs
+        by:
+          - pwsh/Catzc.Base.Globs/configs/globs.yml
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Globs/private
+        by:
+          - pwsh/Catzc.Base.Globs/private/Get-ChangedFile.ps1
+          - pwsh/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
+          - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Globs/tests
+        by:
+          - pwsh/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Globs/tests/types
+        by:
+          - pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Globs/types
+        by:
+          - pwsh/Catzc.Base.Globs/types/Aspect.cs
+          - pwsh/Catzc.Base.Globs/types/DurableHash.cs
+          - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
+          - pwsh/Catzc.Base.Globs/types/GlobSet.cs
+          - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1
+          - pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
+          - pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Modules/tests
+        by: [pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Base.ModuleSystem/.
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-ModuleCycles.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Base.ModuleSystem/tests
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1
+          - pwsh/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1
+          - pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
+          - pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.QualityGates/.
+        by:
+          - pwsh/Catzc.Base.QualityGates/Test-AnalyzerDrsMap.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Change.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ConfigIdentityHygiene.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-FileMeta.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-FileMetaProcessors.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Links.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ManagedGuids.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ManualTestPlan.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-MarkdownTitle.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Markdownlint.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ParameterConsistency.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Plans.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ScriptAnalyzer.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-SourceConventions.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Spelling.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Terminology.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-TestTitles.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.QualityGates/configs
+        by:
+          - pwsh/Catzc.Base.QualityGates/configs/generated-files.yml
+          - pwsh/Catzc.Base.QualityGates/configs/glossary.yml
+          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-GeneratedFileGenerator.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.QualityGates/tests
+        by:
+          - pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Format-Types.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerDrsCoverage.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ParameterConsistency.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-PythonTypes.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/TestTitle-TemplateTokens.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.Reports/.
+        by: [pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Base.Reports/configs
+        by: [pwsh/Catzc.Base.Reports/configs/reports.yml, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Base.Reports/tests
+        by: [pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Base.Reports/tests/types
+        by: [pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Base.Reports/types
+        by: [pwsh/Catzc.Base.Reports/types/CheckMode.cs, pwsh/Catzc.Base.Reports/types/ReportsConfig.cs, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Base.RootConfig/.
+        by:
+          - pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
+          - pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: pwsh/Catzc.Base.RootConfig/tests
+        by: [pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Base.TypesSystem/.
+        by: [pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Internal.Tests/.
+        by: [pwsh/.internal/tests/Test-FolderConventions.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: pwsh/Catzc.Tooling.KeyHandler/private
+        by: [pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1, ADR-AUTO-TEST-QUALITYGATE]
+    module-neighbourhood:
+      - cell: subject/.claude
+        by:
+          - .claude/CLAUDE.md
+          - .claude/agents/test-optimization.md
+          - .claude/skills/test-speed/SKILL.md
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Azure
+        by: [pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: subject/Catzc.Azure.DevOps
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1
+          - pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Azure.DevOps.BuildValidation
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Base.Config
+        by: [pwsh/Catzc.Base.Config/tests/Config-Conventions.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: subject/Catzc.Base.ConfigExtensions
+        by: [pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: subject/Catzc.Base.Contracts
+        by:
+          - pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
+          - pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
+          - pwsh/Catzc.Base.Docs/Test-GeneratedReadmes.ps1
+          - pwsh/Catzc.Base.Docs/Test-Glossary.ps1
+          - pwsh/Catzc.Base.Docs/configs/agents.yml
+          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - pwsh/Catzc.Base.Docs/tests/Test-AgentDefinitions.Tests.ps1
+          - pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
+          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsCitationGraphViolations.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Test-DrsEngineNeutrality.Tests.ps1
+          - pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Base.Execution
+        by: [pwsh/Catzc.Base.Execution/Invoke-Executable.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: subject/Catzc.Base.Globs
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetFile.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
+          - pwsh/Catzc.Base.Globs/Get-TrackedFile.ps1
+          - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetIndependence.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
+          - pwsh/Catzc.Base.Globs/configs/globs.yml
+          - pwsh/Catzc.Base.Globs/private/Get-ChangedFile.ps1
+          - pwsh/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
+          - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/GlobSetTrigger-Coverage.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Test-AdoPipelineTriggerGlob.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Test-GitHubWorkflowTriggerGlob.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Globs/types/Aspect.cs
+          - pwsh/Catzc.Base.Globs/types/DurableHash.cs
+          - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
+          - pwsh/Catzc.Base.Globs/types/GlobSet.cs
+          - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Base.Maps
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Test-ValueChainMap.ps1
+          - pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - pwsh/Catzc.Base.Maps/tests/Test-ValueChainMap.Tests.ps1
+          - pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Base.ModuleSystem
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Test-CheckedInBinaries.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-FolderConventions.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-FunctionDependency.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-InternalAssetDependency.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-ModuleCycles.ps1
+          - pwsh/Catzc.Base.ModuleSystem/Test-ModuleDependency.ps1
+          - pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml
+          - pwsh/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1
+          - pwsh/Catzc.Base.ModuleSystem/tests/Test-CheckedInBinaries.Tests.ps1
+          - pwsh/Catzc.Base.ModuleSystem/tests/Test-FunctionDependency.Tests.ps1
+          - pwsh/Catzc.Base.ModuleSystem/tests/Test-ModuleDependency.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Base.Modules
+        by: [pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: subject/Catzc.Base.QualityGates
+        by:
+          - pwsh/Catzc.Base.QualityGates/Test-AnalyzerDrsMap.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-BuildArtifact.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Change.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Comments.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ConfigIdentityHygiene.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-FileMeta.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-FileMetaProcessors.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Links.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ManagedGuids.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ManualTestPlan.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-MarkdownTitle.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Markdownlint.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ParameterConsistency.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Plans.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ScriptAnalyzer.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-SourceConventions.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Spelling.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-Terminology.ps1
+          - pwsh/Catzc.Base.QualityGates/Test-TestTitles.ps1
+          - pwsh/Catzc.Base.QualityGates/configs/generated-files.yml
+          - pwsh/Catzc.Base.QualityGates/configs/glossary.yml
+          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+          - pwsh/Catzc.Base.QualityGates/private/Get-GeneratedFileGenerator.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Format-MarkdownTitle.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Format-Types.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-AnalyzerDrsCoverage.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-RepositoryGuids.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Get-TestTagViolations.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/ManualTestPlan-Coverage.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Automation.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-BuildArtifact.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ConfigIdentityHygiene.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Links.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-LogicTestIdentity.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ParameterConsistency.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-PythonLint.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-PythonTypes.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ScriptAnalyzer.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-ShellScripts.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/TestTitle-TemplateTokens.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Base.Reports
+        by:
+          - pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
+          - pwsh/Catzc.Base.Reports/configs/reports.yml
+          - pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
+          - pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
+          - pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Base.RootConfig
+        by:
+          - pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
+          - pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
+          - pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
+          - ADR-AUTO-TEST-QUALITYGATE
+      - cell: subject/Catzc.Base.TypesSystem
+        by: [pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: subject/Catzc.Internal.Tests
+        by: [pwsh/.internal/tests/Test-FolderConventions.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: subject/Catzc.Tooling.KeyHandler
+        by: [pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1, ADR-AUTO-TEST-QUALITYGATE]
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
+          - .ado/pipelines/ci-pwsh.yaml
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/workflows
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-TRACKEDFILESONLY]
+    axis:
+      - cell: DSGN/*
+        by: [FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-TRACKEDFILESONLY]
+      - cell: AUTO/quality-control
+        by: [ADR-AUTO-TEST-QUALITYGATE]
+layout:
+  band-compose: { x: 20, y: 84, w: 1260, h: 120 }
+  band-projection: { x: 20, y: 224, w: 1260, h: 130 }
+  band-checked: { x: 20, y: 374, w: 1260, h: 150 }
+  r-flattened: { x: 560, y: 126, w: 640, h: 56 }
+  r-github: { x: 800, y: 270, w: 200, h: 56 }
+  r-ado: { x: 330, y: 270, w: 400, h: 56 }
+  a-generated: { x: 60, y: 270, w: 200, h: 56 }
+  g-github-gate: { x: 860, y: 416, w: 300, h: 80 }
+  g-ado-gate: { x: 240, y: 416, w: 280, h: 80 }
+  g-coverage-gate: { x: 550, y: 416, w: 280, h: 80 }
+```
+
 ![Three gates check the projection; generation is DRS-only](.assets/drift-is-gated-generation-is-drs-only.drawio.png)
 
 ## Walkthrough

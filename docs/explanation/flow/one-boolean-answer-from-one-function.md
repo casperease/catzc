@@ -16,6 +16,138 @@ places: where output goes, whether a pipeline variable is written, which git ran
 on one question, "am I in a pipeline?", and cats answers it in exactly one function. The function reads the signal the pipeline agent sets,
 answers true or false, and an analyzer rule makes sure nobody reads the signal anywhere else.
 
+```yml drawio
+description:
+  The pipeline agent sets the signal, one detection function reads it and answers true or false, every function that behaves differently in
+  a pipeline asks that function, and an analyzer rule flags any read of the signal outside it.
+about:
+  adrs: [FDR-CD-DETECT-NODIRECTVARIABLECHECK, FDR-CD-DETECT-BOOLEANNOTMODAL]
+  lens: meta
+content:
+  title: One function answers "am I in a pipeline?", and every branch on context asks it
+  kind: explanation
+  flow: left-to-right
+  relation: feeds the next step
+  theme: dark
+  bands:
+    - { id: band-platform, label: PLATFORM }
+    - { id: band-detection, label: DETECTION }
+    - { id: band-consumers, label: CONSUMERS }
+    - { id: band-enforcement, label: ENFORCEMENT }
+  glyphs:
+    - { id: g-agent, kind: runner, label: pipeline agent, in: band-platform }
+    - { id: g-detection, kind: code, label: one detection function, in: band-detection }
+    - { id: s-behavior, kind: set, label: context-dependent behavior, in: band-consumers }
+    - { id: g-analyzer, kind: gate, label: analyzer rule, in: band-enforcement }
+  edges:
+    - { from: g-agent, to: g-detection, kind: flow, label: "" }
+    - { from: g-detection, to: s-behavior, kind: thick, label: "" }
+    - { from: s-behavior, to: g-analyzer, kind: flow, label: "" }
+  markers:
+    - { at: g-agent, number: 1 }
+    - { at: g-detection, number: 2 }
+    - { at: s-behavior, number: 3 }
+    - { at: g-analyzer, number: 4 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by: [.claude/CLAUDE.md, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: docs/-/.
+        by:
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/pipeline-detection.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by: [pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: pwsh/Catzc.Azure.Templates/.
+        by: [pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: pwsh/Catzc.Base.Drs/types
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: pwsh/Catzc.Base.Globs/.
+        by: [pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: pwsh/Catzc.Base.Globs/tests
+        by:
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by: [pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: pwsh/Catzc.Base.QualityGates/configs
+        by: [pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+    grid:
+      - cell: .claude/markdown
+        by: [.claude/CLAUDE.md, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: docs/markdown
+        by:
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/pipeline-detection.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-globs/Get-GlobSetChangeRange.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetChangeRange.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - cell: pwsh/bcl
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentName.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetChangeRange.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetChangeRange.Tests.ps1
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml
+          - FDR-CD-DETECT-BOOLEANNOTMODAL
+          - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+    axis:
+      - cell: DSGN/*
+        by: [FDR-CD-DETECT-BOOLEANNOTMODAL, FDR-CD-DETECT-NODIRECTVARIABLECHECK]
+layout:
+  band-platform: { x: 20, y: 84, w: 300, h: 240 }
+  band-detection: { x: 340, y: 84, w: 340, h: 240 }
+  band-consumers: { x: 700, y: 84, w: 580, h: 240 }
+  band-enforcement: { x: 20, y: 344, w: 1260, h: 120 }
+  g-agent: { x: 60, y: 186, w: 220, h: 44 }
+  g-detection: { x: 400, y: 186, w: 220, h: 44 }
+  s-behavior: { x: 760, y: 186, w: 260, h: 44 }
+  g-analyzer: { x: 810, y: 372, w: 160, h: 76 }
+```
+
 ![One function answers whether the code is in a pipeline](.assets/one-boolean-answer-from-one-function.drawio.png)
 
 ## Walkthrough

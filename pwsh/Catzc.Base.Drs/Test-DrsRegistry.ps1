@@ -1,10 +1,7 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "502e5afe95a9"
   edges:
-    test: pwsh/Catzc.Base.Drs/tests/Test-DrsRegistry.Tests.ps1
     docs: "[Test-DrsRegistry.ps1.md](../../docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
@@ -69,6 +66,10 @@ function Test-DrsRegistry {
         }
     }
 
+    # A code in prose that names nothing registered is a broken citation, always a finding.
+    $dangling = [string[]] @(Get-DrsDanglingCodeViolations -Adrs $adrs -Index $index -Map (Get-DrsCitationMap))
+    $issues.AddRange($dangling)
+
     $configured = @(
         [pscustomobject]@{
             Name     = 'citation-graph'
@@ -89,7 +90,7 @@ function Test-DrsRegistry {
             Findings = [string[]] @(Get-DrsCodeLanguageViolations -Adrs $adrs -Index $index)
         }
     )
-    $facts = [ordered]@{ RuleSets = $ruleSets.Count; Files = $index.Relative.Count }
+    $facts = [ordered]@{ RuleSets = $ruleSets.Count; Files = $index.Relative.Count; DanglingCodes = $dangling.Count }
     foreach ($check in $configured) {
         $facts["$($check.Fact)Mode"] = $check.Mode.ToString().ToLowerInvariant()
         $facts["$($check.Fact)Findings"] = $check.Findings.Count

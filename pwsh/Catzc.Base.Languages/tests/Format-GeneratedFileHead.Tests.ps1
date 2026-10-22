@@ -50,10 +50,17 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
         $script:warning | Should -BeExactly ([Catzc.Base.Languages.GeneratedHeadConfig]::DefaultWarning)
     }
 
-    It 'writes the warning and the body hash of a tracked file, and nothing else, in the comment style of the file language' {
+    It 'writes the body hash of a tracked file and the warning, and nothing else, in the comment style of the file language' {
         $text = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -Carriers $script:carriers -Languages $script:languages
-        $text | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     warning: `"$script:warning`"`n#     with_body_sha: `"9534a2e15c8b`"`n# ---`n`nwidget body`n"
+        $text | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     with_body_sha: `"9534a2e15c8b`"`n#     warning: `"$script:warning`"`n# ---`n`nwidget body`n"
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Languages -Times 1 -ParameterFilter { $Command -like '*ls-files --error-unmatch*docs/gen.wdg*' }
+    }
+
+    It 'opens the immutable part with the body hash, so the head reads immutable for this body, whatever the carrier' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
+        foreach ($path in 'docs/gen.wdg', 'docs/gen.gdg') {
+            $text = Format-GeneratedFileHead -Text "body`n" -Path $path -Carriers $script:carriers -Languages $script:languages
+            $text | Should -Match '(?m)^\W*immutable:\r?\n\W*with_body_sha: ' -Because "the first key under immutable in $path is the body hash"
+        }
     }
 
     It 'writes the warning only on a file git does not track' {
@@ -101,7 +108,7 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
         $bare = Format-PropertyMetaHead -Text $json -Property '$comment' -Strip @($script:warning) -Immutable ([ordered]@{})
         $hash = [Catzc.Base.MarkdownMeta.MarkdownDocument]::HashOf($bare)
         $text = Format-GeneratedFileHead -Text $json -Path 'docs/gen.schema.dat' -Carrier schema -Carriers $script:carriers -Languages $script:languages
-        $text | Should -BeExactly "{`n  `"`$comment`": `"catzc:\n  immutable:\n    warning: \`"$script:warning\`"\n    with_body_sha: \`"$hash\`"`",`n  `"type`": `"object`"`n}`n"
+        $text | Should -BeExactly "{`n  `"`$comment`": `"catzc:\n  immutable:\n    with_body_sha: \`"$hash\`"\n    warning: \`"$script:warning\`"`",`n  `"type`": `"object`"`n}`n"
     }
 
     It 'refuses a carrier that holds no head, and an undeclared carrier' {

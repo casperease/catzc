@@ -17,6 +17,301 @@ and a configured unit composes a base unit by putting the base's program first a
 of that one flattened program, but only one of the two dialects can carry its order: GitHub paths reproduce it exactly, while Azure DevOps
 keeps just each pattern's last select.
 
+```yml drawio
+description:
+  "One flattened scan program composed from a base unit and a configured unit, and its two projections: GitHub paths keep the order exactly,
+  Azure DevOps include and exclude collapse each pattern to its last select."
+about:
+  adrs: [FDR-CD-GLOBS-TRACKEDFILESONLY, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-COMPOSESETS]
+  lens: meta
+content:
+  title: One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps
+  kind: explanation
+  flow: top-to-bottom
+  relation: feeds
+  theme: dark
+  bands:
+    - { id: band-compose, label: COMPOSE }
+    - { id: band-projection, label: PROJECTION }
+  glyphs:
+    - { id: s-base-unit, kind: set, label: base unit, in: band-compose }
+    - { id: s-configured-unit, kind: set, label: configured unit, in: band-compose }
+    - { id: r-program, kind: result, label: flattened scan program, in: band-compose }
+    - { id: r-github-paths, kind: result, label: GitHub paths, in: band-projection }
+    - { id: r-ado-filters, kind: result, label: ADO include and exclude, in: band-projection }
+  edges:
+    - { from: s-base-unit, to: s-configured-unit, kind: flow, label: "" }
+    - { from: s-configured-unit, to: r-program, kind: flow, label: "" }
+    - { from: r-program, to: r-github-paths, kind: flow, label: "" }
+    - { from: r-program, to: r-ado-filters, kind: flow, label: "" }
+  markers:
+    - { at: s-base-unit, number: 1 }
+    - { at: s-configured-unit, number: 2 }
+    - { at: r-program, number: 3 }
+    - { at: r-github-paths, number: 4 }
+    - { at: r-ado-filters, number: 5 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by: [.claude/CLAUDE.md, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-TRACKEDFILESONLY]
+      - cell: ado-pipelines/pipelines/.
+        by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
+          - .ado/pipelines/ci-pwsh.yaml
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: docs/-/.
+        by:
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/durable-sha-globs.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/cd-apex.yaml.md
+          - docs/references/ado/pipelines/cd-flux.yaml.md
+          - docs/references/ado/pipelines/cd-nova.yaml.md
+          - docs/references/ado/pipelines/cd-shared.yaml.md
+          - docs/references/ado/pipelines/ci-infrastructure.yaml.md
+          - docs/references/ado/pipelines/ci-pwsh.yaml.md
+          - docs/references/github/workflows/ci-pwsh.yml.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Get-AdoBuildValidations.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Register-AdoBuildValidation.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Unregister-AdoBuildValidation.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/configs/build-validation.yml.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/private/Get-BuildValidationPathFilter.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-globs/Get-ChangedGlobSet.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Get-GlobSetFile.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Get-GlobSetTrigger.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Get-TrackedFile.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-AdoPipelineTriggerGlob.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-GitHubWorkflowTriggerGlob.ps1.md
+          - docs/references/pwsh/catzc-base-globs/Test-GlobSetTriggerCoverage.ps1.md
+          - docs/references/pwsh/catzc-base-globs/configs/globs.yml.md
+          - docs/references/pwsh/catzc-base-globs/private/Get-ChangedFile.ps1.md
+          - docs/references/pwsh/catzc-base-globs/private/Get-GlobSetMember.ps1.md
+          - docs/references/pwsh/catzc-base-globs/private/Get-PipelineTrigger.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-ChangedFile.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetFile.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-GlobSetMember.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/Get-TrackedFile.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/types/GlobSet.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/types/GlobsConfig.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md
+          - docs/references/pwsh/catzc-base-globs/types/DurableHash.cs.md
+          - docs/references/pwsh/catzc-base-globs/types/GlobPattern.cs.md
+          - docs/references/pwsh/catzc-base-globs/types/GlobSet.cs.md
+          - docs/references/pwsh/catzc-base-globs/types/GlobsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-GuidScanFiles.ps1.md
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: github-workflows/workflows/.
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-TRACKEDFILESONLY]
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/.
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/configs
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Azure.DevOps.BuildValidation/private
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-TRACKEDFILESONLY]
+      - cell: pwsh/Catzc.Base.Drs/types
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-TRACKEDFILESONLY]
+      - cell: pwsh/Catzc.Base.Globs/.
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetFile.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
+          - pwsh/Catzc.Base.Globs/Get-TrackedFile.ps1
+          - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Globs/configs
+        by:
+          - pwsh/Catzc.Base.Globs/configs/globs.yml
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Globs/private
+        by:
+          - pwsh/Catzc.Base.Globs/private/Get-ChangedFile.ps1
+          - pwsh/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
+          - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Globs/tests
+        by:
+          - pwsh/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Globs/tests/types
+        by:
+          - pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Globs/types
+        by:
+          - pwsh/Catzc.Base.Globs/types/Aspect.cs
+          - pwsh/Catzc.Base.Globs/types/DurableHash.cs
+          - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
+          - pwsh/Catzc.Base.Globs/types/GlobSet.cs
+          - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.QualityGates/configs
+        by:
+          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1, FDR-CD-GLOBS-TRACKEDFILESONLY]
+    module-neighbourhood:
+      - cell: subject/.claude
+        by: [.claude/CLAUDE.md, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-TRACKEDFILESONLY]
+      - cell: subject/Catzc.Azure.DevOps
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Azure.DevOps.BuildValidation
+        by:
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Get-AdoBuildValidations.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/private/Get-BuildValidationPathFilter.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Base.Globs
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ChangedGlobSet.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetFile.ps1
+          - pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1
+          - pwsh/Catzc.Base.Globs/Get-TrackedFile.ps1
+          - pwsh/Catzc.Base.Globs/Test-AdoPipelineTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GitHubWorkflowTriggerGlob.ps1
+          - pwsh/Catzc.Base.Globs/Test-GlobSetTriggerCoverage.ps1
+          - pwsh/Catzc.Base.Globs/configs/globs.yml
+          - pwsh/Catzc.Base.Globs/private/Get-ChangedFile.ps1
+          - pwsh/Catzc.Base.Globs/private/Get-GlobSetMember.ps1
+          - pwsh/Catzc.Base.Globs/private/Get-PipelineTrigger.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-ChangedFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-GlobSetMember.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-TrackedFile.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/GlobSet.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Globs/types/Aspect.cs
+          - pwsh/Catzc.Base.Globs/types/DurableHash.cs
+          - pwsh/Catzc.Base.Globs/types/GlobPattern.cs
+          - pwsh/Catzc.Base.Globs/types/GlobSet.cs
+          - pwsh/Catzc.Base.Globs/types/GlobsConfig.cs
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Base.Maps
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/Catzc.Base.QualityGates
+        by:
+          - pwsh/Catzc.Base.QualityGates/configs/terminology.yml
+          - pwsh/Catzc.Base.QualityGates/private/Get-GuidScanFiles.ps1
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/cd-apex.yaml
+          - .ado/pipelines/cd-flux.yaml
+          - .ado/pipelines/cd-nova.yaml
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/ci-infrastructure.yaml
+          - .ado/pipelines/ci-pwsh.yaml
+          - FDR-CD-GLOBS-COMPOSESETS
+          - FDR-CD-GLOBS-NATIVEPATHFILTER
+          - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - cell: subject/workflows
+        by: [.github/workflows/ci-pwsh.yml, FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-TRACKEDFILESONLY]
+    axis:
+      - cell: DSGN/*
+        by: [FDR-CD-GLOBS-COMPOSESETS, FDR-CD-GLOBS-NATIVEPATHFILTER, FDR-CD-GLOBS-TRACKEDFILESONLY]
+layout:
+  band-compose: { x: 20, y: 84, w: 1260, h: 170 }
+  band-projection: { x: 20, y: 274, w: 1260, h: 200 }
+  s-base-unit: { x: 160, y: 150, w: 180, h: 44 }
+  s-configured-unit: { x: 440, y: 150, w: 180, h: 44 }
+  r-program: { x: 720, y: 150, w: 460, h: 44 }
+  r-github-paths: { x: 720, y: 380, w: 200, h: 44 }
+  r-ado-filters: { x: 980, y: 380, w: 200, h: 44 }
+```
+
 ![One flattened scan program, two vendor dialects](.assets/one-program-two-vendor-dialects.drawio.png)
 
 ## Walkthrough

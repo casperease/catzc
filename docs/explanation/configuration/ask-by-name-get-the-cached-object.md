@@ -1,3 +1,14 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - ADR-CONF-LOADING-ONEREADER
+      - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+      - ADR-CONF-LOADING-CACHEBYPATH
+      - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+---
+
 # Ask for a config by name and get the cached object back
 
 ```text
@@ -18,6 +29,274 @@ Supports ADR-CONF-LOADING-ONEREADER, ADR-CONF-LOADING-EXISTENCEDISCOVERED, ADR-C
 The two config commands, `Get-ConfigValue` and `Get-Config`, are how a person or a pipeline step reads cats configuration: by an address
 into a config, or by the config's name. The answer is the cached object for the session: nothing prints on a cache hit, the first read
 parses and types the file, and every mistake throws at the call that made it, with a message that names the problem.
+
+```yml drawio
+description:
+  Get-ConfigValue and Get-Config resolve a name to one file and answer with the session's cached object; the first read parses and types the
+  file, and a bad key, an unknown or ambiguous name or a malformed config throws at the call.
+about:
+  adrs:
+    - ADR-CONF-LOADING-ONEREADER
+    - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+    - ADR-CONF-LOADING-CACHEBYPATH
+    - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+    - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+  lens: operations
+content:
+  title: Ask for a config by name and get the cached object back
+  kind: explanation
+  flow: left-to-right
+  relation: what runs next
+  theme: dark
+  bands:
+    - { id: band-run, label: WHAT YOU RUN }
+    - { id: band-first, label: FIRST READ }
+    - { id: band-throws, label: THROWS }
+  glyphs:
+    - { id: g-commands, kind: code, label: Get-ConfigValue · Get-Config, in: band-run }
+    - { id: g-resolve, kind: code, label: name -> one file, in: band-run }
+    - { id: s-cache, kind: store, label: session cache, in: band-run }
+    - { id: r-same, kind: result, label: same object, in: band-run }
+    - { id: g-parsed, kind: code, label: parsed and typed, in: band-first }
+    - { id: f-bad-key, kind: failure, label: bad key, in: band-throws }
+    - { id: f-unknown, kind: failure, label: unknown or ambiguous name, in: band-throws }
+    - { id: f-malformed, kind: failure, label: malformed config, in: band-throws }
+  edges:
+    - { from: g-commands, to: g-resolve, kind: flow, label: "" }
+    - { from: g-resolve, to: s-cache, kind: flow, label: "" }
+    - { from: s-cache, to: r-same, kind: flow, label: "" }
+    - { from: s-cache, to: g-parsed, kind: flow, label: "" }
+    - { from: g-parsed, to: r-same, kind: flow, label: "" }
+    - { from: g-commands, to: f-bad-key, kind: fail, label: "" }
+    - { from: g-resolve, to: f-unknown, kind: fail, label: "" }
+    - { from: g-parsed, to: f-malformed, kind: fail, label: "" }
+  markers:
+    - { at: g-commands, number: 1 }
+    - { at: g-resolve, number: 2 }
+    - { at: s-cache, number: 3 }
+    - { at: r-same, number: 4 }
+    - { at: g-parsed, number: 5 }
+    - { at: f-bad-key, number: 6 }
+    - { at: f-unknown, number: 7 }
+    - { at: f-malformed, number: 8 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/configuration/config-value-addressing.md
+          - docs/drs/configuration/dora-explains.md
+          - docs/drs/configuration/module-config-loading.md
+          - docs/drs/index.md
+          - docs/how-to/getting-started/pwsh/add-a-module.md
+          - docs/how-to/pwsh/manual-test-plan/configs.md
+          - docs/references/pwsh/catzc-base-config/Get-Config.ps1.md
+          - docs/references/pwsh/catzc-base-config/Get-ConfigValue.ps1.md
+          - docs/references/pwsh/catzc-base-config/private/Resolve-ConfigKeyPath.ps1.md
+          - docs/references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-docs/Build-Readme.ps1.md
+          - docs/references/pwsh/catzc-base-docs/private/Get-GlossarySources.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md
+          - docs/references/pwsh/catzc-base-docs/types/DocsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsChecksConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md
+          - docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md
+          - docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md
+          - docs/references/pwsh/catzc-base-module-system/Copy-CatzcModule.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-ShippedConfigs.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-LiveIdentityTokens.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/types/FileMetaConfig.cs.md
+          - docs/references/pwsh/catzc-base-root-config/types/RootConfigFiles.cs.md
+          - docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: pwsh/Catzc.Base.Config/.
+        by:
+          - pwsh/Catzc.Base.Config/Get-Config.ps1
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: pwsh/Catzc.Base.Config/private
+        by: [pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST]
+      - cell: pwsh/Catzc.Base.Config/tests
+        by: [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST, ADR-CONF-LOADING-ONEREADER]
+      - cell: pwsh/Catzc.Base.Docs/.
+        by:
+          - pwsh/Catzc.Base.Docs/Build-Readme.ps1
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: pwsh/Catzc.Base.Docs/private
+        by: [pwsh/Catzc.Base.Docs/private/Get-GlossarySources.ps1, ADR-CONF-LOADING-ONEREADER]
+      - cell: pwsh/Catzc.Base.Docs/types
+        by:
+          - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
+          - pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs
+          - pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs
+          - pwsh/Catzc.Base.Docs/types/DocsConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: pwsh/Catzc.Base.Drs/tests
+        by: [pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
+      - cell: pwsh/Catzc.Base.Drs/types
+        by: [pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs, pwsh/Catzc.Base.Drs/types/DrsConfig.cs, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
+      - cell: pwsh/Catzc.Base.Git/types
+        by:
+          - pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: pwsh/Catzc.Base.Globs/types
+        by: [pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
+      - cell: pwsh/Catzc.Base.Languages/.
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: pwsh/Catzc.Base.ModuleSystem/.
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: pwsh/Catzc.Base.QualityGates/.
+        by: [pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: pwsh/Catzc.Base.QualityGates/tests/types
+        by: [pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
+      - cell: pwsh/Catzc.Base.QualityGates/types
+        by: [pwsh/Catzc.Base.QualityGates/types/FileMetaConfig.cs, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
+      - cell: pwsh/Catzc.Base.RootConfig/types
+        by:
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: pwsh/Catzc.Tooling.Environment/.
+        by: [pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST]
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Config
+        by:
+          - pwsh/Catzc.Base.Config/Get-Config.ps1
+          - pwsh/Catzc.Base.Config/Get-ConfigValue.ps1
+          - pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
+          - pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: subject/Catzc.Base.Docs
+        by:
+          - pwsh/Catzc.Base.Docs/Build-Readme.ps1
+          - pwsh/Catzc.Base.Docs/private/Get-GlossarySources.ps1
+          - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
+          - pwsh/Catzc.Base.Docs/types/CapabilitiesConfig.cs
+          - pwsh/Catzc.Base.Docs/types/CapabilityEntry.cs
+          - pwsh/Catzc.Base.Docs/types/DocsConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
+          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: subject/Catzc.Base.Git
+        by:
+          - pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: subject/Catzc.Base.Globs
+        by: [pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
+      - cell: subject/Catzc.Base.Languages
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+      - cell: subject/Catzc.Base.ModuleSystem
+        by:
+          - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: subject/Catzc.Base.QualityGates
+        by:
+          - pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/types/FileMetaConfig.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: subject/Catzc.Base.RootConfig
+        by:
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+      - cell: subject/Catzc.Tooling.Environment
+        by: [pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST]
+    axis:
+      - cell: AUTO/*
+        by:
+          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+          - ADR-CONF-LOADING-CACHEBYPATH
+          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+          - ADR-CONF-LOADING-EXISTENCEDISCOVERED
+          - ADR-CONF-LOADING-ONEREADER
+layout:
+  band-run: { x: 20, y: 84, w: 1260, h: 120 }
+  band-first: { x: 600, y: 224, w: 680, h: 120 }
+  band-throws: { x: 20, y: 364, w: 1260, h: 120 }
+  g-commands: { x: 40, y: 130, w: 220, h: 44 }
+  g-resolve: { x: 380, y: 130, w: 200, h: 44 }
+  s-cache: { x: 660, y: 122, w: 160, h: 60 }
+  r-same: { x: 1040, y: 130, w: 200, h: 44 }
+  g-parsed: { x: 640, y: 272, w: 560, h: 44 }
+  f-bad-key: { x: 40, y: 412, w: 220, h: 44 }
+  f-unknown: { x: 370, y: 412, w: 220, h: 44 }
+  f-malformed: { x: 810, y: 412, w: 220, h: 44 }
+```
 
 ![Ask for a config by name and get the cached object back](.assets/ask-by-name-get-the-cached-object.drawio.png)
 

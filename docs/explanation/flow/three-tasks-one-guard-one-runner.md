@@ -20,6 +20,170 @@ Every ado pipeline step in cats runs through two files: the step template `.ado/
 inline guard before they call the runner. The runner then does four things in a fixed order. Read in code order, the path from a pipeline's
 `RunCommand` to the running command has no other stops.
 
+```yml drawio
+description:
+  "The path from a pipeline's RunCommand to the running command: the step template's three tasks carry one inline guard that can throw, then
+  the runner imports, traps, sanitizes and invokes in a fixed order."
+about:
+  adrs: [FDR-CD-RUNNER-NOINLINEPOWERSHELL, FDR-CD-RUNNER-IMPORTONCE, FDR-CD-RUNNER-THINSTEPTEMPLATES]
+  lens: implementation
+content:
+  title: Three tasks share one guard, and one runner imports, traps, sanitizes and invokes
+  kind: explanation
+  flow: left-to-right
+  relation: next in code order
+  theme: dark
+  bands:
+    - { id: band-template, label: TEMPLATE }
+    - { id: band-runner, label: RUNNER }
+  glyphs:
+    - { id: f-ci-automation, kind: file, label: ci-pwsh.yaml, in: band-template }
+    - { id: f-template, kind: file, label: invoke-automation.yaml, in: band-template }
+    - { id: g-inline-guard, kind: gate, label: inline guard, in: band-template }
+    - { id: x-throw, kind: failure, label: throw, in: band-template }
+    - { id: c-importer, kind: code, label: importer.ps1, in: band-runner }
+    - { id: c-trap, kind: code, label: trap, in: band-runner }
+    - { id: c-sanitize, kind: code, label: sanitize, in: band-runner }
+    - { id: c-invoke-command, kind: code, label: Invoke-Command, in: band-runner }
+  edges:
+    - { from: f-ci-automation, to: f-template, kind: flow, label: "" }
+    - { from: f-template, to: g-inline-guard, kind: flow, label: "" }
+    - { from: g-inline-guard, to: x-throw, kind: fail, label: "" }
+    - { from: g-inline-guard, to: c-importer, kind: flow, label: "" }
+    - { from: c-importer, to: c-trap, kind: flow, label: "" }
+    - { from: c-trap, to: c-sanitize, kind: flow, label: "" }
+    - { from: c-sanitize, to: c-invoke-command, kind: flow, label: "" }
+  markers:
+    - { at: f-ci-automation, number: 1 }
+    - { at: f-template, number: 2 }
+    - { at: g-inline-guard, number: 3 }
+    - { at: x-throw, number: 4 }
+    - { at: c-importer, number: 5 }
+    - { at: c-trap, number: 6 }
+    - { at: c-sanitize, number: 7 }
+    - { at: c-invoke-command, number: 8 }
+  chips:
+    - { at: g-inline-guard, kind: count, text: 3/3 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by: [.claude/CLAUDE.md, FDR-CD-RUNNER-IMPORTONCE, FDR-CD-RUNNER-NOINLINEPOWERSHELL, FDR-CD-RUNNER-THINSTEPTEMPLATES]
+      - cell: ado-pipelines/pipelines/steps
+        by:
+          - .ado/pipelines/steps/invoke-automation.yaml
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: docs/-/.
+        by:
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/pipeline-runner-pattern.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/steps/invoke-automation.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/Catzc.Base.Drs/types
+        by:
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+    grid:
+      - cell: .claude/markdown
+        by: [.claude/CLAUDE.md, FDR-CD-RUNNER-IMPORTONCE, FDR-CD-RUNNER-NOINLINEPOWERSHELL, FDR-CD-RUNNER-THINSTEPTEMPLATES]
+      - cell: ado-pipelines/pipeline-yaml
+        by:
+          - .ado/pipelines/steps/invoke-automation.yaml
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: docs/markdown
+        by:
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/flow/pipeline-runner-pattern.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/steps/invoke-automation.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - FDR-CD-RUNNER-IMPORTONCE
+          - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+          - FDR-CD-RUNNER-THINSTEPTEMPLATES
+    axis:
+      - cell: DSGN/*
+        by: [FDR-CD-RUNNER-IMPORTONCE, FDR-CD-RUNNER-NOINLINEPOWERSHELL, FDR-CD-RUNNER-THINSTEPTEMPLATES]
+layout:
+  band-template: { x: 20, y: 84, w: 610, h: 220 }
+  band-runner: { x: 650, y: 84, w: 630, h: 220 }
+  f-ci-automation: { x: 40, y: 122, w: 170, h: 56 }
+  f-template: { x: 240, y: 122, w: 190, h: 56 }
+  g-inline-guard: { x: 470, y: 110, w: 140, h: 80 }
+  x-throw: { x: 475, y: 230, w: 130, h: 44 }
+  c-importer: { x: 670, y: 122, w: 130, h: 56 }
+  c-trap: { x: 830, y: 122, w: 100, h: 56 }
+  c-sanitize: { x: 960, y: 122, w: 120, h: 56 }
+  c-invoke-command: { x: 1110, y: 122, w: 150, h: 56 }
+```
+
 ![Three tasks, one guard, one runner](.assets/three-tasks-one-guard-one-runner.drawio.png)
 
 ## Walkthrough

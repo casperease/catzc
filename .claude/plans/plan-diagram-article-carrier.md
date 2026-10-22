@@ -43,16 +43,14 @@ frontmatter re-imprint then has no diagram declaration files to head.
 - Slides are never a carrier; a block's `about.adrs` counting as its article's `cites:` is intended (the article embeds a diagram about
   those rules).
 - The move runs per folder in parallel: a background drone has `drs/flow`, `thesis`, `ado` and `repository`; catzc-e3 has `automation`;
-  the rest goes to the next free drone. Re-declaring minimaps runs `Build-Diagrams` first, since `declaration.py minimaps` reads the
-  computed data only a build refreshes (catzc-e3, 2026-10-22).
+  catzc-e9 has `configuration`; the rest goes to the next free drone. Re-declaring minimaps runs `Build-Diagrams` first, since
+  `declaration.py minimaps` reads the computed data only a build refreshes (catzc-e3, 2026-10-22).
 
 ## Open steps
 
-- [ ] `pwsh/Catzc.Base.Slides`: `Move-Diagram.ps1` carrier-aware (an article-carried diagram moves its block with it, its `carriers:` key
-      re-keyed), and `private/Get-DiagramDeclarationText.ps1` skips `*.slide.md` as the kit's `carry` does (catzc-e9; `carry` landed with
-      109 kit tests green). (check: both test files green, with an article-carried move and a slide-block case)
-- [ ] `python/catzc_diagrams/configs/drawio.yml`: `renderer.carrier: article`, `carriers:` the seven as `file`. (check: `pytest` on the
-      kit's carrier tests green)
+- [ ] `python/catzc_diagrams/configs/drawio.yml`, after the move: `renderer.carrier: article`, `carriers:` only the nine file-carried
+      diagrams (the seven, `truth-stores`, `bcl-language`) as `file`, the per-diagram `article` entries `carry` wrote removed. (check:
+      `pytest` on the kit's carrier tests green, `Test-Diagrams` at 0)
 - [ ] The move, one `.assets/` folder at a time: each declaration into its article's block, its yml deleted, the folder rebuilt. (check: per
       folder, `Test-Diagrams` at 0, `Build-Diagrams -Path` on each moved diagram clean with its png unchanged, `Test-Formatting` on the
       pages at 0)

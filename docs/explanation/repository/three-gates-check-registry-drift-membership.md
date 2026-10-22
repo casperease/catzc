@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-ROOTCFG
+---
+
 # Three gates check the registry, the drift and the git membership; one rule has no gate
 
 ```text

@@ -3,6 +3,7 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - ADR-REPO-AGENTS-STANDARDDRONE
       - ADR-REPO-AGENTS-ROBOTBODYLIMIT
       - ADR-REPO-LINK-ONECITATIONSPELLING
 ---
@@ -51,7 +52,7 @@ counts as working only after one live run of it; green tests alone never vouch f
 
 ### Rule ADR-REPO-AI-EDITONLYBRIEF
 
-**Edit only what the brief names.** A shared file gets an entry request; a peer's dirty file is left alone. (ADR-REPO-AGENTS-STANDARDWORKER)
+**Edit only what the brief names.** A shared file gets an entry request; a peer's dirty file is left alone. (ADR-REPO-AGENTS-STANDARDDRONE)
 
 ### Rule ADR-REPO-AI-NEVERDECIDEFORUSER
 

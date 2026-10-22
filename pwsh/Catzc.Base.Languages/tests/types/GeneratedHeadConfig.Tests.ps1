@@ -35,7 +35,7 @@ Describe 'Catzc.Base.Languages.GeneratedHeadConfig' -Tag 'L0', 'logic' {
         [Catzc.Base.Languages.GeneratedHeadConfig]::new([ordered]@{ keys = $keys; warning = ' ' }).warning | Should -BeExactly 'Do Not Edit, this file is generated'
     }
 
-    It 'loads the shipped generated-head.yml: the warning, then the body hash' {
-        (Get-Config -Config generated-head).order | Should -Be @('warning', 'with_body_sha')
+    It 'loads the shipped generated-head.yml: the body hash first, so the head reads immutable for this body, then the warning' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
+        (Get-Config -Config generated-head).order | Should -Be @('with_body_sha', 'warning')
     }
 }
