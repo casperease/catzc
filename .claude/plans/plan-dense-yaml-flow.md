@@ -40,9 +40,6 @@ opens one of the 176 declarations.
 
 ## Open steps
 
-- [ ] `python/catzc_diagrams/declaration.py`: a `reflow <folder>` subcommand that rewrites one declaration in the printed form, keeping its
-      generated head and its rows as read, and refuses to write when `load()` of the new text differs from `load()` of the old. (check: the
-      same pytest file, with a reflow test over a fixture that has a head and a row)
 - [ ] `docs/drs/azure/.assets/azure-name-assembly.drawio.yml`: reflowed by the new subcommand as the pilot. (check: the file shrinks from
       374 lines, `git diff --stat` shows that file only, Test-Formatting on it is clean, and
       `Build-Diagrams -Path docs/drs/azure/.assets/azure-name-assembly.drawio.yml` renders a png identical to the committed one)

@@ -786,8 +786,12 @@ def flow_yaml(data, width):
 
 
 def _flow_scalar(value):
-    # A scalar quoted as yaml.safe_dump quotes it inside a flow collection, where a plain `,` or `[` would end it.
-    return yaml.safe_dump([value], default_flow_style=True, allow_unicode=True, width=10**9).strip()[1:-1]
+    # A scalar quoted where yaml.safe_dump quotes it inside a flow collection, where a plain `,` or `[` would end it; a quoted one takes
+    # Prettier's double quotes when its text holds no `"` or `\` to escape.
+    text = yaml.safe_dump([value], default_flow_style=True, allow_unicode=True, width=10**9).strip()[1:-1]
+    if text.startswith("'") and isinstance(value, str) and '"' not in value and "\\" not in value and value.isprintable():
+        return f'"{value}"'
+    return text
 
 
 def _flow(node):
@@ -800,10 +804,28 @@ def _flow(node):
     return "[" + ", ".join(_flow_scalar(v) for v in node) + "]"
 
 
-def _scalar_lines(wrapped, indent, width):
-    # A scalar in block style, folded as yaml.safe_dump folds it; `wrapped` is its key's one-entry mapping or a one-item list.
-    text = yaml.safe_dump(wrapped, sort_keys=False, allow_unicode=True, width=max(width - indent, 20))
-    return [" " * indent + line for line in text.splitlines() if line != "..."]
+def _scalar_lines(key, value, indent, width):
+    """A scalar under its key, or a list item when the key is None, as Prettier prints it: on the key's or dash's line when it fits, else
+    a plain text filled word by word at the width, under the key or beside the dash; any other long scalar as yaml.safe_dump writes it."""
+    pad = " " * indent
+    lead = "-" if key is None else f"{_flow_scalar(key)}:"
+    text = _flow_scalar(value)
+    if len(pad + lead) + 1 + len(text) <= width or not isinstance(value, str):
+        return [f"{pad}{lead} {text}"]
+    words = value.split(" ")
+    if text[0] in "'\"" or "\n" in value or "" in words:
+        wrapped = [value] if key is None else {key: value}
+        dumped = yaml.safe_dump(wrapped, sort_keys=False, allow_unicode=True, width=max(width - indent, 20))
+        return [pad + line for line in dumped.splitlines() if line != "..."]
+    lines = [] if key is None else [f"{pad}{lead}"]
+    prefix, line = (f"{pad}- " if key is None else f"{pad}  "), []
+    for word in words:
+        if line and len(prefix) + len(" ".join(line + [word])) > width:
+            lines.append(prefix + " ".join(line))
+            prefix, line = f"{pad}  ", []
+        line.append(word)
+    lines.append(prefix + " ".join(line))
+    return lines
 
 
 def _block(node, indent, width, lines):
@@ -812,7 +834,7 @@ def _block(node, indent, width, lines):
         for key, value in node.items():
             lead = f"{pad}{_flow_scalar(key)}:"
             if not isinstance(value, (dict, list)):
-                lines.extend(_scalar_lines({key: value}, indent, width))
+                lines.extend(_scalar_lines(key, value, indent, width))
             elif not value:
                 lines.append(f"{lead} {'{}' if isinstance(value, dict) else '[]'}")
             elif (flow := _flow(value)) and len(lead) + 1 + len(flow) <= width:
@@ -823,7 +845,7 @@ def _block(node, indent, width, lines):
         return
     for item in node:
         if not isinstance(item, (dict, list)):
-            lines.extend(_scalar_lines([item], indent, width))
+            lines.extend(_scalar_lines(None, item, indent, width))
         elif not item:
             lines.append(f"{pad}- {'{}' if isinstance(item, dict) else '[]'}")
         elif (flow := _flow(item)) and indent + 2 + len(flow) <= width:

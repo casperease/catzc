@@ -1015,8 +1015,19 @@ def test_a_nested_mapping_stays_block_and_its_leaves_flow():
 def test_an_empty_string_and_a_scalar_that_needs_quotes_round_trip_in_flow():
     data = {"widgets": [{"id": "widget", "label": ""}, {"id": "gadget", "label": "EXAMPLES: widget, gadget"}], "flag": ["yes", "1"]}
     text = declaration.flow_yaml(data, 140)
-    assert "- { id: widget, label: '' }" in text
-    assert "label: 'EXAMPLES: widget, gadget' }" in text
+    assert '- { id: widget, label: "" }' in text
+    assert 'label: "EXAMPLES: widget, gadget" }' in text
+    assert __import__("yaml").safe_load(text) == data
+
+
+def test_a_long_plain_text_is_filled_under_its_key_and_beside_its_dash_within_the_width():
+    words = " ".join(f"widget{n}" for n in range(30))
+    data = {"description": words, "notes": [words]}
+    text = declaration.flow_yaml(data, 60)
+    lines = text.splitlines()
+    assert lines[0] == "description:" and lines[1].startswith("  widget0 ")
+    assert any(line.startswith("  - widget0 ") for line in lines)
+    assert all(len(line) <= 60 for line in lines)
     assert __import__("yaml").safe_load(text) == data
 
 
