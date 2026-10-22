@@ -27,18 +27,31 @@ frontmatter re-imprint then has no diagram declaration files to head.
 
 ## Decided (the orchestrator, delegated, 2026-10-22)
 
-- The seven are drawn with `Get-Random -SetSeed 20261022` from the diagrams one article embeds, so the pick is reproducible.
+- The seven are drawn with `Get-Random -SetSeed 20261022` from the diagrams one article embeds, so the pick is reproducible:
+  `docs/explanation/ado/.assets/configured-credential-proves-its-org`,
+  `docs/explanation/automation/.assets/a-declared-allow-list-of-layers`, `hook-compiles-module-verdict-and-limits`,
+  `invoke-importer-in-code-order`, `one-out-string-two-places` (same folder),
+  `docs/explanation/repository/.assets/one-source-one-writer-one-boolean`, `docs/references/pwsh/.assets/tools-yml-install-dispatch`
+  (catzc-e3, `out/diagram-carrier-scan.md`).
+- `docs/explanation/thesis/product-thesis/.assets/truth-stores` stays file-carried too, by necessity: only a slide shows it, as a bare png
+  path, so no article can carry it; it is an eighth file-carried diagram, not one of the seven. `docs/references/BCL/.assets/bcl-language`
+  is a ninth: its one article sits outside the folder above `.assets` (catzc-e9's map).
+- Slides are never a carrier; a block's `about.adrs` counting as its article's `cites:` is intended (the article embeds a diagram about
+  those rules).
 
 ## Open steps
 
-- [ ] The scan: per declaration, which pages embed its png (one article, only slides, several, none), and the seven drawn (catzc-e3,
-      `out/diagram-carrier-scan.md`). (check: every one of the 176 classified, the seven listed)
-- [ ] The mechanism: how the kit and the pwsh readers read and write the article carrier, and whether a command moves a declaration between
-      carriers or one is needed (catzc-e9, `out/diagram-carrier-mechanism.md`). (check: the map names each reader and writer by path)
+- [ ] `python/catzc_diagrams/declaration.py`: `carry <stem> article|file` moves one declaration between carriers with `load()` parity, edits
+      `carriers:` itself and never leaves a diagram declared twice or not at all; `article_block` skips `*.slide.md` (catzc-e9; the map,
+      `out/diagram-carrier-mechanism.md`, found no command for it). (check: `pytest` on `test_carriers.py` and `test_declaration.py` green,
+      both directions, a slide skipped, a refusal on lost parity)
+- [ ] `pwsh/Catzc.Base.Slides/Move-Diagram.ps1` carrier-aware: an article-carried diagram moves its block with it and its `carriers:` key is
+      re-keyed. (check: its test file green with an article-carried case)
 - [ ] `python/catzc_diagrams/configs/drawio.yml`: `renderer.carrier: article`, `carriers:` the seven as `file`. (check: `pytest` on the
       kit's carrier tests green)
+- [ ] The pilot: `docs/drs/azure/.assets/azure-name-assembly` moved into `docs/drs/azure/azure-naming-standard.md` through a `carriers:`
+      entry, with today's mechanism (catzc-e3). (check: `Build-Diagrams` clean with the png byte-identical, `Test-Diagrams` at 0,
+      `Test-Formatting` and `Test-Markdownlint` on the page at 0)
 - [ ] The move, one `.assets/` folder at a time: each declaration into its article's block, its yml deleted, the folder rebuilt. (check: per
       folder, `Test-Diagrams` at 0, `Build-Diagrams -Path` on each moved diagram clean with its png unchanged, `Test-Formatting` on the
       pages at 0)
-- [ ] The diagrams the scan finds embedded by no page, only by slides or by several pages: each resolved before its folder moves (the user's
-      call where a rule does not decide it). (check: none left unclassified in the scan)

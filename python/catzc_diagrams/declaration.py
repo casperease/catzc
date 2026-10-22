@@ -260,11 +260,17 @@ def blocks_in(text, name):
     return [(m.start(1), m.end(1)) for m in pattern.finditer(text)]
 
 
+def articles(diagram):
+    """The pages that may carry a diagram's declaration: the Markdown beside its `.assets`, never a slide, whose body the deck shows."""
+    stem = diagram_of(diagram)
+    return [page for page in sorted(stem.parent.parent.glob("*.md")) if not page.name.endswith(".slide.md")]
+
+
 def article_block(diagram):
     """The one block in the diagram's article that declares it: (page, start, end). The articles are the pages beside its `.assets`; no
     block, or a block in two places, fails naming the pages."""
     stem = diagram_of(diagram)
-    found = [(page, *span) for page in sorted(stem.parent.parent.glob("*.md")) for span in blocks_in(page.read_text(encoding="utf-8"), stem.name)]
+    found = [(page, *span) for page in articles(stem) for span in blocks_in(page.read_text(encoding="utf-8"), stem.name)]
     if len(found) != 1:
         pages = ", ".join(sorted({p.name for p, _, _ in found})) or "none"
         raise DeclarationError(f"{stem}: the article carrier needs exactly one `{FENCE}` block above its image, found {len(found)} ({pages})")
@@ -307,10 +313,108 @@ def write_source(diagram, text):
 def carrier_findings(diagram):
     """A diagram declared in both carriers: the file beside its png and a block in its article. Empty when it has one."""
     stem = diagram_of(diagram)
-    blocks = [p.name for p in sorted(stem.parent.parent.glob("*.md")) if blocks_in(p.read_text(encoding="utf-8"), stem.name)]
+    blocks = [p.name for p in articles(stem) if blocks_in(p.read_text(encoding="utf-8"), stem.name)]
     if source_of(stem).is_file() and blocks:
         return [f"declared in both carriers: {source_of(stem).name} and a `{FENCE}` block in {', '.join(blocks)}"]
     return []
+
+
+CONFIG = KIT / "configs" / "drawio.yml"  # where carry records a diagram's carrier, under carriers:
+
+
+def carrier_key(diagram):
+    """The key a diagram's carrier is recorded under in drawio.yml carriers:, the same carrier_of reads."""
+    stem = diagram_of(diagram).resolve()
+    repo = KIT.parents[1]
+    return stem.relative_to(repo).as_posix() if stem.is_relative_to(repo) else stem.name
+
+
+def image_in(page, name):
+    """The spans of the images in a page's text that embed `.assets/<name>.drawio.png`."""
+    pattern = re.compile(r"^!\[[^\]]*\]\((?:\./)?\.assets/" + re.escape(name) + r"\.drawio\.png\)", re.M)
+    return [m.start() for m in pattern.finditer(page.read_text(encoding="utf-8"))]
+
+
+def recorded_carriers(text, key, carrier):
+    """drawio.yml's text with the key's carriers: entry set to the carrier, or dropped when the carrier is the default, edited line by
+    line so every comment and every other entry stays as written."""
+    lines = text.split("\n")
+    head = next((i for i, line in enumerate(lines) if re.match(r"^carriers:", line)), None)
+    if head is None:
+        raise DeclarationError(f"{CONFIG}: no top-level carriers: to record {key} under")
+    end = next((i for i in range(head + 1, len(lines)) if lines[i] and not lines[i].startswith((" ", "#"))), len(lines))
+    entry = re.compile(r"^  " + re.escape(key) + r":")
+    kept = [line for line in lines[head + 1 : end] if not entry.match(line)]
+    if carrier != DEFAULTS["renderer"]["carrier"]:
+        last = max((i for i, line in enumerate(kept) if line.startswith("  ") and line.strip()), default=-1)
+        kept.insert(last + 1, f"  {key}: {carrier}")
+    # An empty carriers: stays a mapping, `{}`, so a reader never meets a null; a first entry opens it again.
+    opener = re.sub(r"^carriers:[ \t]*\{\}", "carriers:", lines[head])
+    if not any(line.startswith("  ") and line.strip() for line in kept):
+        opener = re.sub(r"^carriers:", "carriers: {}", opener)
+    return "\n".join(lines[:head] + [opener] + kept + lines[end:])
+
+
+def carry(diagram, carrier):
+    """Move a diagram's declaration to the other carrier: the yml beside its png becomes a `yml drawio` block directly above the image in
+    its one article, or the block becomes the yml, and drawio.yml carriers: records it. The move is all or nothing: it refuses a diagram
+    already in that carrier, declared twice or not at all, and restores every file when the declaration it reads back differs."""
+    stem = diagram_of(diagram)
+    if carrier not in CARRIERS:
+        raise DeclarationError(f"{stem}: carry takes {' or '.join(CARRIERS)}, not '{carrier}'")
+    if carrier_of(stem) == carrier:
+        raise DeclarationError(f"{stem}: already in the {carrier} carrier")
+    twice = carrier_findings(stem)
+    if twice:
+        raise DeclarationError(f"{stem}: {'; '.join(twice)}")
+    text, where = read_source(stem)
+    before = normalise(yaml.safe_load(text) or {}, where=str(where))
+    # A file's comment head is the file's own, never part of the declaration, so the block takes the body alone.
+    lines = text.split("\n")
+    body = "\n".join(lines[next((i for i, line in enumerate(lines) if line.strip() and not line.startswith("#")), len(lines)) :])
+    body = body.strip("\n") + "\n"
+    config = CONFIG.read_text(encoding="utf-8")
+    saved = {CONFIG: config}
+    if carrier == "article":
+        pages = [(page, at) for page in articles(stem) for at in image_in(page, stem.name)]
+        if len(pages) != 1:
+            names = ", ".join(sorted({p.name for p, _ in pages})) or "none"
+            raise DeclarationError(f"{stem}: the article carrier needs exactly one article image of {stem.name}.drawio.png beside .assets, found {len(pages)} ({names})")
+        page, at = pages[0]
+        whole = page.read_text(encoding="utf-8")
+        saved[page] = whole
+        saved[source_of(stem)] = text
+        changes = [(page, whole[:at] + f"```{FENCE}\n{body}```\n\n" + whole[at:]), (source_of(stem), None)]
+    else:
+        page, start, end = article_block(stem)
+        whole = page.read_text(encoding="utf-8")
+        saved[page] = whole
+        saved[source_of(stem)] = None
+        # The block runs from its fence line to the blank lines that end at the image, which stays where it was.
+        opening = whole.rfind(f"```{FENCE}", 0, start)
+        after = re.match(r"```[ \t]*\n(?:[ \t]*\n)*", whole[end:])
+        changes = [(source_of(stem), body), (page, whole[:opening] + whole[end + after.end() :])]
+    changes.append((CONFIG, recorded_carriers(config, carrier_key(stem), carrier)))
+    held = DEFAULTS.get("carriers")
+    try:
+        for path, new in changes:
+            if new is None:
+                path.unlink()
+            else:
+                path.write_text(new, encoding="utf-8", newline="\n")
+        DEFAULTS["carriers"] = (yaml.safe_load(changes[-1][1]) or {}).get("carriers") or {}
+        after_text, after_where = read_source(stem)
+        if carrier_findings(stem) or normalise(yaml.safe_load(after_text) or {}, where=str(after_where)) != before:
+            raise DeclarationError(f"{stem}: the declaration read back from the {carrier} carrier differs, so nothing was moved")
+    except Exception:
+        for path, old in saved.items():
+            if old is None:
+                path.unlink(missing_ok=True)
+            else:
+                path.write_text(old, encoding="utf-8", newline="\n")
+        DEFAULTS["carriers"] = held
+        raise
+    return read_source(stem)[1]
 
 
 def load(folder):
@@ -1883,6 +1987,9 @@ def main():
         return
     if len(args) == 2 and args[0] == "reflow":  # the source rewritten in the printed form, its head and rows kept, its load() unchanged
         print(f"reflow {reflow(diagram_of(args[1]))}")
+        return
+    if len(args) == 3 and args[0] == "carry":  # the declaration moved to the other carrier, drawio.yml carriers: recording it
+        print(f"carry {carry(diagram_of(args[1]), args[2])}")
         return
     if len(args) == 2 and args[0] == "minimaps":  # the diagram's computed minimap cells written into its source
         print(f"minimaps {declare_minimaps(diagram_of(args[1]))}")
