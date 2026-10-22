@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "9483d2aa0a74"
-  edges:
-    code: pwsh/Catzc.Azure.Cli/Assert-AzCliConnected.ps1
----
-#>
-
 Describe 'Assert-AzCliConnected' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:sub = '50a0ed00-de00-50b0-0000-000000000000'

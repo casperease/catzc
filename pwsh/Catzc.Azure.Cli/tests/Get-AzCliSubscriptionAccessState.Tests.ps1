@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "8e950078b21a"
-  edges:
-    code: pwsh/Catzc.Azure.Cli/Get-AzCliSubscriptionAccessState.ps1
----
-#>
-
 Describe 'Get-AzCliSubscriptionAccessState' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:sub = '50a0ed00-de00-50b0-0000-000000000000'

@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: b75ed8b2ba0c
-  edges:
-    code: pwsh/Catzc.Azure.DevOps/private/Sync-AdoGraphGroup.ps1
----
-#>
-
 Describe 'Sync-AdoGraphGroup' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:context = [pscustomobject]@{

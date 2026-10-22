@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: f97e99329c43
-  edges:
-    code: pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
----
-#>
-
 Describe 'Test-AzCliCanAccess' -Tag 'L0', 'logic' {
     BeforeAll {
         # Isolate from the shipped azure.yml: resolve identity from the test config fixture.

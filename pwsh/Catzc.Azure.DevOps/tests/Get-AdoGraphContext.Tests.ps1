@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "285e95776c90"
-  edges:
-    code: pwsh/Catzc.Azure.DevOps/private/Get-AdoGraphContext.ps1
----
-#>
-
 Describe 'Get-AdoGraphContext' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:get = {

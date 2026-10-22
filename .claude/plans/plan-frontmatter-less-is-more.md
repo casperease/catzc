@@ -54,11 +54,6 @@ the tree, they churn on every body edit, and agents read them on every file they
 
 ## Open steps
 
-- [ ] A README pattern's folder without its source article is a finding (catzc-e9, 2026-10-22; decided as delegated): the importer's
-      `Build-Readme` keeps skipping it so an import never fails, a README gate reports every matched folder whose source is missing, and a
-      folder allowed to lack one is named in `readme.yml` with its reason (the `{name}` placeholder landed: `python/*` maps to
-      `docs/references/python/{name}.md`). (check: the gate's test file green with a missing-source case, and the gate at 0 on the tree or
-      each finding named)
 - [ ] The tree re-imprinted in the order of `out/frontmatter-reimprint-order.md` (157 units, 4,643 files: 378 heads dropped, about 1,110
       Markdown heads gained, 2,273 hashes and 1,666 test/code edges removed, 3,244 warnings added), docs units by catzc-e9 and code units by
       catzc-e3 and catzc-54, `pwsh/Catzc.Base.RootConfig`, `.claude/hooks` and `pwsh/.internal` last, one burst each (import-path); a

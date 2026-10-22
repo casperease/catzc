@@ -43,16 +43,8 @@ module's step, since the scan guesses it from a file's `Get-Config` calls and al
 
 ## Open steps
 
-- [ ] The rules review of the helper and the first module (2026-10-22; decided as delegated; catzc-a0, before the next module):
-      `PathSet.AddPattern` takes its depth default from `FolderWalkConfig` and prunes the config's excludes and the vendor folder
-      (ADR-PWSH-ENUM-SHALLOWBYDEFAULT, -PRUNEFOLDERS); `Catzc.Base.Contracts`' six folder listings become one named method on the contracts
-      layout type; its four file-name listings go back to the walker and fail when a required folder is missing;
-      `FileMetaConfig.EngineInputs` takes the modules root and resolves the module folders itself, so `Get-FileMetaInputStamp` drops its
-      `Get-Module` lookups; its literal type list becomes patterns. (check: `PathSet.Tests.ps1` with a pruning and a depth-default case, the
-      `Contracts` and `FileMetaConfig` tests green, one fresh full import)
-
-- [ ] The rest, one module at a time (catzc-a0; `Catzc.Base.Contracts` first, `Catzc.Base.QualityGates` last, a module the re-imprint holds
-      waits), each module's sets moved to a method on their type built on `Catzc.Base.Folders.PathSet` (landed with the pilot
-      `FileMetaConfig.EngineInputs`: the same 11 files and stamp, 2.23 ms to 1.50 ms per stamp; `Get-FileMetaEngineStamp` deleted) and its
-      forwarding functions deleted with their callers. (check: per module, its test files green, `Test-ScriptAnalyzer` at 0, and the scan's
-      hits for it at 0 by grep)
+- [ ] The rest, one module at a time (catzc-a0, with catzc-e9 taking `Docs`, `Slides`, `Exporter` and `Git`; `Catzc.Base.Contracts` first,
+      `Catzc.Base.QualityGates` last, a module the re-imprint holds waits), each module's sets moved to a method on their type built on
+      `Catzc.Base.Folders.PathSet` (landed with the pilot `FileMetaConfig.EngineInputs`: the same 11 files and stamp, 2.23 ms to 1.50 ms per
+      stamp; `Get-FileMetaEngineStamp` deleted) and its forwarding functions deleted with their callers. (check: per module, its test files
+      green, `Test-ScriptAnalyzer` at 0, and the scan's hits for it at 0 by grep)

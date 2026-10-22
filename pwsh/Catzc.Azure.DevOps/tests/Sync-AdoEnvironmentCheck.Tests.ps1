@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "1ce547fec88f"
-  edges:
-    code: pwsh/Catzc.Azure.DevOps/private/Sync-AdoEnvironmentCheck.ps1
----
-#>
-
 Describe 'Sync-AdoEnvironmentCheck' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:approvalTypeId = '8c6f20a7-a545-4486-9777-f762fafe0d4d'
