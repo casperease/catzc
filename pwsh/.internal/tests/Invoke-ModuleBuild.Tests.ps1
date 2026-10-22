@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: d268558ac0f4
+    with_body_sha: "5bf1f9b16173"
   edges:
     docs: "[Invoke-ModuleBuild.Tests.ps1.md](../../../docs/references/pwsh/internal/tests/Invoke-ModuleBuild.Tests.ps1.md)"
     cites:

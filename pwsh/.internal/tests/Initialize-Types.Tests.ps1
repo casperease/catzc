@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "23212beee3e0"
+    with_body_sha: "2aa36c56117a"
   edges:
     docs: "[Initialize-Types.Tests.ps1.md](../../../docs/references/pwsh/internal/tests/Initialize-Types.Tests.ps1.md)"
 ---

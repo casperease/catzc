@@ -75,8 +75,8 @@ function Test-Formatting {
             if ($null -eq $fileLanguage) {
                 & $addIssue $file 'no Format-* command covers it — no file language in languages.yml claims its extension'
             }
-            elseif (-not $fileLanguage.formatter) {
-                & $addIssue $file "no Format-* command covers it — its language '$($fileLanguage.name)' has no formatter ($($fileLanguage.no_formatter))"
+            elseif (-not $fileLanguage.formatter -and -not $fileLanguage.no_formatter) {
+                & $addIssue $file "no Format-* command covers it — its language '$($fileLanguage.name)' has no formatter and states no no_formatter reason"
             }
         }
     }

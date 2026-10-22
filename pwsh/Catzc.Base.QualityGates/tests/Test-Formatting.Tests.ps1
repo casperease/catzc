@@ -88,7 +88,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
     }
 
-    It 'reports a file in scope that no formatter covers, by its missing language or its language without a formatter' -Tag 'ADR-AUTO-TEST-QUALITYGATE', 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+    It 'reports a file in scope that no language claims, and counts a language that states its no_formatter reason as covered' -Tag 'ADR-AUTO-TEST-QUALITYGATE', 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         $loose = Join-Path $script:root 'docs/widget.txt'
         $widget = $script:widgetFile
         $type = $script:typeFile
@@ -97,7 +97,6 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         $result = Test-Formatting -PassThru -OutputFolder $script:reportFolder
         $result.Issues | Should -Be @(
             'docs/widget.txt: no Format-* command covers it — no file language in languages.yml claims its extension'
-            "$(Get-CatzcModulesFolder)/Widget/types/Gadget.cs: no Format-* command covers it — its language 'csharp' has no formatter (no layout engine yet)"
         )
 
         $null = Test-Formatting -Language widget -PassThru -OutputFolder $script:reportFolder
