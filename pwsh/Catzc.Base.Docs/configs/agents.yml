@@ -9,6 +9,7 @@
 #       - ADR-AUTO-TEST-MEASUREFIRST
 #       - ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS
 #       - ADR-AUTO-TEST-QUALITYGATE
+#       - ADR-BCL-TYPES-ONEDRIFTMEASURE
 #       - ADR-REPO-AGENTS
 #       - ADR-REPO-AI
 #       - ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY
@@ -37,7 +38,7 @@
 #       - WDR-KAIZEN-ADAPTFROMEVIDENCE
 #       - WDR-PULLWORK-PULLNOTPUSH
 #       - WDR-PULLWORK-LIMITWORKINPROGRESS
-#     drs_total: 37
+#     drs_total: 38
 # ---
 
 standard: catzc-drone
@@ -175,3 +176,11 @@ agents:
   - name: doc-pattern-scout
     supported_by: [ADR-REPO-AI-EDITORISFACT, ADR-REPO-AI-TRUSTTHETREE]
     checks: []
+
+  # Finds why a pwsh session or the editor misbehaves on this devbox from the logs and the process table; every claim with its line.
+  - name: devbox-vscode-diagnostics
+    supported_by: [ADR-REPO-AI-TRUSTTHETREE, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-BCL-TYPES-ONEDRIFTMEASURE]
+    checks: []
+    model_reason:
+      correlates the Windows, VS Code, extension and process evidence by timestamp and tells a reload, a stale report and a crash apart;
+      haiku names a cause no line shows

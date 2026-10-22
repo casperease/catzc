@@ -186,6 +186,11 @@ capabilities:
     supported_by: [ADR-REPO-AI-EDITORISFACT, WDR-KAIZEN-ADAPTFROMEVIDENCE, ADR-REPO-PLANS-ONETOPICONEFILE]
     checks: [Test-Plans]
 
+  # Where a devbox's Windows, VS Code and process evidence lives and how a line of it is read.
+  - name: devbox-diagnose
+    supported_by: [ADR-REPO-AI-TRUSTTHETREE, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+    checks: []
+
   # The checkpoint a user runs to bring a main session to its finalization phase before clearing it.
   - name: session-finalize
     invoked_by: user

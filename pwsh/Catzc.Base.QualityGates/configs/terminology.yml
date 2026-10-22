@@ -938,6 +938,10 @@ terms:
       meaning: "PySpark"
     - term: roslyn
       meaning: "Roslyn C# compiler"
+    - term: ptyhost
+      meaning: "VS Code's pty host process and its log (ptyhost.log), the owner of every integrated terminal"
+    - term: exthost
+      meaning: "VS Code's extension host process and its log (exthost.log), where every extension runs"
     - term: scriptanalyzer
       meaning: "PSScriptAnalyzer ('scriptanalyzer')"
     - term: setuptools
@@ -977,6 +981,8 @@ terms:
     - term: ignorecase
       meaning: "git's core.ignorecase config key, which leaves a case-only folder rename unrecorded in the index"
   platform:
+    - term: bugcheck
+      meaning: "a Windows kernel bug check (stop error), event 1001 in the System log"
     - term: clr
       meaning: "the Common Language Runtime (CLR)"
     - term: memberwise

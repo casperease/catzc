@@ -107,6 +107,9 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/drs/repository/ai-agent
 - **`implementation-orchestrator`** — drives the open chunks of `plan-master.md` through the sessions the user already started, by message
   ("what are you working on?", "continue with this: …", "stop; …"); edits plan and task files only, implements nothing, spawns nothing,
   raises every blocker and question to the user.
+- **`devbox-vscode-diagnostics`** — finds why a pwsh session, the PowerShell extension terminal or the Dev Kit misbehaves on this devbox
+  inside VS Code: Windows logs, VS Code and extension logs, the process table and what every session runs at start, correlated by timestamp
+  into a timeline where every claim carries its line; read-only.
 
 ## Rules
 

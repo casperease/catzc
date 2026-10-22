@@ -1,8 +1,4 @@
 <!--
-  IF U SEE THIS highlighted in VSCode THEN Control Palette -> Developer: Reload Window
-  VSCode INTERNAL one-dotnet-pr-one-pwsh-session-including-internal-else-reload
-  Accept it for now
-
   IDE: It exists so VS Code's C# Dev Kit (and any Roslyn-based editor) compiles and analyzes
   the repo's native type sources — pwsh/<Module>/types/*.cs — with the SAME rules the runtime honors.
 
@@ -75,13 +71,11 @@
     Stamp this project's version from the sources' identity. The RUNTIME (Import-CSharpTypes) writes
     pwsh/.compiled/Catzc.Types.<hash>.dll, where <hash> is the combined hash of every module's
     types/*.cs (ADR caching, [ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD](/docs/drs/automation/caching.md#rule-adr-auto-cache-compiledtypeprebuild)) — that
-    hash IS the assembly's identity. The task computes
-    the same hash from the sources with the SAME algorithm the loader uses (per file: SHA-256 of the bytes with
-    every CR (0x0D) stripped, upper-hex; one line "<module>/<type>|<upper-hex>\n" per file in ordinal
-    <module>/<type> order; SHA-256 of that text; first 8 hex, lower-cased) and stamps it, so the IDE build's
-    version mirrors the runtime artifact (deps.json -> "Catzc.Types/1.0.0-<hash>"). Deterministic: the same
-    sources always give the same version, whatever else lies on disk. The algorithm mirrors Import-CSharpTypes /
-    Clear-ModuleTypeCache / the drift-guard tests and MUST stay in sync.
+    hash IS the assembly's identity. The project asks the one living measure for it, Get-CombinedTypeHash in
+    Catzc.Internal.Types (PDR-ONELIVE: a copy of the algorithm kept here drifted the moment the loader left the
+    generated head of each source out of the hash, and warned on every build until the copy went), and stamps it, so
+    the IDE build's version mirrors the runtime artifact (deps.json -> "Catzc.Types/1.0.0-<hash>"). The call loads
+    the loader and the vendor modules only: no importer, no run lock, about half a second.
 
     The editor never fails over pwsh/.compiled: whether the code compiles is the editor's question, and
     the committed assembly is the importer's, the tests' and the bundle check's. It only WARNS when what git
@@ -89,85 +83,33 @@
     Catzc.Types.<hash>.dll named for the current sources. Untracked or unstaged leftovers (an old build another
     pwsh still has loaded) never matter. Dot-source ./importer.ps1 and stage pwsh/.compiled when it warns.
   -->
-  <UsingTask TaskName="StampCatzcTypesVersion" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
-    <ParameterGroup>
-      <ModulesRoot ParameterType="System.String" Required="true" />
-      <!-- The index's pwsh/.compiled entries (git ls-files), ';'-separated; empty when git is unavailable. -->
-      <TrackedCompiled ParameterType="System.String" Required="false" />
-      <GitAvailable ParameterType="System.Boolean" Required="false" />
-      <CombinedHash ParameterType="System.String" Output="true" />
-    </ParameterGroup>
-    <Task>
-      <Code Type="Fragment" Language="cs"><![CDATA[
-        // Gather pwsh/<module>/types/*.cs (skip dot-modules), keyed <module>/<bare-type>.
-        var files = new List<KeyValuePair<string, string>>();
-        foreach (var moduleDir in Directory.EnumerateDirectories(ModulesRoot))
-        {
-            var module = Path.GetFileName(moduleDir);
-            if (module.StartsWith(".")) continue;
-            var typesDir = Path.Combine(moduleDir, "types");
-            if (!Directory.Exists(typesDir)) continue;
-            foreach (var cs in Directory.EnumerateFiles(typesDir, "*.cs"))
-            {
-                var bare = Path.GetFileNameWithoutExtension(cs);
-                files.Add(new KeyValuePair<string, string>(module + "/" + bare, cs));
-            }
-        }
-        files.Sort((a, b) => string.CompareOrdinal(a.Key, b.Key));
-
-        string sourceHash;
-        using (var sha = System.Security.Cryptography.SHA256.Create())
-        {
-            var sb = new StringBuilder();
-            foreach (var f in files)
-            {
-                var raw = File.ReadAllBytes(f.Value);
-                var norm = new List<byte>(raw.Length);
-                foreach (var b in raw) if (b != 13) norm.Add(b);   // EOL-insensitive: strip CR (0x0D)
-                var fileHex = BitConverter.ToString(sha.ComputeHash(norm.ToArray())).Replace("-", "");
-                sb.Append(f.Key).Append('|').Append(fileHex).Append('\n');
-            }
-            var combined = sha.ComputeHash(Encoding.UTF8.GetBytes(sb.ToString()));
-            sourceHash = BitConverter.ToString(combined).Replace("-", "").Substring(0, 8).ToLowerInvariant();
-        }
-
-        CombinedHash = sourceHash;   // the stamp is the sources' identity, never a file on disk
-
-        // Commit hygiene, as a warning only: what the index will commit must be exactly the current build.
-        if (GitAvailable)
-        {
-            var tracked = new List<string>();
-            foreach (var entry in (TrackedCompiled ?? string.Empty).Split(';'))
-            {
-                var name = Path.GetFileName(entry.Trim());
-                if (name.StartsWith("Catzc.Types.") && name.EndsWith(".dll")) tracked.Add(name);
-            }
-            var expected = "Catzc.Types." + sourceHash + ".dll";
-            if (tracked.Count != 1 || tracked[0] != expected)
-            {
-                var found = tracked.Count == 0 ? "none" : string.Join(", ", tracked);
-                Log.LogWarning("Catzc.Types: the git index's .compiled holds " + found + ", but a commit of "
-                    + "these sources needs exactly " + expected + ". Dot-source ./importer.ps1, then stage "
-                    + ".compiled in the modules folder (the editor build itself is unaffected).");
-            }
-        }
-      ]]></Code>
-    </Task>
-  </UsingTask>
 
   <!-- Run before anything reads $(Version): PrepareForBuild precedes GetAssemblyVersion (assembly
        attributes) and GenerateBuildDependencyFile (the deps.json project entry). -->
   <Target Name="StampCatzcTypesVersionFromSources" BeforeTargets="PrepareForBuild;GetAssemblyVersion;GenerateBuildDependencyFile">
+    <Exec Command="pwsh -NoProfile -NonInteractive -Command &quot;Import-Module '$(MSBuildProjectDirectory)/../Catzc.Internal.Loader.psm1'; Import-InternalModule Vendor; Import-InternalModule Types; [Console]::Out.Write((Get-CombinedTypeHash '$(MSBuildProjectDirectory)/../..').CombinedHash)&quot;"
+          ConsoleToMSBuild="true" EchoOff="true" StandardOutputImportance="low" IgnoreExitCode="true">
+      <Output TaskParameter="ConsoleOutput" PropertyName="CatzcTypesHash" />
+      <Output TaskParameter="ExitCode" PropertyName="CatzcHashExitCode" />
+    </Exec>
+    <Error Condition="'$(CatzcHashExitCode)' != '0' Or '$(CatzcTypesHash)' == ''"
+           Text="Catzc.Types: Get-CombinedTypeHash gave no hash (exit $(CatzcHashExitCode), output '$(CatzcTypesHash)'). The stamp asks the loader at pwsh/.internal through the pwsh on PATH — install pwsh 7.4+ and ensure it is on PATH." />
     <!-- What the index will commit under pwsh/.compiled. No git (or not a work tree): no hygiene warning. -->
     <Exec Command="git -C &quot;$(MSBuildProjectDirectory)/../..&quot; ls-files -- .compiled"
           ConsoleToMSBuild="true" EchoOff="true" StandardOutputImportance="low" StandardErrorImportance="low" IgnoreExitCode="true">
       <Output TaskParameter="ConsoleOutput" ItemName="CatzcTrackedCompiled" />
       <Output TaskParameter="ExitCode" PropertyName="CatzcGitExitCode" />
     </Exec>
-    <StampCatzcTypesVersion ModulesRoot="$(MSBuildProjectDirectory)/../.." TrackedCompiled="@(CatzcTrackedCompiled)"
-                            GitAvailable="$([System.String]::Equals('$(CatzcGitExitCode)', '0'))">
-      <Output TaskParameter="CombinedHash" PropertyName="CatzcTypesHash" />
-    </StampCatzcTypesVersion>
+    <ItemGroup>
+      <CatzcTrackedTypesDll Include="@(CatzcTrackedCompiled)" Condition="'%(Extension)' == '.dll'" />
+    </ItemGroup>
+    <PropertyGroup>
+      <CatzcTrackedTypesNames>@(CatzcTrackedTypesDll->'%(Filename)%(Extension)', ', ')</CatzcTrackedTypesNames>
+      <CatzcTrackedTypesNames Condition="'$(CatzcTrackedTypesNames)' == ''">none</CatzcTrackedTypesNames>
+    </PropertyGroup>
+    <!-- Commit hygiene, as a warning only: what the index will commit must be exactly the current build. -->
+    <Warning Condition="'$(CatzcGitExitCode)' == '0' And '$(CatzcTrackedTypesNames)' != 'Catzc.Types.$(CatzcTypesHash).dll'"
+             Text="Catzc.Types: the git index's .compiled holds $(CatzcTrackedTypesNames), but a commit of these sources needs exactly Catzc.Types.$(CatzcTypesHash).dll. Dot-source ./importer.ps1, then stage .compiled in the modules folder (the editor build itself is unaffected)." />
     <PropertyGroup>
       <Version>1.0.0-$(CatzcTypesHash)</Version>
       <InformationalVersion>$(CatzcTypesHash)</InformationalVersion>
