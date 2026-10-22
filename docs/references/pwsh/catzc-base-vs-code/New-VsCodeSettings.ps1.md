@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
-    drs_total: 1
+      - ADR-REPO-ROOTCFG
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.VSCode/New-VsCodeSettings.ps1

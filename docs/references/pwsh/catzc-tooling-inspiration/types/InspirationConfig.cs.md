@@ -5,7 +5,8 @@ catzc:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-    drs_total: 2
+      - ADR-REPO-INSPIRE
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Tooling.Inspiration/types/InspirationConfig.cs

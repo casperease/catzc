@@ -8,7 +8,8 @@ catzc:
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
       - ADR-REPO-LINK-MARKDOWNRELATIVE
       - ADR-REPO-LINK-CODELINKS
-    drs_total: 5
+      - ADR-REPO-ROOTCFG
+    drs_total: 6
 ---
 
 # pwsh/Catzc.Base.VSCode/configs/vscode-settings.yml

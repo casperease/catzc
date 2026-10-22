@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
-    drs_total: 1
+      - DDR-RUNMODE
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1

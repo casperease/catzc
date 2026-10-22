@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-    drs_total: 1
+      - DDR-ASPECT
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.Variants/types/VariantAspect.cs

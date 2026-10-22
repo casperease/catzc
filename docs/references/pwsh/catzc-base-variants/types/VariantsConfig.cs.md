@@ -5,9 +5,10 @@ catzc:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-      - DDR-TRACK-TRACKISPLACEDCLUSTER
-      - DDR-TRACK-ONETRACKTYPE
-    drs_total: 4
+      - ADR-REPO-VARIANT
+      - DDR-ASPECT
+      - DDR-TRACK
+    drs_total: 7
 ---
 
 # pwsh/Catzc.Base.Variants/types/VariantsConfig.cs

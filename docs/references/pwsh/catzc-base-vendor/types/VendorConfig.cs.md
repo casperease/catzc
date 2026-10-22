@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-    drs_total: 1
+      - ADR-PWSH-VENDOR
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.Vendor/types/VendorConfig.cs

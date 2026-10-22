@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
-    drs_total: 1
+      - DDR-RUNMODE
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.TypesSystem/Get-CSharpTypeDependency.ps1

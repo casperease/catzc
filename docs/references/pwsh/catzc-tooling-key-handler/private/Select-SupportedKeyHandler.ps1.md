@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-CACHE-READONLYVALUES
-    drs_total: 1
+      - ADR-AUTO-TEST
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1

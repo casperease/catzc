@@ -4,8 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-      - DDR-TRACK-FILELANGUAGE
-    drs_total: 2
+      - DDR-TRACK
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Base.Variants/types/VariantTrack.cs

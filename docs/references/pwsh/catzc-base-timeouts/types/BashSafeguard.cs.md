@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
-    drs_total: 1
+      - ADR-AUTO-LAYERS
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.Timeouts/types/BashSafeguard.cs

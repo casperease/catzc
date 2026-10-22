@@ -5,7 +5,8 @@ catzc:
     cites:
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
       - ADR-REPO-LINK-CODELINKS
-    drs_total: 2
+      - ADR-REPO-ROOTCFG
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml

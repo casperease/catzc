@@ -5,7 +5,8 @@ catzc:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-PATH-WORKSPACEANCHOR
-    drs_total: 2
+      - ADR-REPO-INSPIRE
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Tooling.Inspiration/configs/inspiration.yml

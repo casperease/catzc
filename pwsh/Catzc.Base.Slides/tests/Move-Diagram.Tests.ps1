@@ -136,6 +136,16 @@ Describe 'Move-Diagram — an article-carried diagram' -Tag 'L1', 'logic', 'sour
         Test-Path (Join-Path $script:widgetRoot 'docs/gadgets/.assets/gadget.drawio.png') | Should -BeTrue
     }
 
+    It 'moves its block to a target page whose image already points at the new .assets, a page with no link to re-point' {
+        [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadgets/gadget.md'), "# Gadget here`n`n![Gadget](.assets/gadget.drawio.png)`n")
+        Invoke-Executable 'git add -A' -WorkingDirectory $script:widgetRoot -Silent | Out-Null
+
+        Move-Diagram docs/widgets/.assets/gadget docs/gadgets/.assets/gadget -RepositoryRoot $script:widgetRoot -Kit python/catzc_diagrams
+
+        & $script:read 'docs/gadgets/gadget.md' | Should -BeExactly "# Gadget here`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
+        & $script:read 'docs/widgets/gadget.md' | Should -BeExactly "# Gadget`n`n![Gadget](../gadgets/.assets/gadget.drawio.png)`n"
+    }
+
     It 'refuses, changing nothing, when no page beside the new .assets embeds the png' {
         { Move-Diagram docs/widgets/.assets/gadget docs/drs/.assets/gadget -RepositoryRoot $script:widgetRoot -Kit python/catzc_diagrams } | Should -Throw '*Carry it to the file carrier first*'
         & $script:read 'docs/widgets/gadget.md' | Should -BeExactly "# Gadget`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"

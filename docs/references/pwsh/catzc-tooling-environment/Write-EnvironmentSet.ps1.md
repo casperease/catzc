@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS
-    drs_total: 1
+      - ADR-CONF-ADDRESSING
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1

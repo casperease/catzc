@@ -5,7 +5,8 @@ catzc:
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - ADR-REPO-AI-EDITORISFACT
-    drs_total: 2
+      - DDR-RUNMODE
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1

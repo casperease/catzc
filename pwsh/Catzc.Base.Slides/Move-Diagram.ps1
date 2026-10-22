@@ -167,7 +167,11 @@ function Move-Diagram {
         }
         $placed = $target.Insert([regex]::Match($target, $image).Index, $holders[0].Block)
         foreach ($change in @([pscustomobject]@{ Page = $holders[0].Page; Text = $stripped }, [pscustomobject]@{ Page = $targets[0].Page; Text = $placed })) {
-            $edits.Remove(@($edits | Where-Object { $_.Page -ceq $change.Page })[0]) | Out-Null
+            # A page whose links were re-pointed already has an entry; the block-moved text replaces it, and a page with none is simply added.
+            $prior = $edits | Where-Object { $_.Page -ceq $change.Page } | Select-Object -First 1
+            if ($null -ne $prior) {
+                $edits.Remove($prior) | Out-Null
+            }
             $edits.Add($change)
         }
     }
