@@ -62,11 +62,8 @@ the tree, they churn on every body edit, and agents read them on every file they
 
 - [ ] The re-imprint's last files: all 157 units ran on 2026-10-22 (docs by catzc-e9, about 1,345 heads; code by catzc-e3 and catzc-54,
       about 1,170 and 1,000 files; the three import-path folders in bursts; every unit `Test-FileMeta` at 0, head lines only). Left: the six
-      `Catzc.Base.QualityGates` files the BCL pilot had staged (`FileMetaConfig.cs`, `Get-FileMetaInputStamp.ps1` and their tests), and a
-      `Format-Code` re-run over `docs/references` for the bare record codes (catzc-a0: 71 folders and loose pages listed in
-      `out/bare-code/folders.txt`, the first 24 done, the rest one per call by `out/bare-code/reimprint.ps1 -Skip <n> -Take 1` so the lock
-      queue interleaves; 788 pages were headless before, listed in `out/bare-code/headless-before.txt`, about 120 expected to gain a head).
-      (check: `Test-FileMeta` at 0 on both, and the count of pages that gained a head reported)
+      `Catzc.Base.QualityGates` files the BCL pilot had staged (`FileMetaConfig.cs`, `Get-FileMetaInputStamp.ps1` and their tests). (check:
+      `Test-FileMeta` at 0 on them)
 
 ## Refs
 

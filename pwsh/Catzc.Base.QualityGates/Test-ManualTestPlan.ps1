@@ -74,10 +74,7 @@ function Test-ManualTestPlan {
     }
 
     $issues = [System.Collections.Generic.List[string]]::new()
-    $categoryFiles = @()
-    if ([System.IO.Directory]::Exists($planPath)) {
-        $categoryFiles = @([System.IO.Directory]::GetFiles($planPath, '*.md') | Sort-Object)
-    }
+    $categoryFiles = @([Catzc.Base.Folders.PathSet]::new().AddPattern($planPath, '*.md', 1).ToArray())
     if ($categoryFiles.Count -eq 0) {
         $issues.Add("${planRelative}/: the manual test plan has no category files")
     }

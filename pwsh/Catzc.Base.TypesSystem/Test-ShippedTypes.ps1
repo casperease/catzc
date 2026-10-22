@@ -22,13 +22,14 @@ function Test-ShippedTypes {
     $issues = [System.Collections.Generic.List[string]]::new()
     $typeCount = 0
     $modulesRoot = Get-CatzcModulesRoot
-    foreach ($moduleDirectory in ([System.IO.Directory]::EnumerateDirectories($modulesRoot) | Sort-Object)) {
+    $walk = Get-Config -Config folder-walk
+    foreach ($moduleDirectory in @(Get-ChildPath $modulesRoot -Directory -Depth 1)) {
         $moduleName = [System.IO.Path]::GetFileName($moduleDirectory)
         $typesDirectory = Join-Path $moduleDirectory 'types'
         if ($moduleName -match '^\.' -or -not [System.IO.Directory]::Exists($typesDirectory)) {
             continue
         }
-        foreach ($file in ([System.IO.Directory]::EnumerateFiles($typesDirectory, '*.cs') | Sort-Object)) {
+        foreach ($file in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($typesDirectory, '*.cs', 1).ToArray()) {
             $typeCount++
             $fullName = "$moduleName.$([System.IO.Path]::GetFileNameWithoutExtension($file))"
             $relative = "$moduleName/types/$([System.IO.Path]::GetFileName($file))"

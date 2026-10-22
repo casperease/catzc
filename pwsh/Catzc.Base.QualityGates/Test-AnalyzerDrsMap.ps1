@@ -38,11 +38,10 @@ function Test-AnalyzerDrsMap {
     $customRules = [System.Collections.Generic.List[string]]::new()
     $modulesRoot = Get-CatzcModulesRoot
     # The entry rules the settings hand the engine only run checks, so the map holds the checks, never an entry rule.
-    $settings = Import-PowerShellDataFile (Join-Path $modulesRoot '.internal/assets/PSScriptAnalyzerSettings.psd1')
+    $settings = Import-PowerShellDataFile ([Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::SettingsPath($modulesRoot))
     $entryRules = @($settings.CustomRulePath | ForEach-Object { [System.IO.Path]::GetFileName($_) })
-    $ruleFiles = [System.IO.Directory]::EnumerateFiles((Join-Path $modulesRoot '.scriptanalyzer'), '*.psm1') |
-        Where-Object { [System.IO.Path]::GetFileName($_) -notin $entryRules } |
-        Sort-Object
+    $ruleFiles = [Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::RuleFiles($modulesRoot) |
+        Where-Object { [System.IO.Path]::GetFileName($_) -notin $entryRules }
     foreach ($file in $ruleFiles) {
         foreach ($match in [regex]::Matches([System.IO.File]::ReadAllText($file), '(?m)^\s*function\s+(Measure-\w+)')) {
             $rule = $match.Groups[1].Value

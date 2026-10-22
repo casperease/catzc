@@ -37,15 +37,6 @@ ten "may I" questions on edits the rules already require, three to five tool cal
       (task-user-runs-and-commits). Check: one message sent between sessions appears in `out/orchestrator-<date>.log`.
 - [ ] `.claude/skills/plans-orchestrate/SKILL.md` line 4: the log line is written by the hook when the hook covers it (after the step
       above). Check: `Test-AgentDefinitions`.
-
-- [ ] The run lock's budget fits the call that waits (catzc-e3, 2026-10-22: a re-imprint call under `timeout 300` waited on a burst until
-      the Bash safeguard killed it, exit 124, because `run_lock.budget_seconds` defaults to 360): the default budget sits under the usual
-      call timeout, or `Invoke-CatzcCommand` takes it from its caller, so a waiter always stops with its own "retry after it" line first;
-      and a burst event whose holder process is gone (a killed burst) does not hold waiters (decided as delegated; catzc-54). (check:
-      `Wait-CatzcRunLock.Tests.ps1` green with a waiter-inside-a-300-s-call case, a dead-burst-holder case, and a waiter whose parent was
-      killed while queued never taking the lock (an orphaned pwsh child held a 300 s burst after its bash wrapper was stopped, catzc-54))
-      Staged in `out/run-lock-staged2/` (280 s budget on `TimeoutsConfig` and `timeouts.yml`, gone-burst holder, `-ParentId` check; 15 of 15
-      in isolated Pester); it lands in one burst with a fresh import, which rebuilds the Bash hook.
 - [ ] `pwsh/.internal/assets/Enter-CatzcBurst.ps1`: a burst runs its work in the same call that enters it (catzc-e3, 2026-10-22: a burst
       entered from its own background call held the lock for its 300 s unused, since nothing tells the agent when it starts holding; the
       workaround `out/internal-burst.ps1` enters, waits for "holding the run lock", runs the steps and exits in one call), e.g. a `-Run`

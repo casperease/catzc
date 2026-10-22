@@ -80,3 +80,29 @@ Describe 'SpellingOracle.CoinedFragments (shipped dictionary)' -Tag 'L1', 'integ
         [Catzc.Base.QualityGates.SpellingOracle]::IsKnown('zzq') | Should -BeFalse
     }
 }
+
+Describe 'SpellingOracle paths' -Tag 'L0', 'logic' {
+    It 'names the assets folder, the word list and its stamp under a modules root' {
+        $root = Join-Path $TestDrive 'widget-modules'
+        $assets = [Catzc.Base.QualityGates.SpellingOracle]::AssetsFolder($root)
+        $assets | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root 'Catzc.Base.QualityGates/assets')))
+        [Catzc.Base.QualityGates.SpellingOracle]::DictionaryPath($assets) | Should -Be (Join-Path $assets 'english.txt.gz')
+        [Catzc.Base.QualityGates.SpellingOracle]::DictionaryStampPath($assets) | Should -Be (Join-Path $assets 'english.stamp')
+    }
+
+    It 'gives its inputs as the word list, its own source and the .cspell term lists, sorted, a missing term folder adding none' {
+        $repository = Join-Path $TestDrive 'widget-repository'
+        $modules = Join-Path $repository 'widget-modules'
+        $terms = Join-Path $repository '.cspell'
+        [System.IO.Directory]::CreateDirectory($terms) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $terms 'gadget.txt'), "gadget`n")
+        $inputs = [Catzc.Base.QualityGates.SpellingOracle]::Inputs($repository, $modules)
+        @($inputs | ForEach-Object { [System.IO.Path]::GetRelativePath($repository, $_).Replace('\', '/') }) | Should -Be @(
+            '.cspell/gadget.txt'
+            'widget-modules/Catzc.Base.QualityGates/assets/english.txt.gz'
+            'widget-modules/Catzc.Base.QualityGates/types/SpellingOracle.cs'
+        )
+        [System.IO.Directory]::Delete($terms, $true)
+        @([Catzc.Base.QualityGates.SpellingOracle]::Inputs($repository, $modules)).Count | Should -Be 2
+    }
+}

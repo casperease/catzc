@@ -81,9 +81,9 @@ function Build-EnglishDictionary {
     $content = ($words -join "`n") + "`n"
 
     # The source module's assets/ in the repository — the committed copy the build later ships.
-    $assetsDir = Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.QualityGates/assets'
-    $outPath = Join-Path $assetsDir 'english.txt.gz'
-    $stampPath = Join-Path $assetsDir 'english.stamp'
+    $assetsDir = [Catzc.Base.QualityGates.SpellingOracle]::AssetsFolder((Get-CatzcModulesRoot))
+    $outPath = [Catzc.Base.QualityGates.SpellingOracle]::DictionaryPath($assetsDir)
+    $stampPath = [Catzc.Base.QualityGates.SpellingOracle]::DictionaryStampPath($assetsDir)
 
     $stamp = [ordered]@{
         cspell     = $cspellVersion

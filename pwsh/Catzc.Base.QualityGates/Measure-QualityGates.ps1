@@ -31,7 +31,7 @@ function Measure-QualityGates {
                 Write-Message 'Loading PSScriptAnalyzer (first use this session)...'
                 Import-Module (Join-Path (Get-CatzcModulesRoot) '.vendor/PSScriptAnalyzer') -Force
             }
-            $settings = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
+            $settings = [Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::SettingsPath((Get-CatzcModulesRoot))
             $all = @(Get-ModuleSourceFile)
             $files = @(for ($index = 0; $index -lt $all.Count; $index += $Every) {
                     $all[$index]

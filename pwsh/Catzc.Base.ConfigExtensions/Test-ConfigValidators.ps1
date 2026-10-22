@@ -23,7 +23,7 @@ function Test-ConfigValidators {
     $issues = [System.Collections.Generic.List[string]]::new()
     $validatorCount = 0
     $modulesRoot = Get-CatzcModulesRoot
-    foreach ($moduleDirectory in ([System.IO.Directory]::EnumerateDirectories($modulesRoot) | Sort-Object)) {
+    foreach ($moduleDirectory in (Get-ChildPath $modulesRoot -Directory -Depth 1 | Sort-Object)) {
         $moduleName = [System.IO.Path]::GetFileName($moduleDirectory)
         if ($moduleName -match '^\.') {
             continue
@@ -43,7 +43,7 @@ function Test-ConfigValidators {
         $expected = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
         $configsDirectory = Join-Path $moduleDirectory 'configs'
         if ([System.IO.Directory]::Exists($configsDirectory)) {
-            foreach ($file in [System.IO.Directory]::EnumerateFiles($configsDirectory, '*.yml')) {
+            foreach ($file in Get-ChildPath $configsDirectory -File -Filter '*.yml' -Depth 1) {
                 [void]$expected.Add((Get-ConfigValidatorName -Name ([System.IO.Path]::GetFileNameWithoutExtension($file))))
             }
         }

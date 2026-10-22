@@ -28,9 +28,10 @@ function Get-DrsCitationMap {
         return $script:adrCitationMapCache[$root]
     }
 
-    $records = (Get-Config -Config drs).Root
+    $drs = Get-Config -Config drs
+    $records = $drs.Root
     $adrRoot = Join-Path $root $records
-    $indexPath = Join-Path $adrRoot 'index.md'
+    $indexPath = $drs.IndexPath($root)
     Assert-PathExist $indexPath -PathType Leaf
 
     $entries = @{}

@@ -34,9 +34,9 @@ function Import-CatzcOverlay {
     foreach ($local in @($entries | Where-Object { $_.Kind -eq 'LocalModule' })) {
         $privateFolder = [System.IO.Path]::Combine($local.File, 'private')
         $privateFiles = [string[]] @(if ([System.IO.Directory]::Exists($privateFolder)) {
-                [System.IO.Directory]::GetFiles($privateFolder, '*.ps1')
+                Get-ChildPath $privateFolder -File -Depth 1 -Filter '*.ps1' -Exclude @() -PruneVendor $false
             })
-        $publicFiles = [string[]] @([System.IO.Directory]::GetFiles($local.File, '*.ps1'))
+        $publicFiles = [string[]] @(Get-ChildPath $local.File -File -Depth 1 -Filter '*.ps1' -Exclude @() -PruneVendor $false)
         [System.Array]::Sort($privateFiles, [System.StringComparer]::Ordinal)
         [System.Array]::Sort($publicFiles, [System.StringComparer]::Ordinal)
         $publicNames = [string[]] @($publicFiles | ForEach-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) })

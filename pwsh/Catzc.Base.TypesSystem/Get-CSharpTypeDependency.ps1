@@ -36,7 +36,7 @@ function Get-CSharpTypeDependency {
             continue
         }
 
-        foreach ($cs in ([System.IO.Directory]::EnumerateFiles($typesDir, '*.cs') | Sort-Object)) {
+        foreach ($cs in [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($typesDir, '*.cs', 1).ToArray()) {
             $csName = [System.IO.Path]::GetFileName($cs)
             $code = [System.IO.File]::ReadAllText($cs)
             $code = [regex]::Replace($code, '(?s)/\*.*?\*/', ' ')

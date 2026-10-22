@@ -28,7 +28,7 @@ function Test-ScriptAnalyzer {
     )
 
     $root = Get-RepositoryRoot
-    $settingsPath = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
+    $settingsPath = [Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::SettingsPath((Get-CatzcModulesRoot))
     Assert-PathExist $settingsPath
 
     $files = [System.Collections.Generic.List[string]]::new()

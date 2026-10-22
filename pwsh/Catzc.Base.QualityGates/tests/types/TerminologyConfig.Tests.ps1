@@ -127,4 +127,18 @@ Describe 'TerminologyConfig' -Tag 'L0', 'logic' {
         $raw = @{ categories = $script:cats; terms = @{ product = @(@{ term = 'bicep'; meaning = 'Azure Bicep' }) }; widget = 1 }
         { [Catzc.Base.QualityGates.TerminologyConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: categories, terms)*"
     }
+
+    It 'names the files that define the terms: the registry and one dictionary per category, full paths in ordinal order' {
+        $c = & $script:make @{ product = @(@{ term = 'bicep'; meaning = 'Azure Bicep' }) }
+        $root = Join-Path $TestDrive 'repo'
+        $files = $c.DefiningFiles($root, (Join-Path $root 'modules'))
+        $expected = @(
+            (Join-Path $root '.cspell/abbreviation.txt')
+            (Join-Path $root '.cspell/fixture.txt')
+            (Join-Path $root '.cspell/product.txt')
+            (Join-Path $root 'modules/Catzc.Base.QualityGates/configs/terminology.yml')
+        ) | ForEach-Object { [System.IO.Path]::GetFullPath($_) }
+        $files | Should -Be $expected
+        { $c.DefiningFiles('', $root) } | Should -Throw '*repositoryRoot must not be empty*'
+    }
 }

@@ -139,6 +139,18 @@ public sealed class PlansConfig : Catzc.Base.Objects.DictionaryRecord
         return false;
     }
 
+    // The plan files of a plans folder, in ordinal order, the master left out: the set every open-step count reads.
+    public string[] PlanFiles(string plansFolder)
+    {
+        if (string.IsNullOrEmpty(plansFolder)) { throw new ArgumentException("plansFolder must not be empty", "plansFolder"); }
+        var files = new List<string>();
+        foreach (string file in new Catzc.Base.Folders.PathSet().AddPattern(plansFolder, "plan-*.md", 1).ToArray())
+        {
+            if (!string.Equals(System.IO.Path.GetFileName(file), master_file, StringComparison.Ordinal)) { files.Add(file); }
+        }
+        return files.ToArray();
+    }
+
     static IDictionary Section(IDictionary raw, string name, string[] allowed, List<string> errors)
     {
         if (!raw.Contains(name)) { return null; }

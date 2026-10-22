@@ -25,3 +25,20 @@ the generator (Build-RootConfig). Registered as the `rootconfig` config's type o
 Catzc.Base.Config/configs/configs.yml. See [ADR-CONF-LOADING](/docs/drs/configuration/module-config-loading.md) and
 [ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md).
 ```
+
+## comment:2
+
+Above `public static string SpellingConfigPath(string repositoryRoot) =>...`, written with `//`.
+
+```text
+The spell checker's and the Markdown linter's settings: root files rootconfig.yml materialises, named here once for every gate that runs them.
+```
+
+## comment:3
+
+Above `public static string[] GeneratorInputs(string modulesRoot)`, written with `//`.
+
+```text
+The generators' code every root file is composed by: the four modules that write root files, and the Languages files that write the
+generated-file head and its keys. A folder is stamped whole; a missing path is an input too.
+```

@@ -30,6 +30,16 @@ public sealed class TerminologyConfig
 
     private static readonly string[] AllowedKeys = { "categories", "terms" };
 
+    // The files that define the terms, which the orphan search leaves out: the registry, and one generated dictionary per category.
+    public string[] DefiningFiles(string repositoryRoot, string modulesRoot)
+    {
+        if (string.IsNullOrEmpty(repositoryRoot)) { throw new ArgumentException("repositoryRoot must not be empty", "repositoryRoot"); }
+        if (string.IsNullOrEmpty(modulesRoot)) { throw new ArgumentException("modulesRoot must not be empty", "modulesRoot"); }
+        var set = new Catzc.Base.Folders.PathSet().AddFile(modulesRoot, "Catzc.Base.QualityGates/configs/terminology.yml");
+        foreach (string category in categories) { set.AddFile(repositoryRoot, ".cspell/" + category + ".txt"); }
+        return set.ToArray();
+    }
+
     public TerminologyConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();

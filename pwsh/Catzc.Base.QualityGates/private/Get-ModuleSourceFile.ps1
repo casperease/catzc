@@ -44,7 +44,7 @@ function Get-ModuleSourceFile {
 
     $analyzerRoot = Join-Path $modulesRoot '.scriptanalyzer'
     if (Test-Path $analyzerRoot) {
-        foreach ($script in Get-ChildPath $analyzerRoot -File -Filter '*.psm1' -Depth 1) {
+        foreach ($script in [Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::RuleFiles($modulesRoot)) {
             $files.Add($script)
         }
         $analyzerTests = Join-Path $analyzerRoot 'tests'
@@ -72,7 +72,7 @@ function Get-ModuleSourceFile {
     if (Test-Path $importerPath) {
         $files.Add($importerPath)
     }
-    $settingsPath = Join-Path $modulesRoot '.internal/assets/PSScriptAnalyzerSettings.psd1'
+    $settingsPath = [Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::SettingsPath($modulesRoot)
     if (Test-Path $settingsPath) {
         $files.Add($settingsPath)
     }

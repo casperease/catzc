@@ -31,7 +31,7 @@ function Test-Markdownlint {
     )
 
     $root = Get-RepositoryRoot
-    $configPath = Join-Path $root '.markdownlint.yml'
+    $configPath = [Catzc.Base.RootConfig.RootConfigFiles]::MarkdownlintConfigPath($root)
     Assert-PathExist $configPath
 
     if (-not (Test-Command 'markdownlint-cli2')) {

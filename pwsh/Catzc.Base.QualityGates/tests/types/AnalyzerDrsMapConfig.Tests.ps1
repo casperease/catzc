@@ -57,3 +57,18 @@ Describe 'Catzc.Base.QualityGates.AnalyzerDrsMapConfig' -Tag 'L0', 'logic', 'ADR
         $message | Should -BeLike "*malformed citation 'ADR-WIDGET-GADGET:1'*"
     }
 }
+
+Describe 'AnalyzerDrsMapConfig paths' -Tag 'L0', 'logic' {
+    It 'names the analyzer settings and the custom rule modules under a modules root, sorted, tests left out' {
+        $root = Join-Path $TestDrive 'widget-modules'
+        $rules = Join-Path $root '.scriptanalyzer'
+        [System.IO.Directory]::CreateDirectory((Join-Path $rules 'tests')) | Out-Null
+        foreach ($name in 'WidgetRule.psm1', 'GadgetRule.psm1', 'tests/Widget.Tests.psm1') {
+            [System.IO.File]::WriteAllText((Join-Path $rules $name), '')
+        }
+        [Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::SettingsPath($root) |
+            Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root '.internal/assets/PSScriptAnalyzerSettings.psd1')))
+        @([Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::RuleFiles($root) | ForEach-Object { [System.IO.Path]::GetFileName($_) }) |
+            Should -Be @('GadgetRule.psm1', 'WidgetRule.psm1')
+    }
+}

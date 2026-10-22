@@ -22,10 +22,8 @@ function Get-ModuleSourceFunctions {
     $privateFolder = Join-Path $folder 'private'
     $names = {
         param([string] $Directory)
-        $found = [string[]] @(if ([System.IO.Directory]::Exists($Directory)) {
-                foreach ($file in [System.IO.Directory]::GetFiles($Directory, '*.ps1')) {
-                    [System.IO.Path]::GetFileNameWithoutExtension($file)
-                }
+        $found = [string[]] @(foreach ($file in [Catzc.Base.Folders.PathSet]::new().AddPattern($Directory, '*.ps1', 1).ToArray()) {
+                [System.IO.Path]::GetFileNameWithoutExtension($file)
             })
         [System.Array]::Sort($found, [System.StringComparer]::Ordinal)
         , $found

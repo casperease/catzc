@@ -52,14 +52,7 @@ function Get-ScriptAnalyzerInputs {
         }
     }
     if ($Pass -eq 'spelling') {
-        $inputs.Add((Join-Path $RepositoryRoot "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/assets/english.txt.gz"))
-        $inputs.Add((Join-Path $RepositoryRoot "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/types/SpellingOracle.cs"))
-        $cspell = Join-Path $RepositoryRoot '.cspell'
-        if ([System.IO.Directory]::Exists($cspell)) {
-            foreach ($file in @([System.IO.Directory]::EnumerateFiles($cspell, '*.txt') | Sort-Object)) {
-                $inputs.Add($file)
-            }
-        }
+        $inputs.AddRange([string[]] [Catzc.Base.QualityGates.SpellingOracle]::Inputs($RepositoryRoot, (Join-Path $RepositoryRoot (Get-CatzcModulesFolder))))
     }
     , [string[]] $inputs.ToArray()
 }

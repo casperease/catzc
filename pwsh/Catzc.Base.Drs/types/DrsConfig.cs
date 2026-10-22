@@ -67,6 +67,13 @@ public sealed class DrsConfig
 
     // The repository-relative folder that holds every decision record, '/'-separated, with no trailing '/'.
     public string Root { get; }
+
+    // The index Build-DrsIndex writes and every reader of the codes parses: index.md in the records' folder, under the repository root.
+    public string IndexPath(string repositoryRoot)
+    {
+        if (string.IsNullOrEmpty(repositoryRoot)) { throw new ArgumentException("repositoryRoot must not be empty", "repositoryRoot"); }
+        return new Catzc.Base.Folders.PathSet().AddFile(System.IO.Path.Combine(repositoryRoot, Root), "index.md").ToArray()[0];
+    }
     private static readonly string[] AllowedKindKeys = { "name", "shared" };
     private static readonly string[] AllowedDomainKeys = { "kind", "code", "role", "description", "depends_on", "stack", "concern", "folder", "rulesets" };
     private static readonly Regex FolderRe = new Regex("^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$", RegexOptions.Compiled);

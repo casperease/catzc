@@ -38,4 +38,4 @@ tests:
 run_lock:
   wait_seconds: 120 # how long a run waits past a live holder's deadline, or the end of a burst, before it says run lock busy
   stale_seconds: 720 # a queue ticket older than the longest run is dropped
-  budget_seconds: 360 # a run's whole budget, the background roof: a holder due past it is not waited for, nor a burst that outlasts it
+  budget_seconds: 280 # a run's whole budget, under the 300 s call it runs in: a holder due past it is not waited for, nor a burst that outlasts it

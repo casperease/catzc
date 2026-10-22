@@ -18,8 +18,8 @@ function Get-EnglishDictionaryDrift {
         [string] $PinnedCspell
     )
 
-    $gzipPath = Join-Path $AssetsFolder 'english.txt.gz'
-    $stampPath = Join-Path $AssetsFolder 'english.stamp'
+    $gzipPath = [Catzc.Base.QualityGates.SpellingOracle]::DictionaryPath($AssetsFolder)
+    $stampPath = [Catzc.Base.QualityGates.SpellingOracle]::DictionaryStampPath($AssetsFolder)
 
     $missing = @(foreach ($path in $gzipPath, $stampPath) {
             if (-not [System.IO.File]::Exists($path)) {

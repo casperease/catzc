@@ -231,6 +231,66 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'ships a budget a waiter spends inside a 300 s background call, so it stops with its own line before the call is killed' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        (Get-CatzcRunLockSetting).budget_seconds | Should -BeLessThan 300
+    }
+
+    It 'does not wait for a burst whose holder is gone: <case>' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' -ForEach @(
+        @{ case = 'its process is dead'; Record = { "2147483646|0|$([datetime]::UtcNow.AddSeconds(120).Ticks)|1|a burst (Enter-CatzcBurst)" } }
+        @{ case = 'past its declared length'; Record = { "$PID|$((Get-Process -Id $PID).StartTime.ToUniversalTime().Ticks)|$([datetime]::UtcNow.AddSeconds(-5).Ticks)|1|a burst (Enter-CatzcBurst)" } }
+    ) {
+        $burst = [System.Threading.EventWaitHandle]::new($false, [System.Threading.EventResetMode]::ManualReset, "$script:lockName-burst")
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 3000
+        try {
+            $holder.Taken | Should -BeTrue
+            $path = Get-CatzcRunLockHolderPath -LockName $script:lockName
+            [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($path)) | Out-Null
+            [System.IO.File]::WriteAllText($path, (& $Record))
+            $timer = [System.Diagnostics.Stopwatch]::StartNew()
+            $out = @(Wait-CatzcRunLock -LockName $script:lockName -LockSeconds 1 -BudgetSeconds 60 -StaleSeconds 720 -Holding 'Get-Widget' -Caller 'Widget' -Busy 'nothing ran' -Lock $script:taken)
+            $timer.Elapsed.TotalSeconds | Should -BeLessThan 2.5
+            $out | Should -Contain "[Widget] a burst's holder is gone or past its declared length: not waiting for it, up to 1 s"
+            $out[-1] | Should -Be '[Widget] run lock busy: another run held it for 1 s, so nothing ran'
+            $script:taken.Value | Should -BeNullOrEmpty
+        }
+        finally {
+            Stop-LockHolder $holder
+            $burst.Dispose()
+        }
+    }
+
+    It 'never takes the lock once the caller that started it is gone, though the lock falls free after' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        # A stand-in caller the waiter answers to, killed while the waiter is queued behind a plain holder.
+        $caller = Start-Process -FilePath (Get-Process -Id $PID).Path -ArgumentList '-NoProfile', '-Command', 'Start-Sleep -Seconds 30' -PassThru -WindowStyle Hidden
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 2000
+        try {
+            $holder.Taken | Should -BeTrue
+            $shell = [powershell]::Create().AddScript({
+                    param($Path, $Name, $ParentId)
+                    . $Path
+                    $taken = [ref] $null
+                    $lines = @(Wait-CatzcRunLock -LockName $Name -LockSeconds 10 -BudgetSeconds 60 -StaleSeconds 720 -Holding 'Get-Widget' -Caller 'Widget' -Busy 'nothing ran' -Lock $taken -ParentId $ParentId)
+                    [pscustomobject]@{ Lines = $lines; Taken = $null -ne $taken.Value }
+                    if ($taken.Value) {
+                        Remove-CatzcRunLockHolder -LockName $Name
+                        $taken.Value.ReleaseMutex()
+                        $taken.Value.Dispose()
+                    }
+                }).AddArgument($script:waiter).AddArgument($script:lockName).AddArgument($caller.Id)
+            $handle = $shell.BeginInvoke()
+            Start-Sleep -Milliseconds 500
+            Stop-Process -Id $caller.Id -Force
+            $result = @($shell.EndInvoke($handle))[-1]
+            $shell.Dispose()
+            $result.Taken | Should -BeFalse
+            $result.Lines[-1] | Should -Be "[Widget] run lock not taken: the caller that started this run (pid $($caller.Id)) is gone, so nothing ran"
+        }
+        finally {
+            Stop-Process -Id $caller.Id -Force -ErrorAction Ignore
+            Stop-LockHolder $holder
+        }
+    }
+
     It 'reads the run-lock settings from the timeouts file without an import, and fails naming a missing key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $file = Join-Path $TestDrive 'timeouts.yml'
         [System.IO.File]::WriteAllText($file, "tests:`n  run_seconds: 180`nrun_lock:`n  wait_seconds: 30 # a comment`n  stale_seconds: 600`n  budget_seconds: 300`nwait:`n  seconds: 1`n")

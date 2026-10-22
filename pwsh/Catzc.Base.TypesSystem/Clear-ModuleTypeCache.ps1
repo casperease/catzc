@@ -39,7 +39,7 @@ function Clear-ModuleTypeCache {
     if (Test-IsRunningInPipeline) {
         # @(): an if-expression unrolls a 0/1-item list.
         $typeDlls = @(if (Test-Path $compiledDir -PathType Container) {
-                [System.IO.Directory]::EnumerateFiles($compiledDir, 'Catzc.Types.*.dll')
+                [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($compiledDir, 'Catzc.Types.*.dll', 1).ToArray()
             })
         if ($typeDlls.Count -gt 1) {
             $names = ($typeDlls | ForEach-Object { [System.IO.Path]::GetFileName($_) } | Sort-Object) -join ', '
@@ -73,7 +73,7 @@ function Clear-ModuleTypeCache {
         $null
     }
 
-    foreach ($dll in [System.IO.Directory]::EnumerateFiles($compiledDir, '*.dll')) {
+    foreach ($dll in [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($compiledDir, '*.dll', 1).ToArray()) {
         if ($keep -and [System.IO.Path]::GetFileName($dll) -ieq $keep) {
             continue
         }   # current build — keep

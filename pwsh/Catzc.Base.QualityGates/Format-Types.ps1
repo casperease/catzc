@@ -45,15 +45,12 @@ function Format-Types {
     }
     else {
         $modulesRoot = [System.IO.Path]::GetFullPath((Join-Path $root (Get-CatzcModulesFolder)))
-        foreach ($moduleDirectory in [System.IO.Directory]::EnumerateDirectories($modulesRoot)) {
+        foreach ($moduleDirectory in Get-ChildPath $modulesRoot -Depth 1 -Directory) {
             if ([System.IO.Path]::GetFileName($moduleDirectory).StartsWith('.', [System.StringComparison]::Ordinal)) {
                 continue
             }
-            $typesPath = Join-Path $moduleDirectory 'types'
-            if ([System.IO.Directory]::Exists($typesPath)) {
-                foreach ($typeFile in [System.IO.Directory]::EnumerateFiles($typesPath, '*.cs')) {
-                    $files.Add($typeFile)
-                }
+            foreach ($typeFile in [Catzc.Base.Folders.PathSet]::new().AddPattern((Join-Path $moduleDirectory 'types'), '*.cs', 1).ToArray()) {
+                $files.Add($typeFile)
             }
         }
     }

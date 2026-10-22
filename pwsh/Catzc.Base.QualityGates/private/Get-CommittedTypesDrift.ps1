@@ -21,11 +21,9 @@ function Get-CommittedTypesDrift {
     $currentHash = (Get-CombinedTypeHash (Join-Path $RepositoryRoot $modulesFolder)).CombinedHash
 
     $compiledRoot = Join-Path $RepositoryRoot $compiled
-    # @() around the whole if: a single match must stay an array (.Count under strict mode).
-    $dlls = @(if ([System.IO.Directory]::Exists($compiledRoot)) {
-            foreach ($dll in [System.IO.Directory]::EnumerateFiles($compiledRoot, 'Catzc.Types.*.dll')) {
-                [System.IO.Path]::GetFileName($dll)
-            }
+    # @() around the whole loop: a single match must stay an array (.Count under strict mode).
+    $dlls = @(foreach ($dll in [Catzc.Base.Folders.PathSet]::new().AddPattern($compiledRoot, 'Catzc.Types.*.dll', 1).ToArray()) {
+            [System.IO.Path]::GetFileName($dll)
         })
 
     $reasons = [System.Collections.Generic.List[string]]::new()
@@ -37,10 +35,8 @@ function Get-CommittedTypesDrift {
         $reasons.Add("$compiled/$($dlls[0]) is not the current assembly $expected — run the importer")
     }
     $expectedManifest = "Catzc.Types.$currentHash.json"
-    $manifests = @(if ([System.IO.Directory]::Exists($compiledRoot)) {
-            foreach ($manifest in [System.IO.Directory]::EnumerateFiles($compiledRoot, 'Catzc.Types.*.json')) {
-                [System.IO.Path]::GetFileName($manifest)
-            }
+    $manifests = @(foreach ($manifest in [Catzc.Base.Folders.PathSet]::new().AddPattern($compiledRoot, 'Catzc.Types.*.json', 1).ToArray()) {
+            [System.IO.Path]::GetFileName($manifest)
         })
     if ($manifests.Count -ne 1 -or $manifests[0] -ne $expectedManifest) {
         $reasons.Add("$compiled holds $($manifests.Count) Catzc.Types.*.json ($($manifests -join ', ')); expected exactly $expectedManifest beside the assembly — run the importer")

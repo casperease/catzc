@@ -223,7 +223,7 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             $config.run_lock['budget_seconds'] | Should -Be ([Catzc.Base.Timeouts.TimeoutsConfig]::RunLockDefaultBudgetSeconds)
             [Catzc.Base.Timeouts.TimeoutsConfig]::RunLockDefaultWaitSeconds | Should -Be 120
             [Catzc.Base.Timeouts.TimeoutsConfig]::RunLockDefaultStaleSeconds | Should -Be 720
-            [Catzc.Base.Timeouts.TimeoutsConfig]::RunLockDefaultBudgetSeconds | Should -Be 360
+            [Catzc.Base.Timeouts.TimeoutsConfig]::RunLockDefaultBudgetSeconds | Should -Be 280
         }
 
         It 'overrides one run-lock number and keeps the others default' {

@@ -17,6 +17,13 @@ public sealed class KeyHandlerBindingsConfig : Catzc.Base.Objects.DictionaryReco
 {
     private const string Failed = "key-handler-bindings.yml is malformed:\n  - ";
 
+    // The committed source of the bindings, the file Save-PsReadLineKeyHandlerSet captures into: the module's own config under the modules root.
+    public static string SourcePath(string modulesRoot)
+    {
+        if (string.IsNullOrEmpty(modulesRoot)) { throw new ArgumentException("modulesRoot must not be empty", "modulesRoot"); }
+        return new Catzc.Base.Folders.PathSet().AddFile(modulesRoot, "Catzc.Tooling.KeyHandler/configs/key-handler-bindings.yml").ToArray()[0];
+    }
+
     // The captured bindings, in file order.
     public IReadOnlyList<KeyHandlerBinding> bindings { get; }
 

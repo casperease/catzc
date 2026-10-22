@@ -21,23 +21,9 @@ function Get-RootConfigInputStamp {
     )
 
     $repositoryRoot = Get-RepositoryRoot
-    $paths = [System.Collections.Generic.List[string]]::new()
+    # The generators' code is read from the loaded modules root, so a fixture tree hashes the same code the run uses.
+    $paths = [System.Collections.Generic.List[string]]::new([string[]] [Catzc.Base.RootConfig.RootConfigFiles]::GeneratorInputs((Get-CatzcModulesRoot)))
     $salt = [System.Collections.Generic.List[string]]::new()
-
-    # The generators' code is read from the loaded modules, so a fixture tree hashes the same code the run uses.
-    foreach ($module in 'Catzc.Base.RootConfig', 'Catzc.Base.VSCode', 'Catzc.Base.Git', 'Catzc.Base.Contracts') {
-        $loaded = Get-Module -Name $module
-        if ($loaded) {
-            $paths.Add($loaded.ModuleBase)
-        }
-    }
-    $languages = Get-Module -Name Catzc.Base.Languages
-    if ($languages) {
-        # The generated-file head is written into every root file, so its writer and its key list feed the stamp too.
-        foreach ($generator in 'New-GoWorkspace.ps1', 'New-PythonProject.ps1', 'Format-GeneratedFileHead.ps1', 'configs/generated-head.yml') {
-            $paths.Add((Join-Path $languages.ModuleBase $generator))
-        }
-    }
 
     foreach ($entry in $Entries) {
         foreach ($listed in @(@($entry.source) + @($entry.sources) | Where-Object { $_ })) {

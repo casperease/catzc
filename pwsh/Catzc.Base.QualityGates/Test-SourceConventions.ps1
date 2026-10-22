@@ -52,22 +52,22 @@ function Test-SourceConventions {
     $testCount = 0
     $skipReasonCount = 0
 
-    foreach ($moduleDirectory in ([System.IO.Directory]::EnumerateDirectories($modulesRoot) | Sort-Object)) {
+    # One folder's files of a pattern, through the walker; a folder that does not exist lists nothing.
+    $list = { param([string] $Folder, [string] $Pattern) [Catzc.Base.Folders.PathSet]::new().AddPattern($Folder, $Pattern, 1).ToArray() }
+    # Every module folder, the dot folders too: their tests are held to the names as well.
+    foreach ($moduleDirectory in Get-ChildPath $modulesRoot -Depth 1 -Directory -Exclude @() -PruneVendor $false) {
         $module = [System.IO.Path]::GetFileName($moduleDirectory)
 
         if ($module -notmatch '^\.') {
             $paths = [System.Collections.Generic.List[string]]::new()
-            foreach ($path in ([System.IO.Directory]::EnumerateFiles($moduleDirectory, '*.ps1') | Sort-Object)) {
+            foreach ($path in & $list $moduleDirectory '*.ps1') {
                 if ($path -notlike '*.Tests.ps1') {
                     $paths.Add($path)
                 }
             }
-            $privateDirectory = Join-Path $moduleDirectory 'private'
-            if ([System.IO.Directory]::Exists($privateDirectory)) {
-                foreach ($path in ([System.IO.Directory]::EnumerateFiles($privateDirectory, '*.ps1') | Sort-Object)) {
-                    if ([System.IO.Path]::GetFileName($path) -notlike '_*') {
-                        $paths.Add($path)
-                    }
+            foreach ($path in & $list (Join-Path $moduleDirectory 'private') '*.ps1') {
+                if ([System.IO.Path]::GetFileName($path) -notlike '_*') {
+                    $paths.Add($path)
                 }
             }
 
@@ -100,10 +100,7 @@ function Test-SourceConventions {
             continue
         }
         $testsDirectory = Join-Path $moduleDirectory 'tests'
-        if (-not [System.IO.Directory]::Exists($testsDirectory)) {
-            continue
-        }
-        foreach ($path in ([System.IO.Directory]::EnumerateFiles($testsDirectory, '*.Tests.ps1') | Sort-Object)) {
+        foreach ($path in & $list $testsDirectory '*.Tests.ps1') {
             $testCount++
             $name = [System.IO.Path]::GetFileName($path)
             if (($name -replace '\.Tests\.ps1$') -notmatch '-') {
@@ -111,15 +108,12 @@ function Test-SourceConventions {
             }
         }
 
-        $typesTestDirectory = Join-Path $testsDirectory 'types'
-        if ([System.IO.Directory]::Exists($typesTestDirectory)) {
-            foreach ($path in ([System.IO.Directory]::EnumerateFiles($typesTestDirectory, '*.Tests.ps1') | Sort-Object)) {
-                $testCount++
-                $name = [System.IO.Path]::GetFileName($path)
-                $typeFile = Join-Path $moduleDirectory "types/$($name -replace '\.Tests\.ps1$').cs"
-                if (-not [System.IO.File]::Exists($typeFile)) {
-                    $issues.Add("$module/tests/types/${name}: names no C# type (types/*.cs) of the module")
-                }
+        foreach ($path in & $list (Join-Path $testsDirectory 'types') '*.Tests.ps1') {
+            $testCount++
+            $name = [System.IO.Path]::GetFileName($path)
+            $typeFile = Join-Path $moduleDirectory "types/$($name -replace '\.Tests\.ps1$').cs"
+            if (-not [System.IO.File]::Exists($typeFile)) {
+                $issues.Add("$module/tests/types/${name}: names no C# type (types/*.cs) of the module")
             }
         }
     }

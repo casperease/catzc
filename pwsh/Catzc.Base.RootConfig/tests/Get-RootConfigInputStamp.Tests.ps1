@@ -60,10 +60,11 @@ Describe 'Get-RootConfigInputStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDF
     }
 
     It 'changes when the generated-file head''s key list changes, which every root file carries' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
-        $script:languagesBase = Join-Path $script:fake.Root 'languages-module'
+        $script:modulesRoot = Join-Path $script:fake.Root 'modules'
+        $script:languagesBase = Join-Path $script:modulesRoot 'Catzc.Base.Languages'
         [System.IO.Directory]::CreateDirectory((Join-Path $script:languagesBase 'configs')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:languagesBase 'configs/generated-head.yml'), "keys:`n  - with_body_sha`n  - warning`n")
-        Mock Get-Module -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'Catzc.Base.Languages' } { [pscustomobject]@{ ModuleBase = $script:languagesBase } }
+        Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.RootConfig { $script:modulesRoot }
         $before = Get-Stamp
         [System.IO.File]::WriteAllText((Join-Path $script:languagesBase 'configs/generated-head.yml'), "keys:`n  - warning`n  - with_body_sha`n")
         Get-Stamp | Should -Not -Be $before

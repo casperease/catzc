@@ -15,6 +15,15 @@ catzc:
 ---
 #>
 
+Describe 'DrsConfig.IndexPath' -Tag 'L0', 'logic' {
+    It 'names index.md in the records folder under the repository root, and refuses an empty root' {
+        $config = Get-Config -Config drs
+        $root = Join-Path $TestDrive 'widget-repository'
+        $config.IndexPath($root) | Should -Be ([System.IO.Path]::GetFullPath((Join-Path $root "$($config.Root)/index.md")))
+        { $config.IndexPath('') } | Should -Throw '*repositoryRoot*'
+    }
+}
+
 Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     BeforeAll {
         function New-ValidRaw {

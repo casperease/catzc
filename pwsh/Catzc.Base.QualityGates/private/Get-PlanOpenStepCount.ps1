@@ -18,14 +18,9 @@ function Get-PlanOpenStepCount {
         [Catzc.Base.QualityGates.PlansConfig] $Config
     )
 
-    $files = [string[]] @([System.IO.Directory]::GetFiles($Folder, 'plan-*.md'))
-    [Array]::Sort($files, [System.StringComparer]::Ordinal)
     $counts = [ordered]@{}
-    foreach ($file in $files) {
+    foreach ($file in $Config.PlanFiles($Folder)) {
         $name = [System.IO.Path]::GetFileName($file)
-        if ($name -ceq $Config.master_file) {
-            continue
-        }
         $lines = [System.IO.File]::ReadAllText($file) -split "`r?`n"
         $counts[$name] = @(Get-MarkdownListItem -Line $lines | Where-Object { $_.First -match '^\s*(-|\d+\.) \[ \]' }).Count
     }

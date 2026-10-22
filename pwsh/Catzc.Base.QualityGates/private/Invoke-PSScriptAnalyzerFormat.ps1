@@ -28,7 +28,7 @@ function Invoke-PsScriptAnalyzerFormat {
     if ($File.Count -eq 0) {
         return , [string[]] @()
     }
-    $settingsPath = Join-Path (Get-CatzcModulesRoot) '.internal/assets/PSScriptAnalyzerSettings.psd1'
+    $settingsPath = [Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::SettingsPath((Get-CatzcModulesRoot))
 
     # The one per-file step, run in this session or, source-copied, in a shard process.
     $formatFiles = {

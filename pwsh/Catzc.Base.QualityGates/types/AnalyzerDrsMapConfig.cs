@@ -28,6 +28,20 @@ public sealed class AnalyzerDrsMapConfig : Catzc.Base.Objects.DictionaryRecord
     // Analyzer rule name -> the ADR rule ids it enforces (string[], '#' form), in declaration order; read-only.
     public OrderedDictionary analyzers { get; }
 
+    // The analyzer's settings, the one file every analyzer run and the formatter read: the internal assets' PSScriptAnalyzerSettings.psd1.
+    public static string SettingsPath(string modulesRoot)
+    {
+        if (string.IsNullOrEmpty(modulesRoot)) { throw new ArgumentException("modulesRoot must not be empty", "modulesRoot"); }
+        return new Catzc.Base.Folders.PathSet().AddFile(modulesRoot, ".internal/assets/PSScriptAnalyzerSettings.psd1").ToArray()[0];
+    }
+
+    // The custom rule modules the settings list: every .scriptanalyzer/*.psm1 under the modules root, in ordinal order.
+    public static string[] RuleFiles(string modulesRoot)
+    {
+        if (string.IsNullOrEmpty(modulesRoot)) { throw new ArgumentException("modulesRoot must not be empty", "modulesRoot"); }
+        return new Catzc.Base.Folders.PathSet().AddPattern(System.IO.Path.Combine(modulesRoot, ".scriptanalyzer"), "*.psm1", 1).ToArray();
+    }
+
     public AnalyzerDrsMapConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();

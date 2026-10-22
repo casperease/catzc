@@ -25,7 +25,7 @@ function Test-Spelling {
     )
 
     $root = Get-RepositoryRoot
-    $configPath = Join-Path $root 'cspell.yml'
+    $configPath = [Catzc.Base.RootConfig.RootConfigFiles]::SpellingConfigPath($root)
     Assert-PathExist $configPath
 
     if (-not (Test-Command 'cspell')) {

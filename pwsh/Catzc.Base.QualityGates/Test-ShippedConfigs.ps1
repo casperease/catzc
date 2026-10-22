@@ -28,13 +28,12 @@ function Test-ShippedConfigs {
     $shipped = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $configCount = 0
     $modulesRoot = Get-CatzcModulesRoot
-    foreach ($moduleDirectory in ([System.IO.Directory]::EnumerateDirectories($modulesRoot) | Sort-Object)) {
+    foreach ($moduleDirectory in Get-ChildPath $modulesRoot -Depth 1 -Directory) {
         $moduleName = [System.IO.Path]::GetFileName($moduleDirectory)
-        $configsDirectory = Join-Path $moduleDirectory 'configs'
-        if ($moduleName -match '^\.' -or -not [System.IO.Directory]::Exists($configsDirectory)) {
+        if ($moduleName -match '^\.') {
             continue
         }
-        foreach ($file in ([System.IO.Directory]::EnumerateFiles($configsDirectory, '*.yml') | Sort-Object)) {
+        foreach ($file in [Catzc.Base.Folders.PathSet]::new().AddPattern((Join-Path $moduleDirectory 'configs'), '*.yml', 1).ToArray()) {
             $name = [System.IO.Path]::GetFileNameWithoutExtension($file)
             $configCount++
             [void]$shipped.Add($name)

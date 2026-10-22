@@ -63,9 +63,9 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
 - debt-agent-traffic -> plan-debt-agent-traffic.md: fewer messages and tool calls between the orchestrator and its workers (a run lock,
-  one-line reports, pre-approved rule edits, derived step counts, an automatic log); five steps
+  one-line reports, pre-approved rule edits, derived step counts, an automatic log); four steps
 - debt-full-run-failures -> plan-debt-full-run-failures.md: the last full run's failing files rerun one at a time, since a red test blocks
-  the user's full run; two steps
+  the user's full run; three steps
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue; two steps
 - frontmatter-less-is-more -> plan-frontmatter-less-is-more.md: Every file on disk is format-managed and its Format command decides its
   head: generated files a warning (and body sha when tracked), authored files only a docs link and DRS codes, else none.

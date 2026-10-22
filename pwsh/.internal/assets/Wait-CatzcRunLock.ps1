@@ -86,6 +86,16 @@ function Set-CatzcRunLockHolder {
     [System.IO.File]::WriteAllText($path, "$PID|$started|$deadline|$([int] $Declared.IsPresent)|$($Holding -replace '[\r\n|]', ' ')")
 }
 
+function Test-CatzcRunLockHolderGone {
+    param(
+        [Parameter(Mandatory)]
+        [string] $LockName
+    )
+
+    # A record that names no live holder within its deadline: its process died, its id was reused, or it outlasted what it declared.
+    [System.IO.File]::Exists((Get-CatzcRunLockHolderPath -LockName $LockName)) -and $null -eq (Get-CatzcRunLockHolder -LockName $LockName)
+}
+
 function Remove-CatzcRunLockHolder {
     param(
         [Parameter(Mandatory)]
@@ -170,8 +180,27 @@ function Wait-CatzcRunLock {
         [string] $Busy,
 
         [Parameter(Mandatory)]
-        [ref] $Lock
+        [ref] $Lock,
+
+        [int] $ParentId = ((Get-Process -Id $PID).Parent)?.Id ?? 0
     )
+
+    # The caller this wait serves: a waiter whose caller has gone (its call killed by a timeout or stopped) never takes the lock, so no
+    # orphaned run holds it for no one. The start time pins the process, so a reused id never passes for it.
+    $parentStart = 0L
+    if ($ParentId -gt 0) {
+        $parentProcess = Get-Process -Id $ParentId -ErrorAction Ignore
+        if ($parentProcess) {
+            $parentStart = $parentProcess.StartTime.ToUniversalTime().Ticks
+        }
+    }
+    $callerGone = {
+        if ($ParentId -le 0) {
+            return $false
+        }
+        $process = Get-Process -Id $ParentId -ErrorAction Ignore
+        $null -eq $process -or $process.HasExited -or $process.StartTime.ToUniversalTime().Ticks -ne $parentStart
+    }
 
     $mutex = [System.Threading.Mutex]::new($false, $LockName)
     $queue = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-run-queue/$($LockName -replace '[\\/:*?"<>|]', '_')"
@@ -195,9 +224,15 @@ function Wait-CatzcRunLock {
     $burstOverBudget = $false
     $saidWaiting = $false
     $saidBurst = $false
+    $saidGoneBurst = $false
     $saidHolder = $false
+    $orphaned = $false
     try {
         while ($true) {
+            if (& $callerGone) {
+                $orphaned = $true
+                break
+            }
             if (Test-CatzcRunLockTurn -Queue $queue -Ticket $ticket -StaleSeconds $StaleSeconds) {
                 # The first try does not wait, so a free lock is taken without a waiting line.
                 $tryMilliseconds = if ($saidWaiting) {
@@ -225,8 +260,19 @@ function Wait-CatzcRunLock {
                 $saidWaiting = $true
             }
             $burst = $null
-            if ([System.Threading.EventWaitHandle]::TryOpenExisting("$LockName-burst", [ref] $burst)) {
+            $burstOpen = [System.Threading.EventWaitHandle]::TryOpenExisting("$LockName-burst", [ref] $burst)
+            if ($burstOpen) {
                 $burst.Dispose()
+            }
+            # A burst whose holder died or ran past its declared length holds no one: the waiter falls back to its own wait.
+            if ($burstOpen -and (Test-CatzcRunLockHolderGone -LockName $LockName)) {
+                if (-not $saidGoneBurst) {
+                    "[$Caller] a burst's holder is gone or past its declared length: not waiting for it, up to $LockSeconds s"
+                    $saidGoneBurst = $true
+                }
+                $burstOpen = $false
+            }
+            if ($burstOpen) {
                 if (-not $saidBurst) {
                     "[$Caller] a burst holds the run lock: waiting until it ends, then up to $LockSeconds s"
                     $saidBurst = $true
@@ -287,6 +333,10 @@ function Wait-CatzcRunLock {
         return
     }
     $mutex.Dispose()
+    if ($orphaned) {
+        "[$Caller] run lock not taken: the caller that started this run (pid $ParentId) is gone, so $Busy"
+        return
+    }
     if ($burstOverBudget) {
         "[$Caller] run lock busy: a burst held it past this run's budget of $BudgetSeconds s, so $Busy; retry after it"
         return

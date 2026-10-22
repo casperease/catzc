@@ -27,7 +27,7 @@ Describe 'Export-SpellingTriage' -Tag 'L0', 'logic' {
             [pscustomobject]@{ ExitCode = $script:cspellExit; Full = $script:cspellOut; Output = $script:cspellOut }
         }
         # The registry already accepts apple/mango, so those are not queued for triage.
-        Mock Get-Config -ModuleName Catzc.Base.QualityGates {
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'terminology' } {
             [pscustomobject]@{ terms = @(
                     [pscustomobject]@{ term = 'apple' }
                     [pscustomobject]@{ term = 'mango' }

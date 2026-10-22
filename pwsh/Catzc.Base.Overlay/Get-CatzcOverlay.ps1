@@ -23,7 +23,8 @@ function Get-CatzcOverlay {
     }
     $modulesRoot = Get-CatzcModulesRoot
     $prefix = ".catzc/$([System.IO.Path]::GetFileName($overlayRoot.TrimEnd('\', '/')))"
-    $folders = [string[]] @([System.IO.Directory]::GetDirectories($overlayRoot))
+    # The overlay's own folders, every one: an overlay is listed whole, nothing pruned.
+    $folders = [string[]] @(Get-ChildPath $overlayRoot -Directory -Depth 1 -Exclude @() -PruneVendor $false)
     [System.Array]::Sort($folders, [System.StringComparer]::Ordinal)
     foreach ($folder in $folders) {
         $moduleName = [System.IO.Path]::GetFileName($folder)

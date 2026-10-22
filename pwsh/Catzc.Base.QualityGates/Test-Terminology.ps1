@@ -24,7 +24,6 @@ function Test-Terminology {
     Assert-SourceTree
 
     $root = Get-RepositoryRoot
-    $registryPath = Join-Path $root "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/configs/terminology.yml"
     $issues = [System.Collections.Generic.List[string]]::new()
 
     $config = $null
@@ -44,9 +43,7 @@ function Test-Terminology {
             )
         }
 
-        $cspellDir = Join-Path $root '.cspell'
-        $dictPaths = @($config.categories | ForEach-Object { Join-Path $cspellDir "$_.txt" })
-        $corpus = Get-TerminologyCorpus -Root $root -Exclude (@($registryPath) + $dictPaths)
+        $corpus = Get-TerminologyCorpus -Root $root -Exclude $config.DefiningFiles($root, (Join-Path $root (Get-CatzcModulesFolder)))
         foreach ($term in $config.terms) {
             if (-not $corpus.Contains($term.term.ToLowerInvariant())) {
                 $issues.Add(

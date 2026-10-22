@@ -29,7 +29,7 @@ function Get-TerminologyCorpus {
         [System.StringComparer]::OrdinalIgnoreCase)
 
     # Test-Spelling's one scope: the ignorePaths of the root cspell.yml, read as cspell reads them, where a glob with no '/' matches a name at any depth.
-    $ignored = @(foreach ($glob in ([System.IO.File]::ReadAllText((Join-Path $Root 'cspell.yml')) | ConvertFrom-Yaml).ignorePaths) {
+    $ignored = @(foreach ($glob in ([System.IO.File]::ReadAllText([Catzc.Base.RootConfig.RootConfigFiles]::SpellingConfigPath($Root)) | ConvertFrom-Yaml).ignorePaths) {
             [Catzc.Base.Globs.GlobPattern]::new($(if ($glob.Contains('/')) {
                         $glob
                     }

@@ -15,7 +15,7 @@ function Get-CatsDrsIndex {
     [OutputType([object[]])]
     [CmdletBinding()]
     param(
-        [string] $IndexPath = (Resolve-RepoPath "$((Get-Config -Config drs).Root)/index.md")
+        [string] $IndexPath = (Get-Config -Config drs).IndexPath((Get-RepositoryRoot))
     )
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:catsAdrIndexCache')) {

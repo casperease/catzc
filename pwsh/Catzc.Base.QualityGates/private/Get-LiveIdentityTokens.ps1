@@ -94,7 +94,7 @@ function Get-LiveIdentityTokens {
     $templatesPlace = Get-TrackPlace -Track infrastructure -TrackKind templates
     $templatesRoot = Join-Path (Get-RepositoryRoot) $templatesPlace
     if ([System.IO.Directory]::Exists($templatesRoot)) {
-        foreach ($dir in [System.IO.Directory]::EnumerateDirectories($templatesRoot)) {
+        foreach ($dir in Get-ChildPath $templatesRoot -Depth 1 -Directory -Exclude @() -PruneVendor $false) {
             & $add ([System.IO.Path]::GetFileName($dir)) 'template' $templatesPlace 'a fixture template (sample)'
         }
     }

@@ -22,6 +22,36 @@ public static class SpellingOracle
 {
     public const int MinFragmentLength = 2;
 
+    // The folder the English word list ships in: the QualityGates module's assets, under a modules root.
+    public static string AssetsFolder(string modulesRoot)
+    {
+        if (string.IsNullOrEmpty(modulesRoot)) { throw new ArgumentException("modulesRoot must not be empty", "modulesRoot"); }
+        return new Catzc.Base.Folders.PathSet().AddFile(modulesRoot, "Catzc.Base.QualityGates/assets").ToArray()[0];
+    }
+
+    // The English word list the oracle loads, and the stamp of the cspell dictionaries it was built from, both in an assets folder.
+    public static string DictionaryPath(string assetsFolder) => AssetFile(assetsFolder, "english.txt.gz");
+
+    public static string DictionaryStampPath(string assetsFolder) => AssetFile(assetsFolder, "english.stamp");
+
+    // What the oracle's verdicts depend on, for a stamp over them: its word list, its own source, and the term lists under .cspell/.
+    public static string[] Inputs(string repositoryRoot, string modulesRoot)
+    {
+        if (string.IsNullOrEmpty(repositoryRoot)) { throw new ArgumentException("repositoryRoot must not be empty", "repositoryRoot"); }
+        if (string.IsNullOrEmpty(modulesRoot)) { throw new ArgumentException("modulesRoot must not be empty", "modulesRoot"); }
+        return new Catzc.Base.Folders.PathSet()
+            .AddFile(AssetsFolder(modulesRoot), "english.txt.gz")
+            .AddFile(modulesRoot, "Catzc.Base.QualityGates/types/SpellingOracle.cs")
+            .AddPattern(Path.Combine(repositoryRoot, ".cspell"), "*.txt", 1)
+            .ToArray();
+    }
+
+    private static string AssetFile(string assetsFolder, string name)
+    {
+        if (string.IsNullOrEmpty(assetsFolder)) { throw new ArgumentException("assetsFolder must not be empty", "assetsFolder"); }
+        return new Catzc.Base.Folders.PathSet().AddFile(assetsFolder, name).ToArray()[0];
+    }
+
     private static readonly object Gate = new object();
     private static HashSet<string> _words;
     private static HashSet<string> _fixtureWords;

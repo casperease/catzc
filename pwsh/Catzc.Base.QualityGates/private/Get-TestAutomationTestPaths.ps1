@@ -17,8 +17,8 @@ function Get-TestAutomationTestPaths {
 
     $codePlace = @(Get-Track).Where({ $_.type -ceq 'modules' })[0].places[0]
     $modulesRoot = Join-Path (Get-RepositoryRoot) $codePlace
-    $allDirs = [System.IO.Directory]::GetDirectories($modulesRoot)
-    [Array]::Sort($allDirs)
+    # Every module folder, the dot folders too: their tests run as the infrastructure tests.
+    $allDirs = @(Get-ChildPath $modulesRoot -Depth 1 -Directory -Exclude @() -PruneVendor $false)
 
     $moduleTestsByName = [ordered]@{}
     $infraTestPaths = [System.Collections.Generic.List[string]]::new()
