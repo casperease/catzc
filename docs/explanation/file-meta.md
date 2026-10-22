@@ -56,7 +56,7 @@ outside the head:
 | `module`, `moduletype`, `catzc_bundle`      | the module-types and exporter registries                                                                                                                    |
 | `visibility`                                | the module's `private/` folder                                                                                                                              |
 | `repo_status`                               | the file class (`locked_classes`); the git-only states come from `Get-RepoStatus` and are never written                                                     |
-| `generator`, `source`                       | the writer, at write time; a generated file is told by `generated-files.yml` and `linguist-generated`                                                       |
+| `generator`, `source`                       | the writer registry `generated-files.yml`, on demand and never written into a head; a generated file is told by it and `linguist-generated`                 |
 | `with_body_sha`                             | a hash of a tracked generated file's body, recomputed and compared by `Get-GeneratedStampDrift`; an authored file carries none                              |
 | `defines`, `links`                          | the Markdown body                                                                                                                                           |
 | `cites`                                     | the text and the comment page; a code with no other home is a one-line `Rests on` link beside the code it binds                                             |
@@ -68,9 +68,9 @@ outside the head:
 
 ## Keys a head does not carry
 
-A head shows only what a reader needs to step on from the file: a generated file's warning, its writer and its source, and an authored
-file's `docs` and `cites` edges. Every other fact about a file is derived on demand, so a head that showed it would be a second statement of
-it that can drift. These keys are never written into a head; each still has its meaning and its one source:
+A head shows only what a reader needs to step on from the file: a generated file's warning and, while git tracks it, its body hash, and an
+authored file's `docs` and `cites` edges. Every other fact about a file is derived on demand, so a head that showed it would be a second
+statement of it that can drift. These keys are never written into a head; each still has its meaning and its one source:
 
 | Key            | Meaning                                                                                  | Derived on demand by                                                                  |
 | -------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
@@ -102,14 +102,14 @@ Every file on disk is format-managed: a `Format-*` command covers it and decides
 command covers is a finding. The default is no head, and a head is printed only where a reader needs it
 ([ADR-REPO-FILEMETA-HEADPOLICY](../drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy)):
 
-| Files                                                          | Head                                                    | Why                                                                                       |
-| -------------------------------------------------------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| generated files tracked in git, the DRS index and glossary too | the warning, its writer and source, and `with_body_sha` | the head says which writer and which source to edit instead, and stamps the composed body |
-| generated files git does not track                             | the warning, its writer and source, no sha              | no commit compares the body, so a stamp would say nothing                                 |
-| authored files with a comment page or rule codes to cite       | `docs` and `cites` only                                 | the page and the rules are one step away; the test is found by its stem under `tests/`    |
-| every other authored file, diagram declarations included       | none                                                    | every fact is derivable, so a head would be a second statement of it that can drift       |
-| binaries                                                       | none possible                                           | format-managed, with no place for a head                                                  |
-| agent, skill and slide definitions                             | their own tool's front matter, as authored              | out of scope: another tool reads those keys                                               |
+| Files                                                          | Head                                          | Why                                                                                    |
+| -------------------------------------------------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------- |
+| generated files tracked in git, the DRS index and glossary too | the warning and `with_body_sha`, nothing else | the warning says not to edit the file, and the hash stamps the composed body           |
+| generated files git does not track                             | the warning only                              | no commit compares the body, so a stamp would say nothing                              |
+| authored files with a comment page or rule codes to cite       | `docs` and `cites` only                       | the page and the rules are one step away; the test is found by its stem under `tests/` |
+| every other authored file, diagram declarations included       | none                                          | every fact is derivable, so a head would be a second statement of it that can drift    |
+| binaries                                                       | none possible                                 | format-managed, with no place for a head                                               |
+| agent, skill and slide definitions                             | their own tool's front matter, as authored    | out of scope: another tool reads those keys                                            |
 
 Because no command reads an imprinted fact, a policy change is safe in both directions: adding heads changes no verdict, and removing them
 changes none either. `Test-FileMeta` reports a head that disagrees with the policy, absent where it calls for one, present where it does

@@ -32,7 +32,7 @@ head instead ([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filem
 
 ### Rule ADR-REPO-CODEMETA-SAMEENGINE
 
-The head is imprinted by the same engine, from the same registry, as a Markdown block
+The head's `edges` part, the only part an authored head has, is imprinted by the same engine, from the same registry, as a Markdown block
 ([ADR-REPO-FILEMETA-METAKIND](file-meta.md#rule-adr-repo-filemeta-metakind),
 [ADR-REPO-FILEMETA-IMPRINTEDPARTS](file-meta.md#rule-adr-repo-filemeta-imprintedparts)): a kind is a registry entry, and its processor is a
 function found by convention. The scope is the head policy ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)):

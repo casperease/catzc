@@ -181,8 +181,8 @@ computed on demand by `Get-RepoStatus` from git, read-only, since writing them w
 
 No command reads an imprinted fact back. A gate, a generator or a resolver that needs a place fact or an edge of a file derives it from the
 registries, git, the disk and the file's body, so stripping every block changes no verdict, and every command works the same on a file with
-a block and on one without. The imprint is the one reader of `immutable` and `edges`, and it reads them only to compare them with what it
-would write. A key another tool owns is read by that tool alone.
+a block and on one without. The imprint is the one reader of `edges` and a generated file's drift check the one reader of its `immutable`,
+and each reads its part only to compare it with what would be written. A key another tool owns is read by that tool alone.
 
 - [A head shows the facts, never holds them](#a-head-shows-the-facts-never-holds-them)
 - [Head policy](#head-policy)

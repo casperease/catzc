@@ -45,9 +45,14 @@ the tree, they churn on every body edit, and agents read them on every file they
 
 ## Open steps
 
-- [ ] `docs/how-to/pwsh/.assets/head-outcomes.drawio.yml` line 29: the authored head's label "sha, cites, docs, test" becomes "cites, docs",
-      re-rendered by `Build-Diagrams` so the png follows (catzc-e9; the prose pages landed). (check: `Build-Diagrams -Path` on it clean,
-      `Test-Formatting` on it at 0)
+- [ ] After the engine burst, the seven diagrams whose minimaps name a file it deletes (six in `docs/explanation/automation/.assets`, and
+      `docs/how-to/pwsh/.assets/head-outcomes.drawio.yml`, whose description also names the `file_heads` variant) re-declared with
+      `declaration.py minimaps` and re-rendered (catzc-e3). (check: `Build-Diagrams -Path` on each yml clean with no minimap warning, and no
+      deleted file or the variant named in any `.drawio.yml`, by grep)
+- [ ] The comment pages of the code the engine burst changes (`file-meta.yml.md`, `generated-head.yml.md`,
+      `Format-GeneratedFileHead.ps1.md`, `Invoke-FileMetaEngine.ps1.md`, `Get-FileMetaInputStamp.ps1.md`, `FileHeadPolicy.cs.md`, the ten
+      generators' pages where a parameter goes), drafted by catzc-e9 under `out/frontmatter-engine/pages/` from the staged code and applied
+      right after the swap. (check: `Test-Comments` at 0 after the swap)
 - [ ] The engine, in one burst, per `out/frontmatter-mechanism-map.md` (catzc-a0): `file-meta.yml` (no authored `body-sha`, `relative-edges`
       `[docs]`, `drs-codes` every authored class, a head only when a fact is non-empty), `generated-head.yml` `[warning, with_body_sha]`,
       `Format-GeneratedFileHead` (sha only while tracked, no docs edge), the `file_heads` variant with `Get-FileHeadVariant` and

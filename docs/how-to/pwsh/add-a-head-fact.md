@@ -9,9 +9,8 @@ rules.
 
 There are three outcomes, and a fact belongs to exactly one:
 
-- **A generated file's head**: the file's writer composes it, with the warning and the provenance keys, and `with_body_sha` while git tracks
-  the file. A fact here is written by the writer, never imprinted; change the writer and the one head function it calls, not the imprint
-  engine.
+- **A generated file's head**: the file's writer composes it: the warning, and `with_body_sha` while git tracks the file, nothing else. A
+  fact here is written by the writer, never imprinted; change the writer and the one head function it calls, not the imprint engine.
 - **An authored file's head**: present only when the file has a comment page (`docs`) or rule codes to cite (`cites`), and it holds those
   two edges and nothing else: no `with_body_sha`, no `test` or `code` edge. A new fact here is a new edge, and a place fact (path, role,
   language, track, module) is derived on demand instead, never written.
