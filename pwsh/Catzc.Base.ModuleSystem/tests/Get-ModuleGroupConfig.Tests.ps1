@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: e52aeae5c37a
-  edges:
-    code: pwsh/Catzc.Base.ModuleSystem/private/Get-ModuleGroupConfig.ps1
----
-#>
-
 Describe 'Get-ModuleGroupConfig' {
     Context 'logic (mocked Get-Config)' -Tag 'L0', 'logic' {
         It 'returns the groups map when the config declares groups' {

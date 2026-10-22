@@ -96,9 +96,14 @@ Describe 'Get-DrsCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
         $codes.Count | Should -Be 0
     }
 
-    It 'ignores a rule heading and an ADR code in a markdown file' {
+    It 'ignores a rule heading and the record code of its own ADR in a markdown file' {
         $codes = Get-Codes "### Rule ADR-WIDGET-PART-FOLD`n`nThe ADR-WIDGET-PART decision.`n"
         $codes.Count | Should -Be 0
+    }
+
+    It 'cites a bare record code in a markdown file as a code file does, so a page citing a whole ADR carries a head' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
+        $codes = Get-Codes "# docs/widget.md`n`nThe whole ADR-WIDGET-PART decision applies.`n"
+        $codes | Should -Be @('ADR-WIDGET-PART')
     }
 
     It 'finds a citation inside a link' {
@@ -161,13 +166,13 @@ Describe 'Get-DrsCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
             (Get-CodeCodes ('// ADR-GADGET' + ':1 and ADR-GADGET' + "#2`n")).Count | Should -Be 0
         }
 
-        It 'keeps a markdown file to rule codes even when the kind names code files' {
+        It 'cites a bare record code in a markdown file too, beside its rule codes' {
             $state = Get-MarkdownMetaState -Text "The ADR-WIDGET decision, ADR-GADGET-DROP.`n"
             $fact = InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $script:codeKind } {
                 param($State, $Kind)
                 Get-DrsCodesFileMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
             }
-            , @($fact['cites']) | Should -Be @('ADR-GADGET-DROP')
+            , @($fact['cites']) | Should -Be @('ADR-GADGET-DROP', 'ADR-WIDGET')
         }
     }
 

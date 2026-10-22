@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "79a7b4fe8c95"
-  edges:
-    code: pwsh/Catzc.Tooling.Listen/Get-DocChange.ps1
----
-#>
-
 Describe 'Get-DocChange' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Listen.Fixture.ps1')

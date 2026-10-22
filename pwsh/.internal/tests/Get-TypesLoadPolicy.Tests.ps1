@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "03e37547c04c"
----
-#>
-
 # cspell:ignore loaad  -- the misspelled policy key the unknown-key case feeds in on purpose
 Describe 'Get-TypesLoadPolicy' -Tag 'L0', 'logic' {
     BeforeAll {

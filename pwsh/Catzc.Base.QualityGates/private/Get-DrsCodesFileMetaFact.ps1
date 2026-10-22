@@ -56,9 +56,11 @@ function Get-DrsCodesFileMetaFact {
         foreach ($rule in $defined) {
             [void] $found.Remove($rule)
         }
-        # Only a code the ADR index registers is a citation: a fixture code or a placeholder named in prose is not.
+        # Only a code the ADR index registers is a citation: a fixture code or a placeholder named in prose is not. A bare record code is one
+        # in every class, except the record the file itself defines rules of; a bare domain code only in a code class.
         foreach ($code in @($found)) {
-            $registered = $map.IsRule($code) -or ($withDomain -and ($map.HasCode($code) -or $map.IsDomainCode($code)))
+            $own = @($defined | Where-Object { $_.StartsWith("$code-", [System.StringComparison]::Ordinal) }).Count -gt 0
+            $registered = $map.IsRule($code) -or ($map.HasCode($code) -and -not $own) -or ($withDomain -and $map.IsDomainCode($code))
             if (-not $registered) {
                 [void] $found.Remove($code)
             }

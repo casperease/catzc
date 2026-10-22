@@ -1,12 +1,4 @@
 <#
----
-catzc:
-  immutable:
-    with_body_sha: "97dbb674fc11"
----
-#>
-
-<#
 .SYNOPSIS
     Ends the burst Enter-CatzcBurst holds, so it releases the machine's run lock.
 

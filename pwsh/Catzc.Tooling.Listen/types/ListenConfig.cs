@@ -1,13 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    with_body_sha: "6db28497dd8c"
-  edges:
-    test: pwsh/Catzc.Tooling.Listen/tests/types/ListenConfig.Tests.ps1
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

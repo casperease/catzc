@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: d594a14ee8ca
----
-#>
-
 Describe 'Test-IsRunningInVsCode' -Tag 'L0', 'logic' {
     It 'detects a terminal VS Code opened via TERM_PROGRAM' {
         $original = $env:TERM_PROGRAM

@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "60ab8d075e2b"
----
-#>
-
 Describe 'Catzc.Tooling.Listen over the shipped configs' -Tag 'L1', 'integrity' {
     It 'loads the shipped listen.yml as its typed model' {
         Get-Config -Config listen | Should -BeOfType ([Catzc.Tooling.Listen.ListenConfig])

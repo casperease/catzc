@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: e1b478f10ff4
-  edges:
-    code: pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
----
-#>
-
 Describe 'Copy-CatzcModule' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-InternalModule TestKit

@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "570a55f31101"
-  edges:
-    code: pwsh/Catzc.Tooling.Listen/Complete-DocNote.ps1
----
-#>
-
 Describe 'Complete-DocNote' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Listen.Fixture.ps1')

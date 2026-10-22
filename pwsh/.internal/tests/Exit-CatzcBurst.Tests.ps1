@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: cf97aa75782b
----
-#>
-
 Describe 'Exit-CatzcBurst' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:exit = Join-Path $PSScriptRoot '../assets/Exit-CatzcBurst.ps1'

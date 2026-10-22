@@ -62,11 +62,10 @@ the tree, they churn on every body edit, and agents read them on every file they
 - [ ] The folders no unit covers join the re-imprint: `infrastructure/` (46), `.ado/pipelines/` (16), `.github/workflows/` (2),
       `bash/tests/` (2), `go/tests/` (1), each still carrying an authored `with_body_sha` (the audit). (check: per folder, `Test-FileMeta` at 0
       and `git diff` head lines only)
-- [ ] The tree re-imprinted in the order of `out/frontmatter-reimprint-order.md` (157 units, 4,643 files: 378 heads dropped, about 1,110
-      Markdown heads gained, 2,273 hashes and 1,666 test/code edges removed, 3,244 warnings added), docs units by catzc-e9 and code units by
-      catzc-e3 and catzc-54, `pwsh/Catzc.Base.RootConfig`, `.claude/hooks` and `pwsh/.internal` last, one burst each (import-path); a
-      Prettier re-wrap with identical words is reported, not a stop (decided as delegated); a page whose codes all sit in its diagram blocks
-      keeps a `drs_total`-only head (the user). (check: per unit, `Test-FileMeta` at 0 and `git diff` showing head lines only)
+- [ ] The re-imprint's last files: all 157 units ran on 2026-10-22 (docs by catzc-e9, about 1,345 heads; code by catzc-e3 and catzc-54,
+      about 1,170 and 1,000 files; the three import-path folders in bursts; every unit `Test-FileMeta` at 0, head lines only). Left: the six
+      `Catzc.Base.QualityGates` files the BCL pilot had staged (`FileMetaConfig.cs`, `Get-FileMetaInputStamp.ps1` and their tests), and a
+      `Format-Code` re-run over `docs/references` once the bare-record-code step lands. (check: `Test-FileMeta` at 0 on both)
 
 ## Refs
 

@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: e561020b20de
-  edges:
-    code: pwsh/Catzc.Base.ModuleSystem/types/DependenciesConfig.cs
----
-#>
-
 Describe 'Catzc.Base.ModuleSystem.DependenciesConfig' -Tag 'L0' {
     BeforeAll {
         # Constructs the type; a violation surfaces as the inner ArgumentException's message.

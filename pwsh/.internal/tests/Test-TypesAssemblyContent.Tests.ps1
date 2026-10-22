@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: d7c6134e5769
----
-#>
-
 Describe 'Test-TypesAssemblyContent' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:space = 'Fixture' + [guid]::NewGuid().ToString('N').Substring(0, 8)

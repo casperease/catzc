@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: c12eb027bf15
-  edges:
-    code: pwsh/Catzc.Tooling.Listen/Start-DocListener.ps1
----
-#>
-
 Describe 'Start-DocListener' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Listen.Fixture.ps1')

@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: cc63d46790fa
-  edges:
-    code: pwsh/Catzc.Tooling.Listen/Update-DocSnapshot.ps1
----
-#>
-
 Describe 'Update-DocSnapshot' -Tag 'L0', 'logic' {
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Listen.Fixture.ps1')

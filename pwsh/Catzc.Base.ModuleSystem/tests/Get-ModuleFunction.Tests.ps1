@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "4915098b0f5a"
-  edges:
-    code: pwsh/Catzc.Base.ModuleSystem/Get-ModuleFunction.ps1
----
-#>
-
 Describe 'Get-ModuleFunction' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-CatzcModule -ModuleName Catzc.Base.ModuleSystem {
