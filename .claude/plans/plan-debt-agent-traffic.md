@@ -29,9 +29,11 @@ ten "may I" questions on edits the rules already require, three to five tool cal
 
 ## Open steps
 
-- [ ] `.claude/skills/catzc-verify/SKILL.md` step 1: an import-path burst runs `pwsh/.internal/assets/Enter-CatzcBurst.ps1` in the
-      background, its owner's checks run with `Invoke-CatzcCommand.ps1 -InBurst`, and `Exit-CatzcBurst.ps1` ends it, in place of the HOLD
-      and GO messages (the lock pair landed 2026-10-22, catzc-e9). Merged, the file kept at 10 lines. Check: `Test-AgentDefinitions`.
+- [ ] The plan-counts imprint step (`Invoke-ImprintStep`, `Resolve-PlanStepCount`): `Format-Code -Path` on one plan rewrote
+      `plan-master.md` and `value-of-plan.md` outside its `-Path` and left them unformatted for Prettier ("markdown: 2 of 1 file(s)
+      changed", 2026-10-22 03:36; Test-Formatting.Tests then red on both). The derived files it writes are formatted in the same run, or
+      the step writes only into `-Path`. Check: `Format-Code -Path` on one plan, then `Test-Formatting -Path` on the master and the value
+      file at 0.
 - [ ] The user's (a worker's permission mode refused it as an agent definition widening its own approvals, 2026-10-22):
       `.claude/agents/catzc-worker.md`: one line, an edit the domain rules require on a file the brief owns or touches (a re-imprinted head,
       inline help moved to its page, a family form the glossary flags) is pre-approved and is reported, not asked. The body kept at 20

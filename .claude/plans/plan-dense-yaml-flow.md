@@ -40,17 +40,6 @@ opens one of the 176 declarations.
 
 ## Open steps
 
-- [ ] `python/catzc_diagrams/declaration.py`: a `print_width()` reading `max_line_length` under `[*.md]` from the repository root's
-      `.editorconfig`, failing with the path and section when either is missing, and a `flow_yaml(data, width)` that dumps block style and
-      prints each leaf node that fits as one flow line in Prettier's form; `dump()` returns `flow_yaml(out, print_width())` in place of its
-      `yaml.safe_dump(..., width=120)`. (check:
-      `uv run --project python/catzc_diagrams pytest python/catzc_diagrams/tests/test_declaration.py`)
-- [ ] `python/catzc_diagrams/declaration.py`: `minimaps_block()` prints each `- cell: …` entry's `by:` as one flow line when it fits the
-      same width, and its block list when not. (check: the same pytest file)
-- [ ] `python/catzc_diagrams/tests/test_declaration.py`: tests with widget/gadget fixtures for a leaf mapping that fits (one flow line), one
-      over the width (block), a nested mapping (block, its leaves flow), a leaf list, an empty string value, a scalar that needs quotes, the
-      `by:` list both ways, `yaml.safe_load(flow_yaml(x)) == x` for each, and `print_width()` reading a temporary `.editorconfig`. (check:
-      the same pytest file, every test green)
 - [ ] `python/catzc_diagrams/declaration.py`: a `reflow <folder>` subcommand that rewrites one declaration in the printed form, keeping its
       generated head and its rows as read, and refuses to write when `load()` of the new text differs from `load()` of the old. (check: the
       same pytest file, with a reflow test over a fixture that has a head and a row)

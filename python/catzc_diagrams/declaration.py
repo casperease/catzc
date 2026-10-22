@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3fbde0f30e69"
+#     with_body_sha: bd893980ec42
 # ---
 
 # cspell:ignore minimaps mxfile pnginfo drsonly mapkey
@@ -27,6 +27,7 @@ usage (repo root, background):
   uv run --project python python python/catzc_diagrams/declaration.py sync <diagram>
   uv run --project python python python/catzc_diagrams/declaration.py tidy <diagram>
   uv run --project python python python/catzc_diagrams/declaration.py minimaps <diagram>
+  uv run --project python python python/catzc_diagrams/declaration.py reflow <diagram>
 (<diagram> is the stem `.assets/<name>` or either file of its pair)
 
 A pair whose yml and png both moved from the pair committed at git HEAD, and now disagree, is a conflict: check names its cells, the bulk
@@ -1641,8 +1642,10 @@ def placement(data):
     return out
 
 
-def minimaps_block(placed):
-    """content.minimaps as the source's text writes it, two spaces in under content: and each list indented under its key."""
+def minimaps_block(placed, width=None):
+    """content.minimaps as the source's text writes it, two spaces in under content: and each list indented under its key; an entry's
+    by: is one flow line when it fits the print width, its block list when not."""
+    width = width or print_width()
     scalar = lambda value: yaml.safe_dump(value, allow_unicode=True, width=10**9).split("\n")[0]
     lines = ["  minimaps:"]
     for view, cells in placed.items():
@@ -1652,6 +1655,10 @@ def minimaps_block(placed):
         lines.append(f"    {scalar(view)}:")
         for entry in cells:
             lines.append(f"      - cell: {scalar(entry['cell'])}")
+            flow = _flow(entry["by"]) if entry["by"] else None
+            if flow and len(f"        by: {flow}") <= width:
+                lines.append(f"        by: {flow}")
+                continue
             lines.append("        by:")
             lines += [f"          - {scalar(item)}" for item in entry["by"]]
     return lines
@@ -1680,6 +1687,20 @@ def declare_minimaps(folder):
     else:
         stop = next((i for i in range(start + 1, end) if lines[i].strip() and len(lines[i]) - len(lines[i].lstrip()) <= 2), end)
     return write_source(folder, "\n".join(lines[:start] + minimaps_block(placed) + lines[stop:]))
+
+
+def reflow(folder):
+    """Rewrite a diagram's source in the printed form (flow_yaml at the print width): its generated head and its keys kept as read, rows
+    and lanes unexpanded. Nothing is written when the declaration the new text loads differs from the one the old text loads."""
+    text, source = read_source(folder)
+    lines = text.split("\n")
+    body = next((i for i, line in enumerate(lines) if line.strip() and not line.startswith("#")), len(lines))
+    head = "\n".join(lines[:body])
+    new = (head + "\n" if body else "") + flow_yaml(yaml.safe_load(text) or {}, print_width())
+    where = str(source)
+    if normalise(yaml.safe_load(new) or {}, where=where) != normalise(yaml.safe_load(text) or {}, where=where):
+        raise DeclarationError(f"{source}: the reflowed text loads a different declaration, so nothing was written")
+    return write_source(folder, new)
 
 
 def with_data(folder, declaration):
@@ -1804,6 +1825,9 @@ def main():
         folder = diagram_of(args[1])
         save(folder, load(folder))
         print(f"tidy {read_source(folder)[1]}")
+        return
+    if len(args) == 2 and args[0] == "reflow":  # the source rewritten in the printed form, its head and rows kept, its load() unchanged
+        print(f"reflow {reflow(diagram_of(args[1]))}")
         return
     if len(args) == 2 and args[0] == "minimaps":  # the diagram's computed minimap cells written into its source
         print(f"minimaps {declare_minimaps(diagram_of(args[1]))}")

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "735137cb7dbe"
+#     with_body_sha: "9a8cf4209a34"
 # ---
 
 # cspell:ignore minimaps widgetese getpixel miny
@@ -238,7 +238,7 @@ def test_declare_minimaps_keeps_the_head_and_every_other_line_as_written(tmp_pat
     declaration.declare_minimaps(tmp_path)
     again = declaration.source_of(tmp_path).read_text(encoding="utf-8")
     assert again.startswith(head)
-    block = "    grid:\n      - cell: widgets/widget-script\n        by:\n          - widgets/Get-Widget.ps1\n          - ADR-WIDGET-SPIN\n"
+    block = "    grid:\n      - cell: widgets/widget-script\n        by: [widgets/Get-Widget.ps1, ADR-WIDGET-SPIN]\n"
     assert again == text.replace("    grid: []\n", block, 1)
 
 
@@ -782,7 +782,7 @@ def test_a_skipped_step_draws_a_bypass_under_the_dot_it_skips_and_the_row_keeps_
     declaration.put_png(tmp_path, declaration.load(tmp_path))
     declaration.save(tmp_path, declaration.get(declaration.model_of(tmp_path), kind="explanation"))
     again = declaration.source_of(tmp_path).read_text(encoding="utf-8")
-    assert "skip:\n    - BVT" in again and "row-full-0:" not in again.split("layout:")[0]
+    assert "skip: [BVT]" in again and "row-full-0:" not in again.split("layout:")[0]
 
 
 def test_a_skip_of_a_row_last_step_fails_with_the_steps_it_can_skip():
@@ -995,3 +995,68 @@ def test_a_rule_and_a_lane_commit_outside_their_vocabularies_fail_with_the_allow
     raw["content"]["lanes"][0]["commits"][0]["row"] = 2
     with pytest.raises(declaration.DeclarationError, match="row '2' is not one of: -1, 0, 1"):
         declaration.normalise(raw)
+
+
+def test_a_leaf_mapping_that_fits_is_one_flow_line_and_one_over_the_width_stays_block():
+    data = {"glyphs": [{"id": "widget", "kind": "set", "label": "1 widget"}, {"id": "gadget", "label": "g" * 60}]}
+    text = declaration.flow_yaml(data, 60)
+    assert "  - { id: widget, kind: set, label: 1 widget }\n" in text
+    assert "  - id: gadget\n    label: " in text
+    assert __import__("yaml").safe_load(text) == data
+
+
+def test_a_nested_mapping_stays_block_and_its_leaves_flow():
+    data = {"widget": {"gadget": {"a": 1, "b": "two"}, "sprockets": ["cog", "gear"]}}
+    text = declaration.flow_yaml(data, 140)
+    assert text == "widget:\n  gadget: { a: 1, b: two }\n  sprockets: [cog, gear]\n"
+    assert __import__("yaml").safe_load(text) == data
+
+
+def test_an_empty_string_and_a_scalar_that_needs_quotes_round_trip_in_flow():
+    data = {"widgets": [{"id": "widget", "label": ""}, {"id": "gadget", "label": "EXAMPLES: widget, gadget"}], "flag": ["yes", "1"]}
+    text = declaration.flow_yaml(data, 140)
+    assert "- { id: widget, label: '' }" in text
+    assert "label: 'EXAMPLES: widget, gadget' }" in text
+    assert __import__("yaml").safe_load(text) == data
+
+
+def test_the_by_list_is_one_flow_line_when_it_fits_and_a_block_list_when_not():
+    placed = {"grid": [{"cell": "widgets/widget", "by": ["widgets/Get-Widget.ps1", "ADR-WIDGET-SPIN"]}], "axis": []}
+    assert declaration.minimaps_block(placed, 140) == [
+        "  minimaps:", "    grid:", "      - cell: widgets/widget", "        by: [widgets/Get-Widget.ps1, ADR-WIDGET-SPIN]", "    axis: []",
+    ]
+    assert declaration.minimaps_block(placed, 40)[3:6] == ["        by:", "          - widgets/Get-Widget.ps1", "          - ADR-WIDGET-SPIN"]
+    for width in (140, 40):
+        text = "\n".join(declaration.minimaps_block(placed, width)) + "\n"
+        assert __import__("yaml").safe_load("content:\n" + text) == {"content": {"minimaps": placed}}
+
+
+def test_print_width_reads_the_markdown_max_line_length_and_fails_without_it(tmp_path):
+    config = tmp_path / ".editorconfig"
+    config.write_text("root = true\n\n[*]\nmax_line_length = 80\n\n[*.md]\nmax_line_length = 99\n", encoding="utf-8")
+    assert declaration.print_width(tmp_path) == 99
+    config.write_text("[*]\nmax_line_length = 80\n", encoding="utf-8")
+    with pytest.raises(declaration.DeclarationError, match=r"\[\*\.md\] has no max_line_length"):
+        declaration.print_width(tmp_path)
+    config.unlink()
+    with pytest.raises(declaration.DeclarationError, match="not found"):
+        declaration.print_width(tmp_path)
+
+
+def test_reflow_keeps_the_head_and_the_rows_and_refuses_a_text_that_loads_differently(tmp_path, monkeypatch):
+    head = '# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "0123456789ab"\n# ---\n\n'
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"].update(__import__("copy").deepcopy(ROWS))
+    text = head + __import__("yaml").safe_dump(raw, sort_keys=False)
+    declaration.source_of(tmp_path).write_text(text, encoding="utf-8")
+    declaration.reflow(tmp_path)
+    again = declaration.source_of(tmp_path).read_text(encoding="utf-8")
+    assert again.startswith(head)
+    assert __import__("yaml").safe_load(again) == raw  # the rows are kept as written, never expanded
+    assert "row-full-0" not in again
+    assert len(again.splitlines()) < len(text.splitlines())
+    printed = declaration.flow_yaml
+    monkeypatch.setattr(declaration, "flow_yaml", lambda data, width: printed(data, width).replace(raw["content"]["title"], "Gadgets"))
+    with pytest.raises(declaration.DeclarationError, match="loads a different declaration"):
+        declaration.reflow(tmp_path)
+    assert declaration.source_of(tmp_path).read_text(encoding="utf-8") == again
