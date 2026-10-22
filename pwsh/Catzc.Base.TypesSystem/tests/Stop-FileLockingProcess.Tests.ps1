@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "2c268558f194"
-  edges:
-    code: pwsh/Catzc.Base.TypesSystem/private/Stop-FileLockingProcess.ps1
----
-#>
-
 Describe 'Stop-FileLockingProcess' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:holder = {

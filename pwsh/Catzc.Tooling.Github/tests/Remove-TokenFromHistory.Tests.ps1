@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: ace0fcae912a
-  edges:
-    code: pwsh/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1
----
-#>
-
 Describe 'Remove-TokenFromHistory' -Tag 'L1', 'logic' {
     BeforeEach {
         Mock -ModuleName Catzc.Tooling.Github Assert-Command {}

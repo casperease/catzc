@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "14e91bb8f90d"
-  edges:
-    code: pwsh/Catzc.Base.Maps/types/PdfNumber.cs
----
-#>
-
 Describe 'PdfNumber' -Tag 'L0', 'logic' {
     It 'writes at most three decimals, without trailing zeros' {
         [Catzc.Base.Maps.PdfNumber]::Format(12) | Should -Be '12'

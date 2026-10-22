@@ -90,11 +90,8 @@ function Get-UncoveredInternalAssetDependency {
         $testsDirectory = Join-Path $ModulesRoot "$definingModule/tests"
         $pattern = '^' + [regex]::Escape($functionName) + '(\.[^.]+)?\.Tests\.ps1$'
         $testFiles = @(
-            if ([System.IO.Directory]::Exists($testsDirectory)) {
-                [System.IO.Directory]::EnumerateFiles($testsDirectory, '*.Tests.ps1') |
-                    Where-Object { [System.IO.Path]::GetFileName($_) -match $pattern } |
-                    Sort-Object
-            }
+            [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($testsDirectory, '*.Tests.ps1', 1).ToArray() |
+                Where-Object { [System.IO.Path]::GetFileName($_) -match $pattern }
         )
 
         $covered = $false

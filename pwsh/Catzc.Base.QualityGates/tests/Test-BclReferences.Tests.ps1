@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "24f19c5c6303"
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/Test-BclReferences.ps1
----
-#>
-
 Describe 'Test-BclReferences' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:out = Join-Path $TestDrive 'out'

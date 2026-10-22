@@ -24,7 +24,7 @@ function New-DocNote {
         $notes = Join-Path $Session 'notes'
         [void] [System.IO.Directory]::CreateDirectory($notes)
         $commit = ([System.IO.File]::ReadAllText((Join-Path $Session 'manifest.json')) | ConvertFrom-Json).commit
-        $id = '{0:D4}' -f (@([System.IO.Directory]::GetFiles($notes, '*.md')).Count + 1)
+        $id = '{0:D4}' -f ([Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($notes, '*.md', 1).Count + 1)
         $notePath = Join-Path $notes "$id.md"
         Assert-True (-not [System.IO.File]::Exists($notePath)) -ErrorText "New-DocNote: the note '$notePath' already exists; a note is written once."
 

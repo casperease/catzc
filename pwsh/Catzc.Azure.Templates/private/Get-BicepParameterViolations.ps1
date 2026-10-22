@@ -22,7 +22,7 @@ function Get-BicepParameterViolations {
     $outputFolder = (Get-BicepTemplate $Template).output_folder
 
     $violations = [System.Collections.Generic.List[string]]::new()
-    foreach ($parametersPath in @([System.IO.Directory]::EnumerateFiles($outputFolder, 'parameters.*.json') | Sort-Object)) {
+    foreach ($parametersPath in [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($outputFolder, 'parameters.*.json', 1).ToArray()) {
         $label = "$Template/$([System.IO.Path]::GetFileName($parametersPath))"
 
         $document = $null

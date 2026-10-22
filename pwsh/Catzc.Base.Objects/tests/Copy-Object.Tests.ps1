@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "0217fad0ffb1"
-  edges:
-    code: pwsh/Catzc.Base.Objects/Copy-Object.ps1
----
-#>
-
 Describe 'Copy-Object' -Tag 'L0', 'logic' {
 
     Context 'null and scalar values' {

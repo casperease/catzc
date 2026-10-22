@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "85daef5cc6e0"
-  edges:
-    code: pwsh/Catzc.Base.Repository/Assert-SourceTree.ps1
----
-#>
-
 Describe 'Assert-SourceTree' -Tag 'L0', 'logic' {
     It 'is silent in source mode' {
         Mock Get-CatzcRunMode { 'source' } -ModuleName Catzc.Base.Repository

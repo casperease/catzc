@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "8d5e09330312"
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/Get-TestRunLocationSummary.ps1
----
-#>
-
 Describe 'Get-TestRunLocationSummary' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:summarize = {

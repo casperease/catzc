@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: d457652a68fe
-  edges:
-    code: pwsh/Catzc.Base.Objects/ConvertTo-YamlSafe.ps1
----
-#>
-
 Describe 'ConvertTo-YamlSafe' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:module = Get-Module Catzc.Base.Objects

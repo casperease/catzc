@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "0205243c2c87"
-  edges:
-    code: pwsh/Catzc.Base.Maps/Get-MinimapFact.ps1
----
-#>
-
 Describe 'Get-MinimapFact' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Get-Track -ModuleName Catzc.Base.Maps {

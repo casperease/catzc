@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: af4b73211805
-  edges:
-    code: pwsh/Catzc.Tooling.KeyHandler/Save-PSReadLineKeyHandlerSet.ps1
----
-#>
-
 Describe 'Save-PsReadLineKeyHandlerSet' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-PsModule { } -ModuleName Catzc.Tooling.KeyHandler

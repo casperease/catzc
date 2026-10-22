@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: a1a2a3674eef
-  edges:
-    code: pwsh/Catzc.Tooling.Provisioning/private/Test-IsWslSession.ps1
----
-#>
-
 Describe 'Test-IsWslSession' -Tag 'L0', 'logic' {
     It 'is false outside Linux' {
         if ($IsLinux) {

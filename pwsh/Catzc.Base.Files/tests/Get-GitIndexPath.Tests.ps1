@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "09942b4a5e3e"
-  edges:
-    code: pwsh/Catzc.Base.Files/private/Get-GitIndexPath.ps1
----
-#>
-
 Describe 'Get-GitIndexPath' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

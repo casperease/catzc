@@ -97,21 +97,20 @@ public sealed class FileMetaConfig
 
     public HeadPolicy PolicyFor(string fileClass) => head_policy.For(fileClass);
 
-    public static string[] EngineInputs(string qualityGatesBase, string languagesBase)
+    public static string[] EngineInputs(string modulesRoot)
     {
-        var set = new Catzc.Base.Folders.PathSet()
-            .AddFile(qualityGatesBase, "configs/file-meta.yml")
-            .AddFile(languagesBase, "configs/file-carriers.yml")
-            .AddFile(qualityGatesBase, "Format-FileMeta.ps1")
-            .AddFile(qualityGatesBase, "Get-FileMetaFact.ps1")
-            .AddFile(qualityGatesBase, "private/Invoke-FileMetaEngine.ps1")
-            .AddPattern(qualityGatesBase, "Get-*FileMetaFact.ps1")
-            .AddPattern(System.IO.Path.Combine(qualityGatesBase, "private"), "Get-*FileMetaFact.ps1");
-        foreach (string type in new[] { "FileMetaConfig.cs", "FileMetaKind.cs", "FileHeadPolicy.cs", "HeadPolicy.cs" })
-        {
-            set.AddFile(qualityGatesBase, "types/" + type);
-        }
-        return set.ToArray();
+        if (string.IsNullOrEmpty(modulesRoot)) { throw new ArgumentException("modulesRoot must not be empty", "modulesRoot"); }
+        string qualityGates = System.IO.Path.Combine(modulesRoot, "Catzc.Base.QualityGates");
+        string types = System.IO.Path.Combine(qualityGates, "types");
+        return new Catzc.Base.Folders.PathSet()
+            .AddFile(qualityGates, "configs/file-meta.yml")
+            .AddFile(System.IO.Path.Combine(modulesRoot, "Catzc.Base.Languages"), "configs/file-carriers.yml")
+            .AddFile(qualityGates, "Format-FileMeta.ps1")
+            .AddFile(qualityGates, "private/Invoke-FileMetaEngine.ps1")
+            .AddPattern(qualityGates, "Get-*FileMetaFact.ps1")
+            .AddPattern(types, "FileMeta*.cs", 1)
+            .AddPattern(types, "*HeadPolicy.cs", 1)
+            .ToArray();
     }
 
     public bool Selects(FileMetaKind kind, string fileClass, string language) => kind != null && kind.Selects(fileClass, language);

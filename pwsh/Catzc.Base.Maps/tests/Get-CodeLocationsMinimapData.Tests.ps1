@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: a50b5ee18484
-  edges:
-    code: pwsh/Catzc.Base.Maps/Get-CodeLocationsMinimapData.ps1
----
-#>
-
 Describe 'Get-CodeLocationsMinimapData' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/catzc.base.maps/minimap.schema.json'))

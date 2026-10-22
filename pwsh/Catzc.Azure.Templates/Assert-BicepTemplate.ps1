@@ -32,7 +32,7 @@ function Assert-BicepTemplate {
         $folders = @($targetFolder)
     }
     else {
-        $folders = @([System.IO.Directory]::EnumerateDirectories($root) | Sort-Object)
+        $folders = @(Get-ChildPath $root -Depth 1 -Directory)
     }
 
     $errors = [System.Collections.Generic.List[string]]::new()
@@ -116,10 +116,10 @@ function Assert-BicepTemplate {
         $hasPrePost = Test-Path (Join-Path $templateFolderPath 'PrePost.psm1') -PathType Leaf
         $configEntries = [System.Collections.Generic.List[object]]::new()
         $configFolders = @([pscustomobject]@{ path = $configFolder; customer = '' }) + @(
-            [System.IO.Directory]::EnumerateDirectories($configFolder) | Sort-Object |
+            Get-ChildPath $configFolder -Depth 1 -Directory |
                 ForEach-Object { [pscustomobject]@{ path = $_; customer = [System.IO.Path]::GetFileName($_) } })
         foreach ($folder in $configFolders) {
-            $files = @(@([System.IO.Directory]::EnumerateFiles($folder.path, '*.yml')) + @([System.IO.Directory]::EnumerateFiles($folder.path, '*.bicepparam')) | Sort-Object)
+            $files = @([Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($folder.path, '*.yml', 1).AddPattern($folder.path, '*.bicepparam', 1).ToArray())
             $relativeFolder = if ($folder.customer) {
                 "configuration/$($folder.customer)"
             }

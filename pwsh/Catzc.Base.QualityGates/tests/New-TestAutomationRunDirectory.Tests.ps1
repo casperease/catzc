@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: e7db7ec01036
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/New-TestAutomationRunDirectory.ps1
----
-#>
-
 Describe 'New-TestAutomationRunDirectory' -Tag 'L0', 'logic' {
     It 'creates a timestamped run directory under the base' {
         $base = Join-Path $TestDrive 'reports'

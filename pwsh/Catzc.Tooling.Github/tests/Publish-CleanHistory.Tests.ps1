@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: cde5a047bbca
-  edges:
-    code: pwsh/Catzc.Tooling.Github/Publish-CleanHistory.ps1
----
-#>
-
 Describe 'Publish-CleanHistory' -Tag 'L1', 'logic' {
     BeforeAll {
         # A local checkout written by hand: main at a made-up commit, read in-process by the remote check.

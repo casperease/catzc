@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: ec1d345e9fb5
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/types/GeneratedFilesConfig.cs
----
-#>
-
 Describe 'Catzc.Base.QualityGates.GeneratedFilesConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function Get-ViolationMessage {

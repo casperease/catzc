@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "00bea243c780"
-  edges:
-    code: pwsh/Catzc.Base.Execution/Invoke-WithProgress.ps1
----
-#>
-
 Describe 'Invoke-WithProgress' -Tag 'L0', 'logic' {
     It 'returns the scriptblock''s value untouched by the dots' {
         $result = Invoke-WithProgress { Start-Sleep -Milliseconds 150; 'widget' } -Message 'Working' -IntervalMs 20

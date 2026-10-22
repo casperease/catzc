@@ -54,11 +54,14 @@ the tree, they churn on every body edit, and agents read them on every file they
 
 ## Open steps
 
+- [ ] `pwsh/Catzc.Base.Docs/configs/readme.yml` maps `python/*` to the package's article under its own name
+      (`docs/references/python/catzc_diagrams.md`), as `comment-pages.yml` now does for comment pages (catzc-e9, 2026-10-22; decided as
+      delegated). (check: `Build-Readme` and `Test-GeneratedFiles` at 0)
 - [ ] The tree re-imprinted in the order of `out/frontmatter-reimprint-order.md` (157 units, 4,643 files: 378 heads dropped, about 1,110
       Markdown heads gained, 2,273 hashes and 1,666 test/code edges removed, 3,244 warnings added), docs units by catzc-e9 and code units by
-      catzc-e3, `.claude/hooks` and `pwsh/.internal` last as bursts; a Prettier re-wrap with identical words is reported, not a stop
-      (decided as delegated); a page whose codes all sit in its diagram blocks keeps a `drs_total`-only head (the user). (check: per unit,
-      `Test-FileMeta` at 0 and `git diff` showing head lines only)
+      catzc-e3 and catzc-54, `pwsh/Catzc.Base.RootConfig`, `.claude/hooks` and `pwsh/.internal` last, one burst each (import-path); a
+      Prettier re-wrap with identical words is reported, not a stop (decided as delegated); a page whose codes all sit in its diagram blocks
+      keeps a `drs_total`-only head (the user). (check: per unit, `Test-FileMeta` at 0 and `git diff` showing head lines only)
 
 ## Refs
 

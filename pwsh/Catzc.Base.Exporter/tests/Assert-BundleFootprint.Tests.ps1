@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: effcc8343f57
-  edges:
-    code: pwsh/Catzc.Base.Exporter/private/Assert-BundleFootprint.ps1
----
-#>
-
 Describe 'Assert-BundleFootprint' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:run = {

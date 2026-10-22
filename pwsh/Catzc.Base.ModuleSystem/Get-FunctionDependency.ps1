@@ -37,7 +37,7 @@ function Get-FunctionDependency {
     $parsed = [System.Collections.Generic.List[object]]::new()
     $definitions = @{}
 
-    foreach ($moduleDir in ([System.IO.Directory]::EnumerateDirectories($ModulesRoot) | Sort-Object)) {
+    foreach ($moduleDir in (Get-ChildPath $ModulesRoot -Depth 1 -Directory)) {
         $module = [System.IO.Path]::GetFileName($moduleDir)
         if ($module -match '^\.') {
             continue

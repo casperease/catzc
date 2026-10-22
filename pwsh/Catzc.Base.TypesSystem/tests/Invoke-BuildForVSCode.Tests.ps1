@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "5aca149f62c2"
-  edges:
-    code: pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
----
-#>
-
 Describe 'Invoke-BuildForVsCode' -Tag 'L0', 'logic' {
     BeforeEach {
         # The guard is the boundary to the run mode; these cases exercise the build itself.

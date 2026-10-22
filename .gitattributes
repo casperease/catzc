@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: af0fb1003037
+#     with_body_sha: f0b64415167d
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -126,10 +126,10 @@ contracts/*/*/** catzc-contract text eol=lf
 # content tools (links, Markdown titles, source conventions) leave them as they landed (DDR-TRACK-UNORDEREDTRACK).
 .unordered/** catzc-unordered
 
-# catzc: these files are read verbatim by another tool, so they carry no meta block: the session instructions are
-# injected as written into every Claude session, the repository landing page is what GitHub renders first, and the
-# session settings are parsed by Claude Code (docs/drs/repository/file-meta.md, ADR-REPO-FILEMETA-KINDSCOPE).
-/.claude/CLAUDE.md -catzc-meta
+# catzc: these files are read verbatim by another tool, so they carry no meta block: every CLAUDE.md is session
+# instructions injected as written into a Claude session, the repository landing page is what GitHub renders first, and
+# the session settings are parsed by Claude Code (docs/drs/repository/file-meta.md, ADR-REPO-FILEMETA-KINDSCOPE).
+**/CLAUDE.md -catzc-meta
 /.claude/settings.json -catzc-meta
 /.github/README.md -catzc-meta
 

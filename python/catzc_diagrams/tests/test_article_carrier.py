@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: d96b00b60675
-# ---
-
 """The article carrier: a diagram declared in a `yml drawio` block directly above the image in its article, the way a mermaid block is.
 
 usage (repo root, background): timeout 120 uv run -q --project python/catzc_diagrams python -m pytest python/catzc_diagrams/tests

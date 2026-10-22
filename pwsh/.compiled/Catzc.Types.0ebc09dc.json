@@ -1,5 +1,5 @@
 {
-  "hash": "2628c7ae",
+  "hash": "0ebc09dc",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -319,6 +319,11 @@
     },
     {
       "name": "Catzc.Base.Contracts.ContractFragment",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Contracts.ContractLayout",
       "aliases": [],
       "display": []
     },

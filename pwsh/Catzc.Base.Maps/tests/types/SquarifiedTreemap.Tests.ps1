@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "0e678754d948"
-  edges:
-    code: pwsh/Catzc.Base.Maps/types/SquarifiedTreemap.cs
----
-#>
-
 Describe 'SquarifiedTreemap' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:keys = @('widget-a', 'widget-b', 'gadget-c', 'gadget-d', 'widget-e', 'gadget-f', 'widget-g', 'gadget-h', 'widget-i')

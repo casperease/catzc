@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "15dabf48e5ed"
-  edges:
-    code: pwsh/Catzc.Base.Maps/types/CitationScanner.cs
----
-#>
-
 Describe 'CitationScanner' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:index = [Catzc.Base.Maps.CitationScanner]::Index([ordered]@{

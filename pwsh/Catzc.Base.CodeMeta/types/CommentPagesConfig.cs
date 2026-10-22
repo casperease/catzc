@@ -1,13 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    with_body_sha: f0c925612378
-  edges:
-    test: pwsh/Catzc.Base.CodeMeta/tests/types/CommentPagesConfig.Tests.ps1
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

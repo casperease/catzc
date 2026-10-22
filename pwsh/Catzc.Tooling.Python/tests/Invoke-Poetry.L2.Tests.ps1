@@ -1,11 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "7a79675cecc8"
----
-#>
-
 Describe 'Invoke-Poetry' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:available = Test-Tool 'poetry'

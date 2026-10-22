@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "66c43a3b84f2"
-  edges:
-    code: pwsh/Catzc.Base.Files/Test-FileIsLocked.ps1
----
-#>
-
 Describe 'Test-FileIsLocked / Test-FileIsNotLocked' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:f = Join-Path $TestDrive ([guid]::NewGuid().ToString('N') + '.bin')

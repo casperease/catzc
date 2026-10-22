@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: d06547841582
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/Set-CSharpFileScopedNamespace.ps1
----
-#>
-
 # cspell:ignore nnamespace npublic nusing
 # Set-CSharpFileScopedNamespace is private (non-exported), so it is invoked via InModuleScope.
 Describe 'Set-CSharpFileScopedNamespace' -Tag 'L0', 'logic' {

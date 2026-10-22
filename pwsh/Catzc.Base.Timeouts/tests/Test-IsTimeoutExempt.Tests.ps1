@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "6163ad893cbd"
-  edges:
-    code: pwsh/Catzc.Base.Timeouts/Test-IsTimeoutExempt.ps1
----
-#>
-
 Describe 'Test-IsTimeoutExempt' -Tag 'L0', 'logic' {
     BeforeAll {
         # Fixture GUIDs are built at runtime (not literals), so they need no managed-GUID registry entry.

@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    with_body_sha: "7f6a3f614492"
----
-*/
-
 // Shades the lines a file changes against HEAD inside the editor, which the editor's own quick diff only marks in the gutter.
 // Both diffs number their added lines in the working tree: HEAD..worktree gives every changed line, index..worktree the unstaged
 // ones, so a line in the first and not the second is staged. A pure deletion has no line to shade; an untracked file has no diff.

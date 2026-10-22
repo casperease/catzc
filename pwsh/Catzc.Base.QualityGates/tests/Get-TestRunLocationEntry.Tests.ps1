@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: cd9fd240fc87
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/Get-TestRunLocationEntry.ps1
----
-#>
-
 Describe 'Get-TestRunLocationEntry' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:inPlace = [pscustomobject]@{ Mode = 'in-place'; SourceRoot = 'C:\widget'; Root = 'C:\widget' }

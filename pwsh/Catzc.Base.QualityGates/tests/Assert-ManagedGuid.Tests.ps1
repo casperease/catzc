@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "6ca7351a5847"
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/Assert-ManagedGuid.ps1
----
-#>
-
 Describe 'Assert-ManagedGuid' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config {

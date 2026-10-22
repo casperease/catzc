@@ -1,13 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    with_body_sha: "71ffe9655502"
-  edges:
-    test: pwsh/Catzc.Base.Maps/tests/types/MinimapData.Tests.ps1
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.IO;

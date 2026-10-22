@@ -31,19 +31,21 @@ function Test-FolderConventions {
     $functionOwners = @{}
 
     $repositoryRoot = Get-RepositoryRoot
+    $walk = Get-Config -Config folder-walk
     foreach ($resolved in Get-CatzcModule -EngineTrack -RepositoryRoot $repositoryRoot) {
         $module = $resolved.name
         $moduleDirectory = Join-Path $repositoryRoot $resolved.root
         $moduleCount++
 
-        foreach ($subdirectory in ([System.IO.Directory]::EnumerateDirectories($moduleDirectory) | Sort-Object)) {
+        # The convention check sees every folder, a pruned name included: a stray cache folder in a module is a finding.
+        foreach ($subdirectory in (Get-ChildPath $moduleDirectory -Depth 1 -Directory -Exclude @() -PruneVendor $false)) {
             $name = [System.IO.Path]::GetFileName($subdirectory)
             if ($name -notin $allowedModuleSubdirs) {
                 $issues.Add("$module/${name}: not a conventional module folder ($allowedText)")
             }
         }
 
-        foreach ($path in ([System.IO.Directory]::EnumerateFiles($moduleDirectory, '*.ps1') | Sort-Object)) {
+        foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($moduleDirectory, '*.ps1', 1).ToArray()) {
             $name = [System.IO.Path]::GetFileName($path)
             if ($name -like '*.Tests.ps1') {
                 $issues.Add("$module/${name}: a test file at the module root — tests belong in tests/")
@@ -57,15 +59,13 @@ function Test-FolderConventions {
         }
 
         $privateDirectory = Join-Path $moduleDirectory 'private'
-        if ([System.IO.Directory]::Exists($privateDirectory)) {
-            foreach ($path in ([System.IO.Directory]::EnumerateFiles($privateDirectory, '*.Tests.ps1') | Sort-Object)) {
-                $issues.Add("$module/private/$([System.IO.Path]::GetFileName($path)): a test file in private/ — tests belong in tests/")
-            }
+        foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($privateDirectory, '*.Tests.ps1', 1).ToArray()) {
+            $issues.Add("$module/private/$([System.IO.Path]::GetFileName($path)): a test file in private/ — tests belong in tests/")
         }
 
         $configsDirectory = Join-Path $moduleDirectory 'configs'
         if ([System.IO.Directory]::Exists($configsDirectory)) {
-            foreach ($entry in ([System.IO.Directory]::EnumerateFileSystemEntries($configsDirectory) | Sort-Object)) {
+            foreach ($entry in (Get-ChildPath $configsDirectory -Depth 1)) {
                 $name = [System.IO.Path]::GetFileName($entry)
                 if ($name -match '^\.') {
                     continue

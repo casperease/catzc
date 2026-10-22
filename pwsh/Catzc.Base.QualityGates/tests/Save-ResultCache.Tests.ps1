@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "3dd8e3def9b1"
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/Save-ResultCache.ps1
----
-#>
-
 # L1: real files in TestDrive — the cache file another process saved, and one held open by another process.
 Describe 'Save-ResultCache' -Tag 'L1', 'logic' {
     BeforeEach {

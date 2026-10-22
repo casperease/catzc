@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: bb187cb2a58b
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/types/IdentityTokensConfig.cs
----
-#>
-
 Describe 'IdentityTokensConfig' -Tag 'L0', 'logic' {
     It 'maps each rule, defaulting take to value and match to exact' {
         $config = [Catzc.Base.QualityGates.IdentityTokensConfig]::new([ordered]@{

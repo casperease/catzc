@@ -45,26 +45,24 @@ function Get-InternalAssetDependency {
     }
 
     $moduleNames = [string[]] @(
-        [System.IO.Directory]::EnumerateDirectories($ModulesRoot) |
+        Get-ChildPath $ModulesRoot -Depth 1 -Directory |
             ForEach-Object { [System.IO.Path]::GetFileName($_) } |
             Where-Object { -not $_.StartsWith('.') -and (-not $Module -or $_ -in $Module) }
     )
-    [System.Array]::Sort($moduleNames, [System.StringComparer]::Ordinal)
 
     $records = [System.Collections.Generic.List[object]]::new()
     $violations = [System.Collections.Generic.List[object]]::new()
 
+    $walk = Get-Config -Config folder-walk
     foreach ($moduleName in $moduleNames) {
         $moduleDirectory = Join-Path $ModulesRoot $moduleName
         $files = [System.Collections.Generic.List[object]]::new()
-        foreach ($path in [System.IO.Directory]::EnumerateFiles($moduleDirectory, '*.ps1')) {
+        foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($moduleDirectory, '*.ps1', 1).ToArray()) {
             $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$moduleName/$([System.IO.Path]::GetFileName($path))" })
         }
         $privateDirectory = Join-Path $moduleDirectory 'private'
-        if ([System.IO.Directory]::Exists($privateDirectory)) {
-            foreach ($path in [System.IO.Directory]::EnumerateFiles($privateDirectory, '*.ps1')) {
-                $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$moduleName/private/$([System.IO.Path]::GetFileName($path))" })
-            }
+        foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($privateDirectory, '*.ps1', 1).ToArray()) {
+            $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$moduleName/private/$([System.IO.Path]::GetFileName($path))" })
         }
 
         foreach ($file in ($files | Sort-Object Relative)) {

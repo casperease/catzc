@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: b6ccab918159
-# ---
-
 """The subtitle a slide says it supports (`<codes> · <lens>`) and the article's Supports line held against it.
 
 usage (repo root, background): timeout 120 uv run -q --with pillow==12.3.0 --with pytest==9.1.1 python -m pytest python/catzc_diagrams/tests

@@ -1,13 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    with_body_sha: a40f23b8dae3
-  edges:
-    test: pwsh/Catzc.Base.QualityGates/tests/types/GeneratedFilesConfig.Tests.ps1
----
-*/
-
 // The registry of writers Test-GeneratedFiles checks; the generators of the managed root files come from the root-config registry, not from here.
 
 using System;

@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: b326d6acc321
-  edges:
-    code: pwsh/Catzc.Base.Timeouts/types/TimeoutExemptionsConfig.cs
----
-#>
-
 Describe 'TimeoutExemptionsConfig' -Tag 'L0' {
 
     Context 'integrity (shipped timeout-exemptions.yml)' -Tag 'integrity' {

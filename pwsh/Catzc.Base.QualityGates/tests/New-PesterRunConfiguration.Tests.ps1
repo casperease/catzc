@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: f2f356b682cf
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/New-PesterRunConfiguration.ps1
----
-#>
-
 Describe 'New-PesterRunConfiguration' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-LanguageTestFolders -ModuleName Catzc.Base.QualityGates {}

@@ -54,7 +54,7 @@ function Get-Contract {
         return
     }
 
-    $unitFolders = [Catzc.Base.Folders.FolderWalker]::Walk($contractsRoot, 1, [string[]] '*', $false, $true, $null)
+    $unitFolders = [Catzc.Base.Contracts.ContractLayout]::new((Get-Config -Config folder-walk)).Folders($contractsRoot)
     foreach ($unitFolder in $unitFolders) {
         $unitName = [System.IO.Path]::GetFileName($unitFolder)
         if (@($Unit | Where-Object { $unitName -like $_ }).Count -eq 0) {

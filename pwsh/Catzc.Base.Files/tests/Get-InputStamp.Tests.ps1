@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: d3928c8d4d8b
-  edges:
-    code: pwsh/Catzc.Base.Files/Get-InputStamp.ps1
----
-#>
-
 Describe 'Get-InputStamp' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:widget = Join-Path $TestDrive 'widget.txt'

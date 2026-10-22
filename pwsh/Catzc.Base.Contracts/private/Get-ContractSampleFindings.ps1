@@ -24,7 +24,7 @@ function Get-ContractSampleFindings {
     $file = Join-Path $RepositoryRoot $Asset.AssetPath
     $stem = [System.IO.Path]::GetFileName($file) -creplace '\.sample\.[^.]+$', ''
     $schemaName = "$stem.schema.json"
-    $siblings = @([Catzc.Base.Folders.PathSet]::new().AddPattern([System.IO.Path]::GetDirectoryName($file), '*').ToArray() | ForEach-Object { [System.IO.Path]::GetFileName($_) })
+    $siblings = @([Catzc.Base.Contracts.ContractLayout]::new((Get-Config -Config folder-walk)).FileNames([System.IO.Path]::GetDirectoryName($file)))
     if (@($siblings | Where-Object { $_ -ceq $schemaName }).Count -gt 0) {
         $folder = $Asset.AssetPath.Substring(0, $Asset.AssetPath.LastIndexOf('/') + 1)
         return Get-ContractSchemaFindings -RepositoryRoot $RepositoryRoot -SchemaPath "$folder$schemaName" -InstancePath $Asset.AssetPath

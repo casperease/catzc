@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "266289778dfb"
-  edges:
-    code: pwsh/Catzc.Base.Maps/private/Resolve-MapLabelTerm.ps1
----
-#>
-
 Describe 'Resolve-MapLabelTerm' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:terms = @('widget', 'gadget box', 'sprocket')

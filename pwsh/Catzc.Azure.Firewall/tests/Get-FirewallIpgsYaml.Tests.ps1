@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: df9662eba63a
-  edges:
-    code: pwsh/Catzc.Azure.Firewall/Get-FirewallIpgsYaml.ps1
----
-#>
-
 Describe 'Get-FirewallIpgsYaml' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:assets = Join-Path (Get-CatzcModulesRoot) 'Catzc.Azure.Firewall/tests/assets'

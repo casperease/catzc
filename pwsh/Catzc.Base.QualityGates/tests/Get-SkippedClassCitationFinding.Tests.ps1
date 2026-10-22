@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "57788c5fd31e"
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/Get-SkippedClassCitationFinding.ps1
----
-#>
-
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The fixture languages config keeps the source parameter of the ForPath method it stands in for, and answers bash for every path')]
 param()
 

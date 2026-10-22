@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "1938b425ebc0"
-  edges:
-    code: pwsh/Catzc.Base.VSCode/types/VscodeLaunchConfig.cs
----
-#>
-
 Describe 'Catzc.Base.VSCode.VscodeLaunchConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:valid = {

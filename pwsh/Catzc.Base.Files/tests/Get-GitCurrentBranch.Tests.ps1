@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "33c7b893c06e"
-  edges:
-    code: pwsh/Catzc.Base.Files/Get-GitCurrentBranch.ps1
----
-#>
-
 Describe 'Get-GitCurrentBranch' -Tag 'L0', 'logic' {
     BeforeEach {
         # A checkout written by hand. No git process starts.

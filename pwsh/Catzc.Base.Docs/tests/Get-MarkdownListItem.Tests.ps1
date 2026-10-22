@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "038bffcfc727"
-  edges:
-    code: pwsh/Catzc.Base.Docs/Get-MarkdownListItem.ps1
----
-#>
-
 Describe 'Get-MarkdownListItem' -Tag 'L0', 'logic' {
     It 'yields each item with its continuation lines joined, and the line it starts on' {
         $items = @(Get-MarkdownListItem @(

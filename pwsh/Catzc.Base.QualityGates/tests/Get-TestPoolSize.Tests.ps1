@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "0bddb6015444"
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/Get-TestPoolSize.ps1
----
-#>
-
 Describe 'Get-TestPoolSize' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:size = {

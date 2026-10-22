@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: cd2d75aff3e1
-  edges:
-    code: pwsh/Catzc.Base.Timeouts/Invoke-WithTimeout.ps1
----
-#>
-
 Describe 'Invoke-WithTimeout' -Tag 'L0', 'logic' {
     It "returns the block's output and sees the caller's variables" {
         $widget = 'widget'

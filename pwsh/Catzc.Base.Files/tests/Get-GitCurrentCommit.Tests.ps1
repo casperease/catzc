@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "6a0624d67247"
-  edges:
-    code: pwsh/Catzc.Base.Files/Get-GitCurrentCommit.ps1
----
-#>
-
 Describe 'Get-GitCurrentCommit' -Tag 'L0', 'logic' {
     BeforeEach {
         # A checkout written by hand: HEAD on main, main at a made-up commit. No git process starts.

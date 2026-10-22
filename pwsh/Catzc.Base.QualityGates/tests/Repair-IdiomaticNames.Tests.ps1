@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "131cc893dc7d"
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/Repair-IdiomaticNames.ps1
----
-#>
-
 Describe 'Repair-IdiomaticNames' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

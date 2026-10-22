@@ -33,12 +33,13 @@ function Get-ContractUnitAsset {
         [string] $RepositoryRoot
     )
 
-    $stray = @([Catzc.Base.Folders.PathSet]::new().AddPattern($Folder, '*').ToArray() | ForEach-Object { [System.IO.Path]::GetFileName($_) })
+    $layout = [Catzc.Base.Contracts.ContractLayout]::new((Get-Config -Config folder-walk))
+    $stray = @($layout.FileNames($Folder))
     if ($stray.Count -gt 0) {
         throw "contracts/${Unit}: '$($stray -join "', '")' sits outside a version folder; a unit folder holds only contracts/<unit>/<version>/ (ADR-REPO-CONTRACT-LAYOUT)."
     }
 
-    $versionFolders = [Catzc.Base.Folders.FolderWalker]::Walk($Folder, 1, [string[]] '*', $false, $true, $null)
+    $versionFolders = $layout.Folders($Folder)
     $misnamed = @($versionFolders | ForEach-Object { [System.IO.Path]::GetFileName($_) } | Where-Object { $_ -notmatch '^[0-9]+\.[0-9]+\.[0-9]+$' })
     if ($misnamed.Count -gt 0) {
         throw "contracts/${Unit}: '$($misnamed -join "', '")' is not a version folder; a version folder is named <major>.<minor>.<patch> (ADR-REPO-CONTRACT-LAYOUT)."

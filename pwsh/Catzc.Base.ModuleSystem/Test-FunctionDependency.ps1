@@ -30,7 +30,7 @@ function Test-FunctionDependency {
     $definitions = @{}
     $issues = [System.Collections.Generic.List[string]]::new()
 
-    foreach ($moduleDir in ([System.IO.Directory]::EnumerateDirectories($ModulesRoot) | Sort-Object)) {
+    foreach ($moduleDir in (Get-ChildPath $ModulesRoot -Depth 1 -Directory)) {
         $module = [System.IO.Path]::GetFileName($moduleDir)
         if ($module -match '^\.') {
             continue

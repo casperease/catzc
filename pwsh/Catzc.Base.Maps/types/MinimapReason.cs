@@ -1,11 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    with_body_sha: "4a4ad2446922"
----
-*/
-
 namespace Catzc.Base.Maps;
 
 [Catzc.Base.Objects.ConsoleDisplay(nameof(Subject), nameof(Basis), nameof(Requested))]

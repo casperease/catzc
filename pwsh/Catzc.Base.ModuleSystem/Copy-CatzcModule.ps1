@@ -102,7 +102,7 @@ function Copy-CatzcModule {
     # ---- conflict pre-scan (fast / faster / fastest) --------------------------------------------------
     if (-not $Force) {
         if ($EmptyDestination) {
-            if ([System.IO.Directory]::Exists($destinationRoot) -and [System.IO.Directory]::EnumerateFileSystemEntries($destinationRoot).GetEnumerator().MoveNext()) {
+            if ([System.IO.Directory]::Exists($destinationRoot) -and @(Get-ChildPath $destinationRoot -Depth 1 -Exclude @() -PruneVendor $false).Count -gt 0) {
                 throw "Copy-CatzcModule: -EmptyDestination requires an empty target, but '$destinationRoot' is not empty."
             }
         }

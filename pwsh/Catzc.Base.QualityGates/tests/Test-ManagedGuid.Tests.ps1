@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "0f8291675439"
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/Test-ManagedGuid.ps1
----
-#>
-
 Describe 'Test-ManagedGuid' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config {

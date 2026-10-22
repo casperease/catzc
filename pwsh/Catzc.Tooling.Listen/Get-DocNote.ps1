@@ -37,8 +37,7 @@ function Get-DocNote {
         }
     }
 
-    $files = [string[]] @([System.IO.Directory]::GetFiles($notes, '*.md'))
-    [Array]::Sort($files, [System.StringComparer]::Ordinal)
+    $files = [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($notes, '*.md', 1).ToArray()
     foreach ($file in $files) {
         $head = @{}
         $lines = [System.IO.File]::ReadAllLines($file)

@@ -1,13 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    with_body_sha: cb2901d4f758
-  edges:
-    test: pwsh/Catzc.Base.Slides/tests/types/SlidePattern.Tests.ps1
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;

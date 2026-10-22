@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: "77816ab0e4f3"
-# ---
-
 # cspell:ignore lstrip makedirs pathlib setdefault startswith keepends
 """Inventory the review drawings on disk for the Diagram Waves Review page.
 

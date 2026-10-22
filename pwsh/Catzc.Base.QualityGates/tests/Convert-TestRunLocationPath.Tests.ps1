@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "7d22361567bb"
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/Convert-TestRunLocationPath.ps1
----
-#>
-
 Describe 'Convert-TestRunLocationPath' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:snapshotLocation = [pscustomobject]@{ SourceRoot = 'C:\widget'; Root = 'C:\tmp\catzc-run-gadget' }

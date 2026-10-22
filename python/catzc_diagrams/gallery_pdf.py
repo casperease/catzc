@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: df0fd8287225
-# ---
-
 # cspell:ignore minimaps consola cour arialbd textlength
 """Write a gallery PDF: every diagram output as image pages, for readers without an HTML viewer.
 

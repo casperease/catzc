@@ -37,7 +37,8 @@ function Get-BicepTemplates {
     $azure = Get-Config -Config azure
 
     $templates = [System.Collections.Generic.List[object]]::new()
-    foreach ($folderPath in ([System.IO.Directory]::EnumerateDirectories($infrastructureRoot) | Sort-Object)) {
+    $walk = Get-Config -Config folder-walk
+    foreach ($folderPath in (Get-ChildPath $infrastructureRoot -Depth 1 -Directory)) {
         $name = [System.IO.Path]::GetFileName($folderPath)
 
         $main = Join-Path $folderPath 'main.bicep'
@@ -81,10 +82,10 @@ function Get-BicepTemplates {
         $hasPrePost = Test-Path (Join-Path $folderPath 'PrePost.psm1') -PathType Leaf
         $configEntries = [System.Collections.Generic.List[object]]::new()
         $configFolders = @([pscustomobject]@{ path = $configurationFolder; customer = '' }) + @(
-            [System.IO.Directory]::EnumerateDirectories($configurationFolder) | Sort-Object |
+            Get-ChildPath $configurationFolder -Depth 1 -Directory |
                 ForEach-Object { [pscustomobject]@{ path = $_; customer = [System.IO.Path]::GetFileName($_) } })
         foreach ($configFolder in $configFolders) {
-            $files = @(@([System.IO.Directory]::EnumerateFiles($configFolder.path, '*.yml')) + @([System.IO.Directory]::EnumerateFiles($configFolder.path, '*.bicepparam')) | Sort-Object)
+            $files = @([Catzc.Base.Folders.PathSet]::new($walk).AddPattern($configFolder.path, '*.yml', 1).AddPattern($configFolder.path, '*.bicepparam', 1).ToArray())
             $relativeFolder = if ($configFolder.customer) {
                 "configuration/$($configFolder.customer)"
             }
@@ -144,7 +145,7 @@ function Get-BicepTemplates {
         $subscriptions = @($slots | ForEach-Object { $_.subscription } | Select-Object -Unique)
         $customers = @($slots | Where-Object { $_.customer } | ForEach-Object { $_.customer } | Select-Object -Unique)
 
-        $bicepFiles = @([System.IO.Directory]::EnumerateFiles($folderPath, '*.bicep') | Sort-Object)
+        $bicepFiles = @([Catzc.Base.Folders.PathSet]::new($walk).AddPattern($folderPath, '*.bicep', 1).ToArray())
 
         $template = [ordered]@{
             name                 = $name
@@ -179,7 +180,7 @@ function Get-BicepTemplates {
 
         $resourcesFolder = Join-Path $folderPath 'resources'
         if (Test-Path $resourcesFolder -PathType Container) {
-            $template['resources'] = @([System.IO.Directory]::EnumerateFiles($resourcesFolder) | Sort-Object)
+            $template['resources'] = @([Catzc.Base.Folders.PathSet]::new($walk).AddPattern($resourcesFolder, '*', 1).ToArray())
         }
 
         $templates.Add([Catzc.Azure.Templates.BicepTemplate]::new($template))

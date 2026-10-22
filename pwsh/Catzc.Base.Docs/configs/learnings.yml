@@ -1,8 +1,2 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: "525a2e3b87c2"
-# ---
-
 # Every key is optional: an omitted key takes the default declared once on LearningsConfig.
 {}

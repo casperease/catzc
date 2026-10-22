@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: a5fe0b766d4f
-  edges:
-    code: pwsh/Catzc.Azure.Firewall/private/Get-FirewallMarkdownColumns.ps1
----
-#>
-
 # Get-FirewallMarkdownColumns is a private (non-exported) function, so it is invoked via InModuleScope.
 Describe 'Get-FirewallMarkdownColumns' -Tag 'L0', 'logic' {
     BeforeAll {

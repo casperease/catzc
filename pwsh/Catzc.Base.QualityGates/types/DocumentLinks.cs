@@ -1,13 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    with_body_sha: b15147a2f170
-  edges:
-    test: pwsh/Catzc.Base.QualityGates/tests/types/DocumentLinks.Tests.ps1
----
-*/
-
 // A link inside the document stays internal and is not listed: an anchor in the same file, the file itself, and its own comment page.
 
 using System;

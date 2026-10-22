@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: a1bcfe785b5c
-  edges:
-    code: pwsh/Catzc.Base.Repository/Get-RepositoryRoot.ps1
----
-#>
-
 # Get-RepositoryRoot reads $env:RepositoryRoot (set by importer.ps1); pinned against a $TestDrive root and restored.
 Describe 'Get-RepositoryRoot' -Tag 'L0', 'logic' {
     It 'returns the repository root the importer set in $env:RepositoryRoot' {

@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "61504654b966"
-  edges:
-    code: pwsh/Catzc.Base.Maps/private/Get-WorldMapOutputRoot.ps1
----
-#>
-
 Describe 'Get-WorldMapOutputRoot' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:outputRoot = Join-Path $TestDrive 'widget-out'

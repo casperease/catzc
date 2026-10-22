@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "3dfceee993b6"
-  edges:
-    code: pwsh/Catzc.Base.Repository/Get-OutputRoot.ps1
----
-#>
-
 Describe 'Get-OutputRoot' -Tag 'L0', 'logic' {
     Context 'outside pipeline' {
         BeforeAll {

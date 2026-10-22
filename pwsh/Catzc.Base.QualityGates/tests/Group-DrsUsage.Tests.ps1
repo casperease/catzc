@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "1d03a3feed06"
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/Group-DrsUsage.ps1
----
-#>
-
 Describe 'Group-DrsUsage' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:rows = @(

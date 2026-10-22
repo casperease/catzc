@@ -6,6 +6,7 @@ catzc:
     docs: "[Move-Diagram.ps1.md](../../docs/references/pwsh/catzc-base-slides/Move-Diagram.ps1.md)"
     cites:
       - ADR-REPO-LINK-MARKDOWNRELATIVE
+    drs_total: 1
 ---
 #>
 

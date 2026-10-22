@@ -167,32 +167,42 @@ Describe 'FileMetaConfig' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
 
 Describe 'FileMetaConfig.EngineInputs' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
     BeforeEach {
-        $script:gates = Join-Path $TestDrive "gates-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
-        $script:languages = Join-Path $TestDrive "languages-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
+        $script:root = Join-Path $TestDrive "modules-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
+        $script:gates = Join-Path $script:root 'Catzc.Base.QualityGates'
+        $script:languages = Join-Path $script:root 'Catzc.Base.Languages'
         $files = [ordered]@{
-            "$script:gates/configs/file-meta.yml"              = "kinds: {}`n"
-            "$script:languages/configs/file-carriers.yml"      = "carriers: {}`n"
-            "$script:gates/Format-FileMeta.ps1"                = "function Format-FileMeta {}`n"
-            "$script:gates/Get-FileMetaFact.ps1"               = "function Get-FileMetaFact {}`n"
-            "$script:gates/private/Invoke-FileMetaEngine.ps1"  = "function Invoke-FileMetaEngine {}`n"
-            "$script:gates/private/Get-WidgetFileMetaFact.ps1" = "function Get-WidgetFileMetaFact {}`n"
-            "$script:gates/types/FileMetaConfig.cs"            = "class FileMetaConfig {}`n"
+            "$script:gates/configs/file-meta.yml"                   = "kinds: {}`n"
+            "$script:languages/configs/file-carriers.yml"           = "carriers: {}`n"
+            "$script:gates/Format-FileMeta.ps1"                     = "function Format-FileMeta {}`n"
+            "$script:gates/Get-FileMetaFact.ps1"                    = "function Get-FileMetaFact {}`n"
+            "$script:gates/private/Invoke-FileMetaEngine.ps1"       = "function Invoke-FileMetaEngine {}`n"
+            "$script:gates/private/Get-WidgetFileMetaFact.ps1"      = "function Get-WidgetFileMetaFact {}`n"
+            "$script:gates/tests/Get-WidgetFileMetaFact.Tests.ps1"  = "Describe 'widget' {}`n"
+            "$script:gates/types/FileMetaConfig.cs"                 = "class FileMetaConfig {}`n"
+            "$script:gates/types/FileHeadPolicy.cs"                 = "class FileHeadPolicy {}`n"
+            "$script:gates/types/HeadPolicy.cs"                     = "enum HeadPolicy {}`n"
+            "$script:gates/types/GadgetConfig.cs"                   = "class GadgetConfig {}`n"
         }
         foreach ($file in $files.Keys) {
             [System.IO.Directory]::CreateDirectory((Split-Path $file -Parent)) | Out-Null
             [System.IO.File]::WriteAllText($file, $files[$file])
         }
-        $script:inputs = { [Catzc.Base.QualityGates.FileMetaConfig]::EngineInputs($script:gates, $script:languages) }
-        $script:stamp = { Get-InputStamp -Path (& $script:inputs) -Root $script:gates }
+        $script:inputs = { [Catzc.Base.QualityGates.FileMetaConfig]::EngineInputs($script:root) }
+        $script:stamp = { Get-InputStamp -Path (& $script:inputs) -Root $script:root }
     }
 
-    It 'names the registries, the engine, every fact processor and the registry types, each once, the missing ones included' {
-        $relative = @(& $script:inputs | ForEach-Object { [System.IO.Path]::GetRelativePath($TestDrive, $_).Replace('\', '/') -replace '^(gates|languages)-[0-9a-f]{8}', '$1' })
+    It 'names the registries, the engine, every fact processor and the registry types under the modules root, each once' {
+        $relative = @(& $script:inputs | ForEach-Object { [System.IO.Path]::GetRelativePath($script:root, $_).Replace('\', '/') })
         $relative | Should -Be @(
-            'gates/Format-FileMeta.ps1', 'gates/Get-FileMetaFact.ps1', 'gates/configs/file-meta.yml', 'gates/private/Get-WidgetFileMetaFact.ps1',
-            'gates/private/Invoke-FileMetaEngine.ps1', 'gates/types/FileHeadPolicy.cs', 'gates/types/FileMetaConfig.cs', 'gates/types/FileMetaKind.cs',
-            'gates/types/HeadPolicy.cs', 'languages/configs/file-carriers.yml'
-        )
+            'Catzc.Base.Languages/configs/file-carriers.yml', 'Catzc.Base.QualityGates/Format-FileMeta.ps1', 'Catzc.Base.QualityGates/Get-FileMetaFact.ps1',
+            'Catzc.Base.QualityGates/configs/file-meta.yml', 'Catzc.Base.QualityGates/private/Get-WidgetFileMetaFact.ps1',
+            'Catzc.Base.QualityGates/private/Invoke-FileMetaEngine.ps1', 'Catzc.Base.QualityGates/types/FileHeadPolicy.cs',
+            'Catzc.Base.QualityGates/types/FileMetaConfig.cs', 'Catzc.Base.QualityGates/types/HeadPolicy.cs'
+        ) -Because 'a test file and a type outside FileMeta*.cs and *HeadPolicy.cs feed no head'
+    }
+
+    It 'rejects an empty modules root' {
+        { [Catzc.Base.QualityGates.FileMetaConfig]::EngineInputs('') } | Should -Throw '*modulesRoot*'
     }
 
     It 'changes the stamp when file-meta.yml changes, so a changed registry invalidates every file''s memo' {

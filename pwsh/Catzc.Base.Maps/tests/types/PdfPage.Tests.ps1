@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "28b3140a52fe"
-  edges:
-    code: pwsh/Catzc.Base.Maps/types/PdfPage.cs
----
-#>
-
 Describe 'PdfPage' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:page = { [Catzc.Base.Maps.PdfPage]::new(200, 100) }

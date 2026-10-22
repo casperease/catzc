@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "8735e2a67724"
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/Set-AbandonedTestRun.ps1
----
-#>
-
 Describe 'Set-AbandonedTestRun' -Tag 'L0', 'logic' {
     BeforeAll {
         Mock Write-Message { } -ModuleName Catzc.Base.QualityGates

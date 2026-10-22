@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: "97294b4d46e6"
-# ---
-
 # cspell:ignore minimaps lightbox
 """Build the clickable review page for claude.ai: out/atlas.html plus the list of files it references.
 

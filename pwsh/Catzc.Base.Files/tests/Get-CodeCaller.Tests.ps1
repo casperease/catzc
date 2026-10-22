@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: bb7eac42550e
-  edges:
-    code: pwsh/Catzc.Base.Files/Get-CodeCaller.ps1
----
-#>
-
 Describe 'Get-CodeCaller' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "49de603b8f1b"
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/Get-GitAttributeValue.ps1
----
-#>
-
 Describe 'Get-GitAttributeValue' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:widgetRoot = Join-Path $TestDrive 'widget-repository'

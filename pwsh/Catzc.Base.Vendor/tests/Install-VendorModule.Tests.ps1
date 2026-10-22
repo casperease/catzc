@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "36f1c6aeb752"
-  edges:
-    code: pwsh/Catzc.Base.Vendor/Install-VendorModule.ps1
----
-#>
-
 Describe 'Install-VendorModule' -Tag 'L0', 'logic' {
     BeforeEach {
         # The run-mode guard is its own boundary (covered in the build-mode block below).

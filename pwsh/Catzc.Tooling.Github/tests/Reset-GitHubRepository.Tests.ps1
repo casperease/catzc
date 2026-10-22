@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: b95710442b78
-  edges:
-    code: pwsh/Catzc.Tooling.Github/Reset-GitHubRepository.ps1
----
-#>
-
 Describe 'Reset-GitHubRepository' -Tag 'L1', 'logic' {
     BeforeAll {
         # A local checkout written by hand: main at a made-up commit, read in-process by the remote check.

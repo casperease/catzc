@@ -41,15 +41,15 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
         }
         # Holds the lock on another thread for the given milliseconds; with -RecordSeconds it writes the holder record a plain run writes.
         function script:Start-LockHolder {
-            param([string] $Name, [int] $Milliseconds, [System.Threading.EventWaitHandle] $Burst, [int] $RecordSeconds)
+            param([string] $Name, [int] $Milliseconds, [System.Threading.EventWaitHandle] $Burst, [int] $RecordSeconds, [switch] $Declared)
             $taken = [System.Threading.ManualResetEventSlim]::new($false)
             $shell = [powershell]::Create().AddScript({
-                    param($Name, $Milliseconds, $Taken, $Burst, $RecordSeconds, $Path)
+                    param($Name, $Milliseconds, $Taken, $Burst, $RecordSeconds, $Path, [bool] $Declared)
                     . $Path
                     $held = [System.Threading.Mutex]::new($false, $Name)
                     $null = $held.WaitOne()
                     if ($RecordSeconds -gt 0) {
-                        Set-CatzcRunLockHolder -LockName $Name -Seconds $RecordSeconds -Holding 'Get-Gadget'
+                        Set-CatzcRunLockHolder -LockName $Name -Seconds $RecordSeconds -Holding 'Get-Gadget' -Declared:$Declared
                     }
                     $Taken.Set()
                     Start-Sleep -Milliseconds $Milliseconds
@@ -59,7 +59,7 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
                     Remove-CatzcRunLockHolder -LockName $Name
                     $held.ReleaseMutex()
                     $held.Dispose()
-                }).AddArgument($Name).AddArgument($Milliseconds).AddArgument($taken).AddArgument($Burst).AddArgument($RecordSeconds).AddArgument($script:waiter)
+                }).AddArgument($Name).AddArgument($Milliseconds).AddArgument($taken).AddArgument($Burst).AddArgument($RecordSeconds).AddArgument($script:waiter).AddArgument($Declared.IsPresent)
             $handle = $shell.BeginInvoke()
             [pscustomobject]@{ Shell = $shell; Handle = $handle; Taken = $taken.Wait(2000) }
         }
@@ -172,8 +172,37 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'stops at once, saying when to retry, when the holder''s deadline lies past its own budget' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+    It 'waits for a freshly started holder whose deadline is still its budget, not yet declared, and takes the lock once it is let go' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        # The holder has just taken the lock: its record says 120 s, past the waiter's 10 s budget, but that is only its budget, no promise.
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500 -RecordSeconds 120
+        try {
+            $holder.Taken | Should -BeTrue
+            $out = @(Wait-CatzcRunLock -LockName $script:lockName -LockSeconds 1 -BudgetSeconds 10 -StaleSeconds 720 -Holding 'Get-Widget' -Caller 'Widget' -Busy 'nothing ran' -Lock $script:taken)
+            ($out -join "`n") | Should -Not -BeLike '*run lock busy*'
+            $script:taken.Value | Should -BeOfType [System.Threading.Mutex]
+        }
+        finally {
+            Stop-LockHolder $holder
+        }
+    }
+
+    It 'stops while its budget still leaves its own wait for its work, when an undeclared holder keeps the lock' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 4000 -RecordSeconds 120
+        try {
+            $holder.Taken | Should -BeTrue
+            $timer = [System.Diagnostics.Stopwatch]::StartNew()
+            $out = @(Wait-CatzcRunLock -LockName $script:lockName -LockSeconds 1 -BudgetSeconds 3 -StaleSeconds 720 -Holding 'Get-Widget' -Caller 'Widget' -Busy 'nothing ran' -Lock $script:taken)
+            $timer.Elapsed.TotalSeconds | Should -BeLessThan 3
+            $out[-1] | Should -Match "^\[Widget\] run lock busy: Get-Gadget \(pid $PID\) holds it until \d\d:\d\d:\d\d, past this run's budget of 3 s, so nothing ran; retry after it$"
+            $script:taken.Value | Should -BeNullOrEmpty
+        }
+        finally {
+            Stop-LockHolder $holder
+        }
+    }
+
+    It 'stops at once, saying when to retry, when the holder''s deadline lies past its own budget' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500 -RecordSeconds 120 -Declared
         try {
             $holder.Taken | Should -BeTrue
             $timer = [System.Diagnostics.Stopwatch]::StartNew()

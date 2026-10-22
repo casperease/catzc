@@ -131,7 +131,7 @@ try {
             }
         }
         if (-not $undeclared -and $limit -gt 0) {
-            Set-CatzcRunLockHolder -LockName $LockName -Seconds ([Math]::Min($limit, $BudgetSeconds)) -Holding "Invoke-CatzcCommand $($Command -join '; ')"
+            Set-CatzcRunLockHolder -LockName $LockName -Seconds ([Math]::Min($limit, $BudgetSeconds)) -Holding "Invoke-CatzcCommand $($Command -join '; ')" -Declared
         }
     }
 

@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: a3f53c59e776
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/Get-TestDurationKey.ps1
----
-#>
-
 Describe 'Get-TestDurationKey' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = [System.IO.Path]::GetFullPath((Join-Path $TestDrive 'repo'))

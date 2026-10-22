@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "2b24463e3184"
-  edges:
-    code: pwsh/Catzc.Base.Maps/types/WorldMapBuilder.cs
----
-#>
-
 Describe 'WorldMapBuilder' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:tracks = @(

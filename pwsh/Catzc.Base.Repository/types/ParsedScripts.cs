@@ -1,13 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    with_body_sha: fc0d20158488
-  edges:
-    test: pwsh/Catzc.Base.Repository/tests/types/ParsedScripts.Tests.ps1
----
-*/
-
 // One call's parse of each script: a file is parsed once however many checks read it, and the holder dies with the call that made it.
 
 using System;

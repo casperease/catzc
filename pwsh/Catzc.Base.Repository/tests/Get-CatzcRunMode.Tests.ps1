@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "107a43bbb2fe"
-  edges:
-    code: pwsh/Catzc.Base.Repository/Get-CatzcRunMode.ps1
----
-#>
-
 Describe 'Get-CatzcRunMode' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:originalModulesRoot = $env:CatzcModulesRoot

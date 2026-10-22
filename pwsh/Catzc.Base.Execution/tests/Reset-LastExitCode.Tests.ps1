@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "186d81c5ae94"
-  edges:
-    code: pwsh/Catzc.Base.Execution/Reset-LastExitCode.ps1
----
-#>
-
 Describe 'Reset-LastExitCode' -Tag 'L0', 'logic' {
     It 'removes LASTEXITCODE when it exists' {
         $global:LASTEXITCODE = 42

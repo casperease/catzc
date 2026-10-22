@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "3a8aa75e204a"
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/Exit-TestRunLocation.ps1
----
-#>
-
 # L1: a real named mutex, checked from a thread job — the snapshot removal itself is mocked.
 Describe 'Exit-TestRunLocation' -Tag 'L1', 'logic' {
     BeforeEach {

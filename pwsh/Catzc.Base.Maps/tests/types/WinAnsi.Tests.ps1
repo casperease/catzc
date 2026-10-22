@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: da5a84b1b29f
-  edges:
-    code: pwsh/Catzc.Base.Maps/types/WinAnsi.cs
----
-#>
-
 Describe 'WinAnsi' -Tag 'L0', 'logic' {
     It 'gives ASCII and Latin-1 characters their own code' {
         [Catzc.Base.Maps.WinAnsi]::CodeOf('W') | Should -Be 0x57

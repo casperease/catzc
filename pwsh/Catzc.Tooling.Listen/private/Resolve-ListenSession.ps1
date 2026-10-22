@@ -21,7 +21,7 @@ function Resolve-ListenSession {
         $output = Join-Path (Get-RepositoryRoot) (Get-Config -Config listen).output
         [string[]] $sessions = @()
         if ([System.IO.Directory]::Exists($output)) {
-            $sessions = @([System.IO.Directory]::GetDirectories($output) | Where-Object { [System.IO.File]::Exists((Join-Path $_ 'seen.json')) })
+            $sessions = @(Get-ChildPath $output -Depth 1 -Directory | Where-Object { [System.IO.File]::Exists((Join-Path $_ 'seen.json')) })
         }
         if ($sessions.Count -eq 0) {
             Assert-True ([bool] $AllowMissing) -ErrorText "No listen session under '$output'; start one with Start-DocListener."

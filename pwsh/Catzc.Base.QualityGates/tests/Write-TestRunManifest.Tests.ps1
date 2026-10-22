@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "17c14404624a"
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/Write-TestRunManifest.ps1
----
-#>
-
 Describe 'Write-TestRunManifest' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:runDirectory = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))

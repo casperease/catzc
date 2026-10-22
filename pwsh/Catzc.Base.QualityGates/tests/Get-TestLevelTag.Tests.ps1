@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: afeee318d710
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/Get-TestLevelTag.ps1
----
-#>
-
 Describe 'Get-TestLevelTag' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FakeTest {

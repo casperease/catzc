@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "8c0d7ab0a983"
-  edges:
-    code: pwsh/Catzc.Base.Maps/types/PdfDocument.cs
----
-#>
-
 # cspell:ignore startxref nstartxref nstream endstream  -- PDF keywords, some behind a "`n" escape
 Describe 'PdfDocument' -Tag 'L0', 'logic' {
     BeforeAll {

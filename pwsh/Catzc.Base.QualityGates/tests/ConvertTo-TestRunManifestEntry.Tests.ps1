@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: f4301f49a727
-  edges:
-    code: pwsh/Catzc.Base.QualityGates/private/ConvertTo-TestRunManifestEntry.ps1
----
-#>
-
 Describe 'ConvertTo-TestRunManifestEntry' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:convert = {

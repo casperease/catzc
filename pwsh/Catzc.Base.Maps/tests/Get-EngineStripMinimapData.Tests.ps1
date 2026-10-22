@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "74c5aa12e556"
-  edges:
-    code: pwsh/Catzc.Base.Maps/Get-EngineStripMinimapData.ps1
----
-#>
-
 Describe 'Get-EngineStripMinimapData' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/catzc.base.maps/minimap.schema.json'))

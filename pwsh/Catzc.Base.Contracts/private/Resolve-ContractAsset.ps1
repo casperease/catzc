@@ -81,10 +81,8 @@ function Resolve-ContractAsset {
         $stem = $name.Substring(0, $name.Length - '.schema.json'.Length)
         $samplePattern = '^' + [regex]::Escape($stem) + '\.sample\.[^.]+$'
         $folder = [System.IO.Path]::GetDirectoryName($File)
-        $samples = @([Catzc.Base.Folders.PathSet]::new().AddPattern($folder, '*').ToArray() |
-                ForEach-Object { [System.IO.Path]::GetFileName($_) } |
-                Where-Object { $_ -cmatch $samplePattern } |
-                Sort-Object)
+        $samples = @([Catzc.Base.Contracts.ContractLayout]::new((Get-Config -Config folder-walk)).FileNames($folder) |
+                Where-Object { $_ -cmatch $samplePattern })
         $target = $prefix + $Path.Substring(0, $Path.Length - '.schema.json'.Length)
         if ($samples.Count -gt 1) {
             throw "contract asset 'contracts/$Unit/$Version/$Module/$Path': the schema sits beside $($samples.Count) sample payloads named '$stem' ($($samples -join ', ')); keep one sample per schema name (ADR-REPO-CONTRACT-CONTRACTASSET)."

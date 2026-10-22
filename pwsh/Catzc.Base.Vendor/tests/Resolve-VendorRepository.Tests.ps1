@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: b4d1dfc47db7
-  edges:
-    code: pwsh/Catzc.Base.Vendor/private/Resolve-VendorRepository.ps1
----
-#>
-
 Describe 'Resolve-VendorRepository' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Write-Message -ModuleName Catzc.Base.Vendor { }

@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: a5e72a48f9a9
-  edges:
-    code: pwsh/Catzc.Base.Objects/ConvertTo-BclValue.ps1
----
-#>
-
 Describe 'ConvertTo-BclValue' -Tag 'L0', 'logic' {
     BeforeAll {
         # Pipeline output wraps each value in a PSObject, the way a pwsh caller's array holds them.

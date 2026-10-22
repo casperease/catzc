@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "6d4e13e7fc41"
-  edges:
-    code: pwsh/Catzc.Base.Docs/private/Format-LongMarkdownLines.ps1
----
-#>
-
 Describe 'Format-LongMarkdownLines' -Tag 'L0', 'logic' {
     BeforeAll {
         function script:Invoke-Wrap {

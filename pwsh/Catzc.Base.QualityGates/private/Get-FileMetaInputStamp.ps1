@@ -31,9 +31,8 @@ function Get-FileMetaInputStamp {
     $languages = Get-Config -Config languages
     $codesHash = $null
     # The engine and its registries decide every head, so a change to either re-imprints every file.
-    $qualityGatesBase = (Get-Module -Name Catzc.Base.QualityGates).ModuleBase
-    $engineInputs = [Catzc.Base.QualityGates.FileMetaConfig]::EngineInputs($qualityGatesBase, (Get-Module -Name Catzc.Base.Languages).ModuleBase)
-    $engine = Get-InputStamp -Path $engineInputs -Root $qualityGatesBase
+    $modulesRoot = Get-CatzcModulesRoot
+    $engine = Get-InputStamp -Path ([Catzc.Base.QualityGates.FileMetaConfig]::EngineInputs($modulesRoot)) -Root $modulesRoot
     $parts = [ordered]@{}
     foreach ($path in $File) {
         $full = [System.IO.Path]::GetFullPath($path)

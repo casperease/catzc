@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: d4f91cb9dd9f
-# ---
-
 # cspell:ignore mxfile getpixel
 """Re-rendering a .drawio.png from the model it carries, with and without a page override.
 

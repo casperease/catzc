@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: e0c59d24454a
-  edges:
-    code: pwsh/Catzc.Base.Files/Rename-CodeName.ps1
----
-#>
-
 Describe 'Rename-CodeName' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))

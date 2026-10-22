@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "39ed5c4613fe"
-  edges:
-    code: pwsh/Catzc.Base.Maps/types/WorldMapPdf.cs
----
-#>
-
 # cspell:ignore startxref
 Describe 'WorldMapPdf' -Tag 'L0', 'logic' {
     BeforeAll {

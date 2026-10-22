@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: "0e602a26b423"
-# ---
-
 """The assets gallery PDF: one page per PNG, and a description page after a PNG that has one.
 
 usage (repo root, background): timeout 120 uv run -q --with pillow==12.3.0 --with pytest==9.1.1 python -m pytest python/catzc_diagrams/tests
