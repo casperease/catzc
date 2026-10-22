@@ -2,9 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c0063dc236fa
+    with_body_sha: "6ef344c5d0aa"
   edges:
     test: pwsh/Catzc.Azure.Templates/tests/ConvertTo-BicepParam.Tests.ps1
+    docs: "[ConvertTo-BicepParam.ps1.md](../../docs/references/pwsh/catzc-azure-templates/ConvertTo-BicepParam.ps1.md)"
     cites:
       - ADR-AZ-DATAMOD-ONEPATHTOPARAMETERS
 ---

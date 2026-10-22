@@ -11,8 +11,8 @@ Reads the list items of a markdown text, each with its continuation lines joined
 
 ### description
 
-A list item starts at a `-` or `N.` line, at any indent, and takes in each following line indented by two or more spaces, trimmed and
-joined with one space. A blank line, an unindented line or the next item ends it. Lines outside any item are skipped.
+A list item starts at a `-` or `N.` line, at any indent, and takes in each following line indented by two or more spaces, trimmed and joined
+with one space. A blank line, an unindented line or the next item ends it. Lines outside any item are skipped.
 
 ### parameter `Line`
 

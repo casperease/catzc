@@ -2,7 +2,9 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "02f0758182e1"
+    with_body_sha: c3baa270a072
+  edges:
+    docs: "[Get-AgentHookName.ps1.md](../../../docs/references/pwsh/catzc-base-types-system/private/Get-AgentHookName.ps1.md)"
 ---
 #>
 

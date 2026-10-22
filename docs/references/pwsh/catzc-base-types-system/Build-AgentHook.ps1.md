@@ -16,9 +16,9 @@ a call that does not run inside the safeguard
 ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](../../../drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait));
 Record-AgentWrite records what an agent session writes, so the listen mode tells it from the editor's changes
 ([ADR-REPO-AI-EDITORISFACT](../../../drs/repository/ai-agent-contract.md#rule-adr-repo-ai-editorisfact)). A hook is a compiled program
-rather than a script because it runs that often: it starts in about a third of the time pwsh does. This publishes each,
-framework-dependent, to .claude/hooks/bin/ (gitignored), and records a hash of its sources beside it as `<AssemblyName>.source.sha256`;
-while the hash matches and the program is present, it does nothing, so the importer can run it on every import.
+rather than a script because it runs that often: it starts in about a third of the time pwsh does. This publishes each, framework-dependent,
+to .claude/hooks/bin/ (gitignored), and records a hash of its sources beside it as `<AssemblyName>.source.sha256`; while the hash matches
+and the program is present, it does nothing, so the importer can run it on every import.
 
 dotnet runs through Invoke-Executable rather than Invoke-Dotnet: that wrapper lives in the Tooling layer, which this Base module must not
 depend on, so dotnet must be on PATH. The hooks' C# code lives in the source tree, so it stops with a named error in build mode

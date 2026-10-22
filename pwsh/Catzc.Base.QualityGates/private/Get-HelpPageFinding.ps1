@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e0a91ab4e138
+    with_body_sha: "7ed98cda0df7"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-HelpPageFinding.Tests.ps1
     docs: "[Get-HelpPageFinding.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-HelpPageFinding.ps1.md)"

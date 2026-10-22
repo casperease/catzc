@@ -11,9 +11,9 @@ A SHA-256 of a file's text with every run of whitespace collapsed to one space, 
 
 ### description
 
-Format-Code stamps each file before its formatter engine runs and again after, and counts a changed file whose stamp held as changed only
-in wrapping. The stamp is the uppercase hex of the hash of the trimmed, collapsed text, read as UTF-8. A missing file has no stamp: it
-returns `$null`, so a change to it never reads as wrapping only.
+Format-Code stamps each file before its formatter engine runs and again after, and counts a changed file whose stamp held as changed only in
+wrapping. The stamp is the uppercase hex of the hash of the trimmed, collapsed text, read as UTF-8. A missing file has no stamp: it returns
+`$null`, so a change to it never reads as wrapping only.
 
 ### parameter `Path`
 
