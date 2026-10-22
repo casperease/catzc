@@ -23,3 +23,92 @@ Started 2026-10-22T04:59:45.8045278+02:00.
 - 2026-10-22 Jack: If only the queue had read the same head: pwsh/.internal/assets/Invoke-CatzcCommand.ps1:28-29 makes a waiting run wait as
   long as a burst lasts and then up to -LockSeconds more, so run lock busy after 120 s behind a burst is stale and asking the burst owner
   first buys nothing the lock does not already give.
+- 2026-10-22 Jack: If only the learning had waited for its exit-code step: pwsh/.internal/assets/Invoke-CatzcCommand.ps1:21-23 now counts an
+  Invoke-TestFile result of Failed as a failed command and exits 1, -PassThru named or not, so 1 of 1 passed over a red file is a ghost of
+  yesterday.
+- 2026-10-22 Jack: If only the five sessions had queued: pwsh/.internal/assets/Invoke-CatzcCommand.ps1:25 runs every import and command
+  under the machine run lock so heavy runs go one at a time, so a host reaping five parallel Pester runs is the price of running beside the
+  entry script, not through it.
+- 2026-10-22 Jack: If only the review robot said how to split: .claude/agents/drs-reviewer.md:12 caps a review at 15 turns and :21 reads
+  every governing record in full, but no line there or in .claude/CLAUDE.md says a many-area review goes to one reviewer per ADR set, so the
+  parallel split stays a token tip.
+- 2026-10-22 Jack: If only Jack had waited for the deck: docs/references/pwsh/catzc-base-slides/private/Get-SlideOrderFinding.ps1.md:10 and
+  :14-16 now make the one deck order check for a duplicate and a gap, run by Build-SlideDeck and Test-Slides, so the earlier line of this
+  log saying no gate counts the gap is stale.
+- 2026-10-22 Jack: If only the session had read the pitfalls ADR: docs/drs/automation/pwsh/automatic-variable-pitfalls.md:196 says every
+  -match or -replace overwrites Matches and :320 that variable names are case-insensitive, so a param named Where and a nested -match were
+  both on file as traps before they sprang.
+- 2026-10-22 Jack: If only the Pester ADR had said what a mock sees: docs/drs/automation/pwsh/pester-testing.md:21-24 rules where and how to
+  mock, but nothing in the tree says a Mock body runs without the It block locals, so the literal is learned from the first null.
+- 2026-10-22 Jack: If only the session had read the gate article: docs/references/pwsh/catzc-base-docs/Test-AgentDefinitions.ps1.md:35
+  counts every capability line outside its catzc head toward roofs.capability_lines, front matter included, and lists no width check among
+  its findings, so the width was the formatter job by omission.
+- 2026-10-22 Jack: If only the how-to had read the ADR: docs/drs/repository/function-help.md:68 and :111 say Get-Help shows no catzc help
+  and the comment page is read instead, yet docs/how-to/getting-started/pwsh/run-tests-and-checks.md:35 still sends a newcomer to Get-Help
+  Test-Automation -Full, a dead end on the first page they open.
+- 2026-10-22 Jack: If only the session had read the parameter list:
+  docs/references/pwsh/catzc-base-quality-gates/Test-ParameterConsistency.ps1.md:17 reads every public function file and :25-29 offer only
+  OutputFolder and PassThru, so a -Path was never on offer.
+- 2026-10-22 Jack: If only the session had read the Python layout rule: docs/drs/automation/python/python-test-artifacts.md:5-9
+  (ADR-AUTO-PY-MODULESBYLAYOUT) keeps only the black-box tests under the track test holder and says a test file never ships, so a module
+  keeping its own tests folder was the rule, not an exception.
+- 2026-10-22 Jack: If only Jack had counted his own lines: the test edge rules sit at
+  pwsh/Catzc.Base.QualityGates/configs/file-meta.yml:36-39, not the :34-37 an earlier line of this log cited today, which straddles the docs
+  rule; the verdict stands, the pointer was two lines short.
+- 2026-10-22 Jack: If only the session had loaded catzc-run: .claude/skills/catzc-run/SKILL.md:30-31 already names a root asset under
+  pwsh/Catzc.Base.RootConfig/assets/root/ live for every import with a HOLD first, since pwsh/.internal/Catzc.Internal.Importer.psm1:406-407
+  runs Build-RootConfig -Silent on each load, so the lesson was a capability line before three sessions learned it.
+- 2026-10-22 Jack: If only someone had said where backslashes survive: nothing in the tree, no capability, how-to or CLAUDE.md line, says a
+  script holding backslashes is written with the Write tool rather than through a bash heredoc, so the second rewrite stays the teacher.
+- 2026-10-22 Jack: If only the planner split its reading: .claude/agents/its-a-chore-but-i-will-do-better.md:24 reads every hindsight file
+  itself, newest first, and nothing in the tree hands one file to a read-only helper with a fixed verdict table, so the whole log still
+  lands in one context.
+- 2026-10-22 Jack: If only the session had read the explanation: docs/explanation/file-meta.md:118-124 makes the help section of the comment
+  page the authored home, never written by Export-Comments, and the ps-help step of Format-Code reports a function file with no page, so a
+  new command help went onto its page by declaration.
+- 2026-10-22 Jack: If only the session had read the report writer: docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md:51
+  returns a QualityGateResult of Subject, IssueCount, Issues, ReportPath and Facts, and :40-43 fill Facts from the -Facts dictionary, so a
+  fact read by its key was the declared shape.
+- 2026-10-22 Jack: If only the bats rule had copied the importer: importer.sh:48-49 already passes its root through cygpath -m before pwsh
+  sees it, but no rule under docs/drs/automation/bash/ and no how-to says a bats test does the same with a temp path, so the precedent sits
+  in the one file a test author never reads.
+- 2026-10-22 Jack: If only the session had read what the gate returns:
+  docs/references/pwsh/catzc-base-reports/Write-QualityGateReport.ps1.md:51 makes -PassThru return the Issues instead of throwing, so the
+  gate run on its own lists what a red integrity test saw, while the test report sits in a TestDrive that dies with the run.
+- 2026-10-22 Jack: If only the test author had read the setup rule: docs/drs/automation/pwsh/pester-testing.md:112-114
+  (ADR-PWSH-PESTER-SETUPONCEPERBLOCK) runs expensive setup once in BeforeAll and
+  docs/references/pwsh/catzc-base-contracts/Get-CommandContract.ps1.md:25 reads every command by default, so one read for all contracts was
+  the rule before the stopwatch priced it.
+- 2026-10-22 Jack: If only a capability said where the rows are: docs/how-to/getting-started/pwsh/run-tests-and-checks.md:71 documents
+  tests.csv for sorting by duration and private/New-TestAutomationShardScript.ps1.md:26 the files-shard json, but no capability tells a
+  session to grep them instead of printing a gate output, so the tip stays a tip.
+- 2026-10-22 Jack: If only Jack had read catzc-verify before gloating: .claude/skills/catzc-verify/SKILL.md:30-31 already puts the code file
+  of a new test or a new comment page in the Format-Code -Path to re-imprint its test, docs and cites, so the earlier line of this log
+  saying no capability names that re-imprint is half wrong; only who owns that code file stays unsaid.
+- 2026-10-22 Jack: If only the count had read the plan: .claude/plans/plan-debt-full-run-failures.md:17 already leaves the parent setup fall
+  under the old python/Catzc.Diagrams name to the next full run, the kit renamed since and its live pytest run passing 149, so the 321
+  failures were one stale folder on file.
+- 2026-10-22 Jack: If only the session had read the type page: docs/references/pwsh/catzc-base-docs/types/GlossaryConcept.cs.md:21 checks
+  only the entry own shape, and private/Get-GlossarySourceViolations.ps1.md:29 reports a defined_by that is no rule code under the drs.yml
+  kinds, so the kind-aware check was declared in the post-load reader.
+- 2026-10-22 Jack: If only the session had read its own CLAUDE.md: .claude/CLAUDE.md:124-127 already forbids scripted -replace edits and
+  edits one file at a time with the Edit tool, so the pwsh one-liner that ate the backticks was the forbidden road taken.
+- 2026-10-22 Jack: If only the session had loaded catzc-verify: .claude/skills/catzc-verify/SKILL.md:25-26 says every import builds each
+  .claude/hooks folder that has a csproj, so a new hook folder is drafted outside the tree and lands in a burst, though
+  docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md:312 still speaks of the one time-safeguard hook.
+- 2026-10-22 Jack: If only the session had read the dry-run rule: docs/drs/automation/pwsh/prefer-dryrun-over-shouldprocess.md:12-15
+  (ADR-PWSH-DRYRUN-DRYRUNSWITCH) makes the preview a DryRun switch and forbids SupportsShouldProcess, so no catzc command ever carried
+  -WhatIf.
+- 2026-10-22 Jack: If only the builder page had said it: docs/how-to/automation/rename-a-tooling-folder.md:30-32 says a case-only rename is
+  invisible to git on a case-insensitive checkout until committed, but docs/references/pwsh/catzc-base-exporter/Build-Modules.ps1.md never
+  mentions the index or case, so a module dropping out of every build is learned from the empty bundle, and only the user may make the
+  commit that cures it.
+- 2026-10-22 Jack: If only the session had read the orchestration capability: .claude/skills/plans-orchestrate/SKILL.md:17 already words
+  every brief as plan step, owns files, check, one line, so the briefing shape the tip found was the declared message.
+- 2026-10-22 Jack: If only the session had read the parameter: docs/references/pwsh/catzc-base-quality-gates/Test-Parsing.ps1.md:22-24 takes
+  the files to parse, and .claude/skills/catzc-verify/SKILL.md:17 runs it per file right after its edit, so a folder was never an answer it
+  promised to take.
+- 2026-10-22 Jack: If only the session had let the formatter count: pwsh/Catzc.Base.Languages/configs/languages.yml:129 runs the plan-counts
+  imprint step and docs/references/pwsh/catzc-base-quality-gates/private/Update-PlanStepCount.ps1.md:14-16 rewrites the master and value-row
+  counts from the open steps, so striking a step is synced by one Format-Code, and the rewrite of both overlays from one plan path is that
+  step at work.

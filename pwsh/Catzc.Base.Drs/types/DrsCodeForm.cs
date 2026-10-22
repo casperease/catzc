@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7085df4d84a8"
+    with_body_sha: "46cb34bc67c9"
   edges:
     test: pwsh/Catzc.Base.Drs/tests/types/DrsCodeForm.Tests.ps1
     docs: "[DrsCodeForm.cs.md](../../../docs/references/pwsh/catzc-base-drs/types/DrsCodeForm.cs.md)"
@@ -96,6 +96,8 @@ public sealed class DrsCodeForm
         }
         return string.Join("|", rules);
     }
+
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     // True when the text is one code of a registered kind.
     public bool IsCode(string text) => text != null && code.IsMatch(text);

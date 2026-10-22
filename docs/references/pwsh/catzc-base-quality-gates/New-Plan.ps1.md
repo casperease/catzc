@@ -15,10 +15,10 @@ The way a plan starts ([ADR-REPO-PLANS-ONETOPICONEFILE](../../../drs/repository/
 writes carries the plan head (status active, the value, today's date as reviewed, the targets) and the sections
 [ADR-REPO-PLANS-ONESHAPE](../../../drs/repository/plans.md#rule-adr-repo-plans-oneshape) requires, so Test-Plans passes it before a step is
 written. A plan is three parts ([ADR-REPO-PLANS-THREEPARTS](../../../drs/repository/plans.md#rule-adr-repo-plans-threeparts)), so it also
-adds the plan's row to the value overlay's table under the "`<Class>` plans" heading, and its chunk line to the master's Chunks list, ahead of
-the pointer lines to task files, which the master keeps last; the planner moves the line to its place. It refuses a topic whose file exists,
-a name the plans folder does not accept, a value outside the ranks, a target that does not exist, and an overlay without the section the
-plan goes in.
+adds the plan's row to the value overlay's table under the "`<Class>` plans" heading, and its chunk line to the master's Chunks list, ahead
+of the pointer lines to task files, which the master keeps last; the planner moves the line to its place. It refuses a topic whose file
+exists, a name the plans folder does not accept, a value outside the ranks, a target that does not exist, and an overlay without the section
+the plan goes in.
 
 ### parameter `Topic`
 

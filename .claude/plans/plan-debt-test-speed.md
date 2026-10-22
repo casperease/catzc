@@ -25,9 +25,10 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
       spread larger than the fix, as `out/test-optimization-2026-10-22.md` says, catzc-e9), `Import-Catzc.Tests.ps1` (22.1 s) and
       `Invoke-Executable.Tests.ps1` (20.5 s; landed: 13.5 s -> 10.4 s, the stdin child started in a file-level BeforeAll,
       ADR-AUTO-TEST-SETUPONCE, 59 tests and 81 `Should` the same, catzc-e9). `Import-Catzc.Tests.ps1` waits on the VSCode case-only rename
-      (plan-debt-full-run-failures step 2, the user's): its full-build test fails in 2 to 3 s on "Catzc.Base.VSCode has no function files"
-      (catzc-a0, 2026-10-22; the reduced-build test alone is about 7 s), so the 22.1 s is measured once the build passes. Check:
-      `Invoke-TestFile` twice per file, the same test names and `Should` count, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
+      (plan-debt-full-run-failures, the `Get-DynamicManifestContent` step, the user's): its full-build test fails in 2 to 3 s on
+      "Catzc.Base.VSCode has no function files" (catzc-a0, 2026-10-22; the reduced-build test alone is about 7 s), so the 22.1 s is measured
+      once the build passes. Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, and
+      `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 - [ ] The next files the report `out/test-optimization-2026-10-22.md` names, each measured and fixed as the step above, one session per file
       (`Test-Markdownlint.Tests.ps1` measured and left as it is: 14.1 s and 17.0 s, its 6.2 to 7.6 s is the whole-tree markdownlint run it
       exists to prove, already skipped after a green run, catzc-e9, 2026-10-22):

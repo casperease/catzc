@@ -46,9 +46,9 @@ file, a `# previously …` comment, an in-code changelog, or a commented-out alt
 
 ### Rule PDR-ONELIVE-PRESENTTENSEDOCS
 
-Docs read present-tense, like the code. A decision record, README, or help block describes the current design as if it had always been so — no
-"deprecated", "legacy", "as of vX", "we used to", "this replaces". That history is in git. This is the [authoring convention](../index.md)
-("Present tense, not a changelog") applied to the whole tree, not only to decision records.
+Docs read present-tense, like the code. A decision record, README, or help block describes the current design as if it had always been so —
+no "deprecated", "legacy", "as of vX", "we used to", "this replaces". That history is in git. This is the
+[authoring convention](../index.md) ("Present tense, not a changelog") applied to the whole tree, not only to decision records.
 
 - [History lives in git](#history-lives-in-git)
 
@@ -198,8 +198,8 @@ what the code used to be lives in git and nowhere else — not in retained files
   deprecated keys at load, so a compatibility field cannot quietly linger in a config — removing the property from the type forces the key
   out of every file in the same change.
 
-- **The present-tense decision-record/doc convention** (`docs/drs/index.md`, "Present tense, not a changelog") enforces PDR-ONELIVE-PRESENTTENSEDOCS in
-  review for all documentation.
+- **The present-tense decision-record/doc convention** (`docs/drs/index.md`, "Present tense, not a changelog") enforces
+  PDR-ONELIVE-PRESENTTENSEDOCS in review for all documentation.
 
 ## Consequences
 
