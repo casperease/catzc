@@ -237,3 +237,13 @@ relaunches every terminal not yet typed into when that happens, killing the pwsh
 yellow "Terminal Environment Changes" warning. A terminal keeps the environment it started with: the contributions are PATH entries
 and helper variables no cats command reads.
 ```
+
+## comment:20
+
+Above `terminal.integrated.environmentChangesRelaunch: false`, written with `#`.
+
+```text
+Extensions (git, python, debugpy, go, copilot) contribute environment variables after a terminal has started. By default VS Code then
+relaunches every terminal not yet typed into, killing its pwsh and the import it holds. A terminal keeps the environment it started
+with: the contributions are PATH entries and helper variables no cats command reads. The stale-environment indicator stays on.
+```

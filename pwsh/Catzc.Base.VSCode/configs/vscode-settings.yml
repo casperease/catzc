@@ -167,9 +167,6 @@ settings:
 
   python.terminal.activateEnvironment: false
   python-envs.terminal.autoActivationType: "off"
-  # Extensions (git, python, debugpy, go, copilot) contribute environment variables after a terminal has started. By default VS Code then
-  # relaunches every terminal not yet typed into, killing its pwsh and the import it holds. A terminal keeps the environment it started
-  # with: the contributions are PATH entries and helper variables no cats command reads. The stale-environment indicator stays on.
   terminal.integrated.environmentChangesRelaunch: false
   # The test explorer discovers the Python tests with pytest, from the tests folder of the test project.
   python.testing.pytestEnabled: true

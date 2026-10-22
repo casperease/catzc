@@ -934,6 +934,14 @@ terms:
       meaning: "PSScriptAnalyzer (PSSA)"
     - term: pstmn
       meaning: "Postman download host (dl.pstmn.io)"
+    - term: askpass
+      meaning: "git's credential prompt helper (GIT_ASKPASS), which VS Code points at its own"
+    - term: debugpy
+      meaning: "debugpy, the Python debugger VS Code's Python extension ships (BUNDLED_DEBUGPY_PATH)"
+    - term: pydevd
+      meaning: "pydevd, the debugger engine under debugpy (PYDEVD_* variables)"
+    - term: pythonstartup
+      meaning: "PYTHONSTARTUP, the Python interpreter's start-up script variable"
     - term: pyspark
       meaning: "PySpark"
     - term: roslyn

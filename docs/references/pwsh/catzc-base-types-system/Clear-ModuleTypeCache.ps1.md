@@ -4,8 +4,9 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
+      - ADR-PWSH-TYPES-ONEINSTANCEPERSESSION
       - DDR-RUNMODE
-    drs_total: 2
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1
@@ -56,26 +57,13 @@ Return the list of cache files that would be deleted, without deleting anything.
 ### parameter `Silent`
 
 Suppress the per-file and end-state 'type cache: …' messages. The importer passes this on its automatic janitor call so a normal load stays
-quiet (importer.ps1 -Verbose turns it back on); a manual Clear-ModuleTypeCache omits it, so a hand-run always reports the state it left. A
-failed delete still throws.
-
-### parameter `StopLockingProcesses`
-
-The kill switch. When a superseded build will not delete, stop every process holding it (Stop-FileLockingProcess: never this session or an
-ancestor of it, each stop announced even under -Silent), then retry the delete over a short bounded window (Windows releases an exited
-process's mapped image a moment after the exit). A build still held afterwards — by this session itself, say — is named in the error as
-usual. Off by default: stopping a process can lose its unsaved work, so it is asked for, never assumed.
+quiet (importer.ps1 -Verbose turns it back on); a manual Clear-ModuleTypeCache omits it, so a hand-run always reports the state it left,
+including the one yellow line that names a build another process still holds.
 
 ### example 1
 
 ```powershell
 Clear-ModuleTypeCache
-```
-
-### example 2
-
-```powershell
-Clear-ModuleTypeCache -StopLockingProcesses   # stop the sessions holding stale builds, then delete them
 ```
 
 ### example 3
@@ -121,4 +109,13 @@ Above `$details = foreach ($entry in $failed) {`, written with `#`.
 ```text
 Who holds each surviving file — best-effort: the lookup only enriches the message, so a Restart Manager
 error or a non-Windows host degrades to the delete error alone.
+```
+
+## comment:5
+
+Above `if ($failed.Count -and -not $Silent) {`, written with `#`.
+
+```text
+A superseded build another process still has open is that process's bound instance until it exits: a fact to name, never an error,
+and never a reason to stop or wait on anything ([ADR-PWSH-TYPES-ONEINSTANCEPERSESSION](/docs/drs/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-oneinstancepersession)).
 ```

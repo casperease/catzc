@@ -5,7 +5,8 @@ catzc:
     cites:
       - ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-    drs_total: 2
+      - ADR-AUTO-DEPM
+    drs_total: 3
 ---
 
 # ADR: Native C# types — one combined assembly, namespace per module
@@ -110,15 +111,17 @@ the drifted files and both hashes so the cause is diagnosable from the error tex
 Who runs the importer decides what its janitors may change outside the session, read from one place: `Get-SessionActor` → `Person`, `Agent`,
 or `Pipeline` (a pipeline wins over an agent running in it). No switch overrides it.
 
-| Janitor action                            | Person | Agent                                        | Pipeline                       |
-| ----------------------------------------- | ------ | -------------------------------------------- | ------------------------------ |
-| Stop processes holding a superseded build | yes    | no — the stale build is reported             | no — asserts exactly one build |
-| Commit the generated `pwsh/.compiled`     | yes    | no — announces what changed, to be committed | no                             |
-| Regenerate the gitignored generated files | yes    | yes                                          | yes                            |
+| Janitor action                            | Person                                | Agent                                        | Pipeline                       |
+| ----------------------------------------- | ------------------------------------- | -------------------------------------------- | ------------------------------ |
+| Delete a superseded build another process | no — named in one line, gone when its | no — named in one line                       | no — asserts exactly one build |
+| still holds                               | holder exits                          |                                              |                                |
+| Commit the generated `pwsh/.compiled`     | yes                                   | no — announces what changed, to be committed | no                             |
+| Regenerate the gitignored generated files | yes                                   | yes                                          | yes                            |
 
-The stale sessions and the repository are the person's: their session may stop the one and commit to the other. An agent leaves both to the
-person and says what it left; a pipeline only asserts. A test-run snapshot (`Test-RepositorySnapshot`) is never committed to, whoever runs
-it.
+The repository is the person's: their session commits to it. An agent leaves it to the person and says what it left; a pipeline only
+asserts. No session of any actor stops another process: a build another process holds open is that process's one types instance until it
+exits, since a loaded assembly cannot be swapped (ADR-BCL-TYPES-CHANGEDAFTERLOAD). A test-run snapshot (`Test-RepositorySnapshot`) is never
+committed to, whoever runs it.
 
 - [The cache-state contract](#the-cache-state-contract)
 
@@ -296,14 +299,11 @@ A superseded-hash DLL (the old build after a source edit) is pruned by the loade
 assembly — one combined hash, one committed DLL, paid once by the editor.
 
 `.compiled` must hold **exactly one** `Catzc.Types.*.dll`. Because every load goes through the shadow copy, a superseded build is always
-expected to delete. When a delete still fails, something outside catzc holds the file (an antivirus scan, an indexer, a session started
-before shadow loading). `Clear-ModuleTypeCache` then removes every deletable build first and throws one error naming each surviving file
-and, on Windows, its holders (`Get-FileLockingProcess`, via the Restart Manager). The importer catches that error into one red line, so the
-load completes. `-StopLockingProcesses` on `Clear-ModuleTypeCache` stops each holder, announcing each stop, then retries the delete over a
-short window (Windows releases an exited process's mapped image a moment after the exit). It never stops the session asking or any of its
-parents. A hand-run `Clear-ModuleTypeCache` stops nothing unless asked, because a stopped process loses its unsaved work; the importer
-decides by who is running it (ADR-BCL-TYPES-JANITORSBYCALLER) — a person's import stops the holders, an agent's import and a pipeline never
-do. The invariant is guarded at three points:
+expected to delete. When a delete still fails, a process holds the file: an antivirus scan, an indexer, or a session that loaded the build
+in place. `Clear-ModuleTypeCache` removes every deletable build and names each survivor with, on Windows, its holders
+(`Get-FileLockingProcess`, via the Restart Manager) in one yellow line; a silent run says nothing. It never throws for a held build, never
+stops a holder and never waits for one: the held build is that process's one types instance (ADR-BCL-TYPES-CHANGEDAFTERLOAD), and it goes on
+the next run after the holder exits. The invariant is guarded at three points:
 
 - **Devbox auto-commit:** `Sync-GeneratedFile` holds `pwsh/.compiled` back, with one red line naming the surplus DLLs, while
   `Clear-ModuleTypeCache -DryRun` lists anything but the current build. A surviving build never rides along as the +1 without its −1. It
@@ -496,8 +496,8 @@ as well as its files, so the pair is the language's configuration, apart from th
   after load. `Set-CSharpFileScopedNamespace.Tests.ps1` unit-tests the namespace string engine behind `Format-Types`.
 
 - **`Clear-ModuleTypeCache`** keeps the current `pwsh/.compiled/Catzc.Types.<hash>.dll` and prunes the rest (deleting on a devbox only). A
-  delete that fails throws after every deletable build is gone, naming the file and its holders; the importer reports it as one red line. In
-  a pipeline it throws when a second `Catzc.Types.*.dll` is committed — a stale committed build must not reach trunk.
+  build a process still holds is named with its holders in one yellow line and left for the run after the holder exits. In a pipeline it
+  throws when a second `Catzc.Types.*.dll` is committed — a stale committed build must not reach trunk.
 
 - **`Import-TypesAssembly`** (in `.internal/Catzc.Internal.Types.psm1`) is the one load path — the bootstrap and the `SpellOutIdentifiers`
   analyzer rule both load through the shadow copy, so no session holds `.compiled`. `Import-TypesAssembly.Tests.ps1` covers the copy, its

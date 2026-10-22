@@ -1,0 +1,66 @@
+using System;
+using System.Globalization;
+
+namespace Catzc.Base.VSCode;
+
+public sealed class VscodeSession
+{
+    // The pwsh host's name: 'Visual Studio Code Host' for the PowerShell extension's own session, 'ConsoleHost' for an integrated terminal.
+    public string HostName { get; }
+
+    public int ProcessId { get; }
+
+    // The hash of the types instance this session loaded; null while the lazy load has not happened yet.
+    public string LoadedHash { get; }
+
+    // The hash the sources on disk produce.
+    public string SourceHash { get; }
+
+    // True when the loaded instance is the sources' build, or nothing is loaded yet.
+    public bool Current { get; }
+
+    // One line per drifted type, as the loader names them.
+    public string[] Drift { get; }
+
+    // The Catzc.Types.<hash>.dll files committed under pwsh/.compiled.
+    public string[] CommittedBuilds { get; }
+
+    // One line per committed build a process holds open: "<name> held by <holders>".
+    public string[] HeldBuilds { get; }
+
+    // The names of the environment variables the editor and its extensions contributed to this session.
+    public string[] ContributedVariables { get; }
+
+    // The editor's newest log session folder; null when none is found.
+    public string LogSession { get; }
+
+    // The last lines of the PowerShell extension's log that record a start or a termination; empty when the log is absent.
+    public string[] PowerShellLogLines { get; }
+
+    public VscodeSession(
+        string hostName, int processId, string loadedHash, string sourceHash, bool current, string[] drift, string[] committedBuilds,
+        string[] heldBuilds, string[] contributedVariables, string logSession, string[] powerShellLogLines)
+    {
+        HostName = hostName;
+        ProcessId = processId;
+        LoadedHash = loadedHash;
+        SourceHash = sourceHash;
+        Current = current;
+        Drift = drift ?? Array.Empty<string>();
+        CommittedBuilds = committedBuilds ?? Array.Empty<string>();
+        HeldBuilds = heldBuilds ?? Array.Empty<string>();
+        ContributedVariables = contributedVariables ?? Array.Empty<string>();
+        LogSession = logSession;
+        PowerShellLogLines = powerShellLogLines ?? Array.Empty<string>();
+    }
+
+    // "pwsh 1234 in ConsoleHost: types bb37d4d9 of sources bb37d4d9 (current); 0 held build(s)"
+    public override string ToString()
+    {
+        return string.Format(
+            CultureInfo.InvariantCulture,
+            "pwsh {0} in {1}: types {2} of sources {3} ({4}); {5} held build(s)",
+            ProcessId, HostName, LoadedHash ?? "not loaded", SourceHash ?? "unknown", Current ? "current" : "bound to an earlier instance",
+            HeldBuilds.Length);
+    }
+}

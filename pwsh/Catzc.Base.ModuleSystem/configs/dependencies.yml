@@ -165,7 +165,15 @@ groups:
         Catzc.Base.Timeouts,
       ]
     Catzc.Base.VSCode:
-      [Catzc.Base.Config, Catzc.Base.Objects, Catzc.Base.Execution, Catzc.Base.Folders, Catzc.Base.Repository, Catzc.Base.Asserts]
+      [
+        Catzc.Base.Config,
+        Catzc.Base.Objects,
+        Catzc.Base.Execution,
+        Catzc.Base.Folders,
+        Catzc.Base.Repository,
+        Catzc.Base.Asserts,
+        Catzc.Base.Files,
+      ]
     Catzc.Base.RootConfig:
       [
         Catzc.Base.Contracts,

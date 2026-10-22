@@ -6,8 +6,9 @@ catzc:
     docs: "[Clear-ModuleTypeCache.ps1.md](../../docs/references/pwsh/catzc-base-types-system/Clear-ModuleTypeCache.ps1.md)"
     cites:
       - ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
+      - ADR-PWSH-TYPES-ONEINSTANCEPERSESSION
       - DDR-RUNMODE
-    drs_total: 2
+    drs_total: 3
 ---
 #>
 
@@ -111,8 +112,6 @@ function Clear-ModuleTypeCache {
         }
     }
 
-    # A superseded build another process still has open is that process's bound instance until it exits: a fact to name, never an error,
-    # and never a reason to stop or wait on anything ([ADR-PWSH-TYPES-ONEINSTANCEPERSESSION](/docs/drs/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-oneinstancepersession)).
     if ($failed.Count -and -not $Silent) {
         $details = foreach ($entry in $failed) {
             $name = [System.IO.Path]::GetFileName($entry.Path)
