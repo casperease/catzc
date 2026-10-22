@@ -5,7 +5,9 @@ catzc:
     cites:
       - ADR-AUTO-TEST-ONECATEGORY
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-    drs_total: 2
+      - ADR-AZ-CUSTOMER
+      - ADR-AZ-DATAMOD
+    drs_total: 4
 ---
 
 # pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1

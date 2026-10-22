@@ -6,7 +6,8 @@ catzc:
       - ADR-AZ-DATAMOD-VALUEBYADDRESS
       - ADR-AZ-DATAMOD-ONEPATHTOPARAMETERS
       - ADR-PWSH-ERROR-STRICTCLEAN
-    drs_total: 3
+      - ADR-PWSH-PREPOST
+    drs_total: 4
 ---
 
 # pwsh/Catzc.Azure.Templates/Build-Bicep.ps1

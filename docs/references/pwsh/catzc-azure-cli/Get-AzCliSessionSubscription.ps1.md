@@ -6,7 +6,8 @@ catzc:
       - ADR-AZ-DATAMOD-CUSTOMERAXIS
       - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
       - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
-    drs_total: 3
+      - ADR-AZ-SESSION
+    drs_total: 4
 ---
 
 # pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1

@@ -4,8 +4,9 @@ catzc:
   edges:
     cites:
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
+      - ADR-AZ-DATAMOD
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
-    drs_total: 2
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Azure/types/AzureSubscriptionRecord.cs

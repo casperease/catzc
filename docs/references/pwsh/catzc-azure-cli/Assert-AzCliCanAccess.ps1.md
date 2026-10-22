@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AZ-CLI-AZBYDEFAULT
-    drs_total: 1
+      - ADR-AZ-DATAMOD
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1

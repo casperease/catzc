@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-IDEM-ALREADYDONEISFINE
-    drs_total: 1
+      - FDR-CD-GLOBS
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Azure.DevOps.BuildValidation/Unregister-AdoBuildValidation.ps1

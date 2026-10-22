@@ -4,8 +4,9 @@ catzc:
   edges:
     cites:
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
+      - FDR-CD-GLOBS
       - FDR-CD-TYPE-PRECOMMITBUDGET
-    drs_total: 2
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Azure.DevOps.BuildValidation/configs/build-validation.yml
