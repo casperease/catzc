@@ -113,19 +113,24 @@ try {
     # Imported, the run knows its commands' time limits, so the holder record's deadline moves from the budget to their sum.
     # Get-Module loads nothing, so an importer without the timeouts module leaves the deadline at the budget and autoloads no module.
     if ($lock -and (Get-Module Catzc.Base.Timeouts)) {
+        # Only a declared limit counts (a TimeLimit or a commands: entry); one command without one keeps the deadline at the budget, since
+        # the shell default would cut it short and let waiters give up on a run that is still working.
+        $timeouts = Get-Config -Config timeouts
         $limit = 0
+        $undeclared = $false
         foreach ($line in $Command) {
             $name = ($line.Trim() -split '\s+', 2)[0]
-            if (Get-Command $name -CommandType Function, Cmdlet -ErrorAction Ignore) {
-                try {
-                    $limit += Get-TimeoutSeconds -Command $name
-                }
-                catch {
-                    Write-Verbose "Invoke-CatzcCommand: $name declares no time limit, so it adds none to the holder's deadline."
-                }
+            $function = Get-Command $name -CommandType Function -ErrorAction Ignore
+            $declared = $function -and ($null -ne $timeouts.SecondsForCommand($name) -or
+                @($function.ScriptBlock.Attributes | Where-Object { $_ -is [Catzc.Base.Timeouts.TimeLimitAttribute] }).Count -gt 0)
+            if ($declared) {
+                $limit += Get-TimeoutSeconds -Command $name
+            }
+            else {
+                $undeclared = $true
             }
         }
-        if ($limit -gt 0) {
+        if (-not $undeclared -and $limit -gt 0) {
             Set-CatzcRunLockHolder -LockName $LockName -Seconds ([Math]::Min($limit, $BudgetSeconds)) -Holding "Invoke-CatzcCommand $($Command -join '; ')"
         }
     }
