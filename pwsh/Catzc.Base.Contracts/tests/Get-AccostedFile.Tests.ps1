@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "446ef40925f8"
-  edges:
-    code: pwsh/Catzc.Base.Contracts/Get-AccostedFile.ps1
----
-#>
-
 Describe 'Get-AccostedFile' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

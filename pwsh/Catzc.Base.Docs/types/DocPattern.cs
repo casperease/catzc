@@ -20,7 +20,7 @@ public sealed class DocPattern : Catzc.Base.Objects.DictionaryRecord
     // Repository-relative glob whose matched folders each receive a generated README. Required.
     public string glob { get; }
 
-    // README source template; its `{kebab}` placeholder expands to the matched folder's kebab-cased leaf. Required.
+    // README source template; `{kebab}` expands to the matched folder's kebab-cased leaf, `{name}` to the leaf as written. Required.
     public string source { get; }
 
     public DocPattern(IDictionary d)

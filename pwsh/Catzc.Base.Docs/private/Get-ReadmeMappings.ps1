@@ -54,8 +54,9 @@ function Get-ReadmeMappings {
                 continue   # an explicit mapping already owns this folder
             }
 
+            # {kebab} kebab-cases the folder name, as a module's article is named; {name} keeps it, as a python package's is.
             $kebab = [Catzc.Base.Objects.NameCase]::Render($leaf, 'kebab')
-            $source = $pattern.source.Replace('{kebab}', $kebab)
+            $source = $pattern.source.Replace('{kebab}', $kebab).Replace('{name}', $leaf)
             $sourcePath = Join-Path $RepositoryRoot $source
             if (-not (Test-Path $sourcePath -PathType Leaf)) {
                 continue   # no authored source yet — skip so the importer's Build-Readme never throws

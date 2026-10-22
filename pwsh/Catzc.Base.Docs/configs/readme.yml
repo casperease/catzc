@@ -13,7 +13,7 @@ patterns:
   - glob: pwsh/*
     source: docs/references/pwsh/{kebab}.md
   - glob: python/*
-    source: docs/references/python/{kebab}.md
+    source: docs/references/python/{name}.md
 mappings:
   - folder: docs/drs
     source: docs/drs/index.md

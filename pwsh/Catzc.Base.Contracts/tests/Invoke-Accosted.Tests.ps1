@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: da0a2e599b35
-  edges:
-    code: pwsh/Catzc.Base.Contracts/Invoke-Accosted.ps1
----
-#>
-
 Describe 'Invoke-Accosted' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'repo'

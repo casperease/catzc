@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: "475cb7d57664"
-# ---
-
 # One run per harmless contracted command of Catzc.Base.Contracts, each proven from every engine
 # ([ADR-AUTO-ACCOSTED](/docs/drs/automation/accosted-language.md)).
 runs:

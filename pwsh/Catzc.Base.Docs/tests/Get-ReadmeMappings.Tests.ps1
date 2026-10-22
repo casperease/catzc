@@ -37,6 +37,21 @@ Describe 'Get-ReadmeMappings' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'derives a {name} source from the folder name as written, as a python package''s article is named' {
+        InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
+            param($Root)
+            [System.IO.Directory]::CreateDirectory((Join-Path $Root 'gadgets/catzc_widget_kit')) | Out-Null
+            [System.IO.Directory]::CreateDirectory((Join-Path $Root 'docs/references/gadgets')) | Out-Null
+            [System.IO.File]::WriteAllText((Join-Path $Root 'docs/references/gadgets/catzc_widget_kit.md'), '# x')
+            $config = [pscustomobject]@{
+                patterns = @([pscustomobject]@{ glob = 'gadgets/*'; source = 'docs/references/gadgets/{name}.md' })
+                mappings = @()
+            }
+            $result = Get-ReadmeMappings -Config $config -RepositoryRoot $Root
+            ($result | Where-Object folder -EQ 'gadgets/catzc_widget_kit').source | Should -Be 'docs/references/gadgets/catzc_widget_kit.md'
+        }
+    }
+
     It 'skips a matched folder whose derived source does not exist' {
         InModuleScope Catzc.Base.Docs -Parameters @{ Root = $script:root } {
             param($Root)

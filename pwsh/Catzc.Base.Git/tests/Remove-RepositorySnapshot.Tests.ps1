@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "5d6a0343d927"
-  edges:
-    code: pwsh/Catzc.Base.Git/Remove-RepositorySnapshot.ps1
----
-#>
-
 Describe 'Remove-RepositorySnapshot' -Tag 'L0', 'logic' {
     It 'refuses a folder that carries no snapshot marker and leaves it in place' {
         $folder = Join-Path $TestDrive 'not-a-snapshot'

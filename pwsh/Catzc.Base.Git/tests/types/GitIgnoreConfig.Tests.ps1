@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: a93a63085637
-  edges:
-    code: pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
----
-#>
-
 Describe 'GitIgnoreConfig' -Tag 'L0', 'logic' {
     It 'constructs and exposes sections in registry order' {
         $c = [Catzc.Base.Git.GitIgnoreConfig]::new(@{
