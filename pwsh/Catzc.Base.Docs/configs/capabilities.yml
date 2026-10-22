@@ -1,7 +1,5 @@
 # ---
 # catzc:
-#   immutable:
-#     with_body_sha: "9a1e9626c7c8"
 #   edges:
 #     docs: "[capabilities.yml.md](../../../docs/references/pwsh/catzc-base-docs/configs/capabilities.yml.md)"
 #     cites:
@@ -15,7 +13,7 @@
 #       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
 #       - ADR-PWSH-ONEFUNC-ONEFUNCTIONPERFILE
 #       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
-#       - ADR-REPO-AGENTS-STANDARDWORKER
+#       - ADR-REPO-AGENTS-STANDARDDRONE
 #       - ADR-REPO-AGENTS-USERSKILL
 #       - ADR-REPO-AI-TRUSTTHETREE
 #       - ADR-REPO-AI-NEVERDECIDEFORUSER
@@ -74,7 +72,7 @@ capabilities:
 
   # The per-file and end-of-task checks of a delegated change, and the shared files it never edits.
   - name: catzc-verify
-    supported_by: [WDR-BUILTIN-GATESAREPARTOFWORK, ADR-AUTO-TEST-QUALITYGATE, ADR-REPO-AGENTS-STANDARDWORKER]
+    supported_by: [WDR-BUILTIN-GATESAREPARTOFWORK, ADR-AUTO-TEST-QUALITYGATE, ADR-REPO-AGENTS-STANDARDDRONE]
     checks:
       [
         Invoke-TestFile,
@@ -97,7 +95,7 @@ capabilities:
 
   # The fixed end-of-run report of every robot.
   - name: report-fixed
-    supported_by: [ADR-REPO-AGENTS-STANDARDWORKER]
+    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE]
     checks: []
 
   # Git as a read-only probe; no state-changing command.

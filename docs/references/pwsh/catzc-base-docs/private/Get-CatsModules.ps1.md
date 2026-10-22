@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-REPO-FOLDERS-DOTMEANSTOOLING
+      - DDR-RUNMODE-SAMEMODULEINBOTH
+---
+
 # pwsh/Catzc.Base.Docs/private/Get-CatsModules.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

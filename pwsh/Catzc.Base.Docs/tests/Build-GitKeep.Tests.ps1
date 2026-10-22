@@ -81,7 +81,8 @@ Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR
         $written = [System.IO.File]::ReadAllText((Join-Path $script:fake.Root 'widgets/.gitkeep'))
         $shipped.Trim() | Should -Not -BeNullOrEmpty
         ($written -replace "`r", '') | Should -BeLike ('*' + ($shipped -replace "`r", '').TrimEnd("`n") + "`n")
-        $written | Should -BeLike '*role: other*'
+        $written | Should -BeLike '*warning: "Do Not Edit, this file is generated"*'
+        $written | Should -Not -BeLike '*role:*'
         $written | Should -Not -BeLike '*path: widgets/.gitkeep*'
     }
 }

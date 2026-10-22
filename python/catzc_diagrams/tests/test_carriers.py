@@ -112,6 +112,49 @@ def test_carry_refuses_a_diagram_already_in_the_carrier_or_declared_twice(pair):
     stem, page, _ = pair
     with pytest.raises(declaration.DeclarationError, match="already in the file carrier"):
         declaration.carry(stem, "file")
-    page.write_text(f"```yml drawio\n{BODY}```\n\n" + PAGE, encoding="utf-8")
+    page.write_text(PAGE.replace("![Widgets", f"```yml drawio\n{BODY}```\n\n![Widgets"), encoding="utf-8")
     with pytest.raises(declaration.DeclarationError, match="declared in both carriers"):
         declaration.carry(stem, "article")
+
+
+def test_a_yml_cspell_ignore_moves_to_the_page_comment_under_the_title_and_back(pair):
+    stem, page, _ = pair
+    declaration.source_of(stem).write_text(HEAD + "# cspell:ignore gizmox\n\n" + BODY.replace("through a gate", "through a gizmox gate"), encoding="utf-8")
+    declaration.carry(stem, "article")
+    text = page.read_text(encoding="utf-8")
+    assert text.startswith("# Widgets flow into gadgets\n\n<!-- cspell:ignore gizmox -->\n\nA paragraph before the diagram.\n\n")
+    assert "cspell" not in text[text.index("```yml drawio") :], "the block holds no cspell comment"
+    declaration.carry(stem, "file")
+    assert declaration.source_of(stem).read_text(encoding="utf-8").startswith("# cspell:ignore gizmox\n\n"), "the word is ignored in the yml again"
+    assert page.read_text(encoding="utf-8") == PAGE, "the comment the carry made is gone with its word"
+
+
+def test_a_cspell_ignore_merges_into_the_page_own_comment_and_a_word_the_page_still_uses_stays(pair):
+    stem, page, _ = pair
+    declaration.source_of(stem).write_text("# cspell:ignore gizmox\n" + BODY.replace("through a gate", "through a gizmox gate"), encoding="utf-8")
+    own = PAGE.replace("# Widgets flow into gadgets\n\n", "# Widgets flow into gadgets\n\n<!-- cspell:ignore sprocketz -->\n\n").replace("After it.", "After it, sprocketz.")
+    page.write_text(own, encoding="utf-8")
+    declaration.carry(stem, "article")
+    assert "<!-- cspell:ignore sprocketz gizmox -->" in page.read_text(encoding="utf-8")
+    declaration.carry(stem, "file")
+    assert page.read_text(encoding="utf-8") == own, "the page keeps its own word and loses only the diagram's"
+
+
+def test_a_page_with_two_diagrams_takes_one_block_above_each_image(pair, monkeypatch):
+    stem, page, config = pair
+    gadget = stem.with_name("gadget-flow")
+    gadget_body = BODY.replace("Widgets flow into gadgets through a gate.", "Gadgets flow back.")
+    page.write_text(PAGE + f"\n```yml drawio\n{gadget_body}```\n\n![Gadgets](.assets/gadget-flow.drawio.png)\n", encoding="utf-8")
+    config.write_text(declaration.recorded_carriers(config.read_text(encoding="utf-8"), "gadget-flow", "article"), encoding="utf-8")
+    monkeypatch.setitem(DEFAULTS, "carriers", {"gadget-flow": "article"})
+    declaration.carry(stem, "article")
+    text = page.read_text(encoding="utf-8")
+    assert f"```yml drawio\n{BODY}```\n\n![Widgets flow into gadgets](.assets/widget-flow.drawio.png)" in text
+    assert f"```yml drawio\n{gadget_body}```\n\n![Gadgets](.assets/gadget-flow.drawio.png)" in text
+    assert declaration.load(gadget)["description"] == "Gadgets flow back." and declaration.carrier_findings(stem) == []
+
+
+def test_carry_to_the_article_names_the_png_as_the_build_target(pair):
+    stem, page, _ = pair
+    where, png = declaration.carry(stem, "article")
+    assert where == page and png == stem.with_name("widget-flow.drawio.png")

@@ -22,17 +22,17 @@ Describe 'Start-ClaudeWorker' -Tag 'L0', 'logic', 'ADR-PWSH-DRYRUN-EARLYRETURNBR
         $result = @(Start-ClaudeWorker -PassThru)
         $result.Count | Should -Be 1
         $result[0] | Should -BeOfType [string]
-        $result[0] | Should -BeLike "wt.exe -d `"C:/widget/repo`" new-tab *pwsh -NoExit -Command `"& claude --agent 'catzc-worker'`""
+        $result[0] | Should -BeLike "wt.exe -d `"C:/widget/repo`" new-tab *pwsh -NoExit -Command `"& claude --agent 'catzc-drone'`""
         Should -Invoke Start-Process -ModuleName Catzc.Tooling.Claude -Times 1 -Exactly -ParameterFilter { $WorkingDirectory -eq 'C:/widget/repo' -and $FilePath -eq 'wt.exe' }
     }
 
     It 'adds --model only when a model is given' {
         Start-ClaudeWorker -DryRun | Should -Not -BeLike '*--model*'
-        Start-ClaudeWorker -DryRun -Model gadget | Should -BeLike "*--agent 'catzc-worker' --model 'gadget'*"
+        Start-ClaudeWorker -DryRun -Model gadget | Should -BeLike "*--agent 'catzc-drone' --model 'gadget'*"
     }
 
     It 'passes the prompt as the last argument, keeping its quotes' {
-        Start-ClaudeWorker -DryRun -Prompt "do the widget's work" | Should -BeLike "*--agent 'catzc-worker' 'do the widget''s work'*"
+        Start-ClaudeWorker -DryRun -Prompt "do the widget's work" | Should -BeLike "*--agent 'catzc-drone' 'do the widget''s work'*"
     }
 
     It 'starts as many workers as -Count asks for, each titled by its index' {

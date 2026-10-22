@@ -1,7 +1,5 @@
 # ---
 # catzc:
-#   immutable:
-#     with_body_sha: "6d74ea7a380f"
 #   edges:
 #     docs: "[agents.yml.md](../../../docs/references/pwsh/catzc-base-docs/configs/agents.yml.md)"
 #     cites:
@@ -40,7 +38,7 @@
 #       - WDR-PULLWORK-LIMITWORKINPROGRESS
 # ---
 
-standard: catzc-worker
+standard: catzc-drone
 # The roofs Test-AgentDefinitions holds every robot and capability under; the defaults are declared once on AgentsConfig.
 roofs:
   agent_body_lines: 20
@@ -49,9 +47,9 @@ roofs:
 contracts: [ADR-REPO-AI]
 agents:
   # The standard agent: one task from a coordinator's brief, each file verified with the gates before the next.
-  - name: catzc-worker
+  - name: catzc-drone
     model_reason: writes code, tests and docs that must pass the analyzer and the gates on the first run, across several files of one brief
-    supported_by: [ADR-REPO-AGENTS-STANDARDWORKER, PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT, WDR-BUILTIN-GATESAREPARTOFWORK]
+    supported_by: [ADR-REPO-AGENTS-STANDARDDRONE, PDR-REDUCEVAR-ESSENTIALDIFFERENCESEXPLICIT, WDR-BUILTIN-GATESAREPARTOFWORK]
     checks:
       - Invoke-TestFile
       - Test-ScriptAnalyzer

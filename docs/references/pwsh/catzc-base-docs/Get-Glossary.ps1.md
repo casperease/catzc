@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+      - ADR-REPO-VOCAB-GLOSSARYSOURCE
+---
+
 # pwsh/Catzc.Base.Docs/Get-Glossary.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

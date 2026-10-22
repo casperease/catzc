@@ -1,3 +1,10 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-REPO-README-AUTHOREDSOURCES
+---
+
 # pwsh/Catzc.Base.Docs/Build-Glossary.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

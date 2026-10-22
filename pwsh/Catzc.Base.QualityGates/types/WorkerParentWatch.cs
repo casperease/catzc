@@ -1,10 +1,7 @@
 /*
 ---
 catzc:
-  immutable:
-    with_body_sha: "2e78dfbfb113"
   edges:
-    test: pwsh/Catzc.Base.QualityGates/tests/types/WorkerParentWatch.Tests.ps1
     docs: "[WorkerParentWatch.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/WorkerParentWatch.cs.md)"
 ---
 */
@@ -80,7 +77,7 @@ public static class WorkerParentWatch
             watcher = new Thread(() => Watch(pid, startTicks, intervalMilliseconds))
             {
                 IsBackground = true,
-                Name = "catzc-worker-parent-watch"
+                Name = "catzc-run-parent-watch"
             };
             watcher.Start();
         }

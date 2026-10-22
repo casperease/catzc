@@ -1,3 +1,17 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
+      - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-REPO-VOCAB-DEFINEDTERM
+      - ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED
+      - ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED
+      - ADR-REPO-VOCAB-FAMILYFORMS
+      - FDR-CD-SHORTINTEGRATIONCYCLE
+---
+
 # pwsh/Catzc.Base.Docs/types/GlossaryConcept.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

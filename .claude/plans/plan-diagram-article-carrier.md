@@ -5,6 +5,10 @@ plan:
   reviewed: 2026-10-22
   class: feature
   targets: [python/catzc_diagrams/configs/drawio.yml, docs/explanation, docs/drs, docs/how-to, docs/references]
+catzc:
+  edges:
+    cites:
+      - ADR-REPO-SLIDES-DECLARATION
 ---
 
 # Diagram article carrier: every declaration lives in its article, seven stay files
@@ -41,14 +45,9 @@ frontmatter re-imprint then has no diagram declaration files to head.
 
 ## Open steps
 
-- [ ] `python/catzc_diagrams/declaration.py`: `carry <stem> article|file` moves one declaration between carriers with `load()` parity, edits
-      `carriers:` itself and never leaves a diagram declared twice or not at all; `article_block` skips `*.slide.md` (catzc-e9; the map,
-      `out/diagram-carrier-mechanism.md`, found no command for it); from the pilot (`azure-name-assembly`, in ed8165014): a declaration's
-      `cspell:ignore` words merge into the page's own ignore comment, a page with several diagrams gets one block per image, and the png path
-      is the `Build-Diagrams` target after the move. (check: `pytest` on `test_carriers.py` and `test_declaration.py` green, both directions,
-      a slide skipped, a refusal on lost parity, the spelling merge and the two-diagram page)
-- [ ] `pwsh/Catzc.Base.Slides/Move-Diagram.ps1` carrier-aware: an article-carried diagram moves its block with it and its `carriers:` key is
-      re-keyed. (check: its test file green with an article-carried case)
+- [ ] `pwsh/Catzc.Base.Slides`: `Move-Diagram.ps1` carrier-aware (an article-carried diagram moves its block with it, its `carriers:` key
+      re-keyed), and `private/Get-DiagramDeclarationText.ps1` skips `*.slide.md` as the kit's `carry` does (catzc-e9; `carry` landed with 109
+      kit tests green). (check: both test files green, with an article-carried move and a slide-block case)
 - [ ] `python/catzc_diagrams/configs/drawio.yml`: `renderer.carrier: article`, `carriers:` the seven as `file`. (check: `pytest` on the
       kit's carrier tests green)
 - [ ] The move, one `.assets/` folder at a time: each declaration into its article's block, its yml deleted, the folder rebuilt. (check: per

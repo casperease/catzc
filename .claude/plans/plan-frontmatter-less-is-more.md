@@ -49,10 +49,10 @@ the tree, they churn on every body edit, and agents read them on every file they
       `docs/how-to/pwsh/.assets/head-outcomes.drawio.yml`, whose description also names the `file_heads` variant) re-declared with
       `declaration.py minimaps` and re-rendered (catzc-e3). (check: `Build-Diagrams -Path` on each yml clean with no minimap warning, and no
       deleted file or the variant named in any `.drawio.yml`, by grep)
-- [ ] The comment pages of the code the engine burst changes (`file-meta.yml.md`, `generated-head.yml.md`,
-      `Format-GeneratedFileHead.ps1.md`, `Invoke-FileMetaEngine.ps1.md`, `Get-FileMetaInputStamp.ps1.md`, `FileHeadPolicy.cs.md`, the ten
-      generators' pages where a parameter goes), drafted by catzc-e9 under `out/frontmatter-engine/pages/` from the staged code and applied
-      right after the swap. (check: `Test-Comments` at 0 after the swap)
+- [ ] Every tracked generated head lists `with_body_sha` first in its `immutable` part, then the warning, so it reads "immutable for this
+      body" (the user, 2026-10-22): `Format-GeneratedFileHead` writes that order and every generated file is regenerated (catzc-a0). (check:
+      the writer's test asserting the order, `Test-GeneratedFiles` at 0, and a grep over generated heads for an `immutable:` part whose first
+      key is not `with_body_sha` at 0)
 - [ ] The engine, in one burst, per `out/frontmatter-mechanism-map.md` (catzc-a0): `file-meta.yml` (no authored `body-sha`, `relative-edges`
       `[docs]`, `drs-codes` every authored class, a head only when a fact is non-empty), `generated-head.yml` `[warning, with_body_sha]`,
       `Format-GeneratedFileHead` (sha only while tracked, no docs edge), the `file_heads` variant with `Get-FileHeadVariant` and

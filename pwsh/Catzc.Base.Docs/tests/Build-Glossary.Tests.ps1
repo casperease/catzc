@@ -94,11 +94,12 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         (Build-Glossary -Path $script:page -DryRun -PassThru -Silent).Changed | Should -BeFalse
     }
 
-    It 'records the body hash in the head, never an inputs stamp, and renders on every run' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
+    It 'writes the warning in the head, never an inputs stamp, and renders on every run' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
         Remove-Item $script:page -ErrorAction Ignore
         Build-Glossary -Path $script:page -Silent | Out-Null
         $text = [System.IO.File]::ReadAllText($script:page)
-        $text | Should -Match 'with_body_sha: "?[0-9a-f]{12}'
+        $text | Should -Match 'warning: "Do Not Edit, this file is generated"'
+        $text | Should -Not -Match 'with_body_sha' -Because 'git does not track a fixture page, and the body hash is written only while it does'
         $text | Should -Not -Match 'with_inputs_sha'
         (Build-Glossary -Path $script:page -PassThru -Silent).Changed | Should -BeFalse
         Should -Invoke Get-Glossary -ModuleName Catzc.Base.Docs -Times 2 -Exactly -Scope It

@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED
+---
+
 # pwsh/Catzc.Base.Docs/types/GlossaryAvoid.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,13 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    with_body_sha: "9e58b3cc07f4"
-  edges:
-    test: pwsh/Catzc.Tooling.Claude/tests/types/ClaudeWorkerConfig.Tests.ps1
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,7 +11,7 @@ public sealed class ClaudeWorkerConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    public const string DefaultAgent = "catzc-worker";
+    public const string DefaultAgent = "catzc-drone";
     public const string DefaultLauncher = "windows-terminal";
 
     public static IReadOnlyList<string> Launchers { get; } = Array.AsReadOnly(new[] { "windows-terminal", "pwsh" });

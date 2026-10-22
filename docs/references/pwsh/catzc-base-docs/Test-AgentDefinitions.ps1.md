@@ -1,3 +1,20 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-AGENTS-ONEFILEPERAGENT
+      - ADR-REPO-AGENTS-BACKEDBYRULE
+      - ADR-REPO-AGENTS-LISTEDINCLAUDEFILE
+      - ADR-REPO-AGENTS-STANDARDDRONE
+      - ADR-REPO-AGENTS-ROBOTBODYLIMIT
+      - ADR-REPO-AGENTS-NAMEDMODEL
+      - ADR-REPO-AGENTS-CAPABILITYFILE
+      - ADR-REPO-AGENTS-NOORPHANNOGHOST
+      - ADR-REPO-AGENTS-CAPABILITYREGISTERED
+      - ADR-REPO-AGENTS-USERSKILL
+---
+
 # pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

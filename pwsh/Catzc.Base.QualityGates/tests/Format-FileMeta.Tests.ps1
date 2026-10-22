@@ -135,7 +135,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
     It 'rewrites a stale fact when the body changes' {
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
         $path = Join-Path $script:widgetRoot 'docs/widget.md'
-        [System.IO.File]::WriteAllText($path, [System.IO.File]::ReadAllText($path).Replace('ADR-GADGET-SPIN', 'ADR-GADGET-FOLD'))
+        [System.IO.File]::WriteAllText($path, [System.IO.File]::ReadAllText($path).Replace('See ADR-GADGET-SPIN.', 'See ADR-GADGET-FOLD.'))
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Should -Be @('docs/widget.md')
         [System.IO.File]::ReadAllText($path) | Should -BeLike '*- ADR-GADGET-FOLD*'
     }

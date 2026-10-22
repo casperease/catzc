@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS
+      - ADR-CONF-LOADING-READINGISGLOBAL
+      - ADR-PWSH-CACHE-STRICTSAFEPROBE
+---
+
 # pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

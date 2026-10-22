@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-TEST-SETUPONCE
+      - ADR-AUTO-TEST-ONEIMPORTPERCASE
+---
+
 # pwsh/Catzc.Base.Docs/tests/Test-Glossary.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -343,10 +343,7 @@ content:
       - cell: pwsh/Catzc.Base.Variants/private
         by: [pwsh/Catzc.Base.Variants/private/Get-Variant.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Variants/tests
-        by:
-          - pwsh/Catzc.Base.Variants/tests/Get-FileHeadVariant.Tests.ps1
-          - pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
-          - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+        by: [pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Variants/tests/types
         by: [pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Base.Variants/types
@@ -547,7 +544,6 @@ content:
       - cell: subject/Catzc.Base.Variants
         by:
           - pwsh/Catzc.Base.Variants/private/Get-Variant.ps1
-          - pwsh/Catzc.Base.Variants/tests/Get-FileHeadVariant.Tests.ps1
           - pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1
           - pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs

@@ -124,9 +124,10 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
         @(Build-ContractReference -RepositoryRoot $script:root -DryRun -PassThru -Silent | Where-Object Changed) | Should -BeNullOrEmpty
     }
 
-    It 'renders on every run, heads each page with the body hash and no inputs stamp, and writes nothing the second time' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
+    It 'renders on every run, heads each page with the warning and no inputs stamp, and writes nothing the second time' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
         Build-ContractReference -RepositoryRoot $script:root -Silent | Out-Null
-        (Read-Page) | Should -Match 'with_body_sha: "?[0-9a-f]{12}'
+        (Read-Page) | Should -Match 'warning: "Do Not Edit, this file is generated"'
+        (Read-Page) | Should -Not -Match 'with_body_sha' -Because 'git does not track a fixture page, and the body hash is written only while it does'
         (Read-Page) | Should -Not -Match 'with_inputs_sha'
         $second = @(Build-ContractReference -RepositoryRoot $script:root -PassThru -Silent)
         $second | Should -Not -BeNullOrEmpty -Because 'the second run renders every page again'

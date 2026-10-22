@@ -1,3 +1,14 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-REPO-DRSCODE-NAMEDNOTNUMBERED
+      - ADR-REPO-VOCAB-DEFINEDTERM
+      - ADR-REPO-VOCAB-SOURCESINREPOSITORY
+      - ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED
+      - ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED
+---
+
 # pwsh/Catzc.Base.Docs/private/Get-GlossarySourceViolations.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-FILEMETA-HEADPOLICY
+      - ADR-REPO-LINK-ONECITATIONSPELLING
+---
+
 # ADR: Agent definitions — every sub-agent rests on a rule and maps to its checks
 
 ## Rules: ADR-REPO-AGENTS

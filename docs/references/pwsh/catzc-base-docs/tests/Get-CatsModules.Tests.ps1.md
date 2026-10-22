@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
+      - ADR-PWSH-PESTER-PRIVATETHROUGHMODULE
+---
+
 # pwsh/Catzc.Base.Docs/tests/Get-CatsModules.Tests.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

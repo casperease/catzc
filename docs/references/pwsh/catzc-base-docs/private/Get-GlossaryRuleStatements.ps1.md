@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-TEST-TWOMANDATORYTAGS
+      - ADR-REPO-VOCAB-DEFINEDTERM
+      - ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED
+---
+
 # pwsh/Catzc.Base.Docs/private/Get-GlossaryRuleStatements.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

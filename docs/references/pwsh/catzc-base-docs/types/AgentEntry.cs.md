@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
+      - ADR-REPO-AGENTS-BACKEDBYRULE
+      - ADR-REPO-AGENTS-NAMEDMODEL
+---
+
 # pwsh/Catzc.Base.Docs/types/AgentEntry.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above

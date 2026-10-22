@@ -135,9 +135,9 @@ Describe 'BashSafeguard' -Tag 'L0', 'logic' {
         }
 
         It 'asks a subagent to report to its coordinator, logging its type' {
-            $verdict = Get-Verdict @{ command = 'ls' } -AgentId 'a1b2' -AgentType 'catzc-worker'
+            $verdict = Get-Verdict @{ command = 'ls' } -AgentId 'a1b2' -AgentType 'catzc-drone'
             $verdict.Reason | Should -BeLike '*You are a subagent: report the blocker to your coordinator*'
-            $verdict.LogLine | Should -BeLike "*`tsubagent:catzc-worker`t*"
+            $verdict.LogLine | Should -BeLike "*`tsubagent:catzc-drone`t*"
         }
 
         It 'falls back to the agent id when the type is absent' {

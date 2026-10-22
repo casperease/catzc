@@ -81,7 +81,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
 
         $result = Build-Readme -PassThru
         $result[0].Changed | Should -BeTrue
-        [System.IO.File]::ReadAllText($script:readme) | Should -BeLike '*    source: docs/references/pwsh/foo.md*'
+        [System.IO.File]::ReadAllText($script:readme) | Should -BeLike '*    warning: *'
     }
 
     It 'is idempotent — a second run changes nothing' {
@@ -97,7 +97,7 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
         Build-Readme | Out-Null
 
         [System.IO.File]::ReadAllText($script:source) | Should -BeExactly $before
-        [System.IO.File]::ReadAllText($script:readme) | Should -BeLike '*    source: docs/references/pwsh/foo.md*'
+        [System.IO.File]::ReadAllText($script:readme) | Should -BeLike '*    warning: *'
         (Get-Item -LiteralPath $script:source).LinkType | Should -BeNullOrEmpty -Because 'the source is no longer one of two hard-linked names'
     }
 

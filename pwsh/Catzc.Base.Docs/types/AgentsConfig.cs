@@ -1,16 +1,13 @@
 /*
 ---
 catzc:
-  immutable:
-    with_body_sha: dd2d95d4284c
   edges:
-    test: pwsh/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
     docs: "[AgentsConfig.cs.md](../../../docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md)"
     cites:
       - ADR-BCL-TYPES-SNAKECASEMIRRORSYAML
       - ADR-CONF-LOADING-CSHARPCONFIGTYPE
       - ADR-REPO-AGENTS-BACKEDBYRULE
-      - ADR-REPO-AGENTS-STANDARDWORKER
+      - ADR-REPO-AGENTS-STANDARDDRONE
       - ADR-REPO-AGENTS-ROBOTBODYLIMIT
       - ADR-REPO-AGENTS-CAPABILITYFILE
       - ADR-REPO-AI
@@ -34,7 +31,7 @@ public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
 
     public IReadOnlyList<string> contracts { get; } = new[] { "ADR-REPO-AI" };
 
-    // The standard sub-agent for delegated work ([ADR-REPO-AGENTS-STANDARDWORKER](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-standardworker)).
+    // The standard sub-agent for delegated work ([ADR-REPO-AGENTS-STANDARDDRONE](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-standarddrone)).
     public string standard { get; }
 
     // The registered agents, in file order.

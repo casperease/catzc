@@ -53,7 +53,6 @@ content:
           - docs/references/note-file-kind.md
           - docs/references/pwsh/catzc-base-languages/Format-GeneratedFileHead.ps1.md
           - docs/references/pwsh/catzc-base-languages/configs/file-carriers.yml.md
-          - docs/references/pwsh/catzc-base-languages/private/Get-GeneratorPath.ps1.md
           - docs/references/pwsh/catzc-base-languages/types/CarrierKind.cs.md
           - docs/references/pwsh/catzc-base-languages/types/FileCarriersConfig.cs.md
           - docs/references/pwsh/catzc-base-markdown-meta/Get-MarkdownMetaState.ps1.md
@@ -66,9 +65,7 @@ content:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
           - pwsh/Catzc.Base.Languages/configs/file-carriers.yml
-          - pwsh/Catzc.Base.Languages/private/Get-GeneratorPath.ps1
           - pwsh/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1
-          - pwsh/Catzc.Base.Languages/tests/Get-GeneratorPath.Tests.ps1
           - pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1
           - pwsh/Catzc.Base.Languages/tests/types/GeneratedHeadConfig.Tests.ps1
           - pwsh/Catzc.Base.Languages/types/CarrierKind.cs
@@ -82,6 +79,8 @@ content:
           - pwsh/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs
           - pwsh/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1
           - pwsh/Catzc.Base.QualityGates/private/Get-GeneratedStampDrift.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Contract.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-DrsCodesFileMetaFact.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-FileMetaScope.Tests.ps1
@@ -91,6 +90,7 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/types/FileHeadPolicy.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/types/FileHeadPolicy.cs
+          - pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
           - ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY
           - ADR-REPO-FILEMETA-COMPOSEDFILES
           - ADR-REPO-FILEMETA-HEADPOLICY
@@ -107,7 +107,6 @@ content:
           - docs/references/note-file-kind.md
           - docs/references/pwsh/catzc-base-languages/Format-GeneratedFileHead.ps1.md
           - docs/references/pwsh/catzc-base-languages/configs/file-carriers.yml.md
-          - docs/references/pwsh/catzc-base-languages/private/Get-GeneratorPath.ps1.md
           - docs/references/pwsh/catzc-base-languages/types/CarrierKind.cs.md
           - docs/references/pwsh/catzc-base-languages/types/FileCarriersConfig.cs.md
           - docs/references/pwsh/catzc-base-markdown-meta/Get-MarkdownMetaState.ps1.md
@@ -132,13 +131,8 @@ content:
         by: [pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1, ADR-REPO-FILEMETA-COMPOSEDFILES]
       - cell: pwsh/Catzc.Base.Languages/configs
         by: [pwsh/Catzc.Base.Languages/configs/file-carriers.yml, ADR-REPO-FILEMETA-HEADPOLICY]
-      - cell: pwsh/Catzc.Base.Languages/private
-        by: [pwsh/Catzc.Base.Languages/private/Get-GeneratorPath.ps1, ADR-REPO-FILEMETA-COMPOSEDFILES]
       - cell: pwsh/Catzc.Base.Languages/tests
-        by:
-          - pwsh/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1
-          - pwsh/Catzc.Base.Languages/tests/Get-GeneratorPath.Tests.ps1
-          - ADR-REPO-FILEMETA-COMPOSEDFILES
+        by: [pwsh/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1, ADR-REPO-FILEMETA-COMPOSEDFILES]
       - cell: pwsh/Catzc.Base.Languages/tests/types
         by:
           - pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1
@@ -171,6 +165,8 @@ content:
         by: [pwsh/Catzc.Base.QualityGates/private/Get-GeneratedStampDrift.ps1, ADR-REPO-FILEMETA-COMPOSEDFILES]
       - cell: pwsh/Catzc.Base.QualityGates/tests
         by:
+          - pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Contract.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-DrsCodesFileMetaFact.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-FileMetaScope.Tests.ps1
@@ -185,6 +181,8 @@ content:
         by: [pwsh/Catzc.Base.QualityGates/tests/types/FileHeadPolicy.Tests.ps1, ADR-REPO-FILEMETA-HEADPOLICY]
       - cell: pwsh/Catzc.Base.QualityGates/types
         by: [pwsh/Catzc.Base.QualityGates/types/FileHeadPolicy.cs, ADR-REPO-FILEMETA-HEADPOLICY]
+      - cell: pwsh/Catzc.Base.Variants/tests/types
+        by: [pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1, ADR-REPO-FILEMETA-HEADPOLICY]
     track-placement:
       - cell: modules/pwsh
         by:
@@ -193,9 +191,7 @@ content:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
           - pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
           - pwsh/Catzc.Base.Languages/configs/file-carriers.yml
-          - pwsh/Catzc.Base.Languages/private/Get-GeneratorPath.ps1
           - pwsh/Catzc.Base.Languages/tests/Format-GeneratedFileHead.Tests.ps1
-          - pwsh/Catzc.Base.Languages/tests/Get-GeneratorPath.Tests.ps1
           - pwsh/Catzc.Base.Languages/tests/types/FileCarriersConfig.Tests.ps1
           - pwsh/Catzc.Base.Languages/tests/types/GeneratedHeadConfig.Tests.ps1
           - pwsh/Catzc.Base.Languages/types/CarrierKind.cs
@@ -209,6 +205,8 @@ content:
           - pwsh/Catzc.Base.MarkdownMeta/types/MarkdownMetaBlock.cs
           - pwsh/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1
           - pwsh/Catzc.Base.QualityGates/private/Get-GeneratedStampDrift.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Contract.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Format-Links.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-DrsCodesFileMetaFact.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/Get-FileMetaScope.Tests.ps1
@@ -218,6 +216,7 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/tests/types/FileHeadPolicy.Tests.ps1
           - pwsh/Catzc.Base.QualityGates/types/FileHeadPolicy.cs
+          - pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1
           - ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY
           - ADR-REPO-FILEMETA-COMPOSEDFILES
           - ADR-REPO-FILEMETA-HEADPOLICY
@@ -233,7 +232,6 @@ content:
           - docs/references/note-file-kind.md
           - docs/references/pwsh/catzc-base-languages/Format-GeneratedFileHead.ps1.md
           - docs/references/pwsh/catzc-base-languages/configs/file-carriers.yml.md
-          - docs/references/pwsh/catzc-base-languages/private/Get-GeneratorPath.ps1.md
           - docs/references/pwsh/catzc-base-languages/types/CarrierKind.cs.md
           - docs/references/pwsh/catzc-base-languages/types/FileCarriersConfig.cs.md
           - docs/references/pwsh/catzc-base-markdown-meta/Get-MarkdownMetaState.ps1.md

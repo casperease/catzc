@@ -27,7 +27,7 @@ Describe 'Catzc.Tooling.Claude.ClaudeWorkerConfig' -Tag 'L0', 'logic', 'ADR-AUTO
     It 'declares every default once, for an empty file and for no file alike' {
         foreach ($raw in $null, [ordered]@{}) {
             $config = [Catzc.Tooling.Claude.ClaudeWorkerConfig]::new($raw)
-            $config.agent | Should -BeExactly 'catzc-worker'
+            $config.agent | Should -BeExactly 'catzc-drone'
             $config.launcher | Should -BeExactly 'windows-terminal'
         }
     }

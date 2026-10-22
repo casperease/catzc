@@ -1,3 +1,10 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-REPO-LINK-MARKDOWNRELATIVE
+---
+
 # pwsh/Catzc.Base.Docs/types/GitHubAnchor.cs
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
