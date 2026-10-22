@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7eabe129ffaf"
+    with_body_sha: cc63d46790fa
   edges:
     code: pwsh/Catzc.Tooling.Listen/Update-DocSnapshot.ps1
 ---

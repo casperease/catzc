@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: da005112fd5d
+    with_body_sha: "4d572949d77e"
   edges:
     docs: "[Build-AgentHook.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-types-system/tests/Build-AgentHook.Tests.ps1.md)"
     code: pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1

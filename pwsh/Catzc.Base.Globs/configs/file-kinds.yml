@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f53dea9ff8ad
+#     with_body_sha: "4576ec7e56d0"
 #   edges:
 #     docs: "[file-kinds.yml.md](../../../docs/references/pwsh/catzc-base-globs/configs/file-kinds.yml.md)"
 #     cites:

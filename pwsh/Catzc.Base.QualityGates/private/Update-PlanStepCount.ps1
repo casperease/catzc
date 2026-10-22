@@ -1,3 +1,14 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: b306f493f055
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Update-PlanStepCount.Tests.ps1
+    docs: "[Update-PlanStepCount.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Update-PlanStepCount.ps1.md)"
+---
+#>
+
 function Update-PlanStepCount {
     [CmdletBinding()]
     [OutputType([string[]])]

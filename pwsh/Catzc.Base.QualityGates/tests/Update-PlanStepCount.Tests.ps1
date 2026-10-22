@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: f71aee181048
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Update-PlanStepCount.ps1
+    cites:
+      - ADR-REPO-PLANS-THREEPARTS
+---
+#>
+
 Describe 'Update-PlanStepCount' -Tag 'L0', 'logic', 'ADR-REPO-PLANS-THREEPARTS' {
     BeforeAll {
         $script:folder = Join-Path $TestDrive 'plans'

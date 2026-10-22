@@ -1,3 +1,14 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: f494985b5fab
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Get-PlanOpenStepCount.Tests.ps1
+    docs: "[Get-PlanOpenStepCount.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-PlanOpenStepCount.ps1.md)"
+---
+#>
+
 function Get-PlanOpenStepCount {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]

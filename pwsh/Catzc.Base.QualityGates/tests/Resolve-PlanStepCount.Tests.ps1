@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: aabbf2324d2d
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Resolve-PlanStepCount.ps1
+    cites:
+      - ADR-REPO-PLANS-THREEPARTS
+---
+#>
+
 Describe 'Resolve-PlanStepCount' -Tag 'L0', 'logic', 'ADR-REPO-PLANS-THREEPARTS' {
     BeforeAll {
         $script:resolve = {

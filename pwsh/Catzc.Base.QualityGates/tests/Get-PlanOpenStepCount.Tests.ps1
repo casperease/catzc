@@ -1,3 +1,15 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: ff03fd7d560f
+  edges:
+    code: pwsh/Catzc.Base.QualityGates/private/Get-PlanOpenStepCount.ps1
+    cites:
+      - ADR-REPO-PLANS-THREEPARTS
+---
+#>
+
 Describe 'Get-PlanOpenStepCount' -Tag 'L0', 'logic', 'ADR-REPO-PLANS-THREEPARTS' {
     BeforeAll {
         $script:folder = Join-Path $TestDrive 'plans'

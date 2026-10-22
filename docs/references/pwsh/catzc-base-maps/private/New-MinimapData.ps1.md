@@ -12,7 +12,8 @@ Builds a minimap's data from its axes, its cells and the counts and reasons gath
 ### description
 
 Each axis becomes a MinimapAxis with its values, in the order given. Each cell is drawn with the count held under its place joined with a
-tab (0 when none), and a cell with reasons is also listed as lit, carrying them. The result is the MinimapData every minimap builder returns.
+tab (0 when none), and a cell with reasons is also listed as lit, carrying them. The result is the MinimapData every minimap builder
+returns.
 
 ### parameter `Id`
 

@@ -11,8 +11,8 @@ Reads the step count a text states ("three steps", "one step left"), or writes t
 
 ### description
 
-The one vocabulary of a stated step count, for the check and the rewrite alike: a count is written in words from one to twelve and in
-digits otherwise, with "step" in the singular for one. Reading finds the first phrase, case-insensitive, in a word or in digits.
+The one vocabulary of a stated step count, for the check and the rewrite alike: a count is written in words from one to twelve and in digits
+otherwise, with "step" in the singular for one. Reading finds the first phrase, case-insensitive, in a word or in digits.
 
 ### parameter `Text`
 

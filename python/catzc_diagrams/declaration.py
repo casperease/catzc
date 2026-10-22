@@ -757,7 +757,84 @@ def dump(declaration):
     out["content"] = ordered
     if declaration.get("layout"):
         out["layout"] = dict(declaration["layout"])
-    return yaml.safe_dump(out, sort_keys=False, allow_unicode=True, width=120)
+    return flow_yaml(out, print_width())
+
+
+def print_width(root=None):
+    """The longest printed line: max_line_length under [*.md] in the repository root's .editorconfig, read at print time, never copied."""
+    path = Path(root or KIT.parents[1]) / ".editorconfig"
+    if not path.is_file():
+        raise DeclarationError(f"{path}: not found, so the print width ([*.md] max_line_length) cannot be read")
+    section = None
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line.startswith("[") and line.endswith("]"):
+            section = line[1:-1]
+        elif section == "*.md" and "=" in line:
+            key, value = (part.strip() for part in line.split("=", 1))
+            if key == "max_line_length":
+                return int(value)
+    raise DeclarationError(f"{path}: the section [*.md] has no max_line_length, the print width")
+
+
+def flow_yaml(data, width):
+    """The data in block style, each leaf mapping or list whose whole line fits the width printed as one flow line in Prettier's form."""
+    lines = []
+    _block(data, 0, width, lines)
+    return "\n".join(lines) + "\n"
+
+
+def _flow_scalar(value):
+    # A scalar quoted as yaml.safe_dump quotes it inside a flow collection, where a plain `,` or `[` would end it.
+    return yaml.safe_dump([value], default_flow_style=True, allow_unicode=True, width=10**9).strip()[1:-1]
+
+
+def _flow(node):
+    """The node as one flow line, or None when it is not a leaf: a child is a collection or a string of several lines."""
+    children = node.values() if isinstance(node, dict) else node
+    if any(isinstance(c, (dict, list)) or (isinstance(c, str) and "\n" in c) for c in children):
+        return None
+    if isinstance(node, dict):
+        return "{ " + ", ".join(f"{_flow_scalar(k)}: {_flow_scalar(v)}" for k, v in node.items()) + " }"
+    return "[" + ", ".join(_flow_scalar(v) for v in node) + "]"
+
+
+def _scalar_lines(wrapped, indent, width):
+    # A scalar in block style, folded as yaml.safe_dump folds it; `wrapped` is its key's one-entry mapping or a one-item list.
+    text = yaml.safe_dump(wrapped, sort_keys=False, allow_unicode=True, width=max(width - indent, 20))
+    return [" " * indent + line for line in text.splitlines() if line != "..."]
+
+
+def _block(node, indent, width, lines):
+    pad = " " * indent
+    if isinstance(node, dict):
+        for key, value in node.items():
+            lead = f"{pad}{_flow_scalar(key)}:"
+            if not isinstance(value, (dict, list)):
+                lines.extend(_scalar_lines({key: value}, indent, width))
+            elif not value:
+                lines.append(f"{lead} {'{}' if isinstance(value, dict) else '[]'}")
+            elif (flow := _flow(value)) and len(lead) + 1 + len(flow) <= width:
+                lines.append(f"{lead} {flow}")
+            else:
+                lines.append(lead)
+                _block(value, indent + 2, width, lines)
+        return
+    for item in node:
+        if not isinstance(item, (dict, list)):
+            lines.extend(_scalar_lines([item], indent, width))
+        elif not item:
+            lines.append(f"{pad}- {'{}' if isinstance(item, dict) else '[]'}")
+        elif (flow := _flow(item)) and indent + 2 + len(flow) <= width:
+            lines.append(f"{pad}- {flow}")
+        elif isinstance(item, dict):
+            inner = []
+            _block(item, indent + 2, width, inner)
+            lines.append(f"{pad}- {inner[0][indent + 2:]}")
+            lines.extend(inner[1:])
+        else:
+            lines.append(f"{pad}-")
+            _block(item, indent + 2, width, lines)
 
 
 # ---- put: the declaration becomes the model ------------------------------------------------------------------------

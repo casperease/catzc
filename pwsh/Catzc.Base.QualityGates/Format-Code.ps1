@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f4f27f3a42c1
+    with_body_sha: ac873d2a661f
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1
     docs: "[Format-Code.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Format-Code.ps1.md)"

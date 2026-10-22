@@ -2,11 +2,12 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "15a9612afbaa"
+    with_body_sha: "17e7aad76e2e"
   edges:
     code: pwsh/Catzc.Base.QualityGates/private/Get-ImprintStepFile.ps1
     cites:
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
+      - ADR-REPO-PLANS-THREEPARTS
 ---
 #>
 

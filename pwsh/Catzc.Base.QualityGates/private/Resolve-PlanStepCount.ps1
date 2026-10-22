@@ -1,3 +1,14 @@
+<#
+---
+catzc:
+  immutable:
+    with_body_sha: "005bc6a4eb27"
+  edges:
+    test: pwsh/Catzc.Base.QualityGates/tests/Resolve-PlanStepCount.Tests.ps1
+    docs: "[Resolve-PlanStepCount.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Resolve-PlanStepCount.ps1.md)"
+---
+#>
+
 function Resolve-PlanStepCount {
     [CmdletBinding(DefaultParameterSetName = 'Text')]
     [OutputType([pscustomobject], ParameterSetName = 'Text')]

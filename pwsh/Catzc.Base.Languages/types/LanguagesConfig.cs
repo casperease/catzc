@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1d7c80763eb8"
+    with_body_sha: ff29c7ecaba8
   edges:
     test: pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1
     docs: "[LanguagesConfig.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/LanguagesConfig.cs.md)"

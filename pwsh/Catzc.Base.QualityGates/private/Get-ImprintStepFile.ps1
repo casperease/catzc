@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "91de6420bea1"
+    with_body_sha: ac94c6471e60
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-ImprintStepFile.Tests.ps1
     docs: "[Get-ImprintStepFile.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ImprintStepFile.ps1.md)"

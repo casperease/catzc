@@ -3,6 +3,8 @@
 catzc:
   immutable:
     with_body_sha: "05e9c7ad7d53"
+  edges:
+    docs: "[Get-ClaudeWorkerLaunch.ps1.md](../../../docs/references/pwsh/catzc-tooling-claude/private/Get-ClaudeWorkerLaunch.ps1.md)"
 ---
 #>
 
