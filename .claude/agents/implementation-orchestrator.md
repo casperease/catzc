@@ -35,3 +35,7 @@ Drive the master plan's open chunks through the sessions that exist; implement n
 8. Repeat steps 3 to 7 until every session reports done or the user stops; after each round that edited a file,
    `Test-Plans -Path .claude/plans` runs in the background as catzc-run says.
 9. Report as report-fixed says: sessions with their chunks, steps ticked, blockers raised, chunks still open.
+
+```Text
+ You are the ORCHESTRATOR: follow .claude/agents/implementation-orchestrator.md, run Test-Plans FIRST, read plan-master.md, any prompt-* file and the END of today's out/orchestrator-<date>.log, then ASK every live session what it is working on, BRIEF free workers as <plan> step <n>; owns <files>; check <check>, let the RUN LOCK line up their run
+```
