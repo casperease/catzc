@@ -814,6 +814,8 @@ def _scalar_lines(key, value, indent, width):
     if "\n" not in text and len(pad + lead) + 1 + len(text) <= width or not isinstance(value, str):
         return [f"{pad}{lead} {text}"]
     words = value.split(" ")
+    if _double_quotable(value) and (text[0] in "'\"" or "\n" in value):
+        return _quoted_lines(lead, value, pad, width)
     if text[0] in "'\"" or "\n" in value or "" in words:
         wrapped = [value] if key is None else {key: value}
         dumped = yaml.safe_dump(wrapped, sort_keys=False, allow_unicode=True, width=max(width - indent, 20))
@@ -826,6 +828,36 @@ def _scalar_lines(key, value, indent, width):
             prefix, line = f"{pad}  ", []
         line.append(word)
     lines.append(prefix + " ".join(line))
+    return lines
+
+
+def _double_quotable(value):
+    # Prettier folds a text into double quotes when nothing in it needs an escape and its words fill back to it: single spaces, and line
+    # breaks only between words, so a fold or a blank line reads back as the space or the break it stands for.
+    paragraphs = value.split("\n")
+    return (
+        '"' not in value and "\\" not in value and value.replace("\n", "").isprintable()
+        and bool(paragraphs[0]) and bool(paragraphs[-1]) and all(word for p in paragraphs if p for word in p.split(" "))
+    )
+
+
+def _quoted_lines(lead, value, pad, width):
+    """A double-quoted text as Prettier prints it: beside the dash, or beside the key when it has line breaks, else under the key; each
+    paragraph filled word by word at the width, without the closing quote, and each line break of the text a blank line."""
+    beside = lead == "-" or "\n" in value
+    lines, prefix, line = ([] if beside else [f"{pad}{lead}"]), (f"{pad}{lead} \"" if beside else f"{pad}  \""), []
+    for n, paragraph in enumerate(value.split("\n")):
+        if n:
+            if line:
+                lines.append(prefix + " ".join(line))
+                prefix, line = f"{pad}  ", []
+            lines.append("")
+        for word in paragraph.split(" ") if paragraph else []:
+            if line and len(prefix) + len(" ".join(line + [word])) > width:
+                lines.append(prefix + " ".join(line))
+                prefix, line = f"{pad}  ", []
+            line.append(word)
+    lines.append(prefix + " ".join(line) + '"')
     return lines
 
 

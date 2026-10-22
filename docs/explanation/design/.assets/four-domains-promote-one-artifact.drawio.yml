@@ -4,8 +4,9 @@
 #     with_body_sha: "1e4005bb0585"
 # ---
 
-description: 'The ladder of commit states cut into its domains: GIT, then the pipeline kinds CI, CD, DEPLOY-Non-Prod and DEPLOY-Prod, each always-on
-  environment holding one commit as its occupant, and the tagged artifact CI built once that every later domain promotes.'
+description:
+  "The ladder of commit states cut into its domains: GIT, then the pipeline kinds CI, CD, DEPLOY-Non-Prod and DEPLOY-Prod, each always-on
+  environment holding one commit as its occupant, and the tagged artifact CI built once that every later domain promotes."
 about:
   adrs:
     - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT

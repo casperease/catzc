@@ -29,9 +29,6 @@ ten "may I" questions on edits the rules already require, three to five tool cal
 
 ## Open steps
 
-- [ ] Open question (session-finalize, 2026-10-22, the user's): `Test-Plans` flags a step's check that names a command no module exports
-      (plan-dense-yaml-flow named `Test-Drs`; the gate is `Test-DrsRegistry`, found only when a worker ran it). Take it or leave it. Check:
-      `Test-Plans` on a fixture plan whose check names `Test-Nonexistent` reports it.
 - [ ] The user's (a worker's permission mode refused it as an agent definition widening its own approvals, 2026-10-22):
       `.claude/agents/catzc-worker.md`: one line, an edit the domain rules require on a file the brief owns or touches (a re-imprinted head,
       inline help moved to its page, a family form the glossary flags) is pre-approved and is reported, not asked. The body kept at 20

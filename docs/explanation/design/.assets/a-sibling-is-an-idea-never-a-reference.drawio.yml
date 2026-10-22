@@ -34,8 +34,9 @@ content:
     - { id: a-sibling-own, kind: drsonly, label: "keeps its own: a rule is a .feature specification, no unordered file", in: band-sibling }
     - id: n-model
       kind: set
-      label: 'the shared model: a module is a placement with a kind, a default is declared once, public is what a contract names, change is keyed
-        by the unit''s hash, one output root'
+      label:
+        "the shared model: a module is a placement with a kind, a default is declared once, public is what a contract names, change is keyed
+        by the unit's hash, one output root"
       in: band-meet
     - { id: g-owner, kind: gate, label: the owning ADR decides, in: band-meet }
     - { id: s-this, kind: store, label: "catzc, this repository", in: band-this }

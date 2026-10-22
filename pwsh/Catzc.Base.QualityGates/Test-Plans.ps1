@@ -73,6 +73,20 @@ function Test-Plans {
     $masterLines = @(& $readLines $Config.master_file)
     $valueLines = @(& $readLines $Config.value_file)
 
+    # A check names a command by its Verb-Noun; one that no module exports cannot prove the step, so the gate names it before a worker runs it.
+    $verbs = [System.Collections.Generic.HashSet[string]]::new([string[]] @((Get-Verb).Verb), [System.StringComparer]::OrdinalIgnoreCase)
+    $commandPattern = '(?<![\w./\\-])(?<verb>[A-Z][a-z]+)-[A-Z][A-Za-z0-9]+(?![\w-]|\.\w)'
+    $known = [System.Collections.Generic.Dictionary[string, bool]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    $isKnown = {
+        param([string] $Name)
+        if (-not $known.ContainsKey($Name)) {
+            $known[$Name] = @(Get-Command -Name $Name -CommandType Cmdlet, Function, Alias -ErrorAction Ignore | Where-Object {
+                    $_.CommandType -ne 'Function' -or -not $_.Module -or $_.Module.ExportedCommands.ContainsKey($_.Name)
+                }).Count -gt 0
+        }
+        $known[$Name]
+    }
+
     $openCounts = Get-PlanOpenStepCount $folder -Config $Config
     $issues = [System.Collections.Generic.List[string]]::new()
     $plans = 0
@@ -266,8 +280,19 @@ function Test-Plans {
 
         # An open step is a `- [ ]` or `1. [ ]` list item, its continuation lines included; each names its check.
         foreach ($item in $items) {
-            if ($item.First -match '^\s*(-|\d+\.) \[ \]' -and $item.Text -notmatch '(?i)check:') {
+            if ($item.First -notmatch '^\s*(-|\d+\.) \[ \]') {
+                continue
+            }
+            if ($item.Text -notmatch '(?i)check:') {
                 & $add $item.LineNumber 'ADR-REPO-PLANS-OPENSTEP' "the open step names no check: `"$($item.Text.Trim())`""
+                continue
+            }
+            # The check is the text after the step's last standalone `check:`, so a name such as `catzc-check:` in the step is not read as one.
+            $check = [regex]::Match($item.Text, '(?is)^.*(?<![\w-])check:(?<check>.*)$').Groups['check'].Value
+            foreach ($match in [regex]::Matches($check, $commandPattern)) {
+                if ($verbs.Contains($match.Groups['verb'].Value) -and -not (& $isKnown $match.Value)) {
+                    & $add $item.LineNumber 'ADR-REPO-PLANS-OPENSTEP' "the check names '$($match.Value)', which no module exports"
+                }
             }
         }
     }

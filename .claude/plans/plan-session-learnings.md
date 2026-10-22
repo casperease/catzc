@@ -48,23 +48,7 @@ reach.
       copy is in the tree, `out/` or the orchestrator logs, and catzc-49 is not live, so the step waits on catzc-49 sending them (check:
       `Test-Markdownlint -Path '.claude/**/*.md'`).
 
-## Open questions
+## Delegated (the orchestrator, 2026-10-22, on the user's "don't wait, go on")
 
-- Proposals from catzc-a0's finalize (2026-10-22), each the user's to take or leave, none applied:
-  - `.claude/skills/catzc-check/SKILL.md`, merged, the file kept at 10 lines: the decision-record gate is `Test-DrsRegistry` (registry-wide,
-    no `-Path`), and `Test-Parsing -Path` takes files, never a folder.
-  - `.claude/skills/catzc-verify/SKILL.md` step 1, merged: a new folder under `.claude/hooks` is an import-path change (every import builds
-    each hook folder that has a csproj), so it is drafted outside the tree and lands in a burst.
-  - The pwsh test page of ADR-AUTO-TEST, one sentence: index a function's result as `@(Get-X)[0]`, since a one-item result unrolls to the
-    item and `(Get-X)[0]` indexes into a string.
-- Proposals from catzc-e3's finalize (2026-10-22), each the user's to take or leave, none applied:
-  - `.claude/skills/catzc-verify/SKILL.md`, merged, the file kept at 10 lines: a new or changed comment page re-imprints its source file
-    with `Format-Code -Path`, since the code head's `docs:` and `cites:` derive from the page.
-  - `.claude/skills/catzc-run/SKILL.md`, merged: commands handed from bash to `Invoke-CatzcCommand` go in single quotes, so bash leaves `$_`
-    alone; a burst ends with "burst done" sent at once after `Exit-CatzcBurst`.
-  - The `plan-debt-full-run-failures` text names `globs.yml` for the kind overlaps; they live in `file-kinds.yml`, one word to correct when
-    the plan is next touched.
-- From plan-debt-build-artifact-cause (deleted 2026-10-22, its step landed), the user's to take or leave: a writer's line ending in the
-  capability. Recommended: one clause in `.claude/skills/catzc-verify/SKILL.md`, a Python file writer passes `newline="\n"`, since
-  `Path.write_text` writes CRLF on Windows and Test-Formatting then fails the file. The alternative is a ruff or analyzer rule over
-  `write_text(` calls, which costs a check but needs no reading.
+- Every finalize proposal above is taken as one step; the `globs.yml` word in plan-debt-full-run-failures is already `file-kinds.yml` where
+  it names the overlaps (line 26), so that proposal is dropped; the line-ending clause is taken as a capability line, not an analyzer rule.

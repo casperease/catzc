@@ -4,8 +4,9 @@
 #     with_body_sha: e6e65461a2f3
 # ---
 
-description: 'Two code paths read the same module folder: the import guards its function names and writes a manifest, and the aspect compiler
-  derives a live set and a tests set from the layout of languages.yml.'
+description:
+  "Two code paths read the same module folder: the import guards its function names and writes a manifest, and the aspect compiler derives a
+  live set and a tests set from the layout of languages.yml."
 about:
   adrs: [DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED]
   lens: implementation

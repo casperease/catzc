@@ -58,6 +58,11 @@ Each step runs `declaration.py reflow` on every declaration of one folder (or th
 same for each: every `.drawio.yml` of the folder shorter or equal, `Test-Formatting -Path <folder>` at 0, `Build-Diagrams -Path <folder>`
 clean, and `git status --short <folder>` lists `.drawio.yml` files only, so no png changed.
 
+- [ ] `python/catzc_diagrams/declaration.py`: `flow_yaml` prints long and multi-line scalars as Prettier does (double quotes, a long value
+      on the line under its key, no trailing spaces on blank lines), since the first folder reflow left 46 files Test-Formatting fails
+      (catzc-54, 2026-10-22; fixing the printer, not formatting each folder, decided by the orchestrator as delegated). Every folder step
+      below waits on it. (check: `pytest python/catzc_diagrams/tests/test_declaration.py` green with a Prettier-parity case for a long
+      scalar)
 - [ ] `docs/explanation/design/.assets` (46). (check: as above)
 - [ ] `docs/explanation/flow/.assets` (35). (check: as above)
 - [ ] `docs/explanation/automation/.assets` (30). (check: as above)

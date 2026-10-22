@@ -4,8 +4,9 @@
 #     with_body_sha: "095cf647a9b9"
 # ---
 
-description: 'Every file of a module folder goes to exactly one aspect by ordered first match: live first by a closed convention, tests as the
-  remainder, and each aspect has its own sha lock.'
+description:
+  "Every file of a module folder goes to exactly one aspect by ordered first match: live first by a closed convention, tests as the
+  remainder, and each aspect has its own sha lock."
 about:
   adrs: [DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ASPECTISAGLOBSET, DDR-ASPECT-PARTITIONISCHECKED]
   lens: meta

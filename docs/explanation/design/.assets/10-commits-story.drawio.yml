@@ -4,8 +4,9 @@
 #     with_body_sha: "5c02d28ff820"
 # ---
 
-description: 'Ten commits climb the promotion ladder at once: each stage gate passes some on and discards others, every environment holds one
-  occupant, and git keeps the whole history, with the dirty heads called out.'
+description:
+  "Ten commits climb the promotion ladder at once: each stage gate passes some on and discards others, every environment holds one occupant,
+  and git keeps the whole history, with the dirty heads called out."
 about:
   adrs:
     - FDR-CD-LIFE-ONESTATEADVANCESONERUNG

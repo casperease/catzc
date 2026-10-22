@@ -1031,6 +1031,37 @@ def test_a_long_plain_text_is_filled_under_its_key_and_beside_its_dash_within_th
     assert __import__("yaml").safe_load(text) == data
 
 
+def test_a_long_or_multi_line_quoted_text_prints_as_prettier_does():
+    # The expected text is Prettier 3.9.4's output for the same data at printWidth 140, proseWrap always.
+    long = "Widgets: a long widget text that is long enough to pass the width of one hundred and forty characters when its key sits beside"
+    data = {"widgets": {
+        "description": long + " it on the line, so it moves under the key.",
+        "legend": "W: Widget\nG: Gadget\n\nS: Sprocket (hands on)",
+        "short": "W: widget",
+        "notes": [long + " it on the dash line", "W: widget\nG: gadget"],
+    }}
+    assert declaration.flow_yaml(data, 140) == (
+        "widgets:\n"
+        "  description:\n"
+        "    \"Widgets: a long widget text that is long enough to pass the width of one hundred and forty characters when its key sits beside it on\n"
+        "    the line, so it moves under the key.\"\n"
+        "  legend: \"W: Widget\n"
+        "\n"
+        "    G: Gadget\n"
+        "\n"
+        "\n"
+        "    S: Sprocket (hands on)\"\n"
+        "  short: \"W: widget\"\n"
+        "  notes:\n"
+        "    - \"Widgets: a long widget text that is long enough to pass the width of one hundred and forty characters when its key sits beside it on\n"
+        "      the dash line\"\n"
+        "    - \"W: widget\n"
+        "\n"
+        "      G: gadget\"\n"
+    )
+    assert __import__("yaml").safe_load(declaration.flow_yaml(data, 140)) == data
+
+
 def test_the_by_list_is_one_flow_line_when_it_fits_and_a_block_list_when_not():
     placed = {"grid": [{"cell": "widgets/widget", "by": ["widgets/Get-Widget.ps1", "ADR-WIDGET-SPIN"]}], "axis": []}
     assert declaration.minimaps_block(placed, 140) == [

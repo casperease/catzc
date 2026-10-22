@@ -4,8 +4,9 @@
 #     with_body_sha: "17fcf4fbb921"
 # ---
 
-description: 'A tracked file is tried against its track''s aspects in order and the first match wins: the code track tries live first and lets
-  tests catch the rest, the deployment track tries tests first and lets live catch the rest.'
+description:
+  "A tracked file is tried against its track's aspects in order and the first match wins: the code track tries live first and lets tests
+  catch the rest, the deployment track tries tests first and lets live catch the rest."
 about:
   adrs: [DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL]
   lens: meta

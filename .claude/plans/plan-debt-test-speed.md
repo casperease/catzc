@@ -31,10 +31,6 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
 
 ## Open questions
 
-- Proposal from session-finalize: `.claude/skills/catzc-verify/SKILL.md` step 1 gains, merged, "a new test file also re-imprints its code
-  file with `Format-Code -Path`", since the test's `test:` edge lands in the code file's head; the file stays at 10 lines. Take it or leave
-  it (the user's decision).
-
 - Does the hindsight log, `.claude/hindsight/`, get a decision record? Its line shape and validity rule live only in the `hindsight-log`
   capability, and no ADR outside `research/` names it (the user's decision).
 - `docs/references/pwsh/CLAUDE.md` still prescribes `Format-Code -Language markdown -Path docs/references/pwsh`, against `catzc-run`'s

@@ -4,8 +4,9 @@
 #     with_body_sha: facae1927242
 # ---
 
-description: 'One module folder is read by two components that never read each other: the loader derives the manifest and so what the module exports,
-  and the globs engine derives the live and tests sets and so what ships.'
+description:
+  "One module folder is read by two components that never read each other: the loader derives the manifest and so what the module exports,
+  and the globs engine derives the live and tests sets and so what ships."
 about:
   adrs: [DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-ASPECTISAGLOBSET]
   lens: architecture

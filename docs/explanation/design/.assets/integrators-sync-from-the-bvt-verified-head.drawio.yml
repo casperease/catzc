@@ -4,9 +4,10 @@
 #     with_body_sha: "373c8a932530"
 # ---
 
-description: 'Who takes which commit: the upstream integrator takes the BVT-verified head, which the main-UAT environment takes first and so holds,
-  each rung of the promotion ladder takes its commit from the rung before it, and the dirty head at the tip of main, which failed in main-UAT,
-  is taken by nobody.'
+description:
+  "Who takes which commit: the upstream integrator takes the BVT-verified head, which the main-UAT environment takes first and so holds,
+  each rung of the promotion ladder takes its commit from the rung before it, and the dirty head at the tip of main, which failed in
+  main-UAT, is taken by nobody."
 about:
   adrs:
     - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT

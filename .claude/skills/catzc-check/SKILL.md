@@ -15,7 +15,8 @@ metadata:
 # catzc-check
 
 1. One gate per run, through catzc-run: `Invoke-TestFile -Path <file>` for a test file, or the quality gate the brief names, with its paths
-   (`Test-Links -Path <files>`, `Test-AgentDefinitions`).
+   (`Test-Links -Path <files>`, `Test-AgentDefinitions`); the decision-record gate is `Test-DrsRegistry`, registry-wide with no `-Path`, and
+   `Test-Parsing -Path` takes files, never a folder.
 2. Read the output file; the verdict is the gate's own summary line and its report path; failing lines are pasted verbatim, at most 20,
    never paraphrased.
 3. No output line, no verdict: a pass is never claimed unseen; a timeout is reported as such, and a gate is never re-run with a larger limit

@@ -97,6 +97,12 @@ Describe 'Test-Plans' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         $result.Issues | Should -Be @('plans/plan-gadget.md:13 [ADR-REPO-PLANS-OPENSTEP] the open step names no check: "- [ ] Spin the gadget."')
     }
 
+    It 'names a command in a check that no module exports, and passes one that resolves' -Tag 'ADR-REPO-PLANS-OPENSTEP' {
+        Write-Plan 'plan-gadget.md' ($script:goodHead + @('# Gadget', '', '## Open steps', '', '- [ ] Oil it; gadget-check: Test-Absent is prose (check: Test-Nonexistent at 0,', '      Get-ChildItem lists it, Pre-Spin holds, Test-Gadget.Tests.ps1 green).'))
+        $result = Invoke-Gate
+        $result.Issues | Should -Be @("plans/plan-gadget.md:13 [ADR-REPO-PLANS-OPENSTEP] the check names 'Test-Nonexistent', which no module exports")
+    }
+
     It 'reads a numbered open step like a bulleted one, and reports a numbered step without a checkbox' -Tag 'ADR-REPO-PLANS-OPENSTEP' {
         Write-Plan 'plan-gadget.md' ($script:goodHead + @('# Gadget', '', '## Open steps', '', '1. [ ] Spin the gadget.', '2. Oil it (check: no squeak).', '3. [ ] Turn it,', '       slowly (check: it turns).', '', '## Refs', '', '1. A numbered ref.'))
         $result = Invoke-Gate

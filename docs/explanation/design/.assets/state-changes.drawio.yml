@@ -4,8 +4,9 @@
 #     with_body_sha: "240eb155cb64"
 # ---
 
-description: 'Six pipeline shapes, each a run of the promotion ladder from its first state: every step a commit takes is labelled with the stage
-  that moves it, and every state it holds can be discarded.'
+description:
+  "Six pipeline shapes, each a run of the promotion ladder from its first state: every step a commit takes is labelled with the stage that
+  moves it, and every state it holds can be discarded."
 about:
   adrs: [FDR-CD-SEPARATEPIPELINEKINDS, FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-DISCARDISTERMINAL]
   lens: architecture
@@ -63,21 +64,21 @@ content:
   notes:
     - id: note-names
       in: band-key
-      text: 'PR: Pull Request
-      
+      text: "PR: Pull Request
+
         Direct: integrates to main via a direct pull
-      
+
         CI: Continuous Integration (basic)
-      
+
         CI+: Continuous Integration (with system tests)
-      
+
         CD: Continuous Delivery
-      
+
         CDe: Continuous Deployment
-      
+
         RC: Release Certification (hands on)
-      
-        RBC: Release Branch Certification (hands on)'
+
+        RBC: Release Branch Certification (hands on)"
   legend: auto
   minimaps:
     axis:

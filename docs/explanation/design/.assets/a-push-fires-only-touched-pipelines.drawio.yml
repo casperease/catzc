@@ -4,8 +4,9 @@
 #     with_body_sha: ac2f203d9093
 # ---
 
-description: 'A changed file fires only the pipelines whose globset holds it: pwsh and infrastructure changes reach their pipelines, and a drift
-  gate fails a trigger that no longer matches its globset''s projection.'
+description:
+  "A changed file fires only the pipelines whose globset holds it: pwsh and infrastructure changes reach their pipelines, and a drift gate
+  fails a trigger that no longer matches its globset's projection."
 about:
   adrs: [DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED, DDR-TRACK-DEPLOYABLEUNIT]
   lens: operations
