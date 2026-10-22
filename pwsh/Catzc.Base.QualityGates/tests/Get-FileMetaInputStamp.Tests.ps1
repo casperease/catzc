@@ -21,7 +21,8 @@ Describe 'Get-FileMetaInputStamp' -Tag 'L0', 'logic' {
         }
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Codes = $script:codes } }
         $script:engine = 'engine-one'
-        Mock Get-FileMetaEngineStamp -ModuleName Catzc.Base.QualityGates { $script:engine }
+        # The engine stamp is the input stamp over the files FileMetaConfig.EngineInputs names; a fixture stands for its value here.
+        Mock Get-InputStamp -ModuleName Catzc.Base.QualityGates { $script:engine }
         $script:stamp = {
             InModuleScope Catzc.Base.QualityGates -Parameters @{ F = @($script:widget, $script:note); R = $script:root; C = $script:config } {
                 param($F, $R, $C)
@@ -50,7 +51,7 @@ Describe 'Get-FileMetaInputStamp' -Tag 'L0', 'logic' {
         $after = & $script:stamp
         $after[$script:widget] | Should -Not -Be $before[$script:widget]
         $after[$script:note] | Should -Not -Be $before[$script:note]
-        Should -Invoke Get-FileMetaEngineStamp -ModuleName Catzc.Base.QualityGates -Times 2 -Exactly
+        Should -Invoke Get-InputStamp -ModuleName Catzc.Base.QualityGates -Times 2 -Exactly
     }
 
     It 'reads the code map once per call, however many files it selects' {

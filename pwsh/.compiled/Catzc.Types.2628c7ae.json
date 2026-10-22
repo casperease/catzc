@@ -1,5 +1,5 @@
 {
-  "hash": "733ca7a3",
+  "hash": "2628c7ae",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -614,6 +614,11 @@
     },
     {
       "name": "Catzc.Base.Folders.FolderWalker",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Folders.PathSet",
       "aliases": [],
       "display": []
     },

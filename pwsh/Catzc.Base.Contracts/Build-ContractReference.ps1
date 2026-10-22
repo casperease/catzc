@@ -174,8 +174,7 @@ function Build-ContractReference {
     # A page this writer emitted whose unit has no assets left is removed; a page without the marker is someone's own.
     $folder = Join-Path $RepositoryRoot $pageFolder
     if ([System.IO.Directory]::Exists($folder)) {
-        $pages = [string[]] [System.IO.Directory]::GetFiles($folder, '*.md')
-        [System.Array]::Sort($pages, [System.StringComparer]::Ordinal)
+        $pages = [Catzc.Base.Folders.PathSet]::new().AddPattern($folder, '*.md').ToArray()
         foreach ($page in $pages) {
             $unit = [System.IO.Path]::GetFileNameWithoutExtension($page)
             if ($unit -cin $units -or -not [System.IO.File]::ReadAllText($page).Contains($marker)) {

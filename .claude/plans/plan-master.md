@@ -71,8 +71,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   head: generated files a warning (and body sha when tracked), authored files only a docs link and DRS codes, else none.
 - bcl-path-sets -> plan-bcl-path-sets.md: Every hand-built path set, folder scan and module-base lookup in a non-internal module moves into
   a BCL helper on the type that owns it; pass-through functions go.
-- debt-gate-review -> plan-debt-gate-review.md: The findings of the read-only review of the gates changed on 2026-10-22: unbounded waits,
-  uncovered classes, unstated rules and a silent pass.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

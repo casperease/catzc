@@ -21,3 +21,12 @@ Above `public bool Selects(FileMetaKind kind, string fileClass, string language)
 True when the kind applies to the file, by the file's class (its kind, or kind/subkind, from the file-kinds registry) and its
 language (null when no language claims it).
 ```
+
+## comment:3
+
+Above `public static string[] EngineInputs(string qualityGatesBase, string...`, written with `//`.
+
+```text
+The files that decide every head, read from the loaded modules' bases so a fixture tree hashes the code and registries the run uses:
+the two registries, the engine, every fact processor found by its name as the engine finds it, and the types of the registry.
+```

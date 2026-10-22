@@ -34,7 +34,7 @@ function Get-ContractVersionAsset {
         [string] $RepositoryRoot
     )
 
-    $stray = @([System.IO.Directory]::GetFiles($Folder) |
+    $stray = @([Catzc.Base.Folders.PathSet]::new().AddPattern($Folder, '*').ToArray() |
             ForEach-Object { [System.IO.Path]::GetFileName($_) } |
             Where-Object { $_ -cne 'contract.yml' -and -not ($_ -ceq '.frozen' -and $Version -cne '0.0.0') })
     if ($stray.Count -gt 0) {
@@ -44,8 +44,7 @@ function Get-ContractVersionAsset {
     $override = (Read-ContractManifest -Folder $Folder).direction
     $normalForm = (Get-Config -Config languages).naming_normal_form
     $used = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-    $moduleFolders = [string[]] [System.IO.Directory]::GetDirectories($Folder)
-    [System.Array]::Sort($moduleFolders, [System.StringComparer]::Ordinal)
+    $moduleFolders = [Catzc.Base.Folders.FolderWalker]::Walk($Folder, 1, [string[]] '*', $false, $true, $null)
     $assets = foreach ($moduleFolder in $moduleFolders) {
         $module = [System.IO.Path]::GetFileName($moduleFolder)
         # target_roots names a module in the normal form; a unit that keeps its source's folder names is looked up by its rendering.

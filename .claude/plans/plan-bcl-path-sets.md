@@ -24,21 +24,21 @@ and a scan goes through the bounded walker; the functions shrink or go, and a ne
   from module bases, literal file names and folder scans, or enumerates folders with raw `[System.IO.Directory]` calls.
 - **Where:** each set is a method on the type that owns it (for example `FileMetaConfig.EngineInputs(qualityGatesBase, languagesBase)`),
   built on one shared BCL path-set helper (sorted, unique, scanning through the bounded walker of `Catzc.Base.Folders`).
+- **Out of scope** (decided as delegated, catzc-a0): joins for output and temporary files, and paths outside the repository (install
+  folders, user profiles, temp staging, as in `Catzc.Tooling.Provisioning`); the bounded walker is for repository walks.
 - **Functions:** one that only forwards to its type is deleted and its callers call the type (PDR-ONELIVE); a public command keeps a thin
   wrapper only where it is a user-facing contract.
 
 ## The scan
 
 `out/bcl-path-sets-scan.md` (catzc-e3, 2026-10-22): 124 functions, 78 with a hand-built path set, 57 with a raw scan, 5 reading a module
-base, 3 feeding `Get-InputStamp`; 7 become pass-throughs. `Catzc.Base.QualityGates` holds 44. The owner type is confirmed per row in each
+base, 3 feeding `Get-InputStamp`; 7 functions only forward. `Catzc.Base.QualityGates` holds 44. The owner type is confirmed per row in each
 module's step, since the scan guesses it from a file's `Get-Config` calls and also catches joins for output and temporary files, which stay.
 
 ## Open steps
 
-- [ ] The shared helper: a BCL path-set type (add a file under a base, add a pattern through the bounded walker, sorted unique result) in
-      the module that owns path facts, with its type tests. Import-path, a burst. (check: its type test file green, one fresh full import)
-- [ ] The pilot: `FileMetaConfig.EngineInputs` replaces the body of `Get-FileMetaEngineStamp`, which goes if only a pass-through; the stamp
-      measured before and after (same hash, timing compared, as type-first changes are measured). (check:
-      `Get-FileMetaEngineStamp.Tests.ps1` or its successor green, the same stamp value for the same tree)
-- [ ] The rest, one module at a time in the scan's order, each module's sets moved to their types and its pass-throughs deleted with their
-      callers. (check: per module, its test files green, `Test-ScriptAnalyzer` at 0, and the scan's hits for it at 0 by grep)
+- [ ] The rest, one module at a time (catzc-a0; `Catzc.Base.Contracts` first, `Catzc.Base.QualityGates` last, a module the re-imprint holds
+      waits), each module's sets moved to a method on their type built on `Catzc.Base.PathSet` (landed in `Catzc.Base.Folders` with the
+      pilot `FileMetaConfig.EngineInputs`: the same 11 files and stamp, 2.23 ms to 1.50 ms per stamp; `Get-FileMetaEngineStamp` deleted) and
+      its forwarding functions deleted with their callers. (check: per module, its test files green, `Test-ScriptAnalyzer` at 0, and the
+      scan's hits for it at 0 by grep)

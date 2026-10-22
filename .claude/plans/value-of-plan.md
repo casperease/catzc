@@ -54,7 +54,6 @@ stale or superseded item is recorded as such, with the reason.
 | medium | plan-debt-test-speed          | none (test files only)                                                                          | the measured test files, twice each                                                                   | two steps                                        |
 | high   | plan-frontmatter-less-is-more |                                                                                                 |                                                                                                       | new                                              |
 | high   | plan-bcl-path-sets            |                                                                                                 |                                                                                                       | new                                              |
-| medium | plan-debt-gate-review         |                                                                                                 |                                                                                                       | new                                              |
 
 ## Pending deletion
 
@@ -113,3 +112,5 @@ Deleted 2026-10-21, every step landed (ADR-REPO-PLANS-DONEPLANDELETED):
   slice; `Test-Spelling` now spells dot folders and names its findings, 21 stale comment sections rewritten to their code.
 - plan-diagram-article-carrier: 166 diagram declarations moved into their articles as `yml drawio` blocks by `declaration.py carry`, the kit
   default carrier `article`, nine diagrams file-carried; `rekey` is the one `carriers:` editor and `Move-Diagram` is carrier-aware.
+- plan-debt-gate-review: the dangling-code check honours fence length, `Test-Spelling` reports a run with no file count, and four records
+  state the rules their gates apply (OPENSTEP, CODEISSELECTOR, QUALITYGATE, HEADPOLICY coverage).

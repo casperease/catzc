@@ -81,7 +81,7 @@ function Resolve-ContractAsset {
         $stem = $name.Substring(0, $name.Length - '.schema.json'.Length)
         $samplePattern = '^' + [regex]::Escape($stem) + '\.sample\.[^.]+$'
         $folder = [System.IO.Path]::GetDirectoryName($File)
-        $samples = @([System.IO.Directory]::GetFiles($folder) |
+        $samples = @([Catzc.Base.Folders.PathSet]::new().AddPattern($folder, '*').ToArray() |
                 ForEach-Object { [System.IO.Path]::GetFileName($_) } |
                 Where-Object { $_ -cmatch $samplePattern } |
                 Sort-Object)

@@ -60,12 +60,10 @@ function Test-Contracts {
     $releasedFolders = 0
     $contractsRoot = Join-Path $RepositoryRoot 'contracts'
     if ([System.IO.Directory]::Exists($contractsRoot)) {
-        $unitFolders = [string[]] [System.IO.Directory]::GetDirectories($contractsRoot)
-        [System.Array]::Sort($unitFolders, [System.StringComparer]::Ordinal)
+        $unitFolders = [Catzc.Base.Folders.FolderWalker]::Walk($contractsRoot, 1, [string[]] '*', $false, $true, $null)
         foreach ($unitFolder in $unitFolders) {
             $unit = [System.IO.Path]::GetFileName($unitFolder)
-            $versions = [string[]] @([System.IO.Directory]::GetDirectories($unitFolder) | ForEach-Object { [System.IO.Path]::GetFileName($_) })
-            [System.Array]::Sort($versions, [System.StringComparer]::Ordinal)
+            $versions = [string[]] @([Catzc.Base.Folders.FolderWalker]::Walk($unitFolder, 1, [string[]] '*', $false, $true, $null) | ForEach-Object { [System.IO.Path]::GetFileName($_) })
             if ($Version -cne '0.0.0' -and $versions -cnotcontains $Version) {
                 $issues.Add("contracts/$unit/$Version/ does not exist, so release $Version of '$unit' is not checked; a release freezes the draft with Publish-ContractRelease before it runs Test-Contracts -Version (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).")
             }

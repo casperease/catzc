@@ -31,7 +31,7 @@ function Get-ContractPresenceFindings {
         else {
             "'$($segments[0..($i - 1)] -join '/')'"
         }
-        $names = @([System.IO.Directory]::GetFileSystemEntries($folder) | ForEach-Object { [System.IO.Path]::GetFileName($_) })
+        $names = @([Catzc.Base.Folders.FolderWalker]::Walk($folder, 1, [string[]] '*', $true, $true, $null) | ForEach-Object { [System.IO.Path]::GetFileName($_) })
         if (@($names | Where-Object { $_ -ceq $segment }).Count -eq 0) {
             $cased = @($names | Where-Object { $_ -ieq $segment })
             if ($cased.Count -gt 0) {

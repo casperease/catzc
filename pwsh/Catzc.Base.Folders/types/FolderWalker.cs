@@ -1,13 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    with_body_sha: "9214236fa190"
-  edges:
-    test: pwsh/Catzc.Base.Folders/tests/types/FolderWalker.Tests.ps1
----
-*/
-
 using System;
 using System.Collections.Generic;
 using System.IO;
