@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - FDR-CD-DETECT-BOOLEANNOTMODAL
+      - FDR-CD-DETECT-FASTDETECTION
+---
+
 # Two variables, one reader, 24 callers, and one analyzer rule for every other read
 
 ```text

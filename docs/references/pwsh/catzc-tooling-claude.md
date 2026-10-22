@@ -1,24 +1,24 @@
 # Catzc.Tooling.Claude
 
-The Claude module of the Tooling group: it starts new Claude Code worker sessions, each in a terminal window of its own, so a coordinator or
-the user opens several workers in one call instead of by hand. It starts sessions and interprets nothing. Like
+The Claude module of the Tooling group: it starts new Claude Code drone sessions, each in a terminal window of its own, so a coordinator or
+the user opens several drones in one call instead of by hand. It starts sessions and interprets nothing. Like
 [Catzc.Tooling.Inspiration](catzc-tooling-inspiration.md), it installs nothing, so it rests only on the `Base` group.
 
 ## Responsibilities
 
 | Responsibility   | Area    | Name                                                                           |
 | ---------------- | ------- | ------------------------------------------------------------------------------ |
-| responsibility:1 | start   | [Start worker sessions](#responsibility1--start-worker-sessions)               |
+| responsibility:1 | start   | [Start drone sessions](#responsibility1--start-drone-sessions)                 |
 | responsibility:2 | declare | [Declare the session settings](#responsibility2--declare-the-session-settings) |
 
-### responsibility:1 — Start worker sessions
+### responsibility:1 — Start drone sessions
 
 Open `Count` terminals, each running `claude --agent <Agent>` in the repository root, with a model only when one is asked for and an
 optional first prompt. A dry run starts nothing and returns the command lines.
 
 ### responsibility:2 — Declare the session settings
 
-The default agent and the terminal launcher are entries in `configs/claude-worker.yml`, each default declared once on its config type
+The default agent and the terminal launcher are entries in `configs/claude-drone.yml`, each default declared once on its config type
 ([sensible-defaults](../../drs/automation/sensible-defaults.md)).
 
 ## What the module does
@@ -33,7 +33,7 @@ otherwise. The launch is shown before it is made: `-DryRun` returns each planned
 
 The module's public functions, sorted into the responsibilities above.
 
-| Responsibility                                  | Function             |
-| ----------------------------------------------- | -------------------- |
-| responsibility:1 — Start worker sessions        | `Start-ClaudeWorker` |
-| responsibility:2 — Declare the session settings | `claude-worker.yml`  |
+| Responsibility                                  | Function            |
+| ----------------------------------------------- | ------------------- |
+| responsibility:1 — Start drone sessions         | `Start-ClaudeDrone` |
+| responsibility:2 — Declare the session settings | `claude-drone.yml`  |

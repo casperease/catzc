@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - DDR-VISUAL-FIXEDCOMMITPALETTE
+      - DDR-VISUAL-ENVIRONMENTISCONTAINER
+      - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+      - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+---
+
 # Deploying a topic commit is not integrating it
 
 ```text
@@ -15,6 +25,173 @@ Supports FDR-CD-LIFE-ONESTATEADVANCESONERUNG and FDR-CD-LIFE-TOPICDEPLOYSOUTOFBA
 Deploying a commit and integrating it are separate events: a commit can reach an environment without reaching main. The commit lifecycle
 treats that honestly: an out-of-band deploy puts a topic commit into an environment, but only landing on main puts it on the promotion
 ladder. Keeping the two events apart is what lets a commit's colour stay a true statement about where it stands.
+
+```yml drawio
+description:
+  A topic commit can reach an environment through an out-of-band deploy without reaching main; only landing on main puts it on the ladder
+  toward the build validation verified commit.
+about:
+  adrs:
+    - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+    - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+    - DDR-VISUAL-FIXEDCOMMITPALETTE
+    - DDR-VISUAL-ENVIRONMENTISCONTAINER
+  lens: meta
+content:
+  title: Deploying a topic commit is not integrating it
+  kind: explanation
+  flow: left-to-right
+  relation: lands, then climbs
+  theme: dark
+  bands:
+    - { id: band-topic, label: TOPIC }
+    - { id: band-out-of-band, label: OUT-OF-BAND }
+    - { id: band-main, label: MAIN }
+    - { id: band-landing, label: AFTER LANDING }
+  spans:
+    - id: span-integration
+      label: CI
+      over: [band-main, band-landing]
+  glyphs:
+    - { id: c-topic, kind: commit, label: topic commit, in: band-topic, state: topic }
+    - { id: a-deploy, kind: drsonly, label: out-of-band deploy, in: band-out-of-band }
+    - { id: e-environment, kind: env, label: environment (occupant inside), in: band-out-of-band }
+    - { id: c-main, kind: commit, label: main, in: band-main, state: landed }
+    - { id: g-validation, kind: gate, label: BVT, in: band-landing }
+    - { id: c-verified, kind: commit, label: BVT-verified, in: band-landing }
+  edges:
+    - { from: c-topic, to: a-deploy, kind: adr, label: "" }
+    - { from: a-deploy, to: e-environment, kind: adr, label: "" }
+    - { from: c-topic, to: c-main, kind: flow, label: "" }
+    - { from: c-main, to: g-validation, kind: flow, label: "" }
+    - { from: g-validation, to: c-verified, kind: flow, label: "" }
+  markers:
+    - { at: c-topic, number: 1 }
+    - { at: a-deploy, number: 2 }
+    - { at: e-environment, number: 3 }
+    - { at: c-main, number: 4 }
+    - { at: g-validation, number: 5 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by: [.claude/CLAUDE.md, FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND]
+      - cell: docs/-/.
+        by:
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/visual-design.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by: [pwsh/Catzc.Base.Docs/configs/agents.yml, pwsh/Catzc.Base.Docs/configs/capabilities.yml, DDR-VISUAL-FIXEDCOMMITPALETTE]
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: pwsh/Catzc.Base.Drs/types
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND]
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+    grid:
+      - cell: .claude/markdown
+        by: [.claude/CLAUDE.md, FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND]
+      - cell: docs/markdown
+        by:
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/visual-design.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: pwsh/bcl
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND]
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/agents.yml
+          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+    axis:
+      - cell: DSGN/quality-control
+        by:
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: DSGN/release
+        by:
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: DSGN/deploy
+        by:
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+layout:
+  band-topic: { x: 20, y: 108, w: 170, h: 380 }
+  band-out-of-band: { x: 210, y: 108, w: 420, h: 380 }
+  band-main: { x: 650, y: 108, w: 200, h: 380 }
+  band-landing: { x: 870, y: 108, w: 410, h: 380 }
+  c-topic: { x: 40, y: 170, w: 130, h: 44 }
+  a-deploy: { x: 340, y: 270, w: 180, h: 44 }
+  e-environment: { x: 310, y: 380, w: 240, h: 60 }
+  c-main: { x: 700, y: 170, w: 100, h: 44 }
+  g-validation: { x: 940, y: 154, w: 130, h: 72 }
+  c-verified: { x: 1110, y: 170, w: 150, h: 44 }
+```
 
 ![Deploying is not integrating](.assets/deploying-is-not-integrating.drawio.png)
 

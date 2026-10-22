@@ -24,8 +24,10 @@ function Format-CodeMetaHead {
 
         [System.Collections.IDictionary] $Immutable = [ordered]@{},
 
-        [System.Collections.IDictionary] $Edges = [ordered]@{}
+        [System.Collections.IDictionary] $Edges = [ordered]@{},
+
+        [string] $Warning = ''
     )
 
-    [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($Text, $Form).WithFacts($Immutable, $Edges)
+    [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($Text, $Form).WithFacts($Warning, $Immutable, $Edges)
 }

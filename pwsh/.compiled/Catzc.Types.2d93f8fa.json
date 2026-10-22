@@ -1,5 +1,5 @@
 {
-  "hash": "95801739",
+  "hash": "2d93f8fa",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -1780,7 +1780,7 @@
       "display": []
     },
     {
-      "name": "Catzc.Tooling.Claude.ClaudeWorkerConfig",
+      "name": "Catzc.Tooling.Claude.ClaudeDroneConfig",
       "aliases": [],
       "display": []
     },

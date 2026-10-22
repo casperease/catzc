@@ -1,14 +1,12 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "05e9c7ad7d53"
   edges:
-    docs: "[Get-ClaudeWorkerLaunch.ps1.md](../../../docs/references/pwsh/catzc-tooling-claude/private/Get-ClaudeWorkerLaunch.ps1.md)"
+    docs: "[Get-ClaudeDroneLaunch.ps1.md](../../../docs/references/pwsh/catzc-tooling-claude/private/Get-ClaudeDroneLaunch.ps1.md)"
 ---
 #>
 
-function Get-ClaudeWorkerLaunch {
+function Get-ClaudeDroneLaunch {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
@@ -46,7 +44,7 @@ function Get-ClaudeWorkerLaunch {
     if ($Launcher -eq 'windows-terminal') {
         $filePath = 'wt.exe'
         # wt reads an unescaped semicolon as the start of its next command.
-        $argumentList = "-d `"$WorkingDirectory`" new-tab --title claude-worker-$Index pwsh -NoExit -Command $($command.Replace(';', '\;'))"
+        $argumentList = "-d `"$WorkingDirectory`" new-tab --title claude-drone-$Index pwsh -NoExit -Command $($command.Replace(';', '\;'))"
     }
     else {
         $filePath = 'pwsh'

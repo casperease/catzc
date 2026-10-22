@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-GLOBS-NAMEDGLOBSETS
+      - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - FDR-CD-GLOBS-DURABLESHAIDENTITY
+      - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+---
+
 # A globset is one ordered program, and its three views are derived live, never committed
 
 ```text

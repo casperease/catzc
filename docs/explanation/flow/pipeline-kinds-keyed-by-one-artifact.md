@@ -1,3 +1,16 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-SEPARATEPIPELINEKINDS
+      - FDR-CD-CDCONTAINSCI
+      - FDR-CD-CDSTAYSINNONPROD
+      - FDR-CD-CDEINTERNALIZESPROMOTION
+      - FDR-CD-TWORELEASEGATES
+      - FDR-CD-PREPRODRUNG
+      - FDR-CD-PRODAPPROVALGATE
+---
+
 # CI, CD and DEPLOY are separate pipeline kinds keyed together by one artifact
 
 ```text

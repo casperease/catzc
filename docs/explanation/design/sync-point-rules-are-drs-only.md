@@ -1,3 +1,17 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-CDSTAYSINNONPROD
+      - FDR-CD-TWORELEASEGATES
+      - FDR-CD-PREPRODRUNG
+      - FDR-CD-LIFE-DISCARDISTERMINAL
+      - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+      - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - FDR-CD-LIFE-DIRTYHEADUNSAFE
+      - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+---
+
 # Only BVT has a gate in code; the sync-point rules are DRS-only
 
 ```text
@@ -19,6 +33,300 @@ The sync point is the BVT-verified server head: upstream integrators take it, ne
 first, so when it is deployed it is the `main-UAT` occupant. Of the rules that govern the rungs of the promotion ladder around it, only one
 has a gate in cats: the BVT rung, checked by the `ci-pwsh` pipeline. Every rule about occupants, the sync point and the dirty HEAD is
 DRS-only, so "sync from the BVT-verified head" is a convention that no code checks.
+
+```yml drawio
+description:
+  Of the rules around the sync point only the BVT rung has a gate in code, the ci-pwsh pipeline; every rule about occupants, the sync point,
+  the manual release gates and the dirty HEAD is DRS-only.
+about:
+  adrs:
+    - FDR-CD-LIFE-DISCARDISTERMINAL
+    - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-CD-LIFE-DIRTYHEADUNSAFE
+    - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-CD-CDSTAYSINNONPROD
+    - FDR-CD-TWORELEASEGATES
+    - FDR-CD-PREPRODRUNG
+  lens: governance
+content:
+  title: Only BVT has a gate in code; the sync-point rules are DRS-only
+  kind: explanation
+  flow: left-to-right
+  relation: takes its commit from
+  theme: dark
+  bands:
+    - { id: band-external, label: EXTERNAL }
+    - { id: band-ladder, label: PROMOTION LADDER }
+    - { id: band-tip, label: TIP OF MAIN }
+  glyphs:
+    - { id: g-integrator, kind: drsonly, label: upstream integrator, in: band-external }
+    - { id: g-production, kind: env, label: "production: commit 4", in: band-ladder }
+    - { id: g-pre-prod, kind: env, label: pre-prod, in: band-ladder }
+    - { id: g-release-uat, kind: env, label: "release-uat: commit 5", in: band-ladder }
+    - { id: g-main-uat, kind: env, label: "main-UAT: commit 6", in: band-ladder }
+    - { id: g-on-demand, kind: env, label: on-demand (L3), in: band-ladder }
+    - { id: g-ci-automation, kind: gate, label: ci-pwsh, in: band-ladder }
+    - { id: f-dirty-head, kind: failure, label: "dirty HEAD: commit 10", in: band-tip }
+  edges:
+    - { from: g-integrator, to: g-main-uat, kind: adr, label: "" }
+    - { from: g-production, to: g-pre-prod, kind: adr, label: "" }
+    - { from: g-pre-prod, to: g-release-uat, kind: adr, label: "" }
+    - { from: g-release-uat, to: g-main-uat, kind: adr, label: "" }
+    - { from: g-main-uat, to: g-on-demand, kind: adr, label: "" }
+    - { from: g-on-demand, to: g-ci-automation, kind: adr, label: "" }
+    - { from: g-main-uat, to: f-dirty-head, kind: fail, label: "" }
+  markers:
+    - { at: g-integrator, number: 1 }
+    - { at: g-production, number: 2 }
+    - { at: g-pre-prod, number: 3 }
+    - { at: g-release-uat, number: 4 }
+    - { at: g-main-uat, number: 5 }
+    - { at: g-on-demand, number: 6 }
+    - { at: g-ci-automation, number: 7 }
+    - { at: f-dirty-head, number: 8 }
+  chips:
+    - { at: g-integrator, kind: rule, rule: FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
+    - { at: g-integrator, kind: rule, rule: FDR-CD-LIFE-DIRTYHEADUNSAFE, gated: false }
+    - { at: g-production, kind: rule, rule: FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, gated: false }
+    - { at: g-pre-prod, kind: rule, rule: FDR-CD-PREPRODRUNG, gated: false }
+    - { at: g-release-uat, kind: rule, rule: FDR-CD-TWORELEASEGATES, gated: false }
+    - { at: g-main-uat, kind: rule, rule: FDR-CD-TWORELEASEGATES, gated: false }
+    - { at: g-main-uat, kind: rule, rule: FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, gated: false }
+    - { at: g-on-demand, kind: rule, rule: FDR-CD-CDSTAYSINNONPROD, gated: false }
+    - { at: g-ci-automation, kind: rule, rule: FDR-CD-LIFE-DISCARDISTERMINAL }
+    - { at: f-dirty-head, kind: rule, rule: FDR-CD-LIFE-DIRTYHEADUNSAFE, gated: false }
+    - { at: f-dirty-head, kind: rule, rule: FDR-CD-LIFE-FAILEDSTAYSUPSTREAM, gated: false }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by:
+          - .claude/CLAUDE.md
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: ado-pipelines/pipelines/.
+        by: [.ado/pipelines/deploy-apex.yaml, .ado/pipelines/deploy-nova.yaml, .ado/pipelines/deploy-shared.yaml, FDR-CD-TWORELEASEGATES]
+      - cell: docs/-/.
+        by:
+          - docs/drs/flow/cd-discipline-and-promotion-flow.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/deploy-apex.yaml.md
+          - docs/references/ado/pipelines/deploy-nova.yaml.md
+          - docs/references/ado/pipelines/deploy-shared.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by: [pwsh/Catzc.Base.Docs/configs/glossary.yml, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT]
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Drs/types
+        by:
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Flow/tests/types
+        by: [pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1, FDR-CD-PREPRODRUNG]
+      - cell: pwsh/Catzc.Base.Flow/types
+        by: [pwsh/Catzc.Base.Flow/types/RungsConfig.cs, FDR-CD-CDSTAYSINNONPROD, FDR-CD-PREPRODRUNG, FDR-CD-TWORELEASEGATES]
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT]
+    grid:
+      - cell: .claude/markdown
+        by:
+          - .claude/CLAUDE.md
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: ado-pipelines/pipeline-yaml
+        by: [.ado/pipelines/deploy-apex.yaml, .ado/pipelines/deploy-nova.yaml, .ado/pipelines/deploy-shared.yaml, FDR-CD-TWORELEASEGATES]
+      - cell: docs/markdown
+        by:
+          - docs/drs/flow/cd-discipline-and-promotion-flow.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/deploy-apex.yaml.md
+          - docs/references/ado/pipelines/deploy-nova.yaml.md
+          - docs/references/ado/pipelines/deploy-shared.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+    axis:
+      - cell: DSGN/build
+        by: [FDR-CD-CDSTAYSINNONPROD, FDR-CD-PREPRODRUNG, FDR-CD-TWORELEASEGATES]
+      - cell: DSGN/quality-control
+        by:
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: DSGN/release
+        by:
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: DSGN/deploy
+        by:
+          - FDR-CD-CDSTAYSINNONPROD
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-DISCARDISTERMINAL
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+layout:
+  band-external: { x: 20, y: 104, w: 1260, h: 130 }
+  band-ladder: { x: 20, y: 254, w: 1260, h: 200 }
+  band-tip: { x: 20, y: 474, w: 1260, h: 130 }
+  g-integrator: { x: 640, y: 150, w: 240, h: 52 }
+  g-production: { x: 40, y: 300, w: 180, h: 100 }
+  g-pre-prod: { x: 250, y: 300, w: 180, h: 100 }
+  g-release-uat: { x: 460, y: 300, w: 180, h: 100 }
+  g-main-uat: { x: 670, y: 300, w: 180, h: 100 }
+  g-on-demand: { x: 880, y: 300, w: 180, h: 100 }
+  g-ci-automation: { x: 1090, y: 295, w: 170, h: 110 }
+  f-dirty-head: { x: 640, y: 530, w: 240, h: 52 }
+```
 
 ![Only BVT has a gate in code; the sync-point rules are DRS-only](.assets/sync-point-rules-are-drs-only.drawio.png)
 

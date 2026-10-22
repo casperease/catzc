@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-DATAMOD-CUSTOMERAXIS
+      - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
+      - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+---
+
 # Four gates hold the session rule; the customer and the name hold by construction
 
 ```text

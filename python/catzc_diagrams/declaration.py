@@ -242,9 +242,7 @@ FENCE = "yml drawio"  # the info string of an article's declaration block, the w
 
 def carrier_of(diagram):
     """A diagram's carrier: its entry under drawio.yml carriers:, keyed by its stem's repository path, else renderer.carrier."""
-    stem = diagram_of(diagram).resolve()
-    repo = KIT.parents[1]
-    path = stem.relative_to(repo).as_posix() if stem.is_relative_to(repo) else stem.name
+    path = carrier_key(diagram)
     carrier = DEFAULTS.get("carriers", {}).get(path, DEFAULTS["renderer"]["carrier"])
     if carrier not in CARRIERS:
         raise DeclarationError(f"drawio.yml gives {path} the carrier '{carrier}', not one of {', '.join(CARRIERS)}")

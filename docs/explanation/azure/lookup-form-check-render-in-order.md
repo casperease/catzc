@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+      - ADR-AZ-NAMING-ORDERISVARIANT
+      - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+      - ADR-AZ-NAMING-NEVERTRUNCATE
+---
+
 # The namer looks up, forms, checks and renders a name in that order
 
 ```text

@@ -7,132 +7,20 @@
 renderer:
   page: dark # dark | model. dark: every render sits on the dark page (STYLE.md tokens); model: the model's own background, white allowed. Parameter: --page
   out: out/drawio # where drawio_forward.py lands its artifacts when no <out_dir> argument is given
-  carrier: file # where a diagram's declaration lives when carriers: names none. file: <name>.drawio.yml beside its png; article: a `yml drawio` block directly above the image that embeds its png
+  carrier: article # where a diagram's declaration lives when carriers: names none. article: a `yml drawio` block directly above the image that embeds its png; file: <name>.drawio.yml beside its png
   role: slide # a diagram's role when roles: names none. slide: its subtitle says `<codes> · <lens>`; legend: it names no ADR and has no subtitle
 roles: # a diagram's role, keyed by its stem's repository path (`.assets/<name>`), only where it is not renderer.role
   docs/explanation/.assets/glyphs: legend # the glyph library, the legend every slide's glyphs come from
 carriers: # a diagram's carrier, keyed by its stem's repository path (`.assets/<name>`), only where it is not renderer.carrier
-  docs/explanation/repository/.assets/build-diagrams-runs-five-stages: article # the article-mode proof
-  docs/drs/azure/.assets/azure-name-assembly: article # the article-carrier pilot
-  docs/drs/flow/.assets/sync-point: article
-  docs/drs/flow/.assets/commit-promotion-states: article
-  docs/explanation/thesis/.assets/eac-normal-form: article
-  docs/explanation/thesis/.assets/where-truth-comes-from: article
-  docs/explanation/ado/.assets/one-header-function-owns-precedence: article
-  docs/explanation/ado/.assets/three-guarded-early-returns: article
-  docs/explanation/ado/.assets/what-you-set-decides-the-credential: article
-  docs/explanation/ado/.assets/which-auth-rungs-have-a-gate: article
-  docs/explanation/repository/.assets/a-base-module-between-config-and-its-callers: article
-  docs/explanation/repository/.assets/an-edit-lands-at-the-next-import: article
-  docs/explanation/repository/.assets/five-keys-one-reader-twelve-primitives: article
-  docs/explanation/repository/.assets/import-materialises-two-gates-name-the-fix: article
-  docs/explanation/repository/.assets/one-home-one-read-path-one-vocabulary: article
-  docs/explanation/repository/.assets/one-registry-one-writer-two-primitives: article
-  docs/explanation/repository/.assets/opted-in-then-link-copy-or-render: article
-  docs/explanation/repository/.assets/three-gates-check-registry-drift-membership: article
-  docs/explanation/repository/.assets/values-and-edges-gated-reads-reviewed: article
-  docs/explanation/automation/.assets/a-shell-call-carries-its-limit-or-is-denied: article
-  docs/explanation/automation/.assets/a-stopped-run-names-its-limit: article
-  docs/explanation/automation/.assets/build-then-place-with-one-command: article
-  docs/explanation/automation/.assets/build-verify-then-copy-the-folder: article
-  docs/explanation/automation/.assets/callers-value-else-config-else-default: article
-  docs/explanation/automation/.assets/decide-returns-null-or-a-reason: article
-  docs/explanation/automation/.assets/dot-source-one-entry-script: article
-  docs/explanation/automation/.assets/every-code-root-is-a-copy: article
-  docs/explanation/automation/.assets/every-entry-runs-one-load-sequence: article
-  docs/explanation/automation/.assets/one-commit-one-immutable-package: article
-  docs/explanation/automation/.assets/one-resolver-every-consumer-but-the-hook: article
-  docs/explanation/automation/.assets/one-rule-per-stage-and-two-gaps: article
-  docs/explanation/automation/.assets/output-root-first-then-repo-root: article
-  docs/explanation/automation/.assets/pass-the-limit-or-the-call-is-denied: article
-  docs/explanation/automation/.assets/resolve-one-limit-in-code-order: article
-  docs/explanation/automation/.assets/rule-and-gate-per-load-stage: article
-  docs/explanation/automation/.assets/three-layers-edges-point-down: article
-  docs/explanation/automation/.assets/three-tests-prove-the-hook: article
-  docs/explanation/automation/.assets/two-crossers-and-three-anchors: article
-  docs/explanation/automation/.assets/two-entries-feed-one-importer: article
-  docs/explanation/automation/.assets/two-forms-never-a-third: article
-  docs/explanation/automation/.assets/two-gates-check-the-layer-pins: article
-  docs/explanation/automation/.assets/two-sections-unioned-into-one-allow-set: article
-  docs/explanation/automation/.assets/types-check-forms-review-checks-crossers: article
-  docs/explanation/automation/.assets/undeclared-edge-fails-with-one-line: article
-  docs/explanation/automation/.assets/what-gates-each-bundle-stage: article
-  docs/explanation/configuration/.assets/an-address-is-a-read-only-walk: article
-  docs/explanation/configuration/.assets/ask-by-name-get-the-cached-object: article
-  docs/explanation/configuration/.assets/callers-depend-on-one-config-module: article
-  docs/explanation/configuration/.assets/callers-in-four-modules-share-one-resolver: article
-  docs/explanation/configuration/.assets/one-gate-guards-the-read-path: article
-  docs/explanation/configuration/.assets/one-reader-one-cache-per-session: article
-  docs/explanation/configuration/.assets/strip-split-walk-every-wrong-turn-throws: article
-  docs/explanation/configuration/.assets/three-caches-back-one-reader: article
-  docs/explanation/configuration/.assets/two-test-files-check-the-address-rules: article
-  docs/explanation/configuration/.assets/type-an-address-get-the-value: article
-  docs/references/pwsh/.assets/az-cli-test-assert-share-one-state: article
-  docs/references/pwsh/.assets/azure-identity-resolves-from-config: article
-  docs/references/pwsh/.assets/bicep-deploy-one-immutable-context: article
-  docs/references/pwsh/.assets/bicep-template-is-a-folder: article
-  docs/references/pwsh/.assets/get-config-merge-seal-type: article
-  docs/references/pwsh/.assets/invoke-executable-two-paths-one-bounded: article
-  docs/references/pwsh/.assets/invoke-tool-asserts-locked-version: article
-  docs/references/pwsh/.assets/listen-mode-flow: article
-  docs/references/pwsh/.assets/module-graph-declared-vs-observed: article
-  docs/references/pwsh/.assets/protected-module-skip-by-hash: article
-  docs/references/pwsh/.assets/test-automation-one-run-pipeline: article
-  docs/explanation/flow/.assets/a-merge-runs-cd-to-prod: article
-  docs/explanation/flow/.assets/a-step-only-names-a-command: article
-  docs/explanation/flow/.assets/apex-thirteen-rules-seven-includes-six-excludes: article
-  docs/explanation/flow/.assets/cd-builds-once-then-deploys-prod-itself: article
-  docs/explanation/flow/.assets/ci-budget-is-the-only-quality-gate: article
-  docs/explanation/flow/.assets/declare-or-add-folder-gate-names-overlaps: article
-  docs/explanation/flow/.assets/drift-is-gated-generation-is-drs-only: article
-  docs/explanation/flow/.assets/edit-globs-yml-then-read-the-output: article
-  docs/explanation/flow/.assets/every-doubt-fails-open-to-proceed: article
-  docs/explanation/flow/.assets/gates-check-source-and-trigger: article
-  docs/explanation/flow/.assets/globs-asks-loader-for-context-and-git-for-diff: article
-  docs/explanation/flow/.assets/globs-module-owns-config-and-types: article
-  docs/explanation/flow/.assets/globs-projects-and-three-consumers-read: article
-  docs/explanation/flow/.assets/independence-check-groups-by-layer: article
-  docs/explanation/flow/.assets/no-gate-checks-rules-one-and-four: article
-  docs/explanation/flow/.assets/one-artifact-climbs-unchanged: article
-  docs/explanation/flow/.assets/one-boolean-answer-from-one-function: article
-  docs/explanation/flow/.assets/one-gate-checks-the-raw-read-rule: article
-  docs/explanation/flow/.assets/one-program-two-vendor-dialects: article
-  docs/explanation/flow/.assets/one-scan-program-feeds-three-roles: article
-  docs/explanation/flow/.assets/overlap-gated-for-units-and-modules: article
-  docs/explanation/flow/.assets/peers-in-a-layer-never-overlap: article
-  docs/explanation/flow/.assets/pipeline-kinds-keyed-by-one-artifact: article
-  docs/explanation/flow/.assets/print-projection-then-drift-names-the-filter: article
-  docs/explanation/flow/.assets/range-per-context-then-diff-and-match: article
-  docs/explanation/flow/.assets/stop-only-on-false-everything-else-proceeds: article
-  docs/explanation/flow/.assets/tests-pin-the-throw-and-fail-open-cd-calls-it: article
-  docs/explanation/flow/.assets/the-analyzer-names-the-raw-read: article
-  docs/explanation/flow/.assets/the-loader-holds-the-one-detector: article
-  docs/explanation/flow/.assets/the-runner-is-the-only-seam: article
-  docs/explanation/flow/.assets/the-step-is-named-after-its-command: article
-  docs/explanation/flow/.assets/three-tasks-one-guard-one-runner: article
-  docs/explanation/flow/.assets/three-views-derived-live-from-one-program: article
-  docs/explanation/flow/.assets/two-declared-layers-one-derived: article
-  docs/explanation/flow/.assets/two-variables-read-in-one-place: article
-  docs/explanation/azure/.assets/a-bad-coordinate-stops-discovery: article
-  docs/explanation/azure/.assets/a-module-change-fans-out-to-its-templates: article
-  docs/explanation/azure/.assets/add-a-template: article
-  docs/explanation/azure/.assets/add-an-environment-slot: article
-  docs/explanation/azure/.assets/change-one-configuration-slot: article
-  docs/explanation/azure/.assets/config-path-is-a-coordinate: article
-  docs/explanation/azure/.assets/coordinate-resolved-file-by-file-at-discovery: article
-  docs/explanation/azure/.assets/coordinate-rules-and-their-gates: article
-  docs/explanation/azure/.assets/four-gates-hold-the-session-rule: article
-  docs/explanation/azure/.assets/how-each-naming-rule-is-held: article
-  docs/explanation/azure/.assets/lookup-form-check-render-in-order: article
-  docs/explanation/azure/.assets/names-are-derived-never-typed: article
-  docs/explanation/azure/.assets/names-are-pure-and-never-truncated: article
-  docs/explanation/azure/.assets/one-namer-assembles-every-name: article
-  docs/explanation/azure/.assets/one-reverse-lookup-feeds-every-module: article
-  docs/explanation/azure/.assets/pipeline-pins-devbox-picks-the-target: article
-  docs/explanation/azure/.assets/read-the-session-guard-then-pick-slot: article
-  docs/explanation/azure/.assets/the-session-is-the-deploy-target: article
-  docs/explanation/azure/.assets/three-kinds-of-infrastructure-code: article
-  docs/explanation/azure/.assets/two-layers-join-through-one-resolver: article
+  docs/drs/automation/BCL/.assets/bcl-language: file
+  docs/explanation/ado/.assets/configured-credential-proves-its-org: file
+  docs/explanation/automation/.assets/a-declared-allow-list-of-layers: file
+  docs/explanation/automation/.assets/hook-compiles-module-verdict-and-limits: file
+  docs/explanation/automation/.assets/invoke-importer-in-code-order: file
+  docs/explanation/automation/.assets/one-out-string-two-places: file
+  docs/explanation/repository/.assets/one-source-one-writer-one-boolean: file
+  docs/explanation/thesis/product-thesis/.assets/truth-stores: file
+  docs/references/pwsh/.assets/tools-yml-install-dispatch: file
 lenses: # the closed set of lenses a diagram is drawn through (its about.lens, the end of its subtitle), each with what it shows; the badge prints the name
   meta: what the decision is and why
   architecture: the parts and how they depend on each other

@@ -1,3 +1,14 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-NAMING-DETERMINISTICNAMES
+      - ADR-AZ-NAMING-ORDERISVARIANT
+      - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+      - ADR-AZ-NAMING-NEVERTRUNCATE
+      - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+---
+
 # Nobody types an Azure name: cats derives it, and a bad name stops with an error
 
 ```text

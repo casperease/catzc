@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-GLOBS-EVERYSETHASLAYER
+      - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+---
+
 # Test-GlobSetIndependence groups every set by layer and tests each same-layer pair
 
 ```text

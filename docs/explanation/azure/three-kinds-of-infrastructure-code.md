@@ -1,3 +1,10 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-IACKIND
+---
+
 # Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together
 
 ```text

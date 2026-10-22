@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Tooling.Claude;
 
-public sealed class ClaudeWorkerConfig
+public sealed class ClaudeDroneConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
@@ -19,13 +19,13 @@ public sealed class ClaudeWorkerConfig
     private static readonly string[] AllowedKeys = { "agent", "launcher" };
     private static readonly Regex AgentName = new Regex("^[a-z0-9][a-z0-9-]*$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
-    // The agent a worker session starts as, the name of a file in .claude/agents.
+    // The agent a drone session starts as, the name of a file in .claude/agents.
     public string agent { get; }
 
-    // The terminal a worker session opens in: windows-terminal (wt.exe new-tab) or pwsh (a pwsh -NoExit window).
+    // The terminal a drone session opens in: windows-terminal (wt.exe new-tab) or pwsh (a pwsh -NoExit window).
     public string launcher { get; }
 
-    public ClaudeWorkerConfig(IDictionary raw)
+    public ClaudeDroneConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
         string agentValue = DefaultAgent;
@@ -71,7 +71,7 @@ public sealed class ClaudeWorkerConfig
 
         if (errors.Count > 0)
         {
-            throw new ArgumentException("claude-worker configuration validation failed:\n" + string.Join("\n", errors));
+            throw new ArgumentException("claude-drone configuration validation failed:\n" + string.Join("\n", errors));
         }
 
         agent = agentValue;

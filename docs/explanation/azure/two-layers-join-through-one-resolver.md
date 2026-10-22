@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-CUSTOMER-TWOBINDINGS
+      - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+      - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+      - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+---
+
 # Templating and identity join through one shared check and one resolver
 
 ```text

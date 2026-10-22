@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-GLOBS-NATIVEPATHFILTER
+      - FDR-CD-GLOBS-COMPOSESETS
+---
+
 # Catzc.Base.Globs projects the program, and workflows, pipelines and the branch policy only read it
 
 ```text

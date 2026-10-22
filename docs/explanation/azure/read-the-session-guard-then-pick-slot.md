@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-DATAMOD-CUSTOMERAXIS
+      - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
+      - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+---
+
 # Get-BicepDeploymentContext reads the session, guards it, then picks the slot
 
 ```text

@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - DDR-TRACK-ONETRACKTYPE
+      - DDR-TRACK-ONETECHSTACK
+      - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - DDR-TRACK-DEPLOYABLEUNIT
+---
+
 # CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly
 
 ```text
@@ -17,6 +27,219 @@ Cats is one repository made of tracks, the root concerns such as `pwsh` and `inf
 a deployable-unit, and each pipeline is the delivery machine of what it binds. The four CD pipelines bind deployable-units, and the two CI
 pipelines bind the `pwsh` and `infrastructure` track sets themselves, with no whole-track unit in between; the tracks DDR and the globset
 FDR both say so.
+
+```yml drawio
+description:
+  The four CD pipelines bind deployable-units composed from the infrastructure track, while the two CI pipelines bind the pwsh and
+  infrastructure track sets directly, with no unit between them.
+about:
+  adrs: [DDR-TRACK-ONETRACKTYPE, DDR-TRACK-ONETECHSTACK, DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED, DDR-TRACK-DEPLOYABLEUNIT]
+  lens: architecture
+content:
+  title: CD pipelines bind through deployable-units, while CI pipelines bind the track sets directly
+  kind: explanation
+  flow: left-to-right
+  relation: binds a pipeline (pipeline:)
+  theme: dark
+  bands:
+    - { id: band-tracks, label: TRACKS }
+    - { id: band-units, label: DEPLOYABLE-UNITS }
+    - { id: band-pipelines, label: PIPELINES }
+  glyphs:
+    - { id: s-automation, kind: set, label: pwsh, in: band-tracks }
+    - { id: s-infrastructure, kind: set, label: infrastructure, in: band-tracks }
+    - { id: s-base, kind: set, label: foundation base unit, in: band-units }
+    - { id: s-units, kind: set, label: nova · apex · flux · shared, in: band-units }
+    - { id: r-ci-automation, kind: runner, label: ci-pwsh, in: band-pipelines }
+    - { id: r-ci-infrastructure, kind: runner, label: ci-infrastructure, in: band-pipelines }
+    - { id: r-cd, kind: runner, label: cd-<unit>, in: band-pipelines }
+  edges:
+    - { from: s-automation, to: r-ci-automation, kind: flow, label: "" }
+    - { from: s-infrastructure, to: r-ci-infrastructure, kind: flow, label: "" }
+    - { from: s-infrastructure, to: s-base, kind: thick, label: "" }
+    - { from: s-base, to: s-units, kind: thick, label: "" }
+    - { from: s-units, to: r-cd, kind: flow, label: "" }
+    - { from: s-infrastructure, to: s-automation, kind: adr, label: "" }
+  markers:
+    - { at: s-automation, number: 1 }
+    - { at: s-infrastructure->s-automation, number: 2 }
+    - { at: s-automation->r-ci-automation, number: 3 }
+    - { at: s-base, number: 4 }
+    - { at: s-units, number: 5 }
+    - { at: r-cd, number: 6 }
+  chips:
+    - { at: r-cd, kind: count, text: "4" }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/tracks.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/how-to/pwsh/manual-test-plan/repository-conventions.md
+          - docs/references/note-file-kind.md
+          - docs/references/pwsh/catzc-base-globs/configs/globs.yml.md
+          - docs/references/pwsh/catzc-base-languages/tests/Get-FileLanguage.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps.md
+          - docs/references/pwsh/catzc-base-maps/Export-WorldMapPdf.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/tests/Get-WorldMap.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps/tests/Test-WorldMap.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-maps/types/MapCell.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMapBuilder.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMapPdf.cs.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-LanguageTestFolders.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-PathModule.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-Track.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-TrackPlace.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantTrack.cs.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-ONETRACKTYPE
+          - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-ONETRACKTYPE
+          - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: pwsh/Catzc.Base.Globs/configs
+        by: [pwsh/Catzc.Base.Globs/configs/globs.yml, DDR-TRACK-DEPLOYABLEUNIT]
+      - cell: pwsh/Catzc.Base.Globs/tests/types
+        by: [pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1, DDR-TRACK-DEPLOYABLEUNIT]
+      - cell: pwsh/Catzc.Base.Languages/tests
+        by: [pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1, DDR-TRACK-ONETECHSTACK]
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Export-WorldMapPdf.ps1
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-ONETRACKTYPE
+          - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by: [pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1, pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1, DDR-TRACK-ONETECHSTACK]
+      - cell: pwsh/Catzc.Base.Maps/types
+        by:
+          - pwsh/Catzc.Base.Maps/types/MapCell.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMapBuilder.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMapPdf.cs
+          - DDR-TRACK-ONETECHSTACK
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml, DDR-TRACK-DEPLOYABLEUNIT, DDR-TRACK-ONETECHSTACK]
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1, DDR-TRACK-ONETRACKTYPE]
+      - cell: pwsh/Catzc.Base.Variants/.
+        by:
+          - pwsh/Catzc.Base.Variants/Get-PathModule.ps1
+          - pwsh/Catzc.Base.Variants/Get-Track.ps1
+          - pwsh/Catzc.Base.Variants/Get-TrackPlace.ps1
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-ONETRACKTYPE
+          - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-ONETRACKTYPE
+          - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: pwsh/Catzc.Base.Variants/tests
+        by: [pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1, DDR-TRACK-ONETECHSTACK]
+      - cell: pwsh/Catzc.Base.Variants/tests/types
+        by: [pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1, DDR-TRACK-ONETECHSTACK]
+      - cell: pwsh/Catzc.Base.Variants/types
+        by:
+          - pwsh/Catzc.Base.Variants/types/ModulePlace.cs
+          - pwsh/Catzc.Base.Variants/types/ModuleTypeEntry.cs
+          - pwsh/Catzc.Base.Variants/types/ModuleTypesConfig.cs
+          - pwsh/Catzc.Base.Variants/types/PathModule.cs
+          - pwsh/Catzc.Base.Variants/types/VariantTrack.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-ONETRACKTYPE
+          - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-ONETRACKTYPE
+          - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: subject/Catzc.Base.Globs
+        by: [pwsh/Catzc.Base.Globs/configs/globs.yml, pwsh/Catzc.Base.Globs/tests/types/GlobsConfig.Tests.ps1, DDR-TRACK-DEPLOYABLEUNIT]
+      - cell: subject/Catzc.Base.Languages
+        by: [pwsh/Catzc.Base.Languages/tests/Get-FileLanguage.Tests.ps1, DDR-TRACK-ONETECHSTACK]
+      - cell: subject/Catzc.Base.Maps
+        by:
+          - pwsh/Catzc.Base.Maps/Export-WorldMapPdf.ps1
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Test-WorldMap.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMap.Tests.ps1
+          - pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
+          - pwsh/Catzc.Base.Maps/types/MapCell.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMapBuilder.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMapPdf.cs
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-ONETRACKTYPE
+          - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+      - cell: subject/Catzc.Base.ModuleSystem
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml, DDR-TRACK-DEPLOYABLEUNIT, DDR-TRACK-ONETECHSTACK]
+      - cell: subject/Catzc.Base.QualityGates
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-LanguageTestFolders.ps1, DDR-TRACK-ONETRACKTYPE]
+      - cell: subject/Catzc.Base.Variants
+        by:
+          - pwsh/Catzc.Base.Variants/Get-PathModule.ps1
+          - pwsh/Catzc.Base.Variants/Get-Track.ps1
+          - pwsh/Catzc.Base.Variants/Get-TrackPlace.ps1
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - pwsh/Catzc.Base.Variants/tests/Get-PathModule.Tests.ps1
+          - pwsh/Catzc.Base.Variants/tests/types/ModuleTypesConfig.Tests.ps1
+          - pwsh/Catzc.Base.Variants/types/ModulePlace.cs
+          - pwsh/Catzc.Base.Variants/types/ModuleTypeEntry.cs
+          - pwsh/Catzc.Base.Variants/types/ModuleTypesConfig.cs
+          - pwsh/Catzc.Base.Variants/types/PathModule.cs
+          - pwsh/Catzc.Base.Variants/types/VariantTrack.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - DDR-TRACK-DEPLOYABLEUNIT
+          - DDR-TRACK-ONETECHSTACK
+          - DDR-TRACK-ONETRACKTYPE
+          - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
+    axis:
+      - cell: DSGN/*
+        by: [DDR-TRACK-DEPLOYABLEUNIT, DDR-TRACK-ONETECHSTACK, DDR-TRACK-ONETRACKTYPE, DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED]
+layout:
+  band-tracks: { x: 20, y: 84, w: 280, h: 360 }
+  band-units: { x: 320, y: 84, w: 540, h: 360 }
+  band-pipelines: { x: 880, y: 84, w: 400, h: 360 }
+  s-automation: { x: 40, y: 130, w: 240, h: 56 }
+  s-infrastructure: { x: 40, y: 250, w: 240, h: 156 }
+  s-base: { x: 340, y: 380, w: 220, h: 56 }
+  s-units: { x: 620, y: 380, w: 220, h: 56 }
+  r-ci-automation: { x: 960, y: 130, w: 240, h: 56 }
+  r-ci-infrastructure: { x: 960, y: 300, w: 240, h: 56 }
+  r-cd: { x: 960, y: 380, w: 240, h: 56 }
+```
 
 ![CD binds through units, CI binds the track sets](.assets/units-not-tracks-own-the-pipelines.drawio.png)
 

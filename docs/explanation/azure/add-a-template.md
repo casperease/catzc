@@ -1,3 +1,10 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-IACKIND
+---
+
 # A new template is one folder in the templates place, found through the track and named in the pipelines that deploy it
 
 ```text

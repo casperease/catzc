@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS
+      - FDR-CD-GLOBS-EVERYSETHASLAYER
+      - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+---
+
 # A gate checks overlap for units and modules, and loose-filesets are exempt
 
 ```text

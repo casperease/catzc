@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-REPO-VARIANT-SESSIONVARIANT
+      - ADR-REPO-VARIANT-NODIRECTREADS
+      - DDR-ASPECT-TRACKPICKSCATCHALL
+---
+
 # Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads
 
 ```text
@@ -20,6 +29,126 @@ declared order, and the last one is the remainder, so `(Get-Aspect -Track infras
 `pwsh` is `tests`. A person who wants to change a deployment track's order edits `variants.yml` and runs the importer again; the code
 track's order follows the layout of `languages.yml`. A wrong order does not get far: the config type refuses to load a track whose last
 aspect is not the bare `**`.
+
+```yml drawio
+description:
+  "Get-Aspect answers each track's aspect order from variants.yml, naming the remainder: the code track ends in tests, the deployment track
+  ends in live, and a wrong order fails the next time the config loads."
+about:
+  adrs: [DDR-ASPECT-TRACKPICKSCATCHALL]
+  lens: operations
+content:
+  title: Get-Aspect names each track's remainder, and a wrong order fails when the variants config loads
+  kind: explanation
+  flow: left-to-right
+  relation: feeds
+  theme: dark
+  bands:
+    - { id: band-config, label: THE CONFIG }
+    - { id: band-code, label: PWSH }
+    - { id: band-deployment, label: INFRASTRUCTURE }
+  glyphs:
+    - { id: f-variants, kind: file, label: variants.yml, in: band-config }
+    - { id: f-last-aspect, kind: failure, label: the last aspect must be '**', in: band-config }
+    - { id: c-code-aspect, kind: code, label: Get-Aspect -Track pwsh, in: band-code }
+    - { id: s-code-live, kind: set, label: live, in: band-code }
+    - { id: s-code-tests, kind: set, label: tests, in: band-code }
+    - { id: c-deployment-aspect, kind: code, label: Get-Aspect -Track infrastructure, in: band-deployment }
+    - { id: s-deployment-tests, kind: set, label: tests, in: band-deployment }
+    - { id: s-deployment-live, kind: set, label: live, in: band-deployment }
+  edges:
+    - { from: f-variants, to: f-last-aspect, kind: fail, label: "" }
+    - { from: f-variants, to: c-code-aspect, kind: flow, label: "" }
+    - { from: f-variants, to: c-deployment-aspect, kind: flow, label: "" }
+    - { from: c-code-aspect, to: s-code-live, kind: thick, label: "" }
+    - { from: s-code-live, to: s-code-tests, kind: thick, label: "" }
+    - { from: c-deployment-aspect, to: s-deployment-tests, kind: thick, label: "" }
+    - { from: s-deployment-tests, to: s-deployment-live, kind: thick, label: "" }
+  markers:
+    - { at: f-variants, number: 1 }
+    - { at: f-last-aspect, number: 2 }
+    - { at: c-code-aspect, number: 3 }
+    - { at: s-code-live, number: 4 }
+    - { at: s-code-tests, number: 5 }
+    - { at: c-deployment-aspect, number: 6 }
+    - { at: s-deployment-tests, number: 7 }
+    - { at: s-deployment-live, number: 8 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/module-aspects.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md
+          - docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-ModuleProtectionIdentity.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-ASPECT-TRACKPICKSCATCHALL]
+      - cell: pwsh/Catzc.Base.Globs/.
+        by: [pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1, DDR-ASPECT-TRACKPICKSCATCHALL]
+      - cell: pwsh/Catzc.Base.Globs/tests
+        by: [pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1, DDR-ASPECT-TRACKPICKSCATCHALL]
+      - cell: pwsh/Catzc.Base.Globs/tests/types
+        by: [pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1, DDR-ASPECT-TRACKPICKSCATCHALL]
+      - cell: pwsh/Catzc.Base.Globs/types
+        by: [pwsh/Catzc.Base.Globs/types/Aspect.cs, DDR-ASPECT-TRACKPICKSCATCHALL]
+      - cell: pwsh/Catzc.Base.Modules/.
+        by: [pwsh/Catzc.Base.Modules/Get-Aspect.ps1, DDR-ASPECT-TRACKPICKSCATCHALL]
+      - cell: pwsh/Catzc.Base.Modules/tests
+        by: [pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1, DDR-ASPECT-TRACKPICKSCATCHALL]
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1, DDR-ASPECT-TRACKPICKSCATCHALL]
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by: [pwsh/Catzc.Base.Variants/configs/variants.yml, DDR-ASPECT-TRACKPICKSCATCHALL]
+      - cell: pwsh/Catzc.Base.Variants/types
+        by:
+          - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Drs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-ASPECT-TRACKPICKSCATCHALL]
+      - cell: subject/Catzc.Base.Globs
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
+          - pwsh/Catzc.Base.Globs/types/Aspect.cs
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: subject/Catzc.Base.Modules
+        by: [pwsh/Catzc.Base.Modules/Get-Aspect.ps1, pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1, DDR-ASPECT-TRACKPICKSCATCHALL]
+      - cell: subject/Catzc.Base.QualityGates
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1, DDR-ASPECT-TRACKPICKSCATCHALL]
+      - cell: subject/Catzc.Base.Variants
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+    axis:
+      - cell: DSGN/build
+        by: [DDR-ASPECT-TRACKPICKSCATCHALL]
+layout:
+  band-config: { x: 20, y: 84, w: 1260, h: 110 }
+  band-code: { x: 20, y: 214, w: 610, h: 290 }
+  band-deployment: { x: 650, y: 214, w: 630, h: 290 }
+  f-variants: { x: 200, y: 124, w: 760, h: 52 }
+  f-last-aspect: { x: 990, y: 128, w: 270, h: 44 }
+  c-code-aspect: { x: 115, y: 260, w: 420, h: 44 }
+  s-code-live: { x: 115, y: 350, w: 420, h: 44 }
+  s-code-tests: { x: 115, y: 430, w: 420, h: 44 }
+  c-deployment-aspect: { x: 765, y: 260, w: 420, h: 44 }
+  s-deployment-tests: { x: 765, y: 350, w: 420, h: 44 }
+  s-deployment-live: { x: 765, y: 430, w: 420, h: 44 }
+```
 
 ![Get-Aspect names the remainder](.assets/get-aspect-names-the-remainder.drawio.png)
 

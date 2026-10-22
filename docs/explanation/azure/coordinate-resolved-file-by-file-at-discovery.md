@@ -1,3 +1,14 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-CUSTOMER-TWOBINDINGS
+      - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+      - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+      - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+      - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+---
+
 # Discovery resolves every config file's coordinate through one shared check
 
 ```text

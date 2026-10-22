@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-CLI-AZBYDEFAULT
+      - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+      - DDR-THINPLAT-PLATFORMASCLI
+---
+
 # Deploy-Bicep adds the guards and the config lookup, and hands every vendor step to az
 
 ```text
@@ -20,6 +29,93 @@ Supports DDR-THINPLAT-DELEGATENOTREIMPLEMENT and DDR-THINPLAT-PLATFORMASCLI (imp
 `Deploy-Bicep` is the one entry function that does a whole Bicep deploy. It resolves the az session's subscription against the
 configuration, builds the template on a devbox, and passes every vendor step to az through `Invoke-AzCli`. Cats contributes the guards and
 the lookup; az and Bicep do the work, which is what keeps the platform thin.
+
+```yml drawio
+description:
+  Deploy-Bicep adds the guards and the configuration lookup and runs every vendor step through one wrapper that calls the az command-line
+  interface, which compiles the Bicep template.
+about:
+  adrs: [DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI]
+  lens: implementation
+content:
+  title: Deploy-Bicep adds the guards and the config lookup, and hands every vendor step to az
+  kind: explanation
+  flow: top-to-bottom
+  relation: uses
+  theme: dark
+  bands:
+    - { id: band-consumers, label: CONSUMERS }
+    - { id: band-surface, label: CLI SURFACE }
+    - { id: band-platform, label: CATZC }
+    - { id: band-delegated, label: DELEGATED }
+  glyphs:
+    - { id: r-pipeline-task, kind: runner, label: AzureCLI@2, in: band-consumers }
+    - { id: c-connect, kind: code, label: Connect-AzCli, in: band-consumers }
+    - { id: c-deploy, kind: code, label: Deploy-Bicep, in: band-surface }
+    - { id: f-configuration, kind: file, label: azure.yml · options.yml, in: band-surface }
+    - { id: c-session, kind: code, label: Get-AzCliSessionSubscription, in: band-platform }
+    - { id: c-context, kind: code, label: Get-BicepDeploymentContext, in: band-platform }
+    - { id: c-build, kind: code, label: Build-Bicep, in: band-platform }
+    - { id: c-invoke, kind: code, label: Invoke-AzCli, in: band-platform }
+    - { id: x-bicep, kind: external, label: Bicep, in: band-delegated }
+    - { id: x-azure-command, kind: external, label: az CLI, in: band-delegated }
+  edges:
+    - { from: r-pipeline-task, to: c-deploy, kind: flow, label: "" }
+    - { from: c-connect, to: x-azure-command, kind: flow, label: "" }
+    - { from: c-deploy, to: f-configuration, kind: flow, label: "" }
+    - { from: c-deploy, to: c-context, kind: flow, label: "" }
+    - { from: c-deploy, to: c-invoke, kind: flow, label: "" }
+    - { from: c-context, to: c-session, kind: flow, label: "" }
+    - { from: c-context, to: c-build, kind: flow, label: "" }
+    - { from: c-session, to: f-configuration, kind: flow, label: "" }
+    - { from: c-build, to: c-invoke, kind: flow, label: "" }
+    - { from: c-invoke, to: x-azure-command, kind: flow, label: "" }
+    - { from: x-azure-command, to: x-bicep, kind: flow, label: "" }
+  markers:
+    - { at: r-pipeline-task, number: 1 }
+    - { at: c-connect, number: 2 }
+    - { at: c-deploy, number: 3 }
+    - { at: f-configuration, number: 4 }
+    - { at: c-context, number: 5 }
+    - { at: c-session, number: 6 }
+    - { at: c-build, number: 7 }
+    - { at: c-invoke, number: 8 }
+    - { at: x-azure-command, number: 9 }
+    - { at: x-bicep, number: 10 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/thin-platforms.md
+          - docs/drs/index.md
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI]
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Drs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI]
+    axis:
+      - cell: DSGN/deploy
+        by: [DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI]
+layout:
+  band-consumers: { x: 20, y: 84, w: 1260, h: 120 }
+  band-surface: { x: 20, y: 224, w: 1260, h: 120 }
+  band-platform: { x: 20, y: 364, w: 1260, h: 120 }
+  band-delegated: { x: 20, y: 504, w: 1260, h: 120 }
+  r-pipeline-task: { x: 300, y: 125, w: 220, h: 44 }
+  c-connect: { x: 1040, y: 125, w: 200, h: 44 }
+  c-deploy: { x: 300, y: 265, w: 700, h: 44 }
+  f-configuration: { x: 40, y: 265, w: 200, h: 44 }
+  c-session: { x: 40, y: 405, w: 230, h: 44 }
+  c-context: { x: 310, y: 405, w: 230, h: 44 }
+  c-build: { x: 590, y: 405, w: 180, h: 44 }
+  c-invoke: { x: 820, y: 405, w: 180, h: 44 }
+  x-bicep: { x: 590, y: 545, w: 180, h: 44 }
+  x-azure-command: { x: 820, y: 545, w: 420, h: 44 }
+```
 
 ![Deploy-Bicep hands every vendor step to az](.assets/deploy-bicep-delegates-to-az.drawio.png)
 

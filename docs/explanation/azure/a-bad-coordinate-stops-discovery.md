@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+      - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+      - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+---
+
 # A config file that resolves to no subscription, or to two, stops discovery with one line
 
 <!-- cspell:ignore exped fnd weu zct -->

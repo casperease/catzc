@@ -1,3 +1,14 @@
+---
+catzc:
+  edges:
+    cites:
+      - DDR-VISUAL-BRANCHDIRECTIONISROLE
+      - DDR-VISUAL-FIXEDCOMMITPALETTE
+      - DDR-VISUAL-ENVIRONMENTISCONTAINER
+      - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+      - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+---
+
 # No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only
 
 ```text
@@ -17,6 +28,199 @@ FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND lets a workflow deploy a topic commit without 
 alone: no gate or checker in cats tests it, and nothing in the repository runs the deploy it allows. The one gate in code on the deploy side
 points the other way, since every `Deploy_*` stage runs only from main. The drawing rules of DDR-VISUAL that colour these commits have no
 checker either, and none is expected.
+
+```yml drawio
+description:
+  The out-of-band deploy of a topic commit, which no gate checks, beside the one gate in code on deploys, main-only, and the climb from the
+  topic commit through main and the BVT to a BVT-verified commit.
+about:
+  adrs:
+    - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+    - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+    - DDR-VISUAL-BRANCHDIRECTIONISROLE
+    - DDR-VISUAL-FIXEDCOMMITPALETTE
+    - DDR-VISUAL-ENVIRONMENTISCONTAINER
+  lens: governance
+content:
+  title: No gate checks the out-of-band deploy rule, and the only gate on deploys in code is main-only
+  kind: explanation
+  flow: left-to-right
+  relation: lands, then climbs
+  theme: dark
+  bands:
+    - { id: band-topic, label: TOPIC }
+    - { id: band-out-of-band, label: OUT-OF-BAND }
+    - { id: band-main, label: MAIN }
+    - { id: band-after, label: AFTER LANDING }
+  spans:
+    - id: span-ci
+      label: CI
+      over: [band-main, band-after]
+  glyphs:
+    - { id: c-topic, kind: commit, label: topic, in: band-topic, state: topic }
+    - { id: a-deploy, kind: drsonly, label: out-of-band deploy, in: band-out-of-band }
+    - { id: e-environment, kind: env, label: environment, in: band-out-of-band }
+    - { id: c-occupant, kind: commit, label: topic, in: e-environment, state: topic }
+    - { id: c-main, kind: commit, label: main, in: band-main, state: landed }
+    - { id: g-main-only, kind: gate, label: main only, in: band-main }
+    - { id: g-bvt, kind: gate, label: BVT, in: band-after }
+    - { id: c-verified, kind: commit, label: BVT-verified, in: band-after }
+  edges:
+    - { from: c-topic, to: c-main, kind: flow, label: "" }
+    - from: c-topic
+      to: a-deploy
+      kind: adr
+      label: ""
+      via:
+        - [105, 312]
+    - { from: a-deploy, to: e-environment, kind: adr, label: "" }
+    - { from: c-main, to: g-main-only, kind: flow, label: "" }
+    - { from: c-main, to: g-bvt, kind: flow, label: "" }
+    - { from: g-bvt, to: c-verified, kind: flow, label: "" }
+  markers:
+    - { at: c-topic, number: 1 }
+    - { at: a-deploy, number: 2 }
+    - { at: e-environment, number: 3 }
+    - { at: c-main, number: 4 }
+    - { at: g-main-only, number: 5 }
+    - { at: g-bvt, number: 6 }
+  chips:
+    - { at: c-topic, kind: rule, rule: DDR-VISUAL-BRANCHDIRECTIONISROLE, gated: false }
+    - { at: c-topic, kind: rule, rule: DDR-VISUAL-FIXEDCOMMITPALETTE, gated: false, corner: bottom-right }
+    - { at: a-deploy, kind: rule, rule: FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND, gated: false, corner: bottom-right }
+    - { at: e-environment, kind: rule, rule: DDR-VISUAL-ENVIRONMENTISCONTAINER, gated: false }
+    - { at: c-main, kind: rule, rule: FDR-CD-LIFE-ONESTATEADVANCESONERUNG, gated: false, corner: bottom-right }
+    - { at: c-verified, kind: rule, rule: DDR-VISUAL-FIXEDCOMMITPALETTE, gated: false }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by: [.claude/CLAUDE.md, FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND]
+      - cell: docs/-/.
+        by:
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/visual-design.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by: [pwsh/Catzc.Base.Docs/configs/agents.yml, pwsh/Catzc.Base.Docs/configs/capabilities.yml, DDR-VISUAL-FIXEDCOMMITPALETTE]
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: pwsh/Catzc.Base.Drs/types
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND]
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+    grid:
+      - cell: .claude/markdown
+        by: [.claude/CLAUDE.md, FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND]
+      - cell: docs/markdown
+        by:
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/visual-design.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: pwsh/bcl
+        by: [pwsh/Catzc.Base.Drs/types/DrsConfig.cs, FDR-CD-LIFE-ONESTATEADVANCESONERUNG, FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND]
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/agents.yml
+          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+    axis:
+      - cell: DSGN/quality-control
+        by:
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: DSGN/release
+        by:
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+      - cell: DSGN/deploy
+        by:
+          - DDR-VISUAL-BRANCHDIRECTIONISROLE
+          - DDR-VISUAL-ENVIRONMENTISCONTAINER
+          - DDR-VISUAL-FIXEDCOMMITPALETTE
+          - FDR-CD-LIFE-ONESTATEADVANCESONERUNG
+          - FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND
+layout:
+  band-topic: { x: 20, y: 124, w: 170, h: 380 }
+  band-out-of-band: { x: 210, y: 124, w: 420, h: 380 }
+  band-main: { x: 650, y: 124, w: 200, h: 380 }
+  band-after: { x: 870, y: 124, w: 410, h: 380 }
+  c-topic: { x: 40, y: 186, w: 130, h: 44 }
+  a-deploy: { x: 330, y: 290, w: 180, h: 44 }
+  e-environment: { x: 300, y: 390, w: 240, h: 72 }
+  c-occupant: { x: 460, y: 412, w: 64, h: 28 }
+  c-main: { x: 700, y: 186, w: 100, h: 44 }
+  g-main-only: { x: 700, y: 290, w: 100, h: 68 }
+  g-bvt: { x: 930, y: 174, w: 100, h: 68 }
+  c-verified: { x: 1090, y: 186, w: 150, h: 44 }
+```
 
 ![FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND is DRS-only and every Deploy stage is main-only](.assets/out-of-band-deploy-is-drs-only.drawio.png)
 

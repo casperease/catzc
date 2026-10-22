@@ -1,3 +1,15 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-ADO-NAME-FLATPIPELINESFOLDER
+      - ADR-ADO-NAME-TEMPLATEKINDFOLDER
+      - ADR-ADO-NAME-ABSOLUTETEMPLATEPATH
+      - FDR-CD-PIPELINE-TYPEPREFIX
+      - FDR-CD-PIPELINE-EXECUTABLEYAMLEXTENSION
+      - FDR-CD-RUNNER
+---
+
 # No gate checks the runner rules 1 or 4, and the step template breaks rule 3
 
 ```text

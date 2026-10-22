@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-NAMING-DETERMINISTICNAMES
+      - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+      - ADR-AZ-NAMING-ORDERISVARIANT
+      - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+---
+
 # One resolver gathers the components and one namer assembles every Azure name
 
 ```text

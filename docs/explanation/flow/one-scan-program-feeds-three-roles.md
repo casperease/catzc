@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - FDR-CD-GLOBS-DURABLESHAIDENTITY
+      - FDR-CD-GLOBS-NATIVEPATHFILTER
+      - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+---
+
 # One method, GlobSet.ScanProgram(), feeds all three globset role functions
 
 ```text

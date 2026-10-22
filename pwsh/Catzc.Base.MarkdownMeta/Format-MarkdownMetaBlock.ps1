@@ -24,11 +24,13 @@ function Format-MarkdownMetaBlock {
         [System.Collections.IDictionary] $Edges = [ordered]@{},
 
         [ValidateNotNullOrEmpty()]
-        [string] $Key = [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey
+        [string] $Key = [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey,
+
+        [string] $Warning = ''
     )
 
     $document = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($Text, $Key)
     $config = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::ConfigLines($document.MetaBlock)
-    $block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($Immutable, $Edges, $config)
+    $block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($Warning, $Immutable, $Edges, $config)
     $document.WithMetaBlock($block)
 }

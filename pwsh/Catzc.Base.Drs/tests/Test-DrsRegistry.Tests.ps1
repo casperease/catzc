@@ -103,7 +103,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         }
 
         It 'adds every dangling code to the gate''s issues and counts them' {
-            Mock Get-DrsDanglingCodeViolations -ModuleName Catzc.Base.Drs { 'docs/drs/widget/widget-one.md:5: cites ADR-WI-ONE-GONE, which names no registered rule, record or domain (a dangling code)' }
+            Mock Get-DrsDanglingCodeViolations -ModuleName Catzc.Base.Drs -ParameterFilter { $true } { 'docs/drs/widget/widget-one.md:5: cites ADR-WI-ONE-GONE, which names no registered rule, record or domain (a dangling code)' }
             $result = Test-DrsRegistry -OutputFolder $out -PassThru
             $result.Issues | Should -Contain 'docs/drs/widget/widget-one.md:5: cites ADR-WI-ONE-GONE, which names no registered rule, record or domain (a dangling code)'
             $result.Facts['DanglingCodes'] | Should -Be 1

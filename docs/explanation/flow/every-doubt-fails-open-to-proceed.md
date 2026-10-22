@@ -1,3 +1,10 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+---
+
 # "Is this unit touched?" is read from git at real refs, and every doubt fails open to proceed
 
 ```text

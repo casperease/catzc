@@ -59,6 +59,16 @@ Describe 'Get-RootConfigInputStamp' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDF
         Get-Stamp | Should -Not -Be $edited
     }
 
+    It 'changes when the generated-file head''s key list changes, which every root file carries' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
+        $script:languagesBase = Join-Path $script:fake.Root 'languages-module'
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:languagesBase 'configs')) | Out-Null
+        [System.IO.File]::WriteAllText((Join-Path $script:languagesBase 'configs/generated-head.yml'), "keys:`n  - with_body_sha`n  - warning`n")
+        Mock Get-Module -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Name -eq 'Catzc.Base.Languages' } { [pscustomobject]@{ ModuleBase = $script:languagesBase } }
+        $before = Get-Stamp
+        [System.IO.File]::WriteAllText((Join-Path $script:languagesBase 'configs/generated-head.yml'), "keys:`n  - warning`n  - with_body_sha`n")
+        Get-Stamp | Should -Not -Be $before
+    }
+
     It 'changes when a folder appears that a wildcard entry would render into' {
         $before = Get-Stamp
         [System.IO.Directory]::CreateDirectory((Join-Path $script:fake.Root 'widgets/beta')) | Out-Null

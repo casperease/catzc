@@ -1,4 +1,4 @@
-# pwsh/Catzc.Tooling.Claude/private/Get-ClaudeWorkerLaunch.ps1
+# pwsh/Catzc.Tooling.Claude/private/Get-ClaudeDroneLaunch.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Builds one worker launch: the file path, the argument list and the command line that start `claude --agent` in a terminal.
+Builds one drone launch: the file path, the argument list and the command line that start `claude --agent` in a terminal.
 
 ### description
 

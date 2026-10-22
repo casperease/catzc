@@ -1,3 +1,16 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-SHORTINTEGRATIONCYCLE
+      - FDR-CD-SEPARATEPIPELINEKINDS
+      - FDR-CD-CDSTAYSINNONPROD
+      - FDR-CD-PRODPROGRESSIONISDEPLOY
+      - FDR-CD-TWORELEASEGATES
+      - FDR-CD-GATEDEFINED
+      - FDR-CD-PRODAPPROVALGATE
+---
+
 # One artifact is built once and climbs to production unchanged
 
 ```text

@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-REPO-FOLDERS-UNKNOWNFOLDERSIGNORED
+      - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
+      - DDR-ASPECT-ASPECTSAREDERIVED
+---
+
 # Drop a file, and the next import exports it
 
 ```text
@@ -17,6 +26,136 @@ Supports DDR-ASPECT-MODULESPARTITIONINTOASPECTS and DDR-ASPECT-ASPECTSAREDERIVED
 Adding a function to a cats module has no registration step. The author drops a `Verb-Noun.ps1` file into the module folder, the next import
 exports it, and `Get-ModuleGlobSet` shows that the file belongs to the module's live aspect. The importer and the quality gates do the rest,
 and each failure they raise names the file or function at fault.
+
+```yml drawio
+description:
+  "A dropped Verb-Noun file needs no registration: the next import exports it, or throws on a name collision, the module's aspect sets place
+  it in the live set, and the quality gates report a non-conventional file."
+about:
+  adrs: [DDR-ASPECT-MODULESPARTITIONINTOASPECTS, DDR-ASPECT-ASPECTSAREDERIVED]
+  lens: operations
+content:
+  title: Drop a file, and the next import exports it
+  kind: explanation
+  flow: left-to-right
+  relation: runs, then yields
+  theme: dark
+  bands:
+    - { id: band-file, label: THE FILE }
+    - { id: band-import, label: EVERY IMPORT }
+    - { id: band-aspect, label: WHICH ASPECT }
+  glyphs:
+    - { id: c-file, kind: code, label: Verb-Noun.ps1, in: band-file }
+    - { id: g-quality, kind: gate, label: Quality gates, in: band-file }
+    - { id: c-importer, kind: code, label: . ./importer.ps1, in: band-import }
+    - { id: r-exported, kind: result, label: Verb-Noun exported, in: band-import }
+    - { id: f-collision, kind: failure, label: Function name collision(s), in: band-import }
+    - { id: c-globset, kind: code, label: Get-ModuleGlobSet, in: band-aspect }
+    - { id: r-live, kind: result, label: in <kebab>-live, in: band-aspect }
+  edges:
+    - { from: c-file, to: c-importer, kind: flow, label: "" }
+    - { from: c-importer, to: r-exported, kind: flow, label: "" }
+    - { from: c-importer, to: f-collision, kind: fail, label: "" }
+    - { from: c-file, to: c-globset, kind: flow, label: "" }
+    - { from: c-globset, to: r-live, kind: flow, label: "" }
+    - { from: c-file, to: g-quality, kind: flow, label: "" }
+  markers:
+    - { at: c-file, number: 1 }
+    - { at: c-importer, number: 2 }
+    - { at: r-exported, number: 3 }
+    - { at: f-collision, number: 4 }
+    - { at: c-globset, number: 5 }
+    - { at: r-live, number: 6 }
+    - { at: g-quality, number: 7 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/module-aspects.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md
+          - docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-ModuleProtectionIdentity.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-MODULESPARTITIONINTOASPECTS]
+      - cell: pwsh/Catzc.Base.Globs/.
+        by: [pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-MODULESPARTITIONINTOASPECTS]
+      - cell: pwsh/Catzc.Base.Globs/tests
+        by: [pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-MODULESPARTITIONINTOASPECTS]
+      - cell: pwsh/Catzc.Base.Globs/tests/types
+        by: [pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-MODULESPARTITIONINTOASPECTS]
+      - cell: pwsh/Catzc.Base.Globs/types
+        by: [pwsh/Catzc.Base.Globs/types/Aspect.cs, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-MODULESPARTITIONINTOASPECTS]
+      - cell: pwsh/Catzc.Base.Modules/.
+        by: [pwsh/Catzc.Base.Modules/Get-Aspect.ps1, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-MODULESPARTITIONINTOASPECTS]
+      - cell: pwsh/Catzc.Base.Modules/tests
+        by: [pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-MODULESPARTITIONINTOASPECTS]
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by: [pwsh/Catzc.Base.Variants/configs/variants.yml, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-MODULESPARTITIONINTOASPECTS]
+      - cell: pwsh/Catzc.Base.Variants/types
+        by:
+          - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Drs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-MODULESPARTITIONINTOASPECTS]
+      - cell: subject/Catzc.Base.Globs
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
+          - pwsh/Catzc.Base.Globs/types/Aspect.cs
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: subject/Catzc.Base.Modules
+        by:
+          - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
+          - pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: subject/Catzc.Base.QualityGates
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
+      - cell: subject/Catzc.Base.Variants
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-MODULESPARTITIONINTOASPECTS
+    axis:
+      - cell: DSGN/build
+        by: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-MODULESPARTITIONINTOASPECTS]
+layout:
+  band-file: { x: 20, y: 84, w: 240, h: 400 }
+  band-import: { x: 280, y: 84, w: 540, h: 400 }
+  band-aspect: { x: 840, y: 84, w: 440, h: 400 }
+  c-file: { x: 40, y: 140, w: 200, h: 220 }
+  g-quality: { x: 60, y: 390, w: 160, h: 72 }
+  c-importer: { x: 300, y: 150, w: 200, h: 44 }
+  r-exported: { x: 560, y: 150, w: 240, h: 44 }
+  f-collision: { x: 560, y: 230, w: 240, h: 44 }
+  c-globset: { x: 860, y: 300, w: 190, h: 44 }
+  r-live: { x: 1070, y: 300, w: 190, h: 44 }
+```
 
 ![Drop a file, the next import exports it](.assets/drop-a-file-the-import-exports-it.drawio.png)
 

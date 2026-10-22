@@ -42,6 +42,13 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
         $script:block::Render([ordered]@{}, $edges, $script:none).Count | Should -Be 0
     }
 
+    It 'opens the block with the warning line when one is given, and none when it is empty; the caller decides whether a warning stands alone' {
+        $edges = [ordered]@{ docs = 'widget.md' }
+        $script:block::Render('Widget head', [ordered]@{}, $edges, $script:none) | Should -Be @('catzc:', '  warning: "Widget head"', '  edges:', '    docs: widget.md')
+        $script:block::Render('', [ordered]@{}, $edges, $script:none) | Should -Be @('catzc:', '  edges:', '    docs: widget.md')
+        $script:block::Render('Widget head', [ordered]@{}, [ordered]@{}, $script:none) | Should -Be @('catzc:', '  warning: "Widget head"')
+    }
+
     It 'leaves out the part that has nothing, and keeps the other' {
         $script:block::Render([ordered]@{}, [ordered]@{ links = @('docs/gadget.md') }, $script:none) | Should -Be @(
             'catzc:', '  edges:', '    links:', '      - docs/gadget.md'

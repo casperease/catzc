@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-GLOBS-EVERYSETHASLAYER
+      - FDR-CD-GLOBS-COMPOSESETS
+      - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+---
+
 # Every globset carries one of three layers, and only two are declared
 
 ```text

@@ -1,4 +1,11 @@
-# pwsh/Catzc.Tooling.Claude/Start-ClaudeWorker.ps1
+---
+catzc:
+  edges:
+    cites:
+      - ADR-PWSH-DRYRUN-EARLYRETURNBRANCH
+---
+
+# pwsh/Catzc.Tooling.Claude/Start-ClaudeDrone.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -7,17 +14,17 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Starts new Claude Code worker sessions, each in a terminal window of its own, in the repository root.
+Starts new Claude Code drone sessions, each in a terminal window of its own, in the repository root.
 
 ### description
 
 Launches `claude --agent <Agent>` once per -Count, with `--model <Model>` only when -Model is given (otherwise the agent file's model
-applies) and -Prompt as the session's first prompt. The agent and the terminal are entries in `configs/claude-worker.yml`, each default
+applies) and -Prompt as the session's first prompt. The agent and the terminal are entries in `configs/claude-drone.yml`, each default
 declared once on its config type. -DryRun starts nothing and returns the planned command lines (ADR-PWSH-DRYRUN-EARLYRETURNBRANCH).
 
 ### parameter `Agent`
 
-The agent a worker starts as, a file name in `.claude/agents`. Default: claude-worker.yml's agent.
+The agent a drone starts as, a file name in `.claude/agents`. Default: claude-drone.yml's agent.
 
 ### parameter `Model`
 
@@ -33,7 +40,7 @@ How many sessions to start, 1 to 20. Default: 1.
 
 ### parameter `Launcher`
 
-The terminal to open: windows-terminal (a new wt.exe tab) or pwsh (a pwsh -NoExit window). Default: claude-worker.yml's launcher.
+The terminal to open: windows-terminal (a new wt.exe tab) or pwsh (a pwsh -NoExit window). Default: claude-drone.yml's launcher.
 
 ### parameter `PassThru`
 
@@ -50,5 +57,5 @@ Starts nothing and returns the command lines instead.
 ### example 1
 
 ```powershell
-Start-ClaudeWorker -Count 3 -Prompt 'Read the plan and take the next chunk.'
+Start-ClaudeDrone -Count 3 -Prompt 'Read the plan and take the next chunk.'
 ```

@@ -1,3 +1,10 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+---
+
 # A stage returns only on $false; a doubt prints a message and proceeds; a typo throws
 
 ```text

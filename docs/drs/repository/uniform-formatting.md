@@ -1,3 +1,18 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS
+      - ADR-REPO-CODEMETA-IMPRINTSTEP
+      - ADR-REPO-COMMENTS-MOVEDBYTOOL
+      - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
+      - ADR-REPO-CONTRACT-CONTRACTASSET
+      - ADR-REPO-FILEMETA-HEADPOLICY
+      - ADR-REPO-FILEMETA-IMPRINTEDPARTS
+      - ADR-REPO-FILEMETA-KINDSCOPE
+      - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
+---
+
 # ADR: Uniform formatting — the whole repository, one mechanical standard
 
 ## Rules: ADR-REPO-FORMAT
@@ -183,12 +198,17 @@ file in scope keeps its own title, so the title has no opt-out attribute.
 ### Headings are plain words
 
 A heading's anchor is how every other document reaches it, so the heading is written to be linked: `## Templating data model` gives
-`#templating-data-model`, while the same heading with ``(`widget.yml` + `gadgets/`) (`ADR-WIDGET-GADGET`)`` appended gives an anchor that
-spells out file names and a citation code. Those trailing groups are reference material, not the heading's words, so they move to the line
-below it, where they still read at a glance and a citation becomes a checked link instead of an inert code span. Only a group of code spans
-and separators moves; a group holding prose, or code that is the heading's subject (`` `$Matches` — capture immediately ``), is the author's
-wording and stays. Duplicate anchors are reported, never renumbered: GitHub's `-1` suffix is an anchor nobody can predict, and choosing
-distinct words is the author's call. A rule's registry heading (`### Rule ADR-<CODE>:<n>`) already has the form its citations need.
+`#templating-data-model`, while the same heading with its file names and a citation code appended gives an anchor that spells them out:
+
+```text
+## Templating data model (`widget.yml` + `gadgets/`) (`ADR-WIDGET-GADGET`)
+```
+
+Those trailing groups are reference material, not the heading's words, so they move to the line below it, where they still read at a glance
+and a citation becomes a checked link instead of an inert code span. Only a group of code spans and separators moves; a group holding prose,
+or code that is the heading's subject (`` `$Matches` — capture immediately ``), is the author's wording and stays. Duplicate anchors are
+reported, never renumbered: GitHub's `-1` suffix is an anchor nobody can predict, and choosing distinct words is the author's call. A rule's
+registry heading (`### Rule ADR-<CODE>:<n>`) already has the form its citations need.
 
 Cited or paraphrased content reads grey. A `dora-explains.md` entry's opening paragraph restates DORA's research rather than this
 repository's decision, so it is a blockquote — the one Markdown construct GitHub renders as muted text, and the repository's VS Code preview

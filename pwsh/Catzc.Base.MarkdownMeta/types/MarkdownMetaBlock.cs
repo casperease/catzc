@@ -25,6 +25,7 @@ public static class MarkdownMetaBlock
     public const string ImmutableKey = "immutable";
     public const string EdgesKey = "edges";
     public const string ConfigKey = "config";
+    public const string WarningKey = "warning";
 
     static readonly Regex PlainSafe = new Regex(@"^[A-Za-z_][A-Za-z0-9_./#@+-]*$", RegexOptions.Compiled);
 
@@ -35,14 +36,20 @@ public static class MarkdownMetaBlock
         "true", "false", "null", "yes", "no", "on", "off", "y", "n",
     };
 
-    // The block in its one canonical order: the place facts, the edges, then the authored config.
-    public static IReadOnlyList<string> Render(IDictionary immutable, IDictionary edges, IReadOnlyList<string> config)
+    // The block of a head with no warning line, as a generated head writes it: the warning lives in its place facts.
+    public static IReadOnlyList<string> Render(IDictionary immutable, IDictionary edges, IReadOnlyList<string> config) =>
+        Render(null, immutable, edges, config);
+
+    // The block in its one canonical order: the warning line, the place facts, the edges, then the authored config.
+    public static IReadOnlyList<string> Render(string warning, IDictionary immutable, IDictionary edges, IReadOnlyList<string> config)
     {
         var lines = new List<string>();
         List<DictionaryEntry> places = Present(immutable);
         List<DictionaryEntry> outgoing = Present(edges);
-        if (places.Count == 0 && outgoing.Count == 0 && (config == null || config.Count == 0)) { return lines; }
+        bool warned = !string.IsNullOrEmpty(warning);
+        if (!warned && places.Count == 0 && outgoing.Count == 0 && (config == null || config.Count == 0)) { return lines; }
         lines.Add(MarkdownDocument.MetaKey + ":");
+        if (warned) { lines.Add("  " + WarningKey + ": " + Scalar(warning)); }
         RenderPart(lines, ImmutableKey, places);
         RenderPart(lines, EdgesKey, outgoing);
         if (config != null && config.Count > 0)

@@ -51,6 +51,8 @@ frontmatter re-imprint then has no diagram declaration files to head.
 - [ ] `python/catzc_diagrams/configs/drawio.yml`, after the move: `renderer.carrier: article`, `carriers:` only the nine file-carried
       diagrams (the seven, `truth-stores`, `bcl-language`) as `file`, the per-diagram `article` entries `carry` wrote removed. (check:
       `pytest` on the kit's carrier tests green, `Test-Diagrams` at 0)
-- [ ] The move, one `.assets/` folder at a time: each declaration into its article's block, its yml deleted, the folder rebuilt. (check: per
-      folder, `Test-Diagrams` at 0, `Build-Diagrams -Path` on each moved diagram clean with its png unchanged, `Test-Formatting` on the
-      pages at 0)
+- [ ] The kit tidy from the rules review (decided as delegated): `declaration.py` `carrier_of` calls `carrier_key` instead of copying it;
+      `Move-Diagram.ps1` 106-121 and 176-184 re-key `carriers:` through the kit's one line editor (`declaration.py`), not its own regex, so
+      one writer holds the format (PDR-ONELIVE); `docs/drs/repository/slides-as-markdown.md` ADR-REPO-SLIDES-DECLARATION gains `carry` (one
+      command moves a declaration between carriers, merges its `cspell:ignore` words into the page and rolls every file back on a parity
+      loss). (check: the kit's pytest and `Move-Diagram.Tests.ps1` green, `Test-DrsRegistry` at 0)

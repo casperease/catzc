@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b06457c4f419
+#     with_body_sha: "8387019ecff6"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -131,13 +131,13 @@ remove_token_from_history	replace_with	string	0	0	0	contracts/catzc/0.0.0/catzc.
 remove_token_from_history	skip_messages	switch	0	0	0	contracts/catzc/0.0.0/catzc.tooling.github/remove_token_from_history.command.yml			remove-token-from-history	skip-messages	Remove-TokenFromHistory	SkipMessages
 remove_token_from_history	repository_path	string	0	0	0	contracts/catzc/0.0.0/catzc.tooling.github/remove_token_from_history.command.yml			remove-token-from-history	repository-path	Remove-TokenFromHistory	RepositoryPath
 remove_token_from_history	dry_run	switch	0	0	0	contracts/catzc/0.0.0/catzc.tooling.github/remove_token_from_history.command.yml			remove-token-from-history	dry-run	Remove-TokenFromHistory	DryRun
-start_claude_worker	agent	string	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_worker.command.yml			start-claude-worker	agent	Start-ClaudeWorker	Agent
-start_claude_worker	model	string	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_worker.command.yml			start-claude-worker	model	Start-ClaudeWorker	Model
-start_claude_worker	prompt	string	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_worker.command.yml			start-claude-worker	prompt	Start-ClaudeWorker	Prompt
-start_claude_worker	count	int	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_worker.command.yml			start-claude-worker	count	Start-ClaudeWorker	Count
-start_claude_worker	launcher	string	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_worker.command.yml			start-claude-worker	launcher	Start-ClaudeWorker	Launcher
-start_claude_worker	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_worker.command.yml			start-claude-worker	pass-thru	Start-ClaudeWorker	PassThru
-start_claude_worker	dry_run	switch	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_worker.command.yml			start-claude-worker	dry-run	Start-ClaudeWorker	DryRun
+start_claude_drone	agent	string	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_drone.command.yml			start-claude-drone	agent	Start-ClaudeDrone	Agent
+start_claude_drone	model	string	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_drone.command.yml			start-claude-drone	model	Start-ClaudeDrone	Model
+start_claude_drone	prompt	string	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_drone.command.yml			start-claude-drone	prompt	Start-ClaudeDrone	Prompt
+start_claude_drone	count	int	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_drone.command.yml			start-claude-drone	count	Start-ClaudeDrone	Count
+start_claude_drone	launcher	string	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_drone.command.yml			start-claude-drone	launcher	Start-ClaudeDrone	Launcher
+start_claude_drone	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_drone.command.yml			start-claude-drone	pass-thru	Start-ClaudeDrone	PassThru
+start_claude_drone	dry_run	switch	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_drone.command.yml			start-claude-drone	dry-run	Start-ClaudeDrone	DryRun
 test_ado_pipeline_trigger_glob	name	string	1	0	0	contracts/catzc/0.0.0/catzc.base.globs/test_ado_pipeline_trigger_glob.command.yml			test-ado-pipeline-trigger-glob	name	Test-AdoPipelineTriggerGlob	Name
 test_ado_pipeline_trigger_glob	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.globs/test_ado_pipeline_trigger_glob.command.yml			test-ado-pipeline-trigger-glob	output-folder	Test-AdoPipelineTriggerGlob	OutputFolder
 test_ado_pipeline_trigger_glob	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.globs/test_ado_pipeline_trigger_glob.command.yml			test-ado-pipeline-trigger-glob	pass-thru	Test-AdoPipelineTriggerGlob	PassThru

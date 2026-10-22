@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+      - FDR-CD-RUNNER-IMPORTONCE
+      - FDR-CD-RUNNER-THINSTEPTEMPLATES
+---
+
 # The runner is the only seam from pipeline YAML into PowerShell
 
 ```text

@@ -1,3 +1,14 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-SEPARATEPIPELINEKINDS
+      - FDR-CD-CDCONTAINSCI
+      - FDR-CD-CDSTAYSINNONPROD
+      - FDR-CD-TWOENVIRONMENTACTIVATION
+      - FDR-CD-PRODAPPROVALGATE
+---
+
 # The customer CD pipeline builds once, then deploys the prod tier itself
 
 ```text

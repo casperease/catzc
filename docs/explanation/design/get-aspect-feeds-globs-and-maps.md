@@ -1,3 +1,16 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-REPO-VARIANT-SESSIONVARIANT
+      - ADR-REPO-VARIANT-NODIRECTREADS
+      - DDR-ASPECT-ASPECTSAREDERIVED
+      - DDR-ASPECT-TRACKPICKSCATCHALL
+      - DDR-ASPECT-ASPECTISAGLOBSET
+      - DDR-TRACK-ONETECHSTACK
+      - FDR-CD-GLOBS-TRACKEDFILESONLY
+---
+
 # Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live
 
 ```text
@@ -21,6 +34,183 @@ One function, `Get-Aspect`, is the only way a convention reaches a caller, and t
 `Catzc.Base.Globs`, `Get-ModuleGlobSet` compiles the pwsh convention onto every module folder, so each aspect becomes a globset with a scan
 program. In `Catzc.Base.Maps`, `Get-WorldMap` reads the convention of every track and the builder answers one question per file: is it live?
 The code that validates the order sits in the config type, before either caller sees a list.
+
+```yml drawio
+description:
+  Get-Aspect returns a track's ordered aspects from the validated variants config; Globs compiles them into derived globsets and Maps only
+  classifies a file as live or not.
+about:
+  adrs: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-ASPECTISAGLOBSET]
+  lens: implementation
+content:
+  title: Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live
+  kind: explanation
+  flow: left-to-right
+  relation: feeds
+  theme: dark
+  bands:
+    - { id: band-config, label: THE CONFIG }
+    - { id: band-code, label: PWSH }
+    - { id: band-deployment, label: INFRASTRUCTURE }
+  glyphs:
+    - { id: f-variants, kind: file, label: variants.yml, in: band-config }
+    - { id: c-variants-config, kind: type, label: VariantsConfig, in: band-config }
+    - { id: f-last-aspect, kind: failure, label: the last aspect must be '**', in: band-config }
+    - { id: c-get-aspect, kind: code, label: Get-Aspect, in: band-config }
+    - { id: c-glob-set, kind: code, label: Get-ModuleGlobSet, in: band-code }
+    - { id: c-compile, kind: type, label: AspectPartition.Compile, in: band-code }
+    - { id: s-live, kind: set, label: catzc-base-globs-live, in: band-code }
+    - { id: s-tests, kind: set, label: catzc-base-globs-tests, in: band-code }
+    - { id: c-world-map, kind: code, label: Get-WorldMap, in: band-deployment }
+    - { id: c-is-live, kind: type, label: WorldMapBuilder.IsLive, in: band-deployment }
+  edges:
+    - { from: f-variants, to: c-variants-config, kind: flow, label: "" }
+    - { from: c-variants-config, to: f-last-aspect, kind: fail, label: "" }
+    - { from: c-variants-config, to: c-get-aspect, kind: flow, label: "" }
+    - { from: c-get-aspect, to: c-glob-set, kind: flow, label: "" }
+    - { from: c-get-aspect, to: c-world-map, kind: flow, label: "" }
+    - { from: c-glob-set, to: c-compile, kind: flow, label: "" }
+    - { from: c-compile, to: s-live, kind: thick, label: "" }
+    - { from: c-compile, to: s-tests, kind: thick, label: "" }
+    - { from: c-world-map, to: c-is-live, kind: flow, label: "" }
+  markers:
+    - { at: f-variants, number: 1 }
+    - { at: c-variants-config, number: 2 }
+    - { at: f-last-aspect, number: 3 }
+    - { at: c-get-aspect, number: 4 }
+    - { at: c-glob-set, number: 5 }
+    - { at: c-compile, number: 6 }
+    - { at: s-live, number: 7 }
+    - { at: s-tests, number: 8 }
+    - { at: c-world-map, number: 9 }
+    - { at: c-is-live, number: 10 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/module-aspects.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md
+          - docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-ModuleProtectionIdentity.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-ASPECT-ASPECTISAGLOBSET, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL]
+      - cell: pwsh/Catzc.Base.Globs/.
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Globs/tests
+        by:
+          - pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Globs/tests/types
+        by:
+          - pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Globs/types
+        by:
+          - pwsh/Catzc.Base.Globs/types/Aspect.cs
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Modules/.
+        by:
+          - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Modules/tests
+        by:
+          - pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Variants/types
+        by:
+          - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Drs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-ASPECT-ASPECTISAGLOBSET, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL]
+      - cell: subject/Catzc.Base.Globs
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
+          - pwsh/Catzc.Base.Globs/types/Aspect.cs
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: subject/Catzc.Base.Modules
+        by:
+          - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
+          - pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: subject/Catzc.Base.QualityGates
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: subject/Catzc.Base.Variants
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - DDR-ASPECT-ASPECTISAGLOBSET
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+    axis:
+      - cell: DSGN/build
+        by: [DDR-ASPECT-ASPECTISAGLOBSET, DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL]
+layout:
+  band-config: { x: 20, y: 84, w: 1260, h: 200 }
+  band-code: { x: 20, y: 304, w: 610, h: 280 }
+  band-deployment: { x: 650, y: 304, w: 630, h: 280 }
+  f-variants: { x: 330, y: 124, w: 240, h: 52 }
+  c-variants-config: { x: 640, y: 128, w: 240, h: 44 }
+  f-last-aspect: { x: 960, y: 128, w: 280, h: 44 }
+  c-get-aspect: { x: 200, y: 214, w: 900, h: 44 }
+  c-glob-set: { x: 115, y: 350, w: 420, h: 44 }
+  c-compile: { x: 115, y: 430, w: 420, h: 44 }
+  s-live: { x: 115, y: 510, w: 200, h: 44 }
+  s-tests: { x: 335, y: 510, w: 200, h: 44 }
+  c-world-map: { x: 765, y: 350, w: 420, h: 44 }
+  c-is-live: { x: 765, y: 430, w: 420, h: 44 }
+```
 
 ![Get-Aspect feeds Globs and Maps](.assets/get-aspect-feeds-globs-and-maps.drawio.png)
 

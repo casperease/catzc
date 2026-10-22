@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-PARITY-ONESEAM
+      - FDR-CD-DETECT
+---
+
 # The analyzer checks rule 1, a test checks rule 4, and rules 2, 3 and 5 have no gate
 
 ```text

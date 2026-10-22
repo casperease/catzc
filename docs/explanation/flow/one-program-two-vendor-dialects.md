@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - FDR-CD-GLOBS-NATIVEPATHFILTER
+      - FDR-CD-GLOBS-COMPOSESETS
+---
+
 # One flattened scan program is rendered exactly for GitHub and by last select for Azure DevOps
 
 ```text

@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-PARITY-CHECKEDEQUALLY
+      - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - FDR-CD-DETECT-BOOLEANNOTMODAL
+---
+
 # A raw read fails Test-ScriptAnalyzer with one Error line, and CI step 2e asserts the seam
 
 ```text

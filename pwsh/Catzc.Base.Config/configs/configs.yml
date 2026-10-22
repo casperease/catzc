@@ -1,7 +1,5 @@
 # ---
 # catzc:
-#   immutable:
-#     with_body_sha: f36f89207186
 #   edges:
 #     docs: "[configs.yml.md](../../../docs/references/pwsh/catzc-base-config/configs/configs.yml.md)"
 #     cites:
@@ -122,8 +120,8 @@ configs:
     type: Catzc.Tooling.Inspiration.InspirationConfig
   listen:
     type: Catzc.Tooling.Listen.ListenConfig
-  claude-worker:
-    type: Catzc.Tooling.Claude.ClaudeWorkerConfig
+  claude-drone:
+    type: Catzc.Tooling.Claude.ClaudeDroneConfig
   learnings:
     type: Catzc.Base.Docs.LearningsConfig
   hindsight:

@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-PARITY-ONESEAM
+      - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+---
+
 # The detector lives in the loader, which both run modes import first and keep loaded
 
 ```text

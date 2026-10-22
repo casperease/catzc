@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "058fb7eeba83"
+    with_body_sha: "382149047ddd"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -117,7 +117,7 @@ The draft: the one mutable version folder
 | `catzc.base.root_config`               | `test_root_analyzer_settings.command.yml`        | `pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1`                | provided                | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
 | `catzc.base.root_config`               | `test_root_config_files.command.yml`             | `pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1`                     | provided                | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
 | `catzc.base.types_system`              | `test_shipped_types.command.yml`                 | `pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1`                       | provided                | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
-| `catzc.tooling.claude`                 | `start_claude_worker.command.yml`                | `pwsh/Catzc.Tooling.Claude/Start-ClaudeWorker.ps1`                        | provided                | command contract | `agent: string, model: string, prompt: string, count: int = 1, launcher: string, pass_thru: switch, dry_run: switch -> string[]`                                                                                                                                                                                                                                    |
+| `catzc.tooling.claude`                 | `start_claude_drone.command.yml`                 | `pwsh/Catzc.Tooling.Claude/Start-ClaudeDrone.ps1`                         | provided                | command contract | `agent: string, model: string, prompt: string, count: int = 1, launcher: string, pass_thru: switch, dry_run: switch -> string[]`                                                                                                                                                                                                                                    |
 | `catzc.tooling.github`                 | `README.md`                                      | `.github/README.md`                                                       | depended-on             | presence         | none                                                                                                                                                                                                                                                                                                                                                                |
 | `catzc.tooling.github`                 | `remove_token_from_history.command.yml`          | `pwsh/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1`                   | provided                | command contract | `token: string!, replace_with: string = ***REMOVED***, skip_messages: switch, repository_path: string, dry_run: switch`                                                                                                                                                                                                                                             |
 | `catzc.tooling.github`                 | `workflows/ci-pwsh.yml`                          | `.github/workflows/ci-pwsh.yml`                                           | depended-on             | fragment         | none                                                                                                                                                                                                                                                                                                                                                                |
@@ -337,15 +337,16 @@ Notes:
   root, a computed default the contract does not restate.
 - `catzc.base.quality_gates/head.sample.yml`: Provided sample of a file's meta head
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the shape a tool may rely
-  on when it reads the `catzc.immutable` and `catzc.edges` parts of a head. A head has two shapes. The head of an authored file, this
-  sample, holds edges only: its comment page (`docs`) and the ADR codes it cites (`cites`); a file with neither carries no head. A generated
-  file's head holds `warning`, and `with_body_sha` while git tracks the file. Every other fact about a file is derived on demand, never
-  shown. No key is required, and a fact a file has no value for is left out. Its schema, head.schema.json, lists the keys of both shapes.
+  on when it reads the `catzc.warning`, `catzc.immutable` and `catzc.edges` parts of a head. A head has two shapes. The head of an authored
+  file, this sample, opens with a warning naming the command that writes it, then its edges: its comment page (`docs`) and the ADR codes it
+  cites (`cites`); a file with neither edge carries no head. A generated file's head holds `with_body_sha` while git tracks the file, then
+  `warning`, under `immutable`. Every other fact about a file is derived on demand, never shown. No key is required, and a fact a file has
+  no value for is left out. Its schema, head.schema.json, lists the keys of both shapes.
 - `catzc.base.quality_gates/head.schema.json`: Provided schema of a file's meta head, validated against the sample beside it
   (ADR-REPO-CONTRACT-CONTRACTASSET): the keys of catzc.immutable and catzc.edges, which a tool may rely on. The head of an authored file
-  holds edges only, its comment page (docs) and the ADR codes it cites (cites), and a file with neither carries no head. A generated file's
-  head holds warning, and with_body_sha while git tracks the file. Every other fact about a file is derived on demand. A fact a file has no
-  value for is left out, so no key is required.
+  holds a warning naming the command that writes it (catzc.warning) and its edges, its comment page (docs) and the ADR codes it cites
+  (cites), and a file with neither edge carries no head. A generated file's head holds warning, and with_body_sha while git tracks the file.
+  Every other fact about a file is derived on demand. A fact a file has no value for is left out, so no key is required.
 - `catzc.base.quality_gates/test_analyzer_drs_map.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Test-AnalyzerDrsMap, the quality gate that checks the analyzer map cites only real ADR rules and maps every custom analyzer
   rule, and returns its result under -PassThru.
@@ -426,10 +427,10 @@ Notes:
 - `catzc.base.types_system/test_shipped_types.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Test-ShippedTypes, the quality gate that checks every shipped C# type resolves in the session by its module and file name,
   and returns its result under -PassThru.
-- `catzc.tooling.claude/start_claude_worker.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
-  interface of Start-ClaudeWorker, which opens Count new Claude Code worker sessions in terminals of their own, in the repository root.
-  Agent and Launcher default to the claude-worker config; Model is passed only when given; DryRun starts nothing and returns each launch's
-  command line, PassThru returns each command line after it started.
+- `catzc.tooling.claude/start_claude_drone.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
+  interface of Start-ClaudeDrone, which opens Count new Claude Code drone sessions in terminals of their own, in the repository root. Agent
+  and Launcher default to the claude-drone config; Model is passed only when given; DryRun starts nothing and returns each launch's command
+  line, PassThru returns each command line after it started.
 - `catzc.tooling.github/remove_token_from_history.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Remove-TokenFromHistory, which scrubs a token from a git history's blob content and commit messages. RepositoryPath defaults
   to the repository root, a computed default the contract does not restate; SkipMessages leaves the commit messages alone, and DryRun

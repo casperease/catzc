@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-NAMING-DETERMINISTICNAMES
+      - ADR-AZ-NAMING-ENVIRONMENTFIRST
+      - ADR-AZ-NAMING-NEVERTRUNCATE
+      - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+---
+
 # An Azure name is a pure function of its components, and it is never truncated
 
 <!-- cspell:ignore weufindiscxaphotst weudiscvm -->

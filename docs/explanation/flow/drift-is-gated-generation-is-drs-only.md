@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - FDR-CD-GLOBS-TRACKEDFILESONLY
+      - FDR-CD-GLOBS-NATIVEPATHFILTER
+      - FDR-CD-GLOBS-COMPOSESETS
+---
+
 # Three gates check the projection, while generation is held by the FDR alone
 
 ```text

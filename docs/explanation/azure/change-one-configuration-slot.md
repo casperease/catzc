@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+      - ADR-AZ-IACKIND-THREEKINDS
+---
+
 # Changing one configuration slot runs only its owner's pipeline and reaches only its resource group
 
 ```text

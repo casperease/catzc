@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-GLOBS-EVERYSETHASLAYER
+      - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+---
+
 # Declare a unit or add a module folder, and the gate names every overlap
 
 ```text

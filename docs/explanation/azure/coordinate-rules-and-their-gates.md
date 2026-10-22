@@ -1,3 +1,16 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-CUSTOMER-TWOBINDINGS
+      - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+      - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+      - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+      - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+      - ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME
+      - ADR-AZ-DATAMOD-SCHEMAANDINTEGRITY
+---
+
 # Two ADRs rule the coordinate; one shared check and the integrity tests hold them
 
 ```text

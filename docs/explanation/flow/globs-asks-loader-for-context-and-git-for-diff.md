@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - FDR-CD-GLOBS-NAMEDGLOBSETS
+      - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+---
+
 # Catzc.Base.Globs owns the check, the loader names the context, and git names the change
 
 ```text

@@ -30,7 +30,7 @@ function Invoke-FileMetaEngine {
             Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $Config
         })
     # The imprinted parts are wholly the engine's: a key no kind owns there is dropped on imprint, and only the config part is the author's.
-    $parts = 'immutable', 'edges', 'config'
+    $parts = 'warning', 'immutable', 'edges', 'config'
 
     $entries = foreach ($entry in $files) {
         $file = $entry.Path
@@ -121,14 +121,17 @@ function Invoke-FileMetaEngine {
             else {
                 Get-FileMetaFact -State $state -Path $file -Config $Config
             }
+            # A head opens with the warning naming its writer, and only a head that shows a fact: none is written for the warning alone.
+            $shown = @($facts.Edges.Values | Where-Object { $null -ne $_ -and "$_" -ne '' -and @($_).Count -gt 0 }).Count -gt 0
+            $warning = $shown ? $Config.warning : ''
             $fixed = if ($isProperty) {
-                Format-PropertyMetaHead -Text $text -Property $property -Strip $entry.Carrier.strip -Immutable $facts.Immutable -Edges $facts.Edges
+                Format-PropertyMetaHead -Text $text -Property $property -Strip $entry.Carrier.strip -Immutable $facts.Immutable -Edges $facts.Edges -Warning $warning
             }
             elseif ($isHead) {
-                Format-CodeMetaHead -Text $text -Form $form -Immutable $facts.Immutable -Edges $facts.Edges
+                Format-CodeMetaHead -Text $text -Form $form -Immutable $facts.Immutable -Edges $facts.Edges -Warning $warning
             }
             else {
-                Format-MarkdownMetaBlock -Text $text -Immutable $facts.Immutable -Edges $facts.Edges -Key $entry.Carrier.key
+                Format-MarkdownMetaBlock -Text $text -Immutable $facts.Immutable -Edges $facts.Edges -Key $entry.Carrier.key -Warning $warning
             }
             if ($fixed -cne $text) {
                 $expected = if ($policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Forbidden) {

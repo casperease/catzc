@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-PARITY-ONESEAM
+      - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - FDR-CD-DETECT-BOOLEANNOTMODAL
+---
+
 # One function answers "am I in a pipeline?", and every branch on context asks it
 
 ```text

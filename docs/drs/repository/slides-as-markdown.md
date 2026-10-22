@@ -75,8 +75,8 @@ drawn by hand or by the draw.io CLI: a session edits a model, and the kit render
 
 ### Rule ADR-REPO-SLIDES-DECLARATION
 
-A diagram is two flat files in an `.assets/` folder, named by the diagram: the render `<name>.drawio.png` and its one source,
-`<name>.drawio.yml`, the **diagram declaration**. `description:` says in a sentence or two what the diagram shows. `content:` says it in the
+A diagram is its render `<name>.drawio.png` in an `.assets/` folder, named by the diagram, and its one source, the **diagram
+declaration**, in one of two carriers (below). `description:` says in a sentence or two what the diagram shows. `content:` says it in the
 kit's closed vocabulary: the title, the ADR codes, the lens, the kind, the flow and the one relation its flow edges mean, the theme, the
 bands, the span bars with the bands each covers, the groups, which may nest, the glyphs with their kind and holder, the edges, the markers,
 the chips, the legend and the three minimaps. `layout:` says where a named cell sits. Every vocabulary is closed and declared once, in the
@@ -88,12 +88,15 @@ png, any number of them, and the build finds them by what embeds it. The kit pri
 whose children are all scalars) as one flow line in Prettier's form when that line, its indent and key included, fits the `max_line_length`
 of the root `.editorconfig`'s `[*.md]` section, and in block style otherwise.
 
-The declaration has two carriers, one per diagram. The default is the file `<name>.drawio.yml` beside the png. The other is a fenced block
-in an article, the way a `mermaid` block renders where it stands: its info string is `yml drawio`, so GitHub still shows it as YAML and the
-kit finds exactly that block, and it sits directly above the image that embeds `<name>.drawio.png`, which names the diagram it declares. The
-kit's `drawio.yml` chooses the carrier per diagram (`renderer.carrier`, `file` by default, and a `carriers:` entry keyed by the diagram's
-stem); the png stays in `.assets/` either way. A diagram declared by both carriers, or by no block or two in the article carrier, is a
-finding.
+The declaration has two carriers, one per diagram. The default is a fenced block in an article, the way a `mermaid` block renders where it
+stands: its info string is `yml drawio`, so GitHub still shows it as YAML and the kit finds exactly that block, and it sits directly above
+the image that embeds `<name>.drawio.png`, which names the diagram it declares. The other is the file `<name>.drawio.yml` beside the png,
+for a diagram no single article embeds. The kit's `drawio.yml` chooses the carrier per diagram (`renderer.carrier`, `article` by default,
+and a `carriers:` entry keyed by the diagram's stem); the png stays in `.assets/` either way. A diagram declared by both carriers, or by no
+block or two in the article carrier, is a finding. One command moves a declaration between the carriers, `declaration.py carry <stem>
+<carrier>`: it writes the declaration in the other carrier, merges a file's `cspell:ignore` words into the page's own ignore comment,
+removes the old carrier, records the choice under `carriers:`, and restores every file when the moved declaration no longer loads the same,
+so a carry never loses a word or a cell.
 
 - [The declaration is the source](#the-declaration-is-the-source)
 

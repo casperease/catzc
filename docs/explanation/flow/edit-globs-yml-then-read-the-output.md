@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-GLOBS-DURABLESHAIDENTITY
+      - FDR-CD-GLOBS-NATIVEPATHFILTER
+      - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+---
+
 # You edit globs.yml, and every other step prints what cats derived from it
 
 ```text

@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-TEST-QUALITYGATE
+      - FDR-CD-GLOBS
+---
+
 # Gates check the source of each globset and the trigger, but not the git reflection or the identity
 
 ```text

@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+      - FDR-CD-RUNNER-IMPORTONCE
+      - FDR-CD-RUNNER-THINSTEPTEMPLATES
+---
+
 # Three tasks share one guard, and one runner imports, traps, sanitizes and invokes
 
 ```text

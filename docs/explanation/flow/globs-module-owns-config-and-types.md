@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-GLOBS-NAMEDGLOBSETS
+      - FDR-CD-GLOBS-DURABLESHAIDENTITY
+      - FDR-CD-GLOBS-NATIVEPATHFILTER
+      - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+---
+
 # Catzc.Base.Globs computes every globset role from one typed registry
 
 ```text

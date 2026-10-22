@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-FAILFAST-USEASSERTIONLIBRARY
+      - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+---
+
 # Tests pin the throw and the fail-open, a rule pins detection, and the CD stages call it with no gate
 
 ```text

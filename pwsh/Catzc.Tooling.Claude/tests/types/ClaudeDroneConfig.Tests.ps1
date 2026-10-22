@@ -7,30 +7,30 @@ catzc:
 ---
 #>
 
-Describe 'Catzc.Tooling.Claude.ClaudeWorkerConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+Describe 'Catzc.Tooling.Claude.ClaudeDroneConfig' -Tag 'L0', 'logic', 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
     BeforeAll {
         function Get-ViolationMessage {
             param($Raw)
             try {
-                [void] [Catzc.Tooling.Claude.ClaudeWorkerConfig]::new($Raw)
+                [void] [Catzc.Tooling.Claude.ClaudeDroneConfig]::new($Raw)
             }
             catch {
                 return $_.Exception.InnerException.Message
             }
-            throw 'expected the ClaudeWorkerConfig constructor to throw'
+            throw 'expected the ClaudeDroneConfig constructor to throw'
         }
     }
 
     It 'declares every default once, for an empty file and for no file alike' {
         foreach ($raw in $null, [ordered]@{}) {
-            $config = [Catzc.Tooling.Claude.ClaudeWorkerConfig]::new($raw)
+            $config = [Catzc.Tooling.Claude.ClaudeDroneConfig]::new($raw)
             $config.agent | Should -BeExactly 'catzc-drone'
             $config.launcher | Should -BeExactly 'windows-terminal'
         }
     }
 
     It 'maps every key' {
-        $config = [Catzc.Tooling.Claude.ClaudeWorkerConfig]::new([ordered]@{ agent = 'widget-agent'; launcher = 'pwsh' })
+        $config = [Catzc.Tooling.Claude.ClaudeDroneConfig]::new([ordered]@{ agent = 'widget-agent'; launcher = 'pwsh' })
         $config.agent | Should -BeExactly 'widget-agent'
         $config.launcher | Should -BeExactly 'pwsh'
     }

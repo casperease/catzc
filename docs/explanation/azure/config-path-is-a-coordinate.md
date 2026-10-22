@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-CUSTOMER-KEYISSUBFOLDER
+      - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+      - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+      - ADR-AZ-DATAMOD-NAMEKEYEDMAPS
+---
+
 # A config file's path is a coordinate that resolves to one subscription and one resource group
 
 ```text

@@ -1,3 +1,10 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-IACKIND-THREEKINDS
+---
+
 # A change to one module fans out to every template that references it and every pipeline that deploys one
 
 ```text

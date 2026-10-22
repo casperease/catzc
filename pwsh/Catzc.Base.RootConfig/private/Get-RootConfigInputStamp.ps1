@@ -34,7 +34,8 @@ function Get-RootConfigInputStamp {
     }
     $languages = Get-Module -Name Catzc.Base.Languages
     if ($languages) {
-        foreach ($generator in 'New-GoWorkspace.ps1', 'New-PythonProject.ps1') {
+        # The generated-file head is written into every root file, so its writer and its key list feed the stamp too.
+        foreach ($generator in 'New-GoWorkspace.ps1', 'New-PythonProject.ps1', 'Format-GeneratedFileHead.ps1', 'configs/generated-head.yml') {
             $paths.Add((Join-Path $languages.ModuleBase $generator))
         }
     }

@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-DETECT-NODIRECTVARIABLECHECK
+      - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
+---
+
 # Check the name, pick the range per context, then diff git and match the paths
 
 ```text

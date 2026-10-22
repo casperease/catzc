@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-DATAMOD-CUSTOMERAXIS
+      - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+---
+
 # One reverse lookup in Catzc.Azure.Cli hands the session to every module
 
 ```text

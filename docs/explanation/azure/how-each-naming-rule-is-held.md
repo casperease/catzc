@@ -1,3 +1,10 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-NAMING
+---
+
 # Code holds all eight naming rules, seven of them behind a check that throws
 
 ```text

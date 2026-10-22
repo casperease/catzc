@@ -25,9 +25,6 @@ on 2026-10-22 with five sessions running tests). A red file has its cause report
 - [ ] `Test-FileKindReachability.Tests.ps1`, red on 2026-10-22: `drawio-kit` is shadowed by `slides-kit` (12 of 35) and `test` (9 of 35), so
       `file-kinds.yml` lists both pairs in `overlaps` (landed; the shadow finding is gone); left red only on the kind `asset-description`,
       which matches no tracked file (see the open question; `out/test-file/20261022-031859-d4dd28`). Check: `Invoke-TestFile` on it alone.
-- [ ] `pwsh/Catzc.Base.Docs/tests/Build-Glossary.Tests.ps1`, its L1 case "shipped configs/drs.yml and types" reads
-      `pwsh/Catzc.Base.Docs/configs/drs.yml`, which lives in `Catzc.Base.Drs`: re-pointed to that module (catzc-a0, 2026-10-22; decided as
-      delegated). Check: `Invoke-TestFile` on it alone.
 
 ## Open questions
 

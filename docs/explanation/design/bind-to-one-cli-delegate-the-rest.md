@@ -1,3 +1,13 @@
+---
+catzc:
+  edges:
+    cites:
+      - DDR-THINPLAT-THINPLATFORM
+      - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+      - DDR-THINPLAT-PLATFORMASCLI
+      - DDR-THINPLAT-SWAPPABLESUBSTRATE
+---
+
 # Consumers bind to one CLI, and everything behind it is delegated to the vendor
 
 ```text
@@ -14,6 +24,88 @@ Supports DDR-THINPLAT-THINPLATFORM, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THI
 Cats is a thin platform: a single CLI that standardizes how an organization uses a cloud vendor without reimplementing the vendor. Its idea
 is a single chain. A consumer binds to the CLI and nothing else, the CLI hands the work to the vendor's own tools, and those tools talk to
 the cloud. The invariant is delegation, not reimplementation, and the consequential choices stay in the consumer's configuration.
+
+```yml drawio
+description:
+  A consumer binds to one command-line interface, which hands the work to the vendor's own tooling, which talks to the cloud vendor
+  substrate behind it.
+about:
+  adrs: [DDR-THINPLAT-THINPLATFORM, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI, DDR-THINPLAT-SWAPPABLESUBSTRATE]
+  lens: meta
+content:
+  title: Consumers bind to one CLI, and everything behind it is delegated to the vendor
+  kind: explanation
+  flow: top-to-bottom
+  relation: uses
+  theme: dark
+  bands:
+    - { id: band-consumers, label: CONSUMERS }
+    - { id: band-cli, label: CLI SURFACE }
+    - { id: band-delegated, label: DELEGATED }
+    - { id: band-vendor, label: VENDOR SUBSTRATE }
+  glyphs:
+    - { id: a-developer, kind: actor, label: developer, in: band-consumers }
+    - { id: c-surface, kind: code, label: one CLI, in: band-cli }
+    - { id: x-tooling, kind: external, label: vendor tooling, in: band-delegated }
+    - { id: e-vendor, kind: env, label: cloud vendor, in: band-vendor }
+  edges:
+    - { from: a-developer, to: c-surface, kind: flow, label: "" }
+    - { from: c-surface, to: x-tooling, kind: flow, label: "" }
+    - { from: x-tooling, to: e-vendor, kind: flow, label: "" }
+  markers:
+    - { at: a-developer, number: 1 }
+    - { at: c-surface, number: 2 }
+    - { at: x-tooling, number: 3 }
+    - { at: e-vendor, number: 4 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/thin-platforms.md
+          - docs/drs/index.md
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
+    grid:
+      - cell: docs/markdown
+        by:
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/thin-platforms.md
+          - docs/drs/index.md
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
+          - DDR-THINPLAT-PLATFORMASCLI
+          - DDR-THINPLAT-SWAPPABLESUBSTRATE
+          - DDR-THINPLAT-THINPLATFORM
+    axis:
+      - cell: DSGN/deploy
+        by: [DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI, DDR-THINPLAT-SWAPPABLESUBSTRATE, DDR-THINPLAT-THINPLATFORM]
+layout:
+  band-consumers: { x: 20, y: 84, w: 1260, h: 120 }
+  band-cli: { x: 20, y: 224, w: 1260, h: 120 }
+  band-delegated: { x: 20, y: 364, w: 1260, h: 120 }
+  band-vendor: { x: 20, y: 504, w: 1260, h: 120 }
+  a-developer: { x: 570, y: 124, w: 140, h: 64 }
+  c-surface: { x: 490, y: 270, w: 300, h: 44 }
+  x-tooling: { x: 490, y: 410, w: 300, h: 44 }
+  e-vendor: { x: 490, y: 548, w: 300, h: 52 }
+```
 
 ![Bind to one CLI; delegate the rest to the vendor](.assets/bind-to-one-cli-delegate-the-rest.drawio.png)
 

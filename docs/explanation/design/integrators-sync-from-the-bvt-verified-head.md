@@ -1,3 +1,16 @@
+---
+catzc:
+  edges:
+    cites:
+      - DDR-VISUAL-ENVIRONMENTISCONTAINER
+      - FDR-CD-TWORELEASEGATES
+      - FDR-CD-PREPRODRUNG
+      - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+      - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - FDR-CD-LIFE-DIRTYHEADUNSAFE
+      - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+---
+
 # Upstream integrators sync from the BVT-verified head, never from the tip of main
 
 ```text
@@ -18,6 +31,260 @@ BVT-verified server head, not the tip of main. That same commit is the one `main
 `main-UAT` occupant too. Every environment on the promotion ladder likewise takes its commit from the rung before it, so the whole chain
 rests on occupants, never on HEAD. Keeping "what is newest" apart from "what is safe to build on" is what stops one broken commit from
 spreading. All of this is stated by the decision records; no pipeline in the repository runs it yet.
+
+```yml drawio
+description:
+  "Who takes which commit: the upstream integrator takes the BVT-verified head, which the main-UAT environment takes first and so holds,
+  each rung of the promotion ladder takes its commit from the rung before it, and the dirty head at the tip of main, which failed in
+  main-UAT, is taken by nobody."
+about:
+  adrs:
+    - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-CD-LIFE-DIRTYHEADUNSAFE
+    - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+    - FDR-CD-TWORELEASEGATES
+    - FDR-CD-PREPRODRUNG
+  lens: architecture
+content:
+  title: Upstream integrators sync from the BVT-verified head, never from the tip of main
+  kind: explanation
+  flow: top-to-bottom
+  relation: promotes to
+  theme: dark
+  bands:
+    - { id: band-external, label: EXTERNAL }
+    - { id: band-ladder, label: PROMOTION LADDER }
+    - { id: band-tip, label: TIP OF MAIN }
+  groups:
+    - { id: grp-dirty, label: dirty HEAD, in: band-tip }
+  glyphs:
+    - { id: x-integrator, kind: drsonly, label: upstream integrator, in: band-external }
+    - { id: g-production, kind: env, label: production, in: band-ladder }
+    - { id: c-production, kind: commit, label: "4", in: g-production, state: prod }
+    - { id: g-pre-prod, kind: env, label: pre-prod, in: band-ladder }
+    - { id: c-pre-prod, kind: commit, label: P, in: g-pre-prod, state: prod }
+    - { id: g-release-uat, kind: env, label: release-uat, in: band-ladder }
+    - { id: c-release-uat, kind: commit, label: "5", in: g-release-uat, state: release-uat }
+    - { id: g-main-uat, kind: env, label: main-UAT, in: band-ladder }
+    - { id: c-main-uat, kind: commit, label: "6", in: g-main-uat, state: main-uat }
+    - { id: c-dirty, kind: commit, label: "10", in: grp-dirty, state: l3 }
+  edges:
+    - { from: x-integrator, to: g-main-uat, kind: adr, label: "" }
+    - { from: g-main-uat, to: g-release-uat, kind: adr, label: "" }
+    - { from: g-release-uat, to: g-pre-prod, kind: adr, label: "" }
+    - { from: g-pre-prod, to: g-production, kind: adr, label: "" }
+    - { from: g-main-uat, to: grp-dirty, kind: fail, label: "" }
+  markers:
+    - { at: x-integrator, number: 1 }
+    - { at: g-main-uat, number: 2 }
+    - { at: g-release-uat, number: 3 }
+    - { at: g-pre-prod, number: 4 }
+    - { at: g-production, number: 5 }
+    - { at: grp-dirty, number: 6, corner: top-right }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by:
+          - .claude/CLAUDE.md
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: ado-pipelines/pipelines/.
+        by: [.ado/pipelines/deploy-apex.yaml, .ado/pipelines/deploy-nova.yaml, .ado/pipelines/deploy-shared.yaml, FDR-CD-TWORELEASEGATES]
+      - cell: docs/-/.
+        by:
+          - docs/drs/flow/cd-discipline-and-promotion-flow.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/deploy-apex.yaml.md
+          - docs/references/ado/pipelines/deploy-nova.yaml.md
+          - docs/references/ado/pipelines/deploy-shared.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by: [pwsh/Catzc.Base.Docs/configs/glossary.yml, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT]
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Drs/types
+        by:
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Flow/tests/types
+        by: [pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1, FDR-CD-PREPRODRUNG]
+      - cell: pwsh/Catzc.Base.Flow/types
+        by: [pwsh/Catzc.Base.Flow/types/RungsConfig.cs, FDR-CD-PREPRODRUNG, FDR-CD-TWORELEASEGATES]
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT]
+    grid:
+      - cell: .claude/markdown
+        by:
+          - .claude/CLAUDE.md
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: ado-pipelines/pipeline-yaml
+        by: [.ado/pipelines/deploy-apex.yaml, .ado/pipelines/deploy-nova.yaml, .ado/pipelines/deploy-shared.yaml, FDR-CD-TWORELEASEGATES]
+      - cell: docs/markdown
+        by:
+          - docs/drs/flow/cd-discipline-and-promotion-flow.md
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/ado/pipelines/deploy-apex.yaml.md
+          - docs/references/ado/pipelines/deploy-nova.yaml.md
+          - docs/references/ado/pipelines/deploy-shared.yaml.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Flow/types/RungsConfig.cs
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+    axis:
+      - cell: DSGN/build
+        by: [FDR-CD-PREPRODRUNG, FDR-CD-TWORELEASEGATES]
+      - cell: DSGN/quality-control
+        by:
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: DSGN/release
+        by:
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+      - cell: DSGN/deploy
+        by:
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+          - FDR-CD-PREPRODRUNG
+          - FDR-CD-TWORELEASEGATES
+layout:
+  band-external: { x: 20, y: 84, w: 1260, h: 130 }
+  band-ladder: { x: 20, y: 234, w: 1260, h: 190 }
+  band-tip: { x: 20, y: 444, w: 1260, h: 140 }
+  x-integrator: { x: 85, y: 130, w: 220, h: 56 }
+  g-main-uat: { x: 120, y: 290, w: 150, h: 100 }
+  g-release-uat: { x: 340, y: 290, w: 150, h: 100 }
+  g-pre-prod: { x: 560, y: 290, w: 150, h: 100 }
+  g-production: { x: 780, y: 290, w: 150, h: 100 }
+  c-main-uat: { x: 181, y: 298, w: 28, h: 28 }
+  c-release-uat: { x: 401, y: 298, w: 28, h: 28 }
+  c-pre-prod: { x: 621, y: 298, w: 28, h: 28 }
+  c-production: { x: 841, y: 298, w: 28, h: 28 }
+  grp-dirty: { x: 85, y: 486, w: 220, h: 86 }
+  c-dirty: { x: 173, y: 526, w: 44, h: 44 }
+```
 
 ![Upstream integrators sync from the BVT-verified head, never from the tip of main](.assets/integrators-sync-from-the-bvt-verified-head.drawio.png)
 

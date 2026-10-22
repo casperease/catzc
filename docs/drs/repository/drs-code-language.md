@@ -1,3 +1,10 @@
+---
+catzc:
+  edges:
+    cites:
+      - DDR-TRACK-UNORDEREDTRACK
+---
+
 # ADR: DRS code language — a path of named segments, every string a fact
 
 ## Rules: ADR-REPO-DRSCODE
@@ -56,8 +63,12 @@ Every segment of every registered code and rule heading is a known word to the s
 
 Every code is also a selector: it selects itself and every code whose segments start with it. A kind selects its records and rules, so `ADR`
 selects the implementation domains and every decision record is the list of all kinds; `ADR-AUTO` selects the automation domain, `DDR` the
-design domain, and `ADR-AUTO-FAILFAST` that ADR and all its rules. A match compares whole segments, so `ADR-AUTO-GO` never selects
-`ADR-AUTO-GOLD`.
+design domain, and `ADR-AUTO-FAILFAST` that ADR and all its rules. A match compares whole segments, so a code never selects a longer one
+that only starts with its last segment:
+
+```text
+ADR-AUTO-GO never selects ADR-AUTO-GOLD
+```
 
 - [Every string is a selector](drs-code-language.md#every-string-is-a-selector)
 

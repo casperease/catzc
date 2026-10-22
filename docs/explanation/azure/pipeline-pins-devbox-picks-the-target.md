@@ -1,3 +1,10 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+---
+
 # A pipeline pins the subscription it expects; a devbox picks the target with az account set
 
 ```text

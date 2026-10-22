@@ -378,7 +378,7 @@ content:
           - pwsh/.internal/tests/Wait-CatzcRunLock.Tests.ps1
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Tooling.Claude/tests/types
-        by: [pwsh/Catzc.Tooling.Claude/tests/types/ClaudeWorkerConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
+        by: [pwsh/Catzc.Tooling.Claude/tests/types/ClaudeDroneConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Tooling.Inspiration/.
         by: [pwsh/Catzc.Tooling.Inspiration/Get-Inspiration.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Tooling.Inspiration/configs
@@ -576,7 +576,7 @@ content:
           - pwsh/.internal/tests/Wait-CatzcRunLock.Tests.ps1
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: subject/Catzc.Tooling.Claude
-        by: [pwsh/Catzc.Tooling.Claude/tests/types/ClaudeWorkerConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
+        by: [pwsh/Catzc.Tooling.Claude/tests/types/ClaudeDroneConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: subject/Catzc.Tooling.Inspiration
         by:
           - pwsh/Catzc.Tooling.Inspiration/Get-Inspiration.ps1

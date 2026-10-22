@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-RUNNER-NOINLINEPOWERSHELL
+      - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+---
+
 # A pipeline step only names a command that a developer can run locally
 
 ```text

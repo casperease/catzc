@@ -44,8 +44,9 @@ def pair(tmp_path, monkeypatch):
     return tmp_path / ".assets" / "widget-flow", page, config
 
 
-def test_the_default_carrier_is_the_file_beside_the_png():
-    assert DEFAULTS["renderer"]["carrier"] == "file"
+def test_the_shipped_default_carrier_is_the_article_block():
+    shipped = yaml.safe_load(declaration.CONFIG.read_text(encoding="utf-8"))
+    assert shipped["renderer"]["carrier"] == "article"
 
 
 def test_every_named_carrier_is_one_of_the_closed_set_and_names_a_stem():

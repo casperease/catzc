@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - DDR-ASPECT-ASPECTSAREDERIVED
+      - DDR-ASPECT-TRACKPICKSCATCHALL
+      - DDR-ASPECT-PARTITIONISCHECKED
+---
+
 # The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call
 
 ```text
@@ -17,6 +26,186 @@ The aspect convention of cats has one real quality gate, and it checks shape, no
 refuses any track whose last aspect is not the bare `**`, or that uses `**` anywhere earlier, so the remainder is always exactly one aspect
 and always last. Which aspect that is, and so whether a stray file ships or not, is each track's declaration, and no gate reads it. The
 partition check that the DDR describes exists in code, but only unit tests on fixture files call it.
+
+```yml drawio
+description:
+  "The one real gate on the aspect convention checks shape: the variants config refuses any track whose last aspect is not the bare
+  remainder; whether the remainder ships is each track's unchecked declaration, and the partition check runs only in unit tests."
+about:
+  adrs: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-TRACKPICKSCATCHALL, DDR-ASPECT-PARTITIONISCHECKED]
+  lens: governance
+content:
+  title: The quality gate on config checks that ** is last; whether the remainder ships is each track's unchecked call
+  kind: explanation
+  flow: left-to-right
+  relation: checks
+  theme: dark
+  bands:
+    - { id: band-code, label: PWSH }
+    - { id: band-deployment, label: INFRASTRUCTURE }
+  glyphs:
+    - { id: s-code-live, kind: set, label: live, in: band-code }
+    - { id: s-code-tests, kind: set, label: tests, in: band-code }
+    - { id: g-partition, kind: gate, label: AspectPartition.Validate, in: band-code }
+    - { id: g-config, kind: gate, label: VariantsConfig, in: band-code }
+    - { id: s-deployment-tests, kind: set, label: tests, in: band-deployment }
+    - { id: s-deployment-live, kind: set, label: live, in: band-deployment }
+    - { id: g-config-deployment, kind: gate, label: VariantsConfig, in: band-deployment }
+  edges:
+    - { from: g-partition, to: s-code-live, kind: adr, label: "" }
+    - { from: g-config, to: s-code-tests, kind: flow, label: "" }
+    - { from: g-config-deployment, to: s-deployment-live, kind: flow, label: "" }
+  markers:
+    - { at: s-code-live, number: 1 }
+    - { at: s-code-tests, number: 2 }
+    - { at: g-config, number: 3 }
+    - { at: g-partition, number: 4 }
+    - { at: s-deployment-tests, number: 5 }
+    - { at: s-deployment-live, number: 6 }
+  chips:
+    - { at: s-code-live, kind: rule, rule: DDR-ASPECT-ASPECTSAREDERIVED, gated: false }
+    - { at: s-code-tests, kind: rule, rule: DDR-ASPECT-TRACKPICKSCATCHALL, gated: false }
+    - { at: g-config, kind: rule, rule: DDR-ASPECT-TRACKPICKSCATCHALL }
+    - { at: g-partition, kind: rule, rule: DDR-ASPECT-PARTITIONISCHECKED, gated: false }
+    - { at: s-deployment-live, kind: rule, rule: DDR-ASPECT-TRACKPICKSCATCHALL, gated: false }
+    - { at: g-config-deployment, kind: rule, rule: DDR-ASPECT-TRACKPICKSCATCHALL }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/module-aspects.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md
+          - docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-ModuleProtectionIdentity.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Globs/.
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Globs/tests
+        by:
+          - pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Globs/tests/types
+        by:
+          - pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Globs/types
+        by:
+          - pwsh/Catzc.Base.Globs/types/Aspect.cs
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Modules/.
+        by:
+          - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Modules/tests
+        by:
+          - pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/Catzc.Base.Variants/types
+        by:
+          - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+    grid:
+      - cell: docs/markdown
+        by:
+          - docs/drs/design/dora-explains.md
+          - docs/drs/design/module-aspects.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-base-globs/Get-ModuleGlobSet.ps1.md
+          - docs/references/pwsh/catzc-base-globs/tests/types/Aspect.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md
+          - docs/references/pwsh/catzc-base-modules/Get-Aspect.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-ModuleProtectionIdentity.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantAspect.cs.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.Globs/types/Aspect.cs
+          - pwsh/Catzc.Base.Variants/types/VariantAspect.cs
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Base.Globs/Get-ModuleGlobSet.ps1
+          - pwsh/Catzc.Base.Globs/tests/Get-ModuleGlobSet.Tests.ps1
+          - pwsh/Catzc.Base.Globs/tests/types/Aspect.Tests.ps1
+          - pwsh/Catzc.Base.Modules/Get-Aspect.ps1
+          - pwsh/Catzc.Base.Modules/tests/Get-Aspect.Tests.ps1
+          - pwsh/Catzc.Base.QualityGates/private/Get-ModuleProtectionIdentity.ps1
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - DDR-ASPECT-ASPECTSAREDERIVED
+          - DDR-ASPECT-PARTITIONISCHECKED
+          - DDR-ASPECT-TRACKPICKSCATCHALL
+    axis:
+      - cell: DSGN/build
+        by: [DDR-ASPECT-ASPECTSAREDERIVED, DDR-ASPECT-PARTITIONISCHECKED, DDR-ASPECT-TRACKPICKSCATCHALL]
+layout:
+  band-code: { x: 20, y: 84, w: 610, h: 300 }
+  band-deployment: { x: 650, y: 84, w: 630, h: 300 }
+  s-code-live: { x: 40, y: 176, w: 270, h: 44 }
+  s-code-tests: { x: 40, y: 296, w: 270, h: 44 }
+  g-partition: { x: 360, y: 150, w: 240, h: 76 }
+  g-config: { x: 360, y: 270, w: 240, h: 76 }
+  s-deployment-tests: { x: 670, y: 176, w: 300, h: 44 }
+  s-deployment-live: { x: 670, y: 296, w: 300, h: 44 }
+  g-config-deployment: { x: 1010, y: 280, w: 240, h: 76 }
+```
 
 ![The gate checks order, not liveness](.assets/gate-checks-order-not-liveness.drawio.png)
 

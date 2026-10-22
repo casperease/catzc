@@ -1,21 +1,18 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: d0ac049b8f88
   edges:
-    test: pwsh/Catzc.Tooling.Claude/tests/Start-ClaudeWorker.Tests.ps1
-    docs: "[Start-ClaudeWorker.ps1.md](../../docs/references/pwsh/catzc-tooling-claude/Start-ClaudeWorker.ps1.md)"
+    docs: "[Start-ClaudeDrone.ps1.md](../../docs/references/pwsh/catzc-tooling-claude/Start-ClaudeDrone.ps1.md)"
     cites:
       - ADR-PWSH-DRYRUN-EARLYRETURNBRANCH
 ---
 #>
 
-function Start-ClaudeWorker {
+function Start-ClaudeDrone {
     [CmdletBinding()]
     [OutputType([string[]])]
     param(
-        [string] $Agent = (Get-Config -Config claude-worker).agent,
+        [string] $Agent = (Get-Config -Config claude-drone).agent,
 
         [string] $Model,
 
@@ -26,7 +23,7 @@ function Start-ClaudeWorker {
         [int] $Count = 1,
 
         [ValidateSet('windows-terminal', 'pwsh')]
-        [string] $Launcher = (Get-Config -Config claude-worker).launcher,
+        [string] $Launcher = (Get-Config -Config claude-drone).launcher,
 
         [switch] $PassThru,
 
@@ -35,7 +32,7 @@ function Start-ClaudeWorker {
 
     $root = Get-RepositoryRoot
     for ($index = 1; $index -le $Count; $index++) {
-        $launch = Get-ClaudeWorkerLaunch -Agent $Agent -Model $Model -Prompt $Prompt -Launcher $Launcher -WorkingDirectory $root -Index $index
+        $launch = Get-ClaudeDroneLaunch -Agent $Agent -Model $Model -Prompt $Prompt -Launcher $Launcher -WorkingDirectory $root -Index $index
         if ($DryRun) {
             $launch.CommandLine
             continue

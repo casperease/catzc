@@ -1,3 +1,10 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+---
+
 # The az session is the deploy target, and the guard only checks it
 
 ```text

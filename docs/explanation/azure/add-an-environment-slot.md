@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+      - ADR-AZ-DATAMOD-ONEFILEONESUBSCRIPTION
+      - ADR-AZ-IACKIND-THREEKINDS
+---
+
 # A new configuration slot is one new file; discovery finds it, one subscription must fit it, and it deploys a new resource group
 
 ```text

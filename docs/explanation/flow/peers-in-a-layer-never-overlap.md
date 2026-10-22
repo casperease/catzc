@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-GLOBS-EVERYSETHASLAYER
+      - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
+---
+
 # Peers in a layer never share a file, except in the loose-fileset layer
 
 ```text

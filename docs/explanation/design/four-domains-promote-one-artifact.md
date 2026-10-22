@@ -1,3 +1,15 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-SEPARATEPIPELINEKINDS
+      - FDR-CD-CDCONTAINSCI
+      - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+      - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - FDR-CD-LIFE-DIRTYHEADUNSAFE
+      - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+---
+
 # Four pipeline kinds promote one artifact that CI built once
 
 ```text
@@ -17,6 +29,233 @@ Supports FDR-CD-LIFE-ONECOMMITPERENVIRONMENT, FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD, 
 The commit ladder in cats is cut into domains: GIT, then the pipeline kinds CI, CD, DEPLOY-Non-Prod and DEPLOY-Prod. Every domain after CI
 promotes the same tagged artifact, the one the CI engine built once, and each always-on environment holds exactly one commit as its
 occupant. Reading the occupants tells you what lives where right now, and which commit is safe to build on.
+
+```yml drawio
+description:
+  "The ladder of commit states cut into its domains: GIT, then the pipeline kinds CI, CD, DEPLOY-Non-Prod and DEPLOY-Prod, each always-on
+  environment holding one commit as its occupant, and the tagged artifact CI built once that every later domain promotes."
+about:
+  adrs:
+    - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+    - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    - FDR-CD-LIFE-DIRTYHEADUNSAFE
+    - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+  lens: architecture
+content:
+  title: Four pipeline kinds promote one artifact that CI built once
+  kind: explanation
+  flow: left-to-right
+  relation: promotes, or builds
+  theme: dark
+  bands:
+    - { id: band-git, label: GIT }
+    - { id: band-ci, label: CI }
+    - { id: band-cd, label: CD }
+    - { id: band-non-prod, label: DEPLOY-NON-PROD }
+    - { id: band-prod, label: DEPLOY-PROD }
+  spans:
+    - id: span-ci
+      label: CI
+      over: [band-ci]
+    - id: span-cd
+      label: CD
+      over: [band-cd]
+    - id: span-deploy
+      label: DEPLOY
+      over: [band-non-prod, band-prod]
+  glyphs:
+    - { id: c-topic, kind: commit, label: topic, in: band-git, state: topic }
+    - { id: c-main, kind: commit, label: main, in: band-git, state: landed }
+    - { id: g-engine, kind: runner, label: CI engine, in: band-ci }
+    - { id: c-bvt, kind: commit, label: BVT, in: band-ci }
+    - { id: g-on-demand, kind: env, label: on-demand env, in: band-cd }
+    - { id: c-l3, kind: commit, label: L3, in: g-on-demand, state: l3 }
+    - { id: g-main-uat, kind: env, label: main-uat, in: band-non-prod }
+    - { id: c-main-uat, kind: commit, label: M, in: g-main-uat, state: main-uat }
+    - { id: g-release-uat, kind: env, label: release-uat, in: band-non-prod }
+    - { id: c-release-uat, kind: commit, label: R, in: g-release-uat, state: release-uat }
+    - { id: g-pre-prod, kind: env, label: pre-prod, in: band-prod }
+    - { id: c-pre-prod, kind: commit, label: P, in: g-pre-prod, state: prod }
+    - { id: g-production, kind: env, label: production, in: band-prod }
+    - { id: c-production, kind: commit, label: P, in: g-production, state: prod }
+    - { id: s-artifact, kind: store, label: tagged artifact, in: band-non-prod }
+  edges:
+    - { from: c-topic, to: c-main, kind: flow, label: "" }
+    - { from: c-main, to: g-engine, kind: flow, label: "" }
+    - { from: g-engine, to: c-bvt, kind: flow, label: "" }
+    - { from: c-bvt, to: g-on-demand, kind: flow, label: "" }
+    - { from: g-on-demand, to: g-main-uat, kind: flow, label: "" }
+    - { from: g-main-uat, to: g-release-uat, kind: flow, label: "" }
+    - { from: g-release-uat, to: g-pre-prod, kind: flow, label: "" }
+    - { from: g-pre-prod, to: g-production, kind: flow, label: "" }
+    - { from: g-engine, to: s-artifact, kind: flow, label: "" }
+  markers:
+    - { at: band-git, number: 1, corner: top-right }
+    - { at: g-engine, number: 2 }
+    - { at: g-on-demand, number: 3 }
+    - { at: g-main-uat, number: 4 }
+    - { at: g-release-uat, number: 5 }
+    - { at: band-prod, number: 6, corner: top-right }
+    - { at: s-artifact, number: 7 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: .claude/.claude/.
+        by:
+          - .claude/CLAUDE.md
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: docs/-/.
+        by:
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Base.Docs/configs
+        by: [pwsh/Catzc.Base.Docs/configs/glossary.yml, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT]
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Base.Drs/types
+        by:
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Base.Maps/tests
+        by:
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/Catzc.Base.ModuleSystem/configs
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml, FDR-CD-LIFE-ONECOMMITPERENVIRONMENT]
+    grid:
+      - cell: .claude/markdown
+        by:
+          - .claude/CLAUDE.md
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: docs/markdown
+        by:
+          - docs/drs/flow/commit-lifecycle.md
+          - docs/drs/flow/dora-explains.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/how-to/automation/apply-environment-approvals.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-LifecyclePositionMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/bcl
+        by:
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/powershell
+        by:
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Maps/Get-LifecyclePositionMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-WorldMapHighlight.Tests.ps1
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: pwsh/yaml
+        by:
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+    axis:
+      - cell: DSGN/quality-control
+        by:
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: DSGN/release
+        by:
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+      - cell: DSGN/deploy
+        by:
+          - FDR-CD-LIFE-DIRTYHEADUNSAFE
+          - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
+          - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+          - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
+layout:
+  band-git: { x: 20, y: 84, w: 180, h: 320 }
+  band-ci: { x: 220, y: 84, w: 240, h: 320 }
+  band-cd: { x: 480, y: 84, w: 170, h: 320 }
+  band-non-prod: { x: 670, y: 84, w: 290, h: 320 }
+  band-prod: { x: 980, y: 84, w: 300, h: 320 }
+  c-topic: { x: 36, y: 170, w: 56, h: 56 }
+  c-main: { x: 124, y: 170, w: 56, h: 56 }
+  g-engine: { x: 236, y: 176, w: 130, h: 44 }
+  c-bvt: { x: 392, y: 170, w: 56, h: 56 }
+  g-on-demand: { x: 500, y: 152, w: 130, h: 92 }
+  g-main-uat: { x: 685, y: 152, w: 120, h: 92 }
+  g-release-uat: { x: 835, y: 152, w: 120, h: 92 }
+  g-pre-prod: { x: 995, y: 152, w: 120, h: 92 }
+  g-production: { x: 1145, y: 152, w: 120, h: 92 }
+  c-l3: { x: 547, y: 160, w: 28, h: 28 }
+  c-main-uat: { x: 731, y: 160, w: 28, h: 28 }
+  c-release-uat: { x: 881, y: 160, w: 28, h: 28 }
+  c-pre-prod: { x: 1041, y: 160, w: 28, h: 28 }
+  c-production: { x: 1191, y: 160, w: 28, h: 28 }
+  s-artifact: { x: 236, y: 310, w: 1030, h: 60 }
+```
 
 ![Four pipeline kinds promote one artifact that CI built once](.assets/four-domains-promote-one-artifact.drawio.png)
 

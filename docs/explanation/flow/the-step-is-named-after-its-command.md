@@ -1,3 +1,11 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-RUNNER-THINSTEPTEMPLATES
+      - FDR-CD-RUNNER-DEVELOPERREPRODUCIBLE
+---
+
 # The Azure DevOps step is named after its command, and its log echoes the command before it runs
 
 ```text

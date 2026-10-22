@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - FDR-CD-CDSTAYSINNONPROD
+      - FDR-CD-PRODPROGRESSIONISDEPLOY
+      - FDR-CD-TWORELEASEGATES
+---
+
 # A merge to main runs the CD pipeline all the way to prod, with no approval
 
 ```text
