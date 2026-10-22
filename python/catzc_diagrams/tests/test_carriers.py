@@ -159,3 +159,22 @@ def test_carry_to_the_article_names_the_png_as_the_build_target(pair):
     stem, page, _ = pair
     where, png = declaration.carry(stem, "article")
     assert where == page and png == stem.with_name("widget-flow.drawio.png")
+
+
+def test_rekey_moves_a_stems_carrier_and_role_entries_and_keeps_every_other_line():
+    text = (
+        "renderer:\n  carrier: article # the default\n"
+        "roles: # by stem\n  docs/widgets/.assets/gadget: legend # the gadget legend\n  docs/widgets/.assets/gadget-two: slide\n"
+        "carriers: # by stem\n  docs/widgets/.assets/gadget: file\n  docs/sprockets/.assets/sprocket: file\n"
+        "lenses:\n  docs/widgets/.assets/gadget: not a stem entry\n"
+    )
+    moved = declaration.rekeyed(text, "docs/widgets/.assets/gadget", "docs/gadgets/.assets/gadget")
+    assert moved == text.replace("  docs/widgets/.assets/gadget: legend", "  docs/gadgets/.assets/gadget: legend").replace(
+        "carriers: # by stem\n  docs/widgets/.assets/gadget: file", "carriers: # by stem\n  docs/gadgets/.assets/gadget: file"
+    ), "only the exact stem in carriers: and roles: moves; gadget-two, other sections and comments stay"
+
+
+def test_rekey_of_a_folder_moves_every_stem_under_it():
+    text = "carriers:\n  docs/widgets/.assets/gadget: file\n  docs/widgets/.assets/sprocket: file\n  docs/widgetsmore/.assets/cog: file\n"
+    moved = declaration.rekeyed(text, "docs/widgets", "docs/gadgets")
+    assert moved == "carriers:\n  docs/gadgets/.assets/gadget: file\n  docs/gadgets/.assets/sprocket: file\n  docs/widgetsmore/.assets/cog: file\n"

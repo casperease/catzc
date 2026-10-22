@@ -29,6 +29,7 @@ usage (repo root, background):
   uv run --project python python python/catzc_diagrams/declaration.py minimaps <diagram>
   uv run --project python python python/catzc_diagrams/declaration.py reflow <diagram>
   uv run --project python python python/catzc_diagrams/declaration.py carry <diagram> article|file
+  uv run --project python python python/catzc_diagrams/declaration.py rekey <from-stem> <to-stem> [<drawio.yml>]
 (<diagram> is the stem `.assets/<name>` or either file of its pair)
 
 A pair whose yml and png both moved from the pair committed at git HEAD, and now disagree, is a conflict: check names its cells, the bulk
@@ -352,6 +353,21 @@ def recorded_carriers(text, key, carrier):
     if not any(line.startswith("  ") and line.strip() for line in kept):
         opener = re.sub(r"^carriers:", "carriers: {}", opener)
     return "\n".join(lines[:head] + [opener] + kept + lines[end:])
+
+
+def rekeyed(text, old, new):
+    """drawio.yml's text with every carriers: and roles: entry keyed by the stem `old`, or by a stem under the folder `old`, keyed by `new`
+    instead, edited line by line so every comment and every other entry stays as written; the one editor a diagram move uses."""
+    lines = text.split("\n")
+    entry = re.compile(r"^(  )(" + re.escape(old) + r")(?=:|/)")
+    section = None
+    for i, line in enumerate(lines):
+        if line and not line.startswith((" ", "#")):
+            section = re.match(r"^([a-z_]+):", line)
+            section = section.group(1) if section else None
+        elif section in ("carriers", "roles"):
+            lines[i] = entry.sub(lambda m: m.group(1) + new, line, count=1)
+    return "\n".join(lines)
 
 
 IGNORE_LINE = re.compile(r"^[ \t]*#[ \t]*cspell:ignore[ \t]+(.*?)[ \t]*$", re.M)  # a yml's cspell ignore comment
@@ -2030,6 +2046,14 @@ def main():
         where, png = carry(diagram_of(args[1]), args[2])
         target = png.resolve().relative_to(KIT.parents[1]).as_posix() if png.resolve().is_relative_to(KIT.parents[1]) else png
         print(f"carry {where}; render with: Build-Diagrams -Path {target}")
+        return
+    if len(args) in (3, 4) and args[0] == "rekey":  # a moved stem's carriers: and roles: entries re-keyed, in the kit's drawio.yml or the given one
+        config = Path(args[3]) if len(args) == 4 else CONFIG
+        before = config.read_text(encoding="utf-8")
+        after = rekeyed(before, args[1], args[2])
+        if after != before:
+            config.write_text(after, encoding="utf-8", newline="\n")
+        print(f"rekey {config}: {'re-keyed' if after != before else 'unchanged'}")
         return
     if len(args) == 2 and args[0] == "minimaps":  # the diagram's computed minimap cells written into its source
         print(f"minimaps {declare_minimaps(diagram_of(args[1]))}")

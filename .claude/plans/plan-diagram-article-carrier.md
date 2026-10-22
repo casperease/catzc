@@ -40,8 +40,10 @@ frontmatter re-imprint then has no diagram declaration files to head.
 - `docs/explanation/thesis/product-thesis/.assets/truth-stores` stays file-carried too, by necessity: only a slide shows it, as a bare png
   path, so no article can carry it; it is an eighth file-carried diagram, not one of the seven. `docs/references/BCL/.assets/bcl-language`
   is a ninth: its one article sits outside the folder above `.assets` (catzc-e9's map).
-- Slides are never a carrier; a block's `about.adrs` counting as its article's `cites:` is intended (the article embeds a diagram about
-  those rules).
+- Slides are never a carrier.
+- A `yml drawio` block's codes do not appear in its article's `cites:` (the user, 2026-10-22, reversing the orchestrator's earlier call):
+  `cites:` lists the codes cited outside the blocks and `edges.drs_total` counts every distinct code in the page; the fact behind the head
+  keeps all codes (plan-frontmatter-less-is-more).
 - The move runs per folder in parallel: a background drone has `drs/flow`, `thesis`, `ado` and `repository`; catzc-e3 has `automation`;
   catzc-e9 has `configuration`; the rest goes to the next free drone. Re-declaring minimaps runs `Build-Diagrams` first, since
   `declaration.py minimaps` reads the computed data only a build refreshes (catzc-e3, 2026-10-22).
