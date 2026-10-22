@@ -41,8 +41,13 @@ function Test-Diagrams {
             $kitConfig['roles'].Keys | Where-Object { $kitConfig['roles'][$_] -ceq 'legend' -and (Test-Path -LiteralPath (Join-Path $root "$_.drawio.png") -PathType Leaf) }
         })
     $found = @($found) + @($legends | Where-Object { $found -cnotcontains $_ })
+    # An article-carried diagram has no yml: its carrier is its carriers: entry, else the default, and its stem is a tracked png or that entry.
     $carrierMap = Get-DiagramCarrierMap -RepositoryRoot $root -Kit $Kit
-    $found = @($found) + @($carrierMap.Carriers.Keys | Where-Object { $carrierMap.Carriers[$_] -ceq 'article' -and $found -cnotcontains $_ })
+    $pngStems = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.png$' } | ForEach-Object { $_ -creplace '\.drawio\.png$', '' })
+    $articleCarried = @(@($pngStems) + @($carrierMap.Carriers.Keys) | Select-Object -Unique | Where-Object {
+            $(if ($carrierMap.Carriers.Contains($_)) { $carrierMap.Carriers[$_] } else { $carrierMap.Default }) -ceq 'article'
+        })
+    $found = @($found) + @($articleCarried | Where-Object { $found -cnotcontains $_ })
     $folders = @(if ($Path) {
             foreach ($folderPath in $Path) {
                 $relative = ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\', '/') -creplace '\.drawio\.(png|yml)$', ''
