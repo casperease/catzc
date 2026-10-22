@@ -71,7 +71,11 @@ The module's public surface, sorted into the responsibilities above.
 |                                          | `New-VsCodeExtensions`       |
 |                                          | `New-VsCodeLaunch`           |
 |                                          | `New-VsCodePipelineSchema`   |
+|                                          | `New-VsCodeTasks`            |
+|                                          | `Build-VsCodeExtension`      |
+|                                          | `Install-VsCodeExtension`    |
 | responsibility:2 — The editor registries | `vscode-settings.yml`        |
 |                                          | `vscode-extensions.yml`      |
 |                                          | `vscode-launch.yml`          |
 |                                          | `vscode-pipeline-schema.yml` |
+|                                          | `vscode-tasks.yml`           |

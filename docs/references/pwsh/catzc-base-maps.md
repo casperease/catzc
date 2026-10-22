@@ -109,4 +109,7 @@ The module's public functions and configuration, sorted into the responsibilitie
 |                                           | `Get-TrackPlacementMinimapData`      |
 |                                           | `Get-EngineStripMinimapData`         |
 |                                           | `Get-ModuleNeighbourhoodMinimapData` |
+|                                           | `Get-GridMinimapData`                |
+|                                           | `Get-AxisMinimapData`                |
+|                                           | `Get-CodeLocationsMinimapData`       |
 |                                           | `Get-MinimapFact`                    |

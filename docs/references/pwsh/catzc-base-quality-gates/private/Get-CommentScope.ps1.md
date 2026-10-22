@@ -14,7 +14,8 @@ Lists the files whose long comments live in a comment page, each with its file l
 The one scope Export-Comments, Build-CommentView and Test-Comments share, so the converter, the view and the gate can never disagree. It
 starts from the files Get-LinkScope lists (the tracked files, or the given -Path, minus every file the content tools leave as written) and
 keeps a file when its file language is one comments.yml names, comments.yml maps it to a page, and its file kind is none that comments.yml
-excludes (tests, their fixtures and assets by default)
+excludes (assets and test input fixtures; tests, their fixtures and assets only when comments.yml declares no `exclude:`, so test files are
+in scope)
 ([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../../drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)).
 
 ### parameter `RepositoryRoot`

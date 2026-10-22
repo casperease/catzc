@@ -29,7 +29,8 @@ domain, and the relation/contrast targets real concepts are cross-file facts, ch
 Above `public static readonly Regex CitationRe = new Regex("^" +...`, written with `//`.
 
 ```text
-A rule citation in the '#' form: ADR-<code>[-<NAME>…]#<n>
+A rule code of any kind, as DrsCodeForm.AnyKind gives it: a two-to-four-letter kind prefix and at least two more -<NAME>
+segments; a concept's defined_by must be one
 ([ADR-AUTO-TEST-SAMETESTSBOTHRUNS](/docs/drs/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns),
 [FDR-CD-SHORTINTEGRATIONCYCLE](/docs/drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle)).
 ```

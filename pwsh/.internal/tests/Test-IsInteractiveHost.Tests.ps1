@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# cspell:ignore AGQA AHQA  -- pieces of the base64 encoded-command fixture, data
 Describe 'Test-IsInteractiveHost' -Tag 'L0', 'logic' {
     It 'reads a host started with no command, or with options only, as interactive' -ForEach @(
         @{ CommandLine = @('pwsh') }

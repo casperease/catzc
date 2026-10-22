@@ -11,6 +11,7 @@ catzc:
 #>
 
 # cspell:ignore nfunction  -- the escape-sequence artifact in the "`nfunction" fixture strings
+# cspell:ignore dependenc  -- the stem a message match shares between "dependency" and "dependencies"
 BeforeAll {
     Import-InternalModule TestKit
     Import-InternalModule Builder

@@ -50,8 +50,8 @@ Get-LanguageTestFolders | Where-Object Module -EQ 'Catzc.Base.Repository'
 Above `$modulesByFolder = @{}`, written with `#`.
 
 ```text
-The catzc modules of the source tree, by kebab name: the folders under <repository>/automation/, read from the
-repository (never the code root), so a build run maps a test folder the same way a source run does.
+The catzc modules of the engine track, by the test folder this language names for each (languages.yml's TestFolderOf),
+so a test folder maps back to the module it tests.
 ```
 
 ## comment:2

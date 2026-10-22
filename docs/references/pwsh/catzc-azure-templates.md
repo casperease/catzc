@@ -40,8 +40,9 @@ deployment modes and targets a deploy can use. These are the allowed-value sets 
 
 Turning a template plus a chosen environment and slot into a deployable artifact: resolving the build context, resolving every
 config-addressed parameter into the value its config address names, running the template's build-time preparation hook, rendering the
-per-slot parameter file, and compiling the Bicep into the output directory. Build is mode-agnostic — it produces artifacts, it does not
-touch Azure. The deployment's identifying name is derived here too.
+per-slot parameter file, and compiling the Bicep into the output directory, which sits under the one output root every template's build
+output resolves to. Build is mode-agnostic — it produces artifacts, it does not touch Azure. The deployment's identifying name is derived
+here too.
 
 ### responsibility:5 — Deploy and resource-group provisioning
 
@@ -106,7 +107,6 @@ and `network.yml` (owned by [Catzc.Azure](catzc-azure.md)).
 |                                                                   | `Get-BicepTemplateSlots`          |
 | responsibility:2 — Deterministic resource naming                  | `Get-AzureResourceName`           |
 |                                                                   | `Get-BicepResourceName`           |
-|                                                                   | `Get-AzureNameOrder`              |
 |                                                                   | `Get-AzureNameOrderSet`           |
 |                                                                   | `Get-AzureNamePatternSet`         |
 |                                                                   | `Get-AzureResourceTypeSet`        |
@@ -116,6 +116,7 @@ and `network.yml` (owned by [Catzc.Azure](catzc-azure.md)).
 |                                                                   | `Get-BicepDeploymentName`         |
 | responsibility:4 — Build                                          | `Build-Bicep`                     |
 |                                                                   | `ConvertTo-BicepParam`            |
+|                                                                   | `Get-BicepTemplatesOutputRoot`    |
 | responsibility:5 — Deploy and resource-group provisioning         | `Deploy-Bicep`                    |
 |                                                                   | `Get-BicepDeploymentContext`      |
 |                                                                   | `Deploy-AzureResourceGroup`       |

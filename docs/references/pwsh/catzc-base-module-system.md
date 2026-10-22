@@ -120,4 +120,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                   | `profiles.yml`                      |
 |                                                   | `artifacts.yml`                     |
 | responsibility:5 — Importer and generated files   | `New-Importer`                      |
+|                                                   | `Get-ImportMix`                     |
+|                                                   | `Set-ImportMix`                     |
 |                                                   | `Sync-GeneratedFile`                |
+| config                                            | `importer.yml`                      |

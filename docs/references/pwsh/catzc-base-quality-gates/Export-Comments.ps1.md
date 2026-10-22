@@ -20,8 +20,8 @@ page as its `relatives.page`.
 What moves is configured in comments.yml
 ([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)): the file
 languages in scope, the minimum prose lines, the comment heads each language keeps (`.SYNOPSIS`, `.EXAMPLE`, `#Requires`, …), and where each
-folder's pages live. The scope is Get-CommentScope's: tracked files of those languages outside tests/, minus vendored, generated, fixture
-and contract files.
+folder's pages live. The scope is Get-CommentScope's: tracked files of those languages, test files included, minus vendored, generated,
+fixture and contract files and the file kinds comments.yml excludes.
 
 A page that exists already keeps its sections as written; new comments are appended after its highest number, and a number is never reused.
 A second run over an exported file changes nothing. Source files keep their own line endings; pages are written canonical. A source-tree

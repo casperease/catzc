@@ -7,6 +7,8 @@ task:
   targets: [.claude/plans, out, docs]
 ---
 
+<!-- cspell:ignore adronly -->
+
 # Task: the user's commits, git operations, and the one final full run
 
 Every step here is one the user does by hand, because agents never run mutating git and never run all tests (ADR-REPO-AI;

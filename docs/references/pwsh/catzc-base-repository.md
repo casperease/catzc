@@ -56,7 +56,14 @@ The module's public functions, sorted into the responsibilities above.
 |                                                       | `Get-RepositoryFile`         |
 |                                                       | `Get-RepositoryFolder`       |
 |                                                       | `Get-CatzcModulesFolder`     |
+|                                                       | `Get-CatzcModulesRoot`       |
+|                                                       | `Get-CatzcModuleRoot`        |
+|                                                       | `Get-CatzcOverlayRoot`       |
 |                                                       | `Resolve-RepoPath`           |
 |                                                       | `ConvertTo-RepoRelativePath` |
 |                                                       | `Get-OutputRoot`             |
 | responsibility:2 — Pipeline context detection         | `Get-RunEnvironment`         |
+|                                                       | `Get-SessionActor`           |
+|                                                       | `Test-IsRunningAsAgent`      |
+|                                                       | `Get-CatzcRunMode`           |
+|                                                       | `Assert-SourceTree`          |

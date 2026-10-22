@@ -20,14 +20,15 @@ file-carrier registry that names each file class's comment syntax, and the comma
 What a code text says about its own meta head: whether it has one, the sections and derived keys in the order written, the authored config
 lines, the text that stays above it (a byte order mark, a shebang, an XML prolog or fixed preamble lines) and the rest of the text below it.
 A comment directly under the head is not part of it, a block head that never closes is no head, and a comment that is not front matter with
-a `catzc` block is no head either.
+a `catzc` block is no head either. A file that carries its meta as a property instead of a comment, a JSON file's ignored top-level member
+or an MSBuild project's property, is read the same way by its own reader.
 
 ### responsibility:2 — Imprinting derived facts
 
 Returning a text with its head written from the facts given, in one canonical form and in the order given, so the same facts always give the
 same bytes. The head follows the language's anchor, a blank line separates it from the rest, the text's own line endings are kept, authored
 config lines survive a rewrite, and no facts removes the head and its blank line. An old head the form lists to strip is removed with its
-whole comment run before the head is written.
+whole comment run before the head is written. A property carrier is imprinted the same way, its property written from the facts given.
 
 ### responsibility:3 — Locating a file's comment page
 
@@ -47,9 +48,11 @@ meta block writes and reads it and a value is quoted only where YAML would read 
 
 Each function belongs to one responsibility.
 
-| Responsibility                                    | Function              |
-| ------------------------------------------------- | --------------------- |
-| responsibility:1 — Reading a text's head          | `Get-CodeMetaState`   |
-| responsibility:2 — Imprinting derived facts       | `Format-CodeMetaHead` |
-| responsibility:3 — Locating a file's comment page | `Get-CommentPage`     |
-| config                                            | `comment-pages.yml`   |
+| Responsibility                                    | Function                  |
+| ------------------------------------------------- | ------------------------- |
+| responsibility:1 — Reading a text's head          | `Get-CodeMetaState`       |
+|                                                   | `Get-PropertyMetaState`   |
+| responsibility:2 — Imprinting derived facts       | `Format-CodeMetaHead`     |
+|                                                   | `Format-PropertyMetaHead` |
+| responsibility:3 — Locating a file's comment page | `Get-CommentPage`         |
+| config                                            | `comment-pages.yml`       |

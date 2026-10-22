@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1f2a00d79c2c"
+    with_body_sha: "7015ec6c03f5"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Spelling.Tests.ps1
     docs: "[Test-Spelling.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-Spelling.ps1.md)"

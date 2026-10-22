@@ -22,7 +22,8 @@ directly for efficiency — no shelling out, no intermediate listings. The lock 
 the Assert/Test pairs make both the throwing and querying forms available, so callers with different error-handling needs can choose without
 duplicating the detection logic. The holder lookup goes one step further and names _which_ processes hold the file (id, executable, start
 time, command line, parent process), through the Windows Restart Manager — no admin rights needed, and it sees a loaded DLL as well as an
-open handle; on Linux/macOS, where locks are advisory, it reports none.
+open handle; on Linux/macOS, where locks are advisory, it reports none. An input stamp fingerprints a set of files by their paths and
+content, the same on every checkout of the same inputs.
 
 ### responsibility:2 — Source-control facts
 
@@ -31,8 +32,10 @@ git's ref files through the `GitRefs` reader in [Catzc.Base.Git](catzc-base-git.
 ([tracked-files-from-the-index](../../drs/automation/tracked-files-from-the-index.md), ADR-AUTO-TRACKED-INPROCESSREFS). Committing writes,
 so it calls `Invoke-Executable` (from Catzc.Base.Execution) to run `git` with logged, exit-code-managed invocations, the same discipline
 every external command in the platform follows. Branch and commit are intentionally separate getters: they serve different purposes for
-callers (log context, cache keys, CI identifiers) and neither implies the other. Over the tracked files, it finds the callers of a name and
-renames a set of names as whole tokens, so a rename moves every in-tree caller in one change.
+callers (log context, cache keys, CI identifiers) and neither implies the other. It answers which of a set of paths git tracks, which differ
+from HEAD (and whether any does), and where one file stands, from unset to pushed, a state computed on demand and never written into the
+file. Over the tracked files, it finds the callers of a name and renames a set of names as whole tokens, so a rename moves every in-tree
+caller in one change.
 
 ## What the module does
 
@@ -62,8 +65,13 @@ The module's public functions, sorted into the responsibilities above.
 |                                          | `Assert-FileIsNotLocked` |
 |                                          | `Test-FileIsNotLocked`   |
 |                                          | `Get-FileLockingProcess` |
+|                                          | `Get-InputStamp`         |
 | responsibility:2 — Source-control facts  | `Get-GitCurrentBranch`   |
 |                                          | `Get-GitCurrentCommit`   |
+|                                          | `Get-GitTrackedPath`     |
+|                                          | `Get-GitChangedPath`     |
+|                                          | `Test-GitPathChanged`    |
+|                                          | `Get-RepoStatus`         |
 |                                          | `Get-CodeCaller`         |
 |                                          | `Rename-CodeName`        |
 |                                          | `Invoke-GitCommit`       |

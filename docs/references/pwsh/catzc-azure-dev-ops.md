@@ -18,7 +18,10 @@ organization identity is configured, not guessed.
 Knowing which organization and tenant the automation targets, and producing an authorization header proven to point at that organization.
 The credential is selected by a fixed precedence — an in-pipeline agent token, then a personal access token, then the Azure CLI session —
 and each source must prove it targets the configured organization before a header is returned. The organization identity lives in `ado.yml`.
-See [dual-authentication](../../drs/ado/dual-authentication.md).
+See [dual-authentication](../../drs/ado/dual-authentication.md). The repository is known the same way: the agent's own repository in a
+pipeline, the checkout folder's name on a devbox, the default every command taking a repository name falls back to. The live project name
+`ado.yml` carries is declared in `identity-tokens.yml`, so a hermetic logic test that names it is found
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)).
 
 ### responsibility:2 — Azure DevOps REST operations
 
@@ -65,7 +68,9 @@ The module's public functions and configuration, sorted into the responsibilitie
 | Responsibility                                                | Function                         |
 | ------------------------------------------------------------- | -------------------------------- |
 | responsibility:1 — Organization identity and authentication   | `Get-AdoAuthorizationHeader`     |
+|                                                               | `Get-AdoRepositoryName`          |
 | config                                                        | `ado.yml`                        |
+|                                                               | `identity-tokens.yml`            |
 | responsibility:2 — Azure DevOps REST operations               | `Invoke-AdoRestMethod`           |
 |                                                               | `New-AdoPullRequest`             |
 |                                                               | `Register-AdoPipeline`           |

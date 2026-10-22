@@ -44,7 +44,6 @@ stale or superseded item is recorded as such, with the reason.
 | high   | plan-debt-full-run-failures | none (test reruns)                                                                              | one Invoke-TestFile per failing file                                                                  | two steps                                        |
 | medium | plan-debt-test-speed        | none (test files only)                                                                          | the measured test files, twice each                                                                   | two steps                                        |
 | medium | plan-debt-gate-sweep        |                                                                                                 |                                                                                                       | new                                              |
-| medium | plan-debt-hindsight-gaps    |                                                                                                 |                                                                                                       | new                                              |
 
 ## Pending deletion
 
@@ -97,3 +96,5 @@ Deleted 2026-10-21, every step landed (ADR-REPO-PLANS-DONEPLANDELETED):
   names its `[build]` reason.
 - plan-dense-yaml-flow: every diagram declaration prints a leaf node as one flow line when it fits the markdown `max_line_length`; all 176
   reflowed, the printer in Prettier's form, three diagrams' minimaps re-declared from the tree.
+- plan-debt-hindsight-gaps: the 2026-10-22 hindsight gaps closed: the strict-clean index bullet, the `Catzc.Base.Drs` article, four
+  reference and how-to pages, all 51 module articles checked against their modules, six capability lines; the Mock gap dropped as false.

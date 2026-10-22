@@ -5,9 +5,10 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `{}`, written with `#`.
+Above `host_bindings:`, written with `#`.
 
 ```text
-The BCL language's config: the one build configuration and platform of every non-vendored .sln and .csproj; the defaults live on
-BclConfig.
+The BCL language's config: the one build configuration and platform of every non-vendored .sln and .csproj, omitted here so the
+defaults on BclConfig apply, and the host bindings: the type sources that bind to a host, each with its reason; every other type
+source stays in the BCL reference set.
 ```

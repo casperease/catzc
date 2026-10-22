@@ -8,6 +8,7 @@ catzc:
 ---
 #>
 
+# cspell:ignore inittypes enabletypes FIXTUREWIDGET  -- fixture folder prefixes and an upper-cased fixture command name, data
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests set and read $global:__CatzcDeferredTypes, the session-global pending record the deferred load reads')]
 param()
 

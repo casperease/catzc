@@ -114,6 +114,10 @@ terms:
       meaning: "gopls — the Go language server editors use"
     - term: pytest
       meaning: "pytest — the Python test runner the Python test bridge runs (ADR-AUTO-PY)"
+    - term: monkeypatches
+      meaning: "pytest: replaces an attribute for one test and restores it after"
+    - term: uncopied
+      meaning: "not copied: an object returned as itself, not as a copy"
     - term: junit
       meaning: "JUnit XML — the test-report format pytest writes with --junitxml"
     - term: linq
@@ -1112,6 +1116,12 @@ terms:
       meaning: "module manifest NestedModules key"
     - term: nonewscope
       meaning: "PowerShell -NoNewScope switch"
+    - term: noexit
+      meaning: "PowerShell -NoExit switch"
+    - term: noninteractive
+      meaning: "PowerShell -NonInteractive switch"
+    - term: encodedcommand
+      meaning: "PowerShell -EncodedCommand switch"
     - term: noprofile
       meaning: "PowerShell -NoProfile switch"
     - term: passthru

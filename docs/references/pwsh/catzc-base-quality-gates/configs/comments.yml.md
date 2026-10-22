@@ -25,7 +25,7 @@ Above `languages: [powershell, yaml, pipeline-yaml, bcl, bicep]`, written with `
 
 ```text
 The file languages (languages.yml names) whose files carry comment pages. A language CommentLexer cannot read
-(python, bash) is out until the lexer learns it. Default: powershell, yaml, pipeline-yaml, csharp, bicep.
+(python, bash) is out until the lexer learns it. Default: powershell, yaml, pipeline-yaml, bcl, bicep.
 ```
 
 ## comment:3

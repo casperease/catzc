@@ -69,6 +69,7 @@ The module's public functions and configuration files, sorted into the responsib
 | responsibility:2 — Stop at the limit     | `Invoke-WithTimeout`        |
 |                                          | `Assert-CompletesWithin`    |
 |                                          | `Test-CompletesWithin`      |
+|                                          | `Watch-Blocking`            |
 | responsibility:3 — Budget exemptions     | `Get-TimeoutExemption`      |
 |                                          | `Test-IsTimeoutExempt`      |
 |                                          | `Assert-IsNotTimeoutExempt` |

@@ -72,17 +72,17 @@ functions, and the approved verbs in use. It prints only; it returns nothing.
 
 Which sub-agents exist and why (see [agent-definitions](../../drs/repository/agent-definitions.md)). The registry is `agents.yml`: one entry
 per `.claude/agents/<name>.md` definition, with the rule citations that support the agent and the gate and check functions it runs or
-guards, plus the one standard agent for delegated work. It is validated when it loads. A quality gate, `Test-AgentDefinitions`, keeps the
-agent files, the registry, and the `## Sub-agents` list in `.claude/CLAUDE.md` in step, resolving every citation to a real rule and every
-check to an existing command.
+guards, plus the one standard agent for delegated work. Beside it, `capabilities.yml` registers the capabilities the agents load, each with
+its model floor. Both are validated when they load. A quality gate, `Test-AgentDefinitions`, keeps the agent and capability files, the
+registries, and the `## Sub-agents` list in `.claude/CLAUDE.md` in step, resolving every citation to a real rule and every check to an
+existing command.
 
 ### responsibility:7 — Generated markdown
 
-The one way generated markdown wraps its prose: a paragraph or list item filled at the 140-column width the way the formatter fills it, so a
-page a generator writes is the page the formatter leaves alone (see
-[uniform-formatting](../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)). Every generator that
-writes markdown wraps through it, in this module or another. The reverse is one reader too: a list item with the continuation lines the
-formatter wrapped it onto is read back whole by one command, which every checker that reads list items calls.
+Reading wrapped markdown back: a list item with the continuation lines the formatter wrapped it onto is read back whole by one command,
+which every checker that reads list items calls. The writing side, a paragraph filled at the 140-column width the way the formatter fills it
+(see [uniform-formatting](../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)), is
+[Catzc.Base.MarkdownMeta](catzc-base-markdown-meta.md).
 
 ### responsibility:8 — Rolling logs
 
@@ -111,20 +111,20 @@ The glossary follows the same pattern: an authored source (the modules' glossary
 
 The module's public surface, sorted into the responsibilities above.
 
-| Responsibility                            | Function                   |
-| ----------------------------------------- | -------------------------- |
-| responsibility:1 — README materialisation | `Build-Readme`             |
-|                                           | `Test-GeneratedReadmes`    |
-| responsibility:2 — README map             | `readme.yml`               |
-| responsibility:3 — Managed .gitkeep files | `Build-GitKeep`            |
-| responsibility:4 — Controlled vocabulary  | `Get-Glossary`             |
-|                                           | `Build-Glossary`           |
-|                                           | `Test-Glossary`            |
-| responsibility:5 — Ask cats               | `Show-Cats`                |
-| responsibility:6 — Sub-agent registry     | `Test-AgentDefinitions`    |
-| config                                    | `agents.yml`               |
-| responsibility:7 — Generated markdown     | `Format-MarkdownParagraph` |
-|                                           | `Get-MarkdownListItem`     |
-| responsibility:8 — Rolling logs           | `Add-SessionLearning`      |
-| config                                    | `learnings.yml`            |
-|                                           | `hindsight.yml`            |
+| Responsibility                            | Function                |
+| ----------------------------------------- | ----------------------- |
+| responsibility:1 — README materialisation | `Build-Readme`          |
+|                                           | `Test-GeneratedReadmes` |
+| responsibility:2 — README map             | `readme.yml`            |
+| responsibility:3 — Managed .gitkeep files | `Build-GitKeep`         |
+| responsibility:4 — Controlled vocabulary  | `Get-Glossary`          |
+|                                           | `Build-Glossary`        |
+|                                           | `Test-Glossary`         |
+| responsibility:5 — Ask cats               | `Show-Cats`             |
+| responsibility:6 — Sub-agent registry     | `Test-AgentDefinitions` |
+| config                                    | `agents.yml`            |
+|                                           | `capabilities.yml`      |
+| responsibility:7 — Generated markdown     | `Get-MarkdownListItem`  |
+| responsibility:8 — Rolling logs           | `Add-SessionLearning`   |
+| config                                    | `learnings.yml`         |
+|                                           | `hindsight.yml`         |

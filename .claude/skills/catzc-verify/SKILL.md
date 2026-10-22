@@ -28,11 +28,12 @@ metadata:
 2. At the end on the owned files, each at 0: `Test-ScriptAnalyzer -Path <ps1> -PassThru`, `Test-Spelling -Path <files> -PassThru`,
    `Format-Types -Path <module>/types -DryRun -PassThru` for C#, `Format-Code -Path <files>` (before any fresh import: formatting a C# type
    changes the types hash; a new test file or a new or changed comment page puts its code file in that `-Path` to re-imprint it, since the
-   head's `test:`, `docs:` and `cites:` derive from them) then `Test-Links -Path <md> -PassThru`, `Test-Glossary -PassThru` (issues naming
-   an owned file), and after a generated file's source changed its generator (`Build-Readme`, `Build-Glossary`, `Build-DrsIndex`) then
-   `Test-GeneratedFiles -PassThru`; never the full `Test-Automation`; a new command's task closes only on one live run of it, its output
-   reported verbatim, never on green tests alone.
+   head's `test:`, `docs:` and `cites:` derive from them; it formats only its `-Path`, so a file an imprint or generator writes besides goes
+   in that `-Path` too) then `Test-Links -Path <md> -PassThru`, `Test-Glossary -PassThru` (issues naming an owned file), and after a
+   generated file's source changed its generator (`Build-Readme`, `Build-Glossary`, `Build-DrsIndex`) then `Test-GeneratedFiles -PassThru`;
+   never the full `Test-Automation`; a new command's task closes only on one live run of it, its output reported verbatim, never on green
+   tests alone.
 3. Shared files are the coordinator's unless the brief names them owned: `dependencies.yml`, `configs.yml`, `rootconfig.yml`,
    `gitignore.yml`, `globs.yml`, `terminology.yml`, `guids.yml`, every `glossary.yml`, `docs/drs/glossary.md`, `docs/drs/index.md`,
    `docs/how-to/pwsh/manual-test-plan/**`; an entry needed there goes in the report as the exact lines under asks, tested meanwhile with
-   mocks or fixtures.
+   mocks or fixtures; the code file a new test re-imprints is its owner's, so a re-imprint of a file the brief does not own is an ask too.

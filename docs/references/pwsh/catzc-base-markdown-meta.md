@@ -14,6 +14,7 @@ that reads the registry.
 | responsibility:1 | reading    | [Reading a text's meta](#responsibility1--reading-a-texts-meta)        |
 | responsibility:2 | imprinting | [Imprinting derived facts](#responsibility2--imprinting-derived-facts) |
 | responsibility:3 | stripping  | [Leaving the meta out](#responsibility3--leaving-the-meta-out)         |
+| responsibility:4 | wrapping   | [Wrapping generated prose](#responsibility4--wrapping-generated-prose) |
 
 ### responsibility:1 — Reading a text's meta
 
@@ -32,6 +33,13 @@ endings are the text's own.
 
 Returning a text without its front matter, for a copy that carries the content but not the file's meta, such as a generated README.
 
+### responsibility:4 — Wrapping generated prose
+
+The one way generated markdown wraps its prose: a paragraph or list item filled at the 140-column width the way the formatter fills it, so a
+page a generator writes is the page the formatter leaves alone
+([uniform-formatting](../../drs/repository/uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)). Every generator that
+writes markdown wraps through it, in any module.
+
 ## What the module does
 
 A Markdown file's front matter is shared with other tools, so the tooling owns exactly one key in it and touches nothing else. This module
@@ -47,3 +55,4 @@ Each function belongs to one responsibility.
 | responsibility:1 — Reading a text's meta    | `Get-MarkdownMetaState`      |
 | responsibility:2 — Imprinting derived facts | `Format-MarkdownMetaBlock`   |
 | responsibility:3 — Leaving the meta out     | `Remove-MarkdownFrontMatter` |
+| responsibility:4 — Wrapping generated prose | `Format-MarkdownParagraph`   |

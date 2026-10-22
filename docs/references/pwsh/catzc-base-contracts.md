@@ -18,6 +18,7 @@ layout and the rules are the subject of [api-contracts](../../drs/repository/api
 | responsibility:3 | list      | [Asset listing](#responsibility3--asset-listing)                       |
 | responsibility:4 | release   | [Release freezing](#responsibility4--release-freezing)                 |
 | responsibility:5 | reference | [Contract reference pages](#responsibility5--contract-reference-pages) |
+| responsibility:6 | accosted  | [Accosted runs](#responsibility6--accosted-runs)                       |
 
 ### responsibility:1 — Contract quality gate
 
@@ -43,7 +44,8 @@ root, and the direction from the convention, which a version's `contract.yml` ov
 module's target root is one configured setting, the repository root by default. How one asset addresses many files is a configured setting
 with a sensible default; only the full-path mode is built, and selecting a declared mode that is not built throws. A command contract, the
 asset that states a command's call interface, is listed the same way and read by the one reader of the contract language
-([command-contracts](../../drs/repository/command-contracts.md)): its parameters, output and one-line signature as a typed record.
+([command-contracts](../../drs/repository/command-contracts.md)): its parameters, output and one-line signature as a typed record. From the
+command contracts comes the command lookup `cats` sources before it starts pwsh, so a command is known without an import.
 
 ### responsibility:4 — Release freezing
 
@@ -56,6 +58,13 @@ folder that already exists, and a draft that does not list. It writes files only
 Generating one committed page per unit, `docs/references/contracts/<unit>.md`, with a table per version folder listing each asset's module,
 path, target, direction, and kind, and the notes each asset carries in its own header comment. The pages are derived artifacts: the assets
 are what is reviewed, and a page is rewritten only when its content changes. A page this writer did not write is never touched.
+
+### responsibility:6 — Accosted runs
+
+Calling contracted commands for real ([accosted-language](../../drs/automation/accosted-language.md)). An accosted file is a flat list of
+runs, each a list of harmless contracted calls; reading one checks every call against its command contract, and running it runs every run
+under each execution engine and returns one result per run and engine. Its settings live in `accosted.yml`, every key optional with its
+default declared once on the config type.
 
 ## What the module does
 
@@ -88,6 +97,10 @@ The module's public functions and configuration, sorted into the responsibilitie
 | responsibility:2 — Per-asset checking       | `Get-ContractCheckResults` |
 | responsibility:3 — Asset listing            | `Get-Contract`             |
 |                                             | `Get-CommandContract`      |
+|                                             | `New-CatsCommandLookup`    |
 | config                                      | `contracts.yml`            |
 | responsibility:4 — Release freezing         | `Publish-ContractRelease`  |
 | responsibility:5 — Contract reference pages | `Build-ContractReference`  |
+| responsibility:6 — Accosted runs            | `Get-AccostedFile`         |
+|                                             | `Invoke-Accosted`          |
+| config                                      | `accosted.yml`             |

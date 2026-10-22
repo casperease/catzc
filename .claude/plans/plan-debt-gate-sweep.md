@@ -25,14 +25,9 @@ other plans close on that run.
 
 ## Open steps
 
-- [ ] The comment pages against their code, after the day's code edits (catzc-e9): 21 findings, 13 sections on 11 pages re-pointed; the 8
-      left and 3 stale-prose sections are rewritten to the current code, a fact the code still holds moved to the section that carries it, a
-      section whose element and fact are both gone removed (a comment page follows its code; decided by the orchestrator as delegated,
-      2026-10-22). (check: `Test-Comments` at 0)
-- [ ] `Test-Spelling` skips files under dot folders (it checked 448 of the 615 files under `docs/drs`, `docs/explanation` and `docs/how-to`,
-      missing every `.assets/*.drawio.yml`) and passes a folder `-Path` that checked nothing (catzc-a0, 2026-10-22,
-      `out/catzc-a0-gate-sweep-spelling.md`): it checks the tracked files under a dot folder the spelling scope does not exclude, and a run
-      that checked no file is a finding, not a pass (decided by the orchestrator as delegated). The three findings this uncovers, assembled
-      Azure names in `docs/drs/azure/.assets/azure-name-assembly.drawio.yml`, are data (ADR-AUTO-SPELL-IDENTIFIERSNOTDATA) and get an
-      ignore, not word-list entries. (check: the gate's test file green with a dot-folder case and an empty-scope case, and `Test-Spelling`
-      on the three folders at 0)
+- [ ] `docs/drs` and `docs/explanation` (catzc-e3), `docs/references` and `docs/how-to` (catzc-54): `Test-Formatting` findings fixed by
+      `Format-Code -Path` on the files it names, a generated file through its generator. (check: `Test-Formatting` on the slice at 0)
+- [ ] `python/catzc_diagrams` (catzc-e9): `Test-PythonLint` and `Test-PythonTypes` findings fixed one file at a time, after the day's
+      `declaration.py` edits. (check: both gates at 0, and `pytest test_declaration.py` green)
+- [ ] `pwsh/.internal` and `pwsh/Catzc.Base.QualityGates`, the code edited most on 2026-10-22 (catzc-a0): `Test-ScriptAnalyzer` findings
+      fixed one file at a time, an import-path file in a burst. (check: `Test-ScriptAnalyzer -Path` on both at 0)

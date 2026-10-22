@@ -19,10 +19,12 @@ of the Azure stack needs. It holds the source-of-truth configuration; the templa
 The declared shape of the Azure estate: the tenants, the customers (each with a readable key and a short code), the environments (each with
 a region, region code, and short code), and the subscriptions (each bound to a tenant, optionally to a customer, and serving a set of
 environments). Overlaid on this is the IP plan: a range per environment, and a hub-and-spoke network per subscription — a hub in each shared
-subscription, a spoke in each customer subscription, with no two networks overlapping. This is data, not behaviour — it lives in two
-configuration assets, `azure.yml` and `network.yml`, and is the single source of truth the whole Azure stack resolves against; a quality
-gate keeps the IP plan in step with the environments and subscriptions. See [data-model](../../drs/azure/azure-data-model.md) and
-[network-model](../../drs/azure/azure-network-model.md).
+subscription, a spoke in each customer subscription, with no two networks overlapping. This is data, not behaviour — it lives in three
+configuration assets, `azure.yml`, `customer.yml` (the customers) and `network.yml`, and is the single source of truth the whole Azure stack
+resolves against; a quality gate keeps the IP plan in step with the environments and subscriptions. The live identities these files carry
+are declared in `identity-tokens.yml`, so a hermetic logic test that names one is found
+([ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES](../../drs/automation/test-automation.md#rule-adr-auto-test-distinctfixtureidentities)). See
+[data-model](../../drs/azure/azure-data-model.md) and [network-model](../../drs/azure/azure-network-model.md).
 
 ### responsibility:2 — Subscription resolution
 
@@ -37,8 +39,9 @@ the resolved subscription that serves it. This is the join between the environme
 
 ### responsibility:4 — Global catalog accessors
 
-Whole-estate lookups that aren't tied to one subscription or environment: the list of customers, and the minimum Bicep CLI version the
-estate requires. These are thin readers over the identity model for callers that need a catalog rather than a single resolved identity.
+Whole-estate lookups that aren't tied to one subscription or environment: the list of customers, one customer resolved from either its key
+or its short code, and the minimum Bicep CLI version the estate requires. These are thin readers over the identity model for callers that
+need a catalog rather than a single resolved identity.
 
 ## What the module does
 
@@ -71,10 +74,13 @@ The module's public functions and configuration, sorted into the responsibilitie
 | ---------------------------------------------- | ---------------------------------- |
 | responsibility:1 — Identity and topology model | `Test-AzureNetworkPlan`            |
 | config                                         | `azure.yml`                        |
+|                                                | `customer.yml`                     |
 |                                                | `network.yml`                      |
+|                                                | `identity-tokens.yml`              |
 | responsibility:2 — Subscription resolution     | `Get-AzureSubscription`            |
 |                                                | `Get-AzureSubscriptionCustomer`    |
 |                                                | `Get-AzureSubscriptionEnvironment` |
 | responsibility:3 — Environment resolution      | `Get-AzureEnvironment`             |
 | responsibility:4 — Global catalog accessors    | `Get-AzureCustomers`               |
+|                                                | `Get-AzureCustomer`                |
 |                                                | `Get-AzureBicepMinVersion`         |

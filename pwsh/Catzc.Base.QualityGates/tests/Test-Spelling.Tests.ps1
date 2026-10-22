@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "21b4f91ffb77"
+    with_body_sha: "6e697940a30d"
   edges:
     docs: "[Test-Spelling.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-Spelling.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-Spelling.ps1
@@ -182,7 +182,8 @@ Describe 'Repository spelling integrity' -Tag 'L2', 'integrity', 'source-only' {
             Set-ItResult -Skipped -Because 'protected_globset_unchanged_since_green_run'
             return
         }
-        (Test-Spelling -PassThru -OutputFolder (Join-Path $TestDrive 'spelling')).IssueCount | Should -Be 0
+        $result = Test-Spelling -PassThru -OutputFolder (Join-Path $TestDrive 'spelling')
+        $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
         Protect-GlobSet -Test 'spelling' -Name 'repository'
     }
 }

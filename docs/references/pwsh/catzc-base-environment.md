@@ -7,10 +7,11 @@ and depends on [Catzc.Base.Asserts](catzc-base-asserts.md) for input guards. Wha
 
 ## Responsibilities
 
-| Responsibility   | Area    | Name                                                                           |
-| ---------------- | ------- | ------------------------------------------------------------------------------ |
-| responsibility:1 | path    | [Persistent PATH management](#responsibility1--persistent-path-management)     |
-| responsibility:2 | session | [Session PATH synchronization](#responsibility2--session-path-synchronization) |
+| Responsibility   | Area      | Name                                                                                   |
+| ---------------- | --------- | -------------------------------------------------------------------------------------- |
+| responsibility:1 | path      | [Persistent PATH management](#responsibility1--persistent-path-management)             |
+| responsibility:2 | session   | [Session PATH synchronization](#responsibility2--session-path-synchronization)         |
+| responsibility:3 | variables | [Persistent environment variables](#responsibility3--persistent-environment-variables) |
 
 ### responsibility:1 — Persistent PATH management
 
@@ -26,6 +27,11 @@ environment state.
 Making a persistent PATH change visible in the running shell without a restart. After `Add-PermanentPath` or `Remove-PermanentPath` updates
 the durable store, `Sync-SessionPath` re-reads the system PATH and installs it into `$env:PATH` so the current session sees the change
 immediately. This responsibility is deliberately thin — it is the "make it live now" step, nothing more.
+
+### responsibility:3 — Persistent environment variables
+
+Reading, writing and removing any other environment variable in a persistent scope, the Windows registry for the user or the machine. It is
+the one seam through which tooling touches persistent environment state other than PATH, which keeps its own pair (responsibility 1).
 
 ## What the module does
 
@@ -49,10 +55,12 @@ The module has no configuration files and no private helpers. All input validati
 
 The module's public functions, sorted into the responsibilities above.
 
-| Responsibility                                  | Function               |
-| ----------------------------------------------- | ---------------------- |
-| responsibility:1 — Persistent PATH management   | `Get-EnvironmentPath`  |
-|                                                 | `Set-EnvironmentPath`  |
-|                                                 | `Add-PermanentPath`    |
-|                                                 | `Remove-PermanentPath` |
-| responsibility:2 — Session PATH synchronization | `Sync-SessionPath`     |
+| Responsibility                                      | Function                           |
+| --------------------------------------------------- | ---------------------------------- |
+| responsibility:1 — Persistent PATH management       | `Get-EnvironmentPath`              |
+|                                                     | `Set-EnvironmentPath`              |
+|                                                     | `Add-PermanentPath`                |
+|                                                     | `Remove-PermanentPath`             |
+| responsibility:2 — Session PATH synchronization     | `Sync-SessionPath`                 |
+| responsibility:3 — Persistent environment variables | `Get-PermanentEnvironmentVariable` |
+|                                                     | `Set-PermanentEnvironmentVariable` |

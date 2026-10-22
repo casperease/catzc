@@ -59,3 +59,4 @@ The functions the module exports, indexed by the responsibility each serves, and
 | responsibility:3 — Reading the kit            | `slides.yml`      |
 | responsibility:4 — Diagram render from source | `Build-Diagrams`  |
 |                                               | `Move-Diagram`    |
+|                                               | `Test-Diagrams`   |

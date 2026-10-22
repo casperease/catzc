@@ -9,13 +9,15 @@ itself is a managed, committed root file written by [Catzc.Base.RootConfig](catz
 
 ## Responsibilities
 
-| Responsibility   | Area     | Name                                                           |
-| ---------------- | -------- | -------------------------------------------------------------- |
-| responsibility:1 | render   | [Gitignore rendering](#responsibility1--gitignore-rendering)   |
-| responsibility:2 | registry | [The section registry](#responsibility2--the-section-registry) |
-| responsibility:3 | snapshot | [Repository snapshots](#responsibility3--repository-snapshots) |
-| responsibility:4 | read     | [Reading git](#responsibility4--reading-git)                   |
-| responsibility:5 | topic    | [The git topic flow](#responsibility5--the-git-topic-flow)     |
+| Responsibility   | Area     | Name                                                                   |
+| ---------------- | -------- | ---------------------------------------------------------------------- |
+| responsibility:1 | render   | [Gitignore rendering](#responsibility1--gitignore-rendering)           |
+| responsibility:2 | registry | [The section registry](#responsibility2--the-section-registry)         |
+| responsibility:3 | snapshot | [Repository snapshots](#responsibility3--repository-snapshots)         |
+| responsibility:4 | read     | [Reading git](#responsibility4--reading-git)                           |
+| responsibility:5 | topic    | [The git topic flow](#responsibility5--the-git-topic-flow)             |
+| responsibility:6 | import   | [Importing a repository](#responsibility6--importing-a-repository)     |
+| responsibility:7 | clean    | [Cleaning generated files](#responsibility7--cleaning-generated-files) |
 
 ### responsibility:1 — Gitignore rendering
 
@@ -40,8 +42,9 @@ A throwaway, verified copy of a working tree as it is right now. `New-Repository
 copies the source index so staged-versus-unstaged state matches, and copies the tracked and untracked-not-ignored files byte for byte —
 never through a checkout, which re-applies line-ending conversion. It then requires the snapshot's `git status` to equal the source's line
 for line, and throws (removing the half-built copy) on any difference. Ignored content is never copied. A provenance marker inside the
-snapshot's `.git` folder lets `Remove-RepositorySnapshot` refuse anything that is not a snapshot. The test harness runs a concurrent run in
-one (see [test-automation](../../drs/automation/test-automation.md#rule-adr-auto-test-runsneverwait)).
+snapshot's `.git` folder answers whether a repository is a snapshot, and lets `Remove-RepositorySnapshot` refuse anything that is not one.
+The test harness runs a concurrent run in one (see
+[test-automation](../../drs/automation/test-automation.md#rule-adr-auto-test-runsneverwait)).
 
 ### responsibility:4 — Reading git
 
@@ -61,6 +64,18 @@ point; and landing it as one commit by squash, rebase and squash, pushed by the 
 the repository, so it runs only at the user's hand ([FDR-GIT-USERRUNSGIT](../../drs/flow/git-topic-flow.md#rule-fdr-git-userrunsgit)); the
 Bash hook denies those commands to an agent, reading their names from `git.yml`, and the VS Code tasks offer them to the user.
 
+### responsibility:6 — Importing a repository
+
+Bringing an outside repository in with its full history, at one landing address under the unordered track
+([DDR-TRACK-UNORDEREDTRACK](../../drs/design/tracks.md#rule-ddr-track-unorderedtrack)): every commit of the source ref is kept, so the files
+sorted out of the track later carry their history with them.
+
+### responsibility:7 — Cleaning generated files
+
+A `git clean -fxd` that deletes only what the automation generates and owns. It asks git what a clean would remove, deletes exactly the
+candidates on the generated-file whitelist, and reports every candidate it refused, the untracked work that is not the automation's to
+delete. Everything it deletes but `out/` comes back with the next import.
+
 ## What the module does
 
 The module makes the repository's ignore rules a reviewed, explained artifact instead of an accreted one, and it holds the platform's git
@@ -78,13 +93,17 @@ list to maintain.
 
 The module's public surface, sorted into the responsibilities above.
 
-| Responsibility                          | Function                                              |
-| --------------------------------------- | ----------------------------------------------------- |
-| responsibility:1 — Gitignore rendering  | `New-GitIgnore`                                       |
-| responsibility:2 — The section registry | `gitignore.yml`                                       |
-| responsibility:3 — Repository snapshots | `New-RepositorySnapshot`, `Remove-RepositorySnapshot` |
-| responsibility:5 — The git topic flow   | `Get-SyncPoint`                                       |
-|                                         | `Save-Topic`                                          |
-|                                         | `Sync-Topic`                                          |
-|                                         | `Push-Topic`                                          |
-| config                                  | `git.yml`                                             |
+| Responsibility                              | Function                       |
+| ------------------------------------------- | ------------------------------ |
+| responsibility:1 — Gitignore rendering      | `New-GitIgnore`                |
+| responsibility:2 — The section registry     | `gitignore.yml`                |
+| responsibility:3 — Repository snapshots     | `New-RepositorySnapshot`       |
+|                                             | `Remove-RepositorySnapshot`    |
+|                                             | `Test-RepositorySnapshot`      |
+| responsibility:5 — The git topic flow       | `Get-SyncPoint`                |
+|                                             | `Save-Topic`                   |
+|                                             | `Sync-Topic`                   |
+|                                             | `Push-Topic`                   |
+| config                                      | `git.yml`                      |
+| responsibility:6 — Importing a repository   | `Import-RepositoryWithHistory` |
+| responsibility:7 — Cleaning generated files | `Reset-GitCleanFxd`            |

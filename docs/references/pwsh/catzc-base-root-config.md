@@ -70,6 +70,7 @@ The module's public surface, sorted into the responsibilities above.
 | Responsibility                                  | Function                    |
 | ----------------------------------------------- | --------------------------- |
 | responsibility:1 — Managed-file materialisation | `Build-RootConfig`          |
+|                                                 | `New-GitAttributes`         |
 | responsibility:2 — Root-config registry         | `rootconfig.yml`            |
 | responsibility:3 — Root-config quality gates    | `Test-RootConfigFiles`      |
 |                                                 | `Test-RootAnalyzerSettings` |

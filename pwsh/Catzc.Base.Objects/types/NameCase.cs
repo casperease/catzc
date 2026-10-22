@@ -5,6 +5,7 @@ catzc:
     with_body_sha: "69800fc3731f"
   edges:
     test: pwsh/Catzc.Base.Objects/tests/types/NameCase.Tests.ps1
+    docs: "[NameCase.cs.md](../../../docs/references/pwsh/catzc-base-objects/types/NameCase.cs.md)"
     cites:
       - ADR-AUTO-IDIOM-CLOSEDCASES
 ---

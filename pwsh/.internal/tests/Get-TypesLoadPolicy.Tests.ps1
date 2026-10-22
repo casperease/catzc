@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# cspell:ignore loaad  -- the misspelled policy key the unknown-key case feeds in on purpose
 Describe 'Get-TypesLoadPolicy' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:shipped = [System.IO.Path]::Combine((Split-Path $PSScriptRoot -Parent), 'assets', 'types-load.yml')

@@ -38,8 +38,9 @@ below.
 ### responsibility:3 — Subscription selection and context
 
 Choosing which subscription the session acts against, and running work pinned to a chosen one. This responsibility reads the active
-subscription, switches it, and runs a scriptblock against a selected subscription with the surrounding context restored afterward. It
-changes session _selection_ only — never credentials.
+subscription, switches it, and runs a scriptblock against a selected subscription with the surrounding context restored afterward. It also
+resolves the active subscription back to its declared identity in `azure.yml` (through [Catzc.Azure](catzc-azure.md)), so the session itself
+selects the deploy target. It changes session _selection_ only — never credentials.
 
 ### responsibility:4 — Connection-state inspection
 
@@ -108,6 +109,7 @@ The module's public functions, sorted into the responsibilities above.
 | responsibility:3 — Subscription selection and context | `Set-AzCliSubscription`              |
 |                                                       | `Get-CurrentAzSubscription`          |
 |                                                       | `Set-CurrentAzSubscription`          |
+|                                                       | `Get-AzCliSessionSubscription`       |
 |                                                       | `Invoke-InSubscription`              |
 | responsibility:4 — Connection-state inspection        | `Get-AzCliConnectionState`           |
 | responsibility:5 — By-args session verification       | `Assert-AzCliConnected`              |

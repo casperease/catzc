@@ -37,3 +37,8 @@ ten "may I" questions on edits the rules already require, three to five tool cal
       (task-user-runs-and-commits). Check: one message sent between sessions appears in `out/orchestrator-<date>.log`.
 - [ ] `.claude/skills/plans-orchestrate/SKILL.md` line 4: the log line is written by the hook when the hook covers it (after the step
       above). Check: `Test-AgentDefinitions`.
+
+## Open questions
+
+- The user's (from plan-debt-hindsight-gaps, deleted 2026-10-22 when its steps landed): a capability line saying a line that pre-approves
+  agent behaviour, or a `sed -i` delete, is denied by the permission system and goes to the user. Take it or leave it.

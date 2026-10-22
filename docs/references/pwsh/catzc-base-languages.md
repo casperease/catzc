@@ -6,17 +6,22 @@ a uv workspace root and a member `pyproject.toml` per module); for Bash it decla
 each it runs a catzc module's tests, returning one result per test. It does not install the tools (that is
 [Catzc.Tooling.Toolchain](catzc-tooling-toolchain.md)'s and the uv tooling's), write the rendered files (that is
 [Catzc.Base.RootConfig](catzc-base-root-config.md)'s, per [ADR-REPO-ROOTCFG](../../drs/repository/generated-root-configs.md)), or turn the
-results into Pester tests (that is the test harness's language bridge, in [Catzc.Base.QualityGates](catzc-base-quality-gates.md)).
+results into Pester tests (that is the test harness's language bridge, in [Catzc.Base.QualityGates](catzc-base-quality-gates.md)). It also
+holds the file-language registry every tracked file is placed by, a name's form in each language's idiom, and the head that says which
+generator wrote a generated file.
 
 ## Responsibilities
 
-| Responsibility   | Area   | Name                                                             |
-| ---------------- | ------ | ---------------------------------------------------------------- |
-| responsibility:1 | run    | [Go test runs](#responsibility1--go-test-runs)                   |
-| responsibility:2 | render | [Go test workspace](#responsibility2--go-test-workspace)         |
-| responsibility:3 | run    | [Python test runs](#responsibility3--python-test-runs)           |
-| responsibility:4 | render | [Python test workspace](#responsibility4--python-test-workspace) |
-| responsibility:5 | run    | [Bash test runs](#responsibility5--bash-test-runs)               |
+| Responsibility   | Area     | Name                                                               |
+| ---------------- | -------- | ------------------------------------------------------------------ |
+| responsibility:1 | run      | [Go test runs](#responsibility1--go-test-runs)                     |
+| responsibility:2 | render   | [Go test workspace](#responsibility2--go-test-workspace)           |
+| responsibility:3 | run      | [Python test runs](#responsibility3--python-test-runs)             |
+| responsibility:4 | render   | [Python test workspace](#responsibility4--python-test-workspace)   |
+| responsibility:5 | run      | [Bash test runs](#responsibility5--bash-test-runs)                 |
+| responsibility:6 | registry | [File-language registry](#responsibility6--file-language-registry) |
+| responsibility:7 | names    | [Names across languages](#responsibility7--names-across-languages) |
+| responsibility:8 | head     | [Generated-file heads](#responsibility8--generated-file-heads)     |
 
 ### responsibility:1 — Go test runs
 
@@ -95,6 +100,24 @@ duration, output, and category. A name starting with `integrity:` is `integrity`
 run throws, with the bats output, when the vendored runner is missing (naming `Update-BatsVendor`), or when bats fails without a failing
 test.
 
+### responsibility:6 — File-language registry
+
+Which file language every tracked file is written in. `languages.yml` names each language by its extensions, every extension in exactly one
+language ([DDR-TRACK-FILELANGUAGE](../../drs/design/tracks.md#rule-ddr-track-filelanguage)), and configures each language's formatter and
+checks; a path's file type is its extension, the sort of file inside its language. `file-carriers.yml` says where each class of file keeps
+its meta block, or why it has none ([file-meta](../../drs/repository/file-meta.md)). `bcl.yml` is the C# language's own settings: its one
+build configuration and platform, and the type sources that bind to a host, each with its reason.
+
+### responsibility:7 — Names across languages
+
+One name, written in each language's idiom. A name in a language's own case converts to the repository's one normal form, the configured
+`naming_normal_form`, and back out into any language's case, so a module, a folder and a test folder are the same name in every language.
+
+### responsibility:8 — Generated-file heads
+
+The head of a generated file, saying which generator or source wrote it, in the one form every generator writes. Its keys and their order
+are declared in `generated-head.yml`.
+
 ## What the module does
 
 The workspace makes the Go test folders buildable and the run uses them: the renderer gives every folder its `go.mod` and joins them in one
@@ -117,15 +140,24 @@ under either engine unchanged.
 
 ## Division
 
-The module's public functions and configuration file, sorted into the responsibilities above.
+The module's public functions and configuration files, sorted into the responsibilities above.
 
-| Responsibility                           | Function            |
-| ---------------------------------------- | ------------------- |
-| responsibility:1 — Go test runs          | `Invoke-GoTest`     |
-| responsibility:2 — Go test workspace     | `New-GoWorkspace`   |
-| config                                   | `go.yml`            |
-| responsibility:3 — Python test runs      | `Invoke-PythonTest` |
-| responsibility:4 — Python test workspace | `New-PythonProject` |
-| config                                   | `python.yml`        |
-| responsibility:5 — Bash test runs        | `Invoke-BashTest`   |
-| config                                   | `bash.yml`          |
+| Responsibility                            | Function                   |
+| ----------------------------------------- | -------------------------- |
+| responsibility:1 — Go test runs           | `Invoke-GoTest`            |
+| responsibility:2 — Go test workspace      | `New-GoWorkspace`          |
+| config                                    | `go.yml`                   |
+| responsibility:3 — Python test runs       | `Invoke-PythonTest`        |
+| responsibility:4 — Python test workspace  | `New-PythonProject`        |
+| config                                    | `python.yml`               |
+| responsibility:5 — Bash test runs         | `Invoke-BashTest`          |
+| config                                    | `bash.yml`                 |
+| responsibility:6 — File-language registry | `Get-FileLanguage`         |
+|                                           | `Get-PathFileType`         |
+| config                                    | `languages.yml`            |
+|                                           | `file-carriers.yml`        |
+|                                           | `bcl.yml`                  |
+| responsibility:7 — Names across languages | `ConvertTo-NormalName`     |
+|                                           | `ConvertFrom-NormalName`   |
+| responsibility:8 — Generated-file heads   | `Format-GeneratedFileHead` |
+| config                                    | `generated-head.yml`       |

@@ -38,4 +38,6 @@ Each function belongs to one responsibility.
 | Responsibility                            | Function                  |
 | ----------------------------------------- | ------------------------- |
 | responsibility:1 — Quality-gate reporting | `Write-QualityGateReport` |
-| responsibility:2 — Report settings        | `reports.yml`             |
+| responsibility:2 — Report settings        | `Clear-Output`            |
+| config                                    | `reports.yml`             |
+|                                           | `output-formats.yml`      |

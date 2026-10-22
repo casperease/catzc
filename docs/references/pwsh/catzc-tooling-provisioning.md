@@ -65,9 +65,12 @@ The module's public functions, sorted into the responsibilities above.
 |                                              | `Uninstall-DevBoxTools`    |
 |                                              | `Get-ToolsStatus`          |
 |                                              | `Assert-DevBoxToolsStatus` |
+|                                              | `Initialize-GitClone`      |
 | responsibility:2 — Workstation hygiene       | `Uninstall-Chocolatey`     |
 |                                              | `Clear-TempFolders`        |
 | responsibility:3 — Bespoke tool installers   | `Install-Git`              |
 |                                              | `Uninstall-Git`            |
 |                                              | `Install-Postman`          |
 |                                              | `Uninstall-Postman`        |
+|                                              | `Install-Zsh`              |
+|                                              | `Uninstall-Zsh`            |

@@ -109,10 +109,15 @@ The module's public functions and configuration, sorted into the responsibilitie
 |                                                   | `Uninstall-Tool`              |
 |                                                   | `Install-UvTool`              |
 |                                                   | `Uninstall-UvTool`            |
+|                                                   | `Install-UvVenvTool`          |
+|                                                   | `Uninstall-UvVenvTool`        |
 |                                                   | `Invoke-Uv`                   |
 |                                                   | `Save-VerifiedDownload`       |
 |                                                   | `Remove-SystemInstallation`   |
+|                                                   | `Remove-LinuxToolInstall`     |
+|                                                   | `Remove-MacToolInstall`       |
 |                                                   | `Get-InstallScope`            |
+|                                                   | `Test-ToolRequiresElevation`  |
 |                                                   | `Get-ScriptInstallDir`        |
 | responsibility:4 — Session tool reconciliation    | `Sync-SessionTools`           |
 | responsibility:5 — Per-engine fixture tables      | `Get-EngineCaseTable`         |

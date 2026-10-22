@@ -128,6 +128,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Test-CatzcBuild`             |
 |                                                 | `Test-InIsolation`            |
 |                                                 | `Get-TestTargetSkipReason`    |
+|                                                 | `Test-Change`                 |
 | config                                          | `test-policy.yml`             |
 | responsibility:2 — Repository quality gates     | `Test-GeneratedFiles`         |
 |                                                 | `Test-Formatting`             |
@@ -142,7 +143,17 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Test-Parsing`                |
 |                                                 | `Test-LogicTestIdentity`      |
 |                                                 | `Test-ConfigIdentityHygiene`  |
+|                                                 | `Test-ParameterConsistency`   |
+|                                                 | `Test-Plans`                  |
+|                                                 | `New-Plan`                    |
+|                                                 | `Get-DrsUsage`                |
+|                                                 | `Measure-QualityGates`        |
 | config                                          | `analyzer-drs-map.yml`        |
+|                                                 | `generated-files.yml`         |
+|                                                 | `source-conventions.yml`      |
+|                                                 | `parameter-consistency.yml`   |
+|                                                 | `plans.yml`                   |
+|                                                 | `edit-reminders.yml`          |
 | responsibility:3 — Document and code formatting | `Test-Spelling`               |
 |                                                 | `Export-SpellingTriage`       |
 |                                                 | `Test-Markdownlint`           |
@@ -168,6 +179,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Test-Comments`               |
 | config                                          | `links.yml`                   |
 |                                                 | `comments.yml`                |
+|                                                 | `file-meta.yml`               |
 | responsibility:4 — Terminology and dictionaries | `Build-TerminologyDictionary` |
 |                                                 | `Build-EnglishDictionary`     |
 |                                                 | `Test-Terminology`            |

@@ -19,6 +19,7 @@ and [Catzc.Base.Asserts](catzc-base-asserts.md).
 | responsibility:3 | workspace | [Git workspace variant](#responsibility3--git-workspace-variant)                 |
 | responsibility:4 | aspects   | [Aspect classification variant](#responsibility4--aspect-classification-variant) |
 | responsibility:5 | heads     | [File-heads variant](#responsibility5--file-heads-variant)                       |
+| responsibility:6 | tracks    | [Track and module-type variant](#responsibility6--track-and-module-type-variant) |
 
 ### responsibility:1 — Resource-name order variant
 
@@ -56,6 +57,14 @@ Whether an authored code or config file carries the navigation head — `minimal
 cites, its comment page and its test) or `none` (no authored file carries a head). `Get-FileHeadVariant` returns the mode of
 `file_heads.code` and `Test-FileHeadVariant -Minimal|-None` answers whether it is the one named; a generated file's head is outside the
 variant (see [repo-variants](../../drs/repository/repo-variants.md)).
+
+### responsibility:6 — Track and module-type variant
+
+The repository's tracks, each a placed cluster of one track type
+([DDR-TRACK-TRACKISPLACEDCLUSTER](../../drs/design/tracks.md#rule-ddr-track-trackisplacedcluster)), declared in `variants.yml` against the
+track types of `track-types.yml` and the module types of `module-types.yml`. `Get-Track` returns all tracks, the named ones, or the one that
+owns a path; `Get-TrackPlace` returns the place pattern of one kind of a track; `Get-PathModule` returns the module a path is placed in and
+its module type; `Test-TrackDeclaration` checks that tracks, track types, vendors and module types agree.
 
 ## What the module does
 
@@ -96,4 +105,10 @@ The module's public functions, sorted into the responsibilities above.
 |                                                  | `Test-AspectDeclaration` |
 | responsibility:5 — File-heads variant            | `Get-FileHeadVariant`    |
 |                                                  | `Test-FileHeadVariant`   |
+| responsibility:6 — Track and module-type variant | `Get-Track`              |
+|                                                  | `Get-TrackPlace`         |
+|                                                  | `Get-PathModule`         |
+|                                                  | `Test-TrackDeclaration`  |
 | config                                           | `variants.yml`           |
+|                                                  | `track-types.yml`        |
+|                                                  | `module-types.yml`       |
