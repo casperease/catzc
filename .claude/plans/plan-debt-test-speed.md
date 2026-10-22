@@ -30,7 +30,9 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
        `Invoke-TestFile` twice per file, the same test names and `Should` count, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 3. [ ] The next three files the report `out/test-optimization-2026-10-22.md` names, each measured and fixed as step 2, one session per file:
        `pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1` (17.2 s),
-       `pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1` (15.2 s) and
+       `pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1` (15.2 s; waits on the VSCode case-only rename like
+       `Import-Catzc.Tests.ps1`: its full build fails in 2.8 s on "Catzc.Base.VSCode has no function files", catzc-a0, 2026-10-22,
+       `out/catzc-a0-test-speed-3-parity.md`) and
        `pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1` (14.0 s); a file measured with no safe gain is recorded as left as it is (taken
        by the orchestrator as delegated, 2026-10-22). Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, and
        `Test-ScriptAnalyzer -Path` at 0 on each changed file.
