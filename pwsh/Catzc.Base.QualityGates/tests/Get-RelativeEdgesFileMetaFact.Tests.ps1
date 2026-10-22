@@ -22,7 +22,7 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
         Mock Get-Config -ModuleName Catzc.Base.Globs -ParameterFilter { $Config -eq 'file-kinds' } { $script:kinds }
 
         $script:relations = @(
-            @{ name = 'docs'; link = '[{leaf}]({relpath})'; rules = @(@{ paths = @('{page}') }) }
+            @{ name = 'docs'; link = '[{leaf}]({relative_path})'; rules = @(@{ paths = @('{page}') }) }
             @{ name = 'test'; rules = @(@{ classes = @('widget-function'); paths = @('widgets/{module}/tests/{stem}.Tests.ps1') }) }
             @{ name = 'source'; rules = @(@{ classes = @('widget-test'); paths = @('widgets/{module}/{stem}.ps1', 'widgets/{module}/private/{stem}.ps1') }) }
         )

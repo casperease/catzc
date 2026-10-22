@@ -40,8 +40,8 @@ stale or superseded item is recorded as such, with the reason.
 | high   | plan-agent-friction    | ADR-REPO-PLANS gains the three-part plan rule; a how-to for a head fact                         | Pester for Test-Plans and Test-Formatting, the hook test, Test-ParameterConsistency                   | the head how-to and drawing, the user's trim     |
 | medium | plan-bcl-language      | the BCL reference-set rule in ADR-AUTO-TYPES, the narrowed ADR-PWSH-TYPES rules, the bcl domain | Test-Links on the moved pages, Pester for the host-binding gate and config, Test-DrsRegistry          | one step left, the user's CLAUDE.md line         |
 | high   | plan-drs-system        | the DRS rule in ADR-REPO-DRSCODE, glossary entries for DRS, decision record and record kind     | Catzc.Base.Docs Pester, Update-DrsCitation dry run, Test-DrsRegistry, Test-Links, Test-GeneratedFiles | one step left, the user's CLAUDE.md edit         |
-| medium | plan-debt-import-path  | the new command's page                                                                          | Pester for the new command and importer.sh, one fresh import                                          | three steps, step 2 an import-path burst         |
-| medium | plan-debt-python-tests | the Invoke-PythonTest page states the lookup order                                              | Pester for Invoke-PythonTest, one live run                                                            | one step                                         |
+| medium | plan-debt-root-assets  | none (one catzc-run clause)                                                                     | Test-AgentDefinitions                                                                                 | one step                                         |
+| medium | plan-dense-yaml-flow |  |  | new |
 
 ## Pending deletion
 
@@ -86,3 +86,6 @@ Deleted 2026-10-21, every step landed (ADR-REPO-PLANS-DONEPLANDELETED):
   ADR-REPO-PLANS-THREEPARTS), and `Get-SlideOrderFinding` gives `Test-Slides` and `Build-SlideDeck` one deck order check.
 - plan-debt-docs: two how-tos (adding a command contract, testing an agent hook), ADR-PWSH-PARAM-CASESENSITIVEPATTERN, and the read edge row
   in the kit template's legend (the edge itself was already in STYLE.md and the renderer).
+- plan-debt-import-path: `Test-Parsing` parses ps1, psm1, psd1 and yml files without importing them, `importer.sh` passes a list parameter
+  as one array, and `catzc-verify` names `Test-Parsing` before an import-path burst.
+- plan-debt-python-tests: `Invoke-PythonTest` without `-Folder` runs a module's own `tests/` before the holder's, one case per layout.

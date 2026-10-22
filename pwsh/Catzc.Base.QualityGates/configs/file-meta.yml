@@ -30,7 +30,7 @@ kinds:
     settings:
       relations:
         - name: docs
-          link: "[{leaf}]({relpath})"
+          link: "[{leaf}]({relative_path})"
           rules:
             - { paths: ["{page}"] }
         - name: test

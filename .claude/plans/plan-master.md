@@ -53,13 +53,11 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - bcl-language -> plan-bcl-language.md: one step left, the CLAUDE.md line (the user's, task-user-runs-and-commits).
 - agent-friction -> plan-agent-friction.md: the user's CLAUDE.md trims only (task-user-runs-and-commits).
 - claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit only (Sub-agents cut, the pwsh index named; task-user-runs-and-commits).
-- session-learnings -> plan-session-learnings.md: two capability lines free (catzc-worker.md, catzc-run, one file each); catzc-49's lines
-  wait on catzc-49.
+- session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
-- debt-import-path -> plan-debt-import-path.md: an instant parse check before the next import, and importer.sh passing list parameters
-  (hindsight 031350); import-path burst
-- debt-python-tests -> plan-debt-python-tests.md: Invoke-PythonTest finds a Python module's own tests/ without -Folder, as its comment says;
-  one step
+- debt-root-assets -> plan-debt-root-assets.md: a root asset edit lands under a burst, since every import's Build-RootConfig janitor
+  materialises it; one step
+- dense-yaml-flow -> plan-dense-yaml-flow.md: A diagram declaration prints a node whose children are all scalars as one flow line when that line fits the markdown max_line_length, so a dense declaration reads in a fraction of the lines.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.
