@@ -8,7 +8,6 @@ catzc:
     docs: "[Test-Markdownlint.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-Markdownlint.ps1.md)"
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-REPO-README-AUTHOREDSOURCES
 ---
 #>
 

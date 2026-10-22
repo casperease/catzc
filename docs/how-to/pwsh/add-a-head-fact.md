@@ -9,13 +9,14 @@ rules.
 
 There are three outcomes, and a fact belongs to exactly one:
 
-- **A generated file's head**: the file's writer composes it, with the warning and the provenance keys. A fact here is written by the
-  writer, never imprinted; change the writer and the one head function it calls, not the imprint engine.
-- **An authored code or config file's navigation head**: present when the `file_heads.code` variant in
-  `pwsh/Catzc.Base.Variants/configs/variants.yml` says so (`minimal` by default, `none` for no head). It holds `with_body_sha` and the
-  edges, so a new fact here is a new edge, and a place fact (path, role, language, track, module) is derived on demand instead, never
-  written.
-- **No head**: authored Markdown, comment pages, assets and agent definitions. A fact about these files is a derived query, never a key.
+- **A generated file's head**: the file's writer composes it, with the warning and the provenance keys, and `with_body_sha` while git tracks
+  the file. A fact here is written by the writer, never imprinted; change the writer and the one head function it calls, not the imprint
+  engine.
+- **An authored file's head**: present only when the file has a comment page (`docs`) or rule codes to cite (`cites`), and it holds those
+  two edges and nothing else: no `with_body_sha`, no `test` or `code` edge. A new fact here is a new edge, and a place fact (path, role,
+  language, track, module) is derived on demand instead, never written.
+- **No head**: every other authored file, diagram declarations included, and binaries. Agent, skill and slide files keep their own tool's
+  front matter and are out of scope. A fact about these files is a derived query, never a key.
 
 If the fact can be derived on demand from the registries, git or the disk, derive it and stop: a head holds only what a reader needs to see
 in the file.

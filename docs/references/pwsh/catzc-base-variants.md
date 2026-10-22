@@ -53,10 +53,11 @@ module and never the file.
 
 ### responsibility:5 — File-heads variant
 
-Whether an authored code or config file carries the navigation head — `minimal` (the default: its body hash and its edges to the rules it
-cites, its comment page and its test) or `none` (no authored file carries a head). `Get-FileHeadVariant` returns the mode of
-`file_heads.code` and `Test-FileHeadVariant -Minimal|-None` answers whether it is the one named; a generated file's head is outside the
-variant (see [repo-variants](../../drs/repository/repo-variants.md)).
+Whether an authored code or config file carries the navigation head — `minimal` (the default: the head the
+[head policy](../../drs/repository/file-meta.md#rule-adr-repo-filemeta-headpolicy) calls for, its `cites` and `docs` edges only, and none on
+a file that has neither) or `none` (no authored file carries a head). `Get-FileHeadVariant` returns the mode of `file_heads.code` and
+`Test-FileHeadVariant -Minimal|-None` answers whether it is the one named; a generated file's head is outside the variant (see
+[repo-variants](../../drs/repository/repo-variants.md)).
 
 ### responsibility:6 — Track and module-type variant
 

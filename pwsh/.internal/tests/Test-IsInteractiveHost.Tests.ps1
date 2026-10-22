@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "48e15773626b"
+    with_body_sha: c8a9c0bfbf54
 ---
 #>
 

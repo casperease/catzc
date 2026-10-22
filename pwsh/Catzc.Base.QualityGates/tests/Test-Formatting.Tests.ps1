@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e830f9687a4c
+    with_body_sha: c1d33073cd9c
   edges:
     docs: "[Test-Formatting.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-Formatting.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1
@@ -25,6 +25,11 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
                     sprocket = [ordered]@{ extensions = @('.spr'); no_formatter = 'binary sprockets' }
                 }
             })
+        $script:carriers = [Catzc.Base.Languages.FileCarriersConfig]::new([ordered]@{
+                carriers = [ordered]@{
+                    gizmo = [ordered]@{ files = @('**/.gizmokeep'); carrier = 'none'; reason = 'a placeholder with nothing to format' }
+                }
+            })
         $script:root = Get-RepositoryRoot
         $script:widgetFile = Join-Path $script:root 'docs/widget.wdg'
         $script:gadgetFile = Join-Path $script:root 'gadgets/catzc-widget/gadget.gdg'
@@ -35,6 +40,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'languages' } { $script:languages }
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'file-carriers' } { $script:carriers }
         Mock Format-Code -ModuleName Catzc.Base.QualityGates { }
         Mock Get-FormatScope -ModuleName Catzc.Base.QualityGates { , [string[]] @() }
         $script:reportFolder = Join-Path $TestDrive 'formatting'
@@ -88,15 +94,16 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
         Should -Invoke Format-Code -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
     }
 
-    It 'reports a file in scope that no language claims, and counts a language that states its no_formatter reason as covered' -Tag 'ADR-AUTO-TEST-QUALITYGATE', 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
+    It 'reports a file no language or file class claims, and counts a stated no_formatter reason or a declared file class as covered' -Tag 'ADR-AUTO-TEST-QUALITYGATE', 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         $loose = Join-Path $script:root 'docs/widget.txt'
+        $placeholder = Join-Path $script:root 'docs/gadgets/.gizmokeep'
         $widget = $script:widgetFile
         $type = $script:typeFile
-        Mock Get-FormatScope -ModuleName Catzc.Base.QualityGates { , [string[]] @($widget, $loose, $type) }.GetNewClosure()
+        Mock Get-FormatScope -ModuleName Catzc.Base.QualityGates { , [string[]] @($widget, $loose, $type, $placeholder) }.GetNewClosure()
 
         $result = Test-Formatting -PassThru -OutputFolder $script:reportFolder
         $result.Issues | Should -Be @(
-            'docs/widget.txt: no Format-* command covers it — no file language in languages.yml claims its extension'
+            'docs/widget.txt: no Format-* command covers it — neither a file language in languages.yml nor a file class in file-carriers.yml claims it'
         )
 
         $null = Test-Formatting -Language widget -PassThru -OutputFolder $script:reportFolder

@@ -60,3 +60,12 @@ Test-Formatting
 ```powershell
 (Test-Formatting -Language pipeline-yaml -PassThru).Issues
 ```
+
+## comment:1
+
+Above `if (-not $Language) {`, written with `#`.
+
+```text
+Every file in scope is format-managed, unless a language was named to narrow the run: covered by its language's formatter or stated
+no_formatter reason, or by the file class file-carriers.yml declares for it; any other file is a finding.
+```

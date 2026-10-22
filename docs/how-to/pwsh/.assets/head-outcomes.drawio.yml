@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d3dc7322a29b
+#     with_body_sha: "49b6eece0715"
 # ---
 
 description:
@@ -26,7 +26,7 @@ content:
     - { id: g-gen-head, kind: result, label: "sha, warning, provenance", in: band-generated }
     - { id: g-auth-file, kind: file, label: authored code or config, in: band-authored }
     - { id: g-auth-gate, kind: gate, label: "file_heads.code: minimal", in: band-authored }
-    - { id: g-auth-head, kind: result, label: "sha, cites, docs, test", in: band-authored }
+    - { id: g-auth-head, kind: result, label: "cites, docs", in: band-authored }
     - { id: g-other-file, kind: file, label: "Markdown, pages, assets", in: band-other }
     - { id: g-other-gate, kind: gate, label: "head policy: forbidden", in: band-other }
     - { id: g-other-head, kind: result, label: no head, in: band-other }

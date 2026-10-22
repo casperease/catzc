@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "26167e4ea010"
+#     with_body_sha: e1c7a51872fb
 #   edges:
 #     docs: "[file-carriers.yml.md](../../../docs/references/pwsh/catzc-base-languages/configs/file-carriers.yml.md)"
 #     cites:
@@ -69,6 +69,12 @@ carriers:
   placeholder: { files: ["**/.gitkeep"], carrier: comment-head, line: "#" }
   delimited-data: { files: ["**/*.csv", "**/*.tsv"], carrier: none, reason: "a header row and records only, so a head would be a record" }
   license: { files: ["**/LICENSE", "**/LICENSE.txt"], carrier: none, reason: "legal text kept verbatim" }
+  copy-source:
+    {
+      files: ["pwsh/Catzc.Base.Docs/assets/gitkeep", "pwsh/Catzc.Base.RootConfig/assets/root/.gitattributes-template"],
+      carrier: none,
+      reason: "the source a copy is reproduced from, kept byte-identical to it",
+    }
   build-output:
     { files: ["**/*.dll", "**/*.pdb", "**/*.p7s"], carrier: none, reason: "a compiled or signed binary whose identity is its hash" }
   compiled-manifest:

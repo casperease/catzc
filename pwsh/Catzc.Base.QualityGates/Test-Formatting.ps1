@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "04f9ec4380d4"
+    with_body_sha: "9b1c6ae9873d"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
     docs: "[Test-Formatting.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-Formatting.ps1.md)"
@@ -66,14 +66,16 @@ function Test-Formatting {
         }
     }
 
-    # Every file in scope is format-managed: a file no formatter covers is a finding, unless a language was named to narrow the run.
     if (-not $Language) {
+        $resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers), $config)
         # Get-FormatScope returns its paths as one array: assign it, so foreach walks the paths, not the array.
         $scope = Get-FormatScope -RepositoryRoot (Get-RepositoryRoot) -Path $Path
         foreach ($file in $scope) {
             $fileLanguage = $config.ForPath($file)
             if ($null -eq $fileLanguage) {
-                & $addIssue $file 'no Format-* command covers it — no file language in languages.yml claims its extension'
+                if ($null -eq $resolver.For((ConvertTo-RepoRelativePath $file))) {
+                    & $addIssue $file 'no Format-* command covers it — neither a file language in languages.yml nor a file class in file-carriers.yml claims it'
+                }
             }
             elseif (-not $fileLanguage.formatter -and -not $fileLanguage.no_formatter) {
                 & $addIssue $file "no Format-* command covers it — its language '$($fileLanguage.name)' has no formatter and states no no_formatter reason"

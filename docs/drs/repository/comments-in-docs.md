@@ -9,10 +9,10 @@ order it depends on, the edge it guards, the reason a branch exists. A comment t
 the file's **comment page** and leaves **nothing** in the file: no marker, no insight line, no link. The comment's rule citations move with
 the rest of its prose and are found there. The way from a file to its page is the `pages` map of the `comment-pages` config
 ([ADR-REPO-COMMENTS-COMMENTPAGEPLACE](#rule-adr-repo-comments-commentpageplace)), so it is derived from the file's path, never a line of
-code. When the file-heads variant is `minimal` ([ADR-REPO-VARIANT-FILEHEADS](repo-variants.md#rule-adr-repo-variant-fileheads)), the file's
-navigation head shows that way as its `docs` edge, a link for a reader
-([ADR-REPO-FILEMETA-FEWLINKS](file-meta.md#rule-adr-repo-filemeta-fewlinks)), and no tool reads it back
-([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)); when it is `none`, nothing in the file points at the page.
+code. The file's head shows that way as its `docs` edge, a link for a reader
+([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy),
+[ADR-REPO-FILEMETA-FEWLINKS](file-meta.md#rule-adr-repo-filemeta-fewlinks)), and no tool reads it back
+([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)).
 
 - [Nothing in the file](#nothing-in-the-file)
 
