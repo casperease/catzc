@@ -27,13 +27,13 @@ on 2026-10-22 with five sessions running tests). A red file has its cause report
       which matches no tracked file (see the open question; `out/test-file/20261022-031859-d4dd28`). Check: `Invoke-TestFile` on it alone.
 - [ ] `Build-AgentHook.Tests.ps1` red twice on 2026-10-22 inside catzc-a0's bursts, a different hook's `BeforeAll` each time
       (`Assert-BashTimeout`, then `Record-AgentWrite`; `out/test-file/20261022-084552-621c34`, `out/test-file/20261022-084916-5711b2`), with
-      no error text: `Invoke-TestFile` prints a failed `BeforeAll`'s error record and inner exception in its summary, and `Build-AgentHook`
-      publishes with its intermediate and output folders under `-OutputDirectory`, so a test publish never shares the hook's `obj/` and
-      `bin/` with the importer's build or the live hooks (decided as delegated, catzc-a0's reading of a file race). (check:
-      `Invoke-TestFile.Tests.ps1` green with a case whose failing `BeforeAll` message appears in the summary, and
-      `Build-AgentHook.Tests.ps1` green three times in a row while another session imports)
-
-## Open questions
-
-- From catzc-e3's rerun (2026-10-22): the file kind `asset-description` in `file-kinds.yml` matches no tracked file. Retire it (its page
-  first, since a removed key is never dropped silently), or keep it for files still to come? Recommendation: retire it, with its page.
+      no error text: first `Invoke-TestFile` prints a failed `BeforeAll`'s error record and inner exception in its summary (a test whose
+      setup never ran carries the error of the nearest block that holds one); then the test file runs three times, and the fix for its cause
+      is decided once the real error is read (a file race is unlikely: no other session imported during the bursts; moving the publish's
+      `obj/` and `bin/` alone fails with CS0579 while the project's own `obj/` is a compile item). (check: `Invoke-TestFile.Tests.ps1` green
+      with a case whose failing `BeforeAll` message appears in the summary, and `Build-AgentHook.Tests.ps1` green three times in a row while
+      another session imports)
+- [ ] The file kind `asset-description` in `file-kinds.yml` matches no tracked file, so it is retired (decided by the orchestrator as
+      delegated, 2026-10-22): its meaning and context first go to a page under `docs/references` (a removed key is never dropped silently),
+      then the kind leaves `file-kinds.yml` and every reader or test that names it. (check: `Test-FileKindReachability.Tests.ps1` green, and
+      `asset-description` found only on that page by grep)

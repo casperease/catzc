@@ -93,6 +93,21 @@ Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
         $script:rows[2].ErrorMessage | Should -BeExactly ''
     }
 
+    It 'gives a test a failed setup never ran the error of the nearest block that holds one, with its inner exception' {
+        $test = New-FakeTest -Path 'Mod.Setup never ran' -Result 'Failed' -Ms 0 -Tags @('L2', 'logic') -File 'C:\x\Setup.Tests.ps1' -Line 7
+        $inner = [pscustomobject]@{ Message = 'widget file in use' }
+        $test.Block.Parent | Add-Member -NotePropertyName ErrorRecord -NotePropertyValue @([pscustomobject]@{
+                Exception        = [pscustomobject]@{ Message = 'widget publish failed'; InnerException = $inner }
+                ScriptStackTrace = 'at <ScriptBlock>, C:\x\Setup.Tests.ps1: line 3'
+            })
+        $row = InModuleScope Catzc.Base.QualityGates -Parameters @{ R = [pscustomobject]@{ Tests = @($test) } } {
+            param($R)
+            ConvertTo-TestAutomationRowSet -Result $R
+        }
+        $row.ErrorMessage | Should -BeExactly "widget publish failed`n  inner: widget file in use"
+        $row.ErrorStack | Should -Match 'Setup\.Tests\.ps1: line 3'
+    }
+
     It 'resolves the -Because skip key only on skipped rows' {
         $script:rows[2].SkipReason | Should -Be 'tool_az_missing'
         $script:rows[0].SkipReason | Should -BeExactly ''

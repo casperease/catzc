@@ -121,6 +121,15 @@ Describe 'StrictHostile' -Tag 'L0', 'logic' {
         ([System.IO.File]::ReadAllText((Join-Path $run.RunDirectory 'run.json')) | ConvertFrom-Json).status | Should -Be 'failed'
     }
 
+    It 'prints the error of a failed BeforeAll in its summary, so a test its setup never ran names the cause' {
+        $setup = Join-Path $TestDrive 'Setup.Tests.ps1'
+        [System.IO.File]::WriteAllText($setup, "Describe 'Setup' -Tag 'L0', 'logic' {`n    BeforeAll { throw 'widget setup broke' }`n    It 'never runs' { 1 | Should -Be 1 }`n}`n")
+        $run = Invoke-TestFile $setup -Output Minimal -PassThru
+        $run.Result | Should -Be 'Failed'
+        @($run.Rows)[0].ErrorMessage | Should -BeLike '*widget setup broke*'
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { "$Message" -like '*widget setup broke*' }
+    }
+
     It 'runs in a snapshot: the worker loads the snapshot, the report and the rows come home, the snapshot is removed' {
         Mock Write-Message -ModuleName Catzc.Base.Git { }
         Mock Write-Message -ModuleName Catzc.Base.QualityGates { }

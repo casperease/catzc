@@ -62,6 +62,10 @@ ten "may I" questions on edits the rules already require, three to five tool cal
   `Format-Code` may be a long comment moved verbatim to its comment page; check the page before reporting a word change", so a drone does
   not raise a re-imprint's comment move as a body change. Take it or leave it.
 
+- The orchestrator's third finalize (2026-10-22), a proposal, not applied: one line in `.claude/skills/catzc-run/SKILL.md`, "inside
+  `Invoke-CatzcCommand` call the gate itself, never a count of its issues", since a printed count passes the call whatever it is. Take it or
+  leave it.
+
 - The orchestrator's second finalize (2026-10-22), proposals, none applied: (1) one line in `.claude/skills/catzc-verify/SKILL.md`, "a test
   file red on HEAD is fixed inside the burst that touches its subject, never left out", since a left-out test cannot judge the change; (2) a
   burst leaves out only test files red for commit state or a named race, each listed in its plan step with what clears it. Take or leave

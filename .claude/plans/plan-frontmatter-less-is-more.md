@@ -56,7 +56,7 @@ the tree, they churn on every body edit, and agents read them on every file they
 ## Decided (the orchestrator, delegated, 2026-10-22)
 
 - A language that declares `no_formatter` with its reason counts as covered (a decision made in config); one with no reason does not.
-- The `file-heads` variant and ADR-REPO-VARIANT-FILEHEADS go: the rule above replaces them (PDR-ONELIVE).
+- The `file-heads` variant and its rule go: the rule above replaces them (PDR-ONELIVE).
 
 ## Open steps
 
@@ -67,5 +67,5 @@ the tree, they churn on every body edit, and agents read them on every file they
 
 ## Refs
 
-- The scans of the tree as it is: `out/frontmatter-scan-code.md` (catzc-e3) and `out/frontmatter-scan-docs.md` (catzc-54).
-- The mechanism today: `out/frontmatter-mechanism-map.md` (catzc-a0).
+- The scans of the tree as it is: `out/*-scan-code.md` (catzc-e3) and `out/*-scan-docs.md` (catzc-54).
+- The mechanism today: `out/*-mechanism-map.md` (catzc-a0).

@@ -20,8 +20,18 @@ function ConvertTo-TestAutomationRowSet {
         $errorMessage = ''
         $errorStack = ''
         if ($test.Result -eq 'Failed') {
-            $errorMessage = (@($test.ErrorRecord) | ForEach-Object { $_.Exception.Message }) -join "`n"
-            $errorStack = (@($test.ErrorRecord) | ForEach-Object { $_.ScriptStackTrace }) -join "`n"
+            $records = @($test.ErrorRecord)
+            # A test a failed setup never ran carries no error of its own: the nearest block above it that holds one names the cause.
+            $block = $test.PSObject.Properties['Block'] ? $test.Block : $null
+            while (-not $records.Count -and $block) {
+                $records = @($block.PSObject.Properties['ErrorRecord'] ? $block.ErrorRecord : @())
+                $block = $block.PSObject.Properties['Parent'] ? $block.Parent : $null
+            }
+            $errorMessage = (@($records) | ForEach-Object {
+                    $inner = $_.Exception.PSObject.Properties['InnerException'] ? $_.Exception.InnerException : $null
+                    $inner ? "$($_.Exception.Message)`n  inner: $($inner.Message)" : $_.Exception.Message
+                }) -join "`n"
+            $errorStack = (@($records) | ForEach-Object { $_.ScriptStackTrace }) -join "`n"
         }
 
         # The -Because reason feeds the skip report; resolved here because it reads the live ErrorRecord.
