@@ -37,3 +37,9 @@ on 2026-10-22 with five sessions running tests). A red file has its cause report
       delegated, 2026-10-22): its meaning and context first go to a page under `docs/references` (a removed key is never dropped silently),
       then the kind leaves `file-kinds.yml` and every reader or test that names it. (check: `Test-FileKindReachability.Tests.ps1` green, and
       `asset-description` found only on that page by grep)
+
+## Open questions
+
+- From the 2026-10-22 tag-gate fix: `Assert-TestTagGate` lists each untagged test by name only, so finding its file took a grep. Should each
+  line name the test file, and should the message say the valid categories are `logic` and `integrity` (one test used `integration`)?
+  Recommendation: yes, both in the one message.

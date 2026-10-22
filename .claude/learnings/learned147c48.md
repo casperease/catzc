@@ -45,3 +45,10 @@ Started 2026-10-22T09:08:25.1759302+02:00.
   terminal-environment question in one read.
 - 2026-10-22 Cats: Token tip: name the gate set once in one Invoke-CatzcCommand run instead of one run per gate; the run lock serialises
   them anyway.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: the test tag gate accepts only logic or integrity as a category; integration is not
+  one, and a Context with no category leaves every It below it untagged.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: an -Isolated run tests the git index, so the uncommitted case-only acronym renames
+  (task-user-runs-and-commits item 8) fail the normal-name round trip until the user git mvs them.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: Test-Automation scopes a run with -Modules, not -Path.
+- 2026-10-22 Cats: Token tip: Next time, save tokens by: grepping .claude/plans for a failing test name before proposing a fix, since the
+  plans may already hold the cause.
