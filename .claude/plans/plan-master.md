@@ -59,9 +59,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   one-line reports, pre-approved rule edits, derived step counts, an automatic log); three steps
 - debt-full-run-failures -> plan-debt-full-run-failures.md: the last full run's failing files rerun one at a time, since a red test blocks
   the user's full run; two steps
-- debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue; one step
-- dense-yaml-flow -> plan-dense-yaml-flow.md: one step; a diagram declaration prints each leaf node as one flow line when it fits the
-  markdown max_line_length; the pilot is azure-name-assembly.
+- debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue; two steps
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

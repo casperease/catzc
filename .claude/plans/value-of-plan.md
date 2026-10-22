@@ -42,8 +42,7 @@ stale or superseded item is recorded as such, with the reason.
 | high   | plan-drs-system             | the DRS rule in ADR-REPO-DRSCODE, glossary entries for DRS, decision record and record kind     | Catzc.Base.Docs Pester, Update-DrsCitation dry run, Test-DrsRegistry, Test-Links, Test-GeneratedFiles | one step left, the user's CLAUDE.md edit         |
 | high   | plan-debt-agent-traffic     | the catzc-run, report-fixed, catzc-worker and plans-orchestrate lines; the entry script page    | the entry script test, Test-Plans tests, the hook test, Test-AgentDefinitions                         | three steps                                      |
 | high   | plan-debt-full-run-failures | none (test reruns)                                                                              | one Invoke-TestFile per failing file                                                                  | two steps                                        |
-| medium | plan-debt-test-speed        | none (test files only)                                                                          | the measured test files, twice each                                                                   | one step                                         |
-| medium | plan-dense-yaml-flow        | ADR-REPO-SLIDES-DECLARATION gains the print form                                                | pytest test_declaration.py, Test-Formatting on the pilot, its render unchanged                        | one step; two open questions                     |
+| medium | plan-debt-test-speed        | none (test files only)                                                                          | the measured test files, twice each                                                                   | two steps                                        |
 
 ## Pending deletion
 
@@ -94,3 +93,5 @@ Deleted 2026-10-21, every step landed (ADR-REPO-PLANS-DONEPLANDELETED):
 - plan-debt-root-assets: `catzc-run` says a root asset edit starts with a HOLD, since every import's `Build-RootConfig` materialises it.
 - plan-debt-build-artifact-cause: `Get-DynamicManifestContent.Tests.ps1` asserts the build issues before the module count, so a failed build
   names its `[build]` reason.
+- plan-dense-yaml-flow: every diagram declaration prints a leaf node as one flow line when it fits the markdown `max_line_length`; all 176
+  reflowed, the printer in Prettier's form, three diagrams' minimaps re-declared from the tree.

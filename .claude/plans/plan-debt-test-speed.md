@@ -28,6 +28,12 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
        (plan-debt-full-run-failures step 2, the user's): its full-build test fails in 2 to 3 s on "Catzc.Base.VSCode has no function files"
        (catzc-a0, 2026-10-22; the reduced-build test alone is about 7 s), so the 22.1 s is measured once the build passes. Check:
        `Invoke-TestFile` twice per file, the same test names and `Should` count, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
+3. [ ] The next three files the report `out/test-optimization-2026-10-22.md` names, each measured and fixed as step 2, one session per file:
+       `pwsh/Catzc.Base.QualityGates/tests/Test-Markdownlint.Tests.ps1` (17.2 s),
+       `pwsh/Catzc.Base.QualityGates/tests/Test-CatzcBuild.Parity.Tests.ps1` (15.2 s) and
+       `pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1` (14.0 s); a file measured with no safe gain is recorded as left as it is (taken
+       by the orchestrator as delegated, 2026-10-22). Check: `Invoke-TestFile` twice per file, the same test names and `Should` count, and
+       `Test-ScriptAnalyzer -Path` at 0 on each changed file.
 
 ## Open questions
 
