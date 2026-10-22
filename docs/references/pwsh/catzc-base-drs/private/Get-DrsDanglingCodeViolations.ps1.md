@@ -11,3 +11,12 @@ Above `$pattern = "(?<![\w-])$($Adrs.CodeForm.Cited)(?![\w#-]|:\d)"`, written wi
 A code named in prose is a citation like a link: one that names no registered rule, record or domain dangles. Fenced blocks are
 examples, so they are left out, and a code followed by '#' or ':<n>' is another form the code-language check owns.
 ```
+
+## comment:2
+
+Above `$fence = $null`, written with `#`.
+
+```text
+A fence closes only on a bare run of its own character at least as long as the one that opened it, so a four-tick fence can hold
+a three-tick example whole.
+```

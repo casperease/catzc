@@ -27,10 +27,14 @@ and a scan goes through the bounded walker; the functions shrink or go, and a ne
 - **Functions:** one that only forwards to its type is deleted and its callers call the type (PDR-ONELIVE); a public command keeps a thin
   wrapper only where it is a user-facing contract.
 
+## The scan
+
+`out/bcl-path-sets-scan.md` (catzc-e3, 2026-10-22): 124 functions, 78 with a hand-built path set, 57 with a raw scan, 5 reading a module
+base, 3 feeding `Get-InputStamp`; 7 become pass-throughs. `Catzc.Base.QualityGates` holds 44. The owner type is confirmed per row in each
+module's step, since the scan guesses it from a file's `Get-Config` calls and also catches joins for output and temporary files, which stay.
+
 ## Open steps
 
-- [ ] The scan: every hit in the scope, its kind (path set, scan, module base, stamp input), the owning type and whether its function
-      becomes a pass-through (catzc-e3, `out/bcl-path-sets-scan.md`). (check: every module counted, the owning type named per hit)
 - [ ] The shared helper: a BCL path-set type (add a file under a base, add a pattern through the bounded walker, sorted unique result) in
       the module that owns path facts, with its type tests. Import-path, a burst. (check: its type test file green, one fresh full import)
 - [ ] The pilot: `FileMetaConfig.EngineInputs` replaces the body of `Get-FileMetaEngineStamp`, which goes if only a pass-through; the stamp

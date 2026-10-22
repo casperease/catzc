@@ -12,6 +12,7 @@ catzc:
       - PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL
       - PDR-ONELIVE-ONEVERSION
       - PDR-POKAYOKE-DETECTEARLIEST
+    drs_total: 9
 ---
 
 # ADR-REPO-SLIDES: slides as markdown files, rendered through patterns

@@ -1,4 +1,8 @@
 <!--
+  IF U SEE THIS highlighted in VSCode THEN Control Palette -> Developer: Reload Window
+  VSCode INTERNAL one-dotnet-pr-one-pwsh-session-including-internal-else-reload
+  Accept it for now
+
   IDE: It exists so VS Code's C# Dev Kit (and any Roslyn-based editor) compiles and analyzes
   the repo's native type sources — pwsh/<Module>/types/*.cs — with the SAME rules the runtime honors.
 

@@ -11,6 +11,7 @@ catzc:
       - ADR-REPO-COMMENTS-PAGEISAUTHORED
       - ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED
       - ADR-REPO-FORMAT-MARKDOWNTITLE
+    drs_total: 8
 ---
 
 # ADR: File meta — one block of derived facts, in the carrier each kind of file has
@@ -20,12 +21,13 @@ catzc:
 ### Rule ADR-REPO-FILEMETA-HEADPOLICY
 
 Every file on disk is **format-managed**: a `Format-*` command covers it and decides its **head policy**, whether it carries one **meta
-block** and which, and a file no format command covers is a finding. The default is no head; a head is printed only where it carries a fact
-worth its lines. A **generated file**, Markdown included, carries the head with the do-not-edit warning, and while git tracks the file the
-head also carries `with_body_sha`, the body it is immutable with, and nothing else; an untracked generated file carries the warning only, no
-sha ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). An **authored file tracked in git**, a source, config or
-template of any class, Markdown included (a Markdown doc is a config subtype of code, so one rule serves every authored class), carries a
-head only when it has (1) a comment page under `docs/references`, shown as `docs`
+block** and which, and a file no format command covers is a finding. A file is covered when its file language has a formatter or states its
+`no_formatter` reason, or when `file-carriers.yml` declares a file class for it. The default is no head; a head is printed only where it
+carries a fact worth its lines. A **generated file**, Markdown included, carries the head with the do-not-edit warning, and while git tracks
+the file the head also carries `with_body_sha`, the body it is immutable with, and nothing else; an untracked generated file carries the
+warning only, no sha ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). An **authored file tracked in git**, a
+source, config or template of any class, Markdown included (a Markdown doc is a config subtype of code, so one rule serves every authored
+class), carries a head only when it has (1) a comment page under `docs/references`, shown as `docs`
 ([ADR-REPO-FILEMETA-FEWLINKS](#rule-adr-repo-filemeta-fewlinks)), or (2) rule codes to cite, the codes the file and its comment page cite,
 shown as `cites` and counted as `drs_total` ([ADR-REPO-FILEMETA-FILEISNODE](#rule-adr-repo-filemeta-fileisnode)), and nothing else: no
 `with_body_sha`, no `test` or `code` edge. Such a head opens with a `warning` line naming the command that writes it, "Header is generated

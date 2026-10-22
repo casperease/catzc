@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: "6dce2ee47ab0"
-# ---
-
 """Black-box tests of Catzc.Base.Repository.
 
 Each test starts the engine as its own process the way the run's engine contract says — CATZC_ENGINE_EXECUTABLE, with
