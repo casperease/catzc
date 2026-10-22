@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
-    drs_total: 1
+      - ADR-REPO-README
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1

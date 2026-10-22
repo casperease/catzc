@@ -4,11 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-REPO-DRSCODE-NAMEDNOTNUMBERED
-      - ADR-REPO-VOCAB-DEFINEDTERM
-      - ADR-REPO-VOCAB-SOURCESINREPOSITORY
-      - ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED
-      - ADR-REPO-VOCAB-AVOIDEDPHRASINGREPLACED
-    drs_total: 5
+      - ADR-REPO-VOCAB
+    drs_total: 6
 ---
 
 # pwsh/Catzc.Base.Docs/private/Get-GlossarySourceViolations.ps1

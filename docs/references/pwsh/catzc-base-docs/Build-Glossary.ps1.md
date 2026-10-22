@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-REPO-README-AUTHOREDSOURCES
-    drs_total: 1
+      - ADR-REPO-VOCAB
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.Docs/Build-Glossary.ps1

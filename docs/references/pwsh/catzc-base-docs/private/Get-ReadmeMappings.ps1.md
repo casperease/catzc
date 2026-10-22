@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
-    drs_total: 1
+      - ADR-REPO-README
+    drs_total: 2
 ---
 
 # pwsh/Catzc.Base.Docs/private/Get-ReadmeMappings.ps1

@@ -5,10 +5,8 @@ catzc:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-PWSH-PARAM-RESOLUTIONORDER
-      - ADR-REPO-CONTRACT-LAYOUT
-      - ADR-REPO-CONTRACT-CONFIGUREDADDRESSING
-      - ADR-REPO-CONTRACT-NODOTFOLDERS
-    drs_total: 5
+      - ADR-REPO-CONTRACT
+    drs_total: 6
 ---
 
 # pwsh/Catzc.Base.Contracts/configs/contracts.yml

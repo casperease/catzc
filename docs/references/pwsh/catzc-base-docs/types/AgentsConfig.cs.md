@@ -9,7 +9,8 @@ catzc:
       - ADR-REPO-AGENTS-STANDARDDRONE
       - ADR-REPO-AGENTS-ROBOTBODYLIMIT
       - ADR-REPO-AGENTS-CAPABILITYFILE
-    drs_total: 6
+      - ADR-REPO-AI
+    drs_total: 7
 ---
 
 # pwsh/Catzc.Base.Docs/types/AgentsConfig.cs

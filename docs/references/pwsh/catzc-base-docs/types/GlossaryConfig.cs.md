@@ -4,8 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
-      - ADR-REPO-VOCAB-SOURCESINREPOSITORY
-    drs_total: 2
+      - ADR-REPO-VOCAB
+    drs_total: 3
 ---
 
 # pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs
