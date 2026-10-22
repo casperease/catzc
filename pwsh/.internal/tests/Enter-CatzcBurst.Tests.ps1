@@ -15,7 +15,8 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
         $script:exit = Join-Path $PSScriptRoot '../assets/Exit-CatzcBurst.ps1'
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
         $script:importer = Join-Path $TestDrive 'importer.ps1'
-        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`n")
+        # The run shows a command's output through Write-Message, so the stand-in importer defines it as the real import does.
+        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
         # Runs a burst on another thread, the way a session's background call would, and waits until it holds the lock.
         function script:Start-Burst {
             param([string] $Name, [int] $Seconds)
