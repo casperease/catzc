@@ -38,6 +38,12 @@ ten "may I" questions on edits the rules already require, three to five tool cal
 - [ ] `.claude/skills/plans-orchestrate/SKILL.md` line 4: the log line is written by the hook when the hook covers it (after the step
       above). Check: `Test-AgentDefinitions`.
 
+- [ ] The run lock's budget fits the call that waits (catzc-e3, 2026-10-22: a re-imprint call under `timeout 300` waited on a burst until the
+      Bash safeguard killed it, exit 124, because `run_lock.budget_seconds` defaults to 360): the default budget sits under the usual call
+      timeout, or `Invoke-CatzcCommand` takes it from its caller, so a waiter always stops with its own "retry after it" line first; and a
+      burst event whose holder process is gone (a killed burst) does not hold waiters (decided as delegated; catzc-54). (check:
+      `Wait-CatzcRunLock.Tests.ps1` green with a waiter-inside-a-300-s-call case and a dead-burst-holder case)
+
 ## Open questions
 
 - The user's (from plan-debt-hindsight-gaps, deleted 2026-10-22 when its steps landed): a capability line saying a line that pre-approves
