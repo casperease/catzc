@@ -60,8 +60,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - debt-full-run-failures -> plan-debt-full-run-failures.md: the last full run's failing files rerun one at a time, since a red test blocks
   the user's full run; two steps
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue; two steps
-- debt-gate-sweep -> plan-debt-gate-sweep.md: One gate per slice of docs, run by a free session, its findings fixed one file at a time, so
-  the user's full run meets fewer reds.
+- frontmatter-less-is-more -> plan-frontmatter-less-is-more.md: Every file on disk is format-managed and its Format command decides its
+  head: generated files a warning (and body sha when tracked), authored files only a docs link and DRS codes, else none.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

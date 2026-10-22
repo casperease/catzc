@@ -4,17 +4,17 @@
 
 ### Rule ADR-REPO-FILEMETA-HEADPOLICY
 
-A file carries one **meta block** exactly as its **head policy** says: `required`, `optional` or `forbidden`, with the defaults declared
-once on the policy's type
-([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). A generated file is
-`required`, tracked or not, and that is no setting: a generated file without its head is a finding
-([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). An authored code or config file, one whose carrier is a comment
-head or a JSON property, carries the navigation head exactly when the repo-wide variant says so
-([ADR-REPO-VARIANT-FILEHEADS](repo-variants.md#rule-adr-repo-variant-fileheads)), `minimal` by default. Every other file is `forbidden`:
-authored Markdown, comment pages, assets and agent definitions alike. A class entry of the meta-kind registry names the exceptions whose
-front matter a tool reads: a capability definition keeps its authored `config` part
-([ADR-REPO-AGENTS-NAMEDMODEL](agent-definitions.md#rule-adr-repo-agents-namedmodel)) and carries no imprinted part, and a slide's front
-matter belongs to the slide tooling. A file whose block disagrees with its policy, absent where required or present where forbidden, is a
+Every file on disk is **format-managed**: a `Format-*` command covers it and decides its **head policy**, whether it carries one **meta
+block** and which, and a file no format command covers is a finding. The default is no head; a head is printed only where it carries a fact
+worth its lines. A **generated file** carries the head with the do-not-edit warning, and while git tracks the file the head also carries
+`with_body_sha`, the body it is immutable with; an untracked generated file carries the warning only, no sha
+([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). An **authored file tracked in git**, a source, config, template
+or doc, carries a head only when it has (1) a comment page under `docs/references`, shown as `docs`
+([ADR-REPO-FILEMETA-FEWLINKS](#rule-adr-repo-filemeta-fewlinks)), or (2) decision records that cite it, shown as `cites`, and nothing else:
+no `with_body_sha`, no `test` or `code` edge. Every other file carries no head, and a `Format-*` run removes a head the policy does not call
+for. Agent and skill files are out of scope: they keep the editor's own front matter as authored, and a capability definition keeps its
+authored `config` part ([ADR-REPO-AGENTS-NAMEDMODEL](agent-definitions.md#rule-adr-repo-agents-namedmodel)); a slide's front matter belongs
+to the slide tooling. A file whose block disagrees with its policy, absent where the policy calls for it or present where it does not, is a
 finding. The block holds the facts the tooling owns about the file, written into the file's carrier. A Markdown file's carrier is the
 reserved front-matter key `catzc`, holding `with_body_sha` under `immutable`, its outgoing edges under `edges`
 ([ADR-REPO-FILEMETA-FILEISNODE](#rule-adr-repo-filemeta-fileisnode)) and its authored config contributions under `config`
@@ -130,15 +130,15 @@ without one is a visible finding, or an `exclude` entry of its carrier with the 
 ### Rule ADR-REPO-FILEMETA-FEWLINKS
 
 The head is a map of facts about its own file, so it holds as few links to other files as possible, and only those that cost to derive and
-truly define a relationship. The edges of a code file point at its **relatives**, at most three edges with fixed names: `docs` (its comment
-page, [ADR-REPO-COMMENTS-ONELINEOFINSIGHT](comments-in-docs.md#rule-adr-repo-comments-onelineofinsight), written as a link whose target is
-the page's path from the file's own folder and whose text is the page's file name), `test` (the test file that tests it) and, on a test,
-`code` (the file it tests), so `source` keeps its one meaning, the authored input of a generated file. A relative stays inside the file's
-own module or its docs section, never in another module, so modules relate to each other by name and never through a file path
-(encapsulation), and a page knows its code by its name, so it records no edge back. The edges and the rules that fill them are the
-`relative-edges` kind's settings in `file-meta.yml`, so a new edge is a registry entry, never a new mechanism. An edge points at a file that
-exists on disk, and an edge with no file is left out. No file carries a pointer of its own in its code: the head is the one place a code
-file names its relatives.
+truly define a relationship. A file has one **relative** edge, `docs`: its comment page under `docs/references`
+([ADR-REPO-COMMENTS-ONELINEOFINSIGHT](comments-in-docs.md#rule-adr-repo-comments-onelineofinsight)), written as a GitHub-clickable link
+whose target is the page's path from the file's own folder and whose text is the page's file name. A file has no `test` or `code` edge: a
+test is found by convention, its stem under `tests/`, so a head would only repeat it, and `source` keeps its one meaning, the authored input
+of a generated file. The page sits in the file's own docs section, never in another module, so modules relate to each other by name and
+never through a file path (encapsulation), and a page knows its code by its name, so it records no edge back. The edge and the rule that
+fills it are the `relative-edges` kind's settings in `file-meta.yml`, so a new edge is a registry entry, never a new mechanism. The edge
+points at a page that exists on disk, and with no page it is left out. No file carries a pointer of its own in its code: the head is the one
+place a file names its page.
 
 - [Relatives](#relatives)
 
