@@ -2,13 +2,14 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "93a2c94c6aed"
+    with_body_sha: c93b9732f9f8
   edges:
     docs: "[Get-GlossarySourceViolations.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Get-GlossarySourceViolations.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/private/Get-GlossarySourceViolations.ps1
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
       - ADR-PWSH-PESTER-PRIVATETHROUGHMODULE
+      - ADR-REPO-DRSCODE-NAMEDNOTNUMBERED
       - ADR-REPO-VOCAB-DEFINEDTERM
       - ADR-REPO-VOCAB-SOURCESINREPOSITORY
       - ADR-REPO-VOCAB-SIMILARTERMSCONTRASTED

@@ -3,6 +3,8 @@
 catzc:
   immutable:
     with_body_sha: ae545a72a12a
+  edges:
+    docs: "[Add-MinimapHit.ps1.md](../../../docs/references/pwsh/catzc-base-maps/private/Add-MinimapHit.ps1.md)"
 ---
 #>
 

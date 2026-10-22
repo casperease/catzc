@@ -36,7 +36,7 @@ function Get-HelpPageFinding {
     $legacy = @($tokens | Where-Object {
             $_.Kind -eq [System.Management.Automation.Language.TokenKind]::Comment -and
             $_.Text.StartsWith('<#', [System.StringComparison]::Ordinal) -and
-            $_.Text -cmatch '(?m)^\.(SYNOPSIS|DESCRIPTION|PARAMETER|INPUTS|OUTPUTS|EXAMPLE|NOTES)\b'
+            $_.Text -cmatch '(?m)^\s*\.(SYNOPSIS|DESCRIPTION|PARAMETER|INPUTS|OUTPUTS|EXAMPLE|NOTES)\b'
         })
     if ($legacy.Count -gt 0) {
         $findings.Add('comment-based help is not used: write the help in the ## help section of the comment page')

@@ -7,10 +7,6 @@ catzc:
 #>
 
 function Read-ListenIndex {
-    <#
-    .SYNOPSIS
-        Reads a session's file index (seen.json or baseline.json) as path to { length, ticks, hash }.
-    #>
     [CmdletBinding()]
     [OutputType([hashtable])]
     param(

@@ -27,6 +27,11 @@ The pages that embed the diagram's png, repository-relative.
 
 The repository root the paths are under.
 
+### parameter `CarrierMap`
+
+Where each diagram's declaration lives, read once by Get-DiagramCarrierMap for a caller that checks many diagrams in one run. Default: the
+map read from the draw.io kit for this call.
+
 ### outputs
 
 `[string]` One line per page whose Supports line disagrees with the declaration.

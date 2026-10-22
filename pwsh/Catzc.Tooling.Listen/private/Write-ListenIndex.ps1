@@ -7,10 +7,6 @@ catzc:
 #>
 
 function Write-ListenIndex {
-    <#
-    .SYNOPSIS
-        Writes a session's file index, its paths in ordinal order, so two equal indexes are equal files.
-    #>
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position = 0)]

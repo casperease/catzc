@@ -5,6 +5,7 @@ catzc:
     with_body_sha: "5bd393d7c869"
   edges:
     test: pwsh/Catzc.Base.Objects/tests/ConvertTo-BclValue.Tests.ps1
+    docs: "[ConvertTo-BclValue.ps1.md](../../docs/references/pwsh/catzc-base-objects/ConvertTo-BclValue.ps1.md)"
 ---
 #>
 

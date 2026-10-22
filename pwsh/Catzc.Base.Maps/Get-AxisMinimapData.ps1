@@ -6,6 +6,8 @@ catzc:
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-AxisMinimapData.Tests.ps1
     docs: "[Get-AxisMinimapData.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-AxisMinimapData.ps1.md)"
+    cites:
+      - ADR-AUTO-ENGINE
 ---
 #>
 

@@ -55,6 +55,11 @@ The file-language registry. Default: the shipped languages.yml.
 
 The head keys in writing order. Default: the shipped generated-head.yml.
 
+### parameter `Pages`
+
+The comment-pages config that names the file's comment page, written as the head's `docs` edge when the page exists. Default: the shipped
+comment-pages.yml.
+
 ### outputs
 
 `[string]` The text with the head written first.

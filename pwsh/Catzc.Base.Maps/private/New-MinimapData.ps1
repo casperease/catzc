@@ -3,6 +3,8 @@
 catzc:
   immutable:
     with_body_sha: "467566e9fbc6"
+  edges:
+    docs: "[New-MinimapData.ps1.md](../../../docs/references/pwsh/catzc-base-maps/private/New-MinimapData.ps1.md)"
 ---
 #>
 

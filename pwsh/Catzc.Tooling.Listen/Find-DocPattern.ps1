@@ -9,30 +9,6 @@ catzc:
 #>
 
 function Find-DocPattern {
-    <#
-    .SYNOPSIS
-        Searches the session's committed reference for a pattern, tier by tier: the one search the processor and its scouts use.
-
-    .DESCRIPTION
-        Reads only reference/, the repository at the pinned commit with committed files only (New-DocSnapshot), never the live tree, so
-        every scout sees the same truth and every match is stated at one commit. A binary file (a NUL in its first 8000 bytes, git's test)
-        is skipped. Each match carries its file's tier, so a caller searches the rules first and the rest after.
-
-    .PARAMETER Session
-        The session folder. Default: the newest session.
-
-    .PARAMETER Pattern
-        The regular expression to find, case-sensitive.
-
-    .PARAMETER Tier
-        Only files in these tiers (listen.yml's tier names, or its rest tier).
-
-    .PARAMETER Path
-        Only under this repository-relative folder: a scout's slice.
-
-    .OUTPUTS
-        [pscustomobject] per matching line: Path (repository-relative), Line, Text, Kind, Tier.
-    #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(

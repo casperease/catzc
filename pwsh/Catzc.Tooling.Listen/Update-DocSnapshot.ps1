@@ -9,20 +9,6 @@ catzc:
 #>
 
 function Update-DocSnapshot {
-    <#
-    .SYNOPSIS
-        Moves a session's seen copy forward for the named files, so the next Get-DocChange no longer reports them.
-
-    .DESCRIPTION
-        For each repository-relative path: a file on disk is copied into seen/ and its seen.json entry rewritten; a file gone from disk is
-        removed from both. baseline/ never moves.
-
-    .PARAMETER Session
-        The session folder. Default: the newest session.
-
-    .PARAMETER Path
-        The repository-relative paths to move forward; for a rename, both the old and the new path.
-    #>
     [CmdletBinding()]
     param(
         [string] $Session,

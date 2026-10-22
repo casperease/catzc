@@ -13,8 +13,8 @@ Quality gate: every internal asset dependency is inventoried and covered by a te
 
 A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)) enforcing the
 coverage rule
-[ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY](../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically)
-over the module code. It collects an issue for:
+[ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY](../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically):
+over the module code, it collects an issue for:
 
 - every Get-CatzcModuleRoot call site whose -ChildPath or -Module is not a string literal
   ([ADR-AUTO-ASSETDEP-LITERALCHILDPATH](../../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-literalchildpath)) —

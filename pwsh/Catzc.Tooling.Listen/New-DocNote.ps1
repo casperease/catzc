@@ -9,24 +9,6 @@ catzc:
 #>
 
 function New-DocNote {
-    <#
-    .SYNOPSIS
-        Writes one note for one settled change: notes/<id>.md, written once and never again.
-
-    .DESCRIPTION
-        A note is raw fact, the editor's correction as it stands: the path, the change, the file kind and tier, the rules the file cites,
-        the commit the reference is pinned at, the diff against seen/ (this change) and the diff against baseline/ (the file's arc over the
-        session). It holds no interpretation; understanding is the processor's. The id is the next four-digit number in the session.
-
-    .PARAMETER Session
-        The session folder. Default: the newest session.
-
-    .PARAMETER Change
-        One Get-DocChange record against seen/.
-
-    .OUTPUTS
-        [pscustomobject] with Id and Path (the note file).
-    #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(

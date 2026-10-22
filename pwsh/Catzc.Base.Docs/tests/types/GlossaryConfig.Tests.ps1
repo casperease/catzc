@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "95dfd7a817ed"
+    with_body_sha: a8d6346a6cc7
   edges:
     docs: "[GlossaryConfig.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-docs/tests/types/GlossaryConfig.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Docs/types/GlossaryConfig.cs

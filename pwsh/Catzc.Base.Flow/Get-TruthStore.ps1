@@ -2,9 +2,10 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "718c2979d4ea"
+    with_body_sha: "349c37f3c57a"
   edges:
     test: pwsh/Catzc.Base.Flow/tests/Get-TruthStore.Tests.ps1
+    docs: "[Get-TruthStore.ps1.md](../../docs/references/pwsh/catzc-base-flow/Get-TruthStore.ps1.md)"
     cites:
       - TDR-ONETRUTH-TRUTHISQUERYABLE
       - TDR-STORES-THREEKINDS
@@ -12,27 +13,6 @@ catzc:
 #>
 
 function Get-TruthStore {
-    <#
-    .SYNOPSIS
-        Emits the truth stores of truth-stores.yml as data: each store's name, kind, URL and owning state machine.
-
-    .DESCRIPTION
-        The query a question about where truth lives is answered by
-        ([TDR-ONETRUTH-TRUTHISQUERYABLE](/docs/drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable)): every store catzc reads, writes
-        or reports to is one entry of truth-stores.yml, classified by its kind
-        ([TDR-STORES-THREEKINDS](/docs/drs/thesis/truth-stores.md#rule-tdr-stores-threekinds)). With no filter
-        it emits every
-        store in declared order.
-
-    .PARAMETER Name
-        Only the stores with these names.
-
-    .PARAMETER StoreKind
-        Only the stores of these kinds.
-
-    .OUTPUTS
-        [Catzc.Base.Flow.TruthStore] per store.
-    #>
     [CmdletBinding()]
     [OutputType([Catzc.Base.Flow.TruthStore])]
     param(

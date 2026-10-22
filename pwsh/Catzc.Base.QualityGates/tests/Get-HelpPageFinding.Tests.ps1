@@ -58,6 +58,12 @@ Describe 'Get-HelpPageFinding' -Tag 'L0', 'logic', 'ADR-REPO-HELP-FIVEFAULTSREPO
         $found | Should -Contain 'a help line is made of nothing but a citation or a page link, which the tooling derives'
     }
 
+    It 'reports a comment-based help block indented inside the function' {
+        $indented = $script:code.Replace("{`n    [CmdletBinding()]", "{`n    <#`n    .SYNOPSIS`n        Gets.`n    #>`n    [CmdletBinding()]")
+        $body = "### synopsis`n`nGets.`n`n### parameter ``Name```n`nN.`n`n### parameter ``Force```n`nF.`n"
+        & $script:find $indented (& $script:page $body) | Should -Be @('comment-based help is not used: write the help in the ## help section of the comment page')
+    }
+
     It 'passes the section''s shape faults through' {
         & $script:find $script:code (& $script:page "### description`n`nGets.`n`n### parameter ``Name```n`nN.`n`n### parameter ``Force```n`nF.`n") |
             Should -Be @('the help section has no synopsis')

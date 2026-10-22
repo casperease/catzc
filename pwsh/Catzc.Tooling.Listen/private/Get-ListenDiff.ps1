@@ -7,14 +7,6 @@ catzc:
 #>
 
 function Get-ListenDiff {
-    <#
-    .SYNOPSIS
-        The unified diff of two files outside any repository (git diff --no-index); a missing side diffs as empty.
-
-    .DESCRIPTION
-        git diff --no-index exits 1 when the files differ, so the exit code is not asserted. The header lines name the two temporary
-        sides, so the diff starts at its first hunk.
-    #>
     [CmdletBinding()]
     [OutputType([string])]
     param(

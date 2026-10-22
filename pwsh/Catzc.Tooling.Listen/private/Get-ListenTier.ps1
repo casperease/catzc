@@ -7,10 +7,6 @@ catzc:
 #>
 
 function Get-ListenTier {
-    <#
-    .SYNOPSIS
-        Names a repository-relative path's file kind (Get-FileKind) and the listen tier that kind sits in.
-    #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(

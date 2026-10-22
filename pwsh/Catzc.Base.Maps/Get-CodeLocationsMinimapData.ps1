@@ -6,6 +6,8 @@ catzc:
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-CodeLocationsMinimapData.Tests.ps1
     docs: "[Get-CodeLocationsMinimapData.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-CodeLocationsMinimapData.ps1.md)"
+    cites:
+      - ADR-AUTO-ENGINE
 ---
 #>
 

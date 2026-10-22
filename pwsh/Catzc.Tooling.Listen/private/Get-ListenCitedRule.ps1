@@ -10,10 +10,6 @@ catzc:
 #>
 
 function Get-ListenCitedRule {
-    <#
-    .SYNOPSIS
-        Lists the ADR codes a text cites, each once, in ordinal order.
-    #>
     [CmdletBinding()]
     [OutputType([string[]])]
     param(

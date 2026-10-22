@@ -5,6 +5,9 @@ catzc:
     with_body_sha: ad4e31d2e7fd
   edges:
     test: pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1
+    docs: "[Get-GridMinimapData.ps1.md](../../docs/references/pwsh/catzc-base-maps/Get-GridMinimapData.ps1.md)"
+    cites:
+      - ADR-AUTO-ENGINE
 ---
 #>
 

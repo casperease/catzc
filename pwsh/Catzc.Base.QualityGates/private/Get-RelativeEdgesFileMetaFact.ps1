@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "5d8dd1f20bb9"
+    with_body_sha: "1bce5764674f"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Get-RelativeEdgesFileMetaFact.Tests.ps1
     docs: "[Get-RelativeEdgesFileMetaFact.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-RelativeEdgesFileMetaFact.ps1.md)"

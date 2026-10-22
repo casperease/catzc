@@ -7,10 +7,6 @@ catzc:
 #>
 
 function Get-AgentHookName {
-    <#
-    .SYNOPSIS
-        Names every agent hook: each folder under .claude/hooks/ that holds a .csproj, in ordinal order.
-    #>
     [CmdletBinding()]
     [OutputType([string[]])]
     param()

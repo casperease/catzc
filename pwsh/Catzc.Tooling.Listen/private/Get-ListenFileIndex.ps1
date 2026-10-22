@@ -7,16 +7,6 @@ catzc:
 #>
 
 function Get-ListenFileIndex {
-    <#
-    .SYNOPSIS
-        Indexes every file under a folder: repository-relative path to length, last-write ticks and content hash.
-
-    .PARAMETER Root
-        The folder to index.
-
-    .PARAMETER Prefix
-        The repository-relative path the folder stands for (e.g. 'docs'), prepended to every key.
-    #>
     [CmdletBinding()]
     [OutputType([System.Collections.Generic.SortedDictionary[string, object]])]
     param(

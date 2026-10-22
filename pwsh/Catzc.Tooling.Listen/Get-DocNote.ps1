@@ -9,30 +9,6 @@ catzc:
 #>
 
 function Get-DocNote {
-    <#
-    .SYNOPSIS
-        Lists a session's notes, from their heads, and whether the processor has processed each.
-
-    .DESCRIPTION
-        A note is processed when processed.md, the processor's ledger (Complete-DocNote), holds a line for its id. The note files are read,
-        never written.
-
-    .PARAMETER Session
-        The session folder. Default: the newest session.
-
-    .PARAMETER Unprocessed
-        Only the notes the ledger has no line for.
-
-    .PARAMETER Source
-        Only the notes whose change came from these writers: editor (the editor's own saves, the processor's input), agent (a Claude
-        Code session) or unknown (neither ledger knows it).
-
-    .OUTPUTS
-        [pscustomobject] per note, in id order: Id, File (the changed path), Change, From, Kind, Tier, Source, Agent (the agent's session
-        id), Rules, Commit, Note (the note file),
-        Session (the session folder, which every later call about the note names, since a new session numbers its notes from 0001
-        again), Processed.
-    #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(

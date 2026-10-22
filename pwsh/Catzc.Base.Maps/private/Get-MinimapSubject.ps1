@@ -3,6 +3,10 @@
 catzc:
   immutable:
     with_body_sha: "9175b823b057"
+  edges:
+    docs: "[Get-MinimapSubject.ps1.md](../../../docs/references/pwsh/catzc-base-maps/private/Get-MinimapSubject.ps1.md)"
+    cites:
+      - ADR-AUTO-ENGINE
 ---
 #>
 

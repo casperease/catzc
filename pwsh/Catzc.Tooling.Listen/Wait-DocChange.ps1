@@ -11,25 +11,6 @@ catzc:
 #>
 
 function Wait-DocChange {
-    <#
-    .SYNOPSIS
-        Waits until a change of the watched folder has settled, and returns it; returns nothing when the wait's bound runs out.
-
-    .DESCRIPTION
-        Polls Get-DocChange every poll_milliseconds. Once a change shows, it waits until the set of changes, diffs included, has stayed the
-        same for quiet_seconds, so one burst of saves is one change. The whole wait is bounded by -TimeoutSeconds
-        ([ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](/docs/drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait)); the
-        listener simply waits again after a bound runs out.
-
-    .PARAMETER Session
-        The session folder. Default: the newest session.
-
-    .PARAMETER TimeoutSeconds
-        The bound of this wait. Default: listen.yml's change_wait_seconds.
-
-    .OUTPUTS
-        [pscustomobject] per settled change (Get-DocChange's records), or nothing.
-    #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(

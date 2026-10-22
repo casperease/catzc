@@ -3,6 +3,37 @@
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+The axis minimap's data: the value chain re-cut by the minimap axis of maps.yml, lit where a diagram's subject is placed.
+
+### description
+
+The rows are the axis rows of the maps config, each gathering its value-chain stacks, and the columns are its delivery concerns. A cell
+holds the ADR count of the value-chain cells it gathers, and is lit by the requested ADR codes Get-ValueChainHighlight places there, each
+reason marked as placed by its domain or by a concern override. An ADR whose concerns all fall outside the columns lights its whole row
+instead, at the place [row, '*'], with the concern it sits under as the note.
+
+### parameter `Adr`
+
+The ADR codes of the diagram's subject.
+
+### parameter `AsJson`
+
+Return the data as JSON in the minimap contract's shape instead of the object.
+
+### outputs
+
+`[Catzc.Base.Maps.MinimapData]`, or `[string]` with -AsJson.
+
+### example 1
+
+```powershell
+(Get-AxisMinimapData ADR-AUTO-ENGINE).Lit
+```
+
 ## comment:1
 
 Above `$axis = (Get-Config -Config maps).minimap_axis`, written with `#`.
