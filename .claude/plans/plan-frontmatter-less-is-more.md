@@ -32,6 +32,11 @@ the tree, they churn on every body edit, and agents read them on every file they
 - **`cites:`** holds the codes the file and its comment page cite (today's derivation), for every authored class.
 - **Diagram declarations** (`*.drawio.yml`) carry no head; their codes stay in the body's `about.adrs`.
 - **Binary generated files** (`pwsh/.compiled`) are format-managed with no head possible, never a finding.
+- **Markdown is a config subtype of code**: authored Markdown follows the same rule as code and config, a head only when it has a comment
+  page (`docs:`) or cites rule codes (`cites:`); **generated Markdown keeps its generated head**, the warning and `with_body_sha` while
+  tracked.
+- **A generated head holds the warning and `with_body_sha` while tracked, nothing else**: `role`, `track`, `generator`, `source` and a
+  generated code file's `cites` go.
 
 ## Decided (the orchestrator, delegated, 2026-10-22)
 

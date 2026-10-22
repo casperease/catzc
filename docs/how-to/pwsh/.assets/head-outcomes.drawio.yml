@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "49b6eece0715"
+#     with_body_sha: "6b76bf34a171"
 # ---
 
 description:
@@ -18,17 +18,17 @@ content:
   theme: dark
   bands:
     - { id: band-generated, label: GENERATED }
-    - { id: band-authored, label: AUTHORED CODE OR CONFIG }
+    - { id: band-authored, label: "AUTHORED CODE, CONFIG OR MARKDOWN" }
     - { id: band-other, label: EVERYTHING ELSE }
   glyphs:
     - { id: g-gen-file, kind: file, label: generated file, in: band-generated }
     - { id: g-gen-gate, kind: gate, label: writer registry entry, in: band-generated }
-    - { id: g-gen-head, kind: result, label: "sha, warning, provenance", in: band-generated }
-    - { id: g-auth-file, kind: file, label: authored code or config, in: band-authored }
-    - { id: g-auth-gate, kind: gate, label: "file_heads.code: minimal", in: band-authored }
+    - { id: g-gen-head, kind: result, label: "warning; sha while tracked", in: band-generated }
+    - { id: g-auth-file, kind: file, label: "authored code, config or Markdown", in: band-authored }
+    - { id: g-auth-gate, kind: gate, label: docs or cites, in: band-authored }
     - { id: g-auth-head, kind: result, label: "cites, docs", in: band-authored }
-    - { id: g-other-file, kind: file, label: "Markdown, pages, assets", in: band-other }
-    - { id: g-other-gate, kind: gate, label: "head policy: forbidden", in: band-other }
+    - { id: g-other-file, kind: file, label: "files with neither docs nor cites: pages, assets, diagram declarations", in: band-other }
+    - { id: g-other-gate, kind: gate, label: neither docs nor cites, in: band-other }
     - { id: g-other-head, kind: result, label: no head, in: band-other }
   edges:
     - { from: g-gen-file, to: g-gen-gate, kind: flow, label: "" }
