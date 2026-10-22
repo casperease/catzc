@@ -64,7 +64,7 @@ Describe 'Build-AgentHook' -Tag 'L0', 'logic' {
             Copy-Item -LiteralPath $hostExecutable -Destination (Join-Path $script:outputDirectory ($assembly + [IO.Path]::GetExtension($hostExecutable)))
         }
         $programs = @(Build-AgentHook -OutputDirectory $script:outputDirectory)
-        @($programs | ForEach-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) }) | Should -Be @('Assert-BashTimeout', 'Record-AgentWrite', 'Show-EditReminder')
+        @($programs | ForEach-Object { [System.IO.Path]::GetFileNameWithoutExtension($_) }) | Should -Be @('Assert-BashTimeout', 'Record-AgentWrite', 'Record-SessionMessage', 'Show-EditReminder')
         Join-Path $script:outputDirectory 'Record-AgentWrite.source.sha256' | Should -Exist
         Get-Content -LiteralPath (Join-Path $script:outputDirectory 'Record-AgentWrite.source.sha256') -Raw | Should -BeLike '*Catzc.Tooling.Listen/types/WriteLedger.cs:*'
     }
@@ -230,5 +230,54 @@ Describe 'Build-AgentHook — the published Record-AgentWrite' -Tag 'L2', 'logic
         $result.ExitCode | Should -Be 0
         $result.Output | Should -BeNullOrEmpty
         @(Get-LedgerLine).Count | Should -Be 0
+    }
+}
+
+Describe 'Build-AgentHook — the published Record-SessionMessage' -Tag 'L2', 'logic' {
+    BeforeAll {
+        # Publish the real program into the test drive; it finds the repository three folders above itself.
+        $script:root = Join-Path $TestDrive 'repo'
+        $script:program = Build-AgentHook Record-SessionMessage -OutputDirectory (Join-Path $script:root '.claude/hooks/bin') -Force
+        $script:log = Join-Path $script:root "out/orchestrator-$([DateTime]::Now.ToString('yyyy-MM-dd', [cultureinfo]::InvariantCulture)).log"
+
+        function Invoke-Hook {
+            param([string] $Payload)
+            $output = $Payload | & $script:program
+            [pscustomobject]@{ ExitCode = $LASTEXITCODE; Output = ($output -join '') }
+        }
+
+        function Get-LogLine {
+            @(if (Test-Path -LiteralPath $script:log) {
+                    Get-Content -LiteralPath $script:log
+                })
+        }
+    }
+
+    BeforeEach {
+        Remove-Item -LiteralPath $script:log -ErrorAction Ignore
+    }
+
+    It 'logs a message the session sends, with its short session id, the peer and the first line' {
+        $result = Invoke-Hook '{"hook_event_name":"PostToolUse","tool_name":"SendMessage","session_id":"gadget-1234-5678","tool_input":{"to":"widget","message":"\n spin the widget \nsecond line"}}'
+        $result.ExitCode | Should -Be 0
+        $result.Output | Should -BeNullOrEmpty
+        Get-LogLine | Should -HaveCount 1
+        (Get-LogLine)[0] | Should -Match '^\d{2}:\d{2} gadget-1 -> widget: spin the widget$'
+    }
+
+    It 'logs each cross-session message a prompt carries, with its sender' {
+        $prompt = '<cross-session-message from=\"uds:pipe\" from-name=\"widget\" from-mode=\"prompting\">\nhold; oil the gadget\n</cross-session-message>'
+        Invoke-Hook ('{"hook_event_name":"UserPromptSubmit","session_id":"gadget","prompt":"' + $prompt + '"}') | Out-Null
+        Get-LogLine | Should -HaveCount 1
+        (Get-LogLine)[0] | Should -Match '^\d{2}:\d{2} widget -> gadget: hold; oil the gadget$'
+    }
+
+    It 'logs nothing for a prompt a person typed or another tool, and never fails or blocks on input it cannot read' {
+        Invoke-Hook '{"hook_event_name":"UserPromptSubmit","session_id":"gadget","prompt":"spin the widget"}' | Out-Null
+        Invoke-Hook '{"hook_event_name":"PostToolUse","tool_name":"Edit","session_id":"gadget","tool_input":{"file_path":"widget.md"}}' | Out-Null
+        $result = Invoke-Hook 'not json'
+        $result.ExitCode | Should -Be 0
+        $result.Output | Should -BeNullOrEmpty
+        @(Get-LogLine).Count | Should -Be 0
     }
 }

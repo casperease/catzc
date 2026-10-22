@@ -1,6 +1,8 @@
 /*
 ---
 catzc:
+  immutable:
+    with_body_sha: "9e58b3cc07f4"
   edges:
     test: pwsh/Catzc.Tooling.Claude/tests/types/ClaudeWorkerConfig.Tests.ps1
 ---

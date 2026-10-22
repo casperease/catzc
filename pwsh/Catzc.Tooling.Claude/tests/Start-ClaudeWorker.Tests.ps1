@@ -1,11 +1,12 @@
 <#
 ---
 catzc:
+  immutable:
+    with_body_sha: "37c31842701d"
   edges:
     code: pwsh/Catzc.Tooling.Claude/Start-ClaudeWorker.ps1
     cites:
       - ADR-PWSH-DRYRUN-EARLYRETURNBRANCH
-      - ADR-AUTO-TEST-PROCESSTRIPWIRE
 ---
 #>
 

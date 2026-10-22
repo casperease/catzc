@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "8b4f475d8598"
+    with_body_sha: ebe5608b0d76
   edges:
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
@@ -13,7 +13,10 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
         $script:importer = Join-Path $TestDrive 'importer.ps1'
-        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Test-Gadget { param([string] `$Result) [pscustomobject]@{ Result = `$Result } }`nfunction Get-Config { param([string] `$Config) @{ tests = @{ run_lock_seconds = 1 } } }`n")
+        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Test-Gadget { param([string] `$Result) [pscustomobject]@{ Result = `$Result } }`n")
+        # An importer that throws, so a run that must not import shows it did not.
+        $script:throwingImporter = Join-Path $TestDrive 'throwing-importer.ps1'
+        [System.IO.File]::WriteAllText($script:throwingImporter, "throw 'imported'`n")
         # Each run takes a lock of its own, so a real run holding the machine's lock never touches the test.
         $script:lockName = "Local\catzc-test-$([guid]::NewGuid())"
         # Holds the lock on another thread for the given milliseconds, the way another run would.
@@ -22,15 +25,15 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
             $taken = [System.Threading.ManualResetEventSlim]::new($false)
             $shell = [powershell]::Create().AddScript({
                     param($Name, $Milliseconds, $Taken)
-                    $held = [System.Threading.Mutex]::new($true, $Name)
+                    $held = [System.Threading.Mutex]::new($false, $Name)
+                    $null = $held.WaitOne()
                     $Taken.Set()
                     Start-Sleep -Milliseconds $Milliseconds
                     $held.ReleaseMutex()
                     $held.Dispose()
                 }).AddArgument($Name).AddArgument($Milliseconds).AddArgument($taken)
             $handle = $shell.BeginInvoke()
-            $null = $taken.Wait(2000)
-            [pscustomobject]@{ Shell = $shell; Handle = $handle }
+            [pscustomobject]@{ Shell = $shell; Handle = $handle; Taken = $taken.Wait(2000) }
         }
     }
 
@@ -71,6 +74,19 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
         (Get-Location).Path | Should -Be $caller
     }
 
+    It 'releases the run lock when the import throws' {
+        { & $script:entry 'Get-Widget' -Importer $script:throwingImporter -LockName $script:lockName } | Should -Throw 'imported'
+        # Another thread takes it at once, which it could not while this thread still held it.
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1
+        try {
+            $holder.Taken | Should -BeTrue
+        }
+        finally {
+            $holder.Shell.EndInvoke($holder.Handle)
+            $holder.Shell.Dispose()
+        }
+    }
+
     It 'throws when no command is named' {
         { & $script:entry -Importer $script:importer -LockName $script:lockName } | Should -Throw '*name at least one command*'
     }
@@ -78,7 +94,7 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     It 'says it waits for a held run lock, then runs once the lock is free' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 300
         try {
-            $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName)
+            $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1)
             $LASTEXITCODE | Should -Be 0
             $lines[0] | Should -BeExactly '[Invoke-CatzcCommand] waiting for the run lock: another run holds it (up to 1 s)'
             $lines[1] | Should -BeExactly '[Invoke-CatzcCommand] passed: Get-Widget'
@@ -89,10 +105,10 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'stops with run lock busy, running nothing, when the lock stays held past its wait' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+    It 'stops with run lock busy, importing and running nothing, when the lock stays held past its wait' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500
         try {
-            $lines = @(& $script:entry 'throw "ran"' -Importer $script:importer -LockName $script:lockName)
+            $lines = @(& $script:entry 'throw "ran"' -Importer $script:throwingImporter -LockName $script:lockName -LockSeconds 1)
             $LASTEXITCODE | Should -Be 1
             $lines | Should -Be @(
                 '[Invoke-CatzcCommand] waiting for the run lock: another run holds it (up to 1 s)'

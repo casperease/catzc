@@ -1,0 +1,115 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Text.Json;
+using System.Text.RegularExpressions;
+using System.Threading;
+
+namespace Catzc.Hooks;
+
+public static class RecordSessionMessage
+{
+    public static int Main()
+    {
+        try
+        {
+            string repositoryRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
+            DateTimeOffset now = DateTimeOffset.Now;
+            List<string> lines = LinesFor(Console.In.ReadToEnd(), now);
+            if (lines.Count > 0)
+            {
+                Append(Path.Combine(repositoryRoot, "out", "orchestrator-" + now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + ".log"), lines);
+            }
+        }
+        catch (Exception)
+        {
+            // A hook that logs must never cost the message it logs.
+        }
+        return 0;
+    }
+
+    // A received message arrives as the prompt's own cross-session-message element, naming its sender in from-name.
+    private static readonly Regex Received = new Regex(
+        "<cross-session-message\\b[^>]*?\\bfrom-name=\"(?<from>[^\"]*)\"[^>]*>(?<body>.*?)</cross-session-message>",
+        RegexOptions.Singleline | RegexOptions.CultureInvariant);
+
+    // The log lines for one hook input: one per message sent or received, none for any other input.
+    public static List<string> LinesFor(string input, DateTimeOffset now)
+    {
+        List<string> lines = new List<string>();
+        using (JsonDocument document = JsonDocument.Parse(input))
+        {
+            JsonElement root = document.RootElement;
+            string at = now.ToString("HH:mm", CultureInfo.InvariantCulture);
+            string session = Short(Text(root, "session_id"));
+            string hookEvent = Text(root, "hook_event_name");
+
+            if (hookEvent == "PostToolUse" && Text(root, "tool_name") == "SendMessage")
+            {
+                JsonElement toolInput;
+                if (!root.TryGetProperty("tool_input", out toolInput) || toolInput.ValueKind != JsonValueKind.Object) { return lines; }
+                string to = Text(toolInput, "to");
+                if (to == null) { return lines; }
+                lines.Add(at + " " + session + " -> " + to + ": " + FirstLine(Text(toolInput, "message")));
+            }
+            else if (hookEvent == "UserPromptSubmit")
+            {
+                string prompt = Text(root, "prompt");
+                if (prompt == null || !prompt.TrimStart().StartsWith("<cross-session-message", StringComparison.Ordinal)) { return lines; }
+                foreach (Match match in Received.Matches(prompt))
+                {
+                    lines.Add(at + " " + match.Groups["from"].Value + " -> " + session + ": " + FirstLine(match.Groups["body"].Value));
+                }
+            }
+        }
+        return lines;
+    }
+
+    private static string Text(JsonElement element, string name)
+    {
+        JsonElement value;
+        return element.TryGetProperty(name, out value) && value.ValueKind == JsonValueKind.String ? value.GetString() : null;
+    }
+
+    // A session is named by the first eight characters of its id, which the hook input carries; its display name is not in the input.
+    private static string Short(string session)
+    {
+        if (string.IsNullOrEmpty(session)) { return "unknown"; }
+        return session.Length > 8 ? session.Substring(0, 8) : session;
+    }
+
+    // The message's first non-empty line, at most 200 characters, so one message is one log line.
+    private static string FirstLine(string message)
+    {
+        if (message == null) { return string.Empty; }
+        foreach (string line in message.Split('\n'))
+        {
+            string trimmed = line.Trim();
+            if (trimmed.Length > 0) { return trimmed.Length > 200 ? trimmed.Substring(0, 200) : trimmed; }
+        }
+        return string.Empty;
+    }
+
+    // Several sessions append at once; the lines are written whole under a shared append, retried while another writer holds the file.
+    private static void Append(string path, List<string> lines)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(path));
+        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(string.Join("\n", lines) + "\n");
+        for (int attempt = 0; attempt < 20; attempt++)
+        {
+            try
+            {
+                using (FileStream stream = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
+                {
+                    stream.Write(bytes, 0, bytes.Length);
+                }
+                return;
+            }
+            catch (IOException)
+            {
+                Thread.Sleep(10);
+            }
+        }
+    }
+}

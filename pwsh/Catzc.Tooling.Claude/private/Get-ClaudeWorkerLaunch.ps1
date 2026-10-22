@@ -1,10 +1,8 @@
 <#
 ---
 catzc:
-  edges:
-    code: pwsh/Catzc.Tooling.Claude/Start-ClaudeWorker.ps1
-    cites:
-      - ADR-PWSH-PARAM-RESOLUTIONORDER
+  immutable:
+    with_body_sha: "05e9c7ad7d53"
 ---
 #>
 
