@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "16e1fae9c516"
+    with_body_sha: "6322c0694cd2"
   edges:
     docs: "[Get-SlideFinding.ps1.md](../../../docs/references/pwsh/catzc-base-slides/private/Get-SlideFinding.ps1.md)"
     cites:
@@ -15,7 +15,7 @@ function Get-SlideFinding {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory, Position = 0)]
         [pscustomobject] $Slide,
 
         [Parameter(Mandatory)]

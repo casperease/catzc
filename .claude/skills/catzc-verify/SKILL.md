@@ -14,7 +14,7 @@ metadata:
 
 # catzc-verify
 
-1. Per file right after its edit, through catzc-check: parse every `.ps1`/`.psm1` (a stray `'` breaks the importer for every session), then
+1. Per file right after its edit, through catzc-check: `Test-Parsing -Path <ps1, psm1, psd1, yml>` (a stray `'` breaks every import), then
    `Invoke-TestFile -Path <its test file>`; re-read a file right before editing it and never overwrite another session's in-flight edit. A
    rename of a folder or command the tooling names lands its import-path readers (`rootconfig.yml` and Build-RootConfig's writers,
    `Get-LanguageTestFolders`, the `.internal` loaders, the contract readers) in the same pass after a HOLD to every peer ListAgents shows,

@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "151947906ec7"
+    with_body_sha: b9249eeeff92
   edges:
     test: pwsh/Catzc.Base.Languages/tests/Invoke-PythonTest.Tests.ps1
     docs: "[Invoke-PythonTest.ps1.md](../../docs/references/pwsh/catzc-base-languages/Invoke-PythonTest.ps1.md)"
@@ -40,7 +40,14 @@ function Invoke-PythonTest {
         [System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath($Folder, $root)).Replace('\', '/').TrimEnd('/')
     }
     else {
-        "$pythonRelative/tests/$((Get-Config -Config languages).TestFolderOf('python', $Module))"
+        $moduleFolder = (Get-Config -Config languages).TestFolderOf('python', $Module)
+        $own = "$pythonRelative/$moduleFolder/tests"
+        if (Test-Path -LiteralPath (Join-Path $root $own) -PathType Container) {
+            $own
+        }
+        else {
+            "$pythonRelative/tests/$moduleFolder"
+        }
     }
     $folder = Join-Path $root $relative
     if (-not (Test-Path -LiteralPath $folder -PathType Container)) {

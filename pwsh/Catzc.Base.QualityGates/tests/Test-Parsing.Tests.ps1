@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "56fb13902ea0"
+    with_body_sha: cced929203cc
   edges:
     code: pwsh/Catzc.Base.QualityGates/Test-Parsing.ps1
     cites:

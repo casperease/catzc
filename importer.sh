@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "0725a57c58eb"
+#     with_body_sha: "53f1e31f2b76"
 #     warning: "Do Not Edit, this file is generated"
 #     role: script
 #     generator: pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
@@ -20,7 +20,8 @@
 #
 # A command with a command contract is named in kebab case, its parameters as --name, and is checked first against
 # pwsh/.internal/assets/importer-commands.sh, the generated lookup: an unknown parameter, a missing mandatory one or a value not
-# of the contract's type fails before pwsh starts, a switch passes as a flag and an int unquoted (ADR-REPO-CMDCONTRACT-ONEREADER);
+# of the contract's type fails before pwsh starts, a switch passes as a flag and an int unquoted, and a list parameter repeats its
+# --name once per value, its values passing as one PowerShell array (ADR-REPO-CMDCONTRACT-ONEREADER);
 # CATZC_COMMAND_LOOKUP names another lookup, for a test. Any other command is named as pwsh names it, an argument that starts with
 # '-' passes through as a parameter name, and every other argument after the command is passed as one PowerShell literal, quoted
 # the PowerShell way, so a value with spaces or a quote stays one value, as it is for a contracted command too. Every call
@@ -106,6 +107,7 @@ _catzc_checked() {
     _catzc_call="$(printf '%s\n' "$_catzc_table" | awk -F '\t' 'NR == 1 { print $12 }')"
     _catzc_seen=' '
     _catzc_positional=0
+    _catzc_lists=''
     while [ "$#" -gt 0 ]; do
         _catzc_argument="$1"
         shift
@@ -118,6 +120,7 @@ _catzc_checked() {
                     return 2
                 fi
                 _catzc_type="$(printf '%s\n' "$_catzc_row" | awk -F '\t' '{ print $3 }')"
+                _catzc_list="$(printf '%s\n' "$_catzc_row" | awk -F '\t' '{ print $4 }')"
                 _catzc_bound="$(printf '%s\n' "$_catzc_row" | awk -F '\t' '{ print $13 }')"
                 _catzc_seen="$_catzc_seen$_catzc_name "
                 if [ "$_catzc_type" = 'switch' ]; then
@@ -138,20 +141,29 @@ _catzc_checked() {
                                 return 2
                                 ;;
                         esac
-                        _catzc_call="$_catzc_call -$_catzc_bound $_catzc_value"
+                        _catzc_rendered="$_catzc_value"
                         ;;
                     bool)
                         case "$_catzc_value" in
-                            true | True | 1) _catzc_call="$_catzc_call -$_catzc_bound:\$true" ;;
-                            false | False | 0) _catzc_call="$_catzc_call -$_catzc_bound:\$false" ;;
+                            true | True | 1) _catzc_rendered="\$true" ;;
+                            false | False | 0) _catzc_rendered="\$false" ;;
                             *)
                                 echo "cats: $_catzc_command: --$_catzc_name takes true or false, not '$_catzc_value' ($_catzc_asset)" >&2
                                 return 2
                                 ;;
                         esac
                         ;;
-                    *) _catzc_call="$_catzc_call -$_catzc_bound $(_catzc_literal "$_catzc_value")" ;;
+                    *) _catzc_rendered="$(_catzc_literal "$_catzc_value")" ;;
                 esac
+                # A list parameter takes its --name once per value; the values gather into one array, passed after the loop.
+                if [ "$_catzc_list" = '1' ]; then
+                    _catzc_lists="$_catzc_lists$_catzc_bound	$_catzc_rendered
+"
+                elif [ "$_catzc_type" = 'bool' ]; then
+                    _catzc_call="$_catzc_call -$_catzc_bound:$_catzc_rendered"
+                else
+                    _catzc_call="$_catzc_call -$_catzc_bound $_catzc_rendered"
+                fi
                 ;;
             -*)
                 echo "cats: $_catzc_command takes its parameters in kebab case, as --name ($_catzc_asset)" >&2
@@ -163,6 +175,12 @@ _catzc_checked() {
                 ;;
         esac
     done
+    if [ -n "$_catzc_lists" ]; then
+        _catzc_call="$_catzc_call$(printf '%s' "$_catzc_lists" | awk -F '\t' '
+            !($1 in values) { order[++n] = $1; values[$1] = $2; next }
+            { values[$1] = values[$1] ", " $2 }
+            END { for (i = 1; i <= n; i++) printf " -%s %s", order[i], values[order[i]] }')"
+    fi
     # The parameter set the named parameters fit (column 8 lists a parameter's sets, empty for every set; column 9 is the default
     # set): the one set they fit, or the default set when they fit several. A mandatory parameter counts only in that set.
     _catzc_verdict="$(printf '%s\n' "$_catzc_table" | awk -F '\t' -v seen="$_catzc_seen" -v positional="$_catzc_positional" '

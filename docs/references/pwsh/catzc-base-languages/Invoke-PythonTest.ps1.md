@@ -11,11 +11,10 @@ Runs a catzc module's Python tests and returns one result per Python test.
 
 ### description
 
-In the module's Python test folder, `<root>/tests/<module-in-kebab>/` (Catzc.Base.Repository -> catzc-base-repository; the Python root is
-python.yml's `root`, by default python/ when the repository has one, else .python/), runs three uv commands from the Python root, the uv
-workspace root, through Invoke-Executable, each inside its time safeguard (the `uv` entry of timeouts.yml). It runs the managed uv by its
-path: the caller's -UvExecutable, or the one located from its tools.yml entry by Resolve-ToolExecutable, never a bare uv off PATH; it throws
-with "Run Install-Uv" when no uv at the pin is found.
+In the module's Python test folder (the Python root is python.yml's `root`, by default python/ when the repository has one, else .python/),
+runs three uv commands from the Python root, the uv workspace root, through Invoke-Executable, each inside its time safeguard (the `uv`
+entry of timeouts.yml). It runs the managed uv by its path: the caller's -UvExecutable, or the one located from its tools.yml entry by
+Resolve-ToolExecutable, never a bare uv off PATH; it throws with "Run Install-Uv" when no uv at the pin is found.
 
 ```text
 uv sync --all-packages                            makes the workspace's one environment (<root>/.venv) and lock
@@ -71,7 +70,9 @@ The engine's executable, already located by the caller. Default: located here by
 ### parameter `Folder`
 
 The test folder to run, repository-relative or absolute: the holder's `<root>/tests/<kebab>` or a module's own `tests/` folder, whose
-generated `pyproject.toml` sits at the module root. Default: the holder's folder of the module.
+generated `pyproject.toml` sits at the module root. Default, in this order: the module's own `<root>/<folder>/tests/` when it exists on
+disk, else the holder's `<root>/tests/<folder>/`, where `<folder>` is the module's name in python's folder case as languages.yml's
+TestFolderOf declares it (Catzc.Diagrams -> catzc_diagrams).
 
 ### outputs
 

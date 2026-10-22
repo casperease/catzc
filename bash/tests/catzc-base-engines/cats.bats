@@ -8,7 +8,8 @@
 #
 # Each test uses importer.sh the way a Bash user does (ADR-AUTO-BASH-BLACKBOXTESTS): setup sources the engine's entry
 # (CATZC_ENGINE_ENTRY), and a test runs a catzc command through cats, asserting on output and exit code only. Three of
-# them start pwsh and import catzc; the run-directly case and the contract refusals start no pwsh.
+# them start pwsh and import catzc; the list case starts pwsh on a stand-in entry, and the run-directly case and the contract
+# refusals start no pwsh.
 
 setup() {
     if [ -z "${CATZC_ENGINE_ENTRY:-}" ]; then
@@ -70,6 +71,7 @@ _cats_fixture_lookup() {
         printf 'find_gadget\tcount\tint\t0\t1\t0\tcontracts/widget/0.0.0/catzc.widget/find_gadget.command.yml\trandom\tall\tfind-gadget\tcount\tFind-Gadget\tCount\n'
         printf 'find_gadget\tseed\tint\t0\t0\t0\tcontracts/widget/0.0.0/catzc.widget/find_gadget.command.yml\trandom\tall\tfind-gadget\tseed\tFind-Gadget\tSeed\n'
         printf 'test_is_guid\tobject_guid\tstring\t0\t1\t0\tcontracts/widget/0.0.0/catzc.widget/test_is_guid.command.yml\t\t\ttest-is-guid\tobject-guid\tTest-IsGuid\tObjectGuid\n'
+        printf 'join_widget\tname\tstring\t1\t1\t0\tcontracts/widget/0.0.0/catzc.widget/join_widget.command.yml\t\t\tjoin-widget\tname\tJoin-Widget\tName\n'
         printf "'\n"
     } >"$CATZC_COMMAND_LOOKUP"
 }
@@ -163,6 +165,25 @@ _cats_fixture_lookup() {
     }
     [[ "$output" == *"--count takes an int, not 'three'"* ]] || {
         echo "cats get-widget --count three printed '$output', want the int refusal" >&2
+        return 1
+    }
+}
+
+@test "a contracted list parameter repeats its name and reaches pwsh as one array" {
+    _cats_fixture_lookup
+    # A stand-in entry that defines the one command, so the call reaches pwsh without importing catzc.
+    CATZC_IMPORTER="$BATS_TEST_TMPDIR/widget-importer.ps1"
+    export CATZC_IMPORTER
+    printf '%s\n' 'function Join-Widget { param([string[]] $Name) "$($Name.Count):$($Name -join "|")" }' >"$CATZC_IMPORTER"
+    run cats join-widget --name gadget --name "it's a sprocket"
+    [ "$status" -eq 0 ] || {
+        echo "cats join-widget failed with exit $status: $output" >&2
+        return 1
+    }
+    local got
+    got="$(printf '%s' "$output" | tr -d '\r' | tail -n 1)"
+    [ "$got" = "2:gadget|it's a sprocket" ] || {
+        echo "cats join-widget --name gadget --name \"it's a sprocket\" printed '$got', want '2:gadget|it's a sprocket'" >&2
         return 1
     }
 }

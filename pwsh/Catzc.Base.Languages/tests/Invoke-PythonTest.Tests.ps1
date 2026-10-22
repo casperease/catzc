@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6e507abe7da2"
+    with_body_sha: df26601bc881
   edges:
     docs: "[Invoke-PythonTest.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-languages/tests/Invoke-PythonTest.Tests.ps1.md)"
     code: pwsh/Catzc.Base.Languages/Invoke-PythonTest.ps1
@@ -119,6 +119,17 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
 
         It 'throws when the module has no Python test folder' {
             { Invoke-PythonTest Catzc.Sprocket } | Should -Throw '*python/tests/catzc_sprocket/ does not exist*'
+        }
+
+        It 'finds a module''s own tests/ without -Folder before the holder''s, and the holder''s when the module has none' {
+            $gizmo = Join-Path $script:pythonRoot 'catzc_gizmo'
+            $null = New-Item -ItemType Directory -Path (Join-Path $gizmo 'tests') -Force
+            Set-Content -LiteralPath (Join-Path $gizmo 'pyproject.toml') -Value '[project]'
+            $null = New-Item -ItemType Directory -Path (Join-Path $script:pythonRoot 'tests/catzc_gizmo') -Force
+            $null = Invoke-PythonTest Catzc.Gizmo
+            $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"catzc_gizmo/tests`""
+            $null = Invoke-PythonTest Catzc.Widget
+            $script:seen.Command[4] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/catzc_widget`""
         }
 
         It 'runs the named folder, a module''s own tests/ under the python track, with the member project at the module root' {
