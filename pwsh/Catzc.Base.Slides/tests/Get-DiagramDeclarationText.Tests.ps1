@@ -53,4 +53,11 @@ Describe 'Get-DiagramDeclarationText' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-DECLA
         [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/second.md'), "# Again`n`n$($script:block)`n![Gadgets](.assets/gadget-flow.drawio.png)`n")
         & $script:read 'docs/widgets/.assets/gadget-flow' 'article' | Should -BeNullOrEmpty
     }
+
+    It 'never reads a block from a slide, so a slide beside the article is no second carrier' {
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/widgets/gadget-flow.slide.md'), "$($script:block)`n![Gadgets](.assets/gadget-flow.drawio.png)`n")
+        & $script:read 'docs/widgets/.assets/gadget-flow' 'article' | Should -BeNullOrEmpty
+        [System.IO.File]::WriteAllText($script:page, "# Gadgets`n`n$($script:block)`n![Gadgets](.assets/gadget-flow.drawio.png)`n")
+        & $script:read 'docs/widgets/.assets/gadget-flow' 'article' | Should -BeExactly "content: { title: Gadgets }`n"
+    }
 }

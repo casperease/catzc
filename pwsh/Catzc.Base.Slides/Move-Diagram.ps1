@@ -23,6 +23,8 @@ function Move-Diagram {
 
         [string] $RepositoryRoot = (Get-RepositoryRoot),
 
+        [string] $Kit = (Get-Config -Config slides).drawio_kit,
+
         [switch] $DryRun,
 
         [switch] $PassThru
@@ -101,7 +103,90 @@ function Move-Diagram {
         }
     }
 
+    # The kit's drawio.yml keys a diagram's carrier and role by its stem; a repository without one has no article-carried diagram.
+    $kitConfig = Join-Path $root "$Kit/configs/drawio.yml"
+    $configText = if ([System.IO.File]::Exists($kitConfig)) {
+        [System.IO.File]::ReadAllText($kitConfig)
+    }
+    $carrierMap = if ($null -ne $configText) {
+        Get-DiagramCarrierMap -RepositoryRoot $root -Kit $Kit
+    }
+    $articleCarried = $pair -and $carrierMap -and $(if ($carrierMap.Carriers.ContainsKey($from)) {
+            $carrierMap.Carriers[$from]
+        }
+        else {
+            $carrierMap.Default
+        }) -ceq 'article'
+    $fromArticles = $from.Substring(0, [Math]::Max(0, $from.LastIndexOf('/'))) -replace '/?[^/]*$', ''
+    $toArticles = $to.Substring(0, [Math]::Max(0, $to.LastIndexOf('/'))) -replace '/?[^/]*$', ''
+    if ($articleCarried -and $fromArticles -cne $toArticles) {
+        # The block declares the png below it only from a page beside its .assets, so it moves to the one page there that embeds the png.
+        $blockOf = {
+            param([string] $Name)
+            '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```).*\r?\n)*```[ \t]*\r?\n(?:[ \t]*\r?\n)*(?=!\[[^\]]*\]\((?:\./)?\.assets/' + [regex]::Escape($Name) + '\.drawio\.png\))'
+        }
+        $textOf = {
+            param([string] $Page)
+            $edit = $edits | Where-Object { $_.Page -ceq $Page } | Select-Object -First 1
+            if ($edit) {
+                $edit.Text
+            }
+            else {
+                [System.IO.File]::ReadAllText((Join-Path $root $Page))
+            }
+        }
+        $pagesIn = {
+            param([string] $Folder)
+            @(Get-ChildPath -Path (Join-Path $root $Folder) -Depth 1 -Filter '*.md' -File | Where-Object { -not "$_".EndsWith('.slide.md') } | ForEach-Object {
+                    ([System.IO.Path]::GetRelativePath($root, "$_") -replace '\\', '/')
+                })
+        }
+        $fromName = $from.Substring($from.LastIndexOf('/') + 1)
+        $toName = $to.Substring($to.LastIndexOf('/') + 1)
+        $holders = @(foreach ($page in & $pagesIn $fromArticles) {
+                $found = [regex]::Match([System.IO.File]::ReadAllText((Join-Path $root $page)), (& $blockOf $fromName))
+                if ($found.Success) {
+                    [pscustomobject]@{ Page = $page; Block = $found.Value }
+                }
+            })
+        Assert-True ($holders.Count -eq 1) -ErrorText "Move-Diagram: '$from' is article-carried but $($holders.Count) page(s) beside its .assets hold its block; Test-Diagrams names the fault."
+        $image = '(?m)^!\[[^\]]*\]\((?:\./)?\.assets/' + [regex]::Escape($toName) + '\.drawio\.png\)'
+        $targets = @(foreach ($page in & $pagesIn $toArticles) {
+                foreach ($match in [regex]::Matches((& $textOf $page), $image)) {
+                    [pscustomobject]@{ Page = $page; At = $match.Index }
+                }
+            })
+        Assert-True ($targets.Count -eq 1) -ErrorText "Move-Diagram: '$from' is article-carried, and $($targets.Count) image(s) of $toName.drawio.png sit in a page beside '$to''s .assets; its block needs exactly one. Carry it to the file carrier first (declaration.py carry $from file)."
+        $source = & $textOf $holders[0].Page
+        $at = $source.IndexOf($holders[0].Block, [System.StringComparison]::Ordinal)
+        $stripped = $source.Remove($at, $holders[0].Block.Length)
+        $target = if ($targets[0].Page -ceq $holders[0].Page) {
+            $stripped
+        }
+        else {
+            & $textOf $targets[0].Page
+        }
+        $placed = $target.Insert([regex]::Match($target, $image).Index, $holders[0].Block)
+        foreach ($change in @([pscustomobject]@{ Page = $holders[0].Page; Text = $stripped }, [pscustomobject]@{ Page = $targets[0].Page; Text = $placed })) {
+            $edits.Remove(@($edits | Where-Object { $_.Page -ceq $change.Page })[0]) | Out-Null
+            $edits.Add($change)
+        }
+    }
+    # A stem's carrier and role entries follow it, so drawio.yml keeps naming the diagram after the move.
+    $rekeyed = if ($null -ne $configText) {
+        $prefix = if ($pair) {
+            [regex]::Escape($from) + '(?=:)'
+        }
+        else {
+            [regex]::Escape($from) + '(?=/)'
+        }
+        [regex]::Replace($configText, "(?m)^(  )$prefix", { param($m) $m.Groups[1].Value + $to })
+    }
+
     if ($DryRun) {
+        if ($null -ne $rekeyed -and $rekeyed -cne $configText) {
+            Write-Message "Would re-key $from to $to in $Kit/configs/drawio.yml"
+        }
         foreach ($move in $moves) {
             Write-Message "Would move: $($move.From) -> $($move.To)"
         }
@@ -119,6 +204,9 @@ function Move-Diagram {
         }
         foreach ($edit in $edits) {
             Write-FileIfChanged -Path (Join-Path $root $edit.Page) -Content $edit.Text | Out-Null
+        }
+        if ($null -ne $rekeyed) {
+            Write-FileIfChanged -Path $kitConfig -Content $rekeyed | Out-Null
         }
         # A re-pointed link changes its line's length, so every rewritten page is formatted again, as the repository formats it.
         $pages = @(foreach ($edit in $edits) {

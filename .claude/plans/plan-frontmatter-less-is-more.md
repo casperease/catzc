@@ -5,6 +5,10 @@ plan:
   reviewed: 2026-10-22
   class: feature
   targets: [pwsh/Catzc.Base.QualityGates/configs/file-meta.yml, pwsh/Catzc.Base.CodeMeta, docs/drs/repository]
+catzc:
+  edges:
+    cites:
+      - ADR-REPO-FILEMETA-HEADPOLICY
 ---
 
 # Frontmatter less is more: every file on disk is format-managed, and its head says only what pays
@@ -51,8 +55,8 @@ the tree, they churn on every body edit, and agents read them on every file they
       deleted file or the variant named in any `.drawio.yml`, by grep)
 - [ ] Every tracked generated head lists `with_body_sha` first in its `immutable` part, then the warning, so it reads "immutable for this
       body" (the user, 2026-10-22): `Format-GeneratedFileHead` writes that order and every generated file is regenerated (catzc-a0). (check:
-      the writer's test asserting the order, `Test-GeneratedFiles` at 0, and a grep over generated heads for an `immutable:` part whose first
-      key is not `with_body_sha` at 0)
+      the writer's test asserting the order, `Test-GeneratedFiles` at 0, and a grep over generated heads for an `immutable:` part whose
+      first key is not `with_body_sha` at 0)
 - [ ] The engine, in one burst, per `out/frontmatter-mechanism-map.md` (catzc-a0): `file-meta.yml` (no authored `body-sha`, `relative-edges`
       `[docs]`, `drs-codes` every authored class, a head only when a fact is non-empty), `generated-head.yml` `[warning, with_body_sha]`,
       `Format-GeneratedFileHead` (sha only while tracked, no docs edge), the `file_heads` variant with `Get-FileHeadVariant` and

@@ -46,8 +46,8 @@ frontmatter re-imprint then has no diagram declaration files to head.
 ## Open steps
 
 - [ ] `pwsh/Catzc.Base.Slides`: `Move-Diagram.ps1` carrier-aware (an article-carried diagram moves its block with it, its `carriers:` key
-      re-keyed), and `private/Get-DiagramDeclarationText.ps1` skips `*.slide.md` as the kit's `carry` does (catzc-e9; `carry` landed with 109
-      kit tests green). (check: both test files green, with an article-carried move and a slide-block case)
+      re-keyed), and `private/Get-DiagramDeclarationText.ps1` skips `*.slide.md` as the kit's `carry` does (catzc-e9; `carry` landed with
+      109 kit tests green). (check: both test files green, with an article-carried move and a slide-block case)
 - [ ] `python/catzc_diagrams/configs/drawio.yml`: `renderer.carrier: article`, `carriers:` the seven as `file`. (check: `pytest` on the
       kit's carrier tests green)
 - [ ] The move, one `.assets/` folder at a time: each declaration into its article's block, its yml deleted, the folder rebuilt. (check: per
