@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f523908ef8df
+    with_body_sha: "04f9ec4380d4"
   edges:
     test: pwsh/Catzc.Base.QualityGates/tests/Test-Formatting.Tests.ps1
     docs: "[Test-Formatting.ps1.md](../../docs/references/pwsh/catzc-base-quality-gates/Test-Formatting.ps1.md)"
@@ -68,7 +68,9 @@ function Test-Formatting {
 
     # Every file in scope is format-managed: a file no formatter covers is a finding, unless a language was named to narrow the run.
     if (-not $Language) {
-        foreach ($file in @(Get-FormatScope -RepositoryRoot (Get-RepositoryRoot) -Path $Path)) {
+        # Get-FormatScope returns its paths as one array: assign it, so foreach walks the paths, not the array.
+        $scope = Get-FormatScope -RepositoryRoot (Get-RepositoryRoot) -Path $Path
+        foreach ($file in $scope) {
             $fileLanguage = $config.ForPath($file)
             if ($null -eq $fileLanguage) {
                 & $addIssue $file 'no Format-* command covers it — no file language in languages.yml claims its extension'

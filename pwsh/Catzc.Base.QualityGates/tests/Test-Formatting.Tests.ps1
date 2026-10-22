@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3230c657c5bd"
+    with_body_sha: e830f9687a4c
   edges:
     docs: "[Test-Formatting.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-Formatting.Tests.ps1.md)"
     code: pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1
@@ -90,7 +90,9 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
 
     It 'reports a file in scope that no formatter covers, by its missing language or its language without a formatter' -Tag 'ADR-AUTO-TEST-QUALITYGATE', 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         $loose = Join-Path $script:root 'docs/widget.txt'
-        Mock Get-FormatScope -ModuleName Catzc.Base.QualityGates { , [string[]] @($script:widgetFile, $loose, $script:typeFile) }
+        $widget = $script:widgetFile
+        $type = $script:typeFile
+        Mock Get-FormatScope -ModuleName Catzc.Base.QualityGates { , [string[]] @($widget, $loose, $type) }.GetNewClosure()
 
         $result = Test-Formatting -PassThru -OutputFolder $script:reportFolder
         $result.Issues | Should -Be @(

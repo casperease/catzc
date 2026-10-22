@@ -46,10 +46,10 @@ engine.
 
 The `immutable` and `edges` parts are imprinted by `Format-FileMeta` and are byte-identical on every run: keys in the registry's order,
 values in canonical form, no timestamp and no run identifier. A hash is allowed only when it changes exactly when something a reader cares
-about changes: `with_body_sha`, the hash of the body below the head, opens every head. A generated file's writer writes it, and the imprint
-writes it on an authored code or config file's navigation head, where it changes on every edit of the body, so two concurrent edits of one
-file also meet on that line ([ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY](code-file-meta.md#rule-adr-repo-codemeta-computablefactsonly)). A hash
-an author keeps in the `config` part is the author's, left alone and never maintained. A second run changes no file. The output is stable
+about changes: `with_body_sha`, the hash of the body below the head, opens the head of a generated file git tracks, and its writer writes it
+([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). An authored head carries none: a body hash there changes on every
+edit and tells a reader nothing, so the imprint writes only the edges
+([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)). A hash an author keeps in the `config` part is the author's, left alone and never maintained. A second run changes no file. The output is stable
 under the formatter of the file's language, so the formatter and the imprint never undo each other
 ([ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED](uniform-formatting.md#rule-adr-repo-format-generatedartifactsformatted)).
 
@@ -160,10 +160,12 @@ and a consumer extends the registry with a config fragment. A provided contract 
 ### Rule ADR-REPO-FILEMETA-FILEISNODE
 
 A file is a node, and its meta block says two things about it, each in a part of its own. `immutable` holds the **place facts** a reader of
-the head needs: on an authored head `with_body_sha` alone, and on a generated head also its `warning`, `role`, `track`, `generator` and
-`source` ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). Every other place fact, what the repository's own
-configuration makes of the file's location, is derived on demand from a registry and never shown. `edges` holds what the file itself points
-at, each one an **edge**, a named relation leaving the file to a rule code or a file: `cites`, `docs`, `test` and `code`. Both parts are
+the head needs, and only a generated head has any: its `with_body_sha` while git tracks it, its `warning`, `role`, `track`, `generator` and
+`source` ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)); an authored head has no `immutable` part
+([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)). Every other place fact, what the repository's own configuration makes
+of the file's location, is derived on demand from a registry and never shown. `edges` holds what the file itself points at, each one an
+**edge**, a named relation leaving the file to a rule code or a file: `cites`, the rule codes the file and its comment page cite, and
+`docs`, its comment page; no `test` or `code` edge, since a test is found by convention. Both parts are
 imprinted or written by the file's writer and never by hand, and both are fixed by the file: a place fact until the file moves or a registry
 changes, an edge until the file's text changes. An edge is written on its source only, so the target holds no copy, and an edge is named for
 the relation, never for the type of its target. `immutable` opens with `with_body_sha`, the hash of the body below the head

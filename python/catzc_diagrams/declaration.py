@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4c7a928d21a5"
+#     with_body_sha: b4509a6db2af
 # ---
 
 # cspell:ignore minimaps mxfile pnginfo drsonly mapkey
