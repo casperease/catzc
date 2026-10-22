@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: a5cb156da5c1
+#     with_body_sha: b521756dd3e2
 # ---
 
 description:
@@ -9,11 +9,7 @@ description:
   declares; and its use inside pwsh, which compiles the types in the session's own runtime, unwraps the values its callers pass, and lets a
   type bind to the host only by a bcl.yml row that the gate checks."
 about:
-  adrs:
-    - ADR-BCL-TYPES-BCLREFERENCESET
-    - ADR-BCL-TYPES-DEBUGANYCPU
-    - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
-    - ADR-PWSH-TYPES-ADDTYPECOMPILES
+  adrs: [ADR-BCL-TYPES-BCLREFERENCESET, ADR-BCL-TYPES-DEBUGANYCPU, ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES, ADR-PWSH-TYPES-ADDTYPECOMPILES]
   lens: architecture
 content:
   title: BCL is a language; pwsh hosts it, and binds only by row
@@ -22,10 +18,8 @@ content:
   relation: uses
   theme: dark
   bands:
-    - id: band-language
-      label: THE BCL LANGUAGE
-    - id: band-host
-      label: ITS USE INSIDE THE PWSH HOST
+    - { id: band-language, label: THE BCL LANGUAGE }
+    - { id: band-host, label: ITS USE INSIDE THE PWSH HOST }
   glyphs:
     - id: g-types
       kind: type
@@ -33,10 +27,7 @@ content:
 
         316 sources"
       in: band-language
-    - id: g-library
-      kind: set
-      label: Base Class Library
-      in: band-language
+    - { id: g-library, kind: set, label: Base Class Library, in: band-language }
     - id: g-bcl-yml
       kind: file
       label: "bcl.yml
@@ -55,49 +46,22 @@ content:
 
         Add-Type, in-process"
       in: band-host
-    - id: g-unwrap
-      kind: code
-      label: ConvertTo-BclValue
-      in: band-host
+    - { id: g-unwrap, kind: code, label: ConvertTo-BclValue, in: band-host }
     - id: g-sma
       kind: set
       label: "System.Management
 
         .Automation"
       in: band-host
-    - id: g-gate
-      kind: gate
-      label: Test-BclReferences
-      in: band-host
+    - { id: g-gate, kind: gate, label: Test-BclReferences, in: band-host }
   edges:
-    - from: g-types
-      to: g-library
-      kind: flow
-      label: references
-    - from: g-bcl-yml
-      to: g-projects
-      kind: flow
-      label: one pair
-    - from: g-import
-      to: g-types
-      kind: flow
-      label: compiles
-    - from: g-unwrap
-      to: g-types
-      kind: flow
-      label: plain values
-    - from: g-types
-      to: g-sma
-      kind: flow
-      label: only by a row
-    - from: g-bcl-yml
-      to: g-gate
-      kind: flow
-      label: rows
-    - from: g-gate
-      to: g-sma
-      kind: flow
-      label: checks
+    - { from: g-types, to: g-library, kind: flow, label: references }
+    - { from: g-bcl-yml, to: g-projects, kind: flow, label: one pair }
+    - { from: g-import, to: g-types, kind: flow, label: compiles }
+    - { from: g-unwrap, to: g-types, kind: flow, label: plain values }
+    - { from: g-types, to: g-sma, kind: flow, label: only by a row }
+    - { from: g-bcl-yml, to: g-gate, kind: flow, label: rows }
+    - { from: g-gate, to: g-sma, kind: flow, label: checks }
   legend: auto
   minimaps:
     track-placement:
@@ -152,9 +116,7 @@ content:
           - ADR-BCL-TYPES-DEBUGANYCPU
     module-neighbourhood:
       - cell: subject/Catzc.Base.Contracts
-        by:
-          - pwsh/Catzc.Base.Contracts/types/ContractSchema.cs
-          - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
+        by: [pwsh/Catzc.Base.Contracts/types/ContractSchema.cs, ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES]
       - cell: subject/Catzc.Base.Drs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -184,58 +146,15 @@ content:
           - pwsh/Catzc.Base.QualityGates/types/SentenceGuid.cs
           - ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES
       - cell: subject/Catzc.Base.TypesSystem
-        by:
-          - pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1
-          - ADR-BCL-TYPES-BCLREFERENCESET
-          - ADR-BCL-TYPES-DEBUGANYCPU
+        by: [pwsh/Catzc.Base.TypesSystem/Invoke-BuildForVSCode.ps1, ADR-BCL-TYPES-BCLREFERENCESET, ADR-BCL-TYPES-DEBUGANYCPU]
 layout:
-  band-language:
-    x: 20
-    y: 84
-    w: 1260
-    h: 150
-  band-host:
-    x: 20
-    y: 284
-    w: 1260
-    h: 170
-  g-types:
-    x: 300
-    y: 134
-    w: 200
-    h: 60
-  g-library:
-    x: 560
-    y: 134
-    w: 200
-    h: 60
-  g-bcl-yml:
-    x: 790
-    y: 134
-    w: 180
-    h: 60
-  g-projects:
-    x: 1060
-    y: 134
-    w: 210
-    h: 60
-  g-import:
-    x: 140
-    y: 344
-    w: 200
-    h: 60
-  g-unwrap:
-    x: 420
-    y: 344
-    w: 200
-    h: 60
-  g-sma:
-    x: 700
-    y: 344
-    w: 200
-    h: 60
-  g-gate:
-    x: 990
-    y: 330
-    w: 180
-    h: 90
+  band-language: { x: 20, y: 84, w: 1260, h: 150 }
+  band-host: { x: 20, y: 284, w: 1260, h: 170 }
+  g-types: { x: 300, y: 134, w: 200, h: 60 }
+  g-library: { x: 560, y: 134, w: 200, h: 60 }
+  g-bcl-yml: { x: 790, y: 134, w: 180, h: 60 }
+  g-projects: { x: 1060, y: 134, w: 210, h: 60 }
+  g-import: { x: 140, y: 344, w: 200, h: 60 }
+  g-unwrap: { x: 420, y: 344, w: 200, h: 60 }
+  g-sma: { x: 700, y: 344, w: 200, h: 60 }
+  g-gate: { x: 990, y: 330, w: 180, h: 90 }

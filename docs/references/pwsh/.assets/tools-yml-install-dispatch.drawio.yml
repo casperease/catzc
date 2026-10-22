@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "31d3ead280c1"
+#     with_body_sha: "21e2806e9cee"
 # ---
 
 description:
@@ -92,7 +92,11 @@ content:
           - docs/references/pwsh/catzc-base-languages/Invoke-PythonTest.ps1.md
           - docs/references/pwsh/catzc-base-languages/configs/bash.yml.md
           - docs/references/pwsh/catzc-base-languages/private/Get-EngineContract.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-AxisMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-CodeLocationsMinimapData.ps1.md
           - docs/references/pwsh/catzc-base-maps/Get-EngineStripMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-GridMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-maps/private/Get-MinimapSubject.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Test-ShellScripts.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/Test-SourceConventions.ps1.md
           - docs/references/pwsh/catzc-base-quality-gates/configs/source-conventions.yml.md
@@ -167,7 +171,14 @@ content:
       - cell: pwsh/Catzc.Base.Languages/private
         by: [pwsh/Catzc.Base.Languages/private/Get-EngineContract.ps1, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.Maps/.
-        by: [pwsh/Catzc.Base.Maps/Get-EngineStripMinimapData.ps1, ADR-AUTO-ENGINE]
+        by:
+          - pwsh/Catzc.Base.Maps/Get-AxisMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-CodeLocationsMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-EngineStripMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-GridMinimapData.ps1
+          - ADR-AUTO-ENGINE
+      - cell: pwsh/Catzc.Base.Maps/private
+        by: [pwsh/Catzc.Base.Maps/private/Get-MinimapSubject.ps1, ADR-AUTO-ENGINE]
       - cell: pwsh/Catzc.Base.QualityGates/.
         by:
           - pwsh/Catzc.Base.QualityGates/Test-ShellScripts.ps1
@@ -272,7 +283,13 @@ content:
           - ADR-AUTO-BASH-SHELLSCRIPTSCHECKED
           - ADR-AUTO-ENGINE
       - cell: subject/Catzc.Base.Maps
-        by: [pwsh/Catzc.Base.Maps/Get-EngineStripMinimapData.ps1, ADR-AUTO-ENGINE]
+        by:
+          - pwsh/Catzc.Base.Maps/Get-AxisMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-CodeLocationsMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-EngineStripMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/Get-GridMinimapData.ps1
+          - pwsh/Catzc.Base.Maps/private/Get-MinimapSubject.ps1
+          - ADR-AUTO-ENGINE
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/Test-ShellScripts.ps1

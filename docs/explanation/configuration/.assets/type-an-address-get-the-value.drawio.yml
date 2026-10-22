@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f97b00bde072
+#     with_body_sha: b6f70128f9e6
 # ---
 
 description:
@@ -21,83 +21,33 @@ content:
   relation: prints or writes
   theme: dark
   bands:
-    - id: band-command
-      label: COMMAND
-    - id: band-see
-      label: WHAT YOU SEE
-    - id: band-fail
-      label: FAIL FAST
+    - { id: band-command, label: COMMAND }
+    - { id: band-see, label: WHAT YOU SEE }
+    - { id: band-fail, label: FAIL FAST }
   glyphs:
-    - id: g-value
-      kind: code
-      label: Get-ConfigValue
-      in: band-command
-    - id: g-env
-      kind: code
-      label: Write-EnvironmentSet
-      in: band-command
-    - id: g-build
-      kind: code
-      label: Build-Bicep
-      in: band-command
-    - id: r-value
-      kind: result
-      label: "'0.43.8'"
-      in: band-see
-    - id: r-lines
-      kind: result
-      label: BICEP = 0.43.8 · TOK = ***
-      in: band-see
-    - id: r-params
-      kind: result
-      label: parameters.<config>.json
-      in: band-see
-    - id: f-wrong
-      kind: failure
-      label: wrong address throws
-      in: band-fail
-    - id: f-invalid
-      kind: failure
-      label: invalid addressed parameters
-      in: band-fail
+    - { id: g-value, kind: code, label: Get-ConfigValue, in: band-command }
+    - { id: g-env, kind: code, label: Write-EnvironmentSet, in: band-command }
+    - { id: g-build, kind: code, label: Build-Bicep, in: band-command }
+    - { id: r-value, kind: result, label: "'0.43.8'", in: band-see }
+    - { id: r-lines, kind: result, label: BICEP = 0.43.8 · TOK = ***, in: band-see }
+    - { id: r-params, kind: result, label: parameters.<config>.json, in: band-see }
+    - { id: f-wrong, kind: failure, label: wrong address throws, in: band-fail }
+    - { id: f-invalid, kind: failure, label: invalid addressed parameters, in: band-fail }
   edges:
-    - from: g-value
-      to: r-value
-      kind: flow
-      label: "'global.azure.…'"
-    - from: g-env
-      to: r-lines
-      kind: flow
-      label: -Set @{ … }
-    - from: g-build
-      to: r-params
-      kind: flow
-      label: "{ address: global.… }"
-    - from: g-value
-      to: f-wrong
-      kind: fail
-      label: ""
-    - from: g-build
-      to: f-invalid
-      kind: fail
-      label: ""
+    - { from: g-value, to: r-value, kind: flow, label: "'global.azure.…'" }
+    - { from: g-env, to: r-lines, kind: flow, label: "-Set @{ … }" }
+    - { from: g-build, to: r-params, kind: flow, label: "{ address: global.… }" }
+    - { from: g-value, to: f-wrong, kind: fail, label: "" }
+    - { from: g-build, to: f-invalid, kind: fail, label: "" }
   markers:
-    - at: g-value
-      number: 1
-    - at: r-value
-      number: 2
-    - at: g-env
-      number: 3
-    - at: r-lines
-      number: 4
-    - at: g-build
-      number: 5
-    - at: r-params
-      number: 6
-    - at: f-wrong
-      number: 7
-    - at: f-invalid
-      number: 8
+    - { at: g-value, number: 1 }
+    - { at: r-value, number: 2 }
+    - { at: g-env, number: 3 }
+    - { at: r-lines, number: 4 }
+    - { at: g-build, number: 5 }
+    - { at: r-params, number: 6 }
+    - { at: f-wrong, number: 7 }
+    - { at: f-invalid, number: 8 }
   legend: auto
   minimaps:
     code-locations:
@@ -140,9 +90,7 @@ content:
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
       - cell: pwsh/Catzc.Base.Config/tests
-        by:
-          - pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
-          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+        by: [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs.yml
@@ -151,9 +99,7 @@ content:
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
       - cell: pwsh/Catzc.Base.Folders/tests/types
-        by:
-          - pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
-          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+        by: [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM]
       - cell: pwsh/Catzc.Base.Languages/.
         by:
           - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
@@ -192,9 +138,7 @@ content:
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
       - cell: subject/Catzc.Base.Folders
-        by:
-          - pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
-          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+        by: [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM]
       - cell: subject/Catzc.Base.Languages
         by:
           - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
@@ -217,58 +161,14 @@ content:
           - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
 layout:
-  band-command:
-    x: 20
-    y: 84
-    w: 280
-    h: 380
-  band-see:
-    x: 460
-    y: 84
-    w: 400
-    h: 380
-  band-fail:
-    x: 880
-    y: 84
-    w: 400
-    h: 380
-  g-value:
-    x: 60
-    y: 134
-    w: 200
-    h: 44
-  g-env:
-    x: 60
-    y: 254
-    w: 200
-    h: 44
-  g-build:
-    x: 60
-    y: 374
-    w: 200
-    h: 44
-  r-value:
-    x: 500
-    y: 134
-    w: 320
-    h: 44
-  r-lines:
-    x: 500
-    y: 254
-    w: 320
-    h: 44
-  r-params:
-    x: 500
-    y: 374
-    w: 320
-    h: 44
-  f-wrong:
-    x: 920
-    y: 194
-    w: 320
-    h: 44
-  f-invalid:
-    x: 920
-    y: 290
-    w: 320
-    h: 44
+  band-command: { x: 20, y: 84, w: 280, h: 380 }
+  band-see: { x: 460, y: 84, w: 400, h: 380 }
+  band-fail: { x: 880, y: 84, w: 400, h: 380 }
+  g-value: { x: 60, y: 134, w: 200, h: 44 }
+  g-env: { x: 60, y: 254, w: 200, h: 44 }
+  g-build: { x: 60, y: 374, w: 200, h: 44 }
+  r-value: { x: 500, y: 134, w: 320, h: 44 }
+  r-lines: { x: 500, y: 254, w: 320, h: 44 }
+  r-params: { x: 500, y: 374, w: 320, h: 44 }
+  f-wrong: { x: 920, y: 194, w: 320, h: 44 }
+  f-invalid: { x: 920, y: 290, w: 320, h: 44 }

@@ -1,17 +1,14 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "3a1db6a9721d"
+#     with_body_sha: "5bccbf00eb3b"
 # ---
 
 description:
   "Where truth comes from: in every mode the repository at one commit decides; in the listen mode the editor's edit is fact, and the plans
   it starts flow from the rule to the docs to the code."
 about:
-  adrs:
-    - TDR-ONETRUTH
-    - ADR-REPO-AI-EDITORISFACT
-    - ADR-REPO-PLANS-DECISIONSBECOMERULES
+  adrs: [TDR-ONETRUTH, ADR-REPO-AI-EDITORISFACT, ADR-REPO-PLANS-DECISIONSBECOMERULES]
   lens: meta
 content:
   title: Truth is one commit; in the listen mode the editor's edit is fact, and its plans run rule, docs, code
@@ -20,84 +17,38 @@ content:
   relation: what decides
   theme: dark
   bands:
-    - id: band-default
-      label: EVERY MODE
-    - id: band-listen
-      label: LISTEN MODE
-    - id: band-plan
-      label: PLAN ORDER
+    - { id: band-default, label: EVERY MODE }
+    - { id: band-listen, label: LISTEN MODE }
+    - { id: band-plan, label: PLAN ORDER }
   glyphs:
-    - id: s-repo
-      kind: store
-      label: the repository at one commit, committed files only
-      in: band-default
-    - id: a-editor
-      kind: actor
-      label: the editor
-      in: band-listen
-    - id: r-fact
-      kind: result
-      label: the edit is fact
-      in: band-listen
-    - id: f-note
-      kind: file
-      label: a note
-      in: band-listen
-    - id: s-rule
-      kind: drsonly
-      label: rule (DRS)
-      in: band-plan
-    - id: f-docs
-      kind: file
-      label: docs
-      in: band-plan
-    - id: k-code
-      kind: code
-      label: code and configs
-      in: band-plan
+    - { id: s-repo, kind: store, label: "the repository at one commit, committed files only", in: band-default }
+    - { id: a-editor, kind: actor, label: the editor, in: band-listen }
+    - { id: r-fact, kind: result, label: the edit is fact, in: band-listen }
+    - { id: f-note, kind: file, label: a note, in: band-listen }
+    - { id: s-rule, kind: drsonly, label: rule (DRS), in: band-plan }
+    - { id: f-docs, kind: file, label: docs, in: band-plan }
+    - { id: k-code, kind: code, label: code and configs, in: band-plan }
   edges:
-    - from: a-editor
-      to: r-fact
-      kind: flow
-      label: corrects
-    - from: r-fact
-      to: f-note
-      kind: flow
-      label: ""
-    - from: f-note
-      to: s-rule
-      kind: thick
-      label: plans
-    - from: s-rule
-      to: f-docs
-      kind: flow
-      label: ""
-    - from: f-docs
-      to: k-code
-      kind: flow
-      label: ""
+    - { from: a-editor, to: r-fact, kind: flow, label: corrects }
+    - { from: r-fact, to: f-note, kind: flow, label: "" }
+    - { from: f-note, to: s-rule, kind: thick, label: plans }
+    - { from: s-rule, to: f-docs, kind: flow, label: "" }
+    - { from: f-docs, to: k-code, kind: flow, label: "" }
   legend: auto
   minimaps:
     axis:
       - cell: DSGN/build
-        by:
-          - TDR-ONETRUTH
+        by: [TDR-ONETRUTH]
       - cell: DSGN/quality-control
-        by:
-          - TDR-ONETRUTH
+        by: [TDR-ONETRUTH]
       - cell: DSGN/release
-        by:
-          - TDR-ONETRUTH
+        by: [TDR-ONETRUTH]
       - cell: DSGN/deploy
-        by:
-          - TDR-ONETRUTH
+        by: [TDR-ONETRUTH]
       - cell: DSGN/access
-        by:
-          - TDR-ONETRUTH
+        by: [TDR-ONETRUTH]
       - cell: AUTO/*
-        by:
-          - ADR-REPO-AI-EDITORISFACT
-          - ADR-REPO-PLANS-DECISIONSBECOMERULES
+        by: [ADR-REPO-AI-EDITORISFACT, ADR-REPO-PLANS-DECISIONSBECOMERULES]
     lifecycle-position:
       - cell: main-uat
         by:
@@ -231,8 +182,4 @@ content:
           - ADR-REPO-PLANS-DECISIONSBECOMERULES
           - TDR-ONETRUTH
 layout:
-  s-repo:
-    x: 60
-    y: 150
-    w: 320
-    h: 90
+  s-repo: { x: 60, y: 150, w: 320, h: 90 }

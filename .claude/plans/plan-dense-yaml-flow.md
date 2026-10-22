@@ -62,19 +62,11 @@ and `git status --short <folder>` lists `.drawio.yml` files only, so no png chan
 tree is reflowed again.
 
 - [ ] `docs/explanation/flow/.assets` (35). (check: as above)
-- [ ] `docs/explanation/automation/.assets` (30). (check: as above)
-- [ ] `docs/references/pwsh/.assets/az-cli-test-assert-share-one-state.drawio.yml` and `tools-yml-install-dispatch.drawio.yml`: their
-      `content.minimaps` re-declared from the current tree (`declaration.py` `declare_minimaps`), since `Build-Diagrams` warns each minimap
-      drops a lit cell the yml does not list (`pwsh/Catzc.Internal.Tests/`, `pwsh/Catzc.Base.Maps/private`), and the first one's png changed
-      in the folder's reflow (committed in 1a8b377c9) from that tree drift, not the reflow, whose `load()` is unchanged (catzc-54,
-      2026-10-22; the reflow accepted, the drift its own step, decided by the orchestrator as delegated). (check: `Build-Diagrams -Path` on
-      each yml clean with no minimap warning, and the png's change shows the lit cell)
-- [ ] `docs/explanation/repository/.assets` (10), and the article carrier's `yml drawio` block in
-      `docs/explanation/repository/build-diagrams-runs-five-stages.md`. (check: as above, and `Test-Formatting` on the page at 0)
-- [ ] `docs/explanation/configuration/.assets` (10). (check: as above)
-- [ ] The small folders, one at a time: `docs/explanation/ado/.assets` (5), `docs/explanation/thesis/.assets` (2),
-      `docs/explanation/thesis/product-thesis/.assets` (1), `docs/drs/flow/.assets` (2), `docs/drs/automation/BCL/.assets` (1),
-      `docs/how-to/pwsh/.assets` (1). (check: as above, per folder)
+- [ ] `python/catzc_diagrams/declaration.py`: `minimaps_block()` writes what Prettier leaves unchanged, so a `declaration.py minimaps`
+      write needs `Format-Code` only for the head's `with_body_sha` (after the ten automation re-declares, `Format-Code` reported 10 of 10
+      changed in content, catzc-a0, 2026-10-22; whether more than the sha changed is not known). (check: on one stem, `declaration.py
+      minimaps` then `Format-Code -Path` changes head lines only, by `git diff`; if more, the block fixed and pytest
+      `test_declaration.py` green with a case for it)
 
 ## Refs
 

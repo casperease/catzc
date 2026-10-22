@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "580e39eb57f6"
+#     with_body_sha: "02a23ca81042"
 # ---
 
 description:
@@ -23,75 +23,27 @@ content:
   relation: moves on
   theme: dark
   bands:
-    - id: band-constraints
-      label: INSIDE THE ENABLING CONSTRAINTS
+    - { id: band-constraints, label: INSIDE THE ENABLING CONSTRAINTS }
   groups:
-    - id: grp-unordered
-      label: UNORDERED TRACK
-      in: band-constraints
-    - id: grp-migration
-      label: FRAGMENT MIGRATION
-      in: band-constraints
-    - id: grp-form
-      label: EAC NORMAL FORM
-      in: band-constraints
-    - id: grp-constraints
-      label: ENABLING CONSTRAINTS
-      in: band-constraints
+    - { id: grp-unordered, label: UNORDERED TRACK, in: band-constraints }
+    - { id: grp-migration, label: FRAGMENT MIGRATION, in: band-constraints }
+    - { id: grp-form, label: EAC NORMAL FORM, in: band-constraints }
+    - { id: grp-constraints, label: ENABLING CONSTRAINTS, in: band-constraints }
   glyphs:
-    - id: f-fragment
-      kind: file
-      label: code fragment
-      in: grp-unordered
-    - id: r-migration
-      kind: runner
-      label: one file per commit
-      in: grp-migration
-    - id: gt-fixed
-      kind: gate
-      label: own checks
-      in: grp-migration
-    - id: res-form
-      kind: result
-      label: in the form
-      in: grp-form
-    - id: st-home
-      kind: set
-      label: module or track
-      in: grp-form
-    - id: st-defaults
-      kind: set
-      label: sensible defaults
-      in: grp-constraints
-    - id: st-bundle
-      kind: set
-      label: catzc bundle
-      in: grp-constraints
-    - id: st-configs
-      kind: set
-      label: local configs
-      in: grp-constraints
+    - { id: f-fragment, kind: file, label: code fragment, in: grp-unordered }
+    - { id: r-migration, kind: runner, label: one file per commit, in: grp-migration }
+    - { id: gt-fixed, kind: gate, label: own checks, in: grp-migration }
+    - { id: res-form, kind: result, label: in the form, in: grp-form }
+    - { id: st-home, kind: set, label: module or track, in: grp-form }
+    - { id: st-defaults, kind: set, label: sensible defaults, in: grp-constraints }
+    - { id: st-bundle, kind: set, label: catzc bundle, in: grp-constraints }
+    - { id: st-configs, kind: set, label: local configs, in: grp-constraints }
   edges:
-    - from: f-fragment
-      to: r-migration
-      kind: flow
-      label: one change
-    - from: r-migration
-      to: gt-fixed
-      kind: flow
-      label: ""
-    - from: gt-fixed
-      to: r-migration
-      kind: fail
-      label: contested
-    - from: gt-fixed
-      to: res-form
-      kind: thick
-      label: uncontested
-    - from: res-form
-      to: st-home
-      kind: flow
-      label: leaves
+    - { from: f-fragment, to: r-migration, kind: flow, label: one change }
+    - { from: r-migration, to: gt-fixed, kind: flow, label: "" }
+    - { from: gt-fixed, to: r-migration, kind: fail, label: contested }
+    - { from: gt-fixed, to: res-form, kind: thick, label: uncontested }
+    - { from: res-form, to: st-home, kind: flow, label: leaves }
   legend: auto
   minimaps:
     axis:
@@ -126,9 +78,7 @@ content:
           - TDR-NORMALFORM-MIGRATIONREACHESTHEFORM
           - TDR-NORMALFORM-UNCONTESTED
       - cell: DSGN/*
-        by:
-          - DDR-TRACK-MIGRATEONEFILEPERCOMMIT
-          - DDR-TRACK-UNORDEREDTRACK
+        by: [DDR-TRACK-MIGRATEONEFILEPERCOMMIT, DDR-TRACK-UNORDEREDTRACK]
     lifecycle-position:
       - cell: main-uat
         by:

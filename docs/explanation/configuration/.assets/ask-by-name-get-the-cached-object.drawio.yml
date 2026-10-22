@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "4ca5f6bf3ce8"
+#     with_body_sha: "7838203e3867"
 # ---
 
 description:
@@ -22,95 +22,36 @@ content:
   relation: what runs next
   theme: dark
   bands:
-    - id: band-run
-      label: WHAT YOU RUN
-    - id: band-first
-      label: FIRST READ
-    - id: band-throws
-      label: THROWS
+    - { id: band-run, label: WHAT YOU RUN }
+    - { id: band-first, label: FIRST READ }
+    - { id: band-throws, label: THROWS }
   glyphs:
-    - id: g-commands
-      kind: code
-      label: Get-ConfigValue · Get-Config
-      in: band-run
-    - id: g-resolve
-      kind: code
-      label: name -> one file
-      in: band-run
-    - id: s-cache
-      kind: store
-      label: session cache
-      in: band-run
-    - id: r-same
-      kind: result
-      label: same object
-      in: band-run
-    - id: g-parsed
-      kind: code
-      label: parsed and typed
-      in: band-first
-    - id: f-bad-key
-      kind: failure
-      label: bad key
-      in: band-throws
-    - id: f-unknown
-      kind: failure
-      label: unknown or ambiguous name
-      in: band-throws
-    - id: f-malformed
-      kind: failure
-      label: malformed config
-      in: band-throws
+    - { id: g-commands, kind: code, label: Get-ConfigValue · Get-Config, in: band-run }
+    - { id: g-resolve, kind: code, label: name -> one file, in: band-run }
+    - { id: s-cache, kind: store, label: session cache, in: band-run }
+    - { id: r-same, kind: result, label: same object, in: band-run }
+    - { id: g-parsed, kind: code, label: parsed and typed, in: band-first }
+    - { id: f-bad-key, kind: failure, label: bad key, in: band-throws }
+    - { id: f-unknown, kind: failure, label: unknown or ambiguous name, in: band-throws }
+    - { id: f-malformed, kind: failure, label: malformed config, in: band-throws }
   edges:
-    - from: g-commands
-      to: g-resolve
-      kind: flow
-      label: ""
-    - from: g-resolve
-      to: s-cache
-      kind: flow
-      label: ""
-    - from: s-cache
-      to: r-same
-      kind: flow
-      label: ""
-    - from: s-cache
-      to: g-parsed
-      kind: flow
-      label: ""
-    - from: g-parsed
-      to: r-same
-      kind: flow
-      label: ""
-    - from: g-commands
-      to: f-bad-key
-      kind: fail
-      label: ""
-    - from: g-resolve
-      to: f-unknown
-      kind: fail
-      label: ""
-    - from: g-parsed
-      to: f-malformed
-      kind: fail
-      label: ""
+    - { from: g-commands, to: g-resolve, kind: flow, label: "" }
+    - { from: g-resolve, to: s-cache, kind: flow, label: "" }
+    - { from: s-cache, to: r-same, kind: flow, label: "" }
+    - { from: s-cache, to: g-parsed, kind: flow, label: "" }
+    - { from: g-parsed, to: r-same, kind: flow, label: "" }
+    - { from: g-commands, to: f-bad-key, kind: fail, label: "" }
+    - { from: g-resolve, to: f-unknown, kind: fail, label: "" }
+    - { from: g-parsed, to: f-malformed, kind: fail, label: "" }
   markers:
-    - at: g-commands
-      number: 1
-    - at: g-resolve
-      number: 2
-    - at: s-cache
-      number: 3
-    - at: r-same
-      number: 4
-    - at: g-parsed
-      number: 5
-    - at: f-bad-key
-      number: 6
-    - at: f-unknown
-      number: 7
-    - at: f-malformed
-      number: 8
+    - { at: g-commands, number: 1 }
+    - { at: g-resolve, number: 2 }
+    - { at: s-cache, number: 3 }
+    - { at: r-same, number: 4 }
+    - { at: g-parsed, number: 5 }
+    - { at: f-bad-key, number: 6 }
+    - { at: f-unknown, number: 7 }
+    - { at: f-malformed, number: 8 }
   legend: auto
   minimaps:
     code-locations:
@@ -156,14 +97,9 @@ content:
           - ADR-CONF-LOADING-EXISTENCEDISCOVERED
           - ADR-CONF-LOADING-ONEREADER
       - cell: pwsh/Catzc.Base.Config/private
-        by:
-          - pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1
-          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+        by: [pwsh/Catzc.Base.Config/private/Resolve-ConfigKeyPath.ps1, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST]
       - cell: pwsh/Catzc.Base.Config/tests
-        by:
-          - pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1
-          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-          - ADR-CONF-LOADING-ONEREADER
+        by: [pwsh/Catzc.Base.Config/tests/Get-ConfigValue.Tests.ps1, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST, ADR-CONF-LOADING-ONEREADER]
       - cell: pwsh/Catzc.Base.Docs/.
         by:
           - pwsh/Catzc.Base.Docs/Build-Readme.ps1
@@ -172,9 +108,7 @@ content:
           - ADR-CONF-LOADING-EXISTENCEDISCOVERED
           - ADR-CONF-LOADING-ONEREADER
       - cell: pwsh/Catzc.Base.Docs/private
-        by:
-          - pwsh/Catzc.Base.Docs/private/Get-GlossarySources.ps1
-          - ADR-CONF-LOADING-ONEREADER
+        by: [pwsh/Catzc.Base.Docs/private/Get-GlossarySources.ps1, ADR-CONF-LOADING-ONEREADER]
       - cell: pwsh/Catzc.Base.Docs/types
         by:
           - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
@@ -194,14 +128,9 @@ content:
           - ADR-CONF-LOADING-EXISTENCEDISCOVERED
           - ADR-CONF-LOADING-ONEREADER
       - cell: pwsh/Catzc.Base.Drs/tests
-        by:
-          - pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1
-          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+        by: [pwsh/Catzc.Base.Drs/tests/Get-DrsRuleSet.Tests.ps1, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
       - cell: pwsh/Catzc.Base.Drs/types
-        by:
-          - pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs
-          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
-          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+        by: [pwsh/Catzc.Base.Drs/types/DrsChecksConfig.cs, pwsh/Catzc.Base.Drs/types/DrsConfig.cs, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
       - cell: pwsh/Catzc.Base.Git/types
         by:
           - pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
@@ -210,9 +139,7 @@ content:
           - ADR-CONF-LOADING-EXISTENCEDISCOVERED
           - ADR-CONF-LOADING-ONEREADER
       - cell: pwsh/Catzc.Base.Globs/types
-        by:
-          - pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs
-          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+        by: [pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
       - cell: pwsh/Catzc.Base.Languages/.
         by:
           - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
@@ -226,9 +153,7 @@ content:
           - ADR-CONF-LOADING-EXISTENCEDISCOVERED
           - ADR-CONF-LOADING-ONEREADER
       - cell: pwsh/Catzc.Base.QualityGates/.
-        by:
-          - pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1
-          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+        by: [pwsh/Catzc.Base.QualityGates/Test-ShippedConfigs.ps1, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
       - cell: pwsh/Catzc.Base.QualityGates/private
         by:
           - pwsh/Catzc.Base.QualityGates/private/Get-LiveIdentityTokens.ps1
@@ -237,13 +162,9 @@ content:
           - ADR-CONF-LOADING-EXISTENCEDISCOVERED
           - ADR-CONF-LOADING-ONEREADER
       - cell: pwsh/Catzc.Base.QualityGates/tests/types
-        by:
-          - pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
-          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+        by: [pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
       - cell: pwsh/Catzc.Base.QualityGates/types
-        by:
-          - pwsh/Catzc.Base.QualityGates/types/FileMetaConfig.cs
-          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+        by: [pwsh/Catzc.Base.QualityGates/types/FileMetaConfig.cs, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
       - cell: pwsh/Catzc.Base.RootConfig/types
         by:
           - pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
@@ -252,9 +173,7 @@ content:
           - ADR-CONF-LOADING-EXISTENCEDISCOVERED
           - ADR-CONF-LOADING-ONEREADER
       - cell: pwsh/Catzc.Tooling.Environment/.
-        by:
-          - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
-          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+        by: [pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST]
     module-neighbourhood:
       - cell: subject/Catzc.Base.Config
         by:
@@ -298,9 +217,7 @@ content:
           - ADR-CONF-LOADING-EXISTENCEDISCOVERED
           - ADR-CONF-LOADING-ONEREADER
       - cell: subject/Catzc.Base.Globs
-        by:
-          - pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs
-          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+        by: [pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
       - cell: subject/Catzc.Base.Languages
         by:
           - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
@@ -331,9 +248,7 @@ content:
           - ADR-CONF-LOADING-EXISTENCEDISCOVERED
           - ADR-CONF-LOADING-ONEREADER
       - cell: subject/Catzc.Tooling.Environment
-        by:
-          - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
-          - ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
+        by: [pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1, ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST]
     axis:
       - cell: AUTO/*
         by:
@@ -343,58 +258,14 @@ content:
           - ADR-CONF-LOADING-EXISTENCEDISCOVERED
           - ADR-CONF-LOADING-ONEREADER
 layout:
-  band-run:
-    x: 20
-    y: 84
-    w: 1260
-    h: 120
-  band-first:
-    x: 600
-    y: 224
-    w: 680
-    h: 120
-  band-throws:
-    x: 20
-    y: 364
-    w: 1260
-    h: 120
-  g-commands:
-    x: 40
-    y: 130
-    w: 220
-    h: 44
-  g-resolve:
-    x: 380
-    y: 130
-    w: 200
-    h: 44
-  s-cache:
-    x: 660
-    y: 122
-    w: 160
-    h: 60
-  r-same:
-    x: 1040
-    y: 130
-    w: 200
-    h: 44
-  g-parsed:
-    x: 640
-    y: 272
-    w: 560
-    h: 44
-  f-bad-key:
-    x: 40
-    y: 412
-    w: 220
-    h: 44
-  f-unknown:
-    x: 370
-    y: 412
-    w: 220
-    h: 44
-  f-malformed:
-    x: 810
-    y: 412
-    w: 220
-    h: 44
+  band-run: { x: 20, y: 84, w: 1260, h: 120 }
+  band-first: { x: 600, y: 224, w: 680, h: 120 }
+  band-throws: { x: 20, y: 364, w: 1260, h: 120 }
+  g-commands: { x: 40, y: 130, w: 220, h: 44 }
+  g-resolve: { x: 380, y: 130, w: 200, h: 44 }
+  s-cache: { x: 660, y: 122, w: 160, h: 60 }
+  r-same: { x: 1040, y: 130, w: 200, h: 44 }
+  g-parsed: { x: 640, y: 272, w: 560, h: 44 }
+  f-bad-key: { x: 40, y: 412, w: 220, h: 44 }
+  f-unknown: { x: 370, y: 412, w: 220, h: 44 }
+  f-malformed: { x: 810, y: 412, w: 220, h: 44 }

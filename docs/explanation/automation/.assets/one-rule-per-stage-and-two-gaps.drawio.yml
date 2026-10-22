@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: a30af2a35d48
+#     with_body_sha: bcc1ca80688b
 # ---
 
 description:
@@ -132,12 +132,15 @@ content:
           - docs/references/pwsh/catzc-base-timeouts/types/TimeoutExemptionsConfig.cs.md
           - docs/references/pwsh/catzc-base-timeouts/types/TimeoutsConfig.cs.md
           - docs/references/pwsh/catzc-base-types-system.md
+          - docs/references/pwsh/catzc-base-types-system/Build-AgentHook.ps1.md
           - docs/references/pwsh/catzc-base-variants/private/Get-Variant.ps1.md
           - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
           - docs/references/pwsh/catzc-tooling-inspiration/Get-Inspiration.ps1.md
           - docs/references/pwsh/catzc-tooling-inspiration/configs/inspiration.yml.md
           - docs/references/pwsh/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md
           - docs/references/pwsh/catzc-tooling-inspiration/types/InspirationConfig.cs.md
+          - docs/references/pwsh/catzc-tooling-listen/Wait-DocChange.ps1.md
+          - docs/references/pwsh/catzc-tooling-listen/Wait-DocNote.ps1.md
           - docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
@@ -353,7 +356,15 @@ content:
       - cell: pwsh/Catzc.Base.VSCode/types
         by: [pwsh/Catzc.Base.VSCode/types/VscodeOwnExtension.cs, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Internal.Assets/.
-        by: [pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+        by: [pwsh/.internal/assets/Enter-CatzcBurst.ps1, pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+      - cell: pwsh/Catzc.Internal.Tests/.
+        by:
+          - pwsh/.internal/tests/Enter-CatzcBurst.Tests.ps1
+          - pwsh/.internal/tests/Invoke-CatzcCommand.Tests.ps1
+          - pwsh/.internal/tests/Wait-CatzcRunLock.Tests.ps1
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - cell: pwsh/Catzc.Tooling.Claude/tests/types
+        by: [pwsh/Catzc.Tooling.Claude/tests/types/ClaudeWorkerConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Tooling.Inspiration/.
         by: [pwsh/Catzc.Tooling.Inspiration/Get-Inspiration.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: pwsh/Catzc.Tooling.Inspiration/configs
@@ -544,7 +555,15 @@ content:
           - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
           - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - cell: subject/Catzc.Internal.Assets
-        by: [pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+        by: [pwsh/.internal/assets/Enter-CatzcBurst.ps1, pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+      - cell: subject/Catzc.Internal.Tests
+        by:
+          - pwsh/.internal/tests/Enter-CatzcBurst.Tests.ps1
+          - pwsh/.internal/tests/Invoke-CatzcCommand.Tests.ps1
+          - pwsh/.internal/tests/Wait-CatzcRunLock.Tests.ps1
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - cell: subject/Catzc.Tooling.Claude
+        by: [pwsh/Catzc.Tooling.Claude/tests/types/ClaudeWorkerConfig.Tests.ps1, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER]
       - cell: subject/Catzc.Tooling.Inspiration
         by:
           - pwsh/Catzc.Tooling.Inspiration/Get-Inspiration.ps1

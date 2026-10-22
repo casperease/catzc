@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "05e2c3dcadb0"
+#     with_body_sha: ede3781cab52
 # ---
 
 description:
@@ -104,6 +104,7 @@ content:
           - docs/references/pwsh/catzc-azure-dev-ops-build-validation/types/BuildValidationEntry.cs.md
           - docs/references/pwsh/catzc-azure-templates/Assert-BicepTemplate.ps1.md
           - docs/references/pwsh/catzc-azure-templates/Build-Bicep.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/ConvertTo-BicepParam.ps1.md
           - docs/references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md
           - docs/references/pwsh/catzc-azure-templates/Get-AzureBicepEnvironmentKinds.ps1.md
           - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md
@@ -155,7 +156,10 @@ content:
           - docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md
           - docs/references/pwsh/catzc-base-types-system.md
           - docs/references/pwsh/catzc-base-types-system/Assert-LoadedTypesCurrent.ps1.md
+          - docs/references/pwsh/catzc-base-types-system/Build-AgentHook.ps1.md
           - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-tooling-listen/Wait-DocChange.ps1.md
+          - docs/references/pwsh/catzc-tooling-listen/Wait-DocNote.ps1.md
           - docs/references/pwsh/catzc-tooling-provisioning/Install-Zsh.ps1.md
           - docs/references/pwsh/catzc-tooling-provisioning/private/Get-ZshInstallLayout.ps1.md
           - docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md
@@ -328,7 +332,13 @@ content:
       - cell: pwsh/Catzc.Base.Variants/configs
         by: [pwsh/Catzc.Base.Variants/configs/variants.yml, ADR-AZ-CUSTOMER]
       - cell: pwsh/Catzc.Internal.Assets/.
-        by: [pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST]
+        by: [pwsh/.internal/assets/Enter-CatzcBurst.ps1, pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST]
+      - cell: pwsh/Catzc.Internal.Tests/.
+        by:
+          - pwsh/.internal/tests/Enter-CatzcBurst.Tests.ps1
+          - pwsh/.internal/tests/Invoke-CatzcCommand.Tests.ps1
+          - pwsh/.internal/tests/Wait-CatzcRunLock.Tests.ps1
+          - ADR-AUTO-FAILFAST
       - cell: pwsh/Catzc.Tooling.Listen/.
         by: [pwsh/Catzc.Tooling.Listen/Wait-DocChange.ps1, pwsh/Catzc.Tooling.Listen/Wait-DocNote.ps1, ADR-AUTO-FAILFAST]
       - cell: pwsh/Catzc.Tooling.Listen/tests
@@ -479,7 +489,13 @@ content:
       - cell: subject/Catzc.Base.Variants
         by: [pwsh/Catzc.Base.Variants/configs/variants.yml, ADR-AZ-CUSTOMER]
       - cell: subject/Catzc.Internal.Assets
-        by: [pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST]
+        by: [pwsh/.internal/assets/Enter-CatzcBurst.ps1, pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST]
+      - cell: subject/Catzc.Internal.Tests
+        by:
+          - pwsh/.internal/tests/Enter-CatzcBurst.Tests.ps1
+          - pwsh/.internal/tests/Invoke-CatzcCommand.Tests.ps1
+          - pwsh/.internal/tests/Wait-CatzcRunLock.Tests.ps1
+          - ADR-AUTO-FAILFAST
       - cell: subject/Catzc.Tooling.Listen
         by:
           - pwsh/Catzc.Tooling.Listen/Wait-DocChange.ps1

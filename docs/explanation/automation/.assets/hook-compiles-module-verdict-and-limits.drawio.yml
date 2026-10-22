@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8b44bedb71e6"
+#     with_body_sha: "22be10da0d2b"
 # ---
 
 description:
@@ -69,6 +69,9 @@ content:
           - docs/references/pwsh/catzc-base-timeouts/Watch-Blocking.ps1.md
           - docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md
           - docs/references/pwsh/catzc-base-types-system.md
+          - docs/references/pwsh/catzc-base-types-system/Build-AgentHook.ps1.md
+          - docs/references/pwsh/catzc-tooling-listen/Wait-DocChange.ps1.md
+          - docs/references/pwsh/catzc-tooling-listen/Wait-DocNote.ps1.md
           - docs/references/pwsh/claude-hooks/Assert-BashTimeout/Program.cs.md
           - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Azure.Cli/.
@@ -103,7 +106,13 @@ content:
       - cell: pwsh/Catzc.Base.TypesSystem/.
         by: [pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Internal.Assets/.
-        by: [pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+        by: [pwsh/.internal/assets/Enter-CatzcBurst.ps1, pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+      - cell: pwsh/Catzc.Internal.Tests/.
+        by:
+          - pwsh/.internal/tests/Enter-CatzcBurst.Tests.ps1
+          - pwsh/.internal/tests/Invoke-CatzcCommand.Tests.ps1
+          - pwsh/.internal/tests/Wait-CatzcRunLock.Tests.ps1
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: pwsh/Catzc.Tooling.Listen/.
         by: [pwsh/Catzc.Tooling.Listen/Wait-DocChange.ps1, pwsh/Catzc.Tooling.Listen/Wait-DocNote.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: pwsh/Catzc.Tooling.Listen/tests
@@ -149,7 +158,13 @@ content:
       - cell: subject/Catzc.Base.TypesSystem
         by: [pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
       - cell: subject/Catzc.Internal.Assets
-        by: [pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+        by: [pwsh/.internal/assets/Enter-CatzcBurst.ps1, pwsh/.internal/assets/Invoke-CatzcCommand.ps1, ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+      - cell: subject/Catzc.Internal.Tests
+        by:
+          - pwsh/.internal/tests/Enter-CatzcBurst.Tests.ps1
+          - pwsh/.internal/tests/Invoke-CatzcCommand.Tests.ps1
+          - pwsh/.internal/tests/Wait-CatzcRunLock.Tests.ps1
+          - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - cell: subject/Catzc.Tooling.Listen
         by:
           - pwsh/Catzc.Tooling.Listen/Wait-DocChange.ps1

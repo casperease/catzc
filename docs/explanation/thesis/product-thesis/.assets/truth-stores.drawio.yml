@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: c79a97eb64fd
+#     with_body_sha: "8eeecf6fd218"
 # ---
 
 description:
@@ -23,68 +23,25 @@ content:
   relation: reaches
   theme: dark
   bands:
-    - id: band-domain
-      label: RESPONSIBILITY DOMAIN
-    - id: band-adjacent
-      label: ADJACENT STORE
-    - id: band-facts
-      label: FACT SOURCES
-    - id: band-machines
-      label: STATE MACHINES
+    - { id: band-domain, label: RESPONSIBILITY DOMAIN }
+    - { id: band-adjacent, label: ADJACENT STORE }
+    - { id: band-facts, label: FACT SOURCES }
+    - { id: band-machines, label: STATE MACHINES }
   glyphs:
-    - id: s-repo
-      kind: store
-      label: repository at one commit
-      in: band-domain
-    - id: r-pipelines
-      kind: runner
-      label: trunk pipelines
-      in: band-domain
-    - id: c-catzc
-      kind: code
-      label: catzc
-      in: band-domain
-    - id: s-ado-config
-      kind: store
-      label: ADO configuration
-      in: band-adjacent
-    - id: s-ado-runtime
-      kind: store
-      label: ADO runtime state
-      in: band-facts
-    - id: x-ado
-      kind: external
-      label: Azure DevOps
-      in: band-machines
-    - id: x-snow
-      kind: external
-      label: ITSM (ServiceNow)
-      in: band-machines
+    - { id: s-repo, kind: store, label: repository at one commit, in: band-domain }
+    - { id: r-pipelines, kind: runner, label: trunk pipelines, in: band-domain }
+    - { id: c-catzc, kind: code, label: catzc, in: band-domain }
+    - { id: s-ado-config, kind: store, label: ADO configuration, in: band-adjacent }
+    - { id: s-ado-runtime, kind: store, label: ADO runtime state, in: band-facts }
+    - { id: x-ado, kind: external, label: Azure DevOps, in: band-machines }
+    - { id: x-snow, kind: external, label: ITSM (ServiceNow), in: band-machines }
   edges:
-    - from: s-repo
-      to: r-pipelines
-      kind: flow
-      label: trunk
-    - from: r-pipelines
-      to: s-ado-config
-      kind: thick
-      label: one way
-    - from: c-catzc
-      to: s-repo
-      kind: flow
-      label: writes
-    - from: c-catzc
-      to: s-ado-runtime
-      kind: flow
-      label: reads
-    - from: x-ado
-      to: c-catzc
-      kind: flow
-      label: verdict
-    - from: c-catzc
-      to: x-snow
-      kind: flow
-      label: facts
+    - { from: s-repo, to: r-pipelines, kind: flow, label: trunk }
+    - { from: r-pipelines, to: s-ado-config, kind: thick, label: one way }
+    - { from: c-catzc, to: s-repo, kind: flow, label: writes }
+    - { from: c-catzc, to: s-ado-runtime, kind: flow, label: reads }
+    - { from: x-ado, to: c-catzc, kind: flow, label: verdict }
+    - { from: c-catzc, to: x-snow, kind: flow, label: facts }
   legend: auto
   minimaps:
     axis:
@@ -212,58 +169,14 @@ content:
           - TDR-STORES-STATEMACHINE
           - TDR-STORES-THREEKINDS
 layout:
-  band-domain:
-    x: 20
-    y: 84
-    w: 400
-    h: 460
-  band-adjacent:
-    x: 440
-    y: 84
-    w: 220
-    h: 460
-  band-facts:
-    x: 680
-    y: 84
-    w: 220
-    h: 460
-  band-machines:
-    x: 920
-    y: 84
-    w: 360
-    h: 460
-  s-repo:
-    x: 90
-    y: 230
-    w: 260
-    h: 90
-  r-pipelines:
-    x: 90
-    y: 130
-    w: 260
-    h: 56
-  c-catzc:
-    x: 90
-    y: 400
-    w: 260
-    h: 56
-  s-ado-config:
-    x: 470
-    y: 116
-    w: 160
-    h: 84
-  s-ado-runtime:
-    x: 710
-    y: 130
-    w: 160
-    h: 84
-  x-ado:
-    x: 990
-    y: 400
-    w: 220
-    h: 56
-  x-snow:
-    x: 990
-    y: 270
-    w: 220
-    h: 56
+  band-domain: { x: 20, y: 84, w: 400, h: 460 }
+  band-adjacent: { x: 440, y: 84, w: 220, h: 460 }
+  band-facts: { x: 680, y: 84, w: 220, h: 460 }
+  band-machines: { x: 920, y: 84, w: 360, h: 460 }
+  s-repo: { x: 90, y: 230, w: 260, h: 90 }
+  r-pipelines: { x: 90, y: 130, w: 260, h: 56 }
+  c-catzc: { x: 90, y: 400, w: 260, h: 56 }
+  s-ado-config: { x: 470, y: 116, w: 160, h: 84 }
+  s-ado-runtime: { x: 710, y: 130, w: 160, h: 84 }
+  x-ado: { x: 990, y: 400, w: 220, h: 56 }
+  x-snow: { x: 990, y: 270, w: 220, h: 56 }

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: fb1efdf62d91
+#     with_body_sha: "74f70d762ed9"
 # ---
 
 description:
@@ -29,155 +29,60 @@ content:
   relation: the read, or what a gate checks
   theme: dark
   bands:
-    - id: band-read
-      label: READ PATH
-    - id: band-miss
-      label: MISS
-    - id: band-extension
-      label: EXTENSION POINT
-    - id: band-gates
-      label: QUALITY GATES
+    - { id: band-read, label: READ PATH }
+    - { id: band-miss, label: MISS }
+    - { id: band-extension, label: EXTENSION POINT }
+    - { id: band-gates, label: QUALITY GATES }
   glyphs:
-    - id: a-reader
-      kind: drsonly
-      label: one reader
-      in: band-read
-    - id: g-resolution
-      kind: code
-      label: resolution
-      in: band-read
-    - id: s-cache
-      kind: store
-      label: session cache
-      in: band-read
-    - id: a-copy
-      kind: drsonly
-      label: a read, not a copy
-      in: band-read
-    - id: g-typed
-      kind: code
-      label: typed once
-      in: band-miss
-    - id: a-validator
-      kind: drsonly
-      label: PowerShell validator
-      in: band-extension
-    - id: g-validators
-      kind: gate
-      label: Test-ConfigValidators
-      in: band-gates
-    - id: g-shipped
-      kind: gate
-      label: Test-ShippedConfigs
-      in: band-gates
+    - { id: a-reader, kind: drsonly, label: one reader, in: band-read }
+    - { id: g-resolution, kind: code, label: resolution, in: band-read }
+    - { id: s-cache, kind: store, label: session cache, in: band-read }
+    - { id: a-copy, kind: drsonly, label: "a read, not a copy", in: band-read }
+    - { id: g-typed, kind: code, label: typed once, in: band-miss }
+    - { id: a-validator, kind: drsonly, label: PowerShell validator, in: band-extension }
+    - { id: g-validators, kind: gate, label: Test-ConfigValidators, in: band-gates }
+    - { id: g-shipped, kind: gate, label: Test-ShippedConfigs, in: band-gates }
   edges:
-    - from: a-reader
-      to: g-resolution
-      kind: flow
-      label: ""
-    - from: g-resolution
-      to: s-cache
-      kind: flow
-      label: ""
-    - from: s-cache
-      to: g-typed
-      kind: flow
-      label: ""
-    - from: g-typed
-      to: a-copy
-      kind: flow
-      label: ""
-    - from: g-validators
-      to: a-validator
-      kind: flow
-      label: ""
-    - from: g-shipped
-      to: g-typed
-      kind: flow
-      label: ""
+    - { from: a-reader, to: g-resolution, kind: flow, label: "" }
+    - { from: g-resolution, to: s-cache, kind: flow, label: "" }
+    - { from: s-cache, to: g-typed, kind: flow, label: "" }
+    - { from: g-typed, to: a-copy, kind: flow, label: "" }
+    - { from: g-validators, to: a-validator, kind: flow, label: "" }
+    - { from: g-shipped, to: g-typed, kind: flow, label: "" }
   markers:
-    - at: a-reader
-      number: 1
-    - at: g-resolution
-      number: 2
-    - at: s-cache
-      number: 3
-    - at: a-copy
-      number: 4
-    - at: a-validator
-      number: 5
-    - at: g-typed
-      number: 6
-    - at: g-validators
-      number: 7
-    - at: g-shipped
-      number: 8
+    - { at: a-reader, number: 1 }
+    - { at: g-resolution, number: 2 }
+    - { at: s-cache, number: 3 }
+    - { at: a-copy, number: 4 }
+    - { at: a-validator, number: 5 }
+    - { at: g-typed, number: 6 }
+    - { at: g-validators, number: 7 }
+    - { at: g-shipped, number: 8 }
   chips:
-    - at: a-reader
-      kind: rule
-      rule: ADR-CONF-LOADING-ONEREADER
-      gated: false
-    - at: a-reader
-      kind: rule
-      rule: ADR-CONF-LOADING-READINGISGLOBAL
-      gated: false
-    - at: g-resolution
-      kind: rule
-      rule: ADR-CONF-LOADING-EXISTENCEDISCOVERED
-    - at: g-resolution
-      kind: rule
-      rule: ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
-    - at: g-resolution
-      kind: rule
-      rule: ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
-    - at: g-resolution
-      kind: rule
-      rule: ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST
-    - at: s-cache
-      kind: rule
-      rule: ADR-CONF-LOADING-CACHEBYPATH
-    - at: a-copy
-      kind: rule
-      rule: ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
-      gated: false
-    - at: a-copy
-      kind: rule
-      rule: ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
-      gated: false
-    - at: a-validator
-      kind: rule
-      rule: ADR-CONF-LOADING-POWERSHELLVALIDATOR
-      gated: false
-    - at: g-typed
-      kind: rule
-      rule: ADR-CONF-LOADING-CSHARPCONFIGTYPE
-    - at: g-validators
-      kind: rule
-      rule: ADR-CONF-LOADING-POWERSHELLVALIDATOR
-    - at: g-validators
-      kind: rule
-      rule: ADR-AUTO-TEST-QUALITYGATE
-    - at: g-shipped
-      kind: rule
-      rule: ADR-CONF-LOADING-CSHARPCONFIGTYPE
-    - at: g-shipped
-      kind: rule
-      rule: ADR-AUTO-TEST-QUALITYGATE
+    - { at: a-reader, kind: rule, rule: ADR-CONF-LOADING-ONEREADER, gated: false }
+    - { at: a-reader, kind: rule, rule: ADR-CONF-LOADING-READINGISGLOBAL, gated: false }
+    - { at: g-resolution, kind: rule, rule: ADR-CONF-LOADING-EXISTENCEDISCOVERED }
+    - { at: g-resolution, kind: rule, rule: ADR-CONF-ADDRESSING-GLOBALADDRESSFORM }
+    - { at: g-resolution, kind: rule, rule: ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG }
+    - { at: g-resolution, kind: rule, rule: ADR-CONF-ADDRESSING-RESOLUTIONFAILSFAST }
+    - { at: s-cache, kind: rule, rule: ADR-CONF-LOADING-CACHEBYPATH }
+    - { at: a-copy, kind: rule, rule: ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY, gated: false }
+    - { at: a-copy, kind: rule, rule: ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD, gated: false }
+    - { at: a-validator, kind: rule, rule: ADR-CONF-LOADING-POWERSHELLVALIDATOR, gated: false }
+    - { at: g-typed, kind: rule, rule: ADR-CONF-LOADING-CSHARPCONFIGTYPE }
+    - { at: g-validators, kind: rule, rule: ADR-CONF-LOADING-POWERSHELLVALIDATOR }
+    - { at: g-validators, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
+    - { at: g-shipped, kind: rule, rule: ADR-CONF-LOADING-CSHARPCONFIGTYPE }
+    - { at: g-shipped, kind: rule, rule: ADR-AUTO-TEST-QUALITYGATE }
   legend: auto
   minimaps:
     code-locations:
       - cell: .claude/.claude/.
-        by:
-          - .claude/CLAUDE.md
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [.claude/CLAUDE.md, ADR-AUTO-TEST-QUALITYGATE]
       - cell: .claude/.claude/agents
-        by:
-          - .claude/agents/test-optimization.md
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [.claude/agents/test-optimization.md, ADR-AUTO-TEST-QUALITYGATE]
       - cell: .claude/.claude/skills/test-speed
-        by:
-          - .claude/skills/test-speed/SKILL.md
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [.claude/skills/test-speed/SKILL.md, ADR-AUTO-TEST-QUALITYGATE]
       - cell: docs/-/.
         by:
           - docs/drs/automation/dora-explains.md
@@ -320,17 +225,11 @@ content:
           - ADR-CONF-LOADING-POWERSHELLVALIDATOR
           - ADR-CONF-LOADING-READINGISGLOBAL
       - cell: pwsh/Catzc.Azure/.
-        by:
-          - pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Azure.DevOps/.
-        by:
-          - pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Azure.DevOps/tests
-        by:
-          - pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Azure.Templates/private
         by:
           - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
@@ -366,17 +265,11 @@ content:
           - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
           - ADR-CONF-LOADING-ONEREADER
       - cell: pwsh/Catzc.Base.ConfigExtensions/.
-        by:
-          - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Contracts/.
-        by:
-          - pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Contracts/Test-Contracts.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Contracts/tests
-        by:
-          - pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Contracts/tests/Test-Contracts.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Docs/.
         by:
           - pwsh/Catzc.Base.Docs/Build-Readme.ps1
@@ -391,10 +284,7 @@ content:
           - ADR-CONF-LOADING-POWERSHELLVALIDATOR
           - ADR-CONF-LOADING-READINGISGLOBAL
       - cell: pwsh/Catzc.Base.Docs/configs
-        by:
-          - pwsh/Catzc.Base.Docs/configs/agents.yml
-          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Docs/configs/agents.yml, pwsh/Catzc.Base.Docs/configs/capabilities.yml, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Docs/private
         by:
           - pwsh/Catzc.Base.Docs/private/Get-CatsRuleEnforcers.ps1
@@ -419,10 +309,7 @@ content:
           - ADR-CONF-LOADING-POWERSHELLVALIDATOR
           - ADR-CONF-LOADING-READINGISGLOBAL
       - cell: pwsh/Catzc.Base.Drs/.
-        by:
-          - pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1
-          - pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Drs/Test-DrsEngineNeutrality.ps1, pwsh/Catzc.Base.Drs/Test-DrsRegistry.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Drs/configs
         by:
           - pwsh/Catzc.Base.Drs/configs/drs-checks.yml
@@ -461,13 +348,9 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-CONF-LOADING-READINGISGLOBAL
       - cell: pwsh/Catzc.Base.Folders/tests/types
-        by:
-          - pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
-          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+        by: [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM]
       - cell: pwsh/Catzc.Base.Git/private
-        by:
-          - pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
-          - ADR-CONF-LOADING-READINGISGLOBAL
+        by: [pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1, ADR-CONF-LOADING-READINGISGLOBAL]
       - cell: pwsh/Catzc.Base.Git/types
         by:
           - pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
@@ -492,9 +375,7 @@ content:
           - pwsh/Catzc.Base.Globs/tests/Test-GlobSetIndependence.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Globs/types
-        by:
-          - pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs
-          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+        by: [pwsh/Catzc.Base.Globs/types/FileKindsConfig.cs, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
       - cell: pwsh/Catzc.Base.Languages/.
         by:
           - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
@@ -516,9 +397,7 @@ content:
           - pwsh/Catzc.Base.Maps/tests/Test-WorldMap.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.Modules/tests
-        by:
-          - pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.ModuleSystem/.
         by:
           - pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
@@ -536,9 +415,7 @@ content:
           - ADR-CONF-LOADING-POWERSHELLVALIDATOR
           - ADR-CONF-LOADING-READINGISGLOBAL
       - cell: pwsh/Catzc.Base.ModuleSystem/configs
-        by:
-          - pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.ModuleSystem/configs/artifacts.yml, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.ModuleSystem/tests
         by:
           - pwsh/Catzc.Base.ModuleSystem/tests/Get-InternalAssetDependency.Integrity.Tests.ps1
@@ -617,43 +494,26 @@ content:
           - pwsh/Catzc.Base.QualityGates/tests/TestTitle-TemplateTokens.Tests.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.QualityGates/tests/types
-        by:
-          - pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1
-          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+        by: [pwsh/Catzc.Base.QualityGates/tests/types/CommentsConfig.Tests.ps1, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
       - cell: pwsh/Catzc.Base.QualityGates/types
-        by:
-          - pwsh/Catzc.Base.QualityGates/types/FileMetaConfig.cs
-          - ADR-CONF-LOADING-CSHARPCONFIGTYPE
+        by: [pwsh/Catzc.Base.QualityGates/types/FileMetaConfig.cs, ADR-CONF-LOADING-CSHARPCONFIGTYPE]
       - cell: pwsh/Catzc.Base.Reports/.
-        by:
-          - pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/Write-QualityGateReport.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/configs
-        by:
-          - pwsh/Catzc.Base.Reports/configs/reports.yml
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/configs/reports.yml, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/tests
-        by:
-          - pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/tests/Write-QualityGateReport.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/tests/types
-        by:
-          - pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/tests/types/ReportsConfig.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.Reports/types
-        by:
-          - pwsh/Catzc.Base.Reports/types/CheckMode.cs
-          - pwsh/Catzc.Base.Reports/types/ReportsConfig.cs
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Reports/types/CheckMode.cs, pwsh/Catzc.Base.Reports/types/ReportsConfig.cs, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.RootConfig/.
         by:
           - pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
           - pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
           - ADR-AUTO-TEST-QUALITYGATE
       - cell: pwsh/Catzc.Base.RootConfig/tests
-        by:
-          - pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Base.RootConfig/types
         by:
           - pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
@@ -664,13 +524,9 @@ content:
           - ADR-CONF-LOADING-POWERSHELLVALIDATOR
           - ADR-CONF-LOADING-READINGISGLOBAL
       - cell: pwsh/Catzc.Base.TypesSystem/.
-        by:
-          - pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Internal.Tests/.
-        by:
-          - pwsh/.internal/tests/Test-FolderConventions.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/.internal/tests/Test-FolderConventions.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: pwsh/Catzc.Tooling.Environment/.
         by:
           - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
@@ -680,25 +536,14 @@ content:
           - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
       - cell: pwsh/Catzc.Tooling.KeyHandler/private
-        by:
-          - pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1, ADR-AUTO-TEST-QUALITYGATE]
     module-neighbourhood:
       - cell: subject/.claude
-        by:
-          - .claude/CLAUDE.md
-          - .claude/agents/test-optimization.md
-          - .claude/skills/test-speed/SKILL.md
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [.claude/CLAUDE.md, .claude/agents/test-optimization.md, .claude/skills/test-speed/SKILL.md, ADR-AUTO-TEST-QUALITYGATE]
       - cell: subject/Catzc.Azure
-        by:
-          - pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Azure/Test-AzureNetworkPlan.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: subject/Catzc.Azure.DevOps
-        by:
-          - pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1
-          - pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Azure.DevOps/Test-Pipelines.ps1, pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: subject/Catzc.Azure.Templates
         by:
           - pwsh/Catzc.Azure.Templates/private/Resolve-BicepParameterAddresses.ps1
@@ -722,9 +567,7 @@ content:
           - ADR-CONF-LOADING-EXISTENCEDISCOVERED
           - ADR-CONF-LOADING-ONEREADER
       - cell: subject/Catzc.Base.ConfigExtensions
-        by:
-          - pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: subject/Catzc.Base.Contracts
         by:
           - pwsh/Catzc.Base.Contracts/Test-Contracts.ps1
@@ -785,9 +628,7 @@ content:
           - ADR-AUTO-TEST-QUALITYGATE
           - ADR-CONF-LOADING-READINGISGLOBAL
       - cell: subject/Catzc.Base.Folders
-        by:
-          - pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1
-          - ADR-CONF-ADDRESSING-GLOBALADDRESSFORM
+        by: [pwsh/Catzc.Base.Folders/tests/types/FolderWalkConfig.Tests.ps1, ADR-CONF-ADDRESSING-GLOBALADDRESSFORM]
       - cell: subject/Catzc.Base.Git
         by:
           - pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1
@@ -850,9 +691,7 @@ content:
           - ADR-CONF-LOADING-POWERSHELLVALIDATOR
           - ADR-CONF-LOADING-READINGISGLOBAL
       - cell: subject/Catzc.Base.Modules
-        by:
-          - pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.Modules/tests/Get-CatzcModule.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: subject/Catzc.Base.QualityGates
         by:
           - pwsh/Catzc.Base.QualityGates/Test-AnalyzerDrsMap.ps1
@@ -938,13 +777,9 @@ content:
           - ADR-CONF-LOADING-POWERSHELLVALIDATOR
           - ADR-CONF-LOADING-READINGISGLOBAL
       - cell: subject/Catzc.Base.TypesSystem
-        by:
-          - pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: subject/Catzc.Internal.Tests
-        by:
-          - pwsh/.internal/tests/Test-FolderConventions.Tests.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/.internal/tests/Test-FolderConventions.Tests.ps1, ADR-AUTO-TEST-QUALITYGATE]
       - cell: subject/Catzc.Tooling.Environment
         by:
           - pwsh/Catzc.Tooling.Environment/Write-EnvironmentSet.ps1
@@ -954,13 +789,10 @@ content:
           - ADR-CONF-ADDRESSING-RESOLVEDNODEISREAD
           - ADR-CONF-ADDRESSING-VERSIONCONTROLLEDONLY
       - cell: subject/Catzc.Tooling.KeyHandler
-        by:
-          - pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [pwsh/Catzc.Tooling.KeyHandler/private/Select-SupportedKeyHandler.ps1, ADR-AUTO-TEST-QUALITYGATE]
     axis:
       - cell: AUTO/quality-control
-        by:
-          - ADR-AUTO-TEST-QUALITYGATE
+        by: [ADR-AUTO-TEST-QUALITYGATE]
       - cell: AUTO/*
         by:
           - ADR-CONF-ADDRESSING-FIRSTSEGMENTISCONFIG
@@ -975,63 +807,15 @@ content:
           - ADR-CONF-LOADING-POWERSHELLVALIDATOR
           - ADR-CONF-LOADING-READINGISGLOBAL
 layout:
-  band-read:
-    x: 20
-    y: 100
-    w: 600
-    h: 400
-  band-extension:
-    x: 640
-    y: 100
-    w: 640
-    h: 120
-  band-gates:
-    x: 640
-    y: 240
-    w: 640
-    h: 130
-  band-miss:
-    x: 640
-    y: 390
-    w: 640
-    h: 120
-  a-reader:
-    x: 170
-    y: 146
-    w: 300
-    h: 44
-  g-resolution:
-    x: 170
-    y: 226
-    w: 300
-    h: 44
-  s-cache:
-    x: 240
-    y: 306
-    w: 160
-    h: 60
-  a-copy:
-    x: 170
-    y: 436
-    w: 300
-    h: 44
-  a-validator:
-    x: 650
-    y: 146
-    w: 300
-    h: 44
-  g-validators:
-    x: 700
-    y: 280
-    w: 240
-    h: 68
-  g-shipped:
-    x: 1000
-    y: 280
-    w: 220
-    h: 68
-  g-typed:
-    x: 650
-    y: 436
-    w: 600
-    h: 44
+  band-read: { x: 20, y: 100, w: 600, h: 400 }
+  band-extension: { x: 640, y: 100, w: 640, h: 120 }
+  band-gates: { x: 640, y: 240, w: 640, h: 130 }
+  band-miss: { x: 640, y: 390, w: 640, h: 120 }
+  a-reader: { x: 170, y: 146, w: 300, h: 44 }
+  g-resolution: { x: 170, y: 226, w: 300, h: 44 }
+  s-cache: { x: 240, y: 306, w: 160, h: 60 }
+  a-copy: { x: 170, y: 436, w: 300, h: 44 }
+  a-validator: { x: 650, y: 146, w: 300, h: 44 }
+  g-validators: { x: 700, y: 280, w: 240, h: 68 }
+  g-shipped: { x: 1000, y: 280, w: 220, h: 68 }
+  g-typed: { x: 650, y: 436, w: 600, h: 44 }
