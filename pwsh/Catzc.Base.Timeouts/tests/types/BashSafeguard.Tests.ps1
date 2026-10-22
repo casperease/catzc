@@ -1,11 +1,8 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "9ada25ffbb7f"
   edges:
     docs: "[BashSafeguard.Tests.ps1.md](../../../../docs/references/pwsh/catzc-base-timeouts/tests/types/BashSafeguard.Tests.ps1.md)"
-    code: pwsh/Catzc.Base.Timeouts/types/BashSafeguard.cs
     cites:
       - ADR-AUTO-LAYERS-TOOLSRUNTHROUGHENGINE
 ---

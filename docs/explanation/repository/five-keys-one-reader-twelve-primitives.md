@@ -21,6 +21,161 @@ Supports ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS, ADR-RE
 fifteen public functions that ask it. A value flows one way, from the file through the loader and the reader to a `Get-` accessor, and from
 the accessor to the `Test-` and `Assert-` guards that answer a question or stop the run.
 
+```yml drawio
+description:
+  The five keys of variants.yml are loaded through Get-Config and read by one private reader, which feeds the Get- accessors, which feed the
+  Test- and Assert- guards.
+about:
+  adrs:
+    - ADR-REPO-VARIANT-SESSIONVARIANT
+    - ADR-REPO-VARIANT-NODIRECTREADS
+    - ADR-REPO-VARIANT-ADONAMING
+    - ADR-REPO-VARIANT-HAVECUSTOMERS
+    - ADR-REPO-VARIANT-GITWORKSPACE
+  lens: implementation
+content:
+  title: Five keys, one private reader, fifteen exported primitives
+  kind: explanation
+  flow: top-to-bottom
+  relation: feeds
+  theme: dark
+  bands:
+    - { id: band-file, label: FILE }
+    - { id: band-read-path, label: READ PATH }
+    - { id: band-accessors, label: ACCESSORS }
+    - { id: band-guards, label: GUARDS }
+  glyphs:
+    - { id: g-variants-yml, kind: file, label: variants.yml, in: band-file }
+    - { id: g-get-config, kind: code, label: Get-Config -Config variants, in: band-read-path }
+    - { id: g-get-variant, kind: private, label: Get-Variant, in: band-read-path }
+    - { id: g-ado-naming, kind: code, label: Get-AdoNaming, in: band-accessors }
+    - { id: g-git-workspace, kind: code, label: Get-GitWorkspace, in: band-accessors }
+    - { id: g-enabled-customers, kind: code, label: Get-EnabledCustomers, in: band-accessors }
+    - { id: g-aspect-track, kind: code, label: Get-AspectDeclaration · Get-Track, in: band-accessors }
+    - { id: g-test-ado-naming, kind: code, label: Test-/Assert-AdoNaming, in: band-guards }
+    - { id: g-test-git-workspace, kind: code, label: Test-GitWorkspace, in: band-guards }
+    - { id: g-test-customers, kind: code, label: Test-/Assert-HaveCustomer(s), in: band-guards }
+  edges:
+    - { from: g-variants-yml, to: g-get-config, kind: flow, label: "" }
+    - { from: g-get-config, to: g-get-variant, kind: flow, label: "" }
+    - { from: g-get-variant, to: g-ado-naming, kind: flow, label: "" }
+    - { from: g-get-variant, to: g-git-workspace, kind: flow, label: "" }
+    - { from: g-get-variant, to: g-enabled-customers, kind: flow, label: "" }
+    - { from: g-get-variant, to: g-aspect-track, kind: flow, label: "" }
+    - { from: g-ado-naming, to: g-test-ado-naming, kind: flow, label: "" }
+    - { from: g-git-workspace, to: g-test-git-workspace, kind: flow, label: "" }
+    - { from: g-enabled-customers, to: g-test-customers, kind: flow, label: "" }
+  markers:
+    - { at: g-variants-yml, number: 1 }
+    - { at: g-get-config, number: 2 }
+    - { at: g-get-variant, number: 3 }
+    - { at: g-ado-naming, number: 4 }
+    - { at: g-git-workspace, number: 5 }
+    - { at: g-enabled-customers, number: 6 }
+    - { at: g-aspect-track, number: 7 }
+    - { at: g-test-ado-naming, number: 8 }
+    - { at: g-test-git-workspace, number: 9 }
+    - { at: g-test-customers, number: 10 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/index.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/repo-variants.md
+          - docs/references/pwsh/catzc-base-module-system/Sync-GeneratedFile.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Get-AspectDeclaration.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Test-AspectDeclaration.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+      - cell: pwsh/Catzc.Base.ModuleSystem/.
+        by: [pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1, ADR-REPO-VARIANT-GITWORKSPACE]
+      - cell: pwsh/Catzc.Base.Variants/.
+        by:
+          - pwsh/Catzc.Base.Variants/Get-AspectDeclaration.ps1
+          - pwsh/Catzc.Base.Variants/Test-AspectDeclaration.ps1
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+      - cell: pwsh/Catzc.Base.Variants/types
+        by:
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+      - cell: subject/Catzc.Base.ModuleSystem
+        by: [pwsh/Catzc.Base.ModuleSystem/Sync-GeneratedFile.ps1, ADR-REPO-VARIANT-GITWORKSPACE]
+      - cell: subject/Catzc.Base.Variants
+        by:
+          - pwsh/Catzc.Base.Variants/Get-AspectDeclaration.ps1
+          - pwsh/Catzc.Base.Variants/Test-AspectDeclaration.ps1
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+    axis:
+      - cell: AUTO/*
+        by:
+          - ADR-REPO-VARIANT-ADONAMING
+          - ADR-REPO-VARIANT-GITWORKSPACE
+          - ADR-REPO-VARIANT-HAVECUSTOMERS
+          - ADR-REPO-VARIANT-NODIRECTREADS
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+layout:
+  band-file: { x: 20, y: 84, w: 1240, h: 80 }
+  band-read-path: { x: 20, y: 184, w: 1240, h: 140 }
+  band-accessors: { x: 20, y: 344, w: 1240, h: 90 }
+  band-guards: { x: 20, y: 454, w: 1240, h: 90 }
+  g-variants-yml: { x: 560, y: 112, w: 190, h: 44 }
+  g-get-config: { x: 530, y: 212, w: 250, h: 44 }
+  g-get-variant: { x: 560, y: 270, w: 190, h: 44 }
+  g-ado-naming: { x: 50, y: 384, w: 260, h: 44 }
+  g-git-workspace: { x: 365, y: 384, w: 260, h: 44 }
+  g-enabled-customers: { x: 680, y: 384, w: 260, h: 44 }
+  g-aspect-track: { x: 995, y: 384, w: 260, h: 44 }
+  g-test-ado-naming: { x: 50, y: 494, w: 260, h: 44 }
+  g-test-git-workspace: { x: 365, y: 494, w: 260, h: 44 }
+  g-test-customers: { x: 680, y: 494, w: 260, h: 44 }
+```
+
 ![Five keys, one private reader, fifteen exported primitives](.assets/five-keys-one-reader-twelve-primitives.drawio.png)
 
 ## Walkthrough

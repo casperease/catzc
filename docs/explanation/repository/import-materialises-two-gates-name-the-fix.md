@@ -18,6 +18,265 @@ A developer never writes a managed root file. Running `. ./importer.ps1` materia
 on a clean tree nothing is printed and nothing is written. When a source changes, the next import regenerates its target; when something is
 out of step with the registry, one of two quality gates says which file and what to run.
 
+```yml drawio
+description:
+  Every import runs the root-file writer, which leaves each managed root file a current headed file; the drift gate and the integrity gate
+  each report the file and the exact fix when something is out of step.
+about:
+  adrs: [ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT, ADR-REPO-ROOTCFG-HEADEDCOPY]
+  lens: operations
+content:
+  title: The import materialises every root file; two gates catch drift and name the fix
+  kind: explanation
+  flow: left-to-right
+  relation: feeds the next step
+  theme: dark
+  bands:
+    - { id: band-run, label: RUN }
+    - { id: band-materialise, label: MATERIALISE }
+    - { id: band-target, label: TARGET }
+  groups:
+    - { id: grp-gates, label: gates, in: band-target }
+  glyphs:
+    - { id: g-importer, kind: code, label: importer.ps1, in: band-run }
+    - { id: g-build-root-config, kind: code, label: Build-RootConfig, in: band-materialise }
+    - { id: r-current, kind: result, label: root file current, in: band-target }
+    - { id: g-generated-files, kind: gate, label: Test-GeneratedFiles, in: grp-gates }
+    - { id: g-root-config-files, kind: gate, label: Test-RootConfigFiles, in: grp-gates }
+    - { id: f-stale, kind: failure, label: "stale, regenerate", in: band-target }
+    - { id: f-disagree, kind: failure, label: registry and git disagree, in: band-target }
+  edges:
+    - { from: g-importer, to: g-build-root-config, kind: flow, label: "" }
+    - { from: g-build-root-config, to: r-current, kind: flow, label: "" }
+    - { from: r-current, to: grp-gates, kind: flow, label: "" }
+    - { from: g-generated-files, to: f-stale, kind: fail, label: "" }
+    - { from: g-root-config-files, to: f-disagree, kind: fail, label: "" }
+  markers:
+    - { at: g-importer, number: 1 }
+    - { at: g-build-root-config, number: 2 }
+    - { at: r-current, number: 3 }
+    - { at: g-generated-files, number: 4 }
+    - { at: f-stale, number: 5 }
+    - { at: g-root-config-files, number: 6 }
+    - { at: f-disagree, number: 7 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/index.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/generated-root-configs.md
+          - docs/references/pwsh/catzc-base-git/New-GitIgnore.ps1.md
+          - docs/references/pwsh/catzc-base-git/configs/gitignore.yml.md
+          - docs/references/pwsh/catzc-base-git/types/GitIgnoreConfig.cs.md
+          - docs/references/pwsh/catzc-base-languages.md
+          - docs/references/pwsh/catzc-base-languages/New-GoWorkspace.ps1.md
+          - docs/references/pwsh/catzc-base-languages/types/GoWorkspaceFile.cs.md
+          - docs/references/pwsh/catzc-base-languages/types/PythonWorkspaceFile.cs.md
+          - docs/references/pwsh/catzc-base-root-config.md
+          - docs/references/pwsh/catzc-base-root-config/Build-RootConfig.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/New-GitAttributes.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/Test-RootAnalyzerSettings.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/Test-RootConfigFiles.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/configs/rootconfig.yml.md
+          - docs/references/pwsh/catzc-base-root-config/private/Get-RootConfigCopyContent.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/private/Get-RootConfigRenderedFile.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/private/Get-RootConfigTargets.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/tests/Test-RootConfigIntegrity.Tests.ps1.md
+          - docs/references/pwsh/catzc-base-root-config/types/RootConfigFiles.cs.md
+          - docs/references/pwsh/catzc-base-vs-code/New-VsCodeExtensions.ps1.md
+          - docs/references/pwsh/catzc-base-vs-code/New-VsCodeLaunch.ps1.md
+          - docs/references/pwsh/catzc-base-vs-code/New-VsCodePipelineSchema.ps1.md
+          - docs/references/pwsh/catzc-base-vs-code/New-VsCodeSettings.ps1.md
+          - docs/references/pwsh/catzc-base-vs-code/New-VsCodeTasks.ps1.md
+          - docs/references/pwsh/catzc-base-vs-code/configs/vscode-extensions.yml.md
+          - docs/references/pwsh/catzc-base-vs-code/configs/vscode-launch.yml.md
+          - docs/references/pwsh/catzc-base-vs-code/configs/vscode-pipeline-schema.yml.md
+          - docs/references/pwsh/catzc-base-vs-code/configs/vscode-settings.yml.md
+          - docs/references/pwsh/catzc-base-vs-code/types/VscodeExtensionsConfig.cs.md
+          - docs/references/pwsh/catzc-base-vs-code/types/VscodeLaunchConfig.cs.md
+          - docs/references/pwsh/catzc-base-vs-code/types/VscodePipelineSchemaConfig.cs.md
+          - docs/references/pwsh/catzc-base-vs-code/types/VscodeSettingsConfig.cs.md
+          - docs/references/pwsh/internal/Catzc.Internal.Importer.psm1.md
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: pwsh/Catzc.Base.Git/.
+        by:
+          - pwsh/Catzc.Base.Git/New-GitIgnore.ps1
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: pwsh/Catzc.Base.Git/configs
+        by:
+          - pwsh/Catzc.Base.Git/configs/gitignore.yml
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: pwsh/Catzc.Base.Git/types
+        by:
+          - pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: pwsh/Catzc.Base.Languages/.
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: pwsh/Catzc.Base.Languages/types
+        by:
+          - pwsh/Catzc.Base.Languages/types/GoWorkspaceFile.cs
+          - pwsh/Catzc.Base.Languages/types/PythonWorkspaceFile.cs
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: pwsh/Catzc.Base.RootConfig/.
+        by:
+          - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
+          - pwsh/Catzc.Base.RootConfig/New-GitAttributes.ps1
+          - pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
+          - pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: pwsh/Catzc.Base.RootConfig/configs
+        by:
+          - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: pwsh/Catzc.Base.RootConfig/private
+        by:
+          - pwsh/Catzc.Base.RootConfig/private/Get-RootConfigCopyContent.ps1
+          - pwsh/Catzc.Base.RootConfig/private/Get-RootConfigRenderedFile.ps1
+          - pwsh/Catzc.Base.RootConfig/private/Get-RootConfigTargets.ps1
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: pwsh/Catzc.Base.RootConfig/tests
+        by:
+          - pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: pwsh/Catzc.Base.RootConfig/types
+        by:
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: pwsh/Catzc.Base.VSCode/.
+        by:
+          - pwsh/Catzc.Base.VSCode/New-VSCodeExtensions.ps1
+          - pwsh/Catzc.Base.VSCode/New-VSCodeLaunch.ps1
+          - pwsh/Catzc.Base.VSCode/New-VSCodePipelineSchema.ps1
+          - pwsh/Catzc.Base.VSCode/New-VSCodeSettings.ps1
+          - pwsh/Catzc.Base.VSCode/New-VSCodeTasks.ps1
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: pwsh/Catzc.Base.VSCode/configs
+        by:
+          - pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml
+          - pwsh/Catzc.Base.VSCode/configs/vscode-launch.yml
+          - pwsh/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml
+          - pwsh/Catzc.Base.VSCode/configs/vscode-settings.yml
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: pwsh/Catzc.Base.VSCode/types
+        by:
+          - pwsh/Catzc.Base.VSCode/types/VscodeExtensionsConfig.cs
+          - pwsh/Catzc.Base.VSCode/types/VscodeLaunchConfig.cs
+          - pwsh/Catzc.Base.VSCode/types/VscodePipelineSchemaConfig.cs
+          - pwsh/Catzc.Base.VSCode/types/VscodeSettingsConfig.cs
+          - pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: subject/Catzc.Base.Git
+        by:
+          - pwsh/Catzc.Base.Git/New-GitIgnore.ps1
+          - pwsh/Catzc.Base.Git/configs/gitignore.yml
+          - pwsh/Catzc.Base.Git/types/GitIgnoreConfig.cs
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: subject/Catzc.Base.Languages
+        by:
+          - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+          - pwsh/Catzc.Base.Languages/types/GoWorkspaceFile.cs
+          - pwsh/Catzc.Base.Languages/types/PythonWorkspaceFile.cs
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: subject/Catzc.Base.RootConfig
+        by:
+          - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
+          - pwsh/Catzc.Base.RootConfig/New-GitAttributes.ps1
+          - pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1
+          - pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1
+          - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
+          - pwsh/Catzc.Base.RootConfig/private/Get-RootConfigCopyContent.ps1
+          - pwsh/Catzc.Base.RootConfig/private/Get-RootConfigRenderedFile.ps1
+          - pwsh/Catzc.Base.RootConfig/private/Get-RootConfigTargets.ps1
+          - pwsh/Catzc.Base.RootConfig/tests/Test-RootConfigIntegrity.Tests.ps1
+          - pwsh/Catzc.Base.RootConfig/types/RootConfigFiles.cs
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+      - cell: subject/Catzc.Base.VSCode
+        by:
+          - pwsh/Catzc.Base.VSCode/New-VSCodeExtensions.ps1
+          - pwsh/Catzc.Base.VSCode/New-VSCodeLaunch.ps1
+          - pwsh/Catzc.Base.VSCode/New-VSCodePipelineSchema.ps1
+          - pwsh/Catzc.Base.VSCode/New-VSCodeSettings.ps1
+          - pwsh/Catzc.Base.VSCode/New-VSCodeTasks.ps1
+          - pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml
+          - pwsh/Catzc.Base.VSCode/configs/vscode-launch.yml
+          - pwsh/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml
+          - pwsh/Catzc.Base.VSCode/configs/vscode-settings.yml
+          - pwsh/Catzc.Base.VSCode/types/VscodeExtensionsConfig.cs
+          - pwsh/Catzc.Base.VSCode/types/VscodeLaunchConfig.cs
+          - pwsh/Catzc.Base.VSCode/types/VscodePipelineSchemaConfig.cs
+          - pwsh/Catzc.Base.VSCode/types/VscodeSettingsConfig.cs
+          - pwsh/Catzc.Base.VSCode/types/VscodeTasksConfig.cs
+          - ADR-REPO-ROOTCFG-HEADEDCOPY
+          - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
+          - ADR-REPO-ROOTCFG-THREEWAYAGREEMENT
+    axis:
+      - cell: AUTO/*
+        by: [ADR-REPO-ROOTCFG-HEADEDCOPY, ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION, ADR-REPO-ROOTCFG-THREEWAYAGREEMENT]
+layout:
+  band-run: { x: 20, y: 84, w: 300, h: 360 }
+  band-materialise: { x: 340, y: 84, w: 360, h: 360 }
+  band-target: { x: 720, y: 84, w: 560, h: 360 }
+  g-importer: { x: 70, y: 150, w: 180, h: 44 }
+  g-build-root-config: { x: 430, y: 150, w: 180, h: 44 }
+  r-current: { x: 760, y: 150, w: 180, h: 44 }
+  grp-gates: { x: 740, y: 230, w: 240, h: 200 }
+  g-generated-files: { x: 760, y: 262, w: 200, h: 70 }
+  g-root-config-files: { x: 760, y: 346, w: 200, h: 70 }
+  f-stale: { x: 1050, y: 275, w: 200, h: 44 }
+  f-disagree: { x: 1050, y: 359, w: 200, h: 44 }
+```
+
 ![The import materialises every root file; two gates catch drift and name the fix](.assets/import-materialises-two-gates-name-the-fix.drawio.png)
 
 ## Walkthrough

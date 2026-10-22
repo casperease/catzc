@@ -14,4 +14,186 @@ the [explanation index](../index.md) says how to read the explanations.
 - [A file leaves the unordered track only in the normal form](eac-normal-form.md) — the eac normal form and fragment migration
   ([TDR-NORMALFORM](../../drs/thesis/eac-normal-form.md)).
 
+```yml drawio
+description:
+  "Where truth comes from: in every mode the repository at one commit decides; in the listen mode the editor's edit is fact, and the plans
+  it starts flow from the rule to the docs to the code."
+about:
+  adrs: [TDR-ONETRUTH, ADR-REPO-AI-EDITORISFACT, ADR-REPO-PLANS-DECISIONSBECOMERULES]
+  lens: meta
+content:
+  title: Truth is one commit; in the listen mode the editor's edit is fact, and its plans run rule, docs, code
+  kind: explanation
+  flow: left-to-right
+  relation: what decides
+  theme: dark
+  bands:
+    - { id: band-default, label: EVERY MODE }
+    - { id: band-listen, label: LISTEN MODE }
+    - { id: band-plan, label: PLAN ORDER }
+  glyphs:
+    - { id: s-repo, kind: store, label: "the repository at one commit, committed files only", in: band-default }
+    - { id: a-editor, kind: actor, label: the editor, in: band-listen }
+    - { id: r-fact, kind: result, label: the edit is fact, in: band-listen }
+    - { id: f-note, kind: file, label: a note, in: band-listen }
+    - { id: s-rule, kind: drsonly, label: rule (DRS), in: band-plan }
+    - { id: f-docs, kind: file, label: docs, in: band-plan }
+    - { id: k-code, kind: code, label: code and configs, in: band-plan }
+  edges:
+    - { from: a-editor, to: r-fact, kind: flow, label: corrects }
+    - { from: r-fact, to: f-note, kind: flow, label: "" }
+    - { from: f-note, to: s-rule, kind: thick, label: plans }
+    - { from: s-rule, to: f-docs, kind: flow, label: "" }
+    - { from: f-docs, to: k-code, kind: flow, label: "" }
+  legend: auto
+  minimaps:
+    axis:
+      - cell: DSGN/build
+        by: [TDR-ONETRUTH]
+      - cell: DSGN/quality-control
+        by: [TDR-ONETRUTH]
+      - cell: DSGN/release
+        by: [TDR-ONETRUTH]
+      - cell: DSGN/deploy
+        by: [TDR-ONETRUTH]
+      - cell: DSGN/access
+        by: [TDR-ONETRUTH]
+      - cell: AUTO/*
+        by: [ADR-REPO-AI-EDITORISFACT, ADR-REPO-PLANS-DECISIONSBECOMERULES]
+    lifecycle-position:
+      - cell: main-uat
+        by:
+          - .claude/CLAUDE.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - ADR-REPO-AI-EDITORISFACT
+          - ADR-REPO-PLANS-DECISIONSBECOMERULES
+          - TDR-ONETRUTH
+      - cell: release-uat
+        by:
+          - .claude/CLAUDE.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - ADR-REPO-AI-EDITORISFACT
+          - ADR-REPO-PLANS-DECISIONSBECOMERULES
+          - TDR-ONETRUTH
+      - cell: pre-prod
+        by:
+          - .claude/CLAUDE.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - ADR-REPO-AI-EDITORISFACT
+          - ADR-REPO-PLANS-DECISIONSBECOMERULES
+          - TDR-ONETRUTH
+      - cell: prod
+        by:
+          - .claude/CLAUDE.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - ADR-REPO-AI-EDITORISFACT
+          - ADR-REPO-PLANS-DECISIONSBECOMERULES
+          - TDR-ONETRUTH
+    layer-stack:
+      - cell: automation
+        by:
+          - .claude/CLAUDE.md
+          - .claude/skills/listen-insight/SKILL.md
+          - .claude/skills/listen-notes/SKILL.md
+          - docs/drs/glossary.md
+          - docs/drs/index.md
+          - docs/drs/repository/ai-agent-contract.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/plans.md
+          - docs/drs/thesis/dora-explains.md
+          - docs/drs/thesis/one-source-of-truth.md
+          - docs/references/agent-contracts.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Register-AdoBuildValidation.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops-build-validation/Sync-AdoBuildValidations.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops/New-AdoPullRequest.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Register-AdoPipeline.ps1.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Sync-AdoEnvironmentApprovals.ps1.md
+          - docs/references/pwsh/catzc-base-docs/types/AgentsConfig.cs.md
+          - docs/references/pwsh/catzc-base-drs/configs/drs.yml.md
+          - docs/references/pwsh/catzc-base-drs/types/DrsConfig.cs.md
+          - docs/references/pwsh/catzc-base-flow.md
+          - docs/references/pwsh/catzc-base-git/New-RepositorySnapshot.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-ValueChainMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMap.ps1.md
+          - docs/references/pwsh/catzc-base-maps/Get-WorldMapHighlight.ps1.md
+          - docs/references/pwsh/catzc-base-maps/types/ValueChainHighlight.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/ValueChainMap.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMap.cs.md
+          - docs/references/pwsh/catzc-base-maps/types/WorldMapHighlight.cs.md
+          - docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Register-AdoBuildValidation.ps1
+          - pwsh/Catzc.Azure.DevOps.BuildValidation/Sync-AdoBuildValidations.ps1
+          - pwsh/Catzc.Azure.DevOps/New-AdoPullRequest.ps1
+          - pwsh/Catzc.Azure.DevOps/Register-AdoPipeline.ps1
+          - pwsh/Catzc.Azure.DevOps/Sync-AdoEnvironmentApprovals.ps1
+          - pwsh/Catzc.Base.Docs/configs/agents.yml
+          - pwsh/Catzc.Base.Docs/configs/capabilities.yml
+          - pwsh/Catzc.Base.Docs/configs/glossary.yml
+          - pwsh/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1
+          - pwsh/Catzc.Base.Docs/types/AgentsConfig.cs
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - pwsh/Catzc.Base.Drs/types/DrsConfig.cs
+          - pwsh/Catzc.Base.Flow/Get-TruthStore.ps1
+          - pwsh/Catzc.Base.Flow/tests/Get-TruthStore.Tests.ps1
+          - pwsh/Catzc.Base.Git/New-RepositorySnapshot.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainHighlight.ps1
+          - pwsh/Catzc.Base.Maps/Get-ValueChainMap.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMap.ps1
+          - pwsh/Catzc.Base.Maps/Get-WorldMapHighlight.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-ValueChainHighlight.Tests.ps1
+          - pwsh/Catzc.Base.Maps/tests/Get-ValueChainMap.Tests.ps1
+          - pwsh/Catzc.Base.Maps/tests/types/ValueChainHighlight.Tests.ps1
+          - pwsh/Catzc.Base.Maps/tests/types/ValueChainMap.Tests.ps1
+          - pwsh/Catzc.Base.Maps/types/ValueChainHighlight.cs
+          - pwsh/Catzc.Base.Maps/types/ValueChainMap.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMap.cs
+          - pwsh/Catzc.Base.Maps/types/WorldMapHighlight.cs
+          - pwsh/Catzc.Base.QualityGates/Test-Plans.ps1
+          - pwsh/Catzc.Base.QualityGates/configs/plans.yml
+          - pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1
+          - pwsh/Catzc.Tooling.Listen/tests/types/WriteLedger.Tests.ps1
+          - ADR-REPO-AI-EDITORISFACT
+          - ADR-REPO-PLANS-DECISIONSBECOMERULES
+          - TDR-ONETRUTH
+layout:
+  s-repo: { x: 60, y: 150, w: 320, h: 90 }
+```
+
 ![Truth is one commit; in the listen mode the editor's edit is fact, and its plans run rule, docs, code](.assets/where-truth-comes-from.drawio.png)

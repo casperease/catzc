@@ -20,6 +20,103 @@ templating layer, in a tooling step, in a build. That argues for a low, widely d
 `Catzc.Base.Variants` is that module. It rests on three foundation modules, and every module layered above the configuration layer may call
 it.
 
+```yml drawio
+description:
+  Catzc.Base.Variants rests on Config, Objects and Asserts in the foundation and is called from Azure extension, upper-Base and Tooling
+  modules; the config file feeds Config only.
+about:
+  adrs: [ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-MINIMALDEPENDENCIES]
+  lens: architecture
+content:
+  title: Catzc.Base.Variants sits in Base, over Config, under every real caller
+  kind: explanation
+  flow: top-to-bottom
+  relation: is used by
+  theme: dark
+  bands:
+    - { id: band-foundation, label: FOUNDATION }
+    - { id: band-variants, label: VARIANTS }
+    - { id: band-callers, label: CALLERS }
+  glyphs:
+    - { id: g-variants-yml, kind: file, label: variants.yml, in: band-foundation }
+    - { id: g-config, kind: code, label: Catzc.Base.Config, in: band-foundation }
+    - { id: g-objects, kind: code, label: Catzc.Base.Objects, in: band-foundation }
+    - { id: g-asserts, kind: code, label: Catzc.Base.Asserts, in: band-foundation }
+    - { id: g-variants, kind: code, label: Catzc.Base.Variants, in: band-variants }
+    - { id: g-azure-ext, kind: set, label: AzureExt, in: band-callers }
+    - { id: g-upper-base, kind: code, label: Globs · ModuleSystem · Maps, in: band-callers }
+    - { id: g-tooling, kind: drsonly, label: Tooling, in: band-callers }
+  edges:
+    - { from: g-variants-yml, to: g-config, kind: flow, label: "" }
+    - { from: g-config, to: g-variants, kind: flow, label: "" }
+    - { from: g-objects, to: g-variants, kind: flow, label: "" }
+    - { from: g-asserts, to: g-variants, kind: flow, label: "" }
+    - { from: g-variants, to: g-azure-ext, kind: thick, label: "" }
+    - { from: g-variants, to: g-upper-base, kind: flow, label: "" }
+    - { from: g-variants, to: g-tooling, kind: adr, label: "" }
+  markers:
+    - { at: g-variants-yml, number: 1 }
+    - { at: g-config, number: 2 }
+    - { at: g-objects, number: 3 }
+    - { at: g-asserts, number: 4 }
+    - { at: g-variants, number: 5 }
+    - { at: g-azure-ext, number: 6 }
+    - { at: g-upper-base, number: 7 }
+    - { at: g-tooling, number: 8 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/index.md
+          - docs/drs/repository/dora-explains.md
+          - docs/drs/repository/repo-variants.md
+          - docs/references/pwsh/catzc-base-variants/Get-AspectDeclaration.ps1.md
+          - docs/references/pwsh/catzc-base-variants/Test-AspectDeclaration.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
+          - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-REPO-VARIANT-MINIMALDEPENDENCIES, ADR-REPO-VARIANT-SESSIONVARIANT]
+      - cell: pwsh/Catzc.Base.Variants/.
+        by:
+          - pwsh/Catzc.Base.Variants/Get-AspectDeclaration.ps1
+          - pwsh/Catzc.Base.Variants/Test-AspectDeclaration.ps1
+          - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by: [pwsh/Catzc.Base.Variants/configs/variants.yml, ADR-REPO-VARIANT-MINIMALDEPENDENCIES, ADR-REPO-VARIANT-SESSIONVARIANT]
+      - cell: pwsh/Catzc.Base.Variants/types
+        by: [pwsh/Catzc.Base.Variants/types/VariantsConfig.cs, ADR-REPO-VARIANT-MINIMALDEPENDENCIES, ADR-REPO-VARIANT-SESSIONVARIANT]
+    module-neighbourhood:
+      - cell: subject/Catzc.Base.Drs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-REPO-VARIANT-MINIMALDEPENDENCIES, ADR-REPO-VARIANT-SESSIONVARIANT]
+      - cell: subject/Catzc.Base.Variants
+        by:
+          - pwsh/Catzc.Base.Variants/Get-AspectDeclaration.ps1
+          - pwsh/Catzc.Base.Variants/Test-AspectDeclaration.ps1
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
+          - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
+          - ADR-REPO-VARIANT-SESSIONVARIANT
+    axis:
+      - cell: AUTO/*
+        by: [ADR-REPO-VARIANT-MINIMALDEPENDENCIES, ADR-REPO-VARIANT-SESSIONVARIANT]
+layout:
+  band-foundation: { x: 20, y: 84, w: 1240, h: 120 }
+  band-variants: { x: 20, y: 224, w: 1240, h: 100 }
+  band-callers: { x: 20, y: 344, w: 1240, h: 110 }
+  g-variants-yml: { x: 150, y: 124, w: 190, h: 52 }
+  g-config: { x: 400, y: 124, w: 200, h: 44 }
+  g-objects: { x: 670, y: 124, w: 200, h: 44 }
+  g-asserts: { x: 940, y: 124, w: 200, h: 44 }
+  g-variants: { x: 400, y: 262, w: 740, h: 44 }
+  g-azure-ext: { x: 400, y: 392, w: 200, h: 44 }
+  g-upper-base: { x: 670, y: 392, w: 200, h: 44 }
+  g-tooling: { x: 940, y: 392, w: 200, h: 44 }
+```
+
 ![Catzc.Base.Variants sits in Base, over Config, under every real caller](.assets/a-base-module-between-config-and-its-callers.drawio.png)
 
 ## Walkthrough

@@ -42,6 +42,9 @@ frontmatter re-imprint then has no diagram declaration files to head.
   is a ninth: its one article sits outside the folder above `.assets` (catzc-e9's map).
 - Slides are never a carrier; a block's `about.adrs` counting as its article's `cites:` is intended (the article embeds a diagram about
   those rules).
+- The move runs per folder in parallel: a background drone has `drs/flow`, `thesis`, `ado` and `repository`; catzc-e3 has `automation`;
+  the rest goes to the next free drone. Re-declaring minimaps runs `Build-Diagrams` first, since `declaration.py minimaps` reads the
+  computed data only a build refreshes (catzc-e3, 2026-10-22).
 
 ## Open steps
 

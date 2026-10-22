@@ -14,6 +14,23 @@ roles: # a diagram's role, keyed by its stem's repository path (`.assets/<name>`
 carriers: # a diagram's carrier, keyed by its stem's repository path (`.assets/<name>`), only where it is not renderer.carrier
   docs/explanation/repository/.assets/build-diagrams-runs-five-stages: article # the article-mode proof
   docs/drs/azure/.assets/azure-name-assembly: article # the article-carrier pilot
+  docs/drs/flow/.assets/sync-point: article
+  docs/drs/flow/.assets/commit-promotion-states: article
+  docs/explanation/thesis/.assets/eac-normal-form: article
+  docs/explanation/thesis/.assets/where-truth-comes-from: article
+  docs/explanation/ado/.assets/one-header-function-owns-precedence: article
+  docs/explanation/ado/.assets/three-guarded-early-returns: article
+  docs/explanation/ado/.assets/what-you-set-decides-the-credential: article
+  docs/explanation/ado/.assets/which-auth-rungs-have-a-gate: article
+  docs/explanation/repository/.assets/a-base-module-between-config-and-its-callers: article
+  docs/explanation/repository/.assets/an-edit-lands-at-the-next-import: article
+  docs/explanation/repository/.assets/five-keys-one-reader-twelve-primitives: article
+  docs/explanation/repository/.assets/import-materialises-two-gates-name-the-fix: article
+  docs/explanation/repository/.assets/one-home-one-read-path-one-vocabulary: article
+  docs/explanation/repository/.assets/one-registry-one-writer-two-primitives: article
+  docs/explanation/repository/.assets/opted-in-then-link-copy-or-render: article
+  docs/explanation/repository/.assets/three-gates-check-registry-drift-membership: article
+  docs/explanation/repository/.assets/values-and-edges-gated-reads-reviewed: article
 lenses: # the closed set of lenses a diagram is drawn through (its about.lens, the end of its subtitle), each with what it shows; the badge prints the name
   meta: what the decision is and why
   architecture: the parts and how they depend on each other

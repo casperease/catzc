@@ -1,10 +1,7 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "68dee8333f4e"
   edges:
-    code: pwsh/Catzc.Tooling.Claude/types/ClaudeWorkerConfig.cs
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
 ---

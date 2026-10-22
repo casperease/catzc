@@ -19,6 +19,118 @@ Anyone who runs an Azure DevOps REST function in cats, from a pipeline or a term
 you have set is used, from the top down. When that setup is wrong you see its own message, and cats does not quietly try the next one: to
 switch credentials, unset the one above.
 
+```yml drawio
+description:
+  What an operator sets decides the Azure DevOps credential, in a fixed order; each wrong setup stops with its own message, and a working
+  one gives the REST call its Authorization header.
+about:
+  adrs:
+    - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+    - ADR-ADO-AUTH-PROVETARGET
+    - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+    - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+  lens: operations
+content:
+  title: What you set decides the credential, and each wrong setup stops with its own message
+  kind: explanation
+  flow: left-to-right
+  relation: what comes next
+  theme: dark
+  bands:
+    - { id: band-returns, label: RETURNS }
+    - { id: band-set, label: YOU SET }
+    - { id: band-see, label: YOU SEE }
+  glyphs:
+    - { id: g-expose, kind: gate, label: "ExposeAccessToken: true", in: band-set }
+    - { id: g-pat, kind: gate, label: "$env:AZURE_DEVOPS_PAT", in: band-set }
+    - { id: g-az-login, kind: gate, label: az login · Connect-AzCli, in: band-set }
+    - { id: r-header, kind: result, label: Authorization header, in: band-returns }
+    - { id: f-mismatch, kind: failure, label: does not match ado.yml, in: band-see }
+    - { id: f-no-login, kind: failure, label: Not logged in to az CLI, in: band-see }
+    - { id: f-context, kind: failure, label: set to the wrong context, in: band-see }
+    - { id: f-no-token, kind: failure, label: No ADO token available, in: band-see }
+  edges:
+    - { from: g-expose, to: g-pat, kind: flow, label: "" }
+    - { from: g-pat, to: g-az-login, kind: flow, label: "" }
+    - { from: g-expose, to: r-header, kind: flow, label: "" }
+    - { from: g-pat, to: r-header, kind: flow, label: "" }
+    - { from: g-az-login, to: r-header, kind: flow, label: "" }
+    - { from: g-expose, to: f-mismatch, kind: fail, label: "" }
+    - { from: g-az-login, to: f-no-login, kind: fail, label: "" }
+    - { from: g-az-login, to: f-context, kind: fail, label: "" }
+    - { from: g-az-login, to: f-no-token, kind: fail, label: "" }
+  markers:
+    - { at: g-expose, number: 1 }
+    - { at: f-mismatch, number: 2 }
+    - { at: g-pat, number: 3 }
+    - { at: g-az-login, number: 4 }
+    - { at: f-no-login, number: 5 }
+    - { at: f-context, number: 6 }
+    - { at: f-no-token, number: 7 }
+    - { at: r-header, number: 8 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/ado/dora-explains.md
+          - docs/drs/ado/dual-authentication.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-azure-dev-ops/Get-AdoAuthorizationHeader.ps1.md
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+      - cell: pwsh/Catzc.Azure.DevOps/.
+        by:
+          - pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure.DevOps
+        by:
+          - pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+    axis:
+      - cell: FLOW/access
+        by:
+          - ADR-ADO-AUTH-ASSERTWHENNOTOKEN
+          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
+          - ADR-ADO-AUTH-PROVETARGET
+          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+layout:
+  band-returns: { x: 20, y: 84, w: 300, h: 380 }
+  band-set: { x: 340, y: 84, w: 520, h: 380 }
+  band-see: { x: 880, y: 84, w: 400, h: 380 }
+  g-expose: { x: 430, y: 128, w: 340, h: 64 }
+  g-pat: { x: 430, y: 238, w: 340, h: 64 }
+  g-az-login: { x: 430, y: 348, w: 340, h: 64 }
+  r-header: { x: 60, y: 248, w: 220, h: 44 }
+  f-mismatch: { x: 920, y: 138, w: 320, h: 44 }
+  f-no-login: { x: 920, y: 306, w: 320, h: 36 }
+  f-context: { x: 920, y: 362, w: 320, h: 36 }
+  f-no-token: { x: 920, y: 418, w: 320, h: 36 }
+```
+
 ![What you set decides the credential](.assets/what-you-set-decides-the-credential.drawio.png)
 
 Each failure carries a verbatim fragment of its message; the full messages are quoted below.

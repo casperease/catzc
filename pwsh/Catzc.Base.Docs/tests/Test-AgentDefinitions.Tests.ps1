@@ -1,11 +1,8 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "85e688133133"
   edges:
     docs: "[Test-AgentDefinitions.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-docs/tests/Test-AgentDefinitions.Tests.ps1.md)"
-    code: pwsh/Catzc.Base.Docs/Test-AgentDefinitions.ps1
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES

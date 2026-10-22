@@ -1,10 +1,7 @@
 <#
 ---
 catzc:
-  immutable:
-    with_body_sha: "2efc1a1f5371"
   edges:
-    code: pwsh/Catzc.Base.Variants/Get-PathModule.ps1
     cites:
       - DDR-TRACK-ONETECHSTACK
 ---

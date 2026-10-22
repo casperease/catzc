@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: "1f4cf102fd79"
-# ---
-
 description:
   The resolver reads the run environment, then the config entry or its declared default, then the exemption ceiling, and hands one answer in
   seconds to the two bounded runners; the hook asks the same config type for bash directly.

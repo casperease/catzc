@@ -1,13 +1,7 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: "6b76bf34a171"
-# ---
-
 description:
-  "What decides a file's head and what fills it: a generated file carries the warning head its writer composes, with with_body_sha while
-  git tracks it; an authored file carries a head only for a docs link to its comment page or the rule codes it cites; every other file
-  carries none."
+  "What decides a file's head and what fills it: a generated file carries the warning head its writer composes, with with_body_sha while git
+  tracks it; an authored file carries a head only for a docs link to its comment page or the rule codes it cites; every other file carries
+  none."
 about:
   adrs: [ADR-REPO-FILEMETA-HEADPOLICY, ADR-REPO-FILEMETA-COMPOSEDFILES, ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY]
   lens: meta

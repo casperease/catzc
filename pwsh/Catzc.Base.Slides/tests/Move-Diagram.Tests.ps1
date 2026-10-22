@@ -93,6 +93,41 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         @($result.Pages).Count | Should -Be 0
     }
 
+    Context 'an article-carried diagram' {
+        BeforeEach {
+            $block = "``````yml drawio`ncontent: { title: Gadget }`n```````n`n"
+            $files = [ordered]@{
+                'kit/configs/drawio.yml'               = "renderer:`n  carrier: file # the default`ncarriers: # by stem`n  docs/widgets/.assets/gadget: article`n"
+                'docs/widgets/gadget.md'               = "# Gadget`n`n$block![Gadget](.assets/gadget.drawio.png)`n"
+                'docs/widgets/.assets/gadget.drawio.png' = 'png'
+                'docs/gadgets/gadget.md'               = "# Gadget here`n`n![Gadget](../widgets/.assets/gadget.drawio.png)`n"
+            }
+            foreach ($file in $files.Keys) {
+                $full = Join-Path $script:widgetRoot $file
+                [System.IO.Directory]::CreateDirectory((Split-Path $full -Parent)) | Out-Null
+                [System.IO.File]::WriteAllText($full, $files[$file])
+            }
+            Invoke-Executable 'git add -A' -WorkingDirectory $script:widgetRoot -Silent | Out-Null
+            $script:block = $block
+        }
+
+        It 'moves its block to the page beside the new .assets that embeds the png, and re-keys its carrier' -Tag 'ADR-REPO-SLIDES-DECLARATION' {
+            Move-Diagram docs/widgets/.assets/gadget docs/gadgets/.assets/gadget -RepositoryRoot $script:widgetRoot -Kit kit
+
+            & $script:read 'docs/gadgets/gadget.md' | Should -BeExactly "# Gadget here`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
+            & $script:read 'docs/widgets/gadget.md' | Should -BeExactly "# Gadget`n`n![Gadget](../gadgets/.assets/gadget.drawio.png)`n"
+            & $script:read 'kit/configs/drawio.yml' | Should -BeExactly "renderer:`n  carrier: file # the default`ncarriers: # by stem`n  docs/gadgets/.assets/gadget: article`n"
+            Test-Path (Join-Path $script:widgetRoot 'docs/gadgets/.assets/gadget.drawio.png') | Should -BeTrue
+        }
+
+        It 'refuses, changing nothing, when no page beside the new .assets embeds the png' -Tag 'ADR-REPO-SLIDES-DECLARATION' {
+            { Move-Diagram docs/widgets/.assets/gadget docs/drs/.assets/gadget -RepositoryRoot $script:widgetRoot -Kit kit } | Should -Throw '*Carry it to the file carrier first*'
+            & $script:read 'docs/widgets/gadget.md' | Should -BeExactly "# Gadget`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
+            Test-Path (Join-Path $script:widgetRoot 'docs/widgets/.assets/gadget.drawio.png') | Should -BeTrue
+            & $script:read 'kit/configs/drawio.yml' | Should -Match 'docs/widgets/\.assets/gadget: article'
+        }
+    }
+
     It 'refuses a destination that exists, one inside the source, a path outside the repository, and an untracked source' {
         { Move-Diagram docs/widgets/assets docs/gadgets -RepositoryRoot $script:widgetRoot } | Should -Throw '*already exists*'
         { Move-Diagram docs/widgets/assets/widget.drawio.png docs/widgets/assets/widget -RepositoryRoot $script:widgetRoot } | Should -Throw '*lies inside it*'

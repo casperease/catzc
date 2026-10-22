@@ -49,10 +49,6 @@ the tree, they churn on every body edit, and agents read them on every file they
 
 ## Open steps
 
-- [ ] After the engine burst, the seven diagrams whose minimaps name a file it deletes (six in `docs/explanation/automation/.assets`, and
-      `docs/how-to/pwsh/.assets/head-outcomes.drawio.yml`, whose description also names the `file_heads` variant) re-declared with
-      `declaration.py minimaps` and re-rendered (catzc-e3). (check: `Build-Diagrams -Path` on each yml clean with no minimap warning, and no
-      deleted file or the variant named in any `.drawio.yml`, by grep)
 - [ ] Every tracked generated head lists `with_body_sha` first in its `immutable` part, then the warning, so it reads "immutable for this
       body" (the user, 2026-10-22): `Format-GeneratedFileHead` writes that order and every generated file is regenerated (catzc-a0). (check:
       the writer's test asserting the order, `Test-GeneratedFiles` at 0, and a grep over generated heads for an `immutable:` part whose
