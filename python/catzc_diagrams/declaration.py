@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: b4509a6db2af
-# ---
-
 # cspell:ignore minimaps mxfile pnginfo drsonly mapkey
 """The declaration of a diagram: its source beside its .drawio.png, and the two directions between them.
 

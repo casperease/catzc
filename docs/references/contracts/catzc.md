@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "382149047ddd"
+    with_body_sha: "0962669ce1e4"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -338,15 +338,17 @@ Notes:
 - `catzc.base.quality_gates/head.sample.yml`: Provided sample of a file's meta head
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the shape a tool may rely
   on when it reads the `catzc.warning`, `catzc.immutable` and `catzc.edges` parts of a head. A head has two shapes. The head of an authored
-  file, this sample, opens with a warning naming the command that writes it, then its edges: its comment page (`docs`) and the ADR codes it
-  cites (`cites`); a file with neither edge carries no head. A generated file's head holds `with_body_sha` while git tracks the file, then
-  `warning`, under `immutable`. Every other fact about a file is derived on demand, never shown. No key is required, and a fact a file has
-  no value for is left out. Its schema, head.schema.json, lists the keys of both shapes.
+  file, this sample, opens with a warning naming the command that writes it, then its edges: its comment page (`docs`), the ADR codes its
+  prose cites (`cites`), and the count of every distinct code the document cites, diagram blocks included (`drs_total`); a file with no edge
+  carries no head. A generated file's head holds `with_body_sha` while git tracks the file, then `warning`, under `immutable`. Every other
+  fact about a file is derived on demand, never shown. No key is required, and a fact a file has no value for is left out. Its schema,
+  head.schema.json, lists the keys of both shapes.
 - `catzc.base.quality_gates/head.schema.json`: Provided schema of a file's meta head, validated against the sample beside it
   (ADR-REPO-CONTRACT-CONTRACTASSET): the keys of catzc.immutable and catzc.edges, which a tool may rely on. The head of an authored file
-  holds a warning naming the command that writes it (catzc.warning) and its edges, its comment page (docs) and the ADR codes it cites
-  (cites), and a file with neither edge carries no head. A generated file's head holds warning, and with_body_sha while git tracks the file.
-  Every other fact about a file is derived on demand. A fact a file has no value for is left out, so no key is required.
+  holds a warning naming the command that writes it (catzc.warning) and its edges, its comment page (docs) and the ADR codes its prose cites
+  (cites), with the count of every distinct code the document cites, its yml drawio blocks included (drs_total), and a file with neither
+  edge carries no head. A generated file's head holds warning, and with_body_sha while git tracks the file. Every other fact about a file is
+  derived on demand. A fact a file has no value for is left out, so no key is required.
 - `catzc.base.quality_gates/test_analyzer_drs_map.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Test-AnalyzerDrsMap, the quality gate that checks the analyzer map cites only real ADR rules and maps every custom analyzer
   rule, and returns its result under -PassThru.

@@ -62,7 +62,7 @@ Describe 'FileHeadPolicy' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
         $shipped = Get-Config -Config file-meta
         $shipped.head_policy.default | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts)
         @($shipped.KeysOf('immutable')) | Should -BeNullOrEmpty -Because 'no authored file, tracked or not, carries with_body_sha: only the generated-head writer emits it'
-        @($shipped.KeysOf('edges')) | Should -Be @('docs', 'cites')
+        @($shipped.KeysOf('edges')) | Should -Be @('docs', 'cites', 'drs_total')
         $shipped.PolicyFor('agent') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Forbidden)
         $shipped.PolicyFor('capability') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Config)
         $shipped.PolicyFor('slide') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Config)

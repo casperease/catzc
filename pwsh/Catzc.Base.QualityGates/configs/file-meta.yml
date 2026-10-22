@@ -31,10 +31,10 @@ kinds:
           rules:
             - { paths: ["{page}"] }
 
-  # The ADR codes a file and its comment page cite, on every authored class, never read back from its head; a code class also lists bare domain codes. A page that renders a registry carries none.
+  # The ADR codes the prose of a file and its comment page cites, on every authored class, never read back from its head, and the count of every distinct code the document cites, its yml drawio blocks included; a code class also lists bare domain codes. A page that renders a registry carries none.
   drs-codes:
     section: edges
-    keys: [cites]
+    keys: [cites, drs_total]
     settings:
       domain_classes:
         [type, function, config, hook, module/internal, pipeline, pipeline-template, template, test, fixture, asset, analyzer-rule]

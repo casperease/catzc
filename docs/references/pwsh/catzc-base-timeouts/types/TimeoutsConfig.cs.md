@@ -113,3 +113,12 @@ Above `private static readonly string[] WaitKeys = { "seconds", "milliseconds",.
 The default Watch-Blocking: one second and one millisecond, one pair for every environment; and drain_seconds, how long
 Invoke-Executable waits for a run's output to end after its process exits, before it names a child that holds the output open.
 ```
+
+## comment:10
+
+Above `private static readonly string[] RunLockKeys = { "wait_seconds",...`, written with `//`.
+
+```text
+The machine's run lock: how long a run waits past a live holder's deadline, how old a queue ticket may be before it is dropped, and the
+budget a run has in all, the background roof, so a waiter stops early when the holder will not finish within it.
+```

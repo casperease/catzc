@@ -34,10 +34,6 @@ The prose still says "ADR" where it means any decision record: a reader who meet
 
 ## Open steps
 
-- [ ] The two codes the new dangling-code check finds (it landed, catzc-54: a code in prose naming no registered rule, record or domain is a
-      finding; inline code spans stay checked, decided as delegated): `docs/drs/repository/drs-code-language.md` line 60 and
-      `docs/drs/repository/uniform-formatting.md` line 186, each an illustrative code moved into a fenced example, wording kept. Check:
-      `Test-DrsRegistry` at 0 and the L2 real-records case of `Test-DrsRegistry.Tests.ps1` green.
 - [ ] `.claude/CLAUDE.md`, the user's edit (its paths were already rewritten to `docs/drs` by the move): line 31 `## ADRs` becomes `## DRS`,
       line 33's "Architecture Decision Records live under …" says the DRS holds the decision records, and line 13's sanctioned pair becomes
       "domain rules / DRS rules" (check: `Test-Links` on the file).

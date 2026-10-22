@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: "9b67fc7ddeff"
-# ---
-
 # cspell:ignore minimaps
 """The kit's tests run on fixture diagrams outside the repository, where no minimap data has been computed: each diagram gets its
 declared minimaps (or three fixed ones) as empty contract data, so put draws the sidebar without Catzc.Base.Maps. A test names its

@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: "21e2806e9cee"
-# ---
-
 description:
   tools.yml is the one locked list of tools; three readers take its typed map, and the devbox install walks the keys in dependency order and
   dispatches each to the install function whose name it derives, throwing when none exists.

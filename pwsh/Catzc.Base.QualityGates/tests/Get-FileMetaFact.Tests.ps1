@@ -58,17 +58,17 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     }
 
     It 'collects the facts of every kind that applies, in registry order' {
-        $facts = Get-Facts @{ kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites'); section = 'edges' }; 'widget-shade' = @{ keys = @('shade') } } }
+        $facts = Get-Facts @{ kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites', 'drs_total'); section = 'edges' }; 'widget-shade' = @{ keys = @('shade') } } }
         $facts.Immutable.Count | Should -Be 0
-        $facts.Edges.Keys | Should -Be @('cites', 'shade')
+        $facts.Edges.Keys | Should -Be @('cites', 'drs_total', 'shade')
         $facts.Edges['cites'] | Should -Be @('ADR-GADGET-TURN')
     }
 
     It 'puts every key into the edges, the one part an imprint kind writes, in registry order' -Tag 'ADR-REPO-FILEMETA-FILEISNODE' {
         Mock Get-RelativeEdgesFileMetaFact { [ordered]@{ role = 'widget' } } -ModuleName Catzc.Base.QualityGates
-        $facts = Get-Facts @{ kinds = [ordered]@{ 'widget-shade' = @{ keys = @('shade') }; 'drs-codes' = @{ keys = @('cites'); section = 'edges' }; gadget = @{ keys = @('role'); processor = 'Get-RelativeEdgesFileMetaFact' } } }
+        $facts = Get-Facts @{ kinds = [ordered]@{ 'widget-shade' = @{ keys = @('shade') }; 'drs-codes' = @{ keys = @('cites', 'drs_total'); section = 'edges' }; gadget = @{ keys = @('role'); processor = 'Get-RelativeEdgesFileMetaFact' } } }
         $facts.Immutable.Count | Should -Be 0
-        $facts.Edges.Keys | Should -Be @('shade', 'cites', 'role')
+        $facts.Edges.Keys | Should -Be @('shade', 'cites', 'drs_total', 'role')
     }
 
     It 'skips a kind that selects neither the file''s class nor its language' -ForEach @(
@@ -78,9 +78,9 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     ) {
         $facts = Get-Facts @{
             classes = @(@{ class = 'widget'; files = @('docs/**') })
-            kinds   = [ordered]@{ 'widget-shade' = @{ keys = @('shade'); select = $Select }; 'drs-codes' = @{ keys = @('cites'); section = 'edges' } }
+            kinds   = [ordered]@{ 'widget-shade' = @{ keys = @('shade'); select = $Select }; 'drs-codes' = @{ keys = @('cites', 'drs_total'); section = 'edges' } }
         }
-        $facts.Edges.Keys | Should -Be @('cites')
+        $facts.Edges.Keys | Should -Be @('cites', 'drs_total')
     }
 
     It 'applies a kind when any select entry matches both the class and the language it names' -ForEach @(
@@ -108,7 +108,7 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     }
 
     It 'reads each file in scope by its path, and a head on the file changes no fact' {
-        $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites'); section = 'edges' } } })
+        $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites', 'drs_total'); section = 'edges' } } })
         $body = "# docs/widget.md`n`nSee ADR-GADGET-TURN.`n"
         $headed = "---`ncatzc:`n  immutable:`n    with_body_sha: `"000000000000`"`n  edges:`n    cites:`n      - ADR-GADGET-SPIN`n---`n`n" + $body
         $carrier = [pscustomobject]@{ carrier = [Catzc.Base.Languages.CarrierKind]::FrontMatter; key = [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey }

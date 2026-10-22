@@ -30,7 +30,7 @@ Describe 'Get-DrsCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
                 }, @())
         }
 
-        $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites') } } }).kinds[0]
+        $script:kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites', 'drs_total') } } }).kinds[0]
 
         function script:Get-Codes {
             param([string] $Body)
@@ -40,6 +40,40 @@ Describe 'Get-DrsCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
                 Get-DrsCodesFileMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
             }
             , @($fact['cites'])
+        }
+
+        function script:Get-Fact {
+            param([string] $Body)
+            $state = Get-MarkdownMetaState -Text $Body
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ State = $state; Kind = $script:kind } {
+                param($State, $Kind)
+                Get-DrsCodesFileMetaFact -State $State -Path 'docs/widget.md' -Kind $Kind
+            }
+        }
+    }
+
+    Context 'the yml drawio blocks of an article' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
+        It 'cites only what the prose cites, and counts every distinct code of the document, its diagram blocks included' {
+            $body = (
+                "# docs/widget.md`n`nThe prose cites ADR-WIDGET-PART-BEND.`n`n" +
+                "``````yml drawio`nabout:`n  adrs: [ADR-WIDGET-PART-FOLD, ADR-GADGET-LIFT]`ncontent:`n  note: ADR-GADGET-DROP, ADR-WIDGET-TURN, ADR-GADGET-LIFT`n```````n`n" +
+                "![Widget](.assets/widget.drawio.png)`n"
+            )
+            $fact = Get-Fact $body
+            @($fact['cites']) | Should -Be @('ADR-WIDGET-PART-BEND')
+            $fact['drs_total'] | Should -Be 5
+        }
+
+        It 'cites as it always did in a file with no diagram block, and counts what it cites' {
+            $fact = Get-Fact "# docs/widget.md`n`nSee ADR-GADGET-LIFT and ADR-GADGET-DROP.`n"
+            @($fact['cites']) | Should -Be @('ADR-GADGET-LIFT', 'ADR-GADGET-DROP')
+            $fact['drs_total'] | Should -Be 2
+        }
+
+        It 'leaves the total empty for a file that cites nothing, so it adds no head of its own' {
+            $fact = Get-Fact "# docs/widget.md`n`nNo rule here.`n"
+            @($fact['cites']).Count | Should -Be 0
+            $fact['drs_total'] | Should -BeExactly ''
         }
     }
 
@@ -94,7 +128,7 @@ Describe 'Get-DrsCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
     Context 'a code file, whose class the kind names under domain_classes' {
         BeforeAll {
             $script:codeKind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                    kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites'); settings = @{ domain_classes = @('widget-*') } } }
+                    kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites', 'drs_total'); settings = @{ domain_classes = @('widget-*') } } }
                 }).kinds[0]
 
             function script:Get-CodeCodes {
@@ -140,7 +174,7 @@ Describe 'Get-DrsCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
     Context 'a code file' {
         BeforeAll {
             $script:codeKind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                    kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites'); select = @(@{ classes = @('widget-type') }) } }
+                    kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites', 'drs_total'); select = @(@{ classes = @('widget-type') }) } }
                 }).kinds[0]
 
             function script:Get-CodeCodes {
@@ -173,7 +207,7 @@ Describe 'Get-DrsCodesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
 
     It 'takes domain_classes from the classes the kind selects when it is not set' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER', 'ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY' {
         $kind = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites'); select = @(@{ languages = @('markdown') }, @{ classes = @('widget-type') }) } }
+                kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites', 'drs_total'); select = @(@{ languages = @('markdown') }, @{ classes = @('widget-type') }) } }
             }).kinds[0]
         $text = "/*`n---`ncatzc:`n  edges:`n    cites:`n      - ADR-HEAD-ONE-TWO`n---`n*/`n`n// ADR-WIDGET and ADR-GADGET-DROP`nclass Widget {}`n"
         $state = Get-CodeMetaState -Text $text -Form ([Catzc.Base.CodeMeta.HeadForm]::ForBlock('/*', '*/'))

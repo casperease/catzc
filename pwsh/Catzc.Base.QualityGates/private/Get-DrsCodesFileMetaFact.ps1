@@ -41,22 +41,37 @@ function Get-DrsCodesFileMetaFact {
     $fileClass = (Get-FileKind $Path).Class
     $withDomain = [Catzc.Base.QualityGates.FileMetaKind]::InClasses($Kind.ClassSetting('domain_classes'), $fileClass)
     $map = Get-DrsCitationMap -RepositoryRoot $repositoryRoot
-    $codes = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
     $form = (Get-Config -Config drs).CodeForm
-    foreach ($match in [regex]::Matches($text, "(?<![\w-])$($form.Cited)(?![\w#-]|:\d)")) {
-        [void] $codes.Add($match.Value)
+    $defined = if ($withDomain) {
+        @()
     }
-    if (-not $withDomain) {
-        foreach ($defined in (Get-DrsDefinedRule -Text $text)) {
-            [void] $codes.Remove($defined)
+    else {
+        @(Get-DrsDefinedRule -Text $text)
+    }
+    $collect = {
+        param([string] $Source)
+        $found = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
+        foreach ($match in [regex]::Matches($Source, "(?<![\w-])$($form.Cited)(?![\w#-]|:\d)")) {
+            [void] $found.Add($match.Value)
         }
-    }
-    # Only a code the ADR index registers is a citation: a fixture code or a placeholder named in prose is not.
-    foreach ($code in @($codes)) {
-        $registered = $map.IsRule($code) -or ($withDomain -and ($map.HasCode($code) -or $map.IsDomainCode($code)))
-        if (-not $registered) {
-            [void] $codes.Remove($code)
+        foreach ($rule in $defined) {
+            [void] $found.Remove($rule)
         }
+        # Only a code the ADR index registers is a citation: a fixture code or a placeholder named in prose is not.
+        foreach ($code in @($found)) {
+            $registered = $map.IsRule($code) -or ($withDomain -and ($map.HasCode($code) -or $map.IsDomainCode($code)))
+            if (-not $registered) {
+                [void] $found.Remove($code)
+            }
+        }
+        , $found
     }
-    [ordered]@{ $Kind.keys[0] = [string[]] @($form.Minimize([string[]] @($codes), $map)) }
+    # The head cites what the prose cites; a ```yml drawio block's codes are the diagram's, counted in the total only.
+    $prose = [regex]::Replace($text, '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```).*\r?\n)*```[ \t]*$', '')
+    $cited = & $collect $prose
+    $total = (& $collect $text).Count
+    [ordered]@{
+        $Kind.keys[0] = [string[]] @($form.Minimize([string[]] @($cited), $map))
+        $Kind.keys[1] = $total -gt 0 ? $total : ''
+    }
 }

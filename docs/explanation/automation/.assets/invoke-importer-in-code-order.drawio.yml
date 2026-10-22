@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: ecc418d35e52
-# ---
-
 description:
   "The whole cats load is one call chain inside Invoke-Importer: internal modules, vendored modules, every module, a run-mode check, the
   janitors and the removal of the bootstrap; both entry scripts end in this one function."

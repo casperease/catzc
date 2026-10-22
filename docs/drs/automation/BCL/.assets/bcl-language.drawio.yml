@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: b521756dd3e2
-# ---
-
 description:
   "BCL as two things: the language, whose type sources reference only the Base Class Library and whose projects build the one pair bcl.yml
   declares; and its use inside pwsh, which compiles the types in the session's own runtime, unwraps the values its callers pass, and lets a

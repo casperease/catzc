@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: e84b3f55c940
-# ---
-
 """The carrier of a diagram's declaration: the kit's drawio.yml declares the default once, and names a diagram's other carrier by its stem.
 
 usage (repo root, background): timeout 120 uv run -q --project python/catzc_diagrams python -m pytest python/catzc_diagrams/tests

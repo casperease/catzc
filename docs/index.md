@@ -1,9 +1,3 @@
----
-catzc:
-  immutable:
-    with_body_sha: "77c9e62c0d2f"
----
-
 # Documentation
 
 **CATZC — Cloud Automation Toolkit, Zero-Ceremony.** A PowerShell 7.4+ module system with Azure/Bicep infrastructure-as-code and Azure

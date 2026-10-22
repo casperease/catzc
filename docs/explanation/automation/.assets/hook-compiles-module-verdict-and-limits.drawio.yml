@@ -1,9 +1,3 @@
-# ---
-# catzc:
-#   immutable:
-#     with_body_sha: "22be10da0d2b"
-# ---
-
 description:
   The hook program compiles the Timeouts module's own verdict and limit types from their source files, so the agent-side hook and the
   pwsh-side resolver read the same typed limits from the same config.

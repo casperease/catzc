@@ -19,7 +19,7 @@ Describe 'Get-SkippedClassCitationFinding' -Tag 'L0', 'logic' {
             [System.IO.Directory]::CreateDirectory((Split-Path $full -Parent)) | Out-Null
             [System.IO.File]::WriteAllText($full, '# page')
         }
-        $script:kind = [Catzc.Base.QualityGates.FileMetaKind]::new('drs-codes', @{ section = 'edges'; keys = @('cites'); select = @(@{ classes = @('function') }) })
+        $script:kind = [Catzc.Base.QualityGates.FileMetaKind]::new('drs-codes', @{ section = 'edges'; keys = @('cites', 'drs_total'); select = @(@{ classes = @('function') }) })
         $pages = [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name PageFor -Value {
             param($source)
             @{ 'src/widget.sh' = 'pages/widget.md'; 'src/gadget.ps1' = 'pages/gadget.md'; 'src/gizmo.sh' = 'pages/gizmo.md'; 'src/orphan.sh' = 'pages/none.md' }[$source]
