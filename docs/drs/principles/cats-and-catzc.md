@@ -76,8 +76,8 @@ to a person, it may use the same word.
 ### Across the boundary
 
 A consumer who writes a module against the toolset is outside the inner namespace; the cats form marks that. A reader who sees a `Catzc.*`
-name knows the module is shipped by this repository and ruled by its decision records; a reader who sees the cats form knows it came from somewhere else
-and is ruled by the contracts at the boundary.
+name knows the module is shipped by this repository and ruled by its decision records; a reader who sees the cats form knows it came from
+somewhere else and is ruled by the contracts at the boundary.
 
 ### Used across each other on purpose
 

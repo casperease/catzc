@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Writes one note for one settled change: notes/<id>.md, written once and never again.
+Writes one note for one settled change: `notes/<id>.md`, written once and never again.
 
 ### description
 

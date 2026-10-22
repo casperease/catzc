@@ -55,8 +55,8 @@ Started 2026-10-22T02:17:29.6324179+02:00.
   unstaged case-only rename drops the module from every build.
 - 2026-10-22 Cats: In hindsight I wish I knew this fact: Format-Code imprint steps run after the formatter pass over the -Path files only,
   so a step that writes other files must format them itself.
-- 2026-10-22 Cats: In hindsight I wish I knew this fact: in Pester, (Get-X)[0] on a one-item result indexes a character of the string;
-  @(Get-X)[0] takes the item.
+- 2026-10-22 Cats: In hindsight I wish I knew this fact: in Pester, `(Get-X)[0]` on a one-item result indexes a character of the string;
+  `@(Get-X)[0]` takes the item.
 - 2026-10-22 Cats: In hindsight I wish I knew this fact: Invoke-CatzcCommand.ps1 holds a machine-wide run lock, and an import-path change
   runs inside Enter-CatzcBurst / -InBurst / Exit-CatzcBurst.
 - 2026-10-22 Cats: In hindsight I wish I knew this fact: the Bash time safeguard denies a background call with any command before its
