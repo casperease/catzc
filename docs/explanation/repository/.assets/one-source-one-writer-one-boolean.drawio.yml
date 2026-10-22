@@ -22,61 +22,26 @@ content:
   relation: feeds the next step
   theme: dark
   bands:
-    - id: band-source
-      label: SOURCE OF TRUTH
-    - id: band-materialise
-      label: MATERIALISE
-    - id: band-target
-      label: TARGET
+    - { id: band-source, label: SOURCE OF TRUTH }
+    - { id: band-materialise, label: MATERIALISE }
+    - { id: band-target, label: TARGET }
   glyphs:
-    - id: g-source
-      kind: file
-      label: source of truth
-      in: band-source
-    - id: g-registry
-      kind: file
-      label: registry
-      in: band-source
-    - id: g-writer
-      kind: code
-      label: single writer
-      in: band-materialise
-    - id: r-gitignored
-      kind: result
-      label: gitignored target
-      in: band-target
-    - id: r-tracked
-      kind: result
-      label: tracked target
-      in: band-target
+    - { id: g-source, kind: file, label: source of truth, in: band-source }
+    - { id: g-registry, kind: file, label: registry, in: band-source }
+    - { id: g-writer, kind: code, label: single writer, in: band-materialise }
+    - { id: r-gitignored, kind: result, label: gitignored target, in: band-target }
+    - { id: r-tracked, kind: result, label: tracked target, in: band-target }
   edges:
-    - from: g-source
-      to: g-writer
-      kind: flow
-      label: ""
-    - from: g-registry
-      to: g-writer
-      kind: flow
-      label: ""
-    - from: g-writer
-      to: r-gitignored
-      kind: flow
-      label: 22/28
-    - from: g-writer
-      to: r-tracked
-      kind: flow
-      label: 6/28
+    - { from: g-source, to: g-writer, kind: flow, label: "" }
+    - { from: g-registry, to: g-writer, kind: flow, label: "" }
+    - { from: g-writer, to: r-gitignored, kind: flow, label: 22/28 }
+    - { from: g-writer, to: r-tracked, kind: flow, label: 6/28 }
   markers:
-    - at: g-source
-      number: 1
-    - at: g-registry
-      number: 2
-    - at: g-writer
-      number: 3
-    - at: r-gitignored
-      number: 4
-    - at: r-tracked
-      number: 5
+    - { at: g-source, number: 1 }
+    - { at: g-registry, number: 2 }
+    - { at: g-writer, number: 3 }
+    - { at: r-gitignored, number: 4 }
+    - { at: r-tracked, number: 5 }
   legend: auto
   minimaps:
     code-locations:
@@ -173,9 +138,7 @@ content:
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
           - ADR-REPO-ROOTCFG-REGISTRY
       - cell: pwsh/Catzc.Base.QualityGates/private
-        by:
-          - pwsh/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1
-          - ADR-REPO-ROOTCFG-FULLYMANAGED
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1, ADR-REPO-ROOTCFG-FULLYMANAGED]
       - cell: pwsh/Catzc.Base.RootConfig/.
         by:
           - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
@@ -286,9 +249,7 @@ content:
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
           - ADR-REPO-ROOTCFG-REGISTRY
       - cell: subject/Catzc.Base.QualityGates
-        by:
-          - pwsh/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1
-          - ADR-REPO-ROOTCFG-FULLYMANAGED
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-ContentExemptPath.ps1, ADR-REPO-ROOTCFG-FULLYMANAGED]
       - cell: subject/Catzc.Base.RootConfig
         by:
           - pwsh/Catzc.Base.RootConfig/Build-RootConfig.ps1
@@ -336,43 +297,11 @@ content:
           - ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION
           - ADR-REPO-ROOTCFG-REGISTRY
 layout:
-  band-source:
-    x: 20
-    y: 84
-    w: 380
-    h: 340
-  band-materialise:
-    x: 420
-    y: 84
-    w: 380
-    h: 340
-  band-target:
-    x: 820
-    y: 84
-    w: 460
-    h: 340
-  g-source:
-    x: 130
-    y: 150
-    w: 200
-    h: 52
-  g-registry:
-    x: 130
-    y: 300
-    w: 200
-    h: 52
-  g-writer:
-    x: 500
-    y: 190
-    w: 220
-    h: 100
-  r-gitignored:
-    x: 960
-    y: 150
-    w: 220
-    h: 44
-  r-tracked:
-    x: 960
-    y: 300
-    w: 220
-    h: 44
+  band-source: { x: 20, y: 84, w: 380, h: 340 }
+  band-materialise: { x: 420, y: 84, w: 380, h: 340 }
+  band-target: { x: 820, y: 84, w: 460, h: 340 }
+  g-source: { x: 130, y: 150, w: 200, h: 52 }
+  g-registry: { x: 130, y: 300, w: 200, h: 52 }
+  g-writer: { x: 500, y: 190, w: 220, h: 100 }
+  r-gitignored: { x: 960, y: 150, w: 220, h: 44 }
+  r-tracked: { x: 960, y: 300, w: 220, h: 44 }
