@@ -113,6 +113,26 @@ carriers: # a diagram's carrier, keyed by its stem's repository path (`.assets/<
   docs/explanation/flow/.assets/three-views-derived-live-from-one-program: article
   docs/explanation/flow/.assets/two-declared-layers-one-derived: article
   docs/explanation/flow/.assets/two-variables-read-in-one-place: article
+  docs/explanation/azure/.assets/a-bad-coordinate-stops-discovery: article
+  docs/explanation/azure/.assets/a-module-change-fans-out-to-its-templates: article
+  docs/explanation/azure/.assets/add-a-template: article
+  docs/explanation/azure/.assets/add-an-environment-slot: article
+  docs/explanation/azure/.assets/change-one-configuration-slot: article
+  docs/explanation/azure/.assets/config-path-is-a-coordinate: article
+  docs/explanation/azure/.assets/coordinate-resolved-file-by-file-at-discovery: article
+  docs/explanation/azure/.assets/coordinate-rules-and-their-gates: article
+  docs/explanation/azure/.assets/four-gates-hold-the-session-rule: article
+  docs/explanation/azure/.assets/how-each-naming-rule-is-held: article
+  docs/explanation/azure/.assets/lookup-form-check-render-in-order: article
+  docs/explanation/azure/.assets/names-are-derived-never-typed: article
+  docs/explanation/azure/.assets/names-are-pure-and-never-truncated: article
+  docs/explanation/azure/.assets/one-namer-assembles-every-name: article
+  docs/explanation/azure/.assets/one-reverse-lookup-feeds-every-module: article
+  docs/explanation/azure/.assets/pipeline-pins-devbox-picks-the-target: article
+  docs/explanation/azure/.assets/read-the-session-guard-then-pick-slot: article
+  docs/explanation/azure/.assets/the-session-is-the-deploy-target: article
+  docs/explanation/azure/.assets/three-kinds-of-infrastructure-code: article
+  docs/explanation/azure/.assets/two-layers-join-through-one-resolver: article
 lenses: # the closed set of lenses a diagram is drawn through (its about.lens, the end of its subtitle), each with what it shows; the badge prints the name
   meta: what the decision is and why
   architecture: the parts and how they depend on each other

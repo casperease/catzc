@@ -39,6 +39,12 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
                 'ADR-GA-ONE'    = @{ path = 'docs/drs/gadget/sub/gadget-one.md'; rules = [string[]] @() }
                 'ADR-GA-WIDGET' = @{ path = 'docs/drs/gadget/widget-one.md'; rules = [string[]] @() }
             }, @())
+        # The map the dangling-code case hands the helper itself, so the default mock lets that one call through.
+        $script:danglingMap = [Catzc.Base.Drs.DrsCitationMap]::new([ordered]@{
+                'ADR-WI-ONE'    = @{ path = 'docs/drs/widget/widget-one.md'; rules = [string[]] @('ADR-WI-ONE-SPIN') }
+                'ADR-GA-ONE'    = @{ path = 'docs/drs/gadget/sub/gadget-one.md'; rules = [string[]] @() }
+                'ADR-GA-WIDGET' = @{ path = 'docs/drs/gadget/widget-one.md'; rules = [string[]] @() }
+            }, @())
 
         function Write-AdrFixture {
             param([string] $Relative, [string] $Text)
@@ -78,7 +84,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.Drs { $script:citations }
         # The registry cases cite codes the fixture map does not hold; the dangling-code cases below run the helper itself.
-        Mock Get-DrsDanglingCodeViolations -ModuleName Catzc.Base.Drs { }
+        Mock Get-DrsDanglingCodeViolations -ModuleName Catzc.Base.Drs -ParameterFilter { -not [object]::ReferenceEquals($Map, $script:danglingMap) } { }
     }
 
     Context 'dangling codes' {
@@ -86,7 +92,7 @@ Describe 'Test-DrsRegistry' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-QUALITYGATE' {
             Write-AdrFixture 'widget/widget-one.md' (
                 "# Widget one`n`n## Rules: ADR-WI-ONE`n`nFollows ADR-WI-ONE-SPIN, and ADR-WI-ONE-GONE no longer exists.`n" +
                 "`n``````text`nADR-GA-ONE-EXAMPLE`n```````n")
-            $found = InModuleScope Catzc.Base.Drs -Parameters @{ Fixture = $script:fixture; Map = $script:citations; Root = (Join-Path $TestDrive 'adr') } {
+            $found = InModuleScope Catzc.Base.Drs -Parameters @{ Fixture = $script:fixture; Map = $script:danglingMap; Root = (Join-Path $TestDrive 'adr') } {
                 param($Fixture, $Map, $Root)
                 $index = Get-DrsFileIndex @($Fixture.RuleSets) -DrsRoot $Root
                 Get-DrsDanglingCodeViolations -Adrs $Fixture -Index $index -Map $Map

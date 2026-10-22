@@ -19,6 +19,188 @@ Nobody passes a subscription to a deploy in cats. A pipeline signs in through it
 `az account set` and runs the same command without the pin. Either way `Deploy-Bicep` resolves the session, prints the deployment context it
 is about to act on, and stops with one of three errors when the session is missing a pin, undeclared, or not the one expected.
 
+```yml drawio
+description:
+  A pipeline signs in through its service connection and pins the subscription it expects; a developer sets the session with az account set;
+  Deploy-Bicep resolves the session, prints the deployment context, or stops with one of three errors.
+about:
+  adrs: [ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+  lens: operations
+content:
+  title: A pipeline pins the subscription it expects; a devbox picks the target with az account set
+  kind: explanation
+  flow: left-to-right
+  relation: feeds the next step
+  theme: dark
+  bands:
+    - { id: band-entry, label: ENTRY }
+    - { id: band-command, label: COMMAND }
+    - { id: band-outcome, label: OUTCOME }
+  groups:
+    - { id: grp-errors, label: three errors, in: band-outcome }
+  glyphs:
+    - { id: x-connection, kind: external, label: service connection, in: band-entry }
+    - { id: x-account, kind: external, label: az account set, in: band-entry }
+    - { id: g-deploy, kind: code, label: Deploy-Bicep, in: band-command }
+    - { id: r-context, kind: result, label: deployment context, in: band-outcome }
+    - { id: f-no-assert, kind: failure, label: no assert in a pipeline, in: grp-errors }
+    - { id: f-undeclared, kind: failure, label: undeclared subscription, in: grp-errors }
+    - { id: f-wrong, kind: failure, label: wrong subscription, in: grp-errors }
+  edges:
+    - { from: x-connection, to: g-deploy, kind: flow, label: "" }
+    - { from: x-account, to: g-deploy, kind: flow, label: "" }
+    - { from: g-deploy, to: r-context, kind: flow, label: "" }
+    - { from: g-deploy, to: grp-errors, kind: fail, label: "" }
+  markers:
+    - { at: x-connection, number: 1 }
+    - { at: x-account, number: 2 }
+    - { at: g-deploy, number: 3 }
+    - { at: r-context, number: 4 }
+    - { at: f-no-assert, number: 5 }
+    - { at: f-undeclared, number: 6 }
+    - { at: f-wrong, number: 7 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by: [.ado/pipelines/cd-shared.yaml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: ado-pipelines/pipelines/extends
+        by: [.ado/pipelines/extends/cd-customer.yaml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: docs/-/.
+        by:
+          - docs/drs/azure/azure-data-model.md
+          - docs/drs/azure/dora-explains.md
+          - docs/drs/index.md
+          - docs/references/ado/pipelines/cd-shared.yaml.md
+          - docs/references/ado/pipelines/extends/cd-customer.yaml.md
+          - docs/references/infrastructure/templates/discovery/options.yml.md
+          - docs/references/infrastructure/templates/expedition/options.yml.md
+          - docs/references/infrastructure/templates/foundation/options.yml.md
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Get-AzCliSessionSubscription.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-AzureBicepEnvironmentKinds.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md
+          - docs/references/pwsh/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md
+          - docs/references/pwsh/catzc-azure/configs/azure.yml.md
+          - docs/references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md
+          - docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: infrastructure/discovery/.
+        by: [infrastructure/templates/discovery/options.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: infrastructure/expedition/.
+        by: [infrastructure/templates/expedition/options.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: infrastructure/foundation/.
+        by: [infrastructure/templates/foundation/options.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: pwsh/Catzc.Azure/.
+        by: [pwsh/Catzc.Azure/Get-AzureSubscriptionEnvironment.ps1, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: pwsh/Catzc.Azure/configs
+        by: [pwsh/Catzc.Azure/configs/azure.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: pwsh/Catzc.Azure/tests/types
+        by: [pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: pwsh/Catzc.Azure/types
+        by:
+          - pwsh/Catzc.Azure/types/AzureConfig.cs
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - pwsh/Catzc.Azure/types/AzureSubscriptionRecord.cs
+          - pwsh/Catzc.Azure/types/AzureTenantRecord.cs
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: pwsh/Catzc.Azure.Cli/.
+        by:
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliIsConnected.ps1
+          - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: pwsh/Catzc.Azure.Templates/.
+        by:
+          - pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureBicepEnvironmentKinds.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+          - pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: pwsh/Catzc.Azure.Templates/private
+        by:
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure
+        by:
+          - pwsh/Catzc.Azure/Get-AzureSubscriptionEnvironment.ps1
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
+          - pwsh/Catzc.Azure/types/AzureConfig.cs
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - pwsh/Catzc.Azure/types/AzureSubscriptionRecord.cs
+          - pwsh/Catzc.Azure/types/AzureTenantRecord.cs
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: subject/Catzc.Azure.Cli
+        by:
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliIsConnected.ps1
+          - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: subject/Catzc.Azure.Templates
+        by:
+          - pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureBicepEnvironmentKinds.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+          - pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: subject/Catzc.Base.Drs
+        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: subject/Catzc.Base.QualityGates
+        by: [pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: subject/discovery
+        by: [infrastructure/templates/discovery/options.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: subject/expedition
+        by: [infrastructure/templates/expedition/options.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: subject/foundation
+        by: [infrastructure/templates/foundation/options.yml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: subject/pipelines
+        by: [.ado/pipelines/cd-shared.yaml, .ado/pipelines/extends/cd-customer.yaml, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+    axis:
+      - cell: CLOUD/deploy
+        by: [ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: CLOUD/access
+        by: [ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+layout:
+  band-entry: { x: 20, y: 84, w: 400, h: 340 }
+  band-command: { x: 440, y: 84, w: 320, h: 340 }
+  band-outcome: { x: 780, y: 84, w: 500, h: 340 }
+  x-connection: { x: 100, y: 144, w: 200, h: 52 }
+  x-account: { x: 100, y: 254, w: 200, h: 52 }
+  g-deploy: { x: 520, y: 184, w: 160, h: 44 }
+  r-context: { x: 820, y: 134, w: 240, h: 44 }
+  grp-errors: { x: 810, y: 204, w: 300, h: 200 }
+  f-no-assert: { x: 840, y: 246, w: 240, h: 44 }
+  f-undeclared: { x: 840, y: 298, w: 240, h: 44 }
+  f-wrong: { x: 840, y: 350, w: 240, h: 44 }
+```
+
 ![A pipeline pins the subscription it expects; a devbox picks the target with az account set](.assets/pipeline-pins-devbox-picks-the-target.drawio.png)
 
 ## Walkthrough

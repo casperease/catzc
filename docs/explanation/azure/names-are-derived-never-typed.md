@@ -18,6 +18,209 @@ An Azure resource name in cats is never typed by an operator. A person runs a de
 from settings the repository already holds. A bad or over-long name stops with an error that says what is wrong, and the fix is always a
 setting, never a hand-typed or truncated name.
 
+```yml drawio
+description:
+  An operator changes the naming variant or a template's short name and runs a deploy or asks for a name; cats derives the name or stops
+  with an error to act on, and nobody types a name.
+about:
+  adrs:
+    - ADR-AZ-NAMING-DETERMINISTICNAMES
+    - ADR-AZ-NAMING-ORDERISVARIANT
+    - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+    - ADR-AZ-NAMING-NEVERTRUNCATE
+    - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+  lens: operations
+content:
+  title: "Nobody types an Azure name: cats derives it, and a bad name stops with an error"
+  kind: explanation
+  flow: left-to-right
+  relation: feeds the next
+  theme: dark
+  bands:
+    - { id: band-change, label: YOU CHANGE }
+    - { id: band-run, label: YOU RUN }
+    - { id: band-get, label: YOU GET }
+  glyphs:
+    - { id: g-variants, kind: file, label: variants.yml, in: band-change }
+    - { id: g-options, kind: file, label: options.yml, in: band-change }
+    - { id: g-deploy, kind: code, label: Deploy-Bicep, in: band-run }
+    - { id: g-resource-name, kind: code, label: Get-BicepResourceName, in: band-run }
+    - { id: g-namer, kind: code, label: Get-AzureResourceName, in: band-get }
+    - { id: r-name, kind: result, label: dev-001-weu-zct-sidx-rg, in: band-get }
+    - { id: f-throw, kind: failure, label: throw, in: band-get }
+  edges:
+    - { from: g-variants, to: g-resource-name, kind: flow, label: "" }
+    - { from: g-options, to: g-resource-name, kind: flow, label: "" }
+    - { from: g-deploy, to: g-resource-name, kind: flow, label: "" }
+    - { from: g-resource-name, to: g-namer, kind: flow, label: "" }
+    - { from: g-namer, to: r-name, kind: flow, label: "" }
+    - { from: g-namer, to: f-throw, kind: fail, label: "" }
+  markers:
+    - { at: g-variants, number: 1 }
+    - { at: g-options, number: 2 }
+    - { at: g-deploy, number: 3 }
+    - { at: g-resource-name, number: 4 }
+    - { at: g-namer, number: 5 }
+    - { at: r-name, number: 6 }
+    - { at: f-throw, number: 7 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/azure/azure-naming-standard.md
+          - docs/drs/azure/dora-explains.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-azure-cli/Get-AzCliSessionSubscription.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md
+          - docs/references/pwsh/catzc-azure/configs/azure.yml.md
+          - docs/references/pwsh/catzc-azure/configs/customer.yml.md
+          - docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Azure/configs
+        by:
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - pwsh/Catzc.Azure/configs/customer.yml
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Azure/types
+        by:
+          - pwsh/Catzc.Azure/types/AzureConfig.cs
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Azure.Cli/.
+        by: [pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1, ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT]
+      - cell: pwsh/Catzc.Azure.Templates/.
+        by:
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepResourceName.ps1
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Azure.Templates/types
+        by:
+          - pwsh/Catzc.Azure.Templates/types/BicepShortName.cs
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure
+        by:
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - pwsh/Catzc.Azure/configs/customer.yml
+          - pwsh/Catzc.Azure/types/AzureConfig.cs
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: subject/Catzc.Azure.Cli
+        by: [pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1, ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT]
+      - cell: subject/Catzc.Azure.Templates
+        by:
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/types/BicepShortName.cs
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: subject/Catzc.Base.Maps
+        by:
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: subject/Catzc.Base.Variants
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+    axis:
+      - cell: CLOUD/deploy
+        by:
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+layout:
+  band-change: { x: 20, y: 84, w: 1260, h: 110 }
+  band-run: { x: 20, y: 214, w: 1260, h: 100 }
+  band-get: { x: 20, y: 334, w: 1260, h: 200 }
+  g-variants: { x: 700, y: 122, w: 240, h: 52 }
+  g-options: { x: 1000, y: 122, w: 240, h: 52 }
+  g-deploy: { x: 140, y: 246, w: 280, h: 44 }
+  g-resource-name: { x: 700, y: 246, w: 540, h: 44 }
+  g-namer: { x: 820, y: 374, w: 300, h: 44 }
+  r-name: { x: 140, y: 374, w: 420, h: 44 }
+  f-throw: { x: 820, y: 464, w: 300, h: 44 }
+```
+
 ![Nobody types an Azure name: cats derives it, and a bad name stops with an error](.assets/names-are-derived-never-typed.drawio.png)
 
 ## Walkthrough

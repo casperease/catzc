@@ -19,6 +19,196 @@ Every Azure resource name in cats comes out of one place. A resolver gathers the
 namer, reading three pure-data registries, assembles and checks the name. A bad component or an over-limit name throws; a name that passes
 is the resource-group name the deploy uses. Because nothing else builds names, a rule changed in the namer reaches every name at once.
 
+```yml drawio
+description:
+  Every Azure name comes out of one resolver, which gathers the components from three config sources, and one namer, which reads three
+  registries and assembles and checks the name; the resource-group name is the one in-tree consumer.
+about:
+  adrs:
+    - ADR-AZ-NAMING-DETERMINISTICNAMES
+    - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+    - ADR-AZ-NAMING-ORDERISVARIANT
+    - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+  lens: architecture
+content:
+  title: One resolver gathers the components and one namer assembles every Azure name
+  kind: explanation
+  flow: top-to-bottom
+  relation: feeds the next
+  theme: dark
+  bands:
+    - { id: band-sources, label: SOURCES }
+    - { id: band-resolver, label: RESOLVER }
+    - { id: band-assembler, label: ASSEMBLER }
+    - { id: band-consumers, label: CONSUMERS }
+  glyphs:
+    - { id: g-azure, kind: file, label: azure.yml · customer.yml, in: band-sources }
+    - { id: g-options, kind: file, label: template · options.yml, in: band-sources }
+    - { id: g-variants, kind: file, label: variants.yml, in: band-sources }
+    - { id: g-resolver, kind: code, label: Get-BicepResourceName, in: band-resolver }
+    - { id: s-registries, kind: set, label: registries, in: band-assembler }
+    - { id: g-namer, kind: code, label: Get-AzureResourceName, in: band-assembler }
+    - { id: f-throw, kind: failure, label: throw, in: band-assembler }
+    - { id: g-group, kind: code, label: Get-BicepResourceGroupName, in: band-consumers }
+  edges:
+    - { from: g-azure, to: g-resolver, kind: flow, label: "" }
+    - { from: g-options, to: g-resolver, kind: flow, label: "" }
+    - { from: g-variants, to: g-resolver, kind: flow, label: "" }
+    - { from: g-resolver, to: g-namer, kind: flow, label: "" }
+    - { from: s-registries, to: g-namer, kind: flow, label: "" }
+    - { from: g-namer, to: g-group, kind: flow, label: "" }
+    - { from: g-namer, to: f-throw, kind: fail, label: "" }
+    - { from: g-resolver, to: f-throw, kind: fail, label: "" }
+  markers:
+    - { at: g-azure, number: 1 }
+    - { at: g-options, number: 2 }
+    - { at: g-variants, number: 3 }
+    - { at: g-resolver, number: 4 }
+    - { at: s-registries, number: 5 }
+    - { at: g-namer, number: 6 }
+    - { at: f-throw, number: 7 }
+    - { at: g-group, number: 8 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/azure/azure-naming-standard.md
+          - docs/drs/azure/dora-explains.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-azure-cli/Get-AzCliSessionSubscription.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md
+          - docs/references/pwsh/catzc-azure/configs/azure.yml.md
+          - docs/references/pwsh/catzc-azure/configs/customer.yml.md
+          - docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Azure/configs
+        by:
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - pwsh/Catzc.Azure/configs/customer.yml
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Azure/types
+        by:
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Azure.Cli/.
+        by: [pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1, ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT]
+      - cell: pwsh/Catzc.Azure.Templates/.
+        by:
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepResourceName.ps1
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Azure.Templates/types
+        by:
+          - pwsh/Catzc.Azure.Templates/types/BicepShortName.cs
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure
+        by:
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - pwsh/Catzc.Azure/configs/customer.yml
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: subject/Catzc.Azure.Cli
+        by: [pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1, ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT]
+      - cell: subject/Catzc.Azure.Templates
+        by:
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/types/BicepShortName.cs
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: subject/Catzc.Base.Maps
+        by:
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: subject/Catzc.Base.Variants
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+    axis:
+      - cell: CLOUD/deploy
+        by:
+          - ADR-AZ-NAMING-DETERMINISTICNAMES
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+layout:
+  band-sources: { x: 20, y: 84, w: 1260, h: 120 }
+  band-resolver: { x: 20, y: 224, w: 1260, h: 100 }
+  band-assembler: { x: 20, y: 344, w: 1260, h: 110 }
+  band-consumers: { x: 20, y: 474, w: 1260, h: 100 }
+  g-azure: { x: 120, y: 126, w: 300, h: 52 }
+  g-options: { x: 490, y: 126, w: 300, h: 52 }
+  g-variants: { x: 860, y: 126, w: 300, h: 52 }
+  g-resolver: { x: 200, y: 262, w: 960, h: 44 }
+  s-registries: { x: 120, y: 384, w: 240, h: 44 }
+  g-namer: { x: 450, y: 384, w: 400, h: 44 }
+  f-throw: { x: 940, y: 384, w: 240, h: 44 }
+  g-group: { x: 450, y: 512, w: 400, h: 44 }
+```
+
 ![One resolver gathers the components and one namer assembles every Azure name](.assets/one-namer-assembles-every-name.drawio.png)
 
 ## Walkthrough

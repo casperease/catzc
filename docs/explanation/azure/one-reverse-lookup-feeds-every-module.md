@@ -20,6 +20,265 @@ lookup: `Catzc.Azure.Cli` resolves the session's subscription id to the identity
 that identity instead of asking the session again. The templating module picks the configuration slot from it, the Azure root module checks
 it against the environment, and the namer renders its customer into the resource-group name.
 
+```yml drawio
+description:
+  One reverse lookup in Catzc.Azure.Cli turns the az session's subscription id into the identity azure.yml declares, and the identity module
+  and the templating module read that identity instead of asking the session again.
+about:
+  adrs: [ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-JOINSINPOWERSHELL, ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT]
+  lens: architecture
+content:
+  title: One reverse lookup in Catzc.Azure.Cli hands the session to every module
+  kind: explanation
+  flow: left-to-right
+  relation: feeds
+  theme: dark
+  bands:
+    - { id: band-session, label: SESSION }
+    - { id: band-identity, label: IDENTITY }
+    - { id: band-templates, label: TEMPLATES }
+  glyphs:
+    - { id: x-connection, kind: external, label: service connection, in: band-session }
+    - { id: x-session, kind: external, label: az session, in: band-session }
+    - { id: g-cli, kind: code, label: Catzc.Azure.Cli, in: band-identity }
+    - { id: g-azure-file, kind: file, label: azure.yml, in: band-identity }
+    - { id: g-azure, kind: code, label: Catzc.Azure, in: band-identity }
+    - { id: g-templates, kind: code, label: Catzc.Azure.Templates, in: band-templates }
+    - { id: g-tree, kind: file, label: configuration tree, in: band-templates }
+    - { id: r-group, kind: result, label: resource-group name, in: band-templates }
+  edges:
+    - { from: x-connection, to: x-session, kind: flow, label: "" }
+    - { from: x-session, to: g-cli, kind: flow, label: "" }
+    - { from: g-azure-file, to: g-azure, kind: flow, label: "" }
+    - { from: g-azure, to: g-cli, kind: flow, label: "" }
+    - { from: g-cli, to: g-templates, kind: flow, label: "" }
+    - { from: g-azure, to: g-templates, kind: flow, label: "" }
+    - { from: g-tree, to: g-templates, kind: flow, label: "" }
+    - { from: g-templates, to: r-group, kind: flow, label: "" }
+  markers:
+    - { at: x-connection, number: 1 }
+    - { at: x-session, number: 2 }
+    - { at: g-cli, number: 3 }
+    - { at: g-azure-file, number: 4 }
+    - { at: g-azure, number: 5 }
+    - { at: g-templates, number: 6 }
+    - { at: g-tree, number: 7 }
+    - { at: r-group, number: 8 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: ado-pipelines/pipelines/.
+        by: [.ado/pipelines/cd-shared.yaml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: ado-pipelines/pipelines/extends
+        by: [.ado/pipelines/extends/cd-customer.yaml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: docs/-/.
+        by:
+          - docs/drs/azure/azure-data-model.md
+          - docs/drs/azure/azure-naming-standard.md
+          - docs/drs/azure/dora-explains.md
+          - docs/drs/index.md
+          - docs/references/ado/pipelines/cd-shared.yaml.md
+          - docs/references/ado/pipelines/extends/cd-customer.yaml.md
+          - docs/references/infrastructure/templates/discovery/options.yml.md
+          - docs/references/infrastructure/templates/expedition/options.yml.md
+          - docs/references/infrastructure/templates/foundation/options.yml.md
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliCanAccess.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Assert-AzCliIsConnected.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Get-AzCliSessionSubscription.ps1.md
+          - docs/references/pwsh/catzc-azure-cli/Test-AzCliCanAccess.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Deploy-Bicep.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-AzureBicepEnvironmentKinds.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentContext.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepResourceName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepTemplateConfiguration.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-BicepTemplates.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Set-BicepTemplateConfiguration.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Get-BicepConfigSubscriptionCandidates.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/private/Get-BicepParametersFileName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md
+          - docs/references/pwsh/catzc-azure/Get-AzureEnvironment.ps1.md
+          - docs/references/pwsh/catzc-azure/Get-AzureSubscription.ps1.md
+          - docs/references/pwsh/catzc-azure/Get-AzureSubscriptionEnvironment.ps1.md
+          - docs/references/pwsh/catzc-azure/configs/azure.yml.md
+          - docs/references/pwsh/catzc-azure/configs/customer.yml.md
+          - docs/references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md
+          - docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureSubscriptionRecord.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureTenantRecord.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-quality-gates/private/Get-MarkdownHeadingFinding.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: infrastructure/discovery/.
+        by: [infrastructure/templates/discovery/options.yml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: infrastructure/expedition/.
+        by: [infrastructure/templates/expedition/options.yml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: infrastructure/foundation/.
+        by: [infrastructure/templates/foundation/options.yml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: pwsh/Catzc.Azure/.
+        by:
+          - pwsh/Catzc.Azure/Get-AzureEnvironment.ps1
+          - pwsh/Catzc.Azure/Get-AzureSubscription.ps1
+          - pwsh/Catzc.Azure/Get-AzureSubscriptionEnvironment.ps1
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: pwsh/Catzc.Azure/configs
+        by:
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - pwsh/Catzc.Azure/configs/customer.yml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Azure/tests/types
+        by: [pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: pwsh/Catzc.Azure/types
+        by:
+          - pwsh/Catzc.Azure/types/AzureConfig.cs
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - pwsh/Catzc.Azure/types/AzureSubscriptionRecord.cs
+          - pwsh/Catzc.Azure/types/AzureTenantRecord.cs
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Azure.Cli/.
+        by:
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliIsConnected.ps1
+          - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Azure.Templates/.
+        by:
+          - pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureBicepEnvironmentKinds.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+          - pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Azure.Templates/private
+        by:
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: pwsh/Catzc.Azure.Templates/types
+        by: [pwsh/Catzc.Azure.Templates/types/BicepShortName.cs, ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT]
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: pwsh/Catzc.Base.Maps/.
+        by: [pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1, ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT]
+      - cell: pwsh/Catzc.Base.QualityGates/private
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by: [pwsh/Catzc.Base.Variants/configs/variants.yml, ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT]
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure
+        by:
+          - pwsh/Catzc.Azure/Get-AzureEnvironment.ps1
+          - pwsh/Catzc.Azure/Get-AzureSubscription.ps1
+          - pwsh/Catzc.Azure/Get-AzureSubscriptionEnvironment.ps1
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - pwsh/Catzc.Azure/configs/customer.yml
+          - pwsh/Catzc.Azure/tests/types/AzureConfig.Tests.ps1
+          - pwsh/Catzc.Azure/types/AzureConfig.cs
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - pwsh/Catzc.Azure/types/AzureSubscriptionRecord.cs
+          - pwsh/Catzc.Azure/types/AzureTenantRecord.cs
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: subject/Catzc.Azure.Cli
+        by:
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliCanAccess.ps1
+          - pwsh/Catzc.Azure.Cli/Assert-AzCliIsConnected.ps1
+          - pwsh/Catzc.Azure.Cli/Get-AzCliSessionSubscription.ps1
+          - pwsh/Catzc.Azure.Cli/Test-AzCliCanAccess.ps1
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: subject/Catzc.Azure.Templates
+        by:
+          - pwsh/Catzc.Azure.Templates/Deploy-Bicep.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureBicepEnvironmentKinds.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepDeploymentContext.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/Get-BicepTemplates.ps1
+          - pwsh/Catzc.Azure.Templates/Set-BicepTemplateConfiguration.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepConfigSubscriptionCandidates.ps1
+          - pwsh/Catzc.Azure.Templates/private/Get-BicepParametersFileName.ps1
+          - pwsh/Catzc.Azure.Templates/types/BicepShortName.cs
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+          - ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT
+      - cell: subject/Catzc.Base.Maps
+        by: [pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1, ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT]
+      - cell: subject/Catzc.Base.QualityGates
+        by:
+          - pwsh/Catzc.Base.QualityGates/private/Get-MarkdownHeadingFinding.ps1
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+      - cell: subject/Catzc.Base.Variants
+        by: [pwsh/Catzc.Base.Variants/configs/variants.yml, ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT]
+      - cell: subject/discovery
+        by: [infrastructure/templates/discovery/options.yml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: subject/expedition
+        by: [infrastructure/templates/expedition/options.yml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: subject/foundation
+        by: [infrastructure/templates/foundation/options.yml, ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+      - cell: subject/pipelines
+        by:
+          - .ado/pipelines/cd-shared.yaml
+          - .ado/pipelines/extends/cd-customer.yaml
+          - ADR-AZ-DATAMOD-CUSTOMERAXIS
+          - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+    axis:
+      - cell: CLOUD/deploy
+        by: [ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-JOINSINPOWERSHELL, ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT]
+      - cell: CLOUD/access
+        by: [ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-JOINSINPOWERSHELL]
+layout:
+  band-session: { x: 20, y: 84, w: 380, h: 340 }
+  band-identity: { x: 420, y: 84, w: 420, h: 340 }
+  band-templates: { x: 860, y: 84, w: 420, h: 340 }
+  x-connection: { x: 50, y: 144, w: 150, h: 44 }
+  x-session: { x: 240, y: 144, w: 130, h: 44 }
+  g-cli: { x: 640, y: 144, w: 170, h: 44 }
+  g-azure-file: { x: 450, y: 266, w: 130, h: 52 }
+  g-azure: { x: 640, y: 272, w: 170, h: 44 }
+  g-templates: { x: 880, y: 144, w: 190, h: 170 }
+  g-tree: { x: 900, y: 354, w: 150, h: 52 }
+  r-group: { x: 1100, y: 144, w: 170, h: 44 }
+```
+
 ![One reverse lookup in Catzc.Azure.Cli hands the session to every module](.assets/one-reverse-lookup-feeds-every-module.drawio.png)
 
 ## Walkthrough

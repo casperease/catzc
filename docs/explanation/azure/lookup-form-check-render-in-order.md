@@ -22,6 +22,195 @@ type, the order and the pattern, forms the segment values, checks every componen
 bad input along the way, and one length check at the end either throws or returns the name. Knowing the order tells a reader which error a
 given mistake produces.
 
+```yml drawio
+description:
+  "Get-AzureResourceName runs four guarded steps in code order, lookup, omit and form, format checks and render, then compares the rendered
+  length with the limit: any guard throws, an over-limit name throws, and a name within the limit is returned unchanged."
+about:
+  adrs: [ADR-AZ-NAMING-PATTERNPERRESOURCETYPE, ADR-AZ-NAMING-ORDERISVARIANT, ADR-AZ-NAMING-LOWERCASECOMPONENTS, ADR-AZ-NAMING-NEVERTRUNCATE]
+  lens: implementation
+content:
+  title: The namer looks up, forms, checks and renders a name in that order
+  kind: explanation
+  flow: left-to-right
+  relation: calls, in code order
+  theme: dark
+  bands:
+    - { id: band-namer, label: NAMER }
+    - { id: band-stop, label: STOP }
+  groups:
+    - { id: grp-guarded, label: GUARDED, in: band-namer }
+  glyphs:
+    - { id: g-deploy, kind: code, label: Deploy-Bicep, in: band-namer }
+    - { id: g-resource-name, kind: code, label: Get-BicepResourceName, in: band-namer }
+    - { id: g-lookup, kind: code, label: lookup, in: grp-guarded }
+    - { id: g-form, kind: code, label: omit + form, in: grp-guarded }
+    - { id: g-format, kind: code, label: format checks, in: grp-guarded }
+    - { id: g-render, kind: code, label: render, in: grp-guarded }
+    - { id: g-limit, kind: gate, label: "-gt limit?", in: band-namer }
+    - { id: r-name, kind: result, label: return $name, in: band-namer }
+    - { id: f-guard, kind: failure, label: guard throws, in: band-stop }
+    - { id: f-limit, kind: failure, label: limit throw, in: band-stop }
+  edges:
+    - { from: g-deploy, to: g-resource-name, kind: flow, label: "" }
+    - { from: g-resource-name, to: g-lookup, kind: flow, label: "" }
+    - { from: g-lookup, to: g-form, kind: flow, label: "" }
+    - { from: g-form, to: g-format, kind: flow, label: "" }
+    - { from: g-format, to: g-render, kind: flow, label: "" }
+    - { from: g-render, to: g-limit, kind: flow, label: "" }
+    - { from: g-limit, to: r-name, kind: flow, label: "" }
+    - { from: grp-guarded, to: f-guard, kind: fail, label: "" }
+    - { from: g-limit, to: f-limit, kind: fail, label: "" }
+  markers:
+    - { at: g-deploy, number: 1 }
+    - { at: g-resource-name, number: 2 }
+    - { at: g-lookup, number: 3 }
+    - { at: g-form, number: 4 }
+    - { at: g-format, number: 5 }
+    - { at: g-render, number: 6 }
+    - { at: f-guard, number: 7 }
+    - { at: g-limit, number: 8 }
+    - { at: f-limit, number: 9 }
+    - { at: r-name, number: 10 }
+  legend: auto
+  minimaps:
+    code-locations:
+      - cell: docs/-/.
+        by:
+          - docs/drs/azure/azure-naming-standard.md
+          - docs/drs/azure/dora-explains.md
+          - docs/drs/index.md
+          - docs/references/pwsh/catzc-azure-templates/Get-AzureResourceName.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/Get-AzureResourceTypeSet.ps1.md
+          - docs/references/pwsh/catzc-azure-templates/types/BicepShortName.cs.md
+          - docs/references/pwsh/catzc-azure/configs/azure.yml.md
+          - docs/references/pwsh/catzc-azure/configs/customer.yml.md
+          - docs/references/pwsh/catzc-azure/types/AzureConfig.cs.md
+          - docs/references/pwsh/catzc-azure/types/AzureEnvironmentRecord.cs.md
+          - docs/references/pwsh/catzc-base-maps/Get-TrackPlacementMinimapData.ps1.md
+          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+      - cell: pwsh/Catzc.Azure/configs
+        by:
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - pwsh/Catzc.Azure/configs/customer.yml
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+      - cell: pwsh/Catzc.Azure/types
+        by:
+          - pwsh/Catzc.Azure/types/AzureConfig.cs
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+      - cell: pwsh/Catzc.Azure.Templates/.
+        by:
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+      - cell: pwsh/Catzc.Azure.Templates/types
+        by:
+          - pwsh/Catzc.Azure.Templates/types/BicepShortName.cs
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+      - cell: pwsh/Catzc.Base.Drs/configs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+      - cell: pwsh/Catzc.Base.Maps/.
+        by:
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+      - cell: pwsh/Catzc.Base.Variants/configs
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+    module-neighbourhood:
+      - cell: subject/Catzc.Azure
+        by:
+          - pwsh/Catzc.Azure/configs/azure.yml
+          - pwsh/Catzc.Azure/configs/customer.yml
+          - pwsh/Catzc.Azure/types/AzureConfig.cs
+          - pwsh/Catzc.Azure/types/AzureEnvironmentRecord.cs
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+      - cell: subject/Catzc.Azure.Templates
+        by:
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceName.ps1
+          - pwsh/Catzc.Azure.Templates/Get-AzureResourceTypeSet.ps1
+          - pwsh/Catzc.Azure.Templates/types/BicepShortName.cs
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+      - cell: subject/Catzc.Base.Drs
+        by:
+          - pwsh/Catzc.Base.Drs/configs/drs-index.yml
+          - pwsh/Catzc.Base.Drs/configs/drs.yml
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+      - cell: subject/Catzc.Base.Maps
+        by:
+          - pwsh/Catzc.Base.Maps/Get-TrackPlacementMinimapData.ps1
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+      - cell: subject/Catzc.Base.Variants
+        by:
+          - pwsh/Catzc.Base.Variants/configs/variants.yml
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+    axis:
+      - cell: CLOUD/deploy
+        by:
+          - ADR-AZ-NAMING-LOWERCASECOMPONENTS
+          - ADR-AZ-NAMING-NEVERTRUNCATE
+          - ADR-AZ-NAMING-ORDERISVARIANT
+          - ADR-AZ-NAMING-PATTERNPERRESOURCETYPE
+layout:
+  band-namer: { x: 20, y: 84, w: 700, h: 650 }
+  band-stop: { x: 740, y: 84, w: 540, h: 650 }
+  g-deploy: { x: 220, y: 124, w: 300, h: 44 }
+  g-resource-name: { x: 220, y: 196, w: 300, h: 44 }
+  grp-guarded: { x: 180, y: 256, w: 380, h: 284 }
+  g-lookup: { x: 220, y: 300, w: 300, h: 44 }
+  g-form: { x: 220, y: 360, w: 300, h: 44 }
+  g-format: { x: 220, y: 420, w: 300, h: 44 }
+  g-render: { x: 220, y: 480, w: 300, h: 44 }
+  g-limit: { x: 270, y: 570, w: 200, h: 68 }
+  r-name: { x: 270, y: 670, w: 200, h: 44 }
+  f-guard: { x: 840, y: 380, w: 240, h: 44 }
+  f-limit: { x: 840, y: 582, w: 240, h: 44 }
+```
+
 ![The namer looks up, forms, checks and renders a name in that order](.assets/lookup-form-check-render-in-order.drawio.png)
 
 ## Walkthrough
