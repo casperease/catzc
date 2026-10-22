@@ -9,8 +9,8 @@ plan:
 
 # Debt full-run failures: the failing files of the last full run, rerun one at a time
 
-The last full run (`out/test-automation/20261021-032407`) failed 338 tests in 15 files. Six were fixed or found stale and proven on
-2026-10-22 (`Test-ScriptAnalyzer`, `Test-Spelling`, `Test-Automation`, `Test-PythonLint`, `Test-PythonTypes`, `Format-FileMeta.Contract`
+The last full run (`out/test-automation/20261021-032407`) failed 338 tests in 15 files. Seven were fixed or found stale and proven on
+2026-10-22 (`Test-ScriptAnalyzer`, `Test-Spelling`, `Test-Automation`, `Test-PythonLint`, `Test-PythonTypes`, `Format-FileMeta.Contract`, `Test-Links.Repository`
 green alone). The rest are listed here, each rerun alone, one heavy run at a time on the machine (memory ran short on 2026-10-22 with five
 sessions running tests). A red file has its cause reported before its fix; a file touching a shared config (`globs.yml`, the manual test
 plan) is always reported first. The kit's whole L2 folder (321 tests, a parent setup fall under its old name `python/Catzc.Diagrams`) is
@@ -18,11 +18,10 @@ left to the user's full run: the kit was renamed after that run, and its live py
 
 ## Open steps
 
-1. [ ] `Test-Links.Repository.Tests.ps1` (the committed tree not formatter-stable). Check: `Invoke-TestFile` on it alone.
-2. [ ] `Test-Formatting.Tests.ps1` (a function help needing a `## help` section on its comment page). Check: `Invoke-TestFile` on it alone.
-3. [ ] `Get-DynamicManifestContent.Tests.ps1` (`Facts['Modules']` was 0). Check: `Invoke-TestFile` on it alone.
-4. [ ] `Test-FileKindReachability.Tests.ps1` (`slides-kit` and `test` overlapping `drawio-kit` in `globs.yml`, a shared file). Check:
+1. [ ] `Test-Formatting.Tests.ps1` (a function help needing a `## help` section on its comment page). Check: `Invoke-TestFile` on it alone.
+2. [ ] `Get-DynamicManifestContent.Tests.ps1` (`Facts['Modules']` was 0). Check: `Invoke-TestFile` on it alone.
+3. [ ] `Test-FileKindReachability.Tests.ps1` (`slides-kit` and `test` overlapping `drawio-kit` in `globs.yml`, a shared file). Check:
        `Invoke-TestFile` on it alone.
-5. [ ] `ManualTestPlan-Coverage.Tests.ps1` (integrity tests with no manual-test-plan row, a shared file). Check: `Invoke-TestFile` on it
+4. [ ] `ManualTestPlan-Coverage.Tests.ps1` (integrity tests with no manual-test-plan row, a shared file). Check: `Invoke-TestFile` on it
        alone.
-6. [ ] `Test-Glossary.Tests.ps1` (4 findings that day; `Test-Glossary` reports 0 today). Check: `Invoke-TestFile` on it alone.
+5. [ ] `Test-Glossary.Tests.ps1` (4 findings that day; `Test-Glossary` reports 0 today). Check: `Invoke-TestFile` on it alone.
