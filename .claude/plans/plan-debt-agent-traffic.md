@@ -33,6 +33,9 @@ about ten "may I" questions on edits the rules already require, three to five to
       time with no messages, and a run waiting on it says so in one line; while a session's import-path burst holds the same mutex, every
       other run waits. Its wait time is a key in `timeouts.yml`, declared once. An entry-script change, so it lands under a HOLD to every
       live peer. Check: the entry script's test file, plus two background runs started together, the second reporting that it waited.
+- [ ] The burst side of the run lock (catzc-e9, 2026-10-22: the run-side lock comes first): one command that holds `Local\catzc-run` for a
+      session's import-path burst, released at its end or after a declared limit, so a burst needs no HOLD and GO messages. Check: its test,
+      and a run started during the hold reporting that it waited.
 - [ ] `.claude/skills/report-fixed/SKILL.md`: one line, a reply to a coordinator in another session is `<step> PASS|RED|BLOCKED: <one verdict
       line>; details out/<session>-<step>.md`, the full report in that file. Merged, the file kept at 10 lines. Check: `Test-AgentDefinitions`.
 - [ ] The user's (a worker's permission mode refused it as an agent definition widening its own approvals, 2026-10-22):

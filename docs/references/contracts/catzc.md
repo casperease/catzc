@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: a9551eb5a2f5
+    with_body_sha: "26544cc30666"
     warning: "Do Not Edit, this file is generated"
     role: reference
     track: docs
@@ -121,6 +121,7 @@ The draft: the one mutable version folder
 | `catzc.base.root_config`               | `test_root_analyzer_settings.command.yml`        | `pwsh/Catzc.Base.RootConfig/Test-RootAnalyzerSettings.ps1`                | provided                | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
 | `catzc.base.root_config`               | `test_root_config_files.command.yml`             | `pwsh/Catzc.Base.RootConfig/Test-RootConfigFiles.ps1`                     | provided                | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
 | `catzc.base.types_system`              | `test_shipped_types.command.yml`                 | `pwsh/Catzc.Base.TypesSystem/Test-ShippedTypes.ps1`                       | provided                | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
+| `catzc.tooling.claude`                 | `start_claude_worker.command.yml`                | `pwsh/Catzc.Tooling.Claude/Start-ClaudeWorker.ps1`                        | provided                | command contract | `agent: string, model: string, prompt: string, count: int = 1, launcher: string, pass_thru: switch, dry_run: switch -> string[]`                                                                                                                                                                                                                                    |
 | `catzc.tooling.github`                 | `README.md`                                      | `.github/README.md`                                                       | depended-on             | presence         | none                                                                                                                                                                                                                                                                                                                                                                |
 | `catzc.tooling.github`                 | `remove_token_from_history.command.yml`          | `pwsh/Catzc.Tooling.Github/Remove-TokenFromHistory.ps1`                   | provided                | command contract | `token: string!, replace_with: string = ***REMOVED***, skip_messages: switch, repository_path: string, dry_run: switch`                                                                                                                                                                                                                                             |
 | `catzc.tooling.github`                 | `workflows/ci-pwsh.yml`                          | `.github/workflows/ci-pwsh.yml`                                           | depended-on             | fragment         | none                                                                                                                                                                                                                                                                                                                                                                |
@@ -430,6 +431,10 @@ Notes:
 - `catzc.base.types_system/test_shipped_types.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Test-ShippedTypes, the quality gate that checks every shipped C# type resolves in the session by its module and file name,
   and returns its result under -PassThru.
+- `catzc.tooling.claude/start_claude_worker.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
+  interface of Start-ClaudeWorker, which opens Count new Claude Code worker sessions in terminals of their own, in the repository root.
+  Agent and Launcher default to the claude-worker config; Model is passed only when given; DryRun starts nothing and returns each launch's
+  command line, PassThru returns each command line after it started.
 - `catzc.tooling.github/remove_token_from_history.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Remove-TokenFromHistory, which scrubs a token from a git history's blob content and commit messages. RepositoryPath defaults
   to the repository root, a computed default the contract does not restate; SkipMessages leaves the commit messages alone, and DryRun

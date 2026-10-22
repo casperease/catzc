@@ -1,6 +1,6 @@
 # Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Start-ClaudeWorker, which opens Count new Claude Code
 # worker sessions in terminals of their own, in the repository root. Agent and Launcher default to the claude-worker config; Model is passed
-# only when given; DryRun starts nothing and reports each launch, PassThru reports each launch after it started.
+# only when given; DryRun starts nothing and returns each launch's command line, PassThru returns each command line after it started.
 parameters:
   agent: string
   model: string
@@ -9,4 +9,4 @@ parameters:
   launcher: string
   pass_thru: switch
   dry_run: switch
-output: pscustomobject
+output: string[]
