@@ -172,19 +172,20 @@ function Move-Diagram {
             $edits.Add($change)
         }
     }
-    # A stem's carrier and role entries follow it, so drawio.yml keeps naming the diagram after the move.
-    $rekeyed = if ($null -ne $configText) {
-        $prefix = if ($pair) {
-            [regex]::Escape($from) + '(?=:)'
-        }
-        else {
-            [regex]::Escape($from) + '(?=/)'
-        }
-        [regex]::Replace($configText, "(?m)^(  )$prefix", { param($m) $m.Groups[1].Value + $to })
+    # A stem's carrier and role entries follow it, so drawio.yml keeps naming the diagram after the move; the kit's one editor re-keys them.
+    $rekey = $false
+    if ($null -ne $configText) {
+        $config = ConvertFrom-Yaml -Yaml $configText -Ordered
+        $keys = @(foreach ($section in 'carriers', 'roles') {
+                if ($config.Contains($section) -and $config[$section] -is [System.Collections.IDictionary]) {
+                    $config[$section].Keys
+                }
+            })
+        $rekey = @($keys | Where-Object { "$_" -ceq $from -or "$_".StartsWith("$from/", [System.StringComparison]::Ordinal) }).Count -gt 0
     }
 
     if ($DryRun) {
-        if ($null -ne $rekeyed -and $rekeyed -cne $configText) {
+        if ($rekey) {
             Write-Message "Would re-key $from to $to in $Kit/configs/drawio.yml"
         }
         foreach ($move in $moves) {
@@ -205,8 +206,11 @@ function Move-Diagram {
         foreach ($edit in $edits) {
             Write-FileIfChanged -Path (Join-Path $root $edit.Page) -Content $edit.Text | Out-Null
         }
-        if ($null -ne $rekeyed) {
-            Write-FileIfChanged -Path $kitConfig -Content $rekeyed | Out-Null
+        if ($rekey) {
+            # The kit's code is the loaded repository's; the drawio.yml it edits is the target tree's.
+            $kitCode = Join-Path (Get-RepositoryRoot) $Kit
+            $uv = Resolve-ToolExecutable -Tool uv
+            Invoke-Executable "`"$uv`" run --project `"$kitCode`" python `"$(Join-Path $kitCode 'declaration.py')`" rekey `"$from`" `"$to`" `"$kitConfig`"" -WorkingDirectory $root -Silent | Out-Null
         }
         # A re-pointed link changes its line's length, so every rewritten page is formatted again, as the repository formats it.
         $pages = @(foreach ($edit in $edits) {
