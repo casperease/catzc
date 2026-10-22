@@ -16,23 +16,18 @@ Describe 'Invoke-TypeCacheJanitor' -Tag 'L0', 'logic' {
         Mock Get-SessionActor { 'Person' } -ModuleName Catzc.Internal.Importer
     }
 
-    It 'runs the janitor silently and stops holders in a person''s devbox session' {
+    It 'runs the janitor silently in a <_> session, with no switch that could stop a holder' -ForEach 'Person', 'Agent', 'Pipeline' {
+        $actor = $_
+        Mock Get-SessionActor { $actor } -ModuleName Catzc.Internal.Importer
         InModuleScope Catzc.Internal.Importer { Invoke-TypeCacheJanitor }
         Should -Invoke Clear-ModuleTypeCache -ModuleName Catzc.Internal.Importer -Times 1 -Exactly -ParameterFilter {
-            $Silent -and $StopLockingProcesses
+            $Silent -and -not $PSBoundParameters.ContainsKey('StopLockingProcesses')
         }
     }
 
     It 'shows the report with -ShowReport' {
         InModuleScope Catzc.Internal.Importer { Invoke-TypeCacheJanitor -ShowReport }
         Should -Invoke Clear-ModuleTypeCache -ModuleName Catzc.Internal.Importer -Times 1 -Exactly -ParameterFilter { -not $Silent }
-    }
-
-    It 'never stops holders in a <_> session' -ForEach 'Pipeline', 'Agent' {
-        $actor = $_
-        Mock Get-SessionActor { $actor } -ModuleName Catzc.Internal.Importer
-        InModuleScope Catzc.Internal.Importer { Invoke-TypeCacheJanitor }
-        Should -Invoke Clear-ModuleTypeCache -ModuleName Catzc.Internal.Importer -Times 1 -Exactly -ParameterFilter { -not $StopLockingProcesses }
     }
 
     It 'turns a failed delete into one red line instead of failing the load' {

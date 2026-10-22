@@ -17,9 +17,7 @@ function Clear-ModuleTypeCache {
 
         [switch] $DryRun,
 
-        [switch] $Silent,
-
-        [switch] $StopLockingProcesses
+        [switch] $Silent
     )
 
     # Build mode: the loaded code root is an installed package, not a devbox cache — never delete inside it.
@@ -104,38 +102,6 @@ function Clear-ModuleTypeCache {
         }
     }
 
-    if ($StopLockingProcesses -and $failed.Count) {
-        $retried = [System.Collections.Generic.List[pscustomobject]]::new()
-        foreach ($entry in $failed) {
-            Stop-FileLockingProcess -Path $entry.Path
-            $path = $entry.Path
-            $reason = Invoke-WithProgress -Message "Waiting for $([System.IO.Path]::GetFileName($path)) to be released" -IntervalMs 200 {
-                $lastError = $null
-                for ($attempt = 1; $attempt -le 10; $attempt++) {
-                    try {
-                        [System.IO.File]::Delete($path)
-                        return $null
-                    }
-                    catch {
-                        $lastError = $_.Exception.Message
-                        Start-Sleep -Milliseconds 200
-                    }
-                }
-                $lastError
-            }
-            if ($reason) {
-                $retried.Add([pscustomobject]@{ Path = $entry.Path; Reason = $reason })
-                continue
-            }
-            [System.IO.File]::Delete([System.IO.Path]::ChangeExtension($entry.Path, 'json'))
-            $removed++
-            if (-not $Silent) {
-                Write-Message "Removed stale type assembly: $($entry.Path)"
-            }
-        }
-        $failed = $retried
-    }
-
     if (-not $Silent) {
         if ($ret.Count -eq 0) {
             Write-Message 'type cache: already clean — no superseded builds to remove.'
@@ -145,7 +111,9 @@ function Clear-ModuleTypeCache {
         }
     }
 
-    if ($failed.Count) {
+    # A superseded build another process still has open is that process's bound instance until it exits: a fact to name, never an error,
+    # and never a reason to stop or wait on anything ([ADR-PWSH-TYPES-ONEINSTANCEPERSESSION](/docs/drs/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-oneinstancepersession)).
+    if ($failed.Count -and -not $Silent) {
         $details = foreach ($entry in $failed) {
             $name = [System.IO.Path]::GetFileName($entry.Path)
             $holders = try {
@@ -161,6 +129,6 @@ function Clear-ModuleTypeCache {
                 "$name ($($entry.Reason))"
             }
         }
-        throw "Could not remove superseded type assemblies from ${compiledDir}:$($details -join '; '). Types load from a per-user shadow copy, so no catzc session holds .compiled; close what does, then re-run Clear-ModuleTypeCache."
+        Write-Message "type cache: $($failed.Count) superseded build(s) still open in ${compiledDir}: $($details -join '; '); each goes when its holder exits." -ForegroundColor Yellow
     }
 }

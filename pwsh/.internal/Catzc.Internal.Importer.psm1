@@ -318,7 +318,7 @@ function Invoke-TypeCacheJanitor {
         return
     }
     try {
-        Clear-ModuleTypeCache -Silent:(-not $ShowReport) -StopLockingProcesses:((Get-SessionActor) -eq 'Person')
+        Clear-ModuleTypeCache -Silent:(-not $ShowReport)
     }
     catch {
         Write-ImporterMessage $_.Exception.Message -ForegroundColor Red
