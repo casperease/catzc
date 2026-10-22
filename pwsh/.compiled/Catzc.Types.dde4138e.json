@@ -1,5 +1,5 @@
 {
-  "hash": "cca8435a",
+  "hash": "dde4138e",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -1781,6 +1781,11 @@
     },
     {
       "name": "Catzc.Base.Writers.RainbowColor",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Tooling.Claude.ClaudeWorkerConfig",
       "aliases": [],
       "display": []
     },
