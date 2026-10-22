@@ -1,3 +1,13 @@
+/*
+---
+catzc:
+  immutable:
+    with_body_sha: e0d7fff93641
+  edges:
+    docs: "[Program.cs.md](../../../docs/references/pwsh/claude-hooks/Record-SessionMessage/Program.cs.md)"
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
