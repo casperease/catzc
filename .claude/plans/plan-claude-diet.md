@@ -40,10 +40,24 @@ It cuts a cost paid by every session and every spawn that loads the project inst
 
 ## Open questions
 
-- From a worker session's finalize (2026-10-22): `Test-AgentDefinitions` counts the lines of a robot or capability but never their width;
-  a 231-column line in `catzc-verify` passed it and was caught only by a separate `awk` length check. Should the gate also fail a line past
+- From a worker session's finalize (2026-10-22): `Test-AgentDefinitions` counts the lines of a robot or capability but never their width; a
+  231-column line in `catzc-verify` passed it and was caught only by a separate `awk` length check. Should the gate also fail a line past
   140 columns, so every merge-into-one-line edit is proved by the one gate? Recommendation: yes, one finding in the gate and its test.
 - From the same finalize: `Get-Help <command> -Full` shows none of the help in a command's comment page under `docs/references/` (not even
   the synopsis of `Build-Diagrams`), only the generated syntax, so a check written as "Get-Help shows it" cannot pass. Should the loader
   feed the page's help to Get-Help, or should briefs prove help by a read of the page? Recommendation: briefs read the page; feeding
   Get-Help is a loader change for the user to weigh.
+- From the same finalize: a brief asked for `Test-ParameterConsistency -Path`, which does not exist (the gate checks the whole tree), and
+  `New-Plan` leaves a value row's docs and tests cells empty for the planner to fill. Should the gate's page say it takes no path, and
+  `New-Plan` take the two cells as parameters? Recommendation: yes to both, one sentence and one parameter pair.
+- From catzc-e3's finalize (2026-10-22), three capability lines, none applied: (a) `catzc-run` step 2 says a run's result is read with one
+  grep for its `Invoke-CatzcCommand`, `Write-QualityGateReport` and `Invoke-TestFile` lines, never a tail per run; (b) `catzc-check` names
+  `Invoke-PythonTest <Pascal.Dotted>` as the one Python test call, the module's own `tests/` found first; (c) `catzc-verify` says a G6
+  family-form hit on a new page is fixed with a declared form, never a new one. Recommendation: all three, each merged into an existing
+  line.
+- From the orchestrator's finalize (2026-10-22): with five sessions running tests at once, memory fell to 3.7 GB free and three runs were
+  killed by the host. Should `plans-orchestrate` say that heavy runs (a test file, a pytest folder, a burst's import) go one at a time
+  through the orchestrator's queue, a session asking for a turn and reporting "run done"? Recommendation: yes, merged into its line 3.
+- From catzc-54's review (2026-10-22): `Test-Slides` now checks each deck's slide order as a whole, while ADR-REPO-SLIDES-CHECKABLECLAIMS
+  says a claim is checked one file at a time. Should the rule say a deck-level fact (order gaps and duplicates) is checked per deck?
+  Recommendation: yes, one clause, since a rule is the user's to write.

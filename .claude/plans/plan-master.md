@@ -55,8 +55,9 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit only (Sub-agents cut, the pwsh index named; task-user-runs-and-commits).
 - session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
-- debt-root-assets -> plan-debt-root-assets.md: a root asset edit lands under a burst, since every import's Build-RootConfig janitor
-  materialises it; one step
+- debt-full-run-failures -> plan-debt-full-run-failures.md: the last full run's failing files rerun one at a time, since a red test blocks
+  the user's full run; six steps
+- debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue; three steps
 - dense-yaml-flow -> plan-dense-yaml-flow.md: six steps; a diagram declaration prints each leaf node as one flow line when it fits the
   markdown max_line_length; the pilot is azure-name-assembly.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
