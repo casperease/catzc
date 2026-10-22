@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "3990f8f4ef9c"
-  edges:
-    code: pwsh/Catzc.Base.Variants/Get-AspectDeclaration.ps1
----
-#>
-
 Describe 'Get-AspectDeclaration' -Tag 'L0', 'logic' {
 
     It 'returns the aspects variant, keyed by track, read through Get-Variant' {

@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "7491d6b77e19"
-  edges:
-    code: pwsh/Catzc.Tooling.Core/types/EngineCaseTable.cs
----
-#>
-
 Describe 'EngineCaseTable' -Tag 'L0', 'logic' {
     BeforeAll {
         function script:New-EngineCaseTable {

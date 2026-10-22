@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: e97b3d988d65
-  edges:
-    code: pwsh/Catzc.Base.Variants/Test-AdoNaming.ps1
----
-#>
-
 Describe 'Test-AdoNaming' -Tag 'L0', 'logic' {
 
     It 'returns true for -Standard when the repo is standard' {

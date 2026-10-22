@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: ac922cafaad6
-  edges:
-    code: pwsh/Catzc.Base.Variants/Test-AspectDeclaration.ps1
----
-#>
-
 Describe 'Test-AspectDeclaration' -Tag 'L0', 'logic' {
 
     BeforeAll {

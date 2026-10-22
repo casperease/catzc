@@ -1,13 +1,3 @@
-<#
----
-catzc:
-  immutable:
-    with_body_sha: "3e74215d43be"
-  edges:
-    code: pwsh/Catzc.Base.Variants/Test-GitWorkspace.ps1
----
-#>
-
 Describe 'Test-GitWorkspace' -Tag 'L0', 'logic' {
 
     It 'returns true for -MainDirect when the repo is main-direct' {

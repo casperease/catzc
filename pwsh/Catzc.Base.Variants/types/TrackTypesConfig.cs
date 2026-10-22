@@ -1,13 +1,3 @@
-/*
----
-catzc:
-  immutable:
-    with_body_sha: bec97ab51797
-  edges:
-    test: pwsh/Catzc.Base.Variants/tests/types/TrackTypesConfig.Tests.ps1
----
-*/
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
