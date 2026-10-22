@@ -63,7 +63,6 @@ tree is reflowed again.
 
 - [ ] `docs/explanation/flow/.assets` (35). (check: as above)
 - [ ] `docs/explanation/automation/.assets` (30). (check: as above)
-- [ ] `docs/explanation/azure/.assets` (20). (check: as above)
 - [ ] `docs/references/pwsh/.assets/az-cli-test-assert-share-one-state.drawio.yml` and `tools-yml-install-dispatch.drawio.yml`: their
       `content.minimaps` re-declared from the current tree (`declaration.py` `declare_minimaps`), since `Build-Diagrams` warns each minimap
       drops a lit cell the yml does not list (`pwsh/Catzc.Internal.Tests/`, `pwsh/Catzc.Base.Maps/private`), and the first one's png changed
