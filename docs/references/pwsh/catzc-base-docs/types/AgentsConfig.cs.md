@@ -11,7 +11,7 @@ Above `using System;`, written with `//`.
 The sub-agent registry (configs/agents.yml): one entry per sub-agent definition under .claude/agents/, with the
 ADR rules that support it and the checks it runs or guards, plus the one standard agent
 ([ADR-REPO-AGENTS-BACKEDBYRULE](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-backedbyrule),
-[ADR-REPO-AGENTS-STANDARDWORKER](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-standardworker)). Registered in
+[ADR-REPO-AGENTS-STANDARDDRONE](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-standarddrone)). Registered in
 Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Docs.AgentsConfig), so Get-Config -Config agents returns
 this typed record ([ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype)).
 Mirrors the YAML mapping (snake_case keys,

@@ -24,9 +24,9 @@ Every registered agent is listed in the `## Sub-agents` section of `.claude/CLAU
 
 - [Listed where sessions start](#listed-where-sessions-start)
 
-### Rule ADR-REPO-AGENTS-STANDARDWORKER
+### Rule ADR-REPO-AGENTS-STANDARDDRONE
 
-`catzc-worker` is the standard sub-agent: delegated work goes to it unless a specialised agent fits. The registry names it as `standard`. A
+`catzc-drone` is the standard sub-agent: delegated work goes to it unless a specialised agent fits. The registry names it as `standard`. A
 specialised agent exists only when a rule justifies its specialised job, and the standard agent's `description` names every specialised
 agent, so a reader of the standard agent knows where each specialised job goes.
 
@@ -157,7 +157,7 @@ it, and differs in one fact recorded in the registry: the user invokes it, so no
 ## Decision
 
 Each sub-agent is one `.claude/agents/<name>.md` file, registered in `agents.yml` with the rules that support it and the checks it runs or
-guards, and listed in `.claude/CLAUDE.md`. `catzc-worker` is the standard agent; any other agent is specialised and justified by a rule.
+guards, and listed in `.claude/CLAUDE.md`. `catzc-drone` is the standard agent; any other agent is specialised and justified by a rule.
 Every agent is a robot: a body under the roof, a named model at or above the floors of the capabilities it preloads, and its shared know-how
 in capabilities under `.claude/skills/`, each registered in `capabilities.yml` and loaded by at least one robot.
 
@@ -191,6 +191,6 @@ in capabilities under `.claude/skills/`, each registered in `capabilities.yml` a
 
 - A new agent is a three-part change: its file, its registry entry with the rules behind it, and its line in `.claude/CLAUDE.md`. Leaving
   any one part out fails the gate.
-- An agent that no rule supports cannot be registered honestly. The missing rule is written first, or the work goes to `catzc-worker`.
+- An agent that no rule supports cannot be registered honestly. The missing rule is written first, or the work goes to `catzc-drone`.
 - Renumbering a rule or renaming a gate that an agent cites fails the gate, so the registry never points at a rule or command that is gone.
 - The registry answers which agents guard a given check, and why each agent exists, without reading every agent's prompt.

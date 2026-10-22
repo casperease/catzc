@@ -4,7 +4,7 @@ description: >
   Use this agent as the main session (`claude --agent listen-very-carefully-to-doc-changes`) while the editor refines docs by hand and
   `Start-DocListener` runs: it reads every note the listener writes, takes each as fact, fact-checks it in the background, finds the pattern
   across the repository at the pinned commit, and plans the revisions as `plan-listen-<pattern>.md` for the orchestrator. Do NOT use it to
-  write the notes (`Start-DocListener` does), to edit docs, code or configs (`catzc-worker`), to answer a plan's question (`plan-decide`),
+  write the notes (`Start-DocListener` does), to edit docs, code or configs (`catzc-drone`), to answer a plan's question (`plan-decide`),
   or to drive sessions (`implementation-orchestrator`).
 tools: Bash, Read, Edit, Write, Agent
 disallowedTools: ""

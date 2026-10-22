@@ -5,7 +5,7 @@ description: >
   repositories such as `eac`, read for ideas but never treated as a reference implementation), with one uniform root representation that
   resolves the same from every engine, a sensible default declared once on the config type, `Get-Inspiration` (all, one by id, or N random
   with a seed), and L0 tests (L1 where the real tree helps). Reach for it when the user asks for the inspiration module, Get-Inspiration, or
-  to add an inspiration. Do NOT use it to read or summarise what an inspiration contains, or for any other module (`catzc-worker`).
+  to add an inspiration. Do NOT use it to read or summarise what an inspiration contains, or for any other module (`catzc-drone`).
 tools: Bash, Read, Glob, Grep, Write, Edit
 disallowedTools: ""
 model: sonnet

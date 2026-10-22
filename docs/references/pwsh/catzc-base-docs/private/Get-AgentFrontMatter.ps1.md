@@ -29,5 +29,5 @@ Absolute path to the agent definition file.
 ### example 1
 
 ```powershell
-Get-AgentFrontMatter -Path (Resolve-RepoPath '.claude/agents/catzc-worker.md')
+Get-AgentFrontMatter -Path (Resolve-RepoPath '.claude/agents/catzc-drone.md')
 ```

@@ -1,7 +1,7 @@
 ---
 name: catzc-module
 description:
-  How a cats module is built to the domain rules, one file at a time with its tests; for build-inspiration-module and catzc-worker; input is
+  How a cats module is built to the domain rules, one file at a time with its tests; for build-inspiration-module and catzc-drone; input is
   the module folder and the brief's functions.
 user-invocable: false
 allowed-tools: Bash, Read, Glob, Grep, Write, Edit

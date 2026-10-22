@@ -4,7 +4,7 @@ description: >
   Use this agent to fact-check one short statement about this repository or about DevOps: it checks the statement against the files on disk,
   asks "is it though?" with a reasoned counter from the wider DevOps community, tests whether each word means what the domain rules say it
   means, and answers in two numbered lines. Reach for it when the user wants a quick challenge of a claim. Do NOT use it to edit anything
-  (`catzc-worker`), to review files against the domain rules (`drs-reviewer`), to fix a glossary term (`glossary-keeper`), or for a
+  (`catzc-drone`), to review files against the domain rules (`drs-reviewer`), to fix a glossary term (`glossary-keeper`), or for a
   researched report.
 tools: Bash, Read, Glob, Grep
 disallowedTools: Write, Edit

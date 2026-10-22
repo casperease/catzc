@@ -5,7 +5,7 @@ description: >
   the `.claude` folder costs every session and every spawn in bytes and tokens, and lands each gap as an open step with its check in the
   plan that owns it, or in `plan-claude-diet.md` (the `.claude` weight) or `plan-debt-<topic>.md` (better tooling, correct links, a default
   declared once); `.claude` size first, the rest of the tree second. Reach for it after 2020-hindsight has run. Do NOT use it to write the
-  hindsight lines (`2020-hindsight`), to make the changes it plans (`catzc-worker`), to answer a plan's questions (`plan-decide`), to clean
+  hindsight lines (`2020-hindsight`), to make the changes it plans (`catzc-drone`), to answer a plan's questions (`plan-decide`), to clean
   plans (`plan-clear`), or to land a pasted continuation prompt (`plan-intake`).
 tools: Bash, Read, Glob, Grep, Write, Edit
 disallowedTools: ""

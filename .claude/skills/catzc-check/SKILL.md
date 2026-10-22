@@ -1,7 +1,7 @@
 ---
 name: catzc-check
 description:
-  Run one quality gate or test file and report its verdict verbatim; for plan-clear, link-fixer, gate-runner and catzc-worker; input is the
+  Run one quality gate or test file and report its verdict verbatim; for plan-clear, link-fixer, gate-runner and catzc-drone; input is the
   gate name with its paths, or a test file path.
 user-invocable: false
 allowed-tools: Bash, Read

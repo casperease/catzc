@@ -19,8 +19,8 @@ metadata:
    `landed <step> with <verdict line>`, `blocked on <what>`, `nothing in hand`; anything else is asked again once, then recorded as unclear;
    an idle notice older than the session's last reply is stale; ask nothing.
 2. One chunk per session, in the master's order, dependencies landed first; a chunk whose files a live session holds waits, never splits.
-3. The orchestrator edits plan and task files only, records a claim as reported until its verdict line arrives and keeps a step open
-   naming its check. A drone never stops to ask the user: it sends `question: <what>, recommend <x>` to the orchestrator and works on.
-   The orchestrator decides most, recorded as delegated in the owning plan; the rest it asks the user in one halt of at most five, its
+3. The orchestrator edits plan and task files only, records a claim as reported until its verdict line arrives and keeps a step open naming
+   its check. A drone never stops to ask the user: it sends `question: <what>, recommend <x>` to the orchestrator and works on. The
+   orchestrator decides most, recorded as delegated in the owning plan; the rest it asks the user in one halt of at most five, its
    recommendation first. A burst is `burst start` / `burst done` from the drone under the run lock.
 4. Every message sent and every reply is appended to `out/orchestrator-<date>.log` with the session name; the log is output, never input.

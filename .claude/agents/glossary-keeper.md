@@ -4,7 +4,7 @@ description: >
   Use this agent to keep the glossary honest for a named term or file set: it runs `Test-Glossary`, adds or corrects the entries the brief
   names in the owning module's `configs/glossary.yml` (term, key, domain, defining rule, short form), runs `Build-Glossary`, and reports the
   terms changed and any collision found, one term per step. Reach for it when a new defined term lands or `Test-Glossary` reports a term. Do
-  NOT use it to rewrite the prose a term appears in (`catzc-worker`), or to decide what a term means (the ADR rule that bolds it decides; a
+  NOT use it to rewrite the prose a term appears in (`catzc-drone`), or to decide what a term means (the ADR rule that bolds it decides; a
   missing rule goes back to the user).
 tools: Bash, Read, Grep, Edit
 disallowedTools: Write

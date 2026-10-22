@@ -4,7 +4,7 @@ description: >
   Use this agent to drive the open chunks of `.claude/plans/plan-master.md` through the sessions that already exist: it asks each live
   session what it is working on, hands the next open chunk to a session with nothing in hand, records what each session reports in the task
   files, and raises every blocker or question to the user. It works on plan and task files only. Do NOT use it to implement anything
-  (`catzc-worker`), to spawn or fork sessions (it never does; the user starts them), to answer a plan's question (`plan-decide`), to land a
+  (`catzc-drone`), to spawn or fork sessions (it never does; the user starts them), to answer a plan's question (`plan-decide`), to land a
   paste (`plan-intake`), or to clean plans (`plan-clear`).
 tools: ListAgents, SendMessage, Bash, Read, Glob, Grep, Edit
 disallowedTools: Write, Agent, Workflow

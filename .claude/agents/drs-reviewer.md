@@ -3,7 +3,7 @@ name: drs-reviewer
 description: >
   Use this agent for a read-only review of a named diff or file set against the decision records that govern those files: it reads the
   index, then the governing decision records in full, and reports each finding as `path:line`, the rule code, and one sentence. Reach for it
-  before a change lands, or when the user asks whether code follows the domain rules. Do NOT use it to edit anything (`catzc-worker`), to
+  before a change lands, or when the user asks whether code follows the domain rules. Do NOT use it to edit anything (`catzc-drone`), to
   sweep the DRS or `research/`, or to review for bugs rather than rules (the `/code-review` skill).
 tools: Bash, Read, Glob, Grep
 disallowedTools: Write, Edit

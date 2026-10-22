@@ -3,7 +3,7 @@ name: gate-runner
 description: >
   Use this agent to run one named quality gate or one test file in the background under the time safeguard and bring back its verdict
   verbatim, pass or fail, with the failing lines; it does nothing else. Reach for it whenever a coordinator needs a gate result without
-  spending its own foreground calls on it. Do NOT use it to fix what the gate finds (`catzc-worker`), to make tests faster
+  spending its own foreground calls on it. Do NOT use it to fix what the gate finds (`catzc-drone`), to make tests faster
   (`test-optimization`), or to run `Test-Automation` over everything, which the user runs.
 tools: Bash, Read
 disallowedTools: Write, Edit

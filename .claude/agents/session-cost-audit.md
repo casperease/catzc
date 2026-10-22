@@ -6,7 +6,7 @@ description: >
   that inflate every turn (the ADR-reading rule in `.claude/CLAUDE.md`, the ADR corpus, the robot and capability files and their models),
   counts the time-safeguard denials in `out/time-safeguard.log`, and writes a dated report to `out/` with each lever's status and the exact
   change it proposes. Reach for it when the user pastes a cost summary or asks why a session was expensive. Do NOT use it to apply the
-  changes it proposes (the user decides, then `catzc-worker`), or to tune a single blocked call.
+  changes it proposes (the user decides, then `catzc-drone`), or to tune a single blocked call.
 tools: Bash, Read, Glob, Grep, Write, Edit
 disallowedTools: ""
 model: haiku

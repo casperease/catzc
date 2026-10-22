@@ -43,15 +43,14 @@ frontmatter re-imprint then has no diagram declaration files to head.
 
 - [ ] `python/catzc_diagrams/declaration.py`: `carry <stem> article|file` moves one declaration between carriers with `load()` parity, edits
       `carriers:` itself and never leaves a diagram declared twice or not at all; `article_block` skips `*.slide.md` (catzc-e9; the map,
-      `out/diagram-carrier-mechanism.md`, found no command for it). (check: `pytest` on `test_carriers.py` and `test_declaration.py` green,
-      both directions, a slide skipped, a refusal on lost parity)
+      `out/diagram-carrier-mechanism.md`, found no command for it); from the pilot (`azure-name-assembly`, in ed8165014): a declaration's
+      `cspell:ignore` words merge into the page's own ignore comment, a page with several diagrams gets one block per image, and the png path
+      is the `Build-Diagrams` target after the move. (check: `pytest` on `test_carriers.py` and `test_declaration.py` green, both directions,
+      a slide skipped, a refusal on lost parity, the spelling merge and the two-diagram page)
 - [ ] `pwsh/Catzc.Base.Slides/Move-Diagram.ps1` carrier-aware: an article-carried diagram moves its block with it and its `carriers:` key is
       re-keyed. (check: its test file green with an article-carried case)
 - [ ] `python/catzc_diagrams/configs/drawio.yml`: `renderer.carrier: article`, `carriers:` the seven as `file`. (check: `pytest` on the
       kit's carrier tests green)
-- [ ] The pilot: `docs/drs/azure/.assets/azure-name-assembly` moved into `docs/drs/azure/azure-naming-standard.md` through a `carriers:`
-      entry, with today's mechanism (catzc-e3). (check: `Build-Diagrams` clean with the png byte-identical, `Test-Diagrams` at 0,
-      `Test-Formatting` and `Test-Markdownlint` on the page at 0)
 - [ ] The move, one `.assets/` folder at a time: each declaration into its article's block, its yml deleted, the folder rebuilt. (check: per
       folder, `Test-Diagrams` at 0, `Build-Diagrams -Path` on each moved diagram clean with its png unchanged, `Test-Formatting` on the
       pages at 0)

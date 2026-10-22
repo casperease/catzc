@@ -4,7 +4,7 @@ description: >
   Use this agent to check and repair the links of a named set of markdown files, one file at a time: it runs `Test-Links` on each, re-points
   relative targets that resolve from the wrong folder, re-runs the check, and reports. It changes link targets only, never link text or
   prose. Reach for it after files move or when `Test-Links` reports broken relative links. Do NOT use it for an untracked target (that is a
-  commit, the user's), to rewrite prose (`catzc-worker`), or to clean plans (`plan-clear`).
+  commit, the user's), to rewrite prose (`catzc-drone`), or to clean plans (`plan-clear`).
 tools: Bash, Read, Grep, Edit
 disallowedTools: Write
 model: haiku

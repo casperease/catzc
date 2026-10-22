@@ -1,7 +1,7 @@
 ---
 name: catzc-verify
 description:
-  The per-file and end-of-task checks a delegated change must pass, and the shared files it may never edit; for catzc-worker and
+  The per-file and end-of-task checks a delegated change must pass, and the shared files it may never edit; for catzc-drone and
   build-inspiration-module; input is the list of files the brief owns.
 user-invocable: false
 allowed-tools: Bash, Read

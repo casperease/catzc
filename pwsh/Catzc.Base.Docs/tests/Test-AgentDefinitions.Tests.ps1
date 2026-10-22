@@ -203,7 +203,7 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         $issues | Should -HaveCount 2
     }
 
-    It 'reports a specialised agent the standard agent does not name' -Tag 'ADR-REPO-AGENTS-STANDARDWORKER' {
+    It 'reports a specialised agent the standard agent does not name' -Tag 'ADR-REPO-AGENTS-STANDARDDRONE' {
         Write-AgentFixture 'agents/widget.md' @('---', 'name: widget', 'description: The standard agent. Do NOT use it for special work.', 'tools: Read', 'model: haiku', 'skills: [widget-spin]', '---')
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
         $issues | Should -Be @(".claude/agents/widget.md: the standard agent's description does not name specialised agent 'gadget'")

@@ -3,7 +3,7 @@ name: doc-pattern-scout
 description: >
   Use this agent from the listen mode's processor to find one pattern in one tier and folder slice of a listen session's committed
   reference, with `Find-DocPattern`, and bring back a fixed table of path, line, tier and excerpt. Do NOT use it to judge or plan what it
-  finds (the processor does), to search the live tree, or to edit anything (`catzc-worker`).
+  finds (the processor does), to search the live tree, or to edit anything (`catzc-drone`).
 tools: Bash, Read
 disallowedTools: Write, Edit
 model: haiku

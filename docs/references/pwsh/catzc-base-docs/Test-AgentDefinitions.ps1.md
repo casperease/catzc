@@ -25,7 +25,7 @@ AgentsConfig; Get-Config -Config capabilities, a CapabilitiesConfig), and the `#
 - a registered agent is not listed in the CLAUDE.md section, or a listed agent is not registered
   ([ADR-REPO-AGENTS-LISTEDINCLAUDEFILE](../../../drs/repository/agent-definitions.md#rule-adr-repo-agents-listedinclaudefile));
 - a specialised agent is not named in the standard agent's description
-  ([ADR-REPO-AGENTS-STANDARDWORKER](../../../drs/repository/agent-definitions.md#rule-adr-repo-agents-standardworker));
+  ([ADR-REPO-AGENTS-STANDARDDRONE](../../../drs/repository/agent-definitions.md#rule-adr-repo-agents-standarddrone));
 - an agent's body has more lines than roofs.agent_body_lines, or its front matter carries a key outside the robot set or out of the fixed
   order ([ADR-REPO-AGENTS-ROBOTBODYLIMIT](../../../drs/repository/agent-definitions.md#rule-adr-repo-agents-robotbodylimit));
 - .claude/CLAUDE.md does not name a contract of the registry's `contracts`, the contracts every robot reads first, named once there and

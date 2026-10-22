@@ -71,9 +71,9 @@ files of at most 10 lines with a model floor, registered in `pwsh/Catzc.Base.Doc
 reads the AI agent contract first, [ADR-REPO-AI](../docs/drs/repository/ai-agent-contract.md); it is named once, here and as `contracts` in
 `agents.yml`, never in a file's front matter.
 
-- **`catzc-worker`** — the **standard** sub-agent for delegated work: one scoped task from a coordinator's brief, editing only the files it
-  owns, verifying each file, and asking the coordinator for shared-file entries. Use it whenever work is delegated and no specialised agent
-  fits.
+- **`catzc-drone`** — the **standard** sub-agent for delegated work: one scoped task from a coordinator's brief, editing only the files it
+  owns, verifying each file, and asking the coordinator for shared-file entries and every question (never the user). Use it whenever work is
+  delegated and no specialised agent fits.
 - **`drawio-diagram-waves`** — authors new draw.io diagrams in bounded parallel waves for the user to approve.
 - **`edit-diagram-yml`** — changes what a diagram says or shows by editing the `content:` of its `diagram.drawio.yml` and re-rendering it
   with put, so the png follows its one source.

@@ -5,7 +5,7 @@ description: >
   what already does the job deterministically (a command, gate, janitor, hook, capability line, or a default declared once) and what does
   not (no automation, no sensible default for the variant), and appends one smug "If only … had …: <evidence>" sentence per learning to
   `.claude/hindsight/` through `Add-SessionLearning -Log hindsight`. Reach for it after a session finalizes, or when the user wants to know
-  which learnings the tree already answered. Do NOT use it to fix a gap it finds (`catzc-worker`), to land the gaps in a plan
+  which learnings the tree already answered. Do NOT use it to fix a gap it finds (`catzc-drone`), to land the gaps in a plan
   (`plan-intake`), to fact-check one statement (`fact-checker`), or to edit the learnings or the hindsight files by hand.
 tools: Bash, Read, Glob, Grep
 disallowedTools: Write, Edit

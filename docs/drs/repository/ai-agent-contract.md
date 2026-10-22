@@ -1,3 +1,12 @@
+---
+catzc:
+  edges:
+    cites:
+      - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - ADR-REPO-AGENTS-ROBOTBODYLIMIT
+      - ADR-REPO-LINK-ONECITATIONSPELLING
+---
+
 # ADR-REPO-AI: the agent contract
 
 Every agent and every skill reads this first, at every start and after every clear. One line to act on per rule, then the why.
@@ -46,7 +55,10 @@ counts as working only after one live run of it; green tests alone never vouch f
 
 ### Rule ADR-REPO-AI-NEVERDECIDEFORUSER
 
-**Never decide for the user.** An open question stays open and is reported; a recommendation is labelled as one.
+**Questions go to the orchestrator, never straight to the user.** A drone never stops to ask the user: it sends its question to the
+orchestrator with its recommendation, labelled as one, and works on meanwhile. The orchestrator decides what the user has delegated,
+recorded as delegated in the owning plan, and asks the user the rest in one halt of at most five questions, its recommendation first. An
+open question nobody may decide stays open and is reported.
 
 ### Rule ADR-REPO-AI-FIXEDREPORT
 
