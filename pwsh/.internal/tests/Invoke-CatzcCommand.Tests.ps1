@@ -2,7 +2,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "2e9c44fe062c"
+    with_body_sha: a839045f4885
   edges:
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
@@ -13,7 +13,7 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
         $script:importer = Join-Path $TestDrive 'importer.ps1'
-        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Test-Gadget { param([string] `$Result) [pscustomobject]@{ Result = `$Result } }`nfunction Invoke-TestFile { param([string] `$Path, [switch] `$PassThru) if (`$PassThru) { [pscustomobject]@{ Result = 'Failed' } } }`n")
+        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Test-Gadget { param([string] `$Result) [pscustomobject]@{ Result = `$Result } }`nfunction Invoke-TestFile { [CmdletBinding()] param([string] `$Path, [switch] `$PassThru) if (`$PassThru) { [pscustomobject]@{ Result = 'Failed' } } }`n")
         # An importer that throws, so a run that must not import shows it did not.
         $script:throwingImporter = Join-Path $TestDrive 'throwing-importer.ps1'
         [System.IO.File]::WriteAllText($script:throwingImporter, "throw 'imported'`n")

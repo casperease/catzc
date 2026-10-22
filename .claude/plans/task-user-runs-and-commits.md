@@ -93,7 +93,10 @@ final full run last.
     register the `Record-SessionMessage` hook in `.claude/settings.json` (a PostToolUse entry matching `SendMessage`, and a UserPromptSubmit
     entry), once catzc-a0 has built it. Check: `Test-AgentDefinitions`, and one message sent between sessions appears in
     `out/orchestrator-<date>.log`.
-18. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+18. plan-debt-full-run-failures step 2: stage the case-only rename in `pwsh/Catzc.Base.VSCode` (`git mv -f` each `*-VSCode*.ps1` to its
+    `*-VsCode*.ps1` name on disk), so the module builder finds its files. Check: `git ls-files pwsh/Catzc.Base.VSCode` matches the disk
+    names, and `Invoke-TestFile` on `Get-DynamicManifestContent.Tests.ps1` passes.
+19. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

@@ -45,7 +45,7 @@ Starts nothing and returns the command lines instead.
 
 ### outputs
 
-`[string]` per launch under -PassThru or -DryRun: its exact command line. Otherwise nothing.
+`[string[]]` under -PassThru or -DryRun: one exact command line per launch. Otherwise nothing.
 
 ### example 1
 
