@@ -13,7 +13,7 @@ catzc:
 
 function Start-ClaudeWorker {
     [CmdletBinding()]
-    [OutputType([string])]
+    [OutputType([string[]])]
     param(
         [string] $Agent = (Get-Config -Config claude-worker).agent,
 

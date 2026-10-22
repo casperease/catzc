@@ -262,14 +262,14 @@ Describe 'Build-AgentHook — the published Record-SessionMessage' -Tag 'L2', 'l
         $result.ExitCode | Should -Be 0
         $result.Output | Should -BeNullOrEmpty
         Get-LogLine | Should -HaveCount 1
-        (Get-LogLine)[0] | Should -Match '^\d{2}:\d{2} gadget-1 -> widget: spin the widget$'
+        @(Get-LogLine)[0] | Should -Match '^\d{2}:\d{2} gadget-1 -> widget: spin the widget$'
     }
 
     It 'logs each cross-session message a prompt carries, with its sender' {
         $prompt = '<cross-session-message from=\"uds:pipe\" from-name=\"widget\" from-mode=\"prompting\">\nhold; oil the gadget\n</cross-session-message>'
         Invoke-Hook ('{"hook_event_name":"UserPromptSubmit","session_id":"gadget","prompt":"' + $prompt + '"}') | Out-Null
         Get-LogLine | Should -HaveCount 1
-        (Get-LogLine)[0] | Should -Match '^\d{2}:\d{2} widget -> gadget: hold; oil the gadget$'
+        @(Get-LogLine)[0] | Should -Match '^\d{2}:\d{2} widget -> gadget: hold; oil the gadget$'
     }
 
     It 'logs nothing for a prompt a person typed or another tool, and never fails or blocks on input it cannot read' {

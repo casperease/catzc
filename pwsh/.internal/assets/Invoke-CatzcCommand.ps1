@@ -23,7 +23,8 @@ catzc:
 
     The import and the commands run under the machine's run lock, a named mutex, so heavy runs on one machine go one at a time. The lock
     is taken before the import, so a waiting run holds no import. A run that finds the lock held says so in one line and waits up to
-    -LockSeconds; one that still cannot take it stops with a "run lock busy" line and exit code 1, importing and running nothing.
+    -LockSeconds; one that still cannot take it stops with a "run lock busy" line and exit code 1, importing and running nothing. While a
+    session's Enter-CatzcBurst holds the lock, every other run waits, and the burst's own checks pass -InBurst.
 
     timeout 300 pwsh -NoProfile -File pwsh/.internal/assets/Invoke-CatzcCommand.ps1 "Test-Plans" "Test-Links -Path docs/how-to/index.md"
 
@@ -39,6 +40,9 @@ catzc:
 .PARAMETER LockSeconds
     The most seconds a run waits for the run lock before it stops. Default: 120, so a run that cannot take it stops inside the 360 s
     background roof of the time safeguard.
+
+.PARAMETER InBurst
+    Run under the lock the session's Enter-CatzcBurst holds, taking none: the burst's own checks. Throws when no burst holds the lock.
 #>
 param(
     [Parameter(Position = 0, ValueFromRemainingArguments)]
@@ -49,7 +53,9 @@ param(
     [string] $LockName = 'Local\catzc-run',
 
     [ValidateRange(1, 360)]
-    [int] $LockSeconds = 120
+    [int] $LockSeconds = 120,
+
+    [switch] $InBurst
 )
 
 Set-StrictMode -Version Latest
@@ -60,14 +66,26 @@ if ($Command.Count -eq 0) {
     throw 'Invoke-CatzcCommand: name at least one command to run.'
 }
 
-# The lock is taken before the import, so a waiting run holds no import; an abandoned lock (its run was killed) is taken over.
-$lock = [System.Threading.Mutex]::new($false, $LockName)
+# A burst's own checks run under the lock its Enter-CatzcBurst holds, so they take none of their own.
+$lock = $null
 $owned = $false
-try {
-    $owned = $lock.WaitOne(0)
-}
-catch [System.Threading.AbandonedMutexException] {
+if ($InBurst) {
+    $burst = $null
+    if (-not [System.Threading.EventWaitHandle]::TryOpenExisting("$LockName-burst", [ref] $burst)) {
+        throw "Invoke-CatzcCommand: -InBurst, but no burst holds $LockName (start Enter-CatzcBurst.ps1 first)."
+    }
+    $burst.Dispose()
     $owned = $true
+}
+else {
+    # The lock is taken before the import, so a waiting run holds no import; an abandoned lock (its run was killed) is taken over.
+    $lock = [System.Threading.Mutex]::new($false, $LockName)
+    try {
+        $owned = $lock.WaitOne(0)
+    }
+    catch [System.Threading.AbandonedMutexException] {
+        $owned = $true
+    }
 }
 if (-not $owned) {
     "[Invoke-CatzcCommand] waiting for the run lock: another run holds it (up to $LockSeconds s)"
@@ -114,8 +132,10 @@ try {
     }
 }
 finally {
-    $lock.ReleaseMutex()
-    $lock.Dispose()
+    if ($lock) {
+        $lock.ReleaseMutex()
+        $lock.Dispose()
+    }
 }
 
 "[Invoke-CatzcCommand] $(@($Command).Count - $failed) of $(@($Command).Count) passed"

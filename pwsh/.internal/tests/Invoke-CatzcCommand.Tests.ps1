@@ -87,6 +87,24 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'throws on -InBurst when no burst holds the lock' {
+        { & $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -InBurst } | Should -Throw '*no burst holds*'
+    }
+
+    It 'takes no lock with -InBurst while a burst holds it' {
+        $burst = [System.Threading.EventWaitHandle]::new($false, [System.Threading.EventResetMode]::ManualReset, "$script:lockName-burst")
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500
+        try {
+            $lines = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -InBurst)
+            $lines | Should -Be @('[Invoke-CatzcCommand] passed: Get-Widget', '[Invoke-CatzcCommand] 1 of 1 passed')
+        }
+        finally {
+            $holder.Shell.EndInvoke($holder.Handle)
+            $holder.Shell.Dispose()
+            $burst.Dispose()
+        }
+    }
+
     It 'throws when no command is named' {
         { & $script:entry -Importer $script:importer -LockName $script:lockName } | Should -Throw '*name at least one command*'
     }
