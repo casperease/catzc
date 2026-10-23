@@ -1256,7 +1256,7 @@ def action_content(content, out, ids, where, lens=ACTION_LENS):
                 raise DeclarationError(f"{where}: effect '{effect['id']}' says nothing; says is the state it changes, in plain words")
             effect["proves"] = contract_call(raw.get("proves"), where, f"effect '{effect['id']}' proves")
         effect = {k: effect[k] for k in EFFECT_KEYS if k in effect and effect[k] != ""}  # an optional key left empty is absent
-        after = effect.pop("after")
+        after = effect.pop("after", "")
         if after:
             earlier = next((e for e in effects if e["id"] == after), None)
             if earlier is None:

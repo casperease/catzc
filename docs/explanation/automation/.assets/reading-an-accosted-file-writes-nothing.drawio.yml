@@ -17,11 +17,13 @@ content:
     - id: effect-read
       zone: 1
       where: local
+      show: words
       says: The accosted file is read from the repository
       proves: { get_repository_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml } }
     - id: effect-unwritten
       zone: 1
       where: local
+      show: words
       says: Nothing is written to the file
       proves: { get_repository_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml } }
     - id: effect-checks

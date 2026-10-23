@@ -104,8 +104,6 @@ Test-GeneratedFiles -Generator 'Build-ContractReference'
 
 - `content.order: chain` beside the default declared order, so the numbers follow each story to its end before the next story starts; here
   the pages and their gates would read 3, 4 for the catzc story and 5, 6 for the Azure one.
-- `legend: used` as a third value beside `auto` and a list, so the legend names only the operators the drawing draws; this drawing never
-  draws `affects` and would drop that row.
 - `effects[].unit: catzc` as an optional grouping word printed as a small chip like `where`, so two parallel stories carry the name they
   belong to on every note.
 

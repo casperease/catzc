@@ -54,11 +54,8 @@ effect note, the four operators and the marker.
 
 ### Stronger with new definitions
 
-- `show: words` on an effect, with `call` and `both` as the other values and `both` the default, so a note can print its words alone and
-  leave the observation to the proof block the article already carries; notes 3 and 4 would halve in height.
 - `frame: { lane: compact }` at the diagram level, a named lane height beside the default, so a drawing with one note per zone draws a
   shorter frame and shorter arcs.
-- `content.where: local` as the diagram's default, with chips only on the exceptions.
 
 ## Walkthrough
 

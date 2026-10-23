@@ -43,3 +43,11 @@ it.
 
 - No stack-capture tool (`dotnet-stack report`) until the hang recurs once; `Get-VsCodeSession` is the first instrument.
 - The `devbox-diagnose` capability keeps its Windows layer: it is what told a stale blue-screen report from a crash of the day.
+
+2. [ ] `pwsh/.internal/assets/Catzc.Types.csproj` (the types-hash `Exec`): since 4c0eb13bd (2026-10-22) `Get-CombinedTypeHash` reads
+       `file-carriers.yml` with `ConvertFrom-Yaml`, but the `Exec` imports only the Loader, Vendor and Types internal modules and never the
+       vendored powershell-yaml, so the IDE build's hash throws and the Problems panel shows a false ".compiled holds ee431acc" warning and
+       "Cannot index into a null array" (the user, after a reload, 2026-10-23; reproduced outside VS Code by the orchestrator). The `Exec`
+       loads the vendored yaml module the one way the importer does (decided by the orchestrator as delegated). Check: the exact `Exec`
+       command line run by hand prints the hash `Get-CombinedTypeHash` gives in a full import, and a `dotnet build` of the csproj shows no
+       Catzc.Types warning.

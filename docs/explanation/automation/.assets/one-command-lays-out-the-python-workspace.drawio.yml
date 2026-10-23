@@ -40,18 +40,21 @@ content:
     - id: effect-drift
       zone: 3
       where: local
+      show: words
       says: Test-GeneratedFiles sees no drift for the root configs
       proves: { test_generated_files: { generator: Build-RootConfig } }
       after: effect-root
     - id: effect-types
       zone: 3
       where: local
+      show: words
       says: Test-PythonTypes passes over the whole workspace
       proves: { test_python_types: }
       after: effect-language
     - id: effect-format
       zone: 3
       where: local
+      show: words
       says: Test-Formatting passes for the Python language
       proves: { test_formatting: { language: python } }
       after: effect-kind
