@@ -129,6 +129,9 @@ function Remove-CatzcRunLockHolder {
     catch [System.IO.IOException] {
         Write-Verbose "Remove-CatzcRunLockHolder: $path is in use; the next holder overwrites it."
     }
+    catch [System.UnauthorizedAccessException] {
+        Write-Verbose "Remove-CatzcRunLockHolder: $path is not deletable; the next holder overwrites it."
+    }
 }
 
 function Format-CatzcRunLockTime {
@@ -141,6 +144,40 @@ function Format-CatzcRunLockTime {
     $Time.ToLocalTime().ToString('HH:mm:ss', [System.Globalization.CultureInfo]::InvariantCulture)
 }
 
+function Read-CatzcRunLockHolderRecord {
+    param(
+        [Parameter(Mandatory)]
+        [string] $LockName
+    )
+
+    # The record's six fields, or null when there is no record. A record read while its writer is still writing is torn (empty or cut
+    # short): it is read once more, after a moment, before it counts as no holder. A file that is absent is no record at once.
+    $path = Get-CatzcRunLockHolderPath -LockName $LockName
+    foreach ($attempt in 1..2) {
+        if (-not [System.IO.File]::Exists($path)) {
+            return $null
+        }
+        $text = $null
+        try {
+            $text = [System.IO.File]::ReadAllText($path)
+        }
+        catch [System.IO.IOException] {
+            Write-Verbose "Read-CatzcRunLockHolderRecord: $path is in use or gone (attempt $attempt)."
+        }
+        catch [System.UnauthorizedAccessException] {
+            Write-Verbose "Read-CatzcRunLockHolderRecord: $path is not readable (attempt $attempt)."
+        }
+        $parts = @($text -split '\|', 6)
+        if ($text -and $parts.Count -ge 6) {
+            return $parts
+        }
+        if ($attempt -eq 1) {
+            Start-Sleep -Milliseconds 50
+        }
+    }
+    $null
+}
+
 function Get-CatzcRunLockHolder {
     param(
         [Parameter(Mandatory)]
@@ -149,19 +186,8 @@ function Get-CatzcRunLockHolder {
 
     # The holder counts only while its process lives with the same start time, the caller that started it is still there, and its deadline
     # has not passed: a holder whose caller is gone (its call killed by a timeout or stopped) is an orphan, which holds no one.
-    $path = Get-CatzcRunLockHolderPath -LockName $LockName
-    $text = $null
-    try {
-        $text = [System.IO.File]::ReadAllText($path)
-    }
-    catch [System.IO.IOException] {
-        return $null
-    }
-    catch [System.UnauthorizedAccessException] {
-        return $null
-    }
-    $parts = $text -split '\|', 6
-    if ($parts.Count -lt 6) {
+    $parts = Read-CatzcRunLockHolderRecord -LockName $LockName
+    if ($null -eq $parts) {
         return $null
     }
     $started = Get-CatzcRunLockProcessStart -ProcessId ([int] $parts[0])

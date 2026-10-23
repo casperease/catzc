@@ -18,6 +18,16 @@ Describe 'Catzc.Base.QualityGates.GeneratedFilesConfig' -Tag 'L0', 'logic' {
         $config.writers['Build-Widget'].result_path | Should -Be 'Path'
     }
 
+    It 'declares at_import once: a writer re-renders at import only when it says so' {
+        $config = [Catzc.Base.QualityGates.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
+                    'Build-Widget' = $null
+                    'Build-Gadget' = [ordered]@{ at_import = $true }
+                }
+            })
+        $config.writers['Build-Widget'].at_import | Should -BeFalse
+        $config.writers['Build-Gadget'].at_import | Should -BeTrue
+    }
+
     It 'declares the input and output globs once: a writer with neither lists none, a named list is kept' {
         $config = [Catzc.Base.QualityGates.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
                     'Build-Widget' = $null

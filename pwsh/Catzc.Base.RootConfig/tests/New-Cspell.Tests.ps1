@@ -45,6 +45,11 @@ Describe 'New-Cspell' -Tag 'L0', 'logic' {
         { New-Cspell -TemplatePath $script:templatePath } | Should -Throw "*exactly once, found ${Count}*"
     }
 
+    It 'throws naming the template when it is empty' {
+        Set-Template ''
+        { New-Cspell -TemplatePath $script:templatePath } | Should -Throw '*template is empty*'
+    }
+
     It 'throws when the glob set carries an exclude, which ignorePaths cannot express' {
         Mock Get-GlobSet -ModuleName Catzc.Base.RootConfig { New-WidgetSet -Include @('**/gadgets/**') -Exclude @('**/gadgets/keep/**') }
         Set-Template "  - `"{{third-party}}`"`n"

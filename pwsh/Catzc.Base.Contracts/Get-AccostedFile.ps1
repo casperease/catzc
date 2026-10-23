@@ -25,10 +25,7 @@ function Get-AccostedFile {
     $file = [Catzc.Base.Contracts.AccostedFile]::new(([System.IO.File]::ReadAllText($full) | ConvertFrom-Yaml -Ordered))
 
     $config = Get-Config -Config accosted
-    $contracts = @{}
-    foreach ($contract in @(Get-CommandContract -RepositoryRoot $RepositoryRoot)) {
-        $contracts[$contract.Name] = $contract
-    }
+    $contracts = Get-CommandContractMap -RepositoryRoot $RepositoryRoot
 
     $runIndex = 0
     foreach ($run in $file.runs) {
@@ -45,6 +42,12 @@ function Get-AccostedFile {
                 $parameter = @($contract.parameters | Where-Object { $_.Name -ceq $argument })
                 Assert-True ($parameter.Count -eq 1) -ErrorText "${where}: '$($command.name)' has no parameter '$argument' ($($contract.Signature))."
                 Assert-AccostedArgument -Parameter $parameter[0] -Value $command.arguments[$argument] -Where $where -Signature $contract.Signature
+            }
+            # A write confined to out/ is harmless; an output folder anywhere else is a write the language refuses.
+            if ($command.arguments.ContainsKey('output_folder')) {
+                $folder = "$($command.arguments['output_folder'])" -replace '\\', '/'
+                Assert-True ($folder -ceq 'out' -or $folder.StartsWith('out/', [System.StringComparison]::Ordinal)) `
+                    -ErrorText "${where}: 'output_folder' writes to '$($command.arguments['output_folder'])', outside out/, so the call is not harmless."
             }
             foreach ($parameter in @($contract.parameters | Where-Object { $_.Mandatory -and $_.Sets.Count -eq 0 })) {
                 Assert-True $command.arguments.ContainsKey($parameter.Name) `

@@ -11,6 +11,15 @@ Diagram build                 five stages in one command; rendering is the cost
 These articles explain decisions from the [repository ADR domain](../../drs/index.md#repository). Each article narrates one diagram; the
 [explanation index](../index.md) says how to read them.
 
+## The contract reference
+
+One command reads the contract assets through the one reader and writes a reference page per unit
+([api-contracts](../../drs/repository/api-contracts.md), [command-contracts](../../drs/repository/command-contracts.md)).
+
+| Article                                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------------------- |
+| [Building the contract reference writes one page per unit](building-the-contract-reference-writes-one-page-per-unit.md) |
+
 ## Diagram build
 
 Build-Diagrams runs five stages in one command, and rendering is the cost

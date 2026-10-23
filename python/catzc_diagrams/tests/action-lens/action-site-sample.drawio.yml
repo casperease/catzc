@@ -1,4 +1,4 @@
-description: "A call site of two commands: the gadget is published and counted in one run, and the rings show what each changed."
+description: "A call site of two commands: the gadget is published and counted in one run, and the zones show what each changed."
 about:
   adrs: []
   lens: action
@@ -12,5 +12,5 @@ content:
       - { publish_gadget: { name: widget-a } }
       - { count_gadgets: }
   effects:
-    - { id: effect-index, ring: 1, where: local, says: The gadget index gains the entry, proves: { get_widget: { path: gadgets/index.yml } } }
-    - { id: effect-catalogue, ring: 2, where: remote, says: The catalogue lists the widget, proves: { get_widget: { path: widgets/a.yml } } }
+    - { id: effect-index, zone: 1, where: local, says: The gadget index gains the entry, proves: { get_widget: { path: gadgets/index.yml } } }
+    - { id: effect-catalogue, zone: 2, where: remote, says: The catalogue lists the widget, proves: { get_widget: { path: widgets/a.yml } }, after: effect-index }

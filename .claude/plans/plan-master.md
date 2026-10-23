@@ -64,7 +64,9 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
 - debt-tier-tripwire -> plan-debt-tier-tripwire.md: 165 L0/L1 tests launch git and fail only when a tier runs alone; seams mocked, the
-  tripwire armed per container; three steps
+  tripwire armed per container; one step
+- debt-rules-review-2 -> plan-debt-rules-review-2.md: the afternoon's code back to the domain rules: one reader, layout numbers in config, a
+  closed tripwire vocabulary, the janitor list declared once; one step
 - debt-agent-traffic -> plan-debt-agent-traffic.md: fewer messages and tool calls between the orchestrator and its workers (a run lock,
   one-line reports, pre-approved rule edits, derived step counts, an automatic log); three steps
 - nuget-tooling -> plan-nuget-tooling.md: NuGet belongs to the tooling modules and no dotnet call contacts a package manager outside them;

@@ -26,7 +26,7 @@ The root a missing output is looked for under. Default: the repository root.
 
 ### outputs
 
-`[pscustomobject]` @{ Name; Due; HasLists } per writer of generated-files.yml, in declaration order.
+`[Catzc.Base.QualityGates.GeneratedWriterDue]` One per writer of generated-files.yml, in declaration order: Name, Due and HasLists.
 
 ### example 1
 

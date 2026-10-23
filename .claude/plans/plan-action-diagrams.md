@@ -67,9 +67,21 @@ runs prove it under every engine (ADR-AUTO-ACCOSTED-RUNNER). One source, two ren
     and renders as a chip (reusing the chip vocabulary). `local | remote` is the closed `wheres` list in `drawio.yml`.
   - No edges are declared: the renderer draws cause to action and action to each effect as flow edges by construction. A declared `edges:`,
     `bands:`, `groups:` or `spans:` in an action diagram is a validation error with the reason.
-- **Layout** is computed by the renderer from ring and order (no hand `layout:` block for rings); `layout:` may still pin the frame size.
-  Palette and ink come from the same theme tokens (STYLE.md); the half-disc and the rings are new entries in `glyphs.xml` (`g-cause`,
-  `g-action`, `g-callsite`, `g-ring`, `g-effect`), rendered under the existing layers (`frames`, `edges`, `glyphs`, `marks`, `labels`).
+- **Layout** is computed by the renderer from zone and order (no hand `layout:` block); `layout:` may still pin the frame. Palette and ink
+  come from the same theme tokens (STYLE.md); the half-disc, the call site, the ring and the effect note are the five action glyphs of
+  `glyphs.xml`, rendered under the existing layers (`frames`, `edges`, `glyphs`, `marks`, `labels`).
+- **A fixed-height frame with a centre lane** (the user, 2026-10-23): an invisible centre lane (360 px) holds the cause, the action and
+  every effect note; a margin (70 px) above and below it is where the rings crawl up and down before the frame cuts them. The outermost ring
+  spans the frame's inner height and the inner rings scale with their radius, so few rings draw flat. The notes define what the lane must
+  hold, never the frame's height; too many notes for the lane is a validation error naming the zone.
+- **Zones, not ring lines** (the user, 2026-10-23): a zone is what lies inside a ring's line and outside the previous one; an effect's
+  `zone:` is its causal hop, and the effects of one zone ran in parallel, stood in the lane top to bottom in the story's order. An effect
+  follows the action, or with `after: <effect id>` an effect declared before it in its own zone or an inner one, drawn as the edge into it;
+  backwards is a validation error, since effects only go forward.
+- **The numbered story** (the user, 2026-10-23): every box carries one marker, cause 1, action 2, then the effects in declared order, so the
+  drawing is normative about sequence (zones, numbers) and parallelism (one zone). get reads the order back from the numbers.
+- **Text fits its glyph**: a long contract-form argument wraps at `/`, `,` and space, then at `.`, inside the 300 px action glyph and the
+  note width, and the glyph grows in height; get joins the lines back, a line ending in `/` or `.` without a space.
 - **Proof is one living file, the accosted file is the source.** The diagram's `about.proves: <module>/accosted/<name>.accosted.yml` names
   the runs; every `effects[].proves` must occur verbatim in that file (the kit and Test-Diagrams check it), so the picture never says what
   the proof does not run. The proofs are harmless observations (ADR-AUTO-ACCOSTED-HARMLESS, the accosted reader's check); the action itself
@@ -89,13 +101,6 @@ runs prove it under every engine (ADR-AUTO-ACCOSTED-RUNNER). One source, two ren
   reason). Three hops wait for a diagram that needs them (decided by the orchestrator as delegated, 2026-10-23).
 
 ## Open steps
-
-### 5. First diagram and its article
-
-- [ ] One action diagram under `docs/explanation/**/.assets/` for `get_accosted_file` (cause: an author runs cats; action: the call;
-      effects: the file is read, nothing is written, the contract check results are unchanged), embedded by its article with the
-      `yml     accosted` block, rendered in the dark theme by `Build-Diagrams -Path` (check:
-      `Build-Diagrams -Path <name>.drawio.yml; Test-Diagrams;     Test-Links`).
 
 ## Refs
 

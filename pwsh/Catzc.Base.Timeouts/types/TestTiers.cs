@@ -5,9 +5,10 @@ catzc:
   edges:
     docs: "[TestTiers.cs.md](../../../docs/references/pwsh/catzc-base-timeouts/types/TestTiers.cs.md)"
     cites:
+      - ADR-AUTO-TEST-PROCESSTRIPWIRE
       - ADR-AUTO-TEST-TWOMANDATORYTAGS
       - ADR-AUTO-TEST-TESTINGINPRODUCTION
-    drs_total: 2
+    drs_total: 3
 ---
 */
 
@@ -22,4 +23,10 @@ public static class TestTiers
 
     // The top tier a run includes when it names none: L4 is opt-in, so a default run stops at L3.
     public const int DefaultTop = 3;
+
+    // The first tier that may launch a real process: L0 and L1, the tiers below it, launch none (ADR-AUTO-TEST-PROCESSTRIPWIRE).
+    public const int FirstRealProcessTier = 2;
+
+    public const string BlockEveryLaunch = "1";
+    public const string BlockByTier = "tier";
 }

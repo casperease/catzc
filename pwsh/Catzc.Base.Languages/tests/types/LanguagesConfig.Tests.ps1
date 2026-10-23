@@ -319,6 +319,25 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             { & $script:one ([ordered]@{ extensions = @('.wdg'); checks = 'Test-Spelling' }) } | Should -Throw '*checks must be a list*'
         }
 
+        It 'reads the config address a check governs, and none for a check the entry gives no scope' {
+            $config = & $script:make ([ordered]@{ languages = [ordered]@{
+                        widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'never'; checks = @('Test-WidgetLint', 'Test-Spelling'); check_scopes = [ordered]@{ 'Test-WidgetLint' = 'global.widgets.folder' } }
+                        gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'never'; checks = @('Test-Spelling') }
+                    }
+                })
+            $config.languages[0].check_scopes['Test-WidgetLint'] | Should -BeExactly 'global.widgets.folder'
+            $config.languages[0].check_scopes.ContainsKey('Test-Spelling') | Should -BeFalse
+            $config.languages[1].check_scopes.Count | Should -Be 0
+        }
+
+        It 'throws on a scope for a check the language does not name, on a scope that is no global address, and on scopes that are not a map' {
+            $err = { & $script:one ([ordered]@{ extensions = @('.wdg'); checks = @('Test-Spelling'); check_scopes = [ordered]@{ 'Test-WidgetLint' = 'global.widgets.folder'; 'Test-Spelling' = 'widgets/folder' } }) } |
+                Should -Throw -PassThru
+            $err.Exception.Message | Should -BeLike "*check_scopes names 'Test-WidgetLint', which is not one of the language's checks*"
+            $err.Exception.Message | Should -BeLike "*invalid check_scopes address 'widgets/folder' for 'Test-Spelling'*"
+            { & $script:one ([ordered]@{ extensions = @('.wdg'); checks = @('Test-Spelling'); check_scopes = @('Test-Spelling') }) } | Should -Throw '*check_scopes must be a map*'
+        }
+
         It 'reads a language''s layout rows, then the shared assets and tests rows, and derives the live patterns and folders from them' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
             $config = & $script:one ([ordered]@{ extensions = @('.wdg', '.wdx'); layout = @(
                         [ordered]@{ folder = '.'; role = 'public-widget'; extensions = @('.wdg') }

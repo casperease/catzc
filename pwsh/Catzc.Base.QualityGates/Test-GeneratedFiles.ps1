@@ -12,13 +12,15 @@ catzc:
 #>
 
 function Test-GeneratedFiles {
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = 'Writers')]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
+        [Parameter(ParameterSetName = 'Writers')]
         [string[]] $Generator,
 
         [switch] $Changed,
 
+        [Parameter(ParameterSetName = 'Stamp')]
         [switch] $StampOnly,
 
         [string] $OutputFolder,
@@ -30,9 +32,8 @@ function Test-GeneratedFiles {
 
     $known = @(Get-GeneratedFileGenerator)
     foreach ($name in $Generator) {
-        if ($name -notin $known) {
-            throw "Unknown generator '$name'. The generators are: $($known -join ', ') (generated-files.yml lists the writers, rootconfig.yml the root-file generators)."
-        }
+        Assert-True ($name -in $known) `
+            -ErrorText "Unknown generator '$name'. The generators are: $($known -join ', ') (generated-files.yml lists the writers, rootconfig.yml the root-file generators)."
     }
     $writers = (Get-Config -Config generated-files).writers
     $rootConfigGenerators = @($known | Where-Object { -not $writers.Contains($_) })
@@ -64,10 +65,10 @@ function Test-GeneratedFiles {
         $issues.Add("${relative}: stale — $Name would change it; regenerate with: $Command")
     }
 
-    $dueWriters = @(if (-not $StampOnly) {
+    $checkedWriters = @(if (-not $StampOnly) {
             $writers.Values
         })
-    foreach ($writer in $dueWriters) {
+    foreach ($writer in $checkedWriters) {
         $writerName = $writer.name
         if ($Changed -and -not $dueNames.Contains($writerName)) {
             continue

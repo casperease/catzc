@@ -154,11 +154,11 @@ function Invoke-TestRun {
         Write-Message '.' -NoHeader -NoNewline
 
         $workerEnvironment = @{
-            CATZC_BLOCK_REAL_PROCESS = if ($MaxLevel -lt 2) {
-                '1'
+            CATZC_BLOCK_REAL_PROCESS = if ($MaxLevel -lt [Catzc.Base.Timeouts.TestTiers]::FirstRealProcessTier) {
+                [Catzc.Base.Timeouts.TestTiers]::BlockEveryLaunch
             }
             else {
-                'tier'
+                [Catzc.Base.Timeouts.TestTiers]::BlockByTier
             }
         }
 

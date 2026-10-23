@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "161d885e691e"
+#     with_body_sha: "06a827269fc0"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -142,6 +142,9 @@ start_claude_drone	count	int	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/st
 start_claude_drone	launcher	string	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_drone.command.yml			start-claude-drone	launcher	Start-ClaudeDrone	Launcher
 start_claude_drone	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_drone.command.yml			start-claude-drone	pass-thru	Start-ClaudeDrone	PassThru
 start_claude_drone	dry_run	switch	0	0	0	contracts/catzc/0.0.0/catzc.tooling.claude/start_claude_drone.command.yml			start-claude-drone	dry-run	Start-ClaudeDrone	DryRun
+test_accosted_command	call	string	0	1	0	contracts/catzc/0.0.0/catzc.base.contracts/test_accosted_command.command.yml			test-accosted-command	call	Test-AccostedCommand	Call
+test_accosted_command	where	string	0	1	0	contracts/catzc/0.0.0/catzc.base.contracts/test_accosted_command.command.yml			test-accosted-command	where	Test-AccostedCommand	Where
+test_accosted_command	repository_root	string	0	0	0	contracts/catzc/0.0.0/catzc.base.contracts/test_accosted_command.command.yml			test-accosted-command	repository-root	Test-AccostedCommand	RepositoryRoot
 test_ado_pipeline_trigger_glob	name	string	1	0	0	contracts/catzc/0.0.0/catzc.base.globs/test_ado_pipeline_trigger_glob.command.yml			test-ado-pipeline-trigger-glob	name	Test-AdoPipelineTriggerGlob	Name
 test_ado_pipeline_trigger_glob	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.globs/test_ado_pipeline_trigger_glob.command.yml			test-ado-pipeline-trigger-glob	output-folder	Test-AdoPipelineTriggerGlob	OutputFolder
 test_ado_pipeline_trigger_glob	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.globs/test_ado_pipeline_trigger_glob.command.yml			test-ado-pipeline-trigger-glob	pass-thru	Test-AdoPipelineTriggerGlob	PassThru
@@ -211,11 +214,11 @@ test_formatting	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_
 test_function_dependency	modules_root	string	0	0	0	contracts/catzc/0.0.0/catzc.base.module_system/test_function_dependency.command.yml			test-function-dependency	modules-root	Test-FunctionDependency	ModulesRoot
 test_function_dependency	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.module_system/test_function_dependency.command.yml			test-function-dependency	output-folder	Test-FunctionDependency	OutputFolder
 test_function_dependency	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.module_system/test_function_dependency.command.yml			test-function-dependency	pass-thru	Test-FunctionDependency	PassThru
-test_generated_files	generator	string	1	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_generated_files.command.yml			test-generated-files	generator	Test-GeneratedFiles	Generator
-test_generated_files	changed	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_generated_files.command.yml			test-generated-files	changed	Test-GeneratedFiles	Changed
-test_generated_files	stamp_only	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_generated_files.command.yml			test-generated-files	stamp-only	Test-GeneratedFiles	StampOnly
-test_generated_files	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_generated_files.command.yml			test-generated-files	output-folder	Test-GeneratedFiles	OutputFolder
-test_generated_files	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_generated_files.command.yml			test-generated-files	pass-thru	Test-GeneratedFiles	PassThru
+test_generated_files	generator	string	1	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_generated_files.command.yml	writers	writers	test-generated-files	generator	Test-GeneratedFiles	Generator
+test_generated_files	changed	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_generated_files.command.yml		writers	test-generated-files	changed	Test-GeneratedFiles	Changed
+test_generated_files	stamp_only	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_generated_files.command.yml	stamp	writers	test-generated-files	stamp-only	Test-GeneratedFiles	StampOnly
+test_generated_files	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_generated_files.command.yml		writers	test-generated-files	output-folder	Test-GeneratedFiles	OutputFolder
+test_generated_files	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_generated_files.command.yml		writers	test-generated-files	pass-thru	Test-GeneratedFiles	PassThru
 test_generated_readmes	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.docs/test_generated_readmes.command.yml			test-generated-readmes	output-folder	Test-GeneratedReadmes	OutputFolder
 test_generated_readmes	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.docs/test_generated_readmes.command.yml			test-generated-readmes	pass-thru	Test-GeneratedReadmes	PassThru
 test_git_hub_workflow_trigger_glob	name	string	0	1	0	contracts/catzc/0.0.0/catzc.base.globs/test_git_hub_workflow_trigger_glob.command.yml			test-git-hub-workflow-trigger-glob	name	Test-GitHubWorkflowTriggerGlob	Name

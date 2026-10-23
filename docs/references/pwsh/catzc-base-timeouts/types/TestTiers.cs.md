@@ -33,3 +33,12 @@ Above `public static readonly string[] Names = { "L0", "L1", "L2", "L3", "L4" };
 Every tier tag, lowest first: L0/L1 the code alone, L2 local tools, L3 state outside the repository, L4 the released
 system itself, after final approval.
 ```
+
+## comment:3
+
+Above `public const string BlockEveryLaunch = "1";`, written with `//`.
+
+```text
+The values of CATZC_BLOCK_REAL_PROCESS: every launch is blocked, or only a launch inside a container whose outermost tier is below
+FirstRealProcessTier. Any other value is an error.
+```

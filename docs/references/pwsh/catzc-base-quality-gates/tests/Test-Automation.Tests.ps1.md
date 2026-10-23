@@ -15,7 +15,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Source & test file conventions' -Tag 'L0', 'integrity',...`, written with `#`.
+Above `Describe 'Source & test file conventions' -Tag 'L2', 'integrity',...`, written with `#`.
 
 ```text
 The source and test file conventions over the real tree, through their quality gate (Test-SourceConventions —

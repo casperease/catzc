@@ -202,35 +202,41 @@ diagram (DDR-VISUAL-LEFTTORIGHTISTIME).
 
 A **frame** is the one rounded-corner boundary box around the whole of an action diagram; its caption, in the top-left corner, is the
 declaration's `title`. An action diagram has no bands and no groups, and declares no edges or spans: the renderer draws the flow from the
-cause to the action and from the action to each effect, and a declared `edges`, `bands`, `groups` or `spans` is a validation error that
-names the reason.
+cause to the action and from the action, or the effect an effect follows, to each effect. The frame has a fixed height, set in the
+renderer's vocabulary or pinned by the layout. A declared `edges`, `bands`, `groups` or `spans` is a validation error that names the reason.
 
 - [One frame, one caption](#one-frame-one-caption)
 
 ### Rule DDR-VISUAL-ACTIONISACCOSTED
 
-An **action** is the innermost glyph of an action diagram, right of the cause: one accosted command in the contract form, verbatim, or a
-**call site**, a run of several commands drawn as one stacked glyph with one line per command. Only the contract form and only harmless
-commands appear, as the accosted language defines them, so every statement on the drawing is a call that `cats` can run.
+An **action** is the innermost glyph of an action diagram, right of the cause: one contracted command in the contract form, verbatim, or a
+**call site**, a run of several commands drawn as one stacked glyph with one line per command. Only the contract form appears, as the
+accosted language defines it, and the action may be any contracted command, one that changes state included, so every statement on the
+drawing is a call that `cats` can run. A long call wraps at `/`, `,`, space and `.`, so no text spills out of its glyph.
 
-- [The action is an accosted command](#the-action-is-an-accosted-command)
+- [The action is a contracted command](#the-action-is-a-contracted-command)
 
-### Rule DDR-VISUAL-EFFECTSRINGOUTWARD
+### Rule DDR-VISUAL-EFFECTSINZONES
 
-A **ring** is one concentric half-ring opening rightward from the action, ring 1 the nearest, and an **effect** is a note box on a ring: one
-state the action modifies. An effect says in plain words which state it modifies, proves it with an accosted observation, and names its
-place, `local` or `remote` from a closed list, as a chip. The ring is the causal hop, never the place; the place is the chip. The renderer
-computes the layout from the ring and the order, and takes palette and ink from the same theme tokens as every diagram.
+A **ring** is a circle centred on the cause's rim, drawn only as the arc between the frame's inner top and bottom, so it stands steep
+through the centre lane; a **zone** is the band between two arcs, and an **effect** is a note box standing in a zone: one state the action
+modifies. An effect's `zone` is its causal hop, a whole number from 1 with no gaps, and says nothing about its place. It says in plain words
+which state it modifies, proves it with an accosted observation, and names its place, `local` or `remote` from a closed list, as a chip. An
+effect may name `after`, an effect declared before it, in its own zone or one nearer the action; its flow edge then comes from that effect,
+not from the action, and naming a later effect is an error. A **story number** is the number every box carries: the cause 1, the action 2,
+the effects in declared order. Notes stand inside their zone, spread over the fixed centre lane in story order. The renderer computes the
+layout and takes palette and ink from the same theme tokens as every diagram.
 
-- [Effects ring outward](#effects-ring-outward)
+- [Effects stand in zones](#effects-stand-in-zones)
 
 ### Rule DDR-VISUAL-PROOFISTHEACCOSTEDFILE
 
 The **proof** of an action diagram is the accosted file its `about.proves` names, `<module>/accosted/<name>.accosted.yml`, the one living
-file the runs are kept in. The action and every effect's observation occur verbatim in that file, and `Test-Diagrams` checks it, so the
-picture never says what the proof does not run. An article shows the proof as a fenced `yml accosted` block copied from that file, or links
-the file. The PowerShell text in an article is a rendering of the contract form, produced by the accosted language's one reader and never
-written by hand; a linked `.ps1` asset is not taken, since it would be a second version of the same runs
+file the runs are kept in. Every effect's observation occurs verbatim in that file, and `Test-Diagrams` checks it, so the picture never
+claims an observation the proof does not run. The action is a contracted command in the contract form, which `Test-Diagrams` checks against
+its command contract. An article shows the proof as a fenced `yml accosted` block copied from that file, or links the file. The PowerShell
+text in an article is a rendering of the contract form, produced by the accosted language's one reader and never written by hand; a linked
+`.ps1` asset is not taken, since it would be a second version of the same runs
 ([PDR-ONELIVE-ONEVERSION](../principles/one-living-version.md#rule-pdr-onelive-oneversion)).
 
 - [The proof is the accosted file](#the-proof-is-the-accosted-file)
@@ -411,21 +417,23 @@ The whole drawing is one boundary, so the picture is one thing with one name, th
 this lens does not have, and the flow needs no declared edges because it is fixed by construction: the cause leads to the action and the
 action leads to each effect. A declaration that tries to say otherwise is refused with the reason, rather than drawn wrongly.
 
-## The action is an accosted command
+## The action is a contracted command
 
-The action is the one place a call appears as a call. Writing it in the contract form, and only harmless commands, makes the statement on
-the drawing something `cats` can execute, not a description of something it might do. A call site gathers several commands that act together
-into one glyph, one line each, so the picture still shows one action.
+The action is the one place a call appears as a call. Writing it in the contract form makes the statement on the drawing something `cats`
+can execute, not a description of something it might do, and a command that changes state is what an action usually is. A call site gathers
+several commands that act together into one glyph, one line each, so the picture still shows one action.
 
-## Effects ring outward
+## Effects stand in zones
 
-What a call changes is not one thing, and the effects are ordered by how far the change travels from the call: the first ring holds what the
-action changes directly, the next what that change causes. The ring is that causal distance, which is why the place, local or remote, is a
-separate chip: a remote effect can be one hop away and a local one three. Each effect pairs a sentence with an observation that shows it, so
-the claim and its evidence sit in the same note.
+What a call changes is not one thing, and the effects are ordered by how far the change travels from the call: the first zone holds what the
+action changes directly, the next what that change causes. The zone is that causal distance, which is why the place, local or remote, is a
+separate chip: a remote effect can be one hop away and a local one three. An effect that follows from another says so with `after`, forward
+only, so the drawing never draws a cause arriving after its effect. The story numbers give the reading order, so a reader and the renderer
+agree on it. Each effect pairs a sentence with an observation that shows it, so the claim and its evidence sit in the same note.
 
 ## The proof is the accosted file
 
 A drawing and its proof are two renderings of one set of runs, so the runs live once, in the accosted file, and the diagram refers to them.
-Requiring each command on the picture to occur verbatim in that file means the drawing cannot drift from what the proof runs. The words in
-an article follow from the same file through the one reader, so a prose version of a call can never differ from the call.
+Requiring each observation on the picture to occur verbatim in that file means the drawing cannot drift from what the proof runs, and
+checking the action against its command contract means it names a command that exists. The words in an article follow from the same file
+through the one reader, so a prose version of a call can never differ from the call.

@@ -8,8 +8,8 @@ ignorePaths:
   - .git/**
   - "{{third-party}}"
   - "**/types/.compiled/**"
-  # Per-slot template configs hold Azure resource names assembled by the naming convention (deweuzctexpedapst:
-  # env, region, org, template, customer, type). They are data, not vocabulary
+  # Per-slot template configs hold Azure resource names assembled by the naming convention, one run-together token each for
+  # env, region, org, template, customer and type. They are data, not vocabulary
   # ([ADR-AUTO-SPELL-IDENTIFIERSNOTDATA](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-identifiersnotdata)), written statically per slot
   # ([ADR-AZ-DATAMOD-STATICRESOURCENAMES](/docs/drs/azure/azure-data-model.md#rule-adr-az-datamod-staticresourcenames)), so the spelling gate and the editor
   # both skip them here, once.

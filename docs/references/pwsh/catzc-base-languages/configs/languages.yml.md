@@ -50,6 +50,9 @@ Per language (languages:):
   checks           the quality gates Test-Change runs over a changed file of the language, in this order; a gate
                    with a -Path parameter is given the changed files, any other runs whole and its issues are kept
                    when they name a changed file; omitted = none
+  check_scopes     for a gate that governs one folder, the global config address of that folder (Test-Plans:
+                   global.plans.folder), so Test-Change gives the gate only the changed files under it; a gate with
+                   no entry governs every file of the language; omitted = none
 
 The defaults and the engine list are declared once on Catzc.Base.Languages.LanguagesConfig
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](/docs/drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). Loaded via

@@ -43,6 +43,18 @@ content:
         Mock Get-AccostedFile -ModuleName Catzc.Base.Slides {
             [Catzc.Base.Contracts.AccostedFile]::new((ConvertFrom-Yaml -Yaml $script:proof -Ordered))
         }
+        Mock Get-CommandContract -ModuleName Catzc.Base.Contracts {
+            foreach ($spec in @(
+                    @{ Name = 'get_widget'; Specs = @{ path = 'string!'; depth = 'int' } }
+                    @{ Name = 'get_gadget'; Specs = @{} }
+                    @{ Name = 'set_widget'; Specs = @{ path = 'string!' } }
+                )) {
+                $parameters = @(foreach ($key in $spec.Specs.Keys) {
+                        [Catzc.Base.Contracts.ContractParameter]::Parse($key, $spec.Specs[$key])
+                    })
+                [pscustomobject]@{ Name = $spec.Name; parameters = $parameters; Signature = "$($spec.Name)(...)" }
+            }
+        }
     }
 
     It 'is inert for a band diagram, whatever its about holds' {
@@ -70,12 +82,23 @@ content:
         (@(& $script:find $text))[0] | Should -BeLike "*about.proves names 'widgets/missing.accosted.yml', which does not exist"
     }
 
-    It 'names a drawn command the file does not run, with where it is drawn: <Case>' -ForEach @(
-        @{ Case = 'an action whose arguments differ'; Replace = 'depth: 2 } }'; With = 'depth: 3 } }'; Where = 'action.call' }
-        @{ Case = 'an effect whose command is not in the file'; Replace = 'proves: { get_gadget: } }'; With = 'proves: { get_gizmo: } }'; Where = 'effects[e-one].proves' }
+    It 'passes a mutating action the proof file does not hold, as it is a contracted command that fits' {
+        $text = $script:action.Replace('call: { get_widget: { path: widgets/a.wdg, depth: 2 } }', 'call: { set_widget: { path: widgets/a.wdg } }')
+        @(& $script:find $text).Count | Should -Be 0
+    }
+
+    It 'names an action that breaks its contract, with where it is drawn: <Case>' -ForEach @(
+        @{ Case = 'an uncontracted command'; Replace = 'call: { get_widget: { path: widgets/a.wdg, depth: 2 } }'; With = 'call: { set_gizmo: { path: a } }'; Message = "*: action.call: 'set_gizmo' is no contracted command*" }
+        @{ Case = 'a bad argument'; Replace = 'depth: 2 } }'; With = 'depth: deep } }'; Message = "*: action.call: 'depth' takes int*" }
     ) {
         $findings = @(& $script:find ($script:action.Replace($Replace, $With)))
         $findings.Count | Should -Be 1
-        $findings[0] | Should -BeLike "*: $([WildcardPattern]::Escape($Where)) '*' with these arguments is not a command of widgets/widgets.accosted.yml"
+        $findings[0] | Should -BeLike $Message
+    }
+
+    It 'names an effect whose command is not in the proof file, with where it is drawn' {
+        $findings = @(& $script:find ($script:action.Replace('proves: { get_gadget: } }', 'proves: { get_gizmo: } }')))
+        $findings.Count | Should -Be 1
+        $findings[0] | Should -BeLike "*: $([WildcardPattern]::Escape('effects[e-one].proves')) '*' with these arguments is not a command of widgets/widgets.accosted.yml"
     }
 }

@@ -43,10 +43,12 @@ file language, an omitted 'adr_folder' is none, and an omitted 'checks' is no qu
 
 Constructing an instance validates the file, collecting every violation into one ArgumentException:
   - only 'formatters' and 'languages' at the top; only 'extensions', 'formatter', 'no_formatter', 'vscode_language',
-    'adr_folder' and 'checks' in a language entry; only 'vscode_extension' and 'settings' in an engine entry — an
+    'adr_folder', 'checks' and 'check_scopes' in a language entry; only 'vscode_extension' and 'settings' in an engine entry — an
     unknown key (a typo) fails at load;
   - 'checks' is a list of quality-gate command names (Test-<Noun>, e.g. Test-ScriptAnalyzer), each at most once: the
     gates Test-Change runs over a changed file of the language;
+  - 'check_scopes' is a map from one of the language's own checks to a global config address (global.<config>.<key>, e.g.
+    global.plans.folder) of the folder the gate governs; a gate with no entry governs every file of the language;
   - an engine entry's key is one of FormatterEngines, its 'vscode_extension' a publisher.name extension id, and its
     'settings' a list of '/'-separated repository-relative files (no '.' or '..' segment);
   - 'vscode_language' (default: the language's own name) is a VS Code language id;

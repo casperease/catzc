@@ -21,7 +21,7 @@ public sealed class GeneratedWriter : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly Regex VerbNoun = new Regex("^[A-Z][a-z]+-[A-Z][A-Za-z0-9]*$");
     private static readonly string[] Checks = { "file", "english-dictionary", "root-config" };
-    private static readonly string[] AllowedKeys = { "check", "result_path", "inputs", "outputs" };
+    private static readonly string[] AllowedKeys = { "check", "result_path", "inputs", "outputs", "at_import" };
 
     // The writer's command name.
     public string name { get; }
@@ -36,6 +36,9 @@ public sealed class GeneratedWriter : Catzc.Base.Objects.DictionaryRecord
 
     // Repo-relative globs of what the writer writes; a changed path matching one makes -Changed run its dry run. Default: none.
     public string[] outputs { get; }
+
+    // Whether the import re-renders the writer when it is due (the build janitors). Default: false.
+    public bool at_import { get; }
 
     public GeneratedWriter(string name, object raw)
     {
@@ -75,6 +78,7 @@ public sealed class GeneratedWriter : Catzc.Base.Objects.DictionaryRecord
 
         inputs = StrArr(entry, "inputs");
         outputs = StrArr(entry, "outputs");
+        at_import = Flag(entry, "at_import");
 
         if (errors.Count > 0) { throw new ArgumentException(string.Join("\n", errors)); }
     }

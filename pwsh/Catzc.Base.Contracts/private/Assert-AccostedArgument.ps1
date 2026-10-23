@@ -46,11 +46,4 @@ function Assert-AccostedArgument {
         }
         Assert-True $fits -ErrorText "${Where}: '$name' takes $($Parameter.Spec), and '$item' is not one ($Signature)."
     }
-
-    # A write confined to out/ is harmless; an output folder anywhere else is a write the language refuses.
-    if ($name -ceq 'output_folder') {
-        $folder = "$Value" -replace '\\', '/'
-        Assert-True ($folder -ceq 'out' -or $folder.StartsWith('out/', [System.StringComparison]::Ordinal)) `
-            -ErrorText "${Where}: '$name' writes to '$Value', outside out/, so the call is not harmless."
-    }
 }

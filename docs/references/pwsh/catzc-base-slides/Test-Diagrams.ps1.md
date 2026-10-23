@@ -16,9 +16,11 @@ A declared diagram is a `<name>.drawio.yml` in a `.assets/` folder, beside the `
 `.assets/<name>`. The gate runs the draw.io kit's `declaration.py check` over each declared diagram through uv and reads one JSON line per
 diagram: the cells whose png differs from put of the yml are issues, a kit or diagram error is an issue, and a minimap a registry change
 left stale is announced and counted in the report facts without failing the gate. An action diagram (`about.lens: action`) also names, in
-`about.proves`, the accosted file that runs what it draws: the file must exist, be readable by Get-AccostedFile, and hold the diagram's
-action and every `effects[].proves` as commands equal in name and arguments; a band diagram is not checked. It writes no diagram; the render
-is Build-Diagrams'. The result goes through the quality-gate report.
+`about.proves`, the accosted file that runs what it draws: the file must exist, be readable by Get-AccostedFile, and hold every
+`effects[].proves` as a command equal in name and arguments. The action (`action.call` or `action.calls`) may be any contracted command,
+mutating included: it must be a contracted command whose arguments fit its command contract (Test-AccostedCommand) and need not be in the
+proof file; a band diagram is not checked. It writes no diagram; the render is Build-Diagrams'. The result goes through the quality-gate
+report.
 
 ### parameter `Path`
 

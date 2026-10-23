@@ -11,7 +11,8 @@ catzc:
 
 Started 2026-10-23T11:18:33.2487061+02:00.
 
-- 2026-10-23 Cats: In hindsight I wish I knew this fact: cspell reads a PowerShell escape glued to a word (nnamespace) as one unknown word.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: cspell reads a PowerShell escape glued to the word after it, such as a backtick-n
+  before `namespace` in a string, as one unknown word.
 - 2026-10-23 Cats: In hindsight I wish I knew this fact: the diagram kit runs as uv run --no-sync --project python; plain uv run may sync
   against the index.
 - 2026-10-23 Cats: Token tip: Next time, save tokens by: reading a run's verdict with one grep for its passed/failed and IssueCount lines,

@@ -363,7 +363,7 @@ rematerialise what it removed in the same run. Guarded: absent in the bootstrap 
 
 ## comment:30
 
-Above `foreach ($writer in 'Build-DrsIndex', 'Build-Glossary',...`, written with `#`.
+Above `foreach ($writer in $atImport) {`, written with `#`.
 
 ```text
 Keep the generated ADR pages current (Catzc.Base.Docs): [index](/docs/drs/index.md) from drs.yml and
@@ -461,4 +461,13 @@ Above `$script:modulesFolder = 'pwsh'`, written with `#`.
 The one bootstrap constant: the folder under the repository root that holds the modules. It is read before any registry
 loads, so it cannot come from one; everything after the import reads it back through Get-CatzcModulesRoot, and
 New-Importer writes the shim's loader line from that resolver (ADR-AUTO-LAYERS).
+```
+
+## comment:42
+
+Above `$due = Get-DueWriterRow`, written with `#`.
+
+```text
+A build janitor re-renders only when the changed set or a missing output makes its writer due; the writers it considers, in order, and
+the lists are generated-files.yml's (at_import).
 ```

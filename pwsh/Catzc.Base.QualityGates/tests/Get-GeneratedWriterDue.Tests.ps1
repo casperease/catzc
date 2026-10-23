@@ -5,7 +5,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-    drs_total: 1
+      - ADR-BCL-TYPES-NATIVETYPEDMODEL
+    drs_total: 2
 ---
 #>
 
@@ -56,6 +57,13 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
         ($rows | Where-Object Name -eq 'Build-Gizmo').Due | Should -BeFalse
         ($rows | Where-Object Name -eq 'Build-Widget').HasLists | Should -BeTrue
         ($rows | Where-Object Name -eq 'Build-Widget').Due | Should -BeFalse
+    }
+
+    It 'emits one typed record per writer, in declaration order' -Tag 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
+        $rows = @(& $script:run @())
+        $rows | Should -HaveCount 3
+        $rows[0] | Should -BeOfType [Catzc.Base.QualityGates.GeneratedWriterDue]
+        @($rows.Name) | Should -Be @('Build-Widget', 'Build-Gadget', 'Build-Gizmo')
     }
 
     It 'reads git when no changed set is given' {

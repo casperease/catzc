@@ -5,9 +5,10 @@ catzc:
   edges:
     docs: "[Test-GeneratedFiles.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Test-GeneratedFiles.Tests.ps1.md)"
     cites:
+      - ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY
       - ADR-AUTO-TEST-QUALITYGATE
       - ADR-REPO-FILEMETA-COMPOSEDFILES
-    drs_total: 2
+    drs_total: 3
 ---
 #>
 
@@ -168,6 +169,11 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
             Should -Invoke Build-DrsIndex -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
             Should -Invoke Build-RootConfig -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
             Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Changed }
+        }
+
+        It 'refuses -StampOnly together with -Generator, which the parameter sets keep apart' -Tag 'ADR-AUTO-FAILFAST-ASSERTINPUTSATENTRY' {
+            { Test-GeneratedFiles -StampOnly -Generator Build-DrsIndex -PassThru -OutputFolder $script:reportFolder } | Should -Throw '*Parameter set cannot be resolved*'
+            Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
         }
 
         It 'fails a generator change whose output was not re-rendered' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {

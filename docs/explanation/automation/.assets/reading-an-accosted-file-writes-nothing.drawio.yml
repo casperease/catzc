@@ -16,17 +16,17 @@ content:
     call: { get_accosted_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml } }
   effects:
     - id: effect-read
-      ring: 1
+      zone: 1
       where: local
       says: The accosted file is read from the repository
       proves: { get_repository_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml } }
     - id: effect-unwritten
-      ring: 1
+      zone: 1
       where: local
       says: Nothing is written to the file
       proves: { get_repository_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml } }
     - id: effect-checks
-      ring: 2
+      zone: 2
       where: local
       says: The contract check results are unchanged
       proves: { get_contract_check_results: }

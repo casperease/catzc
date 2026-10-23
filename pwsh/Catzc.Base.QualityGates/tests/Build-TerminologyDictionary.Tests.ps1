@@ -60,11 +60,11 @@ Describe 'Build-TerminologyDictionary — real registry' -Tag 'L2', 'integrity',
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 
-    It 'each generated dictionary carries the body hash and no inputs stamp, and a second run writes nothing' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
+    It 'each generated dictionary is gitignored, so it carries no body hash and no inputs stamp, and a second run writes nothing' -Tag 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
         Build-TerminologyDictionary -Silent | Out-Null
         foreach ($category in (Get-Config -Config terminology).categories) {
             $text = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) ".cspell/$category.txt"))
-            $text | Should -Match 'with_body_sha: "?[0-9a-f]{12}' -Because "$category carries the body hash"
+            $text | Should -Not -Match 'with_body_sha' -Because "$category is gitignored, and only a file git tracks carries the body hash"
             $text | Should -Not -Match 'with_inputs_sha' -Because "$category carries no inputs stamp"
         }
         @(Build-TerminologyDictionary -Silent -PassThru | Where-Object Changed) | Should -BeNullOrEmpty

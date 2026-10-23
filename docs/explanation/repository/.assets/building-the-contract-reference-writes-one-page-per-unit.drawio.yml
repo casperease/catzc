@@ -1,0 +1,39 @@
+description: "A maintainer rebuilds the contract reference: one command writes a page per unit from the contract assets, the links on them resolve, and the generated-files quality gate holds the pages to their inputs."
+about:
+  adrs:
+    - ADR-REPO-CONTRACT-LAYOUT
+    - ADR-REPO-CMDCONTRACT-ONEREADER
+    - ADR-REPO-README-AUTHOREDSOURCES
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+  proves: pwsh/Catzc.Base.Contracts/accosted/contract-reference.accosted.yml
+content:
+  title: Building the contract reference writes one page per unit
+  kind: explanation
+  relation: writes
+  cause: { label: A maintainer changes a contract and runs cats }
+  action:
+    call: { build_contract_reference: }
+  effects:
+    - id: effect-catzc-page
+      zone: 1
+      where: local
+      says: The reference page of the catzc unit is written from its contract assets
+      proves: { get_repository_file: { path: docs/references/contracts/catzc.md } }
+    - id: effect-azure-page
+      zone: 1
+      where: local
+      says: The page of the external Azure unit is written beside it
+      proves: { get_repository_file: { path: docs/references/contracts/EXTERNAL-azure.md } }
+    - id: effect-links
+      zone: 2
+      where: local
+      says: Every link on the catzc page resolves
+      proves: { test_links: { path: docs/references/contracts/catzc.md } }
+      after: effect-catzc-page
+    - id: effect-drift
+      zone: 2
+      where: local
+      says: The generated-files quality gate finds the pages in step with the contracts
+      proves: { test_generated_files: { generator: Build-ContractReference } }
+      after: effect-azure-page

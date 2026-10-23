@@ -21,4 +21,6 @@ on 2026-10-22 with five sessions running tests). A red file has its cause report
 - [ ] `Get-DynamicManifestContent.Tests.ps1`, still red on 2026-10-22 (`Facts['Modules']` is 0, `out/test-file/20261022-031430-d26183`): the
       cause (catzc-54, `out/catzc-54-full-run-2-5.md`) is a case-only rename git does not track, `pwsh/Catzc.Base.VSCode/*-VsCode*.ps1` on
       disk against `*-VSCode*.ps1` in the index, so the builder's case-sensitive index check drops every file and builds nothing. The fix is
-      the user's (task-user-runs-and-commits). Check: `Invoke-TestFile` on it alone, after the rename is staged.
+      the user's (task-user-runs-and-commits). The same rename keeps `Test-CatzcBuild.Parity.Tests.ps1` red (Catzc.Base.Asserts exports
+      `Assert-IsRunningInVsCode` while the build lists VSCode), now that the bundle types-hash defect is fixed (catzc-46, 2026-10-23).
+      Check: `Invoke-TestFile` on both alone, after the rename is staged.

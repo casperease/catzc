@@ -37,9 +37,6 @@ only by a tier-filtered run (ADR-AUTO-TEST-PROCESSTRIPWIRE). The cause is in the
 1. [ ] `ConvertTo-NormalName.Tests.ps1` stays red in every run until the user stages the case-only renames (VSCode to VsCode, PS to Ps;
        task-user-runs-and-commits item 18): git still tracks the old spelling while the disk holds the new one. The other four non-launch
        failures landed (catzc-6b, 2026-10-23). Check: `Invoke-TestFile` on it green after the staging.
-2. [ ] `pwsh/Catzc.Base.QualityGates/private/Invoke-TestRun.ps1` and `pwsh/Catzc.Base.Execution/Invoke-Executable.ps1`: the tripwire is
-       armed per outermost Describe by its tier, so a full run catches an L0/L1 launch too; staged by catzc-46, landed now: the one failure
-       left is the rename, not a tier one. Check: its test file with a fixture L0 container that launches a process fails, and an L2 one
-       passes.
-3. [ ] Re-run L0 and L1 alone (`Test-Automation -MinLevel n -MaxLevel n`, one call per tier) and record the counts here. Check: 0 failed in
-       both, apart from `ConvertTo-NormalName.Tests.ps1` until step 1 lands.
+
+Landed 2026-10-23 (catzc-46): the per-Describe tripwire. L0 alone 7094 passed, 0 failed; L1 alone 667 passed, 1 failed (the rename of step
+1); a default run of QualityGates, Contracts and Execution with no tripwire hit.

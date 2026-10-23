@@ -126,6 +126,7 @@ languages:
     extensions: [.md]
     formatter: prettier
     checks: [Test-Markdownlint, Test-MarkdownTitle, Test-Formatting, Test-Spelling, Test-Links, Test-AgentDefinitions, Test-Plans]
+    check_scopes: { Test-Plans: global.plans.folder }
     imprint: [plan-counts]
     layout:
       - { folder: ".", role: readme, extensions: [.md], live: false, shipped: false }

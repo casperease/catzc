@@ -325,6 +325,23 @@ function Invoke-TypeCacheJanitor {
     }
 }
 
+# The one line a janitor prints instead of working inside VS Code: what it left undone and the command to run from a terminal outside the editor.
+function Write-InsideVsCodeNotice {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Subject,
+
+        [Parameter(Mandatory)]
+        [string] $State,
+
+        [Parameter(Mandatory)]
+        [string] $Command
+    )
+
+    Write-ImporterMessage "${Subject}: $State from inside VS Code — run $Command from a terminal outside the editor." -ForegroundColor Yellow
+}
+
 function Invoke-AgentHookJanitor {
     [CmdletBinding()]
     param()
@@ -337,7 +354,7 @@ function Invoke-AgentHookJanitor {
         try {
             $stale = @(Build-AgentHook -ListStale)
             if ($stale.Count -gt 0) {
-                Write-ImporterMessage "Agent hooks: $($stale -join ', ') stale, not built from inside VS Code — run Build-AgentHook from a terminal outside the editor." -ForegroundColor Yellow
+                Write-InsideVsCodeNotice -Subject 'Agent hooks' -State "$($stale -join ', ') stale, not built" -Command 'Build-AgentHook'
             }
         }
         catch {
@@ -367,7 +384,7 @@ function Invoke-EditorExtensionJanitor {
         return
     }
     if (Test-IsRunningInVsCode) {
-        Write-ImporterMessage 'Editor extensions: not installed from inside VS Code — run Install-VsCodeExtension from a terminal outside the editor.' -ForegroundColor Yellow
+        Write-InsideVsCodeNotice -Subject 'Editor extensions' -State 'not installed' -Command 'Install-VsCodeExtension'
         return
     }
     try {
@@ -390,7 +407,7 @@ function Invoke-GeneratedFilesJanitor {
     }
     try {
         $seconds = (Get-Config -Config timeouts).janitors['generated_files_seconds']
-        $result = Invoke-WithTimeout -Seconds $seconds -Activity 'Test-GeneratedFiles -Changed' {
+        $result = Invoke-WithTimeout -Seconds $seconds -Activity 'Test-GeneratedFiles -Changed -StampOnly' {
             Test-GeneratedFiles -Changed -StampOnly -PassThru 6>$null
         }
         foreach ($issue in @($result.Issues)) {
@@ -454,9 +471,11 @@ function Invoke-ImporterJanitors {
     # Tidy superseded type assemblies (.compiled stays a clean -1/+1 diff) — see Invoke-TypeCacheJanitor.
     Invoke-TypeCacheJanitor -ShowReport:$ShowStateChanges
 
-    # A build janitor re-renders only when the changed set or a missing output makes its writer due; the lists are generated-files.yml's.
     $due = Get-DueWriterRow
-    foreach ($writer in 'Build-DrsIndex', 'Build-Glossary', 'Build-ContractReference', 'Build-Readme', 'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-DrsCodeDictionary', 'Build-RootConfig') {
+    $atImport = @(if (Get-Command Get-Config -ErrorAction Ignore) {
+            (Get-Config -Config generated-files).writers.Values | Where-Object { $_.at_import } | ForEach-Object { $_.name }
+        })
+    foreach ($writer in $atImport) {
         if ((Get-Command $writer -ErrorAction Ignore) -and (Test-WriterDue -Name $writer -Row $due)) {
             & $writer -Silent | Out-Null
         }

@@ -40,6 +40,9 @@
 .PARAMETER InBurst
     The swap and its tests, run under the lock the burst holds; the call starts it itself and nothing else passes it.
 #>
+
+# The help stays in this file, not on a comment page: the script imports nothing, since it swaps the files an import reads, so the page
+# tooling that would move it is not loaded where it runs and a reader of the file alone still finds how to call it.
 param(
     [Parameter(Mandatory)]
     [string] $StagedFolder,
@@ -118,7 +121,8 @@ elseif (Test-Path -LiteralPath $journal) {
 if (-not (Test-Path -LiteralPath $staged -PathType Container)) {
     throw "Invoke-StagedBurst: the staged folder '$staged' does not exist."
 }
-# A bounded walk, one level at a time: a staged tree deeper than the roof is a mistake, never a silent subset.
+# A bounded walk, one level at a time: a staged tree deeper than the roof is a mistake, never a silent subset. It is written out here with
+# [System.IO] and not read through the folder walker, which is a module an import loads and this script runs without.
 $depthRoof = 10
 $pending = [System.Collections.Generic.Queue[object]]::new()
 $pending.Enqueue(@($staged, 0))

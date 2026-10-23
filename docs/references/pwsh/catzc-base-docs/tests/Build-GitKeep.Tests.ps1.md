@@ -52,7 +52,7 @@ shipped in the loaded Catzc.Base.Docs, so the code root stays on the loaded modu
 
 ## comment:5
 
-Above `Describe 'Build-GitKeep — managed .gitkeep files' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Build-GitKeep — managed .gitkeep files' -Tag 'L2', 'integrity',...`, written with `#`.
 
 ```text
 Reads only the repository's own .gitkeep files and readme.yml mappings — the same answer in both run modes,

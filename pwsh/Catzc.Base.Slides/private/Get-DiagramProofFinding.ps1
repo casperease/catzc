@@ -48,18 +48,25 @@ function Get-DiagramProofFinding {
             $run.commands
         })
 
-    $drawn = [System.Collections.Generic.List[object]]::new()
+    # The action is any contracted command, mutating included, so it fits its command contract and need not be in the proof file.
     $action = $content['action']
+    $acted = [System.Collections.Generic.List[object]]::new()
     if ($action -and $action.Contains('call')) {
-        $drawn.Add(@{ Where = 'action.call'; Raw = $action['call'] })
+        $acted.Add(@{ Where = 'action.call'; Raw = $action['call'] })
     }
     if ($action -and $action.Contains('calls')) {
         $index = 0
         foreach ($call in @($action['calls'])) {
             $index++
-            $drawn.Add(@{ Where = "action.calls[$index]"; Raw = $call })
+            $acted.Add(@{ Where = "action.calls[$index]"; Raw = $call })
         }
     }
+    foreach ($entry in $acted) {
+        Test-AccostedCommand -Call (ConvertTo-Json -InputObject $entry.Raw -Compress -Depth 10) -Where "${Stem}: $($entry.Where)" -RepositoryRoot $RepositoryRoot
+    }
+
+    # Every effect proves a command the proof file runs.
+    $drawn = [System.Collections.Generic.List[object]]::new()
     foreach ($effect in @($content['effects'] | Where-Object { $_ })) {
         if ($effect.Contains('proves')) {
             $drawn.Add(@{ Where = "effects[$($effect['id'])].proves"; Raw = $effect['proves'] })

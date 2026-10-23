@@ -81,6 +81,14 @@ Describe 'the build janitors and the writers lists' -Tag 'L0', 'logic' {
         foreach ($name in 'Invoke-GeneratedFilesJanitor', 'Invoke-TypeCacheJanitor', 'Invoke-AgentHookJanitor', 'Invoke-EditorExtensionJanitor', 'Sync-SessionTools', 'Build-DrsIndex', 'Build-Glossary', 'Build-ContractReference', 'Build-Readme', 'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-DrsCodeDictionary', 'Build-RootConfig') {
             Mock $name { } -ModuleName Catzc.Internal.Importer
         }
+        # The registry the janitor reads: the eight at-import writers in the order the import runs them, and one writer the import leaves alone.
+        $script:writers = [ordered]@{}
+        foreach ($name in 'Build-DrsIndex', 'Build-Glossary', 'Build-ContractReference', 'Build-Readme', 'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-DrsCodeDictionary', 'Build-RootConfig') {
+            $script:writers[$name] = [pscustomobject]@{ name = $name; at_import = $true }
+        }
+        $script:writers['Build-EnglishDictionary'] = [pscustomobject]@{ name = 'Build-EnglishDictionary'; at_import = $false }
+        Mock Get-Config { [pscustomobject]@{ writers = $script:writers } } -ModuleName Catzc.Internal.Importer -ParameterFilter { $Config -eq 'generated-files' }
+        Mock Build-EnglishDictionary { } -ModuleName Catzc.Internal.Importer
         $script:rows = @(
             foreach ($name in 'Build-DrsIndex', 'Build-Glossary', 'Build-ContractReference', 'Build-Readme', 'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-DrsCodeDictionary') {
                 [pscustomobject]@{ Name = $name; Due = $false; HasLists = $true }
@@ -116,6 +124,17 @@ Describe 'the build janitors and the writers lists' -Tag 'L0', 'logic' {
 
         Should -Invoke Build-RootConfig -ModuleName Catzc.Internal.Importer -Times 1 -Exactly
         Should -Invoke Build-DrsIndex -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+    }
+
+    It 'considers only the writers generated-files.yml marks at_import, none of its own list' {
+        Mock Get-GeneratedWriterDue { $script:rows } -ModuleName Catzc.Internal.Importer
+        $script:writers['Build-Glossary'].at_import = $false
+
+        InModuleScope Catzc.Internal.Importer { Invoke-ImporterJanitors }
+
+        Should -Invoke Build-RootConfig -ModuleName Catzc.Internal.Importer -Times 1 -Exactly
+        Should -Invoke Build-Glossary -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+        Should -Invoke Build-EnglishDictionary -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
     }
 
     It 'runs every build janitor when the due rows cannot be read' {

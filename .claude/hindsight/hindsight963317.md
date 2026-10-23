@@ -4,7 +4,13 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-    drs_total: 1
+      - ADR-AUTO-SPELL-ONEVOCABULARYSOURCE
+      - ADR-PWSH-ONEFUNC-NAMEWITHOUTSCOPE
+      - ADR-PWSH-PARAM-CASESENSITIVEPATTERN
+      - ADR-PWSH-PESTER-ESCAPELIKEPATTERNS
+      - ADR-PWSH-TYPES-ONEINSTANCEPERSESSION
+      - ADR-REPO-SLIDES-MINIMAPSFROMDATA
+    drs_total: 7
 ---
 
 # Hindsight 963317
@@ -105,7 +111,7 @@ Started 2026-10-22T05:06:52.0890566+02:00.
   engine backwards, and nothing in docs/drs/automation/pwsh/pester-testing.md says either way.
 - 2026-10-23 Jack: If only the earlier line of this log had waited for the rule: docs/drs/automation/pwsh/pester-testing.md:152-155
   (ADR-PWSH-PESTER-ESCAPELIKEPATTERNS) now names the backtick as the escape character of a -like pattern and escapes a literal fragment with
-  [WildcardPattern]::Escape, so the gap logged for brackets and backticks is declared.
+  `[WildcardPattern]::Escape`, so the gap logged for brackets and backticks is declared.
 - 2026-10-23 Jack: If only the earlier line of this log had waited for the rule: docs/drs/automation/pwsh/one-function-per-file.md:40-43
   (ADR-PWSH-ONEFUNC-NAMEWITHOUTSCOPE) now says a name check compares the bare name and pwsh/Catzc.Base.Repository/types/SyntaxSearch.cs:50
   is BareName, the shared helper, so script: is stripped by rule, not by memory.

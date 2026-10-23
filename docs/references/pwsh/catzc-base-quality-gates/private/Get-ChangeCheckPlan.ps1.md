@@ -24,7 +24,8 @@ The checks half of Test-Change's plan, read from configuration, not code
 ([PDR-CONFIG](../../../../drs/principles/configure-not-program.md)): each changed file that exists is looked up in the file-language
 registry (Get-FileLanguage -Path), and its language's `checks` list (languages.yml) names the gates. Returns one entry per gate, in the
 order a gate first appears, each with the changed files it applies to. A file with no file language, or whose language names no check,
-contributes nothing; a deleted file is skipped.
+contributes nothing; a deleted file is skipped. A gate named in the language's `check_scopes` takes only the changed files under the folder
+its config address names (Test-Plans: the plans folder), so a docs article never reaches a gate that governs another folder.
 
 ### parameter `Path`
 

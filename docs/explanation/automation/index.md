@@ -60,6 +60,34 @@ One declared allow-list says what may depend on what, and the declared graph for
 | operations     | [An undeclared module edge fails the gate with one line per issue](undeclared-edge-fails-with-one-line.md)                      |
 | governance     | [Two gates check the layer pins, and one rule is left to review](two-gates-check-the-layer-pins.md)                             |
 
+## The accosted language
+
+A flat list of harmless contracted calls proves a command from every engine
+([accosted-language](../../drs/automation/accosted-language.md)).
+
+| Article                                                                                                                           |
+| --------------------------------------------------------------------------------------------------------------------------------- |
+| [Reading an accosted file writes nothing and leaves the contract checks as they were](reading-an-accosted-file-writes-nothing.md) |
+
+## The spelling oracle
+
+The `Test-Spelling` quality gate judges every identifier fragment against one curated registry and one committed English word list
+([spell-out-names](../../drs/automation/spell-out-names.md)).
+
+| Article                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------- |
+| [Building the English dictionary writes one stamped word list](building-the-english-dictionary-writes-one-stamped-word-list.md) |
+
+## The Python workspace
+
+uv is the single handler for Python, and one command lays out the workspace it handles
+([uv-python-handler](../../drs/automation/uv-python-handler.md),
+[python-test-artifacts](../../drs/automation/python/python-test-artifacts.md)).
+
+| Article                                                                                                   |
+| --------------------------------------------------------------------------------------------------------- |
+| [One command lays out the Python workspace that uv handles](one-command-lays-out-the-python-workspace.md) |
+
 ## Compiled types
 
 Reading a value out of an object costs a few nanoseconds, and the type tests, reflection lookups and PowerShell crossings around it cost

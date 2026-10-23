@@ -9,7 +9,7 @@ catzc:
 
 function Get-GeneratedWriterDue {
     [CmdletBinding()]
-    [OutputType([pscustomobject])]
+    [OutputType([Catzc.Base.QualityGates.GeneratedWriterDue])]
     param(
         [string[]] $ChangedPath = @(Get-GitChangedPath),
 
@@ -44,6 +44,6 @@ function Get-GeneratedWriterDue {
         if (-not $hasLists) {
             $due = $changed.Count -gt 0
         }
-        [pscustomobject]@{ Name = $writer.name; Due = $due; HasLists = $hasLists }
+        [Catzc.Base.QualityGates.GeneratedWriterDue]::new($writer.name, $due, $hasLists)
     }
 }

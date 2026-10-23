@@ -42,6 +42,9 @@ public sealed class FileLanguage
 
     public IReadOnlyList<string> checks { get; }
 
+    // The config address of the folder a check governs; a check with no entry governs every file of the language.
+    public IReadOnlyDictionary<string, string> check_scopes { get; }
+
     // The imprint steps Format-Code runs over this language's files only, after its formatter; empty when it has none of its own.
     public IReadOnlyList<string> imprint { get; }
 
@@ -61,8 +64,12 @@ public sealed class FileLanguage
     public bool handled => executable && (layout.Count > 0 || tests != null);
 
     public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string vscodeLanguage, string adrFolder,
-        string[] checks, string[] imprint = null, LayoutRow[] layout = null, LanguageTestRunner tests = null, bool executable = false, LanguageNaming naming = null)
+        string[] checks, string[] imprint = null, LayoutRow[] layout = null, LanguageTestRunner tests = null, bool executable = false, LanguageNaming naming = null,
+        IDictionary<string, string> checkScopes = null)
     {
+        check_scopes = checkScopes == null
+            ? new Dictionary<string, string>()
+            : new Dictionary<string, string>(checkScopes);
         this.naming = naming;
         this.executable = executable;
         this.tests = tests;

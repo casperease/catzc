@@ -29,10 +29,7 @@ function Get-AccostedFragment {
     Assert-True ($PSBoundParameters.ContainsKey('RunNumber') -or -not $PSBoundParameters.ContainsKey('CommandNumber')) `
         -ErrorText 'Get-AccostedFragment: -CommandNumber names a command of one run, so it needs -RunNumber.'
     $file = Get-AccostedFile -Path $Path -RepositoryRoot $RepositoryRoot
-    $contracts = @{}
-    foreach ($contract in @(Get-CommandContract -RepositoryRoot $RepositoryRoot)) {
-        $contracts[$contract.Name] = $contract
-    }
+    $contracts = Get-CommandContractMap -RepositoryRoot $RepositoryRoot
 
     $runs = @($file.runs)
     $selected = @(if ($PSBoundParameters.ContainsKey('RunNumber')) {

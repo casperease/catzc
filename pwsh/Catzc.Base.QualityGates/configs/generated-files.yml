@@ -10,25 +10,32 @@
 
 writers:
   Build-DrsIndex:
+    at_import: true
     inputs: [docs/drs/**, pwsh/Catzc.Base.Drs/**]
     outputs: [docs/drs/index.md]
   Build-Glossary:
+    at_import: true
     inputs: [docs/drs/**, pwsh/*/configs/glossary.yml, pwsh/Catzc.Base.Docs/**]
     outputs: [docs/drs/glossary.md]
+  Build-ContractReference:
+    at_import: true
+    inputs: [contracts/**, docs/drs/repository/*-contracts.md, pwsh/Catzc.Base.Contracts/**]
+    outputs: [docs/references/contracts/*.md]
   Build-Readme:
+    at_import: true
     result_path: Readme
     inputs: [docs/references/**, docs/drs/index.md, pwsh/Catzc.Base.Docs/**]
     outputs: ["**/README.md"]
-  Build-ContractReference:
-    inputs: [contracts/**, docs/drs/repository/*-contracts.md, pwsh/Catzc.Base.Contracts/**]
-    outputs: [docs/references/contracts/*.md]
   Build-GitKeep:
+    at_import: true
     inputs: [pwsh/Catzc.Base.Docs/**]
     outputs: ["**/.gitkeep"]
   Build-TerminologyDictionary:
+    at_import: true
     inputs: [pwsh/Catzc.Base.QualityGates/**]
     outputs: [".cspell/*.txt"]
   Build-DrsCodeDictionary:
+    at_import: true
     inputs: [docs/drs/**, pwsh/Catzc.Base.Drs/**]
     outputs: [.cspell/drs-codes.txt]
   Build-EnglishDictionary:
@@ -36,4 +43,5 @@ writers:
     inputs: [pwsh/Catzc.Base.Execution/configs/tools.yml, pwsh/Catzc.Base.QualityGates/**]
     outputs: [pwsh/Catzc.Base.QualityGates/assets/english.*]
   Build-RootConfig:
+    at_import: true
     check: root-config

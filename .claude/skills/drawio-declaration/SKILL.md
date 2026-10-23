@@ -22,4 +22,9 @@ metadata:
    `-Theme <name>` renders to `out/drawio/themes/<name>/`. A pair whose yml and png both moved since HEAD is a conflict: only put or get by
    name, the author's pick, clears it (ADR-REPO-SLIDES-CONFLICTNEEDSAPICK); never merge or pick. Forward every validation error verbatim. A
    sample under `out/` renders by `Write-DiagramMinimapData` then declaration.py put, since `Build-Diagrams -Path` refuses folders outside
-   `docs/`.
+   `docs/`. A diagram under `about.lens: action` (DDR-VISUAL-ACTIONISALENS) declares `content.cause`, `action` (`call`, or `calls` for a
+   call site) and `effects` (`id`, `zone` from 1 with no gaps, `where`, `says`, `proves`, optionally `after: <id>` of an earlier effect in
+   its own zone or one nearer the action, never a later one), and no bands, groups, edges or spans; every box carries a story number (cause
+   1, action 2, effects in declared order) and get reads the order back from them; `about.proves` names the proof file of runs each command
+   occurs in verbatim, and two zones fit the frame, three do not. A new article-carried diagram is registered once with
+   `declaration.py carry <stem> file`, then `Build-Diagrams -Path <name>.drawio.yml` renders it.

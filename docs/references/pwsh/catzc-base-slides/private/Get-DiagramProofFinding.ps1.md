@@ -16,15 +16,17 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Checks that an action diagram's about.proves file exists and holds the diagram's action and every effect's proves, verbatim.
+Checks that an action diagram's action is a contracted command with fitting arguments, and that about.proves exists and holds every effect's proves, verbatim.
 
 ### description
 
-An action diagram draws accosted commands, and the accosted file named by about.proves runs them, so the picture never says what the proof
-does not run. The file is read by Get-AccostedFile, the one reader
-([ADR-AUTO-ACCOSTED-ONEREADER](../../../../drs/automation/accosted-language.md#rule-adr-auto-accosted-onereader)), and each command the
-diagram draws (the action's call or calls, and every effects[].proves) is read by the reader's own command type and must equal a command of
-the file in name and arguments. A diagram whose about.lens is not action is a band diagram, and the check is inert for it.
+An action diagram draws accosted commands. The action (call or calls) may be any contracted command, mutating included, so it cannot stand in
+an accosted file: it is checked by Test-AccostedCommand against its command contract, read through the one contract reader, and need not be in
+the proof file. The accosted file named by about.proves runs the effects, so the picture never says what the proof does not run. The file is
+read by Get-AccostedFile, the one reader
+([ADR-AUTO-ACCOSTED-ONEREADER](../../../../drs/automation/accosted-language.md#rule-adr-auto-accosted-onereader)), and each effects[].proves is
+read by the reader's own command type and must equal a command of the file in name and arguments. A diagram whose about.lens is not action is
+a band diagram, and the check is inert for it.
 
 ### parameter `Stem`
 

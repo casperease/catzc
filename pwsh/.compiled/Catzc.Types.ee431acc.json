@@ -1,5 +1,5 @@
 {
-  "hash": "803b9828",
+  "hash": "ee431acc",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -1392,6 +1392,11 @@
     },
     {
       "name": "Catzc.Base.QualityGates.GeneratedWriter",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.GeneratedWriterDue",
       "aliases": [],
       "display": []
     },

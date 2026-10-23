@@ -24,10 +24,7 @@ function Invoke-Accosted {
     )
 
     $file = Get-AccostedFile -Path $Path -RepositoryRoot $RepositoryRoot
-    $contracts = @{}
-    foreach ($contract in @(Get-CommandContract -RepositoryRoot $RepositoryRoot)) {
-        $contracts[$contract.Name] = $contract
-    }
+    $contracts = Get-CommandContractMap -RepositoryRoot $RepositoryRoot
     $seconds = (Get-Config -Config timeouts).tests[(Get-Config -Config accosted).run_timeout]
 
     foreach ($engineName in $Engine) {

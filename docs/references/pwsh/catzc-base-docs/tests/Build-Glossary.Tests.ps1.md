@@ -25,7 +25,7 @@ over a fixture ADR), and the drs.yml domains — and write into $TestDrive. Fixt
 
 ## comment:2
 
-Above `Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity',...`, written with `#`.
+Above `Describe 'Build-Glossary — generated glossary page' -Tag 'L2', 'integrity',...`, written with `#`.
 
 ```text
 The real glossary page against the real sources. The importer's janitor materialises the

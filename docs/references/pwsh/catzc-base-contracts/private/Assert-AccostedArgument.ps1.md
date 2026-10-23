@@ -16,13 +16,13 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Throws when an accosted call's argument does not fit its contract parameter, or writes outside out/.
+Throws when an accosted call's argument does not fit its contract parameter.
 
 ### description
 
 cats passes one value per parameter, so a list is rejected. The value must fit the parameter's type: a string, an integer, or a boolean for
-a bool or switch parameter; any other type fits nothing. An `output_folder` argument must lie under `out/`, the one write an accosted call
-may make ([ADR-AUTO-ACCOSTED](../../../../drs/automation/accosted-language.md)).
+a bool or switch parameter; any other type fits nothing ([ADR-AUTO-ACCOSTED](../../../../drs/automation/accosted-language.md)). What makes
+a call harmless is not decided here.
 
 ### parameter `Parameter`
 

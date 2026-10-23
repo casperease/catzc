@@ -1,0 +1,58 @@
+description: "A maintainer adds a Python folder and runs one command: it renders the uv workspace root and the member's project file from the languages configuration, the tree classifies both and holds them to their source, and the Python quality gates pass over the workspace."
+about:
+  adrs:
+    - ADR-AUTO-UVPY-UVHANDLESPYTHON
+    - ADR-AUTO-PY-GENERATEDWORKSPACE
+    - ADR-AUTO-PY-ONEPYTHONVERSION
+    - ADR-AUTO-PY-EVERYFILETYPECHECKED
+    - ADR-AUTO-IDIOM-LANGUAGEIDIOM
+  lens: action
+  proves: pwsh/Catzc.Base.Languages/accosted/python-workspace.accosted.yml
+content:
+  title: One command lays out the Python workspace that uv handles
+  kind: explanation
+  relation: writes
+  cause: { label: A maintainer adds a Python folder and runs cats }
+  action:
+    call: { new_python_project: }
+  effects:
+    - id: effect-root
+      zone: 1
+      where: local
+      says: The workspace root is rendered, naming every member and the pinned interpreter
+      proves: { get_repository_file: { path: python/pyproject.toml } }
+    - id: effect-member
+      zone: 1
+      where: local
+      says: The diagram kit's member file is rendered beside its code
+      proves: { get_repository_file: { path: python/catzc_diagrams/pyproject.toml } }
+    - id: effect-kind
+      zone: 2
+      where: local
+      says: The root file is a known file kind
+      proves: { get_path_file_type: { path: python/pyproject.toml } }
+      after: effect-root
+    - id: effect-language
+      zone: 2
+      where: local
+      says: The member file belongs to the Python language
+      proves: { get_file_language: { path: python/catzc_diagrams/pyproject.toml } }
+      after: effect-member
+    - id: effect-drift
+      zone: 3
+      where: local
+      says: Test-GeneratedFiles sees no drift for the root configs
+      proves: { test_generated_files: { generator: Build-RootConfig } }
+      after: effect-root
+    - id: effect-types
+      zone: 3
+      where: local
+      says: Test-PythonTypes passes over the whole workspace
+      proves: { test_python_types: }
+      after: effect-language
+    - id: effect-format
+      zone: 3
+      where: local
+      says: Test-Formatting passes for the Python language
+      proves: { test_formatting: { language: python } }
+      after: effect-kind

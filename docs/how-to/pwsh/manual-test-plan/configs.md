@@ -59,6 +59,7 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 | 32  | L1   | pwsh/Catzc.Base.Contracts/tests/Get-AccostedFile.Integrity.Tests.ps1          | Get-AccostedFile over the shipped contracts.accosted.yml               | The shipped contracts.accosted.yml loads through `Get-AccostedFile` as its typed model, and every run holds at least one command.                                        |
 | 33  | L0   | pwsh/Catzc.Base.QualityGates/tests/types/MarkdownlintConfig.Tests.ps1         | integrity (shipped markdownlint.yml)                                   | The shipped markdownlint.yml loads through `MarkdownlintConfig`, and its batch size is the declared default.                                                             |
 | 34  | L2   | pwsh/Catzc.Base.TypesSystem/tests/Build-AgentHook.Tests.ps1                   | Build-AgentHook — no package feed reaches a hook build                 | `dotnet nuget list source` from each hook folder under `.claude/hooks` lists no feed, so a hook build contacts none.                                                     |
+| 35  | L1   | pwsh/Catzc.Base.QualityGates/tests/Get-ChangeCheckPlan.Tests.ps1              | Get-ChangeCheckPlan — the shipped languages.yml and plans.yml          | The shipped markdown language limits `Test-Plans` to the plans folder: a changed plan reaches it, a changed docs article does not, and Test-Change plans the same.       |
 
 ## Checks
 
@@ -127,3 +128,13 @@ config's cleared feeds alone.
 
 - For each folder under `.claude/hooks` that holds a `.csproj`, `dotnet nuget list source` exits 0, lists no `[Enabled]` or `[Disabled]`
   source, and says "No sources found". The check skips when `dotnet` is absent.
+
+### 35. Get-ChangeCheckPlan — the shipped languages.yml and plans.yml
+
+**Guards:** a quality gate that governs one folder is given only the changed files under it.
+
+**Checks:**
+
+- With the shipped `languages.yml` (markdown `check_scopes: Test-Plans: global.plans.folder`) and `plans.yml`, `Get-ChangeCheckPlan` gives
+  `Test-Plans` the changed plan and not the changed docs article, while `Test-Spelling` takes both.
+- `Test-Change -DryRun` plans `Test-Plans` for a changed plan and for no docs article.

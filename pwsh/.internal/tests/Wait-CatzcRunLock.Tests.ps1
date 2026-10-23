@@ -275,6 +275,29 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'reads a holder record that is torn while its writer still writes once more, and counts one that stays torn as no holder' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        $path = Get-CatzcRunLockHolderPath -LockName $script:lockName
+        [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($path)) | Out-Null
+        $self = (Get-Process -Id $PID).StartTime.ToUniversalTime().Ticks
+        $whole = "$PID|$self|$([datetime]::UtcNow.AddSeconds(120).Ticks)|0|0|Get-Gadget"
+        [System.IO.File]::WriteAllText($path, "$PID|$self")
+        $writer = [powershell]::Create().AddScript({
+                param($Path, $Text)
+                Start-Sleep -Milliseconds 15
+                [System.IO.File]::WriteAllText($Path, $Text)
+            }).AddArgument($path).AddArgument($whole)
+        $handle = $writer.BeginInvoke()
+        try {
+            (Get-CatzcRunLockHolder -LockName $script:lockName).Holding | Should -Be 'Get-Gadget'
+        }
+        finally {
+            $null = $writer.EndInvoke($handle)
+            $writer.Dispose()
+        }
+        [System.IO.File]::WriteAllText($path, "$PID|$self")
+        Get-CatzcRunLockHolder -LockName $script:lockName | Should -BeNullOrEmpty
+    }
+
     It 'reads the run-lock settings from the timeouts file without an import, and fails naming a missing key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $file = Join-Path $TestDrive 'timeouts.yml'
         [System.IO.File]::WriteAllText($file, "tests:`n  run_seconds: 180`nrun_lock:`n  wait_seconds: 30 # a comment`n  stale_seconds: 600`n  budget_seconds: 300`nwait:`n  seconds: 1`n")

@@ -23,6 +23,7 @@ function Get-ChangeCheckPlan {
     )
 
     $plan = [ordered]@{}
+    $folders = @{}
     foreach ($changed in $Path) {
         if (-not [System.IO.File]::Exists([System.IO.Path]::Combine($RepositoryRoot, $changed))) {
             continue
@@ -32,6 +33,16 @@ function Get-ChangeCheckPlan {
             continue
         }
         foreach ($check in $language.checks) {
+            # A check that governs a folder takes only the changed files under it; the language's check_scopes names the folder by its config address.
+            if ($language.check_scopes.ContainsKey($check)) {
+                $address = $language.check_scopes[$check]
+                if (-not $folders.ContainsKey($address)) {
+                    $folders[$address] = ("$(Get-ConfigValue -Address $address)" -replace '\\', '/').Trim('/')
+                }
+                if (-not $changed.StartsWith("$($folders[$address])/", [System.StringComparison]::Ordinal)) {
+                    continue
+                }
+            }
             if (-not $plan.Contains($check)) {
                 $plan[$check] = [System.Collections.Generic.List[string]]::new()
             }

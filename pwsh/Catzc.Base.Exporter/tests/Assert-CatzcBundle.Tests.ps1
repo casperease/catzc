@@ -152,6 +152,39 @@ Describe 'Assert-CatzcBundle' -Tag 'L0', 'logic' {
         { Assert-CatzcBundle -Path $fixture.Root } | Should -Throw -ExpectedMessage '*type sources hash to*the DLL was not built from the shipped sources*'
     }
 
+    It 'hashes a type source without its meta head, reading the delimiters from the build''s own file-carriers.yml' {
+        $write = {
+            param($relative, $content)
+            $target = Join-Path $fixture.Root $relative
+            [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($target)) | Out-Null
+            [System.IO.File]::WriteAllText($target, $content)
+        }
+        & $write 'Catzc.Base.Languages/configs/file-carriers.yml' "carriers:`n  bcl: { block: ['/*', '*/'] }`n"
+        & $write 'Catzc.Base.Languages/Catzc.Base.Languages.psd1' "@{ NestedModules = @('Catzc.Base.Languages.functions.ps1'); FunctionsToExport = @('Get-Gizmo') }"
+        & $write 'Catzc.Base.Languages/Catzc.Base.Languages.functions.ps1' "# source: pwsh/Catzc.Base.Languages/Get-Gizmo.ps1`nfunction Get-Gizmo { 'gizmo' }`n"
+        $fixture.Build.modules = @('Catzc.Base.Widget', 'Catzc.Base.Languages')
+        & $write 'Catzc.Base.Widget/types/Widget.cs' "/*`n---`ncatzc:`n  edges:`n    docs: widget.md`n---`n*/`n`nnamespace Catzc.Base.Widget; public class Widget { }`n"
+
+        # What the build recorded: the hash of the sources under that config, the head left out.
+        $staging = Join-Path $TestDrive "head-$([System.Guid]::NewGuid().ToString('N'))"
+        foreach ($relative in 'Catzc.Base.Widget/types/Widget.cs', 'Catzc.Base.Languages/configs/file-carriers.yml') {
+            [System.IO.Directory]::CreateDirectory((Join-Path $staging ([System.IO.Path]::GetDirectoryName($relative)))) | Out-Null
+            [System.IO.File]::Copy((Join-Path $fixture.Root $relative), (Join-Path $staging $relative))
+        }
+        [System.IO.Directory]::CreateDirectory((Join-Path $staging 'Catzc.Base.Gadget/types')) | Out-Null
+        [System.IO.File]::Copy((Join-Path $fixture.Root '.compiled/types/Catzc.Base.Gadget/Gadget.cs'), (Join-Path $staging 'Catzc.Base.Gadget/types/Gadget.cs'))
+        $headless = (Get-CombinedTypeHash -ModulesRoot $staging).CombinedHash
+        $headless | Should -Not -BeExactly $fixture.TypesHash
+
+        foreach ($extension in 'dll', 'json') {
+            [System.IO.File]::Move((Join-Path $fixture.Root ".compiled/Catzc.Types.$($fixture.TypesHash).$extension"), (Join-Path $fixture.Root ".compiled/Catzc.Types.$headless.$extension"))
+        }
+        $fixture.Build.typesHash = $headless
+        & $script:resealBuild $fixture
+
+        { Assert-CatzcBundle -Path $fixture.Root } | Should -Not -Throw
+    }
+
     It 'throws when a recorded type source is missing' {
         [System.IO.File]::Delete((Join-Path $fixture.Root 'Catzc.Base.Widget/types/Widget.cs'))
         & $script:resealBuild $fixture

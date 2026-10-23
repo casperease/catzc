@@ -14,7 +14,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Repository code links (automation comments)' -Tag 'L1',...`, written with `#`.
+Above `Describe 'Repository code links (automation comments)' -Tag 'L2',...`, written with `#`.
 
 ```text
 The real repository keeps its links aligned and resolving

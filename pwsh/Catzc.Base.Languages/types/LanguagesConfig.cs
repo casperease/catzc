@@ -33,7 +33,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "languages config validation failed:\n";
     private static readonly string[] AllowedKeys = { "formatters", "imprint", "steps", "naming", "languages" };
-    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "imprint", "layout", "tests", "executable", "naming" };
+    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "check_scopes", "imprint", "layout", "tests", "executable", "naming" };
     private static readonly string[] AllowedNamingKeys = { "folder", "file", "function", "type", "exempt" };
     private static readonly string[] AllowedGlobalNamingKeys = { "exempt_folders", "normal_form" };
     // The repository normal form when the file names none; rests on [ADR-AUTO-IDIOM-NORMALFORM](/docs/drs/automation/idiomatic-names.md#rule-adr-auto-idiom-normalform).
@@ -51,6 +51,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly Regex LayoutRole = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");
     private static readonly string[] AllowedStepKeys = { "settings" };
     private static readonly Regex CheckName = new Regex("^Test-[A-Z][A-Za-z0-9]*$");
+    private static readonly Regex ScopeAddress = new Regex("^global(\\.[A-Za-z0-9_-]+){2,}$");
     private static readonly string[] AllowedEngineKeys = { "vscode_extension", "settings" };
     // A settings entry is a repository-relative file, or `<file>#<key>` for one top-level key of a YAML file.
     private static readonly Regex SettingsPath = new Regex("^[A-Za-z0-9_.-]+(/[A-Za-z0-9_.-]+)*(#[A-Za-z0-9_]+)?$");
@@ -712,6 +713,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         }
 
         List<string> checks = ReadChecks(name, entry.Contains("checks") ? entry["checks"] : null, errors);
+        Dictionary<string, string> checkScopes = ReadCheckScopes(name, checks, entry.Contains("check_scopes") ? entry["check_scopes"] : null, errors);
 
         List<string> ownSteps = entry.Contains("imprint") && entry["imprint"] != null
             ? ReadStepNames(string.Format(CultureInfo.InvariantCulture, "languages['{0}'].imprint", name), entry["imprint"], errors)
@@ -737,7 +739,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         LanguageNaming naming = ReadNaming(name, extensions, entry.Contains("naming") ? entry["naming"] : null, errors);
 
         if (errors.Count > before) { return null; }
-        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray(), ownSteps.ToArray(), layoutRows.ToArray(), tests, executable, naming);
+        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray(), ownSteps.ToArray(), layoutRows.ToArray(), tests, executable, naming, checkScopes);
         foreach (string extension in extensions) { byExtension[extension] = language; }
         return language;
     }
@@ -937,6 +939,36 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
         return checks;
+    }
+
+    private static Dictionary<string, string> ReadCheckScopes(string name, List<string> checks, object value, List<string> errors)
+    {
+        Dictionary<string, string> scopes = new Dictionary<string, string>();
+        if (value == null) { return scopes; }
+        IDictionary map = value as IDictionary;
+        if (map == null)
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: check_scopes must be a map of check name to config address (e.g. Test-Plans: global.plans.folder)", name));
+            return scopes;
+        }
+        foreach (DictionaryEntry pair in map)
+        {
+            string check = Text(pair.Key);
+            string address = Text(pair.Value);
+            if (!checks.Contains(check))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: check_scopes names '{1}', which is not one of the language's checks", name, check));
+            }
+            else if (!ScopeAddress.IsMatch(address))
+            {
+                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: invalid check_scopes address '{1}' for '{2}' (a global config address to a folder, e.g. global.plans.folder)", name, address, check));
+            }
+            else
+            {
+                scopes[check] = address;
+            }
+        }
+        return scopes;
     }
 
     private List<string> ReadExtensions(string name, object value, List<string> errors)

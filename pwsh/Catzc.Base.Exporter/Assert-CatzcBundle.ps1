@@ -112,6 +112,13 @@ function Assert-CatzcBundle {
                     }
                 }
                 if ($sourcesComplete) {
+                    # The hash leaves each file's meta head out and reads the head's delimiters from the carriers config, so the build's own copy rides along.
+                    $carriers = [System.IO.Path]::Combine($root, 'Catzc.Base.Languages', 'configs', 'file-carriers.yml')
+                    if ([System.IO.File]::Exists($carriers)) {
+                        $stagedConfigs = [System.IO.Path]::Combine($staging, 'Catzc.Base.Languages', 'configs')
+                        [System.IO.Directory]::CreateDirectory($stagedConfigs) | Out-Null
+                        [System.IO.File]::Copy($carriers, [System.IO.Path]::Combine($stagedConfigs, 'file-carriers.yml'), $true)
+                    }
                     Import-InternalModule Types
                     $actualTypesHash = (Get-CombinedTypeHash -ModulesRoot $staging).CombinedHash
                     if ($actualTypesHash -ne $typesHash) {

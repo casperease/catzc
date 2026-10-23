@@ -95,7 +95,7 @@ Test-GeneratedFiles
 
 ## comment:1
 
-Above `$dueWriters = @(if (-not $StampOnly) {`, written with `#`.
+Above `$checkedWriters = @(if (-not $StampOnly) {`, written with `#`.
 
 ```text
 Each registered writer is run by its check; the registry (generated-files.yml) says which check and, for a file result, which property holds the path.

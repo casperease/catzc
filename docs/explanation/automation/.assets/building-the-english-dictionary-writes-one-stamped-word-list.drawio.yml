@@ -1,0 +1,32 @@
+description: "A maintainer rebuilds the English dictionary: one command writes the word list and its stamp into the module's assets, and the generated-files quality gate holds them to their inputs."
+about:
+  adrs:
+    - ADR-AUTO-SPELL
+    - ADR-REPO-OUTDIR-COMPILEDPREBUILD
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+  proves: pwsh/Catzc.Base.QualityGates/accosted/english-dictionary.accosted.yml
+content:
+  title: Building the English dictionary writes one stamped word list
+  kind: explanation
+  relation: writes
+  cause: { label: A maintainer bumps the cspell pin and runs cats }
+  action:
+    call: { build_english_dictionary: }
+  effects:
+    - id: effect-words
+      zone: 1
+      where: local
+      says: The flattened English word list is written into the module's assets
+      proves: { get_repository_file: { path: pwsh/Catzc.Base.QualityGates/assets/english.txt.gz } }
+    - id: effect-stamp
+      zone: 1
+      where: local
+      says: The stamp records the cspell and dictionary versions it was built from
+      proves: { get_repository_file: { path: pwsh/Catzc.Base.QualityGates/assets/english.stamp } }
+    - id: effect-drift
+      zone: 2
+      where: local
+      says: The generated-files quality gate finds the list and its stamp in step with their inputs
+      proves: { test_generated_files: { generator: Build-EnglishDictionary } }
+      after: effect-stamp

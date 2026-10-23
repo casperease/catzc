@@ -50,9 +50,9 @@ Invoke-Executable of a stdin reader; inheriting the open pipe would leave the re
 
 ## comment:6
 
-Above `$script:inputPipeChild = if (-not $env:CATZC_BLOCK_REAL_PROCESS) {`, written with `#`.
+Above `$script:inputPipeChild = if ($env:CATZC_BLOCK_REAL_PROCESS -ne '1') {`, written with `#`.
 
 ```text
-The child's import takes seconds, so it starts here and the rest of the file runs meanwhile; a run that blocks real processes
-(below L2) starts none.
+The child's import takes seconds, so it starts here and the rest of the file runs meanwhile; a run that blocks every real process
+('1') starts none.
 ```
