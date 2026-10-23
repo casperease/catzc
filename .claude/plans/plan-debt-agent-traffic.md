@@ -37,6 +37,10 @@ ten "may I" questions on edits the rules already require, three to five tool cal
       (task-user-runs-and-commits). Check: one message sent between sessions appears in `out/orchestrator-<date>.log`.
 - [ ] `.claude/skills/plans-orchestrate/SKILL.md` line 4: the log line is written by the hook when the hook covers it (after the step
       above). Check: `Test-AgentDefinitions`.
+- [ ] `pwsh/.internal/assets/Invoke-CatzcCommand.ps1`: a gate called with `-PassThru` is judged by its issue count, so
+      `Test-ScriptAnalyzer -PassThru` with one issue fails the call (catzc-6e, 2026-10-23: it printed "passed" with 1 issue; the same family
+      as the pytest verdict, fixed the same day for records with Outcome `fail`). (check: `Invoke-CatzcCommand.Tests.ps1` green with a case
+      whose gate returns one issue and the call exits 1)
 
 ## Open questions
 

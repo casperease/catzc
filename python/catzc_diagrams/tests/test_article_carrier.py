@@ -69,14 +69,15 @@ def test_get_writes_back_into_the_block_and_leaves_the_rest_of_the_page_as_it_wa
     assert {k: v for k, v in back["content"].items() if k != "minimaps"} == {k: v for k, v in first["content"].items() if k != "minimaps"}
 
 
-def test_declare_minimaps_writes_into_the_block_in_place(article, monkeypatch):
+def test_declare_minimaps_writes_the_inputs_into_the_block_in_place(article):
     stem, page = article
-    data = {"grid": {"lit": [{"at": ["widgets", "widget-script"], "reasons": [{"subject": "widgets/Get-Widget.ps1", "requested": "ADR-WIDGET-SPIN"}]}]},
-            "axis": {"lit": []}, "layer-stack": {"lit": []}}
-    monkeypatch.setattr(declaration, "minimap_data", lambda folder, computed=False: data if computed else {})
+    # A block that stored each minimap's lit cells: the rewrite leaves the shown ids only.
+    stored = "content:\n  minimaps:\n    grid:\n      - cell: widgets/widget-script\n        by: [ADR-WIDGET-SPIN]\n    axis: []\n    layer-stack: []\n"
+    page.write_text(page.read_text(encoding="utf-8").replace("content:\n", stored, 1), encoding="utf-8", newline="\n")
     declaration.declare_minimaps(stem)
     text = page.read_text(encoding="utf-8")
-    assert "  minimaps:\n    grid:\n      - cell: widgets/widget-script\n" in text
+    assert "content:\n  minimaps: [grid, axis, layer-stack]\n" in text
+    assert "cell:" not in text
     assert text.endswith("```\n\n![Widgets flow into gadgets](.assets/widget-flow.drawio.png)\n\nA paragraph after it.\n")
 
 

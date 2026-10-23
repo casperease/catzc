@@ -555,14 +555,19 @@ TOP_KEYS = ("description", "about", "content", "layout")
 SOURCE_ONLY = ("kind", "flow", "relation", "thick")
 
 
+def shown_minimaps(entries):
+    """The ids of the shown minimaps, in order: each entry of content.minimaps is an id or { id: { exclude: [...] } }."""
+    return [next(iter(entry)) if isinstance(entry, dict) else entry for entry in entries or []]
+
+
 def undrawn(content, declared):
     """A content read back by get, with what the declared source says and its drawing does not show laid over it: the SOURCE_ONLY
     facts, the band order when the layout places every band, and the band of an item the layout places, which get can only guess
     from where it sits (put refuses a place inside another band)."""
     source, layout = declared["content"], declared["layout"]
     out = {**content, **{k: source[k] for k in SOURCE_ONLY}}
-    # The drawing shows which minimaps but not what lit their cells: the source's lit cells stay while it shows the same three.
-    if not content.get("minimaps") or list(content["minimaps"]) == list(source["minimaps"]):
+    # The drawing shows which minimaps but not what their author excludes: the source's entries stay while it shows the same three.
+    if not content.get("minimaps") or shown_minimaps(content["minimaps"]) == shown_minimaps(source["minimaps"]):
         out["minimaps"] = source["minimaps"]
     if (
         source["bands"]
@@ -912,32 +917,37 @@ def normalise(raw, where="the declaration"):
     # The three minimaps: the ones the declaration names, or, when it names none, the kind's defaults maps.yml declares, which reach
     # the kit as the folder's minimap data (with_data).
     allowed = tuple(str(DEFAULTS["minimaps"]["ids"]).replace(",", " ").split())
-    declared = content.get("minimaps") or {}
-    # Each shown minimap maps to its lit cells, each listed with what lit it: the placement is declared, so the gate can hold the drawing
-    # to it; `declaration.py minimaps` writes it from the folder's computed data.
-    if not isinstance(declared, dict):
-        raise DeclarationError(f"{where}: minimaps is a map from each shown minimap to its lit cells")
+    declared = content.get("minimaps") or []
+    # The declaration holds a minimap's inputs only, never its cells: each shown minimap is an id, or { id: { exclude: [cells] } } naming
+    # the lit cells its author rejects; the lit cells are computed at build from about.adrs and the citing files.
+    if not isinstance(declared, list):
+        raise DeclarationError(
+            f"{where}: minimaps is a list of the shown minimaps, each an id or {{ id: {{ exclude: [cells] }} }}"
+            " (rewrite it with declaration.py minimaps)"
+        )
     if declared and len(declared) != 3:
         raise DeclarationError(f"{where}: minimaps names exactly three views of: {', '.join(allowed)}; it names {len(declared)}")
-    out["minimaps"] = {}
-    for view, cells_lit in declared.items():
+    out["minimaps"] = []
+    for shown in declared:
+        if isinstance(shown, dict):
+            if len(shown) != 1:
+                raise DeclarationError(f"{where}: minimaps lists an entry of {len(shown)} keys; each entry is one id")
+            (view, inputs), = shown.items()
+            inputs = inputs or {}
+            if not isinstance(inputs, dict) or set(inputs) - {"exclude"}:
+                raise DeclarationError(f"{where}: minimaps.{view} takes only exclude:, a list of the lit cells its author rejects")
+            exclude = inputs.get("exclude") or []
+            if not isinstance(exclude, list) or not all(isinstance(c, str) and c.strip() for c in exclude):
+                raise DeclarationError(f"{where}: minimaps.{view} exclude: is a list of cells, each its axis values joined by /")
+            if len(set(exclude)) != len(exclude):
+                raise DeclarationError(f"{where}: minimaps.{view} excludes a cell twice")
+        else:
+            view, exclude = shown, []
         if view not in allowed:
             choices(f"{where}: minimap view", view, allowed)
-        if not isinstance(cells_lit, list):
-            raise DeclarationError(f"{where}: minimaps.{view} is a list of lit cells, each a map of cell and by")
-        placed = []
-        for lit_cell in cells_lit:
-            if not isinstance(lit_cell, dict) or set(lit_cell) != {"cell", "by"} or not str(lit_cell["cell"] or "").strip():
-                raise DeclarationError(f"{where}: minimaps.{view} lists a lit cell as a map of cell and by; got {lit_cell!r}")
-            by = lit_cell["by"] if isinstance(lit_cell["by"], list) else None
-            if not by or not all(isinstance(b, str) and b.strip() for b in by):
-                raise DeclarationError(
-                    f"{where}: minimaps.{view} cell '{lit_cell['cell']}' names what lit it in by, a list of files and rule codes"
-                )
-            if any(p["cell"] == str(lit_cell["cell"]) for p in placed):
-                raise DeclarationError(f"{where}: minimaps.{view} lists cell '{lit_cell['cell']}' twice")
-            placed.append({"cell": str(lit_cell["cell"]), "by": [str(b) for b in by]})
-        out["minimaps"][str(view)] = placed
+        if str(view) in shown_minimaps(out["minimaps"]):
+            raise DeclarationError(f"{where}: minimaps names '{view}' twice")
+        out["minimaps"].append({str(view): {"exclude": [str(c) for c in exclude]}} if exclude else str(view))
     # What the diagram is about: the lens it is drawn through and the ADR codes every minimap is computed from, each checked against
     # the ADR registry.
     about = {"lens": lens, **{key: [str(v) for v in (about_raw.get(key) or [])] for key in minimaps.ABOUT_KEYS}}
@@ -1615,7 +1625,7 @@ def place(declaration):
     # Each minimap is drawn from the data Catzc.Base.Maps computed for the folder (with_data); a declaration put without its folder
     # draws the declared minimaps empty.
     data = declaration.get("minimap_data") or {}
-    for (cid, y, h), minimap in zip(SIDEBAR, list(data) or list(content["minimaps"])):
+    for (cid, y, h), minimap in zip(SIDEBAR, list(data) or shown_minimaps(content["minimaps"])):
         drawn = data.get(minimap) or {"id": minimap, "axes": [], "cells": [], "lit": []}
         image = minimaps.picture_from(drawn, SIDEBAR_W, h, content["theme"])
         cells.append(cell(cid, minimap, MINIMAP + f"noLabel=1;image={image};", SIDEBAR_X, y, SIDEBAR_W, h))
@@ -1816,8 +1826,8 @@ def get(model, kind=None):
     adrs: list = []
     content.update({"theme": next(iter(DEFAULTS["themes"])), "bands": [], "spans": [], "groups": [], "glyphs": []})
     content.update({"edges": [], "markers": [], "chips": [], "legend": "auto"})
-    # The drawing carries each minimap's view, not what lit its cells: save() keeps the lit cells the source already declares.
-    content["minimaps"] = {plain(cells[cid].get("value")): [] for cid, _, _ in SIDEBAR if cid in cells}
+    # The drawing carries each minimap's view, not what its author excludes: save() keeps the source's entries.
+    content["minimaps"] = [plain(cells[cid].get("value")) for cid, _, _ in SIDEBAR if cid in cells]
     flow_phrase = plain(cells["lg-edge-flow-t"].get("value")) if "lg-edge-flow-t" in cells else ""
     content["relation"] = flow_phrase[len("flow: ") :] if flow_phrase.startswith("flow: ") else ""
     thick_phrase = plain(cells["lg-edge-thick-t"].get("value")) if "lg-edge-thick-t" in cells else ""
@@ -2073,10 +2083,10 @@ def get(model, kind=None):
     return declaration
 
 
-def minimap_data(folder, computed=False):
+def minimap_data(folder):
     """A diagram's three minimaps as Catzc.Base.Maps computed them, in order: out/minimaps/<stem>/minimaps.json names the ids and
-    <id>.json holds each, lit only where the declaration lists a cell, checked against the minimap contract; computed reads the whole
-    data from computed/<id>.json instead. Missing data fails, naming the commands that write it."""
+    <id>.json holds each, its computed lit cells less the ones the declaration excludes, checked against the minimap contract. Missing
+    data fails, naming the commands that write it."""
     folder = diagram_of(folder).resolve()
     repo = KIT.parents[1]
     rel = folder.relative_to(repo).as_posix() if folder.is_relative_to(repo) else folder.name
@@ -2086,58 +2096,29 @@ def minimap_data(folder, computed=False):
         raise DeclarationError(
             f"{rel}: no minimap data in out/minimaps/{rel}; Build-Diagrams or Test-Diagrams computes it (Write-DiagramMinimapData)"
         )
-    views = root / "computed" if computed else root
-    return {view: minimap_contract.load_minimap(views / f"{view}.json") for view in json.loads(index.read_text(encoding="utf-8"))}
+    return {view: minimap_contract.load_minimap(root / f"{view}.json") for view in json.loads(index.read_text(encoding="utf-8"))}
 
 
-def placement(data):
-    """Each minimap's lit cells as the declaration lists them: the cell's axis values joined by `/`, and what lit it, the subject files
-    first and then the rule codes they were requested by, each once and sorted."""
-    out = {}
-    for view, minimap in data.items():
-        lit = []
-        for entry in minimap.get("lit") or []:
-            reasons = entry.get("reasons") or []
-            files = sorted(
-                {r["subject"] for r in reasons if r.get("subject") and not re.fullmatch(minimaps.kinds() + r"(-[A-Z0-9]+)+", r["subject"])}
-            )
-            rules = sorted({r["requested"] for r in reasons if r.get("requested")})
-            lit.append({"cell": "/".join(entry["at"]), "by": files + rules})
-        out[view] = lit
-    return out
-
-
-def minimaps_block(placed, width=None):
-    """content.minimaps as the source's text writes it, two spaces in under content: and each list indented under its key; an entry's
-    by: is one flow line when it fits the print width, its block list when not."""
+def minimaps_block(entries, width=None):
+    """content.minimaps as the source's text writes it, two spaces in under content: and in the printed form save writes (flow_yaml):
+    the shown ids as one flow line when they fit the print width, an entry with an exclude: as its own item. No entries, no lines."""
+    if not entries:
+        return []
     width = width or print_width()
-    scalar = lambda value: yaml.safe_dump(value, allow_unicode=True, width=10**9).split("\n")[0]
-    lines = ["  minimaps:"]
-    for view, cells in placed.items():
-        if not cells:
-            lines.append(f"    {scalar(view)}: []")
-            continue
-        lines.append(f"    {scalar(view)}:")
-        for entry in cells:
-            lines.append(f"      - cell: {scalar(entry['cell'])}")
-            flow = _flow(entry["by"]) if entry["by"] else None
-            if flow and len(f"        by: {flow}") <= width:
-                lines.append(f"        by: {flow}")
-                continue
-            lines.append("        by:")
-            lines += [f"          - {scalar(item)}" for item in entry["by"]]
-    return lines
+    return ["  " + line for line in flow_yaml({"minimaps": entries}, width - 2).rstrip("\n").split("\n")]
 
 
 def declare_minimaps(folder):
-    """Write a diagram's computed minimap placement into its source: content.minimaps lists each shown minimap's lit cells. Only that
-    key's lines change: the rest of the text, its generated head and its formatting included, is kept as it was read, never re-dumped,
-    which would drop the head and what a row or lane expands to."""
+    """Write a diagram's minimaps into its source as their inputs only: the shown ids, each with the exclude: its author gave it, and
+    never a computed cell, so a source that stored each minimap's lit cells under its id loses them. Only that key's lines change: the
+    rest of the text, its generated head and its formatting included, is kept as it was read, never re-dumped, which would drop the head
+    and what a row or lane expands to."""
     text, source = read_source(folder)
     raw = yaml.safe_load(text) or {}
-    placed = placement(minimap_data(folder, computed=True))
+    shown = (raw.get("content") or {}).get("minimaps") or []
+    placed = list(shown) if isinstance(shown, dict) else shown
     raw.setdefault("content", {})["minimaps"] = placed
-    normalise(raw, where=str(source))
+    placed = normalise(raw, where=str(source))["content"]["minimaps"]
     lines = text.split("\n")
     content = next((i for i, line in enumerate(lines) if line.rstrip() == "content:"), None)
     if content is None:
@@ -2150,7 +2131,15 @@ def declare_minimaps(folder):
     if start is None:
         start = stop = end
     else:
-        stop = next((i for i in range(start + 1, end) if lines[i].strip() and len(lines[i]) - len(lines[i].lstrip()) <= 2), end)
+        # A list item at the key's own depth (`  - grid`, as yaml.safe_dump writes a list) is still the key's.
+        stop = next(
+            (
+                i
+                for i in range(start + 1, end)
+                if lines[i].strip() and len(lines[i]) - len(lines[i].lstrip()) <= 2 and not lines[i].startswith("  - ")
+            ),
+            end,
+        )
     return write_source(folder, "\n".join(lines[:start] + minimaps_block(placed) + lines[stop:]))
 
 

@@ -64,7 +64,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
 - debt-agent-traffic -> plan-debt-agent-traffic.md: fewer messages and tool calls between the orchestrator and its workers (a run lock,
-  one-line reports, pre-approved rule edits, derived step counts, an automatic log); three steps
+  one-line reports, pre-approved rule edits, derived step counts, an automatic log); four steps
 - minimap-inputs-only -> plan-minimap-inputs-only.md: a diagram declaration holds only its minimaps' inputs (`about.adrs`), never the
   computed `code-locations` cells; the rule first, then the writer, then the 177 carriers through the declaration tool
 - nuget-tooling -> plan-nuget-tooling.md: NuGet belongs to the tooling modules and no dotnet call contacts a package manager outside them;

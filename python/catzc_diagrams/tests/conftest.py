@@ -15,9 +15,9 @@ import declaration
 FIXTURE_MINIMAPS = ["grid", "axis", "layer-stack"]
 
 
-def empty_minimaps(folder, computed=False):
+def empty_minimaps(folder):
     has_source = declaration.declared(folder)
-    views = (declaration.load(folder)["content"]["minimaps"] if has_source else None) or FIXTURE_MINIMAPS
+    views = (declaration.shown_minimaps(declaration.load(folder)["content"]["minimaps"]) if has_source else None) or FIXTURE_MINIMAPS
     return {view: {"id": view, "axes": [], "cells": [], "lit": []} for view in views}
 
 

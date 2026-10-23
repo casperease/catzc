@@ -12,22 +12,20 @@ catzc:
 Describe 'Write-DiagramMinimapData' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-MINIMAPSFROMDATA' {
     BeforeAll {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
-        $script:folder = 'docs/explanation/widget/.assets/widget-flow'
-        $source = Join-Path $script:root $script:folder
-        [System.IO.Directory]::CreateDirectory((Split-Path $source -Parent)) | Out-Null
-        # The widget's declaration lists one of the two lit cells and omits the other.
-        $yml = @'
-about:
-  adrs:
-    - ADR-WIDGET
-content:
-  minimaps:
-    layer-stack:
-      - cell: automation
-        by:
-          - ADR-WIDGET
-'@
-        [System.IO.File]::WriteAllText("$source.drawio.yml", $yml)
+        # The widget's declaration shows the layer stack and rejects one of its lit cells; the gadget's shows it whole.
+        $script:widget = 'docs/explanation/widget/.assets/widget-flow'
+        $script:gadget = 'docs/explanation/gadget/.assets/gadget-flow'
+        $declarations = @{
+            $script:widget = "about:`n  adrs:`n    - ADR-WIDGET`ncontent:`n  minimaps:`n    - layer-stack:`n        exclude: [contract]`n"
+            $script:gadget = "about:`n  adrs:`n    - ADR-WIDGET`ncontent:`n  minimaps:`n    - layer-stack`n"
+        }
+        foreach ($stem in $declarations.Keys) {
+            $source = Join-Path $script:root $stem
+            [System.IO.Directory]::CreateDirectory((Split-Path $source -Parent)) | Out-Null
+            [System.IO.File]::WriteAllText("$source.drawio.yml", $declarations[$stem])
+        }
+        # The layers lit: the citing files' layers, which a test widens to stand for a new citing file.
+        $script:lit = [System.Collections.Generic.List[string]]::new([string[]] @('automation', 'contract'))
         Mock Get-Config -ModuleName Catzc.Base.Slides -ParameterFilter { $Config -eq 'maps' } { [Catzc.Base.Maps.MapsConfig]::new([ordered]@{}) }
         Mock Get-DiagramCarrierMap -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Default = 'file'; Carriers = @{} } }
         Mock Get-WorldMap -ModuleName Catzc.Base.Slides { }
@@ -35,37 +33,53 @@ content:
         Mock Get-MinimapFact -ModuleName Catzc.Base.Slides { @{} }
         Mock Get-LayerStackMinimapData -ModuleName Catzc.Base.Slides {
             $reason = [Catzc.Base.Maps.MinimapReason]::new('widget.md', 'cites', 'ADR-WIDGET', 'ADR-WIDGET')
-            $cells = [Catzc.Base.Maps.MinimapCell[]] @(
-                [Catzc.Base.Maps.MinimapCell]::new([string[]] @('automation'), 1, @($reason))
-                [Catzc.Base.Maps.MinimapCell]::new([string[]] @('contract'), 1, @($reason))
-            )
-            [Catzc.Base.Maps.MinimapData]::new('layer-stack', @([Catzc.Base.Maps.MinimapAxis]::new('layer', [string[]] @('automation', 'contract'))), $cells, $cells)
+            $cells = [Catzc.Base.Maps.MinimapCell[]] @(foreach ($layer in $script:lit) {
+                    [Catzc.Base.Maps.MinimapCell]::new([string[]] @($layer), 1, @($reason))
+                })
+            [Catzc.Base.Maps.MinimapData]::new('layer-stack', @([Catzc.Base.Maps.MinimapAxis]::new('layer', [string[]] @('automation', 'contract', 'pipeline'))), $cells, $cells)
         }
-        $script:warned = [System.Collections.Generic.List[string]]::new()
-        Mock Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Warning } { $script:warned.Add($Message) }
-        $script:target = InModuleScope Catzc.Base.Slides -Parameters @{ Folder = $script:folder; Root = $script:root } {
-            param($Folder, $Root)
-            Write-DiagramMinimapData -Stem $Folder -RepositoryRoot $Root
+        function script:Get-DrawnLit {
+            param([string] $Stem)
+            $drawn = Get-Content -Raw (Join-Path $script:root "out/minimaps/$Stem/layer-stack.json") | ConvertFrom-Json
+            @($drawn.lit | ForEach-Object { $_.at -join '/' })
+        }
+        function script:Invoke-Writer {
+            param([string] $Stem)
+            InModuleScope Catzc.Base.Slides -Parameters @{ Stem = $Stem; Root = $script:root } {
+                param($Stem, $Root)
+                Write-DiagramMinimapData -Stem $Stem -RepositoryRoot $Root
+            }
         }
     }
 
-    It 'draws only the lit cells the declaration lists' {
-        $drawn = Get-Content -Raw (Join-Path $script:root "out/minimaps/$script:folder/layer-stack.json") | ConvertFrom-Json
-        @($drawn.lit | ForEach-Object { $_.at -join '/' }) | Should -Be @('automation')
-        @($drawn.cells).Count | Should -Be 2
+    It 'draws the computed lit cells less the ones the declaration excludes' {
+        $target = Invoke-Writer -Stem $script:widget
+        $target | Should -Be (Join-Path (Join-Path $script:root 'out/minimaps') $script:widget)
+        Get-DrawnLit -Stem $script:widget | Should -Be @('automation')
+        Test-Path (Join-Path $target 'computed') | Should -BeFalse
     }
 
-    It 'keeps the whole computed data for the declaration writer' {
-        $computed = Get-Content -Raw (Join-Path $script:root "out/minimaps/$script:folder/computed/layer-stack.json") | ConvertFrom-Json
-        @($computed.lit | ForEach-Object { $_.at -join '/' }) | Should -Be @('automation', 'contract')
+    It 'draws what a new citing file lights, and leaves the declaration as it was' {
+        $source = Join-Path $script:root "$script:gadget.drawio.yml"
+        $before = [System.IO.File]::ReadAllText($source)
+        $null = Invoke-Writer -Stem $script:gadget
+        Get-DrawnLit -Stem $script:gadget | Should -Be @('automation', 'contract')
+        $script:lit.Add('pipeline')
+        try {
+            $null = Invoke-Writer -Stem $script:gadget
+        }
+        finally {
+            $null = $script:lit.Remove('pipeline')
+        }
+        Get-DrawnLit -Stem $script:gadget | Should -Be @('automation', 'contract', 'pipeline')
+        [System.IO.File]::ReadAllText($source) | Should -BeExactly $before
     }
 
-    It 'reports the dropped cell' {
-        "$($script:warned)" | Should -BeLike "*$script:folder*'layer-stack'*contract*"
-        "$($script:warned)" | Should -Not -BeLike '*automation*'
-    }
-
-    It 'returns the folder''s output folder' {
-        $script:target | Should -Be (Join-Path (Join-Path $script:root 'out/minimaps') $script:folder)
+    It 'refuses a declaration that maps its minimaps to stored cells' {
+        $stem = 'docs/explanation/gizmo/.assets/gizmo-flow'
+        $source = Join-Path $script:root $stem
+        [System.IO.Directory]::CreateDirectory((Split-Path $source -Parent)) | Out-Null
+        [System.IO.File]::WriteAllText("$source.drawio.yml", "about:`n  adrs:`n    - ADR-WIDGET`ncontent:`n  minimaps:`n    layer-stack:`n      - cell: automation`n        by: [ADR-WIDGET]`n")
+        { Invoke-Writer -Stem $stem } | Should -Throw '*lists content.minimaps as a map*declaration.py minimaps*'
     }
 }

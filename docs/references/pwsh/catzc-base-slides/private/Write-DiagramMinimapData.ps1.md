@@ -12,11 +12,12 @@ Computes the minimaps each diagram declares and writes their data under out/mini
 ### description
 
 Each diagram's declaration is read from its carrier (Get-DiagramDeclarationText) and must name its subject's ADR codes in `about.adrs`. The
-minimaps drawn are the ids its `content.minimaps` maps, or else the defaults maps.yml gives its kind (`content.kind`, else reference or
-explanation by its folder); each id must be a minimap maps.yml names a data command for. The world map and the subject's file facts are read
-once for the whole call and handed to the data commands that take them. Per diagram, each minimap's whole data is written to
-`computed/<id>.json` and its drawn data to `<id>.json`, lighting only the cells the declaration lists, with a warning naming every lit cell
-it drops; `minimaps.json` holds the ids in order.
+minimaps drawn are the ids its `content.minimaps` lists, each an id or `{ id: { exclude: [cells] } }`, or else the defaults maps.yml gives
+its kind (`content.kind`, else reference or explanation by its folder); each id must be a minimap maps.yml names a data command for. The
+declaration holds these inputs only, never the computed cells. The world map and the subject's file facts are read once for the whole call
+and handed to the data commands that take them. Per diagram, each minimap's drawn data is written to `<id>.json`: the computed lit cells
+less the ones its `exclude:` names, so a new citing file changes the drawing and never the declaration; `minimaps.json` holds the ids in
+order.
 
 ### parameter `Stem`
 
@@ -47,9 +48,9 @@ out/minimaps/<folder>/<id>.json beside minimaps.json, the ids in order; the kit'
 
 ## comment:2
 
-Above `[System.IO.File]::WriteAllText((Join-Path $computed "$id.json"),...`, written with `#`.
+Above `$shown = $null`, written with `#`.
 
 ```text
-The computed data is kept whole for the declaration's writer; the drawn data lights only the cells the declaration lists,
-and a dropped cell is reported, since a lit cell nobody declared is unverifiable.
+The declaration lists only the inputs: each shown minimap is an id, or { id: { exclude: [cells] } } naming the lit cells its
+author rejects as their at values joined by '/'; a declaration that lists none shows its kind's defaults.
 ```

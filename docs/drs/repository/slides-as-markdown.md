@@ -97,7 +97,7 @@ A diagram is its render `<name>.drawio.png` in an `.assets/` folder, named by th
 in one of two carriers (below). `description:` says in a sentence or two what the diagram shows. `content:` says it in the kit's closed
 vocabulary: the title, the ADR codes, the lens, the kind, the flow and the one relation its flow edges mean, the theme, the bands, the span
 bars with the bands each covers, the groups, which may nest, the glyphs with their kind and holder, the edges, the markers, the chips, the
-legend and the three minimaps. `layout:` says where a named cell sits. Every vocabulary is closed and declared once, in the kit's
+legend and which minimaps it shows. `layout:` says where a named cell sits. Every vocabulary is closed and declared once, in the kit's
 `drawio.yml` (the lenses, kinds, themes, minimap ids and span words) or in its glyph library (the glyph and edge kinds), and a value outside
 it fails validation with the list the author may choose from
 ([PDR-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-pdr-pokayoke-detectearliest)). A cell without a layout entry is placed by the
@@ -157,14 +157,14 @@ diagram. A token no set declares fails, naming the tokens it may be.
 ### Rule ADR-REPO-SLIDES-MINIMAPSFROMDATA
 
 A diagram shows exactly three minimaps: the ones its declaration names, or its kind's three defaults from the pools `maps.yml` declares,
-each one of the eight minimap ids. A minimap's data is computed, never drawn by hand: `Catzc.Base.Maps` projects the diagram's subject, the
-rule codes in `about.adrs` and the files that cite them, onto the minimap's axes with the data command `maps.yml` names for its id, and
-every lit cell carries its reason. The diagram's declaration lists each shown minimap's lit cells, each with the files and rule codes that
-lit it, under `content.minimaps`, written from the computed data by `declaration.py minimaps`. A drawn minimap lights only the cells its
-declaration lists: `Write-DiagramMinimapData` drops and reports any other lit cell, since a lit cell nobody declared is unverifiable, and
-keeps the whole computed data beside it for that writer. The data is contract JSON ([ADR-REPO-CONTRACT](api-contracts.md)), written to
-`out/minimaps/` by `Build-Diagrams` and `Test-Diagrams`; the kit validates it and only draws it, and no minimap file lives beside a diagram.
-A diagram whose data is missing does not put.
+each one of the eight minimap ids. A minimap's data is computed, never drawn by hand and never stored in the declaration: `Catzc.Base.Maps`
+projects the diagram's subject, the rule codes in `about.adrs` and the files that cite them, onto the minimap's axes with the data command
+`maps.yml` names for its id, and every lit cell carries its reason. The declaration holds only the inputs: `about.adrs`, and under
+`content.minimaps` the ids of the minimaps it shows, each with an optional `exclude:` list of the cells its author rejects. A drawn minimap
+lights the computed cells less the excluded ones, so a citing file that is added or moves changes the drawing and leaves the declaration as
+it is. The data is contract JSON ([ADR-REPO-CONTRACT](api-contracts.md)), written to `out/minimaps/` by `Build-Diagrams` and `Test-Diagrams`
+and never written back; the kit validates it and only draws it, and no minimap file lives beside a diagram. A diagram whose data is missing
+does not put.
 
 - [The declaration is the source](#the-declaration-is-the-source)
 

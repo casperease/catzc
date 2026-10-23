@@ -45,25 +45,39 @@ function Write-DiagramMinimapData {
         else {
             'explanation'
         }
-        # The declared minimaps map each shown id to its lit cells, so the ids are the map's keys.
-        $ids = [string[]] @(if ($content -and $content.Contains('minimaps') -and $content['minimaps']) {
-                $content['minimaps'].Keys
+        $shown = $null
+        if ($content -and $content.Contains('minimaps') -and $content['minimaps']) {
+            $shown = $content['minimaps']
+        }
+        Assert-True ($null -eq $shown -or $shown -is [System.Collections.IList]) -ErrorText "Write-DiagramMinimapData: $folderPath lists content.minimaps as a map; it is a list of ids or { id: { exclude: [cells] } } (rewrite it with declaration.py minimaps)."
+        $excluded = @{}
+        $ids = [string[]] @(if ($shown) {
+                foreach ($entry in $shown) {
+                    if ($entry -is [System.Collections.IDictionary]) {
+                        Assert-True ($entry.Count -eq 1) -ErrorText "Write-DiagramMinimapData: $folderPath lists a minimap entry with $($entry.Count) keys; one id per entry."
+                        $id = "$($entry.Keys | Select-Object -First 1)"
+                        $inputs = $entry[$id]
+                        $excluded[$id] = [string[]] @(if ($inputs -is [System.Collections.IDictionary] -and $inputs.Contains('exclude')) {
+                                $inputs['exclude']
+                            })
+                        $id
+                    }
+                    else {
+                        "$entry"
+                    }
+                }
             }
             else {
                 $maps.MinimapsOf($kind).defaults
             })
-        # The lit cells each minimap declares, as its at values joined by '/'; a minimap the declaration does not map declares none.
-        $placed = @{}
         foreach ($id in $ids) {
             Assert-True ($maps.minimap_data.ContainsKey($id)) -ErrorText "Write-DiagramMinimapData: $folderPath names minimap '$id', which is not one of: $(@($maps.minimap_data.Keys) -join ', ')"
-            $placed[$id] = [System.Collections.Generic.HashSet[string]]::new([string[]] @(
-                    if ($content -and $content.Contains('minimaps') -and $content['minimaps'] -is [System.Collections.IDictionary] -and $content['minimaps'][$id]) {
-                        foreach ($entry in $content['minimaps'][$id]) {
-                            "$($entry['cell'])"
-                        }
-                    }), [System.StringComparer]::Ordinal)
+            if (-not $excluded.ContainsKey($id)) {
+                $excluded[$id] = [string[]] @()
+            }
+            $excluded[$id] = [System.Collections.Generic.HashSet[string]]::new($excluded[$id], [System.StringComparer]::Ordinal)
         }
-        [pscustomobject]@{ Folder = $folderPath; Adr = $adrs; Ids = $ids; Placed = $placed }
+        [pscustomobject]@{ Folder = $folderPath; Adr = $adrs; Ids = $ids; Excluded = $excluded }
     }
     # The file facts of every folder's subject are read in one call; a minimap that draws on them is handed them rather than reading its own.
     $subjectPaths = foreach ($entry in $declared) {
@@ -83,8 +97,7 @@ function Write-DiagramMinimapData {
         $folderPath = $entry.Folder
         $ids = $entry.Ids
         $target = Join-Path (Join-Path $RepositoryRoot 'out/minimaps') $folderPath
-        $computed = Join-Path $target 'computed'
-        $null = New-Item -ItemType Directory -Force -Path $computed
+        $null = New-Item -ItemType Directory -Force -Path $target
         foreach ($id in $ids) {
             $draw = @{ Adr = $entry.Adr }
             $parameters = (Get-Command $maps.minimap_data[$id]).Parameters
@@ -95,12 +108,10 @@ function Write-DiagramMinimapData {
                 $draw.Facts = $facts
             }
             $data = & $maps.minimap_data[$id] @draw
-            [System.IO.File]::WriteAllText((Join-Path $computed "$id.json"), "$($data.ToJson())`n", $utf8)
-            $placed = $entry.Placed[$id]
-            $kept = [Catzc.Base.Maps.MinimapCell[]] @($data.Lit | Where-Object { $placed.Contains($_.At -join '/') })
-            if ($kept.Count -lt $data.Lit.Count) {
-                $dropped = @($data.Lit | Where-Object { -not $placed.Contains($_.At -join '/') } | ForEach-Object { $_.At -join '/' })
-                Write-Message -Warning "Write-DiagramMinimapData: $folderPath minimap '$id' drops $($dropped.Count) lit cell(s) its .drawio.yml does not list under content.minimaps: $($dropped -join ', ')"
+            # The drawn data is the computed one less the cells the author excludes; nothing computed is written back to the declaration.
+            $excluded = $entry.Excluded[$id]
+            if ($excluded.Count -gt 0) {
+                $kept = [Catzc.Base.Maps.MinimapCell[]] @($data.Lit | Where-Object { -not $excluded.Contains($_.At -join '/') })
                 $data = [Catzc.Base.Maps.MinimapData]::new($data.Id, [Catzc.Base.Maps.MinimapAxis[]] @($data.Axes), [Catzc.Base.Maps.MinimapCell[]] @($data.Cells), $kept)
             }
             [System.IO.File]::WriteAllText((Join-Path $target "$id.json"), "$($data.ToJson())`n", $utf8)

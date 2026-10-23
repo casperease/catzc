@@ -157,83 +157,73 @@ def test_top_to_bottom_stacks_the_bands_and_stands_the_span_beside_them():
 def test_declared_minimaps_must_be_three_known_views_and_none_declared_leaves_the_defaults_to_the_data():
     raw = __import__("yaml").safe_load(WIDGETS)
     views = lambda r: declaration.normalise(r)["content"]["minimaps"]
-    assert views(raw) == {}
-    raw["content"]["minimaps"] = {"grid": [], "code-locations": [], "track-placement": []}
-    assert views(raw) == {"grid": [], "code-locations": [], "track-placement": []}
-    raw["content"]["minimaps"] = {"grid": [], "axis": [], "moon": []}
+    assert views(raw) == []
+    raw["content"]["minimaps"] = ["grid", "code-locations", "track-placement"]
+    assert views(raw) == ["grid", "code-locations", "track-placement"]
+    raw["content"]["minimaps"] = ["grid", "axis", "moon"]
     with pytest.raises(declaration.DeclarationError, match="minimap view 'moon' is not one of: grid, code-locations"):
         declaration.normalise(raw)
-    raw["content"]["minimaps"] = {"grid": []}
+    raw["content"]["minimaps"] = ["grid"]
     with pytest.raises(declaration.DeclarationError, match="exactly three"):
         declaration.normalise(raw)
-    raw["content"]["minimaps"] = ["grid", "axis", "layer-stack"]
-    with pytest.raises(declaration.DeclarationError, match="minimaps is a map"):
+    raw["content"]["minimaps"] = ["grid", "axis", "grid"]
+    with pytest.raises(declaration.DeclarationError, match="names 'grid' twice"):
         declaration.normalise(raw)
 
 
-WIDGET_CELLS = {
-    "grid": [{"cell": "widgets/widget-script", "by": ["widgets/Get-Widget.ps1", "ADR-WIDGET-SPIN"]}],
-    "axis": [{"cell": "AUTO/*", "by": ["ADR-WIDGET-SPIN"]}],
-    "layer-stack": [],
-}
+# The inputs only: the shown ids, one with the lit cell its author rejects; never a computed cell.
+WIDGET_MINIMAPS = ["grid", {"axis": {"exclude": ["AUTO/*"]}}, "layer-stack"]
 
 
-def test_each_minimap_lists_its_lit_cells_with_what_lit_them_and_a_bad_entry_fails():
+def test_each_minimap_is_an_id_or_its_excluded_cells_and_stored_cells_fail():
     raw = __import__("yaml").safe_load(WIDGETS)
-    raw["content"]["minimaps"] = WIDGET_CELLS
-    assert declaration.normalise(raw)["content"]["minimaps"] == WIDGET_CELLS
-    bad = {**WIDGET_CELLS, "grid": [{"cell": "widgets/widget-script", "by": []}]}
-    with pytest.raises(declaration.DeclarationError, match="cell 'widgets/widget-script' names what lit it in by"):
-        declaration.normalise({**raw, "content": {**raw["content"], "minimaps": bad}})
-    twice = {**WIDGET_CELLS, "axis": WIDGET_CELLS["axis"] * 2}
-    with pytest.raises(declaration.DeclarationError, match="lists cell 'AUTO/\\*' twice"):
-        declaration.normalise({**raw, "content": {**raw["content"], "minimaps": twice}})
+    with_minimaps = lambda minimaps: {**raw, "content": {**raw["content"], "minimaps": minimaps}}
+    assert declaration.normalise(with_minimaps(WIDGET_MINIMAPS))["content"]["minimaps"] == WIDGET_MINIMAPS
+    # An entry with nothing excluded is its bare id.
+    assert declaration.normalise(with_minimaps(["grid", {"axis": {"exclude": []}}, {"layer-stack": None}]))["content"]["minimaps"] == [
+        "grid", "axis", "layer-stack"
+    ]
+    stored = {"grid": [{"cell": "widgets/widget-script", "by": ["ADR-WIDGET-SPIN"]}], "axis": [], "layer-stack": []}
+    with pytest.raises(declaration.DeclarationError, match="minimaps is a list of the shown minimaps.*declaration.py minimaps"):
+        declaration.normalise(with_minimaps(stored))
+    with pytest.raises(declaration.DeclarationError, match="minimaps.axis takes only exclude:"):
+        declaration.normalise(with_minimaps(["grid", {"axis": {"cell": "AUTO/*"}}, "layer-stack"]))
+    with pytest.raises(declaration.DeclarationError, match="minimaps.axis excludes a cell twice"):
+        declaration.normalise(with_minimaps(["grid", {"axis": {"exclude": ["AUTO/*", "AUTO/*"]}}, "layer-stack"]))
 
 
-def test_the_lit_cells_survive_a_put_then_a_get_through_save(tmp_path):
+def test_the_excluded_cells_survive_a_put_then_a_get_through_save(tmp_path):
     raw = __import__("yaml").safe_load(WIDGETS)
-    raw["content"]["minimaps"] = WIDGET_CELLS
+    raw["content"]["minimaps"] = WIDGET_MINIMAPS
     declaration.source_of(tmp_path).write_text(declaration.dump(declaration.normalise(raw)), encoding="utf-8")
     first = declaration.load(tmp_path)
     declaration.put_png(tmp_path, first)
     back = declaration.get(declaration.model_of(tmp_path), kind="explanation")
-    assert all(cells == [] for cells in back["content"]["minimaps"].values())  # the drawing carries the views, not what lit them
+    assert back["content"]["minimaps"] == ["grid", "axis", "layer-stack"]  # the drawing carries the views, not what is excluded
     declaration.save(tmp_path, back)
-    assert declaration.load(tmp_path)["content"]["minimaps"] == WIDGET_CELLS
+    assert declaration.load(tmp_path)["content"]["minimaps"] == WIDGET_MINIMAPS
 
 
-def test_declare_minimaps_writes_the_computed_cells_files_first_then_rules(tmp_path, monkeypatch):
-    raw = __import__("yaml").safe_load(WIDGETS)
-    raw["content"]["minimaps"] = {view: [] for view in WIDGET_CELLS}
-    declaration.source_of(tmp_path).write_text(declaration.dump(declaration.normalise(raw)), encoding="utf-8")
-    reason = lambda subject, rule: {"subject": subject, "basis": "citation", "requested": rule, "note": ""}
-    data = {
-        "grid": {"lit": [{"at": ["widgets", "widget-script"], "reasons": [reason("widgets/Get-Widget.ps1", "ADR-WIDGET-SPIN")] * 2}]},
-        "axis": {"lit": [{"at": ["AUTO", "*"], "reasons": [reason("ADR-WIDGET", "ADR-WIDGET-SPIN")]}]},
-        "layer-stack": {"lit": []},
-    }
-    # The writer reads the whole computed data, never the drawn data the gate filtered.
-    monkeypatch.setattr(declaration, "minimap_data", lambda folder, computed=False: data if computed else {})
-    declaration.declare_minimaps(tmp_path)
-    assert declaration.load(tmp_path)["content"]["minimaps"] == WIDGET_CELLS
-
-
-def test_declare_minimaps_keeps_the_head_and_every_other_line_as_written(tmp_path, monkeypatch):
-    # A generated head and a list indented under its key, as the formatter writes them; only the minimaps lines may change.
+def test_declare_minimaps_drops_stored_cells_and_keeps_the_head_and_every_other_line_as_written(tmp_path):
+    # A generated head and a source that stored each minimap's lit cells: the rewrite keeps the shown ids and changes only those lines.
     head = '# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "0123456789ab"\n# ---\n\n'
     raw = __import__("yaml").safe_load(WIDGETS)
-    raw["content"]["minimaps"] = {"grid": [], "axis": [], "layer-stack": []}
+    raw["content"]["minimaps"] = ["grid", "axis", "layer-stack"]
     text = head + declaration.dump(declaration.normalise(raw))
-    assert "  minimaps:\n    grid: []\n" in text
-    declaration.source_of(tmp_path).write_text(text, encoding="utf-8")
-    data = {"grid": {"lit": [{"at": ["widgets", "widget-script"], "reasons": [{"subject": "widgets/Get-Widget.ps1", "requested": "ADR-WIDGET-SPIN"}]}]},
-            "axis": {"lit": []}, "layer-stack": {"lit": []}}
-    monkeypatch.setattr(declaration, "minimap_data", lambda folder, computed=False: data if computed else {})
+    line = "  minimaps: [grid, axis, layer-stack]\n"
+    assert line in text
+    stored = "  minimaps:\n    grid:\n      - cell: widgets/widget-script\n        by: [widgets/Get-Widget.ps1, ADR-WIDGET-SPIN]\n"
+    stored += "    axis: []\n    layer-stack: []\n"
+    declaration.source_of(tmp_path).write_text(text.replace(line, stored, 1), encoding="utf-8")
     declaration.declare_minimaps(tmp_path)
-    again = declaration.source_of(tmp_path).read_text(encoding="utf-8")
-    assert again.startswith(head)
-    block = "    grid:\n      - cell: widgets/widget-script\n        by: [widgets/Get-Widget.ps1, ADR-WIDGET-SPIN]\n"
-    assert again == text.replace("    grid: []\n", block, 1)
+    assert declaration.source_of(tmp_path).read_text(encoding="utf-8") == text
+    # Run again on the inputs it wrote, it changes nothing, and an exclude: the author gave is kept.
+    declaration.declare_minimaps(tmp_path)
+    assert declaration.source_of(tmp_path).read_text(encoding="utf-8") == text
+    excluding = text.replace(line, "  minimaps:\n    - grid\n    - axis:\n        exclude: [AUTO/*]\n    - layer-stack\n", 1)
+    declaration.source_of(tmp_path).write_text(excluding, encoding="utf-8")
+    declaration.declare_minimaps(tmp_path)
+    assert declaration.load(tmp_path)["content"]["minimaps"] == WIDGET_MINIMAPS
 
 
 def claimed():
@@ -247,7 +237,7 @@ def claimed():
         "modules": ["Catzc.Base.Repository"],
         "files": ["python/catzc_diagrams/minimaps.py"],
     }
-    raw["content"]["minimaps"] = {"code-locations": [], "module-neighbourhood": [], "axis": []}
+    raw["content"]["minimaps"] = ["code-locations", "module-neighbourhood", "axis"]
     return raw
 
 
@@ -607,7 +597,7 @@ def vocabulary_cases():
         raw["content"]["edges"][0]["kind"] = "wobble"
 
     def minimap(raw):
-        raw["content"]["minimaps"] = {"grid": [], "axis": [], "moon": []}
+        raw["content"]["minimaps"] = ["grid", "axis", "moon"]
 
     def flow(raw):
         raw["content"]["flow"] = "inside-out"
@@ -728,13 +718,12 @@ def test_a_row_of_a_template_writes_out_its_dots_drops_and_labelled_edges():
     assert sum(1 for e in content["edges"] if e["kind"] == "fail" and e["from"].startswith("row-")) == 6
 
 
-def test_declare_minimaps_keeps_the_rows_and_an_edge_between_their_cells(tmp_path, monkeypatch):
+def test_declare_minimaps_keeps_the_rows_and_an_edge_between_their_cells(tmp_path):
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"].update(ROWS)
     raw["content"]["edges"].append({"from": "row-full-0", "to": "row-short-0", "kind": "adr"})  # both ends are cells the rows write out
-    raw["content"]["minimaps"] = {view: [] for view in WIDGET_CELLS}
+    raw["content"]["minimaps"] = WIDGET_MINIMAPS
     declaration.source_of(tmp_path).write_text(__import__("yaml").safe_dump(raw, sort_keys=False), encoding="utf-8")
-    monkeypatch.setattr(declaration, "minimap_data", lambda folder, computed=False: {view: {"lit": []} for view in WIDGET_CELLS})
     declaration.declare_minimaps(tmp_path)
     written = __import__("yaml").safe_load(declaration.source_of(tmp_path).read_text(encoding="utf-8"))
     assert written["content"]["rows"] == ROWS["rows"]
@@ -966,7 +955,7 @@ def test_a_layout_that_moves_an_item_out_of_its_band_fails_naming_the_band_it_si
 def test_span_room_moves_the_drawing_but_a_put_then_a_get_returns_the_declared_geometry_byte_equal(tmp_path):
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"]["edges"][0]["via"] = [[400, 300], [900, 300]]
-    raw["content"]["minimaps"] = {"grid": [], "axis": [], "layer-stack": []}  # the three the fixture data draws, so get reads back what is declared
+    raw["content"]["minimaps"] = ["grid", "axis", "layer-stack"]  # the three the fixture data draws, so get reads back what is declared
     raw["layout"] = {"band-widgets": {"x": 20, "y": 60, "w": 620, "h": 300}, "band-gadgets": {"x": 660, "y": 60, "w": 620, "h": 300}}
     text = declaration.dump(declaration.normalise(raw))
     declaration.source_of(tmp_path).write_text(text, encoding="utf-8")
@@ -1056,15 +1045,15 @@ def test_a_long_or_multi_line_quoted_text_prints_as_prettier_does():
     assert __import__("yaml").safe_load(declaration.flow_yaml(data, 140)) == data
 
 
-def test_the_by_list_is_one_flow_line_when_it_fits_and_a_block_list_when_not():
-    placed = {"grid": [{"cell": "widgets/widget", "by": ["widgets/Get-Widget.ps1", "ADR-WIDGET-SPIN"]}], "axis": []}
-    assert declaration.minimaps_block(placed, 140) == [
-        "  minimaps:", "    grid:", "      - cell: widgets/widget", "        by: [widgets/Get-Widget.ps1, ADR-WIDGET-SPIN]", "    axis: []",
-    ]
-    assert declaration.minimaps_block(placed, 40)[3:6] == ["        by:", "          - widgets/Get-Widget.ps1", "          - ADR-WIDGET-SPIN"]
-    for width in (140, 40):
+def test_the_minimaps_block_is_the_printed_form_of_the_shown_ids_and_their_excludes():
+    assert declaration.minimaps_block(["grid", "axis", "layer-stack"], 140) == ["  minimaps: [grid, axis, layer-stack]"]
+    assert declaration.minimaps_block([], 140) == []
+    placed = ["grid", {"axis": {"exclude": ["widgets/widget", "widgets/gadget"]}}, "layer-stack"]
+    for width in (140, 30):
         text = "\n".join(declaration.minimaps_block(placed, width)) + "\n"
+        assert all(len(line) <= width for line in text.splitlines())
         assert __import__("yaml").safe_load("content:\n" + text) == {"content": {"minimaps": placed}}
+        assert text == "".join("  " + line + "\n" for line in declaration.flow_yaml({"minimaps": placed}, width - 2).splitlines())
 
 
 def test_print_width_reads_the_markdown_max_line_length_and_fails_without_it(tmp_path):
