@@ -27,7 +27,7 @@ function Get-AzureResourceName {
         [string] $CustomerShortcode,
         [string] $Role,
         [ArgumentCompleter({ (Get-AzureNameOrderSet).Keys })]
-        [string] $Order = 'standard'
+        [string] $Order = (Get-AdoNaming)
     )
 
     $types = Get-AzureResourceTypeSet

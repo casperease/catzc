@@ -18,16 +18,16 @@ writers:
   Build-Readme:
     result_path: Readme
     inputs: [docs/references/**, docs/drs/index.md, pwsh/Catzc.Base.Docs/**]
-    outputs: ['**/README.md']
+    outputs: ["**/README.md"]
   Build-ContractReference:
     inputs: [contracts/**, docs/drs/repository/*-contracts.md, pwsh/Catzc.Base.Contracts/**]
     outputs: [docs/references/contracts/*.md]
   Build-GitKeep:
     inputs: [pwsh/Catzc.Base.Docs/**]
-    outputs: ['**/.gitkeep']
+    outputs: ["**/.gitkeep"]
   Build-TerminologyDictionary:
     inputs: [pwsh/Catzc.Base.QualityGates/**]
-    outputs: ['.cspell/*.txt']
+    outputs: [".cspell/*.txt"]
   Build-DrsCodeDictionary:
     inputs: [docs/drs/**, pwsh/Catzc.Base.Drs/**]
     outputs: [.cspell/drs-codes.txt]

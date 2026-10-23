@@ -11,69 +11,69 @@ catzc:
 ---
 #>
 
-Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
-    BeforeAll {
-        $script:waiter = Join-Path $PSScriptRoot '../assets/Wait-CatzcRunLock.ps1'
-        . $script:waiter
-        # Waits for the lock on another thread, the way another run would; on taking it, records its name in the shared order and lets go.
-        function script:Start-Waiter {
-            param([string] $Name, [string] $Waiter, [System.Collections.Concurrent.ConcurrentQueue[string]] $Order)
-            $shell = [powershell]::Create().AddScript({
-                    param($Path, $Name, $Waiter, $Order)
-                    . $Path
-                    $taken = [ref] $null
-                    $null = Wait-CatzcRunLock -LockName $Name -LockSeconds 5 -BudgetSeconds 60 -StaleSeconds 720 -Holding $Waiter -Caller $Waiter -Busy 'nothing ran' -Lock $taken
-                    if ($taken.Value) {
-                        $Order.Enqueue($Waiter)
-                        Start-Sleep -Milliseconds 50
-                        # As every caller does: the holder record goes before the lock is let go.
-                        Remove-CatzcRunLockHolder -LockName $Name
-                        $taken.Value.ReleaseMutex()
-                        $taken.Value.Dispose()
-                    }
-                }).AddArgument($script:waiter).AddArgument($Name).AddArgument($Waiter).AddArgument($Order)
-            [pscustomobject]@{ Shell = $shell; Handle = $shell.BeginInvoke() }
-        }
-        function script:Stop-Waiter {
-            param($Waiter)
-            $null = $Waiter.Shell.EndInvoke($Waiter.Handle)
-            $Waiter.Shell.Dispose()
-        }
-        # Holds the lock on another thread for the given milliseconds; with -RecordSeconds it writes the holder record a plain run writes.
-        function script:Start-LockHolder {
-            param([string] $Name, [int] $Milliseconds, [System.Threading.EventWaitHandle] $Burst, [int] $RecordSeconds)
-            $taken = [System.Threading.ManualResetEventSlim]::new($false)
-            $shell = [powershell]::Create().AddScript({
-                    param($Name, $Milliseconds, $Taken, $Burst, $RecordSeconds, $Path)
-                    . $Path
-                    $held = [System.Threading.Mutex]::new($false, $Name)
-                    $null = $held.WaitOne()
-                    if ($RecordSeconds -gt 0) {
-                        Set-CatzcRunLockHolder -LockName $Name -Seconds $RecordSeconds -Holding 'Get-Gadget'
-                    }
-                    $Taken.Set()
-                    Start-Sleep -Milliseconds $Milliseconds
-                    if ($Burst) {
-                        $Burst.Dispose()
-                    }
+BeforeAll {
+    $script:waiter = Join-Path $PSScriptRoot '../assets/Wait-CatzcRunLock.ps1'
+    . $script:waiter
+    # Waits for the lock on another thread, the way another run would; on taking it, records its name in the shared order and lets go.
+    function script:Start-Waiter {
+        param([string] $Name, [string] $Waiter, [System.Collections.Concurrent.ConcurrentQueue[string]] $Order)
+        $shell = [powershell]::Create().AddScript({
+                param($Path, $Name, $Waiter, $Order)
+                . $Path
+                $taken = [ref] $null
+                $null = Wait-CatzcRunLock -LockName $Name -LockSeconds 5 -BudgetSeconds 60 -StaleSeconds 720 -Holding $Waiter -Caller $Waiter -Busy 'nothing ran' -Lock $taken
+                if ($taken.Value) {
+                    $Order.Enqueue($Waiter)
+                    Start-Sleep -Milliseconds 50
+                    # As every caller does: the holder record goes before the lock is let go.
                     Remove-CatzcRunLockHolder -LockName $Name
-                    $held.ReleaseMutex()
-                    $held.Dispose()
-                }).AddArgument($Name).AddArgument($Milliseconds).AddArgument($taken).AddArgument($Burst).AddArgument($RecordSeconds).AddArgument($script:waiter)
-            $handle = $shell.BeginInvoke()
-            [pscustomobject]@{ Shell = $shell; Handle = $handle; Taken = $taken.Wait(2000) }
-        }
-        function script:Stop-LockHolder {
-            param($Holder)
-            $null = $Holder.Shell.EndInvoke($Holder.Handle)
-            $Holder.Shell.Dispose()
-        }
-        function script:Get-QueueFolder {
-            param([string] $Name)
-            Join-Path ([System.IO.Path]::GetTempPath()) "catzc-run-queue/$($Name -replace '[\\/:*?"<>|]', '_')"
-        }
+                    $taken.Value.ReleaseMutex()
+                    $taken.Value.Dispose()
+                }
+            }).AddArgument($script:waiter).AddArgument($Name).AddArgument($Waiter).AddArgument($Order)
+        [pscustomobject]@{ Shell = $shell; Handle = $shell.BeginInvoke() }
     }
+    function script:Stop-Waiter {
+        param($Waiter)
+        $null = $Waiter.Shell.EndInvoke($Waiter.Handle)
+        $Waiter.Shell.Dispose()
+    }
+    # Holds the lock on another thread for the given milliseconds; with -RecordSeconds it writes the holder record a plain run writes.
+    function script:Start-LockHolder {
+        param([string] $Name, [int] $Milliseconds, [System.Threading.EventWaitHandle] $Burst, [int] $RecordSeconds)
+        $taken = [System.Threading.ManualResetEventSlim]::new($false)
+        $shell = [powershell]::Create().AddScript({
+                param($Name, $Milliseconds, $Taken, $Burst, $RecordSeconds, $Path)
+                . $Path
+                $held = [System.Threading.Mutex]::new($false, $Name)
+                $null = $held.WaitOne()
+                if ($RecordSeconds -gt 0) {
+                    Set-CatzcRunLockHolder -LockName $Name -Seconds $RecordSeconds -Holding 'Get-Gadget'
+                }
+                $Taken.Set()
+                Start-Sleep -Milliseconds $Milliseconds
+                if ($Burst) {
+                    $Burst.Dispose()
+                }
+                Remove-CatzcRunLockHolder -LockName $Name
+                $held.ReleaseMutex()
+                $held.Dispose()
+            }).AddArgument($Name).AddArgument($Milliseconds).AddArgument($taken).AddArgument($Burst).AddArgument($RecordSeconds).AddArgument($script:waiter)
+        $handle = $shell.BeginInvoke()
+        [pscustomobject]@{ Shell = $shell; Handle = $handle; Taken = $taken.Wait(2000) }
+    }
+    function script:Stop-LockHolder {
+        param($Holder)
+        $null = $Holder.Shell.EndInvoke($Holder.Handle)
+        $Holder.Shell.Dispose()
+    }
+    function script:Get-QueueFolder {
+        param([string] $Name)
+        Join-Path ([System.IO.Path]::GetTempPath()) "catzc-run-queue/$($Name -replace '[\\/:*?"<>|]', '_')"
+    }
+}
 
+Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
     BeforeEach {
         # Each test takes a lock of its own, so a real run on the machine never touches it.
         $script:lockName = "Local\catzc-test-$([guid]::NewGuid())"
@@ -275,6 +275,33 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'reads the run-lock settings from the timeouts file without an import, and fails naming a missing key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+        $file = Join-Path $TestDrive 'timeouts.yml'
+        [System.IO.File]::WriteAllText($file, "tests:`n  run_seconds: 180`nrun_lock:`n  wait_seconds: 30 # a comment`n  stale_seconds: 600`n  budget_seconds: 300`nwait:`n  seconds: 1`n")
+        $settings = Get-CatzcRunLockSetting -Path $file
+        $settings.wait_seconds | Should -Be 30
+        $settings.stale_seconds | Should -Be 600
+        $settings.budget_seconds | Should -Be 300
+        [System.IO.File]::WriteAllText($file, "run_lock:`n  wait_seconds: 30`n")
+        { Get-CatzcRunLockSetting -Path $file } | Should -Throw '*declares no run_lock.stale_seconds*'
+    }
+}
+
+Describe 'Wait-CatzcRunLock — with a real caller process' -Tag 'L2', 'logic' {
+    BeforeEach {
+        # Each test takes a lock of its own, so a real run on the machine never touches it.
+        $script:lockName = "Local\catzc-test-$([guid]::NewGuid())"
+        $script:taken = [ref] $null
+    }
+
+    AfterEach {
+        if ($script:taken.Value) {
+            $script:taken.Value.ReleaseMutex()
+            $script:taken.Value.Dispose()
+        }
+        Remove-CatzcRunLockHolder -LockName $script:lockName
+    }
+
     It 'never takes the lock once the caller that started it is gone, though the lock falls free after' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         # A stand-in caller the waiter answers to, killed while the waiter is queued behind a plain holder.
         $caller = Start-Process -FilePath (Get-Process -Id $PID).Path -ArgumentList '-NoProfile', '-Command', 'Start-Sleep -Seconds 30' -PassThru -WindowStyle Hidden
@@ -332,16 +359,5 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
             Stop-Process -Id $caller.Id -Force -ErrorAction Ignore
             Stop-LockHolder $holder
         }
-    }
-
-    It 'reads the run-lock settings from the timeouts file without an import, and fails naming a missing key' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
-        $file = Join-Path $TestDrive 'timeouts.yml'
-        [System.IO.File]::WriteAllText($file, "tests:`n  run_seconds: 180`nrun_lock:`n  wait_seconds: 30 # a comment`n  stale_seconds: 600`n  budget_seconds: 300`nwait:`n  seconds: 1`n")
-        $settings = Get-CatzcRunLockSetting -Path $file
-        $settings.wait_seconds | Should -Be 30
-        $settings.stale_seconds | Should -Be 600
-        $settings.budget_seconds | Should -Be 300
-        [System.IO.File]::WriteAllText($file, "run_lock:`n  wait_seconds: 30`n")
-        { Get-CatzcRunLockSetting -Path $file } | Should -Throw '*declares no run_lock.stale_seconds*'
     }
 }

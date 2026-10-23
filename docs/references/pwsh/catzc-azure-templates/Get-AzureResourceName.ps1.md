@@ -80,7 +80,7 @@ Optional 2-3 char sibling discriminator among same-type resources (per resource)
 
 ### parameter `Order`
 
-Name component order — a key of Get-AzureNameOrderSet (default `standard`).
+Name component order — a key of Get-AzureNameOrderSet. Default: the `ado_naming` variant (Get-AdoNaming), whose own default is `standard`.
 
 ### example 1
 

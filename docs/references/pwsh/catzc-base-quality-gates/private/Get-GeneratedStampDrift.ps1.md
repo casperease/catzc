@@ -39,8 +39,8 @@ The repository-relative files to check. Default: every tracked file .gitattribut
 
 ### parameter `Changed`
 
-Read only the files git reports changed against HEAD (worktree and index), so the check costs the changed set, not the tree. Combines
-with Path by intersection.
+Read only the files git reports changed against HEAD (worktree and index), so the check costs the changed set, not the tree. Combines with
+Path by intersection.
 
 ### parameter `Resolver`
 

@@ -9,6 +9,16 @@ catzc:
 
 # cspell:ignore alweutstsmplst weuwkspvm sttstsmplalweu alweusmplvm vmsmplalweu weutstsmplst
 Describe 'Get-AzureResourceName' -Tag 'L0', 'logic' {
+    BeforeEach {
+        # The order is the ado_naming variant; these cases pin it so the repository's own variant never moves them.
+        Mock Get-AdoNaming -ModuleName Catzc.Azure.Templates { 'standard' }
+    }
+
+    It 'takes the name order from the ado_naming variant when -Order is omitted' -Tag 'ADR-AZ-NAMING-ORDERISVARIANT' {
+        Mock Get-AdoNaming -ModuleName Catzc.Azure.Templates { 'classic' }
+        Get-AzureResourceName -Env alpha -RegionCode weu -Org tst -ShortName smpl -Type rg | Should -Be 'rg-tst-smpl-alpha-weu'
+    }
+
     It 'renders the env NAME for a generous (long) type' {
         Get-AzureResourceName -Env alpha -Slot 001 -RegionCode weu -Org tst -ShortName smpl -Type rg |
             Should -Be 'alpha-001-weu-tst-smpl-rg'

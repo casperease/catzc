@@ -59,10 +59,10 @@ selects only that generator's files.
 
 ### parameter `Changed`
 
-Check only what git reports changed against HEAD: the stamp check reads only the changed generated files (Get-GeneratedStampDrift
--Changed), and a writer's dry run runs only when a changed path matches the inputs or outputs globs of its generated-files.yml entry; a
-writer with neither list runs whenever anything changed, and with nothing changed no writer runs. Catches a hand edit of a generated file
-and a generator change whose output was not re-rendered.
+Check only what git reports changed against HEAD: the stamp check reads only the changed generated files (Get-GeneratedStampDrift -Changed),
+and a writer's dry run runs only when a changed path matches the inputs or outputs globs of its generated-files.yml entry; a writer with
+neither list runs whenever anything changed, and with nothing changed no writer runs. Catches a hand edit of a generated file and a
+generator change whose output was not re-rendered.
 
 ### parameter `StampOnly`
 
