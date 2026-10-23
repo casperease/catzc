@@ -131,6 +131,11 @@ capabilities:
     supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, DDR-VISUAL-FIXEDCOMMITPALETTE, ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY]
     checks: [Test-CheckedInBinaries, Test-Links]
 
+  # The chunk protocol of the visual review of every diagram: five reads, five questions, one plan step per answer.
+  - name: drawio-review
+    supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, ADR-REPO-PLANS-OPENSTEP, PDR-ONELIVE-ONEVERSION]
+    checks: [Test-Diagrams, Test-Plans]
+
   # Fail-forward render of a .drawio.png with its minimaps, on the dark page by default.
   - name: drawio-renderer
     supported_by: [DDR-VISUAL-FIXEDCOMMITPALETTE]

@@ -72,6 +72,11 @@ agents:
     checks: [Test-CheckedInBinaries, Test-Links]
     model_reason: leads other agents, ranks candidates and writes briefs in the ADRs' exact terms
 
+  # Reviews every diagram with the user five at a time: five reads, five questions, one plan step per answer, then a redraw of all.
+  - name: diagram-review-chunks
+    supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, ADR-REPO-PLANS-OPENSTEP, PDR-ONELIVE-ONEVERSION]
+    checks: [Test-Diagrams, Test-Plans]
+
   # Changes what a diagram says by editing its yml declaration and putting the png from it.
   - name: edit-diagram-yml
     supported_by: [ADR-REPO-SLIDES-DECLARATION, ADR-REPO-SLIDES-TWODIRECTIONS, DDR-VISUAL-FIXEDCOMMITPALETTE]

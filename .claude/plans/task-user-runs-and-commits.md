@@ -105,7 +105,10 @@ final full run last.
 18. plan-debt-full-run-failures step 2: stage the case-only rename in `pwsh/Catzc.Base.VSCode` (`git mv -f` each `*-VSCode*.ps1` to its
     `*-VsCode*.ps1` name on disk), so the module builder finds its files. Check: `git ls-files pwsh/Catzc.Base.VSCode` matches the disk
     names, and `Invoke-TestFile` on `Get-DynamicManifestContent.Tests.ps1` passes.
-19. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+19. plan-diagram-review: add one bullet to `.claude/CLAUDE.md`, section Sub-agents, for the new `diagram-review-chunks` agent ("reviews
+    every diagram with the user five at a time: five PNG reads, five questions, one plan step per answer"). Until it is there,
+    `Test-AgentDefinitions` reports the registered agent as unlisted. Check: `Test-AgentDefinitions`.
+20. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report
