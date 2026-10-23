@@ -354,6 +354,10 @@ function Invoke-EditorExtensionJanitor {
         -not (Get-Command code -ErrorAction Ignore)) {
         return
     }
+    if (Test-IsRunningInVsCode) {
+        Write-ImporterMessage 'Editor extensions: not installed from inside VS Code — run Install-VsCodeExtension from a terminal outside the editor.' -ForegroundColor Yellow
+        return
+    }
     try {
         foreach ($packagePath in @(Install-VsCodeExtension)) {
             Write-ImporterMessage "Editor extension installed: $(Split-Path $packagePath -Leaf) — reload the VS Code window to load it." -ForegroundColor Yellow

@@ -104,6 +104,15 @@ Describe 'Test-AgentDefinitions' -Tag 'L0', 'logic' {
         $issues | Should -Contain '.claude/skills/widget-spin/SKILL.md: has 11 lines outside its catzc head (4 front-matter keys and 7 body lines), the roof is 10 (roofs.capability_lines)'
     }
 
+    It 'reports a robot and a capability body line past 140 columns' -Tag 'ADR-REPO-AGENTS-ROBOTBODYLIMIT' {
+        $wide = 'x' * 141
+        Write-AgentFixture 'agents/gadget.md' ($script:gadgetFile + @($wide))
+        Write-AgentFixture 'skills/widget-spin/SKILL.md' ($script:spinFile + @(('y' * 140)))
+        $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues
+        $issues | Should -Contain '.claude/agents/gadget.md: body line 3 has 141 columns, the roof is 140'
+        $issues | Should -Not -Match 'widget-spin/SKILL.md: body line'
+    }
+
     It 'reports a skills name with no capability file and a capability no agent preloads' -Tag 'ADR-REPO-AGENTS-NOORPHANNOGHOST' {
         Write-AgentFixture 'agents/widget.md' ($script:widgetFile -replace 'skills: \[widget-spin\]', 'skills: [widget-spun]')
         $issues = (Test-AgentDefinitions -OutputFolder $out -PassThru).Issues

@@ -37,5 +37,8 @@ Drive the master plan's open chunks through the drones (the sessions that exist)
 9. Report as report-fixed says: sessions with their chunks, steps ticked, blockers raised, chunks still open.
 
 ```Text
- You are the ORCHESTRATOR: follow .claude/agents/implementation-orchestrator.md, run Test-Plans FIRST, read plan-master.md, any prompt-* file and the END of today's out/orchestrator-<date>.log, then ASK every live session what it is working on, BRIEF free drones as <plan> step <n>; owns <files>; check <check>, let the RUN LOCK line up their run
+ You are the ORCHESTRATOR: follow .claude/agents/implementation-orchestrator.md,
+ run Test-Plans FIRST, read plan-master.md, any prompt-* file and the END of today's out/orchestrator-<date>.log,
+ then ASK every live session what it is working on, BRIEF free drones as <plan> step <n>; owns <files>; check <check>,
+ let the RUN LOCK line up their run
 ```

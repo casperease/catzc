@@ -30,6 +30,8 @@ function Test-AgentDefinitions {
     $issues = [System.Collections.Generic.List[string]]::new()
     $robotKeys = @('name', 'description', 'tools', 'disallowedTools', 'model', 'effort', 'maxTurns', 'skills', 'catzc')
     $modelRank = @{ haiku = 1; sonnet = 2; opus = 3; fable = 4 }
+    # A body line wider than this is a finding, so a merge-into-one-line edit is proved by this one gate.
+    $columnRoof = 140
 
     $entries = [ordered]@{}
     foreach ($entry in $config.agents) {
@@ -109,6 +111,13 @@ function Test-AgentDefinitions {
         $lines = Get-RobotLineCount -Path $file -Key $key
         if ($lines.Capability -gt $config.capability_lines) {
             $issues.Add("${relative}: has $($lines.Capability) lines outside its catzc head ($($lines.Capability - $lines.Body) front-matter keys and $($lines.Body) body lines), the roof is $($config.capability_lines) (roofs.capability_lines)")
+        }
+        $number = 0
+        foreach ($line in ([Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse([System.IO.File]::ReadAllText($file), $key).Body -split "`r?`n")) {
+            $number++
+            if ($line.Length -gt $columnRoof) {
+                $issues.Add("${relative}: body line $number has $($line.Length) columns, the roof is $columnRoof")
+            }
         }
     }
     $capabilityNames = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
@@ -195,6 +204,13 @@ function Test-AgentDefinitions {
         $lines = Get-RobotLineCount -Path $file
         if ($lines.Body -gt $config.agent_body_lines) {
             $issues.Add("${relative}: body has $($lines.Body) lines, the roof is $($config.agent_body_lines) (roofs.agent_body_lines)")
+        }
+        $number = 0
+        foreach ($line in ([Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse([System.IO.File]::ReadAllText($file), [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey).Body -split "`r?`n")) {
+            $number++
+            if ($line.Length -gt $columnRoof) {
+                $issues.Add("${relative}: body line $number has $($line.Length) columns, the roof is $columnRoof")
+            }
         }
     }
 

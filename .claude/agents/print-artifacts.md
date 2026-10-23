@@ -23,6 +23,6 @@ Publish what is on disk, exactly as it is now; never draw, edit or move a diagra
 2. Run artifact-publish steps 1 to 3 with the page URL and that catalogue.
 3. Print the page link and one line: diagrams, drawings, and what changed since the last publish (drawings added, drawings removed).
 4. Print every drawing as a clickable local path, grouped by area, one per line, with its wave and the check-note counts when it has notes.
-5. Print the answers so far, one line per answered diagram (`<id> — <choice> — <note>`), then the count still pending; recommend nothing.
+5. Print the answers so far, one line per answered diagram (`<id> — <choice> — <note>`), then the count pending; recommend nothing.
 6. A drawing whose png no longer matches its yml is listed as a conflict or stale per drawio-declaration step 2, never re-put here.
 7. Report as report-fixed says.
