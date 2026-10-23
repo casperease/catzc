@@ -27,18 +27,24 @@ on a regulated devbox, and today it is reached silently on every import that bui
 - Building the Claude extensions (the hooks) may later be allowed a package manager, but only through a tool that configures the allowed
   package managers, which does not exist yet; until then the allowed set is empty.
 
+## Decided design (catzc-27's, taken by the user, 2026-10-23)
+
+- `New-NuGetConfig` in `Catzc.Tooling.Toolchain` renders the repo-root `nuget.config` (package and audit sources cleared), registered in
+  `rootconfig.yml` with `committed: true` (the C# Dev Kit restores before any import), on the `New-VsCodeSettings` precedent; its head rides
+  a `nuget-config` carrier in `file-carriers.yml`.
+- `New-DotnetBuildProps` in the same module renders a repo-root `Directory.Build.props` from `tools.yml`'s `dotnet.version` (the target
+  framework, NuGet audit off); the `net10.0` literal leaves the four hook `.csproj` files and the types project.
+- The layering holds (Base never depends on Tooling): NuGet stays in Toolchain, and the guard `Assert-DotnetOffline`, a file check with no
+  process and no network, lives in `Catzc.Base.Execution`; `Build-AgentHook`, `Invoke-BuildForVsCode` and `Invoke-DotnetFormat` call it
+  before every `dotnet` run, and it throws naming the file when the root config is missing, a source is not cleared, or a second
+  `nuget.config` sits under the repository. The future allow-list plugs in there, empty today.
+
 ## Open steps
 
-- [ ] Design, reported to the orchestrator before any edit: `Catzc.Tooling.Toolchain` owns NuGet: the generated repo-root `nuget.config`
-      (package and audit sources cleared, committed, written by the tooling module rather than a hand-kept asset), its head carrier for XML
-      (`file-carriers.yml`), and every in-tree `dotnet` restore path (`Build-AgentHook`, `Invoke-BuildForVsCode`, `Invoke-DotnetFormat`)
-      routed through `Invoke-Dotnet`, which refuses to run while any package source is visible; and the target framework (`net10.0`, a
-      literal in every `.csproj` today) declared once and tied to the SDK the tooling installs, so a framework change cannot start a
-      reference-pack download (the user, 2026-10-23). No `dotnet` command runs while designing. (check: the design read against
-      ADR-AUTO-PKGMGR and ADR-REPO-ROOTCFG by `drs-reviewer`)
-- [ ] The design lands in one burst with a fresh import. (check: `Invoke-TestFile` on `Invoke-Dotnet.Tests.ps1` green with a case where a
-      visible source stops the call, and `Build-AgentHook.Tests.ps1` green with a case where `dotnet nuget list source` from each hook
-      folder lists none)
+- [ ] The design lands in one burst with a fresh import. (check: `Invoke-TestFile` on `Assert-DotnetOffline.Tests.ps1` green with cases
+      where a visible source and a stray `nuget.config` stop the call, `New-NuGetConfig.Tests.ps1` and `New-DotnetBuildProps.Tests.ps1`
+      green, and `Build-AgentHook.Tests.ps1` green three times in a row with a case where `dotnet nuget list source` from each hook folder
+      lists none)
 - [ ] The three `.cs` files left unformatted (`PathSet.cs`, `TimeoutsConfig.cs`, `VscodeSession.cs`; plan-debt-full-run-failures) are
       formatted once the step above lands. (check: `Test-Formatting -Path` at 0 on them)
 
