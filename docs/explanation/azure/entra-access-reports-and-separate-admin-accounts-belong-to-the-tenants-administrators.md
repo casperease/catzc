@@ -1,5 +1,0 @@
-<div style="background:#c00;color:#fff;padding:6px 10px"><b>Experimental</b> &nbsp; Entra access reports and separate admin accounts belong to the tenants administrators (ADR-AZ-CAF-SEC-ACCESSAUDITREPORTSFROMENTRAID + ADR-AZ-CAF-IAM-SEPARATEADMINISTRATIVEFROMEVERYDAYACCOUNTS)</div>
-
-> **Experimental.** This article is one rule: [ADR-AZ-CAF-SEC-ACCESSAUDITREPORTSFROMENTRAID](../../drs/azure/caf/landing-zone-security.md#rule-adr-az-caf-sec-accessauditreportsfromentraid) and [ADR-AZ-CAF-IAM-SEPARATEADMINISTRATIVEFROMEVERYDAYACCOUNTS](../../drs/azure/caf/identity-and-access.md#rule-adr-az-caf-iam-separateadministrativefromeverydayaccounts) merged into one. It holds nothing beyond what those two rules say.
-
-Access audit reports from Entra ID are not adopted, because the directory and its reports belong to the tenant's administrators. Separate administrative accounts are not adopted, because accounts are objects of the tenant's directory. The repository leaves both to those who run the directory.

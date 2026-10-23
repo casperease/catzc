@@ -1,5 +1,0 @@
-<div style="background:#c00;color:#fff;padding:6px 10px"><b>Experimental</b> &nbsp; Security checks run at build time and no role above a subscription is ever granted (ADR-AZ-WAF-SE-SE11 + ADR-AZ-CAF-RESORG-NOWORKLOADTEAMROLESATMANAGEMENTGROUPLEVEL)</div>
-
-> **Experimental.** This article is one rule: [ADR-AZ-WAF-SE-SE11](../../drs/azure/waf/security.md#rule-adr-az-waf-se-se11) and [ADR-AZ-CAF-RESORG-NOWORKLOADTEAMROLESATMANAGEMENTGROUPLEVEL](../../drs/azure/caf/resource-organization.md#rule-adr-az-caf-resorg-noworkloadteamrolesatmanagementgrouplevel) merged into one. It holds nothing beyond what those two rules say.
-
-The repository's checks run at build time on the templates and configs; security tests of a deployed workload are planned. Access follows the same restraint: the repository grants no role above a subscription, each subscription is deployed by its own service connection pinned with `-SubscriptionIdAssertIs`, and the templates make no role assignment for workload teams.

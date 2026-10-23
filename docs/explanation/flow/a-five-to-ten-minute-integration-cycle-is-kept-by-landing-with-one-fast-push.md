@@ -1,5 +1,0 @@
-<div style="background:#c00;color:#fff;padding:6px 10px"><b>Experimental</b> &nbsp; A five to ten minute integration cycle is kept by landing with one fast push (FDR-CD-SHORTINTEGRATIONCYCLE + FDR-CD-LIFE-FASTPUSHLANDS)</div>
-
-> **Experimental.** This article is one rule: [FDR-CD-SHORTINTEGRATIONCYCLE](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle) and [FDR-CD-LIFE-FASTPUSHLANDS](../../drs/flow/commit-lifecycle.md#rule-fdr-cd-life-fastpushlands) merged into one. It holds nothing beyond what those two rules say.
-
-The discipline's binding constraint is a 5 to 10 minute integration cycle on a team basis: a gate slower than that stops being a gate and becomes a queue that stalls the team's flow into the mainline. In `main-direct` the client lands a commit by one fast push to main, a push that fast-forwards the server's main; a rejected push stops and reports, and a force push, an amend of a pushed commit or an administrator's history change is not supported.
