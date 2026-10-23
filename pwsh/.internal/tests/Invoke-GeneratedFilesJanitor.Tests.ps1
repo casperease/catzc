@@ -20,7 +20,7 @@ Describe 'Invoke-GeneratedFilesJanitor' -Tag 'L0', 'logic' {
 
     It 'prints one line per stale file, under the roof the config declares' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         InModuleScope Catzc.Internal.Importer { Invoke-GeneratedFilesJanitor }
-        Should -Invoke Invoke-WithTimeout -ModuleName Catzc.Internal.Importer -Times 1 -Exactly -ParameterFilter { $Seconds -eq 9 }
+        Should -Invoke Invoke-WithTimeout -ModuleName Catzc.Internal.Importer -Times 1 -Exactly -ParameterFilter { $Seconds -eq 9 -and $ScriptBlock.ToString() -like '*-StampOnly*' }
         Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Importer -Times 2 -Exactly
         Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Importer -Times 1 -Exactly -ParameterFilter { $Message -like 'Generated file: docs/widget/index.md: stale*' }
     }

@@ -3,13 +3,11 @@ param()
 
 Describe 'Write-ImporterMessage' -Tag 'L0', 'logic' {
     BeforeAll {
-        Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force
         $script:savedGuard = Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore
     }
 
     AfterAll {
         $global:__PesterRunning = $script:savedGuard
-        Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue
     }
 
     BeforeEach {
@@ -45,9 +43,9 @@ Describe 'Write-ImporterMessage' -Tag 'L0', 'logic' {
         @($all).Count | Should -Be 0
     }
 
-    It 'starts with verbosity off on a fresh import of the bootstrap' {
+    It 'starts with verbosity off on a fresh import of the loader' {
         Set-ImporterVerbosity -Enabled $true
-        Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force
+        Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Loader.psm1') -Scope Global -Force
         $all = Write-ImporterMessage 'Loaded widget' -StateChange 6>&1 4>&1
         @($all).Count | Should -Be 0
     }

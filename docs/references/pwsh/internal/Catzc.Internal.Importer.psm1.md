@@ -195,7 +195,7 @@ Every lasting change to the caller's session is announced
 the preferences and the
 error view, then the two roots and the internal modules that stay loaded — RepositoryRoot set by the
 importer.ps1 shim and the modules by Import-InternalModule, which both delegate their announcement here.
-This is the first point Write-ImporterMessage (Catzc.Internal.Bootstrap) is loaded. Like every announcement
+This is where Write-ImporterMessage (Catzc.Internal.Loader) first announces. Like every announcement
 of the importer's own load, they go on its verbose record
 ([ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE](/docs/drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-importerloadsequence)).
 ```
@@ -243,7 +243,7 @@ See: pwsh/Catzc.Base.Environment/assets/README.md
 Above `Write-Verbose 'Removing Catzc.Internal.Bootstrap module'`, written with `#`.
 
 ```text
-Remove the bootstrap, kept until here for Write-ImporterMessage, so its import-time functions do not linger;
+Remove the bootstrap so its import-time functions do not linger;
 the other .internal modules (loader, Types, Vendor) stay loaded.
 ```
 

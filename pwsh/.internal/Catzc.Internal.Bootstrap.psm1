@@ -17,53 +17,6 @@ catzc:
 
 Set-StrictMode -Version Latest   # this module's scope: every function here runs strict
 
-function Write-ImporterMessage {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = '$global:__PesterRunning (set by Test-Automation) silences the chokepoint during a test run, as in Write-InformationColored; global is required to cross module session-state boundaries')]
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory, Position = 0)]
-        [AllowEmptyString()]
-        [string] $Message,
-
-        [System.ConsoleColor] $ForegroundColor,
-
-        [switch] $StateChange
-    )
-
-    # Read through Get-Variable: the flag is unset outside a test run, and strict mode rejects an unset variable.
-    if (Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore) {
-        return
-    }
-    $line = if ($Message) {
-        "[Importer.ps1] $Message"
-    }
-    else {
-        ''
-    }
-    if ($StateChange) {
-        Write-Verbose $line -Verbose:$script:importerVerbose
-        return
-    }
-    if ($PSBoundParameters.ContainsKey('ForegroundColor')) {
-        # $PSStyle, not the Writers' Ansi type: this runs before the combined types assembly is loaded.
-        $line = "$($PSStyle.Foreground.FromConsoleColor($ForegroundColor))$line$($PSStyle.Reset)"
-    }
-    Write-Information $line -InformationAction Continue
-}
-
-$script:importerVerbose = $false
-
-function Set-ImporterVerbosity {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Sets a bootstrap-private output flag for the duration of one import; nothing to confirm')]
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory)]
-        [bool] $Enabled
-    )
-
-    $script:importerVerbose = $Enabled
-}
-
 function Clear-CompiledType {
     [CmdletBinding()]
     param(
@@ -713,4 +666,4 @@ function Import-AllModules {
     Write-ImporterMessage $summary -StateChange
 }
 
-Export-ModuleMember -Function 'Import-AllModules', 'Write-ImporterMessage', 'Set-ImporterVerbosity', 'Clear-CompiledType', 'Get-ForeignCatzcModule'
+Export-ModuleMember -Function 'Import-AllModules', 'Clear-CompiledType', 'Get-ForeignCatzcModule'

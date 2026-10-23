@@ -380,7 +380,7 @@ function Invoke-EditorExtensionJanitor {
     }
 }
 
-# Checks the changed generated files against their writers: one line per stale file, one line when the roof stops it.
+# Checks the stamp of every changed generated file: one line per stale file, one line when the roof stops it.
 function Invoke-GeneratedFilesJanitor {
     [CmdletBinding()]
     param()
@@ -391,7 +391,7 @@ function Invoke-GeneratedFilesJanitor {
     try {
         $seconds = (Get-Config -Config timeouts).janitors['generated_files_seconds']
         $result = Invoke-WithTimeout -Seconds $seconds -Activity 'Test-GeneratedFiles -Changed' {
-            Test-GeneratedFiles -Changed -PassThru 6>$null
+            Test-GeneratedFiles -Changed -StampOnly -PassThru 6>$null
         }
         foreach ($issue in @($result.Issues)) {
             Write-ImporterMessage "Generated file: $issue" -ForegroundColor Yellow
@@ -400,6 +400,41 @@ function Invoke-GeneratedFilesJanitor {
     catch {
         Write-ImporterMessage "Generated files: not checked — $($_.Exception.Message)" -ForegroundColor Yellow
     }
+}
+
+# The writers' due rows (Get-GeneratedWriterDue), or nothing when they cannot be read: every build janitor then runs, as before the lists.
+function Get-DueWriterRow {
+    [CmdletBinding()]
+    param()
+
+    if (-not (Get-Command Get-GeneratedWriterDue -ErrorAction Ignore)) {
+        return
+    }
+    try {
+        Get-GeneratedWriterDue
+    }
+    catch {
+        Write-ImporterMessage "Build janitors: all run, the changed set was not read — $($_.Exception.Message)" -ForegroundColor Yellow
+    }
+}
+
+function Test-WriterDue {
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $Name,
+
+        [AllowNull()]
+        [object[]] $Row
+    )
+
+    $found = @($Row | Where-Object { $_.Name -ceq $Name })
+    # A writer with no row, or none declaring lists, runs as it always has.
+    if ($found.Count -eq 0 -or -not $found[0].HasLists) {
+        return $true
+    }
+    [bool] $found[0].Due
 }
 
 function Invoke-ImporterJanitors {
@@ -413,36 +448,18 @@ function Invoke-ImporterJanitors {
         Reset-GitCleanFxd
     }
 
+    # Before the re-renders, so a hand edit is reported before a render overwrites it.
+    Invoke-GeneratedFilesJanitor
+
     # Tidy superseded type assemblies (.compiled stays a clean -1/+1 diff) — see Invoke-TypeCacheJanitor.
     Invoke-TypeCacheJanitor -ShowReport:$ShowStateChanges
 
-    if (Get-Command Build-DrsIndex -ErrorAction Ignore) {
-        Build-DrsIndex -Silent | Out-Null
-        Build-Glossary -Silent | Out-Null
-    }
-
-    if (Get-Command Build-ContractReference -ErrorAction Ignore) {
-        Build-ContractReference -Silent | Out-Null
-    }
-
-    if (Get-Command Build-Readme -ErrorAction Ignore) {
-        Build-Readme -Silent | Out-Null
-    }
-
-    if (Get-Command Build-GitKeep -ErrorAction Ignore) {
-        Build-GitKeep -Silent | Out-Null
-    }
-
-    if (Get-Command Build-TerminologyDictionary -ErrorAction Ignore) {
-        Build-TerminologyDictionary -Silent | Out-Null
-    }
-
-    if (Get-Command Build-DrsCodeDictionary -ErrorAction Ignore) {
-        Build-DrsCodeDictionary -Silent | Out-Null
-    }
-
-    if (Get-Command Build-RootConfig -ErrorAction Ignore) {
-        Build-RootConfig -Silent | Out-Null
+    # A build janitor re-renders only when the changed set or a missing output makes its writer due; the lists are generated-files.yml's.
+    $due = Get-DueWriterRow
+    foreach ($writer in 'Build-DrsIndex', 'Build-Glossary', 'Build-ContractReference', 'Build-Readme', 'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-DrsCodeDictionary', 'Build-RootConfig') {
+        if ((Get-Command $writer -ErrorAction Ignore) -and (Test-WriterDue -Name $writer -Row $due)) {
+            & $writer -Silent | Out-Null
+        }
     }
 
     if (Get-Command Sync-SessionTools -ErrorAction Ignore) {
@@ -462,8 +479,6 @@ function Invoke-ImporterJanitors {
     Invoke-AgentHookJanitor
 
     Invoke-EditorExtensionJanitor
-
-    Invoke-GeneratedFilesJanitor
 }
 
 function Write-LoadTime {

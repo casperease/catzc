@@ -17,47 +17,6 @@ catzc:
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
-## comment:1
-
-Above `function Write-ImporterMessage {`, written with `#`.
-
-```text
-.SYNOPSIS
-    Writes a bootstrap/importer console message, prefixed to match Write-Message's [Caller] style.
-.DESCRIPTION
-    Runs before Write-Message exists, so this is the bootstrap's one writer chokepoint, silent during a Pester run.
-    [comment:1](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment1)
-.PARAMETER Message
-    The message text.
-.PARAMETER ForegroundColor
-    Optional text color (e.g. DarkGray for diagnostics, Yellow for warnings). Not applied to a -StateChange line.
-.PARAMETER StateChange
-    The line announces a state change of the importer's own load sequence: write it on the verbose stream.
-```
-
-## comment:2
-
-Above `$script:importerVerbose = $false`, written with `#`.
-
-```text
-Whether Write-ImporterMessage -StateChange lines are shown. Module state, so it lives exactly as long as the
-bootstrap: a fresh import starts it at $false and the importer's teardown removes it with the module.
-```
-
-## comment:3
-
-Above `function Set-ImporterVerbosity {`, written with `#`.
-
-```text
-.SYNOPSIS
-    Sets whether the importer's state-change lines (Write-ImporterMessage -StateChange) are shown.
-.DESCRIPTION
-    The bootstrap and vendor functions do not inherit -Verbose, so Invoke-Importer hands the setting over here once.
-    [comment:3](/docs/references/pwsh/internal/Catzc.Internal.Bootstrap.psm1.md#comment3)
-.PARAMETER Enabled
-    Show the state-change lines on the verbose stream.
-```
-
 ## comment:4
 
 Above `function Clear-CompiledType {`, written with `#`.

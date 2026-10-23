@@ -19,6 +19,8 @@ function Test-GeneratedFiles {
 
         [switch] $Changed,
 
+        [switch] $StampOnly,
+
         [string] $OutputFolder,
 
         [switch] $PassThru
@@ -43,28 +45,12 @@ function Test-GeneratedFiles {
         })
 
     $issues = [System.Collections.Generic.List[string]]::new()
-    # With -Changed a writer's dry run runs when a path git reports changed matches its inputs or outputs; a writer with neither list runs whenever anything changed.
-    $changedPaths = [string[]] @(if ($Changed) {
-            Get-GitChangedPath
-        })
-    $isDue = {
-        param($Writer)
-        if (-not $Changed) {
-            return $true
+    # With -Changed only the writers Get-GeneratedWriterDue names run their dry run: the one reading of the inputs and outputs lists.
+    $dueNames = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    if ($Changed) {
+        foreach ($row in @(Get-GeneratedWriterDue | Where-Object Due)) {
+            [void]$dueNames.Add($row.Name)
         }
-        $globs = @($Writer.inputs) + @($Writer.outputs) | Where-Object { $_ }
-        if (@($globs).Count -eq 0) {
-            return $changedPaths.Count -gt 0
-        }
-        foreach ($glob in $globs) {
-            $pattern = [Catzc.Base.Globs.GlobPattern]::new($glob)
-            foreach ($changedPath in $changedPaths) {
-                if ($pattern.Matches($changedPath)) {
-                    return $true
-                }
-            }
-        }
-        $false
     }
     # A writer reports absolute or repository-relative paths; an issue names the repository-relative one.
     $addStale = {
@@ -78,10 +64,12 @@ function Test-GeneratedFiles {
         $issues.Add("${relative}: stale — $Name would change it; regenerate with: $Command")
     }
 
-    # Each registered writer is run by its check; the registry (generated-files.yml) says which check and, for a file result, which property holds the path.
-    foreach ($writer in $writers.Values) {
+    $dueWriters = @(if (-not $StampOnly) {
+            $writers.Values
+        })
+    foreach ($writer in $dueWriters) {
         $writerName = $writer.name
-        if (-not (& $isDue $writer)) {
+        if ($Changed -and -not $dueNames.Contains($writerName)) {
             continue
         }
         switch ($writer.check) {

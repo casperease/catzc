@@ -222,7 +222,7 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
             $holder.Taken | Should -BeTrue
             $path = Get-CatzcRunLockHolderPath -LockName $script:lockName
             [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($path)) | Out-Null
-            [System.IO.File]::WriteAllText($path, "2147483646|0|$([datetime]::UtcNow.AddSeconds(120).Ticks)|Get-Gadget")
+            [System.IO.File]::WriteAllText($path, "2147483646|0|$([datetime]::UtcNow.AddSeconds(120).Ticks)|0|0|Get-Gadget")
             $out = @(Wait-CatzcRunLock -LockName $script:lockName -LockSeconds 3 -BudgetSeconds 5 -StaleSeconds 720 -Holding 'Get-Widget' -Caller 'Widget' -Busy 'nothing ran' -Lock $script:taken)
             $out | Should -Be @('[Widget] waiting for the run lock: another run holds it (up to 3 s)')
             $script:taken.Value | Should -BeOfType [System.Threading.Mutex]
@@ -252,8 +252,8 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
     }
 
     It 'does not wait for a burst whose holder is gone: <case>' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' -ForEach @(
-        @{ case = 'its process is dead'; Record = { "2147483646|0|$([datetime]::UtcNow.AddSeconds(120).Ticks)|a burst (Enter-CatzcBurst)" } }
-        @{ case = 'past its declared length'; Record = { "$PID|$((Get-Process -Id $PID).StartTime.ToUniversalTime().Ticks)|$([datetime]::UtcNow.AddSeconds(-5).Ticks)|a burst (Enter-CatzcBurst)" } }
+        @{ case = 'its process is dead'; Record = { "2147483646|0|$([datetime]::UtcNow.AddSeconds(120).Ticks)|0|0|a burst (Enter-CatzcBurst)" } }
+        @{ case = 'past its declared length'; Record = { "$PID|$((Get-Process -Id $PID).StartTime.ToUniversalTime().Ticks)|$([datetime]::UtcNow.AddSeconds(-5).Ticks)|0|0|a burst (Enter-CatzcBurst)" } }
     ) {
         $burst = [System.Threading.EventWaitHandle]::new($false, [System.Threading.EventResetMode]::ManualReset, "$script:lockName-burst")
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 3000
@@ -300,6 +300,33 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
             $shell.Dispose()
             $result.Taken | Should -BeFalse
             $result.Lines[-1] | Should -Be "[Widget] run lock not taken: the caller that started this run (pid $($caller.Id)) is gone, so nothing ran"
+        }
+        finally {
+            Stop-Process -Id $caller.Id -Force -ErrorAction Ignore
+            Stop-LockHolder $holder
+        }
+    }
+
+    It 'counts a live holder as gone once the caller that started it is gone, and stops waiting for it' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        # The holder's own process lives and its record runs 120 s, but the caller named in the record is killed: an orphan holds no one.
+        $caller = Start-Process -FilePath (Get-Process -Id $PID).Path -ArgumentList '-NoProfile', '-Command', 'Start-Sleep -Seconds 30' -PassThru -WindowStyle Hidden
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 3000
+        try {
+            $holder.Taken | Should -BeTrue
+            $path = Get-CatzcRunLockHolderPath -LockName $script:lockName
+            [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($path)) | Out-Null
+            $self = (Get-Process -Id $PID).StartTime.ToUniversalTime().Ticks
+            $callerStart = $caller.StartTime.ToUniversalTime().Ticks
+            [System.IO.File]::WriteAllText($path, "$PID|$self|$([datetime]::UtcNow.AddSeconds(120).Ticks)|$($caller.Id)|$callerStart|Get-Gadget")
+            (Get-CatzcRunLockHolder -LockName $script:lockName).Holding | Should -Be 'Get-Gadget'
+            Stop-Process -Id $caller.Id -Force
+            $caller.WaitForExit(5000) | Should -BeTrue
+            Get-CatzcRunLockHolder -LockName $script:lockName | Should -BeNullOrEmpty
+            $timer = [System.Diagnostics.Stopwatch]::StartNew()
+            $out = @(Wait-CatzcRunLock -LockName $script:lockName -LockSeconds 1 -BudgetSeconds 60 -StaleSeconds 720 -Holding 'Get-Widget' -Caller 'Widget' -Busy 'nothing ran' -Lock $script:taken)
+            $timer.Elapsed.TotalSeconds | Should -BeLessThan 2.5
+            $out[-1] | Should -Be '[Widget] run lock busy: another run held it for 1 s, so nothing ran'
+            $script:taken.Value | Should -BeNullOrEmpty
         }
         finally {
             Stop-Process -Id $caller.Id -Force -ErrorAction Ignore

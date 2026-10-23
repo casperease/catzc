@@ -22,7 +22,7 @@ Started 2026-10-23T11:18:33.2487061+02:00.
   after the root tag, and NuGet reads past it in nuget.config.
 - 2026-10-23 Cats: In hindsight I wish I knew this fact: under strict mode, assigning if-statement output that holds @() unrolls to a scalar
   or null; wrap the whole if in @() instead.
-- 2026-10-23 Cats: In hindsight I wish I knew this fact: Measure-NoUnsafeFirstIndex flags @(x)[0]; the fix is x | Select-Object -First 1.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: Measure-NoUnsafeFirstIndex flags `@(x)[0]`; the fix is `x | Select-Object -First 1`.
 - 2026-10-23 Cats: In hindsight I wish I knew this fact: the Python diagram kit runs with uv run --no-sync, as the tooling runs it, so it
   never syncs or reads a package index.
 - 2026-10-23 Cats: Token tip: Next time, save tokens by: reading a run's verdicts with one grep of the Invoke-CatzcCommand passed/failed

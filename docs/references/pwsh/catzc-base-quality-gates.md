@@ -213,6 +213,7 @@ The module's public functions and configuration files, sorted into the responsib
 |                                                 | `Test-Change`                 |
 | config                                          | `test-policy.yml`             |
 | responsibility:2 — Repository quality gates     | `Test-GeneratedFiles`         |
+|                                                 | `Get-GeneratedWriterDue`      |
 |                                                 | `Test-Formatting`             |
 |                                                 | `Test-BclReferences`          |
 |                                                 | `Test-BuildArtifact`          |

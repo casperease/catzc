@@ -87,6 +87,13 @@ Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'lints only the markdown under a folder path, never its images, PDFs or YAML' {
+        Test-Markdownlint -Path 'docs/' -OutputFolder $script:reportBase | Out-Null
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter {
+            $Command -match "'docs/\*\*/\*\.md'" -and $Command -notmatch "'docs/?'"
+        }
+    }
+
     It 'lints a long path list in batches, each batch carrying every exclusion' {
         $paths = @(1..120 | ForEach-Object { "gadget-$_.md" }) + '!widget'
         Test-Markdownlint -Path $paths -OutputFolder $script:reportBase | Out-Null

@@ -64,6 +64,11 @@ Check only what git reports changed against HEAD: the stamp check reads only the
 writer with neither list runs whenever anything changed, and with nothing changed no writer runs. Catches a hand edit of a generated file
 and a generator change whose output was not re-rendered.
 
+### parameter `StampOnly`
+
+Run the stamp check alone and no writer's dry run: the cheap check the import janitor makes, about 0.3 s over the changed set. Combine it
+with Changed; the writers' dry runs stay the full run's.
+
 ### parameter `OutputFolder`
 
 The report base folder. Defaults to Write-QualityGateReport's (out/test-generated-files).
@@ -86,4 +91,13 @@ Test-GeneratedFiles
 
 ```powershell
 (Test-GeneratedFiles -Generator Build-DrsIndex, New-Importer -PassThru).Issues
+```
+
+## comment:1
+
+Above `$dueWriters = @(if (-not $StampOnly) {`, written with `#`.
+
+```text
+Each registered writer is run by its check; the registry (generated-files.yml) says which check and, for a file result, which property holds the path.
+@() around the whole if: an empty list must stay an array under strict mode.
 ```

@@ -34,8 +34,8 @@ markdownlint-cli2 must be on PATH — install it once with Install-Markdownlint 
 
 ### parameter `Path`
 
-Repository-relative paths or globs to lint (markdownlint-cli2 expands a glob). Defaults to the repository's in-scope Markdown, with the
-out-of-scope trees excluded via '!'-negation globs.
+Repository-relative paths or globs to lint (markdownlint-cli2 expands a glob). A folder lints the Markdown under it only, never its images,
+PDFs or YAML. Defaults to the repository's in-scope Markdown, with the out-of-scope trees excluded via '!'-negation globs.
 
 ### parameter `OutputFolder`
 

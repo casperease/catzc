@@ -205,10 +205,10 @@ codes the file and its comment page cite outside their ` ```yml drawio ` blocks;
 page cite, those blocks included; and `docs`, its comment page; no `test` or `code` edge, since a test is found by convention. The fact
 behind `cites` keeps every code, blocks included, and the `drs-codes` kind renders it into both keys, so a diagram's codes count toward the
 total without filling the head's list. A cited bare record code stands for its rules, so `cites` folds the rule codes under it into that
-record code, and `drs_total` counts the distinct codes before that folding. `edges` is imprinted and `immutable` is written by the file's writer, never by hand, and both are
-fixed by the file: a place fact until the file moves or a registry changes, an edge until the file's text changes. An edge is written on its
-source only, so the target holds no copy, and an edge is named for the relation, never for the type of its target. A tracked generated
-file's `immutable` opens with `with_body_sha`, the hash of the body below the head
+record code, and `drs_total` counts the distinct codes before that folding. `edges` is imprinted and `immutable` is written by the file's
+writer, never by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an edge until the file's
+text changes. An edge is written on its source only, so the target holds no copy, and an edge is named for the relation, never for the type
+of its target. A tracked generated file's `immutable` opens with `with_body_sha`, the hash of the body below the head
 ([ADR-REPO-FILEMETA-IMPRINTEDPARTS](#rule-adr-repo-filemeta-imprintedparts)). A head holds no `repo_status`: whether a file is generated is
 told by the writer registry, and the states only git knows, edited, staged, committed and pushed, and `ready` (tracked and unchanged), are
 computed on demand by `Get-RepoStatus` from git, read-only, since writing them would change them. An imprint kind of the registry writes the

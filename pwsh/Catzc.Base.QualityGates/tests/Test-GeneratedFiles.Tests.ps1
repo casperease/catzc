@@ -160,6 +160,16 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
             Should -Invoke Build-GitKeep -ModuleName Catzc.Base.QualityGates -Times 0
         }
 
+        It 'with -StampOnly runs the stamp check over the changed set and no writer' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'docs/drs/index.md' }
+
+            $result = Test-GeneratedFiles -Changed -StampOnly -PassThru -OutputFolder $script:reportFolder
+            $result.IssueCount | Should -Be 0
+            Should -Invoke Build-DrsIndex -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
+            Should -Invoke Build-RootConfig -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
+            Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter { $Changed }
+        }
+
         It 'fails a generator change whose output was not re-rendered' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
             Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1' }
             Mock Build-DrsIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/drs/index.md'; Changed = $true; DryRun = $true } }

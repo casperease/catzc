@@ -11,7 +11,8 @@
     holder is waited for until the waiter's -BudgetSeconds leaves only its own -LockSeconds, whatever deadline the holder declares; then
     the waiter stops and says when to retry. It writes its waiting
     lines to the pipeline as they happen, and sets -Lock to the owned mutex, or writes a "run lock busy" line and leaves -Lock null.
-    The holder record sits beside the queue folder: the holding process's id and start time, its deadline and what it runs. The waiter
+    The holder record sits beside the queue folder: the holding process's id and start time, its deadline, its caller's id and start time
+    (a holder whose caller is gone counts as gone, as a waiter whose caller is gone never takes the lock) and what it runs. The waiter
     that takes the lock writes it, Set-CatzcRunLockHolder moves its deadline once the run knows its commands' limits, and
     Remove-CatzcRunLockHolder deletes it before the lock is let go. The wait, the stale-ticket age and the budget are the run_lock entry
     of timeouts.yml (Get-CatzcRunLockSetting), read here without an import.
@@ -73,16 +74,36 @@ function Set-CatzcRunLockHolder {
         [int] $Seconds,
 
         [Parameter(Mandatory)]
-        [string] $Holding
+        [string] $Holding,
+
+        [int] $ParentId = ((Get-Process -Id $PID).Parent)?.Id ?? 0
     )
 
     # One line: the process id and start time, so a reused id is never taken for the holder, the deadline (the budget when the lock is
-    # taken, then the run's own limits summed, or a burst's length), and what it runs.
+    # taken, then the run's own limits summed, or a burst's length), the holder's own caller the same way, and what it runs.
     $path = Get-CatzcRunLockHolderPath -LockName $LockName
     $started = (Get-Process -Id $PID).StartTime.ToUniversalTime().Ticks
     $deadline = [datetime]::UtcNow.AddSeconds($Seconds).Ticks
+    $callerStarted = Get-CatzcRunLockProcessStart -ProcessId $ParentId
     [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($path)) | Out-Null
-    [System.IO.File]::WriteAllText($path, "$PID|$started|$deadline|$($Holding -replace '[\r\n|]', ' ')")
+    [System.IO.File]::WriteAllText($path, "$PID|$started|$deadline|$ParentId|$callerStarted|$($Holding -replace '[\r\n|]', ' ')")
+}
+
+function Get-CatzcRunLockProcessStart {
+    param(
+        [Parameter(Mandatory)]
+        [int] $ProcessId
+    )
+
+    # The start time of a live process in UTC ticks, 0 when there is none, so a reused id never passes for the process it once was.
+    if ($ProcessId -le 0) {
+        return 0L
+    }
+    $process = Get-Process -Id $ProcessId -ErrorAction Ignore
+    if ($null -eq $process -or $process.HasExited) {
+        return 0L
+    }
+    $process.StartTime.ToUniversalTime().Ticks
 }
 
 function Test-CatzcRunLockHolderGone {
@@ -126,7 +147,8 @@ function Get-CatzcRunLockHolder {
         [string] $LockName
     )
 
-    # The holder counts only while its process lives with the same start time and its deadline has not passed.
+    # The holder counts only while its process lives with the same start time, the caller that started it is still there, and its deadline
+    # has not passed: a holder whose caller is gone (its call killed by a timeout or stopped) is an orphan, which holds no one.
     $path = Get-CatzcRunLockHolderPath -LockName $LockName
     $text = $null
     try {
@@ -138,19 +160,24 @@ function Get-CatzcRunLockHolder {
     catch [System.UnauthorizedAccessException] {
         return $null
     }
-    $parts = $text -split '\|', 4
-    if ($parts.Count -lt 4) {
+    $parts = $text -split '\|', 6
+    if ($parts.Count -lt 6) {
         return $null
     }
-    $process = Get-Process -Id ([int] $parts[0]) -ErrorAction Ignore
-    if ($null -eq $process -or $process.StartTime.ToUniversalTime().Ticks -ne [long] $parts[1]) {
+    $started = Get-CatzcRunLockProcessStart -ProcessId ([int] $parts[0])
+    if ($started -eq 0 -or $started -ne [long] $parts[1]) {
+        return $null
+    }
+    # A holder started with no caller on record (id 0) has none to lose.
+    $callerStarted = Get-CatzcRunLockProcessStart -ProcessId ([int] $parts[3])
+    if ([int] $parts[3] -gt 0 -and ($callerStarted -eq 0 -or $callerStarted -ne [long] $parts[4])) {
         return $null
     }
     $deadline = [datetime]::new([long] $parts[2], [System.DateTimeKind]::Utc)
     if ($deadline -le [datetime]::UtcNow) {
         return $null
     }
-    [pscustomobject]@{ ProcessId = [int] $parts[0]; Deadline = $deadline; Holding = $parts[3] }
+    [pscustomobject]@{ ProcessId = [int] $parts[0]; Deadline = $deadline; Holding = $parts[5] }
 }
 
 function Wait-CatzcRunLock {
@@ -323,7 +350,7 @@ function Wait-CatzcRunLock {
             $BudgetSeconds
         }
         # A hold length the caller gives (a burst's) is its deadline; otherwise the budget, the most the run may take.
-        Set-CatzcRunLockHolder -LockName $LockName -Seconds $hold -Holding $Holding
+        Set-CatzcRunLockHolder -LockName $LockName -Seconds $hold -Holding $Holding -ParentId $ParentId
         $Lock.Value = $mutex
         return
     }

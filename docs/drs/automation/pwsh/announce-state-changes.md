@@ -21,10 +21,10 @@ catzc:
 ### Rule ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT
 
 Every write to the console goes through the information stream, by way of the writer chokepoint: `Write-Message` →
-`Write-InformationColored` → `Write-Information`, or the bootstrap's `Write-ImporterMessage` before the Writers module is loaded. Nothing
-calls `Write-Host`, `Out-Host`, `Write-Progress`, `Clear-Host`, a `[Console]` write method, or a `$Host.UI` writer, and nothing assigns a
-console property (title, colour, cursor, encoding). The one exception is the output encoding of a redirected session: the importer sets it
-to UTF-8 (`Set-RedirectedOutputEncoding`), so a captured log carries one encoding, and announces it on its load record
+`Write-InformationColored` → `Write-Information`, or the loader's `Write-ImporterMessage` before the Writers module is loaded. Nothing calls
+`Write-Host`, `Out-Host`, `Write-Progress`, `Clear-Host`, a `[Console]` write method, or a `$Host.UI` writer, and nothing assigns a console
+property (title, colour, cursor, encoding). The one exception is the output encoding of a redirected session: the importer sets it to UTF-8
+(`Set-RedirectedOutputEncoding`), so a captured log carries one encoding, and announces it on its load record
 (ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE). An inline liveness dot is `Write-Message '.' -NoHeader -NoNewline`.
 
 - [One stream](#one-stream)
@@ -267,10 +267,10 @@ anything that actually needs attention: a warning, `Built <dll>` for a freshly c
 
 The shim is an advanced script so that it accepts `-Verbose`. Dot-sourced, it sets the preference in the caller's scope for the length of
 the import, and PowerShell restores it afterwards. `-Verbose` reaches Invoke-Importer, but not the bootstrap and vendor module functions
-that make the changes, so Invoke-Importer hands it to the bootstrap writer with `Set-ImporterVerbosity`. The setting lives in the bootstrap
-module and goes away with it. While the import runs, Invoke-Importer quiets the session-wide preference and restores it in a `finally`
-(ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES), so `-Verbose` shows the load record rather than every function each `Import-Module` dot-sources and
-exports.
+that make the changes, so Invoke-Importer hands it to the loader's writer with `Set-ImporterVerbosity`. The setting lives in the loader
+module (`Catzc.Internal.Loader.psm1`). While the import runs, Invoke-Importer quiets the session-wide preference and restores it in a
+`finally` (ADR-PWSH-ANNOUNCE-UNANNOUNCEDCHANGES), so `-Verbose` shows the load record rather than every function each `Import-Module`
+dot-sources and exports.
 
 The exception covers only the importer's own load. The functions it calls, such as the janitors that adjust `PATH`, are ordinary public
 functions and announce on the information stream like any other caller's, so a person who runs `Sync-SessionTools` at the prompt sees every

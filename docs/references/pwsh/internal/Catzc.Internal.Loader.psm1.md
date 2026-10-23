@@ -72,3 +72,45 @@ Above `[bool]$env:TF_BUILD -or [bool]$env:GITHUB_ACTIONS`, written with `#`.
 Azure DevOps sets TF_BUILD=True
 GitHub Actions sets GITHUB_ACTIONS=true
 ```
+
+## comment:5
+
+Above `function Write-ImporterMessage {`, written with `#`.
+
+```text
+.SYNOPSIS
+    Writes a bootstrap/importer console message, prefixed to match Write-Message's [Caller] style.
+.DESCRIPTION
+    Runs before Write-Message exists, so this is the importer's one writer chokepoint, silent during a Pester run. It lives in the
+    loader, which stays loaded, so a janitor line after the import still reaches it.
+    [comment:1](/docs/references/pwsh/internal/Catzc.Internal.Loader.psm1.md#comment5)
+.PARAMETER Message
+    The message text.
+.PARAMETER ForegroundColor
+    Optional text color (e.g. DarkGray for diagnostics, Yellow for warnings). Not applied to a -StateChange line.
+.PARAMETER StateChange
+    The line announces a state change of the importer's own load sequence: write it on the verbose stream.
+```
+
+## comment:6
+
+Above `$script:importerVerbose = $false`, written with `#`.
+
+```text
+Whether Write-ImporterMessage -StateChange lines are shown. Module state, so it lives exactly as long as the
+loader: a fresh import reloads the loader and starts it at $false.
+```
+
+## comment:7
+
+Above `function Set-ImporterVerbosity {`, written with `#`.
+
+```text
+.SYNOPSIS
+    Sets whether the importer's state-change lines (Write-ImporterMessage -StateChange) are shown.
+.DESCRIPTION
+    The bootstrap and vendor functions do not inherit -Verbose, so Invoke-Importer hands the setting over here once.
+    [comment:3](/docs/references/pwsh/internal/Catzc.Internal.Loader.psm1.md#comment7)
+.PARAMETER Enabled
+    Show the state-change lines on the verbose stream.
+```

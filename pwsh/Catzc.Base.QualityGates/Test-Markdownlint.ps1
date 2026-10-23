@@ -43,7 +43,14 @@ function Test-Markdownlint {
 
     # Batches keep each command line short; every batch carries all the '!' exclusions so each one is scoped alike.
     $exclusions = @($Path | Where-Object { $_.StartsWith('!') } | ForEach-Object { "'$_'" })
-    $targets = @($Path | Where-Object { -not $_.StartsWith('!') })
+    $targets = @($Path | Where-Object { -not $_.StartsWith('!') } | ForEach-Object {
+            if ([System.IO.Directory]::Exists([System.IO.Path]::Combine($root, $_))) {
+                "$($_.TrimEnd('/', '\'))/**/*.md"
+            }
+            else {
+                $_
+            }
+        })
     $batchSize = 50
     $exitCode = 0
     $outputs = [System.Collections.Generic.List[string]]::new()

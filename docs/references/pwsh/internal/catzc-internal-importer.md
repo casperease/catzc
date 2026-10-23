@@ -33,8 +33,8 @@ shared library code: the shim removes it once `Invoke-Importer` returns.
    generated READMEs (`Build-Readme`), the cSpell dictionaries (`Build-TerminologyDictionary`), the managed root config files
    (`Build-RootConfig`), the session-PATH reconcile (`Sync-SessionTools`), and a Windows warning when `PSModulePath` contains a network
    share. Each is guarded (absent in the bootstrap sandbox) and each is a fast no-op on a clean tree.
-6. **Teardown** — remove the transient bootstrap module (kept until here so importer output can route through its `Write-ImporterMessage`),
-   leaving the resident Loader, Types, and Vendor in the session, and print the console load timer.
+6. **Teardown** — remove the transient bootstrap module, leaving the resident Loader, Types, and Vendor in the session, and print the
+   console load timer.
 
 Its parameter block is asserted to match `importer.ps1` — a drift test regenerates the shim from it and compares — so the two can never
 diverge. The switches are the toolset's load surface: `-ExportPrivates` (export `private/` functions so tests can reach them),

@@ -37,16 +37,3 @@ ten "may I" questions on edits the rules already require, three to five tool cal
       (task-user-runs-and-commits). Check: one message sent between sessions appears in `out/orchestrator-<date>.log`.
 - [ ] `.claude/skills/plans-orchestrate/SKILL.md` line 4: the log line is written by the hook when the hook covers it (after the step
       above). Check: `Test-AgentDefinitions`.
-
-- [ ] Decided by the orchestrator as delegated (2026-10-23), from the finalizes of 2026-10-22 and 2026-10-23, every proposal taken, each
-      merged into an existing line (at most 10 lines and 140 columns a file): `.claude/skills/plans-orchestrate/SKILL.md`, at most two heavy
-      drones at a time, bursts chained drone to drone, one unit per `Invoke-CatzcCommand` call, a step's check names a command a module
-      exports, and the orchestrator's plan checks batch into one run per worker report; `.claude/skills/catzc-verify/SKILL.md`, a body diff
-      after `Format-Code` may be a comment moved to its page (check the page first), and a test file red on HEAD is fixed inside the burst
-      that touches its subject, a burst leaving out only files red for commit state or a named race, each listed in its step;
-      `.claude/skills/catzc-run/SKILL.md`, inside `Invoke-CatzcCommand` the gate itself is called, never a count of its issues, the draw.io
-      kit runs as `uv run --no-sync --project python python …`, and a line pre-approving agent behaviour or a `sed -i` delete is denied by
-      the permission system and goes to the user. Check: `Test-AgentDefinitions`.
-- [ ] Decided by the orchestrator as delegated (2026-10-23; catzc-6e's finalize): `pwsh/.internal/assets/Wait-CatzcRunLock.ps1`, a holder
-      whose own caller is gone counts as gone, as a waiter whose caller is gone already does, so an orphaned pwsh no longer holds every
-      waiter to its deadline. Check: its test file green with a new orphaned-holder case, `Test-ScriptAnalyzer -Path` at 0.
