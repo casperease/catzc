@@ -55,9 +55,15 @@ layers: # the paint order, back to front: put orders the model's cells by it und
   spans: span bars
   lines: gate rules, lane trunks and bypasses, which pass beneath the edges
   edges: every other edge
+  titles: a band's title, a borderless box of its own, painted over the edges that cross its band so an edge passes under the word
   glyphs: glyphs, commits and the minimap pictures
   marks: markers and chips
   labels: text, on top of everything
+lane: # a lane's commits and glyphs, placed by step and row (lanes: in a diagram's declaration)
+  slot: centre # left | centre | right: where a commit or glyph stands in its row at its step; two on one row at one step take left and right, side by side
+  slot-gap: 56 # px between the centres of a left and a right slot of one step, each standing half of it from the step's centre
+span: # a span bar's place over what it covers
+  row: auto # auto | 0, 1, 2 ...: auto stacks a span one row above every span it overlaps, the narrow ones first; a number puts it on that row, 0 the row beside its bands
 kinds: # the two diagram kinds; each supplies the default three minimaps (minimaps: below)
   explanation: an explanation diagram, embedded by an article under docs/explanation
   reference: a reference diagram, embedded by a page under docs/references or docs/drs
@@ -174,3 +180,4 @@ vocabularies: # the closed lists a span bar's label comes from, with the track n
   rungs: main-uat, release-uat, pre-prod, prod
   layers: language, engine, importer
   iac: templates, configs, modules
+  statements: Authoring is not done until seen in production

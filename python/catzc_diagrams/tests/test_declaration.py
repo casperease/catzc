@@ -400,6 +400,37 @@ def test_a_span_sits_above_its_bands_and_a_wider_span_stacks_over_a_narrower_one
     assert cells["span-narrow"]["y"] == top - 24 and cells["span-wide"]["y"] == top - 24 - 32
 
 
+def test_a_span_names_its_row_and_the_others_stack_around_it():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["spans"] = [
+        {"id": "span-wide", "label": "CD", "over": ["band-widgets", "band-gadgets"]},
+        {"id": "span-high", "label": "CI", "over": ["band-widgets"], "row": 3},
+    ]
+    first = declaration.normalise(raw)
+    cells = {c["id"]: c for c in declaration.place(first)[0]}
+    top = cells["band-widgets"]["y"]
+    assert cells["span-high"]["y"] == top - 24 - 3 * 32 and cells["span-wide"]["y"] == top - 24  # the wide one takes the free row 0
+    back = declaration.undrawn(declaration.get(declaration.put(first), kind="explanation")["content"], first)
+    assert back["spans"] == first["content"]["spans"]
+
+
+def test_two_spans_over_the_same_stage_on_one_row_fail_naming_the_row():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["spans"] = [
+        {"id": "span-one", "label": "CD", "over": ["band-widgets"], "row": 1},
+        {"id": "span-two", "label": "CI", "over": ["band-widgets", "band-gadgets"], "row": 1},
+    ]
+    with pytest.raises(declaration.DeclarationError, match="row 1"):
+        declaration.place(declaration.normalise(raw))
+
+
+def test_a_span_row_is_auto_or_a_whole_number():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["spans"][0]["row"] = "high"
+    with pytest.raises(declaration.DeclarationError, match="auto or a whole number"):
+        declaration.normalise(raw)
+
+
 def test_a_span_over_glyphs_of_one_band_covers_just_them_and_comes_back():
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"]["spans"] = [{"id": "span-gate", "label": "CI", "over": ["gadget-gate"]}]
@@ -826,7 +857,7 @@ LANE = {
 
 def lane_widgets():
     raw = __import__("yaml").safe_load(WIDGETS)
-    raw["content"].update(LANE)
+    raw["content"].update(__import__("copy").deepcopy(LANE))  # a copy, so no test's added commit reaches the next
     raw["content"]["spans"] = []
     return raw
 
@@ -839,6 +870,26 @@ def test_a_lane_places_its_commits_by_step_and_row_and_draws_its_trunk_marks_and
     assert box["g1"]["x"] < box["g2"]["x"] < box["g3"]["x"]
     assert {"lane-band-git-trunk", "lane-band-git-mark-0", "lane-rule-0", "lane-rule-1"} <= set(box)
     assert box["lane-rule-0-a"]["x"] < box["lane-rule-1-a"]["x"]
+
+
+def test_a_left_and_a_right_slot_stand_side_by_side_on_their_step_and_a_centre_slot_stays_on_it():
+    raw = lane_widgets()
+    raw["content"]["lanes"][0]["commits"] += [
+        {"id": "s-one", "step": 5, "row": -1, "slot": "left", "label": "1"},
+        {"id": "s-two", "step": 5, "row": -1, "slot": "right", "label": "2"},
+        {"id": "s-top", "step": 5, "row": 1, "label": "3"},
+    ]
+    box = {c["id"]: c for c in declaration.place(declaration.normalise(raw))[0]}
+    assert box["s-one"]["y"] == box["s-two"]["y"] and box["s-one"]["x"] + box["s-one"]["w"] < box["s-two"]["x"]
+    assert box["s-one"]["x"] + box["s-two"]["x"] == 2 * box["s-top"]["x"]  # the pair is centred on the step its centre commit stands on
+    assert box["s-top"]["y"] < box["s-one"]["y"]
+
+
+def test_a_lane_slot_outside_left_centre_right_fails_with_the_slots():
+    raw = lane_widgets()
+    raw["content"]["lanes"][0]["commits"][0]["slot"] = "middle"
+    with pytest.raises(declaration.DeclarationError, match="left, centre, right"):
+        declaration.normalise(raw)
 
 
 def test_a_lane_is_written_back_as_a_lane_and_a_get_of_its_drawing_keeps_it(tmp_path):
@@ -889,6 +940,29 @@ def test_a_line_crossing_a_commit_passes_beneath_it_in_the_model_and_the_raster(
     colour, model = pixel(first, mid["x"] + mid["w"] / 2, mid["y"] + 4)
     assert model.index('id="e-c-top-c-low"') < model.index('id="c-mid"')
     assert near(colour, declaration.COMMITS["l3"][0])
+
+
+def test_an_edge_crossing_a_band_title_passes_beneath_the_title_in_the_model_and_the_raster():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    content = raw["content"]
+    content.update({"flow": "top-to-bottom", "spans": [], "groups": [], "markers": [], "chips": []})
+    content["glyphs"] = [
+        {"id": "top-gate", "kind": "gate", "label": "Top", "in": "band-widgets"},
+        {"id": "low-gate", "kind": "gate", "label": "Low", "in": "band-gadgets"},
+    ]
+    content["edges"] = [{"from": "top-gate", "to": "low-gate", "kind": "fail"}]
+    title = {c["id"]: c for c in declaration.place(declaration.normalise(raw))[0]}["band-gadgets-title"]
+    column = title["x"] + title["w"] - 5  # the edge runs down the margin the box keeps right of its word
+    raw["layout"] = {
+        "top-gate": {"x": column - 20, "y": title["y"] - 120, "w": 40, "h": 30},
+        "low-gate": {"x": column - 20, "y": title["y"] + 80, "w": 40, "h": 30},
+    }
+    first = declaration.normalise(raw)
+    colour, model = pixel(first, column, title["y"] + title["h"] / 2)
+    assert model.index('id="e-top-gate-low-gate"') < model.index('id="band-gadgets-title"')
+    assert near(colour, declaration.paint("@band"))  # the title box hides the line where it crosses
+    below, _ = pixel(first, column, title["y"] + title["h"] + 8)
+    assert near(below, declaration.paint("@red-rim"), slack=40)  # and the line shows again under the box
 
 
 def test_a_bypass_passes_beneath_the_discard_arrow_it_crosses():

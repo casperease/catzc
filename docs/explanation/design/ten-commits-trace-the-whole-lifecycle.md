@@ -60,39 +60,18 @@ content:
     - { id: band-envs, label: ENVIRONMENTS }
     - { id: band-git, label: GIT }
   spans:
-    - id: span-ci
-      label: CI
-      over: [gate-precommit, gate-commit]
-    - id: span-deploy-nonprod
-      label: DEPLOY-Non Prod
-      over: [gate-l3, gate-main-at, gate-release-at]
-    - id: span-cd-rbc
-      label: CD+RBC
-      over: [gate-precommit, gate-commit, gate-l3, gate-main-at, gate-release-at]
-    - id: span-cde
-      label: CDe
-      over: [gate-precommit, gate-commit, gate-l3, gate-main-at, gate-release-at, gate-pre-prod, gate-production]
-    - id: span-cd
-      label: CD
-      over: [gate-precommit, gate-commit, gate-l3, gate-main-at]
-    - id: span-authoring
-      label: Authoring
-      over: [gate-precommit]
-    - id: span-pr-bvt
-      label: PR+BVT
-      over: [gate-commit]
-    - id: span-ci-plus
-      label: CI+
-      over: [gate-l3]
-    - id: span-rc
-      label: RC
-      over: [gate-main-at]
-    - id: span-rbc
-      label: RBC
-      over: [gate-release-at]
-    - id: span-deploy-prod
-      label: DEPLOY-Prod
-      over: [gate-pre-prod, gate-production]
+    - { id: span-authoring, label: Authoring, over: [gate-precommit, gate-commit], row: 0 }
+    - { id: span-not-done, label: Authoring is not done until seen in production, over: [gate-l3, gate-main-at, gate-release-at, gate-pre-prod, gate-production], row: 0 }
+    - { id: span-ci, label: CI, over: [gate-precommit, gate-commit], row: 1 }
+    - { id: span-ci-plus, label: CI+, over: [gate-l3], row: 1 }
+    - { id: span-rc, label: RC, over: [gate-main-at], row: 1 }
+    - { id: span-rbc, label: RBC, over: [gate-release-at], row: 1 }
+    - { id: span-deploy-prod, label: DEPLOY-Prod, over: [gate-pre-prod, gate-production], row: 1 }
+    - { id: span-pr-bvt, label: PR+BVT, over: [gate-commit], row: 2 }
+    - { id: span-deploy-nonprod, label: DEPLOY-Non Prod, over: [gate-l3, gate-main-at, gate-release-at], row: 2 }
+    - { id: span-cd, label: CD, over: [gate-precommit, gate-commit, gate-l3, gate-main-at], row: 3 }
+    - { id: span-cd-rbc, label: CD+RBC, over: [gate-precommit, gate-commit, gate-l3, gate-main-at, gate-release-at], row: 4 }
+    - { id: span-cde, label: CDe, over: [gate-precommit, gate-commit, gate-l3, gate-main-at, gate-release-at, gate-pre-prod, gate-production], row: 5 }
   lanes:
     - band: band-pipeline
       steps: 7
@@ -113,9 +92,9 @@ content:
         - { id: cand-6a, step: 2, row: 1, label: "6", state: landed }
         - { id: cand-7, step: 2, label: "7", state: landed }
         - { id: cand-3a, step: 2, row: -1, label: "3", state: landed }
-        - { id: cand-10, step: 3, row: -1, label: "10" }
+        - { id: cand-10, step: 3, row: -1, slot: right, label: "10" }
         - { id: cand-4a, step: 3, row: 1, label: "4" }
-        - { id: cand-2, step: 3, label: "2" }
+        - { id: cand-2, step: 3, row: -1, slot: left, label: "2" }
         - { id: cand-6b, step: 4, row: 1, label: "6", state: l3 }
         - { id: cand-0, step: 4, row: -1, label: "0", state: l3 }
         - { id: cand-5b, step: 5, row: 1, label: "5", state: main-uat }
@@ -127,8 +106,8 @@ content:
       steps: 7
       commits:
         - { id: gone-9, step: 1, label: "9", state: discarded }
-        - { id: gone-10, step: 3, row: 1, label: "10", state: discarded }
-        - { id: gone-2, step: 3, row: -1, label: "2", state: discarded }
+        - { id: gone-10, step: 3, slot: right, label: "10", state: discarded }
+        - { id: gone-2, step: 3, slot: left, label: "2", state: discarded }
         - { id: gone-0, step: 4, label: "0", state: discarded }
         - { id: gone-3, step: 5, label: "3", state: discarded }
         - { id: gone-1, step: 6, label: "1", state: discarded }

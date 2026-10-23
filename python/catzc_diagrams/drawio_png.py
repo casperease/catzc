@@ -430,9 +430,9 @@ def render(root, page=None):
                 text = wrapped(d, text, f, w - 4)
             bbox = d.multiline_textbbox((0, 0), text, font=f, spacing=3)
             tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
-            left = max(6, float(s.get("spacingLeft", 0)) - 2)  # a band's spacingLeft=8 keeps its 6; a wider one moves the text in
+            left = float(s["spacingLeft"]) - 2 if "spacingLeft" in s else 6  # a band's spacingLeft=8 keeps its 6; a title box's 5 puts it 3
             tx = x0 + left if align == "left" else (x1 - tw - 6 if align == "right" else (x0 + x1 - tw) / 2)
-            ty = y0 + 6 if top else (y0 + y1 - th) / 2
+            ty = y0 + 6 + float(s.get("spacingTop", 0)) if top else (y0 + y1 - th) / 2  # a title box's -3 lifts its word to a band's 6
             d.multiline_text((tx, ty), text, font=f, fill=ink, spacing=3, align=align if align in ("left", "right") else "center")
 
     def origin(c):  # the absolute offset of an edge's own coordinates: its parent group's position (geo is absolute), or none
