@@ -65,9 +65,10 @@ one is the glyph legend. A comment's target is therefore usually an article's bl
 
 ## Open steps
 
-- [ ] The cycle: the agent greets the user, the user names a slide, the agent reads it and asks one question in context ending with "I
-      spotted: ...", and the user's written answer becomes one open step below this one. Check: each landed answer leaves its slide
-      re-rendered and looked at, the kit suite green, and `Test-Diagrams` clean over every diagram redrawn.
+- [ ] The cycle: the agent greets the user, the user names a slide and nothing else, the agent reads it, decides every fix, lands it,
+      redraws and reports "I spotted: ..." with what changed; the next pasted name is the acceptance, a sentence from the user overrides the
+      decision it names. Check: each landed fix leaves its slide re-rendered and looked at, the kit suite green, and `Test-Diagrams` clean
+      over every diagram redrawn.
 - [ ] `docs/explanation/design/.assets/state-changes.drawio.png` changed by about 120 pixels over a large area in the redraw after the
       title-box change (2026-10-23) and the drone could not see the difference in a crop. Compare the png at HEAD with the new one
       (`git show     HEAD:<path>` into `out/`), name the difference, and decide whether it is an edge that used to cross a title or a

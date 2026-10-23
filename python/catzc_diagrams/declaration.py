@@ -123,6 +123,7 @@ CONTENT_KEYS = (
     "rows",
     "lanes",
     "rules",
+    "ladders",
     "groups",
     "glyphs",
     "edges",
@@ -141,6 +142,10 @@ SHIFT_KEY = "drawingShift"  # the title's style key for how far span room moved 
 # The keys an author writes as shorthand: dump writes them back, never the cells they expand to.
 SHORTHAND = ("templates", "rows", "lanes", "rules")
 LANE_KEYS = ("band", "steps", "trunk", "commits", "glyphs", "marks")
+# A ladder: a band whose glyphs climb left to right along their forward edges, spread over the band's width, each `rise` px above the one
+# before and the first on the band's floor, every rung `w` by `h` when given; a hint for the grid, so the drawing carries it only as the
+# places it gives (get keeps them, the source keeps the hint).
+LADDER_KEYS = ("band", "rise", "w", "h")
 RULE_KINDS = ("manual", "automated")  # a gate rule: a solid red line for a manual gate, a dashed line for an automated one
 SPAN_ROW = DEFAULTS["span"]["row"]  # a span's default row: stacked above what it overlaps
 LANE_SLOTS = ("left", "centre", "right")  # where a lane's commit stands in its row at a step
@@ -706,6 +711,10 @@ def undrawn(content, declared):
     from where it sits (put refuses a place inside another band)."""
     source, layout = declared["content"], declared["layout"]
     out = {**content, **{k: source[k] for k in SOURCE_ONLY}}
+    # A ladder is a hint for the grid; the drawing carries only the places it gave, so the source keeps the hint.
+    out.pop("ladders", None)
+    if source.get("ladders"):
+        out["ladders"] = source["ladders"]
     # An action diagram's where and a used legend are read from the chips and the legend only as far as the drawing tells; the source
     # keeps its own words for both.
     for key in ("where", "legend"):
@@ -931,7 +940,7 @@ def normalise(raw, where="the declaration"):
     # The action lens draws its cause, its action and its effects, and the renderer draws every edge; the proof lens draws the action's
     # statement alone; every other lens draws bands.
     if lens in (ACTION_LENS, PROOF_LENS):
-        for key in ("bands", "groups", "glyphs", "notes", "edges", "spans", "markers", "chips", "relation", "thick") + SHORTHAND:
+        for key in ("bands", "groups", "glyphs", "notes", "edges", "spans", "markers", "chips", "relation", "thick", "ladders") + SHORTHAND:
             if content.get(key):
                 raise DeclarationError(
                     f"{where}: content.{key} is the band grammar; the {lens} lens draws an action, and the renderer draws the rest"
@@ -1012,6 +1021,22 @@ def normalise(raw, where="the declaration"):
             choices(f"{where}: rule kind", rule["kind"], RULE_KINDS)
         if not rule["after"].isdigit() or not 1 <= int(rule["after"]) < int(lanes[0]["steps"]):
             raise DeclarationError(f"{where}: rule after {rule['after']} is not a step of 1 to {int(lanes[0]['steps']) - 1}")
+    # A ladder names a band whose glyphs climb left to right along their forward edges, each rise px above the one before.
+    ladders = []
+    for raw_ladder in content.get("ladders") or []:
+        ladder = entry(raw_ladder, LADDER_KEYS[:2], where, "ladder", optional={"w": "", "h": ""})
+        if ids.get(ladder["band"]) != "band":
+            choices(f"{where}: ladder band", ladder["band"], [i for i, k in ids.items() if k == "band"])
+        if not ladder["rise"].isdigit() or int(ladder["rise"]) < 1:
+            raise DeclarationError(f"{where}: ladder '{ladder['band']}' rise is a whole number of px from 1, how far each rung climbs")
+        if ladder["band"] in {l["band"] for l in ladders}:
+            raise DeclarationError(f"{where}: ladder band '{ladder['band']}' is named twice")
+        size = {k: ladder[k] for k in ("w", "h") if ladder[k] != ""}
+        if len(size) == 1 or any(not v.isdigit() or int(v) < 1 for v in size.values()):
+            raise DeclarationError(f"{where}: ladder '{ladder['band']}' w and h are a rung's size in px, both or neither")
+        ladders.append({"band": ladder["band"], "rise": int(ladder["rise"]), **{k: int(v) for k, v in size.items()}})
+    if ladders:
+        out["ladders"] = ladders
     vocabulary = span_vocabulary()
     out["spans"] = []
     for s in content.get("spans") or []:
@@ -1664,10 +1689,43 @@ def place(declaration):
         holder.setdefault(item["in"], []).append(item)
     rows = {r["id"]: r for r in content.get("rows") or []}
     lanes = {str(l["band"]): l for l in content.get("lanes") or []}
+    ladders = {str(l["band"]): l for l in content.get("ladders") or []}
+
+    def rungs(band_id):
+        """A ladder band's items in climbing order: a walk along the forward edges between them from each item nothing in the band
+        leads to, in declared order, then whatever the walk did not reach."""
+        items = holder.get(band_id, [])
+        ids = [i["id"] for i in items]
+        nxt = {}
+        for e in content["edges"]:
+            if e["from"] in ids and e["to"] in ids and e["kind"] != "fail":
+                nxt.setdefault(e["from"], e["to"])
+        led = set(nxt.values())
+        order = []
+        for start in [i for i in ids if i not in led] + ids:
+            cur = start
+            while cur is not None and cur not in order:
+                order.append(cur)
+                cur = nxt.get(cur)
+        by_id = {i["id"]: i for i in items}
+        return [by_id[i] for i in order]
+
+    def ladder_place(band_id, item, origin_x, width, w, h):
+        """A ladder's rungs spread evenly over the band's width; rung n stands rise px above rung n-1, rung 0 on the band's floor."""
+        if band_id not in ladders:
+            return None
+        order = rungs(band_id)
+        n = next(i for i, r in enumerate(order) if r["id"] == item["id"])
+        stride = (width - size_of(order[-1])[0]) / (len(order) - 1) if len(order) > 1 else 0
+        floor = band_box[band_id]["y"] + band_box[band_id]["h"] - PAD
+        return {"x": origin_x + round(n * stride), "y": floor - h - n * int(ladders[band_id]["rise"]), "w": w, "h": h}
 
     def size_of(item):
         if item["id"] in layout:
             return layout[item["id"]]["w"], layout[item["id"]]["h"]
+        rung = ladders.get(item.get("in"))
+        if rung and "w" in rung:  # a ladder's rungs share the size the hint gives
+            return int(rung["w"]), int(rung["h"])
         if "text" in item:  # a note: its width, and a line of height per line of text at the width
             lines = sum(max(1, math.ceil(len(line) / 62)) for line in item["text"].split("\n"))
             return NOTE_WIDTH, 24 + 16 * lines
@@ -1712,6 +1770,12 @@ def place(declaration):
             return len(rows[holder_id]["steps"]) * ROW_PITCH + dot[0], ROW_DROP + dot[1]
         if holder_id in lanes:  # a lane's height is fixed: its trunk and a branch row above and below it
             return 0, LANE_HEIGHT - LABEL_ROW - PAD
+        if holder_id in ladders:  # a ladder's rungs in one row, the last standing rise px per rung above the first
+            sizes = [size_of(i) for i in holder.get(holder_id, [])]
+            if not sizes:
+                return 0, 0
+            rise = int(ladders[holder_id]["rise"])
+            return sum(s[0] for s in sizes) + COL_GAP * (len(sizes) - 1), max(s[1] for s in sizes) + rise * (len(sizes) - 1)
         items = holder.get(holder_id, [])
         if not items:
             return 0, 0
@@ -1788,6 +1852,7 @@ def place(declaration):
             box = (
                 layout.get(item["id"])
                 or row_place(holder_id, item, origin_x, origin_y, w, h)
+                or ladder_place(holder_id, item, origin_x, width, w, h)
                 or {"x": origin_x + x, "y": origin_y + y, "w": w, "h": h}
             )
             box_of[item["id"]] = box

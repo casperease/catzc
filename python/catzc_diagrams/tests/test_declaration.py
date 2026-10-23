@@ -885,6 +885,47 @@ def test_a_left_and_a_right_slot_stand_side_by_side_on_their_step_and_a_centre_s
     assert box["s-top"]["y"] < box["s-one"]["y"]
 
 
+def ladder_widgets():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["spans"] = []
+    raw["content"]["glyphs"] += [{"id": "gadget-top", "kind": "env", "label": "Top gadget", "in": "band-gadgets"}]
+    raw["content"]["edges"] += [{"from": "gadget-gate", "to": "gadget-top", "kind": "adr"}]
+    raw["content"]["ladders"] = [{"band": "band-gadgets", "rise": 30, "w": 150, "h": 80}]
+    return raw
+
+
+def test_a_ladder_climbs_its_band_left_to_right_along_the_forward_edges_and_the_source_keeps_the_hint(tmp_path):
+    first = declaration.normalise(ladder_widgets())
+    box = {c["id"]: c for c in declaration.place(first)[0]}
+    # store -> gate -> top: each rung 150 by 80, right of and 30 px above the one before, the first on the band's floor and the last
+    # against the band's right padding
+    assert all((box[r]["w"], box[r]["h"]) == (150, 80) for r in ("gadget-store", "gadget-gate", "gadget-top"))
+    assert box["gadget-store"]["x"] == box["band-gadgets"]["x"] + declaration.PAD
+    assert box["gadget-store"]["x"] < box["gadget-gate"]["x"] < box["gadget-top"]["x"]
+    assert box["gadget-top"]["x"] + 150 == box["band-gadgets"]["x"] + box["band-gadgets"]["w"] - declaration.PAD
+    assert box["gadget-store"]["y"] + box["gadget-store"]["h"] == box["band-gadgets"]["y"] + box["band-gadgets"]["h"] - declaration.PAD
+    assert box["gadget-store"]["y"] + box["gadget-store"]["h"] - 30 == box["gadget-gate"]["y"] + box["gadget-gate"]["h"]
+    assert box["gadget-gate"]["y"] + box["gadget-gate"]["h"] - 30 == box["gadget-top"]["y"] + box["gadget-top"]["h"]
+    assert "ladders:" in declaration.dump(first)
+    declaration.source_of(tmp_path).write_text(declaration.dump(first), encoding="utf-8")
+    declaration.put_png(tmp_path, first)
+    declaration.save(tmp_path, declaration.get(declaration.model_of(tmp_path), kind="explanation"))
+    assert "ladders:" in declaration.source_of(tmp_path).read_text(encoding="utf-8")
+
+
+def test_a_ladder_names_a_band_and_a_rise_from_1():
+    raw = ladder_widgets()
+    raw["content"]["ladders"] = [{"band": "group-kit", "rise": 30}]
+    with pytest.raises(declaration.DeclarationError, match="ladder band 'group-kit' is not one of: band-widgets, band-gadgets"):
+        declaration.normalise(raw)
+    raw["content"]["ladders"] = [{"band": "band-gadgets", "rise": 0}]
+    with pytest.raises(declaration.DeclarationError, match="rise is a whole number of px from 1"):
+        declaration.normalise(raw)
+    raw["content"]["ladders"] = [{"band": "band-gadgets", "rise": 30, "w": 150}]
+    with pytest.raises(declaration.DeclarationError, match="w and h are a rung's size in px, both or neither"):
+        declaration.normalise(raw)
+
+
 def test_a_lane_slot_outside_left_centre_right_fails_with_the_slots():
     raw = lane_widgets()
     raw["content"]["lanes"][0]["commits"][0]["slot"] = "middle"
