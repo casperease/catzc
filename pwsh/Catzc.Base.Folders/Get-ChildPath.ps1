@@ -30,12 +30,12 @@ function Get-ChildPath {
     # Neither switch, or both, lists both kinds; the vendor folder joins the pruned names only when it is pruned.
     $listFiles = $File -or -not $Directory
     $listDirectories = $Directory -or -not $File
-    $pruned = if ($PruneVendor) {
-        @($Exclude) + [Catzc.Base.Folders.FolderWalkConfig]::VendorFolder
-    }
-    else {
-        @($Exclude)
-    }
+    $pruned = @(if ($PruneVendor) {
+            @($Exclude) + [Catzc.Base.Folders.FolderWalkConfig]::VendorFolder
+        }
+        else {
+            @($Exclude)
+        })
 
     [Catzc.Base.Folders.FolderWalker]::Walk($Path, $Depth, $Filter, $listFiles, $listDirectories, [string[]] $pruned)
 }

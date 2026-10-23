@@ -36,12 +36,12 @@ function Resolve-ToolExecutable {
     else {
         "${platform}_probes"
     }
-    $accept = if ($entry['devbox_version'] -and -not $pipeline) {
-        @($entry['devbox_version'])
-    }
-    else {
-        @()
-    }
+    $accept = @(if ($entry['devbox_version'] -and -not $pipeline) {
+            @($entry['devbox_version'])
+        }
+        else {
+            @()
+        })
 
     # The version command's arguments, without its executable token (e.g. 'widget --version' -> '--version').
     $versionArguments = ([string]$entry['version_command'] -split '\s+', 2 | Select-Object -Skip 1) -join ' '

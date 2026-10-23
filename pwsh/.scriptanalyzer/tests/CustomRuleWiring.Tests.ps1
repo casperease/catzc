@@ -36,6 +36,7 @@ Write-Error 'widget'
 `$WidgetCount = 1
 1 | ForEach-Object { return }
 `$fact = @{ Name = if (`$widget) { `$widget } else { 'gadget' } }
+`$widgets = if (`$widget) { @(Get-ChildItem) }
 function Get-LongWidget {
 $longBody
 }
@@ -57,6 +58,7 @@ $longBody
         @{ Rule = 'Measure-NoRawVsoCommand' }
         @{ Rule = 'Measure-SpellOutIdentifiers' }
         @{ Rule = 'Measure-NoUnsafeFirstIndex' }
+        @{ Rule = 'Measure-NoUnrolledArrayBranch' }
         @{ Rule = 'Measure-NoBareCacheEntryRead' }
         @{ Rule = 'Measure-NeverDependOnPwd' }
         @{ Rule = 'Measure-NoWriteErrorOrWarning' }

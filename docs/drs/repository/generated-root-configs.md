@@ -24,6 +24,8 @@ source of truth — a `source` file (an authored template copied out under the g
 The registry is `pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml` — validated by the `RootConfigFiles` type, materialised by
 `Build-RootConfig`, the single writer. **Opt-out is the default**: an entry (or a root file) not opted in stays hand-authored and committed;
 `optIn: true` is the explicit takeover switch. The target-to-source pairing is not restated anywhere else.
+A generator lives in a Base module, since `Invoke-RootConfigGenerator` (`Catzc.Base.RootConfig`) calls each by name and a Tooling generator
+would be a Base→Tooling edge.
 
 - [Decision](#decision)
 

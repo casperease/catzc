@@ -140,6 +140,45 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         $result.Issues[0] | Should -BeLike "$(Get-CatzcModulesFolder)/Catzc.Base.QualityGates/assets/english.txt.gz: stale — flattened from cspell '9.1.0' but tools.yml pins '10'; regenerate with: Build-EnglishDictionary*"
         Should -Invoke Get-ConfigValue -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Address -eq 'global.tools.cspell.version' }
     }
+
+    Context 'with -Changed' {
+        It 'fails a hand edit: a changed output whose writer would change it' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'docs/drs/index.md' }
+            Mock Build-DrsIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/drs/index.md'; Changed = $true; DryRun = $true } }
+
+            $result = Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder
+            $result.Issues | Should -Contain 'docs/drs/index.md: stale — Build-DrsIndex would change it; regenerate with: Build-DrsIndex'
+            Should -Invoke Get-GeneratedStampDrift -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Changed }
+        }
+
+        It 'passes a generator change whose output was re-rendered, and does not run a writer none of the changed paths touch' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1'; 'docs/drs/index.md' }
+
+            $result = Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder
+            $result.IssueCount | Should -Be 0
+            Should -Invoke Build-DrsIndex -ModuleName Catzc.Base.QualityGates -Times 1
+            Should -Invoke Build-GitKeep -ModuleName Catzc.Base.QualityGates -Times 0
+        }
+
+        It 'fails a generator change whose output was not re-rendered' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1' }
+            Mock Build-DrsIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/drs/index.md'; Changed = $true; DryRun = $true } }
+
+            $result = Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder
+            $result.Issues | Should -Contain 'docs/drs/index.md: stale — Build-DrsIndex would change it; regenerate with: Build-DrsIndex'
+        }
+
+        It 'runs a writer with neither list whenever anything changed, and no writer when nothing changed' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'widget/anything.txt' }
+            Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder | Out-Null
+            Should -Invoke Build-RootConfig -ModuleName Catzc.Base.QualityGates -Times 1
+            Should -Invoke Build-DrsIndex -ModuleName Catzc.Base.QualityGates -Times 0
+
+            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { }
+            Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder | Out-Null
+            Should -Invoke Build-RootConfig -ModuleName Catzc.Base.QualityGates -Times 1
+        }
+    }
 }
 
 Describe 'Get-EnglishDictionaryDrift' -Tag 'L0', 'logic' {
@@ -175,5 +214,13 @@ Describe 'Get-EnglishDictionaryDrift' -Tag 'L0', 'logic' {
         InModuleScope Catzc.Base.QualityGates -Parameters @{ Assets = $script:assets } {
             Get-EnglishDictionaryDrift -AssetsFolder $Assets -PinnedCspell '10' | Should -Be 'english.stamp is missing'
         }
+    }
+}
+
+Describe 'Test-GeneratedFiles — real tree' -Tag 'L1', 'integrity', 'source-only' {
+    It 'Test-GeneratedFiles passes over the whole tree' -Tag 'ADR-AUTO-TEST-QUALITYGATE', 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
+        $result = Test-GeneratedFiles -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
+        $result.Issues | Should -BeNullOrEmpty
+        $result.IssueCount | Should -Be 0
     }
 }

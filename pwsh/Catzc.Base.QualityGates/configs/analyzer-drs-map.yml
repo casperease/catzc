@@ -76,6 +76,7 @@ analyzers:
   Measure-CaseSensitivePattern: [ADR-PWSH-PARAM-CASESENSITIVEPATTERN]
   Measure-NoUnsafeFirstIndex: [ADR-PWSH-ERROR-STRICTCLEAN]
   Measure-NoCollapsingAssignment: [ADR-PWSH-ERROR-STRICTCLEAN]
+  Measure-NoUnrolledArrayBranch: [ADR-PWSH-ERROR-STRICTCLEAN]
   Measure-NoBareCacheEntryRead: [ADR-PWSH-CACHE-STRICTSAFEPROBE]
   Measure-NoUnboundedEnumeration: [ADR-PWSH-ENUM-RAWDOTNETENUMERATION, ADR-PWSH-ENUM-ALWAYSBOUNDED]
   Measure-NoOneLineHashtableIfElse: [ADR-PWSH-FORMAT-MULTILINECONDITIONALHASHTABLE]

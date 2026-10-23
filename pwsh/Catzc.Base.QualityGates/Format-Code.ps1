@@ -75,12 +75,12 @@ function Format-Code {
     $verb = $DryRun ? 'Checking' : 'Formatting'
     foreach ($engineGroup in @($selected | Group-Object -Property formatter)) {
         $engine = $engineGroup.Name
-        $settings = if ($config.formatters.ContainsKey($engine)) {
-            @($config.formatters[$engine].settings)
-        }
-        else {
-            @()
-        }
+        $settings = @(if ($config.formatters.ContainsKey($engine)) {
+                @($config.formatters[$engine].settings)
+            }
+            else {
+                @()
+            })
         $stamp = Get-FormatEngineStamp -Engine $engine -Settings $settings -RepositoryRoot $root
 
         $languageFiles = [ordered]@{}
@@ -123,12 +123,12 @@ function Format-Code {
         }
     }
 
-    $inScope = if ($Language) {
-        @($selected | ForEach-Object name)
-    }
-    else {
-        @($config.languages | ForEach-Object name)
-    }
+    $inScope = @(if ($Language) {
+            @($selected | ForEach-Object name)
+        }
+        else {
+            @($config.languages | ForEach-Object name)
+        })
     $plan = [ordered]@{}
     foreach ($step in $config.imprint) {
         $plan[$step] = [System.Collections.Generic.List[string]]::new([string[]] $inScope)

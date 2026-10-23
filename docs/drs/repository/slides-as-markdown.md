@@ -56,7 +56,7 @@ and a field with more items than the pattern holds are each reported with the fi
 
 Every claim on a slide is checkable. Every code in the head's `cites` exists in the DRS index; a field that quotes a rule carries the
 registry's text verbatim, or the drift is reported with both texts; and every field's text is found in the rendered section. `Test-Slides`
-is the gate over these checks, one file at a time.
+is the gate over these checks, one file at a time; a fact about the deck as a whole (slide-order gaps and duplicates) is checked per deck.
 
 - [Claims are asserted, not trusted](#claims-are-asserted-not-trusted)
 

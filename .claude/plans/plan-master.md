@@ -63,6 +63,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   task-user-runs-and-commits), then two capability lines (catzc-run, plans-orchestrate).
 - session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
+- generated-files-guard -> plan-generated-files-guard.md: a change to a generated file fails unless its generator renders it; measured
+  first, then a changed-only fast path, the full-run wiring and an import janitor; three steps, four questions
 - debt-agent-traffic -> plan-debt-agent-traffic.md: fewer messages and tool calls between the orchestrator and its workers (a run lock,
   one-line reports, pre-approved rule edits, derived step counts, an automatic log); three steps
 - nuget-tooling -> plan-nuget-tooling.md: NuGet belongs to the tooling modules and no dotnet call contacts a package manager outside them;

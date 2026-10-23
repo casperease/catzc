@@ -17,6 +17,8 @@ function Test-GeneratedFiles {
     param(
         [string[]] $Generator,
 
+        [switch] $Changed,
+
         [string] $OutputFolder,
 
         [switch] $PassThru
@@ -41,6 +43,29 @@ function Test-GeneratedFiles {
         })
 
     $issues = [System.Collections.Generic.List[string]]::new()
+    # With -Changed a writer's dry run runs when a path git reports changed matches its inputs or outputs; a writer with neither list runs whenever anything changed.
+    $changedPaths = [string[]] @(if ($Changed) {
+            Get-GitChangedPath
+        })
+    $isDue = {
+        param($Writer)
+        if (-not $Changed) {
+            return $true
+        }
+        $globs = @($Writer.inputs) + @($Writer.outputs) | Where-Object { $_ }
+        if (@($globs).Count -eq 0) {
+            return $changedPaths.Count -gt 0
+        }
+        foreach ($glob in $globs) {
+            $pattern = [Catzc.Base.Globs.GlobPattern]::new($glob)
+            foreach ($changedPath in $changedPaths) {
+                if ($pattern.Matches($changedPath)) {
+                    return $true
+                }
+            }
+        }
+        $false
+    }
     # A writer reports absolute or repository-relative paths; an issue names the repository-relative one.
     $addStale = {
         param([string] $Path, [string] $Name, [string] $Command)
@@ -56,6 +81,9 @@ function Test-GeneratedFiles {
     # Each registered writer is run by its check; the registry (generated-files.yml) says which check and, for a file result, which property holds the path.
     foreach ($writer in $writers.Values) {
         $writerName = $writer.name
+        if (-not (& $isDue $writer)) {
+            continue
+        }
         switch ($writer.check) {
             'file' {
                 if ($writerName -in $selected) {
@@ -96,7 +124,7 @@ function Test-GeneratedFiles {
     }
 
     # The stamp of every generated tracked file against its body; a file with no head yet is counted, not failed.
-    $stamps = Get-GeneratedStampDrift -RepositoryRoot (Get-RepositoryRoot)
+    $stamps = Get-GeneratedStampDrift -RepositoryRoot (Get-RepositoryRoot) -Changed:$Changed
     foreach ($issue in $stamps.Issues) {
         $issues.Add($issue)
     }

@@ -30,6 +30,7 @@ $checks = @(
     'ParameterDesign'
     'NoUnsafeFirstIndex'
     'NoCollapsingAssignment'
+    'NoUnrolledArrayBranch'
     'NoBareCacheEntryRead'
     'NoUnboundedEnumeration'
     'NoOneLineHashtableIfElse'

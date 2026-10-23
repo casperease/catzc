@@ -28,8 +28,8 @@ Drive the master plan's open chunks through the drones (the sessions that exist)
    WDR-PULLWORK-LIMITWORKINPROGRESS); runs line up on the run lock in `Invoke-CatzcCommand.ps1`, never on turn messages.
 5. A landed step is ticked in its task file with the verdict line the session gave; a claim without a verdict stays open as "reported,
    unverified" (ADR-REPO-AI-TRUSTTHETREE).
-6. A drone's question comes to the orchestrator, never to the user: the orchestrator decides it, recorded as delegated in the owning plan,
-   or batches it with others into one halt of at most five questions to the user, its recommendation first; the drone works on meanwhile.
+6. Every question, a drone's or a plan's own, the orchestrator decides after reading the ADRs that govern it, recorded as delegated in the
+   owning plan; a recommendation it would give is its decision, never a question; only git, settings.json and CLAUDE.md reach the user.
 7. Two sessions on one file: the later one is told `stop; <session> holds <file>`, and the clash is recorded in both task files; an
    import-path burst runs under `Enter-CatzcBurst.ps1` / `Exit-CatzcBurst.ps1` once catzc-verify says so, else HOLD and GO to importers.
 8. Repeat steps 3 to 7 until every session reports done or the user stops; after each round that edited a file,

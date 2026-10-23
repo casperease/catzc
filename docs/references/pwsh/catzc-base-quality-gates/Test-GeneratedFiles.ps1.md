@@ -57,6 +57,13 @@ listing every issue (or returns the result with -PassThru). The generators read 
 Check only these generators (default: every one). Build-RootConfig selects every managed root file; a generator it renders (New-Importer, …)
 selects only that generator's files.
 
+### parameter `Changed`
+
+Check only what git reports changed against HEAD: the stamp check reads only the changed generated files (Get-GeneratedStampDrift
+-Changed), and a writer's dry run runs only when a changed path matches the inputs or outputs globs of its generated-files.yml entry; a
+writer with neither list runs whenever anything changed, and with nothing changed no writer runs. Catches a hand edit of a generated file
+and a generator change whose output was not re-rendered.
+
 ### parameter `OutputFolder`
 
 The report base folder. Defaults to Write-QualityGateReport's (out/test-generated-files).

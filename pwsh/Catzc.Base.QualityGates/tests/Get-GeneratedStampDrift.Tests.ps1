@@ -66,6 +66,28 @@ Describe 'Get-GeneratedStampDrift' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPOS
         $result.Unstamped | Should -Be @('docs/bare.md', 'docs/unstamped.md')
     }
 
+    It 'with -Changed flags a changed stale file and does not read an untouched one' {
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'docs/stale.md' }
+        $result = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Path = $script:all } {
+            param($Root, $Path)
+            Get-GeneratedStampDrift -RepositoryRoot $Root -Path $Path -Changed
+        }
+        $result.Issues.Count | Should -Be 1
+        $result.Issues[0] | Should -BeLike 'docs/stale.md: stale*'
+        $result.Stamped | Should -Be 1
+        $result.Unstamped | Should -BeNullOrEmpty
+    }
+
+    It 'with -Changed and nothing changed reads nothing' {
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { }
+        $result = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Path = $script:all } {
+            param($Root, $Path)
+            Get-GeneratedStampDrift -RepositoryRoot $Root -Path $Path -Changed
+        }
+        $result.Stamped | Should -Be 0
+        $result.Issues | Should -BeNullOrEmpty
+    }
+
     It 'returns empty counts for no paths' {
         $result = & $script:run @()
         $result.Stamped | Should -Be 0

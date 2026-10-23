@@ -18,6 +18,18 @@ Describe 'Catzc.Base.QualityGates.GeneratedFilesConfig' -Tag 'L0', 'logic' {
         $config.writers['Build-Widget'].result_path | Should -Be 'Path'
     }
 
+    It 'declares the input and output globs once: a writer with neither lists none, a named list is kept' {
+        $config = [Catzc.Base.QualityGates.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
+                    'Build-Widget' = $null
+                    'Build-Gadget' = [ordered]@{ inputs = @('widget/**', 'gadget/*.yml'); outputs = 'widget/index.md' }
+                }
+            })
+        $config.writers['Build-Widget'].inputs | Should -HaveCount 0
+        $config.writers['Build-Widget'].outputs | Should -HaveCount 0
+        $config.writers['Build-Gadget'].inputs | Should -Be @('widget/**', 'gadget/*.yml')
+        $config.writers['Build-Gadget'].outputs | Should -Be @('widget/index.md')
+    }
+
     It 'keeps the writers in declaration order and honours a named result path and check' {
         $config = [Catzc.Base.QualityGates.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
                     'Build-Widget' = [ordered]@{ result_path = 'Gadget' }
@@ -47,5 +59,6 @@ Describe 'Catzc.Base.QualityGates.GeneratedFilesConfig' -Tag 'L0', 'logic' {
         $config = Get-Config -Config generated-files
         $config.writers.Contains('Build-RootConfig') | Should -BeTrue
         $config.writers['Build-Readme'].result_path | Should -Be 'Readme'
+        $config.writers['Build-DrsIndex'].outputs | Should -Be @('docs/drs/index.md')
     }
 }

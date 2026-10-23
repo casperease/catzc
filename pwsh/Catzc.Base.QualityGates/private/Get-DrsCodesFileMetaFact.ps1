@@ -41,12 +41,12 @@ function Get-DrsCodesFileMetaFact {
     $withDomain = [Catzc.Base.QualityGates.FileMetaKind]::InClasses($Kind.ClassSetting('domain_classes'), $fileClass)
     $map = Get-DrsCitationMap -RepositoryRoot $repositoryRoot
     $form = (Get-Config -Config drs).CodeForm
-    $defined = if ($withDomain) {
-        @()
-    }
-    else {
-        @(Get-DrsDefinedRule -Text $text)
-    }
+    $defined = @(if ($withDomain) {
+            @()
+        }
+        else {
+            @(Get-DrsDefinedRule -Text $text)
+        })
     $collect = {
         param([string] $Source)
         $found = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)

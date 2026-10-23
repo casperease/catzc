@@ -22,12 +22,12 @@ function Get-ModuleProfile {
         [switch] $NoInfrastructure
     )
 
-    $seed = if ($PSCmdlet.ParameterSetName -eq 'Modules') {
-        @($Modules)
-    }
-    else {
-        @((Get-Config -Config profiles).profiles[$Name])
-    }
+    $seed = @(if ($PSCmdlet.ParameterSetName -eq 'Modules') {
+            @($Modules)
+        }
+        else {
+            @((Get-Config -Config profiles).profiles[$Name])
+        })
     $seed = @($seed | Where-Object { $_ })   # drop nulls/blanks (an empty seed => the whole repo)
 
     $named = if ($seed.Count -gt 0) {

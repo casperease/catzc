@@ -52,12 +52,12 @@ function Test-ToolLocationManaged {
     }
 
     if ($Config.uv_tool -or $Config.uv_python) {
-        $uvRoots = if ($IsWindows) {
-            @((Join-Path $env:USERPROFILE '.local\bin'), (Join-Path $env:APPDATA 'uv'))
-        }
-        else {
-            @((Join-Path $HOME '.local/bin'), (Join-Path $HOME '.local/share/uv'))
-        }
+        $uvRoots = @(if ($IsWindows) {
+                @((Join-Path $env:USERPROFILE '.local\bin'), (Join-Path $env:APPDATA 'uv'))
+            }
+            else {
+                @((Join-Path $HOME '.local/bin'), (Join-Path $HOME '.local/share/uv'))
+            })
         foreach ($root in $uvRoots) {
             if ($loc.StartsWith($root.TrimEnd('\', '/'), [System.StringComparison]::OrdinalIgnoreCase)) {
                 return $true
@@ -66,19 +66,19 @@ function Test-ToolLocationManaged {
         return $false
     }
 
-    $roots = if ($IsWindows) {
-        @(
-            (Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'),
-            (Join-Path $env:LOCALAPPDATA 'Programs'),
-            (Join-Path $env:USERPROFILE '.local\bin')
-        )
-    }
-    elseif ($IsMacOS) {
-        @('/opt/homebrew', '/usr/local')
-    }
-    else {
-        @('/usr')
-    }
+    $roots = @(if ($IsWindows) {
+            @(
+                (Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Packages'),
+                (Join-Path $env:LOCALAPPDATA 'Programs'),
+                (Join-Path $env:USERPROFILE '.local\bin')
+            )
+        }
+        elseif ($IsMacOS) {
+            @('/opt/homebrew', '/usr/local')
+        }
+        else {
+            @('/usr')
+        })
 
     foreach ($root in $roots) {
         if ($loc.StartsWith($root.TrimEnd('\', '/'), [System.StringComparison]::OrdinalIgnoreCase)) {

@@ -50,12 +50,12 @@ function Add-PermanentPath {
 
     if ($IsWindows) {
         $userPath = Get-EnvironmentPath -Scope User
-        $userEntries = if ($userPath) {
-            $userPath -split ';' | Where-Object { $_ -ne '' }
-        }
-        else {
-            @()
-        }
+        $userEntries = @(if ($userPath) {
+                $userPath -split ';' | Where-Object { $_ -ne '' }
+            }
+            else {
+                @()
+            })
         $alreadyPersisted = $userEntries | Where-Object {
             $comparer.Equals($_.TrimEnd([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar), $normalizedPath)
         } | Select-Object -First 1

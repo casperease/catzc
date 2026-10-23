@@ -170,12 +170,12 @@ function Build-SlideDeck {
     }
     [System.IO.File]::WriteAllText((Join-Path $OutputFolder "$deckName.script.md"), $script.ToString(), $utf8)
 
-    $faultLines = if ($faults.Count -eq 0) {
-        @('No faults.')
-    }
-    else {
-        @($faults | ForEach-Object { "- $_" })
-    }
+    $faultLines = @(if ($faults.Count -eq 0) {
+            @('No faults.')
+        }
+        else {
+            @($faults | ForEach-Object { "- $_" })
+        })
     [System.IO.File]::WriteAllText((Join-Path $OutputFolder "$deckName.faults.md"), (@("# Faults of $deckName", '') + $faultLines -join "`n") + "`n", $utf8)
 
     Write-Message "[Build-SlideDeck] ${deckName}: $($rendered.Count) slide(s) rendered to $OutputFolder, $($faults.Count) fault(s)."

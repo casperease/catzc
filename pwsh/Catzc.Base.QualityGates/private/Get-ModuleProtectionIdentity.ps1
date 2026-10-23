@@ -103,12 +103,12 @@ function Get-ModuleProtectionIdentity {
                     $targets += $memberIntraDependencies[$current]
                 }
                 foreach ($target in $targets) {
-                    $expanded = if ($groupMembers.ContainsKey($target)) {
-                        $groupMembers[$target]
-                    }
-                    else {
-                        @($target)
-                    }
+                    $expanded = @(if ($groupMembers.ContainsKey($target)) {
+                            $groupMembers[$target]
+                        }
+                        else {
+                            @($target)
+                        })
                     foreach ($dependencyModule in $expanded) {
                         if ($visited.Add($dependencyModule)) {
                             [void]$constituents.Add([Catzc.Base.Objects.NameCase]::Render($dependencyModule, 'kebab'))

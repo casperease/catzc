@@ -31,6 +31,10 @@ function New-Plan {
         [Parameter(Mandatory)]
         [string] $Summary,
 
+        [string] $NeededDocs = '',
+
+        [string] $NeededTests = '',
+
         [Catzc.Base.QualityGates.PlansConfig] $Config = (Get-Config -Config plans),
 
         [string] $RepositoryRoot = (Get-RepositoryRoot)
@@ -81,6 +85,12 @@ function New-Plan {
             }
             'Why' {
                 $Summary
+            }
+            'Needed docs' {
+                $NeededDocs
+            }
+            'Needed tests' {
+                $NeededTests
             }
             'State' {
                 'new'

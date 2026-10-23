@@ -38,15 +38,15 @@ BeforeDiscovery {
         if ($mapped.Count -ne 1) {
             throw "$folder is not a $language test folder of a catzc module (Get-LanguageTestFolders)."
         }
-        $cases = if ($language -eq 'go') {
-            @(Get-GoTestCases -Folder $folder)
-        }
-        elseif ($language -eq 'python') {
-            @(Get-PythonTestCases -Folder $folder)
-        }
-        else {
-            @(Get-BashTestCases -Folder $folder)
-        }
+        $cases = @(if ($language -eq 'go') {
+                @(Get-GoTestCases -Folder $folder)
+            }
+            elseif ($language -eq 'python') {
+                @(Get-PythonTestCases -Folder $folder)
+            }
+            else {
+                @(Get-BashTestCases -Folder $folder)
+            })
         @{ Module = $mapped[0].Module; Cases = $cases }
     } $Language $TestFolder
 }

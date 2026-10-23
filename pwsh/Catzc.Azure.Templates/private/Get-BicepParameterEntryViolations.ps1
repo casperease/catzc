@@ -87,12 +87,12 @@ function Get-BicepParameterEntryViolations {
     $violations = [System.Collections.Generic.List[string]]::new()
 
     if ($Parameter.AllowedValues.Count -gt 0) {
-        $candidates = if ($kind -eq [System.Text.Json.JsonValueKind]::Array) {
-            @($value.EnumerateArray())
-        }
-        else {
-            @($value)
-        }
+        $candidates = @(if ($kind -eq [System.Text.Json.JsonValueKind]::Array) {
+                @($value.EnumerateArray())
+            }
+            else {
+                @($value)
+            })
         foreach ($candidate in $candidates) {
             $comparable = [Catzc.Azure.Templates.BicepParameter]::ToComparable($candidate)
             $isAllowed = $false

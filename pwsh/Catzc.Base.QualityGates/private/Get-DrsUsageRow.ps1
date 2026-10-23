@@ -43,12 +43,12 @@ function Get-DrsUsageRow {
         Get-MarkdownMetaState -Text $Text
     }
     $adrs = @((Get-DrsCodesFileMetaFact -State $state -Path $Path -Kind $citesKind)[$citesKind.keys[0]])
-    $links = if ($isCode) {
-        @()
-    }
-    else {
-        @([Catzc.Base.QualityGates.DocumentLinks]::Of($state.Body, $Path, (Get-CommentPage -Path $Path -Config $Pages)))
-    }
+    $links = @(if ($isCode) {
+            @()
+        }
+        else {
+            @([Catzc.Base.QualityGates.DocumentLinks]::Of($state.Body, $Path, (Get-CommentPage -Path $Path -Config $Pages)))
+        })
 
     foreach ($citation in $adrs) {
         # A fixture code or a placeholder named in a comment is no usage of an ADR.

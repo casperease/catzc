@@ -21,7 +21,7 @@ public sealed class GeneratedWriter : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly Regex VerbNoun = new Regex("^[A-Z][a-z]+-[A-Z][A-Za-z0-9]*$");
     private static readonly string[] Checks = { "file", "english-dictionary", "root-config" };
-    private static readonly string[] AllowedKeys = { "check", "result_path" };
+    private static readonly string[] AllowedKeys = { "check", "result_path", "inputs", "outputs" };
 
     // The writer's command name.
     public string name { get; }
@@ -30,6 +30,12 @@ public sealed class GeneratedWriter : Catzc.Base.Objects.DictionaryRecord
 
     // The property of a file result that holds the stale file's path. Default: Path. Null for a check that reads no result path.
     public string result_path { get; }
+
+    // Repo-relative globs of what the writer reads; a changed path matching one makes -Changed run its dry run. Default: none.
+    public string[] inputs { get; }
+
+    // Repo-relative globs of what the writer writes; a changed path matching one makes -Changed run its dry run. Default: none.
+    public string[] outputs { get; }
 
     public GeneratedWriter(string name, object raw)
     {
@@ -66,6 +72,9 @@ public sealed class GeneratedWriter : Catzc.Base.Objects.DictionaryRecord
             errors.Add(string.Format("writer '{0}' sets result_path, which only the check 'file' reads", name));
         }
         result_path = check == "file" ? (resultPath ?? "Path") : null;
+
+        inputs = StrArr(entry, "inputs");
+        outputs = StrArr(entry, "outputs");
 
         if (errors.Count > 0) { throw new ArgumentException(string.Join("\n", errors)); }
     }

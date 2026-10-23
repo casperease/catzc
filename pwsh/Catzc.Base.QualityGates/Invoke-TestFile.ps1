@@ -127,12 +127,12 @@ function Invoke-TestFile {
         $manifestStatus = $result.ToLowerInvariant()
         if ($exitCode -ne 0) {
             $failedShardLabels = @($shard.Label)
-            $files = if ([System.IO.File]::Exists($shard.FilesPath)) {
-                @([System.IO.File]::ReadAllText($shard.FilesPath) | ConvertFrom-Json)
-            }
-            else {
-                @()
-            }
+            $files = @(if ([System.IO.File]::Exists($shard.FilesPath)) {
+                    @([System.IO.File]::ReadAllText($shard.FilesPath) | ConvertFrom-Json)
+                }
+                else {
+                    @()
+                })
             Write-TestRunFailures -Rows $rows -Files $files
         }
         Write-Message "$result ($($location.Mode)) — artifacts in $runDirectory" -ForegroundColor $(if ($exitCode -eq 0) {

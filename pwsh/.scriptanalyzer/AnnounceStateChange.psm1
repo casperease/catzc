@@ -291,12 +291,12 @@ function Measure-AnnounceStateChange {
     }
 
     foreach ($scope in $changesByScope.Keys) {
-        $coveredBlocks = if ($coveredByScope.ContainsKey($scope)) {
-            $coveredByScope[$scope]
-        }
-        else {
-            @()
-        }
+        $coveredBlocks = @(if ($coveredByScope.ContainsKey($scope)) {
+                $coveredByScope[$scope]
+            }
+            else {
+                @()
+            })
         $where = if ($scope -is [System.Management.Automation.Language.FunctionDefinitionAst]) {
             "function '$($scope.Name)'"
         }

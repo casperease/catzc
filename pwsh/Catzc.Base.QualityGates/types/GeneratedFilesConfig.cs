@@ -29,7 +29,7 @@ public sealed class GeneratedFilesConfig : Catzc.Base.Objects.DictionaryRecord
         IDictionary source = raw.Contains("writers") ? raw["writers"] as IDictionary : null;
         if (source == null || source.Count == 0)
         {
-            errors.Add("'writers' must be a non-empty map of <Verb-Noun>: { [check], [result_path] }");
+            errors.Add("'writers' must be a non-empty map of <Verb-Noun>: { [check], [result_path], [inputs], [outputs] }");
         }
         else
         {

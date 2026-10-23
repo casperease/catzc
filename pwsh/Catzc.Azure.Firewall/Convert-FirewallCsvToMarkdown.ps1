@@ -114,12 +114,12 @@ function Convert-FirewallCsvToMarkdown {
         Assert-PathExist $CsvPath -PathType Leaf
 
         $rows = @(Import-Csv -Path $CsvPath)
-        $present = if ($rows.Count -gt 0) {
-            $rows[0].PSObject.Properties.Name
-        }
-        else {
-            @()
-        }
+        $present = @(if ($rows.Count -gt 0) {
+                $rows[0].PSObject.Properties.Name
+            }
+            else {
+                @()
+            })
 
         $sortProps = @()
         if ('RuleCollectionGroup' -in $present) {

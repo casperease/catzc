@@ -19,16 +19,23 @@ function Get-GeneratedStampDrift {
 
         [string[]] $Path,
 
+        [switch] $Changed,
+
         [Catzc.Base.QualityGates.FileCarrierResolver] $Resolver = [Catzc.Base.QualityGates.FileCarrierResolver]::new((Get-Config -Config file-carriers), (Get-Config -Config languages))
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
+    # -Changed reads only the files git reports changed against HEAD, so the check costs the changed set, not the tree.
+    $changedSet = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    if ($Changed) {
+        $changedSet.UnionWith([string[]] @(Get-GitChangedPath))
+    }
     # @() around the whole if: an empty list must stay an array (.Count under strict mode).
     $generated = @(if ($PSBoundParameters.ContainsKey('Path')) {
-            $Path
+            $Path | Where-Object { -not $Changed -or $changedSet.Contains(($_ -replace '\\', '/')) }
         }
         else {
-            $tracked = [string[]] @(Get-GitTrackedPath '.')
+            $tracked = [string[]] @(Get-GitTrackedPath '.' | Where-Object { -not $Changed -or $changedSet.Contains($_) })
             if ($tracked.Count -gt 0) {
                 $attributes = Get-GitAttributeValue -RepositoryRoot $root -Path $tracked -Attribute linguist-generated
                 $tracked | Where-Object {

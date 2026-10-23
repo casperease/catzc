@@ -16,15 +16,15 @@ Describe 'ConvertTo-TestAutomationRowSet' -Tag 'L0', 'logic' {
                 IsRoot = $false
                 Parent = [pscustomobject]@{ IsRoot = $true; Tag = @() }
             }
-            $err = if ($Message) {
-                [pscustomobject]@{
-                    Exception        = [pscustomobject]@{ Message = $Message }
-                    ScriptStackTrace = $Stack
+            $err = @(if ($Message) {
+                    [pscustomobject]@{
+                        Exception        = [pscustomobject]@{ Message = $Message }
+                        ScriptStackTrace = $Stack
+                    }
                 }
-            }
-            else {
-                @()
-            }
+                else {
+                    @()
+                })
             [pscustomobject]@{
                 Tag          = @()   # the It's own tags (a Pester test always carries the member); these sit on the block
                 Result       = $Result

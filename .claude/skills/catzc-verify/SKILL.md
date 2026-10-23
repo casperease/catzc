@@ -20,9 +20,10 @@ metadata:
    `Get-LanguageTestFolders`, the `.internal` loaders, the contract readers) in the same pass inside a burst, never a HOLD or GO message:
    one background `pwsh/.internal/assets/Enter-CatzcBurst.ps1 -Seconds <s> '<step>' '<step>' …` call holds the run lock, runs the swap-in,
    the checks and one fresh full import (`Invoke-CatzcCommand.ps1 -InBurst`) as its steps, each its own argument, and releases it; on
-   failure restore them from HEAD; multi-file type work is edited on staged copies under `out/<topic>/staged/` and swapped in by one script
-   with a fresh import and a restore on failure, a public staged copy proved by that swap, never by dot-sourcing it (the exported command
-   stays); `Get-CodeCaller -Name <type or config key>` lists the callers of a changed type or config, never a recursive grep. A new folder
+   failure restore them from HEAD; staged files (multi-file type work, an importer-path script) are edited as copies under `out/<topic>/staged/`, mirroring
+   the repository, and swapped in by `pwsh/.internal/assets/Invoke-StagedBurst.ps1 -StagedFolder out/<topic>/staged '<command>' …` in place
+   of a hand burst (it backs up, swaps, tests under one fresh import and restores on failure), a public staged copy proved by that swap,
+   never by dot-sourcing it (the exported command stays); `Get-CodeCaller -Name <type or config key>` lists the callers of a changed type or config, never a recursive grep. A new folder
    under `.claude/hooks` is an import-path change too, since every import builds each hook folder that has a csproj, so it is drafted
    outside the tree and lands in a burst; a Python file writer passes `newline="\n"`, since `Path.write_text` writes CRLF on Windows; a G6
    family-form hit on a new page is fixed with a declared form, never a new one.
@@ -33,7 +34,7 @@ metadata:
    in that `-Path` too) then `Test-Links -Path <md> -PassThru`, `Test-Glossary -PassThru` (issues naming an owned file), and after a
    generated file's source changed its generator (`Build-Readme`, `Build-Glossary`, `Build-DrsIndex`) then `Test-GeneratedFiles -PassThru`;
    never the full `Test-Automation`; a new command's task closes only on one live run of it, its output reported verbatim, never on green
-   tests alone.
+   tests alone; a command's help is proved by a read of its page under `docs/references/`, never by `Get-Help`.
 3. Shared files are the coordinator's unless the brief names them owned: `dependencies.yml`, `configs.yml`, `rootconfig.yml`,
    `gitignore.yml`, `globs.yml`, `terminology.yml`, `guids.yml`, every `glossary.yml`, `docs/drs/glossary.md`, `docs/drs/index.md`,
    `docs/how-to/pwsh/manual-test-plan/**`; an entry needed there goes in the report as the exact lines under asks, tested meanwhile with

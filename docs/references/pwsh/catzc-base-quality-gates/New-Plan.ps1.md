@@ -51,6 +51,14 @@ The repository-relative paths the plan changes, each one existing.
 
 One line on what the plan delivers: the text of its master line, and the Why of its value row where the table has that column.
 
+### parameter `NeededDocs`
+
+The text of the value row's "Needed docs" cell where the table has that column. Default: empty, for the planner to fill.
+
+### parameter `NeededTests`
+
+The text of the value row's "Needed tests" cell where the table has that column. Default: empty, for the planner to fill.
+
 ### parameter `Config`
 
 The plans config. Default: Get-Config -Config plans.

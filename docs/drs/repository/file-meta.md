@@ -143,6 +143,18 @@ source" note, since each would state in the file what the registry already answe
 
 - [Generated files](#generated-files)
 
+### Rule ADR-REPO-FILEMETA-INTUNEWITHGENERATOR
+
+A generated file changes only in tune with its generator: rendering the file from the tree at hand gives exactly the bytes on disk. A change
+to the file, or to an input of its generator, is legal when the writer has rendered the file again; any other change, a hand edit or a
+generator input changed without the file rendered anew, fails the full run, every time and never as a warning. The check is the writer's own
+dry run, with the stamp, `with_body_sha`, as its fast path where a head exists, and a generated file with no head is guarded by the dry run
+alone ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). The import prints one line for each stale generated file,
+naming the file and its regenerate command, and the session starts: a session that cannot import cannot regenerate, so the fail belongs to
+the full run.
+
+- [Generated files](#generated-files)
+
 ### Rule ADR-REPO-FILEMETA-JSONCARRIER
 
 A JSON file has no comments, so its carrier is an ignored top-level property that the carrier registry names (`//`, or `$comment` for a JSON

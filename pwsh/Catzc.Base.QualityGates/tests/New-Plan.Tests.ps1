@@ -43,6 +43,17 @@ Describe 'New-Plan' -Tag 'L0', 'logic' {
         $lines[15] | Should -BeExactly '## Pending deletion'
     }
 
+    It 'fills the Needed docs and Needed tests cells from the parameters, empty by default' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
+        $script:value[10] = '| Value | Plan | Needed docs | Needed tests | State |'
+        $script:value[11] = '| --- | --- | --- | --- | --- |'
+        [System.IO.File]::WriteAllText((Join-Path $script:plans 'value-of-plan.md'), ($script:value -join "`n"))
+        Invoke-NewPlan | Out-Null
+        New-Plan -Topic 'oil-gadget' -Value 'low' -Class 'feature' -Target 'widgets' -Summary 'oil it' -NeededDocs 'the widget page' -NeededTests 'one L0' -Config $script:config -RepositoryRoot $script:root | Out-Null
+        $lines = [System.IO.File]::ReadAllText((Join-Path $script:plans 'value-of-plan.md')) -split "`n"
+        $lines[12] | Should -BeExactly '| medium | plan-spin-widget |  |  | new |'
+        $lines[13] | Should -BeExactly '| low | plan-oil-gadget | the widget page | one L0 | new |'
+    }
+
     It 'adds the master line ahead of the task pointers, after the plan items and their continuation lines' -Tag 'ADR-REPO-PLANS-THREEPARTS' {
         Invoke-NewPlan | Out-Null
         $lines = [System.IO.File]::ReadAllText((Join-Path $script:plans 'plan-master.md')) -split "`n"

@@ -41,6 +41,11 @@ The repository-relative files to check. Default: every tracked file .gitattribut
 
 The carrier resolver. Default: built from the shipped file-carriers and languages registries.
 
+### parameter `Changed`
+
+Read only the files git reports changed against HEAD (worktree and index), so the check costs the changed set, not the tree. Combines
+with Path by intersection.
+
 ### outputs
 
 `[pscustomobject]` @{ Stamped; Unstamped; Issues } — the count of stamped files, the unstamped paths, and one issue per stale stamp.

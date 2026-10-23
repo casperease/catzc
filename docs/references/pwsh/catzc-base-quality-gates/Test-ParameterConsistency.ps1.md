@@ -30,7 +30,7 @@ file (`pwsh/<Module>/<Name>.ps1`) and reports each parameter name whose declarat
 A name that genuinely means different things in different functions is listed in parameter-consistency.yml (`exempt`) with the reason; an
 exempt name is not reported, and an exempt name that no longer conflicts is reported, so the list holds only what is real. Ends with
 Write-QualityGateReport: the report lands in out/test-parameter-consistency/, and the gate throws once listing every issue (or returns the
-result with -PassThru). Needs the source tree (Assert-SourceTree).
+result with -PassThru). Needs the source tree (Assert-SourceTree). It takes no path: it checks the whole tree.
 
 ### parameter `OutputFolder`
 

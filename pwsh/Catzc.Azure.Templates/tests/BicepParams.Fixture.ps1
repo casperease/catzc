@@ -82,24 +82,24 @@ $script:readBicepParams = {
             }
         }
         if ($text -like 'az.getSecret(*') {
-            $arguments = if ($text -eq 'az.getSecret(') {
-                $collected = [System.Collections.Generic.List[string]]::new()
-                while ($true) {
-                    $state.Index++
-                    $line = $Lines[$state.Index].Trim()
-                    if ($line -eq ')') {
-                        break
+            $arguments = @(if ($text -eq 'az.getSecret(') {
+                    $collected = [System.Collections.Generic.List[string]]::new()
+                    while ($true) {
+                        $state.Index++
+                        $line = $Lines[$state.Index].Trim()
+                        if ($line -eq ')') {
+                            break
+                        }
+                        $collected.Add($line.TrimEnd(','))
                     }
-                    $collected.Add($line.TrimEnd(','))
+                    $collected.ToArray()
                 }
-                $collected.ToArray()
-            }
-            elseif ($text -match '^az\.getSecret\((?<args>.+)\)$') {
-                @($Matches['args'] -split ",\s*(?=')")
-            }
-            else {
-                & $fail $text
-            }
+                elseif ($text -match '^az\.getSecret\((?<args>.+)\)$') {
+                    @($Matches['args'] -split ",\s*(?=')")
+                }
+                else {
+                    & $fail $text
+                })
             $parts = @($arguments | ForEach-Object { & $quoted $_.Trim() })
             if ($parts.Count -notin 4, 5) {
                 & $fail $text

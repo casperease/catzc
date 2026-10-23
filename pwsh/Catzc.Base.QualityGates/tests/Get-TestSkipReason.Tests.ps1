@@ -11,12 +11,12 @@ Describe 'Get-TestSkipReason' -Tag 'L0', 'logic' {
     BeforeAll {
         function New-FakeSkip {
             param([string] $Message, [switch] $NoRecord)
-            $records = if ($NoRecord) {
-                @()
-            }
-            else {
-                @([pscustomobject]@{ Exception = [pscustomobject]@{ Message = $Message } })
-            }
+            $records = @(if ($NoRecord) {
+                    @()
+                }
+                else {
+                    @([pscustomobject]@{ Exception = [pscustomobject]@{ Message = $Message } })
+                })
             [pscustomobject]@{ ErrorRecord = $records }
         }
     }

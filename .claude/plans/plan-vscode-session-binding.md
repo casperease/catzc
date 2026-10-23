@@ -36,14 +36,7 @@ it.
 
 ## Open steps
 
-1. [ ] `pwsh/.internal/Catzc.Internal.Importer.psm1`, `Invoke-EditorExtensionJanitor`: decide whether `code --install-extension` may run
-       from inside VS Code's own session (`Test-IsRunningInVsCode`), where the editor installing an extension while its extension host waits
-       on the prompt is the untested hang hypothesis; the janitor either skips with one line naming the command to run from outside, or
-       keeps running after the hypothesis is tested with `Get-VsCodeSession` in the extension's session (check:
-       `Invoke-TestFile -Path pwsh/.internal/tests/Invoke-EditorExtensionJanitor.Tests.ps1`, a new file: none exists on 2026-10-23). Decided
-       by the orchestrator as delegated (2026-10-23): it skips inside VS Code with one line naming the command to run from outside, since
-       the hypothesis waits on a recurrence; catzc-46 has it.
-2. [ ] `pwsh/Catzc.Base.VSCode/Get-VsCodeSession.ps1`: when the hang recurs, the user runs `Get-VsCodeSession` in the hung session's sibling
+1. [ ] `pwsh/Catzc.Base.VSCode/Get-VsCodeSession.ps1`: when the hang recurs, the user runs `Get-VsCodeSession` in the hung session's sibling
        and pastes its one line; the command then grows what the line lacked, one property at a time (check:
        `Invoke-TestFile -Path pwsh/Catzc.Base.VSCode/tests/Get-VsCodeSession.Tests.ps1`).
 

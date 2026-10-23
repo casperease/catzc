@@ -22,6 +22,6 @@ metadata:
    worker messages only the session that sent its work, never a roster namesake, and greps a step's path or command before it starts.
 3. The orchestrator edits plan and task files only, records a claim as reported until its verdict line arrives and keeps a step open naming
    its check. A drone never stops to ask the user: it sends `question: <what>, recommend <x>` to the orchestrator and works on. The
-   orchestrator decides most, recorded as delegated in the owning plan; the rest it asks the user in one halt of at most five, its
-   recommendation first. A burst is `burst start` / `burst done` from the drone under the run lock.
+   orchestrator reads the governing ADRs and decides every one, recorded as delegated in the owning plan; only git, settings.json and
+   CLAUDE.md go to the user. A burst is `burst start` / `burst done` from the drone under the run lock.
 4. Every message sent and every reply is appended to `out/orchestrator-<date>.log` with the session name; the log is output, never input.

@@ -20,5 +20,6 @@ metadata:
    line break; `<evidence>` is a `path:line`, a command name or a config key, and for a gap the words "nothing in the tree".
 3. Validity before wit: a claim that something is automated names the command, gate, janitor or hook; a claim that a default exists names
    the type constant or config key and the variant it covers; a claim of a gap is made only after the module article, the configs, the
-   capabilities, the hooks and the how-tos were searched.
+   capabilities, the hooks and the how-tos were searched and the ADRs grepped for the term; a claim about engine behaviour is a fact only
+   after a probe run.
 4. The log is read before it is written: a learning it already answers is skipped, and a sentence is never edited once appended.

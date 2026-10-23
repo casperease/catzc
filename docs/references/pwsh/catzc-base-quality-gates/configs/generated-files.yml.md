@@ -19,4 +19,7 @@ Above `writers:`, written with `#`.
 ```text
 The writers Test-GeneratedFiles runs report-only (ADR-AUTO-TEST-QUALITYGATE); a file result names its stale file in the property result_path
 (default Path). The generators of the managed root files are the generator keys of rootconfig.yml, so they are never listed here.
+Optional inputs and outputs are repo-relative globs of what a writer reads and writes: with -Changed its dry run runs when a changed path
+matches one of them, and a writer with neither list runs whenever anything changed (default: none). Build-RootConfig lists neither: its generators live in several modules and its output set is every opted-in root file, so it
+runs whenever anything changed.
 ```

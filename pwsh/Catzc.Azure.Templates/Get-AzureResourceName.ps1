@@ -46,12 +46,12 @@ function Get-AzureResourceName {
     }
     $pattern = $patterns[$specification.pattern]
 
-    $omit = if ($specification.Contains('omit')) {
-        @($specification.omit)
-    }
-    else {
-        @()
-    }
+    $omit = @(if ($specification.Contains('omit')) {
+            @($specification.omit)
+        }
+        else {
+            @()
+        })
 
     $envValue = if ($specification.pattern -eq 'long') {
         $Env
