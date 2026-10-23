@@ -113,15 +113,14 @@ def test_a_span_label_outside_the_vocabularies_fails_with_the_allowed_words():
 
 def test_a_steep_edge_glues_its_word_right_of_the_line_and_a_flat_one_keeps_it_centred():
     raw = __import__("yaml").safe_load(WIDGETS)
-    raw["content"]["flow"] = "top-to-bottom"  # the bands stack, and the two ends stand one above the other, so the edge falls steeply
-    raw["layout"] = {"widget-a": {"x": 500, "y": 150, "w": 220, "h": 72}, "gadget-store": {"x": 500, "y": 420, "w": 220, "h": 72}}
-    model = declaration.put(declaration.normalise(raw))
-    steep = re.search(r'<mxCell id="e-widget-a-gadget-store" value="[^"]*" style="([^"]*)" [^\n]*\n\s*<mxGeometry x="(-?\d+)" y="(-?\d+)"', model)
+    raw["content"]["edges"][1]["label"] = "fails"  # a word on a line inside one band: it stays beside the line
+    raw["layout"] = {"gadget-store": {"x": 800, "y": 150, "w": 220, "h": 72}, "gadget-gate": {"x": 800, "y": 320, "w": 220, "h": 72}}
+    model = declaration.put(declaration.normalise(raw))  # the two ends stand one above the other, so the edge falls steeply
+    steep = re.search(r'<mxCell id="e-gadget-store-gadget-gate" value="[^"]*" style="([^"]*)" [^\n]*\n\s*<mxGeometry x="(-?\d+)" y="(-?\d+)"', model)
     assert steep is not None and "align=left;" in steep.group(1) and (steep.group(2), steep.group(3)) == ("0", "-3")
-    raw["content"]["flow"] = "left-to-right"
     raw.pop("layout")
-    model = declaration.put(declaration.normalise(raw))
-    flat = re.search(r'<mxCell id="e-widget-a-gadget-store" value="[^"]*" style="([^"]*)" [^\n]*\n\s*<mxGeometry relative="1"', model)
+    model = declaration.put(declaration.normalise(raw))  # side by side on the grid, the edge runs flat
+    flat = re.search(r'<mxCell id="e-gadget-store-gadget-gate" value="[^"]*" style="([^"]*)" [^\n]*\n\s*<mxGeometry relative="1"', model)
     assert flat is not None and "align=left;" not in flat.group(1)
     assert declaration.dump(declaration.get(model, kind="explanation")) == declaration.dump(declaration.normalise(raw))
 
@@ -129,13 +128,13 @@ def test_a_steep_edge_glues_its_word_right_of_the_line_and_a_flat_one_keeps_it_c
 def test_a_word_on_a_line_into_another_band_becomes_a_transition_bubble_on_that_border():
     first = widgets()
     model = declaration.put(first)
-    bubble = re.search(r'<mxCell id="e-widget-a-gadget-store-word" value="&lt;b&gt;writes&lt;/b&gt;" style="ellipse;[^"]*" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
+    bubble = re.search(r'<mxCell id="e-widget-a-gadget-store-word" value="&lt;b&gt;writes&lt;/b&gt;" style="rounded=1;arcSize=50;[^"]*" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
     band = re.search(r'<mxCell id="band-gadgets" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
     assert bubble is not None and band is not None
     cx = int(bubble.group(1)) + int(bubble.group(3)) / 2
     assert abs(cx - int(band.group(1))) <= 1  # centred on the border of the band being entered
     assert re.search(r'<mxCell id="e-widget-a-gadget-store" value="" ', model)  # the line keeps no word of its own
-    assert "transition: the word where a line crosses into a new state" in model
+    assert "transition: into a new state" in model
     back = declaration.get(model, kind="explanation")
     assert declaration.dump(back) == declaration.dump(first)  # the word reads back from its bubble
 

@@ -28,6 +28,12 @@ taken.
 
 ## Open steps
 
-- [ ] `python/catzc_diagrams/declaration.py` with `drawio_png.py`: an edge's word sits a fixed distance past its exit, never inside the
-      target and clear of the ring arcs, and the painter paints the `labelBackgroundColor` the style names. Check: as above, plus a painter
-      test for the label background.
+- [ ] `docs/drs/design/visual-design.md`: rules for what landed directly on the user's word (catzc-55, 2026-10-23): the actor overlay (a
+      stick man drawn last, the cause's circle fragment as his head with the idea in it, `actor: shown | hidden`), the head above the centre
+      line with the statement at his right hand and `cats` at the hand, and the transition pill (a line's word moves into a tight
+      round-cornered pill at the first boundary it crosses, in every lens; the legend lists "transition: into a new state"); the edge-word
+      and steep-word rules narrowed to lines that cross no boundary. Check: `Test-DrsRegistry`, `Test-Glossary`, `Test-Links`,
+      `Build-DrsIndex`, `Test-Terminology`.
+- [ ] `python/catzc_diagrams/drawio_png.py`: the painter paints the `labelBackgroundColor` the style names, which the transition pills and
+      the remaining edge words carry. Check: a painter test for the label background, the kit suite green, one band and one action diagram
+      re-rendered and looked at.

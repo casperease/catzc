@@ -36,14 +36,17 @@ afterwards: the links on a page must resolve, and the page must match the contra
 
 ## What the drawing shows
 
-The [rendered action diagram](.assets/building-the-contract-reference-writes-one-page-per-unit.drawio.png) reads left to right. The cause, a
-bold half-disc numbered 1 on the left rim, says **A maintainer changes a contract**; its edge carries `cats` into box 2, the action pill
-`build_contract_reference`. Two arcs cut the frame into zones. Zone 1 holds two `local` notes: 3, the catzc unit's reference page, and 4,
-the external Azure unit's page, each proven by `get_repository_file` on its path; the edges out of the action carry `executes`. Zone 2 holds
-two notes level with them: 5, every link on the catzc page resolves, proven by `test_links` on that page, and 6, the generated-files quality
-gate finding the pages in step with the contracts, proven by `test_generated_files` for the builder. The edge from 3 to 5 and the edge from
-4 to 6 both carry `effects`, so each gate stands behind the page it checks and the two stories never cross. The legend names the cause, the
-action, the ring, the effect note, the four operators and the marker.
+The [rendered action diagram](.assets/building-the-contract-reference-writes-one-page-per-unit.drawio.png) reads left to right. The head,
+the circle fragment numbered 1 above the centre line on the left rim, holds the idea in bold, **A maintainer changes a contract**; the stick
+man drawn over the drawing hangs from it, his right hand on box 2, the statement `build_contract_reference`, with `cats` at the hand and
+nothing drawn between head and hand. Two arcs cut the frame into zones. Zone 1 holds two notes without chips, every effect being local: 3,
+the catzc unit's reference page, and 4, the external Azure unit's page, each proven by `get_repository_file` on its path; the edges out of
+the statement carry `executes` beside the line. Zone 2 holds two notes level with them: 5, every link on the catzc page resolves, proven by
+`test_links` on that page, and 6, the generated-files quality gate finding the pages in step with the contracts, proven by
+`test_generated_files` for the builder. The edge from 3 to 5 and the edge from 4 to 6 each carry `effects` in a tight pill where they cross
+the first arc, so each gate stands behind the page it checks and the two stories never cross. Under the frame the Proof box speaks the
+statement in each engine's words, and the legend band names the kinds, the four operators, the marker and the transition pill, with the
+Proof box and the map key beside it.
 
 ## Walkthrough
 

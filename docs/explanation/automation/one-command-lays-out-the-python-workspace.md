@@ -42,17 +42,20 @@ and the two Python quality gates that pass over the workspace they define.
 
 ## What the drawing shows
 
-The [rendered action diagram](.assets/one-command-lays-out-the-python-workspace.drawio.png) reads left to right. The cause, a bold half-disc
-numbered 1 on the left rim, says **A maintainer adds a Python folder**; its edge carries `cats` into box 2, the action pill
-`new_python_project`. Three arcs cut the frame into three zones. No note carries a chip, since every effect is local, the diagram's default.
-Zone 1 holds 3, the workspace root rendered with every member and the pinned interpreter, and 4, the kit's member file, each proven by
-`get_repository_file` with its path on its own line; the edges out of the action carry `executes`. Zone 2 holds 5, the root file is a known
-file kind, and 6, the member file belongs to the Python language, proven by `get_path_file_type` and `get_file_language`; the edge from 3 to
-5 and the edge from 4 to 6 carry `effects`. Zone 3 holds three notes showing their words alone: 7, `Test-GeneratedFiles` sees no drift for
-the root configs, reached from 3; 8, `Test-PythonTypes` passes, reached from 6; and 9, `Test-Formatting` passes for Python, reached from 5;
-all three edges carry `effects`. The edge from 3 to 7 skips the second zone, so it climbs into the top margin, runs across with its word,
-and drops into 7 clear of the notes between. Under the frame stands the Proof box with the statement in each engine's words, and the legend
-band names the Action kinds and operators, the Proof box and the map key under the sidebar.
+The [rendered action diagram](.assets/one-command-lays-out-the-python-workspace.drawio.png) reads left to right. The head, the circle
+fragment numbered 1 above the centre line on the left rim, holds the idea in bold, **A maintainer adds a Python folder**; the stick man
+drawn over the drawing hangs from it, his right hand on box 2, the statement `new_python_project`, with `cats` at the hand and nothing drawn
+between head and hand. Three arcs cut the frame into three zones. No note carries a chip, since every effect is local, the diagram's
+default. Zone 1 holds 3, the workspace root rendered with every member and the pinned interpreter, and 4, the kit's member file, each proven
+by `get_repository_file` with its path on its own line; the edges out of the statement carry `executes` beside the line. Zone 2 holds 5, the
+root file is a known file kind, and 6, the member file belongs to the Python language, proven by `get_path_file_type` and
+`get_file_language`; the edge from 3 to 5 and the edge from 4 to 6 carry `effects` in tight pills where they cross the first arc. Zone 3
+holds three notes showing their words alone: 7, `Test-GeneratedFiles` sees no drift for the root configs, reached from 3; 8,
+`Test-PythonTypes` passes, reached from 6; and 9, `Test-Formatting` passes for Python, reached from 5; each edge carries its `effects` pill
+where it crosses the second arc. The edge from 3 to 7 skips the second zone, so it climbs into the top margin, runs across, and drops into 7
+clear of the notes between, its pill on the first arc it crosses up there. Under the frame stands the Proof box with the statement in each
+engine's words, and the legend band names the Action kinds, operators, marker and transition pill, the Proof box and the map key under the
+sidebar.
 
 ## Walkthrough
 

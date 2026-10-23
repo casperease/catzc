@@ -33,15 +33,17 @@ action and its effects; the runs under it prove each effect.
 
 ## What the drawing shows
 
-The [rendered action diagram](.assets/reading-an-accosted-file-writes-nothing.drawio.png) reads left to right. On the left rim stands the
-cause, a bold half-disc numbered 1, **An author**. Its edge carries the word `cats` into box 2, the action pill, which prints the one call
-`get_accosted_file` with its path on its own line under `path:`. Two arcs cut the frame into zones. Zone 1 holds two notes without chips,
-since every effect here is local, the diagram's default: 3, the file is read, and 4, nothing is written, each showing its words alone while
-the proof block below carries their observations; the edges from the action into them carry `executes`. Zone 2 holds note 5, the contract
-check results unchanged, proven by `get_contract_check_results`; its edge skips the first zone, so it climbs into the frame's top margin,
-runs across with its `executes` word, and drops into the note. Under the frame stands the Proof box: the one normalized statement, and the
-words pwsh, bash and zsh run it as. The legend band names the cause, the action, the ring, the effect note, the four operators and the
-marker in its Action box, the Proof box beside it, and the map key under the sidebar.
+The [rendered action diagram](.assets/reading-an-accosted-file-writes-nothing.drawio.png) reads left to right. On the left rim, above the
+centre line, stands the head: the circle fragment numbered 1 with the idea in bold, **An author**. A stick man drawn over the drawing hangs
+from it, his body overflowing the rim, his right hand on box 2, the statement `get_accosted_file` with its path on its own line under
+`path:`; the word `cats` stands at the hand, and nothing is drawn between head and hand, since what runs there runs through the body. Two
+arcs cut the frame into zones. Zone 1 holds two notes without chips, since every effect here is local, the diagram's default: 3, the file is
+read, and 4, nothing is written, each showing its words alone while the proof block below carries their observations; the edges from the
+statement into them carry `executes` beside the line. Zone 2 holds note 5, the contract check results unchanged, proven by
+`get_contract_check_results`; its edge skips the first zone, so it climbs into the frame's top margin, runs across, and drops into the note,
+its `executes` in a tight pill where it crosses the first arc. Under the frame stands the Proof box: the one normalized statement, and the
+words pwsh, bash and zsh run it as. The legend band names the cause, the action, the ring, the effect note, the four operators, the marker
+and the transition pill in its Action box, the Proof box beside it, and the map key under the sidebar.
 
 ## Notes from the inspection
 

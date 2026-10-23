@@ -207,9 +207,6 @@
     <mxCell id="g-action" value="&lt;b&gt;action&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=@slate;strokeColor=@mark;strokeWidth=3;fontColor=@title;fontSize=12;" vertex="1" parent="1">
       <mxGeometry x="110" y="658" width="130" height="44" as="geometry" />
     </mxCell>
-    <mxCell id="g-bubble" value="&lt;b&gt;bubble&lt;/b&gt;" style="shape=callout;direction=west;perimeter=calloutPerimeter;base=18;size=30;position=0.5;position2=0.5;whiteSpace=wrap;html=1;rounded=1;arcSize=20;fillColor=@slate;strokeColor=@mark;strokeWidth=3;fontColor=@title;fontSize=12;" vertex="1" parent="1">
-      <mxGeometry x="110" y="712" width="160" height="44" as="geometry" />
-    </mxCell>
     <mxCell id="g-callsite" value="&lt;b&gt;call site&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=@slate;strokeColor=@mark;strokeWidth=3;verticalAlign=top;align=left;spacingLeft=8;fontColor=@title;fontSize=11;" vertex="1" parent="1">
       <mxGeometry x="270" y="632" width="150" height="96" as="geometry" />
     </mxCell>

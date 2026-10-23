@@ -70,10 +70,10 @@ def test_an_effect_after_another_draws_its_edge_from_it_and_comes_back():
 
 def test_the_operators_label_every_edge_and_an_execution_comes_back():
     model = declaration.put(normalised(sample("action-site-sample")))
-    cats = re.search(r'id="cats" value="([^"]*)"', model)  # the bubble's tail is the cats connection; the word stands at its root
+    cats = re.search(r'id="cats" value="([^"]*)"', model)  # the word at the hand that does the statement
     executes = re.search(r'id="e-action-effect-index" value="([^"]*)"', model)
-    affects = re.search(r'id="e-effect-index-effect-recount" value="([^"]*)"', model)
-    effects = re.search(r'id="e-effect-recount-effect-catalogue" value="([^"]*)"', model)
+    affects = re.search(r'id="e-effect-index-effect-recount-word" value="([^"]*)"', model)  # across a ring: in its transition bubble
+    effects = re.search(r'id="e-effect-recount-effect-catalogue" value="([^"]*)"', model)  # inside one zone: on the line
     assert cats is not None and executes is not None and affects is not None and effects is not None
     assert [m.group(1) for m in (cats, executes, affects, effects)] == [f"&lt;b&gt;{w}&lt;/b&gt;" for w in ("cats", "executes", "affects", "effects")]
     for word, meaning in declaration.OPERATORS.items():
@@ -116,7 +116,7 @@ def test_a_moved_effect_folds_back_to_its_zone_and_order_never_to_coordinates():
 
 def test_the_legend_names_the_lens_kinds_and_the_flow():
     model = declaration.put(normalised(sample()))
-    for phrase in ("cause", "bubble", "ring", "effect", "cats: an actor runs it", "effects: changes state"):
+    for phrase in ("cause", "action", "ring", "effect", "cats: an actor runs it", "effects: changes state"):
         assert f'value="{phrase}"' in model
     assert 'id="lg-marker"' in model  # the story's numbers
 
@@ -285,21 +285,17 @@ def test_legend_used_lists_only_the_operators_the_drawing_draws():
     assert "affects: triggers an execution" in model and "effects: changes state" in model
 
 
-def test_the_statement_is_a_speech_bubble_whose_tail_reaches_the_mouth(monkeypatch):
+def test_the_head_thinks_it_and_the_hand_does_it_with_nothing_drawn_between():
     model = declaration.put(normalised(sample()))
-    bubble = re.search(r'<mxCell id="action" value="[^"]*" style="([^"]*)" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
     cause = re.search(r'<mxCell id="cause" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
-    assert bubble is not None and cause is not None
-    style = declaration.style_map(bubble.group(1))
-    assert style.get("shape") == "callout" and style.get("direction") == "west"
-    radius = int(cause.group(3))
-    mouth_x = int(cause.group(1)) + math.sqrt(radius**2 - (declaration.MOUTH * radius) ** 2)  # the mouth on the fragment's arc
-    assert abs(int(bubble.group(2)) - round(mouth_x)) <= 1  # the cell starts at the mouth: its tail reaches it
-    assert 'id="e-cause-action"' not in model and 'id="cats"' in model  # the tail is the connection; the word stands at its root
-    assert "bubble: the statement spoken in cats" in model or 'value="bubble"' in model
-    monkeypatch.setattr(declaration, "BUBBLE", False)
-    model = declaration.put(normalised(sample()))
-    assert 'id="e-cause-action"' in model and "shape=callout" not in model
+    action = re.search(r'<mxCell id="action" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
+    hand = re.search(r'<mxCell id="actor-hand-r" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)"', model)
+    assert cause is not None and action is not None and hand is not None
+    assert int(cause.group(2)) + int(cause.group(4)) <= int(action.group(2)) + int(action.group(4)) // 2  # the head stands above
+    assert abs(int(hand.group(2)) - (int(action.group(2)) + int(action.group(4)) // 2)) <= 1  # the hand on the statement's centre line
+    assert int(hand.group(1)) < int(action.group(1)) <= int(hand.group(1)) + 12  # the statement just right of the hand
+    assert 'id="e-cause-action"' not in model and "shape=callout" not in model  # nothing drawn from head to hand
+    assert 'id="cats"' in model  # the word at the hand
 
 
 def test_the_stick_man_is_drawn_last_over_the_drawing_and_read_by_nobody(monkeypatch):

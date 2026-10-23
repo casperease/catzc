@@ -35,13 +35,15 @@ drift check in the second zone is what keeps them honest afterwards.
 ## What the drawing shows
 
 The [rendered action diagram](.assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png) reads left to right. The
-cause, a bold half-disc numbered 1 on the left rim, says **A maintainer bumps the cspell pin**; its edge carries `cats` into box 2, the
-action pill `build_english_dictionary`, a call without arguments. Two arcs cut the frame into zones. Zone 1 holds two `local` notes side by
-side: 3, the flattened word list written into the module's assets, and 4, the stamp with the versions it was built from, each proven by
-`get_repository_file` on its path; the two edges out of the action carry `executes`, one climbing to 3 with its word above the line, one
-falling to 4 with its word below. Zone 2 holds one note, 5, the generated-files quality gate finding list and stamp in step, proven by
-`test_generated_files` for the builder; its edge comes from 4 and carries `effects`. The legend names the cause, the action, the ring, the
-effect note, the four operators and the marker.
+head, the circle fragment numbered 1 above the centre line on the left rim, holds the idea in bold, **A maintainer bumps the cspell pin**;
+the stick man drawn over the drawing hangs from it, and his right hand rests on box 2, the statement `build_english_dictionary`, a call
+without arguments, with `cats` at the hand and no line between head and hand. Two arcs cut the frame into zones. Zone 1 holds two notes
+without chips, every effect being local: 3, the flattened word list written into the module's assets, and 4, the stamp with the versions it
+was built from, each proven by `get_repository_file` on its path; the two edges out of the statement carry `executes` beside the line, one
+climbing to 3 with its word above, one falling to 4 with its word below. Zone 2 holds one note, 5, the generated-files quality gate finding
+list and stamp in step, proven by `test_generated_files` for the builder; its edge comes from 4, and its `effects` sits in a tight pill
+where the line crosses the first arc. Under the frame the Proof box speaks the statement in each engine's words, and the legend band names
+the kinds, the four operators, the marker and the transition pill, with the Proof box and the map key beside it.
 
 ## Notes from the inspection
 
