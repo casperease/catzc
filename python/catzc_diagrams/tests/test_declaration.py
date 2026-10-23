@@ -906,11 +906,18 @@ def test_a_ladder_climbs_its_band_left_to_right_along_the_forward_edges_and_the_
     assert box["gadget-store"]["y"] + box["gadget-store"]["h"] == box["band-gadgets"]["y"] + box["band-gadgets"]["h"] - declaration.PAD
     assert box["gadget-store"]["y"] + box["gadget-store"]["h"] - 30 == box["gadget-gate"]["y"] + box["gadget-gate"]["h"]
     assert box["gadget-gate"]["y"] + box["gadget-gate"]["h"] - 30 == box["gadget-top"]["y"] + box["gadget-top"]["h"]
-    assert "ladders:" in declaration.dump(first)
+    # a climb leaves the rung's top centre, runs up, then right into the next rung's left centre: one waypoint routes it
+    cells = declaration.place(first)[0]
+    climb = next(c for c in cells if c["id"] == "e-gadget-gate-gadget-top")
+    assert climb["via"] == [
+        [round(box["gadget-gate"]["x"] + box["gadget-gate"]["w"] / 2), round(box["gadget-top"]["y"] + box["gadget-top"]["h"] / 2)]
+    ]
+    assert "ladders:" in declaration.dump(first) and "via:" not in declaration.dump(first)
     declaration.source_of(tmp_path).write_text(declaration.dump(first), encoding="utf-8")
     declaration.put_png(tmp_path, first)
     declaration.save(tmp_path, declaration.get(declaration.model_of(tmp_path), kind="explanation"))
-    assert "ladders:" in declaration.source_of(tmp_path).read_text(encoding="utf-8")
+    again = declaration.source_of(tmp_path).read_text(encoding="utf-8")
+    assert "ladders:" in again and "via:" not in again  # the ladder's own route never comes back as a hand waypoint
 
 
 def test_a_ladder_names_a_band_and_a_rise_from_1():

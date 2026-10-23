@@ -715,6 +715,12 @@ def undrawn(content, declared):
     out.pop("ladders", None)
     if source.get("ladders"):
         out["ladders"] = source["ladders"]
+        # A ladder routes its climbs itself, so the waypoints the drawing shows on them are the ladder's, never a hand's.
+        for ladder in source["ladders"]:
+            rungs = {g["id"] for g in source["glyphs"] if g["in"] == ladder["band"]}
+            out["edges"] = [
+                {k: v for k, v in e.items() if k != "via"} if e["from"] in rungs and e["to"] in rungs else e for e in out["edges"]
+            ]
     # An action diagram's where and a used legend are read from the chips and the legend only as far as the drawing tells; the source
     # keeps its own words for both.
     for key in ("where", "legend"):
@@ -1694,7 +1700,7 @@ def place(declaration):
     def rungs(band_id):
         """A ladder band's items in climbing order: a walk along the forward edges between them from each item nothing in the band
         leads to, in declared order, then whatever the walk did not reach."""
-        items = holder.get(band_id, [])
+        items = [i for i in content["groups"] + content["glyphs"] if i["in"] == band_id]
         ids = [i["id"] for i in items]
         nxt = {}
         for e in content["edges"]:
@@ -2027,6 +2033,9 @@ def place(declaration):
         # The shift moves the declared layout and waypoints too, and over laid-out bands it cannot be derived again from what is
         # drawn, so the title carries it and get takes it off again.
         next(c for c in cells if c["id"] == "title")["style"] += f"{SHIFT_KEY}={delta};"
+    # A ladder's climbs, each pair of consecutive rungs: the edge leaves the rung's top centre, runs up, then right into the next rung's
+    # left centre, so one waypoint at (source centre x, target centre y) routes it.
+    climbs = {(o[i]["id"], o[i + 1]["id"]) for band in ladders for o in [rungs(band)] for i in range(len(o) - 1)}
     # Edges, markers and chips anchor on the glyphs.
     for e in content["edges"]:
         style = LIB["edges"][e["kind"]]["style"]
@@ -2046,6 +2055,9 @@ def place(declaration):
             a, b = box_of[e["from"]], box_of[e["to"]]
             low = a["y"] + a["h"] + BYPASS_DIP
             edge["via"] = [[a["x"] + a["w"] + BYPASS_DIP, low], [b["x"] - BYPASS_DIP, low]]
+        if (e["from"], e["to"]) in climbs and not e.get("via"):  # up out of the rung's top, then right into the next rung's left
+            a, b = box_of[e["from"]], box_of[e["to"]]
+            edge["via"] = [[round(a["x"] + a["w"] / 2), round(b["y"] + b["h"] / 2)]]
         if e["label"]:
             # A steep edge, one that climbs or falls more than it runs, never carries its word across its own line: the word stands
             # left-aligned, glued 3 px right of the line at its middle, where draw.io and the painter both put an align=left label.

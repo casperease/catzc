@@ -195,8 +195,9 @@ commits and glyphs sit by step and by row (-1, 0 or 1), with an optional trunk a
 step, solid red for a manual gate and dashed for an automated one, and the legend names both. A **template** maps steps to the commit states
 they reach; a **row** walks a template from its start state, with its dots, drops and step-labelled edges written out, and a `skip` drawn as
 a bypass under the dot it skips. A **ladder** is a band whose glyphs climb left to right along their forward edges, spread over the band's
-width, each `rise` px above the one before and the first on the band's floor, every rung `w` by `h` when the hint says so, so a promotion
-reads as the stairs it is; the hint is the source's alone, and the drawing carries only the places it gave. A **note** is free text in a
+width, each `rise` px above the one before and the first on the band's floor, every rung `w` by `h` when the hint says so, and each climb leaving
+its rung's top centre, up, then right into the next rung's left centre, so a promotion reads as the stairs it is; the hint is the source's
+alone, and the drawing carries only the places and routes it gave. A **note** is free text in a
 band, and a commit is a dot or a box. Get folds the drawing back to the shorthand while the drawing still draws what the shorthand expands
 to. A span over glyphs of one band lies above that band in either flow; a span over whole bands stands beside them in a top-to-bottom flow.
 

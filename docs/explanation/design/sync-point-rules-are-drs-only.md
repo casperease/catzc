@@ -75,7 +75,7 @@ content:
     - { id: g-production, kind: env, label: "production\ncommit 4", in: band-ladder }
     - { id: f-dirty-head, kind: failure, label: "dirty HEAD: commit 10", in: band-tip }
   ladders:
-    - { band: band-ladder, rise: 36, w: 150, h: 90 }
+    - { band: band-ladder, rise: 60, w: 140, h: 80 }
   edges:
     - { from: g-ci-automation, to: g-on-demand, kind: adr, label: "" }
     - { from: g-on-demand, to: g-main-uat, kind: adr, label: "" }
@@ -112,8 +112,8 @@ content:
   legend: auto
   minimaps: [code-locations, grid, axis]
 layout:
-  g-integrator: { x: 301, y: 140, w: 240, h: 52 }
-  f-dirty-head: { x: 301, y: 680, w: 240, h: 52 }
+  g-integrator: { x: 299, y: 140, w: 240, h: 52 }
+  f-dirty-head: { x: 299, y: 864, w: 240, h: 52 }
 ```
 
 ![Only BVT has a gate in code; the sync-point rules are DRS-only](.assets/sync-point-rules-are-drs-only.drawio.png)
