@@ -13,7 +13,8 @@ catzc:
 Describe 'Resolve-ToolExecutable' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:windows = [bool]$IsWindows
-        $script:tools = @{
+        # The typed registry the real Get-Config returns, so the function reads typed properties as it does in production.
+        $script:tools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{
             widget = @{
                 version                 = '5'
                 devbox_version          = '4.4'
@@ -32,7 +33,7 @@ Describe 'Resolve-ToolExecutable' -Tag 'L0', 'logic' {
                 version_command = 'gadget version'
                 version_pattern = 'go(?<ver>[\d.]+)'
             }
-        }
+        })
     }
     BeforeEach {
         Mock Get-Config { $script:tools } -ModuleName Catzc.Base.Execution -ParameterFilter { $Config -eq 'tools' }
