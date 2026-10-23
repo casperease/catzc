@@ -92,54 +92,7 @@ content:
     - { at: g-cli-module, number: 9 }
     - { at: g-ado-yml, number: 10 }
   legend: auto
-  minimaps:
-    code-locations:
-      - cell: docs/-/.
-        by:
-          - docs/drs/ado/dora-explains.md
-          - docs/drs/ado/dual-authentication.md
-          - docs/drs/index.md
-          - docs/references/pwsh/catzc-azure-dev-ops/Get-AdoAuthorizationHeader.ps1.md
-          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
-          - ADR-ADO-AUTH-PROVETARGET
-          - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
-          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
-      - cell: pwsh/Catzc.Azure.DevOps/.
-        by:
-          - pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
-          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
-          - ADR-ADO-AUTH-PROVETARGET
-          - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
-          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
-      - cell: pwsh/Catzc.Base.Drs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
-          - ADR-ADO-AUTH-PROVETARGET
-          - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
-          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
-    module-neighbourhood:
-      - cell: subject/Catzc.Azure.DevOps
-        by:
-          - pwsh/Catzc.Azure.DevOps/Get-AdoAuthorizationHeader.ps1
-          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
-          - ADR-ADO-AUTH-PROVETARGET
-          - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
-          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
-      - cell: subject/Catzc.Base.Drs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
-          - ADR-ADO-AUTH-PROVETARGET
-          - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
-          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
-    axis:
-      - cell: FLOW/access
-        by:
-          - ADR-ADO-AUTH-FIXEDCREDENTIALPRECEDENCE
-          - ADR-ADO-AUTH-PROVETARGET
-          - ADR-ADO-AUTH-SEPARATETOKENFUNCTION
-          - ADR-ADO-AUTH-TEMPLATESMAPSYSTEMTOKEN
+  minimaps: [code-locations, module-neighbourhood, axis]
 layout:
   band-entry: { x: 20, y: 84, w: 300, h: 520 }
   band-call: { x: 340, y: 84, w: 600, h: 520 }
