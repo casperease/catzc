@@ -20,6 +20,5 @@ metadata:
    action, zones, effects, the proof box, transition pills and the one legend band.
 2. Name each colour against the dark tokens of STYLE.md; a colour outside the tokens, a dark label on the dark page, or text cut by its box
    is a finding naming the cell's label.
-3. Counts come from the model, never from the picture: when a count matters, the renderer's `cells=` line or the decoded XML is the number.
-4. A diagram's declaration is the `yml drawio` block directly above its image in the article that embeds it, or `<name>.drawio.yml` beside
-   it where `carriers:` in `drawio.yml` says `file`; look at the PNG first, open the declaration only to settle a count or a label.
+3. Counts come from the model, never from the picture: the renderer's `cells=` line or the decoded XML is the number; the declaration is the
+   `yml drawio` block above the image in its article, or `<name>.drawio.yml` where `carriers:` in `drawio.yml` says `file`.

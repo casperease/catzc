@@ -23,7 +23,7 @@ agent's taste.
 2. Take the next five PNGs in the order `plan-diagram-review.md` names, skipping any struck; a declaration lives in an article's
    `yml drawio` block or a `<name>.drawio.yml`.
 3. Read each PNG as drawio-look says; keep what a reader sees, what is hard to read and what an LLM could misread.
-4. Send one message with five numbered questions, each with its PNG link and a recommendation; stop and wait for one snippet per diagram.
+4. Send one message with five numbered questions, each with its PNG as a plain path from the repository root, never a link, and a recommendation; stop and wait for one snippet per diagram.
 5. Add one open step per snippet to the plan: diagram, snippet verbatim, reading, file to change, check.
 6. Land the steps one file at a time under catzc-verify; a yml-language change keeps every declaration valid or corrects all of them at once
    (PDR-ONELIVE).
