@@ -1,0 +1,37 @@
+---
+plan:
+  status: active
+  value: high
+  reviewed: 2026-10-23
+  class: feature
+  targets: [pwsh/.internal/Catzc.Internal.Importer.psm1, pwsh/Catzc.Base.QualityGates/configs/generated-files.yml]
+---
+
+# Import janitor cost: the post-prompt janitors cost a second, not thirteen
+
+catzc-6b measured the console janitors on 2026-10-23 (`out/w-gen/measure-janitors.ps1`, headless, one cold run per mode): about 12.7 s, run
+synchronously at the second prompt render, so the second prompt waits for all of them. The four largest: the generated-files check 4.8 s,
+Build-Readme 2.4 s, Build-DrsIndex with Build-Glossary 1.7 s, Build-ContractReference 1.6 s. The build janitors re-render every generated
+file at every import whether or not an input changed, and the generated-files check then dry-runs the same writers again after them, where
+it can never find a stale output. The same run found that the deferred action imports only the Importer module, while
+`Write-ImporterMessage` lives in the Bootstrap module the importer removes at its end, so a janitor's message line may throw in a console.
+
+## Decided (the orchestrator as delegated, 2026-10-23)
+
+- At import the generated-files check is the stamp check only (about 0.3 s), run before the re-renders, so a hand edit is reported before a
+  render overwrites it; the writers' dry runs stay the full run's (ADR-REPO-FILEMETA-INTUNEWITHGENERATOR).
+- A build janitor re-renders only when git reports a change matching its writer's `inputs:` or `outputs:` in `generated-files.yml`, or an
+  output is missing: one source for "what a writer depends on", read by the gate and the janitors alike.
+
+## Open steps
+
+1. [ ] `pwsh/.internal/Catzc.Internal.Importer.psm1`: the deferred janitor action reaches `Write-ImporterMessage` after Bootstrap is removed
+   (the Importer module owns or imports it), so a janitor line prints instead of throwing. Import-path file: a burst. Check: a test that
+   runs the janitors after Bootstrap is removed and asserts the line, green; one fresh full import.
+2. [ ] `pwsh/.internal/Catzc.Internal.Importer.psm1`, `Invoke-GeneratedFilesJanitor`: the stamp check only, over the changed set, called
+   first in `Invoke-ImporterJanitors`. Import-path file: a burst. Check:
+   `Invoke-TestFile -Path pwsh/.internal/tests/Invoke-GeneratedFilesJanitor.Tests.ps1`, one fresh full import.
+3. [ ] `pwsh/.internal/Catzc.Internal.Importer.psm1`, `Invoke-ImporterJanitors`: each build janitor runs only when the changed set matches
+   its writer's lists or an output is missing; a writer without lists (Build-RootConfig, 0.13 s) runs as today. Import-path file: a burst.
+   Check: a janitor test per case (matched, unmatched, missing output), one fresh full import, and the measure script re-run with nothing
+   changed, its total written here.
