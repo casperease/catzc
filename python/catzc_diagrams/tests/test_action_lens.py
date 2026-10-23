@@ -55,7 +55,7 @@ def test_the_drawing_holds_the_lens_grammar():
     assert 'id="frame"' in model and 'id="cause"' in model and 'id="action"' in model
     assert 'id="ring-1"' in model and 'id="ring-2"' in model and 'id="ring-3"' not in model
     assert 'id="e-cause-action"' in model and 'id="e-action-effect-catalogue"' in model
-    assert 'id="effect-count-tag"' in model and 'value="remote"' in model
+    assert 'id="effect-count-tag"' not in model and 'id="effect-catalogue-tag"' in model and 'value="remote"' in model
     assert "publish_gadget: { name: widget-a,&lt;br&gt;dry_run: false }" in model  # wrapped at its break inside the action width
     assert 'id="mark-1"' in model and 'id="mark-5"' in model and 'id="mark-6"' not in model  # cause, action, three effects
 
@@ -231,6 +231,62 @@ def test_the_proof_lens_refuses_a_cause():
     raw["content"]["cause"] = {"label": "An author"}
     with pytest.raises(declaration.DeclarationError, match="content.cause belongs to the action lens; the proof lens draws"):
         declaration.normalise(raw)
+
+
+def test_a_where_chip_is_drawn_only_where_an_effect_differs_from_the_diagram():
+    first = normalised(sample())  # two local effects, one remote; the diagram's where is the default, local
+    assert "where" not in first["content"] and [e.get("where") for e in first["content"]["effects"]] == [None, None, "remote"]
+    model = declaration.put(first)
+    assert 'id="effect-index-tag"' not in model and 'id="effect-catalogue-tag"' in model
+    back = declaration.get(model, kind="explanation")
+    assert declaration.dump(back) == declaration.dump({**first, "about": {k: v for k, v in first["about"].items() if k != "proves"}, "description": ""})
+    raw = sample()
+    raw["content"]["where"] = "remote"  # now the remote effect is the diagram's own, and the two local ones carry chips
+    remote = normalised(raw)
+    assert remote["content"]["where"] == "remote" and [e.get("where") for e in remote["content"]["effects"]] == ["local", "local", None]
+    model = declaration.put(remote)
+    assert 'id="effect-index-tag"' in model and 'id="effect-catalogue-tag"' not in model
+
+
+def test_show_prints_words_or_the_call_alone_and_comes_back():
+    raw = sample()
+    raw["content"]["effects"][0]["show"] = "words"
+    raw["content"]["effects"][1]["show"] = "call"
+    first = normalised(raw)
+    model = declaration.put(first)
+    assert html_unescaped(model, "effect-index") == "The gadget index gains the entry"
+    assert html_unescaped(model, "effect-count") == "count_gadgets"
+    back = declaration.get(model, kind="explanation")
+    assert [e.get("show") for e in back["content"]["effects"]] == ["words", "call", None]
+    assert declaration.put(back) == model
+
+
+def test_show_words_needs_words():
+    failing(lambda r: r["content"]["effects"][1].update(show="words", says=""), "needs says")
+    raw = sample("action-site-sample")
+    raw["content"]["effects"][1].update(show="words", says="")  # an execution may go without words, but not when words are all it shows
+    with pytest.raises(declaration.DeclarationError, match="shows words alone but says nothing"):
+        declaration.normalise(raw)
+
+
+def test_legend_used_lists_only_the_operators_the_drawing_draws():
+    raw = sample()
+    raw["content"]["legend"] = "used"
+    model = declaration.put(normalised(raw))  # every edge comes from the action: cats and executes only
+    assert 'value="cats: an actor runs it"' in model and 'value="executes: to the state machine"' in model
+    assert "affects:" not in model and "effects:" not in model
+    raw = sample("action-site-sample")
+    raw["content"]["legend"] = "used"
+    model = declaration.put(normalised(raw))  # an execution after an effect, and a state after it: all four
+    assert "affects: triggers an execution" in model and "effects: changes state" in model
+
+
+def test_a_long_value_starts_on_its_own_line_under_its_key():
+    line = "get_widget: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml }"
+    lines = declaration.wrap_line(line, 38)
+    assert lines[0] == "get_widget: { path:" and lines[1].startswith("pwsh/Catzc.Base.Contracts/")
+    assert declaration.unwrap_lines("\n".join(lines)) == line
+    assert declaration.wrap_line("get_widget: { path: a.yml }", 38) == ["get_widget: { path: a.yml }"]  # a short value stays beside its key
 
 
 def test_wrap_and_unwrap_are_inverse():

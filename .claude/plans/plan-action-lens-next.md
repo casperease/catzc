@@ -32,12 +32,7 @@ taken.
 - [ ] `python/catzc_diagrams/declaration.py` with `drawio_png.py`: an edge's word sits a fixed distance past its exit, never inside the
       target and clear of the ring arcs, and the painter paints the `labelBackgroundColor` the style names. Check: as above, plus a painter
       test for the label background.
-- [ ] `python/catzc_diagrams/declaration.py`: a `key: value` whose value is long wraps so the value starts on its own line. Check: a kit
-      test with an over-long value, the four re-rendered and looked at.
 - [ ] `python/catzc_diagrams/declaration.py` and `configs/drawio.yml`: `content.where` (default `local`) with a chip only where an effect
       differs, `show: words | call | both` on an effect (default declared once), and `legend: used` listing only the operators the drawing
       uses. Check: one kit test per key, the four action ymls using them where they remove noise, re-rendered and looked at, and
       DDR-VISUAL-EFFECTSINZONES / -EDGEWORDSAREOPERATORS extended with the keys (`Test-DrsRegistry`, `Build-DrsIndex`).
-- [ ] Every committed `.drawio.png` re-rendered after the one-legend change (the user asked for it globally), folder by folder through
-      `Build-Diagrams -Path` under the time safeguard, each folder looked at for one drawing. Check: `Test-Diagrams` reports nothing stale
-      or drifted.

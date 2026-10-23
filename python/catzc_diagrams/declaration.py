@@ -73,7 +73,8 @@ KINDS = tuple(DEFAULTS["kinds"])
 # lenses: there. The kit validates a declaration's shape only; Test-Diagrams proves its calls against the contracts and the proof file.
 ACTION_LENS = "action"
 ACTION_KEYS = ("cause", "action", "effects")  # the content keys only the action lens draws
-EFFECT_KEYS = ("id", "zone", "where", "says", "proves", "call", "after")  # an effect's keys, in the order the yml prints them
+EFFECT_KEYS = ("id", "zone", "where", "show", "says", "proves", "call", "after")  # an effect's keys, in the order the yml prints them
+SHOWS = ("words", "call", "both")  # what an effect's note prints: its words, its observation or call, or both
 # The lens's operators, the word every edge carries: cats from the cause (an actor runs the command), executes from the action (the
 # statement is handed to the state machine), then affects into an execution and effects into a state change; each has its check.
 OPERATORS = {
@@ -96,6 +97,9 @@ PROOF_LENS = "proof"
 PROOF_SHOWN = str(ACTION["proof"]).strip() == "shown"
 PROOF_ENGINES = [tuple(pair.split()) for pair in str(ACTION["proof-engines"]).split(",")]  # (engine, idiom), idiom pascal or kebab
 PROOF_ROW = 22  # one engine's words, one row
+WORD_GAP = int(DEFAULTS["renderer"]["word-gap"])  # how far a steep edge's word stands right of its line, written into the model
+DEFAULT_WHERE = str(ACTION["where"]).strip()  # the diagram's where unless content.where says otherwise
+DEFAULT_SHOW = str(ACTION["show"]).strip()  # what a note prints unless the effect's show: says otherwise
 # The cells put derives from the kit and the registries, never from the author: get skips them, and a change to them is stale.
 DERIVED = ("sidebar-bg", "legend", "legend-proof", "lens-badge", "mapkey")
 DERIVED_PREFIXES = ("lg-", "mk-", "minimap-", "lane-")  # lane- is a lane's trunk, its marks and the gate rules: the yml's alone
@@ -110,6 +114,7 @@ CONTENT_KEYS = (
     "action",
     "effects",
     "proof",
+    "where",
     "bands",
     "spans",
     "templates",
@@ -626,6 +631,15 @@ def undrawn(content, declared):
     from where it sits (put refuses a place inside another band)."""
     source, layout = declared["content"], declared["layout"]
     out = {**content, **{k: source[k] for k in SOURCE_ONLY}}
+    # An action diagram's where and a used legend are read from the chips and the legend only as far as the drawing tells; the source
+    # keeps its own words for both.
+    for key in ("where", "legend"):
+        if key in source and source["lens"] == ACTION_LENS:
+            out[key] = source[key]
+    if source["lens"] == ACTION_LENS:  # what a note's show: hid, its words or its call or observation, stays the source's
+        hidden = {e["id"]: {k: v for k, v in e.items() if k in ("says", "proves", "call")} for e in source["effects"]}
+        merged = [{**hidden.get(e["id"], {}), **e} for e in out.get("effects", [])]
+        out["effects"] = [{k: e[k] for k in EFFECT_KEYS if k in e} for e in merged]
     # The drawing shows which minimaps but not what their author excludes: the source's entries stay while it shows the same three.
     if not content.get("minimaps") or shown_minimaps(content["minimaps"]) == shown_minimaps(source["minimaps"]):
         out["minimaps"] = source["minimaps"]
@@ -980,7 +994,9 @@ def normalise(raw, where="the declaration"):
                 chip["corner"] = corner
         out["chips"].append(chip)
     legend = content.get("legend", "auto")
-    if legend != "auto":
+    if legend == "used" and lens != ACTION_LENS:
+        raise DeclarationError(f"{where}: legend: used lists the operators an action diagram draws; this diagram's lens is {lens}")
+    if legend not in ("auto", "used"):
         phrases = legend_phrases()
         if not isinstance(legend, list):
             raise DeclarationError(f"{where}: legend is auto or a list of the phrases the legend shows")
@@ -1091,12 +1107,27 @@ def wrap_line(line, per):
     pieces = []
     for piece in re.findall(r"[^/, ]*[/, ]|[^/, ]+", line):
         pieces.extend(re.findall(r"[^.]*\.|[^.]+", piece) if len(piece) > per else [piece])
+    # A `key: value` whose value is long starts the value on its own line, so a path reads as one value under its key rather than as
+    # a tail broken off the key; a value is long when it would not fit beside its key in half a line.
+    forced = set()
+    for i, piece in enumerate(pieces):
+        if piece.endswith(": "):
+            value = 0
+            for later in pieces[i + 1 :]:
+                value += len(later.rstrip())
+                if later.endswith((",", " ")):
+                    break
+            if value > per // 2:
+                forced.add(i)
     lines, current = [], ""
-    for piece in pieces:
+    for i, piece in enumerate(pieces):
         if current and len(current) + len(piece.rstrip()) > per:
             lines.append(current.rstrip())
             current = ""
         current += piece
+        if i in forced and current.strip():
+            lines.append(current.rstrip())
+            current = ""
     if current.strip():
         lines.append(current.rstrip())
     return lines or [""]
@@ -1170,6 +1201,12 @@ def action_content(content, out, ids, where, lens=ACTION_LENS):
     effects_raw = content["effects"]
     if not isinstance(effects_raw, list) or not effects_raw:
         raise DeclarationError(f"{where}: content.effects is a list of the action's effects, one or more")
+    # The diagram's where: every effect's unless it says otherwise; kept only when it differs from the default declared once.
+    diagram_where = str(content.get("where", DEFAULT_WHERE))
+    if diagram_where not in WHERES:
+        choices(f"{where}: content.where", diagram_where, WHERES)
+    if diagram_where != DEFAULT_WHERE:
+        out["where"] = diagram_where
     for cid in ("frame", "cause", "action"):
         ids[cid] = cid
     # An effect sits in a zone, the causal hop: zone 1 is what the action changes directly, zone 2 what those changes cause, and so on;
@@ -1180,16 +1217,37 @@ def action_content(content, out, ids, where, lens=ACTION_LENS):
         # An effect is a state change (says, and the observation that proves it) or an execution (call, a further contracted command
         # the story triggers, with optional words); the edge into it says which: effects for a state change, affects for an execution.
         execution = isinstance(raw, dict) and "call" in raw
-        keys = ("id", "zone", "where", "call") if execution else ("id", "zone", "where", "says", "proves")
-        effect = entry(raw, keys, where, "effect", optional={"after": "", **({"says": ""} if execution else {})})
+        keys = ("id", "zone", "call") if execution else ("id", "zone", "says", "proves")
+        if where == "the drawing":  # a note shows only what its show: says; get cannot read the rest, and save keeps the source's
+            keys = ("id", "zone")
+        optional = {"where": "", "show": "", "after": "", **({k: "" for k in ("says", "proves", "call") if k not in keys})}
+        effect = entry(raw, keys, where, "effect", optional=optional)
         if effect["id"] in ids:
             raise DeclarationError(f"{where}: id '{effect['id']}' is used twice")
         if not str(effect["zone"]).isdigit() or int(effect["zone"]) < 1:
             raise DeclarationError(f"{where}: effect '{effect['id']}' zone is the causal hop, 1 or more; it is {effect['zone']}")
         effect["zone"] = int(effect["zone"])
-        if effect["where"] not in WHERES:
+        # An effect's where is the diagram's unless it says otherwise, and the key is kept only where it differs, as its chip is drawn.
+        if effect["where"] and effect["where"] not in WHERES:
             choices(f"{where}: effect '{effect['id']}' where", effect["where"], WHERES)
-        if execution:
+        if not effect["where"] or effect["where"] == diagram_where:
+            effect.pop("where")
+        # What the note prints; the default is declared once, and the key is kept only where it differs.
+        if effect["show"] and effect["show"] not in SHOWS:
+            choices(f"{where}: effect '{effect['id']}' show", effect["show"], SHOWS)
+        if not effect["show"] or effect["show"] == DEFAULT_SHOW:
+            effect.pop("show")
+        if effect.get("show") == "words" and not str(effect.get("says", "")).strip():
+            raise DeclarationError(f"{where}: effect '{effect['id']}' shows words alone but says nothing")
+        if where == "the drawing":  # whatever the note printed; the source keeps what its show: hid
+            for key in ("call", "proves"):
+                if raw.get(key) is not None:
+                    effect[key] = contract_call(raw[key], where, f"effect '{effect['id']}' {key}")
+                else:
+                    effect.pop(key, None)
+            if not str(effect.get("says", "")).strip():
+                effect.pop("says", None)
+        elif execution:
             effect["call"] = contract_call(raw.get("call"), where, f"effect '{effect['id']}' call")
             if not effect["says"].strip():
                 effect.pop("says")
@@ -1197,7 +1255,7 @@ def action_content(content, out, ids, where, lens=ACTION_LENS):
             if not effect["says"].strip():
                 raise DeclarationError(f"{where}: effect '{effect['id']}' says nothing; says is the state it changes, in plain words")
             effect["proves"] = contract_call(raw.get("proves"), where, f"effect '{effect['id']}' proves")
-        effect = {k: effect[k] for k in EFFECT_KEYS if k in effect}
+        effect = {k: effect[k] for k in EFFECT_KEYS if k in effect and effect[k] != ""}  # an optional key left empty is absent
         after = effect.pop("after")
         if after:
             earlier = next((e for e in effects if e["id"] == after), None)
@@ -1816,7 +1874,7 @@ def place(declaration):
             (x0, y0), (x1, y1) = middle_leg(points)
             if abs(y1 - y0) > abs(x1 - x0):
                 edge["style"] += "align=left;"
-                edge["label_at"] = (0, -3 if y1 > y0 else 3)
+                edge["label_at"] = (0, -WORD_GAP if y1 > y0 else WORD_GAP)
         cells.append(edge)
     size = LIB["marks"]["marker"]["size"]
     for m in content["markers"]:
@@ -1890,8 +1948,10 @@ def place_action(declaration):
     per_note = max(1, (note_w - 24) // 7)
 
     def note_lines(e):  # the says lines, which draw.io wraps itself, and the proof or call lines, wrapped here so a path breaks
-        says = wrap_line(e["says"], per_note) if e.get("says") else []
-        return says, wrap_line(call_line(e["call"] if "call" in e else e["proves"]), per_note)
+        show = e.get("show", DEFAULT_SHOW)
+        says = wrap_line(e["says"], per_note) if e.get("says") and show != "call" else []
+        line = wrap_line(call_line(e["call"] if "call" in e else e["proves"]), per_note) if show != "words" else []
+        return says, line
 
     def note_h(e):
         says, line = note_lines(e)
@@ -2000,13 +2060,15 @@ def place_action(declaration):
                 low, best = mid, boxes
         for e, h, left, top in zip(in_zone, heights, best, tops_at(low)):
             x, y = round(cx + left), round(cy + top)
-            says = f"<b>{html.escape(e['says'], quote=False)}</b><br>" if e.get("says") else ""
-            text = says + printed(note_lines(e)[1])
+            said, line = note_lines(e)
+            says = f"<b>{html.escape(e['says'], quote=False)}</b>" if said else ""
+            text = says + ("<br>" if said and line else "") + printed(line)
             style = member["style"] if "call" in e else lib["effect"]["style"]  # an execution is drawn as a command row, a state as a note
             cells.append(cell(e["id"], text, style, x, y, note_w, h))
-            cells.append(
-                cell(f"{e['id']}-tag", e["where"], tag["style"], x + note_w - tag["size"][0] - 8, y - 8, tag["size"][0], tag["size"][1])
-            )
+            if "where" in e:  # a chip only where the effect's where differs from the diagram's
+                cells.append(
+                    cell(f"{e['id']}-tag", e["where"], tag["style"], x + note_w - tag["size"][0] - 8, y - 8, tag["size"][0], tag["size"][1])
+                )
             source = e.get("after", "action")
             box_of[e["id"]] = {"x": x, "y": y, "w": note_w, "h": h}
             zone_of[e["id"]] = k
@@ -2192,7 +2254,7 @@ def legend_entries(content):
         return lambda eid, x, y: [cell(f"lg-{eid}", text, mark["style"], x + 4, y - 2, mark["size"][0], mark["size"][1])]
 
     entries = []
-    wanted = content["legend"] if content["legend"] != "auto" else None
+    wanted = content["legend"] if isinstance(content["legend"], list) else None
     proof_box = "rounded=1;arcSize=6;html=1;fillColor=@band;strokeColor=@line;shadow=0;"  # the Proof box, small and rimmed to show
     proof_swatch = lambda eid, x, y: [cell(f"lg-{eid}", "", proof_box, x, y + 2, 40, 18)]
     if content["lens"] == PROOF_LENS:  # the statement's glyph and the Proof box
@@ -2207,8 +2269,12 @@ def legend_entries(content):
             member = glyphs["callsite"]["member"]
             swatch = lambda eid, x, y: [cell(f"lg-{eid}", "", member["style"], x, y + 2, 40, 18)]
             entries.append(("execution", swatch, "execution: a triggered command"))
+        drawn_words = {"cats", "executes"} | {
+            "affects" if "call" in e else "effects" for e in content["effects"] if e.get("after", "action") != "action"
+        }
         for word, meaning in OPERATORS.items():
-            entries.append((f"edge-{word}", edge_swatch("flow"), f"{word}: {meaning}"))
+            if content["legend"] != "used" or word in drawn_words:  # legend: used lists the operators the drawing draws
+                entries.append((f"edge-{word}", edge_swatch("flow"), f"{word}: {meaning}"))
         entries.append(("marker", mark_swatch("marker", "1"), LIB["marks"]["marker"]["phrase"]))
     for kind in dict.fromkeys(g["kind"] for g in content["glyphs"]):
         if kind != "commit":
@@ -2710,11 +2776,17 @@ def get_action(cells, geo, glyph_sigs, kind):
         head, _, body = drawn.partition("</b>") if drawn.startswith("<b>") else ("", "", drawn)
         says, line = plain(head), plain(body)
         k = next((k for k, (r, ry) in enumerate(rings, 1) if (px / r) ** 2 + (py / ry) ** 2 <= 1), len(rings))
-        where = value(f"{cid}-tag") if f"{cid}-tag" in cells else WHERES[0]
-        effect = {"id": cid, "zone": k, "where": where}
+        effect = {"id": cid, "zone": k}
+        if f"{cid}-tag" in cells:  # a chip says the effect's where differs from the diagram's; none says it is the diagram's
+            effect["where"] = value(f"{cid}-tag")
+        if says and not line:
+            effect["show"] = "words"
+        elif line and not says:
+            effect["show"] = "call"
         if says:
             effect["says"] = says
-        effect["call" if cid in executions else "proves"] = parse_call(line)
+        if line:
+            effect["call" if cid in executions else "proves"] = parse_call(line)
         if cid in after_of:
             effect["after"] = after_of[cid]
         effects.append((k, number_of(b), effect))

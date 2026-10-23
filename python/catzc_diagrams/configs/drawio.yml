@@ -13,6 +13,7 @@ renderer:
   out: out/drawio # where drawio_forward.py lands its artifacts when no <out_dir> argument is given
   carrier: article # where a diagram's declaration lives when carriers: names none. article: a `yml drawio` block directly above the image that embeds its png; file: <name>.drawio.yml beside its png
   role: slide # a diagram's role when roles: names none. slide: its subtitle says `<codes> · <lens>`; legend: it names no ADR and has no subtitle
+  word-gap: 3 # px a steep edge's word stands right of its line, left-aligned at the line's middle; written into the model, so draw.io and the painter read the same
 roles: # a diagram's role, keyed by its stem's repository path (`.assets/<name>`), only where it is not renderer.role
   docs/explanation/.assets/glyphs: legend # the glyph library, the legend every slide's glyphs come from
 carriers: # a diagram's carrier, keyed by its stem's repository path (`.assets/<name>`), only where it is not renderer.carrier
@@ -74,6 +75,8 @@ action-lens: # what the action lens draws with: its layout numbers in diagram un
   cause-sizes: smallest 64, small 80, medium 96, large 112, largest 128 # the half-disc's radius for each named size, smallest to largest; a label ending in ! takes the largest
   glyphs: cause, action, callsite, ring, effect
   proof: shown # shown | hidden: whether an action diagram draws its Proof box under the frame, the statement in each engine's words
+  where: local # the diagram's default where (one of wheres:); content.where overrides it, and a note draws a chip only where it differs
+  show: both # words | call | both: what an effect's note prints, its words, its observation or call, or both; show: on an effect overrides it
   proof-engines: pwsh pascal, bash kebab, zsh kebab # the engines a Proof box prints, each with the idiom its words take
 themes: # the themes a diagram renders in, each a theme-<name> token set below; the first is the default and the one whose raster is committed
   dark: the dark page and the light ink of STYLE.md

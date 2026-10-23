@@ -223,8 +223,10 @@ A **ring** is a circle centred on the cause's rim, drawn only as the arc between
 through the centre lane; a **zone** is the band between two arcs, and an **effect** is a note box standing in a zone: a state change the
 action causes, or an execution it triggers. An effect's `zone` is its causal hop, a whole number from 1 with no gaps, and says nothing about
 its place. A state change says in plain words which state it modifies, proves it with an accosted observation, and names its place, `local`
-or `remote` from a closed list, as a chip; an execution is a `call`, a contracted command in the contract form. An effect may name `after`,
-an effect declared before it, in its own zone or one nearer the action; its flow edge then comes from that effect, not from the action, and
+or `remote` from a closed list; an execution is a `call`, a contracted command in the contract form. The declaration's `where` is the
+default place of every effect, declared once in the renderer's vocabulary, and a place chip is drawn only on an effect whose place differs
+from it. An effect's `show` says what its note prints, its words, its call or both, and both is the default. An effect may name `after`, an
+effect declared before it, in its own zone or one nearer the action; its flow edge then comes from that effect, not from the action, and
 naming a later effect is an error. A **story number** is the number every box carries: the cause 1, the action 2, the effects in declared
 order. Notes stand inside their zone, spread over the fixed centre lane in story order. The renderer computes the layout and takes palette
 and ink from the same theme tokens as every diagram.
@@ -240,10 +242,18 @@ the statement is handed to the state machine as an instruction, and the runner r
 between two effects where the target is an execution: one execution triggers another, and `Test-AccostedCommand` checks that call. The
 **effects operator** is the edge between two effects where the target is a state change: an execution changes state, and its observation in
 the proof file checks it. An effect's `after` picks the source of its edge, the action when it names none. The legend of every action
-diagram lists the four words, and adds "execution: a triggered command" when one is drawn. The declaration's `relation` and `thick` are
-refused under the action lens.
+diagram lists the four words, or with `legend: used` only the operators the drawing uses, and adds "execution: a triggered command" when one
+is drawn. The declaration's `relation` and `thick` are refused under the action lens.
 
 - [Edges carry their operator](#edges-carry-their-operator)
+
+### Rule DDR-VISUAL-STEEPEDGEWORDBESIDEIT
+
+A **steep edge** is an edge that climbs or falls more than it runs, in an action diagram and in a band diagram alike. Its word stands
+left-aligned a few pixels to the right of its line, at the middle of the line, so the word reads beside the edge and never on it or across
+it. The distance is declared once in the renderer's vocabulary, and the draw.io model and the painted raster place the word the same way.
+
+- [A steep edge's word](#a-steep-edges-word)
 
 ### Rule DDR-VISUAL-PROOFISTHEACCOSTEDFILE
 
@@ -279,7 +289,8 @@ drawing. Its lens badge prints PROOF, and its subtitle ends in `proof`.
 
 A **legend band** is the one band under every drawing, band diagrams included, and a **legend segment** is one captioned box of it, as wide
 as the part of the drawing it stands under: Action and Proof under the frame, Map key under the sidebar. In every segment the swatches stand
-centred in a left column and the words are left-aligned beside them.
+centred in a left column and the words are left-aligned beside them. The band never starts above the bottom of the sidebar's minimaps, so a
+drawing shorter than the sidebar leaves room beneath itself and the band stays under the sidebar.
 
 - [One legend band](#one-legend-band)
 
@@ -479,6 +490,13 @@ A reader who sees an arrow should not have to guess what it asserts. The four wo
 command, the command was handed on, one command set off another, or a command changed a state. Because the word follows from where the arrow
 starts and ends, the author never picks it, and two diagrams cannot call the same arrow by different words. Each word also names the check
 that stands behind it, so an arrow is never a claim the tooling does not test.
+
+## A steep edge's word
+
+On a near-level edge a word centred on the line reads cleanly, because the line runs under the letters' baseline. On a steep one the line
+cuts straight through the middle of the word. Standing the word beside the line, always on the same side and left-aligned, keeps the reading
+direction constant and lets a reader pick out the line and the word as two things. Placing it the same way in the editor and in the raster
+means the picture does not change when it is opened for editing.
 
 ## The proof is the accosted file
 
