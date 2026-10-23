@@ -126,8 +126,6 @@ Test-Formatting -Language 'python'
   source, and then by their source's position, would remove most such crossings.
 - The subtitle lists five rule codes in one line and the legend band carries nine Action entries; both are correct but heavy. `legend: used`
   would drop the `affects` row here, since no execution is drawn.
-- The routed edge from 3 to 7 crosses the first two arcs in the margin, where its word also sits; the word reads, but a bubble at the
-  crossing would read better.
 
 ### Stronger with new definitions
 

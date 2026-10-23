@@ -86,3 +86,23 @@ Started 2026-10-23T15:33:07.4285106+02:00.
   scratch file, never a tail per run.
 - 2026-10-23 Cats: Token tip: after a test edit run Test-Automation -MaxLevel 1 -Modules for the touched modules in one call instead of a
   call per file.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: the raster painter paints a labelBackgroundColor box 2 px around an edge word, and
+  in a band diagram every crossing word is a transition pill, so no band label carries the key.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: docs/drs/index.md lists records, never rule codes; Test-DrsRegistry reads a new
+  DDR-VISUAL-* code from the record itself.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: the diagram kit suite runs as uv run -q --no-sync --project python python -m pytest
+  python/catzc_diagrams/tests; the python on PATH has no pytest.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: Test-Spelling judges a file only once it is in the gate set, so a pre-existing word
+  surfaces then and the fix is the file's own cspell:ignore line.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: declaration.py put on a png-carried diagram writes the png byte-identical when
+  nothing changed, so git status after a put is the drift check.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: in visual-design.md a rule block lives in the registry section before "One axis,
+  read left to right" and its prose section at the end; "actor" is a taken glossary term, "stick man" is not.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: an inspection note in an action article is deleted the day the engine answers it,
+  never marked done.
+- 2026-10-23 Cats: Token tip: Next time, save tokens by: taking the kit suite command from the usage line at the top of
+  tests/test_drawio_png.py instead of trying bare python first.
+- 2026-10-23 Cats: Token tip: Next time, save tokens by: grepping a gate's output file for issue, failed and formatted lines instead of
+  tailing the whole log.
+- 2026-10-23 Cats: Token tip: Next time, save tokens by: keeping one gate script per file set in out/ and re-running it after every edit
+  rather than composing new commands.

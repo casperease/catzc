@@ -501,11 +501,14 @@ def render(root, page=None):
                 mx, my = mx + nx * float(g.get("y", 0)), my + ny * float(g.get("y", 0))
                 tw, th = d.textlength(label, font=f), float(s.get("fontSize", 11))
                 left = mx if s.get("align") == "left" else mx - tw / 2  # an align=left label extends rightwards from its point
+                label_background(d, s, left, my - th / 2, tw, th)
                 d.text((left, my - th / 2), label, font=f, fill=color(s.get("fontColor"), INK))
             else:
                 # Centred on the line's halfway point and just above it, as draw.io lays an edge label out.
                 mx, my = halfway(pts)
-                d.text((mx - d.textlength(label, font=f) / 2, my - 16), label, font=f, fill=color(s.get("fontColor"), INK))
+                tw, th = d.textlength(label, font=f), float(s.get("fontSize", 11))
+                label_background(d, s, mx - tw / 2, my - 16, tw, th)
+                d.text((mx - tw / 2, my - 16), label, font=f, fill=color(s.get("fontColor"), INK))
 
     def paint_cell(cid, c):
         if c.get("edge") == "1":
@@ -548,6 +551,13 @@ def clip(p, q, box, minx, miny, shape="box"):
     else:
         t = min(rx / abs(dx) if dx else 1e9, ry / abs(dy) if dy else 1e9)
     return (cx + dx * t, cy + dy * t)
+
+
+def label_background(d, s, x, y, w, h):
+    """The box an edge's word sits on when its style names a labelBackgroundColor, as draw.io paints one: the colour, 2 px around the
+    text, so the word reads over whatever the line crosses."""
+    if s.get("labelBackgroundColor") not in (None, "", "none"):
+        d.rectangle([x - 2, y - 2, x + w + 2, y + h + 2], fill=color(s.get("labelBackgroundColor"), BACKGROUND))
 
 
 def along(pts, fraction):

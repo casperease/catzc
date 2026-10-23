@@ -47,8 +47,6 @@ the kinds, the four operators, the marker and the transition pill, with the Proo
 
 ## Notes from the inspection
 
-- The `effects` word on the edge from 4 to 5 sits where the first arc passes, so the arc runs through the letters. A word's place should
-  keep clear of the ring arcs, or the painter should give an edge's word the background its style already names.
 - The proof line inside a note repeats a path the reader has to parse twice, once per note. The language could let a note name its
   observation and leave the full call to the proof block in the article, which the drawing already points at.
 - Three notes leave most of the frame empty below the lane; the fixed height is by design, but a zone with one note could draw its arc

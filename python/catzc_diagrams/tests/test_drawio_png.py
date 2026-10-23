@@ -1,4 +1,4 @@
-# cspell:ignore mxfile getpixel
+# cspell:ignore mxfile getpixel mxgraph
 """Re-rendering a .drawio.png from the model it carries, with and without a page override.
 
 usage (repo root, background): timeout 120 uv run -q --with pillow==12.3.0 --with pytest==9.1.1 python -m pytest python/catzc_diagrams/tests
@@ -124,6 +124,20 @@ def test_places_an_edge_label_at_the_middle_of_its_routed_length():
     ink = lambda x0, x1, y0, y1: any(dark(at(img, x, y)) for x in range(x0, x1) for y in range(y0, y1))
     assert ink(20, 80, 30, 60)  # beside the vertical leg: the 260 px path's middle is 30 px down it, at (20, 50)
     assert not ink(50, 110, 0, 15)  # not above the first leg's middle, at (70, 20)
+
+
+def test_paints_an_edge_word_on_the_background_its_style_names():
+    edge = (
+        '<mxCell id="cross" value="widget" style="endArrow=none;strokeColor=#000000;fontColor=#000000;fontSize=11;{}" edge="1" parent="1">'
+        '<mxGeometry relative="1" as="geometry"><mxPoint x="20" y="100" as="sourcePoint"/><mxPoint x="280" y="100" as="targetPoint"/>'
+        "</mxGeometry></mxCell>"
+    )
+    boxed = rendered(edge.format("labelBackgroundColor=#FF0000;"))
+    bare = rendered(edge.format(""))
+    red = lambda img, x, y: near(at(img, x, y), (255, 0, 0))
+    assert red(boxed, 150, 83)  # in the 2 px pad above the word, whose top is 16 px above the line at (150, 100)
+    assert not red(bare, 150, 83)  # without the key, nothing is painted behind the word
+    assert not red(boxed, 150, 110)  # the box ends at the word; the line below it stays on the white page
 
 
 def test_draws_nothing_for_a_group_cell():

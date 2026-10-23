@@ -98,8 +98,6 @@ Test-GeneratedFiles -Generator 'Build-ContractReference'
 - This is the drawing the grammar fits best: two parallel stories, one hop each, no edge skipping a zone, every word legible. A drawing with
   more than two stories per zone would stack its notes tighter than the lane allows, and the renderer refuses it rather than shrinking the
   text; a taller frame on request is the only relief.
-- The `effects` words stand just left of the first arc; one more character and the arc would cut them. The word's position should take the
-  arcs into account, not only the source box.
 - The numbers run top to bottom inside each zone while the causality runs left to right, so 5 follows 3 and 6 follows 4 although 4 is
   numbered before 5. The numbers tell the declared order, not the chain; a reader who wants the chain follows the words on the edges.
 

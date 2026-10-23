@@ -236,22 +236,24 @@ and ink from the same theme tokens as every diagram.
 ### Rule DDR-VISUAL-EDGEWORDSAREOPERATORS
 
 Every flow edge of an action diagram carries one word, drawn by the renderer and never named in the declaration; the word follows from the
-edge's source and target, never from the author. The **cats operator** is the edge from the cause to the action: an actor runs the command
-through cats, and `Test-AccostedCommand` checks the action. The **executes operator** is every edge leaving the action, whatever its target:
-the statement is handed to the state machine as an instruction, and the runner running it checks it. The **affects operator** is the edge
-between two effects where the target is an execution: one execution triggers another, and `Test-AccostedCommand` checks that call. The
-**effects operator** is the edge between two effects where the target is a state change: an execution changes state, and its observation in
-the proof file checks it. An effect's `after` picks the source of its edge, the action when it names none. The legend of every action
-diagram lists the four words, or with `legend: used` only the operators the drawing uses, and adds "execution: a triggered command" when one
-is drawn. The declaration's `relation` and `thick` are refused under the action lens.
+edge's source and target, never from the author. The word stands beside its line only where the line crosses no boundary; where it does, the
+transition pill carries it (DDR-VISUAL-TRANSITIONPILL). The **cats operator** is the word at the actor's hand, where the statement is done;
+no line runs from the head to the hand, and `Test-AccostedCommand` checks the action. The **executes operator** is every edge leaving the
+action, whatever its target: the statement is handed to the state machine as an instruction, and the runner running it checks it. The
+**affects operator** is the edge between two effects where the target is an execution: one execution triggers another, and
+`Test-AccostedCommand` checks that call. The **effects operator** is the edge between two effects where the target is a state change: an
+execution changes state, and its observation in the proof file checks it. An effect's `after` picks the source of its edge, the action when
+it names none. The legend of every action diagram lists the four words, or with `legend: used` only the operators the drawing uses, and adds
+"execution: a triggered command" when one is drawn. The declaration's `relation` and `thick` are refused under the action lens.
 
 - [Edges carry their operator](#edges-carry-their-operator)
 
 ### Rule DDR-VISUAL-STEEPEDGEWORDBESIDEIT
 
-A **steep edge** is an edge that climbs or falls more than it runs, in an action diagram and in a band diagram alike. Its word stands
-left-aligned a few pixels to the right of its line, at the middle of the line, so the word reads beside the edge and never on it or across
-it. The distance is declared once in the renderer's vocabulary, and the draw.io model and the painted raster place the word the same way.
+A **steep edge** is an edge that climbs or falls more than it runs, in an action diagram and in a band diagram alike. Where its line crosses
+no boundary, its word stands left-aligned a few pixels to the right of its line, at the middle of the line, so the word reads beside the
+edge and never on it or across it. The distance is declared once in the renderer's vocabulary, and the draw.io model and the painted raster
+place the word the same way. A word on a line that crosses a boundary is the transition pill's (DDR-VISUAL-TRANSITIONPILL).
 
 - [A steep edge's word](#a-steep-edges-word)
 
@@ -293,6 +295,34 @@ centred in a left column and the words are left-aligned beside them. The band ne
 drawing shorter than the sidebar leaves room beneath itself and the band stays under the sidebar.
 
 - [One legend band](#one-legend-band)
+
+### Rule DDR-VISUAL-STICKMANOVERLAY
+
+The **stick man** is the onlooker's stand-in drawn over a finished action diagram, last of all: the cause's circle fragment is his head,
+with the idea in it, and his body hangs from the fragment as four plain lines between anchors, a spine, the arms across, two legs, free to
+overflow the rim and whatever stands near. He is not part of the drawing: nothing moves to make room for him, no legend lists him, and get
+skips his cells as the kit's own. The renderer's vocabulary declares him shown once, and `actor: hidden` there turns him off.
+
+- [The stick man](#the-stick-man)
+
+### Rule DDR-VISUAL-HEADABOVEHAND
+
+The head thinks the statement and the hand does it. The cause's fragment stands above the centre line, so it may grow sideways over the
+statement, and the statement, box 2, stands on the centre line at the stick man's right hand, the word cats beside the hand. Nothing is
+drawn between head and hand: what runs from the idea to the statement runs through the body and is inferred, so the **hand placement** is
+the only link the drawing shows. The rings stay centred on the rim at the statement's height.
+
+- [Head above hand](#head-above-hand)
+
+### Rule DDR-VISUAL-TRANSITIONPILL
+
+A **transition pill** is the word of a line drawn where the line crosses into a new state: a round-cornered box hugging the word with a
+small inner margin on every side and no height beyond the text, centred on the first boundary the line crosses, the border of the band it
+enters in a band diagram, the first ring arc it crosses in an action diagram. The line keeps no word of its own, and get reads the word back
+from the pill. A line that crosses nothing keeps its word beside it. The margin is declared once in the renderer's vocabulary, and every
+legend of a drawing with a crossing lists "transition: into a new state". This holds in every lens.
+
+- [The transition pill](#the-transition-pill)
 
 ## One axis, read left to right
 
@@ -522,3 +552,24 @@ alone, so a call needs no cause and no effects to be shown in every engine's wor
 A legend that changes shape from one drawing to the next has to be found again each time. One band under every drawing, with one captioned
 box per part of the drawing above it, puts every key where the eye already is, and centred swatches beside left-aligned words read as one
 column of symbols and one of words whatever the segment holds.
+
+## The stick man
+
+A reader standing over a map on a table sees the map, and sees themselves in it only as a figure laid on top. The stick man is that figure:
+the cause's fragment already holds the idea, so it is his head by position, and his body is drawn afterwards over the finished drawing,
+overlapping what it overlaps. Keeping him out of the layout and out of get means the drawing is the same drawing with or without him, and a
+drawing that has no room for a reader's stand-in switches him off with one key.
+
+## Head above hand
+
+An idea is thought before it is done, and a reader follows that order downwards: the head above, the hand below on the line the rest of the
+drawing runs along. Drawing an arrow from head to hand would say something a body already says, so the link is left to the body and the eye,
+and the one word at the hand says what the hand does. Lifting the head above the line also gives the idea room to grow sideways without
+pushing the statement.
+
+## The transition pill
+
+A word on a line says what the line means where it changes something. Where the line crosses nothing, beside the line is where the word
+belongs; where it crosses into another band or another zone, the crossing is the moment the word is about, so the word stands there, and a
+pill hugging it keeps it legible over the border it sits on. One pill per line, at the first crossing, keeps the marker rare enough to mean
+something.

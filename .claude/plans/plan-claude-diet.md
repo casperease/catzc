@@ -63,3 +63,10 @@ It cuts a cost paid by every session and every spawn that loads the project inst
   real-process tripwire instead of a whole module's tier run (workers used `Test-Automation -MinLevel 0 -MaxLevel 1 -Modules` all day); (3)
   `Test-Plans` checks that a `value-of-plan.md` row has as many cells as its table's header (only markdownlint caught a 6-cell row).
   Recommendation: all three, each one line or one parameter.
+- From catzc-69's finalize (2026-10-23, the action lens session), three proposals, none applied: (1) `.claude/skills/catzc-check/SKILL.md`:
+  one line naming the diagram kit's suite run, `uv run -q --no-sync --project python python -m pytest python/catzc_diagrams/tests` (the
+  `python` on PATH has no pytest, and a session wrote the suite script twice); (2) the DRS authoring conventions in `docs/drs/index.md`: one
+  clause saying the index lists records, never rule codes, which `Test-DrsRegistry` reads from the record itself (a session grepped the
+  index for its new codes); (3) `docs/explanation/index.md`, "How to read the diagrams": one clause saying an inspection note is deleted
+  when the engine answers it, never marked done, so the three action articles need no rule of their own. Recommendation: all three, each one
+  line.
