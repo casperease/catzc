@@ -53,7 +53,8 @@ reach.
 - [ ] `.claude/learnings`: append catzc-49's "What I learned" lines, asked for on 2026-10-21, each rewritten to a current fact first; no
       copy is in the tree, `out/` or the orchestrator logs, and catzc-49 is not live, so the step waits on catzc-49 sending them (check:
       `Test-Markdownlint -Path '.claude/**/*.md'`).
-- [ ] Question (catzc-a0's finalize, 2026-10-22): fold two learnings into what the next session already reads, recommend yes: the
+- [ ] Decided by the orchestrator as delegated (2026-10-23), from catzc-a0's finalize (2026-10-22): fold two learnings into what the next
+      session already reads: the
       `catzc-run` capability says a call that may wait on the run lock takes the 340 s background roof and a re-imprint runs one folder per
       call; the test page of ADR-AUTO-TEST says the leading comma of `, @($x) | Should -Be` suits a one-element expectation only. (check:
       `Test-Plans`, and the capability within its 10 lines)

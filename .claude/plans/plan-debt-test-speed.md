@@ -47,7 +47,7 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
 
 ## Open questions
 
-- Does the hindsight log, `.claude/hindsight/`, get a decision record? Its line shape and validity rule live only in the `hindsight-log`
-  capability, and no ADR outside `research/` names it (the user's decision).
-- `docs/references/pwsh/CLAUDE.md` still prescribes `Format-Code -Language markdown -Path docs/references/pwsh`, against `catzc-run`'s
+- Decided by the orchestrator as delegated (2026-10-23): the hindsight log gets no decision record; the `hindsight-log` capability is its
+  one home (PDR-ONELIVE), and a record follows only when a second reader needs its rule.
+- The user's, gathered in task-user-runs-and-commits: `docs/references/pwsh/CLAUDE.md` still prescribes `Format-Code -Language markdown -Path docs/references/pwsh`, against `catzc-run`'s
   `Format-Code -Path` on the files touched (decided in plan-agent-friction); a `CLAUDE.md` is the user's to edit.

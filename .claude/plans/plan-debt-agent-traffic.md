@@ -38,43 +38,22 @@ ten "may I" questions on edits the rules already require, three to five tool cal
 - [ ] `.claude/skills/plans-orchestrate/SKILL.md` line 4: the log line is written by the hook when the hook covers it (after the step
       above). Check: `Test-AgentDefinitions`.
 
-## Open questions
-
-- The orchestrator's finalize (2026-10-22), proposals to shrink what the next session reads, none applied: (1) one merged line in
-  `.claude/skills/plans-orchestrate/SKILL.md`: at most two heavy drones at a time on this devbox, bursts chained drone to drone, one unit
-  per `Invoke-CatzcCommand` call (today only in the orchestrator's memory); (2) the parent check landed (2026-10-22), so drop the "never
-  stop a queued burst by TaskStop" caution from anyone's notes, since the waiter now stops itself; (3) `docs/drs/repository/file-meta.md`
-  FILEISNODE gains the folding sentence (a cited bare record code stands for its rules; `drs_total` counts before folding), so no reader
-  re-derives it. Take or leave each.
-
-- catzc-54's finalize (2026-10-22), a proposal, not applied: one line in `.claude/skills/catzc-verify/SKILL.md`, "a body diff after
-  `Format-Code` may be a long comment moved verbatim to its comment page; check the page before reporting a word change", so a drone does
-  not raise a re-imprint's comment move as a body change. Take it or leave it.
-
-- The orchestrator's third finalize (2026-10-22), a proposal, not applied: one line in `.claude/skills/catzc-run/SKILL.md`, "inside
-  `Invoke-CatzcCommand` call the gate itself, never a count of its issues", since a printed count passes the call whatever it is. Take it or
-  leave it.
-
-- The orchestrator's second finalize (2026-10-22), proposals, none applied: (1) one line in `.claude/skills/catzc-verify/SKILL.md`, "a test
-  file red on HEAD is fixed inside the burst that touches its subject, never left out", since a left-out test cannot judge the change; (2) a
-  burst leaves out only test files red for commit state or a named race, each listed in its plan step with what clears it. Take or leave
-  each.
-
-- The user's (from plan-debt-hindsight-gaps, deleted 2026-10-22 when its steps landed): a capability line saying a line that pre-approves
-  agent behaviour, or a `sed -i` delete, is denied by the permission system and goes to the user. Take it or leave it.
-
-- catzc-6e's finalize (2026-10-23): a run-lock holder whose session has ended while its pwsh keeps running (the pid 15324 stall, 2026-10-22:
-  a gone holder process was ruled out by a test, so it was most likely a live orphan) still holds the lock to its deadline, and every waiter
-  now waits on it until its budget leaves only `-LockSeconds`. Should a holder whose own caller is gone count as gone, as a waiter whose
-  caller is gone already does in `Wait-CatzcRunLock.ps1`? Take it or leave it.
-
-- catzc-6e's finalize (2026-10-23), proposals to shrink what the next session reads, none applied: (1) one line in
-  `.claude/skills/catzc-run/SKILL.md`, "the draw.io kit runs as `uv run --no-sync --project python python …`", so no session re-derives the
-  no-sync rule from a correction; (2) now that `Enter-CatzcBurst` takes the run lock for an import-path burst, retire the HOLD and "burst
-  done" broadcast to every peer (this session got two that changed nothing it did), keeping a message only for a session that holds an
-  import open outside the lock. Take or leave each.
-
-- The orchestrator's finalize (2026-10-23), proposals, none applied: (1) one clause in `.claude/skills/plans-orchestrate/SKILL.md` item 3,
-  "a step's check names a command a module exports (`Test-Plans` rejects `Invoke-CatzcCommand`)", since a struck-then-rewritten check cost a
-  rerun; (2) the orchestrator's own plan checks batch into one `Format-Code` and `Test-Plans` run per worker report rather than one per
-  edit, since each run queued behind a worker's burst (four were turned away before the waiter fix). Take or leave each.
+- [ ] Decided by the orchestrator as delegated (2026-10-23), from the finalizes of 2026-10-22 and 2026-10-23, every proposal taken, each
+      merged into an existing line (at most 10 lines and 140 columns a file): `.claude/skills/plans-orchestrate/SKILL.md`, at most two heavy
+      drones at a time, bursts chained drone to drone, one unit per `Invoke-CatzcCommand` call, a step's check names a command a module
+      exports, and the orchestrator's plan checks batch into one run per worker report; `.claude/skills/catzc-verify/SKILL.md`, a body diff
+      after `Format-Code` may be a comment moved to its page (check the page first), and a test file red on HEAD is fixed inside the burst
+      that touches its subject, a burst leaving out only files red for commit state or a named race, each listed in its step;
+      `.claude/skills/catzc-run/SKILL.md`, inside `Invoke-CatzcCommand` the gate itself is called, never a count of its issues, the draw.io
+      kit runs as `uv run --no-sync --project python python …`, and a line pre-approving agent behaviour or a `sed -i` delete is denied by
+      the permission system and goes to the user. Check: `Test-AgentDefinitions`.
+- [ ] Decided by the orchestrator as delegated (2026-10-23): `Enter-CatzcBurst` holds the run lock, so the HOLD and "burst done" broadcast to
+      every peer is retired; a message goes only to a session that holds an import open outside the lock. Edit
+      `.claude/agents/implementation-orchestrator.md` step 7 and `.claude/skills/plans-orchestrate/SKILL.md` item 3. Check:
+      `Test-AgentDefinitions`.
+- [ ] Decided by the orchestrator as delegated (2026-10-23; catzc-6e's finalize): `pwsh/.internal/assets/Wait-CatzcRunLock.ps1`, a holder
+      whose own caller is gone counts as gone, as a waiter whose caller is gone already does, so an orphaned pwsh no longer holds every waiter
+      to its deadline. Check: its test file green with a new orphaned-holder case, `Test-ScriptAnalyzer -Path` at 0.
+- [ ] Decided by the orchestrator as delegated (2026-10-23): `docs/drs/repository/file-meta.md` FILEISNODE gains the folding sentence (a
+      cited bare record code stands for its rules; `drs_total` counts before folding). Check: `Test-Links` on the ADR, `Build-DrsIndex`
+      clean.

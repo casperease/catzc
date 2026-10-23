@@ -40,12 +40,12 @@ it.
        and pastes its one line; the command then grows what the line lacked, one property at a time (check:
        `Invoke-TestFile -Path pwsh/Catzc.Base.VSCode/tests/Get-VsCodeSession.Tests.ps1`).
 
-## Open questions
+2. [ ] `pwsh/.internal/Catzc.Internal.Importer.psm1`, `Invoke-AgentHookJanitor`: inside VS Code's own session (`Test-IsRunningInVsCode`)
+       it skips `Build-AgentHook` with one line naming the command to run from outside, as `Invoke-EditorExtensionJanitor` does, since a
+       `dotnet publish` costs tens of seconds in the host that shows IntelliSense (decided by the orchestrator as delegated, 2026-10-23).
+       Import-path file: a burst. Check: `Invoke-TestFile` on the janitor's test file (new if none exists), then one fresh full import.
 
-- Does a stack capture of a hung pwsh (`dotnet-stack report`) join the toolbox as a command with its `Install-DotnetStack` triad
-  (ADR-AUTO-DEPS-TOOLTRIAD), or is `Get-VsCodeSession` enough? Recommendation: wait for one recurrence before adding a tool.
-- Does `Build-AgentHook`'s `dotnet publish` belong in a janitor that runs at the first prompt of the extension's session, where it costs
-  tens of seconds in the host that shows IntelliSense? Recommendation: judge it with the first step's evidence, not before.
-- Does the `devbox-diagnose` capability keep its Windows layer (event logs, crash dumps, boot time) now that `Get-VsCodeSession` answers the
-  session's binding from the inside, or does the robot read only the editor and process layers? Recommendation: keep it; the Windows layer
-  is what told a stale blue-screen report from a crash of the day.
+## Decided (the orchestrator as delegated, 2026-10-23)
+
+- No stack-capture tool (`dotnet-stack report`) until the hang recurs once; `Get-VsCodeSession` is the first instrument.
+- The `devbox-diagnose` capability keeps its Windows layer: it is what told a stale blue-screen report from a crash of the day.
