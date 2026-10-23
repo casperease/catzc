@@ -37,6 +37,11 @@ ten "may I" questions on edits the rules already require, three to five tool cal
       (task-user-runs-and-commits). Check: one message sent between sessions appears in `out/orchestrator-<date>.log`.
 - [ ] `.claude/skills/plans-orchestrate/SKILL.md` line 4: the log line is written by the hook when the hook covers it (after the step
       above). Check: `Test-AgentDefinitions`.
+- [ ] `pwsh/.internal/assets/Enter-CatzcBurst.ps1`: a `-Run` step that starts a child `pwsh -File Invoke-CatzcCommand.ps1 -InBurst` throws
+      "no burst holds Local\catzc-run" although the burst holds it, and two `-Run` arguments passed through `pwsh -File` bind as one
+      (catzc-97, 2026-10-23; an in-process `& Invoke-CatzcCommand.ps1 -InBurst` step works); the child sees the burst, and the `-Run` list
+      binds from `pwsh -File` as from the console. (check: `Enter-CatzcBurst.Tests.ps1` green with a child-process step and a two-step
+      `pwsh -File` case)
 
 ## Open questions
 

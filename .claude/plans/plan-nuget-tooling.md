@@ -44,13 +44,6 @@ on a regulated devbox, and today it is reached silently on every import that bui
 
 ## Open steps
 
-- [ ] The design lands in one burst with a fresh import. (check: `Invoke-TestFile` on `Assert-DotnetOffline.Tests.ps1` green with cases
-      where a visible source and a stray `nuget.config` stop the call, `New-NuGetConfig.Tests.ps1` and `New-DotnetBuildProps.Tests.ps1`
-      green, and `Build-AgentHook.Tests.ps1` green three times in a row with a case where `dotnet nuget list source` from each hook folder
-      lists none)
-- [ ] The three `.cs` files left unformatted (`PathSet.cs`, `TimeoutsConfig.cs`, `VscodeSession.cs`; plan-debt-full-run-failures) are
-      formatted once the step above lands. (check: `Test-Formatting -Path` at 0 on them)
-
 ## Open questions
 
 - The user's: the tool that configures which package managers are allowed outside the tooling system (first candidate: NuGet for the hook

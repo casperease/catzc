@@ -28,6 +28,7 @@ function Invoke-BuildForVsCode {
     Assert-PathExist $project
 
     $configuration = (Get-Config -Config bcl).configuration
+    Assert-DotnetOffline $project
     $result = Invoke-Executable "dotnet build `"$project`" --configuration $configuration" -PassThru
 
     if ($PassThru) {

@@ -28,6 +28,7 @@ function Invoke-DotnetFormat {
     $relative = @($File | ForEach-Object { [System.IO.Path]::GetRelativePath($root, $_) -replace '\\', '/' } |
             Where-Object { -not ($_ -eq '..' -or $_.StartsWith('../')) })
 
+    Assert-DotnetOffline $root
     $changed = [System.Collections.Generic.List[string]]::new()
     $report = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-dotnet-format-$([guid]::NewGuid().ToString('N'))"
     try {

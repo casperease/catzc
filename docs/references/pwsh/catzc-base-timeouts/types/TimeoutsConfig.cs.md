@@ -133,3 +133,12 @@ Above `private static readonly string[] RunLockKeys = { "wait_seconds",...`, wri
 The machine's run lock: how long a run waits past a live holder's deadline, how old a queue ticket may be before it is dropped, and the
 budget a run has in all, the background roof, so a waiter stops early when the holder will not finish within it.
 ```
+
+## comment:11
+
+Above `public const int RunLockDefaultBudgetSeconds = 280;`, written with `//`.
+
+```text
+Under the 300 s a background call usually gives its command, so a waiter stops with its own "retry after it" line before the call's
+timeout kills it.
+```

@@ -22,6 +22,8 @@ Describe 'Invoke-DotnetFormat' -Tag 'L0', 'logic' {
         $script:reported = @($script:widget)
         $script:checkExit = 2
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:repo }
+        # The fixture repository has no generated nuget.config; the guard's own cases are Assert-DotnetOffline.Tests.ps1.
+        Mock Assert-DotnetOffline -ModuleName Catzc.Base.QualityGates { }
         Mock Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Command -like '*--verify-no-changes*' } {
             if ($Command -match '--report "([^"]+)"') {
                 $entries = @($script:reported | ForEach-Object { @{ FilePath = $_; FileChanges = @(@{ DiagnosticId = 'WHITESPACE' }) } })

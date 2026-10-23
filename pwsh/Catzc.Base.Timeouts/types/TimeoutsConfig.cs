@@ -32,8 +32,6 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] RunLockKeys = { "wait_seconds", "stale_seconds", "budget_seconds" };
     public const int RunLockDefaultWaitSeconds = 120;
     public const int RunLockDefaultStaleSeconds = 720;
-    // Under the 300 s a background call usually gives its command, so a waiter stops with its own "retry after it" line before the call's
-    // timeout kills it.
     public const int RunLockDefaultBudgetSeconds = 280;
     private static readonly string[] TestLevels = TestTiers.Names;
 

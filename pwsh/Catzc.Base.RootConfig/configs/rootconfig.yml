@@ -143,6 +143,21 @@ files:
     carrier: msbuild-project
     committed: true
     optIn: true
+  # Committed, since the C# Dev Kit restores the solution as the folder opens, before any import: no dotnet run reaches a package source.
+  - target: nuget.config
+    generator: New-NuGetConfig
+    sources:
+      - pwsh/Catzc.Base.Languages/New-NuGetConfig.ps1
+    carrier: nuget-config
+    committed: true
+    optIn: true
+  - target: Directory.Build.props
+    generator: New-DotnetBuildProps
+    sources:
+      - pwsh/Catzc.Base.Execution/configs/tools.yml
+    carrier: msbuild-project
+    committed: true
+    optIn: true
   - target: catzc.sln
     source: pwsh/Catzc.Base.RootConfig/assets/root/catzc.sln
     optIn: true

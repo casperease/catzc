@@ -22,15 +22,3 @@ on 2026-10-22 with five sessions running tests). A red file has its cause report
       cause (catzc-54, `out/catzc-54-full-run-2-5.md`) is a case-only rename git does not track, `pwsh/Catzc.Base.VSCode/*-VsCode*.ps1` on
       disk against `*-VSCode*.ps1` in the index, so the builder's case-sensitive index check drops every file and builds nothing. The fix is
       the user's (task-user-runs-and-commits). Check: `Invoke-TestFile` on it alone, after the rename is staged.
-- [ ] `Build-AgentHook.Tests.ps1` red twice on 2026-10-22 inside catzc-a0's bursts, a different hook's `BeforeAll` each time
-      (`Assert-BashTimeout`, then `Record-AgentWrite`), with no error text; `Invoke-TestFile` now prints a failed `BeforeAll`'s error, and
-      the file ran green three times alone (catzc-27, 2026-10-23, `out/test-file/20261023-092121-2054e4` and the two after it). Left: the
-      same three runs through `Invoke-CatzcCommand`, and the fix decided from the real error if one turns red; the run lock now serialises
-      every import, so "while another session imports" is no longer a state a run can meet (decided by the orchestrator as delegated,
-      2026-10-23). The real error (catzc-27, 2026-10-23, `out/test-file/20261023-093629-59a2f1`, one red in three): `dotnet publish` exits 0
-      while a child it started holds its output open past 5 s; one child is NuGet's credential plugin, started because the implicit restore
-      reads the user-level NuGet sources (a private feed among them); a second is not yet named. Nothing may contact a package manager
-      outside the tooling system, and the config that makes the hook build offline (sources cleared, audit off) is a generated file (the
-      user, 2026-10-23); `--source nuget.org` was tried and reverted. The design (generator, place, scope that keeps `dotnet tool restore`
-      working) is reported to the orchestrator before any edit. (check: `Invoke-TestFile` on `Build-AgentHook.Tests.ps1` green three times
-      in a row)

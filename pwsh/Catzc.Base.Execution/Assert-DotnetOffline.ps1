@@ -1,0 +1,55 @@
+function Assert-DotnetOffline {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory, Position = 0)]
+        [string] $Path,
+
+        [string] $RepositoryRoot = (Get-RepositoryRoot)
+    )
+
+    $root = [System.IO.Path]::GetFullPath($RepositoryRoot).TrimEnd('\', '/')
+    $full = [System.IO.Path]::GetFullPath($(if ([System.IO.Path]::IsPathRooted($Path)) {
+                $Path
+            }
+            else {
+                Join-Path $root $Path
+            }))
+    $folder = if ([System.IO.Directory]::Exists($full)) {
+        $full
+    }
+    else {
+        [System.IO.Path]::GetDirectoryName($full)
+    }
+    $inside = $folder -eq $root -or $folder.StartsWith($root + [System.IO.Path]::DirectorySeparatorChar, [System.StringComparison]::OrdinalIgnoreCase)
+    Assert-True $inside -ErrorText "Assert-DotnetOffline: '$Path' lies outside the repository '$root', where no generated nuget.config keeps dotnet offline."
+
+    # NuGet reads these names in every folder from the project up; the root's one clears what the user's and the machine's configs add.
+    $names = 'nuget.config', 'NuGet.config', 'NuGet.Config'
+    $config = Join-Path $root 'nuget.config'
+    Assert-True ([System.IO.File]::Exists($config)) -ErrorText "Assert-DotnetOffline: $config is missing, so dotnet would restore from the user's package sources. Run Build-RootConfig, which generates it."
+
+    $document = [System.Xml.XmlDocument]::new()
+    try {
+        $document.LoadXml([System.IO.File]::ReadAllText($config))
+    }
+    catch {
+        throw "Assert-DotnetOffline: $config is not readable XML ($($_.Exception.Message)), so it clears no package source. Run Build-RootConfig, which generates it."
+    }
+    foreach ($section in 'packageSources', 'auditSources') {
+        $node = $document.SelectSingleNode("/configuration/$section")
+        $elements = @(if ($node) {
+                $node.ChildNodes | Where-Object { $_.NodeType -eq 'Element' }
+            })
+        $cleared = $elements.Count -eq 1 -and $elements[0].LocalName -eq 'clear'
+        Assert-True $cleared -ErrorText "Assert-DotnetOffline: $config does not clear its $section, so a package source stays visible to dotnet."
+    }
+
+    $current = $folder
+    while ($current -ne $root) {
+        foreach ($name in $names) {
+            $stray = Join-Path $current $name
+            Assert-False ([System.IO.File]::Exists($stray)) -ErrorText "Assert-DotnetOffline: $stray sits between '$Path' and the repository root, so its package sources reach dotnet. Remove it."
+        }
+        $current = [System.IO.Path]::GetDirectoryName($current)
+    }
+}

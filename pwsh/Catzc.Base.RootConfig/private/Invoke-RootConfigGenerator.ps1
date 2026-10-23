@@ -87,6 +87,12 @@ function Invoke-RootConfigGenerator {
         'New-PythonProject' {
             New-PythonProject -Target $Target
         }
+        'New-NuGetConfig' {
+            New-NuGetConfig
+        }
+        'New-DotnetBuildProps' {
+            New-DotnetBuildProps
+        }
         'New-CatsCommandLookup' {
             # The lookup cats checks a call against, from the command contracts (Catzc.Base.Contracts).
             New-CatsCommandLookup
