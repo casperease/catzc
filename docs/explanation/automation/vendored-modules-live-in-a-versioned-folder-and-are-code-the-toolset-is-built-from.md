@@ -1,0 +1,21 @@
+---
+catzc:
+  warning: "Experimental: this article merges two rules into one and holds nothing beyond what they say"
+  edges:
+    cites:
+      - ADR-PWSH-VENDOR-VERSIONEDVENDORFOLDER
+      - ADR-AUTO-DEPM-NOTSYSTEMDEPENDENCY
+---
+
+# Vendored modules live in a versioned folder and are code the toolset is built from (ADR-PWSH-VENDOR-VERSIONEDVENDORFOLDER + ADR-AUTO-DEPM-NOTSYSTEMDEPENDENCY)
+
+This article is one rule:
+[ADR-PWSH-VENDOR-VERSIONEDVENDORFOLDER](../../drs/automation/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-versionedvendorfolder)
+and [ADR-AUTO-DEPM-NOTSYSTEMDEPENDENCY](../../drs/automation/controlling-module-dependencies.md#rule-adr-auto-depm-notsystemdependency)
+merged into one. It holds nothing beyond what those two rules say.
+
+A third-party PowerShell module is vendored into `pwsh/.vendor/<ModuleName>/<Version>/`; the version folder fixes the load path and makes
+upgrades visible in diffs. That is how it becomes an internal module dependency, vendored and named. A module dependency is code the toolset
+is built from, pinned and stitched into the build, whether internal or an external package a feed supplies. It is not a system dependency,
+an external runtime such as `pwsh`, Python or the Azure CLI that the toolset runs against; the two names stay distinct in code, config and
+prose.

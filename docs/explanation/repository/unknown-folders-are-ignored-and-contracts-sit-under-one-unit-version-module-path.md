@@ -1,0 +1,20 @@
+---
+catzc:
+  warning: "Experimental: this article merges two rules into one and holds nothing beyond what they say"
+  edges:
+    cites:
+      - ADR-REPO-FOLDERS-UNKNOWNFOLDERSIGNORED
+      - ADR-REPO-CONTRACT-LAYOUT
+---
+
+# Unknown folders are ignored and contracts sit under one unit version module path (ADR-REPO-FOLDERS-UNKNOWNFOLDERSIGNORED + ADR-REPO-CONTRACT-LAYOUT)
+
+This article is one rule:
+[ADR-REPO-FOLDERS-UNKNOWNFOLDERSIGNORED](../../drs/repository/conventional-folders.md#rule-adr-repo-folders-unknownfoldersignored) and
+[ADR-REPO-CONTRACT-LAYOUT](../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout) merged into one. It holds nothing beyond
+what those two rules say.
+
+Unknown folders are ignored, not errors: the bootstrap module and test runner skip a non-conventional folder, and the module just cannot
+expect tooling to interact with it. The conventional place for contracts is `contracts/<unit>/<version>/<module>/<path>`, where the unit is
+`catzc`, the bundle; the version is the unit's version; the module is the owning catzc module; and the path is the real file the asset
+constrains.
