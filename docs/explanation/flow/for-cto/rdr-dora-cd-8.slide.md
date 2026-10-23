@@ -33,4 +33,5 @@ From the catalogue, reduced: same deploy bicep on both sides.
 
 ## Notes
 
-Check it: the record RDR-DORA-CD in docs/drs/index.md, and the diagram docs/explanation/design/.assets/same-deploy-bicep-on-both-sides.drawio.png.
+Check it: the record RDR-DORA-CD in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/same-deploy-bicep-on-both-sides.drawio.png.

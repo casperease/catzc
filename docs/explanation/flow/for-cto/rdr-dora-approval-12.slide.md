@@ -21,7 +21,8 @@ catzc:
 
 ## Lead
 
-For the CTO, who owns the delivery system and its cost: RC and RBC are one release signature each by a user with access; chat and tickets serve no gate.
+For the CTO, who owns the delivery system and its cost: RC and RBC are one release signature each by a user with access; chat and tickets
+serve no gate.
 
 ## Image
 
@@ -33,4 +34,5 @@ From the catalogue, reduced: values and edges gated reads reviewed.
 
 ## Notes
 
-Check it: the record RDR-DORA-APPROVAL in docs/drs/index.md, and the diagram docs/explanation/repository/.assets/values-and-edges-gated-reads-reviewed.drawio.png.
+Check it: the record RDR-DORA-APPROVAL in docs/drs/index.md, and the diagram
+docs/explanation/repository/.assets/values-and-edges-gated-reads-reviewed.drawio.png.

@@ -1,0 +1,5 @@
+<div style="background:#c00;color:#fff;padding:6px 10px"><b>Experimental</b> &nbsp; Monitoring goes to one workspace per subscription and network logs follow it (ADR-AZ-CAF-NETTOP-NETWORKWATCHERNETWORKINSIGHTS + ADR-AZ-CAF-PRIN-SINGLECONTROLMANAGEMENTPLANE)</div>
+
+> **Experimental.** This article is one rule: [ADR-AZ-CAF-NETTOP-NETWORKWATCHERNETWORKINSIGHTS](../../drs/azure/caf/network-topology.md#rule-adr-az-caf-nettop-networkwatchernetworkinsights) and [ADR-AZ-CAF-PRIN-SINGLECONTROLMANAGEMENTPLANE](../../drs/azure/caf/design-principles.md#rule-adr-az-caf-prin-singlecontrolmanagementplane) merged into one. It holds nothing beyond what those two rules say.
+
+Every change is an Azure Resource Manager deployment through Bicep and the az CLI, with catzc a thin command line over it and never a portal in front of it. Monitoring goes to one Log Analytics workspace per subscription, `foundation`'s, not to one central workspace. Network monitoring through Network Watcher is planned to follow: the virtual network and its security groups send their logs and metrics to that same workspace.
