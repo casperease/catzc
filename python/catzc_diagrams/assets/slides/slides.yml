@@ -46,3 +46,17 @@ layout:
   footer_bottom: 64 # the pinned page-number row; a slide with one pads 160 at the bottom
 render:
   out: out/slides # Build-SlideDeck lands <deck>/project/… and <deck>.script.md here
+fact: # the fact pattern's picture as slide_png.py renders it: its column beside the text, and when it lies under the text instead
+  picture_width: 640
+  picture_height: 560
+  wide_ratio: 2.5 # a picture wider than this many times its height lies under the text at the full inner width
+  gap: 64 # between the text column and the picture column
+strip: # the ladder-strip redraw of slide_png.py: one tile per rung, the climb between them, and the word layer painted last on top
+  tile_width: 120
+  tile_height: 60
+  rise: 30 # how far the next rung climbs
+  gap: 22 # between two rungs
+  line: 2 # the climb's stroke
+  word_size: 20 # the word in a rung
+  move_size: 15 # the word on a climb
+  word_stroke: 2 # the dark outline around every word, so it reads over any shape

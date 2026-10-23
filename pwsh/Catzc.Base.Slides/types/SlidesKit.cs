@@ -13,7 +13,8 @@ public sealed class SlidesKit
 
     public const string DefaultOut = "out/slides";
 
-    private static readonly string[] Sections = { "token", "face", "scale", "layout", "render" };
+    // fact and strip are the fact pattern's picture sizes and the ladder-strip redraw's sizes, read by the kit's slide_png.py.
+    private static readonly string[] Sections = { "token", "face", "scale", "layout", "render", "fact", "strip" };
     private static readonly string[] RequiredFaces = { "display", "text" };
     private static readonly Regex HexColour = new Regex("^#[0-9A-Fa-f]{6}$", RegexOptions.Compiled);
     private static readonly Regex QuotedFamily = new Regex("^\\s*'([^']+)'", RegexOptions.Compiled);
@@ -28,6 +29,8 @@ public sealed class SlidesKit
     public IReadOnlyDictionary<string, string> scale { get; }
     public IReadOnlyDictionary<string, string> layout { get; }
     public IReadOnlyDictionary<string, string> render { get; }
+    public IReadOnlyDictionary<string, string> fact { get; }
+    public IReadOnlyDictionary<string, string> strip { get; }
 
     public SlidesKit(IDictionary raw)
     {
@@ -107,7 +110,7 @@ public sealed class SlidesKit
             }
         }
 
-        foreach (string section in new[] { "scale", "layout" })
+        foreach (string section in new[] { "scale", "layout", "strip" })
         {
             foreach (KeyValuePair<string, string> number in sections[section])
             {
@@ -143,6 +146,8 @@ public sealed class SlidesKit
         scale = sections["scale"];
         layout = sections["layout"];
         render = sections["render"];
+        fact = sections["fact"];
+        strip = sections["strip"];
     }
 
     public string Value(string reference)
@@ -222,6 +227,8 @@ public sealed class SlidesKit
             case "scale": return scale;
             case "layout": return layout;
             case "render": return render;
+            case "fact": return fact;
+            case "strip": return strip;
             default: return null;
         }
     }

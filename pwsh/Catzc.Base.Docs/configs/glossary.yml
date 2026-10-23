@@ -611,6 +611,32 @@ concepts:
     short:
       The pre-prod rung: a slot inside the production subscription, inactive until it is activated, never a separate subscription.
     realized_by: { kind: prose-only }
+  manual queue:
+    key: manual_queue
+    domain: flow
+    defined_by: FDR-CD-QUEUE-THREEQUEUES
+    short:
+      A point on the promotion ladder where a commit waits for a person's act before it climbs; the ladder has three, each with a named
+      server, a named store and a measured wait.
+    realized_by: { kind: prose-only }
+    contrasts:
+      gate: A gate is any check a commit climbs through, code or person; a manual queue is the wait in front of the gates a person serves.
+  release signature:
+    key: release_signature
+    domain: flow
+    defined_by: FDR-CD-QUEUE-SIGNATUREISTHEGATE
+    short:
+      One recorded act in the appointed security registry by a user with access, saying that a rung passed its check for one named
+      commit; it serves the RC gate for main-UAT and the RBC gate for release-uat.
+    realized_by: { kind: prose-only }
+  slot switch:
+    key: slot_switch
+    domain: flow
+    defined_by: FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED
+    short:
+      The automated, monitored act that makes the pre-prod occupant the live production occupant and moves the former one into the staging slot; never
+      a manual queue.
+    realized_by: { kind: prose-only }
   module type:
     key: module_type
     domain: design

@@ -26,6 +26,9 @@ One artifact is built once and climbs to production unchanged
 | operations     | [A merge to main runs the CD pipeline all the way to prod, with no approval](a-merge-runs-cd-to-prod.md)                |
 | governance     | [The CI budget is the only promotion rule a quality gate checks](ci-budget-is-the-only-quality-gate.md)                 |
 
+The manual queues of the promotion ladder ([manual-queues](../../drs/flow/manual-queues.md)), in ten slides:
+[The manual queues of the promotion ladder, in ten slides](manual-queues-slides.md).
+
 ## The pipeline runner
 
 A pipeline step only names a command that a developer can run locally

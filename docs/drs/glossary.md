@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: c32aa50ec9b3
+    with_body_sha: "7c9c7ff085cd"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -607,8 +607,22 @@ A check whose verdict decides whether work may proceed — automated (a quality 
 - **Forms:** `quality gate`, `CI gate`, `AT gate`, `RC gate`, `RBC gate`, `BVT gate`, `release gate`, `manual gate`, `PR gate`,
   `merge gate`, `commit gate`, `approval gate`, `production gate`, `push gate`, and the bare `gate`
 - **Contrasts:**
+  - [manual queue](#manual-queue): A gate is any check a commit climbs through, code or person; a manual queue is the wait in front of the
+    gates a person serves.
   - [quality gate](#quality-gate): A quality gate is one automated check of the repository; a gate is any decision point, human or
     automated.
+
+### manual queue
+
+A point on the promotion ladder where a commit waits for a person's act before it climbs; the ladder has three, each with a named server, a
+named store and a measured wait.
+
+- **Defined by:** [FDR-CD-QUEUE-THREEQUEUES](flow/manual-queues.md#rule-fdr-cd-queue-threequeues)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
+- **Contrasts:**
+  - [gate](#gate): A gate is any check a commit climbs through, code or person; a manual queue is the wait in front of the gates a person
+    serves.
 
 ### release candidate
 
@@ -631,6 +645,24 @@ The immutable, tagged artifact a CI component builds from one commit — version
 | Avoid                     | Say instead                |
 | ------------------------- | -------------------------- |
 | `release-candidate suite` | release-candidate test run |
+
+### release signature
+
+One recorded act in the appointed security registry by a user with access, saying that a rung passed its check for one named commit; it
+serves the RC gate for main-UAT and the RBC gate for release-uat.
+
+- **Defined by:** [FDR-CD-QUEUE-SIGNATUREISTHEGATE](flow/manual-queues.md#rule-fdr-cd-queue-signatureisthegate)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
+
+### slot switch
+
+The automated, monitored act that makes the pre-prod occupant the live production occupant and moves the former one into the staging slot;
+never a manual queue.
+
+- **Defined by:** [FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED](flow/manual-queues.md#rule-fdr-cd-queue-slotswitchisautomated)
+- **Realized by:** prose only — a vocabulary term with nothing in code to enforce
+- **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
 
 ## automation
 

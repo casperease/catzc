@@ -5,7 +5,7 @@ catzc:
     cites:
       - FDR-CD
       - FDR-GIT
-    drs_total: 8
+    drs_total: 9
 ---
 
 # DORA explanations — flow
@@ -151,6 +151,24 @@ capability links. The decisions live in the decision records themselves; this fi
   topic deploy are automated-deployment behaviours.
 - [Version control](../../references/dora/capabilities.md#version-control) — "history is never rewritten; a discarded commit stays on the
   record" is a version-control discipline.
+- [DORA research reference](../../references/dora/index.md).
+
+## Manual queues
+
+`The manual queues of the promotion ladder — authoring, two signatures, and an automated slot switch`
+
+[FDR-CD-QUEUE](manual-queues.md)
+
+> Lead time is dominated by waiting, and the waiting that hides best is a person who has not acted yet. Naming the three places a commit
+> waits for a human, giving each a server and a store so its wait can be read, and keeping the production switch out of human hands turn the
+> ladder's delay into a measured, improvable quantity instead of a feeling.
+
+- [Streamlining change approval](../../references/dora/capabilities.md#streamlining-change-approval) — two signatures in one registry,
+  entered by a peer with access after an automated test, are the lightweight approval this capability describes.
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — the slot switch is automated and monitored, so the
+  last climb adds no queue.
+- [Monitoring and observability](../../references/dora/capabilities.md#monitoring-and-observability) — the switch is watched while it runs,
+  and the queues' waits are read from their stores.
 - [DORA research reference](../../references/dora/index.md).
 
 ## Git topic flow

@@ -314,6 +314,7 @@ domains:
       durable-sha-globs: { external: FDR-CD-GLOBS, concern: [automation] }
       pipeline-concept: { external: FDR-CD-PIPELINE }
       commit-lifecycle: { external: FDR-CD-LIFE, concern: [quality-control, release, deploy] }
+      manual-queues: { external: FDR-CD-QUEUE, concern: [release, deploy] }
       git-topic-flow: { external: FDR-GIT, concern: [build] }
 
   automation:

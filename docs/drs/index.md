@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: f872b25f06ee
+    with_body_sha: "1fc0785faf94"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -130,6 +130,7 @@ implement it.
 | `FDR-CD-GLOBS`    | [durable-sha-globs](flow/durable-sha-globs.md)                               |
 | `FDR-CD-PIPELINE` | [pipeline-concept](flow/pipeline-concept.md)                                 |
 | `FDR-CD-LIFE`     | [commit-lifecycle](flow/commit-lifecycle.md)                                 |
+| `FDR-CD-QUEUE`    | [manual-queues](flow/manual-queues.md)                                       |
 | `FDR-GIT`         | [git-topic-flow](flow/git-topic-flow.md)                                     |
 
 ### automation/

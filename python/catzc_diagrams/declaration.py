@@ -1683,6 +1683,26 @@ def chrome(content, cells):
     return drop
 
 
+def ladder_rungs(content, band_id):
+    """A ladder band's items in climbing order: a walk along the forward edges between them from each item nothing in the band leads
+    to, in declared order, then whatever the walk did not reach. The slide kit's redraw of a ladder reads the same order."""
+    items = [i for i in content["groups"] + content["glyphs"] if i["in"] == band_id]
+    ids = [i["id"] for i in items]
+    nxt = {}
+    for e in content["edges"]:
+        if e["from"] in ids and e["to"] in ids and e["kind"] != "fail":
+            nxt.setdefault(e["from"], e["to"])
+    led = set(nxt.values())
+    order = []
+    for start in [i for i in ids if i not in led] + ids:
+        cur = start
+        while cur is not None and cur not in order:
+            order.append(cur)
+            cur = nxt.get(cur)
+    by_id = {i["id"]: i for i in items}
+    return [by_id[i] for i in order]
+
+
 def place(declaration):
     """Every cell of the model with its absolute geometry: the grid places what the layout does not name; the action lens places
     everything by ring and order."""
@@ -1698,23 +1718,7 @@ def place(declaration):
     ladders = {str(l["band"]): l for l in content.get("ladders") or []}
 
     def rungs(band_id):
-        """A ladder band's items in climbing order: a walk along the forward edges between them from each item nothing in the band
-        leads to, in declared order, then whatever the walk did not reach."""
-        items = [i for i in content["groups"] + content["glyphs"] if i["in"] == band_id]
-        ids = [i["id"] for i in items]
-        nxt = {}
-        for e in content["edges"]:
-            if e["from"] in ids and e["to"] in ids and e["kind"] != "fail":
-                nxt.setdefault(e["from"], e["to"])
-        led = set(nxt.values())
-        order = []
-        for start in [i for i in ids if i not in led] + ids:
-            cur = start
-            while cur is not None and cur not in order:
-                order.append(cur)
-                cur = nxt.get(cur)
-        by_id = {i["id"]: i for i in items}
-        return [by_id[i] for i in order]
+        return ladder_rungs(content, band_id)
 
     def ladder_place(band_id, item, origin_x, width, w, h):
         """A ladder's rungs spread evenly over the band's width; rung n stands rise px above rung n-1, rung 0 on the band's floor."""
