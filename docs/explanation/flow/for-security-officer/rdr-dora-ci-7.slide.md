@@ -1,0 +1,36 @@
+---
+catzc:
+  config:
+    pattern: fact
+    deck: for-security-officer
+    order: 7
+    picture:
+      mode: reduce
+      source: ../../configuration/.assets/two-test-files-check-the-address-rules.drawio.png
+      scale: 0.4
+  edges:
+    cites:
+      - RDR-DORA-CI
+---
+
+# Continuous integration with a five to ten minute budget, enforced as a gate
+
+## Eyebrow
+
+7 / 30 · fact for the Security Officer · RDR-DORA-CI
+
+## Lead
+
+For the Security Officer, who owns identity, policy and the audit trail: BVT runs on every push to main; a run over its roof is a finding, and the roof is config.
+
+## Image
+
+.assets/rdr-dora-ci-7.png
+
+## Caption
+
+From the catalogue, reduced: two test files check the address rules.
+
+## Notes
+
+Check it: the record RDR-DORA-CI in docs/drs/index.md, and the diagram docs/explanation/configuration/.assets/two-test-files-check-the-address-rules.drawio.png.
