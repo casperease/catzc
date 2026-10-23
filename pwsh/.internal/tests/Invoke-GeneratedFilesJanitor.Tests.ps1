@@ -1,0 +1,45 @@
+BeforeAll {
+    # The transient importer modules are removed after every import, so this test file loads its own copies.
+    Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force
+    Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Importer.psm1') -Force
+}
+
+AfterAll {
+    Remove-Module Catzc.Internal.Importer -Force -ErrorAction SilentlyContinue
+    Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction SilentlyContinue
+}
+
+Describe 'Invoke-GeneratedFilesJanitor' -Tag 'L0', 'logic' {
+    BeforeEach {
+        Mock Get-Command { [pscustomobject] @{ Name = 'Test-GeneratedFiles' } } -ModuleName Catzc.Internal.Importer -ParameterFilter { $Name -eq 'Test-GeneratedFiles' }
+        Mock Get-SessionActor { 'User' } -ModuleName Catzc.Internal.Importer
+        Mock Get-Config { [pscustomobject] @{ janitors = @{ generated_files_seconds = 9 } } } -ModuleName Catzc.Internal.Importer
+        Mock Invoke-WithTimeout { [pscustomobject] @{ Issues = @('docs/widget/index.md: stale — Build-DrsIndex would change it; regenerate with: Build-DrsIndex', 'widget/.gitkeep: stale — Build-GitKeep would change it; regenerate with: Build-GitKeep') } } -ModuleName Catzc.Internal.Importer
+        Mock Write-ImporterMessage { } -ModuleName Catzc.Internal.Importer
+    }
+
+    It 'prints one line per stale file, under the roof the config declares' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+        InModuleScope Catzc.Internal.Importer { Invoke-GeneratedFilesJanitor }
+        Should -Invoke Invoke-WithTimeout -ModuleName Catzc.Internal.Importer -Times 1 -Exactly -ParameterFilter { $Seconds -eq 9 }
+        Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Importer -Times 2 -Exactly
+        Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Importer -Times 1 -Exactly -ParameterFilter { $Message -like 'Generated file: docs/widget/index.md: stale*' }
+    }
+
+    It 'prints nothing when no file is stale' {
+        Mock Invoke-WithTimeout { [pscustomobject] @{ Issues = @() } } -ModuleName Catzc.Internal.Importer
+        InModuleScope Catzc.Internal.Importer { Invoke-GeneratedFilesJanitor }
+        Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+    }
+
+    It 'says in one line that it did not check when the roof stops it' {
+        Mock Invoke-WithTimeout { throw 'Stopped after 9s' } -ModuleName Catzc.Internal.Importer
+        InModuleScope Catzc.Internal.Importer { Invoke-GeneratedFilesJanitor }
+        Should -Invoke Write-ImporterMessage -ModuleName Catzc.Internal.Importer -Times 1 -Exactly -ParameterFilter { $Message -like 'Generated files: not checked — Stopped after 9s*' }
+    }
+
+    It 'does nothing in a pipeline' {
+        Mock Get-SessionActor { 'Pipeline' } -ModuleName Catzc.Internal.Importer
+        InModuleScope Catzc.Internal.Importer { Invoke-GeneratedFilesJanitor }
+        Should -Invoke Invoke-WithTimeout -ModuleName Catzc.Internal.Importer -Times 0 -Exactly
+    }
+}

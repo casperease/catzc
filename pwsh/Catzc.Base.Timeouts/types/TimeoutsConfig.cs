@@ -21,7 +21,7 @@ namespace Catzc.Base.Timeouts;
 
 public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "limits", "executables", "commands", "tests", "wait", "run_lock" };
+    private static readonly string[] AllowedKeys = { "limits", "executables", "commands", "tests", "wait", "run_lock", "janitors" };
     private static readonly string[] TestKeys = { "level_ms", "run_seconds", "engine_start_seconds", "run_list_seconds" };
 
     private static readonly string[] WaitKeys = { "seconds", "milliseconds", "drain_seconds" };
@@ -33,6 +33,9 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     public const int RunLockDefaultWaitSeconds = 120;
     public const int RunLockDefaultStaleSeconds = 720;
     public const int RunLockDefaultBudgetSeconds = 280;
+    private static readonly string[] JanitorKeys = { "generated_files_seconds" };
+    // The import janitor's roof for Test-GeneratedFiles -Changed: the changed set costs about 5 s, so 10 s still catches a regression.
+    public const int JanitorDefaultGeneratedFilesSeconds = 10;
     private static readonly string[] TestLevels = TestTiers.Names;
 
     private static readonly Dictionary<string, int> TestLevelDefaults = new Dictionary<string, int>(StringComparer.Ordinal)
@@ -84,6 +87,10 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
     // The run-lock settings, filled in: run_lock[wait_seconds], run_lock[stale_seconds], run_lock[budget_seconds].
     public IDictionary run_lock { get; }
 
+    // The import janitors' roofs, filled in: janitors[generated_files_seconds].
+    public IDictionary janitors { get; }
+
+    private int janitorGeneratedFilesSeconds = JanitorDefaultGeneratedFilesSeconds;
     private readonly Dictionary<string, int> testLevelMs = new Dictionary<string, int>(TestLevelDefaults, StringComparer.Ordinal);
     private int testRunSeconds = TestRunDefaultSeconds;
     private int engineStartSeconds = EngineStartDefaultSeconds;
@@ -206,6 +213,11 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
             ReadRunLock(d["run_lock"], errors);
         }
 
+        if (d != null && d.Contains("janitors") && d["janitors"] != null)
+        {
+            ReadJanitors(d["janitors"], errors);
+        }
+
         if (errors.Count > 0)
         {
             throw new ArgumentException("timeouts configuration validation failed:\n" + string.Join("\n", errors));
@@ -247,6 +259,30 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         Hashtable lockView = new Hashtable(StringComparer.OrdinalIgnoreCase);
         foreach (KeyValuePair<string, int> entry in runLock) { lockView[entry.Key] = entry.Value; }
         run_lock = lockView;
+
+        janitors = new Hashtable(StringComparer.OrdinalIgnoreCase)
+        {
+            { "generated_files_seconds", janitorGeneratedFilesSeconds },
+        };
+    }
+
+    private void ReadJanitors(object value, List<string> errors)
+    {
+        IDictionary map = value as IDictionary;
+        if (map == null)
+        {
+            errors.Add("invalid janitors (must be a map of generated_files_seconds)");
+            return;
+        }
+        CheckKeys(map, JanitorKeys, "janitors.", errors);
+        if (!map.Contains("generated_files_seconds") || map["generated_files_seconds"] == null) { return; }
+        int? number = PositiveSeconds(map["generated_files_seconds"]);
+        if (number == null)
+        {
+            errors.Add(string.Format("invalid janitors.generated_files_seconds '{0}' (must be a positive whole number)", map["generated_files_seconds"]));
+            return;
+        }
+        janitorGeneratedFilesSeconds = number.Value;
     }
 
     private void ReadRunLock(object value, List<string> errors)

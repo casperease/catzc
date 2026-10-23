@@ -368,6 +368,28 @@ function Invoke-EditorExtensionJanitor {
     }
 }
 
+# Checks the changed generated files against their writers: one line per stale file, one line when the roof stops it.
+function Invoke-GeneratedFilesJanitor {
+    [CmdletBinding()]
+    param()
+
+    if (-not (Get-Command Test-GeneratedFiles -ErrorAction Ignore) -or (Get-SessionActor) -eq 'Pipeline') {
+        return
+    }
+    try {
+        $seconds = (Get-Config -Config timeouts).janitors['generated_files_seconds']
+        $result = Invoke-WithTimeout -Seconds $seconds -Activity 'Test-GeneratedFiles -Changed' {
+            Test-GeneratedFiles -Changed -PassThru 6>$null
+        }
+        foreach ($issue in @($result.Issues)) {
+            Write-ImporterMessage "Generated file: $issue" -ForegroundColor Yellow
+        }
+    }
+    catch {
+        Write-ImporterMessage "Generated files: not checked — $($_.Exception.Message)" -ForegroundColor Yellow
+    }
+}
+
 function Invoke-ImporterJanitors {
     [CmdletBinding()]
     param(
@@ -429,6 +451,7 @@ function Invoke-ImporterJanitors {
 
     Invoke-EditorExtensionJanitor
 
+    Invoke-GeneratedFilesJanitor
 }
 
 function Write-LoadTime {

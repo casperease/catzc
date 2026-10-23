@@ -240,6 +240,20 @@ Describe 'TimeoutsConfig' -Tag 'L0' {
             { New-TimeoutsConfig ([ordered]@{ run_lock = $lock }) } | Should -Throw $message
         }
 
+        It 'resolves the janitor roof default when janitors is absent, and overrides it' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
+            (New-TimeoutsConfig ([ordered]@{})).janitors['generated_files_seconds'] | Should -Be ([Catzc.Base.Timeouts.TimeoutsConfig]::JanitorDefaultGeneratedFilesSeconds)
+            [Catzc.Base.Timeouts.TimeoutsConfig]::JanitorDefaultGeneratedFilesSeconds | Should -Be 10
+            (New-TimeoutsConfig ([ordered]@{ janitors = @{ generated_files_seconds = 7 } })).janitors['generated_files_seconds'] | Should -Be 7
+        }
+
+        It 'rejects a bad janitors section: <case>' -ForEach @(
+            @{ case = 'an unknown key'; janitors = @{ hours = 1 }; message = "*unknown key 'janitors.hours'*" }
+            @{ case = 'a zero'; janitors = @{ generated_files_seconds = 0 }; message = "*invalid janitors.generated_files_seconds '0'*" }
+            @{ case = 'a shape that is not a map'; janitors = 3; message = '*invalid janitors (must be a map*' }
+        ) {
+            { New-TimeoutsConfig ([ordered]@{ janitors = $janitors }) } | Should -Throw $message
+        }
+
         It 'reads per-command limits, case-insensitively, and answers null for a command without one' -Tag 'ADR-PWSH-ASSERT-DECLAREDTIMELIMIT' {
             $config = New-TimeoutsConfig ([ordered]@{ commands = @{ 'Sync-Widget' = 45 } })
             $config.SecondsForCommand('sync-widget') | Should -Be 45

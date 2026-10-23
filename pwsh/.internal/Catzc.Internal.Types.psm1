@@ -242,12 +242,12 @@ function Get-LoadedTypeDrift {
     }
     elseif ($loaded -and -not $prior) {
         $otherRoots = [System.Collections.Generic.List[string]]::new()
-        $recordEntries = if ($records) {
-            @($records.GetEnumerator())
-        }
-        else {
-            @()
-        }
+        $recordEntries = @(if ($records) {
+                @($records.GetEnumerator())
+            }
+            else {
+                @()
+            })
         foreach ($key in $snapshot.Keys) {
             foreach ($entry in $recordEntries) {
                 if ($entry.Key -ne $rootKey -and $entry.Value.Snapshot.Contains($key)) {
