@@ -68,7 +68,7 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
     It 'opens an authored head with the warning the registry declares, a string part of its own' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
         $script:schema['properties']['catzc']['properties']['warning']['type'] | Should -Be 'string'
         $script:sample['catzc']['warning'] | Should -BeExactly (Get-Config -Config file-meta).warning
-        @($script:sample['catzc'].Keys)[0] | Should -Be 'warning'
+        $script:sample['catzc'].Keys | Select-Object -First 1 | Should -Be 'warning'
     }
 
     It 'requires no key, since an authored head holds edges only and a generated one holds the body hash only while tracked' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {

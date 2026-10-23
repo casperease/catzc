@@ -62,3 +62,14 @@ ten "may I" questions on edits the rules already require, three to five tool cal
 
 - The user's (from plan-debt-hindsight-gaps, deleted 2026-10-22 when its steps landed): a capability line saying a line that pre-approves
   agent behaviour, or a `sed -i` delete, is denied by the permission system and goes to the user. Take it or leave it.
+
+- catzc-6e's finalize (2026-10-23): a run-lock holder whose session has ended while its pwsh keeps running (the pid 15324 stall, 2026-10-22:
+  a gone holder process was ruled out by a test, so it was most likely a live orphan) still holds the lock to its deadline, and every waiter
+  now waits on it until its budget leaves only `-LockSeconds`. Should a holder whose own caller is gone count as gone, as a waiter whose
+  caller is gone already does in `Wait-CatzcRunLock.ps1`? Take it or leave it.
+
+- catzc-6e's finalize (2026-10-23), proposals to shrink what the next session reads, none applied: (1) one line in
+  `.claude/skills/catzc-run/SKILL.md`, "the draw.io kit runs as `uv run --no-sync --project python python …`", so no session re-derives the
+  no-sync rule from a correction; (2) now that `Enter-CatzcBurst` takes the run lock for an import-path burst, retire the HOLD and "burst
+  done" broadcast to every peer (this session got two that changed nothing it did), keeping a message only for a session that holds an
+  import open outside the lock. Take or leave each.

@@ -62,3 +62,43 @@ Started 2026-10-22T09:08:25.1759302+02:00.
 - 2026-10-22 Cats: In hindsight I wish I knew this fact: Test-Automation scopes a run with -Modules, not -Path.
 - 2026-10-22 Cats: Token tip: Next time, save tokens by: grepping .claude/plans for a failing test name before proposing a fix, since the
   plans may already hold the cause.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: ADR-PWSH-PARAM-CASESENSITIVEPATTERN already covers ValidatePattern case, and
+  Measure-CaseSensitivePattern enforces it; Options = None and a leading (?-i) both count.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: a Pester 5.7.1 Mock body sees the locals of the It that triggers it, whether the
+  mock is defined in It, BeforeEach or BeforeAll, with or without -ModuleName.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: a -like pattern treats the backtick as its escape, so a literal backtick never
+  matches itself; [WildcardPattern]::Escape doubles it (ADR-PWSH-PESTER-ESCAPELIKEPATTERNS).
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: SyntaxSearch.BareName (Catzc.Base.Repository) is the one place a function name
+  loses its script:/global:/local:/private: qualifier (ADR-PWSH-ONEFUNC-NAMEWITHOUTSCOPE).
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: Enter-CatzcBurst -Run with a land script and a verify script calling
+  Invoke-CatzcCommand -InBurst lands a types edit and its tests under one lock in a single call.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: Test-ScriptAnalyzer is red on 4 findings in test files that predate the
+  CaseSensitivePattern rule (plan-debt-full-run-failures).
+- 2026-10-23 Cats: Token tip: Next time, save tokens by: grepping the ADR rule headings for a hindsight line's term before planning a new
+  rule.
+- 2026-10-23 Cats: Token tip: Next time, save tokens by: probing an engine claim with one scratch Pester file before writing a rule about
+  it.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: Enter-CatzcBurst takes its steps as the arguments after the named ones (-Seconds
+  \<s> 'step' 'step'); -Run 'a' 'b' through pwsh -File fails, since a named array never binds through -File.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: a PowerShell assignment from an if expression ($x = if (...) { $list }) unrolls a
+  one-item list to its item; assign inside the if to keep the list.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: Test-AgentDefinitions counts only unindented lines toward a capability's or agent's
+  line roof (Get-RobotLineCount), so an indented continuation line is free.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: a copy of an .internal asset staged under out/ cannot dot-source its siblings or
+  timeouts.yml through $PSScriptRoot; mirror pwsh/.internal/assets and pwsh/Catzc.Base.Timeouts/configs to probe it.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: declaration.py's normalise calls a module-level entry() helper, so a local variable
+  named entry inside it shadows that helper and fails every test.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: content.minimaps is inputs only, a list of three ids each id or { id: { exclude:
+  [cells] } }; lit cells are computed into out/minimaps/ and never written to a carrier.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: the run-lock holder record is pid|start|deadline|holding, and a waiter waits on any
+  live holder until its budget leaves only -LockSeconds.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: the draw.io kit is run as uv run --no-sync --project python python ...; a plain uv
+  run may sync and contact the package index.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: other sessions stage edits as they land, so git diff alone can show nothing for a
+  changed file; git status --short shows the staged column.
+- 2026-10-23 Cats: Token tip: Next time, save tokens by: grepping a gate's output file for its summary lines (pytest's N passed, issue(s),
+  Passed) instead of tailing the whole output.
+- 2026-10-23 Cats: Token tip: Next time, save tokens by: waiting for a busy run-lock holder's printed deadline with one timer call instead
+  of retrying the run behind it.
+- 2026-10-23 Cats: Token tip: Next time, save tokens by: probing PowerShell binding or a staged script with a tiny stand-in under out/
+  before editing an import-path file.

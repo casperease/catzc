@@ -27,7 +27,8 @@ metadata:
    loop or recursive grep, and a wide markdown table is searched with only-matching output or a count. Editing a code line whose long
    comment moved to a `docs/references/` comment page edits that page's "Above `…`" line too. A shared config (`file-meta.yml`,
    `generated-head.yml`, `glossary.yml`) is live for every session's next import, so its edit lands with its code in one pass and is parked
-   in `out/` during a peer's burst; a root asset (`pwsh/Catzc.Base.RootConfig/assets/root/*`) too, which every import's Build-RootConfig
-   materialises, so its edit starts with a HOLD to every live peer. A script holding backslashes (Windows paths, regexes) is written with
-   the Write tool, never a heredoc or echo; a path a bats test or shell script hands to Windows tools goes through `cygpath -m` first, as
-   `importer.sh` does.
+   in `out/` during a peer's burst, as is a `pwsh/*/types/*.cs` edit (every import compiles it), and a gate after a `Format-Code` on C# (it
+   moves the DLL key) runs in a fresh import; a root asset (`pwsh/Catzc.Base.RootConfig/assets/root/*`) too, which every import's
+   Build-RootConfig materialises, so its edit starts with a HOLD to every live peer. A script holding backslashes (Windows paths, regexes)
+   is written with the Write tool, never a heredoc or echo; a path a bats test or shell script hands to Windows tools goes through
+   `cygpath -m` first, as `importer.sh` does.

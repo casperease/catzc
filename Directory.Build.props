@@ -2,6 +2,7 @@
   <PropertyGroup Label="catzc">
     <CatzcMeta><![CDATA[catzc:
   immutable:
+    with_body_sha: "8abe3961b0bd"
     warning: "Do Not Edit, this file is generated"]]></CatzcMeta>
   </PropertyGroup>
   <PropertyGroup>

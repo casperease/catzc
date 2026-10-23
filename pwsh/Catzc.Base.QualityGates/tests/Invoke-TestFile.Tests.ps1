@@ -126,7 +126,7 @@ Describe 'StrictHostile' -Tag 'L0', 'logic' {
         [System.IO.File]::WriteAllText($setup, "Describe 'Setup' -Tag 'L0', 'logic' {`n    BeforeAll { throw 'widget setup broke' }`n    It 'never runs' { 1 | Should -Be 1 }`n}`n")
         $run = Invoke-TestFile $setup -Output Minimal -PassThru
         $run.Result | Should -Be 'Failed'
-        @($run.Rows)[0].ErrorMessage | Should -BeLike '*widget setup broke*'
+        $run.Rows | Select-Object -First 1 -ExpandProperty ErrorMessage | Should -BeLike '*widget setup broke*'
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -ParameterFilter { "$Message" -like '*widget setup broke*' }
     }
 
