@@ -29,15 +29,18 @@ on a regulated devbox, and today it is reached silently on every import that bui
 
 ## Decided design (catzc-27's, taken by the user, 2026-10-23)
 
-- `New-NuGetConfig` in `Catzc.Tooling.Toolchain` renders the repo-root `nuget.config` (package and audit sources cleared), registered in
-  `rootconfig.yml` with `committed: true` (the C# Dev Kit restores before any import), on the `New-VsCodeSettings` precedent; its head rides
-  a `nuget-config` carrier in `file-carriers.yml`.
-- `New-DotnetBuildProps` in the same module renders a repo-root `Directory.Build.props` from `tools.yml`'s `dotnet.version` (the target
-  framework, NuGet audit off); the `net10.0` literal leaves the four hook `.csproj` files and the types project.
-- The layering holds (Base never depends on Tooling): NuGet stays in Toolchain, and the guard `Assert-DotnetOffline`, a file check with no
-  process and no network, lives in `Catzc.Base.Execution`; `Build-AgentHook`, `Invoke-BuildForVsCode` and `Invoke-DotnetFormat` call it
-  before every `dotnet` run, and it throws naming the file when the root config is missing, a source is not cleared, or a second
-  `nuget.config` sits under the repository. The future allow-list plugs in there, empty today.
+- The generators live in `Catzc.Base.Languages` beside `New-GoWorkspace` and `New-PythonProject` (the user, 2026-10-23): `Build-RootConfig`
+  calls every generator from Base, so a Tooling generator would be a Base→Tooling edge; the two files are the C# language's project config,
+  which switches NuGet off, while installing and running dotnet stays in `Catzc.Tooling.Toolchain`.
+- `New-NuGetConfig` renders the repo-root `nuget.config` (package and audit sources cleared), registered in `rootconfig.yml` with
+  `committed: true` (the C# Dev Kit restores before any import), on the `New-VsCodeSettings` precedent; its head rides a `nuget-config`
+  carrier in `file-carriers.yml`.
+- `New-DotnetBuildProps` renders a repo-root `Directory.Build.props` from `tools.yml`'s `dotnet.version` (the target framework, NuGet audit
+  off); the `net10.0` literal leaves the four hook `.csproj` files and the types project.
+- The layering holds (Base never depends on Tooling): the guard `Assert-DotnetOffline`, a file check with no process and no network, lives
+  in `Catzc.Base.Execution`; `Build-AgentHook`, `Invoke-BuildForVsCode` and `Invoke-DotnetFormat` call it before every `dotnet` run, and it
+  throws naming the file when the root config is missing, a source is not cleared, or a second `nuget.config` sits under the repository. The
+  future allow-list plugs in there, empty today.
 
 ## Open steps
 
