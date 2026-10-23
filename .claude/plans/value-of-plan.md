@@ -63,6 +63,7 @@ stale or superseded item is recorded as such, with the reason.
 | high   | plan-debt-tier-tripwire     | none (ADR-AUTO-TEST-PROCESSTRIPWIRE decides)                                                    | each failing file at -MaxLevel 1, the tripwire's test, both tiers alone                               | new                                              |
 | medium | plan-action-lens-next       | DDR-VISUAL-EFFECTSINZONES and -EDGEWORDSAREOPERATORS extended                                   | the kit suite, the four action diagrams re-rendered                                                   | new                                              |
 | medium | plan-vscode-session-binding |                                                                                                 |                                                                                                       | new                                              |
+| high | plan-action-lens-speaks |  |  | new |
 
 ## Pending deletion
 

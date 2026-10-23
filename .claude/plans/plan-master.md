@@ -78,6 +78,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   a BCL helper on the type that owns it; pass-through functions go.
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
+- action-lens-speaks -> plan-action-lens-speaks.md: The speaking actor of the action lens (idea in the head box, stick figure in the circle fragment, speech bubble with the cats statement) and transition bubbles where a line crosses a boundary, in every lens
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.
