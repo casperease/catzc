@@ -14,9 +14,9 @@ catzc:
     drs_total: 2
 ---
 
-<!-- cspell:ignore adronly -->
-
 # Task: the user's commits, git operations, and the one final full run
+
+<!-- cspell:ignore adronly -->
 
 Every step here is one the user does by hand, because agents never run mutating git and never run all tests (ADR-REPO-AI;
 `.claude/CLAUDE.md`, No mutating git operations). A check is one test file under `Invoke-TestFile`, one gate on named paths, a grep or a

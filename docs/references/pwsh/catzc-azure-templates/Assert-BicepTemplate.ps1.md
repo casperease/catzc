@@ -68,15 +68,6 @@ Assert-BicepTemplate my-template -Build   # also compile with az
 
 ## comment:1
 
-Above `$folders = @([System.IO.Directory]::EnumerateDirectories($root) | Sort-Object)`, written with `#`.
-
-```text
-[System.IO.Directory] (sorted) instead of Get-ChildItem — see Get-BicepTemplates for the
-~20ms-per-call Get-ChildItem overhead this avoids.
-```
-
-## comment:2
-
 Above `$customerDeploymentOption = if ($options.Contains('customer_deployment')) {`, written with `#`.
 
 ```text

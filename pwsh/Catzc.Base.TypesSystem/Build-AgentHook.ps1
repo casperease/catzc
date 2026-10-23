@@ -23,7 +23,7 @@ function Build-AgentHook {
 
         [switch] $Force,
 
-        [switch] $Test
+        [switch] $ListStale
     )
 
     Assert-SourceTree
@@ -64,7 +64,7 @@ function Build-AgentHook {
         $stamp = Join-Path $OutputDirectory "$assemblyName.source.sha256"
         $program = & $findProgram
         $isCurrent = $program -and (Test-Path -LiteralPath $stamp) -and ((Get-Content -LiteralPath $stamp -Raw).Trim() -ceq $sourceHash.Trim())
-        if ($Test) {
+        if ($ListStale) {
             if (-not $isCurrent) {
                 $hook
             }

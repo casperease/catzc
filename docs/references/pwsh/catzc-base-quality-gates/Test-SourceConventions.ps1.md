@@ -78,7 +78,7 @@ Test-SourceConventions
 
 ## comment:1
 
-Above `$typesTestDirectory = Join-Path $testsDirectory 'types'`, written with `#`.
+Above `foreach ($path in & $list (Join-Path $testsDirectory 'types') '*.Tests.ps1') {`, written with `#`.
 
 ```text
 tests/types/ holds the native-type tests, named for their type (which has no verb) — so each must name a

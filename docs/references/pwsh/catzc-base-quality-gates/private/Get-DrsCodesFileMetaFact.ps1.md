@@ -24,9 +24,9 @@ count of every distinct code the whole document cites, its diagram blocks includ
 
 A citation is `ADR-<CODE>#<n>`; the colon form belongs to a rule's own heading and is no citation. A rule the file defines itself is listed
 under `defines`, never here, and a code the ADR index does not register is no citation. A bare record code, which names a whole ADR, is
-listed in every class, except the record whose rules the file itself defines. A bare domain code is listed only in a file whose class the
-kind's `domain_classes` setting names; the setting defaults to the classes the kind selects. The codes come from the text alone, never from
-the head ([ADR-REPO-FILEMETA-NOREADBACK](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)). The spelling is
+listed in every class, except the record whose rules the file itself defines. A bare ADR domain code is listed only in a file whose class
+the kind's `domain_classes` setting names; the setting defaults to the classes the kind selects. The codes come from the text alone, never
+from the head ([ADR-REPO-FILEMETA-NOREADBACK](../../../../drs/repository/file-meta.md#rule-adr-repo-filemeta-noreadback)). The spelling is
 [ADR-REPO-LINK-ONECITATIONSPELLING](../../../../drs/repository/markdown-links.md#rule-adr-repo-link-onecitationspelling), and the order is
 ordinal, so a rerun never moves a code. The first key, `cites`, leaves out the codes inside a `yml drawio` block, which are the diagram's;
 the second, `drs_total`, counts every distinct code the document cites, blocks included, and is empty when it cites none.

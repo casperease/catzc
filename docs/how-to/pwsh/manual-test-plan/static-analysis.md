@@ -8,9 +8,10 @@ catzc:
       - ADR-AUTO-PY-EVERYFILELINTED
       - ADR-AUTO-PY-EVERYFILETYPECHECKED
       - ADR-PWSH-ASSERT-DECLAREDTIMELIMIT
+      - ADR-REPO-FILEMETA-HEADPOLICY
       - PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE
       - PDR-CONFIG-EXCEPTIONISCONFIGENTRY
-    drs_total: 7
+    drs_total: 8
 ---
 
 # Manual test plan — Static analysis
@@ -35,6 +36,7 @@ a check.
 | 11  | L0   | pwsh/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1                   | Format-Code engines                                    | Every formatter engine languages.yml may name has its adapter, and the shipped languages.yml gives every file language a formatter or the reason it has none (PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE, PDR-CONFIG-EXCEPTIONISCONFIGENTRY). |
 | 12  | L1   | pwsh/Catzc.Base.QualityGates/tests/Get-FormatEngineStamp.Tests.ps1         | The shipped format engines' keyed settings             | Each shipped format engine's keyed settings name a top-level key that exists in their file, and an engine never lists the whole tool registry again (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS).                                        |
 | 13  | L2   | pwsh/Catzc.Base.QualityGates/tests/Test-PythonTypes.Tests.ps1              | Repository Python type integrity                       | Every Python file the repository holds passes pyright in the mode python.yml names, the one the editor runs (ADR-AUTO-PY-EVERYFILETYPECHECKED).                                                                                         |
+| 14  | L2   | pwsh/Catzc.Base.QualityGates/tests/Format-FileMeta.Tests.ps1               | Format-FileMeta on the repository                      | `Format-FileMeta` leaves a generated page's head to its generator: the page is outside the scope, so a run changes nothing (ADR-REPO-FILEMETA-HEADPOLICY).                                                                              |
 
 ## Checks
 
@@ -60,3 +62,11 @@ manifest never churns when it is later re-formatted.
   `PSScriptAnalyzerSettings.psd1`) would leave every built manifest (`Catzc.psd1` and each `<Module>.psd1`) byte-for-byte unchanged.
 
 **Prerequisite:** PSScriptAnalyzer (vendored).
+
+### 14. Format-FileMeta on the repository
+
+**Guards:** a generated page's head belongs to its generator, never to the head formatter (ADR-REPO-FILEMETA-HEADPOLICY).
+
+**Checks:**
+
+- `Format-FileMeta -Path docs/drs/index.md -DryRun` counts 0 files and 0 changes, and leaves the page byte-for-byte unchanged.

@@ -4,7 +4,9 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
-    drs_total: 1
+      - ADR-REPO-COMMENTS-COMMENTPAGEPLACE
+      - ADR-REPO-FILEMETA-COMPOSEDFILES
+    drs_total: 3
 ---
 
 # Manual test plan — Docs and links
@@ -25,6 +27,8 @@ Generated READMEs and `.gitkeep` files, Markdown lint and titles, and repository
 | 7   | L2   | pwsh/Catzc.Base.Docs/tests/Build-Readme.Tests.ps1                          | Build-Readme — real readme.yml                           | Every generated README's source exists, every README is current (`Test-GeneratedFiles -Generator Build-Readme` reports 0 issues), the pattern covers every automation module, and mapped READMEs stay gitignored. |
 | 8   | L2   | pwsh/Catzc.Base.Docs/tests/Test-GeneratedReadmes.Tests.ps1                 | Generated READMEs are gitignored, untracked, and current | `Test-GeneratedReadmes` reports 0 issues: every generated README is gitignored, untracked in git, and current with its authored source, links rebased to its folder (a derived artifact, never committed).        |
 | 9   | L2   | pwsh/Catzc.Base.QualityGates/tests/Test-Links.Repository.Tests.ps1         | Repository links (every tracked file)                    | Every markdown and code link in a tracked file is aligned and resolves (fragments included), Format-Links is a no-op on the tree, and the VS Code registries carry the code-link rule.                            |
+| 10  | L1   | pwsh/Catzc.Base.CodeMeta/tests/Get-CommentPage.Tests.ps1                   | Get-CommentPage (the shipped comment-pages config)       | The shipped comment-pages config maps a python package file to its page under the package's own folder name, and that page exists (ADR-REPO-COMMENTS-COMMENTPAGEPLACE).                                           |
+| 11  | L1   | pwsh/Catzc.Base.QualityGates/tests/Test-GeneratedFiles.Tests.ps1           | Test-GeneratedFiles — real tree                          | `Test-GeneratedFiles` over the whole tree reports 0 issues (ADR-REPO-FILEMETA-COMPOSEDFILES).                                                                                                                     |
 
 ## Checks
 
@@ -37,3 +41,20 @@ Generated READMEs and `.gitkeep` files, Markdown lint and titles, and repository
 - Real `markdownlint-cli2` over the default content scope reports no violation.
 
 **Prerequisite:** markdownlint-cli2.
+
+### 10. Get-CommentPage (the shipped comment-pages config)
+
+**Guards:** a code file's long comment resolves to a comment page that exists.
+
+**Checks:**
+
+- `Get-CommentPage` over the shipped `comment-pages` config maps `python/catzc_diagrams/configs/drawio.yml` to
+  `docs/references/python/catzc_diagrams/configs/drawio.yml.md`, and that file exists.
+
+### 11. Test-GeneratedFiles — real tree
+
+**Guards:** every generated file in the tree is current with its generator.
+
+**Checks:**
+
+- `Test-GeneratedFiles` over the whole tree reports 0 issues.

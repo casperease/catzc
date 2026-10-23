@@ -15,7 +15,7 @@ function New-NuGetConfig {
     [OutputType([string])]
     param()
 
-    # Package and audit sources are cleared, so no dotnet run in the repository reaches a package manager; the allowed set is empty today.
+    # Package and audit feeds are cleared, so no dotnet run in the repository reaches a package manager; the allowed set is empty today.
     @'
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>

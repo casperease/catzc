@@ -62,7 +62,7 @@ Test-FolderConventions
 
 ## comment:1
 
-Above `foreach ($path in ([System.IO.Directory]::EnumerateFiles($moduleDirectory,...`, written with `#`.
+Above `foreach ($path in...`, written with `#`.
 
 ```text
 Module-root .ps1: a test is misplaced; the rest are public functions whose file basename is the exported

@@ -113,13 +113,12 @@ one subscription) run at discovery via the shared Get-BicepSubscriptionConfigVio
 
 ## comment:4
 
-Above `foreach ($folderPath in...`, written with `#`.
+Above `foreach ($folderPath in (Get-ChildPath $infrastructureRoot -Depth 1...`, written with `#`.
 
 ```text
-Enumerate with [System.IO.Directory] (sorted to keep output deterministic) rather than Get-ChildItem:
-the cmdlet carries ~20ms of provider overhead PER CALL on Windows, and discovery makes dozens of these
-calls — it was the dominant cost of a cold discovery (~0.8s of ~1.2s). The raw .NET enumerators are
-~0.1ms. Same approach as Resolve-ConfigEntry.
+The template folders are enumerated with Get-ChildPath, the bounded folder walker: it returns the folders
+sorted ordinally, so the output is deterministic, and it carries none of Get-ChildItem's per-call provider
+overhead, which discovery would pay dozens of times.
 ```
 
 ## comment:5

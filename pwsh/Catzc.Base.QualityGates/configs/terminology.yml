@@ -100,8 +100,6 @@ categories:
 
 terms:
   product:
-    - term: akamaihd
-      meaning: "the Akamai CDN host name fragment (*.akamaihd.net) in the firewall fixture's application rules"
     - term: testkit
       meaning: "catzc-internal-testkit"
     - term: goroot
@@ -116,8 +114,6 @@ terms:
       meaning: "gopls — the Go language server editors use"
     - term: pytest
       meaning: "pytest — the Python test runner the Python test bridge runs (ADR-AUTO-PY)"
-    - term: monkeypatches
-      meaning: "pytest: replaces an attribute for one test and restores it after"
     - term: uncopied
       meaning: "not copied: an object returned as itself, not as a copy"
     - term: junit
@@ -739,10 +735,6 @@ terms:
     - term: vsts
       meaning: "Visual Studio Team Services (VSTS), former name of Azure DevOps"
   azure:
-    - term: appservice
-      meaning: "the Azure App Service host name fragment (*.appservice.azure.com) in the firewall fixture's application rules"
-    - term: azureedge
-      meaning: "the Azure CDN edge host name fragment (*.azureedge.net) in the firewall fixture's application rules"
     - term: cidr
       meaning: "CIDR notation for an IP range (e.g. 10.0.0.0/16)"
     - term: budg
@@ -995,8 +987,6 @@ terms:
     - term: ignorecase
       meaning: "git's core.ignorecase config key, which leaves a case-only folder rename unrecorded in the index"
   platform:
-    - term: npmjs
-      meaning: "the npm registry host name fragment (registry.npmjs.org) in the firewall fixture's application rules"
     - term: bugcheck
       meaning: "a Windows kernel bug check (stop error), event 1001 in the System log"
     - term: clr

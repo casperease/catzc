@@ -82,7 +82,7 @@ Analyze just one module.
 
 ## comment:1
 
-Above `$settingsPath = Join-Path (Get-CatzcModulesRoot)...`, written with `#`.
+Above `$settingsPath =...`, written with `#`.
 
 ```text
 The one settings file ships inside the code tree, so it resolves from the code root

@@ -109,7 +109,7 @@ the engine has just formatted every file, so each is recorded under the key of i
 
 ## comment:3
 
-Above `$inScope = if ($Language) {`, written with `#`.
+Above `$inScope = @(if ($Language) {`, written with `#`.
 
 ```text
 Imprint steps run after every formatter, so a step never works on text a formatter is about to rewrite: a global step runs over

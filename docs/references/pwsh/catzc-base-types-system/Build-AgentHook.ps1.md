@@ -47,14 +47,14 @@ Where to publish the hooks. Defaults to .claude/hooks/bin/, the path .claude/set
 
 Publish even when the source hash recorded at the last publish matches.
 
-### parameter `Test`
+### parameter `ListStale`
 
 Name the hooks whose source hash no longer matches the published program, and publish nothing. The one comparison Build-AgentHook makes,
 asked without acting on it.
 
 ### outputs
 
-`[string]` each published program's path, in folder-name order; with Test, the folder name of each stale hook.
+`[string]` each published program's path, in folder-name order; with ListStale, the folder name of each stale hook.
 
 ### example 1
 

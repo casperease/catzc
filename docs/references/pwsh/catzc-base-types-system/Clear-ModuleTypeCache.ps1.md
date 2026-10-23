@@ -92,16 +92,6 @@ the .internal shared module — so the janitor cannot drift from the loader and 
 deletion. Import-InternalModule is a no-op when the importer already loaded it (the usual case).
 ```
 
-## comment:3
-
-Above `if ($StopLockingProcesses -and $failed.Count) {`, written with `#`.
-
-```text
-The kill switch: stop each process holding a build that would not delete, then retry the delete. Windows
-releases a stopped process's mapped image a moment after the process exits, so an immediate delete still
-gets access denied — retry over a short bounded window before giving up.
-```
-
 ## comment:4
 
 Above `$details = foreach ($entry in $failed) {`, written with `#`.

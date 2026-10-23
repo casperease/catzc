@@ -101,13 +101,13 @@ function Invoke-FileMetaEngine {
             $shown = @($facts.Edges.Values | Where-Object { $null -ne $_ -and "$_" -ne '' -and @($_).Count -gt 0 }).Count -gt 0
             $warning = $shown ? $Config.warning : ''
             $fixed = if ($isProperty) {
-                Format-PropertyMetaHead -Text $text -Property $property -Strip $entry.Carrier.strip -Edges $facts.Edges -Warning $warning
+                Format-PropertyMetaHead -Text $text -Property $property -Strip $entry.Carrier.strip -Edges $facts.Edges -WarningText $warning
             }
             elseif ($isHead) {
-                Format-CodeMetaHead -Text $text -Form $form -Edges $facts.Edges -Warning $warning
+                Format-CodeMetaHead -Text $text -Form $form -Edges $facts.Edges -WarningText $warning
             }
             else {
-                Format-MarkdownMetaBlock -Text $text -Edges $facts.Edges -Key $entry.Carrier.key -Warning $warning
+                Format-MarkdownMetaBlock -Text $text -Edges $facts.Edges -Key $entry.Carrier.key -WarningText $warning
             }
             if ($fixed -cne $text) {
                 $expected = if ($policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Forbidden) {

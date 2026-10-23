@@ -5,7 +5,7 @@ catzc:
   edges:
     docs: "[Get-ReadmeMappings.ps1.md](../../../docs/references/pwsh/catzc-base-docs/private/Get-ReadmeMappings.ps1.md)"
     cites:
-      - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
+      - ADR-PWSH-ENUM-ALWAYSBOUNDED
       - ADR-REPO-README
     drs_total: 2
 ---

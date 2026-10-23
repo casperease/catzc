@@ -68,11 +68,11 @@ Describe 'Build-AgentHook' -Tag 'L0', 'logic' {
     }
 
     It 'with -Test names a stale hook and builds nothing, and names none once it is current' {
-        Build-AgentHook Assert-BashTimeout -Test -OutputDirectory $script:outputDirectory | Should -Be 'Assert-BashTimeout'
+        Build-AgentHook Assert-BashTimeout -ListStale -OutputDirectory $script:outputDirectory | Should -Be 'Assert-BashTimeout'
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem -Times 0 -Exactly
 
         $null = Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory
-        Build-AgentHook Assert-BashTimeout -Test -OutputDirectory $script:outputDirectory | Should -BeNullOrEmpty
+        Build-AgentHook Assert-BashTimeout -ListStale -OutputDirectory $script:outputDirectory | Should -BeNullOrEmpty
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem -Times 1 -Exactly
     }
 
@@ -357,7 +357,7 @@ Describe 'Build-AgentHook — the published Record-SessionMessage' -Tag 'L2', 'l
     }
 }
 
-Describe 'Build-AgentHook — no package source reaches a hook build' -Tag 'L2', 'integrity' {
+Describe 'Build-AgentHook — no package feed reaches a hook build' -Tag 'L2', 'integrity' {
     BeforeAll {
         $script:dotnetMissing = -not (Test-Command 'dotnet')
         if ($script:dotnetMissing) {
@@ -365,8 +365,8 @@ Describe 'Build-AgentHook — no package source reaches a hook build' -Tag 'L2',
         }
     }
 
-    # NuGet reads its config from the project's folder up, so each hook folder must see the generated root config's cleared sources alone.
-    It 'lists no package source from the hook folder <name>' -ForEach @(
+    # NuGet reads its config from the project's folder up, so each hook folder must see the generated root config's cleared feeds alone.
+    It 'lists no package feed from the hook folder <name>' -ForEach @(
         foreach ($folder in [System.IO.Directory]::GetDirectories((Join-Path (Get-RepositoryRoot) '.claude/hooks'))) {
             if ([System.IO.Directory]::GetFiles($folder, '*.csproj').Count -gt 0) {
                 @{ name = [System.IO.Path]::GetFileName($folder); folder = $folder }
@@ -379,7 +379,7 @@ Describe 'Build-AgentHook — no package source reaches a hook build' -Tag 'L2',
         }
         $listed = Invoke-Executable 'dotnet nuget list source' -WorkingDirectory $folder -PassThru -Silent
         $listed.ExitCode | Should -Be 0
-        $listed.Full | Should -Not -Match '\[(Enabled|Disabled)\]' -Because 'a listed source is one a restore would contact'
+        $listed.Full | Should -Not -Match '\[(Enabled|Disabled)\]' -Because 'a listed feed is one a restore would contact'
         $listed.Full | Should -Match 'No sources found'
     }
 }

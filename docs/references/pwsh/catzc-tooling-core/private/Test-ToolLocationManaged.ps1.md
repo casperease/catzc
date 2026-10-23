@@ -48,7 +48,7 @@ uv-managed tools (az_cli, poetry) and uv-provisioned python install their shims 
 
 ## comment:3
 
-Above `$uvRoots = if ($IsWindows) {`, written with `#`.
+Above `$uvRoots = @(if ($IsWindows) {`, written with `#`.
 
 ```text
 uv's shims go to ~/.local/bin; its managed pythons/tool-envs live in the data dir — %APPDATA%\uv
@@ -57,7 +57,7 @@ uv's shims go to ~/.local/bin; its managed pythons/tool-envs live in the data di
 
 ## comment:4
 
-Above `$roots = if ($IsWindows) {`, written with `#`.
+Above `$roots = @(if ($IsWindows) {`, written with `#`.
 
 ```text
 Otherwise: owned iff the binary sits under the platform package manager's user-scope install root. npm/pip

@@ -58,11 +58,11 @@ Get-CSharpTypeDependency | Where-Object { $_.From -eq 'Catzc.Azure.Templates' }
 
 ## comment:1
 
-Above `foreach ($cs in ([System.IO.Directory]::EnumerateFiles($typesDir, '*.cs') |...`, written with `#`.
+Above `foreach ($cs in [Catzc.Base.Folders.PathSet]::new((Get-Config -Config...`, written with `#`.
 
 ```text
-[System.IO] (sorted) instead of Get-ChildItem/Get-Content — ~20ms-per-call cmdlet overhead the raw
-.NET enumeration + read avoid
+The module's types/*.cs are listed through the bounded folder walker (PathSet, configured by folder-walk) instead of Get-ChildItem, and
+read with [System.IO] instead of Get-Content: the cmdlets cost about 20 ms per call
 ([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
 ```
 

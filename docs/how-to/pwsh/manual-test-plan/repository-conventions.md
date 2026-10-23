@@ -11,6 +11,7 @@ catzc:
       - ADR-REPO-CONTRACT-PROVENBYTESTS
       - ADR-REPO-CONTRACT-RELEASEDIMMUTABLE
       - ADR-REPO-CONTRACT-HEADERSAYSWHATITPINS
+      - ADR-REPO-FILEMETA-METAKIND
       - ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION
       - DDR-TRACK-TRACKISPLACEDCLUSTER
       - DDR-TRACK-ONETECHSTACK
@@ -20,7 +21,7 @@ catzc:
       - DDR-TRACK-VALUECHAINCONCERN
       - DDR-TRACK-VALUECHAINMAP
       - DDR-TRACK-UNORDEREDTRACK
-    drs_total: 17
+    drs_total: 18
 ---
 
 # Manual test plan — Repository conventions
@@ -68,6 +69,7 @@ Folder, file, and naming conventions, the repository path helpers, the git index
 | 34  | L1   | pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1                      | Get-GridMinimapData                                                        | The world map grid of the tree, lit with reasons by the files that cite a code, meets the minimap contract.                                                                                                                                                                                                                                                                                       |
 | 35  | L1   | pwsh/Catzc.Base.Contracts/tests/types/ContractCommand.Tests.ps1               | ContractCommand.ToAssetText — every shipped command asset round-trips      | Every shipped command contract, written back by `ContractCommand.ToAssetText` with its names unchanged, reads back to the same signature.                                                                                                                                                                                                                                                         |
 | 36  | L1   | pwsh/Catzc.Base.Asserts/tests/types/ValidatePathGivenAttribute.Tests.ps1      | ValidatePathGiven on the whole-tree commands                               | Every command that runs over the whole tree when -Path is left out carries ValidatePathGiven, so an empty -Path is refused before its body runs.                                                                                                                                                                                                                                                  |
+| 37  | L0   | pwsh/Catzc.Base.Globs/tests/Get-FileKind.Tests.ps1                            | Get-FileKind                                                               | `Get-FileKind` names the role of a real file in the shipped registry, from function and gate to fixture, diagram and slide (ADR-REPO-FILEMETA-METAKIND).                                                                                                                                                                                                                                          |
 
 ## Checks
 
@@ -113,3 +115,12 @@ Folder, file, and naming conventions, the repository path helpers, the git index
 - Each is stored with no EOL conversion (git index `-text`) and carries an explicit binary `.gitattributes` rule.
 
 **Prerequisite:** git.
+
+### 37. Get-FileKind
+
+**Guards:** the shipped file-kinds registry gives every kind of file its role (ADR-REPO-FILEMETA-METAKIND).
+
+**Checks:**
+
+- `Get-FileKind` resolves a real path of each kind, such as a function, a gate, a writer, an assert, a type, a config, a fixture, a diagram,
+  a slide and a reference, to its role.

@@ -22,7 +22,7 @@ them, which is Show-Cats ([Catzc.Base.Docs](catzc-base-docs.md)).
 | Responsibility   | Area      | Name                                                       |
 | ---------------- | --------- | ---------------------------------------------------------- |
 | responsibility:1 | registry  | [ADR registry](#responsibility1--adr-registry)             |
-| responsibility:2 | gates     | [Registry gates](#responsibility2--registry-gates)         |
+| responsibility:2 | gates     | [Registry checks](#responsibility2--registry-checks)       |
 | responsibility:3 | citations | [Citation map](#responsibility3--citation-map)             |
 | responsibility:4 | generate  | [Generated pages](#responsibility4--generated-pages)       |
 | responsibility:5 | rewrite   | [Citation rewriting](#responsibility5--citation-rewriting) |
@@ -36,16 +36,16 @@ dependency graph as typed edges, and renders that graph as a diagram or a table.
 the segments a rule's code has at least, is one compiled form, so every reader and checker matches codes the same way
 ([ADR-REPO-DRSCODE](../../drs/repository/drs-code-language.md)).
 
-### responsibility:2 — Registry gates
+### responsibility:2 — Registry checks
 
 Keeping the registry and the ADR files in step. Two quality gates
-([ADR-AUTO-TEST-QUALITYGATE](../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)) check it. The registry gate finds
+([ADR-AUTO-TEST-QUALITYGATE](../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)) check it. The registry check finds
 exactly one rule file per registered rule set, headed by its registered code, and no rule file left unregistered; it also checks that an ADR
-page cites only its own domain or one it depends on, that every rule set outside an exempt domain is explained once in its domain's DORA
-file, and that every code and rule heading follows the code language. The engine-neutrality gate checks that the rule summaries of the
-configured domains state a rule, never one engine's syntax
-([ADR-AUTO-ENGINE-THREEENGINES](../../drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)). Each check's mode, a failing
-gate or a report, is configured in `drs-checks.yml`.
+page cites only its own domain or one it depends on, that every rule set outside an exempt ADR domain is explained once in its domain's DORA
+file, and that every code and rule heading follows the code language. The engine-neutrality check confirms that the rule summaries of the
+configured ADR domains state a rule, never one engine's syntax
+([ADR-AUTO-ENGINE-THREEENGINES](../../drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)). Each check's mode, a failure
+or a report, is configured in `drs-checks.yml`.
 
 ### responsibility:3 — Citation map
 
@@ -87,7 +87,7 @@ The module's public surface, sorted into the responsibilities above.
 |                                       | `Get-DrsDomainEdges`         |
 |                                       | `ConvertTo-DrsDomainDiagram` |
 | config                                | `drs.yml`                    |
-| responsibility:2 — Registry gates     | `Test-DrsRegistry`           |
+| responsibility:2 — Registry checks    | `Test-DrsRegistry`           |
 |                                       | `Test-DrsEngineNeutrality`   |
 | config                                | `drs-checks.yml`             |
 | responsibility:3 — Citation map       | `Get-CatsDrsIndex`           |

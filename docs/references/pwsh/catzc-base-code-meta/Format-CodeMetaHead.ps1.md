@@ -40,7 +40,7 @@ The place facts, an ordered dictionary of key to value.
 
 The outgoing edges, an ordered dictionary of edge name to value; no facts and no edges removes the head.
 
-### parameter `Warning`
+### parameter `WarningText`
 
 The line the head opens with, above its parts, naming the command that writes it; empty writes none. Default: none.
 

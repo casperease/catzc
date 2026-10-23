@@ -56,6 +56,9 @@ Config discovery, the config registry, and the shipped configs that are not Azur
 | 29  | L1   | pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1                        | RungsConfig (shipped rungs.yml)                                        | The shipped rungs.yml loads through `RungsConfig` (FDR-CD-RUNGSREGISTRY).                                                                                                |
 | 30  | L1   | pwsh/Catzc.Base.ModuleSystem/tests/types/ImporterConfig.Tests.ps1             | ImporterConfig (shipped importer.yml)                                  | The shipped importer.yml loads through `ImporterConfig` (ADR-AUTO-IMPORTER-DECIDESMIX).                                                                                  |
 | 31  | L1   | pwsh/Catzc.Base.Flow/tests/types/RungsConfig.Tests.ps1                        | RungsConfig declared ladder                                            | An omitted rungs key takes the declared ladder in climbing order, main-uat to prod, each with its environment, gate and rules (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER).     |
+| 32  | L1   | pwsh/Catzc.Base.Contracts/tests/Get-AccostedFile.Integrity.Tests.ps1          | Get-AccostedFile over the shipped contracts.accosted.yml               | The shipped contracts.accosted.yml loads through `Get-AccostedFile` as its typed model, and every run holds at least one command.                                        |
+| 33  | L0   | pwsh/Catzc.Base.QualityGates/tests/types/MarkdownlintConfig.Tests.ps1         | integrity (shipped markdownlint.yml)                                   | The shipped markdownlint.yml loads through `MarkdownlintConfig`, and its batch size is the declared default.                                                             |
+| 34  | L2   | pwsh/Catzc.Base.TypesSystem/tests/Build-AgentHook.Tests.ps1                   | Build-AgentHook — no package feed reaches a hook build                 | `dotnet nuget list source` from each hook folder under `.claude/hooks` lists no feed, so a hook build contacts none.                                                     |
 
 ## Checks
 
@@ -97,3 +100,30 @@ belongs to a real config.
 **Checks:**
 
 - The live registry type runs against the shipped `configs.yml` and loads without error.
+
+### 32. Get-AccostedFile over the shipped contracts.accosted.yml
+
+**Guards:** the shipped accosted-contracts file loads as its typed model.
+
+**Checks:**
+
+- `Get-AccostedFile` reads `Catzc.Base.Contracts/accosted/contracts.accosted.yml` into an `AccostedFile`, and every run in it holds at least
+  one command.
+
+### 33. integrity (shipped markdownlint.yml)
+
+**Guards:** the shipped markdownlint.yml loads and takes the declared default.
+
+**Checks:**
+
+- `Get-Config -Config markdownlint` returns a `MarkdownlintConfig` whose `batch_size` is the type's `DefaultBatchSize`.
+
+### 34. Build-AgentHook — no package feed reaches a hook build
+
+**Guards:** a hook build contacts no package feed, because NuGet reads its config from the project's folder up and finds the generated root
+config's cleared feeds alone.
+
+**Checks:**
+
+- For each folder under `.claude/hooks` that holds a `.csproj`, `dotnet nuget list source` exits 0, lists no `[Enabled]` or `[Disabled]`
+  source, and says "No sources found". The check skips when `dotnet` is absent.

@@ -25,8 +25,8 @@ function Format-CodeMetaHead {
 
         [System.Collections.IDictionary] $Edges = [ordered]@{},
 
-        [string] $Warning = ''
+        [string] $WarningText = ''
     )
 
-    [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($Text, $Form).WithFacts($Warning, $Immutable, $Edges)
+    [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($Text, $Form).WithFacts($WarningText, $Immutable, $Edges)
 }

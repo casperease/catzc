@@ -49,7 +49,7 @@ New-GitIgnore -Inject @{ 'rootconfig-committed-false' = @('/PSScriptAnalyzerSett
 
 ## comment:1
 
-Above `$patterns = if ($section.inject) {`, written with `#`.
+Above `$patterns = @(if ($section.inject) {`, written with `#`.
 
 ```text
 Resolve the section's patterns: static from the registry, or injected by the caller. An inject

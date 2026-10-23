@@ -16,7 +16,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Renders the repository-root nuget.config that clears every package and audit source, so no dotnet run reaches a package manager.
+Renders the repository-root nuget.config that clears every package and audit feed, so no dotnet run reaches a package manager.
 
 ### description
 

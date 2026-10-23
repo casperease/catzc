@@ -8,10 +8,9 @@ catzc:
       - ADR-AUTO-PATH
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
       - ADR-CONF-LOADING
-      - ADR-PWSH-ENUM-RAWDOTNETENUMERATION
       - ADR-PWSH-ENUM-ALWAYSBOUNDED
       - DDR-RUNMODE
-    drs_total: 6
+    drs_total: 5
 ---
 #>
 

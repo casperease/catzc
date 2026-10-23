@@ -42,10 +42,11 @@ fixture modules.
 
 ## comment:1
 
-Above `$loaded = foreach ($module in (Get-Module)) {`, written with `#`.
+Above `$loaded = foreach ($folder in @(Get-ChildPath -Path $ModulesRoot -Depth 1...`, written with `#`.
 
 ```text
-Called from inside a module, Get-Module also lists that module's own nested .ps1 function files (one per
-function in source mode, the merged <Module>.ps1 in build mode). A module is its folder (folder = module),
-so keep only the entry named for its folder whose root file is not a nested .ps1.
+A cats module is a folder of the modules root that a module of the same name is loaded from (folder = module), so the bounded walker
+lists the folders one level deep and a dot-prefixed one is skipped as infrastructure. Get-Module -Name can report a nested .ps1 function
+file as well (one per function in source mode, the merged <Module>.ps1 in build mode), so only the entry whose path sits directly in the
+folder and is not a .ps1 file counts.
 ```

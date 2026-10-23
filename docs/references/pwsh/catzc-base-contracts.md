@@ -56,7 +56,7 @@ module's target root is one configured setting, the repository root by default. 
 with a sensible default; only the full-path mode is built, and selecting a declared mode that is not built throws. A command contract, the
 asset that states a command's call interface, is listed the same way and read by the one reader of the contract language
 ([command-contracts](../../drs/repository/command-contracts.md)): its parameters, output and one-line signature as a typed record. From the
-command contracts comes the command lookup `cats` sources before it starts pwsh, so a command is known without an import.
+command contracts comes the command lookup `cats` reads before it starts pwsh, so a command is known without an import.
 
 ### responsibility:4 — Release freezing
 

@@ -6,10 +6,9 @@ catzc:
       - ADR-AUTO-PATH
       - ADR-BCL-TYPES-NATIVETYPEDMODEL
       - ADR-CONF-LOADING
-      - ADR-PWSH-ENUM-RAWDOTNETENUMERATION
       - ADR-PWSH-ENUM-ALWAYSBOUNDED
       - DDR-RUNMODE
-    drs_total: 6
+    drs_total: 5
 ---
 
 # pwsh/Catzc.Base.ModuleSystem/Copy-CatzcModule.ps1
@@ -102,11 +101,12 @@ Copy-CatzcModule -Destination ./vendor/catzc -ExcludePackages gitignore -DryRun
 
 ## comment:1
 
-Above `if ([System.IO.Directory]::Exists($destinationRoot) -and...`, written with `#`.
+Above `if ([System.IO.Directory]::Exists($destinationRoot) -and @(Get-ChildPath...`, written with `#`.
 
 ```text
-An emptiness probe stops at the first entry of any kind, hidden and pruned names included
-([ADR-PWSH-ENUM-RAWDOTNETENUMERATION](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-rawdotnetenumeration)).
+The emptiness probe is a one-level bounded walk
+([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)) with nothing excluded and
+the vendor folder not pruned, so an entry of any kind, hidden and pruned names included, makes the target non-empty.
 ```
 
 ## comment:2

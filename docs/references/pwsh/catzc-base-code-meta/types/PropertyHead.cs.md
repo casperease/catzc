@@ -14,7 +14,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `public string WithFacts(IDictionary immutable, IDictionary edges)`, written with `//`.
+Above `public string WithFacts(IDictionary immutable, IDictionary edges) =>...`, written with `//`.
 
 ```text
 The whole text again with the property written from the place facts and the edges in the order given and the authored config kept; nothing to write removes it

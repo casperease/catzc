@@ -1,7 +1,7 @@
 Describe 'BicepParamWriter' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:write = { param($Parameters) [Catzc.Azure.Templates.BicepParamWriter]::Write('../main.bicep', $Parameters) }
-        $script:vault = '/subscriptions/50a0ed00-0000-0000-0000-000000000001/resourceGroups/widget-rg/providers/Microsoft.KeyVault/vaults/widget-kv'
+        $script:vault = '/subscriptions/a2000000-7e57-50b0-0000-000000000000/resourceGroups/widget-rg/providers/Microsoft.KeyVault/vaults/widget-kv'
     }
 
     It 'writes the using line alone for no parameters' {
@@ -38,9 +38,9 @@ Describe 'BicepParamWriter' -Tag 'L0', 'logic' {
                 widgetPassword = @{ reference = @{ keyVault = @{ id = $script:vault }; secretName = 'widget-secret' } }
                 gadgetPassword = @{ reference = @{ keyVault = @{ id = $script:vault }; secretName = 'gadget-secret'; secretVersion = 'v2' } }
             })
-        $text | Should -Match ([regex]::Escape("param widgetPassword = az.getSecret('50a0ed00-0000-0000-0000-000000000001', 'widget-rg', 'widget-kv', 'widget-secret')"))
+        $text | Should -Match ([regex]::Escape("param widgetPassword = az.getSecret('a2000000-7e57-50b0-0000-000000000000', 'widget-rg', 'widget-kv', 'widget-secret')"))
         # Wider than the formatter's 120 columns on one line, so one argument per line, as bicep format writes it.
-        $text | Should -Match ([regex]::Escape("param gadgetPassword = az.getSecret(`n  '50a0ed00-0000-0000-0000-000000000001',`n  'widget-rg',`n  'widget-kv',`n  'gadget-secret',`n  'v2'`n)`n"))
+        $text | Should -Match ([regex]::Escape("param gadgetPassword = az.getSecret(`n  'a2000000-7e57-50b0-0000-000000000000',`n  'widget-rg',`n  'widget-kv',`n  'gadget-secret',`n  'v2'`n)`n"))
     }
 
     It 'throws naming the parameter on a malformed vault id, a fraction, and an entry with neither or both forms' {

@@ -335,7 +335,7 @@ function Invoke-AgentHookJanitor {
     }
     if (Test-IsRunningInVsCode) {
         try {
-            $stale = @(Build-AgentHook -Test)
+            $stale = @(Build-AgentHook -ListStale)
             if ($stale.Count -gt 0) {
                 Write-ImporterMessage "Agent hooks: $($stale -join ', ') stale, not built from inside VS Code — run Build-AgentHook from a terminal outside the editor." -ForegroundColor Yellow
             }

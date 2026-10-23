@@ -27,8 +27,8 @@ function Format-PropertyMetaHead {
 
         [System.Collections.IDictionary] $Edges = [ordered]@{},
 
-        [string] $Warning = ''
+        [string] $WarningText = ''
     )
 
-    [Catzc.Base.CodeMeta.PropertyHead]::Parse($Text, $Property, $Strip).WithFacts($Warning, $Immutable, $Edges)
+    [Catzc.Base.CodeMeta.PropertyHead]::Parse($Text, $Property, $Strip).WithFacts($WarningText, $Immutable, $Edges)
 }

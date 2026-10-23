@@ -64,15 +64,6 @@ Test-Terminology
 $result = Test-Terminology -PassThru; $result.IssueCount
 ```
 
-## comment:1
-
-Above `$registryPath = Join-Path $root...`, written with `#`.
-
-```text
-The registry's own file inside the scanned corpus — a corpus exclusion, not an asset read (the registry
-itself is loaded through Get-Config), so it names the file in the repository tree being scanned.
-```
-
 ## comment:2
 
 Above `$config = $null`, written with `#`.
@@ -93,12 +84,11 @@ Above `$generated = Build-TerminologyDictionary -DryRun -PassThru`, written with
 
 ## comment:4
 
-Above `$cspellDir = Join-Path $root '.cspell'`, written with `#`.
+Above `foreach ($term in $config.terms) {`, written with `#`.
 
 ```text
 ---- Check 2 (no orphans): every term must be referenced somewhere else in the tree
 ([ADR-AUTO-SPELL-LIVEVOCABULARYONLY](/docs/drs/automation/spell-out-names.md#rule-adr-auto-spell-livevocabularyonly)) ----
-One bulk scan of the spell-checked corpus (minus the registry and its generated lists, where every
-term trivially appears), then look each term up against it — not one grep per term. The generated
-per-category dictionaries live at the repository root's .cspell/ (see .cspell/README.md).
+One bulk scan of the spell-checked corpus (minus the registry and its generated dictionaries, which the config names as its defining
+files and where every term trivially appears), then look each term up against it — not one grep per term.
 ```

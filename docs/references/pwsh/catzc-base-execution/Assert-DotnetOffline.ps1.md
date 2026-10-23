@@ -7,12 +7,12 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Stops a dotnet run that a package source could reach: the guard every in-tree dotnet build, publish or format calls first.
+Stops a dotnet run that a package feed could reach: the guard every in-tree dotnet build, publish or format calls first.
 
 ### description
 
 NuGet reads its config from the project's folder up to the drive root, then the user's and the machine's. The repository's generated root
-`nuget.config` (New-NuGetConfig, written by Build-RootConfig) clears every package and audit source, so the user's feeds never reach a run.
+`nuget.config` (New-NuGetConfig, written by Build-RootConfig) clears every package and audit feed, so the user's feeds never reach a run.
 This asserts that state with file checks only, starting no process and making no network call:
 
 - the root `nuget.config` exists and is readable XML;

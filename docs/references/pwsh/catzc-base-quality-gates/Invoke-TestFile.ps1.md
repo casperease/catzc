@@ -143,7 +143,7 @@ them and says so (Resolve-TestRunMaxLevel owns the why). L4 only when asked for.
 
 ## comment:4
 
-Above `$files = if ([System.IO.File]::Exists($shard.FilesPath)) {`, written with `#`.
+Above `$files = @(if ([System.IO.File]::Exists($shard.FilesPath)) {`, written with `#`.
 
 ```text
 Every failure's message, on the console at every -Output level (the worker's own output does not reach a

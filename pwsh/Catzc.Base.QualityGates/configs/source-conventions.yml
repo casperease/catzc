@@ -33,6 +33,7 @@ neutral_codes:
     pwsh/.scriptanalyzer/tests/NoScriptRootAnchor.Tests.ps1: it asserts the analyzer's exact message, which cites its real rule
     pwsh/Catzc.Base.Docs/tests/types/AgentsConfig.Tests.ps1: it asserts the type's declared default, which is the real contract code
     pwsh/Catzc.Base.QualityGates/tests/Test-Plans.Tests.ps1: it asserts the gate's exact messages, which cite their real rules
+    pwsh/Catzc.Base.QualityGates/tests/types/FileMetaConfig.Tests.ps1: it asserts the type's exact error message, which cites its real rule
     pwsh/Catzc.Azure.DevOps/tests/Test-Pipelines.Tests.ps1: it asserts the gate's exact messages, which cite its real rules
     pwsh/Catzc.Azure.Templates/tests/Build-Bicep.Integrity.Tests.ps1:
       an integrity test over the shipped templates; its -Because message names the real rule they meet

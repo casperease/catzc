@@ -23,3 +23,148 @@ Started 2026-10-22T05:06:52.0890566+02:00.
 - 2026-10-22 Jack: If only the session had read its own reminder: the .claude/hooks/Show-EditReminder/ hook prints
   pwsh/Catzc.Base.QualityGates/configs/edit-reminders.yml:8-11 after every plan edit, Format-Code then Test-Plans before you report, so one
   run per report, not per strike, was what it said every time.
+- 2026-10-23 Jack: If only catzc-verify had a tier line: docs/references/pwsh/catzc-base-quality-gates/Test-Automation.ps1.md:42 already
+  scopes a run to one tier with -MinLevel and -MaxLevel and pwsh/Catzc.Base.Timeouts/configs/timeouts.yml:41 caps a run budget at 280 s, but
+  .claude/skills/catzc-verify/SKILL.md:61-62 never says which tier stays outside a burst, so the split lives on as a tip, half built and
+  half said.
+- 2026-10-23 Jack: If only the correction had come before the race theory: pwsh/Catzc.Base.TypesSystem/Build-AgentHook.ps1:82 now publishes
+  with --disable-build-servers and docs/references/pwsh/catzc-base-types-system/Build-AgentHook.ps1.md:94-96 says no MSBuild node or
+  compiler server outlives the publish to hold its pipe, so the -nodeReuse:false cure is built in, though
+  .claude/plans/plan-bcl-path-sets.md:54-55 still waits for Build-AgentHook.Tests.ps1 green.
+- 2026-10-23 Jack: If only the session had read the plan before the red: .claude/plans/plan-bcl-path-sets.md:54 already parks
+  Import-CSharpTypes.Tests.ps1 on the commit of pwsh/.compiled and .claude/skills/catzc-verify/SKILL.md:69-70 lets a burst leave out a file
+  red for commit state, so the uncommitted DLL was a declared excuse, not a discovery.
+- 2026-10-23 Jack: If only the session had trusted the gate it was writing for: pwsh/Catzc.Base.QualityGates/Test-Plans.ps1:75-83 resolves
+  every Verb-Noun of a check against the exported commands and :293 fails one no module exports, and
+  .claude/skills/plans-orchestrate/SKILL.md:107-108 keeps a step check to a command a module exports, though
+  docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md never says so.
+- 2026-10-23 Jack: If only the orchestrator had read its own protocol: .claude/skills/plans-orchestrate/SKILL.md:100-103 allows three
+  messages, none an acknowledgement, and reads every reply as one of four, so a no-question report was always logged and left unanswered by
+  declaration.
+- 2026-10-23 Jack: If only the session had waited for the commit: pwsh/Catzc.Base.RootConfig/assets/root/cspell-template.yml:39-43 now
+  ignores a PowerShell backtick-n, -r or -t glued to the next word outside a Markdown code span, but no pattern there covers the Python
+  backslash form, so one variant of the learning is automated and the other is still a gap.
+- 2026-10-23 Jack: If only the session had loaded catzc-run: .claude/skills/catzc-run/SKILL.md:20-21 already says inside a call the gate
+  itself is called, never a count of its issues, so the green count was a capability line skipped and the tip its echo.
+- 2026-10-23 Jack: If only the verdicts had been read after the fix: pwsh/.internal/assets/Invoke-CatzcCommand.ps1:23-24 now fails a command
+  on a per-test Outcome of fail, so a red pytest, and on a -PassThru gate whose IssueCount is above 0 (:157 and :162), so every older green
+  verdict on Python or a gate is history and the runner enforces the rest.
+- 2026-10-23 Jack: If only the plans ADR had said the name is prose: docs/drs/repository/plans.md:16 and
+  .claude/skills/plan-shape/SKILL.md:16 say only plan-\<topic>.md, and nothing in the tree says the topic is spell-checked wherever
+  plan-master.md or value-of-plan.md cites it, so a coined topic meets Test-Spelling before it meets a rule.
+- 2026-10-23 Jack: If only the session had read the vocabulary rule: docs/drs/automation/spell-out-names.md:45-48
+  (ADR-AUTO-SPELL-ONEVOCABULARYSOURCE) makes terminology.yml the one source, the cspell lists generated from it by
+  Build-TerminologyDictionary and a gate failing any difference, so a word typed into the cspell config was always going to be undone.
+- 2026-10-23 Jack: If only the session had loaded devbox-diagnose: .claude/skills/devbox-diagnose/SKILL.md:20-22 already reads an extension
+  host exit with code 0 after received terminate message from renderer as a reload, and the PowerShell extension terminated line as logged
+  on every reload by design, so the day of deaths was one capability paragraph that the devbox-vscode-diagnostics robot carries.
+- 2026-10-23 Jack: If only the copies had been counted after the cure: pwsh/.internal/assets/Catzc.Types.csproj:80 and :96 now Exec the one
+  living measure, Get-CombinedTypeHash, pwsh/Catzc.Base.VSCode/assets/extensions/catzc-compiled-info.js:13 and :25 call it with no copy of
+  their own, and docs/drs/automation/pwsh/hosting-csharp-types.md:65-66 forbids any other, so the second algorithm that called every build
+  stale is gone by rule and by construction.
+- 2026-10-23 Jack: If only the session had read the hosting ADR: docs/drs/automation/pwsh/hosting-csharp-types.md:62-65
+  (ADR-PWSH-TYPES-ONEINSTANCEPERSESSION) binds a session to the types DLL it loaded first and says no janitor stops its holder, and
+  pwsh/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1:131 now only reports a superseded build still open, so the process-stopping janitor
+  is a memory, not a hazard.
+- 2026-10-23 Jack: If only the session had read the domain graph: docs/drs/index.md:196 lets bcl depend on research, principles, process,
+  design and automation only, :208 lets pwsh depend on bcl, and Test-DrsRegistry fails a page that cites outside its domain depends_on
+  (docs/references/pwsh/catzc-base-drs/Test-DrsRegistry.ps1.md:35), so a BCL sentence citing pwsh was a finding before it was typed.
+- 2026-10-23 Jack: If only the session had loaded catzc-verify: .claude/skills/catzc-verify/SKILL.md:72-73 already runs Format-Types and
+  Format-Code before any fresh import because formatting a C# type changes the types hash, and .claude/skills/catzc-run/SKILL.md:34-35 runs
+  the gate after a C# Format-Code in a fresh import, so the blind spelling pass was a declared order ignored.
+- 2026-10-23 Jack: If only the session had read the loader: pwsh/.internal/Catzc.Internal.Loader.psm1:51 already says a host started with
+  -File or -Command exits when its command ends and never shows a prompt unless -NoExit keeps it open, and Test-IsInteractiveHost at :52
+  decides it, so the headless extension-host pwsh was a declared case.
+- 2026-10-23 Jack: If only the run lock had replaced every message: .claude/agents/implementation-orchestrator.md:33-34 now lets the run
+  lock hold every peer and broadcasts no HOLD or GO, but .claude/skills/plans-orchestrate/SKILL.md:110-111 still sends burst start and burst
+  done to the orchestrator, and nothing in the tree says a full inbox delays them, so half the lesson is built and the other half is luck.
+- 2026-10-23 Jack: If only devbox-diagnose had said where to look first: .claude/skills/devbox-diagnose/SKILL.md:23-25 explains a Terminal
+  Environment Changes warning as extensions contributing variables after the terminal started, but names no read of the extension-host
+  activation list or of a log head first, so the one-read answer stays a tip.
+- 2026-10-23 Jack: If only the session had read the entry script line: .claude/skills/catzc-run/SKILL.md:17-18 already runs one call through
+  Invoke-CatzcCommand.ps1 with one quoted argument per command, so a gate set was always one call, and the run lock would have serialised
+  the separate calls anyway.
+- 2026-10-23 Jack: If only the session had read the runner article:
+  docs/references/pwsh/catzc-base-quality-gates/Test-Automation.ps1.md:57-58 already demands exactly one category tag, logic or integrity,
+  and reports a test missing a tag before the run through Get-TestTagViolations, so integration was never a category on offer.
+- 2026-10-23 Jack: If only the Isolated parameter had said whose tree it copies:
+  docs/references/pwsh/catzc-base-quality-gates/private/Enter-TestRunLocation.ps1.md:35 builds the snapshot from HEAD plus every uncommitted
+  change and docs/how-to/automation/rename-a-tooling-folder.md:30-32 says a case-only rename is invisible to git until committed, but
+  Test-Automation.ps1.md:125-130 says neither, so the two halves meet only in a red round trip.
+- 2026-10-23 Jack: If only the session had loaded catzc-run: .claude/skills/catzc-run/SKILL.md:19-20 already says a language test folder
+  runs only through Test-Automation -Modules, so -Path was a parameter guessed, not read.
+- 2026-10-23 Jack: If only the habit were written for everyone: .claude/skills/plans-orchestrate/SKILL.md:106 makes an orchestrated worker
+  grep a step path or command before it starts and .claude/plans/plan-debt-full-run-failures.md:15 reports a red file cause before its fix,
+  but no capability tells any other session to grep .claude/plans for a failing test name, so the plan that already knew waits to be found.
+- 2026-10-23 Jack: If only the earlier line of this log had waited a day: docs/drs/automation/pwsh/parameter-design.md:51-54
+  (ADR-PWSH-PARAM-CASESENSITIVEPATTERN) now demands Options = None or a leading (?-i) on a case-dependent ValidatePattern and
+  pwsh/Catzc.Base.QualityGates/configs/analyzer-drs-map.yml:75 maps Measure-CaseSensitivePattern to it, so the gap Jack logged for the
+  parameters is closed by a gate.
+- 2026-10-23 Jack: If only Jack had probed before he pitied: a scratch Pester 5.7.1 file run today passed with a Mock body, defined in
+  BeforeAll and inside the It, reading the It local, so the earlier line of this log saying a Mock body runs without the It locals had the
+  engine backwards, and nothing in docs/drs/automation/pwsh/pester-testing.md says either way.
+- 2026-10-23 Jack: If only the earlier line of this log had waited for the rule: docs/drs/automation/pwsh/pester-testing.md:152-155
+  (ADR-PWSH-PESTER-ESCAPELIKEPATTERNS) now names the backtick as the escape character of a -like pattern and escapes a literal fragment with
+  [WildcardPattern]::Escape, so the gap logged for brackets and backticks is declared.
+- 2026-10-23 Jack: If only the earlier line of this log had waited for the rule: docs/drs/automation/pwsh/one-function-per-file.md:40-43
+  (ADR-PWSH-ONEFUNC-NAMEWITHOUTSCOPE) now says a name check compares the bare name and pwsh/Catzc.Base.Repository/types/SyntaxSearch.cs:50
+  is BareName, the shared helper, so script: is stripped by rule, not by memory.
+- 2026-10-23 Jack: If only the session had waited for the staged mechanism: pwsh/.internal/assets/Invoke-StagedBurst.ps1:3-13 now backs up
+  what staged files replace, swaps them in, tests them under one Invoke-CatzcCommand -InBurst import and restores on failure, and
+  .claude/skills/catzc-verify/SKILL.md:63-65 names it in place of a hand burst, so the land-and-verify script and its backup are one
+  command.
+- 2026-10-23 Jack: If only the binding had been read where it is declared: pwsh/.internal/assets/Enter-CatzcBurst.ps1:63-64 makes -Run the
+  positional ValueFromRemainingArguments parameter and .claude/skills/catzc-verify/SKILL.md:61 writes the call as -Seconds then each step
+  its own argument, so a named -Run with a second string was never the declared form.
+- 2026-10-23 Jack: If only the debt had been booked or the gate rerun: no file under .claude/plans names CaseSensitivePattern,
+  plan-debt-full-run-failures included, and Test-ScriptAnalyzer -PassThru run today over the tree says No script-analyzer issues found, so
+  the four findings are gone and the plan pointer never existed.
+- 2026-10-23 Jack: If only the session had used the index it is told to read first: .claude/CLAUDE.md:33-34 says docs/drs/index.md holds
+  every rule-citation code and .claude/skills/drs-cite/SKILL.md:18 reads it first, so one grep of one index for the term was always the
+  cheap step before a new rule.
+- 2026-10-23 Jack: If only the probe rule were everyone else too: .claude/skills/hindsight-log/SKILL.md:23-24 makes a claim about engine
+  behaviour a fact only after a probe run, but binds the hindsight robot alone, and .claude/CLAUDE.md:140 speaks of probing state, not
+  engines, so a rule author still writes first and probes after.
+- 2026-10-23 Jack: If only the unroll warning covered statements: docs/drs/automation/pwsh/pester-testing.md:359 warns that a one-item
+  function result unrolls to its item, but docs/drs/automation/pwsh/automatic-variable-pitfalls.md:303-305 shows value = if as the
+  recommended form with no word on a list inside it, so the if-expression variant was learned twice in one day, by two sessions, with two
+  different cures.
+- 2026-10-23 Jack: If only the session had loaded catzc-verify: .claude/skills/catzc-verify/SKILL.md:63-65 edits staged files under
+  out/\<topic>/staged mirroring the repository and proves them by the swap, never by running the copy, so a lone staged asset missing its
+  siblings and timeouts.yml was off the declared path.
+- 2026-10-23 Jack: If only the stand-in had a reason left: .claude/skills/catzc-run/SKILL.md:21-22 already says a path list bound through
+  pwsh -File arrives as one string, and pwsh/.internal/assets/Invoke-StagedBurst.ps1:9-10 restores every target when a staged swap fails, so
+  a wrong binding on an import-path file costs one restored call, not an outage.
+- 2026-10-23 Jack: If only a lint rule had been asked to watch names: python/pyproject.toml:13-15 gives ruff a line length and a target and
+  selects no rule, and nothing in the tree says a local in declaration.py must not shadow the module-level entry() helper that :621, :640
+  and :649 call, so the kit learns its scoping by failing every test.
+- 2026-10-23 Jack: If only the session had read the slides ADR: docs/drs/repository/slides-as-markdown.md:157-162
+  (ADR-REPO-SLIDES-MINIMAPSFROMDATA) computes every minimap from data, never stores it in the declaration and keeps only the inputs there,
+  about.adrs and the chosen ids, so lit cells in a carrier were forbidden before anyone wrote one.
+- 2026-10-23 Jack: If only the session had read the waiter head: pwsh/.internal/assets/Wait-CatzcRunLock.ps1:14-15 already describes the
+  holder record as the holding process id and start time, its deadline, its caller id and start time and what it runs, so the format was
+  declared, caller included, which the learning left out.
+- 2026-10-23 Jack: If only the session had loaded catzc-run: .claude/skills/catzc-run/SKILL.md:39-40 already runs the draw.io kit as uv run
+  --no-sync --project python python, so a plain uv run that may sync was a capability line skipped, and learned four times across two files.
+- 2026-10-23 Jack: If only git-readonly had said why status comes first: .claude/skills/git-readonly/SKILL.md:21 reads git status --short
+  only to spot a file another session has dirty, and no line says a peer stages as it lands so a plain git diff shows nothing, so the staged
+  column is found by an empty diff.
+- 2026-10-23 Jack: If only the waiter and its config agreed: pwsh/.internal/assets/Wait-CatzcRunLock.ps1:10-12 now waits a live holder until
+  the waiter budget leaves only its own -LockSeconds, whatever deadline the holder declares, then says when to retry, while
+  pwsh/Catzc.Base.Timeouts/configs/timeouts.yml:41 still says a holder due past the budget is not waited for, so whether a run behind its
+  own holder gives up at once depends on which file a session reads.
+- 2026-10-23 Jack: If only someone had written the placement down: pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1:79 enables
+  PSReviewUnusedParameter and pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1:85 puts the InModuleScope call inside the Should
+  -Throw block with no suppression while Test-ScriptAnalyzer is green today, but no ADR or capability names that form, so the next test
+  reaches for a SuppressMessageAttribute first.
+- 2026-10-23 Jack: If only the session had read the root-config ADR: docs/drs/repository/generated-root-configs.md:27 already says a
+  generator lives in a Base module because Invoke-RootConfigGenerator in Catzc.Base.RootConfig calls each by name and a Tooling generator
+  would be a Base-to-Tooling edge, so the home of the nuget.config writer was decided before it was written.
+- 2026-10-23 Jack: If only the guard had come before the hang: docs/references/pwsh/catzc-base-execution/Assert-DotnetOffline.ps1.md:10 is
+  now the guard every in-tree dotnet build, publish or format calls first, and
+  docs/references/pwsh/catzc-base-languages/New-NuGetConfig.ps1.md:28-29 has it check the generated root nuget.config before every dotnet
+  run, so a restore that could reach a package source is stopped by a command, not by memory.
+- 2026-10-23 Jack: If only the carrier page had met its newest file: pwsh/Catzc.Base.Languages/configs/file-carriers.yml:39 declares
+  nuget.config a property carrier named CatzcMeta, but docs/references/pwsh/catzc-base-code-meta/types/PropertyHead.cs.md:28-29 describes
+  the labelled PropertyGroup only for an XML file whose root is an MSBuild project, so the configuration-rooted variant is declared in
+  config and missing from the page.

@@ -98,7 +98,7 @@ Get-AzureResourceName -Env develop -Shortcode de -Slot 001 -RegionCode weu -Org 
 
 ## comment:1
 
-Above `$omit = if ($specification.Contains('omit')) {`, written with `#`.
+Above `$omit = @(if ($specification.Contains('omit')) {`, written with `#`.
 
 ```text
 A type may omit components from its render — e.g. the Windows `vm` (15-char cap) drops

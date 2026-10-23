@@ -11,6 +11,8 @@ plan:
       .claude/agents/catzc-drone.md,
       .claude/skills/plans-orchestrate/SKILL.md,
       pwsh/Catzc.Base.QualityGates/Test-Plans.ps1,
+      pwsh/Catzc.Base.Timeouts/configs/timeouts.yml,
+      docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md,
       .claude/hooks,
     ]
 ---
@@ -37,3 +39,23 @@ ten "may I" questions on edits the rules already require, three to five tool cal
       (task-user-runs-and-commits). Check: one message sent between sessions appears in `out/orchestrator-<date>.log`.
 - [ ] `.claude/skills/plans-orchestrate/SKILL.md` line 4: the log line is written by the hook when the hook covers it (after the step
       above). Check: `Test-AgentDefinitions`.
+- [ ] Susan from HR: hindsight "If only the waiter and its config agreed": `pwsh/Catzc.Base.Timeouts/configs/timeouts.yml` line 41, the
+      `budget_seconds` comment: "a holder due past it is not waited for" becomes what `pwsh/.internal/assets/Wait-CatzcRunLock.ps1` lines
+      10 to 12 do (a live holder is waited for until only the run's own `-LockSeconds` remain of the budget, whatever deadline it declares,
+      then the run says when to retry); the burst clause is re-read against the same lines before it is kept. A comment-only edit of a
+      config read before every import, so it lands in one pass with no peer burst under way. Cost today: whether a run behind its own holder
+      gives up at once depends on which file a session reads. Check: Grep the file for "not waited for" finds nothing, and
+      `Invoke-TestFile` on `pwsh/Catzc.Base.Timeouts/tests/types/TimeoutsConfig.Tests.ps1` stays green.
+- [ ] Susan from HR: hindsight "If only the session had trusted the gate it was writing for":
+      `docs/references/pwsh/catzc-base-quality-gates/Test-Plans.ps1.md`, in the list after line 39 (the open-step item): one clause says a
+      check that names a Verb-Noun command no module exports fails (`Test-Plans.ps1` resolves it against the exported commands). Cost today:
+      the sessions that write a check learn it from a red run. Check: Grep the page for "no module exports", `Test-Links -Path` and
+      `Test-Spelling -Path` on it.
+
+## Open questions
+
+- Susan from HR: hindsight "If only the run lock had replaced every message": `.claude/skills/plans-orchestrate/SKILL.md` lines 27 and 28
+  still send `burst start` and `burst done` to the orchestrator, while `.claude/agents/implementation-orchestrator.md` line 34 lets the run
+  lock hold every peer and broadcasts nothing; a full orchestrator inbox delays both. Recommendation: delete the two messages (delete beats
+  a warning clause); the lock is the signal, and the orchestrator reads `out/orchestrator-<date>.log` and the run-lock holder record. Check
+  after the decision: `Test-AgentDefinitions`. The user decides, since it removes a duty of a drone and of the orchestrator.
