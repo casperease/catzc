@@ -21,33 +21,36 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-ACCOSTED-COMMANDFORM
+      - ADR-AUTO-ACCOSTED-HARMLESS
       - ADR-AUTO-ACCOSTED-ONEREADER
       - ADR-AUTO-ACCOSTED-RUNNER
       - ADR-REPO-PLANS-DECISIONSBECOMERULES
       - ADR-REPO-SLIDES
       - DDR-VISUAL
       - PDR-ONELIVE
-    drs_total: 8
+    drs_total: 9
 ---
 
-# Action diagrams: a second style, cause and effect in the accosted language
+# Action diagrams: the action lens, cause and effect in the accosted language
 
-A second diagram **style** beside the one every diagram has today (bands of glyphs, edges between boxes in boxes). An **action diagram**
-draws one action and its cascading effects on the system, local or remote, in the accosted language, so every statement on the drawing is a
-contracted call that `cats` can run for verification. Same `<name>.drawio.yml`, same renderer, same put/get, same gates; a declaration
-without the new key renders exactly as today.
+A new **lens**, `action`, beside the lenses every diagram has today (which all draw bands of glyphs and the edges between boxes in boxes).
+An **action diagram** draws one action and its cascading effects on the system, local or remote, in the accosted language, so every
+statement on the drawing is a contracted call that `cats` can run for verification. Same `<name>.drawio.yml`, same renderer, same put/get,
+same gates; a declaration in any other lens renders exactly as today.
 
 ## Why its value is high
 
-The band style shows parts and their relations; nothing today shows what one call does to the system. An action diagram is the drawing of a
-cause and its effects, and because its words are accosted commands, the drawing is testable: an article embeds the diagram and the same runs
-prove it under every engine (ADR-AUTO-ACCOSTED-RUNNER). One source, two renderings (picture and proof), zero prose drift.
+The band grammar shows parts and their relations; nothing today shows what one call does to the system. An action diagram is the drawing of
+a cause and its effects, and because its words are accosted commands, the drawing is testable: an article embeds the diagram and the same
+runs prove it under every engine (ADR-AUTO-ACCOSTED-RUNNER). One source, two renderings (picture and proof), zero prose drift.
 
 ## Decided (this plan, 2026-10-23; each becomes a DDR-VISUAL or ADR-REPO-SLIDES rule when it lands, ADR-REPO-PLANS-DECISIONSBECOMERULES)
 
-- **One new key, `content.style`**, closed vocabulary `bands | action`, default `bands` declared once in `drawio.yml`. `kind` (explanation |
-  reference) stays the role axis and is orthogonal: an action diagram can be either. Every existing yml has no `style` and is untouched
-  (PDR-ONELIVE: one declaration format, one renderer, a style switch inside it, no second module).
+- **Action is a lens, not a new key** (the user, 2026-10-23): `about.lens: action` selects the ring grammar, the badge prints ACTION and the
+  subtitle ends in `action`, beside `source`; a lens says what a diagram shows, and what one call does is exactly that, so no diagram would
+  ever pair this grammar with another lens or another lens with this grammar. `kind` (explanation | reference) stays the role axis and is
+  orthogonal. Every existing yml keeps its lens and is untouched (PDR-ONELIVE: one declaration format, one renderer, a lens switch inside
+  it, no second module).
 - **Geometry, read left to right (DDR-VISUAL-LEFTTORIGHTISTIME):**
   - **cause**: a half-disc glyph on the left rim, its flat side flush with the frame's outer left boundary (the frame clips it); its label
     is the actor or trigger in plain words (`cause: { label: ... }`).
@@ -55,8 +58,9 @@ prove it under every engine (ADR-AUTO-ACCOSTED-RUNNER). One source, two renderin
     the subtitle rule of ADR-REPO-SLIDES is unchanged). No bands, no groups inside an action diagram.
   - **action**: the innermost glyph, right of the cause: one accosted command in the contract form, verbatim
     (`action: { call: { get_file_language: { path: README.md } } }`), or a **call site**: a run of several commands drawn as one stacked
-    glyph with one line per command (`action: { calls: [ ... ] }`). Only the contract form, only harmless commands
-    (ADR-AUTO-ACCOSTED-COMMANDFORM, -HARMLESS).
+    glyph with one line per command (`action: { calls: [ ... ] }`). Only the contract form (ADR-AUTO-ACCOSTED-COMMANDFORM), checked against
+    the command contracts; the action is what changes state, so it is any contracted command, mutating included (the user, 2026-10-23), and
+    the kit never runs it.
   - **rings**: concentric half-rings opening rightward from the action, ring 1 nearest; each **effect** is a note box on a ring:
     `effects: [{ id, ring: 1, where: local | remote, says: "<plain words>", proves: { <accosted command> } }]`. `says` is the explanation of
     the state modified; `proves` is the accosted observation that shows it. The ring is the causal hop, not a place; `where` is the place
@@ -67,56 +71,24 @@ prove it under every engine (ADR-AUTO-ACCOSTED-RUNNER). One source, two renderin
   Palette and ink come from the same theme tokens (STYLE.md); the half-disc and the rings are new entries in `glyphs.xml` (`g-cause`,
   `g-action`, `g-callsite`, `g-ring`, `g-effect`), rendered under the existing layers (`frames`, `edges`, `glyphs`, `marks`, `labels`).
 - **Proof is one living file, the accosted file is the source.** The diagram's `about.proves: <module>/accosted/<name>.accosted.yml` names
-  the runs; the yml's `action` and every `effects[].proves` must occur verbatim in that file (Test-Diagrams checks it), so the picture never
-  says what the proof does not run. An article shows the proof as a fenced `yml accosted` block copied from that file, or links the file.
-  PowerShell text in an article is a rendering of the contract form (`Get-FileLanguage -Path README.md`), produced by one function in
-  Catzc.Base.Contracts (beside the one reader), never hand-written (ADR-AUTO-ACCOSTED-ONEREADER); the user's second option, linked `.ps1` assets, is not taken: a `.ps1`
-  would be a second version of the same runs (PDR-ONELIVE).
+  the runs; every `effects[].proves` must occur verbatim in that file (the kit and Test-Diagrams check it), so the picture never says what
+  the proof does not run. The proofs are harmless observations (ADR-AUTO-ACCOSTED-HARMLESS, the accosted reader's check); the action itself
+  is not in the file, since it may mutate: `cats` runs it from the article's rendering. An article shows the proof as a fenced
+  `yml accosted` block copied from that file, or links the file. PowerShell text in an article is a rendering of the contract form
+  (`Get-FileLanguage -Path README.md`), produced by one function in Catzc.Base.Contracts (beside the one reader), never hand-written
+  (ADR-AUTO-ACCOSTED-ONEREADER); the user's second option, linked `.ps1` assets, is not taken: a `.ps1` would be a second version of the
+  same runs (PDR-ONELIVE).
 - **Minimaps**: an action diagram takes the kind's default minimaps unchanged; `code-locations` gets its entries from the commands named in
   `action` and `effects[].proves`.
 
+- An effect's proof is a harmless observation run before and after the action (`contracts.accosted.yml` runs 5 and 6, catzc-46): accosted
+  runs pass no output between commands, so "nothing written" rests on the commands being harmless reads, not on a compared output; a
+  comparing command enters only when the contract set has one (decided by the orchestrator as delegated, 2026-10-23).
+- Layout constants (`drawio.yml` action-style): note-width 190, ring-gap 240; the rings centre on the cause's flat side and the action glyph
+  wraps at 300 px, so two rings fit the 1260 frame (about 1150 px) and a third does not (about 1390 px; the renderer refuses it with the
+  reason). Three hops wait for a diagram that needs them (decided by the orchestrator as delegated, 2026-10-23).
+
 ## Open steps
-
-### 1. Vocabulary and rules
-
-- [ ] `python/catzc_diagrams/configs/drawio.yml`: add `styles:` (`bands`, `action`, default `bands`), `wheres:` (`local`, `remote`), the
-      ring layout constants (ring gap, note width, cause radius) and the five glyph tokens (check:
-      `uv run -q --project python pytest     python/catzc_diagrams/tests -q -k config`).
-- [ ] `docs/drs/design/visual-design.md`: add the rules DDR-VISUAL-STYLEISASWITCH, -CAUSEONTHELEFTRIM, -ONEFRAMEONECAPTION,
-      -ACTIONISACCOSTED, -EFFECTSRINGOUTWARD, -PROOFISTHEACCOSTEDFILE, each bold-defining its term once (check:
-      `Test-DrsRegistry; Test-Markdownlint -Path docs/drs/design/visual-design.md; Test-Glossary`).
-- [ ] `docs/drs/repository/slides-as-markdown.md`: one rule that `content.style` picks the renderer path and that put/get, conflicts and
-      stale rebuild apply unchanged to both (check: `Test-DrsRegistry; Test-Markdownlint -Path docs/drs/repository/slides-as-markdown.md`).
-- [ ] `docs/drs/automation/accosted-language.md`: one rule that an article's PowerShell fragment is a rendering of the contract form by the
-      one reader, with the diagram as a named consumer (check:
-      `Test-DrsRegistry; Test-Markdownlint -Path docs/drs/automation/accosted-language.md`).
-
-### 2. Glyph library
-
-- [ ] `python/catzc_diagrams/assets/glyphs.xml`: add `g-cause` (half-disc, flat side left), `g-action`, `g-callsite` (stacked, one row per
-      command), `g-ring` (arc, no fill, `line` ink), `g-effect` (note with a `where` chip slot), all on theme tokens, one legend row each
-      (check: `uv run -q --project python python python/catzc_diagrams/declaration.py put` on the legend; `Test-Diagrams`).
-
-### 3. Declaration and renderer
-
-- [ ] `python/catzc_diagrams/declaration.py`: validate `style`; for `action` require `cause`, `action` (`call` xor `calls`), `effects`,
-      forbid `bands|groups|edges|spans`, check every `proves`/`call` is contract form against the command contracts, and check they occur in
-      `about.proves` (check: new tests in `python/catzc_diagrams/tests/test_action_style.py`, one per validation error, with the error
-      text).
-- [ ] `python/catzc_diagrams/declaration.py`: the action layout (cause flush left, action centred, rings by hop, effects spaced on their
-      ring, computed edges) and its model XML; `get` folds a moved effect back to its ring order only, never to coordinates (check:
-      round-trip test put, get, put is byte-stable on the sample).
-- [ ] `python/catzc_diagrams/tests`: a golden sample `action-sample.drawio.yml` with one `call` and one `calls` variant, rendered to
-      `out/drawio/`, plus the regression that every committed `.drawio.yml` without `style` renders to the same canonical XML as before
-      (check: `uv run -q --project python pytest python/catzc_diagrams/tests -q`).
-
-### 4. Proof side
-
-- [ ] `pwsh/Catzc.Base.Contracts/Get-AccostedFragment.ps1` (+ test; Contracts, not Docs: Contracts depends on Docs, so Docs cannot call the one reader without a cycle, decided by the orchestrator as delegated, 2026-10-23): renders a contract-form command or run as a PowerShell fragment for an
-      article, and `Test-Diagrams` gains the check that `about.proves` exists and holds the diagram's commands (check:
-      `Invoke-TestFile -Path pwsh/Catzc.Base.Contracts/tests/Get-AccostedFragment.Tests.ps1; Test-Diagrams`).
-- [ ] `pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml`: the sample action's runs, so the first action diagram's proof runs under
-      every engine (check: `Invoke-Accosted -Path pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml`).
 
 ### 5. First diagram and its article
 

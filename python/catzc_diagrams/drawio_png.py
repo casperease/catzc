@@ -103,6 +103,9 @@ class Scaled:
     def polygon(self, xy, fill=None, outline=None, width=1):
         self.d.polygon(self.xy(xy), fill=fill, outline=outline, width=self.px(width))
 
+    def arc(self, xy, start, end, fill=None, width=1):
+        self.d.arc(self.xy(xy), start, end, fill=fill, width=self.px(width))
+
     def line(self, xy, fill=None, width=1, joint=None):
         self.d.line(self.xy(xy), fill=fill, width=self.px(width), joint=joint)
 
@@ -135,6 +138,8 @@ def drop_shadow(img, box, painter, pad=8):
 
 def paint_shape(d, s, box, w, h, fill, stroke, sw, dashed):
     """Draw one vertex's shape by its draw.io style: the glyph shapes of STYLE.md, in the given fill and stroke."""
+    import math
+
     x0, y0, x1, y1 = box
     if dashed and not any(k in s for k in ("ellipse", "rhombus")) and s.get("shape") != "hexagon":
         d.rounded_rectangle([x0, y0, x1, y1], radius=8 if s.get("rounded") == "1" else 0, fill=fill)
@@ -143,6 +148,15 @@ def paint_shape(d, s, box, w, h, fill, stroke, sw, dashed):
     elif s.get("shape") == "hexagon":
         pts = [(x0 + w * .25, y0), (x1 - w * .25, y0), (x1, (y0 + y1) / 2), (x1 - w * .25, y1), (x0 + w * .25, y1), (x0, (y0 + y1) / 2)]
         d.polygon(pts, fill=fill, outline=stroke, width=sw)
+    elif s.get("shape") == "delay":  # a cause: a flat left side and a semicircle on the right, the half-disc of the action style
+        ry = h / 2
+        rx = min(ry, w)
+        cx, cy = x1 - rx, (y0 + y1) / 2
+        arc = [(cx + rx * math.sin(math.pi * i / 32), cy - ry * math.cos(math.pi * i / 32)) for i in range(33)]
+        d.polygon([(x0, y0), *arc, (x0, y1)], fill=fill, outline=stroke, width=sw)
+    elif s.get("shape") == "mxgraph.basic.arc":  # a ring: the stroke of an arc of the box's ellipse, angles as turns clockwise from 3 o'clock
+        if stroke:
+            d.arc([x0, y0, x1, y1], float(s.get("startAngle", 0)) * 360, float(s.get("endAngle", 1)) * 360, fill=stroke, width=max(1, sw))
     elif "ellipse" in s:
         d.ellipse([x0, y0, x1, y1], fill=fill, outline=stroke, width=sw)
     elif "rhombus" in s:
@@ -175,6 +189,24 @@ def paint_shape(d, s, box, w, h, fill, stroke, sw, dashed):
         pill = s.get("rounded") == "1" and float(s.get("arcSize", 0)) >= 50
         r = min(w, h) / 2 if pill else (8 if s.get("rounded") == "1" else 0)
         d.rounded_rectangle([x0, y0, x1, y1], radius=r, fill=fill, outline=stroke, width=sw)
+
+
+def painted_box(s, box):
+    """The part of a cell's box that paint covers, as (x, y, w, h): an arc covers only its stroke's span of the box's ellipse (a ring's
+    box is the whole ellipse, its left half unpainted), every other shape its whole box."""
+    import math
+
+    x, y, w, h = box
+    if s.get("shape") != "mxgraph.basic.arc":
+        return box
+    start = float(s.get("startAngle", 0))
+    span = (float(s.get("endAngle", 1)) - start) % 1 or 1
+    points = [
+        (x + w / 2 + w / 2 * math.cos(2 * math.pi * (start + span * i / 90)), y + h / 2 + h / 2 * math.sin(2 * math.pi * (start + span * i / 90)))
+        for i in range(91)
+    ]
+    xs, ys = [p[0] for p in points], [p[1] for p in points]
+    return min(xs), min(ys), max(xs) - min(xs), max(ys) - min(ys)
 
 
 def style_map(style):
@@ -334,10 +366,11 @@ def render(root, page=None):
         geo[cid] = (x, y, rel[2], rel[3])
     if not geo:
         raise SystemExit("no vertices with geometry")
-    minx = min(v[0] for v in geo.values()) - 20
-    miny = min(v[1] for v in geo.values()) - 20
-    maxx = max(v[0] + v[2] for v in geo.values()) + 20
-    maxy = max(v[1] + v[3] for v in geo.values()) + 20
+    extent = [painted_box(style_map(cells[cid].get("style")), box) for cid, box in geo.items()]
+    minx = min(v[0] for v in extent) - 20
+    miny = min(v[1] for v in extent) - 20
+    maxx = max(v[0] + v[2] for v in extent) + 20
+    maxy = max(v[1] + v[3] for v in extent) + 20
     # page dark (the drawio.yml default): every rendered output sits on the dark page, painted first behind everything, so a
     # dark- or light-mode viewer shows the same page, and a model's own background wins only when it is a real colour, not
     # white or the retired light page. page model: the model's own background as draw.io would paint it, white included.

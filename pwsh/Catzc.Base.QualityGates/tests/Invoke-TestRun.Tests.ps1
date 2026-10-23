@@ -5,13 +5,14 @@ catzc:
   edges:
     docs: "[Invoke-TestRun.Tests.ps1.md](../../../docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-TestRun.Tests.ps1.md)"
     cites:
+      - ADR-AUTO-TEST-PROCESSTRIPWIRE
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
       - ADR-AUTO-TEST-SOURCEONLYTAG
       - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
       - ADR-AUTO-TEST-TESTRUN
       - ADR-AUTO-TEST-ALLTESTS
       - ADR-AUTO-TEST-TESTSUITE
-    drs_total: 6
+    drs_total: 7
 ---
 #>
 
@@ -235,6 +236,24 @@ Describe 'Invoke-TestRun' -Tag 'L0', 'logic' {
             }
             Should -Invoke Write-TestAutomationArtifacts -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
                 @($Rows | Where-Object { $_.Result -eq 'NotRun' }).Count -eq 3
+            }
+        }
+    }
+
+    Context 'the process tripwire travels on the workers'' environment' -Tag 'ADR-AUTO-TEST-PROCESSTRIPWIRE' {
+        It 'blocks every launch for a run capped below L2' {
+            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true; MaxLevel = 1 } | Out-Null
+
+            Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                $WorkerEnvironment['CATZC_BLOCK_REAL_PROCESS'] -eq '1'
+            }
+        }
+
+        It 'arms it per container, by the outermost Describe''s tier, for a run that reaches L2 or above' {
+            Invoke-Run @{ OutputFolder = $script:outputFolder; PassThru = $true; MaxLevel = 3 } | Out-Null
+
+            Should -Invoke Invoke-TestAutomationWorkers -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+                $WorkerEnvironment['CATZC_BLOCK_REAL_PROCESS'] -eq 'tier'
             }
         }
     }

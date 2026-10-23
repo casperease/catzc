@@ -227,8 +227,15 @@ Describe 'Get-EnglishDictionaryDrift' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Test-GeneratedFiles — real tree' -Tag 'L1', 'integrity', 'source-only' {
+Describe 'Test-GeneratedFiles — real tree' -Tag 'L2', 'integrity', 'source-only' {
     It 'Test-GeneratedFiles passes over the whole tree' -Tag 'ADR-AUTO-TEST-QUALITYGATE', 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
+        if (-not (Get-Command git -ErrorAction Ignore)) {
+            Set-ItResult -Skipped -Because 'tool_git_missing'; return
+        }
+        $go = Resolve-ToolExecutable -Tool go
+        if (-not ($go.Found -and $go.VersionOk)) {
+            Set-ItResult -Skipped -Because 'tool_go_missing'; return
+        }
         $result = Test-GeneratedFiles -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
         $result.Issues | Should -BeNullOrEmpty
         $result.IssueCount | Should -Be 0

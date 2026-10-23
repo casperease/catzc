@@ -249,13 +249,16 @@ build run.
 
 ## comment:14
 
-Above `$workerEnvironment = if ($MaxLevel -lt 2) {`, written with `#`.
+Above `$workerEnvironment = @{`, written with `#`.
 
 ```text
 The unit-test tripwire for tool-free levels (L0/L1) travels on each worker's own process environment —
 never the parent's $env:. If a worker's test then launches a real process, a Mock failed to intercept
 it — almost always a -ModuleName pointing at the wrong module — so Invoke-Executable throws inside the
-worker instead of leaking. L2+ legitimately drive real CLIs, so it stays off there.
+worker instead of leaking. A run capped below L2 holds only tool-free tests, so it blocks every launch
+(1); any other run arms the tripwire per container (tier): Test-RealProcessBlocked blocks a launch only
+inside a Describe whose outermost tag is L0 or L1, so a full run catches an L0 or L1 launch too, while
+the L2+ containers still drive real CLIs.
 ```
 
 ## comment:15

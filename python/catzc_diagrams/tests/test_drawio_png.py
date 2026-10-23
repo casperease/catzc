@@ -154,6 +154,39 @@ def test_reads_an_html_font_colour_given_as_rgb():
     assert drawio_png.html_color('<font color="#00ff00">widget</font>') == "#00ff00"
 
 
+def test_draws_a_delay_shape_as_a_half_disc_flat_on_the_left():
+    img = rendered(
+        '<mxCell id="cause" value="" style="shape=delay;fillColor=#00FF00;strokeColor=#0000FF;strokeWidth=1;" vertex="1" parent="1">'
+        '<mxGeometry x="100" y="40" width="50" height="100" as="geometry"/></mxCell>'
+    )
+    assert near(at(img, 110, 90), GREEN) and near(at(img, 140, 90), GREEN)  # the body, flat side to the middle of the arc
+    assert near(at(img, 104, 44), GREEN)  # the flat side keeps its square corners
+    assert not near(at(img, 148, 44), GREEN)  # the arc rounds the right corner away: a disc, not a rectangle
+    assert not near(at(img, 148, 136), GREEN)
+    assert near(at(img, 147, 90), GREEN)  # and reaches the right edge at the middle
+
+
+def test_draws_a_ring_as_the_right_half_of_its_ellipse_from_twelve_through_three_to_six():
+    img = rendered(
+        '<mxCell id="ring" value="" style="shape=mxgraph.basic.arc;startAngle=0.75;endAngle=0.25;fillColor=none;strokeColor=#0000FF;strokeWidth=3;" '
+        'vertex="1" parent="1"><mxGeometry x="100" y="40" width="100" height="100" as="geometry"/></mxCell>'
+    )
+    assert any(near(at(img, x, 90), BLUE, 90) for x in (197, 198, 199, 200))  # three o'clock: the stroke reaches the box's right edge
+    assert any(near(at(img, 150, y), BLUE, 90) for y in (40, 41, 42))  # twelve o'clock: it starts at the top of the vertical diameter
+    assert any(near(at(img, 150, y), BLUE, 90) for y in (138, 139, 140))  # six o'clock: and ends at the bottom
+    assert not any(near(at(img, x, 90), BLUE, 90) for x in (100, 101, 102))  # nine o'clock: the left half is not drawn
+    assert not near(at(img, 150, 90), BLUE, 90)  # a stroke, never a disc
+
+
+def test_sizes_the_page_from_the_painted_part_of_a_ring_not_its_whole_box():
+    img = rendered(
+        '<mxCell id="ring" value="" style="shape=mxgraph.basic.arc;startAngle=0.75;endAngle=0.25;fillColor=none;strokeColor=#0000FF;strokeWidth=3;" '
+        'vertex="1" parent="1"><mxGeometry x="-200" y="40" width="400" height="100" as="geometry"/></mxCell>'
+    )
+    assert img.size == (340, 240)  # the 300 x 200 frame and the margin: the ring's unpainted left half reaches no page edge
+    assert any(near(at(img, x, 90), BLUE, 90) for x in (197, 198, 199, 200))  # the painted right half, at the model point it keeps
+
+
 def test_draws_a_flex_arrow_as_a_filled_block_with_a_head():
     img = rendered(
         '<mxCell id="push" value="" style="shape=flexArrow;endArrow=classic;fillColor=#00FF00;strokeColor=#0000FF;width=10;endWidth=20;endSize=7;" '

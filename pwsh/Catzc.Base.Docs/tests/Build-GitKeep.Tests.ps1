@@ -27,6 +27,8 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
         Mock Get-CatzcModuleRoot -ModuleName Catzc.Base.Docs -ParameterFilter { $ChildPath -eq 'assets/gitkeep' } -MockWith { $script:sourcePath }
 
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
+        # The fake root is no git checkout, so the generated head reads no file as tracked.
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
     }
 
     AfterAll {
@@ -71,6 +73,8 @@ Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR
         Import-InternalModule TestKit
         $script:fake = New-FakeRepositoryRoot -WorkingRootOnly -Files @{ 'widgets/.gitkeep' = "stale`n" }
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
+        # The fake root is no git checkout, so the generated head reads no file as tracked.
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
     }
 
     AfterAll {
@@ -89,13 +93,16 @@ Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR
     }
 }
 
-Describe 'Build-GitKeep — managed .gitkeep files' -Tag 'L1', 'integrity', 'source-only' {
+Describe 'Build-GitKeep — managed .gitkeep files' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
         # The real repository's .gitkeep set, discovered by the walk without writing (-DryRun).
         $script:report = @(Build-GitKeep -DryRun -PassThru)
     }
 
     It 'finds the .gitkeep set and every file carries the generic source content (no drift)' {
+        if (-not (Get-Command git -ErrorAction Ignore)) {
+            Set-ItResult -Skipped -Because 'tool_git_missing'; return
+        }
         $script:report.Count | Should -BeGreaterThan 0
         # Every .gitkeep is a managed copy of assets/gitkeep; the gate names each drifted one.
         $result = Test-GeneratedFiles -Generator Build-GitKeep -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')

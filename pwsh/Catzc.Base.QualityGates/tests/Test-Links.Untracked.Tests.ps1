@@ -26,7 +26,7 @@ Describe 'Test-Links — untracked link targets' -Tag 'L0', 'logic', 'ADR-REPO-L
         $script:reportBase = Join-Path $TestDrive "reports-$([guid]::NewGuid().ToString('N'))"
         & $writeFile $root 'docs/drs/index.md' "| Code | ADR |`n| ---- | --- |`n| ``ADR-TST-WIDGET`` | [widget-rules](widget/widget-rules.md) |`n"
         & $writeFile $root 'docs/drs/widget/widget-rules.md' "# Widget rules`n`n### Rule ADR-TST-WIDGET-TURN`n`nOne.`n"
-        & $writeFile $root 'docs/widget.md' "# docs/widget.md`n`n## Widget`n`nSee [rules](adr/widget/widget-rules.md), [gadget](gadget.md), [folder](adr/widget), and [here](#widget).`n"
+        & $writeFile $root 'docs/widget.md' "# docs/widget.md`n`n## Widget`n`nSee [rules](drs/widget/widget-rules.md), [gadget](gadget.md), [folder](drs/widget), and [here](#widget).`n"
         & $writeFile $root 'docs/gadget.md' "# docs/gadget.md`n"
         # The fixture is the loaded repository; git tracks everything except docs/gadget.md.
         Mock Get-RepositoryRoot { $script:root } -ModuleName Catzc.Base.QualityGates
@@ -42,7 +42,7 @@ Describe 'Test-Links — untracked link targets' -Tag 'L0', 'logic', 'ADR-REPO-L
     }
 
     It 'accepts tracked files, folders holding tracked files, and in-file anchors' {
-        & $writeFile $root 'docs/widget.md' "# docs/widget.md`n`n## Widget`n`nSee [rules](adr/widget/widget-rules.md), [folder](adr/widget), and [here](#widget).`n"
+        & $writeFile $root 'docs/widget.md' "# docs/widget.md`n`n## Widget`n`nSee [rules](drs/widget/widget-rules.md), [folder](drs/widget), and [here](#widget).`n"
         $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'docs/widget.md') -Kind Markdown -OutputFolder $reportBase -PassThru
         $result.Issues | Should -BeNullOrEmpty
     }

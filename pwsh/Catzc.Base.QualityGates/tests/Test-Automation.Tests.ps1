@@ -13,12 +13,18 @@ catzc:
 ---
 #>
 
-Describe 'Source & test file conventions' -Tag 'L0', 'integrity', 'source-only' {
+Describe 'Source & test file conventions' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
-        $script:result = Test-SourceConventions -PassThru -OutputFolder (Join-Path $TestDrive 'source-conventions')
+        $script:gitMissing = -not (Get-Command git -ErrorAction Ignore)
+        if (-not $script:gitMissing) {
+            $script:result = Test-SourceConventions -PassThru -OutputFolder (Join-Path $TestDrive 'source-conventions')
+        }
     }
 
     It 'the scan found source and test files (guards the checks below against a silent no-op)' {
+        if ($script:gitMissing) {
+            Set-ItResult -Skipped -Because 'tool_git_missing'; return
+        }
         # The conventions pass vacuously on an empty set, so prove the scan actually enumerated the tree.
         $result.Facts['SourceFiles'] | Should -BeGreaterThan 100
         $result.Facts['TestFiles'] | Should -BeGreaterThan 100
@@ -26,6 +32,9 @@ Describe 'Source & test file conventions' -Tag 'L0', 'integrity', 'source-only' 
     }
 
     It 'reports no source or test file convention issues' -Tag 'ADR-PWSH-PESTER-TESTFILE', 'ADR-AUTO-TEST-TESTFILE' {
+        if ($script:gitMissing) {
+            Set-ItResult -Skipped -Because 'tool_git_missing'; return
+        }
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }
 }

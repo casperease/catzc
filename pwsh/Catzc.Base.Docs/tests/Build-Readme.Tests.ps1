@@ -28,6 +28,8 @@ Describe 'Build-Readme' -Tag 'L0', 'logic' {
 
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
         Mock Assert-SourceTree -ModuleName Catzc.Base.Docs { }
+        # The fake root is no git checkout, so the generated head reads no file as tracked.
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'readme' } {
             [pscustomobject]@{
                 patterns = @()

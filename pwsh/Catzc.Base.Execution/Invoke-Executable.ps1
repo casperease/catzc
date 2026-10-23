@@ -45,7 +45,7 @@ function Invoke-Executable {
         [switch] $DryRun
     )
 
-    if ($env:CATZC_BLOCK_REAL_PROCESS -and -not $DryRun) {
+    if (-not $DryRun -and (Test-RealProcessBlocked)) {
         throw (
             "Blocked a real process launch during a unit test: '$Command'. A Mock did not intercept it — " +
             'check the mock targets the module the calling function runs in: ' +

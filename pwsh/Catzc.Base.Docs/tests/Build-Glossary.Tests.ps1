@@ -57,6 +57,8 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.Docs -MockWith { $citations }.GetNewClosure()
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'drs' } -MockWith { $domains }.GetNewClosure()
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
+        # The page is a fixture outside the checkout, so the generated head reads no file as tracked.
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
         $script:page = Join-Path $TestDrive 'glossary.md'
     }
 
@@ -127,8 +129,11 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Build-Glossary — generated glossary page' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README-AUTHOREDSOURCES' {
+Describe 'Build-Glossary — generated glossary page' -Tag 'L2', 'integrity', 'source-only', 'ADR-REPO-README-AUTHOREDSOURCES' {
     It 'the on-disk glossary is current — no drift from the glossary sources' {
+        if (-not (Get-Command git -ErrorAction Ignore)) {
+            Set-ItResult -Skipped -Because 'tool_git_missing'; return
+        }
         (Build-Glossary -DryRun -PassThru -Silent).ConceptCount | Should -BeGreaterThan 0
         $result = Test-GeneratedFiles -Generator Build-Glossary -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")

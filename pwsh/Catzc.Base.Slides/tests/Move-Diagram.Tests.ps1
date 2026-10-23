@@ -12,8 +12,21 @@ catzc:
 ---
 #>
 
-Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
+# A fixture repository is made and moved in with real git (git init, git mv, git ls-files), so the point of the file is the launch: L2.
+Describe 'Move-Diagram' -Tag 'L2', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
+    BeforeAll {
+        $script:skip = if (Get-Command git -ErrorAction Ignore) {
+            $null
+        }
+        else {
+            'tool_git_missing'
+        }
+    }
+
     BeforeEach {
+        if ($script:skip) {
+            return
+        }
         $script:widgetRoot = Join-Path $TestDrive "widget-repository-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
         $files = [ordered]@{
             'docs/widgets/index.md'                 = "# Widgets`n`n![Widget](assets/widget.drawio.png)`n`n[the gadget](../gadgets/index.md) [plain](./plain.md)`n"
@@ -37,6 +50,9 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     }
 
     It 'moves a diagram pair, named by its stem, with git mv and re-points every page that embeds it' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         $result = Move-Diagram docs/widgets/assets/widget docs/widgets/.assets/widget -RepositoryRoot $script:widgetRoot -PassThru
 
         $result.Moves.Count | Should -Be 2
@@ -52,6 +68,9 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     }
 
     It 'moves one file under a new name, re-pointing the files that link to it and its own links' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         Move-Diagram docs/widgets/plain.md docs/gadgets/simple.md -RepositoryRoot $script:widgetRoot
 
         & $script:read 'docs/gadgets/simple.md' | Should -BeExactly "# Plain`n`n[up](../widgets/index.md)`n"
@@ -59,6 +78,9 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     }
 
     It 'lists the moves and the pages under -DryRun and changes nothing' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         $result = Move-Diagram docs/widgets/assets/widget docs/widgets/.assets/widget -RepositoryRoot $script:widgetRoot -DryRun -PassThru
 
         $result.DryRun | Should -BeTrue
@@ -69,6 +91,9 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     }
 
     It 'skips a page that the index still holds but the disk no longer does' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         Remove-Item -LiteralPath (Join-Path $script:widgetRoot 'docs/gadgets/index.md')
 
         $result = Move-Diagram docs/widgets/assets/widget docs/widgets/.assets/widget -RepositoryRoot $script:widgetRoot -DryRun -PassThru
@@ -77,6 +102,9 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     }
 
     It 'formats every page whose links it re-pointed, and nothing under -DryRun' -Tag 'ADR-REPO-FORMAT-CONFIGUREDFORMATTERS' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         Move-Diagram docs/widgets/assets/widget docs/widgets/.assets/widget -RepositoryRoot $script:widgetRoot -DryRun
         Should -Invoke Format-Code -ModuleName Catzc.Base.Slides -Times 0 -Exactly
 
@@ -88,6 +116,9 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     }
 
     It 'returns no pages under -PassThru when no page links the moved file' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         $result = Move-Diagram docs/drs/index.md docs/adr/.assets/widget/index.md -RepositoryRoot $script:widgetRoot -DryRun -PassThru
 
         $result.Moves.To | Should -Be @('docs/adr/.assets/widget/index.md')
@@ -95,6 +126,9 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     }
 
     It 'refuses a destination that exists, one inside the source, a path outside the repository, and an untracked source' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         { Move-Diagram docs/widgets/assets docs/gadgets -RepositoryRoot $script:widgetRoot } | Should -Throw '*already exists*'
         { Move-Diagram docs/widgets/assets/widget.drawio.png docs/widgets/assets/widget -RepositoryRoot $script:widgetRoot } | Should -Throw '*lies inside it*'
         { Move-Diagram docs/widgets/assets docs/widgets/assets/inner -RepositoryRoot $script:widgetRoot } | Should -Throw '*lies inside it*'
@@ -103,8 +137,20 @@ Describe 'Move-Diagram' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
     }
 }
 
-Describe 'Move-Diagram — an article-carried diagram' -Tag 'L1', 'logic', 'source-only', 'ADR-REPO-SLIDES-DECLARATION' {
+Describe 'Move-Diagram — an article-carried diagram' -Tag 'L2', 'logic', 'source-only', 'ADR-REPO-SLIDES-DECLARATION' {
+    BeforeAll {
+        $script:skip = if (Get-Command git -ErrorAction Ignore) {
+            $null
+        }
+        else {
+            'tool_git_missing'
+        }
+    }
+
     BeforeEach {
+        if ($script:skip) {
+            return
+        }
         $script:widgetRoot = Join-Path $TestDrive "widget-repository-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
         $script:block = "``````yml drawio`ncontent: { title: Gadget }`n```````n`n"
         $files = [ordered]@{
@@ -128,6 +174,9 @@ Describe 'Move-Diagram — an article-carried diagram' -Tag 'L1', 'logic', 'sour
     }
 
     It 'moves its block to the page beside the new .assets that embeds the png, and re-keys its carrier through the kit' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         Move-Diagram docs/widgets/.assets/gadget docs/gadgets/.assets/gadget -RepositoryRoot $script:widgetRoot -Kit python/catzc_diagrams
 
         & $script:read 'docs/gadgets/gadget.md' | Should -BeExactly "# Gadget here`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
@@ -137,6 +186,9 @@ Describe 'Move-Diagram — an article-carried diagram' -Tag 'L1', 'logic', 'sour
     }
 
     It 'moves its block to a target page whose image already points at the new .assets, a page with no link to re-point' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadgets/gadget.md'), "# Gadget here`n`n![Gadget](.assets/gadget.drawio.png)`n")
         Invoke-Executable 'git add -A' -WorkingDirectory $script:widgetRoot -Silent | Out-Null
 
@@ -147,6 +199,9 @@ Describe 'Move-Diagram — an article-carried diagram' -Tag 'L1', 'logic', 'sour
     }
 
     It 'refuses, changing nothing, when no page beside the new .assets embeds the png' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         { Move-Diagram docs/widgets/.assets/gadget docs/drs/.assets/gadget -RepositoryRoot $script:widgetRoot -Kit python/catzc_diagrams } | Should -Throw '*Carry it to the file carrier first*'
         & $script:read 'docs/widgets/gadget.md' | Should -BeExactly "# Gadget`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
         Test-Path (Join-Path $script:widgetRoot 'docs/widgets/.assets/gadget.drawio.png') | Should -BeTrue

@@ -9,13 +9,14 @@ catzc:
     cites:
       - ADR-AUTO-IDIOM
       - ADR-AUTO-PKGMGR
+      - ADR-AUTO-TEST-PROCESSTRIPWIRE
       - ADR-PWSH-PARAM-CASESENSITIVEPATTERN
       - ADR-PWSH-TYPES
       - ADR-REPO-DRSCODE
       - ADR-REPO-PLANS
       - DDR-TRACK-UNORDEREDTRACK
       - TDR-NORMALFORM
-    drs_total: 10
+    drs_total: 11
 ---
 
 # Value of each plan
@@ -58,7 +59,7 @@ stale or superseded item is recorded as such, with the reason.
 | high   | plan-debt-full-run-failures | none (test reruns)                                                                              | one Invoke-TestFile per failing file                                                                  | one step                                         |
 | medium | plan-debt-test-speed        | none (test files only)                                                                          | the measured test files, twice each                                                                   | two steps                                        |
 | high   | plan-bcl-path-sets          |                                                                                                 |                                                                                                       | new                                              |
-| high   | plan-debt-tier-tripwire     | none (ADR-AUTO-TEST-PROCESSTRIPWIRE decides) | each failing file at -MaxLevel 1, the tripwire's test, both tiers alone | new |
+| high   | plan-debt-tier-tripwire     | none (ADR-AUTO-TEST-PROCESSTRIPWIRE decides)                                                    | each failing file at -MaxLevel 1, the tripwire's test, both tiers alone                               | new                                              |
 | medium | plan-vscode-session-binding |                                                                                                 |                                                                                                       | new                                              |
 | high   | plan-action-diagrams        |                                                                                                 |                                                                                                       | new                                              |
 

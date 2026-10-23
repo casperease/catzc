@@ -43,7 +43,7 @@ runs:
 
     It 'renders a run as one PowerShell line per command, strings quoted, numbers bare, a true switch as a bare flag' -Tag 'ADR-AUTO-ACCOSTED-ONEREADER' {
         $path = & $script:write $script:file
-        Get-AccostedFragment -Path $path -Run 1 -RepositoryRoot $script:root |
+        Get-AccostedFragment -Path $path -RunNumber 1 -RepositoryRoot $script:root |
             Should -Be "Get-Widget -Path 'widgets/a.wdg' -Depth 2 -Names 'a'`nTest-Gadget -OutputFolder 'out/test-gadget' -Strict"
     }
 
@@ -55,7 +55,7 @@ runs:
 
     It 'renders one command of a run' {
         $path = & $script:write $script:file
-        Get-AccostedFragment -Path $path -Run 1 -Command 2 -RepositoryRoot $script:root |
+        Get-AccostedFragment -Path $path -RunNumber 1 -CommandNumber 2 -RepositoryRoot $script:root |
             Should -Be "Test-Gadget -OutputFolder 'out/test-gadget' -Strict"
     }
 
@@ -65,9 +65,9 @@ runs:
     }
 
     It 'throws on <Case>' -ForEach @(
-        @{ Case = '-Command without -Run'; Arguments = @{ Command = 1 }; Message = '*-Command names a command of one run, so it needs -Run*' }
-        @{ Case = 'a run the file does not hold'; Arguments = @{ Run = 3 }; Message = '*holds 2 run(s), so there is no run 3*' }
-        @{ Case = 'a command the run does not hold'; Arguments = @{ Run = 2; Command = 2 }; Message = '*holds 1 command(s), so there is no command 2*' }
+        @{ Case = '-CommandNumber without -RunNumber'; Arguments = @{ CommandNumber = 1 }; Message = '*-CommandNumber names a command of one run, so it needs -RunNumber*' }
+        @{ Case = 'a run the file does not hold'; Arguments = @{ RunNumber = 3 }; Message = '*holds 2 run(s), so there is no run 3*' }
+        @{ Case = 'a command the run does not hold'; Arguments = @{ RunNumber = 2; CommandNumber = 2 }; Message = '*holds 1 command(s), so there is no command 2*' }
     ) {
         $path = & $script:write $script:file
         { Get-AccostedFragment -Path $path -RepositoryRoot $script:root @Arguments } | Should -Throw $Message

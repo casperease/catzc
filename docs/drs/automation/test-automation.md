@@ -80,7 +80,8 @@ is a prerequisite of every source-tree L2 run rather than a tool its tests skip 
 ### Rule ADR-AUTO-TEST-PROCESSTRIPWIRE
 
 A runtime tripwire enforces "L0/L1 launches no real process": `Test-Automation` sets the `CATZC_BLOCK_REAL_PROCESS` environment variable and
-`Invoke-Executable` throws instead of launching, so a mock that fails to intercept fails loudly.
+`Invoke-Executable` throws instead of launching, in every run and for each test container by the tier of its outermost Describe, so a mock
+that fails to intercept fails loudly.
 
 - [How this is enforced](#how-this-is-enforced)
 

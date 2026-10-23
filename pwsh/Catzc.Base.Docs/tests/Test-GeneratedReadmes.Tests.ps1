@@ -40,6 +40,8 @@ Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {
             [pscustomobject]@{ Output = $script:ignored -join "`n"; Errors = ''; ExitCode = [int]($script:ignored.Count -eq 0) }
         }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Docs { }
+        # The fixture tree is no git checkout, so the generated head reads no file as tracked.
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
 
         # Every README current, as Build-Readme writes it.
         foreach ($mapping in $script:mappings) {

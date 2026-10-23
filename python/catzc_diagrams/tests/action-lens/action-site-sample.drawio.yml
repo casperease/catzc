@@ -1,0 +1,16 @@
+description: "A call site of two commands: the gadget is published and counted in one run, and the rings show what each changed."
+about:
+  adrs: []
+  lens: action
+  proves: widgets.accosted.yml
+content:
+  title: A call site publishes and counts in one run
+  kind: explanation
+  cause: { label: A pipeline step }
+  action:
+    calls:
+      - { publish_gadget: { name: widget-a } }
+      - { count_gadgets: }
+  effects:
+    - { id: effect-index, ring: 1, where: local, says: The gadget index gains the entry, proves: { get_widget: { path: gadgets/index.yml } } }
+    - { id: effect-catalogue, ring: 2, where: remote, says: The catalogue lists the widget, proves: { get_widget: { path: widgets/a.yml } } }

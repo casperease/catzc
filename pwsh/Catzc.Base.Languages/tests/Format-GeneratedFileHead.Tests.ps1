@@ -36,7 +36,9 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
     BeforeEach {
         # Whether git tracks the path: a tracked path comes back from the index read, an untracked one does not; a fixture stands for it here.
         $script:tracked = $true
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { if ($script:tracked) { $Path } }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { if ($script:tracked) {
+                $Path
+            } }
     }
 
     It 'writes the one declared warning into every head, whatever the carrier' {

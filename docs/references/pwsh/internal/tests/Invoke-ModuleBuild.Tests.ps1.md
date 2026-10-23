@@ -9,7 +9,7 @@ catzc:
 
 # pwsh/.internal/tests/Invoke-ModuleBuild.Tests.ps1
 
-<!-- cspell:ignore nfunction -->
+<!-- cspell:ignore nfunction dependenc -->
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -67,4 +67,13 @@ Above `$script:files = @(foreach ($file in Get-ChildPath $root -File -Depth 64..
 ```text
 A whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): the
 assertions cover every file of the build, so nothing is pruned.
+```
+
+## comment:7
+
+Above `Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not...`, written with `#`.
+
+```text
+The fixture repository is committed with real git and the build reads what git stores, so the point of the file is the launch: L2.
+Without git the whole file skips (tool_git_missing).
 ```

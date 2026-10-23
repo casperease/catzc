@@ -216,7 +216,7 @@
     <mxCell id="g-callsite-b-member" value="command" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=@neutral-deep;strokeColor=@slate-rim;fontColor=@ink;fontSize=10.5;" vertex="1" parent="g-callsite">
       <mxGeometry x="14" y="62" width="122" height="22" as="geometry" />
     </mxCell>
-    <mxCell id="g-ring" value="&lt;b&gt;ring&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;strokeColor=@line;strokeWidth=2;fontColor=@ink;fontSize=12;shadow=0;" vertex="1" parent="1">
+    <mxCell id="g-ring" value="&lt;b&gt;ring&lt;/b&gt;" style="shape=mxgraph.basic.arc;startAngle=0.75;endAngle=0.25;whiteSpace=wrap;html=1;fillColor=none;strokeColor=@line;strokeWidth=2;fontColor=@ink;fontSize=12;align=right;spacingRight=10;shadow=0;" vertex="1" parent="1">
       <mxGeometry x="450" y="640" width="80" height="80" as="geometry" />
     </mxCell>
     <mxCell id="g-effect" value="&lt;b&gt;effect&lt;/b&gt;" style="shape=note;size=14;whiteSpace=wrap;html=1;fillColor=@neutral;strokeColor=@neutral-rim;fontColor=@ink;fontSize=12;" vertex="1" parent="1">

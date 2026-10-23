@@ -10,19 +10,28 @@ catzc:
 ---
 #>
 
-Describe 'Repository code links (automation comments)' -Tag 'L1', 'integrity', 'source-only' {
+Describe 'Repository code links (automation comments)' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
-        $script:result = Test-Links -Path (Get-CatzcModulesRoot) -Kind Code -PassThru `
-            -OutputFolder (Join-Path $TestDrive 'links-code')
+        $script:gitMissing = -not (Get-Command git -ErrorAction Ignore)
+        if (-not $script:gitMissing) {
+            $script:result = Test-Links -Path (Get-CatzcModulesRoot) -Kind Code -PassThru `
+                -OutputFolder (Join-Path $TestDrive 'links-code')
+        }
     }
 
     It 'every ADR reference in an automation comment is a canonical code link that resolves' -Tag 'ADR-REPO-LINK-CODELINKS', 'ADR-REPO-LINK-ONECITATIONSPELLING' {
+        if ($script:gitMissing) {
+            Set-ItResult -Skipped -Because 'tool_git_missing'; return
+        }
         $result.Facts['FileCount'] | Should -BeGreaterThan 0
         $result.Issues | Should -BeNullOrEmpty -Because 'Format-Links aligns code links; the rest need a person'
         $result.IssueCount | Should -Be 0
     }
 
     It 'every docs path in an automation string names a file that exists' -Tag 'ADR-REPO-LINK-STRINGSAREDATA' {
+        if ($script:gitMissing) {
+            Set-ItResult -Skipped -Because 'tool_git_missing'; return
+        }
         @($result.Issues | Where-Object { $_ -match '\[StringPathMissing\]' }) | Should -BeNullOrEmpty
     }
 }

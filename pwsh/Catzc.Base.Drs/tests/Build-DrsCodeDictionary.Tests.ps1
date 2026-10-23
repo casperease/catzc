@@ -38,6 +38,8 @@ Describe 'Build-DrsCodeDictionary' -Tag 'L0', 'logic', 'ADR-REPO-DRSCODE-NAMEDNO
         Mock Resolve-RepoPath -ModuleName Catzc.Base.Drs -ParameterFilter { $Path -eq 'docs/drs' } { Join-Path $script:root 'docs/drs' }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Drs { $script:root }
         Mock Write-Message -ModuleName Catzc.Base.Drs { }
+        # The fixture root is no git checkout, so the generated head reads no file as tracked.
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
     }
 
     It 'writes every segment of every code and rule heading, lower-cased, unique and sorted' {

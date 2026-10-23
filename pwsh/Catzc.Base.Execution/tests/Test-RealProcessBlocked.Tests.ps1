@@ -1,0 +1,65 @@
+BeforeAll {
+    $script:simpleCmd = if ($IsWindows) {
+        'where.exe where'
+    }
+    else {
+        'which which'
+    }
+    $script:blocked = {
+        InModuleScope Catzc.Base.Execution { Test-RealProcessBlocked }
+    }
+}
+
+AfterAll {
+    Remove-Item Env:\CATZC_BLOCK_REAL_PROCESS -ErrorAction Ignore
+}
+
+Describe 'Test-RealProcessBlocked in an L0 container' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-PROCESSTRIPWIRE' {
+    AfterEach { Remove-Item Env:\CATZC_BLOCK_REAL_PROCESS -ErrorAction Ignore }
+
+    It 'blocks nothing while the flag is unset' {
+        Remove-Item Env:\CATZC_BLOCK_REAL_PROCESS -ErrorAction Ignore
+        & $script:blocked | Should -BeFalse
+    }
+
+    It 'blocks every launch for the flag 1, whatever the tier' {
+        $env:CATZC_BLOCK_REAL_PROCESS = '1'
+        & $script:blocked | Should -BeTrue
+    }
+
+    It 'blocks a launch for the flag tier, because this container is L0' {
+        $env:CATZC_BLOCK_REAL_PROCESS = 'tier'
+        & $script:blocked | Should -BeTrue
+    }
+
+    It 'makes Invoke-Executable throw for the flag tier in an L0 container' {
+        $env:CATZC_BLOCK_REAL_PROCESS = 'tier'
+        { Invoke-Executable $script:simpleCmd -Silent } | Should -Throw '*Blocked a real process*'
+    }
+
+    Context 'a nested Context keeps the tier of its outermost Describe' {
+        It 'still blocks for the flag tier' {
+            $env:CATZC_BLOCK_REAL_PROCESS = 'tier'
+            & $script:blocked | Should -BeTrue
+        }
+    }
+}
+
+Describe 'Test-RealProcessBlocked in an L2 container' -Tag 'L2', 'logic', 'ADR-AUTO-TEST-PROCESSTRIPWIRE' {
+    AfterEach { Remove-Item Env:\CATZC_BLOCK_REAL_PROCESS -ErrorAction Ignore }
+
+    It 'lets a launch through for the flag tier, because this container is L2' {
+        $env:CATZC_BLOCK_REAL_PROCESS = 'tier'
+        & $script:blocked | Should -BeFalse
+    }
+
+    It 'lets Invoke-Executable launch for the flag tier in an L2 container' {
+        $env:CATZC_BLOCK_REAL_PROCESS = 'tier'
+        { Invoke-Executable $script:simpleCmd -Silent } | Should -Not -Throw
+    }
+
+    It 'still blocks every launch for the flag 1' {
+        $env:CATZC_BLOCK_REAL_PROCESS = '1'
+        & $script:blocked | Should -BeTrue
+    }
+}

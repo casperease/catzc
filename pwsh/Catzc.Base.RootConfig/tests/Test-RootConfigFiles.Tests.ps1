@@ -26,6 +26,8 @@ Describe 'Test-RootConfigFiles' -Tag 'L0', 'logic' {
                 Get-RootConfigCopyContent -Entry ([pscustomobject]@{ target = $Target; source = $Source; carrier = $null }) -SourcePath (Join-Path $Root $Source)
             }
         }
+        # The copies are rendered outside a git checkout, so the generated head reads no file as tracked.
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
         $script:gadgetCopy = & $copyOf 'gadget.json' 'src/gadget.json'
         [System.IO.File]::WriteAllText((Join-Path $root 'gadget.json'), $script:gadgetCopy)
         [System.IO.File]::WriteAllText((Join-Path $root 'widget.json'), (& $copyOf 'widget.json' 'src/widget.json'))

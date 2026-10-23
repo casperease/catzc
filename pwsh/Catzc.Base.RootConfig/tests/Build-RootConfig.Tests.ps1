@@ -27,6 +27,8 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
         Mock Write-Message -ModuleName Catzc.Base.RootConfig { }
         # The fake root is not the loaded code root, so the derived run mode reads 'build'; pin the source mode.
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
+        # The fake root is no git checkout, so the generated head reads no file as tracked.
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
         Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig { "rendered output`n" }
         Mock Get-Config -ModuleName Catzc.Base.RootConfig {
             [pscustomobject]@{
@@ -142,6 +144,8 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
 
         Mock Write-Message -ModuleName Catzc.Base.RootConfig { }
         Mock Get-CatzcRunMode -ModuleName Catzc.Base.RootConfig { 'source' }
+        # The fake root is no git checkout, so the generated head reads no file as tracked.
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
         Mock Invoke-RootConfigGenerator -ModuleName Catzc.Base.RootConfig {
             [pscustomobject]@{ Target = 'widgets/alpha/gadget.txt'; Content = "alpha`n" }
             [pscustomobject]@{ Target = 'widgets/beta/gadget.txt'; Content = "beta`n" }
@@ -201,17 +205,32 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Build-RootConfig — real rootconfig.yml' -Tag 'L1', 'integrity', 'source-only' {
+Describe 'Build-RootConfig — real rootconfig.yml' -Tag 'L2', 'integrity', 'source-only' {
     BeforeAll {
+        # The settings generator asks the machine's go for its root, a real process launch.
+        $script:skip = if (-not (Resolve-ToolExecutable -Tool go).Found) {
+            'tool_go_missing'
+        }
         # -DryRun composes every opted-in target's content — a source file that is missing, or an unknown generator, throws.
-        $script:rendered = Build-RootConfig -DryRun -PassThru -Silent
+        if (-not $script:skip) {
+            $script:rendered = Build-RootConfig -DryRun -PassThru -Silent
+        }
     }
 
     It 'resolves every opted-in entry without writing (sources exist, generators render)' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         @($script:rendered).Count | Should -BeGreaterThan 0
     }
 
     It 'renders every managed root file drift-free, importer.ps1 included (Test-GeneratedFiles)' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
+        if (-not (Get-Command git -ErrorAction Ignore)) {
+            Set-ItResult -Skipped -Because 'tool_git_missing'; return
+        }
         @($script:rendered | Where-Object { $_.Target -eq 'importer.ps1' }) | Should -HaveCount 1
         $result = Test-GeneratedFiles -Generator Build-RootConfig -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
@@ -236,6 +255,7 @@ Describe 'Build-RootConfig — the real New-GoWorkspace generator, <_>/ root' -T
         Mock Assert-SourceTree -ModuleName Catzc.Base.QualityGates { }
         # The fake root is no git checkout, so no file is tracked and none carries a stamp to check.
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.QualityGates { @() }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
         $script:report = Join-Path $TestDrive 'generated-files'
         $script:work = Join-Path $script:fake.Root 'go.work'
         $script:modTarget = "$($script:goRoot)/tests/widget/go.mod"

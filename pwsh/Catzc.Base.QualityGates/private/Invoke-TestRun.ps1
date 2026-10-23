@@ -153,11 +153,13 @@ function Invoke-TestRun {
         $protectedModules = @($protectionPlan.ProtectedModules)
         Write-Message '.' -NoHeader -NoNewline
 
-        $workerEnvironment = if ($MaxLevel -lt 2) {
-            @{ CATZC_BLOCK_REAL_PROCESS = '1' }
-        }
-        else {
-            $null
+        $workerEnvironment = @{
+            CATZC_BLOCK_REAL_PROCESS = if ($MaxLevel -lt 2) {
+                '1'
+            }
+            else {
+                'tier'
+            }
         }
 
         Write-Message '' -NoHeader   # ends the dot line

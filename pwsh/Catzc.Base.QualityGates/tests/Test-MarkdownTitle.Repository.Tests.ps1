@@ -10,8 +10,11 @@ catzc:
 ---
 #>
 
-Describe 'Repository Markdown titles' -Tag 'L1', 'integrity', 'source-only' {
+Describe 'Repository Markdown titles' -Tag 'L2', 'integrity', 'source-only' {
     It 'every in-scope Markdown file is titled with its repository path' -Tag 'ADR-REPO-FORMAT-MARKDOWNTITLE' {
+        if (-not (Get-Command git -ErrorAction Ignore)) {
+            Set-ItResult -Skipped -Because 'tool_git_missing'; return
+        }
         $result = Test-MarkdownTitle -PassThru -OutputFolder (Join-Path $TestDrive 'markdown-title')
         $result.Facts['FileCount'] | Should -BeGreaterThan 0
         $result.Issues | Should -BeNullOrEmpty -Because 'run Format-MarkdownTitle'

@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-CONTRACT
       - ADR-REPO-FILEMETA-NOREADBACK
       - ADR-REPO-FOLDERS-STABLEFILENAMES
-      - DDR-VISUAL-STYLEISASWITCH
+      - DDR-VISUAL-ACTIONISALENS
       - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
       - PDR-CONFIG-NEWINSTANCEISCONFIGCHANGE
       - PDR-CONFIG-DEFAULTDECLAREDONCE
@@ -145,15 +145,15 @@ one. The base is read from git, never stamped into the files
 
 - [Two directions, one truth](#two-directions-one-truth)
 
-### Rule ADR-REPO-SLIDES-STYLEPICKSPATH
+### Rule ADR-REPO-SLIDES-LENSPICKSPATH
 
-**The declaration's `content.style` picks the renderer path.** The style is `bands`, the default, or `action` (DDR-VISUAL-STYLEISASWITCH);
-both paths belong to the one renderer and the one declaration format. Put, get, conflicts and the stale rebuild apply to both unchanged: put
-renders the yml into the embedded model and the raster, get folds a hand edit back, a pair whose yml and png both moved is a conflict the
-author settles by name, and `Build-Diagrams -Stale` rebuilds a stale derived cell. A value outside the closed list fails validation with the
-list the author may choose from.
+**The declaration's `about.lens` picks the renderer path.** The lens `action` (DDR-VISUAL-ACTIONISALENS) takes the action path, and every
+other lens takes the band path; both belong to the one renderer and the one declaration format. Put, get, conflicts and the stale rebuild
+apply to both unchanged: put renders the yml into the embedded model and the raster, get folds a hand edit back, a pair whose yml and png
+both moved is a conflict the author settles by name, and `Build-Diagrams -Stale` rebuilds a stale derived cell. A value outside the closed
+list of lenses fails validation with the list the author may choose from.
 
-- [One renderer, two styles](#one-renderer-two-styles)
+- [One renderer, two paths](#one-renderer-two-paths)
 
 ### Rule ADR-REPO-SLIDES-THEMESELECTOR
 
@@ -306,14 +306,14 @@ commit and they disagree, neither direction guesses: the author runs the one tha
 the title carries how far, because over laid-out bands no reading of the drawing can recover it; it is the one input get lacks, not a
 derived fact stamped into the file, and get takes it off so the yml's layout and waypoints come back as declared.
 
-### One renderer, two styles
+### One renderer, two paths
 
 `One declaration format, one switch`
 
-A diagram's style changes what is drawn, not how a diagram is kept. Because the style is a key inside the declaration and the renderer
-branches on it, every tool that handles a declaration (put, get, the conflict check, the stale rebuild, the gate) handles both styles with
-the same code, and there is no second module to keep in step with the first. A declaration that omits the key is a band diagram, so a
-declaration with no style renders in the band style.
+A diagram's lens changes what is drawn, not how a diagram is kept. Because the lens is a key every declaration already carries and the
+renderer branches on its value, every tool that handles a declaration (put, get, the conflict check, the stale rebuild, the gate) handles
+both paths with the same code, and there is no second module to keep in step with the first. Only the value `action` takes the action path,
+so a declaration under any other lens renders in the band geometry.
 
 ### Time reads along one axis
 

@@ -141,12 +141,13 @@ Uses -DryRun, not ShouldProcess/-WhatIf — see
 
 ## comment:2
 
-Above `if ($env:CATZC_BLOCK_REAL_PROCESS -and -not $DryRun) {`, written with `#`.
+Above `if (-not $DryRun -and (Test-RealProcessBlocked)) {`, written with `#`.
 
 ```text
 Unit-test tripwire (sibling to -DryRun: both prevent a launch — DryRun returns the command, this
-throws). When a unit (L1) run sets $env:CATZC_BLOCK_REAL_PROCESS, a real process launch means a Mock
-failed to intercept — almost always a -ModuleName pointing at the wrong module — so the test was
-silently hitting the live tool. Fail loudly instead. -DryRun is exempt (it never launches).
+throws). When a run sets $env:CATZC_BLOCK_REAL_PROCESS (1 for every launch, tier for the L0 and L1
+Describes alone, Test-RealProcessBlocked), a real process launch there means a Mock failed to
+intercept — almost always a -ModuleName pointing at the wrong module — so the test was silently
+hitting the live tool. Fail loudly instead. -DryRun is exempt (it never launches).
 See [ADR-AUTO-TEST](/docs/drs/automation/test-automation.md).
 ```

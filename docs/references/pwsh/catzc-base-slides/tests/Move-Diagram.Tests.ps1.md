@@ -5,9 +5,9 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Move-Diagram — an article-carried diagram' -Tag 'L1', 'logic',...`, written with `#`.
+Above `Describe 'Move-Diagram — an article-carried diagram' -Tag 'L2', 'logic',...`, written with `#`.
 
 ```text
-The carrier re-key runs the kit's own editor (declaration.py rekey) through uv, so this tier is L1: the repository's kit edits the
-fixture tree's drawio.yml.
+The fixture repository is made and the diagram moved with real git (git init, git mv, git ls-files), and the carrier re-key runs the
+kit's own editor (declaration.py rekey) through uv, so this tier is L2: the repository's kit edits the fixture tree's drawio.yml.
 ```

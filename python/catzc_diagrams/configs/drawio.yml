@@ -25,6 +25,7 @@ carriers: # a diagram's carrier, keyed by its stem's repository path (`.assets/<
   docs/explanation/repository/.assets/one-source-one-writer-one-boolean: file
   docs/explanation/thesis/product-thesis/.assets/truth-stores: file
   docs/references/pwsh/.assets/tools-yml-install-dispatch: file
+  docs/explanation/automation/.assets/reading-an-accosted-file-writes-nothing: file
 lenses: # the closed set of lenses a diagram is drawn through (its about.lens, the end of its subtitle), each with what it shows; the badge prints the name
   meta: what the decision is and why
   architecture: the parts and how they depend on each other
@@ -32,6 +33,7 @@ lenses: # the closed set of lenses a diagram is drawn through (its about.lens, t
   operations: what an operator sets and sees
   governance: which gates check it
   source: one responsibility of one module, drawn from the code
+  action: one action, its cause on the left rim and its effects on rings, in accosted words
 commits: # the locked commit palette ([DDR-VISUAL-FIXEDCOMMITPALETTE](/docs/drs/design/visual-design.md#rule-ddr-visual-fixedcommitpalette)):a commit state's fill, stroke and digit ink, hex without the hash; the first is the default
   bvt: FFE082 F9A825 1E2430
   topic: C4915C 7A4B25 1E2430
@@ -53,15 +55,12 @@ layers: # the paint order, back to front: put orders the model's cells by it und
 kinds: # the two diagram kinds; each supplies the default three minimaps (minimaps: below)
   explanation: an explanation diagram, embedded by an article under docs/explanation
   reference: a reference diagram, embedded by a page under docs/references or docs/drs
-styles: # the diagram styles a declaration's content.style names; the first is the default, so a declaration without the key renders as before
-  bands: bands of glyphs and the edges between them, every diagram until now
-  action: one action with its cause on the left rim and its effects on rings around it, in accosted words
 wheres: # where an action diagram's effect happens, drawn as its where chip
   local: this machine and this repository
   remote: a service or a machine beyond the repository
 action-style: # what the action style draws with: the ring layout constants in diagram units, and its glyph kinds (glyphs.xml ids g-<kind>)
-  ring-gap: 150 # the distance from one ring to the next
-  note-width: 210 # the width of an effect's note
+  ring-gap: 240 # the distance from one ring to the next: the note width and 50 clear
+  note-width: 190 # the width of an effect's note
   cause-radius: 80 # the radius of the cause's half-disc on the left rim
   glyphs: cause, action, callsite, ring, effect
 themes: # the themes a diagram renders in, each a theme-<name> token set below; the first is the default and the one whose raster is committed

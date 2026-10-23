@@ -101,7 +101,23 @@ Describe 'Get-WorldMapHighlight — the real repository' -Tag 'L1', 'integrity',
         }
     }
 
+}
+
+# The zero-argument call reads the real working tree with git status, so the point of this one is the launch: L2.
+Describe 'Get-WorldMapHighlight — the real working tree' -Tag 'L2', 'integrity', 'source-only' {
+    BeforeAll {
+        $script:skip = if (Get-Command git -ErrorAction Ignore) {
+            $null
+        }
+        else {
+            'tool_git_missing'
+        }
+    }
+
     It 'returns the working tree''s highlight on the zero-argument call without error' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         $highlight = Get-WorldMapHighlight
         $highlight | Should -BeOfType [Catzc.Base.Maps.WorldMapHighlight]
         $highlight.Kind | Should -Be 'path'

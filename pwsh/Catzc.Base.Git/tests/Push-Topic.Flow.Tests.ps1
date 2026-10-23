@@ -13,8 +13,15 @@ catzc:
 ---
 #>
 
-Describe 'The git topic flow over a scratch server' -Tag 'L1', 'logic', 'FDR-GIT-USERRUNSGIT' {
+# A scratch server and clones are made and driven with real git (clone, rebase, push, rev-parse), so the point of the file is the launch: L2.
+Describe 'The git topic flow over a scratch server' -Tag 'L2', 'logic', 'FDR-GIT-USERRUNSGIT' {
     BeforeAll {
+        $script:skip = if (Get-Command git -ErrorAction Ignore) {
+            $null
+        }
+        else {
+            'tool_git_missing'
+        }
         $script:config = [Catzc.Base.Git.GitFlowConfig]::new(@{})
         function Invoke-Scratch {
             param([string] $Path, [string[]] $Arguments)
@@ -47,6 +54,9 @@ Describe 'The git topic flow over a scratch server' -Tag 'L1', 'logic', 'FDR-GIT
     }
 
     BeforeEach {
+        if ($script:skip) {
+            return
+        }
         # Every flow command names its clone; a git call that fell back to the loaded repository would land here and fail.
         $script:nowhere = Join-Path $TestDrive 'not-a-repository'
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Git { $script:nowhere }
@@ -65,6 +75,9 @@ Describe 'The git topic flow over a scratch server' -Tag 'L1', 'logic', 'FDR-GIT
     }
 
     It 'resolves the current server HEAD as the sync point and announces the fallback' -Tag 'FDR-GIT-FALLBACKISANNOUNCED' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         $point = Get-SyncPoint -Config $script:config -RepositoryRoot $script:topic
         $point.Source | Should -BeExactly 'fallback'
         $point.Commit | Should -BeExactly (Invoke-Scratch $script:server @('rev-parse', 'main'))
@@ -72,6 +85,9 @@ Describe 'The git topic flow over a scratch server' -Tag 'L1', 'logic', 'FDR-GIT
     }
 
     It 'rebases the topic onto new server work' -Tag 'FDR-GIT-SYNCBYREBASE' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         Add-Commit -Path $script:topic -File 'gadget.txt' -Text 'topic'
         Add-Commit -Path $script:seed -File 'sprocket.txt' -Text 'server' -Push
         $result = Sync-Topic -Config $script:config -RepositoryRoot $script:topic -WarningAction SilentlyContinue
@@ -82,6 +98,9 @@ Describe 'The git topic flow over a scratch server' -Tag 'L1', 'logic', 'FDR-GIT
     }
 
     It 'stops on a conflict and leaves the rebase to the user' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         Add-Commit -Path $script:topic -File 'widget.txt' -Text 'topic edit'
         Add-Commit -Path $script:seed -File 'widget.txt' -Text 'server edit' -Push
         { Sync-Topic -Config $script:config -RepositoryRoot $script:topic -WarningAction SilentlyContinue } | Should -Throw '*conflicts in: widget.txt*git rebase --abort*'
@@ -90,6 +109,9 @@ Describe 'The git topic flow over a scratch server' -Tag 'L1', 'logic', 'FDR-GIT
     }
 
     It 'lands a three-commit topic as one commit on main in main-direct' -Tag 'FDR-GIT-ONESQUASHEDCOMMIT' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         $before = Invoke-Scratch $script:server @('rev-parse', 'main')
         Add-Commit -Path $script:topic -File 'gadget.txt' -Text 'one'
         Add-Commit -Path $script:topic -File 'sprocket.txt' -Text 'two'
@@ -103,6 +125,9 @@ Describe 'The git topic flow over a scratch server' -Tag 'L1', 'logic', 'FDR-GIT
     }
 
     It 'stops on a rejected push and keeps the commit' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         [System.IO.File]::WriteAllText((Join-Path $script:server 'hooks/pre-receive'), "#!/bin/sh`nexit 1`n")
         Add-Commit -Path $script:topic -File 'gadget.txt' -Text 'one'
         { Push-Topic -Config $script:config -RepositoryRoot $script:topic } | Should -Throw '*rejected*is kept*'
@@ -110,6 +135,9 @@ Describe 'The git topic flow over a scratch server' -Tag 'L1', 'logic', 'FDR-GIT
     }
 
     It 'refuses main in main-via-pr' -Tag 'FDR-GIT-TOPICHISTORYISTHEAUTHORS' {
+        if ($script:skip) {
+            Set-ItResult -Skipped -Because $script:skip; return
+        }
         Mock Test-GitWorkspace -ModuleName Catzc.Base.Git { $true }
         Invoke-Scratch $script:topic @('checkout', '--quiet', 'main') | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:topic 'gadget.txt'), "one`n")

@@ -11,3 +11,12 @@ Above `function Write-ListenFixtureFile {`, written with `#`.
 The shared fixture of the listen tests: a repository in TestDrive with a watched docs folder, a fast config, and the mocks that bind
 the module to them. Dot-sourced from each test file's BeforeAll; Initialize-ListenFixture is called once per test that needs a fresh tree.
 ```
+
+## comment:2
+
+Above `Mock Get-ListenDiff -ModuleName Catzc.Tooling.Listen {`, written with `#`.
+
+```text
+Get-ListenDiff launches git (git diff --no-index), which the fast tiers never do (ADR-AUTO-TEST-PROCESSTRIPWIRE): this stand-in diffs
+the two sides' lines in memory and yields the same shape, the one hunk from its header on, empty when the sides are equal.
+```

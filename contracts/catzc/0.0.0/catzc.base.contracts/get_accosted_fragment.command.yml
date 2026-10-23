@@ -3,7 +3,7 @@
 # a computed default the contract does not restate.
 parameters:
   path: string!
-  run: int
-  command: int
+  run_number: int
+  command_number: int
   repository_root: string
 output: string

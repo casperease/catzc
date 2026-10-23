@@ -57,6 +57,18 @@ SLIDE = ".drawio.png"
 SOURCE = ".drawio.yml"  # the diagram's one source: its description, its content and the layout of the cells off the grid
 FLOWS = ("left-to-right", "top-to-bottom")
 KINDS = tuple(DEFAULTS["kinds"])
+ROOT = KIT.parents[1]  # the repository root: the command contracts and an action diagram's proof file resolve against it
+# The action lens: one action, its cause on the left rim and its effects on rings, in accosted words. Its glyph kinds, its where
+# chips and its ring constants are declared once in drawio.yml; the lens itself is one of lenses: there.
+ACTION_LENS = "action"
+ACTION_KEYS = ("cause", "action", "effects")  # the content keys only the action lens draws
+WHERES = tuple(DEFAULTS["wheres"])
+ACTION = DEFAULTS["action-style"]
+ACTION_KINDS = tuple(str(ACTION["glyphs"]).replace(",", " ").split())
+CONTRACTS = Path("contracts") / "catzc" / "0.0.0"  # the command contracts an accosted call is checked against, under ROOT
+RING_ASPECT = 0.6  # a ring's height over its width: the rings open rightward as flattened ellipses, so the frame stays a page
+ACTION_WIDTH = 300  # the widest action glyph; a longer call wraps inside it
+ACTION_CLEARANCE = 40  # how far the first ring clears the action's right edge, and the action the cause's flat side's round
 # The cells put derives from the kit and the registries, never from the author: get skips them, and a change to them is stale.
 DERIVED = ("sidebar-bg", "legend", "lens-badge", "mapkey")
 DERIVED_PREFIXES = ("lg-", "mk-", "minimap-", "lane-")  # lane- is a lane's trunk, its marks and the gate rules: the yml's alone
@@ -67,6 +79,9 @@ CONTENT_KEYS = (
     "relation",
     "thick",
     "theme",
+    "cause",
+    "action",
+    "effects",
     "bands",
     "spans",
     "templates",
@@ -220,6 +235,11 @@ def library():
     glyphs.pop("commit-red", None)
     tag = cells["g-type-tag"]
     glyphs["type"]["tag"] = {"style": tag.get("style"), "size": geometry(tag)}
+    # The action lens: an effect's where chip, and a call site's member row (one per command).
+    tag = cells["g-effect-tag"]
+    glyphs["effect"]["tag"] = {"style": tag.get("style"), "size": geometry(tag)}
+    member = cells["g-callsite-a-member"]
+    glyphs["callsite"]["member"] = {"style": member.get("style"), "size": geometry(member)}
     return {"glyphs": glyphs, "edges": edges, "marks": marks, "module": cells["g-module"].get("style")}
 
 
@@ -533,6 +553,9 @@ def save(folder, declaration):
             "lens": declaration["about"]["lens"],
             **{key: declaration["about"][key] or held["about"][key] for key in minimaps.ABOUT_KEYS},
         }
+        proves = declaration["about"].get("proves") or held["about"].get("proves")  # the drawing never carries the proof file
+        if proves:
+            about["proves"] = proves
         declaration = {**declaration, "about": about, "content": undrawn(declaration["content"], held)}
         # The drawing carries a row only as its expansion: when the drawing still draws what the source's rows expand to, the source
         # keeps its rows (the layout is the drawing's); when it draws something else, the drawing wins.
@@ -582,7 +605,7 @@ def undrawn(content, declared):
     return out
 
 
-ABOUT_KEYS = ("adrs", "lens")  # the subject's ADR codes and the lens it is drawn through
+ABOUT_KEYS = ("adrs", "lens", "proves")  # the subject's ADR codes, the lens it is drawn through, and an action diagram's proof file
 # The subject's former lists: read and ignored, never written back, so a get or a save drops them (the minimaps' rework).
 RETIRED_ABOUT_KEYS = ("tracks", "languages", "modules", "files")
 
@@ -765,6 +788,18 @@ def normalise(raw, where="the declaration"):
     if theme not in themes:
         choices(f"{where}: theme", theme, themes)
     out["theme"] = theme
+    # The action lens draws its cause, its action and its effects, and the renderer draws every edge; every other lens draws bands.
+    if lens == ACTION_LENS:
+        for key in ("bands", "groups", "glyphs", "notes", "edges", "spans", "markers", "chips") + SHORTHAND:
+            if content.get(key):
+                raise DeclarationError(
+                    f"{where}: content.{key} is the band grammar; the action lens draws cause, action and effects, and the renderer "
+                    "draws the edges"
+                )
+    else:
+        for key in ACTION_KEYS:
+            if key in content:
+                raise DeclarationError(f"{where}: content.{key} belongs to the action lens; this diagram's lens is {lens}")
     out["bands"] = [entry(b, ("id", "label"), where, "band") for b in content.get("bands") or []]
     ids = {}
     for b in out["bands"]:
@@ -864,6 +899,8 @@ def normalise(raw, where="the declaration"):
             if ids.get(edge[end]) not in ("glyph", "group"):
                 choices(f"{where}: edge {end}", edge[end], [i for i, k in ids.items() if k in ("glyph", "group")])
         out["edges"].append(edge)
+    if lens == ACTION_LENS:
+        action_content(content, out, ids, where)
     out["markers"] = []
     edge_keys = [f"{e['from']}->{e['to']}" for e in out["edges"]]
     for m in content.get("markers") or []:
@@ -922,8 +959,7 @@ def normalise(raw, where="the declaration"):
     # the lit cells its author rejects; the lit cells are computed at build from about.adrs and the citing files.
     if not isinstance(declared, list):
         raise DeclarationError(
-            f"{where}: minimaps is a list of the shown minimaps, each an id or {{ id: {{ exclude: [cells] }} }}"
-            ", never the cells they light"
+            f"{where}: minimaps is a list of the shown minimaps, each an id or {{ id: {{ exclude: [cells] }} }}, never the cells they light"
         )
     if declared and len(declared) != 3:
         raise DeclarationError(f"{where}: minimaps names exactly three views of: {', '.join(allowed)}; it names {len(declared)}")
@@ -932,7 +968,7 @@ def normalise(raw, where="the declaration"):
         if isinstance(shown, dict):
             if len(shown) != 1:
                 raise DeclarationError(f"{where}: minimaps lists an entry of {len(shown)} keys; each entry is one id")
-            (view, inputs), = shown.items()
+            ((view, inputs),) = shown.items()
             inputs = inputs or {}
             if not isinstance(inputs, dict) or set(inputs) - {"exclude"}:
                 raise DeclarationError(f"{where}: minimaps.{view} takes only exclude:, a list of the lit cells its author rejects")
@@ -954,11 +990,28 @@ def normalise(raw, where="the declaration"):
     for problem in minimaps.problems(about):
         raise DeclarationError(f"{where}: {problem}")
     out["adrs"] = about["adrs"]
+    # An action diagram's proof: the accosted file that holds every effect's observation, named relative to the repository root. The
+    # drawing cannot carry it, so get leaves it out and save keeps the source's; a committed diagram needs it (Test-Diagrams).
+    proves = about_raw.get("proves")
+    if proves is not None and lens != ACTION_LENS:
+        raise DeclarationError(f"{where}: about.proves names an action diagram's proof file; this diagram's lens is {lens}")
+    if proves is not None:
+        if not isinstance(proves, str) or not proves.strip():
+            raise DeclarationError(f"{where}: about.proves is the repository path of a <name>.accosted.yml file")
+        about["proves"] = proves.strip()
+        runs = proof_runs(about["proves"], where)
+        for effect in out["effects"]:
+            if effect["proves"] not in runs:
+                raise DeclarationError(
+                    f"{where}: effect '{effect['id']}' proves `{call_line(effect['proves'])}`, which no run of {about['proves']} holds"
+                )
     for chip in out["chips"]:
         if chip["kind"] == "rule" and chip["rule"] not in about["adrs"]:
             choices(f"{where}: rule chip at '{chip['at']}' rule", chip["rule"], about["adrs"])
     layout = {}
     for cid, box in (raw.get("layout") or {}).items():
+        if lens == ACTION_LENS and cid != "frame":  # the lens computes every place from ring and order; only the frame is pinned
+            choices(f"{where}: layout cell (the action lens places every cell by ring and order)", cid, ("frame",))
         if cid not in ids:
             choices(f"{where}: layout cell", cid, tuple(ids))
         if not isinstance(box, dict) or set(box) != {"x", "y", "w", "h"}:
@@ -967,6 +1020,120 @@ def normalise(raw, where="the declaration"):
     # What the diagram shows, in a sentence or two, for whoever meets it outside any article; no article is named here.
     description = " ".join(str(raw.get("description", "") or "").split())
     return {"description": description, "about": about, "content": out, "layout": layout}
+
+
+def command_contracts():
+    """The contracted commands under ROOT/contracts/catzc/0.0.0, each with its parameter names: `<module>/<name>.command.yml`."""
+    out = {}
+    for path in sorted((ROOT / CONTRACTS).glob("*/*.command.yml")):
+        contract = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        out[path.name[: -len(".command.yml")]] = tuple((contract.get("parameters") or {}).keys())
+    return out
+
+
+def contract_call(raw, where, what):
+    """One command in the contract form (ADR-AUTO-ACCOSTED-COMMANDFORM): a mapping of one key, a contracted command's name in the normal
+    form, to its arguments, each a literal of a closed type under its parameter's name; `name:` alone is a call without arguments. The
+    kit checks the form against the command contracts and runs nothing."""
+    if isinstance(raw, str):
+        raw = {raw: None}
+    if not isinstance(raw, dict) or len(raw) != 1:
+        raise DeclarationError(f"{where}: {what} is one command in the contract form, `name: {{ parameter: literal }}`")
+    ((name, args),) = raw.items()
+    contracts = command_contracts()
+    if name not in contracts:
+        raise DeclarationError(
+            f"{where}: {what} names '{name}', which is not a contracted command ({len(contracts)} under {CONTRACTS.as_posix()})"
+        )
+    if args is None:
+        args = {}
+    if not isinstance(args, dict):
+        raise DeclarationError(f"{where}: {what} '{name}' takes a map of parameter: literal")
+    for parameter, value in args.items():
+        if parameter not in contracts[name]:
+            choices(f"{where}: {what} '{name}' parameter", parameter, contracts[name])
+        if isinstance(value, (dict, list)) or value is None:
+            raise DeclarationError(f"{where}: {what} '{name}' {parameter} is one literal, never a list, a map or empty")
+    return {str(name): {str(k): v for k, v in args.items()}}
+
+
+def call_line(call):
+    """A contract-form command as the one line the drawing prints: `name: { parameter: literal }`, or the name alone."""
+    ((name, args),) = call.items()
+    return f"{name}: {_flow(args)}" if args else name
+
+
+def parse_call(line):
+    """The call a drawing's line prints, back in the contract form."""
+    try:
+        raw = yaml.safe_load(line)
+    except yaml.YAMLError as error:
+        raise DeclarationError(f"get cannot read `{line}` as a contract-form call: {error}") from None
+    return {raw: None} if isinstance(raw, str) else raw
+
+
+def proof_runs(path, where):
+    """The commands an accosted file's runs hold, each in the contract form, for the membership check of an effect's proof."""
+    file = ROOT / path
+    if not file.is_file():
+        raise DeclarationError(f"{where}: about.proves names {path}, which is not a file under the repository root")
+    document = yaml.safe_load(file.read_text(encoding="utf-8")) or {}
+    runs = document.get("runs") if isinstance(document, dict) else None
+    if not isinstance(runs, list):
+        raise DeclarationError(f"{where}: about.proves {path} is not an accosted file: its one key is runs:, a list of runs")
+    out = []
+    for run in runs:
+        for command in run or []:
+            if isinstance(command, str):
+                command = {command: None}
+            if isinstance(command, dict) and len(command) == 1:
+                ((name, args),) = command.items()
+                out.append({str(name): {str(k): v for k, v in (args or {}).items()}})
+    return out
+
+
+def action_content(content, out, ids, where):
+    """The action lens's content: its cause (the actor or trigger, in plain words), its action (one contract-form call, or a call site
+    of several, drawn one row each) and its effects, each a note on a ring with its where chip and the observation that proves it."""
+    for key in ACTION_KEYS:
+        if key not in content:
+            raise DeclarationError(f"{where}: the action lens needs content.{key}")
+    cause = entry(content["cause"], ("label",), where, "cause")
+    action_raw = content["action"]
+    if not isinstance(action_raw, dict) or set(action_raw) not in ({"call"}, {"calls"}):
+        raise DeclarationError(f"{where}: content.action is `call: <one command>` or `calls: [<commands>]`, never both or neither")
+    if "call" in action_raw:
+        action = {"call": contract_call(action_raw["call"], where, "action.call")}
+    else:
+        calls = action_raw["calls"]
+        if not isinstance(calls, list) or len(calls) < 2:
+            raise DeclarationError(f"{where}: content.action.calls is a call site of two or more commands; one command is `call:`")
+        action = {"calls": [contract_call(c, where, f"action.calls[{n}]") for n, c in enumerate(calls)]}
+    effects_raw = content["effects"]
+    if not isinstance(effects_raw, list) or not effects_raw:
+        raise DeclarationError(f"{where}: content.effects is a list of the action's effects, one or more")
+    for cid in ("frame", "cause", "action"):
+        ids[cid] = cid
+    effects = []
+    for raw in effects_raw:
+        effect = entry(raw, ("id", "ring", "where", "says", "proves"), where, "effect")
+        if effect["id"] in ids:
+            raise DeclarationError(f"{where}: id '{effect['id']}' is used twice")
+        if not str(effect["ring"]).isdigit() or int(effect["ring"]) < 1:
+            raise DeclarationError(f"{where}: effect '{effect['id']}' ring is the causal hop, 1 or more; it is {effect['ring']}")
+        effect["ring"] = int(effect["ring"])
+        if effect["where"] not in WHERES:
+            choices(f"{where}: effect '{effect['id']}' where", effect["where"], WHERES)
+        if not effect["says"].strip():
+            raise DeclarationError(f"{where}: effect '{effect['id']}' says nothing; says is the state it changes, in plain words")
+        effect["proves"] = contract_call(raw.get("proves"), where, f"effect '{effect['id']}' proves")
+        ids[effect["id"]] = "effect"
+        effects.append(effect)
+    rings = sorted({e["ring"] for e in effects})
+    if rings != list(range(1, len(rings) + 1)):
+        raise DeclarationError(f"{where}: the rings are the causal hops 1, 2, …, each with an effect; the effects name {rings}")
+    # The canonical order is by ring, then as declared: the order the drawing shows, top to bottom on each ring.
+    out["cause"], out["action"], out["effects"] = cause, action, sorted(effects, key=lambda e: e["ring"])
 
 
 def entry(item, keys, where, what, optional=None):
@@ -1228,9 +1395,30 @@ def in_paint_order(cells):
     return ordered + [c for c in cells if id(c) not in placed]
 
 
+def chrome(content, cells):
+    """The chrome every diagram opens with: the lens once, as the chip that opens the title row, the title, and under it the subtitle,
+    the ADR codes alone. Returns how far a wrapped subtitle drops the drawing area."""
+    chip_w = 16 + 8 * len(content["lens"])
+    cells.append(cell("lens-badge", content["lens"].upper(), BADGE, PAGE["x"], PAGE["title_y"] + 4, chip_w, 22))
+    title_x = PAGE["x"] + chip_w + 12
+    cells.append(
+        cell(
+            "title", html.escape(content["title"], quote=False), TITLE, title_x, PAGE["title_y"], PAGE["width"] - (title_x - PAGE["x"]), 30
+        )
+    )
+    subtitle = " · ".join(content["adrs"])
+    lines = max(1, -(-len(subtitle) * 7 // (PAGE["width"] - 20)))  # about 7 px a character at 12 px
+    drop = (lines - 1) * 16  # the grid starts the bands this much lower under a wrapped subtitle
+    cells.append(cell("subtitle", subtitle, SUBTITLE, PAGE["x"], PAGE["subtitle_y"] - 4, PAGE["width"] - 20, 18 + lines * 16))
+    return drop
+
+
 def place(declaration):
-    """Every cell of the model with its absolute geometry: the grid places what the layout does not name."""
+    """Every cell of the model with its absolute geometry: the grid places what the layout does not name; the action lens places
+    everything by ring and order."""
     content, layout = declaration["content"], declaration["layout"]
+    if content["lens"] == ACTION_LENS:
+        return place_action(declaration)
     glyph_lib = LIB["glyphs"]
     holder = {}
     for item in content["groups"] + content["glyphs"] + content.get("notes", []):
@@ -1308,20 +1496,7 @@ def place(declaration):
     upright = lambda s: vertical and any(o in {b["id"] for b in content["bands"]} for o in s["over"])
     bands = content["bands"]
     cells = []
-    # The chrome: title and subtitle.
-    # The lens once, as the chip that opens the title row; the subtitle under the title is the ADR codes alone.
-    chip_w = 16 + 8 * len(content["lens"])
-    cells.append(cell("lens-badge", content["lens"].upper(), BADGE, PAGE["x"], PAGE["title_y"] + 4, chip_w, 22))
-    title_x = PAGE["x"] + chip_w + 12
-    cells.append(
-        cell(
-            "title", html.escape(content["title"], quote=False), TITLE, title_x, PAGE["title_y"], PAGE["width"] - (title_x - PAGE["x"]), 30
-        )
-    )
-    subtitle = " · ".join(content["adrs"])
-    lines = max(1, -(-len(subtitle) * 7 // (PAGE["width"] - 20)))  # about 7 px a character at 12 px
-    drop = (lines - 1) * 16  # the grid starts the bands this much lower under a wrapped subtitle
-    cells.append(cell("subtitle", subtitle, SUBTITLE, PAGE["x"], PAGE["subtitle_y"] - 4, PAGE["width"] - 20, 18 + lines * 16))
+    drop = chrome(content, cells)
     # The bands along the flow: side by side left to right, or stacked top to bottom.
     band_box = {}
     if vertical:
@@ -1520,7 +1695,7 @@ def place(declaration):
         cells.extend(span_cells[s["id"]])
     # Room for the spans: when the topmost span label would reach into the title and subtitle, the whole drawing area moves down by
     # the shortfall; the title, the subtitle and the lens chip stay where they are.
-    title_room = PAGE["subtitle_y"] + lines * 16 + 4
+    title_room = PAGE["subtitle_y"] + (drop // 16 + 1) * 16 + 4  # the subtitle's lines, from the drop chrome returned
     labels_top = [c["y"] for c in cells if c["id"].endswith("-label") and any(c["id"] == f"{s['id']}-label" for s in content["spans"])]
     delta = max(0, title_room - min(labels_top)) if labels_top else 0
     if delta:
@@ -1596,6 +1771,83 @@ def place(declaration):
         else:
             value, style = c["text"], mark["style"]
         cells.append(cell(f"chip-{c['kind']}-{c['at']}-{k}", value, style, cx, cy, mark["size"][0], mark["size"][1]))
+    return finish(cells, content, content_bottom, declaration)
+
+
+def place_action(declaration):
+    """The action lens's cells: one rounded frame captioned with the title; the cause, a half-disc whose flat side sits on the frame's
+    left rim; the action right of it, one call or a call site of rows; the rings, one per causal hop, half-rings opening rightward from
+    the cause's centre; each effect a note on its ring with its where chip, spread top to bottom in declared order; and the flow edges
+    the lens draws itself, cause to action and action to each effect. Nothing but the frame takes a layout entry."""
+    content, layout = declaration["content"], declaration["layout"]
+    lib = LIB["glyphs"]
+    gap, note_w, radius = int(ACTION["ring-gap"]), int(ACTION["note-width"]), int(ACTION["cause-radius"])
+    cells: list = []
+    drop = chrome(content, cells)
+    action, effects = content["action"], content["effects"]
+    site = "calls" in action
+    lines = [call_line(c) for c in (action["calls"] if site else [action["call"]])]
+    member = lib["callsite"]["member"]
+    aw = min(ACTION_WIDTH, max(lib["callsite" if site else "action"]["size"][0], 28 + 7 * max(len(line) for line in lines)))
+    ah = 30 + (member["size"][1] + 10) * len(lines) if site else lib["action"]["size"][1]
+
+    def note_h(e):  # the says line(s) and the proof line under them, at about 7 px a character
+        per = max(1, (note_w - 24) // 7)
+        return 24 + 16 * (max(1, math.ceil(len(e["says"]) / per)) + max(1, math.ceil(len(call_line(e["proves"])) / per)))
+
+    hops = max(e["ring"] for e in effects)
+    if gap < note_w + PAD:  # two effects at the same angle on neighbouring rings would overlap: the kit's constants, not the author's
+        raise DeclarationError(
+            f"drawio.yml action-style: ring-gap {gap} leaves no room for a note of note-width {note_w} plus {PAD}; raise ring-gap"
+        )
+    # The rings are centred where the cause's flat side meets the frame's left rim, so they open rightward as half-rings cut by the
+    # frame; the action sits right of the cause, and the first ring clears the action's right edge.
+    r0 = radius + ACTION_CLEARANCE + aw + ACTION_CLEARANCE
+    r_max = r0 + hops * gap
+    half = max(radius + PAD, round(r_max * RING_ASPECT) + max(note_h(e) for e in effects) // 2 + PAD, ah // 2 + PAD)
+    frame = layout.get("frame") or {"x": PAGE["x"], "y": PAGE["band_y"] + drop, "w": PAGE["width"], "h": LABEL_ROW + 2 * half + PAD}
+    cx = frame["x"]
+    cy = frame["y"] + LABEL_ROW + (frame["h"] - LABEL_ROW - PAD) // 2
+    reach = r_max + note_w + PAD
+    if reach > frame["w"]:
+        raise DeclarationError(
+            f"the action lens needs {reach} px for {hops} rings and their notes; the frame is {frame['w']} wide: fewer rings, or shorter calls"
+        )
+    cells.append(cell("frame", html.escape(content["title"], quote=False), BAND, frame["x"], frame["y"], frame["w"], frame["h"]))
+    label = html.escape(content["cause"]["label"], quote=False)
+    cells.append(cell("cause", label, lib["cause"]["style"], frame["x"], cy - radius, radius, 2 * radius))
+    ax, ay = cx + radius + ACTION_CLEARANCE, cy - ah // 2
+    if site:
+        cells.append(cell("action", f"<b>{lib['callsite']['phrase']}</b>", lib["callsite"]["style"], ax, ay, aw, ah))
+        for n, line in enumerate(lines):
+            y = ay + 30 + n * (member["size"][1] + 10)
+            cells.append(
+                cell(f"action-{n + 1}", html.escape(line, quote=False), member["style"], ax + 14, y, aw - 28, member["size"][1], "action")
+            )
+    else:
+        cells.append(cell("action", html.escape(lines[0], quote=False), lib["action"]["style"], ax, ay, aw, ah))
+    tag, flow = lib["effect"]["tag"], LIB["edges"]["flow"]["style"]
+    for k in range(1, hops + 1):
+        r = r0 + k * gap
+        ry = round(r * RING_ASPECT)
+        cells.append(cell(f"ring-{k}", "", lib["ring"]["style"], cx - r, cy - ry, 2 * r, 2 * ry))
+        on_ring = [e for e in effects if e["ring"] == k]
+        for n, e in enumerate(on_ring):  # spread over the right half-ring, top to bottom, in declared order
+            angle = 0.0 if len(on_ring) == 1 else math.radians(-70 + 140 * n / (len(on_ring) - 1))
+            h = note_h(e)
+            x, y = round(cx + r * math.cos(angle)), round(cy + ry * math.sin(angle) - h / 2)
+            text = f"<b>{html.escape(e['says'], quote=False)}</b><br>{html.escape(call_line(e['proves']), quote=False)}"
+            cells.append(cell(e["id"], text, lib["effect"]["style"], x, y, note_w, h))
+            cells.append(
+                cell(f"{e['id']}-tag", e["where"], tag["style"], x + note_w - tag["size"][0] - 8, y - 8, tag["size"][0], tag["size"][1])
+            )
+            cells.append(edge_cell(f"e-action-{e['id']}", "", flow, "action", e["id"]))
+    cells.append(edge_cell("e-cause-action", "", flow, "cause", "action"))
+    return finish(cells, content, frame["y"] + frame["h"], declaration)
+
+
+def finish(cells, content, content_bottom, declaration):
+    """The legend under the drawing and the sidebar beside it; then every cell in paint order, with the page height."""
     # The legend below the bands: the kinds the diagram uses, in columns.
     legend_y = content_bottom + GAP
     entries = legend_entries(content)
@@ -1648,7 +1900,7 @@ def legend_entries(content):
     def swatch_for(kind):
         style = glyphs[kind]["style"]
         shape = style_map(style).get("shape", "")
-        size = {"note": (32, 22), "cylinder3": (28, 26), "hexagon": (40, 22)}.get(
+        size = {"note": (32, 22), "cylinder3": (28, 26), "hexagon": (40, 22), "delay": (14, 22)}.get(
             shape, (24, 22) if "ellipse" in style else (36, 26) if "rhombus" in style else (40, 18)
         )
         swatch_style = ";".join(
@@ -1673,6 +1925,11 @@ def legend_entries(content):
 
     entries = []
     wanted = content["legend"] if content["legend"] != "auto" else None
+    if content["lens"] == ACTION_LENS:  # the lens's own kinds, and the flow edge it draws
+        for kind in ("cause", "callsite" if "calls" in content["action"] else "action", "ring", "effect"):
+            entries.append((kind, swatch_for(kind), glyphs[kind]["phrase"]))
+        phrase = f"flow: {content['relation']}" if content["relation"] else LIB["edges"]["flow"]["phrase"]
+        entries.append(("edge-flow", edge_swatch("flow"), phrase))
     for kind in dict.fromkeys(g["kind"] for g in content["glyphs"]):
         if kind != "commit":
             entries.append((kind, swatch_for(kind), glyphs[kind]["phrase"]))
@@ -1818,6 +2075,8 @@ def get(model, kind=None):
             parent = cells.get(parent.get("parent") or "")
         geo[cid] = {"x": int(x), "y": int(y), "w": int(float(g.get("width", 0))), "h": int(float(g.get("height", 0)))}
     glyph_sigs = {k: signature(v["style"]) for k, v in LIB["glyphs"].items()}
+    if any(matches(glyph_sigs["cause"], c.get("style") or "") for cid, c in cells.items() if not cid.startswith("lg-")):
+        return get_action(cells, geo, glyph_sigs, kind)
     palette_fills = {fill.upper(): state for state, (fill, _, _) in COMMITS.items()}
     mark_sigs = {k: signature(v["style"]) for k, v in LIB["marks"].items()}
     module_sig = signature(LIB["module"])
@@ -2081,6 +2340,48 @@ def get(model, kind=None):
         kept.update({cid: box for cid, box in read.items() if level(cid) == lv and grid.get(cid) != box})
     declaration["layout"] = {cid: box for cid, box in read.items() if cid in kept}
     return declaration
+
+
+def get_action(cells, geo, glyph_sigs, kind):
+    """The action lens read back: the title and ADR codes from the chrome, the cause's label, the action's call or its call site's rows,
+    and each effect's note with its where chip and its proof line; an effect's ring is read from its distance to the action's centre
+    and its order from its angle, top to bottom, so a moved note folds back to a ring and an order, never to coordinates."""
+    value = lambda cid: plain(cells[cid].get("value"))
+    styled = lambda k: [cid for cid, c in cells.items() if not cid.startswith("lg-") and matches(glyph_sigs[k], c.get("style") or "")]
+    causes, sites, actions = styled("cause"), styled("callsite"), styled("action")
+    if len(causes) != 1 or len(sites) + len(actions) != 1:
+        raise DeclarationError("get needs one cause and one action or call site in an action drawing")
+    action_id = (sites or actions)[0]
+    if sites:
+        rows = sorted((cid for cid, c in cells.items() if c.get("parent") == action_id), key=lambda m: geo[m]["y"])
+        action = {"calls": [parse_call(value(m)) for m in rows]}
+    else:
+        action = {"call": parse_call(value(action_id))}
+    cause, box = geo[causes[0]], geo[action_id]
+    cx, cy = cause["x"], cause["y"] + cause["h"] / 2  # the rings' centre: the cause's flat side on the frame's rim
+    r0, gap = cause["w"] + ACTION_CLEARANCE + box["w"] + ACTION_CLEARANCE, int(ACTION["ring-gap"])
+    effects = []
+    for cid in styled("effect"):
+        b = geo[cid]
+        px, py = b["x"], b["y"] + b["h"] / 2  # the note's left middle sits on its ring
+        says, _, proof = value(cid).partition("\n")
+        ring = max(1, round((math.hypot(px - cx, (py - cy) / RING_ASPECT) - r0) / gap))  # the ring's own ellipse, undone
+        where = value(f"{cid}-tag") if f"{cid}-tag" in cells else WHERES[0]
+        effect = {"id": cid, "ring": ring, "where": where, "says": says, "proves": parse_call(proof)}
+        effects.append((ring, math.atan2(py - cy, px - cx), effect))
+    content = {
+        "title": value("title") if "title" in cells else "",
+        "kind": kind or KINDS[0],
+        "theme": next(iter(DEFAULTS["themes"])),
+        "cause": {"label": value(causes[0])},
+        "action": action,
+        "effects": [e for _, _, e in sorted(effects, key=lambda t: t[:2])],
+        "minimaps": [value(cid) for cid, _, _ in SIDEBAR if cid in cells],
+    }
+    flow_phrase = value("lg-edge-flow-t") if "lg-edge-flow-t" in cells else ""  # the relation, as the legend names the flow
+    content["relation"] = flow_phrase[len("flow: ") :] if flow_phrase.startswith("flow: ") else ""
+    adrs = [p.strip() for p in value("subtitle").split("·") if p.strip()] if "subtitle" in cells else []
+    return normalise({"about": {"adrs": adrs, "lens": ACTION_LENS}, "content": content}, where="the drawing")
 
 
 def minimap_data(folder):

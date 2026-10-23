@@ -12,7 +12,7 @@ catzc:
 ---
 #>
 
-Describe 'Build-DrsIndex — generated ADR index' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-README-AUTHOREDSOURCES' {
+Describe 'Build-DrsIndex — generated ADR index' -Tag 'L2', 'integrity', 'source-only', 'ADR-REPO-README-AUTHOREDSOURCES' {
     BeforeAll {
         $script:indexEntries = & (Get-Module Catzc.Base.Drs) { Get-CatsDrsIndex }
         $script:ruleSets = Get-DrsRuleSet
@@ -20,6 +20,9 @@ Describe 'Build-DrsIndex — generated ADR index' -Tag 'L1', 'integrity', 'sourc
     }
 
     It 'the on-disk index is current — no drift from drs.yml (Test-GeneratedFiles)' {
+        if (-not (Get-Command git -ErrorAction Ignore)) {
+            Set-ItResult -Skipped -Because 'tool_git_missing'; return
+        }
         $result = Test-GeneratedFiles -Generator Build-DrsIndex -PassThru -OutputFolder (Join-Path $TestDrive 'generated-files')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")
     }

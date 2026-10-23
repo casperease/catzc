@@ -1,0 +1,5 @@
+# The proof runs of the action-lens samples: harmless observations, one run per effect.
+runs:
+  - - get_widget: { path: widgets/a.yml }
+  - - count_gadgets:
+  - - get_widget: { path: gadgets/index.yml }

@@ -79,13 +79,15 @@ BeforeAll {
     [System.IO.File]::WriteAllBytes((Join-Path $compiled "Catzc.Types.$fullHash.dll"), [byte[]] @(77, 90, 1, 2, 3))
     [System.IO.File]::WriteAllText((Join-Path $compiled "Catzc.Types.$fullHash.json"), "{`"hash`":`"$fullHash`"}`n")
 
-    foreach ($gitCommand in @(
-            'git init -q'
-            'git config core.autocrlf true'
-            'git add -A'
-            'git -c user.name=widget -c user.email=widget@example.invalid commit -q -m fixture'
-        )) {
-        Invoke-Executable $gitCommand -WorkingDirectory $fake.Root -Silent
+    if (Get-Command git -ErrorAction Ignore) {
+        foreach ($gitCommand in @(
+                'git init -q'
+                'git config core.autocrlf true'
+                'git add -A'
+                'git -c user.name=widget -c user.email=widget@example.invalid commit -q -m fixture'
+            )) {
+            Invoke-Executable $gitCommand -WorkingDirectory $fake.Root -Silent
+        }
     }
 
     $script:metadata = @{
@@ -135,7 +137,7 @@ AfterAll {
     Remove-FakeRepositoryRoot $fake
 }
 
-Describe 'Invoke-ModuleBuild' -Tag 'L1', 'logic', 'source-only' {
+Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get-Command git -ErrorAction Ignore)) {
     Context 'a dry run' {
         It 'returns the plan and writes nothing' {
             $destination = Join-Path $TestDrive 'dry'
