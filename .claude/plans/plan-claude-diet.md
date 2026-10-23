@@ -84,8 +84,8 @@ It cuts a cost paid by every session and every spawn that loads the project inst
   data only `Build-Diagrams` refreshes, so the order is Build-Diagrams, minimaps, Build-Diagrams; (b) `catzc-check` says `Test-Diagrams`
   takes diagram paths, never a folder; (c) `catzc-run` says a script reading `git show` sets `[Console]::OutputEncoding` to UTF-8, and a
   `pwsh -File` list argument arrives as one comma string; (d) `catzc-run` says an `out/` script a session writes carries the session's name,
-  since peers' scripts share the folder (one was overwritten unseen). Recommendation: all four, each merged into an existing line.
-  Decided by the orchestrator as delegated (2026-10-23): all four; catzc-6a has them.
+  since peers' scripts share the folder (one was overwritten unseen). Recommendation: all four, each merged into an existing line. Decided
+  by the orchestrator as delegated (2026-10-23): all four; catzc-6a has them.
 - From catzc-e3's third finalize (2026-10-22), three lines, none applied: (a) `catzc-verify` names `out/e3-stage-burst.ps1`'s shape as the
   way to land staged C# (back up, swap, test under one fresh import, restore on failure, never killed mid-swap) in place of hand bursts; (b)
   `catzc-module` says a new member goes after an existing member, never between a comment and its line, since the comments step moves the
