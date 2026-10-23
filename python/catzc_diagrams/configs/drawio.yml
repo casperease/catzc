@@ -180,4 +180,4 @@ vocabularies: # the closed lists a span bar's label comes from, with the track n
   rungs: main-uat, release-uat, pre-prod, prod
   layers: language, engine, importer
   iac: templates, configs, modules
-  statements: Authoring is not done until seen in production
+  statements: Watches BVT, Author stays aware of impact and cost, Author is aware of impact via live logs

@@ -60,18 +60,25 @@ content:
     - { id: band-envs, label: ENVIRONMENTS }
     - { id: band-git, label: GIT }
   spans:
-    - { id: span-authoring, label: Authoring, over: [gate-precommit, gate-commit], row: 0 }
-    - { id: span-not-done, label: Authoring is not done until seen in production, over: [gate-l3, gate-main-at, gate-release-at, gate-pre-prod, gate-production], row: 0 }
+    - { id: span-authoring, label: Authoring, over: [gate-precommit], row: 0 }
+    - { id: span-pr-bvt, label: PR+BVT, over: [gate-commit], row: 0 }
+    - { id: span-monitor, label: Watches BVT, over: [gate-l3], row: 0 }
+    - { id: span-aware, label: Author stays aware of impact and cost, over: [gate-main-at, gate-release-at], row: 0 }
+    - { id: span-live, label: Author is aware of impact via live logs, over: [gate-pre-prod, gate-production], row: 0 }
     - { id: span-ci, label: CI, over: [gate-precommit, gate-commit], row: 1 }
     - { id: span-ci-plus, label: CI+, over: [gate-l3], row: 1 }
     - { id: span-rc, label: RC, over: [gate-main-at], row: 1 }
     - { id: span-rbc, label: RBC, over: [gate-release-at], row: 1 }
     - { id: span-deploy-prod, label: DEPLOY-Prod, over: [gate-pre-prod, gate-production], row: 1 }
-    - { id: span-pr-bvt, label: PR+BVT, over: [gate-commit], row: 2 }
     - { id: span-deploy-nonprod, label: DEPLOY-Non Prod, over: [gate-l3, gate-main-at, gate-release-at], row: 2 }
     - { id: span-cd, label: CD, over: [gate-precommit, gate-commit, gate-l3, gate-main-at], row: 3 }
     - { id: span-cd-rbc, label: CD+RBC, over: [gate-precommit, gate-commit, gate-l3, gate-main-at, gate-release-at], row: 4 }
-    - { id: span-cde, label: CDe, over: [gate-precommit, gate-commit, gate-l3, gate-main-at, gate-release-at, gate-pre-prod, gate-production], row: 5 }
+    - {
+        id: span-cde,
+        label: CDe,
+        over: [gate-precommit, gate-commit, gate-l3, gate-main-at, gate-release-at, gate-pre-prod, gate-production],
+        row: 5,
+      }
   lanes:
     - band: band-pipeline
       steps: 7

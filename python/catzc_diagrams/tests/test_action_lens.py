@@ -7,6 +7,7 @@ usage (repo root, background): timeout 120 uv run --project python python -m pyt
 """
 
 import copy
+import itertools
 import math
 import re
 import sys
@@ -174,7 +175,7 @@ def test_an_edge_that_skips_a_zone_runs_through_the_margin_clear_of_every_note()
     for cid, (x, y, w, h) in boxes.items():
         if cid in ("effect-index", "effect-far"):
             continue
-        for (x0, y0), (x1, y1) in zip(path, path[1:]):  # every leg is axis-parallel or a short join; none enters another note
+        for (x0, y0), (x1, y1) in itertools.pairwise(path):  # every leg is axis-parallel or a short join; none enters another note
             if max(x0, x1) >= x and min(x0, x1) <= x + w and max(y0, y1) >= y and min(y0, y1) <= y + h:
                 raise AssertionError(f"the routed edge crosses {cid}")
     back = declaration.get(model, kind="explanation")

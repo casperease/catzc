@@ -62,31 +62,8 @@ one is the glyph legend. A comment's target is therefore usually an article's bl
 
 ## Open steps
 
-- [ ] Chunk 1 of about 37: the first five diagrams of `docs/explanation/design/.assets/`: `10-commits-story`,
-      `a-push-fires-only-touched-pipelines`, `a-sibling-is-an-idea-never-a-reference`, `bind-to-one-cli-delegate-the-rest`,
-      `clients-bridge-to-one-server`. The agent reads the five PNGs, asks five questions, and adds one step per snippet below this one.
-      Check: five open steps added, each with the snippet verbatim; after landing them, `Test-Diagrams` reports nothing stale or drifted
-      over every diagram.
-- [ ] Chunk 1, diagram 1, `docs/explanation/design/.assets/10-commits-story.drawio.png` (declared in the `yml drawio` block of
-      `docs/explanation/design/ten-commits-trace-the-whole-lifecycle.md`). The user's snippet, typos corrected, otherwise verbatim: "Candidate
-      9's arrow to Discarded runs over the title of its box. This is a simple fix: generally we make arrows knowledgeable about boxes and
-      define the DISCARDED title inside a known render box. Title boxes are always z=0, so the arrow is under the title box. Even boxes
-      containing other boxes can contain both their own title boxes and content, and that content can be boxes drawn at z=0 and z=-1 and so
-      on, so orange 9 to red 9 is drawn under the borderless box that is the title DISCARDED in the discarded flow fragment. Yellow 4, 2 and
-      10 are drawn wrong: instructions should put [4] and [2,10] in their own visual rows, 4 just centred in its row, 2 and 10 side by side
-      in their own row with the arrow going south. Blue 0 to red 0 is fine. White 3 to red 3 is fine, and so is 1 to 1. The top spans are
-      perfect. Small comments to the top spans: Authoring should span pre-commit and commit both, not just pre-commit (the authoring stage
-      ends when the commit is done; the work is committed for downstream pulls). CI and CI+ must be in the same row. RC and RBC must also
-      be in the same visual row as CI, and so must DEPLOY-Prod. The last row contains, in order: Authoring, PR+BVT, and one long span from
-      the start of CDe to the right side of DEPLOY-Prod, containing the sentence: Authoring is not done until seen in production."
-      Reading: (a) every box has its own paint order and a title is a borderless box of its own, painted above the edges that cross its
-      band, nested boxes keeping a stack each (today the `layers:` vocabulary in `drawio.yml` is one global stack, with a band's title painted
-      with its panel under the edges); (b) a column whose candidates are not all discarded together lays them out in separate rows, a
-      lone node centred and a pair side by side, edges running south; (c) the blue, white and light-green discard edges stay as drawn,
-      so the change must not move them; (d) the spans: Authoring covers pre-commit and commit, CI, CI+, RC, RBC and DEPLOY-Prod share one
-      row, and a last row holds Authoring, PR+BVT and one long span with the sentence. Unclear until execution: whether PR+BVT stays over
-      the commit column once Authoring covers it; ask the user then. Files: the diagram's block in the article, `drawio.yml` (a title box
-      and its paint order) and `python/catzc_diagrams/declaration.py` with `drawio_png.py` (the title box, the row layout, the span rows).
-      Check: `10-commits-story` re-rendered and looked at (the arrow under DISCARDED, 4 and 2,10 in their rows, the spans as described),
-      the kit suite green, `Test-Diagrams` clean over every diagram redrawn, and a title or edge in any other diagram changing only where
-      an edge used to cross a title.
+- [ ] Chunk 1 of about 37: the first five diagrams of `docs/explanation/design/.assets/`: `10-commits-story` (landed 2026-10-23: title boxes
+      above edges, candidate `slot`, span `row`, the last row of five spans), `a-push-fires-only-touched-pipelines`,
+      `a-sibling-is-an-idea-never-a-reference`, `bind-to-one-cli-delegate-the-rest`, `clients-bridge-to-one-server`. The agent reads the
+      five PNGs, asks five questions, and adds one step per snippet below this one. Check: five open steps added, each with the snippet
+      verbatim; after landing them, `Test-Diagrams` reports nothing stale or drifted over every diagram.
