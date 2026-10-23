@@ -37,14 +37,14 @@ The repository root the paths are relative to.
 
 The repository-relative files to check. Default: every tracked file .gitattributes marks linguist-generated.
 
-### parameter `Resolver`
-
-The carrier resolver. Default: built from the shipped file-carriers and languages registries.
-
 ### parameter `Changed`
 
 Read only the files git reports changed against HEAD (worktree and index), so the check costs the changed set, not the tree. Combines
 with Path by intersection.
+
+### parameter `Resolver`
+
+The carrier resolver. Default: built from the shipped file-carriers and languages registries.
 
 ### outputs
 

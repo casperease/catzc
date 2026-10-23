@@ -1,0 +1,34 @@
+---
+plan:
+  status: active
+  value: medium
+  reviewed: 2026-10-23
+  class: debt
+  targets: [docs/explanation, docs/drs/automation/BCL/.assets, pwsh/Catzc.Base.Execution, pwsh/Catzc.Azure.Templates]
+---
+
+# Debt review follow-up: what the first review of 2026-10-23 did not read
+
+catzc-6b read the files and rules catzc-6a's review left unread (read-only, 2026-10-23). The CamelCase contract folders in the git index are
+the user's step already (task-user-runs-and-commits, the contracts normal form). Two scope answers, recorded as decided by the orchestrator:
+`.internal` scripts are outside ADR-PWSH-ONEFUNC (ADR-PWSH-ONEFUNC-GOVERNSSOURCE limits it to `pwsh/<Module>/`), and
+ADR-PWSH-PARAM-POSITIONALPRIMARY reads as general, which the `.internal/assets` scripts already meet.
+
+## Open steps
+
+- [ ] `pwsh/Catzc.Azure.Templates/Get-AzureResourceName.ps1:30`: `-Order` defaults to the `ado_naming` variant (`Get-AdoNaming`, its default
+      declared on VariantsConfig) instead of the literal `'standard'` (ADR-AZ-NAMING-ORDERISVARIANT, ADR-AUTO-DEFAULT-ONERESOLUTIONORDER).
+      Check: `Invoke-TestFile` on its three test files, `Test-ScriptAnalyzer -Path` at 0.
+- [ ] `pwsh/Catzc.Base.Execution/Resolve-ToolExecutable.ps1`: the inline null throw becomes an `Assert-*` call
+      (ADR-PWSH-ASSERT-NOINLINETHROWCHECK), and the typed `ToolConfig` properties are read as properties, only the dynamic list key by
+      index (ADR-BCL-TYPES-NATIVETYPEDMODEL). Check: `Invoke-TestFile` on its test file, `Test-ScriptAnalyzer -Path` at 0.
+- [ ] `pwsh/.internal/tests/Wait-CatzcRunLock.Tests.ps1:280, 312`: the two cases that start a real child pwsh move to an L2 Describe
+      (ADR-AUTO-TEST-PROCESSTRIPWIRE). Check: `Invoke-TestFile` on it, the same It and Should counts.
+- [ ] Stale diagram labels, one diagram per step through its `.drawio.yml` and a re-render, never the png by hand:
+      `docs/explanation/repository/.assets/one-source-one-writer-one-boolean.drawio.yml:31-32` (22/30 gitignored, 8/30 tracked);
+      `docs/drs/automation/BCL/.assets/bcl-language.drawio.yml:22, 29` (334 sources; 8 host-binding rows, the Debug / Any CPU pair a default
+      on BclConfig); `docs/explanation/automation/.assets/hook-compiles-module-verdict-and-limits.drawio.yml` grp-types (TestTiers.cs, the
+      fourth linked type). Check: `Test-Diagrams` on each diagram path.
+- [ ] `contracts/catzc/0.0.0/Catzc.Base.Globs/configs/file-kinds.yml`: the fragment pins the four live kinds it lacks (`slides-kit`,
+      `capability`, `diagram-declaration`, `slide`), since heads already name `capability` (ADR-REPO-CONTRACT-CONTRACTASSET). Check: the
+      contract tests of Catzc.Base.Globs green.
