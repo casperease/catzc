@@ -71,13 +71,12 @@ def test_get_writes_back_into_the_block_and_leaves_the_rest_of_the_page_as_it_wa
 
 def test_declare_minimaps_writes_the_inputs_into_the_block_in_place(article):
     stem, page = article
-    # A block that stored each minimap's lit cells: the rewrite leaves the shown ids only.
-    stored = "content:\n  minimaps:\n    grid:\n      - cell: widgets/widget-script\n        by: [ADR-WIDGET-SPIN]\n    axis: []\n    layer-stack: []\n"
-    page.write_text(page.read_text(encoding="utf-8").replace("content:\n", stored, 1), encoding="utf-8", newline="\n")
+    # A block that lists the shown ids as a block list: the rewrite prints them as save does, in the block, in place.
+    listed = "content:\n  minimaps:\n    - grid\n    - axis\n    - layer-stack\n"
+    page.write_text(page.read_text(encoding="utf-8").replace("content:\n", listed, 1), encoding="utf-8", newline="\n")
     declaration.declare_minimaps(stem)
     text = page.read_text(encoding="utf-8")
     assert "content:\n  minimaps: [grid, axis, layer-stack]\n" in text
-    assert "cell:" not in text
     assert text.endswith("```\n\n![Widgets flow into gadgets](.assets/widget-flow.drawio.png)\n\nA paragraph after it.\n")
 
 

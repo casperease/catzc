@@ -80,6 +80,6 @@ Describe 'Write-DiagramMinimapData' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-MINIMAP
         $source = Join-Path $script:root $stem
         [System.IO.Directory]::CreateDirectory((Split-Path $source -Parent)) | Out-Null
         [System.IO.File]::WriteAllText("$source.drawio.yml", "about:`n  adrs:`n    - ADR-WIDGET`ncontent:`n  minimaps:`n    layer-stack:`n      - cell: automation`n        by: [ADR-WIDGET]`n")
-        { Invoke-Writer -Stem $stem } | Should -Throw '*lists content.minimaps as a map*declaration.py minimaps*'
+        { Invoke-Writer -Stem $stem } | Should -Throw '*lists content.minimaps as a map*never the cells they light*'
     }
 }

@@ -7,7 +7,7 @@ catzc:
     cites:
       - ADR-PWSH-FORMAT-MULTILINEPREDICATEBOUND
       - ADR-PWSH-PARAM
-    drs_total: 5
+    drs_total: 6
 ---
 #>
 
@@ -175,6 +175,60 @@ function Measure-NoSwitchDefaultOn {
                     RuleName = 'Measure-NoSwitchDefaultOn'
                     Severity = 'Warning'
                 })
+        }
+    }
+    return $results.ToArray()
+}
+
+function Test-CaseDependentPattern {
+    param([string] $Pattern)
+    if ($Pattern -cmatch '\\p\{L[ul]\}') {
+        return $true
+    }
+    foreach ($class in [regex]::Matches($Pattern, '\[(?:\\.|[^\]\\])*\]')) {
+        if (($class.Value -cmatch 'A-Z') -xor ($class.Value -cmatch 'a-z')) {
+            return $true
+        }
+    }
+    return $false
+}
+
+function Measure-CaseSensitivePattern {
+    [CmdletBinding()]
+    [OutputType([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord[]])]
+    param(
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [System.Management.Automation.Language.ScriptBlockAst] $ScriptBlockAst
+    )
+
+    if (-not (Test-ModuleFunctionFile $ScriptBlockAst)) {
+        return @()
+    }
+    $results = [System.Collections.Generic.List[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]]::new()
+    foreach ($function in Get-ParameterFunction $ScriptBlockAst) {
+        foreach ($parameter in $function.Body.ParamBlock.Parameters) {
+            foreach ($attribute in $parameter.Attributes) {
+                if ($attribute -isnot [System.Management.Automation.Language.AttributeAst] -or $attribute.TypeName.Name -notin 'ValidatePattern', 'ValidatePatternAttribute') {
+                    continue
+                }
+                $pattern = $attribute.PositionalArguments | Select-Object -First 1
+                if ($pattern -isnot [System.Management.Automation.Language.StringConstantExpressionAst]) {
+                    continue
+                }
+                if ($pattern.Value.StartsWith('(?-i)') -or ($attribute.NamedArguments | Where-Object { $_.ArgumentName -eq 'Options' })) {
+                    continue
+                }
+                if (-not (Test-CaseDependentPattern $pattern.Value)) {
+                    continue
+                }
+                $results.Add([Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.DiagnosticRecord]@{
+                        Message  = "$($function.Name)'s -$($parameter.Name.VariablePath.UserPath) pattern names a case, but ValidatePattern ignores case: add Options = 'None' or open the pattern with (?-i) (ADR-PWSH-PARAM-CASESENSITIVEPATTERN)."
+                        Extent   = $attribute.Extent
+                        RuleName = 'Measure-CaseSensitivePattern'
+                        Severity = 'Warning'
+                    })
+            }
         }
     }
     return $results.ToArray()

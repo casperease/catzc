@@ -8,7 +8,8 @@ catzc:
       - ADR-PWSH-PARAM-POSITIONALPRIMARY
       - ADR-PWSH-PARAM-SWITCHNOTBOOL
       - ADR-PWSH-PARAM-RESOLUTIONORDER
-    drs_total: 3
+      - ADR-PWSH-PARAM-CASESENSITIVEPATTERN
+    drs_total: 4
 ---
 #>
 
@@ -104,6 +105,35 @@ Describe 'Measure-NoOptionalBooleanParameter' -Tag 'L0', 'logic', 'ADR-PWSH-PARA
     It 'leaves a test file alone' {
         $code = "function Get-Widget {`n    param([bool] `$Loud)`n}"
         @(Get-RuleRecord -Rule 'Measure-NoOptionalBooleanParameter' -Code $code -RelativePath 'Catzc.Widget/tests/Get-Widget.Tests.ps1').Count | Should -Be 0
+    }
+}
+
+Describe 'Measure-CaseSensitivePattern' -Tag 'L0', 'logic', 'ADR-PWSH-PARAM-CASESENSITIVEPATTERN' {
+    It 'flags a pattern that names a case: <Description>' -ForEach @(
+        @{ Description = 'lower-case class'; Pattern = '^[a-z0-9]+$' }
+        @{ Description = 'upper-case class'; Pattern = '^[A-Z][a-z]+$' }
+        @{ Description = 'unicode upper-case letter'; Pattern = '^\p{Lu}' }
+    ) {
+        $code = "function Get-Widget {`n    param([ValidatePattern('$Pattern')] [string] `$Name)`n}"
+        $records = @(Get-RuleRecord -Rule 'Measure-CaseSensitivePattern' -Code $code -RelativePath 'Catzc.Widget/Get-Widget.ps1')
+        $records.Count | Should -Be 1
+        $records | ForEach-Object { $_.Message } | Should -BeLike '*-Name pattern names a case*'
+    }
+
+    It 'accepts: <Description>' -ForEach @(
+        @{ Description = 'Options = None'; Attribute = "[ValidatePattern('^[a-z]+$', Options = 'None')]" }
+        @{ Description = 'an inline (?-i)'; Attribute = "[ValidatePattern('(?-i)^[a-z]+$')]" }
+        @{ Description = 'a class naming both cases'; Attribute = "[ValidatePattern('^[A-Za-z0-9]+$')]" }
+        @{ Description = 'a pattern naming no case'; Attribute = "[ValidatePattern('^\d+\.\d+$')]" }
+        @{ Description = 'an escaped bracket, not a class'; Attribute = "[ValidatePattern('^\[x\]$')]" }
+    ) {
+        $code = "function Get-Widget {`n    param($Attribute [string] `$Name)`n}"
+        @(Get-RuleRecord -Rule 'Measure-CaseSensitivePattern' -Code $code -RelativePath 'Catzc.Widget/Get-Widget.ps1').Count | Should -Be 0
+    }
+
+    It 'leaves a test file alone' {
+        $code = "function Get-Widget {`n    param([ValidatePattern('^[a-z]+$')] [string] `$Name)`n}"
+        @(Get-RuleRecord -Rule 'Measure-CaseSensitivePattern' -Code $code -RelativePath 'Catzc.Widget/tests/Get-Widget.Tests.ps1').Count | Should -Be 0
     }
 }
 

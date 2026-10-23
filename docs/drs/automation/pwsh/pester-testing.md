@@ -149,6 +149,14 @@ is rarely the cost.
 
 - [Fast tests in Pester](#fast-tests-in-pester)
 
+### Rule ADR-PWSH-PESTER-ESCAPELIKEPATTERNS
+
+An expected string that `Should -BeLike` or `Should -Throw` matches as a `-like` pattern escapes the pattern's special characters: `*`, `?`,
+`[`, `]`, and the backtick, which is the escape character itself. A literal fragment is escaped with `[WildcardPattern]::Escape(...)`, or
+compared whole with `-BeExactly`; a backtick written once escapes the next character and never matches itself.
+
+- [Gotchas](#gotchas)
+
 ### Rule ADR-PWSH-PESTER-POOLEDWORKERS
 
 The harness workers of ADR-AUTO-TEST-FILEPARALLELISM are `pwsh` processes, pooled by the `PesterRunner` type: each dot-sources its entry
@@ -339,8 +347,10 @@ them as Pester tests.
   [automatic-variable-pitfalls](automatic-variable-pitfalls.md#rule-adr-pwsh-autovar-nocoalesceonstrings)).
 - **`Where-Object prop -EQ` / `ForEach-Object prop` shortcuts do not bind `[ordered]` dictionary keys** — use the script-block form. This
   codebase returns ordered dicts pervasively.
-- **`Should -BeLike` and `Should -Throw` match a `-like` pattern, where `[ ]` is a character class.** A bracketed fragment (`"*[Drift]*"`)
-  matches one of its letters, not the brackets; escape it (`` `[Drift`] ``) or compare whole with `-BeExactly`.
+- **`Should -BeLike` and `Should -Throw` match a `-like` pattern, where `[ ]` is a character class and the backtick escapes
+  (ADR-PWSH-PESTER-ESCAPELIKEPATTERNS).** A bracketed fragment (`"*[Drift]*"`) matches one of its letters, not the brackets, and a pattern
+  holding a literal backtick never matches it, because the backtick escapes the character after it. Escape the fragment with
+  `[WildcardPattern]::Escape(...)`, which doubles each backtick and escapes each bracket, or compare whole with `-BeExactly`.
 - **A comma-wrapped array return piped directly member-enumerates.** `Get-BicepTemplates | Where …` feeds the whole array as one object;
   parenthesise first: `(Get-BicepTemplates) | Where …`.
 - **Take a function's first result as `Get-X | Select-Object -First 1`**, never `(Get-X)[0]`: a one-item result unrolls to the item, so

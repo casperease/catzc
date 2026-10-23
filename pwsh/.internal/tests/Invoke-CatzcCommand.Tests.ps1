@@ -13,7 +13,7 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:entry = Join-Path $PSScriptRoot '../assets/Invoke-CatzcCommand.ps1'
         $script:importer = Join-Path $TestDrive 'importer.ps1'
-        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Test-Gadget { param([string] `$Result) [pscustomobject]@{ Result = `$Result } }`nfunction Test-Gizmo { param([string[]] `$Outcome) foreach (`$each in `$Outcome) { [pscustomobject]@{ Name = 'gizmo'; Outcome = `$each } } }`nfunction Invoke-TestFile { [CmdletBinding()] param([string] `$Path, [switch] `$PassThru) if (`$PassThru) { [pscustomobject]@{ Result = 'Failed' } } }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
+        [System.IO.File]::WriteAllText($script:importer, "function Get-Widget { 'widget' }`nfunction Test-Gadget { param([string] `$Result) [pscustomobject]@{ Result = `$Result } }`nfunction Test-Doohickey { param([string[]] `$Issue = @(), [switch] `$PassThru) if (`$PassThru) { [pscustomobject]@{ Subject = 'doohickey'; IssueCount = @(`$Issue).Count; Issues = `$Issue; ReportPath = 'out/doohickey' } } }`nfunction Test-Gizmo { param([string[]] `$Outcome) foreach (`$each in `$Outcome) { [pscustomobject]@{ Name = 'gizmo'; Outcome = `$each } } }`nfunction Invoke-TestFile { [CmdletBinding()] param([string] `$Path, [switch] `$PassThru) if (`$PassThru) { [pscustomobject]@{ Result = 'Failed' } } }`nfunction Write-Message { param([AllowEmptyString()] [string] `$Message, [switch] `$NoHeader) Write-Information `$Message -InformationAction Continue }`n")
         # An importer that throws, so a run that must not import shows it did not.
         $script:throwingImporter = Join-Path $TestDrive 'throwing-importer.ps1'
         [System.IO.File]::WriteAllText($script:throwingImporter, "throw 'imported'`n")
@@ -72,6 +72,16 @@ Describe 'Invoke-CatzcCommand' -Tag 'L0', 'logic' {
         $lines | Should -Be @(
             '[Invoke-CatzcCommand] failed: Test-Gizmo -Outcome pass, fail, fail, skip — it reported 2 failed test(s)'
             '[Invoke-CatzcCommand] passed: Test-Gizmo -Outcome pass, skip'
+            '[Invoke-CatzcCommand] 1 of 2 passed'
+        )
+    }
+
+    It 'judges a gate called with -PassThru by its issue count: one issue fails the command, none passes' {
+        $lines = @(& $script:entry 'Test-Doohickey -Issue "widget.ps1: a loose gadget" -PassThru' 'Test-Doohickey -PassThru' -Importer $script:importer -LockName $script:lockName)
+        $LASTEXITCODE | Should -Be 1
+        $lines | Should -Be @(
+            '[Invoke-CatzcCommand] failed: Test-Doohickey -Issue "widget.ps1: a loose gadget" -PassThru — it reported 1 doohickey issue(s)'
+            '[Invoke-CatzcCommand] passed: Test-Doohickey -PassThru'
             '[Invoke-CatzcCommand] 1 of 2 passed'
         )
     }

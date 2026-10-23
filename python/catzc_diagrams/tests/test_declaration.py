@@ -184,7 +184,7 @@ def test_each_minimap_is_an_id_or_its_excluded_cells_and_stored_cells_fail():
         "grid", "axis", "layer-stack"
     ]
     stored = {"grid": [{"cell": "widgets/widget-script", "by": ["ADR-WIDGET-SPIN"]}], "axis": [], "layer-stack": []}
-    with pytest.raises(declaration.DeclarationError, match="minimaps is a list of the shown minimaps.*declaration.py minimaps"):
+    with pytest.raises(declaration.DeclarationError, match="minimaps is a list of the shown minimaps.*never the cells they light"):
         declaration.normalise(with_minimaps(stored))
     with pytest.raises(declaration.DeclarationError, match="minimaps.axis takes only exclude:"):
         declaration.normalise(with_minimaps(["grid", {"axis": {"cell": "AUTO/*"}}, "layer-stack"]))
@@ -204,17 +204,16 @@ def test_the_excluded_cells_survive_a_put_then_a_get_through_save(tmp_path):
     assert declaration.load(tmp_path)["content"]["minimaps"] == WIDGET_MINIMAPS
 
 
-def test_declare_minimaps_drops_stored_cells_and_keeps_the_head_and_every_other_line_as_written(tmp_path):
-    # A generated head and a source that stored each minimap's lit cells: the rewrite keeps the shown ids and changes only those lines.
+def test_declare_minimaps_prints_the_inputs_and_keeps_the_head_and_every_other_line_as_written(tmp_path):
+    # A generated head and a block list of the shown ids: the rewrite prints them as save does and changes only those lines.
     head = '# ---\n# catzc:\n#   immutable:\n#     with_body_sha: "0123456789ab"\n# ---\n\n'
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"]["minimaps"] = ["grid", "axis", "layer-stack"]
     text = head + declaration.dump(declaration.normalise(raw))
     line = "  minimaps: [grid, axis, layer-stack]\n"
     assert line in text
-    stored = "  minimaps:\n    grid:\n      - cell: widgets/widget-script\n        by: [widgets/Get-Widget.ps1, ADR-WIDGET-SPIN]\n"
-    stored += "    axis: []\n    layer-stack: []\n"
-    declaration.source_of(tmp_path).write_text(text.replace(line, stored, 1), encoding="utf-8")
+    block = "  minimaps:\n    - grid\n    - axis\n    - layer-stack\n"
+    declaration.source_of(tmp_path).write_text(text.replace(line, block, 1), encoding="utf-8")
     declaration.declare_minimaps(tmp_path)
     assert declaration.source_of(tmp_path).read_text(encoding="utf-8") == text
     # Run again on the inputs it wrote, it changes nothing, and an exclude: the author gave is kept.

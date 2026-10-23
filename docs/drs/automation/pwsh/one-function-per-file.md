@@ -37,6 +37,14 @@ when a source file breaks it.
 - [Source and the generated build](#source-and-the-generated-build)
 - [use-ps1-not-psm1](use-ps1-not-psm1.md#source-and-the-generated-build)
 
+### Rule ADR-PWSH-ONEFUNC-NAMEWITHOUTSCOPE
+
+A check that reads a function's name from the syntax tree compares the bare name: `FunctionDefinitionAst.Name` keeps a scope qualifier, so
+`function script:Get-Foo` reads as `script:Get-Foo`, and the check strips `script:`, `global:`, `local:` or `private:` before it compares
+the name with a file name or a command name.
+
+- [Names in the syntax tree](#names-in-the-syntax-tree)
+
 ## Context
 
 [open-closed-architecture](../open-closed-architecture.md#rule-adr-auto-extend-mandatoryconventions) makes "file name = function name" a
@@ -86,6 +94,14 @@ toolset and pays a per-file antivirus scan on a cold import ([effective-in-enter
 of the built manifest is the file names of the module's root `.ps1` files — the rule is what makes the merged file's exports derivable
 without parsing it.
 
+### Names in the syntax tree
+
+The name rule is a string comparison, and the syntax tree hands back the name as written. A function file declares `function Get-Foo`, but a
+test helper or fixture declares `function script:New-Fixture` so that it outlives its block, and a check that walks every `.ps1` file meets
+both forms. `FunctionDefinitionAst.Name` returns `script:New-Fixture` for the second, so a check that compares it unstripped reports a
+mismatch the code does not have, or misses a match it should find. Stripping the qualifier first makes every reader compare the same bare
+name; the identifier analyzer does the same for variables ([identifier-names](identifier-names.md#the-analyzer-rule)).
+
 ### How this is enforced
 
 - **`Test-Automation.Tests.ps1`** — validates every `.ps1` file: file name must be `Verb-Noun` format, must contain exactly one function,
@@ -95,6 +111,8 @@ without parsing it.
   convention will not export correctly.
 - **`Build-Modules`** — re-asserts the rule on the source files' syntax trees before merging (exactly one function per file, named for the
   file, no top-level statements) and fails the build with every violation collected.
+- **`SyntaxSearch.BareName`** (`Catzc.Base.Repository`) — the one place the qualifier is stripped; a check reads a function's name through
+  it, and code review rejects a check that compares `FunctionDefinitionAst.Name` directly (ADR-PWSH-ONEFUNC-NAMEWITHOUTSCOPE).
 
 ## Consequences
 

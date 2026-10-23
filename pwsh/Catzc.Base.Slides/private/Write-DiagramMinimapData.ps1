@@ -49,7 +49,7 @@ function Write-DiagramMinimapData {
         if ($content -and $content.Contains('minimaps') -and $content['minimaps']) {
             $shown = $content['minimaps']
         }
-        Assert-True ($null -eq $shown -or $shown -is [System.Collections.IList]) -ErrorText "Write-DiagramMinimapData: $folderPath lists content.minimaps as a map; it is a list of ids or { id: { exclude: [cells] } } (rewrite it with declaration.py minimaps)."
+        Assert-True ($null -eq $shown -or $shown -is [System.Collections.IList]) -ErrorText "Write-DiagramMinimapData: $folderPath lists content.minimaps as a map; it is a list of ids or { id: { exclude: [cells] } }, never the cells they light."
         $excluded = @{}
         $ids = [string[]] @(if ($shown) {
                 foreach ($entry in $shown) {

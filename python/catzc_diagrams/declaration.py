@@ -15,15 +15,15 @@ get:  the XML embedded in the .drawio.png becomes the declaration again, written
       same declaration, get then put the same XML.
 
 usage (repo root, background):
-  uv run --project python python python/catzc_diagrams/declaration.py put <diagram> [--xml <out.xml>]
-  uv run --project python python python/catzc_diagrams/declaration.py get <diagram>
-  uv run --project python python python/catzc_diagrams/declaration.py check <diagram>...
-  uv run --project python python python/catzc_diagrams/declaration.py sync <diagram>
-  uv run --project python python python/catzc_diagrams/declaration.py tidy <diagram>
-  uv run --project python python python/catzc_diagrams/declaration.py minimaps <diagram>
-  uv run --project python python python/catzc_diagrams/declaration.py reflow <diagram>
-  uv run --project python python python/catzc_diagrams/declaration.py carry <diagram> article|file
-  uv run --project python python python/catzc_diagrams/declaration.py rekey <from-stem> <to-stem> [<drawio.yml>]
+  uv run --no-sync --project python python python/catzc_diagrams/declaration.pyput <diagram> [--xml <out.xml>]
+  uv run --no-sync --project python python python/catzc_diagrams/declaration.pyget <diagram>
+  uv run --no-sync --project python python python/catzc_diagrams/declaration.pycheck <diagram>...
+  uv run --no-sync --project python python python/catzc_diagrams/declaration.pysync <diagram>
+  uv run --no-sync --project python python python/catzc_diagrams/declaration.pytidy <diagram>
+  uv run --no-sync --project python python python/catzc_diagrams/declaration.pyminimaps <diagram>
+  uv run --no-sync --project python python python/catzc_diagrams/declaration.pyreflow <diagram>
+  uv run --no-sync --project python python python/catzc_diagrams/declaration.pycarry <diagram> article|file
+  uv run --no-sync --project python python python/catzc_diagrams/declaration.pyrekey <from-stem> <to-stem> [<drawio.yml>]
 (<diagram> is the stem `.assets/<name>` or either file of its pair)
 
 A pair whose yml and png both moved from the pair committed at git HEAD, and now disagree, is a conflict: check names its cells, the bulk
@@ -923,7 +923,7 @@ def normalise(raw, where="the declaration"):
     if not isinstance(declared, list):
         raise DeclarationError(
             f"{where}: minimaps is a list of the shown minimaps, each an id or {{ id: {{ exclude: [cells] }} }}"
-            " (rewrite it with declaration.py minimaps)"
+            ", never the cells they light"
         )
     if declared and len(declared) != 3:
         raise DeclarationError(f"{where}: minimaps names exactly three views of: {', '.join(allowed)}; it names {len(declared)}")
@@ -2109,16 +2109,11 @@ def minimaps_block(entries, width=None):
 
 
 def declare_minimaps(folder):
-    """Write a diagram's minimaps into its source as their inputs only: the shown ids, each with the exclude: its author gave it, and
-    never a computed cell, so a source that stored each minimap's lit cells under its id loses them. Only that key's lines change: the
-    rest of the text, its generated head and its formatting included, is kept as it was read, never re-dumped, which would drop the head
-    and what a row or lane expands to."""
+    """Write a diagram's minimaps into its source as their inputs only, in the printed form: the shown ids, each with the exclude: its
+    author gave it, and never a computed cell. Only that key's lines change: the rest of the text, its generated head and its formatting
+    included, is kept as it was read, never re-dumped, which would drop the head and what a row or lane expands to."""
     text, source = read_source(folder)
-    raw = yaml.safe_load(text) or {}
-    shown = (raw.get("content") or {}).get("minimaps") or []
-    placed = list(shown) if isinstance(shown, dict) else shown
-    raw.setdefault("content", {})["minimaps"] = placed
-    placed = normalise(raw, where=str(source))["content"]["minimaps"]
+    placed = normalise(yaml.safe_load(text) or {}, where=str(source))["content"]["minimaps"]
     lines = text.split("\n")
     content = next((i for i, line in enumerate(lines) if line.rstrip() == "content:"), None)
     if content is None:
@@ -2302,7 +2297,7 @@ def main():
             config.write_text(after, encoding="utf-8", newline="\n")
         print(f"rekey {config}: {'re-keyed' if after != before else 'unchanged'}")
         return
-    if len(args) == 2 and args[0] == "minimaps":  # the diagram's computed minimap cells written into its source
+    if len(args) == 2 and args[0] == "minimaps":  # the diagram's minimap inputs rewritten in the printed form
         print(f"minimaps {declare_minimaps(diagram_of(args[1]))}")
         return
     if len(args) == 2 and args[0] == "sync":  # one JSON line: the directions run, or the conflict that stopped them

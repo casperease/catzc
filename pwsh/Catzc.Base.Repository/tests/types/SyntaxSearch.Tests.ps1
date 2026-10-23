@@ -87,6 +87,23 @@ Get-Gadget
         }
     }
 
+    Context 'BareName' {
+        It 'strips the scope qualifier: <Text>' -ForEach @(
+            @{ Text = 'function script:New-Widget {}' }
+            @{ Text = 'function Global:New-Widget {}' }
+            @{ Text = 'function local:New-Widget {}' }
+            @{ Text = 'function private:New-Widget {}' }
+            @{ Text = 'function New-Widget {}' }
+        ) {
+            $function = [Catzc.Base.Repository.SyntaxSearch]::TopLevelFunctions((& $script:parse $Text)) | Select-Object -First 1
+            [Catzc.Base.Repository.SyntaxSearch]::BareName($function) | Should -BeExactly 'New-Widget'
+        }
+
+        It 'refuses a null function' {
+            { [Catzc.Base.Repository.SyntaxSearch]::BareName($null) } | Should -Throw '*function*'
+        }
+    }
+
     It 'refuses a null root' {
         { [Catzc.Base.Repository.SyntaxSearch]::Commands($null) } | Should -Throw '*root*'
     }

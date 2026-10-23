@@ -50,8 +50,8 @@ a declared default.
 
 ### Rule ADR-PWSH-PARAM-CASESENSITIVEPATTERN
 
-A `ValidatePattern` whose pattern depends on case carries `Options = 'None'`: PowerShell matches a `ValidatePattern` ignoring case unless
-its `Options` say otherwise, so `^[A-Z]` alone accepts a lower-case value.
+A `ValidatePattern` whose pattern depends on case carries `Options = 'None'` or opens with the inline `(?-i)`: PowerShell matches a
+`ValidatePattern` ignoring case unless its `Options` or the pattern say otherwise, so `^[A-Z]` alone accepts a lower-case value.
 
 - [Case-sensitive patterns](#case-sensitive-patterns)
 
@@ -120,7 +120,7 @@ is given). The expression runs in the module's scope, so a test isolates it by m
 
 `ValidatePatternAttribute.Options` defaults to `IgnoreCase`, so a pattern that names a case is silently loosened. Setting `Options = 'None'`
 makes the attribute match exactly what the pattern says; the precedent is the `-Author` parameter of
-[`Add-SessionLearning`](../../../../pwsh/Catzc.Base.Docs/Add-SessionLearning.ps1) (line 57), which requires a capitalised person name:
+[`Add-SessionLearning`](../../../../pwsh/Catzc.Base.Docs/Add-SessionLearning.ps1), which requires a capitalised person name:
 
 ```powershell
 # GOOD — the capital the pattern names is required
@@ -132,13 +132,15 @@ makes the attribute match exactly what the pattern says; the precedent is the `-
 [string] $Author
 ```
 
-A pattern that names no case (`^\d+$`) needs no `Options`.
+An inline `(?-i)` at the start of the pattern does the same inside the pattern itself (`'(?-i)^[a-z0-9]+(-[a-z0-9]+)*$'`, a kebab-case key),
+and suits a pattern that carries no other named argument. A pattern that names no case (`^\d+$`), or names both cases in one class
+(`[A-Za-z]`), needs neither.
 
 ## Decision
 
 The primary argument is positional (`Position = 0`); opt-in behavior is a `[switch]` that is off by default. A configurable parameter
 declares the configured value as its default. Secondary inputs are named parameters. A case-sensitive `ValidatePattern` carries
-`Options = 'None'`.
+`Options = 'None'` or a leading `(?-i)`.
 
 ### How this is enforced
 
@@ -146,10 +148,11 @@ declares the configured value as its default. Secondary inputs are named paramet
   (`ADR-AUTO-DEFAULT`); this ADR only fixes the parameter mechanics.
 - **Custom PSScriptAnalyzer rules** (`pwsh/.scriptanalyzer/ParameterDesign.psm1`) — `Measure-PrimaryArgumentPosition` flags a function whose
   one mandatory parameter lacks `Position = 0` (ADR-PWSH-PARAM-POSITIONALPRIMARY), and `Measure-ParameterFillIn` flags a body that fills an
-  empty parameter in (ADR-PWSH-PARAM-RESOLUTIONORDER).
+  empty parameter in (ADR-PWSH-PARAM-RESOLUTIONORDER), and `Measure-CaseSensitivePattern` flags a `ValidatePattern` whose character class or
+  `\p{Lu}`/`\p{Ll}` names one case without `Options` or a leading `(?-i)` (ADR-PWSH-PARAM-CASESENSITIVEPATTERN).
 - **The exemplars** — the `Invoke-*` family (`Invoke-Executable`, `Invoke-Poetry`, `Invoke-Python`) is the pattern new functions copy.
-- **Code review** — a `[bool]` where a `[switch]` belongs, or a case-sensitive `ValidatePattern` without `Options = 'None'`
-  (ADR-PWSH-PARAM-CASESENSITIVEPATTERN), is rejected against this ADR.
+- **Code review** — a `[bool]` where a `[switch]` belongs, or a pattern whose case dependence the analyzer cannot see (a literal word such
+  as `^Get-`), is rejected against this ADR.
 
 ## Consequences
 

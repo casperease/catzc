@@ -20,8 +20,8 @@ catzc:
     and gives the caller its location back at the end. A command that throws, or writes an error, is a
     failure: its verdict line names it with the message, and the next command still runs. So is a command whose result object reports
     Result Failed; every Invoke-TestFile of the run returns that object, -PassThru named or not, so a red test file is a failure. So is a
-    command that returns a per-test record whose Outcome is fail (Invoke-PythonTest's), so a red pytest run is a failure. The exit code is 1
-    when any command failed.
+    command that returns a per-test record whose Outcome is fail (Invoke-PythonTest's), so a red pytest run is a failure, and a gate called
+    with -PassThru whose result counts an issue (IssueCount above 0). The exit code is 1 when any command failed.
 
     The import and the commands run under the machine's run lock, a named mutex, so heavy runs on one machine go one at a time. The lock
     is taken before the import, so a waiting run holds no import, and waiters take it in the order they came (Wait-CatzcRunLock.ps1). A
@@ -156,6 +156,11 @@ try {
                 $failedTests = @($output | Where-Object { $null -ne $_ -and $_.PSObject.Properties['Outcome'] -and $_.Outcome -eq 'fail' })
                 if ($failedTests.Count -gt 0) {
                     throw "it reported $($failedTests.Count) failed test(s)"
+                }
+                # A gate called with -PassThru returns its issues instead of throwing, so its issue count is its verdict.
+                $gates = @($output | Where-Object { $null -ne $_ -and $_.PSObject.Properties['IssueCount'] -and $_.IssueCount -gt 0 })
+                if ($gates.Count -gt 0) {
+                    throw "it reported $(($gates | ForEach-Object { "$($_.IssueCount) $($_.Subject) issue(s)" }) -join ', ')"
                 }
                 "[Invoke-CatzcCommand] passed: $line"
             }

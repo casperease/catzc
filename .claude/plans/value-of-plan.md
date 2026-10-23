@@ -13,10 +13,9 @@ catzc:
       - ADR-PWSH-TYPES
       - ADR-REPO-DRSCODE
       - ADR-REPO-PLANS
-      - ADR-REPO-SLIDES-MINIMAPSFROMDATA
       - DDR-TRACK-UNORDEREDTRACK
       - TDR-NORMALFORM
-    drs_total: 11
+    drs_total: 10
 ---
 
 # Value of each plan
@@ -46,21 +45,20 @@ stale or superseded item is recorded as such, with the reason.
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
-| Value   | Plan                        | Needed docs                                                                                     | Needed tests                                                                                          | State                                            |
-| ------- | --------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| medium  | plan-session-learnings      | the session-finalize skill (the learning definition)                                            | Pester for Add-SessionLearning and LearningsConfig                                                    | decided; two steps                               |
-| high    | plan-agent-shortcuts        | the plans ADR names New-Plan                                                                    | Pester for the gate runner and New-Plan, Test-AgentDefinitions                                        | one step left, the user's CLAUDE.md line         |
-| high    | plan-idiomatic-names        | ADR-AUTO-IDIOM (written), the command-contracts and api-contracts rules (written)               | Test-IdiomaticNames, Pester for the naming types, Test-Contracts                                      | folders renamed; wiring and the normal form open |
-| high    | plan-agent-friction         | ADR-REPO-PLANS gains the three-part plan rule; a how-to for a head fact                         | Pester for Test-Plans and Test-Formatting, the hook test, Test-ParameterConsistency                   | the head how-to and drawing, the user's trim     |
-| medium  | plan-bcl-language           | the BCL reference-set rule in ADR-AUTO-TYPES, the narrowed ADR-PWSH-TYPES rules, the bcl domain | Test-Links on the moved pages, Pester for the host-binding gate and config, Test-DrsRegistry          | one step left, the user's CLAUDE.md line         |
-| high    | plan-drs-system             | the DRS rule in ADR-REPO-DRSCODE, glossary entries for DRS, decision record and record kind     | Catzc.Base.Docs Pester, Update-DrsCitation dry run, Test-DrsRegistry, Test-Links, Test-GeneratedFiles | one step left, the user's CLAUDE.md edit         |
-| high    | plan-debt-agent-traffic     | the catzc-run, report-fixed, catzc-drone and plans-orchestrate lines; the entry script page     | the entry script test, Test-Plans tests, the hook test, Test-AgentDefinitions                         | four steps                                       |
-| highest | plan-minimap-inputs-only    | ADR-REPO-SLIDES-MINIMAPSFROMDATA rewritten                                                      | Write-DiagramMinimapData and Test-Diagrams tests                                                      | two steps                                        |
-| high    | plan-nuget-tooling          | ADR-AUTO-PKGMGR names NuGet's owner                                                             | Invoke-Dotnet and Build-AgentHook tests                                                               | design first                                     |
-| high    | plan-debt-full-run-failures | none (test reruns)                                                                              | one Invoke-TestFile per failing file                                                                  | one step                                         |
-| medium  | plan-debt-test-speed        | none (test files only)                                                                          | the measured test files, twice each                                                                   | two steps                                        |
-| high    | plan-bcl-path-sets          |                                                                                                 |                                                                                                       | new                                              |
-| medium  | plan-vscode-session-binding |                                                                                                 |                                                                                                       | new                                              |
+| Value  | Plan                        | Needed docs                                                                                     | Needed tests                                                                                          | State                                            |
+| ------ | --------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| medium | plan-session-learnings      | the session-finalize skill (the learning definition)                                            | Pester for Add-SessionLearning and LearningsConfig                                                    | decided; two steps                               |
+| high   | plan-agent-shortcuts        | the plans ADR names New-Plan                                                                    | Pester for the gate runner and New-Plan, Test-AgentDefinitions                                        | one step left, the user's CLAUDE.md line         |
+| high   | plan-idiomatic-names        | ADR-AUTO-IDIOM (written), the command-contracts and api-contracts rules (written)               | Test-IdiomaticNames, Pester for the naming types, Test-Contracts                                      | folders renamed; wiring and the normal form open |
+| high   | plan-agent-friction         | ADR-REPO-PLANS gains the three-part plan rule; a how-to for a head fact                         | Pester for Test-Plans and Test-Formatting, the hook test, Test-ParameterConsistency                   | the head how-to and drawing, the user's trim     |
+| medium | plan-bcl-language           | the BCL reference-set rule in ADR-AUTO-TYPES, the narrowed ADR-PWSH-TYPES rules, the bcl domain | Test-Links on the moved pages, Pester for the host-binding gate and config, Test-DrsRegistry          | one step left, the user's CLAUDE.md line         |
+| high   | plan-drs-system             | the DRS rule in ADR-REPO-DRSCODE, glossary entries for DRS, decision record and record kind     | Catzc.Base.Docs Pester, Update-DrsCitation dry run, Test-DrsRegistry, Test-Links, Test-GeneratedFiles | one step left, the user's CLAUDE.md edit         |
+| high   | plan-debt-agent-traffic     | the catzc-run, report-fixed, catzc-drone and plans-orchestrate lines; the entry script page     | the entry script test, Test-Plans tests, the hook test, Test-AgentDefinitions                         | three steps                                      |
+| high   | plan-nuget-tooling          | ADR-AUTO-PKGMGR names NuGet's owner                                                             | Invoke-Dotnet and Build-AgentHook tests                                                               | design first                                     |
+| high   | plan-debt-full-run-failures | none (test reruns)                                                                              | one Invoke-TestFile per failing file                                                                  | one step                                         |
+| medium | plan-debt-test-speed        | none (test files only)                                                                          | the measured test files, twice each                                                                   | two steps                                        |
+| high   | plan-bcl-path-sets          |                                                                                                 |                                                                                                       | new                                              |
+| medium | plan-vscode-session-binding |                                                                                                 |                                                                                                       | new                                              |
 
 ## Pending deletion
 

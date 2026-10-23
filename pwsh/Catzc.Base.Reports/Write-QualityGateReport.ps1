@@ -17,7 +17,7 @@ function Write-QualityGateReport {
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [Parameter(Mandatory)]
-        [ValidatePattern('^[a-z0-9]+(-[a-z0-9]+)*$')]
+        [ValidatePattern('(?-i)^[a-z0-9]+(-[a-z0-9]+)*$')]
         [string] $Subject,
 
         [Parameter(Mandatory)]

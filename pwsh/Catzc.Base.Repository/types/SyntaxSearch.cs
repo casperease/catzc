@@ -46,6 +46,20 @@ public static class SyntaxSearch
         return Find<FunctionDefinitionAst>(root, node => node is FunctionDefinitionAst && node.Parent != null && ReferenceEquals(node.Parent.Parent, root), false);
     }
 
+    // The function's name without its scope qualifier: Name keeps `script:`, `global:`, `local:` or `private:`, which no file or command name carries.
+    public static string BareName(FunctionDefinitionAst function)
+    {
+        if (function == null) { throw new ArgumentNullException(nameof(function)); }
+        string name = function.Name;
+        foreach (string qualifier in ScopeQualifiers)
+        {
+            if (name.StartsWith(qualifier, StringComparison.OrdinalIgnoreCase)) { return name.Substring(qualifier.Length); }
+        }
+        return name;
+    }
+
+    private static readonly string[] ScopeQualifiers = { "script:", "global:", "local:", "private:" };
+
     private static IReadOnlyList<T> Find<T>(Ast root, Func<Ast, bool> predicate, bool searchNestedScriptBlocks) where T : Ast
     {
         if (root == null) { throw new ArgumentNullException(nameof(root)); }
