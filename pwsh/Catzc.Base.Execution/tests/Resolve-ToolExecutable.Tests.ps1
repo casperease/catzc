@@ -15,25 +15,27 @@ Describe 'Resolve-ToolExecutable' -Tag 'L0', 'logic' {
         $script:windows = [bool]$IsWindows
         # The typed registry the real Get-Config returns, so the function reads typed properties as it does in production.
         $script:tools = [Catzc.Base.Execution.ToolsConfig]::new([ordered]@{
-            widget = @{
-                version                 = '5'
-                devbox_version          = '4.4'
-                command                 = 'widget-cli'
-                version_command         = 'widget-cli --version --short'
-                version_pattern         = 'version (?<ver>[\d.]+)'
-                windows_probes          = @('C:\widget\user.exe', 'C:\widget\machine.exe')
-                windows_pipeline_probes = @('C:\widget\agent.exe')
-                unix_probes             = @('/opt/widget/user', '/usr/bin/widget')
-                unix_pipeline_probes    = @('/opt/widget/agent')
-                probe_excludes          = @('C:\widget\wsl.exe')
-            }
-            gadget = @{
-                version         = '1.27'
-                command         = 'gadget'
-                version_command = 'gadget version'
-                version_pattern = 'go(?<ver>[\d.]+)'
-            }
-        })
+                widget = @{
+                    version                 = '5'
+                    system_provided         = $true
+                    devbox_version          = '4.4'
+                    command                 = 'widget-cli'
+                    version_command         = 'widget-cli --version --short'
+                    version_pattern         = 'version (?<ver>[\d.]+)'
+                    windows_probes          = @('C:\widget\user.exe', 'C:\widget\machine.exe')
+                    windows_pipeline_probes = @('C:\widget\agent.exe')
+                    unix_probes             = @('/opt/widget/user', '/usr/bin/widget')
+                    unix_pipeline_probes    = @('/opt/widget/agent')
+                    probe_excludes          = @('C:\widget\wsl.exe')
+                }
+                gadget = @{
+                    version         = '1.27'
+                    system_provided = $true
+                    command         = 'gadget'
+                    version_command = 'gadget version'
+                    version_pattern = 'go(?<ver>[\d.]+)'
+                }
+            })
     }
     BeforeEach {
         Mock Get-Config { $script:tools } -ModuleName Catzc.Base.Execution -ParameterFilter { $Config -eq 'tools' }

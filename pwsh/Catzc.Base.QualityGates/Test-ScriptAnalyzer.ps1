@@ -58,6 +58,17 @@ function Test-ScriptAnalyzer {
         }
     }
 
+    # Third-party files are not authored here, so the analyzer never judges them; a file outside the repository is never third-party.
+    $thirdParty = Get-GlobSet -Name 'third-party'
+    $authored = [System.Collections.Generic.List[string]]::new()
+    foreach ($file in $files) {
+        $relative = [System.IO.Path]::GetRelativePath($root, $file) -replace '\\', '/'
+        if ($relative.StartsWith('..') -or -not $thirdParty.Matches($relative)) {
+            $authored.Add($file)
+        }
+    }
+    $files = $authored
+
     Write-Message "Analyzing $($files.Count) PowerShell file(s) with PSScriptAnalyzer..."
     $diagnostics = @(Get-ScriptAnalyzerDiagnostics -Path $files -SettingsPath $settingsPath -NoCache:$NoCache)
 

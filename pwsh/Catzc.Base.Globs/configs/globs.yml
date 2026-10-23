@@ -131,6 +131,13 @@ globsets:
       - "**/.pytest_cache/**"
       - "**/node_modules/**"
 
+  third-party:
+    description: Vendored or downloaded third-party files, never authored here.
+    layer: loose-fileset
+    include:
+      - "**/.vendor/**"
+      - "**/assets/scripts/dotnet-install.*"
+
   repository:
     description: The whole repository - every tracked file under every named root.
     layer: loose-fileset

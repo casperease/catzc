@@ -43,6 +43,19 @@ Describe 'Test-ScriptAnalyzer' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'never analyzes a third-party file, though it is named' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
+        $scripts = Join-Path $TestDrive 'widget/assets/scripts'
+        [void][System.IO.Directory]::CreateDirectory($scripts)
+        $vendored = Join-Path $scripts 'dotnet-install.ps1'
+        Set-Content -Path $vendored -Value 'function Get-Gadget { }' -Encoding utf8
+
+        Test-ScriptAnalyzer -Path $vendored, $script:targetFile -OutputFolder $script:reportBase | Out-Null
+        Should -Invoke Get-ScriptAnalyzerDiagnostics -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly -ParameterFilter {
+            @($Path).Count -eq 1 -and $Path[0] -eq [System.IO.Path]::GetFullPath($script:targetFile)
+        }
+    }
+
     It 'passes and writes a report when the analyzer finds no violations' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         { Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase } | Should -Not -Throw
         $result = Test-ScriptAnalyzer -Path $script:targetFile -OutputFolder $script:reportBase -PassThru
