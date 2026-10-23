@@ -1,0 +1,31 @@
+# The `asset-description` file kind: what it said, and why it goes
+
+## What the key said
+
+The file-kinds registry (`pwsh/Catzc.Base.Globs/configs/file-kinds.yml`) carried one kind for the Markdown files beside a diagram:
+
+```yaml
+asset-description:
+  definition: The description of a diagram and the pages of its minimaps, in the diagram's folder under .assets.
+  files: ["docs/**/.assets/**/*.md"]
+```
+
+It stood after `diagram` and before `slide`, `reference` and `explanation`, so a Markdown file under a `.assets` folder took this kind
+before the catch-all of its tree. The registry's `overlaps` listed `[asset-description, reference]` and `[asset-description, explanation]`
+as intended, the contract draft of `catzc.base.globs` pinned the key, and the listen mode's `docs` tier (`ListenConfig`) named it among the
+doc types a note can land on.
+
+## Why it goes
+
+The kind dates from per-diagram folders, where a diagram's description and its minimap pages sat beside the image. Every diagram is now
+two files, `<name>.drawio.png` and `<name>.drawio.yml`, under `.assets` with no folder of its own, and the words a diagram needs live in an
+article page beside it. So no tracked file matches `docs/**/.assets/**/*.md`, and `Test-FileKindReachability` fails on a kind nothing
+reaches. A kind kept for files that no longer exist describes a shape the tree no longer has (PDR-ONELIVE).
+
+## Where it lives now
+
+- A diagram's one source is its `diagram-declaration` kind, `docs/**/.assets/*.drawio.yml`, and its image is the `diagram` kind.
+- A Markdown file that lands under `.assets` all the same takes the kind of its tree, `reference` or `explanation`.
+- The listen mode's `docs` tier keeps `diagram` and the page kinds, and no longer names this one.
+
+When ADR-REPO-FILEMETA absorbs this account, this page is deleted (PDR-ONELIVE).

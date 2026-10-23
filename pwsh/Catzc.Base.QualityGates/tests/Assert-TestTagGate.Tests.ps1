@@ -35,4 +35,17 @@ Describe 'Assert-TestTagGate' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-TAGSENFORCED' {
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Message -like '*Widget.untagged*' }
         Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Message -like '*Gadget.untagged*' }
     }
+
+    It 'names each violating test''s file and the valid categories, so a test with an invalid category is found and fixed without a search' {
+        Mock Get-TestTagViolations -ModuleName Catzc.Base.QualityGates {
+            , @([pscustomobject]@{ Test = 'Widget.mistagged'; File = 'pwsh/Widget/tests/Get-Widget.Tests.ps1'; Reason = 'category resolves to 0' })
+        }
+
+        { InModuleScope Catzc.Base.QualityGates { Assert-TestTagGate -Discovery ([pscustomobject]@{ Tests = @() }) } } |
+            Should -Throw '1 test(s) are missing*'
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter {
+            $Message -ceq '  [category resolves to 0] Widget.mistagged in pwsh/Widget/tests/Get-Widget.Tests.ps1'
+        }
+        Should -Invoke Write-Message -ModuleName Catzc.Base.QualityGates -Times 1 -ParameterFilter { $Message -clike '*category logic|integrity*' }
+    }
 }

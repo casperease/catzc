@@ -159,7 +159,8 @@ Describe 'Get-CombinedTypeHash' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMO
 
     It 'leaves a text without the head as it is, and strips a head with the blank lines below it' {
         Get-TypeSourceBody -Text "namespace Widget;`n" -Block '/*', '*/' | Should -BeExactly "namespace Widget;`n"
-        Get-TypeSourceBody -Text "/* a plain comment */`nnamespace Widget;`n" -Block '/*', '*/' | Should -BeExactly "/* a plain comment */`nnamespace Widget;`n"
+        $commented = "/* a plain comment */`n" + "namespace Widget;`n"
+        Get-TypeSourceBody -Text $commented -Block '/*', '*/' | Should -BeExactly $commented
         Get-TypeSourceBody -Text "/*`n---`ncatzc:`n  edges: {}`n---`n*/`n`n`nnamespace Widget;`n" -Block '/*', '*/' | Should -BeExactly "namespace Widget;`n"
     }
 }

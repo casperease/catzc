@@ -26,20 +26,16 @@ on 2026-10-22 with five sessions running tests). A red file has its cause report
       `file-kinds.yml` lists both pairs in `overlaps` (landed; the shadow finding is gone); left red only on the kind `asset-description`,
       which matches no tracked file (see the open question; `out/test-file/20261022-031859-d4dd28`). Check: `Invoke-TestFile` on it alone.
 - [ ] `Build-AgentHook.Tests.ps1` red twice on 2026-10-22 inside catzc-a0's bursts, a different hook's `BeforeAll` each time
-      (`Assert-BashTimeout`, then `Record-AgentWrite`; `out/test-file/20261022-084552-621c34`, `out/test-file/20261022-084916-5711b2`), with
-      no error text: first `Invoke-TestFile` prints a failed `BeforeAll`'s error record and inner exception in its summary (a test whose
-      setup never ran carries the error of the nearest block that holds one); then the test file runs three times, and the fix for its cause
-      is decided once the real error is read (a file race is unlikely: no other session imported during the bursts; moving the publish's
-      `obj/` and `bin/` alone fails with CS0579 while the project's own `obj/` is a compile item). (check: `Invoke-TestFile.Tests.ps1` green
-      with a case whose failing `BeforeAll` message appears in the summary, and `Build-AgentHook.Tests.ps1` green three times in a row while
-      another session imports)
+      (`Assert-BashTimeout`, then `Record-AgentWrite`), with no error text; `Invoke-TestFile` now prints a failed `BeforeAll`'s error, and
+      the file ran green three times alone (catzc-27, 2026-10-23, `out/test-file/20261023-092121-2054e4` and the two after it). Left: the
+      same three runs, through `Invoke-CatzcCommand`, while another session imports, and the fix decided from the real error if one turns
+      red. (check: `Build-AgentHook.Tests.ps1` green three times in a row while another session imports)
 - [ ] The file kind `asset-description` in `file-kinds.yml` matches no tracked file, so it is retired (decided by the orchestrator as
       delegated, 2026-10-22): its meaning and context first go to a page under `docs/references` (a removed key is never dropped silently),
-      then the kind leaves `file-kinds.yml` and every reader or test that names it. (check: `Test-FileKindReachability.Tests.ps1` green, and
-      `asset-description` found only on that page by grep)
+      then the kind leaves `file-kinds.yml` and every reader or test that names it, `ListenConfig.cs`'s docs tier included, in one burst
+      with a fresh full import (decided by the orchestrator as delegated, 2026-10-23, catzc-27). (check:
+      `Test-FileKindReachability.Tests.ps1` green, and `asset-description` found only on that page by grep)
 
-## Open questions
-
-- From the 2026-10-22 tag-gate fix: `Assert-TestTagGate` lists each untagged test by name only, so finding its file took a grep. Should each
-  line name the test file, and should the message say the valid categories are `logic` and `integrity` (one test used `integration`)?
-  Recommendation: yes, both in the one message.
+- [ ] `pwsh/Catzc.Base.QualityGates/private/Assert-TestTagGate.ps1`: each untagged test's line names its test file, and the message names
+      the valid categories `logic` and `integrity` (decided by the orchestrator as delegated, 2026-10-23: finding a test's file took a grep,
+      and one test used `integration`). (check: `Assert-TestTagGate.Tests.ps1` green with a case asserting the file and the categories)

@@ -37,17 +37,8 @@ ten "may I" questions on edits the rules already require, three to five tool cal
       (task-user-runs-and-commits). Check: one message sent between sessions appears in `out/orchestrator-<date>.log`.
 - [ ] `.claude/skills/plans-orchestrate/SKILL.md` line 4: the log line is written by the hook when the hook covers it (after the step
       above). Check: `Test-AgentDefinitions`.
-- [ ] `pwsh/.internal/assets/Enter-CatzcBurst.ps1`: a burst runs its work in the same call that enters it (catzc-e3, 2026-10-22: a burst
-      entered from its own background call held the lock for its 300 s unused, since nothing tells the agent when it starts holding; the
-      workaround `out/internal-burst.ps1` enters, waits for "holding the run lock", runs the steps and exits in one call), e.g. a `-Run`
-      list of commands it executes while holding, then releases. (check: `Enter-CatzcBurst.Tests.ps1` green with a case whose `-Run` steps
-      execute inside the burst and release the lock on success and on a failing step)
-
-- [ ] `pwsh/.internal/assets/Wait-CatzcRunLock.ps1`: a waiter whose holder record runs past its budget gives up at once with "retry after
-      it" even when that holder's process is gone (the orchestrator, 2026-10-22: six plan checks in a row stopped behind a test run's holder
-      record, the last one behind pid 15324 after its session had ended); the waiter checks the holder's process first, and a gone holder
-      never stops it, for a plain run as for a burst. (check: `Wait-CatzcRunLock.Tests.ps1` green with a case whose holder record names a
-      gone process and runs past the waiter's budget)
+- [ ] `.claude/skills/catzc-verify/SKILL.md` names the burst as one `Enter-CatzcBurst.ps1 -Run '<cmd>' …` call (landed by catzc-6e,
+      2026-10-23), in place of a separate enter, work and exit. Check: `Test-AgentDefinitions`.
 
 ## Open questions
 

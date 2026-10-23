@@ -216,6 +216,23 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
         }
     }
 
+    It 'never stops for a plain holder whose process is gone, though its record runs past its own budget' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        # The record names a dead process declared until 120 s from now, past the waiter's 5 s budget; the lock itself falls free in 1.5 s.
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500
+        try {
+            $holder.Taken | Should -BeTrue
+            $path = Get-CatzcRunLockHolderPath -LockName $script:lockName
+            [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($path)) | Out-Null
+            [System.IO.File]::WriteAllText($path, "2147483646|0|$([datetime]::UtcNow.AddSeconds(120).Ticks)|1|Get-Gadget")
+            $out = @(Wait-CatzcRunLock -LockName $script:lockName -LockSeconds 3 -BudgetSeconds 5 -StaleSeconds 720 -Holding 'Get-Widget' -Caller 'Widget' -Busy 'nothing ran' -Lock $script:taken)
+            $out | Should -Be @('[Widget] waiting for the run lock: another run holds it (up to 3 s)')
+            $script:taken.Value | Should -BeOfType [System.Threading.Mutex]
+        }
+        finally {
+            Stop-LockHolder $holder
+        }
+    }
+
     It 'gives up on a burst that outlasts its own budget instead of waiting for it forever' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         $burst = [System.Threading.EventWaitHandle]::new($false, [System.Threading.EventResetMode]::ManualReset, "$script:lockName-burst")
         # The burst hangs 3 s; the waiter's whole budget is 1 s.

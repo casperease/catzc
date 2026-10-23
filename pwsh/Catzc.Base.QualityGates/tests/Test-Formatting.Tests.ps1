@@ -26,7 +26,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
             })
         $script:carriers = [Catzc.Base.Languages.FileCarriersConfig]::new([ordered]@{
                 carriers = [ordered]@{
-                    gizmo = [ordered]@{ files = @('**/.gizmokeep'); carrier = 'none'; reason = 'a placeholder with nothing to format' }
+                    gizmo = [ordered]@{ files = @('**/.gizmo-keep'); carrier = 'none'; reason = 'a placeholder with nothing to format' }
                 }
             })
         $script:root = Get-RepositoryRoot
@@ -95,7 +95,7 @@ Describe 'Test-Formatting' -Tag 'L0', 'logic' {
 
     It 'reports a file no language or file class claims, and counts a stated no_formatter reason or a declared file class as covered' -Tag 'ADR-AUTO-TEST-QUALITYGATE', 'PDR-CONFIG-VARYINGBEHAVIOURISCONFIG' {
         $loose = Join-Path $script:root 'docs/widget.txt'
-        $placeholder = Join-Path $script:root 'docs/gadgets/.gizmokeep'
+        $placeholder = Join-Path $script:root 'docs/gadgets/.gizmo-keep'
         $widget = $script:widgetFile
         $type = $script:typeFile
         Mock Get-FormatScope -ModuleName Catzc.Base.QualityGates { , [string[]] @($widget, $loose, $type, $placeholder) }.GetNewClosure()

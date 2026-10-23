@@ -22,7 +22,11 @@ catzc:
     Exit-CatzcBurst.ps1 ends the burst or -Seconds pass, then releases the lock and says which. It imports nothing, so it runs in the
     background beside the burst, and the burst starts once its holding line is printed.
 
+    With -Run the burst's work runs in the same call that enters it: the steps run in order while the lock is held, and the lock is
+    released once the last step passes or the first fails, so no call holds the lock waiting for work that never knew when to start.
+
     timeout 360 pwsh -NoProfile -File pwsh/.internal/assets/Enter-CatzcBurst.ps1 -Seconds 300
+    timeout 360 pwsh -NoProfile -File pwsh/.internal/assets/Enter-CatzcBurst.ps1 -Seconds 240 -Run 'pwsh -NoProfile -File out/step.ps1'
 
 .PARAMETER Seconds
     The most seconds the burst holds the lock. Default: 300, inside the 360 s background roof of the time safeguard.
@@ -35,6 +39,11 @@ catzc:
 
 .PARAMETER BudgetSeconds
     The most seconds this call may take in all; a holder whose deadline lies beyond it is not waited for. Default: run_lock.budget_seconds.
+
+.PARAMETER Run
+    The steps the burst runs while it holds the lock, each a command run in this process, in order. A step fails when it throws or leaves a
+    non-zero exit code; the steps after it do not run, and neither do the steps left once -Seconds have passed. The lock is released after
+    the steps, and the call exits 1 when one failed. Default: none, and the burst holds until Exit-CatzcBurst or -Seconds.
 #>
 param(
     [ValidateRange(1, 360)]
@@ -46,7 +55,9 @@ param(
     [int] $LockSeconds,
 
     [ValidateRange(1, 360)]
-    [int] $BudgetSeconds
+    [int] $BudgetSeconds,
+
+    [string[]] $Run
 )
 
 Set-StrictMode -Version Latest
@@ -70,13 +81,44 @@ if ($null -eq $lock) {
 
 # The burst event exists only while the lock is held: Exit-CatzcBurst sets it, and Invoke-CatzcCommand -InBurst looks for it.
 $burst = [System.Threading.EventWaitHandle]::new($false, [System.Threading.EventResetMode]::ManualReset, "$LockName-burst")
+$failed = $false
 try {
-    "[Enter-CatzcBurst] holding the run lock for up to $Seconds s; end the burst with Exit-CatzcBurst.ps1"
-    if ($burst.WaitOne([timespan]::FromSeconds($Seconds))) {
-        '[Enter-CatzcBurst] released the run lock: Exit-CatzcBurst ended the burst'
+    if ($Run) {
+        "[Enter-CatzcBurst] holding the run lock for up to $Seconds s; running $($Run.Count) -Run steps"
+        $limit = [datetime]::UtcNow.AddSeconds($Seconds)
+        $outcome = "the $($Run.Count) -Run steps passed"
+        for ($index = 0; $index -lt $Run.Count; $index++) {
+            $step = "step $($index + 1) of $($Run.Count)"
+            if ([datetime]::UtcNow -ge $limit) {
+                $failed = $true
+                $outcome = "the $Seconds s limit passed before $step"
+                break
+            }
+            $global:LASTEXITCODE = 0
+            try {
+                & ([scriptblock]::Create($Run[$index]))
+            }
+            catch {
+                $failed = $true
+                $outcome = "$step failed: $($_.Exception.Message)"
+                break
+            }
+            if ($global:LASTEXITCODE -ne 0) {
+                $failed = $true
+                $outcome = "$step failed: exit code $global:LASTEXITCODE"
+                break
+            }
+        }
+        "[Enter-CatzcBurst] released the run lock: $outcome"
     }
     else {
-        "[Enter-CatzcBurst] released the run lock: the $Seconds s limit passed"
+        "[Enter-CatzcBurst] holding the run lock for up to $Seconds s; end the burst with Exit-CatzcBurst.ps1"
+        if ($burst.WaitOne([timespan]::FromSeconds($Seconds))) {
+            '[Enter-CatzcBurst] released the run lock: Exit-CatzcBurst ended the burst'
+        }
+        else {
+            "[Enter-CatzcBurst] released the run lock: the $Seconds s limit passed"
+        }
     }
 }
 finally {
@@ -84,4 +126,7 @@ finally {
     Remove-CatzcRunLockHolder -LockName $LockName
     $lock.ReleaseMutex()
     $lock.Dispose()
+}
+if ($failed) {
+    exit 1
 }

@@ -114,6 +114,56 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
         $run[0] | Should -BeExactly '[Invoke-CatzcCommand] passed: Get-Widget'
     }
 
+    It 'runs its -Run steps inside the burst, then releases the lock' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        $inside = "& '$script:entry' 'Get-Widget' -Importer '$script:importer' -LockName '$script:lockName' -InBurst"
+        $burst = [powershell]::Create().AddScript({
+                param($Enter, $Name, $Steps)
+                & $Enter -Seconds 5 -LockName $Name -LockSeconds 1 -Run $Steps
+                "exit $LASTEXITCODE"
+            }).AddArgument($script:enter).AddArgument($script:lockName).AddArgument(@($inside, "'second'"))
+        try {
+            @($burst.Invoke()) | Should -Be @(
+                '[Enter-CatzcBurst] holding the run lock for up to 5 s; running 2 -Run steps'
+                '[Invoke-CatzcCommand] passed: Get-Widget'
+                '[Invoke-CatzcCommand] 1 of 1 passed'
+                'second'
+                '[Enter-CatzcBurst] released the run lock: the 2 -Run steps passed'
+                'exit 0'
+            )
+        }
+        finally {
+            $burst.Dispose()
+        }
+        # The lock is free again and no burst is left: the next plain run takes it at once.
+        $run = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1)
+        $run[0] | Should -BeExactly '[Invoke-CatzcCommand] passed: Get-Widget'
+        { & $script:exit -LockName $script:lockName } | Should -Throw '*no burst holds*'
+    }
+
+    It 'stops at a failing -Run step, runs none after it, releases the lock and exits 1: <case>' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' -ForEach @(
+        @{ case = 'a throw'; Step = "throw 'broken gadget'"; Reason = 'broken gadget' }
+        @{ case = 'a non-zero exit code'; Step = '$global:LASTEXITCODE = 3'; Reason = 'exit code 3' }
+    ) {
+        $burst = [powershell]::Create().AddScript({
+                param($Enter, $Name, $Steps)
+                & $Enter -Seconds 5 -LockName $Name -LockSeconds 1 -Run $Steps
+                "exit $LASTEXITCODE"
+            }).AddArgument($script:enter).AddArgument($script:lockName).AddArgument(@("'first'", $Step, "'never'"))
+        try {
+            @($burst.Invoke()) | Should -Be @(
+                '[Enter-CatzcBurst] holding the run lock for up to 5 s; running 3 -Run steps'
+                'first'
+                "[Enter-CatzcBurst] released the run lock: step 2 of 3 failed: $Reason"
+                'exit 1'
+            )
+        }
+        finally {
+            $burst.Dispose()
+        }
+        $run = @(& $script:entry 'Get-Widget' -Importer $script:importer -LockName $script:lockName -LockSeconds 1)
+        $run[0] | Should -BeExactly '[Invoke-CatzcCommand] passed: Get-Widget'
+    }
+
     It 'stops with run lock busy, starting no burst, when another run keeps the lock past its wait' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         $other = Start-LockHolder -Name $script:lockName -Milliseconds 2500
         try {
