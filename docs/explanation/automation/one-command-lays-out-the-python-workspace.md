@@ -40,6 +40,19 @@ and the two Python quality gates that pass over the workspace they define.
 
 ![One command lays out the Python workspace that uv handles](.assets/one-command-lays-out-the-python-workspace.drawio.png)
 
+## What the drawing shows
+
+The [rendered action diagram](.assets/one-command-lays-out-the-python-workspace.drawio.png) reads left to right. The cause, a bold half-disc
+numbered 1 on the left rim, says **A maintainer adds a Python folder**; its edge carries `cats` into box 2, the action pill
+`new_python_project`. Three arcs cut the frame into three zones. Zone 1 holds two `local` notes: 3, the workspace root rendered with every
+member and the pinned interpreter, and 4, the kit's member file, each proven by `get_repository_file`; the edges out of the action carry
+`executes`. Zone 2 holds 5, the root file is a known file kind, and 6, the member file belongs to the Python language, proven by
+`get_path_file_type` and `get_file_language`; the edge from 3 to 5 and the edge from 4 to 6 carry `effects`. Zone 3 holds three notes: 7,
+`Test-GeneratedFiles` sees no drift for the root configs, reached from 3; 8, `Test-PythonTypes` passes, reached from 6; and 9,
+`Test-Formatting` passes for Python, reached from 5; all three edges carry `effects`. The legend names the cause, the action, the ring, the
+effect note, the four operators and the marker. Two edges skip a zone, 3 to 7 and 5 to 9, and run behind the notes in between, so their
+words are partly hidden; the numbers tell the order where the lines do not.
+
 ## Walkthrough
 
 1. **A maintainer adds a Python folder.** The cause is a new Python folder under the one Python root, named in Python's own idiom
@@ -102,6 +115,27 @@ Test-PythonTypes
 
 Test-Formatting -Language 'python'
 ```
+
+## Notes from the inspection
+
+- Two edges skip a zone and run behind other notes; at three zones this is the drawing's main weakness. The renderer should route a
+  zone-skipping edge through the lane's margin, above or below the notes it passes, and the language could ask for a relay effect when a
+  story jumps more than one hop.
+- Zone 3 stacks three notes of different heights with narrow gaps, and the proof lines carry most of the height. A note whose proof is a
+  bare command name could be one line tall, which would give the zone air.
+- The subtitle lists five rule codes in one line and the legend repeats nine entries; both are correct but heavy. A legend that lists only
+  the operators the drawing uses would be shorter without losing a reader.
+- The edge from 6 to 8 and the edge from 5 to 9 cross each other between zones 2 and 3. Ordering the notes of a zone by the zone of their
+  source, and then by their source's position, would remove most such crossings.
+
+### Stronger with new definitions
+
+- `route: margin` on effects 7 and 9, whose edges skip a zone, so the renderer carries each line through the lane's margin instead of behind
+  notes 5 and 6.
+- `content.order: by-source` beside the declared order, so a zone's notes stand in the order of their sources' positions; 8 and 9 would swap
+  and their edges would no longer cross.
+- `show: words` on notes 7, 8 and 9, whose proofs are gates with no arguments worth reading twice, so each note is one line tall and zone 3
+  gains the air it lacks.
 
 ## Why it holds
 

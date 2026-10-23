@@ -34,6 +34,17 @@ afterwards: the links on a page must resolve, and the page must match the contra
 
 ![Building the contract reference writes one page per unit](.assets/building-the-contract-reference-writes-one-page-per-unit.drawio.png)
 
+## What the drawing shows
+
+The [rendered action diagram](.assets/building-the-contract-reference-writes-one-page-per-unit.drawio.png) reads left to right. The cause, a
+bold half-disc numbered 1 on the left rim, says **A maintainer changes a contract**; its edge carries `cats` into box 2, the action pill
+`build_contract_reference`. Two arcs cut the frame into zones. Zone 1 holds two `local` notes: 3, the catzc unit's reference page, and 4,
+the external Azure unit's page, each proven by `get_repository_file` on its path; the edges out of the action carry `executes`. Zone 2 holds
+two notes level with them: 5, every link on the catzc page resolves, proven by `test_links` on that page, and 6, the generated-files quality
+gate finding the pages in step with the contracts, proven by `test_generated_files` for the builder. The edge from 3 to 5 and the edge from
+4 to 6 both carry `effects`, so each gate stands behind the page it checks and the two stories never cross. The legend names the cause, the
+action, the ring, the effect note, the four operators and the marker.
+
 ## Walkthrough
 
 1. **A maintainer changes a contract.** The cause is a change to a contract asset: a command contract, a type, a sample. The pages that
@@ -78,6 +89,25 @@ Test-Links -Path 'docs/references/contracts/catzc.md'
 
 Test-GeneratedFiles -Generator 'Build-ContractReference'
 ```
+
+## Notes from the inspection
+
+- This is the drawing the grammar fits best: two parallel stories, one hop each, no edge skipping a zone, every word legible. A drawing with
+  more than two stories per zone would stack its notes tighter than the lane allows, and the renderer refuses it rather than shrinking the
+  text; a taller frame on request is the only relief.
+- The `effects` words stand just left of the first arc; one more character and the arc would cut them. The word's position should take the
+  arcs into account, not only the source box.
+- The numbers run top to bottom inside each zone while the causality runs left to right, so 5 follows 3 and 6 follows 4 although 4 is
+  numbered before 5. The numbers tell the declared order, not the chain; a reader who wants the chain follows the words on the edges.
+
+### Stronger with new definitions
+
+- `content.order: chain` beside the default declared order, so the numbers follow each story to its end before the next story starts; here
+  the pages and their gates would read 3, 4 for the catzc story and 5, 6 for the Azure one.
+- `legend: used` as a third value beside `auto` and a list, so the legend names only the operators the drawing draws; this drawing never
+  draws `affects` and would drop that row.
+- `effects[].unit: catzc` as an optional grouping word printed as a small chip like `where`, so two parallel stories carry the name they
+  belong to on every note.
 
 ## Why it holds
 

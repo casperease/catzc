@@ -31,6 +31,37 @@ action and its effects; the runs under it prove each effect.
 
 ![Reading an accosted file writes nothing and leaves the contract checks as they were](.assets/reading-an-accosted-file-writes-nothing.drawio.png)
 
+## What the drawing shows
+
+The [rendered action diagram](.assets/reading-an-accosted-file-writes-nothing.drawio.png) reads left to right. On the left rim stands the
+cause, a bold half-disc numbered 1, **An author**. Its edge carries the word `cats` into box 2, the action pill, which prints the one call
+`get_accosted_file` with its path wrapped over three lines. Two arcs cut the frame into zones. Zone 1 holds two notes, each with a `local`
+chip: 3, the file is read, and 4, nothing is written, both proven by `get_repository_file` on the same path; the edges from the action into
+them carry `executes`. Zone 2 holds note 5, the contract check results unchanged, proven by `get_contract_check_results`; its edge comes
+straight from the action and passes between notes 3 and 4 on its way. The legend names the cause, the action, the ring, the effect note, the
+four operators and the marker. One thing to read with care: the edge from 2 to 5 runs across zone 1 behind the two notes, so its `executes`
+word is partly hidden.
+
+## Notes from the inspection
+
+- The edge that skips the first zone runs behind notes 3 and 4 and loses its word. The renderer should route an edge that skips a zone
+  around the notes in between, through the lane's margin, instead of straight through them.
+- The two `executes` words sit against the left edge of their notes, because a quarter of a short edge lands inside the target. A word
+  should stand a fixed distance past its exit point and never closer than its own width to the target.
+- The action pill wraps its one path over three ragged lines. A wrap that puts a `key:` and a long value on lines of their own would read as
+  one statement rather than as broken text.
+- Every note carries a `local` chip although nothing here is remote. A diagram-level default for `where`, with chips only on the exceptions,
+  would leave the drawing quieter.
+
+### Stronger with new definitions
+
+- `content.where: local` as the diagram's default, so a note names `where:` only when it differs; this drawing would lose three chips and
+  keep its meaning.
+- `proves: { again: effect-read }` for note 4, saying that the same observation is taken again after the action; the drawing would print
+  "again: 3" instead of the full path a second time, and the proof file would still hold the run.
+- `route: margin` on an effect whose edge skips a zone, so the renderer carries the line through the lane's margin above or below the notes
+  it passes; here note 5 would take it.
+
 ## Walkthrough
 
 1. **An author.** The cause sits on the left rim: a person asks cats for the file, with no other trigger and no state beyond the repository.

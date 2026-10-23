@@ -182,10 +182,11 @@ therefore labelled _DISCARDED / Retired_, because retirement is a success that s
 ### Rule DDR-VISUAL-ACTIONISALENS
 
 The **action lens** is the value `action` of a declaration's `about.lens`, the closed list of lenses declared once in the renderer's
-vocabulary. A diagram under it, an action diagram, draws one action and its cascading effects on the system; a diagram under any other lens
-keeps the geometry of bands of glyphs and the edges between them. The lens badge prints ACTION, and the subtitle ends in `action`, beside
-`source`. The lens is independent of the declaration's `kind` (explanation or reference), so an action diagram is either. There is one
-declaration format and one renderer, with the lens the switch inside them, never a second module
+vocabulary. A diagram under it, an action diagram, draws one action and its cascading effects on the system; a diagram under the proof lens
+(DDR-VISUAL-PROOFISALENS) draws the action's proof alone, and a diagram under any other lens keeps the geometry of bands of glyphs and the
+edges between them. The lens badge prints ACTION, and the subtitle ends in `action`, beside `source`. The lens is independent of the
+declaration's `kind` (explanation or reference), so an action diagram is either. There is one declaration format and one renderer, with the
+lens the switch inside them, never a second module
 ([PDR-ONELIVE-ONEVERSION](../principles/one-living-version.md#rule-pdr-onelive-oneversion)).
 
 - [The action lens](#the-action-lens)
@@ -255,6 +256,32 @@ language's one reader and never written by hand; a linked `.ps1` asset is not ta
 ([PDR-ONELIVE-ONEVERSION](../principles/one-living-version.md#rule-pdr-onelive-oneversion)).
 
 - [The proof is the accosted file](#the-proof-is-the-accosted-file)
+
+### Rule DDR-VISUAL-PROOFBOXUNDERTHEFRAME
+
+A **proof box** is the box captioned Proof under the frame of an action diagram, as wide as the frame. For each call of the action it prints
+the call's normalized statement, written with the word cats, and the words each engine runs it as, in the idiom of that engine (PascalCase
+for pwsh, kebab-case for bash and zsh). The engines and their idioms are declared once in the renderer's vocabulary, never in a declaration.
+An action diagram shows the proof box by default, and `content.proof: hidden` turns it off, the default being declared once in the same
+vocabulary.
+
+- [The proof box](#the-proof-box)
+
+### Rule DDR-VISUAL-PROOFISALENS
+
+The **proof lens** is the value `proof` of a declaration's `about.lens`: a diagram under it draws the proof box alone, from
+`content.action`, where the frame would stand. It declares no cause and no effects, and no `content.proof`, since the box is the whole
+drawing. Its lens badge prints PROOF, and its subtitle ends in `proof`.
+
+- [The proof lens](#the-proof-lens)
+
+### Rule DDR-VISUAL-ONELEGENDBAND
+
+A **legend band** is the one band under every drawing, band diagrams included, and a **legend segment** is one captioned box of it, as wide
+as the part of the drawing it stands under: Action and Proof under the frame, Map key under the sidebar. In every segment the swatches stand
+centred in a left column and the words are left-aligned beside them.
+
+- [One legend band](#one-legend-band)
 
 ## One axis, read left to right
 
@@ -459,3 +486,21 @@ A drawing and its proof are two renderings of one set of runs, so the runs live 
 Requiring each observation on the picture to occur verbatim in that file means the drawing cannot drift from what the proof runs, and
 checking the action against its command contract means it names a command that exists. The words in an article follow from the same file
 through the one reader, so a prose version of a call can never differ from the call.
+
+## The proof box
+
+A call is one statement to cats and a different spelling in each engine, and a reader who sees only the statement cannot tell what each
+engine is asked to run. The box under the frame prints both, from the same normalized statement, so the spelling in an engine is derived and
+never written. It is shown by default because the statement is the thing the drawing claims, and an author who needs the room turns it off
+with one key.
+
+## The proof lens
+
+Sometimes the call is the whole point: a drawing of what an engine runs. The proof lens draws the box and nothing else, from the action
+alone, so a call needs no cause and no effects to be shown in every engine's words.
+
+## One legend band
+
+A legend that changes shape from one drawing to the next has to be found again each time. One band under every drawing, with one captioned
+box per part of the drawing above it, puts every key where the eye already is, and centred swatches beside left-aligned words read as one
+column of symbols and one of words whatever the segment holds.

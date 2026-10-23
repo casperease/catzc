@@ -15,8 +15,9 @@ catzc:
       - ADR-REPO-DRSCODE
       - ADR-REPO-PLANS
       - DDR-TRACK-UNORDEREDTRACK
+      - DDR-VISUAL-EFFECTSINZONES
       - TDR-NORMALFORM
-    drs_total: 11
+    drs_total: 12
 ---
 
 # Value of each plan
@@ -60,6 +61,7 @@ stale or superseded item is recorded as such, with the reason.
 | medium | plan-debt-test-speed        | none (test files only)                                                                          | the measured test files, twice each                                                                   | two steps                                        |
 | high   | plan-bcl-path-sets          |                                                                                                 |                                                                                                       | new                                              |
 | high   | plan-debt-tier-tripwire     | none (ADR-AUTO-TEST-PROCESSTRIPWIRE decides)                                                    | each failing file at -MaxLevel 1, the tripwire's test, both tiers alone                               | new                                              |
+| medium | plan-action-lens-next       | DDR-VISUAL-EFFECTSINZONES and -EDGEWORDSAREOPERATORS extended                                   | the kit suite, the four action diagrams re-rendered                                                   | new                                              |
 | medium | plan-vscode-session-binding |                                                                                                 |                                                                                                       | new                                              |
 
 ## Pending deletion

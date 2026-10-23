@@ -89,8 +89,15 @@ ACTION_LANE = int(ACTION["lane-height"])  # the invisible centre lane's height: 
 ACTION_MARGIN = int(ACTION["ring-margin"])  # the margin above and below the lane where the rings crawl before the frame cuts them
 ACTION_WIDTH = int(ACTION["action-width"])  # the widest action glyph; a longer call wraps inside it
 ACTION_CLEARANCE = int(ACTION["clearance"])  # how far the action clears the cause's round, and the first ring the action's right edge
+# The Proof: a box under an action's frame, as wide as it, that knows the action's normalized statement alone and prints the words each
+# engine runs it as; the proof lens draws that box on its own. Its engines and their idioms, and whether an action diagram shows it,
+# are declared once in drawio.yml.
+PROOF_LENS = "proof"
+PROOF_SHOWN = str(ACTION["proof"]).strip() == "shown"
+PROOF_ENGINES = [tuple(pair.split()) for pair in str(ACTION["proof-engines"]).split(",")]  # (engine, idiom), idiom pascal or kebab
+PROOF_ROW = 22  # one engine's words, one row
 # The cells put derives from the kit and the registries, never from the author: get skips them, and a change to them is stale.
-DERIVED = ("sidebar-bg", "legend", "lens-badge", "mapkey")
+DERIVED = ("sidebar-bg", "legend", "legend-proof", "lens-badge", "mapkey")
 DERIVED_PREFIXES = ("lg-", "mk-", "minimap-", "lane-")  # lane- is a lane's trunk, its marks and the gate rules: the yml's alone
 CONTENT_KEYS = (
     "title",
@@ -102,6 +109,7 @@ CONTENT_KEYS = (
     "cause",
     "action",
     "effects",
+    "proof",
     "bands",
     "spans",
     "templates",
@@ -139,8 +147,6 @@ PAGE = {"x": 20, "width": 1260, "title_y": 14, "subtitle_y": 44, "span_y": 84, "
 GAP, PAD, LABEL_ROW, ROW_GAP, COL_GAP = 20, 20, 40, 36, 40
 SIDEBAR_X, SIDEBAR_W = 1316, 240
 SIDEBAR = (("minimap-1", 16, 150), ("minimap-2", 182, 180), ("minimap-3", 378, 150))
-MAPKEY_Y = 544  # the map key's panel, under the three minimaps
-MAPKEY_BOTTOM = MAPKEY_Y + 82 + 16  # its bottom, and the sidebar's pad under it
 # The style keys that identify a glyph or edge kind: the shape and the two colours, with the marks that set a variant apart (a read edge's
 # dots and open arrow, a junction's oval start).
 SIGNATURE_KEYS = (
@@ -181,6 +187,17 @@ def marker_xy(box, corner):
     x = box["x"] - 10 if corner.endswith("left") else box["x"] + box["w"] - 12
     y = box["y"] - 11 if corner.startswith("top") else box["y"] + box["h"] - 11
     return x, y
+
+
+def middle_leg(points):
+    """The leg of a polyline that holds its halfway point, as its two ends."""
+    legs = [(p, q, math.hypot(q[0] - p[0], q[1] - p[1])) for p, q in zip(points, points[1:])]
+    left = sum(leg[2] for leg in legs) / 2
+    for p, q, length in legs:
+        if left <= length:
+            return p, q
+        left -= length
+    return legs[-1][0], legs[-1][1]
 
 
 def edge_middle(a, b, via):
@@ -808,16 +825,20 @@ def normalise(raw, where="the declaration"):
     if theme not in themes:
         choices(f"{where}: theme", theme, themes)
     out["theme"] = theme
-    # The action lens draws its cause, its action and its effects, and the renderer draws every edge; every other lens draws bands.
-    if lens == ACTION_LENS:
+    # The action lens draws its cause, its action and its effects, and the renderer draws every edge; the proof lens draws the action's
+    # statement alone; every other lens draws bands.
+    if lens in (ACTION_LENS, PROOF_LENS):
         for key in ("bands", "groups", "glyphs", "notes", "edges", "spans", "markers", "chips", "relation", "thick") + SHORTHAND:
             if content.get(key):
                 raise DeclarationError(
-                    f"{where}: content.{key} is the band grammar; the action lens draws cause, action and effects, and the renderer "
-                    "draws the edges with its operators"
+                    f"{where}: content.{key} is the band grammar; the {lens} lens draws an action, and the renderer draws the rest"
                 )
+        if lens == PROOF_LENS:
+            for key in ("cause", "effects", "proof"):
+                if key in content:
+                    raise DeclarationError(f"{where}: content.{key} belongs to the action lens; the proof lens draws the action's statement alone")
     else:
-        for key in ACTION_KEYS:
+        for key in ACTION_KEYS + ("proof",):
             if key in content:
                 raise DeclarationError(f"{where}: content.{key} belongs to the action lens; this diagram's lens is {lens}")
     out["bands"] = [entry(b, ("id", "label"), where, "band") for b in content.get("bands") or []]
@@ -919,8 +940,8 @@ def normalise(raw, where="the declaration"):
             if ids.get(edge[end]) not in ("glyph", "group"):
                 choices(f"{where}: edge {end}", edge[end], [i for i, k in ids.items() if k in ("glyph", "group")])
         out["edges"].append(edge)
-    if lens == ACTION_LENS:
-        action_content(content, out, ids, where)
+    if lens in (ACTION_LENS, PROOF_LENS):
+        action_content(content, out, ids, where, lens)
     out["markers"] = []
     edge_keys = [f"{e['from']}->{e['to']}" for e in out["edges"]]
     for m in content.get("markers") or []:
@@ -1111,20 +1132,13 @@ def cause_radius(cause):
     return sizes[size]
 
 
-def action_content(content, out, ids, where):
+def action_content(content, out, ids, where, lens=ACTION_LENS):
     """The action lens's content: its cause (the actor or trigger, in plain words), its action (one contract-form call, or a call site
-    of several, drawn one row each) and its effects, each a note on a ring with its where chip and the observation that proves it."""
-    for key in ACTION_KEYS:
+    of several, drawn one row each) and its effects, each a note in a zone with its where chip and the observation that proves it; the
+    proof lens takes the action alone."""
+    for key in ("action",) if lens == PROOF_LENS else ACTION_KEYS:
         if key not in content:
-            raise DeclarationError(f"{where}: the action lens needs content.{key}")
-    # The cause's half-disc has a named size from the closed list in drawio.yml, the default when none is given; a label ending in `!`
-    # takes the largest. The size is kept only when written, so the yml stays minimal and get gives it back the same way.
-    cause = entry(content["cause"], ("label",), where, "cause", optional={"size": ""})
-    sizes = cause_sizes()
-    if cause["size"] and cause["size"] not in sizes:
-        choices(f"{where}: cause size", cause["size"], tuple(sizes))
-    if not cause["size"]:
-        cause.pop("size")
+            raise DeclarationError(f"{where}: the {lens} lens needs content.{key}")
     action_raw = content["action"]
     if not isinstance(action_raw, dict) or set(action_raw) not in ({"call"}, {"calls"}):
         raise DeclarationError(f"{where}: content.action is `call: <one command>` or `calls: [<commands>]`, never both or neither")
@@ -1135,6 +1149,24 @@ def action_content(content, out, ids, where):
         if not isinstance(calls, list) or len(calls) < 2:
             raise DeclarationError(f"{where}: content.action.calls is a call site of two or more commands; one command is `call:`")
         action = {"calls": [contract_call(c, where, f"action.calls[{n}]") for n, c in enumerate(calls)]}
+    ids["action"] = "action"
+    if lens == PROOF_LENS:
+        out["action"] = action
+        return
+    # Whether the action diagram draws its Proof box; the default is declared once, and the key is kept only when it differs.
+    proof = str(content.get("proof", "shown" if PROOF_SHOWN else "hidden"))
+    if proof not in ("shown", "hidden"):
+        choices(f"{where}: content.proof", proof, ("shown", "hidden"))
+    if (proof == "shown") != PROOF_SHOWN:
+        out["proof"] = proof
+    # The cause's half-disc has a named size from the closed list in drawio.yml, the default when none is given; a label ending in `!`
+    # takes the largest. The size is kept only when written, so the yml stays minimal and get gives it back the same way.
+    cause = entry(content["cause"], ("label",), where, "cause", optional={"size": ""})
+    sizes = cause_sizes()
+    if cause["size"] and cause["size"] not in sizes:
+        choices(f"{where}: cause size", cause["size"], tuple(sizes))
+    if not cause["size"]:
+        cause.pop("size")
     effects_raw = content["effects"]
     if not isinstance(effects_raw, list) or not effects_raw:
         raise DeclarationError(f"{where}: content.effects is a list of the action's effects, one or more")
@@ -1206,7 +1238,7 @@ def entry(item, keys, where, what, optional=None):
 def brief(phrase):
     """A legend phrase as the legend prints it: the name alone, without the explanation in parentheses or after a colon; a flow keeps
     its relation, a commit its state and an operator its meaning, which are the names."""
-    if phrase.startswith(("flow: ", "commit: ", "execution: ") + tuple(f"{word}: " for word in OPERATORS)):
+    if phrase.startswith(("flow: ", "commit: ", "execution: ", "proof: ") + tuple(f"{word}: " for word in OPERATORS)):
         return phrase.split(" (")[0] if not phrase.startswith("commit: ") else phrase
     return phrase.split(" (")[0].split(":")[0].strip()
 
@@ -1467,7 +1499,7 @@ def place(declaration):
     """Every cell of the model with its absolute geometry: the grid places what the layout does not name; the action lens places
     everything by ring and order."""
     content, layout = declaration["content"], declaration["layout"]
-    if content["lens"] == ACTION_LENS:
+    if content["lens"] in (ACTION_LENS, PROOF_LENS):
         return place_action(declaration)
     glyph_lib = LIB["glyphs"]
     holder = {}
@@ -1776,6 +1808,15 @@ def place(declaration):
             a, b = box_of[e["from"]], box_of[e["to"]]
             low = a["y"] + a["h"] + BYPASS_DIP
             edge["via"] = [[a["x"] + a["w"] + BYPASS_DIP, low], [b["x"] - BYPASS_DIP, low]]
+        if e["label"]:
+            # A steep edge, one that climbs or falls more than it runs, never carries its word across its own line: the word stands
+            # left-aligned, glued 3 px right of the line at its middle, where draw.io and the painter both put an align=left label.
+            a, b = box_of[e["from"]], box_of[e["to"]]
+            points = [(a["x"] + a["w"] / 2, a["y"] + a["h"] / 2), *[(x, y) for x, y in edge["via"]], (b["x"] + b["w"] / 2, b["y"] + b["h"] / 2)]
+            (x0, y0), (x1, y1) = middle_leg(points)
+            if abs(y1 - y0) > abs(x1 - x0):
+                edge["style"] += "align=left;"
+                edge["label_at"] = (0, -3 if y1 > y0 else 3)
         cells.append(edge)
     size = LIB["marks"]["marker"]["size"]
     for m in content["markers"]:
@@ -1831,9 +1872,12 @@ def place_action(declaration):
     the lens draws itself, cause to action and action to each effect. Nothing but the frame takes a layout entry."""
     content, layout = declaration["content"], declaration["layout"]
     lib = LIB["glyphs"]
-    gap, note_w, radius = int(ACTION["ring-gap"]), int(ACTION["note-width"]), cause_radius(content["cause"])
     cells: list = []
     drop = chrome(content, cells)
+    if content["lens"] == PROOF_LENS:  # the Proof box alone, where the frame would stand
+        bottom = proof_cells(cells, content["action"], PAGE["x"], PAGE["band_y"] + drop, PAGE["width"])
+        return finish(cells, content, bottom, declaration)
+    gap, note_w, radius = int(ACTION["ring-gap"]), int(ACTION["note-width"]), cause_radius(content["cause"])
     action, effects = content["action"], content["effects"]
     site = "calls" in action
     member = lib["callsite"]["member"]
@@ -1899,6 +1943,8 @@ def place_action(declaration):
         cells.append(cell("action", printed(wrapped[0]), lib["action"]["style"], ax, ay, aw, ah))
     tag, flow, mark = lib["effect"]["tag"], LIB["edges"]["flow"]["style"], LIB["marks"]["marker"]
     labelled = flow.replace("shadow=0;", "fontColor=@ink;fontStyle=1;fontSize=11;labelBackgroundColor=@band;shadow=0;")
+    box_of = {"cause": {"x": frame["x"], "y": cy - radius, "w": radius, "h": 2 * radius}, "action": {"x": ax, "y": ay, "w": aw, "h": ah}}
+    zone_of = {"cause": 0, "action": 0}
     # The story's numbers, one per box: the cause, the action, then every effect in its order.
     numbered = [("cause", (cx + 4, cy - radius - 11)), ("action", marker_xy({"x": ax, "y": ay, "w": aw, "h": ah}, "top-left"))]
     for k in range(1, hops + 1):
@@ -1962,42 +2008,148 @@ def place_action(declaration):
                 cell(f"{e['id']}-tag", e["where"], tag["style"], x + note_w - tag["size"][0] - 8, y - 8, tag["size"][0], tag["size"][1])
             )
             source = e.get("after", "action")
-            cells.append(edge_cell(f"e-{source}-{e['id']}", f"<b>{operator(source, e)}</b>", labelled, source, e["id"]))
+            box_of[e["id"]] = {"x": x, "y": y, "w": note_w, "h": h}
+            zone_of[e["id"]] = k
+            skip = (cy, lane_half, ACTION_MARGIN) if k - zone_of[source] > 1 else None  # a zone skipped: the margin carries the edge
+            cells.append(operator_edge(f"e-{source}-{e['id']}", operator(source, e), labelled, source, e["id"], box_of, skip))
             numbered.append((e["id"], marker_xy({"x": x, "y": y, "w": note_w, "h": h}, "top-left")))
     # The cause reaches its action through cats, always: the edge says so, and the cause's own words never need to.
-    cells.append(edge_cell("e-cause-action", "<b>cats</b>", labelled, "cause", "action"))
+    cells.append(operator_edge("e-cause-action", "cats", labelled, "cause", "action", box_of))
     for n, (_, (mx, my)) in enumerate(numbered, 1):
         cells.append(cell(f"mark-{n}", str(n), mark["style"], round(mx), round(my), mark["size"][0], mark["size"][1]))
-    return finish(cells, content, frame["y"] + frame["h"], declaration)
+    bottom = frame["y"] + frame["h"]
+    if content.get("proof", "shown" if PROOF_SHOWN else "hidden") == "shown":  # the Proof box under the frame, as wide as it
+        bottom = proof_cells(cells, content["action"], frame["x"], bottom + GAP, frame["w"])
+    return finish(cells, content, bottom, declaration)
+
+
+def engine_words(call, idiom):
+    """A contract-form call in the words an engine runs it as: `pascal` is PowerShell's Verb-Noun with -Parameter 'value', `kebab` the
+    POSIX shells' kebab-case command with --parameter 'value'. A true switch stands alone, a false one says so, a number stays bare."""
+    ((name, args),) = call.items()
+    words = name.split("_")
+    if idiom == "pascal":
+        head = words[0].capitalize() + ("-" + "".join(w.capitalize() for w in words[1:]) if len(words) > 1 else "")
+        parts = [head]
+        for key, value in args.items():
+            parameter = "-" + "".join(w.capitalize() for w in key.split("_"))
+            parts.append(parameter if value is True else f"{parameter}:$false" if value is False else f"{parameter} '{value}'" if isinstance(value, str) else f"{parameter} {value}")
+    else:
+        parts = [name.replace("_", "-")]
+        for key, value in args.items():
+            parameter = "--" + key.replace("_", "-")
+            parts.append(parameter if value is True else f"{parameter} false" if value is False else f"{parameter} '{value}'" if isinstance(value, str) else f"{parameter} {value}")
+    return " ".join(parts)
+
+
+def proof_cells(cells, action, x, y, w):
+    """The Proof box: captioned Proof, as wide as the frame it stands under, holding for each call of the action its normalized statement,
+    the one line cats knows, and under it the words each engine runs that statement as. Returns the box's bottom."""
+    calls = action["calls"] if "calls" in action else [action["call"]]
+    h = LABEL_ROW + len(calls) * (1 + len(PROOF_ENGINES)) * PROOF_ROW + (len(calls) - 1) * 10 + PAD
+    cells.append(cell("proof", "Proof", BAND, x, y, w, h))
+    bright = TEXT.replace("fontColor=@quiet", "fontColor=@ink")
+    row_y = y + LABEL_ROW - 6
+    for n, call in enumerate(calls, 1):
+        line = html.escape(call_line(call), quote=False)
+        cells.append(cell(f"proof-{n}-cats", f"<b>cats</b>&nbsp;&nbsp;{line}", bright, x + PAD, row_y, w - 2 * PAD, PROOF_ROW))
+        row_y += PROOF_ROW
+        for engine, idiom in PROOF_ENGINES:
+            words = html.escape(engine_words(call, idiom), quote=False)
+            cells.append(cell(f"proof-{n}-{engine}", f"<b>{engine}</b>&nbsp;&nbsp;{words}", TEXT, x + PAD, row_y, w - 2 * PAD, PROOF_ROW))
+            row_y += PROOF_ROW
+        row_y += 10
+    return y + h
+
+
+def operator_edge(cid, word, style, source, target, box_of, skip=None):
+    """An operator's edge, drawn from chosen points: it leaves the source's right side at the height nearest its target (a cause at
+    its round's apex) and enters the target's left side at the height nearest its source, each clamped inside the middle half of the
+    box; its word sits a quarter of the way along, above the line when the edge climbs or runs level, below it when the edge falls.
+    An edge that skips a zone (`skip` is the lane's centre line and half-height, and the margin's height) runs through the margin
+    instead of behind the notes it passes: up or down beside its source, across the margin, and down or up into its target, with its
+    word on the run across."""
+    a, b = box_of[source], box_of[target]
+    a_mid, b_mid = a["y"] + a["h"] / 2, b["y"] + b["h"] / 2
+    clamp = lambda t: round(min(0.75, max(0.25, t)), 2)
+    if skip:
+        cy, lane_half, margin = skip
+        above = b_mid <= cy
+        run = cy - lane_half - margin / 2 if above else cy + lane_half + margin / 2
+        edge = edge_cell(cid, f"<b>{word}</b>", style + "exitX=1;exitY=0.5;entryX=0;entryY=0.5;", source, target)
+        edge["via"] = [[round(a["x"] + a["w"] + 20), round(run)], [round(b["x"] - 20), round(run)]]
+        edge["label_at"] = (0, -12 if above else 12)
+        return edge
+    exit_y = 0.5 if source == "cause" else clamp((b_mid - a["y"]) / a["h"])
+    entry_y = clamp((a_mid - b["y"]) / b["h"])
+    edge = edge_cell(cid, f"<b>{word}</b>", style + f"exitX=1;exitY={exit_y};entryX=0;entryY={entry_y};", source, target)
+    edge["label_at"] = (-0.5, 12 if b_mid > a_mid else -12)  # a level edge reads like a climbing one: the word above
+    return edge
+
+
+def legend_box(cells, cid, caption, entries, x, y, w):
+    """One box of the one-legend band: captioned in its upper-left inside corner, its entries in three rows of columns; each swatch is
+    centred in a left column of the box's widest swatch, and its words stand left-aligned in the next column. Returns the box's
+    height, before the box is drawn to the band's common height by the caller."""
+    rows = 3
+    columns = max(1, (len(entries) + rows - 1) // rows)
+    col_w = min(240, (w - 32) // columns)
+    placed = []  # (eid, swatch cells at the origin, bounding box, phrase)
+    for eid, swatch, phrase in entries:
+        drawn = swatch(eid, 0, 0)
+        boxes = [c for c in drawn if not c["edge"]]
+        x0, y0 = min(c["x"] for c in boxes), min(c["y"] for c in boxes)
+        x1, y1 = max(c["x"] + c["w"] for c in boxes), max(c["y"] + c["h"] for c in boxes)
+        placed.append((eid, drawn, (x0, y0, x1 - x0, y1 - y0), phrase))
+    swatch_col = max([b[2] for _, _, b, _ in placed] + [40]) + 8
+    for i, (eid, drawn, (x0, y0, bw, bh), phrase) in enumerate(placed):
+        col, row = divmod(i, rows)
+        sx, sy = x + 16 + col * col_w, y + 30 + row * 28
+        dx, dy = sx + (swatch_col - bw) / 2 - x0, sy + 10 - bh / 2 - y0  # the swatch centred in its column and on its row
+        for c in drawn:
+            if not c["edge"]:
+                c["x"], c["y"] = round(c["x"] + dx), round(c["y"] + dy)
+        cells.extend(drawn)
+        cells.append(cell(f"lg-{eid}-t", brief(phrase), TEXT, sx + swatch_col + 8, sy - 1, col_w - swatch_col - 16, 20))
+    return 30 + rows * 28 if entries else 48
 
 
 def finish(cells, content, content_bottom, declaration):
-    """The legend under the drawing and the sidebar beside it; then every cell in paint order, with the page height."""
-    # The legend below the bands: the kinds the diagram uses, in columns.
+    """The one-legend band under the drawing: one box per segment standing above it, each as wide as its segment and captioned in its
+    upper-left inside corner, the map key under the sidebar in the same band; then the sidebar, and every cell in paint order with the
+    page height."""
     legend_y = content_bottom + GAP
     entries = legend_entries(content)
-    rows = 3
-    columns = max(1, (len(entries) + rows - 1) // rows)
-    col_w = min(240, (PAGE["width"] - 32) // columns)
     # The rule key: every rule a chip names, by its number in about.adrs, three to a column under the entries.
     keyed = [r for r in content["adrs"] if any(c["kind"] == "rule" and c["rule"] == r for c in content["chips"])]
     key_rows = (len(keyed) + 2) // 3
-    legend_h = (30 + rows * 28 if entries else 48) + (key_rows * 16 + 8 if keyed else 0)
-    cells.append(cell("legend", "<b>Legend</b>", LEGEND, PAGE["x"], legend_y, PAGE["width"], legend_h))
-    for i, (eid, swatch, phrase) in enumerate(entries):
-        col, row = divmod(i, rows)
-        sx, sy = PAGE["x"] + 16 + col * col_w, legend_y + 30 + row * 28
-        cells.extend(swatch(eid, sx, sy))
-        cells.append(cell(f"lg-{eid}-t", brief(phrase), TEXT, sx + 48, sy - 1, col_w - 56, 20))
+    boxes = []  # (cell id, caption, entries, x, w)
+    if content["lens"] == ACTION_LENS and any(eid == "proof" for eid, _, _ in entries):
+        proof_w = 320
+        boxes.append(("legend", "Action", [e for e in entries if e[0] != "proof"], PAGE["x"], PAGE["width"] - proof_w - GAP))
+        boxes.append(("legend-proof", "Proof", [e for e in entries if e[0] == "proof"], PAGE["x"] + PAGE["width"] - proof_w, proof_w))
+    else:
+        boxes.append(("legend", "Proof" if content["lens"] == PROOF_LENS else "Legend", entries, PAGE["x"], PAGE["width"]))
+    heights = []
+    for cid, caption, box_entries, bx, bw in boxes:
+        heights.append(legend_box(cells, cid, caption, box_entries, bx, legend_y, bw) + (key_rows * 16 + 8 if keyed and cid == "legend" else 0))
+    band_h = max(heights + [82])
+    for (cid, caption, _, bx, bw), _ in zip(boxes, heights):
+        cells.append(cell(cid, f"<b>{caption}</b>", LEGEND, bx, legend_y, bw, band_h))
     for i, rule in enumerate(keyed):
         col, row = divmod(i, key_rows)
         number = content["adrs"].index(rule) + 1
-        cells.append(
-            cell(f"lg-key-{number}", f"#{number}  {rule}", KEY, PAGE["x"] + 16 + col * 410, legend_y + 30 + rows * 28 + row * 16, 400, 16)
-        )
-    # The sidebar: the three minimaps, drawn from their claims and embedded, the lens badge and the map key. The ADR codes live in
-    # the subtitle alone.
-    height = max(PAGE["min_height"], legend_y + legend_h + GAP, MAPKEY_BOTTOM)
+        cells.append(cell(f"lg-key-{number}", f"#{number}  {rule}", KEY, PAGE["x"] + 16 + col * 410, legend_y + 30 + 3 * 28 + row * 16, 400, 16))
+    # The map key, the two marks every minimap shares, stands in the same band under the sidebar.
+    cells.append(cell("mapkey", "<b>Map key</b>", LEGEND, SIDEBAR_X, legend_y, SIDEBAR_W, band_h))
+    for i, (swatch, phrase) in enumerate((("@map-lit", "lit: what this diagram draws"), ("@map-panel", "dim: what sits around it"))):
+        y = legend_y + 30 + i * 28
+        rim = "none" if swatch == "@map-lit" else "@map-rim"
+        cells.append(cell(f"mk-{i}", "", f"rounded=1;arcSize=20;html=1;fillColor={swatch};strokeColor={rim};shadow=0;", SIDEBAR_X + 23, y + 2, 26, 16))
+        cells.append(cell(f"mk-{i}-t", phrase, TEXT, SIDEBAR_X + 64, y - 1, SIDEBAR_W - 72, 20))
+    # The sidebar: the three minimaps, drawn from their claims and embedded, and the lens badge. The ADR codes live in the subtitle
+    # alone.
+    height = max(PAGE["min_height"], legend_y + band_h + GAP, SIDEBAR[-1][1] + SIDEBAR[-1][2] + GAP)
     cells.insert(0, cell("sidebar-bg", "", SIDEBAR_BG, SIDEBAR_X - 12, 4, SIDEBAR_W + 24, height - 8))
     # Each minimap is drawn from the data Catzc.Base.Maps computed for the folder (with_data); a declaration put without its folder
     # draws the declared minimaps empty.
@@ -2006,15 +2158,6 @@ def finish(cells, content, content_bottom, declaration):
         drawn = data.get(minimap) or {"id": minimap, "axes": [], "cells": [], "lit": []}
         image = minimaps.picture_from(drawn, SIDEBAR_W, h, content["theme"])
         cells.append(cell(cid, minimap, MINIMAP + f"noLabel=1;image={image};", SIDEBAR_X, y, SIDEBAR_W, h))
-    # The map key: the two marks every minimap shares.
-    cells.append(cell("mapkey", "<b>Map key</b>", LEGEND, SIDEBAR_X, MAPKEY_Y, SIDEBAR_W, 82))
-    for i, (swatch, phrase) in enumerate((("@map-lit", "lit: what this diagram draws"), ("@map-panel", "dim: what sits around it"))):
-        y = MAPKEY_Y + 30 + i * 24
-        rim = "none" if swatch == "@map-lit" else "@map-rim"
-        cells.append(
-            cell(f"mk-{i}", "", f"rounded=1;arcSize=20;html=1;fillColor={swatch};strokeColor={rim};shadow=0;", SIDEBAR_X + 12, y, 26, 16)
-        )
-        cells.append(cell(f"mk-{i}-t", phrase, TEXT, SIDEBAR_X + 48, y - 2, SIDEBAR_W - 56, 20))
     return in_paint_order(cells), height
 
 
@@ -2050,9 +2193,16 @@ def legend_entries(content):
 
     entries = []
     wanted = content["legend"] if content["legend"] != "auto" else None
-    if content["lens"] == ACTION_LENS:  # the lens's own kinds, its four operators, and the story's numbers
+    proof_box = "rounded=1;arcSize=6;html=1;fillColor=@band;strokeColor=@line;shadow=0;"  # the Proof box, small and rimmed to show
+    proof_swatch = lambda eid, x, y: [cell(f"lg-{eid}", "", proof_box, x, y + 2, 40, 18)]
+    if content["lens"] == PROOF_LENS:  # the statement's glyph and the Proof box
+        entries.append(("callsite" if "calls" in content["action"] else "action", swatch_for("action"), glyphs["action"]["phrase"]))
+        entries.append(("proof", proof_swatch, "proof: the statement in each engine's words"))
+    if content["lens"] == ACTION_LENS:  # the lens's own kinds, its four operators, the story's numbers and its Proof box
         for kind in ("cause", "callsite" if "calls" in content["action"] else "action", "ring", "effect"):
             entries.append((kind, swatch_for(kind), glyphs[kind]["phrase"]))
+        if content.get("proof", "shown" if PROOF_SHOWN else "hidden") == "shown":
+            entries.append(("proof", proof_swatch, "proof: the statement in each engine's words"))
         if any("call" in e for e in content["effects"]):
             member = glyphs["callsite"]["member"]
             swatch = lambda eid, x, y: [cell(f"lg-{eid}", "", member["style"], x, y + 2, 40, 18)]
@@ -2120,15 +2270,18 @@ def to_xml(cells, height, theme=None):
             lines.append(
                 f'    <mxCell id="{c["id"]}" value="{value}" style="{paint(c["style"], theme)}" edge="1" parent="{c["parent"]}" source="{c["source"]}" target="{c["target"]}">'
             )
+            # A label placed by the kit sits at a fraction along the edge (-1 the source, 1 the target) and a perpendicular offset in px,
+            # positive below a rightward edge, as draw.io reads an edge label's relative geometry.
+            at = f' x="{c["label_at"][0]}" y="{c["label_at"][1]}"' if c.get("label_at") else ""
             if c.get("via"):
                 px, py = origin.get(c["parent"], (0, 0))  # an edge inside a container takes its waypoints relative to it
-                lines.append('      <mxGeometry relative="1" as="geometry">')
+                lines.append(f'      <mxGeometry{at} relative="1" as="geometry">')
                 lines.append('        <Array as="points">')
                 lines.extend(f'          <mxPoint x="{x - px}" y="{y - py}" />' for x, y in c["via"])
                 lines.append("        </Array>")
                 lines.append("      </mxGeometry>")
             else:
-                lines.append('      <mxGeometry relative="1" as="geometry" />')
+                lines.append(f'      <mxGeometry{at} relative="1" as="geometry" />')
         else:
             px, py = origin.get(c["parent"], (0, 0)) if c["parent"] != "1" else (0, 0)
             lines.append(
@@ -2205,6 +2358,8 @@ def get(model, kind=None):
             parent = cells.get(parent.get("parent") or "")
         geo[cid] = {"x": int(x), "y": int(y), "w": int(float(g.get("width", 0))), "h": int(float(g.get("height", 0)))}
     glyph_sigs = {k: signature(v["style"]) for k, v in LIB["glyphs"].items()}
+    if "lens-badge" in cells and plain(cells["lens-badge"].get("value")).lower() == PROOF_LENS:
+        return get_proof(cells, kind)
     if any(matches(glyph_sigs["cause"], c.get("style") or "") for cid, c in cells.items() if not cid.startswith("lg-")):
         return get_action(cells, geo, glyph_sigs, kind)
     palette_fills = {fill.upper(): state for state, (fill, _, _) in COMMITS.items()}
@@ -2482,12 +2637,37 @@ def cause_read(label, radius):
     return cause
 
 
+def proof_action(cells):
+    """The action a drawing's Proof box states: its cats rows, in order, each the normalized statement after the word cats."""
+    rows = sorted((cid for cid in cells if re.fullmatch(r"proof-\d+-cats", cid)), key=lambda cid: int(cid.split("-")[1]))
+    calls = [parse_call(plain(cells[cid].get("value")).split(None, 1)[1]) for cid in rows]
+    return {"calls": calls} if len(calls) > 1 else {"call": calls[0]}
+
+
+def get_proof(cells, kind):
+    """The proof lens read back: the title and ADR codes from the chrome, and the action from the Proof box's cats rows."""
+    value = lambda cid: plain(cells[cid].get("value"))
+    if not any(re.fullmatch(r"proof-\d+-cats", cid) for cid in cells):
+        raise DeclarationError("get needs the Proof box's cats rows in a proof drawing; none is drawn")
+    content = {
+        "title": value("title") if "title" in cells else "",
+        "kind": kind or KINDS[0],
+        "theme": next(iter(DEFAULTS["themes"])),
+        "action": proof_action(cells),
+        "minimaps": [value(cid) for cid, _, _ in SIDEBAR if cid in cells],
+    }
+    adrs = [p.strip() for p in value("subtitle").split("·") if p.strip()] if "subtitle" in cells else []
+    return normalise({"about": {"adrs": adrs, "lens": PROOF_LENS}, "content": content}, where="the drawing")
+
+
 def get_action(cells, geo, glyph_sigs, kind):
     """The action lens read back: the title and ADR codes from the chrome, the cause's label, the action's call or its call site's rows,
     and each effect's note with its where chip and its proof line; an effect's ring is read from its distance to the action's centre
     and its order from its angle, top to bottom, so a moved note folds back to a ring and an order, never to coordinates."""
     value = lambda cid: plain(cells[cid].get("value"))
-    styled = lambda k: [cid for cid, c in cells.items() if not cid.startswith("lg-") and matches(glyph_sigs[k], c.get("style") or "")]
+    styled = lambda k: [
+        cid for cid, c in cells.items() if not cid.startswith(("lg-", "proof")) and matches(glyph_sigs[k], c.get("style") or "")
+    ]
     causes, sites, actions = styled("cause"), styled("callsite"), styled("action")
     if len(causes) != 1 or len(sites) + len(actions) != 1:
         raise DeclarationError("get needs one cause and one action or call site in an action drawing")
@@ -2520,7 +2700,7 @@ def get_action(cells, geo, glyph_sigs, kind):
     executions = [
         cid
         for cid, c in cells.items()
-        if c.get("parent") == "1" and not cid.startswith("lg-") and matches(member_sig, c.get("style") or "")
+        if c.get("parent") == "1" and not cid.startswith(("lg-", "proof")) and matches(member_sig, c.get("style") or "")
     ]
     effects = []
     for cid in styled("effect") + executions:
@@ -2547,8 +2727,8 @@ def get_action(cells, geo, glyph_sigs, kind):
         "effects": [e for _, _, e in sorted(effects, key=lambda t: t[:2])],
         "minimaps": [value(cid) for cid, _, _ in SIDEBAR if cid in cells],
     }
-    flow_phrase = value("lg-edge-flow-t") if "lg-edge-flow-t" in cells else ""  # the relation, as the legend names the flow
-    content["relation"] = flow_phrase[len("flow: ") :] if flow_phrase.startswith("flow: ") else ""
+    if ("proof" in cells) != PROOF_SHOWN:  # the Proof box is drawn or not; the key is kept only where it differs from the default
+        content["proof"] = "shown" if "proof" in cells else "hidden"
     adrs = [p.strip() for p in value("subtitle").split("·") if p.strip()] if "subtitle" in cells else []
     return normalise({"about": {"adrs": adrs, "lens": ACTION_LENS}, "content": content}, where="the drawing")
 

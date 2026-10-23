@@ -32,6 +32,34 @@ drift check in the second zone is what keeps them honest afterwards.
 
 ![Building the English dictionary writes one stamped word list](.assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png)
 
+## What the drawing shows
+
+The [rendered action diagram](.assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png) reads left to right. The
+cause, a bold half-disc numbered 1 on the left rim, says **A maintainer bumps the cspell pin**; its edge carries `cats` into box 2, the
+action pill `build_english_dictionary`, a call without arguments. Two arcs cut the frame into zones. Zone 1 holds two `local` notes side by
+side: 3, the flattened word list written into the module's assets, and 4, the stamp with the versions it was built from, each proven by
+`get_repository_file` on its path; the two edges out of the action carry `executes`, one climbing to 3 with its word above the line, one
+falling to 4 with its word below. Zone 2 holds one note, 5, the generated-files quality gate finding list and stamp in step, proven by
+`test_generated_files` for the builder; its edge comes from 4 and carries `effects`. The legend names the cause, the action, the ring, the
+effect note, the four operators and the marker.
+
+## Notes from the inspection
+
+- The `effects` word on the edge from 4 to 5 sits where the first arc passes, so the arc runs through the letters. A word's place should
+  keep clear of the ring arcs, or the painter should give an edge's word the background its style already names.
+- The proof line inside a note repeats a path the reader has to parse twice, once per note. The language could let a note name its
+  observation and leave the full call to the proof block in the article, which the drawing already points at.
+- Three notes leave most of the frame empty below the lane; the fixed height is by design, but a zone with one note could draw its arc
+  shorter so the empty margin does not read as missing content.
+
+### Stronger with new definitions
+
+- `show: words` on an effect, with `call` and `both` as the other values and `both` the default, so a note can print its words alone and
+  leave the observation to the proof block the article already carries; notes 3 and 4 would halve in height.
+- `frame: { lane: compact }` at the diagram level, a named lane height beside the default, so a drawing with one note per zone draws a
+  shorter frame and shorter arcs.
+- `content.where: local` as the diagram's default, with chips only on the exceptions.
+
 ## Walkthrough
 
 1. **A maintainer bumps the cspell pin.** The cause is a change to the pinned tool: a new cspell may ship new dictionaries, so the committed

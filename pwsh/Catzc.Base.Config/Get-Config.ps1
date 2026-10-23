@@ -62,7 +62,9 @@ function Get-Config {
 
     $raw = if ($entry.Path) {
         Assert-PathExist $entry.Path
-        Get-Content $entry.Path -Raw | ConvertFrom-Yaml -Ordered
+        $text = [System.IO.File]::ReadAllText($entry.Path)
+        Assert-True ($text.Length -gt 0) -ErrorText "Config file '$($entry.Path)' is empty (0 bytes): the read raced a writer, or the file was truncated on disk."
+        $text | ConvertFrom-Yaml -Ordered
     }
     else {
         [ordered]@{}

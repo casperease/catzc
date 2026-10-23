@@ -4,6 +4,7 @@
 usage (repo root, background): timeout 120 uv run --project python python -m pytest python/catzc_diagrams/tests/test_declaration.py
 """
 
+import re
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -108,6 +109,21 @@ def test_a_span_label_outside_the_vocabularies_fails_with_the_allowed_words():
     raw["content"]["spans"][0]["label"] = "sideways"
     with pytest.raises(declaration.DeclarationError, match="span 'span-build' label 'sideways' is not one of: CI, CD, DEPLOY"):
         declaration.normalise(raw)
+
+
+def test_a_steep_edge_glues_its_word_right_of_the_line_and_a_flat_one_keeps_it_centred():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["flow"] = "top-to-bottom"  # the bands stack, and the two ends stand one above the other, so the edge falls steeply
+    raw["layout"] = {"widget-a": {"x": 500, "y": 150, "w": 220, "h": 72}, "gadget-store": {"x": 500, "y": 420, "w": 220, "h": 72}}
+    model = declaration.put(declaration.normalise(raw))
+    steep = re.search(r'<mxCell id="e-widget-a-gadget-store" value="[^"]*" style="([^"]*)" [^\n]*\n\s*<mxGeometry x="(-?\d+)" y="(-?\d+)"', model)
+    assert steep is not None and "align=left;" in steep.group(1) and (steep.group(2), steep.group(3)) == ("0", "-3")
+    raw["content"]["flow"] = "left-to-right"
+    raw.pop("layout")
+    model = declaration.put(declaration.normalise(raw))
+    flat = re.search(r'<mxCell id="e-widget-a-gadget-store" value="[^"]*" style="([^"]*)" [^\n]*\n\s*<mxGeometry relative="1"', model)
+    assert flat is not None and "align=left;" not in flat.group(1)
+    assert declaration.dump(declaration.get(model, kind="explanation")) == declaration.dump(declaration.normalise(raw))
 
 
 def test_a_glyph_kind_outside_the_library_fails_with_the_kinds():

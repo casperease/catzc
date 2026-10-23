@@ -59,3 +59,18 @@ Started 2026-10-23T11:18:33.2487061+02:00.
   worker report instead of one per edit.
 - 2026-10-23 Cats: Token tip: Next time, save tokens by: treating an idle notice older than the worker last reply as stale without a tool
   call.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: Assert-AccostedArgument checks only an argument against its type; the harmless-verb
+  and out/ output_folder rules live in Get-AccostedFile, so Test-AccostedCommand can serve mutating calls.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: a diagram action or effect call is checked by the public Test-AccostedCommand
+  (Catzc.Base.Contracts), which Slides may call; the Contracts private helpers (Get-CommandContractMap, Assert-AccostedArgument) are out of
+  its reach.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: a new public command needs a contract file under contracts/catzc/0.0.0/\<module>/
+  and a Build-ContractReference run, or Test-Contracts fails.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: a comment page section names its code line, so renaming a variable under a comment
+  (here $dueWriters to $checkedWriters) needs the page anchor updated or Test-Comments reports it.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: under strict mode, .Count on a command that returns nothing fails; wrap the call in
+  @() in tests and callers.
+- 2026-10-23 Cats: Token tip: write one out/ script per verification round (Format-Code, tests, gates) and run it once in the background,
+  instead of many separate Bash probes.
+- 2026-10-23 Cats: Token tip: read the Test-Comments/Test-FileMeta tail of the output only (grep out the Format-Code chatter) to see the
+  verdict.

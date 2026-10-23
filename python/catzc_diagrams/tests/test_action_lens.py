@@ -144,6 +144,95 @@ def test_a_long_argument_wraps_at_its_breaks_and_comes_back_whole():
     assert back["content"]["effects"][0]["proves"] == {"get_widget": {"path": path}}
 
 
+def test_an_edge_that_skips_a_zone_runs_through_the_margin_clear_of_every_note():
+    raw = sample()
+    raw["content"]["action"] = {"call": {"count_gadgets": None}}  # a short action, so three zones fit the page
+    raw["content"]["effects"].append(
+        {"id": "effect-far", "zone": 3, "where": "remote", "says": "A far effect", "proves": {"count_gadgets": None}, "after": "effect-index"}
+    )
+    raw["content"]["effects"][2]["after"] = "effect-count"  # zone 2 keeps a direct edge; the new zone-3 effect skips zone 2
+    model = declaration.put(normalised(raw))
+    boxes = {
+        m.group(1): tuple(int(v) for v in m.groups()[1:])
+        for m in re.finditer(r'<mxCell id="(effect-[a-z]+)" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
+    }
+    edge = re.search(r'<mxCell id="e-effect-index-effect-far" [^\n]*\n\s*<mxGeometry[^\n]*\n\s*<Array as="points">\s*((?:<mxPoint [^\n]*\n\s*)+)</Array>', model)
+    assert edge is not None
+    points = [(int(p.group(1)), int(p.group(2))) for p in re.finditer(r'<mxPoint x="(-?\d+)" y="(-?\d+)"', edge.group(1))]
+    assert len(points) == 2 and points[0][1] == points[1][1]  # one run across the margin
+    frame = re.search(r'<mxCell id="frame" [^\n]*\n\s*<mxGeometry x="\d+" y="(\d+)" width="\d+" height="(\d+)"', model)
+    assert frame is not None
+    top, height = int(frame.group(1)), int(frame.group(2))
+    inner_top, inner_bottom = top + declaration.LABEL_ROW, top + height - declaration.PAD
+    assert inner_top < points[0][1] < inner_top + declaration.ACTION_MARGIN or inner_bottom - declaration.ACTION_MARGIN < points[0][1] < inner_bottom
+    a, b = boxes["effect-index"], boxes["effect-far"]
+    path = [(a[0] + a[2], a[1] + a[3] // 2), *points, (b[0], b[1] + b[3] // 2)]
+    for cid, (x, y, w, h) in boxes.items():
+        if cid in ("effect-index", "effect-far"):
+            continue
+        for (x0, y0), (x1, y1) in zip(path, path[1:]):  # every leg is axis-parallel or a short join; none enters another note
+            if max(x0, x1) >= x and min(x0, x1) <= x + w and max(y0, y1) >= y and min(y0, y1) <= y + h:
+                raise AssertionError(f"the routed edge crosses {cid}")
+    back = declaration.get(model, kind="explanation")
+    assert back["content"]["effects"][3]["after"] == "effect-index" and back["layout"] == {}
+
+
+def test_the_proof_box_stands_under_the_frame_and_speaks_every_engine():
+    first = normalised(sample())
+    model = declaration.put(first)
+    frame = re.search(r'<mxCell id="frame" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
+    proof = re.search(r'<mxCell id="proof" value="Proof" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
+    assert frame is not None and proof is not None
+    assert int(proof.group(1)) == int(frame.group(1)) and int(proof.group(3)) == int(frame.group(3))  # as wide as the frame
+    assert int(proof.group(2)) >= int(frame.group(2)) + int(frame.group(4))  # under it
+    assert "publish_gadget: { name: widget-a, dry_run: false }" in html_unescaped(model, "proof-1-cats")
+    assert html_unescaped(model, "proof-1-pwsh").endswith("Publish-Gadget -Name 'widget-a' -DryRun:$false")
+    assert html_unescaped(model, "proof-1-bash").endswith("publish-gadget --name 'widget-a' --dry-run false")
+    import html
+
+    assert 'id="proof-1-zsh"' in model and "proof: the statement in each engine's words" in html.unescape(model)
+    back = declaration.get(model, kind="explanation")
+    assert "proof" not in back["content"]
+    assert declaration.put(back) == model
+
+
+def html_unescaped(model, cid):
+    import html
+
+    found = re.search(rf'<mxCell id="{cid}" value="([^"]*)"', model)
+    assert found is not None
+    return declaration.plain(html.unescape(found.group(1)))
+
+
+def test_a_hidden_proof_leaves_no_box_and_comes_back():
+    raw = sample()
+    raw["content"]["proof"] = "hidden"
+    first = normalised(raw)
+    model = declaration.put(first)
+    assert 'id="proof"' not in model and "proof-1-pwsh" not in model
+    back = declaration.get(model, kind="explanation")
+    assert back["content"]["proof"] == "hidden" and "proof: hidden" in declaration.dump(back)
+    assert declaration.dump(back) == declaration.dump({**first, "about": {k: v for k, v in first["about"].items() if k != "proves"}, "description": ""})
+
+
+def test_the_proof_lens_draws_the_box_alone_and_comes_back():
+    first = normalised(sample("proof-sample"))
+    model = declaration.put(first)
+    assert 'id="proof"' in model and 'id="frame"' not in model and 'id="cause"' not in model
+    assert 'value="PROOF"' in model
+    back = declaration.get(model, kind="explanation")
+    assert back["content"]["action"] == first["content"]["action"]
+    assert declaration.dump(back) == declaration.dump({**first, "description": ""})
+    assert declaration.put(back) == model
+
+
+def test_the_proof_lens_refuses_a_cause():
+    raw = sample("proof-sample")
+    raw["content"]["cause"] = {"label": "An author"}
+    with pytest.raises(declaration.DeclarationError, match="content.cause belongs to the action lens; the proof lens draws"):
+        declaration.normalise(raw)
+
+
 def test_wrap_and_unwrap_are_inverse():
     line = "get_widget: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml, name: a b c }"
     lines = declaration.wrap_line(line, 30)

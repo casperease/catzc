@@ -446,15 +446,19 @@ def render(root, page=None):
         ends = {p.get("as"): p for p in (g.findall("mxPoint") if g is not None else [])}
         waypoints = [point(p) for p in g.find("Array").findall("mxPoint")] if g is not None and g.find("Array") is not None else []
         src, dst = geo.get(c.get("source")), geo.get(c.get("target"))
+        s = style_map(c.get("style"))
         centre = lambda box: off(box[0] + box[2] / 2, box[1] + box[3] / 2)
-        a = centre(src) if src else (point(ends["sourcePoint"]) if "sourcePoint" in ends else None)
-        b = centre(dst) if dst else (point(ends["targetPoint"]) if "targetPoint" in ends else None)
+        # An exit or entry point fixed in the style (exitX/exitY, entryX/entryY, fractions of the box) is where the edge leaves or
+        # arrives, as draw.io reads them; without one the edge runs from the centre and is cut at the shape's outline.
+        at = lambda box, kx, ky: off(box[0] + box[2] * float(s[kx]), box[1] + box[3] * float(s.get(ky, 0.5)))
+        a = (at(src, "exitX", "exitY") if "exitX" in s else centre(src)) if src else (point(ends["sourcePoint"]) if "sourcePoint" in ends else None)
+        b = (at(dst, "entryX", "entryY") if "entryX" in s else centre(dst)) if dst else (point(ends["targetPoint"]) if "targetPoint" in ends else None)
         if a is None or b is None:
             return None
         pts = [a, *waypoints, b]
-        if src:
+        if src and "exitX" not in s:
             pts[0] = clip(pts[0], pts[1], src, minx, miny, outline(c.get("source")))
-        if dst:
+        if dst and "entryX" not in s:
             pts[-1] = clip(pts[-1], pts[-2], dst, minx, miny, outline(c.get("target")))
         return pts
 
@@ -485,10 +489,23 @@ def render(root, page=None):
             arrow(d, pts[1], pts[0], ink, s.get("startArrow"))
         label = plain(c.get("value"))
         if label:
-            # Centred on the line's halfway point and just above it, as draw.io lays an edge label out.
-            mx, my = halfway(pts)
             f = font(int(float(s.get("fontSize", 11))), False)
-            d.text((mx - d.textlength(label, font=f) / 2, my - 16), label, font=f, fill=color(s.get("fontColor"), INK))
+            g = c.find("mxGeometry")
+            if g is not None and g.get("x") is not None:
+                # Placed by its relative geometry, as draw.io reads it: x is the fraction along the edge (-1 the source, 1 the target)
+                # and y the offset along the normal, positive to the right of travel, so below a rightward edge; centred on that point.
+                mx, my = along(pts, (float(g.get("x")) + 1) / 2)
+                p, q = nearest_leg(pts, mx, my)
+                length = max(1e-9, ((q[0] - p[0]) ** 2 + (q[1] - p[1]) ** 2) ** 0.5)
+                nx, ny = -(q[1] - p[1]) / length, (q[0] - p[0]) / length
+                mx, my = mx + nx * float(g.get("y", 0)), my + ny * float(g.get("y", 0))
+                tw, th = d.textlength(label, font=f), float(s.get("fontSize", 11))
+                left = mx if s.get("align") == "left" else mx - tw / 2  # an align=left label extends rightwards from its point
+                d.text((left, my - th / 2), label, font=f, fill=color(s.get("fontColor"), INK))
+            else:
+                # Centred on the line's halfway point and just above it, as draw.io lays an edge label out.
+                mx, my = halfway(pts)
+                d.text((mx - d.textlength(label, font=f) / 2, my - 16), label, font=f, fill=color(s.get("fontColor"), INK))
 
     def paint_cell(cid, c):
         if c.get("edge") == "1":
@@ -533,16 +550,33 @@ def clip(p, q, box, minx, miny, shape="box"):
     return (cx + dx * t, cy + dy * t)
 
 
-def halfway(pts):
-    """The point half the routed length along a polyline, where draw.io centres an edge's label."""
+def along(pts, fraction):
+    """The point at a fraction of the routed length along a polyline."""
     import math
     legs = [math.hypot(b[0] - a[0], b[1] - a[1]) for a, b in itertools.pairwise(pts)]
-    left = sum(legs) / 2
+    left = sum(legs) * fraction
     for (a, b), leg in zip(itertools.pairwise(pts), legs):
         if leg and left <= leg:
             return a[0] + (b[0] - a[0]) * left / leg, a[1] + (b[1] - a[1]) * left / leg
         left -= leg
     return pts[-1]
+
+
+def halfway(pts):
+    """The point half the routed length along a polyline, where draw.io centres an edge's label."""
+    return along(pts, 0.5)
+
+
+def nearest_leg(pts, x, y):
+    """The polyline's leg nearest a point, for the normal a label is offset along."""
+    import math
+
+    def distance(a, b):
+        dx, dy = b[0] - a[0], b[1] - a[1]
+        t = 0.0 if dx == dy == 0 else max(0.0, min(1.0, ((x - a[0]) * dx + (y - a[1]) * dy) / (dx * dx + dy * dy)))
+        return math.hypot(a[0] + dx * t - x, a[1] + dy * t - y)
+
+    return min(itertools.pairwise(pts), key=lambda leg: distance(*leg))
 
 
 def wrapped(d, text, f, width):

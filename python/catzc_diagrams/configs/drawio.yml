@@ -37,6 +37,7 @@ lenses: # the closed set of lenses a diagram is drawn through (its about.lens, t
   governance: which gates check it
   source: one responsibility of one module, drawn from the code
   action: one action, its cause on the left rim and its effects on rings, in accosted words
+  proof: one action's normalized statement, and the words each engine runs it as
 commits: # the locked commit palette ([DDR-VISUAL-FIXEDCOMMITPALETTE](/docs/drs/design/visual-design.md#rule-ddr-visual-fixedcommitpalette)):a commit state's fill, stroke and digit ink, hex without the hash; the first is the default
   bvt: FFE082 F9A825 1E2430
   topic: C4915C 7A4B25 1E2430
@@ -72,6 +73,8 @@ action-lens: # what the action lens draws with: its layout numbers in diagram un
   cause-size: medium # the default size of the cause's half-disc on the left rim
   cause-sizes: smallest 64, small 80, medium 96, large 112, largest 128 # the half-disc's radius for each named size, smallest to largest; a label ending in ! takes the largest
   glyphs: cause, action, callsite, ring, effect
+  proof: shown # shown | hidden: whether an action diagram draws its Proof box under the frame, the statement in each engine's words
+  proof-engines: pwsh pascal, bash kebab, zsh kebab # the engines a Proof box prints, each with the idiom its words take
 themes: # the themes a diagram renders in, each a theme-<name> token set below; the first is the default and the one whose raster is committed
   dark: the dark page and the light ink of STYLE.md
   light: the light page and the dark ink of the light-era kit, rendered on demand to out/

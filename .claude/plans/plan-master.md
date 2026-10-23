@@ -65,6 +65,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
 - debt-tier-tripwire -> plan-debt-tier-tripwire.md: 165 L0/L1 tests launch git and fail only when a tier runs alone; seams mocked, the
   tripwire armed per container; one step
+- action-lens-next -> plan-action-lens-next.md: the inspection of the four action diagrams: three engine defects, then three keys that cut
+  noise; four steps
 - debt-agent-traffic -> plan-debt-agent-traffic.md: fewer messages and tool calls between the orchestrator and its workers (a run lock,
   one-line reports, pre-approved rule edits, derived step counts, an automatic log); three steps
 - nuget-tooling -> plan-nuget-tooling.md: NuGet belongs to the tooling modules and no dotnet call contacts a package manager outside them;

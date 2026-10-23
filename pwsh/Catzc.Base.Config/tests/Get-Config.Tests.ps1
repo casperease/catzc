@@ -50,6 +50,17 @@ Describe 'Get-Config' -Tag 'L0' {
             { Get-Config -Config does-not-exist } | Should -Throw '*No config*'
         }
 
+        It 'fails fast on an empty file, naming its path and length, instead of handing a null to the type' {
+            $dir = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
+            New-Item -ItemType Directory -Path $dir | Out-Null
+            $path = Join-Path $dir 'widget-empty.yml'
+            [System.IO.File]::WriteAllText($path, '')
+            Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -eq 'widget-empty' } -MockWith {
+                @{ Name = 'widget-empty'; Module = 'Catzc.Base.Config'; Path = $path }
+            }
+            { Get-Config -Config widget-empty } | Should -Throw "*widget-empty.yml' is empty (0 bytes)*"
+        }
+
         It 'rejects a non-kebab name at parameter binding' {
             { Get-Config -Config 'Bad_Name' } | Should -Throw
         }

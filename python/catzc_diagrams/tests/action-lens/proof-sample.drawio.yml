@@ -1,0 +1,9 @@
+description: "The one statement that publishes a gadget, and the words each engine runs it as."
+about:
+  adrs: []
+  lens: proof
+content:
+  title: Publishing a gadget is one statement in every engine
+  kind: explanation
+  action:
+    call: { publish_gadget: { name: widget-a, dry_run: false } }
