@@ -33,8 +33,8 @@ drawing: [out from the verified point, back through its own topic](out-from-the-
 
 ```yml drawio
 description:
-  A client's change goes from its local clone through the server's identity model and branch policy to HEAD on the server remote, beside
-  the verified point consumers leave from.
+  A client's change goes from its local clone through the server's identity model and branch policy to HEAD on the server remote, beside the
+  verified point consumers leave from.
 about:
   adrs:
     - DDR-REMOTE-SERVERREMOTEISTRUTH
@@ -53,9 +53,14 @@ content:
     - { id: band-in, label: IN }
     - { id: band-request, label: PULL REQUEST }
     - { id: band-remote, label: SERVER REMOTE }
+  groups:
+    - { id: grp-local, label: Local-Automation, in: band-in }
+    - { id: grp-ado, label: ADO-Automation, in: band-request }
   glyphs:
-    - { id: s-clone, kind: store, label: local clone, in: band-in }
-    - { id: g-identity, kind: drsonly, label: identity model, in: band-request }
+    - { id: s-clone, kind: store, label: local clone, in: grp-local }
+    - { id: g-local-security, kind: drsonly, label: security, in: grp-local }
+    - { id: g-identity, kind: drsonly, label: identity model, in: grp-ado }
+    - { id: g-ado-security, kind: drsonly, label: security, in: grp-ado }
     - { id: g-policy, kind: gate, label: branch policy, in: band-request }
     - { id: c-head, kind: commit, label: HEAD, in: band-remote, state: landed }
     - { id: c-verified, kind: commit, label: verified point, in: band-remote }
@@ -75,9 +80,13 @@ layout:
   band-in: { x: 20, y: 84, w: 1260, h: 120 }
   band-request: { x: 20, y: 224, w: 1260, h: 220 }
   band-remote: { x: 20, y: 464, w: 1260, h: 120 }
-  s-clone: { x: 870, y: 124, w: 140, h: 64 }
-  g-identity: { x: 860, y: 270, w: 160, h: 50 }
-  g-policy: { x: 860, y: 350, w: 160, h: 72 }
+  grp-local: { x: 700, y: 100, w: 500, h: 96 }
+  s-clone: { x: 870, y: 120, w: 140, h: 64 }
+  g-local-security: { x: 1040, y: 128, w: 120, h: 48 }
+  grp-ado: { x: 700, y: 244, w: 500, h: 96 }
+  g-identity: { x: 860, y: 268, w: 160, h: 50 }
+  g-ado-security: { x: 1040, y: 268, w: 120, h: 50 }
+  g-policy: { x: 860, y: 360, w: 160, h: 72 }
   c-head: { x: 880, y: 510, w: 120, h: 44 }
   c-verified: { x: 300, y: 510, w: 140, h: 44 }
 ```
@@ -95,8 +104,8 @@ layout:
 4. **HEAD.** The merged commit becomes the tip of the server's main. Landing is not verifying: HEAD may be a dirty HEAD, unverified or
    verified and then failed downstream, so it is not safe to sync from.
 5. **Verified point.** The last commit the server proved verified is the stable integration point, the BVT-verified server head. It is also
-   the commit `main-UAT` takes first, so once deployed it is the `main-UAT` occupant. It stays put while HEAD moves. Who leaves from it,
-   and how a clone comes back in through its own topic branch, is the next drawing,
+   the commit `main-UAT` takes first, so once deployed it is the `main-UAT` occupant. It stays put while HEAD moves. Who leaves from it, and
+   how a clone comes back in through its own topic branch, is the next drawing,
    [out from the verified point, back through its own topic](out-from-the-verified-point-back-through-a-topic.md).
 
 ## Why it holds

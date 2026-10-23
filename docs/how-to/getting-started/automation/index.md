@@ -152,6 +152,7 @@ Short, focused how-to articles for the common jobs:
 | Land a decision as a decision record       | [Add a decision record](add-an-adr.md)                              |
 | Make a command public through a contract   | [Add a command contract](../../pwsh/add-a-command-contract.md)      |
 | Feed an agent hook a payload by hand       | [Test an agent hook](../../pwsh/test-an-agent-hook.md)              |
+| Render every diagram from its yml          | [Build all diagrams](../../pwsh/build-all-diagrams.md)              |
 
 Looking for what a specific module does rather than how to do a task? See the [module reference](../../../references/pwsh/index.md).
 

@@ -128,6 +128,7 @@ Changes enter through one door, and consumers build on one stable point
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | meta           | [Changes enter through one door, and consumers build on one stable point](one-door-in-one-stable-point-out.md)                              |
 | architecture   | [Clients bridge to one server remote: in through a pull request, out from the verified point](clients-bridge-to-one-server.md)              |
+| architecture   | [Out from the verified point, back in through its own topic](out-from-the-verified-point-back-through-a-topic.md)                           |
 | implementation | [The code carries both halves of ingress, but nothing finds the last verified commit](local-guard-and-server-policies.md)                   |
 | operations     | [A person turns on the local guard with one variant; an admin syncs the server policies with one command](guard-and-policies-by-command.md) |
 | governance     | [Only ingress is checked by gates; the source-of-truth and integration rules rest on code review](ingress-gated-the-rest-by-review.md)      |
