@@ -2117,8 +2117,8 @@ def legend_box(cells, cid, caption, entries, x, y, w):
 def finish(cells, content, content_bottom, declaration):
     """The one-legend band under the drawing: one box per segment standing above it, each as wide as its segment and captioned in its
     upper-left inside corner, the map key under the sidebar in the same band; then the sidebar, and every cell in paint order with the
-    page height."""
-    legend_y = content_bottom + GAP
+    page height. The band never rises above the sidebar's minimaps, so a short drawing leaves room under itself instead."""
+    legend_y = max(content_bottom, SIDEBAR[-1][1] + SIDEBAR[-1][2]) + GAP
     entries = legend_entries(content)
     # The rule key: every rule a chip names, by its number in about.adrs, three to a column under the entries.
     keyed = [r for r in content["adrs"] if any(c["kind"] == "rule" and c["rule"] == r for c in content["chips"])]

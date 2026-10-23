@@ -38,5 +38,14 @@ only by a tier-filtered run (ADR-AUTO-TEST-PROCESSTRIPWIRE). The cause is in the
        task-user-runs-and-commits item 18): git still tracks the old spelling while the disk holds the new one. The other four non-launch
        failures landed (catzc-6b, 2026-10-23). Check: `Invoke-TestFile` on it green after the staging.
 
+## Open questions
+
+- From catzc-5d's finalize (2026-10-23), two proposals, none applied: (1) a comment page names its code line with the Describe's tags
+  (`Describe 'x' -Tag 'L1', 'integrity',...`), so every re-tier staled a page (six on 2026-10-23, found only by `Test-Comments`); anchor the
+  page on the Describe name before its first `-Tag` so a tier change leaves it in step. (2) Twelve test files carry the same two lines,
+  `Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }` and its comment, for a fixture root that is no checkout; a `TestKit` seam
+  would declare it once, if a Pester mock registered inside a helper reaches the caller's scope. Recommendation: (1) yes, (2) after a
+  one-file probe of that Pester scope.
+
 Landed 2026-10-23 (catzc-46): the per-Describe tripwire. L0 alone 7094 passed, 0 failed; L1 alone 667 passed, 1 failed (the rename of step
 1); a default run of QualityGates, Contracts and Execution with no tripwire hit.

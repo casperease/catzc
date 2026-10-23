@@ -74,3 +74,44 @@ Started 2026-10-23T11:18:33.2487061+02:00.
   instead of many separate Bash probes.
 - 2026-10-23 Cats: Token tip: read the Test-Comments/Test-FileMeta tail of the output only (grep out the Format-Code chatter) to see the
   verdict.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: the real-process tripwire is armed per outermost Describe by its tier
+  (Test-RealProcessBlocked), so an L0/L1 test that launches git fails in every run; a test whose point is the real tree belongs at L2 with a
+  literal tool_*_missing self-skip.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: the word accosted is reserved; every new file that names the language needs a scope
+  line in Catzc.Base.QualityGates/configs/terminology.yml before Test-Terminology passes.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: TestTiers.cs is linked into the Assert-BashTimeout hook, and a new timeouts.yml key
+  is read by it, so either change needs Build-AgentHook in the same burst or every Bash call is denied.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: Invoke-TestFile -MaxLevel takes only 3 or 4; a tier-filtered check of one module is
+  Test-Automation -MinLevel 0 -MaxLevel 1 -Modules \<module>.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: Test-Change runs only the tests covering changed files, so a green Test-Change says
+  nothing about tests in unchanged files; the tier runs found 165 failures it could not.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: generated-files.yml declares each writer inputs, outputs and at_import, and
+  Get-GeneratedWriterDue is the one matcher the gate and the import janitors share.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: an action diagram (about.lens: action) proves its effects against the proof file
+  and its action and executions against their command contracts through Test-AccostedCommand.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: striking plan steps with sed line ranges breaks numbered lists when Format-Code
+  reflows them; strike by exact text with the Edit tool.
+- 2026-10-23 Cats: Token tip: Next time, save tokens by: batching the plan check into one Format-Code + Test-Plans run per worker report
+  instead of one per edit; four were starved by the run lock in a row.
+- 2026-10-23 Cats: Token tip: Next time, save tokens by: adding reserved-scope and terminology lines up front when briefing a feature, not
+  one red Test-Terminology run at a time.
+- 2026-10-23 Cats: Token tip: Next time, save tokens by: running every gate call with -BudgetSeconds 335; the default 280 s budget lost runs
+  to busy locks.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: a comment page section anchors on its code line cut at 80 columns on a space plus
+  ..., compared exactly, and Test-Comments flags a section whose anchor no longer matches.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: on the pinned Pester 5.7.1 a Mock body reads the It locals and the test file
+  script: variables, with or without -ModuleName, so a Set mock and a Get mock do round-trip.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: PSReviewUnusedParameter flags an InModuleScope block parameter used only inside a
+  nested Should -Throw block; put the call and its param block inside the throw block.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: Invoke-TestFile -MaxLevel takes only 3 or 4; a tier-capped run is Test-Automation
+  -MinLevel n -MaxLevel n -Modules \<Module>.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: Build-Diagrams accepts a new diagram only when its stem is in drawio.yml carriers:,
+  which declaration.py carry \<stem> file records.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: a hand-written file head whose cites the code lacks is deleted by the file-meta
+  imprint, and Test-Formatting reports it as not formatted for the owning language.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: the word accosted is reserved to the files of the reserved scope in
+  terminology.yml, so a skill or an article outside it says proof file or needs a scope line.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: glossary families take only declared forms, so proof facet, inner zone and spelling
+  gate fail G6; write proof box, a zone nearer the action and spelling quality gate.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: a design-domain record may not cite automation or repository records
+  (Test-DrsRegistry checks the dependency direction), so it names them in words.

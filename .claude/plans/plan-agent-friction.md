@@ -39,6 +39,12 @@ step below moves one of those to the one place that serves it; steps 1 and 2 lan
        under `out/`" clause is cut for `Invoke-CatzcCommand.ps1` (the tree contradicts itself today); the same section says in one clause
        that Bash calls use absolute paths (hindsight 226bbf, "the second half"; no line says it, a drifting folder is learned by failure),
        paid for by the cut. Check: `Test-AgentDefinitions` and `Test-Links -Path .claude/CLAUDE.md`.
+3. [ ] Open question (catzc-df's finalize, 2026-10-23): the gate path forms a worker rediscovers go into one merged clause of
+       `.claude/skills/catzc-run/SKILL.md` within its 10 lines (`Test-ScriptAnalyzer -Path` takes a folder, and a glob `pwsh/m/**/*.ps1`
+       analyzes one file; `Test-Spelling -Path` takes globs and spells every extension, wider than its default scope;
+       `Invoke-TestFile     -MaxLevel` accepts only 3 or 4, so a tier check is `Test-Automation -MinLevel 0 -MaxLevel 1 -Modules <m>`; a
+       background gate call takes no pipe, which discards its output), or only in those gates' pages. Unanswered. Check:
+       `Test-AgentDefinitions`.
 
 ## Decided (the user, 2026-10-22)
 

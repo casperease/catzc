@@ -54,3 +54,12 @@ It cuts a cost paid by every session and every spawn that loads the project inst
 
 4. [ ] Once catzc-6e's remaining-arguments change lands (catzc-97's finalize (b)): `catzc-run` step 2 names the burst-step form, a step that
        runs `Invoke-CatzcCommand.ps1 -InBurst` in the burst's own process, merged into an existing line. Check: `Test-AgentDefinitions`.
+
+## Open questions
+
+- From the orchestrator's finalize (2026-10-23), three proposals, none applied: (1) `.claude/skills/catzc-verify/SKILL.md`: a change to a
+  file the Bash hook compiles (`TestTiers.cs`, a new `timeouts.yml` key) runs `Build-AgentHook` in the same burst, merged into the burst
+  line (a new key broke every Bash call once that day); (2) `Invoke-TestFile -MaxLevel` takes 0 and 1 too, so one file can run under the
+  real-process tripwire instead of a whole module's tier run (workers used `Test-Automation -MinLevel 0 -MaxLevel 1 -Modules` all day); (3)
+  `Test-Plans` checks that a `value-of-plan.md` row has as many cells as its table's header (only markdownlint caught a 6-cell row).
+  Recommendation: all three, each one line or one parameter.
