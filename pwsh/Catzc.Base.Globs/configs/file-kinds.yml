@@ -137,13 +137,10 @@ kinds:
   adr:
     definition: A decision record whose numbered rules the code follows.
     files: ["docs/drs/**"]
-  # The diagram kinds come before the two trees they live in, so the first match names a diagram or a description, not a page.
+  # The diagram kinds come before the two trees they live in, so the first match names a diagram, not a page.
   diagram:
     definition: A diagram image of the documentation, drawn in the diagram editor or rendered from a description.
     files: ["docs/**/.assets/**/*.png"]
-  asset-description:
-    definition: The description of a diagram and the pages of its minimaps, in the diagram's folder under .assets.
-    files: ["docs/**/.assets/**/*.md"]
   slide:
     definition: One slide of a deck, rendered through a pattern of the slides kit.
     files: ["docs/**/*.slide.md"]
@@ -175,8 +172,8 @@ overlaps:
   - [fixture, script]
   - [analyzer-rule, script]
   - [comment-page, reference]
-  - [asset-description, reference]
+  - [diagram-declaration, reference]
   - [diagram, reference]
-  - [asset-description, explanation]
+  - [diagram-declaration, explanation]
   - [diagram, explanation]
   - [slide, explanation]

@@ -6,9 +6,10 @@ catzc:
       - ADR-AZ-DATAMOD-STATICRESOURCENAMES
       - ADR-AZ-DATAMOD-PARAMETERCONTRACT
       - ADR-AZ-LZ
+      - ADR-AZ-NAMING
       - ADR-AZ-NETWORK-ONEADDRESSSPACE
       - ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION
-    drs_total: 11
+    drs_total: 12
 ---
 
 # ADR: Well-Architected reliability — Microsoft's reliability checklist, cited, and what the templates do about each item

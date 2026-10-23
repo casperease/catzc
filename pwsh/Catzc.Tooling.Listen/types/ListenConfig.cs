@@ -21,7 +21,7 @@ public sealed class ListenConfig
     public static IReadOnlyList<ListenTier> DefaultTiers { get; } = Array.AsReadOnly(new[]
     {
         new ListenTier("rule", Array.AsReadOnly(new[] { "adr", "glossary", "index" })),
-        new ListenTier("docs", Array.AsReadOnly(new[] { "explanation", "reference", "how-to", "diagram", "asset-description", "slide", "comment-page" })),
+        new ListenTier("docs", Array.AsReadOnly(new[] { "explanation", "reference", "how-to", "diagram", "slide", "comment-page" })),
     });
 
     private static readonly string[] AllowedKeys =

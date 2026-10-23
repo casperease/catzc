@@ -39,6 +39,11 @@ ten "may I" questions on edits the rules already require, three to five tool cal
       above). Check: `Test-AgentDefinitions`.
 - [ ] `.claude/skills/catzc-verify/SKILL.md` names the burst as one `Enter-CatzcBurst.ps1 -Run '<cmd>' …` call (landed by catzc-6e,
       2026-10-23), in place of a separate enter, work and exit. Check: `Test-AgentDefinitions`.
+- [ ] `pwsh/.internal/assets/Wait-CatzcRunLock.ps1`: a waiter gives up at once when a live holder's declared deadline lies past its budget,
+      and a test run declares its whole time limit, so a short run never queues behind one (the orchestrator, 2026-10-23: four plan checks
+      in a row exited "run lock busy" behind test files that ended within a minute); the waiter waits on a live holder up to its own budget
+      and gives up only when the budget runs out. (check: `Wait-CatzcRunLock.Tests.ps1` green with a case whose live holder declares a
+      deadline past the budget and releases inside it)
 
 ## Open questions
 

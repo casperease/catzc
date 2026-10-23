@@ -4,10 +4,16 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - ADR-AUTO-TEST
       - ADR-REPO-AGENTS-STANDARDDRONE
       - ADR-REPO-AGENTS-ROBOTBODYLIMIT
       - ADR-REPO-LINK-ONECITATIONSPELLING
-    drs_total: 4
+      - ADR-REPO-OUTDIR
+      - PDR-CATS
+      - PDR-CONFIG
+      - PDR-ONELIVE
+      - PDR-REDUCEVAR
+    drs_total: 10
 ---
 
 # ADR-REPO-AI: the agent contract

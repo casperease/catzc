@@ -4,7 +4,9 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-SPELL-ONEVOCABULARYSOURCE
-    drs_total: 1
+      - PDR-CONFIG
+      - PDR-ONELIVE
+    drs_total: 3
 ---
 
 # ADR: Dedicated output directory

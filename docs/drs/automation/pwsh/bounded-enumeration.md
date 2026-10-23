@@ -5,9 +5,12 @@ catzc:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-TRACKED-ONESEAM
+      - ADR-BCL-TYPES
       - ADR-PWSH-PARAM-RESOLUTIONORDER
       - ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS
-    drs_total: 4
+      - ADR-PWSH-TYPES
+      - PDR-ONELIVE
+    drs_total: 7
 ---
 
 # ADR: Bounded enumeration

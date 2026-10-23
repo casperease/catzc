@@ -4,8 +4,14 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-GO
       - ADR-AUTO-PATH-WORKSPACEANCHOR
-    drs_total: 2
+      - ADR-AUTO-PKGMGR
+      - ADR-AUTO-TEST
+      - ADR-AUTO-UVPY
+      - ADR-REPO-CONTRACT
+      - PDR-ONELIVE
+    drs_total: 8
 ---
 
 # ADR: Inspiration — read for ideas, never a reference implementation

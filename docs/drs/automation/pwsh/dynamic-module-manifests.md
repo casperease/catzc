@@ -5,12 +5,11 @@ catzc:
     cites:
       - ADR-AUTO-DEPM-CODEBUILTFROM
       - ADR-AUTO-DEPM-UNIFIEDGRAPH
-      - ADR-AUTO-EXTEND-ADDNOTEDIT
-      - ADR-AUTO-EXTEND-MANDATORYCONVENTIONS
+      - ADR-AUTO-EXTEND
       - ADR-AUTO-ZERO-ZEROCEREMONYAUTOMATION
       - ADR-AUTO-ZERO-MISTAKESHARDTOMAKE
       - ADR-PWSH-ENGINE-IMPORTERDOTSOURCED
-    drs_total: 7
+    drs_total: 8
 ---
 
 # ADR: Dynamic module manifests — the pwsh rules over open-closed-architecture

@@ -14,8 +14,7 @@ You are the orchestrator of this repository's worker sessions (`.claude/agents/i
 2. Read `.claude/plans/plan-master.md`; its open chunks are the work. The agent-doable ones at 05:10 on 2026-10-22:
    plan-debt-build-artifact-cause (one test-file step), plan-debt-test-speed's report (catzc-e9 writing it), plan-debt-agent-traffic's
    lock-wait step (a burst outlasts a waiter's 120 s). Everything else waits on the user (`task-user-runs-and-commits.md`): the VSCode case
-   rename, `asset-description`, the dense-yaml pilot commit and its 175-declarations question, the `catzc-drone.md` line, the hook
-   registration.
+   rename, the dense-yaml pilot commit and its 175-declarations question, the `catzc-drone.md` line, the hook registration.
 3. Read the last 40 lines of `out/orchestrator-2026-10-22.log` for who held what.
 4. `ListAgents`, then ask each live session "what are you working on?" once. Brief a free one as
    `<plan> step <n>; owns <files>; check <check>`; a reply comes as `<step> PASS|RED|BLOCKED: <line>`.

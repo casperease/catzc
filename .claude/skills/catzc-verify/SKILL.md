@@ -18,8 +18,8 @@ metadata:
    `Invoke-TestFile -Path <its test file>`; re-read a file right before editing it and never overwrite another session's in-flight edit. A
    rename of a folder or command the tooling names lands its import-path readers (`rootconfig.yml` and Build-RootConfig's writers,
    `Get-LanguageTestFolders`, the `.internal` loaders, the contract readers) in the same pass inside a burst, never a HOLD or GO message:
-   `pwsh/.internal/assets/Enter-CatzcBurst.ps1` in the background holds the run lock, the checks and one fresh full import run through
-   `Invoke-CatzcCommand.ps1 -InBurst`, and `Exit-CatzcBurst.ps1` ends it; on failure restore them from HEAD; multi-file type work is edited
+   one background `pwsh/.internal/assets/Enter-CatzcBurst.ps1 -Run '<cmd>' …` call holds the run lock, runs the swap-in, the checks and
+   one fresh full import (`Invoke-CatzcCommand.ps1 -InBurst`) as its steps, and releases it; on failure restore them from HEAD; multi-file type work is edited
    on staged copies under `out/<topic>/staged/` and swapped in by one script with a fresh import and a restore on failure, a public staged
    copy proved by that swap, never by dot-sourcing it (the exported command stays); `Get-CodeCaller -Name <type or config key>` lists the
    callers of a changed type or config, never a recursive grep. A new folder under `.claude/hooks` is an import-path change too, since every

@@ -39,6 +39,11 @@ The repository-relative path it moves to; its parent folders are created.
 
 The repository root both paths are relative to. Default: the loaded repository root.
 
+### parameter `Kit`
+
+The draw.io kit folder whose `configs/drawio.yml` keys each diagram's carrier and role by its stem; a moved stem is re-keyed there. Default:
+`drawio_kit` of `slides.yml`.
+
 ### parameter `DryRun`
 
 List the moves and the pages whose links would be re-pointed, and change nothing.

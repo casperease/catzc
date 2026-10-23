@@ -10,13 +10,14 @@ catzc:
       - ADR-AUTO-ENGINE-THREEENGINES
       - ADR-AUTO-ENGINE-STARTENVIRONMENT
       - ADR-AUTO-ENGINE-AUTONAMESNOENGINE
+      - ADR-AUTO-EXTEND
+      - ADR-AUTO-OVERLAY
       - DDR-ASPECT-ASPECTSAREDERIVED
-      - DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES
-      - DDR-TRACK-FILELANGUAGE
-      - DDR-TRACK-STACKVIOLATION
-      - DDR-TRACKTYPE-ONEROLE
-      - DDR-TRACKTYPE-LONGESTPLACEWINS
-    drs_total: 13
+      - DDR-MODTYPE
+      - DDR-TRACK
+      - DDR-TRACKTYPE
+      - PDR-CONFIG
+    drs_total: 19
 ---
 
 # ADR: Module model — how a deployable track's modules are found, shaped and ordered

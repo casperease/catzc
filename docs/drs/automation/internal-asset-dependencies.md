@@ -5,7 +5,8 @@ catzc:
     cites:
       - ADR-AUTO-NOPWD-NOWORKINGDIRECTORYPATHS
       - ADR-AUTO-TEST-ONECATEGORY
-    drs_total: 2
+      - DDR-RUNMODE
+    drs_total: 3
 ---
 
 # ADR: Internal asset dependencies — located through one helper, tested in both run modes

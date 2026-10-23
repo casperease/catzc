@@ -29,9 +29,10 @@ Files that fail YAML parsing are included in the output with ParseError set and 
 
 Root directory to scan. Defaults to the repository root via Get-RepositoryRoot.
 
-### parameter `Exclude`
+### parameter `Depth`
 
-Directory names to skip during scanning. Matched as exact names anywhere in the path. Defaults to @('.git', 'node_modules', '.terraform').
+How many folder levels below the root the scan descends. The folder-walk config's pruned folders (.git, node_modules, .terraform, …) are
+skipped at every level. Defaults to the ado config's yaml_inventory_depth, 6 unless the config sets it.
 
 ### example 1
 
@@ -42,7 +43,7 @@ Get-AdoYamlFiles -Path 'C:\repos\big-mono'
 ### example 2
 
 ```powershell
-Get-AdoYamlFiles -Path 'C:\repos\big-mono' -Exclude @('.git', 'node_modules', 'vendor')
+Get-AdoYamlFiles -Path 'C:\repos\big-mono' -Depth 3
 ```
 
 ## comment:1

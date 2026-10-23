@@ -4,9 +4,14 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
+      - ADR-CONF-LOADING
+      - ADR-REPO-AI
       - ADR-REPO-FILEMETA-HEADPOLICY
       - ADR-REPO-LINK-ONECITATIONSPELLING
-    drs_total: 3
+      - DDR-VISUAL
+      - PDR-CONFIG
+      - PDR-REDUCEVAR
+    drs_total: 8
 ---
 
 # ADR: Agent definitions — every sub-agent rests on a rule and maps to its checks

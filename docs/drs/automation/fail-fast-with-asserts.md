@@ -5,8 +5,9 @@ catzc:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-ENGINE-THREEENGINES
+      - ADR-AUTO-GUIDS
       - ADR-AUTO-OVERLAY-CONFIGFRAGMENT
-    drs_total: 3
+    drs_total: 4
 ---
 
 # ADR: Fail fast with inline assertions

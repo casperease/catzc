@@ -3,6 +3,37 @@
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
+## help
+
+### synopsis
+
+Lists every citation code in the docs/drs pages that names no registered rule, record or domain.
+
+### description
+
+Reads every line of the docs/drs/ file index outside fenced blocks for a code in the registry's cited form. A code is a finding when the
+citation map knows it neither as a rule, nor as a record's code, nor as a domain's code. A code followed by `#` or `:<n>` is left to the
+code-language check.
+
+Private helper for Test-DrsRegistry; not exported.
+
+### parameter `Adrs`
+
+The ADR registry (Get-Config -Config drs).
+
+### parameter `Index`
+
+The docs/drs/ file index (Get-DrsFileIndex).
+
+### parameter `Map`
+
+The citation map the codes are resolved against (Get-DrsCitationMap).
+
+### outputs
+
+`[string[]]` One finding per dangling code: '`<file>:<line>`: cites `<code>`, which names no registered rule, record or domain (a dangling
+code)'.
+
 ## comment:1
 
 Above `$pattern = "(?<![\w-])$($Adrs.CodeForm.Cited)(?![\w#-]|:\d)"`, written with `#`.

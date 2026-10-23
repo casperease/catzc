@@ -6,14 +6,13 @@ catzc:
       - DDR-REMOTE-INTEGRATEFROMVERIFIED
       - DDR-REMOTE-NORECONCILINGTIPS
       - DDR-REMOTE-PULLREQUESTISINGRESS
-      - DDR-VISUAL-ONLYGITLANEISTIME
-      - DDR-VISUAL-ENVIRONMENTISCONTAINER
+      - DDR-VISUAL
       - FDR-CD-TWORELEASEGATES
       - FDR-CD-ACCEPTANCETESTINGISNOTUAT
       - FDR-CD-RELEASECANDIDATE
       - FDR-GIT-SYNCPOINT
       - FDR-GIT-FALLBACKISANNOUNCED
-    drs_total: 11
+    drs_total: 12
 ---
 
 # Flow: The commit lifecycle — states, environment occupancy, and the stable sync point

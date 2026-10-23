@@ -22,9 +22,10 @@ Cross-references the two datasets to:
 
 Root directory to scan. Defaults to the repository root via Get-RepositoryRoot.
 
-### parameter `Exclude`
+### parameter `Depth`
 
-Directory names to skip during scanning. Matched as exact names anywhere in the path. Defaults to @('.git', 'node_modules', '.terraform').
+How many folder levels below the root the scan descends, handed to Get-AdoYamlFiles. Defaults to the ado config's yaml_inventory_depth, 6
+unless the config sets it.
 
 ### parameter `Project`
 

@@ -6,7 +6,8 @@ catzc:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - PDR-CATS-CATZCISSOURCENAME
-    drs_total: 3
+      - PDR-CONFIG
+    drs_total: 4
 ---
 
 # ADR-AUTO-ACCOSTED: the accosted language, a flat list of harmless contracted calls

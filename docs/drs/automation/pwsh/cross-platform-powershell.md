@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-PARITY-SAMECLIBOTHENVIRONMENTS
       - ADR-AUTO-PATH-CENTRALNORMALIZATION
       - ADR-AUTO-XPLAT
-    drs_total: 7
+    drs_total: 8
 ---
 
 # ADR: Cross-platform PowerShell — the language layer over cross-platform

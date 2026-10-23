@@ -201,15 +201,14 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'stops at once, saying when to retry, when the holder''s deadline lies past its own budget' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+    It 'waits for a live holder whose declared deadline lies past its own budget, and takes the lock once it is let go inside the budget' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        # The holder declares 120 s, past the waiter's 5 s budget, but lets go after 1.5 s: a deadline is a limit, never when it ends.
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500 -RecordSeconds 120 -Declared
         try {
             $holder.Taken | Should -BeTrue
-            $timer = [System.Diagnostics.Stopwatch]::StartNew()
             $out = @(Wait-CatzcRunLock -LockName $script:lockName -LockSeconds 1 -BudgetSeconds 5 -StaleSeconds 720 -Holding 'Get-Widget' -Caller 'Widget' -Busy 'nothing ran' -Lock $script:taken)
-            $timer.Elapsed.TotalSeconds | Should -BeLessThan 1
-            $out[-1] | Should -Match "^\[Widget\] run lock busy: Get-Gadget \(pid $PID\) holds it until \d\d:\d\d:\d\d, past this run's budget of 5 s, so nothing ran; retry after it$"
-            $script:taken.Value | Should -BeNullOrEmpty
+            ($out -join "`n") | Should -Not -BeLike '*run lock busy*'
+            $script:taken.Value | Should -BeOfType [System.Threading.Mutex]
         }
         finally {
             Stop-LockHolder $holder

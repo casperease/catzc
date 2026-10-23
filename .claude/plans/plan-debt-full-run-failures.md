@@ -22,20 +22,18 @@ on 2026-10-22 with five sessions running tests). A red file has its cause report
       cause (catzc-54, `out/catzc-54-full-run-2-5.md`) is a case-only rename git does not track, `pwsh/Catzc.Base.VSCode/*-VsCode*.ps1` on
       disk against `*-VSCode*.ps1` in the index, so the builder's case-sensitive index check drops every file and builds nothing. The fix is
       the user's (task-user-runs-and-commits). Check: `Invoke-TestFile` on it alone, after the rename is staged.
-- [ ] `Test-FileKindReachability.Tests.ps1`, red on 2026-10-22: `drawio-kit` is shadowed by `slides-kit` (12 of 35) and `test` (9 of 35), so
-      `file-kinds.yml` lists both pairs in `overlaps` (landed; the shadow finding is gone); left red only on the kind `asset-description`,
-      which matches no tracked file (see the open question; `out/test-file/20261022-031859-d4dd28`). Check: `Invoke-TestFile` on it alone.
 - [ ] `Build-AgentHook.Tests.ps1` red twice on 2026-10-22 inside catzc-a0's bursts, a different hook's `BeforeAll` each time
       (`Assert-BashTimeout`, then `Record-AgentWrite`), with no error text; `Invoke-TestFile` now prints a failed `BeforeAll`'s error, and
       the file ran green three times alone (catzc-27, 2026-10-23, `out/test-file/20261023-092121-2054e4` and the two after it). Left: the
-      same three runs, through `Invoke-CatzcCommand`, while another session imports, and the fix decided from the real error if one turns
-      red. (check: `Build-AgentHook.Tests.ps1` green three times in a row while another session imports)
-- [ ] The file kind `asset-description` in `file-kinds.yml` matches no tracked file, so it is retired (decided by the orchestrator as
-      delegated, 2026-10-22): its meaning and context first go to a page under `docs/references` (a removed key is never dropped silently),
-      then the kind leaves `file-kinds.yml` and every reader or test that names it, `ListenConfig.cs`'s docs tier included, in one burst
-      with a fresh full import (decided by the orchestrator as delegated, 2026-10-23, catzc-27). (check:
-      `Test-FileKindReachability.Tests.ps1` green, and `asset-description` found only on that page by grep)
+      same three runs through `Invoke-CatzcCommand`, and the fix decided from the real error if one turns red; the run lock now serialises
+      every import, so "while another session imports" is no longer a state a run can meet (decided by the orchestrator as delegated,
+      2026-10-23). (check: `Invoke-TestFile` on `Build-AgentHook.Tests.ps1` green three times in a row)
 
+- [ ] The same run's 131 unformatted files (83 under `docs/drs`, 22 under `docs/explanation`, 8 under `docs/how-to`, 5 plans, the rest
+      single files): the cause is pages and code citing rule codes that were added or renamed after the 2026-10-22 re-imprint, so each lacks
+      its generated head (catzc-97, 2026-10-23); `Format-Code -Path` one folder at a time, each diff read as head lines only before the
+      next, the `.cs` files in one burst; a body change goes to the orchestrator (decided as delegated, 2026-10-23). (check:
+      `Test-Formatting.Tests.ps1` green)
 - [ ] `pwsh/Catzc.Base.QualityGates/private/Assert-TestTagGate.ps1`: each untagged test's line names its test file, and the message names
       the valid categories `logic` and `integrity` (decided by the orchestrator as delegated, 2026-10-23: finding a test's file took a grep,
       and one test used `integration`). (check: `Assert-TestTagGate.Tests.ps1` green with a case asserting the file and the categories)

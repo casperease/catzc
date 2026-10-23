@@ -5,12 +5,13 @@ catzc:
     cites:
       - ADR-AUTO-BUNDLE-AUTOVERSION
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-ENGINE
       - ADR-AUTO-IDIOM-NORMALFORM
       - ADR-REPO-FOLDERS-DOTMEANSTOOLING
       - ADR-REPO-REPOKIND-THREEKINDS
       - ADR-REPO-ROOTCFG-FULLYMANAGED
       - PDR-ONELIVE-PINNEDVERSIONNOTLEGACY
-    drs_total: 7
+    drs_total: 8
 ---
 
 # ADR: Contracts at the repository boundary — both directions, versioned with their unit, proven by tests

@@ -7,9 +7,10 @@ catzc:
       - ADR-AUTO-CACHE-READONLYVALUES
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
       - ADR-AUTO-GO-LANGUAGEBRIDGE
+      - ADR-AUTO-NOPWD
       - ADR-AUTO-PY-LANGUAGEBRIDGE
       - ADR-AUTO-RETRY-NEVERINTESTS
-    drs_total: 6
+    drs_total: 7
 ---
 
 # ADR: Test automation — logic tests vs integrity tests, and how to isolate

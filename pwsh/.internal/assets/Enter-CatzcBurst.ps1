@@ -38,7 +38,8 @@ catzc:
     The most seconds the burst waits past a live holder's deadline. Default: run_lock.wait_seconds of timeouts.yml.
 
 .PARAMETER BudgetSeconds
-    The most seconds this call may take in all; a holder whose deadline lies beyond it is not waited for. Default: run_lock.budget_seconds.
+    The most seconds this call may take in all; a live holder is waited for until it leaves only -LockSeconds. Default:
+    run_lock.budget_seconds.
 
 .PARAMETER Run
     The steps the burst runs while it holds the lock, each a command run in this process, in order. A step fails when it throws or leaves a

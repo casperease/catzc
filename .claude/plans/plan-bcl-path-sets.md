@@ -53,7 +53,9 @@ module's step, since the scan guesses it from a file's `Get-Config` calls and al
 - [ ] The whole-repository tiers of `Test-Spelling.Tests.ps1`, `Test-Markdownlint.Tests.ps1`, `Test-ScriptAnalyzer.Tests.ps1` and
       `Get-ScriptAnalyzerDiagnostics.Tests.ps1` are green, one per call (catzc-e3, 2026-10-22: the other sessions' spelling and lint
       findings that held them are fixed; catzc-97, 2026-10-23: six unknown words in three test fixtures are fixed in the fixtures, not by a
-      cspell pattern for PowerShell escapes, decided by the orchestrator as delegated). (check: the four test files green, one per call)
+      cspell pattern for PowerShell escapes, decided by the orchestrator as delegated; three of the four green on 2026-10-23, catzc-97;
+      left: `Test-Spelling.Tests.ps1`, red only on "mistagged" in `Assert-TestTagGate.Tests.ps1`, fixed in that file's own step). (check:
+      `Test-Spelling.Tests.ps1` green)
 - [ ] `Catzc.Base.Overlay` and `Catzc.Base.TypesSystem` landed (catzc-a0, 2026-10-22: their other test files green, `Test-ScriptAnalyzer` at
       0 on the five files); left: `Import-CSharpTypes.Tests.ps1` (waits on the commit of `pwsh/.compiled`) and `Build-AgentHook.Tests.ps1`
       (its published-hook setups, see plan-debt-full-run-failures) green. (check: those two test files green)

@@ -14,7 +14,7 @@ catzc:
       - ADR-AZ-NAMING
       - ADR-AZ-WAF-CO-CO03
       - ADR-AZ-WAF-SE-SE03
-    drs_total: 18
+    drs_total: 19
 ---
 
 # ADR: CAF naming and tagging — what the repository does about each of Microsoft's naming and tagging recommendations

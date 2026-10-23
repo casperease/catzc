@@ -169,6 +169,6 @@ def test_rekey_moves_a_stems_carrier_and_role_entries_and_keeps_every_other_line
 
 
 def test_rekey_of_a_folder_moves_every_stem_under_it():
-    text = "carriers:\n  docs/widgets/.assets/gadget: file\n  docs/widgets/.assets/sprocket: file\n  docs/widgetsmore/.assets/cog: file\n"
+    text = "carriers:\n  docs/widgets/.assets/gadget: file\n  docs/widgets/.assets/sprocket: file\n  docs/widgets-more/.assets/cog: file\n"
     moved = declaration.rekeyed(text, "docs/widgets", "docs/gadgets")
-    assert moved == "carriers:\n  docs/gadgets/.assets/gadget: file\n  docs/gadgets/.assets/sprocket: file\n  docs/widgetsmore/.assets/cog: file\n"
+    assert moved == "carriers:\n  docs/gadgets/.assets/gadget: file\n  docs/gadgets/.assets/sprocket: file\n  docs/widgets-more/.assets/cog: file\n"

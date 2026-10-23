@@ -4,6 +4,7 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TEST-DISTINCTFIXTUREIDENTITIES
+      - ADR-REPO-CONTRACT
       - ADR-REPO-FILEMETA-NOREADBACK
       - ADR-REPO-FOLDERS-STABLEFILENAMES
       - PDR-CONFIG-VARYINGBEHAVIOURISCONFIG
@@ -12,7 +13,7 @@ catzc:
       - PDR-EAC-NOSTATEOUTSIDEVERSIONCONTROL
       - PDR-ONELIVE-ONEVERSION
       - PDR-POKAYOKE-DETECTEARLIEST
-    drs_total: 9
+    drs_total: 10
 ---
 
 # ADR-REPO-SLIDES: slides as markdown files, rendered through patterns

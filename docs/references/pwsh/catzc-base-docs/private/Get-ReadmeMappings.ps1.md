@@ -39,6 +39,11 @@ The parsed readme config (Get-Config -Config readme): a `{ patterns; mappings }`
 
 Repository root the globs and source paths resolve against. Defaults to Get-RepositoryRoot.
 
+### parameter `Missing`
+
+Returns the skipped folders instead: one `{ folder; source }` object per pattern-matched folder whose derived source file does not exist,
+which Test-GeneratedReadmes reports.
+
 ### outputs
 
 `[object[]]` One `{ folder; source }` object per generated README — explicit mappings first, then the pattern-derived folders in filesystem

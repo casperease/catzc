@@ -4,8 +4,9 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
-      - ADR-REPO-DRSCODE-PATHOFSEGMENTS
-    drs_total: 2
+      - ADR-REPO-DRSCODE
+      - PDR-REDUCEVAR
+    drs_total: 4
 ---
 
 # ADR: Markdown links — relative in documents, repository-rooted out of code

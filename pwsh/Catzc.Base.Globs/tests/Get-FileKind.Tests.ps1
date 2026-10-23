@@ -32,11 +32,11 @@ Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
         @{ Path = 'docs/explanation/design/.assets/gadget-spins.drawio.png'; Class = 'diagram' }
         @{ Path = 'docs/explanation/design/.assets/gadget-spins.drawio.yml'; Class = 'diagram-declaration' }
         @{ Path = 'docs/drs/widget/.assets/gadget-turns.drawio.yml'; Class = 'diagram-declaration' }
-        @{ Path = 'docs/explanation/design/.assets/gadget-spins.drawio.verify.md'; Class = 'asset-description' }
+        @{ Path = 'docs/explanation/design/.assets/gadget-spins.drawio.verify.md'; Class = 'explanation' }
         @{ Path = 'docs/explanation/design/gadget-spins.md'; Class = 'explanation' }
         @{ Path = 'docs/explanation/design/widget-deck/gadget-spins.slide.md'; Class = 'slide' }
         @{ Path = 'docs/references/pwsh/.assets/catzc-widget.drawio.png'; Class = 'diagram' }
-        @{ Path = 'docs/references/pwsh/.assets/catzc-widget.drawio.verify.md'; Class = 'asset-description' }
+        @{ Path = 'docs/references/pwsh/.assets/catzc-widget.drawio.verify.md'; Class = 'reference' }
         @{ Path = 'docs/references/pwsh/catzc-widget.md'; Class = 'reference' }
         @{ Path = 'docs/drs/index.md'; Class = 'index' }
         @{ Path = 'docs/drs/glossary.md'; Class = 'glossary' }

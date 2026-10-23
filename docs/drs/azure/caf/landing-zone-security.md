@@ -10,23 +10,15 @@ catzc:
       - ADR-AZ-LZ-THREEBUILTINPOLICIES
       - ADR-AZ-LZ-WORKLOADOWNSNONE
       - ADR-AZ-LZ-SQLENTRAADMINS
+      - ADR-AZ-NAMING
       - ADR-AZ-NETWORK-ONEIPPLAN
       - ADR-AZ-NETWORK-ONEADDRESSSPACE
       - ADR-AZ-NETWORK-NOOVERLAP
       - ADR-AZ-WAF-OE-OE07
       - ADR-AZ-WAF-RE-RE01
       - ADR-AZ-WAF-RE-RE05
-      - ADR-AZ-WAF-SE-SE01
-      - ADR-AZ-WAF-SE-SE03
-      - ADR-AZ-WAF-SE-SE04
-      - ADR-AZ-WAF-SE-SE05
-      - ADR-AZ-WAF-SE-SE06
-      - ADR-AZ-WAF-SE-SE07
-      - ADR-AZ-WAF-SE-SE08
-      - ADR-AZ-WAF-SE-SE09
-      - ADR-AZ-WAF-SE-SE10
-      - ADR-AZ-WAF-SE-SE12
-    drs_total: 23
+      - ADR-AZ-WAF-SE
+    drs_total: 25
 ---
 
 # ADR: CAF security — what the repository does about each recommendation of the landing-zone security design area

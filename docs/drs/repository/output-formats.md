@@ -4,7 +4,9 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-PATH-PUBLISHEDARTIFACT
-    drs_total: 1
+      - ADR-AUTO-UVPY
+      - ADR-REPO-OUTDIR
+    drs_total: 3
 ---
 
 # ADR: Output formats — one catalogue of what lands under the output root

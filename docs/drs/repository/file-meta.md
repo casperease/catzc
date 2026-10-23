@@ -4,6 +4,7 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-AUTO-DEPM
       - ADR-AUTO-EXTEND-ADDNOTEDIT
       - ADR-CONF-LOADING-POWERSHELLVALIDATOR
       - ADR-REPO-AGENTS-NAMEDMODEL
@@ -11,7 +12,7 @@ catzc:
       - ADR-REPO-COMMENTS-PAGEISAUTHORED
       - ADR-REPO-FORMAT-GENERATEDARTIFACTSFORMATTED
       - ADR-REPO-FORMAT-MARKDOWNTITLE
-    drs_total: 8
+    drs_total: 9
 ---
 
 # ADR: File meta — one block of derived facts, in the carrier each kind of file has

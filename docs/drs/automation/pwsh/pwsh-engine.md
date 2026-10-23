@@ -5,9 +5,10 @@ catzc:
     cites:
       - ADR-AUTO-BUNDLE-ONELIVINGIMPORTER
       - ADR-AUTO-BUNDLE-BUNDLEISSESSION
+      - ADR-AUTO-ENGINE
       - ADR-PWSH-ERROR-STOPONERROR
       - ADR-PWSH-ERROR-STOPONWARNING
-    drs_total: 4
+    drs_total: 5
 ---
 
 # ADR: The pwsh engine — PowerShell 7 as catzc's module engine

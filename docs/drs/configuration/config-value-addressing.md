@@ -7,7 +7,8 @@ catzc:
       - ADR-CONF-LOADING-ONEREADER
       - ADR-CONF-LOADING-EXISTENCEDISCOVERED
       - ADR-CONF-LOADING-CACHEBYPATH
-    drs_total: 4
+      - PDR-EAC
+    drs_total: 5
 ---
 
 # ADR: Config value addressing — a by-reference handle into a named config

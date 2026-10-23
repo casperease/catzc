@@ -5,7 +5,7 @@ catzc:
     cites:
       - ADR-AUTO-IDEM
       - ADR-AUTO-REMOVE-DOUBLYGUARDED
-    drs_total: 6
+    drs_total: 7
 ---
 
 # ADR: Idempotent state mechanics — the pwsh rules over idempotent-state-functions

@@ -5,7 +5,7 @@ catzc:
     cites:
       - ADR-AUTO-ENVVAR
       - ADR-AUTO-NOPWD-ONEROOTACCESSOR
-    drs_total: 8
+    drs_total: 9
 ---
 
 # ADR: Environment-variable mechanics — the pwsh rules over environment-variables
