@@ -1,4 +1,0 @@
-parameters:
-  name: string
-  dry_run: switch
-output: string

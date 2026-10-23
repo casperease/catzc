@@ -10,8 +10,7 @@ about:
 content:
   title: Reading an accosted file writes nothing and leaves the contract checks as they were
   kind: explanation
-  relation: reads
-  cause: { label: An author runs cats }
+  cause: { label: An author }
   action:
     call: { get_accosted_file: { path: pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml } }
   effects:

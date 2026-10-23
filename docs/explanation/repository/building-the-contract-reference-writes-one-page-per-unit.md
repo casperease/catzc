@@ -15,9 +15,9 @@ catzc:
 # Building the contract reference writes one page per unit
 
 ```text
-A maintainer changes a contract and runs cats; one command rewrites the reference pages, and two gates hold them.
+A maintainer changes a contract; one command rewrites the reference pages, and two gates hold them.
 
-1  A maintainer changes a contract and runs cats   the cause: a contract asset changed under contracts/
+1  A maintainer changes a contract   the cause: a contract asset changed under contracts/
 2  build_contract_reference                        the action: one command, in the contract form
 3  The catzc unit's page                           zone 1, local: get_repository_file shows docs/references/contracts/catzc.md
 4  The external Azure unit's page                  zone 1, local: get_repository_file shows docs/references/contracts/EXTERNAL-azure.md
@@ -36,8 +36,8 @@ afterwards: the links on a page must resolve, and the page must match the contra
 
 ## Walkthrough
 
-1. **A maintainer changes a contract and runs cats.** The cause is a change to a contract asset: a command contract, a type, a sample. The
-   pages that describe it are stale the moment it lands.
+1. **A maintainer changes a contract.** The cause is a change to a contract asset: a command contract, a type, a sample. The pages that
+   describe it are stale the moment it lands.
 2. **build_contract_reference.** The action is one command in the contract form, with no arguments. It reads every contract asset through
    the one reader of the contract language and writes the pages
    ([ADR-REPO-CMDCONTRACT-ONEREADER](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-onereader)).

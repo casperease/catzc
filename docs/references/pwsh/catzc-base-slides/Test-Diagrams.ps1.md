@@ -19,8 +19,9 @@ left stale is announced and counted in the report facts without failing the gate
 `about.proves`, the accosted file that runs what it draws: the file must exist, be readable by Get-AccostedFile, and hold every
 `effects[].proves` as a command equal in name and arguments. The action (`action.call` or `action.calls`) may be any contracted command,
 mutating included: it must be a contracted command whose arguments fit its command contract (Test-AccostedCommand) and need not be in the
-proof file; a band diagram is not checked. It writes no diagram; the render is Build-Diagrams'. The result goes through the quality-gate
-report.
+proof file. An effect is a state change (`proves`, as above) or an execution (`call`, checked like the action); an effect with both or
+neither is an issue. A band diagram is not checked. It writes no diagram; the render is Build-Diagrams'. The result goes through the
+quality-gate report.
 
 ### parameter `Path`
 

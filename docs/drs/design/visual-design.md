@@ -219,24 +219,39 @@ drawing is a call that `cats` can run. A long call wraps at `/`, `,`, space and 
 ### Rule DDR-VISUAL-EFFECTSINZONES
 
 A **ring** is a circle centred on the cause's rim, drawn only as the arc between the frame's inner top and bottom, so it stands steep
-through the centre lane; a **zone** is the band between two arcs, and an **effect** is a note box standing in a zone: one state the action
-modifies. An effect's `zone` is its causal hop, a whole number from 1 with no gaps, and says nothing about its place. It says in plain words
-which state it modifies, proves it with an accosted observation, and names its place, `local` or `remote` from a closed list, as a chip. An
-effect may name `after`, an effect declared before it, in its own zone or one nearer the action; its flow edge then comes from that effect,
-not from the action, and naming a later effect is an error. A **story number** is the number every box carries: the cause 1, the action 2,
-the effects in declared order. Notes stand inside their zone, spread over the fixed centre lane in story order. The renderer computes the
-layout and takes palette and ink from the same theme tokens as every diagram.
+through the centre lane; a **zone** is the band between two arcs, and an **effect** is a note box standing in a zone: a state change the
+action causes, or an execution it triggers. An effect's `zone` is its causal hop, a whole number from 1 with no gaps, and says nothing about
+its place. A state change says in plain words which state it modifies, proves it with an accosted observation, and names its place, `local`
+or `remote` from a closed list, as a chip; an execution is a `call`, a contracted command in the contract form. An effect may name `after`,
+an effect declared before it, in its own zone or one nearer the action; its flow edge then comes from that effect, not from the action, and
+naming a later effect is an error. A **story number** is the number every box carries: the cause 1, the action 2, the effects in declared
+order. Notes stand inside their zone, spread over the fixed centre lane in story order. The renderer computes the layout and takes palette
+and ink from the same theme tokens as every diagram.
 
 - [Effects stand in zones](#effects-stand-in-zones)
+
+### Rule DDR-VISUAL-EDGEWORDSAREOPERATORS
+
+Every flow edge of an action diagram carries one word, drawn by the renderer and never named in the declaration; the word follows from the
+edge's source and target, never from the author. The **cats operator** is the edge from the cause to the action: an actor runs the command
+through cats, and `Test-AccostedCommand` checks the action. The **executes operator** is every edge leaving the action, whatever its target:
+the statement is handed to the state machine as an instruction, and the runner running it checks it. The **affects operator** is the edge
+between two effects where the target is an execution: one execution triggers another, and `Test-AccostedCommand` checks that call. The
+**effects operator** is the edge between two effects where the target is a state change: an execution changes state, and its observation in
+the proof file checks it. An effect's `after` picks the source of its edge, the action when it names none. The legend of every action
+diagram lists the four words, and adds "execution: a triggered command" when one is drawn. The declaration's `relation` and `thick` are
+refused under the action lens.
+
+- [Edges carry their operator](#edges-carry-their-operator)
 
 ### Rule DDR-VISUAL-PROOFISTHEACCOSTEDFILE
 
 The **proof** of an action diagram is the accosted file its `about.proves` names, `<module>/accosted/<name>.accosted.yml`, the one living
-file the runs are kept in. Every effect's observation occurs verbatim in that file, and `Test-Diagrams` checks it, so the picture never
-claims an observation the proof does not run. The action is a contracted command in the contract form, which `Test-Diagrams` checks against
-its command contract. An article shows the proof as a fenced `yml accosted` block copied from that file, or links the file. The PowerShell
-text in an article is a rendering of the contract form, produced by the accosted language's one reader and never written by hand; a linked
-`.ps1` asset is not taken, since it would be a second version of the same runs
+file the runs are kept in. Every state change's observation occurs verbatim in that file, and `Test-Diagrams` checks it, so the picture
+never claims an observation the proof does not run. The action, and every execution among the effects, is a contracted command in the
+contract form, which `Test-Diagrams` checks against its command contract. An article shows the proof as a fenced `yml accosted` block copied
+from that file, or links the file. The PowerShell text in an article is a rendering of the contract form, produced by the accosted
+language's one reader and never written by hand; a linked `.ps1` asset is not taken, since it would be a second version of the same runs
 ([PDR-ONELIVE-ONEVERSION](../principles/one-living-version.md#rule-pdr-onelive-oneversion)).
 
 - [The proof is the accosted file](#the-proof-is-the-accosted-file)
@@ -430,6 +445,13 @@ action changes directly, the next what that change causes. The zone is that caus
 separate chip: a remote effect can be one hop away and a local one three. An effect that follows from another says so with `after`, forward
 only, so the drawing never draws a cause arriving after its effect. The story numbers give the reading order, so a reader and the renderer
 agree on it. Each effect pairs a sentence with an observation that shows it, so the claim and its evidence sit in the same note.
+
+## Edges carry their operator
+
+A reader who sees an arrow should not have to guess what it asserts. The four words name the four things an arrow can say: someone ran the
+command, the command was handed on, one command set off another, or a command changed a state. Because the word follows from where the arrow
+starts and ends, the author never picks it, and two diagrams cannot call the same arrow by different words. Each word also names the check
+that stands behind it, so an arrow is never a claim the tooling does not test.
 
 ## The proof is the accosted file
 

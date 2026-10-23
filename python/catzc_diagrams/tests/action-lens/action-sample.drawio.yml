@@ -6,8 +6,7 @@ about:
 content:
   title: Publishing a gadget writes the index and the remote catalogue
   kind: explanation
-  relation: changes
-  cause: { label: An author runs cats }
+  cause: { label: An author }
   action:
     call: { publish_gadget: { name: widget-a, dry_run: false } }
   effects:

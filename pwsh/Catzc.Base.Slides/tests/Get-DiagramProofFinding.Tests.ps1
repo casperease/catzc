@@ -96,6 +96,29 @@ content:
         $findings[0] | Should -BeLike $Message
     }
 
+    It 'passes an executing effect the proof file does not hold, as it is a contracted command that fits' {
+        $text = $script:action.Replace('proves: { get_gadget: } }', 'call: { set_widget: { path: widgets/a.wdg } } }')
+        @(& $script:find $text).Count | Should -Be 0
+    }
+
+    It 'names an executing effect that breaks its contract, with where it is drawn: <Case>' -ForEach @(
+        @{ Case = 'an uncontracted command'; With = 'call: { set_gizmo: { path: a } } }'; Message = "*: effects[e-one].call: 'set_gizmo' is no contracted command*" }
+        @{ Case = 'a bad argument'; With = 'call: { get_widget: { path: a, depth: deep } } }'; Message = "*: effects[e-one].call: 'depth' takes int*" }
+    ) {
+        $findings = @(& $script:find ($script:action.Replace('proves: { get_gadget: } }', $With)))
+        $findings.Count | Should -Be 1
+        $findings[0] | Should -BeLike ($Message.Replace('[', '`[').Replace(']', '`]'))
+    }
+
+    It 'refuses an effect that carries <Case>' -ForEach @(
+        @{ Case = 'both proves and call'; With = 'proves: { get_gadget: }, call: { get_gadget: } }'; Message = '*effects`[e-one`] carries both proves and call*' }
+        @{ Case = 'neither proves nor call'; With = '}'; Message = '*effects`[e-one`] carries neither proves nor call*' }
+    ) {
+        $findings = @(& $script:find ($script:action.Replace('proves: { get_gadget: } }', $With)))
+        $findings.Count | Should -Be 1
+        $findings[0] | Should -BeLike $Message
+    }
+
     It 'names an effect whose command is not in the proof file, with where it is drawn' {
         $findings = @(& $script:find ($script:action.Replace('proves: { get_gadget: } }', 'proves: { get_gizmo: } }')))
         $findings.Count | Should -Be 1

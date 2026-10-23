@@ -11,8 +11,7 @@ about:
 content:
   title: One command lays out the Python workspace that uv handles
   kind: explanation
-  relation: writes
-  cause: { label: A maintainer adds a Python folder and runs cats }
+  cause: { label: A maintainer adds a Python folder }
   action:
     call: { new_python_project: }
   effects:

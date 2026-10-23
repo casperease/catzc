@@ -60,9 +60,7 @@ stale or superseded item is recorded as such, with the reason.
 | medium | plan-debt-test-speed        | none (test files only)                                                                          | the measured test files, twice each                                                                   | two steps                                        |
 | high   | plan-bcl-path-sets          |                                                                                                 |                                                                                                       | new                                              |
 | high   | plan-debt-tier-tripwire     | none (ADR-AUTO-TEST-PROCESSTRIPWIRE decides)                                                    | each failing file at -MaxLevel 1, the tripwire's test, both tiers alone                               | new                                              |
-| medium | plan-debt-rules-review-2    | none (the rules exist)                                                                          | each changed file's test file, one fresh import, the kit suite                                        | new                                              |
 | medium | plan-vscode-session-binding |                                                                                                 |                                                                                                       | new                                              |
-| high   | plan-action-diagrams        |                                                                                                 |                                                                                                       | new                                              |
 
 ## Pending deletion
 

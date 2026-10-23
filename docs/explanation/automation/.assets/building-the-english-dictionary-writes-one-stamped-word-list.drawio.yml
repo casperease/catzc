@@ -9,8 +9,7 @@ about:
 content:
   title: Building the English dictionary writes one stamped word list
   kind: explanation
-  relation: writes
-  cause: { label: A maintainer bumps the cspell pin and runs cats }
+  cause: { label: A maintainer bumps the cspell pin }
   action:
     call: { build_english_dictionary: }
   effects:

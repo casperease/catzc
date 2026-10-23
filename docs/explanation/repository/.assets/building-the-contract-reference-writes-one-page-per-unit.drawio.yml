@@ -10,8 +10,7 @@ about:
 content:
   title: Building the contract reference writes one page per unit
   kind: explanation
-  relation: writes
-  cause: { label: A maintainer changes a contract and runs cats }
+  cause: { label: A maintainer changes a contract }
   action:
     call: { build_contract_reference: }
   effects:

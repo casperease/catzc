@@ -1,4 +1,4 @@
-# cspell:ignore LANCZOS arialbd compressobj maxx maxy miny mxfile pnginfo prel segoeui segoeuib textbbox textlength dout
+# cspell:ignore LANCZOS arialbd compressobj maxx maxy miny mxfile pnginfo prel segoeui segoeuib textbbox textlength dout mxgraph
 """Build a .drawio.png from an mxGraphModel XML file, or re-render one from the model it already carries.
 
 usage: uv run --with pillow python drawio_png.py <model.xml | in.drawio.png> <out.drawio.png> [--name "Page-1"] [--page dark|model]
@@ -68,6 +68,7 @@ INK = tokens()["ink"]  # text that sets no fontColor
 LINE = tokens()["line"]  # an edge or outline that sets no strokeColor
 SHADOW = (0, 0, 0, 77)  # the one shadow every filled shape casts (STYLE.md, Canvas): black at 30 %
 SHADOW_OFFSET = (2, 3)  # 2 px right, 3 px down
+HALF_DISC_SEGMENTS = 32  # the straight pieces a cause's semicircle is drawn with, named once
 SHADOW_BLUR = 2
 SCALE = 3  # supersampling: every shape, line and label is painted at this multiple and the page is downsampled once, so curves are smooth
 
@@ -148,11 +149,14 @@ def paint_shape(d, s, box, w, h, fill, stroke, sw, dashed):
     elif s.get("shape") == "hexagon":
         pts = [(x0 + w * .25, y0), (x1 - w * .25, y0), (x1, (y0 + y1) / 2), (x1 - w * .25, y1), (x0 + w * .25, y1), (x0, (y0 + y1) / 2)]
         d.polygon(pts, fill=fill, outline=stroke, width=sw)
-    elif s.get("shape") == "delay":  # a cause: a flat left side and a semicircle on the right, the half-disc of the action style
+    elif s.get("shape") == "delay":  # a cause: a flat left side and a semicircle on the right, the half-disc of the action lens
         ry = h / 2
         rx = min(ry, w)
         cx, cy = x1 - rx, (y0 + y1) / 2
-        arc = [(cx + rx * math.sin(math.pi * i / 32), cy - ry * math.cos(math.pi * i / 32)) for i in range(33)]
+        arc = [
+            (cx + rx * math.sin(math.pi * i / HALF_DISC_SEGMENTS), cy - ry * math.cos(math.pi * i / HALF_DISC_SEGMENTS))
+            for i in range(HALF_DISC_SEGMENTS + 1)
+        ]
         d.polygon([(x0, y0), *arc, (x0, y1)], fill=fill, outline=stroke, width=sw)
     elif s.get("shape") == "mxgraph.basic.arc":  # a ring: the stroke of an arc of the box's ellipse, angles as turns clockwise from 3 o'clock
         if stroke:

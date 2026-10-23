@@ -14,9 +14,9 @@ catzc:
 # Building the English dictionary writes one stamped word list
 
 ```text
-A maintainer bumps the cspell pin and runs cats; one command rebuilds the English half of the spelling oracle.
+A maintainer bumps the cspell pin; one command rebuilds the English half of the spelling oracle.
 
-1  A maintainer bumps the cspell pin and runs cats   the cause: the pinned cspell changed, so its dictionaries may have
+1  A maintainer bumps the cspell pin   the cause: the pinned cspell changed, so its dictionaries may have
 2  build_english_dictionary                          the action: one command, in the contract form
 3  The flattened English word list                   zone 1, local: get_repository_file shows assets/english.txt.gz
 4  The stamp                                         zone 1, local: get_repository_file shows assets/english.stamp
@@ -34,8 +34,8 @@ drift check in the second zone is what keeps them honest afterwards.
 
 ## Walkthrough
 
-1. **A maintainer bumps the cspell pin and runs cats.** The cause is a change to the pinned tool: a new cspell may ship new dictionaries, so
-   the committed word list must be rebuilt from it.
+1. **A maintainer bumps the cspell pin.** The cause is a change to the pinned tool: a new cspell may ship new dictionaries, so the committed
+   word list must be rebuilt from it.
 2. **build_english_dictionary.** The action is one command in the contract form, with no arguments. It is an authoring step: it writes into
    the source module, never into an installed build
    ([ADR-REPO-OUTDIR-COMPILEDPREBUILD](../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-compiledprebuild)).

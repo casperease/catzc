@@ -1,7 +1,7 @@
 # cspell:ignore minimaps
-"""The action lens: one action, its cause on the left rim and its effects on rings, in accosted words. Its fixtures live in
-`action-lens/`: two sample declarations, the widget command contracts they are checked against, and the accosted file their proofs
-must occur in; the kit's repository root is pointed at that folder for every test here.
+"""The action lens: one action, its cause on the left rim and its effects in zones between rings, in accosted words. Its fixtures live in
+`action-lens/`: two sample declarations and the accosted file their proofs name; the kit checks the shape alone, and Test-Diagrams
+proves the calls against the contracts and the proof file.
 
 usage (repo root, background): timeout 120 uv run --project python python -m pytest python/catzc_diagrams/tests/test_action_lens.py
 """
@@ -21,11 +21,6 @@ import declaration
 
 FIXTURES = Path(__file__).resolve().parent / "action-lens"
 OUT = Path(__file__).resolve().parents[3] / "out" / "drawio"
-
-
-@pytest.fixture(autouse=True)
-def fixture_root(monkeypatch):
-    monkeypatch.setattr(declaration, "ROOT", FIXTURES)
 
 
 def sample(name="action-sample"):
@@ -68,9 +63,27 @@ def test_the_drawing_holds_the_lens_grammar():
 def test_an_effect_after_another_draws_its_edge_from_it_and_comes_back():
     first = normalised(sample("action-site-sample"))
     model = declaration.put(first)
-    assert 'id="e-effect-index-effect-catalogue"' in model and 'id="e-action-effect-catalogue"' not in model
+    assert 'id="e-effect-index-effect-recount"' in model and 'id="e-action-effect-recount"' not in model
     back = declaration.get(model, kind="explanation")
     assert back["content"]["effects"][1]["after"] == "effect-index"
+
+
+def test_the_operators_label_every_edge_and_an_execution_comes_back():
+    model = declaration.put(normalised(sample("action-site-sample")))
+    cats = re.search(r'id="e-cause-action" value="([^"]*)"', model)
+    executes = re.search(r'id="e-action-effect-index" value="([^"]*)"', model)
+    affects = re.search(r'id="e-effect-index-effect-recount" value="([^"]*)"', model)
+    effects = re.search(r'id="e-effect-recount-effect-catalogue" value="([^"]*)"', model)
+    assert cats is not None and executes is not None and affects is not None and effects is not None
+    assert [m.group(1) for m in (cats, executes, affects, effects)] == [f"&lt;b&gt;{w}&lt;/b&gt;" for w in ("cats", "executes", "affects", "effects")]
+    for word, meaning in declaration.OPERATORS.items():
+        assert f'value="{word}: {meaning}"' in model
+    assert 'value="execution: a triggered command"' in model
+    back = declaration.get(model, kind="explanation")
+    assert back["content"]["effects"][1] == {
+        "id": "effect-recount", "zone": 2, "where": "remote", "says": "The catalogue service recounts", "call": {"count_gadgets": {}}, "after": "effect-index"
+    }
+    assert declaration.put(back) == model
 
 
 def test_an_effect_never_goes_back_to_an_inner_zone():
@@ -103,7 +116,7 @@ def test_a_moved_effect_folds_back_to_its_zone_and_order_never_to_coordinates():
 
 def test_the_legend_names_the_lens_kinds_and_the_flow():
     model = declaration.put(normalised(sample()))
-    for phrase in ("cause", "action", "ring", "effect", "flow: changes"):
+    for phrase in ("cause", "action", "ring", "effect", "cats: an actor runs it", "effects: changes state"):
         assert f'value="{phrase}"' in model
     assert 'id="lg-marker"' in model  # the story's numbers
 
@@ -116,14 +129,7 @@ def test_a_long_argument_wraps_at_its_breaks_and_comes_back_whole():
     raw["content"]["action"] = {"call": {"get_widget": {"path": path}}}
     raw["content"]["effects"][0]["proves"] = {"get_widget": {"path": path}}
     raw["content"]["effects"][0]["says"] = "The widget's file is read from the repository and nothing else is touched"
-    (FIXTURES / "widgets.accosted.yml").write_text(
-        (FIXTURES / "widgets.accosted.yml").read_text(encoding="utf-8") + f"  - - get_widget: {{ path: {path} }}\n", encoding="utf-8"
-    )
-    try:
-        model = declaration.put(normalised(raw))
-    finally:
-        text = (FIXTURES / "widgets.accosted.yml").read_text(encoding="utf-8")
-        (FIXTURES / "widgets.accosted.yml").write_text(text.replace(f"  - - get_widget: {{ path: {path} }}\n", ""), encoding="utf-8")
+    model = declaration.put(normalised(raw))
     action = re.search(r'<mxCell id="action" value="([^"]*)" style="[^"]*" vertex="1" parent="1">\s*<mxGeometry x="\d+" y="\d+" width="(\d+)"', model)
     assert action is not None
     value, width = html.unescape(action.group(1)), int(action.group(2))
@@ -206,14 +212,10 @@ def test_a_call_site_has_two_or_more_commands():
     failing(lambda r: r["content"].update(action={"calls": [{"count_gadgets": None}]}), "two or more commands")
 
 
-def test_a_command_outside_the_contracts_fails_with_the_contracts_folder():
-    failing(lambda r: r["content"].update(action={"call": {"paint_widget": None}}), "'paint_widget', which is not a contracted command")
-
-
-def test_a_parameter_outside_the_contract_fails_with_the_parameters():
+def test_a_command_name_is_in_the_normal_form():
     failing(
-        lambda r: r["content"].update(action={"call": {"publish_gadget": {"colour": "red"}}}),
-        "parameter 'colour' is not one of: name, dry_run",
+        lambda r: r["content"].update(action={"call": {"Publish-Gadget": None}}),
+        "names 'Publish-Gadget'; a command's name is in the repository normal form",
     )
 
 
@@ -227,17 +229,6 @@ def test_a_where_outside_the_vocabulary_fails_with_the_wheres():
 
 def test_the_zones_are_the_hops_without_a_gap():
     failing(lambda r: r["content"]["effects"][2].update(zone=3), r"the effects name \[1, 3\]")
-
-
-def test_a_proof_outside_the_accosted_file_fails_with_the_call():
-    failing(
-        lambda r: r["content"]["effects"][0].update(proves={"get_widget": {"path": "nowhere.yml"}}),
-        r"proves `get_widget: \{ path: nowhere.yml \}`, which no run of widgets.accosted.yml holds",
-    )
-
-
-def test_a_missing_proof_file_fails():
-    failing(lambda r: r["about"].update(proves="gone.accosted.yml"), "names gone.accosted.yml, which is not a file")
 
 
 def test_only_the_frame_takes_a_layout_entry():
@@ -263,7 +254,7 @@ def test_the_cause_takes_a_named_size_and_is_bold():
     model = declaration.put(normalised(raw))
     assert f'width="{sizes["largest"]}" height="{2 * sizes["largest"]}"' in model
     back = declaration.get(model, kind="explanation")
-    assert back["content"]["cause"] == {"label": "An author runs cats", "size": "largest"}
+    assert back["content"]["cause"] == {"label": "An author", "size": "largest"}
     raw = sample()
     raw["content"]["cause"] = {"label": "The pipeline fires!"}
     model = declaration.put(normalised(raw))

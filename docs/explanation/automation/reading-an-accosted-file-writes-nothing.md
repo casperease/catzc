@@ -16,7 +16,7 @@ catzc:
 ```text
 An author runs cats, and one harmless call reads an accosted file.
 
-1  An author runs cats                 the cause: someone asks cats for the file
+1  An author                           the cause: someone asks cats for the file
 2  get_accosted_file                   the action: one harmless call, in the contract form
 3  The accosted file is read           zone 1, local: get_repository_file shows the file
 4  Nothing is written to the file      zone 1, local: the same observation after the call shows the same file
@@ -33,8 +33,7 @@ action and its effects; the runs under it prove each effect.
 
 ## Walkthrough
 
-1. **An author runs cats.** The cause sits on the left rim: a person asks cats for the file, with no other trigger and no state beyond the
-   repository.
+1. **An author.** The cause sits on the left rim: a person asks cats for the file, with no other trigger and no state beyond the repository.
 2. **get_accosted_file.** The action is one command in the contract form, written with its normal-form name and its one argument. It is
    harmless because a command contract names it and its verb is on the harmless list
    ([ADR-AUTO-ACCOSTED-HARMLESS](../../drs/automation/accosted-language.md#rule-adr-auto-accosted-harmless)).

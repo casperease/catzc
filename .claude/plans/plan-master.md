@@ -65,8 +65,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
 - debt-tier-tripwire -> plan-debt-tier-tripwire.md: 165 L0/L1 tests launch git and fail only when a tier runs alone; seams mocked, the
   tripwire armed per container; one step
-- debt-rules-review-2 -> plan-debt-rules-review-2.md: the afternoon's code back to the domain rules: one reader, layout numbers in config, a
-  closed tripwire vocabulary, the janitor list declared once; one step
 - debt-agent-traffic -> plan-debt-agent-traffic.md: fewer messages and tool calls between the orchestrator and its workers (a run lock,
   one-line reports, pre-approved rule edits, derived step counts, an automatic log); three steps
 - nuget-tooling -> plan-nuget-tooling.md: NuGet belongs to the tooling modules and no dotnet call contacts a package manager outside them;
@@ -78,8 +76,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   a BCL helper on the type that owns it; pass-through functions go.
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
-- action-diagrams -> plan-action-diagrams.md: A second diagram lens, action: cause at the left rim, the accosted call site at the centre,
-  effect notes in rings outward; same yml, same renderer, every band diagram untouched
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

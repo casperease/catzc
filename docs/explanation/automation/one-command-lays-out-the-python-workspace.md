@@ -17,9 +17,9 @@ catzc:
 # One command lays out the Python workspace that uv handles
 
 ```text
-A maintainer adds a Python folder and runs cats; one command renders the uv workspace, the tree classifies its files, and the gates hold.
+A maintainer adds a Python folder; one command renders the uv workspace, the tree classifies its files, and the gates hold.
 
-1  A maintainer adds a Python folder and runs cats   the cause: a new Python folder needs its place in the workspace
+1  A maintainer adds a Python folder   the cause: a new Python folder needs its place in the workspace
 2  new_python_project                                the action: one command, in the contract form
 3  The workspace root                                zone 1, local: get_repository_file shows python/pyproject.toml
 4  The kit's member file                             zone 1, local: get_repository_file shows python/catzc_diagrams/pyproject.toml
@@ -42,9 +42,9 @@ and the two Python quality gates that pass over the workspace they define.
 
 ## Walkthrough
 
-1. **A maintainer adds a Python folder and runs cats.** The cause is a new Python folder under the one Python root, named in Python's own
-   idiom ([ADR-AUTO-IDIOM-LANGUAGEIDIOM](../../drs/automation/idiomatic-names.md#rule-adr-auto-idiom-languageidiom)). It needs a member
-   file, and the workspace root must name it.
+1. **A maintainer adds a Python folder.** The cause is a new Python folder under the one Python root, named in Python's own idiom
+   ([ADR-AUTO-IDIOM-LANGUAGEIDIOM](../../drs/automation/idiomatic-names.md#rule-adr-auto-idiom-languageidiom)). It needs a member file, and
+   the workspace root must name it.
 2. **new_python_project.** The action is one command in the contract form; its one parameter, the target, defaults to every member. It
    renders the workspace files from the languages configuration, pure text and byte-stable, never from a file someone edits by hand
    ([ADR-AUTO-PY-GENERATEDWORKSPACE](../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-generatedworkspace)).

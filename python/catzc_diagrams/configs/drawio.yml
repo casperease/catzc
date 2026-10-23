@@ -61,10 +61,16 @@ kinds: # the two diagram kinds; each supplies the default three minimaps (minima
 wheres: # where an action diagram's effect happens, drawn as its where chip
   local: this machine and this repository
   remote: a service or a machine beyond the repository
-action-style: # what the action style draws with: the ring layout constants in diagram units, and its glyph kinds (glyphs.xml ids g-<kind>)
+# cspell:ignore callsite
+action-lens: # what the action lens draws with: its layout numbers in diagram units, the cause's sizes, and its glyph kinds (glyphs.xml ids g-<kind>)
   ring-gap: 240 # the distance from one ring to the next: the note width and 50 clear
   note-width: 190 # the width of an effect's note
-  cause-radius: 80 # the radius of the cause's half-disc on the left rim
+  action-width: 300 # the widest action glyph; a longer call wraps inside it
+  clearance: 40 # how far the action clears the cause's round, and the first ring the action's right edge
+  lane-height: 360 # the invisible centre lane that holds the cause, the action and every effect note
+  ring-margin: 70 # the margin above and below the lane where the rings crawl up and down before the frame cuts them
+  cause-size: medium # the default size of the cause's half-disc on the left rim
+  cause-sizes: smallest 64, small 80, medium 96, large 112, largest 128 # the half-disc's radius for each named size, smallest to largest; a label ending in ! takes the largest
   glyphs: cause, action, callsite, ring, effect
 themes: # the themes a diagram renders in, each a theme-<name> token set below; the first is the default and the one whose raster is committed
   dark: the dark page and the light ink of STYLE.md

@@ -4,7 +4,8 @@
 #   edges:
 #     cites:
 #       - ADR-AUTO-ACCOSTED-COMMANDFORM
-#     drs_total: 1
+#       - ADR-AUTO-ACCOSTED-ONEREADER
+#     drs_total: 2
 # ---
 
 # cspell:ignore minimaps mxfile pnginfo drsonly mapkey
@@ -67,19 +68,27 @@ SLIDE = ".drawio.png"
 SOURCE = ".drawio.yml"  # the diagram's one source: its description, its content and the layout of the cells off the grid
 FLOWS = ("left-to-right", "top-to-bottom")
 KINDS = tuple(DEFAULTS["kinds"])
-ROOT = KIT.parents[1]  # the repository root: the command contracts and an action diagram's proof file resolve against it
-# The action lens: one action, its cause on the left rim and its effects on rings, in accosted words. Its glyph kinds, its where
-# chips and its ring constants are declared once in drawio.yml; the lens itself is one of lenses: there.
+# The action lens: one action, its cause on the left rim and its effects in zones between rings, in accosted words. Its glyph kinds, its
+# where chips, its layout numbers and the cause's sizes are declared once in drawio.yml under action-lens; the lens itself is one of
+# lenses: there. The kit validates a declaration's shape only; Test-Diagrams proves its calls against the contracts and the proof file.
 ACTION_LENS = "action"
 ACTION_KEYS = ("cause", "action", "effects")  # the content keys only the action lens draws
+EFFECT_KEYS = ("id", "zone", "where", "says", "proves", "call", "after")  # an effect's keys, in the order the yml prints them
+# The lens's operators, the word every edge carries: cats from the cause (an actor runs the command), executes from the action (the
+# statement is handed to the state machine), then affects into an execution and effects into a state change; each has its check.
+OPERATORS = {
+    "cats": "an actor runs it",
+    "executes": "to the state machine",
+    "affects": "triggers an execution",
+    "effects": "changes state",
+}
 WHERES = tuple(DEFAULTS["wheres"])
-ACTION = DEFAULTS["action-style"]
+ACTION = DEFAULTS["action-lens"]
 ACTION_KINDS = tuple(str(ACTION["glyphs"]).replace(",", " ").split())
-CONTRACTS = Path("contracts") / "catzc" / "0.0.0"  # the command contracts an accosted call is checked against, under ROOT
-ACTION_LANE = 360  # the invisible centre lane's height: where the cause, the action and every effect note are drawn
-ACTION_MARGIN = 70  # the margin above and below the lane where the rings crawl up and down before the frame cuts them
-ACTION_WIDTH = 300  # the widest action glyph; a longer call wraps inside it
-ACTION_CLEARANCE = 40  # how far the first ring clears the action's right edge, and the action the cause's flat side's round
+ACTION_LANE = int(ACTION["lane-height"])  # the invisible centre lane's height: where the cause, the action and every effect note are drawn
+ACTION_MARGIN = int(ACTION["ring-margin"])  # the margin above and below the lane where the rings crawl before the frame cuts them
+ACTION_WIDTH = int(ACTION["action-width"])  # the widest action glyph; a longer call wraps inside it
+ACTION_CLEARANCE = int(ACTION["clearance"])  # how far the action clears the cause's round, and the first ring the action's right edge
 # The cells put derives from the kit and the registries, never from the author: get skips them, and a change to them is stale.
 DERIVED = ("sidebar-bg", "legend", "lens-badge", "mapkey")
 DERIVED_PREFIXES = ("lg-", "mk-", "minimap-", "lane-")  # lane- is a lane's trunk, its marks and the gate rules: the yml's alone
@@ -801,11 +810,11 @@ def normalise(raw, where="the declaration"):
     out["theme"] = theme
     # The action lens draws its cause, its action and its effects, and the renderer draws every edge; every other lens draws bands.
     if lens == ACTION_LENS:
-        for key in ("bands", "groups", "glyphs", "notes", "edges", "spans", "markers", "chips") + SHORTHAND:
+        for key in ("bands", "groups", "glyphs", "notes", "edges", "spans", "markers", "chips", "relation", "thick") + SHORTHAND:
             if content.get(key):
                 raise DeclarationError(
                     f"{where}: content.{key} is the band grammar; the action lens draws cause, action and effects, and the renderer "
-                    "draws the edges"
+                    "draws the edges with its operators"
                 )
     else:
         for key in ACTION_KEYS:
@@ -1002,7 +1011,7 @@ def normalise(raw, where="the declaration"):
         raise DeclarationError(f"{where}: {problem}")
     out["adrs"] = about["adrs"]
     # An action diagram's proof: the accosted file that holds every effect's observation, named relative to the repository root. The
-    # drawing cannot carry it, so get leaves it out and save keeps the source's; a committed diagram needs it (Test-Diagrams).
+    # drawing cannot carry it, so get leaves it out and save keeps the source's; Test-Diagrams is where it is required and proven.
     proves = about_raw.get("proves")
     if proves is not None and lens != ACTION_LENS:
         raise DeclarationError(f"{where}: about.proves names an action diagram's proof file; this diagram's lens is {lens}")
@@ -1010,12 +1019,6 @@ def normalise(raw, where="the declaration"):
         if not isinstance(proves, str) or not proves.strip():
             raise DeclarationError(f"{where}: about.proves is the repository path of a <name>.accosted.yml file")
         about["proves"] = proves.strip()
-        runs = proof_runs(about["proves"], where)
-        for effect in out["effects"]:
-            if effect["proves"] not in runs:
-                raise DeclarationError(
-                    f"{where}: effect '{effect['id']}' proves `{call_line(effect['proves'])}`, which no run of {about['proves']} holds"
-                )
     for chip in out["chips"]:
         if chip["kind"] == "rule" and chip["rule"] not in about["adrs"]:
             choices(f"{where}: rule chip at '{chip['at']}' rule", chip["rule"], about["adrs"])
@@ -1033,36 +1036,22 @@ def normalise(raw, where="the declaration"):
     return {"description": description, "about": about, "content": out, "layout": layout}
 
 
-def command_contracts():
-    """The contracted commands under ROOT/contracts/catzc/0.0.0, each with its parameter names: `<module>/<name>.command.yml`."""
-    out = {}
-    for path in sorted((ROOT / CONTRACTS).glob("*/*.command.yml")):
-        contract = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-        out[path.name[: -len(".command.yml")]] = tuple((contract.get("parameters") or {}).keys())
-    return out
-
-
 def contract_call(raw, where, what):
-    """One command in the contract form (ADR-AUTO-ACCOSTED-COMMANDFORM): a mapping of one key, a contracted command's name in the normal
-    form, to its arguments, each a literal of a closed type under its parameter's name; `name:` alone is a call without arguments. The
-    kit checks the form against the command contracts and runs nothing."""
+    """One command in the contract form (ADR-AUTO-ACCOSTED-COMMANDFORM): a mapping of one key, a command's name in the normal form, to
+    its arguments, each one literal under its parameter's name; `name:` alone is a call without arguments. The kit checks the shape
+    alone and runs nothing: Test-Diagrams proves the name and its arguments against the command contract (ADR-AUTO-ACCOSTED-ONEREADER)."""
     if isinstance(raw, str):
         raw = {raw: None}
     if not isinstance(raw, dict) or len(raw) != 1:
         raise DeclarationError(f"{where}: {what} is one command in the contract form, `name: {{ parameter: literal }}`")
     ((name, args),) = raw.items()
-    contracts = command_contracts()
-    if name not in contracts:
-        raise DeclarationError(
-            f"{where}: {what} names '{name}', which is not a contracted command ({len(contracts)} under {CONTRACTS.as_posix()})"
-        )
+    if not re.fullmatch(r"[a-z][a-z0-9_]*", str(name)):
+        raise DeclarationError(f"{where}: {what} names '{name}'; a command's name is in the repository normal form, snake_case")
     if args is None:
         args = {}
     if not isinstance(args, dict):
         raise DeclarationError(f"{where}: {what} '{name}' takes a map of parameter: literal")
     for parameter, value in args.items():
-        if parameter not in contracts[name]:
-            choices(f"{where}: {what} '{name}' parameter", parameter, contracts[name])
         if isinstance(value, (dict, list)) or value is None:
             raise DeclarationError(f"{where}: {what} '{name}' {parameter} is one literal, never a list, a map or empty")
     return {str(name): {str(k): v for k, v in args.items()}}
@@ -1110,29 +1099,9 @@ def parse_call(line):
     return {raw: None} if isinstance(raw, str) else raw
 
 
-def proof_runs(path, where):
-    """The commands an accosted file's runs hold, each in the contract form, for the membership check of an effect's proof."""
-    file = ROOT / path
-    if not file.is_file():
-        raise DeclarationError(f"{where}: about.proves names {path}, which is not a file under the repository root")
-    document = yaml.safe_load(file.read_text(encoding="utf-8")) or {}
-    runs = document.get("runs") if isinstance(document, dict) else None
-    if not isinstance(runs, list):
-        raise DeclarationError(f"{where}: about.proves {path} is not an accosted file: its one key is runs:, a list of runs")
-    out = []
-    for run in runs:
-        for command in run or []:
-            if isinstance(command, str):
-                command = {command: None}
-            if isinstance(command, dict) and len(command) == 1:
-                ((name, args),) = command.items()
-                out.append({str(name): {str(k): v for k, v in (args or {}).items()}})
-    return out
-
-
 def cause_sizes():
-    """The named sizes of the cause's half-disc, each its radius, from drawio.yml action-style cause-sizes."""
-    return {str(name): int(radius) for name, radius in dict(ACTION["cause-sizes"]).items()}
+    """The named sizes of the cause's half-disc, each its radius, from drawio.yml action-lens cause-sizes: `name radius, ...`."""
+    return {name: int(radius) for name, radius in (pair.split() for pair in str(ACTION["cause-sizes"]).split(","))}
 
 
 def cause_radius(cause):
@@ -1176,7 +1145,11 @@ def action_content(content, out, ids, where):
     # zone or an inner one: an effect only goes forward. The declared order is the story's order, numbered on the drawing.
     effects = []
     for raw in effects_raw:
-        effect = entry(raw, ("id", "zone", "where", "says", "proves"), where, "effect", optional={"after": ""})
+        # An effect is a state change (says, and the observation that proves it) or an execution (call, a further contracted command
+        # the story triggers, with optional words); the edge into it says which: effects for a state change, affects for an execution.
+        execution = isinstance(raw, dict) and "call" in raw
+        keys = ("id", "zone", "where", "call") if execution else ("id", "zone", "where", "says", "proves")
+        effect = entry(raw, keys, where, "effect", optional={"after": "", **({"says": ""} if execution else {})})
         if effect["id"] in ids:
             raise DeclarationError(f"{where}: id '{effect['id']}' is used twice")
         if not str(effect["zone"]).isdigit() or int(effect["zone"]) < 1:
@@ -1184,9 +1157,15 @@ def action_content(content, out, ids, where):
         effect["zone"] = int(effect["zone"])
         if effect["where"] not in WHERES:
             choices(f"{where}: effect '{effect['id']}' where", effect["where"], WHERES)
-        if not effect["says"].strip():
-            raise DeclarationError(f"{where}: effect '{effect['id']}' says nothing; says is the state it changes, in plain words")
-        effect["proves"] = contract_call(raw.get("proves"), where, f"effect '{effect['id']}' proves")
+        if execution:
+            effect["call"] = contract_call(raw.get("call"), where, f"effect '{effect['id']}' call")
+            if not effect["says"].strip():
+                effect.pop("says")
+        else:
+            if not effect["says"].strip():
+                raise DeclarationError(f"{where}: effect '{effect['id']}' says nothing; says is the state it changes, in plain words")
+            effect["proves"] = contract_call(raw.get("proves"), where, f"effect '{effect['id']}' proves")
+        effect = {k: effect[k] for k in EFFECT_KEYS if k in effect}
         after = effect.pop("after")
         if after:
             earlier = next((e for e in effects if e["id"] == after), None)
@@ -1226,8 +1205,8 @@ def entry(item, keys, where, what, optional=None):
 
 def brief(phrase):
     """A legend phrase as the legend prints it: the name alone, without the explanation in parentheses or after a colon; a flow keeps
-    its relation and a commit its state, which are the names."""
-    if phrase.startswith(("flow: ", "commit: ")):
+    its relation, a commit its state and an operator its meaning, which are the names."""
+    if phrase.startswith(("flow: ", "commit: ", "execution: ") + tuple(f"{word}: " for word in OPERATORS)):
         return phrase.split(" (")[0] if not phrase.startswith("commit: ") else phrase
     return phrase.split(" (")[0].split(":")[0].strip()
 
@@ -1866,17 +1845,21 @@ def place_action(declaration):
     ah = 30 + sum(h + 10 for h in row_h) if site else max(lib["action"]["size"][1], 24 + 16 * len(wrapped[0]))
     per_note = max(1, (note_w - 24) // 7)
 
-    def note_lines(e):  # the says lines, which draw.io wraps itself, and the proof lines, wrapped here so a path breaks
-        return wrap_line(e["says"], per_note), wrap_line(call_line(e["proves"]), per_note)
+    def note_lines(e):  # the says lines, which draw.io wraps itself, and the proof or call lines, wrapped here so a path breaks
+        says = wrap_line(e["says"], per_note) if e.get("says") else []
+        return says, wrap_line(call_line(e["call"] if "call" in e else e["proves"]), per_note)
 
     def note_h(e):
-        says, proof = note_lines(e)
-        return 24 + 16 * (len(says) + len(proof))
+        says, line = note_lines(e)
+        return 24 + 16 * (len(says) + len(line))
+
+    def operator(source, target):  # the edge's word: executes from the action, then affects into an execution, effects into a state
+        return "executes" if source == "action" else "affects" if "call" in target else "effects"
 
     hops = max(e["zone"] for e in effects)
     if gap < note_w + PAD:  # two effects at the same angle on neighbouring rings would overlap: the kit's constants, not the author's
         raise DeclarationError(
-            f"drawio.yml action-style: ring-gap {gap} leaves no room for a note of note-width {note_w} plus {PAD}; raise ring-gap"
+            f"drawio.yml action-lens: ring-gap {gap} leaves no room for a note of note-width {note_w} plus {PAD}; raise ring-gap"
         )
     # The rings are centred where the cause's flat side meets the frame's left rim, so they open rightward as half-rings cut by the
     # frame; the action sits right of the cause, and the first ring clears the action's right edge.
@@ -1915,6 +1898,7 @@ def place_action(declaration):
     else:
         cells.append(cell("action", printed(wrapped[0]), lib["action"]["style"], ax, ay, aw, ah))
     tag, flow, mark = lib["effect"]["tag"], LIB["edges"]["flow"]["style"], LIB["marks"]["marker"]
+    labelled = flow.replace("shadow=0;", "fontColor=@ink;fontStyle=1;fontSize=11;labelBackgroundColor=@band;shadow=0;")
     # The story's numbers, one per box: the cause, the action, then every effect in its order.
     numbered = [("cause", (cx + 4, cy - radius - 11)), ("action", marker_xy({"x": ax, "y": ay, "w": aw, "h": ah}, "top-left"))]
     for k in range(1, hops + 1):
@@ -1970,15 +1954,18 @@ def place_action(declaration):
                 low, best = mid, boxes
         for e, h, left, top in zip(in_zone, heights, best, tops_at(low)):
             x, y = round(cx + left), round(cy + top)
-            text = f"<b>{html.escape(e['says'], quote=False)}</b><br>{printed(note_lines(e)[1])}"
-            cells.append(cell(e["id"], text, lib["effect"]["style"], x, y, note_w, h))
+            says = f"<b>{html.escape(e['says'], quote=False)}</b><br>" if e.get("says") else ""
+            text = says + printed(note_lines(e)[1])
+            style = member["style"] if "call" in e else lib["effect"]["style"]  # an execution is drawn as a command row, a state as a note
+            cells.append(cell(e["id"], text, style, x, y, note_w, h))
             cells.append(
                 cell(f"{e['id']}-tag", e["where"], tag["style"], x + note_w - tag["size"][0] - 8, y - 8, tag["size"][0], tag["size"][1])
             )
             source = e.get("after", "action")
-            cells.append(edge_cell(f"e-{source}-{e['id']}", "", flow, source, e["id"]))
+            cells.append(edge_cell(f"e-{source}-{e['id']}", f"<b>{operator(source, e)}</b>", labelled, source, e["id"]))
             numbered.append((e["id"], marker_xy({"x": x, "y": y, "w": note_w, "h": h}, "top-left")))
-    cells.append(edge_cell("e-cause-action", "", flow, "cause", "action"))
+    # The cause reaches its action through cats, always: the edge says so, and the cause's own words never need to.
+    cells.append(edge_cell("e-cause-action", "<b>cats</b>", labelled, "cause", "action"))
     for n, (_, (mx, my)) in enumerate(numbered, 1):
         cells.append(cell(f"mark-{n}", str(n), mark["style"], round(mx), round(my), mark["size"][0], mark["size"][1]))
     return finish(cells, content, frame["y"] + frame["h"], declaration)
@@ -2063,11 +2050,15 @@ def legend_entries(content):
 
     entries = []
     wanted = content["legend"] if content["legend"] != "auto" else None
-    if content["lens"] == ACTION_LENS:  # the lens's own kinds, and the flow edge it draws
+    if content["lens"] == ACTION_LENS:  # the lens's own kinds, its four operators, and the story's numbers
         for kind in ("cause", "callsite" if "calls" in content["action"] else "action", "ring", "effect"):
             entries.append((kind, swatch_for(kind), glyphs[kind]["phrase"]))
-        phrase = f"flow: {content['relation']}" if content["relation"] else LIB["edges"]["flow"]["phrase"]
-        entries.append(("edge-flow", edge_swatch("flow"), phrase))
+        if any("call" in e for e in content["effects"]):
+            member = glyphs["callsite"]["member"]
+            swatch = lambda eid, x, y: [cell(f"lg-{eid}", "", member["style"], x, y + 2, 40, 18)]
+            entries.append(("execution", swatch, "execution: a triggered command"))
+        for word, meaning in OPERATORS.items():
+            entries.append((f"edge-{word}", edge_swatch("flow"), f"{word}: {meaning}"))
         entries.append(("marker", mark_swatch("marker", "1"), LIB["marks"]["marker"]["phrase"]))
     for kind in dict.fromkeys(g["kind"] for g in content["glyphs"]):
         if kind != "commit":
@@ -2524,14 +2515,26 @@ def get_action(cells, geo, glyph_sigs, kind):
         for cid, c in cells.items()
         if c.get("edge") == "1" and not cid.startswith("lg-") and c.get("source") not in ("cause", "action")
     }
+    # An execution is drawn as a command row outside the call site; a state change as a note. Either prints its bold words first.
+    member_sig = signature(LIB["glyphs"]["callsite"]["member"]["style"])
+    executions = [
+        cid
+        for cid, c in cells.items()
+        if c.get("parent") == "1" and not cid.startswith("lg-") and matches(member_sig, c.get("style") or "")
+    ]
     effects = []
-    for cid in styled("effect"):
+    for cid in styled("effect") + executions:
         b = geo[cid]
         px, py = b["x"] + b["w"] / 2 - cx, b["y"] + b["h"] / 2 - cy
-        says, _, proof = value(cid).partition("\n")
+        drawn = cells[cid].get("value") or ""
+        head, _, body = drawn.partition("</b>") if drawn.startswith("<b>") else ("", "", drawn)
+        says, line = plain(head), plain(body)
         k = next((k for k, (r, ry) in enumerate(rings, 1) if (px / r) ** 2 + (py / ry) ** 2 <= 1), len(rings))
         where = value(f"{cid}-tag") if f"{cid}-tag" in cells else WHERES[0]
-        effect = {"id": cid, "zone": k, "where": where, "says": says, "proves": parse_call(proof)}
+        effect = {"id": cid, "zone": k, "where": where}
+        if says:
+            effect["says"] = says
+        effect["call" if cid in executions else "proves"] = parse_call(line)
         if cid in after_of:
             effect["after"] = after_of[cid]
         effects.append((k, number_of(b), effect))

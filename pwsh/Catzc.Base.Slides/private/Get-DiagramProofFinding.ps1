@@ -48,7 +48,7 @@ function Get-DiagramProofFinding {
             $run.commands
         })
 
-    # The action is any contracted command, mutating included, so it fits its command contract and need not be in the proof file.
+    # The action and an executing effect are any contracted command, mutating included: each fits its contract, not the proof file.
     $action = $content['action']
     $acted = [System.Collections.Generic.List[object]]::new()
     if ($action -and $action.Contains('call')) {
@@ -61,16 +61,25 @@ function Get-DiagramProofFinding {
             $acted.Add(@{ Where = "action.calls[$index]"; Raw = $call })
         }
     }
-    foreach ($entry in $acted) {
-        Test-AccostedCommand -Call (ConvertTo-Json -InputObject $entry.Raw -Compress -Depth 10) -Where "${Stem}: $($entry.Where)" -RepositoryRoot $RepositoryRoot
-    }
 
-    # Every effect proves a command the proof file runs.
+    # An effect is a state change (proves, run by the proof file) or an execution (call, held to its contract), never both.
     $drawn = [System.Collections.Generic.List[object]]::new()
     foreach ($effect in @($content['effects'] | Where-Object { $_ })) {
-        if ($effect.Contains('proves')) {
+        $hasProves = $effect.Contains('proves')
+        $hasCall = $effect.Contains('call')
+        if ($hasProves -eq $hasCall) {
+            "${Stem}: effects[$($effect['id'])] carries $($hasProves ? 'both proves and call' : 'neither proves nor call'); a state change proves, an execution calls"
+        }
+        elseif ($hasCall) {
+            $acted.Add(@{ Where = "effects[$($effect['id'])].call"; Raw = $effect['call'] })
+        }
+        else {
             $drawn.Add(@{ Where = "effects[$($effect['id'])].proves"; Raw = $effect['proves'] })
         }
+    }
+
+    foreach ($entry in $acted) {
+        Test-AccostedCommand -Call (ConvertTo-Json -InputObject $entry.Raw -Compress -Depth 10) -Where "${Stem}: $($entry.Where)" -RepositoryRoot $RepositoryRoot
     }
 
     foreach ($entry in $drawn) {
