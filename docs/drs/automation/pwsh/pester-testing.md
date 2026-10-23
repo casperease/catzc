@@ -353,6 +353,9 @@ them as Pester tests.
   `[WildcardPattern]::Escape(...)`, which doubles each backtick and escapes each bracket, or compare whole with `-BeExactly`.
 - **A comma-wrapped array return piped directly member-enumerates.** `Get-BicepTemplates | Where …` feeds the whole array as one object;
   parenthesise first: `(Get-BicepTemplates) | Where …`.
+- **The leading comma of `, @($x) | Should -Be` suits a one-element expectation only.** It wraps the array so the pipeline hands `Should` the
+  whole array as one object, which compares equal to a one-element expectation; an expectation of several elements is compared as the
+  array itself, without the comma.
 - **Take a function's first result as `Get-X | Select-Object -First 1`**, never `(Get-X)[0]`: a one-item result unrolls to the item, so
   `(Get-X)[0]` on a single string returns its first character
   ([ADR-PWSH-ERROR-STRICTCLEAN](error-handling.md#rule-adr-pwsh-error-strictclean)).

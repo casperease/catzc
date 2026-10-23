@@ -20,6 +20,8 @@ Describe 'Get-FileMetaInputStamp' -Tag 'L0', 'logic' {
             [pscustomobject]@{ Class = ($Path -like '*.wdg') ? 'function' : 'doc' }
         }
         Mock Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Codes = $script:codes } }
+        $script:indexPath = (Get-Config -Config drs).IndexPath($script:root)
+        $null = New-Item -ItemType File -Path $script:indexPath -Force
         $script:engine = 'engine-one'
         # The engine stamp is the input stamp over the files FileMetaConfig.EngineInputs names; a fixture stands for its value here.
         Mock Get-InputStamp -ModuleName Catzc.Base.QualityGates { $script:engine }
@@ -52,6 +54,14 @@ Describe 'Get-FileMetaInputStamp' -Tag 'L0', 'logic' {
         $after[$script:widget] | Should -Not -Be $before[$script:widget]
         $after[$script:note] | Should -Not -Be $before[$script:note]
         Should -Invoke Get-InputStamp -ModuleName Catzc.Base.QualityGates -Times 2 -Exactly
+    }
+
+    It 'stamps a file the drs-codes kind selects without reading the code map when the repository has no index, and changes it once the index appears' {
+        Remove-Item -LiteralPath $script:indexPath
+        $before = & $script:stamp
+        Should -Invoke Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates -Times 0 -Exactly
+        $null = New-Item -ItemType File -Path $script:indexPath -Force
+        (& $script:stamp)[$script:widget] | Should -Not -Be $before[$script:widget]
     }
 
     It 'reads the code map once per call, however many files it selects' {

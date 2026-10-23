@@ -47,13 +47,6 @@ ten "may I" questions on edits the rules already require, three to five tool cal
       `.claude/skills/catzc-run/SKILL.md`, inside `Invoke-CatzcCommand` the gate itself is called, never a count of its issues, the draw.io
       kit runs as `uv run --no-sync --project python python …`, and a line pre-approving agent behaviour or a `sed -i` delete is denied by
       the permission system and goes to the user. Check: `Test-AgentDefinitions`.
-- [ ] Decided by the orchestrator as delegated (2026-10-23): `Enter-CatzcBurst` holds the run lock, so the HOLD and "burst done" broadcast to
-      every peer is retired; a message goes only to a session that holds an import open outside the lock. Edit
-      `.claude/agents/implementation-orchestrator.md` step 7 and `.claude/skills/plans-orchestrate/SKILL.md` item 3. Check:
-      `Test-AgentDefinitions`.
 - [ ] Decided by the orchestrator as delegated (2026-10-23; catzc-6e's finalize): `pwsh/.internal/assets/Wait-CatzcRunLock.ps1`, a holder
-      whose own caller is gone counts as gone, as a waiter whose caller is gone already does, so an orphaned pwsh no longer holds every waiter
-      to its deadline. Check: its test file green with a new orphaned-holder case, `Test-ScriptAnalyzer -Path` at 0.
-- [ ] Decided by the orchestrator as delegated (2026-10-23): `docs/drs/repository/file-meta.md` FILEISNODE gains the folding sentence (a
-      cited bare record code stands for its rules; `drs_total` counts before folding). Check: `Test-Links` on the ADR, `Build-DrsIndex`
-      clean.
+      whose own caller is gone counts as gone, as a waiter whose caller is gone already does, so an orphaned pwsh no longer holds every
+      waiter to its deadline. Check: its test file green with a new orphaned-holder case, `Test-ScriptAnalyzer -Path` at 0.

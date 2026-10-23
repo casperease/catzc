@@ -31,7 +31,7 @@ Drive the master plan's open chunks through the drones (the sessions that exist)
 6. Every question, a drone's or a plan's own, the orchestrator decides after reading the ADRs that govern it, recorded as delegated in the
    owning plan; a recommendation it would give is its decision, never a question; only git, settings.json and CLAUDE.md reach the user.
 7. Two sessions on one file: the later one is told `stop; <session> holds <file>`, and the clash is recorded in both task files; an
-   import-path burst runs under `Enter-CatzcBurst.ps1` / `Exit-CatzcBurst.ps1` once catzc-verify says so, else HOLD and GO to importers.
+   import-path burst runs under `Enter-CatzcBurst.ps1`, whose run lock holds every peer; no HOLD or GO is broadcast.
 8. Repeat steps 3 to 7 until every session reports done or the user stops; after each round that edited a file,
    `Test-Plans -Path .claude/plans` runs in the background as catzc-run says.
 9. Report as report-fixed says: sessions with their chunks, steps ticked, blockers raised, chunks still open.

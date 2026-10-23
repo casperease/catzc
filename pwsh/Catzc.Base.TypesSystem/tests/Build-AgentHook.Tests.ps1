@@ -67,6 +67,15 @@ Describe 'Build-AgentHook' -Tag 'L0', 'logic' {
         Get-Content -LiteralPath (Join-Path $script:outputDirectory 'Record-AgentWrite.source.sha256') -Raw | Should -BeLike '*Catzc.Tooling.Listen/types/WriteLedger.cs:*'
     }
 
+    It 'with -Test names a stale hook and builds nothing, and names none once it is current' {
+        Build-AgentHook Assert-BashTimeout -Test -OutputDirectory $script:outputDirectory | Should -Be 'Assert-BashTimeout'
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem -Times 0 -Exactly
+
+        $null = Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory
+        Build-AgentHook Assert-BashTimeout -Test -OutputDirectory $script:outputDirectory | Should -BeNullOrEmpty
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem -Times 1 -Exactly
+    }
+
     It 'republishes with -Force' {
         $null = Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory
         $null = Build-AgentHook Assert-BashTimeout -OutputDirectory $script:outputDirectory -Force

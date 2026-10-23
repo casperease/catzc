@@ -29,7 +29,10 @@ function Test-Broken { throw 'broken gadget' }
         [System.IO.File]::ReadAllText($script:target) | Should -BeExactly 'staged'
         [System.IO.File]::ReadAllText($script:created) | Should -BeExactly 'new'
         Test-Path -LiteralPath "$script:staged.backup" | Should -BeFalse
+        # The real Invoke-CatzcCommand.ps1 runs the one fixture command: its switches bind by name and are never taken for commands.
         $lines | Should -Contain '[Invoke-CatzcCommand] passed: Test-Swapped'
+        $lines | Should -Contain '[Invoke-CatzcCommand] 1 of 1 passed'
+        ($lines -join "`n") | Should -Not -BeLike '*is not recognized*'
         $lines | Should -Contain '[Invoke-StagedBurst] swapped 2 staged file(s) in and 1 command(s) passed'
         $lines[-1] | Should -BeLike '[[]Enter-CatzcBurst] released the run lock: the 1 -Run steps passed'
     }

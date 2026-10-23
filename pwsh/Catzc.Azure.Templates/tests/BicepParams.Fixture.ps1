@@ -10,8 +10,8 @@ catzc:
 $script:readBicepParams = {
     param([string[]] $Lines, [string] $Source)
 
-    $state = @{ Index = 0 }
-    $fail = { param($line) throw "BicepParams.Fixture: cannot read '$line' in $Source" }
+    $state = @{ Index = 0; Source = $Source }
+    $fail = { param($line) throw "BicepParams.Fixture: cannot read '$line' in $($state.Source)" }
     $literal = {
         param([string] $text)
         switch -Regex ($text) {

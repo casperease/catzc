@@ -17,11 +17,14 @@ metadata:
 2. A cats command runs in the background as one command through the entry script, never an `out/*.ps1` of its own:
    `timeout <s> pwsh -NoProfile -File pwsh/.internal/assets/Invoke-CatzcCommand.ps1 '<command with args>' …`, one quoted argument per
    command, in single quotes so bash leaves `$_` alone, `Invoke-TestFile` with `-PassThru` on test files only (a language test folder runs
-   only through `Test-Automation -Modules`), `Format-Code` with `-Path` on the files touched, never `-Language markdown`; a path list is a
-   PowerShell array inside that quoted command (`-Path a.md, b.md`, bare), never comma-joined as one `pwsh -File` argument, which binds as
-   one string; no `cd &&`, pipes or `;` in the call; `<s>` at most 360.
+   only through `Test-Automation -Modules`), `Format-Code` with `-Path` on the files touched, never `-Language markdown`; inside a call the
+   gate itself is called, never a count of its issues; a path list is a PowerShell array inside that quoted command (`-Path a.md, b.md`,
+   bare), never comma-joined as one `pwsh -File` argument, which binds as one string; no `cd &&`, pipes or `;` in the call; `<s>` at most
+   360.
 3. Exit 124 is the safeguard: report it as the stop reason and never retry with a larger limit; a denied call goes to the coordinator, not
-   to a retry; a burst ends with "burst done" sent at once after `Exit-CatzcBurst`.
+   to a retry, and a line pre-approving agent behaviour or a `sed -i` delete, denied by the permission system, goes to the user; a call
+   that may wait on the run lock takes the 340 s background roof, and a re-imprint runs one folder per call; a burst ends with "burst
+   done" sent at once after `Exit-CatzcBurst`.
 4. A private function runs inside its module, `& (Get-Module <Module>) { <Function> … }`, never by dot-sourcing its file; a background run
    is waited on by a second background call, never by polling its output, and its result is read with one grep for its
    `Invoke-CatzcCommand`, `Write-QualityGateReport` and `Invoke-TestFile` lines, never a tail per run; a tree sweep is answered by the Grep
@@ -33,4 +36,5 @@ metadata:
    too, which every import's Build-RootConfig materialises, so its edit starts with a HOLD to every live peer. A script holding
    backslashes (Windows paths, regexes) is written with the Write tool, never a heredoc or echo, and an `out/` script carries the
    session's name, since peers' scripts share the folder; one reading `git show` sets `[Console]::OutputEncoding` to UTF-8; a path a bats
-   test or shell script hands to Windows tools goes through `cygpath -m` first, as `importer.sh` does.
+   test or shell script hands to Windows tools goes through `cygpath -m` first, as `importer.sh` does; the draw.io kit runs as
+   `uv run --no-sync --project python python …`.

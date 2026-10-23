@@ -204,7 +204,8 @@ holds what the file itself points at, each one an **edge**, a named relation lea
 codes the file and its comment page cite outside their ` ```yml drawio ` blocks; `drs_total`, the count of distinct codes the file and its
 page cite, those blocks included; and `docs`, its comment page; no `test` or `code` edge, since a test is found by convention. The fact
 behind `cites` keeps every code, blocks included, and the `drs-codes` kind renders it into both keys, so a diagram's codes count toward the
-total without filling the head's list. `edges` is imprinted and `immutable` is written by the file's writer, never by hand, and both are
+total without filling the head's list. A cited bare record code stands for its rules, so `cites` folds the rule codes under it into that
+record code, and `drs_total` counts the distinct codes before that folding. `edges` is imprinted and `immutable` is written by the file's writer, never by hand, and both are
 fixed by the file: a place fact until the file moves or a registry changes, an edge until the file's text changes. An edge is written on its
 source only, so the target holds no copy, and an edge is named for the relation, never for the type of its target. A tracked generated
 file's `immutable` opens with `with_body_sha`, the hash of the body below the head

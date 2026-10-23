@@ -162,12 +162,13 @@ try {
         $null = New-Item -ItemType Directory -Path (Split-Path -Parent $target) -Force
         Copy-Item -LiteralPath (Join-Path $staged $relative) -Destination $target -Force
     }
-    $arguments = @('-InBurst', '-LockName', $LockName)
+    # A hashtable splat binds by name; an array of '-InBurst' strings would reach the script as commands to run.
+    $arguments = @{ InBurst = $true; LockName = $LockName; Command = $Command }
     if ($Importer) {
-        $arguments += @('-Importer', $Importer)
+        $arguments.Importer = $Importer
     }
     $global:LASTEXITCODE = 0
-    & (Join-Path $PSScriptRoot 'Invoke-CatzcCommand.ps1') @arguments $Command
+    & (Join-Path $PSScriptRoot 'Invoke-CatzcCommand.ps1') @arguments
     if ($global:LASTEXITCODE -eq 0) {
         $passed = $true
         $outcome = "swapped $($relatives.Count) staged file(s) in and $($Command.Count) command(s) passed"

@@ -333,6 +333,18 @@ function Invoke-AgentHookJanitor {
         -not (Test-Path -LiteralPath (Join-Path $env:RepositoryRoot '.claude/hooks'))) {
         return
     }
+    if (Test-IsRunningInVsCode) {
+        try {
+            $stale = @(Build-AgentHook -Test)
+            if ($stale.Count -gt 0) {
+                Write-ImporterMessage "Agent hooks: $($stale -join ', ') stale, not built from inside VS Code — run Build-AgentHook from a terminal outside the editor." -ForegroundColor Yellow
+            }
+        }
+        catch {
+            Write-ImporterMessage "Agent hooks: not checked — $($_.Exception.Message)" -ForegroundColor Yellow
+        }
+        return
+    }
     if (-not (Get-Command dotnet -ErrorAction Ignore)) {
         Write-ImporterMessage 'Agent hooks: not built — dotnet is not on PATH (Install-Dotnet).' -ForegroundColor Yellow
         return

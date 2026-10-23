@@ -10,7 +10,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TEST-SETUPONCE
-    drs_total: 1
+      - PDR-ONELIVE
+    drs_total: 2
 ---
 
 # Debt test speed: the slowest Pester files measured and fixed one at a time
@@ -49,5 +50,6 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
 
 - Decided by the orchestrator as delegated (2026-10-23): the hindsight log gets no decision record; the `hindsight-log` capability is its
   one home (PDR-ONELIVE), and a record follows only when a second reader needs its rule.
-- The user's, gathered in task-user-runs-and-commits: `docs/references/pwsh/CLAUDE.md` still prescribes `Format-Code -Language markdown -Path docs/references/pwsh`, against `catzc-run`'s
-  `Format-Code -Path` on the files touched (decided in plan-agent-friction); a `CLAUDE.md` is the user's to edit.
+- The user's, gathered in task-user-runs-and-commits: `docs/references/pwsh/CLAUDE.md` still prescribes
+  `Format-Code -Language markdown -Path docs/references/pwsh`, against `catzc-run`'s `Format-Code -Path` on the files touched (decided in
+  plan-agent-friction); a `CLAUDE.md` is the user's to edit.

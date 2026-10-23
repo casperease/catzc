@@ -51,11 +51,5 @@ It cuts a cost paid by every session and every spawn that loads the project inst
        Saves about 830 bytes (about 210 tokens) per session. Check: `Test-Links -Path .claude/CLAUDE.md`, `Test-AgentDefinitions`, and
        `wc -c .claude/CLAUDE.md` at least 800 bytes below its size before the edit.
 
-4. [ ] Decided by the orchestrator as delegated (2026-10-23; catzc-27's finalize (b)): a script-analyzer rule beside
-       `pwsh/.scriptanalyzer/NoUnsafeFirstIndex.psm1` flags `$x = if (…) { @(…) }` in favour of `$x = @(if (…) { … })`, wired like it, every
-       live hit fixed one file at a time. Check: its rule test and `CustomRuleWiring.Tests.ps1` green, `Test-ScriptAnalyzer` at 0.
-5. [ ] Decided by the orchestrator as delegated (2026-10-23; catzc-e3's third finalize (a)): an `Invoke-StagedBurst.ps1` beside
-       `Enter-CatzcBurst.ps1` lands staged C# in one mechanism (back up, swap, test under one fresh import, restore on failure, never killed
-       mid-swap), and `catzc-verify` names it in place of hand bursts. Check: its test file green, `Test-AgentDefinitions`.
-6. [ ] Once catzc-6e's remaining-arguments change lands (catzc-97's finalize (b)): `catzc-run` step 2 names the burst-step form, a step that
+4. [ ] Once catzc-6e's remaining-arguments change lands (catzc-97's finalize (b)): `catzc-run` step 2 names the burst-step form, a step that
        runs `Invoke-CatzcCommand.ps1 -InBurst` in the burst's own process, merged into an existing line. Check: `Test-AgentDefinitions`.

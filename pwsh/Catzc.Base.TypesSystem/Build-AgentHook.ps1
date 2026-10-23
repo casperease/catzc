@@ -21,7 +21,9 @@ function Build-AgentHook {
 
         [string] $OutputDirectory = (Join-Path (Get-RepositoryRoot) '.claude/hooks/bin'),
 
-        [switch] $Force
+        [switch] $Force,
+
+        [switch] $Test
     )
 
     Assert-SourceTree
@@ -61,6 +63,12 @@ function Build-AgentHook {
         $stamp = Join-Path $OutputDirectory "$assemblyName.source.sha256"
         $program = & $findProgram
         $isCurrent = $program -and (Test-Path -LiteralPath $stamp) -and ((Get-Content -LiteralPath $stamp -Raw).Trim() -ceq $sourceHash.Trim())
+        if ($Test) {
+            if (-not $isCurrent) {
+                $hook
+            }
+            continue
+        }
         if ($isCurrent -and -not $Force) {
             $program
             continue
