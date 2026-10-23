@@ -18,3 +18,5 @@ history over an environment behind a manual gate. It splits by target on the one
 environments and DEPLOY-Prod for the RBC-cleared artifact through pre-prod into production. A CD pipeline always contains a CI component,
 and a solo CI contains only it. The CI component is the same build-and-verify in both, one CI engine, so the tagged artifact it produces as
 the front of a CD is what DEPLOY then governs.
+
+![One CI engine builds the tagged artifact in every CD pipeline, and DEPLOY splits by target to govern the environment behind a manual gate.](.assets/deploy-carries-governance-and-every-cd-pipeline-contains-the-one-ci-engine.drawio.png)

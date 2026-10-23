@@ -17,3 +17,5 @@ The landing zones form a hub-and-spoke network. A hub is the landing zone of a s
 customer subscription, peered to the hub of its tier; peering is static and two-sided, a spoke's config naming its hub and a hub's config
 listing its spokes. Every `azure.yml` subscription has one network in the plan's `subscriptions` block, a hub when it has no `customer` and
 a spoke when it has one.
+
+![A hub in a shared subscription carries the reserved subnets and shared-services, and each customer spoke peers to the hub of its tier.](.assets/landing-zones-form-a-hub-and-spoke-network-with-one-network-per-subscription.drawio.png)

@@ -1,0 +1,34 @@
+description:
+  The closed set of three engines narrows to a track, then to a module that overrides only when it differs, while auto names no engine and resolves in the one order of a setting.
+about:
+  adrs:
+    - ADR-AUTO-MODULE-ENGINESUBSET
+    - ADR-AUTO-LAYERS-AUTOLEAVESCHOICEOPEN
+  lens: architecture
+content:
+  title: A module runs on a subset of three engines, and auto leaves the choice open
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: band-set, label: THE CLOSED SET }
+    - { id: band-narrow, label: NARROWING }
+    - { id: band-open, label: LEAVING IT OPEN }
+  glyphs:
+    - { id: g-three, kind: set, label: "Closed set of three engines", in: band-set }
+    - { id: g-track, kind: code, label: "Track declares its engines", in: band-narrow }
+    - { id: g-module, kind: code, label: "Module overrides only when it differs", in: band-narrow }
+    - { id: g-auto, kind: gate, label: "auto names no engine", in: band-open }
+    - { id: g-order, kind: result, label: "One resolution order of a setting", in: band-open }
+  edges:
+    - { from: g-three, to: g-track, kind: flow, label: "" }
+    - { from: g-track, to: g-module, kind: flow, label: "" }
+    - { from: g-auto, to: g-order, kind: flow, label: "" }
+  markers:
+    - { at: g-three, number: 1 }
+    - { at: g-track, number: 2 }
+    - { at: g-module, number: 3 }
+    - { at: g-auto, number: 4 }
+    - { at: g-order, number: 5 }
+  legend: auto

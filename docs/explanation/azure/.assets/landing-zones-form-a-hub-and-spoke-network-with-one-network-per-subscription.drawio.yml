@@ -1,0 +1,35 @@
+description:
+  A hub in a shared subscription carries the reserved subnets and shared-services, and each customer spoke peers to the hub of its tier.
+about:
+  adrs:
+    - ADR-AZ-LZ-HUBANDSPOKE
+    - ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION
+  lens: architecture
+content:
+  title: A hub carries the shared parts and each customer spoke peers to it
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: band-hub, label: HUB }
+    - { id: band-peer, label: PEERING }
+    - { id: band-spoke, label: SPOKE }
+  glyphs:
+    - { id: g-hub, kind: set, label: "Hub: shared subscription, no customer", in: band-hub }
+    - { id: g-subnets, kind: file, label: "GatewaySubnet, AzureFirewallSubnet, shared-services", in: band-hub }
+    - { id: g-peer, kind: gate, label: "Static, two-sided peering", in: band-peer }
+    - { id: g-spoke, kind: set, label: "Spoke: customer subscription", in: band-spoke }
+    - { id: g-net, kind: result, label: "One network per subscription", in: band-spoke }
+  edges:
+    - { from: g-hub, to: g-subnets, kind: flow, label: "" }
+    - { from: g-hub, to: g-peer, kind: flow, label: "" }
+    - { from: g-peer, to: g-spoke, kind: flow, label: "" }
+    - { from: g-spoke, to: g-net, kind: flow, label: "" }
+  markers:
+    - { at: g-hub, number: 1 }
+    - { at: g-subnets, number: 2 }
+    - { at: g-peer, number: 3 }
+    - { at: g-spoke, number: 4 }
+    - { at: g-net, number: 5 }
+  legend: auto
