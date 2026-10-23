@@ -79,7 +79,7 @@ action-lens: # what the action lens draws with: its layout numbers in diagram un
   show: both # words | call | both: what an effect's note prints, its words, its observation or call, or both; show: on an effect overrides it
   action-glyph: bubble # bubble | pill: the statement as a speech bubble whose tail points at the actor's mouth, or as the plain pill
   mouth: 0.1 # where the actor's mouth is on the cause's outline: this fraction of the radius below the centre line, on the arc
-  cause-glyph: figure # figure | disc: the actor as a stick figure inside the circle fragment with the idea in its head box, or the plain half-disc with the words
+  actor: shown # shown | hidden: the stick man drawn over the finished drawing for the onlooker, the cause's fragment as his head, his body hanging from it
   proof-engines: pwsh pascal, bash kebab, zsh kebab # the engines a Proof box prints, each with the idiom its words take
 themes: # the themes a diagram renders in, each a theme-<name> token set below; the first is the default and the one whose raster is committed
   dark: the dark page and the light ink of STYLE.md

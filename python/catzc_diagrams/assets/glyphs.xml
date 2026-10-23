@@ -207,12 +207,6 @@
     <mxCell id="g-action" value="&lt;b&gt;action&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=@slate;strokeColor=@mark;strokeWidth=3;fontColor=@title;fontSize=12;" vertex="1" parent="1">
       <mxGeometry x="110" y="658" width="130" height="44" as="geometry" />
     </mxCell>
-    <mxCell id="g-actor" value="&lt;b&gt;actor&lt;/b&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=@neutral;strokeColor=@ink;strokeWidth=2;fontColor=@ink;fontSize=11;" vertex="1" parent="1">
-      <mxGeometry x="250" y="636" width="30" height="60" as="geometry" />
-    </mxCell>
-    <mxCell id="g-head" value="&lt;b&gt;head&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=25;fillColor=@band;strokeColor=@line;strokeWidth=2;fontColor=@title;fontSize=10;" vertex="1" parent="1">
-      <mxGeometry x="290" y="636" width="80" height="44" as="geometry" />
-    </mxCell>
     <mxCell id="g-bubble" value="&lt;b&gt;bubble&lt;/b&gt;" style="shape=callout;direction=west;perimeter=calloutPerimeter;base=18;size=30;position=0.5;position2=0.5;whiteSpace=wrap;html=1;rounded=1;arcSize=20;fillColor=@slate;strokeColor=@mark;strokeWidth=3;fontColor=@title;fontSize=12;" vertex="1" parent="1">
       <mxGeometry x="110" y="712" width="160" height="44" as="geometry" />
     </mxCell>

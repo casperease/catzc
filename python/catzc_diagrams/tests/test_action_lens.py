@@ -133,7 +133,9 @@ def test_a_long_argument_wraps_at_its_breaks_and_comes_back_whole():
     action = re.search(r'<mxCell id="action" value="([^"]*)" style="[^"]*" vertex="1" parent="1">\s*<mxGeometry x="\d+" y="\d+" width="(\d+)"', model)
     assert action is not None
     value, width = html.unescape(action.group(1)), int(action.group(2))
-    tail = int(float(declaration.style_map(re.search(r'<mxCell id="action" value="[^"]*" style="([^"]*)"', model).group(1)).get("size", 0)))
+    styled = re.search(r'<mxCell id="action" value="[^"]*" style="([^"]*)"', model)
+    assert styled is not None
+    tail = int(float(declaration.style_map(styled.group(1)).get("size", 0)))
     width -= tail  # the bubble's cell holds its tail too; the words live in the body
     assert "<br>" in value and all(len(line) <= (width - 28) // 7 for line in value.split("<br>"))
     assert width <= declaration.ACTION_WIDTH
@@ -291,10 +293,7 @@ def test_the_statement_is_a_speech_bubble_whose_tail_reaches_the_mouth(monkeypat
     style = declaration.style_map(bubble.group(1))
     assert style.get("shape") == "callout" and style.get("direction") == "west"
     radius = int(cause.group(3))
-    if declaration.FIGURE:  # the mouth on the head box's right edge
-        mouth_x = int(cause.group(1)) + 6 + round(radius * 0.82)
-    else:  # the mouth on the half-disc's arc
-        mouth_x = int(cause.group(1)) + math.sqrt(radius**2 - (declaration.MOUTH * radius) ** 2)
+    mouth_x = int(cause.group(1)) + math.sqrt(radius**2 - (declaration.MOUTH * radius) ** 2)  # the mouth on the fragment's arc
     assert abs(int(bubble.group(2)) - round(mouth_x)) <= 1  # the cell starts at the mouth: its tail reaches it
     assert 'id="e-cause-action"' not in model and 'id="cats"' in model  # the tail is the connection; the word stands at its root
     assert "bubble: the statement spoken in cats" in model or 'value="bubble"' in model
@@ -303,21 +302,32 @@ def test_the_statement_is_a_speech_bubble_whose_tail_reaches_the_mouth(monkeypat
     assert 'id="e-cause-action"' in model and "shape=callout" not in model
 
 
-def test_the_actor_holds_the_idea_in_its_head_inside_the_fragment(monkeypatch):
+def test_the_stick_man_is_drawn_last_over_the_drawing_and_read_by_nobody(monkeypatch):
     first = normalised(sample())
     model = declaration.put(first)
-    head = re.search(r'<mxCell id="cause-head" value="([^"]*)" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
-    body = re.search(r'<mxCell id="cause-body" value="" style="([^"]*)"', model)
-    cause = re.search(r'<mxCell id="cause" value="" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
-    assert head is not None and body is not None and cause is not None
-    assert head.group(1) == "&lt;b&gt;An author&lt;/b&gt;" and "shape=umlActor" in body.group(1)
-    assert int(head.group(2)) >= int(cause.group(1)) and int(head.group(2)) + int(head.group(4)) <= int(cause.group(1)) + int(cause.group(3))
-    bubble = re.search(r'<mxCell id="action" value="[^"]*" style="[^"]*" [^\n]*\n\s*<mxGeometry x="(\d+)"', model)
-    assert bubble is not None and int(bubble.group(1)) == int(head.group(2)) + int(head.group(4))  # the tail reaches the head box
-    assert declaration.get(model, kind="explanation")["content"]["cause"] == {"label": "An author"}
-    monkeypatch.setattr(declaration, "FIGURE", False)
+    lines = re.findall(r'<mxCell id="(actor-[a-z-]+-[a-z-]+)" value="" style="endArrow=none;[^"]*" edge="1"', model)
+    assert sorted(lines) == ["actor-hand-l-hand-r", "actor-hip-foot-l", "actor-hip-foot-r", "actor-neck-hip"]
+    assert model.index('id="actor-neck-hip"') > model.index('id="effect-catalogue"')  # painted after the drawing
+    assert 'id="cause" value="&lt;b&gt;An author&lt;/b&gt;"' in model  # the fragment keeps the words: it is his head
+    back = declaration.get(model, kind="explanation")
+    assert back["content"]["cause"] == {"label": "An author"} and declaration.put(back) == model
+    monkeypatch.setattr(declaration, "ACTOR", False)
+    assert "actor-" not in declaration.put(first)
+
+
+def test_a_word_on_a_line_between_zones_becomes_a_transition_bubble_on_the_ring():
+    first = normalised(sample("action-site-sample"))
     model = declaration.put(first)
-    assert 'id="cause-head"' not in model and 'value="&lt;b&gt;An author&lt;/b&gt;"' in model.split('id="action"')[0]
+    bubble = re.search(r'<mxCell id="e-effect-index-effect-recount-word" value="&lt;b&gt;affects&lt;/b&gt;" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
+    ring = re.search(r'<mxCell id="ring-1" [^\n]*\n\s*<mxGeometry x="(-?\d+)" y="(-?\d+)" width="(\d+)" height="(\d+)"', model)
+    cause = re.search(r'<mxCell id="cause" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="\d+" height="(\d+)"', model)
+    assert bubble is not None and ring is not None and cause is not None
+    bx, by = int(bubble.group(1)) + int(bubble.group(3)) / 2, int(bubble.group(2)) + int(bubble.group(4)) / 2
+    cx, cy, r = int(cause.group(1)), int(cause.group(2)) + int(cause.group(3)) / 2, int(ring.group(3)) / 2
+    assert abs(math.hypot(bx - cx, by - cy) - r) <= 1.5  # centred on the first ring the line crosses
+    assert re.search(r'<mxCell id="e-action-effect-index" value="&lt;b&gt;executes&lt;/b&gt;"', model)  # into zone 1 the word stays beside the line
+    back = declaration.get(model, kind="explanation")
+    assert declaration.put(back) == model
 
 
 def test_a_long_value_starts_on_its_own_line_under_its_key():
@@ -432,8 +442,7 @@ def test_the_cause_takes_a_named_size_and_is_bold():
     default = sizes[declaration.ACTION["cause-size"]]
     model = declaration.put(normalised(sample()))
     cause = re.search(r'<mxCell id="cause" value="([^"]*)" [^\n]*\n\s*<mxGeometry x="\d+" y="\d+" width="(\d+)" height="(\d+)"', model)
-    words = re.search(r'<mxCell id="cause-head" value="([^"]*)"', model) if declaration.FIGURE else cause  # the words: head box or disc
-    assert cause is not None and words is not None and words.group(1).startswith("&lt;b&gt;")
+    assert cause is not None and cause.group(1).startswith("&lt;b&gt;")
     assert (int(cause.group(2)), int(cause.group(3))) == (default, 2 * default)
     raw = sample()
     raw["content"]["cause"]["size"] = "largest"

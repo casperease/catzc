@@ -149,14 +149,6 @@ def paint_shape(d, s, box, w, h, fill, stroke, sw, dashed):
     elif s.get("shape") == "hexagon":
         pts = [(x0 + w * .25, y0), (x1 - w * .25, y0), (x1, (y0 + y1) / 2), (x1 - w * .25, y1), (x0 + w * .25, y1), (x0, (y0 + y1) / 2)]
         d.polygon(pts, fill=fill, outline=stroke, width=sw)
-    elif s.get("shape") == "umlActor":  # a stick figure: a round head, a spine, two arms and two legs, as draw.io draws it
-        cx, head = (x0 + x1) / 2, w * 0.3
-        d.ellipse([cx - head / 2, y0, cx + head / 2, y0 + head], fill=fill, outline=stroke, width=sw)
-        neck, hip = y0 + head, y0 + h * 0.62
-        d.line([(cx, neck), (cx, hip)], fill=stroke, width=sw)
-        d.line([(x0, neck + h * 0.12), (x1, neck + h * 0.12)], fill=stroke, width=sw)
-        d.line([(cx, hip), (x0, y1)], fill=stroke, width=sw)
-        d.line([(cx, hip), (x1, y1)], fill=stroke, width=sw)
     elif s.get("shape") == "callout":  # a speech bubble: a rounded body and a solid tail on its west side, the tip at the mouth
         tail, base, at = float(s.get("size", 30)), float(s.get("base", 18)), float(s.get("position", 0.5))
         bx0 = x0 + tail

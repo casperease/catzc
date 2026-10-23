@@ -99,13 +99,14 @@ PROOF_ENGINES = [tuple(pair.split()) for pair in str(ACTION["proof-engines"]).sp
 PROOF_ROW = 22  # one engine's words, one row
 WORD_GAP = int(DEFAULTS["renderer"]["word-gap"])  # how far a steep edge's word stands right of its line, written into the model
 BUBBLE = str(ACTION["action-glyph"]).strip() == "bubble"  # the statement as a speech bubble with its tail at the mouth, or the pill
-FIGURE = str(ACTION["cause-glyph"]).strip() == "figure"  # the actor as a stick figure with the idea in its head box, or the half-disc
+ACTOR = str(ACTION["actor"]).strip() == "shown"  # the stick man drawn last over the drawing, the cause's fragment as his head
 MOUTH = float(ACTION["mouth"])  # the actor's mouth: on the cause's outline, this fraction of the radius below the centre line
 DEFAULT_WHERE = str(ACTION["where"]).strip()  # the diagram's where unless content.where says otherwise
 DEFAULT_SHOW = str(ACTION["show"]).strip()  # what a note prints unless the effect's show: says otherwise
 # The cells put derives from the kit and the registries, never from the author: get skips them, and a change to them is stale.
 DERIVED = ("sidebar-bg", "legend", "legend-proof", "lens-badge", "mapkey")
-DERIVED_PREFIXES = ("lg-", "mk-", "minimap-", "lane-")  # lane- is a lane's trunk, its marks and the gate rules: the yml's alone
+DERIVED_PREFIXES = ("lg-", "mk-", "minimap-", "lane-", "actor-")  # lane- is a lane's furniture, actor- the stick man: the kit's alone
+ACTOR_LINE = "endArrow=none;html=1;strokeColor=@ink;strokeWidth=2;shadow=0;"  # one line of the stick man's body
 CONTENT_KEYS = (
     "title",
     "kind",
@@ -206,6 +207,61 @@ def middle_leg(points):
             return p, q
         left -= length
     return legs[-1][0], legs[-1][1]
+
+
+def cross_segment(p, q, a, b):
+    """Where the leg p-q crosses the segment a-b, or None."""
+    (x1, y1), (x2, y2), (x3, y3), (x4, y4) = p, q, a, b
+    den = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
+    if abs(den) < 1e-9:
+        return None
+    t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / den
+    u = -((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3)) / den
+    return (x1 + t * (x2 - x1), y1 + t * (y2 - y1)) if 0 <= t <= 1 and 0 <= u <= 1 else None
+
+
+def cross_box(points, box):
+    """The first point along a polyline where it crosses a box's border, or None."""
+    x, y, w, h = box["x"], box["y"], box["w"], box["h"]
+    sides = (((x, y), (x + w, y)), ((x + w, y), (x + w, y + h)), ((x + w, y + h), (x, y + h)), ((x, y + h), (x, y)))
+    for p, q in zip(points, points[1:]):
+        hits = [c for c in (cross_segment(p, q, a, b) for a, b in sides) if c]
+        if hits:
+            return min(hits, key=lambda c: math.hypot(c[0] - p[0], c[1] - p[1]))
+    return None
+
+
+def cross_circle(points, centre, r):
+    """The first point along a polyline where it crosses a circle, or None."""
+    cx, cy = centre
+    for p, q in zip(points, points[1:]):
+        dx, dy = q[0] - p[0], q[1] - p[1]
+        fx, fy = p[0] - cx, p[1] - cy
+        a, b, c = dx * dx + dy * dy, 2 * (fx * dx + fy * dy), fx * fx + fy * fy - r * r
+        if a < 1e-9:
+            continue
+        disc = b * b - 4 * a * c
+        if disc < 0:
+            continue
+        for t in sorted(((-b - math.sqrt(disc)) / (2 * a), (-b + math.sqrt(disc)) / (2 * a))):
+            if 0 <= t <= 1:
+                return (p[0] + t * dx, p[1] + t * dy)
+    return None
+
+
+TRANSITION = "ellipse;whiteSpace=wrap;html=1;fillColor=@band;strokeColor=@line;strokeWidth=1.5;fontColor=@ink;fontStyle=1;fontSize=10;"
+TRANSITION_LONG = "rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=@band;strokeColor=@line;strokeWidth=1.5;fontColor=@ink;fontStyle=1;fontSize=10;"
+
+
+def transition(edge, word, at):
+    """The word of a line as a bubble at the point where the line crosses into a new state: a circle sized to the word, a stadium when
+    the word is long; the line itself goes on without its word. Returns the bubble cell."""
+    edge["value"], edge["label_at"] = "", None
+    width = 7 * len(word) + 14
+    if len(word) > 14:
+        return cell(f"{edge['id']}-word", f"<b>{html.escape(word, quote=False)}</b>", TRANSITION_LONG, round(at[0] - width / 2), round(at[1] - 11), width, 22)
+    size = max(28, width)
+    return cell(f"{edge['id']}-word", f"<b>{html.escape(word, quote=False)}</b>", TRANSITION, round(at[0] - size / 2), round(at[1] - size / 2), size, size)
 
 
 def edge_middle(a, b, via):
@@ -1485,6 +1541,8 @@ def layer_of(c):
     """The paint layer of a placed cell, one of LAYERS."""
     style = c["style"]
     if c["edge"]:
+        if c["id"].startswith("actor-"):  # the stick man is drawn last, over everything
+            return "labels"
         return "lines" if c["id"].startswith("lane-") or style_map(style).get("curved") == "1" else "edges"
     if c["id"] in ("sidebar-bg", "mapkey") or style in (BAND, LEGEND, NOTE):
         return "panels"
@@ -1492,7 +1550,7 @@ def layer_of(c):
         return "frames"
     if "shape=crossbar" in style:
         return "spans"
-    if c["id"].startswith(("mark-", "chip-")) or c["id"].endswith("-tag"):
+    if c["id"].startswith(("mark-", "chip-")) or c["id"].endswith(("-tag", "-word")):
         return "marks"
     return "labels" if style.startswith("text;") else "glyphs"
 
@@ -1878,6 +1936,13 @@ def place(declaration):
             if abs(y1 - y0) > abs(x1 - x0):
                 edge["style"] += "align=left;"
                 edge["label_at"] = (0, -WORD_GAP if y1 > y0 else WORD_GAP)
+            # A word on a line that crosses into another band becomes a transition bubble on that band's border; the line keeps no
+            # word of its own. A line inside one band keeps its word beside it.
+            into = band_of(e["to"]) if e["to"] in holder else e["to"]
+            if into in band_box and (band_of(e["from"]) if e["from"] in holder else e["from"]) != into:
+                at = cross_box(points, band_box[into])
+                if at:
+                    cells.append(transition(edge, e["label"], at))
         cells.append(edge)
     size = LIB["marks"]["marker"]["size"]
     for m in content["markers"]:
@@ -1993,24 +2058,30 @@ def place_action(declaration):
         raise DeclarationError(f"the centre lane of {2 * lane_half} px cannot hold the cause and the action; pin a taller frame in layout:")
     cells.append(cell("frame", html.escape(content["title"], quote=False), BAND, frame["x"], frame["y"], frame["w"], frame["h"]))
     label = f"<b>{html.escape(content['cause']['label'], quote=False)}</b>"
-    # The cause: the half-disc with the words, or the circle fragment around an actor whose head box holds the idea in the actor's own
-    # words, the stick body below it; the mouth is then on the head box's right edge, where a face's mouth is.
-    cells.append(cell("cause", "" if FIGURE else label, lib["cause"]["style"], frame["x"], cy - radius, radius, 2 * radius))
-    if FIGURE:
-        head = {"x": frame["x"] + 6, "y": cy - radius + 10, "w": round(radius * 0.82), "h": round(radius * 0.62)}
-        cells.append(cell("cause-head", label, lib["head"]["style"], head["x"], head["y"], head["w"], head["h"]))
-        body_h = round(radius * 1.05)
-        cells.append(cell("cause-body", "", lib["actor"]["style"], head["x"] + head["w"] // 2 - 15, head["y"] + head["h"] - 4, 30, body_h))
+    cells.append(cell("cause", label, lib["cause"]["style"], frame["x"], cy - radius, radius, 2 * radius))
+    if ACTOR:
+        # The stick man for the onlooker, drawn over everything last: the fragment is his head, and his body hangs from it in five
+        # plain lines between anchors, free to overflow the rim and whatever stands near; nothing moves for him, and get skips him.
+        sx, top = frame["x"] + round(radius * 0.3), cy + radius
+        points = {
+            "neck": (sx, top),
+            "hip": (sx, top + round(radius * 0.7)),
+            "hand-l": (sx - round(radius * 0.6), top + round(radius * 0.35)),
+            "hand-r": (sx + round(radius * 0.6), top + round(radius * 0.35)),
+            "foot-l": (sx - round(radius * 0.45), top + round(radius * 1.6)),
+            "foot-r": (sx + round(radius * 0.45), top + round(radius * 1.6)),
+        }
+        for name, (px, py) in points.items():
+            cells.append(cell(f"actor-{name}", "", ANCHOR, px, py, 1, 1))
+        for a, b in (("neck", "hip"), ("hand-l", "hand-r"), ("hip", "foot-l"), ("hip", "foot-r")):
+            cells.append(edge_cell(f"actor-{a}-{b}", "", ACTOR_LINE, f"actor-{a}", f"actor-{b}"))
     ax, ay = cx + radius + ACTION_CLEARANCE, cy - ah // 2
     printed = lambda lines: "<br>".join(html.escape(line, quote=False) for line in lines)
     # The statement: a speech bubble whose solid tail points at the actor's mouth, the mouth a point on the head declared once as
     # fractions of the cause's radius; the bubble's cell holds body and tail, and its tail's base sits at the mouth's height. The
     # pill is the alternative, joined to the actor by the cats edge instead.
-    if FIGURE:  # the mouth on the head box's right edge, where a face's mouth is
-        mouth_x, mouth_y = frame["x"] + 6 + round(radius * 0.82), cy - radius + 10 + round(radius * 0.62) * 0.65
-    else:
-        mouth_y = cy + MOUTH * radius
-        mouth_x = frame["x"] + math.sqrt(max(0.0, radius**2 - (MOUTH * radius) ** 2))  # on the half-disc's arc at that height
+    mouth_y = cy + MOUTH * radius
+    mouth_x = frame["x"] + math.sqrt(max(0.0, radius**2 - (MOUTH * radius) ** 2))  # on the fragment's arc at that height
     tail = round(ax - max(mouth_x, frame["x"]))  # the tail reaches the mouth, or stops at the rim when the mouth lies outside
     at = round(min(0.85, max(0.15, (mouth_y - ay) / ah)), 2)
     glyph = "bubble" if BUBBLE else ("callsite" if site else "action")
@@ -2098,7 +2169,14 @@ def place_action(declaration):
             box_of[e["id"]] = {"x": x, "y": y, "w": note_w, "h": h}
             zone_of[e["id"]] = k
             skip = (cy, lane_half, ACTION_MARGIN) if k - zone_of[source] > 1 else None  # a zone skipped: the margin carries the edge
-            cells.append(operator_edge(f"e-{source}-{e['id']}", operator(source, e), labelled, source, e["id"], box_of, skip))
+            edge = operator_edge(f"e-{source}-{e['id']}", operator(source, e), labelled, source, e["id"], box_of, skip)
+            if zone_of[source] >= 1:  # the line crosses a ring into a new zone: its word becomes a bubble on the first ring crossed
+                a, b = box_of[source], box_of[e["id"]]
+                line = [(a["x"] + a["w"], a["y"] + a["h"] / 2), *[(vx, vy) for vx, vy in edge.get("via", [])], (b["x"], b["y"] + b["h"] / 2)]
+                at = cross_circle(line, (cx, cy), r0 + zone_of[source] * gap)
+                if at:
+                    cells.append(transition(edge, operator(source, e), at))
+            cells.append(edge)
             numbered.append((e["id"], marker_xy({"x": x, "y": y, "w": note_w, "h": h}, "top-left")))
     # The cause reaches its action through cats, always: the edge says so, and the cause's own words never need to.
     if BUBBLE:  # the bubble's tail is the connection, and the word cats stands above its root at the mouth
@@ -2251,6 +2329,22 @@ def finish(cells, content, content_bottom, declaration):
     return in_paint_order(cells), height
 
 
+def transition_swatch(eid, x, y):
+    return [cell(f"lg-{eid}", "<b>w</b>", TRANSITION, x + 6, y - 2, 24, 24)]
+
+
+def crossings(content):
+    """Whether a band diagram draws a transition bubble: a labelled edge whose ends stand in different bands."""
+    holder = {i["id"]: i["in"] for i in content.get("groups", []) + content.get("glyphs", [])}
+
+    def band_of(item):
+        while item in holder:
+            item = holder[item]
+        return item
+
+    return any(e["label"] and band_of(e["from"]) != band_of(e["to"]) for e in content.get("edges", []))
+
+
 def legend_entries(content):
     """What the legend shows: the glyph kinds, edge kinds and marks the diagram uses, or the phrases the declaration lists."""
     glyphs = LIB["glyphs"]
@@ -2290,7 +2384,7 @@ def legend_entries(content):
         entries.append(("proof", proof_swatch, "proof: the statement in each engine's words"))
     if content["lens"] == ACTION_LENS:  # the lens's own kinds, its four operators, the story's numbers and its Proof box
         statement = "bubble" if BUBBLE else ("callsite" if "calls" in content["action"] else "action")
-        for kind in ("cause",) + (("actor", "head") if FIGURE else ()) + (statement, "ring", "effect"):
+        for kind in ("cause", statement, "ring", "effect"):
             entries.append((kind, swatch_for(kind), glyphs[kind]["phrase"]))
         if content.get("proof", "shown" if PROOF_SHOWN else "hidden") == "shown":
             entries.append(("proof", proof_swatch, "proof: the statement in each engine's words"))
@@ -2305,6 +2399,8 @@ def legend_entries(content):
             if content["legend"] != "used" or word in drawn_words:  # legend: used lists the operators the drawing draws
                 entries.append((f"edge-{word}", edge_swatch("flow"), f"{word}: {meaning}"))
         entries.append(("marker", mark_swatch("marker", "1"), LIB["marks"]["marker"]["phrase"]))
+        if any(e.get("after", "action") != "action" for e in content["effects"]):  # a line from one zone into the next
+            entries.append(("transition", transition_swatch, "transition: the word where a line crosses into a new state"))
     for kind in dict.fromkeys(g["kind"] for g in content["glyphs"]):
         if kind != "commit":
             entries.append((kind, swatch_for(kind), glyphs[kind]["phrase"]))
@@ -2338,6 +2434,8 @@ def legend_entries(content):
         entries.append((f"rule-{kind}", swatch, f"{kind} gate"))
     if content["markers"]:
         entries.append(("marker", mark_swatch("marker", "1"), LIB["marks"]["marker"]["phrase"]))
+    if crossings(content):
+        entries.append(("transition", transition_swatch, "transition: the word where a line crosses into a new state"))
     for kind in dict.fromkeys(c["kind"] for c in content["chips"]):
         entries.append((f"chip-{kind}", mark_swatch(kind, "#2" if kind == "rule" else "87"), LIB["marks"][kind]["phrase"]))
     if any(c["kind"] == "rule" and not c.get("gated", True) for c in content["chips"]):
@@ -2477,7 +2575,7 @@ def get(model, kind=None):
     lens = plain(cells["lens-badge"].get("value")).lower() if "lens-badge" in cells else lens
     for cid, c in cells.items():
         style, value = c.get("style") or "", plain(c.get("value"))
-        if c.get("edge") == "1" or cid in DERIVED or cid.startswith(DERIVED_PREFIXES) or cid.endswith("-tag"):
+        if c.get("edge") == "1" or cid in DERIVED or cid.startswith(DERIVED_PREFIXES) or cid.endswith(("-tag", "-word")):
             continue
         if cid == "title":
             content["title"] = value
@@ -2692,7 +2790,8 @@ def get(model, kind=None):
         kinds = [k for k, sig in sorted(edge_sigs.items(), key=lambda kv: -len(kv[1])) if matches(sig, c.get("style") or "")]
         if not kinds:
             raise DeclarationError(f"get cannot name the edge {cid} in the kit's vocabulary")
-        edge = {"from": c.get("source"), "to": c.get("target"), "kind": kinds[0], "label": plain(c.get("value"))}
+        word = plain(cells[f"{cid}-word"].get("value")) if f"{cid}-word" in cells else ""  # a word moved into its transition bubble
+        edge = {"from": c.get("source"), "to": c.get("target"), "kind": kinds[0], "label": plain(c.get("value")) or word}
         if via_of(c) and edge["kind"] != "bypass":  # a bypass's route is the kit's, under the dot it skips
             edge["via"] = [[int(x), int(y) - shift] for x, y in via_of(c)]  # the waypoints as declared, before span room
         content["edges"].append(edge)
@@ -2792,7 +2891,7 @@ def get_action(cells, geo, glyph_sigs, kind):
     after_of = {
         c.get("target"): c.get("source")
         for cid, c in cells.items()
-        if c.get("edge") == "1" and not cid.startswith("lg-") and c.get("source") not in ("cause", "action")
+        if c.get("edge") == "1" and not cid.startswith(("lg-", "actor-")) and c.get("source") not in ("cause", "action")
     }
     # An execution is drawn as a command row outside the call site; a state change as a note. Either prints its bold words first.
     member_sig = signature(LIB["glyphs"]["callsite"]["member"]["style"])
@@ -2827,7 +2926,7 @@ def get_action(cells, geo, glyph_sigs, kind):
         "title": value("title") if "title" in cells else "",
         "kind": kind or KINDS[0],
         "theme": next(iter(DEFAULTS["themes"])),
-        "cause": cause_read(value("cause-head") if "cause-head" in cells else value(causes[0]), geo[causes[0]]["h"] / 2),
+        "cause": cause_read(value(causes[0]), geo[causes[0]]["h"] / 2),
         "action": action,
         "effects": [e for _, _, e in sorted(effects, key=lambda t: t[:2])],
         "minimaps": [value(cid) for cid, _, _ in SIDEBAR if cid in cells],

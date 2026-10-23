@@ -126,6 +126,20 @@ def test_a_steep_edge_glues_its_word_right_of_the_line_and_a_flat_one_keeps_it_c
     assert declaration.dump(declaration.get(model, kind="explanation")) == declaration.dump(declaration.normalise(raw))
 
 
+def test_a_word_on_a_line_into_another_band_becomes_a_transition_bubble_on_that_border():
+    first = widgets()
+    model = declaration.put(first)
+    bubble = re.search(r'<mxCell id="e-widget-a-gadget-store-word" value="&lt;b&gt;writes&lt;/b&gt;" style="ellipse;[^"]*" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
+    band = re.search(r'<mxCell id="band-gadgets" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
+    assert bubble is not None and band is not None
+    cx = int(bubble.group(1)) + int(bubble.group(3)) / 2
+    assert abs(cx - int(band.group(1))) <= 1  # centred on the border of the band being entered
+    assert re.search(r'<mxCell id="e-widget-a-gadget-store" value="" ', model)  # the line keeps no word of its own
+    assert "transition: the word where a line crosses into a new state" in model
+    back = declaration.get(model, kind="explanation")
+    assert declaration.dump(back) == declaration.dump(first)  # the word reads back from its bubble
+
+
 def test_a_glyph_kind_outside_the_library_fails_with_the_kinds():
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"]["glyphs"][0]["kind"] = "blob"
