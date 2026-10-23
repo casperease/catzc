@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-WAF-PE-PE01
 ---
 
-# The example workload is per customer and sets no numeric performance targets (ADR-AZ-CAF-BILL-READMULTITENANTSOLUTIONGUIDANCE + ADR-AZ-WAF-PE-PE01)
+# The example workload is per customer and sets no numeric performance targets
 
 This article is one rule:
 [ADR-AZ-CAF-BILL-READMULTITENANTSOLUTIONGUIDANCE](../../drs/azure/caf/billing-and-tenant.md#rule-adr-az-caf-bill-readmultitenantsolutionguidance)

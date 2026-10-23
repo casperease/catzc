@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-NONEST-SIMPLEEXPRESSIONSEXEMPT
 ---
 
-# Simple expressions need no line of their own and in powershell they are four shapes (ADR-PWSH-FORMAT-SIMPLEEXPRESSIONS + ADR-AUTO-NONEST-SIMPLEEXPRESSIONSEXEMPT)
+# Simple expressions need no line of their own and in powershell they are four shapes
 
 This article is one rule:
 [ADR-PWSH-FORMAT-SIMPLEEXPRESSIONS](../../drs/automation/pwsh/powershell-formatting.md#rule-adr-pwsh-format-simpleexpressions) and

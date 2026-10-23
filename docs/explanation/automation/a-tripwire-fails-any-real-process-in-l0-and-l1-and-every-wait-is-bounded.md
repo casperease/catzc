@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
 ---
 
-# A tripwire fails any real process in l0 and l1 and every wait is bounded (ADR-AUTO-TEST-PROCESSTRIPWIRE + ADR-AUTO-FAILFAST-BOUNDEVERYWAIT)
+# A tripwire fails any real process in l0 and l1 and every wait is bounded
 
 This article is one rule: [ADR-AUTO-TEST-PROCESSTRIPWIRE](../../drs/automation/test-automation.md#rule-adr-auto-test-processtripwire) and
 [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT](../../drs/automation/fail-fast-with-asserts.md#rule-adr-auto-failfast-boundeverywait) merged into one. It

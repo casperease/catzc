@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-SLIDES-DECLARATION
 ---
 
-# A code names exactly one thing and a diagram has one declaration source (ADR-REPO-DRSCODE-ONESTRINGONEFACT + ADR-REPO-SLIDES-DECLARATION)
+# A code names exactly one thing and a diagram has one declaration source
 
 This article is one rule:
 [ADR-REPO-DRSCODE-ONESTRINGONEFACT](../../drs/repository/drs-code-language.md#rule-adr-repo-drscode-onestringonefact) and

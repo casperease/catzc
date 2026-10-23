@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
 ---
 
-# Asset coverage is enforced mechanically and the build is immutable and content addressed (ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY + ADR-AUTO-BUNDLE-IMMUTABLEBUILD)
+# Asset coverage is enforced mechanically and the build is immutable and content addressed
 
 This article is one rule:
 [ADR-AUTO-ASSETDEP-ENFORCEDMECHANICALLY](../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-enforcedmechanically)

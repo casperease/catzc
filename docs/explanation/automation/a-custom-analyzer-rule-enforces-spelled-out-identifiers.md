@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-SPELL-FULLWORDIDENTIFIERS
 ---
 
-# A custom analyzer rule enforces spelled out identifiers (ADR-PWSH-NAMES-ANALYZERRULE + ADR-AUTO-SPELL-FULLWORDIDENTIFIERS)
+# A custom analyzer rule enforces spelled out identifiers
 
 This article is one rule: [ADR-PWSH-NAMES-ANALYZERRULE](../../drs/automation/pwsh/identifier-names.md#rule-adr-pwsh-names-analyzerrule) and
 [ADR-AUTO-SPELL-FULLWORDIDENTIFIERS](../../drs/automation/spell-out-names.md#rule-adr-auto-spell-fullwordidentifiers) merged into one. It

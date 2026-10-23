@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-WAF-CO-CO03
 ---
 
-# A monthly budget alerts the owner and cost is attributable per subscription (ADR-AZ-CAF-GOV-OVERSEESPENDCOSTMANAGEMENT + ADR-AZ-WAF-CO-CO03)
+# A monthly budget alerts the owner and cost is attributable per subscription
 
 This article is one rule:
 [ADR-AZ-CAF-GOV-OVERSEESPENDCOSTMANAGEMENT](../../drs/azure/caf/governance.md#rule-adr-az-caf-gov-overseespendcostmanagement) and

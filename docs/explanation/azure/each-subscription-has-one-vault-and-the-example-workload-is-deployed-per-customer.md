@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-BILL-READMULTITENANTSOLUTIONGUIDANCE
 ---
 
-# Each subscription has one vault and the example workload is deployed per customer (ADR-AZ-CAF-IAM-KEYVAULTPERAPPLICATIONENVIRONMENT + ADR-AZ-CAF-BILL-READMULTITENANTSOLUTIONGUIDANCE)
+# Each subscription has one vault and the example workload is deployed per customer
 
 This article is one rule:
 [ADR-AZ-CAF-IAM-KEYVAULTPERAPPLICATIONENVIRONMENT](../../drs/azure/caf/identity-and-access.md#rule-adr-az-caf-iam-keyvaultperapplicationenvironment)

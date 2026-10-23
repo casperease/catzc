@@ -7,7 +7,7 @@ catzc:
       - ADR-PWSH-ENV-REQUIREDINPUTISPARAMETER
 ---
 
-# A required input is a mandatory typed parameter never an environment variable (ADR-AUTO-ENVVAR-NEVERREQUIRED + ADR-PWSH-ENV-REQUIREDINPUTISPARAMETER)
+# A required input is a mandatory typed parameter never an environment variable
 
 This article is one rule: [ADR-AUTO-ENVVAR-NEVERREQUIRED](../../drs/automation/environment-variables.md#rule-adr-auto-envvar-neverrequired)
 and

@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-RESORG-SEPARATEENVIRONMENTSBYSUBSCRIPTIONNOTBYMANAGEMENTGROUP
 ---
 
-# Production and non production are separated by subscription never by management group (ADR-AZ-DATAMOD-TWOCONFIGLAYERS + ADR-AZ-CAF-RESORG-SEPARATEENVIRONMENTSBYSUBSCRIPTIONNOTBYMANAGEMENTGROUP)
+# Production and non production are separated by subscription never by management group
 
 This article is one rule: [ADR-AZ-DATAMOD-TWOCONFIGLAYERS](../../drs/azure/azure-data-model.md#rule-adr-az-datamod-twoconfiglayers) and
 [ADR-AZ-CAF-RESORG-SEPARATEENVIRONMENTSBYSUBSCRIPTIONNOTBYMANAGEMENTGROUP](../../drs/azure/caf/resource-organization.md#rule-adr-az-caf-resorg-separateenvironmentsbysubscriptionnotbymanagementgroup)

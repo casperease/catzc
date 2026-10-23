@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-SESSION-REVERSELOOKUP
 ---
 
-# Each subscription has its own service connection and session is looked up in azure yml (ADR-AZ-CAF-MGMT-PAIRROLEBASEDACCESSDENYPOLICIES + ADR-AZ-SESSION-REVERSELOOKUP)
+# Each subscription has its own service connection and session is looked up in azure yml
 
 This article is one rule:
 [ADR-AZ-CAF-MGMT-PAIRROLEBASEDACCESSDENYPOLICIES](../../drs/azure/caf/management.md#rule-adr-az-caf-mgmt-pairrolebasedaccessdenypolicies)

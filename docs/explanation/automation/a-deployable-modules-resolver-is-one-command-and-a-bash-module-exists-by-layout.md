@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-BASH-MODULESBYLAYOUT
 ---
 
-# A deployable modules resolver is one command and a bash module exists by layout (ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE + ADR-AUTO-BASH-MODULESBYLAYOUT)
+# A deployable modules resolver is one command and a bash module exists by layout
 
 This article is one rule:
 [ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](../../drs/automation/module-model.md#rule-adr-auto-module-deployabletrackmodule) and

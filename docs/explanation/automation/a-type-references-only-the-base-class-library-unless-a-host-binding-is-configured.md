@@ -7,7 +7,7 @@ catzc:
       - ADR-PWSH-TYPES-POWERSHELLPRIMITIVES
 ---
 
-# A type references only the base class library unless a host binding is configured (ADR-BCL-TYPES-BCLREFERENCESET + ADR-PWSH-TYPES-POWERSHELLPRIMITIVES)
+# A type references only the base class library unless a host binding is configured
 
 This article is one rule:
 [ADR-BCL-TYPES-BCLREFERENCESET](../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-bclreferenceset) and

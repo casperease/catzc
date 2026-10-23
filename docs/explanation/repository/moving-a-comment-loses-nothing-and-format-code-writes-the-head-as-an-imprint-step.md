@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-CODEMETA-IMPRINTSTEP
 ---
 
-# Moving a comment loses nothing and format code writes the head as an imprint step (ADR-REPO-COMMENTS-MOVELOSESNOTHING + ADR-REPO-CODEMETA-IMPRINTSTEP)
+# Moving a comment loses nothing and format code writes the head as an imprint step
 
 This article is one rule:
 [ADR-REPO-COMMENTS-MOVELOSESNOTHING](../../drs/repository/comments-in-docs.md#rule-adr-repo-comments-movelosesnothing) and

@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-LZ-THREEBUILTINPOLICIES
 ---
 
-# Three built in policies guard each landing zone and logs never mix across environments (ADR-AZ-WAF-PE-PE04 + ADR-AZ-LZ-THREEBUILTINPOLICIES)
+# Three built in policies guard each landing zone and logs never mix across environments
 
 This article is one rule: [ADR-AZ-WAF-PE-PE04](../../drs/azure/waf/performance-efficiency.md#rule-adr-az-waf-pe-pe04) and
 [ADR-AZ-LZ-THREEBUILTINPOLICIES](../../drs/azure/landing-zones.md#rule-adr-az-lz-threebuiltinpolicies) merged into one. It holds nothing

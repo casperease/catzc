@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-RESORG-RESOURCEGROUPRESOURCESREGION
 ---
 
-# A resource group lives in its regions and a hubs resources share one per region (ADR-AZ-CAF-NETTOP-ONERESOURCEGROUPPERREGIONHUBRESOURCES + ADR-AZ-CAF-RESORG-RESOURCEGROUPRESOURCESREGION)
+# A resource group lives in its regions and a hubs resources share one per region
 
 This article is one rule:
 [ADR-AZ-CAF-NETTOP-ONERESOURCEGROUPPERREGIONHUBRESOURCES](../../drs/azure/caf/network-topology.md#rule-adr-az-caf-nettop-oneresourcegroupperregionhubresources)

@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-COMMENTS-COMMENTPAGEPLACE
 ---
 
-# Minimaps are computed from declared inputs and a comment page maps to one file (ADR-REPO-SLIDES-MINIMAPSFROMDATA + ADR-REPO-COMMENTS-COMMENTPAGEPLACE)
+# Minimaps are computed from declared inputs and a comment page maps to one file
 
 This article is one rule:
 [ADR-REPO-SLIDES-MINIMAPSFROMDATA](../../drs/repository/slides-as-markdown.md#rule-adr-repo-slides-minimapsfromdata) and

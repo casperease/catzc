@@ -7,7 +7,7 @@ catzc:
       - ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS
 ---
 
-# A vendored module carries only what loads and a bundle carries merged manifests (ADR-PWSH-VENDOR-ONLYWHATLOADS + ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS)
+# A vendored module carries only what loads and a bundle carries merged manifests
 
 This article is one rule:
 [ADR-PWSH-VENDOR-ONLYWHATLOADS](../../drs/automation/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-onlywhatloads) and

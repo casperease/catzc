@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-WAF-SE-SE06
 ---
 
-# Every subscription has one network and data services are reached only by private endpoint (ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION + ADR-AZ-WAF-SE-SE06)
+# Every subscription has one network and data services are reached only by private endpoint
 
 This article is one rule:
 [ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../../drs/azure/azure-network-model.md#rule-adr-az-network-networkpersubscription) and

@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-FILEMETA-PROVENANCEINHEAD
 ---
 
-# Minimaps are computed from declared inputs and a generated file states its provenance once (ADR-REPO-SLIDES-MINIMAPSFROMDATA + ADR-REPO-FILEMETA-PROVENANCEINHEAD)
+# Minimaps are computed from declared inputs and a generated file states its provenance once
 
 This article is one rule:
 [ADR-REPO-SLIDES-MINIMAPSFROMDATA](../../drs/repository/slides-as-markdown.md#rule-adr-repo-slides-minimapsfromdata) and

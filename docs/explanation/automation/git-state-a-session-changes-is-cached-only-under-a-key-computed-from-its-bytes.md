@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE
 ---
 
-# Git state a session changes is cached only under a key computed from its bytes (ADR-AUTO-TRACKED-CACHEDBYINDEXHASH + ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE)
+# Git state a session changes is cached only under a key computed from its bytes
 
 This article is one rule:
 [ADR-AUTO-TRACKED-CACHEDBYINDEXHASH](../../drs/automation/tracked-files-from-the-index.md#rule-adr-auto-tracked-cachedbyindexhash) and

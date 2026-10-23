@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-FILEMETA-HEADPOLICY
 ---
 
-# Generation is idempotent and writes only on a real change under the head policy (ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION + ADR-REPO-FILEMETA-HEADPOLICY)
+# Generation is idempotent and writes only on a real change under the head policy
 
 This article is one rule:
 [ADR-REPO-ROOTCFG-IDEMPOTENTGENERATION](../../drs/repository/generated-root-configs.md#rule-adr-repo-rootcfg-idempotentgeneration) and

@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-FILEMETA-HEADPOLICY
 ---
 
-# The inline comment view is generated and every file has a head policy (ADR-REPO-COMMENTS-INLINEVIEWGENERATED + ADR-REPO-FILEMETA-HEADPOLICY)
+# The inline comment view is generated and every file has a head policy
 
 This article is one rule:
 [ADR-REPO-COMMENTS-INLINEVIEWGENERATED](../../drs/repository/comments-in-docs.md#rule-adr-repo-comments-inlineviewgenerated) and

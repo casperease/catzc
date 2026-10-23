@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-SLIDES-DECLARATION
 ---
 
-# Markdown headings are plain words and a diagram is a render with one declaration (ADR-REPO-FORMAT-PLAINHEADINGS + ADR-REPO-SLIDES-DECLARATION)
+# Markdown headings are plain words and a diagram is a render with one declaration
 
 This article is one rule: [ADR-REPO-FORMAT-PLAINHEADINGS](../../drs/repository/uniform-formatting.md#rule-adr-repo-format-plainheadings) and
 [ADR-REPO-SLIDES-DECLARATION](../../drs/repository/slides-as-markdown.md#rule-adr-repo-slides-declaration) merged into one. It holds nothing

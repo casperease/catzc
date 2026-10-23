@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE
 ---
 
-# Contracts hold no dot folders and a command contract is written in yaml (ADR-REPO-CONTRACT-NODOTFOLDERS + ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE)
+# Contracts hold no dot folders and a command contract is written in yaml
 
 This article is one rule: [ADR-REPO-CONTRACT-NODOTFOLDERS](../../drs/repository/api-contracts.md#rule-adr-repo-contract-nodotfolders) and
 [ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-contractlanguage) merged into

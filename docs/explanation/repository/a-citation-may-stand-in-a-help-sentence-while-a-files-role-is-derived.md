@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-FILEMETA-ROLE
 ---
 
-# A citation may stand in a help sentence while a files role is derived (ADR-REPO-HELP-CITATIONINSENTENCE + ADR-REPO-FILEMETA-ROLE)
+# A citation may stand in a help sentence while a files role is derived
 
 This article is one rule: [ADR-REPO-HELP-CITATIONINSENTENCE](../../drs/repository/function-help.md#rule-adr-repo-help-citationinsentence)
 and [ADR-REPO-FILEMETA-ROLE](../../drs/repository/file-meta.md#rule-adr-repo-filemeta-role) merged into one. It holds nothing beyond what

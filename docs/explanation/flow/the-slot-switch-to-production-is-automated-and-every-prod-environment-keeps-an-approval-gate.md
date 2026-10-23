@@ -7,7 +7,7 @@ catzc:
       - FDR-CD-PRODAPPROVALGATE
 ---
 
-# The slot switch to production is automated and every prod environment keeps an approval gate (FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED + FDR-CD-PRODAPPROVALGATE)
+# The slot switch to production is automated and every prod environment keeps an approval gate
 
 This article is one rule: [FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED](../../drs/flow/manual-queues.md#rule-fdr-cd-queue-slotswitchisautomated) and
 [FDR-CD-PRODAPPROVALGATE](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-prodapprovalgate) merged into one. It holds nothing

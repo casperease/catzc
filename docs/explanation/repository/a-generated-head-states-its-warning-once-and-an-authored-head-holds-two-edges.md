@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY
 ---
 
-# A generated head states its warning once and an authored head holds two edges (ADR-REPO-FILEMETA-PROVENANCEINHEAD + ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY)
+# A generated head states its warning once and an authored head holds two edges
 
 This article is one rule: [ADR-REPO-FILEMETA-PROVENANCEINHEAD](../../drs/repository/file-meta.md#rule-adr-repo-filemeta-provenanceinhead)
 and [ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY](../../drs/repository/code-file-meta.md#rule-adr-repo-codemeta-computablefactsonly) merged into

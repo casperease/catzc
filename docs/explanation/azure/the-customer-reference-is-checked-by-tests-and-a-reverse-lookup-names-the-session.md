@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-SESSION-REVERSELOOKUP
 ---
 
-# The customer reference is checked by tests and a reverse lookup names the session (ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD + ADR-AZ-SESSION-REVERSELOOKUP)
+# The customer reference is checked by tests and a reverse lookup names the session
 
 This article is one rule:
 [ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD](../../drs/azure/azure-customer-model.md#rule-adr-az-customer-referencenotvalidatedonload) and

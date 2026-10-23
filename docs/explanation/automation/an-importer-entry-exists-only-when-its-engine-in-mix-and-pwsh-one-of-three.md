@@ -7,7 +7,7 @@ catzc:
       - ADR-PWSH-ENGINE-PWSHISANENGINE
 ---
 
-# An importer entry exists only when its engine in mix and pwsh one of three (ADR-AUTO-IMPORTER-ENTRIESFOLLOWMIX + ADR-PWSH-ENGINE-PWSHISANENGINE)
+# An importer entry exists only when its engine in mix and pwsh one of three
 
 This article is one rule: [ADR-AUTO-IMPORTER-ENTRIESFOLLOWMIX](../../drs/automation/importer.md#rule-adr-auto-importer-entriesfollowmix) and
 [ADR-PWSH-ENGINE-PWSHISANENGINE](../../drs/automation/pwsh/pwsh-engine.md#rule-adr-pwsh-engine-pwshisanengine) merged into one. It holds

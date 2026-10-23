@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-GO-GENERATEDWORKSPACE
 ---
 
-# Each engine reaches catzc through its importer entry and the go workspace is generated (ADR-AUTO-ENGINE-IMPORTERENTRY + ADR-AUTO-GO-GENERATEDWORKSPACE)
+# Each engine reaches catzc through its importer entry and the go workspace is generated
 
 This article is one rule: [ADR-AUTO-ENGINE-IMPORTERENTRY](../../drs/automation/execution-engines.md#rule-adr-auto-engine-importerentry) and
 [ADR-AUTO-GO-GENERATEDWORKSPACE](../../drs/automation/go/go-test-artifacts.md#rule-adr-auto-go-generatedworkspace) merged into one. It holds

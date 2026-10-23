@@ -7,7 +7,7 @@ catzc:
       - DDR-TRACKTYPE-ONEROLE
 ---
 
-# A track owns one tech stack and one role either deploying units or holding files (DDR-TRACK-ONETECHSTACK + DDR-TRACKTYPE-ONEROLE)
+# A track owns one tech stack and one role either deploying units or holding files
 
 This article is one rule: [DDR-TRACK-ONETECHSTACK](../../drs/design/tracks.md#rule-ddr-track-onetechstack) and
 [DDR-TRACKTYPE-ONEROLE](../../drs/design/track-types.md#rule-ddr-tracktype-onerole) merged into one. It holds nothing beyond what those two

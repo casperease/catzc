@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-IAM-SEPARATEADMINISTRATIVEFROMEVERYDAYACCOUNTS
 ---
 
-# Entra access reports and separate admin accounts belong to the tenants administrators (ADR-AZ-CAF-SEC-ACCESSAUDITREPORTSFROMENTRAID + ADR-AZ-CAF-IAM-SEPARATEADMINISTRATIVEFROMEVERYDAYACCOUNTS)
+# Entra access reports and separate admin accounts belong to the tenants administrators
 
 This article is one rule:
 [ADR-AZ-CAF-SEC-ACCESSAUDITREPORTSFROMENTRAID](../../drs/azure/caf/landing-zone-security.md#rule-adr-az-caf-sec-accessauditreportsfromentraid)

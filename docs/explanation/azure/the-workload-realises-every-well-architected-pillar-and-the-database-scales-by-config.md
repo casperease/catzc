@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-LZ-EVERYPILLAR
 ---
 
-# The workload realises every well architected pillar and the database scales by config (ADR-AZ-WAF-PE-PE05 + ADR-AZ-LZ-EVERYPILLAR)
+# The workload realises every well architected pillar and the database scales by config
 
 This article is one rule: [ADR-AZ-WAF-PE-PE05](../../drs/azure/waf/performance-efficiency.md#rule-adr-az-waf-pe-pe05) and
 [ADR-AZ-LZ-EVERYPILLAR](../../drs/azure/landing-zones.md#rule-adr-az-lz-everypillar) merged into one. It holds nothing beyond what those two

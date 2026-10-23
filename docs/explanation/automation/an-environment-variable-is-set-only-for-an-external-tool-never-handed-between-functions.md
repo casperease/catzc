@@ -7,7 +7,7 @@ catzc:
       - ADR-PWSH-ENV-NOHANDOFF
 ---
 
-# An environment variable is set only for an external tool never handed between functions (ADR-AUTO-ENVVAR-SETONLYFORTOOLS + ADR-PWSH-ENV-NOHANDOFF)
+# An environment variable is set only for an external tool never handed between functions
 
 This article is one rule:
 [ADR-AUTO-ENVVAR-SETONLYFORTOOLS](../../drs/automation/environment-variables.md#rule-adr-auto-envvar-setonlyfortools) and

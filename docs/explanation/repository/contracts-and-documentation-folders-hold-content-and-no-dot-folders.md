@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY
 ---
 
-# Contracts and documentation folders hold content and no dot folders (ADR-REPO-CONTRACT-NODOTFOLDERS + ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY)
+# Contracts and documentation folders hold content and no dot folders
 
 This article is one rule: [ADR-REPO-CONTRACT-NODOTFOLDERS](../../drs/repository/api-contracts.md#rule-adr-repo-contract-nodotfolders) and
 [ADR-REPO-FOLDERS-DOCUMENTATIONMARKDOWNONLY](../../drs/repository/conventional-folders.md#rule-adr-repo-folders-documentationmarkdownonly)

@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-DEPM-NOTSYSTEMDEPENDENCY
 ---
 
-# Vendored modules live in a versioned folder and are code the toolset is built from (ADR-PWSH-VENDOR-VERSIONEDVENDORFOLDER + ADR-AUTO-DEPM-NOTSYSTEMDEPENDENCY)
+# Vendored modules live in a versioned folder and are code the toolset is built from
 
 This article is one rule:
 [ADR-PWSH-VENDOR-VERSIONEDVENDORFOLDER](../../drs/automation/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-versionedvendorfolder)

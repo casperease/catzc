@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-PRIN-SUBSCRIPTIONDEMOCRATIZATION
 ---
 
-# The subscription is the unit of management and environments are split by subscription (ADR-AZ-CAF-RESORG-SEPARATEENVIRONMENTSBYSUBSCRIPTIONNOTBYMANAGEMENTGROUP + ADR-AZ-CAF-PRIN-SUBSCRIPTIONDEMOCRATIZATION)
+# The subscription is the unit of management and environments are split by subscription
 
 This article is one rule:
 [ADR-AZ-CAF-RESORG-SEPARATEENVIRONMENTSBYSUBSCRIPTIONNOTBYMANAGEMENTGROUP](../../drs/azure/caf/resource-organization.md#rule-adr-az-caf-resorg-separateenvironmentsbysubscriptionnotbymanagementgroup)

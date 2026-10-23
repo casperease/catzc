@@ -7,7 +7,7 @@ catzc:
       - ADR-PWSH-VERBS-SEMANTICCONTRACT
 ---
 
-# A name is a promise so get never modifies test returns bool and assert throws (ADR-AUTO-ONEJOB-NAMEISCONTRACT + ADR-PWSH-VERBS-SEMANTICCONTRACT)
+# A name is a promise so get never modifies test returns bool and assert throws
 
 This article is one rule:
 [ADR-AUTO-ONEJOB-NAMEISCONTRACT](../../drs/automation/single-responsibility-functions.md#rule-adr-auto-onejob-nameiscontract) and

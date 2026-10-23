@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-DEPS-TWODEPENDENCYKINDS
 ---
 
-# Python clis install through uv in two shapes and system dependencies are run against (ADR-AUTO-UVPY-TWOINSTALLSHAPES + ADR-AUTO-DEPS-TWODEPENDENCYKINDS)
+# Python clis install through uv in two shapes and system dependencies are run against
 
 This article is one rule: [ADR-AUTO-UVPY-TWOINSTALLSHAPES](../../drs/automation/uv-python-handler.md#rule-adr-auto-uvpy-twoinstallshapes)
 and [ADR-AUTO-DEPS-TWODEPENDENCYKINDS](../../drs/automation/controlling-systemwide-deps.md#rule-adr-auto-deps-twodependencykinds) merged

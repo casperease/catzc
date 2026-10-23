@@ -7,7 +7,7 @@ catzc:
       - FDR-CD-QUEUE-SIGNATUREISTHEGATE
 ---
 
-# The release gates are served by one human signature in the appointed registry (FDR-CD-TWORELEASEGATES + FDR-CD-QUEUE-SIGNATUREISTHEGATE)
+# The release gates are served by one human signature in the appointed registry
 
 This article is one rule: [FDR-CD-TWORELEASEGATES](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates) and
 [FDR-CD-QUEUE-SIGNATUREISTHEGATE](../../drs/flow/manual-queues.md#rule-fdr-cd-queue-signatureisthegate) merged into one. It holds nothing

@@ -7,7 +7,7 @@ catzc:
       - TDR-NORMALFORM-ANYCODEHASNORMALFORM
 ---
 
-# The version controlled repository is the source of truth and all its content is code (TDR-STORES-VERSIONCONTROLLEDREPOSITORY + TDR-NORMALFORM-ANYCODEHASNORMALFORM)
+# The version controlled repository is the source of truth and all its content is code
 
 This article is one rule:
 [TDR-STORES-VERSIONCONTROLLEDREPOSITORY](../../drs/thesis/truth-stores.md#rule-tdr-stores-versioncontrolledrepository) and

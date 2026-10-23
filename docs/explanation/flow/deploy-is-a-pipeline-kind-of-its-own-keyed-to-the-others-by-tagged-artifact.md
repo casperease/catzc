@@ -7,7 +7,7 @@ catzc:
       - FDR-CD-SEPARATEPIPELINEKINDS
 ---
 
-# Deploy is a pipeline kind of its own keyed to the others by tagged artifact (FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE + FDR-CD-SEPARATEPIPELINEKINDS)
+# Deploy is a pipeline kind of its own keyed to the others by tagged artifact
 
 This article is one rule: [FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE](../../drs/flow/pipeline-types.md#rule-fdr-cd-type-deploycarriesgovernance)
 and [FDR-CD-SEPARATEPIPELINEKINDS](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-separatepipelinekinds) merged into one. It

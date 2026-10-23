@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-NAME-TAGREGION
 ---
 
-# One region per environment and resource group makes a region tag unnecessary (ADR-AZ-CAF-RESORG-ONEREGIONPERRESOURCEGROUP + ADR-AZ-CAF-NAME-TAGREGION)
+# One region per environment and resource group makes a region tag unnecessary
 
 This article is one rule:
 [ADR-AZ-CAF-RESORG-ONEREGIONPERRESOURCEGROUP](../../drs/azure/caf/resource-organization.md#rule-adr-az-caf-resorg-oneregionperresourcegroup)

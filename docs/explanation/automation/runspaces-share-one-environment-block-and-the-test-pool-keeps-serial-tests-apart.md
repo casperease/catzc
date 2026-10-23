@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-TEST-ONESCHEDULINGPOOL
 ---
 
-# Runspaces share one environment block and the test pool keeps serial tests apart (ADR-PWSH-ENV-SHAREDPROCESSENVIRONMENT + ADR-AUTO-TEST-ONESCHEDULINGPOOL)
+# Runspaces share one environment block and the test pool keeps serial tests apart
 
 This article is one rule:
 [ADR-PWSH-ENV-SHAREDPROCESSENVIRONMENT](../../drs/automation/pwsh/environment-variable-mechanics.md#rule-adr-pwsh-env-sharedprocessenvironment)

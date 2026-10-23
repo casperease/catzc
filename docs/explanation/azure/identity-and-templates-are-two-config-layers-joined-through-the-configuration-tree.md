@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-IACKIND-THREEKINDS
 ---
 
-# Identity and templates are two config layers joined through the configuration tree (ADR-AZ-DATAMOD-TWOCONFIGLAYERS + ADR-AZ-IACKIND-THREEKINDS)
+# Identity and templates are two config layers joined through the configuration tree
 
 This article is one rule: [ADR-AZ-DATAMOD-TWOCONFIGLAYERS](../../drs/azure/azure-data-model.md#rule-adr-az-datamod-twoconfiglayers) and
 [ADR-AZ-IACKIND-THREEKINDS](../../drs/azure/infrastructure-kinds.md#rule-adr-az-iackind-threekinds) merged into one. It holds nothing beyond

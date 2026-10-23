@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-DEPS-PLATFORMPREREQUISITEASSERTED
 ---
 
-# Three platform cores carry removal and platform prerequisites are asserted never installed (ADR-AUTO-REMOVE-THREEPLATFORMCORES + ADR-AUTO-DEPS-PLATFORMPREREQUISITEASSERTED)
+# Three platform cores carry removal and platform prerequisites are asserted never installed
 
 This article is one rule:
 [ADR-AUTO-REMOVE-THREEPLATFORMCORES](../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-threeplatformcores) and

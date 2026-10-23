@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-TEST-CATEGORYORTHOGONALTOTIER
 ---
 
-# Logic tests isolate through seams and category is orthogonal to tier (ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS + ADR-AUTO-TEST-CATEGORYORTHOGONALTOTIER)
+# Logic tests isolate through seams and category is orthogonal to tier
 
 This article is one rule:
 [ADR-PWSH-PESTER-ISOLATETHROUGHSEAMS](../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-isolatethroughseams) and

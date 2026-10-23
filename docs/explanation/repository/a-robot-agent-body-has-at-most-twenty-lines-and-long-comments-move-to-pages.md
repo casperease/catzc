@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-COMMENTS-COMMENTPAGEPLACE
 ---
 
-# A robot agent body has at most twenty lines and long comments move to pages (ADR-REPO-AGENTS-ROBOTBODYLIMIT + ADR-REPO-COMMENTS-COMMENTPAGEPLACE)
+# A robot agent body has at most twenty lines and long comments move to pages
 
 This article is one rule: [ADR-REPO-AGENTS-ROBOTBODYLIMIT](../../drs/repository/agent-definitions.md#rule-adr-repo-agents-robotbodylimit)
 and [ADR-REPO-COMMENTS-COMMENTPAGEPLACE](../../drs/repository/comments-in-docs.md#rule-adr-repo-comments-commentpageplace) merged into one.

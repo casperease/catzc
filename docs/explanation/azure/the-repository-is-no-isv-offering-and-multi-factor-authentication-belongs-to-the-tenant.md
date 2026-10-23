@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-IAM-MULTIFACTORAUTHENTICATIONEVERYONEAZURERIGHTS
 ---
 
-# The repository is no isv offering and multi factor authentication belongs to the tenant (ADR-AZ-CAF-BILL-READISVLANDINGZONEGUIDANCE + ADR-AZ-CAF-IAM-MULTIFACTORAUTHENTICATIONEVERYONEAZURERIGHTS)
+# The repository is no isv offering and multi factor authentication belongs to the tenant
 
 This article is one rule:
 [ADR-AZ-CAF-BILL-READISVLANDINGZONEGUIDANCE](../../drs/azure/caf/billing-and-tenant.md#rule-adr-az-caf-bill-readisvlandingzoneguidance) and

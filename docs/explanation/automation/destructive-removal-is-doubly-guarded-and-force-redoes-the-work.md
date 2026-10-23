@@ -7,7 +7,7 @@ catzc:
       - ADR-PWSH-IDEM-FORCESKIPSCHECK
 ---
 
-# Destructive removal is doubly guarded and force redoes the work (ADR-AUTO-REMOVE-DOUBLYGUARDED + ADR-PWSH-IDEM-FORCESKIPSCHECK)
+# Destructive removal is doubly guarded and force redoes the work
 
 This article is one rule: [ADR-AUTO-REMOVE-DOUBLYGUARDED](../../drs/automation/tool-removal-lifecycle.md#rule-adr-auto-remove-doublyguarded)
 and [ADR-PWSH-IDEM-FORCESKIPSCHECK](../../drs/automation/pwsh/idempotent-state-mechanics.md#rule-adr-pwsh-idem-forceskipscheck) merged into

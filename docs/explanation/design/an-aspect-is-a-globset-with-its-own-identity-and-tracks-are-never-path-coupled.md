@@ -7,7 +7,7 @@ catzc:
       - DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED
 ---
 
-# An aspect is a globset with its own identity and tracks are never path coupled (DDR-ASPECT-ASPECTISAGLOBSET + DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED)
+# An aspect is a globset with its own identity and tracks are never path coupled
 
 This article is one rule: [DDR-ASPECT-ASPECTISAGLOBSET](../../drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset) and
 [DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED](../../drs/design/tracks.md#rule-ddr-track-subscribablenotpathcoupled) merged into one. It holds

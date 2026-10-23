@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-IAM-KEEPCOREAPPLICATIONSNEARREPLICASETS
 ---
 
-# No template deploys a virtual machine or a managed directory so two practices are declined (ADR-AZ-CAF-MGMT-AUDITGUESTCONFIGURATIONDRIFTBYPOLICY + ADR-AZ-CAF-IAM-KEEPCOREAPPLICATIONSNEARREPLICASETS)
+# No template deploys a virtual machine or a managed directory so two practices are declined
 
 This article is one rule:
 [ADR-AZ-CAF-MGMT-AUDITGUESTCONFIGURATIONDRIFTBYPOLICY](../../drs/azure/caf/management.md#rule-adr-az-caf-mgmt-auditguestconfigurationdriftbypolicy)

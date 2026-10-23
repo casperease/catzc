@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-BILL-STARTCLOUDONLYWHENTHEREISNOIDENTITYESTATE
 ---
 
-# The repository builds no identity estate so defender for identity is not adopted (ADR-AZ-CAF-IAM-DEFENDERIDENTITY + ADR-AZ-CAF-BILL-STARTCLOUDONLYWHENTHEREISNOIDENTITYESTATE)
+# The repository builds no identity estate so defender for identity is not adopted
 
 This article is one rule: [ADR-AZ-CAF-IAM-DEFENDERIDENTITY](../../drs/azure/caf/identity-and-access.md#rule-adr-az-caf-iam-defenderidentity)
 and

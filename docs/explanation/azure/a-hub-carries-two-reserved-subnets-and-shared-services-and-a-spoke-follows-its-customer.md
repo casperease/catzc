@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-NETTOP-MINIMALSETSHAREDSERVICESHUB
 ---
 
-# A hub carries two reserved subnets and shared services and a spoke follows its customer (ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION + ADR-AZ-CAF-NETTOP-MINIMALSETSHAREDSERVICESHUB)
+# A hub carries two reserved subnets and shared services and a spoke follows its customer
 
 This article is one rule:
 [ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../../drs/azure/azure-network-model.md#rule-adr-az-network-networkpersubscription) and

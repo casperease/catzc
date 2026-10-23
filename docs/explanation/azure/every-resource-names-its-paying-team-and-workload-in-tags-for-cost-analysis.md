@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-BILL-ANALYSECOSTBYTAGLOCATION
 ---
 
-# Every resource names its paying team and workload in tags for cost analysis (ADR-AZ-CAF-GOV-TAGRESOURCESCOSTANALYSIS + ADR-AZ-CAF-BILL-ANALYSECOSTBYTAGLOCATION)
+# Every resource names its paying team and workload in tags for cost analysis
 
 This article is one rule:
 [ADR-AZ-CAF-GOV-TAGRESOURCESCOSTANALYSIS](../../drs/azure/caf/governance.md#rule-adr-az-caf-gov-tagresourcescostanalysis) and

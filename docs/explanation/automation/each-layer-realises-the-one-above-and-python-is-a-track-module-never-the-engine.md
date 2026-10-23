@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-PY-MODULESBYLAYOUT
 ---
 
-# Each layer realises the one above and python is a track module never the engine (ADR-AUTO-LAYERS-REALISENEVERREDEFINE + ADR-AUTO-PY-MODULESBYLAYOUT)
+# Each layer realises the one above and python is a track module never the engine
 
 This article is one rule: [ADR-AUTO-LAYERS-REALISENEVERREDEFINE](../../drs/automation/layers.md#rule-adr-auto-layers-realiseneverredefine)
 and [ADR-AUTO-PY-MODULESBYLAYOUT](../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-modulesbylayout) merged into one. It

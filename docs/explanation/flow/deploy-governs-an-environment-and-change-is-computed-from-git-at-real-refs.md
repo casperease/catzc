@@ -7,7 +7,7 @@ catzc:
       - FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT
 ---
 
-# Deploy governs an environment and change is computed from git at real refs (FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE + FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT)
+# Deploy governs an environment and change is computed from git at real refs
 
 This article is one rule: [FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE](../../drs/flow/pipeline-types.md#rule-fdr-cd-type-deploycarriesgovernance)
 and [FDR-CD-GLOBS-CHANGECOMPUTEDFROMGIT](../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-changecomputedfromgit) merged into one. It

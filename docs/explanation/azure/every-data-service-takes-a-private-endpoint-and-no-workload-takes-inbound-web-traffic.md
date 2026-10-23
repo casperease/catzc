@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-NETPRV-SERVICEENDPOINTSWHEREPRIVATELINKISNOTNEEDED
 ---
 
-# Every data service takes a private endpoint and no workload takes inbound web traffic (ADR-AZ-CAF-NETCON-PROTECTINBOUNDWEBTRAFFICINSIDELANDINGZONENETWORK + ADR-AZ-CAF-NETPRV-SERVICEENDPOINTSWHEREPRIVATELINKISNOTNEEDED)
+# Every data service takes a private endpoint and no workload takes inbound web traffic
 
 This article is one rule:
 [ADR-AZ-CAF-NETCON-PROTECTINBOUNDWEBTRAFFICINSIDELANDINGZONENETWORK](../../drs/azure/caf/network-connectivity.md#rule-adr-az-caf-netcon-protectinboundwebtrafficinsidelandingzonenetwork)

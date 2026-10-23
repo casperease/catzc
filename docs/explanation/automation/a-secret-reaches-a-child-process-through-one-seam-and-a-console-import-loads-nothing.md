@@ -7,7 +7,7 @@ catzc:
       - ADR-BCL-TYPES-CONSOLEVERIFIESONLY
 ---
 
-# A secret reaches a child process through one seam and a console import loads nothing (ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS + ADR-BCL-TYPES-CONSOLEVERIFIESONLY)
+# A secret reaches a child process through one seam and a console import loads nothing
 
 This article is one rule:
 [ADR-AUTO-ENVVAR-SECRETTOCHILDPROCESS](../../drs/automation/environment-variables.md#rule-adr-auto-envvar-secrettochildprocess) and

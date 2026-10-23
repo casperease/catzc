@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-MODULE-LANGUAGESFROMFILES
 ---
 
-# New content is added as files and a modules languages come from its files (ADR-AUTO-EXTEND-ADDNOTEDIT + ADR-AUTO-MODULE-LANGUAGESFROMFILES)
+# New content is added as files and a modules languages come from its files
 
 This article is one rule: [ADR-AUTO-EXTEND-ADDNOTEDIT](../../drs/automation/open-closed-architecture.md#rule-adr-auto-extend-addnotedit) and
 [ADR-AUTO-MODULE-LANGUAGESFROMFILES](../../drs/automation/module-model.md#rule-adr-auto-module-languagesfromfiles) merged into one. It holds

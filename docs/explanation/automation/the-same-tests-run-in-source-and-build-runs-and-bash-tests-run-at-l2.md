@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-TEST-SAMETESTSBOTHRUNS
 ---
 
-# The same tests run in source and build runs and bash tests run at l2 (ADR-AUTO-BASH-LANGUAGEBRIDGE + ADR-AUTO-TEST-SAMETESTSBOTHRUNS)
+# The same tests run in source and build runs and bash tests run at l2
 
 This article is one rule: [ADR-AUTO-BASH-LANGUAGEBRIDGE](../../drs/automation/bash/bash-test-artifacts.md#rule-adr-auto-bash-languagebridge)
 and [ADR-AUTO-TEST-SAMETESTSBOTHRUNS](../../drs/automation/test-automation.md#rule-adr-auto-test-sametestsbothruns) merged into one. It

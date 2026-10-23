@@ -7,7 +7,7 @@ catzc:
       - FDR-CD-TWORELEASEGATES
 ---
 
-# One release signature serves each gate and rc and rbc are gates not pipelines (FDR-CD-QUEUE-SIGNATUREISTHEGATE + FDR-CD-TWORELEASEGATES)
+# One release signature serves each gate and rc and rbc are gates not pipelines
 
 This article is one rule: [FDR-CD-QUEUE-SIGNATUREISTHEGATE](../../drs/flow/manual-queues.md#rule-fdr-cd-queue-signatureisthegate) and
 [FDR-CD-TWORELEASEGATES](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-tworeleasegates) merged into one. It holds nothing

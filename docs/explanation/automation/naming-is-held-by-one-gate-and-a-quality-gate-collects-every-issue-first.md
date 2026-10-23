@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-TEST-QUALITYGATE
 ---
 
-# Naming is held by one gate and a quality gate collects every issue first (ADR-AUTO-IDIOM-HELDBYGATE + ADR-AUTO-TEST-QUALITYGATE)
+# Naming is held by one gate and a quality gate collects every issue first
 
 This article is one rule: [ADR-AUTO-IDIOM-HELDBYGATE](../../drs/automation/idiomatic-names.md#rule-adr-auto-idiom-heldbygate) and
 [ADR-AUTO-TEST-QUALITYGATE](../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate) merged into one. It holds nothing beyond

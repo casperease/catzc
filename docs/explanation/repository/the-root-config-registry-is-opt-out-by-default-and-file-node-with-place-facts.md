@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-FILEMETA-FILEISNODE
 ---
 
-# The root config registry is opt out by default and file node with place facts (ADR-REPO-ROOTCFG-REGISTRY + ADR-REPO-FILEMETA-FILEISNODE)
+# The root config registry is opt out by default and file node with place facts
 
 This article is one rule: [ADR-REPO-ROOTCFG-REGISTRY](../../drs/repository/generated-root-configs.md#rule-adr-repo-rootcfg-registry) and
 [ADR-REPO-FILEMETA-FILEISNODE](../../drs/repository/file-meta.md#rule-adr-repo-filemeta-fileisnode) merged into one. It holds nothing beyond

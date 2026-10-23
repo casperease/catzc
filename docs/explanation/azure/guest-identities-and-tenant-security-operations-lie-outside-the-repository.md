@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-BILL-FOLLOWENTRASECURITYOPERATIONSGUIDE
 ---
 
-# Guest identities and tenant security operations lie outside the repository (ADR-AZ-CAF-IAM-GUESTPARTNERACCESS + ADR-AZ-CAF-BILL-FOLLOWENTRASECURITYOPERATIONSGUIDE)
+# Guest identities and tenant security operations lie outside the repository
 
 This article is one rule:
 [ADR-AZ-CAF-IAM-GUESTPARTNERACCESS](../../drs/azure/caf/identity-and-access.md#rule-adr-az-caf-iam-guestpartneraccess) and

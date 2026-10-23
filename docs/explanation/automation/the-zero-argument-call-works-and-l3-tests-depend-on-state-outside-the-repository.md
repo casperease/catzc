@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-TEST-SYSTEMTESTSATLTHREE
 ---
 
-# The zero argument call works and l3 tests depend on state outside the repository (ADR-AUTO-DEFAULT-ZEROARGUMENTCALL + ADR-AUTO-TEST-SYSTEMTESTSATLTHREE)
+# The zero argument call works and l3 tests depend on state outside the repository
 
 This article is one rule:
 [ADR-AUTO-DEFAULT-ZEROARGUMENTCALL](../../drs/automation/sensible-defaults.md#rule-adr-auto-default-zeroargumentcall) and

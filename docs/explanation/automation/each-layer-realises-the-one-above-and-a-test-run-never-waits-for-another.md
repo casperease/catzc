@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-TEST-RUNSNEVERWAIT
 ---
 
-# Each layer realises the one above and a test run never waits for another (ADR-AUTO-LAYERS-REALISENEVERREDEFINE + ADR-AUTO-TEST-RUNSNEVERWAIT)
+# Each layer realises the one above and a test run never waits for another
 
 This article is one rule: [ADR-AUTO-LAYERS-REALISENEVERREDEFINE](../../drs/automation/layers.md#rule-adr-auto-layers-realiseneverredefine)
 and [ADR-AUTO-TEST-RUNSNEVERWAIT](../../drs/automation/test-automation.md#rule-adr-auto-test-runsneverwait) merged into one. It holds

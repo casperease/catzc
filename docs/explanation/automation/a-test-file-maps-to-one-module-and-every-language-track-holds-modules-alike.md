@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE
 ---
 
-# A test file maps to one module and every language track holds modules alike (ADR-AUTO-TEST-TESTFILE + ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE)
+# A test file maps to one module and every language track holds modules alike
 
 This article is one rule: [ADR-AUTO-TEST-TESTFILE](../../drs/automation/test-automation.md#rule-adr-auto-test-testfile) and
 [ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE](../../drs/automation/module-model.md#rule-adr-auto-module-everylanguagetrackalike) merged into

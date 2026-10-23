@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-WAF-CO-CO12
 ---
 
-# Scaling stays inside a config ceiling and no compute is deployed to scale (ADR-AZ-WAF-RE-RE06 + ADR-AZ-WAF-CO-CO12)
+# Scaling stays inside a config ceiling and no compute is deployed to scale
 
 This article is one rule: [ADR-AZ-WAF-RE-RE06](../../drs/azure/waf/reliability.md#rule-adr-az-waf-re-re06) and
 [ADR-AZ-WAF-CO-CO12](../../drs/azure/waf/cost-optimization.md#rule-adr-az-waf-co-co12) merged into one. It holds nothing beyond what those

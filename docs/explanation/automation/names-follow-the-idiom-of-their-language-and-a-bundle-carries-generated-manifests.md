@@ -7,7 +7,7 @@ catzc:
       - ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS
 ---
 
-# Names follow the idiom of their language and a bundle carries generated manifests (ADR-AUTO-IDIOM-LANGUAGEIDIOM + ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS)
+# Names follow the idiom of their language and a bundle carries generated manifests
 
 This article is one rule: [ADR-AUTO-IDIOM-LANGUAGEIDIOM](../../drs/automation/idiomatic-names.md#rule-adr-auto-idiom-languageidiom) and
 [ADR-PWSH-MANIFEST-BUNDLECARRIESMANIFESTS](../../drs/automation/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-bundlecarriesmanifests)

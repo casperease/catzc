@@ -7,7 +7,7 @@ catzc:
       - DDR-TRACKTYPE-DECLAREDONCE
 ---
 
-# A module type and a track are each declared once with their places (DDR-MODTYPE-MODULETYPEISSORT + DDR-TRACKTYPE-DECLAREDONCE)
+# A module type and a track are each declared once with their places
 
 This article is one rule: [DDR-MODTYPE-MODULETYPEISSORT](../../drs/design/module-types.md#rule-ddr-modtype-moduletypeissort) and
 [DDR-TRACKTYPE-DECLAREDONCE](../../drs/design/track-types.md#rule-ddr-tracktype-declaredonce) merged into one. It holds nothing beyond what

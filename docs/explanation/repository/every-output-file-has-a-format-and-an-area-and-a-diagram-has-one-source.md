@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-SLIDES-DECLARATION
 ---
 
-# Every output file has a format and an area and a diagram has one source (ADR-REPO-OUTDIR-EVERYFILEHASFORMAT + ADR-REPO-SLIDES-DECLARATION)
+# Every output file has a format and an area and a diagram has one source
 
 This article is one rule:
 [ADR-REPO-OUTDIR-EVERYFILEHASFORMAT](../../drs/repository/dedicated-output-directory.md#rule-adr-repo-outdir-everyfilehasformat) and

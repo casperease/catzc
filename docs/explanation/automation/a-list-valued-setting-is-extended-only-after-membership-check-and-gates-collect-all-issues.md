@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-TEST-QUALITYGATE
 ---
 
-# A list valued setting is extended only after membership check and gates collect all issues (ADR-PWSH-IDEM-LISTSETTINGDEDUPLICATED + ADR-AUTO-TEST-QUALITYGATE)
+# A list valued setting is extended only after membership check and gates collect all issues
 
 This article is one rule:
 [ADR-PWSH-IDEM-LISTSETTINGDEDUPLICATED](../../drs/automation/pwsh/idempotent-state-mechanics.md#rule-adr-pwsh-idem-listsettingdeduplicated)

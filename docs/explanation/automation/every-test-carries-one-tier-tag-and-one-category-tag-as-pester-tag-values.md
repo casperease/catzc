@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-TEST-TWOMANDATORYTAGS
 ---
 
-# Every test carries one tier tag and one category tag as pester tag values (ADR-PWSH-PESTER-TAGVALUES + ADR-AUTO-TEST-TWOMANDATORYTAGS)
+# Every test carries one tier tag and one category tag as pester tag values
 
 This article is one rule: [ADR-PWSH-PESTER-TAGVALUES](../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-tagvalues) and
 [ADR-AUTO-TEST-TWOMANDATORYTAGS](../../drs/automation/test-automation.md#rule-adr-auto-test-twomandatorytags) merged into one. It holds

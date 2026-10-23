@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-ENGINE-STARTENVIRONMENT
 ---
 
-# An unhandled language stops the import and black box tests start the engine by environment (ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS + ADR-AUTO-ENGINE-STARTENVIRONMENT)
+# An unhandled language stops the import and black box tests start the engine by environment
 
 This article is one rule:
 [ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS](../../drs/automation/importer.md#rule-adr-auto-importer-unhandledlanguagestops) and

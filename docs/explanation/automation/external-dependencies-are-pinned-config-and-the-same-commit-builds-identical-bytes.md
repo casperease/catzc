@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
 ---
 
-# External dependencies are pinned config and the same commit builds identical bytes (ADR-AUTO-DEPM-STITCHISCONFIG + ADR-AUTO-BUNDLE-IMMUTABLEBUILD)
+# External dependencies are pinned config and the same commit builds identical bytes
 
 This article is one rule:
 [ADR-AUTO-DEPM-STITCHISCONFIG](../../drs/automation/controlling-module-dependencies.md#rule-adr-auto-depm-stitchisconfig) and

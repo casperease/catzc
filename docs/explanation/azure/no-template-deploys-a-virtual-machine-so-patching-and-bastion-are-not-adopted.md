@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-NETCON-USESTANDARDORPREMIUMBASTIONSKUPRODUCTION
 ---
 
-# No template deploys a virtual machine so patching and bastion are not adopted (ADR-AZ-CAF-MGMT-PATCHVIRTUALMACHINESUPDATEMANAGER + ADR-AZ-CAF-NETCON-USESTANDARDORPREMIUMBASTIONSKUPRODUCTION)
+# No template deploys a virtual machine so patching and bastion are not adopted
 
 This article is one rule:
 [ADR-AZ-CAF-MGMT-PATCHVIRTUALMACHINESUPDATEMANAGER](../../drs/azure/caf/management.md#rule-adr-az-caf-mgmt-patchvirtualmachinesupdatemanager)

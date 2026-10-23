@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-FORMAT-CONFIGUREDFORMATTERS
 ---
 
-# Every folder is conventional and each formatter is configured not coded (ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL + ADR-REPO-FORMAT-CONFIGUREDFORMATTERS)
+# Every folder is conventional and each formatter is configured not coded
 
 This article is one rule:
 [ADR-REPO-FOLDERS-EVERYFOLDERCONVENTIONAL](../../drs/repository/conventional-folders.md#rule-adr-repo-folders-everyfolderconventional) and

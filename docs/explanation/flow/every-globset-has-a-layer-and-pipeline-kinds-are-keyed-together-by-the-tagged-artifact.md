@@ -7,7 +7,7 @@ catzc:
       - FDR-CD-SEPARATEPIPELINEKINDS
 ---
 
-# Every globset has a layer and pipeline kinds are keyed together by the tagged artifact (FDR-CD-GLOBS-EVERYSETHASLAYER + FDR-CD-SEPARATEPIPELINEKINDS)
+# Every globset has a layer and pipeline kinds are keyed together by the tagged artifact
 
 This article is one rule: [FDR-CD-GLOBS-EVERYSETHASLAYER](../../drs/flow/durable-sha-globs.md#rule-fdr-cd-globs-everysethaslayer) and
 [FDR-CD-SEPARATEPIPELINEKINDS](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-separatepipelinekinds) merged into one. It

@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-ENGINE-IMPORTERENTRY
 ---
 
-# Assert the tool before every call and reach catzc through the importer entry (ADR-AUTO-DEPS-ASSERTBEFOREINVOKE + ADR-AUTO-ENGINE-IMPORTERENTRY)
+# Assert the tool before every call and reach catzc through the importer entry
 
 This article is one rule:
 [ADR-AUTO-DEPS-ASSERTBEFOREINVOKE](../../drs/automation/controlling-systemwide-deps.md#rule-adr-auto-deps-assertbeforeinvoke) and

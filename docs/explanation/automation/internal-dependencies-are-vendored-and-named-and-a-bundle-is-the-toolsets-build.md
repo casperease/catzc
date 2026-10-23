@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-BUNDLE-BUNDLEISBUILD
 ---
 
-# Internal dependencies are vendored and named and a bundle is the toolsets build (ADR-AUTO-DEPM-INTERNALVENDORED + ADR-AUTO-BUNDLE-BUNDLEISBUILD)
+# Internal dependencies are vendored and named and a bundle is the toolsets build
 
 This article is one rule:
 [ADR-AUTO-DEPM-INTERNALVENDORED](../../drs/automation/controlling-module-dependencies.md#rule-adr-auto-depm-internalvendored) and

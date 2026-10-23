@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-FILEMETA-HEADPOLICY
 ---
 
-# Every agent is listed in the claude file and every file has a head policy (ADR-REPO-AGENTS-LISTEDINCLAUDEFILE + ADR-REPO-FILEMETA-HEADPOLICY)
+# Every agent is listed in the claude file and every file has a head policy
 
 This article is one rule:
 [ADR-REPO-AGENTS-LISTEDINCLAUDEFILE](../../drs/repository/agent-definitions.md#rule-adr-repo-agents-listedinclaudefile) and

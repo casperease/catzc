@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
 ---
 
-# A modules namespace is its track and the build is byte identical on any machine (ADR-AUTO-MODULE-NAMESPACEISTRACK + ADR-AUTO-BUNDLE-IMMUTABLEBUILD)
+# A modules namespace is its track and the build is byte identical on any machine
 
 This article is one rule: [ADR-AUTO-MODULE-NAMESPACEISTRACK](../../drs/automation/module-model.md#rule-adr-auto-module-namespaceistrack) and
 [ADR-AUTO-BUNDLE-IMMUTABLEBUILD](../../drs/automation/platform-bundle.md#rule-adr-auto-bundle-immutablebuild) merged into one. It holds

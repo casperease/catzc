@@ -7,7 +7,7 @@ catzc:
       - FDR-CD-LIFE-FASTPUSHLANDS
 ---
 
-# A five to ten minute integration cycle is kept by landing with one fast push (FDR-CD-SHORTINTEGRATIONCYCLE + FDR-CD-LIFE-FASTPUSHLANDS)
+# A five to ten minute integration cycle is kept by landing with one fast push
 
 This article is one rule:
 [FDR-CD-SHORTINTEGRATIONCYCLE](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-shortintegrationcycle) and

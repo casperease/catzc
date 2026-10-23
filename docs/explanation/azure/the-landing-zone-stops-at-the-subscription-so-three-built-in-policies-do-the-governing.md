@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-PRIN-POLICYDRIVENGOVERNANCE
 ---
 
-# The landing zone stops at the subscription so three built in policies do the governing (ADR-AZ-CAF-RESORG-KEEPMANAGEMENTGROUPHIERARCHYFLAT + ADR-AZ-CAF-PRIN-POLICYDRIVENGOVERNANCE)
+# The landing zone stops at the subscription so three built in policies do the governing
 
 This article is one rule:
 [ADR-AZ-CAF-RESORG-KEEPMANAGEMENTGROUPHIERARCHYFLAT](../../drs/azure/caf/resource-organization.md#rule-adr-az-caf-resorg-keepmanagementgrouphierarchyflat)

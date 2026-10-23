@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-COMMENTS-MOVEDBYTOOL
 ---
 
-# A code files meta head is a front matter comment and long comments move (ADR-REPO-CODEMETA-CODEFILEHEAD + ADR-REPO-COMMENTS-MOVEDBYTOOL)
+# A code files meta head is a front matter comment and long comments move
 
 This article is one rule: [ADR-REPO-CODEMETA-CODEFILEHEAD](../../drs/repository/code-file-meta.md#rule-adr-repo-codemeta-codefilehead) and
 [ADR-REPO-COMMENTS-MOVEDBYTOOL](../../drs/repository/comments-in-docs.md#rule-adr-repo-comments-movedbytool) merged into one. It holds

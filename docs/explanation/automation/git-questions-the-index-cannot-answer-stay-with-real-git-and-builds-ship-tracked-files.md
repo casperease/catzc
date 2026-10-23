@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
 ---
 
-# Git questions the index cannot answer stay with real git and builds ship tracked files (ADR-AUTO-TRACKED-OTHERQUESTIONSTOGIT + ADR-AUTO-BUNDLE-IMMUTABLEBUILD)
+# Git questions the index cannot answer stay with real git and builds ship tracked files
 
 This article is one rule:
 [ADR-AUTO-TRACKED-OTHERQUESTIONSTOGIT](../../drs/automation/tracked-files-from-the-index.md#rule-adr-auto-tracked-otherquestionstogit) and

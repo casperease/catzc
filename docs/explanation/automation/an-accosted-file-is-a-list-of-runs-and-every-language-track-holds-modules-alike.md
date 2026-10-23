@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE
 ---
 
-# An accosted file is a list of runs and every language track holds modules alike (ADR-AUTO-ACCOSTED-FILEFORM + ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE)
+# An accosted file is a list of runs and every language track holds modules alike
 
 This article is one rule: [ADR-AUTO-ACCOSTED-FILEFORM](../../drs/automation/accosted-language.md#rule-adr-auto-accosted-fileform) and
 [ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE](../../drs/automation/module-model.md#rule-adr-auto-module-everylanguagetrackalike) merged into

@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-TEST-QUALITYGATE
 ---
 
-# Every console write goes through the information stream and a gate collects all issues (ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT + ADR-AUTO-TEST-QUALITYGATE)
+# Every console write goes through the information stream and a gate collects all issues
 
 This article is one rule:
 [ADR-PWSH-ANNOUNCE-INFORMATIONSTREAMCHOKEPOINT](../../drs/automation/pwsh/announce-state-changes.md#rule-adr-pwsh-announce-informationstreamchokepoint)

@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-IAM-EMERGENCYACCESSACCOUNTS
 ---
 
-# Emergency accounts are tenant administration and only the sql break glass login is owned (ADR-AZ-CAF-BILL-PLANEMERGENCYACCESSACCOUNTS + ADR-AZ-CAF-IAM-EMERGENCYACCESSACCOUNTS)
+# Emergency accounts are tenant administration and only the sql break glass login is owned
 
 This article is one rule:
 [ADR-AZ-CAF-BILL-PLANEMERGENCYACCESSACCOUNTS](../../drs/azure/caf/billing-and-tenant.md#rule-adr-az-caf-bill-planemergencyaccessaccounts)

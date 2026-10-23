@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-PRIN-SUBSCRIPTIONDEMOCRATIZATION
 ---
 
-# The landing zone stops at the subscription and the subscription is the management unit (ADR-AZ-CAF-RESORG-KEEPMANAGEMENTGROUPHIERARCHYFLAT + ADR-AZ-CAF-PRIN-SUBSCRIPTIONDEMOCRATIZATION)
+# The landing zone stops at the subscription and the subscription is the management unit
 
 This article is one rule:
 [ADR-AZ-CAF-RESORG-KEEPMANAGEMENTGROUPHIERARCHYFLAT](../../drs/azure/caf/resource-organization.md#rule-adr-az-caf-resorg-keepmanagementgrouphierarchyflat)

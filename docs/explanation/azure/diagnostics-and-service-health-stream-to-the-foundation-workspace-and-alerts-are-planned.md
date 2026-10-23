@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-RESORG-SERVICEHEALTHEVERYSUBSCRIPTION
 ---
 
-# Diagnostics and service health stream to the foundation workspace and alerts are planned (ADR-AZ-WAF-RE-RE10 + ADR-AZ-CAF-RESORG-SERVICEHEALTHEVERYSUBSCRIPTION)
+# Diagnostics and service health stream to the foundation workspace and alerts are planned
 
 This article is one rule: [ADR-AZ-WAF-RE-RE10](../../drs/azure/waf/reliability.md#rule-adr-az-waf-re-re10) and
 [ADR-AZ-CAF-RESORG-SERVICEHEALTHEVERYSUBSCRIPTION](../../drs/azure/caf/resource-organization.md#rule-adr-az-caf-resorg-servicehealtheverysubscription)

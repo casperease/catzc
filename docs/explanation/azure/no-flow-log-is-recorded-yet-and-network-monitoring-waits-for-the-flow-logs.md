@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-NETTOP-NETWORKWATCHERNETWORKINSIGHTS
 ---
 
-# No flow log is recorded yet and network monitoring waits for the flow logs (ADR-AZ-CAF-NETCON-USEVIRTUALNETWORKFLOWLOGS + ADR-AZ-CAF-NETTOP-NETWORKWATCHERNETWORKINSIGHTS)
+# No flow log is recorded yet and network monitoring waits for the flow logs
 
 This article is one rule:
 [ADR-AZ-CAF-NETCON-USEVIRTUALNETWORKFLOWLOGS](../../drs/azure/caf/network-connectivity.md#rule-adr-az-caf-netcon-usevirtualnetworkflowlogs)

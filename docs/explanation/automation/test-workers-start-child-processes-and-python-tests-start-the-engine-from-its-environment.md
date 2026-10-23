@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-PY-BLACKBOXTESTS
 ---
 
-# Test workers start child processes and python tests start the engine from its environment (ADR-PWSH-ENGINE-CHILDPROCESSES + ADR-AUTO-PY-BLACKBOXTESTS)
+# Test workers start child processes and python tests start the engine from its environment
 
 This article is one rule: [ADR-PWSH-ENGINE-CHILDPROCESSES](../../drs/automation/pwsh/pwsh-engine.md#rule-adr-pwsh-engine-childprocesses) and
 [ADR-AUTO-PY-BLACKBOXTESTS](../../drs/automation/python/python-test-artifacts.md#rule-adr-auto-py-blackboxtests) merged into one. It holds

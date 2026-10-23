@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-PY-MODULESBYLAYOUT
 ---
 
-# A very few integration tests prove the boundary once and python is a tool (ADR-AUTO-TEST-FEWINTEGRATIONTESTS + ADR-AUTO-PY-MODULESBYLAYOUT)
+# A very few integration tests prove the boundary once and python is a tool
 
 This article is one rule:
 [ADR-AUTO-TEST-FEWINTEGRATIONTESTS](../../drs/automation/test-automation.md#rule-adr-auto-test-fewintegrationtests) and

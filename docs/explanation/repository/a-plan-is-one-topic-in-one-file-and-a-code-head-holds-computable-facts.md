@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY
 ---
 
-# A plan is one topic in one file and a code head holds computable facts (ADR-REPO-PLANS-ONETOPICONEFILE + ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY)
+# A plan is one topic in one file and a code head holds computable facts
 
 This article is one rule: [ADR-REPO-PLANS-ONETOPICONEFILE](../../drs/repository/plans.md#rule-adr-repo-plans-onetopiconefile) and
 [ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY](../../drs/repository/code-file-meta.md#rule-adr-repo-codemeta-computablefactsonly) merged into one.

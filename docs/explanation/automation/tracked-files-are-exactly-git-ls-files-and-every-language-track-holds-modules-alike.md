@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE
 ---
 
-# Tracked files are exactly git ls files and every language track holds modules alike (ADR-AUTO-TRACKED-SAMEASLSFILES + ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE)
+# Tracked files are exactly git ls files and every language track holds modules alike
 
 This article is one rule:
 [ADR-AUTO-TRACKED-SAMEASLSFILES](../../drs/automation/tracked-files-from-the-index.md#rule-adr-auto-tracked-sameaslsfiles) and

@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-MGMT-GROUPWORKLOADRESOURCESSERVICEGROUPS
 ---
 
-# A hubs resources share one regional group and a workloads resources sit together (ADR-AZ-CAF-NETTOP-ONERESOURCEGROUPPERREGIONHUBRESOURCES + ADR-AZ-CAF-MGMT-GROUPWORKLOADRESOURCESSERVICEGROUPS)
+# A hubs resources share one regional group and a workloads resources sit together
 
 This article is one rule:
 [ADR-AZ-CAF-NETTOP-ONERESOURCEGROUPPERREGIONHUBRESOURCES](../../drs/azure/caf/network-topology.md#rule-adr-az-caf-nettop-oneresourcegroupperregionhubresources)

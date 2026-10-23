@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION
 ---
 
-# Azure config entities are maps keyed by name and each subscription has one network (ADR-AZ-DATAMOD-NAMEKEYEDMAPS + ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION)
+# Azure config entities are maps keyed by name and each subscription has one network
 
 This article is one rule: [ADR-AZ-DATAMOD-NAMEKEYEDMAPS](../../drs/azure/azure-data-model.md#rule-adr-az-datamod-namekeyedmaps) and
 [ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION](../../drs/azure/azure-network-model.md#rule-adr-az-network-networkpersubscription) merged into one.

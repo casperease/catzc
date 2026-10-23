@@ -7,7 +7,7 @@ catzc:
       - FDR-CD-PRODPROGRESSIONISDEPLOY
 ---
 
-# Cde automates the roll to production while manual progression enters deploy (FDR-CD-TYPE-CDEAUTOMATESPRODROLL + FDR-CD-PRODPROGRESSIONISDEPLOY)
+# Cde automates the roll to production while manual progression enters deploy
 
 This article is one rule: [FDR-CD-TYPE-CDEAUTOMATESPRODROLL](../../drs/flow/pipeline-types.md#rule-fdr-cd-type-cdeautomatesprodroll) and
 [FDR-CD-PRODPROGRESSIONISDEPLOY](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-prodprogressionisdeploy) merged into one. It

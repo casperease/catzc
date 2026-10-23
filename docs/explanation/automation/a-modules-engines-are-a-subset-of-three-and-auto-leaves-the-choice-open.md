@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-LAYERS-AUTOLEAVESCHOICEOPEN
 ---
 
-# A modules engines are a subset of three and auto leaves the choice open (ADR-AUTO-MODULE-ENGINESUBSET + ADR-AUTO-LAYERS-AUTOLEAVESCHOICEOPEN)
+# A modules engines are a subset of three and auto leaves the choice open
 
 This article is one rule: [ADR-AUTO-MODULE-ENGINESUBSET](../../drs/automation/module-model.md#rule-adr-auto-module-enginesubset) and
 [ADR-AUTO-LAYERS-AUTOLEAVESCHOICEOPEN](../../drs/automation/layers.md#rule-adr-auto-layers-autoleaveschoiceopen) merged into one. It holds

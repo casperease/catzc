@@ -7,7 +7,7 @@ catzc:
       - FDR-CD-CDCONTAINSCI
 ---
 
-# Deploy carries governance and every cd pipeline contains the one ci engine (FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE + FDR-CD-CDCONTAINSCI)
+# Deploy carries governance and every cd pipeline contains the one ci engine
 
 This article is one rule: [FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE](../../drs/flow/pipeline-types.md#rule-fdr-cd-type-deploycarriesgovernance)
 and [FDR-CD-CDCONTAINSCI](../../drs/flow/cd-discipline-and-promotion-flow.md#rule-fdr-cd-cdcontainsci) merged into one. It holds nothing

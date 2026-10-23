@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-MGMT-KEEPRAWLOGSAZURENOTPREMISES
 ---
 
-# The repository owns no management group policy and keeps every log in azure (ADR-AZ-CAF-GOV-DEFINEPOLICIESATTOPHIERARCHY + ADR-AZ-CAF-MGMT-KEEPRAWLOGSAZURENOTPREMISES)
+# The repository owns no management group policy and keeps every log in azure
 
 This article is one rule:
 [ADR-AZ-CAF-GOV-DEFINEPOLICIESATTOPHIERARCHY](../../drs/azure/caf/governance.md#rule-adr-az-caf-gov-definepoliciesattophierarchy) and

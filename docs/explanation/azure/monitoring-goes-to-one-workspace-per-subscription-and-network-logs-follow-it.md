@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-PRIN-SINGLECONTROLMANAGEMENTPLANE
 ---
 
-# Monitoring goes to one workspace per subscription and network logs follow it (ADR-AZ-CAF-NETTOP-NETWORKWATCHERNETWORKINSIGHTS + ADR-AZ-CAF-PRIN-SINGLECONTROLMANAGEMENTPLANE)
+# Monitoring goes to one workspace per subscription and network logs follow it
 
 This article is one rule:
 [ADR-AZ-CAF-NETTOP-NETWORKWATCHERNETWORKINSIGHTS](../../drs/azure/caf/network-topology.md#rule-adr-az-caf-nettop-networkwatchernetworkinsights)

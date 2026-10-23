@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
 ---
 
-# A contracts direction comes by convention and a command contract is a provided asset (ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION + ADR-REPO-CMDCONTRACT-COMMANDCONTRACT)
+# A contracts direction comes by convention and a command contract is a provided asset
 
 This article is one rule:
 [ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](../../drs/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention) and

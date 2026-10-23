@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
 ---
 
-# Integrity tests on templates are generic and the build is content addressed (ADR-AUTO-TEST-GENERICTEMPLATETESTS + ADR-AUTO-BUNDLE-IMMUTABLEBUILD)
+# Integrity tests on templates are generic and the build is content addressed
 
 This article is one rule:
 [ADR-AUTO-TEST-GENERICTEMPLATETESTS](../../drs/automation/test-automation.md#rule-adr-auto-test-generictemplatetests) and

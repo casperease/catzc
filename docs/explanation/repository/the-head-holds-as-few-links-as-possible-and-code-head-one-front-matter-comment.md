@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-CODEMETA-CODEFILEHEAD
 ---
 
-# The head holds as few links as possible and code head one front matter comment (ADR-REPO-FILEMETA-FEWLINKS + ADR-REPO-CODEMETA-CODEFILEHEAD)
+# The head holds as few links as possible and code head one front matter comment
 
 This article is one rule: [ADR-REPO-FILEMETA-FEWLINKS](../../drs/repository/file-meta.md#rule-adr-repo-filemeta-fewlinks) and
 [ADR-REPO-CODEMETA-CODEFILEHEAD](../../drs/repository/code-file-meta.md#rule-adr-repo-codemeta-codefilehead) merged into one. It holds

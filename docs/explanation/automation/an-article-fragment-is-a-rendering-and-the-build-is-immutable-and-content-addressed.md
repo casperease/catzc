@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-BUNDLE-IMMUTABLEBUILD
 ---
 
-# An article fragment is a rendering and the build is immutable and content addressed (ADR-AUTO-ACCOSTED-ARTICLERENDERING + ADR-AUTO-BUNDLE-IMMUTABLEBUILD)
+# An article fragment is a rendering and the build is immutable and content addressed
 
 This article is one rule:
 [ADR-AUTO-ACCOSTED-ARTICLERENDERING](../../drs/automation/accosted-language.md#rule-adr-auto-accosted-articlerendering) and

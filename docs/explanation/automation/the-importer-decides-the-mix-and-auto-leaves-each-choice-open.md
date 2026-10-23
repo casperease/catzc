@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-IMPORTER-DECIDESMIX
 ---
 
-# The importer decides the mix and auto leaves each choice open (ADR-AUTO-LAYERS-AUTOLEAVESCHOICEOPEN + ADR-AUTO-IMPORTER-DECIDESMIX)
+# The importer decides the mix and auto leaves each choice open
 
 This article is one rule: [ADR-AUTO-LAYERS-AUTOLEAVESCHOICEOPEN](../../drs/automation/layers.md#rule-adr-auto-layers-autoleaveschoiceopen)
 and [ADR-AUTO-IMPORTER-DECIDESMIX](../../drs/automation/importer.md#rule-adr-auto-importer-decidesmix) merged into one. It holds nothing

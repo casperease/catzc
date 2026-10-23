@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE
 ---
 
-# A naming case is one of closed set and every language track names modules alike (ADR-AUTO-IDIOM-CLOSEDCASES + ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE)
+# A naming case is one of closed set and every language track names modules alike
 
 This article is one rule: [ADR-AUTO-IDIOM-CLOSEDCASES](../../drs/automation/idiomatic-names.md#rule-adr-auto-idiom-closedcases) and
 [ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE](../../drs/automation/module-model.md#rule-adr-auto-module-everylanguagetrackalike) merged into

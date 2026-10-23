@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-SEC-ZEROTRUSTPLATFORMACCESS
 ---
 
-# Zero trust access rests on one service connection per subscription and no higher roles (ADR-AZ-CAF-RESORG-NOWORKLOADTEAMROLESATMANAGEMENTGROUPLEVEL + ADR-AZ-CAF-SEC-ZEROTRUSTPLATFORMACCESS)
+# Zero trust access rests on one service connection per subscription and no higher roles
 
 This article is one rule:
 [ADR-AZ-CAF-RESORG-NOWORKLOADTEAMROLESATMANAGEMENTGROUPLEVEL](../../drs/azure/caf/resource-organization.md#rule-adr-az-caf-resorg-noworkloadteamrolesatmanagementgrouplevel)

@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-SLIDES-DECLARATION
 ---
 
-# Live identities match exactly and conservatively and a diagram has one declaration (ADR-REPO-LANG-EXACTMATCHING + ADR-REPO-SLIDES-DECLARATION)
+# Live identities match exactly and conservatively and a diagram has one declaration
 
 This article is one rule: [ADR-REPO-LANG-EXACTMATCHING](../../drs/repository/domain-language-separation.md#rule-adr-repo-lang-exactmatching)
 and [ADR-REPO-SLIDES-DECLARATION](../../drs/repository/slides-as-markdown.md#rule-adr-repo-slides-declaration) merged into one. It holds

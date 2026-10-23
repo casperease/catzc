@@ -7,7 +7,7 @@ catzc:
       - ADR-PWSH-ONEFUNC-GOVERNSSOURCE
 ---
 
-# One integration thread proves the wiring and installed builds merge one function files by generation (ADR-AUTO-TEST-FEWINTEGRATIONTESTS + ADR-PWSH-ONEFUNC-GOVERNSSOURCE)
+# One integration thread proves the wiring and installed builds merge one function files by generation
 
 This article is one rule:
 [ADR-AUTO-TEST-FEWINTEGRATIONTESTS](../../drs/automation/test-automation.md#rule-adr-auto-test-fewintegrationtests) and

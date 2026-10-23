@@ -7,7 +7,7 @@ catzc:
       - ADR-PWSH-PESTER-CHILDPROCESSPERCASE
 ---
 
-# One import per distinct tree shape is spawned and asserted across it blocks (ADR-AUTO-TEST-ONEIMPORTPERCASE + ADR-PWSH-PESTER-CHILDPROCESSPERCASE)
+# One import per distinct tree shape is spawned and asserted across it blocks
 
 This article is one rule: [ADR-AUTO-TEST-ONEIMPORTPERCASE](../../drs/automation/test-automation.md#rule-adr-auto-test-oneimportpercase) and
 [ADR-PWSH-PESTER-CHILDPROCESSPERCASE](../../drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-childprocesspercase) merged into one.

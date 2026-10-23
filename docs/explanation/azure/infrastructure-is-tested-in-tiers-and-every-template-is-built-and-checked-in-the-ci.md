@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-DEVOPS-UNITTESTINFRASTRUCTURECODEASWELL
 ---
 
-# Infrastructure is tested in tiers and every template is built and checked in the ci (ADR-AZ-WAF-OE-OE09 + ADR-AZ-CAF-DEVOPS-UNITTESTINFRASTRUCTURECODEASWELL)
+# Infrastructure is tested in tiers and every template is built and checked in the ci
 
 This article is one rule: [ADR-AZ-WAF-OE-OE09](../../drs/azure/waf/operational-excellence.md#rule-adr-az-waf-oe-oe09) and
 [ADR-AZ-CAF-DEVOPS-UNITTESTINFRASTRUCTURECODEASWELL](../../drs/azure/caf/platform-automation-and-devops.md#rule-adr-az-caf-devops-unittestinfrastructurecodeaswell)

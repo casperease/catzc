@@ -7,7 +7,7 @@ catzc:
       - ADR-PWSH-IDEM-CONTRACTINHELP
 ---
 
-# An idempotent function says so in its comment based help (ADR-AUTO-IDEM-DOCUMENTCONTRACT + ADR-PWSH-IDEM-CONTRACTINHELP)
+# An idempotent function says so in its comment based help
 
 This article is one rule:
 [ADR-AUTO-IDEM-DOCUMENTCONTRACT](../../drs/automation/idempotent-state-functions.md#rule-adr-auto-idem-documentcontract) and

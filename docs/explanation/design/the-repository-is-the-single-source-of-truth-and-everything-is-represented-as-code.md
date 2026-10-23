@@ -7,7 +7,7 @@ catzc:
       - DDR-THINPLAT-REPRESENTEDASCODE
 ---
 
-# The repository is the single source of truth and everything is represented as code (DDR-SELFSERV-REPOSITORYISSOURCEOFTRUTH + DDR-THINPLAT-REPRESENTEDASCODE)
+# The repository is the single source of truth and everything is represented as code
 
 This article is one rule:
 [DDR-SELFSERV-REPOSITORYISSOURCEOFTRUTH](../../drs/design/self-service.md#rule-ddr-selfserv-repositoryissourceoftruth) and

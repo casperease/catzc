@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-FILEMETA-HEADPOLICY
 ---
 
-# The live identity set is derived from config and every file has a head policy (ADR-REPO-LANG-DERIVEDLIVESET + ADR-REPO-FILEMETA-HEADPOLICY)
+# The live identity set is derived from config and every file has a head policy
 
 This article is one rule:
 [ADR-REPO-LANG-DERIVEDLIVESET](../../drs/repository/domain-language-separation.md#rule-adr-repo-lang-derivedliveset) and

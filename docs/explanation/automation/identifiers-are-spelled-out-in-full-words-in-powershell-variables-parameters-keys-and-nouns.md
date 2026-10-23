@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-SPELL-FULLWORDIDENTIFIERS
 ---
 
-# Identifiers are spelled out in full words in powershell variables parameters keys and nouns (ADR-PWSH-NAMES-POWERSHELLIDENTIFIERS + ADR-AUTO-SPELL-FULLWORDIDENTIFIERS)
+# Identifiers are spelled out in full words in powershell variables parameters keys and nouns
 
 This article is one rule:
 [ADR-PWSH-NAMES-POWERSHELLIDENTIFIERS](../../drs/automation/pwsh/identifier-names.md#rule-adr-pwsh-names-powershellidentifiers) and

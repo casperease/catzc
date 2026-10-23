@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-TEST-ONECATEGORY
 ---
 
-# A function with an asset dependency is covered by a real integrity test (ADR-AUTO-ASSETDEP-COVEREDBYREALTEST + ADR-AUTO-TEST-ONECATEGORY)
+# A function with an asset dependency is covered by a real integrity test
 
 This article is one rule:
 [ADR-AUTO-ASSETDEP-COVEREDBYREALTEST](../../drs/automation/internal-asset-dependencies.md#rule-adr-auto-assetdep-coveredbyrealtest) and

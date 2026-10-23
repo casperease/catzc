@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-BUNDLE-BUNDLEISBUILD
 ---
 
-# Module edges are declared in dependencies yml and a bundle is built from them (ADR-AUTO-DEPM-CODEBUILTFROM + ADR-AUTO-BUNDLE-BUNDLEISBUILD)
+# Module edges are declared in dependencies yml and a bundle is built from them
 
 This article is one rule:
 [ADR-AUTO-DEPM-CODEBUILTFROM](../../drs/automation/controlling-module-dependencies.md#rule-adr-auto-depm-codebuiltfrom) and

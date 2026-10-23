@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-RESORG-NOWORKLOADTEAMROLESATMANAGEMENTGROUPLEVEL
 ---
 
-# Security checks run at build time and no role above a subscription is ever granted (ADR-AZ-WAF-SE-SE11 + ADR-AZ-CAF-RESORG-NOWORKLOADTEAMROLESATMANAGEMENTGROUPLEVEL)
+# Security checks run at build time and no role above a subscription is ever granted
 
 This article is one rule: [ADR-AZ-WAF-SE-SE11](../../drs/azure/waf/security.md#rule-adr-az-waf-se-se11) and
 [ADR-AZ-CAF-RESORG-NOWORKLOADTEAMROLESATMANAGEMENTGROUPLEVEL](../../drs/azure/caf/resource-organization.md#rule-adr-az-caf-resorg-noworkloadteamrolesatmanagementgrouplevel)

@@ -7,7 +7,7 @@ catzc:
       - ADR-PWSH-MANIFEST-NOMODULEIMPORTS
 ---
 
-# Modules load in topological order and no module imports another (ADR-AUTO-MODULE-TOPOLOGICALORDER + ADR-PWSH-MANIFEST-NOMODULEIMPORTS)
+# Modules load in topological order and no module imports another
 
 This article is one rule: [ADR-AUTO-MODULE-TOPOLOGICALORDER](../../drs/automation/module-model.md#rule-adr-auto-module-topologicalorder) and
 [ADR-PWSH-MANIFEST-NOMODULEIMPORTS](../../drs/automation/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-nomoduleimports) merged

@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-CONTRACT-LAYOUT
 ---
 
-# Unknown folders are ignored and contracts sit under one unit version module path (ADR-REPO-FOLDERS-UNKNOWNFOLDERSIGNORED + ADR-REPO-CONTRACT-LAYOUT)
+# Unknown folders are ignored and contracts sit under one unit version module path
 
 This article is one rule:
 [ADR-REPO-FOLDERS-UNKNOWNFOLDERSIGNORED](../../drs/repository/conventional-folders.md#rule-adr-repo-folders-unknownfoldersignored) and

@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-DEPM-NOTSYSTEMDEPENDENCY
 ---
 
-# System dependencies are run against and module dependencies are built from (ADR-AUTO-DEPS-TWODEPENDENCYKINDS + ADR-AUTO-DEPM-NOTSYSTEMDEPENDENCY)
+# System dependencies are run against and module dependencies are built from
 
 This article is one rule:
 [ADR-AUTO-DEPS-TWODEPENDENCYKINDS](../../drs/automation/controlling-systemwide-deps.md#rule-adr-auto-deps-twodependencykinds) and

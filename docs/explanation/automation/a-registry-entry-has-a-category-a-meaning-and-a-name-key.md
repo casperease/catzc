@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-GUIDS-NAMEKEYEDENTRY
 ---
 
-# A registry entry has a category a meaning and a name key (ADR-AUTO-SPELL-CATEGORYANDMEANING + ADR-AUTO-GUIDS-NAMEKEYEDENTRY)
+# A registry entry has a category a meaning and a name key
 
 This article is one rule:
 [ADR-AUTO-SPELL-CATEGORYANDMEANING](../../drs/automation/spell-out-names.md#rule-adr-auto-spell-categoryandmeaning) and

@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-IMPORTER-DECIDESMIX
 ---
 
-# A quality check may remember clean files and the importer decides the mix (ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS + ADR-AUTO-IMPORTER-DECIDESMIX)
+# A quality check may remember clean files and the importer decides the mix
 
 This article is one rule:
 [ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions) and

@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE
 ---
 
-# A generated file changes only in tune with its generator and contracts use small language (ADR-REPO-FILEMETA-INTUNEWITHGENERATOR + ADR-REPO-CMDCONTRACT-CONTRACTLANGUAGE)
+# A generated file changes only in tune with its generator and contracts use small language
 
 This article is one rule:
 [ADR-REPO-FILEMETA-INTUNEWITHGENERATOR](../../drs/repository/file-meta.md#rule-adr-repo-filemeta-intunewithgenerator) and

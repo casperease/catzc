@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-GOV-KEEPROOTLEVELASSIGNMENTSFEW
 ---
 
-# Billing contact mail and root level assignments lie above or outside the repository (ADR-AZ-CAF-BILL-ACTMCANOTIFICATIONMAIL + ADR-AZ-CAF-GOV-KEEPROOTLEVELASSIGNMENTSFEW)
+# Billing contact mail and root level assignments lie above or outside the repository
 
 This article is one rule:
 [ADR-AZ-CAF-BILL-ACTMCANOTIFICATIONMAIL](../../drs/azure/caf/billing-and-tenant.md#rule-adr-az-caf-bill-actmcanotificationmail) and

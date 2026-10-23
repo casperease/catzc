@@ -7,7 +7,7 @@ catzc:
       - ADR-REPO-SLIDES-TWODIRECTIONS
 ---
 
-# Every output format has a code validator and the diagram yml and png round trip (ADR-REPO-OUTFMT-VALIDATORISCODE + ADR-REPO-SLIDES-TWODIRECTIONS)
+# Every output format has a code validator and the diagram yml and png round trip
 
 This article is one rule: [ADR-REPO-OUTFMT-VALIDATORISCODE](../../drs/repository/output-formats.md#rule-adr-repo-outfmt-validatoriscode) and
 [ADR-REPO-SLIDES-TWODIRECTIONS](../../drs/repository/slides-as-markdown.md#rule-adr-repo-slides-twodirections) merged into one. It holds

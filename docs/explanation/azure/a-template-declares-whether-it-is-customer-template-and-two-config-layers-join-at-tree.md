@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
 ---
 
-# A template declares whether it is customer template and two config layers join at tree (ADR-AZ-CUSTOMER-CUSTOMERTEMPLATEOPTION + ADR-AZ-DATAMOD-TWOCONFIGLAYERS)
+# A template declares whether it is customer template and two config layers join at tree
 
 This article is one rule:
 [ADR-AZ-CUSTOMER-CUSTOMERTEMPLATEOPTION](../../drs/azure/azure-customer-model.md#rule-adr-az-customer-customertemplateoption) and

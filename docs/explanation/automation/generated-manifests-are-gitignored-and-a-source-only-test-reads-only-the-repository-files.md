@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-TEST-SOURCEONLYTAG
 ---
 
-# Generated manifests are gitignored and a source only test reads only the repository files (ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED + ADR-AUTO-TEST-SOURCEONLYTAG)
+# Generated manifests are gitignored and a source only test reads only the repository files
 
 This article is one rule:
 [ADR-PWSH-MANIFEST-MANIFESTSGITIGNORED](../../drs/automation/pwsh/dynamic-module-manifests.md#rule-adr-pwsh-manifest-manifestsgitignored)

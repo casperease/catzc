@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-WAF-SE-SE06
 ---
 
-# Private link is the only way to reach a data service and public access off (ADR-AZ-CAF-NETPRV-PRIVATELINKPRIVATEONLYACCESS + ADR-AZ-WAF-SE-SE06)
+# Private link is the only way to reach a data service and public access off
 
 This article is one rule:
 [ADR-AZ-CAF-NETPRV-PRIVATELINKPRIVATEONLYACCESS](../../drs/azure/caf/network-private-access.md#rule-adr-az-caf-netprv-privatelinkprivateonlyaccess)

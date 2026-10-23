@@ -7,7 +7,7 @@ catzc:
       - TDR-STORES-THREEKINDS
 ---
 
-# The truth is queryable through get cmdlets and every store is one of three kinds (TDR-ONETRUTH-TRUTHISQUERYABLE + TDR-STORES-THREEKINDS)
+# The truth is queryable through get cmdlets and every store is one of three kinds
 
 This article is one rule: [TDR-ONETRUTH-TRUTHISQUERYABLE](../../drs/thesis/one-source-of-truth.md#rule-tdr-onetruth-truthisqueryable) and
 [TDR-STORES-THREEKINDS](../../drs/thesis/truth-stores.md#rule-tdr-stores-threekinds) merged into one. It holds nothing beyond what those two

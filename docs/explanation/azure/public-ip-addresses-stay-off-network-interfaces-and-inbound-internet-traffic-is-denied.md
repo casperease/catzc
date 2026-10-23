@@ -7,7 +7,7 @@ catzc:
       - ADR-AZ-CAF-NETCON-EXPOSENOVIRTUALMACHINEMANAGEMENTPORTINTERNET
 ---
 
-# Public ip addresses stay off network interfaces and inbound internet traffic is denied (ADR-AZ-WAF-SE-SE06 + ADR-AZ-CAF-NETCON-EXPOSENOVIRTUALMACHINEMANAGEMENTPORTINTERNET)
+# Public ip addresses stay off network interfaces and inbound internet traffic is denied
 
 This article is one rule: [ADR-AZ-WAF-SE-SE06](../../drs/azure/waf/security.md#rule-adr-az-waf-se-se06) and
 [ADR-AZ-CAF-NETCON-EXPOSENOVIRTUALMACHINEMANAGEMENTPORTINTERNET](../../drs/azure/caf/network-connectivity.md#rule-adr-az-caf-netcon-exposenovirtualmachinemanagementportinternet)

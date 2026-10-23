@@ -7,7 +7,7 @@ catzc:
       - ADR-AUTO-TEST-RUNSNEVERWAIT
 ---
 
-# A workspace anchor names the sibling folder and a busy run uses a verified snapshot (ADR-AUTO-PATH-WORKSPACEANCHOR + ADR-AUTO-TEST-RUNSNEVERWAIT)
+# A workspace anchor names the sibling folder and a busy run uses a verified snapshot
 
 This article is one rule: [ADR-AUTO-PATH-WORKSPACEANCHOR](../../drs/automation/path-representation.md#rule-adr-auto-path-workspaceanchor)
 and [ADR-AUTO-TEST-RUNSNEVERWAIT](../../drs/automation/test-automation.md#rule-adr-auto-test-runsneverwait) merged into one. It holds

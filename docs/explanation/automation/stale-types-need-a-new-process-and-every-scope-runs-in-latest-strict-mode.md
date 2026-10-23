@@ -7,7 +7,7 @@ catzc:
       - ADR-PWSH-ENGINE-STRICTMODELATEST
 ---
 
-# Stale types need a new process and every scope runs in latest strict mode (ADR-PWSH-TYPES-RESTARTTORELOAD + ADR-PWSH-ENGINE-STRICTMODELATEST)
+# Stale types need a new process and every scope runs in latest strict mode
 
 This article is one rule:
 [ADR-PWSH-TYPES-RESTARTTORELOAD](../../drs/automation/pwsh/hosting-csharp-types.md#rule-adr-pwsh-types-restarttoreload) and
