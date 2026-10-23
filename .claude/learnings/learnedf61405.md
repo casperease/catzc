@@ -106,3 +106,8 @@ Started 2026-10-23T15:33:07.4285106+02:00.
   tailing the whole log.
 - 2026-10-23 Cats: Token tip: Next time, save tokens by: keeping one gate script per file set in out/ and re-running it after every edit
   rather than composing new commands.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: a diagram is declared in a yml drawio block above its image in a markdown article
+  (168 of 182) unless carriers: in drawio.yml says file (12), so a visual comment usually edits an article block, then drawio.yml, then
+  python/catzc_diagrams.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: a diagram band title is its own borderless cell in the titles layer after edges, so
+  an edge passes under the word; candidate slot and span row are additive keys with defaults declared once in drawio.yml.

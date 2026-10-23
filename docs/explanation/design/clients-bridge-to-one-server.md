@@ -21,20 +21,20 @@ Clients bridge to one server remote: in through a pull request, out from the ver
 3  branch policy    the merge gates on the protected main, then the merge
 4  HEAD             the tip of the server's main; landed, not yet verified
 5  verified point   the stable integration point, the BVT-verified server head
-6  consumer clones  developers, downstream units and upstream integrators build here
 
 Supports DDR-REMOTE-SERVERREMOTEISTRUTH, DDR-REMOTE-INTEGRATEFROMVERIFIED and DDR-REMOTE-PULLREQUESTISINGRESS, and FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD and FDR-CD-LIFE-DIRTYHEADUNSAFE (architecture lens).
 ```
 
 In cats the mainline is not a local artifact. It is the `main` / `master` branch that the server remote enforces, and that server is where
 identity, branch protection and the audit history live. A client's change passes the server's identity model and branch policy before it
-lands at HEAD, and consumers read out from the verified point, which the commit lifecycle owns. Knowing which side owns what tells a reader
-where a guarantee is enforced and where it is only a discipline.
+lands at HEAD, and the verified point is where consumers leave from, which the commit lifecycle owns. Knowing which side owns what tells a
+reader where a guarantee is enforced and where it is only a discipline. The way out, and the way back in through a topic branch, is its own
+drawing: [out from the verified point, back through its own topic](out-from-the-verified-point-back-through-a-topic.md).
 
 ```yml drawio
 description:
-  A client's change goes from its local clone through the server's identity model and branch policy to HEAD on the server remote, and
-  consumers clone out from the verified point.
+  A client's change goes from its local clone through the server's identity model and branch policy to HEAD on the server remote, beside
+  the verified point consumers leave from.
 about:
   adrs:
     - DDR-REMOTE-SERVERREMOTEISTRUTH
@@ -53,39 +53,33 @@ content:
     - { id: band-in, label: IN }
     - { id: band-request, label: PULL REQUEST }
     - { id: band-remote, label: SERVER REMOTE }
-    - { id: band-out, label: OUT }
   glyphs:
     - { id: s-clone, kind: store, label: local clone, in: band-in }
     - { id: g-identity, kind: drsonly, label: identity model, in: band-request }
     - { id: g-policy, kind: gate, label: branch policy, in: band-request }
     - { id: c-head, kind: commit, label: HEAD, in: band-remote, state: landed }
     - { id: c-verified, kind: commit, label: verified point, in: band-remote }
-    - { id: s-consumers, kind: store, label: consumer clones, in: band-out }
   edges:
     - { from: s-clone, to: g-identity, kind: adr, label: "" }
     - { from: g-identity, to: g-policy, kind: adr, label: "" }
     - { from: g-policy, to: c-head, kind: flow, label: "" }
-    - { from: c-verified, to: s-consumers, kind: adr, label: "" }
   markers:
     - { at: s-clone, number: 1 }
     - { at: g-identity, number: 2 }
     - { at: g-policy, number: 3 }
     - { at: c-head, number: 4 }
     - { at: c-verified, number: 5 }
-    - { at: s-consumers, number: 6 }
   legend: auto
   minimaps: [code-locations, grid, axis]
 layout:
   band-in: { x: 20, y: 84, w: 1260, h: 120 }
   band-request: { x: 20, y: 224, w: 1260, h: 220 }
   band-remote: { x: 20, y: 464, w: 1260, h: 120 }
-  band-out: { x: 20, y: 604, w: 1260, h: 120 }
   s-clone: { x: 870, y: 124, w: 140, h: 64 }
   g-identity: { x: 860, y: 270, w: 160, h: 50 }
   g-policy: { x: 860, y: 350, w: 160, h: 72 }
   c-head: { x: 880, y: 510, w: 120, h: 44 }
   c-verified: { x: 300, y: 510, w: 140, h: 44 }
-  s-consumers: { x: 300, y: 636, w: 140, h: 64 }
 ```
 
 ![Clients bridge to one server remote](.assets/clients-bridge-to-one-server.drawio.png)
@@ -101,9 +95,9 @@ layout:
 4. **HEAD.** The merged commit becomes the tip of the server's main. Landing is not verifying: HEAD may be a dirty HEAD, unverified or
    verified and then failed downstream, so it is not safe to sync from.
 5. **Verified point.** The last commit the server proved verified is the stable integration point, the BVT-verified server head. It is also
-   the commit `main-UAT` takes first, so once deployed it is the `main-UAT` occupant. It stays put while HEAD moves.
-6. **Consumer clones.** A developer branches from the verified point, a downstream deployable unit builds against it, and an upstream
-   integrator syncs to it. No code resolves the verified point yet, so this edge is dashed.
+   the commit `main-UAT` takes first, so once deployed it is the `main-UAT` occupant. It stays put while HEAD moves. Who leaves from it,
+   and how a clone comes back in through its own topic branch, is the next drawing,
+   [out from the verified point, back through its own topic](out-from-the-verified-point-back-through-a-topic.md).
 
 ## Why it holds
 

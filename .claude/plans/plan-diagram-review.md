@@ -6,7 +6,7 @@ plan:
   class: feature
   targets:
     [
-      .claude/agents/diagram-review-chunks.md,
+      .claude/agents/diagram-review.md,
       .claude/skills/drawio-review/SKILL.md,
       python/catzc_diagrams/declaration.py,
       python/catzc_diagrams/configs/drawio.yml,
@@ -19,29 +19,30 @@ catzc:
     drs_total: 1
 ---
 
-# Diagram review: every diagram, five at a time
+# Diagram review: one named slide at a time
 
 ## Source (the user's constrained prompt, 2026-10-23, typos corrected)
 
-Let us do visual notes for all diagrams in the solution. This drains both of us fast, so do it in batches of five. For each chunk:
+Visual notes for the diagrams in the solution, and a change of the review skills to: one named slide that the agent reads itself visually,
+through its internal read and tokenizing, and then asks the user a question in context, ending with "I spotted: xyz" if the agent's visual
+read spotted anything logical or visual that should be different. The agent then asks for the user's input as a text the user has to write.
+Then the agent is ready to greet the user with: "What slide should we review and process in our yml and python diagram code to better suit
+the reality?"
 
-1. Read the rendered `.png` parts of five diagrams into your own token memory.
-2. Wait for the answers to the five questions in this chunk (one singular question per diagram). Parse the user's visualized comment into a
-   single step in a separate new plan file under `.claude/plans`, containing this constrained prompt as its source.
+The process exists as quality control, to correct and edit the underlying markdown-based drawio yml, or the Python drawing engine, so that
+the diagrams become more suited for human and LLM consumption as the cycle runs. A change can force a redraw of all `.drawio.png` in the
+repository. The yml language interpretation must stay backwards compatible with existing declarations, or every declaration is globally
+corrected and everything redrawn. Redrawing is free of LLM tokens, since the agent always redraws through the tooling.
 
-Describe yourself as an agent in Claude as well, and say that you default to chunks of five review cycles: an internal read of five, then
-five quick questions to the user, one for each, forcing the user to write a small textual snippet that can be parsed into a contextual plan
-step for a later execution. The process exists as quality control, to correct and edit the underlying file or markdown-based drawio yml, or
-the Python drawing engine, so that the diagrams become more suited for human and LLM consumption as the cycle runs. Each chunk of five can
-force a redraw of all `.drawio.png` in the repository. The yml language interpretation must stay backwards compatible with existing
-declarations, or every declaration is globally corrected and everything redrawn. Redrawing is free of LLM tokens, since the agent always
-redraws through the tooling.
+(The first version of this prompt, 2026-10-23, asked for chunks of five slides, five questions and one plan step per answer; the single
+named slide replaced it the same day.)
 
 ## The agent
 
-`diagram-review-chunks` (`.claude/agents/diagram-review-chunks.md`, capability `drawio-review`, which reuses `drawio-look`). It defaults to
-chunks of five review cycles, each an internal read, then one quick question to the user. The user's snippet is the source of every step;
-the agent's own taste is never one.
+`diagram-review` (`.claude/agents/diagram-review.md`, capability `drawio-review`, which reuses `drawio-look`). It greets with the sentence
+above, reads the named slide's PNG itself, asks one question in context ending with "I spotted: ..." for each logical or visual "this should
+be different", takes the user's written text as the source of one open step, lands it, redraws and greets again. The user's text is the
+source of every step; the agent's own taste is never one.
 
 ## What is reviewed
 
@@ -52,18 +53,22 @@ one is the glyph legend. A comment's target is therefore usually an article's bl
 
 ## Decided (the orchestrator as delegated, 2026-10-23)
 
-- Order: `docs/explanation` by folder (design 46, flow 35, automation 33, azure 20, repository 12, configuration 10, ado 5, thesis 3, then
-  the glyph legend), then `docs/drs` (4), `docs/references` (12), `docs/how-to` (1); paths sorted ordinally within a folder. About 37
-  chunks.
-- One running plan: each chunk adds its five steps below its pointer step; a landed step is struck, and the pointer moves to the next five.
-- A chunk's steps land and all diagrams are redrawn before the next chunk reads, so later chunks review the corrected renderer.
+- The user names the slide; when asked for a suggestion the agent proposes the next in this order: `docs/explanation` by folder (design,
+  flow, automation, azure, repository, configuration, ado, thesis, then the glyph legend), then `docs/drs`, `docs/references`,
+  `docs/how-to`; paths sorted ordinally within a folder.
+- Slides already reviewed: `docs/explanation/design/.assets/10-commits-story.drawio.png` (title boxes above edges, candidate `slot`, span
+  `row`, the last row of five spans).
+- One running plan: each answer adds one step below the cycle step, and a landed step is struck.
 - A language change keeps every existing declaration valid (an additive key with its default declared once) or corrects every declaration in
   the same change (PDR-ONELIVE); no old spelling stays behind.
+- A file to open is named as a plain path from the repository root, never a link.
 
 ## Open steps
 
-- [ ] Chunk 1 of about 37: the first five diagrams of `docs/explanation/design/.assets/`: `10-commits-story` (landed 2026-10-23: title boxes
-      above edges, candidate `slot`, span `row`, the last row of five spans), `a-push-fires-only-touched-pipelines`,
-      `a-sibling-is-an-idea-never-a-reference`, `bind-to-one-cli-delegate-the-rest`, `clients-bridge-to-one-server`. The agent reads the
-      five PNGs, asks five questions, and adds one step per snippet below this one. Check: five open steps added, each with the snippet
-      verbatim; after landing them, `Test-Diagrams` reports nothing stale or drifted over every diagram.
+- [ ] The cycle: the agent greets the user, the user names a slide, the agent reads it and asks one question in context ending with "I
+      spotted: ...", and the user's written answer becomes one open step below this one. Check: each landed answer leaves its slide
+      re-rendered and looked at, the kit suite green, and `Test-Diagrams` clean over every diagram redrawn.
+- [ ] `docs/explanation/design/.assets/state-changes.drawio.png` changed by about 120 pixels over a large area in the redraw after the
+      title-box change (2026-10-23) and the drone could not see the difference in a crop. Compare the png at HEAD with the new one
+      (`git show     HEAD:<path>` into `out/`), name the difference, and decide whether it is an edge that used to cross a title or a
+      regression. Check: the difference named in one line here, and either accepted or fixed, `Test-Diagrams` clean.

@@ -13,8 +13,8 @@ description: >
   (`listen-very-carefully-to-doc-changes`), for a scout search of a listen reference (`doc-pattern-scout`), for glossary terms
   (`glossary-keeper`), for making tests faster (`test-optimization`), for the hindsight log (`2020-hindsight`), for planning the debt it
   finds (`its-a-chore-but-i-will-do-better`), for driving live sessions through the master plan by message (`implementation-orchestrator`),
-  for reviewing every diagram with the user five at a time (`diagram-review-chunks`), or for finding why pwsh or VS Code misbehaves on this
-  devbox (`devbox-vscode-diagnostics`).
+  for reviewing one diagram with the user (`diagram-review`), or for finding why pwsh or VS Code misbehaves on this devbox
+  (`devbox-vscode-diagnostics`).
 tools: Bash, Read, Glob, Grep, Write, Edit
 disallowedTools: ""
 model: sonnet

@@ -72,8 +72,8 @@ agents:
     checks: [Test-CheckedInBinaries, Test-Links]
     model_reason: leads other agents, ranks candidates and writes briefs in the ADRs' exact terms
 
-  # Reviews every diagram with the user five at a time: five reads, five questions, one plan step per answer, then a redraw of all.
-  - name: diagram-review-chunks
+  # Reviews one named diagram with the user: reads it, asks one question in context, takes the written answer as a plan step, redraws.
+  - name: diagram-review
     supported_by: [DDR-VISUAL-LEFTTORIGHTISTIME, ADR-REPO-PLANS-OPENSTEP, PDR-ONELIVE-ONEVERSION]
     checks: [Test-Diagrams, Test-Plans]
 
