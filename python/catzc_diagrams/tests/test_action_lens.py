@@ -291,13 +291,33 @@ def test_the_statement_is_a_speech_bubble_whose_tail_reaches_the_mouth(monkeypat
     style = declaration.style_map(bubble.group(1))
     assert style.get("shape") == "callout" and style.get("direction") == "west"
     radius = int(cause.group(3))
-    mouth_x = int(cause.group(1)) + math.sqrt(radius**2 - (declaration.MOUTH * radius) ** 2)
+    if declaration.FIGURE:  # the mouth on the head box's right edge
+        mouth_x = int(cause.group(1)) + 6 + round(radius * 0.82)
+    else:  # the mouth on the half-disc's arc
+        mouth_x = int(cause.group(1)) + math.sqrt(radius**2 - (declaration.MOUTH * radius) ** 2)
     assert abs(int(bubble.group(2)) - round(mouth_x)) <= 1  # the cell starts at the mouth: its tail reaches it
     assert 'id="e-cause-action"' not in model and 'id="cats"' in model  # the tail is the connection; the word stands at its root
     assert "bubble: the statement spoken in cats" in model or 'value="bubble"' in model
     monkeypatch.setattr(declaration, "BUBBLE", False)
     model = declaration.put(normalised(sample()))
     assert 'id="e-cause-action"' in model and "shape=callout" not in model
+
+
+def test_the_actor_holds_the_idea_in_its_head_inside_the_fragment(monkeypatch):
+    first = normalised(sample())
+    model = declaration.put(first)
+    head = re.search(r'<mxCell id="cause-head" value="([^"]*)" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
+    body = re.search(r'<mxCell id="cause-body" value="" style="([^"]*)"', model)
+    cause = re.search(r'<mxCell id="cause" value="" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
+    assert head is not None and body is not None and cause is not None
+    assert head.group(1) == "&lt;b&gt;An author&lt;/b&gt;" and "shape=umlActor" in body.group(1)
+    assert int(head.group(2)) >= int(cause.group(1)) and int(head.group(2)) + int(head.group(4)) <= int(cause.group(1)) + int(cause.group(3))
+    bubble = re.search(r'<mxCell id="action" value="[^"]*" style="[^"]*" [^\n]*\n\s*<mxGeometry x="(\d+)"', model)
+    assert bubble is not None and int(bubble.group(1)) == int(head.group(2)) + int(head.group(4))  # the tail reaches the head box
+    assert declaration.get(model, kind="explanation")["content"]["cause"] == {"label": "An author"}
+    monkeypatch.setattr(declaration, "FIGURE", False)
+    model = declaration.put(first)
+    assert 'id="cause-head"' not in model and 'value="&lt;b&gt;An author&lt;/b&gt;"' in model.split('id="action"')[0]
 
 
 def test_a_long_value_starts_on_its_own_line_under_its_key():
@@ -412,7 +432,9 @@ def test_the_cause_takes_a_named_size_and_is_bold():
     default = sizes[declaration.ACTION["cause-size"]]
     model = declaration.put(normalised(sample()))
     cause = re.search(r'<mxCell id="cause" value="([^"]*)" [^\n]*\n\s*<mxGeometry x="\d+" y="\d+" width="(\d+)" height="(\d+)"', model)
-    assert cause is not None and cause.group(1).startswith("&lt;b&gt;") and (int(cause.group(2)), int(cause.group(3))) == (default, 2 * default)
+    words = re.search(r'<mxCell id="cause-head" value="([^"]*)"', model) if declaration.FIGURE else cause  # the words: head box or disc
+    assert cause is not None and words is not None and words.group(1).startswith("&lt;b&gt;")
+    assert (int(cause.group(2)), int(cause.group(3))) == (default, 2 * default)
     raw = sample()
     raw["content"]["cause"]["size"] = "largest"
     model = declaration.put(normalised(raw))

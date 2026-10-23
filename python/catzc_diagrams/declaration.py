@@ -2763,16 +2763,19 @@ def get_action(cells, geo, glyph_sigs, kind):
     styled = lambda k: [
         cid for cid, c in cells.items() if not cid.startswith(("lg-", "proof")) and matches(glyph_sigs[k], c.get("style") or "")
     ]
-    causes, sites = styled("cause"), styled("callsite")
-    actions = list(dict.fromkeys(styled("action") + styled("bubble")))  # a bubble carries the pill's tokens too: counted once
-    if len(causes) != 1 or len(sites) + len(actions) != 1:
+    causes = styled("cause")
+    # The statement: the pill, the call site, or a speech bubble (its callout shape, whatever its text's alignment); one of them.
+    bubbles = [
+        cid
+        for cid, c in cells.items()
+        if not cid.startswith(("lg-", "proof")) and style_map(c.get("style") or "").get("shape") == "callout"
+    ]
+    actions = list(dict.fromkeys(styled("action") + styled("callsite") + bubbles))
+    if len(causes) != 1 or len(actions) != 1:
         raise DeclarationError("get needs one cause and one action or call site in an action drawing")
-    action_id = (sites or actions)[0]
-    if sites:
-        rows = sorted((cid for cid, c in cells.items() if c.get("parent") == action_id), key=lambda m: geo[m]["y"])
-        action = {"calls": [parse_call(value(m)) for m in rows]}
-    else:
-        action = {"call": parse_call(value(action_id))}
+    action_id = actions[0]
+    rows = sorted((cid for cid, c in cells.items() if c.get("parent") == action_id), key=lambda m: geo[m]["y"])
+    action = {"calls": [parse_call(value(m)) for m in rows]} if rows else {"call": parse_call(value(action_id))}
     cause = geo[causes[0]]
     cx, cy = cause["x"], cause["y"] + cause["h"] / 2  # the rings' centre: the cause's flat side on the frame's rim
     # The rings as drawn, each its radii; a note's zone is the first ring its centre lies inside, by the ellipse's own measure.
