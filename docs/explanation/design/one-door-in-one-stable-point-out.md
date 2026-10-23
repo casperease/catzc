@@ -60,54 +60,7 @@ content:
     - { at: g-verified, number: 4 }
     - { at: g-consumers, number: 5 }
   legend: auto
-  minimaps:
-    code-locations:
-      - cell: docs/-/.
-        by:
-          - docs/drs/design/dora-explains.md
-          - docs/drs/design/server-remote-integration.md
-          - docs/drs/index.md
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-NORECONCILINGTIPS
-          - DDR-REMOTE-PULLREQUESTISINGRESS
-          - DDR-REMOTE-SERVERREMOTEISTRUTH
-      - cell: pwsh/Catzc.Base.Drs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-NORECONCILINGTIPS
-          - DDR-REMOTE-PULLREQUESTISINGRESS
-          - DDR-REMOTE-SERVERREMOTEISTRUTH
-    grid:
-      - cell: docs/markdown
-        by:
-          - docs/drs/design/dora-explains.md
-          - docs/drs/design/server-remote-integration.md
-          - docs/drs/index.md
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-NORECONCILINGTIPS
-          - DDR-REMOTE-PULLREQUESTISINGRESS
-          - DDR-REMOTE-SERVERREMOTEISTRUTH
-      - cell: pwsh/yaml
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-NORECONCILINGTIPS
-          - DDR-REMOTE-PULLREQUESTISINGRESS
-          - DDR-REMOTE-SERVERREMOTEISTRUTH
-    axis:
-      - cell: DSGN/build
-        by:
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-NORECONCILINGTIPS
-          - DDR-REMOTE-PULLREQUESTISINGRESS
-          - DDR-REMOTE-SERVERREMOTEISTRUTH
-      - cell: DSGN/quality-control
-        by:
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-NORECONCILINGTIPS
-          - DDR-REMOTE-PULLREQUESTISINGRESS
-          - DDR-REMOTE-SERVERREMOTEISTRUTH
+  minimaps: [code-locations, grid, axis]
 layout:
   band-in: { x: 20, y: 84, w: 1260, h: 130 }
   band-server: { x: 20, y: 234, w: 1260, h: 130 }

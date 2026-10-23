@@ -55,42 +55,7 @@ content:
   markers:
     - { at: g-render, number: 1 }
   legend: auto
-  minimaps:
-    axis:
-      - cell: AUTO/quality-control
-        by: [ADR-REPO-SLIDES-MINIMAPSFROMDATA]
-    layer-stack:
-      - cell: automation
-        by:
-          - docs/drs/index.md
-          - docs/drs/repository/dora-explains.md
-          - docs/drs/repository/slides-as-markdown.md
-          - docs/references/pwsh/catzc-base-slides.md
-          - docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md
-          - docs/references/python/catzc_diagrams.md
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1
-          - pwsh/Catzc.Base.Slides/Build-Diagrams.ps1
-          - pwsh/Catzc.Base.Slides/tests/Write-DiagramMinimapData.Tests.ps1
-          - ADR-REPO-SLIDES-MINIMAPSFROMDATA
-    grid:
-      - cell: docs/markdown
-        by:
-          - docs/drs/index.md
-          - docs/drs/repository/dora-explains.md
-          - docs/drs/repository/slides-as-markdown.md
-          - docs/references/pwsh/catzc-base-slides.md
-          - docs/references/pwsh/catzc-base-slides/Build-Diagrams.ps1.md
-          - docs/references/python/catzc_diagrams.md
-          - ADR-REPO-SLIDES-MINIMAPSFROMDATA
-      - cell: pwsh/powershell
-        by:
-          - pwsh/Catzc.Base.Maps/tests/Get-GridMinimapData.Tests.ps1
-          - pwsh/Catzc.Base.Slides/Build-Diagrams.ps1
-          - pwsh/Catzc.Base.Slides/tests/Write-DiagramMinimapData.Tests.ps1
-          - ADR-REPO-SLIDES-MINIMAPSFROMDATA
-      - cell: pwsh/yaml
-        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-REPO-SLIDES-MINIMAPSFROMDATA]
+  minimaps: [axis, layer-stack, grid]
 layout:
   band-pipeline: { x: 20, y: 84, w: 1260, h: 170 }
   g-folders: { x: 60, y: 144, w: 180, h: 60 }

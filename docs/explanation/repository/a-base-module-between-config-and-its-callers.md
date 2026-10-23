@@ -76,45 +76,7 @@ content:
     - { at: g-upper-base, number: 7 }
     - { at: g-tooling, number: 8 }
   legend: auto
-  minimaps:
-    code-locations:
-      - cell: docs/-/.
-        by:
-          - docs/drs/index.md
-          - docs/drs/repository/dora-explains.md
-          - docs/drs/repository/repo-variants.md
-          - docs/references/pwsh/catzc-base-variants/Get-AspectDeclaration.ps1.md
-          - docs/references/pwsh/catzc-base-variants/Test-AspectDeclaration.ps1.md
-          - docs/references/pwsh/catzc-base-variants/configs/variants.yml.md
-          - docs/references/pwsh/catzc-base-variants/types/VariantsConfig.cs.md
-          - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
-          - ADR-REPO-VARIANT-SESSIONVARIANT
-      - cell: pwsh/Catzc.Base.Drs/configs
-        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-REPO-VARIANT-MINIMALDEPENDENCIES, ADR-REPO-VARIANT-SESSIONVARIANT]
-      - cell: pwsh/Catzc.Base.Variants/.
-        by:
-          - pwsh/Catzc.Base.Variants/Get-AspectDeclaration.ps1
-          - pwsh/Catzc.Base.Variants/Test-AspectDeclaration.ps1
-          - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
-          - ADR-REPO-VARIANT-SESSIONVARIANT
-      - cell: pwsh/Catzc.Base.Variants/configs
-        by: [pwsh/Catzc.Base.Variants/configs/variants.yml, ADR-REPO-VARIANT-MINIMALDEPENDENCIES, ADR-REPO-VARIANT-SESSIONVARIANT]
-      - cell: pwsh/Catzc.Base.Variants/types
-        by: [pwsh/Catzc.Base.Variants/types/VariantsConfig.cs, ADR-REPO-VARIANT-MINIMALDEPENDENCIES, ADR-REPO-VARIANT-SESSIONVARIANT]
-    module-neighbourhood:
-      - cell: subject/Catzc.Base.Drs
-        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-REPO-VARIANT-MINIMALDEPENDENCIES, ADR-REPO-VARIANT-SESSIONVARIANT]
-      - cell: subject/Catzc.Base.Variants
-        by:
-          - pwsh/Catzc.Base.Variants/Get-AspectDeclaration.ps1
-          - pwsh/Catzc.Base.Variants/Test-AspectDeclaration.ps1
-          - pwsh/Catzc.Base.Variants/configs/variants.yml
-          - pwsh/Catzc.Base.Variants/types/VariantsConfig.cs
-          - ADR-REPO-VARIANT-MINIMALDEPENDENCIES
-          - ADR-REPO-VARIANT-SESSIONVARIANT
-    axis:
-      - cell: AUTO/*
-        by: [ADR-REPO-VARIANT-MINIMALDEPENDENCIES, ADR-REPO-VARIANT-SESSIONVARIANT]
+  minimaps: [code-locations, module-neighbourhood, axis]
 layout:
   band-foundation: { x: 20, y: 84, w: 1240, h: 120 }
   band-variants: { x: 20, y: 224, w: 1240, h: 100 }

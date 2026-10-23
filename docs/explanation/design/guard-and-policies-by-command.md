@@ -69,25 +69,7 @@ content:
     - { at: g-policy, number: 6 }
     - { at: c-list, number: 7 }
   legend: auto
-  minimaps:
-    code-locations:
-      - cell: docs/-/.
-        by:
-          - docs/drs/design/dora-explains.md
-          - docs/drs/design/server-remote-integration.md
-          - docs/drs/index.md
-          - DDR-REMOTE-INTEGRATEFROMVERIFIED
-          - DDR-REMOTE-PULLREQUESTISINGRESS
-      - cell: pwsh/Catzc.Base.Drs/configs
-        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
-    module-neighbourhood:
-      - cell: subject/Catzc.Base.Drs
-        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
-    axis:
-      - cell: DSGN/build
-        by: [DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
-      - cell: DSGN/quality-control
-        by: [DDR-REMOTE-INTEGRATEFROMVERIFIED, DDR-REMOTE-PULLREQUESTISINGRESS]
+  minimaps: [code-locations, module-neighbourhood, axis]
 layout:
   band-clone: { x: 20, y: 84, w: 1260, h: 140 }
   band-admin: { x: 20, y: 244, w: 1260, h: 140 }

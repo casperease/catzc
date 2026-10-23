@@ -63,27 +63,7 @@ content:
     - { at: r-ci, number: 3 }
     - { at: r-cd, number: 4 }
   legend: auto
-  minimaps:
-    axis:
-      - cell: CLOUD/deploy
-        by: [ADR-AZ-IACKIND-THREEKINDS]
-    lifecycle-position:
-      - cell: main-uat
-        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-IACKIND-THREEKINDS]
-      - cell: release-uat
-        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-IACKIND-THREEKINDS]
-      - cell: pre-prod
-        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-IACKIND-THREEKINDS]
-      - cell: prod
-        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-IACKIND-THREEKINDS]
-    layer-stack:
-      - cell: automation
-        by:
-          - docs/drs/azure/dora-explains.md
-          - docs/drs/azure/infrastructure-kinds.md
-          - docs/drs/index.md
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-AZ-IACKIND-THREEKINDS
+  minimaps: [axis, lifecycle-position, layer-stack]
 layout:
   s-templates: { x: 500, y: 164, w: 300, h: 52 }
   r-ci: { x: 960, y: 140, w: 220, h: 40 }

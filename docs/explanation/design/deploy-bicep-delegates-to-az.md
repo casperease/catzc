@@ -84,23 +84,7 @@ content:
     - { at: x-azure-command, number: 9 }
     - { at: x-bicep, number: 10 }
   legend: auto
-  minimaps:
-    code-locations:
-      - cell: docs/-/.
-        by:
-          - docs/drs/design/dora-explains.md
-          - docs/drs/design/thin-platforms.md
-          - docs/drs/index.md
-          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
-          - DDR-THINPLAT-PLATFORMASCLI
-      - cell: pwsh/Catzc.Base.Drs/configs
-        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI]
-    module-neighbourhood:
-      - cell: subject/Catzc.Base.Drs
-        by: [pwsh/Catzc.Base.Drs/configs/drs.yml, DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI]
-    axis:
-      - cell: DSGN/deploy
-        by: [DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI]
+  minimaps: [code-locations, module-neighbourhood, axis]
 layout:
   band-consumers: { x: 20, y: 84, w: 1260, h: 120 }
   band-surface: { x: 20, y: 224, w: 1260, h: 120 }

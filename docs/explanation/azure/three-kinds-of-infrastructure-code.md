@@ -73,28 +73,7 @@ content:
     - { at: g-slot, number: 4 }
     - { at: e-group, number: 5 }
   legend: auto
-  minimaps:
-    axis:
-      - cell: CLOUD/deploy
-        by: [ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
-    lifecycle-position:
-      - cell: main-uat
-        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
-      - cell: release-uat
-        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
-      - cell: pre-prod
-        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
-      - cell: prod
-        by: [docs/drs/index.md, pwsh/Catzc.Base.Drs/configs/drs.yml, ADR-AZ-IACKIND-THREEKINDS, ADR-AZ-IACKIND-TRACKPLACESKINDS]
-    layer-stack:
-      - cell: automation
-        by:
-          - docs/drs/azure/dora-explains.md
-          - docs/drs/azure/infrastructure-kinds.md
-          - docs/drs/index.md
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - ADR-AZ-IACKIND-THREEKINDS
-          - ADR-AZ-IACKIND-TRACKPLACESKINDS
+  minimaps: [axis, lifecycle-position, layer-stack]
 layout:
   g-slot: { x: 680, y: 164, w: 200, h: 52 }
 ```

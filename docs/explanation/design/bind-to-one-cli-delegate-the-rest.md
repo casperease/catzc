@@ -60,44 +60,7 @@ content:
     - { at: x-tooling, number: 3 }
     - { at: e-vendor, number: 4 }
   legend: auto
-  minimaps:
-    code-locations:
-      - cell: docs/-/.
-        by:
-          - docs/drs/design/dora-explains.md
-          - docs/drs/design/thin-platforms.md
-          - docs/drs/index.md
-          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
-          - DDR-THINPLAT-PLATFORMASCLI
-          - DDR-THINPLAT-SWAPPABLESUBSTRATE
-          - DDR-THINPLAT-THINPLATFORM
-      - cell: pwsh/Catzc.Base.Drs/configs
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
-          - DDR-THINPLAT-PLATFORMASCLI
-          - DDR-THINPLAT-SWAPPABLESUBSTRATE
-          - DDR-THINPLAT-THINPLATFORM
-    grid:
-      - cell: docs/markdown
-        by:
-          - docs/drs/design/dora-explains.md
-          - docs/drs/design/thin-platforms.md
-          - docs/drs/index.md
-          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
-          - DDR-THINPLAT-PLATFORMASCLI
-          - DDR-THINPLAT-SWAPPABLESUBSTRATE
-          - DDR-THINPLAT-THINPLATFORM
-      - cell: pwsh/yaml
-        by:
-          - pwsh/Catzc.Base.Drs/configs/drs.yml
-          - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
-          - DDR-THINPLAT-PLATFORMASCLI
-          - DDR-THINPLAT-SWAPPABLESUBSTRATE
-          - DDR-THINPLAT-THINPLATFORM
-    axis:
-      - cell: DSGN/deploy
-        by: [DDR-THINPLAT-DELEGATENOTREIMPLEMENT, DDR-THINPLAT-PLATFORMASCLI, DDR-THINPLAT-SWAPPABLESUBSTRATE, DDR-THINPLAT-THINPLATFORM]
+  minimaps: [code-locations, grid, axis]
 layout:
   band-consumers: { x: 20, y: 84, w: 1260, h: 120 }
   band-cli: { x: 20, y: 224, w: 1260, h: 120 }
