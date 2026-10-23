@@ -133,7 +133,10 @@ files:
     carrier: dotfile
     optIn: true
   - target: cspell.yml
-    source: pwsh/Catzc.Base.RootConfig/assets/root/cspell.yml
+    generator: New-Cspell
+    sources:
+      - pwsh/Catzc.Base.RootConfig/assets/root/cspell-template.yml
+      - pwsh/Catzc.Base.Globs/configs/globs.yml
     optIn: true
   - target: dotnet-tools.json
     source: pwsh/Catzc.Base.RootConfig/assets/root/dotnet-tools.json

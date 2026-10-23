@@ -1,0 +1,42 @@
+Describe 'New-Cspell' -Tag 'L0', 'logic' {
+    BeforeAll {
+        function script:Set-Template {
+            param([string] $Text)
+            $script:templatePath = Join-Path $TestDrive 'template.yml'
+            [System.IO.File]::WriteAllText($script:templatePath, $Text)
+        }
+
+        function script:New-WidgetSet {
+            param([string[]] $Include, [string[]] $Exclude = @())
+            [Catzc.Base.Globs.GlobSet]::new('widget-parts', 'Widget parts, never authored here.', 'loose-fileset', $Include, $Exclude, @(), @(), -1, $null)
+        }
+
+        Mock Get-GlobSet -ModuleName Catzc.Base.RootConfig { New-WidgetSet -Include @('**/gadgets/**', 'widgets/spare.*') }
+    }
+
+    It 'replaces the placeholder with a comment and one quoted ignore path per include of the glob set, in set order' {
+        Set-Template "ignorePaths:`n  - .git/**`n  - `"{{third-party}}`"`n  - out/**`n"
+        $text = New-Cspell -TemplatePath $script:templatePath
+        $text | Should -BeExactly "ignorePaths:`n  - .git/**`n  # The third-party glob set (globs.yml): vendored or downloaded files, never authored here.`n  - `"**/gadgets/**`"`n  - `"widgets/spare.*`"`n  - out/**`n"
+        Should -Invoke Get-GlobSet -ModuleName Catzc.Base.RootConfig -Times 1 -Exactly -ParameterFilter { $Name -eq 'third-party' }
+    }
+
+    It 'reads a CRLF template as LF' {
+        Set-Template "ignorePaths:`r`n  - `"{{third-party}}`"`r`n"
+        (New-Cspell -TemplatePath $script:templatePath) | Should -Not -Match "`r"
+    }
+
+    It 'throws naming the template when the placeholder is missing or repeated' -ForEach @(
+        @{ Case = 'missing'; Text = "ignorePaths:`n  - .git/**`n"; Count = 0 }
+        @{ Case = 'repeated'; Text = "  - `"{{third-party}}`"`n  - `"{{third-party}}`"`n"; Count = 2 }
+    ) {
+        Set-Template $Text
+        { New-Cspell -TemplatePath $script:templatePath } | Should -Throw "*exactly once, found ${Count}*"
+    }
+
+    It 'throws when the glob set carries an exclude, which ignorePaths cannot express' {
+        Mock Get-GlobSet -ModuleName Catzc.Base.RootConfig { New-WidgetSet -Include @('**/gadgets/**') -Exclude @('**/gadgets/keep/**') }
+        Set-Template "  - `"{{third-party}}`"`n"
+        { New-Cspell -TemplatePath $script:templatePath } | Should -Throw '*includes only*'
+    }
+}

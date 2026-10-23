@@ -2,6 +2,8 @@
 # generated file equals what its generator would write now, and returns its result under -PassThru.
 parameters:
   generator: string[]
+  changed: switch
+  stamp_only: switch
   output_folder: string
   pass_thru: switch
 output: catzc.base.reports.quality_gate_result

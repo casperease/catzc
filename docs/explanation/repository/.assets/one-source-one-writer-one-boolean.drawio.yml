@@ -28,8 +28,8 @@ content:
   edges:
     - { from: g-source, to: g-writer, kind: flow, label: "" }
     - { from: g-registry, to: g-writer, kind: flow, label: "" }
-    - { from: g-writer, to: r-gitignored, kind: flow, label: 22/28 }
-    - { from: g-writer, to: r-tracked, kind: flow, label: 6/28 }
+    - { from: g-writer, to: r-gitignored, kind: flow, label: 22/30 }
+    - { from: g-writer, to: r-tracked, kind: flow, label: 8/30 }
   markers:
     - { at: g-source, number: 1 }
     - { at: g-registry, number: 2 }

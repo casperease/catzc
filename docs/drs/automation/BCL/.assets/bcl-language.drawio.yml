@@ -1,6 +1,6 @@
 description:
-  "BCL as two things: the language, whose type sources reference only the Base Class Library and whose projects build the one pair bcl.yml
-  declares; and its use inside pwsh, which compiles the types in the session's own runtime, unwraps the values its callers pass, and lets a
+  "BCL as two things: the language, whose type sources reference only the Base Class Library and whose projects build the one pair BclConfig
+  defaults; and its use inside pwsh, which compiles the types in the session's own runtime, unwraps the values its callers pass, and lets a
   type bind to the host only by a bcl.yml row that the gate checks."
 about:
   adrs: [ADR-BCL-TYPES-BCLREFERENCESET, ADR-BCL-TYPES-DEBUGANYCPU, ADR-PWSH-TYPES-HOSTGUARANTEEDASSEMBLIES, ADR-PWSH-TYPES-ADDTYPECOMPILES]
@@ -19,14 +19,14 @@ content:
       kind: type
       label: "types/*.cs
 
-        316 sources"
+        334 sources"
       in: band-language
     - { id: g-library, kind: set, label: Base Class Library, in: band-language }
     - id: g-bcl-yml
       kind: file
       label: "bcl.yml
 
-        pair + 7 rows"
+        8 host rows"
       in: band-language
     - id: g-projects
       kind: file
@@ -50,7 +50,7 @@ content:
     - { id: g-gate, kind: gate, label: Test-BclReferences, in: band-host }
   edges:
     - { from: g-types, to: g-library, kind: flow, label: references }
-    - { from: g-bcl-yml, to: g-projects, kind: flow, label: one pair }
+    - { from: g-bcl-yml, to: g-projects, kind: flow, label: default pair }
     - { from: g-import, to: g-types, kind: flow, label: compiles }
     - { from: g-unwrap, to: g-types, kind: flow, label: plain values }
     - { from: g-types, to: g-sma, kind: flow, label: only by a row }

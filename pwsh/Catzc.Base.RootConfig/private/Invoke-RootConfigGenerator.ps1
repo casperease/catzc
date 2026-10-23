@@ -39,6 +39,9 @@ function Invoke-RootConfigGenerator {
         'New-GitAttributes' {
             New-GitAttributes
         }
+        'New-Cspell' {
+            New-Cspell
+        }
         'New-VsCodeSettings' {
             $config = Get-Config -Config rootconfig
             $managedTargets = @(foreach ($entry in @(Get-RootConfigTargets -Config $config)) {

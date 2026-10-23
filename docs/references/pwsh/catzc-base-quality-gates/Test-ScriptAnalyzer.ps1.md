@@ -36,6 +36,9 @@ A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automat
 Write-QualityGateReport, which writes out/test-script-analyzer/, prints every issue, and throws once listing them all; -PassThru returns the
 result object instead.
 
+A file of the `third-party` glob set (vendored or downloaded, never authored here) is left out of the run, whether it was found under a
+directory or named, so the analyzer judges only what the repository writes.
+
 PSScriptAnalyzer is vendored under the code root's .vendor/ — no install step is needed.
 
 ### parameter `Path`

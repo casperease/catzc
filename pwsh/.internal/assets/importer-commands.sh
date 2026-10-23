@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8387019ecff6"
+#     with_body_sha: "358027eef731"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -208,6 +208,8 @@ test_function_dependency	modules_root	string	0	0	0	contracts/catzc/0.0.0/catzc.b
 test_function_dependency	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.module_system/test_function_dependency.command.yml			test-function-dependency	output-folder	Test-FunctionDependency	OutputFolder
 test_function_dependency	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.module_system/test_function_dependency.command.yml			test-function-dependency	pass-thru	Test-FunctionDependency	PassThru
 test_generated_files	generator	string	1	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_generated_files.command.yml			test-generated-files	generator	Test-GeneratedFiles	Generator
+test_generated_files	changed	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_generated_files.command.yml			test-generated-files	changed	Test-GeneratedFiles	Changed
+test_generated_files	stamp_only	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_generated_files.command.yml			test-generated-files	stamp-only	Test-GeneratedFiles	StampOnly
 test_generated_files	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_generated_files.command.yml			test-generated-files	output-folder	Test-GeneratedFiles	OutputFolder
 test_generated_files	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_generated_files.command.yml			test-generated-files	pass-thru	Test-GeneratedFiles	PassThru
 test_generated_readmes	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.docs/test_generated_readmes.command.yml			test-generated-readmes	output-folder	Test-GeneratedReadmes	OutputFolder

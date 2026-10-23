@@ -58,7 +58,6 @@ stale or superseded item is recorded as such, with the reason.
 | high   | plan-debt-full-run-failures | none (test reruns)                                                                              | one Invoke-TestFile per failing file                                                                  | one step                                         |
 | medium | plan-debt-test-speed        | none (test files only)                                                                          | the measured test files, twice each                                                                   | two steps                                        |
 | high   | plan-bcl-path-sets          |                                                                                                 |                                                                                                       | new                                              |
-| medium | plan-debt-review-followup   | none (the rules exist)                                                                          | each file's test file, Test-Diagrams                                                                  | new                                              |
 | medium | plan-vscode-session-binding |                                                                                                 |                                                                                                       | new                                              |
 
 ## Pending deletion

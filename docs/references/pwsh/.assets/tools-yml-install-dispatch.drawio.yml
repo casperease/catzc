@@ -33,7 +33,7 @@ content:
     - { from: t-config, to: g-status, kind: flow, label: "" }
     - { from: t-config, to: g-order, kind: flow, label: "" }
     - { from: t-config, to: g-tool-config, kind: flow, label: "" }
-    - { from: t-config, to: g-suffix, kind: flow, label: "" }
+    - { from: g-order, to: g-suffix, kind: flow, label: "" }
     - { from: g-status, to: t-status, kind: flow, label: "" }
     - { from: t-status, to: g-install, kind: flow, label: "" }
     - { from: g-order, to: g-install, kind: flow, label: "" }
@@ -46,8 +46,8 @@ content:
     - { at: t-config, number: 2 }
     - { at: g-status, number: 3 }
     - { at: g-order, number: 4 }
-    - { at: g-tool-config, number: 5 }
-    - { at: g-suffix, number: 6 }
+    - { at: g-suffix, number: 5 }
+    - { at: g-tool-config, number: 6 }
     - { at: g-install, number: 7 }
     - { at: s-installers, number: 8 }
     - { at: f-missing, number: 9 }
@@ -66,8 +66,8 @@ layout:
   t-status: { x: 640, y: 130, w: 130, h: 40 }
   grp-core: { x: 405, y: 190, w: 245, h: 210 }
   g-order: { x: 440, y: 232, w: 190, h: 40 }
-  g-tool-config: { x: 440, y: 292, w: 190, h: 40 }
-  g-suffix: { x: 440, y: 352, w: 190, h: 40 }
+  g-suffix: { x: 440, y: 292, w: 190, h: 40 }
+  g-tool-config: { x: 440, y: 352, w: 190, h: 40 }
   g-install: { x: 880, y: 236, w: 170, h: 40 }
   s-installers: { x: 1090, y: 236, w: 170, h: 40 }
   f-missing: { x: 1090, y: 330, w: 170, h: 44 }

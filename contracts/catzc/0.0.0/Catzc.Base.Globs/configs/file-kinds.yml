@@ -30,14 +30,18 @@ kinds:
   pipeline:
   hook:
   asset:
+  slides-kit:
   drawio-kit:
   script:
   agent:
+  capability:
   index:
   glossary:
+  diagram-declaration:
   adr:
   reference:
   how-to:
   explanation:
   diagram:
+  slide:
   readme:
