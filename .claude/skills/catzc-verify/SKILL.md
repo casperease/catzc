@@ -36,7 +36,8 @@ metadata:
    `Test-Links -Path <md> -PassThru`, `Test-Glossary -PassThru` (issues naming an owned file), and after a generated file's source changed
    its generator (`Build-Readme`, `Build-Glossary`, `Build-DrsIndex`) then `Test-GeneratedFiles -PassThru`; never the full
    `Test-Automation`; a new command's task closes only on one live run of it, its output reported verbatim, never on green tests alone; a
-   command's help is proved by a read of its page under `docs/references/`, never by `Get-Help`.
+   command's help is proved by a read of its page under `docs/references/`, never by `Get-Help`; a test red before the edit has its name
+   grepped in `.claude/plans` first, since a plan may already hold its cause.
 3. Shared files are the coordinator's unless the brief names them owned: `dependencies.yml`, `configs.yml`, `rootconfig.yml`,
    `gitignore.yml`, `globs.yml`, `terminology.yml`, `guids.yml`, every `glossary.yml`, `docs/drs/glossary.md`, `docs/drs/index.md`,
    `docs/how-to/pwsh/manual-test-plan/**`; an entry needed there goes in the report as the exact lines under asks, tested meanwhile with

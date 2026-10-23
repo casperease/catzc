@@ -27,6 +27,7 @@ Above `using System;`, written with `//`.
 
 ```text
 Reads and writes a file's meta block, kept as the text of one property, as pure text work on strings. A JSON file keeps it as an ignored
-top-level member. An XML file whose root is an MSBuild project keeps it as a CDATA property of a labelled first PropertyGroup, because
-an XML comment cannot hold the `---` fence and a loader may refuse a processing instruction.
+top-level member. An XML file the carriers declare as a property carrier, an MSBuild project or `nuget.config` (a configuration root), keeps
+it as a CDATA property of a labelled first PropertyGroup, because an XML comment cannot hold the `---` fence and a loader may refuse a
+processing instruction.
 ```

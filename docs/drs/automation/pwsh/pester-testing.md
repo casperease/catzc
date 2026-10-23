@@ -373,10 +373,17 @@ them as Pester tests.
   `[IO.File]::Delete` / `[IO.Directory]::Delete($d, $true)` (measured ~33 s vs ~0.6 s for ~4,300 entries) — `Clear-TempFolders`
   (`Catzc.Tooling.Provisioning`) uses the .NET calls for this reason. And do not blame AV for temp slowness without checking: a bloated
   `%TEMP%` (tens of thousands of entries) slows NTFS directory creation, and `%TEMP%` is often AV-excluded while the repo is not.
-- **Chained mock state hits a Pester `$script:` scope surprise.** A `Set-` mock that writes `$script:x` and a `Get-` mock that reads it back
-  do not reliably round-trip within one test (the mock bodies don't share the scope you expect). Don't assert idempotency by mutating fake
-  state and reading it back — assert on the boundary instead: seed the "already present" state and assert `Should -Invoke <writer> -Times 0`
-  (it must not have written). Single-direction reads/writes (seed → act → read the writer's captured `$Value`) are fine.
+- **A mock body sees the test's scope, so assert the boundary, not a mock's round-trip.** On the Pester the repository pins (5.7.1), a
+  `Mock` defined in `BeforeAll` or inside the `It`, with or without `-ModuleName`, reads the `It`'s locals and the test file's `$script:`
+  variables, and a `Set-` mock that writes `$script:x` round-trips with a `Get-` mock that reads it within one test. Round-tripping fake
+  state proves the mocks, not the code under test, so don't assert idempotency by mutating fake state and reading it back — assert on the
+  boundary instead: seed the "already present" state and assert `Should -Invoke <writer> -Times 0` (it must not have written).
+  Single-direction reads/writes (seed → act → read the writer's captured `$Value`) are fine.
+- **A parameter used only inside a nested `Should -Throw` block is reported unused.** `PSReviewUnusedParameter` does not trace an
+  `InModuleScope` block's parameter into a `{ ... } | Should -Throw` block nested inside it (probed on PSScriptAnalyzer 1.25.0), so the call
+  that uses the parameter sits inside the throw block, `{ InModuleScope <Module> -Parameters @{ ... } { param($Entry) ... } } | Should -Throw`,
+  and needs no `SuppressMessageAttribute` (the shape of the `throws when the build's entry does not exist` case in
+  `pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1`).
 - **Cold-import isolation belongs in a child process, not an in-process runspace.** A fresh runspace looks like cheap isolation, but env
   vars are process-global — the importer's `$env:RepositoryRoot`/`$env:PSModulePath` writes leak into the parent (breaking the real
   session's lazy Pester/PSScriptAnalyzer resolution) — and a loaded assembly cannot be unloaded, so the sandbox's `powershell-yaml` DLL

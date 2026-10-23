@@ -19,4 +19,5 @@ metadata:
 2. Never add, commit, push, reset, checkout, rebase, merge, stash, rm or mv; a change the user must record is named in the report under
    asks.
 3. A file another session has dirty (`git status --short` shows it and the brief does not own it) is reported, never edited, and re-read
-   before relying on it.
+   before relying on it; a peer stages as it lands, so `git diff` can be empty: `git diff --cached` and the first column of
+   `git status --short` show it.

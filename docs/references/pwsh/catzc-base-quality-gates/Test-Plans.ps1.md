@@ -37,6 +37,8 @@ One finding per broken rule, each naming the rule ([ADR-REPO-PLANS](../../../drs
   ([ADR-REPO-PLANS-ONESHAPE](../../../drs/repository/plans.md#rule-adr-repo-plans-oneshape));
 - an open step, a `- [ ]` or `1. [ ]` item with its continuation lines, that names no check, and a numbered line of the open steps section
   with no checkbox ([ADR-REPO-PLANS-OPENSTEP](../../../drs/repository/plans.md#rule-adr-repo-plans-openstep));
+- a check that names a Verb-Noun command no module exports (the gate resolves it against the exported commands, so a function private to its
+  module does not count) ([ADR-REPO-PLANS-OPENSTEP](../../../drs/repository/plans.md#rule-adr-repo-plans-openstep));
 - a task file whose `task:` head misses a key or which has no steps section, more task files than the roof, a line in any file that names a
   task by a number, and a master plan without its own sections
   ([ADR-REPO-PLANS-MASTERANDTASKS](../../../drs/repository/plans.md#rule-adr-repo-plans-masterandtasks)).

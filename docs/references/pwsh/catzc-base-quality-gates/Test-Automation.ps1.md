@@ -127,7 +127,10 @@ Base directory for the run report. Every run writes a timestamped subfolder (`<O
 Run in an isolated snapshot of the working folder even when it is free. A run never waits for another
 ([ADR-AUTO-TEST-RUNSNEVERWAIT](../../../drs/automation/test-automation.md#rule-adr-auto-test-runsneverwait)): when another run holds the
 working folder this one runs in a snapshot anyway; this switch asks for a snapshot up front — a deterministic run, immune to edits made in
-the working folder while it runs. The report lands in the working folder's out/ either way, and run.json records where the run executed.
+the working folder while it runs. The snapshot is HEAD plus every uncommitted change, so a case-only rename, which git does not see until it
+is committed, is lost in it ([rename-a-tooling-folder](../../../how-to/automation/rename-a-tooling-folder.md) and
+[Enter-TestRunLocation](private/Enter-TestRunLocation.ps1.md) hold the two halves). The report lands in the working folder's out/ either
+way, and run.json records where the run executed.
 
 ### parameter `KeepSandbox`
 

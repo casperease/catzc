@@ -15,7 +15,9 @@ catzc:
 
 A **plan** is one topic in one file, `.claude/plans/plan-<topic>.md`, authored directly there, and it holds the delta only: what is still
 open, and what was decided and why. The tree, the decision records and git hold everything else, what landed included. A plan starts with
-`New-Plan`, which writes its head, its open steps section, its value row and its master line, and refuses a topic that has a plan.
+`New-Plan`, which writes its head, its open steps section, its value row and its master line, and refuses a topic that has a plan. The topic
+is prose, spell-checked wherever `plan-master.md` or `value-of-plan.md` cites it, so a coined topic word goes into `terminology.yml` before
+the plan is named.
 
 - [The delta, not the record](#the-delta-not-the-record)
 
