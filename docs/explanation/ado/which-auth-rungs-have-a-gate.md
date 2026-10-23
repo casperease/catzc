@@ -6,7 +6,7 @@ catzc:
       - ADR-ADO-AUTH
       - FDR-CD-DETECT-NODIRECTVARIABLECHECK
       - FDR-CD-PIPELINE-NOSTOREDTOKENS
-    drs_total: 8
+    drs_total: 9
 ---
 
 # The PAT proof and the empty-token assert have no gate

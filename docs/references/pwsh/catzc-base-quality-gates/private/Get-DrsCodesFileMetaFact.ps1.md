@@ -54,3 +54,12 @@ Above `foreach ($match in [regex]::Matches($Source,...`, written with `#`.
 ```text
 Body text cites by code only: a numbered citation or a wildcard there is a mention, never a citation.
 ```
+
+## comment:2
+
+Above `foreach ($code in @($found)) {`, written with `#`.
+
+```text
+Only a code the ADR index registers is a citation: a fixture code or a placeholder named in prose is not. A bare record code is one
+in every class, except the record the file itself defines rules of; a bare domain code only in a code class.
+```

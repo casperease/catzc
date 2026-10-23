@@ -4,9 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AZ-CLI-AZBYDEFAULT
-      - DDR-THINPLAT-DELEGATENOTREIMPLEMENT
-      - DDR-THINPLAT-PLATFORMASCLI
-    drs_total: 3
+      - DDR-THINPLAT
+    drs_total: 4
 ---
 
 # Deploy-Bicep adds the guards and the config lookup, and hands every vendor step to az

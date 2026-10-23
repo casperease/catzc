@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-PWSH-ERROR-THROWNOTWRITEERROR
-    drs_total: 1
+      - TDR-NORMALFORM
+    drs_total: 2
 ---
 
 # Add a doc chapter

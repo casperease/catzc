@@ -6,7 +6,8 @@ catzc:
       - ADR-AUTO-CACHE
       - ADR-BCL-TYPES-CHANGEDAFTERLOAD
       - ADR-PWSH-CACHE-SCRIPTSCOPESTATE
-    drs_total: 11
+      - PDR-ONELIVE
+    drs_total: 13
 ---
 
 # A static table keyed by Type is not a session cache, so ADR-AUTO-CACHE does not govern it

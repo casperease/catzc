@@ -4,10 +4,10 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-ACCOSTED-RESERVEDNAME
-      - ADR-REPO-PLANS-THREEPARTS
-      - ADR-REPO-PLANS-OPENSTEP
+      - ADR-BCL-TYPES
+      - ADR-REPO-PLANS
       - FDR-CD-DETECT-NODIRECTVARIABLECHECK
-    drs_total: 4
+    drs_total: 6
 ---
 
 # Hindsight d7c207

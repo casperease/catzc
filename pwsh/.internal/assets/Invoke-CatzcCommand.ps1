@@ -44,8 +44,8 @@ catzc:
     holder, that held it. Default: run_lock.wait_seconds of timeouts.yml.
 
 .PARAMETER BudgetSeconds
-    The most seconds this run may take in all, waiting included, the background roof of the time safeguard; a holder whose deadline lies
-    beyond it is not waited for, and the run says when to retry. Default: run_lock.budget_seconds of timeouts.yml.
+    The most seconds this run may take in all, waiting included, the background roof of the time safeguard; a live holder is waited for
+    until the budget leaves only -LockSeconds, and then the run says when to retry. Default: run_lock.budget_seconds of timeouts.yml.
 
 .PARAMETER InBurst
     Run under the lock the session's Enter-CatzcBurst holds, taking none: the burst's own checks. Throws when no burst holds the lock.
@@ -131,7 +131,7 @@ try {
             }
         }
         if (-not $undeclared -and $limit -gt 0) {
-            Set-CatzcRunLockHolder -LockName $LockName -Seconds ([Math]::Min($limit, $BudgetSeconds)) -Holding "Invoke-CatzcCommand $($Command -join '; ')" -Declared
+            Set-CatzcRunLockHolder -LockName $LockName -Seconds ([Math]::Min($limit, $BudgetSeconds)) -Holding "Invoke-CatzcCommand $($Command -join '; ')"
         }
     }
 

@@ -27,13 +27,10 @@ on 2026-10-22 with five sessions running tests). A red file has its cause report
       the file ran green three times alone (catzc-27, 2026-10-23, `out/test-file/20261023-092121-2054e4` and the two after it). Left: the
       same three runs through `Invoke-CatzcCommand`, and the fix decided from the real error if one turns red; the run lock now serialises
       every import, so "while another session imports" is no longer a state a run can meet (decided by the orchestrator as delegated,
-      2026-10-23). (check: `Invoke-TestFile` on `Build-AgentHook.Tests.ps1` green three times in a row)
-
-- [ ] The same run's 131 unformatted files (83 under `docs/drs`, 22 under `docs/explanation`, 8 under `docs/how-to`, 5 plans, the rest
-      single files): the cause is pages and code citing rule codes that were added or renamed after the 2026-10-22 re-imprint, so each lacks
-      its generated head (catzc-97, 2026-10-23); `Format-Code -Path` one folder at a time, each diff read as head lines only before the
-      next, the `.cs` files in one burst; a body change goes to the orchestrator (decided as delegated, 2026-10-23). (check:
-      `Test-Formatting.Tests.ps1` green)
-- [ ] `pwsh/Catzc.Base.QualityGates/private/Assert-TestTagGate.ps1`: each untagged test's line names its test file, and the message names
-      the valid categories `logic` and `integrity` (decided by the orchestrator as delegated, 2026-10-23: finding a test's file took a grep,
-      and one test used `integration`). (check: `Assert-TestTagGate.Tests.ps1` green with a case asserting the file and the categories)
+      2026-10-23). The real error (catzc-27, 2026-10-23, `out/test-file/20261023-093629-59a2f1`, one red in three): `dotnet publish` exits 0
+      while a child it started holds its output open past 5 s; one child is NuGet's credential plugin, started because the implicit restore
+      reads the user-level NuGet sources (a private feed among them); a second is not yet named. Nothing may contact a package manager
+      outside the tooling system, and the config that makes the hook build offline (sources cleared, audit off) is a generated file (the
+      user, 2026-10-23); `--source nuget.org` was tried and reverted. The design (generator, place, scope that keeps `dotnet tool restore`
+      working) is reported to the orchestrator before any edit. (check: `Invoke-TestFile` on `Build-AgentHook.Tests.ps1` green three times
+      in a row)

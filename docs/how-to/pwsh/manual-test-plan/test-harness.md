@@ -4,7 +4,8 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TEST-FILEPARALLELISM
-    drs_total: 1
+      - ADR-REPO-LANG
+    drs_total: 2
 ---
 
 # Manual test plan — Test harness

@@ -41,15 +41,15 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
         }
         # Holds the lock on another thread for the given milliseconds; with -RecordSeconds it writes the holder record a plain run writes.
         function script:Start-LockHolder {
-            param([string] $Name, [int] $Milliseconds, [System.Threading.EventWaitHandle] $Burst, [int] $RecordSeconds, [switch] $Declared)
+            param([string] $Name, [int] $Milliseconds, [System.Threading.EventWaitHandle] $Burst, [int] $RecordSeconds)
             $taken = [System.Threading.ManualResetEventSlim]::new($false)
             $shell = [powershell]::Create().AddScript({
-                    param($Name, $Milliseconds, $Taken, $Burst, $RecordSeconds, $Path, [bool] $Declared)
+                    param($Name, $Milliseconds, $Taken, $Burst, $RecordSeconds, $Path)
                     . $Path
                     $held = [System.Threading.Mutex]::new($false, $Name)
                     $null = $held.WaitOne()
                     if ($RecordSeconds -gt 0) {
-                        Set-CatzcRunLockHolder -LockName $Name -Seconds $RecordSeconds -Holding 'Get-Gadget' -Declared:$Declared
+                        Set-CatzcRunLockHolder -LockName $Name -Seconds $RecordSeconds -Holding 'Get-Gadget'
                     }
                     $Taken.Set()
                     Start-Sleep -Milliseconds $Milliseconds
@@ -59,7 +59,7 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
                     Remove-CatzcRunLockHolder -LockName $Name
                     $held.ReleaseMutex()
                     $held.Dispose()
-                }).AddArgument($Name).AddArgument($Milliseconds).AddArgument($taken).AddArgument($Burst).AddArgument($RecordSeconds).AddArgument($script:waiter).AddArgument($Declared.IsPresent)
+                }).AddArgument($Name).AddArgument($Milliseconds).AddArgument($taken).AddArgument($Burst).AddArgument($RecordSeconds).AddArgument($script:waiter)
             $handle = $shell.BeginInvoke()
             [pscustomobject]@{ Shell = $shell; Handle = $handle; Taken = $taken.Wait(2000) }
         }
@@ -203,7 +203,7 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
 
     It 'waits for a live holder whose declared deadline lies past its own budget, and takes the lock once it is let go inside the budget' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
         # The holder declares 120 s, past the waiter's 5 s budget, but lets go after 1.5 s: a deadline is a limit, never when it ends.
-        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500 -RecordSeconds 120 -Declared
+        $holder = Start-LockHolder -Name $script:lockName -Milliseconds 1500 -RecordSeconds 120
         try {
             $holder.Taken | Should -BeTrue
             $out = @(Wait-CatzcRunLock -LockName $script:lockName -LockSeconds 1 -BudgetSeconds 5 -StaleSeconds 720 -Holding 'Get-Widget' -Caller 'Widget' -Busy 'nothing ran' -Lock $script:taken)
@@ -222,7 +222,7 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
             $holder.Taken | Should -BeTrue
             $path = Get-CatzcRunLockHolderPath -LockName $script:lockName
             [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($path)) | Out-Null
-            [System.IO.File]::WriteAllText($path, "2147483646|0|$([datetime]::UtcNow.AddSeconds(120).Ticks)|1|Get-Gadget")
+            [System.IO.File]::WriteAllText($path, "2147483646|0|$([datetime]::UtcNow.AddSeconds(120).Ticks)|Get-Gadget")
             $out = @(Wait-CatzcRunLock -LockName $script:lockName -LockSeconds 3 -BudgetSeconds 5 -StaleSeconds 720 -Holding 'Get-Widget' -Caller 'Widget' -Busy 'nothing ran' -Lock $script:taken)
             $out | Should -Be @('[Widget] waiting for the run lock: another run holds it (up to 3 s)')
             $script:taken.Value | Should -BeOfType [System.Threading.Mutex]
@@ -252,8 +252,8 @@ Describe 'Wait-CatzcRunLock' -Tag 'L0', 'logic' {
     }
 
     It 'does not wait for a burst whose holder is gone: <case>' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' -ForEach @(
-        @{ case = 'its process is dead'; Record = { "2147483646|0|$([datetime]::UtcNow.AddSeconds(120).Ticks)|1|a burst (Enter-CatzcBurst)" } }
-        @{ case = 'past its declared length'; Record = { "$PID|$((Get-Process -Id $PID).StartTime.ToUniversalTime().Ticks)|$([datetime]::UtcNow.AddSeconds(-5).Ticks)|1|a burst (Enter-CatzcBurst)" } }
+        @{ case = 'its process is dead'; Record = { "2147483646|0|$([datetime]::UtcNow.AddSeconds(120).Ticks)|a burst (Enter-CatzcBurst)" } }
+        @{ case = 'past its declared length'; Record = { "$PID|$((Get-Process -Id $PID).StartTime.ToUniversalTime().Ticks)|$([datetime]::UtcNow.AddSeconds(-5).Ticks)|a burst (Enter-CatzcBurst)" } }
     ) {
         $burst = [System.Threading.EventWaitHandle]::new($false, [System.Threading.EventResetMode]::ManualReset, "$script:lockName-burst")
         $holder = Start-LockHolder -Name $script:lockName -Milliseconds 3000

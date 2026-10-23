@@ -7,8 +7,9 @@
     Dot-sourced by Invoke-CatzcCommand.ps1 and Enter-CatzcBurst.ps1; it imports nothing. A waiter takes a ticket in the lock's queue
     folder and tries the named mutex only while its ticket is the oldest live one, so waiters are served in the order they came. It waits
     up to -LockSeconds; while a burst holds the lock (Enter-CatzcBurst's event exists), or while the holder record names a live process
-    whose deadline has not passed, the wait lasts as long as the hold, and the waiter still has -LockSeconds once it ends. When the
-    holder's deadline lies beyond the waiter's own -BudgetSeconds, the waiter stops at once and says when to retry. It writes its waiting
+    whose deadline has not passed, the wait lasts as long as the hold, and the waiter still has -LockSeconds once it ends. A live
+    holder is waited for until the waiter's -BudgetSeconds leaves only its own -LockSeconds, whatever deadline the holder declares; then
+    the waiter stops and says when to retry. It writes its waiting
     lines to the pipeline as they happen, and sets -Lock to the owned mutex, or writes a "run lock busy" line and leaves -Lock null.
     The holder record sits beside the queue folder: the holding process's id and start time, its deadline and what it runs. The waiter
     that takes the lock writes it, Set-CatzcRunLockHolder moves its deadline once the run knows its commands' limits, and
@@ -72,18 +73,16 @@ function Set-CatzcRunLockHolder {
         [int] $Seconds,
 
         [Parameter(Mandatory)]
-        [string] $Holding,
-
-        [switch] $Declared
+        [string] $Holding
     )
 
-    # One line: the process id and start time, so a reused id is never taken for the holder, the deadline, whether it is declared (the
-    # run's own limits summed, or a burst's length) rather than the budget written when the lock was taken, and what it runs.
+    # One line: the process id and start time, so a reused id is never taken for the holder, the deadline (the budget when the lock is
+    # taken, then the run's own limits summed, or a burst's length), and what it runs.
     $path = Get-CatzcRunLockHolderPath -LockName $LockName
     $started = (Get-Process -Id $PID).StartTime.ToUniversalTime().Ticks
     $deadline = [datetime]::UtcNow.AddSeconds($Seconds).Ticks
     [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($path)) | Out-Null
-    [System.IO.File]::WriteAllText($path, "$PID|$started|$deadline|$([int] $Declared.IsPresent)|$($Holding -replace '[\r\n|]', ' ')")
+    [System.IO.File]::WriteAllText($path, "$PID|$started|$deadline|$($Holding -replace '[\r\n|]', ' ')")
 }
 
 function Test-CatzcRunLockHolderGone {
@@ -139,8 +138,8 @@ function Get-CatzcRunLockHolder {
     catch [System.UnauthorizedAccessException] {
         return $null
     }
-    $parts = $text -split '\|', 5
-    if ($parts.Count -lt 5) {
+    $parts = $text -split '\|', 4
+    if ($parts.Count -lt 4) {
         return $null
     }
     $process = Get-Process -Id ([int] $parts[0]) -ErrorAction Ignore
@@ -151,7 +150,7 @@ function Get-CatzcRunLockHolder {
     if ($deadline -le [datetime]::UtcNow) {
         return $null
     }
-    [pscustomobject]@{ ProcessId = [int] $parts[0]; Deadline = $deadline; Declared = $parts[3] -eq '1'; Holding = $parts[4] }
+    [pscustomobject]@{ ProcessId = [int] $parts[0]; Deadline = $deadline; Holding = $parts[3] }
 }
 
 function Wait-CatzcRunLock {
@@ -287,12 +286,8 @@ function Wait-CatzcRunLock {
             }
             $holder = Get-CatzcRunLockHolder -LockName $LockName
             if ($holder) {
-                # A holder whose declared deadline lies past this run's budget is waited for by no one: the run says when to come back. A
-                # deadline still at the holder's own budget is no promise yet, so the run waits while its budget leaves room for its own work.
-                if ($holder.Declared -and $holder.Deadline -gt $started.AddSeconds($BudgetSeconds)) {
-                    $overBudget = $holder
-                    break
-                }
+                # A deadline is the most a holder may take, never when it ends, so a live holder is waited for while this run's budget
+                # still leaves room for its own work; only then does the run say when to come back.
                 if ([datetime]::UtcNow -ge $started.AddSeconds($BudgetSeconds - $LockSeconds)) {
                     $overBudget = $holder
                     break
@@ -327,8 +322,8 @@ function Wait-CatzcRunLock {
         else {
             $BudgetSeconds
         }
-        # A hold length the caller gives (a burst's) is declared; the budget is only the most the run may take.
-        Set-CatzcRunLockHolder -LockName $LockName -Seconds $hold -Holding $Holding -Declared:($HoldSeconds -gt 0)
+        # A hold length the caller gives (a burst's) is its deadline; otherwise the budget, the most the run may take.
+        Set-CatzcRunLockHolder -LockName $LockName -Seconds $hold -Holding $Holding
         $Lock.Value = $mutex
         return
     }

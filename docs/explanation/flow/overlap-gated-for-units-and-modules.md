@@ -4,10 +4,11 @@ catzc:
   edges:
     cites:
       - ADR-AUTO-TEST-QUALITYGATE
-      - ADR-REPO-PROTGLOB-DERIVEDMODULEGLOBSETS
+      - ADR-REPO-PROTGLOB
       - FDR-CD-GLOBS-EVERYSETHASLAYER
       - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
-    drs_total: 4
+      - PDR-ONELIVE
+    drs_total: 6
 ---
 
 # A gate checks overlap for units and modules, and loose-filesets are exempt

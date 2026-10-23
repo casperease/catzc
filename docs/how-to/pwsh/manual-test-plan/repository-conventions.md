@@ -5,6 +5,7 @@ catzc:
     cites:
       - ADR-AUTO-ASSETDEP-COVEREDBYREALTEST
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+      - ADR-PWSH-PARAM
       - ADR-REPO-CMDCONTRACT-ONEREADER
       - ADR-REPO-CONTRACT-LAYOUT
       - ADR-REPO-CONTRACT-PROVENBYTESTS
@@ -19,7 +20,7 @@ catzc:
       - DDR-TRACK-VALUECHAINCONCERN
       - DDR-TRACK-VALUECHAINMAP
       - DDR-TRACK-UNORDEREDTRACK
-    drs_total: 16
+    drs_total: 17
 ---
 
 # Manual test plan — Repository conventions
