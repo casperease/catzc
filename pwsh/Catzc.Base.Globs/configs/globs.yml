@@ -125,7 +125,11 @@ globsets:
     exclude:
       - docs/notes/**
       - .unordered/**
-      - pwsh/.vendor/**
+      - out/**
+      - "**/.vendor/**"
+      - "**/.venv/**"
+      - "**/.pytest_cache/**"
+      - "**/node_modules/**"
 
   repository:
     description: The whole repository - every tracked file under every named root.

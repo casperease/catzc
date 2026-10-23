@@ -1,0 +1,2 @@
+# The most paths one markdownlint-cli2 call takes, so a long path list never overruns the command line. Default: 50.
+batch_size: 50

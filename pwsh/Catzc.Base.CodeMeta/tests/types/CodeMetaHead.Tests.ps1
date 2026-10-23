@@ -184,8 +184,12 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'A
 }
 
 # The types hash strips the head before the types load, so it cannot call CodeMetaHead; this proves the two read every real type the same.
-Describe 'CodeMetaHead and the types hash agree on every C# type' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CODEMETA-CODEFILEHEAD' {
+Describe 'CodeMetaHead and the types hash agree on every C# type' -Tag 'L2', 'integrity', 'source-only', 'ADR-REPO-CODEMETA-CODEFILEHEAD' {
     It 'gives the same body as Get-TypeSourceBody for every tracked types/*.cs, under the bcl form file-carriers.yml declares' {
+        if (-not (Test-Command 'git')) {
+            Set-ItResult -Skipped -Because 'tool_git_missing'
+            return
+        }
         $root = Get-RepositoryRoot
         $declared = (ConvertFrom-Yaml ([System.IO.File]::ReadAllText((Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.Languages/configs/file-carriers.yml'))))['carriers']['bcl']
         $block = [string[]] @($declared['block'])

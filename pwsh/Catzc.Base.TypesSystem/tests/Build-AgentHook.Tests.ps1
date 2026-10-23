@@ -83,8 +83,12 @@ Describe 'Build-AgentHook' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'Build-AgentHook — Assert-BashTimeout parity with Get-TimeoutSeconds' -Tag 'L1', 'integrity' {
+Describe 'Build-AgentHook — Assert-BashTimeout parity with Get-TimeoutSeconds' -Tag 'L2', 'integrity' {
     BeforeAll {
+        $script:dotnetMissing = -not (Test-Command 'dotnet')
+        if ($script:dotnetMissing) {
+            return
+        }
         # The hook as published for this repository, reading the shipped timeouts.yml through its own YAML loader.
         $script:program = Build-AgentHook Assert-BashTimeout
         $script:foregroundMs = (Get-TimeoutSeconds -Shell Bash) * 1000
@@ -102,11 +106,19 @@ Describe 'Build-AgentHook — Assert-BashTimeout parity with Get-TimeoutSeconds'
     }
 
     It 'allows exactly the foreground limit Get-TimeoutSeconds resolves, and denies one millisecond more' {
+        if ($script:dotnetMissing) {
+            Set-ItResult -Skipped -Because 'tool_dotnet_missing'
+            return
+        }
         Invoke-Hook @{ command = 'ls'; timeout = $foregroundMs } | Should -BeNullOrEmpty
         Invoke-Hook @{ command = 'ls'; timeout = $foregroundMs + 1 } | Should -BeLike "*timeout <= $foregroundMs ms*"
     }
 
     It 'allows exactly the background limit Get-TimeoutSeconds resolves, and denies one second more' {
+        if ($script:dotnetMissing) {
+            Set-ItResult -Skipped -Because 'tool_dotnet_missing'
+            return
+        }
         Invoke-Hook @{ command = "timeout $backgroundSeconds ls"; run_in_background = $true } | Should -BeNullOrEmpty
         Invoke-Hook @{ command = "timeout $($backgroundSeconds + 1) ls"; run_in_background = $true } |
             Should -BeLike "*background limit is $backgroundSeconds s*"
@@ -115,6 +127,10 @@ Describe 'Build-AgentHook — Assert-BashTimeout parity with Get-TimeoutSeconds'
 
 Describe 'Build-AgentHook — the published Assert-BashTimeout' -Tag 'L2', 'logic' {
     BeforeAll {
+        $script:dotnetMissing = -not (Test-Command 'dotnet')
+        if ($script:dotnetMissing) {
+            return
+        }
         # Publish the real program into the test drive, with a copy of the repository layout it locates its config by.
         $script:root = Join-Path $TestDrive 'repo'
         $configDirectory = Join-Path $script:root "$(Get-CatzcModulesFolder)/Catzc.Base.Timeouts/configs"
@@ -145,18 +161,30 @@ executables:
     }
 
     It 'lets a call through whose timeout is within the devbox foreground limit' {
+        if ($script:dotnetMissing) {
+            Set-ItResult -Skipped -Because 'tool_dotnet_missing'
+            return
+        }
         $result = Invoke-Hook '{"tool_input":{"command":"ls","timeout":7000}}'
         $result.ExitCode | Should -Be 0
         $result.Output | Should -BeNullOrEmpty
     }
 
     It 'lets a background call through behind a timeout prefix within the background limit' {
+        if ($script:dotnetMissing) {
+            Set-ItResult -Skipped -Because 'tool_dotnet_missing'
+            return
+        }
         $result = Invoke-Hook '{"tool_input":{"command":"timeout 70 ls","run_in_background":true}}'
         $result.ExitCode | Should -Be 0
         $result.Output | Should -BeNullOrEmpty
     }
 
     It 'denies a background call without a timeout prefix and logs it' {
+        if ($script:dotnetMissing) {
+            Set-ItResult -Skipped -Because 'tool_dotnet_missing'
+            return
+        }
         $result = Invoke-Hook '{"tool_input":{"command":"ls","run_in_background":true}}'
         ($result.Output | ConvertFrom-Json).hookSpecificOutput.permissionDecisionReason | Should -BeLike '*has no*timeout <duration>*prefix*'
         Get-Content -LiteralPath (Join-Path $script:root 'out/time-safeguard.log') -Raw | Should -BeLike "*background`tno timeout prefix`t70 s`tls*"
@@ -166,6 +194,10 @@ executables:
         @{ Payload = '{"tool_input":{"command":"ls"}}'; Asked = 'no timeout' }
         @{ Payload = '{"tool_input":{"command":"ls","timeout":7001}}'; Asked = 'timeout 7001 ms' }
     ) {
+        if ($script:dotnetMissing) {
+            Set-ItResult -Skipped -Because 'tool_dotnet_missing'
+            return
+        }
         $result = Invoke-Hook $Payload
         $result.ExitCode | Should -Be 0
         $decision = ($result.Output | ConvertFrom-Json).hookSpecificOutput
@@ -175,6 +207,10 @@ executables:
     }
 
     It 'denies the call, naming the failure, on a payload it cannot read' {
+        if ($script:dotnetMissing) {
+            Set-ItResult -Skipped -Because 'tool_dotnet_missing'
+            return
+        }
         $result = Invoke-Hook 'not json'
         $result.ExitCode | Should -Be 0
         $decision = ($result.Output | ConvertFrom-Json).hookSpecificOutput
@@ -185,6 +221,10 @@ executables:
 
 Describe 'Build-AgentHook — the published Record-AgentWrite' -Tag 'L2', 'logic' {
     BeforeAll {
+        $script:dotnetMissing = -not (Test-Command 'dotnet')
+        if ($script:dotnetMissing) {
+            return
+        }
         # Publish the real program into the test drive; it finds the repository three folders above itself.
         $script:root = Join-Path $TestDrive 'repo'
         $null = New-Item -ItemType Directory -Force -Path (Join-Path $script:root 'docs')
@@ -210,6 +250,10 @@ Describe 'Build-AgentHook — the published Record-AgentWrite' -Tag 'L2', 'logic
     }
 
     It 'records a tool write with its repository-relative path, the listener''s content hash and the session' {
+        if ($script:dotnetMissing) {
+            Set-ItResult -Skipped -Because 'tool_dotnet_missing'
+            return
+        }
         $file = (Join-Path $script:root 'docs/widget.md').Replace('\', '/')
         $result = Invoke-Hook ('{"hook_event_name":"PostToolUse","tool_name":"Edit","session_id":"gadget","tool_use_id":"call-1","tool_input":{"file_path":"' + $file + '"}}')
         $result.ExitCode | Should -Be 0
@@ -224,6 +268,10 @@ Describe 'Build-AgentHook — the published Record-AgentWrite' -Tag 'L2', 'logic
     }
 
     It 'records the start and the end of a Bash call' {
+        if ($script:dotnetMissing) {
+            Set-ItResult -Skipped -Because 'tool_dotnet_missing'
+            return
+        }
         Invoke-Hook '{"hook_event_name":"PreToolUse","tool_name":"Bash","session_id":"gadget","tool_use_id":"call-2","tool_input":{"command":"ls"}}' | Out-Null
         Invoke-Hook '{"hook_event_name":"PostToolUse","tool_name":"Bash","session_id":"gadget","tool_use_id":"call-2","tool_input":{"command":"ls"}}' | Out-Null
         @((Get-LedgerLine).event) | Should -Be @('bash-start', 'bash-end')
@@ -231,6 +279,10 @@ Describe 'Build-AgentHook — the published Record-AgentWrite' -Tag 'L2', 'logic
     }
 
     It 'records nothing for a file outside the repository, and never fails or blocks on input it cannot read' {
+        if ($script:dotnetMissing) {
+            Set-ItResult -Skipped -Because 'tool_dotnet_missing'
+            return
+        }
         $outside = (Join-Path $TestDrive 'gizmo/widget.md').Replace('\', '/')
         Invoke-Hook ('{"hook_event_name":"PostToolUse","tool_name":"Write","session_id":"gadget","tool_input":{"file_path":"' + $outside + '"}}') | Out-Null
         $result = Invoke-Hook 'not json'
@@ -242,6 +294,10 @@ Describe 'Build-AgentHook — the published Record-AgentWrite' -Tag 'L2', 'logic
 
 Describe 'Build-AgentHook — the published Record-SessionMessage' -Tag 'L2', 'logic' {
     BeforeAll {
+        $script:dotnetMissing = -not (Test-Command 'dotnet')
+        if ($script:dotnetMissing) {
+            return
+        }
         # Publish the real program into the test drive; it finds the repository three folders above itself.
         $script:root = Join-Path $TestDrive 'repo'
         $script:program = Build-AgentHook Record-SessionMessage -OutputDirectory (Join-Path $script:root '.claude/hooks/bin') -Force
@@ -265,6 +321,10 @@ Describe 'Build-AgentHook — the published Record-SessionMessage' -Tag 'L2', 'l
     }
 
     It 'logs a message the session sends, with its short session id, the peer and the first line' {
+        if ($script:dotnetMissing) {
+            Set-ItResult -Skipped -Because 'tool_dotnet_missing'
+            return
+        }
         $result = Invoke-Hook '{"hook_event_name":"PostToolUse","tool_name":"SendMessage","session_id":"gadget-1234-5678","tool_input":{"to":"widget","message":"\n spin the widget \nsecond line"}}'
         $result.ExitCode | Should -Be 0
         $result.Output | Should -BeNullOrEmpty
@@ -273,6 +333,10 @@ Describe 'Build-AgentHook — the published Record-SessionMessage' -Tag 'L2', 'l
     }
 
     It 'logs each cross-session message a prompt carries, with its sender' {
+        if ($script:dotnetMissing) {
+            Set-ItResult -Skipped -Because 'tool_dotnet_missing'
+            return
+        }
         $prompt = '<cross-session-message from=\"uds:pipe\" from-name=\"widget\" from-mode=\"prompting\">\nhold; oil the gadget\n</cross-session-message>'
         Invoke-Hook ('{"hook_event_name":"UserPromptSubmit","session_id":"gadget","prompt":"' + $prompt + '"}') | Out-Null
         Get-LogLine | Should -HaveCount 1
@@ -280,6 +344,10 @@ Describe 'Build-AgentHook — the published Record-SessionMessage' -Tag 'L2', 'l
     }
 
     It 'logs nothing for a prompt a person typed or another tool, and never fails or blocks on input it cannot read' {
+        if ($script:dotnetMissing) {
+            Set-ItResult -Skipped -Because 'tool_dotnet_missing'
+            return
+        }
         Invoke-Hook '{"hook_event_name":"UserPromptSubmit","session_id":"gadget","prompt":"spin the widget"}' | Out-Null
         Invoke-Hook '{"hook_event_name":"PostToolUse","tool_name":"Edit","session_id":"gadget","tool_input":{"file_path":"widget.md"}}' | Out-Null
         $result = Invoke-Hook 'not json'
@@ -289,7 +357,14 @@ Describe 'Build-AgentHook — the published Record-SessionMessage' -Tag 'L2', 'l
     }
 }
 
-Describe 'Build-AgentHook — no package source reaches a hook build' -Tag 'L1', 'integrity' {
+Describe 'Build-AgentHook — no package source reaches a hook build' -Tag 'L2', 'integrity' {
+    BeforeAll {
+        $script:dotnetMissing = -not (Test-Command 'dotnet')
+        if ($script:dotnetMissing) {
+            return
+        }
+    }
+
     # NuGet reads its config from the project's folder up, so each hook folder must see the generated root config's cleared sources alone.
     It 'lists no package source from the hook folder <name>' -ForEach @(
         foreach ($folder in [System.IO.Directory]::GetDirectories((Join-Path (Get-RepositoryRoot) '.claude/hooks'))) {
@@ -298,6 +373,10 @@ Describe 'Build-AgentHook — no package source reaches a hook build' -Tag 'L1',
             }
         }
     ) {
+        if ($script:dotnetMissing) {
+            Set-ItResult -Skipped -Because 'tool_dotnet_missing'
+            return
+        }
         $listed = Invoke-Executable 'dotnet nuget list source' -WorkingDirectory $folder -PassThru -Silent
         $listed.ExitCode | Should -Be 0
         $listed.Full | Should -Not -Match '\[(Enabled|Disabled)\]' -Because 'a listed source is one a restore would contact'

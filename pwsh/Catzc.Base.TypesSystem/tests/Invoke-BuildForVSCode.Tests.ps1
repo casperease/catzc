@@ -4,7 +4,7 @@ Describe 'Invoke-BuildForVsCode' -Tag 'L0', 'logic' {
         Mock Assert-SourceTree -ModuleName Catzc.Base.TypesSystem { }
         Mock Get-CatzcModulesRoot -ModuleName Catzc.Base.TypesSystem { $TestDrive }
         Mock Assert-PathExist -ModuleName Catzc.Base.TypesSystem { }
-        Mock Test-Command -ModuleName Catzc.Base.TypesSystem { $true }
+        Mock Test-Command -ModuleName Catzc.Base.Asserts { $true }
         # The modules root is the test drive, outside the repository; the offline guard's own cases are Assert-DotnetOffline.Tests.ps1.
         Mock Assert-DotnetOffline -ModuleName Catzc.Base.TypesSystem { }
         Mock Invoke-Executable -ModuleName Catzc.Base.TypesSystem {
@@ -36,12 +36,12 @@ Describe 'Invoke-BuildForVsCode' -Tag 'L0', 'logic' {
     }
 
     It 'throws an actionable error when dotnet is not on PATH' {
-        Mock Test-Command -ModuleName Catzc.Base.TypesSystem { $false }
+        Mock Test-Command -ModuleName Catzc.Base.Asserts { $false }
         { Invoke-BuildForVsCode } | Should -Throw '*Install-Dotnet*'
     }
 
     It 'does not launch dotnet when the tool is missing' {
-        Mock Test-Command -ModuleName Catzc.Base.TypesSystem { $false }
+        Mock Test-Command -ModuleName Catzc.Base.Asserts { $false }
         { Invoke-BuildForVsCode } | Should -Throw
         Should -Not -Invoke Invoke-Executable -ModuleName Catzc.Base.TypesSystem
     }

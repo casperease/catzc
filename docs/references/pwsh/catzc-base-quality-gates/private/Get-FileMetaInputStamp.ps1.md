@@ -24,8 +24,8 @@ A file's head is not a function of its own bytes alone: the cites are read from 
 first of its candidates on disk. So each file's stamp hashes its comment page's bytes (or that it is missing) and, for every relation of a
 kind that declares relations, whether each candidate (Get-RelativeEdgeCandidate) is on disk. Split-CachedFile joins the stamp to the file's
 key ([ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS](../../../../drs/automation/caching.md#rule-adr-auto-cache-checkedfilesacrosssessions)), so
-a change beside the file checks it again. A file whose cites the drs-codes kind writes also hashes the registered codes, and a repository with
-no DRS index has no codes: its files hash an empty set and are checked again once the index exists.
+a change beside the file checks it again. A file whose cites the drs-codes kind writes also hashes the registered codes, and a repository
+with no DRS index has no codes: its files hash an empty set and are checked again once the index exists.
 
 ### parameter `File`
 

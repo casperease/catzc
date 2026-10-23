@@ -37,6 +37,7 @@ function Build-AgentHook {
         $csproj = Join-Path $project "$hook.csproj"
         Assert-PathExist $csproj
         $projectXml = [xml](Get-Content -LiteralPath $csproj -Raw)
+        Assert-NotNull $projectXml.DocumentElement -ErrorText "No <Project> element in $csproj."
 
         $sources = @(Get-ChildPath $project -File -Filter '*.cs', '*.csproj' -Depth 1 | Sort-Object { [System.IO.Path]::GetFileName($_) })
         Assert-True ($sources.Count -gt 0) -ErrorText "No hook files (*.cs, *.csproj) in $project"
@@ -74,9 +75,7 @@ function Build-AgentHook {
             continue
         }
 
-        if (-not (Test-Command 'dotnet')) {
-            throw 'dotnet is not on PATH. Install the .NET SDK (Install-Dotnet), then re-run Build-AgentHook.'
-        }
+        Assert-Command dotnet -ErrorText 'dotnet is not on PATH. Install the .NET SDK (Install-Dotnet), then re-run Build-AgentHook.'
 
         $configuration = (Get-Config -Config bcl).configuration
         Assert-DotnetOffline $csproj

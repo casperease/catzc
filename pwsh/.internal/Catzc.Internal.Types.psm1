@@ -733,6 +733,7 @@ function Get-TypesLoadPolicy {
     else {
         @{}
     }
+    # Filled in here, not as defaults: each is relative to the -ConfigPath row, and -ConfigPath is declared after them.
     $policy = [ordered]@{ Cell = $cell; Engine = $Engine }
     foreach ($name in 'Load', 'Trigger', 'ShadowCopy') {
         $fromConfig = $name.Substring(0, 1).ToLowerInvariant() + $name.Substring(1)

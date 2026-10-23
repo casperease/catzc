@@ -20,9 +20,7 @@ function Invoke-BuildForVsCode {
 
     Assert-SourceTree
 
-    if (-not (Test-Command 'dotnet')) {
-        throw 'dotnet is not on PATH. Install the .NET SDK (Install-Dotnet), then re-run Invoke-BuildForVsCode.'
-    }
+    Assert-Command dotnet -ErrorText 'dotnet is not on PATH. Install the .NET SDK (Install-Dotnet), then re-run Invoke-BuildForVsCode.'
 
     $project = Join-Path (Get-CatzcModulesRoot) '.internal/assets/Catzc.Types.csproj'
     Assert-PathExist $project
@@ -30,6 +28,7 @@ function Invoke-BuildForVsCode {
     $configuration = (Get-Config -Config bcl).configuration
     Assert-DotnetOffline $project
     $result = Invoke-Executable "dotnet build `"$project`" --configuration $configuration" -PassThru
+    Assert-NotNull $result -ErrorText "dotnet build of '$project' returned no result."
 
     if ($PassThru) {
         return $result

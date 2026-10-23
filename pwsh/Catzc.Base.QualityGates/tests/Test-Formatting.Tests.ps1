@@ -119,17 +119,16 @@ Describe 'Repository formatting integrity' -Tag 'L2', 'integrity', 'source-only'
         $go = Resolve-ToolExecutable -Tool go
         $uv = Resolve-ToolExecutable -Tool uv
         $python = Resolve-ToolExecutable -Tool python
-        $missing = if (-not (Get-Command prettier -ErrorAction Ignore)) {
-            'tool_prettier_missing'
+        if (-not (Get-Command prettier -ErrorAction Ignore)) {
+            Set-ItResult -Skipped -Because 'tool_prettier_missing'
+            return
         }
-        elseif (-not ($go.Found -and $go.VersionOk)) {
-            'tool_go_missing'
+        if (-not ($go.Found -and $go.VersionOk)) {
+            Set-ItResult -Skipped -Because 'tool_go_missing'
+            return
         }
-        elseif (-not ($uv.Found -and $uv.VersionOk -and $python.Found -and $python.VersionOk)) {
-            'tool_uv_missing'
-        }
-        if ($missing) {
-            Set-ItResult -Skipped -Because $missing
+        if (-not ($uv.Found -and $uv.VersionOk -and $python.Found -and $python.VersionOk)) {
+            Set-ItResult -Skipped -Because 'tool_uv_missing'
             return
         }
         $result = Test-Formatting -PassThru -OutputFolder (Join-Path $TestDrive 'formatting')

@@ -152,7 +152,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         }
 
         It 'passes a generator change whose output was re-rendered, and does not run a writer none of the changed paths touch' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
-            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1'; 'docs/drs/index.md' }
+            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { ConvertTo-RepoRelativePath (Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.Drs/Build-DrsIndex.ps1'); 'docs/drs/index.md' }
 
             $result = Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder
             $result.IssueCount | Should -Be 0
@@ -171,7 +171,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
         }
 
         It 'fails a generator change whose output was not re-rendered' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
-            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'pwsh/Catzc.Base.Drs/Build-DrsIndex.ps1' }
+            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { ConvertTo-RepoRelativePath (Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.Drs/Build-DrsIndex.ps1') }
             Mock Build-DrsIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/drs/index.md'; Changed = $true; DryRun = $true } }
 
             $result = Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder

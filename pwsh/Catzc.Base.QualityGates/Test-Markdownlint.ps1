@@ -14,15 +14,10 @@ function Test-Markdownlint {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
+        [Parameter(Position = 0)]
         [string[]] $Path = @(
-            '**/*.md'
-            '!out'
-            '!**/.vendor'
-            '!**/.venv'
-            '!**/.pytest_cache'
-            '!docs/notes'
-            '!.unordered'
-            '!**/node_modules'
+            (Get-Config -Config globs).Get('markdown-scope').Include.Pattern | Where-Object { $_ -like '*.md' }
+            (Get-Config -Config globs).Get('markdown-scope').Exclude.Pattern | ForEach-Object { "!$_" }
         ),
 
         [string] $OutputFolder,
@@ -34,12 +29,10 @@ function Test-Markdownlint {
     $configPath = [Catzc.Base.RootConfig.RootConfigFiles]::MarkdownlintConfigPath($root)
     Assert-PathExist $configPath
 
-    if (-not (Test-Command 'markdownlint-cli2')) {
-        throw (
-            'markdownlint-cli2 is not installed. Install it with:  Install-Markdownlint   ' +
-            '(or: npm install -g markdownlint-cli2), then re-run Test-Markdownlint.'
-        )
-    }
+    Assert-Command 'markdownlint-cli2' -ErrorText (
+        'markdownlint-cli2 is not installed. Install it with:  Install-Markdownlint   ' +
+        '(or: npm install -g markdownlint-cli2), then re-run Test-Markdownlint.'
+    )
 
     # Batches keep each command line short; every batch carries all the '!' exclusions so each one is scoped alike.
     $exclusions = @($Path | Where-Object { $_.StartsWith('!') } | ForEach-Object { "'$_'" })
@@ -51,7 +44,7 @@ function Test-Markdownlint {
                 $_
             }
         })
-    $batchSize = 50
+    $batchSize = (Get-Config -Config markdownlint).batch_size
     $exitCode = 0
     $outputs = [System.Collections.Generic.List[string]]::new()
     for ($start = 0; $start -lt $targets.Count; $start += $batchSize) {

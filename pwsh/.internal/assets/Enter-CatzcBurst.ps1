@@ -72,6 +72,7 @@ $Run = @($Run | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
 # A burst queues for the lock like any run; the waiting lines pass through as they happen.
 . (Join-Path $PSScriptRoot 'Wait-CatzcRunLock.ps1')
 $settings = Get-CatzcRunLockSetting
+# Filled in here, not as parameter defaults: the settings reader is dot-sourced just above, after the param block has bound.
 if (-not $PSBoundParameters.ContainsKey('LockSeconds')) {
     $LockSeconds = $settings.wait_seconds
 }

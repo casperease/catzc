@@ -38,6 +38,8 @@ configs:
     type: Catzc.Base.QualityGates.ParameterConsistencyConfig
   plans:
     type: Catzc.Base.QualityGates.PlansConfig
+  markdownlint:
+    type: Catzc.Base.QualityGates.MarkdownlintConfig
   identity-tokens:
     type: Catzc.Base.QualityGates.IdentityTokensConfig
   readme:

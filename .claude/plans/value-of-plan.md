@@ -12,11 +12,10 @@ catzc:
       - ADR-PWSH-PARAM-CASESENSITIVEPATTERN
       - ADR-PWSH-TYPES
       - ADR-REPO-DRSCODE
-      - ADR-REPO-FILEMETA-INTUNEWITHGENERATOR
       - ADR-REPO-PLANS
       - DDR-TRACK-UNORDEREDTRACK
       - TDR-NORMALFORM
-    drs_total: 11
+    drs_total: 10
 ---
 
 # Value of each plan
@@ -59,7 +58,7 @@ stale or superseded item is recorded as such, with the reason.
 | high   | plan-debt-full-run-failures | none (test reruns)                                                                              | one Invoke-TestFile per failing file                                                                  | one step                                         |
 | medium | plan-debt-test-speed        | none (test files only)                                                                          | the measured test files, twice each                                                                   | two steps                                        |
 | high   | plan-bcl-path-sets          |                                                                                                 |                                                                                                       | new                                              |
-| high   | plan-import-janitor-cost    | none (ADR-REPO-FILEMETA-INTUNEWITHGENERATOR already decides)                                    | the janitor tests, one fresh import, the measure script                                               | new                                              |
+| medium | plan-debt-rules-review      | none (the rules exist)                                                                          | each changed file's test file                                                                         | new                                              |
 | medium | plan-vscode-session-binding |                                                                                                 |                                                                                                       | new                                              |
 
 ## Pending deletion

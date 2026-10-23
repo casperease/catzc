@@ -363,58 +363,28 @@ rematerialise what it removed in the same run. Guarded: absent in the bootstrap 
 
 ## comment:30
 
-Above `if (Get-Command Build-DrsIndex -ErrorAction Ignore) {`, written with `#`.
+Above `foreach ($writer in 'Build-DrsIndex', 'Build-Glossary',...`, written with `#`.
 
 ```text
 Keep the generated ADR pages current (Catzc.Base.Docs): [index](/docs/drs/index.md) from drs.yml and
 [glossary](/docs/drs/glossary.md) from the glossary sources — committed so GitHub has them, rebuilt BEFORE
 Build-Readme (the docs/drs README is generated from the index). See [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
-```
 
-## comment:31
-
-Above `if (Get-Command Build-ContractReference -ErrorAction Ignore) {`, written with `#`.
-
-```text
 Keep the generated contract pages current (Catzc.Base.Contracts): docs/references/contracts/<unit>.md from the
 contract assets' header comments — committed so GitHub has them. See [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
-```
 
-## comment:32
-
-Above `if (Get-Command Build-Readme -ErrorAction Ignore) {`, written with `#`.
-
-```text
 Keep the generated README copy-ins current (Catzc.Base.Docs). Fast no-op when nothing changed — Build-Readme
 rewrites a README only when its composed content differs (compared EOL-insensitively), so a clean tree costs
 only a few small file reads. Guarded: absent in the bootstrap sandbox, like Clear-ModuleTypeCache.
-```
 
-## comment:33
-
-Above `if (Get-Command Build-GitKeep -ErrorAction Ignore) {`, written with `#`.
-
-```text
 Keep the managed .gitkeep files current (Catzc.Base.Docs). Every .gitkeep is a committed copy of the
 one shared template, pointing at its folder's generated README — reproduced here so a template change
 propagates, and a fast no-op on a clean tree. See [ADR-REPO-README](/docs/drs/repository/generated-readmes.md).
-```
 
-## comment:34
-
-Above `if (Get-Command Build-TerminologyDictionary -ErrorAction Ignore) {`, written with `#`.
-
-```text
 Keep the generated cspell dictionaries current (Catzc.Base.QualityGates). They are derived from
 configs/terminology.yml — gitignored, not committed — so the registry is the single source of truth and
 cspell still resolves them at fixed paths. Fast no-op when nothing changed (writes only on drift).
-```
 
-## comment:35
-
-Above `if (Get-Command Build-RootConfig -ErrorAction Ignore) {`, written with `#`.
-
-```text
 Keep the managed root config files current (Catzc.Base.RootConfig). Every opted-in root file is
 reproduced from its single in-repo source of truth — an authored source copied out with a generated-file
 header (e.g. the root PSScriptAnalyzerSettings.psd1 from .internal/assets), or a generator's rendered

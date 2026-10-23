@@ -1,5 +1,5 @@
 {
-  "hash": "a104d641",
+  "hash": "803b9828",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -1462,6 +1462,11 @@
     },
     {
       "name": "Catzc.Base.QualityGates.MarkdownLinkScanner",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.MarkdownlintConfig",
       "aliases": [],
       "display": []
     },

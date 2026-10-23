@@ -9,7 +9,7 @@ catzc:
 ---
 #>
 
-Describe 'Get-FileKind' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-METAKIND' {
+Describe 'Get-FileKind' -Tag 'L0', 'integrity', 'ADR-REPO-FILEMETA-METAKIND' {
     It 'names the role of a file in the shipped registry' -ForEach @(
         @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Variants/Get-Track.ps1'; Class = 'function' }
         @{ Path = (Get-CatzcModulesFolder) + '/Catzc.Base.Variants/Test-GitWorkspace.ps1'; Class = 'function/gate' }

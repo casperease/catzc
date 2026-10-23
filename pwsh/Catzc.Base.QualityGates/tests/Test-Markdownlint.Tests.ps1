@@ -27,7 +27,7 @@ Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
                 Output   = $script:markdownlintOut
             }
         }
-        Mock Test-Command -ModuleName Catzc.Base.QualityGates { $true }
+        Mock Test-Command -ModuleName Catzc.Base.Asserts { $true }
         Mock Write-Message -ModuleName Catzc.Base.Reports { }
     }
 
@@ -100,15 +100,22 @@ Describe 'Test-Markdownlint' -Tag 'L0', 'logic' {
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 3 -Exactly -ParameterFilter { $Command -match "'!widget'" }
     }
 
-    It 'excludes the out-of-scope trees via negation globs by default' {
+    It 'takes its default scope from the markdown-scope glob set: its markdown as the target, its excludes as negation globs' {
         Test-Markdownlint -OutputFolder $script:reportBase | Out-Null
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -ParameterFilter {
-            $Command -match '!out' -and $Command -match '!docs/notes' -and $Command -match '!\*\*/\.vendor'
+            $Command -match "'\*\*/\*\.md'" -and $Command -notmatch '\.markdownlint\.yml' -and
+            $Command -match "'!out/\*\*'" -and $Command -match "'!docs/notes/\*\*'" -and $Command -match "'!\*\*/\.vendor/\*\*'"
         }
     }
 
+    It 'batches by the configured size' {
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'markdownlint' } { [Catzc.Base.QualityGates.MarkdownlintConfig]::new(@{ batch_size = 10 }) }
+        Test-Markdownlint -Path @(1..25 | ForEach-Object { "gadget-$_.md" }) -OutputFolder $script:reportBase | Out-Null
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.QualityGates -Times 3 -Exactly
+    }
+
     It 'throws an actionable error when markdownlint-cli2 is not installed' {
-        Mock Test-Command -ModuleName Catzc.Base.QualityGates { $false }
+        Mock Test-Command -ModuleName Catzc.Base.Asserts { $false }
         { Test-Markdownlint -OutputFolder $script:reportBase } | Should -Throw '*Install-Markdownlint*'
     }
 }

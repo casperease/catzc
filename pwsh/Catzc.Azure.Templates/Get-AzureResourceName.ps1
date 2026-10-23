@@ -31,19 +31,13 @@ function Get-AzureResourceName {
     )
 
     $types = Get-AzureResourceTypeSet
-    if (-not $types.Contains($Type)) {
-        throw "Unknown resource type '$Type' (known: $(@($types.Keys) -join ', '))"
-    }
+    Assert-True $types.Contains($Type) -ErrorText "Unknown resource type '$Type' (known: $(@($types.Keys) -join ', '))"
     $orders = Get-AzureNameOrderSet
-    if (-not $orders.Contains($Order)) {
-        throw "Unknown name order '$Order' (known: $(@($orders.Keys) -join ', '))"
-    }
+    Assert-True $orders.Contains($Order) -ErrorText "Unknown name order '$Order' (known: $(@($orders.Keys) -join ', '))"
 
     $specification = $types[$Type]
     $patterns = Get-AzureNamePatternSet
-    if (-not $patterns.Contains($specification.pattern)) {
-        throw "Type '$Type' references unknown name pattern '$($specification.pattern)' (known: $(@($patterns.Keys) -join ', '))"
-    }
+    Assert-True $patterns.Contains($specification.pattern) -ErrorText "Type '$Type' references unknown name pattern '$($specification.pattern)' (known: $(@($patterns.Keys) -join ', '))"
     $pattern = $patterns[$specification.pattern]
 
     $omit = @(if ($specification.Contains('omit')) {
@@ -57,9 +51,7 @@ function Get-AzureResourceName {
         $Env
     }
     else {
-        if ([string]::IsNullOrEmpty($Shortcode)) {
-            throw "Type '$Type' uses the restricted '$($specification.pattern)' pattern and needs a -Shortcode"
-        }
+        Assert-False ([string]::IsNullOrEmpty($Shortcode)) -ErrorText "Type '$Type' uses the restricted '$($specification.pattern)' pattern and needs a -Shortcode"
         $Shortcode
     }
 
@@ -69,9 +61,7 @@ function Get-AzureResourceName {
             $Customer
         }
         else {
-            if ([string]::IsNullOrEmpty($CustomerShortcode)) {
-                throw "Type '$Type' uses the restricted '$($specification.pattern)' pattern and needs a -CustomerShortcode when -Customer is set"
-            }
+            Assert-False ([string]::IsNullOrEmpty($CustomerShortcode)) -ErrorText "Type '$Type' uses the restricted '$($specification.pattern)' pattern and needs a -CustomerShortcode when -Customer is set"
             $CustomerShortcode
         }
     }
@@ -100,9 +90,7 @@ function Get-AzureResourceName {
     }
     foreach ($component in $checks.Keys) {
         $check = $checks[$component]
-        if ($check.value -cnotmatch $check.pattern) {
-            throw "Invalid $component '$($check.value)' — must be $($check.desc), lowercase."
-        }
+        Assert-True ($check.value -cmatch $check.pattern) -ErrorText "Invalid $component '$($check.value)' — must be $($check.desc), lowercase."
     }
 
     $values = @{
@@ -145,9 +133,7 @@ function Get-AzureResourceName {
 
     $name = $segments -join $pattern.separator
 
-    if ($name.Length -gt $limit) {
-        throw "Resource name '$name' ($($name.Length) chars) exceeds the '$Type' limit of $limit — shorten short_name / slot / customer / role."
-    }
+    Assert-True ($name.Length -le $limit) -ErrorText "Resource name '$name' ($($name.Length) chars) exceeds the '$Type' limit of $limit — shorten short_name / slot / customer / role."
 
     $name
 }

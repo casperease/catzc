@@ -34,6 +34,7 @@ function Build-SlideDeck {
     $kitLoaded = Get-SlidesKit -Kit $Kit -RepositoryRoot $RepositoryRoot
     $kitLoaded.Config = $kitLoaded.Config.ForTheme($Theme)
     $deckName = Split-Path $deckFolder -Leaf
+    # Filled in here, not as a default: it is relative to -RepositoryRoot, declared after it, and to the kit config loaded above.
     if ([string]::IsNullOrWhiteSpace($OutputFolder)) {
         $themed = if ($Theme -ceq [Catzc.Base.Slides.SlidesConfig]::DefaultTheme) {
             $deckName

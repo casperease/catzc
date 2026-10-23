@@ -114,12 +114,12 @@ therefore bounded by the next CI run, which always scans everything.
 ### Scoping a protected scan
 
 The globset must cover everything the scan reads — the scanned files **and** the scan's own configuration, since both change the outcome.
-The markdown scan protects against `markdown-scope` (in-scope markdown plus the markdownlint config, mirroring the scan's own negation
-globs). The two repository-wide scans protect against `repository` — every tracked file under every named root of the repository: the
-managed-GUID scan reads a subset of it plus its registry, and the spelling scan reads a subset of it plus its configs (the cspell config and
-the terminology registry), all inside it. A covering superset is safe — it can only cause a redundant scan, never a wrong skip — and each
-scan's integrity test asserts its read set stays inside the globset. Two scans may share one globset — the key is (test, globset), so one
-scan's green never skips another.
+The markdown scan protects against `markdown-scope` (in-scope markdown plus the markdownlint config; the scan takes its default scope,
+negation globs included, from that set). The two repository-wide scans protect against `repository` — every tracked file under every named
+root of the repository: the managed-GUID scan reads a subset of it plus its registry, and the spelling scan reads a subset of it plus its
+configs (the cspell config and the terminology registry), all inside it. A covering superset is safe — it can only cause a redundant scan,
+never a wrong skip — and each scan's integrity test asserts its read set stays inside the globset. Two scans may share one globset — the key
+is (test, globset), so one scan's green never skips another.
 
 ### Derived module globsets
 
