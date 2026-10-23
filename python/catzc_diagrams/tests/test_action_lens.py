@@ -54,7 +54,7 @@ def test_the_drawing_holds_the_lens_grammar():
     model = declaration.put(normalised(sample()))
     assert 'id="frame"' in model and 'id="cause"' in model and 'id="action"' in model
     assert 'id="ring-1"' in model and 'id="ring-2"' in model and 'id="ring-3"' not in model
-    assert 'id="e-cause-action"' in model and 'id="e-action-effect-catalogue"' in model
+    assert 'id="cats"' in model and 'id="e-action-effect-catalogue"' in model
     assert 'id="effect-count-tag"' not in model and 'id="effect-catalogue-tag"' in model and 'value="remote"' in model
     assert "publish_gadget: { name: widget-a,&lt;br&gt;dry_run: false }" in model  # wrapped at its break inside the action width
     assert 'id="mark-1"' in model and 'id="mark-5"' in model and 'id="mark-6"' not in model  # cause, action, three effects
@@ -70,7 +70,7 @@ def test_an_effect_after_another_draws_its_edge_from_it_and_comes_back():
 
 def test_the_operators_label_every_edge_and_an_execution_comes_back():
     model = declaration.put(normalised(sample("action-site-sample")))
-    cats = re.search(r'id="e-cause-action" value="([^"]*)"', model)
+    cats = re.search(r'id="cats" value="([^"]*)"', model)  # the bubble's tail is the cats connection; the word stands at its root
     executes = re.search(r'id="e-action-effect-index" value="([^"]*)"', model)
     affects = re.search(r'id="e-effect-index-effect-recount" value="([^"]*)"', model)
     effects = re.search(r'id="e-effect-recount-effect-catalogue" value="([^"]*)"', model)
@@ -116,7 +116,7 @@ def test_a_moved_effect_folds_back_to_its_zone_and_order_never_to_coordinates():
 
 def test_the_legend_names_the_lens_kinds_and_the_flow():
     model = declaration.put(normalised(sample()))
-    for phrase in ("cause", "action", "ring", "effect", "cats: an actor runs it", "effects: changes state"):
+    for phrase in ("cause", "bubble", "ring", "effect", "cats: an actor runs it", "effects: changes state"):
         assert f'value="{phrase}"' in model
     assert 'id="lg-marker"' in model  # the story's numbers
 
@@ -133,6 +133,8 @@ def test_a_long_argument_wraps_at_its_breaks_and_comes_back_whole():
     action = re.search(r'<mxCell id="action" value="([^"]*)" style="[^"]*" vertex="1" parent="1">\s*<mxGeometry x="\d+" y="\d+" width="(\d+)"', model)
     assert action is not None
     value, width = html.unescape(action.group(1)), int(action.group(2))
+    tail = int(float(declaration.style_map(re.search(r'<mxCell id="action" value="[^"]*" style="([^"]*)"', model).group(1)).get("size", 0)))
+    width -= tail  # the bubble's cell holds its tail too; the words live in the body
     assert "<br>" in value and all(len(line) <= (width - 28) // 7 for line in value.split("<br>"))
     assert width <= declaration.ACTION_WIDTH
     note = re.search(r'<mxCell id="effect-index" value="([^"]*)" style="[^"]*" vertex="1" parent="1">\s*<mxGeometry x="\d+" y="\d+" width="(\d+)"', model)
@@ -279,6 +281,23 @@ def test_legend_used_lists_only_the_operators_the_drawing_draws():
     raw["content"]["legend"] = "used"
     model = declaration.put(normalised(raw))  # an execution after an effect, and a state after it: all four
     assert "affects: triggers an execution" in model and "effects: changes state" in model
+
+
+def test_the_statement_is_a_speech_bubble_whose_tail_reaches_the_mouth(monkeypatch):
+    model = declaration.put(normalised(sample()))
+    bubble = re.search(r'<mxCell id="action" value="[^"]*" style="([^"]*)" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
+    cause = re.search(r'<mxCell id="cause" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
+    assert bubble is not None and cause is not None
+    style = declaration.style_map(bubble.group(1))
+    assert style.get("shape") == "callout" and style.get("direction") == "west"
+    radius = int(cause.group(3))
+    mouth_x = int(cause.group(1)) + math.sqrt(radius**2 - (declaration.MOUTH * radius) ** 2)
+    assert abs(int(bubble.group(2)) - round(mouth_x)) <= 1  # the cell starts at the mouth: its tail reaches it
+    assert 'id="e-cause-action"' not in model and 'id="cats"' in model  # the tail is the connection; the word stands at its root
+    assert "bubble: the statement spoken in cats" in model or 'value="bubble"' in model
+    monkeypatch.setattr(declaration, "BUBBLE", False)
+    model = declaration.put(normalised(sample()))
+    assert 'id="e-cause-action"' in model and "shape=callout" not in model
 
 
 def test_a_long_value_starts_on_its_own_line_under_its_key():

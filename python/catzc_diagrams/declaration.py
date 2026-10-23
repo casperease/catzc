@@ -98,6 +98,9 @@ PROOF_SHOWN = str(ACTION["proof"]).strip() == "shown"
 PROOF_ENGINES = [tuple(pair.split()) for pair in str(ACTION["proof-engines"]).split(",")]  # (engine, idiom), idiom pascal or kebab
 PROOF_ROW = 22  # one engine's words, one row
 WORD_GAP = int(DEFAULTS["renderer"]["word-gap"])  # how far a steep edge's word stands right of its line, written into the model
+BUBBLE = str(ACTION["action-glyph"]).strip() == "bubble"  # the statement as a speech bubble with its tail at the mouth, or the pill
+FIGURE = str(ACTION["cause-glyph"]).strip() == "figure"  # the actor as a stick figure with the idea in its head box, or the half-disc
+MOUTH = float(ACTION["mouth"])  # the actor's mouth: on the cause's outline, this fraction of the radius below the centre line
 DEFAULT_WHERE = str(ACTION["where"]).strip()  # the diagram's where unless content.where says otherwise
 DEFAULT_SHOW = str(ACTION["show"]).strip()  # what a note prints unless the effect's show: says otherwise
 # The cells put derives from the kit and the registries, never from the author: get skips them, and a change to them is stale.
@@ -1990,17 +1993,39 @@ def place_action(declaration):
         raise DeclarationError(f"the centre lane of {2 * lane_half} px cannot hold the cause and the action; pin a taller frame in layout:")
     cells.append(cell("frame", html.escape(content["title"], quote=False), BAND, frame["x"], frame["y"], frame["w"], frame["h"]))
     label = f"<b>{html.escape(content['cause']['label'], quote=False)}</b>"
-    cells.append(cell("cause", label, lib["cause"]["style"], frame["x"], cy - radius, radius, 2 * radius))
+    # The cause: the half-disc with the words, or the circle fragment around an actor whose head box holds the idea in the actor's own
+    # words, the stick body below it; the mouth is then on the head box's right edge, where a face's mouth is.
+    cells.append(cell("cause", "" if FIGURE else label, lib["cause"]["style"], frame["x"], cy - radius, radius, 2 * radius))
+    if FIGURE:
+        head = {"x": frame["x"] + 6, "y": cy - radius + 10, "w": round(radius * 0.82), "h": round(radius * 0.62)}
+        cells.append(cell("cause-head", label, lib["head"]["style"], head["x"], head["y"], head["w"], head["h"]))
+        body_h = round(radius * 1.05)
+        cells.append(cell("cause-body", "", lib["actor"]["style"], head["x"] + head["w"] // 2 - 15, head["y"] + head["h"] - 4, 30, body_h))
     ax, ay = cx + radius + ACTION_CLEARANCE, cy - ah // 2
     printed = lambda lines: "<br>".join(html.escape(line, quote=False) for line in lines)
+    # The statement: a speech bubble whose solid tail points at the actor's mouth, the mouth a point on the head declared once as
+    # fractions of the cause's radius; the bubble's cell holds body and tail, and its tail's base sits at the mouth's height. The
+    # pill is the alternative, joined to the actor by the cats edge instead.
+    if FIGURE:  # the mouth on the head box's right edge, where a face's mouth is
+        mouth_x, mouth_y = frame["x"] + 6 + round(radius * 0.82), cy - radius + 10 + round(radius * 0.62) * 0.65
+    else:
+        mouth_y = cy + MOUTH * radius
+        mouth_x = frame["x"] + math.sqrt(max(0.0, radius**2 - (MOUTH * radius) ** 2))  # on the half-disc's arc at that height
+    tail = round(ax - max(mouth_x, frame["x"]))  # the tail reaches the mouth, or stops at the rim when the mouth lies outside
+    at = round(min(0.85, max(0.15, (mouth_y - ay) / ah)), 2)
+    glyph = "bubble" if BUBBLE else ("callsite" if site else "action")
+    style = lib[glyph]["style"]
+    if BUBBLE:
+        style = style + f"size={tail};position={at};position2={at};" + ("verticalAlign=top;align=left;spacingLeft=8;fontSize=11;" if site else "")
+    bx, bw = (ax - tail, aw + tail) if BUBBLE else (ax, aw)
     if site:
-        cells.append(cell("action", f"<b>{lib['callsite']['phrase']}</b>", lib["callsite"]["style"], ax, ay, aw, ah))
+        cells.append(cell("action", f"<b>{lib['callsite']['phrase']}</b>", style, bx, ay, bw, ah))
         y = ay + 30
         for n, lines in enumerate(wrapped):
             cells.append(cell(f"action-{n + 1}", printed(lines), member["style"], ax + 14, y, aw - 28, row_h[n], "action"))
             y += row_h[n] + 10
     else:
-        cells.append(cell("action", printed(wrapped[0]), lib["action"]["style"], ax, ay, aw, ah))
+        cells.append(cell("action", printed(wrapped[0]), style, bx, ay, bw, ah))
     tag, flow, mark = lib["effect"]["tag"], LIB["edges"]["flow"]["style"], LIB["marks"]["marker"]
     labelled = flow.replace("shadow=0;", "fontColor=@ink;fontStyle=1;fontSize=11;labelBackgroundColor=@band;shadow=0;")
     box_of = {"cause": {"x": frame["x"], "y": cy - radius, "w": radius, "h": 2 * radius}, "action": {"x": ax, "y": ay, "w": aw, "h": ah}}
@@ -2076,7 +2101,10 @@ def place_action(declaration):
             cells.append(operator_edge(f"e-{source}-{e['id']}", operator(source, e), labelled, source, e["id"], box_of, skip))
             numbered.append((e["id"], marker_xy({"x": x, "y": y, "w": note_w, "h": h}, "top-left")))
     # The cause reaches its action through cats, always: the edge says so, and the cause's own words never need to.
-    cells.append(operator_edge("e-cause-action", "cats", labelled, "cause", "action", box_of))
+    if BUBBLE:  # the bubble's tail is the connection, and the word cats stands above its root at the mouth
+        cells.append(cell("cats", "<b>cats</b>", TEXT.replace("fontColor=@quiet", "fontColor=@ink"), round(mouth_x) + 6, round(mouth_y) - 24, 40, 18))
+    else:
+        cells.append(operator_edge("e-cause-action", "cats", labelled, "cause", "action", box_of))
     for n, (_, (mx, my)) in enumerate(numbered, 1):
         cells.append(cell(f"mark-{n}", str(n), mark["style"], round(mx), round(my), mark["size"][0], mark["size"][1]))
     bottom = frame["y"] + frame["h"]
@@ -2230,7 +2258,7 @@ def legend_entries(content):
     def swatch_for(kind):
         style = glyphs[kind]["style"]
         shape = style_map(style).get("shape", "")
-        size = {"note": (32, 22), "cylinder3": (28, 26), "hexagon": (40, 22), "delay": (14, 22)}.get(
+        size = {"note": (32, 22), "cylinder3": (28, 26), "hexagon": (40, 22), "delay": (14, 22), "umlActor": (14, 24), "callout": (40, 18)}.get(
             shape, (24, 22) if "ellipse" in style else (36, 26) if "rhombus" in style else (40, 18)
         )
         swatch_style = ";".join(
@@ -2261,7 +2289,8 @@ def legend_entries(content):
         entries.append(("callsite" if "calls" in content["action"] else "action", swatch_for("action"), glyphs["action"]["phrase"]))
         entries.append(("proof", proof_swatch, "proof: the statement in each engine's words"))
     if content["lens"] == ACTION_LENS:  # the lens's own kinds, its four operators, the story's numbers and its Proof box
-        for kind in ("cause", "callsite" if "calls" in content["action"] else "action", "ring", "effect"):
+        statement = "bubble" if BUBBLE else ("callsite" if "calls" in content["action"] else "action")
+        for kind in ("cause",) + (("actor", "head") if FIGURE else ()) + (statement, "ring", "effect"):
             entries.append((kind, swatch_for(kind), glyphs[kind]["phrase"]))
         if content.get("proof", "shown" if PROOF_SHOWN else "hidden") == "shown":
             entries.append(("proof", proof_swatch, "proof: the statement in each engine's words"))
@@ -2734,7 +2763,8 @@ def get_action(cells, geo, glyph_sigs, kind):
     styled = lambda k: [
         cid for cid, c in cells.items() if not cid.startswith(("lg-", "proof")) and matches(glyph_sigs[k], c.get("style") or "")
     ]
-    causes, sites, actions = styled("cause"), styled("callsite"), styled("action")
+    causes, sites = styled("cause"), styled("callsite")
+    actions = list(dict.fromkeys(styled("action") + styled("bubble")))  # a bubble carries the pill's tokens too: counted once
     if len(causes) != 1 or len(sites) + len(actions) != 1:
         raise DeclarationError("get needs one cause and one action or call site in an action drawing")
     action_id = (sites or actions)[0]
@@ -2794,7 +2824,7 @@ def get_action(cells, geo, glyph_sigs, kind):
         "title": value("title") if "title" in cells else "",
         "kind": kind or KINDS[0],
         "theme": next(iter(DEFAULTS["themes"])),
-        "cause": cause_read(value(causes[0]), geo[causes[0]]["h"] / 2),
+        "cause": cause_read(value("cause-head") if "cause-head" in cells else value(causes[0]), geo[causes[0]]["h"] / 2),
         "action": action,
         "effects": [e for _, _, e in sorted(effects, key=lambda t: t[:2])],
         "minimaps": [value(cid) for cid, _, _ in SIDEBAR if cid in cells],

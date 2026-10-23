@@ -149,6 +149,22 @@ def paint_shape(d, s, box, w, h, fill, stroke, sw, dashed):
     elif s.get("shape") == "hexagon":
         pts = [(x0 + w * .25, y0), (x1 - w * .25, y0), (x1, (y0 + y1) / 2), (x1 - w * .25, y1), (x0 + w * .25, y1), (x0, (y0 + y1) / 2)]
         d.polygon(pts, fill=fill, outline=stroke, width=sw)
+    elif s.get("shape") == "umlActor":  # a stick figure: a round head, a spine, two arms and two legs, as draw.io draws it
+        cx, head = (x0 + x1) / 2, w * 0.3
+        d.ellipse([cx - head / 2, y0, cx + head / 2, y0 + head], fill=fill, outline=stroke, width=sw)
+        neck, hip = y0 + head, y0 + h * 0.62
+        d.line([(cx, neck), (cx, hip)], fill=stroke, width=sw)
+        d.line([(x0, neck + h * 0.12), (x1, neck + h * 0.12)], fill=stroke, width=sw)
+        d.line([(cx, hip), (x0, y1)], fill=stroke, width=sw)
+        d.line([(cx, hip), (x1, y1)], fill=stroke, width=sw)
+    elif s.get("shape") == "callout":  # a speech bubble: a rounded body and a solid tail on its west side, the tip at the mouth
+        tail, base, at = float(s.get("size", 30)), float(s.get("base", 18)), float(s.get("position", 0.5))
+        bx0 = x0 + tail
+        r = min(h, w - tail) * float(s.get("arcSize", 20)) / 200 if s.get("rounded") == "1" else 0
+        d.rounded_rectangle([bx0, y0, x1, y1], radius=r, fill=fill, outline=stroke, width=sw)
+        ty = y0 + at * h
+        d.polygon([(bx0, ty - base / 2), (x0, ty), (bx0, ty + base / 2)], fill=fill, outline=stroke, width=sw)
+        d.line([(bx0, ty - base / 2 + sw), (bx0, ty + base / 2 - sw)], fill=fill, width=sw + 1)  # the body's rim opens into the tail
     elif s.get("shape") == "delay":  # a cause: a flat left side and a semicircle on the right, the half-disc of the action lens
         ry = h / 2
         rx = min(ry, w)
@@ -418,6 +434,8 @@ def render(root, page=None):
             pic = Image.open(io.BytesIO(base64.b64decode(uri.split(",", 1)[1]))).convert("RGB")
             box = (max(1, int(x1 - x0)) * SCALE, max(1, int(y1 - y0)) * SCALE)
             img.paste(pic.resize(box, Image.Resampling.LANCZOS), (int(x0) * SCALE, int(y0) * SCALE))
+        if s.get("shape") == "callout":  # the words sit in the bubble's body, right of its tail
+            x0 = x0 + float(s.get("size", 30))
         text = "" if s.get("noLabel") == "1" else plain(c.get("value"))  # noLabel: the value is data, as draw.io shows it
         if text:
             size = int(float(s.get("fontSize", 12)))
