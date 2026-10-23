@@ -102,3 +102,12 @@ Started 2026-10-22T09:08:25.1759302+02:00.
   of retrying the run behind it.
 - 2026-10-23 Cats: Token tip: Next time, save tokens by: probing PowerShell binding or a staged script with a tiny stand-in under out/
   before editing an import-path file.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: Format-Code moves a multi-line code comment verbatim to the file's docs/references
+  comment page, so a body diff from Format-Code can be only that move.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: Test-Formatting's whole-tree red after a re-imprint is missing cites heads on pages
+  added or renamed later, not wrapping; Format-Code -Path writes them, head-only.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: Test-DrsRegistry takes no -Path; it checks the whole registry.
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: a burst step that runs Invoke-CatzcCommand -InBurst in the burst's own process
+  works; a second -Run string through pwsh -File bound to -LockName (catzc-6e is landing remaining-argument steps).
+- 2026-10-23 Cats: In hindsight I wish I knew this fact: PSReviewUnusedParameter does not trace a parameter into a nested Should -Throw
+  block; putting the InModuleScope call inside the throw block (Get-EngineContract.Tests.ps1:85) needs no suppression.

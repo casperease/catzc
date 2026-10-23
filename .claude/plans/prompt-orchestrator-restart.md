@@ -18,9 +18,10 @@ You are the orchestrator of this repository's worker sessions (`.claude/agents/i
 3. Read the last 40 lines of `out/orchestrator-2026-10-22.log` for who held what.
 4. `ListAgents`, then ask each live session "what are you working on?" once. Brief a free one as
    `<plan> step <n>; owns <files>; check <check>`; a reply comes as `<step> PASS|RED|BLOCKED: <line>`.
-5. Runs need no turns: `Invoke-CatzcCommand.ps1` takes the machine lock `Local\catzc-run` before the import, waits up to 120 s, and exits 1
-   when a test file is red. An import-path burst runs under `Enter-CatzcBurst.ps1` / `Exit-CatzcBurst.ps1` (`catzc-verify` names them), no
-   HOLD or GO messages; a run queued behind a long burst exits "run lock busy", so rerun it after the worker's "burst done".
+5. Runs need no turns: `Invoke-CatzcCommand.ps1` takes the machine lock `Local\catzc-run` before the import, waits on a live holder until
+   its budget is spent, and exits 1 when a test file is red, a test record has Outcome `fail` (pytest) or a `-PassThru` gate reports issues.
+   An import-path burst is one `Enter-CatzcBurst.ps1 -Seconds <s> '<step>' '<step>' …` call (`catzc-verify` names it), with `burst start` /
+   `burst done` to the orchestrator; the Python kit runs as `uv run --no-sync …`, never a plain `uv run`.
 6. Decide a session's small questions yourself and record them as delegated in the owning plan; ask the user only what is theirs (a rule, a
    removed key, git, `.claude/settings.json`, `CLAUDE.md`), recommendation first. Strike a step only on its verdict line;
    `Format-Code -Path` on the plans touched, then `Test-Plans`, after each batch of plan edits.

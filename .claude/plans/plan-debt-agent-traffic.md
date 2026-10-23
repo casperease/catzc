@@ -73,3 +73,8 @@ ten "may I" questions on edits the rules already require, three to five tool cal
   no-sync rule from a correction; (2) now that `Enter-CatzcBurst` takes the run lock for an import-path burst, retire the HOLD and "burst
   done" broadcast to every peer (this session got two that changed nothing it did), keeping a message only for a session that holds an
   import open outside the lock. Take or leave each.
+
+- The orchestrator's finalize (2026-10-23), proposals, none applied: (1) one clause in `.claude/skills/plans-orchestrate/SKILL.md` item 3,
+  "a step's check names a command a module exports (`Test-Plans` rejects `Invoke-CatzcCommand`)", since a struck-then-rewritten check cost a
+  rerun; (2) the orchestrator's own plan checks batch into one `Format-Code` and `Test-Plans` run per worker report rather than one per
+  edit, since each run queued behind a worker's burst (four were turned away before the waiter fix). Take or leave each.
