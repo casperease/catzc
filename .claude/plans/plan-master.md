@@ -63,6 +63,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   task-user-runs-and-commits), then the capability lines (catzc-run, catzc-verify, git-readonly, devbox-diagnose).
 - session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
+- debt-tier-tripwire -> plan-debt-tier-tripwire.md: 165 L0/L1 tests launch git and fail only when a tier runs alone; seams mocked, the
+  tripwire armed per container; six steps
 - debt-agent-traffic -> plan-debt-agent-traffic.md: fewer messages and tool calls between the orchestrator and its workers (a run lock,
   one-line reports, pre-approved rule edits, derived step counts, an automatic log); three steps
 - nuget-tooling -> plan-nuget-tooling.md: NuGet belongs to the tooling modules and no dotnet call contacts a package manager outside them;
@@ -70,12 +72,12 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - debt-full-run-failures -> plan-debt-full-run-failures.md: the last full run's failing files rerun one at a time, since a red test blocks
   the user's full run; one step
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue; two steps
-- debt-hindsight-pages -> plan-debt-hindsight-pages.md: six sentences the 2026-10-23 hindsight log found missing from built rules' pages;
-  three steps
 - bcl-path-sets -> plan-bcl-path-sets.md: Every hand-built path set, folder scan and module-base lookup in a non-internal module moves into
   a BCL helper on the type that owns it; pass-through functions go.
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
+- action-diagrams -> plan-action-diagrams.md: A second diagram style, action: cause at the left rim, the accosted call site at the centre,
+  effect notes in rings outward; same yml, same renderer, every band diagram untouched
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

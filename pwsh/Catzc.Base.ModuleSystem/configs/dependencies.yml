@@ -31,6 +31,7 @@ groups:
         Catzc.Base.Objects,
         Catzc.Base.Asserts,
         Catzc.Base.Folders,
+        Catzc.Base.Contracts,
         Catzc.Base.QualityGates,
         Catzc.Base.Maps,
       ]
@@ -94,6 +95,7 @@ groups:
         Catzc.Base.Asserts,
         Catzc.Base.Folders,
         Catzc.Base.Variants,
+        Catzc.Base.Files,
       ]
     Catzc.Base.Modules:
       [

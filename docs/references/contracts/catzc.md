@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "9e7d181dd459"
+    with_body_sha: ed695a6c0ca6
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -45,6 +45,7 @@ The draft: the one mutable version folder
 | `catzc.base.config_extensions`         | `test_config_validators.command.yml`             | `pwsh/Catzc.Base.ConfigExtensions/Test-ConfigValidators.ps1`              | provided                | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
 | `catzc.base.contracts`                 | `build_contract_reference.command.yml`           | `pwsh/Catzc.Base.Contracts/Build-ContractReference.ps1`                   | provided                | command contract | `repository_root: string, dry_run: switch, silent: switch, pass_thru: switch -> string[]`                                                                                                                                                                                                                                                                           |
 | `catzc.base.contracts`                 | `get_accosted_file.command.yml`                  | `pwsh/Catzc.Base.Contracts/Get-AccostedFile.ps1`                          | provided                | command contract | `path: string!, repository_root: string -> catzc.base.contracts.accosted_file`                                                                                                                                                                                                                                                                                      |
+| `catzc.base.contracts`                 | `get_accosted_fragment.command.yml`              | `pwsh/Catzc.Base.Contracts/Get-AccostedFragment.ps1`                      | provided                | command contract | `path: string!, run: int, command: int, repository_root: string -> string`                                                                                                                                                                                                                                                                                          |
 | `catzc.base.contracts`                 | `get_command_contract.command.yml`               | `pwsh/Catzc.Base.Contracts/Get-CommandContract.ps1`                       | provided                | command contract | `name: string[] = *, module: string[] = *, unit: string[] = *, version: string[] = 0.0.0, repository_root: string -> catzc.base.contracts.contract_command[]`                                                                                                                                                                                                       |
 | `catzc.base.contracts`                 | `get_contract_check_results.command.yml`         | `pwsh/Catzc.Base.Contracts/Get-ContractCheckResults.ps1`                  | provided                | command contract | `asset: catzc.base.contracts.contract_asset[] pipeline, repository_root: string -> catzc.base.contracts.contract_check_result[]`                                                                                                                                                                                                                                    |
 | `catzc.base.contracts`                 | `invoke_accosted.command.yml`                    | `pwsh/Catzc.Base.Contracts/Invoke-Accosted.ps1`                           | provided                | command contract | `path: string!, engine: string[], repository_root: string -> catzc.base.contracts.accosted_run_result[]`                                                                                                                                                                                                                                                            |
@@ -220,6 +221,9 @@ Notes:
 - `catzc.base.contracts/get_accosted_file.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
   of Get-AccostedFile, the one reader of an accosted file (ADR-AUTO-ACCOSTED-ONEREADER). RepositoryRoot defaults to the repository root, a
   computed default the contract does not restate.
+- `catzc.base.contracts/get_accosted_fragment.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
+  interface of Get-AccostedFragment, which renders the commands of an accosted file as a PowerShell fragment through the one reader
+  (ADR-AUTO-ACCOSTED-ONEREADER). RepositoryRoot defaults to the repository root, a computed default the contract does not restate.
 - `catzc.base.contracts/get_command_contract.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT and
   ADR-REPO-CMDCONTRACT-ONEREADER): the call interface of Get-CommandContract, the one reader of command contracts. RepositoryRoot defaults
   to the repository root, a computed default the contract does not restate.

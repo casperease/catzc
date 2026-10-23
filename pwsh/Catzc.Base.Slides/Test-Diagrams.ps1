@@ -72,6 +72,12 @@ function Test-Diagrams {
         if ($declared.Count -gt 0) {
             $null = Write-DiagramMinimapData -Stem $declared -RepositoryRoot $root
         }
+        foreach ($stem in $declared) {
+            $declarationText = Get-DiagramDeclarationText -Stem $stem -RepositoryRoot $root -CarrierMap $carrierMap
+            foreach ($finding in @(Get-DiagramProofFinding -Stem $stem -Text $declarationText -RepositoryRoot $root)) {
+                $issues.Add($finding)
+            }
+        }
         $quoted = ($folders | ForEach-Object { "`"$_`"" }) -join ' '
         $result = Invoke-Executable "`"$($tool.Path)`" run --project `"$($diagramKit.Folder)`" python `"$declaration`" check $quoted" -WorkingDirectory $root -PassThru -NoAssert -Silent
         Assert-True ($result.ExitCode -eq 0) -ErrorText "Test-Diagrams: the drift check failed (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"

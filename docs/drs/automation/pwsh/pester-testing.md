@@ -381,9 +381,9 @@ them as Pester tests.
   Single-direction reads/writes (seed → act → read the writer's captured `$Value`) are fine.
 - **A parameter used only inside a nested `Should -Throw` block is reported unused.** `PSReviewUnusedParameter` does not trace an
   `InModuleScope` block's parameter into a `{ ... } | Should -Throw` block nested inside it (probed on PSScriptAnalyzer 1.25.0), so the call
-  that uses the parameter sits inside the throw block, `{ InModuleScope <Module> -Parameters @{ ... } { param($Entry) ... } } | Should -Throw`,
-  and needs no `SuppressMessageAttribute` (the shape of the `throws when the build's entry does not exist` case in
-  `pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1`).
+  that uses the parameter sits inside the throw block,
+  `{ InModuleScope <Module> -Parameters @{ ... } { param($Entry) ... } } | Should -Throw`, and needs no `SuppressMessageAttribute` (the
+  shape of the `throws when the build's entry does not exist` case in `pwsh/Catzc.Base.Languages/tests/Get-EngineContract.Tests.ps1`).
 - **Cold-import isolation belongs in a child process, not an in-process runspace.** A fresh runspace looks like cheap isolation, but env
   vars are process-global — the importer's `$env:RepositoryRoot`/`$env:PSModulePath` writes leak into the parent (breaking the real
   session's lazy Pester/PSScriptAnalyzer resolution) — and a loaded assembly cannot be unloaded, so the sandbox's `powershell-yaml` DLL

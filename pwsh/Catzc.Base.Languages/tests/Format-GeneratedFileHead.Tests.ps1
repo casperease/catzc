@@ -34,9 +34,9 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
     }
 
     BeforeEach {
-        # Whether git tracks the path: exit 0 is tracked, 1 is not; a fixture stands for git here.
-        $script:trackedExit = 0
-        Mock Invoke-Executable -ModuleName Catzc.Base.Languages { [pscustomobject]@{ ExitCode = $script:trackedExit; Output = ''; Errors = '' } }
+        # Whether git tracks the path: a tracked path comes back from the index read, an untracked one does not; a fixture stands for it here.
+        $script:tracked = $true
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { if ($script:tracked) { $Path } }
     }
 
     It 'writes the one declared warning into every head, whatever the carrier' {
@@ -55,7 +55,7 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
     It 'writes the body hash of a tracked file and the warning, and nothing else, in the comment style of the file language' {
         $text = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -Carriers $script:carriers -Languages $script:languages
         $text | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     with_body_sha: `"9534a2e15c8b`"`n#     warning: `"$script:warning`"`n# ---`n`nwidget body`n"
-        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Languages -Times 1 -ParameterFilter { $Command -like '*ls-files --error-unmatch*docs/gen.wdg*' }
+        Should -Invoke Get-GitTrackedPath -ModuleName Catzc.Base.Languages -Times 1 -ParameterFilter { $Path -contains 'docs/gen.wdg' }
     }
 
     It 'opens the immutable part with the body hash, so the head reads immutable for this body, whatever the carrier' -Tag 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
@@ -66,7 +66,7 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
     }
 
     It 'writes the warning only on a file git does not track' {
-        $script:trackedExit = 1
+        $script:tracked = $false
         $text = Format-GeneratedFileHead -Text "widget body`n" -Path 'docs/gen.wdg' -Carriers $script:carriers -Languages $script:languages
         $text | Should -BeExactly "# ---`n# catzc:`n#   immutable:`n#     warning: `"$script:warning`"`n# ---`n`nwidget body`n"
     }
@@ -93,7 +93,7 @@ Describe 'Format-GeneratedFileHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-COMPO
     }
 
     It 'is stable: a second run over its own output changes nothing, tracked or not' -ForEach @(@{ Exit = 0 }, @{ Exit = 1 }) {
-        $script:trackedExit = $Exit
+        $script:tracked = $Exit -eq 0
         $arguments = @{ Path = 'docs/gen.gdg' } + $script:arguments
         $once = Format-GeneratedFileHead -Text "body`n" @arguments
         Format-GeneratedFileHead -Text $once @arguments | Should -BeExactly $once

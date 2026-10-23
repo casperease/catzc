@@ -43,8 +43,8 @@ function Format-GeneratedFileHead {
     # The head says what not to touch; every other fact about the file is derived on demand.
     $values = @{ warning = $Head.warning }
     # While git tracks the file, the head also carries the hash of the body it is immutable with; an untracked file carries the warning only.
-    $tracked = Invoke-Executable "git -C `"$(Get-RepositoryRoot)`" ls-files --error-unmatch -- `"$relative`"" -PassThru -Silent -NoAssert
-    if ($tracked.ExitCode -eq 0) {
+    $tracked = @(Get-GitTrackedPath $relative) -contains $relative
+    if ($tracked) {
         # The body is what sits below the head the carrier holds, so a second run over the written file finds the same hash.
         $body = switch ($entry.carrier) {
             ([Catzc.Base.Languages.CarrierKind]::CommentHead) {

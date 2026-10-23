@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "358027eef731"
+#     with_body_sha: eedfd1f25e98
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -32,6 +32,10 @@ format_markdown_title	dry_run	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.qual
 format_markdown_title	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/format_markdown_title.command.yml			format-markdown-title	pass-thru	Format-MarkdownTitle	PassThru
 get_accosted_file	path	string	0	1	0	contracts/catzc/0.0.0/catzc.base.contracts/get_accosted_file.command.yml			get-accosted-file	path	Get-AccostedFile	Path
 get_accosted_file	repository_root	string	0	0	0	contracts/catzc/0.0.0/catzc.base.contracts/get_accosted_file.command.yml			get-accosted-file	repository-root	Get-AccostedFile	RepositoryRoot
+get_accosted_fragment	path	string	0	1	0	contracts/catzc/0.0.0/catzc.base.contracts/get_accosted_fragment.command.yml			get-accosted-fragment	path	Get-AccostedFragment	Path
+get_accosted_fragment	run	int	0	0	0	contracts/catzc/0.0.0/catzc.base.contracts/get_accosted_fragment.command.yml			get-accosted-fragment	run	Get-AccostedFragment	Run
+get_accosted_fragment	command	int	0	0	0	contracts/catzc/0.0.0/catzc.base.contracts/get_accosted_fragment.command.yml			get-accosted-fragment	command	Get-AccostedFragment	Command
+get_accosted_fragment	repository_root	string	0	0	0	contracts/catzc/0.0.0/catzc.base.contracts/get_accosted_fragment.command.yml			get-accosted-fragment	repository-root	Get-AccostedFragment	RepositoryRoot
 get_bicep_parameter_model	template	string	0	1	0	contracts/catzc/0.0.0/catzc.azure.templates/get_bicep_parameter_model.command.yml			get-bicep-parameter-model	template	Get-BicepParameterModel	Template
 get_bicep_template_names			0	0	0	contracts/catzc/0.0.0/catzc.azure.templates/get_bicep_template_names.command.yml			get-bicep-template-names		Get-BicepTemplateNames	
 get_command_contract	name	string	1	0	0	contracts/catzc/0.0.0/catzc.base.contracts/get_command_contract.command.yml			get-command-contract	name	Get-CommandContract	Name

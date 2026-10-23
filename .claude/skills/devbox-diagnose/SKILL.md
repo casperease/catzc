@@ -27,5 +27,5 @@ metadata:
    `code --list-extensions --show-versions`; `Win32_Process` for pwsh, dotnet, MSBuild and Microsoft.CodeAnalysis.LanguageServer with
    ParentProcessId, CreationDate and CommandLine; `where.exe dotnet`, `dotnet --list-sdks`, `dotnet --list-runtimes`; one script per layer,
    never a foreground `Get-WinEvent`.
-4. Reading: read the extension-host activation list (`window<n>\exthost\exthost.log`) and a log's head first, before any log search;
-   every claim carries its line verbatim with its timestamp, layers are correlated within one minute, and no line means no cause.
+4. Reading: read the extension-host activation list (`window<n>\exthost\exthost.log`) and a log's head first, before any log search; every
+   claim carries its line verbatim with its timestamp, layers are correlated within one minute, and no line means no cause.

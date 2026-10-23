@@ -53,6 +53,17 @@ layers: # the paint order, back to front: put orders the model's cells by it und
 kinds: # the two diagram kinds; each supplies the default three minimaps (minimaps: below)
   explanation: an explanation diagram, embedded by an article under docs/explanation
   reference: a reference diagram, embedded by a page under docs/references or docs/drs
+styles: # the diagram styles a declaration's content.style names; the first is the default, so a declaration without the key renders as before
+  bands: bands of glyphs and the edges between them, every diagram until now
+  action: one action with its cause on the left rim and its effects on rings around it, in accosted words
+wheres: # where an action diagram's effect happens, drawn as its where chip
+  local: this machine and this repository
+  remote: a service or a machine beyond the repository
+action-style: # what the action style draws with: the ring layout constants in diagram units, and its glyph kinds (glyphs.xml ids g-<kind>)
+  ring-gap: 150 # the distance from one ring to the next
+  note-width: 210 # the width of an effect's note
+  cause-radius: 80 # the radius of the cause's half-disc on the left rim
+  glyphs: cause, action, callsite, ring, effect
 themes: # the themes a diagram renders in, each a theme-<name> token set below; the first is the default and the one whose raster is committed
   dark: the dark page and the light ink of STYLE.md
   light: the light page and the dark ink of the light-era kit, rendered on demand to out/

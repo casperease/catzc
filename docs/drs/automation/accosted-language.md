@@ -5,9 +5,11 @@ catzc:
     cites:
       - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
       - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+      - DDR-VISUAL-PROOFISTHEACCOSTEDFILE
       - PDR-CATS-CATZCISSOURCENAME
       - PDR-CONFIG
-    drs_total: 4
+      - PDR-ONELIVE-ONEVERSION
+    drs_total: 6
 ---
 
 # ADR-AUTO-ACCOSTED: the accosted language, a flat list of harmless contracted calls
@@ -47,8 +49,9 @@ and any other argument that names a write target is rejected. An accosted file h
 
 The word accosted is reserved, as the catzc token is
 ([PDR-CATS-CATZCISSOURCENAME](../principles/cats-and-catzc.md#rule-pdr-cats-catzcissourcename)): it names this language and nothing else, so
-it appears only in the language's row, its extension, this ADR, its glossary entry, its module types and their tests, and the plans and
-session logs that name it. The places are the scope of the `reserved` terminology category, and a gate fails the word anywhere else.
+it appears only in the language's row, its extension, this ADR, its glossary entry, its module types and their tests, the diagram tooling
+and the action diagrams that prove themselves through it, and the plans and session logs that name it. The places are the scope of the
+`reserved` terminology category, and a gate fails the word anywhere else.
 
 - [A reserved word](#a-reserved-word)
 
@@ -68,6 +71,16 @@ every listed command is proven from every engine, and bounds each run by its con
 engine.
 
 - [Run everywhere, bounded](#run-everywhere-bounded)
+
+### Rule ADR-AUTO-ACCOSTED-ARTICLERENDERING
+
+A PowerShell fragment in an article is a **rendering** of the contract form, produced from the one reader's record by one function in
+`Catzc.Base.Docs`, never written by hand: `Get-FileLanguage -Path README.md` is the rendering of `get_file_language: { path: README.md }`.
+The accosted file is the one living version of the runs; a `.ps1` asset holding the same runs would be a second version of them
+([PDR-ONELIVE-ONEVERSION](../principles/one-living-version.md#rule-pdr-onelive-oneversion)). The named consumers are the articles and the
+diagrams that prove themselves through an accosted file (DDR-VISUAL-PROOFISTHEACCOSTEDFILE).
+
+- [A rendering, not a copy](#a-rendering-not-a-copy)
 
 ## Context
 
@@ -103,6 +116,12 @@ One reader means one set of rejections with one set of messages, and a runner th
 
 Each engine's start resolves a contracted command differently, so the proof runs under every engine. A run that hangs is stopped by its
 bound and reported, never waited on.
+
+### A rendering, not a copy
+
+An article that shows a call to a reader wants the PowerShell spelling, and a hand-written spelling is a second statement of the call that
+drifts from the first. Producing the fragment from the contract form through the one reader keeps a single statement and makes the article a
+view of it, so the proof an article shows is the proof that runs.
 
 ## Decision
 

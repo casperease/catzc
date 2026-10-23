@@ -1,5 +1,5 @@
 <!-- cspell:ignore drsonly -->
-<mxGraphModel dx="1024" dy="768" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="640" background="@page" math="0" shadow="1">
+<mxGraphModel dx="1024" dy="768" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="@page" math="0" shadow="1">
   <root>
     <mxCell id="0" />
     <mxCell id="1" parent="0" />
@@ -198,8 +198,38 @@
     <mxCell id="g-source-text" value="private helper: dark slate fill, slate rim, smaller name (never dashed)&lt;br&gt;C# type: code unit with a C# tag&lt;br&gt;catzc module: slate frame named by the module (the slide's own module is a band)&lt;br&gt;frames nest: a track holds its modules, a module holds its members; a frame in a frame is its holder's part" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;" vertex="1" parent="1">
       <mxGeometry x="620" y="478" width="640" height="64" as="geometry" />
     </mxCell>
+    <mxCell id="band-action" value="ACTION STYLE (one action, its cause and its effects; local or remote)" style="rounded=1;html=1;arcSize=3;fillColor=@band;strokeColor=@band-rim;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=12;fontColor=@band-label;" vertex="1" parent="1">
+      <mxGeometry x="20" y="596" width="1260" height="150" as="geometry" />
+    </mxCell>
+    <mxCell id="g-cause" value="&lt;b&gt;cause&lt;/b&gt;" style="shape=delay;whiteSpace=wrap;html=1;fillColor=@neutral;strokeColor=@neutral-rim;strokeWidth=2;fontColor=@ink;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="40" y="636" width="44" height="88" as="geometry" />
+    </mxCell>
+    <mxCell id="g-action" value="&lt;b&gt;action&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=@slate;strokeColor=@mark;strokeWidth=3;fontColor=@title;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="110" y="658" width="130" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="g-callsite" value="&lt;b&gt;call site&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=@slate;strokeColor=@mark;strokeWidth=3;verticalAlign=top;align=left;spacingLeft=8;fontColor=@title;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="270" y="632" width="150" height="96" as="geometry" />
+    </mxCell>
+    <mxCell id="g-callsite-a-member" value="command" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=@neutral-deep;strokeColor=@slate-rim;fontColor=@ink;fontSize=10.5;" vertex="1" parent="g-callsite">
+      <mxGeometry x="14" y="30" width="122" height="22" as="geometry" />
+    </mxCell>
+    <mxCell id="g-callsite-b-member" value="command" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=@neutral-deep;strokeColor=@slate-rim;fontColor=@ink;fontSize=10.5;" vertex="1" parent="g-callsite">
+      <mxGeometry x="14" y="62" width="122" height="22" as="geometry" />
+    </mxCell>
+    <mxCell id="g-ring" value="&lt;b&gt;ring&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=none;strokeColor=@line;strokeWidth=2;fontColor=@ink;fontSize=12;shadow=0;" vertex="1" parent="1">
+      <mxGeometry x="450" y="640" width="80" height="80" as="geometry" />
+    </mxCell>
+    <mxCell id="g-effect" value="&lt;b&gt;effect&lt;/b&gt;" style="shape=note;size=14;whiteSpace=wrap;html=1;fillColor=@neutral;strokeColor=@neutral-rim;fontColor=@ink;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="560" y="650" width="130" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="g-effect-tag" value="local" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=@chip;strokeColor=@chip-rim;fontColor=@ink;fontStyle=1;fontSize=10.5;" vertex="1" parent="1">
+      <mxGeometry x="640" y="640" width="46" height="18" as="geometry" />
+    </mxCell>
+    <mxCell id="g-action-text" value="cause: the actor or trigger, a half-disc whose flat side sits on the frame's left rim&lt;br&gt;action: one accosted command, in the contract form; a call site stacks several, one row each&lt;br&gt;ring: the causal hop, nearest first; effect: a note on a ring, its where chip saying local or remote" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;" vertex="1" parent="1">
+      <mxGeometry x="720" y="650" width="540" height="64" as="geometry" />
+    </mxCell>
     <mxCell id="footer" value="Structure in mid-tones with a light rim; neutral kinds dark with a light rim; result and failure saturated. Commits keep the locked palette (DDR-VISUAL-FIXEDCOMMITPALETTE)." style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=top;fontSize=11;fontColor=@quiet;" vertex="1" parent="1">
-      <mxGeometry x="20" y="590" width="1260" height="20" as="geometry" />
+      <mxGeometry x="20" y="762" width="1260" height="20" as="geometry" />
     </mxCell>
   </root>
 </mxGraphModel>
