@@ -10,14 +10,16 @@ catzc:
   edges:
     cites:
       - ADR-REPO-SLIDES-CHECKABLECLAIMS
-    drs_total: 1
+      - PDR-ONELIVE
+    drs_total: 2
 ---
 
 # Claude diet: bytes every session reads
 
-`.claude/CLAUDE.md` is 14294 bytes (about 3574 tokens, bytes / 4, an estimate) read at the start of every session; the Sub-agents section is
-4788 of them. Each agent's purpose already sits in its `description` front matter and in `agents.yml`, so the section restates a fact held
-twice elsewhere. The time-safeguard trim of the same file is plan-agent-friction's step 3.
+`.claude/CLAUDE.md` is 14734 bytes (about 3684 tokens, bytes / 4, an estimate, measured 2026-10-23) read at the start of every session; the
+Sub-agents section is 5167 of them and the Inspiration section 1989. Each agent's purpose already sits in its `description` front matter and
+in `agents.yml`, so the Sub-agents section restates a fact held twice elsewhere; the Inspiration section's aspect-to-ADR list restates the
+index. The time-safeguard trim of the same file is plan-agent-friction's step 1.
 
 ## Why its value is medium
 
@@ -34,15 +36,33 @@ It cuts a cost paid by every session and every spawn that loads the project inst
 
 ## Open steps
 
-1. [ ] Susan from HR: `.claude/CLAUDE.md`, section Sub-agents (4788 bytes of a 14355-byte file, 2026-10-21): each bullet cut to the agent
-       name and one clause, the full purpose left to the agent's `description` and `agents.yml`; target 2400 bytes, saving about 2400 bytes
-       (about 600 tokens) per session. The file is dirty in a peer's tree, so the step waits until no peer has it dirty, and it is the
-       user's step in task-user-runs-and-commits.md. Check: `Test-AgentDefinitions` (it still finds every registered name listed, and none
-       unregistered), `Test-Links -Path .claude/CLAUDE.md`, and `wc -c .claude/CLAUDE.md` at most 12100.
+1. [ ] Susan from HR: `.claude/CLAUDE.md`, section Sub-agents (5167 bytes of a 14734-byte file, 2026-10-23): each bullet cut to the agent
+       name and one clause, the full purpose left to the agent's `description` and `agents.yml`; target 2400 bytes, saving about 2700 bytes
+       (about 675 tokens) per session. The step waits until no peer has the file dirty, and it is the user's step in
+       task-user-runs-and-commits.md. Check: `Test-AgentDefinitions` (it still finds every registered name listed, and none unregistered),
+       `Test-Links -Path .claude/CLAUDE.md`, and `wc -c .claude/CLAUDE.md` at most 12100.
 2. [ ] Susan from HR: Hindsight d7c207 "If only one capability pointed at the index": in the same edit, the `docs/references/` line of
        Project structure names `docs/references/pwsh/index.md` as where a design round starts (about 70 bytes added, paid for by step 1's
        cut; no new line, no new file). Cost today: no robot, capability or CLAUDE.md line names the index. Check:
        `Test-Links -Path .claude/CLAUDE.md`, and `wc -c .claude/CLAUDE.md` still at most 12100.
+3. [ ] Susan from HR: `.claude/CLAUDE.md`, section Inspiration (1989 bytes, 2026-10-23), in the same edit as step 1 (hindsight rule: merge
+       beats add, delete beats merge): the six pointer bullets Module and command design, Docs and ADR structure, Contracts, Testing,
+       Pipelines and Tooling (about 900 bytes, each only a link to a record `docs/drs/index.md` already lists) become one clause, "the
+       domain rules in `docs/drs/index.md` decide each aspect"; the Go bullet (its scope rule) and the copying bullet (PDR-ONELIVE) stay.
+       Saves about 830 bytes (about 210 tokens) per session. Check: `Test-Links -Path .claude/CLAUDE.md`, `Test-AgentDefinitions`, and
+       `wc -c .claude/CLAUDE.md` at least 800 bytes below its size before the edit.
+4. [ ] Susan from HR: `.claude/skills/catzc-run/SKILL.md` step 4, merged into the existing "shared config parked in `out/`" sentence
+       (hindsight fa4506 "If only the parking rule covered types", 031350 "If only the types article warned the formatter"): a
+       `pwsh/*/types/*.cs` edit is parked the same way, since every session's next import compiles it, and a `Format-Code` run that touches
+       a C# file moves the DLL key, so the gate after it runs in a fresh import. Cost today: no capability or CLAUDE.md line says it (grep
+       `types/` finds none), so each session learns it from a red import or a stale gate. About 150 bytes added to one capability, no new
+       line. Check: `Test-AgentDefinitions` (line roof and the capability stays at most 10 lines) and `wc -c` on the file at most 2700.
+5. [ ] Susan from HR: `.claude/skills/plans-orchestrate/SKILL.md` item 2, one clause (hindsight fa4506 "If only a worker knew who is
+       listening" and "If only the worker had the intake rule"): a worker messages the session that sent its work, never a namesake from the
+       ListAgents roster, and checks an open step against the tree (a grep for its path or command) before it starts, since a step landed
+       hours ago was started again. Cost today: the file words only the orchestrator's side (grep `sent` and `tree` find nothing). About 170
+       bytes added, no new file. The traffic plan, plan-debt-agent-traffic.md, is peer-dirty and was not touched. Check:
+       `Test-AgentDefinitions` and `wc -c` on the file at most 1850.
 
 ## Open questions
 

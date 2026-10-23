@@ -18,13 +18,13 @@ metadata:
    `Invoke-TestFile -Path <its test file>`; re-read a file right before editing it and never overwrite another session's in-flight edit. A
    rename of a folder or command the tooling names lands its import-path readers (`rootconfig.yml` and Build-RootConfig's writers,
    `Get-LanguageTestFolders`, the `.internal` loaders, the contract readers) in the same pass inside a burst, never a HOLD or GO message:
-   one background `pwsh/.internal/assets/Enter-CatzcBurst.ps1 -Run '<cmd>' …` call holds the run lock, runs the swap-in, the checks and one
-   fresh full import (`Invoke-CatzcCommand.ps1 -InBurst`) as its steps, and releases it; on failure restore them from HEAD; multi-file type
-   work is edited on staged copies under `out/<topic>/staged/` and swapped in by one script with a fresh import and a restore on failure, a
-   public staged copy proved by that swap, never by dot-sourcing it (the exported command stays);
-   `Get-CodeCaller -Name <type or config key>` lists the callers of a changed type or config, never a recursive grep. A new folder under
-   `.claude/hooks` is an import-path change too, since every import builds each hook folder that has a csproj, so it is drafted outside the
-   tree and lands in a burst; a Python file writer passes `newline="\n"`, since `Path.write_text` writes CRLF on Windows.
+   one background `pwsh/.internal/assets/Enter-CatzcBurst.ps1 -Seconds <s> '<step>' '<step>' …` call holds the run lock, runs the swap-in,
+   the checks and one fresh full import (`Invoke-CatzcCommand.ps1 -InBurst`) as its steps, each its own argument, and releases it; on
+   failure restore them from HEAD; multi-file type work is edited on staged copies under `out/<topic>/staged/` and swapped in by one script
+   with a fresh import and a restore on failure, a public staged copy proved by that swap, never by dot-sourcing it (the exported command
+   stays); `Get-CodeCaller -Name <type or config key>` lists the callers of a changed type or config, never a recursive grep. A new folder
+   under `.claude/hooks` is an import-path change too, since every import builds each hook folder that has a csproj, so it is drafted
+   outside the tree and lands in a burst; a Python file writer passes `newline="\n"`, since `Path.write_text` writes CRLF on Windows.
 2. At the end on the owned files, each at 0: `Test-ScriptAnalyzer -Path <ps1> -PassThru`, `Test-Spelling -Path <files> -PassThru`,
    `Format-Types -Path <module>/types -DryRun -PassThru` for C#, `Format-Code -Path <files>` (before any fresh import: formatting a C# type
    changes the types hash; a new test file or a new or changed comment page puts its code file in that `-Path` to re-imprint it, since the

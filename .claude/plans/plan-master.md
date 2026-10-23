@@ -59,11 +59,14 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - agent-shortcuts -> plan-agent-shortcuts.md: one step left, the gate runner's CLAUDE.md line (the user's, task-user-runs-and-commits).
 - bcl-language -> plan-bcl-language.md: one step left, the CLAUDE.md line (the user's, task-user-runs-and-commits).
 - agent-friction -> plan-agent-friction.md: the user's CLAUDE.md trims only (task-user-runs-and-commits).
-- claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit only (Sub-agents cut, the pwsh index named; task-user-runs-and-commits).
+- claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit (Sub-agents and Inspiration cuts, the pwsh index named;
+  task-user-runs-and-commits), then two capability lines (catzc-run, plans-orchestrate).
 - session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
 - drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
 - debt-agent-traffic -> plan-debt-agent-traffic.md: fewer messages and tool calls between the orchestrator and its workers (a run lock,
-  one-line reports, pre-approved rule edits, derived step counts, an automatic log); four steps
+  one-line reports, pre-approved rule edits, derived step counts, an automatic log); three steps
+- minimap-inputs-only -> plan-minimap-inputs-only.md: a diagram declaration holds only its minimaps' inputs (`about.adrs`), never the
+  computed `code-locations` cells; the rule first, then the writer, then the 177 carriers through the declaration tool
 - nuget-tooling -> plan-nuget-tooling.md: NuGet belongs to the tooling modules and no dotnet call contacts a package manager outside them;
   design first, then one burst
 - debt-full-run-failures -> plan-debt-full-run-failures.md: the last full run's failing files rerun one at a time, since a red test blocks

@@ -140,6 +140,25 @@ Describe 'Enter-CatzcBurst' -Tag 'L0', 'logic' {
         { & $script:exit -LockName $script:lockName } | Should -Throw '*no burst holds*'
     }
 
+    It 'lets a -Run step in a child process run its checks under the burst' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        $child = "pwsh -NoProfile -File '$script:entry' -InBurst -LockName '$script:lockName' -Importer '$script:importer' Get-Widget"
+        $lines = @(& $script:enter -Seconds 30 -LockName $script:lockName -LockSeconds 1 $child)
+        $LASTEXITCODE | Should -Be 0
+        $lines | Should -Contain '[Invoke-CatzcCommand] passed: Get-Widget'
+        $lines[-1] | Should -BeExactly '[Enter-CatzcBurst] released the run lock: the 1 -Run steps passed'
+    }
+
+    It 'binds each step given through pwsh -File as its own step, never as the lock''s name' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' {
+        $lines = @(& pwsh -NoProfile -File $script:enter -Seconds 30 -LockName $script:lockName -LockSeconds 1 "'one'" "'two'")
+        $LASTEXITCODE | Should -Be 0
+        $lines | Should -Be @(
+            '[Enter-CatzcBurst] holding the run lock for up to 30 s; running 2 -Run steps'
+            'one'
+            'two'
+            '[Enter-CatzcBurst] released the run lock: the 2 -Run steps passed'
+        )
+    }
+
     It 'stops at a failing -Run step, runs none after it, releases the lock and exits 1: <case>' -Tag 'ADR-AUTO-FAILFAST-BOUNDEVERYWAIT' -ForEach @(
         @{ case = 'a throw'; Step = "throw 'broken gadget'"; Reason = 'broken gadget' }
         @{ case = 'a non-zero exit code'; Step = '$global:LASTEXITCODE = 3'; Reason = 'exit code 3' }

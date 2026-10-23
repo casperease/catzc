@@ -26,7 +26,7 @@ catzc:
     released once the last step passes or the first fails, so no call holds the lock waiting for work that never knew when to start.
 
     timeout 360 pwsh -NoProfile -File pwsh/.internal/assets/Enter-CatzcBurst.ps1 -Seconds 300
-    timeout 360 pwsh -NoProfile -File pwsh/.internal/assets/Enter-CatzcBurst.ps1 -Seconds 240 -Run 'pwsh -NoProfile -File out/step.ps1'
+    timeout 360 pwsh -NoProfile -File pwsh/.internal/assets/Enter-CatzcBurst.ps1 -Seconds 240 'pwsh -NoProfile -File out/one.ps1' 'pwsh -NoProfile -File out/two.ps1'
 
 .PARAMETER Seconds
     The most seconds the burst holds the lock. Default: 300, inside the 360 s background roof of the time safeguard.
@@ -45,6 +45,8 @@ catzc:
     The steps the burst runs while it holds the lock, each a command run in this process, in order. A step fails when it throws or leaves a
     non-zero exit code; the steps after it do not run, and neither do the steps left once -Seconds have passed. The lock is released after
     the steps, and the call exits 1 when one failed. Default: none, and the burst holds until Exit-CatzcBurst or -Seconds.
+    The steps are the arguments left after the named ones, each its own argument, so they bind alike from the console and through
+    pwsh -File; only -Run takes an argument by position, so a stray step can never be taken for the lock's name.
 #>
 param(
     [ValidateRange(1, 360)]
@@ -58,10 +60,14 @@ param(
     [ValidateRange(1, 360)]
     [int] $BudgetSeconds,
 
+    [Parameter(Position = 0, ValueFromRemainingArguments)]
     [string[]] $Run
 )
 
 Set-StrictMode -Version Latest
+
+# An empty remaining-arguments list still binds one empty item, so blank steps are dropped before the count.
+$Run = @($Run | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
 
 # A burst queues for the lock like any run; the waiting lines pass through as they happen.
 . (Join-Path $PSScriptRoot 'Wait-CatzcRunLock.ps1')
