@@ -1,0 +1,58 @@
+description:
+  The hook program compiles the Timeouts module's own verdict and limit types from their source files, so the agent-side hook and the
+  pwsh-side resolver read the same typed limits from the same config.
+about:
+  adrs: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT]
+  lens: architecture
+content:
+  title: The hook compiles the module's own verdict and limit types, so the agent side and the pwsh side agree
+  kind: explanation
+  flow: top-to-bottom
+  relation: depends on
+  theme: dark
+  bands:
+    - { id: band-claude, label: CLAUDE CODE }
+    - { id: band-hook, label: HOOK }
+    - { id: band-module, label: CATZC.BASE.TIMEOUTS }
+  groups:
+    - { id: grp-types, label: compiled into the hook, in: band-module }
+  glyphs:
+    - { id: x-bash, kind: external, label: Bash tool, in: band-claude }
+    - { id: g-hook, kind: code, label: Assert-BashTimeout, in: band-hook }
+    - { id: g-seconds, kind: code, label: Get-TimeoutSeconds, in: band-module }
+    - { id: g-config, kind: code, label: TimeoutsConfig, in: grp-types }
+    - { id: g-tiers, kind: code, label: TestTiers, in: grp-types }
+    - { id: g-safeguard, kind: code, label: BashSafeguard, in: grp-types }
+    - { id: g-bounded, kind: code, label: BoundedCommand, in: grp-types }
+    - { id: g-timeouts, kind: file, label: timeouts.yml, in: band-module }
+  edges:
+    - { from: x-bash, to: g-hook, kind: flow, label: "" }
+    - { from: g-hook, to: grp-types, kind: flow, label: "" }
+    - { from: g-seconds, to: g-config, kind: flow, label: "" }
+    - { from: g-config, to: g-tiers, kind: flow, label: "" }
+    - { from: g-safeguard, to: g-config, kind: flow, label: "" }
+    - { from: g-safeguard, to: g-bounded, kind: flow, label: "" }
+    - { from: g-config, to: g-timeouts, kind: flow, label: "" }
+  markers:
+    - { at: x-bash, number: 1 }
+    - { at: g-hook, number: 2 }
+    - { at: g-safeguard, number: 3 }
+    - { at: g-bounded, number: 4 }
+    - { at: g-config, number: 5 }
+    - { at: g-timeouts, number: 6 }
+    - { at: g-seconds, number: 7 }
+  legend: auto
+  minimaps: [code-locations, module-neighbourhood, axis]
+layout:
+  band-claude: { x: 20, y: 84, w: 1260, h: 100 }
+  band-hook: { x: 20, y: 204, w: 1260, h: 100 }
+  band-module: { x: 20, y: 324, w: 1260, h: 250 }
+  x-bash: { x: 570, y: 122, w: 160, h: 44 }
+  g-hook: { x: 560, y: 244, w: 180, h: 44 }
+  grp-types: { x: 320, y: 360, w: 660, h: 110 }
+  g-seconds: { x: 60, y: 410, w: 180, h: 44 }
+  g-config: { x: 335, y: 410, w: 140, h: 44 }
+  g-tiers: { x: 495, y: 410, w: 140, h: 44 }
+  g-safeguard: { x: 655, y: 410, w: 140, h: 44 }
+  g-bounded: { x: 815, y: 410, w: 140, h: 44 }
+  g-timeouts: { x: 350, y: 506, w: 130, h: 52 }

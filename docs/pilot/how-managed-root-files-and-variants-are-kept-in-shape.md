@@ -1,0 +1,30 @@
+# Repository explanations
+
+```text
+How the repository is kept in shape.
+
+Root config materialisation   every managed root file comes from one source
+Variant primitives            nothing reads variants.yml directly
+Diagram build                 five stages in one command; rendering is the cost
+```
+
+These articles explain decisions from the [repository ADR domain](../drs/index.md#repository). Each article narrates one diagram; the
+[explanation index](how-cats-works-and-why-in-one-diagram-per-article.md) says how to read them.
+
+## The contract reference
+
+One command reads the contract assets through the one reader and writes a reference page per unit
+([api-contracts](../drs/repository/api-contracts.md), [command-contracts](../drs/repository/command-contracts.md)).
+
+| Article                                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------------------- |
+| [Building the contract reference writes one page per unit](../explanation/repository/building-the-contract-reference-writes-one-page-per-unit.md) |
+
+## Diagram build
+
+Build-Diagrams runs five stages in one command, and rendering is the cost
+([slides-as-markdown](../drs/repository/slides-as-markdown.md)).
+
+| Lens           | Article                                                                                          |
+| -------------- | ------------------------------------------------------------------------------------------------ |
+| implementation | [Build-Diagrams runs five stages, and rendering is the cost](../explanation/repository/build-diagrams-runs-five-stages.md) |
