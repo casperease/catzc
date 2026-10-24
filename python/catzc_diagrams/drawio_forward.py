@@ -9,7 +9,7 @@
 # ---
 
 # cspell:ignore mxfile minimaps pnginfo XMLMATCH
-"""Fail-forward render of a .drawio.png: always a source copy and a result PNG, warnings forwarded, never a silent stop.
+"""Fail-forward render of a .drawio.png: always a source copy and a result PNG, findings forwarded, never a silent stop.
 
 usage: uv run --with pillow python drawio_forward.py <src.drawio.png> [<out_dir>] [--page dark|model]
                                                      [--xml <model.xml | file.drawio>] [--assert <text.md>]
@@ -19,8 +19,8 @@ into <out_dir>: <name>.src.drawio.png (a byte copy of the source), <name>.out.dr
 the embedded model on the chosen page, or the source copy again when no model can be read), <name>.model.xml (the
 decoded model, when one exists) and <name>.render.md (the report). With --xml the given model must match the embedded
 one 100 percent after canonicalisation. With --assert every non-empty, non-heading line of the text file (a page, 66
-lines) must appear in some cell label, whitespace-folded and case-folded. Exit 0: clean. Exit 2: transport or assertion warnings, every artifact still delivered. Exit 3: no source
-file, nothing to forward. Prints one line per artifact (`src`, `result`, `model`, `report`), one per warning (`warn`),
+lines) must appear in some cell label, whitespace-folded and case-folded. Exit 0: clean. Exit 2: transport or assertion findings, each an error (renderer findings-fail), every artifact still delivered. Exit 3: no source
+file, nothing to forward. Prints one line per artifact (`src`, `result`, `model`, `report`), one per finding (`error`),
 then `status`.
 
 bulk:  uv run --with pillow python drawio_forward.py --all <root> [--theme <theme>]
@@ -49,7 +49,7 @@ from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
 PAGE_LINES = 66
-# A transport failure of any step becomes a warning and the artifacts still land: the exceptions the steps can raise.
+# A transport failure of any step becomes a finding and the artifacts still land: the exceptions the steps can raise.
 FORWARD = (
     OSError,
     ValueError,
@@ -62,6 +62,7 @@ FORWARD = (
 )
 KIT = Path(__file__).resolve().parent
 REPO = KIT.parents[1]
+FINDINGS_EXIT = 2 if DEFAULTS["renderer"]["findings-fail"] == "yes" else 0  # the exit of a run with findings: every finding is an error, one setting for all
 ADR_CODE = re.compile(r"(?<![\w-])" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+(?![\w-])")
 NUMBERED = re.compile(r"(?<![\w-])" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+(?:[#:]\d|#\{)")
 SLIDE = ".drawio.png"  # a diagram's render, `<name>.drawio.png`, put from the `<name>.drawio.yml` beside it
@@ -167,21 +168,21 @@ def put_legend(folder):
     return target
 
 
-def undeclared_warnings(folder, source):
-    """A W_UNDECLARED warning for a slide with no declaration; a legend draws no minimaps, so it needs none and has none."""
+def undeclared_findings(folder, source):
+    """An E_UNDECLARED finding for a slide with no declaration; a legend draws no minimaps, so it needs none and has none."""
     if diagram_role(folder) == "legend":
         return []
     path = str(Path(folder).resolve().relative_to(REPO)).replace("\\", "/")
-    return [f"W_UNDECLARED {path}: no {source}, so its minimaps are not rebuilt; declare it to put it"]
+    return [f"E_UNDECLARED {path}: no {source}, so its minimaps are not rebuilt; declare it to put it"]
 
 
 def subtitle_facts(folder, model):
-    """slide_facts for a slide, with each problem as a W_SUBTITLE warning; a legend names no ADR and carries no subtitle, so it has none."""
+    """slide_facts for a slide, with each problem as an E_SUBTITLE finding; a legend names no ADR and carries no subtitle, so it has none."""
     if diagram_role(folder) == "legend":
         return [], None, []
     adrs, lens, problems = slide_facts(model)
     path = str(Path(folder).resolve().relative_to(REPO)).replace("\\", "/")
-    return adrs, lens, [f"W_SUBTITLE {path}: {p}" for p in problems]
+    return adrs, lens, [f"E_SUBTITLE {path}: {p}" for p in problems]
 
 
 def known_adrs():
@@ -208,7 +209,7 @@ def adrs_of(text, known=None):
 
 def supports_drift(folder, adrs, lens):
     """The article's `Supports … (<lens> lens)` line against the subtitle: the article is the one page beside the diagram's
-    `.assets` that embeds the slide. Returns the warning, or None when they agree or no article line exists."""
+    `.assets` that embeds the slide. Returns the finding, or None when they agree or no article line exists."""
     slide = slide_of(folder).resolve()
     for page in sorted(folder.parent.parent.glob("*.md")):
         text = page.read_text(encoding="utf-8")
@@ -255,9 +256,9 @@ def bulk(root, theme=None):
     work = REPO / DEFAULTS["renderer"]["out"] / "bulk" / rel(root).replace("/", "--")
     models = work / "models"
     folders = diagrams(root)
-    warnings, counts = [], {}
+    findings, counts = [], {}
     if not folders:
-        print(f"warn E_SOURCE no diagram (.assets/<name>{SLIDE}) under {root}")
+        print(f"error E_SOURCE no diagram (.assets/<name>{SLIDE}) under {root}")
         print("status error")
         return 3
     # A diagram with a declaration is put from it, minimaps included; a diagram without one is only checked and reported.
@@ -268,7 +269,7 @@ def bulk(root, theme=None):
     # Only the default theme is committed; another theme renders the declared diagrams on demand to out/, and nothing else.
     themed = theme is not None and theme != THEMES[0]
     if themed:
-        warnings += [f"W_THEME {rel(f)}: no declaration in its carrier, so it renders in the default theme only" for f in folders]
+        findings += [f"E_THEME {rel(f)}: no declaration in its carrier, so it renders in the default theme only" for f in folders]
         folders = []
     put = 0
     for f in declared:
@@ -276,12 +277,12 @@ def bulk(root, theme=None):
             # A conflicted pair waits for the author's put or get by name; the bulk run picks no side.
             both = [] if themed else declaration.conflict(f, declaration.committed(f))
             if both:
-                warnings.append(f"W_CONFLICT {rel(f)}: the yml and the png both moved from HEAD and disagree in {', '.join(both)}")
+                findings.append(f"E_CONFLICT {rel(f)}: the yml and the png both moved from HEAD and disagree in {', '.join(both)}")
                 continue
             print(f"put {rel(declaration.put_png(f, declaration.load(f), theme))}")
             put += 1
         except (declaration.DeclarationError, OSError) as e:
-            warnings.append(f"W_PUT {rel(f)}: {e}")
+            findings.append(f"E_PUT {rel(f)}: {e}")
     counts.update(put=put)
     # A legend diagram is drawn from the glyph library, in the default theme only, so it renders and is never left to be checked.
     legends = [f for f in folders if diagram_role(f) == "legend"]
@@ -290,7 +291,7 @@ def bulk(root, theme=None):
         try:
             print(f"put {rel(put_legend(f))}")
         except FORWARD as e:
-            warnings.append(f"W_PUT {rel(f)}: {e}")
+            findings.append(f"E_PUT {rel(f)}: {e}")
     counts.update(legends=len(legends))
     model_of =lambda f: models / (rel(f).replace("/", "--") + ".model.xml")
     models.mkdir(parents=True, exist_ok=True)
@@ -300,21 +301,21 @@ def bulk(root, theme=None):
             model_of(f).write_text(decode(mxfile_chunk(Image.open(slide_of(f)))).strip(), encoding="utf-8")
             done += 1
         except FORWARD as e:
-            warnings.append(f"W_PREPARE {rel(f)}: {e}")
+            findings.append(f"E_PREPARE {rel(f)}: {e}")
     for f in folders:
         if not model_of(f).is_file():
             continue
-        adrs, lens, subtitle_warnings = subtitle_facts(f, model_of(f).read_text(encoding="utf-8"))
-        warnings += subtitle_warnings
+        adrs, lens, subtitle_findings = subtitle_facts(f, model_of(f).read_text(encoding="utf-8"))
+        findings += subtitle_findings
         if adrs and lens is not None:
             drift = supports_drift(f, adrs, lens)
             if drift:
-                warnings.append(f"W_SUPPORTS {drift}")
-        warnings += undeclared_warnings(f, declaration.source_of(f).name if declaration.carrier_of(f) == "file" else f"`{declaration.FENCE}` block")
+                findings.append(f"E_SUPPORTS {drift}")
+        findings += undeclared_findings(f, declaration.source_of(f).name if declaration.carrier_of(f) == "file" else f"`{declaration.FENCE}` block")
     counts.update(prepared=done, undeclared=len(folders))
-    for w in warnings:
-        print(f"warn {w}")
-    status = "ok" if not warnings else "warn"
+    for w in findings:
+        print(f"error {w}")
+    status = "ok" if not findings else "error"
     work.mkdir(parents=True, exist_ok=True)
     report = work / "bulk.md"
     lines = [
@@ -325,12 +326,12 @@ def bulk(root, theme=None):
         f"- status: {status}",
     ]
     lines += [f"- {k}: {v}" for k, v in counts.items()] + [
-        f"- warning: {w}" for w in warnings
+        f"- error: {w}" for w in findings
     ]
     report.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"report {report}")
     print(f"status {status}")
-    return 0 if not warnings else 2
+    return FINDINGS_EXIT if findings else 0
 
 
 def main():
@@ -364,7 +365,7 @@ def main():
     out_dir = Path(args[1]) if len(args) > 1 else REPO / DEFAULTS["renderer"]["out"]
     page = page or DEFAULTS["renderer"]["page"]
     if not src.is_file():
-        print(f"warn E_SOURCE no such file: {src}")
+        print(f"error E_SOURCE no such file: {src}")
         print("status error")
         raise SystemExit(3)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -373,7 +374,7 @@ def main():
     result = out_dir / f"{name}.out.drawio.png"
     model_file = out_dir / f"{name}.model.xml"
     report = out_dir / f"{name}.render.md"
-    warnings = []
+    findings = []
     cells = 0
     shutil.copyfile(src, src_copy)
     print(f"src {src_copy}")
@@ -382,8 +383,8 @@ def main():
     try:
         chunk = mxfile_chunk(Image.open(src))
         model = decode(chunk).strip()
-    except FORWARD as e:  # a transport failure is a warning, the source copy stands in for the result
-        warnings.append(f"W_CHUNK no readable mxfile chunk in the source: {e}")
+    except FORWARD as e:  # a transport failure is a finding, the source copy stands in for the result
+        findings.append(f"E_CHUNK no readable mxfile chunk in the source: {e}")
 
     if model is not None:
         model_file.write_text(model, encoding="utf-8")
@@ -394,18 +395,18 @@ def main():
             cells = len(ids)
             dup = sorted({i for i in ids if i is not None and ids.count(i) > 1})
             if dup:
-                warnings.append(f"W_IDS duplicate cell ids: {dup}")
+                findings.append(f"E_IDS duplicate cell ids: {dup}")
             img = render(root, page).convert("RGB")
             info = PngInfo()
             info.add_text("mxfile", encode(model, name))
             img.save(result, "PNG", pnginfo=info)
             back = decode(mxfile_chunk(Image.open(result)))
             if back != model:
-                warnings.append(
-                    "W_ROUNDTRIP the result's embedded model differs from the source model"
+                findings.append(
+                    "E_ROUNDTRIP the result's embedded model differs from the source model"
                 )
         except FORWARD as e:
-            warnings.append(f"W_RENDER the model could not be rendered: {e}")
+            findings.append(f"E_RENDER the model could not be rendered: {e}")
             shutil.copyfile(src, result)
     else:
         shutil.copyfile(src, result)
@@ -413,10 +414,10 @@ def main():
 
     if xml_path is not None:
         if not xml_path.is_file():
-            warnings.append(f"W_XML no such model file: {xml_path}")
+            findings.append(f"E_XML no such model file: {xml_path}")
         elif model is None:
-            warnings.append(
-                "W_XML a model file was given but the source carries no model to compare"
+            findings.append(
+                "E_XML a model file was given but the source carries no model to compare"
             )
         else:
             try:
@@ -425,18 +426,18 @@ def main():
                     canonical(model),
                 )
                 if given != embedded:
-                    warnings.append(
-                        f"W_XMLMATCH given model differs from the embedded one {first_difference(given, embedded)}"
+                    findings.append(
+                        f"E_XMLMATCH given model differs from the embedded one {first_difference(given, embedded)}"
                     )
             except FORWARD as e:
-                warnings.append(f"W_XML the given model could not be read: {e}")
+                findings.append(f"E_XML the given model could not be read: {e}")
 
     if assert_path is not None:
         if not assert_path.is_file():
-            warnings.append(f"W_ASSERT no such text file: {assert_path}")
+            findings.append(f"E_ASSERT no such text file: {assert_path}")
         elif root is None:
-            warnings.append(
-                "W_ASSERT a text file was given but the source carries no model to assert against"
+            findings.append(
+                "E_ASSERT a text file was given but the source carries no model to assert against"
             )
         else:
             phrases = [
@@ -445,18 +446,18 @@ def main():
             ]
             phrases = [p for p in phrases if p and not p.startswith("#")]
             if len(phrases) > PAGE_LINES:
-                warnings.append(
-                    f"W_PAGE {len(phrases)} asserted lines, a page is {PAGE_LINES}; all were checked"
+                findings.append(
+                    f"E_PAGE {len(phrases)} asserted lines, a page is {PAGE_LINES}; all were checked"
                 )
             labels = " | ".join(
                 normalise(plain(c.get("value") or "")) for c in root.iter("mxCell")
             )
             for p in [p for p in phrases if p not in labels]:
-                warnings.append(f"W_TEXT asserted text not in any cell label: {p!r}")
+                findings.append(f"E_TEXT asserted text not in any cell label: {p!r}")
 
-    for w in warnings:
-        print(f"warn {w}")
-    status = "ok" if not warnings else "warn"
+    for w in findings:
+        print(f"error {w}")
+    status = "ok" if not findings else "error"
     lines = [
         f"# {name}: fail-forward render",
         "",
@@ -466,11 +467,11 @@ def main():
         f"- model: `{model_file}`" if model is not None else "- model: none",
         f"- cells: {cells}",
         f"- status: {status}",
-    ] + [f"- warning: {w}" for w in warnings]
+    ] + [f"- error: {w}" for w in findings]
     report.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"report {report}")
     print(f"status {status}")
-    raise SystemExit(0 if not warnings else 2)
+    raise SystemExit(FINDINGS_EXIT if findings else 0)
 
 
 if __name__ == "__main__":

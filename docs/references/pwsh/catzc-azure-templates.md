@@ -224,17 +224,17 @@ layout:
   band-resolve: { x: 220, y: 84, w: 1060, h: 290 }
   band-deploy: { x: 220, y: 394, w: 1060, h: 190 }
   g-deploy: { x: 40, y: 300, w: 150, h: 44 }
-  g-context: { x: 250, y: 124, w: 220, h: 44 }
+  g-context: { x: 250, y: 150, w: 220, h: 44 }
   grp-types: { x: 540, y: 104, w: 720, h: 84 }
   t-plan: { x: 560, y: 134, w: 200, h: 44 }
   t-artifacts: { x: 790, y: 134, w: 180, h: 44 }
   t-context: { x: 1000, y: 134, w: 240, h: 44 }
   g-build: { x: 260, y: 275, w: 200, h: 44 }
-  grp-cli: { x: 520, y: 225, w: 290, h: 310 }
+  grp-cli: { x: 520, y: 225, w: 290, h: 330 }
   g-session-sub: { x: 545, y: 275, w: 240, h: 44 }
-  g-invoke: { x: 580, y: 465, w: 160, h: 44 }
-  grp-azure: { x: 840, y: 225, w: 260, h: 120 }
-  g-environment: { x: 860, y: 275, w: 220, h: 44 }
+  g-invoke: { x: 580, y: 500, w: 160, h: 44 }
+  grp-azure: { x: 840, y: 195, w: 260, h: 120 }
+  g-environment: { x: 860, y: 245, w: 220, h: 44 }
   g-tracking: { x: 880, y: 465, w: 230, h: 44 }
 ```
 

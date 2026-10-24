@@ -1280,6 +1280,8 @@ def test_a_plain_arrow_ending_on_a_code_block_needs_an_actor_or_a_call_label():
         declaration.normalise(bare)
     called = _edge_declaration(CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": "calls"}])
     assert declaration.normalise(called)["content"]["edges"]
+    fed = _edge_declaration(CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": "feeds"}])
+    assert declaration.normalise(fed)["content"]["edges"]  # feeds is the second label that may end on code: its tail initiates
     written = _edge_declaration(CODE_GLYPHS, [{"from": "author", "to": "widget-b", "kind": "flow", "label": ""}])
     assert declaration.normalise(written)["content"]["edges"], "an actor starts a flow into code"
 
@@ -1297,7 +1299,7 @@ def test_a_diagram_with_its_own_relation_is_not_judged_by_the_default_meaning():
 def test_the_default_meaning_and_the_labels_are_declared_once_and_the_legend_reads_them():
     assert declaration.DEFAULTS["edge-semantics"]["legend"] == "initiator to receiver"
     assert declaration.LIB["edges"]["flow"]["phrase"] == "flow: initiator to receiver"
-    assert set(declaration.EDGE_SEMANTICS["call-labels"]) <= set(declaration.EDGE_LABELS)
+    assert set(declaration.EDGE_SEMANTICS["code-head-labels"]) <= set(declaration.EDGE_LABELS)
     assert set(declaration.EDGE_LABELS.values()) <= {"tail", "head"}
     glyph_library = (declaration.KIT / "assets" / "glyphs.xml").read_text(encoding="utf-8")
     assert 'value="flow: initiator to receiver"' in glyph_library, "the glyph library's words agree with the declaration"
@@ -1414,3 +1416,99 @@ def test_get_keeps_the_direction_an_author_wrote_and_never_rewrites_it_into_betw
     first = declaration.normalise(ranked({"between": ["gadget-store", "widget-b"]}))
     text = declaration.dump(first)
     assert "between" not in text and "widget-b" in text
+
+
+def test_an_edge_count_shows_in_its_pill_after_its_label_and_comes_back_as_a_count():
+    raw = ranked({"from": "widget-b", "to": "gadget-store", "label": "writes", "count": "13/28"})
+    raw["layout"] = {"gadget-gate": {"x": 950, "y": 183, "w": 127, "h": 93}}
+    first = declaration.normalise(raw)
+    edge = next(e for e in first["content"]["edges"] if e["from"] == "widget-b")
+    assert edge["label"] == "writes" and edge["count"] == "13/28"
+    model = declaration.put(first)
+    assert "&lt;b&gt;writes 13/28&lt;/b&gt;" in model  # the label, then the count, in one pill
+    back = declaration.get(model, kind="explanation")
+    assert next(e for e in back["content"]["edges"] if e["from"] == "widget-b")["count"] == "13/28"
+    assert declaration.put(back) == model
+    assert "count: " not in declaration.dump(declaration.normalise(ranked({"from": "widget-b", "to": "gadget-store"})))  # no count, no key
+
+
+def test_a_count_is_n_of_m_with_n_at_most_m_and_decides_no_direction():
+    for bad in ("29/28", "13", "13/", "a/b"):
+        with pytest.raises(declaration.DeclarationError, match="count .* is n/m with n at most m"):
+            declaration.normalise(ranked({"from": "widget-b", "to": "gadget-store", "count": bad}))
+    with pytest.raises(declaration.DeclarationError, match="runs against its rank"):
+        declaration.normalise(ranked({"from": "gadget-store", "to": "widget-b", "count": "1/2"}))  # a count is no label
+    only = declaration.normalise(ranked({"from": "widget-b", "to": "gadget-store", "label": "5/5"}))  # a label that is a count is one
+    assert next(e for e in only["content"]["edges"] if e["from"] == "widget-b")["count"] == "5/5"
+
+
+ROUTED = """
+about:
+  lens: architecture
+content:
+  title: Widgets
+  flow: left-to-right
+  bands:
+    - { id: band-a, label: Widgets }
+  glyphs:
+    - { id: widget-a, kind: code, label: Widget A, in: band-a }
+    - { id: widget-b, kind: code, label: Widget B, in: band-a }
+    - { id: gadget-store, kind: store, label: Gadget store, in: band-a }
+    - { id: gadget-gate, kind: code, label: Gadget code, in: band-a }
+"""
+
+ROW = {
+    "band-a": {"x": 20, "y": 84, "w": 1000, "h": 420},
+    "widget-b": {"x": 40, "y": 300, "w": 120, "h": 44},
+    "widget-a": {"x": 300, "y": 300, "w": 120, "h": 44},
+    "gadget-store": {"x": 580, "y": 300, "w": 120, "h": 60},
+    "gadget-gate": {"x": 300, "y": 120, "w": 120, "h": 60},
+}
+
+
+def routed(layout, edges):
+    raw = __import__("yaml").safe_load(ROUTED)
+    raw["content"]["edges"] = list(edges)
+    raw["layout"] = layout
+    return declaration.normalise(raw)
+
+
+def edge_style(model, source, target):
+    found = re.search(rf'<mxCell id="e-{source}-{target}[^"]*" [^\n]*style="([^"]*)"', model)
+    assert found is not None
+    return dict(part.split("=", 1) for part in found.group(1).split(";") if "=" in part)
+
+
+def test_edges_between_aligned_cells_run_straight_from_side_middle_to_side_middle():
+    model = declaration.put(routed(ROW, [{"from": "widget-b", "to": "widget-a", "label": "calls"}]))
+    style = edge_style(model, "widget-b", "widget-a")
+    assert (style["exitX"], style["exitY"], style["entryX"], style["entryY"]) == ("1.0", "0.5", "0.0", "0.5")
+
+
+def test_edges_that_share_a_side_are_spaced_evenly_along_it_in_the_order_of_their_other_ends():
+    layout = {**ROW, "widget-b": {"x": 40, "y": 120, "w": 120, "h": 44}, "gadget-gate": {"x": 40, "y": 420, "w": 120, "h": 44}}
+    edges = [{"from": "widget-a", "to": "widget-b", "label": "calls"}, {"from": "widget-a", "to": "gadget-gate", "label": "calls"}]
+    model = declaration.put(routed(layout, edges))
+    upper, lower = edge_style(model, "widget-a", "widget-b"), edge_style(model, "widget-a", "gadget-gate")
+    assert (upper["exitX"], lower["exitX"]) == ("0.0", "0.0") and (upper["exitY"], lower["exitY"]) == ("0.3333", "0.6667")
+
+
+def test_an_edge_through_a_cell_that_is_neither_end_is_a_keep_out_error_and_a_free_path_is_not(monkeypatch):
+    monkeypatch.setattr(declaration, "FINDINGS_FAIL", True)
+    layout = {**ROW, "gadget-store": {"x": 700, "y": 300, "w": 120, "h": 44}}
+    edges = [{"from": "widget-b", "to": "gadget-store", "label": "writes"}]
+    with pytest.raises(declaration.DeclarationError, match="E_KEEPOUT edge widget-b -> gadget-store runs through the keep-out zone of widget-a"):
+        declaration.put(routed(layout, edges))
+    layout["widget-a"] = {"x": 300, "y": 120, "w": 120, "h": 44}  # moved out of the line
+    declaration.put(routed(layout, edges))
+
+
+def test_the_keep_out_zone_is_the_cell_grown_by_the_deadzone_and_a_container_is_no_obstacle(monkeypatch):
+    monkeypatch.setattr(declaration, "FINDINGS_FAIL", True)
+    edges = [{"from": "widget-b", "to": "gadget-store", "label": "writes"}]
+    layout = {**ROW, "gadget-store": {"x": 700, "y": 300, "w": 120, "h": 44}, "widget-a": {"x": 300, "y": 326, "w": 120, "h": 44}}
+    with pytest.raises(declaration.DeclarationError, match="keep-out zone of widget-a"):  # its top is 4 px under the line: inside the 8 px zone
+        declaration.put(routed(layout, edges))
+    layout["widget-a"] = {"x": 300, "y": 340, "w": 120, "h": 44}  # 18 px under the line: clear of the zone
+    declaration.put(routed(layout, edges))  # and the band that holds both ends and the cell never counts
+    assert declaration.segment_hits_rect((0, 10), (100, 10), (40, 0, 20, 20)) and not declaration.segment_hits_rect((0, 30), (100, 30), (40, 0, 20, 20))

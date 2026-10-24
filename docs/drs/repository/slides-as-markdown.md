@@ -49,7 +49,10 @@ background exists.
 The render is fail-forward. `Build-SlideDeck` always writes `out/slides/<deck>/`: the deck tree the Slides artifact type reads and
 `<deck>.script.md`, the speaker notes in order. A missing required field, a field the pattern does not know, a pattern that does not exist
 and a field with more items than the pattern holds are each reported with the file and the field; nothing shrinks and nothing is guessed
-([PDR-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-pdr-pokayoke-detectearliest)). The render never publishes.
+([PDR-POKAYOKE-DETECTEARLIEST](../principles/poka-yoke.md#rule-pdr-pokayoke-detectearliest)). The render never publishes. The diagram kit's
+build is fail-forward the same way and reports every finding it makes (a conflict, a refused put, an undeclared slide, an orphan, a Supports
+drift, a drawn line through a cell) as an error with an `E_` code, and the one setting `renderer: findings-fail` of its `drawio.yml` makes
+every such error fail the run: the kit has no warning.
 
 - [Render forward, publish by hand](#render-forward-publish-by-hand)
 

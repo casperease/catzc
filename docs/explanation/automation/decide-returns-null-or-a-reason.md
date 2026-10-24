@@ -50,7 +50,7 @@ content:
     - { id: g-timeouts, kind: file, label: timeouts.yml, in: band-load }
     - { id: g-config, kind: code, label: TimeoutsConfig, in: band-load }
     - { id: g-environment, kind: code, label: BashSafeguard.EnvironmentOf, in: band-load }
-    - { id: g-decide, kind: type, label: BashSafeguard.Decide, in: band-decide }
+    - { id: g-decide, kind: code, label: BashSafeguard.Decide, in: band-decide }
     - { id: g-bounded, kind: code, label: BoundedCommand.Check, in: band-decide }
     - { id: r-through, kind: result, label: "let through, no output", in: band-verdict }
     - { id: f-deny, kind: failure, label: "DenyOutput: deny + reason", in: band-verdict }

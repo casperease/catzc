@@ -25,3 +25,9 @@ def empty_minimaps(folder):
 def fixture_minimap_data(monkeypatch):
     monkeypatch.setattr(declaration, "minimap_data", empty_minimaps)
 
+
+
+@pytest.fixture(autouse=True)
+def keep_out_is_off_unless_a_test_asks(monkeypatch):
+    """The fixtures place cells by the grid with no regard for an edge's path; only the keep-out tests turn the check on."""
+    monkeypatch.setattr(declaration, "FINDINGS_FAIL", False)

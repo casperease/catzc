@@ -53,7 +53,7 @@ content:
     - { id: f-globs-yml, kind: file, label: globs.yml, in: band-config }
     - { id: c-globs-config, kind: type, label: GlobsConfig, in: band-config }
     - { id: x-validation, kind: failure, label: validation failed, in: band-config }
-    - { id: c-scan-program, kind: type, label: GlobSet.ScanProgram(), in: band-program }
+    - { id: c-scan-program, kind: code, label: GlobSet.ScanProgram(), in: band-program }
     - { id: c-trigger, kind: code, label: Get-GlobSetTrigger, in: band-functions }
     - { id: c-changed, kind: code, label: Get-ChangedGlobSet, in: band-functions }
     - { id: c-hash, kind: code, label: Get-GlobSetHash, in: band-functions }

@@ -18,12 +18,12 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         $script:widgetRoot = Join-Path $TestDrive 'diagram-repository'
         $pages = [ordered]@{
             'kit/drawio_forward.py'  = "# renderer stand-in`n"
-            'kit/configs/drawio.yml' = "renderer:`n  carrier: file`n"
+            'kit/configs/drawio.yml' = "renderer:`n  carrier: file`n  findings-fail: yes`n"
             'docs/widgets/index.md'  = "# Widgets`n`n![Widget A](.assets/widget-a.drawio.png)`n`n![Widget B](./.assets/widget-b.drawio.png)`n"
             'docs/widgets/plain.md'  = "# Plain`n`n[a link](.assets/widget-a.drawio.yml)`n"
             'docs/gadgets/index.md'  = "# Gadgets`n`n![Gadget](.assets/gadget.drawio.png)`n"
             'docs/gadgets/second.md' = "# Second`n`n![Gadget again](.assets/gadget.drawio.png)`n"
-            'docs/gizmos/index.md'   = "# Gizmos`n`n![Elsewhere](../widgets/.assets/gizmo.drawio.png)`n"
+            'docs/gizmos/index.md'   = "# Gizmos`n`n![Gizmo](.assets/gizmo.drawio.png)`n"
         }
         foreach ($file in $pages.Keys) {
             $full = Join-Path $script:widgetRoot $file
@@ -88,11 +88,10 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         }
     }
 
-    It 'reports an orphan and still renders it: no page embeds its png' {
-        $runs = @(& $script:build @{ Path = 'docs/gizmos/.assets/gizmo' })
-        $runs.Status | Should -Be @('clean')
-        $runs[0].Articles | Should -BeNullOrEmpty
-        Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Warning -and $Message -like '*docs/gizmos/.assets/gizmo is an orphan*' } -Times 1 -Exactly
+    It 'refuses an orphan as an error: no page embeds its png' {
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { @($script:tracked) + 'docs/gizmos/.assets/lone.drawio.png' }
+        { & $script:build @{ Path = 'docs/gizmos/.assets/lone' } } | Should -Throw '*E_ORPHAN docs/gizmos/.assets/lone: no page embeds its .drawio.png*'
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 0
     }
 
     It 'finds every page that embeds one diagram, a second article included, and builds clean' {
@@ -102,7 +101,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         $runs.Status | Should -Be @('clean')
     }
 
-    It 'holds each embedding page''s Supports line against the yml, warning for the one that disagrees' -Tag 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
+    It 'holds each embedding page''s Supports line against the yml, refusing the one that disagrees' -Tag 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' {
         $folder = Join-Path $script:widgetRoot 'docs/gadgets/.assets'
         [System.IO.Directory]::CreateDirectory($folder) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $folder 'gadget.drawio.yml'), "about:`n  lens: architecture`n  adrs: [ADR-WIDGET-GADGET]`ncontent: {}`n")
@@ -111,21 +110,32 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         [System.IO.File]::WriteAllText((Join-Path $script:widgetRoot 'docs/gadgets/second.md'),
             "# Second`n`nSupports ADR-WIDGET-COG (architecture lens).`n`n![Gadget again](.assets/gadget.drawio.png)`n")
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { $script:tracked }
-        $null = & $script:build @{ Path = 'docs/gadgets/.assets/gadget' }
-        Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
-            $Warning -and $Message -like '*docs/gadgets/second.md says Supports ADR-WIDGET-COG (architecture lens) for docs/gadgets/.assets/gadget; its yml says ADR-WIDGET-GADGET (architecture lens)*'
+        $message = try {
+            & $script:build @{ Path = 'docs/gadgets/.assets/gadget' }; ''
         }
-        Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -Times 0 -ParameterFilter { $Warning -and $Message -like '*docs/gadgets/index.md says*' }
+        catch {
+            $_.Exception.Message
+        }
+        $message | Should -BeLike '*E_SUPPORTS docs/gadgets/second.md says Supports ADR-WIDGET-COG (architecture lens) for docs/gadgets/.assets/gadget; its yml says ADR-WIDGET-GADGET (architecture lens)*'
+        $message | Should -Not -BeLike '*docs/gadgets/index.md says*'
     }
 
     It 'gives an untracked declaration its first put, named by the yml itself' {
         $source = Join-Path $script:widgetRoot 'docs/widgets/.assets/sprocket.drawio.yml'
         [System.IO.Directory]::CreateDirectory((Split-Path $source -Parent)) | Out-Null
         [System.IO.File]::WriteAllText($source, "content: {}`n")
+        $page = Join-Path $script:widgetRoot 'docs/widgets/sprocket.md'
+        [System.IO.File]::WriteAllText($page, "# Sprocket`n`n![Sprocket](.assets/sprocket.drawio.png)`n")
         Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { 'docs/widgets/.assets/sprocket.drawio.yml' }
-        $runs = @(& $script:build @{ Path = 'docs/widgets/.assets/sprocket.drawio.yml' })
-        $runs.Folder | Should -Be @('docs/widgets/.assets/sprocket')
-        $runs.Status | Should -Be @('clean')
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { @($script:tracked) + 'docs/widgets/sprocket.md' }
+        try {
+            $runs = @(& $script:build @{ Path = 'docs/widgets/.assets/sprocket.drawio.yml' })
+            $runs.Folder | Should -Be @('docs/widgets/.assets/sprocket')
+            $runs.Status | Should -Be @('clean')
+        }
+        finally {
+            [System.IO.File]::Delete($page)
+        }
     }
 
     It 'refuses a path that is not a diagram' {
@@ -136,6 +146,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         $page = Join-Path $script:widgetRoot 'docs/gizmos/cog.md'
         [System.IO.File]::WriteAllText($page, "# Cog`n`n``````yml drawio`nabout: { lens: architecture, adrs: [ADR-WIDGET-GADGET] }`ncontent: {}`n```````n`n![Cog](.assets/cog.drawio.png)`n")
         Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { 'docs/gizmos/cog.md' }
+        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides { @($script:tracked) + 'docs/gizmos/cog.md' }
         Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { foreach ($item in $Stem) {
                 "out/minimaps/$item"
             } }
@@ -157,11 +168,10 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         Should -Invoke Resolve-ToolExecutable -ModuleName Catzc.Base.Slides -Times 0
     }
 
-    It 'reports warnings and goes on, takes nothing to render as done, and stops on any other exit' {
+    It 'stops on the renderer findings, takes nothing to render as done, and stops on any other exit' {
         $one = @{ Path = 'docs/widgets/.assets/widget-a' }
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 2; Output = '' } }
-        @(& $script:build $one).Status | Should -Be @('warnings')
-        Should -Invoke Write-Message -ModuleName Catzc.Base.Slides -ParameterFilter { $Warning } -Times 1 -Exactly
+        { & $script:build $one } | Should -Throw '*reported findings on docs/widgets/.assets/widget-a, each an error*'
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 3; Output = '' } }
         @(& $script:build $one).Status | Should -Be @('nothing')
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 1; Output = "line one`nTraceback: widget" } }

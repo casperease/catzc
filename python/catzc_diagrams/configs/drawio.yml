@@ -19,6 +19,7 @@ renderer:
   edge-label-legend-word: into a new state # the meaning in the legend entry `transition: <this>` when labels are words
   edge-label-tail-clear: 2 # px of line a pill leaves between itself and the end of the line at the tail
   edge-label-head-clear: 12 # px of line a pill leaves between itself and the arrowhead's tip: the head takes about 10
+  findings-fail: yes # yes | no: whether a finding (every one the kit reports: a conflict, a refused put, an undeclared slide, a keep-out hit) fails the run; one setting, no per-finding exception
   word-gap: 3 # px a steep edge's word stands right of its line, left-aligned at the line's middle; written into the model, so draw.io and the painter read the same
   edge-deadzone: 8 # px an edge stops short of every box it starts or ends at, so its line and head never touch the box edge; written into the model as source/targetPerimeterSpacing (draw.io reads it), whatever heads the edge has
   edge-deadzone-min-line: 12 # px of line an edge keeps whatever its deadzone: both ends together take at most the edge's length less this, so the clearance shrinks on a short edge (full below about 2 x edge-deadzone + this) and a line always shows; the model keeps the nominal spacing, which draw.io cannot cap
@@ -31,7 +32,7 @@ renderer:
 edge-semantics:
   legend: initiator to receiver # the words of a plain arrow's legend entry, `flow: <this>`; a diagram's own relation replaces them and opts out of the checks below
   code-kinds: code, runner # the glyph kinds that are code blocks: a plain arrow ends on one only from an actor, or labelled as a call
-  call-labels: calls # the edge labels that declare a call, the one way a plain arrow may end on a code block without an actor
+  code-head-labels: calls, feeds # the edge labels that let an arrow end on a code block without an actor: a call into the code, or a feed of what the code takes in
 edge-labels: # the words an edge may carry to say something other than the default, each with the end that initiates under it (tail or head)
   calls: tail
   reads: tail

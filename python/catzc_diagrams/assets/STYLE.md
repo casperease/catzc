@@ -142,8 +142,11 @@ Glyph styles come from [`glyphs.xml`](glyphs.xml). These are the chrome and line
   middle, with `edge-label-head-clear` px of line left to the arrowhead and `edge-label-tail-clear` at the tail; a line too short for it
   gets the same pill beside it, `word-gap` px off the line (right of a steep line, above a flatter one), clear of every glyph and earlier
   pill; bare text beside the line is only the `word` presentation (`labelBackgroundColor=@band`). The legend entry reads
-  `label: the word on a line`. `edge-label: word` configures every diagram to the word beside the line, with a pill only at a crossing and
-  the entry `transition: into a new state`.
+  `label: the word on a line`. An edge leaves the side its two ends face, at its even share of that side (one alone at the middle), and a
+  cell that is no end of it, grown by the 8 px deadzone with its marker, is a keep-out zone: a path through one is an `E_KEEPOUT` error. An
+  edge's optional `count: n/m` (n at most m) follows its label inside the same pill (`calls 13/28`); it is no label and never orients the
+  edge. `edge-label: word` configures every diagram to the word beside the line, with a pill only at a crossing and the entry
+  `transition: into a new state`.
 - Thick edge (to a named set): add `strokeWidth=2.5;`. DRS-only edge: add `dashed=1;`. Failure path: `strokeColor=@red-rim;`, solid.
 - Read edge (reads a fact source): `endArrow=open;dashed=1;dashPattern=1 3;`, dotted. Junction edge (where catzc meets a state machine):
   `startArrow=oval;startFill=1;`, solid, with the block arrow.
@@ -247,11 +250,11 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
 - **A computed type is not a box name.** When the code builds a type it looks up at run time (`$type::new($raw)`), draw a `C# type` glyph
   named for the role (`registered type`) and say in the description that the name varies per config. Don't invent a class name.
 - A flow edge runs from its initiator to its receiver (`flow: initiator to receiver`, edge-semantics in drawio.yml,
-  DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON); it ends on a code block only from an actor or labelled `calls`, and a slide whose plain arrows
-  mean another one thing says so as its relation. The kinds of its ends order it: `edge-rank` (actor, code, file or config, store or set,
-  result or failure; the lower acts on the higher) orients an edge, declared `from`/`to` or minimally `between: [a, b]`, and `edge-defaults`
-  gives an unlabelled one its kind pair's label (code to file or set `reads`, to store `writes`, to failure `failed`), drawn as a label
-  pill; a gate keeps the direction declared (`edge-rules`).
+  DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON); it ends on a code block only from an actor or labelled `calls` or `feeds` (`code-head-labels`
+  in drawio.yml), and a slide whose plain arrows mean another one thing says so as its relation. The kinds of its ends order it: `edge-rank`
+  (actor, code, file or config, store or set, result or failure; the lower acts on the higher) orients an edge, declared `from`/`to` or
+  minimally `between: [a, b]`, and `edge-defaults` gives an unlabelled one its kind pair's label (code to file or set `reads`, to store
+  `writes`, to failure `failed`), drawn as a label pill; a gate keeps the direction declared (`edge-rules`).
 - Lenses share the source's colour meanings, so a stage keeps its colour across all five.
 - If a lens has nothing honest to show (e.g. no operator touches it), draw nothing for it, and say so in the reply.
 - **Keep helper scripts in your own output folder** (e.g. `out/diagrams/lenses/<name>/_gen.py`), never under a shared name in the

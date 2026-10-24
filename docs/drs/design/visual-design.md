@@ -335,11 +335,13 @@ word presentation when a line crosses. This holds in every lens.
 An arrow runs from the one that acts, its initiator, to what it acts on or depends on, its receiver: the caller to the callee, the consumer
 to its provider, a resolver to the sources it reads, and the head is always the receiver. Code acts and is not acted on, so a plain arrow
 ends on a code block only from an actor, an author or a trigger, which a diagram may place at the start of a flow; a call is the declared
-exception, an arrow labelled `calls` whose head is the code it runs. Only a word says otherwise: an arrow whose label names another meaning
+exception, an arrow labelled `calls` whose head is the code it runs, and a feed is the second, an arrow labelled `feeds` whose head is the
+code that takes in what the tail supplies (its tail still initiates). Only a word says otherwise: an arrow whose label names another meaning
 (`reads`, `writes`, `feeds`, `failed`) means that, and a diagram that gives its plain arrows one other meaning states it as its `relation`,
-which every plain arrow then carries and which opts the diagram out of the check. The default meaning, the code kinds, the call labels and
-each label's initiating end are declared once, in the `edge-semantics` and `edge-labels` of the kit's `drawio.yml`; the legend entry of a
-plain arrow reads `flow: initiator to receiver` from that declaration, and a declaration that breaks the rule is refused naming the edge.
+which every plain arrow then carries and which opts the diagram out of the check. The default meaning, the code kinds, the labels that may
+end on code and each label's initiating end are declared once, in the `edge-semantics` and `edge-labels` of the kit's `drawio.yml`; the
+legend entry of a plain arrow reads `flow: initiator to receiver` from that declaration, and a declaration that breaks the rule is refused
+naming the edge.
 
 The kind of each end orders the arrow. The kit's `edge-rank` lists the ranks, lowest first (actor, code, file or config, store or set,
 result or failure), each with its glyph kinds, and the lower rank acts on the higher: an edge between cells of different rank runs from the
@@ -350,10 +352,16 @@ the label presentation like any other label. The source keeps that edge minimal:
 author wrote that equals its pair's default is the same edge, so the one form leaves it out; a label of another meaning is kept, and so are
 the direction as written (get never rewrites `from` and `to` into `between`) and every edge of a diagram with its own `relation`. An edge
 may be declared minimally as `between: [a, b]` and the kit orients it; ends of one rank are declared with `from` and `to`, between two code
-blocks with a `calls` label or an actor. A label outside the vocabulary is free text, not an arrow meaning, and the edge is oriented by rank
-like an unlabelled one. The kinds in `edge-rules` `trusted-kinds` (the gate) keep the direction their author declared, and a diagram with
-its own `relation` keeps its plain arrows as they are. The edge audit, which leaves out the folders `edge-rules` `audit-skip` names, reads
-the same ranks and defaults.
+blocks with a `calls` label or an actor. An edge that no waypoint routes leaves the side its two ends face (across the axis they overlap on,
+else the axis of their wider centre distance) and takes an even share of that side with every other edge that meets it there, in the order
+of the other ends, one edge alone at the side's middle, so edges between aligned cells run straight and edges sharing a side fan out without
+crossing. A cell that is neither end of an edge is a keep-out zone for it: the cell grown by the 8 px deadzone and its marker, and a path
+that enters one is an `E_KEEPOUT` error under the kit's one findings setting; bands, groups and spans are no obstacle. An edge may also
+carry a `count`, `n/m` with n at most m (`count: 13/28`), shown in its pill after its label as `calls 13/28`; a count is no label and
+decides no direction, and a label that is only an `n/m` is read as the edge's count. A label outside the vocabulary is free text, not an
+arrow meaning, and the edge is oriented by rank like an unlabelled one. The kinds in `edge-rules` `trusted-kinds` (the gate) keep the
+direction their author declared, and a diagram with its own `relation` keeps its plain arrows as they are. The edge audit, which leaves out
+the folders `edge-rules` `audit-skip` names, reads the same ranks and defaults.
 
 - [Arrows point at what they depend on](#arrows-point-at-what-they-depend-on)
 
@@ -559,9 +567,9 @@ that stands behind it, so an arrow is never a claim the tooling does not test.
 A diagram of code or of data is read by following its arrows, so the arrows must mean one thing before a label does. Initiator to receiver
 is the direction a reader already holds for a call graph, a module graph and a file that reads another, and the direction a change travels
 back along: change the receiver and the initiator is affected. Code acts and is never the thing acted on, except by the one who writes it,
-which is why an arrow ending on a code block needs an actor behind it or the word `calls` on it, and why an actor is the glyph that starts a
-flow. Drawing every plain arrow that way means a reader never has to decide whether a head marks the caller or the callee, and a diagram
-that wants the opposite reading (data moving forward, a write, a failure) has to say so in a word, which the legend then lists.
+which is why an arrow ending on a code block needs an actor behind it or the word `calls` or `feeds` on it, and why an actor is the glyph
+that starts a flow. Drawing every plain arrow that way means a reader never has to decide whether a head marks the caller or the callee, and
+a diagram that wants the opposite reading (data moving forward, a write, a failure) has to say so in a word, which the legend then lists.
 
 ## A steep edge's word
 

@@ -101,6 +101,7 @@ PROOF_SHOWN = str(ACTION["proof"]).strip() == "shown"
 PROOF_ENGINES = [tuple(pair.split()) for pair in str(ACTION["proof-engines"]).split(",")]  # (engine, idiom), idiom pascal or kebab
 PROOF_ROW = 22  # one engine's words, one row
 EDGE_DEADZONE = int(DEFAULTS["renderer"]["edge-deadzone"])  # how far an edge stops short of each box it joins, written into the model
+FINDINGS_FAIL = DEFAULTS["renderer"]["findings-fail"] == "yes"  # a keep-out hit is an error under the kit's one setting
 WORD_GAP = int(DEFAULTS["renderer"]["word-gap"])  # how far a steep edge's word stands right of its line, written into the model
 LABEL_PRESENTATIONS = ("pill", "word")  # the two presentations of an edge's word
 EDGE_LABEL = str(DEFAULTS["renderer"]["edge-label"]).strip()  # which one every diagram uses
@@ -216,6 +217,89 @@ def marker_xy(box, corner):
     return x, y
 
 
+SIDE_ANCHOR = {"left": (0.0, None), "right": (1.0, None), "top": (None, 0.0), "bottom": (None, 1.0)}
+LAST_ROUTES = []  # the routes of the latest put: each edge's polyline, its pill rectangle and its head's tip, for the audit and the keep-out check
+
+
+def facing(a, b):
+    """The sides two boxes face each other by: across the axis they overlap on, else the axis of their wider centre distance, so two
+    cells standing level meet side to side and two standing one above the other meet top to bottom."""
+    x_over = min(a["x"] + a["w"], b["x"] + b["w"]) - max(a["x"], b["x"])
+    y_over = min(a["y"] + a["h"], b["y"] + b["h"]) - max(a["y"], b["y"])
+    dx = (b["x"] + b["w"] / 2) - (a["x"] + a["w"] / 2)
+    dy = (b["y"] + b["h"] / 2) - (a["y"] + a["h"] / 2)
+    vertical = x_over > 0 and (y_over <= 0 or abs(dy) >= abs(dx)) or (x_over <= 0 and y_over <= 0 and abs(dy) > abs(dx))
+    if vertical:
+        return ("bottom", "top") if dy >= 0 else ("top", "bottom")
+    return ("right", "left") if dx >= 0 else ("left", "right")
+
+
+def plan_aims(edges, box_of, plain_box):
+    """Where each edge leaves and enters its boxes: the side the two face, and along that side an even spacing of every edge that shares
+    it, in the order of the other ends so lines do not cross, one edge alone at the side's middle. `edges` are the indexes to route
+    mapped to (from, to); returns index -> ((exitX, exitY), (entryX, entryY)) as box fractions."""
+    ends = {}
+    for i, (tail, head) in edges.items():
+        a, b = box_of[tail], box_of[head]
+        side_a, side_b = facing(a, b)
+        for cell_id, side, other in ((tail, side_a, b), (head, side_b, a)):
+            along = (other["y"] + other["h"] / 2) if side in ("left", "right") else (other["x"] + other["w"] / 2)
+            ends.setdefault((cell_id, side), []).append((along, i, cell_id == tail and "exit" or "entry"))
+    aims = {}
+    for (cell_id, side), items in ends.items():
+        items.sort()
+        for k, (_, i, which) in enumerate(items):
+            fraction = (k + 1) / (len(items) + 1) if plain_box(cell_id) else 0.5
+            fx, fy = SIDE_ANCHOR[side]
+            point = (fx if fx is not None else fraction, fy if fy is not None else fraction)
+            aims.setdefault(i, {})[which] = (round(point[0], 4), round(point[1], 4))
+    return aims
+
+
+def segment_hits_rect(p, q, rect):
+    """Whether the segment p-q passes through the rectangle (x, y, w, h), by clipping it to the rectangle's slab (Liang-Barsky)."""
+    x, y, w, h = rect
+    t0, t1 = 0.0, 1.0
+    dx, dy = q[0] - p[0], q[1] - p[1]
+    for pk, qk in ((-dx, p[0] - x), (dx, x + w - p[0]), (-dy, p[1] - y), (dy, y + h - p[1])):
+        if pk == 0:
+            if qk < 0:
+                return False
+        else:
+            t = qk / pk
+            if pk < 0:
+                t0 = max(t0, t)
+            else:
+                t1 = min(t1, t)
+            if t0 > t1:
+                return False
+    return True
+
+
+def keep_out_findings(routes, obstacles, holder):
+    """The edges whose path enters the keep-out rectangle of a cell that is neither their tail nor their head (nor holds either): one
+    E_KEEPOUT finding each, naming the edge and the cell. `obstacles` maps a cell id to its rectangle grown by the deadzone."""
+    found = []
+    for route in routes:
+        ends = {route["from"], route["to"]}
+        for cell_id, rect in obstacles.items():
+            if cell_id in ends or any(end_chain_has(end, cell_id, holder) for end in ends):
+                continue
+            if any(segment_hits_rect(p, q, rect) for p, q in zip(route["points"], route["points"][1:])):
+                found.append(f"E_KEEPOUT edge {route['from']} -> {route['to']} runs through the keep-out zone of {cell_id}")
+    return found
+
+
+def end_chain_has(end, cell_id, holder):
+    """Whether a cell stands inside the end (a group the edge ends at holds the cells of its own frame)."""
+    here = cell_id
+    while here in holder:
+        here = holder[here]
+        if here == end:
+            return True
+    return False
+
+
 def middle_leg(points):
     """The leg of a polyline that holds its halfway point, as its two ends."""
     legs = [(p, q, math.hypot(q[0] - p[0], q[1] - p[1])) for p, q in zip(points, points[1:])]
@@ -326,19 +410,21 @@ def overlaps(a, b, margin=2):
 
 def label_spot(run, word, deadzone=0, crossing=None, avoid=()):
     """Where the pill of a word stands on the drawn run of a line (from the source box's border to the target box's): at the line's first
-    band or ring crossing when it crosses one, else at its middle, and only where the line keeps LABEL_TAIL_CLEAR px clear of the pill
+    band or ring crossing when it crosses one, else at its middle (then a third, two thirds, a quarter and three quarters along when a pill or cell stands there), and only where the line keeps LABEL_TAIL_CLEAR px clear of the pill
     towards its tail and LABEL_HEAD_CLEAR px towards its head, so the arrowhead is never covered. A line too short to hold it gets the
     same pill beside the line, WORD_GAP px off it at the middle (right of a steep line, above a flatter one, else the other side), where
     it overlaps none of the `avoid` rectangles (x, y, w, h); None only when no place is free."""
     width, height = 6.2 * len(word) + 2 * WORD_MARGIN, 12 + 2 * WORD_MARGIN
     length = run_length(run) - 2 * deadzone  # the line the model draws: the deadzone stops it short of both boxes
-    wanted = ([arc_to(run, crossing) - deadzone] if crossing else []) + [length / 2]
+    wanted = ([arc_to(run, crossing) - deadzone] if crossing else []) + [length * f for f in (0.5, 1 / 3, 2 / 3, 0.25, 0.75)]
     for t in wanted:
         if 0 < t < length:
             spot, (ux, uy) = point_at(run, t + deadzone)
             half = min(width / 2 / abs(ux) if ux else math.inf, height / 2 / abs(uy) if uy else math.inf)  # the pill's reach along the line
             if t - half >= LABEL_TAIL_CLEAR and length - t - half >= LABEL_HEAD_CLEAR:
-                return spot
+                rect = (spot[0] - width / 2, spot[1] - height / 2, width, height)
+                if not any(overlaps(rect, box) for box in avoid):  # a pill never stands on a cell or on another pill
+                    return spot
     spot, (ux, uy) = point_at(run, max(length, 0) / 2 + deadzone if length > 0 else run_length(run) / 2)
     nx, ny = -uy, ux  # the normal of the line
     reach = min(width / 2 / abs(nx) if nx else math.inf, height / 2 / abs(ny) if ny else math.inf) + WORD_GAP
@@ -1185,13 +1271,21 @@ def normalise(raw, where="the declaration"):
         if isinstance(e, dict) and "between" in e:
             e = between_edge(e, out, where)
         via = e.get("via") if isinstance(e, dict) else None
+        count = str(e.get("count", "") or "").strip() if isinstance(e, dict) else ""
         edge = entry(
-            {k: v for k, v in e.items() if k != "via"} if isinstance(e, dict) else e,
+            {k: v for k, v in e.items() if k not in ("via", "count")} if isinstance(e, dict) else e,
             ("from", "to"),
             where,
             "edge",
             optional={"kind": EDGE_KINDS[0], "label": ""},
         )
+        if not count and EDGE_COUNT.fullmatch(str(edge["label"])):  # a label that is only a count is the edge's count
+            count, edge["label"] = str(edge["label"]), ""
+        if count:  # `count: n/m`, shown in the edge's pill after its label; it is no label and never decides the direction
+            found = EDGE_COUNT.fullmatch(count)
+            if not found or int(found.group(1)) > int(found.group(2)):
+                raise DeclarationError(f"{where}: edge {edge['from']} -> {edge['to']} count '{count}' is n/m with n at most m, as in 13/28")
+            edge["count"] = count
         if via is not None:  # waypoints the edge routes through, in page coordinates: `via: [[x, y], ...]`
             if not isinstance(via, list) or not all(isinstance(p, list) and len(p) == 2 for p in via):
                 raise DeclarationError(f"{where}: edge {edge['from']} -> {edge['to']} via is a list of [x, y] points")
@@ -1328,6 +1422,14 @@ def end_kinds(out):
     return {**{g["id"]: "group" for g in out.get("groups", [])}, **{g["id"]: g["kind"] for g in out.get("glyphs", [])}}
 
 
+EDGE_COUNT = re.compile(r"(\d+)/(\d+)")
+
+
+def edge_word(edge):
+    """The word an edge's pill carries: its label, then its count (`calls 13/28`)."""
+    return " ".join(part for part in (edge.get("label", ""), edge.get("count", "")) if part)
+
+
 def between_edge(e, out, where):
     """An edge declared minimally as `between: [a, b]`: oriented by the rank of its two ends, the lower acting on the higher, so it
     becomes `from` the lower and `to` the higher; ends of one rank, or of a trusted or unranked kind, are declared with from and to."""
@@ -1379,11 +1481,11 @@ def edge_semantics_findings(out, content, where):
     for e in out.get("edges", []):
         if e["kind"] != "flow" or kinds.get(e["to"]) not in EDGE_SEMANTICS["code-kinds"]:
             continue
-        if kinds.get(e["from"]) == "actor" or e["label"] in EDGE_SEMANTICS["call-labels"]:
+        if kinds.get(e["from"]) == "actor" or e["label"] in EDGE_SEMANTICS["code-head-labels"]:
             continue
         raise DeclarationError(
             f"{where}: edge {e['from']} -> {e['to']} ends on a code block ({e['to']}), which only an actor writes or a call reaches; start it at an "
-            f"actor or label it one of {', '.join(EDGE_SEMANTICS['call-labels'])} (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON)"
+            f"actor or label it one of {', '.join(EDGE_SEMANTICS['code-head-labels'])} (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON)"
         )
 
 
@@ -1922,7 +2024,7 @@ def ladder_rungs(content, band_id):
     return [by_id[i] for i in order]
 
 
-def place(declaration):
+def place(declaration, check_routes=False):
     """Every cell of the model with its absolute geometry: the grid places what the layout does not name; the action lens places
     everything by ring and order."""
     content, layout = declaration["content"], declaration["layout"]
@@ -2298,15 +2400,31 @@ def place(declaration):
     climbs = {(o[i]["id"], o[i + 1]["id"]) for band in ladders for o in [rungs(band)] for i in range(len(o) - 1)}
     # Edges, markers and chips anchor on the glyphs.
     placed = []  # the pills drawn so far, which a pill beside its line keeps clear of
-    for e in content["edges"]:
+    # The router: an edge between two cells that no waypoint routes leaves the side they face, at its even share of that side
+    # (plan_aims), so edges between aligned cells run straight and edges sharing a side fan out without meeting.
+    glyph_style = {g["id"]: LIB["glyphs"][g["kind"]]["style"] for g in content["glyphs"]}
+    plain_box = lambda cid: not any(k in glyph_style.get(cid, "") for k in ("ellipse", "rhombus", "hexagon"))
+    routable = {
+        i: (e["from"], e["to"])
+        for i, e in enumerate(content["edges"])
+        if e["kind"] != "bypass"
+        and not e.get("via")
+        and (e["from"], e["to"]) not in climbs
+        and e["from"] in box_of
+        and e["to"] in box_of
+        and e["from"] != e["to"]
+    }
+    aims = plan_aims(routable, box_of, plain_box)
+    routes = []
+    for index, e in enumerate(content["edges"]):
         style = LIB["edges"][e["kind"]]["style"]
-        if e["label"]:
+        if edge_word(e):
             style = style.replace("shadow=0;", "fontColor=@ink;fontStyle=1;fontSize=11;labelBackgroundColor=@band;shadow=0;")
         eid = f"e-{e['from']}-{e['to']}"
         n = sum(1 for c in cells if c["id"] == eid or c["id"].startswith(eid + "~"))  # a repeat edge between the same pair: e-…~2
         edge = edge_cell(
             eid if not n else f"{eid}~{n + 1}",
-            f"<b>{html.escape(e['label'], quote=False)}</b>" if e["label"] else "",
+            f"<b>{html.escape(edge_word(e), quote=False)}</b>" if edge_word(e) else "",
             style,
             e["from"],
             e["to"],
@@ -2319,13 +2437,21 @@ def place(declaration):
         if (e["from"], e["to"]) in climbs and not e.get("via"):  # up out of the rung's top, then right into the next rung's left
             a, b = box_of[e["from"]], box_of[e["to"]]
             edge["via"] = [[round(a["x"] + a["w"] / 2), round(b["y"] + b["h"] / 2)]]
-        if e["label"]:
-            a, b = box_of[e["from"]], box_of[e["to"]]
-            points = [
-                (a["x"] + a["w"] / 2, a["y"] + a["h"] / 2),
-                *[(x, y) for x, y in edge["via"]],
-                (b["x"] + b["w"] / 2, b["y"] + b["h"] / 2),
-            ]
+        a, b = box_of[e["from"]], box_of[e["to"]]
+        points = [
+            (a["x"] + a["w"] / 2, a["y"] + a["h"] / 2),
+            *[(x, y) for x, y in edge["via"]],
+            (b["x"] + b["w"] / 2, b["y"] + b["h"] / 2),
+        ]
+        if index in aims:
+            (ex, ey), (nx, ny) = aims[index]["exit"], aims[index]["entry"]
+            edge["style"] += f"exitX={ex};exitY={ey};entryX={nx};entryY={ny};"
+            run = [(a["x"] + a["w"] * ex, a["y"] + a["h"] * ey), (b["x"] + b["w"] * nx, b["y"] + b["h"] * ny)]
+        else:
+            run = drawn_run(points, a, b)
+        route = {"from": e["from"], "to": e["to"], "points": run, "pill": None}
+        routes.append(route)
+        if edge_word(e):
             into = band_of(e["to"]) if e["to"] in holder else e["to"]
             crossing = None
             if into in band_box and (band_of(e["from"]) if e["from"] in holder else e["from"]) != into:
@@ -2336,11 +2462,12 @@ def place(declaration):
             if EDGE_LABEL == "pill":
                 avoid = [box_of[g["id"]] for g in content["glyphs"]] + placed
                 avoid = [(v["x"], v["y"], v["w"], v["h"]) if isinstance(v, dict) else v for v in avoid]
-                spot = label_spot(drawn_run(points, a, b), e["label"], EDGE_DEADZONE, crossing, avoid)
+                spot = label_spot(run, edge_word(e), EDGE_DEADZONE, crossing, avoid)
             if spot:
-                cells.append(transition(edge, e["label"], spot))
-                width, height = 6.2 * len(e["label"]) + 2 * WORD_MARGIN, 12 + 2 * WORD_MARGIN
+                cells.append(transition(edge, edge_word(e), spot))
+                width, height = 6.2 * len(edge_word(e)) + 2 * WORD_MARGIN, 12 + 2 * WORD_MARGIN
                 placed.append((spot[0] - width / 2, spot[1] - height / 2, width, height))
+                route["pill"] = placed[-1]
             else:
                 # A steep edge, one that climbs or falls more than it runs, never carries its word across its own line: the word stands
                 # left-aligned, glued 3 px right of the line at its middle, where draw.io and the painter both put an align=left label.
@@ -2351,8 +2478,22 @@ def place(declaration):
                 # The word presentation: a word on a line that crosses into another band becomes a transition bubble on that band's
                 # border; a line inside one band keeps its word beside it.
                 if EDGE_LABEL == "word" and crossing:
-                    cells.append(transition(edge, e["label"], crossing))
+                    cells.append(transition(edge, edge_word(e), crossing))
         cells.append(edge)
+    LAST_ROUTES[:] = routes
+    if FINDINGS_FAIL and check_routes:  # the keep-out zone: a cell that is no end of an edge is a rectangle grown by the deadzone, marker included
+        obstacles = {}
+        marked = {m["at"]: m.get("corner", "top-left") for m in content["markers"] if m["at"] in box_of}
+        for g in content["glyphs"]:
+            box = box_of[g["id"]]
+            x0, y0, x1, y1 = box["x"] - EDGE_DEADZONE, box["y"] - EDGE_DEADZONE, box["x"] + box["w"] + EDGE_DEADZONE, box["y"] + box["h"] + EDGE_DEADZONE
+            if g["id"] in marked:
+                mx, my = marker_xy(box, marked[g["id"]])
+                x0, y0, x1, y1 = min(x0, mx), min(y0, my), max(x1, mx + 22), max(y1, my + 22)
+            obstacles[g["id"]] = (x0, y0, x1 - x0, y1 - y0)
+        hits = keep_out_findings(routes, obstacles, holder)
+        if hits:
+            raise DeclarationError("; ".join(hits))
     size = LIB["marks"]["marker"]["size"]
     for m in content["markers"]:
         if m["at"] not in box_of:  # an edge `from->to`: the marker sits halfway along its path, through its waypoints
@@ -2778,14 +2919,14 @@ def crossings(content):
             item = holder[item]
         return item
 
-    return any(e["label"] and band_of(e["from"]) != band_of(e["to"]) for e in content.get("edges", []))
+    return any(edge_word(e) and band_of(e["from"]) != band_of(e["to"]) for e in content.get("edges", []))
 
 
 def label_entry(content):
     """The legend phrase of the edge-label presentation a band diagram draws, or None: the pill presentation lists its label when any
     edge carries a word, the word presentation lists its transition when a labelled edge crosses a band."""
     if EDGE_LABEL == "pill":
-        return LABEL_LEGEND["pill"] if any(e["label"] for e in content.get("edges", [])) else None
+        return LABEL_LEGEND["pill"] if any(edge_word(e) for e in content.get("edges", [])) else None
     return LABEL_LEGEND["word"] if crossings(content) else None
 
 
@@ -2940,7 +3081,7 @@ def to_xml(cells, height, theme=None):
 def put(declaration, theme=None):
     """The model XML of a declaration, in the theme named (the declaration's own theme when none is)."""
     theme = theme or declaration["content"]["theme"]
-    cells, height = place({**declaration, "content": {**declaration["content"], "theme": theme}})
+    cells, height = place({**declaration, "content": {**declaration["content"], "theme": theme}}, check_routes=True)
     return to_xml(cells, height, theme)
 
 
@@ -3263,7 +3404,11 @@ def get(model, kind=None):
         if not kinds:
             raise DeclarationError(f"get cannot name the edge {cid} in the kit's vocabulary")
         word = plain(cells[f"{cid}-word"].get("value")) if f"{cid}-word" in cells else ""  # a word moved into its transition bubble
-        edge = {"from": c.get("source"), "to": c.get("target"), "kind": kinds[0], "label": plain(c.get("value")) or word}
+        said = plain(c.get("value")) or word
+        counted = re.fullmatch(r"(?:(.*) )?(\d+/\d+)", said)  # the pill reads `<label> <n/m>`: the count is its last word
+        edge = {"from": c.get("source"), "to": c.get("target"), "kind": kinds[0], "label": counted.group(1) or "" if counted else said}
+        if counted:
+            edge["count"] = counted.group(2)
         if via_of(c) and edge["kind"] != "bypass":  # a bypass's route is the kit's, under the dot it skips
             edge["via"] = [[int(x), int(y) - shift] for x, y in via_of(c)]  # the waypoints as declared, before span room
         content["edges"].append(edge)

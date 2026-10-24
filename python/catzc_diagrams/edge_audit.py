@@ -22,11 +22,12 @@ rank is `not-judged`. An edge of a diagram with its own `relation` is audited li
 labels are read as the author wrote them, so a label the kit derives from the kind pair is not counted as one.
 
 usage (repo root):
-  uv run --no-sync --project python python python/catzc_diagrams/edge_audit.py [--out out] [--stem <name-substring>]
+  uv run --no-sync --project python python python/catzc_diagrams/edge_audit.py [--out out] [--stem <name-substring>] [--crossings]
 prints the table and writes <out>/edge-audit.md and <out>/edge-audit.csv.
 """
 
 import csv
+import math
 import sys
 from collections import Counter
 from pathlib import Path
@@ -63,6 +64,32 @@ def kind_of(content, ident):
             if item.get("id") == ident:
                 return kind or item.get("kind", "?")
     return "?"
+
+
+HEAD_REACH = 12  # px from a line's end that an arrowhead covers
+
+
+def hidden_crossings(routes):
+    """The pairs of routes that cross where the crossing hides an arrowhead (within HEAD_REACH of either line's end) or a pill (inside the
+    other's pill rectangle): informational, a crossing elsewhere hides nothing and is not counted."""
+    found = []
+    for i, first in enumerate(routes):
+        for second in routes[i + 1 :]:
+            for p, q in zip(first["points"], first["points"][1:]):
+                for a, b in zip(second["points"], second["points"][1:]):
+                    point = declaration.cross_segment(p, q, a, b)
+                    if point is None:
+                        continue
+                    near_head = any(
+                        math.hypot(point[0] - end[0], point[1] - end[1]) <= HEAD_REACH for end in (first["points"][-1], second["points"][-1])
+                    )
+                    in_pill = any(
+                        r["pill"] and r["pill"][0] <= point[0] <= r["pill"][0] + r["pill"][2] and r["pill"][1] <= point[1] <= r["pill"][1] + r["pill"][3]
+                        for r in (first, second)
+                    )
+                    if near_head or in_pill:
+                        found.append((first["from"], first["to"], second["from"], second["to"]))
+    return found
 
 
 def written_edges(stem):
@@ -118,7 +145,8 @@ def summary(rows, extra):
         "# Edge audit",
         "",
         f"{len(rows)} edges in {diagrams} diagrams with edges ({extra['fallbacks']} read as written because they do not validate, "
-        f"{extra['undeclared']} without a declaration). Read-only: no declaration and no rule is changed.",
+        f"{extra['undeclared']} without a declaration). Read-only: no declaration and no rule is changed."
+        + (f" Crossings that hide an arrowhead or a pill (informational): {extra['hidden_crossings']}." if "hidden_crossings" in extra else ""),
         "",
         "## Verdicts",
         "",
@@ -179,6 +207,16 @@ def main(argv=None):
     out = Path(args[args.index("--out") + 1]) if "--out" in args else REPO / "out"
     needle = args[args.index("--stem") + 1] if "--stem" in args else ""
     rows, extra = audit(REPO, needle)
+    if "--crossings" in args:  # informational: crossings that hide an arrowhead or a pill, put in memory, nothing written under docs/
+        hidden = 0
+        for stem in stems(REPO, needle):
+            if declaration.declared(stem):
+                try:
+                    declaration.put(declaration.with_data(stem, declaration.load(stem)))
+                except (declaration.DeclarationError, OSError, ValueError):
+                    continue
+                hidden += len(hidden_crossings(declaration.LAST_ROUTES))
+        extra["hidden_crossings"] = hidden
     lines = write_reports(rows, extra, out)
     for r in rows:
         print(table_line(r))

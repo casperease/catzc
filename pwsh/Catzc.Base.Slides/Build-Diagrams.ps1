@@ -71,17 +71,21 @@ function Build-Diagrams {
     # Every article and slide that embeds a diagram's png, wherever it sits; each one's Supports line is held against the yml.
     $embedders = Get-DiagramEmbedder -Tracked $tracked -RepositoryRoot $root
     $articles = @{}
+    $findings = [System.Collections.Generic.List[string]]::new()
     foreach ($folderPath in $folders) {
         $articles[$folderPath] = [string[]] @(if ($embedders.ContainsKey($folderPath)) {
                 $embedders[$folderPath]
             })
         if ($articles[$folderPath].Count -eq 0) {
-            Write-Message "Build-Diagrams: $folderPath is an orphan; no page embeds its .drawio.png." -Warning
+            $findings.Add("E_ORPHAN ${folderPath}: no page embeds its .drawio.png")
         }
         foreach ($drift in @(Get-DiagramSupportsDrift -Stem $folderPath -Page $articles[$folderPath] -RepositoryRoot $root)) {
-            Write-Message "Build-Diagrams: $drift" -Warning
+            $findings.Add("E_SUPPORTS $drift")
         }
     }
+    # Every finding is an error, by the one setting of the kit's drawio.yml (renderer findings-fail); none is a warning.
+    $failOnFindings = (Get-Content -LiteralPath (Join-Path $diagramKit.Folder 'configs/drawio.yml') -Raw) -match '(?m)^\s*findings-fail:\s*yes'
+    Assert-True (-not ($failOnFindings -and $findings.Count -gt 0)) -ErrorText "Build-Diagrams: $($findings.Count) finding(s), each an error:`n$($findings -join "`n")"
 
     $uv = 'uv'
     if (-not $DryRun -and $folders.Count -gt 0) {
@@ -144,13 +148,13 @@ function Build-Diagrams {
         $step = [System.Diagnostics.Stopwatch]::StartNew()
         $result = Invoke-Executable "$uv $arguments" -WorkingDirectory $root -PassThru -NoAssert -Silent
         $run.ExitCode = $result.ExitCode
-        # The renderer's exit codes: 0 clean, 2 warnings with every artifact delivered, 3 nothing to render.
+        # The renderer's exit codes: 0 clean, 2 findings (errors) with every artifact delivered, 3 nothing to render.
         $run.Status = switch ($result.ExitCode) {
             0 {
                 'clean'
             }
             2 {
-                'warnings'
+                'findings'
             }
             3 {
                 'nothing'
@@ -161,9 +165,7 @@ function Build-Diagrams {
         }
         $runs.Add($run)
         Write-Message "render $($runs.Count)/$($folders.Count) $folderPath $($run.Status) ($([Math]::Round($step.Elapsed.TotalSeconds, 1)) s)"
-        if ($run.Status -eq 'warnings') {
-            Write-Message "Build-Diagrams: $folderPath finished with warnings; see the renderer's bulk report under out/drawio/." -Warning
-        }
+        Assert-True ($run.Status -ne 'findings') -ErrorText "Build-Diagrams: the renderer reported findings on $folderPath, each an error; see its bulk report under out/drawio/."
         Assert-True ($run.Status -ne 'failed') -ErrorText "Build-Diagrams: the renderer failed on $folderPath (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"
     }
     Write-Message "Build-Diagrams: $($folders.Count) diagram(s) $(if ($FromDrawing) { 'synced from the drawing' } else { 'rendered' })$(if ($DryRun) { ', dry run' }) in $([Math]::Round($total.Elapsed.TotalSeconds, 1)) s."

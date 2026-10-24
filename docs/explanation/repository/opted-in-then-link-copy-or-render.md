@@ -69,8 +69,8 @@ content:
     - { from: g-config-type, to: f-validation, kind: fail }
     - { from: g-build, to: g-config-type, kind: flow, label: calls }
     - { from: g-build, to: g-targets, kind: flow, label: calls }
-    - { from: g-build, to: g-copy-content, kind: flow, label: calls }
-    - { from: g-build, to: g-rendered-file, kind: flow, label: calls }
+    - { from: g-build, to: g-copy-content, kind: flow, label: calls, count: 13/28 }
+    - { from: g-build, to: g-rendered-file, kind: flow, label: calls, count: 15/28 }
     - { from: g-build, to: g-write-if-changed, kind: flow, label: calls }
     - { from: g-write-if-changed, to: r-headed, kind: flow }
   markers:
@@ -92,8 +92,8 @@ layout:
   g-rootconfig-yml: { x: 50, y: 162, w: 160, h: 52 }
   g-config-type: { x: 270, y: 166, w: 160, h: 44 }
   f-validation: { x: 270, y: 336, w: 160, h: 44 }
-  g-targets: { x: 450, y: 256, w: 180, h: 44 }
-  g-build: { x: 680, y: 166, w: 120, h: 224 }
+  g-targets: { x: 440, y: 256, w: 150, h: 44 }
+  g-build: { x: 640, y: 166, w: 110, h: 224 }
   g-copy-content: { x: 860, y: 166, w: 200, h: 44 }
   g-rendered-file: { x: 860, y: 256, w: 200, h: 44 }
   g-write-if-changed: { x: 860, y: 346, w: 200, h: 44 }

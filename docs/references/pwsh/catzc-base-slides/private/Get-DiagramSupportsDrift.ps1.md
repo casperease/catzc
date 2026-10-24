@@ -46,5 +46,5 @@ Above `$text = Get-DiagramDeclarationText -Stem $Stem -RepositoryRoot...`, writt
 
 ```text
 Each embedding page's `Supports <codes> (<lens> lens)` lines against the diagram's yml: a page passes when one of its lines
-names the yml's ADR codes and lens, and a page with no Supports line is not checked. One warning per page that disagrees.
+names the yml's ADR codes and lens, and a page with no Supports line is not checked. One finding, an error, per page that disagrees.
 ```

@@ -34,14 +34,15 @@ rebuilds the diagrams named. A tree `-Stale` run takes about 210 seconds, so it 
 360-second roof.
 
 Before it renders, each diagram finds its articles: every page anywhere in the tree that embeds its `<name>.drawio.png`. A diagram no page
-embeds is an orphan, reported and still rendered. Each page's Supports line is held against the diagram's yml, and a mismatch is reported as
-drift.
+embeds is an orphan (`E_ORPHAN`), and a page whose Supports line disagrees with the diagram's yml is drift (`E_SUPPORTS`); each is a
+finding, and every finding is an error that stops the run before it renders, by the one setting `renderer: findings-fail` of the kit's
+`drawio.yml`.
 
 A single sample outside `docs/`, such as a pair under `out/diagrams/dark-sample/`, is put by hand in two calls: `Write-DiagramMinimapData`
 run inside its module (`& (Get-Module Catzc.Base.Slides) { Write-DiagramMinimapData -Stem <stem> }`), then the kit's renderer's `put` on the
 diagram.
 
-The renderer's exit codes decide the result: 0 is clean, 2 is warnings with every artifact delivered (reported, the run goes on), 3 is
+The renderer's exit codes decide the result: 0 is clean, 2 is findings (errors) with every artifact delivered, which stops the run, 3 is
 nothing to render, and anything else stops the run with the renderer's last lines. The kit is `drawio_kit` of `slides.yml`, with its default
 on `SlidesConfig`.
 

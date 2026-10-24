@@ -102,8 +102,8 @@ def test_no_drift_when_the_supports_line_agrees_with_the_subtitle(article):
 
 def test_a_supports_line_naming_another_lens_is_drift(article):
     folder = article("Supports ADR-WIDGET (meta lens).")
-    warning = drawio_forward.supports_drift(folder, ["ADR-WIDGET"], "architecture")
-    assert warning == (
+    finding = drawio_forward.supports_drift(folder, ["ADR-WIDGET"], "architecture")
+    assert finding == (
         "docs/explanation/widget/widget-page.md says Supports ['ADR-WIDGET'] (meta lens), "
         "the subtitle ['ADR-WIDGET'] (architecture lens)"
     )
@@ -111,9 +111,9 @@ def test_a_supports_line_naming_another_lens_is_drift(article):
 
 def test_a_supports_line_naming_other_codes_is_drift(article):
     folder = article("Supports ADR-WIDGET and ADR-GADGET (meta lens)")
-    warning = drawio_forward.supports_drift(folder, ["ADR-WIDGET"], "meta")
-    assert warning is not None
-    assert "says Supports ['ADR-GADGET', 'ADR-WIDGET'] (meta lens)" in warning
+    finding = drawio_forward.supports_drift(folder, ["ADR-WIDGET"], "meta")
+    assert finding is not None
+    assert "says Supports ['ADR-GADGET', 'ADR-WIDGET'] (meta lens)" in finding
 
 
 def test_a_supports_line_citing_rules_agrees_at_the_adr_level(article):
@@ -142,21 +142,21 @@ def roles(repo, monkeypatch):
     return legend, slide
 
 
-def test_a_legend_without_a_subtitle_has_no_warning(roles):
+def test_a_legend_without_a_subtitle_has_no_finding(roles):
     legend, _ = roles
     no_subtitle = '<mxGraphModel><root><mxCell id="0"/></root></mxGraphModel>'
     assert drawio_forward.diagram_role(legend) == "legend"
     assert drawio_forward.subtitle_facts(legend, no_subtitle) == ([], None, [])
 
 
-def test_a_slide_without_a_subtitle_is_warned(roles):
+def test_a_slide_without_a_subtitle_is_a_finding(roles):
     _, slide = roles
     no_subtitle = '<mxGraphModel><root><mxCell id="0"/></root></mxGraphModel>'
     assert drawio_forward.diagram_role(slide) == DEFAULTS["renderer"]["role"] == "slide"
     assert drawio_forward.subtitle_facts(slide, no_subtitle) == (
         [],
         None,
-        ["W_SUBTITLE docs/explanation/.assets/gadget-slide: the model has no subtitle cell"],
+        ["E_SUBTITLE docs/explanation/.assets/gadget-slide: the model has no subtitle cell"],
     )
 
 
@@ -168,15 +168,15 @@ def test_a_legend_png_is_stale_only_when_the_glyph_library_moved_from_it(roles, 
     assert drawio_forward.legend_stale(legend) is True
 
 
-def test_a_legend_without_a_declaration_is_not_warned(roles):
+def test_a_legend_without_a_declaration_is_no_finding(roles):
     legend, _ = roles
-    assert drawio_forward.undeclared_warnings(legend, "widget-legend.drawio.yml") == []
+    assert drawio_forward.undeclared_findings(legend, "widget-legend.drawio.yml") == []
 
 
-def test_a_slide_without_a_declaration_is_warned(roles):
+def test_a_slide_without_a_declaration_is_a_finding(roles):
     _, slide = roles
-    assert drawio_forward.undeclared_warnings(slide, "gadget-slide.drawio.yml") == [
-        "W_UNDECLARED docs/explanation/.assets/gadget-slide: no gadget-slide.drawio.yml, so its minimaps are not rebuilt; declare it to put it"
+    assert drawio_forward.undeclared_findings(slide, "gadget-slide.drawio.yml") == [
+        "E_UNDECLARED docs/explanation/.assets/gadget-slide: no gadget-slide.drawio.yml, so its minimaps are not rebuilt; declare it to put it"
     ]
 
 
@@ -185,3 +185,9 @@ def test_a_role_outside_the_closed_set_is_refused(roles, monkeypatch):
     monkeypatch.setitem(DEFAULTS, "roles", {"docs/explanation/.assets/widget-legend": "poster"})
     with pytest.raises(ValueError, match="not one of slide, legend"):
         drawio_forward.diagram_role(legend)
+
+
+def test_every_finding_fails_the_run_by_the_one_declared_setting_and_no_code_is_called_a_warning():
+    assert drawio_forward.DEFAULTS["renderer"]["findings-fail"] == "yes" and drawio_forward.FINDINGS_EXIT == 2
+    source = Path(drawio_forward.__file__).read_text(encoding="utf-8")
+    assert "W_" not in source and 'f"warn' not in source  # one living version: the findings are E_* errors

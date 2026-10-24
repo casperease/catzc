@@ -116,3 +116,13 @@ def test_a_diagram_under_the_declared_skip_folder_is_left_out_of_the_audit(tmp_p
 
 def test_the_audit_and_the_engine_read_one_rank_table():
     assert edge_audit.edge_rules is edge_audit.declaration.edge_rules
+
+
+def test_a_crossing_counts_only_where_it_hides_an_arrowhead_or_a_pill():
+    route = lambda a, b, points, pill=None: {"from": a, "to": b, "points": points, "pill": pill}
+    plain = [route("widget-a", "widget-b", [(0, 0), (100, 100)]), route("gadget-a", "gadget-b", [(0, 100), (100, 0)])]
+    assert edge_audit.hidden_crossings(plain) == []  # they cross at (50, 50), far from both heads and from any pill
+    at_head = [route("widget-a", "widget-b", [(0, 0), (100, 100)]), route("gadget-a", "gadget-b", [(0, 100), (54, 46)])]
+    assert edge_audit.hidden_crossings(at_head) == [("widget-a", "widget-b", "gadget-a", "gadget-b")]  # the second head is under the first line
+    on_pill = [route("widget-a", "widget-b", [(0, 0), (100, 100)], (40, 40, 20, 20)), plain[1]]
+    assert len(edge_audit.hidden_crossings(on_pill)) == 1
