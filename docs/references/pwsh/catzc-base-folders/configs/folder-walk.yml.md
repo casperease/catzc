@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `exclude: [.git, node_modules, out, .terraform, __pycache__, .pytest_cache,...`, written with `#`.
+Above `exclude: [.git, node_modules, out, .terraform, .ruff_cache,...`, written with `#`.
 
 ```text
 The folders a walk never enters, replacing the type's default (.git, node_modules, out): the tool caches a language leaves inside a

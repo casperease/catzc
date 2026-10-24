@@ -49,7 +49,7 @@ one resolver, makes every new view a config line, and moving the extra units int
   no other lit lamp claims (DDR-FILTER-TOTALUNION).
 - Coverage is asserted: every file on disk is claimed by at least one filter. The census counts files per membership signature (the set of
   filters claiming a file: `{code}`, `{code, generated}`, …) and shows that matrix in the counter's tooltip.
-- The tool caches and environments (`**/.ruff_cache`, `**/.pytest_cache`, `**/__pycache__`, `python/.venv`, `python/uv.lock`) are generated,
+- The tool caches and environments (`**/.ruff_cache`, `python/.venv`, `python/uv.lock`) are generated,
   declared by the Python tooling's `generated.yml`.
 - The extra live units are the aspect model's, never the filter's: the python folder modules, `.internal` and `.scriptanalyzer` (their root
   `.psm1` files live, a single-file module keeping its own set) get aspect sets in `Get-ModuleGlobSet`, gated by `Test-GlobSetIndependence`;

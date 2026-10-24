@@ -36,8 +36,8 @@ uv run --no-sync pytest tests/<folder> ...        runs every test, uncached, wit
 ```
 
 uv runs with UV_PYTHON_DOWNLOADS=never, so it uses the uv-managed interpreter at the tools.yml python pin and never fetches one silently
-(the Python form of GOTOOLCHAIN=local; a missing interpreter fails uv sync with the remedy Install-Python). Python writes no bytecode into
-the tree (PYTHONDONTWRITEBYTECODE=1).
+(the Python form of GOTOOLCHAIN=local; a missing interpreter fails uv sync with the remedy Install-Python). Python writes its bytecode
+and pytest its cache under out/ (PYTHONPYCACHEPREFIX=out/pycache, cache_dir=out/pytest-cache), never into the tree.
 
 The Python tests are black-box tests: they start the engine and assert on its output. How to start it reaches them through the environment
 (Get-EngineContract), set for these commands only and restored afterwards:

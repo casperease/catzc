@@ -80,7 +80,7 @@ Describe 'Invoke-PythonTest' -Tag 'L0', 'logic' {
             $null = Invoke-PythonTest Catzc.Widget
             $script:seen.Command[0] | Should -Be "$script:uv sync --all-packages --quiet"
             $script:seen.Command[1] | Should -Be "$script:uv run --no-sync --quiet ruff check `"tests/catzc_widget`""
-            $script:seen.Command[2] | Should -BeLike "$script:uv run --no-sync --quiet pytest `"tests/catzc_widget`" --rootdir `"tests/catzc_widget`" --import-mode=importlib -p no:cacheprovider --junitxml *"
+            $script:seen.Command[2] | Should -BeLike "$script:uv run --no-sync --quiet pytest `"tests/catzc_widget`" --rootdir `"tests/catzc_widget`" --import-mode=importlib -o cache_dir=*out*pytest-cache* --junitxml *"
             $script:seen.Directory | Sort-Object -Unique | Should -Be $script:pythonRoot
         }
 

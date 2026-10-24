@@ -128,7 +128,6 @@ globsets:
       - out/**
       - "**/.vendor/**"
       - "**/.venv/**"
-      - "**/.pytest_cache/**"
       - "**/node_modules/**"
 
   third-party:

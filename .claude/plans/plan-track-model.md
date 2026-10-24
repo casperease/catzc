@@ -55,7 +55,7 @@ has a track.
   computed list of member paths for the callers that need only paths, never as a second declaration.
 - `generated` is a member fact, never a track: `importer.ps1` is generated and belongs to `pwsh`. A member a catzc generator writes takes
   `generated` from that generator's declaration (`rootconfig.yml` and the other generators' targets, through `Get-GeneratedTarget`); a
-  member only a vendor tool writes (`.pytest_cache`, `.ruff_cache`, `out`) declares it on the member; both at once is a load failure.
+  member only a vendor tool writes (`.ruff_cache`, `out`) declares it on the member; both at once is a load failure.
 - `committed` is declared on the member and checked against the git index by `Test-TrackDeclaration`.
 - A **vendor** is a tool, core, plugin or external dependency vendored into the repository, named by the tool (a short form is fine). Every
   `.vendor` folder and every vendor's settings sit under the one vendor umbrella, because vendoring is how HEAD stays reproducible and
@@ -71,7 +71,7 @@ has a track.
   `Directory.Build.props`, `dotnet-tools.json`) and nuget (`nuget.config`) tracks, their names in the same form. `out` is its own track of a
   new type `output` (holder), covering all of `out/`, generated and gitignored.
 - Root files join their tracks: `importer.ps1` and `PSScriptAnalyzerSettings.psd1` join `pwsh`, `importer.sh` joins `bash`, `go.work` joins
-  `go`, `cspell.yml` joins `.cspell`, and `.pytest_cache` and `.ruff_cache` join `python` (generated, gitignored by the tool's own
+  `go`, `cspell.yml` joins `.cspell`, and `.ruff_cache` joins `python` (generated, gitignored by the tool's own
   `.gitignore`). `LICENSE` joins the `contracts` track (the user, 2026-10-24): it is authored, not generated, and belongs to the contracts
   category, live through the contracts track's aspects (plan-repo-filters); no root file is left without a track.
 - A buildable track's globset (deployable role) is derived from its members and excludes its generated members; a vendor track's globset

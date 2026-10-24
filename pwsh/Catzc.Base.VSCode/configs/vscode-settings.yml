@@ -97,7 +97,6 @@ settings:
     "**/*.dtmp": true
     "**/bash.exe.stackdump": true
     "**/.ruff_cache": true
-    "**/__pycache__": true
     "go.work.sum": true
     "*/tests/*/go.sum": true
     "*/.venv": true
@@ -182,6 +181,8 @@ settings:
   python.testing.pytestEnabled: true
   python.testing.pytestArgs:
     - python/tests
+    - -o
+    - cache_dir=${workspaceFolder}/out/pytest-cache
 
   # C# Dev Kit loads the IDE-only catzc.sln at the root, never a project it finds on its own.
   dotnet.defaultSolution: catzc.sln

@@ -1,8 +1,6 @@
 # What the Python toolchain writes (Get-GeneratedTarget reads every module's generated.yml): the environment uv builds, the bytecode
-# Python compiles, and the caches of the checker and the test runner.
+# Python compiles, and the cache of the checker.
 targets:
   - { path: python/.venv/**, generator: uv }
   - { path: python/uv.lock, generator: uv }
-  - { path: "**/__pycache__/**", generator: python }
   - { path: "**/.ruff_cache/**", generator: ruff }
-  - { path: "**/.pytest_cache/**", generator: pytest }

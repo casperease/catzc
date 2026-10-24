@@ -81,9 +81,11 @@ function Invoke-PythonTest {
 
     $report = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-pytest-$([guid]::NewGuid().ToString('N')).xml"
 
+    $cacheDir = Join-Path $root 'out/pytest-cache'
+
     $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
     $environment['UV_PYTHON_DOWNLOADS'] = 'never'
-    $environment['PYTHONDONTWRITEBYTECODE'] = '1'
+    $environment['PYTHONPYCACHEPREFIX'] = Join-Path $root 'out/pycache'
     $saved = @{}
     foreach ($name in $environment.Keys) {
         $saved[$name] = [System.Environment]::GetEnvironmentVariable($name)
@@ -102,7 +104,7 @@ function Invoke-PythonTest {
         }
 
         $run = Invoke-Executable ("$uvCommand run --no-sync --quiet pytest `"$inWorkspace`" --rootdir `"$inWorkspace`" " +
-            "--import-mode=importlib -p no:cacheprovider --junitxml `"$report`"") -WorkingDirectory $pythonRoot -PassThru -NoAssert
+            "--import-mode=importlib -o cache_dir=`"$cacheDir`" --junitxml `"$report`"") -WorkingDirectory $pythonRoot -PassThru -NoAssert
         $reportText = if (Test-Path -LiteralPath $report -PathType Leaf) {
             [System.IO.File]::ReadAllText($report)
         }

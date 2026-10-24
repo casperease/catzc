@@ -22,7 +22,7 @@ Lints the repository's Markdown with markdownlint-cli2 and writes a report under
 
 Runs markdownlint-cli2 over the repository's in-scope Markdown, applying the single root rule set at /.markdownlint.yml (auto-discovered by
 markdownlint-cli2). The default scope is the markdown-scope glob set of Catzc.Base.Globs: its Markdown include as the target and each of its
-excludes (transient and out-of-scope trees such as out/, every .vendor/, .venv/, .pytest_cache/ and node_modules/ tree, docs/notes/,
+excludes (transient and out-of-scope trees such as out/, every .vendor/, .venv/ and node_modules/ tree, docs/notes/,
 .unordered/) as a negation glob — markdownlint-cli2 does not apply .markdownlintignore to globs passed on the command line, so the
 exclusions are passed explicitly. The root .markdownlintignore mirrors these for the editor extension's benefit. A long path list is linted
 in batches of batch_size paths (markdownlint.yml, default 50).

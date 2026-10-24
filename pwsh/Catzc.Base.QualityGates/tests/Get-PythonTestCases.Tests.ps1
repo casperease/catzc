@@ -50,7 +50,6 @@ class TestNested:
 '@
         New-FixtureFile 'gadget/test_gadget.py' "def test_widget_spins():`n    pass`n"
         New-FixtureFile '.venv/test_ignored.py' "def test_ignored():`n    pass`n"
-        New-FixtureFile '__pycache__/test_cached.py' "def test_cached():`n    pass`n"
         New-FixtureFile 'helpers.py' "def test_not_a_test_file():`n    pass`n"
     }
 

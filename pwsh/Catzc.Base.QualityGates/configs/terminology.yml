@@ -183,12 +183,10 @@ terms:
       meaning: "MSYS2 — the Windows POSIX runtime Git Bash is built on; zsh installs as its package into Git Bash's tree"
     - term: zstd
       meaning: "the .zst compression of an MSYS2 package, which Windows' tar reads (Install-Zsh)"
-    - term: cacheprovider
-      meaning: "pytest's cacheprovider plugin; -p no:cacheprovider keeps .pytest_cache out of the tree"
     - term: pycache
-      meaning: "__pycache__ — the folder Python writes compiled bytecode into"
-    - term: pythondontwritebytecode
-      meaning: "PYTHONDONTWRITEBYTECODE — the variable that stops Python writing __pycache__ bytecode"
+      meaning: "out/pycache — where Python writes compiled bytecode"
+    - term: pythonpycacheprefix
+      meaning: "PYTHONPYCACHEPREFIX — the variable that routes Python's bytecode cache to out/pycache"
     - term: charliermarsh
       meaning: "charliermarsh.ruff — the publisher and id of the Ruff VS Code extension"
     - term: worldmap
