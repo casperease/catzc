@@ -22,11 +22,11 @@ function Resolve-MinimapGlyphPath {
         $byLeaf[$leaf].Add($path)
     }
     $tracked = [System.Collections.Generic.HashSet[string]]::new($TrackedPath, [System.StringComparer]::Ordinal)
-    foreach ($glyph in $Glyph) {
-        if ($glyph['kind'] -notin @('code', 'private', 'runner', 'type', 'file')) {
+    foreach ($drawn in $Glyph) {
+        if ($drawn['kind'] -notin @('code', 'private', 'runner', 'type', 'file')) {
             continue
         }
-        $label = (("$($glyph['label'])" -split "`r?`n")[0]).Trim()
+        $label = (("$($drawn['label'])" -split "`r?`n")[0]).Trim()
         $paths = @(
             if ($label -cmatch '^([A-Z][a-z]+(?:To|From)?(?:-[A-Z][A-Za-z0-9]*)+)(?:\(\)| -.*)?$') {
                 $byLeaf["$($Matches[1]).ps1"]
@@ -44,6 +44,6 @@ function Resolve-MinimapGlyphPath {
                 $byLeaf[$label]
             }
         )
-        [pscustomobject]@{ Kind = $glyph['kind']; Label = $label; Path = [string[]] $paths }
+        [pscustomobject]@{ Kind = $drawn['kind']; Label = $label; Path = [string[]] $paths }
     }
 }

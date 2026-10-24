@@ -75,21 +75,27 @@ Describe 'PlaceRows' -Tag 'L0', 'logic' {
         }
 
         It 'counts the folders of a module row that is too long, never eliding any of them' {
-            $places = foreach ($folder in 'configs', 'private', 'tests', 'types') { , @('widgets', 'Catzc.Widget.Gears', $folder) }
+            $places = foreach ($folder in 'configs', 'private', 'tests', 'types') {
+                , @('widgets', 'Catzc.Widget.Gears', $folder)
+            }
             $rows = & $script:rowsOf $places
             @($rows.Rows) | Should -Be @('widgets.widget_gears.+4')
         }
 
         It 'folds the modules of a track into one row only when the rows are more than the 7, and counts them when the names do not fit' {
             $places = @(, @('docs', '-', 'explanation'))
-            $places += foreach ($n in 1..9) { , @('widgets', "Catzc.Cog$n", '.') }
+            $places += foreach ($n in 1..9) {
+                , @('widgets', "Catzc.Cog$n", '.')
+            }
             $rows = & $script:rowsOf $places
             @($rows.Rows) | Should -Be @('docs.explanation', 'widgets.+9')
             $rows.Counters | Should -BeExactly '10 places'
         }
 
         It 'never exceeds 7 place rows and counts what it leaves out' {
-            $places = foreach ($n in 1..12) { , @("gadgets$n", "Catzc.Gadget$n", '.') }
+            $places = foreach ($n in 1..12) {
+                , @("gadgets$n", "Catzc.Gadget$n", '.')
+            }
             $rows = & $script:rowsOf $places
             $rows.Rows.Count | Should -Be 7
             $rows.Counters | Should -BeExactly '+5 more · 12 places'
@@ -98,7 +104,9 @@ Describe 'PlaceRows' -Tag 'L0', 'logic' {
 
         It 'draws the primary places first and the secondary ones only while the rows hold them, counting all of them' {
             $primary = [Catzc.Base.Maps.MinimapCell[]] @(& $script:cells @(, @('widgets', 'Catzc.Widget', '.')))
-            $secondary = [Catzc.Base.Maps.MinimapCell[]] @(& $script:cells @(foreach ($n in 1..8) { , @("gadgets$n", "Catzc.Gadget$n", '.') }))
+            $secondary = [Catzc.Base.Maps.MinimapCell[]] @(& $script:cells @(foreach ($n in 1..8) {
+                        , @("gadgets$n", "Catzc.Gadget$n", '.')
+                    }))
             $rows = [Catzc.Base.Maps.PlaceRows]::From($primary, $secondary, $script:places)
             $rows.Rows.Count | Should -Be 7
             @($rows.Rows) | Should -Contain 'widgets.widget'

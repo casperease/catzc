@@ -356,15 +356,18 @@ blocks with a `calls` label or an actor. An edge that no waypoint routes leaves 
 else the axis of their wider centre distance) and takes an even share of that side with every other edge that meets it there, in the order
 of the other ends, one edge alone at the side's middle, so edges between aligned cells run straight and edges sharing a side fan out without
 crossing. A cell that is neither end of an edge is a keep-out zone for it: the cell grown by the 8 px deadzone and its marker, and a path
-that enters one is an `E_KEEPOUT` error under the kit's one findings setting; bands, groups and spans are no obstacle. An edge may also
-carry a `count`, `n/m` with n at most m (`count: 13/28`), shown in its pill after its label as `calls 13/28`; a count is no label and
-decides no direction, and a label that is only an `n/m` is read as the edge's count. Where every flow edge of a diagram carries one and the
-same word (all `calls`), no pill is drawn on each: the legend entry of the plain arrow says it once (`flow: calls`), derived at render time
-under the renderer's `uniform-label: legend` and never written back; an edge with a count keeps its pill for the count, and a failure edge
-does not count toward the sameness. A label outside the vocabulary is free text, not an arrow meaning, and the edge is oriented by rank like
-an unlabelled one. The kinds in `edge-rules` `trusted-kinds` (the gate) keep the direction their author declared, and a diagram with its own
-`relation` keeps its plain arrows as they are. The edge audit, which leaves out the folders `edge-rules` `audit-skip` names, reads the same
-ranks and defaults.
+that enters one is an `E_KEEPOUT` error under the kit's one findings setting; bands, groups and spans are no obstacle. An edge whose two
+ends share no x overlap and no y overlap has no straight line and is routed as one orthogonal elbow by default (`edge-route: elbow` in the
+renderer, `straight` keeps the diagonal): it leaves the side facing across, runs along that row to the column of the side it enters, with
+the deadzone at both ends and its pill on the longer leg; the route is derived, never written to the declaration, and an edge whose ends
+overlap on an axis stays straight. An edge may also carry a `count`, `n/m` with n at most m (`count: 13/28`), shown in its pill after its
+label as `calls 13/28`; a count is no label and decides no direction, and a label that is only an `n/m` is read as the edge's count. Where
+every flow edge of a diagram carries one and the same word (all `calls`), no pill is drawn on each: the legend entry of the plain arrow says
+it once (`flow: calls`), derived at render time under the renderer's `uniform-label: legend` and never written back; an edge with a count
+keeps its pill for the count, and a failure edge does not count toward the sameness. A label outside the vocabulary is free text, not an
+arrow meaning, and the edge is oriented by rank like an unlabelled one. The kinds in `edge-rules` `trusted-kinds` (the gate) keep the
+direction their author declared, and a diagram with its own `relation` keeps its plain arrows as they are. The edge audit, which leaves out
+the folders `edge-rules` `audit-skip` names, reads the same ranks and defaults.
 
 - [Arrows point at what they depend on](#arrows-point-at-what-they-depend-on)
 

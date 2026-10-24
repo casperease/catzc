@@ -55,20 +55,26 @@ test — names it in the normal form.
 
 ### Rule ADR-AUTO-IDIOM-PLACENORMALFORM
 
-A place in the repository, a track, a module or a folder inside a module, has one place normal form wherever it is shown in a row: its path
-from the repository root, normalised as a repository-relative path ([ADR-AUTO-PATH](path-representation.md)), joined with `.`
-(`pwsh.azure.types`). The module's `Catzc.` prefix is dropped whole, and a dot inside a module name becomes `_`, so the module name is
-lower-case snake, the repository normal form (`Azure.Templates` is `azure_templates`); the dot is then only ever the path join. A module's
-lit sub-folders share one row, joined by `|` in sort order, the module's own root among them written `(root)`
-(`pwsh.azure_templates.(root)|tests|types`), so a module is one row and a module with no lit sub-folder is just `pwsh.<module>`; the top
-folders of a track without modules likewise. Rows are sorted by path within the configured order of the place groups. A row holds at most
-the configured characters: a module name too long keeps its first and its last `_` parts with `...` between, the cut always between two
-parts, and a row that is still too long keeps as many whole joined names as fit, then `|...`, and the count of the places (`+3`) only when
-not even one name fits. When there are more rows than the budget, the modules of one track fold into one row naming the modules
-(`pwsh.base_drs|base_maps|base_variants`), as the fallback, shortened the same way. A row that elides nothing and folds no modules loses
-nothing: its places come back, the module as its repository normal form. The budget, the row join, the name join, the root marker and the
-separator are configuration of the maps config, and a minimap's rows are computed once, beside its data, by `Catzc.Base.Maps`; a drawing
-prints the rows as given and cuts nothing itself.
+A place in the repository, a track, a module, a folder inside a module or a folder of a track without modules, has one place normal form
+wherever it is shown in a row: its path from the repository root, normalised as a repository-relative path
+([ADR-AUTO-PATH](path-representation.md)), joined with `.` (`pwsh.azure.types`, `docs.explanation.ado`, `.claude.skills`). The module's
+`Catzc.` prefix is dropped whole, and a dot inside a module name becomes `_`, so the module name is lower-case snake, the repository normal
+form (`Azure.Templates` is `azure_templates`); the dot is then only ever the path join. A module's lit sub-folders share one row, joined by
+`|` in sort order, the module's own root among them written `(root)` (`pwsh.azure_templates.(root)|tests|types`); a module with no lit
+sub-folder is just `pwsh.<module>`. A place outside any module is its own row, the track and the whole path of its folder: a module that
+only repeats its track (`.claude` in `.claude`) is no module, and a place at the docs root, which names no folder, has no row and is not
+counted. Rows are sorted in true repository path order, the track first and then the module's or the folder's path (`.claude` before `docs`
+before `pwsh`). A row never cuts a name: it holds every joined folder whole, or, when they do not fit the configured characters, the count
+of the places (`pwsh.azure.+3`); a folder path keeps the whole segments that fit and counts the rest (`docs.explanation.automation.+2`); no
+row carries an elision. When there are more rows than the budget, the modules of one track fold into one row naming the modules
+(`pwsh.base_drs|base_maps|base_variants`) or, when the names do not fit, the count of their places (`pwsh.+9`), and rows still over the
+budget are left out. The places come first from the drawing's own glyphs, each code or file glyph's label resolved to the repository place
+it names (a command by its function file, a type by its types folder, a file by its name, a module by its manifest), and from the cited ADRs
+only while rows remain: a label that names no repository file is dropped and counted, and the docs places of the cited ADRs are dropped when
+the drawing draws no doc. The counters line says every place there is: `N places`, and `+k more · N places` when the rows hide places. The
+budget, the row join, the name join, the root marker, the fold separator and the count prefix are configuration of the maps config, and a
+minimap's rows are computed once, beside its data, by `Catzc.Base.Maps` from the labels the declaration carries (a minimap input, never a
+computed row stored in it); a drawing prints the rows as given and cuts nothing itself.
 
 - [Places have one short form](#places-have-one-short-form)
 

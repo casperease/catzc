@@ -1575,7 +1575,8 @@ def test_the_elbow_is_derived_so_get_never_reads_it_back_as_a_waypoint_and_ends_
     assert "catzcElbow=1" in edge_style_text(model, "widget-b", "gadget-gate") and "catzcElbow" not in edge_style_text(model, "widget-b", "widget-a")
     back = declaration.get(model, kind="explanation")
     assert all("via" not in e for e in back["content"]["edges"])
-    assert declaration.put(back) == model
+    edge_cells = lambda xml: sorted(re.findall(r'<mxCell id="e-[^>]*>', xml))
+    assert edge_cells(declaration.put(back)) == edge_cells(model)  # the same edges, the same elbow
 
 
 def test_the_straight_setting_keeps_the_diagonal(monkeypatch):

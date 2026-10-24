@@ -142,16 +142,17 @@ Glyph styles come from [`glyphs.xml`](glyphs.xml). These are the chrome and line
   middle, with `edge-label-head-clear` px of line left to the arrowhead and `edge-label-tail-clear` at the tail; a line too short for it
   gets the same pill beside it, `word-gap` px off the line (right of a steep line, above a flatter one), clear of every glyph and earlier
   pill; bare text beside the line is only the `word` presentation (`labelBackgroundColor=@band`). The legend entry reads
-  `label: the word on a line`. An edge leaves the side its two ends face, at its even share of that side (one alone at the middle), and a
-  cell that is no end of it, grown by the 8 px deadzone with its marker, is a keep-out zone: a path through one is an `E_KEEPOUT` error. An
-  A code glyph (code, private, runner, type) prints a right-aligned row of small language tags on its top edge, in the tag style of the
-  library: the words come from the one table `pwsh/Catzc.Base.Languages/configs/languages.yml` (a language row's `tag` and `shapes`) by the
-  shape of the label, never from the declaration, and a label that matches no shape prints no tag, and `lang:` on a glyph is the only
-  override; a command with a contract lists every form it has (one tag per engine, then `contract`). `get` never writes a tag back. When
-  every flow edge says one word, no pill is drawn and the plain arrow's legend entry reads `flow: <word>` (`uniform-label: legend`, derived,
-  never written back). An edge's optional `count: n/m` (n at most m) follows its label inside the same pill (`calls 13/28`); it is no label
-  and never orients the edge. `edge-label: word` configures every diagram to the word beside the line, with a pill only at a crossing and
-  the entry `transition: into a new state`.
+  `label: the word on a line`. An edge whose ends share no x or y overlap is one orthogonal elbow (`edge-route: elbow`), its pill on the
+  longer leg and its route derived, never written to the declaration. An edge leaves the side its two ends face, at its even share of that
+  side (one alone at the middle), and a cell that is no end of it, grown by the 8 px deadzone with its marker, is a keep-out zone: a path
+  through one is an `E_KEEPOUT` error. An A code glyph (code, private, runner, type) prints a right-aligned row of small language tags on
+  its top edge, in the tag style of the library: the words come from the one table `pwsh/Catzc.Base.Languages/configs/languages.yml` (a
+  language row's `tag` and `shapes`) by the shape of the label, never from the declaration, and a label that matches no shape prints no tag,
+  and `lang:` on a glyph is the only override; a command with a contract lists every form it has (one tag per engine, then `contract`).
+  `get` never writes a tag back. When every flow edge says one word, no pill is drawn and the plain arrow's legend entry reads
+  `flow: <word>` (`uniform-label: legend`, derived, never written back). An edge's optional `count: n/m` (n at most m) follows its label
+  inside the same pill (`calls 13/28`); it is no label and never orients the edge. `edge-label: word` configures every diagram to the word
+  beside the line, with a pill only at a crossing and the entry `transition: into a new state`.
 - Thick edge (to a named set): add `strokeWidth=2.5;`. DRS-only edge: add `dashed=1;`. Failure path: `strokeColor=@red-rim;`, solid.
 - Read edge (reads a fact source): `endArrow=open;dashed=1;dashPattern=1 3;`, dotted. Junction edge (where catzc meets a state machine):
   `startArrow=oval;startFill=1;`, solid, with the block arrow.

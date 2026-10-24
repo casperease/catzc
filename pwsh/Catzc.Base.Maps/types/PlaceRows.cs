@@ -51,8 +51,6 @@ public sealed class PlaceRows
     public static PlaceRows From(IReadOnlyList<MinimapCell> lit, MapsMinimapPlaces places) =>
         From(lit, Array.Empty<MinimapCell>(), places);
 
-    // The rows of a drawing's places: the primary places (the ones its own glyphs name) first, then the secondary places (the ones its
-    // cited decision records name) one at a time while the rows still hold them. The counters line counts every place, the hidden ones too.
     public static PlaceRows From(IReadOnlyList<MinimapCell> primary, IReadOnlyList<MinimapCell> secondary, MapsMinimapPlaces places)
     {
         if (primary == null) { throw new ArgumentNullException(nameof(primary)); }
@@ -202,8 +200,6 @@ public sealed class PlaceRows
         return true;
     }
 
-    // A row never cuts a name: it holds every folder joined, or the count of them (`pwsh.azure.+3`); a place outside any module holds its
-    // folder's segments and the count of those left out (`docs.explanation.+2`).
     private static string RowText(string track, string module, SortedSet<string> folders, int count, MapsMinimapPlaces places)
     {
         if (module == NoModule)

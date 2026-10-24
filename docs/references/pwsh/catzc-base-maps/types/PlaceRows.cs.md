@@ -62,3 +62,21 @@ Above `private static string RowText(string track, string module, SortedSet<stri
 The row of a module: all its names joined; else as many whole names as fit and then the elision; else the same with the module name
 elided at a name-join boundary; and only when not even one name fits, the count of the places.
 ```
+
+## comment:6
+
+Above `public static PlaceRows From(IReadOnlyList<MinimapCell> primary,...`, written with `//`.
+
+```text
+The rows of a drawing's places: the primary places (the ones its own glyphs name) first, then the secondary places (the ones its
+cited decision records name) one at a time while the rows still hold them. The counters line counts every place, the hidden ones too.
+```
+
+## comment:7
+
+Above `private static string RowText(string track, string module, SortedSet<string>...`, written with `//`.
+
+```text
+A row never cuts a name: it holds every folder joined, or the count of them (`pwsh.azure.+3`); a place outside any module holds its
+folder's segments and the count of those left out (`docs.explanation.+2`).
+```

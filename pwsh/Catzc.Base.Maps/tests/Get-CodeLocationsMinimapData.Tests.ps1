@@ -36,7 +36,9 @@ Describe 'Get-CodeLocationsMinimapData' -Tag 'L0', 'logic' {
     It 'places the drawing''s own glyphs first, the cited ADRs'' places only while rows remain, and counts a label that names no file' {
         Mock Get-MinimapFact -ModuleName Catzc.Base.Maps {
             $facts = @{}
-            foreach ($file in $Path) { $facts[$file] = @{ track = 'widgets'; module = 'Catzc.Widget.Cog' } }
+            foreach ($file in $Path) {
+                $facts[$file] = @{ track = 'widgets'; module = 'Catzc.Widget.Cog' }
+            }
             $facts
         }
         Mock Write-Message -ModuleName Catzc.Base.Maps { }
