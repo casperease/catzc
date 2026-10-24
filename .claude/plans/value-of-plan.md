@@ -15,11 +15,12 @@ catzc:
       - ADR-REPO-DRSCODE
       - ADR-REPO-PLANS
       - DDR-ASPECT
+      - DDR-FILTER
       - DDR-TRACK
       - DDR-TRACKTYPE
       - FDR-CD-GLOBS
       - TDR-NORMALFORM
-    drs_total: 15
+    drs_total: 16
 ---
 
 # Value of each plan
@@ -52,6 +53,7 @@ stale or superseded item is recorded as such, with the reason.
 
 | Value  | Plan                        | Needed docs                                                                                                | Needed tests                                                                                          | State                                            |
 | ------ | --------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| high   | plan-lamp-states            | DDR-FILTER (union rule, switch × condition, conditions read from VS Code)                                  | Pester for the lamps' union, conditions from faked git changes and diagnostics, manifest states       | decided; five steps                              |
 | high   | plan-repo-filters           | none (filters are a tool view; DDR-ASPECT already holds the units it gates)                                | Pester for FiltersConfig, Get-RepositoryFilter, Get-ModuleGlobSet, Get-AspectCover, the lamps         | landed; the user's look left                     |
 | high   | plan-track-model            | DDR-TRACK (members, root files), DDR-TRACKTYPE (output type, vendors), FDR-CD-GLOBS (globsets from tracks) | Pester for VariantTrack, Get-Track, Test-TrackDeclaration, Get-GeneratedTarget, Get-GlobSetTrigger    | decided; eighteen steps, naming examples awaited |
 | medium | plan-session-learnings      | the session-finalize skill (the learning definition)                                                       | Pester for Add-SessionLearning and LearningsConfig                                                    | decided; one step                                |

@@ -11,7 +11,8 @@ catzc:
     cites:
       - ADR-REPO-FOLDERS-STABLEFILENAMES
       - ADR-REPO-PLANS-MASTERANDTASKS
-    drs_total: 2
+      - DDR-FILTER
+    drs_total: 3
 ---
 
 # Master: every open step of every plan, in one executable order
@@ -52,8 +53,10 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. A chunk without a task file is executed from its plan's open steps directly. The questions raised after the round
 of 2026-10-21 are decided (the second round of that day) and folded into their plans.
 
-- repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, hide wins, coverage asserted, docs and out lamps); one step
-  left, the user's look at the lamps in VS Code
+- lamp-states -> plan-lamp-states.md: the union rule tested and recorded in DDR-FILTER, then each lamp's condition (committed, staged,
+  unstaged, failed) read from VS Code's git API and diagnostics, the icon a switch × condition lookup; five steps
+- repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
+  one step left, the user's look at the lamps in VS Code
 - track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names

@@ -44,8 +44,8 @@ one resolver, makes every new view a config line, and moving the extra units int
   `**/tests/**`, then `live` `**`, DDR-ASPECT-TRACKPICKSCATCHALL), so its contract files are live and `code` shows them.
 - `LICENSE` is authored, not generated (no generator or `rootconfig.yml` target writes it); it is docs (the `docs` filter) and live through
   the contracts track, which it joins in `plan-track-model.md`.
-- Combination is **hide wins**: a file shows only while every filter that claims it is lit, so putting a lamp out never reveals a file and
-  `generated` hiding inside a lit `code` needs no special case.
+- Combination is the **union** of the lit lamps: a file shows while at least one lit filter claims it, so putting a lamp out hides only what
+  no other lit lamp claims (the rule, its tests and the record rewrite are in `plan-lamp-states.md`).
 - Coverage is asserted: every file on disk is claimed by at least one filter. The census counts files per membership signature (the set of
   filters claiming a file: `{code}`, `{code, generated}`, …) and shows that matrix in the counter's tooltip.
 - The tool caches and environments (`**/.ruff_cache`, `**/.pytest_cache`, `**/__pycache__`, `python/.venv`, `python/uv.lock`) are generated,
