@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: badff1918f1a
+    with_body_sha: "826e8a0ba0d1"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -313,7 +313,8 @@ Notes:
 - `catzc.base.maps/minimap.schema.json`: Provided schema of one minimap's data, validated against the sample beside it
   (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Catzc.Base.Maps writes through MinimapData and the diagram kit draws. The axes come outermost
   first; a cell names one value per axis, in axis order, with what it holds; a lit cell carries at least one reason, its subject (a file
-  path or an ADR code), the basis that lights it, the request it answers and a note.
+  path or an ADR code), the basis that lights it, the request it answers and a note. A place list also carries place_rows, the rows it draws
+  and its counters line, computed beside the data so the drawing only draws them.
 - `catzc.base.maps/test_value_chain_map.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface
   of Test-ValueChainMap, the quality gate that checks every ADR sits in a cell of the value-chain map and every label it prints is a
   glossary term, and returns its result under -PassThru.

@@ -36,6 +36,7 @@ files:
       - pwsh/Catzc.Base.VSCode/configs/vscode-settings.yml
       - pwsh/Catzc.Base.RootConfig/configs/rootconfig.yml
       - pwsh/Catzc.Base.Languages/configs/languages.yml
+      - pwsh/Catzc.Base.Variants/configs/variants.yml
     carrier: jsonc
     optIn: true
   - target: .vscode/extensions.json

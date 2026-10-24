@@ -59,6 +59,8 @@ function Get-CodeLocationsMinimapData {
         folder = [string[]] @($sorted | ForEach-Object { $_[2] } | Select-Object -Unique)
     }
     $data = New-MinimapData -Id ([Catzc.Base.Maps.MinimapData]::CodeLocations) -Axes $axes -Cells ([string[][]] $sorted) -Count $count -Reasons $reasons
+    # The rows the place list draws are computed here, from the place triples, so the drawing only draws them.
+    $data = $data.WithPlaceRows([Catzc.Base.Maps.PlaceRows]::From($data.Lit, (Get-Config -Config maps).minimap_places))
     if ($AsJson) {
         return $data.ToJson()
     }

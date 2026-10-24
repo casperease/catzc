@@ -142,6 +142,13 @@ def box(d, xy, fill, rim=None, radius=3):
     d.rounded_rectangle([v * SCALE for v in xy], radius=radius * SCALE, fill=fill, outline=rim, width=SCALE if rim else 0)
 
 
+def fitted_size(d, value, size, width, bold=False, smallest=6):
+    """The font size, from `size` down a point at a time, at which the whole value fits the width: the value itself is never cut."""
+    while size > smallest and d.textlength(value, font=font(size * SCALE, bold)) > width * SCALE:
+        size -= 1
+    return size
+
+
 def fit(d, value, size, width, bold=False):
     """The value shortened with an ellipsis until it fits the width."""
     f = font(size * SCALE, bold)
@@ -213,18 +220,20 @@ def draw_data(d, width, height, data):
         if hidden:
             text(d, (6, top + len(rows) * cell_h), f"+{hidden} more", 9, DIM_INK)
         return
-    places = sorted(lit)
-    room = max(1, int((height - top - 6) // MIN_PITCH))
-    shown = places if len(places) <= room else places[: room - 1]
-    pitch = min(15, (height - top - 6) / max(1, len(shown) + (len(shown) < len(places))))
-    for i, at in enumerate(shown):
+    # A place list draws the rows Catzc.Base.Maps computed (ADR-AUTO-IDIOM-PLACENORMALFORM): one row a place, then the counters line.
+    # This module neither sorts nor cuts them; a row wider than the sidebar is drawn a point smaller, never shortened.
+    place_rows = data.get("place_rows")
+    if place_rows is None:
+        raise ValueError(f"minimap '{data['id']}' is a place list and carries no place_rows")
+    rows, counters = place_rows["rows"], place_rows["counters"]
+    pitch = min(15, (height - top - 6) / max(1, len(rows) + (1 if counters else 0)))
+    for i, label in enumerate(rows):
         y = top + i * pitch
         box(d, (8, y, width - 8, y + pitch - 2), LIT)
-        # A place's '-' (no module) and '.' (the module's root) are placeholders of the data, never printed.
-        label = " / ".join(part for part in at if part not in ("-", "."))
-        text(d, (13, y), fit(d, label, 9, width - 26, bold=True), 9, LIT_INK, bold=True)
-    if len(shown) < len(places):
-        text(d, (13, top + len(shown) * pitch), f"+{len(places) - len(shown)} more", 9, DIM_INK)
+        size = fitted_size(d, label, 9, width - 26, bold=True)
+        text(d, (13, y), label, size, LIT_INK, bold=True)
+    if counters:
+        text(d, (13, top + len(rows) * pitch), counters, fitted_size(d, counters, 9, width - 26), DIM_INK)
 
 
 def draw_rows(d, width, height, rows, present, lit):

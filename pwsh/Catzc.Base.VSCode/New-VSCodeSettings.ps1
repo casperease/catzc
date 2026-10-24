@@ -20,7 +20,10 @@ function New-VsCodeSettings {
 
         [hashtable] $MachineSetting = @{},
 
-        [System.Collections.IDictionary] $LanguageFormatter = @{}
+        [System.Collections.IDictionary] $LanguageFormatter = @{},
+
+        [AllowEmptyCollection()]
+        [object[]] $Track = @()
     )
 
     $config = Get-Config -Config vscode-settings
@@ -63,6 +66,13 @@ function New-VsCodeSettings {
         }
     }
     $settings['search.exclude'] = $exclude
+
+    # The track lamps read the tracks from the settings, so the extension needs neither the variants config nor a session.
+    if ($Track.Count -gt 0) {
+        $settings['catzc.trackLamps.tracks'] = @(foreach ($entry in $Track) {
+                [ordered]@{ name = $entry.name; type = $entry.type; places = @($entry.places) }
+            })
+    }
 
     (ConvertTo-Json -InputObject $settings -Depth 12) + "`n"
 }

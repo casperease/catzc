@@ -36,9 +36,26 @@ public sealed class MinimapData
     // The lit cells, each with its reasons.
     public IReadOnlyList<MinimapCell> Lit { get; }
 
+    // The rows the place list draws, computed beside the data so the drawing only draws them; null for a minimap that is not a place list.
+    public PlaceRows PlaceRows { get; }
+
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    public MinimapData(string id, MinimapAxis[] axes, MinimapCell[] cells, MinimapCell[] lit)
+    public MinimapData(string id, MinimapAxis[] axes, MinimapCell[] cells, MinimapCell[] lit) : this(id, axes, cells, lit, null) { }
+
+    // The same data carrying the rows its place list draws.
+    public MinimapData WithPlaceRows(PlaceRows rows)
+    {
+        MinimapCell[] cells = new MinimapCell[Cells.Count];
+        for (int i = 0; i < cells.Length; i++) { cells[i] = Cells[i]; }
+        MinimapCell[] lit = new MinimapCell[Lit.Count];
+        for (int i = 0; i < lit.Length; i++) { lit[i] = Lit[i]; }
+        MinimapAxis[] axes = new MinimapAxis[Axes.Count];
+        for (int i = 0; i < axes.Length; i++) { axes[i] = Axes[i]; }
+        return new MinimapData(Id, axes, cells, lit, rows);
+    }
+
+    public MinimapData(string id, MinimapAxis[] axes, MinimapCell[] cells, MinimapCell[] lit, PlaceRows placeRows)
     {
         if (!Ids.Contains(id))
         {
@@ -48,6 +65,7 @@ public sealed class MinimapData
         Axes = axes ?? Array.Empty<MinimapAxis>();
         Cells = cells ?? Array.Empty<MinimapCell>();
         Lit = lit ?? Array.Empty<MinimapCell>();
+        PlaceRows = placeRows;
         List<string> errors = new List<string>();
         foreach (MinimapCell cell in Cells) { CheckPlace(cell, errors); }
         foreach (MinimapCell cell in Lit)
@@ -121,6 +139,13 @@ public sealed class MinimapData
                 writer.WriteStartArray("lit");
                 foreach (MinimapCell cell in Lit) { WriteCell(writer, cell, true); }
                 writer.WriteEndArray();
+                if (PlaceRows != null)
+                {
+                    writer.WriteStartObject("place_rows");
+                    ValueChainMap.WriteStrings(writer, "rows", PlaceRows.Rows);
+                    writer.WriteString("counters", PlaceRows.Counters);
+                    writer.WriteEndObject();
+                }
                 writer.WriteEndObject();
             }
             return Encoding.UTF8.GetString(stream.ToArray()).Replace("\r\n", "\n");

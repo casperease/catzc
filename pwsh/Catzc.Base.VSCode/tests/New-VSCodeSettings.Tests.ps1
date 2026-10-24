@@ -65,6 +65,20 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
         $json.'search.exclude'.'keep/searchable.psd1' | Should -BeFalse -Because 'an explicit authored un-exclude must survive injection'
     }
 
+    It 'renders each track''s name, type and places for the track lamps, and no key without tracks' {
+        $track = @(
+            [pscustomobject]@{ name = 'widgets'; type = 'modules'; places = @('widgets'); vendor = $null }
+            [pscustomobject]@{ name = 'widgets-vendor'; type = 'vendored-code'; places = @('widgets/.vendor'); vendor = $null }
+        )
+        $json = (New-VsCodeSettings -Track $track) | ConvertFrom-Json
+        @($json.'catzc.trackLamps.tracks').Count | Should -Be 2
+        $json.'catzc.trackLamps.tracks'[1].name | Should -Be 'widgets-vendor'
+        $json.'catzc.trackLamps.tracks'[1].type | Should -Be 'vendored-code'
+        @($json.'catzc.trackLamps.tracks'[1].places) | Should -Be @('widgets/.vendor')
+        @($json.'catzc.trackLamps.tracks'[1].PSObject.Properties.Name) | Should -Not -Contain 'vendor'
+        (New-VsCodeSettings | ConvertFrom-Json).PSObject.Properties.Name | Should -Not -Contain 'catzc.trackLamps.tracks'
+    }
+
     It 'creates the search.exclude map when the registry has none' {
         Mock Get-Config -ModuleName Catzc.Base.VSCode {
             [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{ settings = [ordered]@{ 'editor.tabSize' = 2 } })

@@ -27,7 +27,8 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
     private const string Failed = "maps config validation failed:\n";
     private static readonly string[] AllowedKeys = { "palette", "limits", "labels", "highlight", "output_folder", "minimaps" };
     private static readonly string[] MinimapKinds = { "explanation", "reference" };
-    private static readonly string[] MinimapKeys = { "explanation", "reference", "data", "axis" };
+    private static readonly string[] MinimapKeys = { "explanation", "reference", "data", "axis", "places" };
+    private static readonly string[] PlacesKeys = { "rows", "counter_rows", "row_chars", "group_order", "drop_prefix", "elision" };
     private static readonly string[] AxisKeys = { "rows", "columns" };
 
     // The command that computes each minimap's data from a diagram's ADR codes (-Adr, -AsJson), by minimap id.
@@ -84,6 +85,9 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The axis minimap's rows and columns. Defaults: MapsMinimapAxis.DefaultRows and DefaultColumns.
     public MapsMinimapAxis minimap_axis { get; }
+
+    // The budget of the "Where does it live?" minimap and the order its place groups take the rows. Defaults: MapsMinimapPlaces.Default.
+    public MapsMinimapPlaces minimap_places { get; }
 
     // The pool of a diagram kind, explanation or reference.
     public MapsMinimapPool MinimapsOf(string kind)
@@ -146,6 +150,7 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
         reference_minimaps = ReadPool(minimapsMap, "reference", MapsMinimapPool.DefaultReferencePool, MapsMinimapPool.DefaultReferenceDefaults, errors);
         minimap_data = ReadMinimapData(minimapsMap, errors);
         minimap_axis = ReadAxis(minimapsMap, errors);
+        minimap_places = ReadPlaces(minimapsMap, errors);
 
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
     }
@@ -225,6 +230,54 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
         return new MapsMinimapAxis(rows, columns);
+    }
+
+    // The place rows' budget: the defaults, each overridable by minimaps.places.<key>.
+    private static MapsMinimapPlaces ReadPlaces(IDictionary minimaps, List<string> errors)
+    {
+        MapsMinimapPlaces fallback = MapsMinimapPlaces.Default();
+        if (!Has(minimaps, "places")) { return fallback; }
+        IDictionary map = minimaps["places"] as IDictionary;
+        if (map == null)
+        {
+            errors.Add("minimaps.places must be a mapping { " + string.Join(", ", PlacesKeys) + " }");
+            return fallback;
+        }
+        CheckKeys("minimaps.places: ", map, PlacesKeys, errors);
+        List<string> order = new List<string>();
+        if (Has(map, "group_order"))
+        {
+            IList listed = map["group_order"] as IList;
+            if (listed == null) { errors.Add("minimaps.places.group_order must be a list of place groups"); }
+            else { foreach (object item in listed) { order.Add(Text(item)); } }
+        }
+        try
+        {
+            return new MapsMinimapPlaces(
+                ReadWhole(map, "rows", fallback.rows, errors),
+                ReadWhole(map, "counter_rows", fallback.counter_rows, errors),
+                ReadWhole(map, "row_chars", fallback.row_chars, errors),
+                Has(map, "group_order") ? order.AsReadOnly() : fallback.group_order,
+                Has(map, "drop_prefix") ? Text(map["drop_prefix"]) : fallback.drop_prefix,
+                Has(map, "elision") ? Text(map["elision"]) : fallback.elision);
+        }
+        catch (ArgumentException error)
+        {
+            errors.Add("minimaps.places: " + error.Message);
+            return fallback;
+        }
+    }
+
+    private static int ReadWhole(IDictionary map, string key, int fallback, List<string> errors)
+    {
+        if (!Has(map, key)) { return fallback; }
+        int value;
+        if (!int.TryParse(Text(map[key]), NumberStyles.Integer, CultureInfo.InvariantCulture, out value))
+        {
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "minimaps.places.{0} must be a whole number, not '{1}'", key, Text(map[key])));
+            return fallback;
+        }
+        return value;
     }
 
     // One kind's pool and defaults: every id one of the eight minimaps, exactly three defaults, each in the pool.

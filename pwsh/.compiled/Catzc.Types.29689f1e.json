@@ -1,5 +1,5 @@
 {
-  "hash": "2520f0e0",
+  "hash": "29689f1e",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -949,6 +949,15 @@
       ]
     },
     {
+      "name": "Catzc.Base.Maps.MapsMinimapPlaces",
+      "aliases": [],
+      "display": [
+        "rows",
+        "counter_rows",
+        "row_chars"
+      ]
+    },
+    {
       "name": "Catzc.Base.Maps.MapsMinimapPool",
       "aliases": [],
       "display": [
@@ -1027,6 +1036,14 @@
         "Width",
         "Height",
         "OperationCount"
+      ]
+    },
+    {
+      "name": "Catzc.Base.Maps.PlaceRows",
+      "aliases": [],
+      "display": [
+        "Rows",
+        "Counters"
       ]
     },
     {

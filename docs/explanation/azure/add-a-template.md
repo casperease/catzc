@@ -51,6 +51,9 @@ content:
     - id: span-configs
       label: configs
       over: [band-configs]
+    - id: span-cd
+      label: CD
+      over: [band-found]
   glyphs:
     - { id: g-main, kind: code, label: main.bicep, in: band-folder }
     - { id: g-options, kind: file, label: options.yml, in: band-folder }
@@ -72,7 +75,8 @@ content:
   legend: auto
   minimaps: [axis, lifecycle-position, layer-stack]
 layout:
-  g-main: { x: 40, y: 164, w: 170, h: 52 }
+  g-main: { x: 40, y: 166, w: 170, h: 52 }
+  g-slot: { x: 466, y: 166, w: 110, h: 52 }
   g-options: { x: 40, y: 250, w: 160, h: 52 }
   g-readme: { x: 230, y: 250, w: 160, h: 52 }
   g-place: { x: 890, y: 154, w: 200, h: 76 }
@@ -90,7 +94,8 @@ layout:
 3. **README.md.** Every template folder carries a README that says what it deploys.
 4. **First slot.** A template deploys nothing until its configuration folder holds a slot: one `<env>[-<slot>].yml` per resource group, at
    the root for the shared platform or under a customer subfolder.
-5. **Get-TrackPlace.** The tooling finds templates through `Get-TrackPlace -Track infrastructure -TrackKind templates`, so the new folder is
+5. **Get-TrackPlace.** From here the CD span starts: the repo-authored folder and slot are behind it, and the CD pipeline finds and deploys
+   the template. The tooling finds templates through `Get-TrackPlace -Track infrastructure -TrackKind templates`, so the new folder is
    discovered without any code change.
 6. **CD path filters.** Each CD pipeline's trigger names every template's folder and its configuration slots, so the new template is added
    to the filters of the pipelines that should deploy it.

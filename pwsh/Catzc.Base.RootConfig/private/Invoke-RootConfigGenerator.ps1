@@ -67,7 +67,7 @@ function Invoke-RootConfigGenerator {
             foreach ($id in $editorFormatters.Keys) {
                 $languageFormatter[$id] = $editorFormatters[$id]
             }
-            New-VsCodeSettings -ManagedTarget $managedTargets -MachineSetting $machineSetting -LanguageFormatter $languageFormatter
+            New-VsCodeSettings -ManagedTarget $managedTargets -MachineSetting $machineSetting -LanguageFormatter $languageFormatter -Track @(Get-Track)
         }
         'New-VsCodeExtensions' {
             $engineExtension = @((Get-Config -Config languages).formatters.Values | Where-Object vscode_extension | ForEach-Object vscode_extension)

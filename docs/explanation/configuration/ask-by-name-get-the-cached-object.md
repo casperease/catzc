@@ -19,8 +19,8 @@ Ask for a config by name and get the cached object back; every mistake throws at
 1  Get-ConfigValue, Get-Config   the commands you type, by address or by name
 2  name -> one file              the name resolves to one file in its owning module
 3  session cache                 lasts for the session; a hit prints nothing
-4  same object                   the same object on every call, to read, never to change
-5  parsed and typed              the first read parses the file and builds its type
+4  parsed and typed              the first read parses the file and builds its type
+5  same object                   the same object on every call, to read, never to change
 6  bad key                       an address segment that resolves to nothing throws
 7  unknown or ambiguous name     a name no module ships, or several ship, throws
 8  malformed config              a config its type rejects throws every violation
@@ -76,8 +76,8 @@ content:
     - { at: g-commands, number: 1 }
     - { at: g-resolve, number: 2 }
     - { at: s-cache, number: 3 }
-    - { at: r-same, number: 4 }
-    - { at: g-parsed, number: 5 }
+    - { at: g-parsed, number: 4 }
+    - { at: r-same, number: 5 }
     - { at: f-bad-key, number: 6 }
     - { at: f-unknown, number: 7 }
     - { at: f-malformed, number: 8 }
@@ -107,9 +107,9 @@ layout:
 2. **name to one file.** The name resolves to one file in its owning module. When several modules ship the name, `-Module` picks one.
 3. **session cache.** The cache lasts for the session, and a hit prints nothing. After you change a `configs/*.yml` file, re-run
    `. ./importer.ps1`: only a re-import clears the cache.
-4. **same object.** You get the same object on every call. Read it, never change it, because every later reader shares it.
-5. **parsed and typed.** The first read of a config parses the file and builds its type. With `-Verbose` it prints
+4. **parsed and typed.** The first read of a config parses the file and builds its type. With `-Verbose` it prints
    `Loaded config '<name>' from: <path>`.
+5. **same object.** You get the same object on every call. Read it, never change it, because every later reader shares it.
 6. **bad key.** A key that does not exist throws `Config address '…': key '<k>' does not exist in the config node.`, or names a missing
    property or a null node instead. A malformed address is rejected earlier, when the command binds its parameters.
 7. **unknown or ambiguous name.** A name no module ships throws `No config '<name>' found in any module's configs/ folder.`; a name the

@@ -77,3 +77,35 @@ extensions:
           selector:
             - filenamePattern: "**/pwsh/.compiled/*.dll"
           priority: default
+  catzc-track-lamps:
+    displayName: Catzc track lamps
+    description: >-
+      A row of named lamps in the Explorer, one per track of the repository: a lit lamp shows its track's files, a dark one hides them through
+      files.exclude, and the tracks of one grouped type, the vendored code, share one lamp.
+    activationEvents: [onStartupFinished]
+    contributes:
+      views:
+        explorer:
+          - type: webview
+            id: catzc.trackLamps
+            name: Tracks
+      commands:
+        - command: catzc.trackLamps.lightAll
+          title: Light every track
+          icon: "$(lightbulb)"
+      menus:
+        view/title:
+          - command: catzc.trackLamps.lightAll
+            when: view == catzc.trackLamps
+            group: navigation
+      configuration:
+        title: Catzc track lamps
+        properties:
+          catzc.trackLamps.tracks:
+            type: array
+            default: []
+            description: The repository's tracks, each its name, type and places, rendered into the settings from the variants config.
+          catzc.trackLamps.groups:
+            type: object
+            default: { vendored-code: vendor }
+            description: Track types whose tracks share one lamp, each type mapped to the name of its lamp.
