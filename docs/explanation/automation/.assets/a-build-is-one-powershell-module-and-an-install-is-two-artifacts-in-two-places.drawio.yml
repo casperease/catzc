@@ -1,0 +1,33 @@
+description:
+  "Catzc.psd1 roots a one-line psm1, and Export-Catzc copies the build and writes an importer."
+about:
+  adrs:
+    - ADR-PWSH-MANIFEST-ONEBUILDMODULE
+    - ADR-AUTO-BUNDLE-TWOARTIFACTINSTALL
+  lens: architecture
+content:
+  title: "A build is one PowerShell module, an install is two artifacts"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: BUILD }
+    - { id: b1, label: INSTALL }
+  glyphs:
+    - { id: g0, kind: file, label: "Catzc.psd1: selected public functions", in: b0 }
+    - { id: g1, kind: file, label: "Catzc.psm1: dot-sources Import-Catzc.ps1", in: b0 }
+    - { id: g2, kind: code, label: "Export-Catzc -Root dir", in: b1 }
+    - { id: g3, kind: file, label: "dir/.vendor/Catzc/version", in: b1 }
+    - { id: g4, kind: file, label: "Root importer entry at the destination", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+    - { from: g2, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

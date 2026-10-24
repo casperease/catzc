@@ -18,3 +18,5 @@ Assert inputs at function entry: before a function uses a value it receives, it 
 library, `Assert-NotNullOrWhitespace`, `Assert-True`, `Assert-PathExist`, `Assert-TypeIs` and the other `Assert-*` functions, for everything
 its parameter declaration cannot express. The resolution order of a setting is, in PowerShell, one parameter declaration whose default
 expression reads the configured value.
+
+![The Assert functions cover what a parameter declaration cannot express.](.assets/inputs-are-asserted-at-entry-and-a-parameter-default-reads-the-configured-value.drawio.png)

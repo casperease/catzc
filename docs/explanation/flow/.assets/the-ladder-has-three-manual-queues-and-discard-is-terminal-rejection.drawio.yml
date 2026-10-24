@@ -1,0 +1,31 @@
+description:
+  "Named stages reject a candidate and the discarded commit stays in history."
+about:
+  adrs:
+    - FDR-CD-QUEUE-THREEQUEUES
+    - FDR-CD-LIFE-DISCARDISTERMINAL
+  lens: architecture
+content:
+  title: "Discard is terminal rejection"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: REJECTION }
+    - { id: b1, label: HISTORY }
+  glyphs:
+    - { id: g0, kind: gate, label: "BVT and L3 discard automatically", in: b0 }
+    - { id: g1, kind: gate, label: "release-uat discards through RBC", in: b0 }
+    - { id: g2, kind: gate, label: "main-UAT: RC kills or holds", in: b0 }
+    - { id: g3, kind: result, label: "The discarded commit stays in history", in: b1 }
+  edges:
+    - { from: g0, to: g3, kind: flow, label: "" }
+    - { from: g1, to: g3, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

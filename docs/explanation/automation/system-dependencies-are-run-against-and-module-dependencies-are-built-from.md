@@ -18,3 +18,5 @@ Two kinds of dependency, two names. A system dependency (`ADR-AUTO-DEPS`) is an 
 `pwsh`, Python, `dotnet`, the Azure CLI or git, installed at the OS level and covered by the Tooling layer. A module dependency
 (`ADR-AUTO-DEPM`) is an edge among the repository's own modules, code it builds from, declared in `dependencies.yml` and pinned and stitched
 into the build. Keep the two names distinct in code, config and prose.
+
+![A system dependency is what the toolset runs against, a module dependency is what it is built from, and the two names stay distinct.](.assets/system-dependencies-are-run-against-and-module-dependencies-are-built-from.drawio.png)

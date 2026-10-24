@@ -16,3 +16,5 @@ holds nothing beyond what those two rules say.
 A config fragment states only the keys that differ and is merged onto the bundled config before the config's own type validates the result:
 a map merges key by key, a scalar or a list replaces the bundled value, and an explicit `null` removes the key so the type's declared
 default applies. `auto` leaves a layer's choice open and resolves in the one resolution order of a setting.
+
+![A map merges key by key, a scalar or list replaces, and an explicit null removes the key.](.assets/a-config-fragment-states-only-the-differing-keys-and-auto-leaves-a-choice-open.drawio.png)

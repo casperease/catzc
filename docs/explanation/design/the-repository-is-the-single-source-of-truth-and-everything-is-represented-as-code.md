@@ -17,3 +17,5 @@ beyond what those two rules say.
 The repository is the single source of truth for everything the platform manages, automation, configuration, infrastructure and pinned
 tooling, all represented as code in exactly one living version. Self-service means editing that source and letting the platform apply it; it
 never means clicking a portal or running an out-of-band command, so there is no console-clicked state and no out-of-band tooling.
+
+![Everything the platform manages is code, and self-service means editing the source.](.assets/the-repository-is-the-single-source-of-truth-and-everything-is-represented-as-code.drawio.png)

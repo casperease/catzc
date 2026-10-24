@@ -17,3 +17,5 @@ merged into one. It holds nothing beyond what those two rules say.
 A subscription is onboarded by pull request, partly realising vending as self-service: each customer holds its own non-production and
 production subscription pair declared in `azure.yml`, and a new subscription's landing zone is a config file reviewed as a pull request.
 Creating a subscription from an Enterprise Agreement enrollment is not adopted, because the repository holds no billing role.
+
+![Creating it from an Enterprise Agreement is not adopted.](.assets/a-subscription-is-onboarded-by-pull-request-and-creating-it-from-ea-is-not-adopted.drawio.png)

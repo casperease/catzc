@@ -18,3 +18,5 @@ Every folder in the repository is conventional: its name infers its contents and
 be understood. Formatters are configured in the same spirit: each file language's entry in `languages.yml` names the formatter engine that
 formats its files, or states in `no_formatter:` why it has none, and `Format-Code` runs the engines over every tracked file except vendored
 code.
+
+![Names carry meaning, and each language formatter is a registry entry.](.assets/every-folder-is-conventional-and-each-formatter-is-configured-not-coded.drawio.png)

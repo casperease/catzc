@@ -18,3 +18,5 @@ A type that needs a PowerShell primitive, `WildcardPattern`, `TypeAccelerators` 
 taking the primitive from `System.Management.Automation` through a `using` namespace. An integrity test reads its fact from the files by
 parsing them with the PowerShell parser or by reading a `.ps1` basename, never through `Import-Module`, `Get-Command` or `Get-Module` on a
 loaded session.
+
+![And integrity tests parse files instead of loading modules.](.assets/a-powershell-primitive-makes-a-type-a-host-binding-and-integrity-tests-parse-files.drawio.png)

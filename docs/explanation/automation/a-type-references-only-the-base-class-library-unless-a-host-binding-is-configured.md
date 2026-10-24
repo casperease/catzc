@@ -18,3 +18,5 @@ A type references the Base Class Library and nothing else, which is the BCL lang
 one that needs a PowerShell primitive like `WildcardPattern`, `TypeAccelerators` or `PSObject`, is a host binding, a configured exception
 with one row in `bcl.yml` naming the file and its reason, and it takes the primitive from `System.Management.Automation` through a `using`
 namespace, never through a copy of its own.
+
+![A type that binds to its host is a configured exception with one row in bcl.yml.](.assets/a-type-references-only-the-base-class-library-unless-a-host-binding-is-configured.drawio.png)

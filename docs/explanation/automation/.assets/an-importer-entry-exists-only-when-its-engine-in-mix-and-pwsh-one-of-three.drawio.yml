@@ -1,0 +1,30 @@
+description:
+  importer.sh exists only with a POSIX engine, and pwsh is 7.4 or later.
+about:
+  adrs:
+    - ADR-AUTO-IMPORTER-ENTRIESFOLLOWMIX
+    - ADR-PWSH-ENGINE-PWSHISANENGINE
+  lens: architecture
+content:
+  title: An importer entry follows the mix
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: ENTRIES }
+    - { id: b1, label: PWSH }
+  glyphs:
+    - { id: g0, kind: gate, label: "Generated only if a served engine is in the mix", in: b0 }
+    - { id: g1, kind: file, label: "importer.sh with a POSIX engine", in: b0 }
+    - { id: g2, kind: set, label: "One of three engines", in: b1 }
+    - { id: g3, kind: failure, label: "Invoke-Importer refuses PowerShell older than 7.4", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

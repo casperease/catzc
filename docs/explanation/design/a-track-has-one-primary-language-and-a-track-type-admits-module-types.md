@@ -17,3 +17,5 @@ A track has one primary language by default: the first file language its tech-st
 A second file language enters a track by being declared there, never by being tolerated. Each track type admits a set of module types,
 declared on the track type, and a module's type must be admitted by the type of the track that holds it: `modules` admits `pwsh-folder`,
 `pwsh-psm1`, `python`, `go` and `bash`.
+
+![A second file language enters a track only by being declared, and a track type admits a set of module types.](.assets/a-track-has-one-primary-language-and-a-track-type-admits-module-types.drawio.png)

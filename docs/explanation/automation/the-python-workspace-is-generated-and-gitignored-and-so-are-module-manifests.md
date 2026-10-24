@@ -17,3 +17,5 @@ merged into one. It holds nothing beyond what those two rules say.
 The Python tests form one generated, gitignored uv workspace: nothing Python-specific is committed but the `test_*.py` files, and
 `New-PythonProject` renders the workspace root `<root>/pyproject.toml`. Generated manifests are gitignored in the same way, never committed:
 `New-DynamicManifest` recomputes each module's `<Module>.psd1` on every import, writing only when the content differs.
+
+![Both gitignored, never committed.](.assets/the-python-workspace-is-generated-and-gitignored-and-so-are-module-manifests.drawio.png)

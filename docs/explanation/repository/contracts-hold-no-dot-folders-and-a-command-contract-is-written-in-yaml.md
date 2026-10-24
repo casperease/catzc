@@ -17,3 +17,5 @@ one. It holds nothing beyond what those two rules say.
 an asset's path. The notation a command contract is written in is YAML with a `parameters:` map, one entry per parameter whose value is one
 string, the type followed by `!` when the parameter is mandatory, by `= <literal>` for a constant default, or by `pipeline` when its value
 comes from the pipeline.
+
+![A command contract is YAML with a parameters map of typed strings.](.assets/contracts-hold-no-dot-folders-and-a-command-contract-is-written-in-yaml.drawio.png)

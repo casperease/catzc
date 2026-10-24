@@ -16,3 +16,5 @@ nothing beyond what those two rules say.
 Each engine reaches catzc through its importer entry at the repository root; the POSIX engines share the one generated, committed
 `importer.sh`. Generated entry points stay out of the source: the Go workspace is generated and gitignored, nothing Go-specific is committed
 but the `*_test.go` files, and `New-GoWorkspace` renders `go.work` and every `go.mod` from `go.yml` as pure, offline, byte-stable text.
+
+![Nothing Go-specific is committed but the test files, and each engine reaches catzc through its importer entry.](.assets/each-engine-reaches-catzc-through-its-importer-entry-and-the-go-workspace-is-generated.drawio.png)

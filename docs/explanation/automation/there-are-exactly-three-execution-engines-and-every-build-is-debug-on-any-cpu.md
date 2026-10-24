@@ -16,3 +16,5 @@ nothing beyond what those two rules say.
 An execution engine is a shell the repository's own code runs under, and there are exactly three: pwsh, bash and zsh, declared once in the
 `ExecutionEngines` model. In the same closed spirit, every non-vendored `.sln` and `.csproj` declares exactly one build configuration and
 platform, Debug on Any CPU, and every `dotnet` call a catzc command makes builds that pair.
+
+![pwsh, bash and zsh are declared once, and every build is Debug on Any CPU.](.assets/there-are-exactly-three-execution-engines-and-every-build-is-debug-on-any-cpu.drawio.png)

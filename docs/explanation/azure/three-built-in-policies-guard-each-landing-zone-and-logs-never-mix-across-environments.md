@@ -17,3 +17,5 @@ Every landing zone assigns three built-in policies: allowed locations (its regio
 a network interface, enforcing or only auditing by the repository-wide `policy_enforcement` setting. The workload's data services and the
 landing zone's network send their logs and metrics through a diagnostic setting to `foundation`'s workspace of the same subscription, so
 production and non-production signals never mix; baselines, alerts and dashboards are not part of the templates.
+
+![Allowed locations, a required tag and no public IP on a network interface, enforced or audited by one setting.](.assets/three-built-in-policies-guard-each-landing-zone-and-logs-never-mix-across-environments.drawio.png)

@@ -19,3 +19,5 @@ DDoS protection for every public IP address is not adopted, because no template 
 them off network interfaces, and the unused `vm.bicep`, which creates one, is planned to lose it. Subscription vending is partly adopted as
 a pull request: an `azure.yml` entry, its range in `network.yml`, and one config per template giving it its workspace, vault, landing zone,
 tags and budget.
+
+![An azure.yml entry, its range and one config per template, and no public IP is deployed.](.assets/no-template-deploys-a-public-ip-and-subscription-vending-is-a-pull-request.drawio.png)

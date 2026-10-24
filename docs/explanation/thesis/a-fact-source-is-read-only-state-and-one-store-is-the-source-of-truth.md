@@ -17,3 +17,5 @@ A fact source is a state store: a database with a reachable live URL that holds 
 DevOps runtime state, and catzc reads its state only. A source of truth is the one store whose content decides what is true about the
 delivered system; delivery is slow because truth is spread across disjoint stores that drift apart, and catzc's answer is one source of
 truth, the repository.
+
+![A source of truth is the one store that decides what is true.](.assets/a-fact-source-is-read-only-state-and-one-store-is-the-source-of-truth.drawio.png)

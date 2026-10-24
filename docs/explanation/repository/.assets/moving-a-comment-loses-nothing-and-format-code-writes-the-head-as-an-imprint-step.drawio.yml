@@ -1,0 +1,30 @@
+description:
+  Each comment becomes one page section, verbatim, and Format-Code writes the head as a step.
+about:
+  adrs:
+    - ADR-REPO-COMMENTS-MOVELOSESNOTHING
+    - ADR-REPO-CODEMETA-IMPRINTSTEP
+  lens: architecture
+content:
+  title: Moving a comment loses nothing
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: MOVE }
+    - { id: b1, label: HEAD }
+  glyphs:
+    - { id: g0, kind: code, label: "Comment becomes comment-n section", in: b0 }
+    - { id: g1, kind: file, label: "Lines exact, inside a fenced text block", in: b0 }
+    - { id: g2, kind: code, label: "Format-Code imprint step, listed once", in: b1 }
+    - { id: g3, kind: result, label: "Runs after every language formatter", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

@@ -1,0 +1,34 @@
+description:
+  The validator is code and checks structure, never taste.
+about:
+  adrs:
+    - ADR-REPO-OUTFMT-VALIDATORISCODE
+    - ADR-REPO-SLIDES-TWODIRECTIONS
+  lens: architecture
+content:
+  title: Every output format has a validator
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: FORMAT }
+    - { id: b1, label: CHECKS }
+  glyphs:
+    - { id: g0, kind: file, label: "Output format", in: b0 }
+    - { id: g1, kind: code, label: "Validator, a closed set of kinds", in: b0 }
+    - { id: g2, kind: gate, label: "Signature and end marker", in: b1 }
+    - { id: g3, kind: gate, label: "Embedded model decodes", in: b1 }
+    - { id: g4, kind: gate, label: "Required keys, pixel limits", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g1, to: g3, kind: flow, label: "" }
+    - { from: g1, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

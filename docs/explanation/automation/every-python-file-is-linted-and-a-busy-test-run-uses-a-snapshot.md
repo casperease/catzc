@@ -17,3 +17,5 @@ beyond what those two rules say.
 Every `.py` file the repository holds, the Python tests and the agent helpers under `.claude/` alike, takes the repository's checks where a
 check reads Python, with the pinned ruff and the workspace's settings. A test run never waits for another: the first run owns the working
 folder and a run that starts while another holds it runs in a verified snapshot.
+
+![Ruff formats and checks, and a busy test run uses a snapshot.](.assets/every-python-file-is-linted-and-a-busy-test-run-uses-a-snapshot.drawio.png)

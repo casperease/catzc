@@ -16,3 +16,5 @@ nothing beyond what those two rules say.
 Extend by adding, not editing: new functions, modules and dependencies are new files and folders, and the infrastructure, the importer
 entries and the bootstrap loader, is never modified to accommodate them. A module's languages are likewise read, not declared: they are the
 file languages of its live files, and each must be one the track declares, or the file is a stack violation.
+
+![New content is new files and folders, and a new root concern is a new track.](.assets/new-content-is-added-as-files-and-a-modules-languages-come-from-its-files.drawio.png)

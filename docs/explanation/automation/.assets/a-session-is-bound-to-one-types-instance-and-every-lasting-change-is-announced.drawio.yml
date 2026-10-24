@@ -1,0 +1,31 @@
+description:
+  The first Catzc.Types dll it loads is the one it runs on, and lasting changes are announced.
+about:
+  adrs:
+    - ADR-PWSH-TYPES-ONEINSTANCEPERSESSION
+    - ADR-AUTO-CONSOLE-ANNOUNCELASTINGCHANGES
+  lens: architecture
+content:
+  title: A session is bound to one types instance
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: SESSION }
+    - { id: b1, label: ANNOUNCE }
+  glyphs:
+    - { id: g0, kind: set, label: "One types instance per pwsh session", in: b0 }
+    - { id: g1, kind: file, label: "The Catzc.Types dll loaded first", in: b0 }
+    - { id: g2, kind: failure, label: "No janitor stops, waits for or throws over it", in: b0 }
+    - { id: g3, kind: gate, label: "Lasting changes announced on the status output", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g0, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

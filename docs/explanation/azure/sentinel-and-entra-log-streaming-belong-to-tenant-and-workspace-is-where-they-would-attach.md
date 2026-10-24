@@ -18,3 +18,5 @@ merged into one. It holds nothing beyond what those two rules say.
 Microsoft Sentinel is not adopted, because the choice of a security information and event management tool belongs to the tenant's security
 operations. Streaming Entra logs to a central workspace is not adopted either, because Entra's diagnostic settings are made at tenant level,
 where the repository deploys nothing. In both cases `foundation`'s workspace is where they would attach.
+
+![The workspace is where they would attach.](.assets/sentinel-and-entra-log-streaming-belong-to-tenant-and-workspace-is-where-they-would-attach.drawio.png)

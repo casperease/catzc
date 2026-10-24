@@ -18,3 +18,5 @@ nothing beyond what those two rules say.
 `Add-Type -Path`, one compilation unit per file, because a file-scoped namespace is illegal once several files are concatenated into one
 unit. The build is immutable and content-addressed: the same commit yields a byte-identical build on any machine, types DLL included, with
 an identical durable-SHA content hash.
+
+![One compilation unit per file, because a file-scoped namespace is illegal once files are concatenated, and the build is content-addressed.](.assets/add-type-compiles-sources-as-authored-and-the-build-is-content-addressed.drawio.png)

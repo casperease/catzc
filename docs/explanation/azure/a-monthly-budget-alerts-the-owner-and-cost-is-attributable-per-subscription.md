@@ -17,3 +17,5 @@ two rules say.
 Cost is attributable and watched per subscription: every resource carries the CAF tags with `cost-center` and `owner`, and every landing
 zone deploys a monthly budget whose alerts reach the subscription's `Owner` role at 50, 80 and 100 percent of actual cost. Cost exports,
 forecast alerts and anomaly alerts are planned.
+
+![Alerts reach the subscription Owner role at 50, 80 and 100 percent of actual cost.](.assets/a-monthly-budget-alerts-the-owner-and-cost-is-attributable-per-subscription.drawio.png)

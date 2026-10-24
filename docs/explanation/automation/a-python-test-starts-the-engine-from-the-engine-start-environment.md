@@ -17,3 +17,5 @@ A Python test is a black-box test under the contract the Go tests follow: it sta
 `CATZC_ENGINE_START` arguments and asserts on output and exit codes. A black-box test in another language starts the engine from the engine
 start environment its runner sets, `CATZC_ENGINE`, `CATZC_ENGINE_EXECUTABLE`, `CATZC_ENGINE_ENTRY` and `CATZC_ENGINE_START`, never from a
 hardcoded command.
+
+![The runner sets the CATZC_ENGINE variables and the test asserts on output and exit codes.](.assets/a-python-test-starts-the-engine-from-the-engine-start-environment.drawio.png)

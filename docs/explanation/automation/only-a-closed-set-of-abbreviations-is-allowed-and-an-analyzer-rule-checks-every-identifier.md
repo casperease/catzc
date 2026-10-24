@@ -18,3 +18,5 @@ The only abbreviations allowed without spelling out are single-letter loop indic
 industry-standard acronyms that are the canonical name for a thing (CSV, JSON, YAML, URL, URI, ID, HTTP, IP, UTC, API, CLI, DNS, TLS, SDK,
 GUID, regex, UTF, BOM), and the engine's own automatic variables. A custom PSScriptAnalyzer rule, `Measure-SpellOutIdentifiers`, enforces
 this automatically at identifier level, tokenizing every variable reference and the noun of every function name.
+
+![Loop indices, canonical acronyms and engine variables pass; an analyzer rule enforces the rest.](.assets/only-a-closed-set-of-abbreviations-is-allowed-and-an-analyzer-rule-checks-every-identifier.drawio.png)

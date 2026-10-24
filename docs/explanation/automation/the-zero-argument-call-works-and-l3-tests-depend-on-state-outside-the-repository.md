@@ -17,3 +17,5 @@ holds nothing beyond what those two rules say.
 The zero-argument call must work: if a function can do useful work without input, all parameters have defaults, so `Test-Automation` runs
 every tier its location allows with detailed output. The tiers follow the state a test touches: L3 holds the vertical system tests, tests
 that change or depend on state outside the repository such as the cloud, the user's environment or installed tools.
+
+![A function that can do useful work takes defaults for every parameter, and L3 holds state outside the repository.](.assets/the-zero-argument-call-works-and-l3-tests-depend-on-state-outside-the-repository.drawio.png)

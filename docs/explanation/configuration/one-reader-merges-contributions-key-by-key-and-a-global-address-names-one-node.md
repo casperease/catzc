@@ -18,3 +18,5 @@ Contributions are gathered inside the one reader, never beside it: `Get-Config` 
 fragment uses, so one mechanism joins every source. A global config address, `global.<config>.<key>[.<key>…]`, names exactly one node inside
 a named config, a leaf value or a subtree, and is resolved by `Get-ConfigValue`, built on `Get-Config`, so there is exactly one config
 reader and one config cache.
+
+![Get-Config merges contributions key by key and a global address names exactly one node through Get-ConfigValue.](.assets/one-reader-merges-contributions-key-by-key-and-a-global-address-names-one-node.drawio.png)

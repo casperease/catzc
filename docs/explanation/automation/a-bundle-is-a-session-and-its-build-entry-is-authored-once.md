@@ -17,3 +17,5 @@ A bundle is a session, not a passive library: loading it establishes the catzc s
 under which every error and every warning terminates, and it writes only under the working root's `out/`. The build's entry is
 `Import-Catzc.ps1`, authored once at `pwsh/.internal/assets/Import-Catzc.ps1` and copied verbatim into every build, the build's generated
 `Catzc.psm1` dot-sourcing it.
+
+![Loading it makes every error terminate and writes only under out/, through an entry authored once.](.assets/a-bundle-is-a-session-and-its-build-entry-is-authored-once.drawio.png)

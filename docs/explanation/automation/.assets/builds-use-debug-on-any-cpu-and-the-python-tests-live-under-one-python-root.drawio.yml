@@ -1,0 +1,33 @@
+description:
+  "And the Python tests live under one Python root."
+about:
+  adrs:
+    - ADR-BCL-TYPES-DEBUGANYCPU
+    - ADR-AUTO-PY-ONEPYTHONROOT
+  lens: architecture
+content:
+  title: "Builds are Debug on Any CPU"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: DOTNET }
+    - { id: b1, label: PYTHON }
+  glyphs:
+    - { id: g0, kind: gate, label: "One build configuration: Debug on Any CPU", in: b0 }
+    - { id: g1, kind: code, label: "Every dotnet call builds that pair", in: b0 }
+    - { id: g2, kind: file, label: "Root declared by python.yml", in: b1 }
+    - { id: g3, kind: set, label: "python/, else .python", in: b1 }
+    - { id: g4, kind: set, label: "tests/module folders", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+    - { from: g2, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

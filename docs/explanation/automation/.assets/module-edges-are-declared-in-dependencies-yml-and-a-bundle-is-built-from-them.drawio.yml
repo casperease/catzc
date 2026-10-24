@@ -1,0 +1,31 @@
+description:
+  An edge with no declaration fails the build, and a bundle is built from them.
+about:
+  adrs:
+    - ADR-AUTO-DEPM-CODEBUILTFROM
+    - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+  lens: architecture
+content:
+  title: Module edges are declared in dependencies.yml
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: EDGES }
+    - { id: b1, label: BUNDLE }
+  glyphs:
+    - { id: g0, kind: code, label: "Module A needs module B", in: b0 }
+    - { id: g1, kind: file, label: "dependencies.yml: the allow-list", in: b0 }
+    - { id: g2, kind: failure, label: "Undeclared edge fails the build", in: b0 }
+    - { id: g3, kind: result, label: "One installable versioned Catzc package", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g0, to: g2, kind: flow, label: "" }
+    - { from: g1, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

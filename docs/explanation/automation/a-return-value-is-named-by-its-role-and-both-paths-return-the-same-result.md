@@ -17,3 +17,5 @@ into one. It holds nothing beyond what those two rules say.
 Name a function's return value by its role, not its type or contents, with one of two blessed conventional locals: `$ret`, the return
 accumulator a function builds up and then hands back, and `$found`, the lookup result a search returns. Both paths of a pwsh state function
 return the same result: the early `return $existing` and the end of the work path emit the same type, declared in `[OutputType()]`.
+
+![Two blessed locals, ret and found, and both paths of a state function return the same result.](.assets/a-return-value-is-named-by-its-role-and-both-paths-return-the-same-result.drawio.png)

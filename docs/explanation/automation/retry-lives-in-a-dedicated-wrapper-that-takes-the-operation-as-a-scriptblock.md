@@ -17,3 +17,5 @@ holds nothing beyond what those two rules say.
 Isolate retry in a dedicated wrapper that takes the operation to repeat as its argument, an `Invoke-WithRetry`-style helper, never inlined
 into a function that also does work. In pwsh the wrapper is its own function that takes the one operation to repeat as a `[scriptblock]`
 parameter, with an explicit attempt count and delay, and writes each retry with `Write-Message -Warning`, never `Write-Warning`.
+
+![The wrapper takes the operation as a scriptblock, with an explicit attempt count and delay, and warns on each retry.](.assets/retry-lives-in-a-dedicated-wrapper-that-takes-the-operation-as-a-scriptblock.drawio.png)

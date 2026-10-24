@@ -17,3 +17,5 @@ Every globset carries a layer, the kind of thing it maps: `deployable-unit`, a c
 cross-cutting check surface that must earn its place by a demonstrated use. DEPLOY exists to make an environment's governance a first-class
 pipeline construct, one place for access control, isolation and audit history over an environment behind a manual gate, splitting by target
 on the one build-once artifact.
+
+![And DEPLOY governs an environment behind a manual gate.](.assets/every-globset-has-a-layer-and-deploy-governs-an-environment-behind-a-manual-gate.drawio.png)

@@ -17,3 +17,5 @@ nothing beyond what those two rules say.
 absolute path or a `..` segment. A test run never waits for another: the first run owns the working folder, and a run that starts while
 another holds it runs in a verified snapshot, HEAD plus every uncommitted change plus the untracked files git does not ignore,
 byte-identical and checked by `git status` equality before anything runs.
+
+![A path to a sibling checkout is written with the first segment workspace, and a busy test run uses a verified snapshot.](.assets/a-workspace-anchor-names-the-sibling-folder-and-a-busy-run-uses-a-verified-snapshot.drawio.png)

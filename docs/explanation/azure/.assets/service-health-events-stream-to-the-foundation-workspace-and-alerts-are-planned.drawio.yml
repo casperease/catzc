@@ -1,0 +1,28 @@
+description:
+  "Alerts are planned."
+about:
+  adrs:
+    - ADR-AZ-CAF-RESORG-SERVICEHEALTHEVERYSUBSCRIPTION
+    - ADR-AZ-CAF-MGMT-MONITORSERVICEHEALTHRESOURCEHEALTHEVENTS
+  lens: architecture
+content:
+  title: "Service Health streams to foundation"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: STREAM }
+    - { id: b1, label: PLANNED }
+  glyphs:
+    - { id: g0, kind: set, label: "Activity log: ServiceHealth, ResourceHealth", in: b0 }
+    - { id: g1, kind: result, label: "foundation workspace", in: b0 }
+    - { id: g2, kind: gate, label: "A Service Health alert per subscription", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+  legend: auto

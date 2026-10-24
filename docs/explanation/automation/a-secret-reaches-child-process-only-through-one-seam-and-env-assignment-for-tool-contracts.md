@@ -18,3 +18,5 @@ A `$env:` assignment in our code sets an external tool's contract variable, `$en
 `$env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'` or `$env:PSModulePath`, and nothing else. Handing a secret to a child or external process through
 the environment is the legitimate external-boundary use, permitted only through `Write-EnvironmentSet`, which takes the secret as a
 protected value and never logs or returns the plaintext.
+
+![Env assignment is for external tool contracts only.](.assets/a-secret-reaches-child-process-only-through-one-seam-and-env-assignment-for-tool-contracts.drawio.png)

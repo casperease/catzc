@@ -1,0 +1,31 @@
+description:
+  main-UAT, release-uat, pre-prod and production each hold one occupant plus history, and that history is the certifying record.
+about:
+  adrs:
+    - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
+    - FDR-CD-CERTIFYINGRECORD
+  lens: architecture
+content:
+  title: Each always-on environment holds one commit
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: ENVIRONMENTS }
+    - { id: b1, label: BEFORE PROD }
+  glyphs:
+    - { id: g0, kind: set, label: "main-UAT, release-uat, pre-prod, production", in: b0 }
+    - { id: g1, kind: result, label: "One occupant plus a trail of earlier commits", in: b0 }
+    - { id: g2, kind: gate, label: "DEPLOY checks the pre-prod history", in: b1 }
+    - { id: g3, kind: failure, label: "No successful deployment of the commit: the run stops", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

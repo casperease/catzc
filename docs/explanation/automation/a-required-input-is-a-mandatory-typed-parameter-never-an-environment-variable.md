@@ -17,3 +17,5 @@ merged into one. It holds nothing beyond what those two rules say.
 Never require an environment variable to be set for a function to work: the function signature is the contract, not a hidden environment
 variable. A required input is a `[Parameter(Mandatory)]` parameter, typed and validated with `[ValidateSet()]` or `[ValidateRange()]`, and
 never a guard that throws when a `$env:` variable is unset.
+
+![The signature is the contract, never an environment variable.](.assets/a-required-input-is-a-mandatory-typed-parameter-never-an-environment-variable.drawio.png)

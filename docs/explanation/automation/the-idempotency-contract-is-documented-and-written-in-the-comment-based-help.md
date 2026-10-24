@@ -17,3 +17,5 @@ It holds nothing beyond what those two rules say.
 Document the idempotency contract: a function's help states that it is idempotent, and notes when it wraps a non-idempotent external
 command. In PowerShell the contract is written in the comment-based help: `.DESCRIPTION` states that the function is idempotent and names a
 non-idempotent command it wraps, and a `.PARAMETER Force` says what the switch redoes.
+
+![In the comment-based help.](.assets/the-idempotency-contract-is-documented-and-written-in-the-comment-based-help.drawio.png)

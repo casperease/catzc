@@ -1,0 +1,27 @@
+description:
+  Load-sequence changes go to the verbose stream, and type drift is measured in one place.
+about:
+  adrs:
+    - ADR-PWSH-ANNOUNCE-IMPORTERLOADSEQUENCE
+    - ADR-BCL-TYPES-ONEDRIFTMEASURE
+  lens: architecture
+content:
+  title: The importer announces its changes and measures drift once
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: ANNOUNCE }
+    - { id: b1, label: DRIFT }
+  glyphs:
+    - { id: g0, kind: gate, label: "Load-sequence changes announced on the verbose stream", in: b0 }
+    - { id: g1, kind: code, label: "Get-LoadedTypeDrift measures once", in: b1 }
+    - { id: g2, kind: gate, label: "Test and Assert-LoadedTypesCurrent", in: b1 }
+  edges:
+    - { from: g1, to: g2, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+  legend: auto

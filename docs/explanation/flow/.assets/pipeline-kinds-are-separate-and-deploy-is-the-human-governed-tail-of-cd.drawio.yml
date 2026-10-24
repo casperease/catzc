@@ -1,0 +1,32 @@
+description:
+  CI, CD, CDe and DEPLOY are separate pipelines keyed by the tagged artifact, and DEPLOY is the human-governed tail of CD.
+about:
+  adrs:
+    - FDR-CD-SEPARATEPIPELINEKINDS
+    - FDR-CD-TYPE-DEPLOYISCDTAIL
+  lens: architecture
+content:
+  title: Four pipeline kinds share one tagged artifact
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b-kinds, label: SEPARATE KINDS }
+    - { id: b-key, label: ONE KEY }
+    - { id: b-tail, label: THE TAIL }
+  glyphs:
+    - { id: g-ci, kind: code, label: "CI", in: b-kinds }
+    - { id: g-cd, kind: code, label: "CD and CDe", in: b-kinds }
+    - { id: g-art, kind: file, label: "Immutable tagged artifact", in: b-key }
+    - { id: g-deploy, kind: gate, label: "DEPLOY: human-governed deploy-and-verify tail", in: b-tail }
+  edges:
+    - { from: g-ci, to: g-art, kind: flow, label: "" }
+    - { from: g-cd, to: g-art, kind: flow, label: "" }
+    - { from: g-art, to: g-deploy, kind: flow, label: "" }
+  markers:
+    - { at: g-ci, number: 1 }
+    - { at: g-cd, number: 2 }
+    - { at: g-art, number: 3 }
+    - { at: g-deploy, number: 4 }
+  legend: auto

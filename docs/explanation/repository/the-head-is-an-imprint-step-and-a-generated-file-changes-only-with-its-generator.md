@@ -16,3 +16,5 @@ holds nothing beyond what those two rules say.
 `Format-Code` writes the head as an imprint step: the step is global, the file-language registry listing it once so it runs after the
 formatter of every language. A generated file changes only in tune with its generator: rendering the file from the tree at hand gives
 exactly the bytes on disk, and a hand edit, or a generator input changed without the file rendered anew, is not legal.
+
+![Format-Code writes the head as one global imprint step, and a generated file changes only when its writer renders it again.](.assets/the-head-is-an-imprint-step-and-a-generated-file-changes-only-with-its-generator.drawio.png)

@@ -1,0 +1,35 @@
+description:
+  The promotion ladder has three named manual queues, and the main-UAT and release-uat signatures are the RC and RBC gates.
+about:
+  adrs:
+    - FDR-CD-QUEUE-THREEQUEUES
+    - FDR-CD-TWORELEASEGATES
+  lens: architecture
+content:
+  title: Three manual queues, two hands-on release gates
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b-author, label: BEFORE MAIN }
+    - { id: b-rc, label: MAIN-UAT }
+    - { id: b-rbc, label: RELEASE-UAT }
+  glyphs:
+    - { id: g-q1, kind: gate, label: "Authoring queue before the server main", in: b-author }
+    - { id: g-q2, kind: gate, label: "Main-UAT signature before release-uat", in: b-rc }
+    - { id: g-rc, kind: result, label: "RC: Release Certification", in: b-rc }
+    - { id: g-q3, kind: gate, label: "Release-uat signature before production", in: b-rbc }
+    - { id: g-rbc, kind: result, label: "RBC: Release Branch Certification", in: b-rbc }
+  edges:
+    - { from: g-q1, to: g-q2, kind: flow, label: "" }
+    - { from: g-q2, to: g-q3, kind: flow, label: "" }
+    - { from: g-q2, to: g-rc, kind: flow, label: "" }
+    - { from: g-q3, to: g-rbc, kind: flow, label: "" }
+  markers:
+    - { at: g-q1, number: 1 }
+    - { at: g-q2, number: 2 }
+    - { at: g-rc, number: 3 }
+    - { at: g-q3, number: 4 }
+    - { at: g-rbc, number: 5 }
+  legend: auto

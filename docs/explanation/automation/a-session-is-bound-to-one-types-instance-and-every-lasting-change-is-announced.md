@@ -17,3 +17,5 @@ merged into one. It holds nothing beyond what those two rules say.
 A pwsh session is bound to one types instance: the `Catzc.Types.<hash>.dll` it loaded first is the one it runs on until it exits, and no
 janitor stops a process that holds a superseded build, waits for it or throws over it. Every lasting change a function makes to the state of
 the session is announced on the always-shown status output, where it happens, naming what changed and to what.
+
+![The first Catzc.Types dll it loads is the one it runs on, and lasting changes are announced.](.assets/a-session-is-bound-to-one-types-instance-and-every-lasting-change-is-announced.drawio.png)

@@ -17,3 +17,5 @@ merged into one. It holds nothing beyond what those two rules say.
 
 Privileged Identity Management is not adopted, because it is a tenant setting, not a resource a template deploys. Just-in-time platform
 access is not adopted for the same reason, since it rests on Privileged Identity Management, which is a tenant setting.
+
+![It is not a resource a template deploys, so just-in-time access is not adopted either.](.assets/privileged-identity-management-is-a-tenant-setting-so-just-in-time-access-is-not-adopted.drawio.png)

@@ -1,0 +1,30 @@
+description:
+  "Deny-effect policies limit what it may deploy."
+about:
+  adrs:
+    - ADR-AZ-CAF-IAM-GOVERNPRIVILEGEDAUTOMATIONLIKEPRIVILEGEDPEOPLE
+    - ADR-AZ-CAF-MGMT-PAIRROLEBASEDACCESSDENYPOLICIES
+  lens: architecture
+content:
+  title: "Privileged automation uses the subscription service connection"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: DEPLOY }
+    - { id: b1, label: LIMITS }
+  glyphs:
+    - { id: g0, kind: gate, label: "Service connection per subscription", in: b0 }
+    - { id: g1, kind: code, label: "Pinned by -SubscriptionIdAssertIs", in: b0 }
+    - { id: g2, kind: gate, label: "Deny-effect policies", in: b1 }
+    - { id: g3, kind: result, label: "Enforcing in production, auditing elsewhere", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

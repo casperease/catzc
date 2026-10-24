@@ -17,3 +17,5 @@ The infrastructure code has three kinds: IaC templates, a folder holding a deplo
 configuration slots, the `<env>[-<slot>].yml` files under each template's configuration folder, and the layer that joins them. Every landing
 zone assigns three built-in policies: allowed locations, a required tag on resources, and no public IP address on a network interface,
 enforcing or only auditing by the repository-wide `policy_enforcement` setting.
+
+![Templates, configuration slots, and the layer joining them; plus three built-in policies.](.assets/infrastructure-code-has-three-kinds-and-each-landing-zone-assigns-three-built-in-policies.drawio.png)

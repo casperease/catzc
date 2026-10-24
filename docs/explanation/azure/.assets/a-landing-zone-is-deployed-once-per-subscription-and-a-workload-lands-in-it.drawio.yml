@@ -1,0 +1,31 @@
+description:
+  "A workload lands in it and owns none of it."
+about:
+  adrs:
+    - ADR-AZ-LZ-LANDINGZONE
+    - ADR-AZ-CAF-PRIN-APPLICATIONCENTRICSERVICEMODEL
+  lens: architecture
+content:
+  title: "A landing zone is deployed once per subscription"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: LANDING ZONE }
+    - { id: b1, label: WORKLOAD }
+  glyphs:
+    - { id: g0, kind: set, label: "Network, guardrails and cost control", in: b0 }
+    - { id: g1, kind: code, label: "discovery template, once per subscription", in: b0 }
+    - { id: g2, kind: code, label: "A template landing in its subscription zone", in: b1 }
+    - { id: g3, kind: failure, label: "Not segmented by management group archetype", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g2, to: g0, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

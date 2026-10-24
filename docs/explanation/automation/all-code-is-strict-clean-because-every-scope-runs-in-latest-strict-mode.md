@@ -16,3 +16,5 @@ nothing beyond what those two rules say.
 All code is written strict-clean, because it runs under `Set-StrictMode -Version Latest`: take the first element of a result that may be
 empty with `<result> | Select-Object -First 1`, never `@(<result>)[0]`, and wrap a producer in `@()` before reading `.Count`. Strict mode
 belongs to a PowerShell scope and a session-level setting does not reach module code, so it is set where the code runs.
+
+![Every scope runs under Set-StrictMode Latest, so empty results and counts are written to survive it.](.assets/all-code-is-strict-clean-because-every-scope-runs-in-latest-strict-mode.drawio.png)

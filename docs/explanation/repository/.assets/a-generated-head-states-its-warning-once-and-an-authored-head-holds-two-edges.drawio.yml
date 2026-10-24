@@ -1,0 +1,33 @@
+description:
+  The generated head states provenance once, the authored head cites rules and links its page.
+about:
+  adrs:
+    - ADR-REPO-FILEMETA-PROVENANCEINHEAD
+    - ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY
+  lens: architecture
+content:
+  title: A generated head holds a warning, an authored head two edges
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: GENERATED }
+    - { id: b1, label: AUTHORED }
+  glyphs:
+    - { id: g0, kind: file, label: "Generated file", in: b0 }
+    - { id: g1, kind: gate, label: "Do Not Edit, this file is generated", in: b0 }
+    - { id: g2, kind: file, label: "Authored code or config file", in: b1 }
+    - { id: g3, kind: set, label: "cites: the rule codes that bind it", in: b1 }
+    - { id: g4, kind: set, label: "docs: the link to its comment page", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+    - { from: g2, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

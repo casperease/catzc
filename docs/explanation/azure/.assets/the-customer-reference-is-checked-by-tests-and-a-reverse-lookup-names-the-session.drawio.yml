@@ -1,0 +1,33 @@
+description:
+  azure.yml loads without reading customer.yml, and a reverse lookup names the session subscription.
+about:
+  adrs:
+    - ADR-AZ-CUSTOMER-REFERENCENOTVALIDATEDONLOAD
+    - ADR-AZ-SESSION-REVERSELOOKUP
+  lens: architecture
+content:
+  title: The customer reference is not checked on load
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: LOAD }
+    - { id: b1, label: CHECKS }
+  glyphs:
+    - { id: g0, kind: file, label: "azure.yml loads alone", in: b0 }
+    - { id: g1, kind: failure, label: "No read of customer.yml on load", in: b0 }
+    - { id: g2, kind: gate, label: "Integrity test over shipped subscriptions", in: b1 }
+    - { id: g3, kind: code, label: "Get-AzCliSessionSubscription: reverse lookup", in: b1 }
+    - { id: g4, kind: result, label: "Name, customer, tenant, or a throw", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g2, to: g0, kind: flow, label: "" }
+    - { from: g3, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

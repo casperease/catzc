@@ -18,3 +18,5 @@ Every `azure.yml` subscription has one network in the plan's `subscriptions` blo
 one. The workload realises every pillar of the Azure Well-Architected Framework, each as a module default or a config value: reliability as
 zone-redundant storage, and in production a zone-redundant database with geo-redundant backups, and security as no public network access,
 private endpoints only and TLS 1.2 minimum.
+
+![Each as a module default or a config value.](.assets/a-subscription-has-one-network-and-the-workload-realises-every-well-architected-pillar.drawio.png)

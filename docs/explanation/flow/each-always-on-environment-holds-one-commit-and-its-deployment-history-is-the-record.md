@@ -17,3 +17,5 @@ Each always-on environment hosts exactly one commit plus a history: `main-UAT`, 
 each holding one occupant and a trail of the commits it held before. A rung's certifying record is its environment's deployment history:
 before a DEPLOY run deploys a prod target, it checks that the history of the unit's pre-prod environment holds a successful deployment of
 that commit, or the run stops.
+
+![main-UAT, release-uat, pre-prod and production each hold one occupant plus history, and that history is the certifying record.](.assets/each-always-on-environment-holds-one-commit-and-its-deployment-history-is-the-record.drawio.png)

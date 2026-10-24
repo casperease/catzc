@@ -17,3 +17,5 @@ Every resource is billed pay-as-you-go; reservations, savings plans, licence ben
 bought at the billing account and the subscription offer, above the subscription the repository deploys into. Keeping the subscription
 creator's destination tenant is not adopted for the same reason: billing roles are set above the repository, which declares the tenant of
 every subscription.
+
+![Reservations and savings plans sit above the subscription.](.assets/every-resource-is-pay-as-you-go-and-billing-roles-sit-above-the-repository.drawio.png)

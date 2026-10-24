@@ -17,3 +17,5 @@ A landing zone is the network, the guardrails and the cost control a workload la
 by the `discovery` template, the Cloud Adoption Framework application landing zone; its boundary is the subscription. A workload is a
 template that lands in the landing zone of its subscription and owns none of it, segmented by customer subscription and environment class,
 not by a management group archetype.
+
+![A workload lands in it and owns none of it.](.assets/a-landing-zone-is-deployed-once-per-subscription-and-a-workload-lands-in-it.drawio.png)

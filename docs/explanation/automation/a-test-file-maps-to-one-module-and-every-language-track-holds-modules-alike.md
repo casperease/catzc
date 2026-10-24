@@ -17,3 +17,5 @@ A test file is one file of tests that discovery maps to one catzc module, a modu
 folder of another test language, and it is the unit a test run schedules, sharded whole and never split across workers. Every language track
 holds its modules the same way: a module is a non-dot folder directly under the track's root, named by the folder, with the track's own test
 holder declared apart from the modules.
+
+![A test file is the scheduled unit, sharded whole, and every language track holds modules alike.](.assets/a-test-file-maps-to-one-module-and-every-language-track-holds-modules-alike.drawio.png)

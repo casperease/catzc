@@ -1,0 +1,31 @@
+description:
+  Modules are in-tree and every edge is declared by name, so nothing is fetched.
+about:
+  adrs:
+    - ADR-AUTO-DEPM-INTERNALVENDORED
+    - ADR-AUTO-BUNDLE-BUNDLEISBUILD
+  lens: architecture
+content:
+  title: Internal dependencies are vendored and named
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: IN TREE }
+    - { id: b1, label: DECLARED }
+  glyphs:
+    - { id: g0, kind: file, label: "The toolset modules", in: b0 }
+    - { id: g1, kind: file, label: "Third-party modules under pwsh/.vendor", in: b0 }
+    - { id: g2, kind: file, label: "dependencies.yml: every edge by name", in: b1 }
+    - { id: g3, kind: result, label: "The repository alone is the dependency set", in: b1 }
+  edges:
+    - { from: g0, to: g2, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

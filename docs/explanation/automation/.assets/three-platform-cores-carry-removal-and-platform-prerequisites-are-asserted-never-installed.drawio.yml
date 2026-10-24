@@ -1,0 +1,33 @@
+description:
+  Remove-Tool delegates to the core of the running OS, and platform prerequisites are asserted, never installed.
+about:
+  adrs:
+    - ADR-AUTO-REMOVE-THREEPLATFORMCORES
+    - ADR-AUTO-DEPS-PLATFORMPREREQUISITEASSERTED
+  lens: architecture
+content:
+  title: Three platform cores carry removal
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: REMOVAL }
+    - { id: b1, label: PREREQUISITES }
+  glyphs:
+    - { id: g0, kind: code, label: "Remove-Tool", in: b0 }
+    - { id: g1, kind: set, label: "Windows: Remove-SystemInstallation", in: b0 }
+    - { id: g2, kind: set, label: "Linux: Remove-LinuxToolInstall", in: b0 }
+    - { id: g3, kind: set, label: "macOS core", in: b0 }
+    - { id: g4, kind: gate, label: "winget, bin/bash, git: asserted, never installed", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g0, to: g2, kind: flow, label: "" }
+    - { from: g0, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

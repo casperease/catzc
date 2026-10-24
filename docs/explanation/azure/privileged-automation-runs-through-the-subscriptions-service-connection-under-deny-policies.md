@@ -18,3 +18,5 @@ merged into one. It holds nothing beyond what those two rules say.
 Every deploy runs through the service connection of its subscription, pinned by `-SubscriptionIdAssertIs`, and the infrastructure CI needs
 no Azure identity. The landing zone's deny-effect policies limit what any identity may deploy there, enforcing in production and auditing
 outside it; separating the landing-zone identity from the workload identity is planned.
+
+![Deny-effect policies limit what it may deploy.](.assets/privileged-automation-runs-through-the-subscriptions-service-connection-under-deny-policies.drawio.png)

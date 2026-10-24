@@ -17,3 +17,5 @@ Go code in the repository is either a module of the `go` track, a folder under t
 under the track's test holder; a Go module ships only what `files.yml` packages. A module's code languages are the executable languages of
 the files that a language's own layout row places, the shared rows, assets and tests, never counting, and a module is in the mix when every
 code language of it is.
+
+![A modules code languages decide whether it is in the mix.](.assets/go-modules-exist-by-layout-and-code-languages-select-the-modules-in-the-mix.drawio.png)

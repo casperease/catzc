@@ -1,0 +1,33 @@
+description:
+  A test file is the scheduled unit, sharded whole, and every language track holds modules alike.
+about:
+  adrs:
+    - ADR-AUTO-TEST-TESTFILE
+    - ADR-AUTO-MODULE-EVERYLANGUAGETRACKALIKE
+  lens: architecture
+content:
+  title: A test file maps to one module
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: TEST FILE }
+    - { id: b1, label: TRACKS }
+  glyphs:
+    - { id: g0, kind: file, label: "A module tests/ folder, or another language test folder", in: b0 }
+    - { id: g1, kind: code, label: "Discovery maps it to one catzc module", in: b0 }
+    - { id: g2, kind: result, label: "Sharded whole, never split across workers", in: b0 }
+    - { id: g3, kind: set, label: "Language track: a modules track of one language", in: b1 }
+    - { id: g4, kind: gate, label: "A module is a non-dot folder under the track root", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g3, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

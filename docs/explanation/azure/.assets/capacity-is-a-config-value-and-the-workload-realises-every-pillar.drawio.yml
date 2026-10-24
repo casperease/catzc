@@ -1,0 +1,30 @@
+description:
+  "And the workload realises every pillar."
+about:
+  adrs:
+    - ADR-AZ-WAF-PE-PE02
+    - ADR-AZ-LZ-EVERYPILLAR
+  lens: architecture
+content:
+  title: "Capacity is a config value"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: CAPACITY }
+    - { id: b1, label: PILLARS }
+  glyphs:
+    - { id: g0, kind: file, label: "Database SKU, vCores, serverless floor in expedition", in: b0 }
+    - { id: g1, kind: file, label: "Budget per subscription in discovery", in: b0 }
+    - { id: g2, kind: failure, label: "No demand forecast behind it", in: b0 }
+    - { id: g3, kind: result, label: "Every Well-Architected pillar as default or config", in: b1 }
+  edges:
+    - { from: g0, to: g3, kind: flow, label: "" }
+    - { from: g1, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

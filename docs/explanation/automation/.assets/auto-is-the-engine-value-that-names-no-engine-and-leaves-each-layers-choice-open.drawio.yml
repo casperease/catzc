@@ -1,0 +1,30 @@
+description:
+  The auto value takes whatever engine the sensible default resolves to, and is not a fourth engine.
+about:
+  adrs:
+    - ADR-AUTO-ENGINE-AUTONAMESNOENGINE
+    - ADR-AUTO-LAYERS-AUTOLEAVESCHOICEOPEN
+  lens: architecture
+content:
+  title: auto names no engine
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: AUTO }
+  glyphs:
+    - { id: g0, kind: gate, label: "auto names no particular engine", in: b0 }
+    - { id: g1, kind: code, label: "Takes the engine the sensible default resolves to", in: b0 }
+    - { id: g2, kind: code, label: "Names pwsh, bash or zsh only when needed", in: b0 }
+    - { id: g3, kind: failure, label: "Not a fourth engine", in: b0 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g0, to: g2, kind: flow, label: "" }
+    - { from: g0, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

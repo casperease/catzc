@@ -1,0 +1,32 @@
+description:
+  The wrapper takes the operation as a scriptblock, with an explicit attempt count and delay, and warns on each retry.
+about:
+  adrs:
+    - ADR-PWSH-ERROR-RETRYWRAPPERFUNCTION
+    - ADR-AUTO-RETRY-DEDICATEDWRAPPER
+  lens: architecture
+content:
+  title: Retry lives in a dedicated wrapper
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: WRAPPER }
+  glyphs:
+    - { id: g0, kind: code, label: "Dedicated wrapper, an Invoke-WithRetry style helper", in: b0 }
+    - { id: g1, kind: code, label: "Operation passed as a scriptblock", in: b0 }
+    - { id: g2, kind: code, label: "Explicit attempt count and delay", in: b0 }
+    - { id: g3, kind: gate, label: "Each retry via Write-Message -Warning", in: b0 }
+    - { id: g4, kind: failure, label: "Never inlined into a function that does work", in: b0 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

@@ -16,3 +16,5 @@ nothing beyond what those two rules say.
 A behaviour that differs between the engines is tested side by side, in a per-engine fixture table: one row per case, one column per engine,
 pwsh, bash and zsh, every column filled or naming why the case does not apply (`n/a: <reason>`). The Pester workers of a test run, the
 isolated runs of `Test-InIsolation` and the snapshot priming each start a child pwsh, because Pester is a PowerShell framework.
+
+![One row per case and one column per engine, with Pester workers starting a child pwsh.](.assets/a-behaviour-that-differs-between-engines-is-tested-side-by-side-and-workers-start-pwsh.drawio.png)

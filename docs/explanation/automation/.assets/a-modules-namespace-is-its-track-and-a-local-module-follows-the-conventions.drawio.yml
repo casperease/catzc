@@ -1,0 +1,33 @@
+description:
+  "And a local module is the consumers own folder under .catzc."
+about:
+  adrs:
+    - ADR-AUTO-MODULE-NAMESPACEISTRACK
+    - ADR-AUTO-OVERLAY-LOCALMODULE
+  lens: architecture
+content:
+  title: "A modules namespace is its track"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: NAMESPACE }
+    - { id: b1, label: LOCAL }
+  glyphs:
+    - { id: g0, kind: set, label: "Track name: pwsh", in: b0 }
+    - { id: g1, kind: result, label: "Namespace never written into the module name", in: b0 }
+    - { id: g2, kind: set, label: "Folder under .catzc/pwsh naming no bundled module", in: b1 }
+    - { id: g3, kind: code, label: "Public function per root function file", in: b1 }
+    - { id: g4, kind: code, label: "Private files under private/", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+    - { from: g2, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

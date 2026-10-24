@@ -1,0 +1,30 @@
+description:
+  The drawio png is the render, and the declaration is its one source.
+about:
+  adrs:
+    - ADR-REPO-FORMAT-PLAINHEADINGS
+    - ADR-REPO-SLIDES-DECLARATION
+  lens: architecture
+content:
+  title: A diagram is a render and one declaration
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: DIAGRAM }
+    - { id: b1, label: HEADINGS }
+  glyphs:
+    - { id: g0, kind: file, label: "name.drawio.png in an .assets folder", in: b0 }
+    - { id: g1, kind: file, label: "The diagram declaration: description and content", in: b0 }
+    - { id: g2, kind: gate, label: "A heading below the title is plain words", in: b1 }
+    - { id: g3, kind: set, label: "Citations on their own line below it", in: b1 }
+  edges:
+    - { from: g1, to: g0, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

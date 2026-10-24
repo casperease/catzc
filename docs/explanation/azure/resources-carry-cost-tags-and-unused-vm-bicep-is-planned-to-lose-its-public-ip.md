@@ -17,3 +17,5 @@ merged into one. It holds nothing beyond what those two rules say.
 Every resource names its paying team in `cost-center` and its workload in `workload`; the resource groups that `Deploy-Bicep` creates for
 `foundation` and `expedition` carry no CAF tags, which is planned. Every workload subnet denies inbound internet traffic and the landing
 zone's policy keeps public IP addresses off network interfaces, but the unused `vm.bicep` creates one and is planned to lose it.
+
+![The unused vm.bicep still creates a public IP.](.assets/resources-carry-cost-tags-and-unused-vm-bicep-is-planned-to-lose-its-public-ip.drawio.png)

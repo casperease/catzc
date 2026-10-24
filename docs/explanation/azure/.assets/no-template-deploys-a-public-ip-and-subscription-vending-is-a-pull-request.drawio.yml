@@ -1,0 +1,35 @@
+description:
+  An azure.yml entry, its range and one config per template, and no public IP is deployed.
+about:
+  adrs:
+    - ADR-AZ-CAF-NETCON-COVEREVERYPUBLICIPADDRESSDDOSPROTECTION
+    - ADR-AZ-CAF-RESORG-SUBSCRIPTIONVENDINGPROCESS
+  lens: architecture
+content:
+  title: Subscription vending is a pull request
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: VENDING }
+    - { id: b1, label: NOT ADOPTED }
+  glyphs:
+    - { id: g0, kind: file, label: "azure.yml entry", in: b0 }
+    - { id: g1, kind: file, label: "Range in network.yml", in: b0 }
+    - { id: g2, kind: file, label: "One config per template: workspace, vault, tags, budget", in: b0 }
+    - { id: g3, kind: result, label: "A reviewed pull request", in: b0 }
+    - { id: g4, kind: failure, label: "Creating the subscription itself", in: b1 }
+    - { id: g5, kind: failure, label: "DDoS for public IPs: none deployed", in: b1 }
+  edges:
+    - { from: g0, to: g3, kind: flow, label: "" }
+    - { from: g1, to: g3, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+    - { at: g5, number: 6 }
+  legend: auto

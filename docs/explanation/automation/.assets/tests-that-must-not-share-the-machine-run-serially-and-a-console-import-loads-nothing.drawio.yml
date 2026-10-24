@@ -1,0 +1,28 @@
+description:
+  "Parallel shards and greedy phase share a pool, the serial phase runs after."
+about:
+  adrs:
+    - ADR-AUTO-TEST-ONESCHEDULINGPOOL
+    - ADR-BCL-TYPES-CONSOLEVERIFIESONLY
+  lens: architecture
+content:
+  title: "Three scheduling stages in a test run"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: POOL }
+    - { id: b1, label: AFTER }
+  glyphs:
+    - { id: g0, kind: code, label: "Parallel shards", in: b0 }
+    - { id: g1, kind: code, label: "Greedy phase", in: b0 }
+    - { id: g2, kind: gate, label: "Serial phase: tests that must not share the machine", in: b1 }
+  edges:
+    - { from: g0, to: g2, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+  legend: auto

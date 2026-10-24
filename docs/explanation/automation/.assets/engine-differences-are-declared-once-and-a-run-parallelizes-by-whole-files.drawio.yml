@@ -1,0 +1,31 @@
+description:
+  "How an executable is named, started and quoted is a property of the ExecutionEngine."
+about:
+  adrs:
+    - ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE
+    - ADR-AUTO-TEST-FILEPARALLELISM
+  lens: architecture
+content:
+  title: "Engine differences are declared once"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: ENGINE }
+    - { id: b1, label: RUN }
+  glyphs:
+    - { id: g0, kind: set, label: "ExecutionEngine: one declaration", in: b0 }
+    - { id: g1, kind: file, label: "Executable, shebang, start arguments", in: b0 }
+    - { id: g2, kind: file, label: "Quoting, strict mode, time safeguard", in: b0 }
+    - { id: g3, kind: code, label: "Whole-file sharding across worker processes", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g0, to: g2, kind: flow, label: "" }
+    - { from: g1, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

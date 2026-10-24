@@ -18,3 +18,5 @@ A version-controlled repository is the high-level kind of truth store whose cont
 repository is one subgroup of it. A source of truth is the one store whose content decides what is true about the delivered system. Delivery
 is slow because truth is spread across disjoint stores that drift apart, servers, databases, CMDBs and ticket systems, and catzc's answer is
 one source of truth, the repository.
+
+![Truth spread across disjoint stores drifts apart, so one version-controlled repository decides what is true about the delivered system.](.assets/the-version-controlled-repository-is-the-one-source-of-truth.drawio.png)

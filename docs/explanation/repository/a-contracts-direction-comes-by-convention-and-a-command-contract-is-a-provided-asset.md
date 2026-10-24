@@ -17,3 +17,5 @@ It holds nothing beyond what those two rules say.
 A contract asset's direction comes by convention: an asset that constrains a real repository file is depended-on, and a sample payload or a
 command contract is provided. A command contract is a contract asset, `<module>/<command>.command.yml` in a unit's version folder, that
 states the call interface. A per-version `contract.yml` overrides the direction of a single asset.
+
+![A real repository file constrains the asset, which is depended-on, while a sample payload or command contract is provided.](.assets/a-contracts-direction-comes-by-convention-and-a-command-contract-is-a-provided-asset.drawio.png)

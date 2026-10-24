@@ -18,3 +18,5 @@ Multi-factor authentication and Conditional Access are tenant configuration, so 
 repository rule: the templates route SQL administration through an Entra group, so the tenant's sign-in policies reach it, and only the
 break-glass login sits outside them. People reach data through Entra ID groups and services through managed identities, shared-key access is
 off, and the one non-identity credential is the break-glass SQL login.
+
+![Only the break-glass login sits outside tenant sign-in policy.](.assets/people-reach-data-through-entra-groups-and-only-break-glass-login-sits-outside-tenant-policy.drawio.png)

@@ -18,3 +18,5 @@ merged into one. It holds nothing beyond what those two rules say.
 Every resource carries the six CAF tags and the landing zone requires `cost-center`, and every resource lands in one region, so cost can be
 analysed by tag and location. Both are partly realised: the resource groups that `Deploy-Bicep` creates for `foundation` and `expedition`
 carry deployment-tracking tags but not the CAF tags, which is planned.
+
+![Six CAF tags, cost-center required, deployment-tracking tags on the resource groups.](.assets/cost-analysis-slices-by-the-caf-tags-and-one-region.drawio.png)

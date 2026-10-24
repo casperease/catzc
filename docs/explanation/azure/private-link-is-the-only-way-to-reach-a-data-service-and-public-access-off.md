@@ -18,3 +18,5 @@ Every data service is reached through Private Link: storage and SQL have public 
 hub's private DNS zones, and the vault's private endpoint is planned. Data services are reached only through those private endpoints,
 inbound internet traffic is denied at every workload subnet, and no network interface takes a public IP address; egress through a firewall
 and flow logs are planned.
+
+![Public network access is off and private endpoints resolve through the hub private DNS zones.](.assets/private-link-is-the-only-way-to-reach-a-data-service-and-public-access-off.drawio.png)

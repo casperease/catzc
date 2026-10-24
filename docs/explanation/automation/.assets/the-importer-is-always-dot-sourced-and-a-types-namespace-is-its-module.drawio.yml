@@ -1,0 +1,33 @@
+description:
+  importer.ps1 runs in the caller scope, and every type namespace equals its owning module, derived from the folder.
+about:
+  adrs:
+    - ADR-PWSH-ENGINE-IMPORTERDOTSOURCED
+    - ADR-BCL-TYPES-NAMESPACEISMODULE
+  lens: architecture
+content:
+  title: The importer is dot-sourced, and a type is namespaced by its module
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: IMPORTER }
+    - { id: b1, label: TYPES }
+  glyphs:
+    - { id: g0, kind: code, label: "importer.ps1 is dot-sourced", in: b0 }
+    - { id: g1, kind: result, label: "Runs in the caller scope", in: b0 }
+    - { id: g2, kind: code, label: "Shim delegates to Invoke-Importer", in: b0 }
+    - { id: g3, kind: gate, label: "Namespace equals the owning module", in: b1 }
+    - { id: g4, kind: code, label: "Format-Types derives it from the folder", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g0, to: g2, kind: flow, label: "" }
+    - { from: g3, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

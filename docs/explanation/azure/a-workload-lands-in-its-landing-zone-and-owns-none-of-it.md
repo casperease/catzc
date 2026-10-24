@@ -16,3 +16,5 @@ say.
 A workload lands in its landing zone and owns none of it: `expedition` places its private endpoints in the `private-endpoints` subnet of its
 customer's spoke, the shared platform's in the hub's `shared-services` subnet, and registers them in the hub's private DNS zones, creating
 no network, peering, DNS zone or policy. Data services have public network access off and are reached only through those private endpoints.
+
+![It lands in the zone, using its private endpoints subnet and the hub DNS zones.](.assets/a-workload-lands-in-its-landing-zone-and-owns-none-of-it.drawio.png)

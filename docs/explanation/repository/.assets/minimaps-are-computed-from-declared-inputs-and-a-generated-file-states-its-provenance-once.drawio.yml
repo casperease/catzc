@@ -1,0 +1,33 @@
+description:
+  A minimap is computed from the declared inputs, and a generated head carries one warning.
+about:
+  adrs:
+    - ADR-REPO-SLIDES-MINIMAPSFROMDATA
+    - ADR-REPO-FILEMETA-PROVENANCEINHEAD
+  lens: architecture
+content:
+  title: Minimaps are computed and a generated file states its provenance once
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: MINIMAPS }
+    - { id: b1, label: PROVENANCE }
+  glyphs:
+    - { id: g0, kind: set, label: "Exactly three minimaps per diagram", in: b0 }
+    - { id: g1, kind: code, label: "Computed, never drawn by hand or stored", in: b0 }
+    - { id: g2, kind: file, label: "Declaration holds only the inputs", in: b0 }
+    - { id: g3, kind: gate, label: "One warning string in the head", in: b1 }
+    - { id: g4, kind: result, label: "Do Not Edit, this file is generated", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g3, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

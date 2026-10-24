@@ -16,3 +16,5 @@ nothing beyond what those two rules say.
 An engine's importer entry is generated only when one of the engines it serves is in the mix, so `importer.sh` exists only with a POSIX
 engine. pwsh is one of the three execution engines, the one every catzc module runs under: PowerShell 7.4 or later on Windows, Linux and
 macOS, and `Invoke-Importer` refuses an older PowerShell before anything loads.
+
+![importer.sh exists only with a POSIX engine, and pwsh is 7.4 or later.](.assets/an-importer-entry-exists-only-when-its-engine-in-mix-and-pwsh-one-of-three.drawio.png)

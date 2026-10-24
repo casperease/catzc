@@ -1,0 +1,32 @@
+description:
+  A subscription per customer and tier, a resource group per slot, hub and spoke, and a security group per subnet.
+about:
+  adrs:
+    - ADR-AZ-WAF-SE-SE04
+    - ADR-AZ-NETWORK-NETWORKPERSUBSCRIPTION
+  lens: architecture
+content:
+  title: Segments are subscriptions and groups
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: SEGMENTS }
+    - { id: b1, label: LEFT TO THE TENANT }
+  glyphs:
+    - { id: g0, kind: set, label: "Subscription per customer and tier", in: b0 }
+    - { id: g1, kind: set, label: "Resource group per configuration slot", in: b0 }
+    - { id: g2, kind: set, label: "Hub-and-spoke network", in: b0 }
+    - { id: g3, kind: set, label: "Network security group per workload subnet", in: b0 }
+    - { id: g4, kind: failure, label: "Management groups", in: b1 }
+  edges:
+    - { from: g0, to: g4, kind: flow, label: "" }
+    - { from: g3, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

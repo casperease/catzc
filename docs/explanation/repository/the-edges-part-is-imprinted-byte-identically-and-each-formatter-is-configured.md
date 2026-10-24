@@ -16,3 +16,5 @@ one. It holds nothing beyond what those two rules say.
 The `edges` part of a head is imprinted by `Format-FileMeta` and is byte-identical on every run: keys in the registry's order, values in
 canonical form, no timestamp and no run identifier. Each file language's formatter is configured, not coded: its entry in `languages.yml`
 names the formatter engine that formats its files, or states in `no_formatter:` why it has none.
+
+![And each formatter is configured.](.assets/the-edges-part-is-imprinted-byte-identically-and-each-formatter-is-configured.drawio.png)

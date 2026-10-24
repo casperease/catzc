@@ -1,0 +1,31 @@
+description:
+  CI, CD, CDe and DEPLOY share only the tagged artifact.
+about:
+  adrs:
+    - FDR-CD-TYPE-DEPLOYCARRIESGOVERNANCE
+    - FDR-CD-SEPARATEPIPELINEKINDS
+  lens: architecture
+content:
+  title: DEPLOY is its own pipeline kind
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: KINDS }
+    - { id: b1, label: KEY }
+  glyphs:
+    - { id: g0, kind: code, label: "CI", in: b0 }
+    - { id: g1, kind: code, label: "CD and CDe", in: b0 }
+    - { id: g2, kind: gate, label: "DEPLOY", in: b0 }
+    - { id: g3, kind: file, label: "Immutable tagged artifact", in: b1 }
+  edges:
+    - { from: g0, to: g3, kind: flow, label: "" }
+    - { from: g1, to: g3, kind: flow, label: "" }
+    - { from: g3, to: g2, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

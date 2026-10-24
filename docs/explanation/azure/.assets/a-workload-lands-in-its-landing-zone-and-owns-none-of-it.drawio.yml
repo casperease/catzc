@@ -1,0 +1,31 @@
+description:
+  "It lands in the zone, using its private endpoints subnet and the hub DNS zones."
+about:
+  adrs:
+    - ADR-AZ-LZ-WORKLOADOWNSNONE
+    - ADR-AZ-WAF-SE-SE06
+  lens: architecture
+content:
+  title: "A workload owns none of its landing zone"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: WORKLOAD }
+    - { id: b1, label: LANDING ZONE }
+  glyphs:
+    - { id: g0, kind: code, label: "expedition", in: b0 }
+    - { id: g1, kind: set, label: "private-endpoints subnet of the customer spoke", in: b0 }
+    - { id: g2, kind: file, label: "Hub private DNS zones", in: b1 }
+    - { id: g3, kind: failure, label: "Workload creates no network, peering, DNS zone or policy", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g0, to: g2, kind: flow, label: "" }
+    - { from: g0, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

@@ -18,3 +18,5 @@ Each subscription is deployed by its own service connection, and the landing zon
 there, enforcing in production and auditing outside it. The session is checked against the same declaration: `Get-AzCliSessionSubscription`
 reads the session's active subscription and resolves its GUID to the declared `azure.yml` identity, throwing when the session targets a
 subscription `azure.yml` does not declare.
+
+![Deny-effect policies limit what any identity may deploy, and the session is looked up in azure.yml.](.assets/each-subscription-has-its-own-service-connection-and-session-is-looked-up-in-azure-yml.drawio.png)

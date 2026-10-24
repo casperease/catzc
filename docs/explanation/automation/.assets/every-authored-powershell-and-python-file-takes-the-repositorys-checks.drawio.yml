@@ -1,0 +1,28 @@
+description:
+  "One selector, the gates cover them all."
+about:
+  adrs:
+    - ADR-PWSH-FORMAT-EVERYFILECOVERED
+    - ADR-AUTO-PY-EVERYFILELINTED
+  lens: architecture
+content:
+  title: "Every authored PowerShell and Python file is checked"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: POWERSHELL }
+    - { id: b1, label: PYTHON }
+  glyphs:
+    - { id: g0, kind: file, label: "importer.ps1 and authored psd1 config included", in: b0 }
+    - { id: g1, kind: gate, label: "Formatting and analysis gates, one shared selector", in: b0 }
+    - { id: g2, kind: code, label: "Pinned ruff and workspace settings", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g0, to: g2, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+  legend: auto

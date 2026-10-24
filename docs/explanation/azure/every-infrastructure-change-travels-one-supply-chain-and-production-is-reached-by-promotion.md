@@ -17,3 +17,5 @@ Every infrastructure change travels one supply chain: a CD pipeline triggered by
 deploys the same bytes, in dependency order, into subscriptions it asserts. Production is meant to be reached by promotion, not by the same
 stage that deploys non-production; this is partly realised, since a CI pipeline builds and tests every template and globset-triggered CD
 pipelines deploy them in order, but production deploys in the same stage as non-production.
+
+![The same bytes deploy in dependency order, and production is reached by promotion.](.assets/every-infrastructure-change-travels-one-supply-chain-and-production-is-reached-by-promotion.drawio.png)

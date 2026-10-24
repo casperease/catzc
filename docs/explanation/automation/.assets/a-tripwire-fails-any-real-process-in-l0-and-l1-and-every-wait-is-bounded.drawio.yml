@@ -1,0 +1,33 @@
+description:
+  A tripwire fails a real launch loudly, and a time safeguard makes a hang fail fast.
+about:
+  adrs:
+    - ADR-AUTO-TEST-PROCESSTRIPWIRE
+    - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+  lens: architecture
+content:
+  title: No real process in L0 and L1, and every wait is bounded
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: NO REAL PROCESS }
+    - { id: b1, label: BOUNDED WAIT }
+  glyphs:
+    - { id: g0, kind: gate, label: "L0 and L1 launch no real process", in: b0 }
+    - { id: g1, kind: code, label: "Test-Automation sets CATZC_BLOCK_REAL_PROCESS", in: b0 }
+    - { id: g2, kind: failure, label: "Invoke-Executable throws instead of launching", in: b0 }
+    - { id: g3, kind: gate, label: "Every external call runs inside a time safeguard", in: b1 }
+    - { id: g4, kind: failure, label: "A hang fails fast naming the limit", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g3, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

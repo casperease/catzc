@@ -18,3 +18,5 @@ CDe is a CD that internalizes the prod promotion: it runs the same CI component 
 the locked commit's tagged artifact the rest of the way to production. It may contain internal manual gates, such as an approval before the
 production stage, but they are checkpoints inside an automated promotion and do not make it a DEPLOY: what separates CDe from CD followed by
 DEPLOY is that the roll-to-prod activity is automatically determined, not human-initiated.
+
+![An approval before production is a checkpoint inside an automated promotion, not a human-initiated roll.](.assets/cde-internalizes-the-prod-promotion-and-its-internal-gates-are-checkpoints.drawio.png)

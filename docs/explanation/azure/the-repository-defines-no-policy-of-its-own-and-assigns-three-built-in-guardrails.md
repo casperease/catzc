@@ -18,3 +18,5 @@ Defining policies at the top of the hierarchy is not adopted, because the reposi
 own: the built-in definitions it assigns exist in every tenant. Policy-driven governance is partly adopted at the level it does own: every
 landing zone assigns three built-in Azure Policy guardrails at subscription scope, enforced or audited by the repository-wide
 `policy_enforcement` setting.
+
+![It assigns three built-in guardrails.](.assets/the-repository-defines-no-policy-of-its-own-and-assigns-three-built-in-guardrails.drawio.png)

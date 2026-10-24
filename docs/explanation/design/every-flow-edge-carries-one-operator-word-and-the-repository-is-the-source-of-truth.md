@@ -16,3 +16,5 @@ holds nothing beyond what those two rules say.
 Every flow edge of an action diagram carries one word, drawn by the renderer and never named in the declaration; the word follows from the
 edge's source and target, never from the author. The repository is likewise the single source of truth for everything the platform manages,
 all represented as code, and self-service means editing that source and letting the platform apply it.
+
+![The renderer draws it, and the repository is the source of truth.](.assets/every-flow-edge-carries-one-operator-word-and-the-repository-is-the-source-of-truth.drawio.png)

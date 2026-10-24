@@ -17,3 +17,5 @@ what those two rules say.
 placeholder, announced by a yellow `Write-Message` notice that real versions come only from the pipeline. A quality gate is the matching
 discipline for checks: one public `Test-<subject>` function that collects every issue, writes its report through `Write-QualityGateReport`
 and throws once listing them all.
+
+![Real versions come only from the pipeline.](.assets/a-devbox-build-is-the-fixed-placeholder-version-and-a-quality-gate-collects-every-issue.drawio.png)

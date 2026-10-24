@@ -17,3 +17,5 @@ merged into one. It holds nothing beyond what those two rules say.
 Production and non-production are separated by subscription, never by a management group. The subscription is the unit of management: each
 customer holds its own non-production and production subscription pair declared in `azure.yml`, and a new subscription's landing zone is a
 config file reviewed as a pull request; subscription vending and a management group hierarchy are not adopted.
+
+![Each customer holds a non-production and a production pair, and a new landing zone is a reviewed config file.](.assets/the-subscription-is-the-unit-of-management-and-environments-are-split-by-subscription.drawio.png)

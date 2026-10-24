@@ -1,0 +1,27 @@
+description:
+  Test-Automation and the Test gates throw on failure so they can fail the build, collecting every issue first.
+about:
+  adrs:
+    - ADR-PWSH-VERBS-GATESARETEST
+    - ADR-AUTO-TEST-QUALITYGATE
+  lens: architecture
+content:
+  title: The test gates are the exception to the verb contract
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: GATES }
+  glyphs:
+    - { id: g0, kind: gate, label: "Test-Automation and the Test-* gates", in: b0 }
+    - { id: g1, kind: result, label: "Throw on failure to fail the build", in: b0 }
+    - { id: g2, kind: code, label: "Collect every issue, throw once listing them all", in: b0 }
+  edges:
+    - { from: g0, to: g2, kind: flow, label: "" }
+    - { from: g2, to: g1, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+  legend: auto

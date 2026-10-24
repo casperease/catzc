@@ -18,3 +18,5 @@ Internal module dependencies are vendored and named: the code is in-tree, the to
 `pwsh/.vendor/`, with every edge declared by name in `dependencies.yml`, so the repository alone is the internal dependency set. Generated
 manifests are the counterpart that never gets committed: `New-DynamicManifest` recomputes each module's `<Module>.psd1` on every import,
 writing only when the content differs, so `pwsh/**/*.psd1` is gitignored.
+
+![New-DynamicManifest recomputes each psd1 on every import.](.assets/internal-dependencies-are-vendored-and-generated-manifests-are-gitignored.drawio.png)

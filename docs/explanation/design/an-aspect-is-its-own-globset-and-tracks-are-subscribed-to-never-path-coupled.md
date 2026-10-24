@@ -17,3 +17,5 @@ Each aspect is its own derived globset, `<unit>-<aspect>`, with its own live dur
 `tests`-only change never re-keys `live` and a runtime change never re-keys `tests`. Tracks are subscribable, never path-coupled: a consumer
 binds to a track through its module dependencies or its globset's native trigger projection, never by hand-matching the track's source
 paths.
+
+![Tests and live have independent identities, and tracks are subscribed to.](.assets/an-aspect-is-its-own-globset-and-tracks-are-subscribed-to-never-path-coupled.drawio.png)

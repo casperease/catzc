@@ -18,3 +18,5 @@ Lock every tool version in `pwsh/Catzc.Base.Execution/configs/tools.yml`: pinned
 allowlist of base tools (git, vscode) deliberately tracks `latest` and verifies integrity against the publisher's published hash. The build
 is held to the same reproducibility: it is immutable and content-addressed, so the same commit yields a byte-identical build on any machine
 and an identical durable-SHA content hash.
+
+![tools.yml pins versions and the build is content-addressed.](.assets/every-tool-version-is-locked-in-tools-yml-and-the-build-is-content-addressed.drawio.png)

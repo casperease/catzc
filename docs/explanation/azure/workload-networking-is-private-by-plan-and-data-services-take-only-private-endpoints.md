@@ -18,3 +18,5 @@ Workload networking is private by plan: `network.yml`, a network security group 
 filtering through a hub firewall planned. Data services have public network access off and are reached only through private endpoints
 resolved by the hub's private DNS zones, inbound internet traffic is denied at every workload subnet and no network interface takes a public
 IP address.
+
+![network.yml, a security group per subnet, private endpoints, and a hub firewall planned.](.assets/workload-networking-is-private-by-plan-and-data-services-take-only-private-endpoints.drawio.png)

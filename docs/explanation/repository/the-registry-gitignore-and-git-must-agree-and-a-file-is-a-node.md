@@ -18,3 +18,5 @@ The registry, `.gitignore` and git's tracked set must agree, and an integrity te
 matched by an ignore rule and untracked, every `committed: true` target is tracked and not ignored, and a generator target matches its
 generator's output. A file is a node, and its meta block says two things about it, `immutable` holding the place facts a reader of the head
 needs.
+
+![And a file is a node.](.assets/the-registry-gitignore-and-git-must-agree-and-a-file-is-a-node.drawio.png)

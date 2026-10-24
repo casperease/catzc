@@ -17,3 +17,5 @@ A value-chain concern is one of six columns that say where along delivery a deci
 (loading the modules, reading configuration, selecting files through globsets) through `build` to `quality-control`. The commit-colour
 palette is fixed the same way: brown is a development commit on topic branches, and grey is integrated onto main, master or release and
 never appears on a topic branch.
+
+![Six value-chain columns order a decision record, and commit colours are fixed.](.assets/a-value-chain-concern-says-where-a-record-acts-and-commit-colours-are-fixed.drawio.png)

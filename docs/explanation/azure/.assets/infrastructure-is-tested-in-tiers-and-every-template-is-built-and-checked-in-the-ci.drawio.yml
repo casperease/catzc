@@ -1,0 +1,30 @@
+description:
+  The CI engine builds every template and checks its parameters, and a system test verifies a deployed template.
+about:
+  adrs:
+    - ADR-AZ-WAF-OE-OE09
+    - ADR-AZ-CAF-DEVOPS-UNITTESTINFRASTRUCTURECODEASWELL
+  lens: architecture
+content:
+  title: Infrastructure is tested in tiers
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: BUILD }
+    - { id: b1, label: DEPLOYED }
+  glyphs:
+    - { id: g0, kind: code, label: "CI engine builds every template", in: b0 }
+    - { id: g1, kind: gate, label: "Parameters checked against the compiled parameter model", in: b0 }
+    - { id: g2, kind: result, label: "System test verifies a deployed template", in: b1 }
+    - { id: g3, kind: file, label: "Planned: Bicep linter as a quality gate", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

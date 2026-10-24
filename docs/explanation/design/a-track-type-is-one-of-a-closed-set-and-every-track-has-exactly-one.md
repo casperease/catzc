@@ -16,3 +16,5 @@ rules say.
 A track type is the sort of cluster a track is, and it is one of a closed set: `modules`, `infrastructure`, `pipelines`, `vendor-settings`,
 `vendored-code`, `contracts`, `documentation` and `unordered`. Every track has exactly one track type, stated once and carrying no second
 classification beside it. Configuration is no track type: it is a file role.
+
+![Eight track types, and every track has exactly one.](.assets/a-track-type-is-one-of-a-closed-set-and-every-track-has-exactly-one.drawio.png)

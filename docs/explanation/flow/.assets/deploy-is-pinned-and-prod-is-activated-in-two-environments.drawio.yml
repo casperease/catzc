@@ -1,0 +1,33 @@
+description:
+  The same commit deploys the same bytes, and prod is staged inactive in pre-prod before it goes live.
+about:
+  adrs:
+    - FDR-CD-TYPE-DEPLOYISPINNED
+    - FDR-CD-TWOENVIRONMENTACTIVATION
+  lens: architecture
+content:
+  title: DEPLOY is pinned and activates prod in two steps
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: PINNED }
+    - { id: b1, label: TWO ENVIRONMENTS }
+  glyphs:
+    - { id: g0, kind: result, label: "One chosen commit: the same bytes every run", in: b0 }
+    - { id: g1, kind: failure, label: "Never a floating latest", in: b0 }
+    - { id: g2, kind: gate, label: "Stage the artifact inactive in pre-prod", in: b1 }
+    - { id: g3, kind: gate, label: "Validate the exact bytes", in: b1 }
+    - { id: g4, kind: result, label: "Activate it live to production", in: b1 }
+  edges:
+    - { from: g0, to: g2, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+    - { from: g3, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

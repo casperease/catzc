@@ -1,0 +1,32 @@
+description:
+  CDe runs the same CI component and deploy-and-verify path as CD and DEPLOY, then rolls the tagged artifact to production automatically.
+about:
+  adrs:
+    - FDR-CD-CDEINTERNALIZESPROMOTION
+    - FDR-CD-TYPE-CDESHARESDEPLOYPATH
+  lens: architecture
+content:
+  title: CDe rolls to prod on the one deploy path
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b-ci, label: SAME CI }
+    - { id: b-path, label: ONE DEPLOY PATH }
+    - { id: b-prod, label: PRODUCTION }
+  glyphs:
+    - { id: g-ci, kind: code, label: "Same CI component, same non-prod direction", in: b-ci }
+    - { id: g-art, kind: file, label: "Locked commit tagged artifact", in: b-ci }
+    - { id: g-path, kind: code, label: "Deploy-and-verify path shared with CD and DEPLOY", in: b-path }
+    - { id: g-prod, kind: result, label: "Automatic roll to production", in: b-prod }
+  edges:
+    - { from: g-ci, to: g-art, kind: flow, label: "" }
+    - { from: g-art, to: g-path, kind: flow, label: "" }
+    - { from: g-path, to: g-prod, kind: flow, label: "" }
+  markers:
+    - { at: g-ci, number: 1 }
+    - { at: g-art, number: 2 }
+    - { at: g-path, number: 3 }
+    - { at: g-prod, number: 4 }
+  legend: auto

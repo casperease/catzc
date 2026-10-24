@@ -17,3 +17,5 @@ Every output format has a validator, and the validator is code: it checks struct
 an embedded model that decodes, pixel dimensions against the format's limits, required keys and the columns of a table. Two deterministic
 directions join a diagram's declaration and its drawing: put renders the yml into the model embedded in the `.drawio.png`, and get reads the
 embedded model back into the yml, so a hand edit in the editor is folded back.
+
+![The validator is code and checks structure, never taste.](.assets/every-output-format-has-a-code-validator-and-the-diagram-yml-and-png-round-trip.drawio.png)

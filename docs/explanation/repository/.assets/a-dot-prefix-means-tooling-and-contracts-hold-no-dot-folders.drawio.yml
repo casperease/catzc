@@ -1,0 +1,29 @@
+description:
+  Dot folders are infrastructure, and contracts are laid out by unit, version and module.
+about:
+  adrs:
+    - ADR-REPO-FOLDERS-DOTMEANSTOOLING
+    - ADR-REPO-CONTRACT-LAYOUT
+  lens: architecture
+content:
+  title: A dot prefix means tooling
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: DOT }
+    - { id: b1, label: CONTRACTS }
+  glyphs:
+    - { id: g0, kind: set, label: ".github, .vscode, .claude, .cspell, .git", in: b0 }
+    - { id: g1, kind: set, label: "pwsh/.internal, .vendor, .compiled", in: b0 }
+    - { id: g2, kind: file, label: "contracts/unit/version/module/path", in: b1 }
+    - { id: g3, kind: result, label: "unit is catzc, the bundle", in: b1 }
+  edges:
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

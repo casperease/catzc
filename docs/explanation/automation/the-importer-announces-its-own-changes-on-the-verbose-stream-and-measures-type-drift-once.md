@@ -18,3 +18,5 @@ The importer's own load sequence is the load-sequence exception: the state chang
 modules, `PSModulePath`, the types assembly and the catzc modules, are announced on the verbose stream. Whether the loaded C# types are
 current is measured in one place, `Get-LoadedTypeDrift`, and asked through one test and assert pair, `Test-LoadedTypesCurrent` and
 `Assert-LoadedTypesCurrent`.
+
+![Load-sequence changes go to the verbose stream, and type drift is measured in one place.](.assets/the-importer-announces-its-own-changes-on-the-verbose-stream-and-measures-type-drift-once.drawio.png)

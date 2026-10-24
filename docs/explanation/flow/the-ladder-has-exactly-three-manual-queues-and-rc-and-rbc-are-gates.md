@@ -16,3 +16,5 @@ beyond what those two rules say.
 The promotion ladder has exactly three manual queues, each named, each with a named server, a named store and a measured wait: the authoring
 queue before the server's main, the main-UAT signature before release-uat, and the release-uat signature before production. RC and RBC are
 the two hands-on release gates, each a gate and not a pipeline, a human-owned certification on an always-on environment.
+
+![The promotion ladder has three named manual queues, and the main-UAT and release-uat signatures are the RC and RBC gates.](.assets/the-ladder-has-exactly-three-manual-queues-and-rc-and-rbc-are-gates.drawio.png)

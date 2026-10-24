@@ -1,0 +1,31 @@
+description:
+  A time safeguard with limits in timeouts.yml makes a hang fail fast, with a watchpoint behind a switch.
+about:
+  adrs:
+    - ADR-PWSH-ASSERT-WATCHBLOCKINGBEHINDSWITCH
+    - ADR-AUTO-FAILFAST-BOUNDEVERYWAIT
+  lens: architecture
+content:
+  title: Every wait is bounded
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: SAFEGUARD }
+    - { id: b1, label: WATCHPOINT }
+  glyphs:
+    - { id: g0, kind: gate, label: "Every external call inside a time safeguard", in: b0 }
+    - { id: g1, kind: file, label: "timeouts.yml: keyed by environment and engine", in: b0 }
+    - { id: g2, kind: failure, label: "A hang fails fast naming the limit", in: b0 }
+    - { id: g3, kind: code, label: "Watch-Blocking behind -DiagnoseBlocking", in: b1 }
+  edges:
+    - { from: g1, to: g0, kind: flow, label: "" }
+    - { from: g0, to: g2, kind: flow, label: "" }
+    - { from: g3, to: g2, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

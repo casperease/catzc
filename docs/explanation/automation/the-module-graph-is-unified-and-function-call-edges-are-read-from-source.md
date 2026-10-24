@@ -18,3 +18,5 @@ The graph is unified across both kinds of module content: a cross-module functio
 relationship, module A needs module B, so they live in one graph. Because every module shares one function namespace, the function-call
 edges are read from the source by `Get-FunctionDependency`, and the `Test-ModuleDependency` quality gate checks their union against the
 declaration.
+
+![A function call and a C# type reference are the same edge, checked together against the declaration.](.assets/the-module-graph-is-unified-and-function-call-edges-are-read-from-source.drawio.png)

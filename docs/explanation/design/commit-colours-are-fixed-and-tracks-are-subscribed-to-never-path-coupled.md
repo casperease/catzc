@@ -17,3 +17,5 @@ The commit-colour palette is fixed: brown is a development commit, living on top
 is integrated onto main, master or release and never appears on a topic branch. Tracks are held to the same fixedness in how they are
 reached: they are subscribable, never path-coupled, so a consumer binds to a track through its module dependencies or its globset's native
 trigger projection, never by hand-matching the track's source paths.
+
+![Brown and grey mark commit states, and a consumer binds to a track by dependency or trigger.](.assets/commit-colours-are-fixed-and-tracks-are-subscribed-to-never-path-coupled.drawio.png)

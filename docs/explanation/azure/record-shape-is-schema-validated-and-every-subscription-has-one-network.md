@@ -16,3 +16,5 @@ one. It holds nothing beyond what those two rules say.
 Per-record shape is schema-validated and cross-record integrity is owned by the `AzureConfig` config type, including per-customer
 environment disjointness: no two subscriptions of one customer serve the same env. Every `azure.yml` subscription has one network in the
 plan's `subscriptions` block, a hub when it has no `customer` and a spoke when it has one.
+
+![Every subscription has one network.](.assets/record-shape-is-schema-validated-and-every-subscription-has-one-network.drawio.png)

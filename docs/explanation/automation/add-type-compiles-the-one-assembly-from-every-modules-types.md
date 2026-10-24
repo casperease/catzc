@@ -17,3 +17,5 @@ nothing beyond what those two rules say.
 Every module's `types/*.cs` compile together into one assembly for the whole repository, so a type in any module can reference a type in any
 other, only cross-namespace references inside a single assembly, never cross-assembly. `Add-Type` is the one runtime compiler of that
 combined assembly: `Import-CSharpTypes` compiles the sources as authored with `Add-Type -Path`, one compilation unit per file.
+
+![All types/*.cs compile together through Add-Type, one compilation unit per file.](.assets/add-type-compiles-the-one-assembly-from-every-modules-types.drawio.png)

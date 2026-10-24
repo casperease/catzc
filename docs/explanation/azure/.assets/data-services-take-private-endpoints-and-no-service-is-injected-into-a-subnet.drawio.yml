@@ -1,0 +1,27 @@
+description:
+  "No service is injected into a subnet."
+about:
+  adrs:
+    - ADR-AZ-WAF-SE-SE06
+    - ADR-AZ-CAF-NETPRV-VIRTUALNETWORKINJECTIONPAASSERVICES
+  lens: architecture
+content:
+  title: "Data services have private endpoints, none are injected"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: DATA }
+    - { id: b1, label: NOT USED }
+  glyphs:
+    - { id: g0, kind: gate, label: "Public access off", in: b0 }
+    - { id: g1, kind: result, label: "Private endpoints via hub DNS zones", in: b0 }
+    - { id: g2, kind: failure, label: "Virtual network injection", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+  legend: auto

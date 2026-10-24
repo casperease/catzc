@@ -17,3 +17,5 @@ merged into one. It holds nothing beyond what those two rules say.
 The vendored copy of every dependency wins by surgical removal, never a wholesale rebuild: `Import-VendorModules` unloads any non-vendored
 copy, strips each vendored module's folders from `$env:PSModulePath` and prepends the `.vendor/` root. A bundle carries the runtime payload
 in merged form, every selected module its own folder holding a generated `<Module>.psd1`.
+
+![Import-VendorModules unloads other copies and prepends the vendor root.](.assets/vendored-copies-win-by-surgical-removal-and-a-bundle-carries-merged-manifests.drawio.png)

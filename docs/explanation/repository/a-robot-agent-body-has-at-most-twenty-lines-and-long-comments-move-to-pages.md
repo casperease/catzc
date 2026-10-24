@@ -17,3 +17,5 @@ A sub-agent is a robot: its file's body, everything after the front matter, has 
 `AgentsConfig` and set in `agents.yml`), where a wrapped continuation counts with the line it continues and a blank or comment line counts
 as nothing. Prose that outgrows a file goes to its comment page, which lives under `docs/references/` and keeps the file's own name plus
 `.md`, so a page maps back to exactly one file.
+
+![A sub-agent body is capped at twenty lines, and prose that outgrows a file moves to its comment page.](.assets/a-robot-agent-body-has-at-most-twenty-lines-and-long-comments-move-to-pages.drawio.png)

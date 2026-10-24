@@ -1,0 +1,31 @@
+description:
+  Alerts reach the subscription Owner role at 50, 80 and 100 percent of actual cost.
+about:
+  adrs:
+    - ADR-AZ-CAF-GOV-OVERSEESPENDCOSTMANAGEMENT
+    - ADR-AZ-WAF-CO-CO03
+  lens: architecture
+content:
+  title: A monthly budget alerts the Owner
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: BUDGET }
+    - { id: b1, label: WHO }
+    - { id: b2, label: PLANNED }
+  glyphs:
+    - { id: g0, kind: file, label: "Monthly budget in every landing zone", in: b0 }
+    - { id: g1, kind: gate, label: "Alerts at 50, 80 and 100 percent", in: b0 }
+    - { id: g2, kind: result, label: "The subscription Owner role", in: b1 }
+    - { id: g3, kind: set, label: "Cost exports, forecast alerts, anomaly alerts", in: b2 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

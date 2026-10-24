@@ -17,3 +17,5 @@ beyond what those two rules say.
 Every landing zone assigns three built-in policies: allowed locations (its region), a required tag on resources, and no public IP address on
 a network interface. Azure reports their compliance per subscription, so settings are enforced and compliance is reported by Azure Policy;
 whether they enforce or only audit is the repository-wide setting `policy_enforcement`.
+
+![Three built-in policies, enforced or audited.](.assets/three-built-in-policies-are-assigned-and-azure-reports-their-compliance.drawio.png)

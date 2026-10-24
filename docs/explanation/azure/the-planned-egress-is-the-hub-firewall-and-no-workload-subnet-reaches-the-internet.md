@@ -18,3 +18,5 @@ A NAT gateway for direct outbound traffic is not adopted, because the planned eg
 subnet hosts compute that reaches the internet. Inbound is closed too: data services have public network access off, inbound internet
 traffic is denied at every workload subnet and no network interface takes a public IP address; egress through a firewall and flow logs are
 planned.
+
+![No workload subnet hosts compute that reaches the internet.](.assets/the-planned-egress-is-the-hub-firewall-and-no-workload-subnet-reaches-the-internet.drawio.png)

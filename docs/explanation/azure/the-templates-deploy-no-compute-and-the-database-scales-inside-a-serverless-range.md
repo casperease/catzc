@@ -17,3 +17,5 @@ The templates deploy no compute to scale. Outside production the database scales
 config, capped by `databaseSkuCapacity`, and pauses when idle; in production it is provisioned at a fixed capacity and scales by a config
 change and a deploy. The unit of scale-out is a configuration slot, a whole deployment of the workload in its own resource group, with no
 autoscale rule and no data partitioning.
+
+![The database scales in a serverless range.](.assets/the-templates-deploy-no-compute-and-the-database-scales-inside-a-serverless-range.drawio.png)

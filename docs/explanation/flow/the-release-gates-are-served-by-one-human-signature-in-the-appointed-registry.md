@@ -18,3 +18,5 @@ release-uat; each clears when its acceptance testing is verified and a human cer
 release signature from a user with access, entered in the appointed security registry after the rung's post-deployment test proved the
 service loads. The signature is one recorded act that this rung passed its check for one named commit; the test is the evidence and the
 signature is the human's authentication of it, not a second test.
+
+![RC at main-UAT and RBC at release-uat each clear when acceptance testing is verified and one release signature is entered in the appointed registry.](.assets/the-release-gates-are-served-by-one-human-signature-in-the-appointed-registry.drawio.png)

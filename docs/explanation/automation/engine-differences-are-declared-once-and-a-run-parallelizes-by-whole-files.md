@@ -18,3 +18,5 @@ Everything that differs between the engines is a property of its `ExecutionEngin
 the script files it runs, its shebang, its non-interactive start, how it loads an entry script and runs a command, its quoting, its strict
 mode and its time safeguard. `Test-Automation` parallelizes at whole-file granularity across worker processes, each worker loading the
 modules through its run's entry script.
+
+![How an executable is named, started and quoted is a property of the ExecutionEngine.](.assets/engine-differences-are-declared-once-and-a-run-parallelizes-by-whole-files.drawio.png)

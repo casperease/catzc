@@ -16,3 +16,5 @@ into one. It holds nothing beyond what those two rules say.
 The order of modules is the topological order of the declared graph, foundation first, ties broken ordinally. No catzc module imports
 another: dot-sourcing `importer.ps1` imports every module into one global function namespace, so a function calls any catzc function by
 name, with no `Import-Module`, no `using module`, no `RequiredModules` and no hand-written export list.
+
+![Foundation first, ties broken ordinally, and no module imports another.](.assets/modules-load-in-topological-order-and-no-module-imports-another.drawio.png)

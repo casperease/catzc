@@ -18,3 +18,5 @@ Use `.ps1` for all module function files: dot-sourced into the module's session 
 private functions see each other without imports. A bundle carries the runtime payload in merged form, every selected module its own folder
 holding a generated `<Module>.psd1` whose `NestedModules` is the one merged file and whose `FunctionsToExport` is the module's public
 functions only.
+
+![Dot-sourced into one session state, so public and private functions see each other without imports.](.assets/module-function-files-are-ps1-so-they-share-state-and-a-bundle-carries-merged-manifests.drawio.png)

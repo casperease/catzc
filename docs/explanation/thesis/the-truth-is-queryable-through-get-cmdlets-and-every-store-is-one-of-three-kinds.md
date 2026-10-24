@@ -17,3 +17,5 @@ A truth store is any store that holds part of the truth about a delivered system
 repository, a fact source and a state machine. Every store catzc reads or reports to is one of the three, and its kind decides how catzc
 treats it. The source of truth is queryable: every question about the system's state is answered by reading the repository through the
 tooling's `Get-*` cmdlets, each of which also emits its answer as data (JSON).
+
+![Every question about system state is answered by a Get cmdlet that also emits JSON.](.assets/the-truth-is-queryable-through-get-cmdlets-and-every-store-is-one-of-three-kinds.drawio.png)

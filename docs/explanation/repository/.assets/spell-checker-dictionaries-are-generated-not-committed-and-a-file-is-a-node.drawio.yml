@@ -1,0 +1,33 @@
+description:
+  "And a file is a node with place facts."
+about:
+  adrs:
+    - ADR-REPO-OUTDIR-DICTIONARIESGENERATED
+    - ADR-REPO-FILEMETA-FILEISNODE
+  lens: architecture
+content:
+  title: "Dictionaries are generated, not committed"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: DICTIONARIES }
+    - { id: b1, label: FILES }
+  glyphs:
+    - { id: g0, kind: file, label: "terminology.yml registry", in: b0 }
+    - { id: g1, kind: code, label: "One txt per category under .cspell", in: b0 }
+    - { id: g2, kind: result, label: "Gitignored, regenerated at the importer tail", in: b0 }
+    - { id: g3, kind: set, label: "A file is a node", in: b1 }
+    - { id: g4, kind: file, label: "immutable part: place facts", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g3, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

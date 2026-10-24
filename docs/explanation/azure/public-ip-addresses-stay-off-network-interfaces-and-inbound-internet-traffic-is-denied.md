@@ -17,3 +17,5 @@ Data services have public network access off and are reached only through privat
 workload subnet and no network interface takes a public IP address. Exposing no virtual machine management port to the internet is partly
 realised on those same terms: every workload subnet denies inbound internet traffic and the landing zone's policy keeps public IP addresses
 off network interfaces, but the unused `vm.bicep` creates one and is planned to lose it.
+
+![Inbound internet traffic is denied at every workload subnet.](.assets/public-ip-addresses-stay-off-network-interfaces-and-inbound-internet-traffic-is-denied.drawio.png)

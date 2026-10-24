@@ -18,3 +18,5 @@ Every write to the console goes through the information stream, by way of the wr
 `Write-InformationColored` to `Write-Information`, or the loader's `Write-ImporterMessage` before the Writers module is loaded; nothing
 calls `Write-Host` or `Out-Host`. A quality gate holds that property for the whole repository: one public `Test-<subject>` function that
 collects every issue and throws once listing them all.
+
+![One writer chokepoint, and a quality gate collects every issue.](.assets/every-console-write-goes-through-the-information-stream-and-a-gate-collects-all-issues.drawio.png)

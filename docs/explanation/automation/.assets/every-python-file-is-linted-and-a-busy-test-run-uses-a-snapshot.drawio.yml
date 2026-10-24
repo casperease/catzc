@@ -1,0 +1,30 @@
+description:
+  Ruff formats and checks, and a busy test run uses a snapshot.
+about:
+  adrs:
+    - ADR-AUTO-PY-EVERYFILELINTED
+    - ADR-AUTO-TEST-RUNSNEVERWAIT
+  lens: architecture
+content:
+  title: Every Python file is linted
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: PYTHON }
+    - { id: b1, label: TEST RUN }
+  glyphs:
+    - { id: g0, kind: file, label: "Every .py file, helpers under .claude included", in: b0 }
+    - { id: g1, kind: code, label: "ruff format through Test-Formatting", in: b0 }
+    - { id: g2, kind: code, label: "ruff check through the Python lint gate", in: b0 }
+    - { id: g3, kind: gate, label: "A busy run uses a verified snapshot", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g0, to: g2, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

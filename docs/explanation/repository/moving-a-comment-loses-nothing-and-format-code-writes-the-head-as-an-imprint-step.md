@@ -17,3 +17,5 @@ beyond what those two rules say.
 The move of a comment to its page loses nothing: each moved comment becomes one section, `## comment:<n>`, holding its lines exactly as they
 stood, with comment markers and common indent removed, inside a fenced `text` block so no formatter rewrites them. `Format-Code` writes the
 head the same way, as a global imprint step listed once in the file-language registry, so it runs after the formatter of every language.
+
+![Each comment becomes one page section, verbatim, and Format-Code writes the head as a step.](.assets/moving-a-comment-loses-nothing-and-format-code-writes-the-head-as-an-imprint-step.drawio.png)

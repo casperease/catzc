@@ -17,3 +17,5 @@ An optional third, provenance dimension: a test may carry `ADR-<CODE>#<n>` citat
 `ADR-` marker greps to both a rule's prose and its enforcing tests; absence is never a violation, and a present citation is validated. The
 discovery-only pass is a Pester run with `Run.SkipRun` set, so `Get-TestTagViolations` reads the tags from the discovered tree without
 running a body.
+
+![Citation tags name the rules a test enforces, are validated when present, and are read by a discovery-only pass.](.assets/a-test-may-carry-provenance-tags-and-a-discovery-only-pass-reads-them.drawio.png)

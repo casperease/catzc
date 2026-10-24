@@ -18,3 +18,5 @@ holds nothing beyond what those two rules say.
 hand-built binary, that would shadow the managed build; it is added where an eviction hole exists. An install is two artifacts in two
 places: `Export-Catzc -Root <dir>` copies the build to `<dir>/.vendor/Catzc/<version>/` and writes a root importer entry at the destination
 root.
+
+![Remove-Tool is added only where an eviction hole exists, for tools installed off-config that would shadow the managed build.](.assets/remove-exists-only-for-off-config-tools-and-an-install-is-two-artifacts.drawio.png)

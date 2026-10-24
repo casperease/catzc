@@ -1,0 +1,33 @@
+description:
+  A second file language enters a track only by being declared, and a track type admits a set of module types.
+about:
+  adrs:
+    - DDR-TRACK-PRIMARYLANGUAGE
+    - DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES
+  lens: architecture
+content:
+  title: A track has one primary language
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: LANGUAGES }
+    - { id: b1, label: MODULE TYPES }
+  glyphs:
+    - { id: g0, kind: set, label: "Tech-stack declares the file languages", in: b0 }
+    - { id: g1, kind: code, label: "First declared is the primary language", in: b0 }
+    - { id: g2, kind: gate, label: "A second language enters only by being declared", in: b0 }
+    - { id: g3, kind: set, label: "Track type admits a set of module types", in: b1 }
+    - { id: g4, kind: gate, label: "A module type must be admitted by its track type", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g3, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

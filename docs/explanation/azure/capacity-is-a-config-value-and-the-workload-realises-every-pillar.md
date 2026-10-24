@@ -16,3 +16,5 @@ rules say.
 Capacity is a config value per environment class: the database SKU, vCore count and serverless floor in each `expedition` config, the budget
 per subscription in each `discovery` config, with no demand forecast or service-limit check behind it. The workload realises every pillar of
 the Azure Well-Architected Framework, each as a module default or a config value.
+
+![And the workload realises every pillar.](.assets/capacity-is-a-config-value-and-the-workload-realises-every-pillar.drawio.png)

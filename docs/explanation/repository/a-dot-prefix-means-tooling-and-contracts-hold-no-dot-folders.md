@@ -17,3 +17,5 @@ nothing beyond what those two rules say.
 Dot-prefix means infrastructure or tooling, everywhere: `.github/`, `.vscode/`, `.claude/`, `.cspell/`, `.git/`, `.go/` and, under `pwsh/`,
 `.internal`, `.scriptanalyzer`, `.vendor` and `.compiled`. `contracts/` therefore holds no dot-prefixed folder at any depth, every folder
 under it being content: a unit, a version, a module or a folder of an asset's path.
+
+![Dot folders are infrastructure, and contracts are laid out by unit, version and module.](.assets/a-dot-prefix-means-tooling-and-contracts-hold-no-dot-folders.drawio.png)

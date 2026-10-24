@@ -1,0 +1,31 @@
+description:
+  Reservations and savings plans sit above the subscription.
+about:
+  adrs:
+    - ADR-AZ-WAF-CO-CO05
+    - ADR-AZ-CAF-BILL-KEEPSUBSCRIPTIONCREATORSDESTINATIONTENANT
+  lens: architecture
+content:
+  title: Everything is pay-as-you-go
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: BILLED }
+    - { id: b1, label: NOT ADOPTED }
+  glyphs:
+    - { id: g0, kind: result, label: "Every resource pay-as-you-go", in: b0 }
+    - { id: g1, kind: failure, label: "Reservations and savings plans", in: b1 }
+    - { id: g2, kind: failure, label: "Licence benefits and dev/test offers", in: b1 }
+    - { id: g3, kind: set, label: "Bought at the billing account, above the subscription", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g3, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

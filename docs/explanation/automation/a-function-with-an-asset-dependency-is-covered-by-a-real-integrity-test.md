@@ -18,3 +18,5 @@ Every function with an internal asset dependency is covered by at least one test
 `ADR-AUTO-ASSETDEP-COVEREDBYREALTEST` and is not tagged `source-only`, so it runs in both the source run and the build run. Because it reads
 a shipped asset it is an integrity test: every test is classified into exactly one category, logic or integrity, and a logic test must not
 read a shipped asset.
+
+![It is covered by an integrity test that reads the real asset and runs in both modes.](.assets/a-function-with-an-asset-dependency-is-covered-by-a-real-integrity-test.drawio.png)

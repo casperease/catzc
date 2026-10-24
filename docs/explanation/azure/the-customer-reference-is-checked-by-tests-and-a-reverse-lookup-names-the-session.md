@@ -17,3 +17,5 @@ nothing beyond what those two rules say.
 The subscription to customer reference is not validated when `azure.yml` loads, since that would make every read also read `customer.yml`.
 The reverse lookup adds a layer: `Get-AzCliSessionSubscription` reads the session's active subscription and resolves its GUID to the
 declared `azure.yml` identity, name, customer and tenant, throwing when the session targets a subscription `azure.yml` does not declare.
+
+![azure.yml loads without reading customer.yml, and a reverse lookup names the session subscription.](.assets/the-customer-reference-is-checked-by-tests-and-a-reverse-lookup-names-the-session.drawio.png)

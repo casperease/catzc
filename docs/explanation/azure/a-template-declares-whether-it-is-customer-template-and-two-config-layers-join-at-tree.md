@@ -18,3 +18,5 @@ A template declares whether it is a customer template with an `options.yml` `cus
 `have_customers` variant, and an explicit `true` is only permitted when customers are enabled. This meets the two config layers, identity in
 `azure.yml` and templating in `infrastructure/templates/`, which join through the conventional configuration tree: a config at the root is a
 shared-platform deployment and one under `configuration/<customer>/` is that customer's.
+
+![The customer_deployment bit defaults to the have_customers variant, and identity joins templating through the configuration tree.](.assets/a-template-declares-whether-it-is-customer-template-and-two-config-layers-join-at-tree.drawio.png)

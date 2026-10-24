@@ -16,3 +16,5 @@ beyond what those two rules say.
 The importer decides the mix a session loads: which languages, which engines and which modules. Each input resolves in the one order of a
 setting: the caller's explicit value, else the importer's configuration, else the default. `auto` is the value that leaves a layer's choice
 open, naming no engine and meaning the languages of the loaded modules.
+
+![Languages, engines and modules each resolve in the one order of a setting.](.assets/the-importer-decides-the-mix-and-auto-leaves-each-choice-open.drawio.png)

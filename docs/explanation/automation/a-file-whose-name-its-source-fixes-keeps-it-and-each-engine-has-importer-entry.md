@@ -16,3 +16,5 @@ nothing beyond what those two rules say.
 A file whose name its source fixes keeps that name: the files under an asset folder or a vendored folder, at any depth, and the files a
 language's `naming:` entry lists by repository path as exempt, such as an entry script whose name every session types. Each engine reaches
 catzc through its importer entry at the repository root, the POSIX engines sharing the one generated `importer.sh`.
+
+![And each engine has an importer entry.](.assets/a-file-whose-name-its-source-fixes-keeps-it-and-each-engine-has-importer-entry.drawio.png)

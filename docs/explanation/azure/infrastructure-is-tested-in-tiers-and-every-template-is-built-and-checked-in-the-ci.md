@@ -17,3 +17,5 @@ Infrastructure is tested in tiers by `Test-Automation`: the CI engine builds eve
 compiled parameter model, and a deployed template is verified by a system test. This is partly realised: every template is validated,
 compiled and checked against its parameter model in the build, while the Bicep linter as a quality gate and system tests of a deployed
 template are planned.
+
+![The CI engine builds every template and checks its parameters, and a system test verifies a deployed template.](.assets/infrastructure-is-tested-in-tiers-and-every-template-is-built-and-checked-in-the-ci.drawio.png)

@@ -16,3 +16,5 @@ nothing beyond what those two rules say.
 One reader, `Get-CommandContract`, parses a command contract into the typed record of the contract language, and nothing else parses it.
 `contracts/` holds no dot-prefixed folder at any depth: a dot prefix marks infrastructure at the repository root, and every folder under
 `contracts/` is content, a unit, a version, a module or a folder of an asset's path.
+
+![And contracts hold no dot folders.](.assets/one-reader-parses-a-command-contract-and-contracts-hold-no-dot-folders.drawio.png)

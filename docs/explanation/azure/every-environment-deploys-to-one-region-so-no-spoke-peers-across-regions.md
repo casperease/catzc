@@ -17,3 +17,5 @@ rules say.
 Every environment deploys to one region, so no spoke needs a cross-region link and global peering is not adopted. Redundancy stays inside
 one region: storage is zone-redundant in every environment and a production database is zone-redundant with geo-redundant backups, and a
 second region is not adopted.
+
+![So no spoke peers across regions.](.assets/every-environment-deploys-to-one-region-so-no-spoke-peers-across-regions.drawio.png)

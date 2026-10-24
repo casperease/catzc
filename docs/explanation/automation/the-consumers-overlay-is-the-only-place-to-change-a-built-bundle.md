@@ -17,3 +17,5 @@ A consumer's overlay is the `.catzc/` folder at its `RepositoryRoot`: the only p
 it runs is read-only and never edited, and the overlay is optional, as is every file in it; with none, the bundle runs exactly as built. The
 compiled-type prebuild is the one committed, cross-session cache: one assembly for the whole repository, named for the combined hash of
 every module's type sources.
+
+![The bundle is read-only and the .catzc folder at the repository root is optional.](.assets/the-consumers-overlay-is-the-only-place-to-change-a-built-bundle.drawio.png)

@@ -1,0 +1,27 @@
+description:
+  "Strict mode before Pester, rows from the live result."
+about:
+  adrs:
+    - ADR-PWSH-PESTER-POOLEDWORKERS
+    - ADR-AUTO-TEST-FILEPARALLELISM
+  lens: architecture
+content:
+  title: "Pooled pwsh workers run the shards"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: WORKER }
+  glyphs:
+    - { id: g0, kind: code, label: "PesterRunner pools pwsh processes", in: b0 }
+    - { id: g1, kind: code, label: "Strict mode Latest before Pester", in: b0 }
+    - { id: g2, kind: result, label: "Rows via ConvertTo-TestAutomationRowSet", in: b0 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+  legend: auto

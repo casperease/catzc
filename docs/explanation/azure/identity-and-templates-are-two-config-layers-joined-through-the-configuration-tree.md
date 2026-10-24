@@ -17,3 +17,5 @@ Two config layers, identity in `azure.yml` and templating in `infrastructure/tem
 a config at the configuration root is a shared-platform deployment, a config under a `configuration/<customer>/` subfolder is that
 customer's, and the subscription is always resolved from that coordinate. The infrastructure code has three kinds: IaC templates, a folder
 holding a deployable `main.bicep` and its `options.yml`, their configuration slots and the layer that joins them.
+
+![They join through the conventional configuration tree.](.assets/identity-and-templates-are-two-config-layers-joined-through-the-configuration-tree.drawio.png)

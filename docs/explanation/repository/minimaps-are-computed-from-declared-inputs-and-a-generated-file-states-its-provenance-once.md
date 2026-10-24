@@ -17,3 +17,5 @@ nothing beyond what those two rules say.
 A diagram shows exactly three minimaps, and a minimap's data is computed, never drawn by hand and never stored in the declaration, which
 holds only the inputs. A generated file states its provenance once, in the head: the one string "Do Not Edit, this file is generated",
 declared once as the default of the head's config type.
+
+![A minimap is computed from the declared inputs, and a generated head carries one warning.](.assets/minimaps-are-computed-from-declared-inputs-and-a-generated-file-states-its-provenance-once.drawio.png)

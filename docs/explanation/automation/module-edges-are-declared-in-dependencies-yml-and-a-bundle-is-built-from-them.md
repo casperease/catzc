@@ -17,3 +17,5 @@ nothing beyond what those two rules say.
 A module dependency is code the toolset is built from. Its internal edges, module A needing module B among the repository's own modules, are
 declared in `pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml`; the declaration is the allow-list, and an actual edge with no
 declaration fails the build. The bundle is the toolset's build that results: one installable, versioned `Catzc` package of one named bundle.
+
+![An edge with no declaration fails the build, and a bundle is built from them.](.assets/module-edges-are-declared-in-dependencies-yml-and-a-bundle-is-built-from-them.drawio.png)

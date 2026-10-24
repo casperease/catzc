@@ -1,0 +1,32 @@
+description:
+  "And the unused vm.bicep is planned to lose its public IP."
+about:
+  adrs:
+    - ADR-AZ-CAF-NETCON-EXPOSENOVIRTUALMACHINEMANAGEMENTPORTINTERNET
+    - ADR-AZ-CAF-NETTOP-SUBNETSDESIGNEDBYLANDINGZONEOWNER
+  lens: architecture
+content:
+  title: "Every workload subnet has a security group"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: SUBNETS }
+    - { id: b1, label: PUBLIC IP }
+  glyphs:
+    - { id: g0, kind: gate, label: "Security group denies inbound internet", in: b0 }
+    - { id: g1, kind: code, label: "Subnets planned centrally in network.yml", in: b0 }
+    - { id: g2, kind: failure, label: "No policy requires the security group", in: b0 }
+    - { id: g3, kind: failure, label: "vm.bicep creates one", in: b1 }
+    - { id: g4, kind: result, label: "Planned to lose it", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g3, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

@@ -16,3 +16,5 @@ beyond what those two rules say.
 A track owns one coherent tech-stack, and a new tech-stack opens a new track, never a subfolder inside an existing one. A track type is the
 sort of cluster a track is, and it is one of a closed set: `modules`, `infrastructure`, `pipelines`, `vendor-settings`, `vendored-code`,
 `contracts`, `documentation` and `unordered`.
+
+![Eight types, and a new tech-stack opens a new track.](.assets/a-track-owns-one-tech-stack-and-track-types-are-a-closed-set.drawio.png)

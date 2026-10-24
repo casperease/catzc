@@ -17,3 +17,5 @@ DEPLOY is pinned and deterministic: it deploys the artifact of one chosen commit
 and it never deploys from a floating `latest` and never renders config at deploy time. Deploy-to-prod is a two-environment activation: stage
 the artifact inactive in pre-prod, validate the exact bytes, then activate it live to production; DEPLOY-Prod never deploys straight into
 the serving environment.
+
+![The same commit deploys the same bytes, and prod is staged inactive in pre-prod before it goes live.](.assets/deploy-is-pinned-and-prod-is-activated-in-two-environments.drawio.png)

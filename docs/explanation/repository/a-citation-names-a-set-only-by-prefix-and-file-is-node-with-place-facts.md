@@ -17,3 +17,5 @@ what those two rules say.
 A citation names a set only by a prefix: there is no group, list or range syntax inside a code, and several facts are several codes. A list
 that a tool derives writes a code that covers every rule of an ADR as the ADR's code, while hand-written prose never collapses. A file is a
 node, and its meta block says two things about it, each in a part of its own, with `immutable` holding the place facts a reader needs.
+
+![No group, list or range syntax inside a code.](.assets/a-citation-names-a-set-only-by-prefix-and-file-is-node-with-place-facts.drawio.png)

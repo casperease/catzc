@@ -18,3 +18,5 @@ Every lasting change a function makes to the state of the session is announced o
 what changed and to what. A configurable setting resolves in one fixed order: the caller's explicit value, else the value in the owning
 module's configuration (`Get-Config`), which includes the config contributions gathered from Markdown files and, in build mode, a consumer
 overlay's fragment.
+
+![And a setting resolves in one fixed order.](.assets/a-lasting-change-is-announced-and-a-setting-resolves-in-one-fixed-order.drawio.png)

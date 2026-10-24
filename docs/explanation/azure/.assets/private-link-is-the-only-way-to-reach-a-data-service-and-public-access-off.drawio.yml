@@ -1,0 +1,33 @@
+description:
+  Public network access is off and private endpoints resolve through the hub private DNS zones.
+about:
+  adrs:
+    - ADR-AZ-CAF-NETPRV-PRIVATELINKPRIVATEONLYACCESS
+    - ADR-AZ-WAF-SE-SE06
+  lens: architecture
+content:
+  title: Every data service sits behind Private Link
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: DATA }
+    - { id: b1, label: PRIVATE }
+  glyphs:
+    - { id: g0, kind: set, label: "Storage and SQL", in: b0 }
+    - { id: g1, kind: gate, label: "Public network access off", in: b0 }
+    - { id: g2, kind: code, label: "Private endpoint in the hub private DNS zones", in: b1 }
+    - { id: g3, kind: result, label: "Reached only through the private endpoint", in: b1 }
+    - { id: g4, kind: failure, label: "No public IP on any network interface", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

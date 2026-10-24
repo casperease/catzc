@@ -17,3 +17,5 @@ nothing beyond what those two rules say.
 The compiled-type cache key is byte-exact but line-ending-insensitive: `Import-CSharpTypes` hashes each `types/*.cs` with the
 carriage-return bytes stripped, so a CRLF or an LF working tree yields the same `Catzc.Types.<hash>.dll` name on every machine. The build is
 immutable and content-addressed in the same spirit: the same commit yields a byte-identical build on any machine.
+
+![CRLF and LF trees give the same dll name.](.assets/the-types-cache-key-ignores-line-endings-and-the-build-is-content-addressed.drawio.png)

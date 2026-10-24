@@ -18,3 +18,5 @@ State changes are explicit: functions do not mutate ambient global state, error 
 as a side effect, and a temporary change is restored before the function returns, on the failure path as well as the success path. In pwsh
 the changes left unannounced include a change restored in a `finally` block before the function returns, a change inside `Start-Job`,
 `Start-ThreadJob` or `ForEach-Object -Parallel`, and PowerShell's own `$LASTEXITCODE`.
+
+![No ambient mutation, a temporary change is restored on every path, and some restored changes go unannounced.](.assets/state-changes-are-explicit-and-restored-and-some-restored-changes-go-unannounced.drawio.png)

@@ -16,3 +16,5 @@ nothing beyond what those two rules say.
 Every non-vendored `.sln` and `.csproj` declares exactly one build configuration and platform, Debug on Any CPU, and every `dotnet` call a
 catzc command makes builds that pair. The Python tests live under one Python root, a repository-relative folder declared by `python.yml`'s
 `root`, `python` when the repository has a `python/` folder, else the dot-prefixed `.python`.
+
+![And the Python tests live under one Python root.](.assets/builds-use-debug-on-any-cpu-and-the-python-tests-live-under-one-python-root.drawio.png)

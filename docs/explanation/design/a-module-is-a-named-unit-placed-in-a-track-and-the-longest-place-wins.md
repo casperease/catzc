@@ -17,3 +17,5 @@ A module is a named unit placed in a track: a PowerShell module is a folder unde
 folder or one reusable `bicep` file, and a holder track's module is the holder itself. A file belongs to the track with the longest place
 that contains it, so a narrower place wins over a wider one: a file under `.github/workflows` is in the GitHub `pipelines` track, and the
 rest of `.github` is in the GitHub `vendor-settings` track.
+
+![A PowerShell module is a folder or one psm1 file, a Bicep module a template folder or file, and a holder module is the holder.](.assets/a-module-is-a-named-unit-placed-in-a-track-and-the-longest-place-wins.drawio.png)

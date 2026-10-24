@@ -18,3 +18,5 @@ Internal module dependencies are vendored and named: the code is in-tree, the to
 `pwsh/.vendor/`, and every edge is declared by name in `dependencies.yml`, so the repository alone is the internal dependency set and there
 is nothing to fetch. A bundle is the toolset's build: one installable, versioned `Catzc` package of one named bundle, built by
 `Build-Modules` from the bundle's profile.
+
+![Modules are in-tree and every edge is declared by name, so nothing is fetched.](.assets/internal-dependencies-are-vendored-and-named-and-a-bundle-is-the-toolsets-build.drawio.png)

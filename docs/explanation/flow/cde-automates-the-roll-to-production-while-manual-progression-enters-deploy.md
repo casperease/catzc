@@ -17,3 +17,5 @@ CDe is a CD that internalizes and automates the roll to production: it runs the 
 builds nothing new, and drives the CI engine's tagged, commit-pinned artifact all the way to prod. Progression toward prod otherwise leaves
 the automated flow and enters DEPLOY, a solo, manually-governed pipeline that drives the same tagged artifact into a non-automated
 environment behind a manual gate.
+
+![CDe drives the tagged artifact to prod automatically, whereas progression otherwise enters a manually governed DEPLOY.](.assets/cde-automates-the-roll-to-production-while-manual-progression-enters-deploy.drawio.png)

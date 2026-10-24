@@ -17,3 +17,5 @@ into one. It holds nothing beyond what those two rules say.
 Cost is analysed by tag and location. Every resource names its paying team in `cost-center` and its workload in `workload`, and every
 resource carries the CAF tags and lands in its environment's one region, so Cost Management can slice spend by tag and location. Both are
 partly realised: the resource groups that `Deploy-Bicep` creates for `foundation` and `expedition` carry no CAF tags, which is planned.
+
+![cost-center and workload name the payer and the workload, and one region per environment.](.assets/every-resource-names-its-paying-team-and-workload-in-tags-for-cost-analysis.drawio.png)

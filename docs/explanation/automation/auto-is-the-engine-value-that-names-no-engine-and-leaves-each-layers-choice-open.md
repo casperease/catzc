@@ -18,3 +18,5 @@ nothing beyond what those two rules say.
 default resolves to, and names pwsh, bash or zsh only when it needs that one. `auto` is not a fourth engine and never appears in the model's
 `Names`. In every layer it leaves the choice open, for the languages meaning the languages of the loaded modules, and resolves in the one
 resolution order of a setting.
+
+![The auto value takes whatever engine the sensible default resolves to, and is not a fourth engine.](.assets/auto-is-the-engine-value-that-names-no-engine-and-leaves-each-layers-choice-open.drawio.png)

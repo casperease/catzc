@@ -18,3 +18,5 @@ Git state that a session itself changes, such as the tracked-file set a `git add
 from its bytes on disk on every call, never under a session-lifetime entry. `Get-GitTrackedPath` is the exemplar: it reads the index
 in-process and keys the parsed listing on the SHA-256 of the index file's bytes, computed by the seam and not taken from git's own checksum,
 which git writes as zeros under `index.skipHash`.
+
+![The parsed index is keyed by the SHA-256 of the index file, recomputed on every call.](.assets/git-state-a-session-changes-is-cached-only-under-a-key-computed-from-its-bytes.drawio.png)

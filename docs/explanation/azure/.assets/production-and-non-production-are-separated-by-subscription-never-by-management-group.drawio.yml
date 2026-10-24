@@ -1,0 +1,33 @@
+description:
+  azure.yml maps the standard environments onto a non-production and a production subscription, and the configuration tree joins identity to templating.
+about:
+  adrs:
+    - ADR-AZ-CAF-RESORG-SEPARATEENVIRONMENTSBYSUBSCRIPTIONNOTBYMANAGEMENTGROUP
+    - ADR-AZ-DATAMOD-TWOCONFIGLAYERS
+  lens: architecture
+content:
+  title: Environments are split by subscription, config joins through a tree
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b-id, label: IDENTITY }
+    - { id: b-tree, label: CONFIGURATION TREE }
+    - { id: b-tpl, label: TEMPLATING }
+  glyphs:
+    - { id: g-azure, kind: file, label: "azure.yml: non-production and production subscription", in: b-id }
+    - { id: g-root, kind: set, label: "Root config: shared-platform deployment", in: b-tree }
+    - { id: g-cust, kind: set, label: "configuration/customer: that customer", in: b-tree }
+    - { id: g-tpl, kind: file, label: "infrastructure/templates", in: b-tpl }
+  edges:
+    - { from: g-azure, to: g-root, kind: flow, label: "" }
+    - { from: g-azure, to: g-cust, kind: flow, label: "" }
+    - { from: g-root, to: g-tpl, kind: flow, label: "" }
+    - { from: g-cust, to: g-tpl, kind: flow, label: "" }
+  markers:
+    - { at: g-azure, number: 1 }
+    - { at: g-root, number: 2 }
+    - { at: g-cust, number: 3 }
+    - { at: g-tpl, number: 4 }
+  legend: auto

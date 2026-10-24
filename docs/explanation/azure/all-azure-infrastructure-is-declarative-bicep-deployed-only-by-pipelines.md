@@ -16,3 +16,5 @@ what those two rules say.
 
 All Azure infrastructure is declarative Bicep: one parameterised template per rate of change, shared modules and one config per
 configuration slot, deployed only by pipelines; no secret sits in the code, and the compiled templates are scanned for misconfiguration.
+
+![One parameterised template per rate of change and one config per slot, deployed only by pipelines.](.assets/all-azure-infrastructure-is-declarative-bicep-deployed-only-by-pipelines.drawio.png)

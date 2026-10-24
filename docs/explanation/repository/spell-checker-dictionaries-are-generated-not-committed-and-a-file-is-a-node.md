@@ -18,3 +18,5 @@ The spell-checker dictionaries generated from the terminology registry are not c
 `<category>.txt` per vocabulary category under the root `.cspell/`, gitignored and regenerated at the importer tail from
 `configs/terminology.yml`. A file is a node, and its meta block says two things about it, `immutable` holding the place facts a reader of
 the head needs.
+
+![And a file is a node with place facts.](.assets/spell-checker-dictionaries-are-generated-not-committed-and-a-file-is-a-node.drawio.png)

@@ -1,0 +1,30 @@
+description:
+  A discovery-only pass finds every test without running one, and Go runs through a bridge.
+about:
+  adrs:
+    - ADR-AUTO-TEST-TAGSENFORCED
+    - ADR-AUTO-GO-LANGUAGEBRIDGE
+  lens: architecture
+content:
+  title: Test tags are enforced on every run
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: TAGS }
+    - { id: b1, label: GO }
+  glyphs:
+    - { id: g0, kind: code, label: "Get-TestTagViolations: discovery only", in: b0 }
+    - { id: g1, kind: failure, label: "Missing or ambiguous tier or category: the run throws", in: b0 }
+    - { id: g2, kind: code, label: "Bridge maps each Go test module to its module", in: b1 }
+    - { id: g3, kind: result, label: "Each top-level Go test is one test", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

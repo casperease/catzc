@@ -1,0 +1,30 @@
+description:
+  "No workload subnet hosts compute that reaches the internet."
+about:
+  adrs:
+    - ADR-AZ-CAF-NETCON-USENATGATEWAYDIRECTOUTBOUNDTRAFFIC
+    - ADR-AZ-WAF-SE-SE06
+  lens: architecture
+content:
+  title: "No NAT gateway: the egress path is the hub firewall"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: EGRESS }
+    - { id: b1, label: CLOSED }
+  glyphs:
+    - { id: g0, kind: set, label: "Planned egress of every spoke: the hub firewall", in: b0 }
+    - { id: g1, kind: failure, label: "NAT gateway not adopted", in: b0 }
+    - { id: g2, kind: gate, label: "Public network access off", in: b1 }
+    - { id: g3, kind: gate, label: "Inbound internet denied at every workload subnet", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

@@ -19,3 +19,5 @@ Every workload subnet denies inbound internet traffic and the landing zone's pol
 the unused `vm.bicep` creates one and is planned to lose it. `discovery` gives every workload subnet a security group that denies inbound
 internet traffic; the subnets are planned centrally in `network.yml`, not by the landing zone's owner, and no policy requires a security
 group.
+
+![And the unused vm.bicep is planned to lose its public IP.](.assets/every-workload-subnet-denies-inbound-internet-traffic-through-a-security-group.drawio.png)

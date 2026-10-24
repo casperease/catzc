@@ -1,0 +1,33 @@
+description:
+  "A source of truth is the one store that decides what is true."
+about:
+  adrs:
+    - TDR-STORES-FACTSOURCEREADONLY
+    - TDR-ONETRUTH-ONESTOREDECIDES
+  lens: architecture
+content:
+  title: "A fact source is read-only state"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: FACT SOURCE }
+    - { id: b1, label: TRUTH }
+  glyphs:
+    - { id: g0, kind: set, label: "Database with a reachable live URL", in: b0 }
+    - { id: g1, kind: set, label: "Azure DevOps runtime state", in: b0 }
+    - { id: g2, kind: gate, label: "Catzc reads its state only", in: b0 }
+    - { id: g3, kind: failure, label: "Truth spread across disjoint stores drifts", in: b1 }
+    - { id: g4, kind: result, label: "One source of truth: the repository", in: b1 }
+  edges:
+    - { from: g0, to: g2, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g3, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

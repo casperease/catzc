@@ -1,0 +1,33 @@
+description:
+  A setting takes the caller value, then the module configuration, then the default, and a module exists when its files stand in its layout.
+about:
+  adrs:
+    - ADR-AUTO-DEFAULT-ONERESOLUTIONORDER
+    - ADR-AUTO-MODULE-EXISTSBYLAYOUT
+  lens: architecture
+content:
+  title: One order for a setting, and a module is its layout
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b-set, label: A SETTING }
+    - { id: b-mod, label: A MODULE }
+  glyphs:
+    - { id: g-call, kind: gate, label: "Caller explicit value", in: b-set }
+    - { id: g-cfg, kind: gate, label: "Owning module configuration, Get-Config", in: b-set }
+    - { id: g-def, kind: result, label: "Default", in: b-set }
+    - { id: g-files, kind: file, label: "Files stand in the layout table", in: b-mod }
+    - { id: g-exists, kind: result, label: "Module exists, nothing registers it", in: b-mod }
+  edges:
+    - { from: g-call, to: g-cfg, kind: flow, label: "" }
+    - { from: g-cfg, to: g-def, kind: flow, label: "" }
+    - { from: g-files, to: g-exists, kind: flow, label: "" }
+  markers:
+    - { at: g-call, number: 1 }
+    - { at: g-cfg, number: 2 }
+    - { at: g-def, number: 3 }
+    - { at: g-files, number: 4 }
+    - { at: g-exists, number: 5 }
+  legend: auto

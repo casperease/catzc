@@ -17,3 +17,5 @@ beyond what those two rules say.
 A resource group never mixes regions: there is one region per environment, and the landing zone's allowed-locations policy keeps every
 resource in it. For that reason a region tag is not adopted: each environment maps to one region, the region code is already a name
 component, and the same policy holds each landing zone to its region.
+
+![A resource group never mixes regions, so a region tag is not needed.](.assets/one-region-per-environment-and-resource-group-makes-a-region-tag-unnecessary.drawio.png)

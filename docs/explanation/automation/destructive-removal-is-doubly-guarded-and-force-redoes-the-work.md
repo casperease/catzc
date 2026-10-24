@@ -17,3 +17,5 @@ Destructive removal is doubly guarded: `-Force` confirms the action, and without
 through the escalation a separate `-Remove` switch opts in, so neither switch alone deletes. On a state function `-Force` is the one switch
 that skips the check before acting and redoes the work, replacing an install at the wrong version; without it, a re-run that finds the
 desired state changes nothing.
+
+![Force confirms the action and a separate Remove switch opts in, so neither switch alone deletes.](.assets/destructive-removal-is-doubly-guarded-and-force-redoes-the-work.drawio.png)

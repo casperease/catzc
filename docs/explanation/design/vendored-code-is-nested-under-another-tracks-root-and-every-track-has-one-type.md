@@ -16,3 +16,5 @@ rules say.
 A track of vendored code holds code written by a third party that the repository does not author, such as `pwsh/.vendor` and `bash/.vendor`;
 it is nested under another track's root and gets its files by the longest place. Every track has exactly one track type, stated once and
 carrying no second classification beside it.
+
+![And every track has one type.](.assets/vendored-code-is-nested-under-another-tracks-root-and-every-track-has-one-type.drawio.png)

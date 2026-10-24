@@ -1,0 +1,28 @@
+description:
+  "Creating it from an Enterprise Agreement is not adopted."
+about:
+  adrs:
+    - ADR-AZ-CAF-BILL-VENDSUBSCRIPTIONSASSELFSERVICECAPABILITYEA
+    - ADR-AZ-CAF-PRIN-SUBSCRIPTIONDEMOCRATIZATION
+  lens: architecture
+content:
+  title: "A subscription is onboarded by pull request"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: ONBOARD }
+    - { id: b1, label: NOT ADOPTED }
+  glyphs:
+    - { id: g0, kind: code, label: "Pull request: azure.yml entry and config", in: b0 }
+    - { id: g1, kind: result, label: "Customer non-production and production pair", in: b0 }
+    - { id: g2, kind: failure, label: "Creating from an EA enrollment: no billing role", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g0, to: g2, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+  legend: auto

@@ -18,3 +18,5 @@ Assert before every invocation: `Assert-Tool` runs `Assert-Command` and `Assert-
 paths the fast, timed `Resolve-ToolExecutable` check. A Go test run applies it to its toolchain: the managed toolchain is located through
 that existence check and run by its path, never a bare `go` off `PATH`, with `GOTOOLCHAIN=local` so it never switches to a toolchain it
 downloads itself.
+
+![And Go runs from a located, managed toolchain.](.assets/tools-are-asserted-before-every-call-and-go-runs-from-a-located-managed-toolchain.drawio.png)

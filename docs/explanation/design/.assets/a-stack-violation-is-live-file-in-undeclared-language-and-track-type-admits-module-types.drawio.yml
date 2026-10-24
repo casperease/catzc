@@ -1,0 +1,31 @@
+description:
+  The second tech-stack the one-tech-stack rule forbids is made visible, and test and vendored files never count.
+about:
+  adrs:
+    - DDR-TRACK-STACKVIOLATION
+    - DDR-MODTYPE-TRACKTYPEADMITSMODULETYPES
+  lens: architecture
+content:
+  title: A stack violation is a live file in an undeclared language
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: VIOLATION }
+    - { id: b1, label: NEVER LIVE }
+  glyphs:
+    - { id: g0, kind: file, label: "A live file", in: b0 }
+    - { id: g1, kind: failure, label: "Its language is not declared by the track", in: b0 }
+    - { id: g2, kind: gate, label: "A stack violation, made visible", in: b0 }
+    - { id: g3, kind: result, label: "Test files and vendored files", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g3, to: g2, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

@@ -18,3 +18,5 @@ Every `azure.yml` subscription has one network in the plan's `subscriptions` blo
 spoke when it has one. Data services in these networks have public network access off and are reached only through private endpoints
 resolved by the hub's private DNS zones; inbound internet traffic is denied at every workload subnet and no network interface takes a public
 IP address.
+
+![Data services are reached only through private endpoints and inbound internet traffic is denied.](.assets/every-subscription-has-one-network-and-data-services-are-reached-only-by-private-endpoint.drawio.png)

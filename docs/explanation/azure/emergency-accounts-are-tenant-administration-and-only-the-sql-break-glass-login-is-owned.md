@@ -16,3 +16,5 @@ into one. It holds nothing beyond what those two rules say.
 
 Tenant emergency-access accounts are not adopted, because emergency accounts are tenant administration. The idea is carried one level down,
 at the level the repository owns: each SQL server has a break-glass SQL login that keeps it reachable, and monitoring its use is planned.
+
+![Tenant emergency access is not adopted, and the break-glass SQL login keeps a SQL server reachable.](.assets/emergency-accounts-are-tenant-administration-and-only-the-sql-break-glass-login-is-owned.drawio.png)

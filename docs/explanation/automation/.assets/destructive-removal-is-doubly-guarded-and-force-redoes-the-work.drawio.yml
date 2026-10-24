@@ -1,0 +1,31 @@
+description:
+  Force confirms the action and a separate Remove switch opts in, so neither switch alone deletes.
+about:
+  adrs:
+    - ADR-AUTO-REMOVE-DOUBLYGUARDED
+    - ADR-PWSH-IDEM-FORCESKIPSCHECK
+  lens: architecture
+content:
+  title: Destructive removal is doubly guarded
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: GUARDS }
+    - { id: b1, label: OUTCOME }
+  glyphs:
+    - { id: g0, kind: gate, label: "Force confirms the action", in: b0 }
+    - { id: g1, kind: gate, label: "Remove opts in", in: b0 }
+    - { id: g2, kind: result, label: "Both together delete", in: b1 }
+    - { id: g3, kind: result, label: "Without Force: reports the plan, changes nothing", in: b1 }
+  edges:
+    - { from: g0, to: g2, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g0, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

@@ -17,3 +17,5 @@ merged into one. It holds nothing beyond what those two rules say.
 Three platform cores carry the destructive mechanics and `Remove-<Tool>` delegates to the one for the running OS:
 `Remove-SystemInstallation` on Windows, `Remove-LinuxToolInstall` on Linux and a macOS counterpart. A platform-provided prerequisite, such
 as winget, `/bin/bash` on Linux or git with Git Bash on a devbox, is asserted, never installed by its own entry.
+
+![Remove-Tool delegates to the core of the running OS, and platform prerequisites are asserted, never installed.](.assets/three-platform-cores-carry-removal-and-platform-prerequisites-are-asserted-never-installed.drawio.png)

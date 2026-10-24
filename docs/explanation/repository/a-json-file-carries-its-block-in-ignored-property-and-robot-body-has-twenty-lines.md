@@ -16,3 +16,5 @@ nothing beyond what those two rules say.
 A JSON file has no comments, so its carrier is an ignored top-level property that the carrier registry names (`//`, or `$comment` for a JSON
 Schema): the first property of the object, holding the same `catzc` block as text. A sub-agent is a robot: its file's body, everything after
 the front matter, has at most `roofs.agent_body_lines` lines, 20, declared once on `AgentsConfig` and set in `agents.yml`.
+
+![And a robot body has twenty lines.](.assets/a-json-file-carries-its-block-in-ignored-property-and-robot-body-has-twenty-lines.drawio.png)

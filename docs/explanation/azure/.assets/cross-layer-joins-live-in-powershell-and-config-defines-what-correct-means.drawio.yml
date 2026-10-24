@@ -1,0 +1,33 @@
+description:
+  The deploy subscription is reverse-resolved against azure.yml, never decided by a credential alone.
+about:
+  adrs:
+    - ADR-AZ-DATAMOD-JOINSINPOWERSHELL
+    - ADR-AZ-SESSION-CONFIGDEFINESCORRECT
+  lens: architecture
+content:
+  title: Config defines what correct means
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: JOINS }
+    - { id: b1, label: CORRECT }
+  glyphs:
+    - { id: g0, kind: code, label: "Get-AzureSubscription, Get-AzureEnvironment", in: b0 }
+    - { id: g1, kind: code, label: "Get-BicepDeploymentContext", in: b0 }
+    - { id: g2, kind: file, label: "azure.yml: subscription and tenant", in: b1 }
+    - { id: g3, kind: file, label: "ado.yml: organization and tenant", in: b1 }
+    - { id: g4, kind: failure, label: "Not the presence of a credential", in: b1 }
+  edges:
+    - { from: g0, to: g2, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g4, to: g2, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

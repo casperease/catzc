@@ -1,0 +1,31 @@
+description:
+  "network.yml, a security group per subnet, private endpoints, and a hub firewall planned."
+about:
+  adrs:
+    - ADR-AZ-CAF-SEC-WORKLOADNETWORKINGPLANNEDZEROTRUST
+    - ADR-AZ-WAF-SE-SE06
+  lens: architecture
+content:
+  title: "Workload networking is private by plan"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: PRIVATE }
+    - { id: b1, label: PLANNED }
+  glyphs:
+    - { id: g0, kind: file, label: "network.yml", in: b0 }
+    - { id: g1, kind: gate, label: "Network security group per workload subnet", in: b0 }
+    - { id: g2, kind: gate, label: "Private endpoints for data", in: b0 }
+    - { id: g3, kind: set, label: "Egress filtering through a hub firewall", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

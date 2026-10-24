@@ -1,0 +1,30 @@
+description:
+  The bundle is read-only and the .catzc folder at the repository root is optional.
+about:
+  adrs:
+    - ADR-AUTO-OVERLAY-OVERLAYFOLDER
+    - ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
+  lens: architecture
+content:
+  title: The overlay is the only place a consumer changes a bundle
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: BUNDLE }
+    - { id: b1, label: OVERLAY }
+  glyphs:
+    - { id: g0, kind: file, label: "Built bundle: read-only, never edited", in: b0 }
+    - { id: g1, kind: result, label: "With no overlay it runs exactly as built", in: b0 }
+    - { id: g2, kind: set, label: ".catzc/ at the RepositoryRoot", in: b1 }
+    - { id: g3, kind: gate, label: "The only place a consumer changes what it does", in: b1 }
+  edges:
+    - { from: g2, to: g3, kind: flow, label: "" }
+    - { from: g0, to: g1, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

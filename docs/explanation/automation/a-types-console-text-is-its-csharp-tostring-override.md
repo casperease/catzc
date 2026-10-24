@@ -18,3 +18,5 @@ Every concrete type a caller can hold renders console-ready: it overrides `ToStr
 `public override string ToString() => this.ToConsoleString();`, so its string form and a table cell read `TypeName { A = 1, B = x }` instead
 of the fully-qualified name. The override is the C# `ToString()` because pwsh's string interpolation and `[string]` cast call the .NET
 `ToString()` and ignore a `ToString` registered through the extended type system.
+
+![ToString is overridden in C#, because pwsh ignores a registered one.](.assets/a-types-console-text-is-its-csharp-tostring-override.drawio.png)

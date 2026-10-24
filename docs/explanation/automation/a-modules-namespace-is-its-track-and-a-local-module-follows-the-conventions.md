@@ -16,3 +16,5 @@ beyond what those two rules say.
 A module's namespace is the name of the track that holds it, derived from placement and never written into the module's name. A local module
 is a folder under `.catzc/pwsh/` that names no bundled module: the consumer's own module, following catzc's module conventions, folder
 equals module, a public function per root function file and private function files under `private/`.
+
+![And a local module is the consumers own folder under .catzc.](.assets/a-modules-namespace-is-its-track-and-a-local-module-follows-the-conventions.drawio.png)

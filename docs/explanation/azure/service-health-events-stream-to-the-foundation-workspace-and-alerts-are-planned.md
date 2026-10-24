@@ -17,3 +17,5 @@ merged into one. It holds nothing beyond what those two rules say.
 
 Every landing zone streams the subscription's activity log, its `ServiceHealth` and `ResourceHealth` categories included, to `foundation`'s
 workspace, which is partly realised: a Service Health alert per subscription, and alerts on those events, are planned.
+
+![Alerts are planned.](.assets/service-health-events-stream-to-the-foundation-workspace-and-alerts-are-planned.drawio.png)

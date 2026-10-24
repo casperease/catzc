@@ -16,3 +16,5 @@ those two rules say.
 A Go test is a black-box test: it starts the engine from the contract its runner sets, `CATZC_ENGINE_EXECUTABLE` with the
 `CATZC_ENGINE_START` arguments, runs commands and asserts on their output and exit codes. The importer is the one way catzc enters a
 session: per execution engine one entry at the repository root, every entry generated from one source and never hand-edited.
+
+![The importer is the one way catzc enters a session.](.assets/a-go-test-starts-the-engine-from-its-contract-and-the-importer-is-one-entry.drawio.png)

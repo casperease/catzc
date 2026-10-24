@@ -17,3 +17,5 @@ A file the automation composes whole, a root-config copy, a generator's output o
 an imprinted block; its writer composes the content bare and writes the head through the one head function. A command contract stores
 nothing its placement says: the command's name is the file name, the owning module is the folder, and the version is the unit's version
 folder.
+
+![The writer composes the content bare and writes the head through the one head function.](.assets/a-composed-file-carries-the-generated-head-and-a-command-contract-stores-no-placement-facts.drawio.png)

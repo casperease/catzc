@@ -18,3 +18,5 @@ Testing in production is the L4 tier: tests of the released system itself, after
 cleared the RBC gate runs, pre-prod and then production once activated; it is the only tier that reaches a serving environment. Cost at
 import is kept low the other way round: in a console session the importer verifies the types assembly and loads nothing, and the first
 lookup of a catzc command loads it.
+
+![It is the only tier that reaches a serving environment, after the RBC gate.](.assets/testing-in-production-is-l4-and-a-console-session-loads-types-on-first-use.drawio.png)

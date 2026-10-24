@@ -17,3 +17,5 @@ Authoring is the first manual queue: a person edits one catalogue item, pushes i
 and from there the change enters main by exactly one of two doors. A topic's history is its author's to rewrite until it lands: squashing
 and rebasing change a topic's commits, and a topic already pushed for a pull request is pushed again over its own earlier state, while the
 server's main is never rewritten.
+
+![A person pushes one catalogue item to the topic HEAD, and the topic history is the author to rewrite until it lands.](.assets/authoring-is-the-first-queue-and-a-topics-history-is-its-authors-until-it-lands.drawio.png)

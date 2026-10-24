@@ -18,3 +18,5 @@ Every shell script the repository tracks, the `.bats` tests, `importer.sh`, ever
 the `Test-ShellScripts` quality gate: LF line endings and the executable bit for a script with a shebang, then an analysis. Go code takes
 the repository's checks where a check reads Go: `gofmt` through `Test-Formatting`, `go vet` before every Go test run, and the spelling check
 over `*.go`.
+
+![Test-ShellScripts, gofmt, go vet and the spelling check.](.assets/shell-scripts-and-go-code-each-take-their-languages-checks.drawio.png)

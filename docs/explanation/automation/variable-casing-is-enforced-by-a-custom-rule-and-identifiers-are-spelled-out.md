@@ -17,3 +17,5 @@ nothing beyond what those two rules say.
 Variable casing is PascalCase for parameters and scoped variables and camelCase for locals, enforced by the custom `Measure-VariableCasing`
 rule, with scriptblock params and automatic variables excluded. A second custom PSScriptAnalyzer rule, `Measure-SpellOutIdentifiers`,
 enforces spelled-out identifiers, tokenizing every variable reference and the noun of every function name.
+
+![PascalCase parameters, camelCase locals, spelled out.](.assets/variable-casing-is-enforced-by-a-custom-rule-and-identifiers-are-spelled-out.drawio.png)

@@ -17,3 +17,5 @@ The cross-layer joins live in PowerShell, resolved on demand: `Get-AzureSubscrip
 `Get-BicepDeploymentContext`. The deploy-time subscription is determined by the az session and reverse-resolved against `azure.yml`. Config
 defines what correct means: whether the session is connected to the right place is decided solely by config, `azure.yml` subscription and
 tenant and `ado.yml` organization and tenant, never by the presence of a credential alone.
+
+![The deploy subscription is reverse-resolved against azure.yml, never decided by a credential alone.](.assets/cross-layer-joins-live-in-powershell-and-config-defines-what-correct-means.drawio.png)

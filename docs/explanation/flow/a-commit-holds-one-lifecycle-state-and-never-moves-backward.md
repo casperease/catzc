@@ -16,3 +16,5 @@ nothing beyond what those two rules say.
 A commit holds one lifecycle state at a time; the state advances one rung along the promotion ladder or leaves it, and never moves backward.
 The ladder runs from topic (brown) to landed on main (grey) to BVT-verified (yellow), L3-verified (blue), and on to the UAT rungs. A topic's
 history is its author's to rewrite until it lands, and the server's main is never rewritten.
+
+![The ladder runs from topic to landed on main to BVT-verified to L3-verified.](.assets/a-commit-holds-one-lifecycle-state-and-never-moves-backward.drawio.png)

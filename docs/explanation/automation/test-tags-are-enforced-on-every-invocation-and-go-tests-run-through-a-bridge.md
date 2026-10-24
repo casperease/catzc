@@ -16,3 +16,5 @@ beyond what those two rules say.
 `Test-Automation` enforces the two mandatory tags on every invocation: a discovery-only pass, `Get-TestTagViolations`, inspects every test
 regardless of `-Level` and the run throws if any test is missing, or ambiguous on, a tier or category tag. Go tests run through a bridge:
 discovery maps each Go test module to its catzc module, so ordering, protection, the tiers and both runs apply as to the module's own tests.
+
+![A discovery-only pass finds every test without running one, and Go runs through a bridge.](.assets/test-tags-are-enforced-on-every-invocation-and-go-tests-run-through-a-bridge.drawio.png)

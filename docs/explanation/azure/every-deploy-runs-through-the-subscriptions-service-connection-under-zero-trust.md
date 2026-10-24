@@ -17,3 +17,5 @@ merged into one. It holds nothing beyond what those two rules say.
 Every deploy runs through the service connection of its subscription, pinned by `-SubscriptionIdAssertIs`, and the infrastructure CI needs
 no Azure identity; separating the landing-zone identity from the workload identity is planned. Access to the platform follows Zero Trust
 through Entra ID identities, a service connection per subscription pinned on every deploy, and private endpoints for data.
+
+![Pinned by SubscriptionIdAssertIs, under Zero Trust through Entra identities and private endpoints.](.assets/every-deploy-runs-through-the-subscriptions-service-connection-under-zero-trust.drawio.png)

@@ -1,0 +1,30 @@
+description:
+  One row per case and one column per engine, with Pester workers starting a child pwsh.
+about:
+  adrs:
+    - ADR-AUTO-ENGINE-SIDEBYSIDETESTS
+    - ADR-PWSH-ENGINE-CHILDPROCESSES
+  lens: architecture
+content:
+  title: Engine differences are tested side by side
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: TABLE }
+    - { id: b1, label: WORKERS }
+  glyphs:
+    - { id: g0, kind: file, label: "Per-engine fixture table", in: b0 }
+    - { id: g1, kind: set, label: "One row per case", in: b0 }
+    - { id: g2, kind: gate, label: "One column per engine, filled or n/a with a reason", in: b0 }
+    - { id: g3, kind: code, label: "Pester workers start a child pwsh", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g0, to: g2, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

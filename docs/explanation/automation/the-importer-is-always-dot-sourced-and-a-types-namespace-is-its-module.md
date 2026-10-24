@@ -18,3 +18,5 @@ holds nothing beyond what those two rules say.
 generated shim that carries only the importer's parameter block and delegates the whole load sequence to `Invoke-Importer`. Every type's
 namespace equals its owning module and is declared in the source as a file-scoped `namespace <module>;`, derived from the folder, not
 hand-authored.
+
+![importer.ps1 runs in the caller scope, and every type namespace equals its owning module, derived from the folder.](.assets/the-importer-is-always-dot-sourced-and-a-types-namespace-is-its-module.drawio.png)

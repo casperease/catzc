@@ -18,3 +18,5 @@ PowerShell code never depends on the working directory and applies that with two
 module's own content, `Get-CatzcModulesRoot` for the dot-prefixed infrastructure) and the working root. An internal asset dependency is any
 read, by a module's own code, of content that ships inside the code tree: the module's `configs/` and `assets/`, another module's,
 `.internal/assets/`, `.vendor/` and `.compiled/`, located only through the code-root helper.
+
+![Two anchors, and internal asset reads go through the code-root helper.](.assets/powershell-code-never-depends-on-the-working-directory-and-internal-assets-have-one-locator.drawio.png)

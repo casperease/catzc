@@ -1,0 +1,31 @@
+description:
+  A track holds one tech-stack and its track type gives it one role, deployable units or the files of one vendor or tool.
+about:
+  adrs:
+    - DDR-TRACK-ONETECHSTACK
+    - DDR-TRACKTYPE-ONEROLE
+  lens: architecture
+content:
+  title: A track owns one tech-stack and has one role
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b-stack, label: ONE TECH-STACK }
+    - { id: b-role, label: ONE ROLE }
+  glyphs:
+    - { id: g-track, kind: set, label: "Track: one coherent tech-stack", in: b-stack }
+    - { id: g-new, kind: gate, label: "A new tech-stack opens a new track", in: b-stack }
+    - { id: g-dep, kind: result, label: "Deployable track owns deployable-units", in: b-role }
+    - { id: g-hold, kind: result, label: "Holder track holds one vendor or tool and ships nothing", in: b-role }
+  edges:
+    - { from: g-track, to: g-new, kind: flow, label: "" }
+    - { from: g-track, to: g-dep, kind: flow, label: "" }
+    - { from: g-track, to: g-hold, kind: flow, label: "" }
+  markers:
+    - { at: g-track, number: 1 }
+    - { at: g-new, number: 2 }
+    - { at: g-dep, number: 3 }
+    - { at: g-hold, number: 4 }
+  legend: auto

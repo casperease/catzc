@@ -18,3 +18,5 @@ A bundle loads by running the one living importer in its bundle mode, never a fo
 runs the same importer the mono repo's entry runs. The compiled-type prebuild is the one committed, cross-session cache: one assembly for
 the whole repository, committed as `pwsh/.compiled/Catzc.Types.<hash>.dll` and named for the combined hash of every module's type sources,
 so a fresh checkout and CI load it without compiling.
+
+![The bundle entry sets the two roots and runs the same importer, with the compiled types as one committed cache.](.assets/a-bundle-loads-by-the-one-living-importer-and-compiled-types-are-one-committed-cache.drawio.png)

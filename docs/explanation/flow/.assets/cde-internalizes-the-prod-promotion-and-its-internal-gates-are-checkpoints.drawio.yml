@@ -1,0 +1,31 @@
+description:
+  An approval before production is a checkpoint inside an automated promotion, not a human-initiated roll.
+about:
+  adrs:
+    - FDR-CD-CDEINTERNALIZESPROMOTION
+    - FDR-CD-TYPE-CDEINTERNALGATES
+  lens: architecture
+content:
+  title: CDe may hold internal gates without becoming DEPLOY
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: AUTOMATED PROMOTION }
+    - { id: b1, label: GATES }
+  glyphs:
+    - { id: g0, kind: code, label: "Same CI component and non-prod direction", in: b0 }
+    - { id: g1, kind: result, label: "Automatic roll of the tagged artifact to prod", in: b0 }
+    - { id: g2, kind: gate, label: "Internal manual gate before the production stage", in: b1 }
+    - { id: g3, kind: gate, label: "Roll-to-prod is automatically determined", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g2, to: g1, kind: flow, label: "" }
+    - { from: g3, to: g1, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

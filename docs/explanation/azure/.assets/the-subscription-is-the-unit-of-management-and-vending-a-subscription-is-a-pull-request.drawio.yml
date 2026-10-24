@@ -1,0 +1,34 @@
+description:
+  "An azure.yml entry, a network.yml range and a config per template."
+about:
+  adrs:
+    - ADR-AZ-CAF-PRIN-SUBSCRIPTIONDEMOCRATIZATION
+    - ADR-AZ-CAF-RESORG-SUBSCRIPTIONVENDINGPROCESS
+  lens: architecture
+content:
+  title: "Vending a subscription is a pull request"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: PULL REQUEST }
+    - { id: b1, label: RESULT }
+  glyphs:
+    - { id: g0, kind: file, label: "azure.yml entry", in: b0 }
+    - { id: g1, kind: file, label: "network.yml range", in: b0 }
+    - { id: g2, kind: file, label: "Config per template", in: b0 }
+    - { id: g3, kind: result, label: "Landing zone with workspace, vault, tags and budget", in: b1 }
+    - { id: g4, kind: failure, label: "Creating the subscription not adopted", in: b1 }
+  edges:
+    - { from: g0, to: g3, kind: flow, label: "" }
+    - { from: g1, to: g3, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+    - { from: g3, to: g4, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

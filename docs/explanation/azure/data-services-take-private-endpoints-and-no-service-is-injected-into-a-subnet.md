@@ -17,3 +17,5 @@ Data services have public network access off and are reached only through privat
 internet traffic is denied at every workload subnet and no network interface takes a public IP address. Virtual network injection is not
 adopted, because no template deploys a service that is injected into a subnet; the data services are reached through private endpoints
 instead.
+
+![No service is injected into a subnet.](.assets/data-services-take-private-endpoints-and-no-service-is-injected-into-a-subnet.drawio.png)

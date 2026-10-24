@@ -19,3 +19,5 @@ Vaults are separate per customer and per tier, but the environments of one tier 
 name per configuration slot is planned. Managed identities are per resource and vaults and service connections per tier, the environments of
 one tier sharing their service connection and their vault secret, and every environment sharing the SQL administrator group; separating them
 is planned.
+
+![Environments of one tier share them, and separating them is planned.](.assets/vaults-and-service-connections-are-per-tier-and-the-environments-of-a-tier-share-them.drawio.png)

@@ -18,3 +18,5 @@ Bash code in the `bash` track is either a module of the track, a folder that exi
 test holder, `.bats` files that verify the engine from outside. The Python tests form one generated, gitignored uv workspace, the Python
 form of `go.work`: nothing Python-specific is committed but the `test_*.py` files, and `New-PythonProject` renders the workspace root
 `<root>/pyproject.toml`.
+
+![And the Python tests form one generated uv workspace.](.assets/bash-modules-exist-by-layout-and-the-python-tests-form-one-generated-workspace.drawio.png)

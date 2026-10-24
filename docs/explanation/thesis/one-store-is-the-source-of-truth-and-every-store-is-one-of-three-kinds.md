@@ -16,3 +16,5 @@ rules say.
 A source of truth is the one store whose content decides what is true about the delivered system; delivery is slow because truth is spread
 across disjoint stores that drift apart, and catzc's answer is one source of truth, the repository. A truth store is any store that holds
 part of the truth about a delivered system, of three kinds: a version-controlled repository, a fact source and a state machine.
+
+![A version-controlled repository, a fact source and a state machine, with the repository deciding what is true.](.assets/one-store-is-the-source-of-truth-and-every-store-is-one-of-three-kinds.drawio.png)

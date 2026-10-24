@@ -1,0 +1,34 @@
+description:
+  The parsed index is keyed by the SHA-256 of the index file, recomputed on every call.
+about:
+  adrs:
+    - ADR-AUTO-TRACKED-CACHEDBYINDEXHASH
+    - ADR-AUTO-CACHE-SESSIONCHANGEDGITSTATE
+  lens: architecture
+content:
+  title: Git state a session changes is cached by its bytes
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: CACHE }
+    - { id: b1, label: WHY }
+  glyphs:
+    - { id: g0, kind: file, label: "The git index file", in: b0 }
+    - { id: g1, kind: code, label: "SHA-256 of its bytes, every call", in: b0 }
+    - { id: g2, kind: result, label: "Parsed listing cached under that key", in: b0 }
+    - { id: g3, kind: failure, label: "Never a session-lifetime entry", in: b1 }
+    - { id: g4, kind: failure, label: "Git checksum is zeros under index.skipHash", in: b1 }
+  edges:
+    - { from: g0, to: g1, kind: flow, label: "" }
+    - { from: g1, to: g2, kind: flow, label: "" }
+    - { from: g3, to: g1, kind: flow, label: "" }
+    - { from: g4, to: g1, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+    - { at: g4, number: 5 }
+  legend: auto

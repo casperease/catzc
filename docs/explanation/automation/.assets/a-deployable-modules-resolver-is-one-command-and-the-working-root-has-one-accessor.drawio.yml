@@ -1,0 +1,30 @@
+description:
+  "And a deployable module has one resolver."
+about:
+  adrs:
+    - ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE
+    - ADR-AUTO-NOPWD-ONEROOTACCESSOR
+  lens: architecture
+content:
+  title: "The working root has one accessor"
+  kind: explanation
+  flow: left-to-right
+  relation: leads to
+  theme: dark
+  bands:
+    - { id: b0, label: ROOT }
+    - { id: b1, label: MODULE }
+  glyphs:
+    - { id: g0, kind: code, label: "Get-RepositoryRoot", in: b0 }
+    - { id: g1, kind: failure, label: "Never the bootstrap variable", in: b0 }
+    - { id: g2, kind: code, label: "Get-CatzcModule: one resolver", in: b1 }
+    - { id: g3, kind: set, label: "The track that holds it", in: b1 }
+  edges:
+    - { from: g1, to: g0, kind: flow, label: "" }
+    - { from: g2, to: g3, kind: flow, label: "" }
+  markers:
+    - { at: g0, number: 1 }
+    - { at: g1, number: 2 }
+    - { at: g2, number: 3 }
+    - { at: g3, number: 4 }
+  legend: auto

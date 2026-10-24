@@ -17,3 +17,5 @@ The repository holds no secret: a secure parameter is a Key Vault reference to `
 secret, and services authenticate as managed identities; automated rotation is planned. A template config parameter may name its value by
 config address, `{ address: global.<config>.<key>… }`, instead of a literal `value` or a Key Vault `reference`, and the build resolves it
 through `Get-ConfigValue`.
+
+![A secure parameter is a Key Vault reference, and a value may be named by config address.](.assets/the-repository-holds-no-secret-and-a-value-may-be-named-by-config-address.drawio.png)

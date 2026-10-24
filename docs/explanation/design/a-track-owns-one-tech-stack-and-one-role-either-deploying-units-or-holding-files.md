@@ -17,3 +17,5 @@ A track owns one coherent tech-stack, and a new tech-stack opens a new track, ne
 with the C# types it hosts, `infrastructure` is Bicep plus PowerShell extension points. A track type has one role as well. A deployable
 track owns deployable units the repository delivers through CI/CD; a holder track holds one vendor's or tool's files and ships nothing of
 its own. The role is declared on the track type, never on the track.
+
+![A track holds one tech-stack and its track type gives it one role, deployable units or the files of one vendor or tool.](.assets/a-track-owns-one-tech-stack-and-one-role-either-deploying-units-or-holding-files.drawio.png)
