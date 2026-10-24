@@ -36,6 +36,10 @@ const FIELD = "catzc.trackLamps.field";
 const OWNED = "catzc.trackLamps.owned";
 const LANGUAGE = "languages";
 const OPEN = "open";
+const HELD = "catzc.lamps.remembered";
+// The suffix of a remembered Error's source, and how many Errors one file remembers.
+const REMEMBERED = " · remembered";
+const MAX_REMEMBERED = 20;
 const MARKERS = "out/test-results";
 const FOLD = process.platform === "win32";
 // The conditions by precedence, lowest first; a lamp shows the highest fact over the files it claims.
@@ -336,6 +340,68 @@ function diagnosticFacts(root, entries, facts = {}) {
     return facts;
 }
 
+// The places carrying an Error right now, for the log line that tells a held fault from a live one.
+function errorPlaces(root, entries) {
+    return (entries ?? [])
+        .filter(([, diagnostics]) => (diagnostics ?? []).some((diagnostic) => diagnostic.severity === 0))
+        .map(([uri]) => relativeTo(root, uri.fsPath))
+        .filter(Boolean)
+        .sort();
+}
+
+// An Error as it is stored and published again: its message, range (start line and character, end line and character), source and code.
+function storedError(diagnostic) {
+    const { start, end } = diagnostic.range ?? {};
+    const code = typeof diagnostic.code === "object" ? diagnostic.code?.value : diagnostic.code;
+    return {
+        message: diagnostic.message ?? "",
+        range: [start?.line ?? 0, start?.character ?? 0, end?.line ?? 0, end?.character ?? 0],
+        source: diagnostic.source ?? "error",
+        code: code === undefined ? undefined : String(code),
+    };
+}
+
+// A diagnostic this extension published for a closed file's remembered Error; the live diagnostics are read without them.
+const isRemembered = (diagnostic) => typeof diagnostic.source === "string" && diagnostic.source.endsWith(REMEMBERED);
+
+// The files whose Error stays a fault while the editor's diagnostics fall silent: a language server reports a file's Error only while the
+// file is open (a closed preview tab clears it) and while it is not re-analysing, and red always wins over the change colours. held maps
+// a place to { seen: the time its Error was first seen, diagnostics: its Errors as last reported }; the fault stays until the file
+// reports a non-error set, is edited or saved (the caller), or changes on disk after that time (lapsed); silence and a closed tab never
+// release it. Returns the new map.
+function heldFaults(root, held, entries, now = Date.now()) {
+    const next = { ...(held ?? {}) };
+    for (const [uri, diagnostics] of entries ?? []) {
+        const place = relativeTo(root, uri.fsPath);
+        if (!place) continue;
+        const list = diagnostics ?? [];
+        const errors = list.filter((diagnostic) => diagnostic.severity === 0);
+        if (errors.length > 0) next[place] = { seen: next[place]?.seen ?? now, diagnostics: errors.slice(0, MAX_REMEMBERED).map(storedError) };
+        else if (list.length > 0) delete next[place];
+    }
+    return next;
+}
+
+// The held places whose file changed on disk after its Error was seen, or is gone: the held map without them.
+async function lapsedFaults(root, held) {
+    const next = { ...held };
+    for (const [place, fault] of Object.entries(held)) {
+        try {
+            if ((await fs.promises.stat(path.join(root, place))).mtimeMs > fault.seen) delete next[place];
+        } catch {
+            delete next[place];
+        }
+    }
+    return next;
+}
+
+// The Errors to publish again: the held places the language servers report no Error for now, each with its stored Errors. A place with a
+// live Error is left to its server, so nothing shows twice.
+function remembering(root, held, entries) {
+    const live = new Set(errorPlaces(root, entries));
+    return Object.fromEntries(Object.entries(held ?? {}).filter(([place]) => !live.has(place)).map(([place, fault]) => [place, fault.diagnostics]));
+}
+
 // The module a test file tests: the folder above its first tests segment, else its own folder.
 function testedModule(test) {
     const parts = test.split("/");
@@ -446,12 +512,55 @@ function activate(context) {
     };
     // The conditions from the facts the editor already holds; only the facts' paths are classified, so no disk walk is needed.
     let repository;
+    let held = context.workspaceState.get(HELD, {});
+    // A closed file's remembered Errors, published again as this extension's own diagnostics: the editor's problem decorations are the only
+    // ones heavier than the git colours and the only ones that colour every folder above the file, so the Explorer row, the tab and the
+    // tree show the same red as for an open file. The language servers' own Errors take over the moment they report again.
+    const collection = vscode.languages.createDiagnosticCollection("catzc");
+    context.subscriptions.push(collection);
+    let published = {};
+    const publish = (root, wanted) => {
+        for (const place of Object.keys(published)) {
+            if (place in wanted) continue;
+            collection.delete(vscode.Uri.file(path.join(root, place)));
+            delete published[place];
+        }
+        for (const [place, errors] of Object.entries(wanted)) {
+            const signature = JSON.stringify(errors);
+            if (published[place] === signature) continue;
+            const diagnostics = errors.map((error) => {
+                const diagnostic = new vscode.Diagnostic(
+                    new vscode.Range(error.range[0], error.range[1], error.range[2], error.range[3]),
+                    error.message,
+                    vscode.DiagnosticSeverity.Error,
+                );
+                diagnostic.source = `${error.source}${REMEMBERED}`;
+                if (error.code !== undefined) diagnostic.code = error.code;
+                return diagnostic;
+            });
+            collection.set(vscode.Uri.file(path.join(root, place)), diagnostics);
+            published[place] = signature;
+        }
+    };
     const judge = async () => {
         const root = rootOf();
         if (!root) return;
         const facts = gitFacts(root, repository?.state);
-        diagnosticFacts(root, vscode.languages.getDiagnostics(), facts);
+        const entries = vscode.languages.getDiagnostics().map(([uri, diagnostics]) => [uri, diagnostics.filter((d) => !isRemembered(d))]);
+        const before = JSON.stringify(context.workspaceState.get(HELD, {}));
+        held = await lapsedFaults(root, heldFaults(root, held, entries));
+        if (JSON.stringify(held) !== before) await context.workspaceState.update(HELD, held);
+        const heldPlaces = Object.keys(held).sort();
+        diagnosticFacts(root, entries, facts);
+        for (const place of heldPlaces) addFact(facts, place, "fault", "failed");
         await markerFacts(root, facts);
+        // Every file the lamps hold as failed shows red in the tree: the remembered Errors, and a test file whose run left a failed marker.
+        const wanted = remembering(root, held, entries);
+        const live = new Set(errorPlaces(root, entries));
+        for (const [place, fact] of Object.entries(facts))
+            if (fact.fault === "failed" && !(place in wanted) && !live.has(place))
+                wanted[place] = [{ message: "its last test run failed", range: [0, 0, 0, 0], source: "tests" }];
+        publish(root, wanted);
         const out = new Set(context.workspaceState.get(OUT, []));
         const sets = lampSets(filters(), context.workspaceState.get(FIELD, ""), languages(), openFiles(root, vscode.window.tabGroups.all));
         const next = evaluate(sets, new Set(Object.keys(sets).filter((name) => !out.has(name))), [], facts).conditions;
@@ -460,7 +569,7 @@ function activate(context) {
         log.appendLine(
             `conditions: ${Object.entries(conditions)
                 .map(([lamp, condition]) => `${lamp} ${condition}`)
-                .join(", ")}`,
+                .join(", ")} | held [${heldPlaces.join(", ")}] | errors [${errorPlaces(root, entries).join(", ")}]`,
         );
         await show();
     };
@@ -605,7 +714,23 @@ function activate(context) {
         const markers = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(folder, `${MARKERS}/**`));
         context.subscriptions.push(markers, markers.onDidCreate(rejudge), markers.onDidChange(rejudge), markers.onDidDelete(rejudge));
     }
-    context.subscriptions.push(vscode.languages.onDidChangeDiagnostics(rejudge), vscode.workspace.onDidSaveTextDocument(rejudge));
+    // An edit or a save releases the file's held Error (its diagnostics re-hold it while it still has one); switching the active file
+    // re-judges, so the open lamp follows the red file that was just left.
+    const release = (document) => {
+        const root = rootOf();
+        const place = root && document.uri.scheme === "file" ? relativeTo(root, document.uri.fsPath) : undefined;
+        if (place && place in held) {
+            held = { ...held };
+            delete held[place];
+        }
+        rejudge();
+    };
+    context.subscriptions.push(
+        vscode.languages.onDidChangeDiagnostics(rejudge),
+        vscode.window.onDidChangeActiveTextEditor(rejudge),
+        vscode.workspace.onDidChangeTextDocument((event) => event.contentChanges.length > 0 && release(event.document)),
+        vscode.workspace.onDidSaveTextDocument(release),
+    );
     // An opened or closed editor changes the open lamp's files: its condition at once, and the tree while a lamp is unlit.
     context.subscriptions.push(
         vscode.window.tabGroups.onDidChangeTabs(() => {
@@ -638,9 +763,14 @@ module.exports = {
     claimer,
     diagnosticFacts,
     entryClaimer,
+    errorPlaces,
     evaluate,
     gitFacts,
     globMatcher,
+    heldFaults,
+    isRemembered,
+    lapsedFaults,
+    remembering,
     hiddenEntries,
     hiddenGlobs,
     lampSets,

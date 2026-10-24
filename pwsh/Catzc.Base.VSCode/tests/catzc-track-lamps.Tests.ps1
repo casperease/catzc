@@ -182,6 +182,44 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         $facts.Contains('gadgets/a.ps1') | Should -BeFalse -Because 'a warning is no failure'
     }
 
+    It 'holds a file''s Error while the diagnostics fall silent, so red wins on the open lamp after the active file changes' {
+        $root = (Join-Path $TestDrive 'widget-repo') -replace '\\', '/'
+        $red = 'mods/Widget/Get-Widget.ps1'
+        $other = 'gadgets/a.ps1'
+        $open = @($red, $other)
+        $entry = { param([string] $Path, [object[]] $Diagnostics) , @(@{ fsPath = "$root/$Path" }, @($Diagnostics)) }
+        $error1 = @{ severity = 0; message = 'bad'; source = 'bicep'; range = @{ start = @{ line = 3; character = 1 }; end = @{ line = 3; character = 9 } } }
+        $held = & $script:call heldFaults @($root, @{}, @(& $entry $red @($error1)), 1000)
+        $held[$red].seen | Should -Be 1000
+        $held[$red].diagnostics[0].message | Should -Be 'bad'
+        $held[$red].diagnostics[0].range | Should -Be @(3, 1, 3, 9)
+        $held = & $script:call heldFaults @($root, $held, @(& $entry $red @()), 2000)
+        $held[$red].seen | Should -Be 1000 -Because 'silence, on the active file or off it, never releases a fault (a language server re-analysing is silent)'
+        $held = & $script:call heldFaults @($root, $held, @(), 3000)
+        $held[$red].seen | Should -Be 1000 -Because 'a closed tab clears the language server''s diagnostics, and the fault stays'
+        (& $script:call heldFaults @($root, $held, @(& $entry $red @(@{ severity = 1 })), 4000)).Count | Should -Be 0 -Because 'a non-error set means the Error is fixed'
+        # A held place with no live Error is published again, marked as remembered; one the server reports again is left to it.
+        $again = & $script:call remembering @($root, $held, @())
+        $again[$red][0].message | Should -Be 'bad'
+        (& $script:call remembering @($root, $held, @(& $entry $red @($error1)))).Count | Should -Be 0 -Because 'a live Error shows once'
+        & $script:call isRemembered @(@{ source = 'bicep · remembered' }) | Should -BeTrue
+        & $script:call isRemembered @(@{ source = 'bicep' }) | Should -BeFalse
+        # A file changed on disk after its Error was seen lapses; an untouched one stays.
+        $file = Join-Path $root $red
+        $null = New-Item -ItemType File -Force -Path $file
+        $seen = [DateTimeOffset]::UtcNow.AddMinutes(-5).ToUnixTimeMilliseconds()
+        (& $script:call lapsedFaults @($root, @{ $red = @{ seen = $seen; diagnostics = @() } })).Count | Should -Be 0 -Because 'the file is newer than the Error'
+        $future = [DateTimeOffset]::UtcNow.AddMinutes(5).ToUnixTimeMilliseconds()
+        (& $script:call lapsedFaults @($root, @{ $red = @{ seen = $future; diagnostics = @() } }))[$red].seen | Should -Be $future -Because 'the file is older than the Error'
+        (& $script:call lapsedFaults @($root, @{ 'gone/a.ps1' = @{ seen = $future; diagnostics = @() } })).Count | Should -Be 0 -Because 'a deleted file has no fault'
+        & $script:call errorPlaces @($root, @(& $entry $red @(@{ severity = 0 }); & $entry $other @(@{ severity = 1 }))) | Should -Be $red
+        # The held fact makes the open lamp failed over an unstaged active file.
+        $facts = @{ $red = @{ fault = 'failed' }; $other = @{ change = 'unstaged' } }
+        $sets = [ordered]@{ open = @(& $script:set $open) }
+        $answer = & $script:call evaluate @($sets, @('open'), @(), $facts)
+        $answer.conditions['open'] | Should -Be 'failed'
+    }
+
     It 'reads a fresh test-result marker as a failed test file, and lapses one older than the tested module' {
         $root = (Join-Path $TestDrive 'markers') -replace '\\', '/'
         $test = Join-Path $root 'mods/Widget/tests/Get-Widget.Tests.ps1'

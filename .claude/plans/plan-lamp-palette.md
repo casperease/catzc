@@ -41,13 +41,15 @@ the Explorer on one mapping (DDR-FILTER-STATEALWAYSSHOWN, PDR-CONFIG, PDR-ONELIV
 ## Open steps
 
 1. [ ] `pwsh/Catzc.Base.VSCode/configs/lamp-palette.yml` (new) and its type `LampPaletteConfig` registered in `configs.yml`: the ranges
-       committed, staged, unstaged, failed, empty (and veto once that state lands), each with `glyph_lit`, `glyph_unlit`, `badge`, `text`,
-       `mark` and `background` (with alpha), every default declared once on the type (check: an L0 test of the type reads the file and
-       refuses an unknown range key or a shade that is no `#rrggbb[aa]`).
+       committed, staged, unstaged, failed, empty and veto (the purple, struck-through state of 0.11.0, today eight hand-made
+       `<lamp>-veto.svg` icons), each with `glyph_lit`, `glyph_unlit`, `badge`, `text`, `mark` and `background` (with alpha), every default
+       declared once on the type (check: an L0 test of the type reads the file and refuses an unknown range key or a shade that is no
+       `#rrggbb[aa]`).
 2. [ ] `pwsh/Catzc.Base.VSCode/private/New-VsCodeExtensionFolder.ps1`: renders every lamp's condition variants into `media/` from its two
        base glyphs and the palette (colour swap plus the condition's badge), and the committed variant files under
        `assets/extensions/catzc-track-lamps/` are deleted (check: the L1 manifest test finds every icon a command names in the rendered
-       folder, and `Test-GeneratedFiles` reports no committed variant).
+       folder, and `Test-GeneratedFiles` reports no committed variant, the eight veto icons included; a vetoed lamp still shows no staged,
+       unstaged or failed condition colour).
 3. [ ] `pwsh/Catzc.Base.VSCode/configs/vscode-settings.yml`: the git decoration, gutter, ruler, minimap, diff and git-changes colours name a
        palette shade (for example `palette.unstaged.text`) that `New-VsCodeSettings` resolves, and the `catzc-git-changes` defaults read the
        same shades (check: the rendered `.vscode/settings.json` holds the palette's hexes and no literal colour is left in the two configs).
