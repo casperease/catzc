@@ -11,8 +11,9 @@ catzc:
 
 // Filter lamps in the Explorer's title row, the editor's engine of the lamp language (DDR-FILTER): one lamp per repository filter
 // (filters.yml, rendered into catzc.trackLamps.filters by the root config generator) and a languages lamp whose sets are the extensions of
-// the languages typed in its field. The core, evaluate, is the language itself: the tree is the total union of the lit lamps (a file shows
-// while any lit lamp claims it), a file no lamp claims shows and is unaccounted, and each lamp's condition is the highest fact over the
+// the languages typed in its field. A click steps a lamp round off -> on -> veto -> off. The core, evaluate, is the language itself: the
+// tree is the total union of the lit lamps (a file shows while any lit lamp claims it) minus the zones of the vetoed lamps (a file one
+// claims is hidden even when a lit lamp claims it too), a file no lamp claims shows and is unaccounted, and each lamp's condition is the highest fact over the
 // files it claims, failed > unstaged > staged > committed, whether it is lit or not. Every lamp lit is the default and shows everything.
 // The adapter feeds the core from what the editor already knows: the built-in git extension's changes, the Error diagnostics, and the
 // test-result markers out/test-results/<test file>.failed (Invoke-TestFile), read by existence and timestamp only.
@@ -30,6 +31,7 @@ let vscode;
 let log;
 
 const OUT = "catzc.trackLamps.out";
+const VETO = "catzc.trackLamps.veto";
 const FIELD = "catzc.trackLamps.field";
 const OWNED = "catzc.trackLamps.owned";
 const LANGUAGE = "languages";
@@ -145,8 +147,10 @@ function lampSets(declared, field, known, open = []) {
 // is none, staged or unstaged and fault none or failed. Returns the files shown (the total union: any lit lamp claims it, or no lamp
 // does), the files no lamp claims, each file's signature (the lamps claiming it, in lamp order), and each lamp's condition, the highest
 // fact over the files it claims by the one precedence, or empty for a lamp whose sets include nothing. A fact's path need not be on disk
-// (a deleted file is a change), and the switch never touches a condition.
-function evaluate(sets, lit, files, facts = {}) {
+// (a deleted file is a change), and the switch never touches a condition. A vetoed lamp (unlit, and hiding its whole zone) takes out every
+// file it claims, even one a lit lamp claims too: the shown files are the lit union minus the vetoed zones.
+function evaluate(sets, lit, files, facts = {}, vetoed = []) {
+    const vetoes = new Set(vetoed);
     const names = Object.keys(sets);
     const claims = names.map((name) => [name, claimer(sets[name])]);
     const signatureOf = (place) => {
@@ -160,6 +164,7 @@ function evaluate(sets, lit, files, facts = {}) {
         const signature = signatureOf(place);
         signatures[place] = signature;
         if (signature.length === 0) unaccounted.push(place);
+        if (signature.some((name) => vetoes.has(name))) continue;
         if (signature.length === 0 || signature.some((name) => lit.has(name))) shown.push(place);
     }
     const rank = Object.fromEntries(names.map((name) => [name, 0]));
@@ -268,22 +273,23 @@ function hiddenEntries(files, folders, shown) {
 }
 
 // The entries for the unlit lamps, from one walk of the disk: out holds the unlit lamps, field the languages typed for the languages lamp,
-// open the files open in an editor. Every lamp lit writes nothing, as without the extension.
-async function hiddenGlobs(root, out, field, declared, known, open = []) {
+// open the files open in an editor, vetoed the unlit lamps that also hide their whole zone. Every lamp lit writes nothing, as without the
+// extension.
+async function hiddenGlobs(root, out, field, declared, known, open = [], vetoed = []) {
     const sets = lampSets(declared, field, known, open);
     const lit = new Set(Object.keys(sets).filter((name) => !out.has(name)));
     if (lit.size === Object.keys(sets).length) return [];
     const { files, folders } = await walkDisk(root);
-    return hiddenEntries(files, folders, evaluate(sets, lit, files).shown);
+    return hiddenEntries(files, folders, evaluate(sets, lit, files, {}, vetoed).shown);
 }
 
 // Every file on disk accounted for: the written entries must hide exactly the files the language does not show. Returns the totals, the
 // files shown, the files per signature, the files no lamp claims, and the files whose visibility breaks the rule.
-async function census(root, out, field, declared, known, globs, open = []) {
+async function census(root, out, field, declared, known, globs, open = [], vetoed = []) {
     const sets = lampSets(declared, field, known, open);
     const lit = new Set(Object.keys(sets).filter((name) => !out.has(name)));
     const { files } = await walkDisk(root);
-    const verdict = evaluate(sets, lit, files);
+    const verdict = evaluate(sets, lit, files, {}, vetoed);
     const showing = new Set(verdict.shown);
     const written = entryClaimer(globs);
     const result = { total: files.length, shown: 0, signatures: {}, unclaimed: verdict.unaccounted, wrong: [] };
@@ -402,19 +408,20 @@ async function apply(context) {
     const root = folder.uri.fsPath;
     const out = new Set(context.workspaceState.get(OUT, []));
     const field = context.workspaceState.get(FIELD, "");
+    const vetoed = new Set(context.workspaceState.get(VETO, []));
     const open = openFiles(root, vscode.window.tabGroups.all);
-    const wanted = await hiddenGlobs(root, out, field, filters(), languages(), open);
+    const wanted = await hiddenGlobs(root, out, field, filters(), languages(), open, vetoed);
     const files = vscode.workspace.getConfiguration("files", folder.uri);
     const current = files.inspect("exclude")?.workspaceValue ?? {};
     const { next, ours } = merge(current, context.workspaceState.get(OWNED, []), wanted);
-    log.appendLine(`apply: unlit [${[...out].join(", ")}], field "${field}", ${wanted.length} entries wanted, ${ours.length} owned`);
+    log.appendLine(`apply: unlit [${[...out].join(", ")}], vetoed [${[...vetoed].join(", ")}], field "${field}", ${wanted.length} entries wanted, ${ours.length} owned`);
     await context.workspaceState.update(OWNED, ours);
     written = JSON.stringify(next);
     if (written !== JSON.stringify(current)) {
         await files.update("exclude", next, vscode.ConfigurationTarget.Workspace);
         log.appendLine(`apply: files.exclude written with ${Object.keys(next).length} keys`);
     }
-    return { root, out, field, wanted, open };
+    return { root, out, vetoed, field, wanted, open };
 }
 
 function activate(context) {
@@ -424,13 +431,15 @@ function activate(context) {
     const lamps = () => [OPEN, ...Object.keys(filters()), LANGUAGE];
     const rootOf = () => vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
 
-    // The title row shows each lamp's icon by its two context keys, the switch and the condition.
+    // The title row shows each lamp's icon by its context keys: the switch (out: off, veto: vetoed, neither: on) and the condition.
     let conditions = {};
     const show = async () => {
         const out = new Set(context.workspaceState.get(OUT, []));
+        const vetoed = new Set(context.workspaceState.get(VETO, []));
         await Promise.all(
             lamps().flatMap((lamp) => [
-                vscode.commands.executeCommand("setContext", `catzc.lamps.out.${lamp}`, out.has(lamp)),
+                vscode.commands.executeCommand("setContext", `catzc.lamps.out.${lamp}`, out.has(lamp) && !vetoed.has(lamp)),
+                vscode.commands.executeCommand("setContext", `catzc.lamps.veto.${lamp}`, out.has(lamp) && vetoed.has(lamp)),
                 vscode.commands.executeCommand("setContext", `catzc.lamps.state.${lamp}`, conditions[lamp] ?? "committed"),
             ]),
         );
@@ -471,16 +480,16 @@ function activate(context) {
     );
     const count = async (applied) => {
         if (!applied) return;
-        const { root, out, field, wanted, open } = applied;
-        const tally = await census(root, out, field, filters(), languages(), wanted, open);
+        const { root, out, vetoed, field, wanted, open } = applied;
+        const tally = await census(root, out, field, filters(), languages(), wanted, open, vetoed);
         const matrix = Object.entries(tally.signatures)
             .sort((a, b) => b[1] - a[1])
             .map(([signature, files]) => `${signature}: ${files}`);
-        const lit = lamps().map((lamp) => `${lamp}${out.has(lamp) ? " (off)" : ""} ${conditions[lamp] ?? "committed"}`);
+        const lit = lamps().map((lamp) => `${lamp}${out.has(lamp) ? (vetoed.has(lamp) ? " (veto)" : " (off)") : ""} ${conditions[lamp] ?? "committed"}`);
         if (tally.wrong.length === 0 && tally.unclaimed.length === 0) {
             counter.text = `$(pass) ${tally.shown}/${tally.total} · everything is accounted for`;
             counter.color = "#3fb950";
-            counter.tooltip = `Catzc lamps: ${tally.shown} of ${tally.total} files shown, each hidden exactly when no lit lamp claims it.\nLamps: ${lit.join(", ")}\nFiles per signature:\n${matrix.join("\n")}`;
+            counter.tooltip = `Catzc lamps: ${tally.shown} of ${tally.total} files shown, each hidden exactly when no lit lamp claims it or a vetoed lamp does.\nLamps: ${lit.join(", ")}\nFiles per signature:\n${matrix.join("\n")}`;
         } else {
             const problems = tally.wrong.length + tally.unclaimed.length;
             counter.text = `$(warning) ${tally.shown}/${tally.total} · a filter went bananas (${problems})`;
@@ -521,12 +530,17 @@ function activate(context) {
         }
         await show();
     };
-    // A click switches the icon at once, then filters; the count follows.
-    const turn = async (lamp, unlit) => {
+    // A click steps a lamp round off -> on -> veto -> off and switches the icon at once, then filters; the count follows. A vetoed lamp is
+    // unlit as well, so the conditions and the open-lamp refresh read it as off.
+    const turn = async (lamp, mode) => {
         const out = new Set(context.workspaceState.get(OUT, []));
-        if (unlit) out.add(lamp);
-        else out.delete(lamp);
+        const vetoed = new Set(context.workspaceState.get(VETO, []));
+        if (mode === "on") out.delete(lamp);
+        else out.add(lamp);
+        if (mode === "veto") vetoed.add(lamp);
+        else vetoed.delete(lamp);
         await context.workspaceState.update(OUT, [...out]);
+        await context.workspaceState.update(VETO, [...vetoed]);
         await show();
         await settle();
         rejudge();
@@ -545,7 +559,7 @@ function activate(context) {
         });
         if (answer === undefined) return;
         await context.workspaceState.update(FIELD, typed(answer).join(", "));
-        await turn(LANGUAGE, false);
+        await turn(LANGUAGE, "on");
     };
     let timer;
     const refresh = () => {
@@ -553,16 +567,18 @@ function activate(context) {
         timer = setTimeout(settle, 200);
     };
 
-    // A command pair per lamp and condition, each its own icon; committed is the bare name. The manifest declares the same names (a test
-    // holds it to filters.yml and the conditions).
+    // A command per lamp state, named for what its click does and shown with the icon of the state it leaves: light (off -> on) and veto
+    // (on -> veto) per condition, each its own icon, committed the bare name; putOut (veto -> off) has the one veto icon. The manifest
+    // declares the same names (a test holds it to filters.yml and the conditions).
     for (const lamp of lamps()) {
+        context.subscriptions.push(vscode.commands.registerCommand(`catzc.lamps.${lamp}.putOut`, () => turn(lamp, "off")));
         for (const condition of [...CONDITIONS, EMPTY]) {
             const suffix = condition === "committed" ? "" : `.${condition}`;
             context.subscriptions.push(
-                vscode.commands.registerCommand(`catzc.lamps.${lamp}.putOut${suffix}`, () => turn(lamp, true)),
+                vscode.commands.registerCommand(`catzc.lamps.${lamp}.veto${suffix}`, () => turn(lamp, "veto")),
                 vscode.commands.registerCommand(
                     `catzc.lamps.${lamp}.light${suffix}`,
-                    lamp === LANGUAGE ? chooseLanguages : () => turn(lamp, false),
+                    lamp === LANGUAGE ? chooseLanguages : () => turn(lamp, "on"),
                 ),
             );
         }

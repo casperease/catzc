@@ -32,10 +32,12 @@ and resolves nothing of its own.
 
 ### Rule DDR-FILTER-TOTALUNION
 
-A **lamp** is a filter a reader switches on (lit) or off. The view is the **total union** of the lit lamps: a file is shown while at least
-one lit lamp claims it, so putting a lamp out hides only the files no other lit lamp claims. Every lamp takes part the same way, the
-languages lamp (whose sets are the extensions of the languages a reader types) and the open lamp (whose sets are the files open in an
-editor, so lit it keeps them in the tree whatever else is out) included; no lamp hides over another, and every lamp lit shows everything.
+A **lamp** is a filter a reader switches on (lit), off, or to **veto**, one click stepping it round off, on, veto. The view is the **total
+union** of the lit lamps minus the zones of the vetoed lamps: a file is shown while at least one lit lamp claims it, so putting a lamp out
+hides only the files no other lit lamp claims, while a vetoed lamp hides every file it claims even when a lit lamp claims it too. Every lamp
+takes part the same way, the languages lamp (whose sets are the extensions of the languages a reader types) and the open lamp (whose sets
+are the files open in an editor, so lit it keeps them in the tree whatever else is out) included; only a veto hides over another lamp, and
+every lamp lit shows everything.
 
 - [Decision](#decision)
 - [Consequences](#consequences)
@@ -60,8 +62,9 @@ deleted file is a change. The condition is independent of the switch: an unlit l
 ### Rule DDR-FILTER-STATEALWAYSSHOWN
 
 A lamp's icon is one lookup, switch × condition, and nothing else: lit is a steady glyph, unlit an active filter pulsing in a turning ring;
-committed is green, staged dark brown, unstaged yellowish, failed red, empty neutral grey. The editor's own git colours follow the same
-mapping, so a lamp and the files it claims never disagree. A reader never has to guess why a file is missing or where the work is.
+committed is green, local work in progress is the blue-grey range (staged dark, unstaged lighter), failed red, empty neutral grey. The
+editor's own git colours follow the same mapping, so a lamp and the files it claims never disagree. A reader never has to guess why a file
+is missing or where the work is.
 
 - [Consequences](#consequences)
 

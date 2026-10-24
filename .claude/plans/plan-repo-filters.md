@@ -49,8 +49,8 @@ one resolver, makes every new view a config line, and moving the extra units int
   no other lit lamp claims (DDR-FILTER-TOTALUNION).
 - Coverage is asserted: every file on disk is claimed by at least one filter. The census counts files per membership signature (the set of
   filters claiming a file: `{code}`, `{code, generated}`, …) and shows that matrix in the counter's tooltip.
-- The tool caches and environments (`**/.ruff_cache`, `python/.venv`, `python/uv.lock`) are generated,
-  declared by the Python tooling's `generated.yml`.
+- The tool caches and environments (`**/.ruff_cache`, `python/.venv`, `python/uv.lock`) are generated, declared by the Python tooling's
+  `generated.yml`.
 - The extra live units are the aspect model's, never the filter's: the python folder modules, `.internal` and `.scriptanalyzer` (their root
   `.psm1` files live, a single-file module keeping its own set) get aspect sets in `Get-ModuleGlobSet`, gated by `Test-GlobSetIndependence`;
   the go, bash and python root holders get none, their black-box tests already the tested module's.
@@ -60,12 +60,17 @@ one resolver, makes every new view a config line, and moving the extra units int
 - The lamps are generic: one per declared filter, its icons `<filter>-<on|off>[-<condition>].svg`, the manifest's lamp commands repeated
   from `filters.yml` by the folder generator. Paths compare case-insensitively on Windows, as the file system does.
 
+- A lamp is a **tri-state toggle** (DDR-FILTER-TOTALUNION): one click steps it round **off → on → veto → off**, and a vetoed lamp hides its
+  whole zone even where a lit lamp claims it; its icon is `<filter>-veto.svg`.
+
 ## Open steps
 
-1. [ ] `pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js`: the user reloads VS Code and judges the 0.10.0 lamps (open, code,
-       tests, tools, generated, docs, out, languages): the union of the lit lamps, the open lamp keeping open files and grey with none open,
-       the languages lamp as a language view, the brown and red conditions, and the counter's signature matrix; each remark lands here as
-       its own step (check: the counter reads "everything is accounted for" with each lamp off in turn; the user looks).
+1. [ ] `pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js`: the user reloads VS Code and judges the 0.11.0 lamps (open, code,
+       tests, tools, generated, docs, out, languages): a click steps each lamp off → on → veto → off (veto: the purple struck-through icon,
+       its whole zone hidden even where a lit lamp claims it), the union of the lit lamps minus the vetoed zones, the open lamp keeping open
+       files and grey with none open, the languages lamp as a language view, the brown and red conditions, and the counter's signature
+       matrix; each remark lands here as its own step (check: the counter reads "everything is accounted for" with each lamp off in turn;
+       the user looks).
 
 ## Refs
 

@@ -70,23 +70,24 @@ settings:
   scm.diffDecorations: all
   scm.diffDecorationsGutterVisibility: always
   workbench.colorCustomizations:
-    gitDecoration.modifiedResourceForeground: "#e0b83a"
-    gitDecoration.untrackedResourceForeground: "#e0b83a"
-    gitDecoration.stageModifiedResourceForeground: "#7a4a1e"
-    gitDecoration.addedResourceForeground: "#7a4a1e"
-    gitDecoration.stageDeletedResourceForeground: "#7a4a1e"
-    editorGutter.modifiedBackground: "#e0b83a"
-    editorGutter.addedBackground: "#e0b83a"
-    editorOverviewRuler.modifiedForeground: "#e0b83a"
-    editorOverviewRuler.addedForeground: "#e0b83a"
-    minimapGutter.modifiedBackground: "#e0b83a"
-    minimapGutter.addedBackground: "#e0b83a"
-    catzc.gitChanges.stagedBackground: "#7a4a1e40"
-    catzc.gitChanges.unstagedBackground: "#e0b83a26"
-    diffEditor.insertedLineBackground: "#f5e17a26"
-    diffEditor.insertedTextBackground: "#f5e17a59"
-    diffEditor.removedLineBackground: "#b8860b26"
-    diffEditor.removedTextBackground: "#b8860b59"
+    # Local work in progress is the blue-grey range: file names in its lighter shades, marks and backgrounds in its base tones.
+    gitDecoration.modifiedResourceForeground: "#b3c3d8"
+    gitDecoration.untrackedResourceForeground: "#b3c3d8"
+    gitDecoration.stageModifiedResourceForeground: "#7d93b0"
+    gitDecoration.addedResourceForeground: "#7d93b0"
+    gitDecoration.stageDeletedResourceForeground: "#7d93b0"
+    editorGutter.modifiedBackground: "#8fa3bd"
+    editorGutter.addedBackground: "#8fa3bd"
+    editorOverviewRuler.modifiedForeground: "#8fa3bd"
+    editorOverviewRuler.addedForeground: "#8fa3bd"
+    minimapGutter.modifiedBackground: "#8fa3bd"
+    minimapGutter.addedBackground: "#8fa3bd"
+    catzc.gitChanges.stagedBackground: "#546a8540"
+    catzc.gitChanges.unstagedBackground: "#8fa3bd26"
+    diffEditor.insertedLineBackground: "#8fa3bd26"
+    diffEditor.insertedTextBackground: "#8fa3bd59"
+    diffEditor.removedLineBackground: "#546a8526"
+    diffEditor.removedTextBackground: "#546a8559"
 
   # The title-row icons of every view show without a hover, so the track lamps in the Explorer's folder row are always visible.
   workbench.view.alwaysShowHeaderActions: true

@@ -50,17 +50,17 @@ extensions:
     description: >-
       Shades the lines a file changes against HEAD inside the editor: staged lines in one colour, unstaged lines in another, both set in
       workbench.colorCustomizations.
-    version: 0.1.1
+    version: 0.1.2
     activationEvents: [onStartupFinished]
     contributes:
-      # The lamps' one mapping (DDR-FILTER-STATEALWAYSSHOWN): staged dark brown, unstaged yellowish.
+      # The lamps' one mapping (DDR-FILTER-STATEALWAYSSHOWN): local work in progress is blue-grey, staged dark, unstaged lighter.
       colors:
         - id: catzc.gitChanges.stagedBackground
           description: Background of a line whose change against HEAD is staged.
-          defaults: { dark: "#7a4a1e40", light: "#7a4a1e40", highContrast: "#7a4a1e59" }
+          defaults: { dark: "#546a8540", light: "#546a8540", highContrast: "#546a8559" }
         - id: catzc.gitChanges.unstagedBackground
           description: Background of a line whose change is not staged yet.
-          defaults: { dark: "#e0b83a26", light: "#e0b83a40", highContrast: "#e0b83a40" }
+          defaults: { dark: "#8fa3bd26", light: "#8fa3bd40", highContrast: "#8fa3bd40" }
   catzc-save-ledger:
     displayName: Catzc save ledger
     description: >-
@@ -82,10 +82,11 @@ extensions:
           priority: default
   catzc-track-lamps:
     displayName: Catzc track lamps
-    version: 0.10.1
+    version: 0.11.0
     description: >-
-      Filter lamps in the Explorer's title row, one per repository filter (filters.yml) and one for a typed list of languages; the tree is
-      the union of the lit lamps, and each lamp's colour is its domain's condition: committed, staged, unstaged or failed.
+      Filter lamps in the Explorer's title row, one per repository filter (filters.yml) and one for a typed list of languages; a click steps
+      a lamp off, on, veto. The tree is the union of the lit lamps minus the zones of the vetoed ones, and each lamp's colour is its domain's
+      condition: committed, staged, unstaged or failed.
     activationEvents: [onStartupFinished]
     contributes:
       # The open lamp, one lamp per filter of filters.yml, then the languages lamp: each entry naming the repeat is written once per lamp.
@@ -98,13 +99,19 @@ extensions:
           first: [{ name: open, title: the files open in an editor }]
           plus: [{ name: languages, title: the typed languages }]
       commands:
+        # A click steps a lamp round off -> on -> veto -> off; each command shows the icon of the state it leaves.
         - repeat: lamp
-          command: catzc.lamps.{lamp}.putOut
-          title: "{lamp}, {lamp.title}: shown (click to hide)"
+          command: catzc.lamps.{lamp}.veto
+          title: "{lamp}, {lamp.title}: shown (click to veto)"
           icon: { light: "media/{lamp}-on.svg", dark: "media/{lamp}-on.svg" }
           category: Catzc lamps
           states: [staged, unstaged, failed, empty]
           state_context: catzc.lamps.state.{lamp}
+        - repeat: lamp
+          command: catzc.lamps.{lamp}.putOut
+          title: "{lamp}: vetoed, its whole zone hidden (click to turn off)"
+          icon: { light: "media/{lamp}-veto.svg", dark: "media/{lamp}-veto.svg" }
+          category: Catzc lamps
         - repeat: lamp
           command: catzc.lamps.{lamp}.light
           title: "{lamp}: hidden, filter active (click to show)"
@@ -115,8 +122,12 @@ extensions:
       menus:
         view/title:
           - repeat: lamp
+            command: catzc.lamps.{lamp}.veto
+            when: "view == workbench.explorer.fileView && !catzc.lamps.out.{lamp} && !catzc.lamps.veto.{lamp}"
+            group: navigation@9{lamp.position}
+          - repeat: lamp
             command: catzc.lamps.{lamp}.putOut
-            when: "view == workbench.explorer.fileView && !catzc.lamps.out.{lamp}"
+            when: "view == workbench.explorer.fileView && catzc.lamps.veto.{lamp}"
             group: navigation@9{lamp.position}
           - repeat: lamp
             command: catzc.lamps.{lamp}.light

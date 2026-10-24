@@ -54,6 +54,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
   one step left, the user's look at the lamps in VS Code
+- lamp-palette -> plan-lamp-palette.md: one declared colour range per meaning (committed, local work in progress blue-grey, failed, empty),
+  the lamp icons generated from the base glyphs and the Explorer colours read from it; three steps, after the veto state lands
 - track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names

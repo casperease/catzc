@@ -73,6 +73,23 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         & $script:hidden @('tools') '' $root | Should -Be @('empty') -Because 'a folder empty on disk is dead while any lamp is unlit'
     }
 
+    It 'takes a vetoed lamp''s whole zone out of the tree, even a file a lit lamp claims too (the lit union minus the vetoed zones)' {
+        $hidden = { param([string[]] $Out, [string[]] $Vetoed) & $script:call hiddenGlobs @($script:root, $Out, '', $script:filters, $script:known, @(), $Vetoed) }
+        @(& $hidden @('generated') @()) | Should -HaveCount 0 -Because 'plainly off, generated hides nothing: the README is tests too'
+        & $hidden @('generated') @('generated') | Should -Be @('mods/**/*.md') -Because 'vetoed, generated takes the README out although tests is lit, and no markdown under mods shows'
+        $verdict = & $script:call evaluate @($script:filters, @('code', 'tests', 'tools'), @('mods/Widget/README.md', 'docs/x.md'), @{}, @('docs'))
+        @($verdict.shown) | Should -Be @('mods/Widget/README.md') -Because 'docs is vetoed, so its file is out, and the lit union keeps the rest'
+        @($verdict.unaccounted) | Should -HaveCount 0
+    }
+
+    It 'accounts for every file with a lamp vetoed: the written entries hide exactly what the language does not show' {
+        $globs = @(& $script:call hiddenGlobs @($script:root, @('generated'), '', $script:filters, $script:known, @(), @('generated')))
+        $tally = & $script:call census @($script:root, @('generated'), '', $script:filters, $script:known, $globs, @(), @('generated'))
+        $tally.shown | Should -Be 4
+        @($tally.wrong) | Should -HaveCount 0
+        @($tally.unclaimed) | Should -HaveCount 0
+    }
+
     It 'makes the languages lamp a lamp like the others: lit alone it shows the typed languages, and it ignores a language it does not know' {
         & $script:hidden @('code', 'tests', 'tools', 'generated', 'docs') ' markdown ,widgetish' |
             Should -Be @('**/*.ps1', '**/tests', 'gadgets') -Because 'only the markdown files are claimed by a lit lamp, so no script shows anywhere'
@@ -258,14 +275,14 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
         }
     }
 
-    It 'gives every declared filter a lamp and no lamp without a filter: an on and an off command per condition, each with its SVG icon and one menu item' {
+    It 'gives every declared filter a lamp and no lamp without a filter: a veto and a light command per condition and one putOut, each with its SVG icon and one menu item' {
         $entry = (Get-Config -Config vscode-extensions).extensions.Where({ $_.name -ceq 'catzc-track-lamps' })[0]
         $contributes = InModuleScope Catzc.Base.VSCode -Parameters @{ Contributes = $entry.contributes } {
             param($Contributes)
             Expand-VsCodeCommandState -Contributes (Expand-VsCodeRepeat -Contributes $Contributes)
         }
         $commands = @($contributes['commands'])
-        $pattern = '^catzc\.lamps\.([a-z_]+)\.(putOut|light)(\.(staged|unstaged|failed|empty))?$'
+        $pattern = '^catzc\.lamps\.([a-z_]+)\.(putOut|veto|light)(\.(staged|unstaged|failed|empty))?$'
         $commands.Where({ $_['command'] -notmatch $pattern }).ForEach({ $_['command'] }) | Should -BeNullOrEmpty
         $lamps = @($commands.ForEach({ $_['command'] -replace $pattern, '$1' }) | Select-Object -Unique)
         $lamps | Should -Be (@('open') + @($script:declared) + 'languages') -Because 'the open lamp leads, the filters follow in order, languages closes'
@@ -279,6 +296,8 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
                     ([xml](Get-Content -LiteralPath (Join-Path $folder "$lamp-$switch$condition.svg") -Raw)).DocumentElement.LocalName | Should -Be 'svg'
                 }
             }
+            $icons | Should -Contain "media/$lamp-veto.svg"
+            ([xml](Get-Content -LiteralPath (Join-Path $folder "$lamp-veto.svg") -Raw)).DocumentElement.LocalName | Should -Be 'svg'
         }
         foreach ($command in $commands) {
             @($menu.Where({ $_['command'] -ceq $command['command'] })) | Should -HaveCount 1 -Because "$($command['command']) shows in the title row once"
