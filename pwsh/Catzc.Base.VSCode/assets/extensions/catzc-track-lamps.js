@@ -1,6 +1,6 @@
 // Filter lamps in the Explorer's title row: one per repository filter (filters.yml, rendered into catzc.trackLamps.filters by the root
-// config generator) and a language lamp over a typed list of languages. Filters may claim the same file; a file shows while every filter
-// claiming it is lit (hide wins), so an unlit lamp hides exactly what its filter claims and never reveals anything. Every lamp lit is the
+// config generator) and a language lamp over a typed list of languages. Filters may claim the same file; the tree is the union of the lit
+// lamps: a file shows while any lit filter claims it, and an unlit lamp takes away only what no lit lamp still claims. Every lamp lit is the
 // default and shows everything, as without the extension.
 // Each lamp is two commands, its lit and its unlit icon, and the context key catzc.lamps.out.<lamp> picks which one the title row shows.
 // Hiding writes files.exclude at workspace scope, the only filter the Explorer has; the extension owns the keys it adds and nothing else,
@@ -93,15 +93,22 @@ function entryClaimer(entries) {
     };
 }
 
-// The entries that hide what the unlit lamps cover, found by one walk of the disk: a file is hidden while any filter claiming it is unlit
-// (hide wins) or the language lamp is unlit over its extension. A folder that shows no file is written whole (so a dead folder, emptied
-// by the lamps or empty on disk, leaves the tree too); a hidden file inside a shown folder is written itself, in its on-disk spelling; a
-// file hidden by its language alone rides on the language's glob.
+// The entries that hide what the unlit lamps take away, found by one walk of the disk. The tree is the union of the lit lamps: a file
+// shows while any lit filter claims it, so an unlit filter hides only the files no lit filter claims; the language lamp, unlit, hides its
+// extensions on top. A folder that shows no file is written whole (so a dead folder, emptied by the lamps or empty on disk, leaves the
+// tree too); a hidden file inside a shown folder is written itself, in its on-disk spelling; a file hidden by its language alone rides on
+// the language's glob. A file no filter claims is never hidden here; the census reports it.
 async function hiddenGlobs(root, out, field, declared, known) {
     const unlit = Object.keys(declared).filter((name) => out.has(name));
+    const lit = Object.keys(declared).filter((name) => !out.has(name));
     const extensions = out.has(LANGUAGE) ? typed(field).flatMap((name) => known[name] ?? []) : [];
     if (unlit.length === 0 && extensions.length === 0) return [];
-    const hides = claimer(unlit.flatMap((name) => declared[name]));
+    const unlitClaims = claimer(unlit.flatMap((name) => declared[name]));
+    const litClaims = claimer(lit.flatMap((name) => declared[name]));
+    const hides = (place) => {
+        const parts = place.split("/");
+        return unlitClaims(place, parts) && !litClaims(place, parts);
+    };
     // Returns whether the folder shows a file, and the entries that hide what it does not show.
     const walk = async (folder) => {
         let found;
@@ -134,8 +141,8 @@ async function hiddenGlobs(root, out, field, declared, known) {
     return [...globs].sort();
 }
 
-// Every file on disk accounted for: each file's membership signature (the filters claiming it) says whether it must be hidden (some
-// claiming filter unlit, or the language lamp over its extension), and the written entries must hide exactly those. Returns the totals,
+// Every file on disk accounted for: each file's membership signature (the filters claiming it) says whether it must be hidden (claimed,
+// but by no lit filter, or the language lamp unlit over its extension), and the written entries must hide exactly those. Returns the totals,
 // the files shown, the files per signature, the files no filter claims, and the files whose visibility breaks the rule.
 async function census(root, out, field, declared, known, globs) {
     const names = Object.keys(declared);
@@ -159,7 +166,9 @@ async function census(root, out, field, declared, known, globs) {
             }
             const parts = place.split("/");
             const signature = claims.filter(([, claimed]) => claimed(place, parts)).map(([name]) => name);
-            const expected = signature.some((name) => out.has(name)) || extensions.some((extension) => key(entry.name).endsWith(key(extension)));
+            const expected =
+                (signature.length > 0 && signature.every((name) => out.has(name))) ||
+                extensions.some((extension) => key(entry.name).endsWith(key(extension)));
             const hidden = written(place, parts);
             result.total++;
             const label = signature.length ? signature.join("+") : "(none)";

@@ -16,3 +16,13 @@ Started 2026-10-23T19:08:35.6112403+02:00.
   a 50-turn limit resumes with one message instead of a re-read.
 - 2026-10-23 Cats: Token tip: Next time, save tokens by: running Build-Diagrams before Format-Code, not together; a race left a stale png
   once.
+- 2026-10-24 Cats: In hindsight I wish I knew this fact: diagram labels and edges live in a yml drawio block in the article or a .drawio.yml
+  beside the png, and edge_audit.py and language_audit.py read every declaration without reading pngs.
+- 2026-10-24 Cats: In hindsight I wish I knew this fact: the Where does it live minimap rows are computed in Catzc.Base.Maps (PlaceRows) and
+  only drawn by minimaps.py.
+- 2026-10-24 Cats: In hindsight I wish I knew this fact: renderer findings-fail makes every diagram finding an E_ error, so a build stops on
+  the first keep-out or orphan.
+- 2026-10-24 Cats: In hindsight I wish I knew this fact: a long diagram-review subagent hits its 80-turn limit on multi-step engine work;
+  one step per brief avoids lost reports.
+- 2026-10-24 Cats: Token tip: brief one engine step per subagent run and ask for a report after each step.
+- 2026-10-24 Cats: Token tip: use the audits (edge_audit, language_audit) instead of reading pngs to measure diagram work.

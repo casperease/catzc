@@ -293,6 +293,7 @@ domains:
       track-types: { external: DDR-TRACKTYPE }
       module-types: { external: DDR-MODTYPE }
       module-aspects: { external: DDR-ASPECT, concern: [automation, build] }
+      repository-filters: { external: DDR-FILTER }
 
   flow:
     kind: FDR

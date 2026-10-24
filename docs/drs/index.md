@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "1fc0785faf94"
+    with_body_sha: e3f8445c7934
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -110,6 +110,7 @@ build). It builds on research, principles, and process; the flow and implementat
 | `DDR-TRACKTYPE` | [track-types](design/track-types.md)                             |
 | `DDR-MODTYPE`   | [module-types](design/module-types.md)                           |
 | `DDR-ASPECT`    | [module-aspects](design/module-aspects.md)                       |
+| `DDR-FILTER`    | [repository-filters](design/repository-filters.md)               |
 
 ### flow/
 
