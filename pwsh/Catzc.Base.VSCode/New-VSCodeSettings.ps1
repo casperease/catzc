@@ -22,15 +22,10 @@ function New-VsCodeSettings {
 
         [System.Collections.IDictionary] $LanguageFormatter = @{},
 
-        [System.Collections.IDictionary] $AspectCover = @{},
+        # The repository's filters, name to the include/exclude sets each claims by, in lamp order (Get-RepositoryFilter).
+        [System.Collections.IDictionary] $Filter = @{},
 
-        [System.Collections.IDictionary] $LanguageExtension = @{},
-
-        [AllowEmptyCollection()]
-        [string[]] $ToolPlace = @(),
-
-        [AllowEmptyCollection()]
-        [string[]] $GeneratedPath = @()
+        [System.Collections.IDictionary] $LanguageExtension = @{}
     )
 
     $config = Get-Config -Config vscode-settings
@@ -74,14 +69,14 @@ function New-VsCodeSettings {
     }
     $settings['search.exclude'] = $exclude
 
-    # The lamps read what they hide from the settings, so the extension needs neither a config nor a session: each aspect's cover paths,
-    # and each language's extensions.
-    if ($AspectCover.Count -gt 0) {
-        $aspects = [ordered]@{}
-        foreach ($name in $AspectCover.Keys) {
-            $aspects[$name] = @($AspectCover[$name])
+    # The lamps read what they hide from the settings, so the extension needs neither a config nor a session: each filter's include/exclude
+    # sets, in lamp order, and each language's extensions.
+    if ($Filter.Count -gt 0) {
+        $filters = [ordered]@{}
+        foreach ($name in $Filter.Keys) {
+            $filters[$name] = @($Filter[$name])
         }
-        $settings['catzc.trackLamps.aspects'] = $aspects
+        $settings['catzc.trackLamps.filters'] = $filters
     }
     if ($LanguageExtension.Count -gt 0) {
         $languages = [ordered]@{}
@@ -89,12 +84,6 @@ function New-VsCodeSettings {
             $languages[$name] = @($LanguageExtension[$name])
         }
         $settings['catzc.trackLamps.languages'] = $languages
-    }
-    if ($ToolPlace.Count -gt 0) {
-        $settings['catzc.trackLamps.tools'] = @($ToolPlace | Sort-Object -Unique)
-    }
-    if ($GeneratedPath.Count -gt 0) {
-        $settings['catzc.trackLamps.generated'] = @($GeneratedPath | Sort-Object -Unique)
     }
 
     (ConvertTo-Json -InputObject $settings -Depth 12) + "`n"

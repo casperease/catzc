@@ -79,11 +79,10 @@ extensions:
           priority: default
   catzc-track-lamps:
     displayName: Catzc track lamps
-    version: 0.7.1
+    version: 0.8.1
     description: >-
-      Filter lamps in the Explorer's title row: code (the live aspect), tools (the vendor configuration), tests (everything else) and a
-      typed list of languages; a lit lamp shows its files, an unlit one filters them away through files.exclude; every lamp lit shows
-      everything.
+      Filter lamps in the Explorer's title row, one per repository filter (filters.yml) and one for a typed list of languages; filters may
+      claim the same file, which shows while every filter claiming it is lit; every lamp lit shows everything.
     activationEvents: [onStartupFinished]
     contributes:
       # Each lamp is two commands, its on icon and its off icon, shown by the context key catzc.lamps.out.<lamp>. The icons are the
@@ -100,7 +99,7 @@ extensions:
           icon: { light: media/code-off.svg, dark: media/code-off.svg }
           category: Catzc lamps
         - command: catzc.lamps.tests.putOut
-          title: "tests, all neither code nor tools: shown (click to hide)"
+          title: "tests, the tests aspect: shown (click to hide)"
           icon: { light: media/tests-on.svg, dark: media/tests-on.svg }
           category: Catzc lamps
         - command: catzc.lamps.tests.light
@@ -116,12 +115,28 @@ extensions:
           icon: { light: media/tools-off.svg, dark: media/tools-off.svg }
           category: Catzc lamps
         - command: catzc.lamps.generated.putOut
-          title: "generated, every generated artifact whatever its lamp: shown (click to hide)"
+          title: "generated, every generated artifact: shown (click to hide)"
           icon: { light: media/generated-on.svg, dark: media/generated-on.svg }
           category: Catzc lamps
         - command: catzc.lamps.generated.light
-          title: "generated: hidden, filter active over every lamp (click to show)"
+          title: "generated: hidden, filter active (click to show)"
           icon: { light: media/generated-off.svg, dark: media/generated-off.svg }
+          category: Catzc lamps
+        - command: catzc.lamps.docs.putOut
+          title: "docs, the documentation and the licence: shown (click to hide)"
+          icon: { light: media/docs-on.svg, dark: media/docs-on.svg }
+          category: Catzc lamps
+        - command: catzc.lamps.docs.light
+          title: "docs: hidden, filter active (click to show)"
+          icon: { light: media/docs-off.svg, dark: media/docs-off.svg }
+          category: Catzc lamps
+        - command: catzc.lamps.out.putOut
+          title: "out, the run output: shown (click to hide)"
+          icon: { light: media/out-on.svg, dark: media/out-on.svg }
+          category: Catzc lamps
+        - command: catzc.lamps.out.light
+          title: "out: hidden, filter active (click to show)"
+          icon: { light: media/out-off.svg, dark: media/out-off.svg }
           category: Catzc lamps
         - command: catzc.lamps.languages.putOut
           title: "languages: shown (click to choose languages to hide)"
@@ -145,29 +160,24 @@ extensions:
           - command: catzc.lamps.generated.light
             when: "view == workbench.explorer.fileView && catzc.lamps.out.generated"
             group: navigation@93
+          - { command: catzc.lamps.docs.putOut, when: "view == workbench.explorer.fileView && !catzc.lamps.out.docs", group: navigation@94 }
+          - { command: catzc.lamps.docs.light, when: "view == workbench.explorer.fileView && catzc.lamps.out.docs", group: navigation@94 }
+          - { command: catzc.lamps.out.putOut, when: "view == workbench.explorer.fileView && !catzc.lamps.out.out", group: navigation@95 }
+          - { command: catzc.lamps.out.light, when: "view == workbench.explorer.fileView && catzc.lamps.out.out", group: navigation@95 }
           - command: catzc.lamps.languages.putOut
             when: "view == workbench.explorer.fileView && !catzc.lamps.out.languages"
-            group: navigation@94
+            group: navigation@96
           - command: catzc.lamps.languages.light
             when: "view == workbench.explorer.fileView && catzc.lamps.out.languages"
-            group: navigation@94
+            group: navigation@96
       configuration:
         title: Catzc track lamps
         properties:
-          catzc.trackLamps.aspects:
+          catzc.trackLamps.filters:
             type: object
             default: {}
-            description: Each aspect's cover, the fewest paths that hold exactly its files, rendered into the settings by Get-AspectCover.
+            description: Each repository filter's paths and globs, in lamp order, rendered into the settings by Get-RepositoryFilter.
           catzc.trackLamps.languages:
             type: object
             default: {}
             description: Each language's file extensions, rendered into the settings from the languages config.
-          catzc.trackLamps.generated:
-            type: array
-            default: []
-            description: Every generated target's path or glob, rendered into the settings by Get-GeneratedTarget.
-          catzc.trackLamps.tools:
-            type: array
-            default: []
-            description:
-              The vendor configuration's paths, the vendor tracks' places and the generated root configs, rendered into the settings.

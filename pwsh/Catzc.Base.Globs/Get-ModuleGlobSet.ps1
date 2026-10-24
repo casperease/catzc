@@ -111,6 +111,56 @@ function Get-ModuleGlobSet {
         $derived[$internalName] = $set
     }
 
+    # The reserved code scopes are units too (DDR-ASPECT-ASPECTISAGLOBSET): their root .psm1 files are the code they run, live beside the
+    # code convention, and the rest falls to tests. A single-file module keeps its own set, so the scope's sets leave its file out.
+    $scopeAspects = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()
+    foreach ($aspect in $aspectList) {
+        $patterns = [string[]]@($aspect.Patterns)
+        if ($aspect.Name -ceq 'live') {
+            $patterns += '*.psm1'
+        }
+        $scopeAspects.Add([Catzc.Base.Globs.Aspect]::new($aspect.Name, $patterns))
+    }
+    foreach ($scope in '.internal', '.scriptanalyzer') {
+        $scopeRoot = "$codeRoot/$scope"
+        $fileRoots = [string[]]@($codeModules.Where({ $_.shape -ceq 'file' -and $_.root.StartsWith("$scopeRoot/", [System.StringComparison]::Ordinal) }).ForEach({ $_.root }))
+        foreach ($compiled in [Catzc.Base.Globs.AspectPartition]::Compile($scopeAspects, $scopeRoot)) {
+            $scopeName = "$($scope.TrimStart('.'))-$($compiled.Name)"
+            if ($scopeName -in $declaredNames) {
+                throw "Declared globset '$scopeName' in globs.yml shadows the derived aspect of the reserved scope '$scopeRoot' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
+            }
+            $derived[$scopeName] = [Catzc.Base.Globs.GlobSet]::new(
+                $scopeName, "Derived scope aspect - $scopeRoot [$($compiled.Name)]", 'module',
+                [string[]]$compiled.Include, [string[]](@($compiled.Exclude) + $fileRoots), @(), @(), -1, $null)
+        }
+    }
+
+    # Every other laid-out track's folder modules partition by that track's convention; its root holder is no unit, because the black-box
+    # tests it holds already belong to the module they test (the code track's tests aspects above).
+    foreach ($track in @(Get-Track).Where({ $_.name -cne $codeTrack.name -and $languages.IsLaidOut($_.languages) })) {
+        $trackAspects = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()
+        foreach ($aspectDef in Get-Aspect -Track $track.name) {
+            $trackAspects.Add([Catzc.Base.Globs.Aspect]::new($aspectDef.Name, [string[]]$aspectDef.Patterns))
+        }
+        foreach ($module in @(Get-CatzcModule -Track $track.name -RepositoryRoot $repositoryRoot).Where({ $_.shape -ceq 'folder' })) {
+            $kebab = [Catzc.Base.Objects.NameCase]::Render($module.name, 'kebab')
+            $aspectSets = [System.Collections.Generic.List[Catzc.Base.Globs.GlobSet]]::new()
+            foreach ($compiled in [Catzc.Base.Globs.AspectPartition]::Compile($trackAspects, $module.root)) {
+                $aspectKebab = "$kebab-$($compiled.Name)"
+                if ($aspectKebab -in $declaredNames) {
+                    throw "Declared globset '$aspectKebab' in globs.yml shadows the derived aspect of module '$($module.name)' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
+                }
+                $set = [Catzc.Base.Globs.GlobSet]::new(
+                    $aspectKebab, "Derived module aspect - $($module.root) [$($compiled.Name)]", 'module',
+                    [string[]]$compiled.Include, [string[]]$compiled.Exclude, @(), @(), -1, $null)
+                $derived[$aspectKebab] = $set
+                $aspectSets.Add($set)
+            }
+            $moduleAspects[$kebab] = $aspectSets
+            $moduleAspects[$module.name] = $aspectSets
+        }
+    }
+
     if ('module-leftovers' -in $declaredNames) {
         throw "Declared globset 'module-leftovers' in globs.yml shadows the derived module-space catch-all — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
     }

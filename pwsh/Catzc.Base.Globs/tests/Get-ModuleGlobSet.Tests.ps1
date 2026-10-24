@@ -109,7 +109,20 @@ Describe 'Get-ModuleGlobSet' -Tag 'L1', 'logic' {
 
     It 'returns every derived set exactly once when no name is given' {
         $all = @(Get-ModuleGlobSet)
-        ($all.Name | Sort-Object) | Should -Be (@('catzc-base-alpha-live', 'catzc-base-alpha-tests', 'catzc-fake-beta-live', 'catzc-fake-beta-tests', 'catzc-internal-alpha', 'catzc-internal-beta', 'compiled', 'internal', 'module-leftovers', 'scriptanalyzer', 'vendor'))
+        ($all.Name | Sort-Object) | Should -Be (@('catzc-base-alpha-live', 'catzc-base-alpha-tests', 'catzc-fake-beta-live', 'catzc-fake-beta-tests', 'catzc-internal-alpha', 'catzc-internal-beta', 'compiled', 'internal', 'internal-live', 'internal-tests', 'module-leftovers', 'scriptanalyzer', 'scriptanalyzer-live', 'scriptanalyzer-tests', 'vendor'))
+    }
+
+    It 'partitions each reserved code scope: its root modules and runtime folders live, the rest tests, a single-file module in neither (DDR-ASPECT-ASPECTISAGLOBSET)' {
+        $modules = Get-CatzcModulesFolder
+        $internalLive = Get-ModuleGlobSet -Name internal-live
+        $internalTests = Get-ModuleGlobSet -Name internal-tests
+        $internalLive.Matches("$modules/.internal/assets/widget.yml") | Should -BeTrue
+        $internalTests.Matches("$modules/.internal/tests/Get-Widget.Tests.ps1") | Should -BeTrue
+        $internalLive.Matches("$modules/.internal/tests/Get-Widget.Tests.ps1") | Should -BeFalse
+        $internalLive.Matches("$modules/.internal/Catzc.Internal.Alpha.psm1") | Should -BeFalse -Because 'the single-file module keeps its own set'
+        $internalTests.Matches("$modules/.internal/Catzc.Internal.Alpha.psm1") | Should -BeFalse
+        (Get-ModuleGlobSet -Name scriptanalyzer-live).Matches("$modules/.scriptanalyzer/WidgetRule.psm1") | Should -BeTrue
+        (Get-ModuleGlobSet -Name scriptanalyzer-tests).Matches("$modules/.scriptanalyzer/tests/WidgetRule.Tests.ps1") | Should -BeTrue
     }
 
     It 'derives the module-leftovers catch-all — module layer, excluding every module folder and dot-folder' {

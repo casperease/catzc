@@ -65,30 +65,21 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
         $json.'search.exclude'.'keep/searchable.psd1' | Should -BeFalse -Because 'an explicit authored un-exclude must survive injection'
     }
 
-    It 'renders each aspect''s cover and each language''s extensions for the lamps, and no key without them' {
-        $cover = [ordered]@{ live = @('widgets/Get-Widget.ps1'); tests = @('widgets/tests', 'gadgets') }
+    It 'renders each filter''s include/exclude sets in lamp order and each language''s extensions, and no key without them' {
+        $filter = [ordered]@{
+            widgets = @([ordered]@{ include = @('widgets/**'); exclude = @('widgets/tests/**') })
+            gadgets = @([ordered]@{ include = @('gadgets', 'gadgets/**'); exclude = @() })
+        }
         $extensions = [ordered]@{ widget = @('.wdg'); gadget = @('.gdg', '.gdx') }
-        $json = (New-VsCodeSettings -AspectCover $cover -LanguageExtension $extensions) | ConvertFrom-Json
-        @($json.'catzc.trackLamps.aspects'.PSObject.Properties.Name) | Should -Be @('live', 'tests')
-        @($json.'catzc.trackLamps.aspects'.tests) | Should -Be @('widgets/tests', 'gadgets')
-        @($json.'catzc.trackLamps.aspects'.live) | Should -Be @('widgets/Get-Widget.ps1')
+        $json = (New-VsCodeSettings -Filter $filter -LanguageExtension $extensions) | ConvertFrom-Json
+        @($json.'catzc.trackLamps.filters'.PSObject.Properties.Name) | Should -Be @('widgets', 'gadgets') -Because 'the declaration order is the lamp order'
+        @($json.'catzc.trackLamps.filters'.widgets[0].exclude) | Should -Be @('widgets/tests/**')
+        @($json.'catzc.trackLamps.filters'.gadgets[0].include) | Should -Be @('gadgets', 'gadgets/**')
         @($json.'catzc.trackLamps.languages'.PSObject.Properties.Name) | Should -Be @('gadget', 'widget')
         @($json.'catzc.trackLamps.languages'.gadget) | Should -Be @('.gdg', '.gdx')
         $bare = (New-VsCodeSettings | ConvertFrom-Json).PSObject.Properties.Name
-        $bare | Should -Not -Contain 'catzc.trackLamps.aspects'
+        $bare | Should -Not -Contain 'catzc.trackLamps.filters'
         $bare | Should -Not -Contain 'catzc.trackLamps.languages'
-        $bare | Should -Not -Contain 'catzc.trackLamps.tools'
-    }
-
-    It 'renders the generated lamp''s targets once each, in order, and no key without them' {
-        $json = (New-VsCodeSettings -GeneratedPath 'widgets/*.psd1', 'out/**', 'widgets/*.psd1') | ConvertFrom-Json
-        @($json.'catzc.trackLamps.generated') | Should -Be @('out/**', 'widgets/*.psd1')
-        (New-VsCodeSettings | ConvertFrom-Json).PSObject.Properties.Name | Should -Not -Contain 'catzc.trackLamps.generated'
-    }
-
-    It 'renders the tools lamp''s paths once each, in order' {
-        $json = (New-VsCodeSettings -ToolPlace '.gadgets', 'widgets/.vendor', '.gadgets') | ConvertFrom-Json
-        @($json.'catzc.trackLamps.tools') | Should -Be @('.gadgets', 'widgets/.vendor')
     }
 
     It 'creates the search.exclude map when the registry has none' {

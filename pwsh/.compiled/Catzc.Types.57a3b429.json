@@ -1,5 +1,5 @@
 {
-  "hash": "492b2b81",
+  "hash": "57a3b429",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -725,6 +725,11 @@
       "display": []
     },
     {
+      "name": "Catzc.Base.Globs.FiltersConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
       "name": "Catzc.Base.Globs.GlobPattern",
       "aliases": [],
       "display": []
@@ -736,6 +741,11 @@
     },
     {
       "name": "Catzc.Base.Globs.GlobsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Globs.RepositoryFilter",
       "aliases": [],
       "display": []
     },

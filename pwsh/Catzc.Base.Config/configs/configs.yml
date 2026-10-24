@@ -17,6 +17,8 @@ configs:
   generated:
     type: Catzc.Base.Variants.GeneratedConfig
     overridable: false
+  filters:
+    type: Catzc.Base.Globs.FiltersConfig
   slides:
     type: Catzc.Base.Slides.SlidesConfig
   terminology:

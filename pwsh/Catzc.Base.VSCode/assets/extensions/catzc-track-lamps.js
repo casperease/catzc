@@ -1,12 +1,13 @@
-// Filter lamps in the Explorer's title row: code (the live aspect), tools (the vendor configuration), tests (everything else), and a
-// language lamp over a typed list of languages.
-// A lamp is lit while what it covers is shown in the tree, and unlit while it filters that away; every lamp lit is the default and shows
-// everything, as without the extension. Each lamp is two commands, its lit and its unlit icon, and the context key catzc.lamps.out.<lamp>
-// picks which one the title row shows; the editor draws them, so no webview and no extra rows. What a lamp hides is rendered into the
-// workspace settings: each aspect's cover (catzc.trackLamps.aspects, the fewest paths that hold exactly its files) and each language's
-// extensions (catzc.trackLamps.languages). Hiding writes files.exclude at workspace scope, the only filter the Explorer has; the extension
-// owns the keys it adds and nothing else, so an authored exclusion survives and a regenerated settings file is re-applied.
-// The filtering itself is pure (hiddenGlobs, merge), so the tests drive it with node and no editor; vscode is required on activation only.
+// Filter lamps in the Explorer's title row: one per repository filter (filters.yml, rendered into catzc.trackLamps.filters by the root
+// config generator) and a language lamp over a typed list of languages. Filters may claim the same file; a file shows while every filter
+// claiming it is lit (hide wins), so an unlit lamp hides exactly what its filter claims and never reveals anything. Every lamp lit is the
+// default and shows everything, as without the extension.
+// Each lamp is two commands, its lit and its unlit icon, and the context key catzc.lamps.out.<lamp> picks which one the title row shows.
+// Hiding writes files.exclude at workspace scope, the only filter the Explorer has; the extension owns the keys it adds and nothing else,
+// so an authored exclusion survives and a regenerated settings file is re-applied. The counter in the status bar re-checks every file
+// on disk against what was written, and counts the files per membership signature (the set of filters claiming a file).
+// The filtering itself is pure (hiddenGlobs, census, merge), so the tests drive it with node and no editor; vscode is required on
+// activation only. On Windows paths compare without case, as the file system does.
 
 const fs = require("fs");
 const path = require("path");
@@ -18,29 +19,28 @@ const OUT = "catzc.trackLamps.out";
 const FIELD = "catzc.trackLamps.field";
 const OWNED = "catzc.trackLamps.owned";
 const LANGUAGE = "languages";
-// The lamps the manifest draws in the title row, each with its putOut and light commands.
-const GENERATED = "generated";
-const LAMPS = ["code", "tests", "tools", GENERATED, LANGUAGE];
+const FOLD = process.platform === "win32";
 
 const config = () => vscode.workspace.getConfiguration("catzc.trackLamps");
-const aspects = () => config().get("aspects") ?? {};
-const tools = () => config().get("tools") ?? [];
-const generatedTargets = () => config().get("generated") ?? [];
+const filters = () => config().get("filters") ?? {};
 const languages = () => config().get("languages") ?? {};
 const typed = (text) => (text ?? "").split(",").map((name) => name.trim()).filter(Boolean);
+const key = (text) => (FOLD ? text.toLowerCase() : text);
+const isGlob = (entry) => /[*?]/.test(entry);
 
 // A path test for a glob, read the way the repository's GlobPattern reads one: '/'-separated segments, '**' a whole segment standing for
 // any depth, '*' and '?' inside one segment only. The glob's literal leading segments reject a path before any wildcard is tried, and a
 // caller testing many globs passes the path's segments, split once.
 function globMatcher(glob) {
+    const flags = FOLD ? "i" : "";
     const raw = glob.split("/");
     const segments = raw.map((segment) =>
-        segment === "**" ? null : new RegExp(`^${segment.replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^/]*").replace(/\?/g, "[^/]")}$`),
+        segment === "**" ? null : new RegExp(`^${segment.replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^/]*").replace(/\?/g, "[^/]")}$`, flags),
     );
     const literal = [];
     for (const segment of raw) {
-        if (/[*?]/.test(segment)) break;
-        literal.push(segment);
+        if (isGlob(segment)) break;
+        literal.push(key(segment));
     }
     const from = (at, parts, index) => {
         for (; at < segments.length; at++, index++) {
@@ -54,129 +54,117 @@ function globMatcher(glob) {
         return index === parts.length;
     };
     return (place, parts = place.split("/")) => {
-        for (let at = 0; at < literal.length; at++) if (parts[at] !== literal[at]) return false;
+        for (let at = 0; at < literal.length; at++) if (key(parts[at] ?? "") !== literal[at]) return false;
         return from(0, parts, 0);
     };
 }
 
-// Everything on disk outside the kept paths: every entry that is no kept path and holds none, found by walking down only into folders
-// that hold a kept path. It reaches what git does not track too (generated manifests, out/), which no tracked cover names.
-async function rest(root, keep) {
-    const paths = new Set(keep);
-    const holders = new Set();
-    for (const place of keep) {
-        for (let folder = path.posix.dirname(place); folder !== "."; folder = path.posix.dirname(folder)) holders.add(folder);
+// A claim test for a filter's sets: a set claims a path that one of its includes matches and none of its excludes does. Each include is
+// filed under its first literal segment, so a path is tried only against the includes that can match it; one that opens with a wildcard
+// is tried against every path.
+function claimer(sets) {
+    const buckets = new Map();
+    const wild = [];
+    for (const set of sets) {
+        const excludes = (set.exclude ?? []).map(globMatcher);
+        for (const include of set.include ?? []) {
+            const entry = { matches: globMatcher(include), excludes };
+            const first = include.split("/")[0];
+            if (isGlob(first)) wild.push(entry);
+            else {
+                const at = key(first);
+                if (!buckets.has(at)) buckets.set(at, []);
+                buckets.get(at).push(entry);
+            }
+        }
     }
-    const globs = [];
-    const walk = async (folder) => {
-        let entries;
-        try {
-            entries = await fs.promises.readdir(path.join(root, folder));
-        } catch {
-            return;
-        }
-        for (const entry of entries) {
-            if (folder === "." && entry === ".git") continue;
-            const place = folder === "." ? entry : `${folder}/${entry}`;
-            if (paths.has(place)) continue;
-            if (holders.has(place)) await walk(place);
-            else globs.push(place);
-        }
-    };
-    await walk(".");
-    return globs;
+    const tries = (entries, place, parts) =>
+        entries.some(({ matches, excludes }) => matches(place, parts) && !excludes.some((excluded) => excluded(place, parts)));
+    return (place, parts = place.split("/")) => tries(buckets.get(key(parts[0])) ?? [], place, parts) || tries(wild, place, parts);
 }
 
-// The globs that hide what the unlit lamps cover: the live cover while the code lamp is unlit, the vendor configuration while the tools
-// lamp is unlit, everything else while the tests lamp is unlit, each typed language's extensions while the language lamp is unlit, and
-// every generated target while the generated lamp is unlit, whichever other lamp holds it: generated is the top-most filter.
-// While any lamp is unlit, a dead folder (one with no shown file anywhere inside, emptied by the lamps or empty on disk) leaves the tree
-// too, as its topmost dead folder.
-async function hiddenGlobs(root, out, field, covers, known, tools = [], generated = []) {
-    const places = new Set();
-    const live = covers.live ?? [];
-    if (out.has("code")) live.forEach((place) => places.add(place));
-    if (out.has("tools")) tools.forEach((place) => places.add(place));
-    if (out.has("tests")) (await rest(root, [...live, ...tools])).forEach((place) => places.add(place));
-    const extensions = out.has(LANGUAGE) ? typed(field).flatMap((name) => known[name] ?? []) : [];
-    const patterns = out.has(GENERATED) ? generated : [];
-    if (places.size === 0 && extensions.length === 0 && patterns.length === 0) return [];
-
-    const matchers = patterns.map(globMatcher);
-    const hiddenFile = (name, place) => {
-        if (extensions.some((extension) => name.endsWith(extension))) return true;
-        const parts = place.split("/");
+// A claim test for written entries: a path claims itself and what lies under it, a glob what it matches.
+function entryClaimer(entries) {
+    const places = new Set(entries.filter((entry) => !isGlob(entry)).map(key));
+    const matchers = entries.filter(isGlob).map(globMatcher);
+    return (place, parts) => {
+        for (let at = key(place); at !== "."; at = path.posix.dirname(at)) if (places.has(at)) return true;
         return matchers.some((matches) => matches(place, parts));
     };
-    const dead = [];
-    // True when the folder shows at least one file; a folder that shows none is dead, and only the topmost of a dead chain is kept.
-    const shows = async (folder) => {
-        let entries;
-        try {
-            entries = await fs.promises.readdir(path.join(root, folder), { withFileTypes: true });
-        } catch {
-            return true;
-        }
-        const deadHere = [];
-        let any = false;
-        for (const entry of entries) {
-            const place = folder === "." ? entry.name : `${folder}/${entry.name}`;
-            if (place === ".git" || places.has(place)) continue;
-            if (entry.isDirectory()) {
-                if (await shows(place)) any = true;
-                else deadHere.push(place);
-            } else if (!hiddenFile(entry.name, place)) any = true;
-        }
-        if (any || folder === ".") dead.push(...deadHere);
-        return any;
-    };
-    await shows(".");
+}
 
-    const globs = new Set(dead);
-    for (const place of places) if (!dead.some((folder) => place.startsWith(folder + "/"))) globs.add(place);
+// The entries that hide what the unlit lamps cover, found by one walk of the disk: a file is hidden while any filter claiming it is unlit
+// (hide wins) or the language lamp is unlit over its extension. A folder that shows no file is written whole (so a dead folder, emptied
+// by the lamps or empty on disk, leaves the tree too); a hidden file inside a shown folder is written itself, in its on-disk spelling; a
+// file hidden by its language alone rides on the language's glob.
+async function hiddenGlobs(root, out, field, declared, known) {
+    const unlit = Object.keys(declared).filter((name) => out.has(name));
+    const extensions = out.has(LANGUAGE) ? typed(field).flatMap((name) => known[name] ?? []) : [];
+    if (unlit.length === 0 && extensions.length === 0) return [];
+    const hides = claimer(unlit.flatMap((name) => declared[name]));
+    // Returns whether the folder shows a file, and the entries that hide what it does not show.
+    const walk = async (folder) => {
+        let found;
+        try {
+            found = await fs.promises.readdir(path.join(root, folder), { withFileTypes: true });
+        } catch {
+            return { shows: true, hidden: [] };
+        }
+        let shows = false;
+        const hidden = [];
+        for (const entry of found) {
+            const place = folder === "." ? entry.name : `${folder}/${entry.name}`;
+            if (place === ".git") continue;
+            if (entry.isDirectory()) {
+                const inner = await walk(place);
+                if (inner.shows) {
+                    shows = true;
+                    hidden.push(...inner.hidden);
+                } else hidden.push(place);
+                continue;
+            }
+            if (hides(place)) hidden.push(place);
+            else if (!extensions.some((extension) => key(entry.name).endsWith(key(extension)))) shows = true;
+        }
+        return { shows, hidden };
+    };
+    const top = await walk(".");
+    const globs = new Set(top.hidden);
     extensions.forEach((extension) => globs.add(`**/*${extension}`));
-    patterns.forEach((pattern) => globs.add(pattern));
     return [...globs].sort();
 }
 
-// Every file on disk accounted for: each is classified on its own (code when a live path holds it, tools when a tool path does, tests
-// otherwise) and must be hidden by the globs exactly when its lamp, or the language lamp over its extension, is off. Returns the totals,
-// the files the tree shows, the files per lamp, and the files whose visibility breaks that rule.
-async function census(root, out, field, covers, known, tools, globs, generated = []) {
-    const live = new Set(covers.live ?? []);
-    const toolSet = new Set(tools);
-    const hiddenPlaces = new Set(globs.filter((glob) => !/[*?]/.test(glob)));
-    const hiddenMatchers = globs.filter((glob) => /[*?]/.test(glob)).map(globMatcher);
-    const generatedMatchers = generated.map(globMatcher);
+// Every file on disk accounted for: each file's membership signature (the filters claiming it) says whether it must be hidden (some
+// claiming filter unlit, or the language lamp over its extension), and the written entries must hide exactly those. Returns the totals,
+// the files shown, the files per signature, the files no filter claims, and the files whose visibility breaks the rule.
+async function census(root, out, field, declared, known, globs) {
+    const names = Object.keys(declared);
+    const claims = names.map((name) => [name, claimer(declared[name])]);
+    const written = entryClaimer(globs);
     const extensions = out.has(LANGUAGE) ? typed(field).flatMap((name) => known[name] ?? []) : [];
-    const holds = (set, place) => {
-        for (let at = place; at !== "."; at = path.posix.dirname(at)) if (set.has(at)) return true;
-        return false;
-    };
-    const result = { total: 0, shown: 0, lamps: { code: 0, tests: 0, tools: 0 }, generated: 0, wrong: [] };
+    const result = { total: 0, shown: 0, signatures: {}, unclaimed: [], wrong: [] };
     const walk = async (folder) => {
-        let entries;
+        let found;
         try {
-            entries = await fs.promises.readdir(path.join(root, folder), { withFileTypes: true });
+            found = await fs.promises.readdir(path.join(root, folder), { withFileTypes: true });
         } catch {
             return;
         }
-        for (const entry of entries) {
+        for (const entry of found) {
             const place = folder === "." ? entry.name : `${folder}/${entry.name}`;
             if (place === ".git") continue;
             if (entry.isDirectory()) {
                 await walk(place);
                 continue;
             }
-            const lamp = holds(live, place) ? "code" : holds(toolSet, place) ? "tools" : "tests";
             const parts = place.split("/");
-            const isGenerated = generatedMatchers.some((matches) => matches(place, parts));
-            const expected =
-                out.has(lamp) || extensions.some((extension) => entry.name.endsWith(extension)) || (out.has(GENERATED) && isGenerated);
-            const hidden = holds(hiddenPlaces, place) || hiddenMatchers.some((matches) => matches(place, parts));
+            const signature = claims.filter(([, claimed]) => claimed(place, parts)).map(([name]) => name);
+            const expected = signature.some((name) => out.has(name)) || extensions.some((extension) => key(entry.name).endsWith(key(extension)));
+            const hidden = written(place, parts);
             result.total++;
-            result.lamps[lamp]++;
-            if (isGenerated) result.generated++;
+            const label = signature.length ? signature.join("+") : "(none)";
+            result.signatures[label] = (result.signatures[label] ?? 0) + 1;
+            if (signature.length === 0) result.unclaimed.push(place);
             if (!hidden) result.shown++;
             if (hidden !== expected) result.wrong.push(place);
         }
@@ -185,8 +173,8 @@ async function census(root, out, field, covers, known, tools, globs, generated =
     return result;
 }
 
-// The next files.exclude: the current one without the keys the lamps added before, plus the wanted globs. A glob the settings already
-// carry is theirs, never the lamps', so the lamps own only the keys they add.
+// The next files.exclude: the current one without the keys the lamps added before, plus the wanted entries. An entry the settings
+// already carry is theirs, never the lamps', so the lamps own only the keys they add.
 function merge(current, owned, wanted) {
     const authored = { ...current };
     owned.forEach((glob) => delete authored[glob]);
@@ -208,11 +196,11 @@ async function apply(context) {
     const root = folder.uri.fsPath;
     const out = new Set(context.workspaceState.get(OUT, []));
     const field = context.workspaceState.get(FIELD, "");
-    const wanted = await hiddenGlobs(root, out, field, aspects(), languages(), tools(), generatedTargets());
+    const wanted = await hiddenGlobs(root, out, field, filters(), languages());
     const files = vscode.workspace.getConfiguration("files", folder.uri);
     const current = files.inspect("exclude")?.workspaceValue ?? {};
     const { next, ours } = merge(current, context.workspaceState.get(OWNED, []), wanted);
-    log.appendLine(`apply: unlit [${[...out].join(", ")}], field "${field}", ${wanted.length} globs wanted, ${ours.length} owned`);
+    log.appendLine(`apply: unlit [${[...out].join(", ")}], field "${field}", ${wanted.length} entries wanted, ${ours.length} owned`);
     await context.workspaceState.update(OWNED, ours);
     written = JSON.stringify(next);
     if (written !== JSON.stringify(current)) {
@@ -226,13 +214,14 @@ function activate(context) {
     vscode = require("vscode");
     log = vscode.window.createOutputChannel("Catzc track lamps");
     context.subscriptions.push(log);
+    const lamps = () => [...Object.keys(filters()), LANGUAGE];
 
     // The title row shows each lamp's lit or unlit icon by its context key.
     const show = async () => {
         const out = new Set(context.workspaceState.get(OUT, []));
-        await Promise.all(LAMPS.map((lamp) => vscode.commands.executeCommand("setContext", `catzc.lamps.out.${lamp}`, out.has(lamp))));
+        await Promise.all(lamps().map((lamp) => vscode.commands.executeCommand("setContext", `catzc.lamps.out.${lamp}`, out.has(lamp))));
     };
-    // The counter: shown/total files on disk, green while every file is hidden exactly when its lamp is off, red with the count when not.
+    // The counter: shown/total files on disk, green while every file is hidden exactly as its filters say, red with the count when not.
     const counter = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
     counter.command = "catzc.lamps.showLog";
     counter.text = "$(sync~spin) counting files";
@@ -241,19 +230,26 @@ function activate(context) {
     const count = async (applied) => {
         if (!applied) return;
         const { root, out, field, wanted } = applied;
-        const tally = await census(root, out, field, aspects(), languages(), tools(), wanted, generatedTargets());
-        const lamps = Object.entries(tally.lamps).map(([lamp, files]) => `${lamp} ${files}${out.has(lamp) ? " (hidden)" : ""}`);
-        lamps.push(`generated ${tally.generated} of them${out.has(GENERATED) ? " (hidden)" : ""}`);
-        if (tally.wrong.length === 0) {
+        const tally = await census(root, out, field, filters(), languages(), wanted);
+        const matrix = Object.entries(tally.signatures)
+            .sort((a, b) => b[1] - a[1])
+            .map(([signature, files]) => `${signature}: ${files}`);
+        const lit = lamps().filter((lamp) => lamp !== LANGUAGE).map((lamp) => `${lamp}${out.has(lamp) ? " (hidden)" : ""}`);
+        if (tally.wrong.length === 0 && tally.unclaimed.length === 0) {
             counter.text = `$(pass) ${tally.shown}/${tally.total} · everything is accounted for`;
             counter.color = "#3fb950";
-            counter.tooltip = `Catzc lamps: ${tally.shown} of ${tally.total} files shown, every file hidden exactly when its lamp is off.\n${lamps.join(", ")}`;
+            counter.tooltip = `Catzc lamps: ${tally.shown} of ${tally.total} files shown, each hidden exactly when a filter claiming it is off.\nFilters: ${lit.join(", ")}\nFiles per signature:\n${matrix.join("\n")}`;
         } else {
-            counter.text = `$(warning) ${tally.shown}/${tally.total} · a filter went bananas (${tally.wrong.length})`;
+            const problems = tally.wrong.length + tally.unclaimed.length;
+            counter.text = `$(warning) ${tally.shown}/${tally.total} · a filter went bananas (${problems})`;
             counter.color = "#f85149";
-            counter.tooltip = `Catzc lamps: ${tally.wrong.length} files shown or hidden against their lamp, e.g. ${tally.wrong.slice(0, 5).join(", ")}\nClick for the log.`;
+            counter.tooltip = `Catzc lamps: ${tally.wrong.length} files shown or hidden against their filters, e.g. ${tally.wrong.slice(0, 3).join(", ")}; ${tally.unclaimed.length} files no filter claims, e.g. ${tally.unclaimed.slice(0, 3).join(", ")}\nClick for the log.`;
         }
-        log.appendLine(`census: ${tally.shown}/${tally.total} shown; ${lamps.join(", ")}; ${tally.wrong.length} against their lamp${tally.wrong.length ? ": " + tally.wrong.slice(0, 20).join(", ") : ""}`);
+        log.appendLine(
+            `census: ${tally.shown}/${tally.total} shown; ${matrix.join(", ")}; ${tally.wrong.length} against their filters` +
+                `${tally.wrong.length ? ": " + tally.wrong.slice(0, 20).join(", ") : ""}; ${tally.unclaimed.length} unclaimed` +
+                `${tally.unclaimed.length ? ": " + tally.unclaimed.slice(0, 20).join(", ") : ""}`,
+        );
     };
     // Every failure lands in the output channel; an unhandled rejection would vanish without a trace.
     const settle = async () => {
@@ -307,7 +303,8 @@ function activate(context) {
         timer = setTimeout(settle, 200);
     };
 
-    for (const lamp of LAMPS) {
+    // A command pair per lamp; the manifest declares the same names (a test holds it to filters.yml).
+    for (const lamp of lamps()) {
         context.subscriptions.push(
             vscode.commands.registerCommand(`catzc.lamps.${lamp}.putOut`, lamp === LANGUAGE ? chooseLanguages : () => turn(lamp, true)),
             vscode.commands.registerCommand(`catzc.lamps.${lamp}.light`, () => turn(lamp, false)),
@@ -327,4 +324,4 @@ function activate(context) {
     refresh();
 }
 
-module.exports = { activate, deactivate() {}, census, globMatcher, hiddenGlobs, merge, rest, typed };
+module.exports = { activate, deactivate() {}, census, claimer, entryClaimer, globMatcher, hiddenGlobs, merge, typed };

@@ -1,0 +1,10 @@
+# The repository's filters: named views over the hard model, in lamp order. A filter is the union of its selectors and may claim files
+# another filter claims; a file shows while every filter claiming it is lit (hide wins), and every file on disk is claimed by one at least.
+# Selectors: aspect.<aspect>, track.<track>, track_type.<type> (snake form of the type), glob.<pattern>, generated, root_config.
+filters:
+  - { name: code, select: [aspect.live] }
+  - { name: tests, select: [aspect.tests] }
+  - { name: tools, select: [track_type.vendor_settings, track_type.vendored_code, track_type.pipelines, root_config] }
+  - { name: generated, select: [generated] }
+  - { name: docs, select: [track.docs, glob.LICENSE] }
+  - { name: out, select: [glob.out/**] }

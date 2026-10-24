@@ -15,7 +15,7 @@ Describe 'Get-GeneratedTarget — the real repository' -Tag 'L1', 'integrity', '
     }
 
     It 'returns every module''s declared generated targets' {
-        foreach ($expected in 'docs/drs/index.md', 'docs/drs/glossary.md', 'out/**', 'pwsh/*/*.psd1', 'docs/**/.assets/*.drawio.png') {
+        foreach ($expected in 'docs/drs/index.md', 'docs/drs/glossary.md', 'out/**', 'pwsh/*/*.psd1', 'docs/**/.assets/*.drawio.png', '**/.ruff_cache/**', 'python/.venv/**') {
             $script:targets.path | Should -Contain $expected
         }
     }
