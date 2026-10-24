@@ -24,3 +24,8 @@ on 2026-10-22 with five sessions running tests). A red file has its cause report
       the user's (task-user-runs-and-commits). The same rename keeps `Test-CatzcBuild.Parity.Tests.ps1` red (Catzc.Base.Asserts exports
       `Assert-IsRunningInVsCode` while the build lists VSCode), now that the bundle types-hash defect is fixed (catzc-46, 2026-10-23).
       Check: `Invoke-TestFile` on both alone, after the rename is staged.
+- [ ] The pytest cache and the Python bytecode cache moved to `out/pytest-cache` and `out/pycache` (2026-10-25), and the `.pytest_cache` and
+      `__pycache__` exceptions left `globs.yml`, `generated.yml`, `folder-walk.yml`, `gitignore.yml`, `vscode-settings.yml` and
+      `terminology.yml`. Only `Invoke-PythonTest` and `Get-PythonTestCases` were run; the shared configs were not. Check: `Build-RootConfig`
+      regenerates `.gitignore` and `.vscode/settings.json` without drift, then `Invoke-TestFile` on `Get-ModuleGlobSet.Tests.ps1`,
+      `New-VsCodeSettings.Tests.ps1`, `Test-Terminology` and `Test-Markdownlint` alone, globs first.

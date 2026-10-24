@@ -79,7 +79,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - nuget-tooling -> plan-nuget-tooling.md: NuGet belongs to the tooling modules and no dotnet call contacts a package manager outside them;
   design first, then one burst
 - debt-full-run-failures -> plan-debt-full-run-failures.md: the last full run's failing files rerun one at a time, since a red test blocks
-  the user's full run; one step
+  the user's full run; two steps
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue; two steps
 - bcl-path-sets -> plan-bcl-path-sets.md: Every hand-built path set, folder scan and module-base lookup in a non-internal module moves into
   a BCL helper on the type that owns it; pass-through functions go.
