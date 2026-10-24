@@ -11,10 +11,11 @@ catzc:
     cites:
       - ADR-AUTO-IDIOM-NORMALFORM
       - DDR-ASPECT
+      - DDR-FILTER-TOTALUNION
       - DDR-TRACK
       - PDR-CONFIG
       - PDR-ONELIVE
-    drs_total: 6
+    drs_total: 7
 ---
 
 # Repository filters: named, overlapping views over the hard model, one lamp each
@@ -45,7 +46,7 @@ one resolver, makes every new view a config line, and moving the extra units int
 - `LICENSE` is authored, not generated (no generator or `rootconfig.yml` target writes it); it is docs (the `docs` filter) and live through
   the contracts track, which it joins in `plan-track-model.md`.
 - Combination is the **union** of the lit lamps: a file shows while at least one lit filter claims it, so putting a lamp out hides only what
-  no other lit lamp claims (the rule, its tests and the record rewrite are in `plan-lamp-states.md`).
+  no other lit lamp claims (DDR-FILTER-TOTALUNION).
 - Coverage is asserted: every file on disk is claimed by at least one filter. The census counts files per membership signature (the set of
   filters claiming a file: `{code}`, `{code, generated}`, …) and shows that matrix in the counter's tooltip.
 - The tool caches and environments (`**/.ruff_cache`, `**/.pytest_cache`, `**/__pycache__`, `python/.venv`, `python/uv.lock`) are generated,
@@ -56,14 +57,15 @@ one resolver, makes every new view a config line, and moving the extra units int
 - A filter carries the model's **sets**, never a list of files: each is `{ include, exclude }`, an aspect's straight from
   `Get-AspectGlobSet`, a path as itself and what lies under it. The extension classifies every file on disk by those patterns, so a new file
   is classified the moment it exists, and computes the entries it writes from one walk.
-- The lamps are generic: one per declared filter, its icons `<filter>-on.svg` / `<filter>-off.svg`, the manifest's lamp commands checked
-  against `filters.yml` by a test. Paths compare case-insensitively on Windows, as the file system does.
+- The lamps are generic: one per declared filter, its icons `<filter>-<on|off>[-<condition>].svg`, the manifest's lamp commands repeated
+  from `filters.yml` by the folder generator. Paths compare case-insensitively on Windows, as the file system does.
 
 ## Open steps
 
-1. [ ] `pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js`: the user reloads VS Code and judges the filter lamps (code, tests,
-       tools, generated, docs, out, languages) and the counter's signature matrix; each remark lands here as its own step (check: the
-       counter reads "everything is accounted for" with each lamp off in turn; the user looks).
+1. [ ] `pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js`: the user reloads VS Code and judges the 0.10.0 lamps (open, code,
+       tests, tools, generated, docs, out, languages): the union of the lit lamps, the open lamp keeping open files and grey with none open,
+       the languages lamp as a language view, the brown and red conditions, and the counter's signature matrix; each remark lands here as
+       its own step (check: the counter reads "everything is accounted for" with each lamp off in turn; the user looks).
 
 ## Refs
 

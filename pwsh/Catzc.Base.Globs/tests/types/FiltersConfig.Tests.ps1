@@ -10,6 +10,16 @@ Describe 'FiltersConfig' -Tag 'L0', 'logic' {
         @($config.filters[0].select) | Should -Be @('aspect.live', 'glob.widgets/**')
     }
 
+    It 'reads a filter''s title for a reader, empty when it gives none' {
+        $config = [Catzc.Base.Globs.FiltersConfig]::new([ordered]@{
+                filters = @(
+                    [ordered]@{ name = 'widgets'; title = 'the widget modules'; select = @('aspect.live') }
+                    [ordered]@{ name = 'gadgets'; select = @('generated') }
+                )
+            })
+        @($config.filters.title) | Should -Be @('the widget modules', '')
+    }
+
     It 'splits a selector into its kind and argument at the first dot' {
         [Catzc.Base.Globs.RepositoryFilter]::KindOf('glob.widgets/x.yml') | Should -Be 'glob'
         [Catzc.Base.Globs.RepositoryFilter]::ArgumentOf('glob.widgets/x.yml') | Should -Be 'widgets/x.yml'
@@ -20,8 +30,9 @@ Describe 'FiltersConfig' -Tag 'L0', 'logic' {
     It 'refuses <Case>' -ForEach @(
         @{ Case = 'an unknown selector kind'; Filter = [ordered]@{ name = 'widgets'; select = @('widget.live') }; Message = "*'widget.live' is no known kind*" }
         @{ Case = 'a selector with no argument'; Filter = [ordered]@{ name = 'widgets'; select = @('track.') }; Message = "*names nothing after 'track.'*" }
-        @{ Case = 'an empty selection'; Filter = [ordered]@{ name = 'widgets'; select = @() }; Message = "*must select a non-empty list*" }
-        @{ Case = 'a name not in lower snake case'; Filter = [ordered]@{ name = 'Widgets'; select = @('generated') }; Message = "*lower snake case*" }
+        @{ Case = 'an empty selection'; Filter = [ordered]@{ name = 'widgets'; select = @() }; Message = '*must select a non-empty list*' }
+        @{ Case = 'a name not in lower snake case'; Filter = [ordered]@{ name = 'Widgets'; select = @('generated') }; Message = '*lower snake case*' }
+        @{ Case = 'a title that is no string'; Filter = [ordered]@{ name = 'widgets'; title = @('a', 'b'); select = @('generated') }; Message = '*title must be a string*' }
     ) {
         { [Catzc.Base.Globs.FiltersConfig]::new([ordered]@{ filters = @($Filter) }) } | Should -Throw -ExpectedMessage $Message
     }

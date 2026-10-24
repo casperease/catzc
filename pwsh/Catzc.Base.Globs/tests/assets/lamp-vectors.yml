@@ -6,6 +6,9 @@ lamps:
   tests: [{ include: ["**/tests/**"], exclude: [] }]
   gadget: [{ include: ["gadgets/**", "mods/Widget/README.md"], exclude: [] }]
   languages: [{ include: ["**/*.md"], exclude: [] }]
+  # A lamp over named files (the editor's open files), and one whose sets include nothing.
+  opened: [{ include: [mods/Widget/Get-Widget.ps1], exclude: [] }]
+  idle: [{ include: [], exclude: [] }]
 
 files:
   - mods/Widget/Get-Widget.ps1
@@ -17,17 +20,10 @@ files:
 
 cases:
   - name: every lamp lit shows every file
-    lit: [widget, tests, gadget, languages]
+    lit: [widget, tests, gadget, languages, opened, idle]
     facts: {}
     shown:
-      [
-        mods/Widget/Get-Widget.ps1,
-        mods/Widget/README.md,
-        mods/Widget/tests/Get-Widget.Tests.ps1,
-        gadgets/a.ps1,
-        gadgets/b.md,
-        loose.txt,
-      ]
+      [mods/Widget/Get-Widget.ps1, mods/Widget/README.md, mods/Widget/tests/Get-Widget.Tests.ps1, gadgets/a.ps1, gadgets/b.md, loose.txt]
     unaccounted: [loose.txt]
     conditions: { widget: committed, tests: committed, gadget: committed, languages: committed }
 
@@ -41,8 +37,7 @@ cases:
   - name: putting a lamp out hides only what no other lit lamp claims
     lit: [widget, tests, languages]
     facts: {}
-    shown:
-      [mods/Widget/Get-Widget.ps1, mods/Widget/README.md, mods/Widget/tests/Get-Widget.Tests.ps1, gadgets/b.md, loose.txt]
+    shown: [mods/Widget/Get-Widget.ps1, mods/Widget/README.md, mods/Widget/tests/Get-Widget.Tests.ps1, gadgets/b.md, loose.txt]
     unaccounted: [loose.txt]
     conditions: { widget: committed, tests: committed, gadget: committed, languages: committed }
 
@@ -64,14 +59,7 @@ cases:
     lit: [widget, tests, gadget, languages]
     facts: { mods/Widget/Get-Widget.ps1: { change: staged } }
     shown:
-      [
-        mods/Widget/Get-Widget.ps1,
-        mods/Widget/README.md,
-        mods/Widget/tests/Get-Widget.Tests.ps1,
-        gadgets/a.ps1,
-        gadgets/b.md,
-        loose.txt,
-      ]
+      [mods/Widget/Get-Widget.ps1, mods/Widget/README.md, mods/Widget/tests/Get-Widget.Tests.ps1, gadgets/a.ps1, gadgets/b.md, loose.txt]
     unaccounted: [loose.txt]
     conditions: { widget: staged, tests: committed, gadget: committed, languages: committed }
 
@@ -79,14 +67,7 @@ cases:
     lit: [widget, tests, gadget, languages]
     facts: { mods/Widget/Get-Widget.ps1: { change: staged }, mods/Widget/README.md: { change: unstaged } }
     shown:
-      [
-        mods/Widget/Get-Widget.ps1,
-        mods/Widget/README.md,
-        mods/Widget/tests/Get-Widget.Tests.ps1,
-        gadgets/a.ps1,
-        gadgets/b.md,
-        loose.txt,
-      ]
+      [mods/Widget/Get-Widget.ps1, mods/Widget/README.md, mods/Widget/tests/Get-Widget.Tests.ps1, gadgets/a.ps1, gadgets/b.md, loose.txt]
     unaccounted: [loose.txt]
     conditions: { widget: unstaged, tests: committed, gadget: unstaged, languages: unstaged }
 
@@ -101,14 +82,7 @@ cases:
     lit: [widget, tests, gadget, languages]
     facts: { gadgets/gone.ps1: { change: unstaged } }
     shown:
-      [
-        mods/Widget/Get-Widget.ps1,
-        mods/Widget/README.md,
-        mods/Widget/tests/Get-Widget.Tests.ps1,
-        gadgets/a.ps1,
-        gadgets/b.md,
-        loose.txt,
-      ]
+      [mods/Widget/Get-Widget.ps1, mods/Widget/README.md, mods/Widget/tests/Get-Widget.Tests.ps1, gadgets/a.ps1, gadgets/b.md, loose.txt]
     unaccounted: [loose.txt]
     conditions: { widget: committed, tests: committed, gadget: unstaged, languages: committed }
 
@@ -116,13 +90,27 @@ cases:
     lit: [widget, tests, gadget, languages]
     facts: { loose.txt: { change: unstaged, fault: failed } }
     shown:
-      [
-        mods/Widget/Get-Widget.ps1,
-        mods/Widget/README.md,
-        mods/Widget/tests/Get-Widget.Tests.ps1,
-        gadgets/a.ps1,
-        gadgets/b.md,
-        loose.txt,
-      ]
+      [mods/Widget/Get-Widget.ps1, mods/Widget/README.md, mods/Widget/tests/Get-Widget.Tests.ps1, gadgets/a.ps1, gadgets/b.md, loose.txt]
     unaccounted: [loose.txt]
     conditions: { widget: committed, tests: committed, gadget: committed, languages: committed }
+
+  - name: a lamp over named files keeps them in the tree while it is lit, whatever the other lamps
+    lit: [opened]
+    facts: {}
+    shown: [mods/Widget/Get-Widget.ps1, loose.txt]
+    unaccounted: [loose.txt]
+    conditions: { opened: committed, widget: committed }
+
+  - name: the reddest fact over a lamp's named files is its condition, and a file it does not name is not
+    lit: [opened, widget]
+    facts: { mods/Widget/Get-Widget.ps1: { change: staged }, mods/Widget/README.md: { change: unstaged } }
+    shown: [mods/Widget/Get-Widget.ps1, mods/Widget/README.md, loose.txt]
+    unaccounted: [loose.txt]
+    conditions: { opened: staged, widget: unstaged }
+
+  - name: a lamp whose sets include nothing is empty, lit or not
+    lit: [idle]
+    facts: { loose.txt: { fault: failed } }
+    shown: [loose.txt]
+    unaccounted: [loose.txt]
+    conditions: { idle: empty, opened: committed }

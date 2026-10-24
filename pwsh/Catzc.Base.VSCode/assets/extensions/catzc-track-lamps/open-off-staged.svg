@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#7a4a1e" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="8" cy="8" r="7.2" stroke-width="1" stroke-dasharray="3 2.2">
+    <animateTransform attributeName="transform" type="rotate" from="0 8 8" to="360 8 8" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <g stroke-width="1.5">
+    <animate attributeName="opacity" values="1;0.35;1" dur="1.2s" repeatCount="indefinite"/>
+    <circle cx="7.2" cy="7.2" r="2.8"/>
+    <line x1="9.3" y1="9.3" x2="11.4" y2="11.4"/>
+  </g>
+  <rect x="11.3" y="0.8" width="3.8" height="3.8" rx="0.8" fill="#7a4a1e" stroke="none"/>
+</svg>

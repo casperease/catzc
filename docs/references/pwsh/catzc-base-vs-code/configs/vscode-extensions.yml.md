@@ -82,3 +82,15 @@ Regex Robin — makes code links in comments Ctrl+clickable. Core VS Code links 
 outside markdown, so the regexrobin.rules entry in vscode-settings.yml turns each repository-rooted
 code link into a file link ([ADR-REPO-LINK-CODELINKS](/docs/drs/repository/markdown-links.md#rule-adr-repo-link-codelinks)).
 ```
+
+## comment:7
+
+Above `commands:`, written with `#`.
+
+```text
+Each lamp is two commands, its on icon and its off icon, shown by the context key catzc.lamps.out.<lamp>; each declares the
+conditions beyond committed, and the folder generator expands it into one command per condition, shown by the context key
+catzc.lamps.state.<lamp>, its icon <icon>-<condition>.svg. The icons are the extension's own SVGs,
+assets/extensions/catzc-track-lamps/, shipped as media/: a file copied in over one of them replaces that icon. Committed is green
+(on a bright glyph; off, an active filter, a dark glyph pulsing in a turning ring), staged dark brown, unstaged yellowish, failed red.
+```

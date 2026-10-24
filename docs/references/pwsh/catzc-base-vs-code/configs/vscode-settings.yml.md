@@ -247,3 +247,21 @@ Extensions (git, python, debugpy, go, copilot) contribute environment variables 
 relaunches every terminal not yet typed into, killing its pwsh and the import it holds. A terminal keeps the environment it started
 with: the contributions are PATH entries and helper variables no cats command reads. The stale-environment indicator stays on.
 ```
+
+## comment:21
+
+Above `hidden_actions:`, written with `#`.
+
+```text
+The editor actions kept off its menus, by menu id: the Explorer's title row shows only the track lamps. VS Code keeps this in its own
+state store, never in settings.json; Set-VsCodeHiddenAction writes it there while VS Code is closed.
+```
+
+## comment:22
+
+Above `git.decorations.enabled: true`, written with `#`.
+
+```text
+Git state on the open file, the lamps' one mapping (DDR-FILTER): unstaged = yellowish, staged = dark brown (explorer, tab title; the
+gutter, right-hand ruler and minimap show the working tree's changes, so unstaged).
+```

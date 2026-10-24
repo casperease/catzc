@@ -38,7 +38,7 @@ function New-VsCodeExtensionFolder {
         activationEvents = @($Extension.activationEvents)
     }
     if ($Extension.contributes.Count -gt 0) {
-        $manifest.contributes = Expand-VsCodeCommandState -Contributes $Extension.contributes
+        $manifest.contributes = Expand-VsCodeCommandState -Contributes (Expand-VsCodeRepeat -Contributes $Extension.contributes)
     }
 
     $folder = Join-Path $OutputDirectory $Extension.name

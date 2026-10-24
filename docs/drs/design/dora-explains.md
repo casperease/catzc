@@ -4,6 +4,7 @@ catzc:
   edges:
     cites:
       - DDR-ASPECT
+      - DDR-FILTER
       - DDR-MODTYPE
       - DDR-REMOTE
       - DDR-RUNMODE
@@ -12,7 +13,7 @@ catzc:
       - DDR-TRACK
       - DDR-TRACKTYPE
       - DDR-VISUAL
-    drs_total: 9
+    drs_total: 10
 ---
 
 # DORA explanations — design
@@ -174,4 +175,20 @@ capability links. The decisions live in the decision records themselves; this fi
   independent change and verification.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — explicit, convention-driven partitions reduce
   cognitive load and prevent silent errors.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Repository filters
+
+`Repository filters — named views over the model, and the lamp language`
+
+[DDR-FILTER](repository-filters.md)
+
+> DORA identifies code maintainability and test automation as drivers of delivery performance. Named, overlapping views over the hard model
+> let a reader work in a small subset of a large repository, and a lamp that shows its domain's work in progress and failures, lit or not,
+> keeps a broken test or an unstaged change in sight without opening another view.
+
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a reader works in a declared subset, so the large
+  repository stays easy to find one's way in.
+- [Test automation](../../references/dora/capabilities.md#test-automation) — a failing test file turns its lamp red at once, and the red
+  lapses by itself once the tested files change.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
