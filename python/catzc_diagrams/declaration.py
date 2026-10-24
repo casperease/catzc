@@ -101,6 +101,11 @@ PROOF_ENGINES = [tuple(pair.split()) for pair in str(ACTION["proof-engines"]).sp
 PROOF_ROW = 22  # one engine's words, one row
 EDGE_DEADZONE = int(DEFAULTS["renderer"]["edge-deadzone"])  # how far an edge stops short of each box it joins, written into the model
 WORD_GAP = int(DEFAULTS["renderer"]["word-gap"])  # how far a steep edge's word stands right of its line, written into the model
+LABEL_PRESENTATIONS = ("pill", "word")  # the two presentations of an edge's word
+EDGE_LABEL = str(DEFAULTS["renderer"]["edge-label"]).strip()  # which one every diagram uses
+LABEL_LEGEND = {"pill": f'label: {DEFAULTS["renderer"]["edge-label-legend-pill"]}', "word": f'transition: {DEFAULTS["renderer"]["edge-label-legend-word"]}'}  # the legend entry of each presentation
+LABEL_TAIL_CLEAR = int(DEFAULTS["renderer"]["edge-label-tail-clear"])  # px of line a pill leaves between itself and the tail's end
+LABEL_HEAD_CLEAR = int(DEFAULTS["renderer"]["edge-label-head-clear"])  # px of line a pill leaves between itself and the arrowhead's tip
 ACTOR = str(ACTION["actor"]).strip() == "shown"  # the stick man drawn last over the drawing, the cause's fragment as his head
 DEFAULT_WHERE = str(ACTION["where"]).strip()  # the diagram's where unless content.where says otherwise
 DEFAULT_SHOW = str(ACTION["show"]).strip()  # what a note prints unless the effect's show: says otherwise
@@ -284,6 +289,73 @@ def transition(edge, word, at):
     )
 
 
+def run_length(run):
+    return sum(math.hypot(b[0] - a[0], b[1] - a[1]) for a, b in zip(run, run[1:]))
+
+
+def point_at(run, d):
+    """The point d px along a polyline from its start, with the unit direction of the leg it stands on."""
+    for p, q in zip(run, run[1:]):
+        n = math.hypot(q[0] - p[0], q[1] - p[1])
+        if n and d <= n:
+            return (p[0] + (q[0] - p[0]) * d / n, p[1] + (q[1] - p[1]) * d / n), ((q[0] - p[0]) / n, (q[1] - p[1]) / n)
+        d -= n
+    p, q = run[-2], run[-1]
+    n = math.hypot(q[0] - p[0], q[1] - p[1]) or 1
+    return q, ((q[0] - p[0]) / n, (q[1] - p[1]) / n)
+
+
+def arc_to(run, point):
+    """How far along a polyline the point on it stands."""
+    best, before = None, 0.0
+    for p, q in zip(run, run[1:]):
+        n = math.hypot(q[0] - p[0], q[1] - p[1])
+        t = 0 if not n else max(0.0, min(1.0, ((point[0] - p[0]) * (q[0] - p[0]) + (point[1] - p[1]) * (q[1] - p[1])) / (n * n)))
+        foot = (p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t)
+        gap = math.hypot(point[0] - foot[0], point[1] - foot[1])
+        if best is None or gap < best[0]:
+            best = (gap, before + t * n)
+        before += n
+    return best[1]
+
+
+def overlaps(a, b, margin=2):
+    return a[0] < b[0] + b[2] + margin and b[0] < a[0] + a[2] + margin and a[1] < b[1] + b[3] + margin and b[1] < a[1] + a[3] + margin
+
+
+def label_spot(run, word, deadzone=0, crossing=None, avoid=()):
+    """Where the pill of a word stands on the drawn run of a line (from the source box's border to the target box's): at the line's first
+    band or ring crossing when it crosses one, else at its middle, and only where the line keeps LABEL_TAIL_CLEAR px clear of the pill
+    towards its tail and LABEL_HEAD_CLEAR px towards its head, so the arrowhead is never covered. A line too short to hold it gets the
+    same pill beside the line, WORD_GAP px off it at the middle (right of a steep line, above a flatter one, else the other side), where
+    it overlaps none of the `avoid` rectangles (x, y, w, h); None only when no place is free."""
+    width, height = 6.2 * len(word) + 2 * WORD_MARGIN, 12 + 2 * WORD_MARGIN
+    length = run_length(run) - 2 * deadzone  # the line the model draws: the deadzone stops it short of both boxes
+    wanted = ([arc_to(run, crossing) - deadzone] if crossing else []) + [length / 2]
+    for t in wanted:
+        if 0 < t < length:
+            spot, (ux, uy) = point_at(run, t + deadzone)
+            half = min(width / 2 / abs(ux) if ux else math.inf, height / 2 / abs(uy) if uy else math.inf)  # the pill's reach along the line
+            if t - half >= LABEL_TAIL_CLEAR and length - t - half >= LABEL_HEAD_CLEAR:
+                return spot
+    spot, (ux, uy) = point_at(run, max(length, 0) / 2 + deadzone if length > 0 else run_length(run) / 2)
+    nx, ny = -uy, ux  # the normal of the line
+    reach = min(width / 2 / abs(nx) if nx else math.inf, height / 2 / abs(ny) if ny else math.inf) + WORD_GAP
+    sides = sorted((1, -1), key=lambda k: (-(k * nx) if abs(uy) > abs(ux) else k * ny))  # right of a steep line, above a flatter one
+    for side in sides:
+        centre = (spot[0] + side * nx * reach, spot[1] + side * ny * reach)
+        if not any(overlaps((centre[0] - width / 2, centre[1] - height / 2, width, height), box) for box in avoid):
+            return centre
+    return None
+
+
+def drawn_run(points, source, target):
+    """A line's centre-to-centre polyline cut to the border of the source box and of the target box."""
+    start = cross_box(points, source) or points[0]
+    end = cross_box(points[::-1], target) or points[-1]
+    return [start, *points[1:-1], end]
+
+
 LABEL_INNER = int(DEFAULTS["renderer"]["label-inner-margin"])  # the margin between a diamond's text and its invisible text rect
 LABEL_OUTER = int(DEFAULTS["renderer"]["label-outer-margin"])  # the margin between that rect's corner and the diamond's border
 LABEL_RECT = "text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontSize=12;fontColor=@ink;"  # the invisible rect: no fill, no line
@@ -375,6 +447,10 @@ class DeclarationError(ValueError):
 
 def choices(what, value, allowed) -> NoReturn:
     raise DeclarationError(f"{what} '{value}' is not one of: {', '.join(allowed)}")
+
+
+if EDGE_LABEL not in LABEL_PRESENTATIONS:
+    choices("drawio.yml renderer edge-label", EDGE_LABEL, LABEL_PRESENTATIONS)
 
 
 # ---- the glyph library: every kind, its style and its default size, read from assets/glyphs.xml --------------------
@@ -1496,7 +1572,7 @@ def entry(item, keys, where, what, optional=None):
 def brief(phrase):
     """A legend phrase as the legend prints it: the name alone, without the explanation in parentheses or after a colon; a flow keeps
     its relation, a commit its state and an operator its meaning, which are the names."""
-    if phrase.startswith(("flow: ", "commit: ", "execution: ", "proof: ", "transition: ") + tuple(f"{word}: " for word in OPERATORS)):
+    if phrase.startswith(("flow: ", "commit: ", "execution: ", "proof: ", "transition: ", "label: ") + tuple(f"{word}: " for word in OPERATORS)):
         return phrase.split(" (")[0] if not phrase.startswith("commit: ") else phrase
     return phrase.split(" (")[0].split(":")[0].strip()
 
@@ -2152,6 +2228,7 @@ def place(declaration):
     # left centre, so one waypoint at (source centre x, target centre y) routes it.
     climbs = {(o[i]["id"], o[i + 1]["id"]) for band in ladders for o in [rungs(band)] for i in range(len(o) - 1)}
     # Edges, markers and chips anchor on the glyphs.
+    placed = []  # the pills drawn so far, which a pill beside its line keeps clear of
     for e in content["edges"]:
         style = LIB["edges"][e["kind"]]["style"]
         if e["label"]:
@@ -2174,25 +2251,38 @@ def place(declaration):
             a, b = box_of[e["from"]], box_of[e["to"]]
             edge["via"] = [[round(a["x"] + a["w"] / 2), round(b["y"] + b["h"] / 2)]]
         if e["label"]:
-            # A steep edge, one that climbs or falls more than it runs, never carries its word across its own line: the word stands
-            # left-aligned, glued 3 px right of the line at its middle, where draw.io and the painter both put an align=left label.
             a, b = box_of[e["from"]], box_of[e["to"]]
             points = [
                 (a["x"] + a["w"] / 2, a["y"] + a["h"] / 2),
                 *[(x, y) for x, y in edge["via"]],
                 (b["x"] + b["w"] / 2, b["y"] + b["h"] / 2),
             ]
-            (x0, y0), (x1, y1) = middle_leg(points)
-            if abs(y1 - y0) > abs(x1 - x0):
-                edge["style"] += "align=left;"
-                edge["label_at"] = (0, -WORD_GAP if y1 > y0 else WORD_GAP)
-            # A word on a line that crosses into another band becomes a transition bubble on that band's border; the line keeps no
-            # word of its own. A line inside one band keeps its word beside it.
             into = band_of(e["to"]) if e["to"] in holder else e["to"]
+            crossing = None
             if into in band_box and (band_of(e["from"]) if e["from"] in holder else e["from"]) != into:
-                at = cross_box(points, band_box[into])
-                if at:
-                    cells.append(transition(edge, e["label"], at))
+                crossing = cross_box(points, band_box[into])
+            # With the pill presentation the word is a pill on the line, at the band border it crosses or at the line's middle,
+            # where the arrowhead stays clear; a line too short to hold it gets the same pill beside it; only when no place beside it is free does its word stay bare.
+            spot = None
+            if EDGE_LABEL == "pill":
+                avoid = [box_of[g["id"]] for g in content["glyphs"]] + placed
+                avoid = [(v["x"], v["y"], v["w"], v["h"]) if isinstance(v, dict) else v for v in avoid]
+                spot = label_spot(drawn_run(points, a, b), e["label"], EDGE_DEADZONE, crossing, avoid)
+            if spot:
+                cells.append(transition(edge, e["label"], spot))
+                width, height = 6.2 * len(e["label"]) + 2 * WORD_MARGIN, 12 + 2 * WORD_MARGIN
+                placed.append((spot[0] - width / 2, spot[1] - height / 2, width, height))
+            else:
+                # A steep edge, one that climbs or falls more than it runs, never carries its word across its own line: the word stands
+                # left-aligned, glued 3 px right of the line at its middle, where draw.io and the painter both put an align=left label.
+                (x0, y0), (x1, y1) = middle_leg(points)
+                if abs(y1 - y0) > abs(x1 - x0):
+                    edge["style"] += "align=left;"
+                    edge["label_at"] = (0, -WORD_GAP if y1 > y0 else WORD_GAP)
+                # The word presentation: a word on a line that crosses into another band becomes a transition bubble on that band's
+                # border; a line inside one band keeps its word beside it.
+                if EDGE_LABEL == "word" and crossing:
+                    cells.append(transition(edge, e["label"], crossing))
         cells.append(edge)
     size = LIB["marks"]["marker"]["size"]
     for m in content["markers"]:
@@ -2420,16 +2510,19 @@ def place_action(declaration):
             zone_of[e["id"]] = k
             skip = (cy, lane_half, ACTION_MARGIN) if k - zone_of[source] > 1 else None  # a zone skipped: the margin carries the edge
             edge = operator_edge(f"e-{source}-{e['id']}", operator(source, e), labelled, source, e["id"], box_of, skip)
-            if zone_of[source] >= 1:  # the line crosses a ring into a new zone: its word becomes a bubble on the first ring crossed
-                a, b = box_of[source], box_of[e["id"]]
-                line = [
-                    (a["x"] + a["w"], a["y"] + a["h"] / 2),
-                    *[(vx, vy) for vx, vy in edge.get("via", [])],
-                    (b["x"], b["y"] + b["h"] / 2),
-                ]
-                at = cross_circle(line, (cx, cy), r0 + zone_of[source] * gap)
+            a, b = box_of[source], box_of[e["id"]]
+            line = [
+                (a["x"] + a["w"], a["y"] + a["h"] / 2),
+                *[(vx, vy) for vx, vy in edge.get("via", [])],
+                (b["x"], b["y"] + b["h"] / 2),
+            ]
+            at = cross_circle(line, (cx, cy), r0 + zone_of[source] * gap) if zone_of[source] >= 1 else None
+            if EDGE_LABEL == "pill":  # the pill at the first ring the line crosses, or at its middle, where the head stays clear
+                at = label_spot(line, operator(source, e), 0, at, [(v["x"], v["y"], v["w"], v["h"]) for v in box_of.values()])
                 if at:
                     cells.append(transition(edge, operator(source, e), at))
+            elif at:  # the word presentation: a line into a new zone becomes a bubble on the first ring crossed
+                cells.append(transition(edge, operator(source, e), at))
             cells.append(edge)
             numbered.append((e["id"], marker_xy({"x": x, "y": y, "w": note_w, "h": h}, "top-left")))
     # The cause reaches its action through cats, always: the edge says so, and the cause's own words never need to.
@@ -2619,6 +2712,14 @@ def crossings(content):
     return any(e["label"] and band_of(e["from"]) != band_of(e["to"]) for e in content.get("edges", []))
 
 
+def label_entry(content):
+    """The legend phrase of the edge-label presentation a band diagram draws, or None: the pill presentation lists its label when any
+    edge carries a word, the word presentation lists its transition when a labelled edge crosses a band."""
+    if EDGE_LABEL == "pill":
+        return LABEL_LEGEND["pill"] if any(e["label"] for e in content.get("edges", [])) else None
+    return LABEL_LEGEND["word"] if crossings(content) else None
+
+
 def legend_entries(content):
     """What the legend shows: the glyph kinds, edge kinds and marks the diagram uses, or the phrases the declaration lists."""
     glyphs = LIB["glyphs"]
@@ -2673,8 +2774,8 @@ def legend_entries(content):
             if content["legend"] != "used" or word in drawn_words:  # legend: used lists the operators the drawing draws
                 entries.append((f"edge-{word}", edge_swatch("flow"), f"{word}: {meaning}"))
         entries.append(("marker", mark_swatch("marker", "1"), LIB["marks"]["marker"]["phrase"]))
-        if any(e.get("after", "action") != "action" for e in content["effects"]):  # a line from one zone into the next
-            entries.append(("transition", transition_swatch, "transition: into a new state"))
+        if EDGE_LABEL == "word" and any(e.get("after", "action") != "action" for e in content["effects"]):  # a line into the next zone
+            entries.append(("transition", transition_swatch, LABEL_LEGEND["word"]))
     for kind in dict.fromkeys(g["kind"] for g in content["glyphs"]):
         if kind != "commit":
             entries.append((kind, swatch_for(kind), glyphs[kind]["phrase"]))
@@ -2708,8 +2809,8 @@ def legend_entries(content):
         entries.append((f"rule-{kind}", swatch, f"{kind} gate"))
     if content["markers"]:
         entries.append(("marker", mark_swatch("marker", "1"), LIB["marks"]["marker"]["phrase"]))
-    if crossings(content):
-        entries.append(("transition", transition_swatch, "transition: into a new state"))
+    if label_entry(content):
+        entries.append(("transition", transition_swatch, label_entry(content)))
     for kind in dict.fromkeys(c["kind"] for c in content["chips"]):
         entries.append((f"chip-{kind}", mark_swatch(kind, "#2" if kind == "rule" else "87"), LIB["marks"][kind]["phrase"]))
     if any(c["kind"] == "rule" and not c.get("gated", True) for c in content["chips"]):

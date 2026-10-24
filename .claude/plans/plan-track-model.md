@@ -79,11 +79,13 @@ has a track except `LICENSE`.
   `.gitignore`). `LICENSE` stays the one root file.
 - A buildable track's globset (deployable role) is derived from its members and excludes its generated members; a vendor track's globset
   starts no pipeline. `globs.yml` keeps only the globsets that are not a whole track (deployable-units, slices).
-- The lamps are a short working list of filters, drawn as pills in a webview. A lamp is **lit** (green) when what it covers is shown in the
-  tree, and **unlit** when it is filtering away what it could have shown. Every lamp lit is the default and shows everything, as without the
-  extension; each lamp put out hides its set, and unlit lamps add up. The list: one lamp per aspect (DDR-ASPECT; today `live` and `tests`,
-  so putting out `tests` leaves only live data), and one language lamp with a one-line text field of comma-separated languages from
-  `languages.yml` whose files are hidden while the lamp is unlit; the field scrolls past its visible width. No lamp per track or vendor.
+- The lamps are a short working list of filters, drawn as icons in the Explorer folder view's own title row (beside New File), never a
+  webview or a pane of their own: VS Code gives every pane a 120 px minimum body. A lamp is **lit** when what it covers is shown in the
+  tree, and **unlit** when it is filtering away what it could have shown; each lamp is two commands, its lit and its unlit icon, picked by
+  the context key `catzc.lamps.out.<lamp>`. Every lamp lit is the default and shows everything, as without the extension; each lamp put out
+  hides its set, and unlit lamps add up. The list: one lamp per aspect (DDR-ASPECT; today `live` and `tests`, each a manifest entry), and
+  one language lamp whose put-out asks for comma-separated languages from `languages.yml` in an input box and hides their files. No lamp per
+  track or vendor.
 - An aspect lamp hides the files of its aspect across every unit. `files.exclude` holds only globs, and a catch-all aspect is "everything
   but the other aspects", so the hidden set is a computed projection: `Get-AspectCover` folds each aspect's tracked files (its module and
   track aspect globsets, `GlobSet.SelectMembers` over the git index) into the fewest paths that cover them and nothing else, rendered into

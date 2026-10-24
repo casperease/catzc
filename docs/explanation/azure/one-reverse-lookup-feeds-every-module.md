@@ -82,13 +82,13 @@ layout:
   band-identity: { x: 420, y: 84, w: 420, h: 340 }
   band-templates: { x: 860, y: 84, w: 420, h: 340 }
   x-connection: { x: 50, y: 144, w: 150, h: 44 }
-  x-session: { x: 240, y: 144, w: 130, h: 44 }
+  x-session: { x: 250, y: 144, w: 120, h: 44 }
   g-cli: { x: 600, y: 144, w: 170, h: 44 }
-  g-azure-file: { x: 440, y: 268, w: 120, h: 52 }
+  g-azure-file: { x: 432, y: 268, w: 110, h: 52 }
   g-azure: { x: 600, y: 272, w: 170, h: 44 }
-  g-templates: { x: 930, y: 144, w: 160, h: 170 }
-  g-tree: { x: 935, y: 354, w: 150, h: 52 }
-  r-group: { x: 1120, y: 144, w: 150, h: 44 }
+  g-templates: { x: 890, y: 155, w: 160, h: 150 }
+  g-tree: { x: 895, y: 354, w: 150, h: 52 }
+  r-group: { x: 1110, y: 208, w: 150, h: 44 }
 ```
 
 ![One reverse lookup in Catzc.Azure.Cli hands the session to every module](.assets/one-reverse-lookup-feeds-every-module.drawio.png)

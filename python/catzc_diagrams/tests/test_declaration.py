@@ -111,7 +111,8 @@ def test_a_span_label_outside_the_vocabularies_fails_with_the_allowed_words():
         declaration.normalise(raw)
 
 
-def test_a_steep_edge_glues_its_word_right_of_the_line_and_a_flat_one_keeps_it_centred():
+def test_a_steep_edge_glues_its_word_right_of_the_line_and_a_flat_one_keeps_it_centred(monkeypatch):
+    monkeypatch.setattr(declaration, "EDGE_LABEL", "word")  # the word presentation: the word stands beside its line
     raw = __import__("yaml").safe_load(WIDGETS)
     raw["content"]["edges"][1]["label"] = "fails"  # a word on a line inside one band: it stays beside the line
     raw["layout"] = {"gadget-store": {"x": 800, "y": 150, "w": 220, "h": 72}, "gadget-gate": {"x": 800, "y": 320, "w": 220, "h": 72}}
@@ -125,7 +126,8 @@ def test_a_steep_edge_glues_its_word_right_of_the_line_and_a_flat_one_keeps_it_c
     assert declaration.dump(declaration.get(model, kind="explanation")) == declaration.dump(declaration.normalise(raw))
 
 
-def test_a_word_on_a_line_into_another_band_becomes_a_transition_bubble_on_that_border():
+def test_a_word_on_a_line_into_another_band_becomes_a_transition_bubble_on_that_border_in_the_word_presentation(monkeypatch):
+    monkeypatch.setattr(declaration, "EDGE_LABEL", "word")
     first = widgets()
     model = declaration.put(first)
     bubble = re.search(r'<mxCell id="e-widget-a-gadget-store-word" value="&lt;b&gt;writes&lt;/b&gt;" style="rounded=1;arcSize=50;[^"]*" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
@@ -1299,3 +1301,44 @@ def test_the_default_meaning_and_the_labels_are_declared_once_and_the_legend_rea
     assert set(declaration.EDGE_LABELS.values()) <= {"tail", "head"}
     glyph_library = (declaration.KIT / "assets" / "glyphs.xml").read_text(encoding="utf-8")
     assert 'value="flow: initiator to receiver"' in glyph_library, "the glyph library's words agree with the declaration"
+
+
+def pill(model, edge):
+    return re.search(rf'<mxCell id="{edge}-word" value="&lt;b&gt;([^&]*)&lt;/b&gt;" style="rounded=1;arcSize=50;[^"]*" [^\n]*\n\s*<mxGeometry x="(-?\d+)" y="(-?\d+)" width="(\d+)" height="(\d+)"', model)
+
+
+def test_every_labelled_edge_draws_its_word_in_a_pill_by_default_and_the_line_keeps_none():
+    assert declaration.EDGE_LABEL == "pill"
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["edges"][1]["label"] = "fails"  # a line inside one band
+    raw["layout"] = {"gadget-gate": {"x": 950, "y": 183, "w": 127, "h": 93}}  # far enough from the store to hold a pill and a head
+    first = declaration.normalise(raw)
+    model = declaration.put(first)
+    for edge, word in (("e-widget-a-gadget-store", "writes"), ("e-gadget-store-gadget-gate", "fails")):
+        found = pill(model, edge)
+        assert found is not None and found.group(1) == word
+        assert re.search(rf'<mxCell id="{edge}" value="" ', model)
+    assert "label: the word on a line" in model and "transition: into a new state" not in model
+    assert declaration.dump(declaration.get(model, kind="explanation")) == declaration.dump(first)
+
+
+def test_a_line_too_short_for_a_pill_gets_the_same_pill_beside_it_and_never_bare_text():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["edges"][1]["label"] = "fails"
+    raw["layout"] = {"gadget-store": {"x": 800, "y": 150, "w": 220, "h": 72}, "gadget-gate": {"x": 800, "y": 262, "w": 220, "h": 72}}
+    model = declaration.put(declaration.normalise(raw))  # the two ends stand 40 px apart: no room for a pill and a head on the line
+    found = pill(model, "e-gadget-store-gadget-gate")
+    assert found is not None and found.group(1) == "fails"
+    assert re.search(r'<mxCell id="e-gadget-store-gadget-gate" value="" ', model)  # the line keeps no word of its own
+    x, y, w, h = (int(found.group(i)) for i in (2, 3, 4, 5))
+    assert x >= 800 + 220 or x + w <= 800 or y + h <= 150 or y >= 150 + 72  # the pill overlaps neither box
+    assert abs(x + w / 2 - 910) >= w / 2  # the line runs down x = 910: the pill stands off it, not on it
+    with pytest.MonkeyPatch.context() as patch:
+        patch.setattr(declaration, "EDGE_LABEL", "word")
+        assert pill(declaration.put(declaration.normalise(raw)), "e-gadget-store-gadget-gate") is None  # the word presentation keeps it bare
+
+
+def test_the_label_presentation_is_one_of_the_two_the_renderer_names():
+    assert declaration.LABEL_PRESENTATIONS == ("pill", "word")
+    with pytest.raises(declaration.DeclarationError, match="edge-label 'badge' is not one of: pill, word"):
+        declaration.choices("drawio.yml renderer edge-label", "badge", declaration.LABEL_PRESENTATIONS)

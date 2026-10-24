@@ -79,17 +79,35 @@ extensions:
           priority: default
   catzc-track-lamps:
     displayName: Catzc track lamps
-    version: 0.3.1
+    version: 0.4.0
     description: >-
-      A short row of filter lamps in the Explorer, one per aspect and one for a typed list of languages: a lit (green) lamp shows its files,
-      an unlit one filters them away through files.exclude; every lamp lit shows everything.
+      Filter lamps in the Explorer's title row, one per aspect and one for a typed list of languages: a lit lamp shows its files, an unlit
+      one filters them away through files.exclude; every lamp lit shows everything.
     activationEvents: [onStartupFinished]
     contributes:
-      views:
-        explorer:
-          - type: webview
-            id: catzc.trackLamps
-            name: Tracks
+      # Each lamp is two commands, its lit icon and its unlit icon, shown by the context key catzc.lamps.out.<lamp>.
+      commands:
+        - { command: catzc.lamps.live.putOut, title: "live: shown (click to hide)", icon: "$(package)", category: Catzc lamps }
+        - { command: catzc.lamps.live.light, title: "live: hidden (click to show)", icon: "$(circle-slash)", category: Catzc lamps }
+        - { command: catzc.lamps.tests.putOut, title: "tests: shown (click to hide)", icon: "$(beaker)", category: Catzc lamps }
+        - { command: catzc.lamps.tests.light, title: "tests: hidden (click to show)", icon: "$(beaker-stop)", category: Catzc lamps }
+        - command: catzc.lamps.languages.putOut
+          title: "languages: shown (click to choose languages to hide)"
+          icon: "$(symbol-text)"
+          category: Catzc lamps
+        - { command: catzc.lamps.languages.light, title: "languages: hidden (click to show)", icon: "$(filter-filled)", category: Catzc lamps }
+      menus:
+        view/title:
+          - { command: catzc.lamps.live.putOut, when: "view == workbench.explorer.fileView && !catzc.lamps.out.live", group: navigation@90 }
+          - { command: catzc.lamps.live.light, when: "view == workbench.explorer.fileView && catzc.lamps.out.live", group: navigation@90 }
+          - { command: catzc.lamps.tests.putOut, when: "view == workbench.explorer.fileView && !catzc.lamps.out.tests", group: navigation@91 }
+          - { command: catzc.lamps.tests.light, when: "view == workbench.explorer.fileView && catzc.lamps.out.tests", group: navigation@91 }
+          - command: catzc.lamps.languages.putOut
+            when: "view == workbench.explorer.fileView && !catzc.lamps.out.languages"
+            group: navigation@92
+          - command: catzc.lamps.languages.light
+            when: "view == workbench.explorer.fileView && catzc.lamps.out.languages"
+            group: navigation@92
       configuration:
         title: Catzc track lamps
         properties:

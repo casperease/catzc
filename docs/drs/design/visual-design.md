@@ -236,24 +236,26 @@ and ink from the same theme tokens as every diagram.
 ### Rule DDR-VISUAL-EDGEWORDSAREOPERATORS
 
 Every flow edge of an action diagram carries one word, drawn by the renderer and never named in the declaration; the word follows from the
-edge's source and target, never from the author. The word stands beside its line only where the line crosses no boundary; where it does, the
-transition pill carries it (DDR-VISUAL-TRANSITIONPILL). The **cats operator** is the word at the actor's hand, where the statement is done;
-no line runs from the head to the hand, and `Test-AccostedCommand` checks the action. The **executes operator** is every edge leaving the
-action, whatever its target: the statement is handed to the state machine as an instruction, and the runner running it checks it. The
-**affects operator** is the edge between two effects where the target is an execution: one execution triggers another, and
-`Test-AccostedCommand` checks that call. The **effects operator** is the edge between two effects where the target is a state change: an
-execution changes state, and its observation in the proof file checks it. An effect's `after` picks the source of its edge, the action when
-it names none. The legend of every action diagram lists the four words, or with `legend: used` only the operators the drawing uses, and adds
-"execution: a triggered command" when one is drawn. The declaration's `relation` and `thick` are refused under the action lens.
+edge's source and target, never from the author. The word stands in the pill of DDR-VISUAL-TRANSITIONPILL, or beside its line where the
+renderer is configured to the word presentation and the line crosses no boundary. The **cats operator** is the word at the actor's hand,
+where the statement is done; no line runs from the head to the hand, and `Test-AccostedCommand` checks the action. The **executes operator**
+is every edge leaving the action, whatever its target: the statement is handed to the state machine as an instruction, and the runner
+running it checks it. The **affects operator** is the edge between two effects where the target is an execution: one execution triggers
+another, and `Test-AccostedCommand` checks that call. The **effects operator** is the edge between two effects where the target is a state
+change: an execution changes state, and its observation in the proof file checks it. An effect's `after` picks the source of its edge, the
+action when it names none. The legend of every action diagram lists the four words, or with `legend: used` only the operators the drawing
+uses, and adds "execution: a triggered command" when one is drawn. The declaration's `relation` and `thick` are refused under the action
+lens.
 
 - [Edges carry their operator](#edges-carry-their-operator)
 
 ### Rule DDR-VISUAL-STEEPEDGEWORDBESIDEIT
 
-A **steep edge** is an edge that climbs or falls more than it runs, in an action diagram and in a band diagram alike. Where its line crosses
-no boundary, its word stands left-aligned a few pixels to the right of its line, at the middle of the line, so the word reads beside the
-edge and never on it or across it. The distance is declared once in the renderer's vocabulary, and the draw.io model and the painted raster
-place the word the same way. A word on a line that crosses a boundary is the transition pill's (DDR-VISUAL-TRANSITIONPILL).
+A **steep edge** is an edge that climbs or falls more than it runs, in an action diagram and in a band diagram alike. Where its word is
+beside the line (the word presentation) and the line crosses no boundary, its word stands left-aligned a few pixels to the right of its
+line, at the middle of the line, so the word reads beside the edge and never on it or across it. The distance is declared once in the
+renderer's vocabulary, and the draw.io model and the painted raster place the word the same way. A word on a line that crosses a boundary is
+the transition pill's (DDR-VISUAL-TRANSITIONPILL).
 
 - [A steep edge's word](#a-steep-edges-word)
 
@@ -316,11 +318,15 @@ the only link the drawing shows. The rings stay centred on the rim at the statem
 
 ### Rule DDR-VISUAL-TRANSITIONPILL
 
-A **transition pill** is the word of a line drawn where the line crosses into a new state: a round-cornered box hugging the word with a
-small inner margin on every side and no height beyond the text, centred on the first boundary the line crosses, the border of the band it
-enters in a band diagram, the first ring arc it crosses in an action diagram. The line keeps no word of its own, and get reads the word back
-from the pill. A line that crosses nothing keeps its word beside it. The margin is declared once in the renderer's vocabulary, and every
-legend of a drawing with a crossing lists "transition: into a new state". This holds in every lens.
+A **pill** is the default presentation of an edge's word: a round-cornered box hugging the word with a small inner margin on every side and
+no height beyond the text, standing on the line, centred on the first boundary the line crosses (the border of the band it enters in a band
+diagram, the first ring arc it crosses in an action diagram) and else at the middle of the line. A pill never covers the arrowhead: it
+stands only where the line keeps a clear stretch on both sides of it, and a line too short to hold one gets the same pill beside it, a few
+pixels off the line, clear of every box and every other pill. The line keeps no word of its own, and get reads the word back from the pill.
+The configured alternative is the **word** presentation, where the word stands beside its line and only a line crossing into another band or
+zone has a pill. The presentation (`edge-label`, `pill` or `word`), the margin and the clear stretches are declared once in the renderer's
+vocabulary, the same for every diagram, and the legend lists "label: the word on a line" for pills, "transition: into a new state" for the
+word presentation when a line crosses. This holds in every lens.
 
 - [The transition pill](#the-transition-pill)
 
@@ -591,7 +597,7 @@ pushing the statement.
 
 ## The transition pill
 
-A word on a line says what the line means where it changes something. Where the line crosses nothing, beside the line is where the word
-belongs; where it crosses into another band or another zone, the crossing is the moment the word is about, so the word stands there, and a
-pill hugging it keeps it legible over the border it sits on. One pill per line, at the first crossing, keeps the marker rare enough to mean
-something.
+A word on a line says what the line means, and a pill hugging it keeps it legible over the line and any border it sits on. Where the line
+crosses into another band or another zone, the crossing is the moment the word is about, so the pill stands there; elsewhere it stands at
+the middle of the line, where it reads as the line's own name. One pill per line, with the arrowhead left clear, keeps every word the same
+shape. A diagram set that prefers the quieter look configures the word beside the line instead, one setting for all of them.

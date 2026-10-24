@@ -74,7 +74,7 @@ def test_the_operators_label_every_edge_and_an_execution_comes_back():
     cats = re.search(r'id="cats" value="([^"]*)"', model)  # the word at the hand that does the statement
     executes = re.search(r'id="e-action-effect-index" value="([^"]*)"', model)
     affects = re.search(r'id="e-effect-index-effect-recount-word" value="([^"]*)"', model)  # across a ring: in its transition bubble
-    effects = re.search(r'id="e-effect-recount-effect-catalogue" value="([^"]*)"', model)  # inside one zone: on the line
+    effects = re.search(r'id="e-effect-recount-effect-catalogue-word" value="([^"]*)"', model)  # inside one zone: in its pill at the line's middle
     assert cats is not None and executes is not None and affects is not None and effects is not None
     assert [m.group(1) for m in (cats, executes, affects, effects)] == [f"&lt;b&gt;{w}&lt;/b&gt;" for w in ("cats", "executes", "affects", "effects")]
     for word, meaning in declaration.OPERATORS.items():
@@ -312,7 +312,8 @@ def test_the_stick_man_is_drawn_last_over_the_drawing_and_read_by_nobody(monkeyp
     assert "actor-" not in declaration.put(first)
 
 
-def test_a_word_on_a_line_between_zones_becomes_a_transition_bubble_on_the_ring():
+def test_a_word_on_a_line_between_zones_becomes_a_transition_bubble_on_the_ring_in_the_word_presentation(monkeypatch):
+    monkeypatch.setattr(declaration, "EDGE_LABEL", "word")
     first = normalised(sample("action-site-sample"))
     model = declaration.put(first)
     bubble = re.search(r'<mxCell id="e-effect-index-effect-recount-word" value="&lt;b&gt;affects&lt;/b&gt;" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
@@ -477,3 +478,11 @@ def test_another_lens_dumps_no_action_key_and_its_legend_is_unchanged():
     assert "cause" not in text and "effects" not in text and "proves" not in text
     model = declaration.put(declaration.normalise(raw))
     assert 'id="frame"' not in model and 'id="ring-1"' not in model
+
+
+def test_a_pill_stands_at_the_middle_of_its_line_when_the_ring_crossing_would_cover_the_head():
+    model = declaration.put(normalised(sample("action-site-sample")))
+    bubble = re.search(r'<mxCell id="e-effect-index-effect-recount-word" [^\n]*\n\s*<mxGeometry x="(\d+)" y="(\d+)" width="(\d+)" height="(\d+)"', model)
+    assert bubble is not None
+    centre = (int(bubble.group(1)) + int(bubble.group(3)) / 2, int(bubble.group(2)) + int(bubble.group(4)) / 2)
+    assert abs(centre[0] - 638.5) <= 1.5 and abs(centre[1] - 359.5) <= 1.5  # halfway between the two boxes' facing sides
