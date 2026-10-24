@@ -1,0 +1,22 @@
+description: "Cat form: Test-Links is the link quality gate that fails on any off-form, dangling or dead link or citation, and returns its result, with the report-mode findings, under -PassThru"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to test links shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to test links" }
+  action:
+    call: { test_links: { pass_thru: true } }
+  effects:
+    - id: effect-result
+      zone: 1
+      says: "The gate ran and returned its subject links with an issue count of 48: 48 issues"
+      proves: { test_links: { pass_thru: true } }
+    - id: effect-report
+      zone: 2
+      says: "Its report is written under out/test-links/"
+      proves: { get_repository_file: { path: out/test-links/latest.txt } }
+      after: effect-result

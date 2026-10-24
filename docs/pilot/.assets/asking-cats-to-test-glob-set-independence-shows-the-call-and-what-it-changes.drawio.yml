@@ -1,0 +1,22 @@
+description: "Cat form: Test-GlobSetIndependence is the quality gate that checks no two globsets of one layer select a common file on their own contribution, and returns its result under -PassThru"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to test glob set independence shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to test glob set independence" }
+  action:
+    call: { test_glob_set_independence: { pass_thru: true } }
+  effects:
+    - id: effect-result
+      zone: 1
+      says: "The gate ran and returned its subject globset-independence with an issue count of 0: no issues"
+      proves: { test_glob_set_independence: { pass_thru: true } }
+    - id: effect-report
+      zone: 2
+      says: "Its report is written under out/test-globset-independence/"
+      proves: { get_repository_file: { path: out/test-globset-independence/latest.txt } }
+      after: effect-result

@@ -1,0 +1,22 @@
+description: "Cat form: Test-Markdownlint is the quality gate that lints the repository's Markdown with markdownlint-cli2 and returns its result under -PassThru"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to test markdownlint shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to test markdownlint" }
+  action:
+    call: { test_markdownlint: { pass_thru: true } }
+  effects:
+    - id: effect-result
+      zone: 1
+      says: "The gate ran and returned its subject markdownlint with an issue count of 560: 560 issues"
+      proves: { test_markdownlint: { pass_thru: true } }
+    - id: effect-report
+      zone: 2
+      says: "Its report is written under out/test-markdownlint/"
+      proves: { get_repository_file: { path: out/test-markdownlint/latest.txt } }
+      after: effect-result

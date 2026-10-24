@@ -1,0 +1,17 @@
+description: "Cat form: Test-GlobSetAffected says whether the current context's change touches the named globset"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to test glob set affected shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to test glob set affected" }
+  action:
+    call: { test_glob_set_affected: { name: pwsh } }
+  effects:
+    - id: effect-answer
+      zone: 1
+      says: "True or false is returned for the current change and the pwsh globset; the run recorded False"
+      proves: { test_glob_set_affected: { name: pwsh } }

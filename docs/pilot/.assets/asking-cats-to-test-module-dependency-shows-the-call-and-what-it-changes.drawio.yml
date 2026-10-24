@@ -1,0 +1,22 @@
+description: "Cat form: Test-ModuleDependency is the quality gate that checks the actual module dependencies conform to the declared graph, and returns its result under -PassThru"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to test module dependency shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to test module dependency" }
+  action:
+    call: { test_module_dependency: { pass_thru: true } }
+  effects:
+    - id: effect-result
+      zone: 1
+      says: "The gate ran and returned its subject module-dependency with an issue count of 0: no issues"
+      proves: { test_module_dependency: { pass_thru: true } }
+    - id: effect-report
+      zone: 2
+      says: "Its report is written under out/test-module-dependency/"
+      proves: { get_repository_file: { path: out/test-module-dependency/latest.txt } }
+      after: effect-result

@@ -1,0 +1,22 @@
+description: "Cat form: Get-FileLanguage is the file-language reader: every language with no argument, the languages by name, or the language of one file by path"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to get file language shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to get file language" }
+  action:
+    call: { get_file_language: { path: README.md } }
+  effects:
+    - id: effect-language
+      zone: 1
+      says: "The language of README.md is markdown: extension .md, formatter prettier, VS Code language markdown"
+      proves: { get_file_language: { path: README.md } }
+    - id: effect-checks
+      zone: 2
+      says: "Its checks include Test-Markdownlint, which is itself a contracted command"
+      proves: { get_command_contract: { name: test_markdownlint } }
+      after: effect-language

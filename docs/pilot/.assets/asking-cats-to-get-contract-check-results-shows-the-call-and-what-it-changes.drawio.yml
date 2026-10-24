@@ -1,0 +1,22 @@
+description: "Cat form: Get-ContractCheckResults is the per-asset contract check; the assets arrive by parameter or from the pipeline"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to get contract check results shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to get contract check results" }
+  action:
+    call: { get_contract_check_results:  }
+  effects:
+    - id: effect-rows
+      zone: 1
+      says: "One row per contract asset is returned: whether it passed, the asset and its findings"
+      proves: { get_contract_check_results: }
+    - id: effect-contract
+      zone: 2
+      says: "The assets include the command contracts, each one provided for a public function"
+      proves: { get_command_contract: { name: test_azure_network_plan } }
+      after: effect-rows

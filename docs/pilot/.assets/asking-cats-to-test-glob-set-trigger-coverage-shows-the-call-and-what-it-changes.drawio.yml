@@ -1,0 +1,22 @@
+description: "Cat form: Test-GlobSetTriggerCoverage is the quality gate that checks every member of a pipeline-bound globset matches one of its ADO trigger include patterns, and returns its result under -PassThru"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to test glob set trigger coverage shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to test glob set trigger coverage" }
+  action:
+    call: { test_glob_set_trigger_coverage: { pass_thru: true } }
+  effects:
+    - id: effect-result
+      zone: 1
+      says: "The gate ran and returned its subject glob-set-trigger-coverage with an issue count of 0: no issues"
+      proves: { test_glob_set_trigger_coverage: { pass_thru: true } }
+    - id: effect-report
+      zone: 2
+      says: "Its report is written under out/test-glob-set-trigger-coverage/"
+      proves: { get_repository_file: { path: out/test-glob-set-trigger-coverage/latest.txt } }
+      after: effect-result

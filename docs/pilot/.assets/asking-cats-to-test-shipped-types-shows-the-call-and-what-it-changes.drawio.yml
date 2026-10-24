@@ -1,0 +1,22 @@
+description: "Cat form: Test-ShippedTypes is the quality gate that checks every shipped C# type resolves in the session by its module and file name, and returns its result under -PassThru"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to test shipped types shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to test shipped types" }
+  action:
+    call: { test_shipped_types: { pass_thru: true } }
+  effects:
+    - id: effect-result
+      zone: 1
+      says: "The gate ran and returned its subject shipped-types with an issue count of 0: no issues"
+      proves: { test_shipped_types: { pass_thru: true } }
+    - id: effect-report
+      zone: 2
+      says: "Its report is written under out/test-shipped-types/"
+      proves: { get_repository_file: { path: out/test-shipped-types/latest.txt } }
+      after: effect-result

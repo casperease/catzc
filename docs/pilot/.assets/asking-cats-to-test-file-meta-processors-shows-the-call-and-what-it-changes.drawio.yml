@@ -1,0 +1,22 @@
+description: "Cat form: Test-FileMetaProcessors is the quality gate that checks every meta kind resolves to a processor and every processor belongs to a kind, and returns its result under -PassThru"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to test file meta processors shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to test file meta processors" }
+  action:
+    call: { test_file_meta_processors: { pass_thru: true } }
+  effects:
+    - id: effect-result
+      zone: 1
+      says: "The gate ran and returned its subject file-meta-processors with an issue count of 0: no issues"
+      proves: { test_file_meta_processors: { pass_thru: true } }
+    - id: effect-report
+      zone: 2
+      says: "Its report is written under out/test-file-meta-processors/"
+      proves: { get_repository_file: { path: out/test-file-meta-processors/latest.txt } }
+      after: effect-result

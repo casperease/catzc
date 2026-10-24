@@ -1,0 +1,22 @@
+description: "Cat form: Test-AgentDefinitions is the quality gate that checks the sub-agent definitions, their capabilities, both registries and the CLAUDE.md list agree, and returns its result under -PassThru"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to test agent definitions shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to test agent definitions" }
+  action:
+    call: { test_agent_definitions: { pass_thru: true } }
+  effects:
+    - id: effect-result
+      zone: 1
+      says: "The gate ran and returned its subject agent-definitions with an issue count of 1: 1 issue"
+      proves: { test_agent_definitions: { pass_thru: true } }
+    - id: effect-report
+      zone: 2
+      says: "Its report is written under out/test-agent-definitions/"
+      proves: { get_repository_file: { path: out/test-agent-definitions/latest.txt } }
+      after: effect-result

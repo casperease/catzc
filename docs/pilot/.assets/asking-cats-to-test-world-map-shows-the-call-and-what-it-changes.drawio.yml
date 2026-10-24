@@ -1,0 +1,22 @@
+description: "Cat form: Test-WorldMap is the quality gate that checks every tracked file sits in a declared track and its tech-stack and every label the map prints is a glossary term, and returns its result under -PassThru"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to test world map shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to test world map" }
+  action:
+    call: { test_world_map: { pass_thru: true } }
+  effects:
+    - id: effect-result
+      zone: 1
+      says: "The gate ran and returned its subject world-map with an issue count of 0: no issues"
+      proves: { test_world_map: { pass_thru: true } }
+    - id: effect-report
+      zone: 2
+      says: "Its report is written under out/test-world-map/"
+      proves: { get_repository_file: { path: out/test-world-map/latest.txt } }
+      after: effect-result

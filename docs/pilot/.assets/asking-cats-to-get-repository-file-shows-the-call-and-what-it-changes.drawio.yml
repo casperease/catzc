@@ -1,0 +1,22 @@
+description: "Cat form: Get-RepositoryFile returns the full, normalized path to a file relative to the repository root"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to get repository file shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to get repository file" }
+  action:
+    call: { get_repository_file: { path: README.md } }
+  effects:
+    - id: effect-path
+      zone: 1
+      says: "The full normalized path of README.md under the repository root is returned"
+      proves: { get_repository_file: { path: README.md } }
+    - id: effect-type
+      zone: 2
+      says: "That path is a file of type md"
+      proves: { get_path_file_type: { path: README.md } }
+      after: effect-path

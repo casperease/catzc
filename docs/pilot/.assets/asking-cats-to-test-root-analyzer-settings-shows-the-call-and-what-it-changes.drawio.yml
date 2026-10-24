@@ -1,0 +1,22 @@
+description: "Cat form: Test-RootAnalyzerSettings is the quality gate that checks the root analyzer settings parse as a settings hashtable through their link, and returns its result under -PassThru"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to test root analyzer settings shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to test root analyzer settings" }
+  action:
+    call: { test_root_analyzer_settings: { pass_thru: true } }
+  effects:
+    - id: effect-result
+      zone: 1
+      says: "The gate ran and returned its subject root-analyzer-settings with an issue count of 0: no issues"
+      proves: { test_root_analyzer_settings: { pass_thru: true } }
+    - id: effect-report
+      zone: 2
+      says: "Its report is written under out/test-root-analyzer-settings/"
+      proves: { get_repository_file: { path: out/test-root-analyzer-settings/latest.txt } }
+      after: effect-result

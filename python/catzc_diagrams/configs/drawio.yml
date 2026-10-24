@@ -33,6 +33,54 @@ carriers: # a diagram's carrier, keyed by its stem's repository path (`.assets/<
   docs/explanation/automation/.assets/a-modules-engines-are-a-subset-of-three-and-auto-leaves-the-choice-open: file
   docs/explanation/flow/.assets/deploy-carries-governance-and-every-cd-pipeline-contains-the-one-ci-engine: file
   docs/explanation/azure/.assets/landing-zones-form-a-hub-and-spoke-network-with-one-network-per-subscription: file
+  docs/pilot/.assets/asking-cats-to-test-shipped-types-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-root-config-files-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-root-analyzer-settings-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-get-repository-file-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-terminology-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-spelling-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-shipped-configs-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-shell-scripts-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-script-analyzer-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-python-types-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-python-lint-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-parameter-consistency-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-markdownlint-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-markdown-title-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-managed-guids-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-logic-test-identity-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-links-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-generated-files-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-file-meta-processors-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-config-identity-hygiene-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-analyzer-drs-map-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-module-dependency-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-module-cycles-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-function-dependency-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-folder-conventions-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-world-map-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-value-chain-map-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-get-path-file-type-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-get-file-language-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-glob-set-trigger-coverage-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-glob-set-independence-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-glob-set-affected-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-ado-pipeline-trigger-glob-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-drs-registry-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-drs-engine-neutrality-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-glossary-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-generated-readmes-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-agent-definitions-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-contracts-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-get-contract-check-results-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-get-command-contract-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-get-accosted-fragment-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-get-accosted-file-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-config-validators-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-azure-network-plan-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-get-bicep-template-names-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-get-bicep-parameter-model-shows-the-call-and-what-it-changes: file
+  docs/pilot/.assets/asking-cats-to-test-pipelines-shows-the-call-and-what-it-changes: file
   docs/explanation/repository/.assets/the-edges-part-is-imprinted-byte-identically-and-each-formatter-is-configured: file
   docs/explanation/repository/.assets/one-reader-parses-a-command-contract-and-contracts-hold-no-dot-folders: file
   docs/explanation/automation/.assets/a-secret-reaches-child-process-only-through-one-seam-and-env-assignment-for-tool-contracts: file

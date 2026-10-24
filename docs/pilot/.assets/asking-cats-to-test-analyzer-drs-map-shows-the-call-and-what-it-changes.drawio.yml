@@ -1,0 +1,22 @@
+description: "Cat form: Test-AnalyzerDrsMap is the quality gate that checks the analyzer map cites only real ADR rules and maps every custom analyzer rule, and returns its result under -PassThru"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to test analyzer drs map shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to test analyzer drs map" }
+  action:
+    call: { test_analyzer_drs_map: { pass_thru: true } }
+  effects:
+    - id: effect-result
+      zone: 1
+      says: "The gate ran and returned its subject analyzer-drs-map with an issue count of 0: no issues"
+      proves: { test_analyzer_drs_map: { pass_thru: true } }
+    - id: effect-report
+      zone: 2
+      says: "Its report is written under out/test-analyzer-drs-map/"
+      proves: { get_repository_file: { path: out/test-analyzer-drs-map/latest.txt } }
+      after: effect-result

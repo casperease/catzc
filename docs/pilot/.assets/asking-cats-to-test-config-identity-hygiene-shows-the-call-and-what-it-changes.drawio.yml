@@ -1,0 +1,22 @@
+description: "Cat form: Test-ConfigIdentityHygiene is the quality gate that checks no shipped config carries a test-fixture identity in its data, and returns its result under -PassThru"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to test config identity hygiene shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to test config identity hygiene" }
+  action:
+    call: { test_config_identity_hygiene: { pass_thru: true } }
+  effects:
+    - id: effect-result
+      zone: 1
+      says: "The gate ran and returned its subject config-identity-hygiene with an issue count of 0: no issues"
+      proves: { test_config_identity_hygiene: { pass_thru: true } }
+    - id: effect-report
+      zone: 2
+      says: "Its report is written under out/test-config-identity-hygiene/"
+      proves: { get_repository_file: { path: out/test-config-identity-hygiene/latest.txt } }
+      after: effect-result

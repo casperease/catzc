@@ -1,0 +1,22 @@
+description: "Cat form: Test-ShellScripts is the quality gate that checks every shell script for LF line endings, the executable bit and its syntax check, and returns its result under -PassThru"
+about:
+  adrs:
+    - ADR-REPO-CMDCONTRACT-COMMANDCONTRACT
+    - DDR-VISUAL-ACTIONISALENS
+  lens: action
+content:
+  title: "Asking cats to test shell scripts shows the call and what it changes"
+  kind: explanation
+  cause: { label: "Someone asks cats to test shell scripts" }
+  action:
+    call: { test_shell_scripts: { pass_thru: true } }
+  effects:
+    - id: effect-result
+      zone: 1
+      says: "The gate ran and returned its subject shell-scripts with an issue count of 0: no issues"
+      proves: { test_shell_scripts: { pass_thru: true } }
+    - id: effect-report
+      zone: 2
+      says: "Its report is written under out/test-shell-scripts/"
+      proves: { get_repository_file: { path: out/test-shell-scripts/latest.txt } }
+      after: effect-result
