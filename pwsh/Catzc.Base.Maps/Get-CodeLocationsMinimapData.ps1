@@ -44,7 +44,8 @@ function Get-CodeLocationsMinimapData {
         }
         $resolved = @(Resolve-MinimapGlyphPath -Glyph $Glyph -TrackedPath $TrackedPath)
         $dropped = @($resolved | Where-Object { @($_.Path).Count -eq 0 }).Count
-        $glyphFacts = Get-MinimapFact -Path @($resolved | ForEach-Object { $_.Path } | Select-Object -Unique)
+        $glyphPaths = @($resolved | ForEach-Object { $_.Path } | Where-Object { $_ } | Select-Object -Unique)
+        $glyphFacts = if ($glyphPaths.Count -gt 0) { Get-MinimapFact -Path $glyphPaths } else { @{} }
         foreach ($entry in $resolved) {
             foreach ($path in @($entry.Path)) {
                 $fact = $glyphFacts[$path]

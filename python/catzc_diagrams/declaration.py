@@ -228,7 +228,7 @@ SIDE_ANCHOR = {"left": (0.0, None), "right": (1.0, None), "top": (None, 0.0), "b
 LAST_ROUTES = []  # the routes of the latest put: each edge's polyline, its pill rectangle and its head's tip, for the audit and the keep-out check
 
 
-def facing(a, b):
+def facing(a, b, orient="h"):
     """The sides two boxes face each other by: across the axis they overlap on, else the axis of their wider centre distance, so two
     cells standing level meet side to side and two standing one above the other meet top to bottom."""
     x_over = min(a["x"] + a["w"], b["x"] + b["w"]) - max(a["x"], b["x"])
@@ -236,6 +236,8 @@ def facing(a, b):
     dx = (b["x"] + b["w"] / 2) - (a["x"] + a["w"] / 2)
     dy = (b["y"] + b["h"] / 2) - (a["y"] + a["h"] / 2)
     if x_over <= 0 and y_over <= 0 and EDGE_ROUTE == "elbow":  # no straight line joins them: out of the side facing across, into the side facing along
+        if orient == "v":  # out of the side facing along, into the side facing across
+            return ("bottom" if dy >= 0 else "top"), ("left" if dx >= 0 else "right"), True
         return ("right" if dx >= 0 else "left"), ("top" if dy >= 0 else "bottom"), True
     vertical = x_over > 0 and (y_over <= 0 or abs(dy) >= abs(dx)) or (x_over <= 0 and y_over <= 0 and abs(dy) > abs(dx))
     if vertical:
@@ -243,7 +245,7 @@ def facing(a, b):
     return (("right", "left") if dx >= 0 else ("left", "right")) + (False,)
 
 
-def plan_aims(edges, box_of, plain_box):
+def plan_aims(edges, box_of, plain_box, orient=None):
     """Where each edge leaves and enters its boxes: the side the two face, and along that side an even spacing of every edge that shares
     it, in the order of the other ends so lines do not cross, one edge alone at the side's middle. `edges` are the indexes to route
     mapped to (from, to); returns index -> ((exitX, exitY), (entryX, entryY)) as box fractions."""
@@ -251,7 +253,7 @@ def plan_aims(edges, box_of, plain_box):
     elbows = {}
     for i, (tail, head) in edges.items():
         a, b = box_of[tail], box_of[head]
-        side_a, side_b, elbow = facing(a, b)
+        side_a, side_b, elbow = facing(a, b, (orient or {}).get(i, "h"))
         elbows[i] = elbow
         for cell_id, side, other in ((tail, side_a, b), (head, side_b, a)):
             along = (other["y"] + other["h"] / 2) if side in ("left", "right") else (other["x"] + other["w"] / 2)
@@ -2443,7 +2445,27 @@ def place(declaration, check_routes=False):
         and e["to"] in box_of
         and e["from"] != e["to"]
     }
-    aims = plan_aims(routable, box_of, plain_box)
+    obstacles = {}
+    marked = {m["at"]: m.get("corner", "top-left") for m in content["markers"] if m["at"] in box_of}
+    for g in content["glyphs"]:
+        box = box_of[g["id"]]
+        x0, y0, x1, y1 = box["x"] - EDGE_DEADZONE, box["y"] - EDGE_DEADZONE, box["x"] + box["w"] + EDGE_DEADZONE, box["y"] + box["h"] + EDGE_DEADZONE
+        if g["id"] in marked:
+            mx, my = marker_xy(box, marked[g["id"]])
+            x0, y0, x1, y1 = min(x0, mx), min(y0, my), max(x1, mx + 22), max(y1, my + 22)
+        obstacles[g["id"]] = (x0, y0, x1 - x0, y1 - y0)
+    # An elbow bends once, and which way it goes is the one that keeps clear of every cell that is no end of it: along the exit row first,
+    # unless that runs through a cell and the other way does not.
+    orient = {}
+    for i, (tail, head) in routable.items():
+        a, b = box_of[tail], box_of[head]
+        if EDGE_ROUTE == "elbow" and facing(a, b)[2]:
+            ca, cb = (a["x"] + a["w"] / 2, a["y"] + a["h"] / 2), (b["x"] + b["w"] / 2, b["y"] + b["h"] / 2)
+            along_row = [{"from": tail, "to": head, "points": [ca, (cb[0], ca[1]), cb]}]
+            along_column = [{"from": tail, "to": head, "points": [ca, (ca[0], cb[1]), cb]}]
+            if keep_out_findings(along_row, obstacles, holder) and not keep_out_findings(along_column, obstacles, holder):
+                orient[i] = "v"
+    aims = plan_aims(routable, box_of, plain_box, orient)
     routes = []
     for index, e in enumerate(content["edges"]):
         style = LIB["edges"][e["kind"]]["style"]
@@ -2472,9 +2494,10 @@ def place(declaration, check_routes=False):
             edge["style"] += f"exitX={ex};exitY={ey};entryX={nx};entryY={ny};"
             start, end = (a["x"] + a["w"] * ex, a["y"] + a["h"] * ey), (b["x"] + b["w"] * nx, b["y"] + b["h"] * ny)
             run = [start, end]
-            if aims[index].get("elbow"):  # one bend, at the target's entry column on the source's exit row, a derived route get never reads back
-                run = [start, (end[0], start[1]), end]
-                edge["via"] = [[round(end[0]), round(start[1])]]
+            if aims[index].get("elbow"):  # one bend, a derived route get never reads back
+                corner = (start[0], end[1]) if orient.get(index) == "v" else (end[0], start[1])
+                run = [start, corner, end]
+                edge["via"] = [[round(corner[0]), round(corner[1])]]
                 edge["style"] += "catzcElbow=1;"
         else:
             run = drawn_run([(a["x"] + a["w"] / 2, a["y"] + a["h"] / 2), *[(x, y) for x, y in edge["via"]], (b["x"] + b["w"] / 2, b["y"] + b["h"] / 2)], a, b)
@@ -2516,15 +2539,6 @@ def place(declaration, check_routes=False):
         cells.append(edge)
     LAST_ROUTES[:] = routes
     if FINDINGS_FAIL and check_routes:  # the keep-out zone: a cell that is no end of an edge is a rectangle grown by the deadzone, marker included
-        obstacles = {}
-        marked = {m["at"]: m.get("corner", "top-left") for m in content["markers"] if m["at"] in box_of}
-        for g in content["glyphs"]:
-            box = box_of[g["id"]]
-            x0, y0, x1, y1 = box["x"] - EDGE_DEADZONE, box["y"] - EDGE_DEADZONE, box["x"] + box["w"] + EDGE_DEADZONE, box["y"] + box["h"] + EDGE_DEADZONE
-            if g["id"] in marked:
-                mx, my = marker_xy(box, marked[g["id"]])
-                x0, y0, x1, y1 = min(x0, mx), min(y0, my), max(x1, mx + 22), max(y1, my + 22)
-            obstacles[g["id"]] = (x0, y0, x1 - x0, y1 - y0)
         hits = keep_out_findings(routes, obstacles, holder)
         if hits:
             raise DeclarationError("; ".join(hits))
