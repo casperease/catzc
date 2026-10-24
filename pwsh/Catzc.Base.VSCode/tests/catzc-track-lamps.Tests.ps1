@@ -7,7 +7,7 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
             $argumentFile = Join-Path $TestDrive 'arguments.json'
             [System.IO.File]::WriteAllText($argumentFile, (ConvertTo-Json -InputObject @($Arguments) -Depth 8 -Compress))
             $driver = "const m = require('$script:script'); const a = JSON.parse(require('fs').readFileSync(process.argv[1], 'utf8'));" +
-            " if ('$Function' === 'hiddenGlobs' || '$Function' === 'census') a[1] = new Set(a[1]);" +
+            " if (['hiddenGlobs', 'census', 'evaluate'].includes('$Function')) a[1] = new Set(a[1]);" +
             " Promise.resolve(m['$Function'](...a)).then((r) => process.stdout.write(JSON.stringify(r)));"
             $output = & node -e $driver $argumentFile
             $LASTEXITCODE | Should -Be 0 -Because 'node runs the extension''s pure functions without an editor'
@@ -41,16 +41,17 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         & $script:hidden @('tools') | Should -Be @('gadgets')
     }
 
-    It 'hides a file while any filter claiming it is unlit, so overlapping filters need no precedence (hide wins)' {
-        & $script:hidden @('generated') | Should -Be @('mods/Widget/README.md')
-        & $script:hidden @('tests') | Should -Be @('mods/Widget/README.md', 'mods/Widget/tests') -Because 'the README is tests as well as generated'
+    It 'shows a file while any lit lamp claims it, so an unlit lamp hides only what no lit lamp claims (the total union)' {
+        @(& $script:hidden @('generated')) | Should -HaveCount 0 -Because 'the README is tests as well as generated, and tests is lit'
+        & $script:hidden @('tests') | Should -Be @('mods/Widget/tests') -Because 'the lit generated lamp keeps the README'
+        & $script:hidden @('tests', 'generated') | Should -Be @('mods/Widget/README.md', 'mods/Widget/tests')
     }
 
     It 'classifies by the sets, so an exclude keeps a file out and a new file is classified with no list to update' {
         $null = New-Item -ItemType File -Force -Path (Join-Path $script:root 'mods/Widget/New-Widget.ps1')
         try {
             & $script:hidden @('code') | Should -Be @('mods/Widget/Get-Widget.ps1') -Because 'the new file is no live path'
-            & $script:hidden @('tests') | Should -Be @('mods/Widget/New-Widget.ps1', 'mods/Widget/README.md', 'mods/Widget/tests')
+            & $script:hidden @('tests') | Should -Be @('mods/Widget/New-Widget.ps1', 'mods/Widget/tests')
         }
         finally {
             Remove-Item -LiteralPath (Join-Path $script:root 'mods/Widget/New-Widget.ps1')
@@ -58,16 +59,17 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
     }
 
     It 'takes a folder out of the tree when nothing in it is shown, as its topmost dead folder' {
-        & $script:hidden @('code', 'tests', 'tools', 'docs') | Should -Be @('docs', 'gadgets', 'mods')
+        & $script:hidden @('code', 'tests', 'tools', 'generated', 'docs') | Should -Be @('docs', 'gadgets', 'mods')
         $root = (Join-Path $TestDrive 'empty-on-disk') -replace '\\', '/'
         $null = New-Item -ItemType File -Force -Path (Join-Path $root 'mods/Widget/Get-Widget.ps1')
         $null = New-Item -ItemType Directory -Force -Path (Join-Path $root 'empty/deeper')
         & $script:hidden @('tools') '' $root | Should -Be @('empty') -Because 'a folder empty on disk is dead while any lamp is unlit'
     }
 
-    It 'hides every extension of each typed language while the language lamp is unlit, and ignores a language it does not know' {
-        & $script:hidden @('languages') ' markdown ,widgetish' | Should -Be @('**/*.md', 'docs') -Because 'docs holds only markdown, so it is a dead folder'
-        @(& $script:hidden @() 'markdown') | Should -HaveCount 0
+    It 'makes the languages lamp a lamp like the others: lit alone it shows the typed languages, and it ignores a language it does not know' {
+        & $script:hidden @('code', 'tests', 'tools', 'generated', 'docs') ' markdown ,widgetish' |
+            Should -Be @('gadgets', 'mods/Widget/Get-Widget.ps1', 'mods/Widget/tests') -Because 'only the markdown files are claimed by a lit lamp'
+        @(& $script:hidden @('languages') 'markdown') | Should -HaveCount 0 -Because 'every markdown file is claimed by a lit filter too'
     }
 
     It 'writes a path in its on-disk spelling and matches without case on Windows' -Skip:(-not $IsWindows) {
@@ -79,7 +81,7 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         $globs = @(& $script:hidden @('tests'))
         $tally = & $script:call census @($script:root, @('tests'), '', $script:filters, $script:known, $globs)
         $tally.total | Should -Be 5
-        $tally.shown | Should -Be 3
+        $tally.shown | Should -Be 4
         $tally.signatures['tests+generated'] | Should -Be 1
         $tally.signatures['code'] | Should -Be 1
         @($tally.wrong) | Should -HaveCount 0
@@ -88,7 +90,7 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
 
     It 'reports a filter that went bananas, and a file no filter claims' {
         $tally = & $script:call census @($script:root, @('tests'), '', $script:filters, $script:known, @('gadgets'))
-        @($tally.wrong | Sort-Object) | Should -Be @('gadgets/a.ps1', 'mods/Widget/README.md', 'mods/Widget/tests/Get-Widget.Tests.ps1')
+        @($tally.wrong | Sort-Object) | Should -Be @('gadgets/a.ps1', 'mods/Widget/tests/Get-Widget.Tests.ps1')
         $root = (Join-Path $TestDrive 'unclaimed') -replace '\\', '/'
         $null = New-Item -ItemType File -Force -Path (Join-Path $root 'loose.txt')
         @((& $script:call census @($root, @(), '', $script:filters, $script:known, @())).unclaimed) | Should -Be @('loose.txt')
@@ -104,6 +106,61 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         $result = & $script:call merge @([ordered]@{ '**/tmp' = $true; 'old/lamp' = $true; 'shared' = $true }, @('old/lamp'), @('shared', 'new/lamp'))
         @($result.next.Keys | Sort-Object) | Should -Be @('**/tmp', 'new/lamp', 'shared')
         $result.ours | Should -Be @('new/lamp')
+    }
+
+    It 'answers every shared vector of the lamp language: the files shown, the files no lamp claims, each lamp''s condition' {
+        $vectors = Get-Content -LiteralPath (Join-Path $PSScriptRoot '../../Catzc.Base.Globs/tests/assets/lamp-vectors.yml') -Raw | ConvertFrom-Yaml -Ordered
+        $vectors.cases.Count | Should -BeGreaterThan 0
+        foreach ($case in $vectors.cases) {
+            $answer = & $script:call evaluate @($vectors.lamps, @($case.lit), @($vectors.files), $case.facts)
+            @($answer.shown | Sort-Object) | Should -Be @($case.shown | Sort-Object) -Because "$($case.name): shown"
+            @($answer.unaccounted | Sort-Object) | Should -Be @($case.unaccounted | Sort-Object) -Because "$($case.name): unaccounted"
+            foreach ($lamp in $case.conditions.Keys) {
+                $answer.conditions[$lamp] | Should -Be $case.conditions[$lamp] -Because "$($case.name): the $lamp lamp's condition"
+            }
+        }
+    }
+
+    It 'reads the change facts from the git extension''s state: staged for the index, unstaged for the rest, unstaged winning' {
+        $root = (Join-Path $TestDrive 'widget-repo') -replace '\\', '/'
+        $change ={ param([string] $Path) @{ uri = @{ fsPath = "$root/$Path" } } }
+        $state = @{
+            indexChanges       = @(& $change 'mods/Widget/Get-Widget.ps1'; & $change 'mods/Widget/README.md')
+            workingTreeChanges = @(& $change 'mods/Widget/README.md')
+            untrackedChanges   = @(& $change 'gadgets/new.ps1')
+            mergeChanges       = @()
+        }
+        $facts = & $script:call gitFacts @($root, $state)
+        $facts['mods/Widget/Get-Widget.ps1'].change | Should -Be 'staged'
+        $facts['mods/Widget/README.md'].change | Should -Be 'unstaged' -Because 'a file staged and changed again shows its newest work'
+        $facts['gadgets/new.ps1'].change | Should -Be 'unstaged'
+        @((& $script:call gitFacts @($root, @{ indexChanges = @(& $change '../elsewhere/a.ps1') })).Keys) | Should -HaveCount 0 -Because 'a path outside the root is no fact'
+    }
+
+    It 'reads a fault fact from an Error diagnostic only' {
+        $root = (Join-Path $TestDrive 'widget-repo') -replace '\\', '/'
+        $entries =@(
+            , @(@{ fsPath = "$root/mods/Widget/Get-Widget.ps1" }, @(@{ severity = 1 }, @{ severity = 0 }))
+            , @(@{ fsPath = "$root/gadgets/a.ps1" }, @(@{ severity = 1 }))
+        )
+        $facts = & $script:call diagnosticFacts @($root, $entries)
+        $facts['mods/Widget/Get-Widget.ps1'].fault | Should -Be 'failed'
+        $facts.Contains('gadgets/a.ps1') | Should -BeFalse -Because 'a warning is no failure'
+    }
+
+    It 'reads a fresh test-result marker as a failed test file, and lapses one older than the tested module' {
+        $root = (Join-Path $TestDrive 'markers') -replace '\\', '/'
+        $test = Join-Path $root 'mods/Widget/tests/Get-Widget.Tests.ps1'
+        $source = Join-Path $root 'mods/Widget/Get-Widget.ps1'
+        $marker = Join-Path $root 'out/test-results/mods/Widget/tests/Get-Widget.Tests.ps1.failed'
+        foreach ($file in $test, $source, $marker) { $null = New-Item -ItemType File -Force -Path $file }
+        $past = [datetime]::UtcNow.AddMinutes(-10)
+        foreach ($file in $test, $source) { [System.IO.File]::SetLastWriteTimeUtc($file, $past) }
+        & $script:call testedModule @('mods/Widget/tests/Get-Widget.Tests.ps1') | Should -Be 'mods/Widget'
+        (& $script:call markerFacts @($root))['mods/Widget/tests/Get-Widget.Tests.ps1'].fault | Should -Be 'failed'
+        [System.IO.File]::SetLastWriteTimeUtc($source, [datetime]::UtcNow.AddMinutes(5))
+        @((& $script:call markerFacts @($root)).Keys) | Should -HaveCount 0 -Because 'the module changed after the run, so the marker lapses'
+        @((& $script:call markerFacts @((Join-Path $TestDrive 'no-markers') -replace '\\', '/')).Keys) | Should -HaveCount 0
     }
 }
 
@@ -158,18 +215,30 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
         }
     }
 
-    It 'gives every declared filter a lamp and no lamp without a filter: an on and an off command, each with its SVG icon' {
+    It 'gives every declared filter a lamp and no lamp without a filter: an on and an off command per condition, each with its SVG icon and one menu item' {
         $entry = (Get-Config -Config vscode-extensions).extensions.Where({ $_.name -ceq 'catzc-track-lamps' })[0]
-        $commands = @($entry.contributes['commands'])
-        $lamps = @($commands.ForEach({ $_['command'] -replace '^catzc\.lamps\.([a-z_]+)\.(putOut|light)$', '$1' }) | Select-Object -Unique)
+        $contributes = InModuleScope Catzc.Base.VSCode -Parameters @{ Contributes = $entry.contributes } {
+            param($Contributes)
+            Expand-VsCodeCommandState -Contributes $Contributes
+        }
+        $commands = @($contributes['commands'])
+        $pattern = '^catzc\.lamps\.([a-z_]+)\.(putOut|light)(\.(staged|unstaged|failed))?$'
+        $commands.Where({ $_['command'] -notmatch $pattern }).ForEach({ $_['command'] }) | Should -BeNullOrEmpty
+        $lamps = @($commands.ForEach({ $_['command'] -replace $pattern, '$1' }) | Select-Object -Unique)
         ($lamps | Sort-Object) | Should -Be (@($script:declared) + 'languages' | Sort-Object)
         $folder = Join-Path $PSScriptRoot '../assets/extensions/catzc-track-lamps'
+        $icons = @($commands.ForEach({ $_['icon']['dark'] }))
+        $menu = @($contributes['menus']['view/title'])
         foreach ($lamp in $lamps) {
-            foreach ($state in 'on', 'off') {
-                $icons = @($commands.ForEach({ $_['icon']['dark'] }))
-                $icons | Should -Contain "media/$lamp-$state.svg"
-                ([xml](Get-Content -LiteralPath (Join-Path $folder "$lamp-$state.svg") -Raw)).DocumentElement.LocalName | Should -Be 'svg'
+            foreach ($switch in 'on', 'off') {
+                foreach ($condition in '', '-staged', '-unstaged', '-failed') {
+                    $icons | Should -Contain "media/$lamp-$switch$condition.svg"
+                    ([xml](Get-Content -LiteralPath (Join-Path $folder "$lamp-$switch$condition.svg") -Raw)).DocumentElement.LocalName | Should -Be 'svg'
+                }
             }
+        }
+        foreach ($command in $commands) {
+            @($menu.Where({ $_['command'] -ceq $command['command'] })) | Should -HaveCount 1 -Because "$($command['command']) shows in the title row once"
         }
     }
 }

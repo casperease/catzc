@@ -79,73 +79,102 @@ extensions:
           priority: default
   catzc-track-lamps:
     displayName: Catzc track lamps
-    version: 0.8.1
+    version: 0.9.0
     description: >-
-      Filter lamps in the Explorer's title row, one per repository filter (filters.yml) and one for a typed list of languages; filters may
-      claim the same file, which shows while every filter claiming it is lit; every lamp lit shows everything.
+      Filter lamps in the Explorer's title row, one per repository filter (filters.yml) and one for a typed list of languages; the tree is
+      the union of the lit lamps, and each lamp's colour is its domain's condition: committed, staged, unstaged or failed.
     activationEvents: [onStartupFinished]
     contributes:
-      # Each lamp is two commands, its on icon and its off icon, shown by the context key catzc.lamps.out.<lamp>. The icons are the
-      # extension's own SVGs, assets/extensions/catzc-track-lamps/<lamp>-on.svg and <lamp>-off.svg, shipped as media/: a file copied in
-      # over one of them replaces that icon. On is a bright green glyph; off, an active filter, a dark green glyph that glows (pulses) in a
-      # turning ring.
+      # Each lamp is two commands, its on icon and its off icon, shown by the context key catzc.lamps.out.<lamp>; each declares the
+      # conditions beyond committed, and the folder generator expands it into one command per condition, shown by the context key
+      # catzc.lamps.state.<lamp>, its icon <icon>-<condition>.svg. The icons are the extension's own SVGs,
+      # assets/extensions/catzc-track-lamps/, shipped as media/: a file copied in over one of them replaces that icon. Committed is green
+      # (on a bright glyph; off, an active filter, a dark glyph pulsing in a turning ring), staged dark brown, unstaged yellowish, failed red.
       commands:
         - command: catzc.lamps.code.putOut
           title: "code, the live modules and configs: shown (click to hide)"
           icon: { light: media/code-on.svg, dark: media/code-on.svg }
           category: Catzc lamps
+          states: [staged, unstaged, failed]
+          state_context: catzc.lamps.state.code
         - command: catzc.lamps.code.light
           title: "code: hidden, filter active (click to show)"
           icon: { light: media/code-off.svg, dark: media/code-off.svg }
           category: Catzc lamps
+          states: [staged, unstaged, failed]
+          state_context: catzc.lamps.state.code
         - command: catzc.lamps.tests.putOut
           title: "tests, the tests aspect: shown (click to hide)"
           icon: { light: media/tests-on.svg, dark: media/tests-on.svg }
           category: Catzc lamps
+          states: [staged, unstaged, failed]
+          state_context: catzc.lamps.state.tests
         - command: catzc.lamps.tests.light
           title: "tests: hidden, filter active (click to show)"
           icon: { light: media/tests-off.svg, dark: media/tests-off.svg }
           category: Catzc lamps
+          states: [staged, unstaged, failed]
+          state_context: catzc.lamps.state.tests
         - command: catzc.lamps.tools.putOut
           title: "tools, the vendor configuration: shown (click to hide)"
           icon: { light: media/tools-on.svg, dark: media/tools-on.svg }
           category: Catzc lamps
+          states: [staged, unstaged, failed]
+          state_context: catzc.lamps.state.tools
         - command: catzc.lamps.tools.light
           title: "tools: hidden, filter active (click to show)"
           icon: { light: media/tools-off.svg, dark: media/tools-off.svg }
           category: Catzc lamps
+          states: [staged, unstaged, failed]
+          state_context: catzc.lamps.state.tools
         - command: catzc.lamps.generated.putOut
           title: "generated, every generated artifact: shown (click to hide)"
           icon: { light: media/generated-on.svg, dark: media/generated-on.svg }
           category: Catzc lamps
+          states: [staged, unstaged, failed]
+          state_context: catzc.lamps.state.generated
         - command: catzc.lamps.generated.light
           title: "generated: hidden, filter active (click to show)"
           icon: { light: media/generated-off.svg, dark: media/generated-off.svg }
           category: Catzc lamps
+          states: [staged, unstaged, failed]
+          state_context: catzc.lamps.state.generated
         - command: catzc.lamps.docs.putOut
           title: "docs, the documentation and the licence: shown (click to hide)"
           icon: { light: media/docs-on.svg, dark: media/docs-on.svg }
           category: Catzc lamps
+          states: [staged, unstaged, failed]
+          state_context: catzc.lamps.state.docs
         - command: catzc.lamps.docs.light
           title: "docs: hidden, filter active (click to show)"
           icon: { light: media/docs-off.svg, dark: media/docs-off.svg }
           category: Catzc lamps
+          states: [staged, unstaged, failed]
+          state_context: catzc.lamps.state.docs
         - command: catzc.lamps.out.putOut
           title: "out, the run output: shown (click to hide)"
           icon: { light: media/out-on.svg, dark: media/out-on.svg }
           category: Catzc lamps
+          states: [staged, unstaged, failed]
+          state_context: catzc.lamps.state.out
         - command: catzc.lamps.out.light
           title: "out: hidden, filter active (click to show)"
           icon: { light: media/out-off.svg, dark: media/out-off.svg }
           category: Catzc lamps
+          states: [staged, unstaged, failed]
+          state_context: catzc.lamps.state.out
         - command: catzc.lamps.languages.putOut
-          title: "languages: shown (click to choose languages to hide)"
+          title: "languages, the typed languages: shown (click to hide)"
           icon: { light: media/languages-on.svg, dark: media/languages-on.svg }
           category: Catzc lamps
+          states: [staged, unstaged, failed]
+          state_context: catzc.lamps.state.languages
         - command: catzc.lamps.languages.light
-          title: "languages: hidden, filter active (click to show)"
+          title: "languages: hidden, filter active (click to choose the languages to show)"
           icon: { light: media/languages-off.svg, dark: media/languages-off.svg }
           category: Catzc lamps
+          states: [staged, unstaged, failed]
+          state_context: catzc.lamps.state.languages
       menus:
         view/title:
           - { command: catzc.lamps.code.putOut, when: "view == workbench.explorer.fileView && !catzc.lamps.out.code", group: navigation@90 }

@@ -125,16 +125,25 @@ function Invoke-TestFile {
             'Failed'
         }
         $manifestStatus = $result.ToLowerInvariant()
+        $files = @(if ([System.IO.File]::Exists($shard.FilesPath)) {
+                @([System.IO.File]::ReadAllText($shard.FilesPath) | ConvertFrom-Json)
+            }
+            else {
+                @()
+            })
         if ($exitCode -ne 0) {
             $failedShardLabels = @($shard.Label)
-            $files = @(if ([System.IO.File]::Exists($shard.FilesPath)) {
-                    @([System.IO.File]::ReadAllText($shard.FilesPath) | ConvertFrom-Json)
-                }
-                else {
-                    @()
-                })
             Write-TestRunFailures -Rows $rows -Files $files
         }
+        $outcome = @(foreach ($file in $files) {
+                $failedTests = @($rows | Where-Object { $_.Result -eq 'Failed' -and $_.File -eq $file.File }).Count
+                [pscustomobject]@{
+                    Path        = Convert-TestRunLocationPath -Location $location -Path $file.File -ToSource
+                    Failed      = $file.Result -eq 'Failed' -or $failedTests -gt 0
+                    FailedCount = $failedTests
+                }
+            })
+        Write-TestResultMarker -Outcome $outcome -RunDirectory $runDirectory -KeepPassing:(-not [string]::IsNullOrEmpty($FullNameFilter)) | Out-Null
         Write-Message "$result ($($location.Mode)) — artifacts in $runDirectory" -ForegroundColor $(if ($exitCode -eq 0) {
                 'Green'
             }

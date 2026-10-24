@@ -1,0 +1,128 @@
+# The lamp language's shared vectors (DDR-FILTER): every engine of the language runs each case and must answer the files shown, the files
+# no lamp claims, and each lamp's condition. The lamps and files are shared; a case gives the lit lamps and the facts.
+
+lamps:
+  widget: [{ include: ["mods/Widget/**"], exclude: ["mods/Widget/tests/**"] }]
+  tests: [{ include: ["**/tests/**"], exclude: [] }]
+  gadget: [{ include: ["gadgets/**", "mods/Widget/README.md"], exclude: [] }]
+  languages: [{ include: ["**/*.md"], exclude: [] }]
+
+files:
+  - mods/Widget/Get-Widget.ps1
+  - mods/Widget/README.md
+  - mods/Widget/tests/Get-Widget.Tests.ps1
+  - gadgets/a.ps1
+  - gadgets/b.md
+  - loose.txt
+
+cases:
+  - name: every lamp lit shows every file
+    lit: [widget, tests, gadget, languages]
+    facts: {}
+    shown:
+      [
+        mods/Widget/Get-Widget.ps1,
+        mods/Widget/README.md,
+        mods/Widget/tests/Get-Widget.Tests.ps1,
+        gadgets/a.ps1,
+        gadgets/b.md,
+        loose.txt,
+      ]
+    unaccounted: [loose.txt]
+    conditions: { widget: committed, tests: committed, gadget: committed, languages: committed }
+
+  - name: the tree is the union of the lit lamps
+    lit: [widget]
+    facts: {}
+    shown: [mods/Widget/Get-Widget.ps1, mods/Widget/README.md, loose.txt]
+    unaccounted: [loose.txt]
+    conditions: { widget: committed, tests: committed, gadget: committed, languages: committed }
+
+  - name: putting a lamp out hides only what no other lit lamp claims
+    lit: [widget, tests, languages]
+    facts: {}
+    shown:
+      [mods/Widget/Get-Widget.ps1, mods/Widget/README.md, mods/Widget/tests/Get-Widget.Tests.ps1, gadgets/b.md, loose.txt]
+    unaccounted: [loose.txt]
+    conditions: { widget: committed, tests: committed, gadget: committed, languages: committed }
+
+  - name: every lamp out shows only the files no lamp claims
+    lit: []
+    facts: {}
+    shown: [loose.txt]
+    unaccounted: [loose.txt]
+    conditions: { widget: committed, tests: committed, gadget: committed, languages: committed }
+
+  - name: the languages lamp lit alone is a language view
+    lit: [languages]
+    facts: {}
+    shown: [mods/Widget/README.md, gadgets/b.md, loose.txt]
+    unaccounted: [loose.txt]
+    conditions: { widget: committed, tests: committed, gadget: committed, languages: committed }
+
+  - name: a staged file makes every lamp claiming it staged
+    lit: [widget, tests, gadget, languages]
+    facts: { mods/Widget/Get-Widget.ps1: { change: staged } }
+    shown:
+      [
+        mods/Widget/Get-Widget.ps1,
+        mods/Widget/README.md,
+        mods/Widget/tests/Get-Widget.Tests.ps1,
+        gadgets/a.ps1,
+        gadgets/b.md,
+        loose.txt,
+      ]
+    unaccounted: [loose.txt]
+    conditions: { widget: staged, tests: committed, gadget: committed, languages: committed }
+
+  - name: unstaged outranks staged
+    lit: [widget, tests, gadget, languages]
+    facts: { mods/Widget/Get-Widget.ps1: { change: staged }, mods/Widget/README.md: { change: unstaged } }
+    shown:
+      [
+        mods/Widget/Get-Widget.ps1,
+        mods/Widget/README.md,
+        mods/Widget/tests/Get-Widget.Tests.ps1,
+        gadgets/a.ps1,
+        gadgets/b.md,
+        loose.txt,
+      ]
+    unaccounted: [loose.txt]
+    conditions: { widget: unstaged, tests: committed, gadget: unstaged, languages: unstaged }
+
+  - name: failed outranks every change, and an unlit lamp shows its condition
+    lit: [widget]
+    facts: { mods/Widget/tests/Get-Widget.Tests.ps1: { change: unstaged, fault: failed }, gadgets/a.ps1: { change: staged } }
+    shown: [mods/Widget/Get-Widget.ps1, mods/Widget/README.md, loose.txt]
+    unaccounted: [loose.txt]
+    conditions: { widget: committed, tests: failed, gadget: staged, languages: committed }
+
+  - name: a fact's file need not be on disk, so a deleted file is a change
+    lit: [widget, tests, gadget, languages]
+    facts: { gadgets/gone.ps1: { change: unstaged } }
+    shown:
+      [
+        mods/Widget/Get-Widget.ps1,
+        mods/Widget/README.md,
+        mods/Widget/tests/Get-Widget.Tests.ps1,
+        gadgets/a.ps1,
+        gadgets/b.md,
+        loose.txt,
+      ]
+    unaccounted: [loose.txt]
+    conditions: { widget: committed, tests: committed, gadget: unstaged, languages: committed }
+
+  - name: a fact on a file no lamp claims changes no condition
+    lit: [widget, tests, gadget, languages]
+    facts: { loose.txt: { change: unstaged, fault: failed } }
+    shown:
+      [
+        mods/Widget/Get-Widget.ps1,
+        mods/Widget/README.md,
+        mods/Widget/tests/Get-Widget.Tests.ps1,
+        gadgets/a.ps1,
+        gadgets/b.md,
+        loose.txt,
+      ]
+    unaccounted: [loose.txt]
+    conditions: { widget: committed, tests: committed, gadget: committed, languages: committed }

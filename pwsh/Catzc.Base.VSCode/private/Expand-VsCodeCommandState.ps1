@@ -1,0 +1,98 @@
+function Expand-VsCodeCommandState {
+    [CmdletBinding()]
+    [OutputType([System.Collections.Specialized.OrderedDictionary])]
+    param(
+        [Parameter(Mandatory)]
+        [AllowEmptyCollection()]
+        [System.Collections.IDictionary] $Contributes
+    )
+
+    # A command that declares states (and the context key that holds the current one) becomes one command per state: the bare command is
+    # the default state, each other state its own command, '<command>.<state>', with the icon '<icon>-<state>.svg' and its title marked.
+    # Every menu item naming the command is repeated per state, its when narrowed by the context key, so the title row shows exactly one.
+    $expanded = [ordered]@{}
+    foreach ($name in $Contributes.Keys) {
+        $expanded[$name] = $Contributes[$name]
+    }
+    if (-not $Contributes.Contains('commands')) {
+        return $expanded
+    }
+
+    $stated = @{}
+    $commands = [System.Collections.Generic.List[object]]::new()
+    foreach ($command in $Contributes['commands']) {
+        if (-not $command.Contains('states')) {
+            $commands.Add($command)
+            continue
+        }
+        $states = @($command['states'])
+        $context = "$($command['state_context'])"
+        if (-not $context) {
+            throw "Expand-VsCodeCommandState: command '$($command['command'])' declares states but no state_context."
+        }
+        $stated[$command['command']] = [pscustomobject]@{ States = $states; Context = $context }
+        $base = [ordered]@{}
+        foreach ($key in $command.Keys) {
+            if ($key -notin 'states', 'state_context') {
+                $base[$key] = $command[$key]
+            }
+        }
+        $commands.Add($base)
+        foreach ($state in $states) {
+            $variant = [ordered]@{}
+            foreach ($key in $base.Keys) {
+                $variant[$key] = $base[$key]
+            }
+            $variant['command'] = "$($base['command']).$state"
+            $variant['title'] = "$($base['title']) [$state]"
+            if ($base.Contains('icon')) {
+                $icon = [ordered]@{}
+                foreach ($theme in $base['icon'].Keys) {
+                    $icon[$theme] = "$($base['icon'][$theme])" -replace '\.svg$', "-$state.svg"
+                }
+                $variant['icon'] = $icon
+            }
+            $commands.Add($variant)
+        }
+    }
+    $expanded['commands'] = $commands
+
+    if ($Contributes.Contains('menus')) {
+        $menus = [ordered]@{}
+        foreach ($place in $Contributes['menus'].Keys) {
+            $items = [System.Collections.Generic.List[object]]::new()
+            foreach ($item in $Contributes['menus'][$place]) {
+                $declared = $stated[$item['command']]
+                if (-not $declared) {
+                    $items.Add($item)
+                    continue
+                }
+                $when = "$($item['when'])"
+                $join = if ($when) {
+                    "$when && "
+                }
+                else {
+                    ''
+                }
+                $default = [ordered]@{}
+                foreach ($key in $item.Keys) {
+                    $default[$key] = $item[$key]
+                }
+                $default['when'] = $join + (@($declared.States).ForEach({ "$($declared.Context) != $_" }) -join ' && ')
+                $items.Add($default)
+                foreach ($state in $declared.States) {
+                    $variant = [ordered]@{}
+                    foreach ($key in $item.Keys) {
+                        $variant[$key] = $item[$key]
+                    }
+                    $variant['command'] = "$($item['command']).$state"
+                    $variant['when'] = "$join$($declared.Context) == $state"
+                    $items.Add($variant)
+                }
+            }
+            $menus[$place] = $items
+        }
+        $expanded['menus'] = $menus
+    }
+    $expanded
+}

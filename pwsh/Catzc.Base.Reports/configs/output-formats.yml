@@ -65,6 +65,12 @@ formats:
     producer: Test-Automation, Test-CatzcBuild
     audience: a person, in a spreadsheet; a script
     validator: { kind: csv }
+  test-result-marker:
+    area: cache
+    patterns: ["test-results/**/*.failed"]
+    producer: Invoke-TestFile (one marker per failing test file, deleted when the file passes)
+    audience: the editor's lamps, which read only a marker's existence and timestamp
+    validator: { kind: text }
   test-run-rule-coverage:
     area: run
     patterns: ["test-automation/{stamp}/rule-coverage.csv", "test-catzc-build/{stamp}/rule-coverage.csv"]
