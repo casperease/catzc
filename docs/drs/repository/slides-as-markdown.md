@@ -209,7 +209,9 @@ A line never cuts a glyph. The kit declares the paint order once, in `drawio.yml
 (gate rules, lane trunks and bypasses), edges, glyphs, marks, then text. Put orders the model by it, each container followed by its own
 cells in that order. draw.io paints a frame's whole contents where the frame stands, so put moves every edge into a frame that holds no
 frame of its own, where it paints before every glyph: the innermost frame around both its ends when that frame holds none, else the first
-such frame painted. The raster paints the model in the order draw.io paints it, so the editor and the png show the same picture.
+such frame painted. The raster paints the model in the order draw.io paints it, so the editor and the png show the same picture. An edge
+stops short of every box it joins, by the one clearance `renderer.edge-deadzone` in `drawio.yml` declares (8 px), measured straight out from
+the box side at any angle and written into the model as the edge's perimeter spacing, so the editor and the png keep the same gap.
 
 - [Time reads along one axis](#time-reads-along-one-axis)
 

@@ -91,7 +91,7 @@ layout:
   g-config: { x: 445, y: 138, w: 130, h: 44 }
   g-config-tests: { x: 385, y: 226, w: 190, h: 68 }
   g-exemptions: { x: 690, y: 134, w: 180, h: 52 }
-  g-seconds-tests: { x: 680, y: 302, w: 200, h: 68 }
+  g-seconds-tests: { x: 665, y: 302, w: 230, h: 68 }
   g-hook: { x: 1050, y: 123, w: 200, h: 68 }
   g-direct: { x: 1060, y: 326, w: 200, h: 44 }
 ```

@@ -1235,3 +1235,14 @@ def test_reflow_keeps_the_head_and_the_rows_and_refuses_a_text_that_loads_differ
     with pytest.raises(declaration.DeclarationError, match="loads a different declaration"):
         declaration.reflow(tmp_path)
     assert declaration.source_of(tmp_path).read_text(encoding="utf-8") == again
+
+
+def test_every_edge_with_both_ends_carries_the_deadzone_on_each_end():
+    model = declaration.put(declaration.normalise(__import__("yaml").safe_load(WIDGETS)))
+    edges = [line for line in model.splitlines() if 'edge="1"' in line]
+    assert edges and all(
+        f"sourcePerimeterSpacing={declaration.EDGE_DEADZONE};" in line and f"targetPerimeterSpacing={declaration.EDGE_DEADZONE};" in line
+        for line in edges
+        if 'source="None"' not in line and 'target="None"' not in line
+    )
+    assert declaration.EDGE_DEADZONE == 8

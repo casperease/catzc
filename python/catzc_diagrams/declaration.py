@@ -97,6 +97,7 @@ PROOF_LENS = "proof"
 PROOF_SHOWN = str(ACTION["proof"]).strip() == "shown"
 PROOF_ENGINES = [tuple(pair.split()) for pair in str(ACTION["proof-engines"]).split(",")]  # (engine, idiom), idiom pascal or kebab
 PROOF_ROW = 22  # one engine's words, one row
+EDGE_DEADZONE = int(DEFAULTS["renderer"]["edge-deadzone"])  # how far an edge stops short of each box it joins, written into the model
 WORD_GAP = int(DEFAULTS["renderer"]["word-gap"])  # how far a steep edge's word stands right of its line, written into the model
 ACTOR = str(ACTION["actor"]).strip() == "shown"  # the stick man drawn last over the drawing, the cause's fragment as his head
 DEFAULT_WHERE = str(ACTION["where"]).strip()  # the diagram's where unless content.where says otherwise
@@ -2705,8 +2706,15 @@ def to_xml(cells, height, theme=None):
     for c in cells:
         value = html.escape(c["value"], quote=True)
         if c["edge"]:
+            # The deadzone: the line stops EDGE_DEADZONE px outside each box it joins, for every head variant (none, one, both).
+            zone = "".join(
+                f"{end}PerimeterSpacing={EDGE_DEADZONE};"
+                for end in ("source", "target")
+                if c.get(end) not in (None, "", "None")
+            )
+            style = c["style"] if c["style"].endswith(";") or not c["style"] else c["style"] + ";"
             lines.append(
-                f'    <mxCell id="{c["id"]}" value="{value}" style="{paint(c["style"], theme)}" edge="1" parent="{c["parent"]}" source="{c["source"]}" target="{c["target"]}">'
+                f'    <mxCell id="{c["id"]}" value="{value}" style="{paint(style + zone, theme)}" edge="1" parent="{c["parent"]}" source="{c["source"]}" target="{c["target"]}">'
             )
             # A label placed by the kit sits at a fraction along the edge (-1 the source, 1 the target) and a perpendicular offset in px,
             # positive below a rightward edge, as draw.io reads an edge label's relative geometry.

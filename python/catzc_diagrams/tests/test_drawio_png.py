@@ -236,3 +236,29 @@ def test_a_legend_folder_renders_the_glyph_library_painted_in_the_default_theme(
     model = drawio_png.decode(drawio_png.mxfile_chunk(Image.open(target)))
     assert "@" not in model and 'id="e-read"' in model and 'id="g-set"' in model
     assert drawio_png.tokens()["mauve"] in model  # the named set's fill, painted
+
+
+def test_an_edge_stops_short_of_each_box_by_its_perimeter_spacing_whatever_its_heads():
+    box = 'style="fillColor=none;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="{x}" y="80" width="40" height="40" as="geometry"/></mxCell>'
+    boxes = f'<mxCell id="a" value="" {box.format(x=20)}<mxCell id="b" value="" {box.format(x=140)}'
+    for heads in ("endArrow=none;startArrow=none;", "endArrow=classic;startArrow=none;", "endArrow=classic;startArrow=classic;"):
+        img = rendered(
+            boxes + f'<mxCell id="e" value="" style="{heads}strokeColor=#FF0000;sourcePerimeterSpacing=10;targetPerimeterSpacing=10;" '
+            'edge="1" parent="1" source="a" target="b"><mxGeometry relative="1" as="geometry"/></mxCell>'
+        )
+        assert near(at(img, 100, 100), RED)  # the middle of the line
+        assert not near(at(img, 65, 100), RED) and not near(at(img, 135, 100), RED)  # the 10 px outside each box edge stay clear
+
+
+def test_the_deadzone_is_the_same_clearance_from_the_box_side_at_any_angle():
+    box = 'style="fillColor=none;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="{x}" y="{y}" width="40" height="40" as="geometry"/></mxCell>'
+    boxes = f'<mxCell id="a" value="" {box.format(x=20, y=100)}<mxCell id="b" value="" {box.format(x=120, y=20)}'
+    img = rendered(
+        boxes + '<mxCell id="e" value="" style="endArrow=none;strokeColor=#FF0000;sourcePerimeterSpacing=10;targetPerimeterSpacing=10;" '
+        'edge="1" parent="1" source="a" target="b"><mxGeometry relative="1" as="geometry"/></mxCell>'
+    )
+    # Centre (40,120) to (140,40) leaves box a by its right side x=60; a line at that slant must start 10 px right of the side, at
+    # x=70. A gap measured along the line would start it at x=68 and the line would show there.
+    y_at = lambda x: 120 + (x - 40) * (40 - 120) / (140 - 40)
+    assert near(at(img, 74, y_at(74)), RED)
+    assert not near(at(img, 68, y_at(68)), RED)

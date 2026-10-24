@@ -19,7 +19,7 @@ Every Azure name comes out of one resolver and one namer; nothing else builds na
 2  template, options.yml       the template folder derives short_name; options.yml may override it
 3  variants.yml                the ado_naming repo variant picks the component order
 4  Get-BicepResourceName       the resolver: reads all three sources, adds type, slot, customer, role
-5  registries                  three pure-data sets: 2 orders, 13 resource types, 4 patterns
+5  registries                  three pure-data sets: 2 orders, 20 resource types, 4 patterns
 6  Get-AzureResourceName       the namer: validates, renders in order, asserts the length limit
 7  throw                       a bad component, unknown customer or over-limit name stops here
 8  Get-BicepResourceGroupName  the one in-tree consumer: the resource-group name
@@ -88,9 +88,9 @@ layout:
   band-assembler: { x: 20, y: 344, w: 1260, h: 110 }
   band-consumers: { x: 20, y: 474, w: 1260, h: 100 }
   g-azure: { x: 120, y: 126, w: 300, h: 52 }
-  g-options: { x: 490, y: 126, w: 300, h: 52 }
+  g-options: { x: 500, y: 126, w: 300, h: 52 }
   g-variants: { x: 860, y: 126, w: 300, h: 52 }
-  g-resolver: { x: 200, y: 262, w: 960, h: 44 }
+  g-resolver: { x: 170, y: 262, w: 960, h: 44 }
   s-registries: { x: 120, y: 384, w: 240, h: 44 }
   g-namer: { x: 450, y: 384, w: 400, h: 44 }
   f-throw: { x: 940, y: 384, w: 240, h: 44 }
@@ -112,7 +112,7 @@ layout:
 4. **Get-BicepResourceName.** The resolver in the templating layer reads all three sources side by side. The caller adds only what is
    genuinely per call: the resource type and the optional slot, customer and role. An unknown customer stops it here.
 5. **The registries.** Three pure-data registries: `Get-AzureNameOrderSet` holds the two orders `standard` and `classic`,
-   `Get-AzureResourceTypeSet` holds 13 resource types, each tied to one pattern, and `Get-AzureNamePatternSet` holds the four patterns
+   `Get-AzureResourceTypeSet` holds 20 resource types, each tied to one pattern, and `Get-AzureNamePatternSet` holds the four patterns
    `long`, `kv`, `storage` and `vm`. Adding an order or a type changes no assembler code.
 6. **Get-AzureResourceName.** The namer validates every component, renders the name in the order the registry gives, and asserts the length
    limit. It is order-agnostic: the order is data it is handed.

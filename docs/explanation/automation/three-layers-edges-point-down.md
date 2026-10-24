@@ -17,14 +17,16 @@ Module dependencies form three layers, and every allowed edge points down.
 1  AzureExt             top layer: the five Azure extension modules, one group
 2  Catzc.Azure          middle layer: the Azure root, one module
 3  Tooling              middle layer: the six external-tool modules, one group
-4  Github, KeyHandler   middle layer: two Tooling modules that belong to no group
-5  Base                 foundation: 26 libraries that everything rests on
+4  Github, KeyHandler,  middle layer: five Tooling modules that belong to no group
+   Inspiration, Listen,
+   Claude
+5  Base                 foundation: 34 libraries that everything rests on
 6  Cli -> Tooling.Core  the one edge from the top layer to a single Tooling module
 
 Supports ADR-AUTO-DEPM-CODEBUILTFROM, ADR-AUTO-DEPM-TWOSECTIONS and ADR-AUTO-DEPM-GROUPAWAREINTEGRITY (architecture lens).
 ```
 
-Cats is built from about forty PowerShell modules that call one another. To keep that web from tangling, every dependency between modules is
+Cats is built from fifty-one PowerShell modules that call one another. To keep that web from tangling, every dependency between modules is
 declared up front in one file, `dependencies.yml`, and the declaration is the allow-list: an edge the file does not permit fails the build.
 Seen from far enough away, the declared graph has a simple shape. The modules sit in three layers, and every allowed dependency points down
 to a lower one.
@@ -51,7 +53,7 @@ content:
     - { id: g-azure, kind: code, label: Catzc.Azure, in: band-middle }
     - { id: g-core, kind: code, label: Tooling.Core, in: band-middle }
     - { id: s-tooling, kind: set, label: Tooling, in: band-middle }
-    - { id: g-github, kind: code, label: Github · KeyHandler, in: band-middle }
+    - { id: g-github, kind: code, label: Github · KeyHandler · Inspiration · Listen · Claude, in: band-middle }
     - { id: s-base, kind: set, label: Base, in: band-foundation }
   edges:
     - { from: s-azure-ext, to: g-azure, kind: flow, label: 4/5 }
@@ -60,7 +62,7 @@ content:
     - { from: s-azure-ext, to: g-core, kind: flow, label: "" }
     - { from: g-azure, to: s-base, kind: thick, label: "" }
     - { from: s-tooling, to: s-base, kind: thick, label: 6/6 }
-    - { from: g-github, to: s-base, kind: thick, label: 2/2 }
+    - { from: g-github, to: s-base, kind: thick, label: 5/5 }
   markers:
     - { at: s-azure-ext, number: 1 }
     - { at: g-azure, number: 2 }
@@ -77,8 +79,8 @@ layout:
   s-azure-ext: { x: 140, y: 122, w: 620, h: 56 }
   g-azure: { x: 40, y: 292, w: 200, h: 56 }
   g-core: { x: 280, y: 292, w: 130, h: 56 }
-  s-tooling: { x: 600, y: 292, w: 280, h: 56 }
-  g-github: { x: 920, y: 292, w: 320, h: 56 }
+  s-tooling: { x: 560, y: 292, w: 240, h: 56 }
+  g-github: { x: 840, y: 292, w: 400, h: 56 }
   s-base: { x: 40, y: 462, w: 1200, h: 56 }
 ```
 
@@ -92,8 +94,9 @@ layout:
 2. **Catzc.Azure.** The Azure root is a single module in the middle of the graph. It depends on Base alone.
 3. **Tooling.** The six modules that install and manage external tools form the group in the middle of the graph. Core is their foundation,
    Provisioning orchestrates the whole devbox on top of the others, and every member may use Base.
-4. **Github and KeyHandler.** Two Tooling modules belong to no group. Each is declared on its own, and both may use Base.
-5. **Base.** The foundation is a group of 26 small libraries. Two of them, Asserts and Engines, depend on nothing at all, and every declared
+4. **Github, KeyHandler, Inspiration, Listen and Claude.** Five Tooling modules belong to no group. Each is declared on its own, and all
+   five may use Base (5 of 5).
+5. **Base.** The foundation is a group of 34 small libraries. Two of them, Asserts and Engines, depend on nothing at all, and every declared
    module in cats ultimately rests on this layer.
 6. **Cli to Tooling.Core.** One edge from the top of the graph names a single module instead of a whole group: Cli may use Tooling's Core,
    but no other Tooling member. The edge from AzureExt to `Catzc.Azure` is the other single-module edge in the diagram.

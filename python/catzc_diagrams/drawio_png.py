@@ -460,6 +460,29 @@ def render(root, page=None):
             pts[0] = clip(pts[0], pts[1], src, minx, miny, outline(c.get("source")))
         if dst and "entryX" not in s:
             pts[-1] = clip(pts[-1], pts[-2], dst, minx, miny, outline(c.get("target")))
+        # The deadzone, as draw.io reads source/targetPerimeterSpacing: the box grown outward by that many px, so the end stands the
+        # same perpendicular distance from the side it meets whatever the line's angle (a diamond or ellipse keeps the gap along the line).
+        for i, j, key, cid in ((0, 1, "sourcePerimeterSpacing", c.get("source")), (-1, -2, "targetPerimeterSpacing", c.get("target"))):
+            box = geo.get(cid)
+            gap = float(s.get(key, 0)) if box else 0.0
+            dx, dy = pts[j][0] - pts[i][0], pts[j][1] - pts[i][1]
+            length = (dx * dx + dy * dy) ** 0.5
+            if not gap or length < 1e-9:
+                continue
+            ux, uy = dx / length, dy / length
+            step = gap
+            if outline(cid) == "box":
+                left, top = off(box[0], box[1])
+                near_side = min(  # the side the end sits on: its outward normal (nx, ny)
+                    (abs(pts[i][0] - left), -1, 0),
+                    (abs(pts[i][0] - (left + box[2])), 1, 0),
+                    (abs(pts[i][1] - top), 0, -1),
+                    (abs(pts[i][1] - (top + box[3])), 0, 1),
+                )
+                across = abs(ux * near_side[1] + uy * near_side[2])  # how much of a step goes straight out of that side
+                step = gap / across if across > 1e-6 else gap
+            step = min(step, length / 2)
+            pts[i] = (pts[i][0] + ux * step, pts[i][1] + uy * step)
         return pts
 
     def outline(cid):  # the shape an edge end is cut at: a diamond, an ellipse, or the box

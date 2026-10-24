@@ -14,6 +14,7 @@ renderer:
   carrier: article # where a diagram's declaration lives when carriers: names none. article: a `yml drawio` block directly above the image that embeds its png; file: <name>.drawio.yml beside its png
   role: slide # a diagram's role when roles: names none. slide: its subtitle says `<codes> · <lens>`; legend: it names no ADR and has no subtitle
   word-gap: 3 # px a steep edge's word stands right of its line, left-aligned at the line's middle; written into the model, so draw.io and the painter read the same
+  edge-deadzone: 8 # px an edge stops short of every box it starts or ends at, so its line and head never touch the box edge; written into the model as source/targetPerimeterSpacing (draw.io reads it), whatever heads the edge has
   word-margin: 3 # px of inner margin a transition bubble keeps around its word on every side: the smallest flattened ellipse that holds the word
   label-inner-margin: 4 # px between a diamond's label text and the edge of its invisible text rect, every side
   label-outer-margin: 6 # px between the corner of that text rect and the diamond's border, measured square to the border
