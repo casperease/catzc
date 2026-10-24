@@ -14,10 +14,10 @@ The pipelines wire topic, landed and BVT; past BVT, stages follow the template, 
 
 1  pr: [main]          pre-commit build validation of the topic commit
 2  trigger: [main]     post-commit run of the same pipelines on the landed commit
-3  CD stage CI         the CD pipeline's own CI engine: Build-Bicep, then publish
+3  BVT CI build        the CD pipeline's own CI engine: Build-Bicep, then publish
 4  ci-pwsh             Test-Automation -Level 2 -EnforceTimings
 5  ci-infrastructure   Assert-BicepTemplate, Build-Bicep, then the infrastructure suite
-6  L3 run              no pipeline step; Test-Automation accepts level 3, nothing passes it
+6  L3 system test     the CI+ test, run against the deploy stages; no pipeline step, nothing passes level 3
 7  Deploy_Foundation   the first deploy stage; depends on CI, runs on main only
 8  Deploy_Discovery    one stage that deploys nsub and psub side by side
 
@@ -49,23 +49,23 @@ content:
   spans:
     - id: span-integration
       label: CI
-      over: [band-pre, band-post]
+      over: [band-pre, band-post, band-validation]
     - id: span-delivery
-      label: CD
-      over: [band-validation, band-deploy]
+      label: CI+
+      over: [band-deploy]
   glyphs:
     - { id: c-topic, kind: commit, label: topic, in: band-pre, state: topic }
     - { id: r-pull-request, kind: runner, label: "pr: [main]", in: band-pre }
     - { id: c-landed, kind: commit, label: landed, in: band-post, state: landed }
     - { id: r-trigger, kind: runner, label: "trigger: [main]", in: band-post }
-    - { id: r-stage, kind: runner, label: CD stage CI, in: band-validation }
+    - { id: r-stage, kind: runner, label: BVT CI build, in: band-validation }
     - { id: c-verified, kind: commit, label: BVT, in: band-validation }
-    - { id: a-level-three, kind: drsonly, label: L3 run, in: band-validation }
     - { id: r-automation, kind: runner, label: ci-pwsh, in: band-validation }
     - { id: r-infrastructure, kind: runner, label: ci-infrastructure, in: band-validation }
     - { id: r-foundation, kind: runner, label: Deploy_Foundation, in: band-deploy }
     - { id: r-discovery, kind: runner, label: Deploy_Discovery, in: band-deploy }
     - { id: r-expedition, kind: runner, label: Deploy_Expedition, in: band-deploy }
+    - { id: a-level-three, kind: drsonly, label: L3 system test, in: band-deploy }
   edges:
     - { from: c-topic, to: r-pull-request, kind: flow, label: "" }
     - { from: r-pull-request, to: c-landed, kind: flow, label: "" }
@@ -98,9 +98,9 @@ layout:
   r-trigger: { x: 435, y: 170, w: 190, h: 44 }
   r-stage: { x: 680, y: 170, w: 220, h: 44 }
   c-verified: { x: 815, y: 250, w: 85, h: 44 }
-  a-level-three: { x: 680, y: 320, w: 150, h: 44 }
   r-automation: { x: 680, y: 400, w: 220, h: 44 }
   r-infrastructure: { x: 680, y: 460, w: 220, h: 44 }
+  a-level-three: { x: 960, y: 170, w: 300, h: 44 }
   r-foundation: { x: 960, y: 250, w: 300, h: 44 }
   r-discovery: { x: 960, y: 350, w: 300, h: 44 }
   r-expedition: { x: 960, y: 450, w: 300, h: 44 }
@@ -114,16 +114,19 @@ layout:
    to `main`, and `build-validation.yml` binds six globsets as build validations on `main`.
 2. **trigger: [main].** After the merge, the same pipelines run post-commit on the grey landed commit. The trigger starts all three
    pipelines in the BVT group at once, so they share one arrow into the group.
-3. **CD stage CI.** The CD pipeline's own CI engine: `Build-Bicep <template> -Customers <customer>` for a customer CD, or `-Shared` for
-   `cd-shared`, each followed by `publish` of the artifact. The published artifact is the yellow commit's build, and every deploy stage
+3. **BVT CI build.** The CD pipeline's own CI engine, its `CI` stage, inside the inner CI loop with the BVT: `Build-Bicep <template> -Customers <customer>`
+   for a customer CD, or `-Shared` for `cd-shared`, each followed by `publish` of the artifact. The published artifact is the yellow commit's build, and every deploy stage
    takes it with `download: current`, so nothing is rebuilt.
 4. **ci-pwsh.** Runs `Test-Automation -Level 2 -EnforceTimings`. The GitHub CI runs `Test-Automation -Level 2` on three operating systems,
    and `ci-pwsh-expected-failures` runs on the same triggers. On main, the `BuildArtifact` job also runs `Test-BuildArtifact`, the BVT's
    built-artifact check.
 5. **ci-infrastructure.** Runs `Assert-BicepTemplate`, then `Build-Bicep`, for foundation, discovery and expedition, then
    `Test-Automation -Suite infrastructure`.
-6. **L3 run.** No pipeline step exists. `Test-Automation` accepts level 3 (`-Level` is the alias of `-MaxLevel`, which defaults to 3), but
-   no pipeline passes it.
+6. **L3 system test.** The inner CI loop is L0 to L2 and the BVT, and the yellow BVT commit is inside it. The L3 vertical system test is the
+   CI+ test, the outer loop that starts after the BVT and runs in the CD pipeline's post-commit path against the deployed environment
+   (FDR-CD-INNERANDOUTERLOOP, FDR-CD-CDSTAYSINNONPROD), so it sits under the CI+ span with the deploy stages. It is drawn dashed because no
+   pipeline step exists: `Test-Automation` accepts level 3 (`-Level` is the alias of `-MaxLevel`, which defaults to 3), but no pipeline
+   passes it.
 7. **Deploy_Foundation.** The first deploy stage depends on `CI`, and each later stage depends on the one before: `Deploy_Foundation`,
    `Deploy_Discovery`, then `Deploy_Expedition` (one job per expedition entry; an entry with a slot passes `-Slot`). Each runs only when the
    previous stage succeeded and the source branch is `refs/heads/main`; `Deploy_Foundation` also needs the CI stage's `Test-GlobSetAffected`
@@ -131,7 +134,6 @@ layout:
 8. **Deploy_Discovery.** Stages follow the template, not the rung: discovery deploys per subscription, `nsub` and `psub` side by side as
    parallel jobs. Counted as foundation, discovery and expedition jobs, apex has 2, 2 and 3 (expedition `dev`, `dev-blu` and `prod`),
    `cd-shared` has 2, 2 and 2, nova has 1, 1 and 1, and flux has 1, 1 and none.
-
 ## Why it holds
 
 A commit that fails a stage cannot go downstream (FDR-CD-LIFE-FAILEDSTAYSUPSTREAM). In the code that rule is the `succeeded()` condition on

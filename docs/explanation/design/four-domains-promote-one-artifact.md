@@ -58,7 +58,7 @@ content:
   spans:
     - id: span-ci
       label: CI
-      over: [band-ci]
+      over: [band-git, band-ci]
     - id: span-cd
       label: CD
       over: [band-cd]
@@ -128,8 +128,9 @@ layout:
 
 ## Walkthrough
 
-1. **Topic to main.** GIT, the domain before any pipeline, holds the first two states. A commit on a topic branch is off-main and brown;
-   once its pull request merges, it has landed on main and is grey.
+1. **Topic to main.** GIT holds the first two states and is where the CI discipline starts: the inner CI loop begins at the topic branch's
+   pull request build validation (FDR-CD-INNERANDOUTERLOOP), so the CI span covers GIT and the CI engine. A commit on a topic branch is
+   off-main and brown; once its pull request merges, it has landed on main and is grey.
 2. **CI engine.** The CI engine builds and verifies the landed commit and produces the BVT-verified, yellow commit. A CD pipeline always
    contains this same CI component, so the build that a CD run deploys is the build its own CI stage made.
 3. **On-demand env.** CD deploys the artifact to an on-demand environment and runs the L3 system-level end-to-end tests there. The

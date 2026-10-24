@@ -26,7 +26,7 @@ Supports FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND (implementation lens).
 Every `Deploy_*` stage in cats runs only from main. FDR-CD-LIFE-TOPICDEPLOYSOUTOFBAND allows a workflow or pipeline to deploy a topic commit
 without integrating it, but in the code nothing does. The CD pipelines run on a pull request into main, yet a PR run executes only the `CI`
 stage: every `Deploy_*` stage carries a condition that the source branch is `refs/heads/main`. Only the merge to main starts a run that
-deploys.
+deploys. The CI span runs from the topic branch through the main-only condition, and the DEPLOY span holds the `Deploy_*` stages after it.
 
 ```yml drawio
 description:
@@ -46,13 +46,14 @@ content:
     - { id: band-out-of-band, label: OUT-OF-BAND }
     - { id: band-main, label: MAIN }
     - { id: band-landing, label: AFTER LANDING }
+    - { id: band-deploy, label: DEPLOY STAGES }
   spans:
     - id: span-integration
       label: CI
-      over: [band-out-of-band]
+      over: [band-topic, band-out-of-band, band-main, band-landing]
     - id: span-delivery
-      label: CD
-      over: [band-landing]
+      label: DEPLOY
+      over: [band-deploy]
   glyphs:
     - { id: c-topic, kind: commit, label: topic branch, in: band-topic, state: topic }
     - { id: r-pull-request-stage, kind: runner, label: "stage: CI", in: band-out-of-band }
@@ -61,7 +62,7 @@ content:
     - { id: c-main, kind: commit, label: main, in: band-main, state: landed }
     - { id: r-main-stage, kind: runner, label: "stage: CI", in: band-landing }
     - { id: g-main-condition, kind: gate, label: main only, in: band-landing }
-    - { id: r-deploy, kind: runner, label: Deploy_* stages, in: band-landing }
+    - { id: r-deploy, kind: runner, label: Deploy_* stages, in: band-deploy }
   edges:
     - { from: c-topic, to: r-pull-request-stage, kind: flow, label: "" }
     - { from: r-pull-request-stage, to: g-pull-request-condition, kind: flow, label: "" }
@@ -84,17 +85,18 @@ content:
   minimaps: [code-locations, grid, axis]
 layout:
   band-topic: { x: 20, y: 108, w: 170, h: 380 }
-  band-out-of-band: { x: 210, y: 108, w: 420, h: 380 }
-  band-main: { x: 650, y: 108, w: 200, h: 380 }
-  band-landing: { x: 870, y: 108, w: 410, h: 380 }
+  band-out-of-band: { x: 210, y: 108, w: 400, h: 380 }
+  band-main: { x: 630, y: 108, w: 170, h: 380 }
+  band-landing: { x: 820, y: 108, w: 260, h: 380 }
+  band-deploy: { x: 1100, y: 108, w: 180, h: 380 }
   c-topic: { x: 40, y: 170, w: 130, h: 44 }
   r-pull-request-stage: { x: 230, y: 250, w: 130, h: 44 }
   g-pull-request-condition: { x: 400, y: 238, w: 120, h: 68 }
   a-deploy: { x: 400, y: 420, w: 200, h: 44 }
-  c-main: { x: 700, y: 170, w: 100, h: 44 }
-  r-main-stage: { x: 885, y: 170, w: 110, h: 44 }
-  g-main-condition: { x: 1015, y: 158, w: 100, h: 68 }
-  r-deploy: { x: 1130, y: 170, w: 140, h: 44 }
+  c-main: { x: 680, y: 170, w: 100, h: 44 }
+  r-main-stage: { x: 835, y: 170, w: 110, h: 44 }
+  g-main-condition: { x: 965, y: 158, w: 100, h: 68 }
+  r-deploy: { x: 1115, y: 170, w: 150, h: 44 }
 ```
 
 ![Every Deploy stage is main-only](.assets/every-deploy-stage-is-main-only.drawio.png)

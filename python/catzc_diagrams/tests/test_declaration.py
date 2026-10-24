@@ -1246,3 +1246,35 @@ def test_every_edge_with_both_ends_carries_the_deadzone_on_each_end():
         if 'source="None"' not in line and 'target="None"' not in line
     )
     assert declaration.EDGE_DEADZONE == 8
+
+
+def test_a_band_to_band_edge_leaves_and_enters_the_facing_sides_at_the_middle_of_their_shared_stretch_and_comes_back():
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["edges"].append({"from": "band-widgets", "to": "band-gadgets", "kind": "fail", "label": "failed"})
+    first = declaration.normalise(raw)
+    model = declaration.put(first)
+    line = next(line for line in model.splitlines() if 'id="e-band-widgets-band-gadgets"' in line)
+    assert 'source="band-widgets"' in line and 'target="band-gadgets"' in line
+    assert "exitX=" in line and "exitY=" in line and "entryX=" in line and "entryY=" in line
+    assert declaration.dump(declaration.get(model, kind="explanation")) == declaration.dump(first)
+
+
+def test_a_band_to_band_edge_word_stands_mid_stretch_not_on_the_border_so_the_head_shows():
+    import re
+
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["edges"].append({"from": "band-widgets", "to": "band-gadgets", "kind": "fail", "label": "failed"})
+    model = declaration.put(declaration.normalise(raw))
+
+    def box(cid):
+        m = re.search(rf'id="{cid}".*?<mxGeometry x="([-\d.]+)" y="([-\d.]+)" width="([\d.]+)" height="([\d.]+)"', model, re.S)
+        return tuple(float(v) for v in m.groups())
+
+    wx, wy, ww, wh = box("band-widgets")
+    gx, gy, gw, gh = box("band-gadgets")
+    bx, by, bw, bh = box("e-band-widgets-band-gadgets-word")
+    centre = (bx + bw / 2, by + bh / 2)
+    if gx > wx + ww:  # side by side: the bubble centre lies in the gap between the bands
+        assert wx + ww < centre[0] < gx
+    else:  # stacked: the bubble centre lies in the gap between them
+        assert min(wy + wh, gy + gh) <= centre[1] <= max(wy, gy) or wy + wh < centre[1] < gy

@@ -211,7 +211,8 @@ cells in that order. draw.io paints a frame's whole contents where the frame sta
 frame of its own, where it paints before every glyph: the innermost frame around both its ends when that frame holds none, else the first
 such frame painted. The raster paints the model in the order draw.io paints it, so the editor and the png show the same picture. An edge
 stops short of every box it joins, by the one clearance `renderer.edge-deadzone` in `drawio.yml` declares (8 px), measured straight out from
-the box side at any angle and written into the model as the edge's perimeter spacing, so the editor and the png keep the same gap.
+the box side at any angle and written into the model as the edge's perimeter spacing. The png shrinks that clearance on a short edge so
+the line keeps at least `renderer.edge-deadzone-min-line` (12 px) between the heads; the model keeps the nominal spacing.
 
 - [Time reads along one axis](#time-reads-along-one-axis)
 

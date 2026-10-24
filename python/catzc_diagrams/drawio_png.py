@@ -43,6 +43,7 @@ def kit_defaults():
 
 
 DEFAULTS = kit_defaults()
+EDGE_MIN_LINE = float(DEFAULTS["renderer"]["edge-deadzone-min-line"])  # the line an edge keeps whatever its deadzone, px
 THEMES = tuple(DEFAULTS["themes"])  # the first is the default, the one whose raster is committed
 
 
@@ -462,6 +463,8 @@ def render(root, page=None):
             pts[-1] = clip(pts[-1], pts[-2], dst, minx, miny, outline(c.get("target")))
         # The deadzone, as draw.io reads source/targetPerimeterSpacing: the box grown outward by that many px, so the end stands the
         # same perpendicular distance from the side it meets whatever the line's angle (a diamond or ellipse keeps the gap along the line).
+        # Both ends together never take more than the path's length less EDGE_MIN_LINE, so a short arrow keeps a visible line.
+        moves = []
         for i, j, key, cid in ((0, 1, "sourcePerimeterSpacing", c.get("source")), (-1, -2, "targetPerimeterSpacing", c.get("target"))):
             box = geo.get(cid)
             gap = float(s.get(key, 0)) if box else 0.0
@@ -481,8 +484,13 @@ def render(root, page=None):
                 )
                 across = abs(ux * near_side[1] + uy * near_side[2])  # how much of a step goes straight out of that side
                 step = gap / across if across > 1e-6 else gap
-            step = min(step, length / 2)
-            pts[i] = (pts[i][0] + ux * step, pts[i][1] + uy * step)
+            moves.append([i, ux, uy, min(step, length / 2)])
+        total = sum(m[3] for m in moves)
+        path_length = sum(((q[0] - p[0]) ** 2 + (q[1] - p[1]) ** 2) ** 0.5 for p, q in itertools.pairwise(pts))
+        room = max(0.0, path_length - EDGE_MIN_LINE)
+        shrink = min(1.0, room / total) if total else 1.0
+        for i, ux, uy, step in moves:
+            pts[i] = (pts[i][0] + ux * step * shrink, pts[i][1] + uy * step * shrink)
         return pts
 
     def outline(cid):  # the shape an edge end is cut at: a diamond, an ellipse, or the box

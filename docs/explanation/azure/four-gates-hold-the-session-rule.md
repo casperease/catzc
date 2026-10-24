@@ -20,8 +20,8 @@ Four throwing gates hold ADR-AZ-DATAMOD-JOINSINPOWERSHELL; rules #4, #5 and ADR-
 3  session matches the assert  #7: Get-BicepDeploymentContext throws when the session differs from the pin
 4  customer from the session   #4: the customer is read off the session; Deploy-Bicep has no -Customer
 5  serves the env              #7: Get-AzureEnvironment throws when the subscription does not serve the env
-6  RG name derived             #5 and NAMING#8: Get-BicepResourceGroupName builds the name; no subscription in it
-7  throw                       every gate ends here; nothing retargets or falls back
+6  throw                       every gate ends here when it fails; nothing retargets or falls back
+7  RG name derived             #5 and NAMING#8: Get-BicepResourceGroupName builds the name; no subscription in it
 
 Supports ADR-AZ-DATAMOD-CUSTOMERAXIS, ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME and ADR-AZ-DATAMOD-JOINSINPOWERSHELL, and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (governance lens).
 ```
@@ -50,56 +50,53 @@ content:
   relation: runs next
   theme: dark
   bands:
-    - { id: band-target, label: TARGET }
-    - { id: band-config, label: CONFIG + NAMES }
+    - { id: band-gates, label: GATES }
+    - { id: band-failed, label: FAILED }
     - { id: band-outcome, label: OUTCOME }
   glyphs:
-    - { id: g-pipeline-assert, kind: gate, label: assert given in a pipeline, in: band-target }
-    - { id: g-declared, kind: gate, label: subscription declared, in: band-target }
-    - { id: g-matches, kind: gate, label: session matches the assert, in: band-target }
-    - { id: g-customer, kind: code, label: customer from the session, in: band-config }
-    - { id: g-serves, kind: gate, label: serves the env, in: band-config }
-    - { id: g-group, kind: code, label: RG name derived, in: band-config }
-    - { id: f-throw, kind: failure, label: throw, in: band-outcome }
+    - { id: g-pipeline-assert, kind: gate, label: assert given in a pipeline, in: band-gates }
+    - { id: g-declared, kind: gate, label: subscription declared, in: band-gates }
+    - { id: g-matches, kind: gate, label: session matches the assert, in: band-gates }
+    - { id: g-customer, kind: code, label: customer from the session, in: band-gates }
+    - { id: g-serves, kind: gate, label: serves the env, in: band-gates }
+    - { id: f-throw, kind: failure, label: throw, in: band-failed }
+    - { id: g-group, kind: result, label: RG name derived, in: band-outcome }
   edges:
     - { from: g-pipeline-assert, to: g-declared, kind: flow, label: "" }
     - { from: g-declared, to: g-matches, kind: flow, label: "" }
     - { from: g-matches, to: g-customer, kind: flow, label: "" }
     - { from: g-customer, to: g-serves, kind: flow, label: "" }
     - { from: g-serves, to: g-group, kind: flow, label: "" }
-    - { from: g-pipeline-assert, to: f-throw, kind: fail, label: "" }
-    - { from: g-declared, to: f-throw, kind: fail, label: "" }
-    - { from: g-matches, to: f-throw, kind: fail, label: "" }
-    - { from: g-serves, to: f-throw, kind: fail, label: "" }
+    - { from: band-gates, to: band-failed, kind: fail, label: failed }
   markers:
     - { at: g-pipeline-assert, number: 1 }
     - { at: g-declared, number: 2 }
     - { at: g-matches, number: 3 }
     - { at: g-customer, number: 4 }
     - { at: g-serves, number: 5 }
-    - { at: g-group, number: 6 }
-    - { at: f-throw, number: 7 }
+    - { at: f-throw, number: 6 }
+    - { at: g-group, number: 7 }
   chips:
     - { at: g-pipeline-assert, kind: rule, rule: ADR-AZ-DATAMOD-JOINSINPOWERSHELL }
     - { at: g-declared, kind: rule, rule: ADR-AZ-DATAMOD-JOINSINPOWERSHELL }
     - { at: g-matches, kind: rule, rule: ADR-AZ-DATAMOD-JOINSINPOWERSHELL }
     - { at: g-serves, kind: rule, rule: ADR-AZ-DATAMOD-JOINSINPOWERSHELL }
-    - { at: band-config, kind: rule, rule: ADR-AZ-DATAMOD-CUSTOMERAXIS, gated: false }
-    - { at: band-config, kind: rule, rule: ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME, gated: false }
-    - { at: band-config, kind: rule, rule: ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT, gated: false }
+    - { at: g-customer, kind: rule, rule: ADR-AZ-DATAMOD-CUSTOMERAXIS, gated: false, corner: bottom-right }
+    - { at: g-group, kind: rule, rule: ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME, gated: false }
+    - { at: g-group, kind: rule, rule: ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT, gated: false }
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
-  band-target: { x: 20, y: 84, w: 700, h: 180 }
-  band-config: { x: 740, y: 84, w: 540, h: 180 }
-  band-outcome: { x: 20, y: 300, w: 1260, h: 110 }
+  band-gates: { x: 20, y: 84, w: 1260, h: 200 }
+  band-failed: { x: 20, y: 380, w: 620, h: 110 }
+  band-outcome: { x: 660, y: 380, w: 620, h: 110 }
   g-pipeline-assert: { x: 40, y: 140, w: 200, h: 68 }
-  g-declared: { x: 260, y: 140, w: 200, h: 68 }
-  g-matches: { x: 480, y: 140, w: 220, h: 68 }
-  g-customer: { x: 760, y: 152, w: 150, h: 44 }
-  g-serves: { x: 940, y: 140, w: 160, h: 68 }
-  g-group: { x: 1130, y: 152, w: 130, h: 44 }
-  f-throw: { x: 540, y: 346, w: 200, h: 44 }
+  g-declared: { x: 280, y: 140, w: 200, h: 68 }
+  g-matches: { x: 520, y: 140, w: 220, h: 68 }
+  g-customer: { x: 780, y: 152, w: 150, h: 44 }
+  g-serves: { x: 980, y: 140, w: 160, h: 68 }
+  f-throw: { x: 220, y: 426, w: 200, h: 44 }
+  g-group: { x: 940, y: 426, w: 240, h: 44 }
 ```
 
 ![Four gates hold the session rule; the customer and the name hold by construction](.assets/four-gates-hold-the-session-rule.drawio.png)
@@ -120,12 +117,15 @@ layout:
 5. **Serves the env.** `Get-AzureEnvironment`, called with the session's subscription, asserts that the subscription's `environments` list
    contains the requested environment and throws otherwise. This is the check that a session cannot deploy an environment its subscription
    does not serve.
-6. **RG name derived.** `Get-BicepResourceGroupName` builds the resource-group name from the template, the environment, the slot and the
+6. **Throw.** A gate that fails ends in a throw. One red arrow, labelled `failed`, runs from the GATES band to the FAILED band and stands for
+   every gate, the customer step included. The throw stops the deploy before a build artifact is read
+   or `az deployment` is called. Nothing is retargeted, defaulted or repaired along the way. It sits alone in the FAILED band, left of the
+   OUTCOME band, which holds only the green result.
+7. **RG name derived.** `Get-BicepResourceGroupName` builds the resource-group name from the template, the environment, the slot and the
    session's customer, through `Get-BicepResourceName` and the namer. No gate asserts that nobody typed the name or that the subscription
    stayed out of it: the function is the only source of the name, and it takes no subscription. ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME and
-   ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT hold by construction.
-7. **Throw.** Every gate ends in a throw that stops the deploy before a build artifact is read or `az deployment` is called. Nothing is
-   retargeted, defaulted or repaired along the way.
+   ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT hold by construction. The name is the green outcome: it is what a deploy that passed every gate
+   goes on with.
 
 ## Why it holds
 

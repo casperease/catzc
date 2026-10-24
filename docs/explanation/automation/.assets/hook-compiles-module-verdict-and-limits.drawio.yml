@@ -55,4 +55,4 @@ layout:
   g-tiers: { x: 495, y: 410, w: 140, h: 44 }
   g-safeguard: { x: 655, y: 410, w: 140, h: 44 }
   g-bounded: { x: 815, y: 410, w: 140, h: 44 }
-  g-timeouts: { x: 350, y: 506, w: 130, h: 52 }
+  g-timeouts: { x: 340, y: 506, w: 130, h: 52 }

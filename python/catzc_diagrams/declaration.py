@@ -1122,9 +1122,9 @@ def normalise(raw, where="the declaration"):
             edge["via"] = [[int(p[0]), int(p[1])] for p in via]
         if edge["kind"] not in EDGE_KINDS:
             choices(f"{where}: edge {edge['from']} -> {edge['to']} kind", edge["kind"], EDGE_KINDS)
-        for end in ("from", "to"):  # an edge joins glyphs or groups: a call into a function frame ends on the frame
-            if ids.get(edge[end]) not in ("glyph", "group"):
-                choices(f"{where}: edge {end}", edge[end], [i for i, k in ids.items() if k in ("glyph", "group")])
+        for end in ("from", "to"):  # an edge joins glyphs, groups or bands: a call into a function frame ends on the frame, a band to band edge stands for every glyph in them
+            if ids.get(edge[end]) not in ("glyph", "group", "band"):
+                choices(f"{where}: edge {end}", edge[end], [i for i, k in ids.items() if k in ("glyph", "group", "band")])
         out["edges"].append(edge)
     if lens in (ACTION_LENS, PROOF_LENS):
         action_content(content, out, ids, where, lens)
@@ -2138,6 +2138,24 @@ def place(declaration):
             e["to"],
         )
         edge["via"] = [[x, y + delta] for x, y in e.get("via", [])]  # waypoints move with the drawing area
+        band_ids = {band["id"] for band in content["bands"]}
+        band_ends = None
+        if e["from"] in band_ids and e["to"] in band_ids:
+            # A band to band edge runs straight between the two facing sides at the middle of the stretch the bands share, so it stands
+            # for every glyph in the source band without slanting from one band's centre to the other's.
+            a, b = box_of[e["from"]], box_of[e["to"]]
+            left, right = max(a["x"], b["x"]), min(a["x"] + a["w"], b["x"] + b["w"])
+            top, bottom = max(a["y"], b["y"]), min(a["y"] + a["h"], b["y"] + b["h"])
+            if right > left:
+                mid = (left + right) / 2
+                down = b["y"] > a["y"]
+                edge["style"] += f"exitX={(mid - a['x']) / a['w']};exitY={1 if down else 0};entryX={(mid - b['x']) / b['w']};entryY={0 if down else 1};"
+                band_ends = [(mid, a["y"] + (a["h"] if down else 0)), (mid, b["y"] + (0 if down else b["h"]))]
+            elif bottom > top:
+                mid = (top + bottom) / 2
+                rightward = b["x"] > a["x"]
+                edge["style"] += f"exitX={1 if rightward else 0};exitY={(mid - a['y']) / a['h']};entryX={0 if rightward else 1};entryY={(mid - b['y']) / b['h']};"
+                band_ends = [(a["x"] + (a["w"] if rightward else 0), mid), (b["x"] + (0 if rightward else b["w"]), mid)]
         if e["kind"] == "bypass":  # out of its source's side, down under the skipped dot, and up into its target's side
             a, b = box_of[e["from"]], box_of[e["to"]]
             low = a["y"] + a["h"] + BYPASS_DIP
@@ -2149,7 +2167,7 @@ def place(declaration):
             # A steep edge, one that climbs or falls more than it runs, never carries its word across its own line: the word stands
             # left-aligned, glued 3 px right of the line at its middle, where draw.io and the painter both put an align=left label.
             a, b = box_of[e["from"]], box_of[e["to"]]
-            points = [
+            points = band_ends or [
                 (a["x"] + a["w"] / 2, a["y"] + a["h"] / 2),
                 *[(x, y) for x, y in edge["via"]],
                 (b["x"] + b["w"] / 2, b["y"] + b["h"] / 2),
@@ -2162,7 +2180,8 @@ def place(declaration):
             # word of its own. A line inside one band keeps its word beside it.
             into = band_of(e["to"]) if e["to"] in holder else e["to"]
             if into in band_box and (band_of(e["from"]) if e["from"] in holder else e["from"]) != into:
-                at = cross_box(points, band_box[into])
+                # A band to band edge has no glyph border to cross: its bubble stands mid-stretch, so the head stays visible in the band.
+                at = tuple((c0 + c1) / 2 for c0, c1 in zip(*band_ends)) if band_ends else cross_box(points, band_box[into])
                 if at:
                     cells.append(transition(edge, e["label"], at))
         cells.append(edge)

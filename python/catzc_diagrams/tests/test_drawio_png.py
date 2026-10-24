@@ -262,3 +262,38 @@ def test_the_deadzone_is_the_same_clearance_from_the_box_side_at_any_angle():
     y_at = lambda x: 120 + (x - 40) * (40 - 120) / (140 - 40)
     assert near(at(img, 74, y_at(74)), RED)
     assert not near(at(img, 68, y_at(68)), RED)
+
+
+def _gap_edge(gap_px, spacing=8):
+    """A horizontal edge between two boxes gap_px apart (the line from x=60 to 60 + gap_px), 8 px deadzone at each end, no heads."""
+    box = 'style="fillColor=none;strokeColor=none;" vertex="1" parent="1"><mxGeometry x="{x}" y="80" width="40" height="40" as="geometry"/></mxCell>'
+    return rendered(
+        f'<mxCell id="a" value="" {box.format(x=20)}<mxCell id="b" value="" {box.format(x=60 + gap_px)}'
+        f'<mxCell id="e" value="" style="endArrow=none;strokeColor=#FF0000;sourcePerimeterSpacing={spacing};targetPerimeterSpacing={spacing};" '
+        'edge="1" parent="1" source="a" target="b"><mxGeometry relative="1" as="geometry"/></mxCell>'
+    )
+
+
+def _drawn_run(img, y=100):
+    """The model x range where the red line is drawn on row y."""
+    xs = [x for x in range(0, 300) if near(at(img, x, y), RED)]
+    return (min(xs), max(xs)) if xs else None
+
+
+def test_a_long_edge_keeps_the_full_deadzone_at_each_end():
+    first, last = _drawn_run(_gap_edge(60))
+    assert abs(first - 68) <= 1 and abs(last - 111) <= 1  # 60 + 8 .. 120 - 8
+
+
+def test_a_short_edge_shrinks_its_deadzone_and_keeps_a_visible_line():
+    first, last = _drawn_run(_gap_edge(15))  # 15 px between the boxes: not room for 2 x 8 and the minimum line
+    assert last - first >= drawio_png.EDGE_MIN_LINE - 2  # at least the minimum line is drawn
+    assert first >= 60 and last <= 75  # and never past the boxes' own edges
+
+
+def test_the_shrink_starts_where_the_clearance_and_the_minimum_line_no_longer_fit():
+    full = 2 * 8 + drawio_png.EDGE_MIN_LINE
+    at_limit = _drawn_run(_gap_edge(int(full)))
+    just_short = _drawn_run(_gap_edge(int(full) - 6))
+    assert abs(at_limit[0] - (60 + 8)) <= 1  # the borderline edge still has the whole deadzone
+    assert just_short[0] - 60 < 8  # a shorter one has less
