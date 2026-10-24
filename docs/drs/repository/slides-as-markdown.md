@@ -110,12 +110,12 @@ of the root `.editorconfig`'s `[*.md]` section, and in block style otherwise.
 The declaration has two carriers, one per diagram. The default is a fenced block in an article, the way a `mermaid` block renders where it
 stands: its info string is `yml drawio`, so GitHub still shows it as YAML and the kit finds exactly that block, and it sits directly above
 the image that embeds `<name>.drawio.png`, which names the diagram it declares. The other is the file `<name>.drawio.yml` beside the png,
-for a diagram no single article embeds. The kit's `drawio.yml` chooses the carrier per diagram (`renderer.carrier`, `article` by default,
-and a `carriers:` entry keyed by the diagram's stem); the png stays in `.assets/` either way. A diagram declared by both carriers, or by no
-block or two in the article carrier, is a finding. One command moves a declaration between the carriers,
-`declaration.py carry <stem> <carrier>`: it writes the declaration in the other carrier, merges a file's `cspell:ignore` words into the
-page's own ignore comment, removes the old carrier, records the choice under `carriers:`, and restores every file when the moved declaration
-no longer loads the same, so a carry never loses a word or a cell.
+for a diagram no single article embeds. The carrier is what is on disk: a yml beside the png is the file carrier, a block above its image in
+an article is the article carrier, and a diagram with neither yet takes the kit's `renderer.carrier` (`article`); the png stays in
+`.assets/` either way. A diagram declared by both carriers, or by two blocks in the article carrier, is a finding. One command moves a
+declaration between the carriers, `declaration.py carry <stem> <carrier>`: it writes the declaration in the other carrier, merges a file's
+`cspell:ignore` words into the page's own ignore comment, removes the old carrier, and restores every file when the moved declaration no
+longer loads the same, so a carry never loses a word or a cell.
 
 - [The declaration is the source](#the-declaration-is-the-source)
 
@@ -195,11 +195,11 @@ commits and glyphs sit by step and by row (-1, 0 or 1), with an optional trunk a
 step, solid red for a manual gate and dashed for an automated one, and the legend names both. A **template** maps steps to the commit states
 they reach; a **row** walks a template from its start state, with its dots, drops and step-labelled edges written out, and a `skip` drawn as
 a bypass under the dot it skips. A **ladder** is a band whose glyphs climb left to right along their forward edges, spread over the band's
-width, each `rise` px above the one before and the first on the band's floor, every rung `w` by `h` when the hint says so, and each climb leaving
-its rung's top centre, up, then right into the next rung's left centre, so a promotion reads as the stairs it is; the hint is the source's
-alone, and the drawing carries only the places and routes it gave. A **note** is free text in a
-band, and a commit is a dot or a box. Get folds the drawing back to the shorthand while the drawing still draws what the shorthand expands
-to. A span over glyphs of one band lies above that band in either flow; a span over whole bands stands beside them in a top-to-bottom flow.
+width, each `rise` px above the one before and the first on the band's floor, every rung `w` by `h` when the hint says so, and each climb
+leaving its rung's top centre, up, then right into the next rung's left centre, so a promotion reads as the stairs it is; the hint is the
+source's alone, and the drawing carries only the places and routes it gave. A **note** is free text in a band, and a commit is a dot or a
+box. Get folds the drawing back to the shorthand while the drawing still draws what the shorthand expands to. A span over glyphs of one band
+lies above that band in either flow; a span over whole bands stands beside them in a top-to-bottom flow.
 
 - [Time reads along one axis](#time-reads-along-one-axis)
 
@@ -211,8 +211,8 @@ cells in that order. draw.io paints a frame's whole contents where the frame sta
 frame of its own, where it paints before every glyph: the innermost frame around both its ends when that frame holds none, else the first
 such frame painted. The raster paints the model in the order draw.io paints it, so the editor and the png show the same picture. An edge
 stops short of every box it joins, by the one clearance `renderer.edge-deadzone` in `drawio.yml` declares (8 px), measured straight out from
-the box side at any angle and written into the model as the edge's perimeter spacing. The png shrinks that clearance on a short edge so
-the line keeps at least `renderer.edge-deadzone-min-line` (12 px) between the heads; the model keeps the nominal spacing.
+the box side at any angle and written into the model as the edge's perimeter spacing. The png shrinks that clearance on a short edge so the
+line keeps at least `renderer.edge-deadzone-min-line` (12 px) between the heads; the model keeps the nominal spacing.
 
 - [Time reads along one axis](#time-reads-along-one-axis)
 

@@ -135,6 +135,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
     It 'finds a diagram an article declares before its first put, from its block, and writes its minimap data from the block' -Tag 'ADR-REPO-SLIDES-DECLARATION' {
         $page = Join-Path $script:widgetRoot 'docs/gizmos/cog.md'
         [System.IO.File]::WriteAllText($page, "# Cog`n`n``````yml drawio`nabout: { lens: architecture, adrs: [ADR-WIDGET-GADGET] }`ncontent: {}`n```````n`n![Cog](.assets/cog.drawio.png)`n")
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { 'docs/gizmos/cog.md' }
         Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { foreach ($item in $Stem) {
                 "out/minimaps/$item"
             } }

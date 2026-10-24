@@ -123,12 +123,12 @@ layout:
 6. **Get-AzureResourceName.** The namer validates every component, renders the name in the order the registry gives, and asserts the length
    limit. It is order-agnostic: the order is data it is handed.
 7. **Throw.** A bad component, an unknown customer or an over-limit name throws. A name is never truncated to fit.
-8. **Deploy code.** The actor that starts the flow. Nothing in the tree writes the resolver's inputs from this slide; the deploy asks for the
-   resource-group name, and the arrow runs from it to the consumer because the actor acts and the consumer is what it acts on.
+8. **Deploy code.** The actor that starts the flow. Nothing in the tree writes the resolver's inputs from this slide; the deploy asks for
+   the resource-group name, and the arrow runs from it to the consumer because the actor acts and the consumer is what it acts on.
 9. **Get-BicepResourceGroupName.** The one in-tree consumer, so only the `rg` type is generated in the tree today. It is the single source
    of the resource-group name for both the deploy target (`Get-BicepDeploymentContext`) and the tracking-tag scope
-   (`Set-BicepTrackingTagSet`), so the two never drift. It calls `Get-BicepResourceName` with the `rg` type, so its arrow is a labelled call to
-   the resolver; other types call `Get-BicepResourceName` directly.
+   (`Set-BicepTrackingTagSet`), so the two never drift. It calls `Get-BicepResourceName` with the `rg` type, so its arrow is a labelled call
+   to the resolver; other types call `Get-BicepResourceName` directly.
 
 ## Why it holds
 

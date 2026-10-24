@@ -80,9 +80,9 @@ checked once its first put has run.
 
 ## comment:3
 
-Above `$carrierMap = Get-DiagramCarrierMap -RepositoryRoot $root -Kit $Kit`, written with `#`.
+Above `$pngStems = @($candidates | Where-Object ...`, written with `#`.
 
 ```text
-A diagram in the article carrier has no yml beside its png: the kit's drawio.yml names it under carriers, and the kit's check reads
-its block, failing a diagram with no block or two.
+A diagram in the article carrier has no yml beside its png: its stem is a tracked png with no yml, or an image a `yml drawio` block sits
+above, and the kit's check reads that block, failing a diagram with no block or two.
 ```

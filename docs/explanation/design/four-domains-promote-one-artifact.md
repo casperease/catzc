@@ -5,11 +5,12 @@ catzc:
     cites:
       - FDR-CD-SEPARATEPIPELINEKINDS
       - FDR-CD-CDCONTAINSCI
+      - FDR-CD-INNERANDOUTERLOOP
       - FDR-CD-LIFE-ONECOMMITPERENVIRONMENT
       - FDR-CD-LIFE-SYNCFROMVERIFIEDHEAD
       - FDR-CD-LIFE-DIRTYHEADUNSAFE
       - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
-    drs_total: 6
+    drs_total: 7
 ---
 
 # Four pipeline kinds promote one artifact that CI built once

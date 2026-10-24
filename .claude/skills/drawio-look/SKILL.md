@@ -21,4 +21,4 @@ metadata:
 2. Name each colour against the dark tokens of STYLE.md; a colour outside the tokens, a dark label on the dark page, or text cut by its box
    is a finding naming the cell's label.
 3. Counts come from the model, never from the picture: the renderer's `cells=` line or the decoded XML is the number; the declaration is the
-   `yml drawio` block above the image in its article, or `<name>.drawio.yml` where `carriers:` in `drawio.yml` says `file`.
+   `yml drawio` block above the image in its article, or `<name>.drawio.yml` beside the png.

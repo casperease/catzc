@@ -11,9 +11,9 @@ Returns a diagram's declaration text from its carrier, or nothing when the carri
 
 ### description
 
-The carrier is the one the carrier map sets for the stem, else its default. The `file` carrier is the diagram's own `<stem>.drawio.yml`. The
-article carrier is the one `yml drawio` block, in a page of the folder that holds the diagram's .assets, that stands directly above the
-image of its png; two or more such blocks return nothing, as does a missing file.
+The carrier is what is on disk. The `file` carrier is the diagram's own `<stem>.drawio.yml`, read when it exists. Otherwise the article carrier
+is the one `yml drawio` block, in a page of the folder that holds the diagram's .assets, that stands directly above the image of its png;
+two or more such blocks return nothing, as does a diagram with neither.
 
 ### parameter `Stem`
 
@@ -23,10 +23,6 @@ The diagram's stem, `.assets/<name>`, repository-relative.
 
 The repository root the stem is under.
 
-### parameter `CarrierMap`
-
-Where each diagram's declaration lives, as Get-DiagramCarrierMap reads it.
-
 ### outputs
 
 `[string]` The declaration's YAML text; nothing when the carrier holds none.
@@ -34,5 +30,5 @@ Where each diagram's declaration lives, as Get-DiagramCarrierMap reads it.
 ### example 1
 
 ```powershell
-Get-DiagramDeclarationText -Stem docs/drs/automation/.assets/widget -RepositoryRoot $root -CarrierMap (Get-DiagramCarrierMap -RepositoryRoot $root)
+Get-DiagramDeclarationText -Stem docs/drs/automation/.assets/widget -RepositoryRoot $root
 ```
