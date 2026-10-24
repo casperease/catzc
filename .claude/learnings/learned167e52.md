@@ -26,3 +26,23 @@ Started 2026-10-23T19:08:35.6112403+02:00.
   one step per brief avoids lost reports.
 - 2026-10-24 Cats: Token tip: brief one engine step per subagent run and ask for a report after each step.
 - 2026-10-24 Cats: Token tip: use the audits (edge_audit, language_audit) instead of reading pngs to measure diagram work.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: VS Code hands files.exclude to its search and watcher processes as command-line
+  globs, so a few thousand entries fail with spawn ENAMETOOLONG on Windows.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: a files.exclude glob also hides a folder whose name it matches, case-insensitively
+  on Windows (**/*.config hides pwsh/Catzc.Base.Config).
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: vscode-extensions.yml is parsed on every import, and an unquoted {placeholder}
+  inside a YAML flow mapping breaks every session's import.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: VS Code exposes no other extension's decorations or test results; the lamps read
+  their sources instead (vscode.git getAPI(1), languages.getDiagnostics, tabGroups) and out/test-results/\<test file>.failed markers from
+  Invoke-TestFile.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: the extension folder generator expands contributes entries by repeat (a config
+  list, e.g. filters.yml) and by states (one command per context-key value).
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: Format-Code moves multi-line comments into docs/references comment pages and then
+  requires a ## help section there for that function.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: a design record may not cite a flow record; Test-DrsRegistry refuses the layer.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: every import re-renders .vscode/settings.json and installs any own extension whose
+  version changed, so a version bump installs itself.
+- 2026-10-25 Cats: Token tip: Next time, save tokens by: measuring the real files.exclude entry count with a node driver before installing,
+  instead of reacting to editor logs.
+- 2026-10-25 Cats: Token tip: Next time, save tokens by: checking git status of shared files before editing, since a peer session may be in
+  them.
