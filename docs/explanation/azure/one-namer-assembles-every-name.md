@@ -14,6 +14,8 @@ catzc:
 
 ```text
 Every Azure name comes out of one resolver and one namer; nothing else builds names.
+Each arrow runs from the one that acts to what it acts on or depends on: the resolver reads the sources and calls the namer, the namer
+reads the registries, the consumer calls the resolver, and the deploy code, the actor, calls the consumer.
 
 1  azure.yml, customer.yml     environment identity, org, and the customer key and shortcode
 2  template, options.yml       the template folder derives short_name; options.yml may override it
@@ -22,7 +24,8 @@ Every Azure name comes out of one resolver and one namer; nothing else builds na
 5  registries                  three pure-data sets: 2 orders, 20 resource types, 4 patterns
 6  Get-AzureResourceName       the namer: validates, renders in order, asserts the length limit
 7  throw                       a bad component, unknown customer or over-limit name stops here
-8  Get-BicepResourceGroupName  the one in-tree consumer: the resource-group name
+8  deploy code                 the actor that starts the flow: the deploy asks for the resource-group name
+9  Get-BicepResourceGroupName  the one in-tree consumer: the resource-group name
 
 Supports ADR-AZ-NAMING-DETERMINISTICNAMES, ADR-AZ-NAMING-PATTERNPERRESOURCETYPE, ADR-AZ-NAMING-ORDERISVARIANT and ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT (architecture lens).
 ```
@@ -46,7 +49,6 @@ content:
   title: One resolver gathers the components and one namer assembles every Azure name
   kind: explanation
   flow: top-to-bottom
-  relation: feeds the next
   theme: dark
   bands:
     - { id: band-sources, label: SOURCES }
@@ -61,14 +63,16 @@ content:
     - { id: s-registries, kind: set, label: registries, in: band-assembler }
     - { id: g-namer, kind: code, label: Get-AzureResourceName, in: band-assembler }
     - { id: f-throw, kind: failure, label: throw, in: band-assembler }
+    - { id: g-caller, kind: actor, label: deploy code, in: band-consumers }
     - { id: g-group, kind: code, label: Get-BicepResourceGroupName, in: band-consumers }
   edges:
-    - { from: g-azure, to: g-resolver, kind: flow, label: "" }
-    - { from: g-options, to: g-resolver, kind: flow, label: "" }
-    - { from: g-variants, to: g-resolver, kind: flow, label: "" }
-    - { from: g-resolver, to: g-namer, kind: flow, label: "" }
-    - { from: s-registries, to: g-namer, kind: flow, label: "" }
-    - { from: g-namer, to: g-group, kind: flow, label: "" }
+    - { from: g-resolver, to: g-azure, kind: flow, label: "" }
+    - { from: g-resolver, to: g-options, kind: flow, label: "" }
+    - { from: g-resolver, to: g-variants, kind: flow, label: "" }
+    - { from: g-resolver, to: g-namer, kind: flow, label: calls }
+    - { from: g-namer, to: s-registries, kind: flow, label: "" }
+    - { from: g-caller, to: g-group, kind: flow, label: "" }
+    - { from: g-group, to: g-resolver, kind: flow, label: calls, via: [[1235, 534], [1235, 284]] }
     - { from: g-namer, to: f-throw, kind: fail, label: "" }
     - { from: g-resolver, to: f-throw, kind: fail, label: "" }
   markers:
@@ -79,7 +83,8 @@ content:
     - { at: s-registries, number: 5 }
     - { at: g-namer, number: 6 }
     - { at: f-throw, number: 7 }
-    - { at: g-group, number: 8 }
+    - { at: g-caller, number: 8 }
+    - { at: g-group, number: 9 }
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
@@ -94,6 +99,7 @@ layout:
   s-registries: { x: 120, y: 384, w: 240, h: 44 }
   g-namer: { x: 450, y: 384, w: 400, h: 44 }
   f-throw: { x: 940, y: 384, w: 240, h: 44 }
+  g-caller: { x: 150, y: 512, w: 190, h: 44 }
   g-group: { x: 450, y: 512, w: 400, h: 44 }
 ```
 
@@ -117,9 +123,12 @@ layout:
 6. **Get-AzureResourceName.** The namer validates every component, renders the name in the order the registry gives, and asserts the length
    limit. It is order-agnostic: the order is data it is handed.
 7. **Throw.** A bad component, an unknown customer or an over-limit name throws. A name is never truncated to fit.
-8. **Get-BicepResourceGroupName.** The one in-tree consumer, so only the `rg` type is generated in the tree today. It is the single source
+8. **Deploy code.** The actor that starts the flow. Nothing in the tree writes the resolver's inputs from this slide; the deploy asks for the
+   resource-group name, and the arrow runs from it to the consumer because the actor acts and the consumer is what it acts on.
+9. **Get-BicepResourceGroupName.** The one in-tree consumer, so only the `rg` type is generated in the tree today. It is the single source
    of the resource-group name for both the deploy target (`Get-BicepDeploymentContext`) and the tracking-tag scope
-   (`Set-BicepTrackingTagSet`), so the two never drift. Other types call `Get-BicepResourceName` directly.
+   (`Set-BicepTrackingTagSet`), so the two never drift. It calls `Get-BicepResourceName` with the `rg` type, so its arrow is a labelled call to
+   the resolver; other types call `Get-BicepResourceName` directly.
 
 ## Why it holds
 

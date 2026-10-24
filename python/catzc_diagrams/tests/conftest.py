@@ -25,8 +25,3 @@ def empty_minimaps(folder):
 def fixture_minimap_data(monkeypatch):
     monkeypatch.setattr(declaration, "minimap_data", empty_minimaps)
 
-
-# A fixture diagram is a pair outside the repository, so it is file-carried whatever the shipped default is.
-@pytest.fixture(autouse=True)
-def fixture_file_carrier(monkeypatch):
-    monkeypatch.setitem(declaration.DEFAULTS["renderer"], "carrier", "file")

@@ -79,9 +79,10 @@ extensions:
           priority: default
   catzc-track-lamps:
     displayName: Catzc track lamps
+    version: 0.3.0
     description: >-
-      A row of named lamps in the Explorer, one per track of the repository: a lit lamp shows its track's files, a dark one hides them through
-      files.exclude, and the tracks of one grouped type, the vendored code, share one lamp.
+      A short row of filter lamps in the Explorer, one per aspect and one for a typed list of languages: a lit (green) lamp shows its files,
+      an unlit one filters them away through files.exclude; every lamp lit shows everything.
     activationEvents: [onStartupFinished]
     contributes:
       views:
@@ -89,23 +90,14 @@ extensions:
           - type: webview
             id: catzc.trackLamps
             name: Tracks
-      commands:
-        - command: catzc.trackLamps.lightAll
-          title: Light every track
-          icon: "$(lightbulb)"
-      menus:
-        view/title:
-          - command: catzc.trackLamps.lightAll
-            when: view == catzc.trackLamps
-            group: navigation
       configuration:
         title: Catzc track lamps
         properties:
-          catzc.trackLamps.tracks:
-            type: array
-            default: []
-            description: The repository's tracks, each its name, type and places, rendered into the settings from the variants config.
-          catzc.trackLamps.groups:
+          catzc.trackLamps.aspects:
             type: object
-            default: { vendored-code: vendor }
-            description: Track types whose tracks share one lamp, each type mapped to the name of its lamp.
+            default: {}
+            description: Each aspect's cover, the fewest paths that hold exactly its files, rendered into the settings by Get-AspectCover.
+          catzc.trackLamps.languages:
+            type: object
+            default: {}
+            description: Each language's file extensions, rendered into the settings from the languages config.

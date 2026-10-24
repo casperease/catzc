@@ -66,7 +66,7 @@ function Get-DrsCodesFileMetaFact {
         , $found
     }
     # The head cites what the prose cites; a ```yml drawio block's codes are the diagram's, counted in the total only.
-    $prose = [regex]::Replace($text, '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```).*\r?\n)*```[ \t]*$', '')
+    $prose = [regex]::Replace($text, '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```)[^\r\n]*\r?\n)*```[ \t]*$', '')
     $cited = & $collect $prose
     $total = (& $collect $text).Count
     [ordered]@{

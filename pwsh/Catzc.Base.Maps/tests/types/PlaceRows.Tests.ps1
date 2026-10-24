@@ -42,23 +42,31 @@ Describe 'PlaceRows' -Tag 'L0', 'logic' {
         }
 
         It 'recovers the place of a row that kept everything, with the prefix restored' {
-            [Catzc.Base.Maps.PlaceRows]::Recover('widgets / Widget.Cog / types', $script:places) | Should -Be @('widgets', 'Catzc.Widget.Cog', 'types')
-            [Catzc.Base.Maps.PlaceRows]::Recover('widgets / Widget', $script:places) | Should -Be @('widgets', 'Catzc.Widget', '.')
-            [Catzc.Base.Maps.PlaceRows]::Recover('docs', $script:places) | Should -Be @('docs', '-', '.')
+            ([Catzc.Base.Maps.PlaceRows]::Recover('widgets / Widget.Cog / types', $script:places))[0] | Should -Be @('widgets', 'Catzc.Widget.Cog', 'types')
+            ([Catzc.Base.Maps.PlaceRows]::Recover('widgets / Widget', $script:places))[0] | Should -Be @('widgets', 'Catzc.Widget', '.')
+            ([Catzc.Base.Maps.PlaceRows]::Recover('docs', $script:places))[0] | Should -Be @('docs', '-', '.')
         }
 
         It 'round-trips every place that fits: form, recover, form again' {
             foreach ($place in @(@('docs', '-', '.'), @('widgets', 'Catzc.Widget', '.'), @('widgets', 'Catzc.Widget', 'tests'), @('gadgets', 'Catzc.Gadget.Cog', 'configs'))) {
                 $row = [Catzc.Base.Maps.PlaceRows]::Form($place[0], $place[1], $place[2], $script:places)
-                $back = [Catzc.Base.Maps.PlaceRows]::Recover($row, $script:places)
+                $back = ([Catzc.Base.Maps.PlaceRows]::Recover($row, $script:places))[0]
                 $back | Should -Be $place
                 [Catzc.Base.Maps.PlaceRows]::Form($back[0], $back[1], $back[2], $script:places) | Should -BeExactly $row
             }
         }
 
-        It 'throws for a row that elided its middle or folded places, since it names no one place' {
+        It 'recovers every place a joined row names, the module root as a dot' {
+            $recovered = [Catzc.Base.Maps.PlaceRows]::Recover('widgets / Widget / .|configs|types', $script:places)
+            $recovered.Count | Should -Be 3
+            $recovered[0] | Should -Be @('widgets', 'Catzc.Widget', '.')
+            $recovered[2] | Should -Be @('widgets', 'Catzc.Widget', 'types')
+        }
+
+        It 'throws for a row that elided its middle or names a count only, since it names no place' {
             { [Catzc.Base.Maps.PlaceRows]::Recover('widgets / Widget...Gadgetry / types', $script:places) } | Should -Throw '*elides its middle*'
-            { [Catzc.Base.Maps.PlaceRows]::Recover('widgets / Widget / +3', $script:places) } | Should -Throw '*folds places*'
+            { [Catzc.Base.Maps.PlaceRows]::Recover('widgets / Widget / +3', $script:places) } | Should -Throw '*folds places by count*'
+            { [Catzc.Base.Maps.PlaceRows]::Recover('widgets / Widget / configs|...', $script:places) } | Should -Throw '*elides its middle*'
         }
 
         It 'knows whether a row is already in the minimised form' {
@@ -66,6 +74,9 @@ Describe 'PlaceRows' -Tag 'L0', 'logic' {
             [Catzc.Base.Maps.PlaceRows]::IsNormal('widgets / Catzc.Widget / types', $script:places) | Should -BeFalse
             [Catzc.Base.Maps.PlaceRows]::IsNormal(('widgets / ' + ('x' * 50)), $script:places) | Should -BeTrue
             [Catzc.Base.Maps.PlaceRows]::IsNormal('widgets / Widget / types / a / b', $script:places) | Should -BeFalse
+            [Catzc.Base.Maps.PlaceRows]::IsNormal('widgets / Widget / configs|types', $script:places) | Should -BeTrue
+            [Catzc.Base.Maps.PlaceRows]::IsNormal('widgets / Widget / types|configs', $script:places) | Should -BeFalse
+            [Catzc.Base.Maps.PlaceRows]::IsNormal('widgets / Widget / configs|...', $script:places) | Should -BeTrue
         }
     }
 
@@ -96,15 +107,43 @@ Describe 'PlaceRows' -Tag 'L0', 'logic' {
             $rows.Counters | Should -BeExactly '2 places'
         }
 
-        It 'folds the module with the most rows into one row when the places are more than the 7 rows' {
+        It 'folds the module with the most rows into one row naming its sub-folders, as many whole names as fit and then the elision' {
             $places = @(, @('docs', '-', '.'))
             $places += , @('widgets', 'Catzc.Widget', '.')
             $places += foreach ($folder in 'configs', 'tests', 'types', 'private') { , @('widgets', 'Catzc.Widget', $folder) }
             $places += foreach ($module in 'Catzc.Gadget', 'Catzc.Cog', 'Catzc.Sprocket') { , @('gadgets', $module, '.') }
             $rows = & $script:rowsOf $places
             $rows.Rows.Count | Should -BeLessOrEqual 7
-            @($rows.Rows) | Should -Contain 'widgets / Widget / +5'
+            @($rows.Rows) | Should -Contain 'widgets / Widget / .|configs|private|...'
             $rows.Counters | Should -BeExactly '9 places'
+        }
+
+        It 'names every folded sub-folder when the names fit the row, in the configured sort order' {
+            $places = @(, @('docs', '-', '.'))
+            $places += foreach ($folder in 'types', 'configs') { , @('widgets', 'Catzc.Widget', $folder) }
+            $places += foreach ($module in 'Catzc.Gadget', 'Catzc.Cog', 'Catzc.Sprocket', 'Catzc.Gear', 'Catzc.Wheel') { , @('gadgets', $module, '.') }
+            $rows = & $script:rowsOf $places
+            @($rows.Rows) | Should -Contain 'widgets / Widget / configs|types'
+        }
+
+        It 'never folds a single sub-folder: it stays its own row' {
+            $places = foreach ($n in 1..8) { , @('widgets', "Catzc.Widget$n", 'types') }
+            $rows = & $script:rowsOf $places
+            @($rows.Rows) | Should -Not -Match '\+'
+            @($rows.Rows)[0] | Should -BeExactly 'widgets / Widget1 / types'
+        }
+
+        It 'falls back to the count only when not even one name fits' {
+            $places = @(, @('docs', '-', '.'))
+            $places += foreach ($folder in 'configs', 'types') { , @('widgets', 'Catzc.Widget.Sprocket.Assembly.Gadgetry', $folder) }
+            $places += foreach ($module in 'Catzc.Gadget', 'Catzc.Cog', 'Catzc.Sprocket', 'Catzc.Gear', 'Catzc.Wheel') { , @('gadgets', $module, '.') }
+            $rows = & $script:rowsOf $places
+            @($rows.Rows) | Should -Contain 'widgets / Widget...Gadgetry / +2'
+        }
+
+        It 'declares the joining separator once on the config type' {
+            $script:places.fold_separator | Should -BeExactly '|'
+            $script:places.fold_count_prefix | Should -BeExactly '+'
         }
 
         It 'never exceeds 7 place rows and counts what it leaves out' {

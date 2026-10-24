@@ -1,62 +1,34 @@
-// A row of named lamps in the Explorer, one per track: a lit lamp shows its track's files, a dark one hides them.
-// The tracks are rendered into the workspace settings from the variants config (catzc.trackLamps.tracks), and the tracks of a type
-// named in catzc.trackLamps.groups share one lamp. Hiding writes files.exclude at workspace scope, the only filter the Explorer has;
-// the extension owns the keys it adds and nothing else, so an authored exclusion survives and a regenerated settings file is re-lit.
-// A lit place inside a dark one stays visible: the dark place is hidden entry by entry around it.
+// A short row of filter lamps in the Explorer: one per aspect, and one language lamp with a typed list of languages.
+// A lamp is lit (green) while what it covers is shown in the tree, and unlit while it filters that away; every lamp lit is the default and
+// shows everything, as without the extension. What a lamp hides is rendered into the workspace settings: each aspect's cover
+// (catzc.trackLamps.aspects, the fewest paths that hold exactly its files) and each language's extensions (catzc.trackLamps.languages).
+// Hiding writes files.exclude at workspace scope, the only filter the Explorer has; the extension owns the keys it adds and nothing else,
+// so an authored exclusion survives and a regenerated settings file is re-applied.
 
 const vscode = require("vscode");
 const fs = require("fs");
 const path = require("path");
 
-const DARK = "catzc.trackLamps.dark";
+const OUT = "catzc.trackLamps.out";
+const FIELD = "catzc.trackLamps.field";
 const OWNED = "catzc.trackLamps.owned";
+const LANGUAGE = "languages";
 
-function lamps() {
-    const config = vscode.workspace.getConfiguration("catzc.trackLamps");
-    const groups = config.get("groups") ?? {};
-    const byName = new Map();
-    for (const track of config.get("tracks") ?? []) {
-        const name = groups[track.type] ?? track.name;
-        const lamp = byName.get(name) ?? { name, tracks: [], places: [] };
-        lamp.tracks.push(track.name);
-        lamp.places.push(...(track.places ?? []));
-        byName.set(name, lamp);
-    }
-    return [...byName.values()];
-}
+const config = () => vscode.workspace.getConfiguration("catzc.trackLamps");
+const aspects = () => config().get("aspects") ?? {};
+const languages = () => config().get("languages") ?? {};
+const typed = (text) => text.split(",").map((name) => name.trim()).filter(Boolean);
 
-const isUnder = (place, parent) => place.startsWith(parent + "/");
-
-function hiddenGlobs(root, list, dark) {
-    const lit = list.filter((lamp) => !dark.has(lamp.name)).flatMap((lamp) => lamp.places);
+function hiddenGlobs(root, out, field) {
     const globs = new Set();
-    const hide = (place) => {
-        const inner = lit.filter((other) => isUnder(other, place));
-        if (inner.length === 0) {
-            globs.add(place);
-            return;
-        }
-        let entries = [];
-        try {
-            entries = fs.readdirSync(path.join(root, place));
-        } catch {
-            return;
-        }
-        for (const entry of entries) {
-            const child = `${place}/${entry}`;
-            if (inner.includes(child)) continue;
-            if (inner.some((other) => isUnder(other, child))) hide(child);
-            else globs.add(child);
-        }
-    };
-    list.filter((lamp) => dark.has(lamp.name)).forEach((lamp) => lamp.places.forEach(hide));
-    // A folder whose every entry is hidden is hidden itself, so a dark place leaves no empty parent behind; a lit place never folds.
-    const lights = (dir) => lit.some((place) => dir === place || isUnder(dir, place));
+    const covers = aspects();
+    for (const name of Object.keys(covers).filter((name) => out.has(name))) covers[name].forEach((place) => globs.add(place));
+    // A folder whose every entry is hidden is hidden itself, so an unlit aspect leaves no empty parent behind.
     for (let grew = true; grew; ) {
         grew = false;
         for (const glob of [...globs]) {
             const parent = path.posix.dirname(glob);
-            if (parent === "." || globs.has(parent) || lights(parent)) continue;
+            if (parent === "." || globs.has(parent)) continue;
             let entries;
             try {
                 entries = fs.readdirSync(path.join(root, parent));
@@ -70,14 +42,18 @@ function hiddenGlobs(root, list, dark) {
             }
         }
     }
+    if (out.has(LANGUAGE)) {
+        const known = languages();
+        for (const name of typed(field)) (known[name] ?? []).forEach((extension) => globs.add(`**/*${extension}`));
+    }
     return [...globs];
 }
 
 async function apply(context) {
     const folder = vscode.workspace.workspaceFolders?.[0];
     if (!folder) return;
-    const dark = new Set(context.workspaceState.get(DARK, []));
-    const wanted = hiddenGlobs(folder.uri.fsPath, lamps(), dark);
+    const out = new Set(context.workspaceState.get(OUT, []));
+    const wanted = hiddenGlobs(folder.uri.fsPath, out, context.workspaceState.get(FIELD, ""));
     const owned = context.workspaceState.get(OWNED, []);
     const files = vscode.workspace.getConfiguration("files", folder.uri);
     const current = files.inspect("exclude")?.workspaceValue ?? {};
@@ -93,52 +69,69 @@ async function apply(context) {
     }
 }
 
-function page(webview, list, dark) {
+function page(webview, out, field) {
     const nonce = [...Array(32)].map(() => Math.floor(Math.random() * 16).toString(16)).join("");
-    const escape = (text) => text.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
-    const buttons = list
-        .map((lamp) => {
-            const state = dark.has(lamp.name) ? "dark" : "lit";
-            const title = escape(`${lamp.tracks.join(", ")}: ${lamp.places.join(", ")} (click to toggle, alt+click to light only this)`);
-            return `<button class="lamp ${state}" data-name="${escape(lamp.name)}" title="${title}"><span class="bulb"></span>${escape(lamp.name)}</button>`;
-        })
-        .join("");
-    const empty = `<p class="empty">No tracks in the settings: render .vscode/settings.json with the root config generator.</p>`;
+    const escape = (text) => String(text).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+    const covers = aspects();
+    const known = languages();
+    const unknown = typed(field).filter((name) => !(name in known));
+    const lamp = (id, label, title) =>
+        `<button class="lamp ${out.has(id) ? "unlit" : "lit"}" data-id="${escape(id)}" title="${escape(title)}"><span class="bulb"></span>${escape(label)}</button>`;
+    const aspectLamps = Object.keys(covers).map((name) => lamp(name, name, `aspect ${name}: ${covers[name].length} paths; lit shows them, unlit hides them`));
+    const languageTitle = unknown.length
+        ? `unknown: ${unknown.join(", ")}; known: ${Object.keys(known).join(", ")}`
+        : `comma-separated languages, hidden while the lamp is unlit; known: ${Object.keys(known).join(", ")}`;
     return `<!doctype html><html><head><meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';">
 <style>
 body { padding: 4px 8px; font-family: var(--vscode-font-family); font-size: var(--vscode-font-size); }
-.row { display: flex; flex-wrap: wrap; gap: 4px; }
-.lamp { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: 10px; cursor: pointer;
+.row { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.lamp { display: inline-flex; align-items: center; gap: 5px; padding: 1px 8px; border-radius: 10px; cursor: pointer; flex: none;
   border: 1px solid var(--vscode-panel-border); background: transparent; color: var(--vscode-descriptionForeground); font: inherit; }
 .lamp .bulb { width: 8px; height: 8px; border-radius: 50%; background: var(--vscode-disabledForeground); }
-.lamp.lit { color: var(--vscode-foreground); border-color: #f5e17a80; }
-.lamp.lit .bulb { background: #f5e17a; box-shadow: 0 0 6px #f5e17a; }
+.lamp.lit { color: var(--vscode-foreground); border-color: var(--vscode-charts-green); }
+.lamp.lit .bulb { background: var(--vscode-charts-green); box-shadow: 0 0 6px var(--vscode-charts-green); }
 .lamp:focus-visible { outline: 1px solid var(--vscode-focusBorder); }
-.empty { color: var(--vscode-descriptionForeground); margin: 0; }
+.field { display: flex; gap: 4px; align-items: center; flex: 1 1 140px; min-width: 0; }
+.field input { flex: 1; min-width: 0; font: inherit; padding: 1px 6px; color: var(--vscode-input-foreground);
+  background: var(--vscode-input-background); border: 1px solid var(--vscode-input-border, transparent); border-radius: 2px; }
+.field input.bad { border-color: var(--vscode-inputValidation-errorBorder); }
 </style></head><body>
-<div class="row">${list.length ? buttons : empty}</div>
+<div class="row">${aspectLamps.join("")}<span class="field">${lamp(LANGUAGE, "languages", languageTitle)}<input id="field" type="text" spellcheck="false"
+ value="${escape(field)}" placeholder="markdown, yaml" title="${escape(languageTitle)}" class="${unknown.length ? "bad" : ""}"></span></div>
 <script nonce="${nonce}">
 const vscode = acquireVsCodeApi();
-document.querySelectorAll(".lamp").forEach((lamp) => lamp.addEventListener("click", (event) =>
-  vscode.postMessage({ name: lamp.dataset.name, solo: event.altKey })));
+document.querySelectorAll(".lamp").forEach((lamp) => lamp.addEventListener("click", () => vscode.postMessage({ press: lamp.dataset.id })));
+const field = document.getElementById("field");
+const commit = () => vscode.postMessage({ field: field.value });
+field.addEventListener("change", commit);
+field.addEventListener("keydown", (event) => event.key === "Enter" && commit());
 </script></body></html>`;
 }
 
 function activate(context) {
     let view;
     const render = () => {
-        if (view) view.webview.html = page(view.webview, lamps(), new Set(context.workspaceState.get(DARK, [])));
+        if (view) view.webview.html = page(view.webview, new Set(context.workspaceState.get(OUT, [])), context.workspaceState.get(FIELD, ""));
     };
-    const setDark = async (names) => {
-        await context.workspaceState.update(DARK, names);
+    const settle = async () => {
         await apply(context);
         render();
     };
     let timer;
     const refresh = () => {
         clearTimeout(timer);
-        timer = setTimeout(() => apply(context).then(render), 200);
+        timer = setTimeout(settle, 200);
+    };
+    const receive = async ({ press, field }) => {
+        if (press !== undefined) {
+            const out = new Set(context.workspaceState.get(OUT, []));
+            if (out.has(press)) out.delete(press);
+            else out.add(press);
+            await context.workspaceState.update(OUT, [...out]);
+        }
+        if (field !== undefined) await context.workspaceState.update(FIELD, field);
+        await settle();
     };
 
     context.subscriptions.push(
@@ -146,18 +139,11 @@ function activate(context) {
             resolveWebviewView(webviewView) {
                 view = webviewView;
                 view.webview.options = { enableScripts: true };
-                view.webview.onDidReceiveMessage(({ name, solo }) => {
-                    const dark = new Set(context.workspaceState.get(DARK, []));
-                    if (solo) return setDark(lamps().map((lamp) => lamp.name).filter((other) => other !== name));
-                    if (dark.has(name)) dark.delete(name);
-                    else dark.add(name);
-                    return setDark([...dark]);
-                });
+                view.webview.onDidReceiveMessage(receive);
                 view.onDidDispose(() => (view = undefined));
                 render();
             },
         }),
-        vscode.commands.registerCommand("catzc.trackLamps.lightAll", () => setDark([])),
         vscode.workspace.onDidChangeConfiguration((event) => {
             if (event.affectsConfiguration("catzc.trackLamps") || event.affectsConfiguration("files.exclude")) refresh();
         }),

@@ -58,4 +58,12 @@ Describe 'Get-DiagramDeclarationText' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-DECLA
         [System.IO.File]::WriteAllText($script:page, "# Gadgets`n`n$($script:block)`n![Gadgets](.assets/gadget-flow.drawio.png)`n")
         & $script:read 'docs/widgets/.assets/gadget-flow' | Should -BeExactly "content: { title: Gadgets }`n"
     }
+
+    It 'does not backtrack through a long block of another diagram on a page with CRLF line ends' {
+        $lines = (1..70 | ForEach-Object { "key_$($_): value" }) -join "`r`n"
+        [System.IO.File]::WriteAllText($script:page, "# Other`r`n`r`n``````yml drawio`r`n$lines`r`n```````r`n`r`n![Other](.assets/other-flow.drawio.png)`r`n")
+        $elapsed = [System.Diagnostics.Stopwatch]::StartNew()
+        & $script:read 'docs/widgets/.assets/gadget-flow' | Should -BeNullOrEmpty
+        $elapsed.Elapsed.TotalSeconds | Should -BeLessThan 5
+    }
 }

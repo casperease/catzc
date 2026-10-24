@@ -54,13 +54,15 @@ test — names it in the normal form.
 
 ### Rule ADR-AUTO-IDIOM-PLACENORMALFORM
 
-A place in the repository, a track, a module or a folder inside a module, has one place normal form wherever it is shown in a row: its
-path, normalised as a repository-relative path ([ADR-AUTO-PATH](path-representation.md)), cut into whole segments (`track / Module / folder`)
-with the module's `Catzc.` prefix dropped whole, and never a word cut in the middle. A row holds at most the configured characters; a
-longer row keeps its first and its last segments and puts `...` for the middle, the cut always between two segments, so the segments that
-tell places apart stay. A row within the budget loses nothing: its place comes back by restoring the prefix. The budget (the rows, the
-characters, the order of the place groups) is configuration of the maps config, and a minimap's rows are computed once, beside its data, by
-`Catzc.Base.Maps`; a drawing prints the rows as given and cuts nothing itself.
+A place in the repository, a track, a module or a folder inside a module, has one place normal form wherever it is shown in a row: its path,
+normalised as a repository-relative path ([ADR-AUTO-PATH](path-representation.md)), cut into whole segments (`track / Module / folder`) with
+the module's `Catzc.` prefix dropped whole, and never a word cut in the middle. A row holds at most the configured characters; a longer row
+keeps its first and its last segments and puts `...` for the middle, the cut always between two segments, so the segments that tell places
+apart stay. When places are more than the rows, the sub-folders of one module share a row that names them in order, joined by `|`
+(`pwsh / Azure / configs|types`, the module's own root as `.`): as many whole names as fit, then `|...`, and the count of the places (`+3`)
+only when not even one name fits. A row within the budget loses nothing: its places come back by restoring the prefix. The budget (the rows,
+the characters, the order of the place groups) is configuration of the maps config, and a minimap's rows are computed once, beside its data,
+by `Catzc.Base.Maps`; a drawing prints the rows as given and cuts nothing itself.
 
 - [Places have one short form](#places-have-one-short-form)
 
@@ -144,13 +146,13 @@ language's own idiom, Python's, which costs nothing: a normal form that happens 
 
 ### Places have one short form
 
-A minimap names the places a diagram lives in, and the sidebar that holds it is a few dozen characters wide. Left to the drawing, each
-place is cut where the width runs out, so two places that differ only at the end read as the same, and the cut falls inside a word. A
-place is already a path, and a path is already one entity ([ADR-AUTO-PATH](path-representation.md)); what is missing is one short way to
-write it. Dropping the prefix every module shares and keeping whole segments gives a row that is still a path, shorter, and recoverable;
-when even that is too long, the first segment names the family and the last tells the place apart, so those two are kept and the middle is
-what is elided. Computing the rows once, beside the data, means every drawing of the same places prints the same rows, and the budget
-stays one setting.
+A minimap names the places a diagram lives in, and the sidebar that holds it is a few dozen characters wide. Left to the drawing, each place
+is cut where the width runs out, so two places that differ only at the end read as the same, and the cut falls inside a word. A place is
+already a path, and a path is already one entity ([ADR-AUTO-PATH](path-representation.md)); what is missing is one short way to write it.
+Dropping the prefix every module shares and keeping whole segments gives a row that is still a path, shorter, and recoverable; when even
+that is too long, the first segment names the family and the last tells the place apart, so those two are kept and the middle is what is
+elided. Computing the rows once, beside the data, means every drawing of the same places prints the same rows, and the budget stays one
+setting.
 
 ### Acronyms are words
 

@@ -65,18 +65,18 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
         $json.'search.exclude'.'keep/searchable.psd1' | Should -BeFalse -Because 'an explicit authored un-exclude must survive injection'
     }
 
-    It 'renders each track''s name, type and places for the track lamps, and no key without tracks' {
-        $track = @(
-            [pscustomobject]@{ name = 'widgets'; type = 'modules'; places = @('widgets'); vendor = $null }
-            [pscustomobject]@{ name = 'widgets-vendor'; type = 'vendored-code'; places = @('widgets/.vendor'); vendor = $null }
-        )
-        $json = (New-VsCodeSettings -Track $track) | ConvertFrom-Json
-        @($json.'catzc.trackLamps.tracks').Count | Should -Be 2
-        $json.'catzc.trackLamps.tracks'[1].name | Should -Be 'widgets-vendor'
-        $json.'catzc.trackLamps.tracks'[1].type | Should -Be 'vendored-code'
-        @($json.'catzc.trackLamps.tracks'[1].places) | Should -Be @('widgets/.vendor')
-        @($json.'catzc.trackLamps.tracks'[1].PSObject.Properties.Name) | Should -Not -Contain 'vendor'
-        (New-VsCodeSettings | ConvertFrom-Json).PSObject.Properties.Name | Should -Not -Contain 'catzc.trackLamps.tracks'
+    It 'renders each aspect''s cover and each language''s extensions for the lamps, and no key without them' {
+        $cover = [ordered]@{ live = @('widgets/Get-Widget.ps1'); tests = @('widgets/tests', 'gadgets') }
+        $extensions = [ordered]@{ widget = @('.wdg'); gadget = @('.gdg', '.gdx') }
+        $json = (New-VsCodeSettings -AspectCover $cover -LanguageExtension $extensions) | ConvertFrom-Json
+        @($json.'catzc.trackLamps.aspects'.PSObject.Properties.Name) | Should -Be @('live', 'tests')
+        @($json.'catzc.trackLamps.aspects'.tests) | Should -Be @('widgets/tests', 'gadgets')
+        @($json.'catzc.trackLamps.aspects'.live) | Should -Be @('widgets/Get-Widget.ps1')
+        @($json.'catzc.trackLamps.languages'.PSObject.Properties.Name) | Should -Be @('gadget', 'widget')
+        @($json.'catzc.trackLamps.languages'.gadget) | Should -Be @('.gdg', '.gdx')
+        $bare = (New-VsCodeSettings | ConvertFrom-Json).PSObject.Properties.Name
+        $bare | Should -Not -Contain 'catzc.trackLamps.aspects'
+        $bare | Should -Not -Contain 'catzc.trackLamps.languages'
     }
 
     It 'creates the search.exclude map when the registry has none' {

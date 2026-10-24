@@ -22,7 +22,7 @@ function Get-DiagramArticleStem {
 
     # The stems of the diagrams an article declares: each `yml drawio` block directly above an image embedding `.assets/<name>.drawio.png`,
     # as `<page folder>/.assets/<name>`. A slide is never a carrier, so a block in one names nothing.
-    $pattern = '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```).*\r?\n)*```[ \t]*\r?\n(?:[ \t]*\r?\n)*!\[[^\]]*\]\((?:\./)?\.assets/([^/)]+)\.drawio\.png\)'
+    $pattern = '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```)[^\r\n]*\r?\n)*```[ \t]*\r?\n(?:[ \t]*\r?\n)*!\[[^\]]*\]\((?:\./)?\.assets/([^/)]+)\.drawio\.png\)'
     foreach ($page in @($Candidate | Where-Object { $_ -cmatch '^docs/.+\.md$' -and -not $_.EndsWith('.slide.md') } | Select-Object -Unique)) {
         $full = Join-Path $RepositoryRoot $page
         if (-not [System.IO.File]::Exists($full)) {

@@ -22,6 +22,16 @@ renderer:
   word-margin: 3 # px of inner margin a transition bubble keeps around its word on every side: the smallest flattened ellipse that holds the word
   label-inner-margin: 4 # px between a diamond's label text and the edge of its invisible text rect, every side
   label-outer-margin: 6 # px between the corner of that text rect and the diamond's border, measured square to the border
+edge-semantics: # the default meaning of an edge, declared once (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON): the tail initiates, the head receives
+  legend: initiator to receiver # the words of a plain arrow's legend entry, `flow: <this>`; a diagram's own relation replaces them and opts out of the checks below
+  code-kinds: code, runner # the glyph kinds that are code blocks: a plain arrow ends on one only from an actor, or labelled as a call
+  call-labels: calls # the edge labels that declare a call, the one way a plain arrow may end on a code block without an actor
+edge-labels: # the words an edge may carry to say something other than the default, each with the end that initiates under it (tail or head)
+  calls: tail
+  reads: tail
+  writes: tail
+  feeds: tail
+  failed: tail
 roles: # a diagram's role, keyed by its stem's repository path (`.assets/<name>`), only where it is not renderer.role
   docs/explanation/.assets/glyphs: legend # the glyph library, the legend every slide's glyphs come from
 lenses: # the closed set of lenses a diagram is drawn through (its about.lens, the end of its subtitle), each with what it shows; the badge prints the name

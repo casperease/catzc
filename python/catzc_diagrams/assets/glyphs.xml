@@ -66,7 +66,7 @@
     <mxCell id="e-flow" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=block;strokeColor=@line;shadow=0;" edge="1" parent="1" source="p-flow-a" target="p-flow-b">
       <mxGeometry relative="1" as="geometry" />
     </mxCell>
-    <mxCell id="e-flow-text" value="flow (one meaning per slide)" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;" vertex="1" parent="1">
+    <mxCell id="e-flow-text" value="flow: initiator to receiver" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;" vertex="1" parent="1">
       <mxGeometry x="120" y="312" width="180" height="20" as="geometry" />
     </mxCell>
     <mxCell id="p-thick-a" value="" style="text;html=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">

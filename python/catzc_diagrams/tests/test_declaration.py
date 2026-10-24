@@ -331,8 +331,8 @@ def test_get_into_the_folder_keeps_the_description_the_drawing_cannot_carry(tmp_
 
 
 def test_a_diagram_without_its_source_fails_naming_the_file(tmp_path):
-    with pytest.raises(declaration.DeclarationError, match=rf"no {tmp_path.name}\.drawio\.yml"):
-        declaration.load(tmp_path)
+    with pytest.raises(declaration.DeclarationError, match="needs exactly one `yml drawio` block above its image, found 0"):
+        declaration.load(tmp_path)  # neither a yml nor a block: the shipped default carrier, the article, is the one that is missing
 
 
 def test_rule_chips_number_their_rule_and_round_trip_with_the_key_in_the_legend():
@@ -1247,3 +1247,55 @@ def test_every_edge_with_both_ends_carries_the_deadzone_on_each_end():
     )
     assert declaration.EDGE_DEADZONE == 8
 
+
+
+def _edge_declaration(glyphs, edges, **content):
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"]["glyphs"] = glyphs
+    raw["content"]["edges"] = edges
+    raw["content"].pop("spans", None)
+    raw["content"].pop("groups", None)
+    raw["content"].pop("markers", None)
+    raw["content"].pop("chips", None)
+    raw["content"].pop("relation", None)
+    raw["content"].update(content)
+    for g in glyphs:
+        g["in"] = "band-widgets"
+    return raw
+
+
+CODE_GLYPHS = [
+    {"id": "widget-a", "kind": "code", "label": "Widget A"},
+    {"id": "widget-b", "kind": "code", "label": "Widget B"},
+    {"id": "gadget-store", "kind": "store", "label": "Gadget store"},
+    {"id": "author", "kind": "actor", "label": "author"},
+]
+
+
+def test_a_plain_arrow_ending_on_a_code_block_needs_an_actor_or_a_call_label():
+    bare = _edge_declaration(CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": ""}])
+    with pytest.raises(declaration.DeclarationError, match="edge widget-a -> widget-b ends on a code block"):
+        declaration.normalise(bare)
+    called = _edge_declaration(CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": "calls"}])
+    assert declaration.normalise(called)["content"]["edges"]
+    written = _edge_declaration(CODE_GLYPHS, [{"from": "author", "to": "widget-b", "kind": "flow", "label": ""}])
+    assert declaration.normalise(written)["content"]["edges"], "an actor starts a flow into code"
+
+
+def test_an_arrow_onto_a_file_or_a_store_needs_neither():
+    reads = _edge_declaration(CODE_GLYPHS, [{"from": "widget-a", "to": "gadget-store", "kind": "flow", "label": ""}])
+    assert declaration.normalise(reads)["content"]["edges"]
+
+
+def test_a_diagram_with_its_own_relation_is_not_judged_by_the_default_meaning():
+    own = _edge_declaration(CODE_GLYPHS, [{"from": "widget-a", "to": "widget-b", "kind": "flow", "label": ""}], relation="feeds the next")
+    assert declaration.normalise(own)["content"]["edges"]
+
+
+def test_the_default_meaning_and_the_labels_are_declared_once_and_the_legend_reads_them():
+    assert declaration.DEFAULTS["edge-semantics"]["legend"] == "initiator to receiver"
+    assert declaration.LIB["edges"]["flow"]["phrase"] == "flow: initiator to receiver"
+    assert set(declaration.EDGE_SEMANTICS["call-labels"]) <= set(declaration.EDGE_LABELS)
+    assert set(declaration.EDGE_LABELS.values()) <= {"tail", "head"}
+    glyph_library = (declaration.KIT / "assets" / "glyphs.xml").read_text(encoding="utf-8")
+    assert 'value="flow: initiator to receiver"' in glyph_library, "the glyph library's words agree with the declaration"

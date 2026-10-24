@@ -125,11 +125,12 @@ def written_by(monkeypatch):
 
 def test_a_place_list_draws_the_rows_it_is_given_and_nothing_else(monkeypatch):
     data = places()
-    data["place_rows"] = {"rows": ["docs", "pwsh / Widget", "pwsh / Widget / tests"], "counters": "+4 more · 7 places"}
+    rows = ["docs", "pwsh / Widget", "pwsh / Widget / configs|types", "pwsh / Gadget / .|configs|..."]
+    data["place_rows"] = {"rows": rows, "counters": "+4 more · 7 places"}
     written = written_by(monkeypatch)
     minimaps.picture_from(data, 300, 160)
     printed = [s for s, size in written if size != 11]
-    assert printed == ["docs", "pwsh / Widget", "pwsh / Widget / tests", "+4 more · 7 places"]  # in the given order: nothing sorted, cut or added
+    assert printed == [*rows, "+4 more · 7 places"]  # in the given order: nothing sorted, cut or added
 
 
 def test_a_place_list_without_its_rows_is_refused_rather_than_computed_here():

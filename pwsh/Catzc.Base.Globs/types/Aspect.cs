@@ -102,4 +102,60 @@ public static class AspectPartition
         }
         return violations;
     }
+
+    // Per aspect, the fewest paths that cover exactly that aspect's files among the given ones: a file's topmost folder whose every given
+    // file is in the aspect, or the file itself. A file no set claims lies in no cover; the first aspect whose set claims a file wins.
+    public static IReadOnlyDictionary<string, string[]> Cover(IReadOnlyDictionary<string, IReadOnlyList<GlobSet>> aspectSets, IReadOnlyList<string> files)
+    {
+        if (aspectSets == null) { throw new ArgumentNullException(nameof(aspectSets)); }
+        if (files == null) { throw new ArgumentNullException(nameof(files)); }
+        Dictionary<string, int> total = new Dictionary<string, int>(StringComparer.Ordinal);
+        Dictionary<string, int> held = new Dictionary<string, int>(StringComparer.Ordinal);
+        Dictionary<string, string> aspectOf = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (string file in files)
+        {
+            foreach (KeyValuePair<string, IReadOnlyList<GlobSet>> aspect in aspectSets)
+            {
+                bool claimed = false;
+                foreach (GlobSet set in aspect.Value) { if (set.Matches(file)) { claimed = true; break; } }
+                if (claimed) { aspectOf[file] = aspect.Key; break; }
+            }
+            aspectOf.TryGetValue(file, out string name);
+            for (string folder = Parent(file); folder != null; folder = Parent(folder))
+            {
+                total[folder] = total.TryGetValue(folder, out int count) ? count + 1 : 1;
+                if (name != null)
+                {
+                    string key = name + "|" + folder;
+                    held[key] = held.TryGetValue(key, out int heldCount) ? heldCount + 1 : 1;
+                }
+            }
+        }
+        Dictionary<string, string[]> cover = new Dictionary<string, string[]>(StringComparer.Ordinal);
+        foreach (string name in aspectSets.Keys)
+        {
+            SortedSet<string> paths = new SortedSet<string>(StringComparer.Ordinal);
+            foreach (string file in files)
+            {
+                if (!aspectOf.TryGetValue(file, out string owner) || owner != name) { continue; }
+                string top = file;
+                for (string folder = Parent(file); folder != null; folder = Parent(folder))
+                {
+                    if (!held.TryGetValue(name + "|" + folder, out int heldCount) || heldCount != total[folder]) { break; }
+                    top = folder;
+                }
+                paths.Add(top);
+            }
+            string[] list = new string[paths.Count];
+            paths.CopyTo(list);
+            cover[name] = list;
+        }
+        return cover;
+    }
+
+    private static string Parent(string path)
+    {
+        int cut = path.LastIndexOf('/');
+        return cut > 0 ? path.Substring(0, cut) : null;
+    }
 }

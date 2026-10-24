@@ -275,6 +275,8 @@ Describe 'MapsConfig' -Tag 'L0' {
             $default.row_chars | Should -Be 40
             @($default.group_order) | Should -Be @('docs', 'modules', 'sub-folders', 'rest')
             $default.drop_prefix | Should -BeExactly 'Catzc.'
+            $default.fold_separator | Should -BeExactly '|'
+            $default.fold_count_prefix | Should -BeExactly '+'
             $given = (& $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ rows = 5; row_chars = 30; group_order = @('rest', 'docs', 'modules', 'sub-folders') } } })).minimap_places
             $given.rows | Should -Be 5
             $given.row_chars | Should -Be 30

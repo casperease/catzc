@@ -19,7 +19,6 @@ import drawio_forward
 from test_declaration import WIDGETS
 
 BODY = "description: Widgets flow into gadgets through a gate.\n" + WIDGETS.lstrip("\n")
-DEFAULT_CARRIER = declaration.DEFAULTS["renderer"]["carrier"]
 
 
 def page_text(body, between="\n"):
@@ -42,7 +41,7 @@ def article(tmp_path, monkeypatch):
 def test_a_block_above_the_image_makes_the_article_the_carrier_and_a_diagram_with_neither_takes_the_default(article):
     stem, _ = article
     assert declaration.carrier_of(stem) == "article"
-    assert declaration.carrier_of(stem.with_name("gadget-flow")) == DEFAULT_CARRIER
+    assert declaration.carrier_of(stem.with_name("gadget-flow")) == declaration.DEFAULTS["renderer"]["carrier"]
 
 
 def test_load_reads_the_block_above_the_image_and_put_writes_the_png_into_assets(article):

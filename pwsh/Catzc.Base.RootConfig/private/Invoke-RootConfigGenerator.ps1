@@ -67,7 +67,18 @@ function Invoke-RootConfigGenerator {
             foreach ($id in $editorFormatters.Keys) {
                 $languageFormatter[$id] = $editorFormatters[$id]
             }
-            New-VsCodeSettings -ManagedTarget $managedTargets -MachineSetting $machineSetting -LanguageFormatter $languageFormatter -Track @(Get-Track)
+            $languageExtension = [ordered]@{}
+            foreach ($language in (Get-Config -Config languages).languages.Where({ $_.extensions.Count -gt 0 })) {
+                $languageExtension[$language.name] = @($language.extensions)
+            }
+            $render = @{
+                ManagedTarget     = $managedTargets
+                MachineSetting    = $machineSetting
+                LanguageFormatter = $languageFormatter
+                AspectCover       = Get-AspectCover
+                LanguageExtension = $languageExtension
+            }
+            New-VsCodeSettings @render
         }
         'New-VsCodeExtensions' {
             $engineExtension = @((Get-Config -Config languages).formatters.Values | Where-Object vscode_extension | ForEach-Object vscode_extension)

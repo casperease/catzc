@@ -22,8 +22,9 @@ function New-VsCodeSettings {
 
         [System.Collections.IDictionary] $LanguageFormatter = @{},
 
-        [AllowEmptyCollection()]
-        [object[]] $Track = @()
+        [System.Collections.IDictionary] $AspectCover = @{},
+
+        [System.Collections.IDictionary] $LanguageExtension = @{}
     )
 
     $config = Get-Config -Config vscode-settings
@@ -67,11 +68,21 @@ function New-VsCodeSettings {
     }
     $settings['search.exclude'] = $exclude
 
-    # The track lamps read the tracks from the settings, so the extension needs neither the variants config nor a session.
-    if ($Track.Count -gt 0) {
-        $settings['catzc.trackLamps.tracks'] = @(foreach ($entry in $Track) {
-                [ordered]@{ name = $entry.name; type = $entry.type; places = @($entry.places) }
-            })
+    # The lamps read what they hide from the settings, so the extension needs neither a config nor a session: each aspect's cover paths,
+    # and each language's extensions.
+    if ($AspectCover.Count -gt 0) {
+        $aspects = [ordered]@{}
+        foreach ($name in $AspectCover.Keys) {
+            $aspects[$name] = @($AspectCover[$name])
+        }
+        $settings['catzc.trackLamps.aspects'] = $aspects
+    }
+    if ($LanguageExtension.Count -gt 0) {
+        $languages = [ordered]@{}
+        foreach ($name in ($LanguageExtension.Keys | Sort-Object)) {
+            $languages[$name] = @($LanguageExtension[$name])
+        }
+        $settings['catzc.trackLamps.languages'] = $languages
     }
 
     (ConvertTo-Json -InputObject $settings -Depth 12) + "`n"

@@ -91,7 +91,7 @@ function Test-Diagrams {
     }
     # Over the whole tree, a `yml drawio` block declares only the png embedded directly below it; a block with no such image is a finding.
     if (-not $Path) {
-        $bound = '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```).*\r?\n)*```[ \t]*\r?\n(?:[ \t]*\r?\n)*!\[[^\]]*\]\((?:\./)?\.assets/[^/)\s]+\.drawio\.png\)'
+        $bound = '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```)[^\r\n]*\r?\n)*```[ \t]*\r?\n(?:[ \t]*\r?\n)*!\[[^\]]*\]\((?:\./)?\.assets/[^/)\s]+\.drawio\.png\)'
         foreach ($page in @($candidates | Where-Object { $_ -like 'docs/*.md' } | Select-Object -Unique)) {
             $full = Join-Path $root $page
             if (-not [System.IO.File]::Exists($full)) {

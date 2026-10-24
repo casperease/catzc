@@ -413,6 +413,9 @@ def library():
 
 
 LIB = library()
+LIB["edges"]["flow"]["phrase"] = f"flow: {DEFAULTS['edge-semantics']['legend']}"  # the legend words of a plain arrow come from the one declaration
+EDGE_SEMANTICS = {k: tuple(v.replace(",", " ").split()) for k, v in DEFAULTS["edge-semantics"].items() if k != "legend"}
+EDGE_LABELS = {word: end for word, end in DEFAULTS["edge-labels"].items()}  # label -> the end that initiates under it
 GLYPH_KINDS = tuple(LIB["glyphs"])
 EDGE_KINDS = tuple(LIB["edges"])
 
@@ -1117,6 +1120,7 @@ def normalise(raw, where="the declaration"):
         out["edges"].append(edge)
     if lens in (ACTION_LENS, PROOF_LENS):
         action_content(content, out, ids, where, lens)
+    edge_semantics_findings(out, content, where)
     out["markers"] = []
     edge_keys = [f"{e['from']}->{e['to']}" for e in out["edges"]]
     for m in content.get("markers") or []:
@@ -1232,6 +1236,24 @@ def normalise(raw, where="the declaration"):
     # What the diagram shows, in a sentence or two, for whoever meets it outside any article; no article is named here.
     description = " ".join(str(raw.get("description", "") or "").split())
     return {"description": description, "about": about, "content": out, "layout": layout}
+
+
+def edge_semantics_findings(out, content, where):
+    """The default meaning of an edge (drawio.yml edge-semantics, DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON): the tail initiates and the
+    head receives, so a plain arrow ends on a code block only from an actor, which is an author or a trigger, or labelled as a call. A
+    diagram that declares its own `relation` gives its plain arrows another single meaning and is not judged here."""
+    if str(content.get("relation", "") or "").strip():
+        return
+    kinds = {g["id"]: g["kind"] for g in out.get("glyphs", [])}
+    for e in out.get("edges", []):
+        if e["kind"] != "flow" or kinds.get(e["to"]) not in EDGE_SEMANTICS["code-kinds"]:
+            continue
+        if kinds.get(e["from"]) == "actor" or e["label"] in EDGE_SEMANTICS["call-labels"]:
+            continue
+        raise DeclarationError(
+            f"{where}: edge {e['from']} -> {e['to']} ends on a code block ({e['to']}), which only an actor writes or a call reaches; start it at an "
+            f"actor or label it one of {', '.join(EDGE_SEMANTICS['call-labels'])} (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON)"
+        )
 
 
 def contract_call(raw, where, what):

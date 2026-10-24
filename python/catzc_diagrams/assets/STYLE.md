@@ -237,7 +237,7 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
 - **A PowerShell built-in** (`Invoke-Expression`, `Start-Process`) is a code unit, not an `external tool`, which means a vendor tool.
 - **A computed type is not a box name.** When the code builds a type it looks up at run time (`$type::new($raw)`), draw a `C# type` glyph
   named for the role (`registered type`) and say in the description that the name varies per config. Don't invent a class name.
-- The flow edge means `flow: calls` on a source slide, or `flow: feeds` when data, not control, moves (one meaning per slide).
+- A flow edge runs from its initiator to its receiver (`flow: initiator to receiver`, edge-semantics in drawio.yml, DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON); it ends on a code block only from an actor or labelled `calls`, and a slide whose plain arrows mean another one thing says so as its relation.
 - Lenses share the source's colour meanings, so a stage keeps its colour across all five.
 - If a lens has nothing honest to show (e.g. no operator touches it), draw nothing for it, and say so in the reply.
 - **Keep helper scripts in your own output folder** (e.g. `out/diagrams/lenses/<name>/_gen.py`), never under a shared name in the

@@ -14,7 +14,6 @@ public sealed class PlaceRows
     public const string Separator = " / ";
     private const string NoModule = "-";
     private const string ModuleRoot = ".";
-    private const string Fold = "+";
 
     // The rows, in order, each at most the configured characters unless one segment is longer than that.
     public IReadOnlyList<string> Rows { get; }
@@ -41,7 +40,8 @@ public sealed class PlaceRows
     }
 
     // The rows for the lit places of a code-locations minimap: one row a place; while the places are more than the budget, the rows of
-    // the module with the most rows fold into one `track / Module / +k` row; then the first rows that fit, and a count of the rest.
+    // the module with the most rows fold into one `track / Module / a|b|c` row, naming the folded sub-folders in order (a module's own
+    // root is `.`); then the first rows that fit, and a count of the rest.
     public static PlaceRows From(IReadOnlyList<MinimapCell> lit, MapsMinimapPlaces places)
     {
         if (lit == null) { throw new ArgumentNullException(nameof(lit)); }
@@ -88,32 +88,48 @@ public sealed class PlaceRows
         return Fit(segments[0], shown, tail, places);
     }
 
-    // The place a row names, back from its minimised form with the module's prefix restored. A row that elided its middle or folded
-    // places names no one place and throws.
-    public static string[] Recover(string row, MapsMinimapPlaces places)
+    // The places a row names, back from its minimised form with the module's prefix restored: one place for a plain row, one for each
+    // folded name of a joined row. A row that elided its middle or names a count only names no place and throws.
+    public static string[][] Recover(string row, MapsMinimapPlaces places)
     {
         if (row == null) { throw new ArgumentNullException(nameof(row)); }
         if (places == null) { throw new ArgumentNullException(nameof(places)); }
         if (row.Contains(places.elision)) { throw new ArgumentException("row '" + row + "' elides its middle and names no one place"); }
         string[] parts = row.Split(new[] { Separator }, StringSplitOptions.None);
-        if (parts.Length > 1 && parts[parts.Length - 1].StartsWith(Fold, StringComparison.Ordinal))
+        if (parts.Length > 3) { throw new ArgumentException("row '" + row + "' has more than three parts"); }
+        if (parts.Length == 1) { return new[] { new[] { parts[0], NoModule, ModuleRoot } }; }
+        string module = places.drop_prefix + parts[1];
+        if (parts.Length == 2) { return new[] { new[] { parts[0], module, ModuleRoot } }; }
+        if (parts[2].StartsWith(places.fold_count_prefix, StringComparison.Ordinal))
         {
-            throw new ArgumentException("row '" + row + "' folds places and names no one place");
+            throw new ArgumentException("row '" + row + "' folds places by count and names no one place");
         }
-        if (parts.Length == 1) { return new[] { parts[0], NoModule, ModuleRoot }; }
-        if (parts.Length == 2) { return new[] { parts[0], places.drop_prefix + parts[1], ModuleRoot }; }
-        if (parts.Length == 3) { return new[] { parts[0], places.drop_prefix + parts[1], parts[2] }; }
-        throw new ArgumentException("row '" + row + "' has more than three parts");
+        List<string[]> recovered = new List<string[]>();
+        foreach (string folder in parts[2].Split(new[] { places.fold_separator }, StringSplitOptions.None))
+        {
+            recovered.Add(new[] { parts[0], module, folder });
+        }
+        return recovered.ToArray();
     }
 
-    // Whether a row is already in the one minimised form: three parts at most, no kept module prefix, and within the budget unless a
-    // single part is itself longer than it.
+    // Whether a row is already in the one minimised form: three parts at most, no kept module prefix, the folded names in order, and
+    // within the budget unless a single part is itself longer than it.
     public static bool IsNormal(string row, MapsMinimapPlaces places)
     {
         if (row == null || places == null) { return false; }
         string[] parts = row.Split(new[] { Separator }, StringSplitOptions.None);
         if (parts.Length > 3) { return false; }
         if (places.drop_prefix.Length > 0 && parts.Length > 1 && parts[1].StartsWith(places.drop_prefix, StringComparison.Ordinal)) { return false; }
+        if (parts.Length == 3 && parts[2].Contains(places.fold_separator))
+        {
+            string[] names = parts[2].Split(new[] { places.fold_separator }, StringSplitOptions.None);
+            for (int i = 0; i < names.Length; i++)
+            {
+                bool last = i == names.Length - 1 && names[i] == places.elision;
+                if (names[i].Length == 0) { return false; }
+                if (i > 0 && !last && string.CompareOrdinal(names[i - 1], names[i]) >= 0) { return false; }
+            }
+        }
         if (row.Length <= places.row_chars) { return true; }
         foreach (string part in parts) { if (part.Length > places.row_chars) { return true; } }
         return false;
@@ -142,19 +158,22 @@ public sealed class PlaceRows
         string[] parts = best.Split('\t');
         int count = 0;
         int first = entries.Count;
+        List<string> names = new List<string>();
         for (int i = entries.Count - 1; i >= 0; i--)
         {
             if (entries[i].Track == parts[0] && entries[i].Module == parts[1])
             {
                 count += entries[i].Places;
+                names.Add(entries[i].Folder);
                 first = i;
                 entries.RemoveAt(i);
             }
         }
-        string folded = Fold + count.ToString(CultureInfo.InvariantCulture);
+        names.Sort(string.CompareOrdinal);
+        string folded = string.Join(places.fold_separator, names);
         Entry row = new Entry { Track = parts[0], Module = parts[1], Folder = folded, Places = count };
         row.Group = places.group_order.Count == 0 ? 0 : IndexOf(places.group_order, "sub-folders");
-        row.Text = Fit(parts[0], WithoutPrefix(parts[1], places), folded, places);
+        row.Text = Folded(parts[0], WithoutPrefix(parts[1], places), names, count, places);
         entries.Insert(Math.Min(first, entries.Count), row);
         Sort(entries);
         return true;
@@ -189,6 +208,19 @@ public sealed class PlaceRows
             }
         }
         return Join(track, places.elision + segments[segments.Length - 1], tail);
+    }
+
+    // The row of a folded module: its sub-folder names joined in order, as many whole names as fit and then the elision when some did not,
+    // and only when not even one name fits, the count of the folded places.
+    private static string Folded(string track, string module, List<string> names, int count, MapsMinimapPlaces places)
+    {
+        for (int keep = names.Count; keep >= 1; keep--)
+        {
+            string tail = string.Join(places.fold_separator, names.GetRange(0, keep)) + (keep < names.Count ? places.fold_separator + places.elision : "");
+            string row = Join(track, module, tail);
+            if (row.Length <= places.row_chars) { return row; }
+        }
+        return Fit(track, module, places.fold_count_prefix + count.ToString(CultureInfo.InvariantCulture), places);
     }
 
     private static string Join(string track, string module, string tail)

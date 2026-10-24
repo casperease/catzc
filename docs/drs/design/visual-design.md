@@ -324,6 +324,20 @@ legend of a drawing with a crossing lists "transition: into a new state". This h
 
 - [The transition pill](#the-transition-pill)
 
+### Rule DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON
+
+An arrow runs from the one that acts, its initiator, to what it acts on or depends on, its receiver: the caller to the callee, the
+consumer to its provider, a resolver to the sources it reads, and the head is always the receiver. Code acts and is not acted on, so a
+plain arrow ends on a code block only from an actor, an author or a trigger, which a diagram may place at the start of a flow; a call is
+the declared exception, an arrow labelled `calls` whose head is the code it runs. Only a word says otherwise: an arrow whose label names
+another meaning (`reads`, `writes`, `feeds`, `failed`) means that, and a diagram that gives its plain arrows one other meaning states it
+as its `relation`, which every plain arrow then carries and which opts the diagram out of the check. The default meaning, the code kinds,
+the call labels and each label's initiating end are declared once, in the `edge-semantics` and `edge-labels` of the kit's `drawio.yml`;
+the legend entry of a plain arrow reads `flow: initiator to receiver` from that declaration, and a declaration that breaks the rule is
+refused naming the edge.
+
+- [Arrows point at what they depend on](#arrows-point-at-what-they-depend-on)
+
 ## One axis, read left to right
 
 Time, the value chain, the delivery process, and git history all advance together from left to right, so one horizontal axis carries all of
@@ -520,6 +534,16 @@ A reader who sees an arrow should not have to guess what it asserts. The four wo
 command, the command was handed on, one command set off another, or a command changed a state. Because the word follows from where the arrow
 starts and ends, the author never picks it, and two diagrams cannot call the same arrow by different words. Each word also names the check
 that stands behind it, so an arrow is never a claim the tooling does not test.
+
+## Arrows point at what they depend on
+
+A diagram of code or of data is read by following its arrows, so the arrows must mean one thing before a label does. Initiator to
+receiver is the direction a reader already holds for a call graph, a module graph and a file that reads another, and the direction a
+change travels back along: change the receiver and the initiator is affected. Code acts and is never the thing acted on, except by the
+one who writes it, which is why an arrow ending on a code block needs an actor behind it or the word `calls` on it, and why an actor is
+the glyph that starts a flow. Drawing every plain arrow that way means a reader never has to decide whether a head marks the caller or
+the callee, and a diagram that wants the opposite reading (data moving forward, a write, a failure) has to say so in a word, which the
+legend then lists.
 
 ## A steep edge's word
 

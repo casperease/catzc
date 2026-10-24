@@ -115,7 +115,7 @@ function Move-Diagram {
         # The block declares the png below it only from a page beside its .assets, so it moves to the one page there that embeds the png.
         $blockOf = {
             param([string] $Name)
-            '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```).*\r?\n)*```[ \t]*\r?\n(?:[ \t]*\r?\n)*(?=!\[[^\]]*\]\((?:\./)?\.assets/' + [regex]::Escape($Name) + '\.drawio\.png\))'
+            '(?m)^```yml drawio[ \t]*\r?\n(?:(?!```)[^\r\n]*\r?\n)*```[ \t]*\r?\n(?:[ \t]*\r?\n)*(?=!\[[^\]]*\]\((?:\./)?\.assets/' + [regex]::Escape($Name) + '\.drawio\.png\))'
         }
         $textOf = {
             param([string] $Page)
