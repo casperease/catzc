@@ -38,12 +38,12 @@ import yaml
 
 REPO = Path(__file__).resolve().parents[2]
 
+
 def stems(root=REPO, needle=""):
     return sorted(
         png.with_name(png.name[: -len(".drawio.png")])
         for png in (root / "docs").rglob("*.drawio.png")
-        if needle in png.name
-        and ".assets" in png.parts
+        if needle in png.name and ".assets" in png.parts
     )
 
 
@@ -80,10 +80,13 @@ def hidden_crossings(routes):
                     if point is None:
                         continue
                     near_head = any(
-                        math.hypot(point[0] - end[0], point[1] - end[1]) <= HEAD_REACH for end in (first["points"][-1], second["points"][-1])
+                        math.hypot(point[0] - end[0], point[1] - end[1]) <= HEAD_REACH
+                        for end in (first["points"][-1], second["points"][-1])
                     )
                     in_pill = any(
-                        r["pill"] and r["pill"][0] <= point[0] <= r["pill"][0] + r["pill"][2] and r["pill"][1] <= point[1] <= r["pill"][1] + r["pill"][3]
+                        r["pill"]
+                        and r["pill"][0] <= point[0] <= r["pill"][0] + r["pill"][2]
+                        and r["pill"][1] <= point[1] <= r["pill"][1] + r["pill"][3]
                         for r in (first, second)
                     )
                     if near_head or in_pill:
@@ -126,9 +129,17 @@ def audit(root=REPO, needle=""):
                 default = edge_rules.default_label(tail_kind, head_kind)
             rows.append(
                 {
-                    "stem": name, "from": edge["from"], "tail_kind": tail_kind, "to": edge["to"], "head_kind": head_kind,
-                    "edge_kind": edge.get("kind", "flow"), "label": edge.get("label", "") or "", "relation": relation,
-                    "verdict": word, "default_label": default, "relation_opt_out": bool(relation and not edge.get("label")),
+                    "stem": name,
+                    "from": edge["from"],
+                    "tail_kind": tail_kind,
+                    "to": edge["to"],
+                    "head_kind": head_kind,
+                    "edge_kind": edge.get("kind", "flow"),
+                    "label": edge.get("label", "") or "",
+                    "relation": relation,
+                    "verdict": word,
+                    "default_label": default,
+                    "relation_opt_out": bool(relation and not edge.get("label")),
                 }
             )
     return rows, {"fallbacks": fallbacks, "undeclared": undeclared}
@@ -145,7 +156,11 @@ def summary(rows, extra):
         "",
         f"{len(rows)} edges in {diagrams} diagrams with edges ({extra['fallbacks']} read as written because they do not validate, "
         f"{extra['undeclared']} without a declaration). Read-only: no declaration and no rule is changed."
-        + (f" Crossings that hide an arrowhead or a pill (informational): {extra['hidden_crossings']}." if "hidden_crossings" in extra else ""),
+        + (
+            f" Crossings that hide an arrowhead or a pill (informational): {extra['hidden_crossings']}."
+            if "hidden_crossings" in extra
+            else ""
+        ),
         "",
         "## Verdicts",
         "",
@@ -191,7 +206,12 @@ def write_reports(rows, extra, out):
     out.mkdir(parents=True, exist_ok=True)
     lines = summary(rows, extra)
     (out / "edge-audit.md").write_text(
-        "\n".join(lines + ["", "## Edges", "", "| stem | edge | label | relation | verdict |", "| --- | --- | --- | --- | --- |"] + [f"| {table_line(r)} |" for r in rows]) + "\n",
+        "\n".join(
+            lines
+            + ["", "## Edges", "", "| stem | edge | label | relation | verdict |", "| --- | --- | --- | --- | --- |"]
+            + [f"| {table_line(r)} |" for r in rows]
+        )
+        + "\n",
         encoding="utf-8",
     )
     with (out / "edge-audit.csv").open("w", encoding="utf-8", newline="") as handle:
