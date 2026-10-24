@@ -99,8 +99,8 @@ theme-dark: # every colour a style may name, as a token: a style says @<token>, 
   band-label: B0BAC7 # band and key labels
   panel: 222A36 # legend and outer panels
   panel-rim: 3A4555 # legend and outer panel border
-  sidebar: 2E2823 # the minimap column's backing
-  sidebar-rim: 453C33 # its border
+  sidebar: 171C23 # the minimap column's backing
+  sidebar-rim: 2E3640 # its border
   ink: CDD3DC # text
   title: DDE2E9 # the title and on-glyph names
   quiet: 949FAE # legend text and notes
@@ -125,14 +125,15 @@ theme-dark: # every colour a style may name, as a token: a style says @<token>, 
   neutral-rim: C7D0DB # neutral kinds' rim
   commit: FFE082 # the default commit state's fill (the locked palette, the same in every theme)
   commit-rim: F9A825 # its rim
-  map-page: 1C2A24 # a minimap's page
-  map-panel: 243229 # an idle minimap cell
-  map-rim: 3B4D43 # a minimap cell's border
-  map-lit: E6EAF0 # a lit minimap place
-  map-lit-ink: 1E2430 # its name
-  map-dim: 7D8C86 # dim minimap ink
-  map-caption: CDD3DC # a minimap's question
-  map-mention: 737983 # a place a minimap names without lighting it
+  map-page: 161C26 # a minimap's page
+  map-panel: 1E2632 # an idle minimap cell
+  map-rim: 394657 # a minimap cell's border
+  map-lit: 415875 # a lit minimap place
+  map-lit-ink: FFFFFF # its name
+  map-dim: B2BAC5 # dim minimap ink
+  map-caption: F2F6FB # a minimap's question
+  map-mention: BCC2CC # a place a minimap names without lighting it
+  map-border-lit: D9AE45 # the dashed border around a minimap panel that lights something
 theme-light: # the light-era kit's colours, the light side of its light-to-dark map; where it named several, the draw.io pair the kit used
   page: FFFFFF
   band: F6F8FA
@@ -174,6 +175,7 @@ theme-light: # the light-era kit's colours, the light side of its light-to-dark 
   map-dim: 7D8C86
   map-caption: 333333
   map-mention: B0B7BF
+  map-border-lit: 8A6508
 minimaps: # the eight minimap ids a declaration may name (declaration.py validates the count and each id); each kind's defaults are maps.yml's
   ids: grid, code-locations, axis, layer-stack, lifecycle-position, track-placement, engine-strip, module-neighbourhood
 vocabularies: # the closed lists a span bar's label comes from, with the track names read from variants.yml; a label outside every list fails validation with the lists

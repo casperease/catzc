@@ -5,9 +5,13 @@
 // Hiding writes files.exclude at workspace scope, the only filter the Explorer has; the extension owns the keys it adds and nothing else,
 // so an authored exclusion survives and a regenerated settings file is re-applied.
 
-const vscode = require("vscode");
+// The filtering itself is pure (hiddenGlobs, merge), so the tests drive it with node and no editor; vscode is required on activation only.
+
 const fs = require("fs");
 const path = require("path");
+
+let vscode;
+let log;
 
 const OUT = "catzc.trackLamps.out";
 const FIELD = "catzc.trackLamps.field";
@@ -17,11 +21,12 @@ const LANGUAGE = "languages";
 const config = () => vscode.workspace.getConfiguration("catzc.trackLamps");
 const aspects = () => config().get("aspects") ?? {};
 const languages = () => config().get("languages") ?? {};
-const typed = (text) => text.split(",").map((name) => name.trim()).filter(Boolean);
+const typed = (text) => (text ?? "").split(",").map((name) => name.trim()).filter(Boolean);
 
-function hiddenGlobs(root, out, field) {
+// The globs that hide what the unlit lamps cover: each unlit aspect's cover paths, folded upward where a folder holds nothing else, and
+// each typed language's extensions while the language lamp is unlit.
+function hiddenGlobs(root, out, field, covers, known) {
     const globs = new Set();
-    const covers = aspects();
     for (const name of Object.keys(covers).filter((name) => out.has(name))) covers[name].forEach((place) => globs.add(place));
     // A folder whose every entry is hidden is hidden itself, so an unlit aspect leaves no empty parent behind.
     for (let grew = true; grew; ) {
@@ -43,29 +48,39 @@ function hiddenGlobs(root, out, field) {
         }
     }
     if (out.has(LANGUAGE)) {
-        const known = languages();
         for (const name of typed(field)) (known[name] ?? []).forEach((extension) => globs.add(`**/*${extension}`));
     }
-    return [...globs];
+    return [...globs].sort();
+}
+
+// The next files.exclude: the current one without the keys the lamps added before, plus the wanted globs. A glob the settings already
+// carry is theirs, never the lamps', so the lamps own only the keys they add.
+function merge(current, owned, wanted) {
+    const authored = { ...current };
+    owned.forEach((glob) => delete authored[glob]);
+    const ours = wanted.filter((glob) => !(glob in authored));
+    const next = { ...authored };
+    ours.forEach((glob) => (next[glob] = true));
+    return { next, ours };
 }
 
 async function apply(context) {
     const folder = vscode.workspace.workspaceFolders?.[0];
-    if (!folder) return;
+    if (!folder) {
+        log.appendLine("apply: no workspace folder");
+        return;
+    }
     const out = new Set(context.workspaceState.get(OUT, []));
-    const wanted = hiddenGlobs(folder.uri.fsPath, out, context.workspaceState.get(FIELD, ""));
-    const owned = context.workspaceState.get(OWNED, []);
+    const field = context.workspaceState.get(FIELD, "");
+    const wanted = hiddenGlobs(folder.uri.fsPath, out, field, aspects(), languages());
     const files = vscode.workspace.getConfiguration("files", folder.uri);
     const current = files.inspect("exclude")?.workspaceValue ?? {};
-    const authored = { ...current };
-    owned.forEach((glob) => delete authored[glob]);
-    // A glob the settings already carry is theirs, never the lamps'; the lamps own only the keys they add.
-    const ours = wanted.filter((glob) => !(glob in authored));
-    const next = { ...authored };
-    ours.forEach((glob) => (next[glob] = true));
+    const { next, ours } = merge(current, context.workspaceState.get(OWNED, []), wanted);
+    log.appendLine(`apply: unlit [${[...out].join(", ")}], field "${field}", ${wanted.length} globs wanted, ${ours.length} owned`);
     await context.workspaceState.update(OWNED, ours);
     if (JSON.stringify(next) !== JSON.stringify(current)) {
         await files.update("exclude", next, vscode.ConfigurationTarget.Workspace);
+        log.appendLine(`apply: files.exclude written with ${Object.keys(next).length} keys`);
     }
 }
 
@@ -110,12 +125,21 @@ field.addEventListener("keydown", (event) => event.key === "Enter" && commit());
 }
 
 function activate(context) {
+    vscode = require("vscode");
+    log = vscode.window.createOutputChannel("Catzc track lamps");
+    context.subscriptions.push(log);
     let view;
     const render = () => {
         if (view) view.webview.html = page(view.webview, new Set(context.workspaceState.get(OUT, [])), context.workspaceState.get(FIELD, ""));
     };
+    // Every failure lands in the output channel; an unhandled rejection would vanish without a trace.
     const settle = async () => {
-        await apply(context);
+        try {
+            await apply(context);
+        } catch (error) {
+            log.appendLine(`apply failed: ${error?.stack ?? error}`);
+            vscode.window.showWarningMessage(`Catzc track lamps could not filter: ${error?.message ?? error}`);
+        }
         render();
     };
     let timer;
@@ -152,4 +176,4 @@ function activate(context) {
     refresh();
 }
 
-module.exports = { activate, deactivate() {} };
+module.exports = { activate, deactivate() {}, hiddenGlobs, merge, typed };

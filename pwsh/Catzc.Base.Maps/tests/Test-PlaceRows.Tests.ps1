@@ -10,13 +10,13 @@ Describe 'Test-PlaceRows' -Tag 'L0', 'logic' {
     }
 
     It 'reports nothing when every row is in the place normal form' {
-        & $script:write @('docs', 'widgets / Widget / types') '2 places'
+        & $script:write @('docs', 'widgets.widget.types') '2 places'
         @(Test-PlaceRows (Join-Path $TestDrive 'minimaps')) | Should -BeNullOrEmpty
     }
 
     It 'reports a row that kept the module prefix' {
-        & $script:write @('widgets / Catzc.Widget / types') '1 place'
-        @(Test-PlaceRows (Join-Path $TestDrive 'minimaps')) | Should -Match "row 'widgets / Catzc.Widget / types' is not in the place normal form"
+        & $script:write @('widgets.catzc_widget.types') '1 place'
+        @(Test-PlaceRows (Join-Path $TestDrive 'minimaps')) | Should -Match "row 'widgets.catzc_widget.types' is not in the place normal form"
     }
 
     It 'reports a counters line longer than the row budget' {

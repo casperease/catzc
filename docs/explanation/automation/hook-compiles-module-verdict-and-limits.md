@@ -14,11 +14,11 @@ The hook compiles the module's own verdict and limit types, so the agent side an
 
 1  Bash tool           Claude Code's shell tool; a PreToolUse hook runs before each of its calls
 2  Assert-BashTimeout  the hook: a small compiled program that only does the I/O around the verdict
-3  BashSafeguard       the verdict type of Catzc.Base.Timeouts, compiled into the hook from its source file
-4  BoundedCommand      the type behind the background rule: a timeout prefix around one command
-5  TimeoutsConfig      the typed limits, with the sensible defaults declared once
-6  timeouts.yml        the one config the limits live in, keyed by run environment and shell
-7  Get-TimeoutSeconds  the pwsh side, resolving its limits from the same TimeoutsConfig
+3  Get-TimeoutSeconds  the pwsh side, resolving its limits from the same TimeoutsConfig
+4  TimeoutsConfig      the typed limits, with the sensible defaults declared once
+5  timeouts.yml        the one config the limits live in, keyed by run environment and shell
+6  BashSafeguard       the verdict type of Catzc.Base.Timeouts, compiled into the hook from its source file
+7  BoundedCommand      the type behind the background rule: a timeout prefix around one command
 
 Supports ADR-AUTO-FAILFAST-BOUNDEVERYWAIT (architecture lens).
 ```
@@ -38,19 +38,19 @@ their files, so the limits it reads and the verdict it gives are the ones `Get-T
    `Build-AgentHook` whenever its sources change; the importer runs that publish on every import at a devbox. It is compiled rather than
    scripted because it runs before every call and starts in about a third of the time a pwsh script does. The program itself only does the
    I/O: it loads the limits, reads the run environment, asks for the verdict, prints a denial and appends the log line.
-3. **BashSafeguard.** The verdict is `BashSafeguard.Decide`, a type that lives in the module and is compiled into the hook from its source
-   file. Its one job is to turn a call's payload, the limits and the run environment into either nothing or a reason to deny.
-4. **BoundedCommand.** The background rule, that a call starts with a GNU `timeout` of at most the background limit around exactly one
-   command, is `BoundedCommand.Check`. The same type states the rule in each execution engine's grammar, which is why it is its own type and
-   not a private part of the verdict.
-5. **TimeoutsConfig.** The limits are a typed record. The sensible defaults are declared once on the type, 3 s and 360 s at a devbox, 600 s
-   and 3600 s in a pipeline, so an empty file, a fresh checkout and the hook all resolve the same numbers. Bash is the one shell with both a
-   foreground and a background limit, because the hook governs the Bash tool only.
-6. **timeouts.yml.** The one config the limits live in, owned by `Catzc.Base.Timeouts` and keyed by run environment and shell. The file
-   states only what has been tuned; today it tunes per-executable limits and leaves the shell limits at their defaults.
-7. **Get-TimeoutSeconds.** The pwsh side resolves a limit through the same `TimeoutsConfig`, loaded by `Get-Config`. Because the hook and
+3. **Get-TimeoutSeconds.** The pwsh side resolves a limit through the same `TimeoutsConfig`, loaded by `Get-Config`. Because the hook and
    the function share one parser and one set of defaults, an integrity test can prove the hook allows exactly the limit the function
    resolves and denies one unit more.
+4. **TimeoutsConfig.** The limits are a typed record. The sensible defaults are declared once on the type, 3 s and 360 s at a devbox, 600 s
+   and 3600 s in a pipeline, so an empty file, a fresh checkout and the hook all resolve the same numbers. Bash is the one shell with both a
+   foreground and a background limit, because the hook governs the Bash tool only.
+5. **timeouts.yml.** The one config the limits live in, owned by `Catzc.Base.Timeouts` and keyed by run environment and shell. The file
+   states only what has been tuned; today it tunes per-executable limits and leaves the shell limits at their defaults.
+6. **BashSafeguard.** The verdict is `BashSafeguard.Decide`, a type that lives in the module and is compiled into the hook from its source
+   file. Its one job is to turn a call's payload, the limits and the run environment into either nothing or a reason to deny.
+7. **BoundedCommand.** The background rule, that a call starts with a GNU `timeout` of at most the background limit around exactly one
+   command, is `BoundedCommand.Check`. The same type states the rule in each execution engine's grammar, which is why it is its own type and
+   not a private part of the verdict.
 
 ## Why it holds
 

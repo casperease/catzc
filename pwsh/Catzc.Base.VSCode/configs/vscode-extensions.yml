@@ -79,7 +79,7 @@ extensions:
           priority: default
   catzc-track-lamps:
     displayName: Catzc track lamps
-    version: 0.3.0
+    version: 0.3.1
     description: >-
       A short row of filter lamps in the Explorer, one per aspect and one for a typed list of languages: a lit (green) lamp shows its files,
       an unlit one filters them away through files.exclude; every lamp lit shows everything.

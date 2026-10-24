@@ -11,13 +11,6 @@ catzc:
 #>
 
 function Test-PlaceRows {
-    <#
-    .SYNOPSIS
-        Whether every row a minimap's data carries is already in the place normal form.
-    .DESCRIPTION
-        Reads each minimap data file under -Path (default out/minimaps) that carries place_rows, and reports every row that is not in the
-        one minimised form of the maps config (ADR-AUTO-IDIOM-PLACENORMALFORM). Returns one finding per row, none when all are normal.
-    #>
     [CmdletBinding()]
     [OutputType([string])]
     param(

@@ -32,3 +32,12 @@ The repository root the stem is under.
 ```powershell
 Get-DiagramDeclarationText -Stem docs/drs/automation/.assets/widget -RepositoryRoot $root
 ```
+
+## comment:1
+
+Above `$source = Join-Path $RepositoryRoot "$Stem.drawio.yml"`, written with `#`.
+
+```text
+The carrier is what is on disk: the yml beside the png (a diagram with both is a finding the drift check reports, and reads as the
+file), else the article carrier.
+```

@@ -41,7 +41,7 @@ def places():
         "axes": [{"name": "track", "values": ["pwsh"]}, {"name": "module", "values": ["Catzc.Widget"]}, {"name": "folder", "values": ["tests"]}],
         "cells": [{"at": ["pwsh", "Catzc.Widget", "tests"], "count": 3}],
         "lit": [{"at": ["pwsh", "Catzc.Widget", "tests"], "count": 3, "reasons": [{"subject": "pwsh/Catzc.Widget/tests/a.ps1", "basis": "citation", "requested": "ADR-WIDGET", "note": None}]}],
-        "place_rows": {"rows": ["pwsh / Widget / tests"], "counters": "1 place"},
+        "place_rows": {"rows": ["pwsh.widget.tests"], "counters": "1 place"},
     }
 
 
@@ -125,7 +125,7 @@ def written_by(monkeypatch):
 
 def test_a_place_list_draws_the_rows_it_is_given_and_nothing_else(monkeypatch):
     data = places()
-    rows = ["docs", "pwsh / Widget", "pwsh / Widget / configs|types", "pwsh / Gadget / .|configs|..."]
+    rows = ["docs", "pwsh.widget", "pwsh.widget_cog.configs|types", "pwsh.gadget.(root)|configs|..."]
     data["place_rows"] = {"rows": rows, "counters": "+4 more · 7 places"}
     written = written_by(monkeypatch)
     minimaps.picture_from(data, 300, 160)
@@ -142,7 +142,7 @@ def test_a_place_list_without_its_rows_is_refused_rather_than_computed_here():
 
 def test_a_row_wider_than_the_sidebar_is_drawn_a_point_smaller_never_cut(monkeypatch):
     data = places()
-    long_row = "pwsh / Widget.Sprocket...Gadgetry / types"  # the 40 characters of the budget
+    long_row = "pwsh.widget...assembly_gadgetry.tests|types"  # the 40 characters of the budget
     data["place_rows"] = {"rows": [long_row], "counters": "1 place"}
     written = written_by(monkeypatch)
     minimaps.picture_from(data, 160, 160)  # a narrow sidebar
@@ -155,7 +155,7 @@ def test_a_short_row_keeps_the_full_size(monkeypatch):
     data = places()
     written = written_by(monkeypatch)
     minimaps.picture_from(data, 300, 160)
-    assert [size for s, size in written if s == "pwsh / Widget / tests"] == [9]
+    assert [size for s, size in written if s == "pwsh.widget.tests"] == [9]
 
 
 def test_the_rules_are_read_under_every_record_kind_the_registry_declares(tmp_path, monkeypatch):
@@ -176,3 +176,32 @@ def test_the_rules_are_read_under_every_record_kind_the_registry_declares(tmp_pa
         minimaps.kinds.cache_clear()
         minimaps.records_root.cache_clear()
         minimaps.rules.cache_clear()
+
+
+def luminance(colour):
+    r, g, b = [int(colour.lstrip("#")[i : i + 2], 16) / 255 for i in (0, 2, 4)]
+    f = lambda c: c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
+    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
+
+
+def contrast(a, b):
+    high, low = sorted((luminance(a), luminance(b)), reverse=True)
+    return (high + 0.05) / (low + 0.05)
+
+
+def test_every_dark_minimap_text_pair_holds_its_contrast_and_a_lit_cell_is_a_step_above_an_idle_one():
+    t = minimaps.tokens("dark")
+    assert contrast(t["map-caption"], t["map-page"]) >= 7 and contrast(t["map-caption"], t["map-panel"]) >= 7
+    assert contrast(t["map-lit-ink"], t["map-lit"]) >= 7
+    for ground in ("map-page", "map-panel"):
+        assert contrast(t["map-dim"], t[ground]) >= 4.5 and contrast(t["map-mention"], t[ground]) >= 4.5
+    assert contrast("#FFFFFF", t["sidebar"]) >= 7
+    assert contrast(t["map-lit"], t["map-panel"]) >= 1.5  # lit reads as a different state than idle
+
+
+def test_the_gold_panel_border_is_a_token_that_holds_three_to_one_on_the_minimap_grounds_in_both_themes():
+    dark = minimaps.tokens("dark")
+    assert contrast(dark["map-border-lit"], dark["map-panel"]) >= 3 and contrast(dark["map-border-lit"], dark["map-page"]) >= 3
+    light = minimaps.tokens("light")
+    assert contrast(light["map-border-lit"], light["band"]) >= 3 and contrast(light["map-border-lit"], light["map-panel"]) >= 3
+

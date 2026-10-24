@@ -46,7 +46,7 @@ every value; the first theme, dark, is the committed raster, and any other rende
 | page                    | the canvas and every rendered output's base layer                                |
 | band / band-rim         | band fill / border; band label `band-label`                                      |
 | panel / panel-rim       | legend and outer panels                                                          |
-| sidebar / sidebar-rim   | the minimap column's backing: a soft sheet above the page, below it all          |
+| sidebar / sidebar-rim   | the minimap column's backing: a very dark blue-grey sheet, below it all          |
 | ink / title             | text; the title and on-glyph names                                               |
 | quiet                   | legend text and notes                                                            |
 | line                    | flow edges and their arrowheads, the DRS-only dash                               |
@@ -267,8 +267,8 @@ stale: `Test-Diagrams` lists those diagrams, and `Build-Diagrams -Stale` rebuild
 
 ### Colours (minimaps only; drawings keep the palettes above)
 
-- A minimap has a **page of its own**, `map-page`, a green-grey nuance drawn first, so the three insets read as maps set into the slide and
-  never as a fourth band of the `page`. A lit place is `map-lit` with its name in `map-lit-ink`.
+- A minimap has a **page of its own**, `map-page`, a dark blue-grey nuance (a little darker than the bands, equal to no other token) drawn first, so the three insets read as maps set into the slide and
+  never as a fourth band of the `page`. A lit place is `map-lit` (a steel blue-grey fill, a visible step above the idle cell) with its name in `map-lit-ink` (white); in the dark theme every minimap text is white or near-white: caption and lit ink at least 7:1 on their backgrounds, dim ink and mention at least 4.5:1. The dashed border around each minimap panel is `map-border-lit`, a muted gold (dark `D9AE45`, light `8A6508`), at least 3:1 on the minimap grounds; the idle cell rim stays `map-rim`.
 - **One lit encoding on every minimap:** a lit cell is filled in the lit colour; an idle cell is `map-panel` with a `map-rim` border, the
   same nuance one step up. Labels are `map-caption` (lit) and `map-dim` (not lit). The minimap legend shows its idle swatch in these minimap
   tokens, not in the slide's band tokens.

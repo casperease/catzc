@@ -273,20 +273,25 @@ Describe 'MapsConfig' -Tag 'L0' {
             $default.rows | Should -Be 7
             $default.counter_rows | Should -Be 1
             $default.row_chars | Should -Be 40
-            @($default.group_order) | Should -Be @('docs', 'modules', 'sub-folders', 'rest')
+            @($default.group_order) | Should -Be @('docs', 'modules', 'rest')
             $default.drop_prefix | Should -BeExactly 'Catzc.'
             $default.fold_separator | Should -BeExactly '|'
             $default.fold_count_prefix | Should -BeExactly '+'
-            $given = (& $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ rows = 5; row_chars = 30; group_order = @('rest', 'docs', 'modules', 'sub-folders') } } })).minimap_places
+            $default.row_join | Should -BeExactly '.'
+            $default.name_join | Should -BeExactly '_'
+            $default.root_marker | Should -BeExactly '(root)'
+            $given = (& $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ rows = 5; row_chars = 30; group_order = @('rest', 'docs', 'modules'); row_join = '/'; root_marker = '<root>' } } })).minimap_places
             $given.rows | Should -Be 5
             $given.row_chars | Should -Be 30
             $given.counter_rows | Should -Be 1
-            @($given.group_order) | Should -Be @('rest', 'docs', 'modules', 'sub-folders')
+            @($given.group_order) | Should -Be @('rest', 'docs', 'modules')
+            $given.row_join | Should -BeExactly '/'
+            $given.root_marker | Should -BeExactly '<root>'
         }
 
         It 'names the key and the rule when the place rows budget is wrong' {
             { & $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ rows = 0 } } }) } | Should -Throw '*rows must be at least 1*'
-            { & $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ group_order = @('docs', 'widgets', 'rest', 'modules') } } }) } | Should -Throw "*group_order must name 'sub-folders' exactly once*"
+            { & $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ group_order = @('docs', 'widgets', 'modules') } } }) } | Should -Throw "*group_order must name 'rest' exactly once*"
             { & $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ widget = 1 } } }) } | Should -Throw "*minimaps.places: unknown key 'widget'*"
             { & $script:make ([ordered]@{ minimaps = [ordered]@{ places = [ordered]@{ rows = 'many' } } }) } | Should -Throw "*minimaps.places.rows must be a whole number, not 'many'*"
         }

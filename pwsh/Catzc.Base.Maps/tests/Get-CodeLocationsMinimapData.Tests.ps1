@@ -26,7 +26,7 @@ Describe 'Get-CodeLocationsMinimapData' -Tag 'L0', 'logic' {
 
     It 'carries the rows its place list draws, computed beside the data, in the contract' {
         $data = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET', 'ADR-GADGET'
-        @($data.PlaceRows.Rows) | Should -Be @('widgets / Widget', 'widgets / Widget / private', 'gadgets')
+        @($data.PlaceRows.Rows) | Should -Be @('widgets.widget.(root)|private', 'gadgets')
         $data.PlaceRows.Counters | Should -BeExactly '3 places'
         $json = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET', 'ADR-GADGET' -AsJson
         Test-Json -Json $json -Schema $script:schema | Should -BeTrue

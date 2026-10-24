@@ -18,8 +18,6 @@ function Get-DiagramDeclarationText {
         [string] $RepositoryRoot
     )
 
-    # The carrier is what is on disk: the yml beside the png (a diagram with both is a finding the drift check reports, and reads as the
-    # file), else the article carrier.
     $source = Join-Path $RepositoryRoot "$Stem.drawio.yml"
     if ([System.IO.File]::Exists($source)) {
         return [System.IO.File]::ReadAllText($source)

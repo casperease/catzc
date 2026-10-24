@@ -5,7 +5,8 @@
 #     cites:
 #       - ADR-AUTO-ACCOSTED-COMMANDFORM
 #       - ADR-AUTO-ACCOSTED-ONEREADER
-#     drs_total: 2
+#       - DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON
+#     drs_total: 3
 # ---
 
 # cspell:ignore minimaps mxfile pnginfo drsonly mapkey
@@ -364,7 +365,7 @@ LEGEND = "rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=@panel;strokeColo
 SPAN_LABEL = "text;html=1;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=@band-label;"
 ANCHOR = "text;html=1;strokeColor=none;fillColor=none;"
 SIDEBAR_BG = "rounded=1;arcSize=2;html=1;fillColor=@sidebar;strokeColor=@sidebar-rim;shadow=0;"
-MINIMAP = "shape=image;imageAspect=0;rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=@band;strokeColor=@band-rim;dashed=1;fontColor=@quiet;fontSize=11;"
+MINIMAP = "shape=image;imageAspect=0;rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=@band;strokeColor=@map-border-lit;dashed=1;fontColor=@quiet;fontSize=11;"
 BADGE = "rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=@mark-ink;fillColor=@mark;strokeColor=none;"
 
 

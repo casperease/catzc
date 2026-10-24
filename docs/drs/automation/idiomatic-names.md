@@ -55,15 +55,20 @@ test — names it in the normal form.
 
 ### Rule ADR-AUTO-IDIOM-PLACENORMALFORM
 
-A place in the repository, a track, a module or a folder inside a module, has one place normal form wherever it is shown in a row: its path,
-normalised as a repository-relative path ([ADR-AUTO-PATH](path-representation.md)), cut into whole segments (`track / Module / folder`) with
-the module's `Catzc.` prefix dropped whole, and never a word cut in the middle. A row holds at most the configured characters; a longer row
-keeps its first and its last segments and puts `...` for the middle, the cut always between two segments, so the segments that tell places
-apart stay. When places are more than the rows, the sub-folders of one module share a row that names them in order, joined by `|`
-(`pwsh / Azure / configs|types`, the module's own root as `.`): as many whole names as fit, then `|...`, and the count of the places (`+3`)
-only when not even one name fits. A row within the budget loses nothing: its places come back by restoring the prefix. The budget (the rows,
-the characters, the order of the place groups) is configuration of the maps config, and a minimap's rows are computed once, beside its data,
-by `Catzc.Base.Maps`; a drawing prints the rows as given and cuts nothing itself.
+A place in the repository, a track, a module or a folder inside a module, has one place normal form wherever it is shown in a row: its path
+from the repository root, normalised as a repository-relative path ([ADR-AUTO-PATH](path-representation.md)), joined with `.`
+(`pwsh.azure.types`). The module's `Catzc.` prefix is dropped whole, and a dot inside a module name becomes `_`, so the module name is
+lower-case snake, the repository normal form (`Azure.Templates` is `azure_templates`); the dot is then only ever the path join. A module's
+lit sub-folders share one row, joined by `|` in sort order, the module's own root among them written `(root)`
+(`pwsh.azure_templates.(root)|tests|types`), so a module is one row and a module with no lit sub-folder is just `pwsh.<module>`; the top
+folders of a track without modules likewise. Rows are sorted by path within the configured order of the place groups. A row holds at most
+the configured characters: a module name too long keeps its first and its last `_` parts with `...` between, the cut always between two
+parts, and a row that is still too long keeps as many whole joined names as fit, then `|...`, and the count of the places (`+3`) only when
+not even one name fits. When there are more rows than the budget, the modules of one track fold into one row naming the modules
+(`pwsh.base_drs|base_maps|base_variants`), as the fallback, shortened the same way. A row that elides nothing and folds no modules loses
+nothing: its places come back, the module as its repository normal form. The budget, the row join, the name join, the root marker and the
+separator are configuration of the maps config, and a minimap's rows are computed once, beside its data, by `Catzc.Base.Maps`; a drawing
+prints the rows as given and cuts nothing itself.
 
 - [Places have one short form](#places-have-one-short-form)
 
@@ -150,10 +155,11 @@ language's own idiom, Python's, which costs nothing: a normal form that happens 
 A minimap names the places a diagram lives in, and the sidebar that holds it is a few dozen characters wide. Left to the drawing, each place
 is cut where the width runs out, so two places that differ only at the end read as the same, and the cut falls inside a word. A place is
 already a path, and a path is already one entity ([ADR-AUTO-PATH](path-representation.md)); what is missing is one short way to write it.
-Dropping the prefix every module shares and keeping whole segments gives a row that is still a path, shorter, and recoverable; when even
-that is too long, the first segment names the family and the last tells the place apart, so those two are kept and the middle is what is
-elided. Computing the rows once, beside the data, means every drawing of the same places prints the same rows, and the budget stays one
-setting.
+Dropping the prefix every module shares and writing the module in the repository normal form gives a row that is still a path, shorter, and
+one that reads the same wherever a name appears; keeping the dot for the path join alone means a row splits into track, module and folders
+without a guess. A module's folders share its row because the module is what a reader looks for. When even that is too long, whole names are
+kept and the rest is marked, never a name cut in the middle. Computing the rows once, beside the data, means every drawing of the same
+places prints the same rows, and the budget stays one setting.
 
 ### Acronyms are words
 

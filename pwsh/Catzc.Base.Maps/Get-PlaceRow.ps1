@@ -11,16 +11,6 @@ catzc:
 #>
 
 function Get-PlaceRow {
-    <#
-    .SYNOPSIS
-        The place normal form of a repository path: the one minimised row the "Where does it live?" minimap prints for it.
-    .DESCRIPTION
-        The path is normalised as a repository-relative path, its place is read the way the code-locations minimap reads it (track,
-        module, folder), and the row is the place in its minimised form: the module's prefix dropped whole and, past the row budget of
-        the maps config, the middle of the module elided at a segment boundary (ADR-AUTO-IDIOM-PLACENORMALFORM).
-    .EXAMPLE
-        Get-PlaceRow -Path pwsh/Catzc.Azure.Templates/types/AzureTemplate.cs
-    #>
     [CmdletBinding()]
     [OutputType([string])]
     param(

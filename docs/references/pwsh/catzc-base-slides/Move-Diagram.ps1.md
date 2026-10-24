@@ -70,3 +70,12 @@ Above `$pair = $from -cmatch '\.drawio\.(png|yml)$' -or -not (Test-Path -Literal
 A diagram is the pair <stem>.drawio.png and <stem>.drawio.yml, named by either file or by its stem, and it moves whole; any other
 path, a file or a folder, moves as it is.
 ```
+
+## comment:2
+
+Above `$kitConfig = [Catzc.Base.Slides.DrawioKit]::new($root, $Kit).Config`, written with `#`.
+
+```text
+The kit's drawio.yml keys a diagram's role by its stem; a repository without one has no legend. A diagram is article-carried when it
+is a pair with no yml beside its png (its declaration is a block in an article).
+```

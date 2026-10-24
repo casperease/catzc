@@ -42,7 +42,6 @@ content:
   title: One reverse lookup in Catzc.Azure.Cli hands the session to every module
   kind: explanation
   flow: left-to-right
-  relation: feeds
   theme: dark
   bands:
     - { id: band-session, label: SESSION }
@@ -59,12 +58,13 @@ content:
     - { id: r-group, kind: result, label: resource-group name, in: band-templates }
   edges:
     - { from: x-connection, to: x-session, kind: flow, label: "" }
-    - { from: x-session, to: g-cli, kind: flow, label: "" }
-    - { from: g-azure-file, to: g-azure, kind: flow, label: "" }
-    - { from: g-azure, to: g-cli, kind: flow, label: "" }
-    - { from: g-cli, to: g-templates, kind: flow, label: "" }
-    - { from: g-azure, to: g-templates, kind: flow, label: "" }
-    - { from: g-tree, to: g-templates, kind: flow, label: "" }
+    - { from: g-cli, to: x-session, kind: flow, label: "" }
+    - { from: g-cli, to: g-azure-file, kind: flow, label: reads }
+    - { from: g-cli, to: g-azure, kind: flow, label: calls }
+    - { from: g-azure, to: g-azure-file, kind: flow, label: reads }
+    - { from: g-templates, to: g-cli, kind: flow, label: calls }
+    - { from: g-templates, to: g-azure, kind: flow, label: calls }
+    - { from: g-templates, to: g-tree, kind: flow, label: reads }
     - { from: g-templates, to: r-group, kind: flow, label: "" }
   markers:
     - { at: x-connection, number: 1 }
@@ -83,15 +83,18 @@ layout:
   band-templates: { x: 860, y: 84, w: 420, h: 340 }
   x-connection: { x: 50, y: 144, w: 150, h: 44 }
   x-session: { x: 240, y: 144, w: 130, h: 44 }
-  g-cli: { x: 640, y: 144, w: 170, h: 44 }
-  g-azure-file: { x: 450, y: 266, w: 130, h: 52 }
-  g-azure: { x: 640, y: 272, w: 170, h: 44 }
-  g-templates: { x: 880, y: 144, w: 190, h: 170 }
-  g-tree: { x: 900, y: 354, w: 150, h: 52 }
-  r-group: { x: 1100, y: 144, w: 170, h: 44 }
+  g-cli: { x: 600, y: 144, w: 170, h: 44 }
+  g-azure-file: { x: 440, y: 268, w: 120, h: 52 }
+  g-azure: { x: 600, y: 272, w: 170, h: 44 }
+  g-templates: { x: 930, y: 144, w: 160, h: 170 }
+  g-tree: { x: 935, y: 354, w: 150, h: 52 }
+  r-group: { x: 1120, y: 144, w: 150, h: 44 }
 ```
 
 ![One reverse lookup in Catzc.Azure.Cli hands the session to every module](.assets/one-reverse-lookup-feeds-every-module.drawio.png)
+
+The arrows point at what each part depends on. `Catzc.Azure.Cli` reads the az session and `azure.yml` and calls `Catzc.Azure`;
+`Catzc.Azure.Templates` calls both modules and reads the configuration tree; a config file never acts, the code that reads it does.
 
 ## Walkthrough
 

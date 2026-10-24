@@ -102,8 +102,6 @@ function Move-Diagram {
         }
     }
 
-    # The kit's drawio.yml keys a diagram's role by its stem; a repository without one has no legend. A diagram is article-carried when it
-    # is a pair with no yml beside its png (its declaration is a block in an article).
     $kitConfig = [Catzc.Base.Slides.DrawioKit]::new($root, $Kit).Config
     $configText = if ([System.IO.File]::Exists($kitConfig)) {
         [System.IO.File]::ReadAllText($kitConfig)
