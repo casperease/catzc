@@ -51,23 +51,24 @@ content:
   theme: dark
   bands:
     - { id: band-gates, label: GATES }
-    - { id: band-failed, label: FAILED }
-    - { id: band-outcome, label: OUTCOME }
   glyphs:
     - { id: g-pipeline-assert, kind: gate, label: assert given in a pipeline, in: band-gates }
     - { id: g-declared, kind: gate, label: subscription declared, in: band-gates }
     - { id: g-matches, kind: gate, label: session matches the assert, in: band-gates }
     - { id: g-customer, kind: code, label: customer from the session, in: band-gates }
     - { id: g-serves, kind: gate, label: serves the env, in: band-gates }
-    - { id: f-throw, kind: failure, label: throw, in: band-failed }
-    - { id: g-group, kind: result, label: RG name derived, in: band-outcome }
+    - { id: f-throw, kind: failure, label: throw, in: band-gates }
+    - { id: g-group, kind: result, label: RG name derived, in: band-gates }
   edges:
     - { from: g-pipeline-assert, to: g-declared, kind: flow, label: "" }
     - { from: g-declared, to: g-matches, kind: flow, label: "" }
     - { from: g-matches, to: g-customer, kind: flow, label: "" }
     - { from: g-customer, to: g-serves, kind: flow, label: "" }
     - { from: g-serves, to: g-group, kind: flow, label: "" }
-    - { from: band-gates, to: band-failed, kind: fail, label: failed }
+    - { from: g-pipeline-assert, to: f-throw, kind: fail, label: failed }
+    - { from: g-declared, to: f-throw, kind: fail, label: failed }
+    - { from: g-matches, to: f-throw, kind: fail, label: failed }
+    - { from: g-serves, to: f-throw, kind: fail, label: failed }
   markers:
     - { at: g-pipeline-assert, number: 1 }
     - { at: g-declared, number: 2 }
@@ -87,16 +88,14 @@ content:
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
-  band-gates: { x: 20, y: 84, w: 1260, h: 200 }
-  band-failed: { x: 20, y: 380, w: 620, h: 110 }
-  band-outcome: { x: 660, y: 380, w: 620, h: 110 }
+  band-gates: { x: 20, y: 84, w: 1260, h: 380 }
   g-pipeline-assert: { x: 40, y: 140, w: 200, h: 68 }
   g-declared: { x: 280, y: 140, w: 200, h: 68 }
   g-matches: { x: 520, y: 140, w: 220, h: 68 }
   g-customer: { x: 780, y: 152, w: 150, h: 44 }
   g-serves: { x: 980, y: 140, w: 160, h: 68 }
-  f-throw: { x: 220, y: 426, w: 200, h: 44 }
-  g-group: { x: 940, y: 426, w: 240, h: 44 }
+  f-throw: { x: 540, y: 380, w: 200, h: 44 }
+  g-group: { x: 940, y: 380, w: 240, h: 44 }
 ```
 
 ![Four gates hold the session rule; the customer and the name hold by construction](.assets/four-gates-hold-the-session-rule.drawio.png)
@@ -117,15 +116,14 @@ layout:
 5. **Serves the env.** `Get-AzureEnvironment`, called with the session's subscription, asserts that the subscription's `environments` list
    contains the requested environment and throws otherwise. This is the check that a session cannot deploy an environment its subscription
    does not serve.
-6. **Throw.** A gate that fails ends in a throw. One red arrow, labelled `failed`, runs from the GATES band to the FAILED band and stands for
-   every gate, the customer step included. The throw stops the deploy before a build artifact is read
-   or `az deployment` is called. Nothing is retargeted, defaulted or repaired along the way. It sits alone in the FAILED band, left of the
-   OUTCOME band, which holds only the green result.
+6. **Throw.** A gate that fails ends in a throw. A red arrow labelled `failed` runs from each of the four throwing gates to it; the customer
+   step has none, since it cannot fail. The throw stops the deploy before a build artifact is read
+   or `az deployment` is called. Nothing is retargeted, defaulted or repaired along the way. It is the one red box in the band.
 7. **RG name derived.** `Get-BicepResourceGroupName` builds the resource-group name from the template, the environment, the slot and the
    session's customer, through `Get-BicepResourceName` and the namer. No gate asserts that nobody typed the name or that the subscription
    stayed out of it: the function is the only source of the name, and it takes no subscription. ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME and
    ADR-AZ-NAMING-SUBSCRIPTIONNOTCOMPONENT hold by construction. The name is the green outcome: it is what a deploy that passed every gate
-   goes on with.
+   goes on with. It is the one green box in the band.
 
 ## Why it holds
 
