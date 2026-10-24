@@ -22,7 +22,7 @@ Describe 'Test-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-TWODIRECTIONS' {
         [System.IO.Directory]::CreateDirectory((Join-Path $root 'kit')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $root 'kit/declaration.py'), '')
         [System.IO.Directory]::CreateDirectory((Join-Path $root 'kit/configs')) | Out-Null
-        [System.IO.File]::WriteAllText((Join-Path $root 'kit/configs/drawio.yml'), "renderer:`n  carrier: file`ncarriers:`n")
+        [System.IO.File]::WriteAllText((Join-Path $root 'kit/configs/drawio.yml'), "renderer:`n  carrier: file`n")
         $script:out = Join-Path $root 'out'
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Slides {
             'widget-flow', 'gadget-flow', 'sprocket-flow', 'cog-flow', 'gear-flow' | ForEach-Object { "docs/explanation/widget/.assets/$_.drawio.png" }

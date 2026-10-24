@@ -102,20 +102,13 @@ function Move-Diagram {
         }
     }
 
-    # The kit's drawio.yml keys a diagram's carrier and role by its stem; a repository without one has no article-carried diagram.
+    # The kit's drawio.yml keys a diagram's role by its stem; a repository without one has no legend. A diagram is article-carried when it
+    # is a pair with no yml beside its png (its declaration is a block in an article).
     $kitConfig = [Catzc.Base.Slides.DrawioKit]::new($root, $Kit).Config
     $configText = if ([System.IO.File]::Exists($kitConfig)) {
         [System.IO.File]::ReadAllText($kitConfig)
     }
-    $carrierMap = if ($null -ne $configText) {
-        Get-DiagramCarrierMap -RepositoryRoot $root -Kit $Kit
-    }
-    $articleCarried = $pair -and $carrierMap -and $(if ($carrierMap.Carriers.ContainsKey($from)) {
-            $carrierMap.Carriers[$from]
-        }
-        else {
-            $carrierMap.Default
-        }) -ceq 'article'
+    $articleCarried = $pair -and -not (Test-Path -LiteralPath (Join-Path $root "$from.drawio.yml") -PathType Leaf)
     $fromArticles = $from.Substring(0, [Math]::Max(0, $from.LastIndexOf('/'))) -replace '/?[^/]*$', ''
     $toArticles = $to.Substring(0, [Math]::Max(0, $to.LastIndexOf('/'))) -replace '/?[^/]*$', ''
     if ($articleCarried -and $fromArticles -cne $toArticles) {
@@ -175,11 +168,11 @@ function Move-Diagram {
             $edits.Add($change)
         }
     }
-    # A stem's carrier and role entries follow it, so drawio.yml keeps naming the diagram after the move; the kit's one editor re-keys them.
+    # A stem's role entry follows it, so drawio.yml keeps naming the diagram after the move; the kit's one editor re-keys it.
     $rekey = $false
     if ($null -ne $configText) {
         $config = ConvertFrom-Yaml -Yaml $configText -Ordered
-        $keys = @(foreach ($section in 'carriers', 'roles') {
+        $keys = @(foreach ($section in 'roles') {
                 if ($config.Contains($section) -and $config[$section] -is [System.Collections.IDictionary]) {
                     $config[$section].Keys
                 }

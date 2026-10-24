@@ -40,17 +40,9 @@ function Test-Diagrams {
             $kitConfig['roles'].Keys | Where-Object { $kitConfig['roles'][$_] -ceq 'legend' -and (Test-Path -LiteralPath (Join-Path $root "$_.drawio.png") -PathType Leaf) }
         })
     $found = @($found) + @($legends | Where-Object { $found -cnotcontains $_ })
-    # An article-carried diagram has no yml: its carrier is its carriers: entry, else the default, and its stem is a tracked png or that entry.
-    $carrierMap = Get-DiagramCarrierMap -RepositoryRoot $root -Kit $Kit
+    # An article-carried diagram has no yml beside its png: its stem is a tracked png with no yml, or an image a `yml drawio` block sits above.
     $pngStems = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.png$' } | ForEach-Object { $_ -creplace '\.drawio\.png$', '' })
-    $articleCarried = @(@($pngStems) + @($carrierMap.Carriers.Keys) | Select-Object -Unique | Where-Object {
-            $(if ($carrierMap.Carriers.Contains($_)) {
-                    $carrierMap.Carriers[$_]
-                }
-                else {
-                    $carrierMap.Default
-                }) -ceq 'article'
-        })
+    $articleCarried = @(@($pngStems) + @(Get-DiagramArticleStem -RepositoryRoot $root -Candidate $candidates) | Select-Object -Unique)
     $found = @($found) + @($articleCarried | Where-Object { $found -cnotcontains $_ })
     $folders = @(if ($Path) {
             foreach ($folderPath in $Path) {
@@ -68,12 +60,12 @@ function Test-Diagrams {
     if ($folders.Count -gt 0) {
         $tool = Resolve-ToolExecutable -Tool uv
         Assert-True $tool.Found -ErrorText 'Test-Diagrams: uv is not installed (no managed uv found). Run Install-Uv.'
-        $declared = @($folders | Where-Object { $legends -cnotcontains $_ -and $null -ne (Get-DiagramDeclarationText -Stem $_ -RepositoryRoot $root -CarrierMap $carrierMap) })
+        $declared = @($folders | Where-Object { $legends -cnotcontains $_ -and $null -ne (Get-DiagramDeclarationText -Stem $_ -RepositoryRoot $root) })
         if ($declared.Count -gt 0) {
             $null = Write-DiagramMinimapData -Stem $declared -RepositoryRoot $root
         }
         foreach ($stem in $declared) {
-            $declarationText = Get-DiagramDeclarationText -Stem $stem -RepositoryRoot $root -CarrierMap $carrierMap
+            $declarationText = Get-DiagramDeclarationText -Stem $stem -RepositoryRoot $root
             foreach ($finding in @(Get-DiagramProofFinding -Stem $stem -Text $declarationText -RepositoryRoot $root)) {
                 $issues.Add($finding)
             }

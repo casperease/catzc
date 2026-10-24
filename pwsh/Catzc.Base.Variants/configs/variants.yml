@@ -35,10 +35,10 @@ tracks:
   pwsh-vendor: { places: [pwsh/.vendor], type: vendored-code }
   infrastructure:
     {
-      places: [infrastructure/templates, infrastructure/modules],
+      places: [infrastructure],
       type: infrastructure,
       vendor: azure,
-      languages: [bicep, yaml],
+      languages: [bicep, yaml, markdown],
       kinds: { templates: infrastructure/templates, configs: "infrastructure/templates/*/configuration", modules: infrastructure/modules },
     }
   ado-pipelines: { places: [.ado/pipelines], type: pipelines, vendor: ado, languages: [pipeline-yaml, powershell] }

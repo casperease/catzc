@@ -58,6 +58,7 @@ from typing import NoReturn
 
 import minimap_contract
 import minimaps
+import normal_form
 import yaml
 from drawio_png import DEFAULTS, THEMES, decode, encode, font, mxfile_chunk, paint, plain, render, style_map
 from PIL import Image
@@ -459,12 +460,15 @@ FENCE = "yml drawio"  # the info string of an article's declaration block, the w
 
 
 def carrier_of(diagram):
-    """A diagram's carrier: its entry under drawio.yml carriers:, keyed by its stem's repository path, else renderer.carrier."""
-    path = carrier_key(diagram)
-    carrier = DEFAULTS.get("carriers", {}).get(path, DEFAULTS["renderer"]["carrier"])
-    if carrier not in CARRIERS:
-        raise DeclarationError(f"drawio.yml gives {path} the carrier '{carrier}', not one of {', '.join(CARRIERS)}")
-    return carrier
+    """A diagram's carrier, derived from what is on disk: `<name>.drawio.yml` beside its png is the file carrier; a `yml drawio` block above
+    its image in an article is the article carrier; neither (a new diagram before its first put) takes renderer.carrier. A diagram with
+    both is a finding (carrier_findings) and reads as the file."""
+    stem = diagram_of(diagram)
+    if source_of(stem).is_file():
+        return "file"
+    if any(blocks_in(page.read_text(encoding="utf-8"), stem.name) for page in articles(stem)):
+        return "article"
+    return DEFAULTS["renderer"]["carrier"]
 
 
 def blocks_in(text, name):
@@ -542,14 +546,24 @@ def carrier_findings(diagram):
     return []
 
 
-CONFIG = KIT / "configs" / "drawio.yml"  # where carry records a diagram's carrier, under carriers:
+CONFIG = KIT / "configs" / "drawio.yml"  # the kit's defaults, whose roles: a diagram move re-keys
 
 
-def carrier_key(diagram):
-    """The key a diagram's carrier is recorded under in drawio.yml carriers:, the same carrier_of reads."""
-    stem = diagram_of(diagram).resolve()
-    repo = KIT.parents[1]
-    return stem.relative_to(repo).as_posix() if stem.is_relative_to(repo) else stem.name
+def article_stems(root):
+    """The stems of the diagrams declared in an article under the root: each `yml drawio` block directly above an image embedding
+    `.assets/<name>.drawio.png`, as `<page folder>/.assets/<name>`. A slide is never a carrier."""
+    pattern = re.compile(
+        r"^```"
+        + re.escape(FENCE)
+        + r"[ \t]*\n(?:(?!```).*\n)*```[ \t]*\n(?:[ \t]*\n)*!\[[^\]]*\]\((?:\./)?\.assets/([^/)]+)\.drawio\.png\)",
+        re.M,
+    )
+    return {
+        page.parent / ".assets" / name
+        for page in Path(root).rglob("*.md")
+        if not page.name.endswith(".slide.md")
+        for name in pattern.findall(page.read_text(encoding="utf-8"))
+    }
 
 
 def image_in(page, name):
@@ -558,28 +572,8 @@ def image_in(page, name):
     return [m.start() for m in pattern.finditer(page.read_text(encoding="utf-8"))]
 
 
-def recorded_carriers(text, key, carrier):
-    """drawio.yml's text with the key's carriers: entry set to the carrier, or dropped when the carrier is the default, edited line by
-    line so every comment and every other entry stays as written."""
-    lines = text.split("\n")
-    head = next((i for i, line in enumerate(lines) if re.match(r"^carriers:", line)), None)
-    if head is None:
-        raise DeclarationError(f"{CONFIG}: no top-level carriers: to record {key} under")
-    end = next((i for i in range(head + 1, len(lines)) if lines[i] and not lines[i].startswith((" ", "#"))), len(lines))
-    entry = re.compile(r"^  " + re.escape(key) + r":")
-    kept = [line for line in lines[head + 1 : end] if not entry.match(line)]
-    if carrier != DEFAULTS["renderer"]["carrier"]:
-        last = max((i for i, line in enumerate(kept) if line.startswith("  ") and line.strip()), default=-1)
-        kept.insert(last + 1, f"  {key}: {carrier}")
-    # An empty carriers: stays a mapping, `{}`, so a reader never meets a null; a first entry opens it again.
-    opener = re.sub(r"^carriers:[ \t]*\{\}", "carriers:", lines[head])
-    if not any(line.startswith("  ") and line.strip() for line in kept):
-        opener = re.sub(r"^carriers:", "carriers: {}", opener)
-    return "\n".join(lines[:head] + [opener] + kept + lines[end:])
-
-
 def rekeyed(text, old, new):
-    """drawio.yml's text with every carriers: and roles: entry keyed by the stem `old`, or by a stem under the folder `old`, keyed by `new`
+    """drawio.yml's text with every roles: entry keyed by the stem `old`, or by a stem under the folder `old`, keyed by `new`
     instead, edited line by line so every comment and every other entry stays as written; the one editor a diagram move uses."""
     lines = text.split("\n")
     entry = re.compile(r"^(  )(" + re.escape(old) + r")(?=:|/)")
@@ -588,7 +582,7 @@ def rekeyed(text, old, new):
         if line and not line.startswith((" ", "#")):
             section = re.match(r"^([a-z_]+):", line)
             section = section.group(1) if section else None
-        elif section in ("carriers", "roles"):
+        elif section == "roles":
             lines[i] = entry.sub(lambda m: m.group(1) + new, line, count=1)
     return "\n".join(lines)
 
@@ -636,7 +630,7 @@ def without_page_ignores(whole, body):
 
 def carry(diagram, carrier):
     """Move a diagram's declaration to the other carrier: the yml beside its png becomes a `yml drawio` block directly above the image in
-    its one article, or the block becomes the yml, and drawio.yml carriers: records it. The move is all or nothing: it refuses a diagram
+    its one article, or the block becomes the yml; nothing is recorded, since the carrier is what is on disk. The move is all or nothing: it refuses a diagram
     already in that carrier, declared twice or not at all, and restores every file when the declaration it reads back differs."""
     stem = diagram_of(diagram)
     if carrier not in CARRIERS:
@@ -654,8 +648,7 @@ def carry(diagram, carrier):
     # The words a yml tells cspell to ignore move to the page's own comment; a comment inside a code block would not be read.
     words = [w for found in IGNORE_LINE.findall(text) for w in found.split()]
     body = IGNORE_LINE.sub("", body).strip("\n") + "\n"
-    config = CONFIG.read_text(encoding="utf-8")
-    saved = {CONFIG: config}
+    saved = {}
     if carrier == "article":
         pages = [(page, at) for page in articles(stem) for at in image_in(page, stem.name)]
         if len(pages) != 1:
@@ -678,15 +671,12 @@ def carry(diagram, carrier):
         after = re.match(r"```[ \t]*\n(?:[ \t]*\n)*", whole[end:])
         taken, rest = without_page_ignores(whole[:opening] + whole[end + after.end() :], body)
         changes = [(source_of(stem), (f"# cspell:ignore {' '.join(taken)}\n\n" if taken else "") + body), (page, rest)]
-    changes.append((CONFIG, recorded_carriers(config, carrier_key(stem), carrier)))
-    held = DEFAULTS.get("carriers")
     try:
         for path, new in changes:
             if new is None:
                 path.unlink()
             else:
                 path.write_text(new, encoding="utf-8", newline="\n")
-        DEFAULTS["carriers"] = (yaml.safe_load(changes[-1][1]) or {}).get("carriers") or {}
         after_text, after_where = read_source(stem)
         if carrier_findings(stem) or normalise(yaml.safe_load(after_text) or {}, where=str(after_where)) != before:
             raise DeclarationError(f"{stem}: the declaration read back from the {carrier} carrier differs, so nothing was moved")
@@ -696,7 +686,6 @@ def carry(diagram, carrier):
                 path.unlink(missing_ok=True)
             else:
                 path.write_text(old, encoding="utf-8", newline="\n")
-        DEFAULTS["carriers"] = held
         raise
     # The png is what Build-Diagrams takes for a diagram whose declaration sits in an article: the stem alone names no file.
     return read_source(stem)[1], stem.with_name(stem.name + SLIDE)
@@ -1254,8 +1243,8 @@ def contract_call(raw, where, what):
     if not isinstance(raw, dict) or len(raw) != 1:
         raise DeclarationError(f"{where}: {what} is one command in the contract form, `name: {{ parameter: literal }}`")
     ((name, args),) = raw.items()
-    if not re.fullmatch(r"[a-z][a-z0-9_]*", str(name)):
-        raise DeclarationError(f"{where}: {what} names '{name}'; a command's name is in the repository normal form, snake_case")
+    if not normal_form.accepts(name):
+        raise DeclarationError(f"{where}: {what} names '{name}'; a command's name is in the repository normal form, {normal_form.configured_case()}")
     if args is None:
         args = {}
     if not isinstance(args, dict):
@@ -1272,13 +1261,29 @@ def call_line(call):
     return f"{name}: {_flow(args)}" if args else name
 
 
+def break_chars(key):
+    """The characters one wrap-break key of drawio.yml names, in order; the word `space` stands for the blank."""
+    return tuple(" " if token == "space" else token for token in DEFAULTS["renderer"][key].split())
+
+
+def break_class(chars):
+    """The characters as the inside of a regular-expression class."""
+    return "".join(re.escape(c) for c in chars)
+
+
+WRAP_GLUED = break_chars("wrap-break-glued")  # break after these; unwrap rejoins with no space
+WRAP_SPACED = break_chars("wrap-break-spaced")  # break after these; unwrap rejoins with one space
+WRAP_LATE = break_chars("wrap-break-late")  # break after these only when a piece is still too long; unwrap rejoins with no space
+
+
 def wrap_line(line, per):
     """A printed line wrapped to at most `per` characters a line at its natural breaks: after a `/`, a `,` or a space first, and only
     when a piece is still too long, after a `.` (a path such as `pwsh/Catzc.Base.Contracts/accosted/contracts.accosted.yml` has no
     space to break at). The drawing prints the lines; get joins them back with unwrap_lines."""
     pieces = []
-    for piece in re.findall(r"[^/, ]*[/, ]|[^/, ]+", line):
-        pieces.extend(re.findall(r"[^.]*\.|[^.]+", piece) if len(piece) > per else [piece])
+    first, late = break_class(WRAP_GLUED + WRAP_SPACED), break_class(WRAP_LATE)
+    for piece in re.findall(rf"[^{first}]*[{first}]|[^{first}]+", line):
+        pieces.extend(re.findall(rf"[^{late}]*[{late}]|[^{late}]+", piece) if len(piece) > per else [piece])
     # A `key: value` whose value is long starts the value on its own line, so a path reads as one value under its key rather than as
     # a tail broken off the key; a value is long when it would not fit beside its key in half a line.
     forced = set()
@@ -1310,7 +1315,7 @@ def unwrap_lines(text):
     out = ""
     for line in text.split("\n"):
         line = line.strip()
-        out += line if not out or out.endswith(("/", ".")) else " " + line
+        out += line if not out or out.endswith(WRAP_GLUED + WRAP_LATE) else " " + line
     return out
 
 
@@ -3404,14 +3409,14 @@ def main():
     if len(args) == 2 and args[0] == "reflow":  # the source rewritten in the printed form, its head and rows kept, its load() unchanged
         print(f"reflow {reflow(diagram_of(args[1]))}")
         return
-    if len(args) == 3 and args[0] == "carry":  # the declaration moved to the other carrier, drawio.yml carriers: recording it
+    if len(args) == 3 and args[0] == "carry":  # the declaration moved to the other carrier
         where, png = carry(diagram_of(args[1]), args[2])
         target = png.resolve().relative_to(KIT.parents[1]).as_posix() if png.resolve().is_relative_to(KIT.parents[1]) else png
         print(f"carry {where}; render with: Build-Diagrams -Path {target}")
         return
     if (
         len(args) in (3, 4) and args[0] == "rekey"
-    ):  # a moved stem's carriers: and roles: entries re-keyed, in the kit's drawio.yml or the given one
+    ):  # a moved stem's roles: entries re-keyed, in the kit's drawio.yml or the given one
         config = Path(args[3]) if len(args) == 4 else CONFIG
         before = config.read_text(encoding="utf-8")
         after = rekeyed(before, args[1], args[2])

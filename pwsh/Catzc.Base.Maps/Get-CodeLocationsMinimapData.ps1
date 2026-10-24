@@ -31,21 +31,7 @@ function Get-CodeLocationsMinimapData {
         if (-not $item.Facts -or -not $item.Facts['track']) {
             continue
         }
-        $module = if ($item.Facts['module']) {
-            "$($item.Facts['module'])"
-        }
-        else {
-            '-'
-        }
-        $segments = $item.Path -split '/'
-        $at = [array]::IndexOf($segments, $module)
-        $folder = if ($at -ge 0 -and $at -lt $segments.Count - 2) {
-            $segments[($at + 1)..($segments.Count - 2)] -join '/'
-        }
-        else {
-            '.'
-        }
-        $place = [string[]] @("$($item.Facts['track'])", $module, $folder)
+        $place = Get-MinimapPlace -Path $item.Path -Facts $item.Facts
         if (-not $count.ContainsKey($place -join "`t")) {
             $places.Add($place)
         }

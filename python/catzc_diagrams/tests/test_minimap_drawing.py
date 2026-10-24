@@ -41,6 +41,7 @@ def places():
         "axes": [{"name": "track", "values": ["pwsh"]}, {"name": "module", "values": ["Catzc.Widget"]}, {"name": "folder", "values": ["tests"]}],
         "cells": [{"at": ["pwsh", "Catzc.Widget", "tests"], "count": 3}],
         "lit": [{"at": ["pwsh", "Catzc.Widget", "tests"], "count": 3, "reasons": [{"subject": "pwsh/Catzc.Widget/tests/a.ps1", "basis": "citation", "requested": "ADR-WIDGET", "note": None}]}],
+        "place_rows": {"rows": ["pwsh / Widget / tests"], "counters": "1 place"},
     }
 
 
@@ -50,6 +51,7 @@ def test_every_shape_of_contract_data_draws_and_what_is_lit_shows(data):
     drawn = minimaps.picture_from(data, 300, 160)
     unlit = copy.deepcopy(data)
     unlit["lit"] = []
+    unlit.pop("place_rows", None)  # an unlit place list has no rows
     assert drawn.startswith("data:image/png,")
     assert drawn != minimaps.picture_from(unlit, 300, 160)
 
@@ -111,11 +113,48 @@ def test_a_row_lit_as_a_whole_is_outlined_and_a_place_drops_its_placeholders():
     unlit = copy.deepcopy(data)
     unlit["lit"] = []
     assert minimaps.picture_from(whole, 300, 160) != minimaps.picture_from(unlit, 300, 160)
-    # A place with no module ('-') at its module's root ('.') prints as its track alone.
-    placeholders, plain = places(), places()
-    placeholders["lit"][0]["at"] = ["pwsh", "-", "."]
-    plain["lit"][0]["at"] = ["pwsh"]
-    assert minimaps.picture_from(placeholders, 300, 160) == minimaps.picture_from(plain, 300, 160)
+
+
+def written_by(monkeypatch):
+    """The texts a drawing prints, as (value, size), in order."""
+    written = []
+    real = minimaps.text
+    monkeypatch.setattr(minimaps, "text", lambda d, at, s, size, *rest, **kw: (written.append((s, size)), real(d, at, s, size, *rest, **kw)))
+    return written
+
+
+def test_a_place_list_draws_the_rows_it_is_given_and_nothing_else(monkeypatch):
+    data = places()
+    data["place_rows"] = {"rows": ["docs", "pwsh / Widget", "pwsh / Widget / tests"], "counters": "+4 more · 7 places"}
+    written = written_by(monkeypatch)
+    minimaps.picture_from(data, 300, 160)
+    printed = [s for s, size in written if size != 11]
+    assert printed == ["docs", "pwsh / Widget", "pwsh / Widget / tests", "+4 more · 7 places"]  # in the given order: nothing sorted, cut or added
+
+
+def test_a_place_list_without_its_rows_is_refused_rather_than_computed_here():
+    data = places()
+    del data["place_rows"]
+    with pytest.raises(ValueError, match="carries no place_rows"):
+        minimaps.picture_from(data, 300, 160)
+
+
+def test_a_row_wider_than_the_sidebar_is_drawn_a_point_smaller_never_cut(monkeypatch):
+    data = places()
+    long_row = "pwsh / Widget.Sprocket...Gadgetry / types"  # the 40 characters of the budget
+    data["place_rows"] = {"rows": [long_row], "counters": "1 place"}
+    written = written_by(monkeypatch)
+    minimaps.picture_from(data, 160, 160)  # a narrow sidebar
+    sizes = [size for s, size in written if s == long_row]
+    assert sizes and sizes[0] < 9  # it shrank
+    assert not [s for s, _ in written if "…" in s]  # and was never cut with an ellipsis
+
+
+def test_a_short_row_keeps_the_full_size(monkeypatch):
+    data = places()
+    written = written_by(monkeypatch)
+    minimaps.picture_from(data, 300, 160)
+    assert [size for s, size in written if s == "pwsh / Widget / tests"] == [9]
 
 
 def test_the_rules_are_read_under_every_record_kind_the_registry_declares(tmp_path, monkeypatch):

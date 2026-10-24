@@ -27,7 +27,6 @@ Describe 'Write-DiagramMinimapData' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-MINIMAP
         # The layers lit: the citing files' layers, which a test widens to stand for a new citing file.
         $script:lit = [System.Collections.Generic.List[string]]::new([string[]] @('automation', 'contract'))
         Mock Get-Config -ModuleName Catzc.Base.Slides -ParameterFilter { $Config -eq 'maps' } { [Catzc.Base.Maps.MapsConfig]::new([ordered]@{}) }
-        Mock Get-DiagramCarrierMap -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Default = 'file'; Carriers = @{} } }
         Mock Get-WorldMap -ModuleName Catzc.Base.Slides { }
         Mock Get-WorldMapHighlight -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Cells = @() } }
         Mock Get-MinimapFact -ModuleName Catzc.Base.Slides { @{} }

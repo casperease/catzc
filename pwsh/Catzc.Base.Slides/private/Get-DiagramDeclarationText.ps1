@@ -15,24 +15,14 @@ function Get-DiagramDeclarationText {
         [string] $Stem,
 
         [Parameter(Mandatory)]
-        [string] $RepositoryRoot,
-
-        [Parameter(Mandatory)]
-        [pscustomobject] $CarrierMap
+        [string] $RepositoryRoot
     )
 
-    $carrier = if ($CarrierMap.Carriers.ContainsKey($Stem)) {
-        $CarrierMap.Carriers[$Stem]
-    }
-    else {
-        $CarrierMap.Default
-    }
-    if ($carrier -ceq 'file') {
-        $source = Join-Path $RepositoryRoot "$Stem.drawio.yml"
-        if ([System.IO.File]::Exists($source)) {
-            return [System.IO.File]::ReadAllText($source)
-        }
-        return
+    # The carrier is what is on disk: the yml beside the png (a diagram with both is a finding the drift check reports, and reads as the
+    # file), else the article carrier.
+    $source = Join-Path $RepositoryRoot "$Stem.drawio.yml"
+    if ([System.IO.File]::Exists($source)) {
+        return [System.IO.File]::ReadAllText($source)
     }
     # The article carrier: the one `yml drawio` block, in a page beside the diagram's .assets, directly above the image of its png.
     $name = $Stem.Substring($Stem.LastIndexOf('/') + 1)

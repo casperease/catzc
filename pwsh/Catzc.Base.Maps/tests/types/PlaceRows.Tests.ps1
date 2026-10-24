@@ -88,7 +88,10 @@ Describe 'PlaceRows' -Tag 'L0', 'logic' {
         }
 
         It 'draws every place as its own row while they fit the budget, and the counters line says how many' {
-            $rows = & $script:rowsOf @(, @('docs', '-', '.'), @('widgets', 'Catzc.Widget', '.'))
+            $rows = & $script:rowsOf @(
+                , @('docs', '-', '.')
+                , @('widgets', 'Catzc.Widget', '.')
+            )
             $rows.Rows.Count | Should -Be 2
             $rows.Counters | Should -BeExactly '2 places'
         }
@@ -118,7 +121,10 @@ Describe 'PlaceRows' -Tag 'L0', 'logic' {
         }
 
         It 'counts a place once however many files light it' {
-            $rows = & $script:rowsOf @(, @('docs', '-', '.'), @('docs', '-', '.'))
+            $rows = & $script:rowsOf @(
+                , @('docs', '-', '.')
+                , @('docs', '-', '.')
+            )
             $rows.Rows.Count | Should -Be 1
             $rows.Counters | Should -BeExactly '1 place'
         }

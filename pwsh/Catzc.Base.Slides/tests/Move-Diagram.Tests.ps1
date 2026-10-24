@@ -154,7 +154,7 @@ Describe 'Move-Diagram — an article-carried diagram' -Tag 'L2', 'logic', 'sour
         $script:widgetRoot = Join-Path $TestDrive "widget-repository-$([guid]::NewGuid().ToString('N').Substring(0, 8))"
         $script:block = "``````yml drawio`ncontent: { title: Gadget }`n```````n`n"
         $files = [ordered]@{
-            'python/catzc_diagrams/configs/drawio.yml' = "renderer:`n  carrier: file # the default`ncarriers: # by stem`n  docs/widgets/.assets/gadget: article`n"
+            'python/catzc_diagrams/configs/drawio.yml' = "renderer:`n  carrier: file # the default`nroles: # by stem`n  docs/widgets/.assets/gadget: legend`n"
             'docs/widgets/gadget.md'                   = "# Gadget`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
             'docs/widgets/.assets/gadget.drawio.png'   = 'png'
             'docs/gadgets/gadget.md'                   = "# Gadget here`n`n![Gadget](../widgets/.assets/gadget.drawio.png)`n"
@@ -173,7 +173,7 @@ Describe 'Move-Diagram — an article-carried diagram' -Tag 'L2', 'logic', 'sour
         $script:read = { param([string] $File) [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot $File)) }
     }
 
-    It 'moves its block to the page beside the new .assets that embeds the png, and re-keys its carrier through the kit' {
+    It 'moves its block to the page beside the new .assets that embeds the png, and re-keys its role through the kit' {
         if ($script:skip) {
             Set-ItResult -Skipped -Because $script:skip; return
         }
@@ -181,7 +181,7 @@ Describe 'Move-Diagram — an article-carried diagram' -Tag 'L2', 'logic', 'sour
 
         & $script:read 'docs/gadgets/gadget.md' | Should -BeExactly "# Gadget here`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
         & $script:read 'docs/widgets/gadget.md' | Should -BeExactly "# Gadget`n`n![Gadget](../gadgets/.assets/gadget.drawio.png)`n"
-        & $script:read 'python/catzc_diagrams/configs/drawio.yml' | Should -BeExactly "renderer:`n  carrier: file # the default`ncarriers: # by stem`n  docs/gadgets/.assets/gadget: article`n"
+        & $script:read 'python/catzc_diagrams/configs/drawio.yml' | Should -BeExactly "renderer:`n  carrier: file # the default`nroles: # by stem`n  docs/gadgets/.assets/gadget: legend`n"
         Test-Path (Join-Path $script:widgetRoot 'docs/gadgets/.assets/gadget.drawio.png') | Should -BeTrue
     }
 
@@ -205,6 +205,6 @@ Describe 'Move-Diagram — an article-carried diagram' -Tag 'L2', 'logic', 'sour
         { Move-Diagram docs/widgets/.assets/gadget docs/drs/.assets/gadget -RepositoryRoot $script:widgetRoot -Kit python/catzc_diagrams } | Should -Throw '*Carry it to the file carrier first*'
         & $script:read 'docs/widgets/gadget.md' | Should -BeExactly "# Gadget`n`n$($script:block)![Gadget](.assets/gadget.drawio.png)`n"
         Test-Path (Join-Path $script:widgetRoot 'docs/widgets/.assets/gadget.drawio.png') | Should -BeTrue
-        & $script:read 'python/catzc_diagrams/configs/drawio.yml' | Should -Match 'docs/widgets/\.assets/gadget: article'
+        & $script:read 'python/catzc_diagrams/configs/drawio.yml' | Should -Match 'docs/widgets/\.assets/gadget: legend'
     }
 }

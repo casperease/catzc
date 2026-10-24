@@ -1,4 +1,4 @@
-"""The carrier of a diagram's declaration: the kit's drawio.yml declares the default once, and names a diagram's other carrier by its stem.
+"""The carrier of a diagram's declaration: derived from what is on disk, with the kit's drawio.yml declaring only the default for a diagram with neither.
 
 usage (repo root, background): timeout 120 uv run -q --project python/catzc_diagrams python -m pytest python/catzc_diagrams/tests
 """
@@ -15,10 +15,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import declaration
-from drawio_png import DEFAULTS
 from test_declaration import WIDGETS
 
-CARRIERS = ("file", "article")
 HEAD = "# ---\n# catzc:\n#   immutable:\n#     with_body_sha: 0123456789ab\n# ---\n\n"
 BODY = "description: Widgets flow into gadgets through a gate.\n" + WIDGETS.lstrip("\n")
 PAGE = "# Widgets flow into gadgets\n\nA paragraph before the diagram.\n\n![Widgets flow into gadgets](.assets/widget-flow.drawio.png)\n\nAfter it.\n"
@@ -34,30 +32,41 @@ def pair(tmp_path, monkeypatch):
     config = tmp_path / "drawio.yml"
     config.write_text(declaration.CONFIG.read_text(encoding="utf-8"), encoding="utf-8")
     monkeypatch.setattr(declaration, "CONFIG", config)
-    monkeypatch.setitem(DEFAULTS, "carriers", {})
     return tmp_path / ".assets" / "widget-flow", page, config
 
 
 def test_the_shipped_default_carrier_is_the_article_block():
     shipped = yaml.safe_load(declaration.CONFIG.read_text(encoding="utf-8"))
     assert shipped["renderer"]["carrier"] == "article"
+    assert "carriers" not in shipped, "the carrier is read off the disk, never listed"
 
 
-def test_every_named_carrier_is_one_of_the_closed_set_and_names_a_stem():
-    for stem, carrier in DEFAULTS["carriers"].items():
-        assert carrier in CARRIERS, f"{stem}: carrier '{carrier}' is not one of {', '.join(CARRIERS)}"
-        assert "/.assets/" in stem and not stem.endswith((".drawio.yml", ".drawio.png")), f"{stem}: a carrier is keyed by the diagram's stem"
+def test_the_carrier_is_derived_from_what_is_on_disk(pair):
+    stem, page, _ = pair
+    assert declaration.carrier_of(stem) == "file", "a yml beside the png is the file carrier"
+    declaration.carry(stem, "article")
+    assert declaration.carrier_of(stem) == "article", "a block above the image, and no yml, is the article carrier"
+    gadget = stem.with_name("gadget-flow")
+    assert declaration.carrier_of(gadget) == declaration.DEFAULTS["renderer"]["carrier"], "neither takes renderer.carrier"
 
 
-def test_carry_to_the_article_writes_the_block_above_the_image_removes_the_yml_and_records_the_carrier(pair):
+def test_a_diagram_with_both_is_a_finding_and_reads_as_the_file(pair):
+    stem, page, _ = pair
+    page.write_text(PAGE.replace("![Widgets", f"```yml drawio\n{BODY}```\n\n![Widgets"), encoding="utf-8")
+    assert declaration.carrier_of(stem) == "file"
+    assert declaration.carrier_findings(stem), "both carriers is the existing finding"
+
+
+def test_carry_to_the_article_writes_the_block_above_the_image_and_removes_the_yml_and_records_nothing(pair):
     stem, page, config = pair
+    original_config = config.read_text(encoding="utf-8")
     before = declaration.load(stem)
     declaration.carry(stem, "article")
     assert not declaration.source_of(stem).exists(), "the yml beside the png is gone"
     text = page.read_text(encoding="utf-8")
     assert f"```yml drawio\n{BODY}```\n\n![Widgets flow into gadgets](.assets/widget-flow.drawio.png)" in text, "the block sits above the image, the head left out"
     assert text.startswith("# Widgets flow into gadgets\n\nA paragraph before the diagram.\n\n") and text.endswith("\n\nAfter it.\n")
-    assert yaml.safe_load(config.read_text(encoding="utf-8"))["carriers"]["widget-flow"] == "article"
+    assert config.read_text(encoding="utf-8") == original_config, "carry records nothing in drawio.yml"
     assert declaration.carrier_of(stem) == "article" and declaration.load(stem) == before
 
 
@@ -68,7 +77,7 @@ def test_carry_back_to_the_file_restores_the_page_and_the_config_byte_for_byte(p
     declaration.carry(stem, "file")
     assert declaration.source_of(stem).read_text(encoding="utf-8") == BODY, "the yml holds the block's body"
     assert page.read_text(encoding="utf-8") == PAGE, "the block and its blank line are gone, the image stays"
-    assert config.read_text(encoding="utf-8") == original, "carriers: is as it was, every comment kept"
+    assert config.read_text(encoding="utf-8") == original, "drawio.yml is untouched, every comment kept"
     assert declaration.carrier_of(stem) == "file" and declaration.load(stem) == before
 
 
@@ -140,8 +149,6 @@ def test_a_page_with_two_diagrams_takes_one_block_above_each_image(pair, monkeyp
     gadget = stem.with_name("gadget-flow")
     gadget_body = BODY.replace("Widgets flow into gadgets through a gate.", "Gadgets flow back.")
     page.write_text(PAGE + f"\n```yml drawio\n{gadget_body}```\n\n![Gadgets](.assets/gadget-flow.drawio.png)\n", encoding="utf-8")
-    config.write_text(declaration.recorded_carriers(config.read_text(encoding="utf-8"), "gadget-flow", "article"), encoding="utf-8")
-    monkeypatch.setitem(DEFAULTS, "carriers", {"gadget-flow": "article"})
     declaration.carry(stem, "article")
     text = page.read_text(encoding="utf-8")
     assert f"```yml drawio\n{BODY}```\n\n![Widgets flow into gadgets](.assets/widget-flow.drawio.png)" in text
@@ -155,20 +162,19 @@ def test_carry_to_the_article_names_the_png_as_the_build_target(pair):
     assert where == page and png == stem.with_name("widget-flow.drawio.png")
 
 
-def test_rekey_moves_a_stems_carrier_and_role_entries_and_keeps_every_other_line():
+def test_rekey_moves_a_stems_role_entries_and_keeps_every_other_line():
     text = (
         "renderer:\n  carrier: article # the default\n"
         "roles: # by stem\n  docs/widgets/.assets/gadget: legend # the gadget legend\n  docs/widgets/.assets/gadget-two: slide\n"
-        "carriers: # by stem\n  docs/widgets/.assets/gadget: file\n  docs/sprockets/.assets/sprocket: file\n"
         "lenses:\n  docs/widgets/.assets/gadget: not a stem entry\n"
     )
     moved = declaration.rekeyed(text, "docs/widgets/.assets/gadget", "docs/gadgets/.assets/gadget")
-    assert moved == text.replace("  docs/widgets/.assets/gadget: legend", "  docs/gadgets/.assets/gadget: legend").replace(
-        "carriers: # by stem\n  docs/widgets/.assets/gadget: file", "carriers: # by stem\n  docs/gadgets/.assets/gadget: file"
-    ), "only the exact stem in carriers: and roles: moves; gadget-two, other sections and comments stay"
+    assert moved == text.replace(
+        "  docs/widgets/.assets/gadget: legend", "  docs/gadgets/.assets/gadget: legend"
+    ), "only the exact stem in roles: moves; gadget-two, other sections and comments stay"
 
 
 def test_rekey_of_a_folder_moves_every_stem_under_it():
-    text = "carriers:\n  docs/widgets/.assets/gadget: file\n  docs/widgets/.assets/sprocket: file\n  docs/widgets-more/.assets/cog: file\n"
+    text = "roles:\n  docs/widgets/.assets/gadget: legend\n  docs/widgets/.assets/sprocket: legend\n  docs/widgets-more/.assets/cog: legend\n"
     moved = declaration.rekeyed(text, "docs/widgets", "docs/gadgets")
-    assert moved == "carriers:\n  docs/gadgets/.assets/gadget: file\n  docs/gadgets/.assets/sprocket: file\n  docs/widgets-more/.assets/cog: file\n"
+    assert moved == "roles:\n  docs/gadgets/.assets/gadget: legend\n  docs/gadgets/.assets/sprocket: legend\n  docs/widgets-more/.assets/cog: legend\n"

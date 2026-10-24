@@ -24,6 +24,15 @@ Describe 'Get-CodeLocationsMinimapData' -Tag 'L0', 'logic' {
         Test-Json -Json (Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET' -AsJson) -Schema $script:schema | Should -BeTrue
     }
 
+    It 'carries the rows its place list draws, computed beside the data, in the contract' {
+        $data = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET', 'ADR-GADGET'
+        @($data.PlaceRows.Rows) | Should -Be @('widgets / Widget', 'widgets / Widget / private', 'gadgets')
+        $data.PlaceRows.Counters | Should -BeExactly '3 places'
+        $json = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET', 'ADR-GADGET' -AsJson
+        Test-Json -Json $json -Schema $script:schema | Should -BeTrue
+        ($json | ConvertFrom-Json).place_rows.counters | Should -BeExactly '3 places'
+    }
+
     It 'hands the world map it is given to the subject' {
         $map = [Catzc.Base.Maps.WorldMapBuilder]::Build(@(), @(), @(), [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, [ordered]@{}, @())
         $null = Get-CodeLocationsMinimapData -Adr 'ADR-WIDGET' -WorldMap $map

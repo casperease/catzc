@@ -21,9 +21,8 @@ function Write-DiagramMinimapData {
     $maps = Get-Config -Config maps
     # The world map is built once for every folder of the call; a minimap that draws on it is handed it rather than building its own.
     $worldMap = Get-WorldMap
-    $carrierMap = Get-DiagramCarrierMap -RepositoryRoot $RepositoryRoot
     $declared = foreach ($folderPath in $Stem) {
-        $text = Get-DiagramDeclarationText -Stem $folderPath -RepositoryRoot $RepositoryRoot -CarrierMap $carrierMap
+        $text = Get-DiagramDeclarationText -Stem $folderPath -RepositoryRoot $RepositoryRoot
         Assert-True ($null -ne $text) -ErrorText "Write-DiagramMinimapData: $folderPath has no declaration in its carrier (its .drawio.yml, or one ``yml drawio`` block above its image)."
         $declaration = ConvertFrom-Yaml -Yaml $text -Ordered
         $about = if ($declaration -and $declaration.Contains('about')) {

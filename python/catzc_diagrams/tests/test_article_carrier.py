@@ -16,10 +16,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import declaration
 import drawio_forward
-from drawio_png import DEFAULTS
 from test_declaration import WIDGETS
 
 BODY = "description: Widgets flow into gadgets through a gate.\n" + WIDGETS.lstrip("\n")
+DEFAULT_CARRIER = declaration.DEFAULTS["renderer"]["carrier"]
 
 
 def page_text(body, between="\n"):
@@ -32,18 +32,17 @@ def page_text(body, between="\n"):
 
 @pytest.fixture
 def article(tmp_path, monkeypatch):
-    """A page folder whose article carries the widget diagram's declaration; drawio.yml puts the diagram in the article carrier."""
+    """A page folder whose article carries the widget diagram's declaration, and no yml beside the png: the article carrier."""
     (tmp_path / ".assets").mkdir()
     page = tmp_path / "widget-flow.md"
     page.write_text(page_text(BODY), encoding="utf-8")
-    monkeypatch.setitem(DEFAULTS, "carriers", {"widget-flow": "article"})
     return tmp_path / ".assets" / "widget-flow", page
 
 
-def test_the_default_carrier_is_the_file_and_a_named_stem_takes_the_article(article):
+def test_a_block_above_the_image_makes_the_article_the_carrier_and_a_diagram_with_neither_takes_the_default(article):
     stem, _ = article
     assert declaration.carrier_of(stem) == "article"
-    assert declaration.carrier_of(stem.with_name("gadget-flow")) == "file"
+    assert declaration.carrier_of(stem.with_name("gadget-flow")) == DEFAULT_CARRIER
 
 
 def test_load_reads_the_block_above_the_image_and_put_writes_the_png_into_assets(article):
@@ -101,9 +100,22 @@ def test_a_diagram_declared_in_both_carriers_is_a_finding(article):
     assert declaration.carrier_findings(stem) == ["declared in both carriers: widget-flow.drawio.yml and a `yml drawio` block in widget-flow.md"]
 
 
-def test_the_renderer_finds_an_article_diagram_before_its_first_put(article, monkeypatch):
+def test_the_renderer_finds_an_article_diagram_before_its_first_put_from_its_block(article, monkeypatch):
     stem, _ = article
     monkeypatch.setattr(drawio_forward, "REPO", stem.parent.parent)
-    monkeypatch.setitem(DEFAULTS, "carriers", {".assets/widget-flow": "article"})
     assert drawio_forward.diagrams(stem) == [stem.resolve()]
     assert drawio_forward.diagrams(stem.parent.parent) == [stem.resolve()]
+
+
+def test_a_stem_with_no_block_no_yml_and_no_png_is_not_found(article):
+    stem, page = article
+    page.write_text("# Widgets flow into gadgets\n\nNo block here.\n", encoding="utf-8")
+    assert drawio_forward.diagrams(stem.parent.parent) == [], "a diagram that does not exist yet is simply not found"
+
+
+def test_a_block_in_a_slide_names_no_diagram(article):
+    stem, page = article
+    slide = page.with_name("widget-flow.slide.md")
+    slide.write_text(page.read_text(encoding="utf-8"), encoding="utf-8")
+    page.unlink()
+    assert declaration.article_stems(stem.parent.parent) == set(), "a slide is never a carrier"

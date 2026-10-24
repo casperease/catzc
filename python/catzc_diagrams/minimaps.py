@@ -223,6 +223,8 @@ def draw_data(d, width, height, data):
     # A place list draws the rows Catzc.Base.Maps computed (ADR-AUTO-IDIOM-PLACENORMALFORM): one row a place, then the counters line.
     # This module neither sorts nor cuts them; a row wider than the sidebar is drawn a point smaller, never shortened.
     place_rows = data.get("place_rows")
+    if place_rows is None and not lit:
+        return  # nothing is lit, so there is no place to draw
     if place_rows is None:
         raise ValueError(f"minimap '{data['id']}' is a place list and carries no place_rows")
     rows, counters = place_rows["rows"], place_rows["counters"]

@@ -18,7 +18,7 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         $script:widgetRoot = Join-Path $TestDrive 'diagram-repository'
         $pages = [ordered]@{
             'kit/drawio_forward.py'  = "# renderer stand-in`n"
-            'kit/configs/drawio.yml' = "renderer:`n  carrier: file`ncarriers:`n"
+            'kit/configs/drawio.yml' = "renderer:`n  carrier: file`n"
             'docs/widgets/index.md'  = "# Widgets`n`n![Widget A](.assets/widget-a.drawio.png)`n`n![Widget B](./.assets/widget-b.drawio.png)`n"
             'docs/widgets/plain.md'  = "# Plain`n`n[a link](.assets/widget-a.drawio.yml)`n"
             'docs/gadgets/index.md'  = "# Gadgets`n`n![Gadget](.assets/gadget.drawio.png)`n"
@@ -132,11 +132,8 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         { & $script:build @{ Path = 'docs/widgets/.assets' } } | Should -Throw '*is not a diagram (*'
     }
 
-    It 'finds a diagram the kit puts in its article before its first put, and writes its minimap data from the block' -Tag 'ADR-REPO-SLIDES-DECLARATION' {
-        $config = Join-Path $script:widgetRoot 'kit/configs/drawio.yml'
+    It 'finds a diagram an article declares before its first put, from its block, and writes its minimap data from the block' -Tag 'ADR-REPO-SLIDES-DECLARATION' {
         $page = Join-Path $script:widgetRoot 'docs/gizmos/cog.md'
-        $kept = [System.IO.File]::ReadAllText($config)
-        [System.IO.File]::WriteAllText($config, "renderer:`n  carrier: file`ncarriers:`n  docs/gizmos/.assets/cog: article`n")
         [System.IO.File]::WriteAllText($page, "# Cog`n`n``````yml drawio`nabout: { lens: architecture, adrs: [ADR-WIDGET-GADGET] }`ncontent: {}`n```````n`n![Cog](.assets/cog.drawio.png)`n")
         Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { foreach ($item in $Stem) {
                 "out/minimaps/$item"
@@ -147,7 +144,6 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
             Should -Invoke Write-DiagramMinimapData -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter { @($Stem) -ceq 'docs/gizmos/.assets/cog' }
         }
         finally {
-            [System.IO.File]::WriteAllText($config, $kept)
             [System.IO.File]::Delete($page)
         }
     }

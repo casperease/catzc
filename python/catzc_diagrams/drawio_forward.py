@@ -227,21 +227,24 @@ def supports_drift(folder, adrs, lens):
 
 def diagrams(root):
     """The diagrams under a root, by stem, or the root itself when it names one: each `<article-folder>/.assets/<name>` with a
-    `<name>.drawio.png`, a `<name>.drawio.yml` whose first put has not been run yet, or a stem drawio.yml's carriers: puts in an article.
-    The root may be a stem or a file of a pair."""
+    `<name>.drawio.png`, a `<name>.drawio.yml` whose first put has not been run yet, or a `yml drawio` block in an article above an
+    image of it, which needs no png yet. The root may be a stem or a file of a pair."""
+    import declaration
+
     root = Path(root)
     for suffix in (SLIDE, SOURCE):
         if root.name.endswith(suffix):
             root = root.with_name(root.name[: -len(suffix)])
     root = root.resolve()
-    # A diagram in the article carrier has no yml beside its png, and before its first put no png either: drawio.yml names it.
-    in_articles = {(REPO / stem).resolve() for stem, carrier in DEFAULTS.get("carriers", {}).items() if carrier == "article"}
-    if root in in_articles or any(root.with_name(root.name + suffix).is_file() for suffix in (SLIDE, SOURCE)):
+    # A diagram in the article carrier has no yml beside its png, and before its first put no png either: its block names it.
+    if any(root.with_name(root.name + suffix).is_file() for suffix in (SLIDE, SOURCE)) or (
+        root.parent.name == ".assets" and root in {s.resolve() for s in declaration.article_stems(root.parent.parent)}
+    ):
         return [root]
     if not root.is_dir():
         return []
     found = {p.with_name(p.name[: -len(suffix)]) for suffix in (SLIDE, SOURCE) for p in root.rglob(f"*{suffix}") if p.parent.name == ".assets"}
-    found |= {stem for stem in in_articles if stem.is_relative_to(root)}
+    found |= {stem.resolve() for stem in declaration.article_stems(root)}
     return sorted(found)
 
 

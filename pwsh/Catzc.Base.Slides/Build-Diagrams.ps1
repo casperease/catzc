@@ -55,13 +55,12 @@ function Build-Diagrams {
     $found = @($candidates | Where-Object { $_ -cmatch '^docs/(.+/)?\.assets/[^/]+\.drawio\.(png|yml)$' } |
             Where-Object { $_.EndsWith('.png') -or (Test-Path -LiteralPath (Join-Path $root $_) -PathType Leaf) } |
             ForEach-Object { $_ -creplace '\.drawio\.(png|yml)$', '' } | Select-Object -Unique)
-    # A diagram in the article carrier has no yml beside its png, and before its first put no png either: the kit's drawio.yml names it.
-    $carrierMap = Get-DiagramCarrierMap -RepositoryRoot $root -Kit $Kit
-    $found = @($found) + @($carrierMap.Carriers.Keys | Where-Object { $carrierMap.Carriers[$_] -ceq 'article' -and $found -cnotcontains $_ })
+    # A diagram in the article carrier has no yml beside its png, and before its first put no png either: its block names it.
+    $found = @($found) + @(Get-DiagramArticleStem -RepositoryRoot $root -Candidate $candidates | Where-Object { $found -cnotcontains $_ })
     $folders = @(if ($Path) {
             @(foreach ($folderPath in $Path) {
                     $relative = ([System.IO.Path]::GetRelativePath($root, [System.IO.Path]::GetFullPath((Join-Path $root $folderPath))) -replace '\\', '/') -creplace '\.drawio\.(png|yml)$', ''
-                    Assert-True ($found -ccontains $relative) -ErrorText "Build-Diagrams: '$relative' is not a diagram (<article-folder>/.assets/<name>.drawio.yml, a tracked <name>.drawio.png, or a stem drawio.yml's carriers: puts in an article)."
+                    Assert-True ($found -ccontains $relative) -ErrorText "Build-Diagrams: '$relative' is not a diagram (<article-folder>/.assets/<name>.drawio.yml, a tracked <name>.drawio.png, or a `yml drawio` block above an image of it in an article)."
                     $relative
                 })
         }
@@ -79,7 +78,7 @@ function Build-Diagrams {
         if ($articles[$folderPath].Count -eq 0) {
             Write-Message "Build-Diagrams: $folderPath is an orphan; no page embeds its .drawio.png." -Warning
         }
-        foreach ($drift in @(Get-DiagramSupportsDrift -Stem $folderPath -Page $articles[$folderPath] -RepositoryRoot $root -CarrierMap $carrierMap)) {
+        foreach ($drift in @(Get-DiagramSupportsDrift -Stem $folderPath -Page $articles[$folderPath] -RepositoryRoot $root)) {
             Write-Message "Build-Diagrams: $drift" -Warning
         }
     }
@@ -94,7 +93,7 @@ function Build-Diagrams {
     $render = $true
     $runs = [System.Collections.Generic.List[pscustomobject]]::new()
     $total = [System.Diagnostics.Stopwatch]::StartNew()
-    $declared = @($folders | Where-Object { $null -ne (Get-DiagramDeclarationText -Stem $_ -RepositoryRoot $root -CarrierMap $carrierMap) })
+    $declared = @($folders | Where-Object { $null -ne (Get-DiagramDeclarationText -Stem $_ -RepositoryRoot $root) })
     if (-not $DryRun -and $declared.Count -gt 0) {
         Write-Message "Build-Diagrams: writing the minimap data of $($declared.Count) declared diagram(s), then $(if ($FromDrawing) { 'syncing' } else { 'rendering' }) $($folders.Count)."
         # One call builds the world map once for every diagram; each diagram's target streams back as its data is written.

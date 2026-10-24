@@ -50,6 +50,26 @@ function hiddenGlobs(root, list, dark) {
         }
     };
     list.filter((lamp) => dark.has(lamp.name)).forEach((lamp) => lamp.places.forEach(hide));
+    // A folder whose every entry is hidden is hidden itself, so a dark place leaves no empty parent behind; a lit place never folds.
+    const lights = (dir) => lit.some((place) => dir === place || isUnder(dir, place));
+    for (let grew = true; grew; ) {
+        grew = false;
+        for (const glob of [...globs]) {
+            const parent = path.posix.dirname(glob);
+            if (parent === "." || globs.has(parent) || lights(parent)) continue;
+            let entries;
+            try {
+                entries = fs.readdirSync(path.join(root, parent));
+            } catch {
+                continue;
+            }
+            if (entries.every((entry) => globs.has(`${parent}/${entry}`))) {
+                entries.forEach((entry) => globs.delete(`${parent}/${entry}`));
+                globs.add(parent);
+                grew = true;
+            }
+        }
+    }
     return [...globs];
 }
 

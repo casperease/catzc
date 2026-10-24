@@ -22,12 +22,10 @@ function Get-DiagramSupportsDrift {
         [string[]] $Page,
 
         [Parameter(Mandatory)]
-        [string] $RepositoryRoot,
-
-        [pscustomobject] $CarrierMap = (Get-DiagramCarrierMap -RepositoryRoot $RepositoryRoot)
+        [string] $RepositoryRoot
     )
 
-    $text = Get-DiagramDeclarationText -Stem $Stem -RepositoryRoot $RepositoryRoot -CarrierMap $CarrierMap
+    $text = Get-DiagramDeclarationText -Stem $Stem -RepositoryRoot $RepositoryRoot
     if ($null -eq $text) {
         return
     }
