@@ -30,11 +30,18 @@ const languages = () => config().get("languages") ?? {};
 const typed = (text) => (text ?? "").split(",").map((name) => name.trim()).filter(Boolean);
 
 // A path test for a glob, read the way the repository's GlobPattern reads one: '/'-separated segments, '**' a whole segment standing for
-// any depth, '*' and '?' inside one segment only.
+// any depth, '*' and '?' inside one segment only. The glob's literal leading segments reject a path before any wildcard is tried, and a
+// caller testing many globs passes the path's segments, split once.
 function globMatcher(glob) {
-    const segments = glob.split("/").map((segment) =>
+    const raw = glob.split("/");
+    const segments = raw.map((segment) =>
         segment === "**" ? null : new RegExp(`^${segment.replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^/]*").replace(/\?/g, "[^/]")}$`),
     );
+    const literal = [];
+    for (const segment of raw) {
+        if (/[*?]/.test(segment)) break;
+        literal.push(segment);
+    }
     const from = (at, parts, index) => {
         for (; at < segments.length; at++, index++) {
             if (segments[at] === null) {
@@ -46,22 +53,25 @@ function globMatcher(glob) {
         }
         return index === parts.length;
     };
-    return (place) => from(0, place.split("/"), 0);
+    return (place, parts = place.split("/")) => {
+        for (let at = 0; at < literal.length; at++) if (parts[at] !== literal[at]) return false;
+        return from(0, parts, 0);
+    };
 }
 
 // Everything on disk outside the kept paths: every entry that is no kept path and holds none, found by walking down only into folders
 // that hold a kept path. It reaches what git does not track too (generated manifests, out/), which no tracked cover names.
-function rest(root, keep) {
+async function rest(root, keep) {
     const paths = new Set(keep);
     const holders = new Set();
     for (const place of keep) {
         for (let folder = path.posix.dirname(place); folder !== "."; folder = path.posix.dirname(folder)) holders.add(folder);
     }
     const globs = [];
-    const walk = (folder) => {
+    const walk = async (folder) => {
         let entries;
         try {
-            entries = fs.readdirSync(path.join(root, folder));
+            entries = await fs.promises.readdir(path.join(root, folder));
         } catch {
             return;
         }
@@ -69,11 +79,11 @@ function rest(root, keep) {
             if (folder === "." && entry === ".git") continue;
             const place = folder === "." ? entry : `${folder}/${entry}`;
             if (paths.has(place)) continue;
-            if (holders.has(place)) walk(place);
+            if (holders.has(place)) await walk(place);
             else globs.push(place);
         }
     };
-    walk(".");
+    await walk(".");
     return globs;
 }
 
@@ -82,24 +92,28 @@ function rest(root, keep) {
 // every generated target while the generated lamp is unlit, whichever other lamp holds it: generated is the top-most filter.
 // While any lamp is unlit, a dead folder (one with no shown file anywhere inside, emptied by the lamps or empty on disk) leaves the tree
 // too, as its topmost dead folder.
-function hiddenGlobs(root, out, field, covers, known, tools = [], generated = []) {
+async function hiddenGlobs(root, out, field, covers, known, tools = [], generated = []) {
     const places = new Set();
     const live = covers.live ?? [];
     if (out.has("code")) live.forEach((place) => places.add(place));
     if (out.has("tools")) tools.forEach((place) => places.add(place));
-    if (out.has("tests")) rest(root, [...live, ...tools]).forEach((place) => places.add(place));
+    if (out.has("tests")) (await rest(root, [...live, ...tools])).forEach((place) => places.add(place));
     const extensions = out.has(LANGUAGE) ? typed(field).flatMap((name) => known[name] ?? []) : [];
     const patterns = out.has(GENERATED) ? generated : [];
     if (places.size === 0 && extensions.length === 0 && patterns.length === 0) return [];
 
     const matchers = patterns.map(globMatcher);
-    const hiddenFile = (name, place) => extensions.some((extension) => name.endsWith(extension)) || matchers.some((matches) => matches(place));
+    const hiddenFile = (name, place) => {
+        if (extensions.some((extension) => name.endsWith(extension))) return true;
+        const parts = place.split("/");
+        return matchers.some((matches) => matches(place, parts));
+    };
     const dead = [];
     // True when the folder shows at least one file; a folder that shows none is dead, and only the topmost of a dead chain is kept.
-    const shows = (folder) => {
+    const shows = async (folder) => {
         let entries;
         try {
-            entries = fs.readdirSync(path.join(root, folder), { withFileTypes: true });
+            entries = await fs.promises.readdir(path.join(root, folder), { withFileTypes: true });
         } catch {
             return true;
         }
@@ -109,14 +123,14 @@ function hiddenGlobs(root, out, field, covers, known, tools = [], generated = []
             const place = folder === "." ? entry.name : `${folder}/${entry.name}`;
             if (place === ".git" || places.has(place)) continue;
             if (entry.isDirectory()) {
-                if (shows(place)) any = true;
+                if (await shows(place)) any = true;
                 else deadHere.push(place);
             } else if (!hiddenFile(entry.name, place)) any = true;
         }
         if (any || folder === ".") dead.push(...deadHere);
         return any;
     };
-    shows(".");
+    await shows(".");
 
     const globs = new Set(dead);
     for (const place of places) if (!dead.some((folder) => place.startsWith(folder + "/"))) globs.add(place);
@@ -128,7 +142,7 @@ function hiddenGlobs(root, out, field, covers, known, tools = [], generated = []
 // Every file on disk accounted for: each is classified on its own (code when a live path holds it, tools when a tool path does, tests
 // otherwise) and must be hidden by the globs exactly when its lamp, or the language lamp over its extension, is off. Returns the totals,
 // the files the tree shows, the files per lamp, and the files whose visibility breaks that rule.
-function census(root, out, field, covers, known, tools, globs, generated = []) {
+async function census(root, out, field, covers, known, tools, globs, generated = []) {
     const live = new Set(covers.live ?? []);
     const toolSet = new Set(tools);
     const hiddenPlaces = new Set(globs.filter((glob) => !/[*?]/.test(glob)));
@@ -140,10 +154,10 @@ function census(root, out, field, covers, known, tools, globs, generated = []) {
         return false;
     };
     const result = { total: 0, shown: 0, lamps: { code: 0, tests: 0, tools: 0 }, generated: 0, wrong: [] };
-    const walk = (folder) => {
+    const walk = async (folder) => {
         let entries;
         try {
-            entries = fs.readdirSync(path.join(root, folder), { withFileTypes: true });
+            entries = await fs.promises.readdir(path.join(root, folder), { withFileTypes: true });
         } catch {
             return;
         }
@@ -151,14 +165,15 @@ function census(root, out, field, covers, known, tools, globs, generated = []) {
             const place = folder === "." ? entry.name : `${folder}/${entry.name}`;
             if (place === ".git") continue;
             if (entry.isDirectory()) {
-                walk(place);
+                await walk(place);
                 continue;
             }
             const lamp = holds(live, place) ? "code" : holds(toolSet, place) ? "tools" : "tests";
-            const isGenerated = generatedMatchers.some((matches) => matches(place));
+            const parts = place.split("/");
+            const isGenerated = generatedMatchers.some((matches) => matches(place, parts));
             const expected =
                 out.has(lamp) || extensions.some((extension) => entry.name.endsWith(extension)) || (out.has(GENERATED) && isGenerated);
-            const hidden = holds(hiddenPlaces, place) || hiddenMatchers.some((matches) => matches(place));
+            const hidden = holds(hiddenPlaces, place) || hiddenMatchers.some((matches) => matches(place, parts));
             result.total++;
             result.lamps[lamp]++;
             if (isGenerated) result.generated++;
@@ -166,7 +181,7 @@ function census(root, out, field, covers, known, tools, globs, generated = []) {
             if (hidden !== expected) result.wrong.push(place);
         }
     };
-    walk(".");
+    await walk(".");
     return result;
 }
 
@@ -193,7 +208,7 @@ async function apply(context) {
     const root = folder.uri.fsPath;
     const out = new Set(context.workspaceState.get(OUT, []));
     const field = context.workspaceState.get(FIELD, "");
-    const wanted = hiddenGlobs(root, out, field, aspects(), languages(), tools(), generatedTargets());
+    const wanted = await hiddenGlobs(root, out, field, aspects(), languages(), tools(), generatedTargets());
     const files = vscode.workspace.getConfiguration("files", folder.uri);
     const current = files.inspect("exclude")?.workspaceValue ?? {};
     const { next, ours } = merge(current, context.workspaceState.get(OWNED, []), wanted);
@@ -223,10 +238,10 @@ function activate(context) {
     counter.text = "$(sync~spin) counting files";
     counter.show();
     context.subscriptions.push(counter, vscode.commands.registerCommand("catzc.lamps.showLog", () => log.show()));
-    const count = (applied) => {
+    const count = async (applied) => {
         if (!applied) return;
         const { root, out, field, wanted } = applied;
-        const tally = census(root, out, field, aspects(), languages(), tools(), wanted, generatedTargets());
+        const tally = await census(root, out, field, aspects(), languages(), tools(), wanted, generatedTargets());
         const lamps = Object.entries(tally.lamps).map(([lamp, files]) => `${lamp} ${files}${out.has(lamp) ? " (hidden)" : ""}`);
         lamps.push(`generated ${tally.generated} of them${out.has(GENERATED) ? " (hidden)" : ""}`);
         if (tally.wrong.length === 0) {
@@ -244,16 +259,20 @@ function activate(context) {
     const settle = async () => {
         try {
             const applied = await apply(context);
-            setTimeout(() => {
-                try {
-                    count(applied);
-                } catch (error) {
-                    log.appendLine(`census failed: ${error?.stack ?? error}`);
-                }
-            }, 0);
+            // The count runs after the filter is in place, never delaying it; its failure is logged like any other.
+            count(applied).catch((error) => log.appendLine(`census failed: ${error?.stack ?? error}`));
         } catch (error) {
             log.appendLine(`apply failed: ${error?.stack ?? error}`);
-            vscode.window.showWarningMessage(`Catzc track lamps could not filter: ${error?.message ?? error}`);
+            const message = `Catzc track lamps could not filter: ${error?.message ?? error}`;
+            // The editor refuses a settings write while settings.json is open with unsaved edits; saving it is the user's call, offered here.
+            const dirty = vscode.workspace.textDocuments.find((document) => document.isDirty && /[\\/]\.vscode[\\/]settings\.json$/i.test(document.uri.fsPath));
+            if (dirty) {
+                vscode.window.showWarningMessage(message, "Save and filter").then(async (choice) => {
+                    if (choice === "Save and filter" && (await dirty.save())) await settle();
+                });
+            } else {
+                vscode.window.showWarningMessage(message);
+            }
         }
         await show();
     };

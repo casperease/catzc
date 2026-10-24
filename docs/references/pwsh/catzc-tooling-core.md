@@ -145,17 +145,17 @@ content:
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
-  band-entry: { x: 20, y: 84, w: 180, h: 400 }
+  band-entry: { x: 20, y: 84, w: 180, h: 520 }
   band-core: { x: 220, y: 84, w: 1060, h: 260 }
-  band-execution: { x: 220, y: 374, w: 1060, h: 110 }
-  g-wrappers: { x: 30, y: 136, w: 150, h: 40 }
+  band-execution: { x: 220, y: 374, w: 1060, h: 230 }
+  g-wrappers: { x: 30, y: 136, w: 150, h: 426 }
   g-assert-tool: { x: 280, y: 136, w: 150, h: 40 }
   g-assert-version: { x: 600, y: 136, w: 170, h: 40 }
   g-get-version: { x: 960, y: 136, w: 160, h: 40 }
   g-test-tool: { x: 600, y: 214, w: 170, h: 40 }
-  g-resolve: { x: 265, y: 414, w: 190, h: 40 }
-  f-tools-yml: { x: 640, y: 402, w: 120, h: 52 }
-  g-invoke: { x: 940, y: 414, w: 200, h: 40 }
+  g-resolve: { x: 265, y: 500, w: 190, h: 40 }
+  f-tools-yml: { x: 640, y: 490, w: 120, h: 52 }
+  g-invoke: { x: 940, y: 400, w: 200, h: 40 }
 ```
 
 ![Each Invoke-Tool wrapper asserts the locked version before it runs](.assets/invoke-tool-asserts-locked-version.drawio.png)

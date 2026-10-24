@@ -141,14 +141,14 @@ layout:
   c-landed: { x: 310, y: 308, w: 80, h: 44 }
   g-bvt: { x: 420, y: 296, w: 90, h: 68 }
   c-verified: { x: 540, y: 308, w: 130, h: 44 }
-  a-l3-at: { x: 380, y: 448, w: 130, h: 44 }
-  c-l3: { x: 545, y: 448, w: 70, h: 44 }
-  a-rc: { x: 650, y: 448, w: 130, h: 44 }
-  c-main-uat: { x: 815, y: 448, w: 90, h: 44 }
-  a-rbc: { x: 940, y: 448, w: 140, h: 44 }
-  c-release-uat: { x: 1115, y: 448, w: 110, h: 44 }
-  a-two-slot: { x: 1000, y: 588, w: 140, h: 44 }
-  c-production: { x: 1160, y: 588, w: 100, h: 44 }
+  a-l3-at: { x: 530, y: 448, w: 120, h: 44 }
+  c-l3: { x: 665, y: 448, w: 60, h: 44 }
+  a-rc: { x: 740, y: 448, w: 120, h: 44 }
+  c-main-uat: { x: 875, y: 448, w: 80, h: 44 }
+  a-rbc: { x: 970, y: 448, w: 120, h: 44 }
+  c-release-uat: { x: 1105, y: 448, w: 100, h: 44 }
+  a-two-slot: { x: 960, y: 588, w: 170, h: 44 }
+  c-production: { x: 1150, y: 588, w: 100, h: 44 }
 ```
 
 ![Only PR build validation, the BVT and the failure stop are checked in code](.assets/which-rung-gates-exist-in-code.drawio.png)

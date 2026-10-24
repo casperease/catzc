@@ -106,6 +106,11 @@ layout:
   a-agents: { x: 110, y: 270, w: 90, h: 70 }
   s-saves: { x: 380, y: 145, w: 220, h: 60 }
   s-writes: { x: 380, y: 275, w: 220, h: 60 }
+  r-listener: { x: 690, y: 160, w: 110, h: 150 }
+  f-notes: { x: 690, y: 340, w: 110, h: 50 }
+  g-editor-only: { x: 1010, y: 330, w: 120, h: 70 }
+  r-processor: { x: 1010, y: 240, w: 120, h: 44 }
+  r-plans: { x: 1000, y: 150, w: 140, h: 44 }
 ```
 
 ![Every writer leaves a trace; the listener notes all changes, and the processor plans from the editor's alone](.assets/listen-mode-flow.drawio.png)

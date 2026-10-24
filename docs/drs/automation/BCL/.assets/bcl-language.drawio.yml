@@ -61,11 +61,11 @@ content:
 layout:
   band-language: { x: 20, y: 84, w: 1260, h: 150 }
   band-host: { x: 20, y: 284, w: 1260, h: 170 }
-  g-types: { x: 300, y: 134, w: 200, h: 60 }
-  g-library: { x: 560, y: 134, w: 200, h: 60 }
-  g-bcl-yml: { x: 790, y: 134, w: 180, h: 60 }
-  g-projects: { x: 1060, y: 134, w: 210, h: 60 }
-  g-import: { x: 140, y: 344, w: 200, h: 60 }
-  g-unwrap: { x: 420, y: 344, w: 200, h: 60 }
-  g-sma: { x: 700, y: 344, w: 200, h: 60 }
-  g-gate: { x: 990, y: 330, w: 180, h: 90 }
+  g-types: { x: 40, y: 134, w: 680, h: 60 }
+  g-library: { x: 760, y: 134, w: 160, h: 60 }
+  g-bcl-yml: { x: 940, y: 134, w: 150, h: 60 }
+  g-projects: { x: 1110, y: 134, w: 150, h: 60 }
+  g-import: { x: 40, y: 344, w: 200, h: 60 }
+  g-unwrap: { x: 260, y: 344, w: 200, h: 60 }
+  g-sma: { x: 480, y: 344, w: 200, h: 60 }
+  g-gate: { x: 940, y: 330, w: 150, h: 90 }

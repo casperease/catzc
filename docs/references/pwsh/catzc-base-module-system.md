@@ -170,10 +170,10 @@ layout:
   grp-quality-gates: { x: 990, y: 94, w: 280, h: 90 }
   g-test-paths: { x: 1010, y: 130, w: 240, h: 40 }
   g-closure: { x: 790, y: 211, w: 215, h: 36 }
-  g-function: { x: 160, y: 334, w: 185, h: 40 }
-  g-module: { x: 385, y: 334, w: 175, h: 40 }
-  g-violations: { x: 650, y: 334, w: 230, h: 40 }
-  g-cycles: { x: 660, y: 397, w: 200, h: 70 }
+  g-function: { x: 160, y: 410, w: 185, h: 40 }
+  g-module: { x: 385, y: 410, w: 175, h: 40 }
+  g-violations: { x: 330, y: 334, w: 230, h: 40 }
+  g-cycles: { x: 620, y: 395, w: 200, h: 70 }
 ```
 
 ![Declared graph orders and closes; observed graph is checked](.assets/module-graph-declared-vs-observed.drawio.png)

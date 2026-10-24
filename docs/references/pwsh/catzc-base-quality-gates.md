@@ -158,8 +158,8 @@ content:
     - { from: g-automation, to: g-run, kind: flow, label: calls }
     - { from: g-build, to: g-run, kind: flow, label: calls }
     - { from: g-run, to: g-discovery, kind: flow, label: calls }
-    - { from: g-discovery, to: g-tag-gate, kind: flow, label: "" }
-    - { from: g-tag-gate, to: g-split, kind: flow, label: "" }
+    - { from: g-discovery, to: g-tag-gate, kind: flow, label: feeds }
+    - { from: g-run, to: g-split, kind: flow, label: calls }
     - { from: g-split, to: g-select, kind: flow, label: feeds }
     - { from: g-select, to: g-workers, kind: flow, label: feeds }
     - { from: g-workers, to: g-verdict, kind: flow, label: feeds }
@@ -172,8 +172,6 @@ content:
     - { at: g-workers, number: 6 }
     - { at: g-verdict, number: 7 }
     - { at: f-run-json, number: 8 }
-  chips:
-    - { at: g-discovery, kind: count, text: "4" }
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
@@ -184,15 +182,15 @@ layout:
   g-automation: { x: 30, y: 114, w: 150, h: 40 }
   g-build: { x: 30, y: 166, w: 150, h: 40 }
   g-run: { x: 250, y: 136, w: 120, h: 36 }
-  g-discovery: { x: 400, y: 136, w: 130, h: 36 }
-  g-tag-gate: { x: 555, y: 111, w: 180, h: 86 }
-  g-split: { x: 130, y: 286, w: 440, h: 36 }
+  g-discovery: { x: 440, y: 136, w: 130, h: 36 }
+  g-tag-gate: { x: 650, y: 111, w: 180, h: 86 }
+  g-split: { x: 130, y: 286, w: 360, h: 36 }
   s-parallel: { x: 130, y: 340, w: 64, h: 28 }
   s-greedy: { x: 198, y: 340, w: 64, h: 28 }
   s-serial: { x: 266, y: 340, w: 64, h: 28 }
-  g-select: { x: 605, y: 286, w: 170, h: 36 }
-  g-workers: { x: 815, y: 286, w: 200, h: 36 }
-  g-verdict: { x: 1050, y: 286, w: 190, h: 36 }
+  g-select: { x: 570, y: 286, w: 170, h: 36 }
+  g-workers: { x: 810, y: 286, w: 200, h: 36 }
+  g-verdict: { x: 1080, y: 286, w: 180, h: 36 }
   f-run-json: { x: 130, y: 434, w: 110, h: 52 }
 ```
 

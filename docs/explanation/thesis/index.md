@@ -59,6 +59,9 @@ content:
   minimaps: [axis, lifecycle-position, layer-stack]
 layout:
   s-repo: { x: 60, y: 150, w: 320, h: 90 }
+  s-rule: { x: 895, y: 266, w: 130, h: 44 }
+  f-docs: { x: 1062, y: 266, w: 110, h: 50 }
+  k-code: { x: 1040, y: 150, w: 150, h: 44 }
 ```
 
 ![Truth is one commit; in the listen mode the editor's edit is fact, and its plans run rule, docs, code](.assets/where-truth-comes-from.drawio.png)

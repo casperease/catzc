@@ -98,8 +98,8 @@ layout:
   r-pull-request: { x: 135, y: 170, w: 150, h: 44 }
   c-landed: { x: 335, y: 170, w: 80, h: 44 }
   r-trigger: { x: 435, y: 170, w: 190, h: 44 }
-  r-stage: { x: 680, y: 170, w: 220, h: 44 }
-  c-verified: { x: 815, y: 250, w: 85, h: 44 }
+  r-stage: { x: 680, y: 250, w: 120, h: 44 }
+  c-verified: { x: 815, y: 170, w: 85, h: 44 }
   r-automation: { x: 680, y: 400, w: 220, h: 44 }
   r-infrastructure: { x: 680, y: 460, w: 220, h: 44 }
   a-level-three: { x: 960, y: 170, w: 300, h: 44 }

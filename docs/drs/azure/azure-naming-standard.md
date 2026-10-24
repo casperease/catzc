@@ -147,10 +147,10 @@ layout:
   c-customer: { x: 816, y: 164, w: 124, h: 44 }
   c-role: { x: 968, y: 164, w: 124, h: 44 }
   c-type: { x: 1120, y: 164, w: 124, h: 44 }
-  g-pattern: { x: 60, y: 292, w: 240, h: 44 }
-  g-limit: { x: 340, y: 280, w: 150, h: 68 }
-  f-throws: { x: 60, y: 380, w: 330, h: 44 }
-  r-name: { x: 540, y: 292, w: 220, h: 44 }
+  g-pattern: { x: 550, y: 290, w: 200, h: 44 }
+  g-limit: { x: 800, y: 278, w: 110, h: 68 }
+  f-throws: { x: 950, y: 290, w: 290, h: 44 }
+  r-name: { x: 390, y: 390, w: 760, h: 44 }
   grp-resource-groups: { x: 40, y: 504, w: 390, h: 204 }
   grp-storage: { x: 455, y: 504, w: 390, h: 204 }
   grp-virtual-machine: { x: 870, y: 504, w: 390, h: 204 }

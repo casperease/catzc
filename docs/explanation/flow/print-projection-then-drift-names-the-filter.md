@@ -80,8 +80,8 @@ layout:
   band-projection: { x: 20, y: 224, w: 1260, h: 120 }
   band-checked: { x: 20, y: 364, w: 1260, h: 210 }
   f-globs-yml: { x: 160, y: 124, w: 140, h: 56 }
-  c-trigger: { x: 130, y: 262, w: 200, h: 44 }
-  f-cd-apex: { x: 620, y: 258, w: 200, h: 56 }
+  c-trigger: { x: 130, y: 262, w: 510, h: 44 }
+  f-cd-apex: { x: 720, y: 258, w: 200, h: 56 }
   g-coverage: { x: 110, y: 404, w: 240, h: 80 }
   x-no-include: { x: 140, y: 514, w: 180, h: 44 }
   g-trigger-glob: { x: 600, y: 404, w: 240, h: 80 }

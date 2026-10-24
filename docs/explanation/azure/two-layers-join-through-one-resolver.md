@@ -75,15 +75,15 @@ content:
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
-  band-templating: { x: 20, y: 84, w: 920, h: 340 }
-  band-identity: { x: 960, y: 84, w: 320, h: 340 }
+  band-templating: { x: 20, y: 84, w: 1000, h: 340 }
+  band-identity: { x: 1040, y: 84, w: 240, h: 340 }
   g-tree: { x: 40, y: 214, w: 180, h: 52 }
   g-discovery: { x: 270, y: 134, w: 190, h: 44 }
   g-validator: { x: 270, y: 300, w: 190, h: 44 }
-  g-check: { x: 520, y: 126, w: 340, h: 68 }
-  g-candidates: { x: 520, y: 300, w: 340, h: 44 }
-  g-azure: { x: 1040, y: 148, w: 160, h: 52 }
-  g-customer: { x: 1040, y: 300, w: 160, h: 52 }
+  g-check: { x: 500, y: 126, w: 240, h: 218 }
+  g-candidates: { x: 780, y: 126, w: 230, h: 226 }
+  g-azure: { x: 1070, y: 148, w: 180, h: 52 }
+  g-customer: { x: 1070, y: 300, w: 180, h: 52 }
 ```
 
 ![The templating and identity config layers join through one shared check and one resolver](.assets/two-layers-join-through-one-resolver.drawio.png)

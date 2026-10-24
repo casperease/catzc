@@ -97,17 +97,17 @@ layout:
   band-entry: { x: 20, y: 84, w: 300, h: 520 }
   band-call: { x: 340, y: 84, w: 600, h: 520 }
   band-anchor: { x: 960, y: 84, w: 320, h: 520 }
-  g-developer: { x: 110, y: 120, w: 120, h: 56 }
-  g-pipeline-yaml: { x: 50, y: 230, w: 240, h: 44 }
-  g-template: { x: 50, y: 330, w: 240, h: 44 }
-  g-api: { x: 470, y: 126, w: 340, h: 44 }
-  g-invoke: { x: 470, y: 206, w: 340, h: 44 }
-  grp-header: { x: 380, y: 280, w: 520, h: 306 }
-  g-pipeline: { x: 480, y: 322, w: 320, h: 60 }
-  g-pat: { x: 480, y: 412, w: 320, h: 60 }
-  g-azcli: { x: 480, y: 502, w: 320, h: 60 }
-  g-ado-yml: { x: 1040, y: 406, w: 160, h: 72 }
-  g-cli-module: { x: 1000, y: 510, w: 240, h: 44 }
+  g-developer: { x: 110, y: 126, w: 120, h: 56 }
+  g-pipeline-yaml: { x: 50, y: 420, w: 240, h: 44 }
+  g-template: { x: 50, y: 200, w: 240, h: 200 }
+  g-api: { x: 470, y: 126, w: 340, h: 100 }
+  g-invoke: { x: 470, y: 250, w: 340, h: 44 }
+  grp-header: { x: 380, y: 310, w: 520, h: 276 }
+  g-pipeline: { x: 480, y: 352, w: 320, h: 60 }
+  g-pat: { x: 480, y: 432, w: 320, h: 60 }
+  g-azcli: { x: 480, y: 512, w: 320, h: 60 }
+  g-ado-yml: { x: 1040, y: 352, w: 160, h: 180 }
+  g-cli-module: { x: 1000, y: 552, w: 240, h: 44 }
 ```
 
 ![One header function owns the precedence](.assets/one-header-function-owns-precedence.drawio.png)

@@ -111,7 +111,7 @@ layout:
   band-miss: { x: 640, y: 390, w: 640, h: 120 }
   a-reader: { x: 170, y: 146, w: 300, h: 44 }
   g-resolution: { x: 170, y: 226, w: 300, h: 44 }
-  s-cache: { x: 240, y: 306, w: 160, h: 60 }
+  s-cache: { x: 430, y: 306, w: 160, h: 60 }
   a-copy: { x: 170, y: 436, w: 300, h: 44 }
   a-validator: { x: 650, y: 146, w: 300, h: 44 }
   g-validators: { x: 700, y: 280, w: 240, h: 68 }

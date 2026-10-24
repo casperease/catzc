@@ -8,7 +8,7 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
             [System.IO.File]::WriteAllText($argumentFile, (ConvertTo-Json -InputObject @($Arguments) -Depth 8 -Compress))
             $driver = "const m = require('$script:script'); const a = JSON.parse(require('fs').readFileSync(process.argv[1], 'utf8'));" +
             " if ('$Function' === 'hiddenGlobs' || '$Function' === 'census') a[1] = new Set(a[1]);" +
-            " process.stdout.write(JSON.stringify(m['$Function'](...a)));"
+            " Promise.resolve(m['$Function'](...a)).then((r) => process.stdout.write(JSON.stringify(r)));"
             $output = & node -e $driver $argumentFile
             $LASTEXITCODE | Should -Be 0 -Because 'node runs the extension''s pure functions without an editor'
             # An array result enumerates into its items, an object result is one hashtable.
@@ -133,7 +133,7 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
         $script = (Resolve-Path (Join-Path $PSScriptRoot '../assets/extensions/catzc-track-lamps.js')).Path -replace '\\', '/'
         $liveFile = Join-Path $TestDrive 'live.json'
         [System.IO.File]::WriteAllText($liveFile, (ConvertTo-Json -InputObject @($script:cover['live']) -Compress))
-        $globs = @(& node -e "const m = require('$script'); const live = JSON.parse(require('fs').readFileSync(process.argv[1], 'utf8')); process.stdout.write(JSON.stringify(m.rest('$root', live)));" $liveFile | ConvertFrom-Json)
+        $globs = @(& node -e "const m = require('$script'); const live = JSON.parse(require('fs').readFileSync(process.argv[1], 'utf8')); m.rest('$root', live).then((r) => process.stdout.write(JSON.stringify(r)));" $liveFile | ConvertFrom-Json)
         $globs | Should -Contain 'docs'
         $globs | Should -Contain 'go'
         $globs | Should -Not -Contain 'infrastructure' -Because 'the infrastructure track is live'
@@ -163,10 +163,10 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
                         generated = @($rendered['catzc.trackLamps.generated'])
                     }) -Depth 6 -Compress))
         $driver = "const m = require('$script'); const d = JSON.parse(require('fs').readFileSync(process.argv[1], 'utf8'));" +
-        " const r = {}; for (const lamp of ['code', 'tests', 'tools', 'generated']) { const out = new Set([lamp]);" +
-        " const g = m.hiddenGlobs('$root', out, '', d.covers, {}, d.tools, d.generated); const t = m.census('$root', out, '', d.covers, {}, d.tools, g, d.generated);" +
+        " (async () => { const r = {}; for (const lamp of ['code', 'tests', 'tools', 'generated']) { const out = new Set([lamp]);" +
+        " const g = await m.hiddenGlobs('$root', out, '', d.covers, {}, d.tools, d.generated); const t = await m.census('$root', out, '', d.covers, {}, d.tools, g, d.generated);" +
         " r[lamp] = { wrong: t.wrong.length, sum: t.lamps.code + t.lamps.tests + t.lamps.tools, total: t.total, first: t.wrong.slice(0, 3) }; }" +
-        " process.stdout.write(JSON.stringify(r));"
+        " process.stdout.write(JSON.stringify(r)); })();"
         $result = & node -e $driver $lampFile | ConvertFrom-Json -AsHashtable
         foreach ($lamp in 'code', 'tests', 'tools', 'generated') {
             $result[$lamp].wrong | Should -Be 0 -Because "with $lamp off no file may go against its lamp (first: $($result[$lamp].first -join ', '))"

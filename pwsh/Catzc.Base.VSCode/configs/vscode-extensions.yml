@@ -79,7 +79,7 @@ extensions:
           priority: default
   catzc-track-lamps:
     displayName: Catzc track lamps
-    version: 0.7.0
+    version: 0.7.1
     description: >-
       Filter lamps in the Explorer's title row: code (the live aspect), tools (the vendor configuration), tests (everything else) and a
       typed list of languages; a lit lamp shows its files, an unlit one filters them away through files.exclude; every lamp lit shows

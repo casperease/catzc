@@ -91,8 +91,8 @@ layout:
   g-deploy-stages: { x: 470, y: 170, w: 240, h: 80 }
   e-non-prod: { x: 1000, y: 150, w: 220, h: 56 }
   e-prod-tier: { x: 1000, y: 230, w: 220, h: 56 }
-  f-deploy-bicep: { x: 480, y: 398, w: 240, h: 44 }
-  f-deployment-context: { x: 840, y: 398, w: 300, h: 44 }
+  f-deploy-bicep: { x: 470, y: 398, w: 120, h: 44 }
+  f-deployment-context: { x: 610, y: 398, w: 300, h: 44 }
 ```
 
 ![A merge to main runs the CD pipeline all the way to prod, with no approval](.assets/a-merge-runs-cd-to-prod.drawio.png)

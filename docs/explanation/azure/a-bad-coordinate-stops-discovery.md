@@ -80,7 +80,7 @@ layout:
   g-config: { x: 50, y: 214, w: 190, h: 52 }
   g-discovery: { x: 340, y: 134, w: 200, h: 44 }
   g-validator: { x: 340, y: 304, w: 200, h: 44 }
-  r-slot: { x: 650, y: 134, w: 220, h: 44 }
+  r-slot: { x: 1020, y: 134, w: 220, h: 44 }
   grp-failures: { x: 640, y: 214, w: 330, h: 200 }
   f-unresolved: { x: 670, y: 256, w: 270, h: 44 }
   f-several: { x: 670, y: 308, w: 270, h: 44 }

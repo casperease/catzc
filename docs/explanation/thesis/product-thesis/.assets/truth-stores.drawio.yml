@@ -48,5 +48,5 @@ layout:
   c-catzc: { x: 90, y: 400, w: 260, h: 56 }
   s-ado-config: { x: 470, y: 116, w: 160, h: 84 }
   s-ado-runtime: { x: 710, y: 130, w: 160, h: 84 }
-  x-ado: { x: 990, y: 400, w: 220, h: 56 }
-  x-snow: { x: 990, y: 270, w: 220, h: 56 }
+  x-ado: { x: 1110, y: 400, w: 150, h: 56 }
+  x-snow: { x: 940, y: 270, w: 150, h: 56 }

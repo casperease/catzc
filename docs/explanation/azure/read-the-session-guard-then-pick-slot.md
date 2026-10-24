@@ -86,7 +86,7 @@ layout:
   band-slot: { x: 920, y: 84, w: 360, h: 280 }
   g-current: { x: 40, y: 134, w: 210, h: 44 }
   g-session: { x: 290, y: 134, w: 270, h: 44 }
-  g-azure: { x: 60, y: 254, w: 130, h: 52 }
+  g-azure: { x: 60, y: 194, w: 130, h: 52 }
   f-undeclared: { x: 320, y: 262, w: 220, h: 44 }
   g-assert: { x: 650, y: 134, w: 200, h: 68 }
   f-wrong: { x: 650, y: 262, w: 200, h: 44 }
