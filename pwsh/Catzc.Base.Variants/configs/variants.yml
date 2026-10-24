@@ -23,6 +23,14 @@ aspects:
   infrastructure:
     - tests: ["**/tests/**"]
     - live: ["**"]
+  # The repository's own pipeline definitions are live as the Bicep tree is: a pipeline or workflow is what runs, a test asset under tests/
+  # is the tests aspect.
+  ado-pipelines:
+    - tests: ["**/tests/**"]
+    - live: ["**"]
+  github-workflows:
+    - tests: ["**/tests/**"]
+    - live: ["**"]
   # The boundary contracts ship as they are, so live is the catch-all; a contract kept for a test asset under tests/ is the tests aspect.
   contracts:
     - tests: ["**/tests/**"]

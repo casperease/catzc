@@ -11,7 +11,8 @@ catzc:
     cites:
       - ADR-REPO-FOLDERS-STABLEFILENAMES
       - ADR-REPO-PLANS-MASTERANDTASKS
-    drs_total: 2
+      - DDR-FILTER-STATEALWAYSSHOWN
+    drs_total: 3
 ---
 
 # Master: every open step of every plan, in one executable order
@@ -54,7 +55,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
   three steps left: the red-wins rule written into DDR-FILTER-STATEALWAYSSHOWN (landed in the extension), the user's look at the lamps in
-  VS Code, the files.exclude roof test
+  VS Code (the `pipelines` and `infrastructure` lamps landed), the files.exclude roof test
 - lamp-palette -> plan-lamp-palette.md: one declared colour range per meaning (committed, local work in progress blue-grey, failed, empty),
   the lamp icons generated from the base glyphs and the Explorer colours read from it; three steps, after the veto state lands
 - track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,

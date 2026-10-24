@@ -29,6 +29,22 @@ Describe 'Get-RepositoryFilter — the real repository' -Tag 'L1', 'integrity', 
         @($tests.sets).Where({ @($_.exclude).Count -gt 0 }).Count | Should -BeGreaterThan 0 -Because 'a module''s tests set is the unit minus its live patterns'
     }
 
+    It 'gives the pipeline and workflow definitions their own filter and keeps them out of the vendor tools' {
+        $claims = {
+            param([string] $Filter, [string] $Path)
+            $sets = & $script:globSets @($script:filters.Where({ $_.name -ceq $Filter })[0].sets)
+            $sets.Where({ $_.Matches($Path) }, 'First').Count -gt 0
+        }
+        foreach ($path in '.github/workflows/ci.yaml', '.ado/pipelines/ci-pwsh.yaml') {
+            & $claims 'pipelines' $path | Should -BeTrue -Because "'$path' is a pipeline definition"
+            & $claims 'tools' $path | Should -BeFalse -Because "'$path' belongs to its own track, not to the vendor settings around it"
+        }
+        & $claims 'tools' '.github/README.md' | Should -BeTrue -Because 'the rest of .github stays vendor settings'
+        & $claims 'infrastructure' 'infrastructure/modules/data-factory.bicep' | Should -BeTrue
+        & $claims 'code' 'infrastructure/modules/data-factory.bicep' | Should -BeTrue -Because 'the Bicep tree stays live'
+        & $claims 'code' '.github/workflows/ci.yaml' | Should -BeTrue -Because 'the workflows are live, as the Bicep tree is'
+    }
+
     It 'claims every tracked file by at least one filter' {
         $sets = @($script:filters.ForEach({ & $script:globSets @($_.sets) }))
         $unclaimed = $script:tracked.Where({ $path = $_; $sets.Where({ $_.Matches($path) }, 'First').Count -eq 0 })
