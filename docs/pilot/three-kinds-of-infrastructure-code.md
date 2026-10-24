@@ -75,7 +75,7 @@ content:
   legend: auto
   minimaps: [axis, lifecycle-position, layer-stack]
 layout:
-  g-slot: { x: 680, y: 164, w: 200, h: 52 }
+  g-slot: { x: 680, y: 148, w: 200, h: 52 }
 ```
 
 ![Infrastructure code is of three kinds, and a template pulls its modules and its configuration slots together](.assets/three-kinds-of-infrastructure-code.drawio.png)

@@ -59,7 +59,7 @@ from typing import NoReturn
 import minimap_contract
 import minimaps
 import yaml
-from drawio_png import DEFAULTS, THEMES, decode, encode, mxfile_chunk, paint, plain, render, style_map
+from drawio_png import DEFAULTS, THEMES, decode, encode, font, mxfile_chunk, paint, plain, render, style_map
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
@@ -279,6 +279,51 @@ def transition(edge, word, at):
         width,
         height,
     )
+
+
+LABEL_INNER = int(DEFAULTS["renderer"]["label-inner-margin"])  # the margin between a diamond's text and its invisible text rect
+LABEL_OUTER = int(DEFAULTS["renderer"]["label-outer-margin"])  # the margin between that rect's corner and the diamond's border
+LABEL_RECT = "text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontSize=12;fontColor=@ink;"  # the invisible rect: no fill, no line
+LABEL_LINE_GAP = 3  # px between two printed lines, the painter's line spacing
+LABEL_WRAP_PAD = 4  # px draw.io and the painter pad a wrapped label across its width
+
+
+def diamond_fit(label, box=None):
+    """How a diamond holds its label: the label is never printed on the border but in an invisible text rect inside it, the text with
+    LABEL_INNER around it on every side, and the diamond keeps LABEL_OUTER between the rect's corner and its border, square to the border.
+    Returns the wrapped `lines`, the text rect's `rect` (w, h) and the `size` (w, h) of the smallest diamond of the rect's own aspect
+    that holds it. Without a box the wrap of the smallest diamond wins; given a box (a hand-moved diamond), the wrap that overflows it
+    least wins, and its rect is still centred in the box."""
+    face = font(12, True)
+    ascent, descent = face.getmetrics()
+    lines_in = [line.split(" ") for line in label.split("\n")]  # a newline in the label is a break the wrap keeps
+    narrowest = max(face.getlength(word) for words in lines_in for word in words)
+    widest = max(face.getlength(" ".join(words)) for words in lines_in)
+    fits, seen, limit = [], set(), narrowest
+    while True:
+        lines = []
+        for words in lines_in:
+            current = ""
+            for word in words:
+                trial = f"{current} {word}" if current else word
+                if current and face.getlength(trial) > limit:
+                    lines.append(current)
+                    current = word
+                else:
+                    current = trial
+            lines.append(current)
+        if tuple(lines) not in seen:
+            seen.add(tuple(lines))
+            w = math.ceil(max(face.getlength(line) for line in lines)) + LABEL_WRAP_PAD + 2 * LABEL_INNER
+            h = len(lines) * (ascent + descent) + (len(lines) - 1) * LABEL_LINE_GAP + 2 * LABEL_INNER
+            scale = 2 + 2 * LABEL_OUTER * math.hypot(w, h) / (w * h)  # the corner (w/2, h/2) sits LABEL_OUTER inside the border
+            fits.append({"lines": lines, "rect": (w, h), "size": (math.ceil(scale * w), math.ceil(scale * h))})
+        if limit >= widest:
+            break
+        limit += 4
+    if box is None:
+        return min(fits, key=lambda f: f["size"][0] * f["size"][1])
+    return min(fits, key=lambda f: max(f["size"][0] / box[0], f["size"][1] / box[1]))
 
 
 def edge_middle(a, b, via):
@@ -1730,6 +1775,8 @@ def place(declaration):
         floor = band_box[band_id]["y"] + band_box[band_id]["h"] - PAD
         return {"x": origin_x + round(n * stride), "y": floor - h - n * int(ladders[band_id]["rise"]), "w": w, "h": h}
 
+    axis = {"h": 0, "bands": set()}  # the shared first-row height of bands side by side, set once they are known
+
     def size_of(item):
         if item["id"] in layout:
             return layout[item["id"]]["w"], layout[item["id"]]["h"]
@@ -1742,7 +1789,11 @@ def place(declaration):
         if item.get("shape") == "box":
             return COMMIT_BOX_SIZE
         if "kind" in item:
-            return glyph_lib[item["kind"]]["size"]
+            base = glyph_lib[item["kind"]]["size"]
+            if "rhombus" in glyph_lib[item["kind"]]["style"]:  # a diamond is as big as its label needs, never smaller than the glyph
+                fit = diamond_fit(item["label"])["size"]
+                return max(base[0], fit[0]), max(base[1], fit[1])
+            return base
         inner_w, inner_h = grid_size(item["id"])
         return inner_w + 2 * PAD, inner_h + LABEL_ROW + PAD
 
@@ -1789,20 +1840,34 @@ def place(declaration):
         items = holder.get(holder_id, [])
         if not items:
             return 0, 0
-        sizes = [size_of(i) for i in items]
         if width is None:
             columns = max(1, min(len(items), 4))
-            width = sum(s[0] for s in sizes[:columns]) + COL_GAP * (columns - 1)
-        x = y = row_h = 0
-        total_w = 0
-        for w, h in sizes:
+            width = sum(size_of(i)[0] for i in items[:columns]) + COL_GAP * (columns - 1)
+        grid = grid_rows(holder_id, width, axis["h"] if holder_id in axis["bands"] else 0)
+        return grid["w"], grid["h"]
+
+    def grid_rows(holder_id, width, axis_h=0):
+        """The ordinary grid of a holder: its items left to right, wrapping at `width`, each item's offset (x, y) with its y centring
+        it on the middle of its row, so a ride along the flow runs level instead of jumping with each box's height. The first row is at
+        least `axis_h` tall, so the bands side by side centre their first rows on one shared axis. Returns the offsets by item id, the
+        grid's w and h, and `first`, the height of the first row alone."""
+        rows, x = [[]], 0
+        for item in holder.get(holder_id, []):
+            w, h = size_of(item)
             if x > 0 and x + w > width:
-                y += row_h + ROW_GAP
-                x, row_h = 0, 0
+                rows.append([])
+                x = 0
+            rows[-1].append((item["id"], x, w, h))
             x += w + COL_GAP
-            row_h = max(row_h, h)
-            total_w = max(total_w, x - COL_GAP)
-        return total_w, y + row_h
+        offsets, y, total_w, first = {}, 0, 0, 0
+        for n, row in enumerate(rows):
+            row_h = max([h for *_, h in row] + ([axis_h] if n == 0 else []))
+            first = row_h if n == 0 else first
+            for cid, rx, w, h in row:
+                offsets[cid] = (rx, y + (row_h - h) // 2)
+                total_w = max(total_w, rx + w)
+            y += row_h + (ROW_GAP if n < len(rows) - 1 else 0)
+        return {"offsets": offsets, "w": total_w, "h": y, "first": first}
 
     vertical = content["flow"] == "top-to-bottom"
     has_spans = bool(content["spans"])
@@ -1826,6 +1891,9 @@ def place(declaration):
     else:
         n = max(1, len(bands))
         width = (PAGE["width"] - GAP * (n - 1)) // n
+        # Bands side by side share one axis: the tallest first row among them, on which every band centres its first row.
+        axis["h"] = max([grid_rows(b["id"], width - 2 * PAD)["first"] for b in bands if b["id"] not in {*rows, *lanes, *ladders}] + [0])
+        axis["bands"] = {b["id"] for b in bands}
         inner = [grid_size(b["id"], width - 2 * PAD) for b in bands]
         h = max([i[1] + LABEL_ROW + PAD for i in inner] + [120])
         top = (PAGE["band_y"] if has_spans else PAGE["band_y"] - 24) + drop
@@ -1853,12 +1921,10 @@ def place(declaration):
     box_of = dict(band_box)
 
     def fill(holder_id, origin_x, origin_y, width, parent):
-        x = y = row_h = 0
+        grid = grid_rows(holder_id, width, axis["h"] if holder_id in axis["bands"] else 0)["offsets"]
         for item in holder.get(holder_id, []):
             w, h = size_of(item)
-            if x > 0 and x + w > width:
-                y += row_h + ROW_GAP
-                x, row_h = 0, 0
+            x, y = grid[item["id"]]
             box = (
                 layout.get(item["id"])
                 or row_place(holder_id, item, origin_x, origin_y, w, h)
@@ -1883,8 +1949,26 @@ def place(declaration):
                     style += "align=left;spacingLeft=22;"
                 if item["kind"] == "commit":
                     style = commit_style(style, item.get("state", COMMIT_STATES[0]), item.get("ghost", False))
-                label = "<br>".join(html.escape(line, quote=False) for line in item["label"].split("\n"))  # a box's second line
-                cells.append(cell(item["id"], f"<b>{label}</b>", style, box["x"], box["y"], box["w"], box["h"], parent))
+                if "rhombus" in style:  # a diamond's label stands in an invisible text rect inside it, never on its border
+                    fit = diamond_fit(item["label"], (box["w"], box["h"]))
+                    rect_w, rect_h = fit["rect"]
+                    text = "<br>".join(html.escape(line, quote=False) for line in fit["lines"])
+                    cells.append(cell(item["id"], "", style, box["x"], box["y"], box["w"], box["h"], parent))
+                    cells.append(
+                        cell(
+                            f"{item['id']}-text",
+                            f"<b>{text}</b>",
+                            LABEL_RECT,
+                            box["x"] + (box["w"] - rect_w) // 2,
+                            box["y"] + (box["h"] - rect_h) // 2,
+                            rect_w,
+                            rect_h,
+                            parent,
+                        )
+                    )
+                else:
+                    label = "<br>".join(html.escape(line, quote=False) for line in item["label"].split("\n"))  # a box's second line
+                    cells.append(cell(item["id"], f"<b>{label}</b>", style, box["x"], box["y"], box["w"], box["h"], parent))
                 if item["kind"] == "type":
                     tag = glyph_lib["type"]["tag"]
                     cells.append(
@@ -1929,8 +2013,6 @@ def place(declaration):
                     cell(item["id"], html.escape(item["label"], quote=False), LIB["module"], box["x"], box["y"], box["w"], box["h"], parent)
                 )
                 fill(item["id"], box["x"] + PAD, box["y"] + LABEL_ROW, box["w"] - 2 * PAD, item["id"])
-            x += w + COL_GAP
-            row_h = max(row_h, h)
 
     for b in bands:
         bb = band_box[b["id"]]
@@ -2738,7 +2820,7 @@ def get(model, kind=None):
     lens = plain(cells["lens-badge"].get("value")).lower() if "lens-badge" in cells else lens
     for cid, c in cells.items():
         style, value = c.get("style") or "", plain(c.get("value"))
-        if c.get("edge") == "1" or cid in DERIVED or cid.startswith(DERIVED_PREFIXES) or cid.endswith(("-tag", "-word", "-title")):
+        if c.get("edge") == "1" or cid in DERIVED or cid.startswith(DERIVED_PREFIXES) or cid.endswith(("-tag", "-word", "-title", "-text")):
             continue
         if cid == "title":
             content["title"] = value
@@ -2805,16 +2887,36 @@ def get(model, kind=None):
     for b in bands:
         walk(b)
     rank = {h: i for i, h in enumerate(order)}
-    for g in sorted(groups, key=lambda g: (rank[holders[g]], geo[g]["y"], geo[g]["x"])):
+    def rows_of(ids, holder_key):
+        """Each id's row among the ids sharing a holder. Boxes are centred on their row's middle, so a row is the run of ids whose centres
+        lie within a pixel of one another, never the run of equal tops."""
+        row, by_holder = {}, {}
+        for i in ids:
+            by_holder.setdefault(holder_key(i), []).append(i)
+        for members in by_holder.values():
+            n, last = -1, None
+            for i in sorted(members, key=lambda i: geo[i]["y"] + geo[i]["h"] / 2):
+                centre = geo[i]["y"] + geo[i]["h"] / 2
+                n += last is None or centre - last > 1
+                row[i], last = n, centre
+        return row
+
+    group_row = rows_of(groups, lambda g: holders[g])
+    for g in sorted(groups, key=lambda g: (rank[holders[g]], group_row[g], geo[g]["x"])):
         content["groups"].append({"id": g, "label": plain(cells[g].get("value")) or " ", "in": holders[g]})  # " ": an untitled frame
         layout[g] = declared(geo[g])
 
+    glyph_row = rows_of([cid for cid, _ in glyphs], holder_of)
+
     def reading_order(t):  # holder by holder, row-major; an environment's occupants come after the glyphs of the environment's holder
         h = holder_of(t[0])
-        return (rank[holder_of(h)], 1, geo[t[0]]["y"], geo[t[0]]["x"]) if h in envs else (rank[h], 0, geo[t[0]]["y"], geo[t[0]]["x"])
+        return (rank[holder_of(h)], 1, glyph_row[t[0]], geo[t[0]]["x"]) if h in envs else (rank[h], 0, glyph_row[t[0]], geo[t[0]]["x"])
 
     for cid, k in sorted(glyphs, key=reading_order):
-        glyph = {"id": cid, "kind": k, "label": plain(cells[cid].get("value")), "in": holder_of(cid)}
+        label = plain(cells[cid].get("value"))
+        if f"{cid}-text" in cells:  # a diamond's label stands in its invisible text rect, wrapped at spaces
+            label = " ".join(plain(cells[f"{cid}-text"].get("value")).split("\n"))
+        glyph = {"id": cid, "kind": k, "label": label, "in": holder_of(cid)}
         if k == "commit":
             s = style_map(cells[cid].get("style"))
             if s.get("commitShape") == "box":
@@ -2827,7 +2929,8 @@ def get(model, kind=None):
         content["glyphs"].append(glyph)
         layout[cid] = declared(geo[cid])
     content["notes"] = []
-    for cid in sorted(notes, key=lambda n: (rank[holder_of(n)], geo[n]["y"], geo[n]["x"])):
+    note_row = rows_of(notes, holder_of)
+    for cid in sorted(notes, key=lambda n: (rank[holder_of(n)], note_row[n], geo[n]["x"])):
         content["notes"].append({"id": cid, "in": holder_of(cid), "text": plain(cells[cid].get("value"))})
         layout[cid] = declared(geo[cid])
     for bar in bars:
