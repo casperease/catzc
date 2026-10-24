@@ -366,8 +366,8 @@ every flow edge of a diagram carries one and the same word (all `calls`), no pil
 it once (`flow: calls`), derived at render time under the renderer's `uniform-label: legend` and never written back; an edge with a count
 keeps its pill for the count, and a failure edge does not count toward the sameness. A label outside the vocabulary is free text, not an
 arrow meaning, and the edge is oriented by rank like an unlabelled one. The kinds in `edge-rules` `trusted-kinds` (the gate) keep the
-direction their author declared, and a diagram with its own `relation` keeps its plain arrows as they are. The edge audit, which leaves out
-the folders `edge-rules` `audit-skip` names, reads the same ranks and defaults.
+direction their author declared, and a diagram with its own `relation` keeps its plain arrows as they are. The edge audit reads the same ranks
+and defaults.
 
 - [Arrows point at what they depend on](#arrows-point-at-what-they-depend-on)
 

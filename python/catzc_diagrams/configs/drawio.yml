@@ -54,7 +54,6 @@ edge-defaults: # the label an oriented edge carries when it declares none, `<tai
   code>failure: failed
 edge-rules: # the rest of the arrow rule's vocabulary
   trusted-kinds: gate # glyph kinds whose unlabelled edges keep the direction the author declared; nothing infers or judges them
-  audit-skip: docs/pilot # page folders (from the repository root) the edge audit and its sweeps leave out
 roles: # a diagram's role, keyed by its stem's repository path (`.assets/<name>`), only where it is not renderer.role
   docs/explanation/.assets/glyphs: legend # the glyph library, the legend every slide's glyphs come from
 lenses: # the closed set of lenses a diagram is drawn through (its about.lens, the end of its subtitle), each with what it shows; the badge prints the name

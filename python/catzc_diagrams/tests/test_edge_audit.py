@@ -105,15 +105,6 @@ def test_a_trusted_kind_keeps_its_declared_direction_and_free_text_is_judged_by_
 
 
 
-def test_a_diagram_under_the_declared_skip_folder_is_left_out_of_the_audit(tmp_path):
-    folder = tmp_path / "docs" / "pilot" / ".assets"
-    folder.mkdir(parents=True)
-    (folder / "widget-pilot.drawio.png").write_bytes(b"")
-    (folder / "widget-pilot.drawio.yml").write_text(HEAD.format(relation="", edges="    - { from: widget-actor, to: widget-a, kind: flow, label: \"\" }"), encoding="utf-8")
-    assert edge_audit.audit(tmp_path)[0] == []
-    assert "docs/pilot" in edge_audit.edge_rules.AUDIT_SKIP  # declared in drawio.yml edge-rules, not in the audit
-
-
 def test_the_audit_and_the_engine_read_one_rank_table():
     assert edge_audit.edge_rules is edge_audit.declaration.edge_rules
 

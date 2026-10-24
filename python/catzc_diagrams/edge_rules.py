@@ -12,7 +12,7 @@
 `edge-rank` lists, lowest first, each rank and the glyph kinds standing at it: the lower rank acts on the higher, so an edge between
 two cells of different rank runs from the lower to the higher. `edge-defaults` names the label such a pair carries when it declares
 none, by kind or by rank name (`<tail>><head>`, the most specific of kind or rank on either end wins). `edge-rules` holds the kinds
-whose edges keep their declared direction (`trusted-kinds`) and the page folders the audit leaves out (`audit-skip`). declaration.py
+whose edges keep their declared direction (`trusted-kinds`). declaration.py
 reads this module to orient and label an edge, and edge_audit.py reads it to judge one: there is no second copy.
 """
 
@@ -27,7 +27,6 @@ RANKS = tuple(DEFAULTS["edge-rank"])  # the rank names, lowest first
 KIND_RANK = {kind: name for name, kinds in DEFAULTS["edge-rank"].items() for kind in kinds.replace(",", " ").split()}
 DEFAULT_LABELS = {tuple(pair.split(">")): label for pair, label in DEFAULTS["edge-defaults"].items()}
 TRUSTED_KINDS = tuple(DEFAULTS["edge-rules"]["trusted-kinds"].replace(",", " ").split())
-AUDIT_SKIP = tuple(DEFAULTS["edge-rules"]["audit-skip"].replace(",", " ").split())
 EDGE_KIND_LABEL = {"read": "reads", "fail": "failed", "junction": "junction"}  # an edge kind that already says its meaning
 NOT_ARROWS = ("adr", "bypass")  # a DRS link and a ladder bypass join no actor, code or file
 
@@ -86,6 +85,3 @@ def judge(tail_kind, head_kind, label, edge_kind, edge_labels):
     return "reverse" if tail > head else "ambiguous" if tail == head else "ok"
 
 
-def audit_skipped(relative_stem):
-    """Whether a diagram's stem, relative to the repository root, stands under a folder the audit leaves out."""
-    return any(relative_stem == folder or relative_stem.startswith(folder + "/") for folder in AUDIT_SKIP)

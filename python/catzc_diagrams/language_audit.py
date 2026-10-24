@@ -1,6 +1,6 @@
 """Read-only audit of the language tags of every code glyph of every diagram (languages_table): the label, the language its shape names,
 the tags it would print, and whether it prints none (`untagged`: its label matches no shape). It writes only out/language-audit.md and changes no
-declaration; the diagrams of the folders `edge-rules audit-skip` names are left out, as in the edge audit.
+declaration.
 
 usage (repo root):
   uv run --no-sync --project python python python/catzc_diagrams/language_audit.py [--out out] [--stem <name-substring>]

@@ -44,7 +44,6 @@ def stems(root=REPO, needle=""):
         for png in (root / "docs").rglob("*.drawio.png")
         if needle in png.name
         and ".assets" in png.parts
-        and not edge_rules.audit_skipped(png.relative_to(root).as_posix().removesuffix(".drawio.png"))
     )
 
 
@@ -164,7 +163,7 @@ def summary(rows, extra):
         "",
         "Rank of an end, the lower acting on the higher (drawio.yml `edge-rank`): "
         + ", then ".join(f"{name} ({', '.join(k for k, r in edge_rules.KIND_RANK.items() if r == name)})" for name in edge_rules.RANKS)
-        + f". Trusted kinds keep their declared direction: {', '.join(edge_rules.TRUSTED_KINDS)}. Left out: {', '.join(edge_rules.AUDIT_SKIP)}.",
+        + f". Trusted kinds keep their declared direction: {', '.join(edge_rules.TRUSTED_KINDS)}.",
         "",
         "| tail to head (drawio.yml `edge-defaults`) | default label |",
         "| --- | --- |",
