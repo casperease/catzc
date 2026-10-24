@@ -183,16 +183,16 @@ layout:
   band-finally: { x: 20, y: 408, w: 1260, h: 96 }
   g-automation: { x: 30, y: 114, w: 150, h: 40 }
   g-build: { x: 30, y: 166, w: 150, h: 40 }
-  g-run: { x: 290, y: 136, w: 140, h: 36 }
-  g-discovery: { x: 500, y: 136, w: 150, h: 36 }
-  g-tag-gate: { x: 722, y: 111, w: 196, h: 86 }
-  g-split: { x: 130, y: 286, w: 190, h: 36 }
+  g-run: { x: 250, y: 136, w: 120, h: 36 }
+  g-discovery: { x: 400, y: 136, w: 130, h: 36 }
+  g-tag-gate: { x: 555, y: 111, w: 180, h: 86 }
+  g-split: { x: 130, y: 286, w: 440, h: 36 }
   s-parallel: { x: 130, y: 340, w: 64, h: 28 }
   s-greedy: { x: 198, y: 340, w: 64, h: 28 }
   s-serial: { x: 266, y: 340, w: 64, h: 28 }
-  g-select: { x: 440, y: 286, w: 185, h: 36 }
-  g-workers: { x: 725, y: 286, w: 215, h: 36 }
-  g-verdict: { x: 1035, y: 286, w: 195, h: 36 }
+  g-select: { x: 605, y: 286, w: 170, h: 36 }
+  g-workers: { x: 815, y: 286, w: 200, h: 36 }
+  g-verdict: { x: 1050, y: 286, w: 190, h: 36 }
   f-run-json: { x: 130, y: 434, w: 110, h: 52 }
 ```
 

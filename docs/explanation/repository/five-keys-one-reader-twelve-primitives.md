@@ -98,7 +98,7 @@ layout:
   band-guards: { x: 20, y: 474, w: 1240, h: 90 }
   g-variants-yml: { x: 560, y: 112, w: 190, h: 44 }
   g-get-config: { x: 530, y: 204, w: 250, h: 44 }
-  g-get-variant: { x: 560, y: 282, w: 190, h: 44 }
+  g-get-variant: { x: 50, y: 292, w: 1205, h: 44 }
   g-ado-naming: { x: 50, y: 404, w: 260, h: 44 }
   g-git-workspace: { x: 365, y: 404, w: 260, h: 44 }
   g-enabled-customers: { x: 680, y: 404, w: 260, h: 44 }

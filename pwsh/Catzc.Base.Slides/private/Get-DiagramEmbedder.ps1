@@ -33,8 +33,12 @@ function Get-DiagramEmbedder {
             continue
         }
         $pageFolder = $page.Substring(0, [Math]::Max(0, $page.LastIndexOf('/')))
-        foreach ($match in [regex]::Matches($text, '!\[[^\]]*\]\(([^)\s#]*\.drawio\.png)')) {
-            $target = $match.Groups[1].Value
+        # A slide file embeds its diagram by the path under its `## Image` heading; any other page by a markdown image.
+        $targets = @([regex]::Matches($text, '!\[[^\]]*\]\(([^)\s#]*\.drawio\.png)') | ForEach-Object { $_.Groups[1].Value })
+        if ($page -like '*.slide.md') {
+            $targets += @([regex]::Matches($text, '(?m)^## Image\s+([^\s]+\.drawio\.png)\s*$') | ForEach-Object { $_.Groups[1].Value })
+        }
+        foreach ($target in $targets) {
             $joined = if ($target.StartsWith('/')) {
                 $target.TrimStart('/')
             }

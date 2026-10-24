@@ -11,8 +11,8 @@ import language_audit
 import languages_table
 
 ROWS = {
-    "widgetshell": {"tag": "wsh", "extensions": [".wsh"], "shapes": ["^Widget-[A-Z]\w+$"], "glyph_kinds": ["code"]},
-    "gadgetlang": {"tag": "gdg", "extensions": [".gdg"], "shapes": ["^[A-Z]\w+\.[A-Z]\w+$"], "glyph_kinds": ["type"]},
+    "widgetshell": {"tag": "wsh", "extensions": [".wsh"], "shapes": ["^Widget-[A-Z]\w+$"]},
+    "gadgetlang": {"tag": "gdg", "extensions": [".gdg"], "shapes": ["^[A-Z]\w+\.[A-Z]\w+$"]},
 }
 
 DECLARATION = """
@@ -44,18 +44,16 @@ def fixture_repo(tmp_path, monkeypatch):
     return tmp_path
 
 
-def test_every_code_glyph_gets_its_language_its_tags_and_whether_its_kind_chose_it(fixture_repo):
+def test_every_code_glyph_gets_its_language_its_tags_and_whether_it_prints_none(fixture_repo):
     rows = {r["id"]: r for r in language_audit.audit(fixture_repo)}
     assert set(rows) == {"widget-a", "widget-b", "gadget-a", "widget-c"}  # a file is no code glyph
-    assert (rows["widget-a"]["language"], rows["widget-a"]["tags"], rows["widget-a"]["fell_back"]) == ("widgetshell", "wsh", False)
-    assert (rows["widget-b"]["language"], rows["widget-b"]["fell_back"]) == ("widgetshell", True)  # no shape matched: the kind chose
-    assert (rows["gadget-a"]["language"], rows["gadget-a"]["fell_back"]) == ("gadgetlang", False)
-    assert (rows["widget-c"]["language"], rows["widget-c"]["fell_back"]) == ("gadgetlang", False)  # lang: names it outright
+    assert (rows["widget-a"]["language"], rows["widget-a"]["tags"], rows["widget-a"]["untagged"]) == ("widgetshell", "wsh", False)
+    assert (rows["widget-b"]["language"], rows["widget-b"]["tags"], rows["widget-b"]["untagged"]) == ("none", "", True)  # no shape matched
+    assert (rows["gadget-a"]["language"], rows["gadget-a"]["untagged"]) == ("gadgetlang", False)
+    assert (rows["widget-c"]["language"], rows["widget-c"]["untagged"]) == ("gadgetlang", False)  # lang: names it outright
 
 
-def test_the_report_counts_the_glyphs_per_language_and_lists_the_fallbacks(fixture_repo):
-    rows = language_audit.audit(fixture_repo)
-    lines = language_audit.report(rows)
-    text = "\n".join(lines)
-    assert "4 code glyphs in 1 diagrams" in text and "| widgetshell | wsh | 2 | 1 |" in text and "| gadgetlang | gdg | 2 | 0 |" in text
-    assert "## Fallbacks (1)" in text and "| widgets/.assets/widget-flow | widget-b | code | a plain phrase | widgetshell |" in text
+def test_the_report_counts_the_glyphs_per_language_and_lists_the_untagged(fixture_repo):
+    text = chr(10).join(language_audit.report(language_audit.audit(fixture_repo)))
+    assert "4 code glyphs in 1 diagrams, 1 of them untagged" in text and "| widgetshell | wsh | 1 |" in text and "| gadgetlang | gdg | 2 |" in text
+    assert "## Untagged (1)" in text and "| widgets/.assets/widget-flow | widget-b | code | a plain phrase |" in text

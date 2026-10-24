@@ -152,7 +152,7 @@ def legend_model():
     return tagged_library(paint(chr(10).join(line for line in lines if not line.lstrip().startswith("<!--")).strip()))
 
 
-TAGGED_SAMPLES = ("g-code", "g-private", "g-runner", "g-type", "g-command-sample")  # the library glyphs that are code: each shows its tag row
+TAGGED_SAMPLES = {"g-code": "Get-Thing", "g-private": "Get-Thing", "g-runner": "Invoke-Thing", "g-type": "ThingConfig", "g-command-sample": None}  # the library glyphs that are code: each shows its tag row
 
 
 def tagged_library(model):
@@ -168,10 +168,10 @@ def tagged_library(model):
     lib = {"style": sheet.group(2), "size": (int(sheet.group(5)), int(sheet.group(6)))}
     model = re.sub(r'\s*<mxCell id="g-type-tag"[^>]*>\s*<mxGeometry[^>]*/>\s*</mxCell>', "", model, count=1)
     added = []
-    for cid in TAGGED_SAMPLES:
+    for cid, sample in TAGGED_SAMPLES.items():
         found = cell(cid)
         box = {"x": int(found.group(3)), "y": int(found.group(4)), "w": int(found.group(5)), "h": int(found.group(6))}
-        label = plain(html.unescape(found.group(1))) if cid == "g-command-sample" else ""
+        label = plain(html.unescape(found.group(1))) if sample is None else sample
         kind = "code" if cid == "g-command-sample" else cid[2:]
         for tag in declaration.glyph_tags({"id": cid, "kind": kind, "label": label}, box, "1", lib):
             added.append(

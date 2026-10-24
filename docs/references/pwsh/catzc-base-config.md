@@ -123,16 +123,16 @@ content:
 layout:
   band-resolve: { x: 20, y: 84, w: 1240, h: 110 }
   band-miss: { x: 20, y: 218, w: 1240, h: 215 }
-  g-get-config: { x: 120, y: 122, w: 150, h: 40 }
-  g-resolve-entry: { x: 340, y: 122, w: 170, h: 40 }
-  g-overlay-root: { x: 580, y: 122, w: 190, h: 40 }
-  g-registry: { x: 120, y: 262, w: 170, h: 40 }
-  g-sealed: { x: 360, y: 238, w: 200, h: 90 }
-  g-merge: { x: 640, y: 262, w: 190, h: 40 }
-  t-new: { x: 920, y: 262, w: 170, h: 40 }
-  f-sealed: { x: 395, y: 358, w: 130, h: 44 }
+  g-get-config: { x: 100, y: 122, w: 140, h: 40 }
+  g-resolve-entry: { x: 270, y: 122, w: 150, h: 40 }
+  g-overlay-root: { x: 450, y: 122, w: 180, h: 40 }
+  g-registry: { x: 450, y: 262, w: 170, h: 40 }
+  g-sealed: { x: 660, y: 238, w: 200, h: 90 }
+  g-merge: { x: 895, y: 262, w: 180, h: 40 }
+  t-new: { x: 1110, y: 262, w: 130, h: 40 }
+  f-sealed: { x: 695, y: 358, w: 130, h: 44 }
   f-configs-yml: { x: 150, y: 345, w: 110, h: 52 }
-  f-fragment: { x: 620, y: 345, w: 230, h: 52 }
+  f-fragment: { x: 900, y: 345, w: 230, h: 52 }
 ```
 
 ![Overlay merges unless sealed; the registered type builds it](.assets/get-config-merge-seal-type.drawio.png)

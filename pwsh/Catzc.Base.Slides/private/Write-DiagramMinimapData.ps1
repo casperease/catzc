@@ -76,7 +76,11 @@ function Write-DiagramMinimapData {
             }
             $excluded[$id] = [System.Collections.Generic.HashSet[string]]::new($excluded[$id], [System.StringComparer]::Ordinal)
         }
-        [pscustomobject]@{ Folder = $folderPath; Adr = $adrs; Ids = $ids; Excluded = $excluded }
+        # The drawing's own glyphs, handed to the minimaps that place them: the labels as written, resolved by the maps module, never stored.
+        $glyphs = @(if ($content -and $content.Contains('glyphs') -and $content['glyphs']) {
+                @($content['glyphs']) | Where-Object { $_ -is [System.Collections.IDictionary] }
+            })
+        [pscustomobject]@{ Folder = $folderPath; Adr = $adrs; Glyph = $glyphs; Ids = $ids; Excluded = $excluded }
     }
     # The file facts of every folder's subject are read in one call; a minimap that draws on them is handed them rather than reading its own.
     $subjectPaths = foreach ($entry in $declared) {
@@ -91,6 +95,7 @@ function Write-DiagramMinimapData {
         }
     }
     $facts = Get-MinimapFact -Path @($subjectPaths)
+    $trackedPaths = @(Get-GitTrackedPath '.')
     $utf8 = [System.Text.UTF8Encoding]::new($false)
     foreach ($entry in $declared) {
         $folderPath = $entry.Folder
@@ -105,6 +110,10 @@ function Write-DiagramMinimapData {
             }
             if ($parameters.ContainsKey('Facts')) {
                 $draw.Facts = $facts
+            }
+            if ($parameters.ContainsKey('Glyph')) {
+                $draw.Glyph = $entry.Glyph
+                $draw.TrackedPath = $trackedPaths
             }
             $data = & $maps.minimap_data[$id] @draw
             # The drawn data is the computed one less the cells the author excludes; nothing computed is written back to the declaration.

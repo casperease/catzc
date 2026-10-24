@@ -23,17 +23,11 @@ public sealed class MapsMinimapPlaces
     public const int DefaultCounterRows = 1;
     public const int DefaultRowChars = 40;
     public const string DefaultDropPrefix = "Catzc.";
-    public const string DefaultElision = "...";
     public const string DefaultFoldSeparator = "|";
     public const string DefaultFoldCountPrefix = "+";
     public const string DefaultRowJoin = ".";
     public const string DefaultNameJoin = "_";
     public const string DefaultRootMarker = "(root)";
-
-    public static readonly IReadOnlyList<string> Groups = Array.AsReadOnly(new[] { "docs", "modules", "rest" });
-
-    // The order the groups take the rows. Default: the order of Groups.
-    public static readonly IReadOnlyList<string> DefaultGroupOrder = Groups;
 
     // The rows the places share. Default: DefaultRows.
     public int rows { get; }
@@ -44,14 +38,8 @@ public sealed class MapsMinimapPlaces
     // The most characters a row holds. Default: DefaultRowChars.
     public int row_chars { get; }
 
-    // The order the place groups take the rows. Default: DefaultGroupOrder.
-    public IReadOnlyList<string> group_order { get; }
-
     // The module prefix a row drops, whole. Default: DefaultDropPrefix.
     public string drop_prefix { get; }
-
-    // What stands for the middle segments a too-long row elides, and for the folded names that did not fit. Default: DefaultElision.
-    public string elision { get; }
 
     // What joins the names of the sub-folders a folded row holds. Default: DefaultFoldSeparator.
     public string fold_separator { get; }
@@ -70,7 +58,7 @@ public sealed class MapsMinimapPlaces
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    public MapsMinimapPlaces(int rows, int counterRows, int rowChars, IReadOnlyList<string> groupOrder, string dropPrefix, string elision,
+    public MapsMinimapPlaces(int rows, int counterRows, int rowChars, string dropPrefix,
         string foldSeparator = DefaultFoldSeparator, string foldCountPrefix = DefaultFoldCountPrefix, string rowJoin = DefaultRowJoin,
         string nameJoin = DefaultNameJoin, string rootMarker = DefaultRootMarker)
     {
@@ -78,32 +66,16 @@ public sealed class MapsMinimapPlaces
         if (rows < 1) { errors.Add("rows must be at least 1"); }
         if (counterRows < 0 || counterRows > 1) { errors.Add("counter_rows must be 0 or 1"); }
         if (rowChars < 10) { errors.Add("row_chars must be at least 10"); }
-        if (string.IsNullOrEmpty(elision)) { errors.Add("elision must not be empty"); }
         if (string.IsNullOrEmpty(foldSeparator)) { errors.Add("fold_separator must not be empty"); }
         if (string.IsNullOrEmpty(foldCountPrefix)) { errors.Add("fold_count_prefix must not be empty"); }
         if (string.IsNullOrEmpty(rowJoin)) { errors.Add("row_join must not be empty"); }
         if (string.IsNullOrEmpty(nameJoin)) { errors.Add("name_join must not be empty"); }
         if (string.IsNullOrEmpty(rootMarker)) { errors.Add("root_marker must not be empty"); }
-        if (groupOrder == null || groupOrder.Count != Groups.Count)
-        {
-            errors.Add("group_order must name each of " + string.Join(", ", Groups) + " once");
-        }
-        else
-        {
-            foreach (string group in Groups)
-            {
-                int found = 0;
-                foreach (string named in groupOrder) { if (string.Equals(named, group, StringComparison.Ordinal)) { found++; } }
-                if (found != 1) { errors.Add("group_order must name '" + group + "' exactly once, not " + found + " times"); }
-            }
-        }
         if (errors.Count > 0) { throw new ArgumentException("minimap places: " + string.Join("; ", errors)); }
         this.rows = rows;
         counter_rows = counterRows;
         row_chars = rowChars;
-        group_order = groupOrder;
         drop_prefix = dropPrefix ?? "";
-        this.elision = elision;
         fold_separator = foldSeparator;
         fold_count_prefix = foldCountPrefix;
         row_join = rowJoin;
@@ -112,5 +84,5 @@ public sealed class MapsMinimapPlaces
     }
 
     public static MapsMinimapPlaces Default() =>
-        new MapsMinimapPlaces(DefaultRows, DefaultCounterRows, DefaultRowChars, DefaultGroupOrder, DefaultDropPrefix, DefaultElision);
+        new MapsMinimapPlaces(DefaultRows, DefaultCounterRows, DefaultRowChars, DefaultDropPrefix);
 }

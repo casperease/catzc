@@ -23,6 +23,10 @@ aspects:
   infrastructure:
     - tests: ["**/tests/**"]
     - live: ["**"]
+  # The boundary contracts ship as they are, so live is the catch-all; a contract kept for a test asset under tests/ is the tests aspect.
+  contracts:
+    - tests: ["**/tests/**"]
+    - live: ["**"]
 
 tracks:
   pwsh:

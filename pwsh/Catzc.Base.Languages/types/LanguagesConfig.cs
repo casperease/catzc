@@ -33,7 +33,7 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "languages config validation failed:\n";
     private static readonly string[] AllowedKeys = { "formatters", "imprint", "steps", "naming", "languages" };
-    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "check_scopes", "imprint", "layout", "tests", "executable", "naming", "tag", "shapes", "glyph_kinds" };
+    private static readonly string[] AllowedEntryKeys = { "extensions", "formatter", "no_formatter", "vscode_language", "adr_folder", "checks", "check_scopes", "imprint", "layout", "tests", "executable", "naming", "tag", "shapes" };
     private static readonly string[] AllowedNamingKeys = { "folder", "file", "function", "type", "exempt" };
     private static readonly string[] AllowedGlobalNamingKeys = { "exempt_folders", "normal_form" };
     // The repository normal form when the file names none; rests on [ADR-AUTO-IDIOM-NORMALFORM](/docs/drs/automation/idiomatic-names.md#rule-adr-auto-idiom-normalform).
@@ -749,14 +749,13 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
         }
 
         List<string> shapes = ReadShapes(name, entry.Contains("shapes") ? entry["shapes"] : null, errors);
-        List<string> glyphKinds = ReadWords(name, "glyph_kinds", entry.Contains("glyph_kinds") ? entry["glyph_kinds"] : null, errors);
-        if ((shapes.Count > 0 || glyphKinds.Count > 0) && tag == null)
+        if (shapes.Count > 0 && tag == null)
         {
-            errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: shapes and glyph_kinds need a tag, the word a diagram prints for the language", name));
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: shapes need a tag, the word a diagram prints for the language", name));
         }
 
         if (errors.Count > before) { return null; }
-        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray(), ownSteps.ToArray(), layoutRows.ToArray(), tests, executable, naming, checkScopes, tag, shapes.ToArray(), glyphKinds.ToArray());
+        FileLanguage language = new FileLanguage(name, extensions.ToArray(), formatter, noFormatter, vscodeLanguage, adrFolder, checks.ToArray(), ownSteps.ToArray(), layoutRows.ToArray(), tests, executable, naming, checkScopes, tag, shapes.ToArray());
         foreach (string extension in extensions) { byExtension[extension] = language; }
         return language;
     }
@@ -954,31 +953,6 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
         return shapes;
-    }
-
-    private static List<string> ReadWords(string name, string key, object value, List<string> errors)
-    {
-        List<string> words = new List<string>();
-        if (value == null) { return words; }
-        IList list = value as IList;
-        if (list == null)
-        {
-            errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: {1} must be a list of words", name, key));
-            return words;
-        }
-        foreach (object item in list)
-        {
-            string word = Text(item).Trim();
-            if (word.Length == 0 || words.Contains(word))
-            {
-                errors.Add(string.Format(CultureInfo.InvariantCulture, "languages['{0}']: {1} has an empty or repeated entry '{2}'", name, key, word));
-            }
-            else
-            {
-                words.Add(word);
-            }
-        }
-        return words;
     }
 
     private static List<string> ReadChecks(string name, object value, List<string> errors)

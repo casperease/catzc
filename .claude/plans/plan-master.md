@@ -52,6 +52,8 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. A chunk without a task file is executed from its plan's open steps directly. The questions raised after the round
 of 2026-10-21 are decided (the second round of that day) and folded into their plans.
 
+- repo-filters -> plan-repo-filters.md: named, overlapping filters over tracks and aspects, one declaration, hide wins, coverage asserted,
+  the extra live units into the aspect model (the contracts track's aspects landed); nine steps, all decided
 - track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names

@@ -42,47 +42,37 @@ public sealed class PlaceRows
     {
         public string Track;
         public string Module;
+        public bool Folded;
         public SortedSet<string> Folders = new SortedSet<string>(StringComparer.Ordinal);
         public string Text;
-        public int Group;
         public int Places;
     }
 
-    public static PlaceRows From(IReadOnlyList<MinimapCell> lit, MapsMinimapPlaces places)
+    public static PlaceRows From(IReadOnlyList<MinimapCell> lit, MapsMinimapPlaces places) =>
+        From(lit, Array.Empty<MinimapCell>(), places);
+
+    // The rows of a drawing's places: the primary places (the ones its own glyphs name) first, then the secondary places (the ones its
+    // cited decision records name) one at a time while the rows still hold them. The counters line counts every place, the hidden ones too.
+    public static PlaceRows From(IReadOnlyList<MinimapCell> primary, IReadOnlyList<MinimapCell> secondary, MapsMinimapPlaces places)
     {
-        if (lit == null) { throw new ArgumentNullException(nameof(lit)); }
+        if (primary == null) { throw new ArgumentNullException(nameof(primary)); }
+        if (secondary == null) { throw new ArgumentNullException(nameof(secondary)); }
         if (places == null) { throw new ArgumentNullException(nameof(places)); }
-        Dictionary<string, Entry> byModule = new Dictionary<string, Entry>(StringComparer.Ordinal);
         HashSet<string> seen = new HashSet<string>(StringComparer.Ordinal);
-        foreach (MinimapCell cell in lit)
+        List<MinimapCell> first = Distinct(primary, seen);
+        List<MinimapCell> extra = Distinct(secondary, seen);
+        extra.Sort((a, b) => string.CompareOrdinal(Identity(a.At[0], a.At[1], a.At[2]), Identity(b.At[0], b.At[1], b.At[2])));
+        int total = first.Count + extra.Count;
+        List<MinimapCell> shown = new List<MinimapCell>(first);
+        foreach (MinimapCell cell in extra)
         {
-            if (cell.At.Count != 3) { throw new ArgumentException("a place has three parts: track, module, folder"); }
-            if (!seen.Add(Identity(cell.At[0], cell.At[1], cell.At[2]))) { continue; }
-            string key = cell.At[0] + "\t" + cell.At[1];
-            Entry entry;
-            if (!byModule.TryGetValue(key, out entry))
-            {
-                entry = new Entry { Track = cell.At[0], Module = cell.At[1] };
-                byModule[key] = entry;
-            }
-            entry.Folders.Add(cell.At[2]);
-            entry.Places++;
+            List<MinimapCell> candidate = new List<MinimapCell>(shown) { cell };
+            int none;
+            if (Fit(candidate, places, out none).Count <= places.rows && none == 0) { shown = candidate; }
         }
-        List<Entry> entries = new List<Entry>(byModule.Values);
-        int total = seen.Count;
-        foreach (Entry entry in entries)
-        {
-            entry.Group = GroupIndex(entry, places);
-            entry.Text = RowText(entry.Track, entry.Module, entry.Folders, entry.Places, places);
-        }
-        Sort(entries, places);
-        while (entries.Count > places.rows && FoldTrack(entries, places)) { }
-        int hidden = 0;
-        if (entries.Count > places.rows)
-        {
-            for (int i = places.rows; i < entries.Count; i++) { hidden += entries[i].Places; }
-            entries.RemoveRange(places.rows, entries.Count - places.rows);
-        }
+        int hiddenInShown;
+        List<Entry> entries = Fit(shown, places, out hiddenInShown);
+        int hidden = total - shown.Count + hiddenInShown;
         List<string> rows = new List<string>();
         foreach (Entry entry in entries) { rows.Add(entry.Text); }
         string counters = "";
@@ -92,6 +82,49 @@ public sealed class PlaceRows
                 + total.ToString(CultureInfo.InvariantCulture) + (total == 1 ? " place" : " places");
         }
         return new PlaceRows(rows.AsReadOnly(), counters);
+    }
+
+    // The distinct places of a list, in its order; a docs place at the docs root names no folder and is dropped, since a bare `docs` row says nothing.
+    private static List<MinimapCell> Distinct(IReadOnlyList<MinimapCell> cells, HashSet<string> seen)
+    {
+        List<MinimapCell> kept = new List<MinimapCell>();
+        foreach (MinimapCell cell in cells)
+        {
+            if (cell.At.Count != 3) { throw new ArgumentException("a place has three parts: track, module, folder"); }
+            if (cell.At[0] == "docs" && cell.At[1] == NoModule && cell.At[2] == ModuleRoot) { continue; }
+            if (seen.Add(Identity(cell.At[0], cell.At[1], cell.At[2]))) { kept.Add(cell); }
+        }
+        return kept;
+    }
+
+    // The entries of some places after folding and cutting to the budget, and how many places the cut left out.
+    private static List<Entry> Fit(List<MinimapCell> cells, MapsMinimapPlaces places, out int cut)
+    {
+        Dictionary<string, Entry> byKey = new Dictionary<string, Entry>(StringComparer.Ordinal);
+        foreach (MinimapCell cell in cells)
+        {
+            string track = cell.At[0], module = cell.At[1], folder = cell.At[2];
+            string key = track + "\t" + module + (module == NoModule ? "\t" + folder : "");
+            Entry entry;
+            if (!byKey.TryGetValue(key, out entry))
+            {
+                entry = new Entry { Track = track, Module = module };
+                byKey[key] = entry;
+            }
+            entry.Folders.Add(folder);
+            entry.Places++;
+        }
+        List<Entry> entries = new List<Entry>(byKey.Values);
+        foreach (Entry entry in entries) { entry.Text = RowText(entry.Track, entry.Module, entry.Folders, entry.Places, places); }
+        Sort(entries);
+        while (entries.Count > places.rows && FoldTrack(entries, places)) { }
+        cut = 0;
+        if (entries.Count > places.rows)
+        {
+            for (int i = places.rows; i < entries.Count; i++) { cut += entries[i].Places; }
+            entries.RemoveRange(places.rows, entries.Count - places.rows);
+        }
+        return entries;
     }
 
     // The one minimised row of a single place: the track, the module's normal-form name, and the folder when it is not the module's root.
@@ -104,35 +137,10 @@ public sealed class PlaceRows
         return RowText(track, module, folders, 1, places);
     }
 
-    public static string[][] Recover(string row, MapsMinimapPlaces places)
-    {
-        if (row == null) { throw new ArgumentNullException(nameof(row)); }
-        if (places == null) { throw new ArgumentNullException(nameof(places)); }
-        if (row.Contains(places.elision)) { throw new ArgumentException("row '" + row + "' elides a name and names no one place"); }
-        string[] parts = row.Split(new[] { places.row_join }, 3, StringSplitOptions.None);
-        if (parts.Length == 1)
-        {
-            if (parts[0].Contains(places.fold_separator)) { throw new ArgumentException("row '" + row + "' joins several places and names no one place"); }
-            return new[] { new[] { parts[0], NoModule, ModuleRoot } };
-        }
-        if (parts[1].Contains(places.fold_separator)) { throw new ArgumentException("row '" + row + "' folds several modules and names no one place"); }
-        string module = places.drop_prefix.ToLowerInvariant() + parts[1].Replace(places.name_join, places.row_join);
-        if (parts.Length == 2) { return new[] { new[] { parts[0], module, ModuleRoot } }; }
-        if (parts[2].StartsWith(places.fold_count_prefix, StringComparison.Ordinal))
-        {
-            throw new ArgumentException("row '" + row + "' names a count of folders and names no one place");
-        }
-        List<string[]> recovered = new List<string[]>();
-        foreach (string name in parts[2].Split(new[] { places.fold_separator }, StringSplitOptions.None))
-        {
-            recovered.Add(new[] { parts[0], module, name == places.root_marker ? ModuleRoot : name });
-        }
-        return recovered.ToArray();
-    }
-
     public static bool IsNormal(string row, MapsMinimapPlaces places)
     {
         if (row == null || places == null) { return false; }
+        if (row.Contains("...")) { return false; }
         string[] parts = row.Split(new[] { places.row_join }, 3, StringSplitOptions.None);
         if (parts.Length > 1)
         {
@@ -146,9 +154,8 @@ public sealed class PlaceRows
             string[] names = parts[2].Split(new[] { places.fold_separator }, StringSplitOptions.None);
             for (int i = 0; i < names.Length; i++)
             {
-                bool last = i == names.Length - 1 && names[i] == places.elision;
                 if (names[i].Length == 0) { return false; }
-                if (i > 0 && !last && string.CompareOrdinal(names[i - 1], names[i]) >= 0) { return false; }
+                if (i > 0 && string.CompareOrdinal(names[i - 1], names[i]) >= 0) { return false; }
             }
         }
         if (row.Length <= places.row_chars) { return true; }
@@ -178,78 +185,57 @@ public sealed class PlaceRows
         List<string> names = new List<string>();
         int count = 0;
         int first = entries.Count;
-        int group = 0;
         for (int i = entries.Count - 1; i >= 0; i--)
         {
             if (entries[i].Track == best && entries[i].Module != NoModule)
             {
                 names.Insert(0, ModuleName(entries[i].Module, places));
                 count += entries[i].Places;
-                group = entries[i].Group;
                 first = i;
                 entries.RemoveAt(i);
             }
         }
-        Entry folded = new Entry { Track = best, Module = NoModule, Places = count, Group = group };
+        Entry folded = new Entry { Track = best, Module = NoModule, Places = count, Folded = true };
         folded.Text = FoldedModules(best, names, count, places);
         entries.Insert(Math.Min(first, entries.Count), folded);
-        Sort(entries, places);
+        Sort(entries);
         return true;
     }
 
+    // A row never cuts a name: it holds every folder joined, or the count of them (`pwsh.azure.+3`); a place outside any module holds its
+    // folder's segments and the count of those left out (`docs.explanation.+2`).
     private static string RowText(string track, string module, SortedSet<string> folders, int count, MapsMinimapPlaces places)
     {
-        string name = module == NoModule ? "" : ModuleName(module, places);
+        if (module == NoModule)
+        {
+            string folder = folders.Count > 0 ? new List<string>(folders)[0] : ModuleRoot;
+            if (folder == ModuleRoot) { return track; }
+            string[] segments = new Catzc.Base.Objects.RepoRelativePath(folder).Relative.Split('/');
+            string row = track;
+            for (int keep = segments.Length; keep >= 1; keep--)
+            {
+                string tail = string.Join(places.row_join, segments, 0, keep)
+                    + (keep < segments.Length ? places.row_join + places.fold_count_prefix + (segments.Length - keep).ToString(CultureInfo.InvariantCulture) : "");
+                row = Join(track, "", tail, places);
+                if (row.Length <= places.row_chars) { return row; }
+            }
+            return row;
+        }
+        string name = ModuleName(module, places);
         List<string> names = new List<string>();
         foreach (string folder in folders) { names.Add(folder == ModuleRoot ? places.root_marker : new Catzc.Base.Objects.RepoRelativePath(folder).Relative); }
         names.Sort(string.CompareOrdinal);
         if (names.Count == 1 && names[0] == places.root_marker) { names.Clear(); }
-        foreach (string shown in NameVariants(name, places))
-        {
-            for (int keep = names.Count; keep >= 0; keep--)
-            {
-                if (keep == 0 && names.Count > 0) { break; }
-                string tail = string.Join(places.fold_separator, names.GetRange(0, keep)) + (keep < names.Count ? places.fold_separator + places.elision : "");
-                string row = Join(track, shown, tail, places);
-                if (row.Length <= places.row_chars) { return row; }
-            }
-        }
-        string fallback = Join(track, NameVariants(name, places)[0], places.fold_count_prefix + count.ToString(CultureInfo.InvariantCulture), places);
-        foreach (string shown in NameVariants(name, places))
-        {
-            string row = Join(track, shown, places.fold_count_prefix + count.ToString(CultureInfo.InvariantCulture), places);
-            if (row.Length <= places.row_chars) { return row; }
-            fallback = row;
-        }
-        return fallback;
+        string full = Join(track, name, string.Join(places.fold_separator, names), places);
+        if (full.Length <= places.row_chars) { return full; }
+        return Join(track, name, places.fold_count_prefix + count.ToString(CultureInfo.InvariantCulture), places);
     }
 
-    // The module name as it may be shown, the whole name first and then its middle elided at name-join boundaries, the longest first.
-    private static List<string> NameVariants(string name, MapsMinimapPlaces places)
-    {
-        List<string> variants = new List<string> { name };
-        string[] parts = name.Split(new[] { places.name_join }, StringSplitOptions.None);
-        for (int head = 1; head >= 0; head--)
-        {
-            for (int keep = parts.Length - 1; keep >= 1; keep--)
-            {
-                if (head + keep >= parts.Length) { continue; }
-                variants.Add(string.Join(places.name_join, parts, 0, head) + places.elision + string.Join(places.name_join, parts, parts.Length - keep, keep));
-            }
-        }
-        return variants;
-    }
-
-    // The row of folded modules: the track, then the module names joined, as many whole names as fit, the elision, then the count.
+    // The row of folded modules: the track, then every module name joined when they fit, else the count of the places.
     private static string FoldedModules(string track, List<string> names, int count, MapsMinimapPlaces places)
     {
-        for (int keep = names.Count; keep >= 1; keep--)
-        {
-            string tail = string.Join(places.fold_separator, names.GetRange(0, keep)) + (keep < names.Count ? places.fold_separator + places.elision : "");
-            string row = track + places.row_join + tail;
-            if (row.Length <= places.row_chars) { return row; }
-        }
-        return track + places.row_join + places.fold_count_prefix + count.ToString(CultureInfo.InvariantCulture);
+        string row = track + places.row_join + string.Join(places.fold_separator, names);
+        return row.Length <= places.row_chars ? row : track + places.row_join + places.fold_count_prefix + count.ToString(CultureInfo.InvariantCulture);
     }
 
     // The module's normal-form name: the prefix dropped whole, lower case, the dots of what is left joined with the name join.
@@ -275,25 +261,14 @@ public sealed class PlaceRows
         return new Catzc.Base.Objects.RepoRelativePath(text.ToString()).Relative;
     }
 
-    private static int IndexOf(IReadOnlyList<string> list, string value)
-    {
-        for (int i = 0; i < list.Count; i++) { if (string.Equals(list[i], value, StringComparison.Ordinal)) { return i; } }
-        return list.Count;
-    }
-
-    private static int GroupIndex(Entry entry, MapsMinimapPlaces places)
-    {
-        string group = entry.Track == "docs" ? "docs" : entry.Module == NoModule ? "rest" : "modules";
-        return IndexOf(places.group_order, group);
-    }
-
-    private static void Sort(List<Entry> entries, MapsMinimapPlaces places) =>
+    // Rows run in true repository path order: the track's folder, then the module's or the folder's path (`.claude` before `docs` before `pwsh`).
+    private static void Sort(List<Entry> entries) =>
         entries.Sort((a, b) =>
         {
-            int by = a.Group.CompareTo(b.Group);
-            if (by != 0) { return by; }
-            by = string.CompareOrdinal(a.Track, b.Track);
-            if (by != 0) { return by; }
-            return string.CompareOrdinal(ModuleName(a.Module == NoModule ? "" : a.Module, places), ModuleName(b.Module == NoModule ? "" : b.Module, places));
+            int by = string.CompareOrdinal(a.Track, b.Track);
+            return by != 0 ? by : string.CompareOrdinal(SortPath(a), SortPath(b));
         });
+
+    private static string SortPath(Entry entry) =>
+        entry.Folded ? "" : entry.Module == NoModule ? (entry.Folders.Count > 0 ? new List<string>(entry.Folders)[0] : "") : entry.Module;
 }

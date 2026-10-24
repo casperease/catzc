@@ -105,6 +105,9 @@ EDGE_DEADZONE = int(DEFAULTS["renderer"]["edge-deadzone"])  # how far an edge st
 UNIFORM_LABEL = str(DEFAULTS["renderer"]["uniform-label"]).strip()  # legend | pills: where a word every flow edge shares is said
 if UNIFORM_LABEL not in ("legend", "pills"):
     raise ValueError(f"drawio.yml renderer uniform-label '{UNIFORM_LABEL}' is not one of: legend, pills")
+EDGE_ROUTE = str(DEFAULTS["renderer"]["edge-route"]).strip()  # elbow | straight: how an edge whose ends share no x or y overlap is routed
+if EDGE_ROUTE not in ("elbow", "straight"):
+    raise ValueError(f"drawio.yml renderer edge-route '{EDGE_ROUTE}' is not one of: elbow, straight")
 FINDINGS_FAIL = DEFAULTS["renderer"]["findings-fail"] == "yes"  # a keep-out hit is an error under the kit's one setting
 WORD_GAP = int(DEFAULTS["renderer"]["word-gap"])  # how far a steep edge's word stands right of its line, written into the model
 LABEL_PRESENTATIONS = ("pill", "word")  # the two presentations of an edge's word
@@ -232,10 +235,12 @@ def facing(a, b):
     y_over = min(a["y"] + a["h"], b["y"] + b["h"]) - max(a["y"], b["y"])
     dx = (b["x"] + b["w"] / 2) - (a["x"] + a["w"] / 2)
     dy = (b["y"] + b["h"] / 2) - (a["y"] + a["h"] / 2)
+    if x_over <= 0 and y_over <= 0 and EDGE_ROUTE == "elbow":  # no straight line joins them: out of the side facing across, into the side facing along
+        return ("right" if dx >= 0 else "left"), ("top" if dy >= 0 else "bottom"), True
     vertical = x_over > 0 and (y_over <= 0 or abs(dy) >= abs(dx)) or (x_over <= 0 and y_over <= 0 and abs(dy) > abs(dx))
     if vertical:
-        return ("bottom", "top") if dy >= 0 else ("top", "bottom")
-    return ("right", "left") if dx >= 0 else ("left", "right")
+        return (("bottom", "top") if dy >= 0 else ("top", "bottom")) + (False,)
+    return (("right", "left") if dx >= 0 else ("left", "right")) + (False,)
 
 
 def plan_aims(edges, box_of, plain_box):
@@ -243,9 +248,11 @@ def plan_aims(edges, box_of, plain_box):
     it, in the order of the other ends so lines do not cross, one edge alone at the side's middle. `edges` are the indexes to route
     mapped to (from, to); returns index -> ((exitX, exitY), (entryX, entryY)) as box fractions."""
     ends = {}
+    elbows = {}
     for i, (tail, head) in edges.items():
         a, b = box_of[tail], box_of[head]
-        side_a, side_b = facing(a, b)
+        side_a, side_b, elbow = facing(a, b)
+        elbows[i] = elbow
         for cell_id, side, other in ((tail, side_a, b), (head, side_b, a)):
             along = (other["y"] + other["h"] / 2) if side in ("left", "right") else (other["x"] + other["w"] / 2)
             ends.setdefault((cell_id, side), []).append((along, i, cell_id == tail and "exit" or "entry"))
@@ -257,6 +264,8 @@ def plan_aims(edges, box_of, plain_box):
             fx, fy = SIDE_ANCHOR[side]
             point = (fx if fx is not None else fraction, fy if fy is not None else fraction)
             aims.setdefault(i, {})[which] = (round(point[0], 4), round(point[1], 4))
+    for i, elbow in elbows.items():
+        aims[i]["elbow"] = elbow
     return aims
 
 
@@ -420,7 +429,9 @@ def label_spot(run, word, deadzone=0, crossing=None, avoid=()):
     it overlaps none of the `avoid` rectangles (x, y, w, h); None only when no place is free."""
     width, height = 6.2 * len(word) + 2 * WORD_MARGIN, 12 + 2 * WORD_MARGIN
     length = run_length(run) - 2 * deadzone  # the line the model draws: the deadzone stops it short of both boxes
-    wanted = ([arc_to(run, crossing) - deadzone] if crossing else []) + [length * f for f in (0.5, 1 / 3, 2 / 3, 0.25, 0.75)]
+    legs = [math.hypot(q[0] - p[0], q[1] - p[1]) for p, q in zip(run, run[1:])]
+    longest = [sum(legs[: legs.index(max(legs))]) + max(legs) / 2 - deadzone] if len(legs) > 1 else []  # a bent run: the middle of its longer leg
+    wanted = longest + ([arc_to(run, crossing) - deadzone] if crossing and not longest else []) + [length * f for f in (0.5, 1 / 3, 2 / 3, 0.25, 0.75)]
     for t in wanted:
         if 0 < t < length:
             spot, (ux, uy) = point_at(run, t + deadzone)
@@ -1933,16 +1944,14 @@ TAG_ID = re.compile(r"-tag(-\d+)?$")
 
 def glyph_tags(item, box, parent, lib):
     """The tag cells of a code glyph: a right-aligned row of small tags on its top edge, in the tag style of the library, their words
-    from the language table by the shape of the label (languages_table), never stored in the declaration. The first carries the glyph's
-    kind, and the override if the declaration names one, so get reads both back."""
-    words, _ = languages_table.tags(item["label"], item["kind"], item.get("lang", ""))
+    from the language table by the shape of the label (languages_table), never stored in the declaration; a label that names no language gets none."""
+    words = languages_table.tags(item["label"], item.get("lang", ""))
     width, height = lib["size"]
     sizes = [max(width, round(6.6 * len(word)) + 10) for word in words]
     x = box["x"] + box["w"] - 8 - sum(sizes) - 3 * (len(words) - 1)
     cells = []
     for n, (word, size) in enumerate(zip(words, sizes)):
-        style = lib["style"] + (f"catzcKind={item['kind']};" + (f"catzcLang={item['lang']};" if item.get("lang") else "") if n == 0 else "")
-        cells.append(cell(f"{item['id']}-tag" if n == 0 else f"{item['id']}-tag-{n + 1}", word, style, x, box["y"] - 8, size, height, parent))
+        cells.append(cell(f"{item['id']}-tag" if n == 0 else f"{item['id']}-tag-{n + 1}", word, lib["style"], x, box["y"] - 8, size, height, parent))
         x += size + 3
     return cells
 
@@ -2275,6 +2284,9 @@ def place(declaration, check_routes=False):
                     label = "<br>".join(html.escape(line, quote=False) for line in item["label"].split("\n"))  # a box's second line
                     cells.append(cell(item["id"], f"<b>{label}</b>", style, box["x"], box["y"], box["w"], box["h"], parent))
                 if item["kind"] in TAGGED_KINDS:
+                    # code and type share one shape and a label may name no language, so the glyph itself carries its kind and override
+                    mark = f"catzcKind={item['kind']};" + (f"catzcLang={item['lang']};" if item.get("lang") else "")
+                    next(c for c in reversed(cells) if c["id"] == item["id"])["style"] += mark
                     cells.extend(glyph_tags(item, box, parent, glyph_lib["type"]["tag"]))
                 # An environment's occupant commits sit inside it, right of its name, in a row from its right edge inward.
                 for n, occupant in enumerate(holder.get(item["id"], [])):
@@ -2455,17 +2467,22 @@ def place(declaration, check_routes=False):
             a, b = box_of[e["from"]], box_of[e["to"]]
             edge["via"] = [[round(a["x"] + a["w"] / 2), round(b["y"] + b["h"] / 2)]]
         a, b = box_of[e["from"]], box_of[e["to"]]
+        if index in aims:
+            (ex, ey), (nx, ny) = aims[index]["exit"], aims[index]["entry"]
+            edge["style"] += f"exitX={ex};exitY={ey};entryX={nx};entryY={ny};"
+            start, end = (a["x"] + a["w"] * ex, a["y"] + a["h"] * ey), (b["x"] + b["w"] * nx, b["y"] + b["h"] * ny)
+            run = [start, end]
+            if aims[index].get("elbow"):  # one bend, at the target's entry column on the source's exit row, a derived route get never reads back
+                run = [start, (end[0], start[1]), end]
+                edge["via"] = [[round(end[0]), round(start[1])]]
+                edge["style"] += "catzcElbow=1;"
+        else:
+            run = drawn_run([(a["x"] + a["w"] / 2, a["y"] + a["h"] / 2), *[(x, y) for x, y in edge["via"]], (b["x"] + b["w"] / 2, b["y"] + b["h"] / 2)], a, b)
         points = [
             (a["x"] + a["w"] / 2, a["y"] + a["h"] / 2),
             *[(x, y) for x, y in edge["via"]],
             (b["x"] + b["w"] / 2, b["y"] + b["h"] / 2),
         ]
-        if index in aims:
-            (ex, ey), (nx, ny) = aims[index]["exit"], aims[index]["entry"]
-            edge["style"] += f"exitX={ex};exitY={ey};entryX={nx};entryY={ny};"
-            run = [(a["x"] + a["w"] * ex, a["y"] + a["h"] * ey), (b["x"] + b["w"] * nx, b["y"] + b["h"] * ny)]
-        else:
-            run = drawn_run(points, a, b)
         route = {"from": e["from"], "to": e["to"], "points": run, "pill": None}
         routes.append(route)
         if edge_word(e):
@@ -3228,7 +3245,7 @@ def get(model, kind=None):
             glyphs.append((cid, "commit"))  # a commit in any palette state, a dot or a box
         else:
             kinds = [k for k, sig in sorted(glyph_sigs.items(), key=lambda kv: -len(kv[1])) if matches(sig, style)]
-            marked = style_map(cells[f"{cid}-tag"].get("style") or "").get("catzcKind") if f"{cid}-tag" in cells else None
+            marked = style_map(style).get("catzcKind")
             if marked in kinds:  # the tag row carries the glyph's kind: code and type share one shape
                 glyphs.append((cid, marked))
             elif kinds:
@@ -3309,8 +3326,8 @@ def get(model, kind=None):
                 glyph["state"] = state
             if s.get("dashed") == "1":
                 glyph["ghost"] = True
-        elif f"{cid}-tag" in cells:  # the tag words are derived and never read back; only the override a glyph names is
-            lang = style_map(cells[f"{cid}-tag"].get("style") or "").get("catzcLang")
+        elif k in TAGGED_KINDS:  # the tag words are derived and never read back; only the override a glyph names is
+            lang = style_map(cells[cid].get("style") or "").get("catzcLang")
             if lang:
                 glyph["lang"] = lang
         content["glyphs"].append(glyph)
@@ -3449,7 +3466,7 @@ def get(model, kind=None):
         edge = {"from": c.get("source"), "to": c.get("target"), "kind": kinds[0], "label": counted.group(1) or "" if counted else said}
         if counted:
             edge["count"] = counted.group(2)
-        if via_of(c) and edge["kind"] != "bypass":  # a bypass's route is the kit's, under the dot it skips
+        if via_of(c) and edge["kind"] != "bypass" and "catzcElbow" not in style_map(c.get("style") or ""):  # a bypass's and an elbow's route is the kit's
             edge["via"] = [[int(x), int(y) - shift] for x, y in via_of(c)]  # the waypoints as declared, before span room
         content["edges"].append(edge)
     if "uniformLabel=1" in (cells.get("lg-edge-flow-t", {}).get("style") or ""):  # a word the legend says for every flow edge is each one's label

@@ -1550,3 +1550,41 @@ def test_the_uniform_word_is_derived_and_get_never_writes_it_back_as_a_relation(
     with pytest.MonkeyPatch.context() as patch:
         patch.setattr(declaration, "UNIFORM_LABEL", "pills")
         assert declaration.put(first).count("-word") == 2 and 'value="flow: calls"' not in declaration.put(first)
+
+
+DIAGONAL = {**ROW, "gadget-gate": {"x": 700, "y": 120, "w": 120, "h": 44}, "widget-b": {"x": 40, "y": 320, "w": 120, "h": 44}}
+
+
+def test_an_edge_whose_ends_share_no_x_or_y_overlap_is_routed_as_one_elbow_the_pill_on_its_longer_leg(monkeypatch):
+    monkeypatch.setattr(declaration, "FINDINGS_FAIL", True)
+    layout = {**DIAGONAL, "widget-a": {"x": 400, "y": 460, "w": 120, "h": 44}, "gadget-store": {"x": 600, "y": 440, "w": 120, "h": 44}}
+    model = declaration.put(routed(layout, [{"from": "widget-b", "to": "gadget-gate", "label": "calls"}]))
+    style = edge_style(model, "widget-b", "gadget-gate")
+    assert (style["exitX"], style["exitY"], style["entryX"], style["entryY"]) == ("1.0", "0.5", "0.5", "1.0") and style["catzcElbow"] == "1"
+    route = declaration.LAST_ROUTES[0]["points"]
+    assert len(route) == 3 and route[0][1] == route[1][1] and route[1][0] == route[2][0]  # one bend: along the exit row, then up the entry column
+    pill = declaration.LAST_ROUTES[0]["pill"]
+    legs = [abs(route[1][0] - route[0][0]), abs(route[2][1] - route[1][1])]
+    centre = (pill[0] + pill[2] / 2, pill[1] + pill[3] / 2)
+    assert abs(centre[1] - route[0][1]) < 1 if legs[0] >= legs[1] else abs(centre[0] - route[1][0]) < 1  # on the longer leg
+
+
+def test_the_elbow_is_derived_so_get_never_reads_it_back_as_a_waypoint_and_ends_that_overlap_stay_straight():
+    first = routed(DIAGONAL, [{"from": "widget-b", "to": "gadget-gate", "label": "calls"}, {"from": "widget-b", "to": "widget-a", "label": "calls"}])
+    model = declaration.put(first)
+    assert "catzcElbow=1" in edge_style_text(model, "widget-b", "gadget-gate") and "catzcElbow" not in edge_style_text(model, "widget-b", "widget-a")
+    back = declaration.get(model, kind="explanation")
+    assert all("via" not in e for e in back["content"]["edges"])
+    assert declaration.put(back) == model
+
+
+def test_the_straight_setting_keeps_the_diagonal(monkeypatch):
+    monkeypatch.setattr(declaration, "EDGE_ROUTE", "straight")
+    model = declaration.put(routed(DIAGONAL, [{"from": "widget-b", "to": "gadget-gate", "label": "calls"}]))
+    assert "catzcElbow" not in edge_style_text(model, "widget-b", "gadget-gate")
+
+
+def edge_style_text(model, source, target):
+    found = re.search(rf'<mxCell id="e-{source}-{target}[^"]*" [^' + chr(10) + r']*style="([^"]*)"', model)
+    assert found is not None
+    return found.group(1)

@@ -95,5 +95,5 @@ Above `tag: pwsh`, written with `#`.
 
 ```text
 What a diagram prints on a glyph whose label is a snippet of the language: the tag, the shapes that name a label as one (a command
-Verb-Noun, a $variable, a -Flag), and the glyph kinds it is the default for when no shape of any language matches.
+Verb-Noun, a $variable, a -Flag, a cats module name Catzc.X.Y); a label that matches no shape prints no tag.
 ```

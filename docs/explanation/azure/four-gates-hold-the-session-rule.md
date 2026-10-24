@@ -76,7 +76,7 @@ content:
     - { at: g-customer, number: 4 }
     - { at: g-serves, number: 5 }
     - { at: f-throw, number: 6 }
-    - { at: g-group, number: 7 }
+    - { at: g-group, number: 7, corner: top-left }
   chips:
     - { at: g-pipeline-assert, kind: rule, rule: ADR-AZ-DATAMOD-JOINSINPOWERSHELL }
     - { at: g-declared, kind: rule, rule: ADR-AZ-DATAMOD-JOINSINPOWERSHELL }
@@ -89,13 +89,13 @@ content:
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
   band-gates: { x: 20, y: 84, w: 1260, h: 380 }
-  g-pipeline-assert: { x: 40, y: 140, w: 200, h: 68 }
-  g-declared: { x: 280, y: 140, w: 200, h: 68 }
-  g-matches: { x: 520, y: 140, w: 220, h: 68 }
-  g-customer: { x: 780, y: 152, w: 150, h: 44 }
-  g-serves: { x: 980, y: 140, w: 160, h: 68 }
-  f-throw: { x: 540, y: 380, w: 200, h: 44 }
-  g-group: { x: 940, y: 380, w: 240, h: 44 }
+  g-pipeline-assert: { x: 40, y: 140, w: 180, h: 68 }
+  g-declared: { x: 256, y: 140, w: 180, h: 68 }
+  g-matches: { x: 472, y: 140, w: 200, h: 68 }
+  g-customer: { x: 708, y: 152, w: 140, h: 44 }
+  g-serves: { x: 884, y: 140, w: 150, h: 68 }
+  f-throw: { x: 40, y: 380, w: 994, h: 44 }
+  g-group: { x: 1070, y: 140, w: 170, h: 68 }
 ```
 
 ![Four gates hold the session rule; the customer and the name hold by construction](.assets/four-gates-hold-the-session-rule.drawio.png)

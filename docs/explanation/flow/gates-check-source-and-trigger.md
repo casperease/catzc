@@ -112,9 +112,9 @@ layout:
   band-roles: { x: 20, y: 480, w: 1260, h: 110 }
   band-checked: { x: 20, y: 604, w: 1260, h: 110 }
   g-independence: { x: 80, y: 130, w: 240, h: 80 }
-  f-registry: { x: 560, y: 140, w: 200, h: 64 }
-  g-config-load: { x: 540, y: 254, w: 240, h: 80 }
-  g-scan-program: { x: 560, y: 380, w: 200, h: 64 }
+  f-registry: { x: 400, y: 140, w: 200, h: 64 }
+  g-config-load: { x: 380, y: 254, w: 240, h: 80 }
+  g-scan-program: { x: 280, y: 380, w: 440, h: 64 }
   g-projection: { x: 100, y: 506, w: 200, h: 56 }
   g-git-reflection: { x: 330, y: 506, w: 200, h: 56 }
   g-live-identity: { x: 560, y: 506, w: 200, h: 56 }

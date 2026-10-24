@@ -64,7 +64,7 @@ content:
     - { from: g-build, to: g-assert, kind: flow, label: "" }
     - { from: g-assert, to: r-built, kind: flow, label: "" }
     - { from: g-assert, to: f-invalid, kind: fail, label: "" }
-    - { from: r-built, to: grp-places, kind: flow, label: "" }
+    - { from: r-built, to: g-install, kind: flow, label: "" }
   markers:
     - { at: g-importer, number: 1 }
     - { at: g-build, number: 2 }

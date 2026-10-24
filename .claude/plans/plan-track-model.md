@@ -50,7 +50,7 @@ each track's paths by hand: a regeneration of `infrastructure/README.md` starts 
 
 "What is in a track, which of it is generated, which does git track" becomes one computed answer, read from one declaration, so a filter, a
 gate, a trigger and the lamps all ask the same model; a generated file stops being a false pipeline trigger; every file on disk at the root
-has a track except `LICENSE`.
+has a track.
 
 ## Decided (the user, 2026-10-24)
 
@@ -75,7 +75,8 @@ has a track except `LICENSE`.
   new type `output` (holder), covering all of `out/`, generated and gitignored.
 - Root files join their tracks: `importer.ps1` and `PSScriptAnalyzerSettings.psd1` join `pwsh`, `importer.sh` joins `bash`, `go.work` joins
   `go`, `cspell.yml` joins `.cspell`, and `.pytest_cache` and `.ruff_cache` join `python` (generated, gitignored by the tool's own
-  `.gitignore`). `LICENSE` stays the one root file.
+  `.gitignore`). `LICENSE` joins the `contracts` track (the user, 2026-10-24): it is authored, not generated, and belongs to the contracts
+  category, live through the contracts track's aspects (plan-repo-filters); no root file is left without a track.
 - A buildable track's globset (deployable role) is derived from its members and excludes its generated members; a vendor track's globset
   starts no pipeline. `globs.yml` keeps only the globsets that are not a whole track (deployable-units, slices).
 - The lamps are a short working list of filters, drawn as icons in the Explorer folder view's own title row (beside New File), never a
@@ -127,7 +128,7 @@ has a track except `LICENSE`.
 10. [ ] `pwsh/Catzc.Base.Variants/Get-Track.ps1`: `-Path` returns the member's facts with the track, and a filter on `-Generated` and
         `-Committed` lists a track's members (check: `Invoke-TestFile -Path pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1`).
 11. [ ] `pwsh/Catzc.Base.Variants/Test-TrackDeclaration.ps1`: each member's `committed` agrees with the git index, `generated` is declared
-        in one place only, and every root entry on disk lies in a track or is `LICENSE` (check:
+        in one place only, and every root entry on disk lies in a track, `LICENSE` in `contracts` (check:
         `Invoke-TestFile -Path pwsh/Catzc.Base.Variants/tests/Test-TrackDeclaration.Tests.ps1`).
 12. [ ] `pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1`: the generated, gitignored members come from the track model and the
         hand-written shapes are deleted (check: `Invoke-TestFile -Path pwsh/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1`).

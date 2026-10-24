@@ -152,7 +152,7 @@ layout:
   g-assert-tool: { x: 280, y: 136, w: 150, h: 40 }
   g-assert-version: { x: 600, y: 136, w: 170, h: 40 }
   g-get-version: { x: 960, y: 136, w: 160, h: 40 }
-  g-test-tool: { x: 600, y: 266, w: 170, h: 40 }
+  g-test-tool: { x: 600, y: 214, w: 170, h: 40 }
   g-resolve: { x: 265, y: 414, w: 190, h: 40 }
   f-tools-yml: { x: 640, y: 402, w: 120, h: 52 }
   g-invoke: { x: 940, y: 414, w: 200, h: 40 }

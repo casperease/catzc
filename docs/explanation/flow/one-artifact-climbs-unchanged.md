@@ -90,9 +90,9 @@ layout:
   band-governed: { x: 800, y: 108, w: 480, h: 240 }
   g-build: { x: 50, y: 150, w: 170, h: 56 }
   r-artifact: { x: 280, y: 156, w: 170, h: 44 }
-  e-non-prod: { x: 510, y: 130, w: 190, h: 56 }
+  e-non-prod: { x: 510, y: 124, w: 190, h: 56 }
   a-human-gate: { x: 880, y: 130, w: 130, h: 64 }
-  e-production: { x: 1060, y: 260, w: 190, h: 56 }
+  e-production: { x: 1060, y: 280, w: 190, h: 56 }
 ```
 
 ![One artifact is built once and climbs to production unchanged](.assets/one-artifact-climbs-unchanged.drawio.png)

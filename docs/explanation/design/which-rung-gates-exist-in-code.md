@@ -136,17 +136,17 @@ layout:
   band-deploy: { x: 20, y: 534, w: 1260, h: 124 }
   g-failure-stop: { x: 400, y: 154, w: 220, h: 72 }
   c-discarded: { x: 690, y: 168, w: 110, h: 44 }
-  c-topic: { x: 30, y: 308, w: 90, h: 44 }
-  g-pr-validation: { x: 150, y: 296, w: 150, h: 68 }
-  c-landed: { x: 330, y: 308, w: 90, h: 44 }
-  g-bvt: { x: 460, y: 296, w: 100, h: 68 }
-  c-verified: { x: 600, y: 308, w: 130, h: 44 }
-  a-l3-at: { x: 360, y: 448, w: 130, h: 44 }
-  c-l3: { x: 530, y: 448, w: 80, h: 44 }
+  c-topic: { x: 30, y: 308, w: 80, h: 44 }
+  g-pr-validation: { x: 140, y: 296, w: 140, h: 68 }
+  c-landed: { x: 310, y: 308, w: 80, h: 44 }
+  g-bvt: { x: 420, y: 296, w: 90, h: 68 }
+  c-verified: { x: 540, y: 308, w: 130, h: 44 }
+  a-l3-at: { x: 380, y: 448, w: 130, h: 44 }
+  c-l3: { x: 545, y: 448, w: 70, h: 44 }
   a-rc: { x: 650, y: 448, w: 130, h: 44 }
-  c-main-uat: { x: 820, y: 448, w: 100, h: 44 }
-  a-rbc: { x: 960, y: 448, w: 140, h: 44 }
-  c-release-uat: { x: 1130, y: 448, w: 120, h: 44 }
+  c-main-uat: { x: 815, y: 448, w: 90, h: 44 }
+  a-rbc: { x: 940, y: 448, w: 140, h: 44 }
+  c-release-uat: { x: 1115, y: 448, w: 110, h: 44 }
   a-two-slot: { x: 1000, y: 588, w: 140, h: 44 }
   c-production: { x: 1160, y: 588, w: 100, h: 44 }
 ```

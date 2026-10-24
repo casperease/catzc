@@ -10,7 +10,7 @@ Describe 'Test-PlaceRows' -Tag 'L0', 'logic' {
     }
 
     It 'reports nothing when every row is in the place normal form' {
-        & $script:write @('docs', 'widgets.widget.types') '2 places'
+        & $script:write @('docs.explanation.ado', 'widgets.widget.types') '2 places'
         @(Test-PlaceRows (Join-Path $TestDrive 'minimaps')) | Should -BeNullOrEmpty
     }
 
@@ -20,7 +20,7 @@ Describe 'Test-PlaceRows' -Tag 'L0', 'logic' {
     }
 
     It 'reports a counters line longer than the row budget' {
-        & $script:write @('docs') ('x' * 41)
+        & $script:write @('docs.explanation') ('x' * 41)
         @(Test-PlaceRows (Join-Path $TestDrive 'minimaps')) | Should -Match 'longer than 40 characters'
     }
 

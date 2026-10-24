@@ -89,16 +89,15 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $formatters['gadget-pipelines'] | Should -Be 'widget.prettier'
         }
 
-        It 'reads a language''s tag, its shapes and the glyph kinds it is the default for, and refuses a tag-less or invalid one' {
+        It 'reads a language''s tag and its shapes, and refuses a tag-less or invalid one' {
             $config = & $script:make ([ordered]@{
                     languages = [ordered]@{
-                        widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'never'; tag = 'wdg'; shapes = @('^Widget-[A-Z]\w+$', '^\$widget$'); glyph_kinds = @('code') }
+                        widget = [ordered]@{ extensions = @('.wdg'); no_formatter = 'never'; tag = 'wdg'; shapes = @('^Widget-[A-Z]\w+$', '^\$widget$') }
                         gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'never' }
                     }
                 })
             $config.languages[0].tag | Should -Be 'wdg'
             $config.languages[0].shapes | Should -Be @('^Widget-[A-Z]\w+$', '^\$widget$')
-            $config.languages[0].glyph_kinds | Should -Be @('code')
             $config.languages[1].tag | Should -BeNullOrEmpty
             $config.languages[1].shapes.Count | Should -Be 0
             $err = { & $script:make ([ordered]@{
@@ -107,7 +106,7 @@ Describe 'LanguagesConfig' -Tag 'L0' {
                             gadget = [ordered]@{ extensions = @('.gdg'); no_formatter = 'never'; tag = 'two words'; shapes = @('(unclosed') }
                         }
                     }) } | Should -Throw -PassThru
-            $err.Exception.Message | Should -BeLike "*languages?'widget'?: shapes and glyph_kinds need a tag*"
+            $err.Exception.Message | Should -BeLike "*languages?'widget'?: shapes need a tag*"
             $err.Exception.Message | Should -BeLike "*invalid tag 'two words'*"
             $err.Exception.Message | Should -BeLike "*shapes entry '(unclosed' is not a valid regular expression*"
         }

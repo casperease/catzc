@@ -80,8 +80,14 @@ languages:
     extensions: [.ps1, .psm1, .psd1]
     executable: true
     tag: pwsh
-    shapes: ['^[A-Z][a-z]+(To|From)?(-[A-Z][A-Za-z0-9]*)+(\(\))?$', '^\. [\w./-]+\.ps1$', '^\$[A-Za-z_][\w.:]*$', '^-[A-Za-z][\w-]*$']
-    glyph_kinds: [code, private, runner, callsite, action, gate]
+    shapes:
+      [
+        '^[A-Z][a-z]+(To|From)?(-[A-Z][A-Za-z0-9]*)+(\(\)| -.*)?$',
+        '^Catzc(\.[A-Z][A-Za-z0-9]*)+$',
+        '^\. [\w./-]+\.ps1$',
+        '^\$[A-Za-z_][\w.:]*$',
+        '^-[A-Za-z][\w-]*$',
+      ]
     naming:
       folder: [pascal-dotted, kebab]
       file: [verb-noun, pascal-dotted, pascal]
@@ -102,7 +108,6 @@ languages:
     executable: true
     tag: C#
     shapes: ['^[A-Z][A-Za-z0-9]*\.[A-Z][A-Za-z0-9]*(\(.*\))?$', "^[A-Z][a-z0-9]+([A-Z][a-z0-9]+)+$"]
-    glyph_kinds: [type]
     formatter: dotnet-format
     adr_folder: automation/BCL
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments, Test-BclReferences]
@@ -209,5 +214,5 @@ languages:
     extensions: [.stamp]
     no_formatter: a build stamp is written whole by the generator that records it
   asset:
-    extensions: [.png, .pdf, .gz]
+    extensions: [.png, .svg, .pdf, .gz]
     no_formatter: binary files

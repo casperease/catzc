@@ -89,8 +89,8 @@ layout:
   r-value: { x: 500, y: 134, w: 320, h: 44 }
   r-lines: { x: 500, y: 254, w: 320, h: 44 }
   r-params: { x: 500, y: 374, w: 320, h: 44 }
-  f-wrong: { x: 920, y: 194, w: 320, h: 44 }
-  f-invalid: { x: 920, y: 290, w: 320, h: 44 }
+  f-wrong: { x: 920, y: 223, w: 320, h: 44 }
+  f-invalid: { x: 920, y: 288, w: 320, h: 44 }
 ```
 
 ![Type an address and get its value back](.assets/type-an-address-get-the-value.drawio.png)

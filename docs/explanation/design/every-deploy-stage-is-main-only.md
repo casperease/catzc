@@ -92,7 +92,7 @@ layout:
   c-topic: { x: 40, y: 170, w: 130, h: 44 }
   r-pull-request-stage: { x: 230, y: 250, w: 130, h: 44 }
   g-pull-request-condition: { x: 400, y: 238, w: 120, h: 68 }
-  a-deploy: { x: 400, y: 420, w: 200, h: 44 }
+  a-deploy: { x: 240, y: 400, w: 200, h: 44 }
   c-main: { x: 680, y: 170, w: 100, h: 44 }
   r-main-stage: { x: 835, y: 170, w: 110, h: 44 }
   g-main-condition: { x: 965, y: 158, w: 100, h: 68 }

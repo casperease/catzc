@@ -23,19 +23,26 @@ function Get-MinimapPlace {
         [System.Collections.IDictionary] $Facts
     )
 
-    $module = if ($Facts['module']) {
+    $track = "$($Facts['track'])"
+    # A module that only repeats its track (`.claude` in `.claude`) is no module: the place is the track and the folder the file sits in.
+    $module = if ($Facts['module'] -and "$($Facts['module'])" -ne $track) {
         "$($Facts['module'])"
     }
     else {
         '-'
     }
     $segments = (New-Object Catzc.Base.Objects.RepoRelativePath $Path).Relative -split '/'
-    $at = [array]::IndexOf($segments, $module)
+    $at = if ($module -eq '-') {
+        0
+    }
+    else {
+        [array]::IndexOf($segments, $module)
+    }
     $folder = if ($at -ge 0 -and $at -lt $segments.Count - 2) {
         $segments[($at + 1)..($segments.Count - 2)] -join '/'
     }
     else {
         '.'
     }
-    [string[]] @("$($Facts['track'])", $module, $folder)
+    [string[]] @($track, $module, $folder)
 }

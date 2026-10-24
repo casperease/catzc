@@ -28,7 +28,7 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
     private static readonly string[] AllowedKeys = { "palette", "limits", "labels", "highlight", "output_folder", "minimaps" };
     private static readonly string[] MinimapKinds = { "explanation", "reference" };
     private static readonly string[] MinimapKeys = { "explanation", "reference", "data", "axis", "places" };
-    private static readonly string[] PlacesKeys = { "rows", "counter_rows", "row_chars", "group_order", "drop_prefix", "elision", "fold_separator", "fold_count_prefix", "row_join", "name_join", "root_marker" };
+    private static readonly string[] PlacesKeys = { "rows", "counter_rows", "row_chars", "drop_prefix", "fold_separator", "fold_count_prefix", "row_join", "name_join", "root_marker" };
     private static readonly string[] AxisKeys = { "rows", "columns" };
 
     // The command that computes each minimap's data from a diagram's ADR codes (-Adr, -AsJson), by minimap id.
@@ -244,22 +244,13 @@ public sealed class MapsConfig : Catzc.Base.Objects.DictionaryRecord
             return fallback;
         }
         CheckKeys("minimaps.places: ", map, PlacesKeys, errors);
-        List<string> order = new List<string>();
-        if (Has(map, "group_order"))
-        {
-            IList listed = map["group_order"] as IList;
-            if (listed == null) { errors.Add("minimaps.places.group_order must be a list of place groups"); }
-            else { foreach (object item in listed) { order.Add(Text(item)); } }
-        }
         try
         {
             return new MapsMinimapPlaces(
                 ReadWhole(map, "rows", fallback.rows, errors),
                 ReadWhole(map, "counter_rows", fallback.counter_rows, errors),
                 ReadWhole(map, "row_chars", fallback.row_chars, errors),
-                Has(map, "group_order") ? order.AsReadOnly() : fallback.group_order,
                 Has(map, "drop_prefix") ? Text(map["drop_prefix"]) : fallback.drop_prefix,
-                Has(map, "elision") ? Text(map["elision"]) : fallback.elision,
                 Has(map, "fold_separator") ? Text(map["fold_separator"]) : fallback.fold_separator,
                 Has(map, "fold_count_prefix") ? Text(map["fold_count_prefix"]) : fallback.fold_count_prefix,
                 Has(map, "row_join") ? Text(map["row_join"]) : fallback.row_join,
