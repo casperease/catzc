@@ -1,4 +1,4 @@
-// Filter lamps in the Explorer's title row: one per aspect, and one language lamp over a typed list of languages.
+// Filter lamps in the Explorer's title row: live, fixtures (everything not marked live), and a language lamp over a typed list of languages.
 // A lamp is lit while what it covers is shown in the tree, and unlit while it filters that away; every lamp lit is the default and shows
 // everything, as without the extension. Each lamp is two commands, its lit and its unlit icon, and the context key catzc.lamps.out.<lamp>
 // picks which one the title row shows; the editor draws them, so no webview and no extra rows. What a lamp hides is rendered into the
@@ -18,18 +18,48 @@ const FIELD = "catzc.trackLamps.field";
 const OWNED = "catzc.trackLamps.owned";
 const LANGUAGE = "languages";
 // The lamps the manifest draws in the title row, each with its putOut and light commands.
-const LAMPS = ["live", "tests", LANGUAGE];
+const LAMPS = ["live", "fixtures", LANGUAGE];
 
 const config = () => vscode.workspace.getConfiguration("catzc.trackLamps");
 const aspects = () => config().get("aspects") ?? {};
 const languages = () => config().get("languages") ?? {};
 const typed = (text) => (text ?? "").split(",").map((name) => name.trim()).filter(Boolean);
 
-// The globs that hide what the unlit lamps cover: each unlit aspect's cover paths, folded upward where a folder holds nothing else, and
-// each typed language's extensions while the language lamp is unlit.
+// Everything on disk that is not marked live: every entry that is no live path and holds none, found by walking down only into folders
+// that hold a live path. It reaches what git does not track too (generated manifests, out/, editor settings), which no tracked cover names.
+function notLive(root, live) {
+    const paths = new Set(live);
+    const holders = new Set();
+    for (const place of live) {
+        for (let folder = path.posix.dirname(place); folder !== "."; folder = path.posix.dirname(folder)) holders.add(folder);
+    }
+    const globs = [];
+    const walk = (folder) => {
+        let entries;
+        try {
+            entries = fs.readdirSync(path.join(root, folder));
+        } catch {
+            return;
+        }
+        for (const entry of entries) {
+            if (folder === "." && entry === ".git") continue;
+            const place = folder === "." ? entry : `${folder}/${entry}`;
+            if (paths.has(place)) continue;
+            if (holders.has(place)) walk(place);
+            else globs.push(place);
+        }
+    };
+    walk(".");
+    return globs;
+}
+
+// The globs that hide what the unlit lamps cover: the live cover while the live lamp is unlit, everything not live while the fixtures
+// lamp is unlit, folded upward where a folder holds nothing else, and each typed language's extensions while the language lamp is unlit.
 function hiddenGlobs(root, out, field, covers, known) {
     const globs = new Set();
-    for (const name of Object.keys(covers).filter((name) => out.has(name))) covers[name].forEach((place) => globs.add(place));
+    const live = covers.live ?? [];
+    if (out.has("live")) live.forEach((place) => globs.add(place));
+    if (out.has("fixtures")) notLive(root, live).forEach((place) => globs.add(place));
     // A folder whose every entry is hidden is hidden itself, so an unlit aspect leaves no empty parent behind.
     for (let grew = true; grew; ) {
         grew = false;
@@ -150,4 +180,4 @@ function activate(context) {
     refresh();
 }
 
-module.exports = { activate, deactivate() {}, hiddenGlobs, merge, typed };
+module.exports = { activate, deactivate() {}, hiddenGlobs, merge, notLive, typed };

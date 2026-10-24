@@ -79,7 +79,7 @@ extensions:
           priority: default
   catzc-track-lamps:
     displayName: Catzc track lamps
-    version: 0.4.0
+    version: 0.4.2
     description: >-
       Filter lamps in the Explorer's title row, one per aspect and one for a typed list of languages: a lit lamp shows its files, an unlit
       one filters them away through files.exclude; every lamp lit shows everything.
@@ -89,8 +89,14 @@ extensions:
       commands:
         - { command: catzc.lamps.live.putOut, title: "live: shown (click to hide)", icon: "$(package)", category: Catzc lamps }
         - { command: catzc.lamps.live.light, title: "live: hidden (click to show)", icon: "$(circle-slash)", category: Catzc lamps }
-        - { command: catzc.lamps.tests.putOut, title: "tests: shown (click to hide)", icon: "$(beaker)", category: Catzc lamps }
-        - { command: catzc.lamps.tests.light, title: "tests: hidden (click to show)", icon: "$(beaker-stop)", category: Catzc lamps }
+        - command: catzc.lamps.fixtures.putOut
+          title: "fixtures, everything not live: shown (click to hide)"
+          icon: "$(beaker)"
+          category: Catzc lamps
+        - command: catzc.lamps.fixtures.light
+          title: "fixtures, everything not live: hidden (click to show)"
+          icon: "$(beaker-stop)"
+          category: Catzc lamps
         - command: catzc.lamps.languages.putOut
           title: "languages: shown (click to choose languages to hide)"
           icon: "$(symbol-text)"
@@ -100,8 +106,12 @@ extensions:
         view/title:
           - { command: catzc.lamps.live.putOut, when: "view == workbench.explorer.fileView && !catzc.lamps.out.live", group: navigation@90 }
           - { command: catzc.lamps.live.light, when: "view == workbench.explorer.fileView && catzc.lamps.out.live", group: navigation@90 }
-          - { command: catzc.lamps.tests.putOut, when: "view == workbench.explorer.fileView && !catzc.lamps.out.tests", group: navigation@91 }
-          - { command: catzc.lamps.tests.light, when: "view == workbench.explorer.fileView && catzc.lamps.out.tests", group: navigation@91 }
+          - command: catzc.lamps.fixtures.putOut
+            when: "view == workbench.explorer.fileView && !catzc.lamps.out.fixtures"
+            group: navigation@91
+          - command: catzc.lamps.fixtures.light
+            when: "view == workbench.explorer.fileView && catzc.lamps.out.fixtures"
+            group: navigation@91
           - command: catzc.lamps.languages.putOut
             when: "view == workbench.explorer.fileView && !catzc.lamps.out.languages"
             group: navigation@92

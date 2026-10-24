@@ -81,6 +81,9 @@ settings:
     diffEditor.removedLineBackground: "#b8860b26"
     diffEditor.removedTextBackground: "#b8860b59"
 
+  # The title-row icons of every view show without a hover, so the track lamps in the Explorer's folder row are always visible.
+  workbench.view.alwaysShowHeaderActions: true
+
   files.exclude:
     "**/tmp": true
     "**/*.bkp": true

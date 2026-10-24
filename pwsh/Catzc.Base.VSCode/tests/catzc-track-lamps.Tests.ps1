@@ -26,16 +26,17 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         @(& $script:call hiddenGlobs @($script:root, @(), 'markdown', $script:covers, $script:known)) | Should -HaveCount 0
     }
 
-    It 'hides exactly the cover of an unlit aspect' {
-        $globs = & $script:call hiddenGlobs @($script:root, @('tests'), '', $script:covers, $script:known)
-        $globs | Should -Be @('gadgets', 'mods/Widget/tests')
+    It 'hides everything not marked live, on disk, while the fixtures lamp is unlit' {
+        $globs = & $script:call hiddenGlobs @($script:root, @('fixtures'), '', $script:covers, $script:known)
+        $globs | Should -Be @('docs', 'gadgets', 'mods/Widget/README.md', 'mods/Widget/tests')
     }
 
-    It 'folds a folder whose every entry is hidden into the folder, and stops at a folder that holds something shown' {
-        $covers = [ordered]@{ live = @('mods/Widget/Get-Widget.ps1', 'mods/Widget/README.md'); tests = @('mods/Widget/tests') }
-        & $script:call hiddenGlobs @($script:root, @('live', 'tests'), '', $covers, $script:known) | Should -Be @('mods')
-        & $script:call hiddenGlobs @($script:root, @('live'), '', $covers, $script:known) |
-            Should -Be @('mods/Widget/Get-Widget.ps1', 'mods/Widget/README.md')
+    It 'hides exactly the live cover while the live lamp is unlit' {
+        & $script:call hiddenGlobs @($script:root, @('live'), '', $script:covers, $script:known) | Should -Be @('mods/Widget/Get-Widget.ps1')
+    }
+
+    It 'folds a folder whose every entry is hidden into the folder' {
+        & $script:call hiddenGlobs @($script:root, @('live', 'fixtures'), '', $script:covers, $script:known) | Should -Be @('docs', 'gadgets', 'mods')
     }
 
     It 'hides every extension of each typed language while the language lamp is unlit' {
@@ -62,7 +63,7 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
         $script:under = { param([string] $Path, [string[]] $Covers) @($Covers).Where({ $Path -ceq $_ -or $Path.StartsWith("$_/", [System.StringComparison]::Ordinal) }).Count -gt 0 }
     }
 
-    It 'puts out the tests lamp over every tracked file a folder module keeps in its tests folder' {
+    It 'covers by the tests aspect every tracked file a folder module keeps in its tests folder' {
         # Aspects belong to units, so only a unit's tests are in scope; a holder track's files (docs, contracts) are in no aspect.
         $modules = Get-CatzcModulesFolder
         $tests = $script:tracked.Where({ $_ -like "$modules/*/tests/*" -and $_ -notlike "$modules/.*" })
@@ -70,12 +71,21 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
         $tests.Where({ -not (& $script:under $_ $script:cover['tests']) }) | Should -BeNullOrEmpty
     }
 
-    It 'puts out no file of a holder track with any aspect lamp' {
-        $docs = $script:tracked.Where({ $_ -like 'docs/*' })
-        $docs.Where({ (& $script:under $_ $script:cover['tests']) -or (& $script:under $_ $script:cover['live']) }) | Should -BeNullOrEmpty
+    It 'puts out with the fixtures lamp everything on disk but the live files, and never a live file' {
+        $root = (Get-RepositoryRoot) -replace '\\', '/'
+        $script = (Resolve-Path (Join-Path $PSScriptRoot '../assets/extensions/catzc-track-lamps.js')).Path -replace '\\', '/'
+        $liveFile = Join-Path $TestDrive 'live.json'
+        [System.IO.File]::WriteAllText($liveFile, (ConvertTo-Json -InputObject @($script:cover['live']) -Compress))
+        $globs = @(& node -e "const m = require('$script'); const live = JSON.parse(require('fs').readFileSync(process.argv[1], 'utf8')); process.stdout.write(JSON.stringify(m.notLive('$root', live)));" $liveFile | ConvertFrom-Json)
+        $globs | Should -Contain 'docs'
+        $globs | Should -Contain 'go'
+        $globs | Should -Not -Contain 'infrastructure' -Because 'the infrastructure track is live'
+        foreach ($place in $script:cover['live']) {
+            @($globs).Where({ $place -ceq $_ -or $place.StartsWith("$_/", [System.StringComparison]::Ordinal) }) | Should -BeNullOrEmpty -Because "$place is live"
+        }
     }
 
-    It 'never puts out a live file with the tests lamp' {
+    It 'never covers a live file by the tests aspect' {
         $languages = Get-Config -Config languages
         $live = $script:tracked.Where({ ($row = $languages.PlaceOf($_)) -and $row.live })
         $live.Where({ & $script:under $_ $script:cover['tests'] }) | Should -BeNullOrEmpty

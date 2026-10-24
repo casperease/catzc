@@ -27,13 +27,12 @@ catzc:
     cites:
       - ADR-AUTO-IDIOM
       - ADR-REPO-SLIDES-MINIMAPSFROMDATA
-      - DDR-ASPECT
       - DDR-TRACK
       - DDR-TRACKTYPE
       - FDR-CD-GLOBS
       - PDR-CONFIG
       - PDR-ONELIVE
-    drs_total: 15
+    drs_total: 14
 ---
 
 # The track model: members with facts, globsets derived from tracks, lamps as the editor's view
@@ -83,9 +82,10 @@ has a track except `LICENSE`.
   webview or a pane of their own: VS Code gives every pane a 120 px minimum body. A lamp is **lit** when what it covers is shown in the
   tree, and **unlit** when it is filtering away what it could have shown; each lamp is two commands, its lit and its unlit icon, picked by
   the context key `catzc.lamps.out.<lamp>`. Every lamp lit is the default and shows everything, as without the extension; each lamp put out
-  hides its set, and unlit lamps add up. The list: one lamp per aspect (DDR-ASPECT; today `live` and `tests`, each a manifest entry), and
-  one language lamp whose put-out asks for comma-separated languages from `languages.yml` in an input box and hides their files. No lamp per
-  track or vendor.
+  hides its set, and unlit lamps add up. The list: a `live` lamp over the live aspect's cover, a `fixtures` lamp over everything not
+  registered live (the complement of the live cover, walked on disk so untracked generated files count too; the label is local to the
+  extension), and one language lamp whose put-out asks for comma-separated languages from `languages.yml` in an input box and hides their
+  files. No lamp per track or vendor.
 - An aspect lamp hides the files of its aspect across every unit. `files.exclude` holds only globs, and a catch-all aspect is "everything
   but the other aspects", so the hidden set is a computed projection: `Get-AspectCover` folds each aspect's tracked files (its module and
   track aspect globsets, `GlobSet.SelectMembers` over the git index) into the fewest paths that cover them and nothing else, rendered into
