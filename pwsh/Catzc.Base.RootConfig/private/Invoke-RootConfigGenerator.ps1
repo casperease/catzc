@@ -81,6 +81,7 @@ function Invoke-RootConfigGenerator {
                 AspectCover       = Get-AspectCover
                 LanguageExtension = $languageExtension
                 ToolPlace         = $toolPlace
+                GeneratedPath     = @(@(Get-GeneratedTarget).ForEach({ $_.path }))
             }
             New-VsCodeSettings @render
         }

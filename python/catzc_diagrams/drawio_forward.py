@@ -35,6 +35,7 @@ drawio.yml role) is rendered from the kit's glyphs.xml, painted in the default t
 the report is out/drawio/bulk/<root>/bulk.md.
 """
 
+import html
 import re
 import shutil
 import subprocess
@@ -146,9 +147,43 @@ def diagram_role(folder):
 
 def legend_model():
     """The kit's glyph library as a legend diagram's png carries it: glyphs.xml without its comments, its tokens painted in the
-    default theme."""
+    default theme, and the language tags of its code glyphs added."""
     lines = (KIT / "assets" / "glyphs.xml").read_text(encoding="utf-8").splitlines()
-    return paint("\n".join(line for line in lines if not line.lstrip().startswith("<!--")).strip())
+    return tagged_library(paint(chr(10).join(line for line in lines if not line.lstrip().startswith("<!--")).strip()))
+
+
+TAGGED_SAMPLES = ("g-code", "g-private", "g-runner", "g-type", "g-command-sample")  # the library glyphs that are code: each shows its tag row
+
+
+def tagged_library(model):
+    """The library model with the language tags of its code glyphs, their words from the language table by the shape of each label
+    (a glyph kind falls back to the language that is its default), so the library holds no tag word of its own."""
+    import declaration
+    from xml.sax.saxutils import quoteattr
+
+    cell = lambda cid: re.search(
+        rf'<mxCell id="{cid}" value="([^"]*)" style="([^"]*)"[^>]*>\s*<mxGeometry x="(-?\d+)" y="(-?\d+)" width="(\d+)" height="(\d+)"', model
+    )
+    sheet = cell("g-type-tag")
+    lib = {"style": sheet.group(2), "size": (int(sheet.group(5)), int(sheet.group(6)))}
+    model = re.sub(r'\s*<mxCell id="g-type-tag"[^>]*>\s*<mxGeometry[^>]*/>\s*</mxCell>', "", model, count=1)
+    added = []
+    for cid in TAGGED_SAMPLES:
+        found = cell(cid)
+        box = {"x": int(found.group(3)), "y": int(found.group(4)), "w": int(found.group(5)), "h": int(found.group(6))}
+        label = plain(html.unescape(found.group(1))) if cid == "g-command-sample" else ""
+        kind = "code" if cid == "g-command-sample" else cid[2:]
+        for tag in declaration.glyph_tags({"id": cid, "kind": kind, "label": label}, box, "1", lib):
+            added.append(
+                chr(10).join(
+                    (
+                        f'    <mxCell id="{tag["id"]}" value={quoteattr(tag["value"])} style={quoteattr(paint(tag["style"]))} vertex="1" parent="1">',
+                        f'      <mxGeometry x="{tag["x"]}" y="{tag["y"]}" width="{tag["w"]}" height="{tag["h"]}" as="geometry" />',
+                        "    </mxCell>",
+                    )
+                )
+            )
+    return model.replace("  </root>", chr(10).join(added) + chr(10) + "  </root>", 1)
 
 
 def legend_stale(folder):

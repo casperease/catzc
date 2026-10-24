@@ -85,8 +85,9 @@ has a track except `LICENSE`.
   hides its set, and unlit lamps add up. The list: `code` over the live aspect's cover (every real config is live), `tools` over the vendor
   configuration (the vendor-settings, vendored-code and pipelines tracks' places and the generated root configs), `tests` over everything
   else on disk (walked, so untracked generated files count too); an unlit lamp, an active filter, shows an amber glyph pulsing in a turning
-  ring (the extension's own SVGs); a dead folder leaves the tree; and one language lamp whose put-out asks for comma-separated languages
-  from `languages.yml` in an input box and hides their files. No lamp per track or vendor.
+  ring (the extension's own SVGs); a `generated` lamp over every target Get-GeneratedTarget returns, the top-most filter that hides a
+  generated file whichever other lamp holds it; a dead folder leaves the tree; and one language lamp whose put-out asks for comma-separated
+  languages from `languages.yml` in an input box and hides their files. No lamp per track or vendor.
 - An aspect lamp hides the files of its aspect across every unit. `files.exclude` holds only globs, and a catch-all aspect is "everything
   but the other aspects", so the hidden set is a computed projection: `Get-AspectCover` folds each aspect's tracked files (its module and
   track aspect globsets, `GlobSet.SelectMembers` over the git index) into the fewest paths that cover them and nothing else, rendered into
@@ -116,42 +117,37 @@ has a track except `LICENSE`.
        members, a vendor one starting no pipeline (check: `Test-Links -Path docs/drs/flow/durable-sha-globs.md`).
 7. [ ] `pwsh/Catzc.Base.Variants/configs/track-types.yml`: the `output` type and every vendor named by its tool (check:
        `Invoke-TestFile -Path pwsh/Catzc.Base.Variants/tests/types/TrackTypesConfig.Tests.ps1`).
-8. [ ] `pwsh/Catzc.Base.Variants/Get-GeneratedTarget.ps1` (new): every target a catzc generator declares, with its generator and
-       `committed`, from `rootconfig.yml` and each generator's declaration (`Build-Readme`, `Build-DrsIndex`, `Build-Glossary`,
-       `Build-ContractReference`, `Build-GitKeep`, `Build-CommentView`, `Export-Comments`, the manifests of `Catzc.Internal.Bootstrap.psm1`;
-       the importer-path one lands with a fresh full import right after) (check:
-       `Invoke-TestFile -Path pwsh/Catzc.Base.Variants/tests/Get-GeneratedTarget.Tests.ps1`).
-9. [ ] `pwsh/Catzc.Base.Variants/types/VariantTrack.cs`: `members` (path or glob, `generated`, `committed`) replace the declared places,
+8. [ ] `pwsh/Catzc.Base.Variants/types/VariantTrack.cs`: `members` (path or glob, `generated`, `committed`) replace the declared places,
        `places` computed from them, `PlaceLengthOf` matching a glob member, and the name checked in the normal form through
        `Catzc.Base.Objects.NameCase.IsNormal` (check:
        `Invoke-TestFile -Path pwsh/Catzc.Base.Variants/tests/types/VariantsConfig.Tests.ps1`).
-10. [ ] `pwsh/Catzc.Base.Variants/configs/variants.yml`: every track renamed to its normal-form name and declared by members, the catch-up
-        tracks, `out`, and the root files moved into their tracks; every caller of an old track name changed in the same pass (check:
-        `Test-TrackDeclaration`, and `Get-Track -Path` answers `vendor_git.root_configs` for `.gitignore`).
-11. [ ] `pwsh/Catzc.Base.Variants/Get-Track.ps1`: `-Path` returns the member's facts with the track, and a filter on `-Generated` and
+9. [ ] `pwsh/Catzc.Base.Variants/configs/variants.yml`: every track renamed to its normal-form name and declared by members, the catch-up
+       tracks, `out`, and the root files moved into their tracks; every caller of an old track name changed in the same pass (check:
+       `Test-TrackDeclaration`, and `Get-Track -Path` answers `vendor_git.root_configs` for `.gitignore`).
+10. [ ] `pwsh/Catzc.Base.Variants/Get-Track.ps1`: `-Path` returns the member's facts with the track, and a filter on `-Generated` and
         `-Committed` lists a track's members (check: `Invoke-TestFile -Path pwsh/Catzc.Base.Variants/tests/Get-Track.Tests.ps1`).
-12. [ ] `pwsh/Catzc.Base.Variants/Test-TrackDeclaration.ps1`: each member's `committed` agrees with the git index, `generated` is declared
+11. [ ] `pwsh/Catzc.Base.Variants/Test-TrackDeclaration.ps1`: each member's `committed` agrees with the git index, `generated` is declared
         in one place only, and every root entry on disk lies in a track or is `LICENSE` (check:
         `Invoke-TestFile -Path pwsh/Catzc.Base.Variants/tests/Test-TrackDeclaration.Tests.ps1`).
-13. [ ] `pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1`: the generated, gitignored members come from the track model and the
+12. [ ] `pwsh/Catzc.Base.Git/private/Get-AutoControlledGlobs.ps1`: the generated, gitignored members come from the track model and the
         hand-written shapes are deleted (check: `Invoke-TestFile -Path pwsh/Catzc.Base.Git/tests/Get-AutoControlledGlobs.Tests.ps1`).
-14. [ ] `pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1` and `pwsh/Catzc.Base.Globs/configs/globs.yml`: a whole-track globset derived from the
+13. [ ] `pwsh/Catzc.Base.Globs/Get-GlobSetTrigger.ps1` and `pwsh/Catzc.Base.Globs/configs/globs.yml`: a whole-track globset derived from the
         track's members without its generated ones; the hand-written track globsets deleted from `globs.yml` (check:
         `Invoke-TestFile -Path pwsh/Catzc.Base.Globs/tests/Get-GlobSetTrigger.Tests.ps1`, and the `ci-infrastructure` filter excludes
         `infrastructure/README.md`).
-15. [ ] `pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js`: the user reloads VS Code and judges the filter lamps; each remark
+14. [ ] `pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js`: the user reloads VS Code and judges the filter lamps; each remark
         lands here as its own step (check: putting out `tests` hides every module's `tests/` folder, and `markdown` in the field with its
         lamp out hides every `.md`; the user looks).
-16. [ ] `docs/drs/repository/slides-as-markdown.md`: ADR-REPO-SLIDES-MINIMAPSFROMDATA generalised to a projection computed by a `Get-*`
+15. [ ] `docs/drs/repository/slides-as-markdown.md`: ADR-REPO-SLIDES-MINIMAPSFROMDATA generalised to a projection computed by a `Get-*`
         command over the generated truths; the minimap specifics (the three slots, the eight ids, the pools, `out/minimaps/`) moved first to
         a new page `docs/explanation/repository/minimaps.md`, so nothing is dropped (check: `Test-Links` on both files, and every moved fact
         found on the new page by a grep).
-17. [ ] `docs/drs/automation/idiomatic-names.md`: ADR-AUTO-IDIOM-PLACENORMALFORM generalised to a place's one short form in any projection;
+16. [ ] `docs/drs/automation/idiomatic-names.md`: ADR-AUTO-IDIOM-PLACENORMALFORM generalised to a place's one short form in any projection;
         the minimap rows, `PlaceRows` and the maps budget moved to `docs/explanation/repository/minimaps.md` (check:
         `Test-Links -Path docs/drs/automation/idiomatic-names.md`, and `grep -ci minimap` on it answers 0).
-18. [ ] `docs/drs/repository/conventional-folders.md` and `docs/drs/design/visual-design.md`: each minimap mention reworded as a projection
+17. [ ] `docs/drs/repository/conventional-folders.md` and `docs/drs/design/visual-design.md`: each minimap mention reworded as a projection
         or moved to the page (check: `grep -ci minimap` on each answers 0, `Test-Links` on each).
-19. [ ] `docs/drs/flow/commit-lifecycle.md` and `docs/drs/azure/azure-naming-standard.md`: the `minimaps:` line of each quoted diagram
+18. [ ] `docs/drs/flow/commit-lifecycle.md` and `docs/drs/azure/azure-naming-standard.md`: the `minimaps:` line of each quoted diagram
         declaration deleted, the quote keeping what the rule cites it for (check: `grep -ci minimap` on each answers 0, `Test-Links` on
         each).
 

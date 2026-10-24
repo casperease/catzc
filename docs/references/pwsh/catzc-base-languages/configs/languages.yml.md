@@ -88,3 +88,12 @@ Above `accosted:`, written with `#`.
 A flat list of harmless contracted calls, run under every engine
 ([ADR-AUTO-ACCOSTED](/docs/drs/automation/accosted-language.md)); its compound extension wins over .yml.
 ```
+
+## comment:5
+
+Above `tag: pwsh`, written with `#`.
+
+```text
+What a diagram prints on a glyph whose label is a snippet of the language: the tag, the shapes that name a label as one (a command
+Verb-Noun, a $variable, a -Flag), and the glyph kinds it is the default for when no shape of any language matches.
+```

@@ -14,6 +14,9 @@ configs:
     overridable: false
   folder-walk:
     type: Catzc.Base.Folders.FolderWalkConfig
+  generated:
+    type: Catzc.Base.Variants.GeneratedConfig
+    overridable: false
   slides:
     type: Catzc.Base.Slides.SlidesConfig
   terminology:

@@ -1,0 +1,3 @@
+# What this module's generators write (Get-GeneratedTarget reads every module's generated.yml).
+targets:
+  - { path: docs/references/contracts/**, generator: Build-ContractReference }

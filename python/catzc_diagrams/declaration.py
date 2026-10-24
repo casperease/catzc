@@ -60,6 +60,7 @@ from typing import NoReturn
 import minimap_contract
 import minimaps
 import edge_rules
+import languages_table
 import normal_form
 import yaml
 from drawio_png import DEFAULTS, THEMES, decode, encode, font, mxfile_chunk, paint, plain, render, style_map
@@ -558,7 +559,7 @@ def library():
 
     glyphs, edges, marks = {}, {}, {}
     for cid, c in cells.items():
-        if cid.startswith("g-") and not cid.endswith(("-text", "-tag", "-member", "-holder")):
+        if cid.startswith("g-") and not cid.endswith(("-text", "-tag", "-member", "-holder", "-sample")) and "-tag-" not in cid:
             kind = cid[2:]
             glyphs[kind] = {"style": c.get("style"), "phrase": plain(c.get("value")), "size": geometry(c)}
         elif cid.startswith("e-") and c.get("edge") == "1":
@@ -1184,8 +1185,9 @@ def normalise(raw, where="the declaration"):
         # A commit carries its state in the locked palette (bvt by default), may be a ghost (faded and dashed), and is a dot unless
         # its shape is box: a state drawn as a named box in its palette colour.
         extra = {k: raw_glyph[k] for k in ("state", "ghost", "shape") if isinstance(raw_glyph, dict) and k in raw_glyph}
+        lang = str(raw_glyph.get("lang", "") or "").strip() if isinstance(raw_glyph, dict) else ""
         g = entry(
-            {k: v for k, v in raw_glyph.items() if k not in extra} if isinstance(raw_glyph, dict) else raw_glyph,
+            {k: v for k, v in raw_glyph.items() if k not in extra and k != "lang"} if isinstance(raw_glyph, dict) else raw_glyph,
             ("id", "kind", "label", "in"),
             where,
             "glyph",
@@ -1202,6 +1204,10 @@ def normalise(raw, where="the declaration"):
             g["state"] = str(extra["state"])
         if extra.get("ghost") is True:
             g["ghost"] = True
+        if lang:  # the one override of the language tags a glyph's label derives: a language row of the table that has a tag
+            if lang not in languages_table.rows():
+                choices(f"{where}: glyph '{g['id']}' lang", lang, tuple(languages_table.rows()))
+            g["lang"] = lang
         out["glyphs"].append(g)
     for g in out["glyphs"]:
         if g["kind"] not in GLYPH_KINDS:
@@ -1921,6 +1927,26 @@ def cell(cid, value, style, x, y, w, h, parent="1"):
     return {"id": cid, "value": value, "style": style, "x": x, "y": y, "w": w, "h": h, "parent": parent, "edge": None}
 
 
+TAGGED_KINDS = ("code", "private", "runner", "type")  # the glyph kinds that are code: each prints the tags of its label's language
+TAG_ID = re.compile(r"-tag(-\d+)?$")
+
+
+def glyph_tags(item, box, parent, lib):
+    """The tag cells of a code glyph: a right-aligned row of small tags on its top edge, in the tag style of the library, their words
+    from the language table by the shape of the label (languages_table), never stored in the declaration. The first carries the glyph's
+    kind, and the override if the declaration names one, so get reads both back."""
+    words, _ = languages_table.tags(item["label"], item["kind"], item.get("lang", ""))
+    width, height = lib["size"]
+    sizes = [max(width, round(6.6 * len(word)) + 10) for word in words]
+    x = box["x"] + box["w"] - 8 - sum(sizes) - 3 * (len(words) - 1)
+    cells = []
+    for n, (word, size) in enumerate(zip(words, sizes)):
+        style = lib["style"] + (f"catzcKind={item['kind']};" + (f"catzcLang={item['lang']};" if item.get("lang") else "") if n == 0 else "")
+        cells.append(cell(f"{item['id']}-tag" if n == 0 else f"{item['id']}-tag-{n + 1}", word, style, x, box["y"] - 8, size, height, parent))
+        x += size + 3
+    return cells
+
+
 def edge_cell(cid, value, style, source, target):
     return {"id": cid, "value": value, "style": style, "source": source, "target": target, "parent": "1", "edge": True}
 
@@ -1943,7 +1969,7 @@ def layer_of(c):
         return "frames"
     if "shape=crossbar" in style:
         return "spans"
-    if c["id"].startswith(("mark-", "chip-")) or c["id"].endswith(("-tag", "-word")):
+    if c["id"].startswith(("mark-", "chip-")) or c["id"].endswith("-word") or TAG_ID.search(c["id"]):
         return "marks"
     return "labels" if style.startswith("text;") else "glyphs"
 
@@ -2248,20 +2274,8 @@ def place(declaration, check_routes=False):
                 else:
                     label = "<br>".join(html.escape(line, quote=False) for line in item["label"].split("\n"))  # a box's second line
                     cells.append(cell(item["id"], f"<b>{label}</b>", style, box["x"], box["y"], box["w"], box["h"], parent))
-                if item["kind"] == "type":
-                    tag = glyph_lib["type"]["tag"]
-                    cells.append(
-                        cell(
-                            f"{item['id']}-tag",
-                            "C#",
-                            tag["style"],
-                            box["x"] + box["w"] - tag["size"][0] - 8,
-                            box["y"] - 8,
-                            tag["size"][0],
-                            tag["size"][1],
-                            parent,
-                        )
-                    )
+                if item["kind"] in TAGGED_KINDS:
+                    cells.extend(glyph_tags(item, box, parent, glyph_lib["type"]["tag"]))
                 # An environment's occupant commits sit inside it, right of its name, in a row from its right edge inward.
                 for n, occupant in enumerate(holder.get(item["id"], [])):
                     d = glyph_lib["commit"]["size"][1]
@@ -3188,7 +3202,7 @@ def get(model, kind=None):
     lens = plain(cells["lens-badge"].get("value")).lower() if "lens-badge" in cells else lens
     for cid, c in cells.items():
         style, value = c.get("style") or "", plain(c.get("value"))
-        if c.get("edge") == "1" or cid in DERIVED or cid.startswith(DERIVED_PREFIXES) or cid.endswith(("-tag", "-word", "-title", "-text")):
+        if c.get("edge") == "1" or cid in DERIVED or cid.startswith(DERIVED_PREFIXES) or cid.endswith(("-word", "-title", "-text")) or TAG_ID.search(cid):
             continue
         if cid == "title":
             content["title"] = value
@@ -3214,8 +3228,9 @@ def get(model, kind=None):
             glyphs.append((cid, "commit"))  # a commit in any palette state, a dot or a box
         else:
             kinds = [k for k, sig in sorted(glyph_sigs.items(), key=lambda kv: -len(kv[1])) if matches(sig, style)]
-            if f"{cid}-tag" in cells and "type" in kinds:
-                glyphs.append((cid, "type"))
+            marked = style_map(cells[f"{cid}-tag"].get("style") or "").get("catzcKind") if f"{cid}-tag" in cells else None
+            if marked in kinds:  # the tag row carries the glyph's kind: code and type share one shape
+                glyphs.append((cid, marked))
             elif kinds:
                 glyphs.append((cid, kinds[0]))
             else:
@@ -3294,6 +3309,10 @@ def get(model, kind=None):
                 glyph["state"] = state
             if s.get("dashed") == "1":
                 glyph["ghost"] = True
+        elif f"{cid}-tag" in cells:  # the tag words are derived and never read back; only the override a glyph names is
+            lang = style_map(cells[f"{cid}-tag"].get("style") or "").get("catzcLang")
+            if lang:
+                glyph["lang"] = lang
         content["glyphs"].append(glyph)
         layout[cid] = declared(geo[cid])
     content["notes"] = []

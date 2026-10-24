@@ -46,6 +46,24 @@ Describe 'Catzc.Base.VSCode.VscodeSettingsConfig' -Tag 'L0' {
             Get-ViolationMessage $raw | Should -BeLike "*'search.exclude' entry 'tst/``*``*' must be true or false*"
         }
 
+        It 'reads the hidden actions per menu, and none when it declares none' {
+            $config = [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{
+                    settings       = [ordered]@{ 'editor.tabSize' = 4 }
+                    hidden_actions = [ordered]@{ Widget = @('widget.add', 'widget.remove') }
+                })
+            @($config.hidden_actions['Widget']) | Should -Be @('widget.add', 'widget.remove')
+            [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{ settings = [ordered]@{ 'editor.tabSize' = 4 } }).hidden_actions.Count | Should -Be 0
+        }
+
+        It 'throws when a hidden-actions menu names no command or is not a list' {
+            $message = Get-ViolationMessage ([ordered]@{
+                    settings       = [ordered]@{ 'editor.tabSize' = 4 }
+                    hidden_actions = [ordered]@{ Widget = @(); Gadget = 'gadget.add' }
+                })
+            $message | Should -BeLike "*hidden_actions 'Widget' names no command*"
+            $message | Should -BeLike "*hidden_actions 'Gadget' must be a list of command ids*"
+        }
+
         It 'reports every violation in one throw: an unknown key, a scalar language override, and a scalar search.exclude' {
             $message = Get-ViolationMessage ([ordered]@{
                     widget   = 1
@@ -62,6 +80,7 @@ Describe 'Catzc.Base.VSCode.VscodeSettingsConfig' -Tag 'L0' {
             $config = Get-Config -Config vscode-settings
             $config | Should -BeOfType ([Catzc.Base.VSCode.VscodeSettingsConfig])
             $config.settings['search.exclude'] | Should -Not -BeNullOrEmpty
+            $config.hidden_actions['ViewTitle'] | Should -Contain 'workbench.files.action.createFileFromExplorer'
         }
     }
 }

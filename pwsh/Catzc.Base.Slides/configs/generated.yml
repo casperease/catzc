@@ -1,0 +1,3 @@
+# What this module's generators write (Get-GeneratedTarget reads every module's generated.yml): each diagram's png, put from its yml.
+targets:
+  - { path: "docs/**/.assets/*.drawio.png", generator: Build-Diagrams }

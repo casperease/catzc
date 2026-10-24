@@ -80,6 +80,12 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
         $bare | Should -Not -Contain 'catzc.trackLamps.tools'
     }
 
+    It 'renders the generated lamp''s targets once each, in order, and no key without them' {
+        $json = (New-VsCodeSettings -GeneratedPath 'widgets/*.psd1', 'out/**', 'widgets/*.psd1') | ConvertFrom-Json
+        @($json.'catzc.trackLamps.generated') | Should -Be @('out/**', 'widgets/*.psd1')
+        (New-VsCodeSettings | ConvertFrom-Json).PSObject.Properties.Name | Should -Not -Contain 'catzc.trackLamps.generated'
+    }
+
     It 'renders the tools lamp''s paths once each, in order' {
         $json = (New-VsCodeSettings -ToolPlace '.gadgets', 'widgets/.vendor', '.gadgets') | ConvertFrom-Json
         @($json.'catzc.trackLamps.tools') | Should -Be @('.gadgets', 'widgets/.vendor')

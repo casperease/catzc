@@ -60,13 +60,25 @@ public sealed class FileLanguage
     // The language's idiomatic file and folder names; null for a language that states none.
     public LanguageNaming naming { get; }
 
+    // The short word a diagram prints on a glyph whose label is a snippet of this language (e.g. pwsh); null when it prints none.
+    public string tag { get; }
+
+    // The ordered regular expressions that name a label as this language's snippet; first match wins across the languages in order.
+    public IReadOnlyList<string> shapes { get; }
+
+    // The glyph kinds this language is the default for when no shape matches (e.g. type for C#).
+    public IReadOnlyList<string> glyph_kinds { get; }
+
     // Whether the importer has a handler for the language: an executable language whose layout rows place it in a module, or whose tests runner runs it ([ADR-AUTO-IMPORTER-UNHANDLEDLANGUAGESTOPS](/docs/drs/automation/importer.md#rule-adr-auto-importer-unhandledlanguagestops)).
     public bool handled => executable && (layout.Count > 0 || tests != null);
 
     public FileLanguage(string name, string[] extensions, string formatter, string noFormatter, string vscodeLanguage, string adrFolder,
         string[] checks, string[] imprint = null, LayoutRow[] layout = null, LanguageTestRunner tests = null, bool executable = false, LanguageNaming naming = null,
-        IDictionary<string, string> checkScopes = null)
+        IDictionary<string, string> checkScopes = null, string tag = null, string[] shapes = null, string[] glyphKinds = null)
     {
+        this.tag = tag;
+        this.shapes = shapes == null ? Array.Empty<string>() : (string[])shapes.Clone();
+        glyph_kinds = glyphKinds == null ? Array.Empty<string>() : (string[])glyphKinds.Clone();
         check_scopes = checkScopes == null
             ? new Dictionary<string, string>()
             : new Dictionary<string, string>(checkScopes);

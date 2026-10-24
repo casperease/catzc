@@ -1,0 +1,4 @@
+# What this module's generators write (Get-GeneratedTarget reads every module's generated.yml); the READMEs are declared by readme.yml.
+targets:
+  - { path: docs/drs/glossary.md, generator: Build-Glossary }
+  - { path: "**/.gitkeep", generator: Build-GitKeep }

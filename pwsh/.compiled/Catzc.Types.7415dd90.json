@@ -1,5 +1,5 @@
 {
-  "hash": "785787a4",
+  "hash": "7415dd90",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -1767,7 +1767,22 @@
       "display": []
     },
     {
+      "name": "Catzc.Base.VSCode.VscodeStateStore",
+      "aliases": [],
+      "display": []
+    },
+    {
       "name": "Catzc.Base.VSCode.VscodeTasksConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Variants.GeneratedConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Variants.GeneratedTarget",
       "aliases": [],
       "display": []
     },

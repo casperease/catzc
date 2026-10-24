@@ -79,48 +79,57 @@ extensions:
           priority: default
   catzc-track-lamps:
     displayName: Catzc track lamps
-    version: 0.5.1
+    version: 0.7.0
     description: >-
       Filter lamps in the Explorer's title row: code (the live aspect), tools (the vendor configuration), tests (everything else) and a
       typed list of languages; a lit lamp shows its files, an unlit one filters them away through files.exclude; every lamp lit shows
       everything.
     activationEvents: [onStartupFinished]
     contributes:
-      # Each lamp is two commands, its lit icon and its unlit icon, shown by the context key catzc.lamps.out.<lamp>. The icons are the
-      # extension's own SVGs (media/): a lit lamp is a green glyph, an unlit one, an active filter, an amber glyph that pulses in a
+      # Each lamp is two commands, its on icon and its off icon, shown by the context key catzc.lamps.out.<lamp>. The icons are the
+      # extension's own SVGs, assets/extensions/catzc-track-lamps/<lamp>-on.svg and <lamp>-off.svg, shipped as media/: a file copied in
+      # over one of them replaces that icon. On is a bright green glyph; off, an active filter, a dark green glyph that glows (pulses) in a
       # turning ring.
       commands:
         - command: catzc.lamps.code.putOut
           title: "code, the live modules and configs: shown (click to hide)"
-          icon: { light: media/code-lit.svg, dark: media/code-lit.svg }
+          icon: { light: media/code-on.svg, dark: media/code-on.svg }
           category: Catzc lamps
         - command: catzc.lamps.code.light
           title: "code: hidden, filter active (click to show)"
-          icon: { light: media/code-out.svg, dark: media/code-out.svg }
+          icon: { light: media/code-off.svg, dark: media/code-off.svg }
           category: Catzc lamps
         - command: catzc.lamps.tests.putOut
           title: "tests, all neither code nor tools: shown (click to hide)"
-          icon: { light: media/tests-lit.svg, dark: media/tests-lit.svg }
+          icon: { light: media/tests-on.svg, dark: media/tests-on.svg }
           category: Catzc lamps
         - command: catzc.lamps.tests.light
           title: "tests: hidden, filter active (click to show)"
-          icon: { light: media/tests-out.svg, dark: media/tests-out.svg }
+          icon: { light: media/tests-off.svg, dark: media/tests-off.svg }
           category: Catzc lamps
         - command: catzc.lamps.tools.putOut
           title: "tools, the vendor configuration: shown (click to hide)"
-          icon: { light: media/tools-lit.svg, dark: media/tools-lit.svg }
+          icon: { light: media/tools-on.svg, dark: media/tools-on.svg }
           category: Catzc lamps
         - command: catzc.lamps.tools.light
           title: "tools: hidden, filter active (click to show)"
-          icon: { light: media/tools-out.svg, dark: media/tools-out.svg }
+          icon: { light: media/tools-off.svg, dark: media/tools-off.svg }
+          category: Catzc lamps
+        - command: catzc.lamps.generated.putOut
+          title: "generated, every generated artifact whatever its lamp: shown (click to hide)"
+          icon: { light: media/generated-on.svg, dark: media/generated-on.svg }
+          category: Catzc lamps
+        - command: catzc.lamps.generated.light
+          title: "generated: hidden, filter active over every lamp (click to show)"
+          icon: { light: media/generated-off.svg, dark: media/generated-off.svg }
           category: Catzc lamps
         - command: catzc.lamps.languages.putOut
           title: "languages: shown (click to choose languages to hide)"
-          icon: { light: media/languages-lit.svg, dark: media/languages-lit.svg }
+          icon: { light: media/languages-on.svg, dark: media/languages-on.svg }
           category: Catzc lamps
         - command: catzc.lamps.languages.light
           title: "languages: hidden, filter active (click to show)"
-          icon: { light: media/languages-out.svg, dark: media/languages-out.svg }
+          icon: { light: media/languages-off.svg, dark: media/languages-off.svg }
           category: Catzc lamps
       menus:
         view/title:
@@ -130,12 +139,18 @@ extensions:
           - { command: catzc.lamps.tests.light, when: "view == workbench.explorer.fileView && catzc.lamps.out.tests", group: navigation@91 }
           - { command: catzc.lamps.tools.putOut, when: "view == workbench.explorer.fileView && !catzc.lamps.out.tools", group: navigation@92 }
           - { command: catzc.lamps.tools.light, when: "view == workbench.explorer.fileView && catzc.lamps.out.tools", group: navigation@92 }
+          - command: catzc.lamps.generated.putOut
+            when: "view == workbench.explorer.fileView && !catzc.lamps.out.generated"
+            group: navigation@93
+          - command: catzc.lamps.generated.light
+            when: "view == workbench.explorer.fileView && catzc.lamps.out.generated"
+            group: navigation@93
           - command: catzc.lamps.languages.putOut
             when: "view == workbench.explorer.fileView && !catzc.lamps.out.languages"
-            group: navigation@93
+            group: navigation@94
           - command: catzc.lamps.languages.light
             when: "view == workbench.explorer.fileView && catzc.lamps.out.languages"
-            group: navigation@93
+            group: navigation@94
       configuration:
         title: Catzc track lamps
         properties:
@@ -147,6 +162,10 @@ extensions:
             type: object
             default: {}
             description: Each language's file extensions, rendered into the settings from the languages config.
+          catzc.trackLamps.generated:
+            type: array
+            default: []
+            description: Every generated target's path or glob, rendered into the settings by Get-GeneratedTarget.
           catzc.trackLamps.tools:
             type: array
             default: []

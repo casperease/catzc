@@ -51,6 +51,12 @@
     <mxCell id="g-commit-red" value="4" style="ellipse;html=1;fillColor=@red;strokeColor=@red-rim;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=@title;" vertex="1" parent="1">
       <mxGeometry x="646" y="184" width="28" height="28" as="geometry" />
     </mxCell>
+    <mxCell id="g-command-sample" value="&lt;b&gt;Get-FileLanguage&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=@slate;strokeColor=@slate-rim;fontColor=@title;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="920" y="188" width="200" height="44" as="geometry" />
+    </mxCell>
+    <mxCell id="g-command-sample-text" value="a command with a contract: one tag per engine, then its contract" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;" vertex="1" parent="1">
+      <mxGeometry x="1130" y="188" width="130" height="44" as="geometry" />
+    </mxCell>
     <mxCell id="g-commit-text" value="commit (locked palette; red: discarded)" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;" vertex="1" parent="1">
       <mxGeometry x="682" y="188" width="240" height="20" as="geometry" />
     </mxCell>
@@ -183,7 +189,7 @@
     <mxCell id="g-type" value="&lt;b&gt;C# type&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=@slate;strokeColor=@slate-rim;fontColor=@title;fontSize=12;" vertex="1" parent="1">
       <mxGeometry x="195" y="486" width="130" height="44" as="geometry" />
     </mxCell>
-    <mxCell id="g-type-tag" value="C#" style="rounded=0;html=1;fillColor=@page;strokeColor=@slate-rim;fontColor=@title;fontStyle=1;fontSize=10.5;shadow=0;" vertex="1" parent="1">
+    <mxCell id="g-type-tag" value="" style="rounded=0;html=1;fillColor=@page;strokeColor=@slate-rim;fontColor=@title;fontStyle=1;fontSize=10.5;shadow=0;" vertex="1" parent="1">
       <mxGeometry x="303" y="478" width="26" height="16" as="geometry" />
     </mxCell>
     <mxCell id="g-module-holder" value="pwsh (track)" style="rounded=1;html=1;arcSize=6;fillColor=none;strokeColor=@slate-rim;strokeWidth=1.5;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=11;fontColor=@slate-rim;shadow=0;" vertex="1" parent="1">
@@ -195,7 +201,7 @@
     <mxCell id="g-module-member" value="&lt;b&gt;code unit&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=@slate;strokeColor=@slate-rim;fontColor=@title;fontSize=12;" vertex="1" parent="g-module">
       <mxGeometry x="16" y="24" width="130" height="32" as="geometry" />
     </mxCell>
-    <mxCell id="g-source-text" value="private helper: dark slate fill, slate rim, smaller name (never dashed)&lt;br&gt;C# type: code unit with a C# tag&lt;br&gt;catzc module: slate frame named by the module (the slide's own module is a band)&lt;br&gt;frames nest: a track holds its modules, a module holds its members; a frame in a frame is its holder's part" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;" vertex="1" parent="1">
+    <mxCell id="g-source-text" value="private helper: dark slate fill, slate rim, smaller name (never dashed)&lt;br&gt;code glyphs: a row of language tags on the top edge, from the shape of the label (languages.yml); a command lists every form it has&lt;br&gt;catzc module: slate frame named by the module (the slide's own module is a band)&lt;br&gt;frames nest: a track holds its modules, a module holds its members; a frame in a frame is its holder's part" style="text;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;fontSize=11;fontColor=@quiet;" vertex="1" parent="1">
       <mxGeometry x="620" y="478" width="640" height="64" as="geometry" />
     </mxCell>
     <mxCell id="band-action" value="ACTION STYLE (one action, its cause and its effects; local or remote)" style="rounded=1;html=1;arcSize=3;fillColor=@band;strokeColor=@band-rim;verticalAlign=top;align=left;spacingLeft=8;fontStyle=1;fontSize=12;fontColor=@band-label;" vertex="1" parent="1">

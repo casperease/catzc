@@ -25,6 +25,10 @@ public sealed class VscodeSettingsConfig : Catzc.Base.Objects.DictionaryRecord
     // Every VS Code setting key -> its value, in authored order — what settings.json receives; read-only.
     public OrderedDictionary settings { get; }
 
+    // The editor actions kept off its menus: menu id (ViewTitle, …) -> the command ids hidden there, written into the editor's own
+    // hidden-menu state by Set-VsCodeHiddenAction; empty when none are declared.
+    public IReadOnlyDictionary<string, string[]> hidden_actions { get; }
+
     public VscodeSettingsConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
@@ -33,8 +37,30 @@ public sealed class VscodeSettingsConfig : Catzc.Base.Objects.DictionaryRecord
         foreach (object k in raw.Keys)
         {
             string key = k == null ? null : k.ToString();
-            if (key != "settings") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: settings)", key)); }
+            if (key != "settings" && key != "hidden_actions") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: settings, hidden_actions)", key)); }
         }
+
+        Dictionary<string, string[]> hidden = new Dictionary<string, string[]>(StringComparer.Ordinal);
+        object declared = raw.Contains("hidden_actions") ? raw["hidden_actions"] : null;
+        if (declared != null && !(declared is IDictionary)) { errors.Add("'hidden_actions' must be a map of menu id -> command ids"); }
+        else if (declared != null)
+        {
+            foreach (DictionaryEntry menu in (IDictionary)declared)
+            {
+                List<string> commands = new List<string>();
+                IList list = menu.Value as IList;
+                if (list == null || menu.Value is string) { errors.Add(string.Format("hidden_actions '{0}' must be a list of command ids", menu.Key)); continue; }
+                foreach (object item in list)
+                {
+                    string command = item as string;
+                    if (string.IsNullOrWhiteSpace(command)) { errors.Add(string.Format("hidden_actions '{0}': '{1}' is not a command id", menu.Key, item)); }
+                    else { commands.Add(command); }
+                }
+                if (commands.Count == 0) { errors.Add(string.Format("hidden_actions '{0}' names no command", menu.Key)); }
+                hidden[menu.Key.ToString()] = commands.ToArray();
+            }
+        }
+        hidden_actions = hidden;
 
         OrderedDictionary map = new OrderedDictionary(StringComparer.OrdinalIgnoreCase);
         IDictionary source = raw.Contains("settings") ? raw["settings"] as IDictionary : null;

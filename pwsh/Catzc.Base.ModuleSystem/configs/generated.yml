@@ -1,0 +1,3 @@
+# What the module system writes (Get-GeneratedTarget reads every module's generated.yml): each module's manifest, rendered on import.
+targets:
+  - { path: "pwsh/*/*.psd1", generator: Catzc.Internal.Bootstrap }

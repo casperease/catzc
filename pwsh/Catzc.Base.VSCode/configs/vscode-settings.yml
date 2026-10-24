@@ -13,6 +13,15 @@
 #     drs_total: 6
 # ---
 
+# The editor actions kept off its menus, by menu id: the Explorer's title row shows only the track lamps. VS Code keeps this in its own
+# state store, never in settings.json; Set-VsCodeHiddenAction writes it there while VS Code is closed.
+hidden_actions:
+  ViewTitle:
+    - workbench.files.action.createFileFromExplorer
+    - workbench.files.action.createFolderFromExplorer
+    - workbench.files.action.refreshFilesExplorer
+    - workbench.files.action.collapseExplorerFolders
+
 settings:
   # Markdown settings (built-in preview)
   markdown.preview.fontFamily: "Consolas, 'Courier New', monospace"

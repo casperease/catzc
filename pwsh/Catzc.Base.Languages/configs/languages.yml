@@ -79,6 +79,9 @@ languages:
   powershell:
     extensions: [.ps1, .psm1, .psd1]
     executable: true
+    tag: pwsh
+    shapes: ['^[A-Z][a-z]+(To|From)?(-[A-Z][A-Za-z0-9]*)+(\(\))?$', '^\. [\w./-]+\.ps1$', '^\$[A-Za-z_][\w.:]*$', '^-[A-Za-z][\w-]*$']
+    glyph_kinds: [code, private, runner, callsite, action, gate]
     naming:
       folder: [pascal-dotted, kebab]
       file: [verb-noun, pascal-dotted, pascal]
@@ -97,6 +100,9 @@ languages:
   bcl:
     extensions: [.cs]
     executable: true
+    tag: C#
+    shapes: ['^[A-Z][A-Za-z0-9]*\.[A-Z][A-Za-z0-9]*(\(.*\))?$', "^[A-Z][a-z0-9]+([A-Z][a-z0-9]+)+$"]
+    glyph_kinds: [type]
     formatter: dotnet-format
     adr_folder: automation/BCL
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments, Test-BclReferences]
@@ -111,12 +117,16 @@ languages:
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
   yaml:
     extensions: [.yml]
+    tag: yml
+    shapes: ['^[A-Za-z_][\w.-]*: [^{].*$']
     formatter: prettier
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments, Test-AgentDefinitions]
     layout:
       - { folder: configs, role: config }
   accosted:
     extensions: [.accosted.yml]
+    tag: contract
+    shapes: ["^[a-z][a-z0-9]*(_[a-z0-9]+)+$", '^[a-z][a-z0-9_]*: \{.*\}$']
     formatter: prettier
     adr_folder: automation
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-Comments]
@@ -124,6 +134,7 @@ languages:
       - { folder: accosted, role: run-list, live: false, shipped: false }
   markdown:
     extensions: [.md]
+    tag: md
     formatter: prettier
     checks: [Test-Markdownlint, Test-MarkdownTitle, Test-Formatting, Test-Spelling, Test-Links, Test-AgentDefinitions, Test-Plans]
     check_scopes: { Test-Plans: global.plans.folder }
@@ -132,10 +143,12 @@ languages:
       - { folder: ".", role: readme, extensions: [.md], live: false, shipped: false }
   bicep:
     extensions: [.bicep, .bicepparam]
+    tag: bicep
     formatter: bicep
     checks: [Test-Formatting, Test-Spelling, Test-Comments]
   python:
     extensions: [.py]
+    tag: py
     executable: true
     naming: { folder: snake, file: snake, function: snake, type: pascal }
     formatter: ruff
@@ -153,6 +166,7 @@ languages:
     no_formatter: one record per line by definition, so there is no layout to format
   go:
     extensions: [.go]
+    tag: go
     executable: true
     naming: { folder: flat, file: snake, function: [pascal, camel], type: [pascal, camel] }
     formatter: gofmt
@@ -163,6 +177,7 @@ languages:
       - { folder: ".", role: source, extensions: [.go] }
   bash:
     extensions: [.sh, .bats]
+    tag: bash
     executable: true
     naming: { folder: kebab, file: kebab }
     no_formatter: no engine is configured for Bash yet
