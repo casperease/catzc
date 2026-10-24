@@ -121,7 +121,6 @@ content:
   title: Declared graph orders and closes; observed graph is checked
   kind: reference
   flow: top-to-bottom
-  relation: feeds (a result to its caller)
   theme: dark
   bands:
     - { id: band-declared, label: DECLARED GRAPH }
@@ -140,15 +139,15 @@ content:
     - { id: g-violations, kind: private, label: Get-ModuleDependencyViolations, in: band-observed }
     - { id: g-cycles, kind: gate, label: Test-ModuleCycles, in: band-observed }
   edges:
-    - { from: f-dependencies, to: g-config, kind: flow, label: "" }
-    - { from: g-config, to: g-map, kind: flow, label: "" }
-    - { from: g-map, to: g-order, kind: flow, label: "" }
-    - { from: g-order, to: g-test-paths, kind: flow, label: "" }
-    - { from: g-map, to: g-closure, kind: flow, label: "" }
-    - { from: g-config, to: g-violations, kind: flow, label: "" }
-    - { from: g-function, to: g-module, kind: flow, label: "" }
-    - { from: g-module, to: g-violations, kind: flow, label: "" }
-    - { from: g-module, to: g-cycles, kind: flow, label: "" }
+    - { from: g-config, to: f-dependencies, kind: flow, label: "" }
+    - { from: g-map, to: g-config, kind: flow, label: calls }
+    - { from: g-order, to: g-map, kind: flow, label: calls }
+    - { from: g-test-paths, to: g-order, kind: flow, label: calls }
+    - { from: g-closure, to: g-map, kind: flow, label: calls }
+    - { from: g-violations, to: g-config, kind: flow, label: calls }
+    - { from: g-module, to: g-function, kind: flow, label: calls }
+    - { from: g-violations, to: g-module, kind: flow, label: calls }
+    - { from: g-cycles, to: g-module, kind: flow, label: calls }
   markers:
     - { at: f-dependencies, number: 1 }
     - { at: g-map, number: 2 }

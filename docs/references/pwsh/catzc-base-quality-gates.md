@@ -134,7 +134,6 @@ content:
   title: One discovery feeds three phases; finally stamps run.json
   kind: reference
   flow: top-to-bottom
-  relation: runs next (code order)
   theme: dark
   bands:
     - { id: band-entry, label: ENTRY }
@@ -156,14 +155,14 @@ content:
     - { id: g-verdict, kind: private, label: Get-TestAutomationVerdict, in: band-try }
     - { id: f-run-json, kind: file, label: run.json, in: band-finally }
   edges:
-    - { from: g-automation, to: g-run, kind: flow, label: "" }
-    - { from: g-build, to: g-run, kind: flow, label: "" }
-    - { from: g-run, to: g-discovery, kind: flow, label: "" }
+    - { from: g-automation, to: g-run, kind: flow, label: calls }
+    - { from: g-build, to: g-run, kind: flow, label: calls }
+    - { from: g-run, to: g-discovery, kind: flow, label: calls }
     - { from: g-discovery, to: g-tag-gate, kind: flow, label: "" }
     - { from: g-tag-gate, to: g-split, kind: flow, label: "" }
-    - { from: g-split, to: g-select, kind: flow, label: "" }
-    - { from: g-select, to: g-workers, kind: flow, label: "" }
-    - { from: g-workers, to: g-verdict, kind: flow, label: "" }
+    - { from: g-split, to: g-select, kind: flow, label: feeds }
+    - { from: g-select, to: g-workers, kind: flow, label: feeds }
+    - { from: g-workers, to: g-verdict, kind: flow, label: feeds }
   markers:
     - { at: g-run, number: 1 }
     - { at: g-discovery, number: 2 }
@@ -191,9 +190,9 @@ layout:
   s-parallel: { x: 130, y: 340, w: 64, h: 28 }
   s-greedy: { x: 198, y: 340, w: 64, h: 28 }
   s-serial: { x: 266, y: 340, w: 64, h: 28 }
-  g-select: { x: 380, y: 286, w: 185, h: 36 }
-  g-workers: { x: 625, y: 286, w: 215, h: 36 }
-  g-verdict: { x: 900, y: 286, w: 195, h: 36 }
+  g-select: { x: 440, y: 286, w: 185, h: 36 }
+  g-workers: { x: 725, y: 286, w: 215, h: 36 }
+  g-verdict: { x: 1035, y: 286, w: 195, h: 36 }
   f-run-json: { x: 130, y: 434, w: 110, h: 52 }
 ```
 

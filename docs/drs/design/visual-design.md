@@ -341,6 +341,20 @@ which every plain arrow then carries and which opts the diagram out of the check
 each label's initiating end are declared once, in the `edge-semantics` and `edge-labels` of the kit's `drawio.yml`; the legend entry of a
 plain arrow reads `flow: initiator to receiver` from that declaration, and a declaration that breaks the rule is refused naming the edge.
 
+The kind of each end orders the arrow. The kit's `edge-rank` lists the ranks, lowest first (actor, code, file or config, store or set,
+result or failure), each with its glyph kinds, and the lower rank acts on the higher: an edge between cells of different rank runs from the
+lower to the higher, so a file or config is the receiver of the code that reads it and never an initiator. An edge with no label of the
+vocabulary is oriented this way: declared against its rank it is refused naming the edge, and declared with its rank it takes the label its
+kind pair names in `edge-defaults` (code to file or set `reads`, to store `writes`, to failure `failed`; an actor to code none), drawn in
+the label presentation like any other label. The source keeps that edge minimal: get and tidy never write a derived label, and a label the
+author wrote that equals its pair's default is the same edge, so the one form leaves it out; a label of another meaning is kept, and so are
+the direction as written (get never rewrites `from` and `to` into `between`) and every edge of a diagram with its own `relation`. An edge
+may be declared minimally as `between: [a, b]` and the kit orients it; ends of one rank are declared with `from` and `to`, between two code
+blocks with a `calls` label or an actor. A label outside the vocabulary is free text, not an arrow meaning, and the edge is oriented by rank
+like an unlabelled one. The kinds in `edge-rules` `trusted-kinds` (the gate) keep the direction their author declared, and a diagram with
+its own `relation` keeps its plain arrows as they are. The edge audit, which leaves out the folders `edge-rules` `audit-skip` names, reads
+the same ranks and defaults.
+
 - [Arrows point at what they depend on](#arrows-point-at-what-they-depend-on)
 
 ## One axis, read left to right

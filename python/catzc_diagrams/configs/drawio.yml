@@ -5,7 +5,8 @@
 #     docs: "[drawio.yml.md](../../../docs/references/python/catzc_diagrams/configs/drawio.yml.md)"
 #     cites:
 #       - DDR-VISUAL-FIXEDCOMMITPALETTE
-#     drs_total: 1
+#       - DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON
+#     drs_total: 2
 # ---
 
 renderer:
@@ -27,9 +28,6 @@ renderer:
   word-margin: 3 # px of inner margin a label pill keeps around its word on every side: the smallest flattened ellipse that holds the word
   label-inner-margin: 4 # px between a diamond's label text and the edge of its invisible text rect, every side
   label-outer-margin: 6 # px between the corner of that text rect and the diamond's border, measured square to the border
-# the default meaning of an edge, declared once
-# ([DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON](/docs/drs/design/visual-design.md#rule-ddr-visual-arrowspointatwhattheydependon)): the tail
-# initiates, the head receives
 edge-semantics:
   legend: initiator to receiver # the words of a plain arrow's legend entry, `flow: <this>`; a diagram's own relation replaces them and opts out of the checks below
   code-kinds: code, runner # the glyph kinds that are code blocks: a plain arrow ends on one only from an actor, or labelled as a call
@@ -40,6 +38,20 @@ edge-labels: # the words an edge may carry to say something other than the defau
   writes: tail
   feeds: tail
   failed: tail
+edge-rank: # the rank of a glyph kind as an end of an arrow, lowest first, each rank with its kinds: the lower rank acts on the higher, so an edge between cells of different rank runs from the lower to the higher
+  actor: actor, cause
+  code: code, runner, private, callsite, action, type, gate
+  file: file, env, external
+  store: store, set
+  result: result, failure, effect
+edge-defaults: # the label an oriented edge carries when it declares none, `<tail>><head>` each a glyph kind or a rank name, the kind before the rank; a pair without an entry stays plain
+  code>file: reads
+  code>set: reads
+  code>store: writes
+  code>failure: failed
+edge-rules: # the rest of the arrow rule's vocabulary
+  trusted-kinds: gate # glyph kinds whose unlabelled edges keep the direction the author declared; nothing infers or judges them
+  audit-skip: docs/pilot # page folders (from the repository root) the edge audit and its sweeps leave out
 roles: # a diagram's role, keyed by its stem's repository path (`.assets/<name>`), only where it is not renderer.role
   docs/explanation/.assets/glyphs: legend # the glyph library, the legend every slide's glyphs come from
 lenses: # the closed set of lenses a diagram is drawn through (its about.lens, the end of its subtitle), each with what it shows; the badge prints the name

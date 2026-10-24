@@ -96,7 +96,6 @@ content:
   title: Skip a module only if its folded hash matches its last green
   kind: reference
   flow: left-to-right
-  relation: calls
   theme: dark
   bands:
     - { id: band-loader, label: CATZC.INTERNAL.LOADER }
@@ -117,14 +116,14 @@ content:
     - { id: g-tested, kind: private, label: Protect-TestedModule, in: band-record }
     - { id: g-protect, kind: code, label: Protect-GlobSet, in: band-record }
   edges:
-    - { from: g-select, to: g-pipeline, kind: flow, label: "" }
-    - { from: g-select, to: g-identity, kind: flow, label: "" }
-    - { from: g-identity, to: g-glob-hash, kind: flow, label: "" }
-    - { from: g-glob-hash, to: t-durable, kind: flow, label: "" }
-    - { from: g-identity, to: t-durable, kind: flow, label: "" }
+    - { from: g-select, to: g-pipeline, kind: flow, label: calls }
+    - { from: g-select, to: g-identity, kind: flow, label: calls }
+    - { from: g-identity, to: g-glob-hash, kind: flow, label: calls }
+    - { from: g-glob-hash, to: t-durable, kind: flow, label: calls }
+    - { from: g-identity, to: t-durable, kind: flow, label: calls }
     - { from: g-select, to: g-protection, kind: flow, label: "" }
     - { from: g-protection, to: s-protected, kind: flow, label: "" }
-    - { from: g-tested, to: g-protect, kind: flow, label: "" }
+    - { from: g-tested, to: g-protect, kind: flow, label: calls }
     - { from: g-protect, to: s-protected, kind: flow, label: "" }
   markers:
     - { at: g-select, number: 1 }

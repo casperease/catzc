@@ -9,8 +9,10 @@ catzc:
       - ADR-REPO-SLIDES-MINIMAPSFROMDATA
       - DDR-VISUAL-FIXEDCOMMITPALETTE
       - DDR-VISUAL-ENVIRONMENTISCONTAINER
+      - DDR-VISUAL-TRANSITIONPILL
+      - DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON
       - FDR-CD-SEPARATEPIPELINEKINDS
-    drs_total: 7
+    drs_total: 9
 ---
 
 # Maker kit: style for new docs/.assets diagrams
@@ -134,7 +136,14 @@ Glyph styles come from [`glyphs.xml`](glyphs.xml). These are the chrome and line
 - Commit dot: `ellipse;html=1;fillColor=<state>;strokeColor=<state>;strokeWidth=1.5;fontStyle=1;fontSize=11;fontColor=<digit>;`, with its
   digit as the value.
 - Edge: `edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;fontSize=10;fontColor=@ink;endArrow=block;strokeColor=@line;shadow=0;`. Give it
-  `source`/`target` ids and `<mxGeometry relative="1" as="geometry"/>`. An edge's word is a **pill** by default (`renderer: edge-label: pill` in drawio.yml, DDR-VISUAL-TRANSITIONPILL): a round-cornered box on the line, `fontStyle=1;fontSize=10`, `@band` fill and `@line` rim, `word-margin` px around the word, centred on the band or ring border the line crosses and else at its middle, with `edge-label-head-clear` px of line left to the arrowhead and `edge-label-tail-clear` at the tail; a line too short for it gets the same pill beside it, `word-gap` px off the line (right of a steep line, above a flatter one), clear of every glyph and earlier pill; bare text beside the line is only the `word` presentation (`labelBackgroundColor=@band`). The legend entry reads `label: the word on a line`. `edge-label: word` configures every diagram to the word beside the line, with a pill only at a crossing and the entry `transition: into a new state`.
+  `source`/`target` ids and `<mxGeometry relative="1" as="geometry"/>`. An edge's word is a **pill** by default
+  (`renderer: edge-label: pill` in drawio.yml, DDR-VISUAL-TRANSITIONPILL): a round-cornered box on the line, `fontStyle=1;fontSize=10`,
+  `@band` fill and `@line` rim, `word-margin` px around the word, centred on the band or ring border the line crosses and else at its
+  middle, with `edge-label-head-clear` px of line left to the arrowhead and `edge-label-tail-clear` at the tail; a line too short for it
+  gets the same pill beside it, `word-gap` px off the line (right of a steep line, above a flatter one), clear of every glyph and earlier
+  pill; bare text beside the line is only the `word` presentation (`labelBackgroundColor=@band`). The legend entry reads
+  `label: the word on a line`. `edge-label: word` configures every diagram to the word beside the line, with a pill only at a crossing and
+  the entry `transition: into a new state`.
 - Thick edge (to a named set): add `strokeWidth=2.5;`. DRS-only edge: add `dashed=1;`. Failure path: `strokeColor=@red-rim;`, solid.
 - Read edge (reads a fact source): `endArrow=open;dashed=1;dashPattern=1 3;`, dotted. Junction edge (where catzc meets a state machine):
   `startArrow=oval;startFill=1;`, solid, with the block arrow.
@@ -237,7 +246,12 @@ A sixth lens, drawn from the code alone rather than split from an ADR diagram. I
 - **A PowerShell built-in** (`Invoke-Expression`, `Start-Process`) is a code unit, not an `external tool`, which means a vendor tool.
 - **A computed type is not a box name.** When the code builds a type it looks up at run time (`$type::new($raw)`), draw a `C# type` glyph
   named for the role (`registered type`) and say in the description that the name varies per config. Don't invent a class name.
-- A flow edge runs from its initiator to its receiver (`flow: initiator to receiver`, edge-semantics in drawio.yml, DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON); it ends on a code block only from an actor or labelled `calls`, and a slide whose plain arrows mean another one thing says so as its relation.
+- A flow edge runs from its initiator to its receiver (`flow: initiator to receiver`, edge-semantics in drawio.yml,
+  DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON); it ends on a code block only from an actor or labelled `calls`, and a slide whose plain arrows
+  mean another one thing says so as its relation. The kinds of its ends order it: `edge-rank` (actor, code, file or config, store or set,
+  result or failure; the lower acts on the higher) orients an edge, declared `from`/`to` or minimally `between: [a, b]`, and `edge-defaults`
+  gives an unlabelled one its kind pair's label (code to file or set `reads`, to store `writes`, to failure `failed`), drawn as a label
+  pill; a gate keeps the direction declared (`edge-rules`).
 - Lenses share the source's colour meanings, so a stage keeps its colour across all five.
 - If a lens has nothing honest to show (e.g. no operator touches it), draw nothing for it, and say so in the reply.
 - **Keep helper scripts in your own output folder** (e.g. `out/diagrams/lenses/<name>/_gen.py`), never under a shared name in the
@@ -267,8 +281,12 @@ stale: `Test-Diagrams` lists those diagrams, and `Build-Diagrams -Stale` rebuild
 
 ### Colours (minimaps only; drawings keep the palettes above)
 
-- A minimap has a **page of its own**, `map-page`, a dark blue-grey nuance (a little darker than the bands, equal to no other token) drawn first, so the three insets read as maps set into the slide and
-  never as a fourth band of the `page`. A lit place is `map-lit` (a steel blue-grey fill, a visible step above the idle cell) with its name in `map-lit-ink` (white); in the dark theme every minimap text is white or near-white: caption and lit ink at least 7:1 on their backgrounds, dim ink and mention at least 4.5:1. The dashed border around each minimap panel is `map-border-lit`, a muted gold (dark `D9AE45`, light `8A6508`), at least 3:1 on the minimap grounds; the idle cell rim stays `map-rim`.
+- A minimap has a **page of its own**, `map-page`, a dark blue-grey nuance (a little darker than the bands, equal to no other token) drawn
+  first, so the three insets read as maps set into the slide and never as a fourth band of the `page`. A lit place is `map-lit` (a steel
+  blue-grey fill, a visible step above the idle cell) with its name in `map-lit-ink` (white); in the dark theme every minimap text is white
+  or near-white: caption and lit ink at least 7:1 on their backgrounds, dim ink and mention at least 4.5:1. The dashed border around each
+  minimap panel is `map-border-lit`, a muted gold (dark `D9AE45`, light `8A6508`), at least 3:1 on the minimap grounds; the idle cell rim
+  stays `map-rim`.
 - **One lit encoding on every minimap:** a lit cell is filled in the lit colour; an idle cell is `map-panel` with a `map-rim` border, the
   same nuance one step up. Labels are `map-caption` (lit) and `map-dim` (not lit). The minimap legend shows its idle swatch in these minimap
   tokens, not in the slide's band tokens.

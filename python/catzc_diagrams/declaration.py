@@ -59,6 +59,7 @@ from typing import NoReturn
 
 import minimap_contract
 import minimaps
+import edge_rules
 import normal_form
 import yaml
 from drawio_png import DEFAULTS, THEMES, decode, encode, font, mxfile_chunk, paint, plain, render, style_map
@@ -495,6 +496,10 @@ EDGE_SEMANTICS = {k: tuple(v.replace(",", " ").split()) for k, v in DEFAULTS["ed
 EDGE_LABELS = {word: end for word, end in DEFAULTS["edge-labels"].items()}  # label -> the end that initiates under it
 GLYPH_KINDS = tuple(LIB["glyphs"])
 EDGE_KINDS = tuple(LIB["edges"])
+try:  # the rank table and the kind-pair defaults of the arrow rule, one source for this module and the edge audit
+    edge_rules.validate(GLYPH_KINDS, tuple(EDGE_LABELS))
+except edge_rules.RuleError as error:
+    raise ValueError(str(error)) from error
 
 
 def span_vocabulary():
@@ -1177,6 +1182,8 @@ def normalise(raw, where="the declaration"):
         out["spans"].append(span)
     out["edges"] = []
     for e in content.get("edges") or []:
+        if isinstance(e, dict) and "between" in e:
+            e = between_edge(e, out, where)
         via = e.get("via") if isinstance(e, dict) else None
         edge = entry(
             {k: v for k, v in e.items() if k != "via"} if isinstance(e, dict) else e,
@@ -1197,6 +1204,7 @@ def normalise(raw, where="the declaration"):
         out["edges"].append(edge)
     if lens in (ACTION_LENS, PROOF_LENS):
         action_content(content, out, ids, where, lens)
+    orient_edges(out, content, where)
     edge_semantics_findings(out, content, where)
     out["markers"] = []
     edge_keys = [f"{e['from']}->{e['to']}" for e in out["edges"]]
@@ -1313,6 +1321,52 @@ def normalise(raw, where="the declaration"):
     # What the diagram shows, in a sentence or two, for whoever meets it outside any article; no article is named here.
     description = " ".join(str(raw.get("description", "") or "").split())
     return {"description": description, "about": about, "content": out, "layout": layout}
+
+
+def end_kinds(out):
+    """The glyph kind of every glyph an edge may end at, and `group` for a group."""
+    return {**{g["id"]: "group" for g in out.get("groups", [])}, **{g["id"]: g["kind"] for g in out.get("glyphs", [])}}
+
+
+def between_edge(e, out, where):
+    """An edge declared minimally as `between: [a, b]`: oriented by the rank of its two ends, the lower acting on the higher, so it
+    becomes `from` the lower and `to` the higher; ends of one rank, or of a trusted or unranked kind, are declared with from and to."""
+    ends = e["between"]
+    if not isinstance(ends, list) or len(ends) != 2:
+        raise DeclarationError(f"{where}: edge between is a list of two cells, `between: [a, b]`")
+    kinds = end_kinds(out)
+    ranks = [edge_rules.rank_of(kinds.get(end)) for end in ends]
+    if (
+        None in ranks
+        or ranks[0] == ranks[1]
+        or any(kinds.get(end) in edge_rules.TRUSTED_KINDS for end in ends)
+    ):
+        raise DeclarationError(
+            f"{where}: edge between {ends[0]} and {ends[1]} has no direction by rank (equal, unranked or trusted kinds); "
+            f"declare it with from and to (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON)"
+        )
+    low, high = (ends[0], ends[1]) if ranks[0] < ranks[1] else (ends[1], ends[0])
+    return {**{k: v for k, v in e.items() if k != "between"}, "from": low, "to": high}
+
+
+def orient_edges(out, content, where):
+    """The rank of an edge's ends against its direction (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON): a flow edge that carries no label of
+    the arrow vocabulary runs from the lower rank to the higher, so one declared against its rank is refused naming the edge, and one
+    declared with it and no label takes its kind pair's default label. A diagram with its own `relation` is left as it is."""
+    if str(content.get("relation", "") or "").strip():
+        return
+    kinds = end_kinds(out)
+    for e in out.get("edges", []):
+        if e["kind"] not in ("flow", "thick") or e["label"] in EDGE_LABELS:
+            continue
+        verdict = edge_rules.judge(kinds.get(e["from"]), kinds.get(e["to"]), e["label"], e["kind"], tuple(EDGE_LABELS))
+        if verdict == "reverse":
+            raise DeclarationError(
+                f"{where}: edge {e['from']} -> {e['to']} runs against its rank ({kinds[e['from']]} ranks above {kinds[e['to']]}, and the "
+                f"lower rank acts on the higher); swap its ends, or label it one of {', '.join(EDGE_LABELS)} (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON)"
+            )
+        if verdict == "ok" and not e["label"] and e["kind"] == "flow" and kinds.get(e["from"]) not in edge_rules.TRUSTED_KINDS:
+            e["label"] = edge_rules.default_label(kinds.get(e["from"]), kinds.get(e["to"]))
 
 
 def edge_semantics_findings(out, content, where):
@@ -1585,6 +1639,20 @@ def legend_phrases():
     )
 
 
+def minimal_edge(edge, content):
+    """An edge as its source keeps it: the label that its kind pair derives is left out, so a minimal edge stays minimal. A flow edge
+    oriented by rank whose label equals its pair's default means the same whether the author wrote it or the kit derived it, so the one
+    form drops it; a label of another meaning, an edge of another kind and the edges of a diagram with its own relation are kept."""
+    if edge.get("kind", "flow") != "flow" or not edge.get("label") or str(content.get("relation", "") or "").strip():
+        return edge
+    kinds = end_kinds(content)
+    tail, head = kinds.get(edge["from"]), kinds.get(edge["to"])
+    derived = edge_rules.default_label(tail, head)
+    if edge["label"] == derived and tail not in edge_rules.TRUSTED_KINDS and edge_rules.judge(tail, head, "", "flow", ()) == "ok":
+        return {**edge, "label": ""}
+    return edge
+
+
 def dump(declaration):
     """The whole declaration as the text of its source file, keys in the kit's order."""
     content = dict(declaration["content"])
@@ -1594,6 +1662,7 @@ def dump(declaration):
         for key in ("groups", "glyphs"):
             content[key] = [i for i in content[key] if i["id"] not in generated]
         content["edges"] = [e for e in content["edges"] if e["from"] not in generated or e["to"] not in generated]
+    content["edges"] = [minimal_edge(e, content) for e in content.get("edges", [])]
     ordered = {k: content[k] for k in CONTENT_KEYS if k in content and content[k] not in ([], {}, "")}
     out = {"description": declaration["description"]} if declaration.get("description") else {}
     about = declaration.get("about") or {}
@@ -2948,7 +3017,7 @@ def get(model, kind=None):
     # The drawing carries each minimap's view, not what its author excludes: save() keeps the source's entries.
     content["minimaps"] = [plain(cells[cid].get("value")) for cid, _, _ in SIDEBAR if cid in cells]
     flow_phrase = plain(cells["lg-edge-flow-t"].get("value")) if "lg-edge-flow-t" in cells else ""
-    content["relation"] = flow_phrase[len("flow: ") :] if flow_phrase.startswith("flow: ") else ""
+    content["relation"] = flow_phrase[len("flow: ") :] if flow_phrase.startswith("flow: ") and flow_phrase != LIB["edges"]["flow"]["phrase"] else ""
     thick_phrase = plain(cells["lg-edge-thick-t"].get("value")) if "lg-edge-thick-t" in cells else ""
     content["thick"] = thick_phrase if thick_phrase and thick_phrase != brief(LIB["edges"]["thick"]["phrase"]) else ""
     layout = {}

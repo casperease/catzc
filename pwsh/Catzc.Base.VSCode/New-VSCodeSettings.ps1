@@ -24,7 +24,10 @@ function New-VsCodeSettings {
 
         [System.Collections.IDictionary] $AspectCover = @{},
 
-        [System.Collections.IDictionary] $LanguageExtension = @{}
+        [System.Collections.IDictionary] $LanguageExtension = @{},
+
+        [AllowEmptyCollection()]
+        [string[]] $ToolPlace = @()
     )
 
     $config = Get-Config -Config vscode-settings
@@ -83,6 +86,9 @@ function New-VsCodeSettings {
             $languages[$name] = @($LanguageExtension[$name])
         }
         $settings['catzc.trackLamps.languages'] = $languages
+    }
+    if ($ToolPlace.Count -gt 0) {
+        $settings['catzc.trackLamps.tools'] = @($ToolPlace | Sort-Object -Unique)
     }
 
     (ConvertTo-Json -InputObject $settings -Depth 12) + "`n"

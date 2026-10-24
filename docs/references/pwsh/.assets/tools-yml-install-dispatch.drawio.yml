@@ -8,7 +8,6 @@ content:
   title: tools.yml is the one locked list; dispatch is by key name
   kind: reference
   flow: left-to-right
-  relation: feeds (data moves)
   theme: dark
   bands:
     - { id: band-config, label: CONFIG }
@@ -29,45 +28,45 @@ content:
     - { id: s-installers, kind: set, label: Install-<Suffix>, in: band-dispatch }
     - { id: f-missing, kind: failure, label: No Install function found, in: band-dispatch }
   edges:
-    - { from: f-tools-yml, to: t-config, kind: flow, label: "" }
-    - { from: t-config, to: g-status, kind: flow, label: "" }
-    - { from: t-config, to: g-order, kind: flow, label: "" }
-    - { from: t-config, to: g-tool-config, kind: flow, label: "" }
-    - { from: g-order, to: g-suffix, kind: flow, label: "" }
-    - { from: g-status, to: t-status, kind: flow, label: "" }
-    - { from: t-status, to: g-install, kind: flow, label: "" }
-    - { from: g-order, to: g-install, kind: flow, label: "" }
-    - { from: g-tool-config, to: g-install, kind: flow, label: "" }
-    - { from: g-suffix, to: g-install, kind: flow, label: "" }
-    - { from: g-install, to: s-installers, kind: flow, label: "" }
+    - { from: t-config, to: f-tools-yml, kind: flow, label: "" }
+    - { from: g-status, to: t-config, kind: flow, label: reads }
+    - { from: g-order, to: t-config, kind: flow, label: reads }
+    - { from: g-tool-config, to: t-config, kind: flow, label: reads }
+    - { from: g-status, to: t-status, kind: flow, label: feeds }
+    - { from: g-install, to: g-status, kind: flow, label: calls }
+    - { from: g-install, to: g-order, kind: flow, label: calls }
+    - { from: g-install, to: g-suffix, kind: flow, label: calls }
+    - { from: g-install, to: g-tool-config, kind: flow, label: calls }
+    - { from: g-install, to: s-installers, kind: flow, label: calls }
     - { from: g-install, to: f-missing, kind: fail, label: "" }
   markers:
     - { at: f-tools-yml, number: 1 }
     - { at: t-config, number: 2 }
-    - { at: g-status, number: 3 }
-    - { at: g-order, number: 4 }
-    - { at: g-suffix, number: 5 }
-    - { at: g-tool-config, number: 6 }
-    - { at: g-install, number: 7 }
-    - { at: s-installers, number: 8 }
-    - { at: f-missing, number: 9 }
+    - { at: g-order, number: 3 }
+    - { at: g-suffix, number: 4 }
+    - { at: g-tool-config, number: 5 }
+    - { at: g-status, number: 6 }
+    - { at: t-status, number: 7 }
+    - { at: g-install, number: 8 }
+    - { at: s-installers, number: 9 }
+    - { at: f-missing, number: 10 }
   chips:
     - { at: s-installers, kind: count, text: "16" }
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
-  band-config: { x: 20, y: 84, w: 310, h: 344 }
-  band-read: { x: 350, y: 84, w: 490, h: 344 }
-  band-dispatch: { x: 860, y: 84, w: 420, h: 344 }
-  grp-execution: { x: 40, y: 116, w: 270, h: 240 }
-  f-tools-yml: { x: 105, y: 158, w: 140, h: 52 }
-  t-config: { x: 100, y: 282, w: 150, h: 40 }
-  g-status: { x: 440, y: 130, w: 150, h: 40 }
-  t-status: { x: 640, y: 130, w: 130, h: 40 }
+  band-config: { x: 20, y: 84, w: 310, h: 470 }
+  band-read: { x: 350, y: 84, w: 490, h: 470 }
+  band-dispatch: { x: 860, y: 84, w: 420, h: 470 }
+  grp-execution: { x: 40, y: 116, w: 270, h: 410 }
+  f-tools-yml: { x: 105, y: 140, w: 140, h: 52 }
+  t-config: { x: 100, y: 262, w: 150, h: 190 }
   grp-core: { x: 405, y: 190, w: 245, h: 210 }
   g-order: { x: 440, y: 232, w: 190, h: 40 }
   g-suffix: { x: 440, y: 292, w: 190, h: 40 }
   g-tool-config: { x: 440, y: 352, w: 190, h: 40 }
-  g-install: { x: 880, y: 236, w: 170, h: 40 }
-  s-installers: { x: 1090, y: 236, w: 170, h: 40 }
-  f-missing: { x: 1090, y: 330, w: 170, h: 44 }
+  g-status: { x: 440, y: 412, w: 190, h: 40 }
+  t-status: { x: 440, y: 492, w: 190, h: 40 }
+  g-install: { x: 880, y: 322, w: 150, h: 40 }
+  s-installers: { x: 1090, y: 292, w: 170, h: 40 }
+  f-missing: { x: 1090, y: 372, w: 170, h: 44 }

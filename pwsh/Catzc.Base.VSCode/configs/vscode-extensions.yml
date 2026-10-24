@@ -79,45 +79,63 @@ extensions:
           priority: default
   catzc-track-lamps:
     displayName: Catzc track lamps
-    version: 0.4.2
+    version: 0.5.1
     description: >-
-      Filter lamps in the Explorer's title row, one per aspect and one for a typed list of languages: a lit lamp shows its files, an unlit
-      one filters them away through files.exclude; every lamp lit shows everything.
+      Filter lamps in the Explorer's title row: code (the live aspect), tools (the vendor configuration), tests (everything else) and a
+      typed list of languages; a lit lamp shows its files, an unlit one filters them away through files.exclude; every lamp lit shows
+      everything.
     activationEvents: [onStartupFinished]
     contributes:
-      # Each lamp is two commands, its lit icon and its unlit icon, shown by the context key catzc.lamps.out.<lamp>.
+      # Each lamp is two commands, its lit icon and its unlit icon, shown by the context key catzc.lamps.out.<lamp>. The icons are the
+      # extension's own SVGs (media/): a lit lamp is a green glyph, an unlit one, an active filter, an amber glyph that pulses in a
+      # turning ring.
       commands:
-        - { command: catzc.lamps.live.putOut, title: "live: shown (click to hide)", icon: "$(package)", category: Catzc lamps }
-        - { command: catzc.lamps.live.light, title: "live: hidden (click to show)", icon: "$(circle-slash)", category: Catzc lamps }
-        - command: catzc.lamps.fixtures.putOut
-          title: "fixtures, everything not live: shown (click to hide)"
-          icon: "$(beaker)"
+        - command: catzc.lamps.code.putOut
+          title: "code, the live modules and configs: shown (click to hide)"
+          icon: { light: media/code-lit.svg, dark: media/code-lit.svg }
           category: Catzc lamps
-        - command: catzc.lamps.fixtures.light
-          title: "fixtures, everything not live: hidden (click to show)"
-          icon: "$(beaker-stop)"
+        - command: catzc.lamps.code.light
+          title: "code: hidden, filter active (click to show)"
+          icon: { light: media/code-out.svg, dark: media/code-out.svg }
+          category: Catzc lamps
+        - command: catzc.lamps.tests.putOut
+          title: "tests, all neither code nor tools: shown (click to hide)"
+          icon: { light: media/tests-lit.svg, dark: media/tests-lit.svg }
+          category: Catzc lamps
+        - command: catzc.lamps.tests.light
+          title: "tests: hidden, filter active (click to show)"
+          icon: { light: media/tests-out.svg, dark: media/tests-out.svg }
+          category: Catzc lamps
+        - command: catzc.lamps.tools.putOut
+          title: "tools, the vendor configuration: shown (click to hide)"
+          icon: { light: media/tools-lit.svg, dark: media/tools-lit.svg }
+          category: Catzc lamps
+        - command: catzc.lamps.tools.light
+          title: "tools: hidden, filter active (click to show)"
+          icon: { light: media/tools-out.svg, dark: media/tools-out.svg }
           category: Catzc lamps
         - command: catzc.lamps.languages.putOut
           title: "languages: shown (click to choose languages to hide)"
-          icon: "$(symbol-text)"
+          icon: { light: media/languages-lit.svg, dark: media/languages-lit.svg }
           category: Catzc lamps
-        - { command: catzc.lamps.languages.light, title: "languages: hidden (click to show)", icon: "$(filter-filled)", category: Catzc lamps }
+        - command: catzc.lamps.languages.light
+          title: "languages: hidden, filter active (click to show)"
+          icon: { light: media/languages-out.svg, dark: media/languages-out.svg }
+          category: Catzc lamps
       menus:
         view/title:
-          - { command: catzc.lamps.live.putOut, when: "view == workbench.explorer.fileView && !catzc.lamps.out.live", group: navigation@90 }
-          - { command: catzc.lamps.live.light, when: "view == workbench.explorer.fileView && catzc.lamps.out.live", group: navigation@90 }
-          - command: catzc.lamps.fixtures.putOut
-            when: "view == workbench.explorer.fileView && !catzc.lamps.out.fixtures"
-            group: navigation@91
-          - command: catzc.lamps.fixtures.light
-            when: "view == workbench.explorer.fileView && catzc.lamps.out.fixtures"
-            group: navigation@91
+          - { command: catzc.lamps.code.putOut, when: "view == workbench.explorer.fileView && !catzc.lamps.out.code", group: navigation@90 }
+          - { command: catzc.lamps.code.light, when: "view == workbench.explorer.fileView && catzc.lamps.out.code", group: navigation@90 }
+          - { command: catzc.lamps.tests.putOut, when: "view == workbench.explorer.fileView && !catzc.lamps.out.tests", group: navigation@91 }
+          - { command: catzc.lamps.tests.light, when: "view == workbench.explorer.fileView && catzc.lamps.out.tests", group: navigation@91 }
+          - { command: catzc.lamps.tools.putOut, when: "view == workbench.explorer.fileView && !catzc.lamps.out.tools", group: navigation@92 }
+          - { command: catzc.lamps.tools.light, when: "view == workbench.explorer.fileView && catzc.lamps.out.tools", group: navigation@92 }
           - command: catzc.lamps.languages.putOut
             when: "view == workbench.explorer.fileView && !catzc.lamps.out.languages"
-            group: navigation@92
+            group: navigation@93
           - command: catzc.lamps.languages.light
             when: "view == workbench.explorer.fileView && catzc.lamps.out.languages"
-            group: navigation@92
+            group: navigation@93
       configuration:
         title: Catzc track lamps
         properties:
@@ -129,3 +147,8 @@ extensions:
             type: object
             default: {}
             description: Each language's file extensions, rendered into the settings from the languages config.
+          catzc.trackLamps.tools:
+            type: array
+            default: []
+            description:
+              The vendor configuration's paths, the vendor tracks' places and the generated root configs, rendered into the settings.

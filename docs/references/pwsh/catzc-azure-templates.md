@@ -176,7 +176,6 @@ content:
   title: One immutable context, resolved from the az session
   kind: reference
   flow: left-to-right
-  relation: calls
   theme: dark
   bands:
     - { id: band-entry, label: ENTRY }
@@ -198,17 +197,17 @@ content:
     - { id: g-environment, kind: code, label: Get-AzureEnvironment, in: grp-azure }
     - { id: g-tracking, kind: code, label: Set-BicepTrackingTagSet, in: band-deploy }
   edges:
-    - { from: g-deploy, to: g-context, kind: flow, label: "" }
+    - { from: g-deploy, to: g-context, kind: flow, label: calls }
     - { from: g-context, to: grp-types, kind: flow, label: "" }
-    - { from: g-context, to: g-build, kind: flow, label: "" }
-    - { from: g-context, to: g-session-sub, kind: flow, label: "" }
-    - { from: g-context, to: g-environment, kind: flow, label: "" }
-    - { from: g-build, to: g-invoke, kind: flow, label: "" }
-    - { from: g-deploy, to: g-invoke, kind: flow, label: "" }
-    - { from: g-deploy, to: g-tracking, kind: flow, label: "" }
-    - { from: g-tracking, to: g-invoke, kind: flow, label: "" }
-    - { from: g-tracking, to: g-session-sub, kind: flow, label: "" }
-    - { from: g-tracking, to: g-environment, kind: flow, label: "" }
+    - { from: g-context, to: g-build, kind: flow, label: calls }
+    - { from: g-context, to: g-session-sub, kind: flow, label: calls }
+    - { from: g-context, to: g-environment, kind: flow, label: calls }
+    - { from: g-build, to: g-invoke, kind: flow, label: calls }
+    - { from: g-deploy, to: g-invoke, kind: flow, label: calls }
+    - { from: g-deploy, to: g-tracking, kind: flow, label: calls }
+    - { from: g-tracking, to: g-invoke, kind: flow, label: calls }
+    - { from: g-tracking, to: g-session-sub, kind: flow, label: calls }
+    - { from: g-tracking, to: g-environment, kind: flow, label: calls }
   markers:
     - { at: g-deploy, number: 1 }
     - { at: g-context, number: 2 }

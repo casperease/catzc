@@ -108,14 +108,13 @@ content:
   title: Each tool wrapper asserts the locked version before it runs
   kind: reference
   flow: left-to-right
-  relation: calls
   theme: dark
   bands:
     - { id: band-entry, label: ENTRY }
     - { id: band-core, label: TOOLING CORE }
     - { id: band-execution, label: CATZC.BASE.EXECUTION }
   glyphs:
-    - { id: g-wrappers, kind: set, label: Invoke-<Tool>, in: band-entry }
+    - { id: g-wrappers, kind: code, label: Invoke-<Tool>, in: band-entry }
     - { id: g-assert-tool, kind: code, label: Assert-Tool, in: band-core }
     - { id: g-assert-version, kind: private, label: Assert-ToolVersion, in: band-core }
     - { id: g-get-version, kind: code, label: Get-ToolVersion, in: band-core }
@@ -124,14 +123,14 @@ content:
     - { id: f-tools-yml, kind: file, label: tools.yml, in: band-execution }
     - { id: g-invoke, kind: code, label: Invoke-Executable, in: band-execution }
   edges:
-    - { from: g-wrappers, to: g-assert-tool, kind: flow, label: "" }
-    - { from: g-wrappers, to: g-invoke, kind: flow, label: "" }
-    - { from: g-assert-tool, to: g-assert-version, kind: flow, label: "" }
-    - { from: g-assert-tool, to: g-resolve, kind: flow, label: "" }
-    - { from: g-assert-version, to: g-get-version, kind: flow, label: "" }
-    - { from: g-get-version, to: g-invoke, kind: flow, label: "" }
-    - { from: g-test-tool, to: g-get-version, kind: flow, label: "" }
-    - { from: g-test-tool, to: g-resolve, kind: flow, label: "" }
+    - { from: g-wrappers, to: g-assert-tool, kind: flow, label: calls }
+    - { from: g-wrappers, to: g-invoke, kind: flow, label: calls }
+    - { from: g-assert-tool, to: g-assert-version, kind: flow, label: calls }
+    - { from: g-assert-tool, to: g-resolve, kind: flow, label: calls }
+    - { from: g-assert-version, to: g-get-version, kind: flow, label: calls }
+    - { from: g-get-version, to: g-invoke, kind: flow, label: calls }
+    - { from: g-test-tool, to: g-get-version, kind: flow, label: calls }
+    - { from: g-test-tool, to: g-resolve, kind: flow, label: calls }
   markers:
     - { at: g-wrappers, number: 1 }
     - { at: g-assert-tool, number: 2 }

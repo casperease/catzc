@@ -1342,3 +1342,75 @@ def test_the_label_presentation_is_one_of_the_two_the_renderer_names():
     assert declaration.LABEL_PRESENTATIONS == ("pill", "word")
     with pytest.raises(declaration.DeclarationError, match="edge-label 'badge' is not one of: pill, word"):
         declaration.choices("drawio.yml renderer edge-label", "badge", declaration.LABEL_PRESENTATIONS)
+
+
+def ranked(*edges):
+    raw = __import__("yaml").safe_load(WIDGETS)
+    raw["content"].pop("relation")  # a diagram without its own relation: the arrow rule's ranks apply
+    raw["content"]["edges"] += list(edges)
+    return raw
+
+
+def test_an_edge_from_the_lower_rank_to_the_higher_takes_its_kind_pair_default_label():
+    first = declaration.normalise(ranked({"from": "widget-b", "to": "gadget-store"}))
+    edge = next(e for e in first["content"]["edges"] if e["from"] == "widget-b")
+    assert edge["label"] == "writes"  # code acts on a store
+    model = declaration.put(first)
+    assert declaration.dump(declaration.get(model, kind="explanation")) == declaration.dump(first)
+
+
+def test_an_edge_between_two_cells_is_oriented_by_their_ranks():
+    first = declaration.normalise(ranked({"between": ["gadget-store", "widget-b"]}))
+    edge = next(e for e in first["content"]["edges"] if e["to"] == "gadget-store" and e["from"] == "widget-b")
+    assert edge["label"] == "writes" and "between" not in edge
+    with pytest.raises(declaration.DeclarationError, match="between widget-a and widget-b has no direction by rank"):
+        declaration.normalise(ranked({"between": ["widget-a", "widget-b"]}))  # one rank: declared with from and to
+
+
+def test_an_edge_declared_against_its_rank_without_a_label_is_refused_naming_it():
+    with pytest.raises(declaration.DeclarationError, match="edge gadget-store -> widget-b runs against its rank"):
+        declaration.normalise(ranked({"from": "gadget-store", "to": "widget-b"}))
+    declaration.normalise(ranked({"from": "gadget-store", "to": "widget-b", "label": "calls"}))  # a label of the vocabulary fixes it
+
+
+def test_a_diagram_with_its_own_relation_keeps_its_plain_arrows_and_a_gate_keeps_its_declared_direction():
+    raw = __import__("yaml").safe_load(WIDGETS)  # relation: feeds
+    raw["content"]["edges"].append({"from": "gadget-store", "to": "widget-b"})
+    assert next(e for e in declaration.normalise(raw)["content"]["edges"] if e["from"] == "gadget-store" and e["to"] == "widget-b")["label"] == ""
+    first = declaration.normalise(ranked({"from": "gadget-gate", "to": "widget-b"}, {"from": "widget-b", "to": "gadget-gate"}))
+    assert [e["label"] for e in first["content"]["edges"] if "gadget-gate" in (e["from"], e["to"]) and e["kind"] == "flow"] == ["", ""]
+
+
+def test_the_rank_table_names_its_key_when_a_kind_is_outside_the_vocabulary(monkeypatch):
+    monkeypatch.setitem(declaration.DEFAULTS["edge-rank"], "code", "code, gadgetkind")
+    with pytest.raises(declaration.edge_rules.RuleError, match="edge-rank code: 'gadgetkind' is not a glyph kind"):
+        declaration.edge_rules.validate(declaration.GLYPH_KINDS, tuple(declaration.EDGE_LABELS))
+
+
+def test_the_source_keeps_a_minimal_edge_minimal_and_the_round_trip_is_stable():
+    first = declaration.normalise(ranked({"from": "widget-b", "to": "gadget-store"}))
+    assert next(e for e in first["content"]["edges"] if e["from"] == "widget-b")["label"] == "writes"  # derived for the drawing
+    text = declaration.dump(first)
+    assert "from: widget-b, to: gadget-store" in text or "{ from: widget-b, to: gadget-store" in text
+    assert "label: writes" not in text.split("widget-b, to: gadget-store")[1].split("}")[0]  # the source never carries the derived word
+    again = declaration.normalise(__import__("yaml").safe_load(text))
+    assert declaration.dump(again) == text and declaration.put(again) == declaration.put(first)  # source to drawing to source: nothing moves
+    model = declaration.put(first)
+    assert declaration.put(declaration.get(model, kind="explanation")) == model  # get then put changes nothing
+    assert declaration.dump(declaration.get(model, kind="explanation")) == text  # and get writes the minimal form back
+
+
+def test_an_authored_default_label_is_the_same_edge_as_the_derived_one_and_a_different_label_is_kept():
+    written = declaration.normalise(ranked({"from": "widget-b", "to": "gadget-store", "label": "writes"}))
+    minimal = declaration.normalise(ranked({"from": "widget-b", "to": "gadget-store"}))
+    assert declaration.dump(written) == declaration.dump(minimal)  # one form for one meaning
+    other = declaration.normalise(ranked({"from": "widget-b", "to": "gadget-store", "label": "calls"}))
+    assert "label: calls" in declaration.dump(other)
+    relation = __import__("yaml").safe_load(WIDGETS)  # relation: feeds, its edge labelled writes by the author: kept as written
+    assert "label: writes" in declaration.dump(declaration.normalise(relation))
+
+
+def test_get_keeps_the_direction_an_author_wrote_and_never_rewrites_it_into_between():
+    first = declaration.normalise(ranked({"between": ["gadget-store", "widget-b"]}))
+    text = declaration.dump(first)
+    assert "between" not in text and "widget-b" in text

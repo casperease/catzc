@@ -43,7 +43,6 @@ content:
   title: The code carries both halves of ingress, but nothing finds the last verified commit
   kind: explanation
   flow: top-to-bottom
-  relation: feeds
   theme: dark
   bands:
     - { id: band-local, label: LOCAL HALF }
@@ -60,15 +59,15 @@ content:
     - { id: g-policy, kind: gate, label: ADO branch policy, in: band-server }
     - { id: g-get-validations, kind: code, label: Get-AdoBuildValidations, in: band-server }
   edges:
-    - { from: g-variants, to: g-get-workspace, kind: flow, label: "" }
-    - { from: g-get-workspace, to: g-test-workspace, kind: flow, label: "" }
-    - { from: g-test-workspace, to: g-sync-generated, kind: flow, label: "" }
-    - { from: g-sync-generated, to: f-skipped, kind: fail, label: "" }
-    - { from: g-build-validation, to: g-sync-validations, kind: flow, label: "" }
-    - { from: g-sync-validations, to: g-register, kind: flow, label: "" }
-    - { from: g-register, to: g-policy, kind: flow, label: "" }
-    - { from: g-policy, to: g-get-validations, kind: flow, label: "" }
-    - { from: g-get-validations, to: g-register, kind: flow, label: "" }
+    - { from: g-get-workspace, to: g-variants, kind: flow }
+    - { from: g-test-workspace, to: g-get-workspace, kind: flow, label: calls }
+    - { from: g-sync-generated, to: g-test-workspace, kind: flow, label: calls }
+    - { from: g-sync-generated, to: f-skipped, kind: fail }
+    - { from: g-sync-validations, to: g-build-validation, kind: flow }
+    - { from: g-sync-validations, to: g-register, kind: flow, label: calls }
+    - { from: g-register, to: g-policy, kind: flow }
+    - { from: g-register, to: g-get-validations, kind: flow, label: calls }
+    - { from: g-get-validations, to: g-policy, kind: flow, label: reads }
   markers:
     - { at: g-variants, number: 1 }
     - { at: g-get-workspace, number: 2 }
@@ -85,16 +84,16 @@ content:
 layout:
   band-local: { x: 20, y: 84, w: 1260, h: 140 }
   band-server: { x: 20, y: 244, w: 1260, h: 260 }
-  g-variants: { x: 60, y: 140, w: 170, h: 52 }
-  g-get-workspace: { x: 270, y: 144, w: 210, h: 44 }
-  g-test-workspace: { x: 520, y: 144, w: 210, h: 44 }
-  g-sync-generated: { x: 770, y: 144, w: 210, h: 44 }
-  f-skipped: { x: 1020, y: 144, w: 200, h: 44 }
-  g-build-validation: { x: 60, y: 300, w: 190, h: 52 }
-  g-sync-validations: { x: 290, y: 304, w: 240, h: 44 }
-  g-register: { x: 580, y: 304, w: 270, h: 44 }
-  g-policy: { x: 900, y: 284, w: 200, h: 84 }
-  g-get-validations: { x: 880, y: 420, w: 240, h: 44 }
+  g-variants: { x: 40, y: 140, w: 170, h: 52 }
+  g-get-workspace: { x: 290, y: 144, w: 200, h: 44 }
+  g-test-workspace: { x: 570, y: 144, w: 200, h: 44 }
+  g-sync-generated: { x: 850, y: 144, w: 200, h: 44 }
+  f-skipped: { x: 1090, y: 144, w: 170, h: 44 }
+  g-build-validation: { x: 40, y: 300, w: 190, h: 52 }
+  g-sync-validations: { x: 310, y: 304, w: 230, h: 44 }
+  g-register: { x: 620, y: 304, w: 260, h: 44 }
+  g-policy: { x: 960, y: 284, w: 200, h: 84 }
+  g-get-validations: { x: 940, y: 440, w: 240, h: 44 }
 ```
 
 ![A local guard and ADO policies, no resolver](.assets/local-guard-and-server-policies.drawio.png)

@@ -48,7 +48,6 @@ content:
   title: Get-Aspect feeds Globs, which compiles the aspects into sets, and Maps, which only classifies live
   kind: explanation
   flow: left-to-right
-  relation: feeds
   theme: dark
   bands:
     - { id: band-config, label: THE CONFIG }
@@ -66,15 +65,15 @@ content:
     - { id: c-world-map, kind: code, label: Get-WorldMap, in: band-deployment }
     - { id: c-is-live, kind: type, label: WorldMapBuilder.IsLive, in: band-deployment }
   edges:
-    - { from: f-variants, to: c-variants-config, kind: flow, label: "" }
-    - { from: c-variants-config, to: f-last-aspect, kind: fail, label: "" }
-    - { from: c-variants-config, to: c-get-aspect, kind: flow, label: "" }
-    - { from: c-get-aspect, to: c-glob-set, kind: flow, label: "" }
-    - { from: c-get-aspect, to: c-world-map, kind: flow, label: "" }
-    - { from: c-glob-set, to: c-compile, kind: flow, label: "" }
-    - { from: c-compile, to: s-live, kind: thick, label: "" }
-    - { from: c-compile, to: s-tests, kind: thick, label: "" }
-    - { from: c-world-map, to: c-is-live, kind: flow, label: "" }
+    - { from: c-variants-config, to: f-variants, kind: flow }
+    - { from: c-variants-config, to: f-last-aspect, kind: fail }
+    - { from: c-get-aspect, to: c-variants-config, kind: flow, label: calls }
+    - { from: c-glob-set, to: c-get-aspect, kind: flow, label: calls }
+    - { from: c-world-map, to: c-get-aspect, kind: flow, label: calls }
+    - { from: c-glob-set, to: c-compile, kind: flow, label: calls }
+    - { from: c-compile, to: s-live, kind: thick }
+    - { from: c-compile, to: s-tests, kind: thick }
+    - { from: c-world-map, to: c-is-live, kind: flow, label: calls }
   markers:
     - { at: f-variants, number: 1 }
     - { at: c-variants-config, number: 2 }

@@ -14,7 +14,8 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Maps;
 
-// The budget of the "Where does it live?" minimap and the order its place groups take the rows (ADR-AUTO-IDIOM-PLACENORMALFORM).
+// The budget of the "Where does it live?" minimap and the order its place groups take the rows
+// ([ADR-AUTO-IDIOM-PLACENORMALFORM](/docs/drs/automation/idiomatic-names.md#rule-adr-auto-idiom-placenormalform)).
 [Catzc.Base.Objects.ConsoleDisplay(nameof(rows), nameof(counter_rows), nameof(row_chars))]
 public sealed class MapsMinimapPlaces
 {

@@ -1,4 +1,5 @@
-// Filter lamps in the Explorer's title row: live, fixtures (everything not marked live), and a language lamp over a typed list of languages.
+// Filter lamps in the Explorer's title row: code (the live aspect), tools (the vendor configuration), tests (everything else), and a
+// language lamp over a typed list of languages.
 // A lamp is lit while what it covers is shown in the tree, and unlit while it filters that away; every lamp lit is the default and shows
 // everything, as without the extension. Each lamp is two commands, its lit and its unlit icon, and the context key catzc.lamps.out.<lamp>
 // picks which one the title row shows; the editor draws them, so no webview and no extra rows. What a lamp hides is rendered into the
@@ -18,19 +19,20 @@ const FIELD = "catzc.trackLamps.field";
 const OWNED = "catzc.trackLamps.owned";
 const LANGUAGE = "languages";
 // The lamps the manifest draws in the title row, each with its putOut and light commands.
-const LAMPS = ["live", "fixtures", LANGUAGE];
+const LAMPS = ["code", "tests", "tools", LANGUAGE];
 
 const config = () => vscode.workspace.getConfiguration("catzc.trackLamps");
 const aspects = () => config().get("aspects") ?? {};
+const tools = () => config().get("tools") ?? [];
 const languages = () => config().get("languages") ?? {};
 const typed = (text) => (text ?? "").split(",").map((name) => name.trim()).filter(Boolean);
 
-// Everything on disk that is not marked live: every entry that is no live path and holds none, found by walking down only into folders
-// that hold a live path. It reaches what git does not track too (generated manifests, out/, editor settings), which no tracked cover names.
-function notLive(root, live) {
-    const paths = new Set(live);
+// Everything on disk outside the kept paths: every entry that is no kept path and holds none, found by walking down only into folders
+// that hold a kept path. It reaches what git does not track too (generated manifests, out/), which no tracked cover names.
+function rest(root, keep) {
+    const paths = new Set(keep);
     const holders = new Set();
-    for (const place of live) {
+    for (const place of keep) {
         for (let folder = path.posix.dirname(place); folder !== "."; folder = path.posix.dirname(folder)) holders.add(folder);
     }
     const globs = [];
@@ -53,35 +55,47 @@ function notLive(root, live) {
     return globs;
 }
 
-// The globs that hide what the unlit lamps cover: the live cover while the live lamp is unlit, everything not live while the fixtures
-// lamp is unlit, folded upward where a folder holds nothing else, and each typed language's extensions while the language lamp is unlit.
-function hiddenGlobs(root, out, field, covers, known) {
-    const globs = new Set();
+// The globs that hide what the unlit lamps cover: the live cover while the code lamp is unlit, the vendor configuration while the tools
+// lamp is unlit, everything else while the tests lamp is unlit, and each typed language's extensions while the language lamp is unlit.
+// While any lamp is unlit, a dead folder (one with no shown file anywhere inside, emptied by the lamps or empty on disk) leaves the tree
+// too, as its topmost dead folder.
+function hiddenGlobs(root, out, field, covers, known, tools = []) {
+    const places = new Set();
     const live = covers.live ?? [];
-    if (out.has("live")) live.forEach((place) => globs.add(place));
-    if (out.has("fixtures")) notLive(root, live).forEach((place) => globs.add(place));
-    // A folder whose every entry is hidden is hidden itself, so an unlit aspect leaves no empty parent behind.
-    for (let grew = true; grew; ) {
-        grew = false;
-        for (const glob of [...globs]) {
-            const parent = path.posix.dirname(glob);
-            if (parent === "." || globs.has(parent)) continue;
-            let entries;
-            try {
-                entries = fs.readdirSync(path.join(root, parent));
-            } catch {
-                continue;
-            }
-            if (entries.every((entry) => globs.has(`${parent}/${entry}`))) {
-                entries.forEach((entry) => globs.delete(`${parent}/${entry}`));
-                globs.add(parent);
-                grew = true;
-            }
+    if (out.has("code")) live.forEach((place) => places.add(place));
+    if (out.has("tools")) tools.forEach((place) => places.add(place));
+    if (out.has("tests")) rest(root, [...live, ...tools]).forEach((place) => places.add(place));
+    const extensions = out.has(LANGUAGE) ? typed(field).flatMap((name) => known[name] ?? []) : [];
+    if (places.size === 0 && extensions.length === 0) return [];
+
+    const hiddenFile = (name) => extensions.some((extension) => name.endsWith(extension));
+    const dead = [];
+    // True when the folder shows at least one file; a folder that shows none is dead, and only the topmost of a dead chain is kept.
+    const shows = (folder) => {
+        let entries;
+        try {
+            entries = fs.readdirSync(path.join(root, folder), { withFileTypes: true });
+        } catch {
+            return true;
         }
-    }
-    if (out.has(LANGUAGE)) {
-        for (const name of typed(field)) (known[name] ?? []).forEach((extension) => globs.add(`**/*${extension}`));
-    }
+        const deadHere = [];
+        let any = false;
+        for (const entry of entries) {
+            const place = folder === "." ? entry.name : `${folder}/${entry.name}`;
+            if (place === ".git" || places.has(place)) continue;
+            if (entry.isDirectory()) {
+                if (shows(place)) any = true;
+                else deadHere.push(place);
+            } else if (!hiddenFile(entry.name)) any = true;
+        }
+        if (any || folder === ".") dead.push(...deadHere);
+        return any;
+    };
+    shows(".");
+
+    const globs = new Set(dead);
+    for (const place of places) if (!dead.some((folder) => place.startsWith(folder + "/"))) globs.add(place);
+    extensions.forEach((extension) => globs.add(`**/*${extension}`));
     return [...globs].sort();
 }
 
@@ -104,7 +118,7 @@ async function apply(context) {
     }
     const out = new Set(context.workspaceState.get(OUT, []));
     const field = context.workspaceState.get(FIELD, "");
-    const wanted = hiddenGlobs(folder.uri.fsPath, out, field, aspects(), languages());
+    const wanted = hiddenGlobs(folder.uri.fsPath, out, field, aspects(), languages(), tools());
     const files = vscode.workspace.getConfiguration("files", folder.uri);
     const current = files.inspect("exclude")?.workspaceValue ?? {};
     const { next, ours } = merge(current, context.workspaceState.get(OWNED, []), wanted);
@@ -180,4 +194,4 @@ function activate(context) {
     refresh();
 }
 
-module.exports = { activate, deactivate() {}, hiddenGlobs, merge, notLive, typed };
+module.exports = { activate, deactivate() {}, hiddenGlobs, merge, rest, typed };

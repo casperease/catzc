@@ -113,7 +113,6 @@ content:
   title: "Three az checks: Test and Assert share one state call"
   kind: reference
   flow: top-to-bottom
-  relation: calls
   theme: dark
   bands:
     - { id: band-azure, label: CATZC.AZURE }
@@ -128,22 +127,24 @@ content:
     - { id: g-test-connected, kind: code, label: Test-AzCliConnected, in: band-connection }
     - { id: g-assert-connected, kind: code, label: Assert-AzCliConnected, in: band-connection }
     - { id: g-connection-state, kind: code, label: Get-AzCliConnectionState, in: band-connection }
-    - { id: g-access-state, kind: set, label: SubscriptionAccessState, in: band-access }
-    - { id: g-bicep-state, kind: set, label: BicepState, in: band-bicep }
+    - { id: g-can-access, kind: code, label: Assert-AzCliCanAccess, in: band-access }
+    - { id: g-access-state, kind: code, label: Get-AzCliSubscriptionAccessState, in: band-access }
+    - { id: g-bicep-state, kind: code, label: Get-AzCliBicepState, in: band-bicep }
     - { id: g-invoke, kind: code, label: Invoke-AzCli, in: band-shared }
     - { id: g-az, kind: external, label: az, in: band-shared }
   edges:
-    - { from: g-test-is-connected, to: g-subscription, kind: flow, label: "" }
-    - { from: g-assert-is-connected, to: g-subscription, kind: flow, label: "" }
-    - { from: g-access-state, to: g-subscription, kind: flow, label: "" }
-    - { from: g-test-is-connected, to: g-test-connected, kind: flow, label: "" }
-    - { from: g-test-connected, to: g-connection-state, kind: flow, label: "" }
-    - { from: g-assert-connected, to: g-connection-state, kind: flow, label: "" }
-    - { from: g-assert-is-connected, to: g-connection-state, kind: flow, label: "" }
-    - { from: g-connection-state, to: g-invoke, kind: flow, label: "" }
-    - { from: g-access-state, to: g-invoke, kind: flow, label: "" }
-    - { from: g-bicep-state, to: g-invoke, kind: flow, label: "" }
-    - { from: g-invoke, to: g-az, kind: flow, label: "" }
+    - { from: g-test-is-connected, to: g-subscription, kind: flow, label: calls }
+    - { from: g-assert-is-connected, to: g-subscription, kind: flow, label: calls }
+    - { from: g-can-access, to: g-subscription, kind: flow, label: calls }
+    - { from: g-test-is-connected, to: g-test-connected, kind: flow, label: calls }
+    - { from: g-test-connected, to: g-connection-state, kind: flow, label: calls }
+    - { from: g-assert-connected, to: g-connection-state, kind: flow, label: calls }
+    - { from: g-assert-is-connected, to: g-connection-state, kind: flow, label: calls }
+    - { from: g-connection-state, to: g-invoke, kind: flow, label: calls }
+    - { from: g-can-access, to: g-access-state, kind: flow, label: calls }
+    - { from: g-access-state, to: g-invoke, kind: flow, label: calls }
+    - { from: g-bicep-state, to: g-invoke, kind: flow, label: calls }
+    - { from: g-invoke, to: g-az, kind: flow, label: calls }
   markers:
     - { at: g-subscription, number: 1 }
     - { at: g-test-is-connected, number: 2 }
@@ -160,21 +161,22 @@ content:
   legend: auto
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
-  band-azure: { x: 20, y: 84, w: 1060, h: 84 }
-  band-connection: { x: 20, y: 188, w: 560, h: 310 }
-  band-access: { x: 600, y: 188, w: 220, h: 310 }
-  band-bicep: { x: 840, y: 188, w: 240, h: 310 }
-  band-shared: { x: 20, y: 518, w: 1060, h: 180 }
-  g-subscription: { x: 140, y: 122, w: 640, h: 40 }
+  band-azure: { x: 20, y: 84, w: 1260, h: 84 }
+  band-connection: { x: 20, y: 188, w: 700, h: 310 }
+  band-access: { x: 740, y: 188, w: 300, h: 310 }
+  band-bicep: { x: 1060, y: 188, w: 220, h: 310 }
+  band-shared: { x: 20, y: 518, w: 1260, h: 180 }
+  g-subscription: { x: 60, y: 122, w: 1000, h: 40 }
   g-test-is-connected: { x: 60, y: 232, w: 200, h: 44 }
-  g-assert-is-connected: { x: 320, y: 232, w: 220, h: 44 }
+  g-assert-is-connected: { x: 480, y: 232, w: 220, h: 44 }
   g-test-connected: { x: 60, y: 332, w: 200, h: 44 }
-  g-assert-connected: { x: 320, y: 332, w: 200, h: 44 }
-  g-connection-state: { x: 60, y: 432, w: 480, h: 44 }
-  g-access-state: { x: 620, y: 232, w: 180, h: 250 }
-  g-bicep-state: { x: 860, y: 332, w: 200, h: 150 }
-  g-invoke: { x: 240, y: 556, w: 760, h: 44 }
-  g-az: { x: 560, y: 640, w: 120, h: 44 }
+  g-assert-connected: { x: 270, y: 332, w: 200, h: 44 }
+  g-connection-state: { x: 60, y: 432, w: 640, h: 44 }
+  g-can-access: { x: 760, y: 232, w: 260, h: 44 }
+  g-access-state: { x: 760, y: 432, w: 260, h: 44 }
+  g-bicep-state: { x: 1080, y: 432, w: 180, h: 44 }
+  g-invoke: { x: 240, y: 556, w: 1000, h: 44 }
+  g-az: { x: 680, y: 640, w: 120, h: 44 }
 ```
 
 ![Three az checks: Test and Assert share one state call](.assets/az-cli-test-assert-share-one-state.drawio.png)

@@ -8,7 +8,6 @@ content:
   title: One declared allow-list says what may depend on what, and every edge points down to the vendor tool
   kind: explanation
   flow: top-to-bottom
-  relation: may depend on
   theme: dark
   bands:
     - { id: band-top, label: TOP LAYER }
@@ -24,12 +23,12 @@ content:
     - { id: g-vendor, kind: external, label: Vendor tool, in: band-vendor }
     - { id: f-undeclared, kind: failure, label: Undeclared edge, in: band-invariant }
   edges:
-    - { from: g-top, to: g-root, kind: flow, label: "" }
-    - { from: g-top, to: g-tools, kind: thick, label: "" }
-    - { from: g-top, to: g-base, kind: thick, label: "" }
-    - { from: g-root, to: g-base, kind: thick, label: "" }
-    - { from: g-tools, to: g-base, kind: thick, label: "" }
-    - { from: g-base, to: g-vendor, kind: flow, label: "" }
+    - { from: g-top, to: g-root, kind: flow, label: calls }
+    - { from: g-top, to: g-tools, kind: thick, label: calls }
+    - { from: g-top, to: g-base, kind: thick, label: calls }
+    - { from: g-root, to: g-base, kind: thick, label: calls }
+    - { from: g-tools, to: g-base, kind: thick, label: calls }
+    - { from: g-base, to: g-vendor, kind: flow, label: calls }
     - { from: g-base, to: f-undeclared, kind: fail, label: "" }
   markers:
     - { at: g-top, number: 1 }

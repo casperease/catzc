@@ -43,7 +43,6 @@ content:
   title: Two crossers anchor on two roots, and a published artifact anchors on its artifact root
   kind: explanation
   flow: left-to-right
-  relation: hands a path to
   theme: dark
   bands:
     - { id: band-communication, label: COMMUNICATION FORM }
@@ -56,19 +55,19 @@ content:
     - { id: t-output, kind: store, label: output root, in: band-crossers }
     - { id: t-repository, kind: store, label: repository root, in: band-crossers }
     - { id: g-convert, kind: code, label: ConvertTo-RepoRelativePath, in: band-crossers }
-    - { id: s-effects, kind: set, label: "Reads, writes, tool calls", in: band-binding }
+    - { id: s-effects, kind: callsite, label: "Reads, writes, tool calls", in: band-binding }
     - { id: t-artifact, kind: store, label: artifact root, in: band-stage }
     - { id: g-reference, kind: code, label: ArtifactRef, in: band-stage }
   edges:
-    - { from: s-records, to: g-resolve, kind: flow, label: "" }
-    - { from: g-resolve, to: s-effects, kind: flow, label: "" }
-    - { from: s-effects, to: g-convert, kind: flow, label: "" }
-    - { from: g-convert, to: s-records, kind: flow, label: "" }
-    - { from: t-output, to: g-resolve, kind: flow, label: "" }
-    - { from: t-output, to: g-convert, kind: flow, label: "" }
-    - { from: t-repository, to: g-resolve, kind: flow, label: "" }
-    - { from: t-repository, to: g-convert, kind: flow, label: "" }
-    - { from: t-artifact, to: g-reference, kind: flow, label: "" }
+    - { from: g-resolve, to: s-records, kind: flow, label: "" }
+    - { from: s-effects, to: g-resolve, kind: flow, label: calls }
+    - { from: s-effects, to: g-convert, kind: flow, label: calls }
+    - { from: g-convert, to: s-records, kind: flow, label: feeds }
+    - { from: g-resolve, to: t-output, kind: flow, label: reads }
+    - { from: g-convert, to: t-output, kind: flow, label: reads }
+    - { from: g-resolve, to: t-repository, kind: flow, label: reads }
+    - { from: g-convert, to: t-repository, kind: flow, label: reads }
+    - { from: g-reference, to: t-artifact, kind: flow, label: reads }
   markers:
     - { at: s-records, number: 1 }
     - { at: g-resolve, number: 2 }

@@ -42,7 +42,6 @@ content:
   title: Deploy-Bicep adds the guards and the config lookup, and hands every vendor step to az
   kind: explanation
   flow: top-to-bottom
-  relation: uses
   theme: dark
   bands:
     - { id: band-consumers, label: CONSUMERS }
@@ -61,17 +60,17 @@ content:
     - { id: x-bicep, kind: external, label: Bicep, in: band-delegated }
     - { id: x-azure-command, kind: external, label: az CLI, in: band-delegated }
   edges:
-    - { from: r-pipeline-task, to: c-deploy, kind: flow, label: "" }
+    - { from: r-pipeline-task, to: c-deploy, kind: flow, label: calls }
     - { from: c-connect, to: x-azure-command, kind: flow, label: "" }
     - { from: c-deploy, to: f-configuration, kind: flow, label: "" }
-    - { from: c-deploy, to: c-context, kind: flow, label: "" }
-    - { from: c-deploy, to: c-invoke, kind: flow, label: "" }
-    - { from: c-context, to: c-session, kind: flow, label: "" }
-    - { from: c-context, to: c-build, kind: flow, label: "" }
+    - { from: c-deploy, to: c-context, kind: flow, label: calls }
+    - { from: c-deploy, to: c-invoke, kind: flow, label: calls }
+    - { from: c-context, to: c-session, kind: flow, label: calls }
+    - { from: c-context, to: c-build, kind: flow, label: calls }
     - { from: c-session, to: f-configuration, kind: flow, label: "" }
-    - { from: c-build, to: c-invoke, kind: flow, label: "" }
+    - { from: c-build, to: c-invoke, kind: flow, label: calls }
     - { from: c-invoke, to: x-azure-command, kind: flow, label: "" }
-    - { from: x-azure-command, to: x-bicep, kind: flow, label: "" }
+    - { from: x-azure-command, to: x-bicep, kind: flow, label: calls }
   markers:
     - { at: r-pipeline-task, number: 1 }
     - { at: c-connect, number: 2 }

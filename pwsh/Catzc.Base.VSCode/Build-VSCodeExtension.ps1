@@ -34,7 +34,7 @@ function Build-VsCodeExtension {
     $escape = { param([string] $Value) [System.Security.SecurityElement]::Escape($Value) }
 
     $files = @(Get-ChildPath $folder -File -Depth 16 -Exclude @() -PruneVendor $false)
-    $contentTypes = @{ '.vsixmanifest' = 'text/xml'; '.json' = 'application/json'; '.js' = 'application/javascript'; '.md' = 'text/markdown' }
+    $contentTypes = @{ '.vsixmanifest' = 'text/xml'; '.json' = 'application/json'; '.js' = 'application/javascript'; '.md' = 'text/markdown'; '.svg' = 'image/svg+xml' }
     $extensions = @($files | ForEach-Object { [System.IO.Path]::GetExtension($_).ToLowerInvariant() } | Where-Object { $_ } | Sort-Object -Unique) + '.vsixmanifest' | Sort-Object -Unique
     $defaults = foreach ($extension in $extensions) {
         $type = if ($contentTypes.ContainsKey($extension)) {

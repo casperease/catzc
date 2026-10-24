@@ -49,7 +49,6 @@ content:
   title: The optIn filter, then copy or render, through one write primitive
   kind: explanation
   flow: left-to-right
-  relation: calls the next step
   theme: dark
   bands:
     - { id: band-source, label: SOURCE OF TRUTH }
@@ -66,15 +65,14 @@ content:
     - { id: g-write-if-changed, kind: code, label: Write-FileIfChanged, in: band-materialise }
     - { id: r-headed, kind: result, label: headed root file, in: band-target }
   edges:
-    - { from: g-rootconfig-yml, to: g-config-type, kind: flow, label: "" }
-    - { from: g-config-type, to: f-validation, kind: fail, label: "" }
-    - { from: g-config-type, to: g-targets, kind: flow, label: "" }
-    - { from: g-targets, to: g-build, kind: flow, label: "" }
-    - { from: g-build, to: g-copy-content, kind: flow, label: 13/28 }
-    - { from: g-build, to: g-rendered-file, kind: flow, label: 15/28 }
-    - { from: g-copy-content, to: g-write-if-changed, kind: flow, label: "" }
-    - { from: g-rendered-file, to: g-write-if-changed, kind: flow, label: "" }
-    - { from: g-write-if-changed, to: r-headed, kind: flow, label: "" }
+    - { from: g-config-type, to: g-rootconfig-yml, kind: flow }
+    - { from: g-config-type, to: f-validation, kind: fail }
+    - { from: g-build, to: g-config-type, kind: flow, label: calls }
+    - { from: g-build, to: g-targets, kind: flow, label: calls }
+    - { from: g-build, to: g-copy-content, kind: flow, label: calls }
+    - { from: g-build, to: g-rendered-file, kind: flow, label: calls }
+    - { from: g-build, to: g-write-if-changed, kind: flow, label: calls }
+    - { from: g-write-if-changed, to: r-headed, kind: flow }
   markers:
     - { at: g-rootconfig-yml, number: 1 }
     - { at: g-config-type, number: 2 }
@@ -94,12 +92,12 @@ layout:
   g-rootconfig-yml: { x: 50, y: 162, w: 160, h: 52 }
   g-config-type: { x: 270, y: 166, w: 160, h: 44 }
   f-validation: { x: 270, y: 336, w: 160, h: 44 }
-  g-targets: { x: 460, y: 166, w: 180, h: 44 }
-  g-build: { x: 670, y: 166, w: 140, h: 224 }
+  g-targets: { x: 450, y: 256, w: 180, h: 44 }
+  g-build: { x: 680, y: 166, w: 120, h: 224 }
   g-copy-content: { x: 860, y: 166, w: 200, h: 44 }
   g-rendered-file: { x: 860, y: 256, w: 200, h: 44 }
   g-write-if-changed: { x: 860, y: 346, w: 200, h: 44 }
-  r-headed: { x: 1100, y: 346, w: 170, h: 44 }
+  r-headed: { x: 1110, y: 346, w: 160, h: 44 }
 ```
 
 ![The optIn filter, then copy or render, through one write primitive](.assets/opted-in-then-link-copy-or-render.drawio.png)

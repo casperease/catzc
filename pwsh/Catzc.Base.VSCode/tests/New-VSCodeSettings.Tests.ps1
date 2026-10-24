@@ -77,6 +77,12 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
         $bare = (New-VsCodeSettings | ConvertFrom-Json).PSObject.Properties.Name
         $bare | Should -Not -Contain 'catzc.trackLamps.aspects'
         $bare | Should -Not -Contain 'catzc.trackLamps.languages'
+        $bare | Should -Not -Contain 'catzc.trackLamps.tools'
+    }
+
+    It 'renders the tools lamp''s paths once each, in order' {
+        $json = (New-VsCodeSettings -ToolPlace '.gadgets', 'widgets/.vendor', '.gadgets') | ConvertFrom-Json
+        @($json.'catzc.trackLamps.tools') | Should -Be @('.gadgets', 'widgets/.vendor')
     }
 
     It 'creates the search.exclude map when the registry has none' {

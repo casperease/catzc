@@ -86,7 +86,6 @@ content:
   title: Azure identities resolve from config; session must match one
   kind: reference
   flow: left-to-right
-  relation: feeds
   theme: dark
   bands:
     - { id: band-session, label: SESSION }
@@ -107,17 +106,17 @@ content:
     - { id: g-azure-sub, kind: code, label: Get-AzureSubscription, in: grp-resolvers }
     - { id: g-azure-env, kind: code, label: Get-AzureEnvironment, in: grp-resolvers }
   edges:
-    - { from: g-azure-yml, to: g-get-config, kind: flow, label: "" }
-    - { from: g-customer-yml, to: g-get-config, kind: flow, label: "" }
-    - { from: g-get-config, to: g-azure-config, kind: flow, label: "" }
-    - { from: g-get-config, to: g-customer-config, kind: flow, label: "" }
-    - { from: g-azure-config, to: g-azure-sub, kind: flow, label: "" }
-    - { from: g-azure-config, to: g-session-sub, kind: flow, label: "" }
-    - { from: g-customer-config, to: g-azure-customer, kind: flow, label: "" }
-    - { from: g-azure-customer, to: g-azure-sub, kind: flow, label: "" }
-    - { from: g-current-sub, to: g-session-sub, kind: flow, label: "" }
-    - { from: g-session-sub, to: g-azure-sub, kind: flow, label: "" }
-    - { from: g-azure-sub, to: g-azure-env, kind: flow, label: "" }
+    - { from: g-get-config, to: g-azure-yml, kind: flow, label: "" }
+    - { from: g-get-config, to: g-customer-yml, kind: flow, label: "" }
+    - { from: g-get-config, to: g-azure-config, kind: flow, label: feeds }
+    - { from: g-get-config, to: g-customer-config, kind: flow, label: feeds }
+    - { from: g-azure-sub, to: g-azure-config, kind: flow, label: reads }
+    - { from: g-session-sub, to: g-azure-config, kind: flow, label: reads }
+    - { from: g-azure-customer, to: g-customer-config, kind: flow, label: reads }
+    - { from: g-azure-sub, to: g-azure-customer, kind: flow, label: calls }
+    - { from: g-session-sub, to: g-current-sub, kind: flow, label: calls }
+    - { from: g-session-sub, to: g-azure-sub, kind: flow, label: calls }
+    - { from: g-azure-env, to: g-azure-sub, kind: flow, label: calls }
   markers:
     - { at: g-azure-yml, number: 1 }
     - { at: g-customer-yml, number: 2 }
@@ -138,7 +137,7 @@ layout:
   band-config: { x: 20, y: 292, w: 1260, h: 220 }
   grp-cli: { x: 604, y: 98, w: 292, h: 170 }
   g-current-sub: { x: 645, y: 132, w: 210, h: 40 }
-  g-session-sub: { x: 622, y: 186, w: 256, h: 76 }
+  g-session-sub: { x: 622, y: 208, w: 256, h: 54 }
   g-azure-yml: { x: 40, y: 322, w: 110, h: 46 }
   g-customer-yml: { x: 40, y: 432, w: 110, h: 46 }
   grp-base-config: { x: 190, y: 356, w: 180, h: 92 }

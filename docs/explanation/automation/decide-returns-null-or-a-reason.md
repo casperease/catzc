@@ -40,7 +40,6 @@ content:
   title: Main loads the limits and the run environment, then Decide returns null or a reason
   kind: explanation
   flow: top-to-bottom
-  relation: feeds the next step
   theme: dark
   bands:
     - { id: band-load, label: LOAD }
@@ -51,19 +50,19 @@ content:
     - { id: g-timeouts, kind: file, label: timeouts.yml, in: band-load }
     - { id: g-config, kind: code, label: TimeoutsConfig, in: band-load }
     - { id: g-environment, kind: code, label: BashSafeguard.EnvironmentOf, in: band-load }
-    - { id: g-decide, kind: code, label: BashSafeguard.Decide, in: band-decide }
+    - { id: g-decide, kind: type, label: BashSafeguard.Decide, in: band-decide }
     - { id: g-bounded, kind: code, label: BoundedCommand.Check, in: band-decide }
     - { id: r-through, kind: result, label: "let through, no output", in: band-verdict }
     - { id: f-deny, kind: failure, label: "DenyOutput: deny + reason", in: band-verdict }
     - { id: g-log, kind: file, label: out/time-safeguard.log, in: band-log }
   edges:
-    - { from: g-timeouts, to: g-config, kind: flow, label: "" }
-    - { from: g-config, to: g-decide, kind: flow, label: "" }
-    - { from: g-environment, to: g-decide, kind: flow, label: "" }
-    - { from: g-decide, to: g-bounded, kind: flow, label: "" }
+    - { from: g-config, to: g-timeouts, kind: flow, label: "" }
+    - { from: g-config, to: g-decide, kind: flow, label: feeds }
+    - { from: g-environment, to: g-decide, kind: flow, label: feeds }
+    - { from: g-decide, to: g-bounded, kind: flow, label: calls }
     - { from: g-decide, to: r-through, kind: flow, label: "" }
     - { from: g-decide, to: f-deny, kind: fail, label: "" }
-    - { from: f-deny, to: g-log, kind: flow, label: "" }
+    - { from: f-deny, to: g-log, kind: flow, label: writes }
   markers:
     - { at: g-timeouts, number: 1 }
     - { at: g-config, number: 2 }
@@ -80,7 +79,7 @@ layout:
   band-decide: { x: 20, y: 214, w: 1260, h: 110 }
   band-verdict: { x: 20, y: 344, w: 1260, h: 110 }
   band-log: { x: 20, y: 474, w: 1260, h: 110 }
-  g-timeouts: { x: 300, y: 126, w: 130, h: 52 }
+  g-timeouts: { x: 230, y: 126, w: 130, h: 52 }
   g-config: { x: 480, y: 130, w: 150, h: 44 }
   g-environment: { x: 690, y: 130, w: 200, h: 44 }
   g-decide: { x: 480, y: 250, w: 410, h: 44 }

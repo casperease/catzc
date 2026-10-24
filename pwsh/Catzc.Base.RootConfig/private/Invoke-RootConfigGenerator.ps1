@@ -71,12 +71,16 @@ function Invoke-RootConfigGenerator {
             foreach ($language in (Get-Config -Config languages).languages.Where({ $_.extensions.Count -gt 0 })) {
                 $languageExtension[$language.name] = @($language.extensions)
             }
+            # The tools lamp's paths: the vendor tracks' places and the generated root configs at the repository root.
+            $toolPlace = @(@(Get-Track).Where({ $_.type -cin 'vendor-settings', 'vendored-code', 'pipelines' }).ForEach({ $_.places })) +
+            @($managedTargets.Where({ -not $_.Contains('/') }))
             $render = @{
                 ManagedTarget     = $managedTargets
                 MachineSetting    = $machineSetting
                 LanguageFormatter = $languageFormatter
                 AspectCover       = Get-AspectCover
                 LanguageExtension = $languageExtension
+                ToolPlace         = $toolPlace
             }
             New-VsCodeSettings @render
         }

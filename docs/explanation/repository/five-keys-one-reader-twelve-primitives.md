@@ -32,13 +32,13 @@ Supports ADR-REPO-VARIANT-SESSIONVARIANT, ADR-REPO-VARIANT-NODIRECTREADS, ADR-RE
 ```
 
 `Catzc.Base.Variants` is small: one YAML file with five keys, one C# config type that validates it, one private function that reads it, and
-fifteen public functions that ask it. A value flows one way, from the file through the loader and the reader to a `Get-` accessor, and from
-the accessor to the `Test-` and `Assert-` guards that answer a question or stop the run.
+fifteen public functions that ask it. Each call runs one way, from a `Test-` or `Assert-` guard that answers a question or stops the run to
+its `Get-` accessor, then to the private reader and the loader, which reads the file; the value flows back the other way.
 
 ```yml drawio
 description:
-  The five keys of variants.yml are loaded through Get-Config and read by one private reader, which feeds the Get- accessors, which feed the
-  Test- and Assert- guards.
+  The Test- and Assert- guards call the Get- accessors, which call one private reader, which calls Get-Config, which reads the five keys of
+  variants.yml.
 about:
   adrs:
     - ADR-REPO-VARIANT-SESSIONVARIANT
@@ -51,7 +51,6 @@ content:
   title: Five keys, one private reader, fifteen exported primitives
   kind: explanation
   flow: top-to-bottom
-  relation: feeds
   theme: dark
   bands:
     - { id: band-file, label: FILE }
@@ -70,15 +69,15 @@ content:
     - { id: g-test-git-workspace, kind: code, label: Test-GitWorkspace, in: band-guards }
     - { id: g-test-customers, kind: code, label: Test-/Assert-HaveCustomer(s), in: band-guards }
   edges:
-    - { from: g-variants-yml, to: g-get-config, kind: flow, label: "" }
-    - { from: g-get-config, to: g-get-variant, kind: flow, label: "" }
-    - { from: g-get-variant, to: g-ado-naming, kind: flow, label: "" }
-    - { from: g-get-variant, to: g-git-workspace, kind: flow, label: "" }
-    - { from: g-get-variant, to: g-enabled-customers, kind: flow, label: "" }
-    - { from: g-get-variant, to: g-aspect-track, kind: flow, label: "" }
-    - { from: g-ado-naming, to: g-test-ado-naming, kind: flow, label: "" }
-    - { from: g-git-workspace, to: g-test-git-workspace, kind: flow, label: "" }
-    - { from: g-enabled-customers, to: g-test-customers, kind: flow, label: "" }
+    - { from: g-get-config, to: g-variants-yml, kind: flow, label: "" }
+    - { from: g-get-variant, to: g-get-config, kind: flow, label: calls }
+    - { from: g-ado-naming, to: g-get-variant, kind: flow, label: calls }
+    - { from: g-git-workspace, to: g-get-variant, kind: flow, label: calls }
+    - { from: g-enabled-customers, to: g-get-variant, kind: flow, label: calls }
+    - { from: g-aspect-track, to: g-get-variant, kind: flow, label: calls }
+    - { from: g-test-ado-naming, to: g-ado-naming, kind: flow, label: calls }
+    - { from: g-test-git-workspace, to: g-git-workspace, kind: flow, label: calls }
+    - { from: g-test-customers, to: g-enabled-customers, kind: flow, label: calls }
   markers:
     - { at: g-variants-yml, number: 1 }
     - { at: g-get-config, number: 2 }
@@ -94,19 +93,19 @@ content:
   minimaps: [code-locations, module-neighbourhood, axis]
 layout:
   band-file: { x: 20, y: 84, w: 1240, h: 80 }
-  band-read-path: { x: 20, y: 184, w: 1240, h: 140 }
-  band-accessors: { x: 20, y: 344, w: 1240, h: 90 }
-  band-guards: { x: 20, y: 454, w: 1240, h: 90 }
+  band-read-path: { x: 20, y: 184, w: 1240, h: 160 }
+  band-accessors: { x: 20, y: 364, w: 1240, h: 90 }
+  band-guards: { x: 20, y: 474, w: 1240, h: 90 }
   g-variants-yml: { x: 560, y: 112, w: 190, h: 44 }
-  g-get-config: { x: 530, y: 212, w: 250, h: 44 }
-  g-get-variant: { x: 560, y: 270, w: 190, h: 44 }
-  g-ado-naming: { x: 50, y: 384, w: 260, h: 44 }
-  g-git-workspace: { x: 365, y: 384, w: 260, h: 44 }
-  g-enabled-customers: { x: 680, y: 384, w: 260, h: 44 }
-  g-aspect-track: { x: 995, y: 384, w: 260, h: 44 }
-  g-test-ado-naming: { x: 50, y: 494, w: 260, h: 44 }
-  g-test-git-workspace: { x: 365, y: 494, w: 260, h: 44 }
-  g-test-customers: { x: 680, y: 494, w: 260, h: 44 }
+  g-get-config: { x: 530, y: 204, w: 250, h: 44 }
+  g-get-variant: { x: 560, y: 282, w: 190, h: 44 }
+  g-ado-naming: { x: 50, y: 404, w: 260, h: 44 }
+  g-git-workspace: { x: 365, y: 404, w: 260, h: 44 }
+  g-enabled-customers: { x: 680, y: 404, w: 260, h: 44 }
+  g-aspect-track: { x: 995, y: 404, w: 260, h: 44 }
+  g-test-ado-naming: { x: 50, y: 514, w: 260, h: 44 }
+  g-test-git-workspace: { x: 365, y: 514, w: 260, h: 44 }
+  g-test-customers: { x: 680, y: 514, w: 260, h: 44 }
 ```
 
 ![Five keys, one private reader, fifteen exported primitives](.assets/five-keys-one-reader-twelve-primitives.drawio.png)

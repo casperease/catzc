@@ -43,7 +43,6 @@ content:
   title: One method, GlobSet.ScanProgram(), feeds all three globset role functions
   kind: explanation
   flow: left-to-right
-  relation: output read by the next
   theme: dark
   bands:
     - { id: band-config, label: CONFIG }
@@ -52,9 +51,9 @@ content:
     - { id: band-callers, label: CALLERS }
   glyphs:
     - { id: f-globs-yml, kind: file, label: globs.yml, in: band-config }
-    - { id: c-globs-config, kind: code, label: GlobsConfig, in: band-config }
+    - { id: c-globs-config, kind: type, label: GlobsConfig, in: band-config }
     - { id: x-validation, kind: failure, label: validation failed, in: band-config }
-    - { id: c-scan-program, kind: code, label: GlobSet.ScanProgram(), in: band-program }
+    - { id: c-scan-program, kind: type, label: GlobSet.ScanProgram(), in: band-program }
     - { id: c-trigger, kind: code, label: Get-GlobSetTrigger, in: band-functions }
     - { id: c-changed, kind: code, label: Get-ChangedGlobSet, in: band-functions }
     - { id: c-hash, kind: code, label: Get-GlobSetHash, in: band-functions }
@@ -62,15 +61,15 @@ content:
     - { id: c-affected, kind: code, label: Test-GlobSetAffected, in: band-callers }
     - { id: c-protection, kind: code, label: Test-GlobSetProtection, in: band-callers }
   edges:
-    - { from: f-globs-yml, to: c-globs-config, kind: flow, label: "" }
-    - { from: c-globs-config, to: x-validation, kind: fail, label: "" }
-    - { from: c-globs-config, to: c-scan-program, kind: flow, label: "" }
-    - { from: c-scan-program, to: c-trigger, kind: flow, label: "" }
-    - { from: c-scan-program, to: c-changed, kind: flow, label: "" }
-    - { from: c-scan-program, to: c-hash, kind: flow, label: "" }
-    - { from: c-trigger, to: g-trigger-gates, kind: flow, label: "" }
-    - { from: c-changed, to: c-affected, kind: flow, label: "" }
-    - { from: c-hash, to: c-protection, kind: flow, label: "" }
+    - { from: c-globs-config, to: f-globs-yml, kind: flow }
+    - { from: c-globs-config, to: x-validation, kind: fail }
+    - { from: c-globs-config, to: c-scan-program, kind: flow, label: feeds }
+    - { from: c-trigger, to: c-scan-program, kind: flow, label: calls }
+    - { from: c-changed, to: c-scan-program, kind: flow, label: calls }
+    - { from: c-hash, to: c-scan-program, kind: flow, label: calls }
+    - { from: g-trigger-gates, to: c-trigger, kind: flow, label: calls }
+    - { from: c-affected, to: c-changed, kind: flow, label: calls }
+    - { from: c-protection, to: c-hash, kind: flow, label: calls }
   markers:
     - { at: f-globs-yml, number: 1 }
     - { at: c-globs-config, number: 2 }

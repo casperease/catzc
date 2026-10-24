@@ -49,5 +49,10 @@ function New-VsCodeExtensionFolder {
     $utf8 = [System.Text.UTF8Encoding]::new($false)
     [System.IO.File]::WriteAllText((Join-Path $folder 'package.json'), ($manifest | ConvertTo-Json -Depth 32) + "`n", $utf8)
     Copy-Item -LiteralPath $script -Destination (Join-Path $folder 'extension.js')
+    # An extension's own files (its icons) sit in assets/extensions/<name>/ and ship as media/.
+    $media = Join-Path $AssetDirectory $Extension.name
+    if (Test-Path -LiteralPath $media -PathType Container) {
+        Copy-Item -LiteralPath $media -Destination (Join-Path $folder 'media') -Recurse
+    }
     (Resolve-Path -LiteralPath $folder).Path
 }

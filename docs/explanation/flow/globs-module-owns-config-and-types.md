@@ -41,7 +41,6 @@ content:
   title: Catzc.Base.Globs computes every globset role from one typed registry
   kind: explanation
   flow: left-to-right
-  relation: output read by the next
   theme: dark
   bands:
     - { id: band-module, label: GLOBS MODULE }
@@ -56,13 +55,13 @@ content:
     - { id: x-git, kind: external, label: git, in: band-edge }
     - { id: g-automation, kind: code, label: Test-Automation, in: band-edge }
   edges:
-    - { from: f-globs, to: g-config, kind: flow, label: "" }
-    - { from: g-config, to: g-trigger, kind: flow, label: "" }
-    - { from: g-config, to: g-change-report, kind: flow, label: "" }
-    - { from: g-config, to: g-identity, kind: flow, label: "" }
-    - { from: g-trigger, to: g-pipelines, kind: flow, label: "" }
-    - { from: x-git, to: g-change-report, kind: flow, label: "" }
-    - { from: g-identity, to: g-automation, kind: flow, label: "" }
+    - { from: g-config, to: f-globs, kind: flow, label: "" }
+    - { from: g-trigger, to: g-config, kind: flow, label: calls }
+    - { from: g-change-report, to: g-config, kind: flow, label: calls }
+    - { from: g-identity, to: g-config, kind: flow, label: calls }
+    - { from: g-pipelines, to: g-trigger, kind: flow, label: calls }
+    - { from: g-change-report, to: x-git, kind: flow, label: "" }
+    - { from: g-automation, to: g-identity, kind: flow, label: calls }
   markers:
     - { at: f-globs, number: 1 }
     - { at: g-config, number: 2 }
