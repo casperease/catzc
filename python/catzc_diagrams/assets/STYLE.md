@@ -144,9 +144,10 @@ Glyph styles come from [`glyphs.xml`](glyphs.xml). These are the chrome and line
   pill; bare text beside the line is only the `word` presentation (`labelBackgroundColor=@band`). The legend entry reads
   `label: the word on a line`. An edge leaves the side its two ends face, at its even share of that side (one alone at the middle), and a
   cell that is no end of it, grown by the 8 px deadzone with its marker, is a keep-out zone: a path through one is an `E_KEEPOUT` error. An
-  edge's optional `count: n/m` (n at most m) follows its label inside the same pill (`calls 13/28`); it is no label and never orients the
-  edge. `edge-label: word` configures every diagram to the word beside the line, with a pill only at a crossing and the entry
-  `transition: into a new state`.
+  When every flow edge says one word, no pill is drawn and the plain arrow's legend entry reads `flow: <word>` (`uniform-label: legend`,
+  derived, never written back). An edge's optional `count: n/m` (n at most m) follows its label inside the same pill (`calls 13/28`); it is
+  no label and never orients the edge. `edge-label: word` configures every diagram to the word beside the line, with a pill only at a
+  crossing and the entry `transition: into a new state`.
 - Thick edge (to a named set): add `strokeWidth=2.5;`. DRS-only edge: add `dashed=1;`. Failure path: `strokeColor=@red-rim;`, solid.
 - Read edge (reads a fact source): `endArrow=open;dashed=1;dashPattern=1 3;`, dotted. Junction edge (where catzc meets a state machine):
   `startArrow=oval;startFill=1;`, solid, with the block arrow.

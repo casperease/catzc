@@ -101,6 +101,9 @@ PROOF_SHOWN = str(ACTION["proof"]).strip() == "shown"
 PROOF_ENGINES = [tuple(pair.split()) for pair in str(ACTION["proof-engines"]).split(",")]  # (engine, idiom), idiom pascal or kebab
 PROOF_ROW = 22  # one engine's words, one row
 EDGE_DEADZONE = int(DEFAULTS["renderer"]["edge-deadzone"])  # how far an edge stops short of each box it joins, written into the model
+UNIFORM_LABEL = str(DEFAULTS["renderer"]["uniform-label"]).strip()  # legend | pills: where a word every flow edge shares is said
+if UNIFORM_LABEL not in ("legend", "pills"):
+    raise ValueError(f"drawio.yml renderer uniform-label '{UNIFORM_LABEL}' is not one of: legend, pills")
 FINDINGS_FAIL = DEFAULTS["renderer"]["findings-fail"] == "yes"  # a keep-out hit is an error under the kit's one setting
 WORD_GAP = int(DEFAULTS["renderer"]["word-gap"])  # how far a steep edge's word stands right of its line, written into the model
 LABEL_PRESENTATIONS = ("pill", "word")  # the two presentations of an edge's word
@@ -3078,10 +3081,28 @@ def to_xml(cells, height, theme=None):
     return "\n".join(lines) + "\n"
 
 
+def uniform_label(content):
+    """The one label every flow edge of a diagram shares, or "": a diagram whose flow edges all say `calls` says it once, in the legend of
+    the plain arrow, and draws no pill (renderer `uniform-label: legend`). A diagram with its own relation, with one flow edge, with an
+    edge of another or no label, or an action diagram keeps its pills; failure edges and other kinds do not count."""
+    if UNIFORM_LABEL != "legend" or str(content.get("relation", "") or "").strip() or content.get("lens") in (ACTION_LENS, PROOF_LENS):
+        return ""
+    labels = [e["label"] for e in content.get("edges", []) if e["kind"] == "flow"]
+    return labels[0] if len(labels) > 1 and len(set(labels)) == 1 and labels[0] in EDGE_LABELS else ""
+
+
 def put(declaration, theme=None):
     """The model XML of a declaration, in the theme named (the declaration's own theme when none is)."""
     theme = theme or declaration["content"]["theme"]
+    word = uniform_label(declaration["content"])
+    if word:  # derived at render time and never written back: the edges say nothing, the plain arrow's legend entry says the word
+        edges = [{**e, "label": ""} if e["kind"] == "flow" else e for e in declaration["content"]["edges"]]
+        declaration = {**declaration, "content": {**declaration["content"], "edges": edges, "relation": word}}
     cells, height = place({**declaration, "content": {**declaration["content"], "theme": theme}}, check_routes=True)
+    if word:  # the legend entry carries the mark that its word is derived, so get never reads it back as the diagram's own relation
+        for c in cells:
+            if c["id"] == "lg-edge-flow-t":
+                c["style"] += "uniformLabel=1;"
     return to_xml(cells, height, theme)
 
 
@@ -3412,6 +3433,11 @@ def get(model, kind=None):
         if via_of(c) and edge["kind"] != "bypass":  # a bypass's route is the kit's, under the dot it skips
             edge["via"] = [[int(x), int(y) - shift] for x, y in via_of(c)]  # the waypoints as declared, before span room
         content["edges"].append(edge)
+    if "uniformLabel=1" in (cells.get("lg-edge-flow-t", {}).get("style") or ""):  # a word the legend says for every flow edge is each one's label
+        for edge in content["edges"]:
+            if edge["kind"] == "flow" and not edge["label"]:
+                edge["label"] = content["relation"]
+        content["relation"] = ""
     declaration = normalise({"about": {"adrs": adrs, "lens": lens}, "content": content, "layout": layout}, where="the drawing")
     # A cell that sits where the grid would put it needs no layout entry: the layout keeps only what a hand moved.
     # A layout entry stays only where put would not place the cell there anyway, given the entries already kept for what holds it:

@@ -81,6 +81,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   a BCL helper on the type that owns it; pass-through functions go.
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
+- link-directions -> plan-link-directions.md: a new ADR defines which way a link may point between kinds of file, and a quality gate asserts it from derived facets (role, aspect, track, module).
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

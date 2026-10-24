@@ -1418,7 +1418,8 @@ def test_get_keeps_the_direction_an_author_wrote_and_never_rewrites_it_into_betw
     assert "between" not in text and "widget-b" in text
 
 
-def test_an_edge_count_shows_in_its_pill_after_its_label_and_comes_back_as_a_count():
+def test_an_edge_count_shows_in_its_pill_after_its_label_and_comes_back_as_a_count(monkeypatch):
+    monkeypatch.setattr(declaration, "UNIFORM_LABEL", "pills")  # both flow edges say writes: the pills setting keeps the word in each
     raw = ranked({"from": "widget-b", "to": "gadget-store", "label": "writes", "count": "13/28"})
     raw["layout"] = {"gadget-gate": {"x": 950, "y": 183, "w": 127, "h": 93}}
     first = declaration.normalise(raw)
@@ -1512,3 +1513,40 @@ def test_the_keep_out_zone_is_the_cell_grown_by_the_deadzone_and_a_container_is_
     layout["widget-a"] = {"x": 300, "y": 340, "w": 120, "h": 44}  # 18 px under the line: clear of the zone
     declaration.put(routed(layout, edges))  # and the band that holds both ends and the cell never counts
     assert declaration.segment_hits_rect((0, 10), (100, 10), (40, 0, 20, 20)) and not declaration.segment_hits_rect((0, 30), (100, 30), (40, 0, 20, 20))
+
+
+def uniform(edges):
+    return routed({**ROW, "gadget-gate": {"x": 300, "y": 120, "w": 120, "h": 44}}, edges)
+
+
+CALLS = [
+    {"from": "widget-b", "to": "widget-a", "label": "calls"},
+    {"from": "widget-a", "to": "gadget-gate", "label": "calls"},
+]
+
+
+def test_when_every_flow_edge_says_one_word_the_legend_says_it_once_and_no_pill_is_drawn():
+    model = declaration.put(uniform(CALLS))
+    assert "-word" not in model and 'value="flow: calls"' in model and "label: the word on a line" not in model
+
+
+def test_a_count_keeps_its_pill_and_a_second_word_or_a_failure_edge_decides_the_rule():
+    counted = declaration.put(uniform([{**CALLS[0], "count": "3/4"}, CALLS[1]]))
+    assert "&lt;b&gt;3/4&lt;/b&gt;" in counted and 'value="flow: calls"' in counted  # the count alone, in its pill
+    mixed = declaration.put(uniform([*CALLS, {"from": "widget-a", "to": "gadget-store", "label": "writes"}]))
+    assert mixed.count("-word") >= 3 and 'value="flow: calls"' not in mixed  # two words: every edge keeps its pill
+    failing = declaration.put(uniform([*CALLS, {"from": "widget-a", "to": "gadget-store", "kind": "fail"}]))
+    assert "-word" not in failing and 'value="flow: calls"' in failing  # a failure edge does not count toward the words
+
+
+def test_the_uniform_word_is_derived_and_get_never_writes_it_back_as_a_relation():
+    first = uniform(CALLS)
+    model = declaration.put(first)
+    back = declaration.get(model, kind="explanation")
+    assert back["content"]["relation"] == "" and [e["label"] for e in back["content"]["edges"]] == ["calls", "calls"]
+    edge_cells = lambda xml: sorted(re.findall(r'<mxCell id="e-[^>]*>', xml))
+    assert edge_cells(declaration.put(back)) == edge_cells(model)  # get then put draws the same edges and the same legend word
+    assert 'value="flow: calls"' in declaration.put(back)
+    with pytest.MonkeyPatch.context() as patch:
+        patch.setattr(declaration, "UNIFORM_LABEL", "pills")
+        assert declaration.put(first).count("-word") == 2 and 'value="flow: calls"' not in declaration.put(first)

@@ -45,6 +45,7 @@ stale or superseded item is recorded as such, with the reason.
 | highest | plan-master                  | The one executable order over every open step of every plan; task files are its disposable executables.                   | ADR-REPO-PLANS names the task files (the plans ADR) | Test-Plans over the folder (the plans ADR)               | nineteen chunks; the user's and the sweep last        |
 | high    | plan-listen-internal-readers | The editor's note 0001: the glossary, track registry, how-to and CLAUDE.md say nothing internal reads the unordered part. | TDR-NORMALFORM, DDR-TRACK-UNORDEREDTRACK            | Test-Glossary, the Variants track-type tests, Test-Links | one step left, the user's CLAUDE.md edit              |
 | medium  | plan-claude-diet             | Every session stops reading about 3500 bytes that agents.yml, each description and the DRS index already hold.            | none (the agents registry holds the text)           | Test-AgentDefinitions, Test-Links on CLAUDE.md           | the user's CLAUDE.md edit, then four capability lines |
+| medium | plan-link-directions | a new ADR defines which way a link may point between kinds of file, and a quality gate asserts it from derived facets (role, aspect, track, module). | ADR-REPO-LINKDIRECTION, glossary entry | Test-LinkDirections, Test-Links, Test-DrsRegistry, Test-Plans | new |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 
