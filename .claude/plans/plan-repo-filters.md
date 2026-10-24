@@ -90,11 +90,10 @@ one resolver, makes every new view a config line, and moving the extra units int
 2. [ ] `pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js` (0.13.0, installed by the importer): the user reloads VS Code and
        judges the lamps (open, code, tests, tools, pipelines, infrastructure, generated, docs, out, languages; the pipeline and workflow
        files claimed by `code` and `pipelines` and no longer by `tools`, the Bicep tree by `code` and `infrastructure`; the pipeline-stages
-       and factory icons): a click steps each lamp off → on → veto → off (veto: the
-       purple struck-through icon, its whole zone hidden even where a lit lamp claims it), the union of the lit lamps minus the vetoed
-       zones, the open lamp keeping open files and grey with none open, the languages lamp as a language view, the blue-grey and red
-       conditions, and the counter's signature matrix; each remark lands here as its own step (check: the counter reads "everything is
-       accounted for" with each lamp off in turn; the user looks).
+       and factory icons): a click steps each lamp off → on → veto → off (veto: the purple struck-through icon, its whole zone hidden even
+       where a lit lamp claims it), the union of the lit lamps minus the vetoed zones, the open lamp keeping open files and grey with none
+       open, the languages lamp as a language view, the blue-grey and red conditions, and the counter's signature matrix; each remark lands
+       here as its own step (check: the counter reads "everything is accounted for" with each lamp off in turn; the user looks).
 3. [ ] `pwsh/Catzc.Base.VSCode/tests/catzc-track-lamps.Tests.ps1`: the L1 census test also holds the number of `files.exclude` entries under
        a roof for each lamp off in turn, so a write never again overflows the command line the editor hands it to its search and watcher
        processes (`spawn ENAMETOOLONG` at 3661 entries on 2026-10-24); the roof is declared once, beside the census (check: the test passes
