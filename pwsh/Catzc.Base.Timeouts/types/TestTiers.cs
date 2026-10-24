@@ -24,7 +24,8 @@ public static class TestTiers
     // The top tier a run includes when it names none: L4 is opt-in, so a default run stops at L3.
     public const int DefaultTop = 3;
 
-    // The first tier that may launch a real process: L0 and L1, the tiers below it, launch none (ADR-AUTO-TEST-PROCESSTRIPWIRE).
+    // The first tier that may launch a real process: L0 and L1, the tiers below it, launch none
+    // ([ADR-AUTO-TEST-PROCESSTRIPWIRE](/docs/drs/automation/test-automation.md#rule-adr-auto-test-processtripwire)).
     public const int FirstRealProcessTier = 2;
 
     public const string BlockEveryLaunch = "1";

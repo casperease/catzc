@@ -108,7 +108,7 @@ content:
   minimaps: [axis, lifecycle-position, layer-stack]
 ```
 
-![Six pipeline shapes, each a different stretch of the same promotion ladder](.assets/state-changes.drawio.png)
+![Six pipeline shapes, each a different stretch of the same promotion ladder](.assets/each-pipeline-shape-runs-a-stretch-of-the-ladder.drawio.png)
 
 ## Walkthrough
 
