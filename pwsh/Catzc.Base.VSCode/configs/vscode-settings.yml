@@ -65,26 +65,27 @@ settings:
     editor.tabSize: 4
     editor.insertSpaces: true
 
-  # Git state on the open file: changed = dark grey, staged = green (explorer, tab title, gutter, right-hand ruler, minimap).
+  # Git state on the open file, the lamps' one mapping (DDR-FILTER): unstaged = yellowish, staged = dark brown (explorer, tab title; the
+  # gutter, right-hand ruler and minimap show the working tree's changes, so unstaged).
   git.decorations.enabled: true
   workbench.editor.decorations.colors: true
   workbench.editor.decorations.badges: true
   scm.diffDecorations: all
   scm.diffDecorationsGutterVisibility: always
   workbench.colorCustomizations:
-    gitDecoration.modifiedResourceForeground: "#b8860b"
-    gitDecoration.stageModifiedResourceForeground: "#f5e17a"
-    gitDecoration.addedResourceForeground: "#f5e17a"
-    gitDecoration.untrackedResourceForeground: "#f5e17a"
-    gitDecoration.stageDeletedResourceForeground: "#f5e17a"
-    editorGutter.modifiedBackground: "#b8860b"
-    editorGutter.addedBackground: "#f5e17a"
-    editorOverviewRuler.modifiedForeground: "#b8860b"
-    editorOverviewRuler.addedForeground: "#f5e17a"
-    minimapGutter.modifiedBackground: "#b8860b"
-    minimapGutter.addedBackground: "#f5e17a"
-    catzc.gitChanges.stagedBackground: "#f5e17a26"
-    catzc.gitChanges.unstagedBackground: "#b8860b40"
+    gitDecoration.modifiedResourceForeground: "#e0b83a"
+    gitDecoration.untrackedResourceForeground: "#e0b83a"
+    gitDecoration.stageModifiedResourceForeground: "#7a4a1e"
+    gitDecoration.addedResourceForeground: "#7a4a1e"
+    gitDecoration.stageDeletedResourceForeground: "#7a4a1e"
+    editorGutter.modifiedBackground: "#e0b83a"
+    editorGutter.addedBackground: "#e0b83a"
+    editorOverviewRuler.modifiedForeground: "#e0b83a"
+    editorOverviewRuler.addedForeground: "#e0b83a"
+    minimapGutter.modifiedBackground: "#e0b83a"
+    minimapGutter.addedBackground: "#e0b83a"
+    catzc.gitChanges.stagedBackground: "#7a4a1e40"
+    catzc.gitChanges.unstagedBackground: "#e0b83a26"
     diffEditor.insertedLineBackground: "#f5e17a26"
     diffEditor.insertedTextBackground: "#f5e17a59"
     diffEditor.removedLineBackground: "#b8860b26"
