@@ -50,15 +50,15 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
 
     It 'shows a file while any lit lamp claims it, so an unlit lamp hides only what no lit lamp claims (the total union)' {
         @(& $script:hidden @('generated')) | Should -HaveCount 0 -Because 'the README is tests as well as generated, and tests is lit'
-        & $script:hidden @('tests') | Should -Be @('mods/Widget/tests') -Because 'the lit generated lamp keeps the README'
-        & $script:hidden @('tests', 'generated') | Should -Be @('mods/Widget/README.md', 'mods/Widget/tests')
+        & $script:hidden @('tests') | Should -Be @('**/tests') -Because 'the lit generated lamp keeps the README, and no live folder is named tests'
+        & $script:hidden @('tests', 'generated') | Should -Be @('**/tests', 'mods/**/*.md') -Because 'no markdown under mods shows, so one glob hides the README'
     }
 
     It 'classifies by the sets, so an exclude keeps a file out and a new file is classified with no list to update' {
         $null = New-Item -ItemType File -Force -Path (Join-Path $script:root 'mods/Widget/New-Widget.ps1')
         try {
             & $script:hidden @('code') | Should -Be @('mods/Widget/Get-Widget.ps1') -Because 'the new file is no live path'
-            & $script:hidden @('tests') | Should -Be @('mods/Widget/New-Widget.ps1', 'mods/Widget/tests')
+            & $script:hidden @('tests') | Should -Be @('**/tests', 'mods/Widget/New-Widget.ps1')
         }
         finally {
             Remove-Item -LiteralPath (Join-Path $script:root 'mods/Widget/New-Widget.ps1')
@@ -75,7 +75,7 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
 
     It 'makes the languages lamp a lamp like the others: lit alone it shows the typed languages, and it ignores a language it does not know' {
         & $script:hidden @('code', 'tests', 'tools', 'generated', 'docs') ' markdown ,widgetish' |
-            Should -Be @('gadgets', 'mods/Widget/Get-Widget.ps1', 'mods/Widget/tests') -Because 'only the markdown files are claimed by a lit lamp'
+            Should -Be @('**/*.ps1', '**/tests', 'gadgets') -Because 'only the markdown files are claimed by a lit lamp, so no script shows anywhere'
         @(& $script:hidden @('languages') 'markdown') | Should -HaveCount 0 -Because 'every markdown file is claimed by a lit filter too'
     }
 
@@ -113,6 +113,16 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         $result = & $script:call merge @([ordered]@{ '**/tmp' = $true; 'old/lamp' = $true; 'shared' = $true }, @('old/lamp'), @('shared', 'new/lamp'))
         @($result.next.Keys | Sort-Object) | Should -Be @('**/tmp', 'new/lamp', 'shared')
         $result.ours | Should -Be @('new/lamp')
+    }
+
+    It 'writes as few entries as the shown files allow: a dead folder whole, an extension no shown file shares as one glob, else the file' {
+        $files = @('a/x.ps1', 'a/y.ps1', 'a/z.md', 'b/c/w.ps1', 'b/v.md', 'b/u.yml', 'd/t.yml', 'LICENSE')
+        $shown = @('a/z.md', 'b/v.md', 'd/t.yml')
+        & $script:call hiddenEntries @($files, @('a', 'b', 'b/c', 'd'), $shown) |
+            Should -Be @('**/*.ps1', '**/c', 'LICENSE', 'b/**/*.yml') -Because 'no script shows anywhere, no live folder is named c, no yml under b, and LICENSE has no extension'
+        & $script:call hiddenEntries @(@('a/z.md', 'a/c/x.ps1', 'b/c/y.md'), @('a', 'a/c', 'b', 'b/c'), @('a/z.md', 'b/c/y.md')) |
+            Should -Be @('a/c') -Because 'a live folder is named c too, so the dead one is written itself'
+        & $script:call hiddenEntries @(@('a/x.ps1', 'a/y.ps1'), @('a'), @('a/y.ps1')) | Should -Be @('a/x.ps1') -Because 'a script shows beside it'
     }
 
     It 'answers every shared vector of the lamp language: the files shown, the files no lamp claims, each lamp''s condition' {

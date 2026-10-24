@@ -115,13 +115,18 @@ function claimer(sets) {
     return (place, parts = place.split("/")) => tries(buckets.get(key(parts[0])) ?? [], place, parts) || tries(wild, place, parts);
 }
 
-// A claim test for written entries: a path claims itself and what lies under it, a glob what it matches.
+// A claim test for written entries, read as the Explorer reads them: an entry hides what it matches and everything under it, so a path
+// is claimed when it or one of its folders is a written path or matches a written glob.
 function entryClaimer(entries) {
     const places = new Set(entries.filter((entry) => !isGlob(entry)).map(key));
     const matchers = entries.filter(isGlob).map(globMatcher);
-    return (place, parts) => {
-        for (let at = key(place); at !== "."; at = path.posix.dirname(at)) if (places.has(at)) return true;
-        return matchers.some((matches) => matches(place, parts));
+    return (place) => {
+        for (let at = place; at !== "."; at = path.posix.dirname(at)) {
+            if (places.has(key(at))) return true;
+            const parts = at.split("/");
+            if (matchers.some((matches) => matches(at, parts))) return true;
+        }
+        return false;
     };
 }
 
@@ -192,9 +197,19 @@ async function walkDisk(root) {
     return { files, folders };
 }
 
-// The entries that hide what the tree does not show: a folder that shows no file is written whole, as its topmost such folder (so a dead
-// folder, emptied by the lamps or empty on disk, leaves the tree too), and a hidden file inside a shown folder is written itself, in its
-// on-disk spelling.
+// A file's extension as written ('.ps1'), empty for none, a dotfile, or one a glob would read as a pattern.
+const extensionOf = (place) => {
+    const name = path.posix.basename(place);
+    const at = name.lastIndexOf(".");
+    const extension = at > 0 ? name.slice(at) : "";
+    return /[*?[\]{}!,]/.test(extension) ? "" : extension;
+};
+
+// The entries that hide what the tree does not show, as few as the shown files allow, since the editor hands files.exclude to the
+// processes it spawns and a long list overflows their command line. A folder that shows no file is written whole, as its topmost such
+// folder (so a dead folder, emptied by the lamps or empty on disk, leaves the tree too). A hidden file in a shown folder rides on its
+// extension where no shown file shares it: '**/*<ext>' when none does anywhere, else '<folder>/**/*<ext>' for its topmost folder holding
+// none; otherwise it is written itself, in its on-disk spelling.
 function hiddenEntries(files, folders, shown) {
     const live = new Set();
     for (const place of shown) for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) live.add(at);
@@ -204,9 +219,51 @@ function hiddenEntries(files, folders, shown) {
         for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) if (!live.has(at)) dead = at;
         return dead;
     };
+    // Each extension's folders that hold a shown file or a live folder of it (a glob hides a folder whose name it matches), at any depth,
+    // the root as '.'.
+    const shownUnder = new Set();
+    for (const place of [...shown, ...live]) {
+        const extension = key(extensionOf(place));
+        if (!extension) continue;
+        shownUnder.add(`${extension}|.`);
+        for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) shownUnder.add(`${extension}|${key(at)}`);
+    }
+    const rollUp = (place) => {
+        const extension = extensionOf(place);
+        if (!extension) return place;
+        if (!shownUnder.has(`${key(extension)}|.`)) return `**/*${extension}`;
+        const parts = place.split("/");
+        for (let depth = 1; depth < parts.length; depth++) {
+            const folder = parts.slice(0, depth).join("/");
+            if (!shownUnder.has(`${key(extension)}|${key(folder)}`)) return `${folder}/**/*${extension}`;
+        }
+        return place;
+    };
+    // A dead folder below the root rides on its name the same way: '**/<name>' where no live folder and no shown file bears it, else
+    // '<folder>/**/<name>' for its topmost folder holding none; otherwise it is written itself.
+    const namedUnder = new Set();
+    for (const place of [...shown, ...live]) {
+        const name = key(path.posix.basename(place));
+        namedUnder.add(`${name}|.`);
+        for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) namedUnder.add(`${name}|${key(at)}`);
+    }
+    const deadEntry = (folder) => {
+        const name = path.posix.basename(folder);
+        if (!folder.includes("/") || /[*?[\]{}!,]/.test(name)) return folder;
+        if (!namedUnder.has(`${key(name)}|.`)) return `**/${name}`;
+        const parts = folder.split("/");
+        for (let depth = 1; depth < parts.length - 1; depth++) {
+            const above = parts.slice(0, depth).join("/");
+            if (!namedUnder.has(`${key(name)}|${key(above)}`)) return `${above}/**/${name}`;
+        }
+        return folder;
+    };
     const entries = new Set();
-    for (const place of files) if (!showing.has(place)) entries.add(topmostDead(place) ?? place);
-    for (const place of folders) if (!live.has(place)) entries.add(topmostDead(place) ?? place);
+    for (const place of files) if (!showing.has(place)) {
+        const dead = topmostDead(place);
+        entries.add(dead ? deadEntry(dead) : rollUp(place));
+    }
+    for (const place of folders) if (!live.has(place)) entries.add(deadEntry(topmostDead(place) ?? place));
     return [...entries].sort();
 }
 
@@ -437,13 +494,18 @@ function activate(context) {
         );
     };
     // Every failure lands in the output channel; an unhandled rejection would vanish without a trace.
-    const settle = async () => {
+    const settle = async (retried = false) => {
         try {
             const applied = await apply(context);
             // The count runs after the filter is in place, never delaying it; its failure is logged like any other.
             count(applied).catch((error) => log.appendLine(`census failed: ${error?.stack ?? error}`));
         } catch (error) {
-            log.appendLine(`apply failed: ${error?.stack ?? error}`);
+            log.appendLine(`apply failed: ${error?.message ?? error}`);
+            // A settings file rewritten on disk meanwhile (a generator's render) is read afresh and written once more, unasked.
+            if (!retried && /newer/i.test(`${error?.message ?? ""}`)) {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                return settle(true);
+            }
             const message = `Catzc track lamps could not filter: ${error?.message ?? error}`;
             // The editor refuses a settings write while settings.json is open with unsaved edits; saving it is the user's call, offered here.
             const dirty = vscode.workspace.textDocuments.find(
