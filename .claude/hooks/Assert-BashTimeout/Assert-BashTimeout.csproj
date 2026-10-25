@@ -34,6 +34,7 @@
     <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Engines/types/ExecutionEngine.cs" Link="linked/ExecutionEngine.cs" />
     <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Engines/types/ExecutionEngines.cs" Link="linked/ExecutionEngines.cs" />
     <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/TimeoutsConfig.cs" Link="linked/TimeoutsConfig.cs" />
+    <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/TimeoutsReaders.cs" Link="linked/TimeoutsReaders.cs" />
     <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/TestTiers.cs" Link="linked/TestTiers.cs" />
     <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/BashSafeguard.cs" Link="linked/BashSafeguard.cs" />
     <Compile Include="../../../$(CatzcModulesFolder)/Catzc.Base.Timeouts/types/BoundedCommand.cs" Link="linked/BoundedCommand.cs" />

@@ -8,8 +8,8 @@ catzc:
 
 Describe 'ContractCheckResult' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:asset = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.0.0', 'Catzc.Widget', 'gadget.md',
-            [Catzc.Base.Contracts.ContractAssetKind]::Presence, 'gadget.md', [Catzc.Base.Contracts.ContractDirection]::DependedOn, $false)
+        $script:asset = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'Catzc.Widget', 'gadget.md',
+            [Catzc.Base.Contracts.ContractAssetKind]::Presence, 'gadget.md', [Catzc.Base.Contracts.ContractDirection]::DependedOn)
     }
 
     It 'passes with no findings, and fails with one' -Tag 'ADR-REPO-CONTRACT-PROVENBYTESTS' {

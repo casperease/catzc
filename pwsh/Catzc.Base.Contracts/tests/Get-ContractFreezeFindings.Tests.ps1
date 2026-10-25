@@ -35,14 +35,14 @@ Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-REL
             }
         }
 
-        $script:fix = 'a released version folder is immutable, so a change lands in the draft, contracts/widget/0.0.0/ (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).'
+        $script:fix = 'a released version folder is immutable, so a change lands in the current version, contracts/widget/0.1.0/ (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).'
     }
 
     BeforeEach {
         $script:folder = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
         Add-File 'Catzc.Widget/docs/widget.md' "# Widget`n`nThe gadget line.`n"
         Add-File 'Catzc.Widget/.widget/flows/build.yml'
-        Add-File 'contract.yml' "direction:`n  Catzc.Widget/docs/widget.md: provided`n"
+        Add-File 'contract.yml' "applies_to:`n  Catzc.Widget/docs/widget.md: ['widget.md']`n"
         Save-Record
     }
 
@@ -93,7 +93,7 @@ Describe 'Get-ContractFreezeFindings' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-REL
 
     It 'finds a folder with no record' {
         [System.IO.File]::Delete((Join-Path $script:folder '.frozen'))
-        Get-Finding | Should -Be @('contracts/widget/1.0.0: holds no .frozen record, so nothing proves it unchanged; a release freezes the draft with Publish-ContractRelease, which writes it (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).')
+        Get-Finding | Should -Be @('contracts/widget/1.0.0: holds no .frozen record, so nothing proves it unchanged; a release freezes the current version with Publish-ContractRelease, which writes it (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).')
     }
 
     It 'finds a malformed and a repeated record line' {
@@ -113,7 +113,7 @@ BeforeDiscovery {
             foreach ($unitFolder in [System.IO.Directory]::GetDirectories($contractsRoot)) {
                 foreach ($versionFolder in [System.IO.Directory]::GetDirectories($unitFolder)) {
                     $version = [System.IO.Path]::GetFileName($versionFolder)
-                    if ($version -match '^[0-9]+\.[0-9]+\.[0-9]+$' -and $version -cne '0.0.0') {
+                    if ($version -match '^[0-9]+\.[0-9]+\.[0-9]+$' -and $version -cne '0.1.0') {
                         @{
                             Folder = $versionFolder
                             Name   = "contracts/$([System.IO.Path]::GetFileName($unitFolder))/$version"

@@ -212,10 +212,10 @@ tooling relies on is a setting, held to three conditions that keep what a litera
 The roots of the test languages follow it today: Go (`go.yml`'s `root`, the defaults `go/` and `.go/`, `GoConfig.ResolveRoot`), Python
 (`python.yml`'s `root`, the defaults `python/` and `.python/`, `PythonConfig.ResolveRoot`), and Bash (`bash.yml`'s `root`, the defaults
 `bash/` and `.bash/`, `BashConfig.ResolveRoot`), and a track's places are read through the track
-([DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED](../design/tracks.md#rule-ddr-track-subscribablenotpathcoupled)). The module-internal names
-are read from the layout through `LanguagesConfig.FolderOf`, and the bootstrap, which runs before any type loads, reads the same
-`languages.yml` row through `Get-PrivateFunctionFolder`. Only the importer spells its names: `pwsh/`, `.internal/` and `.vendor/` are the
-bootstrapping paths, read before any setting can be.
+([DDR-TRACK-SUBSCRIBABLENOTPATHCOUPLED](../design/tracks.md#rule-ddr-track-subscribablenotpathcoupled)). The module-internal names are read
+from the layout through `LanguagesConfig.FolderOf`, and the bootstrap, which runs before any type loads, reads the same `languages.yml` row
+through `Get-PrivateFunctionFolder`. Only the importer spells its names: `pwsh/`, `.internal/` and `.vendor/` are the bootstrapping paths,
+read before any setting can be.
 
 ### Three levels of structure
 

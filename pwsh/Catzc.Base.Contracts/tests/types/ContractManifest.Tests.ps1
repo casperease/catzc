@@ -12,7 +12,7 @@ Describe 'ContractManifest' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONFIGUREDADD
         [Catzc.Base.Contracts.ContractManifest]::new(@{}).applies_to.Count | Should -Be 0
     }
 
-    It 'maps the globs applies_to names per asset, as <file> or <group>/<file>' {
+    It 'maps the globs applies_to names per asset, keyed by its file name or its group and file name' {
         $manifest = [Catzc.Base.Contracts.ContractManifest]::new(@{ applies_to = [ordered]@{ 'gadgets/flow.yml.schema.json' = @('flows/**/*.yml', 'gadget.yml'); 'widget.md' = @('widget.md') } })
         $manifest.applies_to['gadgets/flow.yml.schema.json'] | Should -Be @('flows/**/*.yml', 'gadget.yml')
         $manifest.applies_to['widget.md'] | Should -Be @('widget.md')

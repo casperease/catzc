@@ -24,7 +24,7 @@ Describe 'Build-GitKeep' -Tag 'L0', 'logic' {
 
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
         # The fake root is no git checkout, so the generated head reads no file as tracked.
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
+        Set-GitTrackedPathMock
     }
 
     AfterAll {
@@ -70,7 +70,7 @@ Describe 'Build-GitKeep — shipped assets/gitkeep' -Tag 'L1', 'integrity', 'ADR
         $script:fake = New-FakeRepositoryRoot -WorkingRootOnly -Files @{ 'widgets/.gitkeep' = "stale`n" }
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
         # The fake root is no git checkout, so the generated head reads no file as tracked.
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
+        Set-GitTrackedPathMock
     }
 
     AfterAll {

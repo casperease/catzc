@@ -231,8 +231,9 @@ def diagrams(root):
     return sorted(found)
 
 
-def bulk(root, theme=None):
-    """Rebuild every diagram under a root in place; returns the exit code after printing the lines and the report."""
+def bulk(root, theme=None, bases=None):
+    """Rebuild every diagram under a root in place; returns the exit code after printing the lines and the report. `bases` are the
+    committed pairs the batch read at its start (committed_batch); without them each diagram reads its own."""
     root = root.resolve()
     rel = lambda p: str(Path(p).resolve().relative_to(REPO)).replace("\\", "/")
     work = REPO / DEFAULTS["renderer"]["out"] / "bulk" / rel(root).replace("/", "--")
@@ -257,7 +258,7 @@ def bulk(root, theme=None):
     for f in declared:
         try:
             # A conflicted pair waits for the author's put or get by name; the bulk run picks no side.
-            both = [] if themed else declaration.conflict(f, declaration.committed(f))
+            both = [] if themed else declaration.conflict(f, declaration.committed(f, bases))
             if both:
                 findings.append(f"E_CONFLICT {rel(f)}: the yml and the png both moved from HEAD and disagree in {', '.join(both)}")
                 continue
@@ -333,8 +334,10 @@ def main():
             del args[i : i + 2]
         i = args.index("--all")
         roots = [Path(a) for a in args[i + 1 :]]
+        # The committed pairs are read once, at the batch's start, and handed to every worker: one git read per batch, never per diagram.
+        bases = None if theme not in (None, THEMES[0]) else batch_bases(roots)
         if workers == 1 or len(roots) < 2:
-            raise SystemExit(bulk_roots(roots, theme))
+            raise SystemExit(bulk_roots(roots, theme, bases))
         # Disjoint, contiguous slices: each worker pays the imports once for its slice, and the slices print back in stem order once
         # every worker has ended, so the first failure is raised only after all of them.
         size = -(-len(roots) // workers)
@@ -342,20 +345,32 @@ def main():
         from concurrent.futures import ProcessPoolExecutor
 
         with ProcessPoolExecutor(max_workers=len(slices)) as pool:
-            done = list(pool.map(captured_roots, slices, [theme] * len(slices)))
+            done = list(pool.map(captured_roots, slices, [theme] * len(slices), [bases] * len(slices)))
         for text, _ in done:
             sys.stdout.write(text)
         raise SystemExit(max(code for _, code in done))
     return forward_one(args)
 
 
-def bulk_roots(roots, theme):
+def batch_bases(roots):
+    """The committed pairs of every declared diagram under the roots, read once for the whole batch."""
+    import declaration
+
+    # A root that cannot be listed raises again in its own bulk, which reports it; here it only leaves the batch without bases.
+    try:
+        found = [f for root in roots for f in diagrams(root) if declaration.declared(f)]
+        return declaration.committed_batch(found) if found else {}
+    except Exception:
+        return None
+
+
+def bulk_roots(roots, theme, bases=None):
     """Rebuild each root in turn in this process, each ending with its JSON row; returns the worst exit code."""
     # Many roots share one process, so the imports and the loaded registries are paid once; each root ends with its own row.
     worst = 0
     for root in roots:
         try:
-            code = bulk(root, theme)
+            code = bulk(root, theme, bases)
         except Exception as e:
             print(f"error E_RENDER {root}: {e}")
             code = 1
@@ -364,14 +379,14 @@ def bulk_roots(roots, theme):
     return worst
 
 
-def captured_roots(roots, theme):
+def captured_roots(roots, theme, bases=None):
     """One worker's slice: its printed lines, held until the parent prints every slice in order, and its worst exit code."""
     import contextlib
     import io as text_io
 
     out = text_io.StringIO()
     with contextlib.redirect_stdout(out):
-        code = bulk_roots(roots, theme)
+        code = bulk_roots(roots, theme, bases)
     return out.getvalue(), code
 
 

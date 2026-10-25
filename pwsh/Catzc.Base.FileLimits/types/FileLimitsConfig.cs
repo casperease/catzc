@@ -18,11 +18,17 @@ public sealed class FileLimitsConfig
 
     public static readonly string[] Classes = { "code", "config", "prose" };
 
-    private static readonly string[] AllowedKeys = { "bounds", "classes", "defaults", "extensions", "languages" };
+    private static readonly string[] AllowedKeys = { "bounds", "classes", "defaults", "exempt", "extensions", "languages", "width_mode" };
+    private static readonly string[] WidthModes = { "report", "fail" };
+    public const string DefaultWidthMode = "report";
 
     private static readonly Dictionary<string, string> DefaultExtensions = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
     {
         [".psd1"] = "config",
+        [".gitignore"] = "config", [".gitattributes"] = "config", [".editorconfig"] = "config", [".gitattributes-template"] = "config",
+        [".markdownlintignore"] = "config", [".prettierignore"] = "config", [".csv"] = "config", [".tsv"] = "config",
+        ["LICENSE"] = "prose",
+        [".gitkeep"] = Unmeasured, ["gitkeep"] = Unmeasured, [".pyc"] = Unmeasured,
     };
     private static readonly string[] LimitKeys = { "length", "width" };
     private static readonly string[] BoundKeys = { "min", "max" };
@@ -54,6 +60,8 @@ public sealed class FileLimitsConfig
     public IReadOnlyDictionary<string, FileLimit> languages { get; }
     public IReadOnlyDictionary<string, string> classes { get; }
     public IReadOnlyDictionary<string, string> extensions { get; }
+    public IReadOnlyDictionary<string, string> width_mode { get; }
+    public IReadOnlyDictionary<string, string> exempt { get; }
 
     public FileLimitsConfig(IDictionary raw)
     {
@@ -62,6 +70,13 @@ public sealed class FileLimitsConfig
         Dictionary<string, FileLimit> defaultsValue = new Dictionary<string, FileLimit>(DefaultLimits, StringComparer.Ordinal);
         Dictionary<string, FileLimit> languagesValue = new Dictionary<string, FileLimit>(StringComparer.Ordinal);
         Dictionary<string, string> classesValue = new Dictionary<string, string>(DefaultClasses, StringComparer.Ordinal);
+        Dictionary<string, string> widthModeValue = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (string name in Classes)
+        {
+            widthModeValue[name] = DefaultWidthMode;
+        }
+
+        Dictionary<string, string> exemptValue = new Dictionary<string, string>(StringComparer.Ordinal);
         Dictionary<string, string> extensionsValue = new Dictionary<string, string>(DefaultExtensions, StringComparer.OrdinalIgnoreCase);
 
         if (raw != null)
@@ -121,9 +136,9 @@ public sealed class FileLimitsConfig
                 {
                     string name = Convert.ToString(key, CultureInfo.InvariantCulture);
                     string value = extensionsRaw[key] as string;
-                    if (string.IsNullOrEmpty(name) || name[0] != '.')
+                    if (string.IsNullOrWhiteSpace(name) || name.IndexOfAny(new[] { '/', '\\' }) >= 0)
                     {
-                        errors.Add(string.Format(CultureInfo.InvariantCulture, "extensions: '{0}' must be an extension starting with a dot", name));
+                        errors.Add(string.Format(CultureInfo.InvariantCulture, "extensions: '{0}' must be an extension starting with a dot or a bare file name", name));
                     }
                     else if (value == null || (value != Unmeasured && Array.IndexOf(Classes, value) < 0))
                     {
@@ -132,6 +147,45 @@ public sealed class FileLimitsConfig
                     else
                     {
                         extensionsValue[name] = value;
+                    }
+                }
+            }
+
+            IDictionary widthModeRaw = Section(raw, "width_mode", errors);
+            if (widthModeRaw != null)
+            {
+                CheckKeys(widthModeRaw, Classes, "width_mode", errors);
+                foreach (string name in Classes)
+                {
+                    if (widthModeRaw.Contains(name) && widthModeRaw[name] != null)
+                    {
+                        string mode = widthModeRaw[name] as string;
+                        if (mode == null || Array.IndexOf(WidthModes, mode) < 0)
+                        {
+                            errors.Add(string.Format(CultureInfo.InvariantCulture, "width_mode.{0} '{1}' must be one of {2}", name, widthModeRaw[name], string.Join(", ", WidthModes)));
+                        }
+                        else
+                        {
+                            widthModeValue[name] = mode;
+                        }
+                    }
+                }
+            }
+
+            IDictionary exemptRaw = Section(raw, "exempt", errors);
+            if (exemptRaw != null)
+            {
+                foreach (object key in exemptRaw.Keys)
+                {
+                    string name = Convert.ToString(key, CultureInfo.InvariantCulture);
+                    string reason = exemptRaw[key] as string;
+                    if (string.IsNullOrWhiteSpace(reason))
+                    {
+                        errors.Add(string.Format(CultureInfo.InvariantCulture, "exempt.{0} must give a one-line reason", name));
+                    }
+                    else
+                    {
+                        exemptValue[name.Replace('\\', '/')] = reason;
                     }
                 }
             }
@@ -190,18 +244,28 @@ public sealed class FileLimitsConfig
         languages = languagesValue;
         classes = classesValue;
         extensions = extensionsValue;
+        width_mode = widthModeValue;
+        exempt = exemptValue;
     }
 
-    // An extension override is applied before the language lookup: it takes its class's defaults, never the language's own values.
+    // An override is applied before the language lookup, an exact file name first, then the extension; it takes its class's defaults, never the
+    // language's own values. A file no override and no language declares fails, so nothing tracked escapes unlimited.
     public ResolvedFileLimit ResolveFile(string path, string language)
     {
-        string extension = System.IO.Path.GetExtension(path ?? string.Empty);
-        if (string.IsNullOrEmpty(extension) || !extensions.TryGetValue(extension, out string fileClass))
+        string fileName = System.IO.Path.GetFileName(path ?? string.Empty);
+        string extension = System.IO.Path.GetExtension(fileName);
+        string key = extensions.ContainsKey(fileName) ? fileName : extension;
+        if (string.IsNullOrEmpty(key) || !extensions.TryGetValue(key, out string fileClass))
         {
+            if (string.IsNullOrEmpty(language))
+            {
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "'{0}' is unclassified: no language, extension or file name in file-limits declares it", path));
+            }
+
             return Resolve(language);
         }
 
-        string cacheKey = "extensions." + extension.ToLowerInvariant();
+        string cacheKey = "extensions." + key.ToLowerInvariant();
         if (resolved.TryGetValue(cacheKey, out ResolvedFileLimit hit))
         {
             return hit;

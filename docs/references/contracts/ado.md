@@ -1,6 +1,7 @@
 ---
 catzc:
   immutable:
+    with_body_sha: "1d8ec3e89e3a"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -49,6 +50,7 @@ The current version: edited in place
 | `pipelines` | `pipeline.yaml.schema.json`      | `.ado/pipelines/extends/cd-customer.yaml`             | depended-on | schema   | none      |
 | `pipelines` | `pipeline.yaml.schema.json`      | `.ado/pipelines/stages/deploy-unit.yaml`              | depended-on | schema   | none      |
 | `pipelines` | `pipeline.yaml.schema.json`      | `.ado/pipelines/steps/assert-deployment-history.yaml` | depended-on | schema   | none      |
+| `pipelines` | `pipeline.yaml.schema.json`      | `.ado/pipelines/steps/cache-types.yaml`               | depended-on | schema   | none      |
 | `pipelines` | `pipeline.yaml.schema.json`      | `.ado/pipelines/steps/download-artifact.yaml`         | depended-on | schema   | none      |
 | `pipelines` | `pipeline.yaml.schema.json`      | `.ado/pipelines/steps/invoke-automation.yaml`         | depended-on | schema   | none      |
 
@@ -82,6 +84,12 @@ Notes:
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): what Azure Pipelines
   reads at the pipeline root — the `trigger` and `pr` blocks, and the `jobs` root. A null value pins only that the key exists. Source:
   <https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/pipeline>
+- `pipelines/pipeline.yaml.schema.json`: Depended-on schema of an Azure Pipelines file (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure
+  DevOps reads, kept local so an editor and a gate need no download. vendor: ado. source:
+  <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per
+  known task version, which offline reports every branch that does not match), trimmed to the top-level shape, the container types, and one
+  loose step whose task is Name@Major or a template expression. It applies to every pipeline file through contract.yml's applies_to. Taken
+  2026-10-25.
 - `pipelines/pipeline.yaml.schema.json`: Depended-on schema of an Azure Pipelines file (ADR-REPO-CONTRACT-CONTRACTASSET): the shape Azure
   DevOps reads, kept local so an editor and a gate need no download. vendor: ado. source:
   <https://github.com/microsoft/azure-pipelines-vscode> service-schema.json (the full schema models a step's task as one anyOf branch per

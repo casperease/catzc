@@ -59,7 +59,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - file-limits -> plan-file-limits.md: one declared length and width per file class, the Catzc.Base.FileLimits toolkit and gate, the tool
   width configs generated from it; every tracked file limited in length and width, markdown included; four steps
 - diagram-speed -> plan-diagram-speed.md: Build-Diagrams optimized first (one libyaml loader, cheaper shadows, one git read), then parallel
-  workers, then bounded in timeouts.yml; three steps
+  workers, then bounded in timeouts.yml; two steps
 - track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names
@@ -84,8 +84,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   the user's full run; one step (the rename)
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue, and the import every test
   run pays; three steps
-- bcl-path-sets -> plan-bcl-path-sets.md: Every hand-built path set, folder scan and module-base lookup in a non-internal module moves into
-  a BCL helper on the type that owns it; pass-through functions go.
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
 - comment-insights -> plan-comment-insights.md: distilled one-line insight comments back in code at the line each comment page section

@@ -15,14 +15,36 @@ Describe 'Get-ContractCheckResults' -Tag 'L0', 'logic' {
             [System.IO.File]::WriteAllText($file, $Content)
         }
 
+        # Takes the asset by the path of the file it binds, as a fragment or schema does; a sample, a command contract and the schema of a
+        # sample sit in the group their folder names, under the provided root.
         function Add-Asset {
             param([string] $Relative, [string] $Content = '')
-            Add-File "contracts/widget/0.0.0/catzc.widget/$Relative" $Content
+            $slash = $Relative.LastIndexOf('/')
+            $leaf = $Relative.Substring($slash + 1)
+            if ($leaf -match '\.(sample\.[^.]+|command\.yml)$' -or $leaf -ceq 'gadget.schema.json') {
+                $group = if ($slash -ge 0) {
+                    $Relative.Substring(0, $slash)
+                }
+                else {
+                    'catzc.widget'
+                }
+                Add-File "contracts/catzc/0.1.0/$group/$leaf" $Content
+                return
+            }
+            Add-File "contracts/widget/0.1.0/widgets/$leaf" $Content
+            $script:applies["widgets/$leaf"] = $Relative -creplace '\.schema\.json$', ''
+            $lines = @('applies_to:')
+            foreach ($key in ($script:applies.Keys | Sort-Object)) {
+                $lines += "  ${key}: ['$($script:applies[$key])']"
+            }
+            Add-File 'contracts/widget/0.1.0/contract.yml' (($lines -join "`n") + "`n")
+            $paths = @($script:applies.Values | ForEach-Object { "'$_'" }) -join ','
+            Mock Get-GitTrackedPath -ModuleName Catzc.Base.Contracts -MockWith ([scriptblock]::Create($paths))
         }
 
         function Get-CheckResult {
             param([string] $Path)
-            $results = @(Get-Contract -RepositoryRoot $script:root -Addressing full-path -Path $Path |
+            $results = @(Get-Contract -RepositoryRoot $script:root -Path $Path |
                     Get-ContractCheckResults -RepositoryRoot $script:root)
             $results.Count | Should -Be 1
             $results[0]
@@ -31,6 +53,7 @@ Describe 'Get-ContractCheckResults' -Tag 'L0', 'logic' {
 
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
+        $script:applies = @{}
         $null = New-Item -ItemType Directory -Force -Path $script:root
     }
 
@@ -190,31 +213,31 @@ widget: cog
     Context 'a sample payload' -Tag 'ADR-REPO-CONTRACT-CONTRACTASSET' {
         It 'passes a sample with no schema beside it when it parses' {
             Add-Asset 'rest/gadget.sample.json' '{"widget":1}'
-            $result = Get-CheckResult 'rest/gadget.sample.json'
+            $result = Get-CheckResult 'gadget.sample.json'
             $result.Asset.Kind | Should -Be ([Catzc.Base.Contracts.ContractAssetKind]::Sample)
             $result.Passed | Should -BeTrue
         }
 
         It 'fails a sample with no schema beside it when it does not parse' {
             Add-Asset 'rest/gadget.sample.yml' "widget: [1`n"
-            (Get-CheckResult 'rest/gadget.sample.yml').Findings | Should -BeLike "'contracts/widget/0.0.0/catzc.widget/rest/gadget.sample.yml' does not parse as Yaml:*"
+            (Get-CheckResult 'gadget.sample.yml').Findings | Should -BeLike "'contracts/catzc/0.1.0/rest/gadget.sample.yml' does not parse as Yaml:*"
         }
 
         It 'fails a sample that is neither JSON nor YAML' {
             Add-Asset 'rest/gadget.sample.txt' 'widget'
-            (Get-CheckResult 'rest/gadget.sample.txt').Findings | Should -BeLike '*is neither JSON nor YAML*'
+            (Get-CheckResult 'gadget.sample.txt').Findings | Should -BeLike '*is neither JSON nor YAML*'
         }
 
         It 'passes a sample that validates against the schema beside it' {
             Add-Asset 'rest/gadget.schema.json' '{"type":"object","required":["widget"]}'
             Add-Asset 'rest/gadget.sample.json' '{"widget":1}'
-            (Get-CheckResult 'rest/gadget.sample.json').Passed | Should -BeTrue
+            (Get-CheckResult 'gadget.sample.json').Passed | Should -BeTrue
         }
 
         It 'keeps an ISO 8601 time in a JSON sample a string, so it validates as one' {
             Add-Asset 'rest/gadget.schema.json' '{"type":"object","required":["read_at"],"properties":{"read_at":{"type":"string"}}}'
             Add-Asset 'rest/gadget.sample.json' '{"read_at":"2026-10-21T08:00:00Z"}'
-            $result = Get-CheckResult 'rest/gadget.sample.json'
+            $result = Get-CheckResult 'gadget.sample.json'
             $result.Findings | Should -BeNullOrEmpty
             $result.Passed | Should -BeTrue
         }
@@ -222,7 +245,7 @@ widget: cog
         It 'fails a sample that does not validate against the schema beside it, with one finding on the sample only' {
             Add-Asset 'rest/gadget.schema.json' '{"$schema":"https://json-schema.org/draft/2020-12/schema","title":"Gadget","type":"object","required":["widget"]}'
             Add-Asset 'rest/gadget.sample.json' '{"gadget":1}'
-            $results = @(Get-Contract -RepositoryRoot $script:root -Addressing full-path | Get-ContractCheckResults -RepositoryRoot $script:root)
+            $results = @(Get-Contract -RepositoryRoot $script:root | Get-ContractCheckResults -RepositoryRoot $script:root)
             $results.Count | Should -Be 2
             $findings = @($results | ForEach-Object { $_.Findings })
             $findings | Should -Be @("`$: the required property 'widget' is missing")
@@ -230,14 +253,14 @@ widget: cog
             $sample.Passed | Should -BeFalse
             $sample.Findings | Should -Be @("`$: the required property 'widget' is missing")
             $schema = $results | Where-Object { $_.Asset.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Schema }
-            $schema.Asset.Target | Should -Be 'contracts/widget/0.0.0/catzc.widget/rest/gadget.sample.json'
+            $schema.Asset.Target | Should -Be 'contracts/catzc/0.1.0/rest/gadget.sample.json'
             $schema.Passed | Should -BeTrue
         }
 
         It 'fails a malformed schema beside a sample on the schema''s result' {
             Add-Asset 'rest/gadget.schema.json' '{"type":"object","minProperties":1}'
             Add-Asset 'rest/gadget.sample.json' '{"gadget":1}'
-            $schema = Get-CheckResult 'rest/gadget.schema.json'
+            $schema = Get-CheckResult 'gadget.schema.json'
             $schema.Passed | Should -BeFalse
             $schema.Findings | Should -Be @('schema #: unsupported keyword minProperties')
         }
@@ -245,7 +268,7 @@ widget: cog
         It 'fails a schema beside a sample on the schema''s result when it does not parse' {
             Add-Asset 'rest/gadget.schema.json' '{"type":'
             Add-Asset 'rest/gadget.sample.json' '{"gadget":1}'
-            (Get-CheckResult 'rest/gadget.schema.json').Findings | Should -BeLike "'contracts/widget/0.0.0/catzc.widget/rest/gadget.schema.json' does not parse as Json:*"
+            (Get-CheckResult 'gadget.schema.json').Findings | Should -BeLike "'contracts/catzc/0.1.0/rest/gadget.schema.json' does not parse as Json:*"
         }
     }
 
@@ -258,13 +281,13 @@ widget: cog
 
         It 'checks every asset of the draft when given none' {
             $results = @(Get-ContractCheckResults -RepositoryRoot $script:root)
-            $results.Asset.Path | Should -Be @('docs/gadget.md', 'docs/widget.md')
+            $results.Asset.Path | Should -Be @('gadget.md', 'widget.md')
             $results.Passed | Should -Be @($true, $false)
         }
 
         It 'checks the assets given by -Asset' {
-            $assets = @(Get-Contract -RepositoryRoot $script:root -Addressing full-path -Path 'docs/widget.md')
-            @(Get-ContractCheckResults -Asset $assets -RepositoryRoot $script:root).Asset.Path | Should -Be @('docs/widget.md')
+            $assets = @(Get-Contract -RepositoryRoot $script:root -Path 'docs/widget.md')
+            @(Get-ContractCheckResults -Asset $assets -RepositoryRoot $script:root).Asset.Path | Should -Be @('widget.md')
         }
 
         It 'checks nothing for an empty pipeline' {
@@ -320,7 +343,7 @@ widget: cog
             Add-Asset 'get_widget.command.yml' "parameters:`n  Path: string`n"
             $result = Get-CheckResult 'get_widget.command.yml'
             $result.Findings.Count | Should -Be 1
-            $result.Findings[0] | Should -BeLike "'contracts/widget/0.0.0/catzc.widget/get_widget.command.yml': 'Path' is not in the repository normal form, snake (*)"
+            $result.Findings[0] | Should -BeLike "'contracts/catzc/0.1.0/catzc.widget/get_widget.command.yml': 'Path' is not in the repository normal form, snake (*)"
         }
 
         It 'fails when the command file is missing, and says so when the name is a private function' {
@@ -336,7 +359,7 @@ widget: cog
             Add-Asset 'get_widget.command.yml' "parameters:`n  path: text`n"
             $result = Get-CheckResult 'get_widget.command.yml'
             $result.Findings.Count | Should -Be 1
-            $result.Findings[0] | Should -BeLike "'contracts/widget/0.0.0/catzc.widget/get_widget.command.yml': command contract validation failed*type 'text' is not one of*"
+            $result.Findings[0] | Should -BeLike "'contracts/catzc/0.1.0/catzc.widget/get_widget.command.yml': command contract validation failed*type 'text' is not one of*"
         }
     }
 }

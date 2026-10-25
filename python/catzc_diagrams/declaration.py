@@ -81,7 +81,7 @@ from declaration_source import (
     slide_of,
     source_of,
 )
-from declaration_sync import committed, conflict, declare_minimaps, drift, kind_of, minimaps_block, put, put_png, reflow, sync, with_data
+from declaration_sync import committed, committed_batch, conflict, declare_minimaps, drift, kind_of, minimaps_block, put, put_png, reflow, sync, with_data
 from declaration_vocabulary import EDGE_KINDS, EDGE_LABELS, EDGE_SEMANTICS, GLYPH_KINDS, LIB, DeclarationError, choices, span_vocabulary
 from drawio_png import DEFAULTS, paint, plain, render, style_map
 
@@ -122,6 +122,7 @@ __all__ = [
     "cause_sizes",
     "choices",
     "committed",
+    "committed_batch",
     "conflict",
     "contract_call",
     "cross_segment",

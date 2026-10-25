@@ -35,10 +35,6 @@ only by a tier-filtered run (ADR-AUTO-TEST-PROCESSTRIPWIRE). The cause is in the
 2. [ ] Comment pages anchor on the Describe name before its first `-Tag`, not on the tag list, so a re-tier leaves them in step (the user,
        2026-10-25): write the anchor rule in `docs/drs/repository/comments-in-docs.md`, then re-anchor the existing test-file pages once,
        one file at a time. Check: `Test-Comments` clean on the touched pages.
-3. [ ] A `TestKit` seam for `Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }`, which twelve test files carry for a fixture root
-       that is no checkout: first a one-file Pester scope probe that a mock registered inside a helper reaches the caller's scope; if it
-       does, the seam lands one test file at a time, if not the plan notes why and drops the step. Check: the probe file and each converted
-       file green under `Invoke-TestFile`.
 
 Landed 2026-10-23 (catzc-46): the per-Describe tripwire. L0 alone 7094 passed, 0 failed; L1 alone 667 passed, 1 failed (the rename of step
 1); a default run of QualityGates, Contracts and Execution with no tripwire hit.

@@ -36,7 +36,8 @@ Describe 'Test-GeneratedReadmes' -Tag 'L0', 'logic' {
         }
         Mock Get-GitTrackedPath -ModuleName Catzc.Base.Docs { }
         # The fixture tree is no git checkout, so the generated head reads no file as tracked.
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
+        Import-InternalModule TestKit
+        Set-GitTrackedPathMock
 
         # Every README current, as Build-Readme writes it.
         foreach ($mapping in $script:mappings) {

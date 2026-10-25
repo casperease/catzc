@@ -20,6 +20,8 @@ cell keeps its behaviour. Nothing spawns a process.
   `Import-CSharpTypes.ps1` stays ahead of it.
 - No child processes, ever, for a types reload.
 - The cap is a `generations:` key in `pwsh/.internal/assets/types-load.yml`, default 1; a value above 1 in any other cell is a config error.
+- The probe's facts land as ADR-BCL-TYPES-ACCELERATORSNOTFULLNAMES: code names a catzc type by its `Catzc.*` accelerator once builds can
+  stack (the orchestrator, 2026-10-26).
 
 ## Facts (probe, 2026-10-25)
 
@@ -28,22 +30,7 @@ cell keeps its behaviour. Nothing spawns a process.
 - An accelerator re-pointed with `TypeAccelerators::Remove`/`Add` resolves to the new build.
 - An object of the old build does not convert to the new build's type.
 
-## Open questions
-
-- Should the probe's facts (full names stick to the first build, accelerators re-point) land as a short rule in ADR-BCL-TYPES
-  (native-csharp-types.md), so code is told to use `Catzc.*` accelerators, not full names, once builds can stack? Recommendation: yes, with
-  step 8.
-
 ## Open steps
 
-5. [ ] `Invoke-ModuleBuild` compiles the DLL into the bundle instead of copying a committed one; `Assert-CatzcBundle` keeps its
-       one-DLL-one-manifest check. Check: `pwsh/.internal/tests/Invoke-ModuleBuild.Tests.ps1`, `Assert-CatzcBundle.Tests.ps1`.
-6. [ ] `pwsh/Catzc.Base.Git/configs/gitignore.yml`: ignore `pwsh/.compiled/*.dll`; regenerate `.gitignore`; align `.gitattributes`,
-       `Get-AutoControlledGlobs.ps1:49` and `Catzc.Base.TypesSystem/configs/generated.yml:9`. Check: `Get-AutoControlledGlobs.Tests.ps1`.
-7. [ ] `types-load.yml` gains `generations:` (default 1, `console.*.source` rows 4); `Get-TypesLoadPolicy` validates it and rejects >1
-       outside `console.*.source`. Check: the policy's L0 tests.
-8. [ ] `Import-CSharpTypes.ps1:97-135`, the drift branch: after the pipeline throw, when the policy allows another generation, load the new
-       build, re-point the accelerators and the display data (as `Initialize-Types` does), record the build per root in
-       `$global:__CatzcDeferredTypes`, and announce it; at the cap, the existing "restart PowerShell" line. Check: an L0 test with two
-       widget builds, then a fresh full import.
-9. [ ] A pipeline cache of the DLL keyed by the combined hash, so CI does not compile every run. Check: one pipeline run.
+10. [ ] Untrack the committed `pwsh/.compiled/*.dll` and commit the current manifest: the user's git step. Check: the user's commit
+        (task-user-runs-and-commits), then `Import-CSharpTypes.Shipped.Tests.ps1` green.

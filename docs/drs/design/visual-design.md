@@ -362,6 +362,19 @@ ranks and defaults.
 
 - [Arrows point at what they depend on](#arrows-point-at-what-they-depend-on)
 
+### Rule DDR-VISUAL-ZOOMISANAXIS
+
+A diagram's **zoom** is how far out it stands, and it is an axis of its own, crossing the lens: the lens says what a diagram shows, the zoom
+how much of the world it holds. The levels are one closed list, `zooms:`, declared once in the renderer's vocabulary beside `lenses:`, from
+C0 to C4: **C0 landscape**, the truth stores around the repository; **C1 context**, the repository as one system with its actors; **C2
+containers**, the tracks crossed with the engines and languages; **C3 components**, one container's modules or units and their dependency
+edges; **C4 code**, one module's files and their link edges. A declaration names its level in the optional `about.zoom`, which has no
+default, so a diagram without it is drawn as before, and a value outside the list is refused naming it. A diagram with a zoom carries a zoom
+badge printing `C<n>` beside its lens badge, and its subtitle ends in `<lens> · C<n>`. A C3 or C4 slide is filled from the query rows of its
+level, never placed by hand: its declaration stores the point of the tree and the level, and the builder asks the query.
+
+- [The zoom ladder](#the-zoom-ladder)
+
 ## One axis, read left to right
 
 Time, the value chain, the delivery process, and git history all advance together from left to right, so one horizontal axis carries all of

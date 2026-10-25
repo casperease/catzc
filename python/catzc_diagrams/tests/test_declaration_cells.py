@@ -308,3 +308,33 @@ def test_a_tree_change_a_minimap_reads_makes_it_stale_not_drifted(tmp_path, monk
     monkeypatch.setattr(declaration_sync, "minimap_data", changed)
     cells, stale = declaration.drift(tmp_path)
     assert cells == [] and stale and all(cell.startswith("minimap-") for cell in stale)
+
+
+def git_in(repo, *args):
+    __import__("subprocess").run(["git", "-C", str(repo), *args], check=True, capture_output=True)
+
+
+def test_a_batch_reads_the_committed_pairs_once_at_its_start_and_the_next_batch_sees_a_new_commit(tmp_path):
+    repo = tmp_path / "repo"
+    stem = repo / "docs" / ".assets" / "widget"
+    stem.parent.mkdir(parents=True)
+    git_in(repo, "init", "-q")
+    git_in(repo, "config", "user.email", "widget@example.invalid")
+    git_in(repo, "config", "user.name", "widget")
+    source = __import__("yaml").safe_load(WIDGETS)
+    first = committed_pair(stem, source)
+    git_in(repo, "add", ".")
+    git_in(repo, "commit", "-q", "-m", "widget")
+    before = declaration.committed_batch([stem])
+    assert before[str(stem.resolve())] == declaration.committed(stem) == (first[0], first[1])
+    source["content"]["glyphs"][0]["label"] = "Widget Z"
+    second = committed_pair(stem, source)
+    git_in(repo, "commit", "-q", "-am", "relabel")
+    after = declaration.committed_batch([stem])
+    assert after[str(stem.resolve())] == (second[0], second[1]) != before[str(stem.resolve())]
+    assert declaration.committed(stem, before) == before[str(stem.resolve())]
+
+
+def test_a_batch_outside_a_repository_has_no_base(tmp_path):
+    committed_pair(tmp_path, __import__("yaml").safe_load(WIDGETS))
+    assert declaration.committed_batch([tmp_path]) == {str(tmp_path.resolve()): None}

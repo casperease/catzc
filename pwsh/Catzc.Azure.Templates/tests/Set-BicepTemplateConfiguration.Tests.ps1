@@ -13,7 +13,8 @@ Describe 'Set-BicepTemplateConfiguration' -Tag 'L0', 'logic' {
 
         Mock Get-BicepTemplatesRoot { $script:templatesRoot } -ModuleName Catzc.Azure.Templates
         # The templates root is a copy outside the checkout, so the generated head reads no file as tracked.
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
+        Import-InternalModule TestKit
+        Set-GitTrackedPathMock
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'network', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Templates'
                 Path = Join-Path (Get-CatzcModulesRoot) "Catzc.Azure.Templates/tests/assets/config/$Config.yml"

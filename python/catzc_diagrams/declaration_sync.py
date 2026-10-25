@@ -161,37 +161,111 @@ def changed_cells(one, other):
     return sorted(i for i in old.keys() | new.keys() if old.get(i) != new.get(i))
 
 
-def committed(folder):
+def committed(folder, bases=None):
     """The pair as committed at git HEAD: the source's text (the file, or the article's block) and the model embedded in the png, read
-    with `git show`. None when the diagram is outside a repository or either side is not committed: an untracked pair has no base."""
+    with `git show`. None when the diagram is outside a repository or either side is not committed: an untracked pair has no base.
+    A batch passes the bases committed_batch read at its start, so its diagrams cost no git call of their own."""
     stem = diagram_of(folder).resolve()
-    # Never raises: each caller reads the return code, and a non-zero one means no base.
-    run = lambda *args: subprocess.run(["git", "-C", str(stem.parent), *args], capture_output=True, check=False)
-    top = run("rev-parse", "--show-toplevel")
-    if top.returncode != 0:
+    if bases is not None and str(stem) in bases:
+        return bases[str(stem)]
+    root = toplevel(stem.parent)
+    if root is None:
         return None
-    root = Path(top.stdout.decode("utf-8").strip()).resolve()
-    rel = stem.relative_to(root).as_posix()
-    png = run("show", f"HEAD:{rel}{SLIDE}")
-    if png.returncode != 0:
+    # Never raises: a non-zero return code means that side is not committed.
+    show = lambda path: (lambda r: r.stdout if r.returncode == 0 else None)(git(root, "show", f"HEAD:{path}"))
+    return base_from(stem, root, show)
+
+
+def committed_batch(folders):
+    """The committed pair of every diagram of a batch, by resolved stem, read at the batch's start: per repository one HEAD and one
+    short-lived `git cat-file --batch` for every side, so a commit made after it is seen by the next batch. A diagram whose article
+    carrier fails is left out, and committed() reads it alone, raising as it would."""
+    by_root = {}
+    for folder in folders:
+        stem = diagram_of(folder).resolve()
+        by_root.setdefault(toplevel(stem.parent), []).append(stem)
+    bases = {}
+    for root, stems in by_root.items():
+        head = None if root is None else git(root, "rev-parse", "--verify", "HEAD")
+        if head is None or head.returncode != 0:
+            bases.update({str(stem): None for stem in stems})
+            continue
+        sha = head.stdout.decode("utf-8").strip()
+        wanted = {}
+        for stem in stems:
+            try:
+                wanted[stem] = sides(stem, root)
+            except DeclarationError:
+                continue
+        specs = sorted({path for paths in wanted.values() for path in paths})
+        blobs = cat_file(root, [f"{sha}:{path}" for path in specs])
+        held = dict(zip(specs, blobs))
+        for stem in wanted:
+            bases[str(stem)] = base_from(stem, root, held.get)
+    return bases
+
+
+def git(root, *args):
+    return subprocess.run(["git", "-C", str(root), *args], capture_output=True, check=False)
+
+
+def toplevel(folder):
+    """The repository root a folder sits in, or None outside one."""
+    top = git(folder, "rev-parse", "--show-toplevel")
+    return Path(top.stdout.decode("utf-8").strip()).resolve() if top.returncode == 0 else None
+
+
+def sides(stem, root):
+    """The repository paths that hold a diagram's committed pair: its png, and its yml or its article page."""
+    return png_side(stem, root), source_side(stem, root)
+
+
+def png_side(stem, root):
+    return f"{stem.relative_to(root).as_posix()}{SLIDE}"
+
+
+def source_side(stem, root):
+    if carrier_of(stem) == "file":
+        return f"{stem.relative_to(root).as_posix()}{SOURCE}"
+    return article_block(stem)[0].resolve().relative_to(root).as_posix()
+
+
+def cat_file(root, specs):
+    """The content of each `<commit>:<path>` spec, or None for one that is missing, from one `git cat-file --batch` that ends with it."""
+    request = "".join(f"{spec}\n" for spec in specs).encode("utf-8")
+    run = subprocess.run(["git", "-C", str(root), "cat-file", "--batch"], input=request, capture_output=True, check=False)
+    out, at, found = run.stdout, 0, []
+    for _ in specs:
+        eol = out.index(b"\n", at)
+        header = out[at:eol].split()
+        at = eol + 1
+        if len(header) == 3 and header[1] != b"missing":
+            size = int(header[2])
+            found.append(out[at : at + size])
+            at += size + 1
+        else:
+            found.append(None)
+    return found
+
+
+def base_from(stem, root, show):
+    """The base of one diagram from `show(path)`, the committed bytes of a repository path or None."""
+    png = show(png_side(stem, root))
+    if png is None:
+        return None
+    shown = show(source_side(stem, root))
+    if shown is None:
         return None
     if carrier_of(stem) == "file":
-        source = run("show", f"HEAD:{rel}{SOURCE}")
-        if source.returncode != 0:
-            return None
-        text = source.stdout.decode("utf-8")
+        text = shown.decode("utf-8")
     else:
         # The committed block is the one the committed article page holds; a page that is not committed, or holds none or two, has no base.
-        page = article_block(stem)[0]
-        shown = run("show", f"HEAD:{page.resolve().relative_to(root).as_posix()}")
-        if shown.returncode != 0:
-            return None
-        whole = shown.stdout.decode("utf-8")
+        whole = shown.decode("utf-8")
         spans = blocks_in(whole, stem.name)
         if len(spans) != 1:
             return None
         text = whole[spans[0][0] : spans[0][1]]
-    return text, decode(mxfile_chunk(Image.open(io.BytesIO(png.stdout)))).strip()
+    return text, decode(mxfile_chunk(Image.open(io.BytesIO(png)))).strip()
 
 
 def kind_of(folder):

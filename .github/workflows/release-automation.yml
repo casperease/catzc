@@ -49,7 +49,7 @@ jobs:
         run: |
           . ./importer.ps1
           Test-Contracts
-          Publish-ContractRelease -Unit catzc -Version $env:PKG_VERSION
+          Publish-ContractRelease -Root catzc -Version $env:PKG_VERSION
           Test-Contracts -Version $env:PKG_VERSION
 
       - name: Commit the frozen contracts to the trunk

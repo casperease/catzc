@@ -29,98 +29,108 @@ Describe 'Publish-ContractRelease' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-RELEAS
     }
 
     BeforeEach {
-        Mock Get-Config -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'contracts' } {
-            [Catzc.Base.Contracts.ContractsConfig]::new(@{})
-        }
         Mock Get-Config -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'exporter' } {
             [pscustomobject]@{ direct_install_version = '6.6.666' }
         }
+        Mock Get-GitTrackedPath { 'widget.yml' } -ModuleName Catzc.Base.Contracts
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
-        Add-File 'contracts/widget/0.0.0/Catzc.Widget/docs/widget.md' "# Widget`r`n`r`nThe gadget line.`r`n"
-        Add-File 'contracts/widget/0.0.0/Catzc.Widget/.widget/flows/build.yml'
-        Add-File 'contracts/widget/0.0.0/Catzc.Gadget/rest/gadget.sample.json' '{ "gadget": 1 }'
-        Add-File 'contracts/widget/0.0.0/contract.yml' "direction:`n  Catzc.Widget/docs/widget.md: provided`n"
+        Add-File 'contracts/catzc/0.1.0/widgets/widget.yml' "# Widget`r`n`r`nThe gadget line.`r`n"
+        Add-File 'contracts/catzc/0.1.0/widgets/widget.sample.json' '{ "widget": 1 }'
+        Add-File 'contracts/catzc/0.1.0/gadgets/gadget.sample.json' '{ "gadget": 1 }'
+        Add-File 'contracts/catzc/0.1.0/contract.yml' "applies_to:`n  widgets/widget.yml: ['widget.yml']`n"
     }
 
-    It 'copies the draft exactly and writes the .frozen record of the copy' {
-        $name = Publish-ContractRelease -Unit widget -Version 1.2.3 -RepositoryRoot $script:root
-        $name | Should -Be 'contracts/widget/1.2.3'
+    It 'copies the current version exactly and writes the .frozen record of the copy' {
+        $name = Publish-ContractRelease -Root catzc -Version 1.2.3 -RepositoryRoot $script:root
+        $name | Should -Be 'contracts/catzc/1.2.3'
 
-        $draft = @(Get-Tree 'contracts/widget/0.0.0')
-        @(Get-Tree 'contracts/widget/1.2.3') | Should -Be (@('.frozen') + $draft)
-        foreach ($path in $draft) {
-            $copy = [System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes((Join-Path $script:root "contracts/widget/1.2.3/$path")))
-            $copy | Should -BeExactly ([System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes((Join-Path $script:root "contracts/widget/0.0.0/$path")))) -Because $path
+        $current = @(Get-Tree 'contracts/catzc/0.1.0')
+        @(Get-Tree 'contracts/catzc/1.2.3') | Should -Be (@('.frozen') + $current)
+        foreach ($path in $current) {
+            $copy = [System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes((Join-Path $script:root "contracts/catzc/1.2.3/$path")))
+            $copy | Should -BeExactly ([System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes((Join-Path $script:root "contracts/catzc/0.1.0/$path")))) -Because $path
         }
 
-        $record = @([System.IO.File]::ReadAllLines((Join-Path $script:root 'contracts/widget/1.2.3/.frozen')) | Where-Object { -not $_.StartsWith('#') })
-        $record.Count | Should -Be $draft.Count
-        @($record | ForEach-Object { $_.Substring(66) }) | Should -Be $draft
-        $findings = @(InModuleScope Catzc.Base.Contracts -Parameters @{ Folder = (Join-Path $script:root 'contracts/widget/1.2.3') } {
+        $record = @([System.IO.File]::ReadAllLines((Join-Path $script:root 'contracts/catzc/1.2.3/.frozen')) | Where-Object { -not $_.StartsWith('#') })
+        $record.Count | Should -Be $current.Count
+        @($record | ForEach-Object { $_.Substring(66) }) | Should -Be $current
+        $findings = @(InModuleScope Catzc.Base.Contracts -Parameters @{ Folder = (Join-Path $script:root 'contracts/catzc/1.2.3') } {
                 param($Folder)
-                Get-ContractFreezeFindings -Folder $Folder -Name contracts/widget/1.2.3
+                Get-ContractFreezeFindings -Folder $Folder -Name contracts/catzc/1.2.3
             })
         $findings.Count | Should -Be 0
     }
 
-    It 'leaves the draft as it was' {
-        $before = @(Get-Tree 'contracts/widget/0.0.0')
-        $null = Publish-ContractRelease -Unit widget -Version 1.2.3 -RepositoryRoot $script:root
-        @(Get-Tree 'contracts/widget/0.0.0') | Should -Be $before
+    It 'leaves the current version as it was' {
+        $before = @(Get-Tree 'contracts/catzc/0.1.0')
+        $null = Publish-ContractRelease -Root catzc -Version 1.2.3 -RepositoryRoot $script:root
+        @(Get-Tree 'contracts/catzc/0.1.0') | Should -Be $before
     }
 
     It 'lists the frozen folder like any version folder, without the record' {
-        $null = Publish-ContractRelease -Unit widget -Version 1.2.3 -RepositoryRoot $script:root
+        $null = Publish-ContractRelease -Root catzc -Version 1.2.3 -RepositoryRoot $script:root
         (Get-Contract -Version 1.2.3 -RepositoryRoot $script:root).Path | Should -Be @(
-            'rest/gadget.sample.json'
-            '.widget/flows/build.yml'
-            'docs/widget.md'
+            'gadget.sample.json'
+            'widget.sample.json'
+            'widget.yml'
         )
     }
 
     It 'refuses a target folder that already exists, and leaves it untouched' {
-        Add-File 'contracts/widget/1.2.3/Catzc.Widget/docs/widget.md' '# Released'
-        { Publish-ContractRelease -Unit widget -Version 1.2.3 -RepositoryRoot $script:root } |
-            Should -Throw '*contracts/widget/1.2.3/ already exists; a released version folder is immutable*'
-        @(Get-Tree 'contracts/widget/1.2.3') | Should -Be @('Catzc.Widget/docs/widget.md')
-        [System.IO.File]::ReadAllText((Join-Path $script:root 'contracts/widget/1.2.3/Catzc.Widget/docs/widget.md')) | Should -Be '# Released'
+        Add-File 'contracts/catzc/1.2.3/widgets/widget.sample.json' '# Released'
+        { Publish-ContractRelease -Root catzc -Version 1.2.3 -RepositoryRoot $script:root } |
+            Should -Throw '*contracts/catzc/1.2.3/ already exists; a released version folder is immutable*'
+        @(Get-Tree 'contracts/catzc/1.2.3') | Should -Be @('widgets/widget.sample.json')
     }
 
-    It 'refuses the draft version 0.0.0' {
-        { Publish-ContractRelease -Unit widget -Version 0.0.0 -RepositoryRoot $script:root } |
-            Should -Throw '*0.0.0 is the draft of ''widget''*'
+    It 'refuses a vendor root, which never releases' -Tag 'ADR-REPO-CONTRACT-KEPTWHILEPINNED' {
+        Add-File 'contracts/widget/0.1.0/gadgets/gadget.sample.json' '{}'
+        { Publish-ContractRelease -Root widget -Version 1.2.3 -RepositoryRoot $script:root } |
+            Should -Throw '*''widget'' is a vendor root, which never releases*'
+        [System.IO.Directory]::Exists((Join-Path $script:root 'contracts/widget/1.2.3')) | Should -BeFalse
+    }
+
+    It 'refuses the version <Version>, which is not a release' -ForEach @(
+        @{ Version = '0.0.0' }
+        @{ Version = '0.1.0' }
+        @{ Version = '0.9.9' }
+    ) {
+        { Publish-ContractRelease -Root catzc -Version $Version -RepositoryRoot $script:root } |
+            Should -Throw "*$Version is not a release of 'catzc'*"
     }
 
     It 'refuses the devbox build version 6.6.666 and writes nothing' {
-        { Publish-ContractRelease -Unit widget -Version 6.6.666 -RepositoryRoot $script:root } |
+        { Publish-ContractRelease -Root catzc -Version 6.6.666 -RepositoryRoot $script:root } |
             Should -Throw '*6.6.666 is the devbox build version*'
-        [System.IO.Directory]::Exists((Join-Path $script:root 'contracts/widget/6.6.666')) | Should -BeFalse
+        [System.IO.Directory]::Exists((Join-Path $script:root 'contracts/catzc/6.6.666')) | Should -BeFalse
     }
 
     It 'refuses a version that is not three numbers' {
-        { Publish-ContractRelease -Unit widget -Version 1.2 -RepositoryRoot $script:root } | Should -Throw
+        { Publish-ContractRelease -Root catzc -Version 1.2 -RepositoryRoot $script:root } | Should -Throw
     }
 
-    It 'refuses a unit with no draft' {
-        { Publish-ContractRelease -Unit gadget -Version 1.2.3 -RepositoryRoot $script:root } |
-            Should -Throw '*contracts/gadget/0.0.0/ does not exist*'
+    It 'refuses a root with no current version' {
+        $null = New-Item -ItemType Directory -Path (Join-Path $script:root 'contracts/catzc/0.1.0') -Force
+        [System.IO.Directory]::Delete((Join-Path $script:root 'contracts/catzc/0.1.0'), $true)
+        { Publish-ContractRelease -Root catzc -Version 1.2.3 -RepositoryRoot $script:root } |
+            Should -Throw '*contracts/catzc/0.1.0/ does not exist*'
     }
 
-    It 'refuses a draft that does not list, and writes nothing' {
-        Add-File 'contracts/widget/0.0.0/gadget.md' '# Gadget'
-        { Publish-ContractRelease -Unit widget -Version 1.2.3 -RepositoryRoot $script:root } |
-            Should -Throw '*sits outside a module folder*'
-        [System.IO.Directory]::Exists((Join-Path $script:root 'contracts/widget/1.2.3')) | Should -BeFalse
+    It 'refuses a current version that does not list, and writes nothing' {
+        Add-File 'contracts/catzc/0.1.0/gadgets/flows/gadget.sample.json' '{}'
+        { Publish-ContractRelease -Root catzc -Version 1.2.3 -RepositoryRoot $script:root } |
+            Should -Throw '*is a folder below a group*'
+        [System.IO.Directory]::Exists((Join-Path $script:root 'contracts/catzc/1.2.3')) | Should -BeFalse
     }
 
     It 'writes nothing under -WhatIf' {
-        Publish-ContractRelease -Unit widget -Version 1.2.3 -RepositoryRoot $script:root -WhatIf | Should -BeNullOrEmpty
-        [System.IO.Directory]::Exists((Join-Path $script:root 'contracts/widget/1.2.3')) | Should -BeFalse
+        Publish-ContractRelease -Root catzc -Version 1.2.3 -RepositoryRoot $script:root -WhatIf | Should -BeNullOrEmpty
+        [System.IO.Directory]::Exists((Join-Path $script:root 'contracts/catzc/1.2.3')) | Should -BeFalse
     }
 
     It 'removes the target again when the freeze fails part-way' {
         Mock Get-ContractFileHashes -ModuleName Catzc.Base.Contracts { throw 'widget hash failed' }
-        { Publish-ContractRelease -Unit widget -Version 1.2.3 -RepositoryRoot $script:root } | Should -Throw '*widget hash failed*'
-        [System.IO.Directory]::Exists((Join-Path $script:root 'contracts/widget/1.2.3')) | Should -BeFalse
+        { Publish-ContractRelease -Root catzc -Version 1.2.3 -RepositoryRoot $script:root } | Should -Throw '*widget hash failed*'
+        [System.IO.Directory]::Exists((Join-Path $script:root 'contracts/catzc/1.2.3')) | Should -BeFalse
     }
 }

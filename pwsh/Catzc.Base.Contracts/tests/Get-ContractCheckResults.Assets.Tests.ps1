@@ -7,23 +7,23 @@ catzc:
 #>
 
 BeforeDiscovery {
-    $script:assetCases = @(foreach ($asset in InModuleScope Catzc.Base.Contracts { Get-ContractBindingAssets -Version 0.0.0 -RepositoryRoot (Get-RepositoryRoot) }) {
+    $script:assetCases = @(foreach ($asset in InModuleScope Catzc.Base.Contracts { Get-ContractBindingAssets -Version 0.1.0 -RepositoryRoot (Get-RepositoryRoot) }) {
             @{
-                Unit      = $asset.Unit
+                Root      = $asset.Root
                 Version   = $asset.Version
-                Module    = $asset.Module
+                Group     = $asset.Group
                 Path      = $asset.Path
                 AssetPath = $asset.AssetPath
                 Target    = $asset.Target
                 Direction = "$($asset.Direction)"
             }
         })
-    $script:commandCases = @(foreach ($asset in InModuleScope Catzc.Base.Contracts { Get-ContractBindingAssets -Version 0.0.0 -RepositoryRoot (Get-RepositoryRoot) }) {
+    $script:commandCases = @(foreach ($asset in InModuleScope Catzc.Base.Contracts { Get-ContractBindingAssets -Version 0.1.0 -RepositoryRoot (Get-RepositoryRoot) }) {
             if ($asset.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command) {
                 @{
-                    Unit    = $asset.Unit
+                    Root    = $asset.Root
                     Version = $asset.Version
-                    Module  = $asset.Module
+                    Group   = $asset.Group
                     Path    = $asset.Path
                     Name    = [Catzc.Base.Contracts.ContractCommand]::NameOf($asset)
                 }
@@ -36,11 +36,11 @@ Describe 'Binding contract assets' -Tag 'L1', 'integrity', 'source-only', 'ADR-R
         $script:groupContracts = @{}
     }
 
-    It '<Unit> <Version> <Module>: <Path> -> <Target> (<Direction>) holds' -ForEach $script:assetCases {
-        $group = "$Unit|$Version|$Module"
+    It '<Root> <Version> <Group>: <Path> -> <Target> (<Direction>) holds' -ForEach $script:assetCases {
+        $group = "$Root|$Version|$Group"
         if (-not $script:groupContracts.ContainsKey($group)) {
-            $script:groupContracts[$group] = @(Get-Contract -Unit ([WildcardPattern]::Escape($Unit)) `
-                    -Version ([WildcardPattern]::Escape($Version)) -Module ([WildcardPattern]::Escape($Module)))
+            $script:groupContracts[$group] = @(Get-Contract -Root ([WildcardPattern]::Escape($Root)) `
+                    -Version ([WildcardPattern]::Escape($Version)) -Group ([WildcardPattern]::Escape($Group)))
         }
         $assets = @($script:groupContracts[$group] | Where-Object { $_.AssetPath -ceq $AssetPath -and $_.Target -ceq $Target })
         $assets.Count | Should -Be 1
@@ -52,8 +52,8 @@ Describe 'Binding contract assets' -Tag 'L1', 'integrity', 'source-only', 'ADR-R
 Describe 'Command contracts' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CMDCONTRACT-COMMANDCONTRACT', 'ADR-REPO-CMDCONTRACT-ONEREADER' {
     BeforeAll {
         $script:commandContracts = @{}
-        foreach ($contract in Get-CommandContract -Unit '*' -Version '*' -Module '*') {
-            $key = "$($contract.Asset.Unit)|$($contract.Asset.Version)|$($contract.Asset.Module)|$($contract.Name)"
+        foreach ($contract in Get-CommandContract -Root '*' -Version '*' -Module '*') {
+            $key = "$($contract.Asset.Root)|$($contract.Asset.Version)|$($contract.Asset.Group)|$($contract.Name)"
             if (-not $script:commandContracts.ContainsKey($key)) {
                 $script:commandContracts[$key] = [System.Collections.Generic.List[object]]::new()
             }
@@ -65,8 +65,8 @@ Describe 'Command contracts' -Tag 'L1', 'integrity', 'source-only', 'ADR-REPO-CM
         $Count | Should -BeGreaterOrEqual 12
     }
 
-    It '<Unit> <Version> <Module>: <Name> reads as one typed record through Get-CommandContract' -ForEach $script:commandCases {
-        $key = "$Unit|$Version|$Module|$Name"
+    It '<Root> <Version> <Group>: <Name> reads as one typed record through Get-CommandContract' -ForEach $script:commandCases {
+        $key = "$Root|$Version|$Group|$Name"
         $contracts = @()
         if ($script:commandContracts.ContainsKey($key)) {
             $contracts = @($script:commandContracts[$key])

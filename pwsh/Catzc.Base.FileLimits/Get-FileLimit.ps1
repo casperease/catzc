@@ -14,10 +14,7 @@ function Get-FileLimit {
     process {
         foreach ($file in $Path) {
             $language = Get-FileLanguage -Path $file
-            if ($null -eq $language) {
-                throw "No file language declares '$file', so it has no file limit (languages.yml in Catzc.Base.Languages)."
-            }
-            $config.ResolveFile($file, $language.name)
+            $config.ResolveFile($file, ($null -eq $language ? $null : $language.name))
         }
     }
 }

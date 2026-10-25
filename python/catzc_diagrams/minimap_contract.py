@@ -1,7 +1,7 @@
 """The minimap data contract: one minimap's JSON is checked against the schema in contracts/ before anything draws it.
 
 Catzc.Base.Maps writes the data through its MinimapData type; this kit only reads it, and never loads that type
-(contracts/catzc/0.0.0/Catzc.Base.Maps/minimap.schema.json, ADR-REPO-CONTRACT-CONTRACTASSET).
+(contracts/catzc/0.1.0/catzc.base.maps/minimap.schema.json, ADR-REPO-CONTRACT-CONTRACTASSET).
 """
 
 import json
@@ -12,7 +12,7 @@ from typing import Any
 import jsonschema
 
 REPO = Path(__file__).resolve().parents[2]
-SCHEMA = REPO / "contracts" / "catzc" / "0.0.0" / "Catzc.Base.Maps" / "minimap.schema.json"
+SCHEMA = REPO / "contracts" / "catzc" / "0.1.0" / "catzc.base.maps" / "minimap.schema.json"
 
 
 @cache

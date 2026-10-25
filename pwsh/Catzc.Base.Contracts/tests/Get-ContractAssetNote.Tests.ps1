@@ -16,10 +16,14 @@ Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACT
 
         function Get-Note {
             param([string] $Path, [string] $Content)
-            $file = Join-Path $script:root "contracts/widget/0.0.0/Catzc.Widget/$Path"
+            $leaf = $Path.Substring($Path.LastIndexOf('/') + 1)
+            $file = Join-Path $script:root "contracts/widget/0.1.0/gadgets/$leaf"
             $null = [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($file))
             [System.IO.File]::WriteAllText($file, $Content)
-            $asset = Get-Contract -RepositoryRoot $script:root -Addressing full-path -Path $Path
+            if ($leaf -notmatch '\.sample\.') {
+                [System.IO.File]::WriteAllText((Join-Path $script:root 'contracts/widget/0.1.0/contract.yml'), "applies_to:`n  gadgets/${leaf}: ['widget.yml']`n")
+            }
+            $asset = Get-Contract -RepositoryRoot $script:root -Path $leaf
             InModuleScope Catzc.Base.Contracts -Parameters @{ Root = $script:root; Asset = $asset } {
                 param($Root, $Asset)
                 Get-ContractAssetNote -RepositoryRoot $Root -Asset $Asset
@@ -30,6 +34,7 @@ Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACT
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('n'))
         $null = New-Item -ItemType Directory -Force -Path $script:root
+        Mock Get-GitTrackedPath { 'widget.yml' } -ModuleName Catzc.Base.Contracts
     }
 
     It 'joins the leading comment lines of a YAML fragment into one line' {

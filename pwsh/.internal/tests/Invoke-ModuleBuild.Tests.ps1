@@ -45,37 +45,37 @@ BeforeAll {
             }
         }
     } -Files @{
-        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Bootstrap.psm1"             = '# bootstrap'
-        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Importer.psm1"              = '# importer'
-        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Loader.psm1"                = '# loader'
-        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Types.psm1"                 = '# types'
-        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Vendor.psm1"                = '# vendor'
-        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Builder.psm1"               = '# builder (never ships)'
-        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.TestKit.psm1"               = '# testkit (ships under full only)'
-        "$(Get-CatzcModulesFolder)/.internal/tests/Get-Loader.Tests.ps1"                = '# test (never ships)'
-        "$(Get-CatzcModulesFolder)/.internal/assets/ErrorView.format.ps1xml"            = '<Configuration />'
-        "$(Get-CatzcModulesFolder)/.internal/assets/bootstrap/Import-AllModules.ps1" = '# bootstrap function'
-        "$(Get-CatzcModulesFolder)/.internal/assets/bootstrap/Import-CSharpTypes.ps1" = '# bootstrap function'
-        "$(Get-CatzcModulesFolder)/.internal/assets/importer/Get-DueWriterRow.ps1" = '# importer function'
-        "$(Get-CatzcModulesFolder)/.internal/assets/importer/Invoke-ImporterJanitors.ps1" = '# importer function'
-        "$(Get-CatzcModulesFolder)/.internal/assets/importer/Test-WriterDue.ps1" = '# importer function'
-        "$(Get-CatzcModulesFolder)/.internal/assets/types-load.yml"                     = 'cells: {}'
-        "$(Get-CatzcModulesFolder)/.internal/assets/types/Build-CombinedTypeAssembly.ps1" = '# types function'
-        "$(Get-CatzcModulesFolder)/.internal/assets/types/Get-CombinedTypeHash.ps1" = '# types function'
-        "$(Get-CatzcModulesFolder)/.internal/assets/types/Get-LoadedTypeDrift.ps1" = '# types function'
-        "$(Get-CatzcModulesFolder)/.internal/assets/types/Get-TypeSourceBody.ps1" = '# types function'
-        "$(Get-CatzcModulesFolder)/.internal/assets/types/Get-TypesAssemblyManifest.ps1" = '# types function'
+        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Bootstrap.psm1"                = '# bootstrap'
+        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Importer.psm1"                 = '# importer'
+        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Loader.psm1"                   = '# loader'
+        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Types.psm1"                    = '# types'
+        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Vendor.psm1"                   = '# vendor'
+        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.Builder.psm1"                  = '# builder (never ships)'
+        "$(Get-CatzcModulesFolder)/.internal/Catzc.Internal.TestKit.psm1"                  = '# testkit (ships under full only)'
+        "$(Get-CatzcModulesFolder)/.internal/tests/Get-Loader.Tests.ps1"                   = '# test (never ships)'
+        "$(Get-CatzcModulesFolder)/.internal/assets/ErrorView.format.ps1xml"               = '<Configuration />'
+        "$(Get-CatzcModulesFolder)/.internal/assets/bootstrap/Import-AllModules.ps1"       = '# bootstrap function'
+        "$(Get-CatzcModulesFolder)/.internal/assets/bootstrap/Import-CSharpTypes.ps1"      = '# bootstrap function'
+        "$(Get-CatzcModulesFolder)/.internal/assets/importer/Get-DueWriterRow.ps1"         = '# importer function'
+        "$(Get-CatzcModulesFolder)/.internal/assets/importer/Invoke-ImporterJanitors.ps1"  = '# importer function'
+        "$(Get-CatzcModulesFolder)/.internal/assets/importer/Test-WriterDue.ps1"           = '# importer function'
+        "$(Get-CatzcModulesFolder)/.internal/assets/types-load.yml"                        = 'cells: {}'
+        "$(Get-CatzcModulesFolder)/.internal/assets/types/Build-CombinedTypeAssembly.ps1"  = '# types function'
+        "$(Get-CatzcModulesFolder)/.internal/assets/types/Get-CombinedTypeHash.ps1"        = '# types function'
+        "$(Get-CatzcModulesFolder)/.internal/assets/types/Get-LoadedTypeDrift.ps1"         = '# types function'
+        "$(Get-CatzcModulesFolder)/.internal/assets/types/Get-TypeSourceBody.ps1"          = '# types function'
+        "$(Get-CatzcModulesFolder)/.internal/assets/types/Get-TypesAssemblyManifest.ps1"   = '# types function'
         "$(Get-CatzcModulesFolder)/.internal/assets/types/Write-TypesAssemblyManifest.ps1" = '# types function'
-        "$(Get-CatzcModulesFolder)/.internal/assets/PSScriptAnalyzerSettings.psd1"      = '@{ }'
-        "$(Get-CatzcModulesFolder)/.internal/assets/Import-Catzc.ps1"                   = "# initializer`r`n"
-        "$(Get-CatzcModulesFolder)/.vendor/powershell-yaml/0.4.12/powershell-yaml.psd1" = '@{ }'
+        "$(Get-CatzcModulesFolder)/.internal/assets/PSScriptAnalyzerSettings.psd1"         = '@{ }'
+        "$(Get-CatzcModulesFolder)/.internal/assets/Import-Catzc.ps1"                      = "# initializer`r`n"
+        "$(Get-CatzcModulesFolder)/.vendor/powershell-yaml/0.4.12/powershell-yaml.psd1"    = '@{ }'
         # A file git stores with CRLF (kept as-is by -text, the way a signed vendored script must be).
-        "$(Get-CatzcModulesFolder)/.vendor/powershell-yaml/0.4.12/Signed.ps1"           = "# signed`r`n"
-        '.gitattributes'                                                                = "$(Get-CatzcModulesFolder)/.vendor/powershell-yaml/0.4.12/Signed.ps1 -text`n"
-        '.gitignore'                                                                    = "*.log`n"
-        "$(Get-CatzcModulesFolder)/.vendor/Pester/5.7.1/Pester.psd1"                    = '@{ }'
-        "$(Get-CatzcModulesFolder)/.scriptanalyzer/WidgetRule.psm1"                     = '# rule'
-        "$(Get-CatzcModulesFolder)/.scriptanalyzer/tests/WidgetRule.Tests.ps1"          = '# rule test (never ships)'
+        "$(Get-CatzcModulesFolder)/.vendor/powershell-yaml/0.4.12/Signed.ps1"              = "# signed`r`n"
+        '.gitattributes'                                                                   = "$(Get-CatzcModulesFolder)/.vendor/powershell-yaml/0.4.12/Signed.ps1 -text`n"
+        '.gitignore'                                                                       = "*.log`n"
+        "$(Get-CatzcModulesFolder)/.vendor/Pester/5.7.1/Pester.psd1"                       = '@{ }'
+        "$(Get-CatzcModulesFolder)/.scriptanalyzer/WidgetRule.psm1"                        = '# rule'
+        "$(Get-CatzcModulesFolder)/.scriptanalyzer/tests/WidgetRule.Tests.ps1"             = '# rule test (never ships)'
     }
     $script:source = $fake.ModulesRoot
 

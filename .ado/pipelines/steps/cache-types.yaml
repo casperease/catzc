@@ -1,5 +1,9 @@
-# The combined C# types build is a per-machine cache keyed by the committed manifest (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD),
-# so a job restores it instead of compiling it. The shadow root comes from its one resolver, Get-TypesShadowRoot.
+# ---
+# catzc:
+#   docs: "../../../docs/references/ado/pipelines/steps/cache-types.yaml.md"
+#   header: "generated"
+# ---
+
 steps:
   - pwsh: |
       Set-StrictMode -Version Latest

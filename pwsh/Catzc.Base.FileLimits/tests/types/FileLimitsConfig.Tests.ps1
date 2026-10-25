@@ -30,7 +30,7 @@ Describe 'FileLimitsConfig' -Tag 'L0', 'logic' {
     }
 
     It 'rejects an unknown key at every level, naming the allowed set' {
-        { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ gadget = 1 }) } | Should -Throw '*unknown key ''gadget''*bounds, classes, defaults, extensions, languages*'
+        { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ gadget = 1 }) } | Should -Throw '*unknown key ''gadget''*bounds, classes, defaults, exempt, extensions, languages, width_mode*'
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ defaults = @{ gadget = @{} } }) } | Should -Throw '*code, config, prose*'
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ languages = @{ widget = @{ depth = 1 } } }) } | Should -Throw '*length, width*'
     }
@@ -81,8 +81,15 @@ Describe 'FileLimitsConfig' -Tag 'L0', 'logic' {
         $config.ResolveFile('a/b.widget', 'widget').width | Should -Be 150
     }
 
-    It 'rejects an extension override without a dot or with an undeclared class' {
-        { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ extensions = @{ gadget = 'config' } }) } | Should -Throw '*starting with a dot*'
+    It 'matches an exact file name before the extension, and fails a file nothing declares' {
+        $config = [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ extensions = @{ WIDGET = 'prose'; '.gadget' = 'none' } })
+        $config.ResolveFile('a/WIDGET', $null).file_class | Should -Be 'prose'
+        $config.ResolveFile('a/b.gadget', $null).file_class | Should -Be 'none'
+        { $config.ResolveFile('a/b.unknown', $null) } | Should -Throw '*is unclassified*'
+    }
+
+    It 'rejects an override that is a path or names an undeclared class' {
+        { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ extensions = @{ 'widget/gadget' = 'config' } }) } | Should -Throw '*a bare file name*'
         { [Catzc.Base.FileLimits.FileLimitsConfig]::new(@{ extensions = @{ '.gadget' = 'widget' } }) } | Should -Throw '*must be one of*'
     }
 

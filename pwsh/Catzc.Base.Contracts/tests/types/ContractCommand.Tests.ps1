@@ -47,17 +47,17 @@ Describe 'ContractCommand' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-CONTRACTLAN
         }
 
         It 'names the command from its asset and renders the signature as one line' -Tag 'ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS' {
-            $asset = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.0.0', 'Catzc.Widget', 'Get-Widget.command.yml',
+            $asset = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'Catzc.Widget', 'Get-Widget.command.yml',
                 [Catzc.Base.Contracts.ContractAssetKind]::Command, 'widgets/Catzc.Widget/Get-Widget.ps1',
-                [Catzc.Base.Contracts.ContractDirection]::Provided, $false)
+                [Catzc.Base.Contracts.ContractDirection]::Provided)
             $command = [Catzc.Base.Contracts.ContractCommand]::new($asset, ("parameters:`n  Path: string!`n  Strict: switch`noutput: string`n" | ConvertFrom-Yaml -Ordered))
             $command.Name | Should -Be 'Get-Widget'
-            $command.Asset.AssetPath | Should -Be 'contracts/widget/0.0.0/Catzc.Widget/Get-Widget.command.yml'
+            $command.Asset.AssetPath | Should -Be 'contracts/widget/0.1.0/Catzc.Widget/Get-Widget.command.yml'
             $command.Signature | Should -Be 'Path: string!, Strict: switch -> string'
             [Catzc.Base.Contracts.ContractCommand]::new($asset, $null).Signature | Should -Be 'no parameters'
             (New-Command "parameters:`n  Path: string`n").Name | Should -Be ''
-            $fragment = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.0.0', 'Catzc.Widget', 'widget.yml',
-                [Catzc.Base.Contracts.ContractAssetKind]::Fragment, 'widget.yml', [Catzc.Base.Contracts.ContractDirection]::DependedOn, $false)
+            $fragment = [Catzc.Base.Contracts.ContractAsset]::new('widget', '0.1.0', 'Catzc.Widget', 'widget.yml',
+                [Catzc.Base.Contracts.ContractAssetKind]::Fragment, 'widget.yml', [Catzc.Base.Contracts.ContractDirection]::DependedOn)
             { [Catzc.Base.Contracts.ContractCommand]::NameOf($fragment) } | Should -Throw '*is not a command contract*'
         }
 

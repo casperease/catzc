@@ -32,9 +32,10 @@ Every diagram change waits on this run, and it has no time limit, so a stale-hea
 
 5. [ ] Bound it: `Build-Diagrams` gets its limit in `timeouts.yml`, set from the `-Stale` time measured after steps 1-4. Check: Test-Plans
        and the timeouts tests pass, and `out/profile-build-diagrams.ps1` records the new baseline.
-6. [ ] Read the git `conflict` base once per batch, not three `git` calls per diagram (~0.12 s each): a long-lived `git cat-file --batch`
-       must not serve a stale HEAD to a process that commits between reads, as the kit tests do. Check: the python kit tests pass and the
-       pngs of two runs stay byte-equal.
+6. [ ] Prove the once-per-batch `conflict` base (`committed_batch`, read at the batch's start and handed to the workers) on real renders,
+       once the contracts layout is back: the minimap contract tests and every bulk put fail today on the moved
+       `contracts/catzc/0.0.0/Catzc.Base.Maps` files. Check: the python kit tests pass in full and `out/step4-parallel-equal.sh` prints
+       `equal` with 9 rows of exit 0.
 
 ## Decided
 

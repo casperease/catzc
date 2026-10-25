@@ -263,7 +263,7 @@ naming the eight.
 `Catzc.Base.Maps` projects that subject onto each minimap's axes with the data command `maps.yml` names for its id, reading a registry (the
 world map, the value chain, the ADR layers, the rungs, the tracks, the execution engines, the module dependencies), so every lit cell
 carries the file and the requested code that light it. The data is contract JSON
-(`contracts/catzc/0.0.0/Catzc.Base.Maps/minimap.schema.json`): axes outermost first, every cell with what it holds, and every lit cell with
+(`contracts/catzc/0.1.0/catzc.base.maps/minimap.schema.json`): axes outermost first, every cell with what it holds, and every lit cell with
 at least one reason. `Build-Diagrams` and `Test-Diagrams` write it to `out/minimaps/`; the kit validates it against the schema
 (`minimap_contract.py`) and only draws it. No minimap file lives beside a diagram: the picture is embedded in the render, and the reasons
 travel in the JSON and in the article that embeds the diagram. A diagram whose minimap data is missing does not put.
