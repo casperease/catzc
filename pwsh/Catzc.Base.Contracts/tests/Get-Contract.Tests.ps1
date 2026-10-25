@@ -297,7 +297,6 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
         }
 
         It 'throws NotImplementedException for the declared mode <Mode>, before listing anything' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' -ForEach @(
-            @{ Mode = 'manifest-glob' }
             @{ Mode = 'per-folder' }
         ) {
             Add-Asset 'contracts/widget/v1/Catzc.Widget/widget.yml'
@@ -307,9 +306,40 @@ Describe 'Get-Contract' -Tag 'L0', 'logic' {
         }
 
         It 'throws NotImplementedException when the config selects a mode that is not built' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {
-            Mock Get-Config { [Catzc.Base.Contracts.ContractsConfig]::new(@{ addressing = 'manifest-glob' }) } -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'contracts' }
+            Mock Get-Config { [Catzc.Base.Contracts.ContractsConfig]::new(@{ addressing = 'per-folder' }) } -ModuleName Catzc.Base.Contracts -ParameterFilter { $Config -eq 'contracts' }
 
             { Get-Contract -RepositoryRoot $script:root } | Should -Throw -ExceptionType ([System.NotImplementedException])
+        }
+
+        It 'under manifest-glob, expands an asset contract.yml applies to into one asset per tracked file its globs match' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {
+            Mock Get-GitTrackedPath { 'gadgets/flows/a.yml', 'gadgets/flows/deep/b.yml', 'gadgets/other.yml', 'widget.yml' } -ModuleName Catzc.Base.Contracts
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/flows/flow.yml.schema.json' '{"type":"object"}'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/widget.yml'
+            Add-Asset 'contracts/widget/0.0.0/contract.yml' "applies_to:`n  Catzc.Widget/flows/flow.yml.schema.json: ['flows/**/*.yml']"
+
+            $assets = @(Get-Contract -RepositoryRoot $script:root -Addressing manifest-glob -TargetRoot @{ 'catzc.widget' = 'gadgets' })
+            $assets.Target | Should -Be @('gadgets/flows/a.yml', 'gadgets/flows/deep/b.yml', 'gadgets/widget.yml')
+            @($assets | Where-Object Target -Like 'gadgets/flows/*').Path | Should -Be @('flows/flow.yml.schema.json', 'flows/flow.yml.schema.json')
+        }
+
+        It 'under manifest-glob, throws on applies_to that matches no tracked file, names no asset, or names a sample' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' -ForEach @(
+            @{ Key = 'Catzc.Widget/flows/flow.yml.schema.json'; Glob = 'nothing/*.yml'; Message = '*matches no tracked file*' }
+            @{ Key = 'Catzc.Widget/flows/gadget.yml.schema.json'; Glob = 'flows/*.yml'; Message = "*applies_to names 'Catzc.Widget/flows/gadget.yml.schema.json', but no such asset*" }
+            @{ Key = 'Catzc.Widget/flows/widget.sample.json'; Glob = 'flows/*.yml'; Message = '*a Sample asset; only a schema, fragment or presence asset*' }
+        ) {
+            Mock Get-GitTrackedPath { 'flows/a.yml' } -ModuleName Catzc.Base.Contracts
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/flows/flow.yml.schema.json' '{"type":"object"}'
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/flows/widget.sample.json' '{}'
+            Add-Asset 'contracts/widget/0.0.0/contract.yml' "applies_to:`n  ${Key}: ['$Glob']"
+
+            { Get-Contract -RepositoryRoot $script:root -Addressing manifest-glob -TargetRoot @{} } | Should -Throw $Message
+        }
+
+        It 'under full-path, refuses a contract.yml that names applies_to' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {
+            Add-Asset 'contracts/widget/0.0.0/Catzc.Widget/flows/flow.yml.schema.json' '{"type":"object"}'
+            Add-Asset 'contracts/widget/0.0.0/contract.yml' "applies_to:`n  Catzc.Widget/flows/flow.yml.schema.json: ['flows/*.yml']"
+
+            { Get-Contract -RepositoryRoot $script:root -Addressing full-path -TargetRoot @{} } | Should -Throw '*set addressing: manifest-glob*'
         }
 
         It 'rejects a mode that is not declared, naming the declared ones' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {

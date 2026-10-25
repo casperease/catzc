@@ -23,7 +23,7 @@ public sealed class ContractsConfig
 
     public static readonly string[] AddressingModes = { "full-path", "manifest-glob", "per-folder" };
 
-    public static readonly string[] BuiltAddressingModes = { "full-path" };
+    public static readonly string[] BuiltAddressingModes = { "full-path", "manifest-glob" };
 
     private static readonly string[] AllowedKeys = { "addressing", "target_roots" };
     private static readonly Regex Root = new Regex("^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");

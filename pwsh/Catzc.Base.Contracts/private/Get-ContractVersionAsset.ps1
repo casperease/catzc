@@ -24,7 +24,9 @@ function Get-ContractVersionAsset {
         [System.Collections.IDictionary] $TargetRoot,
 
         [Parameter(Mandatory)]
-        [string] $RepositoryRoot
+        [string] $RepositoryRoot,
+
+        [string] $Addressing = [Catzc.Base.Contracts.ContractsConfig]::DefaultAddressing
     )
 
     $layout = [Catzc.Base.Contracts.ContractLayout]::new((Get-Config -Config folder-walk))
@@ -34,7 +36,14 @@ function Get-ContractVersionAsset {
         throw "contracts/$Unit/${Version}: '$($stray -join "', '")' sits outside a module folder; an asset lives under contracts/<unit>/<version>/<module>/ (ADR-REPO-CONTRACT-LAYOUT)."
     }
 
-    $override = (Read-ContractManifest -Folder $Folder).direction
+    $manifest = Read-ContractManifest -Folder $Folder
+    $override = $manifest.direction
+    $appliesTo = $manifest.applies_to
+    if ($appliesTo.Count -gt 0 -and $Addressing -cne 'manifest-glob') {
+        throw "contracts/$Unit/$Version/contract.yml: applies_to addresses many files, which the '$Addressing' addressing mode does not read; set addressing: manifest-glob in contracts.yml (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING)."
+    }
+    # The tracked files are listed only once an asset asks for its globs to be matched: nothing is enumerated speculatively.
+    $tracked = $null
     $normalForm = (Get-Config -Config languages).naming_normal_form
     $used = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $moduleFolders = $layout.Folders($Folder)
@@ -56,13 +65,41 @@ function Get-ContractVersionAsset {
             if (-not $commandRoot -and (Get-ContractAssetKind -Name $leaf) -eq [Catzc.Base.Contracts.ContractAssetKind]::Command) {
                 $commandRoot = Get-ContractCommandRoot -Module $module -RepositoryRoot $RepositoryRoot
             }
-            Resolve-ContractAsset -Unit $Unit -Version $Version -Module $module -Path $path -File (Join-Path $moduleFolder $path) -TargetRoot $root -Override $override -CommandRoot $commandRoot
+            $asset = Resolve-ContractAsset -Unit $Unit -Version $Version -Module $module -Path $path -File (Join-Path $moduleFolder $path) -TargetRoot $root -Override $override -CommandRoot $commandRoot
+            if (-not $appliesTo.ContainsKey("$module/$path")) {
+                $asset
+                continue
+            }
+            if ($asset.Kind -notin [Catzc.Base.Contracts.ContractAssetKind]::Schema, [Catzc.Base.Contracts.ContractAssetKind]::Fragment, [Catzc.Base.Contracts.ContractAssetKind]::Presence) {
+                throw "contracts/$Unit/$Version/contract.yml: applies_to names '$module/$path', a $($asset.Kind) asset; only a schema, fragment or presence asset constrains files (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING)."
+            }
+            if ($null -eq $tracked) {
+                $tracked = [string[]] @(Get-GitTrackedPath '.')
+            }
+            $prefix = if ($root) {
+                "$root/"
+            }
+            else {
+                ''
+            }
+            $globs = [string[]] @($appliesTo["$module/$path"] | ForEach-Object { "$prefix$_" })
+            $targets = [Catzc.Base.Globs.GlobPattern]::MatchingPaths($globs, $tracked)
+            if ($targets.Count -eq 0) {
+                throw "contracts/$Unit/$Version/contract.yml: applies_to of '$module/$path' matches no tracked file ($($globs -join ', ')) (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING)."
+            }
+            foreach ($target in $targets) {
+                [Catzc.Base.Contracts.ContractAsset]::new($asset.Unit, $asset.Version, $asset.Module, $asset.Path, $asset.Kind, $target, $asset.Direction, $asset.IsDirectionOverridden)
+            }
         }
     }
 
     $unknown = @($override.Keys | Where-Object { -not $used.Contains($_) } | Sort-Object)
     if ($unknown.Count -gt 0) {
         throw "contracts/$Unit/$Version/contract.yml: the direction of '$($unknown -join "', '")' is overridden, but no such asset exists under the version folder (ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION)."
+    }
+    $unaddressed = @($appliesTo.Keys | Where-Object { -not $used.Contains($_) } | Sort-Object)
+    if ($unaddressed.Count -gt 0) {
+        throw "contracts/$Unit/$Version/contract.yml: applies_to names '$($unaddressed -join "', '")', but no such asset exists under the version folder (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING)."
     }
     $assets
 }

@@ -18,8 +18,8 @@ Describe 'ContractsConfig' -Tag 'L0', 'logic' {
         }
     }
 
-    It 'builds only full-path' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {
-        [Catzc.Base.Contracts.ContractsConfig]::BuiltAddressingModes | Should -Be @('full-path')
+    It 'builds full-path and manifest-glob' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {
+        [Catzc.Base.Contracts.ContractsConfig]::BuiltAddressingModes | Should -Be @('full-path', 'manifest-glob')
     }
 
     It 'rejects an undeclared addressing mode, naming the declared ones' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {

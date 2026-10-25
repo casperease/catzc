@@ -29,4 +29,16 @@ Describe 'ContractManifest' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-DIRECTIONBYCO
     It 'rejects a direction that is not a map' {
         { [Catzc.Base.Contracts.ContractManifest]::new(@{ direction = 'provided' }) } | Should -Throw '*direction must be a map*'
     }
+
+    It 'maps the globs applies_to names per asset path, and has none by default' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {
+        [Catzc.Base.Contracts.ContractManifest]::new($null).applies_to.Count | Should -Be 0
+        $manifest = [Catzc.Base.Contracts.ContractManifest]::new(@{ applies_to = @{ 'Catzc.Widget/flow.yml.schema.json' = @('flows/**/*.yml', 'gadget.yml') } })
+        $manifest.applies_to['Catzc.Widget/flow.yml.schema.json'] | Should -Be @('flows/**/*.yml', 'gadget.yml')
+    }
+
+    It 'rejects an applies_to key that names no module and path, an empty glob list, and a rooted glob' -Tag 'ADR-REPO-CONTRACT-CONFIGUREDADDRESSING' {
+        $raw = @{ applies_to = [ordered]@{ 'flow.yml.schema.json' = @('a.yml'); 'Catzc.Widget/a.json' = @(); 'Catzc.Widget/b.json' = @('/b.yml') } }
+        { [Catzc.Base.Contracts.ContractManifest]::new($raw) } |
+            Should -Throw "*'flow.yml.schema.json' is not a '/'-separated <module>/<path>*'Catzc.Widget/a.json' must be a non-empty list*'/b.yml' is not a relative*"
+    }
 }

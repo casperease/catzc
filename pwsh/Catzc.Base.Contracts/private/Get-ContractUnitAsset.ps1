@@ -25,7 +25,9 @@ function Get-ContractUnitAsset {
         [System.Collections.IDictionary] $TargetRoot,
 
         [Parameter(Mandatory)]
-        [string] $RepositoryRoot
+        [string] $RepositoryRoot,
+
+        [string] $Addressing = [Catzc.Base.Contracts.ContractsConfig]::DefaultAddressing
     )
 
     $layout = [Catzc.Base.Contracts.ContractLayout]::new((Get-Config -Config folder-walk))
@@ -43,7 +45,7 @@ function Get-ContractUnitAsset {
     foreach ($versionFolder in $versionFolders) {
         $versionName = [System.IO.Path]::GetFileName($versionFolder)
         if (@($Version | Where-Object { $versionName -like $_ }).Count -gt 0) {
-            Get-ContractVersionAsset -Unit $Unit -Version $versionName -Folder $versionFolder -TargetRoot $TargetRoot -RepositoryRoot $RepositoryRoot
+            Get-ContractVersionAsset -Unit $Unit -Version $versionName -Folder $versionFolder -TargetRoot $TargetRoot -RepositoryRoot $RepositoryRoot -Addressing $Addressing
         }
     }
 }

@@ -4,7 +4,7 @@
 #   header: "generated"
 # ---
 
-addressing: full-path
+addressing: manifest-glob
 
 target_roots:
   catzc.tooling.github: .github
