@@ -84,7 +84,6 @@ writers:
       - .vscode/extensions.json
       - .vscode/launch.json
       - .vscode/tasks.json
-      - .vscode/azure-pipelines-schema.json
       - .vscode/markdown-preview-dark.css
       - go.work
       - "*/tests/*/go.mod"

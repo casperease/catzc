@@ -52,6 +52,9 @@ which fails when the committed `.compiled` assembly is stale versus the sources,
 matches the runtime prebuild. It runs `dotnet` through `Invoke-Executable` rather than the Tooling layer's `Invoke-Dotnet`, which this
 `Base` module must not depend on.
 
+The root `catzc.sln` that loads it is rendered too: `New-Solution` lists the types project and every agent hook found on disk, each id
+minted from a sentence of its name, so a new hook is in the solution on the next import and the Dev Kit never asks to add one.
+
 ### responsibility:4 — Shipped-type coverage
 
 Proving every shipped type is present in the session: each `<module>/types/<Name>.cs` under the loaded code root declares `<module>.<Name>`,
@@ -93,5 +96,6 @@ The module's public functions, sorted into the responsibilities above.
 |                                                          | `Test-LoadedTypesCurrent`   |
 | responsibility:2 — Cross-module type dependency analysis | `Get-CSharpTypeDependency`  |
 | responsibility:3 — Editor type-project build             | `Invoke-BuildForVsCode`     |
+|                                                          | `New-Solution`              |
 | responsibility:4 — Shipped-type coverage                 | `Test-ShippedTypes`         |
 | responsibility:5 — Agent hook build                      | `Build-AgentHook`           |

@@ -58,7 +58,6 @@ carriers:
       line: "#",
     }
   word-list: { files: [".cspell/*.txt"], carrier: comment-head, line: "#" }
-  json-schema: { files: ["**/azure-pipelines-schema.json"], carrier: property, property: "$comment" }
   toml: { files: ["**/*.toml"], carrier: comment-head, line: "#" }
   go-workspace: { files: ["**/go.work", "**/go.mod"], carrier: comment-head, line: "//" }
   lock-file: { files: ["**/*.lock"], carrier: none, reason: "written whole by the package manager that owns it" }

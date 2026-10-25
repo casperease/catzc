@@ -1,5 +1,5 @@
 {
-  "hash": "334faad3",
+  "hash": "0214f104",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -1828,11 +1828,6 @@
     },
     {
       "name": "Catzc.Base.VSCode.VscodeOwnExtension",
-      "aliases": [],
-      "display": []
-    },
-    {
-      "name": "Catzc.Base.VSCode.VscodePipelineSchemaConfig",
       "aliases": [],
       "display": []
     },

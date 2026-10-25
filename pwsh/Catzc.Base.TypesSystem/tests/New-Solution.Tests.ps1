@@ -20,10 +20,9 @@ Describe 'New-Solution' -Tag 'L0', 'logic' {
     It 'keeps the ids the solution has always carried' {
         Mock Get-AgentHookName -ModuleName Catzc.Base.TypesSystem { , [string[]] @('Assert-BashTimeout', 'Record-AgentWrite') }
         $solution = New-Solution
-        $solution | Should -Match 'CA72C000-700E-5000-0000-EC7000000000'
-        $solution | Should -Match 'A55E0700-BA50-710E-0070-000000000000'
-        $solution | Should -Match '0EC00D00-A6E0-7000-0017-E00000000000'
-        $solution | Should -Match 'C1A0DE00-0000-5000-F01D-E00000000000'
+        foreach ($sentence in 'catzc types project', 'assert bash timeout hook project', 'record agent write hook project', 'claude hooks folder') {
+            $solution | Should -Match "$(ConvertTo-Guid $sentence)".ToUpperInvariant()
+        }
     }
 
     It 'leaves the folders out when there is no hook' {

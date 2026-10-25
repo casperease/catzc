@@ -133,8 +133,8 @@ settings:
   yaml.schemaStore.enable: false
   json.schemaDownload.enable: false
   yaml.schemas:
-    # Every .yaml in the tree is an Azure Pipelines file; New-VsCodePipelineSchema writes the schema the YAML extension checks it against.
-    ./.vscode/azure-pipelines-schema.json:
+    # Every .yaml in the tree is an Azure Pipelines file, checked against the depended-on schema in contracts/EXTERNAL-ado.
+    ./contracts/EXTERNAL-ado/0.0.0/Catzc.Azure.DevOps/pipelines/pipeline.yaml.schema.json:
       - "**/*.yaml"
 
   # A compiled ARM template is checked against the local depended-on copy of Azure's schema (contracts/EXTERNAL-azure), never a download.

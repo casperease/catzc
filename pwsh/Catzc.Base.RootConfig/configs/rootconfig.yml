@@ -53,12 +53,6 @@ files:
       - pwsh/Catzc.Base.VSCode/configs/vscode-tasks.yml
     carrier: jsonc
     optIn: true
-  - target: .vscode/azure-pipelines-schema.json
-    generator: New-VsCodePipelineSchema
-    sources:
-      - pwsh/Catzc.Base.VSCode/configs/vscode-pipeline-schema.yml
-    carrier: json-schema
-    optIn: true
   - target: go.work
     generator: New-GoWorkspace
     sources:

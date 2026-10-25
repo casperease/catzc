@@ -103,16 +103,6 @@ The VS Code extension recommendations, rendered from the vscode-extensions regis
 registry.
 ```
 
-## comment:8
-
-Above `New-VsCodePipelineSchema`, written with `#`.
-
-```text
-The repo-controlled Azure Pipelines JSON Schema, rendered from the vscode-pipeline-schema
-registry (Catzc.Base.VSCode). Fed to the YAML extension via yaml.schemas to
-replace its bundled per-task anyOf — the source of the offline "^PowerShell@2$" false positives.
-```
-
 ## comment:9
 
 Above `New-GoWorkspace -Target $Target`, written with `#`.

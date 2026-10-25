@@ -40,11 +40,6 @@ Which editor behaviour the workspace pins, and why. Four registries, each entry 
   non-empty, unique `publisher.name` ids).
 - `vscode-launch.yml` — the debug launch profiles, **binding**: validated on load by its config type (`VscodeLaunchConfig` — a version plus
   profiles each carrying `name`/`type`/`request`, names unique).
-- `vscode-pipeline-schema.yml` — the repo-controlled Azure Pipelines JSON Schema, passed through as-is; its config type
-  (`VscodePipelineSchemaConfig`) checks the file's own rationale — the closed set of top-level keywords, every `#/definitions/` reference
-  resolving, no `additionalProperties: false`, and no `anyOf`/`oneOf` on the `step` definition. It is authored to replace the extension's
-  bundled per-task `anyOf` so the offline "does not match the pattern of `^PowerShell@2$`" false positives disappear while the structural
-  checks worth keeping remain. Mapped to every `.yaml` by `yaml.schemas` in `vscode-settings.yml`, checked by the YAML extension.
 
 The module also ships the one non-JSON editor asset, `assets/markdown-preview-dark.css`, whose generated marker is authored in the source
 itself (a `/* */` block) since the copy-in injects no header.
@@ -81,13 +76,11 @@ The module's public surface, sorted into the responsibilities above.
 | responsibility:1 — Editor-file rendering     | `New-VsCodeSettings`         |
 |                                              | `New-VsCodeExtensions`       |
 |                                              | `New-VsCodeLaunch`           |
-|                                              | `New-VsCodePipelineSchema`   |
 |                                              | `New-VsCodeTasks`            |
 |                                              | `Build-VsCodeExtension`      |
 |                                              | `Install-VsCodeExtension`    |
 | responsibility:2 — The editor registries     | `vscode-settings.yml`        |
 |                                              | `vscode-extensions.yml`      |
 |                                              | `vscode-launch.yml`          |
-|                                              | `vscode-pipeline-schema.yml` |
 |                                              | `vscode-tasks.yml`           |
 | responsibility:3 — The session's own binding | `Get-VsCodeSession`          |

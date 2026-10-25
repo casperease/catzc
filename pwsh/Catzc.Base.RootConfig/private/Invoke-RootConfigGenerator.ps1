@@ -90,9 +90,6 @@ function Invoke-RootConfigGenerator {
             # The VS Code tasks, rendered from the vscode-tasks registry (Catzc.Base.VSCode).
             New-VsCodeTasks
         }
-        'New-VsCodePipelineSchema' {
-            New-VsCodePipelineSchema
-        }
         'New-GoWorkspace' {
             New-GoWorkspace -Target $Target
         }
