@@ -325,19 +325,53 @@ def main():
             del args[i : i + 2]
             if theme not in THEMES:
                 raise SystemExit(f"theme '{theme}' is not one of: {', '.join(THEMES)}")
+        workers = 1
+        if "--workers" in args:
+            i = args.index("--workers")
+            workers = max(1, int(args[i + 1]))
+            del args[i : i + 2]
         i = args.index("--all")
-        # Many roots share one process, so the imports and the loaded registries are paid once; each root ends with its own row.
-        worst = 0
-        for root in (Path(a) for a in args[i + 1 :]):
-            try:
-                code = bulk(root, theme)
-            except Exception as e:
-                print(f"error E_RENDER {root}: {e}")
-                code = 1
-            print(json.dumps({"diagram": str(root).replace("\\", "/"), "exit": code}))
-            worst = max(worst, code)
-        raise SystemExit(worst)
+        roots = [Path(a) for a in args[i + 1 :]]
+        if workers == 1 or len(roots) < 2:
+            raise SystemExit(bulk_roots(roots, theme))
+        # Disjoint, contiguous slices: each worker pays the imports once for its slice, and the slices print back in stem order once
+        # every worker has ended, so the first failure is raised only after all of them.
+        size = -(-len(roots) // workers)
+        slices = [roots[k : k + size] for k in range(0, len(roots), size)]
+        from concurrent.futures import ProcessPoolExecutor
+
+        with ProcessPoolExecutor(max_workers=len(slices)) as pool:
+            done = list(pool.map(captured_roots, slices, [theme] * len(slices)))
+        for text, _ in done:
+            sys.stdout.write(text)
+        raise SystemExit(max(code for _, code in done))
     return forward_one(args)
+
+
+def bulk_roots(roots, theme):
+    """Rebuild each root in turn in this process, each ending with its JSON row; returns the worst exit code."""
+    # Many roots share one process, so the imports and the loaded registries are paid once; each root ends with its own row.
+    worst = 0
+    for root in roots:
+        try:
+            code = bulk(root, theme)
+        except Exception as e:
+            print(f"error E_RENDER {root}: {e}")
+            code = 1
+        print(json.dumps({"diagram": str(root).replace("\\", "/"), "exit": code}))
+        worst = max(worst, code)
+    return worst
+
+
+def captured_roots(roots, theme):
+    """One worker's slice: its printed lines, held until the parent prints every slice in order, and its worst exit code."""
+    import contextlib
+    import io as text_io
+
+    out = text_io.StringIO()
+    with contextlib.redirect_stdout(out):
+        code = bulk_roots(roots, theme)
+    return out.getvalue(), code
 
 
 if __name__ == "__main__":

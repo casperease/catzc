@@ -22,7 +22,8 @@ Describe 'Build-ContractReference' -Tag 'L0', 'logic' {
 
         Mock Write-Message -ModuleName Catzc.Base.Contracts { }
         # The fixture root is no git checkout, so the generated head reads no file as tracked.
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
+        Import-InternalModule TestKit
+        Set-GitTrackedPathMock
         Mock -ModuleName Catzc.Base.Contracts Get-CatzcModule {
             [pscustomobject]@{ name = 'Catzc.Widget'; root = 'widgets/Catzc.Widget'; languages = @('powershell') }
         }
