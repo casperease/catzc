@@ -165,8 +165,10 @@ def summary(rows, extra):
         "## Verdicts",
         "",
         *[f"- {name}: {count}" for name, count in sorted(by_verdict.items(), key=lambda kv: -kv[1])],
-        f"- relation-opt-out (an unlabelled edge of a diagram with its own `relation`, also counted above): "
-        f"{sum(r['relation_opt_out'] for r in rows)}",
+        (
+            f"- relation-opt-out (an unlabelled edge of a diagram with its own `relation`, also counted above): "
+            f"{sum(r['relation_opt_out'] for r in rows)}"
+        ),
         "",
         "## Diagrams with the most edges needing work (reverse, ambiguous)",
         "",
@@ -184,9 +186,11 @@ def summary(rows, extra):
         "| --- | --- |",
         *[f"| {tail} to {head} | {label} |" for (tail, head), label in edge_rules.DEFAULT_LABELS.items()],
         "",
-        f"Edges needing no edit: {len([r for r in rows if r['verdict'] == 'ok'])} of {len(rows)} are ok today "
-        f"({len(derived)} unlabelled ones would also show a derived default label, {len(unlabelled_ok) - len(derived)} stay plain); "
-        f"{sum(by_verdict[v] for v in ('reverse', 'ambiguous'))} need an edit.",
+        (
+            f"Edges needing no edit: {len([r for r in rows if r['verdict'] == 'ok'])} of {len(rows)} are ok today "
+            f"({len(derived)} unlabelled ones would also show a derived default label, {len(unlabelled_ok) - len(derived)} stay plain); "
+            f"{sum(by_verdict[v] for v in ('reverse', 'ambiguous'))} need an edit."
+        ),
     ]
     return lines
 

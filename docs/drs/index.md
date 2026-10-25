@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e3f8445c7934
+    with_body_sha: "030702f5e318"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -49,6 +49,7 @@ research, the authoritative source, and the principles state its mechanics, so e
 | `TDR-ONETRUTH`   | [one-source-of-truth](thesis/one-source-of-truth.md) |
 | `TDR-STORES`     | [truth-stores](thesis/truth-stores.md)               |
 | `TDR-NORMALFORM` | [eac-normal-form](thesis/eac-normal-form.md)         |
+| `TDR-CLOSEDLOOP` | [closed-loop](thesis/closed-loop.md)                 |
 
 ### principles/
 

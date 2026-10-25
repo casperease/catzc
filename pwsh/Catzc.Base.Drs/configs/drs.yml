@@ -227,6 +227,7 @@ domains:
       one-source-of-truth: { external: TDR-ONETRUTH }
       truth-stores: { external: TDR-STORES }
       eac-normal-form: { external: TDR-NORMALFORM }
+      closed-loop: { external: TDR-CLOSEDLOOP }
 
   principles:
     kind: PDR
