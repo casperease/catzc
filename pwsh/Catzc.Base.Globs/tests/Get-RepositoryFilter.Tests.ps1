@@ -79,6 +79,16 @@ Describe 'Get-RepositoryFilter — the real repository' -Tag 'L1', 'integrity', 
         }
     }
 
+    It 'gives the contracts their own lamp, apart from every other track''s live files' {
+        $contract = @($script:tracked.Where({ $_ -like 'contracts/*/*/*' -and $_ -notlike '*/tests/*' }))[0]
+        $contract | Should -Not -BeNullOrEmpty -Because 'the repository holds a frozen contract'
+        $sets = { param([string] $Filter) & $script:globSets @($script:filters.Where({ $_.name -ceq $Filter })[0].sets) }
+        (& $sets 'contracts').Where({ $_.Matches($contract) }, 'First').Count | Should -Be 1 -Because "'$contract' is the contracts track's"
+        foreach ($filter in 'code', 'live') {
+            (& $sets $filter).Where({ $_.Matches($contract) }, 'First').Count | Should -Be 0 -Because "the $filter lamp leaves the contracts to their own lamp"
+        }
+    }
+
     It 'claims every tracked file by at least one filter' {
         $sets = @($script:filters.ForEach({ & $script:globSets @($_.sets) }))
         $unclaimed = $script:tracked.Where({ $path = $_; $sets.Where({ $_.Matches($path) }, 'First').Count -eq 0 })

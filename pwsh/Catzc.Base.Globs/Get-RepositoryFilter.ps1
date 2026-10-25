@@ -34,8 +34,11 @@ function Get-RepositoryFilter {
     }
 
     foreach ($filter in $filters.Where({ -not $Name -or $_.name -cin $Name })) {
-        $sets = [System.Collections.Generic.List[object]]::new()
-        foreach ($selector in $filter.select) {
+        # The sets of a list of selectors; used for what a filter selects and for what it leaves out (except).
+        $resolveAll = {
+            param([string[]] $Selectors)
+            $found = [System.Collections.Generic.List[object]]::new()
+            foreach ($selector in $Selectors) {
             $argument = [Catzc.Base.Globs.RepositoryFilter]::ArgumentOf($selector)
             $resolved = switch ([Catzc.Base.Globs.RepositoryFilter]::KindOf($selector)) {
                 'aspect' {
@@ -83,9 +86,19 @@ function Get-RepositoryFilter {
                     & $literal ([string[]]@((Get-Config -Config rootconfig).files.Where({ $_.optIn -and -not $_.target.Contains('/') }).ForEach({ $_.target })))
                 }
             }
-            foreach ($set in @($resolved)) {
-                $sets.Add($set)
+                foreach ($set in @($resolved)) {
+                    $found.Add($set)
+                }
             }
+            , $found
+        }
+        $sets = & $resolveAll ([string[]]@($filter.select))
+        # A filter with except leaves out the files those selectors claim: their includes join every set's excludes.
+        if (@($filter.except).Count -gt 0) {
+            $left = @(foreach ($set in (& $resolveAll ([string[]]@($filter.except)))) { $set.include })
+            $kept = [System.Collections.Generic.List[object]]::new()
+            foreach ($set in $sets) { $kept.Add([ordered]@{ include = @($set.include); exclude = @($set.exclude) + $left }) }
+            $sets = $kept
         }
         # A filter with extensions is that part of its sets: a tree include ('<folder>/**', '**') keeps only those extensions below it, a
         # file include ('<folder>/*.ps1', a literal path) stays when its extension is one of them, and the excludes stay as they are.

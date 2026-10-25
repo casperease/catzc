@@ -43,8 +43,9 @@ one resolver, makes every new view a config line, and moving the extra units int
   `track_type.<type>`, `generated`, `root_config`, and `glob.<pattern>` as the escape hatch.
 - The filters: `code` (`aspect.live`), `tests` (`aspect.tests`), `tools` (`track_type.vendor_settings`, `track_type.vendored_code`,
   `track_type.pipelines`, `root_config`), `generated` (`generated`), `docs` (`track.docs`, `glob.LICENSE`), `out` (`glob.out/**` until `out`
-  is a track). No `contracts` filter: the contracts track declares its aspects in `variants.yml` as `infrastructure` does (`tests`
-  `**/tests/**`, then `live` `**`, DDR-ASPECT-TRACKPICKSCATCHALL), so its contract files are live and `code` shows them.
+  is a track). The contracts track is live by its own aspects in `variants.yml` (`tests` `**/tests/**`, then `live`
+  `**`, DDR-ASPECT-TRACKPICKSCATCHALL) and its files have one lamp, `contracts` (the user, 2026-10-25): `code` and `live` leave them out
+  (`except: [track.contracts]`), apart from every other track's live files.
 - `LICENSE` is authored, not generated (no generator or `rootconfig.yml` target writes it); it is docs (the `docs` filter) and live through
   the contracts track, which it joins in `plan-track-model.md`.
 - Combination is the **union** of the lit lamps: a file shows while at least one lit filter claims it, so putting a lamp out hides only what
@@ -74,6 +75,8 @@ one resolver, makes every new view a config line, and moving the extra units int
 - The pipeline tracks are live, as `infrastructure` is: they declare aspects in `variants.yml` (`tests` `**/tests/**`, then `live` `**`), so
   `code` shows them as well as the `pipelines` lamp (filters overlap).
 - `infrastructure` stays live and also gets a filter lamp of its own, `infrastructure` (`track.infrastructure`), with a factory icon.
+- The live aspect splits in two lamps (the user, 2026-10-25): `code`, its executable part (`extensions:` narrows the aspect's sets to the
+  code extensions), and `live`, all of it; a filter's `except:` leaves out what other selectors claim.
 - The configuration part of everything as code gets a lamp of its own, `configs` (`kind.config`, the `config` file kind of `file-kinds.yml`:
   a module's `configs/*.yml`, a template's per-environment `configuration/**`), live as before, placed right after `code` and before
   `tests`; the lamp row reads open, code, configs, tests, tools, pipelines, infrastructure, generated, docs, out, languages. A `kind.<role>`

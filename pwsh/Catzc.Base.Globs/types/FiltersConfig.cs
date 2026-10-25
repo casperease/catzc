@@ -81,7 +81,10 @@ public sealed class RepositoryFilter
     // The file extensions the selected sets are narrowed to ('.ps1'), so a filter can be a part of an aspect; empty keeps them whole.
     public IReadOnlyList<string> extensions { get; }
 
-    private static readonly Regex Extension = new Regex("^\\.[A-Za-z0-9]+$");
+    // Selectors whose files the filter leaves out, so a track that owns its files as their primary home is not claimed twice.
+    public IReadOnlyList<string> except { get; }
+
+    private static readonly Regex Extension =new Regex("^\\.[A-Za-z0-9]+$");
 
     public RepositoryFilter(IDictionary entry)
     {
@@ -90,8 +93,25 @@ public sealed class RepositoryFilter
         foreach (object key in entry.Keys)
         {
             string k = Convert.ToString(key, CultureInfo.InvariantCulture);
-            if (k != "name" && k != "title" && k != "select" && k != "extensions") { errors.Add(string.Format(CultureInfo.InvariantCulture, "filter: unknown key '{0}' (allowed: name, title, select, extensions)", k)); }
+            if (k != "name" && k != "title" && k != "select" && k != "extensions" && k != "except") { errors.Add(string.Format(CultureInfo.InvariantCulture, "filter: unknown key '{0}' (allowed: name, title, select, extensions, except)", k)); }
         }
+        List<string> excepted = new List<string>();
+        if (entry.Contains("except"))
+        {
+            IList rawExcept = entry["except"] as IList;
+            if (rawExcept == null || entry["except"] is string) { errors.Add(string.Format(CultureInfo.InvariantCulture, "filter '{0}': except must be a list of selectors", entry.Contains("name") ? entry["name"] : null)); }
+            else
+            {
+                foreach (object item in rawExcept)
+                {
+                    string selector = item as string;
+                    string problem = Problem(selector);
+                    if (problem != null) { errors.Add(string.Format(CultureInfo.InvariantCulture, "filter '{0}' except: {1}", entry.Contains("name") ? entry["name"] : null, problem)); }
+                    else { excepted.Add(selector); }
+                }
+            }
+        }
+        except = excepted.AsReadOnly();
         List<string> narrowed = new List<string>();
         if (entry.Contains("extensions"))
         {

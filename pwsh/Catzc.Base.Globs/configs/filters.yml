@@ -14,7 +14,8 @@ filters:
     title: the live code
     select: [aspect.live]
     extensions: [.ps1, .psm1, .cs, .py, .js, .sh, .go, .bicep, .yaml]
-  - { name: live, title: everything live, select: [aspect.live] }
+    except: [track.contracts]
+  - { name: live, title: everything live but the contracts, select: [aspect.live], except: [track.contracts] }
   - { name: configs, title: the configuration part of everything as code, select: [kind.config] }
   - { name: tests, title: the tests aspect, select: [aspect.tests] }
   - name: tools
@@ -22,6 +23,8 @@ filters:
     select: [track_type.vendor_settings, track_type.vendored_code, root_config]
   - { name: pipelines, title: the pipeline and workflow definitions, select: [track_type.pipelines] }
   - { name: infrastructure, title: "the Bicep tree: modules, templates and their configuration", select: [track.infrastructure] }
+  # The contracts track owns every file under contracts/ as its primary home: live by its own aspect, apart from every other track's live.
+  - { name: contracts, title: "the boundary contracts: frozen artifacts", select: [track.contracts] }
   - { name: generated, title: every generated artifact, select: [generated] }
   - { name: docs, title: the documentation and the licence, select: [track.docs, glob.LICENSE] }
   - { name: out, title: the run output, select: [glob.out/**] }
