@@ -51,7 +51,7 @@ tracks ([DDR-TRACKTYPE-DECLAREDONCE](track-types.md#rule-ddr-tracktype-declaredo
 
 BVT must prove the commit that will be promoted. A tool fetched at build time makes the proof depend on a moment, and a setting kept outside
 the repository makes it depend on a console. Vendoring puts both into HEAD, so the verdict of an earlier stage still holds for the later one
-([TDR-ONETRUTH](../thesis/one-source-of-truth.md), [PDR-ONELIVE](../principles/one-living-version.md)).
+([PDR-ONELIVE](../principles/one-living-version.md)).
 
 ## Decision
 

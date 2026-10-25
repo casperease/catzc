@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "24d57046fb96"
+    with_body_sha: "1303f18eb8b9"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -561,14 +561,15 @@ declares one.
 
 ### vendor
 
-The platform or tool that reads a track's files, from a closed set declared once — never the third party that wrote them.
+A tool, core, plugin or external dependency vendored into the repository, named by the tool — its code and its settings sit under one vendor
+umbrella, so HEAD stays reproducible.
 
-- **Defined by:** [DDR-TRACKTYPE-OPTIONALVENDOR](design/track-types.md#rule-ddr-tracktype-optionalvendor)
+- **Defined by:** [DDR-VENDOR-VENDORISVENDORED](design/vendoring.md#rule-ddr-vendor-vendorisvendored)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [vendored code](#vendored-code): Vendored code is written by a third party and the repository does not author it; a vendor is the
-    platform that reads a track's files.
+  - [vendored code](#vendored-code): Vendored code is the third-party code a vendor brings, held in a track of its own; the vendor is the
+    tool itself, code and settings together.
 
 ### vendored code
 
@@ -578,8 +579,8 @@ Code written by a third party that the repository does not author, held in a tra
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.ModuleSystem/configs/glossary.yml`
 - **Contrasts:**
-  - [vendor](#vendor): Vendored code is written by a third party and the repository does not author it; a vendor is the platform that reads
-    a track's files.
+  - [vendor](#vendor): Vendored code is the third-party code a vendor brings, held in a track of its own; the vendor is the tool itself,
+    code and settings together.
 
 ### world map
 

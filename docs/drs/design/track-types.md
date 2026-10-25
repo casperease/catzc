@@ -104,8 +104,8 @@ A holder is therefore small, and a vendor change touches only its holder.
 A vendor is a tool, core, plugin or external dependency that the repository vendors ([DDR-VENDOR](vendoring.md)), and it is a fact of the
 track, not of the folder name. Pipelines show why: the ADO and GitHub definitions are the same sort of thing bound to two pipeline models,
 so they share a type and differ by vendor, where two types would make the sort of thing look like two things. Settings show the other side:
-four tools with four sets of files are four tracks of one type, so a change to one tool's settings never re-keys another's. The word has
-one meaning here: the tool the repository vendors, kept in the commit so that HEAD stays reproducible.
+four tools with four sets of files are four tracks of one type, so a change to one tool's settings never re-keys another's. The word has one
+meaning here: the tool the repository vendors, kept in the commit so that HEAD stays reproducible.
 
 ### Where the declarations live
 

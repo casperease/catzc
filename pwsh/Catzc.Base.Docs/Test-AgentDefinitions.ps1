@@ -160,11 +160,8 @@ function Test-AgentDefinitions {
         if ([string]::IsNullOrWhiteSpace($description)) {
             $issues.Add("${relative}: front matter has no description")
         }
-        else {
-            $descriptions[$name] = $description
-            if (-not $description.Contains('Do NOT')) {
-                $issues.Add("${relative}: description has no 'Do NOT' clause saying when not to use the agent")
-            }
+        elseif (-not $description.Contains('Do NOT')) {
+            $issues.Add("${relative}: description has no 'Do NOT' clause saying when not to use the agent")
         }
         if (-not $frontMatter.Contains('tools') -or [string]::IsNullOrWhiteSpace([string]$frontMatter['tools'])) {
             $issues.Add("${relative}: front matter has no tools")

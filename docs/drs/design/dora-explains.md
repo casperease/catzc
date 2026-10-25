@@ -128,6 +128,22 @@ capability links. The decisions live in the decision records themselves; this fi
   track of their own, declared once.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
+## Vendoring
+
+`Vendoring — a vendor is a tool vendored into the repository`
+
+[DDR-VENDOR](vendoring.md)
+
+> DORA identifies version control of everything the build needs, and automated deployment from one verified artifact, as drivers of delivery
+> performance. Vendoring each tool and its settings into the commit makes HEAD the whole input of the build, so what BVT proved is what is
+> promoted.
+
+- [Version control](../../references/dora/capabilities.md#version-control) — the tools and their settings are in the commit, not on a feed
+  or in a console.
+- [Deployment automation](../../references/dora/capabilities.md#deployment-automation) — the promoted commit needs no fetch that could
+  differ between stages.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
 ## Module types
 
 `Module types — what a module is placed as`

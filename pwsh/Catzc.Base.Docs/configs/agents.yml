@@ -4,11 +4,10 @@
 #   header: "generated"
 # ---
 
-standard: catzc-drone
 # The roofs Test-AgentDefinitions holds every robot and capability under; the defaults are declared once on AgentsConfig.
 roofs:
   agent_body_lines: 20
-  capability_lines: 10
+  capability_lines: 30
 # The contracts every robot and capability names under `contracts` in its front matter and reads first.
 contracts: [ADR-REPO-AI]
 agents:

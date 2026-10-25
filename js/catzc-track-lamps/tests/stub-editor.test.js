@@ -8,7 +8,7 @@ const { execFileSync } = require("child_process");
 
 const { folder } = require("./fixture.js");
 
-const extension = path.resolve(__dirname, "../extension.js").replace(/\/g, "/");
+const extension = path.resolve(__dirname, "../extension.js").split(path.sep).join("/");
 const scenario = (name, withEngine = false) => {
     const root = folder(["code/a.ps1", "docs/x.md"]);
     if (withEngine) {

@@ -6,7 +6,7 @@
 const vscode = require("vscode");
 const fs = require("fs");
 const path = require("path");
-const crypto = require("crypto");
+const { relativePath, contentHash, ledgerLine } = require("./ledger.js");
 
 function record(document) {
     if (document.uri.scheme !== "file") return;
@@ -14,16 +14,12 @@ function record(document) {
     if (!folder) return;
     const root = folder.uri.fsPath;
     if (!fs.existsSync(path.join(root, "importer.ps1"))) return;
-    const relative = path.relative(root, document.uri.fsPath).split(path.sep).join("/");
-    if (relative.startsWith("..") || relative.startsWith("out/")) return;
+    const relative = relativePath(root, document.uri.fsPath);
+    if (relative === null) return;
 
     fs.readFile(document.uri.fsPath, (error, bytes) => {
         if (error) return;
-        const hash = crypto
-            .createHash("sha256")
-            .update(bytes.filter((b) => b !== 13))
-            .digest("hex");
-        const line = JSON.stringify({ at: new Date().toISOString(), event: "save", path: relative, hash }) + "\n";
+        const line = ledgerLine(new Date().toISOString(), relative, contentHash(bytes));
         const out = path.join(root, "out");
         fs.mkdir(out, { recursive: true }, () => fs.appendFile(path.join(out, "editor-saves.jsonl"), line, () => {}));
     });

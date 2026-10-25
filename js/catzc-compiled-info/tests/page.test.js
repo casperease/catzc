@@ -29,7 +29,7 @@ test("says the hash could not be read when the sources gave none", () => {
 });
 
 test("the page shows the name, the state and the build record only when there is one", () => {
-    const withInfo = page("Catzc.Types.11111111.dll", "11111111", "{ \"widget\": <1> }");
+    const withInfo = page("Catzc.Types.11111111.dll", "11111111", '{ "widget": <1> }');
     assert.match(withInfo, /<h2>Catzc\.Types\.11111111\.dll<\/h2>/);
     assert.match(withInfo, /<pre>\{ "widget": &lt;1&gt; \}<\/pre>/);
     assert.doesNotMatch(page("Catzc.Types.11111111.dll", "11111111", ""), /Build record/);
