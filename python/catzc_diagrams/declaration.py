@@ -421,6 +421,7 @@ def arc_to(run, point):
         if best is None or gap < best[0]:
             best = (gap, before + t * n)
         before += n
+    assert best is not None, "a path of at least two points has a nearest segment"
     return best[1]
 
 
@@ -872,6 +873,7 @@ def carry(diagram, carrier):
         # The block runs from its fence line to the blank lines that end at the image, which stays where it was.
         opening = whole.rfind(f"```{FENCE}", 0, start)
         after = re.match(r"```[ \t]*\n(?:[ \t]*\n)*", whole[end:])
+        assert after, f"the drawio block of {page} closes with a fence"
         taken, rest = without_page_ignores(whole[:opening] + whole[end + after.end() :], body)
         changes = [(source_of(stem), (f"# cspell:ignore {' '.join(taken)}\n\n" if taken else "") + body), (page, rest)]
     try:
@@ -1482,7 +1484,9 @@ def between_edge(e, out, where):
             f"{where}: edge between {ends[0]} and {ends[1]} has no direction by rank (equal, unranked or trusted kinds); "
             f"declare it with from and to (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON)"
         )
-    low, high = (ends[0], ends[1]) if ranks[0] < ranks[1] else (ends[1], ends[0])
+    first_rank, second_rank = ranks
+    assert first_rank is not None and second_rank is not None  # an unranked end raised above
+    low, high = (ends[0], ends[1]) if first_rank < second_rank else (ends[1], ends[0])
     return {**{k: v for k, v in e.items() if k != "between"}, "from": low, "to": high}
 
 
@@ -1628,7 +1632,7 @@ def cause_sizes():
 def cause_radius(cause):
     """The radius the cause draws with: its written size, else the largest when its label ends in `!`, else the configured default."""
     sizes = cause_sizes()
-    size = cause.get("size") or (max(sizes, key=sizes.get) if str(cause["label"]).rstrip().endswith("!") else str(ACTION["cause-size"]))
+    size = cause.get("size") or (max(sizes, key=lambda name: sizes[name]) if str(cause["label"]).rstrip().endswith("!") else str(ACTION["cause-size"]))
     return sizes[size]
 
 
@@ -2374,8 +2378,8 @@ def place(declaration, check_routes=False):
         # history) runs under its own steps, so no rule crosses it.
         first = next(iter(lanes.values()))
         stride = lane_xy(first["band"], 2, 0)[0] - lane_xy(first["band"], 1, 0)[0]
-        axis = [band_box[b] for b, lane in lanes.items() if int(lane["steps"]) == int(first["steps"])]
-        top, bottom = min(bb["y"] for bb in axis), max(bb["y"] + bb["h"] for bb in axis)
+        crossed = [band_box[b] for b, lane in lanes.items() if int(lane["steps"]) == int(first["steps"])]
+        top, bottom = min(bb["y"] for bb in crossed), max(bb["y"] + bb["h"] for bb in crossed)
         for n, rule in enumerate(content.get("rules") or []):
             x = lane_xy(first["band"], int(rule["after"]), 0)[0] + glyph_lib["commit"]["size"][0] // 2 + stride // 2
             cells.append(cell(f"lane-rule-{n}-a", "", ANCHOR, x, top + LABEL_ROW, 1, 1))
@@ -2749,8 +2753,8 @@ def place_action(declaration):
             )
         # A zone narrows towards the lane's top and bottom, where its rings curve in; a note stands just right of the zone's inner
         # curve and must end before its outer one, so the notes spread as far as the zone lets them, towards the centre line otherwise.
-        inner = (lambda y: r0 - ACTION_CLEARANCE / 2) if k == 1 else (lambda y: math.sqrt(max(0.0, r_in**2 - y**2)))
-        outer = lambda y: math.sqrt(max(0.0, r**2 - y**2))
+        inner_edge = (lambda y: r0 - ACTION_CLEARANCE / 2) if k == 1 else (lambda y: math.sqrt(max(0.0, r_in**2 - y**2)))
+        outer_edge = lambda y: math.sqrt(max(0.0, r**2 - y**2))
         full_step = (2 * lane_half - sum(heights)) / (len(in_zone) + 1)
 
         def tops_at(scale):  # the notes' top edges, relative to the centre line: 1 spreads them over the lane, 0 packs them at it
@@ -2765,8 +2769,8 @@ def place_action(declaration):
             boxes = []
             for top, h in zip(tops, heights):
                 near = 0.0 if top <= 0 <= top + h else min(abs(top), abs(top + h))
-                left = inner(near) + 12
-                if left + note_w > outer(max(abs(top), abs(top + h))) - 12:
+                left = inner_edge(near) + 12
+                if left + note_w > outer_edge(max(abs(top), abs(top + h))) - 12:
                     return None
                 boxes.append(left)
             return boxes
