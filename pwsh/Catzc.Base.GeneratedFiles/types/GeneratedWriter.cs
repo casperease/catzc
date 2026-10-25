@@ -1,7 +1,7 @@
 /*
 ---
 catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/GeneratedWriter.cs.md"
+  docs: "../../../docs/references/pwsh/catzc-base-generated-files/types/GeneratedWriter.cs.md"
   warning: "Generated Header"
 ---
 */

@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-GeneratedWriterStamp.ps1.md"
+  docs: "../../../docs/references/pwsh/catzc-base-generated-files/private/Get-GeneratedWriterStamp.ps1.md"
   warning: "Generated Header"
 ---
 #>
@@ -34,5 +34,5 @@ function Get-GeneratedWriterStamp {
         $bytes = [System.Text.Encoding]::UTF8.GetBytes($salt)
         return [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData($bytes))
     }
-    Get-InputStamp -Path @($matched | ForEach-Object { [System.IO.Path]::Combine($RepositoryRoot, $_) }) -Root $RepositoryRoot -Salt $salt
+    Get-InputStamp -Path @($matched | ForEach-Object { [System.IO.Path]::Combine($RepositoryRoot, $_) }) -Root $RepositoryRoot -Salt $salt -By Metadata
 }

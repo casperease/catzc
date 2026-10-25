@@ -147,4 +147,21 @@ Describe 'GlobsConfig' -Tag 'L0', 'logic' {
             $c.Get('unit').Matches('widgets/Catzc.Base.Globs/configs/globs.yml') | Should -BeTrue
         }
     }
+
+    Context 'the units whose tests are optional' {
+        BeforeAll {
+            $script:unit = @{ widget = @{ description = 'd'; layer = 'loose-fileset'; include = @('widget/**') } }
+        }
+
+        It 'takes none by default, so every unit has tests' {
+            [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = $unit }).tests_optional.Count | Should -Be 0
+        }
+
+        It 'maps each unit to its reason, and refuses one without a reason or a list in place of the map' {
+            $config = [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = $unit; tests_optional = @{ 'gadget-tests' = 'a holder of other units only' } })
+            $config.tests_optional['gadget-tests'] | Should -Be 'a holder of other units only'
+            { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = $unit; tests_optional = @{ 'gadget-tests' = ' ' } }) } | Should -Throw '*needs its reason*'
+            { [Catzc.Base.Globs.GlobsConfig]::new(@{ globsets = $unit; tests_optional = @('gadget-tests') }) } | Should -Throw '*must be a map*'
+        }
+    }
 }

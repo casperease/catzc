@@ -44,7 +44,7 @@ Which editor behaviour the workspace pins, and why. Four registries, each entry 
   (`VscodePipelineSchemaConfig`) checks the file's own rationale — the closed set of top-level keywords, every `#/definitions/` reference
   resolving, no `additionalProperties: false`, and no `anyOf`/`oneOf` on the `step` definition. It is authored to replace the extension's
   bundled per-task `anyOf` so the offline "does not match the pattern of `^PowerShell@2$`" false positives disappear while the structural
-  checks worth keeping remain. Wired to the extension by `azure-pipelines.customSchemaFile` in `vscode-settings.yml`.
+  checks worth keeping remain. Mapped to every `.yaml` by `yaml.schemas` in `vscode-settings.yml`, checked by the YAML extension.
 
 The module also ships the one non-JSON editor asset, `assets/markdown-preview-dark.css`, whose generated marker is authored in the source
 itself (a `/* */` block) since the copy-in injects no header.

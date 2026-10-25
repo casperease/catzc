@@ -24,6 +24,9 @@ public sealed class GlobsConfig
     // Every globset, in registry order.
     public IReadOnlyList<GlobSet> globsets { get; }
 
+    // The units whose tests set may claim no file, each with its reason; by default every unit has tests.
+    public IReadOnlyDictionary<string, string> tests_optional { get; }
+
     private readonly Dictionary<string, GlobSet> byName;
 
     public GlobsConfig(IDictionary raw)
@@ -37,9 +40,9 @@ public sealed class GlobsConfig
         foreach (object key in raw.Keys)
         {
             string top = key == null ? null : key.ToString();
-            if (top != "globsets")
+            if (top != "globsets" && top != "tests_optional")
             {
-                errors.Add(string.Format("unknown top-level key '{0}' (allowed: globsets)", top));
+                errors.Add(string.Format("unknown top-level key '{0}' (allowed: globsets, tests_optional)", top));
             }
         }
 
@@ -164,11 +167,35 @@ public sealed class GlobsConfig
             }
         }
 
+        var optional = new Dictionary<string, string>(StringComparer.Ordinal);
+        if (raw.Contains("tests_optional") && raw["tests_optional"] != null)
+        {
+            if (!(raw["tests_optional"] is IDictionary units))
+            {
+                errors.Add("tests_optional must be a map of unit to its reason");
+            }
+            else
+            {
+                foreach (DictionaryEntry entry in units)
+                {
+                    string unit = entry.Key == null ? null : entry.Key.ToString();
+                    string reason = entry.Value == null ? null : entry.Value.ToString().Trim();
+                    if (string.IsNullOrEmpty(reason))
+                    {
+                        errors.Add(string.Format("tests_optional '{0}' needs its reason", unit));
+                        continue;
+                    }
+                    optional[unit] = reason;
+                }
+            }
+        }
+
         if (errors.Count > 0)
         {
             throw new ArgumentException("globs config validation failed:\n" + string.Join("\n", errors));
         }
 
+        tests_optional = optional;
         globsets = sets;
         byName = map;
     }

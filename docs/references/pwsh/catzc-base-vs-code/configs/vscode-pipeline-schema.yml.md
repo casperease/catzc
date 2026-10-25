@@ -9,20 +9,20 @@ Above `$schema: http://json-schema.org/draft-07/schema#`, written with `#`.
 
 ```text
 Azure Pipelines schema — the authored SOURCE OF TRUTH for .vscode/azure-pipelines-schema.json, the schema
-the ms-azure-devops.azure-pipelines extension validates our pipeline YAML against. It is wired in via
-`azure-pipelines.customSchemaFile` (vscode-settings.yml) and rendered to strict JSON by
+the YAML extension validates our pipeline YAML against. It is mapped to every .yaml via
+`yaml.schemas` (vscode-settings.yml) and rendered to strict JSON by
 New-VsCodePipelineSchema (through Build-RootConfig; see rootconfig.yml and
 [ADR-REPO-ROOTCFG](/docs/drs/repository/generated-root-configs.md)). Edit THIS file, never the rendered .json.
 
-WHY a repo-controlled schema instead of the extension's bundled one — the false positives we are killing:
+WHY a repo-controlled schema instead of the Azure Pipelines extension's bundled one — the false positives it avoids:
   The bundled schema models a step's `task` as a giant anyOf, one branch per known task
   (^PowerShell@2$, ^AzureCLI@2$, ^UseNode@1$, …), each branch pinning that task's exact `inputs`. When the
   extension cannot reach an Azure DevOps org to resolve the real task set — which is always, because we
   author offline and are not connected directly — it cannot pick the matching branch and instead surfaces
   EVERY branch's failure. That is why a file using only UseNode@1/UseDotNet@2 still warns
   "String does not match the pattern of ^PowerShell@2$": the message is a sibling branch that did not
-  match, not a real problem with the file. The extension exposes no severity/ignore knob, only this
-  customSchemaFile override.
+  match, not a real problem with the file. That extension exposes no severity/ignore knob, so it
+  is not recommended; the YAML extension checks the files against this schema instead.
 
 WHAT this overrides: `task` collapses to one loose pattern and `inputs` becomes a free-form object, so the
   anyOf that produces the noise does not exist here. We keep the STRUCTURAL checks that are still worth

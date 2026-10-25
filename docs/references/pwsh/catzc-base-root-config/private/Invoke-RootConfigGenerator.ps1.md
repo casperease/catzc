@@ -109,7 +109,7 @@ Above `New-VsCodePipelineSchema`, written with `#`.
 
 ```text
 The repo-controlled Azure Pipelines JSON Schema, rendered from the vscode-pipeline-schema
-registry (Catzc.Base.VSCode). Fed to the extension via azure-pipelines.customSchemaFile to
+registry (Catzc.Base.VSCode). Fed to the YAML extension via yaml.schemas to
 replace its bundled per-task anyOf — the source of the offline "^PowerShell@2$" false positives.
 ```
 

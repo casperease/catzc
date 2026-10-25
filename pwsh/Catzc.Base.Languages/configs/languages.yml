@@ -108,7 +108,7 @@ languages:
   pipeline-yaml:
     extensions: [.yaml]
     formatter: prettier
-    vscode_language: azure-pipelines
+    vscode_language: yaml
     adr_folder: ado
     checks: [Test-Formatting, Test-Spelling, Test-Links, Test-LinkDirections, Test-Comments]
   yaml:

@@ -134,30 +134,6 @@ double-clicking a .drawio.png shows the image; to EDIT the diagram, right-click 
 "Draw.io (Binary)". Pixels-first was the deliberate call: these diagrams are compared far more than edited.
 ```
 
-## comment:12
-
-Above `prettier.documentSelectors:`, written with `#`.
-
-```text
-Prettier formats .yaml (ADO pipeline) files, the engine languages.yml names for pipeline-yaml. `.yaml` is the
-azure-pipelines language (files.associations above), a custom language prettier-vscode does not format by
-default, so documentSelectors opts those files in; the injected [azure-pipelines] default formatter then routes
-Format Document to it.
-```
-
-## comment:13
-
-Above `azure-pipelines.customSchemaFile: ./.vscode/azure-pipelines-schema.json`, written with `#`.
-
-```text
-Azure Pipelines extension: validate .yaml against OUR generated schema, not the extension's bundled one.
-The bundled schema models a step's `task` as a per-task anyOf; offline (never connected to an ADO org)
-it cannot resolve the real task set and reports every non-matching branch — the spurious "String does
-not match the pattern of ^PowerShell@2$" warnings. Our schema (source: Catzc.Base.VSCode
-configs/vscode-pipeline-schema.yml, rendered by New-VsCodePipelineSchema) drops that anyOf and keeps the
-structural checks worth having. The extension exposes no severity/ignore knob — only this override.
-```
-
 ## comment:14
 
 Above `regexrobin.rules:`, written with `#`.

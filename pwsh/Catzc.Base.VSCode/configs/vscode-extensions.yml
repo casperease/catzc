@@ -4,24 +4,16 @@
 #   warning: "Generated Header"
 # ---
 
-# cspell:ignore azuretools azureresourcegroups streetsidesoftware rosshamish kuskus kusto shd101wyy esbenp tomoki redhat Anson Levett iliazeus gopls
+# cspell:ignore azuretools streetsidesoftware hediet esbenp tomoki redhat Anson Levett iliazeus gopls
 recommendations:
   # YAML language support — schema-validated editing of the configs/*.yml registries and pipeline YAML.
   - redhat.vscode-yaml
   # markdownlint in the editor — the same rules the Test-Markdownlint gate enforces (.markdownlint.yml).
   - DavidAnson.vscode-markdownlint
-  # Kusto syntax highlighting for KQL snippets in docs and Azure work.
-  - rosshamish.kuskus-kusto-syntax-highlighting
-  # Azure Pipelines YAML schema for .ado/pipelines/*.yaml.
-  - ms-azure-devops.azure-pipelines
-  # Azure resource browsing for the deployed templates.
-  - ms-azuretools.vscode-azureresourcegroups
   # cspell in the editor — the same dictionaries the Test-Spelling gate uses (cspell.yml + .cspell/).
   - streetsidesoftware.code-spell-checker
   # .editorconfig support — applies the repo-wide formatting baseline on save (uniform-formatting).
   - editorconfig.editorconfig
-  # Markdown Preview Enhanced — the preview the vscode-settings registry themes.
-  - shd101wyy.markdown-preview-enhanced
   - ibm.output-colorizer
   - iliazeus.vscode-ansi
   - ms-python.python
@@ -35,6 +27,8 @@ recommendations:
   # PDF viewing for reference material in docs.
   - tomoki1207.pdf
   - DanLevett.regex-robin
+  # draw.io — the editor of the .drawio.png diagrams under docs/.assets/.
+  - hediet.vscode-drawio
 
 # The repository's own extensions: each renders to out/vscode-extensions/<name>/ with its script from assets/extensions/<name>.js.
 extensions:

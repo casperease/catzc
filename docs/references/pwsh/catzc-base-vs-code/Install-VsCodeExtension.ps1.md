@@ -51,3 +51,12 @@ Install-VsCodeExtension
 ```powershell
 Install-VsCodeExtension -Name catzc-git-changes -Force
 ```
+
+## comment:1
+
+Above `if (-not $renderedNow -and (Test-Path -LiteralPath $installed)) {`, written with `#`.
+
+```text
+A current stamp is only ever stored after every extension installed cleanly, so an unchanged folder with its copy present
+is that copy; the file-by-file comparison is for a folder rendered now.
+```

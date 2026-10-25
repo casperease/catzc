@@ -7,12 +7,13 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-The files and folders on disk that generated-file writers' input globs can claim, from one bounded walk.
+The files and folders on disk that generated-file writers' input globs can claim, from bounded walks of their literal folders.
 
 ### description
 
-Walks the repository once with Get-ChildPath, as deep as the deepest glob reaches: a glob's segment count, or for a '**' glob its literal
-folder's depth plus input_depth of generated-files.yml. Every writer's globs share the result, so the walk is paid once per call.
+A literal glob is one existence check. A wildcard glob walks its literal folder with Get-ChildPath, as deep as its segments reach, or
+input_depth of generated-files.yml for a '**' glob; only a glob with no literal folder walks the repository root. A folder that an
+ancestor's walk already reaches is not walked again, and every glob of the call shares the result.
 
 ### parameter `InputGlob`
 
@@ -32,11 +33,11 @@ The root the walk starts at.
 Get-GeneratedWriterInputFile -InputGlob 'widget/**', 'gadget/*.yml' -RepositoryRoot $root
 ```
 
-## comment:1
+## comment:2
 
-Above `$depth = 1`, written with `#`.
+Above `$files =...`, written with `#`.
 
 ```text
-The repository-relative files and folders on disk the input globs can claim, from one bounded walk of the repository as deep as the
-deepest glob reaches ('**' reaches input_depth below its literal folder), shared by every writer's globs.
+Only a glob with no literal folder needs the repository root walked; every other glob walks its own folder, and a folder an
+ancestor's walk already reaches is not walked twice.
 ```

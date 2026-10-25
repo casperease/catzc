@@ -7,18 +7,20 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Fingerprints a set of input files by their paths and content, the same on every checkout of the same inputs.
+Fingerprints a set of input files by their paths and either their content or their last write and size.
 
 ### description
 
-Returns one SHA-256 hex string over the sorted (path, content hash) of every file named by -Path. A path may be a file or a folder: a folder
+Returns one SHA-256 hex string over the sorted (path, identity) of every file named by -Path. A path may be a file or a folder: a folder
 contributes every file below it (-Filter narrows by name). A missing path contributes a marker of its own, so deleting an input changes the
 stamp.
 
-The stamp depends on what the inputs say, never on when they were written: a path under -Root is named relative to it with '/' separators,
-and a file's content is hashed with its carriage returns removed. A clone, a snapshot, a CRLF checkout and a touched-but-identical file all
-stamp the same, so every checkout agrees on a stamp computed from the same inputs (the root-config inputs stamp of Catzc.Base.RootConfig).
-The work is done by the compiled Catzc.Base.Files.InputStamp, which hashes the files in parallel: a few megabytes of text take milliseconds.
+By content, the default, the stamp depends on what the inputs say, never on when they were written: a path under -Root is named relative to
+it with '/' separators, and a file's content is hashed with its carriage returns removed. A clone, a snapshot, a CRLF checkout and a
+touched-but-identical file all stamp the same, so every checkout agrees on a stamp computed from the same inputs (the file-meta result
+cache). By metadata, a file's last write and size stand in for its content: no file is read, and a touch or a checkout only ever makes the
+stamp differ, never hides a change (the generated-file writers' memo). The work is done by the compiled Catzc.Base.Files.InputStamp, in
+parallel.
 
 It rests on [PDR-ONELIVE](../../../drs/principles/one-living-version.md).
 
@@ -42,6 +44,11 @@ The folder paths are named relative to. Default: the repository root. A path out
 ### parameter `Salt`
 
 Extra text folded into the stamp, for an input that is not a file (a setting, a version).
+
+### parameter `By`
+
+What stands for a file in the stamp: `Content` (its hash, the same on every checkout) or `Metadata` (its last write and size, cheaper, and
+different after a touch). Default: `Content`, declared once on Catzc.Base.Files.InputStamp.
 
 ### outputs
 

@@ -75,4 +75,37 @@ Describe 'Get-InputStamp' -Tag 'L0', 'logic' {
     It '-Salt is folded into the stamp' {
         Get-InputStamp $widget -Salt 'x' | Should -Not -BeExactly (Get-InputStamp $widget -Salt 'y')
     }
+
+    Context '-By Metadata' {
+        It 'changes when a file is only touched' {
+            $before = Get-InputStamp $widget -By Metadata
+            [System.IO.File]::SetLastWriteTimeUtc($widget, [datetime]::UtcNow.AddHours(-3))
+            Get-InputStamp $widget -By Metadata | Should -Not -BeExactly $before
+        }
+
+        It 'keeps the stamp while the last write and the size stay the same, whatever the content' {
+            $written = [datetime]::UtcNow.AddHours(-1)
+            [System.IO.File]::SetLastWriteTimeUtc($widget, $written)
+            $before = Get-InputStamp $widget -By Metadata
+            [System.IO.File]::WriteAllText($widget, 'two')
+            [System.IO.File]::SetLastWriteTimeUtc($widget, $written)
+            Get-InputStamp $widget -By Metadata | Should -BeExactly $before
+        }
+
+        It 'names paths relative to -Root, so the same tree with the same metadata in another place stamps the same' {
+            $copy = Join-Path $TestDrive 'metadata-copy'
+            Remove-Item -LiteralPath $copy -Recurse -Force -ErrorAction Ignore
+            [void] [System.IO.Directory]::CreateDirectory($copy)
+            Copy-Item $gadgets (Join-Path $copy 'gadgets') -Recurse
+            foreach ($file in Get-ChildItem $gadgets -Recurse -File) {
+                $twin = Join-Path $copy ([System.IO.Path]::GetRelativePath($TestDrive, $file.FullName))
+                [System.IO.File]::SetLastWriteTimeUtc($twin, $file.LastWriteTimeUtc)
+            }
+            Get-InputStamp $gadgets -Root $TestDrive -By Metadata | Should -BeExactly (Get-InputStamp (Join-Path $copy 'gadgets') -Root $copy -By Metadata)
+        }
+
+        It 'stamps by content when -By is not given' {
+            Get-InputStamp $widget | Should -BeExactly (Get-InputStamp $widget -By Content)
+        }
+    }
 }

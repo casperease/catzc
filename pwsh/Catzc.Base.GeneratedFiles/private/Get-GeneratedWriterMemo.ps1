@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-GeneratedWriterMemo.ps1.md"
+  docs: "../../../docs/references/pwsh/catzc-base-generated-files/private/Get-GeneratedWriterMemo.ps1.md"
   warning: "Generated Header"
 ---
 #>

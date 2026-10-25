@@ -6,8 +6,6 @@ catzc:
 ---
 */
 
-// The fingerprint of a set of input files: one SHA-256 over the sorted (path, content hash) of every file, the same on every checkout.
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,9 +16,17 @@ using System.Threading.Tasks;
 
 namespace Catzc.Base.Files;
 
+public enum InputStampIdentity
+{
+    Content,
+    Metadata,
+}
+
 public static class InputStamp
 {
-    public static string Compute(string[] paths, string filter, string[] excludes, string root, string salt)
+    public const InputStampIdentity DefaultIdentity = InputStampIdentity.Content;
+
+    public static string Compute(string[] paths, string filter, string[] excludes, string root, string salt, InputStampIdentity identity)
     {
         string rootFull = Path.GetFullPath(root).TrimEnd('\\', '/') + Path.DirectorySeparatorChar;
         List<Regex> skip = new List<Regex>();
@@ -64,6 +70,13 @@ public static class InputStamp
         string[] hashed = new string[kept.Count];
         Parallel.For(0, kept.Count, i =>
         {
+            if (identity == InputStampIdentity.Metadata)
+            {
+                FileInfo info = new FileInfo(kept[i]);
+                hashed[i] = Name(kept[i], rootFull) + "|" + info.LastWriteTimeUtc.Ticks.ToString(System.Globalization.CultureInfo.InvariantCulture) + "|" +
+                    info.Length.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                return;
+            }
             string content = File.ReadAllText(kept[i]).Replace("\r", "");
             byte[] hash = SHA256.HashData(Encoding.UTF8.GetBytes(content));
             hashed[i] = Name(kept[i], rootFull) + "|" + Convert.ToHexString(hash);

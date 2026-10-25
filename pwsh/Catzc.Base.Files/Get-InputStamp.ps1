@@ -19,8 +19,10 @@ function Get-InputStamp {
 
         [string] $Root = (Get-RepositoryRoot),
 
-        [string] $Salt = ''
+        [string] $Salt = '',
+
+        [Catzc.Base.Files.InputStampIdentity] $By = [Catzc.Base.Files.InputStamp]::DefaultIdentity
     )
 
-    [Catzc.Base.Files.InputStamp]::Compute($Path, $Filter, $Exclude, $Root, $Salt)
+    [Catzc.Base.Files.InputStamp]::Compute($Path, $Filter, $Exclude, $Root, $Salt, $By)
 }

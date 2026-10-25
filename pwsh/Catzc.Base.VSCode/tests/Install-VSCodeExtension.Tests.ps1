@@ -41,6 +41,15 @@ Describe 'Install-VsCodeExtension' -Tag 'L0', 'logic' {
         Should -Invoke New-VsCodeExtensionFolder -ModuleName Catzc.Base.VSCode -Times 2 -Exactly -ParameterFilter { $Extension.name -eq 'gadget-ext' }
     }
 
+    It 'trusts a current stamp: an unchanged folder whose installed copy is present is not compared or reinstalled' {
+        Install-VsCodeExtension @script:install | Out-Null
+        $copy = Join-Path $script:installs 'acme.widget-ext-1.0.0'
+        $null = New-Item -ItemType Directory -Path $copy -Force
+        Set-Content -LiteralPath (Join-Path $copy 'extension.js') -Value 'module.exports = { old: true };'
+        $script:current = $true
+        @(Install-VsCodeExtension @script:install -Name widget-ext).Count | Should -Be 0
+    }
+
     It 'stores the folder stamp after a render of every extension, never after a named one' {
         Install-VsCodeExtension @script:install -Name widget-ext | Out-Null
         Should -Invoke Save-GeneratedWriterStamp -ModuleName Catzc.Base.VSCode -Times 0 -Exactly

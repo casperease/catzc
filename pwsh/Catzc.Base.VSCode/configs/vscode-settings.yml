@@ -36,8 +36,6 @@ settings:
   markdown.updateLinksOnFileMove.enableForDirectories: true
 
   # Markdown Preview Enhanced settings
-  markdown-preview-enhanced.previewTheme: one-dark.css
-  markdown-preview-enhanced.codeBlockTheme: one-dark.css
 
   # PowerShell: use pwsh 7 for the Integrated Console
   powershell.powerShellDefaultVersion: PowerShell (x64)
@@ -125,7 +123,6 @@ settings:
     "**/LICENSE": plaintext
     "**/.gitkeep": plaintext
     "**/*.yml": yaml
-    "**/*.yaml": azure-pipelines
     "**/.markdownlintignore": ignore
     "**/out/**/*.log": ansi
 
@@ -133,6 +130,9 @@ settings:
   yaml.schemas:
     ./.vscode/any.schema.json:
       - "**/azure.yml"
+    # Every .yaml in the tree is an Azure Pipelines file; New-VsCodePipelineSchema writes the schema the YAML extension checks it against.
+    ./.vscode/azure-pipelines-schema.json:
+      - "**/*.yaml"
 
   # A compiled ARM template names Azure's schema in its $schema; the editor downloads it only from a trusted domain, and checks a template against the local depended-on copy (contracts/EXTERNAL-azure) without a download.
   json.schemaDownload.trustedDomains:
@@ -154,11 +154,6 @@ settings:
   git.suggestSmartCommit: false
   git.smartCommitChanges: all
   git.postCommitCommand: push
-
-  prettier.documentSelectors:
-    - "**/*.yaml"
-
-  azure-pipelines.customSchemaFile: ./.vscode/azure-pipelines-schema.json
 
   regexrobin.rules:
     - regex: '\[[^\]\r\n]+\]\(/(docs/drs/[^)#\s]+\.md)(#[^)\s]*)?\)'

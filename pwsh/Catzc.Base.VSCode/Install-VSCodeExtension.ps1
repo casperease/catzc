@@ -37,13 +37,17 @@ function Install-VsCodeExtension {
     $rendered = $false
     foreach ($entry in $entries) {
         $folder = Join-Path $Root $entry.name
-        if (-not ($current -and (Test-Path -LiteralPath (Join-Path $folder 'package.json')))) {
+        $renderedNow = -not ($current -and (Test-Path -LiteralPath (Join-Path $folder 'package.json')))
+        if ($renderedNow) {
             $folder = New-VsCodeExtensionFolder -Extension $entry -OutputDirectory $Root
             $rendered = $true
         }
         if (-not $Force) {
             $manifest = Get-Content -LiteralPath (Join-Path $folder 'package.json') -Raw | ConvertFrom-Json
             $installed = Join-Path $ExtensionsDirectory "$($manifest.publisher).$($manifest.name)-$($manifest.version)".ToLowerInvariant()
+            if (-not $renderedNow -and (Test-Path -LiteralPath $installed)) {
+                continue
+            }
             # The editor writes its own __metadata into the installed package.json, so the manifest is compared without it.
             $manifestText = { param([string] $Path) $json = Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
                 $json.PSObject.Properties.Remove('__metadata')

@@ -1,5 +1,5 @@
 {
-  "hash": "cfed6d06",
+  "hash": "0582cffd",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -589,6 +589,11 @@
     },
     {
       "name": "Catzc.Base.Files.InputStamp",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Files.InputStampIdentity",
       "aliases": [],
       "display": []
     },

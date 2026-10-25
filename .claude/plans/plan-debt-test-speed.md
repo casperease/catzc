@@ -38,10 +38,11 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
       start, 2.5 s the L2 dotnet build, 0.1 s Roslyn per case in its own namespace, catzc-54, 2026-10-22). A file measured with no safe gain
       is recorded as left as it is (taken by the orchestrator as delegated, 2026-10-22). Check: `Invoke-TestFile` twice per file, the same
       test names and `Should` count, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
-- [ ] `pwsh/Catzc.Base.VSCode/New-VsCodeExtensionFolder.ps1`: the `catzc-track-lamps` render costs 0.94 s of the editor-extension janitor's
-      1.34 s on every import although `Install-VsCodeExtension` already skips by hash; skip the render when its inputs are unchanged,
-      through the one writer stamp rather than a second memo. Check: `New-VsCodeExtensionFolder.Tests.ps1` alone, and the janitor's time on
-      a second fresh import under 0.2 s.
+- [ ] `pwsh/Catzc.Base.GeneratedFiles` (`Get-GeneratedWriterInputFile`, `Get-GeneratedWriterStamp`): the due step is 0.57 s, about half the
+      folder walk and half each writer's glob match run as PowerShell loops (a whole-root walk with buckets measured slower, 0.82 s); one C#
+      call on the type that owns globs walks once and returns the matched paths per writer, measured against the PowerShell version before
+      it lands. Check: `Get-GeneratedWriterDue.Tests.ps1` alone, a second fresh import's due step under 0.3 s, and `Test-GeneratedFiles`
+      clean.
 
 ## Open questions
 

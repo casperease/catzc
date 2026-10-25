@@ -4,7 +4,7 @@ plan:
   value: high
   reviewed: 2026-10-25
   class: docs
-  targets: [docs/drs/design/visual-design.md, python/catzc_diagrams/configs, docs/explanation/model]
+  targets: [docs/drs/design/visual-design.md, python/catzc_diagrams/configs, docs/explanation/index.md]
 ---
 
 # Model atlas: explanation articles on the physical and meta models, and C0–C4 zoom slides at chosen points of the tree
@@ -42,7 +42,7 @@ already exist into a map anyone can read, and every slide is generated from thos
 ## Open steps
 
 1. [ ] `docs/drs/design/visual-design.md`: rule `DDR-VISUAL-ZOOMISANAXIS` (the C0–C4 list, orthogonal to the lens, the zoom badge, and the
-       subtitle `<lens> · C<n>`); then `Build-DrsIndex`. Check: `Test-Drs` and `Test-Links` on the file.
+       subtitle `<lens> · C<n>`); then `Build-DrsIndex`. Check: `Test-DrsRegistry` and `Test-Links` on the file.
 2. [ ] `python/catzc_diagrams/configs/` (the vocabulary holding `lenses:`): add `zooms:` with the five levels; `declaration.py` accepts the
        optional `about.zoom` and rejects a value outside the list. Check: the kit's pytest for `declaration.py` (new cases: absent, valid,
        out of list).

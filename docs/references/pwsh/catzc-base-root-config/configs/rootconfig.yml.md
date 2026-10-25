@@ -68,8 +68,8 @@ registries (settings/extensions/launch).
 Above `- target: .vscode/azure-pipelines-schema.json`, written with `#`.
 
 ```text
-The Azure Pipelines schema the extension validates our .yaml against (wired via
-azure-pipelines.customSchemaFile in vscode-settings.yml). Gitignored generated copy like the others.
+The Azure Pipelines schema the YAML extension validates our .yaml against (mapped via
+yaml.schemas in vscode-settings.yml). Gitignored generated copy like the others.
 ```
 
 ## comment:6

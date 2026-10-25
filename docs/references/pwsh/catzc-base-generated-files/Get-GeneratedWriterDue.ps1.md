@@ -17,6 +17,10 @@ folder all change the stamp; a changed output alone never does. A missing or unr
 list is due whenever git reports anything changed, and HasLists tells the caller it has none. Test-GeneratedFiles -Changed and the import
 janitors both ask here, so what a writer depends on is declared once, in generated-files.yml.
 
+### parameter `Name`
+
+The writers to judge, as generated-files.yml names them. The walk then reaches only their inputs. Default: every writer.
+
 ### parameter `ChangedPath`
 
 The repository-relative paths that changed, read only for a writer with neither list. Default: git's changed set against HEAD
