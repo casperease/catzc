@@ -1,0 +1,14 @@
+description: The record domains and the citations between them, drawn from the domain query at every build.
+about:
+  adrs: [ADR-REPO-DRSCODE-DOMAINSEGMENT, DDR-VISUAL-ZOOMISANAXIS]
+  lens: governance
+  zoom: C3
+  point: docs/drs
+content:
+  title: The record domains and how they cite each other
+  kind: explanation
+  flow: left-to-right
+  theme: dark
+  bands:
+    - { id: band-domains, label: RECORD DOMAINS }
+  legend: auto

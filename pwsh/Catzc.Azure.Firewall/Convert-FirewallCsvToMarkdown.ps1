@@ -108,7 +108,7 @@ function Convert-FirewallCsvToMarkdown {
             $SourceName = Split-Path -Path $CsvPath -Leaf
         }
 
-        # Asserted in both modes, so a wrong source path fails here by name and never as a raw CSV read error.
+        # Asserted in both modes, so a wrong path to the source CSV fails here by name and never as a raw CSV read error.
         Assert-PathExist $CsvPath -PathType Leaf
 
         $rows = @(Import-Csv -Path $CsvPath)

@@ -2,7 +2,7 @@ function Get-MergedModule {
     # .SYNOPSIS
     #     Merges one source module's function files into the text of its built <Module>.functions.ps1.
     # .DESCRIPTION
-    #     Same order as the source manifest's NestedModules, so load semantics match source mode.
+    #     Same order as the source manifest's NestedModules, so load semantics match the source mode.
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(

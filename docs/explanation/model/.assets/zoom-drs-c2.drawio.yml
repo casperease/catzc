@@ -1,0 +1,31 @@
+description:
+  The decision records' containers are their domains, each of one decision kind; the thesis frames them, the principles state its
+  mechanics, and the architecture domains share one kind.
+about:
+  adrs: [ADR-REPO-DRSCODE-PATHOFSEGMENTS, ADR-REPO-DRSCODE-DOMAINSEGMENT, DDR-VISUAL-ZOOMISANAXIS]
+  lens: governance
+  zoom: C2
+content:
+  title: The record domains are the decision records' containers
+  kind: explanation
+  flow: top-to-bottom
+  theme: dark
+  bands:
+    - { id: band-framing, label: FRAMING }
+    - { id: band-way, label: WAY OF WORKING }
+    - { id: band-architecture, label: ARCHITECTURE }
+  glyphs:
+    - { id: d-thesis, kind: drsonly, label: thesis TDR, in: band-framing }
+    - { id: d-principles, kind: drsonly, label: principles PDR, in: band-framing }
+    - { id: d-research, kind: drsonly, label: research RDR, in: band-framing }
+    - { id: d-process, kind: drsonly, label: process WDR, in: band-way }
+    - { id: d-design, kind: drsonly, label: design DDR, in: band-way }
+    - { id: d-flow, kind: drsonly, label: flow FDR, in: band-way }
+    - { id: d-adr, kind: set, label: ADR domains, in: band-architecture }
+  edges:
+    - { from: d-principles, to: d-thesis, kind: flow, label: cites }
+    - { from: d-design, to: d-principles, kind: flow, label: cites }
+    - { from: d-flow, to: d-principles, kind: flow, label: cites }
+    - { from: d-process, to: d-principles, kind: flow, label: cites }
+    - { from: d-adr, to: d-principles, kind: flow, label: cites }
+  legend: auto

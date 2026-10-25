@@ -73,3 +73,12 @@ Above `repeat:`, written with `#`.
 One lamp per filter of filters.yml: each entry naming the repeat is written once per lamp. The open lamp is no switch: it stands
 before them, always lit, and its one command focuses the next editor.
 ```
+
+## comment:10
+
+Above `language:`, written with `#`.
+
+```text
+One lamp per tagged language of the languages config, named lang-<name> and labelled with its tag; the languages button ticks
+which of them stand in the row, after the filters.
+```

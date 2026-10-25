@@ -113,7 +113,7 @@ function Import-CSharpTypes {
         if (Test-IsRunningInPipeline) {
             throw "$changeSummary Restart PowerShell to pick up the change."
         }
-        # A developer's console source session may load the new build beside the old one and re-point the Catzc.*
+        # A developer's console session in the source tree may load the new build beside the old one and re-point the Catzc.*
         # accelerators, up to the policy's generations; past that cap, or in any other cell, the paths below hold.
         if (-not $PrebuiltOnly -and $typeState.LoadedHash) {
             $deferredRecords = Get-Variable -Name '__CatzcDeferredTypes' -Scope Global -ValueOnly -ErrorAction Ignore

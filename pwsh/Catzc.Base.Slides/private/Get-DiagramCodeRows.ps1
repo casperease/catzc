@@ -18,7 +18,10 @@ function Get-DiagramCodeRows {
     $ids = @{}
     foreach ($file in @(Get-ChildPath $folder -File -Depth 3)) {
         $relative = [System.IO.Path]::GetRelativePath($folder, $file).Replace('\', '/')
-        $role = $languages.PlaceOf($relative).role
+        $place = $languages.PlaceOf($relative)
+        $role = if ($place) {
+            $place.role
+        }
         $kind = if ($kindOf.ContainsKey("$role")) {
             $kindOf["$role"]
         }

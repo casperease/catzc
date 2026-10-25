@@ -48,3 +48,12 @@ Above `$rendered = Join-Path $folder 'media'`, written with `#`.
 A lamp is authored as its two green base glyphs, <lamp>-on.svg and <lamp>-off.svg; every condition variant is rendered from them
 with the lamp palette: the stroke takes the range's glyph shade, the condition adds its badge, and veto strikes the unlit glyph.
 ```
+
+## comment:2
+
+Above `$repeats = if ($Extension.contributes.Contains('repeat')) {`, written with `#`.
+
+```text
+A repeat source that names glyphs draws one label glyph per item, <glyphs><key>-on/off.svg with the item's title as its label, so
+the lamps it repeats need no hand-drawn icon; the pass below recolours them per condition like every other base glyph.
+```

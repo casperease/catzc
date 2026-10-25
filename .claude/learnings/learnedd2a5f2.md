@@ -53,3 +53,17 @@ Started 2026-10-25T23:52:39.8581500+01:00.
 - 2026-10-25 Cats: Token tip: Next time, save tokens by: briefing drones to report after each landed file, since 50-turn limits cut off
   three of them.
 - 2026-10-25 Cats: Token tip: Next time, save tokens by: stopping a finished drone at once, so its idle notices do not each cost a turn.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: vendor contract roots (ado, github, azure) carry per-repo-file fragments and a
+  contract.yml applies_to, which the 2026-10-26 decision in plan-contracts-layout.md reverses to consumer-end bindings.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: Format-Code -Path on one plan also rewraps plan-master.md.
+- 2026-10-26 Cats: Token tip: Next time, save tokens by: reading plan-contracts-layout.md first for any contracts/ question.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: file-icon glyphs live in js/catzc-file-icons/assets/\<glyph>.svg as black-stroke
+  16x16 SVGs, recoloured by New-VsCodeFileIconTheme from file-icons.yml, and the theme has no folder icons.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: Import-CSharpTypes copies the shadow manifest into the tracked
+  pwsh/.compiled/Catzc.Types.\<hash>.json and deletes older ones, which is why every C# edit churns git.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: cache-types.yaml keys the pipeline types cache on pwsh/.compiled/*.json, so
+  untracking it needs a new source-based key.
+- 2026-10-26 Cats: In hindsight I wish I knew this fact: Test-Plans fails a new plan without a plan-master.md chunk line, even when
+  plan-master.md is dirty in a peer session.
+- 2026-10-26 Cats: Token tip: Next time, save tokens by: putting multi-step pwsh in an out/ script from the start, since a background call
+  allows exactly one command.

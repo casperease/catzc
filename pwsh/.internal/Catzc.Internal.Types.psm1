@@ -259,7 +259,7 @@ function Get-TypesLoadPolicy {
     if ($policy.Generations -isnot [int] -or $policy.Generations -lt 1) {
         throw "Row '$cell' has generations '$($policy.Generations)'; it is a whole number of at least 1."
     }
-    # Builds stack side by side only in a developer's interactive source session; every other cell keeps one.
+    # Builds stack side by side only in a developer's interactive session in the source tree; every other cell keeps one.
     if ($policy.Generations -gt 1 -and $cell -notlike 'console.*.source') {
         throw "Row '$cell' has generations $($policy.Generations); only a console.*.source row may stack more than 1 build."
     }

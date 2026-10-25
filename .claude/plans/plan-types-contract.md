@@ -55,3 +55,12 @@ and free to change in place (ADR-REPO-CONTRACT-CURRENTVERSION). The tracked file
 9. [ ] Supersedes step 10 of `plan-types-build-local.md` ("commit the current manifest"); strike it there once that file is clean. The
        untracking of `pwsh/.compiled/Catzc.Types.*.json` is the user's git step (`git rm --cached`), in task-user-runs-and-commits. Check:
        `git ls-files pwsh/.compiled` prints nothing.
+10. [ ] Add this plan's chunk line to `plan-master.md` once that file is clean (it was dirty in a peer session when this plan landed).
+        Check: `Test-Plans -Path .claude/plans/plan-types-contract.md` green.
+
+## Open questions
+
+- Should `Test-Plans` accept a new plan's missing master chunk line while `plan-master.md` is dirty in a peer session, reporting it as a
+  pending step instead of a failure? Recommendation: yes, it blocks every solo session that lands a plan.
+- Should `js/catzc-file-icons` gain a short README naming where glyphs live and that the theme has no folder icons, so the next icon task
+  skips the search? Recommendation: yes, one paragraph.

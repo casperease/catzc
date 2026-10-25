@@ -3,8 +3,10 @@
 ```text
 Each model is declared once, answered by one query, and kept true by one gate.
 
-Supports ADR-AUTO-DEFAULT-ONERESOLUTIONORDER and ADR-REPO-FOLDERS-NAMESARESETTINGS (meta lens).
+Supports ADR-AUTO-DEFAULT-ONERESOLUTIONORDER and ADR-REPO-FOLDERS-NAMESARESETTINGS (governance lens).
 ```
+
+![Each model is declared once, answered by a query, and kept true by a gate](.assets/where-each-model-is-declared.drawio.png)
 
 A model that lives in more than one place drifts, so each one is declared once
 ([ADR-AUTO-DEFAULT-ONERESOLUTIONORDER](../../drs/automation/sensible-defaults.md#rule-adr-auto-default-oneresolutionorder)). The table

@@ -7,13 +7,13 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-The file-limits gate: checks every tracked file in scope against its length and width limits.
+The quality gate for file limits: checks every tracked file in scope against its length and width limits.
 
 ### description
 
 Generated targets, the vendor folder and the unordered track are out of scope. A length breach fails unless the file is in the exempt map
-with its reason; a width breach is only reported while its class's width_mode is report. A file no language, extension or file name
-declares fails as unclassified.
+with its reason; a width breach is only reported while its class's width_mode is report. A file no language, extension or file name declares
+fails as unclassified.
 
 ### parameter `Path`
 

@@ -1,0 +1,29 @@
+description: >-
+  Every model runs one way: declared once in a config, answered by a query that reads it, and kept true by a gate that refuses a tree that
+  disagrees.
+about:
+  adrs: [ADR-AUTO-DEFAULT-ONERESOLUTIONORDER, ADR-REPO-FOLDERS-NAMESARESETTINGS]
+  lens: governance
+content:
+  title: Each model is declared once, answered by a query, and kept true by a gate
+  kind: explanation
+  flow: left-to-right
+  theme: dark
+  bands:
+    - { id: band-declared, label: DECLARED }
+    - { id: band-answered, label: ANSWERED }
+    - { id: band-kept, label: KEPT TRUE }
+  glyphs:
+    - { id: f-config, kind: file, label: One config, in: band-declared }
+    - { id: c-query, kind: code, label: One query, in: band-answered }
+    - { id: g-gate, kind: gate, label: One gate, in: band-kept }
+    - { id: x-fail, kind: failure, label: Drift refused, in: band-kept }
+  edges:
+    - { from: c-query, to: f-config, kind: read }
+    - { from: g-gate, to: f-config, kind: read }
+    - { from: g-gate, to: x-fail, kind: fail }
+  markers:
+    - { at: f-config, number: 1 }
+    - { at: c-query, number: 2 }
+    - { at: g-gate, number: 3 }
+  legend: auto

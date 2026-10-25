@@ -25,7 +25,7 @@ function Save-GeneratedWriterStamp {
     $inputs = [string[]] @($writer.inputs | Where-Object { $_ })
     $walk = Get-GeneratedWriterInputFile -InputGlob $inputs -RepositoryRoot $RepositoryRoot
     $memo = Get-GeneratedWriterMemo -MemoPath $MemoPath
-    $memo[$Name] = Get-GeneratedWriterStamp -InputGlob $inputs -Walk $walk -RepositoryRoot $RepositoryRoot
+    $memo[$Name] = (Get-GeneratedWriterStamp -Writer @($writer) -Walk $walk -RepositoryRoot $RepositoryRoot)[$Name]
     [void] [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($MemoPath))
     [System.IO.File]::WriteAllText($MemoPath, ($memo | ConvertTo-Json -Compress))
 }

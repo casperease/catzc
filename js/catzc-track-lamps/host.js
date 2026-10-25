@@ -47,7 +47,9 @@ const declaredFilters = () => ({ ...(config().get("filters") ?? {}), ...language
 // The lamps in play: the shipped filters (or every filter with the flag on), then the ticked languages after them.
 const filters = () => {
     const declared = config().get("filters") ?? {};
-    const shipped = PREVIEW_LAMPS ? declared : Object.fromEntries(Object.entries(declared).filter(([name]) => SHIPPED_LAMPS.includes(name)));
+    const shipped = PREVIEW_LAMPS
+        ? declared
+        : Object.fromEntries(Object.entries(declared).filter(([name]) => SHIPPED_LAMPS.includes(name)));
     return { ...shipped, ...languageSets(languages(), host.ticked) };
 };
 // The flag as an assert: with it off, the lamps in play are the shipped ones in their order, or the extension says so and keeps to them.

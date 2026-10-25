@@ -1,3 +1,11 @@
+/*
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-folders/types/FolderWalker.cs.md"
+  header: "generated"
+---
+*/
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,8 +40,6 @@ public static class FolderWalker
         return results.ToArray();
     }
 
-    // One pass that lists the files and the folders apart, each relative to relativeTo with '/' separators: the walk a caller
-    // that needs both would otherwise make twice, then cut path by path.
     public static string[][] WalkRelative(string root, int depth, IEnumerable<string> exclude, string relativeTo)
     {
         if (string.IsNullOrEmpty(root))

@@ -26,7 +26,9 @@ A **lamp** is a filter a reader switches on (lit), off, or to **veto**, one clic
 union** of the lit lamps minus the zones of the vetoed lamps: a file is shown while at least one lit lamp claims it, so putting a lamp out
 hides only the files no other lit lamp claims, while a vetoed lamp hides every file it claims even when a lit lamp claims it too. Every lamp
 takes part the same way, the open lamp included: its sets are the files open in an editor, and it is always lit, so it keeps them in the
-tree whatever else is out; only a veto hides over another lamp, and every lamp lit shows everything.
+tree whatever else is out; only a veto hides over another lamp, and every lamp lit shows everything. A reader adds **language lamps** to the
+row with the languages button: each tagged language of the languages config ticked there stands after the filters as `lang-<name>`, its sets
+one include per extension, and takes part exactly like a filter lamp; unticking it takes it out of the row again.
 
 - [Decision](#decision)
 - [Consequences](#consequences)

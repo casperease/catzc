@@ -1,0 +1,36 @@
+description: >-
+  The physical model in six layers: the tree of files, the tracks that place them, the file languages that name their checks, the world map
+  that crosses the two, the aspects a module's files split into, and the directed links between files.
+about:
+  adrs: [DDR-TRACK-TRACKISPLACEDCLUSTER, DDR-TRACK-FILELANGUAGE, DDR-TRACK-WORLDMAP, DDR-ASPECT-MODULESPARTITIONINTOASPECTS, ADR-REPO-LINKS-EVERYLINKHASADIRECTION]
+  lens: meta
+content:
+  title: The physical model is six layers over one tree
+  kind: explanation
+  flow: left-to-right
+  theme: dark
+  bands:
+    - { id: band-where, label: WHERE }
+    - { id: band-what, label: WHAT }
+    - { id: band-between, label: BETWEEN }
+  glyphs:
+    - { id: f-tree, kind: file, label: The tree, in: band-where }
+    - { id: s-tracks, kind: set, label: Tracks, in: band-where }
+    - { id: s-languages, kind: set, label: File languages, in: band-what }
+    - { id: s-worldmap, kind: set, label: World map, in: band-what }
+    - { id: s-aspects, kind: set, label: Aspects, in: band-what }
+    - { id: s-links, kind: set, label: Link relations, in: band-between }
+  edges:
+    - { from: s-tracks, to: f-tree, kind: read }
+    - { from: s-worldmap, to: s-tracks, kind: read }
+    - { from: s-worldmap, to: s-languages, kind: read }
+    - { from: s-aspects, to: s-languages, kind: read }
+    - { from: s-links, to: f-tree, kind: read }
+  markers:
+    - { at: f-tree, number: 1 }
+    - { at: s-tracks, number: 2 }
+    - { at: s-languages, number: 3 }
+    - { at: s-worldmap, number: 4 }
+    - { at: s-aspects, number: 5 }
+    - { at: s-links, number: 6 }
+  legend: auto

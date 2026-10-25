@@ -98,8 +98,6 @@ extensions:
           list: filters
           key: name
           title: title
-        # One lamp per tagged language of the languages config, named lang-<name> and labelled with its tag; the languages button ticks
-        # which of them stand in the row, after the filters.
         language:
           config: languages
           list: languages
@@ -200,7 +198,9 @@ extensions:
           # The ticked languages stand after every filter lamp, then the button that ticks them.
           - repeat: language
             command: catzc.lamps.lang-{language}.veto
-            when: "view == workbench.explorer.fileView && catzc.lamps.shown.lang-{language} && !catzc.lamps.out.lang-{language} && !catzc.lamps.veto.lang-{language}"
+            when:
+              "view == workbench.explorer.fileView && catzc.lamps.shown.lang-{language} && !catzc.lamps.out.lang-{language} &&
+              !catzc.lamps.veto.lang-{language}"
             group: navigation@20{language.position}
           - repeat: language
             command: catzc.lamps.lang-{language}.putOut

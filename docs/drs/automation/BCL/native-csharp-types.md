@@ -54,8 +54,8 @@ terminal or the extension's host, and an import that dies there leaves the edito
 assembly whatever drifted and writes one line, "loaded inside VS Code with non-current types dll", naming the loaded hash and the source
 hash. It asks `Test-IsRunningInVsCode`, the loader's one reader of VS Code's terminal mark, with `Assert-IsRunningInVsCode` as its guard
 form; the pipeline check comes first, so a pipeline is never softened by the mark. Ahead of all of these, after the pipeline check, a
-developer's console source session loads the changed build beside the old one, up to the `generations` cap that `types-load.yml` declares
-for that cell, and re-points the `Catzc.*` accelerators to it; past the cap, the paths above hold.
+developer's console session in the source tree loads the changed build beside the old one, up to the `generations` cap that `types-load.yml`
+declares for that cell, and re-points the `Catzc.*` accelerators to it; past the cap, the paths above hold.
 
 - [The cache-state contract](#the-cache-state-contract)
 

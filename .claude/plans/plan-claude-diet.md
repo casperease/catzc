@@ -68,3 +68,8 @@ It cuts a cost paid by every session and every spawn that loads the project inst
         reads from the record itself. Check: `Test-Links` on the page.
 12. [ ] `docs/explanation/index.md`, "How to read the diagrams": one clause that an inspection note is deleted when the engine answers it,
         never marked done. Check: `Test-Links` on the page.
+
+## Open questions
+
+- Should the `Show-EditReminder` hook text add one line that `Format-Code -Path` on a plan also re-wraps `plan-master.md`? Recommended: yes,
+  one clause in the hook text instead of a lesson every session relearns. Check if decided: `Test-Plans`.

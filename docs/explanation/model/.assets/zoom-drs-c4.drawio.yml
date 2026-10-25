@@ -1,0 +1,14 @@
+description: The records of the design domain and the links between them, drawn from the link graph at every build.
+about:
+  adrs: [ADR-REPO-LINKS-EVERYLINKHASADIRECTION, DDR-VISUAL-ZOOMISANAXIS]
+  lens: governance
+  zoom: C4
+  point: docs/drs/design
+content:
+  title: The design records and the links between them
+  kind: explanation
+  flow: left-to-right
+  theme: dark
+  bands:
+    - { id: band-records, label: DESIGN RECORDS }
+  legend: auto

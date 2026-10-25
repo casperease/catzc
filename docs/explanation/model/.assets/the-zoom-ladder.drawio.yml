@@ -1,0 +1,26 @@
+description: >-
+  The zoom ladder from C0 to C4: the landscape of truth stores, the repository in its context, its tracks as containers, one container's
+  components, and one module's code; the two deepest levels are drawn from queries.
+about:
+  adrs: [DDR-VISUAL-ZOOMISANAXIS]
+  lens: meta
+content:
+  title: Five levels, from the landscape to one module's files
+  kind: explanation
+  flow: top-to-bottom
+  theme: dark
+  bands:
+    - { id: band-drawn, label: DRAWN BY HAND }
+    - { id: band-queried, label: DRAWN FROM A QUERY }
+  glyphs:
+    - { id: z-c0, kind: store, label: C0 landscape, in: band-drawn }
+    - { id: z-c1, kind: env, label: C1 context, in: band-drawn }
+    - { id: z-c2, kind: set, label: C2 containers, in: band-drawn }
+    - { id: z-c3, kind: module, label: C3 components, in: band-queried }
+    - { id: z-c4, kind: code, label: C4 code, in: band-queried }
+  edges:
+    - { from: z-c0, to: z-c1, kind: flow, label: zooms in }
+    - { from: z-c1, to: z-c2, kind: flow, label: zooms in }
+    - { from: z-c2, to: z-c3, kind: flow, label: zooms in }
+    - { from: z-c3, to: z-c4, kind: flow, label: zooms in }
+  legend: auto

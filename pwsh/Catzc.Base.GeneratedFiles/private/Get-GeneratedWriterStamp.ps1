@@ -8,10 +8,11 @@ catzc:
 
 function Get-GeneratedWriterStamp {
     [CmdletBinding()]
-    [OutputType([string])]
+    [OutputType([hashtable])]
     param(
+        [Parameter(Mandatory)]
         [AllowEmptyCollection()]
-        [string[]] $InputGlob,
+        [object[]] $Writer,
 
         [Parameter(Mandatory)]
         [pscustomobject] $Walk,
@@ -21,19 +22,36 @@ function Get-GeneratedWriterStamp {
     )
 
     # Every matching file on disk counts, committed or ignored, so a pull or a hand-drifted file changes the stamp as surely as an edit.
-    $globs = [string[]] @($InputGlob | Where-Object { $_ })
-    $matched = [Catzc.Base.Globs.GlobPattern]::MatchingPaths($globs, [string[]] @($Walk.File))
-    $folderGlobs = [string[]] @(foreach ($glob in $globs) {
-            $slash = $glob.LastIndexOf('/')
-            if ($slash -gt 0 -and $glob.IndexOfAny([char[]] '*?[') -ge 0 -and $glob.IndexOfAny([char[]] '*?[') -lt $slash) {
-                $glob.Substring(0, $slash)
-            }
-        })
-    $folders = [Catzc.Base.Globs.GlobPattern]::MatchingPaths($folderGlobs, [string[]] @($Walk.Folder))
-    $salt = (@($folders | Sort-Object) | ForEach-Object { "folder:$_" }) -join ';'
-    if ($matched.Count -eq 0) {
-        $bytes = [System.Text.Encoding]::UTF8.GetBytes($salt)
-        return [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData($bytes))
+    $prefix = $RepositoryRoot.TrimEnd('\', '/') + [System.IO.Path]::DirectorySeparatorChar
+    $stamps = @{}
+    $names = [System.Collections.Generic.List[string]]::new()
+    $sets = [System.Collections.Generic.List[string[]]]::new()
+    $salts = [System.Collections.Generic.List[string]]::new()
+    foreach ($entry in $Writer) {
+        $globs = [string[]] @($entry.inputs | Where-Object { $_ })
+        $matched = [Catzc.Base.Globs.GlobPattern]::MatchingPaths($globs, [string[]] @($Walk.File))
+        $folderGlobs = [string[]] @(foreach ($glob in $globs) {
+                $slash = $glob.LastIndexOf('/')
+                if ($slash -gt 0 -and $glob.IndexOfAny([char[]] '*?[') -ge 0 -and $glob.IndexOfAny([char[]] '*?[') -lt $slash) {
+                    $glob.Substring(0, $slash)
+                }
+            })
+        $folders = [Catzc.Base.Globs.GlobPattern]::MatchingPaths($folderGlobs, [string[]] @($Walk.Folder))
+        $salt = (@($folders | Sort-Object) | ForEach-Object { "folder:$_" }) -join ';'
+        if ($matched.Count -eq 0) {
+            $stamps[$entry.name] = [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($salt)))
+            continue
+        }
+        $names.Add($entry.name)
+        $sets.Add([string[]] (@($matched) -replace '^', $prefix))
+        $salts.Add($salt)
     }
-    Get-InputStamp -Path ([string[]] @($matched) -replace '^', ($RepositoryRoot.TrimEnd('\', '/') + [System.IO.Path]::DirectorySeparatorChar)) -Root $RepositoryRoot -Salt $salt -By Metadata
+    # One call stamps every writer, so a file several writers read is stat'ed once for all of them.
+    if ($names.Count -gt 0) {
+        $computed = [Catzc.Base.Files.InputStamp]::ComputeMany($sets.ToArray(), '*', [string[]] @(), $RepositoryRoot, $salts.ToArray(), [Catzc.Base.Files.InputStampIdentity]::Metadata)
+        for ($i = 0; $i -lt $names.Count; $i++) {
+            $stamps[$names[$i]] = $computed[$i]
+        }
+    }
+    $stamps
 }

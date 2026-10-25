@@ -18,5 +18,7 @@ human or agent, can ask a command instead of grepping the configs. The [explanat
 - [The meta model](the-meta-model.md) — the modules and the order they load in, the engines, the decision kinds and domains, and the
   glossary.
 - [Where each model is declared](where-each-model-is-declared.md) — each model with its config, its query and its gate.
+- The five ladders, one per point of the tree: [the repository root](zoom-root.md) (C0–C2), [pwsh](zoom-pwsh.md) (C2–C3),
+  [pwsh/.internal](zoom-internal.md) (C3–C4), [Catzc.Base.Config](zoom-config.md) (C3–C4) and [docs/drs](zoom-drs.md) (C2–C4).
 - [The zoom ladder](the-zoom-ladder.md) — the five levels a diagram stands at, from the landscape around the repository down to one module's
   files ([DDR-VISUAL-ZOOMISANAXIS](../../drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)).

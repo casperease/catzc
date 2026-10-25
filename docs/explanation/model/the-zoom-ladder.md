@@ -12,6 +12,8 @@ C4  code         one module's files, and their link edges
 Supports DDR-VISUAL-ZOOMISANAXIS (meta lens).
 ```
 
+![Five levels, from the landscape to one module's files](.assets/the-zoom-ladder.drawio.png)
+
 Every diagram is drawn through a **lens**, the closed list the renderer declares (`about.lens`): meta, architecture, implementation,
 operations, governance, source, action and proof. The lens says what a diagram shows. A diagram may also name a **zoom**, how far out it
 stands, from a second closed list declared beside the lenses (`about.zoom`)

@@ -44,15 +44,5 @@ takes any set of globs, so a language lamp is one set per language and no new ru
 
 ## Open steps
 
-- [ ] Settings: `catzc.trackLamps.languages` (tag and extensions per tagged language) rendered by `New-VsCodeSettings` from the languages
-      config, declared in the manifest's configuration. Check: `New-VSCodeSettings.Tests.ps1`, and `Build-RootConfig .vscode/settings.json`.
-- [ ] Manifest: the language repeat with its commands and menu entries, and `catzc.lamps.languages.pick` with its icon; the label glyphs
-      rendered per tag and condition. Check: `catzc-track-lamps.Tests.ps1` (every tagged language has its commands, icons and menu items),
-      `Expand-VsCodeRepeat.Tests.ps1`.
-- [ ] Engine: the pick list, the ticked list in the workspace state, `lang-<name>` sets added after the filters in `lampSets`, the shown
-      keys, and the lamps in the census and the status words. Check: node tests in `js/catzc-track-lamps/tests/` for the sets, the census
-      and the words with a language lamp ticked, off and vetoed.
-- [ ] Rule: DDR-FILTER-TOTALUNION names the language lamps as lamps a reader adds, with the button that adds them. Check: `Test-Links` and
-      `Test-Markdownlint` on `docs/drs/design/repository-filters.md`.
 - [ ] Install and reload; tick two languages, put one out, veto the other, untick both. Check: the user's eye on the title row and the
       status line.

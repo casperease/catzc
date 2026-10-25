@@ -1,0 +1,32 @@
+description: >-
+  The repository as one system with its actors: the engineer works on the devbox, the devbox and the pipelines run the one entry point,
+  and the pipelines deploy to Azure through Azure DevOps.
+about:
+  adrs: [TDR-STORES-RESPONSIBILITYDOMAIN, ADR-AUTO-ENGINE-IMPORTERENTRY, DDR-VISUAL-ZOOMISANAXIS]
+  lens: architecture
+  zoom: C1
+content:
+  title: The repository as one system, with its actors
+  kind: explanation
+  flow: left-to-right
+  theme: dark
+  bands:
+    - { id: band-people, label: ACTORS }
+    - { id: band-system, label: THE SYSTEM }
+    - { id: band-platform, label: PLATFORM }
+  glyphs:
+    - { id: a-engineer, kind: actor, label: Engineer, in: band-people }
+    - { id: e-devbox, kind: env, label: Devbox, in: band-people }
+    - { id: s-repo, kind: store, label: Repository, in: band-system }
+    - { id: c-importer, kind: code, label: importer, in: band-system }
+    - { id: r-pipelines, kind: runner, label: Pipelines, in: band-platform }
+    - { id: x-ado, kind: external, label: Azure DevOps, in: band-platform }
+    - { id: x-azure, kind: external, label: Azure, in: band-platform }
+  edges:
+    - { from: a-engineer, to: e-devbox, kind: flow, label: works on }
+    - { from: e-devbox, to: c-importer, kind: flow, label: runs }
+    - { from: c-importer, to: s-repo, kind: read }
+    - { from: x-ado, to: r-pipelines, kind: flow, label: runs }
+    - { from: r-pipelines, to: c-importer, kind: flow, label: runs }
+    - { from: r-pipelines, to: x-azure, kind: flow, label: deploys to }
+  legend: auto

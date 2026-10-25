@@ -1,6 +1,6 @@
 # pwsh/Catzc.Base.Vendor/configs/vendor.yml
 
-The vendor module source: the one place that says where vendored PowerShell modules come from
+The vendor registry: the one place that says where vendored PowerShell modules come from
 ([ADR-PWSH-VENDOR](../../../../drs/automation/pwsh/vendor-toolset-dependencies.md)). `Install-VendorModule` downloads from it, and
 `Remove-VendorModules` checks against it that every committed module can be restored before it deletes one.
 

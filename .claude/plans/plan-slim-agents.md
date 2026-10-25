@@ -112,7 +112,9 @@ Kit skills kept as they are, loaded by a job skill's steps: `drawio-declaration`
        `Test-AgentDefinitions`.
 4. [ ] The four drone files and their `agents.yml` entries (`model_reason` on sonnet, opus and fable). Check: `Test-AgentDefinitions`.
 5. [ ] One job skill per row of the mapping, one file at a time: the robot's body folded into its skill, the duplicate lines dropped, the
-       robot file and its `agents.yml` entry deleted, the `capabilities.yml` entry updated. Check: `Test-AgentDefinitions` after each.
+       robot file and its `agents.yml` entry deleted, the `capabilities.yml` entry updated. The `plan-decide` skill gains one merged line:
+       the open-question search matches all three shapes in one grep (`## Open questions`, `[ ] Open question`,
+       `Proposed ... Answer: yes or no`), and every option's description carries its why and its outcome in the tree (the user, 2026-10-25). Check: `Test-AgentDefinitions` after each.
 6. [ ] `pwsh/Catzc.Tooling.Claude/types/ClaudeDroneConfig.cs` and its config: the default agent `catzc-drone` is removed;
        `Start-ClaudeDrone` takes a required skill and resolves the drone from its `model_floor`, its tests with it. Check: `Invoke-TestFile`
        on `ClaudeDroneConfig.Tests.ps1` and `Start-ClaudeDrone.Tests.ps1`.

@@ -1,0 +1,14 @@
+description: The pwsh track's modules and the calls the code makes between them, drawn from the dependency query at every build.
+about:
+  adrs: [ADR-AUTO-DEPM-UNIFIEDGRAPH, ADR-AUTO-MODULE-TOPOLOGICALORDER, DDR-VISUAL-ZOOMISANAXIS]
+  lens: architecture
+  zoom: C3
+  point: pwsh
+content:
+  title: The pwsh modules and the calls between them
+  kind: explanation
+  flow: left-to-right
+  theme: dark
+  bands:
+    - { id: band-modules, label: MODULES }
+  legend: auto

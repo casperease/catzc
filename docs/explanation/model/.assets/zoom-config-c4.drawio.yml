@@ -1,0 +1,14 @@
+description: The files of Catzc.Base.Config and the links between them, drawn from the link graph at every build.
+about:
+  adrs: [ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-REPO-LINKS-EVERYLINKHASADIRECTION, DDR-VISUAL-ZOOMISANAXIS]
+  lens: implementation
+  zoom: C4
+  point: pwsh/Catzc.Base.Config
+content:
+  title: The config module's files and the links between them
+  kind: explanation
+  flow: left-to-right
+  theme: dark
+  bands:
+    - { id: band-files, label: FILES }
+  legend: auto

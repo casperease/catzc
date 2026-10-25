@@ -2,7 +2,7 @@ function Get-ModuleBuildPlan {
     # .SYNOPSIS
     #     Computes every file a build writes, from the source tree alone, and collects every reason it cannot.
     # .DESCRIPTION
-    #     Reads sources and writes nothing, so the plan can be checked or returned before any write.
+    #     Reads the sources and writes nothing, so the plan can be checked or returned before any write.
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-NoBareCacheEntryRead', '', Justification = 'The module constants are assigned once in Catzc.Internal.Builder.psm1, whose shared scope this file is dot-sourced into, before any call.')]
     [CmdletBinding()]
     [OutputType([pscustomobject])]

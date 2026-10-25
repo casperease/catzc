@@ -28,10 +28,6 @@ comment, and the page ready for the next `Export-Comments` run.
 
 ## Open steps
 
-- [ ] `docs/drs/repository/comments-in-docs.md`: ADR-REPO-COMMENTS-MOVELOSESNOTHING says the move is verbatim, and
-      ADR-REPO-COMMENTS-PAGEISAUTHORED lets the author edit; add to PAGEISAUTHORED that the author folds sections into the page's article
-      prose and deletes them, the source's one-line insight staying in place, and that the view then shows only the sections still on the
-      page. Check: `Test-Links` and `Test-Spelling` on the file, and `Test-Comments` over the vendor pilot still reports no issues.
 - [ ] Rollout, one module per step, in the master's order, after plan-comment-insights.md's TypesSystem, RootConfig and Slides steps land
       (their peers are writing source lines there): delegated to `catzc-drone`, at most 8 modules in flight, each brief naming its module's
       page folder and source folder as the files it owns and the vendor pilot as the pattern. Per page: write the article, keep `## help`,

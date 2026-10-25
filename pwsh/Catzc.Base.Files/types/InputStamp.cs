@@ -30,6 +30,21 @@ public static class InputStamp
     // Carriage returns are dropped before hashing, so a CRLF checkout, a clone and a snapshot all stamp the same.
     public static string Compute(string[] paths, string filter, string[] excludes, string root, string salt, InputStampIdentity identity)
     {
+        return ComputeMany(new[] { paths }, filter, excludes, root, new[] { salt }, identity)[0];
+    }
+
+    // One stamp per path set, each the stamp Compute gives that set alone; a file named in several sets is read once for all of them.
+    public static string[] ComputeMany(string[][] pathSets, string filter, string[] excludes, string root, string[] salts, InputStampIdentity identity)
+    {
+        if (pathSets == null)
+        {
+            throw new ArgumentNullException("pathSets");
+        }
+        if (salts == null || salts.Length != pathSets.Length)
+        {
+            throw new ArgumentException("salts must hold one salt per path set", "salts");
+        }
+
         string rootFull = Path.GetFullPath(root).TrimEnd('\\', '/') + Path.DirectorySeparatorChar;
         List<Regex> skip = new List<Regex>();
         foreach (string pattern in excludes ?? new string[0])
@@ -37,62 +52,111 @@ public static class InputStamp
             skip.Add(ToRegex(pattern.Replace('\\', '/')));
         }
 
-        List<string> files = new List<string>();
-        List<string> lines = new List<string>();
-        // A metadata stamp keeps the FileInfo the existence check already read, so each named file is stat'ed once.
-        Dictionary<string, FileInfo> known = new Dictionary<string, FileInfo>(StringComparer.Ordinal);
+        // Every named path is stat'ed once, in parallel; a metadata line reuses the FileInfo that check read.
+        string[][] fulls = new string[pathSets.Length][];
+        HashSet<string> named = new HashSet<string>(StringComparer.Ordinal);
+        for (int set = 0; set < pathSets.Length; set++)
+        {
+            string[] entries = pathSets[set] ?? new string[0];
+            fulls[set] = new string[entries.Length];
+            for (int i = 0; i < entries.Length; i++)
+            {
+                fulls[set][i] = Path.GetFullPath(entries[i]);
+                named.Add(fulls[set][i]);
+            }
+        }
+        string[] namedPaths = new string[named.Count];
+        named.CopyTo(namedPaths);
+        FileInfo[] namedInfo = new FileInfo[namedPaths.Length];
+        Parallel.For(0, namedPaths.Length, i =>
+        {
+            FileInfo info = new FileInfo(namedPaths[i]);
+            info.Refresh();
+            namedInfo[i] = info;
+        });
+        Dictionary<string, FileInfo> known = new Dictionary<string, FileInfo>(namedPaths.Length, StringComparer.Ordinal);
+        for (int i = 0; i < namedPaths.Length; i++)
+        {
+            known[namedPaths[i]] = namedInfo[i];
+        }
+
         EnumerationOptions options = new EnumerationOptions { RecurseSubdirectories = true };
-        foreach (string entry in paths)
+        List<string>[] kept = new List<string>[pathSets.Length];
+        List<string>[] missing = new List<string>[pathSets.Length];
+        HashSet<string> unique = new HashSet<string>(StringComparer.Ordinal);
+        for (int set = 0; set < pathSets.Length; set++)
         {
-            string full = Path.GetFullPath(entry);
-            FileInfo named = new FileInfo(full);
-            if (named.Exists)
+            List<string> files = new List<string>();
+            missing[set] = new List<string>();
+            foreach (string full in fulls[set])
             {
-                files.Add(full);
-                known[full] = named;
+                if (known[full].Exists)
+                {
+                    files.Add(full);
+                }
+                else if (Directory.Exists(full))
+                {
+                    files.AddRange(Directory.EnumerateFiles(full, filter ?? "*", options));
+                }
+                else
+                {
+                    missing[set].Add(Name(full, rootFull) + "|missing");
+                }
             }
-            else if (Directory.Exists(full))
+            kept[set] = new List<string>();
+            foreach (string file in files)
             {
-                files.AddRange(Directory.EnumerateFiles(full, filter ?? "*", options));
-            }
-            else
-            {
-                lines.Add(Name(full, rootFull) + "|missing");
+                string slashed = file.Replace('\\', '/');
+                bool skipped = false;
+                foreach (Regex pattern in skip)
+                {
+                    if (pattern.IsMatch(slashed)) { skipped = true; break; }
+                }
+                if (!skipped)
+                {
+                    kept[set].Add(file);
+                    unique.Add(file);
+                }
             }
         }
 
-        List<string> kept = new List<string>();
-        foreach (string file in files)
+        string[] uniquePaths = new string[unique.Count];
+        unique.CopyTo(uniquePaths);
+        string[] uniqueLines = new string[uniquePaths.Length];
+        Parallel.For(0, uniquePaths.Length, i =>
         {
-            string slashed = file.Replace('\\', '/');
-            bool skipped = false;
-            foreach (Regex pattern in skip)
-            {
-                if (pattern.IsMatch(slashed)) { skipped = true; break; }
-            }
-            if (!skipped) { kept.Add(file); }
-        }
-
-        string[] hashed = new string[kept.Count];
-        Parallel.For(0, kept.Count, i =>
-        {
+            string path = uniquePaths[i];
             if (identity == InputStampIdentity.Metadata)
             {
-                FileInfo info = known.TryGetValue(kept[i], out FileInfo seen) ? seen : new FileInfo(kept[i]);
-                hashed[i] = Name(kept[i], rootFull) + "|" + info.LastWriteTimeUtc.Ticks.ToString(System.Globalization.CultureInfo.InvariantCulture) + "|" +
+                FileInfo info = known.TryGetValue(path, out FileInfo seen) ? seen : new FileInfo(path);
+                uniqueLines[i] = Name(path, rootFull) + "|" + info.LastWriteTimeUtc.Ticks.ToString(System.Globalization.CultureInfo.InvariantCulture) + "|" +
                     info.Length.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 return;
             }
-            string content = File.ReadAllText(kept[i]).Replace("\r", "");
+            string content = File.ReadAllText(path).Replace("\r", "");
             byte[] hash = SHA256.HashData(Encoding.UTF8.GetBytes(content));
-            hashed[i] = Name(kept[i], rootFull) + "|" + Convert.ToHexString(hash);
+            uniqueLines[i] = Name(path, rootFull) + "|" + Convert.ToHexString(hash);
         });
-        lines.AddRange(hashed);
+        Dictionary<string, string> lineOf = new Dictionary<string, string>(uniquePaths.Length, StringComparer.Ordinal);
+        for (int i = 0; i < uniquePaths.Length; i++)
+        {
+            lineOf[uniquePaths[i]] = uniqueLines[i];
+        }
 
-        string[] sorted = lines.ToArray();
-        Array.Sort(sorted, StringComparer.Ordinal);
-        string text = string.Join("\n", sorted) + "\n#salt:" + salt;
-        return Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(text))).ToLowerInvariant();
+        string[] stamps = new string[pathSets.Length];
+        for (int set = 0; set < pathSets.Length; set++)
+        {
+            List<string> lines = new List<string>(missing[set]);
+            foreach (string file in kept[set])
+            {
+                lines.Add(lineOf[file]);
+            }
+            string[] sorted = lines.ToArray();
+            Array.Sort(sorted, StringComparer.Ordinal);
+            string text = string.Join("\n", sorted) + "\n#salt:" + salts[set];
+            stamps[set] = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(text))).ToLowerInvariant();
+        }
+        return stamps;
     }
 
     private static string Name(string full, string rootFull)
