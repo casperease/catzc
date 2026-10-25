@@ -14,6 +14,9 @@ BeforeAll {
     Copy-Item -Path (Join-Path $env:RepositoryRoot 'importer.ps1') -Destination $sandbox
     Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.internal') (Join-Path $sandboxAuto '.internal')
     Copy-Directory (Join-Path (Get-CatzcModulesRoot) '.vendor') (Join-Path $sandboxAuto '.vendor')
+    # The bootstrap reads the private-function folder from the languages config before any module loads.
+    $languagesConfigs = New-Item -Path (Join-Path $sandboxAuto 'Catzc.Base.Languages/configs') -ItemType Directory -Force
+    Copy-Item -Path (Join-Path (Get-CatzcModulesRoot) 'Catzc.Base.Languages/configs/languages.yml') -Destination $languagesConfigs
 
     $script:moduleListExpr =
     "@(Get-Module | Where-Object { `$_.Path -like '$sandboxAuto*' -and `$_.Name -ne 'Bootstrap' -and `$_.Path -notlike '*/.vendor/*' -and `$_.Path -notlike '*\.vendor\*' -and `$_.Path -notlike '*/.internal/*' -and `$_.Path -notlike '*\.internal\*' } | " +
