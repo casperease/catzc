@@ -61,3 +61,26 @@ Started 2026-10-25T19:43:41.2738963+01:00.
   round instead of re-reading the gate output each time.
 - 2026-10-25 Cats: Token tip: Next time, save tokens by: settling a definition (conventional, semantic) with the user in one question before
   rewriting a decision record, not across five rounds of edits.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: Test-Diagrams over the whole tree takes about 91 s and already writes the minimap
+  data of every declared diagram, so Build-Diagrams -Stale skips its own minimaps pass.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: drawio_forward.py --all takes many diagram roots in one process and ends each with
+  a JSON row {"diagram", "exit"}; Build-Diagrams reads the rows, and a root with no row is failed.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: one diagram render is about 1 s inside python and an empty uv start 0.1 s, so the
+  per-diagram process cost was the imports and repeated registry reads, not uv.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: minimaps.registry reads through read_registry, cached by full path with libyaml
+  (yaml.__with_libyaml__ is true in the kit venv), so a test that swaps minimaps.REPO needs no cache_clear for it.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: Git Bash on this devbox has no bc, so timings belong in a pwsh Stopwatch, not shell
+  arithmetic.
+- 2026-10-25 Cats: Token tip: Next time, save tokens by: print profile timings with Write-Host, since $x = & $block captures the timing line
+  and the run must be repeated.
+- 2026-10-25 Cats: Token tip: Next time, save tokens by: cProfile one render before planning a speed-up; it showed the 210 s was mostly
+  duplicate PowerShell work, not drawing.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: Test-AgentDefinitions requires the standard catzc-drone description to name every
+  specialised agent, so each new robot edits catzc-drone.md too.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: a new .claude/agents file is spawnable only in a session started after it lands.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: Invoke-TestFile has no -OutputFolder; it writes a stamped folder under
+  out/test-file/.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: most robots restate their one capability, so 22 robots and 28 capabilities hold
+  about half duplicate text.
+- 2026-10-25 Cats: Token tip: read agents.yml, one robot and its capabilities before writing a robot, instead of discovering the registry
+  rules from gate failures.

@@ -41,3 +41,8 @@ Every diagram change waits on this run, and it has no time limit, so a stale-hea
        leave the same pngs.
 5. [ ] Bound it: `Build-Diagrams` gets its limit in `timeouts.yml`, set from the `-Stale` time measured after steps 1-4. Check: Test-Plans
        and the timeouts tests pass, and `out/profile-build-diagrams.ps1` records the new baseline.
+
+## Open questions
+
+- From this session's finalize (2026-10-25), one proposal, not applied: the `catzc-run` capability gains one line, "a profiling script
+  prints its timings with Write-Host, since an assignment captures the pipeline", so the first timing run is not lost to a variable.

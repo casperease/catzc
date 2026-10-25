@@ -26,12 +26,13 @@ Every spawn pays for a robot body plus four to seven preloaded capabilities; the
 them, and every new job today costs a robot, a capability, two registry entries, a CLAUDE.md bullet and a line in `catzc-drone`'s
 description. After it, a new job is one skill and one `capabilities.yml` entry.
 
-## Decided (proposed 2026-10-25; the ADR edit is the user's to accept)
+## Decided (the user accepted the design, 2026-10-25)
 
-- **Four robots**: `drone-haiku` (the standard, `standard:` in `agents.yml`), `drone-sonnet`, `drone-opus`, `drone-fable`. One body, the
-  coordinator protocol of today's `catzc-drone` steps 1, 2, 5 and 6 (brief shape, repository rules, questions to the coordinator, report),
-  plus one step: "load the skill the brief names with the Skill tool, then do its steps". Tools:
-  `Bash, Read, Glob, Grep, Write, Edit, Skill`; `effort` low for haiku, medium otherwise; `skills: [catzc-core]`.
+- **Four robots**: `drone-haiku`, `drone-sonnet`, `drone-opus`, `drone-fable`. There is no standard or default drone (the user, 2026-10-25):
+  every spawn names a skill, and the skill's `model_floor` picks the drone; `agents.yml` drops `standard:`. One body, the coordinator
+  protocol of today's `catzc-drone` steps 1, 2, 5 and 6 (brief shape, repository rules, questions to the coordinator, report), plus one
+  step: "load the skill the brief names with the Skill tool, then do its steps". Tools: `Bash, Read, Glob, Grep, Write, Edit, Skill`;
+  `effort` low for haiku, medium otherwise; `skills: [catzc-core]`.
 - **The minimal model is picked, never chosen by taste**: the spawner takes the drone whose model equals the job skill's `model_floor`;
   floors gain `fable`, ranked haiku < sonnet < opus < fable. A floor is lowered on evidence, never raised to be safe.
 - **Main-session jobs are user skills** (ADR-REPO-AGENTS-USERSKILL), since they need the user, the session's peers or a tool a spawn lacks:
@@ -100,9 +101,9 @@ Kit skills kept as they are, loaded by a job skill's steps: `drawio-declaration`
 
 ## Open steps
 
-1. [ ] `docs/drs/repository/agent-definitions.md`: rewrite ADR-REPO-AGENTS-STANDARDDRONE (the standard is `drone-haiku`, a job is a skill),
-       ADR-REPO-AGENTS-NAMEDMODEL (fable floor, drone = floor), ADR-REPO-AGENTS-NOORPHANNOGHOST (`invoked_by: brief`),
-       ADR-REPO-AGENTS-CAPABILITYFILE (30-line roof); the user accepts the text first. Check: `Test-DrsRegistry`,
+1. [ ] `docs/drs/repository/agent-definitions.md`: rewrite ADR-REPO-AGENTS-STANDARDDRONE (no standard drone; a job is a skill and its floor
+       picks the drone), ADR-REPO-AGENTS-NAMEDMODEL (fable floor, drone = floor), ADR-REPO-AGENTS-NOORPHANNOGHOST (`invoked_by: brief`),
+       ADR-REPO-AGENTS-CAPABILITYFILE (30-line roof). Check: `Test-DrsRegistry`,
        `Test-Links -Path docs/drs/repository/agent-definitions.md`.
 2. [ ] `AgentsConfig`, `CapabilityEntry` and `Test-AgentDefinitions` in `pwsh/Catzc.Base.Docs`: the fable floor, `invoked_by: brief`, the
        read-only `allowed-tools` check, the new roof; the standard agent's description no longer lists every job. Check: `Invoke-TestFile`
@@ -112,9 +113,15 @@ Kit skills kept as they are, loaded by a job skill's steps: `drawio-declaration`
 4. [ ] The four drone files and their `agents.yml` entries (`model_reason` on sonnet, opus and fable). Check: `Test-AgentDefinitions`.
 5. [ ] One job skill per row of the mapping, one file at a time: the robot's body folded into its skill, the duplicate lines dropped, the
        robot file and its `agents.yml` entry deleted, the `capabilities.yml` entry updated. Check: `Test-AgentDefinitions` after each.
-6. [ ] `pwsh/Catzc.Tooling.Claude/types/ClaudeDroneConfig.cs` and its config: the default agent `catzc-drone` becomes `drone-sonnet`, its
-       tests with it. Check: `Invoke-TestFile` on `ClaudeDroneConfig.Tests.ps1` and `Start-ClaudeDrone.Tests.ps1`.
+6. [ ] `pwsh/Catzc.Tooling.Claude/types/ClaudeDroneConfig.cs` and its config: the default agent `catzc-drone` is removed;
+       `Start-ClaudeDrone` takes a required skill and resolves the drone from its `model_floor`, its tests with it. Check: `Invoke-TestFile`
+       on `ClaudeDroneConfig.Tests.ps1` and `Start-ClaudeDrone.Tests.ps1`.
 7. [ ] `.claude/CLAUDE.md` Sub-agents section: four bullets and one line saying jobs are the skills in `capabilities.yml`; this replaces
        plan-claude-diet step 1, which is deleted in the same edit. The user's file. Check: `Test-AgentDefinitions`.
 8. [ ] Grep the tree for every old robot name (plans, prompts, docs, hooks, tests) and re-point each, one file at a time. Check: no match
        outside `git log`.
+
+## Open questions
+
+- A new agent type appears only in a session started after its file lands, so a robot cannot be tried in the session that writes it; should
+  `catzc-core` say so in one line, so a session tries a new job skill through a stand-in drone at once? Recommend yes.

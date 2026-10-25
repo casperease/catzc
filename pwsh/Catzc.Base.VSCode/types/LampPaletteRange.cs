@@ -7,6 +7,8 @@ namespace Catzc.Base.VSCode;
 
 public sealed class LampPaletteRange
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     public static readonly string[] Shades = { "glyph_lit", "glyph_unlit", "badge", "text", "mark", "background" };
     private static readonly Regex Hex = new Regex("^#[0-9a-fA-F]{6}([0-9a-fA-F]{2})?$", RegexOptions.CultureInvariant);
 

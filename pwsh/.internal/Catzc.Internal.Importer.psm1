@@ -10,6 +10,11 @@ Set-StrictMode -Version Latest   # this module's scope: every function here runs
 
 $script:modulesFolder = 'pwsh'
 
+# The functions that outgrew this file live one per file beside it; they share its scope.
+. (Join-Path $PSScriptRoot 'assets/importer/Invoke-ImporterJanitors.ps1')
+. (Join-Path $PSScriptRoot 'assets/importer/Get-DueWriterRow.ps1')
+. (Join-Path $PSScriptRoot 'assets/importer/Test-WriterDue.ps1')
+
 function Invoke-Importer {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingWriteHost', '', Justification = 'Importer console output runs before the module system (Write-Message) is available')]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Session-global by design: $global:__CatzcLoadTimings is the cross-module load-timing collector created here under -DiagnoseLoadTime, appended to by the Bootstrap loaders across module imports, and summarized at the end — it must be global to survive across those imports (Bootstrap.psm1 carries the same suppression)')]
@@ -114,7 +119,6 @@ function Invoke-Importer {
         Write-ImporterMessage ("Roots: RepositoryRoot='$repoRoot', CatzcModulesRoot='$modulesRoot'; " +
             'internal modules Catzc.Internal.Loader, Catzc.Internal.Types, Catzc.Internal.Vendor') -StateChange
 
-        # Load vendored dependencies first
         if ($isConsoleSession) {
             $initializerEnd = $sw.Elapsed
         }
@@ -402,92 +406,6 @@ function Invoke-GeneratedFilesJanitor {
     catch {
         Write-ImporterMessage "Generated files: not checked — $($_.Exception.Message)" -ForegroundColor Yellow
     }
-}
-
-# The writers' due rows (Get-GeneratedWriterDue), or nothing when they cannot be read: every build janitor then runs, as before the lists.
-function Get-DueWriterRow {
-    [CmdletBinding()]
-    param()
-
-    if (-not (Get-Command Get-GeneratedWriterDue -ErrorAction Ignore)) {
-        return
-    }
-    try {
-        Get-GeneratedWriterDue
-    }
-    catch {
-        Write-ImporterMessage "Build janitors: all run, the changed set was not read — $($_.Exception.Message)" -ForegroundColor Yellow
-    }
-}
-
-function Test-WriterDue {
-    [CmdletBinding()]
-    [OutputType([bool])]
-    param(
-        [Parameter(Mandatory)]
-        [string] $Name,
-
-        [AllowNull()]
-        [object[]] $Row
-    )
-
-    $found = @($Row | Where-Object { $null -ne $_ -and $_.Name -ceq $Name })
-    # A writer with no row, or none declaring lists, runs as it always has.
-    if ($found.Count -eq 0 -or -not $found[0].HasLists) {
-        return $true
-    }
-    [bool] $found[0].Due
-}
-
-function Invoke-ImporterJanitors {
-    [CmdletBinding()]
-    param(
-        [switch] $CleanClone,
-        [switch] $ShowStateChanges
-    )
-
-    if ($CleanClone -and (Get-Command Reset-GitCleanFxd -ErrorAction Ignore)) {
-        Reset-GitCleanFxd
-    }
-
-    # Before the re-renders, so a hand edit is reported before a render overwrites it.
-    Invoke-GeneratedFilesJanitor
-
-    # Tidy superseded type assemblies (.compiled stays a clean -1/+1 diff) — see Invoke-TypeCacheJanitor.
-    Invoke-TypeCacheJanitor -ShowReport:$ShowStateChanges
-
-    $due = Get-DueWriterRow
-    $atImport = @(if (Get-Command Get-Config -ErrorAction Ignore) {
-            (Get-Config -Config generated-files).writers.Values | Where-Object { $_.at_import } | ForEach-Object { $_.name }
-        })
-    $saveStamp = Get-Command Save-GeneratedWriterStamp -ErrorAction Ignore
-    foreach ($writer in $atImport) {
-        if ((Get-Command $writer -ErrorAction Ignore) -and (Test-WriterDue -Name $writer -Row $due)) {
-            & $writer -Silent | Out-Null
-            # The writer ran: its input stamp is stored, so it is not due again until one of its inputs changes.
-            if ($saveStamp) {
-                & $saveStamp -Name $writer
-            }
-        }
-    }
-
-    if (Get-Command Sync-SessionTools -ErrorAction Ignore) {
-        $informationPreference = $global:InformationPreference
-        if (-not $ShowStateChanges) {
-            $global:InformationPreference = 'SilentlyContinue'
-        }
-        try {
-            Sync-SessionTools
-        }
-        finally {
-            $global:InformationPreference = $informationPreference
-        }
-    }
-
-    # Publish the agent hook when its source changed — after the PATH reconciliation, so `dotnet` is the owned SDK.
-    Invoke-AgentHookJanitor
-
-    Invoke-EditorExtensionJanitor
 }
 
 function Write-LoadTime {

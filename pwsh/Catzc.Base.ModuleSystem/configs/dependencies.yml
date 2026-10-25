@@ -185,6 +185,7 @@ groups:
         Catzc.Base.Repository,
         Catzc.Base.Asserts,
         Catzc.Base.Files,
+        Catzc.Base.Variants,
       ]
     Catzc.Base.RootConfig:
       [
@@ -206,6 +207,7 @@ groups:
         Catzc.Base.Asserts,
         Catzc.Base.Globs,
         Catzc.Base.Variants,
+        Catzc.Base.TypesSystem,
       ]
     Catzc.Base.QualityGates:
       [

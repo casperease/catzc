@@ -7,6 +7,8 @@ namespace Catzc.Base.VSCode;
 
 public sealed class FileIcon
 {
+    public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
+
     private static readonly string[] AllowedKeys = { "glyph", "label", "style", "color", "language", "extensions", "names", "language_ids" };
     private static readonly string[] Styles = { "text", "prompt" };
     private static readonly Regex IconName = new Regex("^[a-z0-9][a-z0-9-]*$", RegexOptions.CultureInvariant);
