@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/ConvertTo-Guid.ps1
+# pwsh/Catzc.Base.Objects/ConvertTo-Guid.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -18,7 +18,7 @@ digits, truncated past 32, and formatted as a canonical lowercase GUID. The conv
 yields a valid `[guid]`, down to the all-zeros GUID for an input with no mappable characters.
 
 Run by a human or an LLM to mint entries for the managed-GUID registry (Catzc.Base.QualityGates/configs/guids.yml) — never called by
-production code. The engine is the native type Catzc.Base.QualityGates.SentenceGuid.
+production code. The engine is the native type Catzc.Base.Objects.SentenceGuid.
 
 ### parameter `Sentence`
 

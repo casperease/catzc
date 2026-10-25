@@ -14,6 +14,7 @@ BeforeDiscovery {
                 Module    = $asset.Module
                 Path      = $asset.Path
                 AssetPath = $asset.AssetPath
+                Target    = $asset.Target
                 Direction = "$($asset.Direction)"
             }
         })
@@ -35,13 +36,13 @@ Describe 'Binding contract assets' -Tag 'L1', 'integrity', 'source-only', 'ADR-R
         $script:groupContracts = @{}
     }
 
-    It '<Unit> <Version> <Module>: <Path> (<Direction>) holds' -ForEach $script:assetCases {
+    It '<Unit> <Version> <Module>: <Path> -> <Target> (<Direction>) holds' -ForEach $script:assetCases {
         $group = "$Unit|$Version|$Module"
         if (-not $script:groupContracts.ContainsKey($group)) {
             $script:groupContracts[$group] = @(Get-Contract -Unit ([WildcardPattern]::Escape($Unit)) `
                     -Version ([WildcardPattern]::Escape($Version)) -Module ([WildcardPattern]::Escape($Module)))
         }
-        $assets = @($script:groupContracts[$group] | Where-Object { $_.AssetPath -ceq $AssetPath })
+        $assets = @($script:groupContracts[$group] | Where-Object { $_.AssetPath -ceq $AssetPath -and $_.Target -ceq $Target })
         $assets.Count | Should -Be 1
         $result = Get-ContractCheckResults -Asset $assets[0]
         $result.Passed | Should -BeTrue -Because ($result.Findings -join "`n")

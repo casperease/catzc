@@ -266,7 +266,7 @@ language's one reader and never written by hand; a linked `.ps1` asset is not ta
 
 A **proof box** is the box captioned Proof under the frame of an action diagram, as wide as the frame. For each call of the action it prints
 the call's normalized statement, written with the word cats, and the words each engine runs it as, in the idiom of that engine (PascalCase
-for pwsh, kebab-case for bash and zsh). The engines and their idioms are declared once in the renderer's vocabulary, never in a declaration.
+for pwsh, kebab-case for every other engine). The engines and their idioms are declared once in the renderer's vocabulary, never in a declaration.
 An action diagram shows the proof box by default, and `content.proof: hidden` turns it off, the default being declared once in the same
 vocabulary.
 

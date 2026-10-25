@@ -5,7 +5,7 @@
 # ---
 
 icons:
-  powershell-test: { label: TST, style: prompt, color: "#2b5fb8", extensions: [tests.ps1] }
+  powershell-test: { label: PST, style: prompt, color: "#2b5fb8", extensions: [tests.ps1] }
   powershell: { label: PS1, style: prompt, color: "#2b5fb8", extensions: [ps1] }
   powershell-module: { label: PSM, style: prompt, color: "#2b5fb8", extensions: [psm1] }
   powershell-data: { glyph: configs, color: "#c2a878", extensions: [psd1] }

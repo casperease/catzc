@@ -82,7 +82,7 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
             widgets = @([ordered]@{ include = @('widgets/**'); exclude = @('widgets/tests/**') })
             gadgets = @([ordered]@{ include = @('gadgets', 'gadgets/**'); exclude = @() })
         }
-        $json = (New-VsCodeSettings -Filter $filter) | ConvertFrom-Json
+        $json = (New-VsCodeSettings -RepositoryFilter $filter) | ConvertFrom-Json
         @($json.'catzc.trackLamps.filters'.PSObject.Properties.Name) | Should -Be @('widgets', 'gadgets') -Because 'the declaration order is the lamp order'
         @($json.'catzc.trackLamps.filters'.widgets[0].exclude) | Should -Be @('widgets/tests/**')
         @($json.'catzc.trackLamps.filters'.gadgets[0].include) | Should -Be @('gadgets', 'gadgets/**')

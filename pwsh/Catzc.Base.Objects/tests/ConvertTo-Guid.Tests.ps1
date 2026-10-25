@@ -7,7 +7,7 @@ Describe 'ConvertTo-Guid' -Tag 'L0', 'logic' {
 
     It 'matches the SentenceGuid type it wraps' {
         $sentence = 'alpha test tenant'
-        (ConvertTo-Guid $sentence) | Should -Be ([Catzc.Base.QualityGates.SentenceGuid]::Convert($sentence))
+        (ConvertTo-Guid $sentence) | Should -Be ([Catzc.Base.Objects.SentenceGuid]::Convert($sentence))
     }
 
     It 'throws on a null, empty, or whitespace-only sentence' {

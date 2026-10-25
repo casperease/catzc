@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/tests/types/SentenceGuid.Tests.ps1
+# pwsh/Catzc.Base.Objects/tests/types/SentenceGuid.Tests.ps1
 
 <!-- cspell:ignore oilzstgq -->
 
@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `$result = [Catzc.Base.QualityGates.SentenceGuid]::Convert('!!! ??? ,,,')`, written with `#`.
+Above `$result = [Catzc.Base.Objects.SentenceGuid]::Convert('!!! ??? ,,,')`, written with `#`.
 
 ```text
 Compared as [guid]::Empty, not a literal — the all-zeros GUID is on the registry's denied list

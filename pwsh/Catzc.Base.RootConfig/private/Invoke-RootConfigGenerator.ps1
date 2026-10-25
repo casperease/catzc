@@ -69,7 +69,7 @@ function Invoke-RootConfigGenerator {
                 ManagedTarget     = $managedTargets
                 MachineSetting    = $machineSetting
                 LanguageFormatter = $languageFormatter
-                Filter            = $filter
+                RepositoryFilter  = $filter
             }
             New-VsCodeSettings @render
         }

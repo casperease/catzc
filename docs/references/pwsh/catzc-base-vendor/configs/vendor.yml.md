@@ -1,33 +1,16 @@
 # pwsh/Catzc.Base.Vendor/configs/vendor.yml
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The vendor module source: the one place that says where vendored PowerShell modules come from
+([ADR-PWSH-VENDOR](../../../../drs/automation/pwsh/vendor-toolset-dependencies.md)). `Install-VendorModule` downloads from it, and
+`Remove-VendorModules` checks against it that every committed module can be restored before it deletes one.
 
-## comment:1
+## Keys
 
-Above `source: PSGallery`, written with `#`.
+- **`source`** — the name of a registered PSResourceRepository. `PSGallery` is built in and needs no url.
+- **`sourceUrl`** — optional, unset by default. Set it to an Artifactory or proxy feed (for example `https://your-feed/v3/index.json`) to
+  vendor from a private feed; the feed is registered under the `source` name on first use.
 
-```text
-Vendor module source — where Install-VendorModule downloads from and Remove-VendorModules validates against
-(see [ADR-PWSH-VENDOR](/docs/drs/automation/pwsh/vendor-toolset-dependencies.md)). Loaded by Get-Config -Config vendor and
-validated by the VendorConfig type. Read only through the module's functions.
-```
+## How it is read
 
-## comment:2
-
-Above `source: PSGallery`, written with `#`.
-
-```text
-The registered PSResourceRepository to download from and validate against. PSGallery is the built-in default
-and needs no url.
-```
-
-## comment:3
-
-At the end of the file, written with `#`.
-
-```text
-Optional custom repository url (an Artifactory / proxy feed). Undefined by default — set it to point the
-vendor source at a private feed; the repository is registered under the `source` name on first use.
-sourceUrl: https://your-feed/v3/index.json
-```
+`Get-Config -Config vendor` loads the file into the typed `Catzc.Base.Vendor.VendorConfig` record, which rejects unknown keys at load
+([VendorConfig.cs](../types/VendorConfig.cs.md)). Only the module's own functions read it.

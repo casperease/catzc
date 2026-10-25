@@ -64,8 +64,20 @@ function Test-FolderConventions {
                 if ($name -match '^\.') {
                     continue
                 }
-                if (-not [System.IO.File]::Exists($entry)) {
-                    $issues.Add("$module/configs/${name}: not a file — configs/ is flat")
+                if ([System.IO.Directory]::Exists($entry)) {
+                    # A split config: a kebab-case folder of kebab-case .yml parts, one level deep.
+                    if ($name -cnotmatch '^[a-z0-9]+(-[a-z0-9]+)*$') {
+                        $issues.Add("$module/configs/${name}/: a split config folder is not kebab-case")
+                    }
+                    foreach ($part in (Get-ChildPath $entry -Depth 1)) {
+                        $partName = [System.IO.Path]::GetFileName($part)
+                        if (-not [System.IO.File]::Exists($part) -or $partName -cnotmatch $kebabYml) {
+                            $issues.Add("$module/configs/${name}/${partName}: a split config holds only kebab-case .yml files")
+                        }
+                    }
+                }
+                elseif (-not [System.IO.File]::Exists($entry)) {
+                    $issues.Add("$module/configs/${name}: not a file or a split config folder")
                 }
                 elseif ($name -cnotmatch $kebabYml) {
                     $issues.Add("$module/configs/${name}: not a kebab-case .yml file")

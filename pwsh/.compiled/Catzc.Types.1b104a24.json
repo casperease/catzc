@@ -1,5 +1,5 @@
 {
-  "hash": "9afb963d",
+  "hash": "1b104a24",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -482,6 +482,11 @@
     },
     {
       "name": "Catzc.Base.Drs.DrsCitationRewriter",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Drs.DrsCitationText",
       "aliases": [],
       "display": []
     },
@@ -1016,6 +1021,11 @@
       ]
     },
     {
+      "name": "Catzc.Base.Maps.MapsMinimapReaders",
+      "aliases": [],
+      "display": []
+    },
+    {
       "name": "Catzc.Base.Maps.MapsPalette",
       "aliases": [],
       "display": []
@@ -1193,6 +1203,11 @@
       "display": []
     },
     {
+      "name": "Catzc.Base.Maps.WorldMapPdfDrawing",
+      "aliases": [],
+      "display": []
+    },
+    {
       "name": "Catzc.Base.MarkdownMeta.MarkdownDocument",
       "aliases": [],
       "display": [
@@ -1340,6 +1355,11 @@
       "display": []
     },
     {
+      "name": "Catzc.Base.Objects.SentenceGuid",
+      "aliases": [],
+      "display": []
+    },
+    {
       "name": "Catzc.Base.Objects.TypeShape",
       "aliases": [],
       "display": []
@@ -1376,6 +1396,11 @@
     },
     {
       "name": "Catzc.Base.QualityGates.CommentLexer",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.CommentPageText",
       "aliases": [],
       "display": []
     },
@@ -1584,11 +1609,6 @@
     },
     {
       "name": "Catzc.Base.QualityGates.PlansConfig",
-      "aliases": [],
-      "display": []
-    },
-    {
-      "name": "Catzc.Base.QualityGates.SentenceGuid",
       "aliases": [],
       "display": []
     },
@@ -1808,6 +1828,11 @@
     },
     {
       "name": "Catzc.Base.Timeouts.TimeoutsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Timeouts.TimeoutsReaders",
       "aliases": [],
       "display": []
     },

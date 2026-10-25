@@ -1,30 +1,20 @@
 # pwsh/Catzc.Base.Vendor/types/VendorConfig.cs
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The typed record for [vendor.yml](../configs/vendor.yml.md), the vendor module source
+([ADR-PWSH-VENDOR](../../../../drs/automation/pwsh/vendor-toolset-dependencies.md)). It is registered in `Catzc.Base.Config/configs/configs.yml`,
+so `Get-Config -Config vendor` returns it. Its properties mirror the YAML keys exactly, including the file's own `sourceUrl` spelling
+([ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](../../../../drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
 
-## comment:1
+## Validation
 
-Above `public sealed class VendorConfig : Catzc.Base.Objects.DictionaryRecord`, written with `//`.
+Constructing the record checks the file and gathers every violation into one `ArgumentException`, so a typo fails at load rather than at
+download:
 
-```text
-The vendor module source (configs/vendor.yml) — where Install-VendorModule downloads vendored modules from and
-Remove-VendorModules validates them against ([ADR-PWSH-VENDOR](/docs/drs/automation/pwsh/vendor-toolset-dependencies.md)).
-Registered in Catzc.Base.Config/configs/configs.yml (type: Catzc.Base.Vendor.VendorConfig), so
-Get-Config -Config vendor returns this typed record. Mirrors the YAML keys verbatim (the file's own `sourceUrl`
-spelling, [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml)).
+- only the known keys, `source` and `sourceUrl`, are allowed;
+- `source` is required and must not be empty;
+- `sourceUrl`, when present, must be an absolute URI.
 
-Constructing an instance validates the file, collecting every violation into one ArgumentException:
-  - only the known keys ('source', 'sourceUrl') — an unknown key (a typo) fails fast at load;
-  - 'source' is required and non-empty (the registered PSResourceRepository name, e.g. PSGallery);
-  - 'sourceUrl', when present, is an absolute URI (a custom Artifactory / proxy feed).
-```
+## Properties
 
-## comment:2
-
-Above `public string sourceUrl { get; }`, written with `//`.
-
-```text
-A custom repository url, registered under the `source` name on first use. Null when the source is a
-built-in repository that needs no url.
-```
+- **`source`** — the PSResourceRepository to download from and validate against.
+- **`sourceUrl`** — the url of a private feed, registered under the `source` name on first use; null for a built-in repository.

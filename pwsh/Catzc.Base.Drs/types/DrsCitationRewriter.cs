@@ -14,6 +14,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 using Catzc.Base.MarkdownMeta;
+using static Catzc.Base.Drs.DrsCitationText;
 
 namespace Catzc.Base.Drs;
 
@@ -427,76 +428,9 @@ public sealed class DrsCitationRewriter
         ruleMap[old] = moved;
     }
 
-    static Dictionary<string, string> Cells(object row, string[] columns, string map)
-    {
-        if (!(row is IDictionary values)) { throw Invalid(map, "a row is not a dictionary"); }
-        var cells = new Dictionary<string, string>(StringComparer.Ordinal);
-        foreach (string column in columns)
-        {
-            string value = values.Contains(column) ? Convert.ToString(values[column], CultureInfo.InvariantCulture) : null;
-            if (string.IsNullOrWhiteSpace(value)) { throw Invalid(map, "a row has no '" + column + "'"); }
-            cells[column] = value.Trim();
-        }
-        return cells;
-    }
-
-    static ArgumentException Invalid(string map, string reason) =>
-        new ArgumentException(string.Format(CultureInfo.InvariantCulture, "{0}: {1}", map, reason));
-
-    static string Fragment(Group anchor) => anchor.Success ? anchor.Value : null;
-
-    static List<int> LineStarts(string text)
-    {
-        var starts = new List<int> { 0 };
-        for (int index = text.IndexOf('\n'); index >= 0; index = text.IndexOf('\n', index + 1)) { starts.Add(index + 1); }
-        return starts;
-    }
-
-    static int LineOf(List<int> lineStarts, int offset)
-    {
-        int found = lineStarts.BinarySearch(offset);
-        return found >= 0 ? found + 1 : ~found;
-    }
-
-    // folder + a relative path, with '.' and '..' applied; null when it climbs above the repository root.
-    static List<string> Resolve(List<string> folder, string relativePath)
-    {
-        var result = new List<string>(folder);
-        foreach (string segment in relativePath.Split('/'))
-        {
-            if (segment.Length == 0 || segment == ".") { continue; }
-            if (segment == "..")
-            {
-                if (result.Count == 0) { return null; }
-                result.RemoveAt(result.Count - 1);
-                continue;
-            }
-            result.Add(segment);
-        }
-        return result;
-    }
-
     // Where a citing file lands when the root moves: under the new root when it sits under the old one.
     string Moved(string repoPath) =>
         repoPath.StartsWith(adrRoot, StringComparison.Ordinal) ? newRoot + repoPath.Substring(adrRoot.Length) : repoPath;
-
-    static string Join(List<string> segments) => segments == null ? null : string.Join("/", segments);
-
-    static string ParentOf(string repoPath)
-    {
-        int slash = repoPath.LastIndexOf('/');
-        return slash < 0 ? string.Empty : repoPath.Substring(0, slash);
-    }
-
-    static List<string> Segments(string repoPath)
-    {
-        var segments = new List<string>();
-        foreach (string segment in repoPath.Split('/'))
-        {
-            if (segment.Length > 0 && segment != ".") { segments.Add(segment); }
-        }
-        return segments;
-    }
 
     // True when the path names a moved folder itself, or a file or folder of it that the tree holds at its old or its new place.
     bool NamesMovedContent(string written)
@@ -520,8 +454,6 @@ public sealed class DrsCitationRewriter
         }
         return false;
     }
-
-    static string Normalize(string path) => (path ?? string.Empty).Replace('\\', '/').Trim('/');
 
     enum Form
     {

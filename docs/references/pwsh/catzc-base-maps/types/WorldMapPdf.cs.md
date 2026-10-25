@@ -100,21 +100,3 @@ Above `public static void AddTreePage(PdfDocument doc, WorldMap map, MapsConfig.
 The tree page: the tracks as a squarified treemap by file count, each with a name band and its non-empty cells
 laid out inside by file count, then the stack-violation marks, the highlight outlines and the legend.
 ```
-
-## comment:10
-
-Above `private static void ColumnHeader(PdfPage page, string text, double x, double...`, written with `//`.
-
-```text
-A column header fitted into its box on one or two lines (FitLines), each line centred, the block set on the box's
-vertical middle, in the current fill colour.
-```
-
-## comment:11
-
-Above `private static void Legend(PdfPage page, MapsConfig config, int maxCount,...`, written with `//`.
-
-```text
-The legend band: the file-count scale, the stack-violation mark and, with a highlight, the lit-cell outline with
-the request.
-```

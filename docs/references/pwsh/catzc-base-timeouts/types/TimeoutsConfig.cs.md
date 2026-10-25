@@ -107,7 +107,7 @@ looked up.
 
 ## comment:9
 
-Above `private static readonly string[] WaitKeys = { "seconds", "milliseconds",...`, written with `//`.
+Above `internal static readonly string[] WaitKeys = { "seconds", "milliseconds",...`, written with `//`.
 
 ```text
 The default Watch-Blocking: one second and one millisecond, one pair for every environment; and drain_seconds, how long
@@ -116,7 +116,7 @@ Invoke-Executable waits for a run's output to end after its process exits, befor
 
 ## comment:10
 
-Above `private static readonly string[] RunLockKeys = { "wait_seconds",...`, written with `//`.
+Above `internal static readonly string[] RunLockKeys = { "wait_seconds",...`, written with `//`.
 
 ```text
 The machine's run lock: how long a run waits past a live holder's deadline, how old a queue ticket may be before it is dropped, and the

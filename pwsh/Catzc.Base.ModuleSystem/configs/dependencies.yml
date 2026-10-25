@@ -144,6 +144,7 @@ groups:
         Catzc.Base.Writers,
         Catzc.Base.Asserts,
         Catzc.Base.Folders,
+        Catzc.Base.Objects,
       ]
     Catzc.Base.ModuleSystem:
       [

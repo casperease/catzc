@@ -179,5 +179,9 @@ configs:
     type: Catzc.Base.Maps.MapsConfig
   contracts:
     type: Catzc.Base.Contracts.ContractsConfig
+    differs:
+      addressing:
+        This repository's contracts name their files under applies_to globs, so an asset addresses every file its globs match; a consumer
+        starts with one real file per asset.
   accosted:
     type: Catzc.Base.Contracts.AccostedConfig

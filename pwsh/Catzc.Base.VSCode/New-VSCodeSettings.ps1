@@ -18,7 +18,7 @@ function New-VsCodeSettings {
         [System.Collections.IDictionary] $LanguageFormatter = @{},
 
         # The repository's filters, name to the include/exclude sets each claims by, in lamp order (Get-RepositoryFilter).
-        [System.Collections.IDictionary] $Filter = @{},
+        [System.Collections.IDictionary] $RepositoryFilter = @{},
 
         # The settings file on disk, read for the rows another writer owns (the carried settings of vscode-settings.yml).
         [string] $CurrentPath = (Join-Path (Get-RepositoryRoot) '.vscode/settings.json')
@@ -65,10 +65,10 @@ function New-VsCodeSettings {
     }
     $settings['search.exclude'] = $exclude
 
-    if ($Filter.Count -gt 0) {
+    if ($RepositoryFilter.Count -gt 0) {
         $filters = [ordered]@{}
-        foreach ($name in $Filter.Keys) {
-            $filters[$name] = @($Filter[$name])
+        foreach ($name in $RepositoryFilter.Keys) {
+            $filters[$name] = @($RepositoryFilter[$name])
         }
         $settings['catzc.trackLamps.filters'] = $filters
     }

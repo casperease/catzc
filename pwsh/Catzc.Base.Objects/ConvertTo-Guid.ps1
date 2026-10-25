@@ -1,7 +1,7 @@
 <#
 ---
 catzc:
-  docs: "../../docs/references/pwsh/catzc-base-quality-gates/ConvertTo-Guid.ps1.md"
+  docs: "../../docs/references/pwsh/catzc-base-objects/ConvertTo-Guid.ps1.md"
   header: "generated"
 ---
 #>
@@ -16,5 +16,5 @@ function ConvertTo-Guid {
 
     Assert-NotNullOrWhitespace $Sentence
 
-    [Catzc.Base.QualityGates.SentenceGuid]::Convert($Sentence)
+    [Catzc.Base.Objects.SentenceGuid]::Convert($Sentence)
 }

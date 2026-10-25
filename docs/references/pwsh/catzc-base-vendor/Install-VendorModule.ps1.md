@@ -38,13 +38,9 @@ Install-VendorModule 'Pester'
 Install-VendorModule 'Pester' -RequiredVersion '5.5.0'
 ```
 
-## comment:1
+## Pruning after download
 
-Above `$moduleDir = Join-Path $vendorRoot $Name`, written with `#`.
-
-```text
-Prune folders the toolset never loads: legacy .NET Framework builds (we only target PS 7+ / .NET 6+) and
-PSScriptAnalyzer's ~280 MB compatibility_profiles, read only by the PSUseCompatible* rules that
-PSScriptAnalyzerSettings.psd1 keeps off
-([ADR-PWSH-VENDOR-ONLYWHATLOADS](/docs/drs/automation/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-onlywhatloads)).
-```
+After the download, the command deletes the folders the toolset never loads
+([ADR-PWSH-VENDOR-ONLYWHATLOADS](../../../drs/automation/pwsh/vendor-toolset-dependencies.md#rule-adr-pwsh-vendor-onlywhatloads)): the .NET
+Framework builds (`net20` to `net48`), since catzc targets PowerShell 7 on .NET 6 and later, and PSScriptAnalyzer's roughly 280 MB of
+`compatibility_profiles`. Only the `PSUseCompatible*` rules read those profiles, and `PSScriptAnalyzerSettings.psd1` turns those rules off.

@@ -41,6 +41,7 @@ Describe 'Test-FolderConventions' -Tag 'L0', 'logic' {
         New-FixtureFile 'Gadget/Get-Widget.ps1'
         New-FixtureFile 'Gadget/configs/Gadget.yaml'
         New-FixtureFile 'Gadget/configs/nested/gadget.yml'
+        New-FixtureFile 'Gadget/configs/nested/Gadget.txt'
         New-FixtureFile 'Gadget/assets/config/gadget.yml'
         New-FixtureFile 'Gadget/assets/test/fixture.txt'
 
@@ -52,7 +53,7 @@ Describe 'Test-FolderConventions' -Tag 'L0', 'logic' {
         $message | Should -Match 'Gadget/private/Get-GadgetPart.Tests.ps1: a test file in private/'
         $message | Should -Match 'Get-Widget: exported by more than one module \(Gadget, Widget\)'
         $message | Should -Match 'Gadget/configs/Gadget.yaml: not a kebab-case .yml file'
-        $message | Should -Match 'Gadget/configs/nested: not a file'
+        $message | Should -Match 'Gadget/configs/nested/Gadget.txt: a split config holds only kebab-case .yml files'
         $message | Should -Match 'Gadget/assets/config: internal config belongs in configs/'
         $message | Should -Match 'Gadget/assets/test: test fixtures belong in tests/assets/'
     }

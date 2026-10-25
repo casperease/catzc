@@ -1,12 +1,12 @@
 /*
 ---
 catzc:
-  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/SentenceGuid.cs.md"
+  docs: "../../../docs/references/pwsh/catzc-base-objects/types/SentenceGuid.cs.md"
   header: "generated"
 ---
 */
 
-namespace Catzc.Base.QualityGates;
+namespace Catzc.Base.Objects;
 
 using System;
 using System.Collections.Generic;

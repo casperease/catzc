@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using static Catzc.Base.Timeouts.TimeoutsReaders;
 
 namespace Catzc.Base.Timeouts;
 
@@ -17,17 +18,14 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "limits", "executables", "commands", "tests", "wait", "run_lock", "janitors" };
     private static readonly string[] TestKeys = { "level_ms", "run_seconds", "engine_start_seconds", "run_list_seconds" };
-
-    private static readonly string[] WaitKeys = { "seconds", "milliseconds", "drain_seconds" };
+    internal static readonly string[] WaitKeys = { "seconds", "milliseconds", "drain_seconds" };
     public const int WaitDefaultSeconds = 1;
     public const int WaitDefaultMilliseconds = 1;
     public const int WaitDefaultDrainSeconds = 5;
-
-    private static readonly string[] RunLockKeys = { "wait_seconds", "stale_seconds", "budget_seconds" };
+    internal static readonly string[] RunLockKeys = { "wait_seconds", "stale_seconds", "budget_seconds" };
     public const int RunLockDefaultWaitSeconds = 120;
     public const int RunLockDefaultStaleSeconds = 720;
     public const int RunLockDefaultBudgetSeconds = 280;
-    private static readonly string[] JanitorKeys = { "generated_files_seconds" };
     // The import janitor's roof for Test-GeneratedFiles -Changed: the changed set costs about 5 s, so 10 s still catches a regression.
     public const int JanitorDefaultGeneratedFilesSeconds = 10;
     private static readonly string[] TestLevels = TestTiers.Names;
@@ -199,17 +197,17 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
 
         if (d != null && d.Contains("wait") && d["wait"] != null)
         {
-            ReadWait(d["wait"], errors);
+            ReadWait(d["wait"], errors, ref waitSeconds, ref waitMilliseconds, ref waitDrainSeconds);
         }
 
         if (d != null && d.Contains("run_lock") && d["run_lock"] != null)
         {
-            ReadRunLock(d["run_lock"], errors);
+            ReadRunLock(d["run_lock"], errors, runLock);
         }
 
         if (d != null && d.Contains("janitors") && d["janitors"] != null)
         {
-            ReadJanitors(d["janitors"], errors);
+            ReadJanitors(d["janitors"], errors, ref janitorGeneratedFilesSeconds);
         }
 
         if (errors.Count > 0)
@@ -258,71 +256,6 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
         {
             { "generated_files_seconds", janitorGeneratedFilesSeconds },
         };
-    }
-
-    private void ReadJanitors(object value, List<string> errors)
-    {
-        IDictionary map = value as IDictionary;
-        if (map == null)
-        {
-            errors.Add("invalid janitors (must be a map of generated_files_seconds)");
-            return;
-        }
-        CheckKeys(map, JanitorKeys, "janitors.", errors);
-        if (!map.Contains("generated_files_seconds") || map["generated_files_seconds"] == null) { return; }
-        int? number = PositiveSeconds(map["generated_files_seconds"]);
-        if (number == null)
-        {
-            errors.Add(string.Format("invalid janitors.generated_files_seconds '{0}' (must be a positive whole number)", map["generated_files_seconds"]));
-            return;
-        }
-        janitorGeneratedFilesSeconds = number.Value;
-    }
-
-    private void ReadRunLock(object value, List<string> errors)
-    {
-        IDictionary map = value as IDictionary;
-        if (map == null)
-        {
-            errors.Add("invalid run_lock (must be a map of wait_seconds, stale_seconds, budget_seconds)");
-            return;
-        }
-        CheckKeys(map, RunLockKeys, "run_lock.", errors);
-        foreach (string key in RunLockKeys)
-        {
-            if (!map.Contains(key) || map[key] == null) { continue; }
-            int? number = PositiveSeconds(map[key]);
-            if (number == null)
-            {
-                errors.Add(string.Format("invalid run_lock.{0} '{1}' (must be a positive whole number)", key, map[key]));
-                continue;
-            }
-            runLock[key] = number.Value;
-        }
-    }
-
-    private void ReadWait(object value, List<string> errors)
-    {
-        IDictionary map = value as IDictionary;
-        if (map == null)
-        {
-            errors.Add("invalid wait (must be a map of seconds, milliseconds, drain_seconds)");
-            return;
-        }
-        CheckKeys(map, WaitKeys, "wait.", errors);
-        foreach (string key in WaitKeys)
-        {
-            if (!map.Contains(key) || map[key] == null) { continue; }
-            int? number = PositiveSeconds(map[key]);
-            if (number == null)
-            {
-                errors.Add(string.Format("invalid wait.{0} '{1}' (must be a positive whole number)", key, map[key]));
-                continue;
-            }
-            if (key == "seconds") { waitSeconds = number.Value; }
-            else if (key == "milliseconds") { waitMilliseconds = number.Value; }
-            else { waitDrainSeconds = number.Value; }
-        }
     }
 
     // The most milliseconds one test may take, per tier (L0..L4) — a fresh copy, so a caller cannot change the config.
@@ -495,42 +428,5 @@ public sealed class TimeoutsConfig : Catzc.Base.Objects.DictionaryRecord
             return;
         }
         resolved[slot] = seconds.Value;
-    }
-
-    private static void CheckKeys(IDictionary d, string[] allowed, string prefix, List<string> errors)
-    {
-        if (d == null)
-        {
-            return;
-        }
-        foreach (object k in d.Keys)
-        {
-            string key = k == null ? null : k.ToString();
-            if (Array.IndexOf(allowed, key) < 0)
-            {
-                errors.Add(string.Format("unknown key '{0}{1}' (allowed: {2})", prefix, key, string.Join(", ", allowed)));
-            }
-        }
-    }
-
-    private static string Axis(string value, string[] allowed, string axis)
-    {
-        string normalized = value == null ? "" : value.Trim().ToLowerInvariant();
-        if (Array.IndexOf(allowed, normalized) < 0)
-        {
-            throw new ArgumentException(string.Format("unknown {0} '{1}' (allowed: {2})", axis, value, string.Join(", ", allowed)));
-        }
-        return normalized;
-    }
-
-    private static int? PositiveSeconds(object value)
-    {
-        if (value is int || value is long || value is short || value is byte)
-        {
-            long seconds = Convert.ToInt64(value);
-            return seconds > 0 && seconds <= int.MaxValue ? (int)seconds : (int?)null;
-        }
-
-        return null;
     }
 }

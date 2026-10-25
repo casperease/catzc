@@ -27,8 +27,20 @@ function Test-ShippedConfigs {
         if ($moduleName -match '^\.') {
             continue
         }
-        foreach ($file in [Catzc.Base.Folders.PathSet]::new().AddPattern((Join-Path $moduleDirectory 'configs'), '*.yml', 1).ToArray()) {
-            $name = [System.IO.Path]::GetFileNameWithoutExtension($file)
+        $configsDirectory = Join-Path $moduleDirectory 'configs'
+        # A config is one file, or a folder of disjoint parts (configs/<name>/*.yml).
+        $sources = @([Catzc.Base.Folders.PathSet]::new().AddPattern($configsDirectory, '*.yml', 1).ToArray())
+        if ([System.IO.Directory]::Exists($configsDirectory)) {
+            $sources += @(Get-ChildPath $configsDirectory -Depth 1 -Directory | Where-Object { -not [System.IO.Path]::GetFileName($_).StartsWith('.') })
+        }
+        foreach ($file in $sources) {
+            $isFolder = [System.IO.Directory]::Exists($file)
+            $name = if ($isFolder) {
+                [System.IO.Path]::GetFileName($file)
+            }
+            else {
+                [System.IO.Path]::GetFileNameWithoutExtension($file)
+            }
             $configCount++
             [void]$shipped.Add($name)
             if (-not $registry.ContainsKey($name)) {
@@ -42,7 +54,21 @@ function Test-ShippedConfigs {
                 $issues.Add("$moduleName/configs/$name.yml: does not load — $($_.Exception.Message)")
                 continue
             }
-            $raw = Get-Content -LiteralPath $file -Raw | ConvertFrom-Yaml -Ordered
+            $raw = if ($isFolder) {
+                $merged = [ordered]@{}
+                foreach ($part in @(Get-ChildPath $file -Depth 1 -File -Filter '*.yml')) {
+                    $partRaw = Get-Content -LiteralPath $part -Raw | ConvertFrom-Yaml -Ordered
+                    if ($partRaw -is [System.Collections.IDictionary]) {
+                        foreach ($key in $partRaw.Keys) {
+                            $merged[$key] = $partRaw[$key]
+                        }
+                    }
+                }
+                $merged
+            }
+            else {
+                Get-Content -LiteralPath $file -Raw | ConvertFrom-Yaml -Ordered
+            }
             $reasons = if ($registryConfig.differs.ContainsKey($name)) {
                 $registryConfig.differs[$name]
             }
