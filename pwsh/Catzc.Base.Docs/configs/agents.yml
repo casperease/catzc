@@ -81,7 +81,6 @@ agents:
   - name: gate-runner
     supported_by: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-TEST-QUALITYGATE]
     checks: [Invoke-TestFile, Test-Automation]
-
   # Repairs the links of a named set of markdown files, one file and one target at a time.
   - name: link-fixer
     supported_by: [ADR-REPO-LINK-KINDBYFILE, ADR-REPO-LINK-ONECITATIONSPELLING]

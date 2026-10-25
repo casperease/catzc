@@ -94,7 +94,8 @@ function Build-Diagrams {
     $runs = [System.Collections.Generic.List[pscustomobject]]::new()
     $total = [System.Diagnostics.Stopwatch]::StartNew()
     $declared = @($folders | Where-Object { $null -ne (Get-DiagramDeclarationText -Stem $_ -RepositoryRoot $root) })
-    if (-not $DryRun -and $declared.Count -gt 0) {
+    # -Stale found its set through Test-Diagrams, which has just written the minimap data of every declared diagram.
+    if (-not $DryRun -and -not $Stale -and $declared.Count -gt 0) {
         Write-Message "Build-Diagrams: writing the minimap data of $($declared.Count) declared diagram(s), then $(if ($FromDrawing) { 'syncing' } else { 'rendering' }) $($folders.Count)."
         # One call builds the world map once for every diagram; each diagram's target streams back as its data is written.
         $index = 0
@@ -131,38 +132,53 @@ function Build-Diagrams {
         }
         $render = $false
     }
-    foreach ($folderPath in @(if ($render) {
-                $folders
-            })) {
-        $arguments = "run --project `"$($diagramKit.Folder)`" python `"$renderer`" --all `"$(Join-Path $root $folderPath)`" --theme $Theme"
-        $run = [pscustomobject]@{ Folder = $folderPath; Articles = $articles[$folderPath]; Stage = 'render'; ExitCode = $null; Status = 'dry-run' }
+    if ($render -and $folders.Count -gt 0) {
+        # One renderer process takes every folder, so uv, python and the kit's imports start once; it ends each folder with a JSON row.
+        $quoted = ($folders | ForEach-Object { "`"$(Join-Path $root $_)`"" }) -join ' '
+        $arguments = "run --project `"$($diagramKit.Folder)`" python `"$renderer`" --theme $Theme --all $quoted"
         if ($DryRun) {
             Write-Message "Would run: uv $arguments"
+        }
+        else {
+            $step = [System.Diagnostics.Stopwatch]::StartNew()
+            $result = Invoke-Executable "$uv $arguments" -WorkingDirectory $root -PassThru -NoAssert -Silent
+            $exits = @{}
+            foreach ($line in @($result.Output -split "`r?`n" | Where-Object { $_.StartsWith('{') })) {
+                $row = $line | ConvertFrom-Json
+                $exits[([System.IO.Path]::GetRelativePath($root, $row.diagram) -replace '\\', '/')] = [int] $row.exit
+            }
+        }
+        foreach ($folderPath in $folders) {
+            $run = [pscustomobject]@{ Folder = $folderPath; Articles = $articles[$folderPath]; Stage = 'render'; ExitCode = $null; Status = 'dry-run' }
             $runs.Add($run)
-            continue
+            if ($DryRun) {
+                continue
+            }
+            $run.ExitCode = $exits[$folderPath]
+            # The renderer's exit codes: 0 clean, 2 findings (errors) with every artifact delivered, 3 nothing to render; no row is a failure.
+            $run.Status = switch ($run.ExitCode) {
+                0 {
+                    'clean'
+                }
+                2 {
+                    'findings'
+                }
+                3 {
+                    'nothing'
+                }
+                default {
+                    'failed'
+                }
+            }
+            Write-Message "render $($runs.Count)/$($folders.Count) $folderPath $($run.Status)"
         }
-        $step = [System.Diagnostics.Stopwatch]::StartNew()
-        $result = Invoke-Executable "$uv $arguments" -WorkingDirectory $root -PassThru -NoAssert -Silent
-        $run.ExitCode = $result.ExitCode
-        # The renderer's exit codes: 0 clean, 2 findings (errors) with every artifact delivered, 3 nothing to render.
-        $run.Status = switch ($result.ExitCode) {
-            0 {
-                'clean'
-            }
-            2 {
-                'findings'
-            }
-            3 {
-                'nothing'
-            }
-            default {
-                'failed'
-            }
+        if (-not $DryRun) {
+            Write-Message "render: $($folders.Count) folder(s) in one process ($([Math]::Round($step.Elapsed.TotalSeconds, 1)) s)"
+            $findingFolders = @($runs | Where-Object Status -EQ 'findings' | ForEach-Object Folder)
+            $failedFolders = @($runs | Where-Object Status -EQ 'failed' | ForEach-Object Folder)
+            Assert-True ($findingFolders.Count -eq 0) -ErrorText "Build-Diagrams: the renderer reported findings on $($findingFolders -join ', '), each an error; see their bulk reports under out/drawio/."
+            Assert-True ($failedFolders.Count -eq 0) -ErrorText "Build-Diagrams: the renderer failed on $($failedFolders -join ', ') (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"
         }
-        $runs.Add($run)
-        Write-Message "render $($runs.Count)/$($folders.Count) $folderPath $($run.Status) ($([Math]::Round($step.Elapsed.TotalSeconds, 1)) s)"
-        Assert-True ($run.Status -ne 'findings') -ErrorText "Build-Diagrams: the renderer reported findings on $folderPath, each an error; see its bulk report under out/drawio/."
-        Assert-True ($run.Status -ne 'failed') -ErrorText "Build-Diagrams: the renderer failed on $folderPath (exit $($result.ExitCode)): $(@($result.Output -split "`r?`n" | Select-Object -Last 5) -join ' | ')"
     }
     Write-Message "Build-Diagrams: $($folders.Count) diagram(s) $(if ($FromDrawing) { 'synced from the drawing' } else { 'rendered' })$(if ($DryRun) { ', dry run' }) in $([Math]::Round($total.Elapsed.TotalSeconds, 1)) s."
 

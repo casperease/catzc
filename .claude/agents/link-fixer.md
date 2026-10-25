@@ -10,7 +10,7 @@ disallowedTools: Write
 model: haiku
 effort: low
 maxTurns: 20
-skills: [md-links, catzc-run, catzc-check, git-readonly, report-fixed]
+skills: [md-links, catzc-run, catzc-check, catzc-subset, git-readonly, report-fixed]
 ---
 
 # link-fixer

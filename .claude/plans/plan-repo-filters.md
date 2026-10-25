@@ -4,7 +4,7 @@ plan:
   value: high
   reviewed: 2026-10-24
   class: feature
-  targets: [pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js]
+  targets: [js/catzc-track-lamps]
 ---
 
 # Repository filters: named, overlapping views over the hard model, one lamp each
@@ -71,23 +71,23 @@ one resolver, makes every new view a config line, and moving the extra units int
 - A track's files are its places minus the places of the tracks nested inside it (`.github` without `.github/workflows`, `pwsh` without
   `pwsh/.vendor`): every file is in exactly one track, so a track selector in a filter says the same.
 
+- Empty-on-disk folders show instead of being hidden while a lamp is off (the user, 2026-10-25; DDR-FILTER-EVERYFILECLAIMED): the hide-empty
+  branch of the extension goes.
+
 ## Open steps
 
-1. [ ] `pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js` (0.13.0, installed by the importer): the user reloads VS Code and
-       judges the lamps (open, code, configs, tests, tools, pipelines, infrastructure, generated, docs, out, languages; the pipeline and
-       workflow files claimed by `code` and `pipelines` and no longer by `tools`, the Bicep tree by `code` and `infrastructure`, the module
-       and template configuration by `code` and `configs`; the pipeline-stages, factory, sliders and note-being-edited icons): a click steps
-       each lamp off → on → veto → off (veto: the purple struck-through icon, its whole zone hidden even where a lit lamp claims it), the
-       union of the lit lamps minus the vetoed zones, the open lamp keeping open files and grey with none open, the languages lamp as a
-       language view, the blue-grey and red conditions, and the counter's signature matrix; each remark lands here as its own step (check:
-       the counter reads "everything is accounted for" with each lamp off in turn; a vetoed lamp shows no staged, unstaged or failed
-       condition colour, which is `catzc-track-lamps.js` behaviour not yet checked; the user looks).
-
-## Open questions
-
-- Empty-on-disk folders: no lamp claims them, so by DDR-FILTER-EVERYFILECLAIMED they could simply show instead of being hidden while a lamp
-  is off. They are about 560 entries in every single-lamp state (mostly `out/drawio/bulk/*/models`), which no glob can cover;
-  recommendation: show them, which takes the single-lamp states to roughly 40–600 entries.
+1. [ ] `js/catzc-track-lamps` (0.13.0, installed by the importer): the user reloads VS Code and judges the lamps (open, code, configs,
+       tests, tools, pipelines, infrastructure, generated, docs, out, languages; the pipeline and workflow files claimed by `code` and
+       `pipelines` and no longer by `tools`, the Bicep tree by `code` and `infrastructure`, the module and template configuration by `code`
+       and `configs`; the pipeline-stages, factory, sliders and note-being-edited icons): a click steps each lamp off → on → veto → off
+       (veto: the purple struck-through icon, its whole zone hidden even where a lit lamp claims it), the union of the lit lamps minus the
+       vetoed zones, the open lamp keeping open files and grey with none open, the languages lamp as a language view, the blue-grey and red
+       conditions, and the counter's signature matrix; each remark lands here as its own step (check: the counter reads "everything is
+       accounted for" with each lamp off in turn; a vetoed lamp shows no staged, unstaged or failed condition colour, which is
+       `catzc-track-lamps.js` behaviour not yet checked; the user looks).
+2. [ ] `js/catzc-track-lamps/tree.js` (or `engine.js`): drop the hide-empty-folders branch so empty-on-disk folders show, update the lamp
+       vectors and the tests that expect them hidden. Check: `Invoke-TestFile` on `catzc-track-lamps.Tests.ps1` and the lamp-vectors test
+       green, the counter's single-lamp states about 40 to 600 entries.
 
 ## Refs
 

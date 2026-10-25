@@ -46,7 +46,15 @@ use_theme()
 
 
 def registry(path):
-    return yaml.safe_load((REPO / path).read_text(encoding="utf-8")) or {}
+    """One registry, read once per process and per full path; its callers only read it."""
+    return read_registry(REPO / path)
+
+
+@cache
+def read_registry(full):
+    # libyaml's loader parses when it is present; the pure-Python one is several times slower.
+    loader = getattr(yaml, "CSafeLoader", yaml.SafeLoader)
+    return yaml.load(full.read_text(encoding="utf-8"), Loader=loader) or {}
 
 
 @cache

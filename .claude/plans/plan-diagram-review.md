@@ -75,9 +75,9 @@ one is the glyph legend. A comment's target is therefore usually an article's bl
 - [ ] Edge-audit sweep wave 2: the next 20 diagrams by edges needing work in `out/edge-audit.md` (run
       `python/catzc_diagrams/edge_audit.py`), including the unlabelled same-rank edges on `gates-check-source-and-trigger` and
       `one-artifact-climbs-unchanged`. Check: the audit's ambiguous and reverse counts fall, each swept diagram puts clean.
-- [ ] Open question: remove the `relation` opt-out of DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON once the sweep is done, or keep it for state
-      and commit diagrams (`commit-promotion-states` "advances one rung", `sync-point` "points at"). Check: the user's answer recorded here
-      and the DDR rule text matching it.
+- [ ] The DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON rule text names the `relation` opt-out for state and commit diagrams only
+      (`commit-promotion-states` "advances one rung", `sync-point` "points at"), kept after the sweep (the user, 2026-10-25). Check:
+      `Test-DrsRegistry` and `Test-Links` on the page.
 - [ ] Re-run `Format-Code` on the files the last two engine rounds touched (the six fixes and the pilot-skip removal); no run since. Check:
       `Format-Code` passes and pytest stays green.
 - [ ] `ConvertTo-NormalName` round-trip test fails on `*VSCode` names (`Assert-IsRunningInVSCode` against `…VsCode`), found by the Languages

@@ -23,9 +23,7 @@ read through one resolver. Some names are still literals in code, each spelling 
 - [ ] `Install-VendorModule` and the importer: read `.vendor` and `.internal` from the `pwsh-vendor` track's place and the internal module
       place in `module-types.yml`. Check: `Install-VendorModule.Tests.ps1`, then a fresh full import.
 
-## Open questions
-
-- Session learnings of 2026-10-25, proposed to shrink what the next session reads: should the `catzc-verify` capability gain one line ("a C#
-  type edit that adds a call and its member lands in one Edit"), the test ADR one line on Pester's `<name>` title templates and quoted
-  hyphenated hashtable keys, and the comments ADR one line on how a section anchors to its code line (about 80 characters, cut on a word,
-  then `...`)?
+- [ ] `.claude/skills/catzc-verify/SKILL.md`: one line, "a C# type edit that adds a call and its member lands in one Edit", merged within
+      the capability's line roof (the user, 2026-10-25). Check: `Test-AgentDefinitions`.
+- [ ] The test ADR (`docs/drs/automation/test-automation.md`): one line on Pester's `<name>` title templates and quoted hyphenated hashtable
+      keys. Check: `Test-Links` on the page. The comments ADR line on anchoring is covered by the anchor rule of plan-drone-learnings.

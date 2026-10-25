@@ -10,7 +10,7 @@ disallowedTools: Write, Edit
 model: haiku
 effort: low
 maxTurns: 6
-skills: [catzc-run, catzc-check, report-fixed]
+skills: [catzc-run, catzc-check, catzc-subset, report-fixed]
 ---
 
 # gate-runner

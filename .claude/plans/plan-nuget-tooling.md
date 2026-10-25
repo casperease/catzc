@@ -44,7 +44,7 @@ on a regulated devbox, and today it is reached silently on every import that bui
 
 ## Open steps
 
-## Open questions
+## Deferred (the user, 2026-10-25)
 
-- The user's: the tool that configures which package managers are allowed outside the tooling system (first candidate: NuGet for the hook
-  builds), its config and its default; not designed yet.
+- The tool that configures which package managers are allowed outside the tooling system (first candidate: NuGet for the hook builds), its
+  config and its default, stays undesigned until a hook build cannot vendor its dependencies; until then the allowed set is empty.

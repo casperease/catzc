@@ -20,7 +20,7 @@ disallowedTools: ""
 model: sonnet
 effort: medium
 maxTurns: 50
-skills: [catzc-module, catzc-verify, catzc-run, catzc-check, git-readonly, report-fixed]
+skills: [catzc-module, catzc-verify, catzc-run, catzc-check, catzc-subset, git-readonly, report-fixed]
 ---
 
 # catzc-drone

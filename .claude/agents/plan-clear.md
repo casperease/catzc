@@ -9,7 +9,7 @@ disallowedTools: ""
 model: sonnet
 effort: medium
 maxTurns: 30
-skills: [plan-shape, md-links, catzc-run, catzc-check, git-readonly, report-fixed]
+skills: [plan-shape, md-links, catzc-run, catzc-check, catzc-subset, git-readonly, report-fixed]
 ---
 
 # plan-clear

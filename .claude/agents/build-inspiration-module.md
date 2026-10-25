@@ -11,7 +11,7 @@ disallowedTools: ""
 model: sonnet
 effort: medium
 maxTurns: 40
-skills: [catzc-module, catzc-run, catzc-check, git-readonly, report-fixed]
+skills: [catzc-module, catzc-run, catzc-check, catzc-subset, git-readonly, report-fixed]
 ---
 
 # build-inspiration-module

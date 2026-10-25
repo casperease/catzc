@@ -15,18 +15,18 @@ cats has no parity for (Ruff, Prettier, markdownlint, cspell). The recommendatio
 
 ## Diagnosis: the recommendations (19)
 
-| Extension                                                                 | Verdict      | Why                                                                                                  |
-| ------------------------------------------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------- |
-| `ms-dotnettools.csdevkit`, `ms-dotnettools.csharp`                        | keep         | vendor C#                                                                                            |
-| `ms-python.python`, `ms-python.vscode-pylance`                            | keep         | vendor Python; Pylance runs the Test-PythonTypes mode                                                |
-| `ms-vscode.powershell`, `golang.go`, `ms-azuretools.vscode-bicep`         | keep         | vendor languages                                                                                     |
-| `redhat.vscode-yaml`, `redhat.vscode-xml`                                 | keep         | vendor schema validation                                                                             |
-| `charliermarsh.ruff`, `esbenp.prettier-vscode`                            | keep         | known fast formatters                                                                                |
-| `DavidAnson.vscode-markdownlint`, `streetsidesoftware.code-spell-checker` | keep         | the gates' own linters in the editor                                                                 |
-| `editorconfig.editorconfig`                                               | replace      | generate the per-language `files.*`/`editor.*` settings from `.editorconfig` in `New-VsCodeSettings` |
-| `DanLevett.regex-robin`                                                   | replace      | its one rule (`/docs/drs/...` links) becomes a link provider in a cats extension                     |
-| `iliazeus.vscode-ansi`, `ibm.output-colorizer`                            | replace      | one cats extension renders ANSI in `out/**/*.log`; output colouring goes                             |
-| `tomoki1207.pdf`                                                          | keep for now | no cats PDF viewer; PDFs are the review medium                                                       |
+| Extension                                                                 | Verdict | Why                                                                                                  |
+| ------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------- |
+| `ms-dotnettools.csdevkit`, `ms-dotnettools.csharp`                        | keep    | vendor C#                                                                                            |
+| `ms-python.python`, `ms-python.vscode-pylance`                            | keep    | vendor Python; Pylance runs the Test-PythonTypes mode                                                |
+| `ms-vscode.powershell`, `golang.go`, `ms-azuretools.vscode-bicep`         | keep    | vendor languages                                                                                     |
+| `redhat.vscode-yaml`, `redhat.vscode-xml`                                 | keep    | vendor schema validation                                                                             |
+| `charliermarsh.ruff`, `esbenp.prettier-vscode`                            | keep    | known fast formatters                                                                                |
+| `DavidAnson.vscode-markdownlint`, `streetsidesoftware.code-spell-checker` | keep    | the gates' own linters in the editor                                                                 |
+| `editorconfig.editorconfig`                                               | replace | generate the per-language `files.*`/`editor.*` settings from `.editorconfig` in `New-VsCodeSettings` |
+| `DanLevett.regex-robin`                                                   | replace | its one rule (`/docs/drs/...` links) becomes a link provider in a cats extension                     |
+| `iliazeus.vscode-ansi`, `ibm.output-colorizer`                            | replace | one cats extension renders ANSI in `out/**/*.log`; output colouring goes                             |
+| `tomoki1207.pdf`                                                          | keep    | no cats PDF viewer; PDFs are the review medium                                                       |
 
 ## Diagnosis: installed by the user, not recommended
 
@@ -51,7 +51,8 @@ The small extensions folded into cats extensions.
 - [ ] A cats extension: an ANSI view for `out/**/*.log`; drop `iliazeus.vscode-ansi` and `ibm.output-colorizer`. Check: a coloured log in
       `out/` renders its colours.
 
-## Open questions
+## Decided (the user, 2026-10-25)
 
-- Is `tomoki1207.pdf` kept for good, or does a small cats PDF view earn its place?
-- Do the user-installed extensions with no repo use get a workspace `unwantedRecommendations` list, or stay the user's own business?
+- `tomoki1207.pdf` is kept for good; no cats PDF view is built.
+- The user-installed extensions with no repo use stay the user's own business: no workspace `unwantedRecommendations` list, and
+  `extensions.json` lists only what the repo uses.

@@ -1,152 +1,9 @@
 # pwsh/.internal/Catzc.Internal.Types.psm1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
-(Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
+comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
 
 ## comment:1
-
-Above `function Get-CombinedTypeHash {`, written with `#`.
-
-```text
-.SYNOPSIS
-    The single implementation of the combined C# type-source hash — enumerate, order, and hash every module's
-    types/*.cs the way the committed pwsh/.compiled/Catzc.Types.<hash>.dll is keyed.
-.DESCRIPTION
-    Loader and janitor must agree on this hash byte for byte, or the janitor plans the live build for deletion.
-    [comment:1](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment1)
-```
-
-## comment:2
-
-Above `[CmdletBinding()]`, written with `#`.
-
-```text
-.SYNOPSIS
-    Returns the combined 8-char hash of every module's C# type sources, with the per-file snapshot and the
-    source list, in order, that the loader compiles.
-.PARAMETER ModulesRoot
-    The modules folder. Its non-dot subfolders are the modules whose types/*.cs are hashed.
-.PARAMETER Module
-    Omitted, every non-dot module is hashed; a named module without a types folder contributes nothing.
-    [comment:2](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment2)
-.OUTPUTS
-    [pscustomobject] with:
-      CombinedHash  the 8-char lowercase hex hash (the Catzc.Types.<hash>.dll key), or $null when no module
-                    ships a C# type source.
-      Snapshot      an ordered map of "<module>/<bare type>" -> per-file EOL-insensitive digest.
-      Files         the source list, sorted ordinally ([pscustomobject] Module/Base/Key/Path), that the
-                    caller validates and compiles.
-```
-
-## comment:3
-
-Above `$selected = $null`, written with `#`.
-
-```text
-Assigned directly, never through an if-expression: an empty HashSet emitted from a statement enumerates to
-$null, which would silently widen an empty selection to every module.
-```
-
-## comment:4
-
-Above `$files = [System.Collections.Generic.List[object]]::new()`, written with `#`.
-
-```text
-Enumerate every non-dot module's types/*.cs. Key = "<module>/<bare type>"; Path = the source file. No
-namespace / dotted-name validation here (the loader's job). [System.IO] over Get-ChildItem for the
-~20ms/call provider overhead the raw enumeration avoids
-([ADR-PWSH-PESTER-SYSTEMIOONHOTPATHS](/docs/drs/automation/pwsh/pester-testing.md#rule-adr-pwsh-pester-systemioonhotpaths)).
-```
-
-## comment:5
-
-Above `$compiledTypesDir = [System.IO.Path]::Combine($ModulesRoot, '.compiled',...`, written with `#`.
-
-```text
-A build ships the full type set but only the selected modules' folders; the other modules' sources sit
-under .compiled/types/<module>/ so the importer never mistakes them for module folders. Keyed the same way,
-so the hash equals the one over the full type set. A source tree has no .compiled/types, so this adds
-nothing there.
-```
-
-## comment:6
-
-Above `$sortedFiles = [object[]]$files.ToArray()`, written with `#`.
-
-```text
-Deterministic, culture-independent order: sort by <module>/<bare type> ORDINALLY (Sort-Object is
-culture-aware — cross-platform ADR — so use an ordinal comparer over the keys).
-```
-
-## comment:7
-
-Above `$latin1 = [System.Text.Encoding]::Latin1`, written with `#`.
-
-```text
-Per-file EOL-INSENSITIVE digest: hash the source bytes with every CR (0x0D) stripped, so a CRLF vs LF
-working tree (git core.autocrlf, an editor's format-on-save) yields the same digest and never re-keys the
-committed DLL on a pure line-ending flip. The combined hash folds in each file's <module>|<bare type>|digest.
-One SHA instance is reused for the per-file digests and the final combined hash. First 8 hex, lowercase.
-The CR strip round-trips through Latin1 — a byte-exact 1:1 byte<->char mapping — so it runs as one native
-String.Replace instead of a per-byte pipeline (~1.2s per cold import). This runs before the combined
-assembly loads, so Catzc.Base.Globs.DurableHash (the native equivalent) is not callable here.
-```
-
-## comment:8
-
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',...`, written with `#`.
-
-```text
-.SYNOPSIS
-    Compares the C# types loaded in this process with the type sources of a code root, and says whether they are
-    current.
-.DESCRIPTION
-    A loaded assembly cannot be swapped in a running process, so a source edited after loading stays stale.
-    [comment:8](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment8)
-.PARAMETER ModulesRoot
-    The code root (a pwsh/ folder) whose type sources to compare.
-.PARAMETER HashResult
-    The Get-CombinedTypeHash result for the root, when the caller has it already; computed otherwise.
-.OUTPUTS
-    [pscustomobject] { RootKey; Loaded; Current; LoadedHash; SourceHash; Drift; MissingTypes; Summary }. Summary
-    is one sentence naming the hashes or roots, or $null when the types are current.
-```
-
-## comment:9
-
-Above `$otherRoots = [System.Collections.Generic.List[string]]::new()`, written with `#`.
-
-```text
-Cross-root: the types are in the process, but loaded on behalf of a different root. Compare per-file
-digests against the root that recorded each one; a type no recorded root claims is taken as it is.
-```
-
-## comment:10
-
-Above `[CmdletBinding()]` (occurrence 3), written with `#`.
-
-```text
-.SYNOPSIS
-    Compiles the selected modules' C# type sources into one hash-named assembly on disk, without loading it.
-.DESCRIPTION
-    Compiles a frozen copy of the sources, so a save mid-compile cannot make the DLL name differ from its bytes.
-    [comment:10](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment10)
-.PARAMETER ModulesRoot
-    The modules folder whose non-dot module folders hold the types/*.cs sources.
-.PARAMETER Module
-    Restricts the compile (and its hash) to these module folders. Omitted, every module's types compile.
-.PARAMETER OutputDirectory
-    The directory the Catzc.Types.<hash>.dll is written to; created when missing.
-.OUTPUTS
-    [pscustomobject] with Hash (the 8-char combined hash), Path (the DLL), Manifest (the Catzc.Types.<hash>.json beside
-    it, written when missing), Files (the source list, in order,
-    from Get-CombinedTypeHash), Snapshot (the per-file digests), and Compiled (whether this call ran the compiler).
-    $null when the selection ships no C# type source.
-.EXAMPLE
-    Build-CombinedTypeAssembly -ModulesRoot $root -Module 'Catzc.Base.Objects' -OutputDirectory "$build/.compiled"
-```
-
-## comment:11
 
 Above `[OutputType([string])]`, written with `#`.
 
@@ -155,14 +12,13 @@ Above `[OutputType([string])]`, written with `#`.
     The per-user folder that holds the shadow copies of the combined types assembly.
 .DESCRIPTION
     Shared by every session and clone: a copy is named by its source hash, so equal names mean equal types.
-    [comment:11](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment11)
 .OUTPUTS
     [string] The folder path (not created here).
 .EXAMPLE
     Get-TypesShadowRoot
 ```
 
-## comment:12
+## comment:2
 
 Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStat...`, written with `#`.
 
@@ -171,14 +27,12 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessFor
     Loads a combined types assembly from a per-user shadow copy, never from the file it is given.
 .DESCRIPTION
     Windows locks a loaded DLL, so loading in place would pin a superseded build; every load uses a shadow copy.
-    [comment:12](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment12)
 .PARAMETER Path
     The assembly to load (normally pwsh/.compiled/Catzc.Types.<hash>.dll, or a bundle's prebuilt copy).
 .PARAMETER ShadowRoot
     The shadow folder. Defaults to Get-TypesShadowRoot; tests pass a throwaway folder.
 .PARAMETER PruneAfter
     The age bound keeps a copy another process just wrote but not yet loaded from being pruned under it.
-    [comment:13](/docs/references/pwsh/internal/Catzc.Internal.Types.psm1.md#comment13)
 .PARAMETER ShadowCopy
     $false loads the given file in place, for a system that does not lock a loaded file.
 .OUTPUTS
@@ -187,9 +41,9 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessFor
     Import-TypesAssembly -Path (Join-Path $modulesRoot '.compiled/Catzc.Types.762c40fe.dll')
 ```
 
-## comment:13
+## comment:3
 
-Above `[CmdletBinding()]` (occurrence 4), written with `#`.
+Above `[CmdletBinding()]`, written with `#`.
 
 ```text
 .SYNOPSIS
@@ -206,46 +60,9 @@ Above `[CmdletBinding()]` (occurrence 4), written with `#`.
     Test-TypesAssemblyContent -Path $dll -Expected $hashResult.Files
 ```
 
-## comment:14
+## comment:4
 
-Above `[CmdletBinding()]` (occurrence 5), written with `#`.
-
-```text
-.SYNOPSIS
-    Lists the public types of a combined types assembly with the facts the importer registers for them, reading metadata only.
-.DESCRIPTION
-    For each public top-level type: its full name, the PSTypeAlias names it declares, and the ConsoleDisplay properties that
-    apply to it (its own, else the nearest base type's in the same assembly, as the attribute is inherited). The file is read
-    into memory and parsed with System.Reflection.Metadata, so the assembly is never loaded and the file never locked.
-.PARAMETER Path
-    The assembly file to read.
-.OUTPUTS
-    [pscustomobject] with Types: the types sorted ordinally by Name, each with Name, Aliases and Display (string arrays).
-.EXAMPLE
-    (Get-TypesAssemblyManifest -Path $dll).Types
-```
-
-## comment:15
-
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStat...` (occurrence 2), written with `#`.
-
-```text
-.SYNOPSIS
-    Writes the manifest Catzc.Types.<hash>.json beside a combined types assembly, unless it is there already.
-.DESCRIPTION
-    The manifest is generated from the assembly's own metadata, never edited, and named by the same hash as the assembly, so
-    the two always describe the same build. It is written to a temporary file and moved into place.
-.PARAMETER Path
-    The assembly (Catzc.Types.<hash>.dll) to describe.
-.OUTPUTS
-    [string] The manifest path.
-.EXAMPLE
-    Write-TypesAssemblyManifest -Path $dll
-```
-
-## comment:16
-
-Above `[CmdletBinding()]` (occurrence 7), written with `#`.
+Above `[CmdletBinding()]` (occurrence 2), written with `#`.
 
 ```text
 .SYNOPSIS
@@ -277,9 +94,9 @@ Above `[CmdletBinding()]` (occurrence 7), written with `#`.
     Get-TypesLoadPolicy -HostKind headless -Os unix -RunMode build
 ```
 
-## comment:17
+## comment:5
 
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',...` (occurrence 2), written with `#`.
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',...`, written with `#`.
 
 ```text
 .SYNOPSIS
@@ -296,9 +113,9 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '
     Register-DeferredTypes -RootKey $root -Path $dll -ShadowCopy $true
 ```
 
-## comment:18
+## comment:6
 
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',...` (occurrence 3), written with `#`.
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',...` (occurrence 2), written with `#`.
 
 ```text
 .SYNOPSIS
@@ -312,9 +129,9 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '
     Initialize-Types
 ```
 
-## comment:19
+## comment:7
 
-Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',...` (occurrence 4), written with `#`.
+Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '',...` (occurrence 3), written with `#`.
 
 ```text
 .SYNOPSIS
@@ -326,22 +143,4 @@ Above `[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '
     The commands whose first lookup loads the types.
 .EXAMPLE
     Enable-DeferredTypesLoad -CommandName (Get-Command -Module Widget).Name
-```
-
-## comment:20
-
-Above `[string] $StampPath`, written with `#`.
-
-```text
-A machine-local memo of each file's hash keyed by length and last write: a file that shows the same pair is not read again, and
-the memo is rewritten when any file was. Omitted, every file is hashed, which is what the builder, the janitor and the gates ask.
-```
-
-## comment:21
-
-Above `$carriers = [System.IO.Path]::Combine($ModulesRoot, 'Catzc.Base.Languages',...`, written with `#`.
-
-```text
-The hash is the body's: a head-only change (the file-meta imprint) keeps it, so the dll is not rebuilt for a comment. The head's form is
-the bcl carrier's in file-carriers.yml; a modules root without the Languages module hashes whole files.
 ```

@@ -13,7 +13,7 @@ lines) must appear in some cell label, whitespace-folded and case-folded. Exit 0
 file, nothing to forward. Prints one line per artifact (`src`, `result`, `model`, `report`), one per finding (`error`),
 then `status`.
 
-bulk:  uv run --with pillow python drawio_forward.py --all <root> [--theme <theme>]
+bulk:  uv run --with pillow python drawio_forward.py [--theme <theme>] --all <root> [<root> ...]
 
 Rebuilds every diagram under <root> in place (the pair `<article-folder>/.assets/<name>.drawio.png` and `<name>.drawio.yml`;
 the root itself when it names one): each declared diagram is put in the theme, its minimaps drawn from their computed data with
@@ -22,41 +22,25 @@ out/drawio/bulk/<root>/models/ only to check its article's Supports line against
 minimaps can be rebuilt only once it has a declaration. A theme other than the default puts the declared diagrams to
 out/drawio/themes/<theme>/ and leaves the committed rasters and the diagrams without a declaration alone. A legend diagram (its
 drawio.yml role) is rendered from the kit's glyphs.xml, painted in the default theme. Same exit codes;
-the report is out/drawio/bulk/<root>/bulk.md.
+the report is out/drawio/bulk/<root>/bulk.md. One process rebuilds every root given in turn, prints one JSON row
+`{"diagram": <root>, "exit": <code>}` after each, and exits with the worst code (1 when a root raised).
 """
 
 import html
+import json
 import re
-import shutil
-import subprocess
 import sys
 import xml.etree.ElementTree as ET
-import zlib
 from pathlib import Path
 
 import minimaps
+from drawio_forward_single import FINDINGS_EXIT, FORWARD, KIT, REPO, SLIDE, forward_one
 from drawio_png import DEFAULTS, THEMES, decode, encode, mxfile_chunk, paint, plain, render
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
 
-PAGE_LINES = 66
-# A transport failure of any step becomes a finding and the artifacts still land: the exceptions the steps can raise.
-FORWARD = (
-    OSError,
-    ValueError,
-    KeyError,
-    AttributeError,
-    RuntimeError,
-    subprocess.SubprocessError,
-    ET.ParseError,
-    zlib.error,
-)
-KIT = Path(__file__).resolve().parent
-REPO = KIT.parents[1]
-FINDINGS_EXIT = 2 if DEFAULTS["renderer"]["findings-fail"] == "yes" else 0  # the exit of a run with findings: every finding is an error, one setting for all
 ADR_CODE = re.compile(r"(?<![\w-])" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+(?![\w-])")
 NUMBERED = re.compile(r"(?<![\w-])" + minimaps.kinds() + r"(?:-[A-Z][A-Z0-9]*)+(?:[#:]\d|#\{)")
-SLIDE = ".drawio.png"  # a diagram's render, `<name>.drawio.png`, put from the `<name>.drawio.yml` beside it
 SOURCE = ".drawio.yml"
 ROLES = ("slide", "legend")  # the closed set of diagram roles drawio.yml may name
 
@@ -66,37 +50,6 @@ def slide_of(stem):
     stem = Path(stem)
     return stem.with_name(stem.name + SLIDE)
 
-
-def normalise(text):
-    return " ".join(text.split()).lower()
-
-
-def canonical(xml_text):
-    root = ET.fromstring(xml_text.strip())
-    if root.tag == "mxfile":
-        inner = root.find("diagram")
-        if inner is None:
-            raise ValueError("mxfile without a diagram element")
-        model = inner.find("mxGraphModel")
-        if model is None:
-            model = ET.fromstring(decode(f"<diagram>{inner.text}</diagram>"))
-        root = model
-    if root.tag != "mxGraphModel":
-        raise ValueError(f"root must be mxGraphModel, got {root.tag}")
-    for el in root.iter():
-        el.attrib = dict(sorted(el.attrib.items()))
-        if el.text is not None and not el.text.strip():
-            el.text = None
-        if el.tail is not None and not el.tail.strip():
-            el.tail = None
-    return ET.tostring(root, encoding="unicode")
-
-
-def first_difference(a, b):
-    for i, (x, y) in enumerate(zip(a, b)):
-        if x != y:
-            return f"at char {i}: {a[max(0, i - 40) : i + 40]!r} vs {b[max(0, i - 40) : i + 40]!r}"
-    return f"lengths differ: {len(a)} vs {len(b)}"
 
 
 def slide_facts(model):
@@ -365,9 +318,6 @@ def bulk(root, theme=None):
 def main():
     args = sys.argv[1:]
     if "--all" in args:
-        i = args.index("--all")
-        folder = Path(args[i + 1])
-        del args[i : i + 2]
         theme = None
         if "--theme" in args:
             i = args.index("--theme")
@@ -375,131 +325,19 @@ def main():
             del args[i : i + 2]
             if theme not in THEMES:
                 raise SystemExit(f"theme '{theme}' is not one of: {', '.join(THEMES)}")
-        raise SystemExit(bulk(folder, theme))
-    xml_path = assert_path = root = None
-    page = None
-    for flag in ("--xml", "--assert", "--page"):
-        if flag in args:
-            i = args.index(flag)
-            value = args[i + 1]
-            del args[i : i + 2]
-            if flag == "--xml":
-                xml_path = Path(value)
-            elif flag == "--assert":
-                assert_path = Path(value)
-            else:
-                page = value
-    src = Path(args[0])
-    out_dir = Path(args[1]) if len(args) > 1 else REPO / DEFAULTS["renderer"]["out"]
-    page = page or DEFAULTS["renderer"]["page"]
-    if not src.is_file():
-        print(f"error E_SOURCE no such file: {src}")
-        print("status error")
-        raise SystemExit(3)
-    out_dir.mkdir(parents=True, exist_ok=True)
-    name = src.name.replace(SLIDE, "")
-    src_copy = out_dir / f"{name}.src.drawio.png"
-    result = out_dir / f"{name}.out.drawio.png"
-    model_file = out_dir / f"{name}.model.xml"
-    report = out_dir / f"{name}.render.md"
-    findings = []
-    cells = 0
-    shutil.copyfile(src, src_copy)
-    print(f"src {src_copy}")
-
-    model = None
-    try:
-        chunk = mxfile_chunk(Image.open(src))
-        model = decode(chunk).strip()
-    except FORWARD as e:  # a transport failure is a finding, the source copy stands in for the result
-        findings.append(f"E_CHUNK no readable mxfile chunk in the source: {e}")
-
-    if model is not None:
-        model_file.write_text(model, encoding="utf-8")
-        print(f"model {model_file}")
-        try:
-            root = ET.fromstring(model)
-            ids = [c.get("id") for c in root.iter("mxCell")]
-            cells = len(ids)
-            dup = sorted({i for i in ids if i is not None and ids.count(i) > 1})
-            if dup:
-                findings.append(f"E_IDS duplicate cell ids: {dup}")
-            img = render(root, page).convert("RGB")
-            info = PngInfo()
-            info.add_text("mxfile", encode(model, name))
-            img.save(result, "PNG", pnginfo=info)
-            back = decode(mxfile_chunk(Image.open(result)))
-            if back != model:
-                findings.append(
-                    "E_ROUNDTRIP the result's embedded model differs from the source model"
-                )
-        except FORWARD as e:
-            findings.append(f"E_RENDER the model could not be rendered: {e}")
-            shutil.copyfile(src, result)
-    else:
-        shutil.copyfile(src, result)
-    print(f"result {result}")
-
-    if xml_path is not None:
-        if not xml_path.is_file():
-            findings.append(f"E_XML no such model file: {xml_path}")
-        elif model is None:
-            findings.append(
-                "E_XML a model file was given but the source carries no model to compare"
-            )
-        else:
+        i = args.index("--all")
+        # Many roots share one process, so the imports and the loaded registries are paid once; each root ends with its own row.
+        worst = 0
+        for root in (Path(a) for a in args[i + 1 :]):
             try:
-                given, embedded = (
-                    canonical(xml_path.read_text(encoding="utf-8")),
-                    canonical(model),
-                )
-                if given != embedded:
-                    findings.append(
-                        f"E_XMLMATCH given model differs from the embedded one {first_difference(given, embedded)}"
-                    )
-            except FORWARD as e:
-                findings.append(f"E_XML the given model could not be read: {e}")
-
-    if assert_path is not None:
-        if not assert_path.is_file():
-            findings.append(f"E_ASSERT no such text file: {assert_path}")
-        elif root is None:
-            findings.append(
-                "E_ASSERT a text file was given but the source carries no model to assert against"
-            )
-        else:
-            phrases = [
-                normalise(line)
-                for line in assert_path.read_text(encoding="utf-8").splitlines()
-            ]
-            phrases = [p for p in phrases if p and not p.startswith("#")]
-            if len(phrases) > PAGE_LINES:
-                findings.append(
-                    f"E_PAGE {len(phrases)} asserted lines, a page is {PAGE_LINES}; all were checked"
-                )
-            labels = " | ".join(
-                normalise(plain(c.get("value") or "")) for c in root.iter("mxCell")
-            )
-            for p in [p for p in phrases if p not in labels]:
-                findings.append(f"E_TEXT asserted text not in any cell label: {p!r}")
-
-    for w in findings:
-        print(f"error {w}")
-    status = "ok" if not findings else "error"
-    lines = [
-        f"# {name}: fail-forward render",
-        "",
-        f"- source: `{src}`",
-        f"- source copy: `{src_copy}`",
-        f"- result: `{result}` (page {page})",
-        f"- model: `{model_file}`" if model is not None else "- model: none",
-        f"- cells: {cells}",
-        f"- status: {status}",
-    ] + [f"- error: {w}" for w in findings]
-    report.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"report {report}")
-    print(f"status {status}")
-    raise SystemExit(FINDINGS_EXIT if findings else 0)
+                code = bulk(root, theme)
+            except Exception as e:
+                print(f"error E_RENDER {root}: {e}")
+                code = 1
+            print(json.dumps({"diagram": str(root).replace("\\", "/"), "exit": code}))
+            worst = max(worst, code)
+        raise SystemExit(worst)
+    return forward_one(args)
 
 
 if __name__ == "__main__":

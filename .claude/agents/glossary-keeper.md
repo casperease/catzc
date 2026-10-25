@@ -11,7 +11,7 @@ disallowedTools: Write
 model: haiku
 effort: low
 maxTurns: 12
-skills: [drs-cite, catzc-run, catzc-check, git-readonly, report-fixed]
+skills: [drs-cite, catzc-run, catzc-check, catzc-subset, git-readonly, report-fixed]
 ---
 
 # glossary-keeper

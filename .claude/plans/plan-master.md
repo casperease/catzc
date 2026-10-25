@@ -55,14 +55,14 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - vscode-extensions -> plan-vscode-extensions.md: trim the recommendations, then the cats file icon theme, then fold editorconfig,
   regex-robin and the ANSI pair into cats extensions or generated settings
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
-  one step left: the user's look at the lamps in VS Code (the `pipelines` and `infrastructure` lamps landed)
+  two steps left: the user's look at the lamps in VS Code (the `pipelines` and `infrastructure` lamps landed)
 - file-limits -> plan-file-limits.md: one declared length and width per file class, the Catzc.Base.FileLimits toolkit and gate, the tool
   width configs generated from it; six steps, two questions open
 - track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names
-- idiomatic-names -> plan-idiomatic-names.md: one step left, the naming gate wired into languages.yml once the user stages the folder moves
-  (task-user-runs-and-commits).
+- idiomatic-names -> plan-idiomatic-names.md: three steps left, the naming gate wired into languages.yml once the user stages the folder
+  moves (task-user-runs-and-commits).
 - listen-internal-readers -> plan-listen-internal-readers.md: one step left, the user's `.claude/CLAUDE.md` edit
   (task-user-runs-and-commits); the plan closes when it lands.
 - agent-shortcuts -> plan-agent-shortcuts.md: one step left, the gate runner's CLAUDE.md line (the user's, task-user-runs-and-commits).
@@ -71,9 +71,9 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - claude-diet -> plan-claude-diet.md: the user's CLAUDE.md edit (Sub-agents and Inspiration cuts, the pwsh index named;
   task-user-runs-and-commits), then the capability lines (catzc-run, catzc-verify, git-readonly, devbox-diagnose).
 - session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
-- drs-system -> plan-drs-system.md: one step left, the user's CLAUDE.md edit (task-user-runs-and-commits).
+- drs-system -> plan-drs-system.md: four steps left, the user's CLAUDE.md edit (task-user-runs-and-commits).
 - debt-tier-tripwire -> plan-debt-tier-tripwire.md: 165 L0/L1 tests launch git and fail only when a tier runs alone; seams mocked, the
-  tripwire armed per container; one step
+  tripwire armed per container; three steps
 - diagram-review -> plan-diagram-review.md: the diagrams reviewed with the user one named slide at a time (read, one question in context,
   one plan step from the written answer, a redraw after each); the user names the slides
 - debt-agent-traffic -> plan-debt-agent-traffic.md: fewer messages and tool calls between the orchestrator and its workers (a run lock,
@@ -94,6 +94,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   five points of the tree.
 - drone-learnings -> plan-drone-learnings.md: three proposals from the 2026-10-25 drone session that shrink what the next session
   rediscovers: the comment-adjacency and anchor-cut rules in the comment page rules, and the strict-mode traps in one place.
+- slim-agents -> plan-slim-agents.md: four model drones, every job a skill; 22 robots to 4, duplicates merged
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

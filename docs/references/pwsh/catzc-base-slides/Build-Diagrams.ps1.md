@@ -14,8 +14,9 @@ Rebuilds diagrams from their source: each diagram's `<name>.drawio.yml` and the 
 One command on one diagram, the pair `<article-folder>/.assets/<name>.drawio.yml`, its one source, and the `<name>.drawio.png` put from it,
 named by either file or by its stem `.assets/<name>`; with no `-Path` it repeats that for every diagram found under `docs/**/.assets/`, so a
 diagram is found, never listed. The run has two stages. First it writes the minimap data of every declared diagram, the data the
-declaration's three minimaps draw from; then it renders each diagram with one call of the draw.io kit's renderer
-(`drawio_forward.py --all <stem>`, through uv with Pillow), which puts the diagram from its yml, the minimaps drawn from that data
+declaration's three minimaps draw from (under `-Stale`, the `Test-Diagrams` call that found the set has already written it); then it renders
+every diagram in one call of the draw.io kit's renderer (`drawio_forward.py --all <stem> ...`, through uv with Pillow), which ends each
+diagram with a JSON row of its exit code and puts the diagram from its yml, the minimaps drawn from that data
 (ADR-REPO-SLIDES-MINIMAPSFROMDATA), or under `-FromDrawing` it syncs each. A diagram with no declaration gets no minimap data and is left to
 the renderer, which reports it.
 

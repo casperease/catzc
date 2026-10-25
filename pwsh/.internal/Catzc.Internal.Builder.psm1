@@ -18,6 +18,12 @@ $script:runtimeInternalFiles = @(
     'Catzc.Internal.Vendor.psm1'
     'assets/ErrorView.format.ps1xml'
     'assets/types-load.yml'
+    'assets/types/Build-CombinedTypeAssembly.ps1'
+    'assets/types/Get-CombinedTypeHash.ps1'
+    'assets/types/Get-LoadedTypeDrift.ps1'
+    'assets/types/Get-TypeSourceBody.ps1'
+    'assets/types/Get-TypesAssemblyManifest.ps1'
+    'assets/types/Write-TypesAssemblyManifest.ps1'
 )
 
 $script:fullPolicyInternalFiles = @(
@@ -26,6 +32,14 @@ $script:fullPolicyInternalFiles = @(
 )
 
 $script:mergedFileSuffix = '.functions.ps1'
+
+# The build functions that outgrew this file live one per file beside it; they share its scope.
+. (Join-Path $PSScriptRoot 'assets/builder/Get-BuildClosureViolation.ps1')
+. (Join-Path $PSScriptRoot 'assets/builder/Get-MergedModule.ps1')
+. (Join-Path $PSScriptRoot 'assets/builder/Get-ModuleBuildPlan.ps1')
+. (Join-Path $PSScriptRoot 'assets/builder/Format-CatzcPackageManifest.ps1')
+. (Join-Path $PSScriptRoot 'assets/builder/Write-ModuleBuildOutput.ps1')
+. (Join-Path $PSScriptRoot 'assets/builder/Clear-StaleBuildFile.ps1')
 
 function Get-BuildSourceIndex {
     [CmdletBinding()]
@@ -137,155 +151,6 @@ function Resolve-BuildModuleSet {
     $result
 }
 
-function Get-BuildClosureViolation {
-    [CmdletBinding()]
-    [OutputType([string])]
-    param(
-        [Parameter(Mandatory)]
-        [string] $SourceRoot,
-
-        [Parameter(Mandatory)]
-        [AllowEmptyCollection()]
-        [string[]] $Module,
-
-        [Parameter(Mandatory)]
-        [System.Collections.Generic.Dictionary[string, bool]] $Index,
-
-        [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
-    )
-
-    $sourceFolder = [System.IO.Path]::GetFileName($SourceRoot.TrimEnd('\', '/'))
-    $selected = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module), [System.StringComparer]::Ordinal)
-
-    foreach ($call in @(Get-FunctionDependency -ModulesRoot $SourceRoot -ParsedScripts $ParsedScripts)) {
-        if ($call.CrossModule -and $selected.Contains($call.CallerModule) -and -not $selected.Contains($call.TargetModule)) {
-            "$sourceFolder/$($call.CallerModule)/$($call.CallerFile):$($call.CallerLine): $($call.CallerFunction) calls $($call.TargetFunction), which $($call.TargetModule) owns"
-        }
-    }
-
-    foreach ($name in $Module) {
-        $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, $name)
-        if (-not [System.IO.Directory]::Exists($moduleDirectory)) {
-            continue
-        }
-        # A module's scripts sit at most three levels below its folder (tests/types/ is the deepest).
-        foreach ($file in Get-ChildPath $moduleDirectory -File -Filter '*.ps1' -Depth 3) {
-            $relativePath = [System.IO.Path]::GetRelativePath($SourceRoot, $file).Replace('\', '/')
-            if ($relativePath.EndsWith('.Tests.ps1', [System.StringComparison]::OrdinalIgnoreCase) -or
-                $relativePath.StartsWith("$name/tests/", [System.StringComparison]::Ordinal) -or
-                -not $Index.ContainsKey($relativePath)) {
-                continue
-            }
-            $syntaxTree = $ParsedScripts.Get($file).Ast
-            foreach ($read in [Catzc.Base.Repository.SyntaxSearch]::CommandsNamed($syntaxTree, 'Get-Config', $false)) {
-                $elements = $read.CommandElements
-                $isOwnerScoped = @($elements | Where-Object {
-                        $_ -is [System.Management.Automation.Language.CommandParameterAst] -and $_.ParameterName -in 'ListOwners', 'Module'
-                    }).Count -gt 0
-                if ($isOwnerScoped) {
-                    continue
-                }
-                $argument = $null
-                for ($position = 1; $position -lt $elements.Count; $position++) {
-                    $element = $elements[$position]
-                    if ($element -is [System.Management.Automation.Language.CommandParameterAst]) {
-                        if ($element.ParameterName -ieq 'Config' -and $position + 1 -lt $elements.Count) {
-                            $argument = $elements[$position + 1]
-                        }
-                        break
-                    }
-                    $argument = $element
-                    break
-                }
-                if ($argument -isnot [System.Management.Automation.Language.StringConstantExpressionAst]) {
-                    continue
-                }
-                $config = $argument.Value
-                $owners = @(foreach ($directory in [System.IO.Directory]::GetDirectories($SourceRoot)) {
-                        $owner = [System.IO.Path]::GetFileName($directory)
-                        if (-not $owner.StartsWith('.') -and [System.IO.File]::Exists([System.IO.Path]::Combine($directory, 'configs', "$config.yml"))) {
-                            $owner
-                        }
-                    })
-                if ($owners.Count -gt 0 -and -not @($owners | Where-Object { $selected.Contains($_) })) {
-                    "$sourceFolder/${relativePath}:$($read.Extent.StartLineNumber): reads config '$config', which $($owners -join ', ') owns"
-                }
-            }
-        }
-    }
-}
-
-function Get-MergedModule {
-    [CmdletBinding()]
-    [OutputType([pscustomobject])]
-    param(
-        [Parameter(Mandatory)]
-        [string] $SourceRoot,
-
-        [Parameter(Mandatory)]
-        [string] $Name,
-
-        [Parameter(Mandatory)]
-        [System.Collections.Generic.Dictionary[string, bool]] $Index,
-
-        [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
-    )
-
-    $sourceFolder = [System.IO.Path]::GetFileName($SourceRoot.TrimEnd('\', '/'))
-    $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, $Name)
-    $privateDirectory = [System.IO.Path]::Combine($moduleDirectory, 'private')
-
-    $privateFiles = [string[]] @(if ([System.IO.Directory]::Exists($privateDirectory)) {
-            foreach ($file in [System.IO.Directory]::GetFiles($privateDirectory, '*.ps1')) {
-                if (Test-BuildSourceShippable -Index $Index -SourceRoot $SourceRoot -Path $file) {
-                    $file
-                }
-            }
-        })
-    $publicFiles = [string[]] @(foreach ($file in [System.IO.Directory]::GetFiles($moduleDirectory, '*.ps1')) {
-            if (-not $file.EndsWith('.Tests.ps1', [System.StringComparison]::OrdinalIgnoreCase) -and
-                (Test-BuildSourceShippable -Index $Index -SourceRoot $SourceRoot -Path $file)) {
-                $file
-            }
-        })
-    [System.Array]::Sort($privateFiles, [System.StringComparer]::Ordinal)
-    [System.Array]::Sort($publicFiles, [System.StringComparer]::Ordinal)
-
-    $violations = [System.Collections.Generic.List[string]]::new()
-    if ($privateFiles.Count + $publicFiles.Count -eq 0) {
-        $violations.Add("$sourceFolder/${Name}: has no function files, so there is nothing to build into a module")
-    }
-
-    $ordered = [System.Collections.Generic.List[object]]::new()
-    foreach ($file in $privateFiles) {
-        $ordered.Add(@{ Path = $file; Relative = "$sourceFolder/$Name/private/$([System.IO.Path]::GetFileName($file))" })
-    }
-    foreach ($file in $publicFiles) {
-        $ordered.Add(@{ Path = $file; Relative = "$sourceFolder/$Name/$([System.IO.Path]::GetFileName($file))" })
-    }
-
-    $blocks = [System.Collections.Generic.List[string]]::new()
-    $blocks.Add("# $Name — generated by Invoke-ModuleBuild from the source module $Name/ (private/*.ps1, then *.ps1); do not edit.")
-    foreach ($entry in $ordered) {
-        foreach ($violation in @(Get-FunctionFileViolation -Path $entry.Path -RelativePath $entry.Relative -ParsedScripts $ParsedScripts)) {
-            $violations.Add($violation)
-        }
-        $text = [System.IO.File]::ReadAllText($entry.Path).Replace("`r", '').TrimEnd("`n")
-        $blocks.Add("# source: $($entry.Relative)`n$text")
-    }
-
-    $publics = [string[]] @(foreach ($file in $publicFiles) {
-            [System.IO.Path]::GetFileNameWithoutExtension($file)
-        })
-
-    [pscustomobject]@{
-        Name       = $Name
-        Content    = ($blocks -join "`n`n") + "`n"
-        Publics    = $publics
-        Violations = $violations.ToArray()
-    }
-}
-
 function Get-BuildFileCopy {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -328,240 +193,6 @@ function Get-BuildFileCopy {
     }
 }
 
-function Get-ModuleBuildPlan {
-    [CmdletBinding()]
-    [OutputType([pscustomobject])]
-    param(
-        [Parameter(Mandatory)]
-        [string] $SourceRoot,
-
-        [Parameter(Mandatory)]
-        [AllowEmptyCollection()]
-        [string[]] $Module,
-
-        [Parameter(Mandatory)]
-        [string] $Version,
-
-        [Parameter(Mandatory)]
-        [string] $VendorPolicy,
-
-        [Parameter(Mandatory)]
-        [hashtable] $PackageMetadata,
-
-        [Parameter(Mandatory)]
-        [System.Collections.Generic.Dictionary[string, bool]] $Index,
-
-        [Catzc.Base.Repository.ParsedScripts] $ParsedScripts = [Catzc.Base.Repository.ParsedScripts]::new()
-    )
-
-    $sourceFolder = [System.IO.Path]::GetFileName($SourceRoot.TrimEnd('\', '/'))
-    $entries = [System.Collections.Generic.List[object]]::new()
-    $violations = [System.Collections.Generic.List[string]]::new()
-    $allPublics = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
-
-    foreach ($name in $Module) {
-        $moduleDirectory = [System.IO.Path]::Combine($SourceRoot, $name)
-        if (-not [System.IO.Directory]::Exists($moduleDirectory)) {
-            $violations.Add("$sourceFolder/${name}: the module folder does not exist")
-            continue
-        }
-        $merged = Get-MergedModule -SourceRoot $SourceRoot -Name $name -Index $Index -ParsedScripts $ParsedScripts
-        foreach ($violation in $merged.Violations) {
-            $violations.Add($violation)
-        }
-        foreach ($public in $merged.Publics) {
-            [void] $allPublics.Add($public)
-        }
-        $exports = [string[]] @($merged.Publics)
-        [System.Array]::Sort($exports, [System.StringComparer]::Ordinal)
-        $entries.Add([pscustomobject]@{ Path = "$name/$name$($script:mergedFileSuffix)"; Kind = 'Text'; Source = $null; Content = $merged.Content; Exports = $null })
-        $entries.Add([pscustomobject]@{ Path = "$name/$name.psd1"; Kind = 'Manifest'; Source = $null; Content = $null; Exports = $exports })
-        # The folders a build copies verbatim are the layout's shipped rows.
-        foreach ($folder in (Get-Config -Config languages).ShippedFolders()) {
-            $copies = Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($moduleDirectory, $folder)) -TargetPath "$name/$folder" -SourceRoot $SourceRoot -Index $Index -IncludeUntracked:($folder -eq 'types')
-            foreach ($copy in @($copies)) {
-                $entries.Add($copy)
-            }
-        }
-    }
-
-    # The runtime loader and its assets, plus the analyzer settings and rules under the full vendor policy.
-    $internalFiles = @($script:runtimeInternalFiles) + @(if ($VendorPolicy -eq 'full') {
-            $script:fullPolicyInternalFiles
-        })
-    foreach ($relativePath in $internalFiles) {
-        $source = [System.IO.Path]::Combine($SourceRoot, '.internal', $relativePath)
-        if (-not [System.IO.File]::Exists($source)) {
-            $violations.Add("$sourceFolder/.internal/${relativePath}: the runtime loader file does not exist")
-            continue
-        }
-        if (-not (Test-BuildSourceShippable -Index $Index -SourceRoot $SourceRoot -Path $source)) {
-            $violations.Add("$sourceFolder/.internal/${relativePath}: the runtime loader file is ignored by git, and a bundle never ships an ignored file")
-            continue
-        }
-        $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $source
-        $entries.Add([pscustomobject]@{ Path = ".internal/$relativePath"; Kind = 'Copy'; Source = $source; Content = $null; Exports = $null; Normalize = $normalize })
-    }
-    if ($VendorPolicy -eq 'full') {
-        foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($SourceRoot, '.scriptanalyzer')) -TargetPath '.scriptanalyzer' -SourceRoot $SourceRoot -Index $Index -ExcludeDirectory 'tests')) {
-            $entries.Add($copy)
-        }
-    }
-
-    # Vendored modules, verbatim (never re-downloaded): every one under 'full', the runtime ones under 'runtime'.
-    $vendorRoot = [System.IO.Path]::Combine($SourceRoot, '.vendor')
-    if ([System.IO.Directory]::Exists($vendorRoot)) {
-        $vendorNames = [string[]] @(foreach ($vendorDirectory in [System.IO.Directory]::GetDirectories($vendorRoot)) {
-                [System.IO.Path]::GetFileName($vendorDirectory)
-            })
-        [System.Array]::Sort($vendorNames, [System.StringComparer]::Ordinal)
-        foreach ($vendorName in $vendorNames) {
-            if ($VendorPolicy -eq 'runtime' -and $vendorName -in $script:testToolVendorModules) {
-                continue
-            }
-            foreach ($copy in @(Get-BuildFileCopy -SourceDirectory ([System.IO.Path]::Combine($vendorRoot, $vendorName)) -TargetPath ".vendor/$vendorName" -SourceRoot $SourceRoot -Index $Index)) {
-                $entries.Add($copy)
-            }
-        }
-    }
-
-    # The package entry points: the authored initializer (verbatim), its RootModule wrapper, and the manifest.
-    $initializer = [System.IO.Path]::Combine($SourceRoot, '.internal', 'assets', 'Import-Catzc.ps1')
-    if (-not [System.IO.File]::Exists($initializer)) {
-        $violations.Add("$sourceFolder/.internal/assets/Import-Catzc.ps1: the build initializer does not exist")
-    }
-    elseif (-not (Test-BuildSourceShippable -Index $Index -SourceRoot $SourceRoot -Path $initializer)) {
-        $violations.Add("$sourceFolder/.internal/assets/Import-Catzc.ps1: the build initializer is ignored by git, and a bundle never ships an ignored file")
-    }
-    else {
-        $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $initializer
-        $entries.Add([pscustomobject]@{ Path = 'Import-Catzc.ps1'; Kind = 'Copy'; Source = $initializer; Content = $null; Exports = $null; Normalize = $normalize })
-    }
-    $rootModule = @(
-        '# Catzc root module — generated by Invoke-ModuleBuild; do not edit. Import-Module Catzc runs the same initializer'
-        '# a caller can dot-source, Import-Catzc.ps1 (docs/drs/automation/platform-bundle.md).'
-        ". (Join-Path `$PSScriptRoot 'Import-Catzc.ps1')"
-    ) -join "`n"
-    $entries.Add([pscustomobject]@{ Path = 'Catzc.psm1'; Kind = 'Text'; Source = $null; Content = $rootModule; Exports = $null })
-    $packageExports = [string[]] @($allPublics)
-    [System.Array]::Sort($packageExports, [System.StringComparer]::Ordinal)
-    $packageManifest = Format-CatzcPackageManifest -Version $Version -PackageMetadata $PackageMetadata -FunctionToExport $packageExports
-    $entries.Add([pscustomobject]@{ Path = 'Catzc.psd1'; Kind = 'Text'; Source = $null; Content = $packageManifest; Exports = $null })
-
-    $typeHash = $null
-    $typeSources = [string[]] @()
-    $hashResult = Get-CombinedTypeHash -ModulesRoot $SourceRoot
-    if ($hashResult.CombinedHash) {
-        $typeHash = $hashResult.CombinedHash
-        $selectedModules = [System.Collections.Generic.HashSet[string]]::new([string[]] @($Module), [System.StringComparer]::OrdinalIgnoreCase)
-        $typeSources = [string[]] @(foreach ($file in $hashResult.Files) {
-                if ($selectedModules.Contains($file.Module)) {
-                    "$($file.Module)/types/$($file.Base).cs"
-                }
-                else {
-                    ".compiled/types/$($file.Module)/$($file.Base).cs"
-                }
-            })
-        foreach ($file in $hashResult.Files) {
-            if (-not $selectedModules.Contains($file.Module)) {
-                $normalize = Test-BuildSourceLfOnly -Index $Index -SourceRoot $SourceRoot -Path $file.Path
-                $entries.Add([pscustomobject]@{ Path = ".compiled/types/$($file.Module)/$($file.Base).cs"; Kind = 'Copy'; Source = $file.Path; Content = $null; Exports = $null; Normalize = $normalize })
-            }
-        }
-        $dllPath = ".compiled/Catzc.Types.$typeHash.dll"
-        $committed = [System.IO.Path]::Combine($SourceRoot, '.compiled', "Catzc.Types.$typeHash.dll")
-        $manifestPath = ".compiled/Catzc.Types.$typeHash.json"
-        $committedManifest = [System.IO.Path]::Combine($SourceRoot, '.compiled', "Catzc.Types.$typeHash.json")
-        if ([System.IO.File]::Exists($committed)) {
-            $entries.Add([pscustomobject]@{ Path = $dllPath; Kind = 'Copy'; Source = $committed; Content = $null; Exports = $null; Normalize = $false })
-            if ([System.IO.File]::Exists($committedManifest)) {
-                $entries.Add([pscustomobject]@{ Path = $manifestPath; Kind = 'Copy'; Source = $committedManifest; Content = $null; Exports = $null; Normalize = $false })
-            }
-            else {
-                $violations.Add("$sourceFolder/.compiled/Catzc.Types.$typeHash.json: the types manifest beside the committed assembly does not exist; run the importer")
-            }
-        }
-        else {
-            $entries.Add([pscustomobject]@{ Path = $dllPath; Kind = 'Types'; Source = $null; Content = $null; Exports = $null })
-            $entries.Add([pscustomobject]@{ Path = $manifestPath; Kind = 'Types'; Source = $null; Content = $null; Exports = $null })
-        }
-    }
-
-    [pscustomobject]@{
-        Entries     = $entries.ToArray()
-        Violations  = $violations.ToArray()
-        TypesHash   = $typeHash
-        TypeSources = $typeSources
-    }
-}
-
-function Format-CatzcPackageManifest {
-    [CmdletBinding()]
-    [OutputType([string])]
-    param(
-        [Parameter(Mandatory)]
-        [string] $Version,
-
-        [Parameter(Mandatory)]
-        [hashtable] $PackageMetadata,
-
-        [Parameter(Mandatory)]
-        [AllowEmptyCollection()]
-        [string[]] $FunctionToExport
-    )
-
-    $quote = {
-        param([string] $Value)
-        "'" + $Value.Replace("'", "''") + "'"
-    }
-    $listLiteral = {
-        param([string[]] $Values)
-        if ($Values.Count -eq 0) {
-            return '@()'
-        }
-        $quoted = foreach ($value in $Values) {
-            & $quote $value
-        }
-        '@(' + (@($quoted) -join ', ') + ')'
-    }
-
-    $lines = [System.Collections.Generic.List[string]]::new()
-    $lines.Add('@{')
-    $lines.Add("    RootModule        = 'Catzc.psm1'")
-    $lines.Add("    ModuleVersion     = $(& $quote $Version)")
-    $lines.Add("    GUID              = $(& $quote ([string] $PackageMetadata['Guid']))")
-    $lines.Add("    Author            = $(& $quote ([string] $PackageMetadata['Author']))")
-    $lines.Add("    CompanyName       = $(& $quote ([string] $PackageMetadata['CompanyName']))")
-    $lines.Add("    Description       = $(& $quote ([string] $PackageMetadata['Description']))")
-    $lines.Add("    PowerShellVersion = '7.4'")
-    if ($FunctionToExport.Count -eq 0) {
-        $lines.Add('    FunctionsToExport = @()')
-    }
-    else {
-        $lines.Add('    FunctionsToExport = @(')
-        foreach ($name in $FunctionToExport) {
-            $lines.Add("        $(& $quote $name)")
-        }
-        $lines.Add('    )')
-    }
-    $lines.Add('    CmdletsToExport   = @()')
-    $lines.Add('    VariablesToExport = @()')
-    $lines.Add('    AliasesToExport   = @()')
-    $lines.Add('    PrivateData       = @{')
-    $lines.Add('        PSData = @{')
-    $lines.Add("            Tags       = $(& $listLiteral ([string[]] @($PackageMetadata['Tags'] | Where-Object { $_ })))")
-    foreach ($key in 'ProjectUri', 'LicenseUri') {
-        $value = [string] $PackageMetadata[$key]
-        if (-not [string]::IsNullOrWhiteSpace($value)) {
-            $lines.Add("            $($key.PadRight(10)) = $(& $quote $value)")
-        }
-    }
-    $lines.Add('        }')
-    $lines.Add('    }')
-    $lines.Add('}')
-    ($lines -join "`n") + "`n"
-}
-
 function Copy-BuildFileIfChanged {
     [CmdletBinding()]
     [OutputType([bool])]
@@ -590,44 +221,6 @@ function Copy-BuildFileIfChanged {
     $true
 }
 
-function Clear-StaleBuildFile {
-    [CmdletBinding()]
-    [OutputType([int])]
-    param(
-        [Parameter(Mandatory)]
-        [string] $BuildRoot,
-
-        [Parameter(Mandatory)]
-        [System.Collections.Generic.HashSet[string]] $KeepPath
-    )
-
-    $removed = 0
-    if (-not [System.IO.Directory]::Exists($BuildRoot)) {
-        return $removed
-    }
-    foreach ($file in @(Get-ChildPath $BuildRoot -File -Depth 64 -Exclude @() -PruneVendor $false)) {
-        $relativePath = [System.IO.Path]::GetRelativePath($BuildRoot, $file).Replace('\', '/')
-        if (-not $KeepPath.Contains($relativePath)) {
-            try {
-                [System.IO.File]::Delete($file)
-            }
-            catch {
-                throw "Invoke-ModuleBuild: cannot remove the stale build file '$file' ($($_.Exception.Message)). Close the session that loaded it, then rebuild."
-            }
-            $removed++
-        }
-    }
-    # Deepest folders first, so a parent empties after its children.
-    $folders = [string[]] @(Get-ChildPath $BuildRoot -Directory -Depth 64 -Exclude @() -PruneVendor $false)
-    [System.Array]::Sort($folders, [System.Comparison[string]] { param($left, $right) $right.Length.CompareTo($left.Length) })
-    foreach ($folder in $folders) {
-        if (-not [System.IO.Directory]::EnumerateFileSystemEntries($folder).GetEnumerator().MoveNext()) {
-            [System.IO.Directory]::Delete($folder)
-        }
-    }
-    $removed
-}
-
 function Get-BuildSourceCommit {
     [CmdletBinding()]
     [OutputType([string])]
@@ -639,64 +232,6 @@ function Get-BuildSourceCommit {
     catch {
         Write-Verbose "No source commit recorded: $($_.Exception.Message)"
         $null
-    }
-}
-
-function Write-ModuleBuildOutput {
-    [CmdletBinding()]
-    [OutputType([pscustomobject])]
-    param(
-        [Parameter(Mandatory)]
-        [string] $SourceRoot,
-
-        [Parameter(Mandatory)]
-        [string] $BuildRoot,
-
-        [Parameter(Mandatory)]
-        [object[]] $Entries
-    )
-
-    $keep = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
-    foreach ($entry in $Entries) {
-        [void] $keep.Add($entry.Path)
-    }
-    [void] $keep.Add('build.json')
-    [void] (Clear-StaleBuildFile -BuildRoot $BuildRoot -KeepPath $keep)
-    [System.IO.Directory]::CreateDirectory($BuildRoot) | Out-Null
-
-    $hadBootstrap = [bool] (Get-Module Catzc.Internal.Bootstrap)
-    Import-InternalModule Bootstrap
-    try {
-        $bootstrap = Get-Module Catzc.Internal.Bootstrap
-        foreach ($entry in $Entries) {
-            $target = [System.IO.Path]::Combine($BuildRoot, $entry.Path)
-            switch ($entry.Kind) {
-                'Text' {
-                    [void] (Write-FileIfChanged -Path $target -Content $entry.Content)
-                }
-                'Copy' {
-                    [void] (Copy-BuildFileIfChanged -Source $entry.Source -Destination $target -Normalize:$entry.Normalize)
-                }
-                'Manifest' {
-                    $moduleFolder = [System.IO.Path]::GetDirectoryName($target)
-                    $nestedModule = [System.IO.Path]::GetFileName($moduleFolder) + $script:mergedFileSuffix
-                    $exports = [string[]] @($entry.Exports)
-                    & $bootstrap {
-                        param($ModulePath, $NestedModule, $FunctionToExport)
-                        New-DynamicManifest -ModulePath $ModulePath -NestedModule $NestedModule -FunctionToExport $FunctionToExport
-                    } $moduleFolder $nestedModule $exports | Out-Null
-                }
-            }
-        }
-    }
-    finally {
-        if (-not $hadBootstrap) {
-            Remove-Module Catzc.Internal.Bootstrap -Force -ErrorAction Ignore
-        }
-    }
-
-    if (@($Entries | Where-Object { $_.Kind -eq 'Types' }).Count -gt 0) {
-        Build-CombinedTypeAssembly -ModulesRoot $SourceRoot -OutputDirectory ([System.IO.Path]::Combine($BuildRoot, '.compiled'))
     }
 }
 

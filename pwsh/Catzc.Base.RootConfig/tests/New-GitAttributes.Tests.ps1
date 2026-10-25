@@ -58,7 +58,7 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
         $text | Should -BeExactly "# head`n# catzc: Cogs are data.`nwidgets/cogs/** catzc-cog`n`n# catzc: Widgets are data on purpose.`nwidgets/** catzc-widget eol=lf`nextras/** catzc-widget eol=lf`n# tail`n$script:generated"
     }
 
-    It 'marks every writer output, then every committed root config, generated, root-anchored unless it spans folders, and leaves an uncommitted root out' -Tag 'PDR-ONELIVE', 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
+    It 'marks every writer output, then every committed root config, generated, root-anchored unless it spans folders, and leaves an uncommitted root out' -Tag 'PDR-ONELIVE-ONEVERSION', 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
         Set-Template "{{file-kind-attributes}}`n$script:roots"
         $text = New-GitAttributes
         $text | Should -BeLike "*`n$script:generated"

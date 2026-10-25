@@ -84,6 +84,8 @@ reads the AI agent contract first, [ADR-REPO-AI](../docs/drs/repository/ai-agent
   weighed by the whole system's quality and the noise it adds, never by its own sparkle; measures what `.claude` costs every session and
   spawn, lands each item as an open step with its check in the owning plan, or in `plan-claude-diet.md` (the `.claude` weight) or
   `plan-debt-<topic>.md` (tooling, links, defaults); plans only, never the change itself.
+- **`diagram-review`** — reviews the diagrams one slide at a time with the user, landing every fix in the declaration, the yml language
+  or the drawing engine and redrawing.
 - **`print-artifacts`** — republishes the diagram review artifact from the files on disk.
 - **`build-inspiration-module`** — creates or extends the inspiration module (`Get-Inspiration`).
 - **`session-cost-audit`** — measures what a session cost and why, against `out/plan-session-cost.md`, and proposes the changes.

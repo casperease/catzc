@@ -53,14 +53,10 @@ already exist into a map anyone can read, and every slide is generated from thos
        tree, the tracks and their places, file languages, aspects, and the four link relations. - `the-meta-model.md`: modules, dependencies
        and their order, engines, decision kinds and domains, the glossary. - `where-each-model-is-declared.md`: one table, model → config
        file → query command → gate that keeps it true. - `the-zoom-ladder.md`: C0–C4 and how they cross the lenses. Add `model` to
-       `docs/explanation/index.md`. Check: `Test-Links`, `Test-Glossary` on the new files, `Format-Code`.
+       `docs/explanation/index.md`, and replace its five-lens table with a link to `the-zoom-ladder.md` (the user, 2026-10-25). Check:
+       `Test-Links`, `Test-Glossary` on the new files, `Format-Code`.
 5. [ ] The five ladders of the points listed above as `.drawio.yml` declarations plus pngs under `docs/explanation/model/.assets/`, one
        article per ladder (`zoom-<point>.md`). Check: `Test-Diagrams`, `Test-Slides`, `Test-Links`.
-
-## Open questions
-
-- Should `docs/explanation/index.md` drop its five-lens table in favour of a link to `the-zoom-ladder.md` once step 4 lands, so a reader
-  meets lens and zoom in one place? Recommendation: yes.
 
 ## Refs
 

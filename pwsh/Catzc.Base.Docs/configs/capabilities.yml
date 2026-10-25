@@ -15,6 +15,11 @@ capabilities:
     supported_by: [ADR-AUTO-TEST-QUALITYGATE, WDR-BUILTIN-GATESAREPARTOFWORK]
     checks: [Invoke-TestFile, Test-Links, Test-AgentDefinitions]
 
+  # Small isolated background slices of test automation on a named path subset, one verdict per gate.
+  - name: catzc-subset
+    supported_by: [ADR-AUTO-FAILFAST-BOUNDEVERYWAIT, ADR-AUTO-TEST-QUALITYGATE, WDR-BUILTIN-GATESAREPARTOFWORK]
+    checks: [Test-Change, Invoke-TestFile, Test-Spelling, Test-Links]
+
   # How a cats module is built to the domain rules, one file at a time with its tests.
   - name: catzc-module
     supported_by:

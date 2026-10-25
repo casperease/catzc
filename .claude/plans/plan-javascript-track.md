@@ -45,13 +45,6 @@ pwsh-to-extension boundary checked instead of implied.
   and `github`, holds the trimmed extension-manifest schema VS Code expects, and the pwsh build checks every rendered `package.json` against
   it before packing, in process and fast. It follows the layout of `plan-contracts-layout.md` and lands after that plan's move.
 
-## Open question
-
-- Proposed (not applied): a how-to `docs/how-to/getting-started/automation/add-a-language-track.md` listing the touch points a new
-  language track needs (variants.yml track, module-types.yml type, track-types.yml admits, the languages.yml row, `<language>.yml` with
-  its config type and configs.yml entry, the runner with its result type and junit parser, the case discovery, the bridge branch), so the
-  next language track is a checklist instead of a search. Answer: yes or no.
-
 ## Open steps
 
 - [ ] The stub-editor scenarios (`pwsh/Catzc.Base.VSCode/tests/assets/catzc-track-lamps-harness.js`) to node:test in
@@ -69,3 +62,7 @@ pwsh-to-extension boundary checked instead of implied.
       `Build-VsCodeExtension.Tests.ps1` with one passing and one broken manifest, then `Test-Contracts`.
 - [ ] Phase 6, rules and docs: `docs/drs/automation/javascript/` (ADR-AUTO-JS, index row in `docs/drs/index.md`), DDR-TRACK-ONETRACKTYPE
       names `js`, the Catzc.Base.VSCode reference re-cut. Check: `Test-Links`, `Test-Markdownlint`.
+- [ ] `docs/how-to/getting-started/automation/add-a-language-track.md`: the touch points a new language track needs (variants.yml track,
+      module-types.yml type, track-types.yml admits, the languages.yml row, `<language>.yml` with its config type and configs.yml entry, the
+      runner with its result type and junit parser, the case discovery, the bridge branch), so the next track is a checklist (the user,
+      2026-10-25). Check: `Test-Links` and `Test-Markdownlint` on the page.

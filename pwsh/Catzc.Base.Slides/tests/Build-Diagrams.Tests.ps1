@@ -26,7 +26,12 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         Mock Get-GitChangedPath -ModuleName Catzc.Base.Slides { }
         Mock Resolve-ToolExecutable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Found = $true; Path = 'C:/tools/uv.exe' } }
         Mock Write-DiagramMinimapData -ModuleName Catzc.Base.Slides { }
-        Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 0; Output = '' } }
+        Mock Invoke-Executable -ModuleName Catzc.Base.Slides {
+            $rows = @(if ($Command -match '--all (.+)$') {
+                    [regex]::Matches($Matches[1], '"([^"]+)"') | ForEach-Object { @{ diagram = $_.Groups[1].Value; exit = 0 } | ConvertTo-Json -Compress }
+                })
+            [pscustomobject]@{ ExitCode = 0; Output = $rows -join "`n" }
+        }
         Mock Write-Message -ModuleName Catzc.Base.Slides { }
         $script:build = {
             param([hashtable] $Arguments = @{})
@@ -66,11 +71,19 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
         $folders | Should -Be @('docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b', 'docs/gizmos/.assets/gizmo')
     }
 
-    It 'calls the kit''s renderer through uv in the kit''s own project, the folder absolute, one call per folder' {
-        & $script:build @{ Path = 'docs/widgets/.assets/widget-b' } | Out-Null
+    It 'calls the kit''s renderer through uv in the kit''s own project, every folder absolute, in one call' {
+        & $script:build @{ Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' } | Out-Null
+        Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly
         Should -Invoke Invoke-Executable -ModuleName Catzc.Base.Slides -Times 1 -Exactly -ParameterFilter {
-            $Command -like '"C:/tools/uv.exe" run --project "*kit*" python "*kit*drawio_forward.py" --all "*docs*widgets*.assets*widget-b" --theme dark'
+            $Command -like '"C:/tools/uv.exe" run --project "*kit*" python "*kit*drawio_forward.py" --theme dark --all "*docs*widgets*.assets*widget-a" "*docs*widgets*.assets*widget-b"'
         }
+    }
+
+    It 'renders every folder before it refuses the one the renderer failed on' {
+        Mock Invoke-Executable -ModuleName Catzc.Base.Slides {
+            [pscustomobject]@{ ExitCode = 1; Output = (@{ diagram = (Join-Path $script:widgetRoot 'docs/widgets/.assets/widget-a'); exit = 0 } | ConvertTo-Json -Compress) }
+        }
+        { & $script:build @{ Path = 'docs/widgets/.assets/widget-a', 'docs/widgets/.assets/widget-b' } } | Should -Throw '*the renderer failed on docs/widgets/.assets/widget-b (exit 1)*'
     }
 
     It 'refuses an orphan as an error: no page embeds its png' {
@@ -155,9 +168,10 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
 
     It 'stops on the renderer findings, takes nothing to render as done, and stops on any other exit' {
         $one = @{ Path = 'docs/widgets/.assets/widget-a' }
-        Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 2; Output = '' } }
+        $script:row = { param($exit) @{ diagram = (Join-Path $script:widgetRoot 'docs/widgets/.assets/widget-a'); exit = $exit } | ConvertTo-Json -Compress }
+        Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 2; Output = (& $script:row 2) } }
         { & $script:build $one } | Should -Throw '*reported findings on docs/widgets/.assets/widget-a, each an error*'
-        Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 3; Output = '' } }
+        Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 3; Output = (& $script:row 3) } }
         @(& $script:build $one).Status | Should -Be @('nothing')
         Mock Invoke-Executable -ModuleName Catzc.Base.Slides { [pscustomobject]@{ ExitCode = 1; Output = "line one`nTraceback: widget" } }
         { & $script:build $one } | Should -Throw '*renderer failed on docs/widgets/.assets/widget-a (exit 1)*Traceback: widget*'
@@ -212,6 +226,12 @@ Describe 'Build-Diagrams' -Tag 'L0', 'logic', 'ADR-REPO-SLIDES-ONEBUILDCOMMAND' 
             Mock Test-Diagrams -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Facts = @{ StaleDiagrams = @('docs/widgets/.assets/widget-b') } } }
             $runs = @(& $script:build @{ Stale = $true })
             $runs.Folder | Should -Be @('docs/widgets/.assets/widget-b')
+        }
+
+        It 'writes no minimap data of its own, since Test-Diagrams has just written it' {
+            Mock Test-Diagrams -ModuleName Catzc.Base.Slides { [pscustomobject]@{ Facts = @{ StaleDiagrams = @('docs/widgets/.assets/widget-b') } } }
+            $null = @(& $script:build @{ Stale = $true })
+            Should -Invoke Write-DiagramMinimapData -ModuleName Catzc.Base.Slides -Times 0 -Exactly
         }
 
         It 'rebuilds nothing when no minimap is stale' {

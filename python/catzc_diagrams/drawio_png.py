@@ -1,4 +1,4 @@
-# cspell:ignore LANCZOS arialbd compressobj maxx maxy miny mxfile pnginfo prel segoeui segoeuib textbbox textlength dout mxgraph
+# cspell:ignore LANCZOS compressobj maxx maxy miny mxfile pnginfo prel textbbox textlength dout mxgraph
 """Build a .drawio.png from an mxGraphModel XML file, or re-render one from the model it already carries.
 
 usage: uv run --with pillow python drawio_png.py <model.xml | in.drawio.png> <out.drawio.png> [--name "Page-1"] [--page dark|model]
@@ -11,333 +11,55 @@ in this environment. A `.drawio.png` source is read through that chunk (its page
 the same file: the raster is redrawn from the embedded model and the two stay honest to each other. The script
 re-decodes the chunk and asserts the model round-trips.
 """
+
 import base64
-import hashlib
 import html
 import itertools
 import re
 import sys
 import xml.etree.ElementTree as ET
-import zlib
 from pathlib import Path
-from urllib.parse import quote, unquote
-
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
-from PIL.PngImagePlugin import PngImageFile, PngInfo
-
-
-def kit_defaults():
-    """The kit's sensible defaults from configs/drawio.yml of this module: a two-level mapping read without a YAML library."""
-    out, section = {}, None
-    for raw in (Path(__file__).resolve().parent / "configs" / "drawio.yml").read_text(encoding="utf-8").splitlines():
-        line = raw.split("#", 1)[0].rstrip()
-        if not line.strip():
-            continue
-        if not line.startswith(" "):
-            section = line.rstrip(":").strip()
-            out[section] = {}
-        else:
-            key, value = line.strip().split(":", 1)
-            out[section][key.strip()] = value.strip()
-    return out
-
-
-DEFAULTS = kit_defaults()
-EDGE_MIN_LINE = float(DEFAULTS["renderer"]["edge-deadzone-min-line"])  # the line an edge keeps whatever its deadzone, px
-THEMES = tuple(DEFAULTS["themes"])  # the first is the default, the one whose raster is committed
-
-
-def tokens(theme=None):
-    """A theme's token set (the default theme's when none is named): each token's colour as `#HEX`."""
-    return {name: "#" + value for name, value in DEFAULTS[f"theme-{theme or THEMES[0]}"].items()}
-
-
-def paint(style, theme=None):
-    """A style with every `@<token>` reference replaced by its theme's colour; a token the theme lacks fails, naming the tokens."""
-    known = tokens(theme)
-
-    def colour(match):
-        if match.group(1) not in known:
-            raise KeyError(f"style token '@{match.group(1)}' is not one of: {', '.join(known)}")
-        return known[match.group(1)]
-
-    return re.sub(r"@([a-z][a-z0-9-]*)", colour, style)
-
-
-BACKGROUND = tokens()["page"]  # the page every rendered output sits on
-INK = tokens()["ink"]  # text that sets no fontColor
-LINE = tokens()["line"]  # an edge or outline that sets no strokeColor
-SHADOW = (0, 0, 0, 77)  # the one shadow every filled shape casts (STYLE.md, Canvas): black at 30 %
-SHADOW_OFFSET = (2, 3)  # 2 px right, 3 px down
-HALF_DISC_SEGMENTS = 32  # the straight pieces a cause's semicircle is drawn with, named once
-SHADOW_BLUR = 2
-SCALE = 3  # supersampling: every shape, line and label is painted at this multiple and the page is downsampled once, so curves are smooth
-
-
-class Scaled:
-    """An ImageDraw spoken to in page pixels while it paints at SCALE times the size: coordinates, widths, radii, spacing and
-    fonts go up by SCALE on the way in, and measurements come back down, so the drawing code never sees the factor."""
-
-    def __init__(self, draw):
-        self.d = draw
-
-    @staticmethod
-    def xy(points):
-        return [tuple(v * SCALE for v in p) if isinstance(p, (tuple, list)) else p * SCALE for p in points]
-
-    @staticmethod
-    def px(width):
-        return max(1, round(width * SCALE)) if width else 0
-
-    @staticmethod
-    def big(f):
-        return big_font(f)
-
-    def rounded_rectangle(self, xy, radius=0, fill=None, outline=None, width=1):
-        self.d.rounded_rectangle(self.xy(xy), radius=radius * SCALE, fill=fill, outline=outline, width=self.px(width))
-
-    def rectangle(self, xy, fill=None, outline=None, width=1):
-        self.d.rectangle(self.xy(xy), fill=fill, outline=outline, width=self.px(width))
-
-    def ellipse(self, xy, fill=None, outline=None, width=1):
-        self.d.ellipse(self.xy(xy), fill=fill, outline=outline, width=self.px(width))
-
-    def polygon(self, xy, fill=None, outline=None, width=1):
-        self.d.polygon(self.xy(xy), fill=fill, outline=outline, width=self.px(width))
-
-    def arc(self, xy, start, end, fill=None, width=1):
-        self.d.arc(self.xy(xy), start, end, fill=fill, width=self.px(width))
-
-    def line(self, xy, fill=None, width=1, joint=None):
-        self.d.line(self.xy(xy), fill=fill, width=self.px(width), joint=joint)
-
-    def multiline_text(self, xy, text, font, fill=None, spacing=4, align="left"):
-        self.d.multiline_text(self.xy([xy])[0], text, font=self.big(font), fill=fill, spacing=spacing * SCALE, align=align)
-
-    text = multiline_text
-
-    def multiline_textbbox(self, xy, text, font, spacing=4):
-        return tuple(v / SCALE for v in self.d.multiline_textbbox(self.xy([xy])[0], text, font=self.big(font), spacing=spacing * SCALE))
-
-    def textlength(self, text, font):
-        return self.d.textlength(text, font=self.big(font)) / SCALE
-
-
-def drop_shadow(img, box, painter, pad=8):
-    """Paint the kit's shadow of one shape onto `img` (RGBA, at SCALE) just before the shape itself: `painter(draw, box, colour)`
-    draws the shape's silhouette, which is offset, blurred and composited so it fades into the dark page."""
-    x0, y0, x1, y1 = box
-    w, h = (int(x1 - x0) + 2 * pad) * SCALE, (int(y1 - y0) + 2 * pad) * SCALE
-    layer = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    painter(Scaled(ImageDraw.Draw(layer)), (pad, pad, pad + (x1 - x0), pad + (y1 - y0)), SHADOW)
-    layer = layer.filter(ImageFilter.GaussianBlur(SHADOW_BLUR * SCALE))
-    left, top = (int(x0) - pad + SHADOW_OFFSET[0]) * SCALE, (int(y0) - pad + SHADOW_OFFSET[1]) * SCALE
-    crop = (max(0, -left), max(0, -top), min(w, img.width - left), min(h, img.height - top))
-    if crop[2] <= crop[0] or crop[3] <= crop[1]:
-        return
-    img.alpha_composite(layer.crop(crop), (max(0, left), max(0, top)))
-
-
-def paint_shape(d, s, box, w, h, fill, stroke, sw, dashed):
-    """Draw one vertex's shape by its draw.io style: the glyph shapes of STYLE.md, in the given fill and stroke."""
-    import math
-
-    x0, y0, x1, y1 = box
-    if dashed and not any(k in s for k in ("ellipse", "rhombus")) and s.get("shape") != "hexagon":
-        d.rounded_rectangle([x0, y0, x1, y1], radius=8 if s.get("rounded") == "1" else 0, fill=fill)
-        if stroke:
-            dashed_line(d, [(x0, y0), (x1, y0), (x1, y1), (x0, y1), (x0, y0)], stroke, max(1, sw))
-    elif s.get("shape") == "hexagon":
-        pts = [(x0 + w * .25, y0), (x1 - w * .25, y0), (x1, (y0 + y1) / 2), (x1 - w * .25, y1), (x0 + w * .25, y1), (x0, (y0 + y1) / 2)]
-        d.polygon(pts, fill=fill, outline=stroke, width=sw)
-    elif s.get("shape") == "delay":  # a cause: a flat left side and a semicircle on the right, the half-disc of the action lens
-        ry = h / 2
-        rx = min(ry, w)
-        cx, cy = x1 - rx, (y0 + y1) / 2
-        arc = [
-            (cx + rx * math.sin(math.pi * i / HALF_DISC_SEGMENTS), cy - ry * math.cos(math.pi * i / HALF_DISC_SEGMENTS))
-            for i in range(HALF_DISC_SEGMENTS + 1)
-        ]
-        d.polygon([(x0, y0), *arc, (x0, y1)], fill=fill, outline=stroke, width=sw)
-    elif s.get("shape") == "mxgraph.basic.arc":  # a ring: the stroke of an arc of the box's ellipse, angles as turns clockwise from 3 o'clock
-        if stroke:
-            d.arc([x0, y0, x1, y1], float(s.get("startAngle", 0)) * 360, float(s.get("endAngle", 1)) * 360, fill=stroke, width=max(1, sw))
-    elif "ellipse" in s:
-        d.ellipse([x0, y0, x1, y1], fill=fill, outline=stroke, width=sw)
-    elif "rhombus" in s:
-        d.polygon([((x0 + x1) / 2, y0), (x1, (y0 + y1) / 2), ((x0 + x1) / 2, y1), (x0, (y0 + y1) / 2)], fill=fill, outline=stroke, width=sw)
-    elif s.get("shape") == "cylinder3":  # a store: body, then the top ellipse drawn over it
-        lid = min(h * .3, float(s.get("size", 10)) * 2)
-        d.rectangle([x0, y0 + lid / 2, x1, y1 - lid / 2], fill=fill)
-        d.ellipse([x0, y1 - lid, x1, y1], fill=fill, outline=stroke, width=sw)
-        d.rectangle([x0 + sw, y0 + lid / 2, x1 - sw, y1 - lid / 2], fill=fill)
-        d.line([(x0, y0 + lid / 2), (x0, y1 - lid / 2)], fill=stroke, width=sw)
-        d.line([(x1, y0 + lid / 2), (x1, y1 - lid / 2)], fill=stroke, width=sw)
-        d.ellipse([x0, y0, x1, y0 + lid], fill=fill, outline=stroke, width=sw)
-    elif s.get("shape") == "crossbar":  # a span bar: a line with an end tick on each side; rotated 90, it stands beside bands
-        ink = stroke or LINE
-        if s.get("rotation") in ("90", "-90", "270"):
-            xm = (x0 + x1) / 2
-            d.line([(xm, y0), (xm, y1)], fill=ink, width=max(1, sw))
-            d.line([(x0, y0), (x1, y0)], fill=ink, width=max(1, sw))
-            d.line([(x0, y1), (x1, y1)], fill=ink, width=max(1, sw))
-        else:
-            ym = (y0 + y1) / 2
-            d.line([(x0, ym), (x1, ym)], fill=ink, width=max(1, sw))
-            d.line([(x0, y0), (x0, y1)], fill=ink, width=max(1, sw))
-            d.line([(x1, y0), (x1, y1)], fill=ink, width=max(1, sw))
-    elif s.get("shape") == "note":  # a file: a page with a folded top-right corner
-        k = min(float(s.get("size", 14)), w / 3, h / 3)
-        d.polygon([(x0, y0), (x1 - k, y0), (x1, y0 + k), (x1, y1), (x0, y1)], fill=fill, outline=stroke, width=sw)
-        d.line([(x1 - k, y0), (x1 - k, y0 + k), (x1, y0 + k)], fill=stroke, width=sw)
-    else:
-        pill = s.get("rounded") == "1" and float(s.get("arcSize", 0)) >= 50
-        r = min(w, h) / 2 if pill else (8 if s.get("rounded") == "1" else 0)
-        d.rounded_rectangle([x0, y0, x1, y1], radius=r, fill=fill, outline=stroke, width=sw)
-
-
-def painted_box(s, box):
-    """The part of a cell's box that paint covers, as (x, y, w, h): an arc covers only its stroke's span of the box's ellipse (a ring's
-    box is the whole ellipse, its left half unpainted), every other shape its whole box."""
-    import math
-
-    x, y, w, h = box
-    if s.get("shape") != "mxgraph.basic.arc":
-        return box
-    start = float(s.get("startAngle", 0))
-    span = (float(s.get("endAngle", 1)) - start) % 1 or 1
-    points = [
-        (x + w / 2 + w / 2 * math.cos(2 * math.pi * (start + span * i / 90)), y + h / 2 + h / 2 * math.sin(2 * math.pi * (start + span * i / 90)))
-        for i in range(91)
-    ]
-    xs, ys = [p[0] for p in points], [p[1] for p in points]
-    return min(xs), min(ys), max(xs) - min(xs), max(ys) - min(ys)
-
-
-def style_map(style):
-    out = {}
-    for part in (style or "").split(";"):
-        if "=" in part:
-            k, v = part.split("=", 1)
-            out[k] = v
-        elif part:
-            out[part] = "1"
-    return out
-
-
-def color(value, default):
-    if not value or value == "none":
-        return default
-    return value if value.startswith("#") else default
-
-
-def faded(hex_color, style):
-    """Blend a fill toward white by the cell's opacity (draw.io `opacity` / `fillOpacity`, 0-100)."""
-    op = float(style.get("fillOpacity", style.get("opacity", 100))) / 100
-    if not hex_color or op >= 1:
-        return hex_color
-    r, g, b = (int(hex_color[i:i + 2], 16) for i in (1, 3, 5))
-    red, green, blue = (round(c * op + 255 * (1 - op)) for c in (r, g, b))
-    return f"#{red:02x}{green:02x}{blue:02x}"
-
-
-def dashed_line(d, pts, fill, width, dash: float = 6, gap: float = 4):
-    import math
-    for (x0, y0), (x1, y1) in itertools.pairwise(pts):
-        length = math.hypot(x1 - x0, y1 - y0)
-        if length == 0:
-            continue
-        ux, uy = (x1 - x0) / length, (y1 - y0) / length
-        t = 0.0
-        while t < length:
-            e = min(t + dash, length)
-            d.line([(x0 + ux * t, y0 + uy * t), (x0 + ux * e, y0 + uy * e)], fill=fill, width=width)
-            t = e + gap
-
-
-def html_color(value):
-    m = re.search(r'color[=:]\s*"?(#[0-9a-fA-F]{6})', value or "")
-    if m:
-        return m.group(1)
-    m = re.search(r"color:\s*rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)", value or "")
-    return "#{:02x}{:02x}{:02x}".format(*(int(v) for v in m.groups())) if m else None
-
-
-def plain(value):
-    # A block element starts a new line where it opens and where it closes, as draw.io lays it out; the boundary between
-    # two blocks is one line break, and a <br><br> stays a blank line.
-    text = re.sub(r"</(?:div|p)>\s*<(?:div|p)[^>]*>", "\n", value or "", flags=re.IGNORECASE)
-    text = re.sub(r"<br\s*/?>|<div[^>]*>|</div>|<p[^>]*>|</p>|</li>", "\n", text, flags=re.IGNORECASE)
-    text = re.sub(r"<[^>]+>", "", text)
-    return html.unescape(text).strip()
-
-
-FONTS = {}
-
-
-def font(size, bold):
-    names = ["arialbd.ttf", "segoeuib.ttf"] if bold else ["arial.ttf", "segoeui.ttf"]
-    key = (size, bold)
-    if key not in FONTS:
-        FONTS[key] = next((f for f in (truetype(n, size) for n in names) if f), None) or ImageFont.load_default(size)
-    return FONTS[key]
-
-
-def truetype(name, size):
-    try:
-        return ImageFont.truetype(name, size)
-    except OSError:
-        return None
-
-
-def big_font(f):
-    """The same face at SCALE times the size, for painting on the supersampled page."""
-    key = ("big", f.getname(), f.size)
-    if key not in FONTS:
-        FONTS[key] = f.font_variant(size=f.size * SCALE)
-    return FONTS[key]
-
-
-def encode(model_xml, name):
-    comp = zlib.compressobj(9, zlib.DEFLATED, -15)
-    raw = comp.compress(quote(model_xml, safe="!~*'()-_.").encode()) + comp.flush()
-    inner = base64.b64encode(raw).decode()
-    mxfile = (
-        f'<mxfile host="Electron" type="device"><diagram id="{hashlib.sha1(model_xml.encode()).hexdigest()[:20]}" '
-        f'name="{html.escape(name, quote=True)}">{inner}</diagram></mxfile>'
-    )
-    return quote(mxfile, safe="!~*'()-_.")
-
-
-def decode(chunk):
-    mxfile = unquote(chunk)
-    diagram = re.search(r"<diagram[^>]*>(.*)</diagram>", mxfile, re.DOTALL)
-    if diagram is None:
-        raise SystemExit("the mxfile chunk holds no <diagram>")
-    return unquote(zlib.decompress(base64.b64decode(diagram.group(1)), -15).decode())
-
-
-def mxfile_chunk(img):
-    """The still-encoded mxfile text chunk of an opened .drawio.png."""
-    if not isinstance(img, PngImageFile):
-        raise SystemExit(f"{img.filename} is not a PNG")
-    return img.text["mxfile"]
-
-
-COLOUR_KEYS = ("fillColor", "strokeColor", "fontColor", "gradientColor", "labelBackgroundColor", "labelBorderColor")
-COLOUR_WORDS = ("none", "default", "inherit")  # the draw.io keywords a colour key may hold instead of a hex value
-
-
-def unpainted(root, cells):
-    """Fails on a colour that is neither hex nor a draw.io keyword, such as an `@token` left unpainted, naming the cell and the key:
-    the raster would otherwise draw the default in its place without a word."""
-    found = [("background", "mxGraphModel", root.get("background"))] if root.get("background") else []
-    for cid, c in cells.items():
-        s = style_map(c.get("style"))
-        found += [(key, cid, s[key]) for key in COLOUR_KEYS if s.get(key)]
-    bad = [f"{cid} {key}={value}" for key, cid, value in found if not value.startswith("#") and value not in COLOUR_WORDS]
-    if bad:
-        raise SystemExit(f"colours that are neither hex nor {', '.join(COLOUR_WORDS)} (an unpainted @token? paint the model first): {'; '.join(bad)}")
+from urllib.parse import unquote
+
+from drawio_png_base import (
+    BACKGROUND,
+    DEFAULTS,
+    EDGE_MIN_LINE,
+    INK,
+    LINE,
+    SCALE,
+    THEMES,
+    color,
+    decode,
+    encode,
+    faded,
+    html_color,
+    mxfile_chunk,
+    paint,  # noqa: F401  (the entry still names paint for the declaration modules)
+    plain,
+    style_map,
+    tokens,
+    unpainted,
+)
+from drawio_png_shapes import (
+    Scaled,
+    along,
+    arrow,
+    clip,
+    dashed_line,
+    drop_shadow,
+    flex_arrow,
+    font,
+    halfway,
+    label_background,
+    nearest_leg,
+    paint_shape,
+    painted_box,
+    rounded,
+    wrapped,
+)
+from PIL import Image, ImageDraw
+from PIL.PngImagePlugin import PngInfo
 
 
 def render(root, page=None):
@@ -565,126 +287,6 @@ def render(root, page=None):
         if cid not in painted:
             paint_cell(cid, c)
     return img.resize(page_size, Image.Resampling.LANCZOS)
-
-
-def clip(p, q, box, minx, miny, shape="box"):
-    """Where the line from the box's centre towards q leaves the shape: the box's edge, a diamond's edge or an ellipse's rim."""
-    x, y, w, h = box[0] - minx, box[1] - miny, box[2], box[3]
-    cx, cy = x + w / 2, y + h / 2
-    dx, dy = q[0] - cx, q[1] - cy
-    if dx == 0 and dy == 0:
-        return p
-    rx, ry = w / 2, h / 2
-    if shape == "rhombus" and rx and ry:
-        t = 1 / (abs(dx) / rx + abs(dy) / ry)
-    elif shape == "ellipse" and rx and ry:
-        t = 1 / ((dx / rx) ** 2 + (dy / ry) ** 2) ** 0.5
-    else:
-        t = min(rx / abs(dx) if dx else 1e9, ry / abs(dy) if dy else 1e9)
-    return (cx + dx * t, cy + dy * t)
-
-
-def label_background(d, s, x, y, w, h):
-    """The box an edge's word sits on when its style names a labelBackgroundColor, as draw.io paints one: the colour, 2 px around the
-    text, so the word reads over whatever the line crosses."""
-    if s.get("labelBackgroundColor") not in (None, "", "none"):
-        d.rectangle([x - 2, y - 2, x + w + 2, y + h + 2], fill=color(s.get("labelBackgroundColor"), BACKGROUND))
-
-
-def along(pts, fraction):
-    """The point at a fraction of the routed length along a polyline."""
-    import math
-    legs = [math.hypot(b[0] - a[0], b[1] - a[1]) for a, b in itertools.pairwise(pts)]
-    left = sum(legs) * fraction
-    for (a, b), leg in zip(itertools.pairwise(pts), legs):
-        if leg and left <= leg:
-            return a[0] + (b[0] - a[0]) * left / leg, a[1] + (b[1] - a[1]) * left / leg
-        left -= leg
-    return pts[-1]
-
-
-def halfway(pts):
-    """The point half the routed length along a polyline, where draw.io centres an edge's label."""
-    return along(pts, 0.5)
-
-
-def nearest_leg(pts, x, y):
-    """The polyline's leg nearest a point, for the normal a label is offset along."""
-    import math
-
-    def distance(a, b):
-        dx, dy = b[0] - a[0], b[1] - a[1]
-        t = 0.0 if dx == dy == 0 else max(0.0, min(1.0, ((x - a[0]) * dx + (y - a[1]) * dy) / (dx * dx + dy * dy)))
-        return math.hypot(a[0] + dx * t - x, a[1] + dy * t - y)
-
-    return min(itertools.pairwise(pts), key=lambda leg: distance(*leg))
-
-
-def wrapped(d, text, f, width):
-    """Each line of a `whiteSpace=wrap` label broken at spaces so it fits the width; a word longer than the width stays whole."""
-    out = []
-    for line in text.split("\n"):
-        current = ""
-        for word in line.split(" "):
-            trial = f"{current} {word}" if current else word
-            if current and d.textlength(trial, font=f) > width:
-                out.append(current)
-                current = word
-            else:
-                current = trial
-        out.append(current)
-    return "\n".join(out)
-
-
-def rounded(pts, radius=10, steps=8):
-    """A polyline whose every waypoint corner is replaced by a quadratic curve cutting it, as draw.io draws `rounded=1`."""
-    import math
-    out = [pts[0]]
-    for a, p, b in zip(pts, pts[1:], pts[2:]):
-        din, dout = math.hypot(p[0] - a[0], p[1] - a[1]), math.hypot(b[0] - p[0], b[1] - p[1])
-        if din == 0 or dout == 0:
-            out.append(p)
-            continue
-        r = min(radius, din / 2, dout / 2)
-        start = (p[0] - (p[0] - a[0]) / din * r, p[1] - (p[1] - a[1]) / din * r)
-        end = (p[0] + (b[0] - p[0]) / dout * r, p[1] + (b[1] - p[1]) / dout * r)
-        for i in range(steps + 1):
-            t = i / steps
-            out.append(tuple((1 - t) ** 2 * s + 2 * (1 - t) * t * c + t ** 2 * e for s, c, e in zip(start, p, end)))
-    out.append(pts[-1])
-    return out
-
-
-def flex_arrow(d, a, b, s):
-    """A draw.io `shape=flexArrow` edge from a to b: a filled band `width` wide ending in a head `endWidth` wide and
-    `endSize` x 2 long, outlined in the stroke colour."""
-    import math
-    length = math.hypot(b[0] - a[0], b[1] - a[1])
-    if length == 0:
-        return
-    ux, uy = (b[0] - a[0]) / length, (b[1] - a[1]) / length
-    nx, ny = -uy, ux
-    body, head = float(s.get("width", 10)) / 2, float(s.get("endWidth", 20)) / 2
-    head_len = min(length, float(s.get("endSize", 7)) * 2) if s.get("endArrow", "classic") != "none" else 0
-    base = (b[0] - ux * head_len, b[1] - uy * head_len)
-    side = lambda p, w: (p[0] + nx * w, p[1] + ny * w)
-    outline = [side(a, body), side(base, body), side(base, head), b, side(base, -head), side(base, -body), side(a, -body)]
-    if not head_len:
-        outline = [side(a, body), side(b, body), side(b, -body), side(a, -body)]
-    d.polygon(outline, fill=faded(color(s.get("fillColor"), LINE), s), outline=color(s.get("strokeColor"), LINE))
-
-
-def arrow(d, a, b, ink, kind="block"):
-    import math
-    if kind == "oval":
-        d.ellipse([b[0] - 4, b[1] - 4, b[0] + 4, b[1] + 4], fill=ink)
-        return
-    ang = math.atan2(b[1] - a[1], b[0] - a[0])
-    pts = [b, (b[0] - 10 * math.cos(ang - .4), b[1] - 10 * math.sin(ang - .4)), (b[0] - 10 * math.cos(ang + .4), b[1] - 10 * math.sin(ang + .4))]
-    if kind == "open":
-        d.line([pts[1], b, pts[2]], fill=ink, width=2, joint="curve")
-        return
-    d.polygon(pts, fill=ink)
 
 
 def main():

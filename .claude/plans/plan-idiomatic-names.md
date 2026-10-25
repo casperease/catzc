@@ -60,13 +60,13 @@ tracked (`python/catzc_diagrams/`, `python/tests/catzc_base_repository/`, `go/te
 The word model, the 15 acronym renames, the helper renames, the manual-test-plan rows and `Repair-IdiomaticNames` landed on 2026-10-21; the
 L1 round trip in `ConvertTo-NormalName.Tests.ps1` passes once the user commits the case-only renames with `git mv`.
 
-## Open questions
+### 3. Two clauses from catzc-8b's finalize (the user, 2026-10-25)
 
-- From catzc-8b's finalize (2026-10-21): the kebab step stalled on a cycle (`Catzc.Base.Languages` depends on `Catzc.Base.CodeMeta`) found
-  only after sizing. Should `catzc-verify` step 1 say to read `dependencies.yml` for a cycle before a cross-module type call?
-  Recommendation: yes, a clause merged into the step the open `catzc-verify` step above already changes.
-- Same finalize: `Test-ManualTestPlan` names a block with no row but not the row file to edit. Should its message name the
-  `manual-test-plan/*.md` that holds the block's file? Recommendation: yes, one clause in the message, so the fix is one edit.
+- [ ] `.claude/skills/catzc-verify/SKILL.md` step 1: a clause to read `dependencies.yml` for a cycle before a cross-module type call (the
+      kebab step stalled on `Catzc.Base.Languages` depending on `Catzc.Base.CodeMeta`), merged into the step, no new line. Check:
+      `Test-AgentDefinitions`.
+- [ ] `Test-ManualTestPlan`: the message for a block with no row names the `manual-test-plan/*.md` that holds the block's file, so the fix
+      is one edit. Check: `Test-ManualTestPlan.Tests.ps1` asserts the message names the file.
 
 ## Refs
 

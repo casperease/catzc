@@ -101,7 +101,10 @@ final full run last.
 19. plan-diagram-review: add one bullet to `.claude/CLAUDE.md`, section Sub-agents, for the new `diagram-review` agent ("reviews one named
     diagram with the user: reads it, asks one question in context, one plan step from the written answer"). Until it is there,
     `Test-AgentDefinitions` reports the registered agent as unlisted. Check: `Test-AgentDefinitions`.
-20. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+20. Edit `docs/references/pwsh/CLAUDE.md`: it prescribes `Format-Code -Language markdown -Path docs/references/pwsh`; make it
+    `Format-Code -Path` on the files touched, as `catzc-run` says (plan-debt-test-speed; decided by the user, 2026-10-25). Check:
+    `Test-Links -Path docs/references/pwsh/CLAUDE.md`.
+21. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

@@ -44,10 +44,9 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
       it lands. Check: `Get-GeneratedWriterDue.Tests.ps1` alone, a second fresh import's due step under 0.3 s, and `Test-GeneratedFiles`
       clean.
 
-## Open questions
+## Decided
 
-- Decided by the orchestrator as delegated (2026-10-23): the hindsight log gets no decision record; the `hindsight-log` capability is its
-  one home (PDR-ONELIVE), and a record follows only when a second reader needs its rule.
-- The user's, gathered in task-user-runs-and-commits: `docs/references/pwsh/CLAUDE.md` still prescribes
-  `Format-Code -Language markdown -Path docs/references/pwsh`, against `catzc-run`'s `Format-Code -Path` on the files touched (decided in
-  plan-agent-friction); a `CLAUDE.md` is the user's to edit.
+- The hindsight log gets no decision record (the orchestrator as delegated, 2026-10-23): the `hindsight-log` capability is its one home
+  (PDR-ONELIVE), and a record follows only when a second reader needs its rule.
+- `docs/references/pwsh/CLAUDE.md` changes to `Format-Code -Path` (the user, 2026-10-25); the edit is the user's, task-user-runs-and-commits
+  step 20.

@@ -8,14 +8,14 @@ Describe 'Repository unit aspects (every laid-out unit)' -Tag 'L2', 'integrity',
         }
     }
 
-    It 'derives a tests set for the units it lays out' -Tag 'DDR-ASPECT' {
+    It 'derives a tests set for the units it lays out' -Tag 'DDR-ASPECT-ASPECTSAREDERIVED' {
         if ($script:gitMissing) {
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
         }
         $script:testSets.Count | Should -BeGreaterThan 0
     }
 
-    It 'claims at least one tracked file in each unit''s tests set, a unit config marks optional excepted' -Tag 'DDR-ASPECT' {
+    It 'claims at least one tracked file in each unit''s tests set, a unit config marks optional excepted' -Tag 'DDR-ASPECT-PARTITIONISCHECKED' {
         if ($script:gitMissing) {
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
         }
@@ -37,7 +37,7 @@ Describe 'Repository unit aspects (every laid-out unit)' -Tag 'L2', 'integrity',
         @($untested) | Should -BeNullOrEmpty -Because 'a unit with no test proves nothing; add its tests, or name it under tests_optional in globs.yml with its reason'
     }
 
-    It 'names under tests_optional only units that have a tests set' -Tag 'DDR-ASPECT' {
+    It 'names under tests_optional only units that have a tests set' -Tag 'DDR-ASPECT-ASPECTSAREDERIVED' {
         if ($script:gitMissing) {
             Set-ItResult -Skipped -Because 'tool_git_missing'; return
         }
