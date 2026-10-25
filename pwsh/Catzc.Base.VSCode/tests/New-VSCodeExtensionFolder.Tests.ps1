@@ -3,7 +3,8 @@ Describe 'New-VsCodeExtensionFolder' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:assets = Join-Path $TestDrive 'assets'
         $null = New-Item -ItemType Directory -Path $script:assets -Force
-        Set-Content -LiteralPath (Join-Path $script:assets 'widget-ext.js') -Value 'module.exports = { widget: true };'
+        $null = New-Item -ItemType Directory -Path (Join-Path $script:assets 'widget-ext') -Force
+        Set-Content -LiteralPath (Join-Path $script:assets 'widget-ext/extension.js') -Value 'module.exports = { widget: true };'
         $script:entry = [Catzc.Base.VSCode.VscodeOwnExtension]::new('widget-ext', [ordered]@{
                 displayName      = 'Widget'
                 description      = 'A widget.'
@@ -34,18 +35,18 @@ Describe 'New-VsCodeExtensionFolder' -Tag 'L0', 'logic' {
     }
 
     It 'copies the script from the asset folder to extension.js' {
-        Get-Content -LiteralPath (Join-Path $script:folder 'extension.js') -Raw | Should -Be (Get-Content -LiteralPath (Join-Path $script:assets 'widget-ext.js') -Raw)
+        Get-Content -LiteralPath (Join-Path $script:folder 'extension.js') -Raw | Should -Be (Get-Content -LiteralPath (Join-Path $script:assets 'widget-ext/extension.js') -Raw)
     }
 
     It 'ships the extension''s own folder as media, and no media when it has none' {
         Test-Path -LiteralPath (Join-Path $script:folder 'media') | Should -BeFalse
-        $null = New-Item -ItemType File -Force -Path (Join-Path $script:assets 'widget-ext/gadget.svg')
+        $null = New-Item -ItemType File -Force -Path (Join-Path $script:assets 'widget-ext/assets/gadget.svg')
         InModuleScope Catzc.Base.VSCode -Parameters @{ Entry = $script:entry; Out = (Join-Path $TestDrive 'out'); Assets = $script:assets } {
             param($Entry, $Out, $Assets)
             $null = New-VsCodeExtensionFolder -Extension $Entry -OutputDirectory $Out -AssetDirectory $Assets
         }
         Test-Path -LiteralPath (Join-Path $script:folder 'media/gadget.svg') | Should -BeTrue
-        Remove-Item -LiteralPath (Join-Path $script:assets 'widget-ext') -Recurse
+        Remove-Item -LiteralPath (Join-Path $script:assets 'widget-ext/assets') -Recurse
     }
 
     It 'replaces a folder rendered before, leaving no stale file' {

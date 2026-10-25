@@ -3,7 +3,7 @@ track_types:
     definition:
       Deployable modules of one language's track, collected into the bundles files.yml declares; a module with no package ships nothing.
     role: deployable
-    admits: [pwsh-folder, pwsh-psm1, python, go, bash]
+    admits: [pwsh-folder, pwsh-psm1, python, go, bash, js]
   infrastructure:
     definition: Deployable Bicep templates and reusable Bicep modules, delivered per customer and target.
     role: deployable

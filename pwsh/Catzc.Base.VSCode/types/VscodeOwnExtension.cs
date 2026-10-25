@@ -16,7 +16,7 @@ public sealed class VscodeOwnExtension : Catzc.Base.Objects.DictionaryRecord
     private static readonly Regex ExtensionName = new Regex(@"^[a-z0-9][a-z0-9-]*$");
     private static readonly string[] AllowedKeys = { "displayName", "description", "version", "publisher", "engine", "activationEvents", "contributes" };
 
-    // The extension's name: its package name and the name of its script under assets/extensions/<name>.js.
+    // The extension's name: its package name and the name of its js track module, js/<name>/extension.js.
     public string name { get; }
 
     public string displayName { get; }

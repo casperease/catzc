@@ -206,8 +206,12 @@ languages:
     checks: [Test-Formatting]
   javascript:
     extensions: [.js]
+    tag: js
+    naming: { folder: kebab, file: kebab, function: camel, type: pascal }
     formatter: prettier
     checks: [Test-Formatting, Test-Spelling]
+    layout:
+      - { folder: ".", role: source, extensions: [.js] }
   solution:
     extensions: [.sln]
     no_formatter: the Visual Studio solution format is written by Visual Studio and dotnet sln, not formatted by hand

@@ -4,7 +4,9 @@ Describe 'BclConfig' -Tag 'L0' {
         BeforeAll {
             $script:config = Get-Config -Config bcl
             $script:root = Get-RepositoryRoot
-            $script:tracked = @(Get-GitTrackedPath '.' | Where-Object { $_ -match '\.(sln|csproj)$' -and $_ -notmatch '(^|/)\.vendor/' })
+            $script:tracked = @(Get-GitTrackedPath '.' | Where-Object { $_ -match '\.csproj$' -and $_ -notmatch '(^|/)\.vendor/' })
+            # The one solution is rendered (New-Solution) and gitignored, so its text is the generator's, never a tracked file's.
+            $script:solutions = @{ 'catzc.sln' = New-Solution }
         }
 
         It 'loads the shipped bcl.yml as a BclConfig with the Debug on Any CPU pair' {
@@ -21,14 +23,14 @@ Describe 'BclConfig' -Tag 'L0' {
         }
 
         It 'finds the tracked solutions and projects' {
-            @($script:tracked | Where-Object { $_ -like '*.sln' }).Count | Should -BeGreaterThan 0
+            $script:solutions['catzc.sln'] | Should -Match 'Microsoft Visual Studio Solution File'
             @($script:tracked | Where-Object { $_ -like '*.csproj' }).Count | Should -BeGreaterThan 0
         }
 
         It 'declares only the configured pair in every solution (ADR-BCL-TYPES-DEBUGANYCPU)' {
             $pair = [regex]::Escape($script:config.SolutionPair())
-            $offenders = foreach ($path in $script:tracked.Where({ $_ -like '*.sln' })) {
-                $text = [System.IO.File]::ReadAllText((Join-Path $script:root $path))
+            $offenders = foreach ($path in $script:solutions.Keys) {
+                $text = $script:solutions[$path]
                 $section = [regex]::Match($text, '(?s)GlobalSection\(SolutionConfigurationPlatforms\)[^\n]*\n(.*?)EndGlobalSection').Groups[1].Value
                 foreach ($line in ($section -split '\r?\n').Where({ $_.Trim() })) {
                     if ($line.Trim() -notmatch "^$pair = $pair$") {

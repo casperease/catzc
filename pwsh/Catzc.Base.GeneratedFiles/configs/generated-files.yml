@@ -43,7 +43,7 @@ writers:
     check: none
     # The extension folders under out/ are rendered from these alone, so the render can be skipped while none of them changed.
     inputs:
-      - pwsh/Catzc.Base.VSCode/assets/extensions/**
+      - js/**
       - pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml
       - pwsh/Catzc.Base.VSCode/configs/lamp-palette.yml
       - pwsh/Catzc.Base.VSCode/configs/file-icons.yml

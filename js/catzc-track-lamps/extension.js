@@ -1076,7 +1076,7 @@ function activateEngine(context, api) {
 }
 
 // The engine's file in the repository, as the shell finds it under the workspace folder.
-const ENGINE = "pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js";
+const ENGINE = "js/catzc-track-lamps/extension.js";
 
 // The shell, which is all the installed package does: it runs the repository's engine, so the engine is always the working tree's, and
 // on a save of that file it disposes the running engine and starts the new one with the same remembered state, without an install or a

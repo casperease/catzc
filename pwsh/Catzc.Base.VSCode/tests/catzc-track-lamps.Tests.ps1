@@ -8,7 +8,7 @@ catzc:
 
 Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:script = (Resolve-Path (Join-Path $PSScriptRoot '../assets/extensions/catzc-track-lamps.js')).Path -replace '\\', '/'
+        $script:script = (Resolve-Path (Join-Path (Get-RepositoryRoot) 'js/catzc-track-lamps/extension.js')).Path -replace '\\', '/'
         # Runs one exported function of the extension under node with JSON arguments and returns its JSON result.
         $script:call = {
             param([string] $Function, [object[]] $Arguments)
@@ -244,7 +244,7 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
                     $null = New-Item -ItemType File -Force -Path (Join-Path $root $file)
                 }
                 if ($WithEngine) {
-                    $engine = Join-Path $root 'pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js'
+                    $engine = Join-Path $root 'js/catzc-track-lamps/extension.js'
                     $null = New-Item -ItemType Directory -Force -Path (Split-Path $engine)
                     Copy-Item -LiteralPath $script:script -Destination $engine
                 }
@@ -423,7 +423,7 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
 
     It 'accounts for every file on disk with each filter off in turn: none against its filters, none unclaimed' {
         $root = (Get-RepositoryRoot) -replace '\\', '/'
-        $script = (Resolve-Path (Join-Path $PSScriptRoot '../assets/extensions/catzc-track-lamps.js')).Path -replace '\\', '/'
+        $script = (Resolve-Path (Join-Path $root 'js/catzc-track-lamps/extension.js')).Path -replace '\\', '/'
         $filterFile = Join-Path $TestDrive 'filters.json'
         $resolved = [ordered]@{}
         foreach ($filter in Get-RepositoryFilter) {

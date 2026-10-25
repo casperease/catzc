@@ -30,7 +30,7 @@ recommendations:
   # draw.io — the editor of the .drawio.png diagrams under docs/.assets/.
   - hediet.vscode-drawio
 
-# The repository's own extensions: each renders to out/vscode-extensions/<name>/ with its script from assets/extensions/<name>.js.
+# The repository's own extensions: each renders to out/vscode-extensions/<name>/ from its js track module, js/<name>/extension.js and assets/.
 extensions:
   catzc-git-changes:
     displayName: Catzc git changes

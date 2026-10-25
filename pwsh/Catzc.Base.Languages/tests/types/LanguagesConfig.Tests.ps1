@@ -604,10 +604,11 @@ Describe 'LanguagesConfig' -Tag 'L0' {
     Context 'integrity (shipped languages.yml layout)' -Tag 'integrity' {
         It 'places the five live folders the aspects were written with and each language track''s root scripts, and the shared tests folder is not live' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
             $config = Get-Config -Config languages
-            $config.LivePatterns() | Should -Be @('*.ps1', 'private/**', 'types/**', 'configs/**', '*.py', '*.go', '*.sh', 'assets/**')
+            $config.LivePatterns() | Should -Be @('*.ps1', 'private/**', 'types/**', 'configs/**', '*.py', '*.go', '*.sh', '*.js', 'assets/**')
             $config.IsLaidOut(@('python')) | Should -BeTrue
             $config.IsLaidOut(@('go')) | Should -BeTrue
             $config.IsLaidOut(@('bash')) | Should -BeTrue
+            $config.IsLaidOut(@('javascript')) | Should -BeTrue
             $config.IsLaidOut(@('markdown', 'asset')) | Should -BeFalse
             # The editor extension's folder and the run-list folder are laid out but neither live nor shipped, like the shared tests folder.
             $config.LayoutFolders() | Should -Be @('private', 'extension', 'types', 'configs', 'accosted', 'assets', 'tests')

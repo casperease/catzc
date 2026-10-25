@@ -17,10 +17,11 @@ function New-VsCodeExtensionFolder {
         [Parameter(Mandatory)]
         [string] $OutputDirectory,
 
-        [string] $AssetDirectory = (Get-CatzcModuleRoot -ChildPath 'assets/extensions')
+        [string] $AssetDirectory = (Join-Path (Get-RepositoryRoot) (Get-TrackPlace -Track js -TrackKind extensions))
     )
 
-    $script = Join-Path $AssetDirectory "$($Extension.name).js"
+    # Each extension is a module of the js track: <name>/extension.js, its own files in <name>/assets/, shipped as media/.
+    $script = Join-Path $AssetDirectory "$($Extension.name)/extension.js"
     Assert-PathExist $script -ErrorText "New-VsCodeExtensionFolder: extension '$($Extension.name)' has no script at '$script'."
 
     $manifest = [ordered]@{
@@ -45,15 +46,14 @@ function New-VsCodeExtensionFolder {
     $utf8 = [System.Text.UTF8Encoding]::new($false)
     [System.IO.File]::WriteAllText((Join-Path $folder 'package.json'), ($manifest | ConvertTo-Json -Depth 32) + "`n", $utf8)
     Copy-Item -LiteralPath $script -Destination (Join-Path $folder 'extension.js')
-    # An extension's own files (its icons) sit in assets/extensions/<name>/ and ship as media/.
-    $media = Join-Path $AssetDirectory $Extension.name
+    $media = Join-Path $AssetDirectory "$($Extension.name)/assets"
     if (Test-Path -LiteralPath $media -PathType Container) {
         Copy-Item -LiteralPath $media -Destination (Join-Path $folder 'media') -Recurse
     }
     $rendered = Join-Path $folder 'media'
     # An extension that contributes an icon theme gets the theme rendered from file-icons.yml into its media.
     if ($Extension.contributes.Contains('iconThemes')) {
-        $null = New-VsCodeFileIconTheme -MediaDirectory $rendered -GlyphDirectory @((Join-Path $AssetDirectory $Extension.name), (Join-Path $AssetDirectory 'catzc-track-lamps'))
+        $null = New-VsCodeFileIconTheme -MediaDirectory $rendered -GlyphDirectory @((Join-Path $AssetDirectory "$($Extension.name)/assets"), (Join-Path $AssetDirectory 'catzc-track-lamps/assets'))
     }
     $bases = @(if (Test-Path -LiteralPath $rendered) {
             Get-ChildItem -LiteralPath $rendered -Filter '*-on.svg' -File

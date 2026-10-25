@@ -35,6 +35,13 @@ module_types:
     places:
       - { root: bash, name: folder, except: [tests] }
       - { root: bash, name: root }
+  js:
+    definition:
+      A JavaScript module, a folder under the track folder named by the folder (one editor extension each); the track's own files, its
+      test holder among them, are the track's module.
+    places:
+      - { root: js, name: folder, except: [tests] }
+      - { root: js, name: root }
   bicep:
     definition: A Bicep template folder, or one reusable Bicep module file, under infrastructure.
     places:

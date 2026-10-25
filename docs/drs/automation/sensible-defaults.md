@@ -38,6 +38,16 @@ type's constructor throws, naming the key and where to add it); a function that 
 - [Where defaults come from](#where-defaults-come-from)
 - [One resolution order](#one-resolution-order)
 
+### Rule ADR-AUTO-DEFAULT-OUTPUTONLYBYADDRESS
+
+A default scope never reaches the `output` track, `out/`. Every action that defaults to everything in its domain — a `Test-*` gate, an
+`Assert-*` guard, `Format-Code` and every formatter, test discovery, any walk of the repository — leaves `out/` out of that default, and a
+parameter's default never points into it. An action works in `out/` only when its caller names an address there, a file or a folder, and
+then it works on what is on disk at that address, since git tracks nothing under `out/`. A tool that keeps its own state in `out/`, such as
+a cache or a run's artifacts, writes to an address it names itself.
+
+- [The output track is reached by address only](#the-output-track-is-reached-by-address-only)
+
 ## Context
 
 Automation functions should be easy to call. If a function requires five parameters to do the most common thing, nobody will use it — they
@@ -118,10 +128,23 @@ under `differs` with one sentence of reason, and `Test-ShippedConfigs` fails any
 not a fallback kept for an older shape ([one-living-version](../principles/one-living-version.md)): it is the single declared default of an
 optional setting. How a PowerShell parameter expresses steps 1–2 is the language layer, in the pwsh twin.
 
+### The output track is reached by address only
+
+`A default is the domain's source, never its output`
+
+`out/` is a track like the others, the `output` track
+([DDR-TRACKTYPE-CLOSEDSETOFTYPES](../design/track-types.md#rule-ddr-tracktype-closedsetoftypes)): git ignores it, and the tools write their
+reports, renders, caches and builds there and read them back. What it holds is the result of an action, not the source of one, so a default
+that swept it in would check, format or test yesterday's output as if it were today's code, and a gate would fail on a stale report it wrote
+itself. So a default scope is the domain's source, and the output track is never part of it. The defaults already keep to that by their
+construction: the gates and `Format-Code` work on the files git tracks, the folder walk excludes `out` (`folder-walk.yml`), and the markdown
+scope excludes `out/**` (`globs.yml`). What remains is the explicit address: a caller that names a file or a folder under `out/` — a render
+to check, a report to read — gets exactly that address, resolved on disk, because there the caller, not a default, chose the output.
+
 ## Decision
 
 Every parameter must have a sensible default unless no reasonable default exists. The most common invocation of any function should require
-zero or minimal arguments.
+zero or minimal arguments. No default reaches the output track; only an explicit address does.
 
 ## Consequences
 

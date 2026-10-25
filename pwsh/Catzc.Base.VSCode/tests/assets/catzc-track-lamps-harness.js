@@ -210,13 +210,13 @@ const scenarios = {
     // The hot engine: the shell runs the repository's copy, swaps it on a save with every part disposed first, and falls back to its own
     // copy when the repository's does not load.
     async swap() {
-        const engine = path.join(root, "pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js");
+        const engine = path.join(root, "js/catzc-track-lamps/extension.js");
         current = stub({ filters: filters(["code", "docs"]) });
         require(script).activate(current.context);
         await sleep(1200);
         const first = { light: current.record.commands.has("catzc.lamps.code.light"), registered: current.record.registered };
         fs.appendFileSync(engine, "\n// a saved change\n");
-        await current.fire("pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js", "change", engine);
+        await current.fire("js/catzc-track-lamps/extension.js", "change", engine);
         await sleep(1500);
         const swapped = {
             light: current.record.commands.has("catzc.lamps.code.light"),
@@ -224,7 +224,7 @@ const scenarios = {
             disposed: current.record.disposed,
         };
         fs.appendFileSync(engine, "\nthis is no javascript {\n");
-        await current.fire("pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js", "change", engine);
+        await current.fire("js/catzc-track-lamps/extension.js", "change", engine);
         await sleep(1500);
         return {
             first,

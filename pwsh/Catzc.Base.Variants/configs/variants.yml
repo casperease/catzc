@@ -51,6 +51,7 @@ tracks:
   python: { places: [python], type: modules, languages: [python, html, markdown, xml, yaml] }
   bash: { places: [bash], type: modules, languages: [bash] }
   bash-vendor: { places: [bash/.vendor], type: vendored-code }
+  js: { places: [js], type: modules, languages: [javascript, json, asset], kinds: { extensions: js } }
   .github: { places: [.github], type: vendor-settings, vendor: github, languages: [yaml, markdown] }
   .cspell: { places: [.cspell], type: vendor-settings, vendor: cspell }
   .claude: { places: [.claude], type: vendor-settings, vendor: claude, languages: [markdown, python, bcl, json, xml, html, powershell] }

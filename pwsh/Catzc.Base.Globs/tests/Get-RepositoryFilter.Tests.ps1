@@ -66,11 +66,11 @@ Describe 'Get-RepositoryFilter — the real repository' -Tag 'L1', 'integrity', 
             $sets = & $script:globSets @($script:filters.Where({ $_.name -ceq $Filter })[0].sets)
             $sets.Where({ $_.Matches($Path) }, 'First').Count -gt 0
         }
-        foreach ($path in 'pwsh/Catzc.Base.Globs/Get-RepositoryFilter.ps1', 'pwsh/Catzc.Base.Globs/types/FiltersConfig.cs', 'pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js', 'infrastructure/modules/data-factory.bicep') {
+        foreach ($path in 'pwsh/Catzc.Base.Globs/Get-RepositoryFilter.ps1', 'pwsh/Catzc.Base.Globs/types/FiltersConfig.cs', 'js/catzc-track-lamps/extension.js', 'infrastructure/modules/data-factory.bicep') {
             & $claims 'code' $path | Should -BeTrue -Because "'$path' is live code"
             & $claims 'live' $path | Should -BeTrue -Because "'$path' is live"
         }
-        foreach ($path in 'pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps/code-on.svg', 'pwsh/Catzc.Base.Globs/configs/filters.yml') {
+        foreach ($path in 'js/catzc-track-lamps/assets/code-on.svg', 'pwsh/Catzc.Base.Globs/configs/filters.yml') {
             & $claims 'code' $path | Should -BeFalse -Because "'$path' is live but no code"
             & $claims 'live' $path | Should -BeTrue -Because "'$path' is live"
         }

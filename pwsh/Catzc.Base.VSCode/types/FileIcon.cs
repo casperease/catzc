@@ -16,7 +16,7 @@ public sealed class FileIcon
     // The icon's name: its id in the theme and its SVG file name.
     public string name { get; }
 
-    // A lamp glyph of catzc-track-lamps (assets/extensions/catzc-track-lamps/<glyph>-on.svg), recoloured; null when the icon is a label.
+    // A lamp glyph of catzc-track-lamps (js/catzc-track-lamps/assets/<glyph>-on.svg), recoloured; null when the icon is a label.
     public string glyph { get; }
 
     // One to four characters without spaces, drawn as the icon; null when the icon is a glyph.
