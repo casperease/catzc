@@ -362,6 +362,68 @@ terms:
     - term: gitops
       meaning:
         "GitOps — delivery that reconciles a system to a version-controlled repository; a store's projection kind in truth-stores tests"
+    - term: deadzone
+      meaning: "the diagram kit's dead zone, the margin around a cell no edge or label may enter (drawio.yml, declaration.py)"
+    - term: keepout
+      meaning: "the diagram kit's keep-out area (KEEPOUT), the region a placement must avoid around the dead zone"
+    - term: callsite
+      meaning: "a call site, the place in code that calls a function (a diagram glyph and the anchors explanation)"
+    - term: vscdb
+      meaning: "VS Code's state database file extension (state.vscdb), read and written by Set-VsCodeHiddenAction"
+    - term: winsqlite
+      meaning: "winsqlite3.dll, the SQLite build Windows ships, P/Invoked by VscodeStateStore"
+    - term: errmsg
+      meaning: "SQLite's errmsg out-parameter and sqlite3_errmsg, the error text VscodeStateStore reports"
+    - term: dasharray
+      meaning: "SVG stroke-dasharray attribute, the dash pattern of a track-lamp icon"
+    - term: rrggbb
+      meaning: "the #rrggbb hex colour form a lamp palette range accepts"
+    - term: rrggbbaa
+      meaning: "the #rrggbbaa hex colour form with alpha a lamp palette range accepts"
+    - term: whatif
+      meaning: "PowerShell's -WhatIf common parameter, written lower-case in test names"
+    - term: enametoolong
+      meaning: "the ENAMETOOLONG error code a too-long file path raises (Node.js and POSIX)"
+    - term: mxgraph
+      meaning: "mxGraph, the diagram library draw.io styles are named after (mxgraph.* shape styles)"
+    - term: getmetrics
+      meaning: "Pillow's ImageFont.getmetrics(), a font's ascent and descent"
+    - term: textlength
+      meaning: "Pillow's ImageDraw.textlength(), the advance width of a string"
+    - term: segoeui
+      meaning: "segoeui.ttf, the Windows UI font file the slide renderer loads"
+    - term: segoeuib
+      meaning: "segoeuib.ttf, the bold Windows UI font file the slide renderer loads"
+    - term: arialbd
+      meaning: "arialbd.ttf, the bold Arial font file the slide renderer falls back to"
+    - term: dejavu
+      meaning: "DejaVu fonts, the slide renderer's fallback off Windows"
+    - term: tomoki
+      meaning: "VS Code extension publisher id (tomoki1207.pdf) in the extensions plan"
+    - term: pkief
+      meaning: "VS Code extension publisher id (PKief.material-icon-theme)"
+    - term: hnrobert
+      meaning: "VS Code extension publisher id (hnrobert) in the extensions plan"
+    - term: hilleer
+      meaning: "VS Code extension publisher id (hilleer) in the extensions plan"
+    - term: yzane
+      meaning: "VS Code extension publisher id (yzane.markdown-pdf)"
+    - term: mechatroner
+      meaning: "VS Code extension publisher id (mechatroner.rainbow-csv)"
+    - term: clysto
+      meaning: "VS Code extension publisher id (clysto) in the extensions plan"
+    - term: cucumberopen
+      meaning: "VS Code extension publisher id (CucumberOpen.cucumber-official)"
+    - term: getgauge
+      meaning: "VS Code extension publisher id (getgauge.gauge)"
+    - term: eridem
+      meaning: "VS Code extension publisher id (eridem) in the extensions plan"
+    - term: donjayamanne
+      meaning: "VS Code extension publisher id (donjayamanne.githistory)"
+    - term: githistory
+      meaning: "VS Code extension name (donjayamanne.githistory)"
+    - term: azurecli
+      meaning: "VS Code extension name (ms-vscode.azurecli)"
   abbreviation:
     - term: auth
       meaning: "authentication / authorization"
@@ -644,6 +706,16 @@ terms:
       meaning: "a resource name composed from the sample-bicepparam template's shortcodes in Get-BicepTemplateConfiguration tests"
     - term: rulename
       meaning: "placeholder for a rule's name part in a rule code template (<code>-<RULENAME>) in the how-to docs"
+    - term: widgetish
+      meaning: "placeholder adjective 'widgetish' in catzc-track-lamps tests"
+    - term: widgetshell
+      meaning: "placeholder language name 'widgetshell' in the diagram kit's language tests"
+    - term: gadgetlang
+      meaning: "placeholder language name 'gadgetlang' in the diagram kit's language tests"
+    - term: gadgetkind
+      meaning: "placeholder kind name 'gadgetkind' in the diagram kit's declaration tests"
+    - term: getwidget
+      meaning: "placeholder function name 'getwidget' in the diagram kit's normal-form tests"
   azure-live:
     - term: apex
       meaning:
@@ -662,6 +734,8 @@ terms:
       meaning: "'az cli' as one token (Invoke-AzCli, the prefer-az-cli decision of ADR-AZ-CLI)"
     - term: poka
       meaning: "the 'poka' of poka-yoke (prose)"
+    - term: zoomisanaxis
+      meaning: "the name part of the planned rule DDR-VISUAL-ZOOMISANAXIS (plan-model-atlas), cited before it lands"
   ado:
     - term: tf
       meaning: "the TF_BUILD predefined pipeline variable (Team Foundation Build), e.g. $savedTfBuild"

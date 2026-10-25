@@ -42,11 +42,8 @@ cats has no parity for (Ruff, Prettier, markdownlint, cspell). The recommendatio
 
 ## Open steps
 
-The external units' freeze first, then the small extensions folded into cats extensions.
+The workflow schema's job checks first, then the small extensions folded into cats extensions.
 
-- [ ] `contracts/EXTERNAL-ado/0.1.0/` and `contracts/EXTERNAL-github/0.1.0/`: freeze each draft with
-      `Publish-ContractRelease -Unit <unit> -Version 0.1.0` once the user has staged the new units. Check: the frozen-folder test passes on
-      each released folder.
 - [ ] `ContractSchema`: `additionalProperties` as a schema, so the workflow schema checks each job and its steps, not only the top level.
       Check: `ContractSchema.Tests.ps1`, then `Test-Contracts` on the workflows.
 - [ ] `New-VsCodeSettings`: renders `.editorconfig` into per-language settings; remove `editorconfig.editorconfig`. Check: the module's

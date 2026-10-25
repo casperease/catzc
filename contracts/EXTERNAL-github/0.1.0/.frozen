@@ -1,0 +1,4 @@
+# contracts/EXTERNAL-github/0.1.0, frozen by Publish-ContractRelease: the SHA-256 of each file, line endings read as LF.
+# A released version folder is immutable (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE); Test-Contracts fails when a file differs.
+3525d86e61508feaec61c1eb8288dc0d4609e3fdb0ebfd06c9551a32c541b889  Catzc.Tooling.Github/workflows/workflow.yml.schema.json
+f2cb0834ad581f306268274702ddee217e0b72c130090ab03f4814dade3b96c4  contract.yml

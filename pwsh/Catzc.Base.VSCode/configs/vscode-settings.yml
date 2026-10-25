@@ -41,6 +41,8 @@ settings:
 
   # PowerShell: use pwsh 7 for the Integrated Console
   powershell.powerShellDefaultVersion: PowerShell (x64)
+  # The Extension Terminal starts in the background; the editor keeps full height, the terminal stays one Ctrl+` away
+  powershell.integratedConsole.showOnStartup: false
 
   # PowerShell: use project PSScriptAnalyzer settings for analysis (squiggles)
   powershell.scriptAnalysis.settingsPath: ./pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1
