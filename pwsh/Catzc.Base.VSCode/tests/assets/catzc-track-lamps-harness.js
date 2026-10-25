@@ -86,6 +86,27 @@ const filters = (names) =>
     Object.fromEntries(names.map((name) => [name, [{ include: [name, `${name}/**`], exclude: [] }]]));
 
 const scenarios = {
+    // The roof over the real repository: the files.exclude of each shipped lamp off and vetoed in turn, and of every lamp off, by the
+    // rendered filters of its settings; root is the repository, and no editor is needed.
+    async roof() {
+        const m = require(script);
+        const text = fs.readFileSync(path.join(root, ".vscode/settings.json"), "utf8").replace(/^﻿/, "");
+        const settings = JSON.parse(text.split("\n").filter((line) => !line.trim().startsWith("//")).join("\n"));
+        const declared = settings["catzc.trackLamps.filters"] ?? {};
+        const shipped = Object.fromEntries(Object.entries(declared).filter(([name]) => m.SHIPPED_LAMPS.includes(name)));
+        const known = settings["catzc.trackLamps.languages"] ?? {};
+        const lamps = ["open", ...Object.keys(shipped), "languages"];
+        const disk = await m.walkDisk(root);
+        const states = [];
+        for (const off of [...lamps.map((lamp) => [lamp]), lamps]) {
+            for (const veto of [false, true]) {
+                const out = new Set(off);
+                const wanted = await m.hiddenGlobs(root, out, "", shipped, known, [], veto ? out : new Set(), disk);
+                states.push({ state: `${veto ? "veto" : "off"} ${off.length === lamps.length ? "(every lamp)" : off[0]}`, size: m.excludeSize(Object.fromEntries(wanted.map((glob) => [glob, true]))) });
+            }
+        }
+        return { roof: m.EXCLUDE_ROOF, states };
+    },
     // The context keys: a lamp that is not shipped stays out of the title row, the mismatch is logged once, and a re-judge that changes
     // nothing sends no key.
     async keys() {

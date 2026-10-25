@@ -42,7 +42,7 @@ def test_the_shipped_default_carrier_is_the_article_block():
 
 
 def test_the_carrier_is_derived_from_what_is_on_disk(pair):
-    stem, page, _ = pair
+    stem, _, _ = pair
     assert declaration.carrier_of(stem) == "file", "a yml beside the png is the file carrier"
     declaration.carry(stem, "article")
     assert declaration.carrier_of(stem) == "article", "a block above the image, and no yml, is the article carrier"
@@ -145,7 +145,7 @@ def test_a_cspell_ignore_merges_into_the_page_own_comment_and_a_word_the_page_st
 
 
 def test_a_page_with_two_diagrams_takes_one_block_above_each_image(pair, monkeypatch):
-    stem, page, config = pair
+    stem, page, _ = pair
     gadget = stem.with_name("gadget-flow")
     gadget_body = BODY.replace("Widgets flow into gadgets through a gate.", "Gadgets flow back.")
     page.write_text(PAGE + f"\n```yml drawio\n{gadget_body}```\n\n![Gadgets](.assets/gadget-flow.drawio.png)\n", encoding="utf-8")

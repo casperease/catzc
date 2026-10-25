@@ -288,6 +288,13 @@ function hiddenEntries(files, folders, shown) {
         shownUnder.add(`${extension}|.`);
         for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) shownUnder.add(`${extension}|${key(at)}`);
     }
+    // Each extension's folders that hold a shown file directly, for the one-level form '<folder>/*<ext>' (a module's functions hidden
+    // while its tests, the same extension one folder down, show).
+    const shownDirectly = new Set();
+    for (const place of shown) {
+        const extension = key(extensionOf(place));
+        if (extension) shownDirectly.add(`${extension}|${key(path.posix.dirname(place))}`);
+    }
     const rollUp = (place) => {
         const extension = extensionOf(place);
         if (!extension) return place;
@@ -297,6 +304,8 @@ function hiddenEntries(files, folders, shown) {
             const folder = parts.slice(0, depth).join("/");
             if (!shownUnder.has(`${key(extension)}|${key(folder)}`)) return `${folder}/**/*${extension}`;
         }
+        const folder = path.posix.dirname(place);
+        if (folder !== "." && !shownDirectly.has(`${key(extension)}|${key(folder)}`) && !/[*?[\]{}!,]/.test(folder)) return `${folder}/*${extension}`;
         return place;
     };
     // A dead folder below the root rides on its name the same way: '**/<name>' where no live folder and no shown file bears it, else
@@ -1010,6 +1019,10 @@ function activate(context) {
 }
 
 module.exports = {
+    EXCLUDE_ROOF,
+    SHIPPED_LAMPS,
+    excludeSize,
+    walkDisk,
     activate,
     activateEngine,
     deactivate() {},

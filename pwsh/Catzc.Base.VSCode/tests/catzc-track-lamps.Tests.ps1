@@ -44,7 +44,7 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
     }
 
     It 'hides exactly what an unlit filter claims' {
-        & $script:hidden @('code') | Should -Be @('mods/Widget/Get-Widget.ps1')
+        & $script:hidden @('code') | Should -Be @('mods/Widget/*.ps1') -Because 'the module''s own .ps1 files go as one level while its tests, the same extension below, show'
         & $script:hidden @('tools') | Should -Be @('gadgets')
     }
 
@@ -98,7 +98,7 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
 
     It 'writes a path in its on-disk spelling and matches without case on Windows' -Skip:(-not $IsWindows) {
         $filters = [ordered]@{ code = @(& $script:set @('mods/widget/get-widget.ps1')) }
-        & $script:call hiddenGlobs @($script:root, @('code'), '', $filters, $script:known) | Should -BeExactly @('mods/Widget/Get-Widget.ps1')
+        & $script:call hiddenGlobs @($script:root, @('code'), '', $filters, $script:known) | Should -BeExactly @('mods/Widget/*.ps1') -Because 'the folder is written in its on-disk spelling'
     }
 
     It 'accounts for every file: its signature, the files shown, and none against its filters or unclaimed' {
@@ -275,6 +275,18 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
             $result.broken.light | Should -BeTrue -Because 'the package''s own copy runs when the repository''s does not load'
             $result.broken.fellBack | Should -BeTrue
             @($result.duplicates) | Should -HaveCount 0 -Because 'no command is ever registered twice at once'
+        }
+    }
+
+    It 'keeps files.exclude under the roof the editor''s processes take, for each shipped lamp off and vetoed in turn and for every lamp off' -Tag 'L1' {
+        $repository = (Resolve-Path (Join-Path $PSScriptRoot '../../..')).Path -replace '\\', '/'
+        $harness = (Resolve-Path (Join-Path $PSScriptRoot 'assets/catzc-track-lamps-harness.js')).Path
+        $output = & node $harness roof $repository $script:script 2>&1
+        $LASTEXITCODE | Should -Be 0 -Because "the roof scenario runs: $output"
+        $result = $output | ConvertFrom-Json -AsHashtable
+        @($result.states).Count | Should -BeGreaterThan 20 -Because 'every shipped lamp is measured off and vetoed'
+        foreach ($state in $result.states) {
+            $state.size | Should -BeLessOrEqual $result.roof -Because "$($state.state) writes $($state.size) characters, over the $($result.roof) a spawned search or watcher process takes (spawn ENAMETOOLONG)"
         }
     }
 

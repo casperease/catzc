@@ -11,8 +11,8 @@ import language_audit
 import languages_table
 
 ROWS = {
-    "widgetshell": {"tag": "wsh", "extensions": [".wsh"], "shapes": ["^Widget-[A-Z]\w+$"]},
-    "gadgetlang": {"tag": "gdg", "extensions": [".gdg"], "shapes": ["^[A-Z]\w+\.[A-Z]\w+$"]},
+    "widgetshell": {"tag": "wsh", "extensions": [".wsh"], "shapes": [r"^Widget-[A-Z]\w+$"]},
+    "gadgetlang": {"tag": "gdg", "extensions": [".gdg"], "shapes": [r"^[A-Z]\w+\.[A-Z]\w+$"]},
 }
 
 DECLARATION = """

@@ -275,9 +275,10 @@ def _gap_edge(gap_px, spacing=8):
 
 
 def _drawn_run(img, y=100):
-    """The model x range where the red line is drawn on row y."""
-    xs = [x for x in range(0, 300) if near(at(img, x, y), RED)]
-    return (min(xs), max(xs)) if xs else None
+    """The model x range where the red line is drawn on row y; a row with no red line fails the test."""
+    xs = [x for x in range(300) if near(at(img, x, y), RED)]
+    assert xs, f"the red line is drawn on row {y}"
+    return min(xs), max(xs)
 
 
 def test_a_long_edge_keeps_the_full_deadzone_at_each_end():
