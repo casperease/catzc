@@ -1,7 +1,27 @@
 # pwsh/Catzc.Base.Globs/Get-RepositoryFilter.ps1
 
-The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
-comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
+(Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## help
+
+### synopsis
+
+Resolves the repository's filters, the lamps of the working view, to the include and exclude sets each claims files by.
+
+### description
+
+Each filter of filters.yml is resolved to its sets, in declaration order: what a lamp claims, as the editor's lamps and every other engine
+read it, so a file is classified by the patterns the model holds and never by a list of files
+([DDR-FILTER-DECLAREDONCE](../../../drs/design/repository-filters.md#rule-ddr-filter-declaredonce)).
+
+### parameter `Name`
+
+The filters to resolve, by name. Default: every declared filter, in declaration order.
+
+### outputs
+
+`[pscustomobject]` one per filter: its name and its sets.
 
 ## comment:1
 

@@ -10,11 +10,20 @@ catzc:
       variation: ladder-strip
       scale: 1
       tilt: { y: 0.7, shear: 0.2 }
-      words: { g-authoring: author, c-main: main, g-bvt: BVT, e-main-uat: mainUAT, g-rc: SIGN-1, e-release-uat: rel-uat, g-rbc: SIGN-2, e-pre-prod: pre-prod, r-switch: switch, e-production: prod }
+      words:
+        {
+          g-authoring: author,
+          c-main: main,
+          g-bvt: BVT,
+          e-main-uat: mainUAT,
+          g-rc: SIGN-1,
+          e-release-uat: rel-uat,
+          g-rbc: SIGN-2,
+          e-pre-prod: pre-prod,
+          r-switch: switch,
+          e-production: prod,
+        }
       moves: [merge, test, deploy, passed, deploy, passed, deploy, swap, live]
-  edges:
-    cites:
-      - FDR-CD-QUEUE-SIGNATUREISTHEGATE
 ---
 
 # RC and RBC are each one signature, after the test proved the service loads

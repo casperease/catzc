@@ -68,6 +68,8 @@ pwsh/.compiled/** linguist-generated
 /importer.sh    linguist-generated
 /pwsh/.internal/assets/importer-commands.sh linguist-generated
 /pwsh/.internal/assets/Catzc.Types.csproj linguist-generated
+/Directory.Build.props linguist-generated
+/nuget.config   linguist-generated
 /.gitattributes linguist-generated
 /.gitignore     linguist-generated
 /docs/drs/index.md    linguist-generated

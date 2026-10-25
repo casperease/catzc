@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-LinkDirections.ps1.md"
+  warning: "Generated Header"
+---
+#>
+
 function Test-LinkDirections {
     [CmdletBinding()]
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
@@ -14,8 +22,6 @@ function Test-LinkDirections {
 
     Assert-SourceTree
 
-    # The relations come from the same walk as Test-Links, so the two gates agree on what a link is
-    # ([ADR-REPO-LINKS-CHECKEDBYONEGATE](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-checkedbyonegate)).
     $settings = Get-Config -Config links
     $result = Invoke-LinkEngine -RepositoryRoot $RepositoryRoot -Path $Path -Kind Both -Wrap $settings.wrap -IncludeEdge
     $edges = @($result.Edges)

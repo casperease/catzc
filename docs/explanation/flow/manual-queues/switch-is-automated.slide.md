@@ -9,9 +9,6 @@ catzc:
       source: ../.assets/manual-queues-1-where-a-person-stands.drawio.png
       box: [880, 100, 400, 240]
       scale: 1
-  edges:
-    cites:
-      - FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED
 ---
 
 # Pre-prod and production trade places by an automated, monitored switch

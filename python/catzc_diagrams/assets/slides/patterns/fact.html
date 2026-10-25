@@ -15,7 +15,11 @@
         </div>
     </div>
     <figure style="flex: 0 0 640px; display: flex; flex-direction: column; gap: 16px; margin: 0">
-        <img src="{{image}}" alt="{{title}}" style="max-width: 640px; max-height: 560px; object-fit: contain; image-rendering: pixelated; border-radius: 8px" />
+        <img
+            src="{{image}}"
+            alt="{{title}}"
+            style="max-width: 640px; max-height: 560px; object-fit: contain; image-rendering: pixelated; border-radius: 8px"
+        />
         <figcaption style="font-size:{{@scale.caption}}px;line-height:1.4;color:{{@token.ink_muted}}">{{caption?}}</figcaption>
     </figure>
     <p style="position:absolute;left:128px;bottom:64px;font-size:{{@scale.caption}}px;color:{{@token.ink_muted}}">{{@page}}</p>

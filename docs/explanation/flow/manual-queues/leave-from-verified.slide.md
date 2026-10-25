@@ -9,10 +9,6 @@ catzc:
       source: ../../design/.assets/sync-point-rules-are-drs-only.drawio.png
       box: [250, 540, 700, 420]
       scale: 0.85
-  edges:
-    cites:
-      - FDR-CD-LIFE-DIRTYHEADUNSAFE
-      - FDR-CD-LIFE-FAILEDSTAYSUPSTREAM
 ---
 
 # The next climb starts from the verified point, never from the dirty HEAD

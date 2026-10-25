@@ -47,7 +47,7 @@ Started 2026-10-23T19:08:35.6112403+02:00.
 - 2026-10-25 Cats: Token tip: Next time, save tokens by: checking git status of shared files before editing, since a peer session may be in
   them.
 - 2026-10-25 Cats: Pytest writes its cache to out/pytest-cache (cache_dir) and Python its bytecode to out/pycache (PYTHONPYCACHEPREFIX),
-  both set in Invoke-PythonTest and the VS Code pytestArgs; no config carries a .pytest_cache or __pycache__ exception any more.
+  both set in Invoke-PythonTest and the VS Code pytestArgs; no config carries a .pytest_cache or **pycache** exception any more.
 - 2026-10-25 Cats: A filter lamp is a tri-state toggle (off, on, veto) stepped by one click; veto hides its whole zone even where a lit lamp
   claims it (DDR-FILTER-TOTALUNION, evaluate(..., vetoed) in catzc-track-lamps.js, \<lamp>-veto.svg icons).
 - 2026-10-25 Cats: The lamp extension reinstalls itself into VS Code whenever the importer runs (a reload is the user's); catzc-track-lamps

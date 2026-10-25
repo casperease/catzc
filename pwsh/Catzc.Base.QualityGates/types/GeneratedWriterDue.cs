@@ -1,3 +1,11 @@
+/*
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/GeneratedWriterDue.cs.md"
+  warning: "Generated Header"
+---
+*/
+
 namespace Catzc.Base.QualityGates;
 
 public sealed class GeneratedWriterDue

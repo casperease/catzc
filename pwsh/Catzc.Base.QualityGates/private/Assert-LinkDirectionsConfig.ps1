@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Assert-LinkDirectionsConfig.ps1.md"
+  warning: "Generated Header"
+---
+#>
+
 function Assert-LinkDirectionsConfig {
     [CmdletBinding()]
     param(

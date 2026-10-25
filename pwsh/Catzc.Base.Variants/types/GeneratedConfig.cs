@@ -1,3 +1,11 @@
+/*
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-variants/types/GeneratedConfig.cs.md"
+  warning: "Generated Header"
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,8 +13,6 @@ using System.Globalization;
 
 namespace Catzc.Base.Variants;
 
-// One module's declaration of what its generators write: each target a repository path or glob and the generator that writes it.
-// Every generating module keeps its own configs/generated.yml; Get-GeneratedTarget reads every owner beside rootconfig.yml.
 public sealed class GeneratedConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

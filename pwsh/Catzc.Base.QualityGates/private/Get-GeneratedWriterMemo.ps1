@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-GeneratedWriterMemo.ps1.md"
+  warning: "Generated Header"
+---
+#>
+
 function Get-GeneratedWriterMemo {
     [CmdletBinding()]
     [OutputType([hashtable])]

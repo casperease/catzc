@@ -1,5 +1,9 @@
-# What the Python toolchain writes (Get-GeneratedTarget reads every module's generated.yml): the environment uv builds, the bytecode
-# Python compiles, and the cache of the checker.
+# ---
+# catzc:
+#   docs: "../../../docs/references/pwsh/catzc-tooling-python/configs/generated.yml.md"
+#   warning: "Generated Header"
+# ---
+
 targets:
   - { path: python/.venv/**, generator: uv }
   - { path: python/uv.lock, generator: uv }

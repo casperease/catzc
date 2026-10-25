@@ -1,4 +1,6 @@
-description: "A maintainer rebuilds the English dictionary: one command writes the word list and its stamp into the module's assets, and the generated-files quality gate holds them to their inputs."
+description:
+  "A maintainer rebuilds the English dictionary: one command writes the word list and its stamp into the module's assets, and the
+  generated-files quality gate holds them to their inputs."
 about:
   adrs:
     - ADR-AUTO-SPELL
@@ -11,7 +13,7 @@ content:
   kind: explanation
   cause: { label: A maintainer bumps the cspell pin }
   action:
-    call: { build_english_dictionary: }
+    call: { build_english_dictionary }
   effects:
     - id: effect-words
       zone: 1

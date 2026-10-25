@@ -8,10 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/sync-point-rules-are-drs-only.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - FDR-CD-QUEUE-THREEQUEUES
-      - FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED
 ---
 
 # The ladder keeps no secret stairs
@@ -22,8 +18,8 @@ catzc:
 
 ## Lead
 
-A manual step no rule names is a defect of the flow, not a fourth queue. A unit that cannot switch blue-green gets its manual switch
-written down, with a server, a store and a measured wait, before anyone climbs it.
+A manual step no rule names is a defect of the flow, not a fourth queue. A unit that cannot switch blue-green gets its manual switch written
+down, with a server, a store and a measured wait, before anyone climbs it.
 
 ## Image
 

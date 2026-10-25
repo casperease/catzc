@@ -1,12 +1,17 @@
+/*
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-vs-code/types/VscodeStateStore.cs.md"
+  warning: "Generated Header"
+---
+*/
+
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Catzc.Base.VSCode;
 
-// One key of VS Code's state store (state.vscdb, an SQLite database of key/value rows in ItemTable), read and written through the
-// SQLite Windows ships (winsqlite3.dll), so no package is fetched. VS Code holds the store in memory while it runs and writes it back on
-// exit: a write lands only while VS Code is closed, which the caller asserts.
 public static class VscodeStateStore
 {
     private const int Ok = 0;

@@ -33,6 +33,11 @@ Which link kinds to process.
 
 How an aligned comment line that outgrows its limit is wrapped.
 
+### parameter `IncludeEdge`
+
+Also records each relation the walk recognises, as the result's `Edges`, for Test-LinkDirections. Test-Links and Format-Links leave it off,
+and the result's `Edges` is then empty.
+
 ### outputs
 
 `[Catzc.Base.QualityGates.LinkEngineResult]`

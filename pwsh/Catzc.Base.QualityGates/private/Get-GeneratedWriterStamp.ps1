@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-GeneratedWriterStamp.ps1.md"
+  warning: "Generated Header"
+---
+#>
+
 function Get-GeneratedWriterStamp {
     [CmdletBinding()]
     [OutputType([string])]
@@ -12,9 +20,6 @@ function Get-GeneratedWriterStamp {
         [string] $RepositoryRoot
     )
 
-    # The stamp of every file on disk a writer's inputs match, committed, changed or ignored alike, so a pull or a drifted ignored file
-    # changes it as surely as an edit; salted with the folders a wildcard glob's leaf could be written into, so a new folder that should
-    # receive a generated file makes the writer due before the file exists. The files and folders are the shared walk's.
     $globs = [string[]] @($InputGlob | Where-Object { $_ })
     $matched = [Catzc.Base.Globs.GlobPattern]::MatchingPaths($globs, [string[]] @($Walk.File))
     $folderGlobs = [string[]] @(foreach ($glob in $globs) {

@@ -9,9 +9,6 @@ catzc:
       source: ../../design/.assets/out-from-the-verified-point-back-through-a-topic.drawio.png
       box: [20, 84, 1260, 400]
       scale: 0.5
-  edges:
-    cites:
-      - FDR-CD-QUEUE-AUTHORINGISTHEFIRST
 ---
 
 # The first queue is a person pushing their own topic; a clone never writes main
@@ -22,8 +19,8 @@ catzc:
 
 ## Lead
 
-A person edits one catalogue item and pushes it, as the authenticated author, to the server's topic HEAD. That push is the only remote
-write the clone ever makes.
+A person edits one catalogue item and pushes it, as the authenticated author, to the server's topic HEAD. That push is the only remote write
+the clone ever makes.
 
 ## Image
 

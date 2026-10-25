@@ -1,7 +1,13 @@
+/*
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/LinkRelation.cs.md"
+  warning: "Generated Header"
+---
+*/
+
 namespace Catzc.Base.QualityGates;
 
-// The three ways one tracked file points at another
-// ([ADR-REPO-LINKS-EVERYLINKHASADIRECTION](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-everylinkhasadirection)).
 public enum LinkRelation
 {
     MarkdownLink,

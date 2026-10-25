@@ -9,11 +9,20 @@ catzc:
       source: ../.assets/manual-queues-1-where-a-person-stands.drawio.png
       variation: ladder-strip
       scale: 1
-      words: { g-authoring: author, c-main: main, g-bvt: BVT, e-main-uat: mainUAT, g-rc: RC-sign, e-release-uat: rel-uat, g-rbc: RBC-sign, e-pre-prod: pre-prod, r-switch: switch, e-production: prod }
+      words:
+        {
+          g-authoring: author,
+          c-main: main,
+          g-bvt: BVT,
+          e-main-uat: mainUAT,
+          g-rc: RC-sign,
+          e-release-uat: rel-uat,
+          g-rbc: RBC-sign,
+          e-pre-prod: pre-prod,
+          r-switch: switch,
+          e-production: prod,
+        }
       moves: [merge, test, deploy, sign, deploy, sign, deploy, swap, live]
-  edges:
-    cites:
-      - FDR-CD-QUEUE-THREEQUEUES
 ---
 
 # A commit waits for a person in exactly three places on the ladder

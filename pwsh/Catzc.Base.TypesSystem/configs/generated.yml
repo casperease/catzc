@@ -1,5 +1,9 @@
-# What the types system writes (Get-GeneratedTarget reads every module's generated.yml): the combined types build, the IDE-only
-# project's build output, and the compiled agent hooks.
+# ---
+# catzc:
+#   docs: "../../../docs/references/pwsh/catzc-base-types-system/configs/generated.yml.md"
+#   warning: "Generated Header"
+# ---
+
 targets:
   - { path: pwsh/.compiled/**, generator: Catzc.Internal.Loader }
   - { path: pwsh/.internal/assets/bin/**, generator: dotnet build }

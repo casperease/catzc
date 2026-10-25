@@ -16,7 +16,7 @@ Describe 'GeneratedConfig' -Tag 'L0', 'logic' {
 
     It 'refuses <Case>' -ForEach @(
         @{ Case = 'an unknown key'; Raw = [ordered]@{ widgets = @() }; Message = "*unknown key 'widgets'*" }
-        @{ Case = 'a target without a generator'; Raw = [ordered]@{ targets = @([ordered]@{ path = 'widgets/x.md' }) }; Message = "*names no generator*" }
+        @{ Case = 'a target without a generator'; Raw = [ordered]@{ targets = @([ordered]@{ path = 'widgets/x.md' }) }; Message = '*names no generator*' }
         @{ Case = 'a backslash path'; Raw = [ordered]@{ targets = @([ordered]@{ path = 'widgets\x.md'; generator = 'Build-Widget' }) }; Message = "*'/'-separated*" }
         @{ Case = 'an unknown target key'; Raw = [ordered]@{ targets = @([ordered]@{ path = 'w'; generator = 'g'; committed = $true }) }; Message = "*unknown key 'committed'*" }
     ) {

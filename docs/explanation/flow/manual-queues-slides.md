@@ -1,8 +1,8 @@
 # The manual queues of the promotion ladder, in ten slides
 
 Ten simple slides on where a person stands on the promotion ladder, one idea each, drawn from
-[manual-queues](../../drs/flow/manual-queues.md) (`FDR-CD-QUEUE`). Each slide is one diagram; the walkthrough under it says what its
-numbers mean.
+[manual-queues](../../drs/flow/manual-queues.md) (`FDR-CD-QUEUE`). Each slide is one diagram; the walkthrough under it says what its numbers
+mean.
 
 ## Slide 1 — Where a person stands
 
@@ -109,6 +109,6 @@ Three rungs are dashed-chipped manual queues, one rung is the code gate, one is 
 ## See also
 
 - [The manual queues of the promotion ladder](../../drs/flow/manual-queues.md) — the decision these slides explain.
-- [Only BVT has a gate in code; the sync-point rules are DRS-only](../design/sync-point-rules-are-drs-only.md) — the ladder with its
-  sync point and dirty HEAD.
+- [Only BVT has a gate in code; the sync-point rules are DRS-only](../design/sync-point-rules-are-drs-only.md) — the ladder with its sync
+  point and dirty HEAD.
 - [The flow explanations](index.md) · [How to read the diagrams](../index.md#how-to-read-the-diagrams)

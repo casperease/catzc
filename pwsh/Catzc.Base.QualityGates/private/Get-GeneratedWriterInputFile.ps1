@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-GeneratedWriterInputFile.ps1.md"
+  warning: "Generated Header"
+---
+#>
+
 function Get-GeneratedWriterInputFile {
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -9,8 +17,6 @@ function Get-GeneratedWriterInputFile {
         [string] $RepositoryRoot
     )
 
-    # The repository-relative files and folders on disk the input globs can claim, from one bounded walk of the repository as deep as the
-    # deepest glob reaches ('**' reaches input_depth below its literal folder), shared by every writer's globs.
     $depth = 1
     foreach ($glob in @($InputGlob | Where-Object { $_ })) {
         $segments = $glob.Split('/')
@@ -27,7 +33,11 @@ function Get-GeneratedWriterInputFile {
     }
     $relative = { param($Path) [System.IO.Path]::GetRelativePath($RepositoryRoot, $Path).Replace('\', '/') }
     [pscustomobject]@{
-        File   = [string[]] @(foreach ($path in @(Get-ChildPath $RepositoryRoot -File -Depth $depth)) { & $relative $path })
-        Folder = [string[]] @(foreach ($path in @(Get-ChildPath $RepositoryRoot -Directory -Depth $depth)) { & $relative $path })
+        File   = [string[]] @(foreach ($path in @(Get-ChildPath $RepositoryRoot -File -Depth $depth)) {
+                & $relative $path
+            })
+        Folder = [string[]] @(foreach ($path in @(Get-ChildPath $RepositoryRoot -Directory -Depth $depth)) {
+                & $relative $path
+            })
     }
 }

@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-LinkEndpoint.ps1.md"
+  warning: "Generated Header"
+---
+#>
+
 function Get-LinkEndpoint {
     [CmdletBinding()]
     [OutputType([System.Collections.Generic.Dictionary[string, Catzc.Base.QualityGates.LinkEndpoint]])]
@@ -8,8 +16,6 @@ function Get-LinkEndpoint {
         [string[]] $Path
     )
 
-    # The registries are read once per call, never once per path
-    # ([ADR-REPO-LINKS-ENDPOINTSAREFACETS](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-endpointsarefacets)).
     $kinds = Get-Config -Config file-kinds
     $moduleTypes = Get-Config -Config module-types
     $tracks = @(Get-Track)

@@ -8,10 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/clients-bridge-to-one-server.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - FDR-CD-QUEUE-AUTHORINGISTHEFIRST
-      - DDR-REMOTE-PULLREQUESTISINGRESS
 ---
 
 # Main has two doors and no windows

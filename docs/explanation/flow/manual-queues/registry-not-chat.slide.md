@@ -9,9 +9,6 @@ catzc:
       source: ../../design/.assets/sync-point-rules-are-drs-only.drawio.png
       box: [440, 330, 620, 300]
       scale: 0.9
-  edges:
-    cites:
-      - FDR-CD-QUEUE-SIGNATUREISTHEGATE
 ---
 
 # A thumbs-up in chat opens no gate

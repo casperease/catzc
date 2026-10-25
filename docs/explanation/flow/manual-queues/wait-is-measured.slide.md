@@ -10,11 +10,20 @@ catzc:
       variation: ladder-strip
       scale: 1
       rotate: -6
-      words: { g-authoring: wait-1, c-main: main, g-bvt: BVT, e-main-uat: mainUAT, g-rc: wait-2, e-release-uat: rel-uat, g-rbc: wait-3, e-pre-prod: pre-prod, r-switch: switch, e-production: prod }
+      words:
+        {
+          g-authoring: wait-1,
+          c-main: main,
+          g-bvt: BVT,
+          e-main-uat: mainUAT,
+          g-rc: wait-2,
+          e-release-uat: rel-uat,
+          g-rbc: wait-3,
+          e-pre-prod: pre-prod,
+          r-switch: switch,
+          e-production: prod,
+        }
       moves: [merge, test, deploy, signed, deploy, signed, deploy, swap, live]
-  edges:
-    cites:
-      - FDR-CD-QUEUE-THREEQUEUES
 ---
 
 # Every queue's wait is read from its store, arrival to recorded act

@@ -1,4 +1,6 @@
-description: "A maintainer rebuilds the contract reference: one command writes a page per unit from the contract assets, the links on them resolve, and the generated-files quality gate holds the pages to their inputs."
+description:
+  "A maintainer rebuilds the contract reference: one command writes a page per unit from the contract assets, the links on them resolve, and
+  the generated-files quality gate holds the pages to their inputs."
 about:
   adrs:
     - ADR-REPO-CONTRACT-LAYOUT
@@ -12,7 +14,7 @@ content:
   kind: explanation
   cause: { label: A maintainer changes a contract }
   action:
-    call: { build_contract_reference: }
+    call: { build_contract_reference }
   effects:
     - id: effect-catzc-page
       zone: 1

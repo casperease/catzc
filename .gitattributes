@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: f0b64415167d
+#     with_body_sha: d5258f63fcc5
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -75,6 +75,8 @@ pwsh/.compiled/** linguist-generated
 /importer.sh    linguist-generated
 /pwsh/.internal/assets/importer-commands.sh linguist-generated
 /pwsh/.internal/assets/Catzc.Types.csproj linguist-generated
+/Directory.Build.props linguist-generated
+/nuget.config   linguist-generated
 /.gitattributes linguist-generated
 /.gitignore     linguist-generated
 /docs/drs/index.md    linguist-generated

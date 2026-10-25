@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Save-GeneratedWriterStamp.ps1.md"
+  warning: "Generated Header"
+---
+#>
+
 function Save-GeneratedWriterStamp {
     [CmdletBinding()]
     param(
@@ -9,8 +17,6 @@ function Save-GeneratedWriterStamp {
         [string] $MemoPath = (Join-Path (Get-OutputRoot) 'cache/generated-writers.json')
     )
 
-    # Stores a writer's input stamp once it has run, taken after the run, so an input it writes itself (a target declared as an input) is
-    # part of the stored stamp and the writer is not due again until one of its inputs changes.
     $writer = (Get-Config -Config generated-files).writers[$Name]
     if ($null -eq $writer) {
         throw "Save-GeneratedWriterStamp: '$Name' is not a writer in generated-files.yml."

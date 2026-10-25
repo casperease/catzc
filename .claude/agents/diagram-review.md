@@ -26,9 +26,9 @@ decision and never asks one.
    changes the yml language or the engine is still yours to take.
 4. Land it under catzc-verify: the article's text block and walkthrough follow the markers; a yml-language change keeps every declaration
    valid or corrects all of them at once (PDR-ONELIVE), with its tests and its sentence in the slides decision record.
-5. Redraw with `Build-Diagrams -Path` under the time safeguard, or `declaration.py put` by name when the pair conflicts with HEAD (the
-   yml is the source), then read the PNG again; redraws cost no LLM tokens. Every costly render and every new rule lands directly at its
-   place in the source catalogue under `docs/`, overwriting what is there; `out/` holds only scripts and gate reports.
+5. Redraw with `Build-Diagrams -Path` under the time safeguard, or `declaration.py put` by name when the pair conflicts with HEAD (the yml
+   is the source), then read the PNG again; redraws cost no LLM tokens. Every costly render and every new rule lands directly at its place
+   in the source catalogue under `docs/`, overwriting what is there; `out/` holds only scripts and gate reports.
 6. Report as report-fixed says, in simple words: the PNG as a plain path from the repository root, "I spotted: <what, where>" per finding,
    what changed and where. The user's next pasted name accepts it; a sentence from the user overrides the decision it names.
 7. Greet again.

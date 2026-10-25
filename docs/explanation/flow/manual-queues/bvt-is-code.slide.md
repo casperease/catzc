@@ -9,10 +9,6 @@ catzc:
       source: ../../design/.assets/sync-point-rules-are-drs-only.drawio.png
       box: [20, 254, 700, 570]
       scale: 0.6
-  edges:
-    cites:
-      - FDR-CD-LIFE-DISCARDISTERMINAL
-      - FDR-CD-QUEUE-THREEQUEUES
 ---
 
 # BVT is the only gate code runs, and it asks nobody
@@ -23,8 +19,8 @@ catzc:
 
 ## Lead
 
-Every push to main runs the BVT level of the test suite. A failing run rejects the commit on its own; discard is terminal. No person
-stands here, so it is not a queue.
+Every push to main runs the BVT level of the test suite. A failing run rejects the commit on its own; discard is terminal. No person stands
+here, so it is not a queue.
 
 ## Image
 
