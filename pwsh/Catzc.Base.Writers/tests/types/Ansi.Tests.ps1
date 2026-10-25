@@ -2,10 +2,11 @@
 ---
 catzc:
   docs: "../../../../docs/references/pwsh/catzc-base-writers/tests/types/Ansi.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
+# One map asserted once, so no writer can resolve a colour to a different escape.
 Describe 'Ansi' -Tag 'L0', 'logic' {
     It 'maps <color> to its SGR foreground escape' -ForEach @(
         @{ color = 'Red'; code = "`e[91m" }

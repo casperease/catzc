@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-writers/Write-Exception.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

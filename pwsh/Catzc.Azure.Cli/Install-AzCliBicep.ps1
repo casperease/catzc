@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-azure-cli/Install-AzCliBicep.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

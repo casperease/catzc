@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-globs/tests/GlobSet-Independence.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

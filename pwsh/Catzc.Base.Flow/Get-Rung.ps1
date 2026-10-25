@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-flow/Get-Rung.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

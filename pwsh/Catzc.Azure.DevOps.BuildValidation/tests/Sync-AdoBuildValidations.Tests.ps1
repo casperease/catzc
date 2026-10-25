@@ -2,10 +2,11 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/Sync-AdoBuildValidations.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
+# One registration per config entry, with overrides and -DryRun passed through.
 Describe 'Sync-AdoBuildValidations' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ParameterFilter { $Config -eq 'build-validation' } -MockWith {

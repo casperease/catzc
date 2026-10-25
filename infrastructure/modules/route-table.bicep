@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../docs/references/infrastructure/modules/route-table.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 @description('Route table name (1-80 characters, unique within the resource group).')

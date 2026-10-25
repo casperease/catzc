@@ -16,16 +16,16 @@ folder ([ADR-REPO-FILEMETA-FEWLINKS](#rule-adr-repo-filemeta-fewlinks)), and not
 from its text on demand, [ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)), no `with_body_sha`, no `test` or `code` edge.
 Such a head closes with `header: "generated"`, a plain note that the head itself is generated, its value declared once on the meta-kind
 registry's type and shown in `file-meta.yml`; an authored head carries no `warning`, which belongs to a wholly generated file alone, and a
-file with no fact to show carries no head for the note alone. A binary file is format-managed with no head
-possible. Every other file carries no head, and a `Format-*` run removes a head the policy does not call for. The policy has three values,
-set per file class in `file-meta.yml`: **facts**, the default, a block holding the facts above, and none when every fact is empty;
-**forbidden**, no `catzc` block at all, for an agent definition, whose front matter belongs to the tool that loads it, and for a diagram
-declaration; and **config**, a block holding only the authored `config` part, for a capability definition and a slide, which keep their own
-tool's front matter as authored ([ADR-REPO-AGENTS-NAMEDMODEL](agent-definitions.md#rule-adr-repo-agents-namedmodel)). A file whose block
-disagrees with its policy, absent where the policy calls for it or present where it does not, is a finding. The block holds the facts the
-tooling owns about the file, written into the file's carrier. A Markdown file's carrier is the reserved front-matter key `catzc`, holding a
-generated file's head under `immutable`, an authored file's edges at the block's first level
-([ADR-REPO-FILEMETA-FILEISNODE](#rule-adr-repo-filemeta-fileisnode)) and a capability's authored config contributions under `config`
+file with no fact to show carries no head for the note alone. A binary file is format-managed with no head possible. Every other file
+carries no head, and a `Format-*` run removes a head the policy does not call for. The policy has three values, set per file class in
+`file-meta.yml`: **facts**, the default, a block holding the facts above, and none when every fact is empty; **forbidden**, no `catzc` block
+at all, for an agent definition, whose front matter belongs to the tool that loads it, and for a diagram declaration; and **config**, a
+block holding only the authored `config` part, for a capability definition and a slide, which keep their own tool's front matter as authored
+([ADR-REPO-AGENTS-NAMEDMODEL](agent-definitions.md#rule-adr-repo-agents-namedmodel)). A file whose block disagrees with its policy, absent
+where the policy calls for it or present where it does not, is a finding. The block holds the facts the tooling owns about the file, written
+into the file's carrier. A Markdown file's carrier is the reserved front-matter key `catzc`, holding a generated file's head under
+`immutable`, an authored file's edges at the block's first level ([ADR-REPO-FILEMETA-FILEISNODE](#rule-adr-repo-filemeta-fileisnode)) and a
+capability's authored config contributions under `config`
 ([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib-configcontribution)). The key
 sits at the top level, or, where another tool validates the top level of the front matter and leaves one key of its own free for foreign
 data, nests under that key at the key path the carrier registry declares (`key`, such as `metadata.catzc` for a capability); the block's own
@@ -181,12 +181,12 @@ subkind and never by glob, and a consumer extends the registry with a config fra
 A file is a node, and its meta block says two things about it, each in a part of its own. `immutable` holds the **place facts** a reader of
 the head needs, and only a generated head has any: its `with_body_sha` while git tracks it and its `warning`, written by its writer
 ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)); an authored head has no `immutable` part, it holds its edges at
-the block's first level and the `header` note after them ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)). Every
-other place fact, what the repository's own configuration makes of the file's location, is derived on demand from a registry and never
-shown. An **edge** is a named relation leaving the file to another file, and a head shows one: `docs`, its comment page; no `test` or `code`
-edge, since a test is found by convention, and no rule codes, since the codes a file cites are read from its text on demand by the commands
-that need them ([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)). The edges are imprinted and `immutable` is written by
-the file's writer, never by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an edge until the
+the block's first level and the `header` note after them ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)). Every other
+place fact, what the repository's own configuration makes of the file's location, is derived on demand from a registry and never shown. An
+**edge** is a named relation leaving the file to another file, and a head shows one: `docs`, its comment page; no `test` or `code` edge,
+since a test is found by convention, and no rule codes, since the codes a file cites are read from its text on demand by the commands that
+need them ([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)). The edges are imprinted and `immutable` is written by the
+file's writer, never by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an edge until the
 file's page appears or goes. An edge is written on its source only, so the target holds no copy, and an edge is named for the relation,
 never for the type of its target. A tracked generated file's `immutable` opens with `with_body_sha`, the hash of the body below the head
 ([ADR-REPO-FILEMETA-IMPRINTEDPARTS](#rule-adr-repo-filemeta-imprintedparts)). A head holds no `repo_status`: whether a file is generated is

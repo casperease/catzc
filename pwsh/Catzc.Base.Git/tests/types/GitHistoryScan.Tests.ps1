@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../../docs/references/pwsh/catzc-base-git/tests/types/GitHistoryScan.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

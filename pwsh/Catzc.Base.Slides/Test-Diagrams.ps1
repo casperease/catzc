@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-slides/Test-Diagrams.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

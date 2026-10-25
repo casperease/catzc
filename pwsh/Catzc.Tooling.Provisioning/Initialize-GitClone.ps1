@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-provisioning/Initialize-GitClone.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/configs/terminology.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 categories:

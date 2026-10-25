@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-folders/configs/folder-walk.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 # Every key is optional: an omitted key takes the default declared once on FolderWalkConfig, and a Get-ChildPath parameter overrides it.

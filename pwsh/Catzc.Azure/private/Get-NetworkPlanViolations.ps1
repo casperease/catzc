@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure/private/Get-NetworkPlanViolations.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-key-handler/types/KeyHandlerBindingsConfig.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Tooling.KeyHandler;
 
+// The file is a bare sequence, exposed here as bindings, so a malformed capture fails when it is read and never halfway through a replay.
 public sealed class KeyHandlerBindingsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "key-handler-bindings.yml is malformed:\n  - ";

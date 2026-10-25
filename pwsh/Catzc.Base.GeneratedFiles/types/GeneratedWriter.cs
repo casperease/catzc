@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-generated-files/types/GeneratedWriter.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.GeneratedFiles;
 
+// Every default of a writer entry is declared here once, so an omitted key and its default can never mean two things.
 public sealed class GeneratedWriter : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly Regex VerbNoun = new Regex("^[A-Z][a-z]+-[A-Z][A-Za-z0-9]*$");
@@ -23,6 +24,7 @@ public sealed class GeneratedWriter : Catzc.Base.Objects.DictionaryRecord
     // The writer's command name.
     public string name { get; }
 
+    // The shape of the writer's report, so a drift check knows which property names a stale file; one of Checks, default file.
     public string check { get; }
 
     // The property of a file result that holds the stale file's path. Default: Path. Null for a check that reads no result path.

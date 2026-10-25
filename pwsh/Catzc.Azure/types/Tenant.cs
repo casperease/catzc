@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure/types/Tenant.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

@@ -1,9 +1,10 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-config/configs/configs.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
+# The registry validates itself: its own entry is first, so a malformed registry fails before any other config is read.
 configs:
   configs:
     type: Catzc.Base.Config.ConfigsConfig

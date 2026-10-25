@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-firewall/private/Get-FirewallMarkdownColumns.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -57,6 +57,7 @@ function Get-FirewallMarkdownColumns {
         }
     }
 
+    # A requested column with none of its fields present is a schema mismatch, so it fails and is never dropped from the table.
     if ($Present.Count -gt 0) {
         foreach ($column in $columns) {
             $column.Candidates = @($column.Candidates | Where-Object { $_ -in $Present })

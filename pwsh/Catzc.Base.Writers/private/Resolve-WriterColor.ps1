@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-writers/private/Resolve-WriterColor.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -21,6 +21,7 @@ function Resolve-WriterColor {
     if ($ForegroundColor -is [Catzc.Base.Writers.RainbowColor]) {
         return @{ HasColor = $true; IsRainbow = $true; Rainbow = $ForegroundColor; Base = $ForegroundColor.Base }
     }
+    # A rainbow bareword becomes a gradient profile; any other string is a plain ConsoleColor name.
     if ($ForegroundColor -is [string]) {
         $found = [Catzc.Base.Writers.RainbowColor]::FromString($ForegroundColor)
         if ($found) {

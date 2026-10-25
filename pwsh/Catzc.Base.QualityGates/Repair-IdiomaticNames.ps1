@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-quality-gates/Repair-IdiomaticNames.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

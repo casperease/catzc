@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../docs/references/github/workflows/ci-pwsh.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 name: CI

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-repository/Get-SessionActor.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

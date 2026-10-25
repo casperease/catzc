@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../../docs/references/pwsh/catzc-azure/tests/types/AzureConfig.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

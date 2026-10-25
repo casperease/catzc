@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/New-PesterRunConfiguration.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

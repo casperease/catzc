@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-code-meta/types/CodeMetaHead.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -16,6 +16,7 @@ using Catzc.Base.MarkdownMeta;
 
 namespace Catzc.Base.CodeMeta;
 
+// Pure text work: every behaviour is proved on strings, and nothing here touches a file.
 [Catzc.Base.Objects.ConsoleDisplay("HasHead", "NewLine")]
 public sealed class CodeMetaHead
 {

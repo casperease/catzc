@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/private/Get-PackageTreePlan.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

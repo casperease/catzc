@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../../docs/references/pwsh/catzc-base-engines/tests/types/ExecutionEngine.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

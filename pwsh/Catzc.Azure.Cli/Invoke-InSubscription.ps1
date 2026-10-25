@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-azure-cli/Invoke-InSubscription.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

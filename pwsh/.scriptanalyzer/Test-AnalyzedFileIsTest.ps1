@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/scriptanalyzer/Test-AnalyzedFileIsTest.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

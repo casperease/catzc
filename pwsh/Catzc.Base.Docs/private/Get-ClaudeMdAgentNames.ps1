@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-docs/private/Get-ClaudeMdAgentNames.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

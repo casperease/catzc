@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/LinkVerdict.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

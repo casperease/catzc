@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/types/ToolStatus.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-listen/Update-DocSnapshot.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

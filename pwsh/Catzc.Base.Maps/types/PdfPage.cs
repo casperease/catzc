@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-maps/types/PdfPage.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

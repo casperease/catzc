@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-files/Copy-Directory.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -23,6 +23,7 @@ function Copy-Directory {
 
     [System.IO.Directory]::CreateDirectory($target) | Out-Null
 
+    # Folders first, so an empty one survives the copy; nothing is pruned, since a copy takes the whole tree.
     foreach ($dir in Get-ChildPath $source -Directory -Depth 64 -Exclude @() -PruneVendor $false) {
         [System.IO.Directory]::CreateDirectory($target + $dir.Substring($sourceLen)) | Out-Null
     }

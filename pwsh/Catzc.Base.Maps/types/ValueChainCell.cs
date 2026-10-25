@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-maps/types/ValueChainCell.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

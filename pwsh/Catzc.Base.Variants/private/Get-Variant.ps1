@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-variants/private/Get-Variant.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

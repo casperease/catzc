@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-reports/configs/output-formats.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 # The area sets how long a format's files stay (OutputFormat's area defaults); keep and max_age override it, and Clear-Output applies it.

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-module-system/tests/Get-FunctionDependency.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

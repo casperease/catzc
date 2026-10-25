@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../../docs/references/pwsh/catzc-tooling-inspiration/tests/types/InspirationConfig.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

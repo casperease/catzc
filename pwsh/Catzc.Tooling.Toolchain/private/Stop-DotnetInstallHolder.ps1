@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/private/Stop-DotnetInstallHolder.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

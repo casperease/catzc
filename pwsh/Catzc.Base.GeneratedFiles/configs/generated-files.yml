@@ -1,9 +1,10 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-generated-files/configs/generated-files.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
+# The one list of generated-file writers and what each reads and writes; their order here is the order they re-render in.
 writers:
   Build-DrsIndex:
     at_import: true
@@ -40,7 +41,7 @@ writers:
     outputs: [pwsh/Catzc.Base.QualityGates/assets/english.*]
   New-VsCodeExtensionFolder:
     check: none
-    # The extension folders under out/ are rendered from these alone; Install-VsCodeExtension skips the render while they are unchanged.
+    # The extension folders under out/ are rendered from these alone, so the render can be skipped while none of them changed.
     inputs:
       - pwsh/Catzc.Base.VSCode/assets/extensions/**
       - pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml
@@ -52,6 +53,7 @@ writers:
   Build-RootConfig:
     at_import: true
     check: root-config
+    # Its targets are inputs too, so a target drifted by hand, ignored by git or not, makes the run that writes it back due.
     inputs:
       - pwsh/Catzc.Base.Contracts/**
       - pwsh/Catzc.Base.Git/**

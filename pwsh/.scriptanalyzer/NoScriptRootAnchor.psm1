@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/scriptanalyzer/NoScriptRootAnchor.psm1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

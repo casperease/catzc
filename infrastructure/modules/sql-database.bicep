@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../docs/references/infrastructure/modules/sql-database.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 @description('Name of the existing SQL logical server that hosts this database.')

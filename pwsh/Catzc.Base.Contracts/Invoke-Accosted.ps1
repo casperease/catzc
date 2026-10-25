@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-contracts/Invoke-Accosted.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

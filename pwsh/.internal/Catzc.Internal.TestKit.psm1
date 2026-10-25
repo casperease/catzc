@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/internal/Catzc.Internal.TestKit.psm1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

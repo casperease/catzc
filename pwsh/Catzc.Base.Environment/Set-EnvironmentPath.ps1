@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-environment/Set-EnvironmentPath.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

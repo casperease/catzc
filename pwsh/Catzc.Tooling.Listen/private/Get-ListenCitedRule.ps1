@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-listen/private/Get-ListenCitedRule.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-contracts/Test-Contracts.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

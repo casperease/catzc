@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-objects/types/PSTypeAliasAttribute.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

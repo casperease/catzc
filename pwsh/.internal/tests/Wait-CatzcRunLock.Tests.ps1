@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/internal/tests/Wait-CatzcRunLock.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

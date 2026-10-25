@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-generated-files/private/Get-GeneratedWriterMemo.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

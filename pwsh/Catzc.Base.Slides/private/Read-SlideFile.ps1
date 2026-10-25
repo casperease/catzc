@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-slides/private/Read-SlideFile.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

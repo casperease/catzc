@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-vs-code/private/Expand-VsCodeRepeat.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

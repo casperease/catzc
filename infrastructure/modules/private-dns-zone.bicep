@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../docs/references/infrastructure/modules/private-dns-zone.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 @description('Zone name, e.g. privatelink.database.windows.net.')

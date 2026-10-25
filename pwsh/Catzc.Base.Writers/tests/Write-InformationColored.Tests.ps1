@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-writers/tests/Write-InformationColored.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -10,6 +10,7 @@ catzc:
 param()
 
 Describe 'Write-InformationColored' -Tag 'L0', 'logic' {
+    # The writer is silent during a test run, so the flag is lifted for its output to be asserted.
     BeforeAll { $global:__PesterRunning = $false }
     AfterAll { $global:__PesterRunning = $true }
 

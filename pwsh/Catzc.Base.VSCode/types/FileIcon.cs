@@ -8,7 +8,7 @@ namespace Catzc.Base.VSCode;
 public sealed class FileIcon
 {
     private static readonly string[] AllowedKeys = { "glyph", "label", "style", "color", "language", "extensions", "names", "language_ids" };
-    private static readonly string[] Styles = { "bar", "prompt" };
+    private static readonly string[] Styles = { "text", "prompt" };
     private static readonly Regex IconName = new Regex("^[a-z0-9][a-z0-9-]*$", RegexOptions.CultureInvariant);
     private static readonly Regex Hex = new Regex("^#[0-9a-fA-F]{6}$", RegexOptions.CultureInvariant);
     private static readonly Regex Label = new Regex(@"^\S{1,4}$", RegexOptions.CultureInvariant);
@@ -22,7 +22,7 @@ public sealed class FileIcon
     // One to four characters without spaces, drawn as the icon; null when the icon is a glyph.
     public string label { get; }
 
-    // How a label is underlined: bar, a plain line; prompt, a console chevron and cursor. Defaults to bar.
+    // How a label is drawn: text, the characters alone; prompt, the characters over a console chevron. Defaults to text.
     public string style { get; }
 
     // The icon's colour, a six-digit hex colour.
@@ -65,13 +65,17 @@ public sealed class FileIcon
         if (glyph != null && !IconName.IsMatch(glyph)) { errors.Add(string.Format("icon '{0}': glyph '{1}' is not a lamp glyph name", name, glyph)); }
         if (label != null && !Label.IsMatch(label)) { errors.Add(string.Format("icon '{0}': label '{1}' must be 1-4 characters without spaces", name, label)); }
 
-        style = entry.Contains("style") ? entry["style"] as string : "bar";
+        style = entry.Contains("style") ? entry["style"] as string : "text";
         if (Array.IndexOf(Styles, style) < 0) { errors.Add(string.Format("icon '{0}': style '{1}' is unknown (allowed: {2})", name, style, string.Join(", ", Styles))); }
         if (glyph != null && entry.Contains("style")) { errors.Add(string.Format("icon '{0}': 'style' applies to a label only", name)); }
 
         color = entry.Contains("color") ? entry["color"] as string : null;
         if (color == null || !Hex.IsMatch(color)) { errors.Add(string.Format("icon '{0}': color '{1}' must be a six-digit hex colour", name, color)); }
-        else { color = color.ToLowerInvariant(); }
+        else
+        {
+            color = color.ToLowerInvariant();
+            if (IsRed(color)) { errors.Add(string.Format("icon '{0}': color '{1}' is a red, which marks an error only", name, color)); }
+        }
 
         extensions = List(entry, "extensions", errors);
         for (int i = 0; i < extensions.Length; i++)
@@ -87,6 +91,24 @@ public sealed class FileIcon
         {
             errors.Add(string.Format("icon '{0}' marks no file: give 'language', 'extensions', 'names' or 'language_ids'", name));
         }
+    }
+
+    // A colour is red when its hue lies within 20 degrees of pure red and it is saturated enough to read as a colour, not a grey.
+    private static bool IsRed(string hex)
+    {
+        double r = Convert.ToInt32(hex.Substring(1, 2), 16) / 255.0;
+        double g = Convert.ToInt32(hex.Substring(3, 2), 16) / 255.0;
+        double b = Convert.ToInt32(hex.Substring(5, 2), 16) / 255.0;
+        double max = Math.Max(r, Math.Max(g, b));
+        double min = Math.Min(r, Math.Min(g, b));
+        double chroma = max - min;
+        if (max == 0 || chroma / max < 0.35) { return false; }
+        double hue;
+        if (max == r) { hue = 60 * (((g - b) / chroma) % 6); }
+        else if (max == g) { hue = 60 * (((b - r) / chroma) + 2); }
+        else { hue = 60 * (((r - g) / chroma) + 4); }
+        if (hue < 0) { hue += 360; }
+        return hue < 20 || hue > 340;
     }
 
     private string[] List(IDictionary entry, string key, List<string> errors)

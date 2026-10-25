@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-module-system/ConvertTo-ModuleDependencyDiagram.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

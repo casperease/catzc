@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-vendor/configs/vendor.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 # The registered repository vendored modules come from and are checked against; PSGallery needs no url.

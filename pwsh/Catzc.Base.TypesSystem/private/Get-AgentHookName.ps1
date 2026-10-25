@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-types-system/private/Get-AgentHookName.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

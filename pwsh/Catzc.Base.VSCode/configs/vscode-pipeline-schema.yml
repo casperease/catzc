@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-vs-code/configs/vscode-pipeline-schema.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 $schema: http://json-schema.org/draft-07/schema#

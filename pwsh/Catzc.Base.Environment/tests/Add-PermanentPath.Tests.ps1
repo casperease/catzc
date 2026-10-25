@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-environment/tests/Add-PermanentPath.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -19,6 +19,7 @@ Describe 'Add-PermanentPath' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:originalPath = $env:PATH
 
+        # The persistent PATH lives in memory behind its seam, so no run mutates the machine's PATH or broadcasts a settings change.
         $script:fakeUserPath = $null
         Mock Get-EnvironmentPath { $script:fakeUserPath } -ModuleName Catzc.Base.Environment
         Mock Set-EnvironmentPath { $script:fakeUserPath = $Value } -ModuleName Catzc.Base.Environment
@@ -74,6 +75,7 @@ Describe 'Add-PermanentPath' -Tag 'L0', 'logic' {
             }
 
             It 'does not write the persistent PATH when the entry is already present' {
+                # Proven by the write never being called, so the case never leans on state passed between two mocks.
                 $script:fakeUserPath = "C:\existing\tool;$tempDir"
 
                 Add-PermanentPath $tempDir

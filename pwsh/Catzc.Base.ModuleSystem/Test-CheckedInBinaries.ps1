@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-module-system/Test-CheckedInBinaries.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

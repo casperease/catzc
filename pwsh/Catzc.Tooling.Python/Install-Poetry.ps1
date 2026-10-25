@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-python/Install-Poetry.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

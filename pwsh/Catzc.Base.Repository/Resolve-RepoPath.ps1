@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-repository/Resolve-RepoPath.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

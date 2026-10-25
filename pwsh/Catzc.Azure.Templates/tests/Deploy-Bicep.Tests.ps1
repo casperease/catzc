@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-templates/tests/Deploy-Bicep.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-markdown-meta/types/MarkdownMetaBlock.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -17,6 +17,7 @@ namespace Catzc.Base.MarkdownMeta;
 
 public static class MarkdownMetaBlock
 {
+    // The facts arrive ordered, so the order given is the order written and a second render changes nothing.
     public const string ImmutableKey = "immutable";
     public const string ConfigKey = "config";
     // The note an authored head closes with, that the head itself is generated; a generated file's warning sits under immutable.
@@ -38,6 +39,7 @@ public static class MarkdownMetaBlock
     public static IReadOnlyList<string> Render(IDictionary immutable, IDictionary edges, IReadOnlyList<string> config) =>
         Render(null, immutable, edges, config);
 
+    // Edges first, so the docs path is the first line a reader sees; nothing at all to show renders no block.
     public static IReadOnlyList<string> Render(string header, IDictionary immutable, IDictionary edges, IReadOnlyList<string> config)
     {
         var lines = new List<string>();

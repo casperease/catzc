@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `using System;`, written with `//`.
+Above `public sealed class VendorConfig : Catzc.Base.Objects.DictionaryRecord`, written with `//`.
 
 ```text
 The vendor module source (configs/vendor.yml) — where Install-VendorModule downloads vendored modules from and

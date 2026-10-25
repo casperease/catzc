@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/LinkEngine.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

@@ -2,12 +2,13 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-config/tests/Get-Config.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
 Describe 'Get-Config' -Tag 'L0' {
     Context 'discovery + raw default' -Tag 'integrity' {
+        # A real shipped config, so discovery in its owning module is proven; the raw default is pinned on a fixture below.
         It 'discovers and loads a shipped config from its owning module' {
             $configuration = Get-Config -Config tools                       # registry type: Catzc.Base.Execution.ToolsConfig
             $configuration.Keys | Should -Contain 'python'
@@ -15,6 +16,7 @@ Describe 'Get-Config' -Tag 'L0' {
     }
 
     Context 'caching, errors, and name binding' -Tag 'logic' {
+        # The function's own behaviour on a fixture reached through its seam, so no case depends on which configs ship.
         It 'returns the same cached object reference on repeat calls' {
             $dir = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             New-Item -ItemType Directory -Path $dir | Out-Null
@@ -60,6 +62,7 @@ Describe 'Get-Config' -Tag 'L0' {
     }
 
     Context 'a consumer overlay fragment' -Tag 'logic' {
+        # A bundled config and an overlay, both fixtures behind their seams, so a merge is tested without a real consumer.
         BeforeEach {
             $script:bundled = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
             $script:overlay = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
@@ -225,6 +228,7 @@ namespace CatzcGetConfigTest {
     }
 
     Context 'registry self-validation (Catzc.Base.Config.ConfigsConfig)' -Tag 'logic' {
+        # Inline registries, so the validator's rules are proven apart from whatever the shipped registry holds today.
         It 'accepts a valid registry (one type per entry)' {
             { [Catzc.Base.Config.ConfigsConfig]::new(@{ configs = [ordered]@{ a = @{ type = 'Foo' }; b = @{ type = 'Bar' } } }) } |
                 Should -Not -Throw

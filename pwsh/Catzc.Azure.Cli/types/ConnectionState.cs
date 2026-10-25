@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-cli/types/ConnectionState.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

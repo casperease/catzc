@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-config/private/Get-ConfigRegistry.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -10,6 +10,7 @@ function Get-ConfigRegistry {
     [OutputType([System.Collections.IDictionary])]
     param()
 
+    # Probed through the variable table, so a first call under strict mode finds no cache instead of throwing.
     $cached = $ExecutionContext.SessionState.PSVariable.GetValue('script:configRegistryCache')
     if ($null -ne $cached) {
         return $cached

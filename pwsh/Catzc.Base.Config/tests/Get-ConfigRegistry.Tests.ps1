@@ -2,10 +2,11 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-config/tests/Get-ConfigRegistry.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
+# Private, so reached through the module; the session's cache entry is reset around each case, so a fixture registry never leaks.
 Describe 'Get-ConfigRegistry' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
@@ -39,6 +40,7 @@ Describe 'Get-ConfigRegistry' -Tag 'L0', 'logic' {
     }
 }
 
+# The shipped registry through the real lookup, nothing mocked, so it proves the registry resolves inside a loaded build too.
 Describe 'Get-ConfigRegistry — shipped configs.yml' -Tag 'L1', 'integrity', 'ADR-AUTO-ASSETDEP-COVEREDBYREALTEST' {
     AfterAll {
         InModuleScope Catzc.Base.Config { $script:configRegistryCache = $null }

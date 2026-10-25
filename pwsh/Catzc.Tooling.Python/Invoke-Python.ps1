@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-python/Invoke-Python.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-exporter/types/ExporterConfig.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

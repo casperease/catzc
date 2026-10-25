@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-azure-firewall/Get-FirewallCsv.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -36,15 +36,18 @@ function Get-FirewallCsv {
 
     Assert-AzCliConnected -SubscriptionId $SubscriptionId
 
+    # Pinned to absolute, so the CLI and the file system resolve one path the same way whatever folder each runs from.
     $DownloadPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($DownloadPath)
 
     if (-not (Test-Path -Path $DownloadPath)) {
         New-Item -Path $DownloadPath -ItemType Directory -Force | Out-Null
     }
 
+    # Login auth rides the session already asserted, so no account key is ever fetched; these tokens hold no spaces.
     $common = "--subscription $SubscriptionId --account-name $StorageAccountName --container-name $ContainerName --auth-mode login"
 
     try {
+        # Every blob is listed, because the day-first names never sort by date; the newest is picked from the names below.
         $cli = Invoke-AzCli "storage blob list $common --num-results * -o json" -PassThru -Silent
     }
     catch {
@@ -95,12 +98,14 @@ function Get-FirewallCsv {
 
         Write-Verbose "Downloading $ruleType : $blobName (generated $($pick.Generated.ToString('u'))) -> $destination"
         try {
+            # Name and file are quoted, because either may hold spaces; the download stays loud because it is a real action.
             Invoke-AzCli "storage blob download $common --name `"$blobName`" --file `"$destination`" --overwrite true -o none"
         }
         catch {
             throw "Failed to download blob '$blobName' to '$destination'. Underlying: $_"
         }
 
+        # The CLI can exit cleanly and leave no file, so the download is confirmed before any object claims that path.
         Assert-PathExist $destination -PathType Leaf -ErrorText "Blob '$blobName' reported success but no file is at '$destination'."
 
         [Catzc.Azure.Firewall.CsvExportRef]::new($ruleType, $destination, $pick.Generated, $blobName, $blob.properties.lastModified)

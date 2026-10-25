@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-environment/assets/Set-LocalPSModulePath.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

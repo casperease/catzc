@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepParameterEntryViolations.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

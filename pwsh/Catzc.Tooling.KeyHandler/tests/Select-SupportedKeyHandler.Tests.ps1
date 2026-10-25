@@ -2,10 +2,11 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-key-handler/tests/Select-SupportedKeyHandler.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
+# Pure classification, so its fixture uses neutral function names and never one a real line editor ships.
 Describe 'Select-SupportedKeyHandler' -Tag 'L0', 'logic', 'ADR-AUTO-TEST-COLLAPSEINPUTCLUSTERS' {
 
     It 'marks a binding supported only when its function is in the allow-list' {

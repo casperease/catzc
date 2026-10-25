@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../docs/references/infrastructure/modules/subnet.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 @description('Name of the existing virtual network (in the deployment resource group).')

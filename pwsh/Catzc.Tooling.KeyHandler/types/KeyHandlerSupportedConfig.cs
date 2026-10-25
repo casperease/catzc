@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-key-handler/types/KeyHandlerSupportedConfig.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Tooling.KeyHandler;
 
+// One key holding a non-empty list of names, so an empty allow-list can never silently skip every binding.
 public sealed class KeyHandlerSupportedConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "key-handler-supported.yml is malformed:\n  - ";

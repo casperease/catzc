@@ -2,11 +2,12 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-files/tests/Get-GitChangedPath.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
 Describe 'Get-GitChangedPath' -Tag 'L0', 'logic' {
+    # git status is the boundary: the mock prints the -z porcelain, so a NUL in a fixture is the separator, not data.
     BeforeEach {
         $script:porcelain = ''
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Files { 'C:\widget-repo' }

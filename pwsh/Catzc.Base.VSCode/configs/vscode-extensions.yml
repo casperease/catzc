@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-vs-code/configs/vscode-extensions.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 # cspell:ignore azuretools streetsidesoftware hediet esbenp tomoki redhat Anson Levett iliazeus gopls

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-azure-templates/Get-AzureNameOrderSet.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

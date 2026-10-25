@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../docs/references/infrastructure/modules/sql-server.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 @description('SQL logical server name (1-63 lowercase, globally unique).')

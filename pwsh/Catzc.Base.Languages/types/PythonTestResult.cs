@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-languages/types/PythonTestResult.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

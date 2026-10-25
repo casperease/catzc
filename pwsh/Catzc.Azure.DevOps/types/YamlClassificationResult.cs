@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/types/YamlClassificationResult.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

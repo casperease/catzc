@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-slides/Move-Diagram.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

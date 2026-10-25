@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-globs/configs/file-kinds.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 kinds:

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/claude-hooks/Record-AgentWrite/Program.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

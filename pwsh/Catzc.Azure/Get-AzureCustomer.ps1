@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-azure/Get-AzureCustomer.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

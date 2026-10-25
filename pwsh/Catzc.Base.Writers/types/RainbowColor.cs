@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-writers/types/RainbowColor.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -11,8 +11,10 @@ using System.Text;
 
 namespace Catzc.Base.Writers;
 
+// A gradient anchored on a base colour, which it becomes wherever only one colour is wanted.
 public sealed class RainbowColor
 {
+    // Vivid hues only, DarkYellow standing in for orange, so no step lands on a colour unreadable on a dark ground.
     public static readonly ConsoleColor[] Ring =
     {
         ConsoleColor.Red,
@@ -27,6 +29,7 @@ public sealed class RainbowColor
     // The anchor colour — char 0, and the colour this profile side-grades to.
     public ConsoleColor Base { get; }
 
+    // -1 for a non-chromatic anchor, whose walk then starts at the ring's head.
     private readonly int baseIndex;
 
     public RainbowColor(ConsoleColor baseColor)
@@ -35,6 +38,7 @@ public sealed class RainbowColor
         baseIndex = Array.IndexOf(Ring, baseColor);
     }
 
+    // Char 0 is always the anchor; the walk goes on from it, or from the ring's head for a non-chromatic anchor.
     public ConsoleColor ColorAt(int index)
     {
         if (index <= 0) { return Base; }
@@ -42,6 +46,7 @@ public sealed class RainbowColor
         return Ring[(index - 1) % Ring.Length];
     }
 
+    // One reset for the whole run: a gradient belongs on a single-line rule.
     public string Wrap(string text)
     {
         if (string.IsNullOrEmpty(text)) { return text; }
@@ -54,6 +59,7 @@ public sealed class RainbowColor
         return builder.ToString();
     }
 
+    // Null for a token that is no rainbow, so a caller falls through to a ConsoleColor parse; it round-trips with ToString.
     public static RainbowColor FromString(string text)
     {
         if (string.IsNullOrWhiteSpace(text)) { return null; }
@@ -75,6 +81,7 @@ public sealed class RainbowColor
         return null;
     }
 
+    // A profile is its base colour wherever one colour is wanted, so any ConsoleColor sink accepts it.
     public static implicit operator ConsoleColor(RainbowColor profile)
     {
         if (profile == null) { throw new ArgumentNullException(nameof(profile)); }

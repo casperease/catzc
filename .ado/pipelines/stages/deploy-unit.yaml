@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/ado/pipelines/stages/deploy-unit.yaml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 parameters:

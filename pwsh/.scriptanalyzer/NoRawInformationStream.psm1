@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/scriptanalyzer/NoRawInformationStream.psm1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

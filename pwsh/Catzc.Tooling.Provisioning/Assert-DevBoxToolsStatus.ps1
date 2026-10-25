@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-provisioning/Assert-DevBoxToolsStatus.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-maps/types/TreemapRect.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

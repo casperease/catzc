@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-variants/Test-GitWorkspace.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-variants/types/TrackTypeEntry.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

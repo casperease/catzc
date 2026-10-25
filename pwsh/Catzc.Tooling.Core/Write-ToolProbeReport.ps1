@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-core/Write-ToolProbeReport.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

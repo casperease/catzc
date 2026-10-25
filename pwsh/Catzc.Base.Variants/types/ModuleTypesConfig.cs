@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-variants/types/ModuleTypesConfig.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

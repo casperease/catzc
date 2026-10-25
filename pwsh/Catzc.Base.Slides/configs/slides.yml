@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-slides/configs/slides.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 kit: python/catzc_diagrams/assets/slides

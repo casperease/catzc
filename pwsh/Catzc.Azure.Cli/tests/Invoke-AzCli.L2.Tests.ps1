@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-cli/tests/Invoke-AzCli.L2.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

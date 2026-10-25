@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-generated-files/private/Get-GeneratedWriterStamp.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -20,6 +20,7 @@ function Get-GeneratedWriterStamp {
         [string] $RepositoryRoot
     )
 
+    # Every matching file on disk counts, committed or ignored, so a pull or a hand-drifted file changes the stamp as surely as an edit.
     $globs = [string[]] @($InputGlob | Where-Object { $_ })
     $matched = [Catzc.Base.Globs.GlobPattern]::MatchingPaths($globs, [string[]] @($Walk.File))
     $folderGlobs = [string[]] @(foreach ($glob in $globs) {

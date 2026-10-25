@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-drs/private/Resolve-DrsLinkTarget.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

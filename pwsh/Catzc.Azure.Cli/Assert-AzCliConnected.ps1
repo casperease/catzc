@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-azure-cli/Assert-AzCliConnected.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

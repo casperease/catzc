@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-globs/types/Aspect.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

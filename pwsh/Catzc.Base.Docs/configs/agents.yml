@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-docs/configs/agents.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 standard: catzc-drone

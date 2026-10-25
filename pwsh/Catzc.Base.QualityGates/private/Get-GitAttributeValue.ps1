@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-GitAttributeValue.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

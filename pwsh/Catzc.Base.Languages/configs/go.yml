@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-languages/configs/go.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 module_root: catzc/go

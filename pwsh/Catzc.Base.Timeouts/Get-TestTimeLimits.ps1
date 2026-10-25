@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-timeouts/Get-TestTimeLimits.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

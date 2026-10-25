@@ -25,9 +25,9 @@ A value is a scalar or a list of scalars. No facts and no config lines render no
 
 ## comment:3
 
-Above `public static IReadOnlyList<string> Render(string warning, IDictionary...`, written with `//`.
+Above `public static IReadOnlyList<string> Render(string header, IDictionary...`, written with `//`.
 
 ```text
-The block in its one canonical order: the imprinted facts at the first level (the docs edge first), the warning line, the place
+The block in its one canonical order: the imprinted facts at the first level (the docs edge first), the header note, the place
 facts of a generated head, then the authored config.
 ```

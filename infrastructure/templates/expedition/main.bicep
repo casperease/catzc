@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../../docs/references/infrastructure/templates/expedition/main.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 @description('Azure region. Defaults to the resource group location; it must match the region of the network.')

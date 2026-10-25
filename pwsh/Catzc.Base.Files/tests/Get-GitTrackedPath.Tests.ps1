@@ -2,12 +2,13 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-files/tests/Get-GitTrackedPath.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
 Describe 'Get-GitTrackedPath' -Tag 'L0', 'logic' {
     BeforeAll {
+        # A minimal index is enough here: the seam, the pathspec and the content-keyed cache are what this file proves.
         function Set-GitIndexFile {
             param([string[]] $Path)
             $bytes = [System.Collections.Generic.List[byte]]::new()
@@ -79,6 +80,7 @@ Describe 'Get-GitTrackedPath' -Tag 'L0', 'logic' {
     }
 }
 
+# Byte for byte what git ls-files prints, an unmerged path counted once though git repeats it per stage.
 Describe 'Get-GitTrackedPath (real git)' -Tag 'L2', 'integrity', 'source-only' {
     It 'equals git ls-files for the whole repository and for a pathspec' {
         $git = @((Invoke-Executable 'git -c core.quotepath=off ls-files' -PassThru -Silent).Output -split "`r?`n" |

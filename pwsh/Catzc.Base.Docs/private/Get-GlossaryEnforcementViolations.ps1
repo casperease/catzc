@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-docs/private/Get-GlossaryEnforcementViolations.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

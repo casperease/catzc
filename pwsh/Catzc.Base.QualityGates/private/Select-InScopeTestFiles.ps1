@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Select-InScopeTestFiles.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-config/private/Get-ConfigOverlayRoot.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -12,12 +12,14 @@ function Get-ConfigOverlayRoot {
     param()
 
     $anchors = "$(Get-RepositoryRoot)|$(Get-CatzcModulesRoot)"
+    # Probed through the variable table, so a first call under strict mode finds no cache instead of throwing.
     if ($ExecutionContext.SessionState.PSVariable.GetValue('script:configOverlayAnchors') -ne $anchors) {
         $script:configOverlayRoot = if ((Get-CatzcRunMode) -eq 'build') {
             # A build reads the consumer's overlay, which may also hold function and asset overrides.
             Get-CatzcOverlayRoot
         }
         else {
+            # A source run reads only this repository's own fragments, so a consumer's overlay can never leak into the source tree.
             $fragmentRoot = [System.IO.Path]::GetFullPath((Join-Path (Get-RepositoryRoot) ".catzc/$(Split-Path -Leaf (Get-CatzcModulesRoot))"))
             if ([System.IO.Directory]::Exists($fragmentRoot)) {
                 $fragmentRoot

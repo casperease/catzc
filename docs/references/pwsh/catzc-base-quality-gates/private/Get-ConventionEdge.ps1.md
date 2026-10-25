@@ -38,3 +38,12 @@ Above `$commentPages = Get-Config -Config comment-pages`, written with `#`.
 A file points at its comment page, where the pages map places one and it is tracked.
 The config's own PageFor is what Get-CommentPage asks; called directly, it costs no function call per file.
 ```
+
+## comment:2
+
+Above `$files = @($Path | ForEach-Object { $_.Replace('\', '/') } | Select-Object...`, written with `#`.
+
+```text
+Each relation is derived from the declaration that implies it, never read from a file
+([ADR-REPO-LINKS-CONVENTIONSAREDERIVED](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-conventionsarederived)).
+```

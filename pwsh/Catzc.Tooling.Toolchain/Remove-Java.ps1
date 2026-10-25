@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Remove-Java.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

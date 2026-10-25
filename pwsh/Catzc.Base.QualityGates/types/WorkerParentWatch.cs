@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/WorkerParentWatch.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-variants/Get-AdoNaming.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

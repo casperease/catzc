@@ -42,4 +42,34 @@ Describe 'Get-ScopeLookup' -Tag 'L0', 'logic' {
     It 'refuses a path outside the repository' {
         { & $script:lookup '../outside-widget.md' } | Should -Throw '*lies outside the repository*'
     }
+
+    It 'reads a relative path from the repository root when the caller stands outside it, as a snapshot run does' {
+        $elsewhere = Join-Path $TestDrive 'elsewhere'
+        [System.IO.Directory]::CreateDirectory($elsewhere) | Out-Null
+        $found = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot; Elsewhere = $elsewhere } {
+            param($Root, $Elsewhere)
+            Push-Location $Elsewhere
+            try {
+                Get-ScopeLookup -RepositoryRoot $Root -Path 'docs/widget.md' -Command Get-WidgetScope
+            }
+            finally {
+                Pop-Location
+            }
+        }
+        $found | Should -Be @('docs/widget.md')
+    }
+
+    It 'reads a relative path from the caller''s folder when the caller stands inside the repository' {
+        $found = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:widgetRoot } {
+            param($Root)
+            Push-Location (Join-Path $Root 'docs')
+            try {
+                Get-ScopeLookup -RepositoryRoot $Root -Path 'widget.md' -Command Get-WidgetScope
+            }
+            finally {
+                Pop-Location
+            }
+        }
+        $found | Should -Be @('docs/widget.md')
+    }
 }

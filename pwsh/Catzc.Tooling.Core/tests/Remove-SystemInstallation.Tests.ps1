@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-core/tests/Remove-SystemInstallation.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

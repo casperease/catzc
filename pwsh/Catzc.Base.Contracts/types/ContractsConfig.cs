@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-contracts/types/ContractsConfig.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

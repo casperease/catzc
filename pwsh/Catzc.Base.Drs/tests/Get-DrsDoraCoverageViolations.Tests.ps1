@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-drs/tests/Get-DrsDoraCoverageViolations.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

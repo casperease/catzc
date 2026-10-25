@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-git/tests/Get-AutoControlledGlobs.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

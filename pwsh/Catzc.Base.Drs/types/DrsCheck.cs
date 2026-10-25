@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-drs/types/DrsCheck.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

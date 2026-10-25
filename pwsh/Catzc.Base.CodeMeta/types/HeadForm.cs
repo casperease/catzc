@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-code-meta/types/HeadForm.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.CodeMeta;
 
+// Handed in, never read: this module reads no config, so a new comment syntax is a carrier entry, not a code change here.
 [Catzc.Base.Objects.ConsoleDisplay("Line", "BlockOpen", "BlockClose", "Anchor", "PreambleLines")]
 public sealed class HeadForm
 {

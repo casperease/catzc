@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Write-TestAutomationArtifacts.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

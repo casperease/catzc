@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-config/Get-Config.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -24,8 +24,10 @@ function Get-Config {
         return Resolve-ConfigEntry -Config $Config -All
     }
 
+    # The one reader of every config, so a name it cannot discover throws here and never falls back to a guess.
     $entry = Resolve-ConfigEntry -Config $Config -Module $Module   # @{ Name; Module; Path }
 
+    # The cache key carries the overlay fragment's stamp, so an edited fragment is never served from a stale merge.
     $fragmentPath = $null
     $cacheKey = if ($entry.Path) {
         $entry.Path
@@ -43,7 +45,9 @@ function Get-Config {
         }
     }
 
+    # Keyed by the resolved file, so two names for one file share one parsed object and one file never yields two.
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configCache')) {
+        # Probed through the variable table, so a first call under strict mode finds no cache instead of throwing.
         $script:configCache = @{}
     }
     if ($script:configCache.ContainsKey($cacheKey)) {
@@ -76,6 +80,7 @@ function Get-Config {
 
     $ret = $raw
     if ($registered) {
+        # The registered type maps and validates at construction, so a malformed file can never become a config object.
         $type = [type] $registered['type']
         $ret = $type::new($raw)
     }

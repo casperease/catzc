@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-environment/Set-PermanentEnvironmentVariable.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -30,6 +30,7 @@ function Set-PermanentEnvironmentVariable {
     }
 
     if ($removing) {
+        # A real null, never $null: PowerShell passes $null to a .NET string as '', which stores an empty value instead of deleting it.
         [System.Environment]::SetEnvironmentVariable($Name, [NullString]::Value, $Scope)
         Write-Message "$Scope environment: removed $Name"
     }

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-timeouts/types/BashSafeguard.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

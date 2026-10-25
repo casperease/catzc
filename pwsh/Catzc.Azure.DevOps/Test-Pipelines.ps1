@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-azure-dev-ops/Test-Pipelines.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

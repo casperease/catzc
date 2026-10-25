@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-files/types/InputStamp.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -22,10 +22,12 @@ public enum InputStampIdentity
     Metadata,
 }
 
+// Content identity stamps the same on every checkout; write-time identity is cheaper, and a touch only ever makes it differ.
 public static class InputStamp
 {
     public const InputStampIdentity DefaultIdentity = InputStampIdentity.Content;
 
+    // Carriage returns are dropped before hashing, so a CRLF checkout, a clone and a snapshot all stamp the same.
     public static string Compute(string[] paths, string filter, string[] excludes, string root, string salt, InputStampIdentity identity)
     {
         string rootFull = Path.GetFullPath(root).TrimEnd('\\', '/') + Path.DirectorySeparatorChar;

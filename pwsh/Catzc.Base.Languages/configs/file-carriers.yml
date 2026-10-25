@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-languages/configs/file-carriers.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 carriers:

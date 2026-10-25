@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-languages/Format-GeneratedFileHead.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

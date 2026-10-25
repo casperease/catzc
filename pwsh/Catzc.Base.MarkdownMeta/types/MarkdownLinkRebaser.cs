@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-markdown-meta/types/MarkdownLinkRebaser.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.MarkdownMeta;
 
+// Pure on repository-relative paths, and a target that climbs above the root is left as written rather than invented.
 public static class MarkdownLinkRebaser
 {
     static readonly Regex InlineLink = new Regex(
@@ -22,6 +23,7 @@ public static class MarkdownLinkRebaser
     static readonly Regex Fence = new Regex(@"^ {0,3}(`{3,}|~{3,})", RegexOptions.Compiled);
     static readonly Regex Scheme = new Regex(@"^[a-zA-Z][a-zA-Z0-9+.\-]*:", RegexOptions.Compiled);
 
+    // An empty folderRepoPath is the repository root, where a copy's links resolve from the top.
     public static string Rebase(string text, string sourceRepoPath, string folderRepoPath) => Rebase(text, sourceRepoPath, folderRepoPath, null, null);
 
     // As Rebase, and a target at movedFrom or under it (a file or a folder, repository-relative) is re-pointed to the same place under movedTo.

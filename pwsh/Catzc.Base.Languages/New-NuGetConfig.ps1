@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-languages/New-NuGetConfig.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

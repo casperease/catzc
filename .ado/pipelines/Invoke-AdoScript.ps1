@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/ado/pipelines/Invoke-AdoScript.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

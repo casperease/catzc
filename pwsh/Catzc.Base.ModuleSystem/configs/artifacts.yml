@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-module-system/configs/artifacts.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 ado: { enabled: false, organization: "", project: "", feed: "" }

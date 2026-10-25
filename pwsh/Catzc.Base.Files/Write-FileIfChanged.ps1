@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-files/Write-FileIfChanged.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -38,6 +38,7 @@ function Write-FileIfChanged {
             [System.IO.Directory]::CreateDirectory($directory) | Out-Null
         }
         if ([System.IO.File]::Exists($Path)) {
+            # Deleting first severs a link, so the write never tunnels into the file the link points at.
             [System.IO.File]::Delete($Path)
         }
         $utf8NoBom = [System.Text.UTF8Encoding]::new($false)

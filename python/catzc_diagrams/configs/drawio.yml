@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/python/catzc_diagrams/configs/drawio.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 renderer:

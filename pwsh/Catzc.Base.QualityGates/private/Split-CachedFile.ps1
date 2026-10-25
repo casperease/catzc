@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Split-CachedFile.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

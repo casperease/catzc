@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-slides/private/Write-DiagramMinimapData.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-root-config/private/Get-RootConfigCopyContent.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

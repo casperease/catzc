@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-azure-dev-ops/Write-AdoEnvironmentDiagnostic.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

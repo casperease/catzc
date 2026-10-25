@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-overlay/Get-FunctionFileViolation.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

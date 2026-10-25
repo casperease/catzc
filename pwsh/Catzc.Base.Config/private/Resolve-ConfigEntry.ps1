@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-config/private/Resolve-ConfigEntry.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -21,6 +21,7 @@ function Resolve-ConfigEntry {
     )
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:configIndex')) {
+        # Probed through the variable table, so a first call under strict mode finds no index instead of throwing.
         $script:configIndex = @{}
         $modulesRoot = Get-CatzcModulesRoot
         $moduleDirs = [System.Collections.Generic.List[string]]::new([string[]] @([System.IO.Directory]::EnumerateDirectories($modulesRoot)))
@@ -49,6 +50,7 @@ function Resolve-ConfigEntry {
                 $script:configIndex[$configName].Add(@{ Name = $configName; Module = $moduleName; Path = $file })
             }
         }
+        # A registered type with no shipped file is still a config, built from an empty map, so every key takes its declared default.
         $registry = Get-ConfigRegistry
         foreach ($configName in @($registry.Keys)) {
             if ($script:configIndex.ContainsKey($configName)) {

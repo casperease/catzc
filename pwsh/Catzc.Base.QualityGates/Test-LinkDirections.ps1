@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-quality-gates/Test-LinkDirections.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

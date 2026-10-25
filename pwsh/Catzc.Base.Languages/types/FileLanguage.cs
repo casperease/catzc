@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-languages/types/FileLanguage.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

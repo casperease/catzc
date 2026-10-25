@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-engines/configs/glossary.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 # Every option takes its default, so this source declares only the engine vocabulary and never narrows what the checks read.

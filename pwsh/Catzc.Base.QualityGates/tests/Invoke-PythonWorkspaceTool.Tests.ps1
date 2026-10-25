@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Invoke-PythonWorkspaceTool.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

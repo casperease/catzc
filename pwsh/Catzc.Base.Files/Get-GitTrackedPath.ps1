@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-files/Get-GitTrackedPath.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -23,9 +23,11 @@ function Get-GitTrackedPath {
     }
 
     if ($null -eq $ExecutionContext.SessionState.PSVariable.GetValue('script:gitIndexCache')) {
+        # Probed through GetValue, since reading an unset script variable throws under strict mode.
         $script:gitIndexCache = @{}
     }
 
+    # Keyed by the index's bytes, not the session: a commit or an add mid-session must never be answered from the cache.
     $content = [System.IO.File]::ReadAllBytes($indexPath)
     $index = $script:gitIndexCache[$indexPath]
     if ($null -eq $index -or $index.ContentHash -ne [Catzc.Base.Git.GitIndex]::HashContent($content)) {

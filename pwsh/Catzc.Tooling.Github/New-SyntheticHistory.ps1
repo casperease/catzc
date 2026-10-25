@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-github/New-SyntheticHistory.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

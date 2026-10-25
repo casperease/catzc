@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-python/tests/Install-PipTool.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

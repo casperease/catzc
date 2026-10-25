@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-module-system/configs/importer.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 # auto: the executable languages of the loaded modules.

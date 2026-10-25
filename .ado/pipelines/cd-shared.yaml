@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../docs/references/ado/pipelines/cd-shared.yaml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 trigger:

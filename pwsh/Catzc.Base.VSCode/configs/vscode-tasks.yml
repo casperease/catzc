@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-vs-code/configs/vscode-tasks.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 version: "2.0.0"

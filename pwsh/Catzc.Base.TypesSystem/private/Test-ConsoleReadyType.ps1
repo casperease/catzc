@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-types-system/private/Test-ConsoleReadyType.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

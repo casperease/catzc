@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../docs/references/infrastructure/modules/diagnostic-setting.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 @description('Kind of the target resource.')

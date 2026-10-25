@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-templates/types/BicepDeploymentPlan.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

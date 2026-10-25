@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-git/types/GitIgnorePattern.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

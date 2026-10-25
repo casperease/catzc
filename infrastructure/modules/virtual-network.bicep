@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../docs/references/infrastructure/modules/virtual-network.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 @description('A subnet of the virtual network.')

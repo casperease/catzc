@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-tooling-inspiration/configs/inspiration.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 {}

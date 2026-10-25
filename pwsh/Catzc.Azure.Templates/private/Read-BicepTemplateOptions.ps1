@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-templates/private/Read-BicepTemplateOptions.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/tests/Get-AdoYamlFiles.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-timeouts/types/BoundedCommand.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

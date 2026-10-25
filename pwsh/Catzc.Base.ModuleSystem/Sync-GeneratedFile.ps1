@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-module-system/Sync-GeneratedFile.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

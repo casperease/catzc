@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-vendor/Remove-VendorModules.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

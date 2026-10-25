@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ConventionEdge.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -16,8 +16,7 @@ function Get-ConventionEdge {
         [string[]] $Path
     )
 
-    # Each relation is derived from the declaration that implies it, never read from a file
-    # ([ADR-REPO-LINKS-CONVENTIONSAREDERIVED](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-conventionsarederived)).
+    # Derived from the declarations on every call, so a moved test or a new dependency changes the relations with no edit here.
     $files = @($Path | ForEach-Object { $_.Replace('\', '/') } | Select-Object -Unique)
     $known = [System.Collections.Generic.HashSet[string]]::new([string[]] $files, [System.StringComparer]::Ordinal)
     $edges = [System.Collections.Generic.List[Catzc.Base.QualityGates.LinkEdge]]::new()

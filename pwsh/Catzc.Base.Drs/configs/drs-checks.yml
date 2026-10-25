@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-drs/configs/drs-checks.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 engine_neutrality:

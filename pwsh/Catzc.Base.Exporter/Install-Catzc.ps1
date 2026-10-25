@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-exporter/Install-Catzc.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

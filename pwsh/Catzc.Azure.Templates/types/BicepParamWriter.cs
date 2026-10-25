@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-templates/types/BicepParamWriter.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

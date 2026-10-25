@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-node/Remove-NodeJs.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -15,10 +15,12 @@ function Remove-NodeJs {
 
     $config = Get-ToolConfig -Tool 'node_js'
 
+    # A managed install is refused: it leaves through its uninstall, never by eviction.
     if (Test-ExpectedPackageManager -Config $config) {
         throw 'Node.js is managed by the tooling system. Use Uninstall-NodeJs instead.'
     }
 
+    # An off-config install leaves by the mechanism that placed it, so elevation is that mechanism's, never asserted here.
     if ($IsLinux -or $IsMacOS) {
         if (-not $Force) {
             Write-Message 'Would evict an off-config Node.js (native package / uv-Python pip / stray binary). Run with -Force to execute.'

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-execution/configs/tools.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 winget:

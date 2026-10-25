@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `using System;`, written with `//`.
+Above `public sealed class RainbowColor`, written with `//`.
 
 ```text
 A "<base>-rainbow" colour profile

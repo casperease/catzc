@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-variants/configs/variants.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 ado_naming: standard

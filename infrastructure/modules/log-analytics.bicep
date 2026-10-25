@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../docs/references/infrastructure/modules/log-analytics.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 @description('Log Analytics workspace name.')

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-node/Install-Cspell.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

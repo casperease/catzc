@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-timeouts/types/TimeLimitAttribute.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/configs/file-meta.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 header: "generated"

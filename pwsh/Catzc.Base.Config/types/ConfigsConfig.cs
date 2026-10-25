@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-config/types/ConfigsConfig.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 
 namespace Catzc.Base.Config;
 
+// The registry's shape is enforced at construction, so a malformed registry can never yield an instance for any config to resolve through.
 public sealed class ConfigsConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

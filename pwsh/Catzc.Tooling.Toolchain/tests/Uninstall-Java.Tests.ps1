@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Uninstall-Java.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

@@ -1,9 +1,10 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-code-meta/configs/comment-pages.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
+# First match wins, and the page keeps the file's extension in its name, so every page maps back to exactly one file.
 pages:
   - source: pwsh/*
     docs: docs/references/pwsh/{kebab}

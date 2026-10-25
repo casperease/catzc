@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-drs/private/Get-DrsCitationGraphViolations.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

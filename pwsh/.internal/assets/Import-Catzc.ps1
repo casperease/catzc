@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/internal/assets/Import-Catzc.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

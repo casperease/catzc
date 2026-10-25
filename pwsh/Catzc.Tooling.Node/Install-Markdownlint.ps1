@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-node/Install-Markdownlint.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

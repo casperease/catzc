@@ -19,6 +19,8 @@ place: on a declaration or first code line, one line that says something useful 
   (`min_lines: 2` in `comments.yml`), so it is never scraped again.
 - The page section stays: the one-liner is the insight, the page keeps the whole comment.
 - A parameter gets its tidbit on the parameter; a section about the whole function gets its line on the declaration or first code line.
+- An insight line never sits directly on another comment line: two adjacent lines reach the export threshold and `Format-Code` moves both to
+  the page (catzc-fa, 2026-10-25).
 
 ## Open steps
 

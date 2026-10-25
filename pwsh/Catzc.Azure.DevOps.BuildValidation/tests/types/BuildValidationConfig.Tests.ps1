@@ -2,16 +2,18 @@
 ---
 catzc:
   docs: "../../../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/tests/types/BuildValidationConfig.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
+# Shape only at load; each entry's tie to a declared globset and a pipeline is asserted here instead.
 Describe 'BuildValidationConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:make = {
             param([System.Collections.IDictionary] $config)
             [Catzc.Azure.DevOps.BuildValidation.BuildValidationConfig]::new($config)
         }
+        # Neutral widget/gadget names: the type checks shape only, so a fixture never borrows a real unit's name.
         $script:valid = [ordered]@{
             branch      = 'main'
             validations = @(

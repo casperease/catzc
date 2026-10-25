@@ -1,10 +1,11 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-tooling-key-handler/configs/key-handler-supported.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 # cspell:ignore begining
+# The allow-list a replay filters against, so a binding whose function the target lacks is skipped and never throws.
 functions:
   - Abort
   - AcceptAndGetNext

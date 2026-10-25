@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-key-handler/types/KeyHandlerBinding.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Tooling.KeyHandler;
 
+// Only key and function are accepted, the two a capture writes, so anything else in an entry is a malformed capture.
 public sealed class KeyHandlerBinding : Catzc.Base.Objects.DictionaryRecord
 {
     // The key chord (e.g. 'Ctrl+Backspace').

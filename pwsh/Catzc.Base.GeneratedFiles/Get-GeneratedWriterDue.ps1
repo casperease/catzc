@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-generated-files/Get-GeneratedWriterDue.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -19,7 +19,7 @@ function Get-GeneratedWriterDue {
         [string] $MemoPath = (Join-Path (Get-OutputRoot) 'cache/generated-writers.json')
     )
 
-    # Naming writers narrows the walk to their inputs, so one writer's check never pays for the whole table.
+    # A dirty tree is not a stale output: only a missing output or a changed input stamp makes a writer due.
     $writers = @((Get-Config -Config generated-files).writers.Values | Where-Object { -not $Name -or $_.name -in $Name })
     $memo = Get-GeneratedWriterMemo -MemoPath $MemoPath
     $walk = Get-GeneratedWriterInputFile -InputGlob @($writers | ForEach-Object { @($_.inputs) }) -RepositoryRoot $RepositoryRoot

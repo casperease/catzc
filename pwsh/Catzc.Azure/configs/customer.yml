@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-azure/configs/customer.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 customers:

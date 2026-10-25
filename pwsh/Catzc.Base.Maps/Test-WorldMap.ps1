@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-maps/Test-WorldMap.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

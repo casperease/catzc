@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-vendor/Assert-VendorModuleAvailable.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

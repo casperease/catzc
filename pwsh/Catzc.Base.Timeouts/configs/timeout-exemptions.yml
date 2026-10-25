@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-timeouts/configs/timeout-exemptions.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 exempt: []

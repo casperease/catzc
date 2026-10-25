@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-folders/types/PathSet.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

@@ -16,9 +16,10 @@ language's comments, never written into the head's code.
 ### Rule ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY
 
 An authored code or config file's head is the **navigation head**, and it holds exactly one edge, first: `docs`, its comment page's plain
-path from the file's own folder ([ADR-REPO-FILEMETA-FEWLINKS](file-meta.md#rule-adr-repo-filemeta-fewlinks)), then the `header` note that the head itself is generated, and no warning.
-A file with no page carries no head ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)). The rule codes a file
-cites are no part of the head: they are read from the file and its comment page on demand by the commands that need them, never from a head
+path from the file's own folder ([ADR-REPO-FILEMETA-FEWLINKS](file-meta.md#rule-adr-repo-filemeta-fewlinks)), then the `header` note that
+the head itself is generated, and no warning. A file with no page carries no head
+([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)). The rule codes a file cites are no part of the head: they
+are read from the file and its comment page on demand by the commands that need them, never from a head
 ([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)). The head has no `immutable` part: no `with_body_sha`,
 which would change on every edit of the body and tell a reader nothing, and no `test` or `code` edge, since a test is found by convention,
 its stem under `tests/`. Every place fact, the path, the role, the language, the track, the module and the visibility, is derived on demand

@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-vs-code/configs/vscode-settings.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 carried:
@@ -128,17 +128,16 @@ settings:
     "**/.markdownlintignore": ignore
     "**/out/**/*.log": ansi
 
-  # A catzc config named like a SchemaStore file (azure.yml matches the azd schema, which demands `name`) is checked by its config type, so a schema that allows anything wins over the store.
+  # No extension fetches a schema: the YAML extension never asks SchemaStore and JSON never downloads one; every schema the editor checks
+  # against is a local file named below.
+  yaml.schemaStore.enable: false
+  json.schemaDownload.enable: false
   yaml.schemas:
-    ./.vscode/any.schema.json:
-      - "**/azure.yml"
     # Every .yaml in the tree is an Azure Pipelines file; New-VsCodePipelineSchema writes the schema the YAML extension checks it against.
     ./.vscode/azure-pipelines-schema.json:
       - "**/*.yaml"
 
-  # A compiled ARM template names Azure's schema in its $schema; the editor downloads it only from a trusted domain, and checks a template against the local depended-on copy (contracts/EXTERNAL-azure) without a download.
-  json.schemaDownload.trustedDomains:
-    https://schema.management.azure.com/: true
+  # A compiled ARM template is checked against the local depended-on copy of Azure's schema (contracts/EXTERNAL-azure), never a download.
   json.schemas:
     - fileMatch:
         - "**/main.json"

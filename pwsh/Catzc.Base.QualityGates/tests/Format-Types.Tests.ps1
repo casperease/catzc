@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/tests/Format-Types.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

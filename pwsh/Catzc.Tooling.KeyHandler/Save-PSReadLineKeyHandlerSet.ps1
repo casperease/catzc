@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-key-handler/Save-PSReadLineKeyHandlerSet.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

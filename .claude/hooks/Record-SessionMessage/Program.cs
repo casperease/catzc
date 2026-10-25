@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/claude-hooks/Record-SessionMessage/Program.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

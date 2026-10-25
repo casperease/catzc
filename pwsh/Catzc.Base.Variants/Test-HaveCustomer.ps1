@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-variants/Test-HaveCustomer.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

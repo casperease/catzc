@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-environment/Remove-PermanentPath.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -39,6 +39,7 @@ function Remove-PermanentPath {
         Write-Message "Session PATH: removed '$Path'"
     }
 
+    # The persistent PATH goes through a thin read and write seam, so a test can stand in for it and never touch the machine's.
     if ($IsWindows) {
         $userPath = Get-EnvironmentPath -Scope User
         if ($userPath) {

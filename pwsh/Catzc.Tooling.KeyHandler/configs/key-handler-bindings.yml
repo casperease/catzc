@@ -1,9 +1,10 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-tooling-key-handler/configs/key-handler-bindings.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
+# A capture of one platform's bindings, replayed elsewhere: only key and function travel, so a capture never carries host-only state.
 - key: Enter
   function: AcceptLine
 - key: Shift+Enter

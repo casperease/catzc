@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-code-meta/types/CommentPageMap.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -12,6 +12,7 @@ using System.Globalization;
 
 namespace Catzc.Base.CodeMeta;
 
+// A `<prefix>/*` source matches each non-dot subfolder, so a hidden folder needs an entry of its own to have pages.
 public sealed class CommentPageMap
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

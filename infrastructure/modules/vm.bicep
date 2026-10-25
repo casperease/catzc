@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../docs/references/infrastructure/modules/vm.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 @description('VM name. Also used as the Windows computer name, so keep it <= 15 chars.')

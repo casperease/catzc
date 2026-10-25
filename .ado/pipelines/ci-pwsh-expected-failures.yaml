@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../docs/references/ado/pipelines/ci-pwsh-expected-failures.yaml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 trigger:

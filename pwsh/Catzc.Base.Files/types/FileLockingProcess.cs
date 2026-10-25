@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-files/types/FileLockingProcess.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -11,6 +11,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Files;
 
+// The Restart Manager facts are always set; the enrichment is null when the process exited between the two lookups.
 public sealed class FileLockingProcess
 {
     // The holding process's id.

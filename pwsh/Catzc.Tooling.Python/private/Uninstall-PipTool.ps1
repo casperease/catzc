@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-python/private/Uninstall-PipTool.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

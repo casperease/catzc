@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/configs/comments.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 languages: [powershell, yaml, pipeline-yaml, bcl, bicep]

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-github/tests/Test-GitHistoryClean.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

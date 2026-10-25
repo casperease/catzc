@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-contracts/private/Get-ContractUnitAsset.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

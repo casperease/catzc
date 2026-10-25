@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-files/Assert-FileIsLocked.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

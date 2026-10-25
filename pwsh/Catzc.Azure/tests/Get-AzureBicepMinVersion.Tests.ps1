@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure/tests/Get-AzureBicepMinVersion.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

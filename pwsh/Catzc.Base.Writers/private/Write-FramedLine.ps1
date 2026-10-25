@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-writers/private/Write-FramedLine.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -17,6 +17,7 @@ function Write-FramedLine {
     )
 
     if ($Color.IsRainbow) {
+        # Coloured here: a rule takes the gradient, a titled line its base colour, so no colour is passed on.
         $rendered = foreach ($s in $Segment) {
             if ($s.Rule) {
                 $Color.Rainbow.Wrap($s.Text)

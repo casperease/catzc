@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-markdown-meta/types/MarkdownDocument.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -147,6 +147,7 @@ public sealed class MarkdownDocument
     // The document as it was parsed.
     public string ToText() => WithMetaBlock(MetaBlock);
 
+    // The blank line after the front matter is no part of the body, so writing a head never changes the hash it records.
     public string BodyHash() => HashOf(Body);
 
     // The one body hash: line endings and the blank line after a head never move it, so every carrier stamps the same value.

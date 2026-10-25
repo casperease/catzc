@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-firewall/tests/Convert-FirewallCsvToYaml.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -75,6 +75,7 @@ Describe 'Convert-FirewallCsvToYaml' -Tag 'L2', 'logic' {
         It 'records the CSV generation time in the header' {
             $out = Join-Path $TestDrive 'app-gen.yaml'
             Convert-FirewallCsvToYaml -CsvPath $appCsv -YamlPath $out -GeneratedAt ([datetime]'2026-06-16T10:32:00Z')
+            # The literal colon guards the invariant culture, so a machine whose locale writes a dot never changes the header.
             (Get-Content $out -Raw) | Should -Match '# CSV generated: 2026-06-16 10:32 UTC'
         }
     }

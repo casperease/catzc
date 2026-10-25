@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../docs/references/infrastructure/modules/private-endpoint.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 @description('Private endpoint name (2-64 characters, unique within the resource group).')

@@ -2,10 +2,11 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-markdown-meta/tests/Format-MarkdownParagraph.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
+# The fill must match Prettier's proseWrap always, or a generated page changes again on its next format.
 Describe 'Format-MarkdownParagraph' -Tag 'L0', 'logic' {
     It 'fills greedily within the width, prefix included' {
         $lines = Format-MarkdownParagraph -Text ('widget gadget  widget' + "`n" + 'gadget widget') -FirstPrefix '- ' -ContinuationPrefix '  ' -Width 16

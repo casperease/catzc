@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-quality-gates/Build-TerminologyDictionary.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/ConvertTo-TestAutomationRowSet.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

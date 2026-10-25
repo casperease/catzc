@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/tests/New-AdoPullRequest.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

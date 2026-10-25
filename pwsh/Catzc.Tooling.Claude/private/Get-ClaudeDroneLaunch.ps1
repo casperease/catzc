@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-claude/private/Get-ClaudeDroneLaunch.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

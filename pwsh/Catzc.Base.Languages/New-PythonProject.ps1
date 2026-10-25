@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-languages/New-PythonProject.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

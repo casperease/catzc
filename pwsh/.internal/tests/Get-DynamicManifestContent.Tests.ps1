@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/internal/tests/Get-DynamicManifestContent.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

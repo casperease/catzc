@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-globs/types/FileKindsConfig.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

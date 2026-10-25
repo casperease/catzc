@@ -2,17 +2,17 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-vendor/types/VendorConfig.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
-// Every violation is reported at once on construction, so a typo in vendor.yml fails at load, not at download.
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace Catzc.Base.Vendor;
 
+// Every violation is reported at once on construction, so a typo in vendor.yml fails at load, not at download.
 public sealed class VendorConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "source", "sourceUrl" };

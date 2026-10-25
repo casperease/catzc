@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-contracts/types/AccostedFile.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

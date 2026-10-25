@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-vs-code/private/New-VSCodeExtensionFolder.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -53,7 +53,7 @@ function New-VsCodeExtensionFolder {
     $rendered = Join-Path $folder 'media'
     # An extension that contributes an icon theme gets the theme rendered from file-icons.yml into its media.
     if ($Extension.contributes.Contains('iconThemes')) {
-        $null = New-VsCodeFileIconTheme -MediaDirectory $rendered -GlyphDirectory (Join-Path $AssetDirectory 'catzc-track-lamps')
+        $null = New-VsCodeFileIconTheme -MediaDirectory $rendered -GlyphDirectory @((Join-Path $AssetDirectory $Extension.name), (Join-Path $AssetDirectory 'catzc-track-lamps'))
     }
     $bases = @(if (Test-Path -LiteralPath $rendered) {
             Get-ChildItem -LiteralPath $rendered -Filter '*-on.svg' -File

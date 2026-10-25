@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-dev-ops/private/Get-AdoGraphContext.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

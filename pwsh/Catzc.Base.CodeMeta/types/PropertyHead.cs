@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-code-meta/types/PropertyHead.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -16,6 +16,7 @@ using Catzc.Base.MarkdownMeta;
 
 namespace Catzc.Base.CodeMeta;
 
+// An XML carrier keeps the block in a CDATA property, since an XML comment cannot hold the `---` fence.
 [Catzc.Base.Objects.ConsoleDisplay("Property", "IsObject", "HasHead", "Foreign")]
 public sealed class PropertyHead
 {
@@ -222,6 +223,7 @@ public sealed class PropertyHead
             : text.Substring(0, open) + group + text.Substring(open);
     }
 
+    // A text that is no object, or whose property holds something foreign, comes back exactly as it was.
     public string WithFacts(IDictionary immutable, IDictionary edges) => WithFacts(null, immutable, edges);
 
     // The same, the block closing its facts with the header note when one is given.

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/scriptanalyzer/VariableCasing.psm1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

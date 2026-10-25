@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-core/Sync-SessionTools.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

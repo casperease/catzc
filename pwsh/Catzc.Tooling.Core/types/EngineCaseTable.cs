@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-core/types/EngineCaseTable.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

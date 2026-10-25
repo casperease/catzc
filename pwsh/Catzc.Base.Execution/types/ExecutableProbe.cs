@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-execution/types/ExecutableProbe.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

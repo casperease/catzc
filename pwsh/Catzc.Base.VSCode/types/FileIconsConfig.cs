@@ -1,3 +1,11 @@
+/*
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-vs-code/types/FileIconsConfig.cs.md"
+  header: "generated"
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,16 +17,12 @@ namespace Catzc.Base.VSCode;
 public sealed class FileIconsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "file-icons config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "file", "folder", "icons" };
+    private static readonly string[] AllowedKeys = { "file", "icons" };
     private static readonly Regex Hex = new Regex("^#[0-9a-fA-F]{6}$", RegexOptions.CultureInvariant);
 
-    // The colour of a file no icon marks, and of a folder; file-icons.yml overrides them, never restates them.
     public const string DefaultFile = "#8c8c8c";
-    public const string DefaultFolder = "#8fa3bd";
 
     public string file { get; }
-
-    public string folder { get; }
 
     // Every icon, in authored order.
     public IReadOnlyList<FileIcon> icons { get; }
@@ -34,7 +38,6 @@ public sealed class FileIconsConfig : Catzc.Base.Objects.DictionaryRecord
         }
 
         file = Colour(raw, "file", DefaultFile, errors);
-        folder = Colour(raw, "folder", DefaultFolder, errors);
 
         List<FileIcon> list = new List<FileIcon>();
         object value = raw.Contains("icons") ? raw["icons"] : null;

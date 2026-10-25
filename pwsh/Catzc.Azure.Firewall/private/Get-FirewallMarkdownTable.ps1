@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-firewall/private/Get-FirewallMarkdownTable.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -65,6 +65,7 @@ function Get-FirewallMarkdownTable {
     foreach ($row in $Rows) {
         $cells = foreach ($column in $Columns) {
             $cell = if ($column.Render -eq 'protoport') {
+                # Protocols paired with their ports; an application rule carries its port inside the protocol already, so it passes through.
                 $protocols = @()
                 $ports = @()
                 foreach ($candidate in $column.Candidates) {
@@ -91,6 +92,7 @@ function Get-FirewallMarkdownTable {
                 }
             }
             else {
+                # Values kept in candidate order, because a rule may fill several and the firewall unions them group by group.
                 $values = foreach ($candidate in $column.Candidates) {
                     $raw = [string]$row.$candidate
                     if (-not [string]::IsNullOrWhiteSpace($raw)) {
@@ -104,6 +106,7 @@ function Get-FirewallMarkdownTable {
                 @($values) -join $CellListSeparator
             }
 
+            # A code span where Markdown would read emphasis or a bare URL, so a rule value renders exactly as the firewall holds it.
             if ($cell -match '^[*_]|[*_]$|\s[*_]|[*_]\s|https?://|ftp://|[a-z0-9-]+\.[a-z]{2,}') {
                 '`' + $cell + '`'
             }

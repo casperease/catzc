@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/types/BuildValidationEntry.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Azure.DevOps.BuildValidation;
 
+// Shape only: a globset's existence is checked at run time, so loading the config never reads the globs registry.
 public sealed class BuildValidationEntry : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "globset", "pipeline", "blocking", "display_name" };
@@ -19,6 +20,7 @@ public sealed class BuildValidationEntry : Catzc.Base.Objects.DictionaryRecord
     // The declared globset the policy is tied to (its native path projection is the policy's path filter).
     public string globset { get; }
 
+    // Null when absent, so the globset's own pipeline annotation applies.
     public string pipeline { get; }
 
     // Whether the policy blocks the merge. Defaults to true.

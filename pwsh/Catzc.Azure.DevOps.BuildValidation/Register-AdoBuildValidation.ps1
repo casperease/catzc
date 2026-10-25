@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/Register-AdoBuildValidation.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -61,6 +61,7 @@ function Register-AdoBuildValidation {
     $definition = $definitions | Where-Object { $_.Name -eq $Pipeline } | Select-Object -First 1
     Assert-NotNull $definition -ErrorText "Pipeline '$Pipeline' is not registered in $($context.Organization)/$($context.Project). Run Register-AdoPipeline first."
 
+    # The policy filters on the same globs the pipeline triggers on, never a committed marker.
     $pathFilters = Get-BuildValidationPathFilter -GlobSet $set
     $desired = @{
         isEnabled  = $true

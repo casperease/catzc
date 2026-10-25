@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-TestSkipReason.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

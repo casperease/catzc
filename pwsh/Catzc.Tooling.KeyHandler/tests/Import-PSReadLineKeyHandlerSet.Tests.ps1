@@ -2,10 +2,11 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-key-handler/tests/Import-PSReadLineKeyHandlerSet.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
+# Real config types built from fixture data, so a binding is supported exactly when the allow-list names its function, and nothing runs.
 Describe 'Import-PsReadLineKeyHandlerSet' -Tag 'L0', 'logic' {
     BeforeAll {
         $sequence = [System.Collections.Generic.List[object]]::new()

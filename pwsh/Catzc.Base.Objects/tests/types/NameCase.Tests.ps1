@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../../docs/references/pwsh/catzc-base-objects/tests/types/NameCase.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

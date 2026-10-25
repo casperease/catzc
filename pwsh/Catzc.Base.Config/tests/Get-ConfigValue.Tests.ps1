@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-config/tests/Get-ConfigValue.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -20,6 +20,7 @@ Describe 'Get-ConfigValue' -Tag 'L0' {
         }
 
         BeforeEach {
+            # The one reader is mocked, never a file, so an address is resolved exactly as it would be against a real config.
             Mock Get-Config -ModuleName Catzc.Base.Config -MockWith { $script:fixture }
         }
 
@@ -120,6 +121,7 @@ namespace CatzcGetConfigValueTest {
 
     Context 'against a real shipped config' -Tag 'integrity' {
         It 'resolves a real config subtree through the live Get-Config' {
+            # A real config through the live reader, so the wiring from address to typed model is proven end to end.
             (Get-ConfigValue -Address 'global.tools').Contains('python') | Should -BeTrue
         }
     }

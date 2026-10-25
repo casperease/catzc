@@ -2,10 +2,11 @@
 ---
 catzc:
   docs: "../../../../docs/references/pwsh/catzc-base-writers/tests/types/RainbowColor.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
+# The anchor is char 0, the walk keeps to readable hues, and a single-colour sink gets the base.
 Describe 'RainbowColor' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:green = [Catzc.Base.Writers.RainbowColor]::new([System.ConsoleColor]::Green)

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-generated-files/private/Get-GeneratedWriterInputFile.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -17,6 +17,7 @@ function Get-GeneratedWriterInputFile {
         [string] $RepositoryRoot
     )
 
+    # Only a glob with no literal folder walks the root, so a narrow writer pays only for the folders its own globs reach.
     $files = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $folders = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $walks = @{}

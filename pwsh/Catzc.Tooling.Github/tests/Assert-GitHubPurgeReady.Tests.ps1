@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-github/tests/Assert-GitHubPurgeReady.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

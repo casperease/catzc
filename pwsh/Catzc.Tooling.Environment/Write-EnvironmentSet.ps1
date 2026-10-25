@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-environment/Write-EnvironmentSet.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -21,6 +21,7 @@ function Write-EnvironmentSet {
         [switch] $Persist
     )
 
+    # Each assignment keeps its origin and secrecy, so the log names where a value came from without printing a secret.
     $entries = [System.Collections.Generic.List[hashtable]]::new()
 
     foreach ($name in $Set.Keys) {
@@ -76,6 +77,7 @@ function Write-EnvironmentSet {
         $origins[$entry.Name] = $entry.Origin
     }
 
+    # Scoped restores every target in a finally, so a throwing block never leaves a variable changed; Persist leaves them set.
     $scoped = -not $Persist
 
     $snapshot = [ordered]@{}

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-module-system/Get-ImportMix.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

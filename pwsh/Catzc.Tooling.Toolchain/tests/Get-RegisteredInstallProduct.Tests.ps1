@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/tests/Get-RegisteredInstallProduct.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

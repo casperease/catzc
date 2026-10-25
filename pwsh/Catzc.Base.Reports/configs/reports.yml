@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-reports/configs/reports.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 {}

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-docs/types/GlossaryAvoid.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

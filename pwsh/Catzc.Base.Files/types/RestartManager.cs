@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-files/types/RestartManager.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 
 namespace Catzc.Base.Files;
 
+// Needs no admin rights and sees mapped DLL images too; the P/Invoke binds lazily, so only GetHolders is Windows-only.
 public static class RestartManager
 {
     const int ErrorMoreData = 234;

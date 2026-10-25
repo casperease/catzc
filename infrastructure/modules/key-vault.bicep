@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../docs/references/infrastructure/modules/key-vault.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 @description('Key vault name (3-24 alphanumeric/hyphen, starts with a letter, globally unique).')

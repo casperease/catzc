@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-core/private/Test-ToolLocationManaged.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

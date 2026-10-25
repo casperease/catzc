@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../docs/references/infrastructure/modules/storage-account.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 @description('Storage account name (3-24 lowercase alphanumeric, globally unique).')

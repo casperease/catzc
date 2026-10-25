@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-writers/private/Write-InformationColored.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -18,6 +18,7 @@ function Write-InformationColored {
         [switch] $NoNewline
     )
 
+    # Silent during a test run; read through Get-Variable, because strict mode rejects the flag where it is unset.
     if (Get-Variable -Name '__PesterRunning' -Scope Global -ValueOnly -ErrorAction Ignore) {
         return
     }
@@ -25,6 +26,7 @@ function Write-InformationColored {
     $text = [string]$MessageData
 
     if ($PSBoundParameters.ContainsKey('ForegroundColor')) {
+        # One colour map for every writer, so plain and rainbow output never disagree on a code; empty means no escape.
         $ansi = [Catzc.Base.Writers.Ansi]::Code($ForegroundColor)
 
         if ($ansi) {

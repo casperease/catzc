@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../../docs/references/infrastructure/templates/foundation/main.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 param location string = resourceGroup().location

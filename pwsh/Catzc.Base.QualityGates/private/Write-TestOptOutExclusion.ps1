@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Write-TestOptOutExclusion.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

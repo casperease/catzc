@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../docs/references/infrastructure/modules/vnet-peering.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 @description('Name of the existing local virtual network (in the deployment resource group).')

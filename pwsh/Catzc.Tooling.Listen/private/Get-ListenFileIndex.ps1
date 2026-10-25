@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-listen/private/Get-ListenFileIndex.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

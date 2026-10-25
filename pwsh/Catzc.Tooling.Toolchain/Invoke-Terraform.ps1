@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-toolchain/Invoke-Terraform.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

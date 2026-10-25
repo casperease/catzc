@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-azure-templates/Get-BicepDeploymentName.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

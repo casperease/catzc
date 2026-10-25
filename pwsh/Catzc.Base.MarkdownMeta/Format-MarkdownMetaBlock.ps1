@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-markdown-meta/Format-MarkdownMetaBlock.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

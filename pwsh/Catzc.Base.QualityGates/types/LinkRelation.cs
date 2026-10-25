@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/types/LinkRelation.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -13,7 +13,6 @@ public enum LinkRelation
     MarkdownLink,
     CodeLink,
     DocsEdge,
-    // Implied by a declaration, never written in a file
-    // ([ADR-REPO-LINKS-CONVENTIONSAREDERIVED](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-conventionsarederived)).
+    // Implied by a declaration and never written in a file, so no file's text can carry or lose it.
     Convention,
 }

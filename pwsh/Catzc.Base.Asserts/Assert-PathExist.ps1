@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-asserts/Assert-PathExist.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

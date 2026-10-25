@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-firewall/tests/Convert-FirewallCsvToMarkdown.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -13,6 +13,7 @@ Describe 'Convert-FirewallCsvToMarkdown' -Tag 'L2', 'logic' {
         $script:netCsv = Join-Path $assets 'network.csv'
         Mock Write-Message -ModuleName Catzc.Azure.Firewall {}
 
+        # The fixture groups are unknown to the default priorities, so they are supplied here and the order under test means something.
         $script:groupPriority = @{ 'rcg-baseline' = 100; 'rcg-app' = 200; 'rcg-shared' = 300 }
 
         # Pull the rule-name column out of a rendered table, in row order, for ordering assertions.
@@ -41,6 +42,7 @@ Describe 'Convert-FirewallCsvToMarkdown' -Tag 'L2', 'logic' {
         }
 
         It 'sorts by group priority, then collection priority, then name' {
+            # Group priority dominates collection priority, so the lowest group's first rule leads and the catch-all deny comes last.
             $order[0] | Should -Be 'Allow_DNS'
             $order.IndexOf('Allow_DNS')        | Should -BeLessThan $order.IndexOf('Allow_NTP')
             $order.IndexOf('Allow_NTP')        | Should -BeLessThan $order.IndexOf('Allow_OnPrem_SQL')

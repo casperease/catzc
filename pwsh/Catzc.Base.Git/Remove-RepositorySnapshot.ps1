@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-git/Remove-RepositorySnapshot.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

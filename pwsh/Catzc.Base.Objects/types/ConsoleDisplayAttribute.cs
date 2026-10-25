@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-objects/types/ConsoleDisplayAttribute.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-cli/types/SubscriptionContext.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

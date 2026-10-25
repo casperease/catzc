@@ -11,3 +11,12 @@ Above `public enum LinkRelation`, written with `//`.
 The three ways one tracked file points at another
 ([ADR-REPO-LINKS-EVERYLINKHASADIRECTION](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-everylinkhasadirection)).
 ```
+
+## comment:2
+
+Above `Convention,`, written with `//`.
+
+```text
+Implied by a declaration, never written in a file
+([ADR-REPO-LINKS-CONVENTIONSAREDERIVED](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-conventionsarederived)).
+```

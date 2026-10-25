@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-reports/types/OutputFormatsConfig.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 

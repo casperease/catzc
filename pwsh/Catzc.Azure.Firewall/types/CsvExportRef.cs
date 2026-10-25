@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-firewall/types/CsvExportRef.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Azure.Firewall;
 
+// The one handle passed from export to conversion, so the rule kind and the blob's provenance travel with the local file.
 public sealed class CsvExportRef
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-provisioning/tests/Uninstall-Postman.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

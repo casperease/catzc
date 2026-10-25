@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-environment/tests/Write-EnvironmentSet.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -121,6 +121,7 @@ Describe 'Write-EnvironmentSet' -Tag 'L0' {
 
             Write-EnvironmentSet -Set @{} -Value @{ WES_TEST_UNSET = '1' } -ScriptBlock { }
 
+            # A variable that was unset comes back by being set empty, which removes it again.
             Should -Invoke Set-ProcessEnvironmentVariable -ModuleName Catzc.Tooling.Environment -ParameterFilter {
                 $Name -eq 'WES_TEST_UNSET' -and [string]::IsNullOrEmpty($Value)
             }

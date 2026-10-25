@@ -25,20 +25,20 @@ Describe 'New-VsCodeFileIconTheme' -Tag 'L0', 'logic' {
         $json.languageIds['cog-flavour'] | Should -Be 'cog'
     }
 
-    It 'draws a prompt label with a console chevron instead of the plain bar' {
-        $svg = Get-Content -LiteralPath (Join-Path $script:media 'cog.svg') -Raw
-        $svg | Should -BeLike '*<path d="M2 11.4*'
-        $svg | Should -Not -BeLike '*width="12"*'
-        Get-Content -LiteralPath (Join-Path $script:media 'sprocket.svg') -Raw | Should -BeLike '*width="12"*'
+    It 'draws a prompt label over a console chevron, and a text label as its characters alone' {
+        Get-Content -LiteralPath (Join-Path $script:media 'cog.svg') -Raw | Should -BeLike '*<path d="M6.6 11.4*'
+        Get-Content -LiteralPath (Join-Path $script:media 'sprocket.svg') -Raw | Should -Not -BeLike '*<path*'
     }
 
-    It 'maps every extension and file name to its icon, with the plain file and folder icons as the fallbacks' {
+    It 'maps every extension and file name to its icon, with the plain file as the fallback and no folder icon' {
         $json = Get-Content -LiteralPath $script:theme -Raw | ConvertFrom-Json -AsHashtable
         $json.fileExtensions['wdg'] | Should -Be 'widget'
         $json.fileExtensions['tests.wdg'] | Should -Be 'widget'
         $json.fileNames['.gadget'] | Should -Be 'sprocket'
         $json.file | Should -Be '_file'
-        $json.folderExpanded | Should -Be '_folder_open'
+        $json.ContainsKey('folder') | Should -BeFalse
+        $json.ContainsKey('folderExpanded') | Should -BeFalse
+        Get-Content -LiteralPath (Join-Path $script:media '_file.svg') -Raw | Should -BeLike '*d="M8 8h0"*'
         foreach ($name in $json.iconDefinitions.Keys) {
             Join-Path $script:media "$name.svg" | Should -Exist
         }

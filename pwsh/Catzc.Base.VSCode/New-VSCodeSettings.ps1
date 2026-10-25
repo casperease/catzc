@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-vs-code/New-VSCodeSettings.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

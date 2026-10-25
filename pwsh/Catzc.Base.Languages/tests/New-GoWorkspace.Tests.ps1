@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-languages/tests/New-GoWorkspace.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

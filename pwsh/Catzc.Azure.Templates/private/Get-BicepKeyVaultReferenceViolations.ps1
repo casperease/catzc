@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-templates/private/Get-BicepKeyVaultReferenceViolations.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

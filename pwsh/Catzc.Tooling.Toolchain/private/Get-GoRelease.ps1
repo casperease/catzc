@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-toolchain/private/Get-GoRelease.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

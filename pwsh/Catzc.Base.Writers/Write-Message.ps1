@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-writers/Write-Message.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -50,15 +50,18 @@ function Write-Message {
         $line = "$header $Message"
     }
 
+    # Only an explicit -Verbose reaches the verbose stream, so a session's Continue preference never diverts a message.
     if ($PSBoundParameters.ContainsKey('Verbose')) {
         Write-Verbose $line
         return
     }
 
+    # Yellow on the information stream, never the warning stream; the parameter sets keep it apart from -ForegroundColor.
     if ($Warning) {
         Write-InformationColored $line -ForegroundColor Yellow -NoNewline:$NoNewline
     }
     elseif ($PSBoundParameters.ContainsKey('ForegroundColor')) {
+        # A status line is one solid line, so a rainbow input flattens to its base colour.
         $plan = Resolve-WriterColor -ForegroundColor $ForegroundColor -Bound
         Write-InformationColored $line -ForegroundColor $plan.Base -NoNewline:$NoNewline
     }

@@ -46,7 +46,7 @@ Get-GeneratedWriterDue | Where-Object Due
 
 ## comment:1
 
-Above `$writers = @((Get-Config -Config generated-files).writers.Values)`, written with `#`.
+Above `$writers = @((Get-Config -Config generated-files).writers.Values |...`, written with `#`.
 
 ```text
 A dirty tree is not a stale output: a writer is due when a literal output is missing, or when the stamp of every file its inputs

@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-environment/Add-PermanentPath.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -47,6 +47,7 @@ function Add-PermanentPath {
         }
     }
 
+    # The persistent PATH goes through a thin read and write seam, so a test can stand in for it and never touch the machine's.
     if ($IsWindows) {
         $userPath = Get-EnvironmentPath -Scope User
         $userEntries = @(if ($userPath) {

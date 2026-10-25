@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-azure-dev-ops-build-validation/types/BuildValidationConfig.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Azure.DevOps.BuildValidation;
 
+// Every violation is reported at once; a globset name lives in a value, because kebab case cannot be a key.
 public sealed class BuildValidationConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "branch", "validations" };

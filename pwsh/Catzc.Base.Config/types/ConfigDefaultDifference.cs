@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-config/types/ConfigDefaultDifference.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -31,6 +31,7 @@ public sealed class ConfigDefaultDifference
         this.declared = declared;
     }
 
+    // Only scalar keys with a matching Default constant compare, so a list or map default never shows as a false difference.
     public static IReadOnlyList<ConfigDefaultDifference> Compare(Type configType, IDictionary shipped)
     {
         var differences = new List<ConfigDefaultDifference>();

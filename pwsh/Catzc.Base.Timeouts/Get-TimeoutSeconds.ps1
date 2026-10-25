@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-timeouts/Get-TimeoutSeconds.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

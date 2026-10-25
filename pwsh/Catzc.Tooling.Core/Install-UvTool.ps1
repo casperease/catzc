@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-tooling-core/Install-UvTool.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

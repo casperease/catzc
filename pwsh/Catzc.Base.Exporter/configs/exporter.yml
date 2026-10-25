@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-exporter/configs/exporter.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 direct_install_version: 6.6.666

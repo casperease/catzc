@@ -18,7 +18,7 @@ runs whenever anything changed.
 
 ## comment:2
 
-Above `inputs:`, written with `#`.
+Above `inputs:` (occurrence 2), written with `#`.
 
 ```text
 Its generators, its sources (rootconfig.yml's source and sources) and its targets: a drifted target, ignored or not, is an input

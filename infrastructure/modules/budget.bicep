@@ -1,7 +1,7 @@
 // ---
 // catzc:
 //   docs: "../../docs/references/infrastructure/modules/budget.bicep.md"
-//   warning: "Generated Header"
+//   header: "generated"
 // ---
 
 targetScope = 'subscription'

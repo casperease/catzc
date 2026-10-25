@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/configs/glossary.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 concepts:
@@ -180,8 +180,7 @@ concepts:
       A relation no file writes but a declaration implies — a test to its subject, a file to its comment page, a module to a dependency.
     realized_by: { kind: function, pattern: Get-ConventionEdge }
     contrasts:
-      relation:
-        A relation is written in a file, as a link or a docs edge; a convention relation is derived from a declaration on every run.
+      relation: A relation is written in a file, as a link or a docs edge; a convention relation is derived from a declaration on every run.
   link direction:
     key: link_direction
     domain: repository

@@ -2,10 +2,11 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-environment/tests/Set-PermanentEnvironmentVariable.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
+# The one test of the real round trip: a per-run scratch variable no tool uses, so overlapping runs never share it and it is always removed.
 Describe 'Set-PermanentEnvironmentVariable / Get-PermanentEnvironmentVariable (real user environment)' -Tag 'L3', 'logic', 'ADR-AUTO-TEST-NAMEDSCRATCHRESOURCES' {
     BeforeAll {
         $script:name = 'CATZC_L3_WIDGET_' + [guid]::NewGuid().ToString('N')

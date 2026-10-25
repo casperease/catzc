@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-CommittedTypesDrift.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 

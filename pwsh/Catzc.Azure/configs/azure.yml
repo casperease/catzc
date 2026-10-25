@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-azure/configs/azure.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
 # yaml-language-server: $schema=.not-azure-schema.json
