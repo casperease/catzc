@@ -5,7 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const { key } = require("./glob.js");
 const { OPEN, CONDITIONS, EMPTY, claimer, lampSets, evaluate, summaryOf, revealFailed, nextFailed } = require("./language.js");
-const { host, trace, config, declaredFilters, filters, assertShipped } = require("./host.js");
+const { host, trace, config, LANGUAGE, languages, declaredFilters, filters, assertShipped } = require("./host.js");
 const { statusLine } = require("./status.js");
 const { walkDisk, census } = require("./tree.js");
 const {
@@ -31,6 +31,7 @@ const { apply, lastWritten } = require("./apply.js");
 const OUT = "catzc.trackLamps.out";
 const VETO = "catzc.trackLamps.veto";
 const HELD = "catzc.lamps.remembered";
+const TICKED = "catzc.trackLamps.languages.ticked";
 
 // The engine: everything the lamps do in the editor. The installed package is a shell that runs the repository's copy of this file and
 // swaps it on save (activate in extension.js), so a change of logic lands without an install or a reload; api is the shell's vscode
@@ -39,6 +40,7 @@ function activateEngine(context, api) {
     host.vscode = api ?? require("vscode");
     host.log = host.vscode.window.createOutputChannel("Catzc track lamps");
     const { vscode, log } = host;
+    host.ticked = context.workspaceState.get(TICKED, []);
     context.subscriptions.push(log);
     let judgeTimer;
     let timer;
@@ -389,7 +391,8 @@ function activateEngine(context, api) {
         const suffix = condition === "committed" ? "" : `.${condition}`;
         context.subscriptions.push(vscode.commands.registerCommand(`catzc.lamps.${OPEN}.next${suffix}`, focusNext));
     }
-    for (const lamp of lamps()) {
+    // Every declared lamp has its commands, an unticked language's too, so ticking one needs no reload; the menu shows only the shown.
+    for (const lamp of declaredLamps()) {
         if (lamp === OPEN) continue;
         context.subscriptions.push(vscode.commands.registerCommand(`catzc.lamps.${lamp}.putOut`, () => turn(lamp, "off")));
         for (const condition of [...CONDITIONS, EMPTY]) {
@@ -403,6 +406,35 @@ function activateEngine(context, api) {
             );
         }
     }
+    // The languages button: a multi-select pick of the tagged languages, the ticked ones pre-ticked; the ticked list replaces the
+    // remembered one, an unticked language's switches are dropped with its lamp, and the row, the conditions and the tree follow.
+    const pickLanguages = async () => {
+        const offered = Object.entries(languages()).map(([name, language]) => ({
+            label: language?.tag ?? name,
+            description: name,
+            detail: (language?.extensions ?? []).join(" "),
+            picked: host.ticked.includes(name),
+            name,
+        }));
+        const chosen = await vscode.window.showQuickPick(offered, { canPickMany: true, title: "Languages that stand in the row as lamps" });
+        if (!chosen) return undefined;
+        host.ticked = chosen.map((item) => item.name);
+        for (const lamp of [...state.out, ...state.vetoed])
+            if (lamp.startsWith(LANGUAGE) && !host.ticked.includes(lamp.slice(LANGUAGE.length))) {
+                state.out.delete(lamp);
+                state.vetoed.delete(lamp);
+            }
+        const remembered = Promise.all([
+            context.workspaceState.update(TICKED, host.ticked),
+            context.workspaceState.update(OUT, [...state.out]),
+            context.workspaceState.update(VETO, [...state.vetoed]),
+        ]);
+        show().catch((error) => log.appendLine(`show failed: ${error?.message ?? error}`));
+        rejudge();
+        requestApply();
+        return remembered;
+    };
+    context.subscriptions.push(vscode.commands.registerCommand("catzc.lamps.languages.pick", pickLanguages));
     // The facts' sources: the git extension's repository state, the diagnostics, the markers, and a save (a marker lapses by timestamp).
     const watchGit = async () => {
         const extension = vscode.extensions.getExtension("vscode.git");
