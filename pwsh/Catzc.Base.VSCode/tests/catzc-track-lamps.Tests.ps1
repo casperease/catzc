@@ -220,6 +220,64 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         $answer.conditions['open'] | Should -Be 'failed'
     }
 
+    Context 'activated in a stub editor' {
+        BeforeAll {
+            $script:harness = (Resolve-Path (Join-Path $PSScriptRoot 'assets/catzc-track-lamps-harness.js')).Path
+            # Runs one scenario of the harness over its own small repository and returns what the stub editor recorded.
+            $script:scenario = {
+                param([string] $Name, [switch] $WithEngine)
+                $root = Join-Path $TestDrive "stub-$Name"
+                foreach ($file in 'code/a.ps1', 'docs/x.md') {
+                    $null = New-Item -ItemType File -Force -Path (Join-Path $root $file)
+                }
+                if ($WithEngine) {
+                    $engine = Join-Path $root 'pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js'
+                    $null = New-Item -ItemType Directory -Force -Path (Split-Path $engine)
+                    Copy-Item -LiteralPath $script:script -Destination $engine
+                }
+                $output = & node $script:harness $Name ($root -replace '\\', '/') $script:script 2>&1
+                $LASTEXITCODE | Should -Be 0 -Because "the $Name scenario runs to its end: $output"
+                $output | ConvertFrom-Json -AsHashtable
+            }
+        }
+
+        It 'keeps a lamp that is not shipped out of the title row, logs the mismatch once, and sends no key when nothing changed' {
+            $result = & $script:scenario keys
+            $result.shownCode | Should -BeTrue
+            $result.shownWidget | Should -BeFalse -Because 'the preview flag is off, so only shipped lamps reach the menu'
+            $result.summary | Should -Not -BeNullOrEmpty -Because 'the orchestrator always has a colour'
+            $result.mismatchLogs | Should -Be 1 -Because 'the shipped-lamps assert speaks once per mismatch, not on every call'
+            $result.sentAfterNoChange | Should -Be 0 -Because 'a re-judge that changes nothing sends no context key'
+        }
+
+        It 'runs presses through one queue: no write overlaps another, and the last press has the last word' {
+            $result = & $script:scenario queue
+            $result.maxConcurrent | Should -Be 1
+            @($result.afterThree) | Should -Contain 'code' -Because 'code was put out and docs vetoed, so code is hidden'
+            @($result.afterThree) | Should -Contain 'docs'
+            @($result.last) | Should -HaveCount 0 -Because 'both lamps were lit again by the last presses, so nothing is hidden'
+            @($result.out) | Should -HaveCount 0
+        }
+
+        It 'keeps the disk index current from the editor''s file events' {
+            $result = & $script:scenario index
+            @($result.before) | Should -Be @('docs')
+            @($result.afterCreate) | Should -Be @('docs', 'notes') -Because 'a created file the unlit docs lamp claims is hidden at once'
+            @($result.afterDelete) | Should -Be @('notes') -Because 'the deleted file leaves docs empty on disk, and an empty folder shows'
+        }
+
+        It 'swaps the repository''s engine on a save, every old part disposed first, and falls back to its own copy when it does not load' {
+            $result = & $script:scenario swap -WithEngine
+            $result.first.light | Should -BeTrue -Because 'the shell runs the repository''s engine'
+            $result.swapped.light | Should -BeTrue
+            $result.swapped.registered | Should -BeGreaterThan $result.first.registered -Because 'the saved engine registered its commands anew'
+            $result.swapped.disposed | Should -BeGreaterThan 0 -Because 'the old engine was disposed before the new one started'
+            $result.broken.light | Should -BeTrue -Because 'the package''s own copy runs when the repository''s does not load'
+            $result.broken.fellBack | Should -BeTrue
+            @($result.duplicates) | Should -HaveCount 0 -Because 'no command is ever registered twice at once'
+        }
+    }
+
     It 'sums the whole repository into the orchestrator''s colour: red for any failure, blue for any work in progress, green for neither' {
         & $script:call summaryOf @(@{ 'a.ps1' = @{ change = 'unstaged' }; 'b.ps1' = @{ fault = 'failed' } }) | Should -Be 'red'
         & $script:call summaryOf @(@{ 'a.ps1' = @{ change = 'staged' } }) | Should -Be 'blue'
