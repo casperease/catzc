@@ -21,6 +21,7 @@ categories:
       - "docs/references/pwsh/catzc-base-languages/configs/languages.yml.md"
       - "pwsh/Catzc.Base.Languages/configs/file-carriers.yml"
       - "pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1"
+      - "pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Naming.Tests.ps1"
       - "pwsh/Catzc.Base.Languages/configs/glossary.yml"
       - "pwsh/Catzc.Base.QualityGates/configs/terminology/*.yml"
       - "pwsh/Catzc.Base.Timeouts/configs/timeouts.yml"

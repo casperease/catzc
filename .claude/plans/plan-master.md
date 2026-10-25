@@ -45,6 +45,8 @@ plans stay the durable record; task files and this master are derived from them 
 Open, in execution order. A chunk without a task file is executed from its plan's open steps directly. The questions raised after the round
 of 2026-10-21 are decided (the second round of that day) and folded into their plans.
 
+- types-build-local -> plan-types-build-local.md: commit the types manifest only, build the DLL per machine, stack builds in a
+  console.*.source session up to a cap; the untracking is the user's git step
 - folder-name-settings -> plan-folder-name-settings.md: the literals 'private', 'tests', '.vendor', '.internal' read their settings
 - output-by-address -> plan-output-by-address.md: no default reaches out/ (Test-PlaceRows' default, folder addresses in out/, a lock test)
 - contracts-layout -> plan-contracts-layout.md: move the tree and the Contracts mechanism to one root per promiser, current at 0.1.0, flat,
@@ -92,6 +94,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
 - comment-insights -> plan-comment-insights.md: distilled one-line insight comments back in code at the line each comment page section
   names, below the export threshold
+- comment-articles -> plan-comment-articles.md: every comment page pruned into a small reference article on its source file, gold back in
+  source as one line, ready for the next export
 - model-atlas -> plan-model-atlas.md: explanation articles on the physical and meta models, and C0–C4 zoom ladders drawn from the queries at
   five points of the tree.
 - drone-learnings -> plan-drone-learnings.md: three proposals from the 2026-10-25 drone session that shrink what the next session

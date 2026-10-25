@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "3ec1ddd3f86a"
+    with_body_sha: "88c3aeb6000f"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -180,6 +180,7 @@ github, and azure domains build on it.
 | `ADR-AUTO-SPELL`    | [spell-out-names](automation/spell-out-names.md)                                 |
 | `ADR-AUTO-IDIOM`    | [idiomatic-names](automation/idiomatic-names.md)                                 |
 | `ADR-AUTO-DRYRUN`   | [dry-run](automation/dry-run.md)                                                 |
+| `ADR-AUTO-LIMIT`    | [file-limits](automation/file-limits.md)                                         |
 | `ADR-AUTO-GO`       | [go-test-artifacts](automation/go/go-test-artifacts.md)                          |
 | `ADR-AUTO-PY`       | [python-test-artifacts](automation/python/python-test-artifacts.md)              |
 | `ADR-AUTO-BASH`     | [bash-test-artifacts](automation/bash/bash-test-artifacts.md)                    |

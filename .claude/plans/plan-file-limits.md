@@ -65,13 +65,11 @@ Long files are where agents lose context and reviews lose focus; widths drift si
   config, so the "keep in sync" comments are deleted; `New-PythonProject` and `Get-LinkLineLimit` read `Get-FileLimit`.
 - `FunctionLength.psm1` reads its 300 from the same config (`max_function_body_length`).
 
-## Over the 500-line cap today (2026-10-25, tracked code and config, `out/over-500-lines.txt`)
+## Over the 500-line cap today (2026-10-25, tracked code and config)
 
-Out of scope by track (vendor or generated), no split: `pwsh/.compiled/Catzc.Types.*.json` (2020, generated),
-`pwsh/Catzc.Tooling.Toolchain/assets/scripts/dotnet-install.sh` (1887) and `.ps1` (1574) (third-party installers).
-
-To split, largest first: `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` 618,
-`pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1` 549, `pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1` 527.
+Only files out of scope by track (vendor or generated): `pwsh/.compiled/Catzc.Types.*.json` (generated),
+`pwsh/Catzc.Tooling.Toolchain/assets/scripts/dotnet-install.sh` and `.ps1` (third-party installers). Every other file is under the cap, so
+step 4's `exempt:` map starts empty.
 
 ## Open steps
 

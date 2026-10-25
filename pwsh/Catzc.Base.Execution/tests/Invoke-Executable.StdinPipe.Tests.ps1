@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-execution/tests/Invoke-Executable.StdinPipe.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 BeforeAll {
     function script:Start-InputPipeChild {
         # sort reads stdin to EOF.

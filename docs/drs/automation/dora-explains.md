@@ -537,6 +537,21 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   another language's spelling.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
+## File limits
+
+`One declared length and width per file class, bounded, gated`
+
+[ADR-AUTO-LIMIT](file-limits.md)
+
+> DORA research ties maintainable code to small, comprehensible units that a team can change safely. A declared, checked cap on file length
+> and width keeps every unit readable whole, and one source for the limits keeps the tools that enforce them from disagreeing.
+
+- [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — small files with one responsibility are easier to
+  read, review and change.
+- [Continuous integration](../../references/dora/capabilities.md#continuous-integration) — a gate that fails an over-cap file keeps the
+  limit true on every commit.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
 ## Dry run
 
 `An explicit dry-run parameter on every side-effecting function`

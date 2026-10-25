@@ -171,6 +171,7 @@ domains:
       spell-out-names: { external: ADR-AUTO-SPELL, concern: [quality-control] }
       idiomatic-names: { external: ADR-AUTO-IDIOM, concern: [quality-control], layer: language }
       dry-run: { external: ADR-AUTO-DRYRUN }
+      file-limits: { external: ADR-AUTO-LIMIT, concern: [quality-control] }
       go-test-artifacts: { external: ADR-AUTO-GO, concern: [quality-control], layer: language }
       python-test-artifacts: { external: ADR-AUTO-PY, concern: [quality-control], layer: language }
       bash-test-artifacts: { external: ADR-AUTO-BASH, concern: [quality-control], layer: language }

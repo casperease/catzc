@@ -17,5 +17,3 @@ terms:
       meaning: "the 'poka' of poka-yoke (prose)"
     - term: zoomisanaxis
       meaning: "the name part of the planned rule DDR-VISUAL-ZOOMISANAXIS (plan-model-atlas), cited before it lands"
-    - term: onedeclaration
-      meaning: "the name part of the planned rule ADR-AUTO-LIMIT-ONEDECLARATION (plan-file-limits), cited before it lands"

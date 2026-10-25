@@ -84,3 +84,14 @@ Started 2026-10-25T19:43:41.2738963+01:00.
   about half duplicate text.
 - 2026-10-25 Cats: Token tip: read agents.yml, one robot and its capabilities before writing a robot, instead of discovering the registry
   rules from gate failures.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: plan-decide spawned as a subagent has no AskUserQuestion, so its round must be
+  asked by the main session.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: open questions in plans hide in three shapes (an Open questions section, a [ ] Open
+  question step, a Proposed ... Answer: yes or no line), so one grep misses two of them.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: Format-Code on plan files also rewraps plan-master.md and value-of-plan.md.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: the user rejects a bare yes/no ask; every option must carry its why and its outcome
+  in the tree.
+- 2026-10-25 Cats: Token tip: Next time, save tokens by: running plan-decide as the main session instead of spawning it, and grepping Open
+  question|Proposed|Answer: yes or no in one pass.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: a test tag cites a rule code (DDR-ASPECT-ASPECTSAREDERIVED), never a bare ADR code;
+  the tag gate rejects a bare one.

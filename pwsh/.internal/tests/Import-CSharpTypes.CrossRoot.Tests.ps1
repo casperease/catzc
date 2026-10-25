@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/internal/tests/Import-CSharpTypes.CrossRoot.Tests.ps1.md"
+  header: "generated"
+---
+#>
+
 # cspell:ignore importcs dlllock  -- a fixture folder prefix and a skip reason, data
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'Tests read $global:__CatzcDeferredTypes, the session-global pending record of the deferred types load')]
 param()

@@ -17,7 +17,7 @@ place: on a declaration or first code line, one line that says something useful 
 
 - `Export-Comments` and the comments step of `Format-Code` stay as they are. A distilled insight is one line, below the export threshold
   (`min_lines: 2` in `comments.yml`), so it is never scraped again.
-- The page section stays: the one-liner is the insight, the page keeps the whole comment.
+- The one-liner is the insight; the page's sections are later folded into a reference article (plan-comment-articles.md).
 - A parameter gets its tidbit on the parameter; a section about the whole function gets its line on the declaration or first code line.
 - An insight line never sits directly on another comment line: two adjacent lines reach the export threshold and `Format-Code` moves both to
   the page (catzc-fa, 2026-10-25).
