@@ -95,8 +95,13 @@ kinds:
         files: ["infrastructure/modules/*.bicep"]
     files: ["infrastructure/templates/**/*.bicep"]
   config:
-    definition: A YAML config of a module, validated by its C# type.
-    files: ["pwsh/**/configs/*.yml"]
+    definition: >-
+      The configuration part of everything as code: a module's YAML config, validated by its C# type, and a deployable template's
+      per-environment configuration.
+    files:
+      - pwsh/**/configs/*.yml
+      - python/*/configs/*.yml
+      - infrastructure/templates/*/configuration/**
   pipeline-template:
     definition: A reusable pipeline template that pipelines extend.
     files: [".ado/pipelines/*/*.yaml"]
@@ -167,6 +172,8 @@ overlaps:
   - [function, script]
   - [slides-kit, drawio-kit]
   - [test, drawio-kit]
+  - [fixture, drawio-kit]
+  - [config, drawio-kit]
   - [drawio-kit, script]
   - [asset, script]
   - [fixture, script]

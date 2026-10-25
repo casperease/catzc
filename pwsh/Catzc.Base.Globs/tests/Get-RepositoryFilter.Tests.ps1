@@ -45,6 +45,20 @@ Describe 'Get-RepositoryFilter — the real repository' -Tag 'L1', 'integrity', 
         & $claims 'code' '.github/workflows/ci.yaml' | Should -BeTrue -Because 'the workflows are live, as the Bicep tree is'
     }
 
+    It 'gives the configuration part of everything as code its own filter, through the config file kind, and keeps it live' {
+        $claims = {
+            param([string] $Filter, [string] $Path)
+            $sets = & $script:globSets @($script:filters.Where({ $_.name -ceq $Filter })[0].sets)
+            $sets.Where({ $_.Matches($Path) }, 'First').Count -gt 0
+        }
+        foreach ($path in 'pwsh/Catzc.Base.Globs/configs/filters.yml', 'infrastructure/templates/discovery/configuration/apex/nsub.yml', 'python/catzc_diagrams/configs/drawio.yml') {
+            & $claims 'configs' $path | Should -BeTrue -Because "'$path' is configuration"
+            & $claims 'code' $path | Should -BeTrue -Because "'$path' stays live"
+        }
+        & $claims 'configs' 'pwsh/Catzc.Base.Globs/Get-RepositoryFilter.ps1' | Should -BeFalse -Because 'a function is code, not configuration'
+        { Get-RepositoryFilter -Name code | Out-Null } | Should -Not -Throw
+    }
+
     It 'claims every tracked file by at least one filter' {
         $sets = @($script:filters.ForEach({ & $script:globSets @($_.sets) }))
         $unclaimed = $script:tracked.Where({ $path = $_; $sets.Where({ $_.Matches($path) }, 'First').Count -eq 0 })

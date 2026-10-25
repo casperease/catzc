@@ -18,6 +18,16 @@ function Get-GeneratedTarget {
         [Catzc.Base.Variants.GeneratedTarget]::new("$($mapping.folder)/README.md", 'Build-Readme')
     }
 
+    # The comment pages Format-Code's comment imprint writes: one tree per page root comment-pages.yml declares, a `{kebab}` root one
+    # folder per module. The pages are the tool's, so they are generated like the READMEs (the user, 2026-10-25).
+    $pageRoots = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    foreach ($page in (Get-Config -Config comment-pages).pages) {
+        $root = $page.docs -replace '\{[^}]+\}', '*'
+        if ($pageRoots.Add($root)) {
+            [Catzc.Base.Variants.GeneratedTarget]::new("$root/**", 'Format-Code')
+        }
+    }
+
     # Every other generator's targets, each declared once in its module's generated.yml.
     foreach ($owner in @(Get-Config -Config generated -ListOwners)) {
         foreach ($target in (Get-Config -Config generated -Module $owner.Module).targets) {

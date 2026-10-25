@@ -623,11 +623,11 @@ function activate(context) {
             counter.color = "#f85149";
             counter.tooltip = `Catzc lamps: ${tally.wrong.length} files shown or hidden against their filters, e.g. ${tally.wrong.slice(0, 3).join(", ")}; ${tally.unclaimed.length} files no filter claims, e.g. ${tally.unclaimed.slice(0, 3).join(", ")}\nClick for the log.`;
         }
-        const census = `census: ${tally.shown}/${tally.total} shown; ${matrix.join(", ")}; ${tally.wrong.length} against their filters` +
+        const line = `census: ${tally.shown}/${tally.total} shown; ${matrix.join(", ")}; ${tally.wrong.length} against their filters` +
             `${tally.wrong.length ? ": " + tally.wrong.slice(0, 20).join(", ") : ""}; ${tally.unclaimed.length} unclaimed` +
             `${tally.unclaimed.length ? ": " + tally.unclaimed.slice(0, 20).join(", ") : ""}`;
-        if (tally.wrong.length === 0 && tally.unclaimed.length === 0) trace(census);
-        else log.appendLine(`warning: ${census}`);
+        if (tally.wrong.length === 0 && tally.unclaimed.length === 0) trace(line);
+        else log.appendLine(`warning: ${line}`);
     };
     // Every failure lands in the output channel; an unhandled rejection would vanish without a trace.
     const settle = async (retried = false) => {

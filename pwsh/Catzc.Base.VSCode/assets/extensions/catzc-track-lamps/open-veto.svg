@@ -3,8 +3,7 @@
     <animateTransform attributeName="transform" type="rotate" from="0 8 8" to="-360 8 8" dur="0.8s" repeatCount="indefinite"/>
   </circle>
   <g stroke-width="1.5">
-    <circle cx="7.2" cy="7.2" r="2.8"/>
-    <line x1="9.3" y1="9.3" x2="11.4" y2="11.4"/>
+    <path d="M5 4h4l2 2v2.4M9 4v2h2M5 4v8h2.4M6.5 7.6h2.6M6.5 9.2h1.6M8.7 12.6l3.3-3.3.9.9-3.3 3.3h-.9z"/>
   </g>
   <line x1="2.8" y1="13.2" x2="13.2" y2="2.8" stroke-width="1.8"/>
 </svg>

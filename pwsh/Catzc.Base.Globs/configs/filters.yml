@@ -10,6 +10,7 @@
 
 filters:
   - { name: code, title: the live modules and configs, select: [aspect.live] }
+  - { name: configs, title: the configuration part of everything as code, select: [kind.config] }
   - { name: tests, title: the tests aspect, select: [aspect.tests] }
   - name: tools
     title: the vendor configuration

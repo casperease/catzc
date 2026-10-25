@@ -14,6 +14,7 @@ function Get-RepositoryFilter {
     $tracks = @(Get-Track)
     $aspectSets = $null
     $generated = $null
+    $kinds = $null
 
     # A set claims a path that one of its includes matches and none of its excludes does. A literal path claims itself and what lies
     # under it, so a new file is classified by the same patterns the model holds, never by a stale list of files.
@@ -61,6 +62,15 @@ function Get-RepositoryFilter {
                         throw "Get-RepositoryFilter: filter '$($filter.name)' selects track type '$type', which no track has."
                     }
                     & $owned $match
+                }
+                'kind' {
+                    # A file kind's globs as file-kinds.yml declares them, its subkinds' included (ADR-REPO-FILEMETA-METAKIND).
+                    $kinds ??= (Get-Config -Config file-kinds).kinds
+                    $match = @($kinds.Where({ $_.role -ceq $argument -and -not $_.subkind }))
+                    if ($match.Count -eq 0) {
+                        throw "Get-RepositoryFilter: filter '$($filter.name)' selects kind '$argument', which file-kinds.yml does not declare (kinds: $(@($kinds.Where({ -not $_.subkind }).ForEach({ $_.role })) -join ', '))."
+                    }
+                    & $pattern ([string[]]@($match[0].files) + [string[]]@($match[0].subkinds.ForEach({ $_.files })))
                 }
                 'glob' {
                     & $entry @($argument)

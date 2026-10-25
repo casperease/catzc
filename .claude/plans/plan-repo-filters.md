@@ -74,6 +74,10 @@ one resolver, makes every new view a config line, and moving the extra units int
 - The pipeline tracks are live, as `infrastructure` is: they declare aspects in `variants.yml` (`tests` `**/tests/**`, then `live` `**`), so
   `code` shows them as well as the `pipelines` lamp (filters overlap).
 - `infrastructure` stays live and also gets a filter lamp of its own, `infrastructure` (`track.infrastructure`), with a factory icon.
+- The configuration part of everything as code gets a lamp of its own, `configs` (`kind.config`, the `config` file kind of `file-kinds.yml`:
+  a module's `configs/*.yml`, a template's per-environment `configuration/**`), live as before, placed right after `code` and before
+  `tests`; the lamp row reads open, code, configs, tests, tools, pipelines, infrastructure, generated, docs, out, languages. A `kind.<role>`
+  selector resolves any declared file kind, its subkinds included.
 - A track's files are its places minus the places of the tracks nested inside it (`.github` without `.github/workflows`, `pwsh` without
   `pwsh/.vendor`): every file is in exactly one track, so a track selector in a filter says the same.
 
@@ -88,12 +92,13 @@ one resolver, makes every new view a config line, and moving the extra units int
        git's weight). The Problems panel and the error count show them (check: `Test-Links` on the page, and the rule read once against the
        code).
 2. [ ] `pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js` (0.13.0, installed by the importer): the user reloads VS Code and
-       judges the lamps (open, code, tests, tools, pipelines, infrastructure, generated, docs, out, languages; the pipeline and workflow
-       files claimed by `code` and `pipelines` and no longer by `tools`, the Bicep tree by `code` and `infrastructure`; the pipeline-stages
-       and factory icons): a click steps each lamp off → on → veto → off (veto: the purple struck-through icon, its whole zone hidden even
-       where a lit lamp claims it), the union of the lit lamps minus the vetoed zones, the open lamp keeping open files and grey with none
-       open, the languages lamp as a language view, the blue-grey and red conditions, and the counter's signature matrix; each remark lands
-       here as its own step (check: the counter reads "everything is accounted for" with each lamp off in turn; the user looks).
+       judges the lamps (open, code, configs, tests, tools, pipelines, infrastructure, generated, docs, out, languages; the pipeline and
+       workflow files claimed by `code` and `pipelines` and no longer by `tools`, the Bicep tree by `code` and `infrastructure`, the module
+       and template configuration by `code` and `configs`; the pipeline-stages, factory, sliders and note-being-edited icons): a click steps
+       each lamp off → on → veto → off (veto: the purple struck-through icon, its whole zone hidden even where a lit lamp claims it), the
+       union of the lit lamps minus the vetoed zones, the open lamp keeping open files and grey with none open, the languages lamp as a
+       language view, the blue-grey and red conditions, and the counter's signature matrix; each remark lands here as its own step (check:
+       the counter reads "everything is accounted for" with each lamp off in turn; the user looks).
 3. [ ] `pwsh/Catzc.Base.VSCode/tests/catzc-track-lamps.Tests.ps1`: the L1 census test also holds the number of `files.exclude` entries under
        a roof for each lamp off in turn, so a write never again overflows the command line the editor hands it to its search and watcher
        processes (`spawn ENAMETOOLONG` at 3661 entries on 2026-10-24); the roof is declared once, beside the census (check: the test passes

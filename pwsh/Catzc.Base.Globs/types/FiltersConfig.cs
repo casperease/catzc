@@ -68,7 +68,7 @@ public sealed class RepositoryFilter
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     // Selector kinds that take an argument after the first '.', and those that stand alone.
-    public static readonly string[] ArgumentKinds = { "aspect", "track", "track_type", "glob" };
+    public static readonly string[] ArgumentKinds = { "aspect", "track", "track_type", "kind", "glob" };
     public static readonly string[] BareKinds = { "generated", "root_config" };
     private static readonly Regex FilterName = new Regex("^[a-z][a-z0-9_]*$");
 
