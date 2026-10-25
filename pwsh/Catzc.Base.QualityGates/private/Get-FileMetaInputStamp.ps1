@@ -25,11 +25,7 @@ function Get-FileMetaInputStamp {
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
-    $commentPages = Get-Config -Config comment-pages
     $edgeKinds = @($Config.Imprint() | Where-Object { $_.settings.ContainsKey('relations') })
-    $codeKind = @($Config.Imprint() | Where-Object { $_.id -ceq 'drs-codes' })
-    $languages = Get-Config -Config languages
-    $codesHash = $null
     # The engine and its registries decide every head, so a change to either re-imprints every file.
     $modulesRoot = Get-CatzcModulesRoot
     $engine = Get-InputStamp -Path ([Catzc.Base.QualityGates.FileMetaConfig]::EngineInputs($modulesRoot)) -Root $modulesRoot
@@ -39,34 +35,7 @@ function Get-FileMetaInputStamp {
         $relative = [System.IO.Path]::GetRelativePath($root, $full) -replace '\\', '/'
         $fileParts = [System.Collections.Generic.List[string]]::new()
         $fileParts.Add("engine:$engine")
-        # The page's text is read for the cites; a relation's candidate counts by whether it is on disk.
-        $page = Get-CommentPage -Path $relative -Config $commentPages
-        if ($page) {
-            $pagePath = [System.IO.Path]::Combine($root, $page)
-            $pageHash = if ([System.IO.File]::Exists($pagePath)) {
-                [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.IO.File]::ReadAllBytes($pagePath)))
-            }
-            else {
-                'missing'
-            }
-            $fileParts.Add("page:${page}:$pageHash")
-        }
-        # A file whose cites the drs-codes kind writes reads the registered codes, so a new or removed code rechecks it, and nothing else does.
-        if ($codeKind.Count -eq 1) {
-            $language = $languages.ForPath($relative)
-            if ($Config.Selects($codeKind[0], (Get-FileKind $relative).Class, ($language ? $language.name : $null))) {
-                if ($null -eq $codesHash) {
-                    $codes = if ([System.IO.File]::Exists((Get-Config -Config drs).IndexPath($root))) {
-                        @((Get-DrsCitationMap -RepositoryRoot $root).Codes | Sort-Object -CaseSensitive) -join "`n"
-                    }
-                    else {
-                        ''
-                    }
-                    $codesHash = [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($codes)))
-                }
-                $fileParts.Add("drs-codes:$codesHash")
-            }
-        }
+        # A relation's candidate counts by whether it is on disk: the head shows only which comment page exists.
         $parts[$relative] = @($full, $fileParts)
     }
     foreach ($kind in $edgeKinds) {

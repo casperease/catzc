@@ -18,19 +18,20 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
         $script:schema = Get-Content -LiteralPath (Join-Path $folder 'head.schema.json') -Raw | ConvertFrom-Json -AsHashtable
         $registry = Get-Config -Config file-meta
         $composed = (Get-Config -Config generated-head).order
-        # The generated-file head holds place facts only, so its keys join the registry's immutable ones.
-        $script:writtenImmutable = @($registry.KeysOf('immutable') + $composed | Sort-Object -Unique)
-        $script:writtenEdges = @($registry.KeysOf('edges') | Sort-Object -Unique)
+        # The generated-file head holds place facts only, under immutable; the imprint kinds write the edges at the block's first level.
+        $script:writtenImmutable = @($composed | Sort-Object -Unique)
+        $script:writtenEdges = @($registry.ImprintKeys() | Sort-Object -Unique)
         $script:parts = $script:schema['properties']['catzc']['properties']
+        $script:partKeys = @('warning', 'config', 'immutable')
     }
 
-    It 'lists in its schema exactly the place facts the meta kinds and the generated-file head write' {
+    It 'lists in its schema exactly the place facts the generated-file head writes' {
         $listed = @($script:parts['immutable']['properties'].Keys | Sort-Object)
         $listed | Should -Be $script:writtenImmutable
     }
 
-    It 'lists in its schema exactly the edges the meta kinds write' {
-        $listed = @($script:parts['edges']['properties'].Keys | Sort-Object)
+    It 'lists in its schema exactly the edges the meta kinds write, at the block''s first level beside its parts' {
+        $listed = @($script:parts.Keys | Where-Object { $_ -notin $script:partKeys } | Sort-Object)
         $listed | Should -Be $script:writtenEdges
     }
 
@@ -40,7 +41,7 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
                 })) {
             $key | Should -BeIn $script:writtenImmutable
         }
-        foreach ($key in $script:sample['catzc']['edges'].Keys) {
+        foreach ($key in @($script:sample['catzc'].Keys | Where-Object { $_ -notin $script:partKeys })) {
             $key | Should -BeIn $script:writtenEdges
         }
     }
@@ -61,17 +62,17 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
         $declared = @($relatives.settings['relations'] | ForEach-Object { $_['name'] } | Sort-Object)
         $declared | Should -Be @($relatives.keys | Sort-Object)
         foreach ($name in $declared) {
-            $script:parts['edges']['properties'].Keys | Should -Contain $name
+            $script:parts.Keys | Should -Contain $name
         }
     }
 
-    It 'opens an authored head with the warning the registry declares, a string part of its own' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
+    It 'opens an authored head with its docs edge and closes it with the warning the registry declares, a string part of its own' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
         $script:schema['properties']['catzc']['properties']['warning']['type'] | Should -Be 'string'
         $script:sample['catzc']['warning'] | Should -BeExactly (Get-Config -Config file-meta).warning
-        $script:sample['catzc'].Keys | Select-Object -First 1 | Should -Be 'warning'
+        @($script:sample['catzc'].Keys) | Should -Be @('docs', 'warning')
     }
 
-    It 'requires no key, since an authored head holds edges only and a generated one holds the body hash only while tracked' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
+    It 'requires no key, since an authored head holds its edge only and a generated one holds the body hash only while tracked' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
         $script:parts['immutable'].Contains('required') | Should -BeFalse
         $script:schema['properties']['catzc'].Contains('required') | Should -BeFalse
         $script:sample['catzc'].Contains('immutable') | Should -BeFalse -Because 'the sample is an authored head'

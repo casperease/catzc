@@ -45,3 +45,57 @@ writers:
   Build-RootConfig:
     at_import: true
     check: root-config
+    # Its generators, its sources (rootconfig.yml's source and sources) and its targets: a drifted target, ignored or not, is an input
+    # change, so the run that writes it back is due.
+    inputs:
+      - pwsh/Catzc.Base.Contracts/**
+      - pwsh/Catzc.Base.Git/**
+      - pwsh/Catzc.Base.Languages/Format-GeneratedFileHead.ps1
+      - pwsh/Catzc.Base.Languages/New-GoWorkspace.ps1
+      - pwsh/Catzc.Base.Languages/New-PythonProject.ps1
+      - pwsh/Catzc.Base.Languages/New-NuGetConfig.ps1
+      - pwsh/Catzc.Base.Languages/configs/generated-head.yml
+      - pwsh/Catzc.Base.Languages/configs/go.yml
+      - pwsh/Catzc.Base.Languages/configs/languages.yml
+      - pwsh/Catzc.Base.Languages/configs/python.yml
+      - pwsh/Catzc.Base.RootConfig/**
+      - pwsh/Catzc.Base.VSCode/**
+      - contracts/catzc/0.0.0/**
+      - pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1
+      - pwsh/.internal/Catzc.Internal.Importer.psm1
+      - pwsh/Catzc.Base.Execution/configs/tools.yml
+      - pwsh/Catzc.Base.Globs/configs/file-kinds.yml
+      - pwsh/Catzc.Base.Globs/configs/filters.yml
+      - pwsh/Catzc.Base.Globs/configs/globs.yml
+      - pwsh/Catzc.Base.TypesSystem/assets/Catzc.Types.csproj.xml
+      - pwsh/Catzc.Base.Variants/configs/variants.yml
+      - PSScriptAnalyzerSettings.psd1
+      - importer.ps1
+      - importer.sh
+      - pwsh/.internal/assets/importer-commands.sh
+      - .vscode/settings.json
+      - .vscode/extensions.json
+      - .vscode/launch.json
+      - .vscode/tasks.json
+      - .vscode/azure-pipelines-schema.json
+      - .vscode/markdown-preview-dark.css
+      - go.work
+      - "*/tests/*/go.mod"
+      - "*/*/go.mod"
+      - "*/pyproject.toml"
+      - "*/tests/*/pyproject.toml"
+      - "*/*/pyproject.toml"
+      - .editorconfig
+      - .markdownlint.yml
+      - .markdownlintignore
+      - .prettierrc.yml
+      - .prettierignore
+      - .cspell/.gitignore
+      - cspell.yml
+      - dotnet-tools.json
+      - pwsh/.internal/assets/Catzc.Types.csproj
+      - nuget.config
+      - Directory.Build.props
+      - catzc.sln
+      - .gitattributes
+      - .gitignore

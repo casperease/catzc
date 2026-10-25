@@ -16,21 +16,20 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
         $script:block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]
     }
 
-    It 'renders the place facts, then the edges, in the order given, one fixed form' {
+    It 'renders the edges at the first level, then the place facts, in the order given, one fixed form' {
         $immutable = [ordered]@{ with_body_sha = '3fa91c0d2b7e'; kind = 'gadget'; count = 2; ok = $true }
         $edges = [ordered]@{ cites = @('ADR-WIDGET-GADGET-SPIN', 'ADR-WIDGET-GADGET-FOLD'); page = 'docs/gadget.md' }
         $script:block::Render($immutable, $edges, $script:none) | Should -Be @(
             'catzc:'
+            '  cites:'
+            '    - ADR-WIDGET-GADGET-SPIN'
+            '    - ADR-WIDGET-GADGET-FOLD'
+            '  page: docs/gadget.md'
             '  immutable:'
             '    with_body_sha: "3fa91c0d2b7e"'
             '    kind: gadget'
             '    count: 2'
             '    ok: true'
-            '  edges:'
-            '    cites:'
-            '      - ADR-WIDGET-GADGET-SPIN'
-            '      - ADR-WIDGET-GADGET-FOLD'
-            '    page: docs/gadget.md'
         )
     }
 
@@ -41,16 +40,16 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
         $script:block::Render([ordered]@{}, $edges, $script:none).Count | Should -Be 0
     }
 
-    It 'opens the block with the warning line when one is given, and none when it is empty; the caller decides whether a warning stands alone' {
-        $edges = [ordered]@{ docs = 'widget.md' }
-        $script:block::Render('Widget head', [ordered]@{}, $edges, $script:none) | Should -Be @('catzc:', '  warning: "Widget head"', '  edges:', '    docs: widget.md')
-        $script:block::Render('', [ordered]@{}, $edges, $script:none) | Should -Be @('catzc:', '  edges:', '    docs: widget.md')
+    It 'writes the docs edge first and the warning line after it when one is given, and none when it is empty; the caller decides whether a warning stands alone' {
+        $edges = [ordered]@{ docs = '../docs/widget.md' }
+        $script:block::Render('Widget head', [ordered]@{}, $edges, $script:none) | Should -Be @('catzc:', '  docs: "../docs/widget.md"', '  warning: "Widget head"')
+        $script:block::Render('', [ordered]@{}, $edges, $script:none) | Should -Be @('catzc:', '  docs: "../docs/widget.md"')
         $script:block::Render('Widget head', [ordered]@{}, [ordered]@{}, $script:none) | Should -Be @('catzc:', '  warning: "Widget head"')
     }
 
     It 'leaves out the part that has nothing, and keeps the other' {
         $script:block::Render([ordered]@{}, [ordered]@{ links = @('docs/gadget.md') }, $script:none) | Should -Be @(
-            'catzc:', '  edges:', '    links:', '      - docs/gadget.md'
+            'catzc:', '  links:', '    - docs/gadget.md'
         )
     }
 
@@ -113,15 +112,15 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
         @($script:block::ConfigLines($lines)).Count | Should -Be 0
     }
 
-    It 'lists the keys at the block''s first level, inside immutable and the names of the edges' {
-        $lines = [string[]] @('catzc:', '  immutable:', '    kind: gadget', '    "with_body_sha": x', '  edges:', '    cites:', '      - ADR-WIDGET-TURN', '    page: docs/gadget.md', '  config:', '    gadgets:', '  other: 2')
-        $script:block::SectionKeys($lines) | Should -Be @('immutable', 'edges', 'config', 'other')
+    It 'lists the keys at the block''s first level, inside immutable and the names of the edges, the first-level keys that are no part' {
+        $lines = [string[]] @('catzc:', '  cites:', '    - ADR-WIDGET-TURN', '  page: docs/gadget.md', '  warning: "Widget head"', '  immutable:', '    kind: gadget', '    "with_body_sha": x', '  config:', '    gadgets:')
+        $script:block::SectionKeys($lines) | Should -Be @('cites', 'page', 'warning', 'immutable', 'config')
         $script:block::ImmutableKeys($lines) | Should -Be @('kind', 'with_body_sha')
         $script:block::EdgeKeys($lines) | Should -Be @('cites', 'page')
     }
 
     It 'reads the items of one list edge, and nothing for a scalar edge, a missing edge, a place fact or a config list' {
-        $lines = [string[]] @('catzc:', '  immutable:', '    cites:', '      - ADR-PLACE-DROP', '  edges:', '    cites:', '      - ADR-WIDGET-TURN', '      - "ADR-GADGET-SPIN"', '    page: x', '  config:', '    cites:', '      - ADR-OTHER-FOLD')
+        $lines = [string[]] @('catzc:', '  cites:', '    - ADR-WIDGET-TURN', '    - "ADR-GADGET-SPIN"', '  page: x', '  immutable:', '    cites:', '      - ADR-PLACE-DROP', '  config:', '    cites:', '      - ADR-OTHER-FOLD')
         $script:block::EdgeList($lines, 'cites') | Should -Be @('ADR-WIDGET-TURN', 'ADR-GADGET-SPIN')
         @($script:block::EdgeList($lines, 'page')).Count | Should -Be 0
         @($script:block::EdgeList($lines, 'widgets')).Count | Should -Be 0
@@ -141,6 +140,6 @@ Describe 'MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPAR
         $lines = [string[]] @('catzc:', '  immutable:', '    path: widget.ps1', '  config:', '    synopsis: Gets.', '    parameters:', '      Name: N.')
         $script:block::WithoutConfig($lines) | Should -Be @('catzc:', '  immutable:', '    path: widget.ps1')
         $script:block::WithoutConfig([string[]] @('catzc:', '  config:', '    synopsis: Gets.')).Count | Should -Be 0
-        $script:block::WithoutConfig([string[]] @('catzc:', '  edges:', '    page: p.md')) | Should -Be @('catzc:', '  edges:', '    page: p.md')
+        $script:block::WithoutConfig([string[]] @('catzc:', '  page: p.md')) | Should -Be @('catzc:', '  page: p.md')
     }
 }

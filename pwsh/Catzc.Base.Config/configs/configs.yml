@@ -25,6 +25,8 @@ configs:
     type: Catzc.Base.QualityGates.TerminologyConfig
   links:
     type: Catzc.Base.QualityGates.LinksConfig
+  link-directions:
+    type: Catzc.Base.QualityGates.LinkDirectionsConfig
   comments:
     type: Catzc.Base.QualityGates.CommentsConfig
   comment-pages:

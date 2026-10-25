@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "7c9c7ff085cd"
+    with_body_sha: "6792b1411cda"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -1254,6 +1254,19 @@ numbers it.
 
 ## repository
 
+### algorithmical insight
+
+One authored comment line that gives a reader the clue the code cannot say, why it is shaped so or what breaks if it changes.
+
+- **Defined by:** [ADR-REPO-COMMENTS-CLUESNOTNARRATION](repository/comments-in-docs.md#rule-adr-repo-comments-cluesnotnarration)
+- **Realized by:** function `Export-Comments`
+- **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
+
+| Avoid                | Say instead                       |
+| -------------------- | --------------------------------- |
+| `narration comment`  | an algorithmical insight / a clue |
+| `diagnostic comment` | an algorithmical insight / a clue |
+
 ### capability
 
 One `.claude/skills/<domain>-<job>/SKILL.md` file a robot preloads through its `skills` list — at most the roof's lines, with a model floor
@@ -1438,6 +1451,14 @@ or test, written on its source only.
   - [place facts](#place-facts): The place facts are properties of the file as a node, read from the repository's configuration; an edge is
     a named relation leaving the file, read from its text.
 
+### endpoint
+
+One end of a relation as the facets derived from the declarations (class, aspect, track, track type, module), never read from a file's head.
+
+- **Defined by:** [ADR-REPO-LINKS-ENDPOINTSAREFACETS](repository/links-in-repository.md#rule-adr-repo-links-endpointsarefacets)
+- **Realized by:** type `LinkEndpoint`
+- **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
+
 ### facet
 
 One of several parallel views of, or checks on, the same thing, none above another — a build facet (types, load, parity, manifest) or a
@@ -1527,6 +1548,14 @@ ADR-AUTO-LAYERS-REALISENEVERREDEFINE), or a globset layer (module, fileset).
 - **Contrasts:**
   - [facet](#facet): A facet is one of several parallel views of, or checks on, the same thing; a layer is one level of a stack.
 
+### link direction
+
+Which way a relation points, from the file that writes it to the file it names, judged by the rows of link-directions.yml.
+
+- **Defined by:** [ADR-REPO-LINKS-EVERYLINKHASADIRECTION](repository/links-in-repository.md#rule-adr-repo-links-everylinkhasadirection)
+- **Realized by:** function `Test-LinkDirections`
+- **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
+
 ### markdown link
 
 A link inside a rendered .md file, written relative to that file so it resolves the same on GitHub and in VS Code.
@@ -1537,6 +1566,7 @@ A link inside a rendered .md file, written relative to that file so it resolves 
 - **Contrasts:**
   - [code link](#code-link): A code link lives in a comment of a non-markdown file and is repository-rooted; a markdown link lives in a .md
     file and is relative to it.
+  - [relation](#relation): A markdown link is one kind of relation, the one written in a .md file; a relation is any of the three kinds.
 
 ### meta block
 
@@ -1626,6 +1656,17 @@ The first segment of a decision record code (ADR, TDR, PDR, WDR, DDR, FDR or RDR
 - **Defined by:** [ADR-REPO-DRSCODE-DECISIONRECORDSSYSTEM](repository/drs-code-language.md#rule-adr-repo-drscode-decisionrecordssystem)
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.Docs/configs/glossary.yml`
+
+### relation
+
+One file pointing at another tracked file — a markdown link, a code link or a docs edge; a string, an image or a URL is none.
+
+- **Defined by:** [ADR-REPO-LINKS-EVERYLINKHASADIRECTION](repository/links-in-repository.md#rule-adr-repo-links-everylinkhasadirection)
+- **Realized by:** type `LinkRelation`
+- **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
+- **Contrasts:**
+  - [markdown link](#markdown-link): A markdown link is one kind of relation, the one written in a .md file; a relation is any of the three
+    kinds.
 
 ### robot
 

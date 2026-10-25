@@ -16,10 +16,10 @@ Describe 'Format-MarkdownMetaBlock' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRI
             Should -BeExactly "---`ncatzc:`n  immutable:`n    kind: gadget`n---`n`n# docs/widget.md`n"
     }
 
-    It 'replaces the immutable and edges parts and keeps the authored config and the other front matter' {
+    It 'replaces the edges and the immutable part, drops a first-level key no fact names, and keeps the authored config and the other front matter' {
         $text = "---`nname: widget`ncatzc:`n  immutable:`n    kind: old`n  edges:`n    cites:`n      - ADR-OLD-TURN`n  config:`n    gadgets:`n      one: 1`n---`nbody`n"
         Format-MarkdownMetaBlock -Text $text -Immutable ([ordered]@{ kind = 'gadget' }) -Edges ([ordered]@{ cites = @('ADR-WIDGET-TURN') }) |
-            Should -BeExactly "---`nname: widget`ncatzc:`n  immutable:`n    kind: gadget`n  edges:`n    cites:`n      - ADR-WIDGET-TURN`n  config:`n    gadgets:`n      one: 1`n---`nbody`n"
+            Should -BeExactly "---`nname: widget`ncatzc:`n  cites:`n    - ADR-WIDGET-TURN`n  immutable:`n    kind: gadget`n  config:`n    gadgets:`n      one: 1`n---`nbody`n"
     }
 
     It 'returns identical text when the facts are the ones already written' {

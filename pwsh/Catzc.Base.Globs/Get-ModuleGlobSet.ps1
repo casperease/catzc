@@ -13,7 +13,7 @@ catzc:
       - DDR-RUNMODE
       - FDR-CD-GLOBS-EVERYSETHASLAYER
       - FDR-CD-GLOBS-NOOVERLAPWITHINLAYER
-    drs_total: 9
+    drs_total: 10
 ---
 #>
 
@@ -111,8 +111,6 @@ function Get-ModuleGlobSet {
         $derived[$internalName] = $set
     }
 
-    # The reserved code scopes are units too ([DDR-ASPECT-ASPECTISAGLOBSET](/docs/drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)): their root .psm1 files are the code they run, live beside the
-    # code convention, and the rest falls to tests. A single-file module keeps its own set, so the scope's sets leave its file out.
     $scopeAspects = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()
     foreach ($aspect in $aspectList) {
         $patterns = [string[]]@($aspect.Patterns)
@@ -135,8 +133,6 @@ function Get-ModuleGlobSet {
         }
     }
 
-    # Every other laid-out track's folder modules partition by that track's convention; its root holder is no unit, because the black-box
-    # tests it holds already belong to the module they test (the code track's tests aspects above).
     foreach ($track in @(Get-Track).Where({ $_.name -cne $codeTrack.name -and $languages.IsLaidOut($_.languages) })) {
         $trackAspects = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()
         foreach ($aspectDef in Get-Aspect -Track $track.name) {

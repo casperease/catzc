@@ -31,8 +31,7 @@ function Invoke-FileMetaEngine {
         else {
             Get-FileMetaScope -RepositoryRoot $RepositoryRoot -Path $Path -Config $Config
         })
-    # The imprinted parts are wholly the engine's: a key no kind owns there is dropped on imprint, and only the config part is the author's.
-    $parts = 'warning', 'immutable', 'edges', 'config'
+    # The block's first level is wholly the engine's but for the authored config part: a key no kind owns there is dropped on imprint.
 
     $entries = foreach ($entry in $files) {
         $file = $entry.Path
@@ -61,25 +60,16 @@ function Invoke-FileMetaEngine {
             if ($state.Foreign) {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "property '$property' holds something else"; Expected = 'a catzc meta block, or no such property' })
             }
-            foreach ($section in $state.Sections | Where-Object { $_ -notin $parts }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.$section"; Expected = 'warning, immutable, edges or config' })
-            }
         }
         elseif ($isHead) {
             $form = $entry.Carrier.Form()
             $state = Get-CodeMetaState -Text $text -Form $form
-            foreach ($section in $state.Sections | Where-Object { $_ -notin $parts }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'UnownedHead'; Actual = "catzc.$section"; Expected = 'warning, immutable, edges or config' })
-            }
         }
         else {
             $state = Get-MarkdownMetaState -Text $text -Key $entry.Carrier.key
             # A parent key written as a flow mapping or a scalar is the author's to open up; the block cannot nest under it.
             if (-not $state.CanHoldMetaBlock) {
                 $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "a key above $($entry.Carrier.key) holds a flow or scalar value"; Expected = 'a block mapping the catzc block can nest under' })
-            }
-            foreach ($section in $state.Sections | Where-Object { $_ -notin $parts }) {
-                $findings.Add([pscustomobject]@{ Path = $file; Line = 0; Kind = 'Unowned'; Actual = "catzc.$section"; Expected = 'warning, immutable, edges or config' })
             }
         }
 

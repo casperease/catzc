@@ -13,9 +13,9 @@ image is an embed and no relation; a link to an in-file anchor, a URL, a folder 
 
 ### Rule ADR-REPO-LINKS-ENDPOINTSAREFACETS
 
-Each end of a relation is an **endpoint**: a set of **facets** derived on demand from the declarations, never read from a head. The facets
-are `class` (the file kind's role and subkind), `aspect` (`live`, `tests`, or the remainder name; none in a track without aspects), `track`
-and `tracktype`, and `module`. An ADR's endpoint carries nothing more; the order of its domains is another gate's.
+Each end of a relation is an **endpoint**: a set of facets derived on demand from the declarations, never read from a head. The facets are
+`class` (the file kind's role and subkind), `aspect` (`live`, `tests`, or the remainder name; none in a track without aspects), `track` and
+`tracktype`, and `module`. An ADR's endpoint carries nothing more; the order of its domains is another gate's.
 
 - [Endpoints are facets](#endpoints-are-facets)
 
@@ -23,8 +23,8 @@ and `tracktype`, and `module`. An ADR's endpoint carries nothing more; the order
 
 The directions are rows in one configuration, read top to bottom, the first matching row deciding. A row names the relations it covers, a
 `from` selector, a `to` selector, a verdict (`allow` or `deny`) and `because`, a registered rule code, which is required. A selector lists
-facet values and never holds a glob. A relation that no row allows is denied. A rule an ADR states in prose gets a deny row of its own, so a
-finding names that rule.
+values of the facets and never holds a glob. A relation that no row allows is denied. A rule an ADR states in prose gets a deny row of its
+own, so a finding names that rule.
 
 - [Directions are rows](#directions-are-rows)
 
@@ -38,8 +38,8 @@ an aspect; it never recomputes one, and a row that allows ADR to ADR says in `be
 
 ### Rule ADR-REPO-LINKS-ADRSLINKONLYTHEIRGROUNDING
 
-An ADR links other ADRs and the references it is grounded in: the DORA, CAF and WAF references. It never links code, a how-to, an
-explanation or any other reference.
+An ADR links other ADRs, the DRS index and the glossary, and the references it is grounded in: the DORA, CAF and WAF references. It never
+links code, a how-to, an explanation or any other reference.
 
 - [An ADR links only its grounding](#an-adr-links-only-its-grounding)
 
@@ -59,12 +59,12 @@ files that `Test-Links` and `Format-Links` use, so the aligner and the gate cann
 
 ## Context
 
-The repository's files point at each other constantly: a function's comment cites the rule it implements, a reference page links the code
-it describes, a file's head names its comment page. Which way such a pointer may go is a design decision in several records:
-[markdown-links](markdown-links.md) says code links go out of code into an ADR and an ADR never links into code;
-[file-meta](file-meta.md) says a comment page sits in the file's own docs section and modules relate by name, never by path;
-[aspects](../design/module-aspects.md) splits a unit into `live` and `tests`. Stated only as prose, a direction holds until the first file that
-breaks it, and nothing reports that file.
+The repository's files point at each other constantly: a function's comment cites the rule it implements, a reference page links the code it
+describes, a file's head names its comment page. Which way such a pointer may go is a design decision in several records:
+[markdown-links](markdown-links.md) says code links go out of code into an ADR and an ADR never links into code; [file-meta](file-meta.md)
+says a comment page sits in the file's own docs section and modules relate by name, never by path; [aspects](../design/module-aspects.md)
+splits a unit into `live` and `tests`. Stated only as prose, a direction holds until the first file that breaks it, and nothing reports that
+file.
 
 ### Three relations
 
@@ -84,15 +84,15 @@ file is judged by what it is now. Each distinct file is resolved once per run, n
 ### Directions are rows
 
 A list of rows, first match deciding and the rest denied, is the same shape as the aspect order, where a track's last aspect catches what
-the earlier ones leave ([aspects](../design/module-aspects.md)). It makes every new file role or document type one more row instead of one more
-unchecked convention, and it keeps the decision in configuration and the mechanism in one engine
+the earlier ones leave ([aspects](../design/module-aspects.md)). It makes every new file role or document type one more row instead of one
+more unchecked convention, and it keeps the decision in configuration and the mechanism in one engine
 ([configuration-is-data](../principles/configure-not-program.md)). The `because` of a row is what a finding prints, so a reader of the
 finding reads the rule that denies the link, not the name of a row. A selector speaks in facets and never in globs, because a glob names
 paths and paths are what the facets abstract away.
 
 ### Declared graphs stay where they are declared
 
-Three directions already have a declaration and a gate of their own: the dependencies between modules, the order of the DRS domains and the
+Three directions already have a declaration and a gate of their own: the dependencies between modules, the order of the ADR domains and the
 partition of a unit into aspects. A copy of any of them in the rows is a second version of the same fact that drifts from the first
 ([one-living-version](../principles/one-living-version.md)). The rows allow what those records govern and name the record in `because`.
 
@@ -100,21 +100,22 @@ partition of a unit into aspects. A copy of any of them in the rows is a second 
 
 An ADR holds durable rationale; code, how-tos and explanations churn with the implementation, so a link from an ADR into them couples the
 decision to that churn. The references an ADR is grounded in are the exception: DORA grounds the repository's own decisions, and the Azure
-Cloud Adoption and Well-Architected ADRs answer their vendor's reference item by item ([index](../index.md#authoring-conventions)). Any other
-reference is written for readers and is linked from them, not from the decision.
+Cloud Adoption and Well-Architected ADRs answer their vendor's reference item by item ([index](../index.md#authoring-conventions)). Any
+other reference is written for readers and is linked from them, not from the decision.
 
 ### Exceptions are entries
 
 A file that must break a row is named in configuration with its reason, as every exception in the repository is
 ([configuration-is-data](../principles/configure-not-program.md)). A report mode that lists findings and passes would let the tree drift
-behind a green gate, so the gate runs as a gate from its first commit, and what it finds is fixed, re-rowed or exempted before it lands.
+behind a gate that stays green, so the gate runs as a gate from its first commit, and what it finds is fixed, re-rowed or exempted before it
+lands.
 
 ## Decision
 
-Every relation between two tracked files has a direction, judged on facets derived from the declarations against rows in one
-configuration: the first matching row decides, a relation no row allows is denied, and each row names the rule that decides it. Graphs that
-another record declares stay there. An ADR links only ADRs and its grounding references. Exceptions are configuration entries with a
-reason, and one gate checks it all from the same walk as the link check.
+Every relation between two tracked files has a direction, judged on facets derived from the declarations against rows in one configuration:
+the first matching row decides, a relation no row allows is denied, and each row names the rule that decides it. Graphs that another record
+declares stay there. An ADR links only ADRs and its grounding references. Exceptions are configuration entries with a reason, and one gate
+checks it all from the same walk as the link check.
 
 ### How this is enforced
 
@@ -133,5 +134,5 @@ reason, and one gate checks it all from the same walk as the link check.
 - A new file role or document type needs a row before its files may link or be linked; until then the default denies, which is loud but
   safe.
 - Every exception is visible in one file, with its reason next to it.
-- The rows depend on the file kinds, the tracks and the aspect model; a change to any of them can turn a row's verdict, and the gate shows it
-  in the same run.
+- The rows depend on the file kinds, the tracks and the aspect model; a change to any of them can turn a row's verdict, and the gate shows
+  it in the same run.

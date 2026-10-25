@@ -143,6 +143,17 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
     }
 
     Context 'with -Changed' {
+        BeforeEach {
+            # Which writers are due is Get-GeneratedWriterDue's to say (its own tests); here each case names them, and the git changed set
+            # still feeds the stamp check.
+            $script:due = @('Build-DrsIndex')
+            Mock Get-GeneratedWriterDue -ModuleName Catzc.Base.QualityGates {
+                foreach ($name in (Get-Config -Config generated-files).writers.Keys) {
+                    [Catzc.Base.QualityGates.GeneratedWriterDue]::new($name, $name -in $script:due, $true)
+                }
+            }
+        }
+
         It 'fails a hand edit: a changed output whose writer would change it' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
             Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'docs/drs/index.md' }
             Mock Build-DrsIndex -ModuleName Catzc.Base.QualityGates { [pscustomobject]@{ Path = 'docs/drs/index.md'; Changed = $true; DryRun = $true } }
@@ -184,13 +195,14 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
             $result.Issues | Should -Contain 'docs/drs/index.md: stale — Build-DrsIndex would change it; regenerate with: Build-DrsIndex'
         }
 
-        It 'runs a writer with neither list whenever anything changed, and no writer when nothing changed' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
+        It 'runs only the writers the due rows name, and no writer when none is due' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
             Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'widget/anything.txt' }
+            $script:due = @('Build-RootConfig')
             Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder | Out-Null
             Should -Invoke Build-RootConfig -ModuleName Catzc.Base.QualityGates -Times 1
             Should -Invoke Build-DrsIndex -ModuleName Catzc.Base.QualityGates -Times 0
 
-            Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { }
+            $script:due = @()
             Test-GeneratedFiles -Changed -PassThru -OutputFolder $script:reportFolder | Out-Null
             Should -Invoke Build-RootConfig -ModuleName Catzc.Base.QualityGates -Times 1
         }

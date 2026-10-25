@@ -55,12 +55,12 @@ Describe 'CodeMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD', 'A
             $parsed.Rest | Should -BeExactly (& $script:lf 'function Get-Gadget {', '}', '')
         }
 
-        It 'writes the edges after the place facts, and reads their names and items back' {
+        It 'writes the edges at the first level before the place facts, and reads their names and items back' {
             $edges = [ordered]@{ cites = @('ADR-WIDGET-TURN', 'ADR-GADGET-SPIN'); test = 'tests/Get-Gadget.Tests.ps1' }
             $once = [Catzc.Base.CodeMeta.CodeMetaHead]::Parse((& $script:lf 'class Gadget { }', ''), $script:block).WithFacts($script:facts, $edges)
-            $once | Should -BeLike '*module: Widget*  edges:*    cites:*      - ADR-WIDGET-TURN*    test: tests/Get-Gadget.Tests.ps1*'
+            $once | Should -BeLike '*catzc:*  cites:*    - ADR-WIDGET-TURN*  test: tests/Get-Gadget.Tests.ps1*  immutable:*module: Widget*'
             $parsed = [Catzc.Base.CodeMeta.CodeMetaHead]::Parse($once, $script:block)
-            $parsed.Sections | Should -Be @('immutable', 'edges')
+            $parsed.Sections | Should -Be @('cites', 'test', 'immutable')
             $parsed.EdgeKeys | Should -Be @('cites', 'test')
             $parsed.EdgeList('cites') | Should -Be @('ADR-WIDGET-TURN', 'ADR-GADGET-SPIN')
             $parsed.WithFacts($script:facts, $edges) | Should -BeExactly $once

@@ -151,6 +151,16 @@ kinds:
     files: ["docs/**/*.slide.md"]
   reference:
     definition: A reference page that states facts for lookup.
+    subkinds:
+      dora:
+        definition: A page of the DORA research reference, the delivery capabilities and metrics the decision records are grounded in.
+        files: ["docs/references/dora/**"]
+      caf:
+        definition: A page of the Cloud Adoption Framework reference, the cloud practice the Azure decision records follow.
+        files: ["docs/references/caf/**"]
+      waf:
+        definition: A page of the Well-Architected Framework reference, the workload pillars the Azure decision records follow.
+        files: ["docs/references/waf/**"]
     files: ["docs/references/**"]
   how-to:
     definition: A guide to one task, for a reader who knows the basics.

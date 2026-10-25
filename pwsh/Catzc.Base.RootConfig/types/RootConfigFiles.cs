@@ -85,20 +85,4 @@ public sealed class RootConfigFiles
         if (string.IsNullOrEmpty(repositoryRoot)) { throw new ArgumentException("repositoryRoot must not be empty", "repositoryRoot"); }
         return new Catzc.Base.Folders.PathSet().AddFile(repositoryRoot, name).ToArray()[0];
     }
-
-    public static string[] GeneratorInputs(string modulesRoot)
-    {
-        if (string.IsNullOrEmpty(modulesRoot)) { throw new ArgumentException("modulesRoot must not be empty", "modulesRoot"); }
-        string languages = System.IO.Path.Combine(modulesRoot, "Catzc.Base.Languages");
-        return new Catzc.Base.Folders.PathSet()
-            .AddFile(modulesRoot, "Catzc.Base.RootConfig")
-            .AddFile(modulesRoot, "Catzc.Base.VSCode")
-            .AddFile(modulesRoot, "Catzc.Base.Git")
-            .AddFile(modulesRoot, "Catzc.Base.Contracts")
-            .AddFile(languages, "New-GoWorkspace.ps1")
-            .AddFile(languages, "New-PythonProject.ps1")
-            .AddFile(languages, "Format-GeneratedFileHead.ps1")
-            .AddFile(languages, "configs/generated-head.yml")
-            .ToArray();
-    }
 }

@@ -64,3 +64,12 @@ selected by exactly one aspect. Returns
 human-readable violations (empty => a valid partition): a file claimed by two aspects breaks disjoint,
 a file claimed by none breaks exhaustive.
 ```
+
+## comment:5
+
+Above `public static string AspectOf(System.Collections.IDictionary sets, string file)`, written with `//`.
+
+```text
+The aspect of one file: the first aspect, in the map's order, one of whose sets claims it; null when none does. The map is
+Get-AspectGlobSet's: aspect name -> that aspect's globsets.
+```

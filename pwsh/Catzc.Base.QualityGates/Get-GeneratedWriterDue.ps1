@@ -11,21 +11,31 @@ function Get-GeneratedWriterDue {
     [CmdletBinding()]
     [OutputType([Catzc.Base.QualityGates.GeneratedWriterDue])]
     param(
-        [string[]] $ChangedPath = @(Get-GitChangedPath),
+        [string[]] $ChangedPath,
 
         [string] $RepositoryRoot = (Get-RepositoryRoot),
 
         [string] $MemoPath = (Join-Path (Get-OutputRoot) 'cache/generated-writers.json')
     )
 
-    $changed = [string[]] @($ChangedPath)
-    # A dirty tree is not a stale output: a writer is due when a literal output is missing, or when the stamp of its changed inputs
-    # differs from the one stored after its last run (Save-GeneratedWriterStamp). A missing or unreadable memo makes every writer due.
+    # A dirty tree is not a stale output: a writer is due when a literal output is missing, or when the stamp of every file its inputs
+    # match differs from the one stored after its last run (Save-GeneratedWriterStamp). A missing or unreadable memo makes every writer
+    # due. The input files are walked once for all writers; git is read only for a writer that declares no lists.
+    $writers = @((Get-Config -Config generated-files).writers.Values)
     $memo = Get-GeneratedWriterMemo -MemoPath $MemoPath
-    $script:GeneratedWriterStamps = @{}
-    foreach ($writer in (Get-Config -Config generated-files).writers.Values) {
+    $walk = Get-GeneratedWriterInputFile -InputGlob @($writers | ForEach-Object { @($_.inputs) }) -RepositoryRoot $RepositoryRoot
+    $changed = $null
+    foreach ($writer in $writers) {
         $inputs = @($writer.inputs | Where-Object { $_ })
         $outputs = @($writer.outputs | Where-Object { $_ })
+        $hasLists = ($inputs.Count + $outputs.Count) -gt 0
+        if (-not $hasLists) {
+            if ($null -eq $changed) {
+                $changed = [string[]] @(if ($PSBoundParameters.ContainsKey('ChangedPath')) { $ChangedPath } else { Get-GitChangedPath })
+            }
+            [Catzc.Base.QualityGates.GeneratedWriterDue]::new($writer.name, $changed.Count -gt 0, $hasLists)
+            continue
+        }
         $due = $false
         foreach ($output in $outputs) {
             if ($output.IndexOfAny([char[]] '*?[') -lt 0 -and -not [System.IO.File]::Exists((Join-Path $RepositoryRoot $output))) {
@@ -33,14 +43,8 @@ function Get-GeneratedWriterDue {
                 break
             }
         }
-        $stamp = Get-GeneratedWriterStamp -InputGlob $inputs -ChangedPath $changed -RepositoryRoot $RepositoryRoot
-        $script:GeneratedWriterStamps[$writer.name] = $stamp
-        if (-not $due -and $memo[$writer.name] -cne $stamp) {
-            $due = $true
-        }
-        $hasLists = ($inputs.Count + $outputs.Count) -gt 0
-        if (-not $hasLists) {
-            $due = $changed.Count -gt 0
+        if (-not $due) {
+            $due = $memo[$writer.name] -cne (Get-GeneratedWriterStamp -InputGlob $inputs -Walk $walk -RepositoryRoot $RepositoryRoot)
         }
         [Catzc.Base.QualityGates.GeneratedWriterDue]::new($writer.name, $due, $hasLists)
     }

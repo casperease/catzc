@@ -87,14 +87,19 @@ function New-VsCodeSettings {
         $settings['catzc.trackLamps.languages'] = $languages
     }
 
-    # A carried map keeps the rows another writer added (the lamps' files.exclude), as listed under that writer's owner key on disk; a row
-    # the registry authors stays the registry's.
     if ($config.carried.Count -gt 0 -and (Test-Path -LiteralPath $CurrentPath)) {
         $text = (Get-Content -LiteralPath $CurrentPath -Raw) -replace '(?m)^\s*//.*$', ''
-        $current = if ([string]::IsNullOrWhiteSpace($text)) { @{} } else { ConvertFrom-Json -InputObject $text -AsHashtable }
+        $current = if ([string]::IsNullOrWhiteSpace($text)) {
+            @{}
+        }
+        else {
+            ConvertFrom-Json -InputObject $text -AsHashtable
+        }
         foreach ($key in $config.carried.Keys) {
             $owner = $config.carried[$key]
-            $owned = @(if ($current.ContainsKey($owner)) { $current[$owner] })
+            $owned = @(if ($current.ContainsKey($owner)) {
+                    $current[$owner]
+                })
             if ($owned.Count -eq 0) {
                 continue
             }
@@ -104,7 +109,12 @@ function New-VsCodeSettings {
                     $merged[$row] = $settings[$key][$row]
                 }
             }
-            $rows = if ($current.ContainsKey($key)) { $current[$key] } else { @{} }
+            $rows = if ($current.ContainsKey($key)) {
+                $current[$key]
+            }
+            else {
+                @{}
+            }
             foreach ($row in $owned) {
                 if (-not $merged.Contains($row) -and $rows.ContainsKey($row)) {
                     $merged[$row] = $rows[$row]

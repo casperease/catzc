@@ -124,6 +124,8 @@ categories:
 
 terms:
   product:
+    - term: algorithmical
+      meaning: "algorithmical insight — an authored one-line comment giving higher-level insight into code in its context (ADR-REPO-COMMENTS-CLUESNOTNARRATION)"
     - term: testkit
       meaning: "catzc-internal-testkit"
     - term: goroot

@@ -63,8 +63,7 @@ Describe 'FileHeadPolicy' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-HEADPOLICY' {
     It 'ships the policy the rule names: agents forbidden, capabilities and slides config, diagram declarations forbidden, the rest facts' -Tag 'ADR-AUTO-DEFAULT-ONERESOLUTIONORDER' {
         $shipped = Get-Config -Config file-meta
         $shipped.head_policy.default | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Facts)
-        @($shipped.KeysOf('immutable')) | Should -BeNullOrEmpty -Because 'no authored file, tracked or not, carries with_body_sha: only the generated-head writer emits it'
-        @($shipped.KeysOf('edges')) | Should -Be @('docs', 'cites', 'drs_total')
+        @($shipped.ImprintKeys()) | Should -Be @('docs') -Because 'an authored head shows its comment page and nothing else: no with_body_sha, no rule codes'
         $shipped.PolicyFor('agent') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Forbidden)
         $shipped.PolicyFor('capability') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Config)
         $shipped.PolicyFor('slide') | Should -Be ([Catzc.Base.QualityGates.HeadPolicy]::Config)

@@ -27,7 +27,7 @@ Describe 'LinkEngine edges' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-EVERYLINKHASADIR
         & $writeFile $root 'docs/widget.md' ("# Widget`n`nSee [gadget](gadget.md), [part](gadget.md#part), [self](#widget), [folder](drs), " +
             "[site](https://example.com/gadget) and [gone](missing.md).`n`n![picture](gadget.md)`n")
         & $writeFile $root 'docs/references/src/widget.ps1.md' "# src/widget.ps1`n"
-        & $writeFile $root 'src/widget.ps1' ("<#`n---`ncatzc:`n  edges:`n    docs: ""[widget.ps1.md](../docs/references/src/widget.ps1.md)""`n---`n#>`n`n" +
+        & $writeFile $root 'src/widget.ps1' ("<#`n---`ncatzc:`n  docs: ""../docs/references/src/widget.ps1.md""`n  warning: ""Generated Header""`n---`n#>`n`n" +
             "# Spins as [ADR-TST-WIDGET-SPIN](/docs/drs/widget/widget-rules.md#rule-adr-tst-widget-spin) says; see [gadget](/docs/gadget.md).`n" +
             "# Also ADR-TST-WIDGET-SPIN, and [site](https://example.com/widget).`n" +
             "`$path = 'docs/gadget.md'`nfunction Get-Widget { }`n")
@@ -59,5 +59,17 @@ Describe 'LinkEngine edges' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-EVERYLINKHASADIR
 
     It 'returns no edge when none was asked for' {
         @((& $script:run).Edges) | Should -HaveCount 0
+    }
+
+    It 'reads the head''s docs edge as a bare path from the file''s folder, quoted or plain, and finds one that does not resolve' {
+        & $writeFile $root 'src/plain.ps1' "<#`n---`ncatzc:`n  docs: ../docs/references/src/widget.ps1.md`n  warning: ""Generated Header""`n---`n#>`n`nfunction Get-Plain { }`n"
+        & $writeFile $root 'src/gone.ps1' "<#`n---`ncatzc:`n  docs: ""../docs/references/src/gone.ps1.md""`n  warning: ""Generated Header""`n---`n#>`n`nfunction Get-Gone { }`n"
+        $result = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
+            param($Root)
+            Invoke-LinkEngine -RepositoryRoot $Root -Path (Join-Path $Root 'src/plain.ps1'), (Join-Path $Root 'src/gone.ps1') -Kind Both -Wrap Break -IncludeEdge
+        }
+        @($result.Edges.Where({ $_.File -eq 'src/plain.ps1' }).ForEach({ "$($_.Relation) $($_.Target)" })) | Should -Be @('DocsEdge docs/references/src/widget.ps1.md')
+        @($result.Findings.Where({ $_.File -eq 'src/gone.ps1' }).ForEach({ $_.Message })) | Should -BeLike "*docs edge '../docs/references/src/gone.ps1.md' does not resolve*"
+        @($result.Findings.Where({ $_.File -eq 'src/plain.ps1' })) | Should -HaveCount 0
     }
 }

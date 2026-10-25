@@ -51,21 +51,12 @@ function Build-RootConfig {
     # The per-file status lines are verbose-level detail — shown only when this function is run with -Verbose.
     $emitVerbose = $VerbosePreference -ne [System.Management.Automation.ActionPreference]::SilentlyContinue
 
-    # A whole run is skipped when nothing that feeds or receives it changed since the last run on this machine (the memo under out/cache).
-    $memoPath = Join-Path (Get-OutputRoot) 'cache/build-rootconfig.json'
-    $stampBefore = $null
-    if (-not $Target -and -not $DryRun -and -not $PassThru) {
-        $stampBefore = Get-RootConfigInputStamp -Entries $entries
-        $memo = $null
-        if ([System.IO.File]::Exists($memoPath)) {
-            try {
-                $memo = [System.IO.File]::ReadAllText($memoPath) | ConvertFrom-Json -AsHashtable
-            }
-            catch {
-                Write-Verbose "Ignoring the unreadable root-config memo '$memoPath': $($_.Exception.Message)"
-            }
-        }
-        if ($memo -is [hashtable] -and $memo['stamp'] -ceq $stampBefore) {
+    # A whole run is skipped when nothing it declares as an input in generated-files.yml (its generators, sources and targets) changed
+    # since its last run: the one writer memo every generated-file writer reads.
+    $whole = -not $Target -and -not $DryRun -and -not $PassThru
+    if ($whole) {
+        $row = @(Get-GeneratedWriterDue | Where-Object Name -ceq 'Build-RootConfig')
+        if ($row.Count -eq 1 -and -not $row[0].Due) {
             if (-not $Silent) {
                 Write-Message 'root configs: current since the last run' -Verbose:$emitVerbose
             }
@@ -144,12 +135,9 @@ function Build-RootConfig {
     }
     $ret = @($ret)
 
-    if ($null -ne $stampBefore) {
-        # The targets just written are part of the stamp, so it is taken again and remembered for the next run.
-        $folder = [System.IO.Path]::GetDirectoryName($memoPath)
-        [System.IO.Directory]::CreateDirectory($folder) | Out-Null
-        $json = [ordered]@{ stamp = (Get-RootConfigInputStamp -Entries $entries) } | ConvertTo-Json -Compress
-        [System.IO.File]::WriteAllText($memoPath, $json)
+    if ($whole) {
+        # The targets just written are among its inputs, so the stamp is taken after the run.
+        Save-GeneratedWriterStamp -Name 'Build-RootConfig'
     }
 
     if ($PassThru) {

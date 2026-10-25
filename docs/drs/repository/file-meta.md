@@ -28,12 +28,11 @@ carries a fact worth its lines. A **generated file**, Markdown included, carries
 the file the head also carries `with_body_sha`, the body it is immutable with, and nothing else; an untracked generated file carries the
 warning only, no sha ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). An **authored file tracked in git**, a
 source, config or template of any class, Markdown included (a Markdown doc is a config subtype of code, so one rule serves every authored
-class), carries a head only when it has (1) a comment page under `docs/references`, shown as `docs`
-([ADR-REPO-FILEMETA-FEWLINKS](#rule-adr-repo-filemeta-fewlinks)), or (2) rule codes to cite, the codes the file and its comment page cite,
-shown as `cites` and counted as `drs_total` ([ADR-REPO-FILEMETA-FILEISNODE](#rule-adr-repo-filemeta-fileisnode)), and nothing else: no
-`with_body_sha`, no `test` or `code` edge. Such a head opens with a `warning` line naming the command that writes it, "Header is generated
-by Format-FileMeta via Format-Code; do not change it", declared once in `file-meta.yml`, and a file with no fact to show carries no head for
-the warning alone. A binary file is format-managed with no head possible. Every other file carries no head, and a `Format-*` run removes a
+class), carries a head only when it has a comment page under `docs/references`, shown first as `docs`, its plain path from the file's own
+folder ([ADR-REPO-FILEMETA-FEWLINKS](#rule-adr-repo-filemeta-fewlinks)), and nothing else: no rule codes (the codes a file cites are derived
+from its text on demand, [ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)), no `with_body_sha`, no `test` or `code` edge.
+Such a head closes with the short `warning` line "Generated Header", declared once on the meta-kind registry's type and shown in
+`file-meta.yml`, and a file with no fact to show carries no head for the warning alone. A binary file is format-managed with no head possible. Every other file carries no head, and a `Format-*` run removes a
 head the policy does not call for. The policy has three values, set per file class in `file-meta.yml`: **facts**, the default, a block
 holding the facts above, and none when every fact is empty; **forbidden**, no `catzc` block at all, for an agent definition, whose front
 matter belongs to the tool that loads it, and for a diagram declaration; and **config**, a block holding only the authored `config` part,
@@ -41,7 +40,7 @@ for a capability definition and a slide, which keep their own tool's front matte
 ([ADR-REPO-AGENTS-NAMEDMODEL](agent-definitions.md#rule-adr-repo-agents-namedmodel)). A file whose block disagrees with its policy, absent
 where the policy calls for it or present where it does not, is a finding. The block holds the facts the tooling owns about the file, written
 into the file's carrier. A Markdown file's carrier is the reserved front-matter key `catzc`, holding a generated file's head under
-`immutable`, an authored file's edges under `edges` ([ADR-REPO-FILEMETA-FILEISNODE](#rule-adr-repo-filemeta-fileisnode)) and a capability's
+`immutable`, an authored file's edges at the block's first level ([ADR-REPO-FILEMETA-FILEISNODE](#rule-adr-repo-filemeta-fileisnode)) and a capability's
 authored config contributions under `config`
 ([markdown-config-contributions](../configuration/markdown-config-contributions.md#rule-adr-conf-mdcontrib-configcontribution)). The key
 sits at the top level, or, where another tool validates the top level of the front matter and leaves one key of its own free for foreign
@@ -69,8 +68,8 @@ engine.
 
 ### Rule ADR-REPO-FILEMETA-IMPRINTEDPARTS
 
-The `edges` part is imprinted by `Format-FileMeta` and is byte-identical on every run: keys in the registry's order, values in canonical
-form, no timestamp and no run identifier. The `immutable` part is no imprinted part: only a generated head has it, and its writer writes it
+The edges, the block's first-level keys the imprint kinds own, are imprinted by `Format-FileMeta` and are byte-identical on every run: keys
+in the registry's order, values in canonical form, no timestamp and no run identifier. The `immutable` part is no imprinted part: only a generated head has it, and its writer writes it
 ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)). A hash is allowed only when it changes exactly when something a
 reader cares about changes: `with_body_sha`, the hash of the body below the head, opens the head of a generated file git tracks. An authored
 head carries none: a body hash there changes on every edit and tells a reader nothing, so the imprint writes only the edges
@@ -96,10 +95,9 @@ never an edit to the engine ([ADR-AUTO-EXTEND-ADDNOTEDIT](../automation/open-clo
 The scope of a kind is the files it selects, less the files `.gitattributes` marks `linguist-vendored`, `linguist-generated`,
 `catzc-fixture` or `catzc-contract`, and those it marks `-catzc-meta`. For Markdown the globs match the file class of the Markdown title
 ([ADR-REPO-FORMAT-MARKDOWNTITLE](uniform-formatting.md#rule-adr-repo-format-markdowntitle)). A new exception is declared in the
-`.gitattributes` source, never in a list of the gate's own. The imprinted part, `edges`, is wholly the engine's: a key no kind owns there is
-dropped on imprint, and a key a kind owns is rewritten from its fact. Only the authored `config` part keeps keys no kind owns, as the
-author's, validated against its kind and kept as written, and a section of an authored block that is neither `edges` nor `config` is a
-finding the author fixes.
+`.gitattributes` source, never in a list of the gate's own. The block's first level is wholly the engine's but for the authored `config`
+part: a key no kind owns there is dropped on imprint, and a key a kind owns is rewritten from its fact. Only the `config` part keeps keys no
+kind owns, as the author's, validated against its kind and kept as written.
 
 - [Scope](#scope)
 
@@ -128,7 +126,8 @@ demand from the writer registry. A generated file is told from an authored one b
 ([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)). No writer hand-words a banner. The imprint engine leaves these files
 alone ([ADR-REPO-FILEMETA-KINDSCOPE](#rule-adr-repo-filemeta-kindscope)), since the writer owns every byte of them. A comment page is no
 generated file: it is an authored file ([ADR-REPO-COMMENTS-PAGEISAUTHORED](comments-in-docs.md#rule-adr-repo-comments-pageisauthored)), so
-the head policy gives it a head only when it cites rule codes ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)).
+the head policy gives it a head only when it has a fact to show, and a comment page has no comment page of its own
+([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)).
 
 - [Generated files](#generated-files)
 
@@ -168,8 +167,8 @@ is an `exclude` entry of the carrier registry with the reason.
 
 The head is a map of facts about its own file, so it holds as few links to other files as possible, and only those that cost to derive and
 truly define a relationship. A file has one **relative** edge, `docs`: its comment page under `docs/references`
-([ADR-REPO-COMMENTS-ONELINEOFINSIGHT](comments-in-docs.md#rule-adr-repo-comments-onelineofinsight)), written as a GitHub-clickable link
-whose target is the page's path from the file's own folder and whose text is the page's file name. A file has no `test` or `code` edge: a
+([ADR-REPO-COMMENTS-ONELINEOFINSIGHT](comments-in-docs.md#rule-adr-repo-comments-onelineofinsight)), written as the page's plain path from
+the file's own folder, never a Markdown link, so the head stays one short line. A file has no `test` or `code` edge: a
 test is found by convention, its stem under `tests/`, so a head would only repeat it. The page sits in the file's own docs section, never in
 another module, so modules relate to each other by name and never through a file path (encapsulation), and a page knows its code by its
 name, so it records no edge back. The edge and the rule that fills it are the `relative-edges` kind's settings in `file-meta.yml`, so a new
@@ -197,22 +196,19 @@ subkind and never by glob, and a consumer extends the registry with a config fra
 
 A file is a node, and its meta block says two things about it, each in a part of its own. `immutable` holds the **place facts** a reader of
 the head needs, and only a generated head has any: its `with_body_sha` while git tracks it and its `warning`, written by its writer
-([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)); an authored head has no `immutable` part, its parts are a
-`warning` line naming its writer and its `edges` ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)). Every other place
-fact, what the repository's own configuration makes of the file's location, is derived on demand from a registry and never shown. `edges`
-holds what the file itself points at, each one an **edge**, a named relation leaving the file to a rule code or a file: `cites`, the rule
-codes the file and its comment page cite outside their ` ```yml drawio ` blocks; `drs_total`, the count of distinct codes the file and its
-page cite, those blocks included; and `docs`, its comment page; no `test` or `code` edge, since a test is found by convention. The fact
-behind `cites` keeps every code, blocks included, and the `drs-codes` kind renders it into both keys, so a diagram's codes count toward the
-total without filling the head's list. A cited bare record code stands for its rules, so `cites` folds the rule codes under it into that
-record code, and `drs_total` counts the distinct codes before that folding. `edges` is imprinted and `immutable` is written by the file's
-writer, never by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an edge until the file's
-text changes. An edge is written on its source only, so the target holds no copy, and an edge is named for the relation, never for the type
+([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)); an authored head has no `immutable` part, it holds its edges at
+the block's first level and the short `warning` line after them ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)). Every
+other place fact, what the repository's own configuration makes of the file's location, is derived on demand from a registry and never
+shown. An **edge** is a named relation leaving the file to another file, and a head shows one: `docs`, its comment page; no `test` or `code`
+edge, since a test is found by convention, and no rule codes, since the codes a file cites are read from its text on demand by the commands
+that need them ([ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)). The edges are imprinted and `immutable` is written by
+the file's writer, never by hand, and both are fixed by the file: a place fact until the file moves or a registry changes, an edge until
+the file's page appears or goes. An edge is written on its source only, so the target holds no copy, and an edge is named for the relation, never for the type
 of its target. A tracked generated file's `immutable` opens with `with_body_sha`, the hash of the body below the head
 ([ADR-REPO-FILEMETA-IMPRINTEDPARTS](#rule-adr-repo-filemeta-imprintedparts)). A head holds no `repo_status`: whether a file is generated is
 told by the writer registry, and the states only git knows, edited, staged, committed and pushed, and `ready` (tracked and unchanged), are
 computed on demand by `Get-RepoStatus` from git, read-only, since writing them would change them. An imprint kind of the registry writes the
-`edges` part, a relation each.
+edges, a relation each.
 
 - [Place facts and edges](#place-facts-and-edges)
 
@@ -220,7 +216,7 @@ computed on demand by `Get-RepoStatus` from git, read-only, since writing them w
 
 No command reads an imprinted fact back. A gate, a generator or a resolver that needs a place fact or an edge of a file derives it from the
 registries, git, the disk and the file's body, so stripping every block changes no verdict, and every command works the same on a file with
-a block and on one without. The imprint is the one reader of `edges` and a generated file's drift check the one reader of its `immutable`,
+a block and on one without. The imprint is the one reader of the edges and a generated file's drift check the one reader of its `immutable`,
 and each reads its part only to compare it with what would be written. A key another tool owns is read by that tool alone.
 
 - [A head shows the facts, never holds them](#a-head-shows-the-facts-never-holds-them)
@@ -242,8 +238,8 @@ matter is a Markdown convention and a code file has comments.
 ## Decision
 
 A file carries one meta block, with the carrier its kind of file has. For Markdown the carrier is one reserved front-matter key, `catzc`,
-with three parts: `immutable`, a generated file's head written by its writer, `edges`, written by the formatter, and `config`, written by
-the author. For code the carrier is the meta head, with the same `immutable` and `edges` parts and no `config`. Which kinds of fact and
+with three parts: `immutable`, a generated file's head written by its writer, the edges at the first level, written by the formatter, and
+`config`, written by the author. For code the carrier is the meta head, with the same `immutable` part and edges and no `config`. Which kinds of fact and
 config exist is a registry. Who computes or reads each kind is a function a module ships.
 
 ### One block, two carriers
@@ -267,7 +263,7 @@ reserved key is one extra key it does not know. A tool that rejects a top-level 
 still leaves one key free for foreign data, `metadata`, so for that file class the registry nests the block there (`key: metadata.catzc`):
 the block keeps its own key and its parts, the tooling writes the parent key when the file lacks it and leaves every sibling under it alone,
 and a parent written as a flow mapping cannot take a nested block, which is a finding for the author, never a rewrite. The parts never mix:
-`immutable` is its writer's, `edges` is imprinted and rewritten, `config` is authored and kept. The code carrier, the form of a head in a C#
+`immutable` is its writer's, the edges are imprinted and rewritten, `config` is authored and kept. The code carrier, the form of a head in a C#
 or PowerShell file, is in [code-file-meta](code-file-meta.md). Which carrier each file class has, or why it has none, is one registry,
 `file-carriers.yml`, so a gap in the coverage is a visible entry.
 
@@ -282,7 +278,7 @@ registry serves every carrier, so there is one list of kinds to keep in step and
 
 ### Imprinted, never hand-edited
 
-`The formatter owns edges`
+`The formatter owns the edges`
 
 An imprinted value is computed from the file and the repository, so a hand edit would only be overwritten, and a stale one would mislead.
 The formatter writes the part in a fixed order and form, and the check fails when the file differs from what the formatter would write. No
@@ -338,9 +334,9 @@ carries a block.
 
 A file has two kinds of derived fact, and they answer different questions. Where does the repository put this file, and what does it make of
 that place: its folder, its name, its role, its language, its track and its module, all read from registries the repository configures, so
-the same file in another repository would have other values. And what does this file itself say it is related to: the rules it and its
-comment page cite, and the page that holds its comments, read from the file and fixed by its text; its test is found by convention, so it is
-no edge. The first is a property of the node, the second a set of directed, named edges leaving it. The place facts are asked of the
+the same file in another repository would have other values. And what is this file related to: the page that holds its comments; its test
+is found by convention, so it is no edge, and the rules it cites are read from its text whenever a command asks, so a head never copies
+them. The first is a property of the node, the second a set of directed, named edges leaving it. The place facts are asked of the
 registries, so a head shows none of them, and on a tracked generated file the body hash alone stamps the text its writer composed. An edge
 is named for the relation, so a new relation is a new name and a registry entry, and the target of an edge is spelled the same way wherever
 it is read.
@@ -354,8 +350,8 @@ since the convention places it, its stem under `tests/`, so a head that named it
 the page as a link in the code would put a pointer in the file and a line to keep in step with the page. The head already holds derived
 facts, so the page is an edge with a fixed name, the only relative edge, and the head stays a map of facts about its own file. The registry
 holds the edge and its path rule, and an edge whose page does not exist is not written, so an entry in the head is always a working pointer.
-The edge is written as a link, which an editor and GitHub follow in one click because its target is the page's path from the file's own
-folder, the way both resolve a link.
+The edge is written as the page's plain path from the file's own folder, the way an editor and GitHub resolve a relative path, and the head
+stays two short lines: the path and the warning.
 
 ### File kinds
 
@@ -386,15 +382,16 @@ read past on each file they open, and churn on every edit of the body. So every 
 a format run prints one only where it pays. A generated file carries the warning, so a reader is told not to edit it; while git tracks it,
 its head also stamps the body its writer composed, the body it is immutable with, and an untracked generated file, which no commit compares,
 carries the warning alone. An authored file tracked in git, Markdown as much as code and config, is opened on GitHub or in an editor by a
-reader who wants its comment page and the rules it and its page cite one step away, so it carries `docs` and `cites` when it has them, and
-nothing else: a body hash on an authored file changes on every edit and tells a reader nothing, and its test is found by convention. An
-authored file with neither carries no head, so a format run clears the head it no longer calls for. A diagram declaration's facts are all in
+reader who wants its comment page one step away, so it carries `docs` when it has one, and nothing else: a body hash on an authored file
+changes on every edit and tells a reader nothing, its test is found by convention, and the rules it cites are in its own text, where a list
+in the head would only repeat them and churn with every citation. An authored file without a page carries no head, so a format run clears
+the head it no longer calls for. A diagram declaration's facts are all in
 its own body, so it carries none, and a binary has no place for one. An agent, skill or slide definition's front matter is its own tool's
 keys, so the policy leaves it as authored; a capability keeps the authored `config` part its tool reads.
 
 ### How this is enforced
 
-- **`Format-FileMeta`** imprints the `edges` part and `Test-FileMeta` fails any difference, in scope and in form.
+- **`Format-FileMeta`** imprints the edges and `Test-FileMeta` fails any difference, in scope and in form.
 - **`Test-FileMetaProcessors`** fails a kind without its function and a function without a kind.
 - **`Test-FileKindReachability.Tests.ps1`** (`Catzc.Base.Globs`) fails a kind no tracked file reaches, and a kind mostly shadowed by an
   earlier one that the registry's `overlaps` does not pair it with (ADR-REPO-FILEMETA-ROLE).

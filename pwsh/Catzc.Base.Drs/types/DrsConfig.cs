@@ -60,7 +60,16 @@ public sealed class DrsConfig
     // The long name of a registered kind (Thesis Decision Record), or null for one not registered.
     public string KindName(string kind) => kind != null && kindNames.TryGetValue(kind, out string name) ? name : null;
 
-    private static readonly string[] AllowedKeys = { "root", "kinds", "domains" };
+    private static readonly string[] AllowedKeys = { "root", "kinds", "domains", "domain_classes" };
+
+    // The file classes whose citations also count a bare domain code (a file kind with at most one '*'): the code classes.
+    public static readonly IReadOnlyList<string> DefaultDomainClasses = Array.AsReadOnly(new[]
+    {
+        "type", "function", "config", "hook", "module/internal", "pipeline", "pipeline-template", "template", "test", "fixture", "asset", "analyzer-rule",
+    });
+
+    // The file classes whose citations also count a bare domain code; DefaultDomainClasses when drs.yml names none.
+    public IReadOnlyList<string> DomainClasses { get; private set; } = DefaultDomainClasses;
 
     // The repository-relative folder that holds every decision record when drs.yml names none.
     public const string DefaultRoot = "docs/drs";
@@ -100,6 +109,15 @@ public sealed class DrsConfig
                     errors.Add(string.Format("unknown top-level key '{0}' (allowed: {1})", topKey, string.Join(", ", AllowedKeys)));
                 }
             }
+        }
+
+        object declaredClasses = raw != null && raw.Contains("domain_classes") ? raw["domain_classes"] : null;
+        if (declaredClasses != null)
+        {
+            List<string> classes = new List<string>();
+            if (declaredClasses is string || !(declaredClasses is IEnumerable)) { errors.Add("'domain_classes' must be a list of file classes"); }
+            else { foreach (object item in (IEnumerable)declaredClasses) { if (item is string name && name.Length > 0) { classes.Add(name); } else { errors.Add("'domain_classes' holds an empty class"); } } }
+            DomainClasses = classes.AsReadOnly();
         }
 
         List<string> kinds = new List<string>();

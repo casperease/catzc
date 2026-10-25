@@ -1,0 +1,31 @@
+# pwsh/Catzc.Base.Globs/Get-RepositoryFilter.ps1
+
+The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its
+comment sat above (Export-Comments), and Build-CommentView puts every comment back there for reading.
+
+## comment:1
+
+Above `$literal = { param([string[]] $Paths) foreach ($path in $Paths) {`, written with `#`.
+
+```text
+A set claims a path that one of its includes matches and none of its excludes does. A literal path claims itself and what lies
+under it, so a new file is classified by the same patterns the model holds, never by a stale list of files.
+```
+
+## comment:2
+
+Above `$owned = {`, written with `#`.
+
+```text
+A track's files: each of its places and what lies under it, less the places of the tracks nested inside it (`.github` without
+`.github/workflows`), because every file is in exactly one track.
+```
+
+## comment:3
+
+Above `if (@($filter.extensions).Count -gt 0) {`, written with `#`.
+
+```text
+A filter with extensions is that part of its sets: a tree include ('<folder>/**', '**') keeps only those extensions below it, a
+file include ('<folder>/*.ps1', a literal path) stays when its extension is one of them, and the excludes stay as they are.
+```

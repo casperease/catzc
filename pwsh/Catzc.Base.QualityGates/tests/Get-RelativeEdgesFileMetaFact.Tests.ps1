@@ -29,7 +29,7 @@ Describe 'Get-RelativeEdgesFileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-
         function script:Get-Kind {
             param($Relations = $script:relations)
             [Catzc.Base.QualityGates.FileMetaConfig]::new(@{
-                    kinds = [ordered]@{ 'relative-edges' = @{ section = 'edges'; keys = @($Relations | ForEach-Object { $_['name'] }); settings = @{ relations = $Relations } } }
+                    kinds = [ordered]@{ 'relative-edges' = @{ keys = @($Relations | ForEach-Object { $_['name'] }); settings = @{ relations = $Relations } } }
                 }).kinds[0]
         }
 

@@ -83,6 +83,40 @@ public sealed class GlobPattern
         Pattern = pattern;
         segments = compiled;
         isAnyDepth = anyDepth;
+        int literal = 0;
+        while (literal < parts.Length - 1 && !anyDepth[literal] && !WildcardPattern.ContainsWildcardCharacters(parts[literal]))
+        {
+            literal++;
+        }
+        LiteralPrefix = literal == 0 ? string.Empty : string.Join("/", parts, 0, literal) + "/";
+    }
+
+    // The folder path before the first wildcard segment, '/'-terminated, or empty: every path the pattern matches starts with it.
+    public string LiteralPrefix { get; }
+
+    // The paths, in their order, that at least one of the patterns matches; each pattern is tried only on the paths under its literal
+    // prefix, so a list of many paths is matched in one call.
+    public static string[] MatchingPaths(string[] patterns, string[] repoRelativePaths)
+    {
+        GlobPattern[] compiled = new GlobPattern[patterns?.Length ?? 0];
+        for (int i = 0; i < compiled.Length; i++)
+        {
+            compiled[i] = new GlobPattern(patterns[i]);
+        }
+        System.Collections.Generic.List<string> kept = new System.Collections.Generic.List<string>();
+        foreach (string path in repoRelativePaths ?? new string[0])
+        {
+            if (string.IsNullOrEmpty(path)) { continue; }
+            foreach (GlobPattern glob in compiled)
+            {
+                if (path.StartsWith(glob.LiteralPrefix, StringComparison.Ordinal) && glob.Matches(path))
+                {
+                    kept.Add(path);
+                    break;
+                }
+            }
+        }
+        return kept.ToArray();
     }
 
     // True when the repo-relative, '/'-separated path matches. A null/empty path matches nothing.

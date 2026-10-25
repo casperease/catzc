@@ -12,17 +12,24 @@ catzc:
 
 Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION' {
     BeforeAll {
-        # The one code the fixture cites, registered with ten rules, so the drs-codes kind keeps it.
-        Mock Get-DrsCitationMap -ModuleName Catzc.Base.QualityGates {
-            [Catzc.Base.Drs.DrsCitationMap]::new(@{ 'ADR-GADGET' = @{ path = 'docs/drs/gadget.md'; rules = [string[]] @('ADR-GADGET-TURN', 'ADR-GADGET-SPIN', 'ADR-GADGET-FOLD', 'ADR-GADGET-LIFT') } }, @())
-        }
-        $script:state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nSee ADR-GADGET-TURN.`n"
-        # A fixture kind with a fixture processor, so a second kind writes into the edges beside the shipped one.
+        $script:state = Get-MarkdownMetaState -Text "# docs/widget.md`n`nA gadget tint.`n"
+        # Two fixture kinds with fixture processors: a fixed shade, and a tint read from the file's body, never from its head.
         InModuleScope Catzc.Base.QualityGates {
             function script:Get-WidgetShadeFileMetaFact {
                 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The engine passes State, Path and Kind by name; the fixture fact needs none')]
                 param($State, $Path, $Kind)
                 [ordered]@{ shade = 'blue' }
+            }
+            function script:Get-WidgetTintFileMetaFact {
+                [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', '', Justification = 'The engine passes State, Path and Kind by name; the fixture fact reads the body alone')]
+                param($State, $Path, $Kind)
+                $body = if ($State.PSObject.Properties['Body']) {
+                    $State.Body
+                }
+                else {
+                    $State.Rest
+                }
+                [ordered]@{ tint = ($body -split "`n" | Where-Object { $_ -like '*tint*' } | Select-Object -First 1) }
             }
         }
 
@@ -56,21 +63,22 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     AfterAll {
         InModuleScope Catzc.Base.QualityGates {
             Remove-Item Function:\Get-WidgetShadeFileMetaFact -ErrorAction Ignore
+            Remove-Item Function:\Get-WidgetTintFileMetaFact -ErrorAction Ignore
         }
     }
 
     It 'collects the facts of every kind that applies, in registry order' {
-        $facts = Get-Facts @{ kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites', 'drs_total'); section = 'edges' }; 'widget-shade' = @{ keys = @('shade') } } }
-        @($facts.PSObject.Properties.Name) | Should -Be @('Edges') -Because 'an imprint kind writes under edges only, so no immutable part comes back'
-        $facts.Edges.Keys | Should -Be @('cites', 'drs_total', 'shade')
-        $facts.Edges['cites'] | Should -Be @('ADR-GADGET-TURN')
+        $facts = Get-Facts @{ kinds = [ordered]@{ 'widget-tint' = @{ keys = @('tint') }; 'widget-shade' = @{ keys = @('shade') } } }
+        @($facts.PSObject.Properties.Name) | Should -Be @('Edges') -Because 'an imprint kind writes edges only, so no immutable part comes back'
+        $facts.Edges.Keys | Should -Be @('tint', 'shade')
+        $facts.Edges['tint'] | Should -BeExactly 'A gadget tint.'
     }
 
     It 'puts every key into the edges, the one part an imprint kind writes, in registry order' -Tag 'ADR-REPO-FILEMETA-FILEISNODE' {
         Mock Get-RelativeEdgesFileMetaFact { [ordered]@{ role = 'widget' } } -ModuleName Catzc.Base.QualityGates
-        $facts = Get-Facts @{ kinds = [ordered]@{ 'widget-shade' = @{ keys = @('shade') }; 'drs-codes' = @{ keys = @('cites', 'drs_total'); section = 'edges' }; gadget = @{ keys = @('role'); processor = 'Get-RelativeEdgesFileMetaFact' } } }
-        @($facts.PSObject.Properties.Name) | Should -Be @('Edges') -Because 'an imprint kind writes under edges only, so no immutable part comes back'
-        $facts.Edges.Keys | Should -Be @('shade', 'cites', 'drs_total', 'role')
+        $facts = Get-Facts @{ kinds = [ordered]@{ 'widget-shade' = @{ keys = @('shade') }; 'widget-tint' = @{ keys = @('tint') }; gadget = @{ keys = @('role'); processor = 'Get-RelativeEdgesFileMetaFact' } } }
+        @($facts.PSObject.Properties.Name) | Should -Be @('Edges') -Because 'an imprint kind writes edges only, so no immutable part comes back'
+        $facts.Edges.Keys | Should -Be @('shade', 'tint', 'role')
     }
 
     It 'skips a kind that selects neither the file''s class nor its language' -ForEach @(
@@ -80,9 +88,9 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     ) {
         $facts = Get-Facts @{
             classes = @(@{ class = 'widget'; files = @('docs/**') })
-            kinds   = [ordered]@{ 'widget-shade' = @{ keys = @('shade'); select = $Select }; 'drs-codes' = @{ keys = @('cites', 'drs_total'); section = 'edges' } }
+            kinds   = [ordered]@{ 'widget-shade' = @{ keys = @('shade'); select = $Select }; 'widget-tint' = @{ keys = @('tint') } }
         }
-        $facts.Edges.Keys | Should -Be @('cites', 'drs_total')
+        $facts.Edges.Keys | Should -Be @('tint')
     }
 
     It 'applies a kind when any select entry matches both the class and the language it names' -ForEach @(
@@ -104,15 +112,15 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     }
 
     It 'uses the function an entry names instead of the convention' {
-        Mock Get-DrsCodesFileMetaFact { [ordered]@{ role = 'widget' } } -ModuleName Catzc.Base.QualityGates
-        $facts = Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('role'); processor = 'Get-DrsCodesFileMetaFact' } } }
+        Mock Get-RelativeEdgesFileMetaFact { [ordered]@{ role = 'widget' } } -ModuleName Catzc.Base.QualityGates
+        $facts = Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('role'); processor = 'Get-RelativeEdgesFileMetaFact' } } }
         $facts.Edges['role'] | Should -BeExactly 'widget'
     }
 
     It 'reads each file in scope by its path, and a head on the file changes no fact' {
-        $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'drs-codes' = @{ keys = @('cites', 'drs_total'); section = 'edges' } } })
-        $body = "# docs/widget.md`n`nSee ADR-GADGET-TURN.`n"
-        $headed = "---`ncatzc:`n  immutable:`n    with_body_sha: `"000000000000`"`n  edges:`n    cites:`n      - ADR-GADGET-SPIN`n---`n`n" + $body
+        $config = [Catzc.Base.QualityGates.FileMetaConfig]::new(@{ kinds = [ordered]@{ 'widget-tint' = @{ keys = @('tint') } } })
+        $body = "# docs/widget.md`n`nA gadget tint.`n"
+        $headed = "---`ncatzc:`n  tint: a head tint`n  immutable:`n    with_body_sha: `"000000000000`"`n---`n`n" + $body
         $carrier = [pscustomobject]@{ carrier = [Catzc.Base.Languages.CarrierKind]::FrontMatter; key = [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey }
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $TestDrive }
         Mock Get-FileMetaScope -ModuleName Catzc.Base.QualityGates { foreach ($item in $Path) {
@@ -123,8 +131,8 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
         [System.IO.File]::WriteAllText((Join-Path $TestDrive 'docs/gadget.md'), $headed)
         $facts = @(InModuleScope Catzc.Base.QualityGates -Parameters @{ Config = $config } { param($Config) Get-FileMetaFact 'docs/widget.md', 'docs/gadget.md' -Config $Config })
         $facts.Path | Should -Be @('docs/widget.md', 'docs/gadget.md')
-        $facts[1].Edges['cites'] | Should -Be @('ADR-GADGET-TURN')
-        $facts[1].Edges['cites'] | Should -Be $facts[0].Edges['cites']
+        $facts[1].Edges['tint'] | Should -BeExactly 'A gadget tint.'
+        $facts[1].Edges['tint'] | Should -Be $facts[0].Edges['tint']
     }
 
     It 'skips a file the index lists but the working tree has lost' {
@@ -140,8 +148,8 @@ Describe 'Get-FileMetaFact' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-SUBSCRIBEBYFU
     }
 
     It 'rejects a processor that returns keys its kind does not declare' {
-        Mock Get-DrsCodesFileMetaFact { [ordered]@{ surprise = 'x' } } -ModuleName Catzc.Base.QualityGates
-        { Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('role'); processor = 'Get-DrsCodesFileMetaFact' } } } } |
+        Mock Get-RelativeEdgesFileMetaFact { [ordered]@{ surprise = 'x' } } -ModuleName Catzc.Base.QualityGates
+        { Get-Facts @{ kinds = [ordered]@{ gadget = @{ keys = @('role'); processor = 'Get-RelativeEdgesFileMetaFact' } } } } |
             Should -Throw "*returned keys ``[surprise``], but kind 'gadget' declares ``[role``]*"
     }
 }

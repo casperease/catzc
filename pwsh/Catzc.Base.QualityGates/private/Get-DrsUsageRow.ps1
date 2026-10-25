@@ -25,16 +25,12 @@ function Get-DrsUsageRow {
         [Catzc.Base.Drs.DrsCitationMap] $Map,
 
         [Parameter(Mandatory)]
-        [Catzc.Base.QualityGates.FileMetaKind] $Kind,
-
-        [Parameter(Mandatory)]
         [Catzc.Base.CodeMeta.CommentPagesConfig] $Pages,
 
         [Catzc.Base.CodeMeta.HeadForm] $Form
     )
 
     # The rows come from the file's text through the processors the imprint uses, never from its head.
-    $citesKind = $Kind
     $isCode = $PSBoundParameters.ContainsKey('Form')
     $state = if ($isCode) {
         Get-CodeMetaState -Text $Text -Form $Form
@@ -42,7 +38,7 @@ function Get-DrsUsageRow {
     else {
         Get-MarkdownMetaState -Text $Text
     }
-    $adrs = @((Get-DrsCodesFileMetaFact -State $state -Path $Path -Kind $citesKind)[$citesKind.keys[0]])
+    $adrs = @(Get-DrsCitation -State $state -Path $Path)
     $links = @(if ($isCode) {
             @()
         }

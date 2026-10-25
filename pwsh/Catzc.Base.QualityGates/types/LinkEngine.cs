@@ -40,7 +40,7 @@ public sealed class LinkEngine
         RegexOptions.Compiled);
     // A head's `---` fence, bare in a block-comment head or behind a line marker, and the head's docs edge, a link the head's own folder resolves.
     static readonly Regex HeadFence = new Regex(@"^[ \t]*(?:#|//)?[ \t]*---[ \t]*\r?$", RegexOptions.Compiled | RegexOptions.Multiline);
-    static readonly Regex HeadDocsEdge = new Regex(@"^[ \t]*(?:#|//)?[ \t]*docs:[ \t]*""\[[^\]\r\n]*\]\((?<target>[^)\s]+)\)""",
+    static readonly Regex HeadDocsEdge = new Regex(@"^[ \t]*(?:#|//)?[ \t]*docs:[ \t]*""?(?<target>[^""\s]+)""?[ \t]*$",
         RegexOptions.Compiled | RegexOptions.Multiline);
     // A number written out, or one composed at runtime after the `#` or `:`: an interpolated variable or a format placeholder.
     readonly Regex StringNumberedCitation;

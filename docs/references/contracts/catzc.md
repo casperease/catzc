@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "826e8a0ba0d1"
+    with_body_sha: e9c92799b5b8
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -102,6 +102,7 @@ The draft: the one mutable version folder
 | `catzc.base.quality_gates`             | `test_formatting.command.yml`                    | `pwsh/Catzc.Base.QualityGates/Test-Formatting.ps1`                        | provided                | command contract | `language: string[], path: string[], output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                            |
 | `catzc.base.quality_gates`             | `test_generated_files.command.yml`               | `pwsh/Catzc.Base.QualityGates/Test-GeneratedFiles.ps1`                    | provided                | command contract | `generator: string[] in writers, changed: switch, stamp_only: switch in stamp, output_folder: string, pass_thru: switch; default set writers -> catzc.base.reports.quality_gate_result`                                                                                                                                                                             |
 | `catzc.base.quality_gates`             | `test_in_isolation.command.yml`                  | `pwsh/Catzc.Base.QualityGates/Test-InIsolation.ps1`                       | provided                | command contract | `module_profile: string = minimal in module_profile, modules: string[]! in modules, isolation: string = Process, category: string = Logic, max_level: int = 1, min_level: int = 0, destination: string, keep_sandbox: switch, pass_thru: switch; default set module_profile -> catzc.base.reports.isolation_run_result`                                             |
+| `catzc.base.quality_gates`             | `test_link_directions.command.yml`               | `pwsh/Catzc.Base.QualityGates/Test-LinkDirections.ps1`                    | provided                | command contract | `path: string[], repository_root: string, output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                       |
 | `catzc.base.quality_gates`             | `test_links.command.yml`                         | `pwsh/Catzc.Base.QualityGates/Test-Links.ps1`                             | provided                | command contract | `path: string[], kind: catzc.base.quality_gates.link_kind, repository_root: string, output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                             |
 | `catzc.base.quality_gates`             | `test_logic_test_identity.command.yml`           | `pwsh/Catzc.Base.QualityGates/Test-LogicTestIdentity.ps1`                 | provided                | command contract | `path: string[], output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                |
 | `catzc.base.quality_gates`             | `test_managed_guids.command.yml`                 | `pwsh/Catzc.Base.QualityGates/Test-ManagedGuids.ps1`                      | provided                | command contract | `output_folder: string, pass_thru: switch -> catzc.base.reports.quality_gate_result`                                                                                                                                                                                                                                                                                |
@@ -347,18 +348,17 @@ Notes:
   root, a computed default the contract does not restate.
 - `catzc.base.quality_gates/head.sample.yml`: Provided sample of a file's meta head
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the shape a tool may rely
-  on when it reads the `catzc.warning`, `catzc.immutable` and `catzc.edges` parts of a head. A head has two shapes. The head of an authored
-  file, this sample, opens with a warning naming the command that writes it, then its edges: its comment page (`docs`), the ADR codes its
-  prose cites (`cites`), and the count of every distinct code the document cites, diagram blocks included (`drs_total`); a file with no edge
-  carries no head. A generated file's head holds `with_body_sha` while git tracks the file, then `warning`, under `immutable`. Every other
-  fact about a file is derived on demand, never shown. No key is required, and a fact a file has no value for is left out. Its schema,
-  head.schema.json, lists the keys of both shapes.
+  on when it reads the `catzc` block of a head. A head has two shapes. The head of an authored file, this sample, holds its one edge first,
+  `docs`, its comment page's plain path from the file's own folder, then the short warning; a file with no comment page carries no head, and
+  the rule codes a file cites are read from its text, never from a head. A generated file's head holds `with_body_sha` while git tracks the
+  file, then `warning`, under `immutable`. Every other fact about a file is derived on demand, never shown. No key is required, and a fact a
+  file has no value for is left out. Its schema, head.schema.json, lists the keys of both shapes.
 - `catzc.base.quality_gates/head.schema.json`: Provided schema of a file's meta head, validated against the sample beside it
-  (ADR-REPO-CONTRACT-CONTRACTASSET): the keys of catzc.immutable and catzc.edges, which a tool may rely on. The head of an authored file
-  holds a warning naming the command that writes it (catzc.warning) and its edges, its comment page (docs) and the ADR codes its prose cites
-  (cites), with the count of every distinct code the document cites, its yml drawio blocks included (drs_total), and a file with neither
-  edge carries no head. A generated file's head holds warning, and with_body_sha while git tracks the file. Every other fact about a file is
-  derived on demand. A fact a file has no value for is left out, so no key is required.
+  (ADR-REPO-CONTRACT-CONTRACTASSET): the keys of the catzc block, which a tool may rely on. The head of an authored file holds its one edge
+  first, its comment page's plain path from the file's own folder (docs), then a short warning (catzc.warning), and a file with no comment
+  page carries no head; the rule codes a file cites are read from its text, never from a head. A generated file's head holds warning, and
+  with_body_sha while git tracks the file, under immutable. Every other fact about a file is derived on demand. A fact a file has no value
+  for is left out, so no key is required.
 - `catzc.base.quality_gates/test_analyzer_drs_map.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Test-AnalyzerDrsMap, the quality gate that checks the analyzer map cites only real ADR rules and maps every custom analyzer
   rule, and returns its result under -PassThru.
@@ -389,6 +389,9 @@ Notes:
 - `catzc.base.quality_gates/test_in_isolation.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Test-InIsolation, which copies a module profile or named modules into a sandbox, runs their tests there and returns the run's
   result under -PassThru.
+- `catzc.base.quality_gates/test_link_directions.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
+  interface of Test-LinkDirections, the link-direction quality gate that fails on any relation the direction rows deny or no row allows, and
+  returns its result under -PassThru.
 - `catzc.base.quality_gates/test_links.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of
   Test-Links, the link quality gate that fails on any off-form, dangling or dead link or citation, and returns its result, with the
   report-mode findings, under -PassThru.

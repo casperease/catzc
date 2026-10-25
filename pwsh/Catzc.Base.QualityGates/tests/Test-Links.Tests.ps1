@@ -54,7 +54,7 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
     }
 
     It 'resolves a code head''s docs edge from the file''s folder, and reports one that does not open' -Tag 'ADR-REPO-FILEMETA-FEWLINKS' {
-        $head = { param([string] $Target) "<#`n---`ncatzc:`n  edges:`n    docs: ""[widget.ps1.md]($Target)""`n---`n#>`n`nfunction Get-Widget { }`n" }
+        $head = { param([string] $Target) "<#`n---`ncatzc:`n  docs: ""$Target""`n  warning: ""Generated Header""`n---`n#>`n`nfunction Get-Widget { }`n" }
         & $writeFile $root 'docs/references/src/widget.ps1.md' "# src/widget.ps1`n"
         & $writeFile $root 'src/widget.ps1' (& $head '../docs/references/src/widget.ps1.md')
         (Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru).IssueCount | Should -Be 0
@@ -62,7 +62,7 @@ Describe 'Test-Links' -Tag 'L0', 'logic' {
         & $writeFile $root 'src/widget.ps1' (& $head 'docs/references/src/widget.ps1.md')
         $result = Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru
         $result.IssueCount | Should -Be 1
-        $result.Issues[0] | Should -Match 'src/widget\.ps1:5:.*\[Dangling\].*docs edge .docs/references/src/widget\.ps1\.md. does not resolve from the file''s folder'
+        $result.Issues[0] | Should -Match 'src/widget\.ps1:4:.*\[Dangling\].*docs edge .docs/references/src/widget\.ps1\.md. does not resolve from the file''s folder'
 
         & $writeFile $root 'src/widget.ps1' (& $head '../docs/references/src/gone.ps1.md')
         (Test-Links -RepositoryRoot $root -Path (Join-Path $root 'src') -OutputFolder $reportBase -PassThru).IssueCount | Should -Be 1

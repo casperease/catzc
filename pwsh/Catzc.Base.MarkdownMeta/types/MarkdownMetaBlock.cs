@@ -22,9 +22,11 @@ namespace Catzc.Base.MarkdownMeta;
 public static class MarkdownMetaBlock
 {
     public const string ImmutableKey = "immutable";
-    public const string EdgesKey = "edges";
     public const string ConfigKey = "config";
     public const string WarningKey = "warning";
+
+    // The keys at the block's first level that are no imprinted fact: every other first-level key is one.
+    static readonly HashSet<string> PartKeys = new HashSet<string>(StringComparer.Ordinal) { ImmutableKey, ConfigKey, WarningKey };
 
     static readonly Regex PlainSafe = new Regex(@"^[A-Za-z_][A-Za-z0-9_./#@+-]*$", RegexOptions.Compiled);
 
@@ -39,7 +41,8 @@ public static class MarkdownMetaBlock
     public static IReadOnlyList<string> Render(IDictionary immutable, IDictionary edges, IReadOnlyList<string> config) =>
         Render(null, immutable, edges, config);
 
-    // The block in its one canonical order: the warning line, the place facts, the edges, then the authored config.
+    // The block in its one canonical order: the imprinted facts at the first level (the docs edge first), the warning line, the place
+    // facts of a generated head, then the authored config.
     public static IReadOnlyList<string> Render(string warning, IDictionary immutable, IDictionary edges, IReadOnlyList<string> config)
     {
         var lines = new List<string>();
@@ -48,9 +51,9 @@ public static class MarkdownMetaBlock
         bool warned = !string.IsNullOrEmpty(warning);
         if (!warned && places.Count == 0 && outgoing.Count == 0 && (config == null || config.Count == 0)) { return lines; }
         lines.Add(MarkdownDocument.MetaKey + ":");
+        RenderFacts(lines, "  ", outgoing);
         if (warned) { lines.Add("  " + WarningKey + ": " + Scalar(warning)); }
         RenderPart(lines, ImmutableKey, places);
-        RenderPart(lines, EdgesKey, outgoing);
         if (config != null && config.Count > 0)
         {
             lines.Add("  " + ConfigKey + ":");
@@ -75,24 +78,29 @@ public static class MarkdownMetaBlock
     {
         if (present.Count == 0) { return; }
         lines.Add("  " + name + ":");
+        RenderFacts(lines, "    ", present);
+    }
+
+    static void RenderFacts(List<string> lines, string indent, List<DictionaryEntry> present)
+    {
         foreach (DictionaryEntry fact in present)
         {
             string key = Key(fact.Key as string);
             if (fact.Value is IDictionary map)
             {
-                lines.Add("    " + key + ":");
-                foreach (DictionaryEntry slot in map) { lines.Add("      " + Key(slot.Key as string) + ": " + Scalar(slot.Value)); }
+                lines.Add(indent + key + ":");
+                foreach (DictionaryEntry slot in map) { lines.Add(indent + "  " + Key(slot.Key as string) + ": " + Scalar(slot.Value)); }
             }
             else if (fact.Value is IEnumerable items && !(fact.Value is string))
             {
                 var list = new List<string>();
                 foreach (object item in items) { list.Add(Scalar(item)); }
-                lines.Add("    " + key + ":");
-                foreach (string item in list) { lines.Add("      - " + item); }
+                lines.Add(indent + key + ":");
+                foreach (string item in list) { lines.Add(indent + "  - " + item); }
             }
             else
             {
-                lines.Add("    " + key + ": " + Scalar(fact.Value));
+                lines.Add(indent + key + ": " + Scalar(fact.Value));
             }
         }
     }
@@ -149,37 +157,32 @@ public static class MarkdownMetaBlock
         return lines;
     }
 
-    // The keys at the block's first level, two spaces in: `immutable`, `edges`, `config`, and anything else an author wrote.
+    // The keys at the block's first level, two spaces in: the imprinted facts, `warning`, `immutable`, `config`.
     public static IReadOnlyList<string> SectionKeys(IReadOnlyList<string> block) => KeysAt(block, 2, null);
 
     // The keys one level down inside `immutable`, four spaces in.
     public static IReadOnlyList<string> ImmutableKeys(IReadOnlyList<string> block) => KeysAt(block, 4, ImmutableKey);
 
-    // The keys one level down inside `edges`, four spaces in: the names of the edges.
-    public static IReadOnlyList<string> EdgeKeys(IReadOnlyList<string> block) => KeysAt(block, 4, EdgesKey);
+    // The imprinted facts: the first-level keys that are no part (warning, immutable, config), the names of the edges.
+    public static IReadOnlyList<string> EdgeKeys(IReadOnlyList<string> block)
+    {
+        var keys = new List<string>();
+        foreach (string key in SectionKeys(block)) { if (!PartKeys.Contains(key)) { keys.Add(key); } }
+        return keys;
+    }
 
-    // The items of one list edge, as written; empty when the edge is absent or holds a scalar.
-    public static IReadOnlyList<string> EdgeList(IReadOnlyList<string> block, string key) => ListIn(block, EdgesKey, key);
-
-    static List<string> ListIn(IReadOnlyList<string> block, string section, string key)
+    // The items of one list edge at the first level, as written; empty when the edge is absent or holds a scalar.
+    public static IReadOnlyList<string> EdgeList(IReadOnlyList<string> block, string key)
     {
         var items = new List<string>();
         if (block == null) { return items; }
-        bool inSection = false;
         bool inKey = false;
         foreach (string line in block)
         {
-            if (line.StartsWith("  ", StringComparison.Ordinal) && !line.StartsWith("   ", StringComparison.Ordinal))
+            if (line.StartsWith("  ", StringComparison.Ordinal) && line.Length > 2 && line[2] != ' ' && line[2] != '-')
             {
-                inSection = line.TrimEnd() == "  " + section + ":";
-                inKey = false;
-                continue;
-            }
-            if (!inSection) { continue; }
-            if (line.StartsWith("    ", StringComparison.Ordinal) && line.Length > 4 && line[4] != ' ' && line[4] != '-')
-            {
-                inKey = line.Substring(4).Trim('"').StartsWith(key + ":", StringComparison.Ordinal)
-                    || line.Substring(4).StartsWith("\"" + key + "\":", StringComparison.Ordinal);
+                inKey = line.Substring(2).StartsWith(key + ":", StringComparison.Ordinal)
+                    || line.Substring(2).StartsWith("\"" + key + "\":", StringComparison.Ordinal);
                 continue;
             }
             string item = line.TrimStart();

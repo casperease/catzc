@@ -102,4 +102,26 @@ Describe 'GlobPattern' -Tag 'L0', 'logic' {
             "$([Catzc.Base.Globs.GlobPattern]::new('a/**/b'))" | Should -Be 'a/**/b'
         }
     }
+
+    Context 'matching a path list in one call' {
+        It 'names the folder before the first wildcard segment as the literal prefix' {
+            [Catzc.Base.Globs.GlobPattern]::new('widget/gadget/**').LiteralPrefix | Should -Be 'widget/gadget/'
+            [Catzc.Base.Globs.GlobPattern]::new('widget/*/spin.yml').LiteralPrefix | Should -Be 'widget/'
+            [Catzc.Base.Globs.GlobPattern]::new('**/README.md').LiteralPrefix | Should -Be ''
+            [Catzc.Base.Globs.GlobPattern]::new('widget/spin.yml').LiteralPrefix | Should -Be 'widget/'
+        }
+
+        It 'keeps the paths any pattern matches, in their order, once each' {
+            $paths = [string[]] @('gadget/b.yml', 'widget/a.txt', 'docs/index.md', 'gadget/c.txt', 'widget/deep/d.txt')
+            $kept = [Catzc.Base.Globs.GlobPattern]::MatchingPaths([string[]] @('widget/**', 'gadget/*.yml', 'widget/a.txt'), $paths)
+            @($kept) | Should -Be @('gadget/b.yml', 'widget/a.txt', 'widget/deep/d.txt')
+        }
+
+        It 'matches what Matches matches, path by path' {
+            $patterns = [string[]] @('widget/*/spin.yml', '**/README.md')
+            $paths = [string[]] @('widget/gadget/spin.yml', 'widget/spin.yml', 'README.md', 'gadget/README.md', 'widget/gadget/deep/spin.yml')
+            $expected = @($paths | Where-Object { $p = $_; @($patterns | Where-Object { [Catzc.Base.Globs.GlobPattern]::new($_).Matches($p) }).Count -gt 0 })
+            @([Catzc.Base.Globs.GlobPattern]::MatchingPaths($patterns, $paths)) | Should -Be $expected
+        }
+    }
 }

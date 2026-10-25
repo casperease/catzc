@@ -57,28 +57,6 @@ Describe 'RootConfigFiles' -Tag 'L0', 'logic' {
     }
 }
 
-Describe 'RootConfigFiles.GeneratorInputs' -Tag 'L0', 'logic', 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
-    It 'names the four generator modules and the head writer''s files under the modules root, sorted, existing or not' {
-        $root = Join-Path $TestDrive 'widget-modules'
-        $inputs = [Catzc.Base.RootConfig.RootConfigFiles]::GeneratorInputs($root)
-        $relative = @($inputs | ForEach-Object { [System.IO.Path]::GetRelativePath($root, $_).Replace('\', '/') })
-        $relative | Should -Be @(
-            'Catzc.Base.Contracts'
-            'Catzc.Base.Git'
-            'Catzc.Base.Languages/Format-GeneratedFileHead.ps1'
-            'Catzc.Base.Languages/New-GoWorkspace.ps1'
-            'Catzc.Base.Languages/New-PythonProject.ps1'
-            'Catzc.Base.Languages/configs/generated-head.yml'
-            'Catzc.Base.RootConfig'
-            'Catzc.Base.VSCode'
-        )
-    }
-
-    It 'refuses an empty modules root' {
-        { [Catzc.Base.RootConfig.RootConfigFiles]::GeneratorInputs('') } | Should -Throw '*modulesRoot*'
-    }
-}
-
 Describe 'RootConfigFiles tool settings' -Tag 'L0', 'logic' {
     It 'names cspell.yml and .markdownlint.yml at the repository root, and refuses an empty root' {
         $root = Join-Path $TestDrive 'widget-repository'

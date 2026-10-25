@@ -7,7 +7,19 @@ const [scenario, root, script] = process.argv.slice(2);
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function stub(seed) {
-    const record = { commands: new Map(), registered: 0, disposed: 0, duplicates: [], contexts: [], updates: [], concurrent: 0, maxConcurrent: 0, watchers: [], logs: [], diagnostics: [] };
+    const record = {
+        commands: new Map(),
+        registered: 0,
+        disposed: 0,
+        duplicates: [],
+        contexts: [],
+        updates: [],
+        concurrent: 0,
+        maxConcurrent: 0,
+        watchers: [],
+        logs: [],
+        diagnostics: [],
+    };
     let exclude = {};
     let owned;
     const disposable = (on) => ({ dispose: () => (record.disposed++, on && on()) });
@@ -35,7 +47,12 @@ function stub(seed) {
             createFileSystemWatcher: (pattern) => {
                 const watcher = { pattern: pattern.pattern, create: [], change: [], delete: [] };
                 record.watchers.push(watcher);
-                return { onDidCreate: event(watcher.create), onDidChange: event(watcher.change), onDidDelete: event(watcher.delete), ...disposable() };
+                return {
+                    onDidCreate: event(watcher.create),
+                    onDidChange: event(watcher.change),
+                    onDidDelete: event(watcher.delete),
+                    ...disposable(),
+                };
             },
             onDidChangeTextDocument: event(),
             onDidSaveTextDocument: event(),
@@ -51,7 +68,11 @@ function stub(seed) {
             showWarningMessage: async () => undefined,
             showInputBox: async () => undefined,
         },
-        languages: { getDiagnostics: () => [], onDidChangeDiagnostics: event(record.diagnostics), createDiagnosticCollection: () => ({ set() {}, delete() {}, ...disposable() }) },
+        languages: {
+            getDiagnostics: () => [],
+            onDidChangeDiagnostics: event(record.diagnostics),
+            createDiagnosticCollection: () => ({ set() {}, delete() {}, ...disposable() }),
+        },
         commands: {
             registerCommand: (name, callback) => {
                 if (record.commands.has(name)) record.duplicates.push(name);
@@ -74,7 +95,10 @@ function stub(seed) {
         DiagnosticSeverity: { Error: 0 },
     };
     const context = { subscriptions: [], workspaceState: memento(seed.state ?? {}), globalState: memento({}) };
-    const fire = (pattern, kind, file) => Promise.all(record.watchers.filter((w) => w.pattern === pattern).flatMap((w) => w[kind].map((cb) => cb({ fsPath: file, scheme: "file" }))));
+    const fire = (pattern, kind, file) =>
+        Promise.all(
+            record.watchers.filter((w) => w.pattern === pattern).flatMap((w) => w[kind].map((cb) => cb({ fsPath: file, scheme: "file" }))),
+        );
     const press = (name) => record.commands.get(name)?.();
     return { vscode, record, context, fire, press };
 }
@@ -87,8 +111,7 @@ Module._load = function (request, ...rest) {
     return request === "vscode" ? current.vscode : original.call(this, request, ...rest);
 };
 
-const filters = (names) =>
-    Object.fromEntries(names.map((name) => [name, [{ include: [name, `${name}/**`], exclude: [] }]]));
+const filters = (names) => Object.fromEntries(names.map((name) => [name, [{ include: [name, `${name}/**`], exclude: [] }]]));
 
 const scenarios = {
     // The roof over the real repository: the files.exclude of each shipped lamp off and vetoed in turn, and of every lamp off, by the
@@ -96,7 +119,12 @@ const scenarios = {
     async roof() {
         const m = require(script);
         const text = fs.readFileSync(path.join(root, ".vscode/settings.json"), "utf8").replace(/^﻿/, "");
-        const settings = JSON.parse(text.split("\n").filter((line) => !line.trim().startsWith("//")).join("\n"));
+        const settings = JSON.parse(
+            text
+                .split("\n")
+                .filter((line) => !line.trim().startsWith("//"))
+                .join("\n"),
+        );
         const declared = settings["catzc.trackLamps.filters"] ?? {};
         const shipped = Object.fromEntries(Object.entries(declared).filter(([name]) => m.SHIPPED_LAMPS.includes(name)));
         const known = settings["catzc.trackLamps.languages"] ?? {};
@@ -107,7 +135,10 @@ const scenarios = {
             for (const veto of [false, true]) {
                 const out = new Set(off);
                 const wanted = await m.hiddenGlobs(root, out, "", shipped, known, [], veto ? out : new Set(), disk);
-                states.push({ state: `${veto ? "veto" : "off"} ${off.length === lamps.length ? "(every lamp)" : off[0]}`, size: m.excludeSize(Object.fromEntries(wanted.map((glob) => [glob, true]))) });
+                states.push({
+                    state: `${veto ? "veto" : "off"} ${off.length === lamps.length ? "(every lamp)" : off[0]}`,
+                    size: m.excludeSize(Object.fromEntries(wanted.map((glob) => [glob, true]))),
+                });
             }
         }
         return { roof: m.EXCLUDE_ROOF, states };
@@ -145,11 +176,22 @@ const scenarios = {
         current.press("catzc.lamps.docs.putOut");
         current.press("catzc.lamps.docs.light");
         await sleep(1500);
-        return { maxConcurrent: current.record.maxConcurrent, afterThree, last: current.record.updates.at(-1) ?? [], out: current.context.workspaceState.get("catzc.trackLamps.out", []) };
+        return {
+            maxConcurrent: current.record.maxConcurrent,
+            afterThree,
+            last: current.record.updates.at(-1) ?? [],
+            out: current.context.workspaceState.get("catzc.trackLamps.out", []),
+        };
     },
     // The file index: a file created or deleted reaches the filter from the editor's events, with no new walk of the disk.
     async index() {
-        current = stub({ filters: { code: [{ include: ["code", "code/**"], exclude: [] }], docs: [{ include: ["docs", "docs/**", "notes", "notes/**"], exclude: [] }] }, state: { "catzc.trackLamps.out": ["docs"] } });
+        current = stub({
+            filters: {
+                code: [{ include: ["code", "code/**"], exclude: [] }],
+                docs: [{ include: ["docs", "docs/**", "notes", "notes/**"], exclude: [] }],
+            },
+            state: { "catzc.trackLamps.out": ["docs"] },
+        });
         require(script).activateEngine(current.context, current.vscode);
         await sleep(1500);
         const before = current.record.updates.at(-1) ?? [];
@@ -176,14 +218,21 @@ const scenarios = {
         fs.appendFileSync(engine, "\n// a saved change\n");
         await current.fire("pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js", "change", engine);
         await sleep(1500);
-        const swapped = { light: current.record.commands.has("catzc.lamps.code.light"), registered: current.record.registered, disposed: current.record.disposed };
+        const swapped = {
+            light: current.record.commands.has("catzc.lamps.code.light"),
+            registered: current.record.registered,
+            disposed: current.record.disposed,
+        };
         fs.appendFileSync(engine, "\nthis is no javascript {\n");
         await current.fire("pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js", "change", engine);
         await sleep(1500);
         return {
             first,
             swapped,
-            broken: { light: current.record.commands.has("catzc.lamps.code.light"), fellBack: current.record.logs.some((line) => line.includes("did not load")) },
+            broken: {
+                light: current.record.commands.has("catzc.lamps.code.light"),
+                fellBack: current.record.logs.some((line) => line.includes("did not load")),
+            },
             duplicates: current.record.duplicates,
         };
     },

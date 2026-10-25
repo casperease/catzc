@@ -40,6 +40,10 @@ kinds:
   diagram-declaration:
   adr:
   reference:
+    subkinds:
+      dora:
+      caf:
+      waf:
   how-to:
   explanation:
   diagram:

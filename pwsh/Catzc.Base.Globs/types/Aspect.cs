@@ -81,8 +81,6 @@ public static class AspectPartition
         return root.Length == 0 ? pattern : root + "/" + pattern;
     }
 
-    // The aspect of one file: the first aspect, in the map's order, one of whose sets claims it; null when none does. The map is
-    // Get-AspectGlobSet's: aspect name -> that aspect's globsets.
     public static string AspectOf(System.Collections.IDictionary sets, string file)
     {
         if (sets == null) { throw new ArgumentNullException("sets"); }

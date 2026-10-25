@@ -189,7 +189,7 @@ Describe 'DrsConfig' -Tag 'L0', 'logic', 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
     It 'rejects an unknown top-level key' {
         $raw = New-ValidRaw
         $raw['widget'] = 1
-        { [Catzc.Base.Drs.DrsConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: root, kinds, domains)*"
+        { [Catzc.Base.Drs.DrsConfig]::new($raw) } | Should -Throw "*unknown top-level key 'widget' (allowed: root, kinds, domains, domain_classes)*"
     }
 
     It 'keeps every decision record under docs/drs when the registry names no root' {

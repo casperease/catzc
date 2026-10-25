@@ -15,9 +15,9 @@ Describe 'Get-CodeMetaState' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD
     }
 
     It 'reports the head''s sections and keys in the order written, with what stands around it' {
-        $state = Get-CodeMetaState -Text "/*`n---`ncatzc:`n  immutable:`n    path: a/b.cs`n    module: Widget`n  edges:`n    test: tests/b.Tests.ps1`n  config:`n    colour: red`n---`n*/`n`n// The insight.`nclass Gadget { }`n" -Form $script:form
+        $state = Get-CodeMetaState -Text "/*`n---`ncatzc:`n  test: tests/b.Tests.ps1`n  immutable:`n    path: a/b.cs`n    module: Widget`n  config:`n    colour: red`n---`n*/`n`n// The insight.`nclass Gadget { }`n" -Form $script:form
         $state.HasHead | Should -BeTrue
-        $state.Sections | Should -Be @('immutable', 'edges', 'config')
+        $state.Sections | Should -Be @('test', 'immutable', 'config')
         $state.ImmutableKeys | Should -Be @('path', 'module')
         $state.EdgeKeys | Should -Be @('test')
         $state.ConfigLines | Should -Be @('    colour: red')
@@ -27,7 +27,7 @@ Describe 'Get-CodeMetaState' -Tag 'L0', 'logic', 'ADR-REPO-CODEMETA-CODEFILEHEAD
     }
 
     It 'reports each list edge with the items the head holds, and no entry for a scalar edge or a place fact' {
-        $state = Get-CodeMetaState -Text "/*`n---`ncatzc:`n  immutable:`n    path: a/b.cs`n  edges:`n    cites:`n      - ADR-WIDGET-TURN`n      - ADR-GADGET-SPIN`n    test: tests/b.Tests.ps1`n---`n*/`n`nclass Gadget { }`n" -Form $script:form
+        $state = Get-CodeMetaState -Text "/*`n---`ncatzc:`n  cites:`n    - ADR-WIDGET-TURN`n    - ADR-GADGET-SPIN`n  test: tests/b.Tests.ps1`n  immutable:`n    path: a/b.cs`n---`n*/`n`nclass Gadget { }`n" -Form $script:form
         @($state.EdgeLists.Keys) | Should -Be @('cites')
         $state.EdgeLists['cites'] | Should -Be @('ADR-WIDGET-TURN', 'ADR-GADGET-SPIN')
     }

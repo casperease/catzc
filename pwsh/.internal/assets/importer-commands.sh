@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "06a827269fc0"
+#     with_body_sha: "30ca504cceef"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -241,6 +241,10 @@ test_in_isolation	min_level	int	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_g
 test_in_isolation	destination	string	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_in_isolation.command.yml		module_profile	test-in-isolation	destination	Test-InIsolation	Destination
 test_in_isolation	keep_sandbox	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_in_isolation.command.yml		module_profile	test-in-isolation	keep-sandbox	Test-InIsolation	KeepSandbox
 test_in_isolation	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_in_isolation.command.yml		module_profile	test-in-isolation	pass-thru	Test-InIsolation	PassThru
+test_link_directions	path	string	1	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_link_directions.command.yml			test-link-directions	path	Test-LinkDirections	Path
+test_link_directions	repository_root	string	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_link_directions.command.yml			test-link-directions	repository-root	Test-LinkDirections	RepositoryRoot
+test_link_directions	output_folder	string	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_link_directions.command.yml			test-link-directions	output-folder	Test-LinkDirections	OutputFolder
+test_link_directions	pass_thru	switch	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_link_directions.command.yml			test-link-directions	pass-thru	Test-LinkDirections	PassThru
 test_links	path	string	1	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_links.command.yml			test-links	path	Test-Links	Path
 test_links	kind	catzc.base.quality_gates.link_kind	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_links.command.yml			test-links	kind	Test-Links	Kind
 test_links	repository_root	string	0	0	0	contracts/catzc/0.0.0/catzc.base.quality_gates/test_links.command.yml			test-links	repository-root	Test-Links	RepositoryRoot

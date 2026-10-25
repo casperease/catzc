@@ -1,0 +1,71 @@
+# ---
+# catzc:
+#   docs: "../../../docs/references/pwsh/catzc-base-quality-gates/configs/link-directions.yml.md"
+#   warning: "Generated Header"
+# ---
+
+rows:
+  - relations: [docs_edge]
+    to: { classes: [comment-page] }
+    verdict: allow
+    because: ADR-REPO-FILEMETA-FEWLINKS
+  - relations: [markdown_link]
+    from: { classes: [comment-page] }
+    to: { classes: [adr, index, glossary] }
+    verdict: allow
+    because: ADR-REPO-COMMENTS-MOVELOSESNOTHING
+  - relations: [markdown_link]
+    from: { classes: [comment-page] }
+    verdict: deny
+    because: ADR-REPO-LINK-ONEWAY
+  - relations: [markdown_link]
+    from: { classes: [other] }
+    to: { classes: [adr, index] }
+    verdict: allow
+    because: ADR-REPO-AI-READCONTRACTFIRST
+  - relations: [code_link]
+    from: { track_types: [modules, infrastructure, pipelines, vendor-settings] }
+    to: { classes: [adr] }
+    verdict: allow
+    because: ADR-REPO-LINK-CODELINKS
+  - relations: [code_link]
+    verdict: deny
+    because: ADR-REPO-LINK-ONEWAY
+  - relations: [markdown_link]
+    from: { classes: [adr] }
+    to: { track_types: [modules, infrastructure, pipelines, vendor-settings, vendored-code, contracts] }
+    verdict: deny
+    because: ADR-REPO-LINK-ONEWAY
+  - from: { classes: [adr] }
+    to: { classes: [adr, reference/dora, reference/caf, reference/waf] }
+    verdict: allow
+    because: ADR-REPO-LINKS-DECLAREDGRAPHSSTAYWHEREDECLARED
+  - from: { classes: [adr] }
+    to: { classes: [index, glossary] }
+    verdict: allow
+    because: ADR-REPO-LINKS-ADRSLINKONLYTHEIRGROUNDING
+  - from: { classes: [adr] }
+    to: { classes: [reference, how-to, explanation] }
+    verdict: deny
+    because: ADR-REPO-LINKS-ADRSLINKONLYTHEIRGROUNDING
+  - from: { classes: [index, reference, how-to, explanation, readme, slide] }
+    to: { track_types: [documentation] }
+    verdict: allow
+    because: ADR-REPO-LINKS-DIRECTIONSAREROWS
+  - from: { classes: [reference, how-to, explanation, readme, slide] }
+    to: { track_types: [modules, infrastructure, pipelines, vendor-settings, vendored-code, contracts] }
+    verdict: allow
+    because: ADR-REPO-LINKS-DIRECTIONSAREROWS
+  - relations: [markdown_link]
+    from: { aspects: [live] }
+    to: { aspects: [tests] }
+    verdict: deny
+    because: DDR-ASPECT-ASPECTSAREDERIVED
+  - relations: [markdown_link]
+    from: { aspects: [tests] }
+    to: { aspects: [live] }
+    verdict: allow
+    because: DDR-ASPECT-ASPECTSAREDERIVED
+exempt:
+  python/catzc_diagrams/assets/STYLE.md: the drawio kit's style guide links its own kit files
+  python/catzc_diagrams/assets/slides/STYLE.md: the slides kit's style guide links its own kit files and the rule it follows

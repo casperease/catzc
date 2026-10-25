@@ -1,5 +1,5 @@
 {
-  "hash": "2482eb8e",
+  "hash": "b7ca2b25",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -1453,7 +1453,32 @@
       "display": []
     },
     {
+      "name": "Catzc.Base.QualityGates.LinkDirectionEngine",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkDirectionFinding",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkDirectionRow",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkDirectionsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
       "name": "Catzc.Base.QualityGates.LinkEdge",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkEndpoint",
       "aliases": [],
       "display": []
     },
@@ -1484,6 +1509,16 @@
     },
     {
       "name": "Catzc.Base.QualityGates.LinkRelation",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkSelector",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.QualityGates.LinkVerdict",
       "aliases": [],
       "display": []
     },

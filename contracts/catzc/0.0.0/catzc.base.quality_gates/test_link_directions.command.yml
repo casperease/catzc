@@ -1,0 +1,8 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call interface of Test-LinkDirections, the link-direction quality
+# gate that fails on any relation the direction rows deny or no row allows, and returns its result under -PassThru.
+parameters:
+  path: string[]
+  repository_root: string
+  output_folder: string
+  pass_thru: switch
+output: catzc.base.reports.quality_gate_result

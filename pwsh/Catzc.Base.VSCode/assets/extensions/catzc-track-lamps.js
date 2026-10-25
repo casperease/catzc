@@ -5,7 +5,7 @@ catzc:
   edges:
     cites:
       - DDR-FILTER
-    drs_total: 1
+    drs_total: 2
 ---
 */
 
@@ -59,7 +59,21 @@ const config = () => vscode.workspace.getConfiguration("catzc.trackLamps");
 // preview filters of filters.yml are left out as if undeclared; on, every declared lamp does. Flip it here to try the preview lamps.
 const PREVIEW_LAMPS = false;
 // The shipped lamps, in their title-row order; with the flag off, the lamps that reach the menu must be exactly these, first and alone.
-const SHIPPED_LAMPS = ["open", "code", "live", "configs", "tests", "tools", "pipelines", "infrastructure", "contracts", "generated", "docs", "out", "languages"];
+const SHIPPED_LAMPS = [
+    "open",
+    "code",
+    "live",
+    "configs",
+    "tests",
+    "tools",
+    "pipelines",
+    "infrastructure",
+    "contracts",
+    "generated",
+    "docs",
+    "out",
+    "languages",
+];
 const declaredFilters = () => config().get("filters") ?? {};
 const filters = () => {
     const declared = declaredFilters();
@@ -74,7 +88,9 @@ const assertShipped = (lamps) => {
         const said = lamps.join(",");
         if (assertShipped.said === said) return SHIPPED_LAMPS.filter((lamp) => lamps.includes(lamp));
         assertShipped.said = said;
-        log?.appendLine(`error: the lamps in play [${lamps.join(", ")}] are not the shipped lamps [${SHIPPED_LAMPS.join(", ")}] in order; only the shipped ones are shown`);
+        log?.appendLine(
+            `error: the lamps in play [${lamps.join(", ")}] are not the shipped lamps [${SHIPPED_LAMPS.join(", ")}] in order; only the shipped ones are shown`,
+        );
         return SHIPPED_LAMPS.filter((lamp) => lamps.includes(lamp));
     }
     return lamps;
@@ -315,7 +331,8 @@ function hiddenEntries(files, folders, shown) {
             if (!shownUnder.has(`${key(extension)}|${key(folder)}`)) return `${folder}/**/*${extension}`;
         }
         const folder = path.posix.dirname(place);
-        if (folder !== "." && !shownDirectly.has(`${key(extension)}|${key(folder)}`) && !/[*?[\]{}!,]/.test(folder)) return `${folder}/*${extension}`;
+        if (folder !== "." && !shownDirectly.has(`${key(extension)}|${key(folder)}`) && !/[*?[\]{}!,]/.test(folder))
+            return `${folder}/*${extension}`;
         return place;
     };
     // A dead folder below the root rides on its name the same way: '**/<name>' where no live folder and no shown file bears it, else
@@ -338,10 +355,11 @@ function hiddenEntries(files, folders, shown) {
         return folder;
     };
     const entries = new Set();
-    for (const place of files) if (!showing.has(place)) {
-        const dead = topmostDead(place);
-        entries.add(dead ? deadEntry(dead) : rollUp(place));
-    }
+    for (const place of files)
+        if (!showing.has(place)) {
+            const dead = topmostDead(place);
+            entries.add(dead ? deadEntry(dead) : rollUp(place));
+        }
     // A folder with no file below it at all stays in the tree: no lamp claims it, so nothing hides it (DDR-FILTER-EVERYFILECLAIMED), and
     // writing it would cost an entry in every state. A folder the lamps emptied holds files, so it still leaves the tree.
     const populated = new Set();
@@ -420,8 +438,7 @@ const fails = (diagnostic) => diagnostic.severity === 0 || (diagnostic.severity 
 // The fault facts from the diagnostics, [uri, diagnostics] pairs: failed for a file carrying a failing diagnostic.
 function diagnosticFacts(root, entries, facts = {}) {
     for (const [uri, diagnostics] of entries ?? [])
-        if ((diagnostics ?? []).some(fails))
-            addFact(facts, relativeTo(root, uri.fsPath), "fault", "failed");
+        if ((diagnostics ?? []).some(fails)) addFact(facts, relativeTo(root, uri.fsPath), "fault", "failed");
     return facts;
 }
 
@@ -461,7 +478,8 @@ function heldFaults(root, held, entries, now = Date.now()) {
         if (!place) continue;
         const list = diagnostics ?? [];
         const errors = list.filter(fails);
-        if (errors.length > 0) next[place] = { seen: next[place]?.seen ?? now, diagnostics: errors.slice(0, MAX_REMEMBERED).map(storedError) };
+        if (errors.length > 0)
+            next[place] = { seen: next[place]?.seen ?? now, diagnostics: errors.slice(0, MAX_REMEMBERED).map(storedError) };
         else if (list.length > 0) delete next[place];
     }
     return next;
@@ -491,7 +509,11 @@ function remembering(root, held, entries) {
             .map(([uri]) => relativeTo(root, uri.fsPath))
             .filter(Boolean),
     );
-    return Object.fromEntries(Object.entries(held ?? {}).filter(([place]) => !live.has(place)).map(([place, fault]) => [place, fault.diagnostics]));
+    return Object.fromEntries(
+        Object.entries(held ?? {})
+            .filter(([place]) => !live.has(place))
+            .map(([place, fault]) => [place, fault.diagnostics]),
+    );
 }
 
 // The module a test file tests: the folder above its first tests segment, else its own folder.
@@ -580,7 +602,9 @@ async function apply(context, state, disk) {
     const settings = vscode.workspace.getConfiguration("catzc.trackLamps", folder.uri);
     const owned = settings.inspect(OWNED_KEY)?.workspaceValue ?? [];
     const { next, ours } = merge(current, owned, wanted);
-    trace(`apply: unlit [${[...out].join(", ")}], vetoed [${[...vetoed].join(", ")}], field "${field}", ${wanted.length} entries wanted, ${ours.length} owned`);
+    trace(
+        `apply: unlit [${[...out].join(", ")}], vetoed [${[...vetoed].join(", ")}], field "${field}", ${wanted.length} entries wanted, ${ours.length} owned`,
+    );
     written = JSON.stringify(next);
     if (written !== JSON.stringify(current)) {
         await files.update("exclude", next, vscode.ConfigurationTarget.Workspace);
@@ -777,7 +801,9 @@ function activateEngine(context, api) {
         const matrix = Object.entries(tally.signatures)
             .sort((a, b) => b[1] - a[1])
             .map(([signature, files]) => `${signature}: ${files}`);
-        const lit = lamps().map((lamp) => `${lamp}${out.has(lamp) ? (vetoed.has(lamp) ? " (veto)" : " (off)") : ""} ${conditions[lamp] ?? "committed"}`);
+        const lit = lamps().map(
+            (lamp) => `${lamp}${out.has(lamp) ? (vetoed.has(lamp) ? " (veto)" : " (off)") : ""} ${conditions[lamp] ?? "committed"}`,
+        );
         if (tally.wrong.length === 0 && tally.unclaimed.length === 0) {
             counter.text = `$(pass) ${tally.shown}/${tally.total} · everything is accounted for`;
             counter.color = "#3fb950";
@@ -788,7 +814,8 @@ function activateEngine(context, api) {
             counter.color = "#f85149";
             counter.tooltip = `Catzc lamps: ${tally.wrong.length} files shown or hidden against their filters, e.g. ${tally.wrong.slice(0, 3).join(", ")}; ${tally.unclaimed.length} files no filter claims, e.g. ${tally.unclaimed.slice(0, 3).join(", ")}\nClick for the log.`;
         }
-        const line = `census: ${tally.shown}/${tally.total} shown; ${matrix.join(", ")}; ${tally.wrong.length} against their filters` +
+        const line =
+            `census: ${tally.shown}/${tally.total} shown; ${matrix.join(", ")}; ${tally.wrong.length} against their filters` +
             `${tally.wrong.length ? ": " + tally.wrong.slice(0, 20).join(", ") : ""}; ${tally.unclaimed.length} unclaimed` +
             `${tally.unclaimed.length ? ": " + tally.unclaimed.slice(0, 20).join(", ") : ""}`;
         if (tally.wrong.length === 0 && tally.unclaimed.length === 0) trace(line);
@@ -804,7 +831,9 @@ function activateEngine(context, api) {
             const now = JSON.stringify(vscode.workspace.getConfiguration("files", folder?.uri).inspect("exclude")?.workspaceValue ?? {});
             if (applied && now !== written) {
                 if (!retried) return settle(true);
-                log.appendLine(`warning: files.exclude did not take the lamps' write (${now.length} vs ${written.length} characters); the tree may disagree with the lamps`);
+                log.appendLine(
+                    `warning: files.exclude did not take the lamps' write (${now.length} vs ${written.length} characters); the tree may disagree with the lamps`,
+                );
             }
             // The count runs after the filter is in place, never delaying it; its failure is logged like any other.
             count(applied).catch((error) => log.appendLine(`census failed: ${error?.stack ?? error}`));
@@ -862,7 +891,10 @@ function activateEngine(context, api) {
         else state.out.add(lamp);
         if (mode === "veto") state.vetoed.add(lamp);
         else state.vetoed.delete(lamp);
-        const remembered = Promise.all([context.workspaceState.update(OUT, [...state.out]), context.workspaceState.update(VETO, [...state.vetoed])]);
+        const remembered = Promise.all([
+            context.workspaceState.update(OUT, [...state.out]),
+            context.workspaceState.update(VETO, [...state.vetoed]),
+        ]);
         show().catch((error) => log.appendLine(`show failed: ${error?.message ?? error}`));
         rejudge();
         requestApply();
@@ -911,7 +943,11 @@ function activateEngine(context, api) {
         const uri = vscode.Uri.file(path.join(root, place));
         const first = (vscode.languages.getDiagnostics(uri) ?? []).find(fails);
         try {
-            await vscode.window.showTextDocument(uri, { preview: false, preserveFocus: false, ...(first ? { selection: first.range } : {}) });
+            await vscode.window.showTextDocument(uri, {
+                preview: false,
+                preserveFocus: false,
+                ...(first ? { selection: first.range } : {}),
+            });
             await vscode.commands.executeCommand("revealInExplorer", uri);
         } catch (error) {
             log.appendLine(`warning: the red journey could not open ${place}: ${error?.message ?? error}`);
@@ -925,7 +961,10 @@ function activateEngine(context, api) {
         const next = revealFailed(conditions, state.out, state.vetoed);
         state.out = new Set(next.out);
         state.vetoed = new Set(next.vetoed);
-        const remembered = Promise.all([context.workspaceState.update(OUT, [...state.out]), context.workspaceState.update(VETO, [...state.vetoed])]);
+        const remembered = Promise.all([
+            context.workspaceState.update(OUT, [...state.out]),
+            context.workspaceState.update(VETO, [...state.vetoed]),
+        ]);
         show().catch((error) => log.appendLine(`show failed: ${error?.message ?? error}`));
         rejudge();
         requestApply();
@@ -939,7 +978,10 @@ function activateEngine(context, api) {
         for (const condition of [...CONDITIONS, EMPTY]) {
             const suffix = condition === "committed" ? "" : `.${condition}`;
             context.subscriptions.push(
-                vscode.commands.registerCommand(`catzc.lamps.${lamp}.veto${suffix}`, condition === "failed" ? () => journey(lamp) : () => turn(lamp, "veto")),
+                vscode.commands.registerCommand(
+                    `catzc.lamps.${lamp}.veto${suffix}`,
+                    condition === "failed" ? () => journey(lamp) : () => turn(lamp, "veto"),
+                ),
                 vscode.commands.registerCommand(
                     `catzc.lamps.${lamp}.light${suffix}`,
                     lamp === LANGUAGE ? chooseLanguages : () => turn(lamp, "on"),
@@ -1051,7 +1093,13 @@ function activate(context) {
         running = undefined;
     };
     const start = () => {
-        const engineContext = { subscriptions: [], workspaceState: context.workspaceState, globalState: context.globalState, extensionPath: context.extensionPath, extensionUri: context.extensionUri };
+        const engineContext = {
+            subscriptions: [],
+            workspaceState: context.workspaceState,
+            globalState: context.globalState,
+            extensionPath: context.extensionPath,
+            extensionUri: context.extensionUri,
+        };
         try {
             delete require.cache[require.resolve(source)];
             require(source).activateEngine(engineContext, api);

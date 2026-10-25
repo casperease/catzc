@@ -35,13 +35,11 @@ language's comments, never written into the head's code.
 
 ### Rule ADR-REPO-CODEMETA-COMPUTABLEFACTSONLY
 
-An authored code or config file's head is the **navigation head**, and it holds exactly two edges under `edges`: `cites`, the rule codes
-that bind the file, sorted and without duplicates, each a rule code or a bare domain-level code, and `docs`, the link to its comment page by
-its path from the file's own folder ([ADR-REPO-FILEMETA-FEWLINKS](file-meta.md#rule-adr-repo-filemeta-fewlinks)). Each edge is left out when
-it has no target, and a file with neither carries no head ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)).
-`cites` is each code the file and its comment page cite that the DRS index registers, so a fixture code or a placeholder named in prose is
-no citation, derived on every run and never read back from the head
-([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)). The head has no `immutable` part: no `with_body_sha`,
+An authored code or config file's head is the **navigation head**, and it holds exactly one edge, first: `docs`, its comment page's plain
+path from the file's own folder ([ADR-REPO-FILEMETA-FEWLINKS](file-meta.md#rule-adr-repo-filemeta-fewlinks)), then the short `warning`
+line. A file with no page carries no head ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)). The rule codes
+a file cites are no part of the head: they are read from the file and its comment page on demand by the commands that need them, never
+from a head ([ADR-REPO-FILEMETA-NOREADBACK](file-meta.md#rule-adr-repo-filemeta-noreadback)). The head has no `immutable` part: no `with_body_sha`,
 which would change on every edit of the body and tell a reader nothing, and no `test` or `code` edge, since a test is found by convention,
 its stem under `tests/`. Every place fact, the path, the role, the language, the track, the module and the visibility, is derived on demand
 and never written into the head. A code head has no `config` part: a code file's prose, its help included, lives on its comment page
@@ -52,11 +50,11 @@ head instead ([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filem
 
 ### Rule ADR-REPO-CODEMETA-SAMEENGINE
 
-The head's `edges` part, the only part an authored head has, is imprinted by the same engine, from the same registry, as a Markdown block
+The head's edge, the only fact an authored head has, is imprinted by the same engine, from the same registry, as a Markdown block
 ([ADR-REPO-FILEMETA-METAKIND](file-meta.md#rule-adr-repo-filemeta-metakind),
 [ADR-REPO-FILEMETA-IMPRINTEDPARTS](file-meta.md#rule-adr-repo-filemeta-imprintedparts)): a kind is a registry entry, and its processor is a
 function found by convention. The scope is the head policy ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)):
-every authored file whose carrier is a comment head or a JSON property and that has a `docs` or `cites` edge carries the navigation head,
+every authored file whose carrier is a comment head or a JSON property and that has a `docs` edge carries the navigation head,
 tests and configs included, less the classes `.gitattributes` exempts
 ([ADR-REPO-FILEMETA-KINDSCOPE](file-meta.md#rule-adr-repo-filemeta-kindscope)); every other authored file carries none, and the engine
 strips a head it holds. The kinds that fill the head select no files of their own, so they apply to every file the policy gives a head.
@@ -94,7 +92,7 @@ comments, and a leading comment run is the place a reader looks first.
 ## Decision
 
 An authored code file's edges sit in a navigation head at the top of the file, written by the formatter, in the one registry that already
-serves Markdown, and only where the file has a page or rules to cite. The head is small, because every key in it is a key that can drift.
+serves Markdown, and only where the file has a comment page. The head is small, because every key in it is a key that can drift.
 
 ### The head is front matter in a comment
 
@@ -104,30 +102,14 @@ serves Markdown, and only where the file has a page or rules to cite. The head i
 /*
 ---
 catzc:
-  edges:
-    cites:
-      - ADR-BCL-TYPES-ONETYPEPERFILE
-    docs: "[FileLanguage.cs.md](../../../docs/references/pwsh/catzc-base-languages/types/FileLanguage.cs.md)"
+  docs: ../../../docs/references/pwsh/catzc-base-languages/types/FileLanguage.cs.md
+  warning: "Generated Header"
 ---
 */
 
 // The insight line of the file's own comment.
 
 using System;
-```
-
-```powershell
-<#
----
-catzc:
-  edges:
-    cites:
-      - ADR-AUTO-TEST-QUALITYGATE
----
-#>
-
-Describe 'Get-WidgetFact' {
-}
 ```
 
 Without the comment delimiters the head is the front matter of a Markdown file, so one reader of the `catzc` block serves both and a tool
@@ -138,19 +120,19 @@ The comment engine keeps the head because its front matter opens with a head lis
 
 `The way out of the file, nothing the repository answers`
 
-The rule codes a file cites are the one list a reader scans to learn which decisions bind the file, so the head shows them, rebuilt on every
-run from the citations the file and its comment page make: a code the text no longer spells out no longer binds the file, and a list that
-kept it would say something the file does not. The page is the file a reader opens next and costs a search to find, so it is one edge. The
+The page is the file a reader opens next and costs a search to find, so it is the one edge. The rule codes a file cites are spelled out in
+its own text and its page, where a reader already sees them, and a list in the head would only repeat them and churn with every citation,
+so the commands that need them read the text. The
 test costs nothing to find, since the convention places it under `tests/`, and a body hash would change on every edit and tell a reader
 nothing, so the head carries neither. The path, the role, the module and the visibility are each one question to a registry or the disk, so
 a head that showed them would be a second statement of what the repository already says, and it would change on every move.
 
 ### Scope
 
-`Every authored code and config file with a page or rules to cite`
+`Every authored code and config file with a comment page`
 
 The navigation head serves a reader who opens a code or config file, so its scope is the authored files whose carrier is a comment head or a
-JSON property, and the head policy gives one only to a file with a `docs` or `cites` edge. The carrier registry already knows each
+JSON property, and the head policy gives one only to a file with a `docs` edge. The carrier registry already knows each
 language's comment syntax, so the scope comes from it and no meta kind repeats a list of globs. The files the head would harm stay out
 through `.gitattributes`: vendored code is someone else's, contract assets and fixtures are compared byte for byte, and generated files
 carry the head their writer wrote ([ADR-REPO-FILEMETA-COMPOSEDFILES](file-meta.md#rule-adr-repo-filemeta-composedfiles)).

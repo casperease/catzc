@@ -14,6 +14,10 @@ public sealed class GeneratedFilesConfig : Catzc.Base.Objects.DictionaryRecord
     // Writer command name -> GeneratedWriter, in declaration order; read-only.
     public OrderedDictionary writers { get; }
 
+    // How deep the walk for a writer's '**' input glob goes below the glob's literal folder.
+    public const int DefaultInputDepth = 16;
+    public int input_depth { get; }
+
     public GeneratedFilesConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
@@ -22,8 +26,15 @@ public sealed class GeneratedFilesConfig : Catzc.Base.Objects.DictionaryRecord
         foreach (object k in raw.Keys)
         {
             string key = k == null ? null : k.ToString();
-            if (key != "writers") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: writers)", key)); }
+            if (key != "writers" && key != "input_depth") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: writers, input_depth)", key)); }
         }
+
+        int depth = DefaultInputDepth;
+        if (raw.Contains("input_depth") && !(int.TryParse(Convert.ToString(raw["input_depth"], System.Globalization.CultureInfo.InvariantCulture), out depth) && depth > 0))
+        {
+            errors.Add("'input_depth' must be a positive whole number");
+        }
+        input_depth = depth;
 
         OrderedDictionary map = new OrderedDictionary(StringComparer.Ordinal);
         IDictionary source = raw.Contains("writers") ? raw["writers"] as IDictionary : null;

@@ -39,6 +39,15 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
                 )
             }
         }
+        # The warm-run skip reads the one writer memo: the fixture declares the writer's inputs (its source and both targets), and the memo
+        # stays inside the fake root.
+        $script:writers = [Catzc.Base.QualityGates.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
+                    'Build-RootConfig' = [ordered]@{ inputs = @('sources/fixture.yml', 'fixture.yml', 'generated.txt') }
+                }
+            })
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'generated-files' } { $script:writers }
+        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { Join-Path $script:fake.Root 'out' }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:fake.Root }
     }
 
     AfterAll {
@@ -157,6 +166,13 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
                 )
             }
         }
+        $script:writers = [Catzc.Base.QualityGates.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
+                    'Build-RootConfig' = [ordered]@{ inputs = @('widgets/*/gadget.txt') }
+                }
+            })
+        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'generated-files' } { $script:writers }
+        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { Join-Path $script:fake.Root 'out' }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:fake.Root }
     }
 
     AfterAll {

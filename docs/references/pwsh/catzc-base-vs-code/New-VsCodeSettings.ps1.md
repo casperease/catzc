@@ -90,3 +90,12 @@ Above `if ($Filter.Count -gt 0) {`, written with `#`.
 The lamps read what they hide from the settings, so the extension needs neither a config nor a session: each filter's include/exclude
 sets, in lamp order, and each language's extensions.
 ```
+
+## comment:4
+
+Above `if ($config.carried.Count -gt 0 -and (Test-Path -LiteralPath $CurrentPath)) {`, written with `#`.
+
+```text
+A carried map keeps the rows another writer added (the lamps' files.exclude), as listed under that writer's owner key on disk; a row
+the registry authors stays the registry's.
+```

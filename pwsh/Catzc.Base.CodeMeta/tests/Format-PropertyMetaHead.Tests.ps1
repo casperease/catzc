@@ -31,11 +31,11 @@ Describe 'Format-PropertyMetaHead' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRIN
 
 Describe 'Get-PropertyMetaState' -Tag 'L0', 'logic', 'ADR-REPO-FILEMETA-IMPRINTEDPARTS' {
     It 'reports the sections, the place keys, the edge names and the config lines of the property' {
-        $state = Get-PropertyMetaState -Text '{"//": "catzc:\n  immutable:\n    path: a/b.json\n    kind: other\n  edges:\n    page: docs/b.json.md\n  config:\n    note: kept"}' -Property '//'
+        $state = Get-PropertyMetaState -Text '{"//": "catzc:\n  page: docs/b.json.md\n  immutable:\n    path: a/b.json\n    kind: other\n  config:\n    note: kept"}' -Property '//'
         $state.IsObject | Should -BeTrue
         $state.HasHead | Should -BeTrue
         $state.Foreign | Should -BeFalse
-        $state.Sections | Should -Be @('immutable', 'edges', 'config')
+        $state.Sections | Should -Be @('page', 'immutable', 'config')
         $state.ImmutableKeys | Should -Be @('path', 'kind')
         $state.EdgeKeys | Should -Be @('page')
         $state.ConfigLines | Should -Be @('    note: kept')

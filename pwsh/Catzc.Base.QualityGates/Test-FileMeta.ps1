@@ -42,8 +42,6 @@ function Test-FileMeta {
             }
             "$($_.Path):$($_.Line) [$($_.Kind)] expected '$($_.Expected)', found '$($_.Actual)' — $remedy"
         })
-    # A file outside the engine's scope still has a comment page; a page citing rules there lights nothing, so it is a finding too.
-    $issues += @(Get-SkippedClassCitationFinding -RepositoryRoot $RepositoryRoot -Path $Path)
 
     Write-QualityGateReport -Subject file-meta -Title Test-FileMeta -Issues $issues `
         -Facts ([ordered]@{ FileCount = $result.FileCount }) -OutputFolder $OutputFolder -PassThru:$PassThru

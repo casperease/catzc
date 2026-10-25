@@ -93,7 +93,7 @@ public sealed class PropertyHead
     // The keys under `immutable`.
     public IReadOnlyList<string> ImmutableKeys => MarkdownMetaBlock.ImmutableKeys(metaBlock);
 
-    // The names of the edges under `edges`.
+    // The names of the edges, the block's first-level facts.
     public IReadOnlyList<string> EdgeKeys => MarkdownMetaBlock.EdgeKeys(metaBlock);
 
     // The authored lines under `config`, as written.

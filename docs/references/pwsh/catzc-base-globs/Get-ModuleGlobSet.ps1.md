@@ -134,3 +134,21 @@ Above `$leftoverExcludes = @($moduleFolderGlobs) + @($reserved.Values)`, written
 Ordinal-sorted so the scan program (the marker body) is byte-identical on every machine, independent of
 directory-enumeration and hashtable order.
 ```
+
+## comment:7
+
+Above `$scopeAspects =...`, written with `#`.
+
+```text
+The reserved code scopes are units too ([DDR-ASPECT-ASPECTISAGLOBSET](/docs/drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)): their root .psm1 files are the code they run, live beside the
+code convention, and the rest falls to tests. A single-file module keeps its own set, so the scope's sets leave its file out.
+```
+
+## comment:8
+
+Above `foreach ($track in @(Get-Track).Where({ $_.name -cne $codeTrack.name -and...`, written with `#`.
+
+```text
+Every other laid-out track's folder modules partition by that track's convention; its root holder is no unit, because the black-box
+tests it holds already belong to the module they test (the code track's tests aspects above).
+```
