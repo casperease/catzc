@@ -57,10 +57,10 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import NoReturn
 
-import minimap_contract
-import minimaps
 import edge_rules
 import languages_table
+import minimap_contract
+import minimaps
 import normal_form
 import yaml
 from drawio_png import DEFAULTS, THEMES, decode, encode, font, mxfile_chunk, paint, plain, render, style_map
@@ -305,7 +305,7 @@ def keep_out_findings(routes, obstacles, holder):
         for cell_id, rect in obstacles.items():
             if cell_id in ends or any(end_chain_has(end, cell_id, holder) for end in ends):
                 continue
-            if any(segment_hits_rect(p, q, rect) for p, q in zip(route["points"], route["points"][1:])):
+            if any(segment_hits_rect(p, q, rect) for p, q in itertools.pairwise(route["points"])):
                 found.append(f"E_KEEPOUT edge {route['from']} -> {route['to']} runs through the keep-out zone of {cell_id}")
     return found
 
@@ -322,7 +322,7 @@ def end_chain_has(end, cell_id, holder):
 
 def middle_leg(points):
     """The leg of a polyline that holds its halfway point, as its two ends."""
-    legs = [(p, q, math.hypot(q[0] - p[0], q[1] - p[1])) for p, q in zip(points, points[1:])]
+    legs = [(p, q, math.hypot(q[0] - p[0], q[1] - p[1])) for p, q in itertools.pairwise(points)]
     left = sum(leg[2] for leg in legs) / 2
     for p, q, length in legs:
         if left <= length:
@@ -346,7 +346,7 @@ def cross_box(points, box):
     """The first point along a polyline where it crosses a box's border, or None."""
     x, y, w, h = box["x"], box["y"], box["w"], box["h"]
     sides = (((x, y), (x + w, y)), ((x + w, y), (x + w, y + h)), ((x + w, y + h), (x, y + h)), ((x, y + h), (x, y)))
-    for p, q in zip(points, points[1:]):
+    for p, q in itertools.pairwise(points):
         hits = [c for c in (cross_segment(p, q, a, b) for a, b in sides) if c]
         if hits:
             return min(hits, key=lambda c: math.hypot(c[0] - p[0], c[1] - p[1]))
@@ -356,7 +356,7 @@ def cross_box(points, box):
 def cross_circle(points, centre, r):
     """The first point along a polyline where it crosses a circle, or None."""
     cx, cy = centre
-    for p, q in zip(points, points[1:]):
+    for p, q in itertools.pairwise(points):
         dx, dy = q[0] - p[0], q[1] - p[1]
         fx, fy = p[0] - cx, p[1] - cy
         a, b, c = dx * dx + dy * dy, 2 * (fx * dx + fy * dy), fx * fx + fy * fy - r * r
@@ -395,12 +395,12 @@ def transition(edge, word, at):
 
 
 def run_length(run):
-    return sum(math.hypot(b[0] - a[0], b[1] - a[1]) for a, b in zip(run, run[1:]))
+    return sum(math.hypot(b[0] - a[0], b[1] - a[1]) for a, b in itertools.pairwise(run))
 
 
 def point_at(run, d):
     """The point d px along a polyline from its start, with the unit direction of the leg it stands on."""
-    for p, q in zip(run, run[1:]):
+    for p, q in itertools.pairwise(run):
         n = math.hypot(q[0] - p[0], q[1] - p[1])
         if n and d <= n:
             return (p[0] + (q[0] - p[0]) * d / n, p[1] + (q[1] - p[1]) * d / n), ((q[0] - p[0]) / n, (q[1] - p[1]) / n)
@@ -413,7 +413,7 @@ def point_at(run, d):
 def arc_to(run, point):
     """How far along a polyline the point on it stands."""
     best, before = None, 0.0
-    for p, q in zip(run, run[1:]):
+    for p, q in itertools.pairwise(run):
         n = math.hypot(q[0] - p[0], q[1] - p[1])
         t = 0 if not n else max(0.0, min(1.0, ((point[0] - p[0]) * (q[0] - p[0]) + (point[1] - p[1]) * (q[1] - p[1])) / (n * n)))
         foot = (p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t)
@@ -437,7 +437,7 @@ def label_spot(run, word, deadzone=0, crossing=None, avoid=()):
     it overlaps none of the `avoid` rectangles (x, y, w, h); None only when no place is free."""
     width, height = 6.2 * len(word) + 2 * WORD_MARGIN, 12 + 2 * WORD_MARGIN
     length = run_length(run) - 2 * deadzone  # the line the model draws: the deadzone stops it short of both boxes
-    legs = [math.hypot(q[0] - p[0], q[1] - p[1]) for p, q in zip(run, run[1:])]
+    legs = [math.hypot(q[0] - p[0], q[1] - p[1]) for p, q in itertools.pairwise(run)]
     longest = (
         [sum(legs[: legs.index(max(legs))]) + max(legs) / 2 - deadzone] if len(legs) > 1 else []
     )  # a bent run: the middle of its longer leg
@@ -684,7 +684,7 @@ def blocks_in(text, name):
         + r"[ \t]*\n((?:(?!```).*\n)*)```[ \t]*\n(?:[ \t]*\n)*!\[[^\]]*\]\((?:\./)?\.assets/"
         + re.escape(name)
         + r"\.drawio\.png\)",
-        re.M,
+        re.MULTILINE,
     )
     return [(m.start(1), m.end(1)) for m in pattern.finditer(text)]
 
@@ -760,7 +760,7 @@ def article_stems(root):
         r"^```"
         + re.escape(FENCE)
         + r"[ \t]*\n(?:(?!```).*\n)*```[ \t]*\n(?:[ \t]*\n)*!\[[^\]]*\]\((?:\./)?\.assets/([^/)]+)\.drawio\.png\)",
-        re.M,
+        re.MULTILINE,
     )
     return {
         page.parent / ".assets" / name
@@ -772,7 +772,7 @@ def article_stems(root):
 
 def image_in(page, name):
     """The spans of the images in a page's text that embed `.assets/<name>.drawio.png`."""
-    pattern = re.compile(r"^!\[[^\]]*\]\((?:\./)?\.assets/" + re.escape(name) + r"\.drawio\.png\)", re.M)
+    pattern = re.compile(r"^!\[[^\]]*\]\((?:\./)?\.assets/" + re.escape(name) + r"\.drawio\.png\)", re.MULTILINE)
     return [m.start() for m in pattern.finditer(page.read_text(encoding="utf-8"))]
 
 
@@ -791,8 +791,8 @@ def rekeyed(text, old, new):
     return "\n".join(lines)
 
 
-IGNORE_LINE = re.compile(r"^[ \t]*#[ \t]*cspell:ignore[ \t]+(.*?)[ \t]*$", re.M)  # a yml's cspell ignore comment
-PAGE_IGNORE = re.compile(r"^<!-- cspell:ignore[ \t]+(.*?)[ \t]*-->[ \t]*$", re.M)  # a page's own cspell ignore comment
+IGNORE_LINE = re.compile(r"^[ \t]*#[ \t]*cspell:ignore[ \t]+(.*?)[ \t]*$", re.MULTILINE)  # a yml's cspell ignore comment
+PAGE_IGNORE = re.compile(r"^<!-- cspell:ignore[ \t]+(.*?)[ \t]*-->[ \t]*$", re.MULTILINE)  # a page's own cspell ignore comment
 
 
 def with_page_ignores(whole, words):
@@ -822,7 +822,7 @@ def without_page_ignores(whole, body):
     found = PAGE_IGNORE.search(whole)
     if not found:
         return [], whole
-    uses = lambda text, w: re.search(r"(?<![A-Za-z])" + re.escape(w) + r"(?![A-Za-z])", text, re.I) is not None
+    uses = lambda text, w: re.search(r"(?<![A-Za-z])" + re.escape(w) + r"(?![A-Za-z])", text, re.IGNORECASE) is not None
     held = found.group(1).split()
     rest = whole[: found.start()] + whole[found.end() :]
     taken = [w for w in held if uses(body, w)]
@@ -1632,7 +1632,9 @@ def cause_sizes():
 def cause_radius(cause):
     """The radius the cause draws with: its written size, else the largest when its label ends in `!`, else the configured default."""
     sizes = cause_sizes()
-    size = cause.get("size") or (max(sizes, key=lambda name: sizes[name]) if str(cause["label"]).rstrip().endswith("!") else str(ACTION["cause-size"]))
+    size = cause.get("size") or (
+        max(sizes, key=lambda name: sizes[name]) if str(cause["label"]).rstrip().endswith("!") else str(ACTION["cause-size"])
+    )
     return sizes[size]
 
 
@@ -2753,11 +2755,13 @@ def place_action(declaration):
             )
         # A zone narrows towards the lane's top and bottom, where its rings curve in; a note stands just right of the zone's inner
         # curve and must end before its outer one, so the notes spread as far as the zone lets them, towards the centre line otherwise.
-        inner_edge = (lambda y: r0 - ACTION_CLEARANCE / 2) if k == 1 else (lambda y: math.sqrt(max(0.0, r_in**2 - y**2)))
-        outer_edge = lambda y: math.sqrt(max(0.0, r**2 - y**2))
+        # This zone's values are bound as defaults: the curves and the two helpers are only ever called within this pass of the loop.
+        inner_edge = (lambda y: r0 - ACTION_CLEARANCE / 2) if k == 1 else (lambda y, r_in=r_in: math.sqrt(max(0.0, r_in**2 - y**2)))
+        outer_edge = lambda y, r=r: math.sqrt(max(0.0, r**2 - y**2))
         full_step = (2 * lane_half - sum(heights)) / (len(in_zone) + 1)
 
-        def tops_at(scale):  # the notes' top edges, relative to the centre line: 1 spreads them over the lane, 0 packs them at it
+        # The notes' top edges, relative to the centre line: 1 spreads them over the lane, 0 packs them at it.
+        def tops_at(scale, full_step=full_step, heights=heights, in_zone=in_zone):
             step = 24 + (full_step - 24) * scale
             top, tops = -(sum(heights) + step * (len(in_zone) - 1)) / 2, []
             for h in heights:
@@ -2765,7 +2769,8 @@ def place_action(declaration):
                 top += h + step
             return tops
 
-        def fitted(tops):  # each note's left edge, or None when one note does not fit between its zone's curves
+        # Each note's left edge, or None when one note does not fit between its zone's curves.
+        def fitted(tops, heights=heights, inner_edge=inner_edge, outer_edge=outer_edge):
             boxes = []
             for top, h in zip(tops, heights):
                 near = 0.0 if top <= 0 <= top + h else min(abs(top), abs(top + h))
@@ -3767,7 +3772,8 @@ def committed(folder):
     """The pair as committed at git HEAD: the source's text (the file, or the article's block) and the model embedded in the png, read
     with `git show`. None when the diagram is outside a repository or either side is not committed: an untracked pair has no base."""
     stem = diagram_of(folder).resolve()
-    run = lambda *args: subprocess.run(["git", "-C", str(stem.parent), *args], capture_output=True)
+    # Never raises: each caller reads the return code, and a non-zero one means no base.
+    run = lambda *args: subprocess.run(["git", "-C", str(stem.parent), *args], capture_output=True, check=False)
     top = run("rev-parse", "--show-toplevel")
     if top.returncode != 0:
         return None
