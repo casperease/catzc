@@ -238,7 +238,7 @@ function revealFailed(conditions, out, vetoed) {
 function nextFailed(failed, current) {
     const ordered = [...(failed ?? [])].sort();
     if (ordered.length === 0) return undefined;
-    const at = current === undefined ? -1 : ordered.findIndex((place) => key(place) === key(current));
+    const at = current == null ? -1 : ordered.findIndex((place) => key(place) === key(current));
     return ordered[(at + 1) % ordered.length];
 }
 
