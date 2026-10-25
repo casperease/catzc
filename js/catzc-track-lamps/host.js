@@ -2,7 +2,8 @@
 // set once on activation (host below, since a module's binding cannot be assigned from another), so the rest is pure or reads the disk
 // only and the tests drive it with node and no editor; vscode is required on activation only.
 
-const host = { vscode: undefined, log: undefined };
+// ticked: the languages the languages button ticked into the row, in the workspace state; the engine keeps this copy current.
+const host = { vscode: undefined, log: undefined, ticked: [] };
 
 // The output channel is silent while all is well: a warning or an error is always written, the narration of each step only with
 // catzc.trackLamps.trace on.
@@ -27,15 +28,36 @@ const SHIPPED_LAMPS = [
     "docs",
     "out",
 ];
-const declaredFilters = () => config().get("filters") ?? {};
+// A language lamp is lang-<name>, so it never collides with a filter of the same name.
+const LANGUAGE = "lang-";
+// The language lamps' sets, in the languages config's order (catzc.trackLamps.languages, rendered by the settings generator): one include
+// per extension of each language named, none excluded.
+const languageSets = (languages, names) =>
+    Object.fromEntries(
+        Object.entries(languages ?? {})
+            .filter(([name]) => names.includes(name))
+            .map(([name, language]) => [
+                `${LANGUAGE}${name}`,
+                [{ include: (language?.extensions ?? []).map((extension) => `**/*${extension}`), exclude: [] }],
+            ]),
+    );
+const languages = () => config().get("languages") ?? {};
+// Every declared lamp: the filters, then every tagged language, ticked or not, so an unticked language's shown key is set false.
+const declaredFilters = () => ({ ...(config().get("filters") ?? {}), ...languageSets(languages(), Object.keys(languages())) });
+// The lamps in play: the shipped filters (or every filter with the flag on), then the ticked languages after them.
 const filters = () => {
-    const declared = declaredFilters();
-    if (PREVIEW_LAMPS) return declared;
-    return Object.fromEntries(Object.entries(declared).filter(([name]) => SHIPPED_LAMPS.includes(name)));
+    const declared = config().get("filters") ?? {};
+    const shipped = PREVIEW_LAMPS ? declared : Object.fromEntries(Object.entries(declared).filter(([name]) => SHIPPED_LAMPS.includes(name)));
+    return { ...shipped, ...languageSets(languages(), host.ticked) };
 };
 // The flag as an assert: with it off, the lamps in play are the shipped ones in their order, or the extension says so and keeps to them.
-const assertShipped = (lamps) => {
-    if (PREVIEW_LAMPS) return lamps;
+const assertShipped = (all) => {
+    if (PREVIEW_LAMPS) return all;
+    // The ticked language lamps stand after the filters and are no shipped lamp; the assert holds the filter lamps alone.
+    const added = all.filter((lamp) => lamp.startsWith(LANGUAGE));
+    return [...assertFilters(all.filter((lamp) => !lamp.startsWith(LANGUAGE))), ...added];
+};
+const assertFilters = (lamps) => {
     const ok = lamps.length === SHIPPED_LAMPS.length && lamps.every((lamp, at) => lamp === SHIPPED_LAMPS[at]);
     if (!ok) {
         const said = lamps.join(",");
@@ -49,4 +71,4 @@ const assertShipped = (lamps) => {
     return lamps;
 };
 
-module.exports = { host, trace, config, SHIPPED_LAMPS, declaredFilters, filters, assertShipped };
+module.exports = { host, trace, config, SHIPPED_LAMPS, LANGUAGE, languageSets, languages, declaredFilters, filters, assertShipped };

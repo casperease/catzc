@@ -64,12 +64,40 @@ function New-VsCodeExtensionFolder {
     if ($Extension.contributes.Contains('iconThemes')) {
         $null = New-VsCodeFileIconTheme -MediaDirectory $rendered -GlyphDirectory @((Join-Path $AssetDirectory "$($Extension.name)/assets"), (Join-Path $AssetDirectory 'catzc-track-lamps/assets'))
     }
+    # A repeat source that names glyphs draws one label glyph per item, <glyphs><key>-on/off.svg with the item's title as its label, so
+    # the lamps it repeats need no hand-drawn icon; the pass below recolours them per condition like every other base glyph.
+    $repeats = if ($Extension.contributes.Contains('repeat')) {
+        $Extension.contributes['repeat']
+    }
+    else {
+        @{}
+    }
+    foreach ($name in $repeats.Keys) {
+        $source = $repeats[$name]
+        if (-not $source.Contains('glyphs')) {
+            continue
+        }
+        $null = New-Item -ItemType Directory -Path $rendered -Force
+        $config = Get-Config -Config $source['config']
+        foreach ($item in @($config.($source['list']) | Where-Object { -not $source.Contains('where') -or $_.($source['where']) })) {
+            $label = [System.Security.SecurityElement]::Escape("$($item.($source['title']))")
+            $size = @{ 1 = 11; 2 = 9; 3 = 6.5; 4 = 5 }[[Math]::Min(4, [Math]::Max(1, $label.Length))]
+            $stem = Join-Path $rendered "$($source['glyphs'])$($item.($source['key']))"
+            $text = "<text x=`"8`" y=`"8`" dominant-baseline=`"central`" text-anchor=`"middle`" font-family=`"Consolas, 'Segoe UI', sans-serif`" font-weight=`"700`" font-size=`"$size`" fill=`"#3fb950`" stroke=`"none`">$label</text>"
+            $on = "<svg xmlns=`"http://www.w3.org/2000/svg`" width=`"16`" height=`"16`" viewBox=`"0 0 16 16`" fill=`"none`" stroke=`"#3fb950`" stroke-width=`"1.6`">`n  $text`n</svg>`n"
+            $off = "<svg xmlns=`"http://www.w3.org/2000/svg`" width=`"16`" height=`"16`" viewBox=`"0 0 16 16`" fill=`"none`" stroke=`"#1f6f3a`" stroke-linecap=`"round`" stroke-linejoin=`"round`">`n" +
+            "  <circle cx=`"8`" cy=`"8`" r=`"7.2`" stroke-width=`"1`" stroke-dasharray=`"3 2.2`">`n    <animateTransform attributeName=`"transform`" type=`"rotate`" from=`"0 8 8`" to=`"360 8 8`" dur=`"2s`" repeatCount=`"indefinite`"/>`n  </circle>`n" +
+            "  <g>`n    <animate attributeName=`"opacity`" values=`"1;0.35;1`" dur=`"1.2s`" repeatCount=`"indefinite`"/>`n    $($text.Replace('#3fb950', '#1f6f3a'))`n  </g>`n</svg>`n"
+            [System.IO.File]::WriteAllText("$stem-on.svg", $on, $utf8)
+            [System.IO.File]::WriteAllText("$stem-off.svg", $off, $utf8)
+        }
+    }
     $bases = @(if (Test-Path -LiteralPath $rendered) {
             Get-ChildItem -LiteralPath $rendered -Filter '*-on.svg' -File
         })
     if ($bases.Count -gt 0) {
         $palette = (Get-Config -Config lamp-palette).ranges
-        $stroke = '(?<=<svg [^>]*\bstroke=")#[0-9a-fA-F]{6}'
+        $stroke = '(?<=<svg [^>]*\bstroke=")#[0-9a-fA-F]{6}|(?<=<text [^>]*\bfill=")#[0-9a-fA-F]{6}'
         # A base glyph whose top-right corner is drawn on declares data-badge="bottom"; its badge then sits bottom-right.
         $corner = ' data-badge="bottom"'
         # A base glyph that declares data-empty="hidden" is drawn fully transparent while its lamp claims nothing, keeping its place in the row.

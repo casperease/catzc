@@ -21,7 +21,12 @@ Describe 'Get-ContractAssetNote' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACT
             $null = [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($file))
             [System.IO.File]::WriteAllText($file, $Content)
             if ($leaf -notmatch '\.sample\.') {
-                [System.IO.File]::WriteAllText((Join-Path $script:root 'contracts/widget/0.1.0/contract.yml'), "applies_to:`n  gadgets/${leaf}: ['widget.yml']`n")
+                # Every fixture written so far stays named, so a second note in the same test still finds the first bound.
+                $manifest = Join-Path $script:root 'contracts/widget/0.1.0/contract.yml'
+                if (-not [System.IO.File]::Exists($manifest)) {
+                    [System.IO.File]::WriteAllText($manifest, "applies_to:`n")
+                }
+                [System.IO.File]::AppendAllText($manifest, "  gadgets/${leaf}: ['widget.yml']`n")
             }
             $asset = Get-Contract -RepositoryRoot $script:root -Path $leaf
             InModuleScope Catzc.Base.Contracts -Parameters @{ Root = $script:root; Asset = $asset } {

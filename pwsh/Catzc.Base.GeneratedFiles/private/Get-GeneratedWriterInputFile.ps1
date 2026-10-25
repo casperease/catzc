@@ -21,6 +21,7 @@ function Get-GeneratedWriterInputFile {
     $files = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $folders = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     $walks = @{}
+    $inputDepth = (Get-Config -Config generated-files).input_depth
     foreach ($glob in @($InputGlob | Where-Object { $_ })) {
         if ($glob.IndexOfAny([char[]] '*?[') -lt 0) {
             if ([System.IO.File]::Exists((Join-Path $RepositoryRoot $glob))) {
@@ -31,7 +32,7 @@ function Get-GeneratedWriterInputFile {
         $prefix = [Catzc.Base.Globs.GlobPattern]::new($glob).LiteralPrefix
         $rest = $glob.Substring($prefix.Length).Split('/')
         $depth = if ($rest -contains '**') {
-            (Get-Config -Config generated-files).input_depth
+            $inputDepth
         }
         else {
             $rest.Count

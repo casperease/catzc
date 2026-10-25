@@ -14,21 +14,22 @@ Supports ADR-AUTO-MODULE-EXISTSBYLAYOUT, ADR-AUTO-DEPM-UNIFIEDGRAPH, ADR-AUTO-MO
 ADR-REPO-DRSCODE-PATHOFSEGMENTS and ADR-REPO-VOCAB-GLOSSARYSOURCE (meta lens).
 ```
 
-The [physical model](the-physical-model.md) says where each file is; the meta model says what the files make up and what governs them.
-Like the physical model, each part is declared once and read through a query.
+The [physical model](the-physical-model.md) says where each file is; the meta model says what the files make up and what governs them. Like
+the physical model, each part is declared once and read through a query.
 
 ## Modules
 
 A **module** exists by its layout: a folder of a track whose files fall into the rows its language's layout names
-([ADR-AUTO-MODULE-EXISTSBYLAYOUT](../../drs/automation/module-model.md#rule-adr-auto-module-existsbylayout)), with no registration step.
-Its languages come from its files ([ADR-AUTO-MODULE-LANGUAGESFROMFILES](../../drs/automation/module-model.md#rule-adr-auto-module-languagesfromfiles)),
-and `Get-CatzcModule` lists the modules with their track and root. `Get-ModuleProfile` says what one module holds.
+([ADR-AUTO-MODULE-EXISTSBYLAYOUT](../../drs/automation/module-model.md#rule-adr-auto-module-existsbylayout)), with no registration step. Its
+languages come from its files
+([ADR-AUTO-MODULE-LANGUAGESFROMFILES](../../drs/automation/module-model.md#rule-adr-auto-module-languagesfromfiles)), and `Get-CatzcModule`
+lists the modules with their track and root. `Get-ModuleProfile` says what one module holds.
 
 ## Dependencies and their order
 
 The dependencies between modules are one graph
-([ADR-AUTO-DEPM-UNIFIEDGRAPH](../../drs/automation/controlling-module-dependencies.md#rule-adr-auto-depm-unifiedgraph)), in two sections: the
-edges a module may make, declared, and the calls the code makes, measured
+([ADR-AUTO-DEPM-UNIFIEDGRAPH](../../drs/automation/controlling-module-dependencies.md#rule-adr-auto-depm-unifiedgraph)), in two sections:
+the edges a module may make, declared, and the calls the code makes, measured
 ([ADR-AUTO-DEPM-TWOSECTIONS](../../drs/automation/controlling-module-dependencies.md#rule-adr-auto-depm-twosections)).
 `Get-ModuleDependency` and `Get-ModuleDependencyEdges` answer the graph, `Test-FunctionDependency` refuses a call no edge allows, and
 `Get-ModuleOrder` gives the topological order the modules load in
@@ -40,7 +41,8 @@ and their edges are the C3 level of the [zoom ladder](the-zoom-ladder.md).
 A module runs on one or more of the execution engines
 ([ADR-AUTO-ENGINE-THREEENGINES](../../drs/automation/execution-engines.md#rule-adr-auto-engine-threeengines)), a subset it names
 ([ADR-AUTO-MODULE-ENGINESUBSET](../../drs/automation/module-model.md#rule-adr-auto-module-enginesubset)), and every difference between the
-engines is declared once ([ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE](../../drs/automation/execution-engines.md#rule-adr-auto-engine-differencesdeclaredonce)).
+engines is declared once
+([ADR-AUTO-ENGINE-DIFFERENCESDECLAREDONCE](../../drs/automation/execution-engines.md#rule-adr-auto-engine-differencesdeclaredonce)).
 
 ## Decisions: kinds and domains
 

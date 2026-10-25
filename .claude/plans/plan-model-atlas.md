@@ -41,20 +41,12 @@ already exist into a map anyone can read, and every slide is generated from thos
 
 ## Open steps
 
-1. [ ] `docs/drs/design/visual-design.md`: rule `DDR-VISUAL-ZOOMISANAXIS` (the C0–C4 list, orthogonal to the lens, the zoom badge, and the
-       subtitle `<lens> · C<n>`); then `Build-DrsIndex`. Check: `Test-DrsRegistry` and `Test-Links` on the file.
-2. [ ] `python/catzc_diagrams/configs/` (the vocabulary holding `lenses:`): add `zooms:` with the five levels; `declaration.py` accepts the
-       optional `about.zoom` and rejects a value outside the list. Check: the kit's pytest for `declaration.py` (new cases: absent, valid,
-       out of list).
-3. [ ] Renderer: the zoom badge next to the lens badge, and the C3/C4 boxes filled from the query rows passed in by `Build-Diagrams`
-       (`pwsh/Catzc.Base.Slides`). Check: the kit's pytest, plus one sample render in `out/diagrams/zoom-sample/` for the user to approve
-       (the engine changes, so the render is read).
-4. [ ] `docs/explanation/model/index.md` and these articles, one diagram each, narrated, citing their rules: - `the-physical-model.md`: the
-       tree, the tracks and their places, file languages, aspects, and the four link relations. - `the-meta-model.md`: modules, dependencies
-       and their order, engines, decision kinds and domains, the glossary. - `where-each-model-is-declared.md`: one table, model → config
-       file → query command → gate that keeps it true. - `the-zoom-ladder.md`: C0–C4 and how they cross the lenses. Add `model` to
-       `docs/explanation/index.md`, and replace its five-lens table with a link to `the-zoom-ladder.md` (the user, 2026-10-25). Check:
-       `Test-Links`, `Test-Glossary` on the new files, `Format-Code`.
+3. [ ] The query rows' published shape: a JSON schema under `contracts/catzc/0.1.0/catzc.base.maps/` with its `applies_to` line in that
+       root's `contract.yml`, matching the shape `python/catzc_diagrams/tests/test_query_rows.py` pins; then one sample render in
+       `out/diagrams/zoom-sample/` (a C4 slide of `pwsh/Catzc.Base.Config`) for the user to approve, since the engine changed. Both wait on
+       contracts-layout. Check: the contract tests of `catzc.base.maps`, and the sample read.
+4. [ ] The four `docs/explanation/model/` articles each gain their one narrated diagram (a `yml drawio` block and its png). Waits on
+       contracts-layout, as every render does. Check: `Test-Diagrams` and `Test-Links` on the articles.
 5. [ ] The five ladders of the points listed above as `.drawio.yml` declarations plus pngs under `docs/explanation/model/.assets/`, one
        article per ladder (`zoom-<point>.md`). Check: `Test-Diagrams`, `Test-Slides`, `Test-Links`.
 

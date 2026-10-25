@@ -37,6 +37,16 @@ Describe 'Expand-VsCodeRepeat' -Tag 'L0', 'logic' {
         $expanded.Contains('repeat') | Should -BeFalse
     }
 
+    It 'keeps only the items that carry the where field, numbering the kept ones' {
+        $contributes = [ordered]@{
+            repeat   = [ordered]@{ gadget = [ordered]@{ config = 'gadgets'; list = 'gadgets'; key = 'name'; title = 'tag'; where = 'tag' } }
+            commands = @([ordered]@{ repeat = 'gadget'; command = 'gadget.{gadget}'; title = '{gadget.title} {gadget.position}' })
+        }
+        $commands = @((& $script:expand $contributes)['commands'])
+        $commands.ForEach({ $_['command'] }) | Should -Be @('gadget.cog', 'gadget.gear')
+        $commands.ForEach({ $_['title'] }) | Should -Be @('cg 1', 'gr 2')
+    }
+
     It 'refuses an entry that repeats an undeclared source' {
         $broken = [ordered]@{ repeat = [ordered]@{}; commands = @([ordered]@{ repeat = 'gizmo'; command = 'gizmo.{gizmo}' }) }
         { & $script:expand $broken } | Should -Throw '*does not declare*'

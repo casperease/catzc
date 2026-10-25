@@ -98,6 +98,15 @@ extensions:
           list: filters
           key: name
           title: title
+        # One lamp per tagged language of the languages config, named lang-<name> and labelled with its tag; the languages button ticks
+        # which of them stand in the row, after the filters.
+        language:
+          config: languages
+          list: languages
+          key: name
+          title: tag
+          where: tag
+          glyphs: lang-
       commands:
         - command: catzc.lamps.orchestrate.red
           title: "orchestrator: something failed (click to show every failing file)"
@@ -138,6 +147,30 @@ extensions:
           category: Catzc lamps
           states: [staged, unstaged, failed, empty]
           state_context: catzc.lamps.state.{lamp}
+        - command: catzc.lamps.languages.pick
+          title: "languages: pick the languages that stand in the row as lamps"
+          icon: { light: "media/languages-pick.svg", dark: "media/languages-pick.svg" }
+          category: Catzc lamps
+        # A ticked language is a lamp like a filter: the same three commands per state, under its lang-<name>.
+        - repeat: language
+          command: catzc.lamps.lang-{language}.veto
+          title: "lang-{language}, {language.title}: shown (click to veto)"
+          icon: { light: "media/lang-{language}-on.svg", dark: "media/lang-{language}-on.svg" }
+          category: Catzc lamps
+          states: [staged, unstaged, failed, empty]
+          state_context: catzc.lamps.state.lang-{language}
+        - repeat: language
+          command: catzc.lamps.lang-{language}.putOut
+          title: "lang-{language}: vetoed, its whole zone hidden (click to turn off)"
+          icon: { light: "media/lang-{language}-veto.svg", dark: "media/lang-{language}-veto.svg" }
+          category: Catzc lamps
+        - repeat: language
+          command: catzc.lamps.lang-{language}.light
+          title: "lang-{language}: hidden, filter active (click to show)"
+          icon: { light: "media/lang-{language}-off.svg", dark: "media/lang-{language}-off.svg" }
+          category: Catzc lamps
+          states: [staged, unstaged, failed, empty]
+          state_context: catzc.lamps.state.lang-{language}
       menus:
         view/title:
           - command: catzc.lamps.orchestrate.red
@@ -164,6 +197,22 @@ extensions:
             command: catzc.lamps.{lamp}.light
             when: "view == workbench.explorer.fileView && catzc.lamps.shown.{lamp} && catzc.lamps.out.{lamp}"
             group: navigation@9{lamp.position}
+          # The ticked languages stand after every filter lamp, then the button that ticks them.
+          - repeat: language
+            command: catzc.lamps.lang-{language}.veto
+            when: "view == workbench.explorer.fileView && catzc.lamps.shown.lang-{language} && !catzc.lamps.out.lang-{language} && !catzc.lamps.veto.lang-{language}"
+            group: navigation@20{language.position}
+          - repeat: language
+            command: catzc.lamps.lang-{language}.putOut
+            when: "view == workbench.explorer.fileView && catzc.lamps.shown.lang-{language} && catzc.lamps.veto.lang-{language}"
+            group: navigation@20{language.position}
+          - repeat: language
+            command: catzc.lamps.lang-{language}.light
+            when: "view == workbench.explorer.fileView && catzc.lamps.shown.lang-{language} && catzc.lamps.out.lang-{language}"
+            group: navigation@20{language.position}
+          - command: catzc.lamps.languages.pick
+            when: "view == workbench.explorer.fileView"
+            group: navigation@300
       configuration:
         title: Catzc track lamps
         properties:

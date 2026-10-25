@@ -15,21 +15,19 @@ Supports DDR-VISUAL-ZOOMISANAXIS (meta lens).
 Every diagram is drawn through a **lens**, the closed list the renderer declares (`about.lens`): meta, architecture, implementation,
 operations, governance, source, action and proof. The lens says what a diagram shows. A diagram may also name a **zoom**, how far out it
 stands, from a second closed list declared beside the lenses (`about.zoom`)
-([DDR-VISUAL-ZOOMISANAXIS](../../drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)). The two cross: a C2 slide can be an architecture
-slide or a governance slide, and both stand equally far out.
+([DDR-VISUAL-ZOOMISANAXIS](../../drs/design/visual-design.md#rule-ddr-visual-zoomisanaxis)). The two cross: a C2 slide can be an
+architecture slide or a governance slide, and both stand equally far out.
 
 ## The five levels
 
 - **C0 landscape** — the truth stores the repository sits among: the fact sources, the state machines and the adjacent stores
   ([TDR-STORES-THREEKINDS](../../drs/thesis/truth-stores.md#rule-tdr-stores-threekinds)).
-- **C1 context** — the repository as one system, with the actors around it: the engineer, the devbox, the pipelines, Azure DevOps and
-  Azure.
-- **C2 containers** — the tracks crossed with the engines and the languages: the [world map](the-physical-model.md#the-world-map), drawn
-  as boxes.
+- **C1 context** — the repository as one system, with the actors around it: the engineer, the devbox, the pipelines, Azure DevOps and Azure.
+- **C2 containers** — the tracks crossed with the engines and the languages: the [world map](the-physical-model.md#the-world-map), drawn as
+  boxes.
 - **C3 components** — one container's modules or units, with the dependency edges between them
   ([the meta model](the-meta-model.md#dependencies-and-their-order)).
-- **C4 code** — one module's files and the link edges between them
-  ([the physical model](the-physical-model.md#link-relations)).
+- **C4 code** — one module's files and the link edges between them ([the physical model](the-physical-model.md#link-relations)).
 
 The ladder is Simon Brown's C4 model, with C0 added under it: a repository is never the whole landscape.
 

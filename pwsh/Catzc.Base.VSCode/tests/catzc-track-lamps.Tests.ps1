@@ -186,7 +186,10 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
         # The open lamp is no switch either: one next command per condition, its empty icon drawn invisible.
         $next = @($all.Where({ $_['command'] -like 'catzc.lamps.open.next*' }))
         @($next.ForEach({ $_['command'] })) | Should -Be @('catzc.lamps.open.next', 'catzc.lamps.open.next.staged', 'catzc.lamps.open.next.unstaged', 'catzc.lamps.open.next.failed', 'catzc.lamps.open.next.empty')
-        $commands = @($all.Where({ $_['command'] -notlike 'catzc.lamps.orchestrate.*' -and $_['command'] -notlike 'catzc.lamps.open.next*' }))
+        # The language lamps and the button that ticks them are checked below, apart from the filter lamps.
+        $languageCommands = @($all.Where({ $_['command'] -like 'catzc.lamps.lang-*' }))
+        $pick = @($all.Where({ $_['command'] -ceq 'catzc.lamps.languages.pick' }))
+        $commands = @($all.Where({ $_['command'] -notlike 'catzc.lamps.orchestrate.*' -and $_['command'] -notlike 'catzc.lamps.open.next*' -and $_['command'] -notlike 'catzc.lamps.lang-*' -and $_['command'] -cne 'catzc.lamps.languages.pick' }))
         $pattern = '^catzc\.lamps\.([a-z_]+)\.(putOut|veto|light)(\.(staged|unstaged|failed|empty))?$'
         $commands.Where({ $_['command'] -notmatch $pattern }).ForEach({ $_['command'] }) | Should -BeNullOrEmpty
         $lamps = @($commands.ForEach({ $_['command'] -replace $pattern, '$1' }) | Select-Object -Unique)
@@ -216,6 +219,28 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
         foreach ($command in @($commands) + @($next)) {
             @($menu.Where({ $_['command'] -ceq $command['command'] })) | Should -HaveCount 1 -Because "$($command['command']) shows in the title row once"
         }
+        # Every tagged language of the languages config is a lamp of its own, lang-<name>, with a lamp's commands, rendered icons and menu items.
+        $tagged = @((Get-Config -Config languages).languages | Where-Object tag | ForEach-Object name)
+        $tagged.Count | Should -BeGreaterThan 0
+        $languageIcons = @($languageCommands.ForEach({ $_['icon']['dark'] }))
+        foreach ($name in $tagged) {
+            foreach ($state in 'veto', 'putOut', 'light') {
+                @($languageCommands.Where({ $_['command'] -ceq "catzc.lamps.lang-$name.$state" })) | Should -HaveCount 1 -Because "lang-$name has its $state command"
+            }
+            foreach ($switch in 'on', 'off') {
+                foreach ($condition in '', '-staged', '-unstaged', '-failed', '-empty') {
+                    $languageIcons | Should -Contain "media/lang-$name-$switch$condition.svg"
+                    ([xml](Get-Content -LiteralPath (Join-Path $folder "lang-$name-$switch$condition.svg") -Raw)).DocumentElement.LocalName | Should -Be 'svg'
+                }
+            }
+            ([xml](Get-Content -LiteralPath (Join-Path $folder "lang-$name-veto.svg") -Raw)).DocumentElement.LocalName | Should -Be 'svg'
+        }
+        foreach ($command in $languageCommands) {
+            @($menu.Where({ $_['command'] -ceq $command['command'] })) | Should -HaveCount 1 -Because "$($command['command']) shows in the title row once"
+        }
+        $pick | Should -HaveCount 1
+        ([xml](Get-Content -LiteralPath (Join-Path $folder 'languages-pick.svg') -Raw)).DocumentElement.LocalName | Should -Be 'svg'
+        @($menu.Where({ $_['command'] -ceq 'catzc.lamps.languages.pick' })) | Should -HaveCount 1 -Because 'the languages button shows once'
         foreach ($command in $next) {
             $svg = [xml](Get-Content -LiteralPath (Join-Path $folder ($command['icon']['dark'] -replace '^media/', '')) -Raw)
             $invisible = $command['command'] -ceq 'catzc.lamps.open.next.empty'

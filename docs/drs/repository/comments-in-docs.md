@@ -77,6 +77,8 @@ A comment page is an authored file. Its `## comment:<n>` sections are the export
 ([ADR-REPO-COMMENTS-MOVELOSESNOTHING](#rule-adr-repo-comments-movelosesnothing)), and the page of a PowerShell function file or script also
 holds the file's help in a `## help` section ([ADR-REPO-HELP-HELPONCOMMENTPAGE](function-help.md#rule-adr-repo-help-helponcommentpage)),
 which is the author's alone: `Export-Comments` never writes, moves or reorders it, and `Test-Comments` checks only the comment sections.
+The author may fold a section into the page's article prose and delete it, while the source keeps its one-line insight in place. The view
+then shows only the sections still on the page, and the move stays verbatim for every section that remains.
 
 - [An authored page](#an-authored-page)
 
@@ -108,6 +110,10 @@ Code already says what it does; a comment that repeats it is noise the reader ha
 today is wrong the day the code changes. The comments worth keeping are the ones a reader could not recover from the code: the reason behind
 a choice, the trap a change would fall into, the meaning of a value. Those stay true as long as the reason does, whatever the implementation
 becomes. History belongs in `git log` and plans in `.claude/plans`, so a comment never carries either.
+
+A new insight line never sits next to another comment line: two adjacent lines reach the export threshold, and `Export-Comments` moves
+both to the page. A page names a code line of more than 80 characters by its text cut at the last space before character 77, followed by
+`...`. A comment about the whole file goes on the type or function declaration, never above a `using`.
 
 ### A lossless move
 

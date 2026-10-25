@@ -20,8 +20,8 @@ never by walking the tree by hand.
 
 ## The tree
 
-Every file has one path from the repository root. The tree is conventional and semantic: each folder name is a setting with the
-conventional name as its default, and the tooling acts on what each name means
+Every file has one path from the repository root. The tree is conventional and semantic: each folder name is a setting with the conventional
+name as its default, and the tooling acts on what each name means
 ([ADR-REPO-FOLDERS-NAMESARESETTINGS](../../drs/repository/conventional-folders.md#rule-adr-repo-folders-namesaresettings)).
 
 ## Tracks and their places
@@ -41,24 +41,24 @@ module of it holds.
 ## The world map
 
 Crossing the tracks with the file languages gives the **world map**
-([DDR-TRACK-WORLDMAP](../../drs/design/tracks.md#rule-ddr-track-worldmap)): every file falls into one cell, and `Get-WorldMap` draws it.
-It is the C2 level of the [zoom ladder](the-zoom-ladder.md).
+([DDR-TRACK-WORLDMAP](../../drs/design/tracks.md#rule-ddr-track-worldmap)): every file falls into one cell, and `Get-WorldMap` draws it. It
+is the C2 level of the [zoom ladder](the-zoom-ladder.md).
 
 ## Aspects
 
 Every file of a module is in exactly one **aspect**
-([DDR-ASPECT-MODULESPARTITIONINTOASPECTS](../../drs/design/module-aspects.md#rule-ddr-aspect-modulespartitionintoaspects)), and the
-aspects are derived from the layout, never listed by hand
-([DDR-ASPECT-ASPECTSAREDERIVED](../../drs/design/module-aspects.md#rule-ddr-aspect-aspectsarederived)). `Get-Aspect` answers them, each as
-a glob set ([DDR-ASPECT-ASPECTISAGLOBSET](../../drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)).
+([DDR-ASPECT-MODULESPARTITIONINTOASPECTS](../../drs/design/module-aspects.md#rule-ddr-aspect-modulespartitionintoaspects)), and the aspects
+are derived from the layout, never listed by hand
+([DDR-ASPECT-ASPECTSAREDERIVED](../../drs/design/module-aspects.md#rule-ddr-aspect-aspectsarederived)). `Get-Aspect` answers them, each as a
+glob set ([DDR-ASPECT-ASPECTISAGLOBSET](../../drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)).
 
 ## Link relations
 
 A link between two files always has a direction
 ([ADR-REPO-LINKS-EVERYLINKHASADIRECTION](../../drs/repository/links-in-repository.md#rule-adr-repo-links-everylinkhasadirection)), the
 directions are rows of one table
-([ADR-REPO-LINKS-DIRECTIONSAREROWS](../../drs/repository/links-in-repository.md#rule-adr-repo-links-directionsarerows)), and the links
-that follow a convention are derived, not written
+([ADR-REPO-LINKS-DIRECTIONSAREROWS](../../drs/repository/links-in-repository.md#rule-adr-repo-links-directionsarerows)), and the links that
+follow a convention are derived, not written
 ([ADR-REPO-LINKS-CONVENTIONSAREDERIVED](../../drs/repository/links-in-repository.md#rule-adr-repo-links-conventionsarederived)).
 `Get-LinkEdge` answers the edges into a file, and `Test-LinkDirections` is the one gate that checks them
 ([ADR-REPO-LINKS-CHECKEDBYONEGATE](../../drs/repository/links-in-repository.md#rule-adr-repo-links-checkedbyonegate)). The edges inside one

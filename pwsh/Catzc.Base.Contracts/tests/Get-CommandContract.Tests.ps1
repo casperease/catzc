@@ -18,6 +18,7 @@ Describe 'Get-CommandContract' -Tag 'L0', 'logic', 'ADR-REPO-CMDCONTRACT-ONEREAD
         Add-Asset 'widget/0.1.0/catzc.widget/set_widget.command.yml' ''
         Add-Asset 'widget/0.1.0/catzc.gadget/get_gadget.command.yml' "parameters:`n  count: int = 2`n"
         Add-Asset 'widget/0.1.0/catzc.gadget/gadget.yml' 'gadget: 1'
+        Add-Asset 'widget/0.1.0/contract.yml' "applies_to:`n  catzc.gadget/gadget.yml: ['gadget.yml']`n"
     }
 
     It 'returns every command contract of the current version as a typed record, in asset order' {

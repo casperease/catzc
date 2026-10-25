@@ -7,50 +7,34 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Lists every contract asset of one unit version folder, with its contract.yml overrides applied.
+Lists every contract asset of one root's version folder, with the files its contract.yml applies_to binds.
 
 ### description
 
-A version folder, `contracts/<unit>/<version>/`, holds one folder per owning module and, optionally, its contract.yml
-([ADR-REPO-CONTRACT-LAYOUT](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout),
-[ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-directionbyconvention)). Every
-file under a module folder is an asset, at any depth. A released version folder also holds its .frozen record, the hash of each of its files
-that Publish-ContractRelease writes when it freezes the draft
-([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)); it is not an
-asset. Any other file at the version level, and a .frozen in the draft 0.0.0, has no owning module, and a contract.yml entry that names no
-asset overrides nothing; both throw, naming the file or the entry. Each asset's target sits under its module's target root, which
-ContractsConfig.ResolveTargetRoot picks from -TargetRoot
-([ADR-REPO-CONTRACT-LAYOUT](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)). Assets come in ordinal order of
-module, then path. Under the manifest-glob addressing mode, an asset contract.yml's applies_to names expands into one asset per tracked file
-its globs match under the module's target root, each with the asset's kind and direction
-([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing)); only a
-schema, fragment or presence asset expands, and an applies_to entry that names no asset, matches no file, or is read under another mode
-throws.
+A version folder, `contracts/<root>/<version>/`, holds assets directly or in one level of group folders, and optionally its contract.yml
+([ADR-REPO-CONTRACT-LAYOUT](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)). A group folder that holds a folder
+throws, naming it. A released version also holds its .frozen record, which is not an asset; a .frozen in the current version throws
+([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)). The files a
+fragment or file schema binds are named only by its version's applies_to, as repository-relative globs, and a key that names no asset throws
+([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing)). The
+tracked files are listed only once an asset's globs need matching.
 
-### parameter `Unit`
+### parameter `Root`
 
-The deployable-unit folder name.
+The contract root folder name, the promiser: `catzc` or a vendor such as `ado`.
 
 ### parameter `Version`
 
-The unit's version folder name.
+The root's version folder name.
 
 ### parameter `Folder`
 
 The version folder's absolute path.
 
-### parameter `TargetRoot`
-
-The target roots, module name to repository-relative folder. A module it does not name takes the repository root.
-
 ### parameter `RepositoryRoot`
 
-The repository root, in which a module that holds a command contract is resolved to its root (Get-ContractCommandRoot), once per module and
-only when the module folder holds one.
-
-### parameter `Addressing`
-
-The addressing mode. Default: full-path, ContractsConfig.DefaultAddressing; Get-Contract passes the configured mode.
+The repository root, in which a group that holds a command contract is resolved to its module's root (Get-ContractCommandRoot), once per
+group and only when the group holds one.
 
 ### outputs
 
@@ -59,14 +43,5 @@ The addressing mode. Default: full-path, ContractsConfig.DefaultAddressing; Get-
 ### example 1
 
 ```powershell
-Get-ContractVersionAsset -Unit widget -Version 0.0.0 -Folder $versionFolder -TargetRoot @{} -RepositoryRoot $root
-```
-
-## comment:1
-
-Above `$files = [string[]] @(Get-ChildPath $moduleFolder -File -Depth 64 -Exclude...`, written with `#`.
-
-```text
-A named whole-tree walk ([ADR-PWSH-ENUM-ALWAYSBOUNDED](/docs/drs/automation/pwsh/bounded-enumeration.md#rule-adr-pwsh-enum-alwaysbounded)): every
-asset of the version is listed, so no name is pruned and no depth drops one.
+Get-ContractVersionAsset -Root widget -Version 0.1.0 -Folder $versionFolder -RepositoryRoot $root
 ```
