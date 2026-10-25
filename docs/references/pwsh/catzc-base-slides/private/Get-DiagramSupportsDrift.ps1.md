@@ -33,7 +33,7 @@ The repository root the paths are under.
 
 ## comment:1
 
-Above `$text = Get-DiagramDeclarationText -Stem $Stem -RepositoryRoot...`, written with `#`.
+Above `$text = Get-DiagramDeclarationText -Stem $Stem -RepositoryRoot $RepositoryRoot`, written with `#`.
 
 ```text
 Each embedding page's `Supports <codes> (<lens> lens)` lines against the diagram's yml: a page passes when one of its lines

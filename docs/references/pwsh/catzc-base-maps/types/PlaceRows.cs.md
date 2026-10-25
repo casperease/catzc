@@ -25,16 +25,6 @@ than the budget, the modules of the track with the most rows fold into one row n
 a count of the rest.
 ```
 
-## comment:3
-
-Above `public static string[][] Recover(string row, MapsMinimapPlaces places)`, written with `//`.
-
-```text
-The places a row names, back from its minimised form: one for a track or a module alone, one for each folder a module row joins. The
-module comes back as its repository normal form (the prefix restored, the name join undone). A row that folds modules, elides a name
-or names a count only names no place and throws.
-```
-
 ## comment:4
 
 Above `public static bool IsNormal(string row, MapsMinimapPlaces places)`, written with `//`.

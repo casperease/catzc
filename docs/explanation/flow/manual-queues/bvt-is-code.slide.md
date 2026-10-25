@@ -19,7 +19,7 @@ catzc:
 
 ## Lead
 
-Every push to main runs the BVT level of the test suite. A failing run rejects the commit on its own; discard is terminal. No person stands
+Every push to main runs the BVT level of all tests. A failing run rejects the commit on its own; discard is terminal. No person stands
 here, so it is not a queue.
 
 ## Image

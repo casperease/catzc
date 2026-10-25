@@ -10,7 +10,7 @@ catzc:
       scale: 0.4
 ---
 
-# There are no house rules, only domain rules and decision records
+# There are no "house rules", only domain rules and decision records
 
 ## Eyebrow
 

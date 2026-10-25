@@ -80,7 +80,7 @@ checked once its first put has run.
 
 ## comment:3
 
-Above `$pngStems = @($candidates | Where-Object ...`, written with `#`.
+Above `$pngStems = @($candidates | Where-Object { $_ -cmatch...`, written with `#`.
 
 ```text
 A diagram in the article carrier has no yml beside its png: its stem is a tracked png with no yml, or an image a `yml drawio` block sits

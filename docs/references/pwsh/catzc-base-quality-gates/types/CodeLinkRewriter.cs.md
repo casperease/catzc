@@ -39,7 +39,7 @@ A citation is not glued to a word; a '-' before it is allowed only after a digit
 
 ## comment:4
 
-Above `public string Rewrite(string comment, string repoPath, bool tolerateUnknownCodes,...`, written with `//`.
+Above `public string Rewrite(string comment, string repoPath, bool...`, written with `//`.
 
 ```text
 Rewrites one comment. tolerateUnknownCodes (test files) skips citations of unregistered codes — test comments
@@ -78,7 +78,7 @@ A meta head is derived front matter: its adrs list holds the file's codes as pla
 
 ## comment:8
 
-Above `public CodeLinkRewriter(string repositoryRoot, DrsCitationMap map, DrsConfig adrs,...`, written with `//`.
+Above `public CodeLinkRewriter(string repositoryRoot, DrsCitationMap map, DrsConfig...`, written with `//`.
 
 ```text
 adrs: the registry, for its code grammar over the registered kinds and its root; anchorsOf: repository-relative .md path -> its GitHub anchors (null when the

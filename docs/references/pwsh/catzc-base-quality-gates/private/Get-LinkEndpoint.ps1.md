@@ -21,7 +21,7 @@ Repository-relative, '/'-separated paths.
 
 ### outputs
 
-A dictionary from path to `[Catzc.Base.QualityGates.LinkEndpoint]`.
+`[System.Collections.Generic.Dictionary[string, Catzc.Base.QualityGates.LinkEndpoint]]`
 
 ## comment:1
 

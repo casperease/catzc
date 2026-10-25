@@ -10,7 +10,7 @@ catzc:
       scale: 0.4
 ---
 
-# The sanctioned words are domain rules and decision records, never house rules
+# The sanctioned words are domain rules and decision records, never "house rules"
 
 ## Eyebrow
 

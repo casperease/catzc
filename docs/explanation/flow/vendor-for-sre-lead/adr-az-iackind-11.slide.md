@@ -20,7 +20,7 @@ catzc:
 ## Lead
 
 For the SRE Lead, who owns reliability, monitoring and the switch: A kind says where a file lives and what reads it; a template is filled by
-a config slot.
+a configuration slot.
 
 ## Image
 

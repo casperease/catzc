@@ -34,7 +34,7 @@ Get-MinimapPlace -Path pwsh/Catzc.Azure/configs/azure.yml -Facts @{ track = 'pws
 
 ## comment:1
 
-Above `$module = if ($Facts['module']) {`, written with `#`.
+Above `$module = if ($Facts['module'] -and "$($Facts['module'])" -ne $track) {`, written with `#`.
 
 ```text
 A place is [track, module, folder]: '-' for no module, and '.' for the module's own root; a folder inside the module is the path

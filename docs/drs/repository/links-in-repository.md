@@ -5,11 +5,19 @@
 ### Rule ADR-REPO-LINKS-EVERYLINKHASADIRECTION
 
 Every **relation** between two files in the repository has a **link direction**: from the file that writes it to the file it names. A
-relation is one of three: a markdown link (a link in a `.md` file), a code link (a link or a bare citation in a comment of any other file),
-and a docs edge (a file's meta head pointing to its comment page). A string that names a path or a citation is data and no relation; an
-image is an embed and no relation; a link to an in-file anchor, a URL, a folder or a missing target is no relation either.
+relation a file writes is one of three: a markdown link (a link in a `.md` file), a code link (a link or a bare citation in a comment of any
+other file), and a docs edge (a file's meta head pointing to its comment page). A string that names a path or a citation is data and no
+relation; an image is an embed and no relation; a link to an in-file anchor, a URL, a folder or a missing target is no relation either.
 
 - [Three relations](#three-relations)
+
+### Rule ADR-REPO-LINKS-CONVENTIONSAREDERIVED
+
+A **convention relation** is a relation no file writes: a declaration implies it. A test points at its subject by its stem under `tests/`, a
+file at its comment page by the `pages` map, and a module at each module it declares as a dependency. A convention relation is derived from
+its declaration on every run, never written into a file, and it is judged by the same rows as the relations a file writes.
+
+- [Convention relations](#convention-relations)
 
 ### Rule ADR-REPO-LINKS-ENDPOINTSAREFACETS
 
@@ -74,6 +82,14 @@ written by an author and resolves to one tracked file. A string literal is consu
 place, not read as another document; an anchor, a URL and a folder name no file of the tree. None of them has a direction to check, and a
 missing target is the form check's finding, not this one's.
 
+### Convention relations
+
+Some of the strongest ties between files are written nowhere: a test belongs to the file it tests, a file to its comment page, a module to
+the modules it builds on. Each is implied by a declaration the repository already holds, the test layout, the `pages` map and the module
+dependencies, so writing it into a file as well would be a second version of the same fact
+([one-living-version](../principles/one-living-version.md)). Derived on every run, a convention relation follows its declaration the moment
+the declaration changes, and judging it by the same rows lets one query answer what a file touches, written or implied.
+
 ### Endpoints are facets
 
 A rule about directions speaks about kinds of file — an ADR, a test, a file of a vendor track — never about one path. The facets name those
@@ -113,9 +129,9 @@ lands.
 ## Decision
 
 Every relation between two tracked files has a direction, judged on facets derived from the declarations against rows in one configuration:
-the first matching row decides, a relation no row allows is denied, and each row names the rule that decides it. Graphs that another record
-declares stay there. An ADR links only ADRs and its grounding references. Exceptions are configuration entries with a reason, and one gate
-checks it all from the same walk as the link check.
+the first matching row decides, a relation no row allows is denied, and each row names the rule that decides it. A relation a declaration
+implies is derived from it and judged by the same rows. Graphs that another record declares stay there. An ADR links only ADRs and its
+grounding references. Exceptions are configuration entries with a reason, and one gate checks it all from the same walk as the link check.
 
 ### How this is enforced
 
