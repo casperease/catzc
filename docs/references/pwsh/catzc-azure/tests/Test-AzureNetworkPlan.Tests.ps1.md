@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `Describe 'Test-AzureNetworkPlan' -Tag 'L0', 'logic' {`, written with `#`.
+Above `Describe 'Test-AzureNetworkPlan'`, written with `#`.
 
 ```text
 Test-AzureNetworkPlan and its join (Get-NetworkPlanViolations) over typed fixture configs with Greek environment

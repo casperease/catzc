@@ -370,8 +370,10 @@ C0 to C4: **C0 landscape**, the truth stores around the repository; **C1 context
 containers**, the tracks crossed with the engines and languages; **C3 components**, one container's modules or units and their dependency
 edges; **C4 code**, one module's files and their link edges. A declaration names its level in the optional `about.zoom`, which has no
 default, so a diagram without it is drawn as before, and a value outside the list is refused naming it. A diagram with a zoom carries a zoom
-badge printing `C<n>` beside its lens badge, and its subtitle ends in `<lens> · C<n>`. A C3 or C4 slide is filled from the query rows of its
-level, never placed by hand: its declaration stores the point of the tree and the level, and the builder asks the query.
+badge printing `C<n>` beside its lens badge, and the badge alone carries the level: the subtitle stays the diagram's ADR codes. A C3 or C4 slide is filled from the query rows of its
+level, never placed by hand: its declaration stores the inputs, the level and the point of the tree in `about.point`, and `Build-Diagrams`
+asks the level's query for that point and hands the rows to the renderer by an address it names, which expands them into generated cells
+that the source never holds.
 
 - [The zoom ladder](#the-zoom-ladder)
 
@@ -639,6 +641,6 @@ shape. A diagram set that prefers the quieter look configures the word beside th
 A lens and a distance answer different questions, so folding one into the other would multiply the lenses by every distance: a C2 slide can
 be an architecture slide or a governance slide, and both stand equally far out. Keeping the zoom a second closed list leaves the lens list
 as it is and lets any lens be drawn at any level. The ladder is Simon Brown's C4 model with a level C0 added under it for the truth stores
-the repository sits among, since a repository is never the whole landscape. The badge and the subtitle print the level, so a reader moving
-down a ladder always knows how far out the slide stands. The deep levels are generated, because a hand-placed module or file list goes stale
+the repository sits among, since a repository is never the whole landscape. The badge prints the level beside the lens, so a reader moving
+down a ladder always knows how far out the slide stands, and the subtitle keeps its one job of naming the decisions. The deep levels are generated, because a hand-placed module or file list goes stale
 with the first rename, and the queries that answer it already exist.

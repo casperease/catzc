@@ -1,5 +1,8 @@
-# Every key is optional: an omitted key takes the default declared once on FileLimitsConfig. A language value wins over its class default,
-# and no value may leave the bounds; a value outside them fails the config load.
+# ---
+# catzc:
+#   docs: "../../../docs/references/pwsh/catzc-base-file-limits/configs/file-limits.yml.md"
+#   header: "generated"
+# ---
 
 bounds: { length: { min: 100, max: 500 }, width: { min: 80, max: 200 } }
 defaults: { code: { length: 400, width: 120 }, config: { length: 300, width: 140 }, prose: { length: 400, width: 140 } }
@@ -21,9 +24,11 @@ exempt:
   docs/drs/azure/caf/management.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
   docs/drs/azure/caf/naming-and-tagging.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
   docs/drs/azure/caf/network-connectivity.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
-  docs/drs/azure/caf/network-private-access.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
+  docs/drs/azure/caf/network-private-access.md:
+    "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
   docs/drs/azure/caf/network-topology.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
-  docs/drs/azure/caf/platform-automation-and-devops.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
+  docs/drs/azure/caf/platform-automation-and-devops.md:
+    "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
   docs/drs/azure/caf/resource-organization.md: "CAF reference corpus, one Microsoft area per page; splits by section into a folder of pages"
   docs/drs/azure/waf/cost-optimization.md: "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
   docs/drs/azure/waf/operational-excellence.md: "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
@@ -31,7 +36,8 @@ exempt:
   docs/drs/azure/waf/reliability.md: "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
   docs/drs/azure/waf/security.md: "WAF pillar reference, one pillar per page; splits by section into a folder of pages"
   docs/drs/design/visual-design.md: "644 lines against the prose limit 400; splits by section into a folder of linked pages"
-  docs/drs/flow/cd-discipline-and-promotion-flow.md: "524 lines against the prose limit 400; splits by section into a folder of linked pages"
+  docs/drs/flow/cd-discipline-and-promotion-flow.md:
+    "524 lines against the prose limit 400; splits by section into a folder of linked pages"
   docs/drs/flow/commit-lifecycle.md: "431 lines against the prose limit 400; splits by section into a folder of linked pages"
   docs/drs/repository/conventional-folders.md: "494 lines against the prose limit 400; splits by section into a folder of linked pages"
   docs/drs/repository/dora-explains.md: "455 lines against the prose limit 400; splits by section into a folder of linked pages"
@@ -42,19 +48,23 @@ exempt:
   pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1: "450 lines against the code limit 400; splits by Describe into test files"
   pwsh/.internal/tests/Invoke-ModuleBuild.Tests.ps1: "439 lines against the code limit 400; splits by Describe into test files"
   pwsh/.scriptanalyzer/AnnounceStateChange.psm1: "411 lines against the code limit 400; splits by responsibility"
-  pwsh/Catzc.Base.Docs/configs/glossary/repository.yml: "431 lines against the config limit 300; splits by category into configs/<name>/<part>.yml"
+  pwsh/Catzc.Base.Docs/configs/glossary/repository.yml:
+    "431 lines against the config limit 300; splits by category into configs/<name>/<part>.yml"
   pwsh/Catzc.Base.Drs/configs/drs.yml: "410 lines against the config limit 300; splits by category into configs/<name>/<part>.yml"
   pwsh/Catzc.Base.Drs/types/DrsCitationRewriter.cs: "466 lines against the code limit 400; splits by responsibility"
   pwsh/Catzc.Base.Drs/types/DrsConfig.cs: "475 lines against the code limit 400; splits by responsibility"
   pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1: "460 lines against the code limit 400; splits by Describe into test files"
   pwsh/Catzc.Base.Execution/types/CliRunner.cs: "402 lines against the code limit 400; splits by responsibility"
-  pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1: "486 lines against the code limit 400; splits by Describe into test files"
+  pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1:
+    "486 lines against the code limit 400; splits by Describe into test files"
   pwsh/Catzc.Base.Languages/types/LanguageEntryReaders.cs: "405 lines against the code limit 400; splits by responsibility"
   pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs: "456 lines against the code limit 400; splits by responsibility"
   pwsh/Catzc.Base.Maps/types/MapsConfig.cs: "417 lines against the code limit 400; splits by responsibility"
   pwsh/Catzc.Base.Maps/types/WorldMapPdf.cs: "410 lines against the code limit 400; splits by responsibility"
-  pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml: "337 lines against the config limit 300; splits by category into configs/<name>/<part>.yml"
-  pwsh/Catzc.Base.QualityGates/configs/terminology/product.yml: "330 lines against the config limit 300; splits by category into configs/<name>/<part>.yml"
+  pwsh/Catzc.Base.ModuleSystem/configs/dependencies.yml:
+    "337 lines against the config limit 300; splits by category into configs/<name>/<part>.yml"
+  pwsh/Catzc.Base.QualityGates/configs/terminology/product.yml:
+    "330 lines against the config limit 300; splits by category into configs/<name>/<part>.yml"
   pwsh/Catzc.Base.QualityGates/tests/Format-Code.Tests.ps1: "430 lines against the code limit 400; splits by Describe into test files"
   pwsh/Catzc.Base.QualityGates/types/CodeLinkRewriter.cs: "481 lines against the code limit 400; splits by responsibility"
   pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs: "435 lines against the code limit 400; splits by responsibility"

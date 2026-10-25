@@ -109,7 +109,9 @@ final full run last.
     `Test-Links -Path docs/references/pwsh/CLAUDE.md`.
 21. plan-types-build-local step 9: one ci-pwsh pipeline run once `cache-types.yaml` lands. Check: the second run of a job restores the types
     cache (Cache@2 "Cache restored") and skips the DLL build.
-22. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
+22. plan-file-limits: untrack the 2 `__pycache__/*.pyc` files under `python/tests/catzc_base_repository/` (`git rm --cached`). Check:
+    `git ls-files '*.pyc'` prints nothing.
+23. The final full run, in a fresh session, when the chunks in plan-master have landed. Once it is green and committed, the work is done and
     every plan, task and prompt in `.claude/plans` is deleted (the user, 2026-10-20). Check: `.claude/plans` is empty.
 
 ## Report

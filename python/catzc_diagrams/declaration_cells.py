@@ -111,6 +111,10 @@ def chrome(content, cells):
     chip_w = 16 + 8 * len(content["lens"])
     cells.append(cell("lens-badge", content["lens"].upper(), BADGE, PAGE["x"], PAGE["title_y"] + 4, chip_w, 22))
     title_x = PAGE["x"] + chip_w + 12
+    if content.get("zoom"):  # the zoom crosses the lens, so its badge stands beside the lens badge (DDR-VISUAL-ZOOMISANAXIS)
+        zoom_w = 16 + 8 * len(content["zoom"])
+        cells.append(cell("zoom-badge", content["zoom"], BADGE, title_x - 4, PAGE["title_y"] + 4, zoom_w, 22))
+        title_x += zoom_w + 8
     cells.append(
         cell(
             "title", html.escape(content["title"], quote=False), TITLE, title_x, PAGE["title_y"], PAGE["width"] - (title_x - PAGE["x"]), 30

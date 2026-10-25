@@ -4,7 +4,7 @@
 #   header: "generated"
 # ---
 
-# cspell:ignore azuretools streetsidesoftware hediet esbenp tomoki redhat Anson Levett iliazeus gopls
+# cspell:ignore azuretools streetsidesoftware hediet esbenp tomoki redhat Anson gopls
 recommendations:
   # YAML language support — schema-validated editing of the configs/*.yml registries and pipeline YAML.
   - redhat.vscode-yaml
@@ -12,8 +12,6 @@ recommendations:
   - DavidAnson.vscode-markdownlint
   # cspell in the editor — the same dictionaries the Test-Spelling gate uses (cspell.yml + .cspell/).
   - streetsidesoftware.code-spell-checker
-  - ibm.output-colorizer
-  - iliazeus.vscode-ansi
   - ms-python.python
   # Pylance — pyright in the editor, in the mode the Test-PythonTypes gate runs (python.yml type_checking).
   - ms-python.vscode-pylance
@@ -24,7 +22,6 @@ recommendations:
   - redhat.vscode-xml
   # PDF viewing for reference material in docs.
   - tomoki1207.pdf
-  - DanLevett.regex-robin
   # draw.io — the editor of the .drawio.png diagrams under docs/.assets/.
   - hediet.vscode-drawio
 
@@ -62,6 +59,16 @@ extensions:
     description: >-
       Records every save in a catzc checkout to out/editor-saves.jsonl, with its content hash, so the listen mode tells the editor's changes
       from an agent's.
+    activationEvents: [onStartupFinished]
+  catzc-drs-links:
+    displayName: Catzc decision record links
+    description: >-
+      Opens a markdown link to a repository-root /docs/drs/ path on click, in any file, with its rule fragment kept.
+    activationEvents: [onStartupFinished]
+  catzc-ansi-logs:
+    displayName: Catzc ANSI logs
+    description: >-
+      Renders the ANSI colours of a log under out/ in the editor: the escapes hidden, the text painted in the terminal colours they name.
     activationEvents: [onStartupFinished]
   catzc-compiled-info:
     displayName: Catzc compiled build info

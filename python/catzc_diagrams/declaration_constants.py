@@ -65,7 +65,7 @@ LABEL_HEAD_CLEAR = int(DEFAULTS["renderer"]["edge-label-head-clear"])  # px of l
 DEFAULT_WHERE = str(ACTION["where"]).strip()  # the diagram's where unless content.where says otherwise
 DEFAULT_SHOW = str(ACTION["show"]).strip()  # what a note prints unless the effect's show: says otherwise
 # The cells put derives from the kit and the registries, never from the author: get skips them, and a change to them is stale.
-DERIVED = ("sidebar-bg", "legend", "legend-proof", "lens-badge", "mapkey")
+DERIVED = ("sidebar-bg", "legend", "legend-proof", "lens-badge", "zoom-badge", "mapkey")
 DERIVED_PREFIXES = ("lg-", "mk-", "minimap-", "lane-", "actor-")  # lane- is a lane's furniture, actor- the stick man: the kit's alone
 ACTOR_LINE = "endArrow=none;html=1;strokeColor=@ink;strokeWidth=2;shadow=0;"  # one line of the stick man's body
 CONTENT_KEYS = (

@@ -93,7 +93,7 @@ def place_spans(frame):
     delta = max(0, title_room - min(labels_top)) if labels_top else 0
     if delta:
         for c in cells:  # every y here is absolute; to_xml makes a child's relative to its parent
-            if c["id"] not in ("title", "subtitle", "lens-badge") and not c["edge"]:  # an edge follows its ends
+            if c["id"] not in ("title", "subtitle", "lens-badge", "zoom-badge") and not c["edge"]:  # an edge follows its ends
                 c["y"] += delta
         box_of = {k: {**v, "y": v["y"] + delta} for k, v in box_of.items()}
         content_bottom += delta

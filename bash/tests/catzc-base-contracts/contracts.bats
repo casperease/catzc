@@ -12,15 +12,15 @@ setup() {
     source "$CATZC_ENGINE_ENTRY"
 }
 
-@test "the manifest-glob mode expands one asset into one checked asset per pipeline file it applies to" {
-    run cats Get-Contract -Root ado -Addressing manifest-glob
+@test "a contract root lists one checked asset per pipeline file it applies to" {
+    run cats Get-Contract -Root ado
     [ "$status" -eq 0 ] || {
         echo "Get-Contract exited $status: $output" >&2
         return 1
     }
     # Every pipeline file the asset applies to is one more row of the same asset.
     local count
-    count="$(grep -c "contracts/ado" <<<"$output" || true)"
+    count="$(grep -c '\.ado/pipelines/' <<<"$output" || true)"
     [ "$count" -gt 1 ] || {
         echo "Get-Contract listed $count rows of the pipeline asset, want more than one: $output" >&2
         return 1

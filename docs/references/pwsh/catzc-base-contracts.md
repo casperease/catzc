@@ -98,7 +98,6 @@ The module's public functions and configuration, sorted into the responsibilitie
 | responsibility:3 — Asset listing            | `Get-Contract`             |
 |                                             | `Get-CommandContract`      |
 |                                             | `New-CatsCommandLookup`    |
-| config                                      | `contracts.yml`            |
 | responsibility:4 — Release freezing         | `Publish-ContractRelease`  |
 | responsibility:5 — Contract reference pages | `Build-ContractReference`  |
 | responsibility:6 — Accosted runs            | `Get-AccostedFile`         |

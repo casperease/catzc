@@ -3,20 +3,19 @@
 The file-limits module. It owns the one declaration of how long and how wide a tracked file may be, per file class, and the one way to
 measure a file against it: a config type that holds the defaults and their bounds, a compiled measure that reads a file in one pass, and the
 functions that resolve and check a file's limits. It deliberately does **not** own which language a file is (that is
-[Catzc.Base.Languages](catzc-base-languages.md)) or the limit on one function's body (that is the analyzer rule that reads its own
-setting).
+[Catzc.Base.Languages](catzc-base-languages.md)) or the limit on one function's body (that is the analyzer rule that reads its own setting).
 
 ## Responsibilities
 
-| Responsibility   | Area     | Name                                                                           |
-| ---------------- | -------- | ------------------------------------------------------------------------------ |
-| responsibility:1 | defaults | [Limits in the registry](#responsibility1--limits-in-the-registry)             |
+| Responsibility   | Area     | Name                                                                             |
+| ---------------- | -------- | -------------------------------------------------------------------------------- |
+| responsibility:1 | defaults | [Limits in the registry](#responsibility1--limits-in-the-registry)               |
 | responsibility:2 | measure  | [Measuring and checking a file](#responsibility2--measuring-and-checking-a-file) |
 
 ### responsibility:1 — Limits in the registry
 
-The length and width every file class may reach: a global default per class (code, config, prose), a per-language override that may push
-it, and bounds no value may leave. A file's class comes from its language, or from an extension override applied first; a file with no
+The length and width every file class may reach: a global default per class (code, config, prose), a per-language override that may push it,
+and bounds no value may leave. A file's class comes from its language, or from an extension override applied first; a file with no
 measurable text takes the class `none`. They are one registered config, `file-limits`, and its defaults are declared once, on the config
 type. A value outside its bounds fails the config load, so a wrong number never reaches a check.
 
@@ -41,8 +40,8 @@ The module's public functions and configuration, sorted into the responsibilitie
 
 | Responsibility                                   | Function            |
 | ------------------------------------------------ | ------------------- |
-| responsibility:1 — Limits in the registry | `Get-FileLimit` |
-| config | `file-limits.yml` |
+| responsibility:1 — Limits in the registry        | `Get-FileLimit`     |
+| config                                           | `file-limits.yml`   |
 | responsibility:2 — Measuring and checking a file | `Measure-FileShape` |
-| | `Test-FileShape` |
-| | `Test-FileLimits` |
+|                                                  | `Test-FileShape`    |
+|                                                  | `Test-FileLimits`   |

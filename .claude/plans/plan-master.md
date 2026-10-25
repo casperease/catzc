@@ -75,7 +75,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - session-learnings -> plan-session-learnings.md: catzc-49's lines only (waits on catzc-49).
 - drs-system -> plan-drs-system.md: four steps left, the user's CLAUDE.md edit (task-user-runs-and-commits).
 - debt-tier-tripwire -> plan-debt-tier-tripwire.md: 165 L0/L1 tests launch git and fail only when a tier runs alone; seams mocked, the
-  tripwire armed per container; three steps
+  tripwire armed per container; two steps
 - diagram-review -> plan-diagram-review.md: the diagrams reviewed with the user one named slide at a time (read, one question in context,
   one plan step from the written answer, a redraw after each); the user names the slides
 - debt-agent-traffic -> plan-debt-agent-traffic.md: fewer messages and tool calls between the orchestrator and its workers (a run lock,

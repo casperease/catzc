@@ -1,3 +1,11 @@
+/*
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-file-limits/types/FileLimitsConfig.cs.md"
+  header: "generated"
+---
+*/
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,10 +33,18 @@ public sealed class FileLimitsConfig
     private static readonly Dictionary<string, string> DefaultExtensions = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
     {
         [".psd1"] = "config",
-        [".gitignore"] = "config", [".gitattributes"] = "config", [".editorconfig"] = "config", [".gitattributes-template"] = "config",
-        [".markdownlintignore"] = "config", [".prettierignore"] = "config", [".csv"] = "config", [".tsv"] = "config",
+        [".gitignore"] = "config",
+        [".gitattributes"] = "config",
+        [".editorconfig"] = "config",
+        [".gitattributes-template"] = "config",
+        [".markdownlintignore"] = "config",
+        [".prettierignore"] = "config",
+        [".csv"] = "config",
+        [".tsv"] = "config",
         ["LICENSE"] = "prose",
-        [".gitkeep"] = Unmeasured, ["gitkeep"] = Unmeasured, [".pyc"] = Unmeasured,
+        [".gitkeep"] = Unmeasured,
+        ["gitkeep"] = Unmeasured,
+        [".pyc"] = Unmeasured,
     };
     private static readonly string[] LimitKeys = { "length", "width" };
     private static readonly string[] BoundKeys = { "min", "max" };
@@ -42,12 +58,25 @@ public sealed class FileLimitsConfig
 
     private static readonly Dictionary<string, string> DefaultClasses = new Dictionary<string, string>(StringComparer.Ordinal)
     {
-        ["powershell"] = "code", ["bcl"] = "code", ["bicep"] = "code", ["python"] = "code", ["go"] = "code", ["bash"] = "code",
-        ["javascript"] = "code", ["css"] = "code", ["html"] = "code",
-        ["yaml"] = "config", ["pipeline-yaml"] = "config", ["accosted"] = "config", ["json"] = "config", ["jsonl"] = "config",
-        ["xml"] = "config", ["solution"] = "config",
+        ["powershell"] = "code",
+        ["bcl"] = "code",
+        ["bicep"] = "code",
+        ["python"] = "code",
+        ["go"] = "code",
+        ["bash"] = "code",
+        ["javascript"] = "code",
+        ["css"] = "code",
+        ["html"] = "code",
+        ["yaml"] = "config",
+        ["pipeline-yaml"] = "config",
+        ["accosted"] = "config",
+        ["json"] = "config",
+        ["jsonl"] = "config",
+        ["xml"] = "config",
+        ["solution"] = "config",
         ["markdown"] = "prose",
-        ["stamp"] = Unmeasured, ["asset"] = Unmeasured,
+        ["stamp"] = Unmeasured,
+        ["asset"] = Unmeasured,
     };
 
     private readonly Dictionary<string, ResolvedFileLimit> resolved = new Dictionary<string, ResolvedFileLimit>(StringComparer.Ordinal);
@@ -248,8 +277,6 @@ public sealed class FileLimitsConfig
         exempt = exemptValue;
     }
 
-    // An override is applied before the language lookup, an exact file name first, then the extension; it takes its class's defaults, never the
-    // language's own values. A file no override and no language declares fails, so nothing tracked escapes unlimited.
     public ResolvedFileLimit ResolveFile(string path, string language)
     {
         string fileName = System.IO.Path.GetFileName(path ?? string.Empty);

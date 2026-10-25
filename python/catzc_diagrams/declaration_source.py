@@ -294,6 +294,9 @@ def save(folder, declaration):
         proves = declaration["about"].get("proves") or held["about"].get("proves")  # the drawing never carries the proof file
         if proves:
             about["proves"] = proves
+        zoom = declaration["about"].get("zoom") or held["about"].get("zoom")  # a drawing read back keeps the source's zoom level
+        if zoom:
+            about["zoom"] = zoom
         declaration = {**declaration, "about": about, "content": undrawn(declaration["content"], held)}
         # The drawing carries a row only as its expansion: when the drawing still draws what the source's rows expand to, the source
         # keeps its rows (the layout is the drawing's); when it draws something else, the drawing wins.

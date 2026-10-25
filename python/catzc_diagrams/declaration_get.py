@@ -342,7 +342,10 @@ def get(model, kind=None):
             if edge["kind"] == "flow" and not edge["label"]:
                 edge["label"] = content["relation"]
         content["relation"] = ""
-    declaration = normalise({"about": {"adrs": adrs, "lens": lens}, "content": content, "layout": layout}, where="the drawing")
+    about = {"adrs": adrs, "lens": lens}
+    if "zoom-badge" in cells:  # the zoom badge prints the level, so the drawing carries it back
+        about["zoom"] = plain(cells["zoom-badge"].get("value"))
+    declaration = normalise({"about": about, "content": content, "layout": layout}, where="the drawing")
     # A cell that sits where the grid would put it needs no layout entry: the layout keeps only what a hand moved.
     # A layout entry stays only where put would not place the cell there anyway, given the entries already kept for what holds it:
     # bands first, then frames from the outside in, then what they hold.

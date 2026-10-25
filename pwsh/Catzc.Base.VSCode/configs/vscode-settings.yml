@@ -136,7 +136,6 @@ settings:
     "**/.gitkeep": plaintext
     "**/*.yml": yaml
     "**/.markdownlintignore": ignore
-    "**/out/**/*.log": ansi
 
   yaml.schemaStore.enable: false
   json.schemaDownload.enable: false
@@ -167,12 +166,6 @@ settings:
   git.suggestSmartCommit: false
   git.smartCommitChanges: all
   git.postCommitCommand: push
-
-  regexrobin.rules:
-    - regex: '\[[^\]\r\n]+\]\(/(docs/drs/[^)#\s]+\.md)(#[^)\s]*)?\)'
-      editor:
-        - link: "file:///${workspaceFolder}/$1"
-          hoverMessage: "Open $1$2"
 
   go.toolsEnvVars:
     GOTOOLCHAIN: local
