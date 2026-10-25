@@ -13,61 +13,75 @@ catzc:
 Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'widget-repository'
+        $script:memo = Join-Path $TestDrive 'cache/generated-writers.json'
         [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'docs')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/index.md'), 'widget')
         [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'widget')) | Out-Null
-        $rendered = [datetime]::UtcNow.AddHours(-1)
-        [System.IO.File]::SetLastWriteTimeUtc((Join-Path $script:root 'docs/index.md'), $rendered)
-        foreach ($age in @{ 'widget/newer.txt' = 1; 'widget/older.txt' = -1 }.GetEnumerator()) {
-            $file = Join-Path $script:root $age.Key
-            [System.IO.File]::WriteAllText($file, 'gadget')
-            [System.IO.File]::SetLastWriteTimeUtc($file, $rendered.AddMinutes($age.Value * 10))
-        }
+        [System.IO.File]::WriteAllText((Join-Path $script:root 'widget/spin.txt'), 'gadget')
         $script:config = [Catzc.Base.QualityGates.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
                     'Build-Widget' = [ordered]@{ inputs = @('widget/**'); outputs = @('docs/index.md') }
                     'Build-Gadget' = [ordered]@{ inputs = @('gadget/*.yml'); outputs = @('docs/missing.md') }
                     'Build-Gizmo'  = $null
                 }
             })
+        # One judgement over a changed set; -Ran stores the stamp of each named writer afterwards, as the importer does once it ran.
         $script:run = {
-            param([string[]] $Changed)
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Changed = $Changed } {
-                param($Root, $Changed)
-                Get-GeneratedWriterDue -ChangedPath $Changed -RepositoryRoot $Root
+            param([string[]] $Changed, [string[]] $Ran)
+            InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Changed = $Changed; Ran = $Ran; Memo = $script:memo } {
+                param($Root, $Changed, $Ran, $Memo)
+                Get-GeneratedWriterDue -ChangedPath $Changed -RepositoryRoot $Root -MemoPath $Memo
+                foreach ($name in @($Ran | Where-Object { $_ })) {
+                    Save-GeneratedWriterStamp -Name $name -MemoPath $Memo
+                }
             }
         }
     }
 
     BeforeEach {
         Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'generated-files' } { $script:config }
+        Remove-Item -LiteralPath $script:memo -ErrorAction Ignore
     }
 
     It 'is due when a changed path matches an input, and not when none matches' -Tag 'ADR-AUTO-TEST-QUALITYGATE' {
         $rows = @(& $script:run @('widget/a.txt'))
         ($rows | Where-Object Name -eq 'Build-Widget').Due | Should -BeTrue
         ($rows | Where-Object Name -eq 'Build-Gizmo').Due | Should -BeTrue -Because 'a writer with neither list is due whenever anything changed'
+        [void] (& $script:run @() -Ran 'Build-Widget')
         $rows = @(& $script:run @('unrelated/b.txt'))
         ($rows | Where-Object Name -eq 'Build-Widget').Due | Should -BeFalse
     }
 
     It 'is not due when only an output changed' {
+        [void] (& $script:run @() -Ran 'Build-Widget')
         (@(& $script:run @('docs/index.md')) | Where-Object Name -eq 'Build-Widget').Due | Should -BeFalse
     }
 
-    It 'is due when a changed input is newer than the oldest output' {
-        (@(& $script:run @('widget/newer.txt')) | Where-Object Name -eq 'Build-Widget').Due | Should -BeTrue
+    It 'is due when a changed input is newer than the stamp stored at the last run' {
+        [void] (& $script:run @('widget/spin.txt') -Ran 'Build-Widget')
+        [System.IO.File]::SetLastWriteTimeUtc((Join-Path $script:root 'widget/spin.txt'), [datetime]::UtcNow.AddMinutes(10))
+        (@(& $script:run @('widget/spin.txt')) | Where-Object Name -eq 'Build-Widget').Due | Should -BeTrue
     }
 
-    It 'is not due when a changed input is older than the outputs' {
-        (@(& $script:run @('widget/older.txt')) | Where-Object Name -eq 'Build-Widget').Due | Should -BeFalse
+    It 'is not due when the changed inputs carry the stamp stored at the last run' {
+        [void] (& $script:run @('widget/spin.txt') -Ran 'Build-Widget')
+        (@(& $script:run @('widget/spin.txt')) | Where-Object Name -eq 'Build-Widget').Due | Should -BeFalse
+    }
+
+    It 'is due when the memo is missing or unreadable' {
+        (@(& $script:run @()) | Where-Object Name -eq 'Build-Widget').Due | Should -BeTrue
+        [void] [System.IO.Directory]::CreateDirectory((Split-Path $script:memo))
+        [System.IO.File]::WriteAllText($script:memo, '{ not json')
+        (@(& $script:run @()) | Where-Object Name -eq 'Build-Widget').Due | Should -BeTrue
     }
 
     It 'is due when an output named without a wildcard is missing, whatever changed' {
+        [void] (& $script:run @() -Ran 'Build-Gadget')
         $rows = @(& $script:run @('unrelated/b.txt'))
         ($rows | Where-Object Name -eq 'Build-Gadget').Due | Should -BeTrue
     }
 
     It 'says which writers have no lists, and is not due for them when nothing changed' {
+        [void] (& $script:run @() -Ran 'Build-Widget')
         $rows = @(& $script:run @())
         ($rows | Where-Object Name -eq 'Build-Gizmo').HasLists | Should -BeFalse
         ($rows | Where-Object Name -eq 'Build-Gizmo').Due | Should -BeFalse
@@ -84,7 +98,10 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
 
     It 'reads git when no changed set is given' {
         Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'gadget/a.yml' }
-        $rows = @(InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } { param($Root) Get-GeneratedWriterDue -RepositoryRoot $Root })
+        $rows = @(InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Memo = $script:memo } {
+                param($Root, $Memo)
+                Get-GeneratedWriterDue -RepositoryRoot $Root -MemoPath $Memo
+            })
         ($rows | Where-Object Name -eq 'Build-Gadget').Due | Should -BeTrue
         Should -Invoke Get-GitChangedPath -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
     }

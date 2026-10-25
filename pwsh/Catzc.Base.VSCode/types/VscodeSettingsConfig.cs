@@ -25,12 +25,8 @@ public sealed class VscodeSettingsConfig : Catzc.Base.Objects.DictionaryRecord
     // Every VS Code setting key -> its value, in authored order — what settings.json receives; read-only.
     public OrderedDictionary settings { get; }
 
-    // The editor actions kept off its menus: menu id (ViewTitle, …) -> the command ids hidden there, written into the editor's own
-    // hidden-menu state by Set-VsCodeHiddenAction; empty when none are declared.
     public IReadOnlyDictionary<string, string[]> hidden_actions { get; }
 
-    // The map settings another writer adds rows to: map setting key -> the setting key that lists the rows that writer owns. The generator
-    // carries those rows and the owner key through from the settings file on disk, so neither writer overwrites the other; empty by default.
     public IReadOnlyDictionary<string, string> carried { get; }
 
     public VscodeSettingsConfig(IDictionary raw)

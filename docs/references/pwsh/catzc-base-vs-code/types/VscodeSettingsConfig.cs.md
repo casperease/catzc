@@ -34,3 +34,21 @@ Load-time rules:
   - 'search.exclude', when authored, is a map of glob -> true/false — the map New-VsCodeSettings completes with
     the managed root-config targets (an authored false un-excludes past a broader glob).
 ```
+
+## comment:2
+
+Above `public IReadOnlyDictionary<string, string[]> hidden_actions { get; }`, written with `//`.
+
+```text
+The editor actions kept off its menus: menu id (ViewTitle, …) -> the command ids hidden there, written into the editor's own
+hidden-menu state by Set-VsCodeHiddenAction; empty when none are declared.
+```
+
+## comment:3
+
+Above `public IReadOnlyDictionary<string, string> carried { get; }`, written with `//`.
+
+```text
+The map settings another writer adds rows to: map setting key -> the setting key that lists the rows that writer owns. The generator
+carries those rows and the owner key through from the settings file on disk, so neither writer overwrites the other; empty by default.
+```
