@@ -169,6 +169,8 @@ configs:
     type: Catzc.Base.Languages.PythonConfig
   bash:
     type: Catzc.Base.Languages.BashConfig
+  javascript:
+    type: Catzc.Base.Languages.JavaScriptConfig
   languages:
     type: Catzc.Base.Languages.LanguagesConfig
   file-carriers:

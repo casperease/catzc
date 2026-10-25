@@ -30,6 +30,8 @@ const FIELD = "catzc.trackLamps.field";
 const OWNED_KEY = "owned";
 const LANGUAGE = "languages";
 const OPEN = "open";
+// The lamp of the run output (filters.yml), whose files the counter shows apart from the repository's own.
+const OUTPUT = "out";
 const HELD = "catzc.lamps.remembered";
 // The suffix of a remembered Error's source, and how many Errors one file remembers.
 const REMEMBERED = " · remembered";
@@ -371,7 +373,8 @@ async function hiddenGlobs(root, out, field, declared, known, open = [], vetoed 
 }
 
 // Every file on disk accounted for: the written entries must hide exactly the files the language does not show. Returns the totals, the
-// files shown, the files per signature, the files no lamp claims, and the files whose visibility breaks the rule.
+// files shown, the files per signature, the files no lamp claims, and the files whose visibility breaks the rule. The run output, the files
+// the out lamp claims, is counted apart (output), since it comes and goes with every run: total and shown count the repository's own files.
 async function census(root, out, field, declared, known, globs, open = [], vetoed = [], disk = undefined) {
     const sets = lampSets(declared, field, known, open);
     const lit = new Set(Object.keys(sets).filter((name) => !out.has(name)));
@@ -379,16 +382,78 @@ async function census(root, out, field, declared, known, globs, open = [], vetoe
     const verdict = evaluate(sets, lit, files, {}, vetoed);
     const showing = new Set(verdict.shown);
     const written = entryClaimer(globs);
-    const result = { total: files.length, shown: 0, signatures: {}, unclaimed: verdict.unaccounted, wrong: [] };
+    const output = sets[OUTPUT] ? claimer(sets[OUTPUT]) : () => false;
+    // The sum: the repository files the language shows, the ones the written entries hide, and the run output, each counted on its own,
+    // add up to the files on disk exactly when no file is both shown and hidden, or neither.
+    const result = {
+        disk: files.length,
+        total: 0,
+        shown: 0,
+        sum: { shown: 0, hidden: 0, output: 0 },
+        output: { total: 0, shown: 0 },
+        signatures: {},
+        unclaimed: verdict.unaccounted,
+        wrong: [],
+    };
     for (const place of files) {
+        const parts = place.split("/");
         const signature = verdict.signatures[place];
         const label = signature.length ? signature.join("+") : "(none)";
         result.signatures[label] = (result.signatures[label] ?? 0) + 1;
-        const hidden = written(place, place.split("/"));
-        if (!hidden) result.shown++;
+        const hidden = written(place, parts);
+        const isOutput = output(place, parts);
+        const tally = isOutput ? result.output : result;
+        tally.total++;
+        if (!hidden) tally.shown++;
+        if (isOutput) result.sum.output++;
+        else {
+            if (showing.has(place)) result.sum.shown++;
+            if (hidden) result.sum.hidden++;
+        }
         if (hidden === showing.has(place)) result.wrong.push(place);
     }
     return result;
+}
+
+// The status bar's one line, within budget characters (a codicon counts as two). The census asserts itself as its sum, shown + hidden +
+// out = the files on disk, '=' when it holds and '≠' when it does not, and the colour says which (accounted). The icon is the work's mood
+// by the facts, red over wip over clean, and the work's counts follow while they fit, the least important dropping first.
+function statusLine(tally, facts, budget = 48, view = undefined) {
+    const all = Object.values(facts ?? {});
+    const red = all.filter((fact) => fact?.fault === "failed").length;
+    const working = all.filter((fact) => fact?.fault !== "failed");
+    const unstaged = working.filter((fact) => fact?.change === "unstaged").length;
+    const staged = working.filter((fact) => fact?.change === "staged").length;
+    const { shown, hidden, output } = tally.sum;
+    const accounted = shown + hidden + output === tally.disk && tally.wrong.length === 0;
+    const mood = red ? "red" : unstaged + staged ? "wip" : "clean";
+    const icon = { red: "$(error)", wip: "$(git-compare)", clean: "$(pass)" }[mood];
+    // Only the hard numbers: every changed file, and of those the staged; the unstaged are the difference, never printed.
+    const work = [
+        [red, "red"],
+        [unstaged + staged, "changed"],
+        [staged, "staged"],
+    ]
+        .filter(([n]) => n > 0)
+        .map(([n, word]) => `${n} ${word}`);
+    const width = (text) => text.replace(/\$\([a-z-]+\)/g, "ii").length;
+    // The view in words when one fits: the repository less what is off and vetoed, or the lit lamps plus the rest, whichever is shorter;
+    // the numbers otherwise. The equation's truth is the census's, so a broken one reads ≠ in the words too.
+    const sum = `${shown}+${hidden}+${output}${accounted ? "=" : "≠"}${tally.disk}`;
+    const worded = [];
+    if (view?.name) {
+        const off = (view.off ?? []).map((lamp) => ` − ${lamp}`).join("");
+        const vetoed = (view.vetoed ?? []).map((lamp) => ` ∖ ${lamp}`).join("");
+        worded.push(accounted ? `${view.name}${off}${vetoed}` : `${view.name}${off}${vetoed} ≠`);
+        if ((view.lit ?? []).length && (view.off ?? []).length + (view.vetoed ?? []).length > 0) {
+            worded.push(`${view.lit.join(" + ")} + rest ${accounted ? "=" : "≠"} ${view.name}`);
+        }
+    }
+    const fits = worded.filter((text) => width(`${icon} ${text}`) <= budget).sort((a, b) => a.length - b.length);
+    const head = `${icon} ${fits[0] ?? sum}`;
+    const render = (segments) => [head, ...segments].join(" · ");
+    while (work.length && width(render(work)) > budget) work.pop();
+    return { text: render(work), mood, accounted };
 }
 
 // A path of the editor's, made '/'-separated from the root; undefined when it lies outside the root.
@@ -766,6 +831,7 @@ function activateEngine(context, api) {
         const sets = lampSets(filters(), state.field, languages(), openFiles(root, vscode.window.tabGroups.all));
         lastFacts = facts;
         lastSets = sets;
+        showStatus();
         const next = evaluate(sets, new Set(Object.keys(sets).filter((name) => !state.out.has(name))), [], facts).conditions;
         await setKey("catzc.lamps.summary", summaryOf(facts));
         if (JSON.stringify(next) === JSON.stringify(conditions)) return;
@@ -781,11 +847,23 @@ function activateEngine(context, api) {
         clearTimeout(judgeTimer);
         judgeTimer = setTimeout(() => judge().catch((error) => log.appendLine(`conditions failed: ${error?.stack ?? error}`)), 300);
     };
-    // The counter: shown/total files on disk, green while every file is hidden exactly as its filters say, red with the count when not.
+    // The counter: the census's sum, green while every file is hidden exactly as its filters say, red when not; the work's mood and counts
+    // follow the facts, so a judgement redraws it between censuses too.
     const counter = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
     counter.command = "catzc.lamps.showLog";
     counter.text = "$(sync~spin) counting files";
     counter.show();
+    let lastTally;
+    const showStatus = () => {
+        if (!lastTally) return;
+        const name = path.basename(rootOf() ?? "");
+        const lit = lamps().filter((lamp) => !state.out.has(lamp));
+        const off = lamps().filter((lamp) => state.out.has(lamp) && !state.vetoed.has(lamp));
+        const vetoed = lamps().filter((lamp) => state.vetoed.has(lamp));
+        const status = statusLine(lastTally, lastFacts, 48, { name, lit, off, vetoed });
+        counter.text = status.text;
+        counter.color = status.accounted ? "#3fb950" : "#f85149";
+    };
     context.subscriptions.push(
         counter,
         vscode.commands.registerCommand("catzc.lamps.showLog", () => log.show()),
@@ -800,18 +878,15 @@ function activateEngine(context, api) {
         const lit = lamps().map(
             (lamp) => `${lamp}${out.has(lamp) ? (vetoed.has(lamp) ? " (veto)" : " (off)") : ""} ${conditions[lamp] ?? "committed"}`,
         );
+        lastTally = tally;
+        showStatus();
         if (tally.wrong.length === 0 && tally.unclaimed.length === 0) {
-            counter.text = `$(pass) ${tally.shown}/${tally.total} · everything is accounted for`;
-            counter.color = "#3fb950";
-            counter.tooltip = `Catzc lamps: ${tally.shown} of ${tally.total} files shown, each hidden exactly when no lit lamp claims it or a vetoed lamp does.\nLamps: ${lit.join(", ")}\nFiles per signature:\n${matrix.join("\n")}`;
+            counter.tooltip = `Catzc lamps: ${tally.sum.shown} repository files shown + ${tally.sum.hidden} hidden + ${tally.sum.output} run output files under out/ = ${tally.disk} on disk, each hidden exactly when no lit lamp claims it or a vetoed lamp does.\nLamps: ${lit.join(", ")}\nFiles per signature:\n${matrix.join("\n")}`;
         } else {
-            const problems = tally.wrong.length + tally.unclaimed.length;
-            counter.text = `$(warning) ${tally.shown}/${tally.total} · a filter went bananas (${problems})`;
-            counter.color = "#f85149";
             counter.tooltip = `Catzc lamps: ${tally.wrong.length} files shown or hidden against their filters, e.g. ${tally.wrong.slice(0, 3).join(", ")}; ${tally.unclaimed.length} files no filter claims, e.g. ${tally.unclaimed.slice(0, 3).join(", ")}\nClick for the log.`;
         }
         const line =
-            `census: ${tally.shown}/${tally.total} shown; ${matrix.join(", ")}; ${tally.wrong.length} against their filters` +
+            `census: ${tally.shown}/${tally.total} shown + out ${tally.output.shown}/${tally.output.total}; ${matrix.join(", ")}; ${tally.wrong.length} against their filters` +
             `${tally.wrong.length ? ": " + tally.wrong.slice(0, 20).join(", ") : ""}; ${tally.unclaimed.length} unclaimed` +
             `${tally.unclaimed.length ? ": " + tally.unclaimed.slice(0, 20).join(", ") : ""}`;
         if (tally.wrong.length === 0 && tally.unclaimed.length === 0) trace(line);
@@ -1156,6 +1231,7 @@ module.exports = {
     remembering,
     nextFailed,
     revealFailed,
+    statusLine,
     summaryOf,
     hiddenEntries,
     hiddenGlobs,

@@ -72,6 +72,13 @@ function Get-LanguageTestOutcomes {
         $run.Remove('Engine')
     }
     $run[$tests.executable_parameter] = $Executable
+    # A runner whose tests run in no engine (JavaScript's, in node) declares no engine parameters, so it gets only those it declares.
+    $declared = (Get-Command $tests.runner).Parameters
+    foreach ($name in @($run.Keys)) {
+        if (-not $declared.ContainsKey($name)) {
+            $run.Remove($name)
+        }
+    }
     $produced = & $tests.runner @run
     $results = @{}
     foreach ($result in @($produced)) {
@@ -84,7 +91,7 @@ function Get-LanguageTestOutcomes {
     }
     $undiscovered = @($results.Keys | Where-Object { -not $keys.Contains($_) } | Sort-Object)
     if ($undiscovered.Count -gt 0) {
-        throw "The $Language tests of $Module reported test(s) the language bridge did not discover in the source: $($undiscovered -join ', '). Declare each as a top-level test function, or a one-line @test in Bash, that the discovery reads (ADR-AUTO-GO-ONEGOROOT, ADR-AUTO-PY-ONEPYTHONROOT, ADR-AUTO-BASH-ONEBASHROOT)."
+        throw "The $Language tests of $Module reported test(s) the language bridge did not discover in the source: $($undiscovered -join ', '). Declare each as a top-level test function, a one-line @test in Bash, or a top-level test() in JavaScript, that the discovery reads (ADR-AUTO-GO-ONEGOROOT, ADR-AUTO-PY-ONEPYTHONROOT, ADR-AUTO-BASH-ONEBASHROOT)."
     }
 
     foreach ($item in $Case) {

@@ -1,0 +1,8 @@
+# ---
+# catzc:
+#   docs: "../../../docs/references/pwsh/catzc-base-languages/configs/javascript.yml.md"
+#   header: "generated"
+# ---
+
+# The JavaScript root is the js track when the repository has js/, else .js; declare root: only to move it.
+{}

@@ -1,5 +1,5 @@
 {
-  "hash": "009c3d9d",
+  "hash": "35132804",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -839,6 +839,16 @@
     },
     {
       "name": "Catzc.Base.Languages.ImprintStep",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.JavaScriptConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.JavaScriptTestResult",
       "aliases": [],
       "display": []
     },

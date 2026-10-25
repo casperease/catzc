@@ -8,7 +8,7 @@ catzc:
 
 [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSReviewUnusedParameter', 'TestFolder', Justification = 'Read in the BeforeDiscovery block, which the analyzer does not follow.')]
 param(
-    # go, python or bash.
+    # go, python, bash or javascript.
     [Parameter(Mandatory)]
     [string] $Language,
 
@@ -37,6 +37,9 @@ BeforeDiscovery {
             elseif ($language -eq 'python') {
                 @(Get-PythonTestCases -Folder $folder)
             }
+            elseif ($language -eq 'javascript') {
+                @(Get-JavaScriptTestCases -Folder $folder)
+            }
             else {
                 @(Get-BashTestCases -Folder $folder)
             })
@@ -47,9 +50,12 @@ BeforeDiscovery {
 Describe "$Language tests of $($script:languageSuite.Module)" -Tag 'L2', 'greedy' -ForEach @(@{
         Language = $Language; Module = $script:languageSuite.Module; Cases = $script:languageSuite.Cases; Entry = $EntryScript; Tool = $Executable
         Folder      = $TestFolder
-        # A Bash test is Bash, so it runs under the bash engine only; every other language's test runs under each.
+        # A Bash test is Bash, so it runs under the bash engine only; a JavaScript test runs in node, once; every other language's under each.
         Engines     = if ($Language -eq 'bash') {
             @([Catzc.Base.Engines.ExecutionEngines]::Bash.Name)
+        }
+        elseif ($Language -eq 'javascript') {
+            @([Catzc.Base.Engines.ExecutionEngines]::Pwsh.Name)
         }
         else {
             @([Catzc.Base.Engines.ExecutionEngines]::Names)
