@@ -478,15 +478,18 @@ const excludeSize = (exclude) => Object.keys(exclude).reduce((total, glob) => to
 // The files.exclude the lamps wrote last, so the settings change their own write raises is not taken for a new one.
 let written;
 
-async function apply(context) {
+// One pass of the filter for the switches as they are now (state: out, vetoed, field): the entries computed, the settings written when
+// they differ. Passes never overlap: the press queue in activate runs one at a time, the latest switches winning, so a slow write of an
+// older state can never land after a newer one.
+async function apply(context, state) {
     const folder = vscode.workspace.workspaceFolders?.[0];
     if (!folder) {
         return undefined;
     }
     const root = folder.uri.fsPath;
-    const out = new Set(context.workspaceState.get(OUT, []));
-    const field = context.workspaceState.get(FIELD, "");
-    const vetoed = new Set(context.workspaceState.get(VETO, []));
+    const out = new Set(state.out);
+    const field = state.field;
+    const vetoed = new Set(state.vetoed);
     const open = openFiles(root, vscode.window.tabGroups.all);
     const wanted = await hiddenGlobs(root, out, field, filters(), languages(), open, vetoed);
     const files = vscode.workspace.getConfiguration("files", folder.uri);
@@ -515,11 +518,17 @@ function activate(context) {
     const lamps = () => [OPEN, ...Object.keys(filters()), LANGUAGE];
     const rootOf = () => vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
 
+    // The switches, one authoritative copy in memory: a press changes it at once, the workspace state only remembers it across reloads.
+    const state = {
+        out: new Set(context.workspaceState.get(OUT, [])),
+        vetoed: new Set(context.workspaceState.get(VETO, [])),
+        field: context.workspaceState.get(FIELD, ""),
+    };
     // The title row shows each lamp's icon by its context keys: the switch (out: off, veto: vetoed, neither: on) and the condition.
     let conditions = {};
     const show = async () => {
-        const out = new Set(context.workspaceState.get(OUT, []));
-        const vetoed = new Set(context.workspaceState.get(VETO, []));
+        const out = state.out;
+        const vetoed = state.vetoed;
         await Promise.all(
             lamps().flatMap((lamp) => [
                 vscode.commands.executeCommand("setContext", `catzc.lamps.out.${lamp}`, out.has(lamp) && !vetoed.has(lamp)),
@@ -579,9 +588,8 @@ function activate(context) {
             if (fact.fault === "failed" && !(place in wanted) && !live.has(place))
                 wanted[place] = [{ message: "its last test run failed", range: [0, 0, 0, 0], source: "tests" }];
         publish(root, wanted);
-        const out = new Set(context.workspaceState.get(OUT, []));
-        const sets = lampSets(filters(), context.workspaceState.get(FIELD, ""), languages(), openFiles(root, vscode.window.tabGroups.all));
-        const next = evaluate(sets, new Set(Object.keys(sets).filter((name) => !out.has(name))), [], facts).conditions;
+        const sets = lampSets(filters(), state.field, languages(), openFiles(root, vscode.window.tabGroups.all));
+        const next = evaluate(sets, new Set(Object.keys(sets).filter((name) => !state.out.has(name))), [], facts).conditions;
         if (JSON.stringify(next) === JSON.stringify(conditions)) return;
         conditions = next;
         trace(
@@ -632,7 +640,15 @@ function activate(context) {
     // Every failure lands in the output channel; an unhandled rejection would vanish without a trace.
     const settle = async (retried = false) => {
         try {
-            const applied = await apply(context);
+            const applied = await apply(context, state);
+            // The write is verified against what the editor now holds; a mismatch (a write lost to a concurrent edit of the settings) is
+            // one more pass, never a silent disagreement between the lamps and the tree.
+            const folder = vscode.workspace.workspaceFolders?.[0];
+            const now = JSON.stringify(vscode.workspace.getConfiguration("files", folder?.uri).inspect("exclude")?.workspaceValue ?? {});
+            if (applied && now !== written) {
+                if (!retried) return settle(true);
+                log.appendLine(`warning: files.exclude did not take the lamps' write (${now.length} vs ${written.length} characters); the tree may disagree with the lamps`);
+            }
             // The count runs after the filter is in place, never delaying it; its failure is logged like any other.
             count(applied).catch((error) => log.appendLine(`census failed: ${error?.stack ?? error}`));
         } catch (error) {
