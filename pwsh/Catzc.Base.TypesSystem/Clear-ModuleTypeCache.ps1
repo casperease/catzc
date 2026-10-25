@@ -27,18 +27,11 @@ function Clear-ModuleTypeCache {
         }
     }
 
-    $compiledDir = Join-Path $ModulesRoot '.compiled'
+    # The builds are a per-machine cache in the shadow root (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD); git keeps only the manifest.
+    Import-InternalModule Types
+    $compiledDir = Get-TypesShadowRoot
 
-    # A pipeline deletes nothing, so two builds there means two were committed, and trunk may carry only one.
     if (Test-IsRunningInPipeline) {
-        # @(): an if-expression unrolls a 0/1-item list.
-        $typeDlls = @(if (Test-Path $compiledDir -PathType Container) {
-                [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($compiledDir, 'Catzc.Types.*.dll', 1).ToArray()
-            })
-        if ($typeDlls.Count -gt 1) {
-            $names = ($typeDlls | ForEach-Object { [System.IO.Path]::GetFileName($_) } | Sort-Object) -join ', '
-            throw "More than one compiled type assembly is committed in $compiledDir ($names). The committed .compiled must contain exactly one build. On the devbox, run Clear-ModuleTypeCache and commit the single remaining build."
-        }
         if (-not $Silent) {
             Write-Message 'type cache: skipped — running in a pipeline (CI makes no source-control changes).'
         }
