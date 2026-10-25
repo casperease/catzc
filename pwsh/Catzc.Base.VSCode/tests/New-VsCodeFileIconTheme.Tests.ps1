@@ -4,9 +4,9 @@ Describe 'New-VsCodeFileIconTheme' -Tag 'L0', 'logic' {
         $null = New-Item -ItemType Directory -Path $script:glyphs
         Set-Content -LiteralPath (Join-Path $script:glyphs 'gadget-on.svg') -Value '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" stroke="#000000" data-badge="bottom"><path d="M1 1h4"/></svg>'
         $script:config = [Catzc.Base.VSCode.FileIconsConfig]::new([ordered]@{ icons = [ordered]@{
-                    widget   = [ordered]@{ glyph = 'gadget'; color = '#abcdef'; extensions = @('wdg', 'tests.wdg') }
-                    sprocket = [ordered]@{ label = 'S&P'; color = '#123456'; names = @('.gadget') }
-                    cog      = [ordered]@{ label = 'COG'; style = 'prompt'; color = '#654321'; language = 'cogs'; language_ids = @('cog-flavour') }
+                    widget     = [ordered]@{ glyph = 'gadget'; color = '#abcdef'; extensions = @('wdg', 'tests.wdg') }
+                    sprocket   = [ordered]@{ label = 'S&P'; color = '#123456'; names = @('.gadget') }
+                    cog        = [ordered]@{ label = 'COG'; style = 'prompt'; color = '#654321'; language = 'cogs'; language_ids = @('cog-flavour') }
                     'cog-test' = [ordered]@{ label = 'CT'; color = '#654321'; extensions = @('gear') }
                 }
             })

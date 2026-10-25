@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# The pip subcommand group has no version flag of its own, so the end-to-end contract is carried by a real subcommand.
 Describe 'Invoke-Pip' -Tag 'L2', 'logic' {
     BeforeAll {
         $script:uvAvailable = Test-Tool 'uv'

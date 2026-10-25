@@ -6,6 +6,7 @@ catzc:
 ---
 */
 
+// Every violation is reported at once on construction, so a typo in vendor.yml fails at load, not at download.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ public sealed class VendorConfig : Catzc.Base.Objects.DictionaryRecord
     // The registered PSResourceRepository to download from and validate against (PSGallery by default).
     public string source { get; }
 
+    // Null for a built-in repository; a url names a private feed registered under the source name.
     public string sourceUrl { get; }
 
     public VendorConfig(IDictionary d)

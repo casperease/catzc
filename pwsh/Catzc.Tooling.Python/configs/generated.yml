@@ -4,6 +4,7 @@
 #   warning: "Generated Header"
 # ---
 
+# The toolchain's own output, declared as generated so a tool's environment and caches are never taken for authored files.
 targets:
   - { path: python/.venv/**, generator: uv }
   - { path: python/uv.lock, generator: uv }

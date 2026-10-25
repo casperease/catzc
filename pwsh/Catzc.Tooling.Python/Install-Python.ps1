@@ -29,6 +29,7 @@ function Install-Python {
         }
     }
 
+    # The preview opt-in is explicit, so the shims stay and uv's experimental warning never halts a run that stops on warnings.
     $reinstall = if ($Force) {
         ' --reinstall'
     }

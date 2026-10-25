@@ -30,10 +30,10 @@ Describe 'Catzc.Base.VSCode.FileIconsConfig' -Tag 'L0' {
 
         It 'reports a bad key, glyph and label together, a bad colour, a file with no match, and a file two icons claim' {
             $message = Get-ViolationMessage ([ordered]@{ folder = 'blue'; icons = [ordered]@{
-                        widget   = [ordered]@{ glyph = 'gadget'; label = 'W'; color = '#123456'; extensions = @('wdg'); shape = 'round' }
-                        gadget   = [ordered]@{ label = 'TOO LONG'; color = 'red' }
-                        sprocket = [ordered]@{ label = 'S'; color = '#123456'; extensions = @('WDG'); style = 'fancy' }
-                        cog      = [ordered]@{ glyph = 'gadget'; style = 'prompt'; color = '#123456'; language = 'cogs' }
+                        widget    = [ordered]@{ glyph = 'gadget'; label = 'W'; color = '#123456'; extensions = @('wdg'); shape = 'round' }
+                        gadget    = [ordered]@{ label = 'TOO LONG'; color = 'red' }
+                        sprocket  = [ordered]@{ label = 'S'; color = '#123456'; extensions = @('WDG'); style = 'fancy' }
+                        cog       = [ordered]@{ glyph = 'gadget'; style = 'prompt'; color = '#123456'; language = 'cogs' }
                         'cog-two' = [ordered]@{ label = 'C'; color = '#123456'; language = 'cogs' }
                     }
                 })

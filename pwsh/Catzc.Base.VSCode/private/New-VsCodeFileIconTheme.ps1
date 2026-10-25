@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-vs-code/private/New-VsCodeFileIconTheme.ps1.md"
+  header: "generated"
+---
+#>
+
 # cspell:ignore Segoe linejoin linecap
 function New-VsCodeFileIconTheme {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Writes generated output into a freshly rendered extension folder')]

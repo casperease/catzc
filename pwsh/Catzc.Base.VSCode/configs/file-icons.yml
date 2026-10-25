@@ -1,3 +1,9 @@
+# ---
+# catzc:
+#   docs: "../../../docs/references/pwsh/catzc-base-vs-code/configs/file-icons.yml.md"
+#   header: "generated"
+# ---
+
 icons:
   powershell-test: { label: TST, style: prompt, color: "#2b5fb8", extensions: [tests.ps1] }
   powershell: { label: PS1, style: prompt, color: "#2b5fb8", extensions: [ps1] }
