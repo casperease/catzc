@@ -35,9 +35,10 @@ comment, and the page ready for the next `Export-Comments` run.
 - [ ] Rollout, one module per step, in the master's order, after plan-comment-insights.md's TypesSystem, RootConfig and Slides steps land
       (their peers are writing source lines there): delegated to `catzc-drone`, at most 8 modules in flight, each brief naming its module's
       page folder and source folder as the files it owns and the vendor pilot as the pattern. Per page: write the article, keep `## help`,
-      add a source line only for gold. Check, per module: `Format-Code -Language markdown -Path <page folder>`, then `Test-Markdownlint`,
-      `Test-Spelling` and `Test-Links` on the pages report 0 issues, `Test-Comments -Path <source folder>` reports 0 issues,
-      `Export-Comments -Path <source folder> -DryRun` moves nothing, and the tests of every changed source file pass after a fresh import.
+      add a source line only for gold, then check each module. Check: `Format-Code -Language markdown -Path <page folder>`, then
+      `Test-Markdownlint`, `Test-Spelling` and `Test-Links` on the pages report 0 issues, `Test-Comments -Path <source folder>` reports 0
+      issues, `Export-Comments -Path <source folder> -DryRun` moves nothing, and the tests of every changed source file pass after a fresh
+      import.
 - [ ] The non-module trees last: `docs/references/python/`, `pwsh/.internal`, `scriptanalyzer`, `claude-hooks`. Check: as per module.
 - [ ] Close-out, then this plan is deleted. Check: `grep -rl "The comments of the file that outgrew one line" docs/references` returns
       nothing, and a full `Test-Comments` reports 0 issues.

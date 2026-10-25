@@ -11,8 +11,8 @@ plan:
 
 A developer's pwsh session sees many file changes, and every C# edit renames a tracked binary in `pwsh/.compiled`. Git keeps only
 `Catzc.Types.<hash>.json`; the DLL is built per machine into the per-user shadow cache, keyed by the hash. In the `console.*.source` cell
-only, a re-import after a C# edit loads the new build beside the old one and re-points the `Catzc.*` accelerators, up to a cap. Every
-other cell keeps its behaviour. Nothing spawns a process.
+only, a re-import after a C# edit loads the new build beside the old one and re-points the `Catzc.*` accelerators, up to a cap. Every other
+cell keeps its behaviour. Nothing spawns a process.
 
 ## Decided (the user, 2026-10-25)
 
@@ -31,14 +31,15 @@ other cell keeps its behaviour. Nothing spawns a process.
 ## Open steps
 
 1. [ ] `docs/drs/automation/caching.md`, rule ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD: rewritten so the committed artefact is the manifest and
-       the DLL is a per-machine cache under the shadow root, named for the combined hash. Check: `Test-Links` and `Test-Spelling` on the page.
+       the DLL is a per-machine cache under the shadow root, named for the combined hash. Check: `Test-Links` and `Test-Spelling` on the
+       page.
 2. [ ] Importer: when no DLL exists for the current hash, `Build-CombinedTypeAssembly` compiles it into the shadow root, and
        `Import-TypesAssembly` loads it from there. Check: `pwsh/.internal/tests/Import-TypesAssembly.Tests.ps1`,
        `Build-CombinedTypeAssembly.Tests.ps1`, then a fresh full import.
 3. [ ] `pwsh/.scriptanalyzer/SpellOutIdentifiers.psm1:27` and `pwsh/Catzc.Base.VSCode/types/VscodeSession.cs` find the DLL through the
        importer's lookup, not `pwsh/.compiled`. Check: their tests.
-4. [ ] `pwsh/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1`: the "more than one committed" throw goes; it prunes the local cache.
-       Check: `Clear-ModuleTypeCache.Tests.ps1`.
+4. [ ] `pwsh/Catzc.Base.TypesSystem/Clear-ModuleTypeCache.ps1`: the "more than one committed" throw goes; it prunes the local cache. Check:
+       `Clear-ModuleTypeCache.Tests.ps1`.
 5. [ ] `Invoke-ModuleBuild` compiles the DLL into the bundle instead of copying a committed one; `Assert-CatzcBundle` keeps its
        one-DLL-one-manifest check. Check: `pwsh/.internal/tests/Invoke-ModuleBuild.Tests.ps1`, `Assert-CatzcBundle.Tests.ps1`.
 6. [ ] `pwsh/Catzc.Base.Git/configs/gitignore.yml`: ignore `pwsh/.compiled/*.dll`; regenerate `.gitignore`; align `.gitattributes`,
