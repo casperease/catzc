@@ -673,20 +673,43 @@ function activate(context) {
         }
         await show();
     };
-    // A click steps a lamp round off -> on -> veto -> off and switches the icon at once, then filters; the count follows. A vetoed lamp is
-    // unlit as well, so the conditions and the open-lamp refresh read it as off.
-    const turn = async (lamp, mode) => {
-        const out = new Set(context.workspaceState.get(OUT, []));
-        const vetoed = new Set(context.workspaceState.get(VETO, []));
-        if (mode === "on") out.delete(lamp);
-        else out.add(lamp);
-        if (mode === "veto") vetoed.add(lamp);
-        else vetoed.delete(lamp);
-        await context.workspaceState.update(OUT, [...out]);
-        await context.workspaceState.update(VETO, [...vetoed]);
-        await show();
-        await settle();
+    // The press queue: every press (and every outside event) asks for one pass, and one pass runs at a time over the switches as they are
+    // when it starts; a press that lands mid-pass is served by the next pass, so the last press always has the last word and the tree is
+    // in the pressed state as soon as the queue drains. The counter spins while it drains.
+    let draining = null;
+    let pending = false;
+    const drain = async () => {
+        counter.text = "$(sync~spin) filtering";
+        counter.color = undefined;
+        while (pending) {
+            pending = false;
+            await settle();
+        }
+    };
+    const requestApply = () => {
+        pending = true;
+        if (!draining) {
+            draining = drain()
+                .catch((error) => log.appendLine(`filtering failed: ${error?.stack ?? error}`))
+                .finally(() => {
+                    draining = null;
+                    if (pending) requestApply();
+                });
+        }
+        return draining;
+    };
+    // A click steps a lamp round off -> on -> veto -> off: the switch and its icon change at once, the pass is queued, the count follows.
+    // A vetoed lamp is unlit as well, so the conditions and the open-lamp refresh read it as off.
+    const turn = (lamp, mode) => {
+        if (mode === "on") state.out.delete(lamp);
+        else state.out.add(lamp);
+        if (mode === "veto") state.vetoed.add(lamp);
+        else state.vetoed.delete(lamp);
+        const remembered = Promise.all([context.workspaceState.update(OUT, [...state.out]), context.workspaceState.update(VETO, [...state.vetoed])]);
+        show().catch((error) => log.appendLine(`show failed: ${error?.message ?? error}`));
         rejudge();
+        requestApply();
+        return remembered;
     };
     // Lighting the languages lamp asks which languages it shows, offering the last list; Escape keeps it unlit.
     const chooseLanguages = async () => {
@@ -694,20 +717,23 @@ function activate(context) {
         const answer = await vscode.window.showInputBox({
             title: "Languages to show",
             prompt: `Comma-separated; known: ${known.join(", ")}`,
-            value: context.workspaceState.get(FIELD, ""),
+            value: state.field,
             validateInput: (text) => {
                 const unknown = typed(text).filter((name) => !known.includes(name));
                 return unknown.length ? `unknown: ${unknown.join(", ")}` : undefined;
             },
         });
         if (answer === undefined) return;
-        await context.workspaceState.update(FIELD, typed(answer).join(", "));
+        state.field = typed(answer).join(", ");
+        await context.workspaceState.update(FIELD, state.field);
         await turn(LANGUAGE, "on");
     };
+    // An outside event (a settings file rendered anew, the window focused) asks for a pass through the same queue, debounced since such
+    // events come in bursts; a press never waits.
     let timer;
     const refresh = () => {
         clearTimeout(timer);
-        timer = setTimeout(settle, 200);
+        timer = setTimeout(requestApply, 200);
     };
 
     // A command per lamp state, named for what its click does and shown with the icon of the state it leaves: light (off -> on) and veto
@@ -769,7 +795,7 @@ function activate(context) {
     context.subscriptions.push(
         vscode.window.tabGroups.onDidChangeTabs(() => {
             rejudge();
-            if (context.workspaceState.get(OUT, []).length > 0) refresh();
+            if (state.out.size > 0) refresh();
         }),
     );
     context.subscriptions.push(
