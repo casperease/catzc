@@ -13,16 +13,26 @@ function Get-FormatScope {
         [Parameter(Mandatory)]
         [string] $RepositoryRoot,
 
-        [string[]] $Path
+        [string[]] $Path,
+
+        [string] $OutputRoot = (Get-OutputRoot)
     )
 
     $root = [System.IO.Path]::GetFullPath($RepositoryRoot)
+    $output = [System.IO.Path]::GetFullPath($OutputRoot)
     $files = [System.Collections.Generic.List[string]]::new()
     if ($Path) {
         foreach ($item in $Path) {
             $full = [System.IO.Path]::GetFullPath((Resolve-Path -LiteralPath $item).ProviderPath)
             if (Test-Path -LiteralPath $full -PathType Leaf) {
                 $files.Add($full)
+                continue
+            }
+            $underOutput = [System.IO.Path]::GetRelativePath($output, $full) -replace '\\', '/'
+            if (-not ($underOutput -eq '..' -or $underOutput.StartsWith('../'))) {
+                foreach ($file in @(Get-ChildItem -LiteralPath $full -Recurse -File)) {
+                    $files.Add($file.FullName)
+                }
                 continue
             }
             $relative = [System.IO.Path]::GetRelativePath($root, $full) -replace '\\', '/'

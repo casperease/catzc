@@ -820,7 +820,9 @@ on by nothing). Mock only at module boundaries, mock whole functions, and let pu
 
 The doctrine above says what a test may depend on and how a run executes it; each test language says how the test is written. For pwsh — the
 seam mocks, mocking at module boundaries, testing privates through the module, the file convention, how each rule above is written in
-Pester, and the engine gotchas that repeatedly bite — that is the pwsh twin of this ADR.
+Pester, and the engine gotchas that repeatedly bite — that is the pwsh twin of this ADR. Two of those gotchas bite in every data-driven
+test: a `<name>` title template expands only from a key of the case's hashtable, and a hyphenated hashtable key is quoted
+(`@{ 'private-function' = … }`), or it parses as a subtraction.
 
 ### How this is enforced
 

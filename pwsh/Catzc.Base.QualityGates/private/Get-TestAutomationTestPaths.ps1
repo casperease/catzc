@@ -19,6 +19,8 @@ function Get-TestAutomationTestPaths {
     # Every module folder, the dot folders too: their tests run as the infrastructure tests.
     $allDirs = @(Get-ChildPath $modulesRoot -Depth 1 -Directory -Exclude @() -PruneVendor $false)
 
+    $testFolderName = (Get-Config -Config languages).FolderOf('test')
+
     $moduleTestsByName = [ordered]@{}
     $infraTestPaths = [System.Collections.Generic.List[string]]::new()
     foreach ($dir in $allDirs) {
@@ -29,7 +31,7 @@ function Get-TestAutomationTestPaths {
             continue
         }
 
-        $testsPath = [System.IO.Path]::Combine($dir, 'tests')
+        $testsPath = [System.IO.Path]::Combine($dir, $testFolderName)
         if (-not [System.IO.Directory]::Exists($testsPath)) {
             continue
         }

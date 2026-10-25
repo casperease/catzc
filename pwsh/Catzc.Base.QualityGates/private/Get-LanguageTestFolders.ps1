@@ -13,7 +13,8 @@ function Get-LanguageTestFolders {
 
     $repositoryRoot = Get-RepositoryRoot
     $languagesConfig = Get-Config -Config languages
-    $moduleNames = @((Get-CatzcModule -EngineTrack).name.Where({ [Catzc.Base.Objects.NameCase]::IsInCase('pascal-dotted', $_) }))
+    $testFolderName = $languagesConfig.FolderOf('test')
+    $moduleNames =@((Get-CatzcModule -EngineTrack).name.Where({ [Catzc.Base.Objects.NameCase]::IsInCase('pascal-dotted', $_) }))
     $languages = @(foreach ($entry in $languagesConfig.languages) {
             if ($entry.tests) {
                 $modulesByFolder = @{}
@@ -34,7 +35,7 @@ function Get-LanguageTestFolders {
     $records = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($language in $languages) {
         # The track's own test holder: one folder per catzc module, named for it in the language's folder case, testing it from outside.
-        $testsRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($repositoryRoot, $language.Root, 'tests'))
+        $testsRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($repositoryRoot, $language.Root, $testFolderName))
         if ([System.IO.Directory]::Exists($testsRoot)) {
             foreach ($folder in Get-ChildPath $testsRoot -Depth 1 -Directory -Exclude @() -PruneVendor $false) {
                 $name = [System.IO.Path]::GetFileName($folder)
@@ -46,7 +47,7 @@ function Get-LanguageTestFolders {
                     continue
                 }
                 if (-not $language.Modules.ContainsKey($name)) {
-                    $unmatched.Add("$($language.Root)/tests/$name/ ($($language.Case) case)")
+                    $unmatched.Add("$($language.Root)/$testFolderName/$name/ ($($language.Case) case)")
                     continue
                 }
                 $records.Add([pscustomobject]@{
@@ -67,7 +68,7 @@ function Get-LanguageTestFolders {
             if ($module.shape -cne 'folder') {
                 continue
             }
-            $own = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($repositoryRoot, $module.root, 'tests'))
+            $own = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($repositoryRoot, $module.root, $testFolderName))
             if (-not [System.IO.Directory]::Exists($own) -or -not @(Get-ChildPath $own -File -Filter $language.Pattern -Depth 3).Count) {
                 continue
             }

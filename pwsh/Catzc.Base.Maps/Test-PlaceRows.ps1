@@ -10,8 +10,8 @@ function Test-PlaceRows {
     [CmdletBinding()]
     [OutputType([string])]
     param(
-        [Parameter(Position = 0)]
-        [string] $Path = (Join-Path (Get-RepositoryRoot) 'out/minimaps')
+        [Parameter(Mandatory, Position = 0)]
+        [string] $Path
     )
 
     if (-not (Test-Path -LiteralPath $Path)) {

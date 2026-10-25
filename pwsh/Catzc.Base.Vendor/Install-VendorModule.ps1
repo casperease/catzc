@@ -24,7 +24,8 @@ function Install-VendorModule {
         throw "Module '$Name' is currently loaded. Please run Install-VendorModule in a fresh PowerShell session."
     }
 
-    $vendorRoot = Join-Path (Get-CatzcModulesRoot) '.vendor'
+    $vendorPlace = @(Get-Track).Where({ $_.type -ceq 'vendored-code' })[0].places[0]
+    $vendorRoot = Join-Path (Get-RepositoryRoot) $vendorPlace
     if (-not (Test-Path $vendorRoot)) {
         Write-Verbose "Creating vendor directory: $vendorRoot"
         New-Item -Path $vendorRoot -ItemType Directory -Force | Out-Null

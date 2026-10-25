@@ -17,7 +17,8 @@ offending row, and none when all are normal.
 
 ### parameter `Path`
 
-The folder of minimap data files to read. Default: `out/minimaps` of the repository.
+The folder of minimap data files to read, such as `out/minimaps`; mandatory, since no default reaches the output track
+(ADR-AUTO-DEFAULT-OUTPUTONLYBYADDRESS).
 
 ### outputs
 

@@ -48,7 +48,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - types-build-local -> plan-types-build-local.md: commit the types manifest only, build the DLL per machine, stack builds in a
   console.*.source session up to a cap; the untracking is the user's git step
 - folder-name-settings -> plan-folder-name-settings.md: the literals 'private', 'tests', '.vendor', '.internal' read their settings
-- output-by-address -> plan-output-by-address.md: no default reaches out/ (Test-PlaceRows' default, folder addresses in out/, a lock test)
 - contracts-layout -> plan-contracts-layout.md: move the tree and the Contracts mechanism to one root per promiser, current at 0.1.0, flat,
   addressed by applies_to (the ADR landed 2026-10-25)
 - javascript-track -> plan-javascript-track.md: the js track and language, the extensions moved out of pwsh, node:test and tsc gates, the

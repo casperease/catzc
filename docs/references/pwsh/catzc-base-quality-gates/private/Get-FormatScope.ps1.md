@@ -14,9 +14,11 @@ The files Format-Code formats: the repository's tracked files, or the given path
 One scope for every formatter engine
 ([PDR-CONFIG-VARYINGBEHAVIOURISCONFIG](../../../../drs/principles/configure-not-program.md#rule-pdr-config-varyingbehaviourisconfig)):
 without -Path, every file git tracks (Get-GitTrackedPath); with -Path, each given file as it is (tracked or not, inside the repository or
-not — a build output manifest is formatted the same way), and each given folder's tracked files. Fixture files are formatted like any other
-file. Third-party code that .gitattributes marks `linguist-vendored` is never formatted: it stays as its publisher shipped it. Nor is a
-contract asset, which .gitattributes marks `catzc-contract`: its bytes are what a contract check compares
+not — a build output manifest is formatted the same way), and each given folder's tracked files; a folder under the output root is taken as
+its files on disk, since git tracks nothing there
+([ADR-AUTO-DEFAULT-OUTPUTONLYBYADDRESS](../../../../drs/automation/sensible-defaults.md#rule-adr-auto-default-outputonlybyaddress)). Fixture
+files are formatted like any other file. Third-party code that .gitattributes marks `linguist-vendored` is never formatted: it stays as its
+publisher shipped it. Nor is a contract asset, which .gitattributes marks `catzc-contract`: its bytes are what a contract check compares
 ([ADR-REPO-CONTRACT-CONTRACTASSET](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)), and a released
 contract version stays byte-frozen
 ([ADR-REPO-CONTRACT-RELEASEDIMMUTABLE](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-releasedimmutable)), so a
@@ -32,6 +34,10 @@ The repository root.
 ### parameter `Path`
 
 Files or folders to narrow the scope to. Omitted: every tracked file.
+
+### parameter `OutputRoot`
+
+The output root (Get-OutputRoot); a folder under it is enumerated on disk.
 
 ### outputs
 

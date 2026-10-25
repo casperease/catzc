@@ -16,6 +16,7 @@ function Get-ModuleSourceFile {
     $root = Get-RepositoryRoot
     $modulesRoot = Join-Path $root (Get-CatzcModulesFolder)
     $files = [System.Collections.Generic.List[string]]::new()
+    $testFolderName = (Get-Config -Config languages).FolderOf('test')
 
     $modules = Get-ChildPath $modulesRoot -Directory -Depth 1 |
         Where-Object { -not [System.IO.Path]::GetFileName($_).StartsWith('.') }
@@ -33,7 +34,7 @@ function Get-ModuleSourceFile {
             }
         }
 
-        $testsPath = Join-Path $moduleDir 'tests'
+        $testsPath = Join-Path $moduleDir $testFolderName
         if (Test-Path $testsPath) {
             foreach ($script in Get-ChildPath $testsPath -File -Filter '*.Tests.ps1' -Depth 3) {
                 $files.Add($script)
@@ -46,7 +47,7 @@ function Get-ModuleSourceFile {
         foreach ($script in [Catzc.Base.QualityGates.AnalyzerDrsMapConfig]::RuleFiles($modulesRoot)) {
             $files.Add($script)
         }
-        $analyzerTests = Join-Path $analyzerRoot 'tests'
+        $analyzerTests = Join-Path $analyzerRoot $testFolderName
         if (Test-Path $analyzerTests) {
             foreach ($script in Get-ChildPath $analyzerTests -File -Filter '*.Tests.ps1' -Depth 3) {
                 $files.Add($script)
@@ -59,7 +60,7 @@ function Get-ModuleSourceFile {
         foreach ($script in Get-ChildPath $internalRoot -File -Filter '*.psm1' -Depth 1) {
             $files.Add($script)
         }
-        $internalTests = Join-Path $internalRoot 'tests'
+        $internalTests = Join-Path $internalRoot $testFolderName
         if (Test-Path $internalTests) {
             foreach ($script in Get-ChildPath $internalTests -File -Filter '*.Tests.ps1' -Depth 3) {
                 $files.Add($script)

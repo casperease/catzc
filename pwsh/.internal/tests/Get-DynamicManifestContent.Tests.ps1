@@ -56,6 +56,8 @@ Describe 'Get-DynamicManifestContent' -Tag 'L0', 'logic' {
 Describe 'New-DynamicManifest' -Tag 'L0', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force
+        # The fixture roots carry no languages.yml; the reader is pinned in Get-PrivateFunctionFolder.Tests.ps1.
+        Mock Get-PrivateFunctionFolder -ModuleName Catzc.Internal.Bootstrap { 'private' }
 
         # A fixture module folder on disk: two public files and one private file.
         function New-WidgetModule {
@@ -168,6 +170,7 @@ Describe 'New-DynamicManifest explicit lists load a merged module' -Tag 'L1', 'l
 Describe 'New-DynamicManifest derived manifests load through the shared loader' -Tag 'L1', 'logic' {
     BeforeAll {
         Import-Module (Join-Path (Get-CatzcModulesRoot) '.internal/Catzc.Internal.Bootstrap.psm1') -Force
+        Mock Get-PrivateFunctionFolder -ModuleName Catzc.Internal.Bootstrap { 'private' }
         $script:modulesRoot = Join-Path $TestDrive 'widget-modules'
         [System.IO.Directory]::CreateDirectory((Join-Path $modulesRoot '.internal/assets')) | Out-Null
         [System.IO.File]::Copy((Join-Path (Get-CatzcModulesRoot) '.internal/assets/Import-ModuleFiles.ps1'), (Join-Path $modulesRoot '.internal/assets/Import-ModuleFiles.ps1'))

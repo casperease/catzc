@@ -46,6 +46,15 @@ Describe 'Get-FormatScope' -Tag 'L0', 'logic' {
         $scope | Should -Be @((& $script:full 'widgets/a.wdg'), (& $script:full 'widgets/tests/assets/b.wdg'), [System.IO.Path]::GetFullPath($script:outside))
     }
 
+    It 'takes a folder under the output root as its files on disk, since git tracks nothing there' -Tag 'ADR-AUTO-DEFAULT-OUTPUTONLYBYADDRESS' {
+        $null = New-Item -ItemType File -Path (Join-Path $script:root 'out/widgets/g.wdg') -Force
+        $scope = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root } {
+            param($Root)
+            @(Get-FormatScope -RepositoryRoot $Root -Path (Join-Path $Root 'out/widgets') -OutputRoot (Join-Path $Root 'out'))
+        }
+        $scope | Should -Be @((& $script:full 'out/widgets/g.wdg'))
+    }
+
     It 'leaves out a vendored file even when it is given explicitly' {
         $scope = InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Vendored = (Join-Path $script:root 'third-party/c.wdg') } {
             param($Root, $Vendored)

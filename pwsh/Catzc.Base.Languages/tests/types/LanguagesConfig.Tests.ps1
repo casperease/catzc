@@ -350,6 +350,18 @@ Describe 'LanguagesConfig' -Tag 'L0' {
             $config.ShippedFolders() | Should -Be @('inner', 'assets')
         }
 
+        It 'resolves a role''s folder from the layout, the shared test row too, and throws on a role no folder has' -Tag 'ADR-REPO-FOLDERS-NAMESARESETTINGS' {
+            $config = & $script:one ([ordered]@{ extensions = @('.wdg'); layout = @(
+                        [ordered]@{ folder = '.'; role = 'public-widget'; extensions = @('.wdg') }
+                        [ordered]@{ folder = 'inner'; role = 'private-widget' }
+                    )
+                })
+            $config.FolderOf('private-widget') | Should -BeExactly 'inner'
+            $config.FolderOf('test') | Should -BeExactly 'tests'
+            { $config.FolderOf('public-widget') } | Should -Throw "*no layout folder has the role 'public-widget'*"
+            { $config.FolderOf('gadget') } | Should -Throw "*no layout folder has the role 'gadget'*"
+        }
+
         It 'has only the shared rows when no language declares a layout, the generated project file placed and never live' -Tag 'ADR-AUTO-MODULE-EXISTSBYLAYOUT' {
             $config = & $script:one ([ordered]@{ extensions = @('.wdg') })
             $config.layout.folder | Should -Be @('assets', 'tests', '.')

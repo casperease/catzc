@@ -35,6 +35,41 @@ function Clear-CompiledType {
     Write-ImporterMessage "Cleared compiled type cache — building from source (removed $removed, skipped $skipped)"
 }
 
+function Get-PrivateFunctionFolder {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)]
+        [string] $ModulesRoot
+    )
+
+    # The pre-types reader of the powershell layout's private-function row; once types load, LanguagesConfig.FolderOf reads the same row
+    # (ADR-REPO-FOLDERS-NAMESARESETTINGS).
+    if ($script:privateFunctionFolder -and $script:privateFunctionFolder.Root -ceq $ModulesRoot) {
+        return $script:privateFunctionFolder.Folder
+    }
+    $configPath = [System.IO.Path]::Combine($ModulesRoot, 'Catzc.Base.Languages', 'configs', 'languages.yml')
+    if (-not [System.IO.File]::Exists($configPath)) {
+        throw "The languages config '$configPath' does not exist; the bootstrap reads the private-function folder from it."
+    }
+    $config = ConvertFrom-Yaml ([System.IO.File]::ReadAllText($configPath))
+    $folder = $null
+    if ($config -is [System.Collections.IDictionary] -and $config['languages'] -is [System.Collections.IDictionary] -and
+        $config['languages']['powershell'] -is [System.Collections.IDictionary]) {
+        foreach ($row in @($config['languages']['powershell']['layout'])) {
+            if ($row -is [System.Collections.IDictionary] -and $row['role'] -ceq 'private-function') {
+                $folder = [string] $row['folder']
+                break
+            }
+        }
+    }
+    if ([string]::IsNullOrEmpty($folder)) {
+        throw "The languages config '$configPath' has no powershell layout row with role 'private-function'."
+    }
+    $script:privateFunctionFolder = @{ Root = $ModulesRoot; Folder = $folder }
+    $folder
+}
+
 function New-DynamicManifest {
     [CmdletBinding(DefaultParameterSetName = 'Derived')]
     param(
@@ -78,7 +113,7 @@ function New-DynamicManifest {
         })
 
     # Collect private .ps1 files (private subfolder)
-    $privatePath = Join-Path $ModulePath 'private'
+    $privatePath = Join-Path $ModulePath (Get-PrivateFunctionFolder -ModulesRoot ([System.IO.Path]::GetDirectoryName($ModulePath)))
     $privateFiles = @()
     if ([System.IO.Directory]::Exists($privatePath)) {
         foreach ($f in [System.IO.Directory]::GetFiles($privatePath, '*.ps1')) {
@@ -111,6 +146,7 @@ function New-DynamicManifest {
 }
 
 $script:moduleFilesLoader = '../.internal/assets/Import-ModuleFiles.ps1'
+$script:privateFunctionFolder = $null
 
 # The functions that outgrew this file live one per file beside it; they share its scope.
 . (Join-Path $PSScriptRoot 'assets/bootstrap/Import-CSharpTypes.ps1')
@@ -222,7 +258,7 @@ function Assert-UniqueModuleFunctionName {
             }
         }
         if ($ExportPrivates) {
-            $privatePath = [System.IO.Path]::Combine($dir.FullName, 'private')
+            $privatePath = [System.IO.Path]::Combine($dir.FullName, (Get-PrivateFunctionFolder -ModulesRoot $dir.Parent.FullName))
             if ([System.IO.Directory]::Exists($privatePath)) {
                 foreach ($f in [System.IO.Directory]::EnumerateFiles($privatePath, '*.ps1')) {
                     if (-not [System.IO.Path]::GetFileName($f).EndsWith('.Tests.ps1', [System.StringComparison]::OrdinalIgnoreCase)) {

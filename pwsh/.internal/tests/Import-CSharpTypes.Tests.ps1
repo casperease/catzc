@@ -46,6 +46,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
         Mock Write-ImporterMessage { } -ModuleName Catzc.Internal.Bootstrap
         $shadowRoot = Join-Path $script:fixtureRoot 'shadow'
         Mock Get-TypesShadowRoot { $shadowRoot }.GetNewClosure() -ModuleName Catzc.Internal.Types
+        Mock Get-TypesShadowRoot { $shadowRoot }.GetNewClosure() -ModuleName Catzc.Internal.Bootstrap
+        $script:shadowRoot = $shadowRoot
         # A run from a VS Code terminal carries its mark; every case here is a plain devbox unless it sets the mark itself.
         $script:originalTerminalProgram = $env:TERM_PROGRAM
         $env:TERM_PROGRAM = ''
@@ -63,7 +65,10 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
 
             ([System.Management.Automation.PSTypeName]"$namespace.Alpha").Type | Should -Not -BeNullOrEmpty
             $compiled = Join-Path $root '.compiled'
-            @([System.IO.Directory]::EnumerateFiles($compiled, 'Catzc.Types.*.dll')).Count | Should -Be 1
+            @([System.IO.Directory]::EnumerateFiles($compiled, 'Catzc.Types.*.dll')).Count | Should -Be 0
+            @([System.IO.Directory]::EnumerateFiles($compiled, 'Catzc.Types.*.json')).Count | Should -Be 1
+            $hash = [System.IO.Path]::GetFileNameWithoutExtension(@([System.IO.Directory]::EnumerateFiles($compiled, 'Catzc.Types.*.json'))[0])
+            [System.IO.File]::Exists((Join-Path $script:shadowRoot "$hash.dll")) | Should -BeTrue
         }
 
         It 'compiles MULTIPLE sources in ONE module into ONE assembly (intra-module base + derived)' {
@@ -139,10 +144,9 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console }
 
             ([System.Management.Automation.PSTypeName]"$namespace.Lambda").Type | Should -BeNullOrEmpty
-            @([System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.dll')).Count | Should -Be 1
             $entry = $global:__CatzcDeferredTypes[[System.IO.Path]::GetFullPath($root)]
             $entry.Loaded | Should -BeFalse
-            [System.IO.Path]::GetDirectoryName($entry.Path) | Should -Be (Join-Path $root '.compiled')
+            [System.IO.Path]::GetDirectoryName($entry.Path) | Should -Be $script:shadowRoot
 
             Initialize-Types | Out-Null
             ([System.Management.Automation.PSTypeName]"$namespace.Lambda").Type | Should -Not -BeNullOrEmpty
@@ -153,7 +157,10 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $namespace = "CatzcTestLazyBundle$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Mu = 'public class Mu { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console }
-            $dll = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.dll') | Select-Object -First 1
+            # A bundle ships the DLL beside its manifest in .compiled.
+            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') | Select-Object -First 1
+            $dll = [System.IO.Path]::ChangeExtension($manifest, 'dll')
+            [System.IO.File]::Copy((Join-Path $script:shadowRoot ([System.IO.Path]::GetFileName($dll))), $dll)
             $stamp = [System.IO.File]::GetLastWriteTimeUtc($dll)
 
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -HostKind console -PrebuiltOnly }
@@ -244,8 +251,8 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $namespace = "CatzcTestEpsilon$runId"
             $root = New-FixtureRoot @{ $namespace = @{ Epsilon = 'public class Epsilon { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
-            $compiled = Join-Path $root '.compiled'
-            $dll = [System.IO.Directory]::EnumerateFiles($compiled, 'Catzc.Types.*.dll') | Select-Object -First 1
+            $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') | Select-Object -First 1
+            $dll = Join-Path $script:shadowRoot ([System.IO.Path]::GetFileNameWithoutExtension($manifest) + '.dll')
             $dll | Should -Not -BeNullOrEmpty
 
             Remove-Item $dll -Force                                  # types stay loaded; advisory lock on Unix allows this

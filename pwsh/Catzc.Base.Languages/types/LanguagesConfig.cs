@@ -172,6 +172,14 @@ public sealed class LanguagesConfig : Catzc.Base.Objects.DictionaryRecord
     // The module subfolders the layout names (never the root), in layout order.
     public IReadOnlyList<string> LayoutFolders() => layout.Where(r => r.folder != LayoutRow.Root).Select(r => r.folder).ToArray();
 
+    // The module subfolder the layout gives a role (e.g. test, private-function): the one resolver of a folder-name setting (ADR-REPO-FOLDERS-NAMESARESETTINGS).
+    public string FolderOf(string role)
+    {
+        LayoutRow row = layout.FirstOrDefault(r => r.role == role && r.folder != LayoutRow.Root);
+        if (row == null) { throw new ArgumentException("languages config: no layout folder has the role '" + role + "'"); }
+        return row.folder;
+    }
+
     // The module subfolders a build ships verbatim.
     public IReadOnlyList<string> ShippedFolders() => layout.Where(r => r.shipped && r.folder != LayoutRow.Root).Select(r => r.folder).ToArray();
 

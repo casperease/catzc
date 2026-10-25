@@ -21,6 +21,7 @@ function Get-ChangeTestFile {
     )
 
     $tests = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
+    $testFolderName = (Get-Config -Config languages).FolderOf('test')
     $modulePattern = '^(?<module>' + [regex]::Escape((Get-CatzcModulesFolder)) + '/[^/.][^/]*)/'
     if ($Module) {
         $modules = [System.Collections.Generic.SortedSet[string]]::new([System.StringComparer]::Ordinal)
@@ -30,7 +31,7 @@ function Get-ChangeTestFile {
             }
         }
         foreach ($moduleFolder in $modules) {
-            $testsFolder = [System.IO.Path]::Combine($RepositoryRoot, $moduleFolder, 'tests')
+            $testsFolder = [System.IO.Path]::Combine($RepositoryRoot, $moduleFolder, $testFolderName)
             if (-not [System.IO.Directory]::Exists($testsFolder)) {
                 continue
             }
@@ -46,10 +47,10 @@ function Get-ChangeTestFile {
             $changed
         }
         elseif ($changed -match ($modulePattern + '(private/)?(?<name>[^/]+)\.ps1$')) {
-            "$($Matches['module'])/tests/$($Matches['name']).Tests.ps1"
+            "$($Matches['module'])/$testFolderName/$($Matches['name']).Tests.ps1"
         }
         elseif ($changed -match ($modulePattern + 'types/(?<type>[^/]+)\.cs$')) {
-            "$($Matches['module'])/tests/types/$($Matches['type']).Tests.ps1"
+            "$($Matches['module'])/$testFolderName/types/$($Matches['type']).Tests.ps1"
         }
         else {
             $null

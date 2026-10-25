@@ -67,6 +67,7 @@ function Import-TypesAssembly {
     }
 
     [System.IO.Directory]::CreateDirectory($ShadowRoot) | Out-Null
+    # A build made in the shadow root is its own shadow copy.
     $shadow = [System.IO.Path]::Combine($ShadowRoot, [System.IO.Path]::GetFileName($Path))
     if (-not [System.IO.File]::Exists($shadow)) {
         $tmp = "$shadow.$PID.tmp"

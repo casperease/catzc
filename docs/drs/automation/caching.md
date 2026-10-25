@@ -50,13 +50,13 @@ cache entry on first call, never at import, because importer time is a protected
 
 ### Rule ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD
 
-The compiled-type prebuild is the one committed, cross-session cache: one assembly for the whole repository, committed as
-`pwsh/.compiled/Catzc.Types.<hash>.dll` and named for the combined hash of every module's type sources, so a fresh checkout and CI load it
-without compiling, and editing any source re-keys it. The hash material is, per source file, `<module>|<bare type>|SHA-256(content)`,
-ordered by `<module>/<type>` ordinally, so a move between modules or a rename re-keys even when the content is byte-identical, and the key
-does not depend on the repository root. Every process loads the assembly from a per-user, content-addressed shadow copy
-(`%LOCALAPPDATA%\catzc\types` on Windows, `~/.local/share/catzc/types` on Unix), never in place: an uncommitted derivative of the committed
-assembly, so no session ever locks `pwsh/.compiled`.
+The compiled-type prebuild is a per-machine cache keyed by a committed manifest: git keeps only `pwsh/.compiled/Catzc.Types.<hash>.json`,
+named for the combined hash of every module's type sources, and the one assembly for the whole repository is built on each machine into the
+per-user shadow root (`%LOCALAPPDATA%\catzc\types` on Windows, `~/.local/share/catzc/types` on Unix) as `Catzc.Types.<hash>.dll`, so editing
+any source re-keys it and no C# edit renames a tracked binary. The hash material is, per source file,
+`<module>|<bare type>|SHA-256(content)`, ordered by `<module>/<type>` ordinally, so a move between modules or a rename re-keys even when the
+content is byte-identical, and the key does not depend on the repository root. The importer compiles the assembly when none exists for the
+current hash and every process loads it from the shadow root, never from the working tree, so no session ever locks `pwsh/.compiled`.
 
 - [What is NOT cacheable](#what-is-not-cacheable)
 

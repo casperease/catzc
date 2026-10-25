@@ -129,7 +129,7 @@ function Import-AllModules {
                         $fileCount++
                     }
                 }
-                $privateDir = [System.IO.Path]::Combine($dir.FullName, 'private')
+                $privateDir = [System.IO.Path]::Combine($dir.FullName, (Get-PrivateFunctionFolder -ModulesRoot $ModulesRoot))
                 if ([System.IO.Directory]::Exists($privateDir)) {
                     foreach ($pf in [System.IO.Directory]::GetFiles($privateDir, '*.ps1')) {
                         [void][System.IO.File]::ReadAllText($pf)

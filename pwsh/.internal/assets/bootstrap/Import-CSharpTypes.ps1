@@ -3,7 +3,7 @@
 # .DESCRIPTION
 #     One assembly lets a type in one module reference a type in another; the module graph is policed by tests.
 # .PARAMETER ModulesRoot
-#     The modules folder. Its non-dot subfolders are the modules; the assembly is written to its .compiled/.
+#     The modules folder. Its non-dot subfolders are the modules; the manifest is written to its .compiled/, the assembly to the shadow root.
 # .PARAMETER DiagnoseLoadTime
 #     Emit a single combined compile/cache-load timing line (surfaced by importer.ps1 -DiagnoseLoadTime).
 # .PARAMETER PrebuiltOnly
@@ -141,11 +141,19 @@ function Import-CSharpTypes {
     else {
         $null
     }
+    # Git keeps only the manifest in .compiled; the DLL is a per-machine build in the shadow root
+    # (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD). A bundle ships its DLL beside the manifest and never compiles.
     $compiledDir = [System.IO.Path]::Combine($ModulesRoot, '.compiled')
-    $dll = [System.IO.Path]::Combine($compiledDir, ('Catzc.Types.{0}.dll' -f $combinedHash))
+    $buildDir = if ($PrebuiltOnly) {
+        $compiledDir
+    }
+    else {
+        Get-TypesShadowRoot
+    }
+    $dll = [System.IO.Path]::Combine($buildDir, ('Catzc.Types.{0}.dll' -f $combinedHash))
 
-    # Ensure the committed, hash-keyed DLL exists on disk — recompile if missing (deleted, git-cleaned, or a
-    # source never built). -OutputAssembly writes the file WITHOUT loading, so this restores the artifact even
+    # Ensure the hash-keyed DLL exists on disk — compile it if missing (a fresh machine, a pruned cache, or a
+    # source never built). -OutputAssembly writes the file WITHOUT loading, so this restores the build even
     # when the types are already in the AppDomain (idempotent, self-healing re-import).
     $didCompile = $false
     if (-not [System.IO.File]::Exists($dll)) {
@@ -156,33 +164,15 @@ function Import-CSharpTypes {
         # compiles the sources, once validated, to a temp file and moves it into place, so a concurrent import
         # never sees a half-written DLL. It re-derives the hash from disk, so a source edited mid-import is a
         # throw, never a DLL whose name keys a set of sources other than the ones validated above.
-        $built = Build-CombinedTypeAssembly -ModulesRoot $ModulesRoot -OutputDirectory $compiledDir
+        $built = Build-CombinedTypeAssembly -ModulesRoot $ModulesRoot -OutputDirectory $buildDir
         if ($built.Hash -ne $combinedHash) {
             throw "C# type sources changed during the import ($combinedHash -> $($built.Hash)). Re-run the importer."
         }
         $didCompile = $true
 
-        # Prune superseded-hash builds — the .compiled dir's old Catzc.Types.*.dll. Best-effort: a DLL still
-        # locked (the live build on Windows, or a concurrent process) is skipped, never fails the import.
-        foreach ($old in [System.IO.Directory]::EnumerateFiles($compiledDir, 'Catzc.Types.*.dll')) {
-            if ($old -eq $dll) {
-                continue
-            }
-            try {
-                [System.IO.File]::Delete($old)
-            }
-            catch {
-                Write-Verbose "Skipped locked stale type DLL: $old"
-                continue
-            }
-            [System.IO.File]::Delete([System.IO.Path]::ChangeExtension($old, 'json'))
-        }
-
-        # Announce the real build (a freshly created, committable artifact) — always, not only under
-        # -DiagnoseLoadTime. .internal (bootstrap) code only ever runs from the importer, so output goes
-        # through Write-ImporterMessage like the rest of bootstrap (Write-Message may not be loaded yet).
-        $relativeDll = ([System.IO.Path]::GetRelativePath($env:RepositoryRoot, $dll)) -replace '\\', '/'
-        Write-ImporterMessage "Built $relativeDll"
+        # Announce the real build — always, not only under -DiagnoseLoadTime. .internal (bootstrap) code only
+        # ever runs from the importer, so output goes through Write-ImporterMessage like the rest of bootstrap.
+        Write-ImporterMessage "Built $dll"
     }
 
     # The manifest is generated beside its DLL, so a DLL that predates it gets one here; a bundle never writes.
@@ -192,6 +182,20 @@ function Import-CSharpTypes {
             throw "Bundle is missing its prebuilt types manifest ($manifest). The bundle is incomplete or corrupt — rebuild it (Build-Modules ships the manifest beside the DLL)."
         }
         Write-TypesAssemblyManifest -Path $dll | Out-Null
+    }
+
+    # The committed manifest is the shadow build's copy; one manifest, the current hash's, stays in .compiled.
+    if (-not $PrebuiltOnly) {
+        $committedManifest = [System.IO.Path]::Combine($compiledDir, [System.IO.Path]::GetFileName($manifest))
+        if (-not [System.IO.File]::Exists($committedManifest)) {
+            [System.IO.Directory]::CreateDirectory($compiledDir) | Out-Null
+            [System.IO.File]::Copy($manifest, $committedManifest, $true)
+            foreach ($old in [System.IO.Directory]::EnumerateFiles($compiledDir, 'Catzc.Types.*.json')) {
+                if ($old -ne $committedManifest) {
+                    [System.IO.File]::Delete($old)
+                }
+            }
+        }
     }
 
     # Load the assembly if not already in the AppDomain (a reimport keeps the live copy). Verify EVERY type.
