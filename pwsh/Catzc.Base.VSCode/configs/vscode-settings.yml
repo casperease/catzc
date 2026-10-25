@@ -25,6 +25,8 @@ settings:
   markdown.preview.scrollPreviewWithEditor: true
   markdown.preview.scrollEditorWithPreview: true
   markdown.preview.markEditorSelection: true
+  # A double-click in the preview opens the source at that line (.md opens rendered, see workbench.editorAssociations)
+  markdown.preview.doubleClickToSwitchToEditor: true
 
   markdown.validate.enabled: true
   markdown.validate.fileLinks.enabled: warning
@@ -143,6 +145,7 @@ settings:
 
   workbench.editorAssociations:
     "*.drawio.png": imagePreview.previewEditor
+    "*.md": vscode.markdown.preview.editor
 
   # A click in the Source Control pane opens the file on disk; the diff stays on the right-click menu as "Open Changes".
   git.openDiffOnClick: false

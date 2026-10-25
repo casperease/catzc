@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: "8ee316170178"
+#     with_body_sha: "1e3f0491fbec"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -41,9 +41,8 @@ pwsh/**/*.psd1
 # ── Managed root-config copies ──────────────────────────────────────────────────────────────────────────────────────
 # Repository-root config files fully managed by Catzc.Base.RootConfig — each reproduced on import from its one in-repo
 # source of truth (see rootconfig.yml). Edit the source, never the root copy; this list is injected from the
-# registry's committed:false targets and never restated by hand. The root catzc.sln, for one, is rendered by the
-# RootConfig janitor from pwsh/Catzc.Base.RootConfig/assets/root/catzc.sln on every load, so a hand edit to the root
-# copy is lost.
+# registry's committed:false targets and never restated by hand. The root catzc.sln, for one, is rendered by
+# New-Solution from every C# project in the tree on every load, so a hand edit to the root copy is lost.
 /PSScriptAnalyzerSettings.psd1
 /.vscode/settings.json
 /.vscode/extensions.json

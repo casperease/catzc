@@ -157,8 +157,11 @@ files:
     carrier: msbuild-project
     committed: true
     optIn: true
+  # Every C# project of the tree, the types project and each agent hook, so the C# Dev Kit never asks to add one.
   - target: catzc.sln
-    source: pwsh/Catzc.Base.RootConfig/assets/root/catzc.sln
+    generator: New-Solution
+    sources:
+      - pwsh/Catzc.Base.TypesSystem/New-Solution.ps1
     optIn: true
   - target: .gitattributes
     generator: New-GitAttributes

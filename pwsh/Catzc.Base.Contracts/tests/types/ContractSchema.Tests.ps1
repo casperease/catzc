@@ -30,6 +30,8 @@ Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' 
             @{ Keyword = 'items'; Schema = '{"items":{"type":"string"}}'; Pass = '["widget","gadget"]'; Fail = '["widget",2]'; Finding = '$[1]: expected type string, found integer (2)' }
             @{ Keyword = 'const'; Schema = '{"const":{"widget":[1,2]}}'; Pass = '{"widget":[1,2]}'; Fail = '{"widget":[2,1]}'; Finding = '$: expected the constant {widget: [1, 2]}, found {widget: [2, 1]}' }
             @{ Keyword = 'a false schema'; Schema = '{"properties":{"widget":false}}'; Pass = '{"gadget":1}'; Fail = '{"widget":1}'; Finding = '$.widget: the schema #/properties/widget is false, which admits no value' }
+            @{ Keyword = 'pattern'; Schema = '{"pattern":"^widget@[0-9]+$"}'; Pass = '"widget@2"'; Fail = '"gadget@2"'; Finding = "`$: 'gadget@2' does not match the pattern ^widget@[0-9]+`$" }
+            @{ Keyword = '$ref'; Schema = '{"definitions":{"part":{"type":"string"}},"items":{"$ref":"#/definitions/part"}}'; Pass = '["widget"]'; Fail = '["widget",2]'; Finding = '$[1]: expected type string, found integer (2)' }
         ) {
             @(Get-SchemaFinding $Schema $Pass) | Should -BeNullOrEmpty
             @(Get-SchemaFinding $Schema $Fail) | Should -Be @($Finding)
@@ -47,7 +49,21 @@ Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' 
 
     Context 'the bounded subset' {
         It 'reports a keyword outside the subset as unsupported, and validates nothing' {
-            @(Get-SchemaFinding '{"type":"string","pattern":"^w"}' '7') | Should -Be @('schema #: unsupported keyword pattern')
+            @(Get-SchemaFinding '{"type":"string","format":"uri"}' '7') | Should -Be @('schema #: unsupported keyword format')
+        }
+
+        It 'reads a pattern only on a string, and reports a pattern that is no regular expression' {
+            @(Get-SchemaFinding '{"pattern":"^w"}' '7') | Should -BeNullOrEmpty
+            @(Get-SchemaFinding '{"pattern":"("}' '"w"')[0] | Should -BeLike 'schema #/pattern: pattern is not a valid regular expression:*'
+        }
+
+        It 'reads a $ref only to a local definition, and reports one that loops or names nothing' -ForEach @(
+            @{ Schema = '{"$ref":"https://example.com/widget.json"}'; Finding = 'schema #/$ref: unsupported form of $ref*' }
+            @{ Schema = '{"$ref":"#/definitions/gadget"}'; Finding = 'schema #/$ref: unsupported form of $ref*' }
+            @{ Schema = '{"definitions":{"widget":{"$ref":"#/definitions/widget"}},"$ref":"#/definitions/widget"}'; Finding = 'schema #/definitions/widget/$ref: the $ref chain from #/definitions/widget returns to itself' }
+            @{ Schema = '{"properties":{"widget":{"definitions":{}}}}'; Finding = 'schema #/properties/widget/definitions: definitions are read at the root of a schema only' }
+        ) {
+            @(Get-SchemaFinding $Schema '"widget"')[0] | Should -BeLike $Finding
         }
 
         It 'ignores the annotation <Keyword>, which constrains no value' -ForEach @(
@@ -75,7 +91,7 @@ Describe 'ContractSchema' -Tag 'L0', 'logic', 'ADR-REPO-CONTRACT-CONTRACTASSET' 
         It 'lists the annotations among the keywords it reads' {
             [Catzc.Base.Contracts.ContractSchema]::Annotations | Should -Be @('$schema', '$id', '$comment', 'title', 'description', 'examples')
             [Catzc.Base.Contracts.ContractSchema]::Keywords | Should -Be @('type', 'required', 'properties', 'additionalProperties', 'enum', 'items', 'const',
-                '$schema', '$id', '$comment', 'title', 'description', 'examples')
+                'pattern', 'definitions', '$ref', '$schema', '$id', '$comment', 'title', 'description', 'examples')
         }
 
         It 'inspects a schema alone, with no value: <Name>' -ForEach @(

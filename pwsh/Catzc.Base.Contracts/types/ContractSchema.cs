@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Contracts;
 
@@ -20,30 +21,34 @@ public static class ContractSchema
     public static readonly string[] Annotations = { "$schema", "$id", "$comment", "title", "description", "examples" };
 
     public static readonly string[] Keywords =
-        new[] { "type", "required", "properties", "additionalProperties", "enum", "items", "const" }.Concat(Annotations).ToArray();
+        new[] { "type", "required", "properties", "additionalProperties", "enum", "items", "const", "pattern", "definitions", "$ref" }
+            .Concat(Annotations).ToArray();
 
     public static readonly string[] Types = { "null", "boolean", "object", "array", "number", "string", "integer" };
+
+    // The one reference form the subset reads: a local definition of the same schema.
+    private const string DefinitionPrefix = "#/definitions/";
 
     public static IReadOnlyList<string> Inspect(object schema)
     {
         var findings = new List<string>();
-        Read(schema, "#", findings);
+        Read(schema, schema, "#", findings);
         return findings;
     }
 
     public static IReadOnlyList<string> Validate(object schema, object value)
     {
         var findings = new List<string>();
-        Read(schema, "#", findings);
+        Read(schema, schema, "#", findings);
         if (findings.Count == 0)
         {
-            Check(schema, value, "#", "$", findings);
+            Check(schema, schema, value, "#", "$", findings);
         }
         return findings;
     }
 
     // The schema's own findings: what the subset cannot read.
-    private static void Read(object schema, string at, List<string> findings)
+    private static void Read(object root, object schema, string at, List<string> findings)
     {
         if (schema is bool)
         {
@@ -76,7 +81,7 @@ public static class ContractSchema
                     {
                         foreach (DictionaryEntry property in properties)
                         {
-                            Read(property.Value, here + "/" + Pointer(ContractValue.Text(property.Key)), findings);
+                            Read(root, property.Value, here + "/" + Pointer(ContractValue.Text(property.Key)), findings);
                         }
                     }
                     else
@@ -105,10 +110,43 @@ public static class ContractSchema
                     }
                     else
                     {
-                        Read(argument, here, findings);
+                        Read(root, argument, here, findings);
                     }
                     break;
                 case "const":
+                    break;
+                case "pattern":
+                    ReadPattern(argument, here, findings);
+                    break;
+                case "definitions":
+                    if (!ReferenceEquals(schema, root))
+                    {
+                        findings.Add(string.Format(CultureInfo.InvariantCulture, "schema {0}: definitions are read at the root of a schema only", here));
+                    }
+                    else if (argument is IDictionary definitions)
+                    {
+                        foreach (DictionaryEntry definition in definitions)
+                        {
+                            Read(root, definition.Value, here + "/" + Pointer(ContractValue.Text(definition.Key)), findings);
+                        }
+                    }
+                    else
+                    {
+                        findings.Add(string.Format(CultureInfo.InvariantCulture, "schema {0}: definitions is an object of name to schema", here));
+                    }
+                    break;
+                case "$ref":
+                    if (Resolve(root, argument) == null)
+                    {
+                        findings.Add(string.Format(CultureInfo.InvariantCulture,
+                            "schema {0}: unsupported form of $ref: only {1}<name> of a definition this schema declares is supported, not {2}",
+                            here, DefinitionPrefix, ContractValue.Describe(argument)));
+                    }
+                    else if (Loops(root, argument))
+                    {
+                        findings.Add(string.Format(CultureInfo.InvariantCulture, "schema {0}: the $ref chain from {1} returns to itself", here,
+                            ContractValue.Text(argument)));
+                    }
                     break;
                 default:
                     if (Array.IndexOf(Annotations, keyword) >= 0)
@@ -135,7 +173,53 @@ public static class ContractSchema
         }
     }
 
-    private static void Check(object schema, object value, string at, string path, List<string> findings)
+    private static void ReadPattern(object argument, string here, List<string> findings)
+    {
+        string text = ContractValue.Kind(argument) == "string" ? ContractValue.Text(argument) : null;
+        if (text == null)
+        {
+            findings.Add(string.Format(CultureInfo.InvariantCulture, "schema {0}: pattern is a regular expression string", here));
+            return;
+        }
+        try
+        {
+            _ = new Regex(text, RegexOptions.CultureInvariant);
+        }
+        catch (ArgumentException error)
+        {
+            findings.Add(string.Format(CultureInfo.InvariantCulture, "schema {0}: pattern is not a valid regular expression: {1}", here, error.Message));
+        }
+    }
+
+    // The definition a $ref names, or null when it is not a local definition the root declares.
+    private static object Resolve(object root, object reference)
+    {
+        string text = ContractValue.Kind(reference) == "string" ? ContractValue.Text(reference) : null;
+        if (text == null || !text.StartsWith(DefinitionPrefix, StringComparison.Ordinal) || !(root is IDictionary rootMap))
+        {
+            return null;
+        }
+        if (!ContractValue.TryGetMember(rootMap, "definitions", out object definitions) || !(definitions is IDictionary named))
+        {
+            return null;
+        }
+        return ContractValue.TryGetMember(named, text.Substring(DefinitionPrefix.Length), out object definition) ? definition : null;
+    }
+
+    // A chain of definitions that each only refer on, without reading a value, never ends.
+    private static bool Loops(object root, object reference)
+    {
+        var seen = new HashSet<string>(StringComparer.Ordinal);
+        object current = reference;
+        while (current != null && seen.Add(ContractValue.Text(current)))
+        {
+            object target = Resolve(root, current);
+            current = target is IDictionary map && ContractValue.TryGetMember(map, "$ref", out object next) ? next : null;
+        }
+        return current != null;
+    }
+
+    private static void Check(object root, object schema, object value, string at, string path, List<string> findings)
     {
         if (schema is bool admits)
         {
@@ -147,6 +231,10 @@ public static class ContractSchema
         }
 
         var map = (IDictionary)schema;
+        if (ContractValue.TryGetMember(map, "$ref", out object reference))
+        {
+            Check(root, Resolve(root, reference), value, ContractValue.Text(reference), path, findings);
+        }
         string kind = ContractValue.Kind(value);
         if (ContractValue.TryGetMember(map, "type", out object type))
         {
@@ -172,20 +260,26 @@ public static class ContractSchema
             findings.Add(string.Format(CultureInfo.InvariantCulture, "{0}: expected the constant {1}, found {2}",
                 path, ContractValue.Describe(constant), ContractValue.Describe(value)));
         }
+        if (kind == "string" && ContractValue.TryGetMember(map, "pattern", out object pattern)
+            && !Regex.IsMatch(ContractValue.Text(value), ContractValue.Text(pattern), RegexOptions.CultureInvariant))
+        {
+            findings.Add(string.Format(CultureInfo.InvariantCulture, "{0}: {1} does not match the pattern {2}",
+                path, ContractValue.Describe(value), ContractValue.Text(pattern)));
+        }
         if (value is IDictionary instance)
         {
-            CheckObject(map, instance, at, path, findings);
+            CheckObject(root, map, instance, at, path, findings);
         }
         if (value is IList elements && ContractValue.TryGetMember(map, "items", out object items))
         {
             for (int i = 0; i < elements.Count; i++)
             {
-                Check(items, elements[i], at + "/items", path + "[" + i.ToString(CultureInfo.InvariantCulture) + "]", findings);
+                Check(root, items, elements[i], at + "/items", path + "[" + i.ToString(CultureInfo.InvariantCulture) + "]", findings);
             }
         }
     }
 
-    private static void CheckObject(IDictionary map, IDictionary instance, string at, string path, List<string> findings)
+    private static void CheckObject(object root, IDictionary map, IDictionary instance, string at, string path, List<string> findings)
     {
         if (ContractValue.TryGetMember(map, "required", out object required))
         {
@@ -209,7 +303,7 @@ public static class ContractSchema
             string member = ContractValue.MemberPath(path, key);
             if (properties != null && ContractValue.TryGetMember(properties, key, out object nested))
             {
-                Check(nested, entry.Value, at + "/properties/" + Pointer(key), member, findings);
+                Check(root, nested, entry.Value, at + "/properties/" + Pointer(key), member, findings);
             }
             else if (closed)
             {

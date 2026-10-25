@@ -105,6 +105,9 @@ function Invoke-RootConfigGenerator {
         'New-DotnetBuildProps' {
             New-DotnetBuildProps
         }
+        'New-Solution' {
+            New-Solution
+        }
         'New-CatsCommandLookup' {
             # The lookup cats checks a call against, from the command contracts (Catzc.Base.Contracts).
             New-CatsCommandLookup

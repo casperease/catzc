@@ -21,6 +21,10 @@ and it says so: a schema is an object or a boolean (true admits every value, fal
   enum                  an array; the value equals one of its elements (ContractValue.Equal)
   items                 one schema every array element validates against (the array form is not supported)
   const                 the value equals it
+  pattern               a regular expression a string value matches; a value of another type is not constrained
+  definitions           at the root only: an object of name to schema, each read whole like any nested schema
+  $ref                  #/definitions/<name> of a definition the root declares; the value validates against it. Any
+                        other reference, and a chain of definitions that only refer on back to itself, is a finding
 The annotation keywords $schema, $id, $comment, title, description and examples are explicit no-ops: each is read
 and ignored by name, in any form, and never constrains a value. Every other keyword is a finding "unsupported
 keyword", never ignored, and so is a keyword of the subset in a form it does not support. The schema is read whole

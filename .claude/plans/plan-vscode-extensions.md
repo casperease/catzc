@@ -44,12 +44,11 @@ cats has no parity for (Ruff, Prettier, markdownlint, cspell). The recommendatio
 
 The offline pipeline schemas first, then the small extensions folded into cats extensions.
 
-- [ ] `docs/drs/repository/api-contracts.md`: an external schema asset may apply to a declared set of files (a glob in `contracts.yml`)
-      instead of the one file its path names, and the bounded schema subset gains local `$ref`/`definitions` and `pattern` (decided
-      2026-10-25). Check: `Test-Links` and `Test-Markdownlint` on the ADR.
-- [ ] `ContractsConfig` + `contracts.yml`: an `applies_to` glob per external schema asset; `Test-Contracts` checks every matching file.
-      Check: the Contracts module's `ContractsConfig` and `Test-Contracts` tests, one matching file passing and one broken fixture failing.
-- [ ] `ContractSchema.cs`: local `$ref` to `#/definitions/<name>`, `definitions`, and `pattern`. Check: `ContractSchema.Tests.ps1`.
+- [ ] Build the declared `manifest-glob` addressing mode (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING, no rule change; decided 2026-10-25):
+      `contract.yml` gains `applies_to: { <module>/<path>: [globs] }`, and such an asset expands into one checked asset per matching file,
+      so every check runs unchanged; add it to `BuiltAddressingModes` once proven from pwsh and bash, then set `addressing: manifest-glob`
+      in `contracts.yml`. Check: `ContractManifest`, `Get-Contract` and `Test-Contracts` tests, one matching file passing and one broken
+      fixture failing, plus a bats case under `bash/tests/`.
 - [ ] `contracts/EXTERNAL-ado/0.0.0/Catzc.Azure.DevOps/`: the trimmed Azure Pipelines schema (header: vendor, source
       `microsoft/azure-pipelines-vscode` service schema, date), applied to every `.yaml` pipeline; frozen as `0.1.0` by
       `Publish-ContractRelease`. Check: `Test-Contracts` passes on every pipeline.
