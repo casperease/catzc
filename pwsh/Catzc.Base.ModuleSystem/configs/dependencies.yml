@@ -255,6 +255,7 @@ groups:
         Catzc.Base.Objects,
         Catzc.Base.Repository,
         Catzc.Base.Reports,
+        Catzc.Base.Writers,
       ]
     Catzc.Base.Contracts:
       [

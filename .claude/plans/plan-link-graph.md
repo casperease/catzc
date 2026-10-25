@@ -30,18 +30,11 @@ per convention.
 
 ## Open steps
 
-1. [ ] `docs/drs/repository/links-in-repository.md`: a rule for convention relations (derived from a declaration, never written in a file),
-       and the term it bolds. Check: `Test-Links -Path docs/drs/repository/links-in-repository.md`, `Test-DrsRegistry`.
-2. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkRelation.cs`: the member `Convention`, and `LinkDirectionRow` reads `convention`. Check:
-       `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/types/LinkDirectionRow.Tests.ps1`.
-3. [ ] `pwsh/Catzc.Base.QualityGates/private/Get-ConventionEdge.ps1` (new): a test to its subject by its stem under `tests/`, a file to its
-       comment page by the `pages` map, a module to each declared dependency, as `Convention` edges. Check:
-       `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Get-ConventionEdge.Tests.ps1` (new, neutral fixtures).
-4. [ ] `pwsh/Catzc.Base.QualityGates/configs/link-directions.yml`: the convention rows, and completeness rows (every function with a comment
+1. [ ] `pwsh/Catzc.Base.QualityGates/configs/link-directions.yml`: the convention rows, and completeness rows (every function with a comment
        page has its docs edge, every unit of a laid-out track has a `tests` aspect). Check: `Test-ShippedConfigs`.
-5. [ ] `pwsh/Catzc.Base.QualityGates/Get-LinkEdge.ps1` (new): `-To <path>` returns every relation into a file, written or derived, its blast
+2. [ ] `pwsh/Catzc.Base.QualityGates/Get-LinkEdge.ps1` (new): `-To <path>` returns every relation into a file, written or derived, its blast
        radius. Check: `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Get-LinkEdge.Tests.ps1` (new).
-6. [ ] `pwsh/Catzc.Base.QualityGates/Test-LinkDirections.ps1`: judges the convention edges too. Check:
+3. [ ] `pwsh/Catzc.Base.QualityGates/Test-LinkDirections.ps1`: judges the convention edges too. Check:
        `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Test-LinkDirections.Repository.Tests.ps1` green.
 
 ## Refs

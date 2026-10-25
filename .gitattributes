@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: a4463634fbd5
+#     with_body_sha: d080d5660182
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -64,13 +64,18 @@ pwsh/.vendor/** linguist-vendored
 **/assets/scripts/dotnet-install.* linguist-vendored
 
 # GitHub (linguist): committed files the automation writes are generated — out of the statistics, and collapsed
-# in pull-request diffs so review lands on their sources (the New-Importer shim, the managed root-config copies,
-# and the generated ADR pages; see docs/drs/repository/generated-root-configs.md). The ADR index and glossary are
-# committed so GitHub has them — every ADR citation links the index — and Build-DrsIndex / Build-Glossary rewrite
-# them on import from drs.yml and the glossary sources; Build-ContractReference rewrites the per-unit contract
-# pages from the contract assets; Build-GitKeep rewrites every .gitkeep from its one source.
+# in pull-request diffs so review lands on their sources (see docs/drs/repository/generated-root-configs.md). The
+# lines below the compiled types are rendered from the registries that declare what is generated: every writer's
+# outputs in generated-files.yml, then every root config rootconfig.yml declares committed.
 pwsh/.compiled/** linguist-generated
-**/.gitkeep     linguist-generated
+/docs/drs/index.md linguist-generated
+/docs/drs/glossary.md linguist-generated
+/docs/references/contracts/*.md linguist-generated
+**/README.md linguist-generated
+**/.gitkeep linguist-generated
+/.cspell/*.txt linguist-generated
+/.cspell/drs-codes.txt linguist-generated
+/pwsh/Catzc.Base.QualityGates/assets/english.* linguist-generated
 /importer.ps1 linguist-generated
 /importer.sh linguist-generated
 /pwsh/.internal/assets/importer-commands.sh linguist-generated
@@ -79,9 +84,6 @@ pwsh/.compiled/** linguist-generated
 /Directory.Build.props linguist-generated
 /.gitattributes linguist-generated
 /.gitignore linguist-generated
-/docs/drs/index.md    linguist-generated
-/docs/drs/glossary.md linguist-generated
-/docs/references/contracts/*.md linguist-generated
 
 # GitHub (linguist): the Markdown here — the ADRs, the explanations, the how-tos, the diagram articles — is authored,
 # reviewed and versioned like source, so it counts in the language statistics. Linguist treats Markdown as prose and

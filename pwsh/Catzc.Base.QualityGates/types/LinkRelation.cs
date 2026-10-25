@@ -13,6 +13,7 @@ public enum LinkRelation
     MarkdownLink,
     CodeLink,
     DocsEdge,
-    // Implied by a declaration, never written in a file (ADR-REPO-LINKS-CONVENTIONSAREDERIVED).
+    // Implied by a declaration, never written in a file
+    // ([ADR-REPO-LINKS-CONVENTIONSAREDERIVED](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-conventionsarederived)).
     Convention,
 }

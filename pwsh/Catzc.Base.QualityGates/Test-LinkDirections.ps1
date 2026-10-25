@@ -24,7 +24,10 @@ function Test-LinkDirections {
 
     $settings = Get-Config -Config links
     $result = Invoke-LinkEngine -RepositoryRoot $RepositoryRoot -Path $Path -Kind Both -Wrap $settings.wrap -IncludeEdge
-    $edges = @($result.Edges)
+    $written = @($result.Edges)
+    # The relations a declaration implies join the same scope's files and are judged by the same rows.
+    $convention = @(Get-ConventionEdge -Path ([string[]] @(Get-LinkScope -RepositoryRoot $RepositoryRoot -Path $Path)))
+    $edges = @($written) + @($convention)
     $paths = [string[]] @(foreach ($edge in $edges) {
             $edge.File
             $edge.Target
@@ -42,6 +45,7 @@ function Test-LinkDirections {
     $facts = [ordered]@{
         FileCount = $result.FileCount
         EdgeCount = $edges.Count
+        ConventionCount = $convention.Count
     }
     Write-QualityGateReport -Subject link-directions -Title Test-LinkDirections -Issues $issues -Facts $facts -OutputFolder $OutputFolder -PassThru:$PassThru
 }

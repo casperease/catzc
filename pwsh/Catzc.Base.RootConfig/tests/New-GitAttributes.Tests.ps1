@@ -39,21 +39,29 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
                     [pscustomobject]@{ target = 'widget.cfg'; committed = $true }
                     [pscustomobject]@{ target = 'gadget.cfg'; committed = $false }
                     [pscustomobject]@{ target = 'tools/cog.lock'; committed = $true }
-                ) }
+                )
+            }
         }
-        $script:roots = "{{generated-root-files}}`n"
+        Mock Get-Config -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Config -eq 'generated-files' } {
+            [pscustomobject]@{ writers = [ordered]@{
+                    'Build-Widget' = [pscustomobject]@{ outputs = @('docs/widget.md', '**/GADGET.md') }
+                }
+            }
+        }
+        $script:roots = "{{generated-files}}`n"
+        $script:generated = "/docs/widget.md linguist-generated`n**/GADGET.md linguist-generated`n/widget.cfg linguist-generated`n/tools/cog.lock linguist-generated`n"
     }
 
     It 'replaces the placeholder with a why comment and one line per glob, subkind first, in registry order' {
         Set-Template "# head`n{{file-kind-attributes}}`n# tail`n$script:roots"
         $text = New-GitAttributes
-        $text | Should -BeExactly "# head`n# catzc: Cogs are data.`nwidgets/cogs/** catzc-cog`n`n# catzc: Widgets are data on purpose.`nwidgets/** catzc-widget eol=lf`nextras/** catzc-widget eol=lf`n# tail`n/widget.cfg linguist-generated`n/tools/cog.lock linguist-generated`n"
+        $text | Should -BeExactly "# head`n# catzc: Cogs are data.`nwidgets/cogs/** catzc-cog`n`n# catzc: Widgets are data on purpose.`nwidgets/** catzc-widget eol=lf`nextras/** catzc-widget eol=lf`n# tail`n$script:generated"
     }
 
-    It 'marks every committed root config generated, one line each in registry order, and leaves an uncommitted one out' -Tag 'PDR-ONELIVE' {
+    It 'marks every writer output, then every committed root config, generated, root-anchored unless it spans folders, and leaves an uncommitted root out' -Tag 'PDR-ONELIVE', 'ADR-REPO-FILEMETA-COMPOSEDFILES' {
         Set-Template "{{file-kind-attributes}}`n$script:roots"
         $text = New-GitAttributes
-        $text | Should -BeLike "*`n/widget.cfg linguist-generated`n/tools/cog.lock linguist-generated`n"
+        $text | Should -BeLike "*`n$script:generated"
         $text | Should -Not -Match 'gadget\.cfg'
     }
 
@@ -103,7 +111,7 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
             [Catzc.Base.Globs.FileKindsConfig]::new([ordered]@{ kinds = [ordered]@{ sprocket = [ordered]@{ definition = 'A sprocket.'; files = @('s/**') } } })
         }
         Set-Template "a`n{{file-kind-attributes}}`nb`n$script:roots"
-        New-GitAttributes | Should -BeExactly "a`n`nb`n/widget.cfg linguist-generated`n/tools/cog.lock linguist-generated`n"
+        New-GitAttributes | Should -BeExactly "a`n`nb`n$script:generated"
     }
 
     It 'rejects a template without a placeholder, or with one twice' {
@@ -112,7 +120,7 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
         Set-Template "{{file-kind-attributes}}`n{{file-kind-attributes}}`n$script:roots"
         { New-GitAttributes } | Should -Throw '*exactly once, found 2*'
         Set-Template "{{file-kind-attributes}}`n"
-        { New-GitAttributes } | Should -Throw "*'{{generated-root-files}}' exactly once*"
+        { New-GitAttributes } | Should -Throw "*'{{generated-files}}' exactly once*"
     }
 }
 
@@ -124,6 +132,17 @@ Describe 'New-GitAttributes — shipped assets/root/.gitattributes-template' -Ta
         $text | Should -Match '(?m)^\S+ .*catzc-'
         foreach ($root in @((Get-Config -Config rootconfig).files | Where-Object { $_.committed })) {
             $text | Should -Match "(?m)^/$([regex]::Escape($root.target)) linguist-generated$" -Because "$($root.target) is a committed root config"
+        }
+        foreach ($writer in (Get-Config -Config generated-files).writers.Values) {
+            foreach ($output in @($writer.outputs)) {
+                $line = if ($output.StartsWith('**/')) {
+                    $output
+                }
+                else {
+                    "/$output"
+                }
+                $text | Should -Match "(?m)^$([regex]::Escape($line)) linguist-generated$" -Because "$output is a declared writer output"
+            }
         }
     }
 }

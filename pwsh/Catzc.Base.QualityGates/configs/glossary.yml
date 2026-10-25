@@ -172,6 +172,16 @@ concepts:
     realized_by: { kind: type, pattern: LinkRelation }
     contrasts:
       markdown link: A markdown link is one kind of relation, the one written in a .md file; a relation is any of the three kinds.
+  convention relation:
+    key: convention_relation
+    domain: repository
+    defined_by: ADR-REPO-LINKS-CONVENTIONSAREDERIVED
+    short:
+      A relation no file writes but a declaration implies — a test to its subject, a file to its comment page, a module to a dependency.
+    realized_by: { kind: function, pattern: Get-ConventionEdge }
+    contrasts:
+      relation:
+        A relation is written in a file, as a link or a docs edge; a convention relation is derived from a declaration on every run.
   link direction:
     key: link_direction
     domain: repository

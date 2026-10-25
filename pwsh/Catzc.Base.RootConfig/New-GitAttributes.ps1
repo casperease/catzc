@@ -57,12 +57,26 @@ function New-GitAttributes {
         }
     }
 
-    # Every committed root config is generated: one line per target rootconfig.yml declares committed, so the list has one source.
-    $rootPlaceholder = '{{generated-root-files}}'
-    if (@($template -split "`n" | Where-Object { $_ -eq $rootPlaceholder }).Count -ne 1) {
-        throw "The .gitattributes template must hold the line '$rootPlaceholder' exactly once: $templatePath"
+    # What is generated has one source, its writer's declaration: every writer output, then every committed root config.
+    $generatedPlaceholder = '{{generated-files}}'
+    if (@($template -split "`n" | Where-Object { $_ -eq $generatedPlaceholder }).Count -ne 1) {
+        throw "The .gitattributes template must hold the line '$generatedPlaceholder' exactly once: $templatePath"
     }
-    $roots = @((Get-Config -Config rootconfig).files | Where-Object { $_.committed } | ForEach-Object { "/$($_.target) linguist-generated" })
+    $anchor = { param([string] $Glob) if ($Glob.StartsWith('**/', [System.StringComparison]::Ordinal)) {
+            $Glob
+        }
+        else {
+            "/$Glob"
+        } }
+    $generated = [System.Collections.Generic.List[string]]::new()
+    foreach ($writer in (Get-Config -Config generated-files).writers.Values) {
+        foreach ($output in @($writer.outputs)) {
+            $generated.Add("$(& $anchor $output) linguist-generated")
+        }
+    }
+    foreach ($file in @((Get-Config -Config rootconfig).files | Where-Object { $_.committed })) {
+        $generated.Add("$(& $anchor $file.target) linguist-generated")
+    }
 
-    $template.Replace($placeholder, ($blocks -join "`n`n")).Replace($rootPlaceholder, ($roots -join "`n"))
+    $template.Replace($placeholder, ($blocks -join "`n`n")).Replace($generatedPlaceholder, (@($generated | Select-Object -Unique) -join "`n"))
 }

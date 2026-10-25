@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "03a79f1d9db0"
+    with_body_sha: b914844c20df
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -1351,6 +1351,17 @@ over a closed type set whose defaults are declared once on the ContractCommand t
   - [implementation language](#implementation-language): An implementation language is the file language a command's source is written in;
     the contract language is the notation its call interface is stated in.
 
+### convention relation
+
+A relation no file writes but a declaration implies — a test to its subject, a file to its comment page, a module to a dependency.
+
+- **Defined by:** [ADR-REPO-LINKS-CONVENTIONSAREDERIVED](repository/links-in-repository.md#rule-adr-repo-links-conventionsarederived)
+- **Realized by:** function `Get-ConventionEdge`
+- **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
+- **Contrasts:**
+  - [relation](#relation): A relation is written in a file, as a link or a docs edge; a convention relation is derived from a declaration on
+    every run.
+
 ### decision record
 
 One record of the DRS, of exactly one registered record kind, stating its rules and why.
@@ -1665,6 +1676,8 @@ One file pointing at another tracked file — a markdown link, a code link or a 
 - **Realized by:** type `LinkRelation`
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Contrasts:**
+  - [convention relation](#convention-relation): A relation is written in a file, as a link or a docs edge; a convention relation is derived
+    from a declaration on every run.
   - [markdown link](#markdown-link): A markdown link is one kind of relation, the one written in a .md file; a relation is any of the three
     kinds.
 

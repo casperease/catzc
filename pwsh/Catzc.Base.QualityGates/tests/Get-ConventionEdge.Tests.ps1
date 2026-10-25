@@ -2,10 +2,14 @@
 Describe 'Get-ConventionEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CONVENTIONSAREDERIVED' {
     BeforeEach {
         InModuleScope Catzc.Base.QualityGates {
-            # The real config passes Get-CommentPage's typed parameter; the mock decides the page.
-            Mock Get-CommentPage { if ($Path -like 'mods/*.ps1') {
+            # The config's PageFor decides the page, as the comment-pages config does.
+            $pages = [pscustomobject] @{} | Add-Member -PassThru ScriptMethod PageFor {
+                param($Path)
+                if ($Path -like 'mods/*.ps1') {
                     'docs/references/' + $Path + '.md'
-                } }
+                }
+            }
+            Mock Get-Config -ParameterFilter { $Config -eq 'comment-pages' } { $pages }.GetNewClosure()
             Mock Get-CatzcModulesFolder { 'mods' }
             Mock Get-ModuleDependencyEdges {
                 [pscustomobject] @{ From = 'Widget'; To = 'Gadget' }
@@ -45,6 +49,6 @@ Describe 'Get-ConventionEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-CONVENTIONSARE
     }
 
     It 'returns no edge for no paths' {
-        (& $derive @()).Count | Should -Be 0
+        @(& $derive @()) | Should -HaveCount 0
     }
 }

@@ -5,6 +5,19 @@
 # ---
 
 rows:
+  - relations: [convention]
+    to: { classes: [comment-page] }
+    verdict: allow
+    because: ADR-REPO-COMMENTS-COMMENTPAGEPLACE
+  - relations: [convention]
+    from: { classes: [test] }
+    verdict: allow
+    because: ADR-REPO-LINKS-CONVENTIONSAREDERIVED
+  - relations: [convention]
+    from: { track_types: [modules] }
+    to: { track_types: [modules] }
+    verdict: allow
+    because: ADR-AUTO-DEPM-CODEBUILTFROM
   - relations: [docs_edge]
     to: { classes: [comment-page] }
     verdict: allow

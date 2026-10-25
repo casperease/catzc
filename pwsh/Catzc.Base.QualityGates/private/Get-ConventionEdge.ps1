@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-quality-gates/private/Get-ConventionEdge.ps1.md"
+  warning: "Generated Header"
+---
+#>
+
 function Get-ConventionEdge {
     [CmdletBinding()]
     [OutputType([Catzc.Base.QualityGates.LinkEdge[]])]
@@ -8,7 +16,8 @@ function Get-ConventionEdge {
         [string[]] $Path
     )
 
-    # Each relation is derived from the declaration that implies it, never read from a file (ADR-REPO-LINKS-CONVENTIONSAREDERIVED).
+    # Each relation is derived from the declaration that implies it, never read from a file
+    # ([ADR-REPO-LINKS-CONVENTIONSAREDERIVED](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-conventionsarederived)).
     $files = @($Path | ForEach-Object { $_.Replace('\', '/') } | Select-Object -Unique)
     $known = [System.Collections.Generic.HashSet[string]]::new([string[]] $files, [System.StringComparer]::Ordinal)
     $edges = [System.Collections.Generic.List[Catzc.Base.QualityGates.LinkEdge]]::new()
@@ -41,10 +50,9 @@ function Get-ConventionEdge {
         }
     }
 
-    # A file points at its comment page, where the pages map places one and it is tracked.
     $commentPages = Get-Config -Config comment-pages
     foreach ($file in $files) {
-        $page = Get-CommentPage -Path $file -Config $commentPages
+        $page = $commentPages.PageFor($file)
         if ($page -and $known.Contains($page)) {
             & $edge $file $page
         }
@@ -52,14 +60,22 @@ function Get-ConventionEdge {
 
     # A module points at each module it declares as a dependency; its folder stands for it, and a group name is no module.
     $modulesFolder = Get-CatzcModulesFolder
-    $folderOf = { param([string] $Module) "$modulesFolder/$Module" }
-    $hasFolder = { param([string] $Folder) [bool] @($files.Where({ $_.StartsWith("$Folder/", [System.StringComparison]::Ordinal) }, 'First', 1)).Count }
+    $folders = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    foreach ($file in $files) {
+        if ($file.StartsWith("$modulesFolder/", [System.StringComparison]::Ordinal)) {
+            $rest = $file.Substring($modulesFolder.Length + 1)
+            $slash = $rest.IndexOf('/')
+            if ($slash -gt 0) {
+                $null = $folders.Add("$modulesFolder/" + $rest.Substring(0, $slash))
+            }
+        }
+    }
     foreach ($dependency in @(Get-ModuleDependencyEdges -Declared)) {
-        $from = & $folderOf $dependency.From
-        $to = & $folderOf $dependency.To
-        if ((& $hasFolder $from) -and (& $hasFolder $to)) {
+        $from = "$modulesFolder/$($dependency.From)"
+        $to = "$modulesFolder/$($dependency.To)"
+        if ($folders.Contains($from) -and $folders.Contains($to)) {
             & $edge $from $to
         }
     }
-    , $edges.ToArray()
+    $edges.ToArray()
 }
