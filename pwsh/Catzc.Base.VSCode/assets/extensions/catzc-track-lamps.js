@@ -29,6 +29,9 @@ const path = require("path");
 
 let vscode;
 let log;
+// The output channel is silent while all is well: a warning or an error is always written, the narration of each step only with
+// catzc.trackLamps.trace on.
+const trace = (text) => vscode.workspace.getConfiguration("catzc.trackLamps").get("trace") && log.appendLine(text);
 
 const OUT = "catzc.trackLamps.out";
 const VETO = "catzc.trackLamps.veto";
@@ -40,6 +43,9 @@ const HELD = "catzc.lamps.remembered";
 // The suffix of a remembered Error's source, and how many Errors one file remembers.
 const REMEMBERED = " · remembered";
 const MAX_REMEMBERED = 20;
+// The size of files.exclude, in characters (each entry costs its glob and a flag on the command line), past which the editor cannot spawn
+// the processes it hands the list to (Windows takes 32767 characters in all).
+const EXCLUDE_ROOF = 20000;
 const MARKERS = "out/test-results";
 const FOLD = process.platform === "win32";
 // The conditions by precedence, lowest first; a lamp shows the highest fact over the files it claims.
@@ -272,7 +278,11 @@ function hiddenEntries(files, folders, shown) {
         const dead = topmostDead(place);
         entries.add(dead ? deadEntry(dead) : rollUp(place));
     }
-    for (const place of folders) if (!live.has(place)) entries.add(deadEntry(topmostDead(place) ?? place));
+    // A folder with no file below it at all stays in the tree: no lamp claims it, so nothing hides it (DDR-FILTER-EVERYFILECLAIMED), and
+    // writing it would cost an entry in every state. A folder the lamps emptied holds files, so it still leaves the tree.
+    const populated = new Set();
+    for (const place of files) for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) populated.add(at);
+    for (const place of folders) if (!live.has(place) && populated.has(place)) entries.add(deadEntry(topmostDead(place) ?? place));
     return [...entries].sort();
 }
 
@@ -462,13 +472,15 @@ function openFiles(root, tabGroups) {
     return [...open].sort();
 }
 
+// What files.exclude costs on a command line: each glob and a flag with its quotes.
+const excludeSize = (exclude) => Object.keys(exclude).reduce((total, glob) => total + glob.length + 6, 0);
+
 // The files.exclude the lamps wrote last, so the settings change their own write raises is not taken for a new one.
 let written;
 
 async function apply(context) {
     const folder = vscode.workspace.workspaceFolders?.[0];
     if (!folder) {
-        log.appendLine("apply: no workspace folder");
         return undefined;
     }
     const root = folder.uri.fsPath;
@@ -480,12 +492,18 @@ async function apply(context) {
     const files = vscode.workspace.getConfiguration("files", folder.uri);
     const current = files.inspect("exclude")?.workspaceValue ?? {};
     const { next, ours } = merge(current, context.workspaceState.get(OWNED, []), wanted);
-    log.appendLine(`apply: unlit [${[...out].join(", ")}], vetoed [${[...vetoed].join(", ")}], field "${field}", ${wanted.length} entries wanted, ${ours.length} owned`);
+    trace(`apply: unlit [${[...out].join(", ")}], vetoed [${[...vetoed].join(", ")}], field "${field}", ${wanted.length} entries wanted, ${ours.length} owned`);
     await context.workspaceState.update(OWNED, ours);
     written = JSON.stringify(next);
     if (written !== JSON.stringify(current)) {
         await files.update("exclude", next, vscode.ConfigurationTarget.Workspace);
-        log.appendLine(`apply: files.exclude written with ${Object.keys(next).length} keys`);
+        trace(`apply: files.exclude written with ${Object.keys(next).length} keys`);
+    }
+    const size = excludeSize(next);
+    if (size > EXCLUDE_ROOF) {
+        log.appendLine(
+            `warning: files.exclude is ${size} characters in ${Object.keys(next).length} keys, over the ${EXCLUDE_ROOF} the editor's search and watcher processes take on a command line (spawn ENAMETOOLONG); unlit [${[...out].join(", ")}]`,
+        );
     }
     return { root, out, vetoed, field, wanted, open };
 }
@@ -566,7 +584,7 @@ function activate(context) {
         const next = evaluate(sets, new Set(Object.keys(sets).filter((name) => !out.has(name))), [], facts).conditions;
         if (JSON.stringify(next) === JSON.stringify(conditions)) return;
         conditions = next;
-        log.appendLine(
+        trace(
             `conditions: ${Object.entries(conditions)
                 .map(([lamp, condition]) => `${lamp} ${condition}`)
                 .join(", ")} | held [${heldPlaces.join(", ")}] | errors [${errorPlaces(root, entries).join(", ")}]`,
@@ -605,11 +623,11 @@ function activate(context) {
             counter.color = "#f85149";
             counter.tooltip = `Catzc lamps: ${tally.wrong.length} files shown or hidden against their filters, e.g. ${tally.wrong.slice(0, 3).join(", ")}; ${tally.unclaimed.length} files no filter claims, e.g. ${tally.unclaimed.slice(0, 3).join(", ")}\nClick for the log.`;
         }
-        log.appendLine(
-            `census: ${tally.shown}/${tally.total} shown; ${matrix.join(", ")}; ${tally.wrong.length} against their filters` +
-                `${tally.wrong.length ? ": " + tally.wrong.slice(0, 20).join(", ") : ""}; ${tally.unclaimed.length} unclaimed` +
-                `${tally.unclaimed.length ? ": " + tally.unclaimed.slice(0, 20).join(", ") : ""}`,
-        );
+        const census = `census: ${tally.shown}/${tally.total} shown; ${matrix.join(", ")}; ${tally.wrong.length} against their filters` +
+            `${tally.wrong.length ? ": " + tally.wrong.slice(0, 20).join(", ") : ""}; ${tally.unclaimed.length} unclaimed` +
+            `${tally.unclaimed.length ? ": " + tally.unclaimed.slice(0, 20).join(", ") : ""}`;
+        if (tally.wrong.length === 0 && tally.unclaimed.length === 0) trace(census);
+        else log.appendLine(`warning: ${census}`);
     };
     // Every failure lands in the output channel; an unhandled rejection would vanish without a trace.
     const settle = async (retried = false) => {

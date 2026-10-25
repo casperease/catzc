@@ -70,7 +70,7 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         $root = (Join-Path $TestDrive 'empty-on-disk') -replace '\\', '/'
         $null = New-Item -ItemType File -Force -Path (Join-Path $root 'mods/Widget/Get-Widget.ps1')
         $null = New-Item -ItemType Directory -Force -Path (Join-Path $root 'empty/deeper')
-        & $script:hidden @('tools') '' $root | Should -Be @('empty') -Because 'a folder empty on disk is dead while any lamp is unlit'
+        @(& $script:hidden @('tools') '' $root) | Should -HaveCount 0 -Because 'a folder empty on disk is shown: no lamp claims it, so nothing hides it'
     }
 
     It 'takes a vetoed lamp''s whole zone out of the tree, even a file a lit lamp claims too (the lit union minus the vetoed zones)' {
