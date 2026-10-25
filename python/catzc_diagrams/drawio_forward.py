@@ -162,7 +162,7 @@ def tagged_library(model):
 
     import declaration
 
-    cell = lambda csrtjhs id: re.search(
+    cell = lambda id: re.search(
         rf'<mxCell id="{cid}" value="([^"]*)" style="([^"]*)"[^>]*>\s*<mxGeometry x="(-?\d+)" y="(-?\d+)" width="(\d+)" height="(\d+)"', model
     )
     sheet = cell("g-type-tag")
