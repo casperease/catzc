@@ -51,6 +51,10 @@ function New-VsCodeExtensionFolder {
         Copy-Item -LiteralPath $media -Destination (Join-Path $folder 'media') -Recurse
     }
     $rendered = Join-Path $folder 'media'
+    # An extension that contributes an icon theme gets the theme rendered from file-icons.yml into its media.
+    if ($Extension.contributes.Contains('iconThemes')) {
+        $null = New-VsCodeFileIconTheme -MediaDirectory $rendered -GlyphDirectory (Join-Path $AssetDirectory 'catzc-track-lamps')
+    }
     $bases = @(if (Test-Path -LiteralPath $rendered) {
             Get-ChildItem -LiteralPath $rendered -Filter '*-on.svg' -File
         })

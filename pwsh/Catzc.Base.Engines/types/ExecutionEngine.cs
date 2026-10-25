@@ -12,8 +12,10 @@ using System.Globalization;
 
 namespace Catzc.Base.Engines;
 
+// Every per-shell difference is declared here once and the constructor is internal, so no caller restates a flag or invents an engine.
 public sealed class ExecutionEngine
 {
+    // Found beside the running PowerShell, so the engine needs no tool pin and cannot drift from the host that starts it.
     public const string LocateByPsHome = "ps-home";
     public const string LocateByTool = "tool";
 
@@ -44,6 +46,7 @@ public sealed class ExecutionEngine
     // The statement that turns the engine's strict mode on.
     public string StrictMode { get; }
 
+    // The wrapper that bounds a call in this engine, so nothing it starts can wait forever.
     public string TimeSafeguard { get; }
 
     // True when the engine's scripts must have LF line endings to run.
@@ -55,6 +58,7 @@ public sealed class ExecutionEngine
     // The repository-root script that loads the engine's entry points into a session (importer.ps1, importer.sh).
     public string ImporterEntry { get; }
 
+    // Empty where the commands are native, the dispatcher elsewhere, so a command's text reads the same in every engine.
     public string CommandPrefix { get; }
 
     private readonly Func<string, string> quote;
@@ -88,6 +92,7 @@ public sealed class ExecutionEngine
         return windows ? Command + ".exe" : Command;
     }
 
+    // One literal in the engine's own quoting, so no text can split into extra arguments or end the string early.
     public string Quote(string text)
     {
         if (text == null) { throw new ArgumentNullException(nameof(text)); }
@@ -101,6 +106,7 @@ public sealed class ExecutionEngine
         return string.Format(CultureInfo.InvariantCulture, sourceFormat, Quote(entry));
     }
 
+    // Non-interactive by construction, so a start never waits on a prompt, and the command text is the same in every engine.
     public string[] StartArguments(string entry, string command)
     {
         if (string.IsNullOrWhiteSpace(command)) { throw new ArgumentException("StartArguments needs a command", nameof(command)); }

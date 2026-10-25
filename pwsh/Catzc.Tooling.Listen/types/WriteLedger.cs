@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-listen/types/WriteLedger.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -110,6 +110,7 @@ public static class WriteLedger
         return entries;
     }
 
+    // Rank decides: an exact agent write, then an exact editor save, then a write inside an open Bash window, else unknown.
     public static WriteSource SourceOf(IReadOnlyList<WriteLedgerEntry> agent, IReadOnlyList<WriteLedgerEntry> editor, string path, string hash,
         DateTimeOffset? writtenAt, int openWindowSeconds, DateTimeOffset now)
     {

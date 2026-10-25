@@ -22,9 +22,5 @@ place: on a declaration or first code line, one line that says something useful 
 
 ## Open steps
 
-- [ ] `pwsh/Catzc.Base.Folders` (the pilot): for each `## comment:N` section on its pages under `docs/references/pwsh/catzc-base-folders/`,
-      one line written at the code line the section names, distilled from it, terse and precise. The user reviews the pilot before the
-      rollout. Check: `Test-Comments -Path pwsh/Catzc.Base.Folders` reports no long comment and no orphan section, and the module's tests
-      pass one file at a time.
 - [ ] The rollout after the user's review: one module per step, in the master's order. Check: per module, `Test-Comments -Path` on it
       reports no long comment and no orphan section, and its tests pass one file at a time.

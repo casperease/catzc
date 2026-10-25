@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../docs/references/pwsh/catzc-base-overlay/Get-CatzcOverlay.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -16,6 +16,7 @@ function Get-CatzcOverlay {
         return
     }
     $modulesRoot = Get-CatzcModulesRoot
+    # The overlay root names its own track folder, so the records carry one and never spell a track folder of their own.
     $prefix = ".catzc/$([System.IO.Path]::GetFileName($overlayRoot.TrimEnd('\', '/')))"
     # The overlay's own folders, every one: an overlay is listed whole, nothing pruned.
     $folders = [string[]] @(Get-ChildPath $overlayRoot -Directory -Depth 1 -Exclude @() -PruneVendor $false)
@@ -35,6 +36,7 @@ function Get-CatzcOverlay {
             continue
         }
 
+        # Every file of a consumer module is classified, so the walk prunes nothing: a skipped file would be an override nobody sees.
         $files = [string[]] @(Get-ChildPath $folder -File -Depth 64 -Exclude @() -PruneVendor $false)
         [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
         foreach ($file in $files) {

@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: e9c92799b5b8
+    with_body_sha: b0d4dbbacfe0
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -349,16 +349,17 @@ Notes:
 - `catzc.base.quality_gates/head.sample.yml`: Provided sample of a file's meta head
   ([ADR-REPO-CONTRACT-CONTRACTASSET](../../drs/repository/api-contracts.md#rule-adr-repo-contract-contractasset)): the shape a tool may rely
   on when it reads the `catzc` block of a head. A head has two shapes. The head of an authored file, this sample, holds its one edge first,
-  `docs`, its comment page's plain path from the file's own folder, then the short warning; a file with no comment page carries no head, and
-  the rule codes a file cites are read from its text, never from a head. A generated file's head holds `with_body_sha` while git tracks the
-  file, then `warning`, under `immutable`. Every other fact about a file is derived on demand, never shown. No key is required, and a fact a
-  file has no value for is left out. Its schema, head.schema.json, lists the keys of both shapes.
+  `docs`, its comment page's plain path from the file's own folder, then `header`, a note that the head itself is generated; it carries no
+  warning, and a file with no comment page carries no head. The rule codes a file cites are read from its text, never from a head. A wholly
+  generated file's head holds `with_body_sha` while git tracks the file, then `warning`, under `immutable`. Every other fact about a file is
+  derived on demand, never shown. No key is required, and a fact a file has no value for is left out. Its schema, head.schema.json, lists
+  the keys of both shapes.
 - `catzc.base.quality_gates/head.schema.json`: Provided schema of a file's meta head, validated against the sample beside it
   (ADR-REPO-CONTRACT-CONTRACTASSET): the keys of the catzc block, which a tool may rely on. The head of an authored file holds its one edge
-  first, its comment page's plain path from the file's own folder (docs), then a short warning (catzc.warning), and a file with no comment
-  page carries no head; the rule codes a file cites are read from its text, never from a head. A generated file's head holds warning, and
-  with_body_sha while git tracks the file, under immutable. Every other fact about a file is derived on demand. A fact a file has no value
-  for is left out, so no key is required.
+  first, its comment page's plain path from the file's own folder (docs), then a note that the head itself is generated (catzc.header), and
+  no warning; a file with no comment page carries no head, and the rule codes a file cites are read from its text, never from a head. A
+  wholly generated file's head holds warning, and with_body_sha while git tracks the file, under immutable. Every other fact about a file is
+  derived on demand. A fact a file has no value for is left out, so no key is required.
 - `catzc.base.quality_gates/test_analyzer_drs_map.command.yml`: Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT): the call
   interface of Test-AnalyzerDrsMap, the quality gate that checks the analyzer map cites only real ADR rules and maps every custom analyzer
   rule, and returns its result under -PassThru.

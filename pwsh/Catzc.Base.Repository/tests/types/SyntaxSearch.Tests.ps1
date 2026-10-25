@@ -2,10 +2,11 @@
 ---
 catzc:
   docs: "../../../../docs/references/pwsh/catzc-base-repository/tests/types/SyntaxSearch.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
+# Each compiled search must return exactly what a PowerShell predicate over FindAll returns, so swapping one for the other changes nothing.
 Describe 'SyntaxSearch' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:parse = {

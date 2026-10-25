@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-flow/types/RungsConfig.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -27,6 +27,7 @@ public sealed class RungsConfig
     // The gates a rung may name: none (CD deploys on merge), the two release gates, and the prod approval gate.
     public static readonly IReadOnlyList<string> Gates = Array.AsReadOnly(new[] { GateNone, GateRc, GateRbc, GateProdApproval });
 
+    // The only place a rung meets its environment, so remapping a rung is one edit and never a search through the callers.
     public static readonly IReadOnlyList<Rung> DefaultRungs = Array.AsReadOnly(new[]
     {
         new Rung("main-uat", "dev", GateNone, new[] { "FDR-CD-CDSTAYSINNONPROD" }),

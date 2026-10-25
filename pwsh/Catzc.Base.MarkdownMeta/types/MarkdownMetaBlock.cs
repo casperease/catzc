@@ -19,10 +19,11 @@ public static class MarkdownMetaBlock
 {
     public const string ImmutableKey = "immutable";
     public const string ConfigKey = "config";
-    public const string WarningKey = "warning";
+    // The note an authored head closes with, that the head itself is generated; a generated file's warning sits under immutable.
+    public const string HeaderKey = "header";
 
     // The keys at the block's first level that are no imprinted fact: every other first-level key is one.
-    static readonly HashSet<string> PartKeys = new HashSet<string>(StringComparer.Ordinal) { ImmutableKey, ConfigKey, WarningKey };
+    static readonly HashSet<string> PartKeys = new HashSet<string>(StringComparer.Ordinal) { ImmutableKey, ConfigKey, HeaderKey };
 
     static readonly Regex PlainSafe = new Regex(@"^[A-Za-z_][A-Za-z0-9_./#@+-]*$", RegexOptions.Compiled);
 
@@ -33,20 +34,20 @@ public static class MarkdownMetaBlock
         "true", "false", "null", "yes", "no", "on", "off", "y", "n",
     };
 
-    // The block of a head with no warning line, as a generated head writes it: the warning lives in its place facts.
+    // The block of a head with no header line, as a generated head writes it: its warning lives in its place facts.
     public static IReadOnlyList<string> Render(IDictionary immutable, IDictionary edges, IReadOnlyList<string> config) =>
         Render(null, immutable, edges, config);
 
-    public static IReadOnlyList<string> Render(string warning, IDictionary immutable, IDictionary edges, IReadOnlyList<string> config)
+    public static IReadOnlyList<string> Render(string header, IDictionary immutable, IDictionary edges, IReadOnlyList<string> config)
     {
         var lines = new List<string>();
         List<DictionaryEntry> places = Present(immutable);
         List<DictionaryEntry> outgoing = Present(edges);
-        bool warned = !string.IsNullOrEmpty(warning);
-        if (!warned && places.Count == 0 && outgoing.Count == 0 && (config == null || config.Count == 0)) { return lines; }
+        bool noted = !string.IsNullOrEmpty(header);
+        if (!noted && places.Count == 0 && outgoing.Count == 0 && (config == null || config.Count == 0)) { return lines; }
         lines.Add(MarkdownDocument.MetaKey + ":");
         RenderFacts(lines, "  ", outgoing);
-        if (warned) { lines.Add("  " + WarningKey + ": " + Scalar(warning)); }
+        if (noted) { lines.Add("  " + HeaderKey + ": " + Quote(header)); }
         RenderPart(lines, ImmutableKey, places);
         if (config != null && config.Count > 0)
         {
@@ -151,13 +152,13 @@ public static class MarkdownMetaBlock
         return lines;
     }
 
-    // The keys at the block's first level, two spaces in: the imprinted facts, `warning`, `immutable`, `config`.
+    // The keys at the block's first level, two spaces in: the imprinted facts, `header`, `immutable`, `config`.
     public static IReadOnlyList<string> SectionKeys(IReadOnlyList<string> block) => KeysAt(block, 2, null);
 
     // The keys one level down inside `immutable`, four spaces in.
     public static IReadOnlyList<string> ImmutableKeys(IReadOnlyList<string> block) => KeysAt(block, 4, ImmutableKey);
 
-    // The imprinted facts: the first-level keys that are no part (warning, immutable, config), the names of the edges.
+    // The imprinted facts: the first-level keys that are no part (header, immutable, config), the names of the edges.
     public static IReadOnlyList<string> EdgeKeys(IReadOnlyList<string> block)
     {
         var keys = new List<string>();

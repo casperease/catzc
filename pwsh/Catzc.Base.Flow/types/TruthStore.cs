@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-flow/types/TruthStore.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Flow;
 
+// A store is named by the state machine that owns it, so a fact always has one writer and every other reader only observes it.
 public sealed class TruthStore
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# The gate lists private validators from each module's own scope, so the fixtures are modules, not loose functions.
 Describe 'Test-ConfigValidators' -Tag 'L0', 'logic' {
     BeforeAll {
         $root = Join-Path $TestDrive 'widget-modules'
@@ -63,6 +64,7 @@ Describe 'Test-ConfigValidators' -Tag 'L0', 'logic' {
 }
 
 Describe 'Config validator coverage' -Tag 'L0', 'integrity' {
+    # No <name> token in this title: under strict mode an unmatched one throws when Pester expands the name.
     It 'every Assert-*Config validator maps to a configs/*.yml in its module (no orphans)' {
         $result = Test-ConfigValidators -PassThru -OutputFolder (Join-Path $TestDrive 'config-validators')
         $result.IssueCount | Should -Be 0 -Because ($result.Issues -join "`n")

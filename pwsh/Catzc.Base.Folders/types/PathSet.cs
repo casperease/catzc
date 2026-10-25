@@ -12,7 +12,7 @@ using System.IO;
 
 namespace Catzc.Base.Folders;
 
-// Ordinal-sorted full paths, each once, so one tree always yields one sequence and a stamp over it moves only when the files do.
+// Ordinal-sorted full paths, each once, so the same tree always yields the same sequence.
 public sealed class PathSet
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

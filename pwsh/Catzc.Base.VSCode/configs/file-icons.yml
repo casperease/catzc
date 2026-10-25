@@ -1,0 +1,36 @@
+icons:
+  powershell-test: { label: TST, style: prompt, color: "#2b5fb8", extensions: [tests.ps1] }
+  powershell: { label: PS1, style: prompt, color: "#2b5fb8", extensions: [ps1] }
+  powershell-module: { label: PSM, style: prompt, color: "#2b5fb8", extensions: [psm1] }
+  powershell-data: { label: PSD, style: prompt, color: "#2b5fb8", extensions: [psd1] }
+  powershell-xml: { label: PSX, style: prompt, color: "#2b5fb8", extensions: [ps1xml] }
+  bash: { label: SH, style: prompt, color: "#b8860b", language: bash, extensions: [bash] }
+  bash-test: { label: BAT, style: prompt, color: "#b8860b", extensions: [bats] }
+  zsh: { label: ZSH, style: prompt, color: "#1f8a80", extensions: [zsh] }
+  csharp: { glyph: csharp, color: "#7c4dbd", language: bcl }
+  dotnet-project: { label: PROJ, color: "#7c4dbd", language: solution, extensions: [csproj, props] }
+  dotnet-binary: { label: DLL, color: "#6b6b6b", extensions: [dll, pdb] }
+  python: { glyph: python, color: "#f7c948", language: python }
+  python-cache: { label: PYC, color: "#6b6b6b", extensions: [pyc] }
+  go: { label: GO, color: "#00add8", language: go }
+  javascript: { glyph: js, color: "#f1e05a", language: javascript }
+  markdown: { glyph: docs, color: "#8fa3bd", language: markdown }
+  yaml: { glyph: yml, color: "#cb6b6b", language: yaml }
+  accosted: { glyph: contracts, color: "#d4a72c", language: accosted }
+  pipeline: { glyph: pipelines, color: "#2f81f7", language: pipeline-yaml, language_ids: [github-actions-workflow] }
+  json: { label: "{}", color: "#d4a72c", language: json }
+  jsonl: { label: "{}+", color: "#d4a72c", language: jsonl }
+  bicep: { glyph: infrastructure, color: "#519aba", language: bicep }
+  drawio: { glyph: draw, color: "#f08705", extensions: [drawio.png, drawio.yml] }
+  image: { label: IMG, color: "#a074c4", extensions: [png, svg] }
+  html: { label: HTML, color: "#e34c26", language: html }
+  css: { label: CSS, color: "#563d7c", language: css }
+  xml: { label: XML, color: "#e37933", language: xml }
+  table: { label: CSV, color: "#3fb950", extensions: [csv, tsv] }
+  text: { label: TXT, color: "#8c8c8c", extensions: [txt, log] }
+  archive: { label: GZ, color: "#6b6b6b", extensions: [gz] }
+  generated: { glyph: generated, color: "#6b6b6b", language: stamp, extensions: [frozen] }
+  signature: { label: SIG, color: "#6b6b6b", extensions: [p7s] }
+  license: { label: LIC, color: "#d4a72c", names: [LICENSE] }
+  git: { glyph: git, color: "#f05133", names: [.gitignore, .gitattributes, .gitkeep], extensions: [gitattributes-template] }
+  editor-config: { glyph: configs, color: "#8c8c8c", names: [.editorconfig, .markdownlintignore, .prettierignore], extensions: [config] }

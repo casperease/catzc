@@ -1,5 +1,5 @@
 {
-  "hash": "0582cffd",
+  "hash": "76858aa8",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -1788,6 +1788,16 @@
     },
     {
       "name": "Catzc.Base.Timeouts.TimeoutsConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.VSCode.FileIcon",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.VSCode.FileIconsConfig",
       "aliases": [],
       "display": []
     },

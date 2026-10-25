@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-overlay/tests/Import-CatzcOverlay.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -52,6 +52,7 @@ function Get-Widget {
 
     Context 'a local module' {
         BeforeEach {
+            # Discovery reaches the fixture overlay only through its own seams, so the test can never read a real consumer's overlay.
             Mock Get-ConfigOverlayRoot -ModuleName Catzc.Base.Config -MockWith { $overlayRoot }
             Mock Get-CatzcOverlayRoot -ModuleName Catzc.Base.Repository -MockWith { $overlayRoot }
             & (Get-Module Catzc.Base.Config) { $script:configIndex = $null; $script:configCache = $null }

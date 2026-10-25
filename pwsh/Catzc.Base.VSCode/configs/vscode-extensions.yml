@@ -48,6 +48,17 @@ extensions:
         - id: catzc.gitChanges.unstagedBackground
           description: Background of a line whose change is not staged yet.
           defaults: { dark: palette.unstaged.background, light: palette.unstaged.mark/40, highContrast: palette.unstaged.mark/40 }
+  catzc-file-icons:
+    displayName: Catzc file icons
+    description: >-
+      The cats file icon theme: one icon per file type in the tree, drawn from the lamp glyphs or a generated label, declared in
+      file-icons.yml.
+    activationEvents: [onStartupFinished]
+    contributes:
+      iconThemes:
+        - id: catzc-file-icons
+          label: Catzc file icons
+          path: ./media/file-icons.json
   catzc-save-ledger:
     displayName: Catzc save ledger
     description: >-

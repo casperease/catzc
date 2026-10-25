@@ -1,7 +1,8 @@
 # ---
 # catzc:
 #   docs: "../../../docs/references/pwsh/catzc-base-flow/configs/rungs.yml.md"
-#   warning: "Generated Header"
+#   header: "generated"
 # ---
 
+# Empty on purpose: the ladder comes from its one declared default, and a repository with its own ladder states it here instead.
 {}

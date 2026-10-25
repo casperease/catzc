@@ -21,11 +21,11 @@ function Format-MarkdownMetaBlock {
         [ValidateNotNullOrEmpty()]
         [string] $Key = [Catzc.Base.MarkdownMeta.MarkdownDocument]::MetaKey,
 
-        [string] $WarningText = ''
+        [string] $HeaderText = ''
     )
 
     $document = [Catzc.Base.MarkdownMeta.MarkdownDocument]::Parse($Text, $Key)
     $config = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::ConfigLines($document.MetaBlock)
-    $block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($WarningText, $Immutable, $Edges, $config)
+    $block = [Catzc.Base.MarkdownMeta.MarkdownMetaBlock]::Render($HeaderText, $Immutable, $Edges, $config)
     $document.WithMetaBlock($block)
 }

@@ -4,6 +4,7 @@
 #   warning: "Generated Header"
 # ---
 
+# Every option takes its default, so this source declares only the engine vocabulary and never narrows what the checks read.
 concepts:
   execution engine:
     key: execution_engine

@@ -83,6 +83,8 @@ settings:
 
   # The title-row icons of every view show without a hover, so the track lamps in the Explorer's folder row are always visible.
   workbench.view.alwaysShowHeaderActions: true
+  # The Explorer's file icons come from the cats icon theme (file-icons.yml), rendered as the catzc-file-icons extension.
+  workbench.iconTheme: catzc-file-icons
 
   files.exclude:
     "**/tmp": true

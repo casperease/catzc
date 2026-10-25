@@ -209,10 +209,10 @@ public sealed class PropertyHead
         return new PropertyHead(property, text, newLine, insertAt, regionStart, regionEnd, block, foreign);
     }
 
-    string WithFactsXml(string warning, IDictionary immutable, IDictionary edges)
+    string WithFactsXml(string header, IDictionary immutable, IDictionary edges)
     {
         IReadOnlyList<string> config = HasHead ? ConfigLines : new string[0];
-        IReadOnlyList<string> block = MarkdownMetaBlock.Render(warning, immutable, edges, config);
+        IReadOnlyList<string> block = MarkdownMetaBlock.Render(header, immutable, edges, config);
         if (block.Count == 0) { return regionStart >= 0 ? text.Remove(regionStart, regionEnd - regionStart) : text; }
         string group = newLine + "  <PropertyGroup Label=\"" + GroupLabel + "\">"
             + newLine + "    <" + Property + "><![CDATA[" + string.Join("\n", block) + "]]></" + Property + ">"
@@ -224,13 +224,13 @@ public sealed class PropertyHead
 
     public string WithFacts(IDictionary immutable, IDictionary edges) => WithFacts(null, immutable, edges);
 
-    // The same, the block opening with the warning line when one is given.
-    public string WithFacts(string warning, IDictionary immutable, IDictionary edges)
+    // The same, the block closing its facts with the header note when one is given.
+    public string WithFacts(string header, IDictionary immutable, IDictionary edges)
     {
         if (!IsObject || Foreign) { return text; }
-        if (isXml) { return WithFactsXml(warning, immutable, edges); }
+        if (isXml) { return WithFactsXml(header, immutable, edges); }
         IReadOnlyList<string> config = HasHead ? ConfigLines : new string[0];
-        IReadOnlyList<string> block = MarkdownMetaBlock.Render(warning, immutable, edges, config);
+        IReadOnlyList<string> block = MarkdownMetaBlock.Render(header, immutable, edges, config);
         if (block.Count == 0) { return headIndex >= 0 ? Without(headIndex) : text; }
         string indent = Indent();
         string member = Quote(Property) + ": " + Quote(string.Join("\n", block));

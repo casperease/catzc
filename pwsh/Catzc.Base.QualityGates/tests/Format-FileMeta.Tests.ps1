@@ -86,7 +86,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($page)) | Out-Null
         [System.IO.File]::WriteAllText($page, "# docs/widget.md`n")
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Should -Be @('docs/widget.md')
-        ([System.IO.File]::ReadAllText($path) -replace "`r", '') | Should -BeLike "---`ncatzc:`n  docs: pages/widget.md.md`n  warning: `"Generated Header`"`n---*"
+        ([System.IO.File]::ReadAllText($path) -replace "`r", '') | Should -BeLike "---`ncatzc:`n  docs: pages/widget.md.md`n  header: `"generated`"`n---*"
     }
 
     It 'never records a file the dry run would change as clean' -Tag 'ADR-AUTO-CACHE-CHECKEDFILESACROSSSESSIONS' {
@@ -100,13 +100,13 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         $bytes = [System.IO.File]::ReadAllBytes((Join-Path $script:widgetRoot 'docs/widget.md'))
         $bytes[0] | Should -Be ([byte] [char] '-')
         $text = [System.Text.Encoding]::UTF8.GetString($bytes)
-        $text | Should -BeLike "---`r`ncatzc:`r`n  role: gadget`r`n  tint: blue`r`n  warning: `"Generated Header`"`r`n---`r`n`r`n# docs/widget.md*"
+        $text | Should -BeLike "---`r`ncatzc:`r`n  role: gadget`r`n  tint: blue`r`n  header: `"generated`"`r`n---`r`n`r`n# docs/widget.md*"
     }
 
     It 'keeps the authored config part and the other front matter keys' {
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Out-Null
         $text = [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/gadget.md'))
-        $text | Should -BeExactly "---`nname: gadget`ncatzc:`n  role: gadget`n  warning: `"Generated Header`"`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
+        $text | Should -BeExactly "---`nname: gadget`ncatzc:`n  role: gadget`n  header: `"generated`"`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
     }
 
     It 'changes nothing on a second run' {
@@ -136,7 +136,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         $path = Join-Path $script:widgetRoot 'docs/gadget.md'
         [System.IO.File]::WriteAllText($path, "---`ncatzc:`n  surprise: 1`n  edges:`n    cites:`n      - ADR-GADGET-SPIN`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n")
         Format-FileMeta -RepositoryRoot $script:widgetRoot | Should -Contain 'docs/gadget.md'
-        [System.IO.File]::ReadAllText($path) | Should -BeExactly "---`ncatzc:`n  role: gadget`n  warning: `"Generated Header`"`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
+        [System.IO.File]::ReadAllText($path) | Should -BeExactly "---`ncatzc:`n  role: gadget`n  header: `"generated`"`n  config:`n    gadgets:`n      one: 1`n---`n# docs/gadget.md`n"
     }
 
     It 'flags the drifted files and points at the formatter' {
@@ -166,7 +166,7 @@ Describe 'Format-FileMeta and Test-FileMeta' -Tag 'L0', 'logic', 'ADR-REPO-FILEM
         )
         Format-FileMeta -RepositoryRoot $script:widgetRoot -NoCache | Sort-Object | Should -Be @('docs/plain.md', 'docs/widget.md')
         $tinted = [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/widget.md')) -replace "`r", ''
-        $tinted | Should -BeLike "---`ncatzc:`n  tint: blue`n  warning: `"Generated Header`"`n---`n`n# docs/widget.md*"
+        $tinted | Should -BeLike "---`ncatzc:`n  tint: blue`n  header: `"generated`"`n---`n`n# docs/widget.md*"
         $tinted | Should -Not -BeLike '*with_body_sha*' -Because 'only the generated-head writer emits a body hash, never the imprint of an authored file'
         [System.IO.File]::ReadAllText((Join-Path $script:widgetRoot 'docs/plain.md')) | Should -BeExactly "# docs/plain.md`n`nNo shade here.`n"
     }

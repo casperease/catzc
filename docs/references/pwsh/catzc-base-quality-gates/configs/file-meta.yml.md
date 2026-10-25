@@ -34,9 +34,9 @@ the page exists.
 
 ## comment:6
 
-Above `warning: "Generated Header"`, written with `#`.
+Above `header: "generated"`, written with `#`.
 
 ```text
 Whether a file of a class carries the facts its kinds produce, none at all, or only its authored config part; the first class that matches decides, else the default (facts on the type): a head only when a fact is non-empty.
-The short line an authored head closes with, below its edges; a file with no fact still carries no head.
+The note an authored head closes with, below its edges, that the head itself is generated; a file with no fact still carries no head.
 ```

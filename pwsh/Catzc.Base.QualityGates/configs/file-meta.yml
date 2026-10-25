@@ -4,7 +4,7 @@
 #   warning: "Generated Header"
 # ---
 
-warning: "Generated Header"
+header: "generated"
 
 head_policy:
   default: facts

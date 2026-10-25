@@ -105,11 +105,11 @@ public sealed class CodeMetaHead
     // The whole text again with the head written from the place facts and the edges in the order given and the authored config kept; nothing to write removes the head.
     public string WithFacts(IDictionary immutable, IDictionary edges) => WithFacts(null, immutable, edges);
 
-    // The same, the head opening with the warning line when one is given.
-    public string WithFacts(string warning, IDictionary immutable, IDictionary edges)
+    // The same, the head closing its facts with the header note when one is given.
+    public string WithFacts(string header, IDictionary immutable, IDictionary edges)
     {
         IReadOnlyList<string> config = HasHead ? ConfigLines : new string[0];
-        return Compose(MarkdownMetaBlock.Render(warning, immutable, edges, config));
+        return Compose(MarkdownMetaBlock.Render(header, immutable, edges, config));
     }
 
     // The whole text again with the head's authored config part removed and its facts kept as written; a head with nothing else goes.

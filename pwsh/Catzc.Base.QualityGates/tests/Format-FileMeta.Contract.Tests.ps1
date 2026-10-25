@@ -10,7 +10,7 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
         $script:writtenImmutable = @($composed | Sort-Object -Unique)
         $script:writtenEdges = @($registry.ImprintKeys() | Sort-Object -Unique)
         $script:parts = $script:schema['properties']['catzc']['properties']
-        $script:partKeys = @('warning', 'config', 'immutable')
+        $script:partKeys = @('header', 'config', 'immutable')
     }
 
     It 'lists in its schema exactly the place facts the generated-file head writes' {
@@ -54,10 +54,11 @@ Describe 'The provided head contract' -Tag 'L1', 'integrity', 'source-only', 'AD
         }
     }
 
-    It 'opens an authored head with its docs edge and closes it with the warning the registry declares, a string part of its own' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
-        $script:schema['properties']['catzc']['properties']['warning']['type'] | Should -Be 'string'
-        $script:sample['catzc']['warning'] | Should -BeExactly (Get-Config -Config file-meta).warning
-        @($script:sample['catzc'].Keys) | Should -Be @('docs', 'warning')
+    It 'opens an authored head with its docs edge and closes it with the header note the registry declares, a string part of its own' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {
+        $script:schema['properties']['catzc']['properties']['header']['type'] | Should -Be 'string'
+        $script:sample['catzc']['header'] | Should -BeExactly (Get-Config -Config file-meta).header
+        @($script:sample['catzc'].Keys) | Should -Be @('docs', 'header')
+        $script:schema['properties']['catzc']['properties'].Contains('warning') | Should -BeFalse -Because 'only a generated file carries a warning, under immutable'
     }
 
     It 'requires no key, since an authored head holds its edge only and a generated one holds the body hash only while tracked' -Tag 'ADR-REPO-FILEMETA-HEADPOLICY' {

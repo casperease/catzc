@@ -31,9 +31,9 @@ The place facts, an ordered dictionary of key to value.
 
 The outgoing edges, an ordered dictionary of edge name to value; no facts and no edges removes the head.
 
-### parameter `WarningText`
+### parameter `HeaderText`
 
-The line the head opens with, above its parts, naming the command that writes it; empty writes none. Default: none.
+The note the head closes its facts with, that the head itself is generated; empty writes none. Default: none.
 
 ### outputs
 

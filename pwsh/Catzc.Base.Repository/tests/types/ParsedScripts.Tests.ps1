@@ -2,10 +2,11 @@
 ---
 catzc:
   docs: "../../../../docs/references/pwsh/catzc-base-repository/tests/types/ParsedScripts.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
+# One holder parses a file once, so every reader of the same script shares one syntax tree and one set of parse errors.
 Describe 'ParsedScripts' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:widget = Join-Path $TestDrive 'Get-Widget.ps1'

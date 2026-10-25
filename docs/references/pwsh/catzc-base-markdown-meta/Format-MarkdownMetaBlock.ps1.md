@@ -34,9 +34,9 @@ The outgoing edges, an ordered dictionary of edge name to value; a value is a sc
 The front-matter key path of the block: catzc at the top level (the default), or a dotted path such as metadata.catzc where the carrier
 nests it under another tool's keys; a parent key the text lacks is written, a parent that holds a flow or scalar value is an error.
 
-### parameter `WarningText`
+### parameter `HeaderText`
 
-The line the block opens with, above its parts, naming the command that writes it; empty writes none. Default: none.
+The note the block closes its facts with, that the head itself is generated; empty writes none. Default: none.
 
 ### outputs
 

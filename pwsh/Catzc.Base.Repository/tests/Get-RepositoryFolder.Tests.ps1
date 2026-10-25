@@ -2,10 +2,11 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-repository/tests/Get-RepositoryFolder.Tests.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
+# The root is mocked to a scratch folder, so a folder resolves against the root and never against the current location.
 Describe 'Get-RepositoryFolder' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-RepositoryRoot -ModuleName Catzc.Base.Repository { Join-Path $TestDrive 'repo' }

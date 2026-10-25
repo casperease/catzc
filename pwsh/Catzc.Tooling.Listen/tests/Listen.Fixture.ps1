@@ -2,10 +2,11 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-tooling-listen/tests/Listen.Fixture.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
+# A watched docs folder in TestDrive with short timings, so a listen test never touches the real tree or waits on real timers.
 function Write-ListenFixtureFile {
     param(
         [string] $Relative,
@@ -36,6 +37,7 @@ function Register-ListenFixtureMocks {
     Mock Get-RepositoryRoot -ModuleName Catzc.Tooling.Listen { $ExecutionContext.SessionState.PSVariable.GetValue('script:root') }
     Mock Get-Config -ModuleName Catzc.Tooling.Listen -ParameterFilter { $Config -eq 'listen' } { $script:config }
     Mock Write-Message -ModuleName Catzc.Tooling.Listen { }
+    # Diffs in memory in git's hunk shape, because the fast tiers never launch a process.
     Mock Get-ListenDiff -ModuleName Catzc.Tooling.Listen {
         $linesOf = {
             param($path)

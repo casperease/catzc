@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-flow/types/TruthStoresConfig.cs.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 */
 
@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Flow;
 
+// Every store the repository touches is declared here, so a new place truth lives cannot appear without a reviewed entry.
 public sealed class TruthStoresConfig
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# The validators are private, so each fixture module must prove they are found and run in that module's own scope.
 Describe 'Invoke-ConfigValidator' -Tag 'L0', 'logic' {
     BeforeAll {
         New-Module -Name TstWidget -ScriptBlock {

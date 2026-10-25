@@ -2,10 +2,11 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-overlay/tests/Overlay.Fixture.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
+# A real dynamic module with neutral names, so its functions and contracts behave as bundled code does without naming any real one.
 $script:fixtureRoot = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
 $script:modulesRoot = Join-Path $fixtureRoot 'bundle'
 $script:overlayRoot = Join-Path $fixtureRoot 'consumer/.catzc/pwsh'
@@ -20,6 +21,7 @@ function script:New-OverlayFixtureModule {
     param()
 
     New-Module -Name Catzc.Base.Widget -ScriptBlock {
+        # The public half, so an overlay override of an exported function has something real to replace.
         function Get-Widget {
             [OutputType([string])]
             param(
@@ -30,6 +32,7 @@ function script:New-OverlayFixtureModule {
             )
             "bundled:$Name/$Count/$(Get-WidgetCore)"
         }
+        # The private half, so an override of the public function can be seen still reaching the module's own internals.
         function Get-WidgetCore {
             [OutputType([string])]
             param()

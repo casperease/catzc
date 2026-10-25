@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Test-GitHistoryClean' -Tag 'L2', 'logic' {
     BeforeAll {
+        # The token is planted in a blob, a path and a commit message, so each surface a history scan reads is proven.
         $script:repo = Join-Path ([System.IO.Path]::GetTempPath()) ('catzc-ghtest-' + [guid]::NewGuid().ToString('N').Substring(0, 12))
         New-Item -ItemType Directory -Path $script:repo -Force | Out-Null
         $repo = $script:repo

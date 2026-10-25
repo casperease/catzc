@@ -2,7 +2,7 @@
 ---
 catzc:
   docs: "../../../docs/references/pwsh/catzc-base-overlay/private/Get-LocalModuleViolation.ps1.md"
-  warning: "Generated Header"
+  header: "generated"
 ---
 #>
 
@@ -24,6 +24,7 @@ function Get-LocalModuleViolation {
     }
 
     $functionFiles = [System.Collections.Generic.List[string]]::new()
+    # A violation anywhere in the module must surface, so the walk prunes nothing, a vendor folder included.
     $files = [string[]] @(Get-ChildPath $Path -File -Depth 64 -Exclude @() -PruneVendor $false)
     [System.Array]::Sort($files, [System.StringComparer]::Ordinal)
     foreach ($file in $files) {

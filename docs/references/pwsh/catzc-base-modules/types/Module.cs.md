@@ -11,3 +11,11 @@ Above `public sealed class Module`, written with `//`.
 A module of a deployable track as the one resolver returns it: identity only. Its needs and its place in the order are functions of
 the declared graph over module names, not members of this type.
 ```
+
+## comment:2
+
+Above `public sealed class Module`, written with `//`.
+
+```text
+Rests on [ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](/docs/drs/automation/module-model.md#rule-adr-auto-module-deployabletrackmodule) and [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel).
+```

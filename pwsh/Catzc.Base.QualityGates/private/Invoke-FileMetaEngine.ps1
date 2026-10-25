@@ -83,17 +83,17 @@ function Invoke-FileMetaEngine {
             else {
                 Get-FileMetaFact -State $state -Path $file -Config $Config
             }
-            # A head opens with the warning naming its writer, and only a head that shows a fact: none is written for the warning alone.
+            # Only a head that shows a fact closes with the header note: none is written for the note alone.
             $shown = @($facts.Edges.Values | Where-Object { $null -ne $_ -and "$_" -ne '' -and @($_).Count -gt 0 }).Count -gt 0
-            $warning = $shown ? $Config.warning : ''
+            $header = $shown ? $Config.header : ''
             $fixed = if ($isProperty) {
-                Format-PropertyMetaHead -Text $text -Property $property -Strip $entry.Carrier.strip -Edges $facts.Edges -WarningText $warning
+                Format-PropertyMetaHead -Text $text -Property $property -Strip $entry.Carrier.strip -Edges $facts.Edges -HeaderText $header
             }
             elseif ($isHead) {
-                Format-CodeMetaHead -Text $text -Form $form -Edges $facts.Edges -WarningText $warning
+                Format-CodeMetaHead -Text $text -Form $form -Edges $facts.Edges -HeaderText $header
             }
             else {
-                Format-MarkdownMetaBlock -Text $text -Edges $facts.Edges -Key $entry.Carrier.key -WarningText $warning
+                Format-MarkdownMetaBlock -Text $text -Edges $facts.Edges -Key $entry.Carrier.key -HeaderText $header
             }
             if ($fixed -cne $text) {
                 $expected = if ($policy -eq [Catzc.Base.QualityGates.HeadPolicy]::Forbidden) {

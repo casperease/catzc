@@ -45,6 +45,7 @@ writers:
       - pwsh/Catzc.Base.VSCode/assets/extensions/**
       - pwsh/Catzc.Base.VSCode/configs/vscode-extensions.yml
       - pwsh/Catzc.Base.VSCode/configs/lamp-palette.yml
+      - pwsh/Catzc.Base.VSCode/configs/file-icons.yml
       - pwsh/Catzc.Base.VSCode/private/**
       - pwsh/Catzc.Base.VSCode/types/**
       - pwsh/Catzc.Base.Globs/configs/filters.yml

@@ -12,6 +12,7 @@ using System.Globalization;
 
 namespace Catzc.Base.Engines;
 
+// The closed set of engines: every per-engine list in the code derives from Names, so adding an engine is one edit here.
 public static class ExecutionEngines
 {
     // PowerShell 7: the engine every module runs under, located beside the running PowerShell.
@@ -52,6 +53,7 @@ public static class ExecutionEngines
         quote: text => "'" + text.Replace("'", "'\\''") + "'",
         sourceFormat: "source {0} >/dev/null 2>&1");
 
+    // Shares bash's POSIX quoting and its importer entry, so a third shell costs no second entry script.
     public static readonly ExecutionEngine Zsh = new ExecutionEngine(
         name: "zsh",
         command: "zsh",

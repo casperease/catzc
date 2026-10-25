@@ -22,29 +22,29 @@ public sealed class FileMetaConfig
 
     public FileHeadPolicy head_policy { get; }
 
-    public const string DefaultWarning = "Generated Header";
+    public const string DefaultHeader = "generated";
 
-    // The one line an authored head opens with, naming the command that writes it; a blank value keeps the default.
-    public string warning { get; }
+    // The note an authored head closes with, that the head itself is generated; a blank value keeps the default.
+    public string header { get; }
 
     public FileMetaConfig(IDictionary raw)
     {
         var list = new List<FileMetaKind>();
         IDictionary policy = null;
-        warning = DefaultWarning;
+        header = DefaultHeader;
         if (raw != null)
         {
             foreach (object key in raw.Keys)
             {
                 string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-                if (name != "kinds" && name != "head_policy" && name != "warning")
+                if (name != "kinds" && name != "head_policy" && name != "header")
                 {
                     throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                        "file-meta config: unknown key '{0}' (allowed: kinds, head_policy, warning)", name));
+                        "file-meta config: unknown key '{0}' (allowed: kinds, head_policy, header)", name));
                 }
             }
-            string declared = raw.Contains("warning") ? Convert.ToString(raw["warning"], CultureInfo.InvariantCulture) : null;
-            if (!string.IsNullOrWhiteSpace(declared)) { warning = declared; }
+            string declared = raw.Contains("header") ? Convert.ToString(raw["header"], CultureInfo.InvariantCulture) : null;
+            if (!string.IsNullOrWhiteSpace(declared)) { header = declared; }
             if (raw.Contains("head_policy") && raw["head_policy"] != null)
             {
                 policy = raw["head_policy"] as IDictionary;

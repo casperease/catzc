@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Modules;
 
-// Rests on [ADR-AUTO-MODULE-DEPLOYABLETRACKMODULE](/docs/drs/automation/module-model.md#rule-adr-auto-module-deployabletrackmodule) and [ADR-BCL-TYPES-NATIVETYPEDMODEL](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-nativetypedmodel).
+// Identity only: what a module needs and where it sits in the order follow from the declared graph over names.
 public sealed class Module
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

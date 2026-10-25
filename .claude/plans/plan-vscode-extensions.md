@@ -42,17 +42,16 @@ cats has no parity for (Ruff, Prettier, markdownlint, cspell). The recommendatio
 
 ## Open steps
 
-The cats file icon theme first (replaces `material-icon-theme`), then the small extensions folded into cats extensions.
+The offline pipeline schemas first, then the small extensions folded into cats extensions.
 
-- [ ] `vscode-extensions.yml`: a `catzc-file-icons` extension contributing `iconThemes`, one generated SVG per file type in the tree (md,
-      ps1, psm1, psd1, ps1xml, cs, csproj, sln, props, yml/yaml, json/jsonl, py, bicep, bicepparam, png, drawio.png, svg, html, css, js,
-      xml, xsd, dtd, bash/sh, zsh, bats, go, dll/pdb, txt, csv/tsv, gz, and the dotfiles), plus folder icons for the track and module
-      folders. Check: `Build-VsCodeExtension` renders it to `out/vscode-extensions/catzc-file-icons/`.
-- [ ] `Build-VsCodeExtension`: the glyphs come from the lamp SVG language under `assets/extensions/catzc-track-lamps/` and the palette,
-      never hand-drawn per file; the type list is derived from the languages config plus the tree's extensions. Check: a test fails on a
-      tracked extension with no icon.
-- [ ] `vscode-settings.yml`: `workbench.iconTheme: catzc-file-icons`; uninstall `pkief.material-icon-theme`. Check: the Explorer shows every
-      listed type with a cats icon.
+- [ ] `file-icons.yml`: folder icons per track and module folder (`folderNames` in the theme); today every folder takes the one plain folder
+      icon. Check: `New-VsCodeFileIconTheme.Tests.ps1`.
+- [ ] `contracts/EXTERNAL-ado/<version>/`: the Azure Pipelines schemas (the service schema of `microsoft/azure-pipelines-vscode`, pinned by
+      version), fetched once by tooling into the contract, never by an editor extension. Check: `Test-Contracts` on the folder.
+- [ ] A cats gate checks every `.yaml` pipeline against the vendored schema offline (no network), and `New-VsCodePipelineSchema` derives its
+      relaxed schema from the vendored one. Check: the gate's own test, one pipeline passing and one broken fixture failing.
+- [ ] `vscode-settings.yml`: `yaml.schemaStore.enable: false` and `json.schemaDownload.enable: false`, so no extension fetches a schema;
+      every schema the editor uses is a local file. Check: `New-VsCodeSettings`, then grep `.vscode/settings.json` for both keys.
 - [ ] `New-VsCodeSettings`: renders `.editorconfig` into per-language settings; remove `editorconfig.editorconfig`. Check: the module's
       tests for `New-VsCodeSettings`.
 - [ ] A cats extension: a document link provider for `/docs/drs/` links; drop `regexrobin.rules` and `DanLevett.regex-robin`. Check: a

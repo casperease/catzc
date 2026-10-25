@@ -1,5 +1,5 @@
 {
-  "$comment": "Provided schema of a file's meta head, validated against the sample beside it (ADR-REPO-CONTRACT-CONTRACTASSET): the keys of the catzc block, which a tool may rely on. The head of an authored file holds its one edge first, its comment page's plain path from the file's own folder (docs), then a short warning (catzc.warning), and a file with no comment page carries no head; the rule codes a file cites are read from its text, never from a head. A generated file's head holds warning, and with_body_sha while git tracks the file, under immutable. Every other fact about a file is derived on demand. A fact a file has no value for is left out, so no key is required.",
+  "$comment": "Provided schema of a file's meta head, validated against the sample beside it (ADR-REPO-CONTRACT-CONTRACTASSET): the keys of the catzc block, which a tool may rely on. The head of an authored file holds its one edge first, its comment page's plain path from the file's own folder (docs), then a note that the head itself is generated (catzc.header), and no warning; a file with no comment page carries no head, and the rule codes a file cites are read from its text, never from a head. A wholly generated file's head holds warning, and with_body_sha while git tracks the file, under immutable. Every other fact about a file is derived on demand. A fact a file has no value for is left out, so no key is required.",
   "type": "object",
   "required": ["catzc"],
   "additionalProperties": false,
@@ -9,7 +9,7 @@
       "additionalProperties": false,
       "properties": {
         "docs": { "type": "string" },
-        "warning": { "type": "string" },
+        "header": { "type": "string" },
         "config": { "type": "object" },
         "immutable": {
           "type": "object",

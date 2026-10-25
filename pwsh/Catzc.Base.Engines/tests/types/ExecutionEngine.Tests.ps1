@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# Every case runs under every engine side by side, so a behaviour that differs between shells differs only on purpose.
 BeforeDiscovery {
     $script:startCases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot '../assets/engine-cases/engine-start.yml') -Applicable)
     $script:locatorCases = @(Get-EngineCaseTable (Join-Path $PSScriptRoot '../assets/engine-cases/engine-locator.yml') -Applicable)

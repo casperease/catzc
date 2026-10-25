@@ -14,8 +14,9 @@ source, config or template of any class, Markdown included (a Markdown doc is a 
 class), carries a head only when it has a comment page under `docs/references`, shown first as `docs`, its plain path from the file's own
 folder ([ADR-REPO-FILEMETA-FEWLINKS](#rule-adr-repo-filemeta-fewlinks)), and nothing else: no rule codes (the codes a file cites are derived
 from its text on demand, [ADR-REPO-FILEMETA-NOREADBACK](#rule-adr-repo-filemeta-noreadback)), no `with_body_sha`, no `test` or `code` edge.
-Such a head closes with the short `warning` line "Generated Header", declared once on the meta-kind registry's type and shown in
-`file-meta.yml`, and a file with no fact to show carries no head for the warning alone. A binary file is format-managed with no head
+Such a head closes with `header: "generated"`, a plain note that the head itself is generated, its value declared once on the meta-kind
+registry's type and shown in `file-meta.yml`; an authored head carries no `warning`, which belongs to a wholly generated file alone, and a
+file with no fact to show carries no head for the note alone. A binary file is format-managed with no head
 possible. Every other file carries no head, and a `Format-*` run removes a head the policy does not call for. The policy has three values,
 set per file class in `file-meta.yml`: **facts**, the default, a block holding the facts above, and none when every fact is empty;
 **forbidden**, no `catzc` block at all, for an agent definition, whose front matter belongs to the tool that loads it, and for a diagram
@@ -180,7 +181,7 @@ subkind and never by glob, and a consumer extends the registry with a config fra
 A file is a node, and its meta block says two things about it, each in a part of its own. `immutable` holds the **place facts** a reader of
 the head needs, and only a generated head has any: its `with_body_sha` while git tracks it and its `warning`, written by its writer
 ([ADR-REPO-FILEMETA-COMPOSEDFILES](#rule-adr-repo-filemeta-composedfiles)); an authored head has no `immutable` part, it holds its edges at
-the block's first level and the short `warning` line after them ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)). Every
+the block's first level and the `header` note after them ([ADR-REPO-FILEMETA-HEADPOLICY](#rule-adr-repo-filemeta-headpolicy)). Every
 other place fact, what the repository's own configuration makes of the file's location, is derived on demand from a registry and never
 shown. An **edge** is a named relation leaving the file to another file, and a head shows one: `docs`, its comment page; no `test` or `code`
 edge, since a test is found by convention, and no rule codes, since the codes a file cites are read from its text on demand by the commands
@@ -333,7 +334,7 @@ the page as a link in the code would put a pointer in the file and a line to kee
 facts, so the page is an edge with a fixed name, the only relative edge, and the head stays a map of facts about its own file. The registry
 holds the edge and its path rule, and an edge whose page does not exist is not written, so an entry in the head is always a working pointer.
 The edge is written as the page's plain path from the file's own folder, the way an editor and GitHub resolve a relative path, and the head
-stays two short lines: the path and the warning.
+stays two short lines: the path and the header note.
 
 ### File kinds
 
