@@ -8,7 +8,7 @@ catzc:
 
 function Get-GeneratedWriterDue {
     [CmdletBinding()]
-    [OutputType([Catzc.Base.QualityGates.GeneratedWriterDue])]
+    [OutputType([Catzc.Base.GeneratedFiles.GeneratedWriterDue])]
     param(
         [string[]] $Name,
 
@@ -37,7 +37,7 @@ function Get-GeneratedWriterDue {
                         Get-GitChangedPath
                     })
             }
-            [Catzc.Base.QualityGates.GeneratedWriterDue]::new($writer.name, $changed.Count -gt 0, $hasLists)
+            [Catzc.Base.GeneratedFiles.GeneratedWriterDue]::new($writer.name, $changed.Count -gt 0, $hasLists)
             continue
         }
         $due = $false
@@ -50,6 +50,6 @@ function Get-GeneratedWriterDue {
         if (-not $due) {
             $due = $memo[$writer.name] -cne (Get-GeneratedWriterStamp -InputGlob $inputs -Walk $walk -RepositoryRoot $RepositoryRoot)
         }
-        [Catzc.Base.QualityGates.GeneratedWriterDue]::new($writer.name, $due, $hasLists)
+        [Catzc.Base.GeneratedFiles.GeneratedWriterDue]::new($writer.name, $due, $hasLists)
     }
 }

@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../docs/references/pwsh/catzc-base-quality-gates/Get-LinkEdge.ps1.md"
+  warning: "Generated Header"
+---
+#>
+
 function Get-LinkEdge {
     [CmdletBinding()]
     [OutputType([Catzc.Base.QualityGates.LinkEdge])]

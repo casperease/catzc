@@ -81,6 +81,8 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   names, below the export threshold
 - link-graph -> plan-link-graph.md: the relations the conventions imply (test to subject, file to comment page, module to dependencies) and
   completeness rows ride the link-direction facets and rows, with Get-LinkEdge -To for the blast radius of a file.
+- model-atlas -> plan-model-atlas.md: explanation articles on the physical and meta models, and C0–C4 zoom ladders drawn from the queries at
+  five points of the tree.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

@@ -32,13 +32,13 @@ Describe 'Build-RootConfig' -Tag 'L0', 'logic' {
                 )
             }
         }
-        $script:writers = [Catzc.Base.QualityGates.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
+        $script:writers = [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
                     'Build-RootConfig' = [ordered]@{ inputs = @('sources/fixture.yml', 'fixture.yml', 'generated.txt') }
                 }
             })
-        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'generated-files' } { $script:writers }
-        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { Join-Path $script:fake.Root 'out' }
-        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:fake.Root }
+        Mock Get-Config -ModuleName Catzc.Base.GeneratedFiles -ParameterFilter { $Config -eq 'generated-files' } { $script:writers }
+        Mock Get-OutputRoot -ModuleName Catzc.Base.GeneratedFiles { Join-Path $script:fake.Root 'out' }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.GeneratedFiles { $script:fake.Root }
     }
 
     AfterAll {
@@ -157,13 +157,13 @@ Describe 'Build-RootConfig — multi-file generator' -Tag 'L0', 'logic' {
                 )
             }
         }
-        $script:writers = [Catzc.Base.QualityGates.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
+        $script:writers = [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
                     'Build-RootConfig' = [ordered]@{ inputs = @('widgets/*/gadget.txt') }
                 }
             })
-        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'generated-files' } { $script:writers }
-        Mock Get-OutputRoot -ModuleName Catzc.Base.QualityGates { Join-Path $script:fake.Root 'out' }
-        Mock Get-RepositoryRoot -ModuleName Catzc.Base.QualityGates { $script:fake.Root }
+        Mock Get-Config -ModuleName Catzc.Base.GeneratedFiles -ParameterFilter { $Config -eq 'generated-files' } { $script:writers }
+        Mock Get-OutputRoot -ModuleName Catzc.Base.GeneratedFiles { Join-Path $script:fake.Root 'out' }
+        Mock Get-RepositoryRoot -ModuleName Catzc.Base.GeneratedFiles { $script:fake.Root }
     }
 
     AfterAll {

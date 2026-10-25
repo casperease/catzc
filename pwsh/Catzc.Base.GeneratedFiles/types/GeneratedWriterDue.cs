@@ -6,7 +6,7 @@ catzc:
 ---
 */
 
-namespace Catzc.Base.QualityGates;
+namespace Catzc.Base.GeneratedFiles;
 
 public sealed class GeneratedWriterDue
 {

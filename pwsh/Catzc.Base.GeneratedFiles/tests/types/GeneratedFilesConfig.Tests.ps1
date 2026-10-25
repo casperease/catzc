@@ -1,9 +1,9 @@
-Describe 'Catzc.Base.QualityGates.GeneratedFilesConfig' -Tag 'L0', 'logic' {
+Describe 'Catzc.Base.GeneratedFiles.GeneratedFilesConfig' -Tag 'L0', 'logic' {
     BeforeAll {
         function Get-ViolationMessage {
             param($Raw)
             try {
-                [void] [Catzc.Base.QualityGates.GeneratedFilesConfig]::new($Raw)
+                [void] [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new($Raw)
             }
             catch {
                 return $_.Exception.InnerException.Message
@@ -13,13 +13,13 @@ Describe 'Catzc.Base.QualityGates.GeneratedFilesConfig' -Tag 'L0', 'logic' {
     }
 
     It 'declares every default once: a writer with no keys is a file check reading Path' {
-        $config = [Catzc.Base.QualityGates.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{ 'Build-Widget' = $null } })
+        $config = [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{ 'Build-Widget' = $null } })
         $config.writers['Build-Widget'].check | Should -Be 'file'
         $config.writers['Build-Widget'].result_path | Should -Be 'Path'
     }
 
     It 'declares at_import once: a writer re-renders at import only when it says so' {
-        $config = [Catzc.Base.QualityGates.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
+        $config = [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
                     'Build-Widget' = $null
                     'Build-Gadget' = [ordered]@{ at_import = $true }
                 }
@@ -29,7 +29,7 @@ Describe 'Catzc.Base.QualityGates.GeneratedFilesConfig' -Tag 'L0', 'logic' {
     }
 
     It 'declares the input and output globs once: a writer with neither lists none, a named list is kept' {
-        $config = [Catzc.Base.QualityGates.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
+        $config = [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
                     'Build-Widget' = $null
                     'Build-Gadget' = [ordered]@{ inputs = @('widget/**', 'gadget/*.yml'); outputs = 'widget/index.md' }
                 }
@@ -41,7 +41,7 @@ Describe 'Catzc.Base.QualityGates.GeneratedFilesConfig' -Tag 'L0', 'logic' {
     }
 
     It 'keeps the writers in declaration order and honours a named result path and check' {
-        $config = [Catzc.Base.QualityGates.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
+        $config = [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
                     'Build-Widget' = [ordered]@{ result_path = 'Gadget' }
                     'Build-Gadget' = [ordered]@{ check = 'root-config' }
                 }

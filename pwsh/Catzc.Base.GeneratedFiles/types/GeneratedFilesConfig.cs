@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 
-namespace Catzc.Base.QualityGates;
+namespace Catzc.Base.GeneratedFiles;
 
 public sealed class GeneratedFilesConfig : Catzc.Base.Objects.DictionaryRecord
 {

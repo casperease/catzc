@@ -1,4 +1,4 @@
-# pwsh/Catzc.Base.QualityGates/Get-GeneratedWriterDue.ps1
+# pwsh/Catzc.Base.GeneratedFiles/Get-GeneratedWriterDue.ps1
 
 The comments of the file that outgrew one line, one section per comment, verbatim. A section names the code line its comment sat above
 (Export-Comments), and Build-CommentView puts every comment back there for reading.
@@ -32,7 +32,7 @@ The memo of the stamps each writer stored after its last run (Save-GeneratedWrit
 
 ### outputs
 
-`[Catzc.Base.QualityGates.GeneratedWriterDue]` One per writer of generated-files.yml, in declaration order: Name, Due and HasLists.
+`[Catzc.Base.GeneratedFiles.GeneratedWriterDue]` One per writer of generated-files.yml, in declaration order: Name, Due and HasLists.
 
 ### example 1
 

@@ -141,7 +141,7 @@ Describe 'Test-GeneratedFiles' -Tag 'L0', 'logic' {
             $script:due = @('Build-DrsIndex')
             Mock Get-GeneratedWriterDue -ModuleName Catzc.Base.QualityGates {
                 foreach ($name in (Get-Config -Config generated-files).writers.Keys) {
-                    [Catzc.Base.QualityGates.GeneratedWriterDue]::new($name, $name -in $script:due, $true)
+                    [Catzc.Base.GeneratedFiles.GeneratedWriterDue]::new($name, $name -in $script:due, $true)
                 }
             }
         }

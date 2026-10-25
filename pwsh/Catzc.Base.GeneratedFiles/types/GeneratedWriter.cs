@@ -11,7 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Catzc.Base.QualityGates;
+namespace Catzc.Base.GeneratedFiles;
 
 public sealed class GeneratedWriter : Catzc.Base.Objects.DictionaryRecord
 {

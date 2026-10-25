@@ -77,6 +77,8 @@ Describe 'the build janitors and the writers lists' -Tag 'L0', 'logic' {
         $script:writers['Build-EnglishDictionary'] = [pscustomobject]@{ name = 'Build-EnglishDictionary'; at_import = $false }
         Mock Get-Config { [pscustomobject]@{ writers = $script:writers } } -ModuleName Catzc.Internal.Importer -ParameterFilter { $Config -eq 'generated-files' }
         Mock Build-EnglishDictionary { } -ModuleName Catzc.Internal.Importer
+        # A writer the janitor runs stores its stamp; the test keeps that out of the repository's memo.
+        Mock Save-GeneratedWriterStamp { } -ModuleName Catzc.Internal.Importer
         $script:rows = @(
             foreach ($name in 'Build-DrsIndex', 'Build-Glossary', 'Build-ContractReference', 'Build-Readme', 'Build-GitKeep', 'Build-TerminologyDictionary', 'Build-DrsCodeDictionary') {
                 [pscustomobject]@{ Name = $name; Due = $false; HasLists = $true }

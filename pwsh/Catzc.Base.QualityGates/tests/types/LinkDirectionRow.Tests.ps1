@@ -27,6 +27,15 @@ Describe 'LinkDirectionRow' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSAREROW
         $row.Matches('CodeLink', (& $end 'mods/a.Tests.ps1' 'test'), (& $end 'mods/a.ps1' 'code')) | Should -BeFalse
     }
 
+    It 'reads a require row with its condition, and refuses one that requires nothing or a condition on another verdict' {
+        $required = & $row @{ relations = @('docs_edge'); when = @('convention'); to = @{ classes = @('comment-page') }; verdict = 'require'; because = 'ADR-WIDGET-ONE' }
+        $required.verdict | Should -Be ([Catzc.Base.QualityGates.LinkVerdict]::Require)
+        $required.when | Should -Be @([Catzc.Base.QualityGates.LinkRelation]::Convention)
+        { & $row @{ verdict = 'require'; because = 'ADR-WIDGET-ONE' } } | Should -Throw '*a require row names the relations it requires*'
+        { & $row @{ when = @('convention'); verdict = 'allow'; because = 'ADR-WIDGET-ONE' } } | Should -Throw '*when belongs to a require row only*'
+        { & $row @{ relations = @('docs_edge'); when = @('gadget_link'); verdict = 'require'; because = 'ADR-WIDGET-ONE' } } | Should -Throw '*when*convention*'
+    }
+
     It 'refuses a row with no because, an unknown key, an empty or unknown verdict and an unknown relation' {
         { & $row @{ verdict = 'allow' } } | Should -Throw '*because is required*'
         { & $row @{ verdict = 'allow'; because = '  ' } } | Should -Throw '*because is required*'

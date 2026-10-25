@@ -2,7 +2,7 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'widget-repository'
         $script:memo = Join-Path $TestDrive 'cache/generated-writers.json'
-        $script:config = [Catzc.Base.QualityGates.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
+        $script:config = [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
                     'Build-Widget'   = [ordered]@{ inputs = @('widget/**'); outputs = @('docs/index.md') }
                     'Build-Gadget'   = [ordered]@{ inputs = @('gadget/*.yml'); outputs = @('docs/missing.md') }
                     # A writer whose ignored target is one of its own inputs, as the root configs declare theirs.
@@ -21,7 +21,7 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
         # One judgement; -Changed is the git changed set, given so no test reads git.
         $script:run = {
             param([string[]] $Changed = @())
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Changed = $Changed; Memo = $script:memo } {
+            InModuleScope Catzc.Base.GeneratedFiles -Parameters @{ Root = $script:root; Changed = $Changed; Memo = $script:memo } {
                 param($Root, $Changed, $Memo)
                 Get-GeneratedWriterDue -ChangedPath $Changed -RepositoryRoot $Root -MemoPath $Memo
             }
@@ -29,7 +29,7 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
         # Stores a writer's stamp, as the importer does once the writer ran.
         $script:ran = {
             param([string] $Name)
-            InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Name = $Name; Memo = $script:memo } {
+            InModuleScope Catzc.Base.GeneratedFiles -Parameters @{ Root = $script:root; Name = $Name; Memo = $script:memo } {
                 param($Root, $Name, $Memo)
                 Save-GeneratedWriterStamp -Name $Name -RepositoryRoot $Root -MemoPath $Memo
             }
@@ -38,7 +38,7 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
     }
 
     BeforeEach {
-        Mock Get-Config -ModuleName Catzc.Base.QualityGates -ParameterFilter { $Config -eq 'generated-files' } { $script:config }
+        Mock Get-Config -ModuleName Catzc.Base.GeneratedFiles -ParameterFilter { $Config -eq 'generated-files' } { $script:config }
         Remove-Item -LiteralPath $script:root, $script:memo -Recurse -ErrorAction Ignore
         & $script:write 'docs/index.md' 'widget'
         & $script:write 'widget/spin.txt' 'gadget'
@@ -111,17 +111,17 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
     It 'emits one typed record per writer, in declaration order' -Tag 'ADR-BCL-TYPES-NATIVETYPEDMODEL' {
         $rows = @(& $script:run @())
         $rows | Should -HaveCount 5
-        $rows[0] | Should -BeOfType [Catzc.Base.QualityGates.GeneratedWriterDue]
+        $rows[0] | Should -BeOfType [Catzc.Base.GeneratedFiles.GeneratedWriterDue]
         @($rows.Name) | Should -Be @('Build-Widget', 'Build-Gadget', 'Build-Sprocket', 'Build-Cog', 'Build-Gizmo')
     }
 
     It 'reads git, once, when no changed set is given and a writer declares no lists' {
-        Mock Get-GitChangedPath -ModuleName Catzc.Base.QualityGates { 'gadget/a.yml' }
-        $rows = @(InModuleScope Catzc.Base.QualityGates -Parameters @{ Root = $script:root; Memo = $script:memo } {
+        Mock Get-GitChangedPath -ModuleName Catzc.Base.GeneratedFiles { 'gadget/a.yml' }
+        $rows = @(InModuleScope Catzc.Base.GeneratedFiles -Parameters @{ Root = $script:root; Memo = $script:memo } {
                 param($Root, $Memo)
                 Get-GeneratedWriterDue -RepositoryRoot $Root -MemoPath $Memo
             })
         & $script:due $rows 'Build-Gizmo' | Should -BeTrue
-        Should -Invoke Get-GitChangedPath -ModuleName Catzc.Base.QualityGates -Times 1 -Exactly
+        Should -Invoke Get-GitChangedPath -ModuleName Catzc.Base.GeneratedFiles -Times 1 -Exactly
     }
 }

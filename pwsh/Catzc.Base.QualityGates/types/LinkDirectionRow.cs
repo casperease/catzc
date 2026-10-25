@@ -18,9 +18,11 @@ public sealed class LinkDirectionRow
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
-    static readonly string[] Keys = { "relations", "from", "to", "verdict", "because" };
+    static readonly string[] Keys = { "relations", "when", "from", "to", "verdict", "because" };
 
     public IReadOnlyList<LinkRelation> relations { get; }
+    // A require row's condition: it holds only for a file that has an edge of one of these relations to the to side; none means always.
+    public IReadOnlyList<LinkRelation> when { get; }
     public LinkSelector from { get; }
     public LinkSelector to { get; }
     public LinkVerdict verdict { get; }
@@ -43,7 +45,7 @@ public sealed class LinkDirectionRow
         if (string.IsNullOrWhiteSpace(verdictText) || int.TryParse(verdictText, out _) || !Enum.TryParse(verdictText, true, out LinkVerdict parsed))
         {
             throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                "{0}: verdict '{1}' is not one of: allow, deny", where, verdictText));
+                "{0}: verdict '{1}' is not one of: allow, deny, require", where, verdictText));
         }
         verdict = parsed;
 
@@ -53,25 +55,37 @@ public sealed class LinkDirectionRow
             throw new ArgumentException(where + ": because is required: the rule code that decides the row");
         }
 
-        var list = new List<LinkRelation>();
-        if (raw.Contains("relations") && raw["relations"] != null)
+        relations = Relations(raw, "relations", where);
+        when = Relations(raw, "when", where);
+        if (verdict == LinkVerdict.Require && relations.Count == 0)
         {
-            IEnumerable items = raw["relations"] is string single ? new[] { single } : raw["relations"] as IEnumerable
-                ?? throw new ArgumentException(where + ".relations: must be a list");
-            foreach (object item in items)
-            {
-                string text = Convert.ToString(item, CultureInfo.InvariantCulture);
-                if (string.IsNullOrEmpty(text) || int.TryParse(text, out _) || !Enum.TryParse(text.Replace("_", string.Empty), true, out LinkRelation relation))
-                {
-                    throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                        "{0}.relations: '{1}' is not one of: markdown_link, code_link, docs_edge, convention", where, text));
-                }
-                list.Add(relation);
-            }
+            throw new ArgumentException(where + ": a require row names the relations it requires");
         }
-        relations = list;
+        if (verdict != LinkVerdict.Require && when.Count > 0)
+        {
+            throw new ArgumentException(where + ": when belongs to a require row only");
+        }
         from = new LinkSelector(raw.Contains("from") ? raw["from"] as IDictionary : null, where + ".from");
         to = new LinkSelector(raw.Contains("to") ? raw["to"] as IDictionary : null, where + ".to");
+    }
+
+    static IReadOnlyList<LinkRelation> Relations(IDictionary raw, string key, string where)
+    {
+        var list = new List<LinkRelation>();
+        if (!raw.Contains(key) || raw[key] == null) { return list; }
+        IEnumerable items = raw[key] is string single ? new[] { single } : raw[key] as IEnumerable
+            ?? throw new ArgumentException(where + "." + key + ": must be a list");
+        foreach (object item in items)
+        {
+            string text = Convert.ToString(item, CultureInfo.InvariantCulture);
+            if (string.IsNullOrEmpty(text) || int.TryParse(text, out _) || !Enum.TryParse(text.Replace("_", string.Empty), true, out LinkRelation relation))
+            {
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
+                    "{0}.{1}: '{2}' is not one of: markdown_link, code_link, docs_edge, convention", where, key, text));
+            }
+            list.Add(relation);
+        }
+        return list;
     }
 
     public bool Matches(LinkRelation relation, LinkEndpoint fromEnd, LinkEndpoint toEnd) =>

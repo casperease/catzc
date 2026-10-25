@@ -1,5 +1,5 @@
 {
-  "hash": "f8a6873f",
+  "hash": "cfed6d06",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -629,6 +629,21 @@
     },
     {
       "name": "Catzc.Base.Folders.PathSet",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.GeneratedFiles.GeneratedFilesConfig",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.GeneratedFiles.GeneratedWriter",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.GeneratedFiles.GeneratedWriterDue",
       "aliases": [],
       "display": []
     },
@@ -1409,21 +1424,6 @@
     },
     {
       "name": "Catzc.Base.QualityGates.FunctionHelp",
-      "aliases": [],
-      "display": []
-    },
-    {
-      "name": "Catzc.Base.QualityGates.GeneratedFilesConfig",
-      "aliases": [],
-      "display": []
-    },
-    {
-      "name": "Catzc.Base.QualityGates.GeneratedWriter",
-      "aliases": [],
-      "display": []
-    },
-    {
-      "name": "Catzc.Base.QualityGates.GeneratedWriterDue",
       "aliases": [],
       "display": []
     },

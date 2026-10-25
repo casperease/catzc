@@ -33,6 +33,19 @@ public sealed class LinkDirectionFinding
         Message = message;
     }
 
+    // A file a require row selects that has no edge the row requires: there is no edge to name, so no line either.
+    public LinkDirectionFinding(string file, LinkRelation relation, string fromClass, string toSide, int row, string because)
+    {
+        File = file;
+        Line = 0;
+        Relation = relation;
+        FromClass = fromClass ?? string.Empty;
+        ToClass = toSide ?? string.Empty;
+        Row = row;
+        Because = because ?? string.Empty;
+        Message = string.Format(CultureInfo.InvariantCulture, "is missing, required by row {0}: {1}", row, Because);
+    }
+
     public override string ToString()
     {
         string what = Message ?? (Row > 0

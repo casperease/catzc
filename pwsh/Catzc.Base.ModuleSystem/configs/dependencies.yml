@@ -123,6 +123,16 @@ groups:
         Catzc.Base.Writers,
         Catzc.Base.Asserts,
       ]
+    Catzc.Base.GeneratedFiles:
+      [
+        Catzc.Base.Config,
+        Catzc.Base.Globs,
+        Catzc.Base.Folders,
+        Catzc.Base.Files,
+        Catzc.Base.Repository,
+        Catzc.Base.Objects,
+        Catzc.Base.Asserts,
+      ]
     Catzc.Base.TypesSystem:
       [
         Catzc.Base.Config,
@@ -167,6 +177,7 @@ groups:
       ]
     Catzc.Base.VSCode:
       [
+        Catzc.Base.GeneratedFiles,
         Catzc.Base.Config,
         Catzc.Base.Objects,
         Catzc.Base.Execution,
@@ -177,6 +188,7 @@ groups:
       ]
     Catzc.Base.RootConfig:
       [
+        Catzc.Base.GeneratedFiles,
         Catzc.Base.Contracts,
         Catzc.Base.Engines,
         Catzc.Base.Languages,
@@ -197,6 +209,7 @@ groups:
       ]
     Catzc.Base.QualityGates:
       [
+        Catzc.Base.GeneratedFiles,
         Catzc.Base.Drs,
         Catzc.Base.Contracts,
         Catzc.Base.Engines,

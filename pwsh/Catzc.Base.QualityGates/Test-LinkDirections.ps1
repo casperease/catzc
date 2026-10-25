@@ -43,8 +43,8 @@ function Test-LinkDirections {
     }
 
     $facts = [ordered]@{
-        FileCount = $result.FileCount
-        EdgeCount = $edges.Count
+        FileCount       = $result.FileCount
+        EdgeCount       = $edges.Count
         ConventionCount = $convention.Count
     }
     Write-QualityGateReport -Subject link-directions -Title Test-LinkDirections -Issues $issues -Facts $facts -OutputFolder $OutputFolder -PassThru:$PassThru

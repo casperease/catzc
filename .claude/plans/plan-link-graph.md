@@ -30,12 +30,14 @@ per convention.
 
 ## Open steps
 
-1. [ ] `pwsh/Catzc.Base.QualityGates/configs/link-directions.yml`: the convention rows, and completeness rows (every function with a comment
-       page has its docs edge, every unit of a laid-out track has a `tests` aspect). Check: `Test-ShippedConfigs`.
-2. [ ] `pwsh/Catzc.Base.QualityGates/Get-LinkEdge.ps1` (new): `-To <path>` returns every relation into a file, written or derived, its blast
-       radius. Check: `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Get-LinkEdge.Tests.ps1` (new).
-3. [ ] `pwsh/Catzc.Base.QualityGates/Test-LinkDirections.ps1`: judges the convention edges too. Check:
-       `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Test-LinkDirections.Repository.Tests.ps1` green.
+1. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkVerdict.cs`, `LinkDirectionRow.cs` and `LinkDirectionEngine.cs`: a third verdict `require` (a
+       row whose `from` selects the files that must have an edge of the row's relation to `to`), since allow and deny judge only edges that
+       exist; the engine reports each selected file with no such edge. Check: `LinkDirectionRow.Tests.ps1` and
+       `LinkDirectionEngine.Tests.ps1` alone (new cases: a required edge present, missing, and a file the selector does not pick).
+2. [ ] `pwsh/Catzc.Base.QualityGates/configs/link-directions.yml`: the completeness rows as `require` rows (every function with a comment
+       page has its docs edge; every unit of a laid-out track has a `tests` aspect), and the validator accepts `require`. Check:
+       `Test-ShippedConfigs`, and `Test-LinkDirections.Repository.Tests.ps1` green or its findings triaged as before (more than 25: stop and
+       ask).
 
 ## Refs
 

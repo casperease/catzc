@@ -11,10 +11,11 @@ The link-direction quality gate: fails on every relation that points a way the d
 
 ### description
 
-Reads every relation through the same walk as Test-Links (Invoke-LinkEngine -IncludeEdge), builds the endpoint of each distinct file once
-(Get-LinkEndpoint), and judges each relation against the rows of link-directions.yml: the first matching row decides, and a relation no row
-allows is denied. A file named under the config's `exempt` is skipped with its reason. A run that read no relation at all is a finding,
-never a pass, because it proves nothing.
+Reads every relation the files write through the same walk as Test-Links (Invoke-LinkEngine -IncludeEdge), and every relation their
+declarations imply among the same files (Get-ConventionEdge), builds the endpoint of each distinct file once (Get-LinkEndpoint), and judges
+each relation against the rows of link-directions.yml: the first matching row decides, and a relation no row allows is denied. A file named
+under the config's `exempt` is skipped with its reason. A run that read no relation at all is a finding, never a pass, because it proves
+nothing.
 
 A quality gate ([ADR-AUTO-TEST-QUALITYGATE](../../../drs/automation/test-automation.md#rule-adr-auto-test-qualitygate)): it ends through
 Write-QualityGateReport, which writes out/test-link-directions/, prints every issue, and throws once listing them all. Each issue reads
@@ -35,7 +36,7 @@ Where the report is written. Default: out/test-link-directions/.
 
 ### parameter `PassThru`
 
-Returns the result, with the file and relation counts as facts, instead of only reporting it.
+Returns the result, with the file count, the relation count and the convention-relation count as facts, instead of only reporting it.
 
 ### outputs
 

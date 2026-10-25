@@ -19,6 +19,12 @@ rows:
     verdict: allow
     because: ADR-AUTO-DEPM-CODEBUILTFROM
   - relations: [docs_edge]
+    when: [convention]
+    from: { classes: [function] }
+    to: { classes: [comment-page] }
+    verdict: require
+    because: ADR-REPO-FILEMETA-FEWLINKS
+  - relations: [docs_edge]
     to: { classes: [comment-page] }
     verdict: allow
     because: ADR-REPO-FILEMETA-FEWLINKS

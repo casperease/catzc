@@ -12,4 +12,6 @@ public enum LinkVerdict
 {
     Allow,
     Deny,
+    // The files the row's from side selects must each have an edge of its relations to its to side: a row about edges that are missing.
+    Require,
 }
