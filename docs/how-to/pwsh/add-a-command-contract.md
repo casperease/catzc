@@ -7,7 +7,7 @@ to a checked contract and restates none of them.
 ## Start from a real contract
 
 Copy the shape of one that holds today,
-[`get_command_contract.command.yml`](../../../contracts/catzc/0.0.0/catzc.base.contracts/get_command_contract.command.yml), the contract of
+[`get_command_contract.command.yml`](../../../contracts/catzc/0.1.0/catzc.base.contracts/get_command_contract.command.yml), the contract of
 the one reader, `Get-CommandContract`:
 
 ```yaml
@@ -17,7 +17,7 @@ parameters:
   name: string[] = *
   module: string[] = *
   unit: string[] = *
-  version: string[] = 0.0.0
+  version: string[] = 0.1.0
   repository_root: string
 output: catzc.base.contracts.contract_command[]
 ```
@@ -25,7 +25,7 @@ output: catzc.base.contracts.contract_command[]
 ## Write the asset
 
 1. Name the file after the command and place it in the module's folder of the unit's draft, both in the repository normal form:
-   `contracts/catzc/0.0.0/<module>/<command>.command.yml`, such as `catzc.base.contracts/get_command_contract.command.yml`
+   `contracts/catzc/0.1.0/<module>/<command>.command.yml`, such as `catzc.base.contracts/get_command_contract.command.yml`
    ([ADR-REPO-CMDCONTRACT-COMMANDCONTRACT](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-commandcontract)). The name,
    the module, the version and the language are the placement, never keys in the file
    ([ADR-REPO-CMDCONTRACT-NOPLACEMENTFACTS](../../drs/repository/command-contracts.md#rule-adr-repo-cmdcontract-noplacementfacts)).

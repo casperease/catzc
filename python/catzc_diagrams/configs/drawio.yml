@@ -60,6 +60,12 @@ lenses: # the closed set of lenses a diagram is drawn through (its about.lens, t
   source: one responsibility of one module, drawn from the code
   action: one action, its cause on the left rim and its effects on rings, in accosted words
   proof: one action's normalized statement, and the words each engine runs it as
+zooms: # the closed ladder of how far out a diagram stands (its optional about.zoom, no default), crossing the lens; the zoom badge prints the level
+  C0: landscape, the truth stores around the repository
+  C1: context, the repository as one system with its actors
+  C2: containers, the tracks crossed with the engines and languages
+  C3: components, one container's modules or units and their dependency edges
+  C4: code, one module's files and their link edges
 commits: # the locked commit palette ([DDR-VISUAL-FIXEDCOMMITPALETTE](/docs/drs/design/visual-design.md#rule-ddr-visual-fixedcommitpalette)):a commit state's fill, stroke and digit ink, hex without the hash; the first is the default
   bvt: FFE082 F9A825 1E2430
   topic: C4915C 7A4B25 1E2430

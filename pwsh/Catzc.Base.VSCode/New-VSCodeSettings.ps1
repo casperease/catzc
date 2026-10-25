@@ -21,7 +21,10 @@ function New-VsCodeSettings {
         [System.Collections.IDictionary] $RepositoryFilter = @{},
 
         # The settings file on disk, read for the rows another writer owns (the carried settings of vscode-settings.yml).
-        [string] $CurrentPath = (Join-Path (Get-RepositoryRoot) '.vscode/settings.json')
+        [string] $CurrentPath = (Join-Path (Get-RepositoryRoot) '.vscode/settings.json'),
+
+        # The .editorconfig whose sections render into the editor settings (vscode-settings.yml editorconfig maps them to languages).
+        [string] $EditorConfigPath = (Join-Path (Get-RepositoryRoot) '.editorconfig')
     )
 
     $config = Get-Config -Config vscode-settings
@@ -30,6 +33,28 @@ function New-VsCodeSettings {
     $settings = [ordered]@{}
     foreach ($key in $config.settings.Keys) {
         $settings[$key] = $config.settings[$key]
+    }
+    # The .editorconfig baseline, so the editor follows it with no extension; an authored setting wins over a rendered one.
+    if (Test-Path -LiteralPath $EditorConfigPath -PathType Leaf) {
+        $editor = ConvertFrom-EditorConfig -Text (Get-Content -LiteralPath $EditorConfigPath -Raw) -Section $config.editorconfig
+        foreach ($key in $editor.Keys) {
+            if (-not $key.StartsWith('[')) {
+                if (-not $settings.Contains($key)) {
+                    $settings[$key] = $editor[$key]
+                }
+                continue
+            }
+            $block = [ordered]@{}
+            foreach ($setting in $editor[$key].Keys) {
+                $block[$setting] = $editor[$key][$setting]
+            }
+            if ($settings.Contains($key)) {
+                foreach ($setting in $settings[$key].Keys) {
+                    $block[$setting] = $settings[$key][$setting]
+                }
+            }
+            $settings[$key] = $block
+        }
     }
     foreach ($key in ($MachineSetting.Keys | Sort-Object)) {
         if (-not $settings.Contains($key)) {

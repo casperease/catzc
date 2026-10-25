@@ -90,6 +90,21 @@ Describe 'CommentEngine' -Tag 'L0', 'logic' {
         [Catzc.Base.QualityGates.CommentEngine]::View($edited, '.ps1', $result.PageText) | Should -BeExactly $edited -Because 'a section with no line is left out of the view'
     }
 
+    It 'anchors a Describe line on its name before the first -Tag, so a re-tier orphans nothing' -Tag 'ADR-REPO-COMMENTS-MOVELOSESNOTHING' {
+        $text = "# A widget suite note`n# on two lines.`nDescribe 'Get-Widget' -Tag 'L0', 'logic' {`n}`n"
+        $result = & $export $text
+        $result.PageText.Contains("Above ``Describe 'Get-Widget'``, written with ``#``.") | Should -BeTrue
+        $retiered = $result.Text -replace "'L0', 'logic'", "'L2', 'integration'"
+        [Catzc.Base.QualityGates.CommentEngine]::Orphans($retiered, $result.PageText).Count | Should -Be 0
+        [Catzc.Base.QualityGates.CommentEngine]::View($retiered, '.ps1', $result.PageText).Contains('# A widget suite note') | Should -BeTrue
+    }
+
+    It 'still places a section a page names by the whole Describe line, tags included' -Tag 'ADR-REPO-COMMENTS-MOVELOSESNOTHING' {
+        $text = "Describe 'Get-Widget' -Tag 'L0', 'logic' {`n}`n"
+        $page = "# widgets/Catzc.Widget/Get-Widget.ps1`n`n## comment:1`n`nAbove ``Describe 'Get-Widget' -Tag 'L0', 'logic' {``, written with ``#``.`n`n" + '```text' + "`nA widget suite note`n" + '```' + "`n"
+        [Catzc.Base.QualityGates.CommentEngine]::Orphans($text, $page).Count | Should -Be 0
+    }
+
     It 'round-trips a YAML header and a CRLF file, keeping the file''s line endings' -Tag 'ADR-REPO-COMMENTS-MOVELOSESNOTHING' {
         $yaml = "# The gadget registry: one entry per widget,`r`n# read once per run.`r`nwidgets:`r`n  - gadget   # inline stays`r`n"
         $yamlResult = & $export $yaml '.yml' 'yaml'

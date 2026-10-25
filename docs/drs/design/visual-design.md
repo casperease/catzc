@@ -266,9 +266,9 @@ language's one reader and never written by hand; a linked `.ps1` asset is not ta
 
 A **proof box** is the box captioned Proof under the frame of an action diagram, as wide as the frame. For each call of the action it prints
 the call's normalized statement, written with the word cats, and the words each engine runs it as, in the idiom of that engine (PascalCase
-for pwsh, kebab-case for every other engine). The engines and their idioms are declared once in the renderer's vocabulary, never in a declaration.
-An action diagram shows the proof box by default, and `content.proof: hidden` turns it off, the default being declared once in the same
-vocabulary.
+for pwsh, kebab-case for every other engine). The engines and their idioms are declared once in the renderer's vocabulary, never in a
+declaration. An action diagram shows the proof box by default, and `content.proof: hidden` turns it off, the default being declared once in
+the same vocabulary.
 
 - [The proof box](#the-proof-box)
 
@@ -633,3 +633,12 @@ A word on a line says what the line means, and a pill hugging it keeps it legibl
 crosses into another band or another zone, the crossing is the moment the word is about, so the pill stands there; elsewhere it stands at
 the middle of the line, where it reads as the line's own name. One pill per line, with the arrowhead left clear, keeps every word the same
 shape. A diagram set that prefers the quieter look configures the word beside the line instead, one setting for all of them.
+
+## The zoom ladder
+
+A lens and a distance answer different questions, so folding one into the other would multiply the lenses by every distance: a C2 slide can
+be an architecture slide or a governance slide, and both stand equally far out. Keeping the zoom a second closed list leaves the lens list
+as it is and lets any lens be drawn at any level. The ladder is Simon Brown's C4 model with a level C0 added under it for the truth stores
+the repository sits among, since a repository is never the whole landscape. The badge and the subtitle print the level, so a reader moving
+down a ladder always knows how far out the slide stands. The deep levels are generated, because a hand-placed module or file list goes stale
+with the first rename, and the queries that answer it already exist.

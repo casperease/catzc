@@ -46,6 +46,29 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
         (((New-VsCodeSettings -CurrentPath (Join-Path $TestDrive 'none.json')) -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json).PSObject.Properties['gadget.owned'] | Should -BeNullOrEmpty
     }
 
+    It 'renders the .editorconfig baseline into the top level and each mapped language, an authored setting winning' {
+        Mock Get-Config -ModuleName Catzc.Base.VSCode {
+            [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{
+                    settings     = [ordered]@{ 'files.eol' = "`r`n"; '[widget]' = [ordered]@{ 'editor.tabSize' = 8 } }
+                    editorconfig = [ordered]@{ '*.wdg' = @('widget', 'gadget') }
+                })
+        }
+        $editorconfig = Join-Path $TestDrive '.editorconfig'
+        Set-Content -LiteralPath $editorconfig -Value "root = true`n[*]`nindent_style = space`nindent_size = 4`nend_of_line = lf`ntrim_trailing_whitespace = true`n[*.wdg]`nindent_style = tab`nindent_size = 2`nmax_line_length = 100`n[*.cs]`ndotnet_style_widget = false"
+        $json = (New-VsCodeSettings -EditorConfigPath $editorconfig -CurrentPath (Join-Path $TestDrive 'none.json')) | ConvertFrom-Json -AsHashtable
+        $json['editor.insertSpaces'] | Should -BeTrue
+        $json['editor.tabSize'] | Should -Be 4
+        $json['editor.detectIndentation'] | Should -BeFalse
+        $json['files.trimTrailingWhitespace'] | Should -BeTrue
+        $json['files.eol'] | Should -Be "`r`n"
+        $json['[gadget]']['editor.insertSpaces'] | Should -BeFalse
+        $json['[gadget]']['editor.tabSize'] | Should -Be 2
+        @($json['[gadget]']['editor.rulers']) | Should -Be @(100)
+        $json['[widget]']['editor.tabSize'] | Should -Be 8
+        $json['[widget]']['editor.insertSpaces'] | Should -BeFalse
+        $json.Keys | Should -Not -Contain '[cs]'
+    }
+
     It 'completes search.exclude with every managed target' {
         $text = New-VsCodeSettings -ManagedTarget 'importer.ps1', '.editorconfig'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json

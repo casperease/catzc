@@ -59,13 +59,13 @@ _cats_fixture_lookup() {
     {
         printf "_catzc_commands='\n"
         # command, parameter (normal form), type, list, mandatory, pipeline, asset, sets, default set, then kebab and pwsh renderings
-        printf 'get_widget\tcount\tint\t0\t1\t0\tcontracts/widget/0.0.0/catzc.widget/get_widget.command.yml\t\t\tget-widget\tcount\tGet-Widget\tCount\n'
-        printf 'get_widget\tloud\tswitch\t0\t0\t0\tcontracts/widget/0.0.0/catzc.widget/get_widget.command.yml\t\t\tget-widget\tloud\tGet-Widget\tLoud\n'
-        printf 'find_gadget\tid\tstring\t0\t1\t0\tcontracts/widget/0.0.0/catzc.widget/find_gadget.command.yml\tid\tall\tfind-gadget\tid\tFind-Gadget\tId\n'
-        printf 'find_gadget\tcount\tint\t0\t1\t0\tcontracts/widget/0.0.0/catzc.widget/find_gadget.command.yml\trandom\tall\tfind-gadget\tcount\tFind-Gadget\tCount\n'
-        printf 'find_gadget\tseed\tint\t0\t0\t0\tcontracts/widget/0.0.0/catzc.widget/find_gadget.command.yml\trandom\tall\tfind-gadget\tseed\tFind-Gadget\tSeed\n'
-        printf 'test_is_guid\tobject_guid\tstring\t0\t1\t0\tcontracts/widget/0.0.0/catzc.widget/test_is_guid.command.yml\t\t\ttest-is-guid\tobject-guid\tTest-IsGuid\tObjectGuid\n'
-        printf 'join_widget\tname\tstring\t1\t1\t0\tcontracts/widget/0.0.0/catzc.widget/join_widget.command.yml\t\t\tjoin-widget\tname\tJoin-Widget\tName\n'
+        printf 'get_widget\tcount\tint\t0\t1\t0\tcontracts/catzc/0.1.0/catzc.widget/get_widget.command.yml\t\t\tget-widget\tcount\tGet-Widget\tCount\n'
+        printf 'get_widget\tloud\tswitch\t0\t0\t0\tcontracts/catzc/0.1.0/catzc.widget/get_widget.command.yml\t\t\tget-widget\tloud\tGet-Widget\tLoud\n'
+        printf 'find_gadget\tid\tstring\t0\t1\t0\tcontracts/catzc/0.1.0/catzc.widget/find_gadget.command.yml\tid\tall\tfind-gadget\tid\tFind-Gadget\tId\n'
+        printf 'find_gadget\tcount\tint\t0\t1\t0\tcontracts/catzc/0.1.0/catzc.widget/find_gadget.command.yml\trandom\tall\tfind-gadget\tcount\tFind-Gadget\tCount\n'
+        printf 'find_gadget\tseed\tint\t0\t0\t0\tcontracts/catzc/0.1.0/catzc.widget/find_gadget.command.yml\trandom\tall\tfind-gadget\tseed\tFind-Gadget\tSeed\n'
+        printf 'test_is_guid\tobject_guid\tstring\t0\t1\t0\tcontracts/catzc/0.1.0/catzc.widget/test_is_guid.command.yml\t\t\ttest-is-guid\tobject-guid\tTest-IsGuid\tObjectGuid\n'
+        printf 'join_widget\tname\tstring\t1\t1\t0\tcontracts/catzc/0.1.0/catzc.widget/join_widget.command.yml\t\t\tjoin-widget\tname\tJoin-Widget\tName\n'
         printf "'\n"
     } >"$CATZC_COMMAND_LOOKUP"
 }

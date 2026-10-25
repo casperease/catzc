@@ -24,6 +24,9 @@ public sealed class VscodeSettingsConfig : Catzc.Base.Objects.DictionaryRecord
 
     public IReadOnlyDictionary<string, string> carried { get; }
 
+    // Each .editorconfig section glob -> the VS Code language ids its properties render into; the [*] section needs no row.
+    public IReadOnlyDictionary<string, string[]> editorconfig { get; }
+
     public VscodeSettingsConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
@@ -32,7 +35,7 @@ public sealed class VscodeSettingsConfig : Catzc.Base.Objects.DictionaryRecord
         foreach (object k in raw.Keys)
         {
             string key = k == null ? null : k.ToString();
-            if (key != "settings" && key != "hidden_actions" && key != "carried") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: settings, hidden_actions, carried)", key)); }
+            if (key != "settings" && key != "hidden_actions" && key != "carried" && key != "editorconfig") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: settings, hidden_actions, carried, editorconfig)", key)); }
         }
 
         Dictionary<string, string> carry = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -48,6 +51,25 @@ public sealed class VscodeSettingsConfig : Catzc.Base.Objects.DictionaryRecord
             }
         }
         carried = carry;
+
+        Dictionary<string, string[]> sections = new Dictionary<string, string[]>(StringComparer.Ordinal);
+        object sectionsValue = raw.Contains("editorconfig") ? raw["editorconfig"] : null;
+        if (sectionsValue != null && !(sectionsValue is IDictionary)) { errors.Add("'editorconfig' must be a map of section glob -> language ids"); }
+        else if (sectionsValue != null)
+        {
+            foreach (DictionaryEntry entry in (IDictionary)sectionsValue)
+            {
+                IList ids = entry.Value as IList;
+                List<string> languages = new List<string>();
+                if (ids != null && !(entry.Value is string))
+                {
+                    foreach (object id in ids) { if (id is string text && text.Length > 0) { languages.Add(text); } }
+                }
+                if (languages.Count == 0) { errors.Add(string.Format("editorconfig '{0}' must list the language ids it renders into", entry.Key)); continue; }
+                sections[entry.Key.ToString()] = languages.ToArray();
+            }
+        }
+        editorconfig = sections;
 
         Dictionary<string, string[]> hidden = new Dictionary<string, string[]>(StringComparer.Ordinal);
         object declared = raw.Contains("hidden_actions") ? raw["hidden_actions"] : null;

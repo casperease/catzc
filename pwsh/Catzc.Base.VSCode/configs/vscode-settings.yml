@@ -8,6 +8,18 @@ carried:
   # The track lamps add files.exclude rows at workspace scope and list them under their own key; the render keeps both as they are.
   files.exclude: catzc.trackLamps.owned
 
+# The .editorconfig sections New-VsCodeSettings renders into per-language settings, each glob to its VS Code language ids; [*] renders into
+# the top-level settings, and a section without a row here (the C# analyzer rules) stays for the tools that read .editorconfig.
+editorconfig:
+  "*.{ps1,psm1,psd1}": [powershell]
+  "*.md": [markdown]
+  "*.{yml,yaml}": [yaml]
+  "*.{json,jsonl}": [json, jsonc, jsonl]
+  "{*.go,go.mod,go.work}": [go, go.mod, go.work]
+  "*.py": [python]
+  "*.bicep": [bicep]
+  "*.{xml,ps1xml,xsd,dtd,csproj}": [xml]
+
 hidden_actions:
   ViewTitle:
     - workbench.files.action.createFileFromExplorer
@@ -54,12 +66,6 @@ settings:
   powershell.codeFormatting.useCorrectCasing: false
   powershell.codeFormatting.alignPropertyValuePairs: true
   powershell.codeFormatting.ignoreOneLineBlock: false
-  # Honour .editorconfig / 4-space indent; don't let VS Code guess indentation from file contents.
-  "[powershell]":
-    editor.detectIndentation: false
-    editor.tabSize: 4
-    editor.insertSpaces: true
-
   git.decorations.enabled: true
   workbench.editor.decorations.colors: true
   workbench.editor.decorations.badges: true

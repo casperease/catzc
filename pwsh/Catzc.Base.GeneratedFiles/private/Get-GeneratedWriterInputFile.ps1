@@ -41,8 +41,8 @@ function Get-GeneratedWriterInputFile {
         }
     }
     $levels = { param([string] $Prefix) $Prefix.Split('/', [System.StringSplitOptions]::RemoveEmptyEntries).Count }
-    # The walker returns full paths under the root, so the relative path is a cut, never a scriptblock call per path.
-    $cut = [System.IO.Path]::GetFullPath($RepositoryRoot).TrimEnd('\', '/').Length + 1
+    # The walker returns full paths under the root, so the relative path is one array-wide cut, never a loop per path.
+    $cut = '^.{' + ([System.IO.Path]::GetFullPath($RepositoryRoot).TrimEnd('\', '/').Length + 1) + '}'
     foreach ($prefix in @($walks.Keys | Sort-Object { & $levels $_ })) {
         $covered = @($walks.Keys | Where-Object {
                 $_ -ne $prefix -and $prefix.StartsWith($_, [System.StringComparison]::Ordinal) -and
@@ -52,12 +52,8 @@ function Get-GeneratedWriterInputFile {
         if ($covered -or -not [System.IO.Directory]::Exists($folder)) {
             continue
         }
-        foreach ($path in @(Get-ChildPath $folder -File -Depth $walks[$prefix])) {
-            [void] $files.Add($path.Substring($cut).Replace('\', '/'))
-        }
-        foreach ($path in @(Get-ChildPath $folder -Directory -Depth $walks[$prefix])) {
-            [void] $folders.Add($path.Substring($cut).Replace('\', '/'))
-        }
+        $files.UnionWith([string[]] @(@(Get-ChildPath $folder -File -Depth $walks[$prefix]) -replace $cut -replace '\\', '/'))
+        $folders.UnionWith([string[]] @(@(Get-ChildPath $folder -Directory -Depth $walks[$prefix]) -replace $cut -replace '\\', '/'))
     }
     [pscustomobject]@{
         File   = [string[]] @($files)

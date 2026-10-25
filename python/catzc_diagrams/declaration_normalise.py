@@ -65,7 +65,12 @@ def normalise(raw, where="the declaration"):
     if lens not in DEFAULTS["lenses"]:
         choices(f"{where}: about.lens", lens, tuple(DEFAULTS["lenses"]))
     out["lens"] = lens
-    kind = content.get("kind", KINDS[0])
+    # The zoom crosses the lens and has no default: a diagram without one is drawn as before (DDR-VISUAL-ZOOMISANAXIS).
+    zoom = about_raw.get("zoom")
+    if zoom is not None and str(zoom) not in DEFAULTS["zooms"]:
+        choices(f"{where}: about.zoom", str(zoom), tuple(DEFAULTS["zooms"]))
+    out["zoom"] = None if zoom is None else str(zoom)
+    kind =content.get("kind", KINDS[0])
     if kind not in KINDS:
         choices(f"{where}: kind", kind, KINDS)
     out["kind"] = kind
@@ -325,6 +330,8 @@ def normalise(raw, where="the declaration"):
     for problem in minimaps.problems(about):
         raise DeclarationError(f"{where}: {problem}")
     out["adrs"] = about["adrs"]
+    if out["zoom"] is not None:
+        about["zoom"] = out["zoom"]
     # An action diagram's proof: the accosted file that holds every effect's observation, named relative to the repository root. The
     # drawing cannot carry it, so get leaves it out and save keeps the source's; Test-Diagrams is where it is required and proven.
     proves = about_raw.get("proves")

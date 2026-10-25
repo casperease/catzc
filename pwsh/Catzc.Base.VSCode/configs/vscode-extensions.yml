@@ -12,8 +12,6 @@ recommendations:
   - DavidAnson.vscode-markdownlint
   # cspell in the editor — the same dictionaries the Test-Spelling gate uses (cspell.yml + .cspell/).
   - streetsidesoftware.code-spell-checker
-  # .editorconfig support — applies the repo-wide formatting baseline on save (uniform-formatting).
-  - editorconfig.editorconfig
   - ibm.output-colorizer
   - iliazeus.vscode-ansi
   - ms-python.python

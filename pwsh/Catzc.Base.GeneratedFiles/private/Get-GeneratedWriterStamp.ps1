@@ -35,5 +35,5 @@ function Get-GeneratedWriterStamp {
         $bytes = [System.Text.Encoding]::UTF8.GetBytes($salt)
         return [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData($bytes))
     }
-    Get-InputStamp -Path @($matched | ForEach-Object { [System.IO.Path]::Combine($RepositoryRoot, $_) }) -Root $RepositoryRoot -Salt $salt -By Metadata
+    Get-InputStamp -Path ([string[]] @($matched) -replace '^', ($RepositoryRoot.TrimEnd('\', '/') + [System.IO.Path]::DirectorySeparatorChar)) -Root $RepositoryRoot -Salt $salt -By Metadata
 }

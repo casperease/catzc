@@ -13,14 +13,14 @@ setup() {
 }
 
 @test "the manifest-glob mode expands one asset into one checked asset per pipeline file it applies to" {
-    run cats Get-Contract -Unit EXTERNAL-ado -Addressing manifest-glob
+    run cats Get-Contract -Root ado -Addressing manifest-glob
     [ "$status" -eq 0 ] || {
         echo "Get-Contract exited $status: $output" >&2
         return 1
     }
     # Every pipeline file the asset applies to is one more row of the same asset.
     local count
-    count="$(grep -c 'EXTERNAL-ado' <<<"$output" || true)"
+    count="$(grep -c "contracts/ado" <<<"$output" || true)"
     [ "$count" -gt 1 ] || {
         echo "Get-Contract listed $count rows of the pipeline asset, want more than one: $output" >&2
         return 1
