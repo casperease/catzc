@@ -161,3 +161,12 @@ Above `function Get-ForeignCatzcModule {`, written with `#`.
 .PARAMETER IncludeInternal
     Include the Catzc.Internal.* loader modules (they belong to a root through its .internal folder).
 ```
+
+## comment:14
+
+Above `if ($script:privateFunctionFolder -and $script:privateFunctionFolder.Root...`, written with `#`.
+
+```text
+The pre-types reader of the powershell layout's private-function row; once types load, LanguagesConfig.FolderOf reads the same row
+(ADR-REPO-FOLDERS-NAMESARESETTINGS).
+```

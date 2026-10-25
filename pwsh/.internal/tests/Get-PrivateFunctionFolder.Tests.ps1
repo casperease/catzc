@@ -21,7 +21,7 @@ Describe 'Get-PrivateFunctionFolder' -Tag 'L1', 'integrity' {
     }
 
     It 'throws naming the missing row when the powershell layout has no private-function role' {
-        $root = Join-Path $TestDrive 'norow'
+        $root = Join-Path $TestDrive 'missing-row'
         $configs = [System.IO.Directory]::CreateDirectory((Join-Path $root 'Catzc.Base.Languages/configs')).FullName
         [System.IO.File]::WriteAllText((Join-Path $configs 'languages.yml'), "languages:`n  powershell:`n    layout:`n      - { folder: inner, role: widget }`n")
         { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ Root = $root } { param($Root) Get-PrivateFunctionFolder -ModulesRoot $Root } } |

@@ -45,7 +45,8 @@ function Get-AutoControlledGlobs {
     $ret.Add("$modulesFolder/.internal/assets/obj")
     $ret.Add("$modulesFolder/.internal/assets/obj/*")
 
-    # The compiled-type build scratch — only *.tmp is gitignored there; the hash-keyed DLL is committed.
+    # The compiled-type build and its scratch; git keeps only the hash-keyed manifest.
+    $ret.Add("$modulesFolder/.compiled/*.dll")
     $ret.Add("$modulesFolder/.compiled/*.tmp")
 
     $ret.Add('**/.$*.drawio.png.bkp')

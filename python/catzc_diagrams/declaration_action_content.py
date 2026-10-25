@@ -18,6 +18,7 @@ from declaration_constants import (
     PROOF_SHOWN,
     SHOWS,
     WHERES,
+    load_yaml,
 )
 from declaration_dump import _flow, entry
 from declaration_vocabulary import DeclarationError, choices
@@ -114,7 +115,7 @@ def unwrap_lines(text):
 def parse_call(line):
     """The call a drawing's line prints, back in the contract form."""
     try:
-        raw = yaml.safe_load(unwrap_lines(line))
+        raw = load_yaml(unwrap_lines(line))
     except yaml.YAMLError as error:
         raise DeclarationError(f"get cannot read `{line}` as a contract-form call: {error}") from None
     return {raw: None} if isinstance(raw, str) else raw

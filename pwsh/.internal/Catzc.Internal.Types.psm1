@@ -138,13 +138,13 @@ function Test-TypesAssemblyContent {
 
 
 # The default row and the allowed values live here, not on a C# type: the policy is read while the types assembly is still unloaded.
-$script:typesLoadDefault = [ordered]@{ Load = 'lazy'; Trigger = 'lookup-hook'; EagerTypes = @(); ShadowCopy = $true }
+$script:typesLoadDefault = [ordered]@{ Load = 'lazy'; Trigger = 'lookup-hook'; EagerTypes = @(); ShadowCopy = $true; Generations = 1 }
 $script:typesLoadHosts = 'console', 'headless'
 $script:typesLoadSystems = 'windows', 'unix'
 $script:typesLoadRunModes = 'source', 'build'
 $script:typesLoadLoads = 'lazy', 'eager'
 $script:typesLoadTriggers = 'lookup-hook', 'none'
-$script:typesLoadKeys = 'load', 'trigger', 'shadowCopy', 'eagerTypes'
+$script:typesLoadKeys = 'load', 'trigger', 'shadowCopy', 'eagerTypes', 'generations'
 
 function Get-TypesLoadPolicy {
     [CmdletBinding()]
@@ -223,7 +223,7 @@ function Get-TypesLoadPolicy {
     }
     # Filled in here, not as defaults: each is relative to the -ConfigPath row, and -ConfigPath is declared after them.
     $policy = [ordered]@{ Cell = $cell; Engine = $Engine }
-    foreach ($name in 'Load', 'Trigger', 'ShadowCopy') {
+    foreach ($name in 'Load', 'Trigger', 'ShadowCopy', 'Generations') {
         $fromConfig = $name.Substring(0, 1).ToLowerInvariant() + $name.Substring(1)
         $policy[$name] = if ($PSBoundParameters.ContainsKey($name)) {
             $PSBoundParameters[$name]
@@ -255,6 +255,13 @@ function Get-TypesLoadPolicy {
     }
     if ($policy.ShadowCopy -isnot [bool]) {
         throw "Row '$cell' has shadowCopy '$($policy.ShadowCopy)'; it is true or false."
+    }
+    if ($policy.Generations -isnot [int] -or $policy.Generations -lt 1) {
+        throw "Row '$cell' has generations '$($policy.Generations)'; it is a whole number of at least 1."
+    }
+    # Builds stack side by side only in a developer's interactive source session; every other cell keeps one.
+    if ($policy.Generations -gt 1 -and $cell -notlike 'console.*.source') {
+        throw "Row '$cell' has generations $($policy.Generations); only a console.*.source row may stack more than 1 build."
     }
     if ($policy.Trigger -eq 'none' -and $policy.Load -ne 'eager') {
         throw "Row '$cell' has trigger 'none' with load '$($policy.Load)'; nothing would ever load the types. 'none' needs load eager."

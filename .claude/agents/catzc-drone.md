@@ -40,6 +40,7 @@ final verification.
 5. The live orchestrator is the session that sent the brief, never a namesake in ListAgents; a question goes to it as "question: `<what>`,
    recommend `<x>`", never to the user, and the work it does not block goes on; an open step is checked against the tree before it is
    claimed, and a landed one is reported as such; a cross-cutting record's shape is confirmed with the coordinator before its first bulk
-   entries.
-6. Report as report-fixed says, with the design choices made and what was read; never a pass that was not seen, failures as they are,
+   entries; each landed file gets a one-line progress message to the coordinator.
+6. A C# type past its limit splits into public static helper types, never partial classes.
+7. Report as report-fixed says, with the design choices made and what was read; never a pass that was not seen, failures as they are,
    including in files not owned.

@@ -11,8 +11,7 @@ from pathlib import Path
 
 import declaration_settings
 import minimap_contract
-import yaml
-from declaration_constants import ACTION_LENS, DERIVED, DERIVED_PREFIXES, KINDS, KIT, PROOF_LENS, SLIDE, SOURCE
+from declaration_constants import ACTION_LENS, DERIVED, DERIVED_PREFIXES, KINDS, KIT, PROOF_LENS, SLIDE, SOURCE, load_yaml
 from declaration_dump import flow_yaml, print_width
 from declaration_expand import drawn, undrawn
 from declaration_finish import to_xml
@@ -100,7 +99,7 @@ def declare_minimaps(folder):
     author gave it, and never a computed cell. Only that key's lines change: the rest of the text, its generated head and its formatting
     included, is kept as it was read, never re-dumped, which would drop the head and what a row or lane expands to."""
     text, source = read_source(folder)
-    placed = normalise(yaml.safe_load(text) or {}, where=str(source))["content"]["minimaps"]
+    placed = normalise(load_yaml(text) or {}, where=str(source))["content"]["minimaps"]
     lines = text.split("\n")
     content = next((i for i, line in enumerate(lines) if line.rstrip() == "content:"), None)
     if content is None:
@@ -132,9 +131,9 @@ def reflow(folder):
     lines = text.split("\n")
     body = next((i for i, line in enumerate(lines) if line.strip() and not line.startswith("#")), len(lines))
     head = "\n".join(lines[:body])
-    new = (head + "\n" if body else "") + flow_yaml(yaml.safe_load(text) or {}, print_width())
+    new = (head + "\n" if body else "") + flow_yaml(load_yaml(text) or {}, print_width())
     where = str(source)
-    if normalise(yaml.safe_load(new) or {}, where=where) != normalise(yaml.safe_load(text) or {}, where=where):
+    if normalise(load_yaml(new) or {}, where=where) != normalise(load_yaml(text) or {}, where=where):
         raise DeclarationError(f"{source}: the reflowed text loads a different declaration, so nothing was written")
     return write_source(folder, new)
 
@@ -209,7 +208,7 @@ def conflict(folder, base):
         return []
     # The base is compared as data, never validated: it was valid against the registries of its own commit, not today's.
     source, model = load(folder), model_of(folder)
-    unmoved = yaml.safe_load(read_source(folder)[0]) == yaml.safe_load(base[0])
+    unmoved = load_yaml(read_source(folder)[0]) == load_yaml(base[0])
     if unmoved or model == base[1]:
         return []
     back = undrawn(get(model, kind_of(folder))["content"], source)

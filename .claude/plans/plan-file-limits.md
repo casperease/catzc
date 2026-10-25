@@ -81,8 +81,3 @@ step 4's `exempt:` map starts empty.
        `FunctionLength.psm1`; delete the sync comments. Check: `Test-GeneratedFiles`, `Test-Formatting`, `Test-ShippedConfigs`.
 5. [ ] Register the gate in `Test-Automation` and the timeouts roof. Check: `Test-Plans` sees the new gate exported; the gate's run time
        under its `timeouts.yml` roof.
-
-## Open questions
-
-- Simplify (session-finalize 2026-10-25): should the `catzc-drone` brief say "report after each landed file" and the C# split rule (public
-  static helpers, never partial classes), so the next session reads one line instead of a learning?

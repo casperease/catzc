@@ -10,7 +10,7 @@ has: one tag per execution engine, then the contract's. `lang:` on a glyph is th
 import re
 from pathlib import Path
 
-import yaml
+from declaration_constants import load_yaml
 
 REPO = Path(__file__).resolve().parents[2]
 TABLE = REPO / "pwsh" / "Catzc.Base.Languages" / "configs" / "languages.yml"
@@ -26,7 +26,7 @@ _cache = {}
 def rows():
     """The language rows that carry a tag, in file order: name -> the row."""
     if "rows" not in _cache:
-        table = yaml.safe_load(TABLE.read_text(encoding="utf-8"))["languages"]
+        table = load_yaml(TABLE.read_text(encoding="utf-8"))["languages"]
         _cache["rows"] = {name: row for name, row in table.items() if row.get("tag")}
     return _cache["rows"]
 

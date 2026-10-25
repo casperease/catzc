@@ -14,7 +14,7 @@ function Get-LanguageTestFolders {
     $repositoryRoot = Get-RepositoryRoot
     $languagesConfig = Get-Config -Config languages
     $testFolderName = $languagesConfig.FolderOf('test')
-    $moduleNames =@((Get-CatzcModule -EngineTrack).name.Where({ [Catzc.Base.Objects.NameCase]::IsInCase('pascal-dotted', $_) }))
+    $moduleNames = @((Get-CatzcModule -EngineTrack).name.Where({ [Catzc.Base.Objects.NameCase]::IsInCase('pascal-dotted', $_) }))
     $languages = @(foreach ($entry in $languagesConfig.languages) {
             if ($entry.tests) {
                 $modulesByFolder = @{}

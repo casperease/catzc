@@ -10,7 +10,7 @@ import re
 from functools import cache
 from pathlib import Path
 
-import yaml
+from declaration_constants import load_yaml
 
 REPO = Path(__file__).resolve().parents[2]
 LANGUAGES = REPO / "pwsh" / "Catzc.Base.Languages" / "configs" / "languages.yml"
@@ -30,7 +30,7 @@ CASES = {
 @cache
 def configured_case():
     """The case the languages config names as the normal form."""
-    naming = (yaml.safe_load(LANGUAGES.read_text(encoding="utf-8")) or {}).get("naming") or {}
+    naming = (load_yaml(LANGUAGES.read_text(encoding="utf-8")) or {}).get("naming") or {}
     case = naming.get("normal_form")
     if case is None:
         raise ValueError(f"{LANGUAGES.name} states no naming.normal_form; the normal form is configured, never assumed")

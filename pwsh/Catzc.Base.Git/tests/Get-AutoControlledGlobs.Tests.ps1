@@ -29,7 +29,7 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
     It 'includes the conventional generated-artifact classes' {
         $globs = InModuleScope Catzc.Base.Git { Get-AutoControlledGlobs }
         $modules = Get-CatzcModulesFolder
-        foreach ($expected in "$modules/*/*.psd1", '*/README.md', '.cspell/*', 'out/*', '.vscode/*', "$modules/.compiled/*.tmp") {
+        foreach ($expected in "$modules/*/*.psd1", '*/README.md', '.cspell/*', 'out/*', '.vscode/*', "$modules/.compiled/*.dll", "$modules/.compiled/*.tmp") {
             $globs | Should -Contain $expected
         }
     }
@@ -61,7 +61,8 @@ Describe 'Get-AutoControlledGlobs' -Tag 'L0', 'logic' {
         & $isControlled 'out/report-widget.md' | Should -BeTrue
         & $isControlled 'out/plan-widget.md' | Should -BeFalse
         & $isControlled "$modules/Catzc.Base.Git/New-Draft.ps1" | Should -BeFalse
-        & $isControlled "$modules/.compiled/Catzc.Types.abc123.dll" | Should -BeFalse
+        & $isControlled "$modules/.compiled/Catzc.Types.abc123.dll" | Should -BeTrue
+        & $isControlled "$modules/.compiled/Catzc.Types.abc123.json" | Should -BeFalse
         # drawio autosave shadows are disposable clutter; the committed asset beside them is NOT
         & $isControlled 'docs/.assets/deployable-units/.$apex.drawio.png.bkp' | Should -BeTrue
         & $isControlled 'docs/.assets/modules/.$catzc-azure.drawio.png.bkp' | Should -BeTrue

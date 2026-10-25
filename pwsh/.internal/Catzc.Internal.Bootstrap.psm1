@@ -43,8 +43,6 @@ function Get-PrivateFunctionFolder {
         [string] $ModulesRoot
     )
 
-    # The pre-types reader of the powershell layout's private-function row; once types load, LanguagesConfig.FolderOf reads the same row
-    # (ADR-REPO-FOLDERS-NAMESARESETTINGS).
     if ($script:privateFunctionFolder -and $script:privateFunctionFolder.Root -ceq $ModulesRoot) {
         return $script:privateFunctionFolder.Folder
     }

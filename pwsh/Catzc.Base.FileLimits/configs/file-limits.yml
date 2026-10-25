@@ -1,0 +1,6 @@
+# Every key is optional: an omitted key takes the default declared once on FileLimitsConfig. A language value wins over its class default,
+# and no value may leave the bounds; a value outside them fails the config load.
+
+bounds: { length: { min: 100, max: 500 }, width: { min: 80, max: 200 } }
+defaults: { code: { length: 400, width: 120 }, config: { length: 300, width: 140 }, prose: { length: 400, width: 140 } }
+languages: { python: { width: 140, length: 500 } }

@@ -7,8 +7,7 @@ import re
 from pathlib import Path
 
 import minimaps
-import yaml
-from declaration_constants import SHORTHAND, SLIDE, SOURCE
+from declaration_constants import SHORTHAND, SLIDE, SOURCE, load_yaml
 from declaration_dump import dump
 from declaration_expand import drawn, undrawn
 from declaration_normalise import normalise
@@ -222,7 +221,7 @@ def carry(diagram, carrier):
     if twice:
         raise DeclarationError(f"{stem}: {'; '.join(twice)}")
     text, where = read_source(stem)
-    before = normalise(yaml.safe_load(text) or {}, where=str(where))
+    before = normalise(load_yaml(text) or {}, where=str(where))
     # A file's comment head is the file's own, never part of the declaration, so the block takes the body alone.
     lines = text.split("\n")
     body = "\n".join(lines[next((i for i, line in enumerate(lines) if line.strip() and not line.startswith("#")), len(lines)) :])
@@ -260,7 +259,7 @@ def carry(diagram, carrier):
             else:
                 path.write_text(new, encoding="utf-8", newline="\n")
         after_text, after_where = read_source(stem)
-        if carrier_findings(stem) or normalise(yaml.safe_load(after_text) or {}, where=str(after_where)) != before:
+        if carrier_findings(stem) or normalise(load_yaml(after_text) or {}, where=str(after_where)) != before:
             raise DeclarationError(f"{stem}: the declaration read back from the {carrier} carrier differs, so nothing was moved")
     except Exception:
         for path, old in saved.items():
@@ -276,7 +275,7 @@ def carry(diagram, carrier):
 def load(folder):
     """The declaration of a diagram, from its carrier."""
     text, where = read_source(folder)
-    return normalise(yaml.safe_load(text) or {}, where=str(where))
+    return normalise(load_yaml(text) or {}, where=str(where))
 
 
 def save(folder, declaration):
@@ -284,7 +283,7 @@ def save(folder, declaration):
     description the source already has."""
     if declared(folder):
         text, where = read_source(folder)
-        held = normalise(yaml.safe_load(text) or {}, where=str(where))
+        held = normalise(load_yaml(text) or {}, where=str(where))
         if not declaration.get("description"):
             declaration = {**declaration, "description": held["description"]}
         # The drawing carries the ADR codes of `about:` in its subtitle; a drawing without them keeps the source's.

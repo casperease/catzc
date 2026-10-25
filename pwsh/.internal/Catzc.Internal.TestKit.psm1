@@ -116,6 +116,14 @@ function Remove-FakeRepositoryRoot {
     }
 }
 
+function Set-GitTrackedPathMock {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Test fixture: registers a Pester mock that ends with the calling block')]
+    [CmdletBinding()]
+    param()
+
+    Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
+}
+
 function New-BuiltCatzcRoot {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('Measure-AnnounceStateChange', '', Justification = 'Test fixture: builds into a temp folder inside one test''s lifecycle and Remove-BuiltCatzcRoot removes it; its output belongs to Pester')]
     [CmdletBinding()]
@@ -252,4 +260,4 @@ function Remove-BuiltCatzcRoot {
 }
 
 Export-ModuleMember -Function New-ModuleFolder, New-FakeRepositoryRoot, Remove-FakeRepositoryRoot, `
-    New-BuiltCatzcRoot, Invoke-InBuiltCatzc, Remove-BuiltCatzcRoot
+    Set-GitTrackedPathMock, New-BuiltCatzcRoot, Invoke-InBuiltCatzc, Remove-BuiltCatzcRoot

@@ -79,12 +79,8 @@ BeforeAll {
     }
     $script:source = $fake.ModulesRoot
 
-    # The committed full-set DLL stand-in: the build reuses it by copy, named by the hash of EVERY module's types.
+    # The build compiles the full-set DLL, named by the hash of EVERY module's types.
     $script:fullHash = (Get-CombinedTypeHash -ModulesRoot $source).CombinedHash
-    $compiled = Join-Path $source '.compiled'
-    [System.IO.Directory]::CreateDirectory($compiled) | Out-Null
-    [System.IO.File]::WriteAllBytes((Join-Path $compiled "Catzc.Types.$fullHash.dll"), [byte[]] @(77, 90, 1, 2, 3))
-    [System.IO.File]::WriteAllText((Join-Path $compiled "Catzc.Types.$fullHash.json"), "{`"hash`":`"$fullHash`"}`n")
 
     if (Get-Command git -ErrorAction Ignore) {
         foreach ($gitCommand in @(
@@ -296,10 +292,10 @@ Describe 'Invoke-ModuleBuild' -Tag 'L2', 'logic', 'source-only' -Skip:(-not (Get
             [System.IO.File]::ReadAllText((Join-Path $root 'Catzc.psm1')) | Should -BeLike "*. (Join-Path `$PSScriptRoot 'Import-Catzc.ps1')*"
         }
 
-        It 'ships the full type set: the committed DLL by copy, unselected sources under .compiled/types' {
+        It 'ships the full type set: the DLL compiled into the bundle, unselected sources under .compiled/types' {
             $result.TypesHash | Should -Be $fullHash
-            [System.IO.File]::ReadAllBytes((Join-Path $root ".compiled/Catzc.Types.$fullHash.dll")) | Should -Be @(77, 90, 1, 2, 3)
-            [System.IO.File]::ReadAllText((Join-Path $root ".compiled/Catzc.Types.$fullHash.json")) | Should -BeExactly "{`"hash`":`"$fullHash`"}`n"
+            Join-Path $root ".compiled/Catzc.Types.$fullHash.dll" | Should -Exist
+            Join-Path $root ".compiled/Catzc.Types.$fullHash.json" | Should -Exist
             [System.IO.File]::ReadAllText((Join-Path $root '.compiled/types/Catzc.Base.Gizmo/Sprocket.cs')) |
                 Should -BeExactly "namespace Catzc.Base.Gizmo;`npublic class Sprocket { }`n"
         }

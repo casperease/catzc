@@ -74,11 +74,12 @@ sections:
         }
 
   - id: compiled-types
-    title: Compiled C# types — transient temp only
+    title: Compiled C# types — the DLL is a per-machine build
     why: >
-      The combined compiled assembly (pwsh/.compiled/Catzc.Types.<hash>.dll) is COMMITTED — a vendored, hash-keyed prebuild that lets a
-      fresh checkout and CI load without compiling (see docs/drs/automation/caching.md). Only the concurrent-compile temp file is ignored.
+      Git keeps only the manifest, pwsh/.compiled/Catzc.Types.<hash>.json; the combined assembly is built per machine into the per-user
+      shadow root (see docs/drs/automation/caching.md), so a DLL or a concurrent-compile temp file under pwsh/.compiled is never committed.
     patterns:
+      - pwsh/.compiled/*.dll
       - pwsh/.compiled/*.tmp
 
   - id: ide-build

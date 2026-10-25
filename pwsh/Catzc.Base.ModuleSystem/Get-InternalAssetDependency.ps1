@@ -48,15 +48,16 @@ function Get-InternalAssetDependency {
     $violations = [System.Collections.Generic.List[object]]::new()
 
     $walk = Get-Config -Config folder-walk
+    $privateFolderName = (Get-Config -Config languages).FolderOf('private-function')
     foreach ($moduleName in $moduleNames) {
         $moduleDirectory = Join-Path $ModulesRoot $moduleName
         $files = [System.Collections.Generic.List[object]]::new()
         foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($moduleDirectory, '*.ps1', 1).ToArray()) {
             $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$moduleName/$([System.IO.Path]::GetFileName($path))" })
         }
-        $privateDirectory = Join-Path $moduleDirectory 'private'
+        $privateDirectory = Join-Path $moduleDirectory $privateFolderName
         foreach ($path in [Catzc.Base.Folders.PathSet]::new($walk).AddPattern($privateDirectory, '*.ps1', 1).ToArray()) {
-            $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$moduleName/private/$([System.IO.Path]::GetFileName($path))" })
+            $files.Add([pscustomobject]@{ Path = $path; Relative = "$modulesFolder/$moduleName/$privateFolderName/$([System.IO.Path]::GetFileName($path))" })
         }
 
         foreach ($file in ($files | Sort-Object Relative)) {

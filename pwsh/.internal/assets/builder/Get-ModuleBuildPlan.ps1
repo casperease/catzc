@@ -124,8 +124,7 @@ function Get-ModuleBuildPlan {
     $entries.Add([pscustomobject]@{ Path = 'Catzc.psd1'; Kind = 'Text'; Source = $null; Content = $packageManifest; Exports = $null })
 
     # The combined-types assembly is always the FULL type set, whatever modules are selected, so a build loads the
-    # same types as source mode. The committed <source>/.compiled/Catzc.Types.<hash>.dll is reused by copy — its
-    # name is the hash proof — and compiled into the build only when it is missing. A selected module's sources
+    # same types as source mode. It is compiled into the build's .compiled. A selected module's sources
     # ship in its own types/ folder (copied above); every other module's ship verbatim under
     # .compiled/types/<Module>/<File>.cs, a dot folder the importer never takes for a module. Together the two hold
     # the full set the hash covers; build.json lists every source by its build-relative path, in hash order.
@@ -149,25 +148,9 @@ function Get-ModuleBuildPlan {
                 $entries.Add([pscustomobject]@{ Path = ".compiled/types/$($file.Module)/$($file.Base).cs"; Kind = 'Copy'; Source = $file.Path; Content = $null; Exports = $null; Normalize = $normalize })
             }
         }
-        # The DLL is proven by its name, the hash of the type sources, not by git: a devbox that changed a
-        # types/*.cs holds the matching DLL before it is committed. It is binary, so a byte copy.
-        $dllPath = ".compiled/Catzc.Types.$typeHash.dll"
-        $committed = [System.IO.Path]::Combine($SourceRoot, '.compiled', "Catzc.Types.$typeHash.dll")
-        $manifestPath = ".compiled/Catzc.Types.$typeHash.json"
-        $committedManifest = [System.IO.Path]::Combine($SourceRoot, '.compiled', "Catzc.Types.$typeHash.json")
-        if ([System.IO.File]::Exists($committed)) {
-            $entries.Add([pscustomobject]@{ Path = $dllPath; Kind = 'Copy'; Source = $committed; Content = $null; Exports = $null; Normalize = $false })
-            if ([System.IO.File]::Exists($committedManifest)) {
-                $entries.Add([pscustomobject]@{ Path = $manifestPath; Kind = 'Copy'; Source = $committedManifest; Content = $null; Exports = $null; Normalize = $false })
-            }
-            else {
-                $violations.Add("$sourceFolder/.compiled/Catzc.Types.$typeHash.json: the types manifest beside the committed assembly does not exist; run the importer")
-            }
-        }
-        else {
-            $entries.Add([pscustomobject]@{ Path = $dllPath; Kind = 'Types'; Source = $null; Content = $null; Exports = $null })
-            $entries.Add([pscustomobject]@{ Path = $manifestPath; Kind = 'Types'; Source = $null; Content = $null; Exports = $null })
-        }
+        # Git keeps no DLL (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD), so the build compiles it, and its manifest, into the bundle.
+        $entries.Add([pscustomobject]@{ Path = ".compiled/Catzc.Types.$typeHash.dll"; Kind = 'Types'; Source = $null; Content = $null; Exports = $null })
+        $entries.Add([pscustomobject]@{ Path = ".compiled/Catzc.Types.$typeHash.json"; Kind = 'Types'; Source = $null; Content = $null; Exports = $null })
     }
 
     [pscustomobject]@{

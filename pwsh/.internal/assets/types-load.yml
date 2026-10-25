@@ -3,12 +3,14 @@
 # load: lazy = unloaded after verification, loaded by the first use | eager = loaded right after verification.
 # trigger: lookup-hook = the command-lookup hook that loads before a typed parameter binds | none (only with eager).
 # shadowCopy: load from the per-user shadow copy (Windows locks a loaded DLL) instead of in place.
+# generations: how many builds may load side by side after C# edits (default 1); above 1 only in a console.*.source row.
 # eagerTypes: type names loaded at import even when lazy. A key left out takes the default declared in Get-TypesLoadPolicy.
 cells:
   console.windows.source:
     load: lazy
     trigger: lookup-hook
     shadowCopy: true
+    generations: 4
   console.windows.build:
     load: lazy
     trigger: lookup-hook
@@ -17,6 +19,7 @@ cells:
     load: lazy
     trigger: lookup-hook
     shadowCopy: false
+    generations: 4
   console.unix.build:
     load: lazy
     trigger: lookup-hook

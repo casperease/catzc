@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d080d5660182
+#     with_body_sha: ecf9daf65917
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -17,7 +17,7 @@
 # statistics and diff display, and the catzc-* attributes declare this repository's own file classes to its
 # tools; neither changes any bytes.
 
-# Committed combined C# types assembly — whole directory, any extension, since it is byte-exact build output.
+# The combined C# types manifest — whole directory, any extension, since it is byte-exact build output.
 pwsh/.compiled/** binary
 
 # Binary file types (vendored module assemblies, debug symbols, signatures, native libraries, images, documents,
@@ -34,8 +34,8 @@ pwsh/.compiled/** binary
 *.gz     binary
 
 # C# type sources are the byte-exact key of the compiled-type cache — their combined hash names the committed
-# pwsh/.compiled/Catzc.Types.<hash>.dll. Pin them to LF so every clone/checkout materializes identical
-# bytes regardless of core.autocrlf; otherwise a CRLF working tree diverges from the committed build and trips
+# pwsh/.compiled/Catzc.Types.<hash>.json and the per-machine build. Pin them to LF so every clone/checkout materializes identical
+# bytes regardless of core.autocrlf; otherwise a CRLF working tree diverges from the committed manifest and trips
 # the loader's "types changed since they were loaded" guard on re-import. See docs/drs/automation/caching.md.
 *.cs     text eol=lf
 

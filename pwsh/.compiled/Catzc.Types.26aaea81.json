@@ -1,5 +1,5 @@
 {
-  "hash": "98be69db",
+  "hash": "26aaea81",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -584,6 +584,16 @@
     },
     {
       "name": "Catzc.Base.Exporter.ExporterPackage",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.FileLimits.FileLimit",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.FileLimits.FileLimitsConfig",
       "aliases": [],
       "display": []
     },

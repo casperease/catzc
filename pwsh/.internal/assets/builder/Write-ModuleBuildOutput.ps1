@@ -59,8 +59,7 @@ function Write-ModuleBuildOutput {
         }
     }
 
-    # Fallback when the committed DLL is missing: the one compile path (Build-CombinedTypeAssembly) over the full
-    # type set. An existing DLL of the same hash is kept, so a rebuild of the same sources compiles nothing.
+    # The one compile path (Build-CombinedTypeAssembly) over the full type set. An existing DLL of the same hash is kept, so a rebuild of the same sources compiles nothing.
     if (@($Entries | Where-Object { $_.Kind -eq 'Types' }).Count -gt 0) {
         Build-CombinedTypeAssembly -ModulesRoot $SourceRoot -OutputDirectory ([System.IO.Path]::Combine($BuildRoot, '.compiled'))
     }

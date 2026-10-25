@@ -16,7 +16,7 @@ import re
 from functools import cache
 from pathlib import Path
 
-import yaml
+from declaration_constants import load_yaml
 from drawio_png import SCALE, font, tokens
 from PIL import Image, ImageDraw
 
@@ -52,9 +52,7 @@ def registry(path):
 
 @cache
 def read_registry(full):
-    # libyaml's loader parses when it is present; the pure-Python one is several times slower.
-    loader = getattr(yaml, "CSafeLoader", yaml.SafeLoader)
-    return yaml.load(full.read_text(encoding="utf-8"), Loader=loader) or {}
+    return load_yaml(full.read_text(encoding="utf-8")) or {}
 
 
 @cache

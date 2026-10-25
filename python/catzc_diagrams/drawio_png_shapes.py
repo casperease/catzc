@@ -57,6 +57,17 @@ class Scaled:
         return self.d.textlength(text, font=self.big(font)) / SCALE
 
 
+BLURRED = {}  # silhouette bytes -> its blurred layer; repeated glyphs of one size blur once per process
+
+
+def blurred(layer):
+    """The shadow blur of one silhouette layer; the key is its exact size and pixels, so a hit is the same image the blur would make."""
+    key = (layer.size, layer.tobytes())
+    if key not in BLURRED:
+        BLURRED[key] = layer.filter(ImageFilter.GaussianBlur(SHADOW_BLUR * SCALE))
+    return BLURRED[key]
+
+
 def drop_shadow(img, box, painter, pad=8):
     """Paint the kit's shadow of one shape onto `img` (RGBA, at SCALE) just before the shape itself: `painter(draw, box, colour)`
     draws the shape's silhouette, which is offset, blurred and composited so it fades into the dark page."""
@@ -64,7 +75,7 @@ def drop_shadow(img, box, painter, pad=8):
     w, h = (int(x1 - x0) + 2 * pad) * SCALE, (int(y1 - y0) + 2 * pad) * SCALE
     layer = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     painter(Scaled(ImageDraw.Draw(layer)), (pad, pad, pad + (x1 - x0), pad + (y1 - y0)), SHADOW)
-    layer = layer.filter(ImageFilter.GaussianBlur(SHADOW_BLUR * SCALE))
+    layer = blurred(layer)
     left, top = (int(x0) - pad + SHADOW_OFFSET[0]) * SCALE, (int(y0) - pad + SHADOW_OFFSET[1]) * SCALE
     crop = (max(0, -left), max(0, -top), min(w, img.width - left), min(h, img.height - top))
     if crop[2] <= crop[0] or crop[3] <= crop[1]:
