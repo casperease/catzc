@@ -43,8 +43,8 @@ one resolver, makes every new view a config line, and moving the extra units int
   `track_type.<type>`, `generated`, `root_config`, and `glob.<pattern>` as the escape hatch.
 - The filters: `code` (`aspect.live`), `tests` (`aspect.tests`), `tools` (`track_type.vendor_settings`, `track_type.vendored_code`,
   `track_type.pipelines`, `root_config`), `generated` (`generated`), `docs` (`track.docs`, `glob.LICENSE`), `out` (`glob.out/**` until `out`
-  is a track). The contracts track is live by its own aspects in `variants.yml` (`tests` `**/tests/**`, then `live`
-  `**`, DDR-ASPECT-TRACKPICKSCATCHALL) and its files have one lamp, `contracts` (the user, 2026-10-25): `code` and `live` leave them out
+  is a track). The contracts track is live by its own aspects in `variants.yml` (`tests` `**/tests/**`, then `live` `**`,
+  DDR-ASPECT-TRACKPICKSCATCHALL) and its files have one lamp, `contracts` (the user, 2026-10-25): `code` and `live` leave them out
   (`except: [track.contracts]`), apart from every other track's live files.
 - `LICENSE` is authored, not generated (no generator or `rootconfig.yml` target writes it); it is docs (the `docs` filter) and live through
   the contracts track, which it joins in `plan-track-model.md`.
