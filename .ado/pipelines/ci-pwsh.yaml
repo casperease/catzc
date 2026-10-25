@@ -24,6 +24,8 @@ jobs:
     steps:
       - checkout: self
 
+      - template: /.ado/pipelines/steps/cache-types.yaml
+
       - task: UseNode@1
         inputs:
           version: "22.x"
@@ -49,6 +51,8 @@ jobs:
       vmImage: ubuntu-latest
     steps:
       - checkout: self
+
+      - template: /.ado/pipelines/steps/cache-types.yaml
 
       # 2a: Multiline command via YAML pipe operator
       - template: /.ado/pipelines/steps/invoke-automation.yaml
@@ -160,6 +164,8 @@ jobs:
     steps:
       - checkout: self
 
+      - template: /.ado/pipelines/steps/cache-types.yaml
+
       # 3a: Mode azcli — az CLI is pre-authenticated
       - template: /.ado/pipelines/steps/invoke-automation.yaml
         parameters:
@@ -200,6 +206,8 @@ jobs:
       vmImage: ubuntu-latest
     steps:
       - checkout: self
+
+      - template: /.ado/pipelines/steps/cache-types.yaml
 
       - task: UsePythonVersion@0
         inputs:
@@ -272,6 +280,8 @@ jobs:
       vmImage: ubuntu-latest
     steps:
       - checkout: self
+
+      - template: /.ado/pipelines/steps/cache-types.yaml
 
       # 5a: Simple types
       - template: /.ado/pipelines/steps/invoke-automation.yaml
@@ -470,6 +480,8 @@ jobs:
       vmImage: ubuntu-latest
     steps:
       - checkout: self
+
+      - template: /.ado/pipelines/steps/cache-types.yaml
 
       - task: UseDotNet@2
         inputs:

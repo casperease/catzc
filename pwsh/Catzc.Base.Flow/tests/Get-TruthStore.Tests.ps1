@@ -27,7 +27,7 @@ Describe 'Get-TruthStore' -Tag 'L0', 'logic' {
             @{ name = 'junction-inbound' }
             @{ name = 'junction-outbound' }
         ) {
-            $folder = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/catzc.base.flow'
+            $folder = Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.flow'
             $schema = [System.IO.File]::ReadAllText((Join-Path $folder "$name.schema.json"))
             [System.IO.File]::ReadAllText((Join-Path $folder "$name.sample.json")) | Test-Json -Schema $schema | Should -BeTrue
         }

@@ -1,0 +1,14 @@
+# The combined C# types build is a per-machine cache keyed by the committed manifest (ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD),
+# so a job restores it instead of compiling it. The shadow root comes from its one resolver, Get-TypesShadowRoot.
+steps:
+  - pwsh: |
+      Set-StrictMode -Version Latest
+      Import-Module './pwsh/.internal/Catzc.Internal.Types.psm1'
+      Write-Host "##vso[task.setvariable variable=CatzcTypesShadowRoot]$(Get-TypesShadowRoot)"
+    displayName: "Resolve the C# types cache folder"
+
+  - task: Cache@2
+    displayName: "Cache the C# types build"
+    inputs:
+      key: 'catzc-types | "$(Agent.OS)" | pwsh/.compiled/*.json'
+      path: $(CatzcTypesShadowRoot)

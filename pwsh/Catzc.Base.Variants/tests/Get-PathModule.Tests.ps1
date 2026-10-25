@@ -77,7 +77,7 @@ Describe 'Get-PathModule on the shipped module-types registry' -Tag 'L0', 'logic
 
     It 'places a documentation page, a contract, and a root file in no module' -ForEach @(
         @{ Path = 'docs/drs/index.md' }
-        @{ Path = 'contracts/catzc/0.0.0/contract.yml' }
+        @{ Path = 'contracts/catzc/0.1.0/contract.yml' }
         @{ Path = 'importer.ps1' }
         @{ Path = "$(Get-CatzcModulesFolder)/.vendor/Pester/Pester.psd1" }
         @{ Path = "$(Get-CatzcModulesFolder)/.scriptanalyzer/Rule.psm1" }

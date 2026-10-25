@@ -1,6 +1,6 @@
 Describe 'Get-ModuleNeighbourhoodMinimapData' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/catzc.base.maps/minimap.schema.json'))
+        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.maps/minimap.schema.json'))
         Mock Get-Config -ModuleName Catzc.Base.Maps -ParameterFilter { $Config -eq 'dependencies' } {
             [pscustomobject]@{
                 groups  = [ordered]@{ Base = [pscustomobject]@{ members = [ordered]@{ Asserts = @(); Widgets = @('Asserts') } } }

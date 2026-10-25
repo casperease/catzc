@@ -1,6 +1,6 @@
 Describe 'Get-AxisMinimapData' -Tag 'L0', 'logic' {
     BeforeAll {
-        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.0.0/catzc.base.maps/minimap.schema.json'))
+        $script:schema = [System.IO.File]::ReadAllText((Join-Path (Get-RepositoryRoot) 'contracts/catzc/0.1.0/catzc.base.maps/minimap.schema.json'))
         $adr = {
             param([string] $External, [string] $Stack, [string[]] $Concerns)
             [Catzc.Base.Drs.DrsRuleSet]::new('widgetry', 'fixture', 'widget', $External, 'WIDGET', 'WIDGET', $Stack, $Concerns, $Concerns)

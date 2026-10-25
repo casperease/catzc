@@ -48,7 +48,8 @@ Describe 'Build-Glossary' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Base.Docs -ParameterFilter { $Config -eq 'drs' } -MockWith { $domains }.GetNewClosure()
         Mock Write-Message -ModuleName Catzc.Base.Docs { }
         # The page is a fixture outside the checkout, so the generated head reads no file as tracked.
-        Mock Get-GitTrackedPath -ModuleName Catzc.Base.Languages { }
+        Import-InternalModule TestKit
+        Set-GitTrackedPathMock
         $script:page = Join-Path $TestDrive 'glossary.md'
     }
 

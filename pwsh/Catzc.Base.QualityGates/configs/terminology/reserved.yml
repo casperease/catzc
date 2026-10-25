@@ -30,7 +30,7 @@ categories:
       - "pwsh/Catzc.Base.Contracts/**/*Accosted*"
       - "pwsh/Catzc.Base.Contracts/accosted/**"
       - "pwsh/*/accosted/**"
-      - "contracts/catzc/0.0.0/catzc.base.contracts/*accosted*"
+      - "contracts/catzc/0.1.0/catzc.base.contracts/*accosted*"
       - "docs/references/contracts/catzc.md"
       - "pwsh/.internal/assets/importer-commands.sh"
       - "docs/drs/design/visual-design.md"

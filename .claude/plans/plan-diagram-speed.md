@@ -30,19 +30,14 @@ Every diagram change waits on this run, and it has no time limit, so a stale-hea
 
 ## Open steps
 
-3. [ ] Speed the render itself further (the registry read once per process with libyaml took `bcl-language` from 1.25 s to 0.95 s, pngs
-       byte-equal): the remaining `yaml.safe_load` sites through one libyaml loader, `drop_shadow`'s 0.22 s (27 blurs; its painter is a
-       per-shape closure, so a cache needs a safe key or a cheaper blur proven byte-equal), and the git `conflict` read once per batch.
-       Check: the python kit tests pass, the pngs in `out/step3-baseline.sha` stay byte-equal, and the `bcl-language` cProfile drops below
-       0.7 s.
-4. [ ] Go parallel: the one batch splits into `render_parallel` worker processes, a slides.yml key with its default 3 declared once on
-       `SlidesConfig`, each with a disjoint stem list, under the existing `Local\catzc-run` run lock; the first failure is raised after
-       every worker ends, the progress lines print in stem order. Check: the Build-Diagrams tests pass with 1 and 3 workers, and both runs
-       leave the same pngs.
 5. [ ] Bound it: `Build-Diagrams` gets its limit in `timeouts.yml`, set from the `-Stale` time measured after steps 1-4. Check: Test-Plans
        and the timeouts tests pass, and `out/profile-build-diagrams.ps1` records the new baseline.
+6. [ ] Read the git `conflict` base once per batch, not three `git` calls per diagram (~0.12 s each): a long-lived `git cat-file --batch`
+       must not serve a stale HEAD to a process that commits between reads, as the kit tests do. Check: the python kit tests pass and the
+       pngs of two runs stay byte-equal.
 
-## Open questions
+## Decided
 
-- From this session's finalize (2026-10-25), one proposal, not applied: the `catzc-run` capability gains one line, "a profiling script
-  prints its timings with Write-Host, since an assignment captures the pipeline", so the first timing run is not lost to a variable.
+- The profiling-script note ("print timings with Write-Host, since an assignment captures the pipeline") lives on the engine's reference
+  page, `docs/references/python/catzc_diagrams.md`, not in the `catzc-run` capability, which is at its 10-line roof (orchestrator,
+  2026-10-26).
