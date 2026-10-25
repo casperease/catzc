@@ -24,7 +24,7 @@ function Initialize-SpellingOracle {
     if (-not ('Catzc.Base.QualityGates.SpellingOracle' -as [type])) {
         Import-Module (Join-Path $modulesRoot '.internal/Catzc.Internal.Types.psm1')
         $combinedHash = (Get-CombinedTypeHash $modulesRoot).CombinedHash
-        $typesDll = Join-Path $modulesRoot ".compiled/Catzc.Types.$combinedHash.dll"
+        $typesDll = Join-Path (Get-TypesShadowRoot) "Catzc.Types.$combinedHash.dll"
         if (-not [System.IO.File]::Exists($typesDll)) {
             throw "Measure-SpellOutIdentifiers: the compiled types assembly for the current sources ($typesDll) was not found — run the importer to build it."
         }
