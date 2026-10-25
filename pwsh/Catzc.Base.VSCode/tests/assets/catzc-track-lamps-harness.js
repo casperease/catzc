@@ -9,6 +9,7 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 function stub(seed) {
     const record = { commands: new Map(), registered: 0, disposed: 0, duplicates: [], contexts: [], updates: [], concurrent: 0, maxConcurrent: 0, watchers: [], logs: [], diagnostics: [] };
     let exclude = {};
+    let owned;
     const disposable = (on) => ({ dispose: () => (record.disposed++, on && on()) });
     const event = (list) => (callback) => (list && list.push(callback), disposable());
     const memento = (values) => ({ get: (k, d) => (k in values ? values[k] : d), update: async (k, v) => void (values[k] = v) });
@@ -17,8 +18,12 @@ function stub(seed) {
             workspaceFolders: [{ uri: { fsPath: root } }],
             getConfiguration: (section) => ({
                 get: (k) => (section === "catzc.trackLamps" ? { filters: seed.filters, languages: {}, trace: false }[k] : undefined),
-                inspect: () => ({ workspaceValue: exclude }),
-                update: async (_k, next) => {
+                inspect: (k) => ({ workspaceValue: section === "catzc.trackLamps" && k === "owned" ? owned : exclude }),
+                update: async (k, next) => {
+                    if (section === "catzc.trackLamps" && k === "owned") {
+                        owned = next;
+                        return;
+                    }
                     record.concurrent++;
                     record.maxConcurrent = Math.max(record.maxConcurrent, record.concurrent);
                     await sleep(30);

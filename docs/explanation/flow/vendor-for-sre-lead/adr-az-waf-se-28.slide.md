@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../flow/.assets/pipeline-kinds-keyed-by-one-artifact.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AZ-WAF-SE
 ---
 
 # Azure WAF security: identity on the server, secrets at deploy, policy from code
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: The clone has no authority; the pull request authenticates; the bypass is recorded.
+For the SRE Lead, who owns reliability, monitoring and the switch: The clone has no authority; the pull request authenticates; the bypass is
+recorded.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: pipeline kinds keyed by one artifact.
 
 ## Notes
 
-Check it: the record ADR-AZ-WAF-SE in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/pipeline-kinds-keyed-by-one-artifact.drawio.png.
+Check it: the record ADR-AZ-WAF-SE in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/pipeline-kinds-keyed-by-one-artifact.drawio.png.

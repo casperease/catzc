@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../azure/.assets/coordinate-rules-and-their-gates.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - DDR-REMOTE
 ---
 
 # The server remote is the single source of truth; every clone is a bridge to it
@@ -33,4 +30,5 @@ From the catalogue, reduced: coordinate rules and their gates.
 
 ## Notes
 
-Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/coordinate-rules-and-their-gates.drawio.png.
+Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram
+docs/explanation/azure/.assets/coordinate-rules-and-their-gates.drawio.png.

@@ -19,3 +19,7 @@ reminders:
     say: >-
       You edited a PowerShell file that every session's next import may dot-source. Parse-check it now, instantly and without an import,
       with `[System.Management.Automation.Language.Parser]::ParseFile`; one parse error breaks every session.
+  - paths: ["pwsh/*/configs/*.yml"]
+    say: >-
+      You edited a config that every session's next import may read. Parse-check it now, instantly and without an import, with
+      `ConvertFrom-Yaml`; an unquoted `{placeholder}` in a flow mapping breaks every session.

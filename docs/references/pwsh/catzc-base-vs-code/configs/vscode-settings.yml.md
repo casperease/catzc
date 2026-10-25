@@ -265,3 +265,12 @@ Above `git.decorations.enabled: true`, written with `#`.
 Git state on the open file, the lamps' one mapping (DDR-FILTER): unstaged = yellowish, staged = dark brown (explorer, tab title; the
 gutter, right-hand ruler and minimap show the working tree's changes, so unstaged).
 ```
+
+## comment:23
+
+Above `terminal.integrated.env.windows:`, written with `#`.
+
+```text
+Python writes its bytecode cache to out/pycache in every terminal of the editor, as Invoke-PythonTest has it, never beside the
+sources (a bare python or pytest run included).
+```

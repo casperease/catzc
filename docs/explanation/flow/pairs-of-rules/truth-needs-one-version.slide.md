@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/integrators-sync-from-the-bvt-verified-head.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - TDR-ONETRUTH
 ---
 
 # One source of truth needs one living version: PDR-ONELIVE is how TDR-ONETRUTH stays true
@@ -33,4 +30,5 @@ From the catalogue, reduced: integrators sync from the bvt verified head.
 
 ## Notes
 
-Check it: the record TDR-ONETRUTH in docs/drs/index.md, and the diagram docs/explanation/design/.assets/integrators-sync-from-the-bvt-verified-head.drawio.png.
+Check it: the record TDR-ONETRUTH in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/integrators-sync-from-the-bvt-verified-head.drawio.png.

@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../flow/.assets/globs-module-owns-config-and-types.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AZ-CUSTOMER
 ---
 
 # Azure: a customer is a slot in the data model, and a customer change is a config change
@@ -33,4 +30,5 @@ From the catalogue, reduced: globs module owns config and types.
 
 ## Notes
 
-Check it: the record ADR-AZ-CUSTOMER in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/globs-module-owns-config-and-types.drawio.png.
+Check it: the record ADR-AZ-CUSTOMER in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/globs-module-owns-config-and-types.drawio.png.

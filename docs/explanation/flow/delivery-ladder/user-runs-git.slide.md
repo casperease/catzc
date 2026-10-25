@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/every-deploy-stage-is-main-only.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - FDR-GIT
 ---
 
 # Every repository-changing git command runs at the user's hand
@@ -33,4 +30,5 @@ From the catalogue, reduced: every deploy stage is main only.
 
 ## Notes
 
-Check it: the record FDR-GIT in docs/drs/index.md, and the diagram docs/explanation/design/.assets/every-deploy-stage-is-main-only.drawio.png.
+Check it: the record FDR-GIT in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/every-deploy-stage-is-main-only.drawio.png.

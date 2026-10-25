@@ -48,3 +48,12 @@ The folder that holds the extension scripts. Default: the module's assets/extens
 ```powershell
 New-VsCodeExtensionFolder -Extension $entry -OutputDirectory (Join-Path (Get-OutputRoot) 'vscode-extensions')
 ```
+
+## comment:1
+
+Above `$rendered = Join-Path $folder 'media'`, written with `#`.
+
+```text
+A lamp is authored as its two green base glyphs, <lamp>-on.svg and <lamp>-off.svg; every condition variant is rendered from them
+with the lamp palette: the stroke takes the range's glyph shade, the condition adds its badge, and veto strikes the unlit glyph.
+```

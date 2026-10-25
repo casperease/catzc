@@ -9,9 +9,6 @@ catzc:
       source: ../../automation/.assets/decide-returns-null-or-a-reason.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
-  edges:
-    cites:
-      - ADR-REPO-PLANS
 ---
 
 # A plan holds the delta only, and a done plan is deleted
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-Plans live in .claude/plans as plan-<topic>.md; the master list carries the order; a landed step is struck, and once tested and committed the plan is gone.
+Plans live in .claude/plans as `plan-<topic>.md`; the master list carries the order; a landed step is struck, and once tested and committed
+the plan is gone.
 
 ## Image
 
@@ -34,4 +32,5 @@ From the catalogue, reduced: decide returns null or a reason.
 
 ## Notes
 
-Check it: the record ADR-REPO-PLANS in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/decide-returns-null-or-a-reason.drawio.png.
+Check it: the record ADR-REPO-PLANS in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/decide-returns-null-or-a-reason.drawio.png.

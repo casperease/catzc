@@ -160,6 +160,8 @@ configs:
     type: Catzc.Base.VSCode.VscodeSettingsConfig
   vscode-pipeline-schema:
     type: Catzc.Base.VSCode.VscodePipelineSchemaConfig
+  lamp-palette:
+    type: Catzc.Base.VSCode.LampPaletteConfig
   go:
     type: Catzc.Base.Languages.GoConfig
   bcl:

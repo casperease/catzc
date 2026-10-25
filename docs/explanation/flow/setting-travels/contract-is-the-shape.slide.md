@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../azure/.assets/config-path-is-a-coordinate.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-CONTRACT
 ---
 
 # The contract is the published shape of a command; the code follows it
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-Parameters, defaults and promises live in the contract; the reference pages are built from it; a gate reports the drift between contract and code.
+Parameters, defaults and promises live in the contract; the reference pages are built from it; a gate reports the drift between contract and
+code.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: config path is a coordinate.
 
 ## Notes
 
-Check it: the record ADR-REPO-CONTRACT in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/config-path-is-a-coordinate.drawio.png.
+Check it: the record ADR-REPO-CONTRACT in docs/drs/index.md, and the diagram
+docs/explanation/azure/.assets/config-path-is-a-coordinate.drawio.png.

@@ -9,9 +9,6 @@ catzc:
       source: ../../automation/.assets/a-declared-allow-list-of-layers.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST
 ---
 
 # A probe uses the cheapest runner: a file read before a shell, a shell before the importer
@@ -34,4 +31,5 @@ From the catalogue, reduced: a declared allow list of layers.
 
 ## Notes
 
-Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/a-declared-allow-list-of-layers.drawio.png.
+Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/a-declared-allow-list-of-layers.drawio.png.

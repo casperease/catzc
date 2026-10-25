@@ -9,9 +9,6 @@ catzc:
       source: ../../../../docs/drs/azure/.assets/azure-name-assembly.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - ADR-AZ-IACKIND
 ---
 
 # Azure: infrastructure as code comes in three kinds, templates, configs and modules
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: A kind says where a file lives and what reads it; a template is filled by a config slot.
+For the SRE Lead, who owns reliability, monitoring and the switch: A kind says where a file lives and what reads it; a template is filled by
+a config slot.
 
 ## Image
 

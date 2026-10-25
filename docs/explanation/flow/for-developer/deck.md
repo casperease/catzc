@@ -2,8 +2,11 @@
 
 ## Sections
 
-- tdr-onetruth-1: Thirty facts of the research and thesis records, each framed for the Developer, who edits one file, runs one gate, pushes one topic.
+- tdr-onetruth-1: Thirty facts of the research and thesis records, each framed for the Developer, who edits one file, runs one gate, pushes
+  one topic.
 
 ## About
 
-The deck is the visual of the research and thesis records read through one role: the Developer, who edits one file, runs one gate, pushes one topic. Every slide is one fact with the code of the record it rests on, a lead that says what the fact means for that role, and one diagram of the catalogue, reduced, from the seeded pool. The records are read in the [index](../../../drs/index.md).
+The deck is the visual of the research and thesis records read through one role: the Developer, who edits one file, runs one gate, pushes
+one topic. Every slide is one fact with the code of the record it rests on, a lead that says what the fact means for that role, and one
+diagram of the catalogue, reduced, from the seeded pool. The records are read in the [index](../../../drs/index.md).

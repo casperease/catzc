@@ -29,6 +29,10 @@ public sealed class VscodeSettingsConfig : Catzc.Base.Objects.DictionaryRecord
     // hidden-menu state by Set-VsCodeHiddenAction; empty when none are declared.
     public IReadOnlyDictionary<string, string[]> hidden_actions { get; }
 
+    // The map settings another writer adds rows to: map setting key -> the setting key that lists the rows that writer owns. The generator
+    // carries those rows and the owner key through from the settings file on disk, so neither writer overwrites the other; empty by default.
+    public IReadOnlyDictionary<string, string> carried { get; }
+
     public VscodeSettingsConfig(IDictionary raw)
     {
         List<string> errors = new List<string>();
@@ -37,8 +41,22 @@ public sealed class VscodeSettingsConfig : Catzc.Base.Objects.DictionaryRecord
         foreach (object k in raw.Keys)
         {
             string key = k == null ? null : k.ToString();
-            if (key != "settings" && key != "hidden_actions") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: settings, hidden_actions)", key)); }
+            if (key != "settings" && key != "hidden_actions" && key != "carried") { errors.Add(string.Format("unknown top-level key '{0}' (allowed: settings, hidden_actions, carried)", key)); }
         }
+
+        Dictionary<string, string> carry = new Dictionary<string, string>(StringComparer.Ordinal);
+        object carriedValue = raw.Contains("carried") ? raw["carried"] : null;
+        if (carriedValue != null && !(carriedValue is IDictionary)) { errors.Add("'carried' must be a map of setting key -> owner key"); }
+        else if (carriedValue != null)
+        {
+            foreach (DictionaryEntry entry in (IDictionary)carriedValue)
+            {
+                string owner = entry.Value as string;
+                if (string.IsNullOrWhiteSpace(owner)) { errors.Add(string.Format("carried '{0}' must name the setting key that lists its owned rows", entry.Key)); continue; }
+                carry[entry.Key.ToString()] = owner;
+            }
+        }
+        carried = carry;
 
         Dictionary<string, string[]> hidden = new Dictionary<string, string[]>(StringComparer.Ordinal);
         object declared = raw.Contains("hidden_actions") ? raw["hidden_actions"] : null;

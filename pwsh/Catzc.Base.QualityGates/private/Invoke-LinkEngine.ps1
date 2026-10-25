@@ -20,7 +20,10 @@ function Invoke-LinkEngine {
         [Catzc.Base.QualityGates.LinkKind] $Kind,
 
         [Parameter(Mandatory)]
-        [Catzc.Base.QualityGates.LinkWrap] $Wrap
+        [Catzc.Base.QualityGates.LinkWrap] $Wrap,
+
+        # Also collect the relations the walk recognises, for Test-LinkDirections.
+        [switch] $IncludeEdge
     )
 
     $settings = Get-Config -Config links
@@ -46,5 +49,5 @@ function Invoke-LinkEngine {
         $settings.string_citations)
 
     $scope = Get-LinkScope -RepositoryRoot $RepositoryRoot -Path $Path
-    $engine.Run([string[]] $scope, $Kind)
+    $engine.Run([string[]] $scope, $Kind, $IncludeEdge.IsPresent)
 }

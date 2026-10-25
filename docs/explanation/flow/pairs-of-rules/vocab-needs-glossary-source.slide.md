@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/out-from-the-verified-point-back-through-a-topic.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-VOCAB
 ---
 
 # A term means what one rule says because the glossary is generated: ADR-REPO-VOCAB and ADR-REPO-FILEMETA
@@ -33,4 +30,5 @@ From the catalogue, reduced: out from the verified point back through a topic.
 
 ## Notes
 
-Check it: the record ADR-REPO-VOCAB in docs/drs/index.md, and the diagram docs/explanation/design/.assets/out-from-the-verified-point-back-through-a-topic.drawio.png.
+Check it: the record ADR-REPO-VOCAB in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/out-from-the-verified-point-back-through-a-topic.drawio.png.

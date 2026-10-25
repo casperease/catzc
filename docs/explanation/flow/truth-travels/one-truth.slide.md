@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../../../docs/references/pwsh/.assets/test-automation-one-run-pipeline.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - TDR-ONETRUTH
 ---
 
 # The repository is the one source of truth, and delivery is one change process
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-Everything delivery touches is code in the repository. Changing it and delivering it are the same motion: a reviewed commit, integrated into the trunk and delivered by its pipelines.
+Everything delivery touches is code in the repository. Changing it and delivering it are the same motion: a reviewed commit, integrated into
+the trunk and delivered by its pipelines.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: test automation one run pipeline.
 
 ## Notes
 
-Check it: the record TDR-ONETRUTH in docs/drs/index.md, and the diagram docs/references/pwsh/.assets/test-automation-one-run-pipeline.drawio.png.
+Check it: the record TDR-ONETRUTH in docs/drs/index.md, and the diagram
+docs/references/pwsh/.assets/test-automation-one-run-pipeline.drawio.png.

@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/bind-to-one-cli-delegate-the-rest.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - FDR-CD
 ---
 
 # Azure DevOps: environment approvals are one config and one apply command
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: The approver group and the prod-tier environments are declared once; the apply makes the org match.
+For the SRE Lead, who owns reliability, monitoring and the switch: The approver group and the prod-tier environments are declared once; the
+apply makes the org match.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: bind to one cli delegate the rest.
 
 ## Notes
 
-Check it: the record FDR-CD in docs/drs/index.md, and the diagram docs/explanation/design/.assets/bind-to-one-cli-delegate-the-rest.drawio.png.
+Check it: the record FDR-CD in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/bind-to-one-cli-delegate-the-rest.drawio.png.

@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../automation/.assets/hook-compiles-module-verdict-and-limits.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST
 ---
 
 # A hook is compiled, denies a call that breaks the rule, and logs the denial
@@ -33,4 +30,5 @@ From the catalogue, reduced: hook compiles module verdict and limits.
 
 ## Notes
 
-Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/hook-compiles-module-verdict-and-limits.drawio.png.
+Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/hook-compiles-module-verdict-and-limits.drawio.png.

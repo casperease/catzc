@@ -51,10 +51,13 @@ pattern file; the renderer strips HTML comments before it fills a pattern.
 | `table`     | Rows that pair a thing with where it lives, or a prefer-over list.  | `eyebrow`, title, `rows` (a markdown table), `body?`, `notes?`             | rows 6 + header, 3 columns     |
 | `stack`     | Layers that depend only on the one below.                           | `eyebrow`, title, `layers` (lead = the role, text = the members), `notes?` | layers 6 × 12 words            |
 | `closing`   | The last slide: what rests on this, and the sentence to leave with. | `eyebrow`, title, `lead`, `body?`, `notes?`                                | lead 1 × 45, body 1 × 60       |
-| `fact`      | One true, checkable proposition of an x-of-y show, beside a picture of its diagram made by `slide_png.py`: the head's `picture` in mode `reduce`, `zoom` or `redraw` (a named variation), viewed by `tilt` and `rotate`. | `eyebrow`, title, `lead`, `image`, `caption?`, `notes?` | lead 1 × 45, image 640 wide |
+| `fact`      | One checkable proposition of an x-of-y show, beside its diagram.    | `eyebrow`, title, `lead`, `image`, `caption?`, `notes?`                    | lead 1 × 45, image 640 wide    |
 
-Backgrounds: `cover` and `rule` sit on `bg`; `pair`, `tiles`, `table`, `stack` and `fact` on `bg_deep`; `divider`, `statement` and
-`closing` on `bg_raised`. A deck that alternates patterns alternates tones by itself.
+A `fact` slide's picture is made by `slide_png.py`: the head's `picture` in mode `reduce`, `zoom` or `redraw` (a named variation), viewed by
+`tilt` and `rotate`.
+
+Backgrounds: `cover` and `rule` sit on `bg`; `pair`, `tiles`, `table`, `stack` and `fact` on `bg_deep`; `divider`, `statement` and `closing`
+on `bg_raised`. A deck that alternates patterns alternates tones by itself.
 
 ## The slide file
 

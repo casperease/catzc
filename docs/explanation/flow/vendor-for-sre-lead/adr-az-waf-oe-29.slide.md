@@ -9,9 +9,6 @@ catzc:
       source: ../../azure/.assets/a-module-change-fans-out-to-its-templates.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - ADR-AZ-WAF-OE
 ---
 
 # Azure WAF operational excellence: one command per step, one gate per rule, one report per run
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: Every pipeline step names a cats command; every gate writes its report; nothing is clicked.
+For the SRE Lead, who owns reliability, monitoring and the switch: Every pipeline step names a cats command; every gate writes its report;
+nothing is clicked.
 
 ## Image
 
@@ -34,4 +32,5 @@ From the catalogue, reduced: a module change fans out to its templates.
 
 ## Notes
 
-Check it: the record ADR-AZ-WAF-OE in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/a-module-change-fans-out-to-its-templates.drawio.png.
+Check it: the record ADR-AZ-WAF-OE in docs/drs/index.md, and the diagram
+docs/explanation/azure/.assets/a-module-change-fans-out-to-its-templates.drawio.png.

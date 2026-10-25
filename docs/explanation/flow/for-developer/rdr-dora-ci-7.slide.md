@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../configuration/.assets/one-reader-one-cache-per-session.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - RDR-DORA-CI
 ---
 
 # Continuous integration with a five to ten minute budget, enforced as a gate
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: BVT runs on every push to main; a run over its roof is a finding, and the roof is config.
+For the Developer, who edits one file, runs one gate, pushes one topic: BVT runs on every push to main; a run over its roof is a finding,
+and the roof is config.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: one reader one cache per session.
 
 ## Notes
 
-Check it: the record RDR-DORA-CI in docs/drs/index.md, and the diagram docs/explanation/configuration/.assets/one-reader-one-cache-per-session.drawio.png.
+Check it: the record RDR-DORA-CI in docs/drs/index.md, and the diagram
+docs/explanation/configuration/.assets/one-reader-one-cache-per-session.drawio.png.

@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../azure/.assets/a-bad-coordinate-stops-discovery.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - PDR-CONFIG
 ---
 
 # Varying behaviour is configuration, declared once with its default
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-A new instance is a config change, never new code. The default is declared once, on the type, and a resolver reads the caller's value, then the config, then the default.
+A new instance is a config change, never new code. The default is declared once, on the type, and a resolver reads the caller's value, then
+the config, then the default.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: a bad coordinate stops discovery.
 
 ## Notes
 
-Check it: the record PDR-CONFIG in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/a-bad-coordinate-stops-discovery.drawio.png.
+Check it: the record PDR-CONFIG in docs/drs/index.md, and the diagram
+docs/explanation/azure/.assets/a-bad-coordinate-stops-discovery.drawio.png.

@@ -34,8 +34,14 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
     // The pyright mode the type check runs in, in the gate and in the editor alike: pyright's own default.
     public const string DefaultTypeChecking = "standard";
 
+    // Where pytest keeps its cache: generated output, under out/.
+    public const string DefaultPytestCache = "out/pytest-cache";
+
+    // Where Python writes compiled bytecode (PYTHONPYCACHEPREFIX), instead of __pycache__ beside the sources.
+    public const string DefaultPycache = "out/pycache";
+
     private const string Failed = "python config validation failed:\n";
-    private static readonly string[] AllowedKeys = { "root", "dependencies", "type_checking" };
+    private static readonly string[] AllowedKeys = { "root", "dependencies", "type_checking", "pytest_cache", "pycache" };
     private static readonly string[] RequiredDependencies = { "pyright", "pytest", "ruff" };
     private static readonly string[] TypeCheckingModes = { "off", "basic", "standard", "strict" };
     private static readonly Regex Root = new Regex(@"^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$");
@@ -49,6 +55,12 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
 
     // The pyright typeCheckingMode of the gate (Test-PythonTypes) and of Pylance in the editor.
     public string type_checking { get; } = DefaultTypeChecking;
+
+    // The repository-relative folder of pytest's cache, of the test bridge and the editor's test explorer alike.
+    public string pytest_cache { get; } = DefaultPytestCache;
+
+    // The repository-relative folder of Python's bytecode cache, of the test bridge and the editor's terminals alike.
+    public string pycache { get; } = DefaultPycache;
 
     public PythonConfig(IDictionary raw)
     {
@@ -88,6 +100,9 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
                         "invalid type_checking '{0}' (a pyright typeCheckingMode: {1})", value, string.Join(", ", TypeCheckingModes)));
                 }
             }
+
+            pytest_cache = Folder(raw, "pytest_cache", DefaultPytestCache, errors);
+            pycache = Folder(raw, "pycache", DefaultPycache, errors);
 
             if (raw.Contains("dependencies") && raw["dependencies"] != null)
             {
@@ -132,6 +147,18 @@ public sealed class PythonConfig : Catzc.Base.Objects.DictionaryRecord
 
         if (errors.Count > 0) { throw new ArgumentException(Failed + string.Join("\n", errors)); }
         dependencies = requires;
+    }
+
+    // A repository-relative folder key, or its default when the file states none.
+    private static string Folder(IDictionary raw, string key, string fallback, List<string> errors)
+    {
+        if (!raw.Contains(key) || raw[key] == null) { return fallback; }
+        string value = Convert.ToString(raw[key], CultureInfo.InvariantCulture);
+        bool dotSegment = Array.Exists(value.Split('/'), s => s == "." || s == "..");
+        if (raw[key] is string && Root.IsMatch(value) && !dotSegment) { return value; }
+        errors.Add(string.Format(CultureInfo.InvariantCulture,
+            "invalid {0} '{1}' (a repository-relative folder: '/'-separated segments, no leading or trailing slash, no '.' or '..' segment)", key, value));
+        return fallback;
     }
 
     public string ResolveRoot(string repositoryRoot)

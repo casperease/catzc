@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../configuration/.assets/one-reader-one-cache-per-session.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST
 ---
 
 # Pete from IT ran a command without a limit; the hook denied it before Pete finished his coffee
@@ -33,4 +30,5 @@ From the catalogue, reduced: one reader one cache per session.
 
 ## Notes
 
-Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram docs/explanation/configuration/.assets/one-reader-one-cache-per-session.drawio.png.
+Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
+docs/explanation/configuration/.assets/one-reader-one-cache-per-session.drawio.png.

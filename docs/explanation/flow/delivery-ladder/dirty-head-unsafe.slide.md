@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../azure/.assets/add-a-template.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - FDR-CD-LIFE
 ---
 
 # The dirty HEAD is never a source to sync from

@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../../../docs/drs/azure/.assets/azure-name-assembly.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-INSPIRE
 ---
 
 # eac is inspiration, not a reference implementation

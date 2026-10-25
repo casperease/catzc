@@ -2,8 +2,11 @@
 
 ## Sections
 
-- adr-ado-auth-1: Thirty facts of the Azure DevOps, GitHub and Azure records, each framed for the SRE Lead, who owns reliability, monitoring and the switch.
+- adr-ado-auth-1: Thirty facts of the Azure DevOps, GitHub and Azure records, each framed for the SRE Lead, who owns reliability, monitoring
+  and the switch.
 
 ## About
 
-The deck is the visual of the Azure DevOps, GitHub and Azure records read through one role: the SRE Lead, who owns reliability, monitoring and the switch. Every slide is one fact with the code of the record it rests on, a lead that says what the fact means for that role, and one diagram of the catalogue, reduced, from the seeded pool. The records are read in the [index](../../../drs/index.md).
+The deck is the visual of the Azure DevOps, GitHub and Azure records read through one role: the SRE Lead, who owns reliability, monitoring
+and the switch. Every slide is one fact with the code of the record it rests on, a lead that says what the fact means for that role, and one
+diagram of the catalogue, reduced, from the seeded pool. The records are read in the [index](../../../drs/index.md).

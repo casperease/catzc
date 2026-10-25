@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../automation/.assets/three-layers-edges-point-down.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-OUTDIR
 ---
 
 # out/ holds scripts and reports, never a second copy of a render or a rule
@@ -33,4 +30,5 @@ From the catalogue, reduced: three layers edges point down.
 
 ## Notes
 
-Check it: the record ADR-REPO-OUTDIR in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/three-layers-edges-point-down.drawio.png.
+Check it: the record ADR-REPO-OUTDIR in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/three-layers-edges-point-down.drawio.png.

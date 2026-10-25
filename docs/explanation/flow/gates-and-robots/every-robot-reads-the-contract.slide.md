@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../automation/.assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-AI
 ---
 
 # Every robot and every capability reads the AI agent contract first
@@ -33,4 +30,5 @@ From the catalogue, reduced: building the english dictionary writes one stamped 
 
 ## Notes
 
-Check it: the record ADR-REPO-AI in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png.
+Check it: the record ADR-REPO-AI in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png.

@@ -9,9 +9,6 @@ catzc:
       source: ../../flow/.assets/manual-queues-1-where-a-person-stands.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST
 ---
 
 # Sarah from HR found out/time-safeguard.log and now holds one-on-ones with the denied calls
@@ -34,4 +31,5 @@ From the catalogue, reduced: manual queues 1 where a person stands.
 
 ## Notes
 
-Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/manual-queues-1-where-a-person-stands.drawio.png.
+Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/manual-queues-1-where-a-person-stands.drawio.png.

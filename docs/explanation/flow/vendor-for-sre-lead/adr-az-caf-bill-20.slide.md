@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/get-aspect-feeds-globs-and-maps.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AZ-CAF-BILL
 ---
 
 # Azure CAF billing: every environment is a named slot with a known owner and a known cost
@@ -33,4 +30,5 @@ From the catalogue, reduced: get aspect feeds globs and maps.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-BILL in docs/drs/index.md, and the diagram docs/explanation/design/.assets/get-aspect-feeds-globs-and-maps.drawio.png.
+Check it: the record ADR-AZ-CAF-BILL in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/get-aspect-feeds-globs-and-maps.drawio.png.

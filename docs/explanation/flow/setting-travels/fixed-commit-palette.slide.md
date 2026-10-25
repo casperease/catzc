@@ -9,9 +9,6 @@ catzc:
       source: ../../automation/.assets/one-rule-per-stage-and-two-gaps.drawio.png
       scale: 0.4
       rotate: 5
-  edges:
-    cites:
-      - DDR-VISUAL
 ---
 
 # The commit palette is fixed: one colour per state, declared once in the kit
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-bvt, topic, landed, l3, main-uat, release-uat, prod and discarded each have one fill, one rim and one digit ink; a diagram names the state, never a colour.
+bvt, topic, landed, l3, main-uat, release-uat, prod and discarded each have one fill, one rim and one digit ink; a diagram names the state,
+never a colour.
 
 ## Image
 
@@ -34,4 +32,5 @@ From the catalogue, reduced: one rule per stage and two gaps.
 
 ## Notes
 
-Check it: the record DDR-VISUAL in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/one-rule-per-stage-and-two-gaps.drawio.png.
+Check it: the record DDR-VISUAL in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/one-rule-per-stage-and-two-gaps.drawio.png.

@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../automation/.assets/one-rule-per-stage-and-two-gaps.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-PWSH-ONEFUNC
 ---
 
 # Get-Foo.ps1 holds exactly function Get-Foo, and a module is its folder
@@ -33,4 +30,5 @@ From the catalogue, reduced: one rule per stage and two gaps.
 
 ## Notes
 
-Check it: the record ADR-PWSH-ONEFUNC in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/one-rule-per-stage-and-two-gaps.drawio.png.
+Check it: the record ADR-PWSH-ONEFUNC in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/one-rule-per-stage-and-two-gaps.drawio.png.

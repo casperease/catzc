@@ -7,7 +7,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ### synopsis
 
-Keeps one test-result marker per failing test file, out/test-results/<repository path of the test file>.failed.
+Keeps one test-result marker per failing test file, `out/test-results/<repository path of the test file>.failed`.
 
 ### description
 

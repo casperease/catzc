@@ -38,7 +38,7 @@ function New-VsCodeExtensionFolder {
         activationEvents = @($Extension.activationEvents)
     }
     if ($Extension.contributes.Count -gt 0) {
-        $manifest.contributes = Expand-VsCodeCommandState -Contributes (Expand-VsCodeRepeat -Contributes $Extension.contributes)
+        $manifest.contributes = Resolve-LampPaletteShade -InputObject (Expand-VsCodeCommandState -Contributes (Expand-VsCodeRepeat -Contributes $Extension.contributes))
     }
 
     $folder = Join-Path $OutputDirectory $Extension.name
@@ -53,6 +53,67 @@ function New-VsCodeExtensionFolder {
     $media = Join-Path $AssetDirectory $Extension.name
     if (Test-Path -LiteralPath $media -PathType Container) {
         Copy-Item -LiteralPath $media -Destination (Join-Path $folder 'media') -Recurse
+    }
+    $rendered = Join-Path $folder 'media'
+    $bases = @(if (Test-Path -LiteralPath $rendered) {
+            Get-ChildItem -LiteralPath $rendered -Filter '*-on.svg' -File
+        })
+    if ($bases.Count -gt 0) {
+        $palette = (Get-Config -Config lamp-palette).ranges
+        $stroke = '(?<=<svg [^>]*\bstroke=")#[0-9a-fA-F]{6}'
+        # A base glyph whose top-right corner is drawn on declares data-badge="bottom"; its badge then sits bottom-right.
+        $corner = ' data-badge="bottom"'
+        $badges = @{
+            staged   = { param($c, $lit, $low) "  <rect x=`"11.3`" y=`"$(if ($low) { '11' } else { '0.8' })`" width=`"3.8`" height=`"3.8`" rx=`"0.8`" fill=`"$c`" stroke=`"none`"/>`n" }
+            unstaged = { param($c, $lit, $low) "  <rect x=`"11.3`" y=`"$(if ($low) { '11' } else { '0.8' })`" width=`"3.8`" height=`"3.8`" rx=`"0.8`" fill=`"$c`" stroke=`"none`"/>`n" }
+            failed   = {
+                param($c, $lit, $low)
+                $cy = if ($low) {
+                    '12.8'
+                }
+                else {
+                    '2.8'
+                }
+                if ($lit) {
+                    "  <circle cx=`"13.2`" cy=`"$cy`" r=`"2.2`" fill=`"$c`" stroke=`"none`"/>`n"
+                }
+                else {
+                    "  <circle cx=`"13.2`" cy=`"$cy`" r=`"2.2`" fill=`"$c`" stroke=`"none`">`n    <animate attributeName=`"opacity`" values=`"1;0.2;1`" dur=`"0.6s`" repeatCount=`"indefinite`"/>`n  </circle>`n"
+                }
+            }
+            empty    = { param($c, $lit, $low) '' }
+        }
+        foreach ($base in $bases) {
+            $lamp = $base.Name -replace '-on\.svg$', ''
+            $offPath = Join-Path $rendered "$lamp-off.svg"
+            if (-not (Test-Path -LiteralPath $offPath)) {
+                continue
+            }
+            $glyphs = @{ on = [System.IO.File]::ReadAllText($base.FullName); off = [System.IO.File]::ReadAllText($offPath) }
+            foreach ($state in 'on', 'off') {
+                $lit = $state -eq 'on'
+                $shade = if ($lit) {
+                    'glyph_lit'
+                }
+                else {
+                    'glyph_unlit'
+                }
+                $low = $glyphs[$state].Contains($corner)
+                $glyph = $glyphs[$state].Replace($corner, '')
+                [System.IO.File]::WriteAllText((Join-Path $rendered "$lamp-$state.svg"), ($glyph -replace $stroke, $palette['committed'].$shade), $utf8)
+                foreach ($condition in 'staged', 'unstaged', 'failed', 'empty') {
+                    $range = $palette[$condition]
+                    $svg = ($glyph -replace $stroke, $range.$shade) -replace '</svg>\s*$', ((& $badges[$condition] $range.badge $lit $low) + '</svg>')
+                    [System.IO.File]::WriteAllText((Join-Path $rendered "$lamp-$state-$condition.svg"), $svg.TrimEnd() + "`n", $utf8)
+                }
+            }
+            $veto = $glyphs['off'].Replace($corner, '') -replace $stroke, $palette['veto'].glyph_lit
+            $veto = $veto -replace 'stroke-width="1" stroke-dasharray="3 2.2"', 'stroke-width="1.4" stroke-dasharray="2 1.4"'
+            $veto = $veto -replace 'to="360 8 8" dur="2s"', 'to="-360 8 8" dur="0.8s"'
+            $veto = $veto -replace '(?m)^\s*<animate attributeName="opacity"[^>]*/>\r?\n', ''
+            $veto = $veto -replace '</svg>\s*$', "  <line x1=`"2.8`" y1=`"13.2`" x2=`"13.2`" y2=`"2.8`" stroke-width=`"1.8`"/>`n</svg>"
+            [System.IO.File]::WriteAllText((Join-Path $rendered "$lamp-veto.svg"), $veto.TrimEnd() + "`n", $utf8)
+        }
     }
     (Resolve-Path -LiteralPath $folder).Path
 }

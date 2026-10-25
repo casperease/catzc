@@ -9,9 +9,6 @@ catzc:
       source: ../../automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - RDR-DORA-TRUNK
 ---
 
 # Trunk-based development: one main, short-lived topics, one squashed commit each
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: A topic rebases onto the sync point and lands as one commit; main is a readable list of small changes.
+For the Developer, who edits one file, runs one gate, pushes one topic: A topic rebases onto the sync point and lands as one commit; main is
+a readable list of small changes.
 
 ## Image
 
@@ -34,4 +32,5 @@ From the catalogue, reduced: reading an accosted file writes nothing.
 
 ## Notes
 
-Check it: the record RDR-DORA-TRUNK in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png.
+Check it: the record RDR-DORA-TRUNK in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png.

@@ -9,9 +9,6 @@ catzc:
       source: ../../../../docs/drs/flow/.assets/sync-point.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
-  edges:
-    cites:
-      - PDR-POKAYOKE
 ---
 
 # A mistake is caught at the earliest point where it can be detected

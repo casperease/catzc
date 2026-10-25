@@ -111,7 +111,7 @@ function Get-ModuleGlobSet {
         $derived[$internalName] = $set
     }
 
-    # The reserved code scopes are units too (DDR-ASPECT-ASPECTISAGLOBSET): their root .psm1 files are the code they run, live beside the
+    # The reserved code scopes are units too ([DDR-ASPECT-ASPECTISAGLOBSET](/docs/drs/design/module-aspects.md#rule-ddr-aspect-aspectisaglobset)): their root .psm1 files are the code they run, live beside the
     # code convention, and the rest falls to tests. A single-file module keeps its own set, so the scope's sets leave its file out.
     $scopeAspects = [System.Collections.Generic.List[Catzc.Base.Globs.Aspect]]::new()
     foreach ($aspect in $aspectList) {

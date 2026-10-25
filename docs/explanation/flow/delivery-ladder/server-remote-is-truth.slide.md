@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../automation/.assets/undeclared-edge-fails-with-one-line.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - DDR-REMOTE
 ---
 
 # The server remote is the single source of truth; every clone is a bridge
@@ -33,4 +30,5 @@ From the catalogue, reduced: undeclared edge fails with one line.
 
 ## Notes
 
-Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/undeclared-edge-fails-with-one-line.drawio.png.
+Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/undeclared-edge-fails-with-one-line.drawio.png.

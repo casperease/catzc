@@ -9,9 +9,6 @@ catzc:
       source: ../../azure/.assets/add-a-template.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST
 ---
 
 # A time limit comes from timeouts.yml or a command's TimeLimit, never from a workaround

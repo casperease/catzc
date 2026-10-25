@@ -9,9 +9,6 @@ catzc:
       source: ../../flow/.assets/a-merge-runs-cd-to-prod.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - FDR-CD-QUEUE
 ---
 
 # Azure DevOps: the pull request is the ingress engine, and a bypass is an authorized recorded merge
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: Both doors merge the server's own topic HEAD; branch policy is registered from code.
+For the SRE Lead, who owns reliability, monitoring and the switch: Both doors merge the server's own topic HEAD; branch policy is registered
+from code.
 
 ## Image
 

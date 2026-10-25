@@ -9,9 +9,6 @@ catzc:
       source: ../../../../docs/drs/flow/.assets/sync-point.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
-  edges:
-    cites:
-      - ADR-ADO-TEMPLATE
 ---
 
 # Azure DevOps: a pipeline step only names a cats command; the template runs it
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: The runner pattern keeps every pipeline a list of commands the same automation runs locally.
+For the SRE Lead, who owns reliability, monitoring and the switch: The runner pattern keeps every pipeline a list of commands the same
+automation runs locally.
 
 ## Image
 

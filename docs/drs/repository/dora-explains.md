@@ -18,6 +18,7 @@ catzc:
       - ADR-REPO-INSPIRE
       - ADR-REPO-LANG
       - ADR-REPO-LINK
+      - ADR-REPO-LINKS
       - ADR-REPO-OUTDIR
       - ADR-REPO-OUTFMT
       - ADR-REPO-PLANS
@@ -28,7 +29,7 @@ catzc:
       - ADR-REPO-SLIDES
       - ADR-REPO-VARIANT
       - ADR-REPO-VOCAB
-    drs_total: 25
+    drs_total: 26
 ---
 
 # DORA explanations — repository
@@ -260,6 +261,23 @@ live in the ADRs themselves; this file carries only their DORA rationale.
   resolves, so the documentation a reader follows is the documentation that exists.
 - [Code maintainability](../../references/dora/capabilities.md#code-maintainability) — a comment that links the rule it implements lets
   anyone changing the code find the reason for it in one step.
+- [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
+
+## Links in repository
+
+`Links in repository — every link points a declared way`
+
+[ADR-REPO-LINKS](links-in-repository.md)
+
+> DORA finds that a loosely coupled architecture lets a team change its part without coordinating with every other; a link is a coupling
+> too, and one that points the wrong way — a decision linking the code that implements it — makes durable rationale churn with the code.
+> Declaring which way each kind of file may point, and checking every link against it, keeps those couplings in the one direction the design
+> intends.
+
+- [Loosely coupled teams](../../references/dora/capabilities.md#loosely-coupled-teams) — links run from the changing parts to the stable
+  ones, so a change to code never forces an edit to the decision it implements.
+- [Documentation quality](../../references/dora/capabilities.md#documentation-quality) — a reader following a link lands on the kind of
+  document the rows promise, never on a churning implementation.
 - [DORA research reference](../../references/dora/index.md) — the overview these findings sit within.
 
 ## DRS code language

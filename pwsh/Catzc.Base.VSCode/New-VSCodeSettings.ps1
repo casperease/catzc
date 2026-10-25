@@ -25,7 +25,10 @@ function New-VsCodeSettings {
         # The repository's filters, name to the include/exclude sets each claims by, in lamp order (Get-RepositoryFilter).
         [System.Collections.IDictionary] $Filter = @{},
 
-        [System.Collections.IDictionary] $LanguageExtension = @{}
+        [System.Collections.IDictionary] $LanguageExtension = @{},
+
+        # The settings file on disk, read for the rows another writer owns (the carried settings of vscode-settings.yml).
+        [string] $CurrentPath = (Join-Path (Get-RepositoryRoot) '.vscode/settings.json')
     )
 
     $config = Get-Config -Config vscode-settings
@@ -69,8 +72,6 @@ function New-VsCodeSettings {
     }
     $settings['search.exclude'] = $exclude
 
-    # The lamps read what they hide from the settings, so the extension needs neither a config nor a session: each filter's include/exclude
-    # sets, in lamp order, and each language's extensions.
     if ($Filter.Count -gt 0) {
         $filters = [ordered]@{}
         foreach ($name in $Filter.Keys) {
@@ -86,5 +87,39 @@ function New-VsCodeSettings {
         $settings['catzc.trackLamps.languages'] = $languages
     }
 
-    (ConvertTo-Json -InputObject $settings -Depth 12) + "`n"
+    # A carried map keeps the rows another writer added (the lamps' files.exclude), as listed under that writer's owner key on disk; a row
+    # the registry authors stays the registry's.
+    if ($config.carried.Count -gt 0 -and (Test-Path -LiteralPath $CurrentPath)) {
+        $text = (Get-Content -LiteralPath $CurrentPath -Raw) -replace '(?m)^\s*//.*$', ''
+        $current = if ([string]::IsNullOrWhiteSpace($text)) { @{} } else { ConvertFrom-Json -InputObject $text -AsHashtable }
+        foreach ($key in $config.carried.Keys) {
+            $owner = $config.carried[$key]
+            $owned = @(if ($current.ContainsKey($owner)) { $current[$owner] })
+            if ($owned.Count -eq 0) {
+                continue
+            }
+            $merged = [ordered]@{}
+            if ($settings.Contains($key)) {
+                foreach ($row in $settings[$key].Keys) {
+                    $merged[$row] = $settings[$key][$row]
+                }
+            }
+            $rows = if ($current.ContainsKey($key)) { $current[$key] } else { @{} }
+            foreach ($row in $owned) {
+                if (-not $merged.Contains($row) -and $rows.ContainsKey($row)) {
+                    $merged[$row] = $rows[$row]
+                }
+            }
+            $settings[$key] = $merged
+            $settings[$owner] = $owned
+        }
+    }
+
+    $json = ConvertTo-Json -InputObject (Resolve-LampPaletteShade -InputObject $settings) -Depth 12
+    # A {python.<key>} token names a folder of the python config, read only when a value names one.
+    if ($json.Contains('{python.')) {
+        $python = Get-Config -Config python
+        $json = [regex]::Replace($json, '\{python\.([a-z_]+)\}', { param($m) $python.($m.Groups[1].Value) })
+    }
+    $json + "`n"
 }

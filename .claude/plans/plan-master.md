@@ -11,8 +11,7 @@ catzc:
     cites:
       - ADR-REPO-FOLDERS-STABLEFILENAMES
       - ADR-REPO-PLANS-MASTERANDTASKS
-      - DDR-FILTER-STATEALWAYSSHOWN
-    drs_total: 3
+    drs_total: 2
 ---
 
 # Master: every open step of every plan, in one executable order
@@ -54,10 +53,7 @@ Open, in execution order. A chunk without a task file is executed from its plan'
 of 2026-10-21 are decided (the second round of that day) and folded into their plans.
 
 - repo-filters -> plan-repo-filters.md: the filters landed (sets from the model, union of lit lamps, coverage asserted, docs and out lamps);
-  three steps left: the red-wins rule written into DDR-FILTER-STATEALWAYSSHOWN (landed in the extension), the user's look at the lamps in VS
-  Code (the `pipelines` and `infrastructure` lamps landed), the files.exclude roof test
-- lamp-palette -> plan-lamp-palette.md: one declared colour range per meaning (committed, local work in progress blue-grey, failed, empty),
-  the lamp icons generated from the base glyphs and the Explorer colours read from it; three steps, after the veto state lands
+  one step left: the user's look at the lamps in VS Code (the `pipelines` and `infrastructure` lamps landed)
 - track-model -> plan-track-model.md: tracks as members with generated and committed facts, catch-up vendor tracks and `out` for the root,
   globsets derived from tracks, a DDR-VENDOR for the vendor umbrella, normal-form track names, filter lamps per aspect plus a language
   field, minimaps and lamps out of the ADRs; eighteen steps, the first waiting on the user's example names
@@ -81,7 +77,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - nuget-tooling -> plan-nuget-tooling.md: NuGet belongs to the tooling modules and no dotnet call contacts a package manager outside them;
   design first, then one burst
 - debt-full-run-failures -> plan-debt-full-run-failures.md: the last full run's failing files rerun one at a time, since a red test blocks
-  the user's full run; three steps (the cache move's shared-config checks, the cache locations declared once)
+  the user's full run; one step (the rename)
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue; two steps
 - bcl-path-sets -> plan-bcl-path-sets.md: Every hand-built path set, folder scan and module-base lookup in a non-internal module moves into
   a BCL helper on the type that owns it; pass-through functions go.

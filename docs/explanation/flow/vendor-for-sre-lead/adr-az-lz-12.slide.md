@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../flow/.assets/edit-globs-yml-then-read-the-output.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AZ-LZ
 ---
 
 # Azure: the landing zone is declared, not clicked
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: Subscriptions, resource groups and policies are code that climbs the same ladder.
+For the SRE Lead, who owns reliability, monitoring and the switch: Subscriptions, resource groups and policies are code that climbs the same
+ladder.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: edit globs yml then read the output.
 
 ## Notes
 
-Check it: the record ADR-AZ-LZ in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/edit-globs-yml-then-read-the-output.drawio.png.
+Check it: the record ADR-AZ-LZ in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/edit-globs-yml-then-read-the-output.drawio.png.

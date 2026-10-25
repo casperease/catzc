@@ -9,9 +9,6 @@ catzc:
       source: ../../.assets/glyphs.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - DDR-TRACK
 ---
 
 # A track says what a file is only while its name stays put: DDR-TRACK and ADR-REPO-FOLDERS

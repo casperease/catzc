@@ -9,9 +9,6 @@ catzc:
       source: ../../design/.assets/deploying-is-not-integrating.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
-  edges:
-    cites:
-      - PDR-ONELIVE
 ---
 
 # One living version: no V2, no legacy folder, no commented-out block
@@ -34,4 +31,5 @@ From the catalogue, reduced: deploying is not integrating.
 
 ## Notes
 
-Check it: the record PDR-ONELIVE in docs/drs/index.md, and the diagram docs/explanation/design/.assets/deploying-is-not-integrating.drawio.png.
+Check it: the record PDR-ONELIVE in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/deploying-is-not-integrating.drawio.png.

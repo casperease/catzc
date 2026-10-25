@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../azure/.assets/coordinate-resolved-file-by-file-at-discovery.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-SLIDES
 ---
 
 # Every claim on a slide is checkable, and Test-Slides checks these twelve
@@ -33,4 +30,5 @@ From the catalogue, reduced: coordinate resolved file by file at discovery.
 
 ## Notes
 
-Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/coordinate-resolved-file-by-file-at-discovery.drawio.png.
+Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram
+docs/explanation/azure/.assets/coordinate-resolved-file-by-file-at-discovery.drawio.png.

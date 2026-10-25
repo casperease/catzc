@@ -66,6 +66,12 @@ committed is green, local work in progress is the blue-grey range (staged dark, 
 editor's own git colours follow the same mapping, so a lamp and the files it claims never disagree. A reader never has to guess why a file
 is missing or where the work is.
 
+Red always wins. A file's Error is remembered with the time it was first seen, and lapses only when the file reports a non-error set, is
+edited or saved, or changes on disk after that time; a closed tab and a quiet language server never release it. A remembered Error and a
+failed test marker are published again as the engine's own diagnostics, marked as remembered, because the editor's problem decorations are
+the only ones heavier than the git colours and the only ones that colour every folder above the file; the problems list and the error count
+show them too.
+
 - [Consequences](#consequences)
 
 ### Rule DDR-FILTER-ENGINEADAPTSSOURCES
@@ -115,9 +121,13 @@ pipelines.
   is hidden (every lamp claiming it is out).
 - The coverage check makes a stale or incomplete declaration visible at once: a file outside every filter is a finding, not a gap in the
   tree.
-- A failure or a change is visible on its lamp whether the lamp is lit or not, and lapses by itself: a fixed file drops its diagnostic, an
-  edit after a failing run outdates its marker, a commit clears the brown.
+- A failure or a change is visible on its lamp whether the lamp is lit or not, and lapses by itself: a fixed, edited or changed file drops
+  its remembered Error, an edit after a failing run outdates its marker, a commit clears the blue-grey.
 - Every engine answers the shared vectors, so a working view is reproducible: the same filters and switches give the same files in the
   editor, in a listing command and in a review.
+- An editor engine owns the `files.exclude` rows it adds and lists them in the settings beside them, and the settings generator carries
+  those rows through, so a regenerated settings file keeps the working view and its check judges only the generated part.
+- An engine writes as few `files.exclude` entries as the shown files allow, because the editor passes them to its search and watcher
+  processes.
 - Filters never feed a pipeline, an identity or a bundle; those rest on tracks and aspects alone, so a view can change freely without
   re-keying anything.

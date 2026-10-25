@@ -32,7 +32,8 @@ function Invoke-PythonTest {
     )
 
     $root = Get-RepositoryRoot
-    $pythonRelative = (Get-Config -Config python).ResolveRoot($root)
+    $python = Get-Config -Config python
+    $pythonRelative = $python.ResolveRoot($root)
     $pythonRoot = Join-Path $root $pythonRelative
     # The test folder: the one named, a module's own tests/ or the holder's, else the module's folder under the holder's tests/ in python's folder case.
     $relative = if ($Folder) {
@@ -81,11 +82,11 @@ function Invoke-PythonTest {
 
     $report = Join-Path ([System.IO.Path]::GetTempPath()) "catzc-pytest-$([guid]::NewGuid().ToString('N')).xml"
 
-    $cacheDir = Join-Path $root 'out/pytest-cache'
+    $cacheDir = Join-Path $root $python.pytest_cache
 
     $environment = Get-EngineContract -Engine $Engine -EngineExecutable $EngineExecutable -EntryScript $EntryScript
     $environment['UV_PYTHON_DOWNLOADS'] = 'never'
-    $environment['PYTHONPYCACHEPREFIX'] = Join-Path $root 'out/pycache'
+    $environment['PYTHONPYCACHEPREFIX'] = Join-Path $root $python.pycache
     $saved = @{}
     foreach ($name in $environment.Keys) {
         $saved[$name] = [System.Environment]::GetEnvironmentVariable($name)

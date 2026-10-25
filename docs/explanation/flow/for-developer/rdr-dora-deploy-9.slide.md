@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/get-aspect-feeds-globs-and-maps.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - RDR-DORA-DEPLOY
 ---
 
 # Deployment automation: one artifact built once climbs every rung by pipeline
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: CD rolls the same tagged artifact onto each environment; the slot switch is automated and monitored.
+For the Developer, who edits one file, runs one gate, pushes one topic: CD rolls the same tagged artifact onto each environment; the slot
+switch is automated and monitored.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: get aspect feeds globs and maps.
 
 ## Notes
 
-Check it: the record RDR-DORA-DEPLOY in docs/drs/index.md, and the diagram docs/explanation/design/.assets/get-aspect-feeds-globs-and-maps.drawio.png.
+Check it: the record RDR-DORA-DEPLOY in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/get-aspect-feeds-globs-and-maps.drawio.png.

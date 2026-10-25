@@ -399,6 +399,8 @@ keys, so the policy leaves it as authored; a capability keeps the authored `conf
 - **`Test-FileKindReachability.Tests.ps1`** (`Catzc.Base.Globs`) fails a kind no tracked file reaches, and a kind mostly shadowed by an
   earlier one that the registry's `overlaps` does not pair it with (ADR-REPO-FILEMETA-ROLE).
 - **`Test-ModuleDependency`** keeps the layers apart ([ADR-AUTO-DEPM](../automation/controlling-module-dependencies.md)).
+- **`Test-LinkDirections`** fails a link that points the wrong way (ADR-REPO-FILEMETA-FEWLINKS): a comment page outside the file's own docs
+  section, or a module that links another by file path instead of naming it ([links-in-repository](links-in-repository.md)).
 
 ## Consequences
 

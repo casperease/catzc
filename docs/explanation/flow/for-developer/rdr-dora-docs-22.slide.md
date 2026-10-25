@@ -9,9 +9,6 @@ catzc:
       source: ../../flow/.assets/the-analyzer-names-the-raw-read.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - RDR-DORA-DOCS
 ---
 
 # Documentation quality: records in present tense, generated heads, checkable claims
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: A record never records history; a slide's claims are checked against the index and the render.
+For the Developer, who edits one file, runs one gate, pushes one topic: A record never records history; a slide's claims are checked against
+the index and the render.
 
 ## Image
 
@@ -34,4 +32,5 @@ From the catalogue, reduced: the analyzer names the raw read.
 
 ## Notes
 
-Check it: the record RDR-DORA-DOCS in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/the-analyzer-names-the-raw-read.drawio.png.
+Check it: the record RDR-DORA-DOCS in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/the-analyzer-names-the-raw-read.drawio.png.

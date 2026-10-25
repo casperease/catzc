@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/guard-and-policies-by-command.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - FDR-CD
 ---
 
 # Approvals live in the engine's checks; cats ships the tooling and names no approver
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-One config declares the approver group and the environments; one command applies it to Azure DevOps; a team runs it against its own organization.
+One config declares the approver group and the environments; one command applies it to Azure DevOps; a team runs it against its own
+organization.
 
 ## Image
 

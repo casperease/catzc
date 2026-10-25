@@ -9,9 +9,6 @@ catzc:
       source: ../../design/.assets/units-not-tracks-own-the-pipelines.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
-  edges:
-    cites:
-      - ADR-REPO-PLANS
 ---
 
 # What is not done today is one open step in a plan, with its check
@@ -34,4 +31,5 @@ From the catalogue, reduced: units not tracks own the pipelines.
 
 ## Notes
 
-Check it: the record ADR-REPO-PLANS in docs/drs/index.md, and the diagram docs/explanation/design/.assets/units-not-tracks-own-the-pipelines.drawio.png.
+Check it: the record ADR-REPO-PLANS in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/units-not-tracks-own-the-pipelines.drawio.png.

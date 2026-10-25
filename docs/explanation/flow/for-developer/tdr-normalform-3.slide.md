@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../flow/.assets/gates-check-source-and-trigger.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - TDR-NORMALFORM
 ---
 
 # Every unit is held in one normal form, so a change is one edit in one place
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: A fact stated twice drifts; the normal form keeps each fact at its one source and derives the rest.
+For the Developer, who edits one file, runs one gate, pushes one topic: A fact stated twice drifts; the normal form keeps each fact at its
+one source and derives the rest.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: gates check source and trigger.
 
 ## Notes
 
-Check it: the record TDR-NORMALFORM in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/gates-check-source-and-trigger.drawio.png.
+Check it: the record TDR-NORMALFORM in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/gates-check-source-and-trigger.drawio.png.

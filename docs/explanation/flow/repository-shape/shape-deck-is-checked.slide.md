@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../automation/.assets/two-forms-never-a-third.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-SLIDES
 ---
 
 # Every claim on a slide is checkable, and Test-Slides checks these fourteen
@@ -33,4 +30,5 @@ From the catalogue, reduced: two forms never a third.
 
 ## Notes
 
-Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/two-forms-never-a-third.drawio.png.
+Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/two-forms-never-a-third.drawio.png.

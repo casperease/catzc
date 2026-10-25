@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../../../docs/drs/flow/.assets/commit-promotion-states.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-PWSH-ONEFUNC
 ---
 
 # A module is a folder, and public or private is decided by location
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-A .ps1 at the module root is exported; one in private/ is loaded but not exported. The loader is one shared file every module is dot-sourced by.
+A .ps1 at the module root is exported; one in private/ is loaded but not exported. The loader is one shared file every module is dot-sourced
+by.
 
 ## Image
 

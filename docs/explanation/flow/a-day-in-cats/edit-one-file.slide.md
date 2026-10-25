@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/sync-from-the-bvt-verified-head.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-AI
 ---
 
 # A change is one file at a time, verified before the next
@@ -33,4 +30,5 @@ From the catalogue, reduced: sync from the bvt verified head.
 
 ## Notes
 
-Check it: the record ADR-REPO-AI in docs/drs/index.md, and the diagram docs/explanation/design/.assets/sync-from-the-bvt-verified-head.drawio.png.
+Check it: the record ADR-REPO-AI in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/sync-from-the-bvt-verified-head.drawio.png.

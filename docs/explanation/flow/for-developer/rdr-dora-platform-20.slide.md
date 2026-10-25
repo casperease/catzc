@@ -9,9 +9,6 @@ catzc:
       source: ../../automation/.assets/two-entries-feed-one-importer.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
-  edges:
-    cites:
-      - RDR-DORA-PLATFORM
 ---
 
 # Platform engineering: cats ships the tooling, and each team runs it against its own organization
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: Approvals, policies and pipelines are config plus one apply command; no approver is hardcoded.
+For the Developer, who edits one file, runs one gate, pushes one topic: Approvals, policies and pipelines are config plus one apply command;
+no approver is hardcoded.
 
 ## Image
 
@@ -34,4 +32,5 @@ From the catalogue, reduced: two entries feed one importer.
 
 ## Notes
 
-Check it: the record RDR-DORA-PLATFORM in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/two-entries-feed-one-importer.drawio.png.
+Check it: the record RDR-DORA-PLATFORM in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/two-entries-feed-one-importer.drawio.png.

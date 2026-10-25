@@ -9,9 +9,6 @@ catzc:
       source: ../../flow/.assets/one-gate-checks-the-raw-read-rule.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - ADR-AZ-CAF-RESORG
 ---
 
 # Azure CAF resource organization: subscriptions, groups and slots follow the data model
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: One file per subscription; a slot is inside its subscription, never beside it.
+For the SRE Lead, who owns reliability, monitoring and the switch: One file per subscription; a slot is inside its subscription, never
+beside it.
 
 ## Image
 
@@ -34,4 +32,5 @@ From the catalogue, reduced: one gate checks the raw read rule.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-RESORG in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/one-gate-checks-the-raw-read-rule.drawio.png.
+Check it: the record ADR-AZ-CAF-RESORG in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/one-gate-checks-the-raw-read-rule.drawio.png.

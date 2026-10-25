@@ -60,6 +60,12 @@ Say it plainly.
         $body.IsList | Should -BeFalse
     }
 
+    It 'joins a wrapped paragraph into one item, as a formatter wraps a long line' {
+        $wrapped = [Catzc.Base.Slides.SlideSource]::Parse("# T`n`n## Lead`n`nThe widget spins when`nits gadget is wound.`n`nA second paragraph.")
+        $wrapped.Fields['lead'].Items.Count | Should -Be 2
+        $wrapped.Fields['lead'].Items[0].Text | Should -Be 'The widget spins when its gadget is wound.'
+    }
+
     It 'reads a list item with a bold lead as lead and text' {
         $cards = $source.Fields['cards']
         $cards.IsList | Should -BeTrue

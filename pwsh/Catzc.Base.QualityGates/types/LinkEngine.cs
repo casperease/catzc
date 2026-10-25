@@ -70,13 +70,15 @@ public sealed class LinkEngine
         this.wrap = wrap;
         this.lineLimits = new Dictionary<string, int>(lineLimits ?? new Dictionary<string, int>(), StringComparer.OrdinalIgnoreCase);
         this.defaultLineLimit = defaultLineLimit;
-        rewriter = new CodeLinkRewriter(map, adrs, AnchorsOf);
+        rewriter = new CodeLinkRewriter(root, map, adrs, AnchorsOf);
         scanner = new MarkdownLinkScanner(root, codeForm, AnchorsOf, selfUrlPrefix, trackedFiles);
     }
 
-    public LinkEngineResult Run(IEnumerable<string> files, LinkKind kind)
+    // collectEdges asks the walk for the relations it recognises as well (ADR-REPO-LINKS-CHECKEDBYONEGATE).
+    public LinkEngineResult Run(IEnumerable<string> files, LinkKind kind, bool collectEdges)
     {
         var findings = new ConcurrentBag<LinkFinding>();
+        var allEdges = new ConcurrentBag<LinkEdge>();
         var changed = new ConcurrentDictionary<string, string>(StringComparer.Ordinal);
         string[] list = (files ?? Enumerable.Empty<string>()).Select(f => f.Replace('\\', '/')).Distinct(StringComparer.Ordinal).ToArray();
 
@@ -94,13 +96,19 @@ public sealed class LinkEngine
             if (!File.Exists(full)) { return; }
             string text = File.ReadAllText(full);
             var hits = new List<CodeLinkRewriter.Hit>();
-            string aligned = isMarkdown ? scanner.Scan(text, file, hits) : AlignCode(text, file, extension, hits);
+            List<CodeLinkRewriter.EdgeHit> edges = collectEdges ? new List<CodeLinkRewriter.EdgeHit>() : null;
+            string aligned = isMarkdown ? scanner.Scan(text, file, hits, edges) : AlignCode(text, file, extension, hits, edges);
 
             int[] lineStarts = LineStarts(text);
             foreach (CodeLinkRewriter.Hit hit in hits)
             {
                 (int line, int column) = Position(lineStarts, hit.Offset);
                 findings.Add(new LinkFinding(file, line, column, isMarkdown ? LinkKind.Markdown : LinkKind.Code, hit.Type, hit.Message, hit.Fix));
+            }
+            foreach (CodeLinkRewriter.EdgeHit edge in edges ?? new List<CodeLinkRewriter.EdgeHit>())
+            {
+                (int line, int column) = Position(lineStarts, edge.Offset);
+                allEdges.Add(new LinkEdge(file, line, column, edge.Relation, edge.Target, edge.Code));
             }
             if (!string.Equals(aligned, text, StringComparison.Ordinal))
             {
@@ -111,10 +119,13 @@ public sealed class LinkEngine
         List<LinkFinding> ordered = findings
             .OrderBy(f => f.File, StringComparer.Ordinal).ThenBy(f => f.Line).ThenBy(f => f.Column).ThenBy(f => f.Type)
             .ToList();
-        return new LinkEngineResult(ordered, new Dictionary<string, string>(changed, StringComparer.Ordinal), list.Length);
+        List<LinkEdge> orderedEdges = allEdges
+            .OrderBy(e => e.File, StringComparer.Ordinal).ThenBy(e => e.Line).ThenBy(e => e.Column).ThenBy(e => e.Relation)
+            .ToList();
+        return new LinkEngineResult(ordered, new Dictionary<string, string>(changed, StringComparer.Ordinal), list.Length, orderedEdges);
     }
 
-    string AlignCode(string text, string file, string extension, List<CodeLinkRewriter.Hit> hits)
+    string AlignCode(string text, string file, string extension, List<CodeLinkRewriter.Hit> hits, List<CodeLinkRewriter.EdgeHit> edges)
     {
         // A test is a .Tests.ps1 file or any file in a tests folder, its fixture helpers included.
         bool isTestFile = file.EndsWith(".Tests.ps1", StringComparison.OrdinalIgnoreCase)
@@ -137,7 +148,7 @@ public sealed class LinkEngine
             }
         }
 
-        CheckHeadDocsEdge(text, file, hits);
+        CheckHeadDocsEdge(text, file, hits, edges);
 
         // A string citation's fix replaces one character with one, so every offset below holds for the fixed text.
         text = AlignStringCitations(text, file, extension, hits);
@@ -178,7 +189,8 @@ public sealed class LinkEngine
             }
 
             var local = new List<CodeLinkRewriter.Hit>();
-            string rewritten = rewriter.Rewrite(logical, isTestFile, local, new List<string>());
+            List<CodeLinkRewriter.EdgeHit> localEdges = edges == null ? null : new List<CodeLinkRewriter.EdgeHit>();
+            string rewritten = rewriter.Rewrite(logical, file, isTestFile, local, new List<string>(), localEdges);
 
             if (continuations > 0 && !InsertedLink.IsMatch(rewritten))
             {
@@ -186,11 +198,16 @@ public sealed class LinkEngine
                 logical = comment;
                 end = start + length;
                 local.Clear();
-                rewritten = rewriter.Rewrite(logical, isTestFile, local, new List<string>());
+                localEdges?.Clear();
+                rewritten = rewriter.Rewrite(logical, file, isTestFile, local, new List<string>(), localEdges);
             }
             foreach (CodeLinkRewriter.Hit hit in local)
             {
                 hits.Add(new CodeLinkRewriter.Hit(start + Math.Min(hit.Offset, length), hit.Type, hit.Message, hit.Fix));
+            }
+            foreach (CodeLinkRewriter.EdgeHit edge in localEdges ?? new List<CodeLinkRewriter.EdgeHit>())
+            {
+                edges.Add(new CodeLinkRewriter.EdgeHit(start + Math.Min(edge.Offset, length), edge.Relation, edge.Target, edge.Code));
             }
             bool rewrote = !string.Equals(rewritten, logical, StringComparison.Ordinal);
 
@@ -221,7 +238,7 @@ public sealed class LinkEngine
     }
 
     // The head's docs edge opens the comment page from the file's own folder, as GitHub and an editor resolve it, so it is checked from there.
-    void CheckHeadDocsEdge(string text, string file, List<CodeLinkRewriter.Hit> hits)
+    void CheckHeadDocsEdge(string text, string file, List<CodeLinkRewriter.Hit> hits, List<CodeLinkRewriter.EdgeHit> edges)
     {
         MatchCollection fences = HeadFence.Matches(text);
         if (fences.Count < 2 || text.Substring(0, fences[0].Index).Split('\n').Length > 3) { return; }
@@ -229,7 +246,13 @@ public sealed class LinkEngine
         if (!edge.Success || edge.Index > fences[1].Index) { return; }
         string target = edge.Groups["target"].Value;
         string folder = Path.GetDirectoryName(Path.Combine(root, file));
-        if (File.Exists(Path.GetFullPath(Path.Combine(folder, target)))) { return; }
+        string full = Path.GetFullPath(Path.Combine(folder, target));
+        if (File.Exists(full))
+        {
+            edges?.Add(new CodeLinkRewriter.EdgeHit(edge.Groups["target"].Index, LinkRelation.DocsEdge,
+                Path.GetRelativePath(root, full).Replace('\\', '/'), string.Empty));
+            return;
+        }
         hits.Add(new CodeLinkRewriter.Hit(edge.Groups["target"].Index, LinkFindingType.Dangling,
             "the head's docs edge '" + target + "' does not resolve from the file's folder (run Format-FileMeta)", string.Empty));
     }

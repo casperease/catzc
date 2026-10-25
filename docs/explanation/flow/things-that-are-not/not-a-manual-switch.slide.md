@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../flow/.assets/gates-check-source-and-trigger.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - FDR-CD-QUEUE
 ---
 
 # The slot switch is not a queue: no person approves, triggers or checks it
@@ -33,4 +30,5 @@ From the catalogue, reduced: gates check source and trigger.
 
 ## Notes
 
-Check it: the record FDR-CD-QUEUE in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/gates-check-source-and-trigger.drawio.png.
+Check it: the record FDR-CD-QUEUE in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/gates-check-source-and-trigger.drawio.png.

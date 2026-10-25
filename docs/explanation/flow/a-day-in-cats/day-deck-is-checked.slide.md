@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../flow/.assets/a-merge-runs-cd-to-prod.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-SLIDES
 ---
 
 # Every claim on a slide is checkable, and Test-Slides checks these twelve

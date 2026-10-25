@@ -93,6 +93,20 @@ Describe 'New-VsCodeExtensionFolder — real vscode-extensions.yml' -Tag 'L1', '
             $manifest.name | Should -Be $entry.name
             (Get-Item -LiteralPath (Join-Path $folder 'extension.js')).Length | Should -BeGreaterThan 0
             Build-VsCodeExtension -Path $folder -OutputDirectory (Join-Path $TestDrive 'vsix') | Should -Exist
+            $commands = if ($manifest.PSObject.Properties['contributes'] -and $manifest.contributes.PSObject.Properties['commands']) {
+                @($manifest.contributes.commands)
+            }
+            else {
+                @()
+            }
+            foreach ($command in $commands) {
+                if (-not $command.PSObject.Properties['icon']) {
+                    continue
+                }
+                foreach ($icon in @($command.icon.light, $command.icon.dark)) {
+                    Join-Path $folder $icon | Should -Exist -Because "$($entry.name) command '$($command.command)' names it"
+                }
+            }
         }
     }
 }

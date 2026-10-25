@@ -9,9 +9,6 @@ catzc:
       source: ../../automation/.assets/rule-and-gate-per-load-stage.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
-  edges:
-    cites:
-      - RDR-DORA-VCS
 ---
 
 # Version control holds everything: code, config, pipelines, records and diagrams
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: Nothing delivery depends on lives outside the repository; history is git log, never a retained file.
+For the Developer, who edits one file, runs one gate, pushes one topic: Nothing delivery depends on lives outside the repository; history is
+git log, never a retained file.
 
 ## Image
 
@@ -34,4 +32,5 @@ From the catalogue, reduced: rule and gate per load stage.
 
 ## Notes
 
-Check it: the record RDR-DORA-VCS in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/rule-and-gate-per-load-stage.drawio.png.
+Check it: the record RDR-DORA-VCS in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/rule-and-gate-per-load-stage.drawio.png.

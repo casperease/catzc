@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../../../docs/drs/automation/BCL/.assets/bcl-language.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-CONTRACT
 ---
 
 # A contract names a function it can find: ADR-REPO-CONTRACT rests on ADR-PWSH-ONEFUNC

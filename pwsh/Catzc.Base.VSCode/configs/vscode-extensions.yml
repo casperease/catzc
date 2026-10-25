@@ -53,14 +53,14 @@ extensions:
     version: 0.1.2
     activationEvents: [onStartupFinished]
     contributes:
-      # The lamps' one mapping (DDR-FILTER-STATEALWAYSSHOWN): local work in progress is blue-grey, staged dark, unstaged lighter.
+      # The lamps' one mapping ([DDR-FILTER-STATEALWAYSSHOWN](/docs/drs/design/repository-filters.md#rule-ddr-filter-statealwaysshown)): local work in progress is blue-grey, staged dark, unstaged lighter.
       colors:
         - id: catzc.gitChanges.stagedBackground
           description: Background of a line whose change against HEAD is staged.
-          defaults: { dark: "#546a8540", light: "#546a8540", highContrast: "#546a8559" }
+          defaults: { dark: palette.staged.background, light: palette.staged.background, highContrast: palette.staged.mark/59 }
         - id: catzc.gitChanges.unstagedBackground
           description: Background of a line whose change is not staged yet.
-          defaults: { dark: "#8fa3bd26", light: "#8fa3bd40", highContrast: "#8fa3bd40" }
+          defaults: { dark: palette.unstaged.background, light: palette.unstaged.mark/40, highContrast: palette.unstaged.mark/40 }
   catzc-save-ledger:
     displayName: Catzc save ledger
     description: >-
@@ -82,11 +82,11 @@ extensions:
           priority: default
   catzc-track-lamps:
     displayName: Catzc track lamps
-    version: 0.22.0
+    version: 0.23.0
     description: >-
       Filter lamps in the Explorer's title row, one per repository filter (filters.yml) and one for a typed list of languages; a click steps
-      a lamp off, on, veto. The tree is the union of the lit lamps minus the zones of the vetoed ones, and each lamp's colour is its domain's
-      condition: committed, staged, unstaged or failed.
+      a lamp off, on, veto. The tree is the union of the lit lamps minus the zones of the vetoed ones, and each lamp's colour is its
+      domain's condition: committed, staged, unstaged or failed.
     activationEvents: [onStartupFinished]
     contributes:
       # The open lamp, one lamp per filter of filters.yml, then the languages lamp: each entry naming the repeat is written once per lamp.
@@ -99,8 +99,6 @@ extensions:
           first: [{ name: open, title: the files open in an editor }]
           plus: [{ name: languages, title: the typed languages }]
       commands:
-        # The orchestrator, leftmost and always shown: its colour sums the whole repository (red a failure, blue work in progress, green
-        # neither; red until the first check), and a click while red lights every red lamp so every failing file is visible.
         - command: catzc.lamps.orchestrate.red
           title: "orchestrator: something failed (click to show every failing file)"
           icon: { light: "media/orchestrator-red.svg", dark: "media/orchestrator-red.svg" }
@@ -167,12 +165,20 @@ extensions:
             type: object
             default: {}
             description: Each language's file extensions, rendered into the settings from the languages config.
+          catzc.trackLamps.owned:
+            type: array
+            items: { type: string }
+            default: []
+            description: The files.exclude rows the lamps added, written by the lamps and carried through by the settings generator.
           catzc.trackLamps.failingSources:
             type: array
             items: { type: string }
             default: [Ruff, PSScriptAnalyzer]
-            description: The diagnostic sources whose Warnings fail a file as an Error does, the linters a quality gate fails on for any finding.
+            description:
+              The diagnostic sources whose Warnings fail a file as an Error does, the linters a quality gate fails on for any finding.
           catzc.trackLamps.trace:
             type: boolean
             default: false
-            description: Narrate each step (the conditions, the files.exclude written, the census) in the output channel; it is silent otherwise, and a warning or an error is always written.
+            description:
+              Narrate each step (the conditions, the files.exclude written, the census) in the output channel; it is silent otherwise, and a
+              warning or an error is always written.

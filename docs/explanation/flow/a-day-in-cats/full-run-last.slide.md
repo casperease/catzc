@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/a-push-fires-only-touched-pipelines.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AUTO-TEST
 ---
 
 # The full test run is the last act, in a fresh pwsh, after everything else
@@ -33,4 +30,5 @@ From the catalogue, reduced: a push fires only touched pipelines.
 
 ## Notes
 
-Check it: the record ADR-AUTO-TEST in docs/drs/index.md, and the diagram docs/explanation/design/.assets/a-push-fires-only-touched-pipelines.drawio.png.
+Check it: the record ADR-AUTO-TEST in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/a-push-fires-only-touched-pipelines.drawio.png.

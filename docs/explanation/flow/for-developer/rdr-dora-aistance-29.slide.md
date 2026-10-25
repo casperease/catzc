@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../flow/.assets/two-variables-read-in-one-place.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - RDR-DORA-AISTANCE
 ---
 
 # A clear AI stance: every robot reads one contract first and is mapped to the rules that support it
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: Twenty lines of body, ten-line capabilities with a model floor, a registry a gate keeps in step.
+For the Developer, who edits one file, runs one gate, pushes one topic: Twenty lines of body, ten-line capabilities with a model floor, a
+registry a gate keeps in step.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: two variables read in one place.
 
 ## Notes
 
-Check it: the record RDR-DORA-AISTANCE in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/two-variables-read-in-one-place.drawio.png.
+Check it: the record RDR-DORA-AISTANCE in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/two-variables-read-in-one-place.drawio.png.

@@ -6,4 +6,8 @@
 
 ## About
 
-The deck is the visual of the automation and repository records on quality control: the quality gates, the robots that run them ([agent-definitions](../../../drs/repository/agent-definitions.md)), the AI agent contract every robot reads first ([ai-agent-contract](../../../drs/repository/ai-agent-contract.md)), the time safeguard ([fail-fast](../../../drs/automation/fail-fast-with-asserts.md)) and the plans the work is tracked in ([plans](../../../drs/repository/plans.md)). Each slide is one fact with its record code and one diagram of the catalogue, reduced.
+The deck is the visual of the automation and repository records on quality control: the quality gates, the robots that run them
+([agent-definitions](../../../drs/repository/agent-definitions.md)), the AI agent contract every robot reads first
+([ai-agent-contract](../../../drs/repository/ai-agent-contract.md)), the time safeguard
+([fail-fast](../../../drs/automation/fail-fast-with-asserts.md)) and the plans the work is tracked in
+([plans](../../../drs/repository/plans.md)). Each slide is one fact with its record code and one diagram of the catalogue, reduced.

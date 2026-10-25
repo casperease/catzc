@@ -63,7 +63,8 @@ public sealed class MarkdownLinkScanner
         return set;
     }
 
-    public string Scan(string text, string repoPath, List<CodeLinkRewriter.Hit> hits)
+    // The edges go to the sink when one is given; a caller that only aligns passes null.
+    public string Scan(string text, string repoPath, List<CodeLinkRewriter.Hit> hits, List<CodeLinkRewriter.EdgeHit> edges)
     {
         if (string.IsNullOrEmpty(text)) { return text; }
 
@@ -77,13 +78,15 @@ public sealed class MarkdownLinkScanner
             {
                 if (literal[link.Index]) { continue; }
                 Group dest = link.Groups["dest"];
-                CheckDestination(dest.Value, lineStart + dest.Index, dest.Length, directory, repoPath, underGitHub, hits, edits);
+                // An image is an embed, shown in place, and no relation.
+                bool image = line[link.Index] == '!';
+                CheckDestination(dest.Value, lineStart + dest.Index, dest.Length, directory, repoPath, underGitHub, hits, edits, image ? null : edges);
             }
             Match definition = ReferenceDefinition.Match(line);
             if (definition.Success)
             {
                 Group dest = definition.Groups["dest"];
-                CheckDestination(dest.Value, lineStart + dest.Index, dest.Length, directory, repoPath, underGitHub, hits, edits);
+                CheckDestination(dest.Value, lineStart + dest.Index, dest.Length, directory, repoPath, underGitHub, hits, edits, edges);
             }
 
             foreach (Match citation in NumberedCitation.Matches(line))
@@ -160,7 +163,7 @@ public sealed class MarkdownLinkScanner
     static string Bare(string written) => written.StartsWith("<", StringComparison.Ordinal) ? written.Trim('<', '>') : written;
 
     void CheckDestination(string written, int offset, int length, string directory, string repoPath, bool underGitHub,
-        List<CodeLinkRewriter.Hit> hits, List<(int, int, string)> edits)
+        List<CodeLinkRewriter.Hit> hits, List<(int, int, string)> edits, List<CodeLinkRewriter.EdgeHit> edges)
     {
         string destination = Bare(written);
         if (destination.Length == 0) { return; }
@@ -239,6 +242,11 @@ public sealed class MarkdownLinkScanner
                 hits.Add(new CodeLinkRewriter.Hit(offset, LinkFindingType.BadAnchor,
                     string.Format(CultureInfo.InvariantCulture, "{0} has no heading or anchor '#{1}'", targetRepoPath, fragment), string.Empty));
             }
+        }
+        // A relation names another tracked file: an in-file anchor and a folder name none.
+        if (edges != null && !isSelfOrRoot && File.Exists(targetFull))
+        {
+            edges.Add(new CodeLinkRewriter.EdgeHit(offset, LinkRelation.MarkdownLink, trackedPath, string.Empty));
         }
     }
 

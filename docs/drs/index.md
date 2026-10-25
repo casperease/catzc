@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "030702f5e318"
+    with_body_sha: "3ec1ddd3f86a"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -325,9 +325,9 @@ each citing Microsoft's page and saying what the repository does about it.
 How the repository tree is laid out, formatted, and generated: conventional folder names at every level, the single `out/` output directory,
 one formatting standard for every file type, contracts at the repository boundary, in both directions, under `contracts/`, READMEs and root
 configs generated from one source, fictional documentation examples, the separation of design, test, and live vocabulary, the controlled
-vocabulary of defined terms, the reserved meta block in a Markdown file's front matter, repo-wide variants, the sub-agent definitions and
-the rules behind each, and sibling repositories read for ideas, never as a reference implementation, and the session-memory protection that
-skips a repeated scan over an unchanged globset.
+vocabulary of defined terms, the directions a link may point, the reserved meta block in a Markdown file's front matter, repo-wide variants,
+the sub-agent definitions and the rules behind each, and sibling repositories read for ideas, never as a reference implementation, and the
+session-memory protection that skips a repeated scan over an unchanged globset.
 
 **Role:** `implementation` — **depends on:** `research`, `principles`, `design`, `automation`, `configuration`, `bcl`.
 
@@ -346,6 +346,7 @@ skips a repeated scan over an unchanged globset.
 | `ADR-REPO-LANG`        | [domain-language-separation](repository/domain-language-separation.md) |
 | `ADR-REPO-VOCAB`       | [controlled-vocabulary](repository/controlled-vocabulary.md)           |
 | `ADR-REPO-LINK`        | [markdown-links](repository/markdown-links.md)                         |
+| `ADR-REPO-LINKS`       | [links-in-repository](repository/links-in-repository.md)               |
 | `ADR-REPO-DRSCODE`     | [drs-code-language](repository/drs-code-language.md)                   |
 | `ADR-REPO-COMMENTS`    | [comments-in-docs](repository/comments-in-docs.md)                     |
 | `ADR-REPO-FILEMETA`    | [file-meta](repository/file-meta.md)                                   |

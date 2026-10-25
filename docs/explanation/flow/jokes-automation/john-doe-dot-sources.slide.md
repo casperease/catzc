@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/get-aspect-feeds-globs-and-maps.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-PWSH-ONEFUNC
 ---
 
 # John Doe put two functions in one file and the gate filed them for divorce
@@ -33,4 +30,5 @@ From the catalogue, reduced: get aspect feeds globs and maps.
 
 ## Notes
 
-Check it: the record ADR-PWSH-ONEFUNC in docs/drs/index.md, and the diagram docs/explanation/design/.assets/get-aspect-feeds-globs-and-maps.drawio.png.
+Check it: the record ADR-PWSH-ONEFUNC in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/get-aspect-feeds-globs-and-maps.drawio.png.

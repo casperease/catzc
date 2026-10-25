@@ -9,9 +9,6 @@ catzc:
       source: ../../azure/.assets/change-one-configuration-slot.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - FDR-CD-QUEUE
 ---
 
 # Pre-prod and production trade places blue-green by an automated, monitored switch
@@ -34,4 +31,5 @@ From the catalogue, reduced: change one configuration slot.
 
 ## Notes
 
-Check it: the record FDR-CD-QUEUE in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/change-one-configuration-slot.drawio.png.
+Check it: the record FDR-CD-QUEUE in docs/drs/index.md, and the diagram
+docs/explanation/azure/.assets/change-one-configuration-slot.drawio.png.

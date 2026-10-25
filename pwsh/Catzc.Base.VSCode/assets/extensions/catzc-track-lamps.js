@@ -36,7 +36,8 @@ const trace = (text) => vscode.workspace.getConfiguration("catzc.trackLamps").ge
 const OUT = "catzc.trackLamps.out";
 const VETO = "catzc.trackLamps.veto";
 const FIELD = "catzc.trackLamps.field";
-const OWNED = "catzc.trackLamps.owned";
+// The setting under catzc.trackLamps that lists the files.exclude rows the lamps added (vscode-settings.yml carries them).
+const OWNED_KEY = "owned";
 const LANGUAGE = "languages";
 const OPEN = "open";
 const HELD = "catzc.lamps.remembered";
@@ -575,13 +576,18 @@ async function apply(context, state, disk) {
     const wanted = await hiddenGlobs(root, out, field, filters(), languages(), open, vetoed, disk);
     const files = vscode.workspace.getConfiguration("files", folder.uri);
     const current = files.inspect("exclude")?.workspaceValue ?? {};
-    const { next, ours } = merge(current, context.workspaceState.get(OWNED, []), wanted);
+    // The owned list lives in the settings file beside the rows, so the settings generator carries both and judges only its own part.
+    const settings = vscode.workspace.getConfiguration("catzc.trackLamps", folder.uri);
+    const owned = settings.inspect(OWNED_KEY)?.workspaceValue ?? [];
+    const { next, ours } = merge(current, owned, wanted);
     trace(`apply: unlit [${[...out].join(", ")}], vetoed [${[...vetoed].join(", ")}], field "${field}", ${wanted.length} entries wanted, ${ours.length} owned`);
-    await context.workspaceState.update(OWNED, ours);
     written = JSON.stringify(next);
     if (written !== JSON.stringify(current)) {
         await files.update("exclude", next, vscode.ConfigurationTarget.Workspace);
         trace(`apply: files.exclude written with ${Object.keys(next).length} keys`);
+    }
+    if (JSON.stringify(ours) !== JSON.stringify(owned)) {
+        await settings.update(OWNED_KEY, ours.length > 0 ? ours : undefined, vscode.ConfigurationTarget.Workspace);
     }
     const size = excludeSize(next);
     if (size > EXCLUDE_ROOF) {

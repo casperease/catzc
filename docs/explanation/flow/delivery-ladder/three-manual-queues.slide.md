@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/get-aspect-names-the-remainder.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - FDR-CD-QUEUE
 ---
 
 # The ladder has exactly three manual queues: authoring, the main-UAT signature, the release-uat signature
@@ -33,4 +30,5 @@ From the catalogue, reduced: get aspect names the remainder.
 
 ## Notes
 
-Check it: the record FDR-CD-QUEUE in docs/drs/index.md, and the diagram docs/explanation/design/.assets/get-aspect-names-the-remainder.drawio.png.
+Check it: the record FDR-CD-QUEUE in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/get-aspect-names-the-remainder.drawio.png.

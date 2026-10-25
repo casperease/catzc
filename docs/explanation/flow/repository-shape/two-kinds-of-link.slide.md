@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/a-sibling-is-an-idea-never-a-reference.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-LINK
 ---
 
 # There are two kinds of link: a markdown link relative to its file, a code link rooted at the repository
@@ -33,4 +30,5 @@ From the catalogue, reduced: a sibling is an idea never a reference.
 
 ## Notes
 
-Check it: the record ADR-REPO-LINK in docs/drs/index.md, and the diagram docs/explanation/design/.assets/a-sibling-is-an-idea-never-a-reference.drawio.png.
+Check it: the record ADR-REPO-LINK in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/a-sibling-is-an-idea-never-a-reference.drawio.png.

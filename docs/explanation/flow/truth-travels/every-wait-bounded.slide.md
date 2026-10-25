@@ -9,9 +9,6 @@ catzc:
       source: ../../automation/.assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST
 ---
 
 # Every call is bounded; a wait without a limit is a defect
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-A gate that can hang is no gate. Every foreground call passes a time limit, every long run gets its own, and a denial is raised, never retried larger.
+A gate that can hang is no gate. Every foreground call passes a time limit, every long run gets its own, and a denial is raised, never
+retried larger.
 
 ## Image
 
@@ -34,4 +32,5 @@ From the catalogue, reduced: building the english dictionary writes one stamped 
 
 ## Notes
 
-Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png.
+Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/building-the-english-dictionary-writes-one-stamped-word-list.drawio.png.

@@ -32,14 +32,16 @@ public sealed class CodeLinkRewriter
     readonly Regex CitationOnly;
     readonly Regex AdjacentCitation;
 
+    readonly string root;
     readonly DrsCitationMap map;
     readonly Func<string, IReadOnlyCollection<string>> anchorsOf;
 
     // The decision records' folder with its trailing '/', e.g. docs/drs/ (DrsConfig.Root).
     readonly string recordRoot;
 
-    public CodeLinkRewriter(DrsCitationMap map, DrsConfig adrs, Func<string, IReadOnlyCollection<string>> anchorsOf)
+    public CodeLinkRewriter(string repositoryRoot, DrsCitationMap map, DrsConfig adrs, Func<string, IReadOnlyCollection<string>> anchorsOf)
     {
+        root = Path.GetFullPath(repositoryRoot ?? throw new ArgumentNullException(nameof(repositoryRoot)));
         this.map = map ?? throw new ArgumentNullException(nameof(map));
         if (adrs == null) { throw new ArgumentNullException(nameof(adrs)); }
         this.anchorsOf = anchorsOf ?? throw new ArgumentNullException(nameof(anchorsOf));
@@ -75,7 +77,25 @@ public sealed class CodeLinkRewriter
         }
     }
 
-    public string Rewrite(string comment, bool tolerateUnknownCodes, List<Hit> hits, List<string> inserted)
+    // One relation a comment or text holds, at a text-relative offset, the target a repository path (ADR-REPO-LINKS-EVERYLINKHASADIRECTION).
+    public readonly struct EdgeHit
+    {
+        public readonly int Offset;
+        public readonly LinkRelation Relation;
+        public readonly string Target;
+        public readonly string Code;
+
+        public EdgeHit(int offset, LinkRelation relation, string target, string code)
+        {
+            Offset = offset;
+            Relation = relation;
+            Target = target;
+            Code = code ?? string.Empty;
+        }
+    }
+
+    // The edges go to the sink when one is given; a caller that only aligns passes null.
+    public string Rewrite(string comment, string repoPath, bool tolerateUnknownCodes, List<Hit> hits, List<string> inserted, List<EdgeHit> edges)
     {
         if (string.IsNullOrEmpty(comment) || MetaHead.IsMatch(comment)) { return comment; }
 
@@ -154,6 +174,10 @@ public sealed class CodeLinkRewriter
             }
 
             string original = comment.Substring(match.Index, consumed);
+            if (edges != null && problem == null)
+            {
+                RecordEdge(match, replacement, repoPath, edges);
+            }
             if (problem != null)
             {
                 hits.Add(new Hit(match.Index, problemType, problem, string.Empty));
@@ -172,6 +196,33 @@ public sealed class CodeLinkRewriter
         if (copied == 0) { return comment; }
         output.Append(comment, copied, comment.Length - copied);
         return output.ToString();
+    }
+
+    static readonly Regex CanonicalTarget = new Regex(@"^\[(?<text>[^\]]*)\]\(/(?<path>[^)#\s]+)", RegexOptions.Compiled);
+
+    // An ADR reference is its canonical link's target; any other link names the file it resolves to, from the comment's own folder or
+    // rooted, and only when that file exists: a URL, an anchor, a folder and a missing target are no relation.
+    void RecordEdge(Match match, string replacement, string repoPath, List<EdgeHit> edges)
+    {
+        if (replacement != null)
+        {
+            Match canonical = CanonicalTarget.Match(replacement);
+            if (!canonical.Success) { return; }
+            string text = canonical.Groups["text"].Value;
+            edges.Add(new EdgeHit(match.Index, LinkRelation.CodeLink, canonical.Groups["path"].Value, map.HasCode(text) ? text : string.Empty));
+            return;
+        }
+        if (!match.Groups["link"].Success || string.IsNullOrEmpty(repoPath)) { return; }
+        string destination = match.Groups["dest"].Value;
+        if (Regex.IsMatch(destination, @"^[a-zA-Z][a-zA-Z0-9+.\-]*:") || destination.StartsWith("#", StringComparison.Ordinal)) { return; }
+        int hash = destination.IndexOf('#');
+        string pathPart = Uri.UnescapeDataString(hash >= 0 ? destination.Substring(0, hash) : destination);
+        string folder = Path.GetDirectoryName(Path.Combine(root, repoPath.Replace('/', Path.DirectorySeparatorChar))) ?? root;
+        string full = pathPart.StartsWith("/", StringComparison.Ordinal)
+            ? Path.GetFullPath(Path.Combine(root, pathPart.TrimStart('/')))
+            : Path.GetFullPath(Path.Combine(folder, pathPart));
+        if (!full.StartsWith(root + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) || !File.Exists(full)) { return; }
+        edges.Add(new EdgeHit(match.Index, LinkRelation.CodeLink, Path.GetRelativePath(root, full).Replace('\\', '/'), string.Empty));
     }
 
     // An unregistered code: a rule its ADR does not declare, or no code of the index at all.

@@ -9,9 +9,6 @@ catzc:
       source: ../../design/.assets/gate-checks-order-not-liveness.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
-  edges:
-    cites:
-      - FDR-CD-LIFE
 ---
 
 # An environment holds one occupant and a history
@@ -34,4 +31,5 @@ From the catalogue, reduced: gate checks order not liveness.
 
 ## Notes
 
-Check it: the record FDR-CD-LIFE in docs/drs/index.md, and the diagram docs/explanation/design/.assets/gate-checks-order-not-liveness.drawio.png.
+Check it: the record FDR-CD-LIFE in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/gate-checks-order-not-liveness.drawio.png.

@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/two-roots-one-importer-same-modules.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AUTO-TEST
 ---
 
 # A gate claimed passed is a gate that was run and read
@@ -33,4 +30,5 @@ From the catalogue, reduced: two roots one importer same modules.
 
 ## Notes
 
-Check it: the record ADR-AUTO-TEST in docs/drs/index.md, and the diagram docs/explanation/design/.assets/two-roots-one-importer-same-modules.drawio.png.
+Check it: the record ADR-AUTO-TEST in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/two-roots-one-importer-same-modules.drawio.png.

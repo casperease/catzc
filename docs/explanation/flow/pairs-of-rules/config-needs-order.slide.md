@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/manifest-and-aspects-from-one-folder.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - PDR-CONFIG
 ---
 
 # A default declared once is only useful with one resolution order: PDR-CONFIG needs ADR-AUTO-DEFAULT
@@ -33,4 +30,5 @@ From the catalogue, reduced: manifest and aspects from one folder.
 
 ## Notes
 
-Check it: the record PDR-CONFIG in docs/drs/index.md, and the diagram docs/explanation/design/.assets/manifest-and-aspects-from-one-folder.drawio.png.
+Check it: the record PDR-CONFIG in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/manifest-and-aspects-from-one-folder.drawio.png.

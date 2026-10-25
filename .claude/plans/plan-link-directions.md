@@ -36,12 +36,13 @@ catzc:
       - ADR-REPO-DRSCODE-CODEISSELECTOR
       - ADR-REPO-FILEMETA
       - ADR-REPO-LINK
+      - ADR-REPO-LINKS
       - DDR-ASPECT
       - DDR-MODTYPE
       - DDR-TRACKTYPE
       - PDR-CONFIG-EXCEPTIONISCONFIGENTRY
       - PDR-ONELIVE
-    drs_total: 30
+    drs_total: 34
 ---
 
 # Link directions: which way a link may point
@@ -85,18 +86,18 @@ every future file role or document type a row instead of a new unchecked convent
   one.
 - **An exception is a config entry with its reason** (PDR-CONFIG-EXCEPTIONISCONFIGENTRY): `exempt:` maps a file to why, as
   `string_citations.exempt` does in `links.yml`. There is no gate mode and no report mode: the gate runs as a gate from its first commit,
-  because the same plan clears what it finds first (step 27) after the integrity test is written (step 26). If the first run finds more than
+  because the same plan clears what it finds first (step 22) after the integrity test is written (step 21). If the first run finds more than
   25 links, the step stops and the user is asked.
 - **One extraction, not two.** The aligner and the gate read the same walk of the same files (`LinkEngine`, `MarkdownLinkScanner`,
   `CodeLinkRewriter`), so they cannot disagree on what a link is (ADR-REPO-LINK-ALIGNEDBYTOOL). The walk records each relation it recognises
   into a sink the caller asks for; `Test-Links` and `Format-Links` ask for none.
-- **Signatures change with every caller in one pass** (PDR-ONELIVE, and the importer-path outages of 2026-10-19): steps 6 to 12 land
+- **Signatures change with every caller in one pass** (PDR-ONELIVE, and the importer-path outages of 2026-10-19): steps 3 to 7 land
   together, then a fresh full import in a new `pwsh` process before any test file runs.
 - **The pure parts take their inputs as parameters** (ADR-REPO-FILEMETA-PUREPARTS): the engine that judges rows reads no config and no file,
   the table of end facets and the rows are passed in, and the facets are computed once per distinct file of the run, not once per link.
   Measure the run before any optimisation beyond that (ADR-AUTO-TEST speed rules).
 - **The name** is `ADR-REPO-LINKS` (the user, 2026-10-24), the record file `links-in-repository.md`. `ADR-REPO-LINK` stays the form of a
-  link; the two are separate whole segments of the code grammar (ADR-REPO-DRSCODE-CODEISSELECTOR), and step 2 proves no citation regex
+  link; the two are separate whole segments of the code grammar (ADR-REPO-DRSCODE-CODEISSELECTOR), and step 1 proves no citation regex
   confuses them.
 
 ## Decided (the user, 2026-10-24, decision round)
@@ -104,94 +105,74 @@ every future file role or document type a row instead of a new unchecked convent
 - **Derived relations are in scope, as a second plan.** The gate of this plan checks the links the files write. The relations the
   conventions imply (a test to its subject by stem under `tests/`, a file to its comment page by the pages map, a module to its declared
   dependencies) and completeness rows ride the same facets and rows in `plan-link-graph`, with a `Get-LinkEdge -To <path>` reader for the
-  blast radius of a file (step 29).
+  blast radius of a file (step 24).
 - **A reference page may link any code.** Reference pages link across modules by design (`docs/references/BCL/index.md`), so no page-module
   facet is added.
 - **An ADR links only the references that ground it, never code, a how-to, an explanation or another reference.** The user chose "deny
   except dora"; the authoring conventions in `docs/drs/index.md` ground the Azure Well-Architected and Cloud Adoption ADRs in
   `docs/references/waf` and `docs/references/caf` the same way, so the exception is the three subkinds `reference/dora`, `reference/caf` and
-  `reference/waf` (step 20). If step 27 shows an ADR linking a fourth reference, the user is asked, not the row widened.
+  `reference/waf` (step 15). If step 22 shows an ADR linking a fourth reference, the user is asked, not the row widened.
 - **The ADR domain order stays in `Test-DrsRegistry`.** `Get-DrsCitationGraphViolations` keeps it; the rows allow ADR to ADR and say where
   the order is held. Revisit when the gate is green.
 
 ## Open steps
 
-1. [ ] `docs/drs/repository/links-in-repository.md` (new): the record "Links in repository", present tense, no history. Rules
-       `ADR-REPO-LINKS-EVERYLINKHASADIRECTION` (the three relations, strings and embeds out), `ADR-REPO-LINKS-ENDPOINTSAREFACETS` (class,
-       aspect, track, tracktype, module, derived, never read from a head), `ADR-REPO-LINKS-DIRECTIONSAREROWS` (first match, default deny,
-       `because` required), `ADR-REPO-LINKS-DECLAREDGRAPHSSTAYWHEREDECLARED` (module graph, ADR domain order, aspect partition),
-       `ADR-REPO-LINKS-ADRSLINKONLYTHEIRGROUNDING` (an ADR links ADRs and the dora, caf and waf references, never code, a how-to, an
-       explanation or another reference), `ADR-REPO-LINKS-EXCEPTIONSAREENTRIES` and `ADR-REPO-LINKS-CHECKEDBYONEGATE`
-       (`Test-LinkDirections`, one extraction shared with `Test-Links`). The bolded terms are the ones step 5 defines. Check:
-       `Test-Links -Path docs/drs/repository/links-in-repository.md`, `Test-MarkdownTitle`, `Test-Markdownlint`.
-2. [ ] `pwsh/Catzc.Base.Drs/configs/drs.yml`: a ruleset `links-in-repository: { external: ADR-REPO-LINKS, concern: [quality-control] }`
-       after `markdown-links` in the `repository` domain, and "the directions a link may point" in that domain's description; then
-       `Build-DrsIndex` rewrites the generated `docs/drs/index.md` (never edited by hand). Check: `Test-GeneratedFiles`; `Test-DrsRegistry`
-       and `Test-Links` pass (no citation of `ADR-REPO-LINK` is read as `ADR-REPO-LINKS`) once step 24 lands.
-3. [ ] `docs/drs/repository/markdown-links.md`: the "How this is enforced" list gains the `Test-LinkDirections` bullet for
-       ADR-REPO-LINK-ONEWAY, and the rule text stays. Check: `Test-Links -Path docs/drs/repository/markdown-links.md`, `Format-FileMeta` run
-       through `Format-Code -Language markdown` leaves no diff.
-4. [ ] `docs/drs/repository/file-meta.md`: the same bullet for ADR-REPO-FILEMETA-FEWLINKS (a page sits in the file's own docs section,
-       modules relate by name, never by file path). Check: as step 3.
-5. [ ] `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`: an entry for each term step 1 bolds (link direction, relation, endpoint, facet
-       if bolded), with its defining rule and the phrasings to avoid, through the `glossary-keeper` agent, one term at a time. Check:
+1. [ ] `pwsh/Catzc.Base.Drs/configs/drs.yml`: the `links-in-repository` ruleset is in; only its last check is left, run once step 19 lands.
+       Check: `Test-Links` passes with no citation of `ADR-REPO-LINK` read as `ADR-REPO-LINKS`.
+2. [ ] `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`: an entry for each term `links-in-repository.md` bolds (relation, link direction,
+       endpoint, facets), with its defining rule and the phrasings to avoid, through the `glossary-keeper` agent, one term at a time. Check:
        `Test-Glossary`, then `Build-Glossary` leaves no diff.
-6. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkRelation.cs` (new): the enum `MarkdownLink`, `CodeLink`, `DocsEdge`, one type to a file
-       (ADR-BCL-TYPES-ONETYPEPERFILE). Check: built by the pass at step 12.
-7. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkEdge.cs` (new): file, line, column, relation, target (a repository path), code (a rule code
-       or empty). Check: `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/types/LinkEdge.Tests.ps1` (new, neutral fixture names).
-8. [ ] `pwsh/Catzc.Base.QualityGates/types/MarkdownLinkScanner.cs`: `Scan` takes an edge sink and records a `MarkdownLink` for every link
+3. [ ] `pwsh/Catzc.Base.QualityGates/types/MarkdownLinkScanner.cs`: `Scan` takes an edge sink and records a `MarkdownLink` for every link
        whose target resolves to an existing tracked file, at the point `CheckDestination` already resolves it; an in-file anchor, a URL, a
-       folder, a missing target and an image record none. Check: the pass at step 12.
-9. [ ] `pwsh/Catzc.Base.QualityGates/types/CodeLinkRewriter.cs`: `Rewrite` takes the file's repository path and an edge sink, and records a
+       folder, a missing target and an image record none. Check: the pass at step 7.
+4. [ ] `pwsh/Catzc.Base.QualityGates/types/CodeLinkRewriter.cs`: `Rewrite` takes the file's repository path and an edge sink, and records a
        `CodeLink` for each comment link to a repository file whatever its target (the `link` branch skips a non-ADR target for the rewrite,
        not for the edge), each docs path, slug and bare citation it resolves (target `map.PathOf(code)`, code set); the meta head records
-       none (ADR-REPO-FILEMETA-NOREADBACK). Check: the pass at step 12.
-10. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkEngineResult.cs`: an `Edges` list, empty when none was asked for. Check: the pass at
-        step 12.
-11. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkEngine.cs`: `Run(files, kind, collectEdges)`; `AlignCode` passes the sink to `Rewrite` (both
-        calls, the retry keeps only the final call's edges); `CheckHeadDocsEdge` records the `DocsEdge`; the edges are ordered like the
-        findings and carry the same line and column. Check: `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/types/LinkEngine.Tests.ps1`
-        (new: a markdown link, a code link, a bare citation, a docs edge, the skipped kinds, and that `collectEdges: false` returns none).
-12. [ ] `pwsh/Catzc.Base.QualityGates/private/Invoke-LinkEngine.ps1`: a `-IncludeEdge` switch passed to `Run`; `Test-Links` and
-        `Format-Links` keep calling without it. Then, in a new `pwsh` process, a fresh full import, and `Invoke-TestFile` over
-        `Test-Links.Tests.ps1`, `Format-Links.Tests.ps1` and the step 7 and 11 files. Check: all green, `Format-Links -DryRun` changes
-        nothing.
-13. [ ] `pwsh/Catzc.Base.Globs/types/Aspect.cs`: `AspectPartition.AspectOf(sets, file)`, the first aspect whose set claims the file, null
-        for none (the aspect order's first match). Check: `Invoke-TestFile pwsh/Catzc.Base.Globs/tests/types/AspectPartition.Tests.ps1`.
-14. [ ] `pwsh/Catzc.Base.Globs/Get-FileAspect.ps1` (new): paths in, an ordered map path to aspect name out, empty string for no aspect; the
-        sets come from `Get-AspectGlobSet` (the one place that builds them), once per call. Check:
-        `Invoke-TestFile pwsh/Catzc.Base.Globs/tests/Get-FileAspect.Tests.ps1` (new).
-15. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkEndpoint.cs` (new) and `private/Get-LinkEndpoint.ps1` (new): per distinct path, class from
+       none (ADR-REPO-FILEMETA-NOREADBACK). Check: the pass at step 7.
+5. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkEngineResult.cs`: an `Edges` list, empty when none was asked for. Check: the pass at step 7.
+6. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkEngine.cs`: `Run(files, kind, collectEdges)`; `AlignCode` passes the sink to `Rewrite` (both
+       calls, the retry keeps only the final call's edges); `CheckHeadDocsEdge` records the `DocsEdge`; the edges are ordered like the
+       findings and carry the same line and column. Check: `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/types/LinkEngine.Tests.ps1`
+       (new: a markdown link, a code link, a bare citation, a docs edge, the skipped kinds, and that `collectEdges: false` returns none).
+7. [ ] `pwsh/Catzc.Base.QualityGates/private/Invoke-LinkEngine.ps1`: a `-IncludeEdge` switch passed to `Run`; `Test-Links` and
+       `Format-Links` keep calling without it. Then, in a new `pwsh` process, a fresh full import, and `Invoke-TestFile` over
+       `Test-Links.Tests.ps1`, `Format-Links.Tests.ps1` and `LinkEdge.Tests.ps1` and the step 6 file. Check: all green,
+       `Format-Links -DryRun` changes nothing.
+8. [ ] `pwsh/Catzc.Base.Globs/types/Aspect.cs`: `AspectPartition.AspectOf(sets, file)`, the first aspect whose set claims the file, null for
+       none (the aspect order's first match). Check: `Invoke-TestFile pwsh/Catzc.Base.Globs/tests/types/AspectPartition.Tests.ps1`.
+9. [ ] `pwsh/Catzc.Base.Globs/Get-FileAspect.ps1` (new): paths in, an ordered map path to aspect name out, empty string for no aspect; the
+       sets come from `Get-AspectGlobSet` (the one place that builds them), once per call. Check:
+       `Invoke-TestFile pwsh/Catzc.Base.Globs/tests/Get-FileAspect.Tests.ps1` (new).
+10. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkEndpoint.cs` (new) and `private/Get-LinkEndpoint.ps1` (new): per distinct path, class from
         `(Get-Config -Config file-kinds).Resolve`, track and tracktype from `Get-Track -Path`, module from `Get-PathModule`, aspect from
         `Get-FileAspect`; the three config reads sit outside the loop. Check:
         `Invoke-TestFile     pwsh/Catzc.Base.QualityGates/tests/Get-LinkEndpoint.Tests.ps1` (new, registries mocked) and a timed run over
         every tracked file, the number recorded in the step's result line.
-16. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkSelector.cs` and `types/LinkVerdict.cs` (new): a selector holds lists of classes, aspects,
+11. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkSelector.cs` and `types/LinkVerdict.cs` (new): a selector holds lists of classes, aspects,
         tracks, track types and modules, empty meaning any, a class with at most one `*`; `Matches(endpoint)`. Check:
         `Invoke-TestFile     pwsh/Catzc.Base.QualityGates/tests/types/LinkSelector.Tests.ps1` (new).
-17. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkDirectionRow.cs` (new): relations, from, to, verdict, because. Check:
+12. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkDirectionRow.cs` (new): relations, from, to, verdict, because. Check:
         `Invoke-TestFile     pwsh/Catzc.Base.QualityGates/tests/types/LinkDirectionRow.Tests.ps1` (new, every rejection: a row with no
         `because`, an unknown key, an empty verdict).
-18. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkDirectionsConfig.cs` (new): `rows`, `exempt` (file to reason, a reason required), every
+13. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkDirectionsConfig.cs` (new): `rows`, `exempt` (file to reason, a reason required), every
         default declared once on the type, an unknown key refused (ADR-AUTO-DEFAULT-ONERESOLUTIONORDER, ADR-BCL-TYPES-SNAKECASEMIRRORSYAML).
         Check: `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/types/LinkDirectionsConfig.Tests.ps1` (new).
-19. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkDirectionFinding.cs` and `types/LinkDirectionEngine.cs` (new):
+14. [ ] `pwsh/Catzc.Base.QualityGates/types/LinkDirectionFinding.cs` and `types/LinkDirectionEngine.cs` (new):
         `Judge(edges, endpoints, config)` returns a finding for each edge whose first matching row denies it, or that no row allows; the
         finding reads `file:line [Relation]     class(from) -> class(to) denied by row N: <because>` or `... no row allows it`. Pure: no
         config, no file. Check: `Invoke-TestFile     pwsh/Catzc.Base.QualityGates/tests/types/LinkDirectionEngine.Tests.ps1` (new: first
         match wins, default deny, exempt, an edge whose end has no endpoint is reported, never skipped).
-20. [ ] `pwsh/Catzc.Base.Globs/configs/file-kinds.yml` and its provided copy
+15. [ ] `pwsh/Catzc.Base.Globs/configs/file-kinds.yml` and its provided copy
         `contracts/catzc/0.0.0/catzc.base.globs/configs/file-kinds.yml`, the same edit in both (`contract.yml` marks it provided, and a
         provided contract pins the role and subkind names): the `reference` role gains the subkinds `dora` (`docs/references/dora/**`),
         `caf` (`docs/references/caf/**`) and `waf` (`docs/references/waf/**`), each with a one-sentence definition, so a row selects the
         three references an ADR is grounded in without a glob. Check:
         `Invoke-TestFile     pwsh/Catzc.Base.Globs/tests/Test-FileKindReachability.Tests.ps1`, `Test-Contracts`.
-21. [ ] `pwsh/Catzc.Base.QualityGates/Assert-LinkDirectionsConfig.ps1` (new, found by convention, ADR-CONF-LOADING-POWERSHELLVALIDATOR):
+16. [ ] `pwsh/Catzc.Base.QualityGates/Assert-LinkDirectionsConfig.ps1` (new, found by convention, ADR-CONF-LOADING-POWERSHELLVALIDATOR):
         every class exists in `file-kinds.yml`, every track type in `track-types.yml`, every aspect and module is declared, every `because`
         is a code of the citation map. Check: `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Assert-LinkDirectionsConfig.Tests.ps1`
         (new).
-22. [ ] `pwsh/Catzc.Base.QualityGates/configs/link-directions.yml` (new) and `pwsh/Catzc.Base.Config/configs/configs.yml` (the
+17. [ ] `pwsh/Catzc.Base.QualityGates/configs/link-directions.yml` (new) and `pwsh/Catzc.Base.Config/configs/configs.yml` (the
         `link-directions` entry, type `Catzc.Base.QualityGates.LinkDirectionsConfig`): the first rows, in this order. (1) docs edge, any
         file to a `comment-page`: allow, ADR-REPO-FILEMETA-FEWLINKS. (2) code link, any file in a module, infrastructure, pipeline or
         vendor-settings track to an `adr`: allow, ADR-REPO-LINK-CODELINKS. (3) code link to anything else: deny, ADR-REPO-LINK-ONEWAY. (4)
@@ -200,38 +181,38 @@ every future file role or document type a row instead of a new unchecked convent
         other `reference`, a `how-to` or an `explanation`: deny, ADR-REPO-LINKS-ADRSLINKONLYTHEIRGROUNDING. (6) a `reference`, `how-to`,
         `explanation`, `readme` or `slide` to anything in the documentation track or to code: allow, ADR-REPO-LINKS-DIRECTIONSAREROWS. (7) a
         markdown link from a `live` file to a `tests` file: deny, DDR-ASPECT-ASPECTSAREDERIVED. (8) a markdown link from a `tests` file to a
-        `live` file: allow. The remainder is the default deny. Check: `Test-ShippedConfigs`; the rows are tuned by step 27, not by hand
+        `live` file: allow. The remainder is the default deny. Check: `Test-ShippedConfigs`; the rows are tuned by step 22, not by hand
         here.
-23. [ ] `pwsh/Catzc.Base.QualityGates/Test-LinkDirections.ps1` (new): follows ADR-AUTO-TEST-QUALITYGATE like `Test-Links`: `-Path`,
+18. [ ] `pwsh/Catzc.Base.QualityGates/Test-LinkDirections.ps1` (new): follows ADR-AUTO-TEST-QUALITYGATE like `Test-Links`: `-Path`,
         `-RepositoryRoot`, `-OutputFolder`, `-PassThru`; reads the edges through `Invoke-LinkEngine -IncludeEdge`, builds the endpoint table
         once, judges, writes the report through `Write-QualityGateReport -Subject link-directions`, and throws once listing every finding;
         Facts hold the file count, the edge count and the number of targets skipped as folders; a run that found no edge is a finding, never
         a pass. Check: `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Test-LinkDirections.Tests.ps1` (new, `TestDrive:` tree, neutral
         fixtures, every row verdict and every exempt path).
-24. [ ] Where `Test-Links` is listed as a gate (read `pwsh/Catzc.Base.Languages/configs/languages.yml`,
+19. [ ] Where `Test-Links` is listed as a gate (read `pwsh/Catzc.Base.Languages/configs/languages.yml`,
         `pwsh/Catzc.Base.Docs/configs/agents.yml` and `capabilities.yml` first), the same line for `Test-LinkDirections`; the
-        `Get-CatsRuleEnforcers` and `Test-DrsRegistry` reading of step 1's "How this is enforced". Check: `Test-DrsRegistry`,
-        `Test-AgentDefinitions`.
-25. [ ] `contracts/catzc/0.0.0/catzc.base.quality_gates/test_link_directions.command.yml` (new): the call interface of the gate, as
+        `Get-CatsRuleEnforcers` and `Test-DrsRegistry` reading of the "How this is enforced" of `links-in-repository.md`. Check:
+        `Test-DrsRegistry`, `Test-AgentDefinitions`.
+20. [ ] `contracts/catzc/0.0.0/catzc.base.quality_gates/test_link_directions.command.yml` (new): the call interface of the gate, as
         `test_links.command.yml` states `Test-Links`' (`path`, `repository_root`, `output_folder`, `pass_thru`, output
         `catzc.base.reports.quality_gate_result`); then `Build-ContractReference` renders the page. Check: `Test-Contracts`.
-26. [ ] `pwsh/Catzc.Base.QualityGates/tests/Test-LinkDirections.Repository.Tests.ps1` (new): the integrity test that runs the gate over the
+21. [ ] `pwsh/Catzc.Base.QualityGates/tests/Test-LinkDirections.Repository.Tests.ps1` (new): the integrity test that runs the gate over the
         tracked tree, tags `L2`, `integrity`, `source-only`, the pattern of `Test-Links.Repository.Tests.ps1`; skipped with
-        `tool_git_missing` when git is missing. It is red until step 27 clears the tree. Check: `Invoke-TestFile` over it prints the list of
+        `tool_git_missing` when git is missing. It is red until step 22 clears the tree. Check: `Invoke-TestFile` over it prints the list of
         findings.
-27. [ ] Read the step 26 list, not its first line: each finding is a real breach (fix the file at the line, one file at a time; the known
+22. [ ] Read the step 21 list, not its first line: each finding is a real breach (fix the file at the line, one file at a time; the known
         one is `docs/drs/automation/pwsh/parameter-design.md:123`, which names `Add-SessionLearning` in a code span instead of linking it),
-        a row to correct (edit step 22's file with the reason in `because`) or an `exempt` entry with its reason. The ADR links to
+        a row to correct (edit step 17's file with the reason in `because`) or an `exempt` entry with its reason. The ADR links to
         references other than dora, caf and waf, how-tos and explanations are expected here, their number not yet counted. More than 25
         findings: stop and ask the user. Check:
         `Invoke-TestFile pwsh/Catzc.Base.QualityGates/tests/Test-LinkDirections.Repository.Tests.ps1` green, and the reason of every
         `exempt` entry read back once.
-28. [ ] The sweep, in this order and one command at a time: `Format-Code -Language markdown` over the three plan files and the new record,
+23. [ ] The sweep, in this order and one command at a time: `Format-Code -Language markdown` over the three plan files and the new record,
         `Test-Links`, `Test-FileMeta`, `Test-Glossary`, `Test-Spelling`, `Test-DrsRegistry`, `Test-GeneratedFiles`, `Test-Plans`. Each reads
         green, or its finding is fixed at its file. The one full `Test-Automation` is the user's, last, in a new session
         (task-user-runs-and-commits.md). Check: `Test-Plans -Path .claude/plans/plan-link-directions.md` and `Test-Links` both green.
-29. [ ] `.claude/plans/plan-link-graph.md` (new, written by `New-Plan -Topic link-graph -Class meta`, which adds its value row and master
-        line): the derived relations the user chose, after step 28: a test to its subject by its stem under `tests/`, a file to its comment
+24. [ ] `.claude/plans/plan-link-graph.md` (new, written by `New-Plan -Topic link-graph -Class meta`, which adds its value row and master
+        line): the derived relations the user chose, after step 23: a test to its subject by its stem under `tests/`, a file to its comment
         page by the pages map, a module to its declared dependencies, as a fourth relation `Convention` on the same `LinkEdge`, facets and
         rows; completeness rows (every function with a comment page has its docs edge, every unit of a laid-out track has a `tests` aspect);
         and a `Get-LinkEdge -To <path>` reader for the blast radius of a file. Its open steps name one file and one check each. Check:

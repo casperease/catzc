@@ -81,3 +81,12 @@ Above `foreach ($id in ($LanguageFormatter.Keys | Sort-Object)) {`, written with
 Each language's editor formatter, merged into its [<id>] block (authored keys in the block win); sorted, so the
 render is stable.
 ```
+
+## comment:3
+
+Above `if ($Filter.Count -gt 0) {`, written with `#`.
+
+```text
+The lamps read what they hide from the settings, so the extension needs neither a config nor a session: each filter's include/exclude
+sets, in lamp order, and each language's extensions.
+```

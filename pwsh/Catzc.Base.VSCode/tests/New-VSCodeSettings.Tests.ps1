@@ -34,6 +34,23 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
         $json.'editor.tabSize' | Should -Be 4
     }
 
+    It 'carries the rows another writer owns from the file on disk, and keeps an authored row the registry''s' {
+        Mock Get-Config -ModuleName Catzc.Base.VSCode {
+            [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{
+                    settings = [ordered]@{ 'widget.exclude' = [ordered]@{ 'authored' = $true } }
+                    carried  = [ordered]@{ 'widget.exclude' = 'gadget.owned' }
+                })
+        }
+        $current = Join-Path $TestDrive 'settings.json'
+        Set-Content -LiteralPath $current -Value "// head`n{ `"widget.exclude`": { `"authored`": false, `"lamp`": true, `"stray`": true }, `"gadget.owned`": [ `"authored`", `"lamp`" ] }"
+        $json = ((New-VsCodeSettings -CurrentPath $current) -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json
+        $json.'widget.exclude'.authored | Should -BeTrue
+        $json.'widget.exclude'.lamp | Should -BeTrue
+        $json.'widget.exclude'.PSObject.Properties['stray'] | Should -BeNullOrEmpty
+        @($json.'gadget.owned') | Should -Be @('authored', 'lamp')
+        (((New-VsCodeSettings -CurrentPath (Join-Path $TestDrive 'none.json')) -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json).PSObject.Properties['gadget.owned'] | Should -BeNullOrEmpty
+    }
+
     It 'completes search.exclude with every managed target' {
         $text = New-VsCodeSettings -ManagedTarget 'importer.ps1', '.editorconfig'
         $json = ($text -split "`n" | Where-Object { $_ -notmatch '^//' }) -join "`n" | ConvertFrom-Json

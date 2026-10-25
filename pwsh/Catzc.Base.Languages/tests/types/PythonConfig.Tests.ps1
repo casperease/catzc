@@ -44,6 +44,15 @@ Describe 'PythonConfig' -Tag 'L0' {
             ([Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = $script:pins; type_checking = 'strict' })).type_checking | Should -Be 'strict'
         }
 
+        It 'keeps the pytest and bytecode caches in their default folders unless the file names others' {
+            $default = [Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = $script:pins })
+            $default.pytest_cache | Should -Be ([Catzc.Base.Languages.PythonConfig]::DefaultPytestCache)
+            $default.pycache | Should -Be ([Catzc.Base.Languages.PythonConfig]::DefaultPycache)
+            $moved = [Catzc.Base.Languages.PythonConfig]::new([ordered]@{ dependencies = $script:pins; pytest_cache = 'widget/cache'; pycache = 'gadget' })
+            $moved.pytest_cache | Should -Be 'widget/cache'
+            $moved.pycache | Should -Be 'gadget'
+        }
+
         It 'rejects <Case>, naming it' -ForEach @(
             @{ Case = 'an unknown key'; Raw = [ordered]@{ dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' }; gadget = 1 }; Message = "*unknown key 'gadget'*" }
             @{ Case = 'a missing pytest pin'; Raw = [ordered]@{ dependencies = [ordered]@{ pyright = '1.1.414'; ruff = '0.17.0' } }; Message = "*must pin 'pytest'*" }
@@ -55,6 +64,7 @@ Describe 'PythonConfig' -Tag 'L0' {
             @{ Case = 'a root with a parent segment'; Raw = [ordered]@{ root = '../widget'; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*invalid root '../widget'*" }
             @{ Case = 'a root with a leading slash'; Raw = [ordered]@{ root = '/widget'; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*invalid root '/widget'*" }
             @{ Case = 'an unknown type-checking mode'; Raw = [ordered]@{ type_checking = 'gadget'; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*invalid type_checking 'gadget'*off, basic, standard, strict*" }
+            @{ Case = 'a cache folder with a parent segment'; Raw = [ordered]@{ pycache = '../widget'; dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*invalid pycache '../widget'*" }
             @{ Case = 'the retired extra_paths key'; Raw = [ordered]@{ extra_paths = @('.widget'); dependencies = [ordered]@{ pyright = '1.1.414'; pytest = '9.1.1'; ruff = '0.17.0' } }; Message = "*unknown key 'extra_paths'*" }
         ) {
             { [Catzc.Base.Languages.PythonConfig]::new($Raw) } | Should -Throw $Message

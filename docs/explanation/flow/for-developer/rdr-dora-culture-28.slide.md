@@ -9,9 +9,6 @@ catzc:
       source: ../../azure/.assets/names-are-derived-never-typed.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - RDR-DORA-CULTURE
 ---
 
 # Generative culture: a robot asks its coordinator, a finding names a line, nobody is blamed
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: Every robot ends with the same fixed report; a gate's verdict is verbatim, failures included.
+For the Developer, who edits one file, runs one gate, pushes one topic: Every robot ends with the same fixed report; a gate's verdict is
+verbatim, failures included.
 
 ## Image
 
@@ -34,4 +32,5 @@ From the catalogue, reduced: names are derived never typed.
 
 ## Notes
 
-Check it: the record RDR-DORA-CULTURE in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/names-are-derived-never-typed.drawio.png.
+Check it: the record RDR-DORA-CULTURE in docs/drs/index.md, and the diagram
+docs/explanation/azure/.assets/names-are-derived-never-typed.drawio.png.

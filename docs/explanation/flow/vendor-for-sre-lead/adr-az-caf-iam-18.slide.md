@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../configuration/.assets/one-reader-one-cache-per-session.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AZ-CAF-IAM
 ---
 
 # Azure CAF identity: least privilege through named groups the apply creates
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: Approver groups and service connections are config; membership is exactly the list.
+For the SRE Lead, who owns reliability, monitoring and the switch: Approver groups and service connections are config; membership is exactly
+the list.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: one reader one cache per session.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-IAM in docs/drs/index.md, and the diagram docs/explanation/configuration/.assets/one-reader-one-cache-per-session.drawio.png.
+Check it: the record ADR-AZ-CAF-IAM in docs/drs/index.md, and the diagram
+docs/explanation/configuration/.assets/one-reader-one-cache-per-session.drawio.png.

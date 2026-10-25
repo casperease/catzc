@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - FDR-CD-TYPE
 ---
 
 # A pipeline type triggers on a globset: FDR-CD-TYPE rests on FDR-CD-GLOBS
@@ -33,4 +30,5 @@ From the catalogue, reduced: partition integrity runs only in unit tests.
 
 ## Notes
 
-Check it: the record FDR-CD-TYPE in docs/drs/index.md, and the diagram docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png.
+Check it: the record FDR-CD-TYPE in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/partition-integrity-runs-only-in-unit-tests.drawio.png.

@@ -9,9 +9,6 @@ catzc:
       source: ../../automation/.assets/what-gates-each-bundle-stage.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - RDR-DORA-OBSERV
 ---
 
 # Observability: every gate writes a report with the file and the line of each finding
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: A finding names where it was found; a render reports its faults and still lands.
+For the Developer, who edits one file, runs one gate, pushes one topic: A finding names where it was found; a render reports its faults and
+still lands.
 
 ## Image
 
@@ -34,4 +32,5 @@ From the catalogue, reduced: what gates each bundle stage.
 
 ## Notes
 
-Check it: the record RDR-DORA-OBSERV in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/what-gates-each-bundle-stage.drawio.png.
+Check it: the record RDR-DORA-OBSERV in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/what-gates-each-bundle-stage.drawio.png.

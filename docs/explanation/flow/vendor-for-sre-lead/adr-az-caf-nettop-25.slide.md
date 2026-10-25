@@ -9,9 +9,6 @@ catzc:
       source: ../../automation/.assets/every-entry-runs-one-load-sequence.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
-  edges:
-    cites:
-      - ADR-AZ-CAF-NETTOP
 ---
 
 # Azure CAF network topology: declared as a record and applied as code
@@ -34,4 +31,5 @@ From the catalogue, reduced: every entry runs one load sequence.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-NETTOP in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/every-entry-runs-one-load-sequence.drawio.png.
+Check it: the record ADR-AZ-CAF-NETTOP in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/every-entry-runs-one-load-sequence.drawio.png.

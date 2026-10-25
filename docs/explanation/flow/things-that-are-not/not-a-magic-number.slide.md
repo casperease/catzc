@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../flow/.assets/globs-module-owns-config-and-types.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - PDR-CONFIG
 ---
 
 # A size, a limit or a colour is never a magic number in code
@@ -33,4 +30,5 @@ From the catalogue, reduced: globs module owns config and types.
 
 ## Notes
 
-Check it: the record PDR-CONFIG in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/globs-module-owns-config-and-types.drawio.png.
+Check it: the record PDR-CONFIG in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/globs-module-owns-config-and-types.drawio.png.

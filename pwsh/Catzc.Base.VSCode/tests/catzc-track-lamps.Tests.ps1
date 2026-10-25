@@ -458,7 +458,12 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
         $commands.Where({ $_['command'] -notmatch $pattern }).ForEach({ $_['command'] }) | Should -BeNullOrEmpty
         $lamps = @($commands.ForEach({ $_['command'] -replace $pattern, '$1' }) | Select-Object -Unique)
         $lamps | Should -Be (@('open') + @($script:declared) + 'languages') -Because 'the open lamp leads, the filters follow in order, languages closes'
-        $folder = Join-Path $PSScriptRoot '../assets/extensions/catzc-track-lamps'
+        # Only the base glyphs are authored: every condition variant is rendered into the extension folder's media/.
+        $rendered = InModuleScope Catzc.Base.VSCode -Parameters @{ Entry = $entry; Out = (Join-Path $TestDrive 'lamps') } {
+            param($Entry, $Out)
+            New-VsCodeExtensionFolder -Extension $Entry -OutputDirectory $Out
+        }
+        $folder = Join-Path $rendered 'media'
         $icons = @($commands.ForEach({ $_['icon']['dark'] }))
         $menu = @($contributes['menus']['view/title'])
         foreach ($lamp in $lamps) {

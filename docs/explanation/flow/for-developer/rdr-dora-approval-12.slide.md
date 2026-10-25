@@ -9,9 +9,6 @@ catzc:
       source: ../../flow/.assets/one-gate-checks-the-raw-read-rule.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
-  edges:
-    cites:
-      - RDR-DORA-APPROVAL
 ---
 
 # Streamlined change approval: two signatures in one registry, after an automated test
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: RC and RBC are one release signature each by a user with access; chat and tickets serve no gate.
+For the Developer, who edits one file, runs one gate, pushes one topic: RC and RBC are one release signature each by a user with access;
+chat and tickets serve no gate.
 
 ## Image
 
@@ -34,4 +32,5 @@ From the catalogue, reduced: one gate checks the raw read rule.
 
 ## Notes
 
-Check it: the record RDR-DORA-APPROVAL in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/one-gate-checks-the-raw-read-rule.drawio.png.
+Check it: the record RDR-DORA-APPROVAL in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/one-gate-checks-the-raw-read-rule.drawio.png.

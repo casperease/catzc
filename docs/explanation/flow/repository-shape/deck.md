@@ -6,4 +6,8 @@
 
 ## About
 
-The deck is the visual of the repository records on structure: the tracks a file lives in ([tracks](../../../drs/design/tracks.md)), the stable folders and file names ([conventional-folders](../../../drs/repository/conventional-folders.md)), the generated file heads, the two kinds of link ([links](../../../drs/repository/markdown-links.md)) and the controlled vocabulary ([controlled-vocabulary](../../../drs/repository/controlled-vocabulary.md)). Each slide is one fact with its record code and one diagram of the catalogue, reduced.
+The deck is the visual of the repository records on structure: the tracks a file lives in ([tracks](../../../drs/design/tracks.md)), the
+stable folders and file names ([conventional-folders](../../../drs/repository/conventional-folders.md)), the generated file heads, the two
+kinds of link ([links](../../../drs/repository/markdown-links.md)) and the controlled vocabulary
+([controlled-vocabulary](../../../drs/repository/controlled-vocabulary.md)). Each slide is one fact with its record code and one diagram of
+the catalogue, reduced.

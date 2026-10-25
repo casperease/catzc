@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../../../docs/drs/flow/.assets/commit-promotion-states.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-AGENTS
 ---
 
 # A robot is twenty lines because the contract carries the rest: ADR-REPO-AGENTS rests on ADR-REPO-AI

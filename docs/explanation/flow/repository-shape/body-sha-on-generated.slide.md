@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../automation/.assets/pass-the-limit-or-the-call-is-denied.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-FILEMETA
 ---
 
 # A generated tracked file carries its body's hash in its head, and nothing else stamps it
@@ -33,4 +30,5 @@ From the catalogue, reduced: pass the limit or the call is denied.
 
 ## Notes
 
-Check it: the record ADR-REPO-FILEMETA in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/pass-the-limit-or-the-call-is-denied.drawio.png.
+Check it: the record ADR-REPO-FILEMETA in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/pass-the-limit-or-the-call-is-denied.drawio.png.

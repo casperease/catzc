@@ -9,9 +9,6 @@ catzc:
       source: ../../design/.assets/deploy-bicep-delegates-to-az.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - ADR-REPO-SLIDES
 ---
 
 # A review bundle is a PDF or a PNG, never a local HTML page
@@ -34,4 +31,5 @@ From the catalogue, reduced: deploy bicep delegates to az.
 
 ## Notes
 
-Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram docs/explanation/design/.assets/deploy-bicep-delegates-to-az.drawio.png.
+Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/deploy-bicep-delegates-to-az.drawio.png.

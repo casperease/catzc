@@ -14,6 +14,10 @@
 #     drs_total: 7
 # ---
 
+carried:
+  # The track lamps add files.exclude rows at workspace scope and list them under their own key; the render keeps both as they are.
+  files.exclude: catzc.trackLamps.owned
+
 hidden_actions:
   ViewTitle:
     - workbench.files.action.createFileFromExplorer
@@ -70,24 +74,24 @@ settings:
   scm.diffDecorations: all
   scm.diffDecorationsGutterVisibility: always
   workbench.colorCustomizations:
-    # Local work in progress is the blue-grey range: file names in its lighter shades, marks and backgrounds in its base tones.
-    gitDecoration.modifiedResourceForeground: "#b3c3d8"
-    gitDecoration.untrackedResourceForeground: "#b3c3d8"
-    gitDecoration.stageModifiedResourceForeground: "#7d93b0"
-    gitDecoration.addedResourceForeground: "#7d93b0"
-    gitDecoration.stageDeletedResourceForeground: "#7d93b0"
-    editorGutter.modifiedBackground: "#8fa3bd"
-    editorGutter.addedBackground: "#8fa3bd"
-    editorOverviewRuler.modifiedForeground: "#8fa3bd"
-    editorOverviewRuler.addedForeground: "#8fa3bd"
-    minimapGutter.modifiedBackground: "#8fa3bd"
-    minimapGutter.addedBackground: "#8fa3bd"
-    catzc.gitChanges.stagedBackground: "#546a8540"
-    catzc.gitChanges.unstagedBackground: "#8fa3bd26"
-    diffEditor.insertedLineBackground: "#8fa3bd26"
-    diffEditor.insertedTextBackground: "#8fa3bd59"
-    diffEditor.removedLineBackground: "#546a8526"
-    diffEditor.removedTextBackground: "#546a8559"
+    # Every colour names a lamp-palette shade (palette.<range>.<shade>, '/<aa>' sets the alpha); New-VsCodeSettings resolves it.
+    gitDecoration.modifiedResourceForeground: palette.unstaged.text
+    gitDecoration.untrackedResourceForeground: palette.unstaged.text
+    gitDecoration.stageModifiedResourceForeground: palette.staged.text
+    gitDecoration.addedResourceForeground: palette.staged.text
+    gitDecoration.stageDeletedResourceForeground: palette.staged.text
+    editorGutter.modifiedBackground: palette.unstaged.mark
+    editorGutter.addedBackground: palette.unstaged.mark
+    editorOverviewRuler.modifiedForeground: palette.unstaged.mark
+    editorOverviewRuler.addedForeground: palette.unstaged.mark
+    minimapGutter.modifiedBackground: palette.unstaged.mark
+    minimapGutter.addedBackground: palette.unstaged.mark
+    catzc.gitChanges.stagedBackground: palette.staged.background
+    catzc.gitChanges.unstagedBackground: palette.unstaged.background
+    diffEditor.insertedLineBackground: palette.unstaged.background
+    diffEditor.insertedTextBackground: palette.unstaged.mark/59
+    diffEditor.removedLineBackground: palette.staged.mark/26
+    diffEditor.removedTextBackground: palette.staged.mark/59
 
   # The title-row icons of every view show without a hover, so the track lamps in the Explorer's folder row are always visible.
   workbench.view.alwaysShowHeaderActions: true
@@ -175,14 +179,13 @@ settings:
   go.toolsEnvVars:
     GOTOOLCHAIN: local
 
-  # Python writes its bytecode cache to out/pycache in every terminal of the editor, as Invoke-PythonTest has it, never beside the
-  # sources (a bare python or pytest run included).
+  # {python.<key>} names a folder of the python config; New-VsCodeSettings resolves it.
   terminal.integrated.env.windows:
-    PYTHONPYCACHEPREFIX: ${workspaceFolder}\out\pycache
+    PYTHONPYCACHEPREFIX: ${workspaceFolder}/{python.pycache}
   terminal.integrated.env.linux:
-    PYTHONPYCACHEPREFIX: ${workspaceFolder}/out/pycache
+    PYTHONPYCACHEPREFIX: ${workspaceFolder}/{python.pycache}
   terminal.integrated.env.osx:
-    PYTHONPYCACHEPREFIX: ${workspaceFolder}/out/pycache
+    PYTHONPYCACHEPREFIX: ${workspaceFolder}/{python.pycache}
   python.terminal.activateEnvironment: false
   python-envs.terminal.autoActivationType: "off"
   terminal.integrated.environmentChangesRelaunch: false
@@ -191,7 +194,7 @@ settings:
   python.testing.pytestArgs:
     - python/tests
     - -o
-    - cache_dir=${workspaceFolder}/out/pytest-cache
+    - cache_dir=${workspaceFolder}/{python.pytest_cache}
 
   # C# Dev Kit loads the IDE-only catzc.sln at the root, never a project it finds on its own.
   dotnet.defaultSolution: catzc.sln

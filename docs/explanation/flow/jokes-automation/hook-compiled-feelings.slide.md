@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../automation/.assets/every-entry-runs-one-load-sequence.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST
 ---
 
 # The hook has no feelings, only a verdict and a log line, which makes it the calmest colleague
@@ -33,4 +30,5 @@ From the catalogue, reduced: every entry runs one load sequence.
 
 ## Notes
 
-Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/every-entry-runs-one-load-sequence.drawio.png.
+Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/every-entry-runs-one-load-sequence.drawio.png.

@@ -9,9 +9,6 @@ catzc:
       source: ../../design/.assets/where-code-loads-from-decides-the-mode.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - ADR-REPO-AGENTS
 ---
 
 # A session's learnings become hindsight only when the tree proves each line
@@ -34,4 +31,5 @@ From the catalogue, reduced: where code loads from decides the mode.
 
 ## Notes
 
-Check it: the record ADR-REPO-AGENTS in docs/drs/index.md, and the diagram docs/explanation/design/.assets/where-code-loads-from-decides-the-mode.drawio.png.
+Check it: the record ADR-REPO-AGENTS in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/where-code-loads-from-decides-the-mode.drawio.png.

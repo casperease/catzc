@@ -9,9 +9,6 @@ catzc:
       source: ../../flow/.assets/edit-globs-yml-then-read-the-output.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
-  edges:
-    cites:
-      - ADR-AUTO-PKGMGR
 ---
 
 # Nothing in the tree contacts a package feed outside the tooling
@@ -34,4 +31,5 @@ From the catalogue, reduced: edit globs yml then read the output.
 
 ## Notes
 
-Check it: the record ADR-AUTO-PKGMGR in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/edit-globs-yml-then-read-the-output.drawio.png.
+Check it: the record ADR-AUTO-PKGMGR in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/edit-globs-yml-then-read-the-output.drawio.png.

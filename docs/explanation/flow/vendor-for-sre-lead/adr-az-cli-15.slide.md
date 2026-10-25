@@ -9,9 +9,6 @@ catzc:
       source: ../../automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
-  edges:
-    cites:
-      - ADR-AZ-CLI
 ---
 
 # Azure: the CLI is installed by the package manager rule and pinned
@@ -34,4 +31,5 @@ From the catalogue, reduced: reading an accosted file writes nothing.
 
 ## Notes
 
-Check it: the record ADR-AZ-CLI in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png.
+Check it: the record ADR-AZ-CLI in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png.

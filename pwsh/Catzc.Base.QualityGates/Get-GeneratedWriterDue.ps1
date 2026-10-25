@@ -21,22 +21,36 @@ function Get-GeneratedWriterDue {
         $inputs = @($writer.inputs | Where-Object { $_ })
         $outputs = @($writer.outputs | Where-Object { $_ })
         $due = $false
-        foreach ($glob in @($inputs + $outputs)) {
-            $pattern = [Catzc.Base.Globs.GlobPattern]::new($glob)
-            foreach ($path in $changed) {
-                if ($pattern.Matches($path)) {
-                    $due = $true
-                    break
-                }
+        # A dirty tree is not a stale output: a changed input makes the writer due only when it is newer than the oldest literal output,
+        # a missing literal output always does, and a changed output never does.
+        $oldest = [datetime]::MaxValue
+        foreach ($output in $outputs) {
+            if ($output.IndexOfAny([char[]] '*?[') -ge 0) {
+                continue
             }
+            $file = [System.IO.FileInfo]::new((Join-Path $RepositoryRoot $output))
+            if (-not $file.Exists) {
+                $due = $true
+                break
+            }
+            if ($file.LastWriteTimeUtc -lt $oldest) {
+                $oldest = $file.LastWriteTimeUtc
+            }
+        }
+        foreach ($glob in $inputs) {
             if ($due) {
                 break
             }
-        }
-        if (-not $due) {
-            foreach ($output in $outputs) {
-                if ($output.IndexOfAny([char[]] '*?[') -lt 0 -and -not (Test-Path -LiteralPath (Join-Path $RepositoryRoot $output))) {
+            $pattern = [Catzc.Base.Globs.GlobPattern]::new($glob)
+            foreach ($path in $changed) {
+                if (-not $pattern.Matches($path)) {
+                    continue
+                }
+                $file = [System.IO.FileInfo]::new((Join-Path $RepositoryRoot $path))
+                # A deleted input is a change no output can be newer than; with no literal output, any changed input is due.
+                if (-not $file.Exists -or $oldest -eq [datetime]::MaxValue -or $file.LastWriteTimeUtc -gt $oldest) {
                     $due = $true
+                    break
                 }
             }
         }

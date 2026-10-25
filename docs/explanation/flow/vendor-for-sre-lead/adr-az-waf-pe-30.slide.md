@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../flow/.assets/range-per-context-then-diff-and-match.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AZ-WAF-PE
 ---
 
 # Azure WAF performance: the integration budget is five to ten minutes and the roofs are config
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: A run over its roof is a finding; the roof is raised by a person in timeouts.yml.
+For the SRE Lead, who owns reliability, monitoring and the switch: A run over its roof is a finding; the roof is raised by a person in
+timeouts.yml.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: range per context then diff and match.
 
 ## Notes
 
-Check it: the record ADR-AZ-WAF-PE in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/range-per-context-then-diff-and-match.drawio.png.
+Check it: the record ADR-AZ-WAF-PE in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/range-per-context-then-diff-and-match.drawio.png.

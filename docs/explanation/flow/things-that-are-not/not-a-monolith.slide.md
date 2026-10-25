@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/bind-to-one-cli-delegate-the-rest.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - PDR-ONELIVE
 ---
 
 # cats is a mono repo, not a monolith: no repo-wide version, release or freeze
@@ -33,4 +30,5 @@ From the catalogue, reduced: bind to one cli delegate the rest.
 
 ## Notes
 
-Check it: the record PDR-ONELIVE in docs/drs/index.md, and the diagram docs/explanation/design/.assets/bind-to-one-cli-delegate-the-rest.drawio.png.
+Check it: the record PDR-ONELIVE in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/bind-to-one-cli-delegate-the-rest.drawio.png.

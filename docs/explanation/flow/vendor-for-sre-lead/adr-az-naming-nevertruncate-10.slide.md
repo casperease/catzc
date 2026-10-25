@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/deploy-bicep-delegates-to-az.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AZ-NAMING-NEVERTRUNCATE
 ---
 
 # Azure: a name that does not fit fails, it does not shrink
@@ -33,4 +30,5 @@ From the catalogue, reduced: deploy bicep delegates to az.
 
 ## Notes
 
-Check it: the record ADR-AZ-NAMING-NEVERTRUNCATE in docs/drs/index.md, and the diagram docs/explanation/design/.assets/deploy-bicep-delegates-to-az.drawio.png.
+Check it: the record ADR-AZ-NAMING-NEVERTRUNCATE in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/deploy-bicep-delegates-to-az.drawio.png.

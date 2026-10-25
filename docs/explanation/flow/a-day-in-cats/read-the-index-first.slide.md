@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/shims-set-roots-mode-read-back.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-AI
 ---
 
 # A session starts by reading the records index, then the records that govern its files
@@ -33,4 +30,5 @@ From the catalogue, reduced: shims set roots mode read back.
 
 ## Notes
 
-Check it: the record ADR-REPO-AI in docs/drs/index.md, and the diagram docs/explanation/design/.assets/shims-set-roots-mode-read-back.drawio.png.
+Check it: the record ADR-REPO-AI in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/shims-set-roots-mode-read-back.drawio.png.

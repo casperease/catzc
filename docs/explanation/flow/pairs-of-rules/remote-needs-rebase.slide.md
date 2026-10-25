@@ -9,9 +9,6 @@ catzc:
       source: ../../azure/.assets/four-gates-hold-the-session-rule.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
-  edges:
-    cites:
-      - DDR-REMOTE
 ---
 
 # The server is the truth because the topic rebases onto it: DDR-REMOTE rests on FDR-GIT
@@ -34,4 +31,5 @@ From the catalogue, reduced: four gates hold the session rule.
 
 ## Notes
 
-Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/four-gates-hold-the-session-rule.drawio.png.
+Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram
+docs/explanation/azure/.assets/four-gates-hold-the-session-rule.drawio.png.

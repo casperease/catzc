@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../azure/.assets/one-reverse-lookup-feeds-every-module.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AUTO-FAILFAST
 ---
 
 # Every call is bounded; a foreground call carries its limit and a long run carries its own
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-The hook denies a shell call without a limit and logs it. Exit 124 means the safeguard stopped the call. A denial is raised to a person, never retried larger.
+The hook denies a shell call without a limit and logs it. Exit 124 means the safeguard stopped the call. A denial is raised to a person,
+never retried larger.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: one reverse lookup feeds every module.
 
 ## Notes
 
-Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/one-reverse-lookup-feeds-every-module.drawio.png.
+Check it: the record ADR-AUTO-FAILFAST in docs/drs/index.md, and the diagram
+docs/explanation/azure/.assets/one-reverse-lookup-feeds-every-module.drawio.png.

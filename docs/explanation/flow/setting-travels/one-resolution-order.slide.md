@@ -9,9 +9,6 @@ catzc:
       source: ../../automation/.assets/three-tests-prove-the-hook.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT
 ---
 
 # A setting resolves in one order: the caller's value, else the config, else the default
@@ -34,4 +31,5 @@ From the catalogue, reduced: three tests prove the hook.
 
 ## Notes
 
-Check it: the record ADR-AUTO-DEFAULT in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/three-tests-prove-the-hook.drawio.png.
+Check it: the record ADR-AUTO-DEFAULT in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/three-tests-prove-the-hook.drawio.png.

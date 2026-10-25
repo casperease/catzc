@@ -202,6 +202,8 @@ mechanically and `Test-Links` checks them.
 - **`Test-Links`** — the gate. It runs the same engine read-only and fails on any off-form link, dangling target, bad anchor, unknown
   citation code or rule, numbered citation, link that climbs above the root, self-URL outside `.github/`, or missing docs path in a
   PowerShell string.
+- **`Test-LinkDirections`** — the direction gate for ADR-REPO-LINK-ONEWAY: it fails a comment that links anything but an ADR and an ADR that
+  links into code, from the same walk of the same files ([links-in-repository](links-in-repository.md)).
 - **One engine** — both commands drive the compiled `Catzc.Base.QualityGates.LinkEngine` over the files in parallel, with the citation map
   from `Get-DrsCitationMap` (in `Catzc.Base.Docs`), so the aligner and the gate cannot disagree.
 - **The VS Code registries** — `vscode-extensions.yml` recommends Regex Robin and `vscode-settings.yml` carries the `regexrobin.rules`

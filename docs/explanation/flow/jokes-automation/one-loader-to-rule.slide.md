@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/globs-yml-pipeline-field-is-the-binding.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AUTO-LAYERS
 ---
 
 # John the computer guy asked which loader to use; there is one, and it was already running
@@ -33,4 +30,5 @@ From the catalogue, reduced: globs yml pipeline field is the binding.
 
 ## Notes
 
-Check it: the record ADR-AUTO-LAYERS in docs/drs/index.md, and the diagram docs/explanation/design/.assets/globs-yml-pipeline-field-is-the-binding.drawio.png.
+Check it: the record ADR-AUTO-LAYERS in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/globs-yml-pipeline-field-is-the-binding.drawio.png.

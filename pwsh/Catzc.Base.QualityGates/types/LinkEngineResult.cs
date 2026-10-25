@@ -18,11 +18,15 @@ public sealed class LinkEngineResult
     public IReadOnlyList<LinkFinding> Findings { get; }
     public IReadOnlyDictionary<string, string> Changed { get; }
     public int FileCount { get; }
+    // The relations the walk recognised, empty when the caller asked for none.
+    public IReadOnlyList<LinkEdge> Edges { get; }
 
-    public LinkEngineResult(IReadOnlyList<LinkFinding> findings, IReadOnlyDictionary<string, string> changed, int fileCount)
+    public LinkEngineResult(IReadOnlyList<LinkFinding> findings, IReadOnlyDictionary<string, string> changed, int fileCount,
+        IReadOnlyList<LinkEdge> edges)
     {
         Findings = findings;
         Changed = changed;
         FileCount = fileCount;
+        Edges = edges ?? new List<LinkEdge>();
     }
 }

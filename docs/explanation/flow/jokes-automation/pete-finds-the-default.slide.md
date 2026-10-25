@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../flow/.assets/one-gate-checks-the-raw-read-rule.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AUTO-DEFAULT
 ---
 
 # Pete from IT hardcoded a default in three callers; the type already had it, once
@@ -33,4 +30,5 @@ From the catalogue, reduced: one gate checks the raw read rule.
 
 ## Notes
 
-Check it: the record ADR-AUTO-DEFAULT in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/one-gate-checks-the-raw-read-rule.drawio.png.
+Check it: the record ADR-AUTO-DEFAULT in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/one-gate-checks-the-raw-read-rule.drawio.png.

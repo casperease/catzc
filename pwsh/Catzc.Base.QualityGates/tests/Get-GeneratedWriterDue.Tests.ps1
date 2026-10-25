@@ -15,6 +15,14 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
         $script:root = Join-Path $TestDrive 'widget-repository'
         [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'docs')) | Out-Null
         [System.IO.File]::WriteAllText((Join-Path $script:root 'docs/index.md'), 'widget')
+        [System.IO.Directory]::CreateDirectory((Join-Path $script:root 'widget')) | Out-Null
+        $rendered = [datetime]::UtcNow.AddHours(-1)
+        [System.IO.File]::SetLastWriteTimeUtc((Join-Path $script:root 'docs/index.md'), $rendered)
+        foreach ($age in @{ 'widget/newer.txt' = 1; 'widget/older.txt' = -1 }.GetEnumerator()) {
+            $file = Join-Path $script:root $age.Key
+            [System.IO.File]::WriteAllText($file, 'gadget')
+            [System.IO.File]::SetLastWriteTimeUtc($file, $rendered.AddMinutes($age.Value * 10))
+        }
         $script:config = [Catzc.Base.QualityGates.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{
                     'Build-Widget' = [ordered]@{ inputs = @('widget/**'); outputs = @('docs/index.md') }
                     'Build-Gadget' = [ordered]@{ inputs = @('gadget/*.yml'); outputs = @('docs/missing.md') }
@@ -42,8 +50,16 @@ Describe 'Get-GeneratedWriterDue' -Tag 'L0', 'logic' {
         ($rows | Where-Object Name -eq 'Build-Widget').Due | Should -BeFalse
     }
 
-    It 'is due when a changed path matches an output' {
-        (@(& $script:run @('docs/index.md')) | Where-Object Name -eq 'Build-Widget').Due | Should -BeTrue
+    It 'is not due when only an output changed' {
+        (@(& $script:run @('docs/index.md')) | Where-Object Name -eq 'Build-Widget').Due | Should -BeFalse
+    }
+
+    It 'is due when a changed input is newer than the oldest output' {
+        (@(& $script:run @('widget/newer.txt')) | Where-Object Name -eq 'Build-Widget').Due | Should -BeTrue
+    }
+
+    It 'is not due when a changed input is older than the outputs' {
+        (@(& $script:run @('widget/older.txt')) | Where-Object Name -eq 'Build-Widget').Due | Should -BeFalse
     }
 
     It 'is due when an output named without a wildcard is missing, whatever changed' {

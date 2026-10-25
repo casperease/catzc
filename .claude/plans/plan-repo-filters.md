@@ -86,26 +86,15 @@ one resolver, makes every new view a config line, and moving the extra units int
 
 ## Open steps
 
-1. [ ] `docs/drs/design/repository-filters.md` (DDR-FILTER-STATEALWAYSSHOWN): the rule the 0.12.0 lamps follow is written down, landed on
-       2026-10-25 and judged "waaay better" by the user. Red always wins: a file's Error is remembered with the time it was first seen
-       (`heldFaults`, in the workspace state) and lapses only when the file reports a non-error set, is edited or saved, or changes on disk
-       after that time (`lapsedFaults`); a closed tab and a quiet language server never release it. A remembered Error and a failed test
-       marker are published again as the extension's own diagnostics (`· remembered`), because the editor's problem decorations are the only
-       ones heavier than the git colours and the only ones that colour every folder above the file (an extension's file decoration ties with
-       git's weight). The Problems panel and the error count show them (check: `Test-Links` on the page, and the rule read once against the
-       code).
-2. [ ] `pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js` (0.13.0, installed by the importer): the user reloads VS Code and
+1. [ ] `pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js` (0.13.0, installed by the importer): the user reloads VS Code and
        judges the lamps (open, code, configs, tests, tools, pipelines, infrastructure, generated, docs, out, languages; the pipeline and
        workflow files claimed by `code` and `pipelines` and no longer by `tools`, the Bicep tree by `code` and `infrastructure`, the module
        and template configuration by `code` and `configs`; the pipeline-stages, factory, sliders and note-being-edited icons): a click steps
        each lamp off → on → veto → off (veto: the purple struck-through icon, its whole zone hidden even where a lit lamp claims it), the
        union of the lit lamps minus the vetoed zones, the open lamp keeping open files and grey with none open, the languages lamp as a
        language view, the blue-grey and red conditions, and the counter's signature matrix; each remark lands here as its own step (check:
-       the counter reads "everything is accounted for" with each lamp off in turn; the user looks).
-3. [ ] `pwsh/Catzc.Base.VSCode/tests/catzc-track-lamps.Tests.ps1`: the L1 census test also holds the number of `files.exclude` entries under
-       a roof for each lamp off in turn, so a write never again overflows the command line the editor hands it to its search and watcher
-       processes (`spawn ENAMETOOLONG` at 3661 entries on 2026-10-24); the roof is declared once, beside the census (check: the test passes
-       on the real repository and fails with the roof set below the measured count).
+       the counter reads "everything is accounted for" with each lamp off in turn; a vetoed lamp shows no staged, unstaged or failed
+       condition colour, which is `catzc-track-lamps.js` behaviour not yet checked; the user looks).
 
 ## Open questions
 

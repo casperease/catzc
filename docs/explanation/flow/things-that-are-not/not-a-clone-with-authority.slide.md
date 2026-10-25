@@ -9,9 +9,6 @@ catzc:
       source: ../../automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - DDR-REMOTE
 ---
 
 # A local clone has no authority, however many tests it ran
@@ -34,4 +31,5 @@ From the catalogue, reduced: reading an accosted file writes nothing.
 
 ## Notes
 
-Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png.
+Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/reading-an-accosted-file-writes-nothing.drawio.png.

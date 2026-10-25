@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/each-track-picks-its-catch-all.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - FDR-GIT
 ---
 
 # A topic takes upstream changes by rebasing onto the sync point, never by merging main into it
@@ -33,4 +30,5 @@ From the catalogue, reduced: each track picks its catch all.
 
 ## Notes
 
-Check it: the record FDR-GIT in docs/drs/index.md, and the diagram docs/explanation/design/.assets/each-track-picks-its-catch-all.drawio.png.
+Check it: the record FDR-GIT in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/each-track-picks-its-catch-all.drawio.png.

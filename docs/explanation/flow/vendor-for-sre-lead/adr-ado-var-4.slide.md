@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/a-push-fires-only-touched-pipelines.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-ADO-VAR
 ---
 
 # Azure DevOps: variables are declared once and injected at deploy time
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: Secrets and some state are injected only at deploy; the repository holds a template through BVT.
+For the SRE Lead, who owns reliability, monitoring and the switch: Secrets and some state are injected only at deploy; the repository holds
+a template through BVT.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: a push fires only touched pipelines.
 
 ## Notes
 
-Check it: the record ADR-ADO-VAR in docs/drs/index.md, and the diagram docs/explanation/design/.assets/a-push-fires-only-touched-pipelines.drawio.png.
+Check it: the record ADR-ADO-VAR in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/a-push-fires-only-touched-pipelines.drawio.png.

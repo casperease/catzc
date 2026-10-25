@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/only-pwsh-compiles-its-aspects.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - RDR-DORA-MAINTAIN
 ---
 
 # Code maintainability: one function per file, one default declared once, one resolution order
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: A gate counts the functions; a type holds the default; every consumer resolves the same way.
+For the Developer, who edits one file, runs one gate, pushes one topic: A gate counts the functions; a type holds the default; every
+consumer resolves the same way.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: only pwsh compiles its aspects.
 
 ## Notes
 
-Check it: the record RDR-DORA-MAINTAIN in docs/drs/index.md, and the diagram docs/explanation/design/.assets/only-pwsh-compiles-its-aspects.drawio.png.
+Check it: the record RDR-DORA-MAINTAIN in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/only-pwsh-compiles-its-aspects.drawio.png.

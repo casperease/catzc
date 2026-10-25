@@ -9,9 +9,6 @@ catzc:
       source: ../../flow/.assets/apex-thirteen-rules-seven-includes-six-excludes.drawio.png
       scale: 0.4
       tilt: { y: 0.8, shear: 0.15 }
-  edges:
-    cites:
-      - PDR-ONELIVE
 ---
 
 # cats carries no back-compat shim, deprecated alias or migration fallback
@@ -34,4 +31,5 @@ From the catalogue, reduced: apex thirteen rules seven includes six excludes.
 
 ## Notes
 
-Check it: the record PDR-ONELIVE in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/apex-thirteen-rules-seven-includes-six-excludes.drawio.png.
+Check it: the record PDR-ONELIVE in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/apex-thirteen-rules-seven-includes-six-excludes.drawio.png.

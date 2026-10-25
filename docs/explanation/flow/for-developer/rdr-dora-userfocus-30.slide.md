@@ -9,9 +9,6 @@ catzc:
       source: ../../azure/.assets/one-namer-assembles-every-name.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
-  edges:
-    cites:
-      - RDR-DORA-USERFOCUS
 ---
 
 # User-centric focus: the person at the keyboard runs git, commits and pushes; the robot names the next command
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: Tooling reads and advises; every repository-changing act is the user's.
+For the Developer, who edits one file, runs one gate, pushes one topic: Tooling reads and advises; every repository-changing act is the
+user's.
 
 ## Image
 
@@ -34,4 +32,5 @@ From the catalogue, reduced: one namer assembles every name.
 
 ## Notes
 
-Check it: the record RDR-DORA-USERFOCUS in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/one-namer-assembles-every-name.drawio.png.
+Check it: the record RDR-DORA-USERFOCUS in docs/drs/index.md, and the diagram
+docs/explanation/azure/.assets/one-namer-assembles-every-name.drawio.png.

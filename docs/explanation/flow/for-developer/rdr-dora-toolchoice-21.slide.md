@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/one-unit-one-pipeline.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - RDR-DORA-TOOLCHOICE
 ---
 
 # Teams choose tools within one living version: no second way to do a thing
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: A tool is added through the package manager rule and vendored; a second mechanism is a defect.
+For the Developer, who edits one file, runs one gate, pushes one topic: A tool is added through the package manager rule and vendored; a
+second mechanism is a defect.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: one unit one pipeline.
 
 ## Notes
 
-Check it: the record RDR-DORA-TOOLCHOICE in docs/drs/index.md, and the diagram docs/explanation/design/.assets/one-unit-one-pipeline.drawio.png.
+Check it: the record RDR-DORA-TOOLCHOICE in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/one-unit-one-pipeline.drawio.png.

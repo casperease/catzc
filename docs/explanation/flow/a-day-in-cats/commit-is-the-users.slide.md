@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../../../docs/drs/flow/.assets/sync-point.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - FDR-GIT
 ---
 
 # The person commits and pushes; the robot only says what to run next

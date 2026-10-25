@@ -9,9 +9,6 @@ catzc:
       source: ../../automation/.assets/rule-and-gate-per-load-stage.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - ADR-AZ-CAF-GOV
 ---
 
 # Azure CAF governance: policies are declared in code and applied, never set by hand
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: The cloud adoption framework's governance items are answered one by one in the records.
+For the SRE Lead, who owns reliability, monitoring and the switch: The cloud adoption framework's governance items are answered one by one
+in the records.
 
 ## Image
 
@@ -34,4 +32,5 @@ From the catalogue, reduced: rule and gate per load stage.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-GOV in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/rule-and-gate-per-load-stage.drawio.png.
+Check it: the record ADR-AZ-CAF-GOV in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/rule-and-gate-per-load-stage.drawio.png.

@@ -9,9 +9,6 @@ catzc:
       source: ../../automation/.assets/callers-value-else-config-else-default.drawio.png
       scale: 0.4
       tilt: { y: 0.75, shear: -0.15 }
-  edges:
-    cites:
-      - ADR-ADO-AUTH
 ---
 
 # Azure DevOps: a configured credential proves its organization before any call
@@ -22,7 +19,8 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: The credential is checked against the org it claims; a mismatch stops discovery at the first call.
+For the SRE Lead, who owns reliability, monitoring and the switch: The credential is checked against the org it claims; a mismatch stops
+discovery at the first call.
 
 ## Image
 
@@ -34,4 +32,5 @@ From the catalogue, reduced: callers value else config else default.
 
 ## Notes
 
-Check it: the record ADR-ADO-AUTH in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/callers-value-else-config-else-default.drawio.png.
+Check it: the record ADR-ADO-AUTH in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/callers-value-else-config-else-default.drawio.png.

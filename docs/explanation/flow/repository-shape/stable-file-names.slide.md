@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../configuration/.assets/two-test-files-check-the-address-rules.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-FOLDERS
 ---
 
 # A file name is stable: order and state live in heads, never in a prefix
@@ -33,4 +30,5 @@ From the catalogue, reduced: two test files check the address rules.
 
 ## Notes
 
-Check it: the record ADR-REPO-FOLDERS in docs/drs/index.md, and the diagram docs/explanation/configuration/.assets/two-test-files-check-the-address-rules.drawio.png.
+Check it: the record ADR-REPO-FOLDERS in docs/drs/index.md, and the diagram
+docs/explanation/configuration/.assets/two-test-files-check-the-address-rules.drawio.png.

@@ -15,12 +15,11 @@ catzc:
       - ADR-REPO-DRSCODE
       - ADR-REPO-PLANS
       - DDR-ASPECT
-      - DDR-FILTER-STATEALWAYSSHOWN
       - DDR-TRACK
       - DDR-TRACKTYPE
       - FDR-CD-GLOBS
       - TDR-NORMALFORM
-    drs_total: 16
+    drs_total: 15
 ---
 
 # Value of each plan
@@ -53,8 +52,7 @@ stale or superseded item is recorded as such, with the reason.
 
 | Value  | Plan                        | Needed docs                                                                                                | Needed tests                                                                                          | State                                            |
 | ------ | --------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| high   | plan-lamp-palette           | DDR-FILTER-STATEALWAYSSHOWN names the ranges                                                               | Pester for LampPaletteConfig, the rendered icons, the rendered settings colours                       | decided; three steps                             |
-| high   | plan-repo-filters           | none (filters are a tool view; DDR-ASPECT already holds the units it gates)                                | Pester for FiltersConfig, Get-RepositoryFilter, Get-ModuleGlobSet, Get-AspectCover, the lamps         | landed; the user's look and three steps left     |
+| high   | plan-repo-filters           | none (filters are a tool view; DDR-ASPECT already holds the units it gates)                                | Pester for FiltersConfig, Get-RepositoryFilter, Get-ModuleGlobSet, Get-AspectCover, the lamps         | landed; the user's look, one step left           |
 | high   | plan-track-model            | DDR-TRACK (members, root files), DDR-TRACKTYPE (output type, vendors), FDR-CD-GLOBS (globsets from tracks) | Pester for VariantTrack, Get-Track, Test-TrackDeclaration, Get-GeneratedTarget, Get-GlobSetTrigger    | decided; eighteen steps, naming examples awaited |
 | medium | plan-session-learnings      | the session-finalize skill (the learning definition)                                                       | Pester for Add-SessionLearning and LearningsConfig                                                    | decided; one step                                |
 | high   | plan-agent-shortcuts        | the plans ADR names New-Plan                                                                               | Pester for the gate runner and New-Plan, Test-AgentDefinitions                                        | one step left, the user's CLAUDE.md line         |
@@ -64,7 +62,7 @@ stale or superseded item is recorded as such, with the reason.
 | high   | plan-drs-system             | the DRS rule in ADR-REPO-DRSCODE, glossary entries for DRS, decision record and record kind                | Catzc.Base.Docs Pester, Update-DrsCitation dry run, Test-DrsRegistry, Test-Links, Test-GeneratedFiles | one step left, the user's CLAUDE.md edit         |
 | high   | plan-debt-agent-traffic     | the catzc-run, report-fixed, catzc-drone and plans-orchestrate lines; the entry script page                | the entry script test, Test-Plans tests, the hook test, Test-AgentDefinitions                         | three steps                                      |
 | high   | plan-nuget-tooling          | ADR-AUTO-PKGMGR names NuGet's owner                                                                        | Invoke-Dotnet and Build-AgentHook tests                                                               | design first                                     |
-| high   | plan-debt-full-run-failures | none (test reruns)                                                                                         | one Invoke-TestFile per failing file                                                                  | three steps                                      |
+| high   | plan-debt-full-run-failures | none (test reruns)                                                                                         | one Invoke-TestFile per failing file                                                                  | one step                                         |
 | medium | plan-debt-test-speed        | none (test files only)                                                                                     | the measured test files, twice each                                                                   | two steps                                        |
 | high   | plan-bcl-path-sets          |                                                                                                            |                                                                                                       | new                                              |
 | high   | plan-debt-tier-tripwire     | none (ADR-AUTO-TEST-PROCESSTRIPWIRE decides)                                                               | each failing file at -MaxLevel 1, the tripwire's test, both tiers alone                               | new                                              |

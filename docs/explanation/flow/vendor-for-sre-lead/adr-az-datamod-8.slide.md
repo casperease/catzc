@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/code-wires-only-the-first-rungs.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AZ-DATAMOD
 ---
 
 # Azure: one file, one subscription; the data model is a tree of named slots
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: A coordinate names a subscription, an environment and a slot; a bad coordinate stops discovery.
+For the SRE Lead, who owns reliability, monitoring and the switch: A coordinate names a subscription, an environment and a slot; a bad
+coordinate stops discovery.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: code wires only the first rungs.
 
 ## Notes
 
-Check it: the record ADR-AZ-DATAMOD in docs/drs/index.md, and the diagram docs/explanation/design/.assets/code-wires-only-the-first-rungs.drawio.png.
+Check it: the record ADR-AZ-DATAMOD in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/code-wires-only-the-first-rungs.drawio.png.

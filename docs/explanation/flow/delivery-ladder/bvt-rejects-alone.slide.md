@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../azure/.assets/a-bad-coordinate-stops-discovery.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - FDR-CD-LIFE
 ---
 
 # Discard is terminal: a commit BVT rejects never climbs
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-The build verification test runs on every push to main; a failing commit is discarded on its own, and the next one starts from the verified point.
+The build verification test runs on every push to main; a failing commit is discarded on its own, and the next one starts from the verified
+point.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: a bad coordinate stops discovery.
 
 ## Notes
 
-Check it: the record FDR-CD-LIFE in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/a-bad-coordinate-stops-discovery.drawio.png.
+Check it: the record FDR-CD-LIFE in docs/drs/index.md, and the diagram
+docs/explanation/azure/.assets/a-bad-coordinate-stops-discovery.drawio.png.

@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/one-way-climb-three-endings.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - FDR-CD-QUEUE
 ---
 
 # A queue stands between two rungs the lifecycle names: FDR-CD-QUEUE rests on FDR-CD-LIFE
@@ -33,4 +30,5 @@ From the catalogue, reduced: one way climb three endings.
 
 ## Notes
 
-Check it: the record FDR-CD-QUEUE in docs/drs/index.md, and the diagram docs/explanation/design/.assets/one-way-climb-three-endings.drawio.png.
+Check it: the record FDR-CD-QUEUE in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/one-way-climb-three-endings.drawio.png.

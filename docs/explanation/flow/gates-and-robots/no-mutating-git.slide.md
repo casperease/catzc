@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../automation/.assets/every-code-root-is-a-copy.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-AI
 ---
 
 # No robot runs a mutating git command; the person commits
@@ -33,4 +30,5 @@ From the catalogue, reduced: every code root is a copy.
 
 ## Notes
 
-Check it: the record ADR-REPO-AI in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/every-code-root-is-a-copy.drawio.png.
+Check it: the record ADR-REPO-AI in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/every-code-root-is-a-copy.drawio.png.

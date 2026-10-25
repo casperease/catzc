@@ -521,9 +521,9 @@ domains:
       How the repository tree is laid out, formatted, and generated: conventional folder names at every level, the single `out/` output
       directory, one formatting standard for every file type, contracts at the repository boundary, in both directions, under `contracts/`,
       READMEs and root configs generated from one source, fictional documentation examples, the separation of design, test, and live
-      vocabulary, the controlled vocabulary of defined terms, the reserved meta block in a Markdown file's front matter, repo-wide variants,
-      the sub-agent definitions and the rules behind each, and sibling repositories read for ideas, never as a reference implementation, and
-      the session-memory protection that skips a repeated scan over an unchanged globset.
+      vocabulary, the controlled vocabulary of defined terms, the directions a link may point, the reserved meta block in a Markdown file's
+      front matter, repo-wide variants, the sub-agent definitions and the rules behind each, and sibling repositories read for ideas, never
+      as a reference implementation, and the session-memory protection that skips a repeated scan over an unchanged globset.
     depends_on: [research, principles, design, automation, configuration, bcl]
     stack: AUTO
     concern: [automation] # the repository tree the tooling lays out and generates
@@ -541,6 +541,7 @@ domains:
       domain-language-separation: { external: ADR-REPO-LANG }
       controlled-vocabulary: { external: ADR-REPO-VOCAB, concern: [quality-control] }
       markdown-links: { external: ADR-REPO-LINK, concern: [quality-control] }
+      links-in-repository: { external: ADR-REPO-LINKS, concern: [quality-control] }
       drs-code-language: { external: ADR-REPO-DRSCODE, concern: [quality-control] }
       comments-in-docs: { external: ADR-REPO-COMMENTS, concern: [quality-control] }
       file-meta: { external: ADR-REPO-FILEMETA, concern: [quality-control] }

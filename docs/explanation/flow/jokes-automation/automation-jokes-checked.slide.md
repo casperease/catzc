@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../automation/.assets/what-gates-each-bundle-stage.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-SLIDES
 ---
 
 # Ten jokes, ten records, zero lies: Test-Slides laughed last
@@ -33,4 +30,5 @@ From the catalogue, reduced: what gates each bundle stage.
 
 ## Notes
 
-Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram docs/explanation/automation/.assets/what-gates-each-bundle-stage.drawio.png.
+Check it: the record ADR-REPO-SLIDES in docs/drs/index.md, and the diagram
+docs/explanation/automation/.assets/what-gates-each-bundle-stage.drawio.png.

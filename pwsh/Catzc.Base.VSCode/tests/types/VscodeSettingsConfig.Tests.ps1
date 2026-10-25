@@ -64,6 +64,17 @@ Describe 'Catzc.Base.VSCode.VscodeSettingsConfig' -Tag 'L0' {
             $message | Should -BeLike "*hidden_actions 'Gadget' must be a list of command ids*"
         }
 
+        It 'reads the carried settings with their owner keys, none by default, and refuses an entry without an owner' {
+            $config = [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{
+                    settings = [ordered]@{ 'editor.tabSize' = 4 }
+                    carried  = [ordered]@{ 'widget.exclude' = 'gadget.owned' }
+                })
+            $config.carried['widget.exclude'] | Should -Be 'gadget.owned'
+            [Catzc.Base.VSCode.VscodeSettingsConfig]::new([ordered]@{ settings = [ordered]@{ 'editor.tabSize' = 4 } }).carried.Count | Should -Be 0
+            Get-ViolationMessage ([ordered]@{ settings = [ordered]@{ 'editor.tabSize' = 4 }; carried = [ordered]@{ 'widget.exclude' = '' } }) |
+                Should -BeLike "*carried 'widget.exclude' must name the setting key*"
+        }
+
         It 'reports every violation in one throw: an unknown key, a scalar language override, and a scalar search.exclude' {
             $message = Get-ViolationMessage ([ordered]@{
                     widget   = 1

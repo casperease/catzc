@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../azure/.assets/change-one-configuration-slot.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-PWSH-ONEFUNC
 ---
 
 # One function per file: Get-Foo.ps1 holds exactly function Get-Foo
@@ -33,4 +30,5 @@ From the catalogue, reduced: change one configuration slot.
 
 ## Notes
 
-Check it: the record ADR-PWSH-ONEFUNC in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/change-one-configuration-slot.drawio.png.
+Check it: the record ADR-PWSH-ONEFUNC in docs/drs/index.md, and the diagram
+docs/explanation/azure/.assets/change-one-configuration-slot.drawio.png.

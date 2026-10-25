@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../flow/.assets/range-per-context-then-diff-and-match.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - RDR-DORA-LOOSETEAMS
 ---
 
 # Loosely coupled teams: every deployable unit versions and releases on its own
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-For the Developer, who edits one file, runs one gate, pushes one topic: cats is a mono repo, not a monolith; there is no repo-wide freeze or release train.
+For the Developer, who edits one file, runs one gate, pushes one topic: cats is a mono repo, not a monolith; there is no repo-wide freeze or
+release train.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: range per context then diff and match.
 
 ## Notes
 
-Check it: the record RDR-DORA-LOOSETEAMS in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/range-per-context-then-diff-and-match.drawio.png.
+Check it: the record RDR-DORA-LOOSETEAMS in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/range-per-context-then-diff-and-match.drawio.png.

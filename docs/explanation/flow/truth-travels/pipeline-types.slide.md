@@ -9,9 +9,6 @@ catzc:
       source: ../../azure/.assets/how-each-naming-rule-is-held.drawio.png
       scale: 0.4
       rotate: 5
-  edges:
-    cites:
-      - FDR-CD-TYPE
 ---
 
 # Pipelines are a closed set of types keyed together by one immutable tagged artifact
@@ -34,4 +31,5 @@ From the catalogue, reduced: how each naming rule is held.
 
 ## Notes
 
-Check it: the record FDR-CD-TYPE in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/how-each-naming-rule-is-held.drawio.png.
+Check it: the record FDR-CD-TYPE in docs/drs/index.md, and the diagram
+docs/explanation/azure/.assets/how-each-naming-rule-is-held.drawio.png.

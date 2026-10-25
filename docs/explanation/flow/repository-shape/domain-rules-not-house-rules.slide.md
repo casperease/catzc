@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/clients-bridge-to-one-server.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-VOCAB
 ---
 
 # The sanctioned words are domain rules and decision records, never house rules
@@ -33,4 +30,5 @@ From the catalogue, reduced: clients bridge to one server.
 
 ## Notes
 
-Check it: the record ADR-REPO-VOCAB in docs/drs/index.md, and the diagram docs/explanation/design/.assets/clients-bridge-to-one-server.drawio.png.
+Check it: the record ADR-REPO-VOCAB in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/clients-bridge-to-one-server.drawio.png.

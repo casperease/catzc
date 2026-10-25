@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../flow/.assets/ci-budget-is-the-only-quality-gate.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-VOCAB
 ---
 
 # There are no house rules, only domain rules and decision records
@@ -33,4 +30,5 @@ From the catalogue, reduced: ci budget is the only quality gate.
 
 ## Notes
 
-Check it: the record ADR-REPO-VOCAB in docs/drs/index.md, and the diagram docs/explanation/flow/.assets/ci-budget-is-the-only-quality-gate.drawio.png.
+Check it: the record ADR-REPO-VOCAB in docs/drs/index.md, and the diagram
+docs/explanation/flow/.assets/ci-budget-is-the-only-quality-gate.drawio.png.

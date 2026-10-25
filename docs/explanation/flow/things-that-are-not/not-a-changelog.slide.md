@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/code-wires-only-the-first-rungs.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-REPO-LANG
 ---
 
 # A record is not a changelog: present tense, no 'now', 'previously' or 'we used to'
@@ -33,4 +30,5 @@ From the catalogue, reduced: code wires only the first rungs.
 
 ## Notes
 
-Check it: the record ADR-REPO-LANG in docs/drs/index.md, and the diagram docs/explanation/design/.assets/code-wires-only-the-first-rungs.drawio.png.
+Check it: the record ADR-REPO-LANG in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/code-wires-only-the-first-rungs.drawio.png.

@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../design/.assets/ingress-gated-the-rest-by-review.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AZ-CAF-DEVOPS
 ---
 
 # Azure CAF DevOps: the ladder, the queues and the gates are the DevOps answer
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-For the SRE Lead, who owns reliability, monitoring and the switch: Trunk, BVT, two signatures, blue-green: the framework's items map to the flow records.
+For the SRE Lead, who owns reliability, monitoring and the switch: Trunk, BVT, two signatures, blue-green: the framework's items map to the
+flow records.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: ingress gated the rest by review.
 
 ## Notes
 
-Check it: the record ADR-AZ-CAF-DEVOPS in docs/drs/index.md, and the diagram docs/explanation/design/.assets/ingress-gated-the-rest-by-review.drawio.png.
+Check it: the record ADR-AZ-CAF-DEVOPS in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/ingress-gated-the-rest-by-review.drawio.png.

@@ -9,9 +9,6 @@ catzc:
       source: ../../design/.assets/every-vendor-call-leaves-through-az.drawio.png
       scale: 0.4
       rotate: -4
-  edges:
-    cites:
-      - DDR-REMOTE
 ---
 
 # The pull request is the ingress engine: it authenticates, runs the merge gates and merges
@@ -34,4 +31,5 @@ From the catalogue, reduced: every vendor call leaves through az.
 
 ## Notes
 
-Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram docs/explanation/design/.assets/every-vendor-call-leaves-through-az.drawio.png.
+Check it: the record DDR-REMOTE in docs/drs/index.md, and the diagram
+docs/explanation/design/.assets/every-vendor-call-leaves-through-az.drawio.png.

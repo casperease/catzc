@@ -94,3 +94,12 @@ catzc.lamps.state.<lamp>, its icon <icon>-<condition>.svg. The icons are the ext
 assets/extensions/catzc-track-lamps/, shipped as media/: a file copied in over one of them replaces that icon. Committed is green
 (on a bright glyph; off, an active filter, a dark glyph pulsing in a turning ring), staged dark brown, unstaged yellowish, failed red.
 ```
+
+## comment:8
+
+Above `- command: catzc.lamps.orchestrate.red`, written with `#`.
+
+```text
+The orchestrator, leftmost and always shown: its colour sums the whole repository (red a failure, blue work in progress, green
+neither; red until the first check), and a click while red lights every red lamp so every failing file is visible.
+```

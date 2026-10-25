@@ -8,9 +8,6 @@ catzc:
       mode: reduce
       source: ../../azure/.assets/names-are-pure-and-never-truncated.drawio.png
       scale: 0.4
-  edges:
-    cites:
-      - ADR-AUTO-TEST
 ---
 
 # A quality gate is one command with one verdict, run the same way by a person, a robot and a pipeline
@@ -21,7 +18,8 @@ catzc:
 
 ## Lead
 
-Test-Links, Test-Glossary, Test-Diagrams, Test-Slides and Test-Plans each read the tree and write a report under out/; a pipeline runs the same command and turns red on the same finding.
+Test-Links, Test-Glossary, Test-Diagrams, Test-Slides and Test-Plans each read the tree and write a report under out/; a pipeline runs the
+same command and turns red on the same finding.
 
 ## Image
 
@@ -33,4 +31,5 @@ From the catalogue, reduced: names are pure and never truncated.
 
 ## Notes
 
-Check it: the record ADR-AUTO-TEST in docs/drs/index.md, and the diagram docs/explanation/azure/.assets/names-are-pure-and-never-truncated.drawio.png.
+Check it: the record ADR-AUTO-TEST in docs/drs/index.md, and the diagram
+docs/explanation/azure/.assets/names-are-pure-and-never-truncated.drawio.png.
