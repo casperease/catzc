@@ -215,6 +215,7 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         $again = & $script:call remembering @($root, $held, @())
         $again[$red][0].message | Should -Be 'bad'
         (& $script:call remembering @($root, $held, @(& $entry $red @($error1)))).Count | Should -Be 0 -Because 'a live Error shows once'
+        (& $script:call remembering @($root, $held, @(& $entry $red @(@{ severity = 1; source = 'PSScriptAnalyzer' })))).Count | Should -Be 1 -Because 'a failure only a Warning reports is published as an Error, so the editor paints it red, not gold'
         & $script:call isRemembered @(@{ source = 'bicep · remembered' }) | Should -BeTrue
         & $script:call isRemembered @(@{ source = 'bicep' }) | Should -BeFalse
         # A file changed on disk after its Error was seen lapses; an untouched one stays.
@@ -373,8 +374,8 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
 
     It 'puts the open lamp first, the filters next and the languages lamp last, and makes an empty field an empty lamp' {
         $sets = & $script:call lampSets @($script:filters, '', $script:known, @('mods/Widget/Get-Widget.ps1'))
-        @($sets.Keys)[0] | Should -Be 'open'
-        @($sets.Keys)[-1] | Should -Be 'languages'
+        $sets.Keys | Select-Object -First 1 | Should -Be 'open'
+        $sets.Keys | Select-Object -Last 1 | Should -Be 'languages'
         $verdict = & $script:call evaluate @($sets, @('open'), @(), @{})
         $verdict.conditions['languages'] | Should -Be 'empty'
         $verdict.conditions['open'] | Should -Be 'committed'
@@ -385,7 +386,15 @@ Describe 'catzc-track-lamps — the real repository' -Tag 'L1', 'integrity', 'so
     BeforeAll {
         $script:aspects = Get-AspectGlobSet
         $script:tracked = @(Get-TrackedFile)
-        $script:inAspect = { param([string] $Path, [string] $Aspect) @($script:aspects[$Aspect]).Where({ $_.Matches($Path) }, 'First').Count -gt 0 }
+        $script:inAspect = {
+            param([string] $Path, [string] $Aspect)
+            foreach ($set in @($script:aspects[$Aspect])) {
+                if ($set.Matches($Path)) {
+                    return $true
+                }
+            }
+            $false
+        }
         $script:declared = @((Get-Config -Config filters).filters.ForEach({ $_.name }))
     }
 

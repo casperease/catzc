@@ -112,7 +112,10 @@ FINDINGS_FAIL = DEFAULTS["renderer"]["findings-fail"] == "yes"  # a keep-out hit
 WORD_GAP = int(DEFAULTS["renderer"]["word-gap"])  # how far a steep edge's word stands right of its line, written into the model
 LABEL_PRESENTATIONS = ("pill", "word")  # the two presentations of an edge's word
 EDGE_LABEL = str(DEFAULTS["renderer"]["edge-label"]).strip()  # which one every diagram uses
-LABEL_LEGEND = {"pill": f'label: {DEFAULTS["renderer"]["edge-label-legend-pill"]}', "word": f'transition: {DEFAULTS["renderer"]["edge-label-legend-word"]}'}  # the legend entry of each presentation
+LABEL_LEGEND = {
+    "pill": f"label: {DEFAULTS['renderer']['edge-label-legend-pill']}",
+    "word": f"transition: {DEFAULTS['renderer']['edge-label-legend-word']}",
+}  # the legend entry of each presentation
 LABEL_TAIL_CLEAR = int(DEFAULTS["renderer"]["edge-label-tail-clear"])  # px of line a pill leaves between itself and the tail's end
 LABEL_HEAD_CLEAR = int(DEFAULTS["renderer"]["edge-label-head-clear"])  # px of line a pill leaves between itself and the arrowhead's tip
 ACTOR = str(ACTION["actor"]).strip() == "shown"  # the stick man drawn last over the drawing, the cause's fragment as his head
@@ -235,7 +238,9 @@ def facing(a, b, orient="h"):
     y_over = min(a["y"] + a["h"], b["y"] + b["h"]) - max(a["y"], b["y"])
     dx = (b["x"] + b["w"] / 2) - (a["x"] + a["w"] / 2)
     dy = (b["y"] + b["h"] / 2) - (a["y"] + a["h"] / 2)
-    if x_over <= 0 and y_over <= 0 and EDGE_ROUTE == "elbow":  # no straight line joins them: out of the side facing across, into the side facing along
+    if (
+        x_over <= 0 and y_over <= 0 and EDGE_ROUTE == "elbow"
+    ):  # no straight line joins them: out of the side facing across, into the side facing along
         if orient == "v":  # out of the side facing along, into the side facing across
             return ("bottom" if dy >= 0 else "top"), ("left" if dx >= 0 else "right"), True
         return ("right" if dx >= 0 else "left"), ("top" if dy >= 0 else "bottom"), True
@@ -432,8 +437,14 @@ def label_spot(run, word, deadzone=0, crossing=None, avoid=()):
     width, height = 6.2 * len(word) + 2 * WORD_MARGIN, 12 + 2 * WORD_MARGIN
     length = run_length(run) - 2 * deadzone  # the line the model draws: the deadzone stops it short of both boxes
     legs = [math.hypot(q[0] - p[0], q[1] - p[1]) for p, q in zip(run, run[1:])]
-    longest = [sum(legs[: legs.index(max(legs))]) + max(legs) / 2 - deadzone] if len(legs) > 1 else []  # a bent run: the middle of its longer leg
-    wanted = longest + ([arc_to(run, crossing) - deadzone] if crossing and not longest else []) + [length * f for f in (0.5, 1 / 3, 2 / 3, 0.25, 0.75)]
+    longest = (
+        [sum(legs[: legs.index(max(legs))]) + max(legs) / 2 - deadzone] if len(legs) > 1 else []
+    )  # a bent run: the middle of its longer leg
+    wanted = (
+        longest
+        + ([arc_to(run, crossing) - deadzone] if crossing and not longest else [])
+        + [length * f for f in (0.5, 1 / 3, 2 / 3, 0.25, 0.75)]
+    )
     for t in wanted:
         if 0 < t < length:
             spot, (ux, uy) = point_at(run, t + deadzone)
@@ -445,7 +456,7 @@ def label_spot(run, word, deadzone=0, crossing=None, avoid=()):
     spot, (ux, uy) = point_at(run, max(length, 0) / 2 + deadzone if length > 0 else run_length(run) / 2)
     nx, ny = -uy, ux  # the normal of the line
     reach = min(width / 2 / abs(nx) if nx else math.inf, height / 2 / abs(ny) if ny else math.inf) + WORD_GAP
-    sides = sorted((1, -1), key=lambda k: (-(k * nx) if abs(uy) > abs(ux) else k * ny))  # right of a steep line, above a flatter one
+    sides = sorted((1, -1), key=lambda k: -(k * nx) if abs(uy) > abs(ux) else k * ny)  # right of a steep line, above a flatter one
     for side in sides:
         centre = (spot[0] + side * nx * reach, spot[1] + side * ny * reach)
         if not any(overlaps((centre[0] - width / 2, centre[1] - height / 2, width, height), box) for box in avoid):
@@ -462,7 +473,9 @@ def drawn_run(points, source, target):
 
 LABEL_INNER = int(DEFAULTS["renderer"]["label-inner-margin"])  # the margin between a diamond's text and its invisible text rect
 LABEL_OUTER = int(DEFAULTS["renderer"]["label-outer-margin"])  # the margin between that rect's corner and the diamond's border
-LABEL_RECT = "text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontSize=12;fontColor=@ink;"  # the invisible rect: no fill, no line
+LABEL_RECT = (
+    "text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontSize=12;fontColor=@ink;"  # the invisible rect: no fill, no line
+)
 LABEL_LINE_GAP = 3  # px between two printed lines, the painter's line spacing
 LABEL_WRAP_PAD = 4  # px draw.io and the painter pad a wrapped label across its width
 
@@ -594,7 +607,9 @@ def library():
 
 
 LIB = library()
-LIB["edges"]["flow"]["phrase"] = f"flow: {DEFAULTS['edge-semantics']['legend']}"  # the legend words of a plain arrow come from the one declaration
+LIB["edges"]["flow"]["phrase"] = (
+    f"flow: {DEFAULTS['edge-semantics']['legend']}"  # the legend words of a plain arrow come from the one declaration
+)
 EDGE_SEMANTICS = {k: tuple(v.replace(",", " ").split()) for k, v in DEFAULTS["edge-semantics"].items() if k != "legend"}
 EDGE_LABELS = {word: end for word, end in DEFAULTS["edge-labels"].items()}  # label -> the end that initiates under it
 GLYPH_KINDS = tuple(LIB["glyphs"])
@@ -983,7 +998,9 @@ def drawn(content):
     out = {k: v for k, v in content.items() if k not in SHORTHAND + ("generated",)}
     for key in ("groups", "glyphs", "notes"):
         out[key] = {i["id"]: i for i in content.get(key) or []}
-    out["spans"] = [{k: v for k, v in s.items() if k != "row"} for s in content.get("spans") or []]  # a row is a bar's height, read back by undrawn
+    out["spans"] = [
+        {k: v for k, v in s.items() if k != "row"} for s in content.get("spans") or []
+    ]  # a row is a bar's height, read back by undrawn
     out["edges"] = sorted(tuple(sorted(e.items())) for e in content.get("edges") or [])
     return out
 
@@ -1460,11 +1477,7 @@ def between_edge(e, out, where):
         raise DeclarationError(f"{where}: edge between is a list of two cells, `between: [a, b]`")
     kinds = end_kinds(out)
     ranks = [edge_rules.rank_of(kinds.get(end)) for end in ends]
-    if (
-        None in ranks
-        or ranks[0] == ranks[1]
-        or any(kinds.get(end) in edge_rules.TRUSTED_KINDS for end in ends)
-    ):
+    if None in ranks or ranks[0] == ranks[1] or any(kinds.get(end) in edge_rules.TRUSTED_KINDS for end in ends):
         raise DeclarationError(
             f"{where}: edge between {ends[0]} and {ends[1]} has no direction by rank (equal, unranked or trusted kinds); "
             f"declare it with from and to (DDR-VISUAL-ARROWSPOINTATWHATTHEYDEPENDON)"
@@ -1521,7 +1534,9 @@ def contract_call(raw, where, what):
         raise DeclarationError(f"{where}: {what} is one command in the contract form, `name: {{ parameter: literal }}`")
     ((name, args),) = raw.items()
     if not normal_form.accepts(name):
-        raise DeclarationError(f"{where}: {what} names '{name}'; a command's name is in the repository normal form, {normal_form.configured_case()}")
+        raise DeclarationError(
+            f"{where}: {what} names '{name}'; a command's name is in the repository normal form, {normal_form.configured_case()}"
+        )
     if args is None:
         args = {}
     if not isinstance(args, dict):
@@ -1750,7 +1765,9 @@ def entry(item, keys, where, what, optional=None):
 def brief(phrase):
     """A legend phrase as the legend prints it: the name alone, without the explanation in parentheses or after a colon; a flow keeps
     its relation, a commit its state and an operator its meaning, which are the names."""
-    if phrase.startswith(("flow: ", "commit: ", "execution: ", "proof: ", "transition: ", "label: ") + tuple(f"{word}: " for word in OPERATORS)):
+    if phrase.startswith(
+        ("flow: ", "commit: ", "execution: ", "proof: ", "transition: ", "label: ") + tuple(f"{word}: " for word in OPERATORS)
+    ):
         return phrase.split(" (")[0] if not phrase.startswith("commit: ") else phrase
     return phrase.split(" (")[0].split(":")[0].strip()
 
@@ -1953,7 +1970,9 @@ def glyph_tags(item, box, parent, lib):
     x = box["x"] + box["w"] - 8 - sum(sizes) - 3 * (len(words) - 1)
     cells = []
     for n, (word, size) in enumerate(zip(words, sizes)):
-        cells.append(cell(f"{item['id']}-tag" if n == 0 else f"{item['id']}-tag-{n + 1}", word, lib["style"], x, box["y"] - 8, size, height, parent))
+        cells.append(
+            cell(f"{item['id']}-tag" if n == 0 else f"{item['id']}-tag-{n + 1}", word, lib["style"], x, box["y"] - 8, size, height, parent)
+        )
         x += size + 3
     return cells
 
@@ -2396,7 +2415,9 @@ def place(declaration, check_routes=False):
             taken = {lv for lx0, lx1, lv in span_levels if lx0 < x1 and x0 < lx1}
             level = int(s["row"]) if "row" in s else min(lv for lv in range(len(taken) + 1) if lv not in taken)  # the lowest free level
             if level in taken:
-                raise DeclarationError(f"span '{s['id']}' overlaps another span on row {level}; give it a row no span over the same stages holds")
+                raise DeclarationError(
+                    f"span '{s['id']}' overlaps another span on row {level}; give it a row no span over the same stages holds"
+                )
             span_levels.append((x0, x1, level))
             y = min(band_box[band_of(i)]["y"] for i in s["over"]) - 24 - level * 32
             bar = cell(
@@ -2449,7 +2470,12 @@ def place(declaration, check_routes=False):
     marked = {m["at"]: m.get("corner", "top-left") for m in content["markers"] if m["at"] in box_of}
     for g in content["glyphs"]:
         box = box_of[g["id"]]
-        x0, y0, x1, y1 = box["x"] - EDGE_DEADZONE, box["y"] - EDGE_DEADZONE, box["x"] + box["w"] + EDGE_DEADZONE, box["y"] + box["h"] + EDGE_DEADZONE
+        x0, y0, x1, y1 = (
+            box["x"] - EDGE_DEADZONE,
+            box["y"] - EDGE_DEADZONE,
+            box["x"] + box["w"] + EDGE_DEADZONE,
+            box["y"] + box["h"] + EDGE_DEADZONE,
+        )
         if g["id"] in marked:
             mx, my = marker_xy(box, marked[g["id"]])
             x0, y0, x1, y1 = min(x0, mx), min(y0, my), max(x1, mx + 22), max(y1, my + 22)
@@ -2500,7 +2526,11 @@ def place(declaration, check_routes=False):
                 edge["via"] = [[round(corner[0]), round(corner[1])]]
                 edge["style"] += "catzcElbow=1;"
         else:
-            run = drawn_run([(a["x"] + a["w"] / 2, a["y"] + a["h"] / 2), *[(x, y) for x, y in edge["via"]], (b["x"] + b["w"] / 2, b["y"] + b["h"] / 2)], a, b)
+            run = drawn_run(
+                [(a["x"] + a["w"] / 2, a["y"] + a["h"] / 2), *[(x, y) for x, y in edge["via"]], (b["x"] + b["w"] / 2, b["y"] + b["h"] / 2)],
+                a,
+                b,
+            )
         points = [
             (a["x"] + a["w"] / 2, a["y"] + a["h"] / 2),
             *[(x, y) for x, y in edge["via"]],
@@ -2538,7 +2568,9 @@ def place(declaration, check_routes=False):
                     cells.append(transition(edge, edge_word(e), crossing))
         cells.append(edge)
     LAST_ROUTES[:] = routes
-    if FINDINGS_FAIL and check_routes:  # the keep-out zone: a cell that is no end of an edge is a rectangle grown by the deadzone, marker included
+    if (
+        FINDINGS_FAIL and check_routes
+    ):  # the keep-out zone: a cell that is no end of an edge is a rectangle grown by the deadzone, marker included
         hits = keep_out_findings(routes, obstacles, holder)
         if hits:
             raise DeclarationError("; ".join(hits))
@@ -3095,9 +3127,7 @@ def to_xml(cells, height, theme=None):
         if c["edge"]:
             # The deadzone: the line stops EDGE_DEADZONE px outside each box it joins, for every head variant (none, one, both).
             zone = "".join(
-                f"{end}PerimeterSpacing={EDGE_DEADZONE};"
-                for end in ("source", "target")
-                if c.get(end) not in (None, "", "None")
+                f"{end}PerimeterSpacing={EDGE_DEADZONE};" for end in ("source", "target") if c.get(end) not in (None, "", "None")
             )
             style = c["style"] if c["style"].endswith(";") or not c["style"] else c["style"] + ";"
             lines.append(
@@ -3224,7 +3254,9 @@ def get(model, kind=None):
     # The drawing carries each minimap's view, not what its author excludes: save() keeps the source's entries.
     content["minimaps"] = [plain(cells[cid].get("value")) for cid, _, _ in SIDEBAR if cid in cells]
     flow_phrase = plain(cells["lg-edge-flow-t"].get("value")) if "lg-edge-flow-t" in cells else ""
-    content["relation"] = flow_phrase[len("flow: ") :] if flow_phrase.startswith("flow: ") and flow_phrase != LIB["edges"]["flow"]["phrase"] else ""
+    content["relation"] = (
+        flow_phrase[len("flow: ") :] if flow_phrase.startswith("flow: ") and flow_phrase != LIB["edges"]["flow"]["phrase"] else ""
+    )
     thick_phrase = plain(cells["lg-edge-thick-t"].get("value")) if "lg-edge-thick-t" in cells else ""
     content["thick"] = thick_phrase if thick_phrase and thick_phrase != brief(LIB["edges"]["thick"]["phrase"]) else ""
     layout = {}
@@ -3233,7 +3265,13 @@ def get(model, kind=None):
     lens = plain(cells["lens-badge"].get("value")).lower() if "lens-badge" in cells else lens
     for cid, c in cells.items():
         style, value = c.get("style") or "", plain(c.get("value"))
-        if c.get("edge") == "1" or cid in DERIVED or cid.startswith(DERIVED_PREFIXES) or cid.endswith(("-word", "-title", "-text")) or TAG_ID.search(cid):
+        if (
+            c.get("edge") == "1"
+            or cid in DERIVED
+            or cid.startswith(DERIVED_PREFIXES)
+            or cid.endswith(("-word", "-title", "-text"))
+            or TAG_ID.search(cid)
+        ):
             continue
         if cid == "title":
             content["title"] = value
@@ -3301,6 +3339,7 @@ def get(model, kind=None):
     for b in bands:
         walk(b)
     rank = {h: i for i, h in enumerate(order)}
+
     def rows_of(ids, holder_key):
         """Each id's row among the ids sharing a holder. Boxes are centred on their row's middle, so a row is the run of ids whose centres
         lie within a pixel of one another, never the run of equal tops."""
@@ -3480,10 +3519,14 @@ def get(model, kind=None):
         edge = {"from": c.get("source"), "to": c.get("target"), "kind": kinds[0], "label": counted.group(1) or "" if counted else said}
         if counted:
             edge["count"] = counted.group(2)
-        if via_of(c) and edge["kind"] != "bypass" and "catzcElbow" not in style_map(c.get("style") or ""):  # a bypass's and an elbow's route is the kit's
+        if (
+            via_of(c) and edge["kind"] != "bypass" and "catzcElbow" not in style_map(c.get("style") or "")
+        ):  # a bypass's and an elbow's route is the kit's
             edge["via"] = [[int(x), int(y) - shift] for x, y in via_of(c)]  # the waypoints as declared, before span room
         content["edges"].append(edge)
-    if "uniformLabel=1" in (cells.get("lg-edge-flow-t", {}).get("style") or ""):  # a word the legend says for every flow edge is each one's label
+    if "uniformLabel=1" in (
+        cells.get("lg-edge-flow-t", {}).get("style") or ""
+    ):  # a word the legend says for every flow edge is each one's label
         for edge in content["edges"]:
             if edge["kind"] == "flow" and not edge["label"]:
                 edge["label"] = content["relation"]
@@ -3828,9 +3871,7 @@ def main():
         target = png.resolve().relative_to(KIT.parents[1]).as_posix() if png.resolve().is_relative_to(KIT.parents[1]) else png
         print(f"carry {where}; render with: Build-Diagrams -Path {target}")
         return
-    if (
-        len(args) in (3, 4) and args[0] == "rekey"
-    ):  # a moved stem's roles: entries re-keyed, in the kit's drawio.yml or the given one
+    if len(args) in (3, 4) and args[0] == "rekey":  # a moved stem's roles: entries re-keyed, in the kit's drawio.yml or the given one
         config = Path(args[3]) if len(args) == 4 else CONFIG
         before = config.read_text(encoding="utf-8")
         after = rekeyed(before, args[1], args[2])

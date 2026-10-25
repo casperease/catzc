@@ -237,7 +237,7 @@ function revealFailed(conditions, out, vetoed) {
 // editor holds none of them.
 function nextFailed(failed, current) {
     const ordered = [...(failed ?? [])].sort();
-    if (ordered.length === 0) return undefined;
+    if (ordered.length === 0) return null;
     const at = current == null ? -1 : ordered.findIndex((place) => key(place) === key(current));
     return ordered[(at + 1) % ordered.length];
 }
@@ -482,7 +482,14 @@ async function lapsedFaults(root, held) {
 // The Errors to publish again: the held places the language servers report no Error for now, each with its stored Errors. A place with a
 // live Error is left to its server, so nothing shows twice.
 function remembering(root, held, entries) {
-    const live = new Set(errorPlaces(root, entries));
+    // Only a live Error paints the file red in the editor; a file failed by a Warning (a gate's linter) is painted gold, so its failures
+    // are published as Errors too, and the tree, the tab and every folder above show red.
+    const live = new Set(
+        (entries ?? [])
+            .filter(([, diagnostics]) => (diagnostics ?? []).some((diagnostic) => diagnostic.severity === 0))
+            .map(([uri]) => relativeTo(root, uri.fsPath))
+            .filter(Boolean),
+    );
     return Object.fromEntries(Object.entries(held ?? {}).filter(([place]) => !live.has(place)).map(([place, fault]) => [place, fault.diagnostics]));
 }
 
