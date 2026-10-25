@@ -43,7 +43,7 @@ function Clear-ModuleTypeCache {
     $ret = [System.Collections.Generic.List[string]]::new()
     if (-not (Test-Path $compiledDir -PathType Container)) {
         if (-not $Silent) {
-            Write-Message 'type cache: no .compiled directory present — nothing to clean.'
+            Write-Message "type cache: no shadow root ($compiledDir) present — nothing to clean."
         }
         if ($DryRun) {
             return $ret
@@ -52,7 +52,6 @@ function Clear-ModuleTypeCache {
     }
 
     # The build to keep is named by the loader's own combined hash, so the janitor can never disagree with the loader.
-    Import-InternalModule Types
     $combinedHash = (Get-CombinedTypeHash $ModulesRoot).CombinedHash
     $keep = if ($combinedHash) {
         "Catzc.Types.$combinedHash.dll"

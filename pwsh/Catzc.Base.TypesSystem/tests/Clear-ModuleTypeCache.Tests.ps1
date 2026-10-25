@@ -25,8 +25,10 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         [System.IO.File]::WriteAllText((Join-Path $root 'Mod.One/types/Alpha.cs'), 'public class Alpha { }')
         [System.IO.File]::WriteAllText((Join-Path $root 'Mod.Two/types/Beta.cs'), 'public class Beta { }')
 
-        $script:compiled = Join-Path $root '.compiled'
+        # The builds live in the per-user shadow root; the fixture stands one in.
+        $script:compiled = Join-Path $root 'shadow'
         [System.IO.Directory]::CreateDirectory($compiled) | Out-Null
+        Mock Get-TypesShadowRoot { $script:compiled } -ModuleName Catzc.Base.TypesSystem
         $hash8 = (Get-CombinedTypeHash $root).CombinedHash
         $script:currentDll = Join-Path $compiled "Catzc.Types.$hash8.dll"
         [System.IO.File]::WriteAllText($currentDll, 'current')
@@ -76,17 +78,11 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
         $currentDll | Should -Exist
     }
 
-    It 'is a no-op in a pipeline with a single clean build (CI makes no source-control changes)' -Tag 'logic' {
-        Remove-Item $staleDll -Force   # one build only, so the two-dll guard below stays quiet
+    It 'is a no-op in a pipeline, even with a superseded build in the cache' -Tag 'logic' {
         Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Base.TypesSystem
         { Clear-ModuleTypeCache -ModulesRoot $fakeRoot } | Should -Not -Throw
         $currentDll | Should -Exist
-    }
-
-    It 'throws in a pipeline when a superseded build is committed (two dlls present)' -Tag 'logic' {
-        Mock Test-IsRunningInPipeline { $true } -ModuleName Catzc.Base.TypesSystem
-        { Clear-ModuleTypeCache -ModulesRoot $fakeRoot } | Should -Throw '*more than one compiled type assembly*'
-        $staleDll | Should -Exist   # CI made no source-control change — it threw before touching anything
+        $staleDll | Should -Exist
     }
 
     It 'always reports its end state — even when nothing is superseded' -Tag 'logic' {

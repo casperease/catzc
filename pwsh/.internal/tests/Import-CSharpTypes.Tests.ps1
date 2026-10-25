@@ -132,6 +132,9 @@ Describe 'Import-CSharpTypes' -Tag 'L0' {
             $root = New-FixtureRoot @{ $namespace = @{ Chi = 'public class Chi { }' } }
             InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R }
             $manifest = [System.IO.Directory]::EnumerateFiles((Join-Path $root '.compiled'), 'Catzc.Types.*.json') | Select-Object -First 1
+            # A bundle ships the DLL beside its manifest in .compiled.
+            $dll = [System.IO.Path]::ChangeExtension($manifest, 'dll')
+            [System.IO.File]::Copy((Join-Path $script:shadowRoot ([System.IO.Path]::GetFileName($dll))), $dll)
             [System.IO.File]::Delete($manifest)
             { InModuleScope Catzc.Internal.Bootstrap -Parameters @{ R = $root } { param($R) Import-CSharpTypes -ModulesRoot $R -PrebuiltOnly } } |
                 Should -Throw '*missing its prebuilt types manifest*'
