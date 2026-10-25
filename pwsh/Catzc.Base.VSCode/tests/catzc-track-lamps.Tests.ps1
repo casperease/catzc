@@ -182,6 +182,19 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         $facts.Contains('gadgets/a.ps1') | Should -BeFalse -Because 'a warning is no failure'
     }
 
+    It 'fails a file on a Warning from a linter its gate fails on, such as a Ruff finding, and on no other Warning' {
+        $root = (Join-Path $TestDrive 'widget-repo') -replace '\\', '/'
+        $entries = @(
+            , @(@{ fsPath = "$root/gadgets/lint.py" }, @(@{ severity = 1; source = 'Ruff' }))
+            , @(@{ fsPath = "$root/gadgets/hint.py" }, @(@{ severity = 1; source = 'Pylance' }))
+            , @(@{ fsPath = "$root/gadgets/info.py" }, @(@{ severity = 2; source = 'Ruff' }))
+        )
+        $facts = & $script:call diagnosticFacts @($root, $entries)
+        $facts['gadgets/lint.py'].fault | Should -Be 'failed' -Because 'Test-PythonLint fails on any Ruff finding, which the extension reports as a Warning'
+        $facts.Contains('gadgets/hint.py') | Should -BeFalse -Because 'a Warning from a source no gate fails on is no failure'
+        $facts.Contains('gadgets/info.py') | Should -BeFalse -Because 'an Information is no failure, whatever its source'
+    }
+
     It 'holds a file''s Error while the diagnostics fall silent, so red wins on the open lamp after the active file changes' {
         $root = (Join-Path $TestDrive 'widget-repo') -replace '\\', '/'
         $red = 'mods/Widget/Get-Widget.ps1'

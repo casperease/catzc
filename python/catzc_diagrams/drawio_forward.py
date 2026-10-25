@@ -158,18 +158,21 @@ TAGGED_SAMPLES = {"g-code": "Get-Thing", "g-private": "Get-Thing", "g-runner": "
 def tagged_library(model):
     """The library model with the language tags of its code glyphs, their words from the language table by the shape of each label
     (a glyph kind falls back to the language that is its default), so the library holds no tag word of its own."""
-    import declaration
     from xml.sax.saxutils import quoteattr
+
+    import declaration
 
     cell = lambda cid: re.search(
         rf'<mxCell id="{cid}" value="([^"]*)" style="([^"]*)"[^>]*>\s*<mxGeometry x="(-?\d+)" y="(-?\d+)" width="(\d+)" height="(\d+)"', model
     )
     sheet = cell("g-type-tag")
+    assert sheet, "the library holds its type-tag sheet, g-type-tag"
     lib = {"style": sheet.group(2), "size": (int(sheet.group(5)), int(sheet.group(6)))}
     model = re.sub(r'\s*<mxCell id="g-type-tag"[^>]*>\s*<mxGeometry[^>]*/>\s*</mxCell>', "", model, count=1)
     added = []
     for cid, sample in TAGGED_SAMPLES.items():
         found = cell(cid)
+        assert found, f"the library holds the tagged sample {cid}"
         box = {"x": int(found.group(3)), "y": int(found.group(4)), "w": int(found.group(5)), "h": int(found.group(6))}
         label = plain(html.unescape(found.group(1))) if sample is None else sample
         kind = "code" if cid == "g-command-sample" else cid[2:]

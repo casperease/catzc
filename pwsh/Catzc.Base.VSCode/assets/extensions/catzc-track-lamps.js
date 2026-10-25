@@ -397,10 +397,20 @@ function gitFacts(root, state, facts = {}) {
     return facts;
 }
 
-// The fault facts from the diagnostics, [uri, diagnostics] pairs: failed for a file carrying an Error (severity 0).
+// The linters a quality gate fails on for any finding: their Warnings are failures too, so a lamp never shows green what the gate
+// fails (the Ruff extension reports every lint finding as a Warning). Set from catzc.trackLamps.failingSources on activation.
+const FAILING_SOURCES = new Set(["Ruff", "PSScriptAnalyzer"]);
+const setFailingSources = (sources) => {
+    FAILING_SOURCES.clear();
+    for (const source of sources ?? []) FAILING_SOURCES.add(source);
+};
+// A diagnostic that fails its file: an Error (severity 0), or a Warning (severity 1) from a failing source.
+const fails = (diagnostic) => diagnostic.severity === 0 || (diagnostic.severity === 1 && FAILING_SOURCES.has(diagnostic.source));
+
+// The fault facts from the diagnostics, [uri, diagnostics] pairs: failed for a file carrying a failing diagnostic.
 function diagnosticFacts(root, entries, facts = {}) {
     for (const [uri, diagnostics] of entries ?? [])
-        if ((diagnostics ?? []).some((diagnostic) => diagnostic.severity === 0))
+        if ((diagnostics ?? []).some(fails))
             addFact(facts, relativeTo(root, uri.fsPath), "fault", "failed");
     return facts;
 }
@@ -408,7 +418,7 @@ function diagnosticFacts(root, entries, facts = {}) {
 // The places carrying an Error right now, for the log line that tells a held fault from a live one.
 function errorPlaces(root, entries) {
     return (entries ?? [])
-        .filter(([, diagnostics]) => (diagnostics ?? []).some((diagnostic) => diagnostic.severity === 0))
+        .filter(([, diagnostics]) => (diagnostics ?? []).some(fails))
         .map(([uri]) => relativeTo(root, uri.fsPath))
         .filter(Boolean)
         .sort();
@@ -440,7 +450,7 @@ function heldFaults(root, held, entries, now = Date.now()) {
         const place = relativeTo(root, uri.fsPath);
         if (!place) continue;
         const list = diagnostics ?? [];
-        const errors = list.filter((diagnostic) => diagnostic.severity === 0);
+        const errors = list.filter(fails);
         if (errors.length > 0) next[place] = { seen: next[place]?.seen ?? now, diagnostics: errors.slice(0, MAX_REMEMBERED).map(storedError) };
         else if (list.length > 0) delete next[place];
     }
@@ -689,6 +699,8 @@ function activateEngine(context, api) {
         const root = rootOf();
         if (!root) return;
         const facts = gitFacts(root, repository?.state);
+        const sources = config().get("failingSources");
+        if (Array.isArray(sources)) setFailingSources(sources);
         const entries = vscode.languages.getDiagnostics().map(([uri, diagnostics]) => [uri, diagnostics.filter((d) => !isRemembered(d))]);
         const before = JSON.stringify(context.workspaceState.get(HELD, {}));
         held = await lapsedFaults(root, heldFaults(root, held, entries));

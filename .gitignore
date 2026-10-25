@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: b60156edf5d2
+#     with_body_sha: "8ee316170178"
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -113,6 +113,9 @@ pwsh/.internal/assets/bin/
 # The Python test workspace is generated (ADR-AUTO-PY): its pyproject.toml files are managed root-config copies,
 # ignored through their rootconfig entries. The one environment and lock uv makes beside the workspace root in the
 # Python root (python/ or .python/), and the linter's cache, are per-machine output, never committed.
+# Invoke-PythonTest routes Python's bytecode cache to out/pycache, but any other run (the editor's Python, a bare
+# pytest) writes __pycache__ beside the sources, so it is ignored wherever it lands.
 /*/.venv/
 /*/uv.lock
 .ruff_cache/
+__pycache__/

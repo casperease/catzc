@@ -175,6 +175,14 @@ settings:
   go.toolsEnvVars:
     GOTOOLCHAIN: local
 
+  # Python writes its bytecode cache to out/pycache in every terminal of the editor, as Invoke-PythonTest has it, never beside the
+  # sources (a bare python or pytest run included).
+  terminal.integrated.env.windows:
+    PYTHONPYCACHEPREFIX: ${workspaceFolder}\out\pycache
+  terminal.integrated.env.linux:
+    PYTHONPYCACHEPREFIX: ${workspaceFolder}/out/pycache
+  terminal.integrated.env.osx:
+    PYTHONPYCACHEPREFIX: ${workspaceFolder}/out/pycache
   python.terminal.activateEnvironment: false
   python-envs.terminal.autoActivationType: "off"
   terminal.integrated.environmentChangesRelaunch: false

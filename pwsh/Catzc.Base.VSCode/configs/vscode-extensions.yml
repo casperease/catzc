@@ -82,7 +82,7 @@ extensions:
           priority: default
   catzc-track-lamps:
     displayName: Catzc track lamps
-    version: 0.21.0
+    version: 0.22.0
     description: >-
       Filter lamps in the Explorer's title row, one per repository filter (filters.yml) and one for a typed list of languages; a click steps
       a lamp off, on, veto. The tree is the union of the lit lamps minus the zones of the vetoed ones, and each lamp's colour is its domain's
@@ -167,6 +167,11 @@ extensions:
             type: object
             default: {}
             description: Each language's file extensions, rendered into the settings from the languages config.
+          catzc.trackLamps.failingSources:
+            type: array
+            items: { type: string }
+            default: [Ruff, PSScriptAnalyzer]
+            description: The diagnostic sources whose Warnings fail a file as an Error does, the linters a quality gate fails on for any finding.
           catzc.trackLamps.trace:
             type: boolean
             default: false

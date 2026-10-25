@@ -241,7 +241,7 @@ def faded(hex_color, style):
     return f"#{red:02x}{green:02x}{blue:02x}"
 
 
-def dashed_line(d, pts, fill, width, dash=6, gap=4):
+def dashed_line(d, pts, fill, width, dash: float = 6, gap: float = 4):
     import math
     for (x0, y0), (x1, y1) in itertools.pairwise(pts):
         length = math.hypot(x1 - x0, y1 - y0)
@@ -470,7 +470,7 @@ def render(root, page=None):
             gap = float(s.get(key, 0)) if box else 0.0
             dx, dy = pts[j][0] - pts[i][0], pts[j][1] - pts[i][1]
             length = (dx * dx + dy * dy) ** 0.5
-            if not gap or length < 1e-9:
+            if box is None or not gap or length < 1e-9:
                 continue
             ux, uy = dx / length, dy / length
             step = gap
@@ -517,7 +517,7 @@ def render(root, page=None):
         if s.get("endArrow", "classic") != "none":
             arrow(d, pts[-2], pts[-1], ink, s.get("endArrow", "classic"))
         if s.get("startArrow", "none") != "none":
-            arrow(d, pts[1], pts[0], ink, s.get("startArrow"))
+            arrow(d, pts[1], pts[0], ink, s.get("startArrow", "none"))
         label = plain(c.get("value"))
         if label:
             f = font(int(float(s.get("fontSize", 11))), False)
