@@ -23,11 +23,18 @@ Long files are where agents lose context and reviews lose focus; widths drift si
 ## Decided (proposed defaults, declared once on the config type)
 
 - Two classes, picked by the file kind registry, never by a second extension list: **code** (`ps1`, `psm1`, `cs`, `py`, `go`, `js`, `sh`)
-  and **config** (`yml`, `yaml`, `json`, `psd1`, `xml`). Prose (`md`) keeps width only, no length.
+  and **config** (`yml`, `yaml`, `json`, `psd1`, `xml`), and **prose** (`md`). Every file in a track is limited in both length and width
+  (the user, 2026-10-25): every kind the registry places in a track maps to exactly one class, and a track kind with no class fails the
+  config load, so no tracked file escapes by being unlisted.
+- Markdown is measured as written: length counts every line, front matter included; width counts every line, tables, headings and fenced
+  code included, with no URL exemption (MD013 rendered with `code_blocks`, `tables` and `headings` on and `strict`), so the gate and
+  markdownlint measure the same lines; a long URL moves to a reference-style link definition, which counts too. Generated md (`Build-*`
+  output with a warning head) is out by its track.
 - Three layers per limit (the user, 2026-10-25): a **global default** per class, a **per-language override** that may push it, and
   **bounds** (`min`/`max`) no override may leave. Resolution: language value if set, else the class default; one lookup, no merging.
-- Global defaults: code length 400, config length 300 (under the cap, so a language has room to push); code width 120, config width 140,
-  prose width 140.
+- Global defaults: code length 400, config length 300 (under the cap, so a language has room to push); prose length 400; code width 120,
+  config width 140, prose width 140. Measured md today: p99 459, max 2131, so the first gate run puts the over-400 pages in `exempt:` and
+  each splits by section into a folder of linked pages.
 - Bounds: length `min 100` / `max 500` (the user, 2026-10-25: the outer cap is 500 lines, no language goes past it); width `min 80` /
   `max 200`. A default or override outside its bounds fails the config load (`FileLimitsConfig` asserts on construction, fail fast), so a
   wrong number never reaches a gate.
@@ -35,7 +42,7 @@ Long files are where agents lose context and reviews lose focus; widths drift si
 
   ```yaml
   bounds: { length: { min: 100, max: 500 }, width: { min: 80, max: 200 } }
-  defaults: { code: { length: 400, width: 120 }, config: { length: 300, width: 140 }, prose: { width: 140 } }
+  defaults: { code: { length: 400, width: 120 }, config: { length: 300, width: 140 }, prose: { length: 400, width: 140 } }
   languages: { python: { width: 140, length: 500 } }
   ```
 
@@ -63,9 +70,9 @@ Long files are where agents lose context and reviews lose focus; widths drift si
 Out of scope by track (vendor or generated), no split: `pwsh/.compiled/Catzc.Types.*.json` (2020, generated),
 `pwsh/Catzc.Tooling.Toolchain/assets/scripts/dotnet-install.sh` (1887) and `.ps1` (1574) (third-party installers).
 
-To split, largest first: `pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs` 1041, `pwsh/.internal/Catzc.Internal.Types.psm1` 873,
-`pwsh/.internal/Catzc.Internal.Builder.psm1` 854, `python/catzc_diagrams/drawio_png.py` 727, `pwsh/.internal/Catzc.Internal.Bootstrap.psm1`
-660, `pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs` 631, `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` 618,
+To split, largest first: `pwsh/.internal/Catzc.Internal.Types.psm1` 873, `pwsh/.internal/Catzc.Internal.Builder.psm1` 854,
+`python/catzc_diagrams/drawio_png.py` 727, `pwsh/.internal/Catzc.Internal.Bootstrap.psm1` 660,
+`pwsh/Catzc.Base.QualityGates/types/CommentEngine.cs` 631, `pwsh/Catzc.Base.Languages/tests/types/LanguagesConfig.Tests.ps1` 618,
 `pwsh/Catzc.Base.Maps/types/WorldMapPdf.cs` 549, `pwsh/.internal/tests/Import-CSharpTypes.Tests.ps1` 549,
 `pwsh/Catzc.Base.Timeouts/types/TimeoutsConfig.cs` 536, `pwsh/Catzc.Base.Drs/types/DrsCitationRewriter.cs` 534,
 `pwsh/Catzc.Base.Execution/tests/Invoke-Executable.Tests.ps1` 527, `pwsh/.internal/Catzc.Internal.Importer.psm1` 525,
@@ -82,7 +89,3 @@ To split, largest first: `pwsh/Catzc.Base.Languages/types/LanguagesConfig.cs` 10
        `FunctionLength.psm1`; delete the sync comments. Check: `Test-GeneratedFiles`, `Test-Formatting`, `Test-ShippedConfigs`.
 6. [ ] Register the gate in `Test-Automation` and the timeouts roof. Check: `Test-Plans` sees the new gate exported; the gate's run time
        under its `timeouts.yml` roof.
-
-## Open questions
-
-- Should `md` get a length limit too (p99 459, max 2131)?

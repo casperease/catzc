@@ -1,5 +1,5 @@
 {
-  "hash": "0e17f0af",
+  "hash": "a732d0fb",
   "types": [
     {
       "name": "Catzc.Azure.AzureConfig",
@@ -849,6 +849,16 @@
     },
     {
       "name": "Catzc.Base.Languages.JavaScriptTestResult",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.LanguageEntryReaders",
+      "aliases": [],
+      "display": []
+    },
+    {
+      "name": "Catzc.Base.Languages.LanguageGlobalReaders",
       "aliases": [],
       "display": []
     },

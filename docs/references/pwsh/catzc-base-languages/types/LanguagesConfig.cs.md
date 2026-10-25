@@ -46,7 +46,7 @@ Constructing an instance validates the file, collecting every violation into one
 
 ## comment:2
 
-Above `private static readonly string[] Engines = { "prettier", "gofmt", "ruff",...`, written with `//`.
+Above `internal static readonly string[] Engines = { "prettier", "gofmt", "ruff",...`, written with `//`.
 
 ```text
 The formatter engines a language may name: one Format-Code adapter each. A new engine is new mechanism — its
@@ -98,25 +98,6 @@ Above `public LayoutRow PlaceOf(string relativePath)`, written with `//`.
 ```text
 The row of the layout that places a file, given its '/'-separated path relative to the module root, or null when no row does: a
 file at the root is placed by the root row of its extension, a file below a folder by the row that names the folder.
-```
-
-## comment:8
-
-Above `private static List<LayoutRow> ReadLayout(string name, List<string>...`, written with `//`.
-
-```text
-A language's layout rows: { folder, role, extensions, live, shipped }. A row at the module root ('.') lists the extensions it places,
-all among the language's own; any other row places every file in its folder. live and shipped default to true, the default every
-language row takes; only the shared tests row differs, and it is declared on LayoutRow.
-```
-
-## comment:9
-
-Above `private static LanguageTestRunner ReadTests(string name, object value,...`, written with `//`.
-
-```text
-A language's test runner: a runner command, the parameter its executable binds to, and either the tools that must resolve or the
-one engine the tests run under, never both and never neither.
 ```
 
 ## comment:10

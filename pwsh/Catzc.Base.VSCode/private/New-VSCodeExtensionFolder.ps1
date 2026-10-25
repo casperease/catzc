@@ -47,7 +47,12 @@ function New-VsCodeExtensionFolder {
     [System.IO.File]::WriteAllText((Join-Path $folder 'package.json'), ($manifest | ConvertTo-Json -Depth 32) + "`n", $utf8)
     # The entry and its sibling parts ship together; the tests/ folder below them never does.
     foreach ($part in [System.IO.Directory]::GetFiles((Split-Path $script), '*.js')) {
-        $name = if ($part -eq $script) { 'extension.js' } else { [System.IO.Path]::GetFileName($part) }
+        $name = if ($part -eq $script) {
+            'extension.js'
+        }
+        else {
+            [System.IO.Path]::GetFileName($part)
+        }
         Copy-Item -LiteralPath $part -Destination (Join-Path $folder $name)
     }
     $media = Join-Path $AssetDirectory "$($Extension.name)/assets"
