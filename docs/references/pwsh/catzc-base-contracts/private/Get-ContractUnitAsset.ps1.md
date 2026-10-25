@@ -39,6 +39,10 @@ repository root.
 
 The repository root the target roots resolve against.
 
+### parameter `Addressing`
+
+The addressing mode, passed on to each version folder. Default: full-path, ContractsConfig.DefaultAddressing.
+
 ### outputs
 
 `[Catzc.Base.Contracts.ContractAsset[]]`

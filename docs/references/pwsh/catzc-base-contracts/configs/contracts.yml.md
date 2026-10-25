@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `addressing: full-path`, written with `#`.
+Above `addressing: manifest-glob`, written with `#`.
 
 ```text
 Contracts settings for Get-Contract ([ADR-REPO-CONTRACT](/docs/drs/repository/api-contracts.md)).
@@ -19,13 +19,14 @@ overrides the resolved value per call
 
 ## comment:2
 
-Above `addressing: full-path`, written with `#`.
+Above `addressing: manifest-glob`, written with `#`.
 
 ```text
 How one contract asset addresses many files
 ([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](/docs/drs/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing)):
   full-path      an asset addresses the one real file at its own path (built; the default)
-  manifest-glob  a glob in a manifest names the files (declared, not built: selecting it throws NotImplemented)
+  manifest-glob  as full-path, and an asset a version's contract.yml names under applies_to addresses every tracked
+                 file its globs match under the module's target root (built; selected here)
   per-folder     one asset applies to each file of its folder (declared, not built: selecting it throws NotImplemented)
 ```
 

@@ -17,8 +17,6 @@ public sealed class ContractManifest
 {
     public IReadOnlyDictionary<string, ContractDirection> direction { get; }
 
-    // Under the manifest-glob addressing mode: each <module>/<path> asset's globs, relative to its module's target root; the asset
-    // constrains every tracked file they match instead of the one file at its own path.
     public IReadOnlyDictionary<string, string[]> applies_to { get; }
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

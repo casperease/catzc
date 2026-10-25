@@ -17,3 +17,12 @@ convention. It mirrors the YAML mapping, so the property is snake_case
 Construction validates the file and collects every violation into one ArgumentException; an unknown key throws.
 That every named asset exists is Get-Contract's check, since only the enumeration knows the assets.
 ```
+
+## comment:2
+
+Above `public IReadOnlyDictionary<string, string[]> applies_to { get; }`, written with `//`.
+
+```text
+Under the manifest-glob addressing mode: each <module>/<path> asset's globs, relative to its module's target root; the asset
+constrains every tracked file they match instead of the one file at its own path.
+```

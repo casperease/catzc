@@ -41,7 +41,7 @@ files), per-folder (one asset applies to each file of its folder).
 
 ## comment:3
 
-Above `public static readonly string[] BuiltAddressingModes = { "full-path" };`, written with `//`.
+Above `public static readonly string[] BuiltAddressingModes = { "full-path",...`, written with `//`.
 
 ```text
 The modes that are built. A mode joins this list only once it is proven from every engine (ExecutionEngines),

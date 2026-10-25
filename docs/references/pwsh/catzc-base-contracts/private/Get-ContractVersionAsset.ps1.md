@@ -21,7 +21,11 @@ asset. Any other file at the version level, and a .frozen in the draft 0.0.0, ha
 asset overrides nothing; both throw, naming the file or the entry. Each asset's target sits under its module's target root, which
 ContractsConfig.ResolveTargetRoot picks from -TargetRoot
 ([ADR-REPO-CONTRACT-LAYOUT](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-layout)). Assets come in ordinal order of
-module, then path.
+module, then path. Under the manifest-glob addressing mode, an asset contract.yml's applies_to names expands into one asset per tracked file
+its globs match under the module's target root, each with the asset's kind and direction
+([ADR-REPO-CONTRACT-CONFIGUREDADDRESSING](../../../../drs/repository/api-contracts.md#rule-adr-repo-contract-configuredaddressing)); only a
+schema, fragment or presence asset expands, and an applies_to entry that names no asset, matches no file, or is read under another mode
+throws.
 
 ### parameter `Unit`
 
@@ -43,6 +47,10 @@ The target roots, module name to repository-relative folder. A module it does no
 
 The repository root, in which a module that holds a command contract is resolved to its root (Get-ContractCommandRoot), once per module and
 only when the module folder holds one.
+
+### parameter `Addressing`
+
+The addressing mode. Default: full-path, ContractsConfig.DefaultAddressing; Get-Contract passes the configured mode.
 
 ### outputs
 
