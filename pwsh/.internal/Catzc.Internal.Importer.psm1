@@ -475,9 +475,14 @@ function Invoke-ImporterJanitors {
     $atImport = @(if (Get-Command Get-Config -ErrorAction Ignore) {
             (Get-Config -Config generated-files).writers.Values | Where-Object { $_.at_import } | ForEach-Object { $_.name }
         })
+    $gates = Get-Module Catzc.Base.QualityGates
     foreach ($writer in $atImport) {
         if ((Get-Command $writer -ErrorAction Ignore) -and (Test-WriterDue -Name $writer -Row $due)) {
             & $writer -Silent | Out-Null
+            # The writer ran: its input stamp is stored, so it is not due again until one of its inputs changes.
+            if ($gates) {
+                & $gates { param($name) Save-GeneratedWriterStamp -Name $name } $writer
+            }
         }
     }
 

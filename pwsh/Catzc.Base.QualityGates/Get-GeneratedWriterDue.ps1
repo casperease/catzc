@@ -13,46 +13,30 @@ function Get-GeneratedWriterDue {
     param(
         [string[]] $ChangedPath = @(Get-GitChangedPath),
 
-        [string] $RepositoryRoot = (Get-RepositoryRoot)
+        [string] $RepositoryRoot = (Get-RepositoryRoot),
+
+        [string] $MemoPath = (Join-Path (Get-OutputRoot) 'cache/generated-writers.json')
     )
 
     $changed = [string[]] @($ChangedPath)
+    # A dirty tree is not a stale output: a writer is due when a literal output is missing, or when the stamp of its changed inputs
+    # differs from the one stored after its last run (Save-GeneratedWriterStamp). A missing or unreadable memo makes every writer due.
+    $memo = Get-GeneratedWriterMemo -MemoPath $MemoPath
+    $script:GeneratedWriterStamps = @{}
     foreach ($writer in (Get-Config -Config generated-files).writers.Values) {
         $inputs = @($writer.inputs | Where-Object { $_ })
         $outputs = @($writer.outputs | Where-Object { $_ })
         $due = $false
-        # A dirty tree is not a stale output: a changed input makes the writer due only when it is newer than the oldest literal output,
-        # a missing literal output always does, and a changed output never does.
-        $oldest = [datetime]::MaxValue
         foreach ($output in $outputs) {
-            if ($output.IndexOfAny([char[]] '*?[') -ge 0) {
-                continue
-            }
-            $file = [System.IO.FileInfo]::new((Join-Path $RepositoryRoot $output))
-            if (-not $file.Exists) {
+            if ($output.IndexOfAny([char[]] '*?[') -lt 0 -and -not [System.IO.File]::Exists((Join-Path $RepositoryRoot $output))) {
                 $due = $true
                 break
             }
-            if ($file.LastWriteTimeUtc -lt $oldest) {
-                $oldest = $file.LastWriteTimeUtc
-            }
         }
-        foreach ($glob in $inputs) {
-            if ($due) {
-                break
-            }
-            $pattern = [Catzc.Base.Globs.GlobPattern]::new($glob)
-            foreach ($path in $changed) {
-                if (-not $pattern.Matches($path)) {
-                    continue
-                }
-                $file = [System.IO.FileInfo]::new((Join-Path $RepositoryRoot $path))
-                # A deleted input is a change no output can be newer than; with no literal output, any changed input is due.
-                if (-not $file.Exists -or $oldest -eq [datetime]::MaxValue -or $file.LastWriteTimeUtc -gt $oldest) {
-                    $due = $true
-                    break
-                }
-            }
+        $stamp = Get-GeneratedWriterStamp -InputGlob $inputs -ChangedPath $changed -RepositoryRoot $RepositoryRoot
+        $script:GeneratedWriterStamps[$writer.name] = $stamp
+        if (-not $due -and $memo[$writer.name] -cne $stamp) {
+            $due = $true
         }
         $hasLists = ($inputs.Count + $outputs.Count) -gt 0
         if (-not $hasLists) {

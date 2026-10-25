@@ -9,7 +9,8 @@ catzc:
       - ADR-REPO-LINK-ONECITATIONSPELLING
       - ADR-REPO-LINK-STRINGSAREDATA
       - ADR-REPO-LINK-ALIGNEDBYTOOL
-    drs_total: 4
+      - ADR-REPO-LINKS-CHECKEDBYONEGATE
+    drs_total: 5
 ---
 */
 
@@ -74,7 +75,8 @@ public sealed class LinkEngine
         scanner = new MarkdownLinkScanner(root, codeForm, AnchorsOf, selfUrlPrefix, trackedFiles);
     }
 
-    // collectEdges asks the walk for the relations it recognises as well (ADR-REPO-LINKS-CHECKEDBYONEGATE).
+    // collectEdges asks the walk for the relations it recognises as well
+    // ([ADR-REPO-LINKS-CHECKEDBYONEGATE](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-checkedbyonegate)).
     public LinkEngineResult Run(IEnumerable<string> files, LinkKind kind, bool collectEdges)
     {
         var findings = new ConcurrentBag<LinkFinding>();

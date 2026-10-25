@@ -81,6 +81,24 @@ public static class AspectPartition
         return root.Length == 0 ? pattern : root + "/" + pattern;
     }
 
+    // The aspect of one file: the first aspect, in the map's order, one of whose sets claims it; null when none does. The map is
+    // Get-AspectGlobSet's: aspect name -> that aspect's globsets.
+    public static string AspectOf(System.Collections.IDictionary sets, string file)
+    {
+        if (sets == null) { throw new ArgumentNullException("sets"); }
+        foreach (System.Collections.DictionaryEntry entry in sets)
+        {
+            System.Collections.IEnumerable members = entry.Value as System.Collections.IEnumerable;
+            if (members == null) { continue; }
+            foreach (object member in members)
+            {
+                GlobSet set = member as GlobSet;
+                if (set != null && set.Matches(file)) { return entry.Key.ToString(); }
+            }
+        }
+        return null;
+    }
+
     public static IReadOnlyList<string> Validate(IReadOnlyList<GlobSet> aspectSets, IEnumerable<string> universe)
     {
         List<string> violations = new List<string>();

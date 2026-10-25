@@ -93,3 +93,12 @@ Above `public CodeLinkRewriter(DrsCitationMap map, DrsConfig adrs, Func<string,.
 adrs: the registry, for its code grammar over the registered kinds and its root; anchorsOf: repository-relative .md path -> its GitHub anchors (null when the
 file does not exist).
 ```
+
+## comment:9
+
+Above `void RecordEdge(Match match, string replacement, string repoPath,...`, written with `//`.
+
+```text
+An ADR reference is its canonical link's target; any other link names the file it resolves to, from the comment's own folder or
+rooted, and only when that file exists: a URL, an anchor, a folder and a missing target are no relation.
+```

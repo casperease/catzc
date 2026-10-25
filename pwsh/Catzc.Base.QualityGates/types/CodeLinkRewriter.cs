@@ -6,7 +6,8 @@ catzc:
     docs: "[CodeLinkRewriter.cs.md](../../../docs/references/pwsh/catzc-base-quality-gates/types/CodeLinkRewriter.cs.md)"
     cites:
       - ADR-REPO-LINK-CODELINKS
-    drs_total: 1
+      - ADR-REPO-LINKS-EVERYLINKHASADIRECTION
+    drs_total: 2
 ---
 */
 
@@ -77,7 +78,8 @@ public sealed class CodeLinkRewriter
         }
     }
 
-    // One relation a comment or text holds, at a text-relative offset, the target a repository path (ADR-REPO-LINKS-EVERYLINKHASADIRECTION).
+    // One relation a comment or text holds, at a text-relative offset, the target a repository path
+    // ([ADR-REPO-LINKS-EVERYLINKHASADIRECTION](/docs/drs/repository/links-in-repository.md#rule-adr-repo-links-everylinkhasadirection)).
     public readonly struct EdgeHit
     {
         public readonly int Offset;
@@ -200,8 +202,6 @@ public sealed class CodeLinkRewriter
 
     static readonly Regex CanonicalTarget = new Regex(@"^\[(?<text>[^\]]*)\]\(/(?<path>[^)#\s]+)", RegexOptions.Compiled);
 
-    // An ADR reference is its canonical link's target; any other link names the file it resolves to, from the comment's own folder or
-    // rooted, and only when that file exists: a URL, an anchor, a folder and a missing target are no relation.
     void RecordEdge(Match match, string replacement, string repoPath, List<EdgeHit> edges)
     {
         if (replacement != null)
