@@ -52,8 +52,15 @@ Describe 'Catzc.Base.GeneratedFiles.GeneratedFilesConfig' -Tag 'L0', 'logic' {
         $config.writers['Build-Gadget'].result_path | Should -BeNullOrEmpty
     }
 
+    It 'declares the input walk depth once: an omitted input_depth is the type default, a named one is kept, a non-positive one is rejected' {
+        $config = [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{ 'Build-Widget' = $null } })
+        $config.input_depth | Should -Be ([Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::DefaultInputDepth)
+        [Catzc.Base.GeneratedFiles.GeneratedFilesConfig]::new([ordered]@{ writers = [ordered]@{ 'Build-Widget' = $null }; input_depth = 4 }).input_depth | Should -Be 4
+        Get-ViolationMessage ([ordered]@{ writers = [ordered]@{ 'Build-Widget' = $null }; input_depth = 0 }) | Should -BeLike "*'input_depth' must be a positive whole number*"
+    }
+
     It 'rejects an unknown top-level key, an empty registry and a missing writers key' {
-        Get-ViolationMessage ([ordered]@{ writers = [ordered]@{ 'Build-Widget' = $null }; gadgets = 1 }) | Should -BeLike "*unknown top-level key 'gadgets' (allowed: writers)*"
+        Get-ViolationMessage ([ordered]@{ writers = [ordered]@{ 'Build-Widget' = $null }; gadgets = 1 }) | Should -BeLike "*unknown top-level key 'gadgets' (allowed: writers, input_depth)*"
         Get-ViolationMessage ([ordered]@{ writers = [ordered]@{} }) | Should -BeLike "*'writers' must be a non-empty map*"
         Get-ViolationMessage ([ordered]@{}) | Should -BeLike "*'writers' must be a non-empty map*"
     }
