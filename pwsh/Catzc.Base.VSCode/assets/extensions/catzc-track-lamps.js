@@ -70,6 +70,9 @@ const assertShipped = (lamps) => {
     if (PREVIEW_LAMPS) return lamps;
     const ok = lamps.length === SHIPPED_LAMPS.length && lamps.every((lamp, at) => lamp === SHIPPED_LAMPS[at]);
     if (!ok) {
+        const said = lamps.join(",");
+        if (assertShipped.said === said) return SHIPPED_LAMPS.filter((lamp) => lamps.includes(lamp));
+        assertShipped.said = said;
         log?.appendLine(`error: the lamps in play [${lamps.join(", ")}] are not the shipped lamps [${SHIPPED_LAMPS.join(", ")}] in order; only the shipped ones are shown`);
         return SHIPPED_LAMPS.filter((lamp) => lamps.includes(lamp));
     }
@@ -309,20 +312,21 @@ function hiddenEntries(files, folders, shown) {
 // The entries for the unlit lamps, from one walk of the disk: out holds the unlit lamps, field the languages typed for the languages lamp,
 // open the files open in an editor, vetoed the unlit lamps that also hide their whole zone. Every lamp lit writes nothing, as without the
 // extension.
-async function hiddenGlobs(root, out, field, declared, known, open = [], vetoed = []) {
+// disk is the extension's in-memory index of the walk ({ files, folders }); without it the disk is walked, as the tests do.
+async function hiddenGlobs(root, out, field, declared, known, open = [], vetoed = [], disk = undefined) {
     const sets = lampSets(declared, field, known, open);
     const lit = new Set(Object.keys(sets).filter((name) => !out.has(name)));
     if (lit.size === Object.keys(sets).length) return [];
-    const { files, folders } = await walkDisk(root);
+    const { files, folders } = disk ?? (await walkDisk(root));
     return hiddenEntries(files, folders, evaluate(sets, lit, files, {}, vetoed).shown);
 }
 
 // Every file on disk accounted for: the written entries must hide exactly the files the language does not show. Returns the totals, the
 // files shown, the files per signature, the files no lamp claims, and the files whose visibility breaks the rule.
-async function census(root, out, field, declared, known, globs, open = [], vetoed = []) {
+async function census(root, out, field, declared, known, globs, open = [], vetoed = [], disk = undefined) {
     const sets = lampSets(declared, field, known, open);
     const lit = new Set(Object.keys(sets).filter((name) => !out.has(name)));
-    const { files } = await walkDisk(root);
+    const { files } = disk ?? (await walkDisk(root));
     const verdict = evaluate(sets, lit, files, {}, vetoed);
     const showing = new Set(verdict.shown);
     const written = entryClaimer(globs);
@@ -501,7 +505,7 @@ let written;
 // One pass of the filter for the switches as they are now (state: out, vetoed, field): the entries computed, the settings written when
 // they differ. Passes never overlap: the press queue in activate runs one at a time, the latest switches winning, so a slow write of an
 // older state can never land after a newer one.
-async function apply(context, state) {
+async function apply(context, state, disk) {
     const folder = vscode.workspace.workspaceFolders?.[0];
     if (!folder) {
         return undefined;
@@ -511,7 +515,7 @@ async function apply(context, state) {
     const field = state.field;
     const vetoed = new Set(state.vetoed);
     const open = openFiles(root, vscode.window.tabGroups.all);
-    const wanted = await hiddenGlobs(root, out, field, filters(), languages(), open, vetoed);
+    const wanted = await hiddenGlobs(root, out, field, filters(), languages(), open, vetoed, disk);
     const files = vscode.workspace.getConfiguration("files", folder.uri);
     const current = files.inspect("exclude")?.workspaceValue ?? {};
     const { next, ours } = merge(current, context.workspaceState.get(OWNED, []), wanted);
@@ -528,13 +532,20 @@ async function apply(context, state) {
             `warning: files.exclude is ${size} characters in ${Object.keys(next).length} keys, over the ${EXCLUDE_ROOF} the editor's search and watcher processes take on a command line (spawn ENAMETOOLONG); unlit [${[...out].join(", ")}]`,
         );
     }
-    return { root, out, vetoed, field, wanted, open };
+    return { root, out, vetoed, field, wanted, open, disk };
 }
 
-function activate(context) {
-    vscode = require("vscode");
+// The engine: everything the lamps do in the editor. The installed package is a shell that runs the repository's copy of this file and
+// swaps it on save (activate below), so a change of logic lands without an install or a reload; api is the shell's vscode module, since
+// a file outside the installed package cannot require it itself.
+function activateEngine(context, api) {
+    vscode = api ?? require("vscode");
     log = vscode.window.createOutputChannel("Catzc track lamps");
     context.subscriptions.push(log);
+    let judgeTimer;
+    let timer;
+    // A swapped-out engine leaves no timer behind to fire into its disposed parts.
+    context.subscriptions.push({ dispose: () => (clearTimeout(judgeTimer), clearTimeout(timer)) });
     const lamps = () => assertShipped([OPEN, ...Object.keys(filters()), LANGUAGE]);
     // Every declared lamp, the preview ones included: the title row shows a lamp only while its shown key is set.
     const declaredLamps = () => [OPEN, ...Object.keys(declaredFilters()), LANGUAGE];
@@ -546,22 +557,70 @@ function activate(context) {
         vetoed: new Set(context.workspaceState.get(VETO, [])),
         field: context.workspaceState.get(FIELD, ""),
     };
-    // The title row shows each lamp's icon by its context keys: the switch (out: off, veto: vetoed, neither: on) and the condition.
+    // The disk, indexed once and kept current from the editor's file events, so a press classifies files in memory and never walks the
+    // disk; a window focus re-walks it in the background, which also covers the paths files.watcherExclude keeps the events of.
+    const index = { files: new Set(), folders: new Set() };
+    const rebuild = async () => {
+        const root = rootOf();
+        if (!root) return;
+        const disk = await walkDisk(root);
+        index.files = new Set(disk.files);
+        index.folders = new Set(disk.folders);
+    };
+    let indexed = rebuild();
+    const snapshot = async () => {
+        await indexed;
+        return { files: [...index.files], folders: [...index.folders] };
+    };
+    const indexAdd = async (uri) => {
+        const root = rootOf();
+        const place = root && relativeTo(root, uri.fsPath);
+        if (!place || place === ".git" || place.startsWith(".git/")) return;
+        let stat;
+        try {
+            stat = await fs.promises.stat(uri.fsPath);
+        } catch {
+            return;
+        }
+        for (let at = path.posix.dirname(place); at !== "."; at = path.posix.dirname(at)) index.folders.add(at);
+        if (!stat.isDirectory()) return void index.files.add(place);
+        index.folders.add(place);
+        const inner = await walkDisk(uri.fsPath);
+        for (const file of inner.files) index.files.add(`${place}/${file}`);
+        for (const folder of inner.folders) index.folders.add(`${place}/${folder}`);
+    };
+    const indexRemove = (uri) => {
+        const root = rootOf();
+        const place = root && relativeTo(root, uri.fsPath);
+        if (!place) return;
+        const below = `${place}/`;
+        index.files.delete(place);
+        index.folders.delete(place);
+        for (const file of index.files) if (file.startsWith(below)) index.files.delete(file);
+        for (const folder of index.folders) if (folder.startsWith(below)) index.folders.delete(folder);
+    };
+    // The title row shows each lamp's icon by its context keys: the switch (out: off, veto: vetoed, neither: on) and the condition. Only a
+    // key whose value changed is sent, so a press costs the one or two keys it moves.
     let conditions = {};
+    let markerCache = null;
+    const sent = new Map();
+    const setKey = (name, value) => {
+        if (sent.get(name) === value) return undefined;
+        sent.set(name, value);
+        return vscode.commands.executeCommand("setContext", name, value);
+    };
     const show = async () => {
         const out = state.out;
         const vetoed = state.vetoed;
         const inPlay = new Set(lamps());
-        await Promise.all(
-            declaredLamps().map((lamp) => vscode.commands.executeCommand("setContext", `catzc.lamps.shown.${lamp}`, inPlay.has(lamp))),
-        );
-        await Promise.all(
-            [...inPlay].flatMap((lamp) => [
-                vscode.commands.executeCommand("setContext", `catzc.lamps.out.${lamp}`, out.has(lamp) && !vetoed.has(lamp)),
-                vscode.commands.executeCommand("setContext", `catzc.lamps.veto.${lamp}`, out.has(lamp) && vetoed.has(lamp)),
-                vscode.commands.executeCommand("setContext", `catzc.lamps.state.${lamp}`, conditions[lamp] ?? "committed"),
+        await Promise.all([
+            ...declaredLamps().map((lamp) => setKey(`catzc.lamps.shown.${lamp}`, inPlay.has(lamp))),
+            ...[...inPlay].flatMap((lamp) => [
+                setKey(`catzc.lamps.out.${lamp}`, out.has(lamp) && !vetoed.has(lamp)),
+                setKey(`catzc.lamps.veto.${lamp}`, out.has(lamp) && vetoed.has(lamp)),
+                setKey(`catzc.lamps.state.${lamp}`, conditions[lamp] ?? "committed"),
             ]),
-        );
+        ]);
     };
     // The conditions from the facts the editor already holds; only the facts' paths are classified, so no disk walk is needed.
     let repository;
@@ -606,7 +665,9 @@ function activate(context) {
         const heldPlaces = Object.keys(held).sort();
         diagnosticFacts(root, entries, facts);
         for (const place of heldPlaces) addFact(facts, place, "fault", "failed");
-        await markerFacts(root, facts);
+        // The markers are read once and again only when a marker or a file changes, never on each diagnostics event.
+        markerCache ??= markerFacts(root, {});
+        for (const [place, fact] of Object.entries(await markerCache)) addFact(facts, place, "fault", fact.fault);
         // Every file the lamps hold as failed shows red in the tree: the remembered Errors, and a test file whose run left a failed marker.
         const wanted = remembering(root, held, entries);
         const live = new Set(errorPlaces(root, entries));
@@ -625,7 +686,6 @@ function activate(context) {
         );
         await show();
     };
-    let judgeTimer;
     const rejudge = () => {
         clearTimeout(judgeTimer);
         judgeTimer = setTimeout(() => judge().catch((error) => log.appendLine(`conditions failed: ${error?.stack ?? error}`)), 300);
@@ -641,8 +701,8 @@ function activate(context) {
     );
     const count = async (applied) => {
         if (!applied) return;
-        const { root, out, vetoed, field, wanted, open } = applied;
-        const tally = await census(root, out, field, filters(), languages(), wanted, open, vetoed);
+        const { root, out, vetoed, field, wanted, open, disk } = applied;
+        const tally = await census(root, out, field, filters(), languages(), wanted, open, vetoed, disk);
         const matrix = Object.entries(tally.signatures)
             .sort((a, b) => b[1] - a[1])
             .map(([signature, files]) => `${signature}: ${files}`);
@@ -666,7 +726,7 @@ function activate(context) {
     // Every failure lands in the output channel; an unhandled rejection would vanish without a trace.
     const settle = async (retried = false) => {
         try {
-            const applied = await apply(context, state);
+            const applied = await apply(context, state, await snapshot());
             // The write is verified against what the editor now holds; a mismatch (a write lost to a concurrent edit of the settings) is
             // one more pass, never a silent disagreement between the lamps and the tree.
             const folder = vscode.workspace.workspaceFolders?.[0];
@@ -756,7 +816,6 @@ function activate(context) {
     };
     // An outside event (a settings file rendered anew, the window focused) asks for a pass through the same queue, debounced since such
     // events come in bursts; a press never waits.
-    let timer;
     const refresh = () => {
         clearTimeout(timer);
         timer = setTimeout(requestApply, 200);
@@ -798,7 +857,19 @@ function activate(context) {
     const folder = vscode.workspace.workspaceFolders?.[0];
     if (folder) {
         const markers = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(folder, `${MARKERS}/**`));
-        context.subscriptions.push(markers, markers.onDidCreate(rejudge), markers.onDidChange(rejudge), markers.onDidDelete(rejudge));
+        const remark = () => ((markerCache = null), rejudge());
+        context.subscriptions.push(markers, markers.onDidCreate(remark), markers.onDidChange(remark), markers.onDidDelete(remark));
+        // Every file created or deleted keeps the index current; the tree follows while a lamp is unlit, and a marker may lapse.
+        const anything = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(folder, "**"), false, true, false);
+        const touched = () => {
+            markerCache = null;
+            if (state.out.size > 0) refresh();
+        };
+        context.subscriptions.push(
+            anything,
+            anything.onDidCreate((uri) => indexAdd(uri).then(touched)),
+            anything.onDidDelete((uri) => (indexRemove(uri), touched())),
+        );
     }
     // An edit or a save releases the file's held Error (its diagnostics re-hold it while it still has one); switching the active file
     // re-judges, so the open lamp follows the red file that was just left.
@@ -815,7 +886,7 @@ function activate(context) {
         vscode.languages.onDidChangeDiagnostics(rejudge),
         vscode.window.onDidChangeActiveTextEditor(rejudge),
         vscode.workspace.onDidChangeTextDocument((event) => event.contentChanges.length > 0 && release(event.document)),
-        vscode.workspace.onDidSaveTextDocument(release),
+        vscode.workspace.onDidSaveTextDocument((document) => ((markerCache = null), release(document))),
     );
     // An opened or closed editor changes the open lamp's files: its condition at once, and the tree while a lamp is unlit.
     context.subscriptions.push(
@@ -836,14 +907,71 @@ function activate(context) {
             const now = JSON.stringify(vscode.workspace.getConfiguration("files", folder?.uri).inspect("exclude")?.workspaceValue ?? {});
             if (now !== written) refresh();
         }),
-        vscode.window.onDidChangeWindowState((state) => state.focused && refresh()),
+        vscode.window.onDidChangeWindowState((window) => {
+            if (!window.focused) return;
+            markerCache = null;
+            indexed = rebuild().then(refresh);
+        }),
     );
     refresh();
     rejudge();
 }
 
+// The engine's file in the repository, as the shell finds it under the workspace folder.
+const ENGINE = "pwsh/Catzc.Base.VSCode/assets/extensions/catzc-track-lamps.js";
+
+// The shell, which is all the installed package does: it runs the repository's engine, so the engine is always the working tree's, and
+// on a save of that file it disposes the running engine and starts the new one with the same remembered state, without an install or a
+// window reload. A package change (new commands, icons, menu entries) still takes a reinstall and a reload. Outside this repository, or
+// when the repository's engine fails to load, the package's own copy runs.
+function activate(context) {
+    const api = require("vscode");
+    const root = api.workspace.workspaceFolders?.[0]?.uri.fsPath;
+    const source = root ? path.join(root, ENGINE) : undefined;
+    const same = (a, b) => key(path.resolve(a)) === key(path.resolve(b));
+    if (!source || !fs.existsSync(source) || same(source, __filename)) return activateEngine(context, api);
+    const shellLog = api.window.createOutputChannel("Catzc track lamps (shell)");
+    let running;
+    const stop = () => {
+        for (const part of running?.subscriptions ?? []) {
+            try {
+                part.dispose();
+            } catch {}
+        }
+        running = undefined;
+    };
+    const start = () => {
+        const engineContext = { subscriptions: [], workspaceState: context.workspaceState, globalState: context.globalState, extensionPath: context.extensionPath, extensionUri: context.extensionUri };
+        try {
+            delete require.cache[require.resolve(source)];
+            require(source).activateEngine(engineContext, api);
+        } catch (error) {
+            for (const part of engineContext.subscriptions) {
+                try {
+                    part.dispose();
+                } catch {}
+            }
+            engineContext.subscriptions.length = 0;
+            shellLog.appendLine(`error: the repository's engine did not load, the package's copy runs instead: ${error?.stack ?? error}`);
+            activateEngine(engineContext, api);
+        }
+        running = engineContext;
+    };
+    start();
+    let swap;
+    const watcher = api.workspace.createFileSystemWatcher(new api.RelativePattern(root, ENGINE));
+    const restart = () => {
+        clearTimeout(swap);
+        swap = setTimeout(() => (stop(), start()), 300);
+    };
+    context.subscriptions.push(shellLog, watcher, watcher.onDidChange(restart), watcher.onDidCreate(restart), {
+        dispose: () => (clearTimeout(swap), stop()),
+    });
+}
+
 module.exports = {
     activate,
+    activateEngine,
     deactivate() {},
     census,
     claimer,

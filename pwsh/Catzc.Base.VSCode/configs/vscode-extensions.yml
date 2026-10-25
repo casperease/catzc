@@ -82,7 +82,7 @@ extensions:
           priority: default
   catzc-track-lamps:
     displayName: Catzc track lamps
-    version: 0.17.0
+    version: 0.18.0
     description: >-
       Filter lamps in the Explorer's title row, one per repository filter (filters.yml) and one for a typed list of languages; a click steps
       a lamp off, on, veto. The tree is the union of the lit lamps minus the zones of the vetoed ones, and each lamp's colour is its domain's
