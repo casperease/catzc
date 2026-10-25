@@ -13,7 +13,7 @@ icons:
   bash: { label: SH, style: prompt, color: "#b8860b", language: bash, extensions: [bash] }
   bash-test: { label: BAT, style: prompt, color: "#b8860b", extensions: [bats] }
   zsh: { label: ZSH, style: prompt, color: "#1f8a80", extensions: [zsh] }
-  csharp: { glyph: csharp, color: "#7c4dbd", language: bcl }
+  bcl: { label: BCL, color: "#7c4dbd", language: bcl }
   dotnet-project: { label: PROJ, color: "#7c4dbd", language: solution, extensions: [csproj, props] }
   dotnet-binary: { label: DLL, color: "#6b6b6b", extensions: [dll, pdb] }
   python: { glyph: python, color: "#f7c948", language: python }
@@ -23,7 +23,7 @@ icons:
   javascript: { glyph: js, color: "#f1e05a", language: javascript }
   markdown: { glyph: docs, color: "#8fa3bd", language: markdown }
   yaml: { glyph: yml, color: "#c2a878", language: yaml }
-  accosted: { glyph: contracts, color: "#d4a72c", language: accosted }
+  accosted: { glyph: cat, color: "#e57fb0", language: accosted }
   pipeline: { glyph: pipe, color: "#2f81f7", language: pipeline-yaml, language_ids: [github-actions-workflow] }
   json: { label: "{}", color: "#d4a72c", language: json }
   jsonl: { label: "{}+", color: "#d4a72c", language: jsonl }

@@ -19,7 +19,7 @@
   <PropertyGroup Label="catzc">
     <CatzcMeta><![CDATA[catzc:
   immutable:
-    with_body_sha: "03e7e3a8145e"
+    with_body_sha: "903fbc2572ba"
     warning: "Do Not Edit, this file is generated"]]></CatzcMeta>
   </PropertyGroup>
 
@@ -93,7 +93,7 @@
   <!-- Run before anything reads $(Version): PrepareForBuild precedes GetAssemblyVersion (assembly
        attributes) and GenerateBuildDependencyFile (the deps.json project entry). -->
   <Target Name="StampCatzcTypesVersionFromSources" BeforeTargets="PrepareForBuild;GetAssemblyVersion;GenerateBuildDependencyFile">
-    <Exec Command="pwsh -NoProfile -NonInteractive -Command &quot;Import-Module '$(MSBuildProjectDirectory)/../Catzc.Internal.Loader.psm1'; Import-InternalModule Vendor; Import-InternalModule Types; [Console]::Out.Write((Get-CombinedTypeHash '$(MSBuildProjectDirectory)/../..').CombinedHash)&quot;"
+    <Exec Command="pwsh -NoProfile -NonInteractive -Command &quot;Import-Module '$(MSBuildProjectDirectory)/../Catzc.Internal.Loader.psm1'; Import-InternalModule Vendor; Import-VendorModules -VendorRoot '$(MSBuildProjectDirectory)/../../.vendor' -Lazy Pester, PSScriptAnalyzer; Import-InternalModule Types; [Console]::Out.Write((Get-CombinedTypeHash '$(MSBuildProjectDirectory)/../..').CombinedHash)&quot;"
           ConsoleToMSBuild="true" EchoOff="true" StandardOutputImportance="low" IgnoreExitCode="true">
       <Output TaskParameter="ConsoleOutput" PropertyName="CatzcTypesHash" />
       <Output TaskParameter="ExitCode" PropertyName="CatzcHashExitCode" />
