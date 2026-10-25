@@ -15,6 +15,7 @@ function Set-AzCliSubscription {
 
     Assert-Tool 'az_cli'
 
+    # Idempotent: already on the subscription is a no-op, and a failed show falls through to the set.
     $result = Invoke-Executable 'az account show --output json' -PassThru -NoAssert -Silent
     if ($result.ExitCode -eq 0 -and $result.Output) {
         $account = $result.Output | ConvertFrom-Json

@@ -31,9 +31,12 @@ function Get-CSharpTypeDependency {
             continue
         }
 
+        # The walker and System.IO over the cmdlets: at about 20 ms a call, the cmdlets dominate a scan of every type.
         foreach ($cs in [Catzc.Base.Folders.PathSet]::new((Get-Config -Config folder-walk)).AddPattern($typesDir, '*.cs', 1).ToArray()) {
             $csName = [System.IO.Path]::GetFileName($cs)
+            # Comments and literals are stripped first, so only real code tokens count as references.
             $code = [System.IO.File]::ReadAllText($cs)
+            # The file's own namespace names its own module, and would otherwise map to a shorter known module.
             $code = [regex]::Replace($code, '(?s)/\*.*?\*/', ' ')
             $code = [regex]::Replace($code, '//[^\r\n]*', ' ')
             $code = [regex]::Replace($code, '"(?:\\.|[^"\\])*"', ' ')

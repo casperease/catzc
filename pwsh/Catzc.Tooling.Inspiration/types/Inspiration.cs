@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Tooling.Inspiration;
 
+// An absent inspiration is reported with Available false and never thrown on, so the work carries on without it.
 public sealed class Inspiration
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

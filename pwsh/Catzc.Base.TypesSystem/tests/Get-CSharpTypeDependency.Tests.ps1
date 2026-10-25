@@ -11,6 +11,7 @@ Describe 'Get-CSharpTypeDependency' -Tag 'L0', 'source-only' {
     BeforeEach {
         $script:root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
 
+        # Module names double as namespaces, so a fixture's folder is also what its types reference.
         function New-TypeModule {
             param([string] $Module, [hashtable] $Files)
             # The resolver names the modules; the fixture's module folders under $root stand in for the code track.

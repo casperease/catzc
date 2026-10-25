@@ -56,3 +56,44 @@ Started 2026-10-23T19:08:35.6112403+02:00.
   already cover icons, commands and menus.
 - 2026-10-25 Cats: Token tip: write a run script under out/ with its own Set-Location, since the Bash session cwd can drift into a module
   folder.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: a generated-file writer is due only when an output is missing or its declared
+  inputs' stamp changed (Catzc.Base.GeneratedFiles), never because the tree is dirty.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: Write-FileIfChanged leaves an output's mtime untouched when the render is equal, so
+  an mtime comparison can never decide whether a writer is due.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: Get-InputStamp -By Metadata stamps path, ticks and size for speed, while the
+  file-meta cache keeps -By Content so a checkout does not re-imprint the tree.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: an authored source head is only docs plus header: "generated"; a warning belongs to
+  a wholly generated file's immutable head alone.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: two adjacent comment lines reach the export threshold (min_lines 2), so Format-Code
+  moves both to the comment page.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: a C# type edit on disk breaks every session's import until all its callers match; a
+  staged copy swapped in once avoids the window.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: the link-direction rows only allow or deny edges that exist; requiring an edge
+  needs the require verdict, and aspect facts stay in the aspect gates.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: Format-Code renumbers an ordered plan list, so plan steps cross-reference each
+  other by name, never by number.
+- 2026-10-25 Cats: Token tip: Next time, save tokens by: orchestrating peers from the main session directly instead of a relay subagent that
+  cannot see their replies.
+- 2026-10-25 Cats: Token tip: Next time, save tokens by: summarising a worker's line list with a sample instead of echoing every line back.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: the DRS has no C0-C4 zoom; diagrams cross only the closed lenses list in
+  python/catzc_diagrams/configs.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: Test-Plans rejects a plan head target that does not exist yet and a check naming an
+  unexported command; the DRS gate is Test-DrsRegistry.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: the meta queries already exist (Get-Track, Get-TrackPlace, Get-Aspect,
+  Get-ModuleDependencyEdges, Get-LinkEdge, Get-DrsDomainEdges).
+- 2026-10-25 Cats: Token tip: write the out/ script before starting its background run.
+- 2026-10-25 Cats: Token tip: list exported Test-* names with ls pwsh/*/ before naming a check in a plan.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: renaming a member of a C# type that the importer compiles breaks every session the
+  moment the file is saved, so a type and every reference to it must land in one edit or a staged copy.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: an insight line placed directly next to another comment line reaches the export
+  threshold (min_lines: 2) and Format-Code moves both lines to the comment page.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: Get-ScopeLookup resolves a relative -Path from the caller's location only when it
+  is inside the repository root; a snapshot run resolves from the root.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: Format-Code over the whole tree takes about 40 to 80 seconds and fits one run-lock
+  burst, so the head rollout needs no sweep script.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: once most files are already modified, git status cannot tell what a new Format-Code
+  run changed; a copy of the tracked files taken before the run can.
+- 2026-10-25 Cats: In hindsight I wish I knew this fact: inside a PowerShell double-quoted string, a $( ) subexpression containing a
+  single-quoted literal with "(" fails to parse; assign the value to a variable first.
+- 2026-10-25 Cats: Token tip: Next time, save tokens by: reading every comment section of a module at once with out/drone27-sections.ps1,
+  which prints each anchor, its code line and the line above, instead of grepping file by file.

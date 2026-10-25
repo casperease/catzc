@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Azure.Cli;
 
+// A point-in-time probe of the local toolchain against the configured minimum, never a config record.
 public sealed class BicepState
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

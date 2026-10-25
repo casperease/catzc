@@ -21,8 +21,14 @@ place: on a declaration or first code line, one line that says something useful 
 - A parameter gets its tidbit on the parameter; a section about the whole function gets its line on the declaration or first code line.
 - An insight line never sits directly on another comment line: two adjacent lines reach the export threshold and `Format-Code` moves both to
   the page (catzc-fa, 2026-10-25).
+- A line is not compulsory: a section that only summarises what a test file covers leaves no line, since a list of cases is no clue.
 
 ## Open steps
 
+- [ ] `pwsh/Catzc.Base.TypesSystem`: 18 lines are written (catzc-27), and the four sections that only summarise a test file get no line; its
+      checks are left. Check: `Format-Code -Path` on each changed file moves no line, `Test-Comments -Path pwsh/Catzc.Base.TypesSystem`
+      reports no issues, and its tests pass one file at a time after a fresh import.
+- [ ] `pwsh/Catzc.Base.RootConfig` (40 sections) and `pwsh/Catzc.Base.Slides`, both started by no one yet (catzc-44 left them). Check: per
+      module, as for TypesSystem.
 - [ ] The rollout after the user's review: one module per step, in the master's order. Check: per module, `Test-Comments -Path` on it
       reports no long comment and no orphan section, and its tests pass one file at a time.

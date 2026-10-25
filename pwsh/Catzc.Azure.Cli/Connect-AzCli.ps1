@@ -27,6 +27,7 @@ function Connect-AzCli {
 
     Assert-Tool 'az_cli'
 
+    # Idempotent: a session already on the right identity is kept, and a failed show only means not logged in yet.
     if (-not $Force) {
         $result = Invoke-Executable 'az account show --output json' -PassThru -NoAssert -Silent
         if ($result.ExitCode -eq 0 -and $result.Output) {
@@ -46,6 +47,7 @@ function Connect-AzCli {
         }
     }
 
+    # No check after the login: a failed az login throws on its exit code, so the success message is never reached.
     Write-Verbose "Authenticating via $($PSCmdlet.ParameterSetName)"
     switch ($PSCmdlet.ParameterSetName) {
         'ServicePrincipal' {

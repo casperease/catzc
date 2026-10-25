@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# The platform is a parameter, so the Windows and the Unix branches both run on whichever system runs the tests.
 Describe 'Catzc.Tooling.Inspiration.InspirationRoot' -Tag 'L0', 'logic' {
     Context 'ToNative' {
         It 'maps a Git Bash drive path to a drive path on Windows' {

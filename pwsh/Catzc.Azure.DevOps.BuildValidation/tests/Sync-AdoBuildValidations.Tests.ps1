@@ -6,7 +6,6 @@ catzc:
 ---
 #>
 
-# One registration per config entry, with overrides and -DryRun passed through.
 Describe 'Sync-AdoBuildValidations' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Get-Config -ParameterFilter { $Config -eq 'build-validation' } -MockWith {

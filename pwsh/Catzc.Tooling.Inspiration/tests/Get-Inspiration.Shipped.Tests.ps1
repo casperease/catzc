@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# Consistency, never presence: on a machine without the sibling checkout it is reported unavailable and the test still passes.
 Describe 'Get-Inspiration over the shipped inspiration.yml' -Tag 'L1', 'integrity' {
     It 'loads the shipped config as its typed model' {
         Get-Config -Config inspiration | Should -BeOfType ([Catzc.Tooling.Inspiration.InspirationConfig])

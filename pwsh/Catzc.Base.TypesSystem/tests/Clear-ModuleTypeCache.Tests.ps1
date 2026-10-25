@@ -8,6 +8,7 @@ catzc:
 
 Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
 
+    # The fixture names its DLL with the same shared hash the janitor uses, so there is no mirror to drift from it.
     BeforeEach {
         # Default: source mode, not a pipeline, so the function actually runs (in the source and build runs).
         Mock Get-CatzcRunMode { 'source' } -ModuleName Catzc.Base.TypesSystem
@@ -17,6 +18,7 @@ Describe 'Clear-ModuleTypeCache' -Tag 'L0' {
 
         $root = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
 
+        # System.IO, not the cmdlets: at about 20 ms a call they dominated this per-test setup.
         foreach ($m in 'Mod.One', 'Mod.Two') {
             [System.IO.Directory]::CreateDirectory((Join-Path $root "$m/types")) | Out-Null
         }

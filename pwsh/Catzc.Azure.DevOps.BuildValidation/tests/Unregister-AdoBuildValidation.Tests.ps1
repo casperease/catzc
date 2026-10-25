@@ -6,7 +6,7 @@ catzc:
 ---
 #>
 
-# Removal finds the policy by its globset's path filter, and a missing one is no failure.
+# A policy already gone is no failure, so a removal is always safe to run again.
 Describe 'Unregister-AdoBuildValidation' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:globSet = [Catzc.Base.Globs.GlobSet]::new(

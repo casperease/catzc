@@ -57,6 +57,11 @@ already exist into a map anyone can read, and every slide is generated from thos
 5. [ ] The five ladders of the points listed above as `.drawio.yml` declarations plus pngs under `docs/explanation/model/.assets/`, one
        article per ladder (`zoom-<point>.md`). Check: `Test-Diagrams`, `Test-Slides`, `Test-Links`.
 
+## Open questions
+
+- Should `docs/explanation/index.md` drop its five-lens table in favour of a link to `the-zoom-ladder.md` once step 4 lands, so a reader
+  meets lens and zoom in one place? Recommendation: yes.
+
 ## Refs
 
 DDR-VISUAL, DDR-TRACK-WORLDMAP, DDR-ASPECT, TDR-STORES, ADR-REPO-LINKS, ADR-AUTO-DEPM, PDR-CONFIG, PDR-ONELIVE.

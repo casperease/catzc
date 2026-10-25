@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 
 namespace Catzc.Base.Reports;
 
+// Overlapping patterns are rejected at load, so a file's format never depends on declaration order or on which pattern is narrower.
 public sealed class OutputFormatsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "output-formats configuration validation failed:\n";

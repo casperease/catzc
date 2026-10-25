@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Reports;
 
+// A stamp segment against a wildcard counts as an overlap, so an accepted catalogue is provably free of overlaps.
 public sealed class OutputPattern
 {
     private const string AnySegments = "**";

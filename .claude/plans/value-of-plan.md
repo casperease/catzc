@@ -31,6 +31,7 @@ stale or superseded item is recorded as such, with the reason.
 | high    | plan-listen-internal-readers | The editor's note 0001: the glossary, track registry, how-to and CLAUDE.md say nothing internal reads the unordered part. | TDR-NORMALFORM, DDR-TRACK-UNORDEREDTRACK              | Test-Glossary, the Variants track-type tests, Test-Links             | one step left, the user's CLAUDE.md edit              |
 | medium  | plan-claude-diet             | Every session stops reading about 3500 bytes that agents.yml, each description and the DRS index already hold.            | none (the agents registry holds the text)             | Test-AgentDefinitions, Test-Links on CLAUDE.md                       | the user's CLAUDE.md edit, then four capability lines |
 | medium  | plan-vscode-extensions       | The recommendations shrink to vendor languages and known linters; cats tooling replaces the rest, icons included.         | none                                                  | the VSCode module's tests, Test-Plans                                | new; phase 1 in hand                                  |
+| low | plan-drone-learnings | three proposals from the 2026-10-25 drone session that shrink what the next session rediscovers: the comment-adjacency and anchor-cut rules in the comment page rules, and the strict-mode traps in one place. | comments-in-docs.md, a how-to | Test-AgentDefinitions, Test-Links | new |
 
 ## Feature plans (a capability of cats), here with class: feature in the head
 

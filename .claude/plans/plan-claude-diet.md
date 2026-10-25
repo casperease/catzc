@@ -51,6 +51,10 @@ It cuts a cost paid by every session and every spawn that loads the project inst
 
 ## Open questions
 
+- From catzc-59's finalize (2026-10-25), two proposals, none applied: (1) the plans authoring conventions gain one line: steps
+  cross-reference each other by name, never by number, since `Format-Code` renumbers an ordered list; (2) the `implementation-orchestrator`
+  brief says it runs as the main session, since as a subagent it cannot see the peers' replies.
+
 - From the orchestrator's finalize (2026-10-23), three proposals, none applied: (1) `.claude/skills/catzc-verify/SKILL.md`: a change to a
   file the Bash hook compiles (`TestTiers.cs`, a new `timeouts.yml` key) runs `Build-AgentHook` in the same burst, merged into the burst
   line (a new key broke every Bash call once that day); (2) `Invoke-TestFile -MaxLevel` takes 0 and 1 too, so one file can run under the

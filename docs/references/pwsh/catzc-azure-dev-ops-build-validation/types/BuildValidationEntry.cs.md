@@ -5,7 +5,7 @@ The comments of the file that outgrew one line, one section per comment, verbati
 
 ## comment:1
 
-Above `using System;`, written with `//`.
+Above `public sealed class BuildValidationEntry : Catzc.Base.Objects.DictionaryRecord`, written with `//`.
 
 ```text
 One entry of configs/build-validation.yml's `validations` list: an ADO build-validation branch policy tied to a

@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Tooling.Inspiration;
 
+// A root is stored portable and resolved to absolute only where it binds, so the same file works from any checkout and either shell.
 public static class InspirationRoot
 {
     // The workspace anchor token, the parent folder of the repository root.
@@ -26,6 +27,7 @@ public static class InspirationRoot
         return root != null && root.StartsWith(WorkspaceAnchor + "/", StringComparison.Ordinal);
     }
 
+    // Only a root may lead with the workspace anchor, so a path inside one can never climb out of it.
     public static string[] Violations(string label, string value, bool allowAnchor)
     {
         List<string> errors = new List<string>();
@@ -57,6 +59,7 @@ public static class InspirationRoot
         return errors.ToArray();
     }
 
+    // A Git Bash drive path becomes a drive path only on Windows, because elsewhere '/c/...' is a real folder and must stay one.
     public static string ToNative(string path, bool windows)
     {
         if (path == null) { throw new ArgumentNullException(nameof(path)); }

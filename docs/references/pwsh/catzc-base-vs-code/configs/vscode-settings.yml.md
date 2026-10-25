@@ -236,3 +236,12 @@ Above `terminal.integrated.env.windows:`, written with `#`.
 Python writes its bytecode cache to out/pycache in every terminal of the editor, as Invoke-PythonTest has it, never beside the
 sources (a bare python or pytest run included).
 ```
+
+## comment:24
+
+Above `yaml.schemaStore.enable: false`, written with `#`.
+
+```text
+No extension fetches a schema: the YAML extension never asks SchemaStore and JSON never downloads one; every schema the editor checks
+against is a local file named below.
+```

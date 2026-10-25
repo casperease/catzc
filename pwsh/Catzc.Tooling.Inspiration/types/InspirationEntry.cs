@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Tooling.Inspiration;
 
+// Every violation is reported in one throw, prefixed with the entry's position, so one load names every broken entry at once.
 public sealed class InspirationEntry : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] Allowed = { "id", "root", "description", "paths" };

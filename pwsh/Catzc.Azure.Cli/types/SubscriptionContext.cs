@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Azure.Cli;
 
+// The active subscription as `az account show` gives it, kept so a switch can be undone afterwards.
 public sealed class SubscriptionContext
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

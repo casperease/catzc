@@ -23,6 +23,7 @@ function Invoke-AzCli {
         Assert-Tool 'az_cli'
     }
 
+    # Without this, a command needing a missing extension waits on an invisible (Y/n) prompt instead of failing.
     $dynamicInstallVar = 'AZURE_EXTENSION_USE_DYNAMIC_INSTALL'
     $priorDynamicInstall = [Environment]::GetEnvironmentVariable($dynamicInstallVar, 'Process')
     if (-not $DryRun) {

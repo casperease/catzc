@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 
 namespace Catzc.Tooling.Inspiration;
 
+// An omitted list takes the declared default while an explicit empty list declares none, so "no inspirations" is always a choice.
 public sealed class InspirationConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private const string Failed = "inspiration.yml is malformed:\n  - ";

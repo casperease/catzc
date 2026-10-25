@@ -6,6 +6,7 @@ catzc:
 ---
 #>
 
+# A scratch workspace where one inspiration is missing, so an absent one is proven reported and never thrown on.
 Describe 'Get-Inspiration' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:workspace = [IO.Path]::GetFullPath((Join-Path $TestDrive 'workspace'))

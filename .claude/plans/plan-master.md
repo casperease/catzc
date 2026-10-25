@@ -83,6 +83,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   names, below the export threshold
 - model-atlas -> plan-model-atlas.md: explanation articles on the physical and meta models, and C0–C4 zoom ladders drawn from the queries at
   five points of the tree.
+- drone-learnings -> plan-drone-learnings.md: three proposals from the 2026-10-25 drone session that shrink what the next session rediscovers: the comment-adjacency and anchor-cut rules in the comment page rules, and the strict-mode traps in one place.
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full
   run, the master and the task files go with the last plan.

@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Catzc.Base.Reports;
 
+// One entry checked alone, every violation in one throw; overlap spans entries, so the catalogue checks it instead.
 public sealed class OutputFormat : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly Regex KebabCase = new Regex("^[a-z][a-z0-9]*(-[a-z0-9]+)*$");

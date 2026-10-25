@@ -128,8 +128,6 @@ settings:
     "**/.markdownlintignore": ignore
     "**/out/**/*.log": ansi
 
-  # No extension fetches a schema: the YAML extension never asks SchemaStore and JSON never downloads one; every schema the editor checks
-  # against is a local file named below.
   yaml.schemaStore.enable: false
   json.schemaDownload.enable: false
   yaml.schemas:

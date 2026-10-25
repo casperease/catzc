@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.Reports;
 
+// Every key has its default here, so an empty file means the standard layout and a file names only what differs from it.
 public sealed class ReportsConfig : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly string[] AllowedKeys = { "folder", "report_file", "latest_file", "stamp_format" };

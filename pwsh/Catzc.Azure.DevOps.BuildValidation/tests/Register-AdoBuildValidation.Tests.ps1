@@ -6,7 +6,6 @@ catzc:
 ---
 #>
 
-# Idempotent create-or-update with every value defaulted; -DryRun returns the plan.
 Describe 'Register-AdoBuildValidation' -Tag 'L0', 'logic' {
     BeforeEach {
         $script:globSet = [Catzc.Base.Globs.GlobSet]::new(

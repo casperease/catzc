@@ -4,4 +4,5 @@
 #   header: "generated"
 # ---
 
+# Empty on purpose: the default inspiration is declared once on its type, so a fresh checkout and an empty file read the same.
 {}

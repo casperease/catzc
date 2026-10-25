@@ -12,8 +12,10 @@ using System.Globalization;
 
 namespace Catzc.Base.Reports;
 
+// The one parser every check config shares, so a mode has one accepted spelling and one error text across the repository.
 public static class CheckModes
 {
+    // An unknown mode still returns the default and sets the error, so the caller decides whether a typo stops its load.
     public static CheckMode Parse(IDictionary raw, out string error)
     {
         error = null;

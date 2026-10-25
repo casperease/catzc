@@ -10,6 +10,7 @@ using System;
 
 namespace Catzc.Azure.Cli;
 
+// Pairs what was asked for (expected_*) with what the session has (actual_*), so a mismatch names both sides.
 public sealed class ConnectionState
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);

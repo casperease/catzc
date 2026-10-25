@@ -6,6 +6,7 @@
 
 # The area sets how long a format's files stay (OutputFormat's area defaults); keep and max_age override it, and Clear-Output applies it.
 
+# Every kind of file under the output root is declared here once, and no two patterns may overlap, so each file has one format.
 formats:
   # ---- quality gates and test runs (out/test-<subject>/) ----
   test-report:
@@ -162,6 +163,7 @@ formats:
   # ---- agent sessions: plans, handoffs, scripts, dumps, logs (the top of out/ and their own folders) ----
   session-document:
     area: session
+    # A plan cannot be regenerated, so it never ages out on its own and only a person retires it.
     max_age: none
     patterns: ["*.md"]
     producer: an agent session (plan-*.md and handoff-*.md, where .claude/CLAUDE.md places them, and other notes)

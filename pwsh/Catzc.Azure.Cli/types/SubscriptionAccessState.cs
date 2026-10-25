@@ -10,10 +10,12 @@ using System;
 
 namespace Catzc.Azure.Cli;
 
+// Established by a real read-only ARM call, since local session state can claim access the login no longer has.
 public sealed class SubscriptionAccessState
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
+    // On a failed probe this tells "not logged in" from "logged in without access", which need different fixes.
     public bool logged_in { get; }
 
     // The verdict: true only when the scoped ARM probe against the subscription succeeded.

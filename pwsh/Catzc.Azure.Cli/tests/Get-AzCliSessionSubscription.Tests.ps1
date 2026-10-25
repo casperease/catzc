@@ -7,6 +7,7 @@ catzc:
 #>
 
 Describe 'Get-AzCliSessionSubscription' -Tag 'L0', 'logic' {
+    # The session read is mocked whole and config resolves to fixture identities, so nothing production is in play.
     BeforeAll {
         Mock Resolve-ConfigEntry -ModuleName Catzc.Base.Config -ParameterFilter { $Config -in 'azure', 'customer' } -MockWith {
             @{ Name = $Config; Module = 'Catzc.Azure.Cli'

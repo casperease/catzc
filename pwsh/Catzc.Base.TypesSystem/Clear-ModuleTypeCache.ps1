@@ -29,6 +29,7 @@ function Clear-ModuleTypeCache {
 
     $compiledDir = Join-Path $ModulesRoot '.compiled'
 
+    # A pipeline deletes nothing, so two builds there means two were committed, and trunk may carry only one.
     if (Test-IsRunningInPipeline) {
         # @(): an if-expression unrolls a 0/1-item list.
         $typeDlls = @(if (Test-Path $compiledDir -PathType Container) {
@@ -57,6 +58,7 @@ function Clear-ModuleTypeCache {
         return
     }
 
+    # The build to keep is named by the loader's own combined hash, so the janitor can never disagree with the loader.
     Import-InternalModule Types
     $combinedHash = (Get-CombinedTypeHash $ModulesRoot).CombinedHash
     $keep = if ($combinedHash) {
@@ -106,7 +108,9 @@ function Clear-ModuleTypeCache {
         }
     }
 
+    # A build another process still holds is that process's own until it exits: a fact to name, never an error or a wait.
     if ($failed.Count -and -not $Silent) {
+        # Best-effort: the holder only enriches the message, so a lookup failure leaves the delete error alone.
         $details = foreach ($entry in $failed) {
             $name = [System.IO.Path]::GetFileName($entry.Path)
             $holders = try {

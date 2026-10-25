@@ -11,6 +11,7 @@ function Get-AzCliBicepState {
 
     $minVersion = Get-AzureBicepMinVersion
 
+    # Silent: the version line is parsed, not shown, so a build does not echo it on every run.
     $result = Invoke-AzCli 'bicep version' -PassThru -NoAssert -Silent
     if ($result.ExitCode -ne 0) {
         return [Catzc.Azure.Cli.BicepState]::new($false, $null, $minVersion, $false)

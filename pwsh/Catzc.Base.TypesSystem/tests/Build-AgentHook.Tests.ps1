@@ -9,6 +9,7 @@ catzc:
 Describe 'Build-AgentHook' -Tag 'L0', 'logic' {
     BeforeEach {
         Mock Invoke-Executable -ModuleName Catzc.Base.TypesSystem {
+            # The host's own executable stands in, so the program carries the platform's real extension and resolves.
             $null = New-Item -ItemType Directory -Force -Path $script:outputDirectory
             $hostExecutable = [Environment]::ProcessPath
             Copy-Item -LiteralPath $hostExecutable -Destination (Join-Path $script:outputDirectory ('Assert-BashTimeout' + [IO.Path]::GetExtension($hostExecutable)))
