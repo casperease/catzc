@@ -67,7 +67,7 @@ writers:
       - pwsh/Catzc.Base.Languages/configs/python.yml
       - pwsh/Catzc.Base.RootConfig/**
       - pwsh/Catzc.Base.VSCode/**
-      - contracts/catzc/0.0.0/**
+      - contracts/catzc/0.1.0/**
       - pwsh/.internal/assets/PSScriptAnalyzerSettings.psd1
       - pwsh/.internal/Catzc.Internal.Importer.psm1
       - pwsh/Catzc.Base.Execution/configs/tools.yml

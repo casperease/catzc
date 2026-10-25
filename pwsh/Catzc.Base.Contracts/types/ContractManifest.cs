@@ -15,15 +15,12 @@ namespace Catzc.Base.Contracts;
 
 public sealed class ContractManifest
 {
-    public IReadOnlyDictionary<string, ContractDirection> direction { get; }
-
     public IReadOnlyDictionary<string, string[]> applies_to { get; }
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     public ContractManifest(IDictionary raw)
     {
-        var overrides = new Dictionary<string, ContractDirection>(StringComparer.Ordinal);
         var globs = new Dictionary<string, string[]>(StringComparer.Ordinal);
         var errors = new List<string>();
 
@@ -32,9 +29,9 @@ public sealed class ContractManifest
             foreach (object key in raw.Keys)
             {
                 string name = Convert.ToString(key, CultureInfo.InvariantCulture);
-                if (name != "direction" && name != "applies_to")
+                if (name != "applies_to")
                 {
-                    errors.Add(string.Format(CultureInfo.InvariantCulture, "unknown key '{0}' (allowed: direction, applies_to)", name));
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "unknown key '{0}' (allowed: applies_to)", name));
                 }
             }
 
@@ -49,22 +46,7 @@ public sealed class ContractManifest
                 }
                 else
                 {
-                    errors.Add("applies_to must be a map of <module>/<path> to a list of globs");
-                }
-            }
-
-            if (raw.Contains("direction") && raw["direction"] != null)
-            {
-                if (raw["direction"] is IDictionary map)
-                {
-                    foreach (DictionaryEntry entry in map)
-                    {
-                        Read(entry, overrides, errors);
-                    }
-                }
-                else
-                {
-                    errors.Add("direction must be a map of <module>/<path> to provided or depended-on");
+                    errors.Add("applies_to must be a map of an asset's path in the version folder to a list of globs");
                 }
             }
         }
@@ -73,16 +55,37 @@ public sealed class ContractManifest
         {
             throw new ArgumentException("contract.yml validation failed:\n" + string.Join("\n", errors));
         }
-        direction = overrides;
         applies_to = globs;
+    }
+
+    // An asset's key: its file name, or <group>/<file name> when it sits in a group folder; never deeper.
+    private static bool IsKey(string asset)
+    {
+        if (string.IsNullOrEmpty(asset) || asset.Contains('\\') || asset.StartsWith("/", StringComparison.Ordinal))
+        {
+            return false;
+        }
+        string[] segments = asset.Split('/');
+        if (segments.Length > 2)
+        {
+            return false;
+        }
+        foreach (string segment in segments)
+        {
+            if (segment.Length == 0 || segment == "." || segment == "..")
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static void ReadGlobs(DictionaryEntry entry, Dictionary<string, string[]> globs, List<string> errors)
     {
         string asset = Convert.ToString(entry.Key, CultureInfo.InvariantCulture);
-        if (string.IsNullOrEmpty(asset) || asset.Contains('\\') || asset.StartsWith("/", StringComparison.Ordinal) || !asset.Contains('/'))
+        if (!IsKey(asset))
         {
-            errors.Add(string.Format(CultureInfo.InvariantCulture, "applies_to key '{0}' is not a '/'-separated <module>/<path>", asset));
+            errors.Add(string.Format(CultureInfo.InvariantCulture, "applies_to key '{0}' is not an asset's <file> or <group>/<file> in the version folder", asset));
             return;
         }
         var patterns = new List<string>();
@@ -93,7 +96,7 @@ public sealed class ContractManifest
                 string glob = Convert.ToString(item, CultureInfo.InvariantCulture);
                 if (string.IsNullOrWhiteSpace(glob) || glob.Contains('\\') || glob.StartsWith("/", StringComparison.Ordinal))
                 {
-                    errors.Add(string.Format(CultureInfo.InvariantCulture, "applies_to of '{0}': '{1}' is not a relative '/'-separated glob", asset, glob));
+                    errors.Add(string.Format(CultureInfo.InvariantCulture, "applies_to of '{0}': '{1}' is not a repository-relative '/'-separated glob", asset, glob));
                 }
                 else
                 {
@@ -107,29 +110,5 @@ public sealed class ContractManifest
             return;
         }
         globs[asset] = patterns.ToArray();
-    }
-
-    private static void Read(DictionaryEntry entry, Dictionary<string, ContractDirection> overrides, List<string> errors)
-    {
-        string asset = Convert.ToString(entry.Key, CultureInfo.InvariantCulture);
-        string value = Convert.ToString(entry.Value, CultureInfo.InvariantCulture);
-        if (string.IsNullOrEmpty(asset) || asset.Contains('\\') || asset.StartsWith("/", StringComparison.Ordinal) || !asset.Contains('/'))
-        {
-            errors.Add(string.Format(CultureInfo.InvariantCulture, "direction key '{0}' is not a '/'-separated <module>/<path>", asset));
-            return;
-        }
-        if (value == "provided")
-        {
-            overrides[asset] = ContractDirection.Provided;
-        }
-        else if (value == "depended-on")
-        {
-            overrides[asset] = ContractDirection.DependedOn;
-        }
-        else
-        {
-            errors.Add(string.Format(CultureInfo.InvariantCulture,
-                "direction of '{0}' is '{1}' (valid: provided, depended-on)", asset, value));
-        }
     }
 }

@@ -11,7 +11,7 @@ function Test-Contracts {
     [OutputType([Catzc.Base.Reports.QualityGateResult])]
     param(
         [ValidatePattern('^[0-9]+\.[0-9]+\.[0-9]+$')]
-        [string] $Version = '0.0.0',
+        [string] $Version = '0.1.0',
 
         [string] $RepositoryRoot = (Get-RepositoryRoot),
 
@@ -50,19 +50,27 @@ function Test-Contracts {
     $contractsRoot = Join-Path $RepositoryRoot 'contracts'
     if ([System.IO.Directory]::Exists($contractsRoot)) {
         $layout = [Catzc.Base.Contracts.ContractLayout]::new((Get-Config -Config folder-walk))
-        foreach ($unitFolder in $layout.Folders($contractsRoot)) {
-            $unit = [System.IO.Path]::GetFileName($unitFolder)
-            $versions = [string[]] @($layout.Folders($unitFolder) | ForEach-Object { [System.IO.Path]::GetFileName($_) })
-            if ($Version -cne '0.0.0' -and $versions -cnotcontains $Version) {
-                $issues.Add("contracts/$unit/$Version/ does not exist, so release $Version of '$unit' is not checked; a release freezes the draft with Publish-ContractRelease before it runs Test-Contracts -Version (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).")
+        foreach ($rootFolder in $layout.Folders($contractsRoot)) {
+            $root = [System.IO.Path]::GetFileName($rootFolder)
+            # Only the provided root releases; the layout check reports a release folder under a vendor root.
+            if ($root -cne [Catzc.Base.Contracts.ContractLayout]::ProvidedRoot) {
+                continue
             }
-            foreach ($released in @($versions | Where-Object { $_ -match '^[0-9]+\.[0-9]+\.[0-9]+$' -and $_ -cne '0.0.0' })) {
+            $versions = [string[]] @($layout.Folders($rootFolder) | ForEach-Object { [System.IO.Path]::GetFileName($_) })
+            if ($Version -cne [Catzc.Base.Contracts.ContractLayout]::CurrentVersion -and $versions -cnotcontains $Version) {
+                $issues.Add("contracts/$root/$Version/ does not exist, so release $Version of '$root' is not checked; a release freezes the current version with Publish-ContractRelease before it runs Test-Contracts -Version (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).")
+            }
+            foreach ($released in @($versions | Where-Object { $_ -match '^[0-9]+\.[0-9]+\.[0-9]+$' -and [int] $_.Split('.')[0] -ge 1 })) {
                 $releasedFolders++
-                foreach ($finding in @(Get-ContractFreezeFindings -Folder (Join-Path $unitFolder $released) -Name "contracts/$unit/$released")) {
+                foreach ($finding in @(Get-ContractFreezeFindings -Folder (Join-Path $rootFolder $released) -Name "contracts/$root/$released")) {
                     $issues.Add($finding)
                 }
             }
         }
+    }
+
+    foreach ($finding in @(Get-ContractLayoutFindings -RepositoryRoot $RepositoryRoot)) {
+        $issues.Add($finding)
     }
 
     foreach ($finding in @(Get-ContractDotFolderFindings -RepositoryRoot $RepositoryRoot)) {

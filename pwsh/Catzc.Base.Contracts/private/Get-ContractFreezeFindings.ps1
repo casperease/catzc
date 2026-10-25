@@ -17,10 +17,10 @@ function Get-ContractFreezeFindings {
         [string] $Name
     )
 
-    $fix = "a released version folder is immutable, so a change lands in the draft, $([System.IO.Path]::GetDirectoryName($Name) -replace '\\', '/')/0.0.0/ (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE)"
+    $fix = "a released version folder is immutable, so a change lands in the current version, $([System.IO.Path]::GetDirectoryName($Name) -replace '\\', '/')/0.1.0/ (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE)"
     $record = Join-Path $Folder '.frozen'
     if (-not [System.IO.File]::Exists($record)) {
-        return "${Name}: holds no .frozen record, so nothing proves it unchanged; a release freezes the draft with Publish-ContractRelease, which writes it (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE)."
+        return "${Name}: holds no .frozen record, so nothing proves it unchanged; a release freezes the current version with Publish-ContractRelease, which writes it (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE)."
     }
 
     $frozen = [System.Collections.Specialized.OrderedDictionary]::new([System.StringComparer]::Ordinal)

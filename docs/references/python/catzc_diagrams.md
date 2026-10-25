@@ -57,6 +57,11 @@ in `drawio.yml`, a new slide layout is a pattern file. The scripts know the voca
 every style names a token, and `drawio.yml` holds one token set per theme; the default theme's render is the committed png, and any other
 theme renders on demand to `out/drawio/themes/`.
 
+A bulk render splits its diagrams across `--workers` processes (slides.yml `render_parallel`, default 3), each with a disjoint, contiguous
+slice, and prints every slice's lines in diagram order once all of them end. Every YAML read goes through the one libyaml loader,
+`load_yaml`. When you profile a render or a build, a profiling script prints its timings with `Write-Host`, because an assignment captures
+the pipeline and the first timing run is lost to a variable.
+
 The tests run from the module's own `tests/` folder through the language bridge, on fixture declarations in the neutral widget vocabulary,
 never on a real drawing.
 

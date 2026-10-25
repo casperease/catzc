@@ -22,7 +22,7 @@ function Get-ContractBindingAssets {
         if ($asset.Version -ceq $Version) {
             $asset
         }
-        elseif ($asset.Version -cne '0.0.0' -and $asset.Direction -eq [Catzc.Base.Contracts.ContractDirection]::Provided) {
+        elseif ($asset.Version -cne [Catzc.Base.Contracts.ContractLayout]::CurrentVersion -and $asset.Direction -eq [Catzc.Base.Contracts.ContractDirection]::Provided) {
             $asset
         }
     }

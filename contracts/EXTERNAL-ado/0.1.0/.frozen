@@ -1,4 +1,0 @@
-# contracts/EXTERNAL-ado/0.1.0, frozen by Publish-ContractRelease: the SHA-256 of each file, line endings read as LF.
-# A released version folder is immutable (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE); Test-Contracts fails when a file differs.
-79cda80a0b60003223bb68aeb4cbfe576c2e528048801942b63c0465012e939c  Catzc.Azure.DevOps/pipelines/pipeline.yaml.schema.json
-0d744b4897381644a812d24de2a98d361b92ea1d2a07fcd0ddc4a519f9867d24  contract.yml

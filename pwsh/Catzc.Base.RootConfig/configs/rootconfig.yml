@@ -21,7 +21,7 @@ files:
   - target: pwsh/.internal/assets/importer-commands.sh
     generator: New-CatsCommandLookup
     sources:
-      - contracts/catzc/0.0.0
+      - contracts/catzc/0.1.0
     committed: true
     optIn: true
   - target: .vscode/settings.json

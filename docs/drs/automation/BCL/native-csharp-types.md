@@ -53,7 +53,18 @@ asking `Test-IsRunningInPipeline`, like every other caller. Inside a **VS Code**
 terminal or the extension's host, and an import that dies there leaves the editor's session without cats, so the loader keeps the loaded
 assembly whatever drifted and writes one line, "loaded inside VS Code with non-current types dll", naming the loaded hash and the source
 hash. It asks `Test-IsRunningInVsCode`, the loader's one reader of VS Code's terminal mark, with `Assert-IsRunningInVsCode` as its guard
-form; the pipeline check comes first, so a pipeline is never softened by the mark.
+form; the pipeline check comes first, so a pipeline is never softened by the mark. Ahead of all of these, after the pipeline check, a
+developer's console source session loads the changed build beside the old one, up to the `generations` cap that `types-load.yml` declares
+for that cell, and re-points the `Catzc.*` accelerators to it; past the cap, the paths above hold.
+
+- [The cache-state contract](#the-cache-state-contract)
+
+### Rule ADR-BCL-TYPES-ACCELERATORSNOTFULLNAMES
+
+Code names a catzc type by its `Catzc.*` accelerator, not by its full type name, wherever builds can stack. Two builds of the same sources
+load side by side with the same full type names, and a full name keeps resolving to the first-loaded build, silently; a re-pointed
+accelerator resolves to the newest build. An object of the old build does not convert to the new build's type, so code that mixes the two
+fails far from the cause.
 
 - [The cache-state contract](#the-cache-state-contract)
 

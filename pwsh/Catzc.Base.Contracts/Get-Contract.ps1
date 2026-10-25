@@ -12,31 +12,19 @@ function Get-Contract {
     param(
         [Parameter(Position = 0)]
         [SupportsWildcards()]
-        [string[]] $Unit = '*',
+        [string[]] $Root = '*',
 
         [SupportsWildcards()]
-        [string[]] $Version = '0.0.0',
+        [string[]] $Version = '0.1.0',
 
         [SupportsWildcards()]
-        [string[]] $Module = '*',
+        [string[]] $Group = '*',
 
         [SupportsWildcards()]
         [string[]] $Path = '*',
 
-        [string] $Addressing = (Get-Config -Config contracts).addressing,
-
-        [AllowEmptyCollection()]
-        [System.Collections.IDictionary] $TargetRoot = (Get-Config -Config contracts).target_roots,
-
         [string] $RepositoryRoot = (Get-RepositoryRoot)
     )
-
-    if ($Addressing -cnotin [Catzc.Base.Contracts.ContractsConfig]::AddressingModes) {
-        throw [System.ArgumentException]::new("Get-Contract: addressing '$Addressing' is not one of: $([Catzc.Base.Contracts.ContractsConfig]::AddressingModes -join ', ').")
-    }
-    if ($Addressing -cnotin [Catzc.Base.Contracts.ContractsConfig]::BuiltAddressingModes) {
-        throw [System.NotImplementedException]::new("Get-Contract: the addressing mode '$Addressing' is declared but not built yet; the built modes are: $([Catzc.Base.Contracts.ContractsConfig]::BuiltAddressingModes -join ', '). A mode is switched on only once it is proven from both pwsh and bash (ADR-REPO-CONTRACT-CONFIGUREDADDRESSING).")
-    }
 
     $contractsRoot = Join-Path $RepositoryRoot 'contracts'
     if (-not [System.IO.Directory]::Exists($contractsRoot)) {
@@ -44,16 +32,16 @@ function Get-Contract {
         return
     }
 
-    $unitFolders = [Catzc.Base.Contracts.ContractLayout]::new((Get-Config -Config folder-walk)).Folders($contractsRoot)
-    foreach ($unitFolder in $unitFolders) {
-        $unitName = [System.IO.Path]::GetFileName($unitFolder)
-        if (@($Unit | Where-Object { $unitName -like $_ }).Count -eq 0) {
+    $rootFolders = [Catzc.Base.Contracts.ContractLayout]::new((Get-Config -Config folder-walk)).Folders($contractsRoot)
+    foreach ($rootFolder in $rootFolders) {
+        $rootName = [System.IO.Path]::GetFileName($rootFolder)
+        if (@($Root | Where-Object { $rootName -like $_ }).Count -eq 0) {
             continue
         }
-        foreach ($asset in Get-ContractUnitAsset -Unit $unitName -Folder $unitFolder -Version $Version -TargetRoot $TargetRoot -RepositoryRoot $RepositoryRoot -Addressing $Addressing) {
-            $isModule = @($Module | Where-Object { $asset.Module -like $_ }).Count -gt 0
+        foreach ($asset in Get-ContractRootAsset -Root $rootName -Folder $rootFolder -Version $Version -RepositoryRoot $RepositoryRoot) {
+            $isGroup = @($Group | Where-Object { $asset.Group -like $_ }).Count -gt 0
             $isPath = @($Path | Where-Object { $asset.Path -like $_ -or ($null -ne $asset.Target -and $asset.Target -like $_) }).Count -gt 0
-            if ($isModule -and $isPath) {
+            if ($isGroup -and $isPath) {
                 $asset
             }
         }

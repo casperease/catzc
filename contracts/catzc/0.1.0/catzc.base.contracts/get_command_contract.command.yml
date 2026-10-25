@@ -1,0 +1,9 @@
+# Provided command contract (ADR-REPO-CMDCONTRACT-COMMANDCONTRACT and ADR-REPO-CMDCONTRACT-ONEREADER): the call interface of Get-CommandContract, the one reader of command
+# contracts. RepositoryRoot defaults to the repository root, a computed default the contract does not restate.
+parameters:
+  name: string[] = *
+  module: string[] = *
+  root: string[] = *
+  version: string[] = 0.1.0
+  repository_root: string
+output: catzc.base.contracts.contract_command[]

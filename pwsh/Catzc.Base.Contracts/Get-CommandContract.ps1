@@ -18,16 +18,16 @@ function Get-CommandContract {
         [string[]] $Module = '*',
 
         [SupportsWildcards()]
-        [string[]] $Unit = '*',
+        [string[]] $Root = '*',
 
         [SupportsWildcards()]
-        [string[]] $Version = '0.0.0',
+        [string[]] $Version = '0.1.0',
 
         [string] $RepositoryRoot = (Get-RepositoryRoot)
     )
 
     $suffix = [Catzc.Base.Contracts.ContractCommand]::Suffix
-    foreach ($asset in Get-Contract -Unit $Unit -Version $Version -Module $Module -Path "*$suffix" -RepositoryRoot $RepositoryRoot) {
+    foreach ($asset in Get-Contract -Root $Root -Version $Version -Group $Module -Path "*$suffix" -RepositoryRoot $RepositoryRoot) {
         if ($asset.Kind -ne [Catzc.Base.Contracts.ContractAssetKind]::Command) {
             continue
         }

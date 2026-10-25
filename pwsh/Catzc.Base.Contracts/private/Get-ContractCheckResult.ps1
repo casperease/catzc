@@ -25,9 +25,9 @@ function Get-ContractCheckResult {
                 Get-ContractFragmentFindings -RepositoryRoot $RepositoryRoot -Asset $Asset
             }
             ([Catzc.Base.Contracts.ContractAssetKind]::Schema) {
-                $moduleFolder = "contracts/$($Asset.Unit)/$($Asset.Version)/$($Asset.Module)/"
+                $assetFolder = $Asset.AssetPath.Substring(0, $Asset.AssetPath.LastIndexOf('/') + 1)
                 $leaf = $Asset.Target.Substring($Asset.Target.LastIndexOf('/') + 1)
-                $onSample = $Asset.Target.StartsWith($moduleFolder, [System.StringComparison]::Ordinal) -and
+                $onSample = $Asset.Target.StartsWith($assetFolder, [System.StringComparison]::Ordinal) -and
                 (Get-ContractAssetKind -Name $leaf) -eq [Catzc.Base.Contracts.ContractAssetKind]::Sample
                 if ($onSample) {
                     Get-ContractSchemaFindings -RepositoryRoot $RepositoryRoot -SchemaPath $Asset.AssetPath

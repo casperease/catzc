@@ -14,6 +14,12 @@ namespace Catzc.Base.Contracts;
 
 public sealed class ContractLayout
 {
+    // The one version folder of every root that holds its current contracts (ADR-REPO-CONTRACT-CURRENTVERSION).
+    public const string CurrentVersion = "0.1.0";
+
+    // The one root whose assets are provided; every other root is a vendor and its assets are depended-on (ADR-REPO-CONTRACT-DIRECTIONBYCONVENTION).
+    public const string ProvidedRoot = "catzc";
+
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
 
     private readonly string[] pruned;
@@ -27,7 +33,7 @@ public sealed class ContractLayout
         pruned = PathSet.Pruned(walk);
     }
 
-    // The folders directly in a folder (unit, version or module folders), as full paths.
+    // The folders directly in a folder (root, version or group folders), as full paths.
     public string[] Folders(string folder) => FolderWalker.Walk(Required(folder), 1, null, false, true, pruned);
 
     // The names of the files directly in a folder.

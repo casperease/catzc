@@ -1,3 +1,0 @@
-# contracts/EXTERNAL-azure/0.1.0, frozen by Publish-ContractRelease: the SHA-256 of each file, line endings read as LF.
-# A released version folder is immutable (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE); Test-Contracts fails when a file differs.
-e7839b143a05d4c1d82ab90ee274d3a4963a800ced3aa440bd44443651a92c49  Catzc.Azure.Templates/tests/assets/parameter-model/main.json.schema.json

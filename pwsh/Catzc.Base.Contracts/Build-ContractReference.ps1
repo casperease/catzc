@@ -30,16 +30,16 @@ function Build-ContractReference {
     $marker = '`Build-ContractReference` writes this page from'
 
     $assets = @(Get-Contract -Version '*' -RepositoryRoot $RepositoryRoot)
-    $units = [string[]] @($assets | ForEach-Object { $_.Unit } | Select-Object -Unique)
+    $units = [string[]] @($assets | ForEach-Object { $_.Root } | Select-Object -Unique)
     [System.Array]::Sort($units, [System.StringComparer]::Ordinal)
 
     $results = [System.Collections.Generic.List[pscustomobject]]::new()
     foreach ($unit in $units) {
-        $unitAssets = @($assets | Where-Object { $_.Unit -ceq $unit })
+        $unitAssets = @($assets | Where-Object { $_.Root -ceq $unit })
         $signatures = @{}
         if (@($unitAssets | Where-Object { $_.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command }).Count -gt 0) {
             try {
-                foreach ($command in Get-CommandContract -Unit ([WildcardPattern]::Escape($unit)) -Version '*' -RepositoryRoot $RepositoryRoot) {
+                foreach ($command in Get-CommandContract -Root ([WildcardPattern]::Escape($unit)) -Version '*' -RepositoryRoot $RepositoryRoot) {
                     $signatures[$command.Asset.AssetPath] = $command.Signature
                 }
             }
@@ -47,8 +47,8 @@ function Build-ContractReference {
                 # One unreadable contract fails the unit's read, so each asset is read on its own and only the broken one shows none.
                 foreach ($asset in @($unitAssets | Where-Object { $_.Kind -eq [Catzc.Base.Contracts.ContractAssetKind]::Command })) {
                     try {
-                        $one = Get-CommandContract -Unit ([WildcardPattern]::Escape($asset.Unit)) -Version ([WildcardPattern]::Escape($asset.Version)) `
-                            -Module ([WildcardPattern]::Escape($asset.Module)) -Name ([WildcardPattern]::Escape([Catzc.Base.Contracts.ContractCommand]::NameOf($asset))) `
+                        $one = Get-CommandContract -Root ([WildcardPattern]::Escape($asset.Root)) -Version ([WildcardPattern]::Escape($asset.Version)) `
+                            -Module ([WildcardPattern]::Escape($asset.Group)) -Name ([WildcardPattern]::Escape([Catzc.Base.Contracts.ContractCommand]::NameOf($asset))) `
                             -RepositoryRoot $RepositoryRoot
                         $signatures[$asset.AssetPath] = $one.Signature
                     }
@@ -80,16 +80,16 @@ function Build-ContractReference {
             $lines.Add($line)
         }
 
-        # The draft first, then the released folders, newest first.
+        # The current version first, then the released folders, newest first.
         $versions = [string[]] @($unitAssets | ForEach-Object { $_.Version } | Select-Object -Unique)
-        $versions = @($versions | Sort-Object -Property @{ Expression = { $_ -ceq '0.0.0' }; Descending = $true }, @{ Expression = { [version] $_ }; Descending = $true })
+        $versions = @($versions | Sort-Object -Property @{ Expression = { $_ -ceq '0.1.0' }; Descending = $true }, @{ Expression = { [version] $_ }; Descending = $true })
         foreach ($version in $versions) {
             $lines.Add('')
             $lines.Add("## $version")
             $lines.Add('')
             $immutable = "[ADR-REPO-CONTRACT-RELEASEDIMMUTABLE]($adr#rule-adr-repo-contract-releasedimmutable)"
-            $state = if ($version -ceq '0.0.0') {
-                "The draft: the one mutable version folder ($immutable)."
+            $state = if ($version -ceq '0.1.0') {
+                "The current version: edited in place ($immutable)."
             }
             else {
                 "Released, so frozen by its ``.frozen`` record ($immutable)."
@@ -103,9 +103,6 @@ function Build-ContractReference {
             $notes = [System.Collections.Generic.List[string]]::new()
             foreach ($asset in @($unitAssets | Where-Object { $_.Version -ceq $version })) {
                 $direction = $directionText["$($asset.Direction)"]
-                if ($asset.IsDirectionOverridden) {
-                    $direction += ' (contract.yml)'
-                }
                 $target = if ($asset.Target) {
                     "``$($asset.Target.Replace('|', '\|'))``"
                 }
@@ -114,7 +111,7 @@ function Build-ContractReference {
                 }
                 $note = Get-ContractAssetNote -RepositoryRoot $RepositoryRoot -Asset $asset
                 if ($note) {
-                    $text = "``$($asset.Module)/$($asset.Path)``: $(ConvertTo-ContractNoteMarkdown -Note $note -PageFolder $pageFolder)"
+                    $text = "``$($asset.Key)``: $(ConvertTo-ContractNoteMarkdown -Note $note -PageFolder $pageFolder)"
                     foreach ($line in (Format-MarkdownParagraph -Text $text -FirstPrefix '- ' -ContinuationPrefix '  ')) {
                         $notes.Add($line)
                     }
@@ -129,7 +126,7 @@ function Build-ContractReference {
                 else {
                     'none'
                 }
-                $rows.Add([string[]] @("``$($asset.Module)``", $assetCell, $target, $direction, $kindText["$($asset.Kind)"], $signature))
+                $rows.Add([string[]] @("``$($asset.Group)``", $assetCell, $target, $direction, $kindText["$($asset.Kind)"], $signature))
             }
 
             # Aligned as Prettier aligns a table, so the page is formatter-stable.

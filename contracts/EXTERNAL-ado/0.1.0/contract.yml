@@ -1,4 +1,0 @@
-# The pipeline schema constrains every pipeline file under the module's target root (.ado), not one file at its own path.
-applies_to:
-  Catzc.Azure.DevOps/pipelines/pipeline.yaml.schema.json:
-    - "pipelines/**/*.yaml"

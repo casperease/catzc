@@ -1,0 +1,5 @@
+# Each fragment and file schema of the provided contracts, with the repository files it binds. A schema that sits beside a sample
+# payload applies to that sample, and a command contract to its command's file, so neither is named here.
+applies_to:
+  catzc.base.globs/file-kinds.yml:
+    - "pwsh/Catzc.Base.Globs/configs/file-kinds.yml"

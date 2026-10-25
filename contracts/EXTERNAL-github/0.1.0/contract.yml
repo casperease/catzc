@@ -1,4 +1,0 @@
-# The workflow schema constrains every workflow file under the module's target root (.github), not one file at its own path.
-applies_to:
-  Catzc.Tooling.Github/workflows/workflow.yml.schema.json:
-    - "workflows/*.yml"

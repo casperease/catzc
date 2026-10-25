@@ -135,18 +135,18 @@ settings:
   yaml.schemaStore.enable: false
   json.schemaDownload.enable: false
   yaml.schemas:
-    # Every .yaml in the tree is an Azure Pipelines file, checked against the depended-on schema in contracts/EXTERNAL-ado.
-    ./contracts/EXTERNAL-ado/0.0.0/Catzc.Azure.DevOps/pipelines/pipeline.yaml.schema.json:
+    # Every .yaml in the tree is an Azure Pipelines file, checked against the depended-on schema in contracts/ado.
+    ./contracts/ado/0.1.0/pipelines/pipeline.yaml.schema.json:
       - "**/*.yaml"
-    # A GitHub Actions workflow is checked against the depended-on schema in contracts/EXTERNAL-github.
-    ./contracts/EXTERNAL-github/0.0.0/Catzc.Tooling.Github/workflows/workflow.yml.schema.json:
+    # A GitHub Actions workflow is checked against the depended-on schema in contracts/github.
+    ./contracts/github/0.1.0/workflows/workflow.yml.schema.json:
       - ".github/workflows/*.yml"
 
-  # A compiled ARM template is checked against the local depended-on copy of Azure's schema (contracts/EXTERNAL-azure), never a download.
+  # A compiled ARM template is checked against the local depended-on copy of Azure's schema (contracts/azure), never a download.
   json.schemas:
     - fileMatch:
         - "**/main.json"
-      url: ./contracts/EXTERNAL-azure/0.0.0/Catzc.Azure.Templates/tests/assets/parameter-model/main.json.schema.json
+      url: ./contracts/azure/0.1.0/templates/main.json.schema.json
 
   workbench.editorAssociations:
     "*.drawio.png": imagePreview.previewEditor

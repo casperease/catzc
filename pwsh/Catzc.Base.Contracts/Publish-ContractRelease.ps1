@@ -12,7 +12,7 @@ function Publish-ContractRelease {
     param(
         [Parameter(Mandatory)]
         [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9._-]*$')]
-        [string] $Unit,
+        [string] $Root,
 
         [Parameter(Mandatory)]
         [ValidatePattern('^[0-9]+\.[0-9]+\.[0-9]+$')]
@@ -21,34 +21,38 @@ function Publish-ContractRelease {
         [string] $RepositoryRoot = (Get-RepositoryRoot)
     )
 
-    $name = "contracts/$Unit/$Version"
-    if ($Version -ceq '0.0.0') {
-        throw [System.ArgumentException]::new("Publish-ContractRelease: 0.0.0 is the draft of '$Unit', the folder a release freezes, never a release itself (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).")
+    $name = "contracts/$Root/$Version"
+    $current = [Catzc.Base.Contracts.ContractLayout]::CurrentVersion
+    if ($Root -cne [Catzc.Base.Contracts.ContractLayout]::ProvidedRoot) {
+        throw [System.ArgumentException]::new("Publish-ContractRelease: '$Root' is a vendor root, which never releases; it follows its vendor in $current, and only $([Catzc.Base.Contracts.ContractLayout]::ProvidedRoot) releases (ADR-REPO-CONTRACT-KEPTWHILEPINNED).")
+    }
+    if ([int] $Version.Split('.')[0] -lt 1) {
+        throw [System.ArgumentException]::new("Publish-ContractRelease: $Version is not a release of '$Root'; a release is a version from 1.0.0 up, and $current is the current version a release freezes a copy of (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).")
     }
     $devbox = "$((Get-Config -Config exporter).direct_install_version)"
     if ($Version -ceq $devbox) {
         throw [System.ArgumentException]::new("Publish-ContractRelease: $Version is the devbox build version (exporter.yml direct_install_version); it names no release, so it never freezes a folder (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).")
     }
 
-    $draft = Join-Path $RepositoryRoot 'contracts' $Unit '0.0.0'
-    $target = Join-Path $RepositoryRoot 'contracts' $Unit $Version
-    if (-not [System.IO.Directory]::Exists($draft)) {
-        throw [System.InvalidOperationException]::new("Publish-ContractRelease: contracts/$Unit/0.0.0/ does not exist, so there is no draft to freeze.")
+    $source = Join-Path $RepositoryRoot 'contracts' $Root $current
+    $target = Join-Path $RepositoryRoot 'contracts' $Root $Version
+    if (-not [System.IO.Directory]::Exists($source)) {
+        throw [System.InvalidOperationException]::new("Publish-ContractRelease: contracts/$Root/$current/ does not exist, so there is nothing to freeze.")
     }
     if ([System.IO.Directory]::Exists($target) -or [System.IO.File]::Exists($target)) {
         throw [System.InvalidOperationException]::new("Publish-ContractRelease: $name/ already exists; a released version folder is immutable and is never written again (ADR-REPO-CONTRACT-RELEASEDIMMUTABLE).")
     }
-    $null = @(Get-Contract -Unit ([WildcardPattern]::Escape($Unit)) -Version '0.0.0' -RepositoryRoot $RepositoryRoot)
+    $null = @(Get-Contract -Root ([WildcardPattern]::Escape($Root)) -Version ([WildcardPattern]::Escape($current)) -RepositoryRoot $RepositoryRoot)
 
-    if (-not $PSCmdlet.ShouldProcess($name, "Freeze contracts/$Unit/0.0.0/ as")) {
+    if (-not $PSCmdlet.ShouldProcess($name, "Freeze contracts/$Root/$current/ as")) {
         return
     }
 
     try {
-        $files = [string[]] @(Get-ChildPath $draft -File -Depth 64 -Exclude @() -PruneVendor $false)
+        $files = [string[]] @(Get-ChildPath $source -File -Depth 64 -Exclude @() -PruneVendor $false)
         $null = [System.IO.Directory]::CreateDirectory($target)
         foreach ($file in $files) {
-            $copy = Join-Path $target ([System.IO.Path]::GetRelativePath($draft, $file))
+            $copy = Join-Path $target ([System.IO.Path]::GetRelativePath($source, $file))
             $null = [System.IO.Directory]::CreateDirectory([System.IO.Path]::GetDirectoryName($copy))
             [System.IO.File]::Copy($file, $copy)
         }

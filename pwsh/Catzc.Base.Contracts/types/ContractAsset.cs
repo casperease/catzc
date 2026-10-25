@@ -16,28 +16,30 @@ public sealed class ContractAsset
 {
     private static readonly Regex Version3 = new Regex("^[0-9]+\\.[0-9]+\\.[0-9]+$");
 
-    public string Unit { get; }
+    public string Root { get; }
     public string Version { get; }
-    public string Module { get; }
+    public string Group { get; }
     public string Path { get; }
+    public string Key { get; }
     public string AssetPath { get; }
     public ContractAssetKind Kind { get; }
     public string Target { get; }
     public ContractDirection Direction { get; }
-    public bool IsDirectionOverridden { get; }
 
-    public ContractAsset(string unit, string version, string module, string path, ContractAssetKind kind, string target,
-        ContractDirection direction, bool isDirectionOverridden)
+    // A group of "" (or null) is an asset directly in its version folder.
+    public ContractAsset(string root, string version, string group, string path, ContractAssetKind kind, string target,
+        ContractDirection direction)
     {
-        Unit = Segment("unit", unit);
-        Module = Segment("module", module);
+        Root = Segment("root", root);
         if (version == null || !Version3.IsMatch(version))
         {
             throw new ArgumentException(string.Format("contract asset: version '{0}' is not <major>.<minor>.<patch>", version));
         }
         Version = version;
-        Path = Relative("path", path);
-        AssetPath = string.Format("contracts/{0}/{1}/{2}/{3}", Unit, Version, Module, Path);
+        Group = string.IsNullOrEmpty(group) ? "" : Segment("group", group);
+        Path = Segment("path", path);
+        Key = Group.Length == 0 ? Path : string.Format("{0}/{1}", Group, Path);
+        AssetPath = string.Format("contracts/{0}/{1}/{2}", Root, Version, Key);
         Kind = kind;
         if (kind == ContractAssetKind.Sample)
         {
@@ -52,7 +54,6 @@ public sealed class ContractAsset
             Target = Relative("target", target);
         }
         Direction = direction;
-        IsDirectionOverridden = isDirectionOverridden;
     }
 
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -62,7 +63,7 @@ public sealed class ContractAsset
         string checkedValue = Relative(what, value);
         if (checkedValue.Contains('/'))
         {
-            throw new ArgumentException(string.Format("contract asset: {0} '{1}' must be one folder name", what, value));
+            throw new ArgumentException(string.Format("contract asset: {0} '{1}' must be one folder or file name", what, value));
         }
         return checkedValue;
     }
