@@ -1,10 +1,11 @@
 Describe 'Get-VsCodeSession' -Tag 'L0', 'logic' {
     BeforeAll {
         $script:root = Join-Path $TestDrive 'modules'
-        $script:compiled = Join-Path $script:root '.compiled'
-        New-Item -ItemType Directory -Path $script:compiled -Force | Out-Null
-        Set-Content -LiteralPath (Join-Path $script:compiled 'Catzc.Types.widget01.dll') -Value 'widget'
-        Set-Content -LiteralPath (Join-Path $script:compiled 'Catzc.Types.widget02.dll') -Value 'widget'
+        $script:shadow = Join-Path $TestDrive 'shadow'
+        New-Item -ItemType Directory -Path $script:shadow -Force | Out-Null
+        Set-Content -LiteralPath (Join-Path $script:shadow 'Catzc.Types.widget01.dll') -Value 'widget'
+        Set-Content -LiteralPath (Join-Path $script:shadow 'Catzc.Types.widget02.dll') -Value 'widget'
+        Mock Get-TypesShadowRoot -ModuleName Catzc.Base.VSCode { $script:shadow }
 
         $script:logs = Join-Path $TestDrive 'logs'
         $newest = Join-Path $script:logs '20260101T000000/window1/exthost/ms-vscode.powershell'
@@ -51,9 +52,9 @@ Describe 'Get-VsCodeSession' -Tag 'L0', 'logic' {
         $session.Drift | Should -Be @('changed Mod.One/Alpha')
     }
 
-    It 'lists the committed builds, and the held ones with their holders' {
+    It 'lists the builds in the shadow root, and the held ones with their holders' {
         $session = Get-VsCodeSession -ModulesRoot $script:root -LogRoot $script:logs
-        $session.CommittedBuilds | Should -Be @('Catzc.Types.widget01.dll', 'Catzc.Types.widget02.dll')
+        $session.Builds | Should -Be @('Catzc.Types.widget01.dll', 'Catzc.Types.widget02.dll')
         $session.HeldBuilds | Should -Be @('Catzc.Types.widget01.dll held by pwsh.exe (PID 42, started 2026-01-01 10:00)')
     }
 

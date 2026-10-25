@@ -22,9 +22,9 @@ function Get-VsCodeSession {
 
     $builds = [System.Collections.Generic.List[string]]::new()
     $held = [System.Collections.Generic.List[string]]::new()
-    $compiled = Join-Path $ModulesRoot '.compiled'
-    if (Test-Path -LiteralPath $compiled -PathType Container) {
-        foreach ($dll in Get-ChildPath $compiled -File -Filter 'Catzc.Types.*.dll' -Depth 1) {
+    $shadowRoot = Get-TypesShadowRoot
+    if (Test-Path -LiteralPath $shadowRoot -PathType Container) {
+        foreach ($dll in Get-ChildPath $shadowRoot -File -Filter 'Catzc.Types.*.dll' -Depth 1) {
             $name = Split-Path $dll -Leaf
             $builds.Add($name)
             $holders = @(Get-FileLockingProcess $dll)

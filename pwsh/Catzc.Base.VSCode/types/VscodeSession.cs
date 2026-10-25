@@ -30,10 +30,10 @@ public sealed class VscodeSession
     // One line per drifted type, as the loader names them.
     public string[] Drift { get; }
 
-    // The Catzc.Types.<hash>.dll files committed under pwsh/.compiled.
-    public string[] CommittedBuilds { get; }
+    // The Catzc.Types.<hash>.dll builds in the per-user shadow root.
+    public string[] Builds { get; }
 
-    // One line per committed build a process holds open: "<name> held by <holders>".
+    // One line per build a process holds open: "<name> held by <holders>".
     public string[] HeldBuilds { get; }
 
     // The names of the environment variables the editor and its extensions contributed to this session.
@@ -46,7 +46,7 @@ public sealed class VscodeSession
     public string[] PowerShellLogLines { get; }
 
     public VscodeSession(
-        string hostName, int processId, string loadedHash, string sourceHash, bool current, string[] drift, string[] committedBuilds,
+        string hostName, int processId, string loadedHash, string sourceHash, bool current, string[] drift, string[] builds,
         string[] heldBuilds, string[] contributedVariables, string logSession, string[] powerShellLogLines)
     {
         HostName = hostName;
@@ -55,7 +55,7 @@ public sealed class VscodeSession
         SourceHash = sourceHash;
         Current = current;
         Drift = drift ?? Array.Empty<string>();
-        CommittedBuilds = committedBuilds ?? Array.Empty<string>();
+        Builds = builds ?? Array.Empty<string>();
         HeldBuilds = heldBuilds ?? Array.Empty<string>();
         ContributedVariables = contributedVariables ?? Array.Empty<string>();
         LogSession = logSession;

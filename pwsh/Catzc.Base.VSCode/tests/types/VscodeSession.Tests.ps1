@@ -13,7 +13,7 @@ Describe 'Catzc.Base.VSCode.VscodeSession' -Tag 'L0', 'logic' {
         @($session.LoadedHash, $session.SourceHash) | Should -Be @('aaaa1111', 'bbbb2222')
         $session.Current | Should -BeFalse
         $session.Drift | Should -Be @('Gadget')
-        $session.CommittedBuilds | Should -Be @('Catzc.Types.aaaa1111.dll')
+        $session.Builds | Should -Be @('Catzc.Types.aaaa1111.dll')
         $session.HeldBuilds | Should -Be @('Catzc.Types.aaaa1111.dll held by 7')
         $session.ContributedVariables | Should -Be @('WIDGET_VAR')
         $session.LogSession | Should -BeExactly 'log-folder'
@@ -22,7 +22,7 @@ Describe 'Catzc.Base.VSCode.VscodeSession' -Tag 'L0', 'logic' {
 
     It 'reads a missing list as an empty one, never null' {
         $session = New-Session
-        foreach ($list in $session.Drift, $session.CommittedBuilds, $session.HeldBuilds, $session.ContributedVariables, $session.PowerShellLogLines) {
+        foreach ($list in $session.Drift, $session.Builds, $session.HeldBuilds, $session.ContributedVariables, $session.PowerShellLogLines) {
             , $list | Should -BeOfType ([string[]])
             $list.Count | Should -Be 0
         }
