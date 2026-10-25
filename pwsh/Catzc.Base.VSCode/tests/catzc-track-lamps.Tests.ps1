@@ -220,6 +220,21 @@ Describe 'catzc-track-lamps' -Tag 'L0', 'logic' {
         $answer.conditions['open'] | Should -Be 'failed'
     }
 
+    It 'turns the open lamp red only while a red file is open, and back to the open files'' own colour once it is closed' {
+        $red = 'mods/Widget/Get-Widget.ps1'
+        $other = 'gadgets/a.ps1'
+        # The red file's fault stays a fact after its tab closes (it is remembered), so only the open set decides the open lamp.
+        $facts = @{ $red = @{ fault = 'failed' }; $other = @{ change = 'unstaged' } }
+        $condition = {
+            param([string[]] $Open)
+            $sets = & $script:call lampSets @($script:filters, '', $script:known, @($Open))
+            (& $script:call evaluate @($sets, @('open'), @(), $facts)).conditions['open']
+        }
+        & $condition @($red, $other) | Should -Be 'failed' -Because 'a red file is open'
+        & $condition @($other) | Should -Be 'unstaged' -Because 'the red file is closed, so the open lamp shows the open file''s own colour'
+        & $condition @() | Should -Be 'empty' -Because 'with every document closed the open lamp claims nothing'
+    }
+
     It 'reads a fresh test-result marker as a failed test file, and lapses one older than the tested module' {
         $root = (Join-Path $TestDrive 'markers') -replace '\\', '/'
         $test = Join-Path $root 'mods/Widget/tests/Get-Widget.Tests.ps1'
