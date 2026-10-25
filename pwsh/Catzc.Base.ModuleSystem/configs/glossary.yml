@@ -150,13 +150,15 @@ concepts:
   vendor:
     key: vendor
     domain: design
-    defined_by: DDR-TRACKTYPE-OPTIONALVENDOR
-    short: The platform or tool that reads a track's files, from a closed set declared once — never the third party that wrote them.
+    defined_by: DDR-VENDOR-VENDORISVENDORED
+    short:
+      A tool, core, plugin or external dependency vendored into the repository, named by the tool — its code and its settings sit under one
+      vendor umbrella, so HEAD stays reproducible.
     realized_by: { kind: prose-only }
     contrasts:
       vendored code:
-        Vendored code is written by a third party and the repository does not author it; a vendor is the platform that reads a track's
-        files.
+        Vendored code is the third-party code a vendor brings, held in a track of its own; the vendor is the tool itself, code and settings
+        together.
   vendored code:
     key: vendored_code
     domain: design

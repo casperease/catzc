@@ -38,13 +38,6 @@ folders. Heavy runs wait for a turn in the orchestrator's memory queue, one run 
       start, 2.5 s the L2 dotnet build, 0.1 s Roslyn per case in its own namespace, catzc-54, 2026-10-22). A file measured with no safe gain
       is recorded as left as it is (taken by the orchestrator as delegated, 2026-10-22). Check: `Invoke-TestFile` twice per file, the same
       test names and `Should` count, and `Test-ScriptAnalyzer -Path` at 0 on each changed file.
-- [ ] `pwsh/Catzc.Base.GeneratedFiles` (`Get-GeneratedWriterInputFile`, `Get-GeneratedWriterStamp`): the due step measured 529 to 832 ms
-      (walk 341 to 448 ms over 5,464 files, stamps 219 to 327 ms); the array-wide path cuts landed (f0de76ad0) and measured 432 to 481 ms
-      (walk 225 to 247 ms, stamps 231 to 311 ms); then the import asks only for its `at_import` writers, `FolderWalker.WalkRelative` lists
-      files and folders in one pass (the same sets, checked), `InputStamp` reads each named file's metadata once, and the depth is read
-      once: 349 to 436 ms (walk 141 to 179 ms, stamps about 195 ms, catzc-ed, 2026-10-26). Left: each file's metadata read once across every
-      writer's stamp (an `InputStamp` call over one shared metadata table), measured against this version before it lands. Check:
-      `Get-GeneratedWriterDue.Tests.ps1` alone, a second fresh import's due step under 0.3 s, and `Test-GeneratedFiles` clean.
 
 ## Decided
 

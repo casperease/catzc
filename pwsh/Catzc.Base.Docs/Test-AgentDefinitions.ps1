@@ -38,11 +38,19 @@ function Test-AgentDefinitions {
             Get-ChildPath $skillsRoot -Depth 2 -File -Filter 'SKILL.md' | ForEach-Object { [string]$_ } | Sort-Object
         })
     $floors = @{}
-    # A user skill is invoked by the user, never preloaded; the registry says which capabilities are.
+    # A user skill is invoked by the user and a brief skill is named in a brief; neither is preloaded, and the registry says which are.
     $userSkills = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    $briefSkills = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
+    $readOnlySkills = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($entry in $capabilityConfig.capabilities) {
         if ($entry.invoked_by -eq 'user') {
             [void]$userSkills.Add($entry.name)
+        }
+        elseif ($entry.invoked_by -eq 'brief') {
+            [void]$briefSkills.Add($entry.name)
+        }
+        if ($entry.read_only) {
+            [void]$readOnlySkills.Add($entry.name)
         }
     }
     # The carrier registry says where a capability's catzc head nests, under the file kind's class; the gate never fixes the key itself.
@@ -83,6 +91,9 @@ function Test-AgentDefinitions {
         if (-not $frontMatter.Contains('allowed-tools') -or [string]::IsNullOrWhiteSpace([string]$frontMatter['allowed-tools'])) {
             $issues.Add("${relative}: front matter has no allowed-tools")
         }
+        elseif ($readOnlySkills.Contains($name) -and [string]$frontMatter['allowed-tools'] -match '\b(Write|Edit)\b') {
+            $issues.Add("${relative}: a read_only skill's allowed-tools must hold no Write or Edit")
+        }
         # The floor is the author's one line in the catzc head's config part, beside the imprinted parts, so it survives every imprint.
         $floor = $null
         $authored = $frontMatter
@@ -98,7 +109,7 @@ function Test-AgentDefinitions {
             $floor = [string]$authored['model_floor']
         }
         if (-not $floor -or -not $modelRank.ContainsKey($floor)) {
-            $issues.Add("${relative}: metadata.catzc.config.model_floor must be haiku, sonnet or opus")
+            $issues.Add("${relative}: metadata.catzc.config.model_floor must be haiku, sonnet, opus or fable")
         }
         else {
             $floors[$name] = $floor
@@ -120,10 +131,9 @@ function Test-AgentDefinitions {
         [void]$capabilityNames.Add([System.IO.Path]::GetFileName([System.IO.Path]::GetDirectoryName($file)))
     }
 
-    # The agent files, by name, and the descriptions the standard-agent check reads.
+    # The agent files, by name.
     Assert-PathExist $agentsRoot -PathType Container -ErrorText "Test-AgentDefinitions: no agents folder at '$agentsRoot'."
     $files = @(Get-ChildPath -Path $agentsRoot -Depth 1 -Filter '*.md' -File | Sort-Object)
-    $descriptions = @{}
     $preloaded = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::Ordinal)
     foreach ($file in $files) {
         $name = [System.IO.Path]::GetFileNameWithoutExtension($file)
@@ -176,7 +186,7 @@ function Test-AgentDefinitions {
             [string]$frontMatter['model']
         }
         if ([string]::IsNullOrWhiteSpace($model) -or $model -eq 'inherit') {
-            $issues.Add("${relative}: front matter must name a model (haiku, sonnet or opus), never inherit")
+            $issues.Add("${relative}: front matter must name a model (haiku, sonnet, opus or fable), never inherit")
             $model = $null
         }
         $skills = @(if ($frontMatter.Contains('skills') -and $null -ne $frontMatter['skills']) {
@@ -191,6 +201,9 @@ function Test-AgentDefinitions {
             [void]$preloaded.Add($skill)
             if ($userSkills.Contains($skill)) {
                 $issues.Add("${relative}: skills names '$skill', a user skill that no robot preloads")
+            }
+            if ($briefSkills.Contains($skill)) {
+                $issues.Add("${relative}: skills names '$skill', a brief skill that a drone loads with the Skill tool, never preloads")
             }
             if ($model -and $floors.ContainsKey($skill) -and $modelRank.ContainsKey($model) -and $modelRank[$model] -lt $modelRank[$floors[$skill]]) {
                 $issues.Add("${relative}: model '$model' is below the model_floor '$($floors[$skill])' of capability '$skill'")
@@ -210,7 +223,7 @@ function Test-AgentDefinitions {
     }
 
     foreach ($name in $capabilityNames) {
-        if (-not $preloaded.Contains($name) -and -not $userSkills.Contains($name)) {
+        if (-not $preloaded.Contains($name) -and -not $userSkills.Contains($name) -and -not $briefSkills.Contains($name)) {
             $issues.Add(".claude/skills/$name/SKILL.md: no agent preloads it in its skills list")
         }
     }
@@ -281,14 +294,6 @@ function Test-AgentDefinitions {
     foreach ($name in $listed) {
         if (-not $entries.Contains($name)) {
             $issues.Add(".claude/CLAUDE.md: the Sub-agents section lists '$name', which agents.yml does not register")
-        }
-    }
-
-    if ($descriptions.ContainsKey($config.standard)) {
-        foreach ($name in $entries.Keys) {
-            if ($name -cne $config.standard -and -not $descriptions[$config.standard].Contains($name)) {
-                $issues.Add(".claude/agents/$($config.standard).md: the standard agent's description does not name specialised agent '$name'")
-            }
         }
     }
 

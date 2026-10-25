@@ -26,14 +26,14 @@ declared on the track type, never on the track.
 
 ### Rule DDR-TRACKTYPE-OPTIONALVENDOR
 
-A track may name the **vendor** that reads its files: the platform or tool, from a closed set declared once with a definition each (`azure`,
-`ado`, `github`, `claude`, `cspell`, `vscode`; a new vendor is an entry). A vendor is never mixed into another vendor's track, and one
-vendor may have several tracks (`github` has a `pipelines` track and a `vendor-settings` track; `claude` may split its settings from its
-tooling kit). The ado pipelines (`.ado/pipelines`, vendor `ado`) and the GitHub workflows (`.github/workflows`, vendor `github`) are two
-tracks of one type, `pipelines`, because each is read by a different platform and bound to a different pipeline model. The settings of each
-tool the repository configures are one `vendor-settings` track per vendor (`.claude`, `.cspell`, the `.github` files that are not workflows,
-and `.vscode` once git tracks a file in it). The `infrastructure` track has vendor `azure`. `vendor` is the platform that reads a file and
-never the third party that wrote it.
+A track may name the **vendor** whose tool it holds: a tool, core, plugin or external dependency that the repository vendors
+([DDR-VENDOR-VENDORISVENDORED](vendoring.md#rule-ddr-vendor-vendorisvendored)), from a closed set declared once with a definition each (a
+new vendor is an entry). A vendor is named by its tool, a short form is fine, and it is never mixed into another vendor's track. One vendor
+may have several tracks, and the tracks of one type but of two vendors stay two: the ado pipelines and the GitHub workflows are two tracks
+of one type, `pipelines`, because each is bound to a different pipeline model. The settings of each tool the repository configures are one
+`vendor-settings` track per vendor, and every `.vendor` folder and every vendor's settings sit under the one vendor umbrella
+([DDR-VENDOR-ONEUMBRELLA](vendoring.md#rule-ddr-vendor-oneumbrella)). `vendor` is the tool the repository vendors, never the platform that
+reads a file. The name of a vendor's track follows the naming of DDR-TRACKTYPE (pending).
 
 - [Vendors](#vendors)
 
@@ -50,10 +50,10 @@ track type or a place: a command, a gate and a globset read them through `Get-Tr
 
 ### Rule DDR-TRACKTYPE-LONGESTPLACEWINS
 
-A file belongs to the track with the **longest place** that contains it, so a narrower place wins over a wider one: a file under
-`.github/workflows` is in the GitHub `pipelines` track, and the rest of `.github` is in the GitHub `vendor-settings` track. Two places of
-different tracks that are equally long and both contain a file, a place that no file resolves to, and a tracked file in no track that is not
-a root file are load failures. The answer to "which track holds this file" is therefore one value, computed.
+A file belongs to the track with the **longest member** that contains it, so a narrower member wins over a wider one: a file under
+`.github/workflows` is in the GitHub `pipelines` track, and the rest of `.github` is in the GitHub `vendor-settings` track. Two members of
+different tracks that are equally long and both contain a file, a member that no file resolves to, and a tracked file in no track that is
+not a root file are load failures. The answer to "which track holds this file" is therefore one value, computed.
 
 - [Where the declarations live](#where-the-declarations-live)
 
@@ -101,11 +101,11 @@ A holder is therefore small, and a vendor change touches only its holder.
 
 ### Vendors
 
-A vendor is the platform or tool that reads a track's files, and it is a fact of the track, not of the folder name. Pipelines show why: the
-ADO and GitHub definitions are the same sort of thing read by two platforms, so they share a type and differ by vendor, where two types
-would make the sort of thing look like two things. Settings show the other side: four tools with four sets of files are four tracks of one
-type, so a change to one tool's settings never re-keys another's. The word has one meaning here; the third party that wrote a vendored file
-is not its vendor.
+A vendor is a tool, core, plugin or external dependency that the repository vendors ([DDR-VENDOR](vendoring.md)), and it is a fact of the
+track, not of the folder name. Pipelines show why: the ADO and GitHub definitions are the same sort of thing bound to two pipeline models,
+so they share a type and differ by vendor, where two types would make the sort of thing look like two things. Settings show the other side:
+four tools with four sets of files are four tracks of one type, so a change to one tool's settings never re-keys another's. The word has
+one meaning here: the tool the repository vendors, kept in the commit so that HEAD stays reproducible.
 
 ### Where the declarations live
 

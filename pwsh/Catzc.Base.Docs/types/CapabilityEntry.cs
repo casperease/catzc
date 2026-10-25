@@ -9,8 +9,8 @@ namespace Catzc.Base.Docs;
 // Rests on [ADR-BCL-TYPES-SNAKECASEMIRRORSYAML](/docs/drs/automation/BCL/native-csharp-types.md#rule-adr-bcl-types-snakecasemirrorsyaml), [ADR-CONF-LOADING-CSHARPCONFIGTYPE](/docs/drs/configuration/module-config-loading.md#rule-adr-conf-loading-csharpconfigtype), [ADR-REPO-AGENTS-NOORPHANNOGHOST](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-noorphannoghost) and [ADR-REPO-AGENTS-CAPABILITYREGISTERED](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-capabilityregistered).
 public sealed class CapabilityEntry : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "name", "supported_by", "checks", "invoked_by" };
-    private static readonly string[] Invokers = { "robot", "user" };
+    private static readonly string[] AllowedKeys = { "name", "supported_by", "checks", "invoked_by", "read_only" };
+    private static readonly string[] Invokers = { "robot", "user", "brief" };
     // <domain>-<job>: lowercase letters, digits and hyphens only (the harness accepts nothing else in a skill name), at least one hyphen.
     private static readonly Regex NameRe = new Regex("^[a-z0-9]+(-[a-z0-9]+)+$", RegexOptions.Compiled);
     private static readonly Regex CitationRe = new Regex("^" + DrsCodeForm.AnyKind.Rule + "$", RegexOptions.Compiled);
@@ -25,8 +25,11 @@ public sealed class CapabilityEntry : Catzc.Base.Objects.DictionaryRecord
     // The gate and check functions the capability runs or guards, in file order; empty when it has none.
     public IReadOnlyList<string> checks { get; }
 
-    // Who loads the capability: a robot preloads it, or the user invokes it by name as a user skill ([ADR-REPO-AGENTS-USERSKILL](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-userskill)).
+    // Who loads the capability: a robot preloads it, the user invokes it by name as a user skill ([ADR-REPO-AGENTS-USERSKILL](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-userskill)), or a brief names it for a drone.
     public string invoked_by { get; } = "robot";
+
+    // A read-only job: its allowed-tools may hold no Write or Edit ([ADR-REPO-AGENTS-CAPABILITYFILE](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-capabilityfile)).
+    public bool read_only { get; }
 
     public CapabilityEntry(IDictionary d)
     {
@@ -62,6 +65,12 @@ public sealed class CapabilityEntry : Catzc.Base.Objects.DictionaryRecord
                 errors.Add(string.Format("invoked_by must be one of: {0}", string.Join(", ", Invokers)));
             }
             else { invoked_by = invoker; }
+        }
+
+        if (d.Contains("read_only"))
+        {
+            if (d["read_only"] is bool readOnly) { read_only = readOnly; }
+            else { errors.Add("read_only must be true or false"); }
         }
 
         if (errors.Count > 0) { throw new ArgumentException(string.Join("\n", errors)); }

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 namespace Catzc.Base.RootConfig;
 
+// The rootconfig registry: unique targets, every malformed entry collected into one error.
 public sealed class RootConfigFiles
 {
     public override string ToString() => Catzc.Base.Objects.ConsoleText.ToConsoleString(this);
@@ -71,6 +72,7 @@ public sealed class RootConfigFiles
         files = list;
     }
 
+    // The spell checker's and linter's settings files, named once for every gate that runs them.
     public static string SpellingConfigPath(string repositoryRoot) => RootFile(repositoryRoot, "cspell.yml");
 
     public static string MarkdownlintConfigPath(string repositoryRoot) => RootFile(repositoryRoot, ".markdownlint.yml");

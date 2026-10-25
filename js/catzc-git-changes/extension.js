@@ -6,6 +6,7 @@
 const vscode = require("vscode");
 const path = require("path");
 const { execFile } = require("child_process");
+const { splitChanges } = require("./diff.js");
 
 const staged = vscode.window.createTextEditorDecorationType({
     isWholeLine: true,
@@ -22,16 +23,6 @@ function git(cwd, args) {
     });
 }
 
-function addedLines(diff) {
-    const lines = new Set();
-    for (const match of diff.matchAll(/^@@ -\d+(?:,\d+)? \+(\d+)(?:,(\d+))? @@/gm)) {
-        const start = Number(match[1]);
-        const count = match[2] === undefined ? 1 : Number(match[2]);
-        for (let line = start; line < start + count; line++) lines.add(line - 1);
-    }
-    return lines;
-}
-
 async function shade(editor) {
     const document = editor.document;
     if (document.uri.scheme !== "file") return;
@@ -44,11 +35,10 @@ async function shade(editor) {
         editor.setDecorations(unstaged, []);
         return;
     }
-    const changed = addedLines(all);
-    const pending = addedLines(open);
+    const { staged: stagedLines, unstaged: unstagedLines } = splitChanges(all, open);
     const range = (line) => document.lineAt(Math.min(line, document.lineCount - 1)).range;
-    editor.setDecorations(staged, [...changed].filter((line) => !pending.has(line)).map(range));
-    editor.setDecorations(unstaged, [...pending].map(range));
+    editor.setDecorations(staged, stagedLines.map(range));
+    editor.setDecorations(unstaged, unstagedLines.map(range));
 }
 
 let timer;

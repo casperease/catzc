@@ -98,6 +98,7 @@ domains:
       server-remote-integration: { external: DDR-REMOTE, concern: [build, quality-control] }
       run-modes: { external: DDR-RUNMODE, concern: [automation, build] }
       track-types: { external: DDR-TRACKTYPE }
+      vendoring: { external: DDR-VENDOR }
       module-types: { external: DDR-MODTYPE }
       module-aspects: { external: DDR-ASPECT, concern: [automation, build] }
       repository-filters: { external: DDR-FILTER }

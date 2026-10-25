@@ -26,11 +26,11 @@ Every registered agent is listed in the `## Sub-agents` section of `.claude/CLAU
 
 ### Rule ADR-REPO-AGENTS-STANDARDDRONE
 
-`catzc-drone` is the standard sub-agent: delegated work goes to it unless a specialised agent fits. The registry names it as `standard`. A
-specialised agent exists only when a rule justifies its specialised job, and the standard agent's `description` names every specialised
-agent, so a reader of the standard agent knows where each specialised job goes.
+There is no standard drone. A job is a skill, and a rule justifies it. Delegated work names its job skill in the brief (`skill: <name>`),
+and the drone whose `model` equals that skill's model floor runs it. The drones are one per model, `drone-haiku`, `drone-sonnet`,
+`drone-opus` and `drone-fable`, alike in everything but their model and effort, so no drone's `description` lists the jobs.
 
-- [One standard agent](#one-standard-agent)
+- [Jobs are skills](#jobs-are-skills)
 
 ### Rule ADR-REPO-AGENTS-QUALITYGATE
 
@@ -53,9 +53,10 @@ named once, there and in `.claude/CLAUDE.md`, never in a file's front matter.
 
 ### Rule ADR-REPO-AGENTS-NAMEDMODEL
 
-Every robot names its `model`, never `inherit`. The default is `haiku`; a robot above it carries a `model_reason` in the registry; and no
-robot runs below the highest **model floor** of the capabilities it preloads, the floor being the lowest model that performs a capability's
-steps reliably.
+Every robot names its `model`, never `inherit`. The default is `haiku`, and a robot above it carries a `model_reason` in the registry. A
+skill's **model floor** is the lowest model that performs its steps reliably, ranked `haiku` < `sonnet` < `opus` < `fable`. A drone runs a
+job skill exactly at its floor, never above it, and no robot runs below the highest floor of the capabilities it preloads. A floor is
+lowered on evidence, never raised to be safe.
 
 - [Robots and capabilities](#robots-and-capabilities)
 
@@ -63,23 +64,24 @@ steps reliably.
 
 A **capability** is one file `.claude/skills/<domain>-<job>/SKILL.md` (lowercase letters, digits and hyphens, the only characters the
 harness accepts in a skill name) that a robot preloads through its `skills` list: at most `roofs.capability_lines` lines outside its catzc
-block (10, the `---` delimiters excluded, lines counted as rule 6 counts them), with `name` equal to its folder, `user-invocable: false`
-(`true` for a user skill, rule 11), `allowed-tools`, and a `metadata.catzc.config.model_floor` of `haiku`, `sonnet` or `opus`, declared
-there once and nowhere else. The catzc block of a capability nests under `metadata`, the one front-matter key the editors that validate a
-skill file leave free, at the key path the carrier registry declares
+block (30, the `---` delimiters excluded, lines counted as rule 6 counts them), with `name` equal to its folder, `user-invocable: false`
+(`true` for a user skill, rule 11), `allowed-tools`, and a `metadata.catzc.config.model_floor` of `haiku`, `sonnet`, `opus` or `fable`,
+declared there once and nowhere else. The catzc block of a capability nests under `metadata`, the one front-matter key the editors that
+validate a skill file leave free, at the key path the carrier registry declares
 ([ADR-REPO-FILEMETA-HEADPOLICY](file-meta.md#rule-adr-repo-filemeta-headpolicy)), and holds only the authored `config` part, with the floor
 as the author's line in it, so no imprint touches it. The roof counts each top-level front-matter key (`name`, `description`,
 `user-invocable`, `allowed-tools`, and the `metadata` key that holds the catzc block, though not the block itself) as well as each body
-line, so five of the ten are spent before the body begins; a wrapped continuation neither costs nor saves a line, so a new item fits only by
-merging it into an existing line.
+line, so five of the thirty are spent before the body begins; a wrapped continuation neither costs nor saves a line. A job skill's
+`allowed-tools` says what the job may touch: a read-only job's list holds no `Write` or `Edit`.
 
 - [Robots and capabilities](#robots-and-capabilities)
 
 ### Rule ADR-REPO-AGENTS-NOORPHANNOGHOST
 
 No orphan and no ghost: every capability is preloaded by at least one robot, and every name in a `skills` list is a capability file. A
-capability exists because a robot loads it, as a robot exists because a rule supports it. A user skill (rule 11) is the one exception: no
-robot preloads it, and a `skills` list never names it.
+capability exists because a robot loads it, as a robot exists because a rule supports it. Two kinds are the exception, and no robot preloads
+either: a user skill (rule 11, `invoked_by: user`), and a job skill a brief names (`invoked_by: brief`), which the drone loads with the
+Skill tool. A `skills` list never names either kind.
 
 - [Robots and capabilities](#robots-and-capabilities)
 
@@ -121,15 +123,16 @@ agent runs or guards. A renumbered rule or a renamed quality gate then fails a c
 
 ### Listed where sessions start
 
-Every session reads `.claude/CLAUDE.md` first. Its `## Sub-agents` list is the one place a session learns which agents exist and which one
-is the standard, so an agent missing from it is never picked, and a stale entry sends work to an agent that is gone.
+Every session reads `.claude/CLAUDE.md` first. Its `## Sub-agents` list is the one place a session learns which drones exist and where the
+jobs are, so an agent missing from it is never picked, and a stale entry sends work to an agent that is gone.
 
-### One standard agent
+### Jobs are skills
 
 Most delegated work is the same shape: one task from a coordinator's brief, a named set of files, each file verified before the next, and a
-fixed report. One standard agent carries that shape, so each delegation does not invent its own. A specialised agent pays for itself only
-where the job needs knowledge the standard agent lacks, such as the diagram grammar of [DDR-VISUAL](../design/visual-design.md), and that
-need is exactly what a supporting rule states.
+fixed report. The drone body carries that shape once, so each delegation does not invent its own. What differs between jobs is know-how,
+such as the diagram grammar of [DDR-VISUAL](../design/visual-design.md), and a skill holds it, so a robot that only restated its skill would
+make every spawn read the same job twice. With the drones differing only in model, the job's model floor alone picks the drone, and the
+model is the cheapest that does the job instead of one chosen by taste.
 
 ### Robots and capabilities
 
@@ -157,16 +160,16 @@ it, and differs in one fact recorded in the registry: the user invokes it, so no
 ## Decision
 
 Each sub-agent is one `.claude/agents/<name>.md` file, registered in `agents.yml` with the rules that support it and the checks it runs or
-guards, and listed in `.claude/CLAUDE.md`. `catzc-drone` is the standard agent; any other agent is specialised and justified by a rule.
-Every agent is a robot: a body under the roof, a named model at or above the floors of the capabilities it preloads, and its shared know-how
-in capabilities under `.claude/skills/`, each registered in `capabilities.yml` and loaded by at least one robot.
+guards, and listed in `.claude/CLAUDE.md`. The agents are four drones, one per model, and every job is a skill that a rule justifies. Every
+agent is a robot: a body under the roof, a named model at or above the floors of the capabilities it preloads, and its shared know-how in
+capabilities under `.claude/skills/`, each registered in `capabilities.yml` and loaded by a robot, a brief or the user.
 
 ### How this is enforced
 
 - **`agents.yml`** (in `Catzc.Base.Docs`) is the registry, read through `Get-Config -Config agents` and validated on load by its config
   type, `AgentsConfig`, with one `AgentEntry` per agent ([ADR-CONF-LOADING](../configuration/module-config-loading.md)). The type rejects an
-  unknown key, a malformed or repeated name, an empty `supported_by`, a citation without a rule number, a missing `checks` list, and a
-  `standard` that names no entry, and reports every violation at once.
+  unknown key, a malformed or repeated name, an empty `supported_by`, a citation without a rule number, and a missing `checks` list, and
+  reports every violation at once.
 - **`Test-AgentDefinitions`** is the quality gate
   ([ADR-AUTO-TEST-QUALITYGATE](../automation/test-automation.md#rule-adr-auto-test-qualitygate)). It reports:
   - an agent file with no registry entry, and an entry with no file;
@@ -174,13 +177,12 @@ in capabilities under `.claude/skills/`, each registered in `capabilities.yml` a
   - a `supported_by` citation that names no rule (resolved through `Get-CatsDrsRuleIds`);
   - a `checks` entry that names no command;
   - a registered agent that the `## Sub-agents` section of `.claude/CLAUDE.md` does not list, and a listed agent that is not registered;
-  - a specialised agent that the standard agent's `description` does not name;
   - a robot body over `roofs.agent_body_lines`, a front-matter key outside the robot set or out of the fixed order, a missing or inherited
     `model`, or a `model` below the floor of a preloaded capability (`Get-RobotLineCount` counts the lines);
   - a capability over `roofs.capability_lines`, with a `name` unlike its folder, a `user-invocable` unlike its registry's `invoked_by`,
-    without `allowed-tools` or a valid `metadata.catzc.config.model_floor`, preloaded by no robot, or named in a `skills` list without a
-    file;
-  - a user skill that a robot preloads;
+    without `allowed-tools` or a valid `metadata.catzc.config.model_floor`, with `Write` or `Edit` in a read-only job's `allowed-tools`,
+    preloaded by no robot while registered as `invoked_by: robot`, or named in a `skills` list without a file;
+  - a user skill or a brief-loaded skill that a robot preloads;
   - a capability file with no `capabilities.yml` entry, an entry with no file, or an entry whose citation or check resolves to nothing.
 - **`capabilities.yml`** (in `Catzc.Base.Docs`) is the capability registry, read through `Get-Config -Config capabilities` and validated on
   load by `CapabilitiesConfig`, one `CapabilityEntry` per capability, with the same shape rules as `AgentsConfig`. The roofs are `roofs` in
@@ -191,6 +193,7 @@ in capabilities under `.claude/skills/`, each registered in `capabilities.yml` a
 
 - A new agent is a three-part change: its file, its registry entry with the rules behind it, and its line in `.claude/CLAUDE.md`. Leaving
   any one part out fails the gate.
-- An agent that no rule supports cannot be registered honestly. The missing rule is written first, or the work goes to `catzc-drone`.
+- An agent that no rule supports cannot be registered honestly. The missing rule is written first, or the work goes to an existing job
+  skill.
 - Renumbering a rule or renaming a gate that an agent cites fails the gate, so the registry never points at a rule or command that is gone.
 - The registry answers which agents guard a given check, and why each agent exists, without reading every agent's prompt.

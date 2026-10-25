@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "88c3aeb6000f"
+    with_body_sha: "063a27415940"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -109,6 +109,7 @@ build). It builds on research, principles, and process; the flow and implementat
 | `DDR-REMOTE`    | [server-remote-integration](design/server-remote-integration.md) |
 | `DDR-RUNMODE`   | [run-modes](design/run-modes.md)                                 |
 | `DDR-TRACKTYPE` | [track-types](design/track-types.md)                             |
+| `DDR-VENDOR`    | [vendoring](design/vendoring.md)                                 |
 | `DDR-MODTYPE`   | [module-types](design/module-types.md)                           |
 | `DDR-ASPECT`    | [module-aspects](design/module-aspects.md)                       |
 | `DDR-FILTER`    | [repository-filters](design/repository-filters.md)               |

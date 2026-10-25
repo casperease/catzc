@@ -82,7 +82,7 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
 - debt-full-run-failures -> plan-debt-full-run-failures.md: the last full run's failing files rerun one at a time, since a red test blocks
   the user's full run; one step (the rename)
 - debt-test-speed -> plan-debt-test-speed.md: the slowest Pester files measured one at a time in the memory queue, and the import every test
-  run pays; three steps
+  run pays; two steps
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
 - comment-insights -> plan-comment-insights.md: distilled one-line insight comments back in code at the line each comment page section
@@ -91,8 +91,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   source as one line, ready for the next export
 - model-atlas -> plan-model-atlas.md: explanation articles on the physical and meta models, and C0–C4 zoom ladders drawn from the queries at
   five points of the tree.
-- drone-learnings -> plan-drone-learnings.md: three proposals from the 2026-10-25 drone session that shrink what the next session
-  rediscovers: the comment-adjacency and anchor-cut rules in the comment page rules, and the strict-mode traps in one place.
 - slim-agents -> plan-slim-agents.md: four model drones, every job a skill; 22 robots to 4, duplicates merged
 - user-runs-and-commits -> task-user-runs-and-commits.md: the user's steps, the only list of them.
 - closing-sweep -> task-closing-sweep.md: runs after every batch; done plans deleted, done steps pruned; last of all, after the user's full

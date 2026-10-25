@@ -11,15 +11,18 @@ using System.Collections;
 
 namespace Catzc.Base.RootConfig;
 
+// One managed root file: exactly one of source or generator supplies it; optIn and committed default to false.
 public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly char[] WildcardCharacters = { '*', '?', '[' };
 
+    // A root-relative path, or a wildcard over the files a generator renders.
     public string target { get; }
 
     // Authored source file copied out to the target (repo-relative). Exactly one of source/generator.
     public string source { get; }
 
+    // The function that renders the whole target; exactly one of source and generator.
     public string generator { get; }
 
     // The authored files a generator renders from, named in the generated-file head. Only a generator entry has any; empty otherwise.
@@ -31,6 +34,7 @@ public sealed class RootConfigFile : Catzc.Base.Objects.DictionaryRecord
     // Is this file managed at all? Opt-out is the default: false leaves the target hand-authored and committed.
     public bool optIn { get; }
 
+    // Tracked in git only for files read before the importer runs.
     public bool committed { get; }
 
     public RootConfigFile(IDictionary d)

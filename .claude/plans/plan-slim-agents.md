@@ -101,20 +101,18 @@ Kit skills kept as they are, loaded by a job skill's steps: `drawio-declaration`
 
 ## Open steps
 
-1. [ ] `docs/drs/repository/agent-definitions.md`: rewrite ADR-REPO-AGENTS-STANDARDDRONE (no standard drone; a job is a skill and its floor
-       picks the drone), ADR-REPO-AGENTS-NAMEDMODEL (fable floor, drone = floor), ADR-REPO-AGENTS-NOORPHANNOGHOST (`invoked_by: brief`),
-       ADR-REPO-AGENTS-CAPABILITYFILE (30-line roof). Check: `Test-DrsRegistry`,
-       `Test-Links -Path docs/drs/repository/agent-definitions.md`.
 2. [ ] `AgentsConfig`, `CapabilityEntry` and `Test-AgentDefinitions` in `pwsh/Catzc.Base.Docs`: the fable floor, `invoked_by: brief`, the
        read-only `allowed-tools` check, the new roof; the standard agent's description no longer lists every job. Check: `Invoke-TestFile`
        on the module's `Test-AgentDefinitions` tests.
-3. [ ] `catzc-core` from `catzc-run`, `git-readonly` and `report-fixed`, with the peer-dirty line; the three files deleted. Check:
-       `Test-AgentDefinitions`.
+3. [ ] `catzc-core` from `catzc-run`, `git-readonly` and `report-fixed`, with the peer-dirty line and one line that a new agent type appears
+       only in a session started after its file lands, so a new job skill is tried through a stand-in drone at once (decided by catzc-5c
+       from the harness fact, 2026-10-26); the three files deleted. Check: `Test-AgentDefinitions`.
 4. [ ] The four drone files and their `agents.yml` entries (`model_reason` on sonnet, opus and fable). Check: `Test-AgentDefinitions`.
 5. [ ] One job skill per row of the mapping, one file at a time: the robot's body folded into its skill, the duplicate lines dropped, the
        robot file and its `agents.yml` entry deleted, the `capabilities.yml` entry updated. The `plan-decide` skill gains one merged line:
        the open-question search matches all three shapes in one grep (`## Open questions`, `[ ] Open question`,
-       `Proposed ... Answer: yes or no`), and every option's description carries its why and its outcome in the tree (the user, 2026-10-25). Check: `Test-AgentDefinitions` after each.
+       `Proposed ... Answer: yes or no`), and every option's description carries its why and its outcome in the tree (the user, 2026-10-25).
+       Check: `Test-AgentDefinitions` after each.
 6. [ ] `pwsh/Catzc.Tooling.Claude/types/ClaudeDroneConfig.cs` and its config: the default agent `catzc-drone` is removed;
        `Start-ClaudeDrone` takes a required skill and resolves the drone from its `model_floor`, its tests with it. Check: `Invoke-TestFile`
        on `ClaudeDroneConfig.Tests.ps1` and `Start-ClaudeDrone.Tests.ps1`.
@@ -122,8 +120,3 @@ Kit skills kept as they are, loaded by a job skill's steps: `drawio-declaration`
        plan-claude-diet step 1, which is deleted in the same edit. The user's file. Check: `Test-AgentDefinitions`.
 8. [ ] Grep the tree for every old robot name (plans, prompts, docs, hooks, tests) and re-point each, one file at a time. Check: no match
        outside `git log`.
-
-## Open questions
-
-- A new agent type appears only in a session started after its file lands, so a robot cannot be tried in the session that writes it; should
-  `catzc-core` say so in one line, so a session tries a new job skill through a stand-in drone at once? Recommend yes.

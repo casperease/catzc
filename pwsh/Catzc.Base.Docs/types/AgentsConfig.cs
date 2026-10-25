@@ -15,23 +15,20 @@ namespace Catzc.Base.Docs;
 
 public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
 {
-    private static readonly string[] AllowedKeys = { "standard", "agents", "roofs", "contracts" };
-    private static readonly string[] RequiredKeys = { "standard", "agents" };
+    private static readonly string[] AllowedKeys = { "agents", "roofs", "contracts" };
+    private static readonly string[] RequiredKeys = { "agents" };
     private static readonly string[] RoofKeys = { "agent_body_lines", "capability_lines" };
     private static readonly System.Text.RegularExpressions.Regex ContractRe =
         new System.Text.RegularExpressions.Regex("^" + DrsCodeForm.AnyKind.Cited + "$", System.Text.RegularExpressions.RegexOptions.Compiled);
 
     public IReadOnlyList<string> contracts { get; } = new[] { "ADR-REPO-AI" };
 
-    // The standard sub-agent for delegated work ([ADR-REPO-AGENTS-STANDARDDRONE](/docs/drs/repository/agent-definitions.md#rule-adr-repo-agents-standarddrone)).
-    public string standard { get; }
-
     // The registered agents, in file order.
     public IReadOnlyList<AgentEntry> agents { get; }
 
     public int agent_body_lines { get; } = 20;
 
-    public int capability_lines { get; } = 10;
+    public int capability_lines { get; } = 30;
 
     public AgentsConfig(IDictionary d)
     {
@@ -125,16 +122,6 @@ public sealed class AgentsConfig : Catzc.Base.Objects.DictionaryRecord
                         }
                     }
                 }
-            }
-        }
-
-        if (d != null && d.Contains("standard"))
-        {
-            standard = OptStr(d, "standard");
-            if (standard == null) { errors.Add("standard is empty"); }
-            else if (names.Count > 0 && !names.Contains(standard))
-            {
-                errors.Add(string.Format("standard '{0}' names no entry in agents", standard));
             }
         }
 

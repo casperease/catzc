@@ -113,7 +113,9 @@ final full run last.
     `git ls-files '*.pyc'` prints nothing.
 23. plan-vscode-extensions: rebuild and install the two new extensions (`Build-VsCodeExtension`, then `Install-VsCodeExtension`), reload VS
     Code, click a `/docs/drs/` link in a markdown file and open a coloured `out/**/*.log`. Check: the link opens its ADR and the log shows
-    colours, not escape codes; then the plan's last step is struck and the plan deleted.
+    colours, not escape codes; then the plan's last step is struck and the plan deleted. In the same reload (plan-language-lamps step 5):
+    rebuild and install `catzc-track-lamps`, press the languages button, tick two languages, put one out, veto the other, untick both.
+    Check: each lamp appears, lights, vetoes and disappears with no reload.
 24. plan-comment-insights: review the RootConfig pilot, 26 one-line insights in `Build-RootConfig.ps1`, `rootconfig.yml`,
     `Invoke-RootConfigGenerator.ps1` and two test files, and say go or what to change; the rollout (its step 3) and plan-comment-articles'
     rollout wait on it. Check: the user's answer is recorded in plan-comment-insights.md.
