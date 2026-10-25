@@ -60,10 +60,6 @@ function Invoke-RootConfigGenerator {
             foreach ($id in $editorFormatters.Keys) {
                 $languageFormatter[$id] = $editorFormatters[$id]
             }
-            $languageExtension = [ordered]@{}
-            foreach ($language in (Get-Config -Config languages).languages.Where({ $_.extensions.Count -gt 0 })) {
-                $languageExtension[$language.name] = @($language.extensions)
-            }
             # The lamps' filters, each resolved to its include/exclude sets from filters.yml, in lamp order.
             $filter = [ordered]@{}
             foreach ($resolved in Get-RepositoryFilter) {
@@ -74,7 +70,6 @@ function Invoke-RootConfigGenerator {
                 MachineSetting    = $machineSetting
                 LanguageFormatter = $languageFormatter
                 Filter            = $filter
-                LanguageExtension = $languageExtension
             }
             New-VsCodeSettings @render
         }

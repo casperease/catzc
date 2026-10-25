@@ -77,21 +77,17 @@ Describe 'New-VsCodeSettings' -Tag 'L0', 'logic' {
         $json.'search.exclude'.'keep/searchable.psd1' | Should -BeFalse -Because 'an explicit authored un-exclude must survive injection'
     }
 
-    It 'renders each filter''s include/exclude sets in lamp order and each language''s extensions, and no key without them' {
+    It 'renders each filter''s include/exclude sets in lamp order, and no key without them' {
         $filter = [ordered]@{
             widgets = @([ordered]@{ include = @('widgets/**'); exclude = @('widgets/tests/**') })
             gadgets = @([ordered]@{ include = @('gadgets', 'gadgets/**'); exclude = @() })
         }
-        $extensions = [ordered]@{ widget = @('.wdg'); gadget = @('.gdg', '.gdx') }
-        $json = (New-VsCodeSettings -Filter $filter -LanguageExtension $extensions) | ConvertFrom-Json
+        $json = (New-VsCodeSettings -Filter $filter) | ConvertFrom-Json
         @($json.'catzc.trackLamps.filters'.PSObject.Properties.Name) | Should -Be @('widgets', 'gadgets') -Because 'the declaration order is the lamp order'
         @($json.'catzc.trackLamps.filters'.widgets[0].exclude) | Should -Be @('widgets/tests/**')
         @($json.'catzc.trackLamps.filters'.gadgets[0].include) | Should -Be @('gadgets', 'gadgets/**')
-        @($json.'catzc.trackLamps.languages'.PSObject.Properties.Name) | Should -Be @('gadget', 'widget')
-        @($json.'catzc.trackLamps.languages'.gadget) | Should -Be @('.gdg', '.gdx')
         $bare = (New-VsCodeSettings | ConvertFrom-Json).PSObject.Properties.Name
         $bare | Should -Not -Contain 'catzc.trackLamps.filters'
-        $bare | Should -Not -Contain 'catzc.trackLamps.languages'
     }
 
     It 'creates the search.exclude map when the registry has none' {

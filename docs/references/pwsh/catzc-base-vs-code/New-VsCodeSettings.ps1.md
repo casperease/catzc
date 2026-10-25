@@ -49,10 +49,6 @@ authored `[<id>]` block keeps its own settings, and an authored defaultFormatter
 The repository's filters, name to the include and exclude sets each claims by, in lamp order (Get-RepositoryFilter), rendered as
 `catzc.trackLamps.filters` so the lamps read what they hide from the settings alone; none when empty.
 
-### parameter `LanguageExtension`
-
-Each language's file extensions, language name to its extensions, rendered as `catzc.trackLamps.languages`; none when empty.
-
 ### parameter `CurrentPath`
 
 The settings file on disk, read for the rows another writer owns: each `carried` setting of vscode-settings.yml keeps the rows its owner key

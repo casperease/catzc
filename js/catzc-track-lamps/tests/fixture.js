@@ -14,7 +14,6 @@ const filters = {
     generated: [set(["**/README.md"])],
     docs: [set(["docs", "docs/**"])],
 };
-const known = { markdown: [".md"], yaml: [".yml", ".yaml"] };
 
 // A fresh folder under the system's temp folder, '/'-separated, holding the given files (empty) and folders.
 const folder = (files = [], folders = []) => {
@@ -28,7 +27,7 @@ const folder = (files = [], folders = []) => {
 };
 const root = folder(["mods/Widget/Get-Widget.ps1", "mods/Widget/tests/Get-Widget.Tests.ps1", "mods/Widget/README.md", "gadgets/a.ps1", "docs/x.md"]);
 
-// The globs the lamps write for the switches given: out the unlit lamps, field the typed languages, vetoed the lamps that hide their zone.
-const hidden = (out, field = "", at = root, vetoed = []) => engine.hiddenGlobs(at, new Set(out), field, filters, known, [], vetoed);
+// The globs the lamps write for the switches given: out the unlit lamps, vetoed the lamps that hide their zone.
+const hidden = (out, at = root, vetoed = []) => engine.hiddenGlobs(at, new Set(out), filters, [], vetoed);
 
-module.exports = { engine, set, filters, known, folder, root, hidden };
+module.exports = { engine, set, filters, folder, root, hidden };

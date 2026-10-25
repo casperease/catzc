@@ -1,6 +1,6 @@
 // Filter lamps in the Explorer's title row, the editor's engine of the lamp language (DDR-FILTER): one lamp per repository filter
-// (filters.yml, rendered into catzc.trackLamps.filters by the root config generator) and a languages lamp whose sets are the extensions of
-// the languages typed in its field. A click steps a lamp round off -> on -> veto -> off, but the open lamp is always lit: its click
+// (filters.yml, rendered into catzc.trackLamps.filters by the root config generator), led by the open lamp, whose sets are the files open
+// in an editor. A click steps a lamp round off -> on -> veto -> off, but the open lamp is always lit: its click
 // focuses the next open editor, and with no editor open its icon is invisible. The core, evaluate, is the language itself: the
 // tree is the total union of the lit lamps (a file shows while any lit lamp claims it) minus the zones of the vetoed lamps (a file one
 // claims is hidden even when a lit lamp claims it too), a file no lamp claims shows and is unaccounted, and each lamp's condition is the highest fact over the
@@ -25,10 +25,8 @@ const trace = (text) => vscode.workspace.getConfiguration("catzc.trackLamps").ge
 
 const OUT = "catzc.trackLamps.out";
 const VETO = "catzc.trackLamps.veto";
-const FIELD = "catzc.trackLamps.field";
 // The setting under catzc.trackLamps that lists the files.exclude rows the lamps added (vscode-settings.yml carries them).
 const OWNED_KEY = "owned";
-const LANGUAGE = "languages";
 const OPEN = "open";
 // The lamp of the run output (filters.yml), whose files the counter shows apart from the repository's own.
 const OUTPUT = "out";
@@ -64,7 +62,6 @@ const SHIPPED_LAMPS = [
     "generated",
     "docs",
     "out",
-    "languages",
 ];
 const declaredFilters = () => config().get("filters") ?? {};
 const filters = () => {
@@ -87,12 +84,6 @@ const assertShipped = (lamps) => {
     }
     return lamps;
 };
-const languages = () => config().get("languages") ?? {};
-const typed = (text) =>
-    (text ?? "")
-        .split(",")
-        .map((name) => name.trim())
-        .filter(Boolean);
 const key = (text) => (FOLD ? text.toLowerCase() : text);
 const isGlob = (entry) => /[*?]/.test(entry);
 
@@ -174,14 +165,11 @@ function entryClaimer(entries) {
     };
 }
 
-// Every lamp's sets: the open lamp's first, one include per file open in an editor; the declared filters' in their order; and the
-// languages lamp's, one include per extension of each typed language (a language it does not know adds nothing).
-function lampSets(declared, field, known, open = []) {
-    const extensions = typed(field).flatMap((name) => known[name] ?? []);
+// Every lamp's sets: the open lamp's first, one include per file open in an editor; then the declared filters' in their order.
+function lampSets(declared, open = []) {
     return {
         [OPEN]: [{ include: [...open], exclude: [] }],
         ...declared,
-        [LANGUAGE]: [{ include: extensions.map((extension) => `**/*${extension}`), exclude: [] }],
     };
 }
 
@@ -360,12 +348,11 @@ function hiddenEntries(files, folders, shown) {
     return [...entries].sort();
 }
 
-// The entries for the unlit lamps, from one walk of the disk: out holds the unlit lamps, field the languages typed for the languages lamp,
-// open the files open in an editor, vetoed the unlit lamps that also hide their whole zone. Every lamp lit writes nothing, as without the
-// extension.
+// The entries for the unlit lamps, from one walk of the disk: out holds the unlit lamps, open the files open in an editor, vetoed the
+// unlit lamps that also hide their whole zone. Every lamp lit writes nothing, as without the extension.
 // disk is the extension's in-memory index of the walk ({ files, folders }); without it the disk is walked, as the tests do.
-async function hiddenGlobs(root, out, field, declared, known, open = [], vetoed = [], disk = undefined) {
-    const sets = lampSets(declared, field, known, open);
+async function hiddenGlobs(root, out, declared, open = [], vetoed = [], disk = undefined) {
+    const sets = lampSets(declared, open);
     const lit = new Set(Object.keys(sets).filter((name) => !out.has(name)));
     if (lit.size === Object.keys(sets).length) return [];
     const { files, folders } = disk ?? (await walkDisk(root));
@@ -375,8 +362,8 @@ async function hiddenGlobs(root, out, field, declared, known, open = [], vetoed 
 // Every file on disk accounted for: the written entries must hide exactly the files the language does not show. Returns the totals, the
 // files shown, the files per signature, the files no lamp claims, and the files whose visibility breaks the rule. The run output, the files
 // the out lamp claims, is counted apart (output), since it comes and goes with every run: total and shown count the repository's own files.
-async function census(root, out, field, declared, known, globs, open = [], vetoed = [], disk = undefined) {
-    const sets = lampSets(declared, field, known, open);
+async function census(root, out, declared, globs, open = [], vetoed = [], disk = undefined) {
+    const sets = lampSets(declared, open);
     const lit = new Set(Object.keys(sets).filter((name) => !out.has(name)));
     const { files } = disk ?? (await walkDisk(root));
     const verdict = evaluate(sets, lit, files, {}, vetoed);
@@ -642,7 +629,7 @@ const excludeSize = (exclude) => Object.keys(exclude).reduce((total, glob) => to
 // The files.exclude the lamps wrote last, so the settings change their own write raises is not taken for a new one.
 let written;
 
-// One pass of the filter for the switches as they are now (state: out, vetoed, field): the entries computed, the settings written when
+// One pass of the filter for the switches as they are now (state: out, vetoed): the entries computed, the settings written when
 // they differ. Passes never overlap: the press queue in activate runs one at a time, the latest switches winning, so a slow write of an
 // older state can never land after a newer one.
 async function apply(context, state, disk) {
@@ -652,10 +639,9 @@ async function apply(context, state, disk) {
     }
     const root = folder.uri.fsPath;
     const out = new Set(state.out);
-    const field = state.field;
     const vetoed = new Set(state.vetoed);
     const open = openFiles(root, vscode.window.tabGroups.all);
-    const wanted = await hiddenGlobs(root, out, field, filters(), languages(), open, vetoed, disk);
+    const wanted = await hiddenGlobs(root, out, filters(), open, vetoed, disk);
     const files = vscode.workspace.getConfiguration("files", folder.uri);
     const current = files.inspect("exclude")?.workspaceValue ?? {};
     // The owned list lives in the settings file beside the rows, so the settings generator carries both and judges only its own part.
@@ -663,7 +649,7 @@ async function apply(context, state, disk) {
     const owned = settings.inspect(OWNED_KEY)?.workspaceValue ?? [];
     const { next, ours } = merge(current, owned, wanted);
     trace(
-        `apply: unlit [${[...out].join(", ")}], vetoed [${[...vetoed].join(", ")}], field "${field}", ${wanted.length} entries wanted, ${ours.length} owned`,
+        `apply: unlit [${[...out].join(", ")}], vetoed [${[...vetoed].join(", ")}], ${wanted.length} entries wanted, ${ours.length} owned`,
     );
     written = JSON.stringify(next);
     if (written !== JSON.stringify(current)) {
@@ -679,7 +665,7 @@ async function apply(context, state, disk) {
             `warning: files.exclude is ${size} characters in ${Object.keys(next).length} keys, over the ${EXCLUDE_ROOF} the editor's search and watcher processes take on a command line (spawn ENAMETOOLONG); unlit [${[...out].join(", ")}]`,
         );
     }
-    return { root, out, vetoed, field, wanted, open, disk };
+    return { root, out, vetoed, wanted, open, disk };
 }
 
 // The engine: everything the lamps do in the editor. The installed package is a shell that runs the repository's copy of this file and
@@ -693,9 +679,9 @@ function activateEngine(context, api) {
     let timer;
     // A swapped-out engine leaves no timer behind to fire into its disposed parts.
     context.subscriptions.push({ dispose: () => (clearTimeout(judgeTimer), clearTimeout(timer)) });
-    const lamps = () => assertShipped([OPEN, ...Object.keys(filters()), LANGUAGE]);
+    const lamps = () => assertShipped([OPEN, ...Object.keys(filters())]);
     // Every declared lamp, the preview ones included: the title row shows a lamp only while its shown key is set.
-    const declaredLamps = () => [OPEN, ...Object.keys(declaredFilters()), LANGUAGE];
+    const declaredLamps = () => [OPEN, ...Object.keys(declaredFilters())];
     const rootOf = () => vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
 
     // The switches, one authoritative copy in memory: a press changes it at once, the workspace state only remembers it across reloads.
@@ -703,7 +689,6 @@ function activateEngine(context, api) {
     const state = {
         out: new Set(context.workspaceState.get(OUT, []).filter((lamp) => lamp !== OPEN)),
         vetoed: new Set(context.workspaceState.get(VETO, []).filter((lamp) => lamp !== OPEN)),
-        field: context.workspaceState.get(FIELD, ""),
     };
     // The disk, indexed once and kept current from the editor's file events, so a press classifies files in memory and never walks the
     // disk; a window focus re-walks it in the background, which also covers the paths files.watcherExclude keeps the events of.
@@ -828,14 +813,15 @@ function activateEngine(context, api) {
             if (fact.fault === "failed" && !(place in wanted) && !live.has(place))
                 wanted[place] = [{ message: "its last test run failed", range: [0, 0, 0, 0], source: "tests" }];
         publish(root, wanted);
-        const sets = lampSets(filters(), state.field, languages(), openFiles(root, vscode.window.tabGroups.all));
+        const sets = lampSets(filters(), openFiles(root, vscode.window.tabGroups.all));
         lastFacts = facts;
         lastSets = sets;
-        showStatus();
         const next = evaluate(sets, new Set(Object.keys(sets).filter((name) => !state.out.has(name))), [], facts).conditions;
         await setKey("catzc.lamps.summary", summaryOf(facts));
-        if (JSON.stringify(next) === JSON.stringify(conditions)) return;
+        const same = JSON.stringify(next) === JSON.stringify(conditions);
         conditions = next;
+        showStatus();
+        if (same) return;
         trace(
             `conditions: ${Object.entries(conditions)
                 .map(([lamp, condition]) => `${lamp} ${condition}`)
@@ -857,9 +843,11 @@ function activateEngine(context, api) {
     const showStatus = () => {
         if (!lastTally) return;
         const name = path.basename(rootOf() ?? "");
-        const lit = lamps().filter((lamp) => !state.out.has(lamp));
-        const off = lamps().filter((lamp) => state.out.has(lamp) && !state.vetoed.has(lamp));
-        const vetoed = lamps().filter((lamp) => state.vetoed.has(lamp));
+        // A lamp that claims nothing (no editor open) changes no file, so the words never name it.
+        const named = lamps().filter((lamp) => conditions[lamp] !== EMPTY);
+        const lit = named.filter((lamp) => !state.out.has(lamp));
+        const off = named.filter((lamp) => state.out.has(lamp) && !state.vetoed.has(lamp));
+        const vetoed = named.filter((lamp) => state.vetoed.has(lamp));
         const status = statusLine(lastTally, lastFacts, 48, { name, lit, off, vetoed });
         counter.text = status.text;
         counter.color = status.accounted ? "#3fb950" : "#f85149";
@@ -870,8 +858,8 @@ function activateEngine(context, api) {
     );
     const count = async (applied) => {
         if (!applied) return;
-        const { root, out, vetoed, field, wanted, open, disk } = applied;
-        const tally = await census(root, out, field, filters(), languages(), wanted, open, vetoed, disk);
+        const { root, out, vetoed, wanted, open, disk } = applied;
+        const tally = await census(root, out, filters(), wanted, open, vetoed, disk);
         const matrix = Object.entries(tally.signatures)
             .sort((a, b) => b[1] - a[1])
             .map(([signature, files]) => `${signature}: ${files}`);
@@ -971,23 +959,6 @@ function activateEngine(context, api) {
         requestApply();
         return remembered;
     };
-    // Lighting the languages lamp asks which languages it shows, offering the last list; Escape keeps it unlit.
-    const chooseLanguages = async () => {
-        const known = Object.keys(languages());
-        const answer = await vscode.window.showInputBox({
-            title: "Languages to show",
-            prompt: `Comma-separated; known: ${known.join(", ")}`,
-            value: state.field,
-            validateInput: (text) => {
-                const unknown = typed(text).filter((name) => !known.includes(name));
-                return unknown.length ? `unknown: ${unknown.join(", ")}` : undefined;
-            },
-        });
-        if (answer === undefined) return;
-        state.field = typed(answer).join(", ");
-        await context.workspaceState.update(FIELD, state.field);
-        await turn(LANGUAGE, "on");
-    };
     // An outside event (a settings file rendered anew, the window focused) asks for a pass through the same queue, debounced since such
     // events come in bursts; a press never waits.
     const refresh = () => {
@@ -1063,10 +1034,7 @@ function activateEngine(context, api) {
                     `catzc.lamps.${lamp}.veto${suffix}`,
                     condition === "failed" ? () => journey(lamp) : () => turn(lamp, "veto"),
                 ),
-                vscode.commands.registerCommand(
-                    `catzc.lamps.${lamp}.light${suffix}`,
-                    lamp === LANGUAGE ? chooseLanguages : () => turn(lamp, "on"),
-                ),
+                vscode.commands.registerCommand(`catzc.lamps.${lamp}.light${suffix}`, () => turn(lamp, "on")),
             );
         }
     }
@@ -1240,5 +1208,4 @@ module.exports = {
     merge,
     openFiles,
     testedModule,
-    typed,
 };

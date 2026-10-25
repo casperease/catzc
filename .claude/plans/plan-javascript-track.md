@@ -12,7 +12,7 @@ plan:
       pwsh/Catzc.Base.Variants/configs/module-types.yml,
       pwsh/Catzc.Base.VSCode,
       contracts,
-      docs/drs/automation/javascript,
+      docs/drs/index.md,
     ]
 ---
 
@@ -40,22 +40,18 @@ pwsh-to-extension boundary checked instead of implied.
   Pester copies are deleted (one living version); Pester keeps the pwsh-side render and manifest cases.
 - **Types**: `Test-JavaScriptTypes` runs `tsc --noEmit` over a generated `jsconfig.json` (`checkJs`, strict) at the tools.yml pin, the same
   role pyright plays for Python. No ESLint: tsc's strict checks plus Prettier cover it without a second npm tool and config.
-- **Contract**: pwsh and the `js` modules ship from one commit, so the boundary between them is internal and gets no contract (`PDR-ONELIVE`,
-  ADR-REPO-CONTRACT-BINDINGINTERFACE). The outside party is VS Code: a vendor root `vscode`, current at `0.1.0` like `ado` and `github`, holds
-  the trimmed extension-manifest schema VS Code expects, and the pwsh build checks every rendered `package.json` against it before packing,
-  in process and fast. It follows the layout of `plan-contracts-layout.md` and lands after that plan's move.
+- **Contract**: pwsh and the `js` modules ship from one commit, so the boundary between them is internal and gets no contract
+  (`PDR-ONELIVE`, ADR-REPO-CONTRACT-BINDINGINTERFACE). The outside party is VS Code: a vendor root `vscode`, current at `0.1.0` like `ado`
+  and `github`, holds the trimmed extension-manifest schema VS Code expects, and the pwsh build checks every rendered `package.json` against
+  it before packing, in process and fast. It follows the layout of `plan-contracts-layout.md` and lands after that plan's move.
 
 ## Open steps
 
-- [ ] Phase 1, language and track: `variants.yml` track `js`; `module-types.yml` `js` module type; `languages.yml` `javascript` row with
-      tag, naming, `adr_folder`, checks, tests, layout. Check: `Get-FileLanguage` and the track lookup on a `js/` file;
-      `VariantsConfig`/`LanguagesConfig` type tests.
-- [ ] Phase 2, move: the five extension scripts to `js/<name>/extension.js`, their glyphs to `js/<name>/media/`; `New-VsCodeExtensionFolder`,
-      `New-VsCodeFileIconTheme`, the lamps engine's `ENGINE`, the harness and the tests re-pointed. Check: `catzc-track-lamps.Tests.ps1`,
-      `New-VsCodeExtensionFolder.Tests.ps1`, `New-VsCodeFileIconTheme.Tests.ps1`, `Get-RepositoryFilter.Tests.ps1`, then an install and a
-      window reload.
-- [ ] Phase 3, tests: `Invoke-JavaScriptTest` (+ result type, + `Get-LanguageTestOutcomes`), the engine-core cases moved to
-      `js/tests/catzc-track-lamps/`. Check: `Invoke-JavaScriptTest catzc-track-lamps`, and the case count kept.
+- [ ] The stub-editor scenarios (`pwsh/Catzc.Base.VSCode/tests/assets/catzc-track-lamps-harness.js`) to node:test in
+      `js/catzc-track-lamps/tests/`, and the shared lamp vectors read there too once they are JSON; the Pester copies deleted. Check:
+      `Invoke-JavaScriptTest catzc-track-lamps`, case count kept, and `catzc-track-lamps.Tests.ps1` holds only the real-repository cases.
+- [ ] Test files for the new pieces: `JavaScriptConfig`, `JavaScriptTestResult`, `ConvertFrom-NodeTestJunit`, `Invoke-JavaScriptTest`,
+      `Get-JavaScriptTestCases`, and their reference pages. Check: each Pester file, then `Test-Links` on the pages.
 - [ ] Phase 4, types: `typescript` in `tools.yml` (npm, like prettier), the generated `jsconfig.json`, `Test-JavaScriptTypes`. Check: the
       gate green on all five extensions.
 - [ ] Phase 5, contract (after `plan-contracts-layout.md`'s move): `contracts/vscode/0.1.0/extensions/package.schema.json`, the trimmed
