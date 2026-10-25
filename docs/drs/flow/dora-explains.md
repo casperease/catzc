@@ -145,7 +145,7 @@ capability links. The decisions live in the decision records themselves; this fi
 
 ## Manual queues
 
-`The manual queues of the promotion ladder — authoring, two signatures, and an automated slot switch`
+`The manual queues of the promotion ladder — authoring, two signatures, and an automated blue-green switch`
 
 [FDR-CD-QUEUE](manual-queues.md)
 

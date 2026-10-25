@@ -34,12 +34,27 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
                 })
         }
         Mock Get-Track -ModuleName Catzc.Base.RootConfig { }
+        Mock Get-Config -ModuleName Catzc.Base.RootConfig -ParameterFilter { $Config -eq 'rootconfig' } {
+            [pscustomobject]@{ files = @(
+                    [pscustomobject]@{ target = 'widget.cfg'; committed = $true }
+                    [pscustomobject]@{ target = 'gadget.cfg'; committed = $false }
+                    [pscustomobject]@{ target = 'tools/cog.lock'; committed = $true }
+                ) }
+        }
+        $script:roots = "{{generated-root-files}}`n"
     }
 
     It 'replaces the placeholder with a why comment and one line per glob, subkind first, in registry order' {
-        Set-Template "# head`n{{file-kind-attributes}}`n# tail`n"
+        Set-Template "# head`n{{file-kind-attributes}}`n# tail`n$script:roots"
         $text = New-GitAttributes
-        $text | Should -BeExactly "# head`n# catzc: Cogs are data.`nwidgets/cogs/** catzc-cog`n`n# catzc: Widgets are data on purpose.`nwidgets/** catzc-widget eol=lf`nextras/** catzc-widget eol=lf`n# tail`n"
+        $text | Should -BeExactly "# head`n# catzc: Cogs are data.`nwidgets/cogs/** catzc-cog`n`n# catzc: Widgets are data on purpose.`nwidgets/** catzc-widget eol=lf`nextras/** catzc-widget eol=lf`n# tail`n/widget.cfg linguist-generated`n/tools/cog.lock linguist-generated`n"
+    }
+
+    It 'marks every committed root config generated, one line each in registry order, and leaves an uncommitted one out' -Tag 'PDR-ONELIVE' {
+        Set-Template "{{file-kind-attributes}}`n$script:roots"
+        $text = New-GitAttributes
+        $text | Should -BeLike "*`n/widget.cfg linguist-generated`n/tools/cog.lock linguist-generated`n"
+        $text | Should -Not -Match 'gadget\.cfg'
     }
 
     It 'gives the attributes a track type declares to every place of each track of that type, after the kinds' {
@@ -57,14 +72,14 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
             [pscustomobject]@{ name = 'widgets'; type = 'widget-works'; places = @('widgets') }
             [pscustomobject]@{ name = '.gadgets'; type = 'gadget-shelf'; places = @('.gadgets', 'spare-gadgets') }
         }
-        Set-Template "{{file-kind-attributes}}`n"
+        Set-Template "{{file-kind-attributes}}`n$script:roots"
         $text = New-GitAttributes
-        $text | Should -BeLike "*extras/** catzc-widget eol=lf`n`n# catzc: Gadgets wait here unchecked.`n.gadgets/** catzc-gadget`nspare-gadgets/** catzc-gadget`n"
+        $text | Should -BeLike "*extras/** catzc-widget eol=lf`n`n# catzc: Gadgets wait here unchecked.`n.gadgets/** catzc-gadget`nspare-gadgets/** catzc-gadget`n*"
         $text | Should -Not -Match 'widgets/\*\* catzc-gadget'
     }
 
     It 'leaves a kind with no git entry out' {
-        Set-Template "{{file-kind-attributes}}`n"
+        Set-Template "{{file-kind-attributes}}`n$script:roots"
         New-GitAttributes | Should -Not -Match 'sprocket'
     }
 
@@ -75,7 +90,7 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
                     }
                 })
         }
-        Set-Template "{{file-kind-attributes}}`n"
+        Set-Template "{{file-kind-attributes}}`n$script:roots"
         $lines = (New-GitAttributes) -split "`n"
         $comments = @($lines | Where-Object { $_ -match '^#' })
         $comments.Count | Should -BeGreaterThan 1
@@ -87,15 +102,17 @@ Describe 'New-GitAttributes' -Tag 'L0', 'logic' {
         Mock Get-Config -ModuleName Catzc.Base.RootConfig {
             [Catzc.Base.Globs.FileKindsConfig]::new([ordered]@{ kinds = [ordered]@{ sprocket = [ordered]@{ definition = 'A sprocket.'; files = @('s/**') } } })
         }
-        Set-Template "a`n{{file-kind-attributes}}`nb`n"
-        New-GitAttributes | Should -BeExactly "a`n`nb`n"
+        Set-Template "a`n{{file-kind-attributes}}`nb`n$script:roots"
+        New-GitAttributes | Should -BeExactly "a`n`nb`n/widget.cfg linguist-generated`n/tools/cog.lock linguist-generated`n"
     }
 
-    It 'rejects a template without the placeholder, or with it twice' {
-        Set-Template "no placeholder here`n"
+    It 'rejects a template without a placeholder, or with one twice' {
+        Set-Template "no placeholder here`n$script:roots"
         { New-GitAttributes } | Should -Throw '*exactly once, found 0*'
-        Set-Template "{{file-kind-attributes}}`n{{file-kind-attributes}}`n"
+        Set-Template "{{file-kind-attributes}}`n{{file-kind-attributes}}`n$script:roots"
         { New-GitAttributes } | Should -Throw '*exactly once, found 2*'
+        Set-Template "{{file-kind-attributes}}`n"
+        { New-GitAttributes } | Should -Throw "*'{{generated-root-files}}' exactly once*"
     }
 }
 
@@ -105,5 +122,8 @@ Describe 'New-GitAttributes — shipped assets/root/.gitattributes-template' -Ta
         $text | Should -Not -Match '\{\{'
         $text | Should -Match '(?m)^pwsh/\.compiled/\*\* binary$'
         $text | Should -Match '(?m)^\S+ .*catzc-'
+        foreach ($root in @((Get-Config -Config rootconfig).files | Where-Object { $_.committed })) {
+            $text | Should -Match "(?m)^/$([regex]::Escape($root.target)) linguist-generated$" -Because "$($root.target) is a committed root config"
+        }
     }
 }

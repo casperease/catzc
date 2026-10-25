@@ -30,8 +30,8 @@ read for this subject alone.
 
 ### parameter `Glyph`
 
-The drawing's own glyphs, each `{ kind; label }`: the places they name come first, the cited ADRs' places only while rows remain.
-Default: none.
+The drawing's own glyphs, each `{ kind; label }`: the places they name come first, the cited ADRs' places only while rows remain. Default:
+none.
 
 ### parameter `TrackedPath`
 

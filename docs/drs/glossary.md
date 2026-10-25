@@ -1,7 +1,7 @@
 ---
 catzc:
   immutable:
-    with_body_sha: "6792b1411cda"
+    with_body_sha: "03a79f1d9db0"
     warning: "Do Not Edit, this file is generated"
 ---
 
@@ -605,7 +605,7 @@ A check whose verdict decides whether work may proceed — automated (a quality 
 - **Realized by:** prose only — a vocabulary term with nothing in code to enforce
 - **Source:** `pwsh/Catzc.Base.QualityGates/configs/glossary.yml`
 - **Forms:** `quality gate`, `CI gate`, `AT gate`, `RC gate`, `RBC gate`, `BVT gate`, `release gate`, `manual gate`, `PR gate`,
-  `merge gate`, `commit gate`, `approval gate`, `production gate`, `push gate`, and the bare `gate`
+  `merge gate`, `commit gate`, `approval gate`, `production gate`, `push gate`, and the bare `gate`, with its verb forms
 - **Contrasts:**
   - [manual queue](#manual-queue): A gate is any check a commit climbs through, code or person; a manual queue is the wait in front of the
     gates a person serves.

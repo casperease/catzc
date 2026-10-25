@@ -104,9 +104,9 @@ layout:
 5. **Serves the env.** `Get-AzureEnvironment`, called with the session's subscription, asserts that the subscription's `environments` list
    contains the requested environment and throws otherwise. This is the check that a session cannot deploy an environment its subscription
    does not serve.
-6. **Throw.** A gate that fails ends in a throw. A red arrow labelled `failed` runs from each of the four throwing gates to it; the customer
-   step has none, since it cannot fail. The throw stops the deploy before a build artifact is read or `az deployment` is called. Nothing is
-   retargeted, defaulted or repaired along the way. It is the one red box in the band.
+6. **Throw.** A gate that fails ends in a throw. A red arrow labelled `failed` runs from each of the four gates that can throw to it; the
+   customer step has none, since it cannot fail. The throw stops the deploy before a build artifact is read or `az deployment` is called.
+   Nothing is retargeted, defaulted or repaired along the way. It is the one red box in the band.
 7. **RG name derived.** `Get-BicepResourceGroupName` builds the resource-group name from the template, the environment, the slot and the
    session's customer, through `Get-BicepResourceName` and the namer. No gate asserts that nobody typed the name or that the subscription
    stayed out of it: the function is the only source of the name, and it takes no subscription. ADR-AZ-DATAMOD-DERIVEDRESOURCEGROUPNAME and

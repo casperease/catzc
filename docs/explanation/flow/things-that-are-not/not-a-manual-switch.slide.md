@@ -26,7 +26,7 @@ Pre-prod and production trade places blue-green; where that is impossible, the m
 
 ## Caption
 
-From the catalogue, reduced: gates check source and trigger.
+From the catalogue, reduced: "gates check source and trigger".
 
 ## Notes
 

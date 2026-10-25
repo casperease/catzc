@@ -114,7 +114,7 @@ function Get-ModuleGlobSet {
         foreach ($compiled in [Catzc.Base.Globs.AspectPartition]::Compile($scopeAspects, $scopeRoot)) {
             $scopeName = "$($scope.TrimStart('.'))-$($compiled.Name)"
             if ($scopeName -in $declaredNames) {
-                throw "Declared globset '$scopeName' in globs.yml shadows the derived aspect of the reserved scope '$scopeRoot' — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
+                throw "Declared globset '$scopeName' in globs.yml shadows the derived aspect of '$scopeRoot', a name the derived sets reserve — derived and declared sets share one name space (ADR-REPO-PROTGLOB); rename the declared set."
             }
             $derived[$scopeName] = [Catzc.Base.Globs.GlobSet]::new(
                 $scopeName, "Derived scope aspect - $scopeRoot [$($compiled.Name)]", 'module',

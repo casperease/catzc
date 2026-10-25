@@ -62,6 +62,7 @@ concepts:
     short: A check whose verdict decides whether work may proceed — automated (a quality gate, the CI gate) or human (RC, RBC).
     realized_by: { kind: prose-only }
     forms: [quality, CI, AT, RC, RBC, BVT, release, manual, PR, merge, commit, approval, production, push]
+    verbs: true
     contrasts:
       quality gate: A quality gate is one automated check of the repository; a gate is any decision point, human or automated.
   quality gate:

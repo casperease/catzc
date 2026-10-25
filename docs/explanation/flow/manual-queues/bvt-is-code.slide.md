@@ -19,8 +19,8 @@ catzc:
 
 ## Lead
 
-Every push to main runs the BVT level of all tests. A failing run rejects the commit on its own; discard is terminal. No person stands
-here, so it is not a queue.
+Every push to main runs the BVT level of all tests. A failing run rejects the commit on its own; discard is terminal. No person stands here,
+so it is not a queue.
 
 ## Image
 
@@ -28,7 +28,7 @@ here, so it is not a queue.
 
 ## Caption
 
-Zoomed: ci-pwsh, the first rung and the one code gate, with on-demand and main-UAT above it.
+Zoomed: ci-pwsh, the first rung and the one BVT gate, with on-demand and main-UAT above it.
 
 ## Notes
 

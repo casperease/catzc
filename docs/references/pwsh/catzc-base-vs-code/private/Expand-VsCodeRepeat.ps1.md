@@ -14,8 +14,8 @@ Writes each extension command and menu entry that names a repeat once per item o
 The folder generator calls it on an extension's contributes block before the state expansion. The block's `repeat` map declares each source
 once: a config (`config`), the list in it (`list`), the item's key (`key`) and title (`title`), with leading items (`first`) and trailing
 items (`plus`). An entry naming a source is copied per item in source order, `{<source>}`, `{<source>.title}` and `{<source>.position}`
-filled in its strings, and the `repeat` keys are dropped. An entry naming an undeclared source, or a source missing its config, list or key,
-is refused.
+filled in its strings, and the `repeat` keys are dropped. An entry naming a source the entry does not declare, or a source missing its
+config, list or key, is refused.
 
 ### parameter `Contributes`
 

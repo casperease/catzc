@@ -103,7 +103,7 @@ content:
    (FDR-CD-QUEUE-SLOTSWITCHISAUTOMATED).
 10. **production.** The top rung.
 
-Three rungs are dashed-chipped manual queues, one rung is the code gate, one is the automated switch. That is the whole fact of the record
+Three rungs are dashed-chipped manual queues, one rung is the BVT gate, one is the automated switch. That is the whole fact of the record
 (FDR-CD-QUEUE-THREEQUEUES).
 
 ## See also

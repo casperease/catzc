@@ -57,5 +57,12 @@ function New-GitAttributes {
         }
     }
 
-    $template.Replace($placeholder, ($blocks -join "`n`n"))
+    # Every committed root config is generated: one line per target rootconfig.yml declares committed, so the list has one source.
+    $rootPlaceholder = '{{generated-root-files}}'
+    if (@($template -split "`n" | Where-Object { $_ -eq $rootPlaceholder }).Count -ne 1) {
+        throw "The .gitattributes template must hold the line '$rootPlaceholder' exactly once: $templatePath"
+    }
+    $roots = @((Get-Config -Config rootconfig).files | Where-Object { $_.committed } | ForEach-Object { "/$($_.target) linguist-generated" })
+
+    $template.Replace($placeholder, ($blocks -join "`n`n")).Replace($rootPlaceholder, ($roots -join "`n"))
 }

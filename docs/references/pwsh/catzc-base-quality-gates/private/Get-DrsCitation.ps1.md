@@ -30,7 +30,7 @@ The file's repository-relative path.
 
 ### parameter `DomainClasses`
 
-The file classes whose citations also count a bare domain code. Default: the `domain_classes` of drs.yml.
+The file classes whose citations also count the code of a whole ADR domain. Default: the `domain_classes` of drs.yml.
 
 ### outputs
 

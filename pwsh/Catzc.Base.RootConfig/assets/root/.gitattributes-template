@@ -64,14 +64,7 @@ pwsh/.vendor/** linguist-vendored
 # pages from the contract assets; Build-GitKeep rewrites every .gitkeep from its one source.
 pwsh/.compiled/** linguist-generated
 **/.gitkeep     linguist-generated
-/importer.ps1   linguist-generated
-/importer.sh    linguist-generated
-/pwsh/.internal/assets/importer-commands.sh linguist-generated
-/pwsh/.internal/assets/Catzc.Types.csproj linguist-generated
-/Directory.Build.props linguist-generated
-/nuget.config   linguist-generated
-/.gitattributes linguist-generated
-/.gitignore     linguist-generated
+{{generated-root-files}}
 /docs/drs/index.md    linguist-generated
 /docs/drs/glossary.md linguist-generated
 /docs/references/contracts/*.md linguist-generated

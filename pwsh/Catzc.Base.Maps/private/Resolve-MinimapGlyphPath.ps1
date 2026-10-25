@@ -1,3 +1,11 @@
+<#
+---
+catzc:
+  docs: "../../../docs/references/pwsh/catzc-base-maps/private/Resolve-MinimapGlyphPath.ps1.md"
+  warning: "Generated Header"
+---
+#>
+
 function Resolve-MinimapGlyphPath {
     [CmdletBinding()]
     [OutputType([pscustomobject])]

@@ -11,10 +11,10 @@ Resolves the labels of a drawing's code and file glyphs to the tracked paths the
 
 ### description
 
-Only a glyph of a code kind (code, private, runner, type) or a file names a repository place. Its label's first line is read as a
-function name (`Verb-Noun`, the `.ps1` of that name), a module name (`Catzc.*`, its manifest), a type name (the `.cs` of that name) or a
-file name, and resolved against the tracked paths by file name, so a label never carries a path of its own. A label that names no
-tracked file resolves to no path.
+Only a glyph of a code kind (code, private, runner, type) or a file names a repository place. Its label's first line is read as a function
+name (`Verb-Noun`, the `.ps1` of that name), a module name (`Catzc.*`, its manifest), a type name (the `.cs` of that name) or a file name,
+and resolved against the tracked paths by file name, so a label never carries a path of its own. A label that names no tracked file resolves
+to no path.
 
 ### parameter `Glyph`
 

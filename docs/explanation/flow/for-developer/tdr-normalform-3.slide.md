@@ -27,7 +27,7 @@ one source and derives the rest.
 
 ## Caption
 
-From the catalogue, reduced: gates check source and trigger.
+From the catalogue, reduced: "gates check source and trigger".
 
 ## Notes
 

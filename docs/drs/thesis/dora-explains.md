@@ -56,7 +56,8 @@ live in the decision records themselves; this file carries only their DORA ratio
 
 > DORA finds that teams which experiment, deliver continuously, and work in small batches perform better, and its AI Capabilities Model
 > finds that AI amplifies delivery only when strong internal platforms and clear policies surround it. A closed loop, where every change by
-> a person or an agent is a committed experiment verified by the same deterministic gates, lets AI add speed without adding instability.
+> a person or an agent is a committed experiment verified by the same deterministic quality gates, lets AI add speed without adding
+> instability.
 
 - [Team experimentation](../../references/dora/capabilities.md#team-experimentation) — every change is a committed hypothesis with a
   declared expectation.

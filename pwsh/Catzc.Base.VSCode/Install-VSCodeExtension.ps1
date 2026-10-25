@@ -32,8 +32,15 @@ function Install-VsCodeExtension {
         $entries = @($entries | Where-Object { $_.name -in $Name })
     }
 
+    # The folders are judged once for every extension, so one rendered extension never makes the next look current while it is stale.
+    $current = -not $Force -and -not @(Get-GeneratedWriterDue -Name New-VsCodeExtensionFolder | Where-Object Due)
+    $rendered = $false
     foreach ($entry in $entries) {
-        $folder = New-VsCodeExtensionFolder -Extension $entry -OutputDirectory $Root
+        $folder = Join-Path $Root $entry.name
+        if (-not ($current -and (Test-Path -LiteralPath (Join-Path $folder 'package.json')))) {
+            $folder = New-VsCodeExtensionFolder -Extension $entry -OutputDirectory $Root
+            $rendered = $true
+        }
         if (-not $Force) {
             $manifest = Get-Content -LiteralPath (Join-Path $folder 'package.json') -Raw | ConvertFrom-Json
             $installed = Join-Path $ExtensionsDirectory "$($manifest.publisher).$($manifest.name)-$($manifest.version)".ToLowerInvariant()
@@ -60,5 +67,9 @@ function Install-VsCodeExtension {
         $packagePath = Build-VsCodeExtension -Path $folder
         Invoke-Executable "code --install-extension `"$packagePath`" --force"
         $packagePath
+    }
+    # Only a render of every extension proves them all current; a named subset leaves the stamp as it was.
+    if ($rendered -and -not $Name) {
+        Save-GeneratedWriterStamp -Name New-VsCodeExtensionFolder
     }
 }

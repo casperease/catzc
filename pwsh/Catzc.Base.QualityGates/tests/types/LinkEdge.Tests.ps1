@@ -16,8 +16,8 @@ Describe 'LinkEdge' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-EVERYLINKHASADIRECTION' 
         "$edge" | Should -Be 'mods/Widget/Get-Widget.ps1:1:1 [CodeLink] docs/drs/widget.md'
     }
 
-    It 'knows exactly the three relations' {
-        [enum]::GetNames([Catzc.Base.QualityGates.LinkRelation]) | Should -Be @('MarkdownLink', 'CodeLink', 'DocsEdge')
+    It 'knows exactly the three written relations and the convention relation' {
+        [enum]::GetNames([Catzc.Base.QualityGates.LinkRelation]) | Should -Be @('MarkdownLink', 'CodeLink', 'DocsEdge', 'Convention')
     }
 
     It 'refuses an edge with no file or no target' {

@@ -21,4 +21,3 @@ Above `public static string ConventionName(string id, FileMetaDirection directio
 The function a module subscribes by default: Get-<Id>FileMetaFact, or Get-<Id>MarkdownConfigContribution
 ([ADR-REPO-FILEMETA-SUBSCRIBEBYFUNCTION](/docs/drs/repository/file-meta.md#rule-adr-repo-filemeta-subscribebyfunction)).
 ```
-

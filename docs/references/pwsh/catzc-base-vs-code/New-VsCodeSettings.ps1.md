@@ -55,9 +55,9 @@ Each language's file extensions, language name to its extensions, rendered as `c
 
 ### parameter `CurrentPath`
 
-The settings file on disk, read for the rows another writer owns: each `carried` setting of vscode-settings.yml keeps the rows its owner
-key lists, and the owner key itself, so a regenerated file keeps the lamps' working view. Default: `.vscode/settings.json` under the
-repository root.
+The settings file on disk, read for the rows another writer owns: each `carried` setting of vscode-settings.yml keeps the rows its owner key
+lists, and the owner key itself, so a regenerated file keeps the lamps' working view. Default: `.vscode/settings.json` under the repository
+root.
 
 ### outputs
 

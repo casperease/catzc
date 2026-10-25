@@ -77,8 +77,6 @@ of 2026-10-21 are decided (the second round of that day) and folded into their p
   a BCL helper on the type that owns it; pass-through functions go.
 - vscode-session-binding -> plan-vscode-session-binding.md: the one-instance-per-session decision observed in VS Code: the hang proven gone
   or caught from the inside, and the two janitors that talk to the editor and dotnet from inside its own session judged
-- link-directions -> plan-link-directions.md: a new ADR defines which way a link may point between kinds of file, and a quality gate asserts
-  it from derived facets (role, aspect, track, module); landed, one step left: the closing checks after the minimal-head run.
 - comment-insights -> plan-comment-insights.md: distilled one-line insight comments back in code at the line each comment page section
   names, below the export threshold
 - link-graph -> plan-link-graph.md: the relations the conventions imply (test to subject, file to comment page, module to dependencies) and

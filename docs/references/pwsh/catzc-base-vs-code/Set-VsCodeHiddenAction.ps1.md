@@ -11,8 +11,8 @@ Hides the editor actions vscode-settings.yml declares under `hidden_actions`, in
 
 ### description
 
-The declared command ids join what the editor already hides per menu, and what a user hid by hand stays. The state store is backed up
-before it is written, and the editor must be closed, since a running editor writes its in-memory state back on exit. Supports `-WhatIf`.
+The declared command ids join what the editor already hides per menu, and what a user hid by hand stays. The state store is backed up before
+it is written, and the editor must be closed, since a running editor writes its in-memory state back on exit. Supports `-WhatIf`.
 
 ### parameter `StorePath`
 

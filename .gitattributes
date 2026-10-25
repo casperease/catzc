@@ -1,7 +1,7 @@
 # ---
 # catzc:
 #   immutable:
-#     with_body_sha: d5258f63fcc5
+#     with_body_sha: a4463634fbd5
 #     warning: "Do Not Edit, this file is generated"
 # ---
 
@@ -71,14 +71,14 @@ pwsh/.vendor/** linguist-vendored
 # pages from the contract assets; Build-GitKeep rewrites every .gitkeep from its one source.
 pwsh/.compiled/** linguist-generated
 **/.gitkeep     linguist-generated
-/importer.ps1   linguist-generated
-/importer.sh    linguist-generated
+/importer.ps1 linguist-generated
+/importer.sh linguist-generated
 /pwsh/.internal/assets/importer-commands.sh linguist-generated
 /pwsh/.internal/assets/Catzc.Types.csproj linguist-generated
+/nuget.config linguist-generated
 /Directory.Build.props linguist-generated
-/nuget.config   linguist-generated
 /.gitattributes linguist-generated
-/.gitignore     linguist-generated
+/.gitignore linguist-generated
 /docs/drs/index.md    linguist-generated
 /docs/drs/glossary.md linguist-generated
 /docs/references/contracts/*.md linguist-generated

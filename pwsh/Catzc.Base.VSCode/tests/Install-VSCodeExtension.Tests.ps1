@@ -22,10 +22,30 @@ Describe 'Install-VsCodeExtension' -Tag 'L0', 'logic' {
         Mock Test-Command -ModuleName Catzc.Base.VSCode { $true }
         Mock Build-VsCodeExtension -ModuleName Catzc.Base.VSCode { "$Path.vsix" }
         Mock Invoke-Executable -ModuleName Catzc.Base.VSCode { }
+        # The folder writer's stamp is the generated-writer memo's; each case says whether it reads current.
+        Mock Get-GeneratedWriterDue -ModuleName Catzc.Base.VSCode { [Catzc.Base.QualityGates.GeneratedWriterDue]::new('New-VsCodeExtensionFolder', -not $script:current, $true) }
+        Mock Save-GeneratedWriterStamp -ModuleName Catzc.Base.VSCode { }
     }
 
     BeforeEach {
         Remove-Item -LiteralPath $script:installs -Recurse -Force -ErrorAction Ignore
+        $script:current = $false
+    }
+
+    It 'skips the render while the folder writer is current, and still renders a folder that is missing' {
+        Install-VsCodeExtension @script:install | Out-Null
+        Remove-Item -LiteralPath (Join-Path $script:root 'gadget-ext') -Recurse -Force
+        $script:current = $true
+        Install-VsCodeExtension @script:install | Out-Null
+        Should -Invoke New-VsCodeExtensionFolder -ModuleName Catzc.Base.VSCode -Times 3 -Exactly
+        Should -Invoke New-VsCodeExtensionFolder -ModuleName Catzc.Base.VSCode -Times 2 -Exactly -ParameterFilter { $Extension.name -eq 'gadget-ext' }
+    }
+
+    It 'stores the folder stamp after a render of every extension, never after a named one' {
+        Install-VsCodeExtension @script:install -Name widget-ext | Out-Null
+        Should -Invoke Save-GeneratedWriterStamp -ModuleName Catzc.Base.VSCode -Times 0 -Exactly
+        Install-VsCodeExtension @script:install | Out-Null
+        Should -Invoke Save-GeneratedWriterStamp -ModuleName Catzc.Base.VSCode -Times 1 -Exactly -ParameterFilter { $Name -eq 'New-VsCodeExtensionFolder' }
     }
 
     It 'renders and installs every registry entry' {

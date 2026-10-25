@@ -28,9 +28,9 @@ support it and the checks it runs.
 
 ## Caption
 
-From the catalogue, reduced: read the session guard then pick slot.
+From the catalogue, reduced: "read the session guard then pick slot".
 
 ## Notes
 
 Check it: the record ADR-REPO-AGENTS in docs/drs/index.md, and the diagram
-docs/explanation/azure/.assets/read-the-session-guard-then-pick-slot.drawio.png.
+`docs/explanation/azure/.assets/read-the-session-guard-then-pick-slot.drawio.png`.

@@ -58,10 +58,10 @@ The tree holds part of this thesis and lacks the rest; each line names what exis
   ([TDR-ONETRUTH-ONESTOREDECIDES](one-source-of-truth.md#rule-tdr-onetruth-onestoredecides)).
 - **Mapping.** Every rule has a citation code, the index maps each code to its record, and code heads carry the codes that govern them
   ([index](../index.md)).
-- **Checks, tests and gates.** Formatters, analyzers, tiered Pester tests and named gates decide the eac normal form
+- **Checks, tests and gates.** Formatters, analyzers, tiered Pester tests and quality gates decide the eac normal form
   ([TDR-NORMALFORM-UNCONTESTED](eac-normal-form.md#rule-tdr-normalform-uncontested)), with a time roof on every run.
 - **Three-phase flow.** The flow records define pipeline kinds, the promotion ladder and the release gates in the flow domain; the pipelines
-  that run the promotion phase end to end are not yet built.
+  that run the promotion end to end are not yet built.
 - **Agentic actors.** Robot definitions on named models load shared capabilities, are registered with the rules that support them, and read
   the AI agent contract first, as the repository domain decides.
 - **Bounded actions.** A hook denies any shell call without a time limit, and heavy runs serialise on one run lock, so an agent's action
@@ -105,9 +105,9 @@ rules that govern it, the repository can be mapped by its own tooling, and any s
 
 ### The discipline
 
-Agents work under the AI agent contract of the repository domain: they read the rules, act within a bounded scope, and return verdicts that
-a gate can check. Small batches keep each verdict cheap to verify and each failure cheap to undo, and the decision to accept stays with a
-person.
+Agents work under the AI agent contract of the repository domain: they read the rules, act within the bounds of their brief, and return
+verdicts that a gate can check. Small batches keep each verdict cheap to verify and each failure cheap to undo, and the decision to accept
+stays with a person.
 
 ## Consequences
 

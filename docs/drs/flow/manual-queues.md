@@ -1,4 +1,4 @@
-# Flow: The manual queues of the promotion ladder — authoring, two signatures, and an automated slot switch
+# Flow: The manual queues of the promotion ladder — authoring, two signatures, and an automated blue-green switch
 
 A promoted commit climbs the ladder of [commit-lifecycle](commit-lifecycle.md) (`FDR-CD-LIFE`) through gates. Most of them are code: BVT
 rejects a failing commit on its own, CD rolls an artifact onto the next rung on its own. A few are people, and every place a person stands
@@ -54,7 +54,7 @@ procedure with no manual engagement or check.** The **slot switch** is the act t
 and moves the former production occupant into the staging slot. It is never a queue: no person approves it, triggers it by hand or checks it
 on the way; it is observable while it runs and afterwards, and it reverses by the same automated path. Where blue-green is not possible for
 a deployable unit, the switch becomes a manual step, and then it is mapped like the three queues above, with its server, its store and its
-measured wait named by a rule, never left as an unnamed fourth gate.
+measured wait named by a rule, never left as an unnamed fourth manual gate.
 
 - [The slot switch](#the-slot-switch)
 

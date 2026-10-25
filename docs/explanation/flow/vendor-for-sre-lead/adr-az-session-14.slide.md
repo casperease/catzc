@@ -27,7 +27,7 @@ session.
 
 ## Caption
 
-From the catalogue, reduced: gates check source and trigger.
+From the catalogue, reduced: "gates check source and trigger".
 
 ## Notes
 

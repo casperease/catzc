@@ -64,7 +64,7 @@ public sealed class LinkDirectionRow
                 if (string.IsNullOrEmpty(text) || int.TryParse(text, out _) || !Enum.TryParse(text.Replace("_", string.Empty), true, out LinkRelation relation))
                 {
                     throw new ArgumentException(string.Format(CultureInfo.InvariantCulture,
-                        "{0}.relations: '{1}' is not one of: markdown_link, code_link, docs_edge", where, text));
+                        "{0}.relations: '{1}' is not one of: markdown_link, code_link, docs_edge, convention", where, text));
                 }
                 list.Add(relation);
             }

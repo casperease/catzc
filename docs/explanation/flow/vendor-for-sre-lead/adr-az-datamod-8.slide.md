@@ -10,7 +10,7 @@ catzc:
       scale: 0.4
 ---
 
-# Azure: one file, one subscription; the data model is a tree of named slots
+# Azure: one file, one subscription; the data model is a tree of slots, each with its name
 
 ## Eyebrow
 

@@ -10,7 +10,7 @@ catzc:
       scale: 0.4
 ---
 
-# Azure CAF billing: every environment is a named slot with a known owner and a known cost
+# Azure CAF billing: every environment is a slot with a name, a known owner and a known cost
 
 ## Eyebrow
 

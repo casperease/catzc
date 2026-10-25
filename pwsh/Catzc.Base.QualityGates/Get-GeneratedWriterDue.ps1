@@ -10,6 +10,8 @@ function Get-GeneratedWriterDue {
     [CmdletBinding()]
     [OutputType([Catzc.Base.QualityGates.GeneratedWriterDue])]
     param(
+        [string[]] $Name,
+
         [string[]] $ChangedPath,
 
         [string] $RepositoryRoot = (Get-RepositoryRoot),
@@ -17,7 +19,8 @@ function Get-GeneratedWriterDue {
         [string] $MemoPath = (Join-Path (Get-OutputRoot) 'cache/generated-writers.json')
     )
 
-    $writers = @((Get-Config -Config generated-files).writers.Values)
+    # Naming writers narrows the walk to their inputs, so one writer's check never pays for the whole table.
+    $writers = @((Get-Config -Config generated-files).writers.Values | Where-Object { -not $Name -or $_.name -in $Name })
     $memo = Get-GeneratedWriterMemo -MemoPath $MemoPath
     $walk = Get-GeneratedWriterInputFile -InputGlob @($writers | ForEach-Object { @($_.inputs) }) -RepositoryRoot $RepositoryRoot
     $changed = $null

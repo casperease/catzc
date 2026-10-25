@@ -13,11 +13,18 @@ Describe 'LinkDirectionRow' -Tag 'L0', 'logic', 'ADR-REPO-LINKS-DIRECTIONSAREROW
         $row.Matches('MarkdownLink', (& $end 'mods/a.ps1' 'code'), (& $end 'docs/drs/w.md' 'adr')) | Should -BeFalse
     }
 
-    It 'covers all three relations when it lists none' {
+    It 'covers every relation when it lists none' {
         $row = & $row @{ verdict = 'deny'; because = 'ADR-WIDGET-TWO' }
-        foreach ($relation in 'MarkdownLink', 'CodeLink', 'DocsEdge') {
+        foreach ($relation in 'MarkdownLink', 'CodeLink', 'DocsEdge', 'Convention') {
             $row.Matches($relation, (& $end 'a.md' 'readme'), (& $end 'b.md' 'readme')) | Should -BeTrue
         }
+    }
+
+    It 'reads the convention relation, and a row that names it covers no written relation' {
+        $row = & $row @{ relations = @('convention'); verdict = 'allow'; because = 'ADR-WIDGET-ONE' }
+        $row.relations | Should -Be @([Catzc.Base.QualityGates.LinkRelation]::Convention)
+        $row.Matches('Convention', (& $end 'mods/a.Tests.ps1' 'test'), (& $end 'mods/a.ps1' 'code')) | Should -BeTrue
+        $row.Matches('CodeLink', (& $end 'mods/a.Tests.ps1' 'test'), (& $end 'mods/a.ps1' 'code')) | Should -BeFalse
     }
 
     It 'refuses a row with no because, an unknown key, an empty or unknown verdict and an unknown relation' {

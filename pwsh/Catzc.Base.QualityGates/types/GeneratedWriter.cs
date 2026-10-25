@@ -16,7 +16,8 @@ namespace Catzc.Base.QualityGates;
 public sealed class GeneratedWriter : Catzc.Base.Objects.DictionaryRecord
 {
     private static readonly Regex VerbNoun = new Regex("^[A-Z][a-z]+-[A-Z][A-Za-z0-9]*$");
-    private static readonly string[] Checks = { "file", "english-dictionary", "root-config" };
+    // 'none': a writer whose output is scratch under out/, so only its stamp decides whether it runs and no drift check reads it.
+    private static readonly string[] Checks = { "file", "english-dictionary", "root-config", "none" };
     private static readonly string[] AllowedKeys = { "check", "result_path", "inputs", "outputs", "at_import" };
 
     // The writer's command name.
