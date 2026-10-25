@@ -73,12 +73,16 @@ step 4's `exempt:` map starts empty.
 
 ## Open steps
 
-1. [ ] ADR rule `ADR-AUTO-LIMIT-ONEDECLARATION` (new page `docs/drs/automation/file-limits.md`): limits per class, one source, generated
-       tool configs. Check: `Test-DrsRegistry`, `Test-Links`.
-2. [ ] Module skeleton, `file-limits.yml`, `FileLimitsConfig` with defaults; L0 tests (widget/gadget fixtures). Check: its tests.
-3. [ ] `Measure-FileShape`, `Get-FileLimit`, `Test-FileShape` + L0 tests (incl. out-of-bounds config rejected). Check: their Pester files.
-4. [ ] `Test-FileLimits` gate; first run fills `exempt:` with every current breach and its reason. Check: gate green.
-5. [ ] `Build-WidthConfigs`; re-point `.editorconfig`, `.prettierrc.yml`, `.markdownlint.yml`, `New-PythonProject`, `Get-LinkLineLimit`,
+1. [ ] Module skeleton, `file-limits.yml`, `FileLimitsConfig` with defaults; L0 tests (widget/gadget fixtures). In progress by a drone
+       (2026-10-25); check what landed under `pwsh/Catzc.Base.FileLimits/` first. Check: its tests.
+2. [ ] `Measure-FileShape`, `Get-FileLimit`, `Test-FileShape` + L0 tests (incl. out-of-bounds config rejected). Check: their Pester files.
+3. [ ] `Test-FileLimits` gate; measure widths first and decide width defaults from the counts per language. Check: gate green.
+4. [ ] `Build-WidthConfigs`; re-point `.editorconfig`, `.prettierrc.yml`, `.markdownlint.yml`, `New-PythonProject`, `Get-LinkLineLimit`,
        `FunctionLength.psm1`; delete the sync comments. Check: `Test-GeneratedFiles`, `Test-Formatting`, `Test-ShippedConfigs`.
-6. [ ] Register the gate in `Test-Automation` and the timeouts roof. Check: `Test-Plans` sees the new gate exported; the gate's run time
+5. [ ] Register the gate in `Test-Automation` and the timeouts roof. Check: `Test-Plans` sees the new gate exported; the gate's run time
        under its `timeouts.yml` roof.
+
+## Open questions
+
+- Simplify (session-finalize 2026-10-25): should the `catzc-drone` brief say "report after each landed file" and the C# split rule (public
+  static helpers, never partial classes), so the next session reads one line instead of a learning?

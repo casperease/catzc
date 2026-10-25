@@ -28,6 +28,12 @@ cell keeps its behaviour. Nothing spawns a process.
 - An accelerator re-pointed with `TypeAccelerators::Remove`/`Add` resolves to the new build.
 - An object of the old build does not convert to the new build's type.
 
+## Open questions
+
+- Should the probe's facts (full names stick to the first build, accelerators re-point) land as a short rule in ADR-BCL-TYPES
+  (native-csharp-types.md), so code is told to use `Catzc.*` accelerators, not full names, once builds can stack? Recommendation: yes, with
+  step 8.
+
 ## Open steps
 
 1. [ ] `docs/drs/automation/caching.md`, rule ADR-AUTO-CACHE-COMPILEDTYPEPREBUILD: rewritten so the committed artefact is the manifest and
